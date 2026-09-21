@@ -8,6 +8,27 @@ the operator is written and is judged on evidence already in this directory:
 parts), `mask-adequacy.txt` (whether the dark bed's refused masks can carry the
 statistic) and `css-ceiling.txt` (what the derived tier's two layers can reach).
 
+> **2026-09-21, the review closure (claims §5.161 §11).** An independent read
+> reproduced every number in this file and found four things in the reasoning
+> and the record, plus twelve smaller ones. Every correction is **beside** the
+> text it corrects and dated; no bound, floor, stop, statistic or verdict
+> declared here moves. Five evidence files are added beside the ones named
+> above and none replaces one: `css-ceiling-closure.txt` (§(g)'s corrected
+> ceilings), `decompose-p95-closure.txt` (§(d)'s premise measured),
+> `gate-group-proof-closure.txt` (the digest rule's gate-groups),
+> `plate-predictor.txt` (a reading carried forward to G3) and
+> `closure-readings.txt` (the numbers behind the smaller corrections).
+>
+> **Where G3 gets its pre-fit baseline.** The scratch capture tree
+> (`/tmp/w31-g0-captures`) and the scratch matrix this file's numbers were read
+> from are gitignored and outside the repository — the same class of artefact
+> the wave's own Surprise records disappearing. `cut.json` beside this file
+> preserves the distilled rows and every number here and in claims §5.161 is
+> recomputable from it; anything it does not distil, G3 re-derives by running
+> `scratch-capture.sh 27` into a fresh scratch tree at the shipped documents
+> before it fits. The level stop in §(c) and the structure stop in §(b) are read
+> before and after on that tree, not on this one.
+
 ## (a) The macOS 27 adopted tables do not move, and no floor is pinned
 
 The tables `packages/calibration/test/adopted-thresholds.test.ts` holds for the
@@ -28,6 +49,21 @@ against native on the same cell**. Never against 1, and never against the
 backdrop: the reference is the only thing that says what this material should
 do, and a ratio against the backdrop would be ratio (ii), in which the blur does
 not cancel.
+
+> **2026-09-21, the review closure (§5.161 §11, finding N3): the invariant twin
+> is not blind, and the declared form is kept for a different reason.** Claims
+> §1 and `metrics/chroma.ts` justify this denominator by saying the OKLab-L form
+> "very nearly cancels" the plate composite. It does not: measured on this bed
+> (`closure-readings.txt`), `chromaSpread / oklabLStdDev` reads web against
+> native at medians of **0.498 / 0.488** light and **0.266 / 0.491** dark,
+> below the declared form's on all four beds, with a comparable 1x-against-2x
+> spread (light 3.85 % against 4.59 %, dark 8.94 % against 8.60 %). The statistic
+> above stays as declared on the reason that survives: its denominator is
+> `interiorStdDevWeb`, which the **structure stop** below bounds, so a fit cannot
+> move the denominator out from under the statistic — and nothing bounds
+> `sd(L_oklab)`. **G3 reads the twin BESIDE `R` and records both**; where they
+> disagree, the difference is the part of the movement that lives in the level,
+> which is what the level stop in §(c) is there to hold.
 
 ### The bed
 
@@ -192,6 +228,26 @@ on that expectation. Today's worst on the bed is **0.0493** (1x dark
 1 is met today by every cell and would be broken only by a fit that made the
 level worse than the wave found it.
 
+> **2026-09-21, the review closure (§5.161 §11, finding N5): the bound is
+> unmoved and the baseline beside it was read off the wrong population.**
+> Recomputed on the stop's own population — the declared bed, **both tiers**, as
+> the stop is written (`closure-readings.txt`):
+>
+> | | worst \|Δlevel\| | median light | median dark |
+> | --- | ---: | ---: | ---: |
+> | declared bed, both tiers (the stop's population) | **0.04933** | **0.0060** | **0.0210** |
+> | declared bed, texture only | 0.04933 | 0.0062 | 0.0208 |
+> | declared bed, texture, active only | 0.04933 | 0.0053 | 0.0360 |
+>
+> The worst cell is **2x dark `texture` `photo__capsule-button__rest`** (native
+> 0.22620, web 0.17687), not the 1x `dom` row at 0.04641 — the four largest are
+> the same scene at both scales on both tiers, 0.0457 to 0.0493. And
+> 0.0053 / 0.0360 is the texture tier's ACTIVE half, which is a quarter of the
+> stop's population. **0.055 is still the worst cell rounded up and clause 1 is
+> still met by every cell**; what the correction moves is the baseline G3 reads
+> clause 2's "grows by no more than 0.005" against, which is 0.0060 light and
+> 0.0210 dark per cell on both tiers.
+
 ## (d) The four claimed rows: all four CLAIMED, and the lever is the chroma
 
 `oklabDeltaEP95` is a Euclidean norm of two independent parts,
@@ -199,6 +255,24 @@ level worse than the wave found it.
 `ΔL`, so the best it can do is drive `Δc` to zero everywhere, leaving
 `ΔE = |ΔL|`; the P95 of `|ΔL|` over the same population is therefore the row's
 **reachable floor**. `decompose-p95.txt`:
+
+> **2026-09-21, the review closure (§5.161 §11, finding B2): the premise above is
+> false as written, and the floor survives it with a factor of two and a half to
+> spare.** The leaf preserves LINEAR luma — that is what the renormalisation is
+> for — while `ΔL` here is **OKLab's**, which is a cube-root lightness and does
+> move when the chromaticity changes at a fixed linear `Y`. Restated as measured
+> (`decompose-p95-closure.txt`, which applies the leaf of §(e) to these four
+> cells' own pixels at the retention each needs, `r` 0.979–0.983):
+>
+> *the operator moves `Δc`, and moves OKLab `ΔL` only second order — **no more
+> than 0.040** anywhere on these bodies, median **−0.00001**, with the sign
+> following the hue (magenta +0.019, green −0.010 at a body luma of 0.173) — so
+> `P95(|ΔL|)` is a floor to within that.*
+>
+> Read against the verdicts rather than against the premise: the floor
+> **recomputed under the restoration itself** is 0.06971 / 0.06772 / 0.07300 /
+> 0.07065 against the four bounds of 0.17 / 0.17 / 0.18 / 0.19. **All four
+> verdicts below stand**, and none was ever within a factor of two of its bound.
 
 | row | bound | committed | scratch | chroma share of ΔE² at the P95 pixels | reachable floor | verdict |
 | --- | ---: | ---: | ---: | ---: | ---: | --- |
@@ -289,6 +363,25 @@ exercised either. **Recorded as a condition rather than dismissed:** a future
 document that re-opens `backdropToneHigh` must re-examine whether the retention
 needs standing down where the collapse owns the pixel. Tracker at G4.
 
+> **2026-09-21, the review closure (§5.161 §11, finding N1): "identically 0" is
+> not what the law says, and the no-gate conclusion stands on a better reason.**
+> `backdropToneAdaptation` is `max · (1 − smoothstep(low, high, x))` over
+> `x = level + sizeBias · clamp01(thickness)`, so at `backdropToneMax` 1 it is
+> zero **iff `x ≥ 1e-4`** and it is exactly `1` at `x = 0`. The bias term does
+> not save every cell: `sizeThickness` is `smoothstep(sizeSpanMin, sizeSpanMax,
+> span)` and `sizeSpanMin` is 32, so `rrect-sm` — span 32, a cell of this bed —
+> has thickness **exactly 0** and reads `x = level` alone. What makes the claim
+> true is therefore the BACKDROP and not the law: every backdrop in this bed is
+> 0.17 or above, three orders over `1e-4`.
+>
+> The conclusion is unchanged and the reason is now the stronger one: a
+> retention toward the backdrop's **chromaticity** is the identity wherever the
+> backdrop is achromatic, and a backdrop at or under `1e-4` of linear light —
+> the only region where `toneAdapt` can fire at all — is achromatic to within
+> the capture's own quantisation. So `(1 − toneAdapt)` would be a gate on a
+> population the operator cannot move in any case. The condition for a future
+> document stands as written.
+
 **The receded documents carry their own value**, read on the inactive photo
 cells — `photo__capsule-button__inactive` and `photo__rrect-md__inactive` on
 calibration, at both scales, in both schemes. They need one: the dark inactive
@@ -362,6 +455,44 @@ the term on the light scheme and record the dark scheme's ceiling as the
 residual; do not spend `saturate()`. Whichever it does, `tier-coherence.test.ts`
 gains the exhaustiveness case so that green says something about a new leaf.
 
+> **2026-09-21, the review closure (§5.161 §11, finding B1): the light row above
+> is wrong and the recommendation it produced is reversed.** `css-ceiling.ts`
+> evaluated an alpha the runtime does not draw, in two ways: it forced the
+> surface's-own-backdrop anchor unconditionally, where `root.ts` (~2683) takes
+> it only when `!linearChainReaches(cssTierCompositeLevel(...))`; and it passed
+> an UNSIZED `sourceOptics(patch).regular`, where the runtime solves from
+> `shadowedSource`, which has been through `sizeOcclusionAlphaAt`. On the light
+> photo cells the composite is 0.58–0.60 against a reach boundary of 0.2424, so
+> the FITTED anchor draws; only the dark cells, at 0.067, take the measured one.
+> Corrected (`css-ceiling-closure.txt`, the same script re-run; the first output
+> stands beside it unmodified), the ceiling is a function of the span:
+>
+> | scheme | α′ span 44 | ceiling | α′ span ≥ 96 | ceiling | recorded above | today's tier |
+> | --- | ---: | ---: | ---: | ---: | ---: | --- |
+> | light | 0.6669 | **0.5995** | 0.6859 | **0.5654** | 0.784 | 0.403–0.633 |
+> | dark | 0.8463 | **0.2767** | 0.8527 | **0.2651** | 0.278 | 0.18–0.24 |
+>
+> The dark row barely moves. The light row moves by a quarter and moves BELOW
+> the light CSS tier's own measured ratio (ii), which reaches 0.633 — so on the
+> light scheme the expression is not a bound at all, and that is a fact about
+> the expression rather than about the tier: it is the linear-light shape of an
+> operation the browser performs on encoded values, loose in a direction that
+> only shows where the plate is weak and `saturate()` is strong.
+>
+> **The recommendation, restated.** On the LIGHT scheme the tier is already at
+> or through its ceiling through the authored `saturate()` alone, with no chroma
+> operator anywhere in the renderer — there is no measurable room for a derived
+> term and adding one would be fitting a CSS-only constant to a WebGPU operator
+> it cannot follow. On the DARK scheme the ceiling binds: 0.2651–0.2767 against
+> a reference 0.90–0.92, so a derived term can carry at most ~30 % of the
+> reference's body chroma and the remaining ~0.63 of ratio (ii) is a residual
+> X3 forbids closing. So: **G3 derives the term from the leaf on both documents
+> only if the derivation adds REACH without moving the authored constants, and
+> records the residual otherwise.** On the corrected numbers the dark scheme is
+> where a derivation can still buy something and the light scheme is where it
+> cannot — which is the opposite of what this section recommended, and it is a
+> consequence of the two corrections and not of a new measurement.
+
 **One reading that complicates it and is recorded rather than smoothed.** On
 `mid-chroma-solid` the CSS tier is already CLOSER to the reference than the
 WebGPU tier is, by eye and by ratio (ii) (0.484 against 0.352 at 1x light
@@ -389,6 +520,28 @@ renderer counterpart produces.
   light scheme carries the residual and a decline there is unlikely — but if the
   fit lands at zero it is recorded as W30 recorded the light scatter, and an
   explicit identity reads as absent in the digest under Decision Log 1 (a).
+
+> **2026-09-21, the review closure (§5.161 §11, carried forward): one expected-
+> unmoved path is NOT luma-transparent, named here so G3 does not discover it on
+> a golden.** §(e) argues the retention cannot move a luminance-driven law
+> because it preserves linear luma exactly. That holds for the shade law, the
+> rim's amplitude law and the tint composition. It does **not** hold for the
+> DOM branch's own alpha solve, `dom_material_alpha` (`wgsl/optics.ts` ~601):
+>
+>     let neutral = max((composite - backdrop * (1.0 - alpha)) / alpha, vec3f(0.0));
+>     ... srgb_encode(dot(neutral, weights)) ...
+>
+> The `max` is **per channel** and sits INSIDE a luma computation. Two colours
+> at identical linear luma but different chromaticity can clamp a different set
+> of channels, so `dot(neutral, weights)` is not a function of the composite's
+> luma alone and the solved alpha can move under a luma-preserving chromaticity
+> change. The reach is narrow — it needs a channel of the recovered neutral to
+> go negative, which is the dark scheme's near-black neutral over a saturated
+> backdrop — and it is on the CSS tier, which is not the fidelity target. But it
+> is a real path from this operator to a `dom`-tier pixel, and "expected unmoved
+> by construction" does not cover it. **G3 reads the `dom` tier's rows before
+> and after like any other, and a movement there is explained rather than
+> assumed away.**
 
 ## (i) The recede's worst cell (W29 §5.154 §8), reported
 

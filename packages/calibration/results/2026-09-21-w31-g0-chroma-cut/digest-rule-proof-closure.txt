@@ -1,0 +1,110 @@
+== the identity table (rule w31-identity-1) ==
+  W30  gate: outerShadow.sigmaSlopePerSpan = 0 and outerShadow.sigmaThinOffsetPx = 0
+        gated: outerShadow.sigmaSpanRefPx
+        proof: packages/renderer-webgpu/test/w31-gate-groups.test.ts
+  W30  gate: sizeHeavySecondShare = 0
+        gated: sizeHeavySecondSigma, sizeHeavySecondSigma2x
+        proof: packages/renderer-webgpu/test/w31-gate-groups.test.ts
+  W30  gate: sizeScatterScaleGain = 0
+        gated: sizeScatterScaleRef
+        proof: packages/renderer-webgpu/test/w31-gate-groups.test.ts
+  W31  gate: bodyChromaRetention = 0
+        gated: (none — a plain value drop)
+        proof: TO BE COMMITTED BY W31 G3
+        NOT IN THE MATERIAL YET: bodyChromaRetention (W31 X2: G0 names, G3 adds)
+
+== 1. the frozen macOS 26.5 documents, under the rule ==
+  apple-macos-26.5-1x-light-standard
+    recorded in the document   b2b570e4adcea8fb
+    today's plain fingerprint  b340a4dee871633c
+    under the rule             b2b570e4adcea8fb
+    dropped (8): outerShadow.sigmaSlopePerSpan, outerShadow.sigmaSpanRefPx, outerShadow.sigmaThinOffsetPx, sizeHeavySecondShare, sizeHeavySecondSigma, sizeHeavySecondSigma2x, sizeScatterScaleGain, sizeScatterScaleRef
+  apple-macos-26.5-1x-dark-standard
+    recorded in the document   874be66ea501621b
+    today's plain fingerprint  93ab090705c43f1f
+    under the rule             874be66ea501621b
+    dropped (8): outerShadow.sigmaSlopePerSpan, outerShadow.sigmaSpanRefPx, outerShadow.sigmaThinOffsetPx, sizeHeavySecondShare, sizeHeavySecondSigma, sizeHeavySecondSigma2x, sizeScatterScaleGain, sizeScatterScaleRef
+
+== 2. the four macOS 27 documents, under the rule ==
+   They move ONCE, in G3's merge, re-sealed with history and the rule's version.
+  apple-macos-27.0-1x-light-standard-glass0.5
+    current (in the document)  3a2513742936ceb1
+    under the rule             62e684744954580b
+    dropped (5): sizeHeavySecondShare, sizeHeavySecondSigma, sizeHeavySecondSigma2x, sizeScatterScaleGain, sizeScatterScaleRef
+  apple-macos-27.0-1x-dark-standard-glass0.5
+    current (in the document)  f3008c3e9033ed4c
+    under the rule             c61194f820d77280
+    dropped (3): sizeHeavySecondShare, sizeHeavySecondSigma, sizeHeavySecondSigma2x
+  apple-macos-27.0-1x-light-standard-glass0.5-receded
+    current (in the document)  d8015c2587126d08
+    under the rule             183c8949f194ff43
+    dropped (5): sizeHeavySecondShare, sizeHeavySecondSigma, sizeHeavySecondSigma2x, sizeScatterScaleGain, sizeScatterScaleRef
+  apple-macos-27.0-1x-dark-standard-glass0.5-receded
+    current (in the document)  8c85774d161fcbaa
+    under the rule             1a64247df6786fc2
+    dropped (3): sizeHeavySecondShare, sizeHeavySecondSigma, sizeHeavySecondSigma2x
+
+== 3. a default moved off its identity, in memory ==
+   W30's objection to a schema-blind pin was that it would hide a leaf that
+   started drawing. Under this rule it cannot: the leaf reappears in the
+   digest the moment its resolved value leaves the identity, and every
+   document that does not patch it moves with it.
+  apple-macos-26.5-1x-light-standard with sizeHeavySecondShare defaulting to 0.1
+    under the rule             4e8b1504708e5c3f  (was b2b570e4adcea8fb)
+    dropped (5): outerShadow.sigmaSlopePerSpan, outerShadow.sigmaSpanRefPx, outerShadow.sigmaThinOffsetPx, sizeScatterScaleGain, sizeScatterScaleRef
+  apple-macos-26.5-1x-dark-standard with sizeHeavySecondShare defaulting to 0.1
+    under the rule             a8eff6eec9223918  (was 874be66ea501621b)
+    dropped (5): outerShadow.sigmaSlopePerSpan, outerShadow.sigmaSpanRefPx, outerShadow.sigmaThinOffsetPx, sizeScatterScaleGain, sizeScatterScaleRef
+
+== 4. an explicit identity reads as absent ==
+  the macOS 27 light document declines the scatter:
+    sizeScatterScaleGain = 0 (the gate, at its identity)
+    sizeScatterScaleRef  = 0.03 (gated, and off any would-be standalone identity)
+  Under gate-groups BOTH drop: true
+  The digest is over what DRAWS, and a declined operator draws nothing — so a
+  document that names the reference it declined at reads the same as one that
+  never named it. The decline is not lost: it is a MEASUREMENT and it lives in
+  the document's own patch and in the ledger, which is where a decline belongs.
+  The same document's DARK sibling adopts the scatter (gain -2), so the group
+  is kept there and the two documents' digests differ on it, as they must.
+
+== 5. what the rule does not catch ==
+
+  (a) A MIS-DECLARED IDENTITY, and it is the only hole with teeth. A plain value
+      drop is injective for free — every resolved material carries every key, so
+      two materials with the same post-drop object hold the identity on every
+      dropped leaf and therefore agree everywhere. A GATE-GROUP drop is not: it
+      merges every material sharing a gate at its identity, whatever the gated
+      leaves hold, and is sound only because those leaves provably cannot reach
+      the pixels. If a gate is declared where none exists, two materials that
+      draw differently get one digest. Mitigated by the table requiring the
+      inert-law unit case per entry, and by the gate being the narrowest thing
+      that closes the leaf — which is why the sigma entry's gate is TWO leaves
+      and not the slope alone (see the table's comment).
+
+  (b) A DEFAULT THAT MOVES TO A VALUE SOME DOCUMENT EXPLICITLY CARRIED. The
+      document's leaf then resolves to the new default, and if the identity
+      moved with it the leaf drops out of that document's digest. **This is a
+      hole in the digest and not in the material**, and it is narrow: the
+      identity is a committed append-only constant, not the default, so moving
+      a default to a value is not moving the identity to it, and a leaf whose
+      default leaves its identity reappears in EVERY document's digest (case 3
+      above). The residue is the case where a wave moves both together, which
+      is a re-declaration of what the leaf's off state means and belongs in a
+      Decision Log rather than in a diff.
+
+  (c) A LEAF ADDED WITHOUT A TABLE ENTRY. It is carried in the digest at
+      whatever it holds, so every document's digest moves — the loud failure,
+      not the quiet one, and the one W30 actually hit. Not a hole; the cost of
+      the rule is that an inert leaf must be DECLARED inert to be free.
+
+  (d) THE RULE'S OWN VERSION. Two runs of two rule versions produce two digests
+      over one material, and a recorded digest that does not name its function
+      is ambiguous. Closed by construction rather than by care: the version is
+      recorded in every document re-sealed under the rule
+      (`resolvedMaterialSha256Rule`, or the history idiom), which G3 carries.
+      The two macOS 26.5 documents are the exception that needs no field —
+      their recorded digests equal BOTH definitions' output, which is the whole
+      content of section 1.
+
+PROOF OK — no failures

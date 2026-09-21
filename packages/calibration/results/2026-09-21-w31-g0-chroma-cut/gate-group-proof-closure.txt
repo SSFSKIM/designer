@@ -1,0 +1,54 @@
+== the identity table's citations, as this closure leaves them (rule w31-identity-1) ==
+
+  W30  gate: outerShadow.sigmaSlopePerSpan = 0 and outerShadow.sigmaThinOffsetPx = 0
+        proof: packages/renderer-webgpu/test/w31-gate-groups.test.ts
+  W30  gate: sizeHeavySecondShare = 0
+        proof: packages/renderer-webgpu/test/w31-gate-groups.test.ts
+  W30  gate: sizeScatterScaleGain = 0
+        proof: packages/renderer-webgpu/test/w31-gate-groups.test.ts
+  W31  gate: bodyChromaRetention = 0
+        proof: TO BE COMMITTED BY W31 G3
+
+== the three groupings, on one material that draws differently ==
+
+  apple-macos-26.5-1x-light-standard
+    recorded digest                                  b2b570e4adcea8fb
+    as shipped, under the SHIPPED grouping           b2b570e4adcea8fb
+    as shipped, under GROUNDING's own shape          b2b570e4adcea8fb
+    as shipped, under the LOOSER grouping            b2b570e4adcea8fb
+    with sigmaThinOffsetPx 5, SHIPPED grouping       fdff8f6c0128f9a2
+    with sigmaThinOffsetPx 5, GROUNDING's shape      476923e466b48324
+    with sigmaThinOffsetPx 5, LOOSER grouping        b2b570e4adcea8fb
+    σ at spans 1/32/44/96/128/160/320: shipped 15.55/15.55/15.55/15.55/15.55/15.55/15.55 → moved 20.55/20.55/20.55/20.55/20.55/20.55/20.55
+
+  apple-macos-26.5-1x-dark-standard
+    recorded digest                                  874be66ea501621b
+    as shipped, under the SHIPPED grouping           874be66ea501621b
+    as shipped, under GROUNDING's own shape          874be66ea501621b
+    as shipped, under the LOOSER grouping            874be66ea501621b
+    with sigmaThinOffsetPx 5, SHIPPED grouping       b61133d81ba2b764
+    with sigmaThinOffsetPx 5, GROUNDING's shape      884f0c52dedabd22
+    with sigmaThinOffsetPx 5, LOOSER grouping        874be66ea501621b
+    σ at spans 1/32/44/96/128/160/320: shipped 15.55/15.55/15.55/15.55/15.55/15.55/15.55 → moved 20.55/20.55/20.55/20.55/20.55/20.55/20.55
+
+== what this closes ==
+
+  The Revision Note's premise is corrected. Grounding names three leaves as
+  having no standalone identity and `sigmaThinOffsetPx` is not one of them, so
+  the charter leaves it an ordinary value drop — which the lines above show
+  reproduces the frozen digests and refuses the moved material, exactly as the
+  shipped shape does. **"The charter is wrong in two places" reads one**, and
+  the two-leaf gate is a TIGHTENING of a correct shape: it drops a strict subset
+  of what Grounding drops, so every material the shipped rule merges Grounding
+  merges too, and not the other way round.
+
+  The tightening still earns its place, which is what the LOOSER column is for —
+  the shape the Note attributes to the charter, where the slope alone gates both
+  the pivot and the offset. Under it a macOS 26.5 light material with
+  `sigmaThinOffsetPx` 5 — five CSS px of extra blur on every outer shadow the
+  bed carries, at every span, on both tiers — fingerprints to
+  `b2b570e4adcea8fb`, the frozen digest itself. That is the merge a gate-group
+  drop risks when the gate is not the narrowest thing that closes the leaf, and
+  it is the reason the σ entry's gate is two leaves.
+
+CLOSURE PROOF OK — no failures

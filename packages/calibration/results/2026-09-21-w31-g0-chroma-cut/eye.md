@@ -20,6 +20,15 @@ lavender wash, and it has no hues to point at. The two bodies are at almost the
 same level (0.1814 native against 0.1627) and they do not look like the same
 material at all.
 
+> **2026-09-21, the review closure (claims §5.161 §11, finding N11 (iii)):
+> 0.1627 is the `dom` row's `interiorMeanWeb` and the panel described is the
+> **WebGPU** one, which reads 0.1635.** Both are `photo__rrect-lg__rest` on the
+> 1x dark macOS 27 profile against the same native 0.1814, so the sentence's
+> point — the two bodies sit at almost the same level and still do not look like
+> the same material — is unchanged at either figure, and the |Δ| it rests on is
+> 0.0179 rather than 0.0187. Corrected beside because the panel and the number
+> should name the same tier.
+
 The difference panel is the part that decides where the work is: it is
 saturated white across essentially the whole interior and dark only in the two
 narrow bands where the backdrop happens to be near-neutral. This is not a rim

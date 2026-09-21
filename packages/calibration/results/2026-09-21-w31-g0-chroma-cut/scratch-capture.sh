@@ -59,7 +59,14 @@ if pgrep -f 'compare.ts|sweep.ts|capture-web|VitreaReference' > /dev/null; then
   echo "scratch-capture: another calibration capture is running (X6)" >&2
   exit 1
 fi
-FOREIGN=$(pgrep -fc 'playwright' || true)
+# 2026-09-21, the review closure (claims §5.161 §11, finding N8): this line read
+# `pgrep -fc`, which BSD `pgrep` does not have — macOS exits 2 with a usage
+# message and `|| true` swallows it, so `$FOREIGN` was empty and the three lines
+# this wrote into `browser-runs.txt` carry no count at all. The count was
+# therefore never recorded on the run that took the bed; the reproduction check
+# refereed the condition instead, cell by cell, and found |Δ| 0 on all 552 macOS
+# 27 cells. `browser-runs.txt` is left exactly as the run wrote it.
+FOREIGN=$(pgrep -f 'playwright' | wc -l | tr -d ' ')
 echo "foreign browser automation processes at start: $FOREIGN" | tee -a "$HERE/browser-runs.txt"
 "$HERE/x6-read.sh" "w31-g0-scratch-$MODE" | tee -a "$HERE/browser-runs.txt"
 

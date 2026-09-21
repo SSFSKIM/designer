@@ -1,0 +1,65 @@
+== the CSS tier's chroma ceiling, ratio (ii) ≤ (1 − α)·s ==
+
+saturate() regular = 1.8, clear = 1.4 (CSS-only, frozen by W31 X3)
+the linear chain holds a composite at or above 0.242426; below that the conversion anchors on the surface's own backdrop
+
+macos-27 / light  (photo backdrop 0.22120)
+  renderer tintAlpha                     0.4600
+  cssTintAlpha at the mapping's anchor   0.6650  →  ceiling 0.6031
+  2026-09-21 first reading (unsized, anchor forced): α′ 0.5642  →  ceiling 0.7844   [SUPERSEDED — see the module note]
+  span  44 (capsule-button) sizedAlpha 0.4625  composite 0.5814  anchor fitted    α′ 0.6669  →  ceiling 0.5995
+  span  96 (rrect-md      ) sizedAlpha 0.4870  composite 0.6005  anchor fitted    α′ 0.6859  →  ceiling 0.5654
+  span 128 (rrect-ml      ) sizedAlpha 0.4870  composite 0.6005  anchor fitted    α′ 0.6859  →  ceiling 0.5654
+  span 160 (rrect-lg      ) sizedAlpha 0.4870  composite 0.6005  anchor fitted    α′ 0.6859  →  ceiling 0.5654
+
+macos-27 / dark  (photo backdrop 0.23307)
+  renderer tintAlpha                     0.9000
+  cssTintAlpha at the mapping's anchor   0.9198  →  ceiling 0.1444
+  2026-09-21 first reading (unsized, anchor forced): α′ 0.8456  →  ceiling 0.2779   [SUPERSEDED — see the module note]
+  span  44 (capsule-button) sizedAlpha 0.9005  composite 0.0682  anchor measured  α′ 0.8463  →  ceiling 0.2767
+  span  96 (rrect-md      ) sizedAlpha 0.9050  composite 0.0674  anchor measured  α′ 0.8527  →  ceiling 0.2651
+  span 128 (rrect-ml      ) sizedAlpha 0.9050  composite 0.0674  anchor measured  α′ 0.8527  →  ceiling 0.2651
+  span 160 (rrect-lg      ) sizedAlpha 0.9050  composite 0.0674  anchor measured  α′ 0.8527  →  ceiling 0.2651
+
+macos-26.5 / light  (photo backdrop 0.22120)
+  renderer tintAlpha                     0.4600
+  cssTintAlpha at the mapping's anchor   0.6650  →  ceiling 0.6031
+  2026-09-21 first reading (unsized, anchor forced): α′ 0.5642  →  ceiling 0.7844   [SUPERSEDED — see the module note]
+  span  44 (capsule-button) sizedAlpha 0.4625  composite 0.5814  anchor fitted    α′ 0.6669  →  ceiling 0.5995
+  span  96 (rrect-md      ) sizedAlpha 0.4870  composite 0.6005  anchor fitted    α′ 0.6859  →  ceiling 0.5654
+  span 128 (rrect-ml      ) sizedAlpha 0.4870  composite 0.6005  anchor fitted    α′ 0.6859  →  ceiling 0.5654
+  span 160 (rrect-lg      ) sizedAlpha 0.4870  composite 0.6005  anchor fitted    α′ 0.6859  →  ceiling 0.5654
+
+macos-26.5 / dark  (photo backdrop 0.23307)
+  renderer tintAlpha                     0.9000
+  cssTintAlpha at the mapping's anchor   0.9198  →  ceiling 0.1444
+  2026-09-21 first reading (unsized, anchor forced): α′ 0.8456  →  ceiling 0.2779   [SUPERSEDED — see the module note]
+  span  44 (capsule-button) sizedAlpha 0.9005  composite 0.0682  anchor measured  α′ 0.8463  →  ceiling 0.2767
+  span  96 (rrect-md      ) sizedAlpha 0.9050  composite 0.0674  anchor measured  α′ 0.8527  →  ceiling 0.2651
+  span 128 (rrect-ml      ) sizedAlpha 0.9050  composite 0.0674  anchor measured  α′ 0.8527  →  ceiling 0.2651
+  span 160 (rrect-lg      ) sizedAlpha 0.9050  composite 0.0674  anchor measured  α′ 0.8527  →  ceiling 0.2651
+
+
+== how to read it ==
+
+  Ratio (ii) is the interior's mean per-pixel chroma over the RAW backdrop's, so
+  a ceiling of C says: whatever the material does, this tier's body cannot show
+  more than C of the backdrop's chroma. A WebGPU tier fitted to a native ratio
+  above C is a fit the CSS tier cannot follow, and the difference is a DECLARED
+  RESIDUAL rather than a bug — which is the question G3 decides: derive a term
+  from the leaf, or record that this tier carries nothing of the operator.
+
+  **Corrected 2026-09-21 (claims §5.161 §11, B1): the expression is a bound on
+  the DARK scheme and is not one on the light scheme.** The light tier's
+  measured ratio (ii) runs 0.403–0.633 against a corrected ceiling of 0.5995
+  (span 44) and 0.5654 (span ≥ 96), so the tier already draws THROUGH it — which
+  is what "the linear-light shape of an encoded operation" means when the
+  attenuation is weak and `saturate()` is strong. On the dark scheme the
+  attenuation dominates: the tier reads 0.18–0.24 against a ceiling of 0.2767 /
+  0.2651 and a reference of 0.90–0.92, so the ceiling binds there and the
+  residual it leaves is real.
+
+  What that changes for G3: there is no measurable room for a derived term on
+  the LIGHT scheme — the authored `saturate()` has already spent it — and there
+  is at most ~30 % of the reference's body chroma to be had on the DARK one.
+

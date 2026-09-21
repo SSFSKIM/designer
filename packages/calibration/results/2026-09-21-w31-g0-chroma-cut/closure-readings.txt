@@ -1,0 +1,109 @@
+== N2 — ratio (iii) carries a level confound, and correcting it reverses §3's light reading ==
+
+  The blurred reference is the BACKDROP blurred, so it sits at the backdrop's
+  level while the side sits at its own. OKLab chroma scales as Y^(1/3) under a
+  luma-only change, so the comparison has to divide by (Y_side/Y_backdrop)^(1/3)
+  before it says anything about how much chroma the body kept.
+
+  light native, n=25:  as recorded 0.7466–1.0032   level-corrected 0.5161–0.7683
+  dark  native, n=10:  as recorded 1.2046–1.7978   level-corrected 1.1749–1.9943
+
+  So §3's "the LIGHT native body very nearly IS such a blur" is an artefact of the level:
+  corrected, Apple's light body REMOVES 23–48 % of the chroma a matched
+  blur would leave. The DARK reading is strengthened rather than reversed.
+
+
+== N4 — §3's ratio (ii) columns are over ALL SETS; its medians are the declared bed ==
+
+  light active     declared bed (n=10): native 0.7180–0.8329  web 0.2385–0.3121
+                   all sets     (n=14): native 0.7180–0.8329  web 0.2385–0.3121
+                   median R on the declared bed: 0.5506  (range 0.5095–0.6533)
+  light inactive   declared bed (n=8): native 0.7089–0.8164  web 0.2526–0.3304
+                   all sets     (n=14): native 0.7089–0.8554  web 0.2526–0.3304
+                   median R on the declared bed: 0.5137  (range 0.4890–0.6525)
+  dark active      declared bed (n=4): native 0.9173–0.9732  web 0.1059–0.1137
+                   all sets     (n=6): native 0.8993–0.9732  web 0.1059–0.1193
+                   median R on the declared bed: 0.3332  (range 0.2945–0.3615)
+  dark inactive    declared bed (n=4): native 0.9030–0.9060  web 0.1144–0.1227
+                   all sets     (n=10): native 0.8997–0.9225  web 0.1076–0.1319
+                   median R on the declared bed: 0.5841  (range 0.4951–0.6583)
+
+
+== N5 — the level stop's baseline: the wrong cell and the wrong population ==
+
+  the four largest |Δlevel| on the declared bed, BOTH tiers:
+    0.04933  texture  2x dark  capsule-button__rest   native 0.22620 / web 0.17687
+    0.04782  dom      2x dark  capsule-button__rest   native 0.22620 / web 0.17838
+    0.04641  dom      1x dark  capsule-button__rest   native 0.22544 / web 0.17904
+    0.04570  texture  1x dark  capsule-button__rest   native 0.22544 / web 0.17975
+
+  median |Δlevel|  declared bed, both tiers             light n=36  0.0060   worst 0.02754
+  median |Δlevel|  declared bed, both tiers             dark  n=16  0.0210   worst 0.04933
+  median |Δlevel|  declared bed, texture only           light n=18  0.0062   worst 0.01363
+  median |Δlevel|  declared bed, texture only           dark  n= 8  0.0208   worst 0.04933
+  median |Δlevel|  declared bed, texture, ACTIVE only   light n=10  0.0053   worst 0.01363
+  median |Δlevel|  declared bed, texture, ACTIVE only   dark  n= 4  0.0360   worst 0.04933
+
+  §7 (c) names 0.0464 on the 1x `dom` row and medians of 0.0053 / 0.0360. The worst
+  is the 2x dark `texture` row and the medians on the stop's own population — the
+  declared bed, both tiers, as the stop is written — are 0.0060 light / 0.0210 dark.
+  0.0053 / 0.0360 is the texture tier's ACTIVE half. The bound (≤ 0.055) is unmoved
+  and is still the worst cell rounded up; what moves is the baseline G3 reads.
+
+
+== N6 — `mid-chroma-solid`'s dark level bias ==
+
+  1x dark  capsule-button__inactive   native 0.2856  web 0.0761  backdrop 0.2141  →  ratio (i) biased by 2.415×
+  1x dark  rrect-lg__inactive         native 0.2691  web 0.0770  backdrop 0.2141  →  ratio (i) biased by 2.302×
+  1x dark  rrect-md__inactive         native 0.2727  web 0.0770  backdrop 0.2141  →  ratio (i) biased by 2.323×
+  1x light capsule-button__inactive   native 0.3762  web 0.3754  backdrop 0.2141  →  ratio (i) biased by 1.001×
+  1x light capsule-button__rest       native 0.3851  web 0.5964  backdrop 0.2141  →  ratio (i) biased by 0.747×
+  1x light rrect-lg__inactive         native 0.3774  web 0.3759  backdrop 0.2141  →  ratio (i) biased by 1.003×
+  1x light rrect-lg__rest             native 0.3957  web 0.6134  backdrop 0.2141  →  ratio (i) biased by 0.747×
+  1x light rrect-md__inactive         native 0.3772  web 0.3757  backdrop 0.2141  →  ratio (i) biased by 1.003×
+  1x light rrect-md__rest             native 0.3890  web 0.6128  backdrop 0.2141  →  ratio (i) biased by 0.739×
+
+  §3 and the Surprises quote the two cells by their levels rather than by their
+  names, and they are two different components: 0.0761 against 0.2856 is 1x dark
+  `capsule-button__inactive`, and 0.6134 against 0.3957 is 1x light
+  `rrect-lg__rest`. The light figure's 0.75× is right; the dark one's is 2.41×,
+  not 2.29×. Neither carries a bound — the anchor is granted to G3 for the
+  chromaticity direction only — so what the correction moves is how far off the
+  anchor's level has to come before it can carry the tolerance.
+
+
+== N11 (iv) — "the CSS tier's R is near 1.0 today" holds on dark, not on light ==
+
+  light  all sets (n=28): 0.5838–1.5737   declared bed (n=18): 0.9703–1.5737
+  dark   all sets (n=16): 0.8319–1.0767   declared bed (n=8): 0.9341–1.0767
+
+  §7 (g) (ii) refuses to adopt on the CSS tier because its R is near 1.0 with no
+  chroma operator anywhere. That is true of the DARK cells and not of the light
+  ones, which run to 1.57. The refusal stands — a statistic that reads 1.57 where
+  the body has no hues in it is no more gateable than one that reads 1.0 — but the
+  reason is the structure stop's, not this range's.
+
+
+== N3 — the invariant twin is NOT blind, so §1's reason for the declared form is wrong ==
+
+  light active     n=10   twin median 0.4979 (0.4482–0.6468)   declared median 0.5506 (0.5095–0.6533)
+  light inactive   n= 8   twin median 0.4880 (0.4259–0.7874)   declared median 0.5137 (0.4890–0.6525)
+  dark active      n= 4   twin median 0.2657 (0.2310–0.2993)   declared median 0.3332 (0.2945–0.3615)
+  dark inactive    n= 4   twin median 0.4910 (0.4241–0.5534)   declared median 0.5841 (0.4951–0.6583)
+
+  1x-against-2x spread, declared  light pairs=9  median 4.59 %  worst 7.96 %
+  1x-against-2x spread, declared  dark  pairs=4  median 8.60 %  worst 17.70 %
+  1x-against-2x spread, twin      light pairs=9  median 3.85 %  worst 10.72 %
+  1x-against-2x spread, twin      dark  pairs=4  median 8.94 %  worst 16.77 %
+
+  §1 keeps the linear-luma denominator because "under the OKLab-L denominator the
+  plate composite very nearly cancels". It does not: the twin reads 0.27–0.50 on
+  this bed's medians, below the declared form's on every one of the four beds, and
+  reproduces about as well across rasters. The declared form is KEPT, on the reason
+  that survives: its denominator is `interiorStdDevWeb`, the quantity the structure
+  stop bounds and the matrix already carries, so a fit cannot move the denominator
+  out from under the statistic. The twin's denominator is bounded by nothing.
+
+wrote blurred-reference-closure.txt
+
+wrote closure-readings.json
