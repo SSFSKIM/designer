@@ -53,11 +53,13 @@ mv "$HERE/departure-stat.json" "$ROUND/departure-stat.json"
 
 VITREA_W32_G1_CUT="$ROUND/exterior-cut.json" \
   python3 "$HERE/c1-forms.py" > "$ROUND/c1-forms.txt"
+mv "$HERE/c1-forms.json" "$ROUND/c1-forms.json"
 VITREA_W32_G1_CUT="$ROUND/exterior-cut.json" \
 VITREA_W32_G1_CUT_HOLDOUT="$ROUND/exterior-cut.json" \
 VITREA_W32_G1_MATRIX="$MATRIX" \
 VITREA_W32_G1_DEPARTURE="$ROUND/departure-stat.json" \
   python3 "$HERE/stops.py" > "$ROUND/stops.txt"
+mv "$HERE/stops.json" "$ROUND/stops.json"
 
 if [ -n "$PREVIOUS" ]; then
   python3 "$HERE/anchor-solve.py" "$ROUND/exterior-cut.json" \

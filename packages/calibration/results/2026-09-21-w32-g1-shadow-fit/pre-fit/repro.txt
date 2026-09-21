@@ -1,0 +1,73 @@
+W32 G1 — the pre-fit bed against the committed rows, cell by cell
+======================================================================================================================
+  scratch   /tmp/w32-g1-fit/pre-fit/matrix.json  (386 cells)
+  committed packages/calibration/results/matrix.json (1833 cells at the shipped documents)
+  bar       native side EXACT; web side 0.002044 (the native-pair max) or the cell's own
+            repeatNoise where it is larger
+
+§1. 346 cells carry a committed row at the shipped documents and were compared.
+    0 native-side difference(s); 0 web-side difference(s) over the bar.
+
+§2. The largest web-side differences, worst first — inside the bar and printed anyway
+             Δ  profile                                           scene                                 field
+    0.00000000  apple-macos-27.0-2x-light-standard-glass0.5       photo__toolbar-group__rest            offsetYWeb [texture]
+    0.00000000  apple-macos-27.0-2x-light-standard-glass0.5       photo__toolbar-group__rest            offsetXWeb [texture]
+    0.00000000  apple-macos-27.0-2x-light-standard-glass0.5       photo__toolbar-group__rest            meanDepartureWeb [texture]
+    0.00000000  apple-macos-27.0-2x-light-standard-glass0.5       photo__toolbar-group__rest            falloffSigmaWeb [texture]
+    0.00000000  apple-macos-27.0-2x-light-standard-glass0.5       photo__toolbar-group__rest            extentRightWeb [texture]
+    0.00000000  apple-macos-27.0-2x-light-standard-glass0.5       photo__toolbar-group__rest            extentLeftWeb [texture]
+    0.00000000  apple-macos-27.0-2x-light-standard-glass0.5       photo__toolbar-group__rest            extentBelowWeb [texture]
+    0.00000000  apple-macos-27.0-2x-light-standard-glass0.5       photo__toolbar-group__rest            extentAboveWeb [texture]
+    0.00000000  apple-macos-27.0-2x-light-standard-glass0.5       photo__toolbar-group__rest            backdropSupport [texture]
+    0.00000000  apple-macos-27.0-2x-light-standard-glass0.5       photo__toolbar-group__rest            affineWeb ('6-12', 'right') slopeALinear [texture]
+    0.00000000  apple-macos-27.0-2x-light-standard-glass0.5       photo__toolbar-group__rest            affineWeb ('6-12', 'right') interceptCLinear [texture]
+    0.00000000  apple-macos-27.0-2x-light-standard-glass0.5       photo__toolbar-group__rest            affineWeb ('6-12', 'left') slopeALinear [texture]
+    0.00000000  apple-macos-27.0-2x-light-standard-glass0.5       photo__toolbar-group__rest            affineWeb ('6-12', 'left') interceptCLinear [texture]
+    0.00000000  apple-macos-27.0-2x-light-standard-glass0.5       photo__toolbar-group__rest            affineWeb ('6-12', 'below') slopeALinear [texture]
+    0.00000000  apple-macos-27.0-2x-light-standard-glass0.5       photo__toolbar-group__rest            affineWeb ('6-12', 'below') interceptCLinear [texture]
+
+§3. 40 scratch cell(s) have NO committed row at any documents — the
+    read-set widening (Decision Log 1 (b)) and anything else the bed gained. These are
+    read here for the first time, as scratch, and are not a reproduction of anything.
+      NEW  apple-macos-27.0-1x-dark-standard-glass0.5 checkerboard__rrect-ml__inactive [texture]
+      NEW  apple-macos-27.0-1x-dark-standard-glass0.5 dark-solid__rrect-lg__inactive [texture]
+      NEW  apple-macos-27.0-1x-dark-standard-glass0.5 hc-text__rrect-lg__inactive [texture]
+      NEW  apple-macos-27.0-1x-dark-standard-glass0.5 impulse__rrect-lg__inactive [texture]
+      NEW  apple-macos-27.0-1x-dark-standard-glass0.5 impulse__rrect-ml__inactive [texture]
+      NEW  apple-macos-27.0-1x-dark-standard-glass0.5 light-solid__rrect-lg__inactive [texture]
+      NEW  apple-macos-27.0-1x-dark-standard-glass0.5 light-solid__rrect-ml__inactive [texture]
+      NEW  apple-macos-27.0-1x-dark-standard-glass0.5 mid-chroma-solid__rrect-lg__inactive [texture]
+      NEW  apple-macos-27.0-1x-dark-standard-glass0.5 mid-dark-solid__rrect-lg__inactive [texture]
+      NEW  apple-macos-27.0-1x-dark-standard-glass0.5 photo__rrect-ml__inactive [texture]
+      NEW  apple-macos-27.0-1x-light-standard-glass0.5 checkerboard__rrect-ml__inactive [texture]
+      NEW  apple-macos-27.0-1x-light-standard-glass0.5 dark-solid__rrect-lg__inactive [texture]
+      NEW  apple-macos-27.0-1x-light-standard-glass0.5 hc-text__rrect-lg__inactive [texture]
+      NEW  apple-macos-27.0-1x-light-standard-glass0.5 impulse__rrect-lg__inactive [texture]
+      NEW  apple-macos-27.0-1x-light-standard-glass0.5 impulse__rrect-ml__inactive [texture]
+      NEW  apple-macos-27.0-1x-light-standard-glass0.5 light-solid__rrect-lg__inactive [texture]
+      NEW  apple-macos-27.0-1x-light-standard-glass0.5 light-solid__rrect-ml__inactive [texture]
+      NEW  apple-macos-27.0-1x-light-standard-glass0.5 mid-chroma-solid__rrect-lg__inactive [texture]
+      NEW  apple-macos-27.0-1x-light-standard-glass0.5 mid-dark-solid__rrect-lg__inactive [texture]
+      NEW  apple-macos-27.0-1x-light-standard-glass0.5 photo__rrect-ml__inactive [texture]
+      NEW  apple-macos-27.0-2x-dark-standard-glass0.5 checkerboard__rrect-ml__inactive [texture]
+      NEW  apple-macos-27.0-2x-dark-standard-glass0.5 dark-solid__rrect-lg__inactive [texture]
+      NEW  apple-macos-27.0-2x-dark-standard-glass0.5 hc-text__rrect-lg__inactive [texture]
+      NEW  apple-macos-27.0-2x-dark-standard-glass0.5 impulse__rrect-lg__inactive [texture]
+      NEW  apple-macos-27.0-2x-dark-standard-glass0.5 impulse__rrect-ml__inactive [texture]
+      NEW  apple-macos-27.0-2x-dark-standard-glass0.5 light-solid__rrect-lg__inactive [texture]
+      NEW  apple-macos-27.0-2x-dark-standard-glass0.5 light-solid__rrect-ml__inactive [texture]
+      NEW  apple-macos-27.0-2x-dark-standard-glass0.5 mid-chroma-solid__rrect-lg__inactive [texture]
+      NEW  apple-macos-27.0-2x-dark-standard-glass0.5 mid-dark-solid__rrect-lg__inactive [texture]
+      NEW  apple-macos-27.0-2x-dark-standard-glass0.5 photo__rrect-ml__inactive [texture]
+      NEW  apple-macos-27.0-2x-light-standard-glass0.5 checkerboard__rrect-ml__inactive [texture]
+      NEW  apple-macos-27.0-2x-light-standard-glass0.5 dark-solid__rrect-lg__inactive [texture]
+      NEW  apple-macos-27.0-2x-light-standard-glass0.5 hc-text__rrect-lg__inactive [texture]
+      NEW  apple-macos-27.0-2x-light-standard-glass0.5 impulse__rrect-lg__inactive [texture]
+      NEW  apple-macos-27.0-2x-light-standard-glass0.5 impulse__rrect-ml__inactive [texture]
+      NEW  apple-macos-27.0-2x-light-standard-glass0.5 light-solid__rrect-lg__inactive [texture]
+      NEW  apple-macos-27.0-2x-light-standard-glass0.5 light-solid__rrect-ml__inactive [texture]
+      NEW  apple-macos-27.0-2x-light-standard-glass0.5 mid-chroma-solid__rrect-lg__inactive [texture]
+      NEW  apple-macos-27.0-2x-light-standard-glass0.5 mid-dark-solid__rrect-lg__inactive [texture]
+      NEW  apple-macos-27.0-2x-light-standard-glass0.5 photo__rrect-ml__inactive [texture]
+
+  verdict: GREEN — 0 native and 0 web difference(s) over the bar on 346 reproduced cells
