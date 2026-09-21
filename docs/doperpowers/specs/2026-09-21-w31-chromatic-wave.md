@@ -1,6 +1,12 @@
 # W31 — the chromatic wave: the body carries the backdrop's hue, with three instruments in front
 
-**Status: OPEN 2026-09-21 — chartered by the parent on the user's "let's proceed with next wave"
+**Status: CLOSED 2026-09-21 by G4's landing**, against all seven Parent-Level Acceptance clauses
+(Outcomes & Retrospective). **0.21.0 is prepared and UNPUBLISHED**: `pnpm release` is the user's
+hand and the tag `v0.21.0` follows it. The user's eye on the sheets is the one remaining acceptance
+input; `packages/calibration/results/2026-09-21-w31-g4-landing/eye.md` is the implementer's, and it
+records no regression on the accessibility band and no reason to stop the cut.
+
+*Opened as:* **OPEN 2026-09-21 — chartered by the parent on the user's "let's proceed with next wave"
 after the 0.20.0 publish, under the standing "rest on your judgement"; adversarially reviewed the
 same day and the review folded (v2, Revision Notes).** Executes W29 Decision Log 6 (c) (the
 chromatic-transmission child, the largest residual on W30's own sheets) and carries three of W30's
