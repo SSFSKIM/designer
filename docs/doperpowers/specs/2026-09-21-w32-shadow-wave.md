@@ -497,6 +497,20 @@ hairline (a rim term and not a shadow one); `standard-row-identity-matrix.txt`'s
 `interiorStdDevWeb` 5.69 % move (W31 Deferred 14, the halves not touched here); writing
 `truncatedSides` to a row.
 
+**Added 2026-09-21 (G1 review closure; claims §5.168 §10, finding B-4): the exterior BLACK FLOOR,
+which is now the dominant visible exterior residual.** Over a backdrop pixel Apple renders as
+exactly (0, 0, 0), vitrea renders (1, 1, 1) — one byte, never more — on 3,334 of 9,440 native-black
+exterior pixels at span 160 on the 1x light bed, 2,188 of 17,532 at span 128, and **0 of 29,330 at
+span 44**. Present at 160 and 128 and absent at 44, which is below `liftSpanMin` (64), so the term
+it points at is `liftAmplitude` — the lift this wave did not move (X3 leaves it alone and no stop
+reads it). It is pre-existing and not a regression; what makes it Deferred rather than invisible is
+that the shadow now matches, so the floor is what the eye sees. **The shape of the work**: read
+`liftAmplitude` against a native black floor — the per-pixel count of exterior pixels where the
+native is 0 and the web is not, per span and per bed, swept over the leaf — and decide whether the
+lift is a term Apple has at all over a black backdrop or an artefact of compositing a lift into a
+premultiplied output. `b4-black-floor.py` in G1's evidence is the reading; the tracker carries the
+entry with the reading hazard that hid it.
+
 ## Tracking Map
 
 | child | status |

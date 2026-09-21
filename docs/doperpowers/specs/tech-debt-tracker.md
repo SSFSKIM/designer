@@ -5181,3 +5181,62 @@ thin surface, and either the statistic erodes its mask or the shadow is
 composited into a separate target. If it is not the ring, M2's miss is the first
 evidence that an exterior fit reaches the interior, which is a finding about the
 material and not about the instrument.
+
+---
+
+## Over a pure-black backdrop vitrea's exterior sits one byte above Apple's, and a ΔE × 8 panel makes that a mid-grey (W32 G1 review closure, 2026-09-21)
+
+*Opened by W32 G1's independent review (claims §5.168 §10, finding B-4), which
+read the gate's own sheets against the claim made about them. Evidence:
+`packages/calibration/results/2026-09-21-w32-g1-shadow-fit/b4-black-floor.py`
+and its committed output.*
+
+**The measurement.** On `checkerboard-8` — black and white squares at an 8 px
+pitch — Apple's macOS 27 render reads **exactly (0, 0, 0)** on the backdrop's
+black squares out in the shadow band, and vitrea reads **(1, 1, 1)**. Never
+more: across all twelve bed × span readings the count of exterior pixels where
+the native is 0 and the web exceeds 1 is zero. The count of pixels where it is
+exactly 1:
+
+| bed | span 44 | span 128 | span 160 |
+| --- | ---: | ---: | ---: |
+| 1x light | 0 / 29,330 | 2,188 / 17,532 | 3,334 / 9,440 |
+| 2x light | 0 / 117,416 | 9,104 / 70,156 | 14,384 / 38,244 |
+| 1x dark | 0 / 29,352 | 573 / 17,566 | 577 / 9,531 |
+| 2x dark | 0 / 117,436 | 2,447 / 70,447 | 2,337 / 38,335 |
+
+Present at 128 and 160 and absent at 44 on every bed. `liftSpanMin` is **64**,
+so a 44 px caster adds none of `liftAmplitude` and a 128 or 160 px one adds all
+of it: the term this points at is the LIFT, which W32 did not move (X3 forbade
+it and no stop in that wave reads it). It is pre-existing, not a regression of
+the exterior fit. What changed is that the shadow now matches, so the floor is
+the largest thing left in the exterior that the eye can see.
+
+**Why nobody had seen it, and this half is the more general lesson.** The gate's
+sheets amplify OKLab ΔE by eight. OKLab takes a cube root of linear light and
+that function's derivative diverges at zero, so the distance from sRGB byte 0 to
+byte 1 is **ΔE 0.0672** — two-thirds of the distance from grey 128 to grey 160
+— and eight times it is byte 137, a mid-grey. The panel therefore draws a full
+checkerboard where the two renders differ by one least significant bit, and
+`eye.md` read that panel as showing structure it could not explain and then
+recorded the opposite ("black past the rim band on every one of the four").
+**A ΔE × 8 OKLab panel over a backdrop containing pure black cannot be read as a
+verdict on the exterior without the LSB check**, and the check is a one-line
+count: exterior pixels where the native is 0 and the web is not. Any future
+sheet over `checkerboard*`, `dark-solid` or `hc-text` inherits this.
+
+**The fix shape**, in two parts.
+
+1. *The material question.* Sweep `liftAmplitude` and read the black-floor count
+   per span and per bed against it, on the committed captures — no new capture
+   is needed, because the floor is a property of the web render alone once the
+   native is known to be 0. Either Apple has no lift over a black backdrop, in
+   which case the leaf is conditioned on the backdrop's level and the bed
+   already carries the cells to fit it; or the lift is real and vitrea is adding
+   it where a premultiplied output cannot carry it, in which case the term is a
+   compositing defect at the alpha floor rather than a material constant.
+2. *The instrument.* The sheets should carry the LSB count beside the ΔE panel,
+   or clamp the amplification so the panel's brightness is comparable across
+   backdrop levels. The second changes what every past sheet means and is a
+   decision; the first is additive and is what a gate making sheets should do
+   next.

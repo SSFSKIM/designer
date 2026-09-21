@@ -33,17 +33,47 @@ wave to move, so those beds got the outset and nothing else.
 
 ## Span 160 — the exterior closes, and the level contours are absent on both sides
 
-`checkerboard-8__rrect-lg__rest`, span 160, both schemes at both scales. The exterior in the ΔE
-panel is **black past the rim band on every one of the four**, which is the span C1 was declared
-for and the span the wave's `T` moved 0.00796 → 0.00134 on 1x light.
+`checkerboard-8__rrect-lg__rest`, span 160, both schemes at both scales. This is the span C1 was
+declared for and the span the wave's `T` moved 0.00796 → 0.00134 on 1x light.
+
+**On the LIT backdrop pixels the two renders agree to within one byte through the entire
+falloff.** Below `rrect-lg` on the 1x light bed, reading down one column of the checkerboard's
+white squares from 3 CSS px under the contour to the frame's edge, the native side runs
+237, 243, 244, 244, 245, 246, 246, 247, 247 and the WebGPU side
+237, 243, 244, 244, 245, 246, 245, 246, 247 — the shadow's whole falloff, the same byte at seven
+of nine steps and one off at the other two. Over the whole exterior outside the `0-3` band, on all
+four span-160 sheets, **96.4 to 100 % of the lit pixels are within one byte** of the native and
+about half are exactly equal; the largest disagreement anywhere is 2 bytes on the dark beds and
+1 on the light ones (`b4-black-floor.py`, committed beside this file with its output). That is a
+stronger reading than "the panel is black", and it is the one the pixels support.
+
+**The one caveat is the black floor, and the ΔE panel shows it as a mid-grey rather than as
+black.** *(Corrected 2026-09-21, W32 G1 review closure; claims §5.168 §10, finding B-4. This
+paragraph said the exterior was "black past the rim band on every one of the four" and that the
+ΔE panel "shows no structure there either". It is not: a mid-grey checkerboard fills the shadow
+band on all four sheets.)* On the checkerboard's BLACK squares Apple reads exactly 0 and vitrea
+reads 1 — never more — on 3,334 of the 9,440 native-black exterior pixels at span 160 on 1x light,
+2,188 of 17,532 at span 128, and **0 of 29,330 at span 44**. OKLab takes a cube root of linear
+light, so one sRGB byte at the floor is a ΔE of **0.0672** — about two-thirds of the distance from
+grey 128 to grey 160 — and the sheets' ×8 amplification turns it into byte 137, a mid-grey. Present
+at 160 and 128, absent at 44, which is below `liftSpanMin` (64): it points at `liftAmplitude`, the
+lift this wave did not move. **Pre-existing, not a regression** — and now the dominant visible
+exterior residual, because the shadow itself matches. The charter's Deferred list and the tracker
+carry it.
 
 **The level contours below `rrect-lg` are ABSENT on both sides**, which is the reading asked for.
 Neither the native nor the WebGPU panel shows a banded step in the exterior below the surface — no
-ring, no terrace, no second edge — and the ΔE panel shows no structure there either, which is the
-only way to be sure the two are absent rather than cancelling. What the ΔE panel does carry at
-span 160 is the RIM, a bright closed ring one to two pixels wide, and the interior's checker
+ring, no terrace, no second edge. What the ΔE panel carries at span 160 is the RIM, a bright closed
+ring one to two pixels wide, the black floor's mid-grey checker, and the interior's checker
 structure. The rim is §5.62's and the `0-3` band's, which every form of C1 excludes; the interior is
 the body's.
+
+**A reading hazard, stated for whoever makes the next sheet.** A ΔE × 8 OKLab panel over a backdrop
+containing pure black **cannot be read as "black exterior" without the LSB check**. The cube root's
+derivative diverges at zero, so the smallest representable difference at the floor amplifies to a
+mid-grey while the same difference at grey 128 is invisible — the panel says "large" where the
+pixels differ by one byte. Read the bytes before reading the panel: a one-line count of exterior
+pixels where the native is 0 and the web is not settles it, and `b4-black-floor.py` is that count.
 
 The CSS panel at span 160 flattens the backdrop's checker almost entirely where the native and the
 WebGPU panels keep it. That is the CSS tier's structure residual, recorded and unbounded by
