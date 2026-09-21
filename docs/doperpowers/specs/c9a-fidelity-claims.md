@@ -33434,6 +33434,15 @@ own amplitudes are unfitted and stay a Deferred item.
 | `append-check.py` | 6 / 6 PASS |
 | `split-generation.py apply` | 726 rows moved to two files, every byte count and digest checked on disk |
 
+**Re-run at the review closure** (2026-09-21; §10), after eighteen findings of
+records corrections: `pnpm -r build` exit 0, `pnpm -r lint` exit 0, `pnpm -r
+test` **2,684 over 186 files, 0 failed** — unmoved, because every change is a
+comment, a record or an evidence file — and `freeze.py verify` **1,818**.
+`git diff main..HEAD` shows no byte under `apps/`, `packages/renderer-webgpu/src/`
+or any macOS 26.5-keyed path, and the only file the closure changed that a test
+reads is `superseded/index.json`, whose two corrected `readUnderClaims` fields
+nothing asserts on.
+
 ### 9. What this gate does not claim
 
 C1 is not adopted here — that is G2's, on the parent's decision, reading a cut
