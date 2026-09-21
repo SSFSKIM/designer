@@ -32350,6 +32350,10 @@ goldens.
 - `test/w32-exterior-cut.test.ts` — four cases. The direction-resolved statistic
   reproduces W31 G1's committed `exterior-instrument.txt` §4 **exactly on the
   four shape bands in all five directions on both cells** (32 numbers per cell),
+  *corrected beside, 2026-09-21 (review closure; §10, finding N7): the case
+  asserts `Δa` AND `Δc` on each of the four bands in each of the five
+  directions, which is **40 numbers per cell** and 80 over the two — the count
+  the test's own doc comment carries,*
   and the `0-3` band does NOT, by 0.0002–0.0008: W31 G1 read the 0.20.0
   generation (`d0c389d70456` / `880ab1e31450`) and the working file now carries
   0.21.0's, W31 G3 having sealed `bodyChromaRetention` in between (§5.164), and
