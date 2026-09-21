@@ -411,6 +411,42 @@ Three things to know before taking it.
   tier gets the same geometry, the same level and the same shadow, and a
   colourless body.
 
+**0.22.0 fits the shadow's exterior as a whole, and takes it off a receded
+window.** Until this release the shadow had one fitted length — the blur's σ,
+graded by the casting span since 0.20.0 — and its other two were the macOS 26.5
+default's, carried unexamined onto the macOS 27 bed. Measured against Apple's own
+render, vitrea's exterior was 2.66 to 3.77 CSS px too wide at every thick span on
+every bed, and a green σ bound was consistent with that, because the bound
+compares a blur leaf in closed form to a FIT of Apple's render and the fit
+absorbs whatever else Apple's shadow is besides a blur. So the exterior is fitted
+against what it actually draws: the transmission it applies at each distance from
+the contour, per band and per direction, inside each capture's own clearance.
+
+What moves, and what a page sees. **The outset falls 3.10 → 0.50 CSS px on the
+light material and → 1.80 on the dark one** — Apple's own outset measures about
+half a pixel — and the offset stays at 7.95. The six occlusion anchors are
+re-solved against the 3–48 CSS px window, and the dark material's σ slope moves
+inside its bound, which re-derives its thin knee: **a 44 px control on the dark
+material now blurs its shadow at a σ of 2.72 CSS px where 0.21.0 drew 2.07.** The
+shadow's transmission tracks Apple's to a mean of 0.0009 to 0.0039 of a unit of
+backdrop light at the thick spans against 0.0039 to 0.0089 before, and to 0.00004
+to 0.00023 at the thin ones. The rendered blur is still 1.27 to 2.77 CSS px wider
+than Apple's fitted blur — halved and not closed, and recorded rather than
+claimed. `macos26MaterialProfileDocument` is untouched by all of it.
+
+**And a receded window draws no outer shadow.** Apple's unfocused window removes
+no light at all from 3 CSS px outward: on 121 of 121 non-holdout inactive cells
+the native transmission reads exactly 1.000000 in every band and the capture is
+byte-identical to the backdrop from 2 device px out, and the same holds on all
+235 frozen macOS 26.5 cells. vitrea had been drawing the ACTIVE shadow there,
+because both receded documents carried their active document's anchors leaf for
+leaf. Their amplitudes are 0 from 0.22.0, so a window that loses focus drops its
+shadow and a group's clip shrinks with it in that pose — **fading out on the CSS
+tier**, where the `box-shadow` carries a transition, and in one frame on the
+WebGPU tier, whose two poses are fixed endpoints rather than an interpolation.
+What Apple's recede does have is one device pixel of dark stroke at the contour,
+a rim term vitrea does not draw and which is named as an open gap.
+
 The demo site shows the macOS 27 pair only. A document is selected at
 construction — a page drawing one has surfaces measured against it — so a single
 root cannot present both beds at once, and the site has one root.

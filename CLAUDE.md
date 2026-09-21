@@ -88,8 +88,19 @@ be a DIFFERENT generation from the rows beside it (two cells of one scene disagr
 Surprises, claims §5.161 §2). **Copying the read's tree to the canonical path is part of the merge
 that lands the read**, and a sheet script reads that tree and asserts per cell that the capture names
 the shipped document bytes — the receded document included — rather than trusting the path
-(`results/2026-09-21-w31-g4-landing/sheets.ts`). Nothing yet checks the tree against the matrix
-automatically; that is a tracker entry.
+(`results/2026-09-21-w31-g4-landing/sheets.ts`). **And since W32 G0b a tool checks the tree against
+the matrix**: `pnpm --filter @vitrea/calibration run check-capture-tree` compares every capture's
+document hashes — the receded document included — against the row beside it and reports match,
+mismatch, misfiled, superseded, unreadable, no-row and rows-with-no-capture, exiting 0 clean, 1 on
+a live mismatch and 2 on a generation difference under a FROZEN key alone. Run it on the canonical
+tree at every merge that lands a read; it is deliberately not wired into `pnpm -r test`, because
+the tree is not in the repository and an absent tree is one line and exit 0. What it checks is a
+GENERATION and not a capture: the frozen macOS 26.5 tree reads as MATCHING because those documents
+have not moved, so a re-capture at unmoved bytes is invisible to any string compare (W32 G0b, claims
+§5.167 §3; the narrowed tracker entry). **The generation a read supersedes moves to
+`packages/calibration/web-captures-superseded/<active-document-sha>/`**, named by the ACTIVE
+document exactly as the superseded matrix rows are, so the pixels a retired row was measured off
+stay findable by the same name the rows are.
 
 **Generations, and where the superseded ones live.** A cell's key includes every material profile
 document's twelve-hex content hash, so a refit that moves a document does not overwrite the rows
@@ -162,12 +173,20 @@ Adopted bounds,
 regression floors and the conditioning predicate are enforced by
 `packages/calibration/test/adopted-thresholds.test.ts`; its `PREDICATE_EXCLUDES` must equal the
 machine's output, so a fidelity change usually moves that file too. That file's header argues the
-MATERIAL axis is not gateable on this fixture set, and since W31 it carries two rows that are —
-`M1` on the body's chroma-to-structure ratio and `M2` on the structure it is read over, macOS 27
-standard profiles and the WebGPU tier only, with the amendment beside the header saying why they
-clear both of its grounds. Both read a cut **regenerated at the gate that adopts them** and
-re-derived from `results/matrix.json` inside the test, which is how a cut avoids becoming a frozen
-snapshot a bound can never fail against (claims §5.162 §9, §5.165 §1).
+MATERIAL axis is not gateable on this fixture set, and since W31 it carries rows that are —
+`M1` on the body's chroma-to-structure ratio, `M2` on the structure it is read over, and since W32
+`C1` on the outer shadow's exterior SHAPE per span — macOS 27 standard profiles and the WebGPU tier
+only, each with an amendment beside the header saying why it clears both of the argument's grounds.
+`C1`'s amendment also says why the sub-metric §6.1 calls unidentifiable is STILL not gated: the
+fitted-σ candidate was declared beside `C1`, halved by W32's fit and is outside its window on all
+twelve bed × span rows, so it stays a one-wave reading, and the adopted row is the one that reads
+the falloff's shape without fitting a σ to it. All three read a cut **regenerated at the gate that
+adopts them** and re-derived from `results/matrix.json` inside the test, which is how a cut avoids
+becoming a frozen snapshot a bound can never fail against (claims §5.162 §9, §5.165 §1, §5.169 §1).
+`M2` is a regression stop rather than a fidelity bound and its reference generation is
+**re-baselined at each gate that adopts a material change** (W32 Decision Log 4, ruled), so it
+bounds one wave's change and the cumulative drift is tabled in the ledger instead of bounded
+(§5.169 §3).
 
 **A leaf at its declared identity moves no document's digest** (W31 Decision Log 1 (a), ruled; claims
 §5.161 §7b, §5.164 §2). `resolvedMaterialSha256` is taken over the fully resolved material, so before
@@ -199,7 +218,12 @@ them by `packages/calibration/test/macos27-profile-export.test.ts`, as `src/dark
 own sibling pair. `root.material` and `GlassGroupState.materialDocument` report the endpoint that
 actually drew, its digest, and whether an app tuned it — the honesty core, one axis further; in
 React the selected document itself is on `GlassRootHandle`, which is what lets `GlassToolbar`
-derive a layout number from its own material rather than from the default one.
+derive a layout number from its own material rather than from the default one. **That last route is
+the package's own and not an app's**: `useGlassRootHandle` is internal and `@vitreajs/vitrea-react`
+exports only the TYPE and `useGlassRoot`, which returns the `GlassRoot` — so a page outside the
+package resolves a document by matching the digest `GlassGroupState.materialDocument` reports
+against the endpoints of the document it built its root with, which is what the demo's `/laws/`
+shadow stage does (W32 G2; a tracker entry).
 
 **The body carries the backdrop's hue, on the WebGPU tier only** (W31, claims §5.164). After
 `colour = mix(backdrop, adapted, presentAlpha)` the composited colour's CHROMATICITY is restored
@@ -232,6 +256,30 @@ adopted on the dark document and declined on the light one with both declines re
 measurements. A leaf that is a law rather than a value has to be mirrored on both tiers and pinned
 by `tier-coherence.test.ts`; `w30-inert-laws.test.ts` holds each law's identity and the reach's
 monotonicity.
+
+**The shadow's other two lengths are fitted values, and what bounds them is a SHAPE** (W32, claims
+§5.168, §5.169). Beside that σ law the outer shadow has an outset and an offset, and until W32 both
+were inherited from the macOS 26.5 default and had never been fitted on the macOS 27 bed. They are
+now: `spreadPx` **0.50** on the light document and **1.80** on the dark one, from 3.10, and
+`offsetPx` **7.95**, refitted to itself — one leaf, the outset, moved the admitted-band objective
+by a factor of three and took the shape clause from four of twelve bed × span rows to ten on its
+own. Nothing in the repository pins either leaf as a NUMBER, deliberately: what bounds them is `C1`
+in `adopted-thresholds.test.ts`, the exterior's shape per span at ≤ 0.0042, which is a statement
+against Apple's own render rather than about a constant. The rendered σ is still 1.27–2.77 CSS px
+wider than Apple's fitted σ after all of it, which is halved and not closed and is recorded, not
+gated.
+
+**And the receded documents cast no outer shadow at all** (W32 Decision Log 2, ruled on the
+measurement): their six amplitude anchors, `liftAmplitude` and `reducedTransparencyOcclusion` are
+**0**, because Apple's unfocused window removes no light from 3 CSS px outward on any of the 121
+non-holdout inactive rows the bed carries — the native transmission reads exactly 1.000000 in every
+band and the capture is byte-identical to the backdrop from 2 device px out. Their lengths stay the
+active document's and are recorded as unread, since nothing draws at zero amplitude. What Apple's
+recede does have is one device pixel of dark stroke at the contour, which is a rim term and is not
+drawn. On the CSS tier the window-activation transition therefore fades the shadow OUT, which is
+what the reference does; on the WebGPU tier the posed profile is swapped the instant the resolved
+activation changes and the shadow leaves in one frame (a tracker entry). The frozen macOS 26.5
+receded material draws the same wrong shadow it always did and stays as it is.
 
 **The fidelity discipline.** `docs/doperpowers/specs/c9a-fidelity-claims.md` is the ledger: every
 measurement, every adopted bound, every floor and why. Work runs as waves (composite specs dated

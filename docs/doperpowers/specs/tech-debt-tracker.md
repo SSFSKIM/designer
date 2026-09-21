@@ -5068,6 +5068,51 @@ a term and the entry becomes a charter item rather than debt. Either way the
 reading is cheap once a fit exists, and G1's verdict carries the per-backdrop
 residual regardless (claims §5.166 §4).
 
+## `@vitreajs/vitrea-react`'s README documented an import that does not exist, and the capability behind it is package-internal (W32 G2, 2026-09-22)
+
+*Found while building the `/laws/` shadow stage (claims §5.169 §4), which needed
+exactly the thing the README says an app can have. Corrected in the README at
+0.22.0; the export itself is not made.*
+
+`useGlassRootHandle()` returns the `GlassRootHandle`, which carries
+`materialProfileDocument` — the document the ROOT selected, available before the
+mount effect has built the runtime, which is what lets `GlassToolbar` derive its
+gap from its own material rather than from the package default. The React
+package's README has told applications to reach it the same way since 0.20.0:
+
+```tsx
+import { useGlassRootHandle } from "@vitreajs/vitrea-react";
+```
+
+**`packages/react/src/index.ts` exports no such symbol.** It exports the
+`GlassRootHandle` TYPE and `useGlassRoot`, which returns `GlassRoot | null` — the
+runtime, not the handle — so that import has thrown since it was written, in the
+0.20.0 and 0.21.0 READMEs as published, and the capability is reachable only from
+inside the package. Nothing about `GlassToolbar` is wrong; what was wrong is the
+claim that an app can do what it does.
+
+**What an app does today**, and the `/laws/` stage is the worked example: read
+what DREW rather than what was selected. `useGlassCapabilities(groupId)` gives the
+group's resolved state, whose `materialDocument` carries `resolvedMaterialSha256`
+over the fully resolved material, so a layout matches that digest against the
+endpoints of the document it built its root with and refuses to name one when it
+matches none. That is a stronger statement than the selection — it is the material
+on the screen — and it is what `endpointByDigest` in `apps/demo/src/laws/law.ts`
+does. What it cannot do is produce a number on the FIRST render, before a frame
+has resolved a group; the toolbar's whole reason for reading the handle is that it
+must.
+
+**The shape of the work**, and why it is not done here: `export { useGlassRootHandle }`
+from `packages/react/src/index.ts` is one line and makes the README's original
+paragraph true. It is a public-surface addition and this release is a fidelity
+one, so it belongs to a wave that can state the API and test it — with the
+question that comes with it, which is whether an app should be given the
+SELECTION at all when the honesty core's whole argument is that a consumer reads
+what drew. The two answers are different APIs: the handle, or a
+`root.material`-shaped reading available before the first frame.
+
+---
+
 ## B3 is green by cancellation, and the wave that fits the exterior breaks it (W32 G1, 2026-09-21)
 
 *Measured at W32 G1 (claims §5.168) across seven rendered rounds of the same bed.
