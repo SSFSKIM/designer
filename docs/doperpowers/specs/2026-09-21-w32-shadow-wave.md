@@ -840,6 +840,12 @@ beside it says the exterior got worse, which is the opposite of what happened. R
 (at close)
 
 ## Revision Notes
+- 2026-09-22 (the parent, G1's merge): G1 merged to main as `9c4b3bce` with `--no-ff`, twenty-five
+  commits; `freeze.py verify` 1,818 at the merge; the read's capture tree copied to the canonical
+  `web-captures/` as part of the merge and the checker run there (1,900 captures, 1,893 match,
+  0 mismatch, 7 no-row — the 26.5 extras); the generation it replaced moved aside to
+  `web-captures-superseded/<sha>/` on the machine (tracker, the canonical-tree entry's merge
+  record). Gated count pinned on main: **230 / 786**. Decision Log 3 unruled, put to the user.
 
 - 2026-09-21 (G1 review closure): **G1's review closure landed on its own branch, before merge.**
   The independent review reproduced every number §5.168 records and found no measurement wrong and

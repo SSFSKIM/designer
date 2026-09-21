@@ -4358,6 +4358,18 @@ X1 forbids anyone to touch (NB2, NB5).
 
 ---
 
+**Merge record 2026-09-22 (W32 G1's merge, `9c4b3bce`).** The copy was made as the merge that
+landed the read: the worktree's tree (786 captures, 3,930 files, 71 MB) copied byte for byte to
+the canonical `packages/calibration/web-captures/`, and the checker run on the canonical tree
+afterwards reads **1,900 captures, 1,893 match, 0 mismatch, 0 misfiled, 0 superseded, 7 no-row**
+(the seven are the frozen macOS 26.5 trees' known extras). The generation the copy REPLACED —
+the six macOS 27 subtrees at documents `49490eb9ff7a` / `b5714a866288`, 3,630 files, 67 MB, the
+pixels the rows now in `results/superseded/` were measured off — was not deleted: it was moved
+on the capture machine to `packages/calibration/web-captures-superseded/<active-document-sha>/`,
+named the way `results/superseded/<sha>.json` is, gitignored beside the canonical tree. Nothing
+reads that sidecar yet; a sheet of a superseded generation would point `VITREA_WEB_CAPTURES` at
+it and the checker would class every cell `superseded` there, which is the reading it is for.
+
 ## A retention conditioned on the SURFACE is the operator's next form, and the same defect already shipped once as a policy bug (W31 G4, 2026-09-21)
 
 *Deferred by W31 Decision Log 3 (b) with its evidence measured rather than
