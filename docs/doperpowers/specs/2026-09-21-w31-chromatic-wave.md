@@ -599,8 +599,8 @@ tier's `saturate()` constants as fitted rather than authored values.
 | G1 | **MERGED** — the clause C1 declared on the departure profile's SHAPE; candidate (i) recorded as the diagnostic that points at `spreadPx`/`offsetPx`; nothing adopted, nothing fitted, no capture. **Amended beside 2026-09-21 (review closure; claims §5.162 §9), no number in this row or in §5.162 rewritten:** an independent read reproduced every figure of both statistics and found no measurement wrong; its fourteen findings, two blocking, were **all in the record**, and **no statistic, bound, count, exclusion or verdict moved**. The two blocking: the drafted C1 row read a **frozen snapshot** of the matrix, so a dated condition now requires the adopting gate to re-run `exterior-instrument.py` into its own evidence directory and point `CUT` there, and the draft gains the two provenance assertions it lacked (`atDocuments` shipped, `withHoldout` false); and the backdrop-support rule's reach is **32 `impulse` rows, fourteen carrying a non-zero `T` up to 0.004287**, not eighty rows of zeros — the 48 `dark-solid` rows identify no affine band at all — with the rule **kept** because it is the axis's own constant and admitting all 32 moves no WebGPU-tier order statistic (it moves twelve counts and two unprinted CSS-tier span-44 medians). One reason **withdrawn**: "its own lever reverses" applies to candidate (ii) too, and the choice stands on the other two and on the per-band structure. Corrections beside: the span-96 per-cell maxima are 0.00508–0.00561 and all above 0.0045; the CSS tier is NOT worse everywhere (1x dark span 160, 0.00789 against 0.00921); §6's improvement ranges are 20–54 % and 8.5–32 %; **all 726** macOS 27 rows carry a shadow axis and 602 is the non-holdout count; span 128 on the light beds is **two** gated cells; the +2.66…+3.77 gap is the **WebGPU tier's** (CSS runs −4.74…+5.36); the `spreadPx` reading assumes Apple's outset ≈ 0 and is softened, with the unfitted half verified across three documents; the bilateral σ rule is inert on today's bed; and `T` is declared **span-confounded**, with a per-span bound or a σ-normalised window named as what adoption must consider. New evidence `support-rule-check.py` / `.txt`; `test/adopted-thresholds.test.ts` untouched; freeze 1,818 at open and close | §5.162, §5.162 §9 | `results/2026-09-21-w31-g1-exterior-instrument/`, `support-rule-check.txt` |
 | G2 | **MERGED** — 11 call sites: 8 clamped, 3 proven, 0 stopped; 5 sweeps + 3 guard cases green; goldens 34/34 byte-identical; one NEW reachable NaN found and floored as an identity (`angle_delta`); both tracker entries closed; the W30 G3b residual's candidate REFUTED and the residual re-opened. **Amended beside 2026-09-21 (review closure; claims §5.163 §8), no number in this row or in §5.163 rewritten:** an independent read reproduced every figure and found **no blocking finding** and nine non-blocking ones; no material constant, leaf, document, bound, floor, row or golden moves. Two are code. **The guard's wall was the raster's peak**, so a hole inside a dim surface escaped whenever a brighter one was in frame — the review's pair read 0 against 1, and `glass-over-glass` is a two-surface scene; the wall is now read **per declared region** with candidates bounded to the declared silhouettes, which is the charter's own (c) taken literally, and the presence-0 stand-down becomes exact rather than incidental. **The cross term was never rendered**: twenty-eight readings now pair each material ladder's endpoints with spans 32 and 340, every one 0 undrawn at containment 1.0000 (`sweeps-cross.txt`). Beside them: `iou` was **containment** and is renamed in the shared module and both specs, recorded values unchanged; the refusal's **newer**-schema branch enumerated older-schema artefacts and now has its own sentence and a case that reads more than two words; `prelude.ts`'s `pow` base is **floored as an identity** (goldens byte-identical) and the site stays PROVEN because the base's ceiling is what the scanner still objects to — the split is unchanged at 8/3/0; the division count was **99**, not "over a thousand", with **three** uniform divisors and none of them a material leaf (`division-count.py`); §7's totals were a pre-merge branch reading, **2,613** at this closure's head and **2,617** after it, `test:gpu` **43**; the guard is **test-time**, in the e2e harness; and the sweep-phase residual is now its own tracker entry instead of a paragraph inside a closed one. One defect the closure found itself: merging two declared masks with a spread `push` overflowed the stack on a 340 px caster and took `w30-heavy-second-tap` down — fixed and pinned by a case. Goldens 34/34, `e2e/goldens` clean, freeze **1,818** | §5.163, §5.163 §8 | `results/2026-09-21-w31-g2-range-class/`, `sweeps-cross.txt`, `division-count.py`, `call-sites-closure.txt` |
 | G3 | **CLOSED 2026-09-21.** The leaf, the rule, the fit, the seal and the read in one branch (X10). **`bodyChromaRetention`** landed at inert identity 0 with luma held by construction — the composite bit-identical at 0, linear luma held to under two ULP of a double at every retention, and a `@gpu` case on a hardware adapter over a chromatic backdrop where ON moves 37 codes while the interior's mean luminance moves 2.5e-05. **The digest rule executed**: `MATERIAL_IDENTITY_TABLE` beside `DEFAULT_MATERIAL_PROFILE`, append-only and pinned to G0's declaration; the two frozen macOS 26.5 documents' own fields are the live pin again WITHOUT being edited; `digest-supersessions.json` became history with a test that reproduces both halves of every record; and the four macOS 27 documents re-sealed under rule 2 **reproduced the four digests G0 PREDICTED** (`62e68474…`, `c61194f8…`, `183c8949…`, `1a64247d…`) with the leaf added — the drop count moving 5/3/5/3 → 6/4/6/4 and nothing else. Two of the eight browser-read hashes came home to pre-W30 readings this file already carried. **The fit**: 0.282 light active, 0.349 light receded, 0.336 dark active, 0.142 dark receded, in two rounds, with R 0.5506→1.0486 / 0.5137→1.0205 / 0.3332→0.9994 / 0.5841→1.0170 — all four inside 0.80–1.20, every cell above the 0.60 floor, and no round C because the residuals are inside the instrument's own reproducibility. **Both stops held**: level worst |Δ| 0.04932 against 0.055 and worst GROWTH +0.00006 against 0.005; structure worst 1.317 % against 2 %, and that residual is the capture's 8-bit quantisation (it scales inversely with the cell's spread). **The CSS tier's term was derived, rendered and DECLINED on the measurement**: on the dark bed it bought 0.000 of the gap — and still 0.000 at a retention of **1** — because the tier's converted alpha leaves no backdrop for `saturate()` to act on, so §5.161 §6's dark ceiling is unreachable rather than an upper bound; on the light bed it bought 0.76–1.04 and broke the level-growth stop on 10 of 26 cells and the structure stop on 11, because `saturate()` stops preserving luminance when an sRGB channel clips. **The read**: 726 rows appended at the sealed bytes, holdout once after `configuration.py record` (which refuses a second read and was verified doing so), both append-checks green, the split moved 726 rows to two new superseded files, freeze **1,818** intact, the 27 bed back at **230 gated cells / 726 rows** with `PREDICATE_EXCLUDES` unmoved. **The verdict: the two `texture` claimed rows CLEARED** — 0.21531 → **0.14655** and 0.21341 → **0.14505** against ≤ 0.17, so `MISSED_27_ROWS` is five — and the two `dom` rows are unmoved to the fifth decimal, which is the CSS decline and is recorded as a miss. The recede's worst cell went R 0.537 → **0.9811** (1x) and 0.514 → **0.9431** (2x) with the level unmoved. Every expected-unmoved row held, the tinted rows exactly at s = 1, B3 at **0.00034**, and no native reading moved. Three residuals measured and named: a single retention SCALES the per-cell spread rather than closing it (the holdout cell overshoots at R 1.24 / 1.36 and the next form is a retention conditioned on the surface); the two accessibility documents inherit the light value and read 2.95–3.04 and 0.138; and the CSS tier carries none of the operator | §5.164 | `results/2026-09-21-w31-g3-chroma-fit/` |
-| G3c | **OPEN 2026-09-21** — the review closure and the accessibility gate (Decision Log 3 (d)) | §5.164 §13 | `results/2026-09-21-w31-g3c-accessibility-gate/` |
-| G4 | not dispatched — waits on G3c | §5.165 | `results/2026-09-21-w31-g4-landing/` |
+| G3c | **CLOSED 2026-09-21.** The fix, its read and every record finding, on one branch (X10). **The regression is fixed by the HARD GATE and the choice is a measurement**: Decision Log 3 (d)'s ruled lift rule `r · (1 − lift)` was implemented, scratch-captured on both tiers and both poses, and left the accessibility beds at **R 1.7897 / 1.1507 / 1.8324** against the 0.9096 / 0.8294 / 0.8147 they held at 0.20.0 — `1 − α` is so small under a lift of 0.75–0.98 that even a scaled retention is a large relative gain on what the plate leaves, which is Decision Log 3 (b)'s structural reading one policy level down. Under the gate all four beds return to **0.20.0's readings exactly**, and the proof is at the byte: **48 of 48 PNG rasters identical** to G3's pre-fit tree. On the standard rows the fold is an identity — 34 goldens byte-identical with no regen, **8 of 8 PNGs identical** across two calibration captures differing only in the renderer, and every standard light row and every CSS row **+0.0000** at the canonical read. `bodyChromaRetentionUnderPolicy` is an exhaustive switch on the occlusion axis folded at the uniform's pack site, because the optics uniform carries no policy and W30's rule forbids a lane for a factor the CPU holds. **The generation and the read**: a dated `$comment-w31-g3c` on the two LIGHT documents (digests unmoved and asserted unmoved; file hashes `e2fa07589d99 → 49490eb9ff7a` and `25863dccef9d → 14c6bacf2eda`), the dark pair untouched and asserted untouched, **479 rows appended** row for row, the split to `superseded/e2fa07589d99.json`, freeze **1,818**, the 27 bed back at **230 gated cells / 726 rows** with `PREDICATE_EXCLUDES` and `MISSED_27_ROWS` unmoved, B3 at **0.00033889**. **Every record finding closed beside**: the changeset and README rewritten to the CSS DECLINE and given the four SHIPPED digests (`3dc24a74…` / `8a43f541…` / `ab3ed65a…` / `e1f42c56…`, which appeared nowhere); §8 (b)'s before-readings and its false "beds that carry no bound"; §7's "every one of them DOWN" (rank 39 is +0.02004 UP, and it is the regression); §8 (a)'s spread (1.2824 → **1.6216**, not 1.28 → 1.44); §12's reproducibility, where **the two sides were normalised differently** and the dark half is worse after the fit under either; the CSS structure-stop count (**13**, not 11); the tinted rows (**147 of 148** exactly zero); and eight further corrections. Four checkers and two scripts fixed by CODE: the split's "counts add up" clause read the manifest and could not fail (now off the files, with a probe that shows it failing); `verdict.py` printed the three declared SHADOW rows as em-dashes, named a cell the bed does not carry, and could not run after the split; `tier-coherence`'s exhaustiveness case was blind to the four OPTIONAL profile keys (now a compile error) and pinned the CSS mirror against a default that is 0 forever (now against the shipped documents); and the identity table's append-only proof rested on an unpinned JSON. **Found by the closure itself**: N7 is the identity in EFFECT on mode 1 and the residual is about the TARGET on mode 2 (measured, 0 bytes and 0.066 → 0.334); §8 (b)'s before and after were over different beds | §5.164 §13 | `results/2026-09-21-w31-g3c-accessibility-gate/` |
+| G4 | not dispatched — G3c is closed and G4 is next | §5.165 | `results/2026-09-21-w31-g4-landing/` |
 
 ## Decision Log
 
@@ -844,6 +844,32 @@ until somebody charters it.
   the entry: **a guard fixed on the machine where it fired is a guard tested
   only in the state it was fixed for.**
 
+- **The smallest rule that fixes a regression is not always the ruled one, and
+  naming the fallback in advance is what makes that cheap** (2026-09-21, G3c).
+  Decision Log 3 (d) ruled the retention acting on the plate's un-lifted share,
+  `r · (1 − lift)`, with the hard gate as its fallback and the choice declared a
+  measurement. The lift rule left the accessibility beds at R 1.79 and 1.83
+  where 0.20.0 had them at 0.91 and 0.81, so the fallback shipped. What makes
+  the entry worth keeping is WHY the smaller rule failed: `1 − α` under a lift
+  of 0.75 to 0.98 is a tenth to a fiftieth of what it is nominally, and a
+  multiplicative operator restoring a constant fraction of the FULL backdrop
+  chromaticity is a larger relative gain the less the plate transmits. The
+  accessibility path and the span overshoot are the same defect measured at two
+  different axes, which is what Decision Log 3 (b) defers — and a rule derived
+  from the same wrong shape inherits it.
+
+- **A comparison can be arithmetic nobody got wrong and still not be a
+  movement** (2026-09-21, G3c). Two of the review's findings turned out to have
+  the same cause once reproduced: §12's post-fit reproducibility is normalised
+  over the pair's mean and the pre-fit figures it is compared to are normalised
+  over `R₁ₓ`; §8 (b)'s "after" is a four-cell median with the holdout in it and
+  the "before" it is read against is a three-cell median without. Every number
+  was right. The sentences built on them — "the operator did not make the
+  instrument noisier", "R went 0.9096 → 3.0374" — were not, and in the first
+  case the true reading is the opposite on half the bed. A before and an after
+  have to name the bed and the normalisation or they are two readings that
+  happen to be adjacent.
+
 - **The CSS tier already saturates.** `optics.ts`'s `backdrop-filter` carries `saturate()` at
   1.8 / 1.4, CSS-only, with no renderer counterpart and no pin; a chroma operator on the fidelity
   target now has an authored constant beside it on the derived tier that the charter's v1 called
@@ -854,6 +880,33 @@ until somebody charters it.
 *(at close)*
 
 ## Revision Notes
+
+- 2026-09-21 (G3c): **the regression is fixed by the fallback and not by the
+  rule, and that is the gate's one finding of its own** (claims §5.164 §13).
+  Four things worth carrying past this gate.
+  - **A fix ruled with a fallback is a fix that was measured.** Decision Log
+    3 (d) named the lift rule and named the hard gate as what to use if the
+    measurement did not come back. It did not — two of three beds stayed near
+    twice the reference — and the gate shipped in ten minutes of capture rather
+    than in a second ruling. The cost of naming the fallback in advance was one
+    sentence; the cost of not naming it would have been a round trip.
+  - **A defect can be structural and show up first as a policy bug.** The lift
+    rule failed for exactly the reason Decision Log 3 (b) defers: the retention
+    restores a constant fraction of the FULL backdrop chromaticity regardless of
+    what the plate transmits, so scaling it by the plate's remaining share still
+    over-restores where that share is small. The accessibility beds are the
+    same defect as the span overshoot, at a lift instead of a span.
+  - **Two numbers compared as one statistic is how "no regression" gets
+    written.** §12's "within a tenth of a point" survived because the pre-fit
+    figures divide by `R₁ₓ` and the post-fit ones divide by the pair's mean, and
+    §8 (b)'s before/after ran over a three-cell bed and a four-cell one. Neither
+    was a wrong measurement; both were comparisons of things that were not the
+    same quantity. A before and an after should name the bed and the
+    normalisation, or they are two readings sitting next to each other.
+  - **A clause that cannot fail reads PASS forever.** The split's "counts add
+    up" was `n == n` on every input and had read PASS in every gate since W30
+    G1. It was found by reading the code rather than by anything going red,
+    which is the only way that class is ever found.
 
 - 2026-09-21 (the parent): **Decision Log 3 ruled** on G3's independent review (six blocking,
   thirteen further, two addenda): the accessibility regression the review found — the retention
@@ -891,7 +944,9 @@ until somebody charters it.
     reads the material.
   - **One constant per document closes the median and widens the spread.** The
     four medians land inside the bound and the per-cell range goes from a factor
-    of 1.28 to 1.44 on the light bed, with the same components the outliers on
+    of **1.2824 to 1.6216** on the light bed (1.28 → 1.44 as first written, which
+    dropped the bed's two lowest cells; corrected 2026-09-21 by G3c's review
+    closure, claims §5.164 §13, finding F4), with the same components the outliers on
     both sides and the holdout cell overshooting at R 1.24 / 1.36. That is what
     a multiplicative operator with one constant must do, and it names the next
     form — a retention conditioned on the surface, as W30 made σ a function of

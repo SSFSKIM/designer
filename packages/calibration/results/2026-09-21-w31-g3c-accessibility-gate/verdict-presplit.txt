@@ -1,0 +1,136 @@
+W31 G3c — the verdict, before and after, regenerable after the split
+============================================================================================================
+  read  results/matrix.json
+  read  results/superseded/96b36eedf1c4.json
+  read  results/superseded/fa872c683f3e.json
+  read  results/superseded/272d1b0c3e10.json
+  read  results/superseded/f42ddec1cf5a.json
+  read  results/superseded/ce1af58886ff.json
+  read  results/superseded/d731b3838994.json
+  read  results/superseded/880ab1e31450.json
+  read  results/superseded/d0c389d70456.json
+  rows at the documents on disk (AFTER)      726
+  rows at the superseded documents (BEFORE)  726
+  keys present in both                       726
+
+(d) The four rows this wave CLAIMS — every one a holdout row
+------------------------------------------------------------------------------------------------------------
+  tier     set         scene                                   metric                bound     before      after          Δ
+  webgpu   holdout     photo__rrect-lg__rest                   oklabDeltaEP95       ≤ 0.17    0.21531    0.14655   -0.06876
+    apple-macos-27.0-1x-dark-standard-glass0.5   lever: the body's chroma retention, WebGPU tier — floor 0.06971
+  webgpu   holdout     photo__rrect-lg__rest                   oklabDeltaEP95       ≤ 0.17    0.21341    0.14505   -0.06836
+    apple-macos-27.0-2x-dark-standard-glass0.5   lever: the body's chroma retention, WebGPU tier — floor 0.06772
+  css      holdout     photo__rrect-lg__rest                   oklabDeltaEP95       ≤ 0.18    0.20095    0.20095   +0.00000
+    apple-macos-27.0-1x-dark-standard-glass0.5   lever: the retention through the CSS tier's saturate() gain — floor 0.07300
+  css      holdout     photo__rrect-lg__rest                   oklabDeltaEP95       ≤ 0.19    0.19474    0.19474   +0.00000
+    apple-macos-27.0-2x-dark-standard-glass0.5   lever: the retention through the CSS tier's saturate() gain — floor 0.07065
+
+(f) The rows declared EXPECTED UNMOVED — a move is a warning, not a result
+------------------------------------------------------------------------------------------------------------
+  tier     set         scene                                   metric                bound     before      after          Δ
+  webgpu   calibration photo__rrect-md__rest                   meanDepartureWeb  B3 0.00035    0.00164    0.00164   -0.00000
+    apple-macos-27.0-1x-dark-standard-glass0.5
+  webgpu   calibration checkerboard__rrect-md__rest            meanDepartureWeb  B3 0.00035    0.00325    0.00325   +0.00000
+    apple-macos-27.0-1x-light-standard-glass0.5
+  webgpu   calibration photo__rrect-md__rest                   falloffSigmaWeb   the σ law   12.20651   12.20651   +0.00000
+    apple-macos-27.0-1x-dark-standard-glass0.5
+  webgpu   calibration photo__rrect-md__rest                   interiorStdDevWeb      ±2 %    0.01600    0.01603   +0.00003
+    apple-macos-27.0-1x-dark-standard-glass0.5
+  webgpu   calibration photo__capsule-button__rest             interiorStdDevWeb      ±2 %    0.02034    0.02043   +0.00009
+    apple-macos-27.0-1x-dark-standard-glass0.5
+  webgpu   calibration photo__rrect-md__rest                   interiorStdDevWeb      ±2 %    0.04860    0.04854   -0.00006
+    apple-macos-27.0-1x-light-standard-glass0.5
+  webgpu   calibration photo__rrect-md__rest                   rimPeakLuminanceWeb  the rim    0.01159    0.01155   -0.00005
+    apple-macos-27.0-1x-dark-standard-glass0.5
+  webgpu   calibration photo__rrect-md__rest                   rimPeakLuminanceWeb  the rim    0.02790    0.02779   -0.00011
+    apple-macos-27.0-1x-light-standard-glass0.5
+  webgpu   calibration photo__capsule-button__rest-tint-orange tintDeltaLWeb         s = 1    0.16674    0.16674   +0.00000
+    apple-macos-27.0-1x-dark-standard-glass0.5
+  webgpu   calibration photo__capsule-button__rest-tint-orange tintDeltaLWeb         s = 1    0.11162    0.11162   +0.00000
+    apple-macos-27.0-1x-light-standard-glass0.5
+  webgpu   calibration photo__capsule-button__inactive-tint-orange-halftintDeltaLWeb       s = 0.5    0.16442    0.16452   +0.00010
+    apple-macos-27.0-1x-light-standard-glass0.5
+  webgpu   calibration photo__capsule-button__rest-tint-orange-halftintDeltaLWeb       s = 0.5    0.15187    0.15256   +0.00069
+    apple-macos-27.0-1x-light-standard-glass0.5
+
+The chroma statistic itself — R = chromaStructureRatioWeb / …Native, median over the untinted photo cells
+------------------------------------------------------------------------------------------------------------
+  tier     profile                                             pose         n     before      after          Δ
+  webgpu   apple-macos-27.0-1x-dark-standard-glass0.5          active       3          —     0.9418          —
+  webgpu   apple-macos-27.0-1x-dark-standard-glass0.5          inactive     4          —     0.9430          —
+  webgpu   apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5active       4          —     0.7834          —
+  webgpu   apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5inactive     4          —     0.1213          —
+  webgpu   apple-macos-27.0-1x-light-reduced-transparency-glass0.5active       4          —     0.9076          —
+  webgpu   apple-macos-27.0-1x-light-reduced-transparency-glass0.5inactive     4          —     0.7517          —
+  webgpu   apple-macos-27.0-1x-light-standard-glass0.5         active       7          —     1.0387          —
+  webgpu   apple-macos-27.0-1x-light-standard-glass0.5         inactive     6          —     1.0388          —
+  webgpu   apple-macos-27.0-2x-dark-standard-glass0.5          active       3          —     1.0935          —
+  webgpu   apple-macos-27.0-2x-dark-standard-glass0.5          inactive     4          —     0.9089          —
+  webgpu   apple-macos-27.0-2x-light-standard-glass0.5         active       7          —     1.0618          —
+  webgpu   apple-macos-27.0-2x-light-standard-glass0.5         inactive     6          —     0.9952          —
+  css      apple-macos-27.0-1x-dark-standard-glass0.5          active       3          —     0.9838          —
+  css      apple-macos-27.0-1x-dark-standard-glass0.5          inactive     4          —     1.0159          —
+  css      apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5active       4          —     0.8338          —
+  css      apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5inactive     4          —     0.6130          —
+  css      apple-macos-27.0-1x-light-reduced-transparency-glass0.5active       4          —     2.3201          —
+  css      apple-macos-27.0-1x-light-reduced-transparency-glass0.5inactive     4          —     1.2861          —
+  css      apple-macos-27.0-1x-light-standard-glass0.5         active       7          —     1.1184          —
+  css      apple-macos-27.0-1x-light-standard-glass0.5         inactive     6          —     1.1034          —
+  css      apple-macos-27.0-2x-dark-standard-glass0.5          active       3          —     0.9640          —
+  css      apple-macos-27.0-2x-dark-standard-glass0.5          inactive     4          —     0.9506          —
+  css      apple-macos-27.0-2x-light-standard-glass0.5         active       7          —     1.0774          —
+  css      apple-macos-27.0-2x-light-standard-glass0.5         inactive     6          —     1.0107          —
+
+(d) The reported-not-claimed residual — the matrix instrument (the sheets' is read by eye)
+------------------------------------------------------------------------------------------------------------
+  before  photo__rrect-lg__inactive               native 0.0404  web 0.0108  ratio 0.2661   the recede's worst cell (W29 §5.154 §8) — reported, not claimed
+  after   photo__rrect-lg__inactive               native 0.0404  web 0.0108  ratio 0.2659   the recede's worst cell (W29 §5.154 §8) — reported, not claimed
+  before  photo__rrect-lg__inactive               native 0.0401  web 0.0117  ratio 0.2916   the recede's worst cell at 2x — reported, not claimed
+  after   photo__rrect-lg__inactive               native 0.0401  web 0.0117  ratio 0.2917   the recede's worst cell at 2x — reported, not claimed
+
+Every row that moved most, by metric — so a change nobody declared is as visible
+------------------------------------------------------------------------------------------------------------
+  webgpu  holdout     photo__rrect-lg__rest                   oklabDeltaEP95           0.21531   0.14655  -0.06876  apple-macos-27.0-1x-dark-standard-glass0.5
+  webgpu  holdout     photo__rrect-lg__rest                   oklabDeltaEP95           0.21341   0.14505  -0.06836  apple-macos-27.0-2x-dark-standard-glass0.5
+  webgpu  holdout     photo__rrect-lg__inactive               oklabDeltaEP95           0.15177   0.10086  -0.05091  apple-macos-27.0-1x-light-standard-glass0.5
+  webgpu  holdout     photo__rrect-lg__inactive               oklabDeltaEP95           0.14902   0.09816  -0.05086  apple-macos-27.0-2x-light-standard-glass0.5
+  webgpu  calibration photo__rrect-md__rest                   oklabDeltaEP95           0.16607   0.11654  -0.04953  apple-macos-27.0-2x-dark-standard-glass0.5
+  webgpu  calibration photo__rrect-md__rest                   oklabDeltaEP95           0.16744   0.11994  -0.04750  apple-macos-27.0-1x-dark-standard-glass0.5
+  webgpu  holdout     photo__glass-over-glass__inactive       oklabDeltaEP95           0.12924   0.08208  -0.04717  apple-macos-27.0-2x-light-standard-glass0.5
+  webgpu  holdout     photo__glass-over-glass__inactive       oklabDeltaEP95           0.13252   0.08586  -0.04665  apple-macos-27.0-1x-light-standard-glass0.5
+  webgpu  calibration photo__rrect-md__inactive               oklabDeltaEP95           0.09700   0.05305  -0.04395  apple-macos-27.0-2x-light-standard-glass0.5
+  webgpu  holdout     photo__rrect-lg__rest                   oklabDeltaEP95           0.14645   0.10310  -0.04335  apple-macos-27.0-2x-light-standard-glass0.5
+  webgpu  holdout     photo__rrect-lg__rest                   oklabDeltaEP95           0.14784   0.10509  -0.04275  apple-macos-27.0-1x-light-standard-glass0.5
+  webgpu  calibration photo__rrect-md__inactive               oklabDeltaEP95           0.09978   0.05742  -0.04236  apple-macos-27.0-1x-light-standard-glass0.5
+  webgpu  calibration photo__rrect-ml__rest                   oklabDeltaEP95           0.13549   0.09522  -0.04027  apple-macos-27.0-2x-light-standard-glass0.5
+  webgpu  holdout     photo__glass-over-glass__rest           oklabDeltaEP95           0.13446   0.09456  -0.03990  apple-macos-27.0-2x-light-standard-glass0.5
+  webgpu  calibration photo__rrect-ml__rest                   oklabDeltaEP95           0.13476   0.09514  -0.03962  apple-macos-27.0-1x-light-standard-glass0.5
+  webgpu  holdout     photo__glass-over-glass__rest           oklabDeltaEP95           0.13416   0.09477  -0.03939  apple-macos-27.0-1x-light-standard-glass0.5
+  webgpu  holdout     photo__rrect-lg__inactive               oklabDeltaEP95           0.21697   0.17828  -0.03869  apple-macos-27.0-2x-dark-standard-glass0.5
+  webgpu  calibration photo__rrect-md__rest                   oklabDeltaEP95           0.10265   0.06521  -0.03744  apple-macos-27.0-2x-light-standard-glass0.5
+  webgpu  calibration photo__rrect-md__rest                   oklabDeltaEP95           0.10329   0.06681  -0.03648  apple-macos-27.0-1x-light-standard-glass0.5
+  webgpu  holdout     photo__rrect-lg__inactive               oklabDeltaEP95           0.22008   0.18450  -0.03559  apple-macos-27.0-1x-dark-standard-glass0.5
+  webgpu  calibration photo__capsule-button__inactive         oklabDeltaEP95           0.05023   0.01681  -0.03342  apple-macos-27.0-1x-light-standard-glass0.5
+  webgpu  validation  photo__toolbar-group__inactive          oklabDeltaEP95           0.05173   0.01902  -0.03271  apple-macos-27.0-1x-light-standard-glass0.5
+  webgpu  calibration photo__capsule-button__inactive         oklabDeltaEP95           0.05103   0.01910  -0.03193  apple-macos-27.0-2x-light-standard-glass0.5
+  webgpu  holdout     photo__rrect-lg__inactive               oklabDeltaEMean          0.06669   0.03728  -0.02940  apple-macos-27.0-1x-light-standard-glass0.5
+  webgpu  validation  photo__toolbar-group__inactive          oklabDeltaEP95           0.04979   0.02103  -0.02876  apple-macos-27.0-2x-light-standard-glass0.5
+  webgpu  holdout     photo__rrect-lg__inactive               oklabDeltaEMean          0.06539   0.03700  -0.02839  apple-macos-27.0-2x-light-standard-glass0.5
+  webgpu  validation  photo__toolbar-group__rest              oklabDeltaEP95           0.05591   0.02757  -0.02834  apple-macos-27.0-2x-light-standard-glass0.5
+  webgpu  calibration photo__capsule-button__rest             oklabDeltaEP95           0.05587   0.02841  -0.02745  apple-macos-27.0-1x-light-standard-glass0.5
+  webgpu  calibration photo__capsule-button__rest             oklabDeltaEP95           0.05246   0.02525  -0.02721  apple-macos-27.0-2x-light-standard-glass0.5
+  webgpu  holdout     photo__rrect-lg__rest                   oklabDeltaEMean          0.08772   0.06117  -0.02655  apple-macos-27.0-2x-dark-standard-glass0.5
+  webgpu  validation  photo__toolbar-group__rest              oklabDeltaEP95           0.05786   0.03181  -0.02604  apple-macos-27.0-1x-light-standard-glass0.5
+  webgpu  holdout     photo__rrect-lg__rest                   oklabDeltaEMean          0.08874   0.06283  -0.02591  apple-macos-27.0-1x-dark-standard-glass0.5
+  webgpu  holdout     photo__glass-over-glass__inactive       oklabDeltaEP95           0.18315   0.15941  -0.02374  apple-macos-27.0-2x-dark-standard-glass0.5
+  webgpu  holdout     photo__rrect-lg__rest                   oklabDeltaEMean          0.05997   0.03638  -0.02358  apple-macos-27.0-2x-light-standard-glass0.5
+  webgpu  holdout     photo__rrect-lg__rest                   oklabDeltaEMean          0.06088   0.03743  -0.02345  apple-macos-27.0-1x-light-standard-glass0.5
+  webgpu  holdout     photo__glass-over-glass__inactive       oklabDeltaEP95           0.18537   0.16240  -0.02297  apple-macos-27.0-1x-dark-standard-glass0.5
+  webgpu  calibration photo__capsule-button__rest             oklabDeltaEP95           0.09728   0.07448  -0.02280  apple-macos-27.0-1x-dark-standard-glass0.5
+  webgpu  calibration photo__capsule-button__rest             oklabDeltaEP95           0.09744   0.07467  -0.02277  apple-macos-27.0-2x-dark-standard-glass0.5
+  webgpu  calibration photo__rrect-md__inactive               oklabDeltaEP95           0.15217   0.13278  -0.01939  apple-macos-27.0-2x-dark-standard-glass0.5
+  webgpu  calibration photo__rrect-md__inactive               oklabDeltaEP95           0.15306   0.13444  -0.01862  apple-macos-27.0-1x-dark-standard-glass0.5
+
+  0 native readings moved (any number here but 0 is a fault, not a result)
+
+  0 declared row(s) the bed does not carry or no block holds (0 is what a correct declaration reads)
