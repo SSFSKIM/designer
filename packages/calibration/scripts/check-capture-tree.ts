@@ -72,11 +72,13 @@
  *   is the one shape of stale tree that reads as a MATCH. It exits **1** under a frozen key
  *   as well as a live one — a capture sitting in a directory it does not belong in is a
  *   fault in the copy, not a row anybody is forbidden to re-read.
- * - **frozen** — a generation mismatch under a macOS 26.5 key exits **2** rather than 1. Those rows are
- *   frozen evidence under contract X1 and no wave may re-read them, so a mismatch there is a
- *   fact about the tree on this machine and not a fault a gate can clear; reporting it with
- *   the same exit code as a live mismatch would make a merge gate un-passable for a reason
- *   nobody is allowed to fix. A live mismatch exits 1 and outranks it.
+ * - **frozen** — a GENERATION difference under a macOS 26.5 key exits **2** rather than 1.
+ *   Those rows are frozen evidence under contract X1 and no wave may re-read them, so it is
+ *   a fact about the tree on this machine and not a fault a gate can clear; reporting it
+ *   with the same exit code as a live mismatch would make a merge gate un-passable for a
+ *   reason nobody is allowed to fix. It is the exit-2 class on its own: a live mismatch, a
+ *   misfiled capture and an unreadable one all exit 1 whatever key they sit under, because
+ *   each of those is a fault in the tree rather than a reading of a row (NB5).
  * - **a capture with no row** is reported and does not fail. The bed is ragged on purpose:
  *   probe cells are read at some profiles and not others, and the contour instrument's
  *   refusals dropped rows whose captures remain (tracker). A capture without a row is
@@ -398,14 +400,24 @@ export function formatReport(report: Report, supersededOk: boolean): string {
     + `  mismatch ${total("mismatch")}  misfiled ${total("misfiled")}`
     + `  superseded ${total("superseded")}`
     + `  unreadable ${total("unreadable")}  no-row ${total("no-row")}`);
+  // Exit 0 under `--superseded-ok` with a demotion behind it is not "the same generation
+  // everywhere they meet" — the flag's whole subject is a tree that is deliberately at
+  // another one, and a verdict line that hides the demotion is the sentence somebody quotes
+  // later as proof the tree was current (review closure NB4; claims §5.167 §8).
+  const demoted = supersededOk ? total("superseded") : 0;
   out.push(
-    report.exitCode === 0
-      ? "  VERDICT  the tree and the working matrix name the same generation everywhere they meet."
-      : report.exitCode === 2
-        ? "  VERDICT  mismatches on FROZEN profiles only (exit 2). Those rows may not be re-read"
-          + " under contract X1, so this is a fact about the tree on this machine."
-        : "  VERDICT  at least one LIVE profile's capture names a generation the row does not"
-          + " (exit 1).",
+    report.exitCode === 0 && demoted > 0
+      ? `  VERDICT  ${demoted} capture${demoted === 1 ? "" : "s"} stand`
+        + `${demoted === 1 ? "s" : ""} at a superseded generation the split has RECORDED,`
+        + " demoted to a warning by --superseded-ok (exit 0). Every other capture names the"
+        + " generation its row was read at."
+      : report.exitCode === 0
+        ? "  VERDICT  the tree and the working matrix name the same generation everywhere they meet."
+        : report.exitCode === 2
+          ? "  VERDICT  generation mismatches on FROZEN profiles only (exit 2). Those rows may"
+            + " not be re-read under contract X1, so this is a fact about the tree on this machine."
+          : "  VERDICT  at least one capture is misfiled, unreadable, or names a generation its"
+            + " row does not (exit 1).",
   );
   return out.join("\n");
 }

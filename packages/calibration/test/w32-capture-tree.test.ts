@@ -196,6 +196,18 @@ describe("the capture tree against the working matrix (claims §5.167)", () => {
     expect(lenient.findings.map((f) => f.verdict)).toEqual(["superseded"]);
     expect(lenient.exitCode).toBe(0);
 
+    // Review closure NB4 (claims §5.167 §8). Exit 0 with a demotion behind it is not "the
+    // same generation everywhere they meet" — the flag's whole subject is a tree that is
+    // deliberately at another one — and a verdict line that hid it is the sentence somebody
+    // quotes later as proof the tree was current.
+    const verdict = formatReport(lenient, true);
+    expect(verdict).toContain("1 capture stands at a superseded generation the split has RECORDED");
+    expect(verdict).toContain("--superseded-ok");
+    expect(verdict).not.toContain("the same generation everywhere they meet");
+    // And the line is unchanged where the flag is on with nothing to demote.
+    expect(formatReport(check(scratch([current], [current]), true), true))
+      .toContain("the same generation everywhere they meet");
+
     // Half-recorded is not recorded: a generation whose active hash the index knows and
     // whose receded hash it does not was never split, so nobody chose it.
     const half = {
