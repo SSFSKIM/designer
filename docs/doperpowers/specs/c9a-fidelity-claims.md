@@ -32064,7 +32064,23 @@ prior is trusted.** The same fit on vitrea's own render must return the shipped
 triple, and what it returns instead is this instrument's bias: spread 3.15–3.41
 and offset 7.63–7.88 at span 32, 3.10–3.41 and 7.97–8.02 at 44, 2.82–3.41 and
 7.72–7.98 at 96 — and at 128 and 160 it does not recover them at all, landing
-anywhere from −3.26 to +8.62 in the spread. **G1 may trust a native-side prior at
+anywhere from −3.26 to +8.62 in the spread.
+
+**And the third leg, which the sentence above leaves out** (added 2026-09-21,
+review closure; §10, finding N5). The shipped triple is σ(span), spread 3.10 and
+offset 7.95, and the two legs named are the two that RECOVER. The σ leg does
+not. Against the law's own σ at that bed and span, the web fit reads **−0.34 to
+−0.55 CSS px low at span 32** (−0.34 to −0.52 under the encoded form), −0.34 to
+−0.45 at 44, and **+0.11 to +0.92 HIGH at span 96** (+0.17 to +1.13 encoded) —
+`model-fit.txt` §2's `σ web` against its `law σ`, the same rows the spread and
+the offset are read from. So what the control shows at spans 32, 44 and 96 is
+not that the instrument recovers the shipped material: it is that the instrument
+recovers the two LENGTHS and lets σ absorb the mismatch. That is the right shape
+for the finding it supports — the outset and the displacement are what §4 reads
+off Apple's render — and it carries a condition: a native-side σ from this fit is
+not a reading of Apple's blur, and B1 remains the instrument for that.
+
+**G1 may trust a native-side prior at
 spans 32, 44 and 96 and may not at 128 and 160**, which is the same boundary the
 admitted-band rule draws for a different reason. The ENCODED form —
 `(1 − A·Ψ)^2.4`, the shape the shader actually composites, since its alpha lives

@@ -508,6 +508,14 @@ model's own bias:
 | 128 | −3.26 to +7.11 | 7.56 – 8.04 | −2.17 to +3.93 |
 | 160 | −2.55 to +8.62 | 8.29 – 8.93 | −2.60 to +5.38 |
 
+**The σ leg does not recover, and that is what the third column says** (added 2026-09-21, review
+closure; claims §5.166 §10, finding N5), stated exactly: **−0.34 to −0.55 CSS px low at span 32**
+(−0.34 to −0.52 under the encoded form), −0.34 to −0.45 at 44 and **+0.11 to +0.92 high at 96**
+(+0.17 to +1.13 encoded). The control therefore shows the instrument recovering the two LENGTHS and
+letting σ absorb the mismatch — the right shape for what §5 reads off Apple's render, and a
+condition on it: a native-side σ from this fit is not a reading of Apple's blur. B1 remains the
+instrument for that.
+
 **G1 may trust a native-side prior at spans 32, 44 and 96 and may not at 128 and 160.** The encoded
 form — `(1 − A·Ψ)^2.4`, the shape the shader actually composites, since its alpha lives in the
 canvas's compositing space and the affine pair is fitted in linear light — moves the residual by
