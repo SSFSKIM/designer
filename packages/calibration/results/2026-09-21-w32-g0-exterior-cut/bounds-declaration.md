@@ -474,6 +474,24 @@ form — `(1 − A·Ψ)^2.4`, the shape the shader actually composites, since it
 canvas's compositing space and the affine pair is fitted in linear light — moves the residual by
 less than 3 × 10⁻⁶ and is recorded as a negative result: the linear form is adequate on this bed.
 
+**Corrected beside, 2026-09-21 (review closure; claims §5.166 §10, finding B3).** "Less than
+3 × 10⁻⁶" is the move at the spans the fit recovers the shipped triple at, not at every span.
+`|residual(encoded) − residual(linear)|` per bed and span, from `model-fit.json`'s `summary` block —
+§2's printed six decimals cannot resolve it:
+
+| bed | span 32 | 44 | 96 | 128 | 160 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 1x light | 2.1e−07 | 5.6e−07 | 3.0e−06 | 4.1e−06 | 3.0e−05 |
+| 2x light | 3.7e−08 | 4.9e−07 | 4.7e−06 | 3.7e−06 | 1.6e−05 |
+| 1x dark | 8.7e−09 | 3.8e−07 | 9.6e−07 | 7.3e−06 | 1.6e−04 |
+| 2x dark | 3.1e−09 | 2.2e−07 | 3.1e−05 | 4.4e−05 | 1.3e−06 |
+
+It holds at spans 32 and 44 on all four beds and at 96 on 1x light (3.0e−06) and 1x dark (0.96e−06);
+elsewhere it runs to **1.6e−04** on 1x dark at span 160. Across spans 32, 44 and 96 — the spans this
+section says a native-side prior may be trusted at — the worst move is 3.1e−05 against residuals of
+5e−04 to 4.5e−03, so the negative result stands where G1 reads it and not as a statement about the
+bed without a span.
+
 ### One-sidedness, and what it means for a fit
 
 `above` reads exactly 0.00000 on every band on both `Δa` and `Δc`, on every standard and

@@ -32033,6 +32033,29 @@ in the canvas's compositing space while the affine pair is fitted in linear ligh
 — moves the residual by less than 3 × 10⁻⁶ and is recorded as a negative result:
 the linear form is adequate on this bed.
 
+**Corrected beside, 2026-09-21 (review closure; §10, finding B3).** "Less than
+3 × 10⁻⁶" is the move at the SPANS THE FIT RECOVERS THE SHIPPED TRIPLE AT and
+not at every span. `|residual(encoded) − residual(linear)|` per bed and span,
+computed from `model-fit.json`'s `summary` block (§2's printed six decimals
+cannot resolve it):
+
+| bed | span 32 | 44 | 96 | 128 | 160 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 1x light | 2.1e−07 | 5.6e−07 | 3.0e−06 | 4.1e−06 | 3.0e−05 |
+| 2x light | 3.7e−08 | 4.9e−07 | 4.7e−06 | 3.7e−06 | 1.6e−05 |
+| 1x dark | 8.7e−09 | 3.8e−07 | 9.6e−07 | 7.3e−06 | 1.6e−04 |
+| 2x dark | 3.1e−09 | 2.2e−07 | 3.1e−05 | 4.4e−05 | 1.3e−06 |
+
+The claim holds at spans 32 and 44 on all four beds and at span 96 on 1x light
+(3.0e−06) and 1x dark (0.96e−06). Elsewhere the move runs from 3.7e−06 to
+**1.6e−04**, the worst on 1x dark at span 160, with 4.4e−05 on 2x dark at 128,
+3.1e−05 on 2x dark at 96, 3.0e−05 on 1x light at 160 and 1.6e−05 on 2x light at
+160. **The negative result survives where it is load-bearing** — the spans a
+native-side prior may be trusted at are 32, 44 and 96, the sentence just above,
+and across all four beds there the move is at most 3.1e−05 against residuals of
+5e−04 to 4.5e−03, so the linear form is adequate where G1 reads it. What it is
+not is adequate "on this bed" without a span.
+
 **One-sidedness, stated as a condition on a fit.** With σ and the spread held at
 each cell's two-sided values and only the offset and the amplitude re-fitted per
 direction, `below`'s offset reads 7.75–8.25 at every span while `above`'s runs to
