@@ -222,6 +222,8 @@ second half of the wave** — true of the LEAF commit, which is the claim being
 made; the fit that followed moved all four macOS 27 documents to
 `3dc24a74f17fd87e`, `8a43f54162606db4`, `ab3ed65aa02869b1` and
 `e1f42c5656ef392f`, as a fit must (claims §5.164 §13, findings F6 and N11).
+W32 G1's exterior fit moved them again, to `40a6dec2dc34c748`,
+`bd1814fac34f9b30`, `f34dcc03e2774db3` and `6b6237b7ae241638` (claims §5.168).
 
 `resolvedMaterialSha256` is taken over the fully resolved material, so before
 W31 a material that gained a key moved every document's digest whatever that key

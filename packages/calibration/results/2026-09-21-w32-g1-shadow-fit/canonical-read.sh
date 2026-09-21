@@ -46,10 +46,10 @@ LIGHT_RECEDED=profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json
 DARK_RECEDED=profiles/apple-macos-27.0-1x-dark-standard-glass0.5-receded.json
 
 # Filled from `sealed-documents.txt` after `seal.ts` runs, and never by hand.
-LIGHT_SHA=__LIGHT_SHA__
-DARK_SHA=__DARK_SHA__
-LIGHT_RECEDED_SHA=__LIGHT_RECEDED_SHA__
-DARK_RECEDED_SHA=__DARK_RECEDED_SHA__
+LIGHT_SHA=d5bdd6eac4323e2912d46d8d78a8f2d20f428a66f4eaac397c5e4c92413b42cf
+DARK_SHA=431cabd391c4320e67e5977489c6b5d6e282f470e2b2e01d3906f9d2f0de9345
+LIGHT_RECEDED_SHA=45acb6d916b9a37977f0b667d15e8e740b12c2d68485734ea8b324ad7f30c179
+DARK_RECEDED_SHA=4e68f81869f6328c9f995be042cca593fdf91f25a8b22ac9c27f38b110f68656
 
 check() {
   local got

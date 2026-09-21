@@ -1,10 +1,17 @@
 {
   "$comment": [
     "Every holdout read of the macOS 27 bed, by frozen configuration",
-    "(W31 Decision Log 1 (b); claims \u00a75.164 \u00a76). APPEND-ONLY: a recorded",
-    "read is never rewritten, and `configuration.py record` refuses a",
-    "second entry at document hashes already here unless the source hash",
-    "moved for a named non-fit reason."
+    "(W31 Decision Log 1 (b); claims \u00a75.164 \u00a76, \u00a75.167). APPEND-ONLY: a",
+    "recorded read is never rewritten, and `configuration.py record`",
+    "refuses a second entry at document hashes already here unless the",
+    "source hash moved for a named non-fit reason.",
+    "",
+    "This is the CROSS-GATE ledger at results/holdout-configuration/,",
+    "seeded byte for byte from W31 G3's log at W32 G0b and not copied",
+    "per gate: a copy starts empty, and an empty log refuses nothing.",
+    "The first two reads below are W31 G3's and W31 G3c's, and they",
+    "predate `sourceListSha256`, which W32 G0b added so that a later",
+    "widening of the source list is visible in the record."
   ],
   "reads": [
     {
@@ -33,6 +40,20 @@
       "sourceSha256": "4dc62ce36fd48567aa7f377405508a2d628cce4b0ce2d4fc77c6516f14e42115",
       "sourceFileCount": 14,
       "sourceMovedBecause": "Decision Log 3 (d): the retention scaled by the plate's un-lifted share; documents' digests unmoved"
+    },
+    {
+      "at": "2026-09-21T14:21:52Z",
+      "head": "742e2446",
+      "claims": "c9a \u00a75.168",
+      "documents": {
+        "apple-macos-27.0-1x-light-standard-glass0.5.json": "d5bdd6eac4323e2912d46d8d78a8f2d20f428a66f4eaac397c5e4c92413b42cf",
+        "apple-macos-27.0-1x-dark-standard-glass0.5.json": "431cabd391c4320e67e5977489c6b5d6e282f470e2b2e01d3906f9d2f0de9345",
+        "apple-macos-27.0-1x-light-standard-glass0.5-receded.json": "45acb6d916b9a37977f0b667d15e8e740b12c2d68485734ea8b324ad7f30c179",
+        "apple-macos-27.0-1x-dark-standard-glass0.5-receded.json": "4e68f81869f6328c9f995be042cca593fdf91f25a8b22ac9c27f38b110f68656"
+      },
+      "sourceSha256": "51e3c7be5395484878cbcfbe87954632f43e654ef84a1788763614ebaa8cfead",
+      "sourceFileCount": 14,
+      "sourceListSha256": "c16d6294a00c8ac770781701b2154d636c7b287490526d49f3782aa1d2102a9d"
     }
   ]
 }

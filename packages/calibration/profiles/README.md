@@ -12,6 +12,30 @@ from 0.19.0, with a receded document per scheme carrying the unfocused-window
 difference over its own scheme's active document. `apple-macos-26.5.seed.json` is
 not a patch document and carries no digest.
 
+**The outer shadow's three lengths, since W32 G1** (claims §5.168). `spreadPx` —
+the outset the silhouette is grown by before it is blurred — is **0.50** CSS px
+on the light document and **1.80** on the dark one; it was 3.10 in every document
+that carried it, inherited from the macOS 26.5 default and never fitted on the
+macOS 27 bed, and Apple's own outset measures about half a pixel (W32 G0, claims
+§5.166 §4). The two schemes carry different values because the dark bed refuses
+the light bed's by 2.7 times the noise bar at span 160, which is a measurement
+and not a convention. `offsetPx` is **7.95** on both and is the macOS 26.5
+default unmoved: a rendered coordinate step to 7.65, the low end of the interval
+Apple's own offset was read in, moves the fit's objective by 4 × 10⁻⁷. The σ law
+is `sigmaPx` 8.96 with slope 0.1314 on the light document and 9.04 with slope
+0.1215 on the dark one, both inside B1's joint windows at these bytes.
+
+**And the two RECEDED documents carry an outer shadow of amplitude 0** — the six
+occlusion anchors, `liftAmplitude` and their own `reducedTransparencyOcclusion`
+(W32 Decision Log 2, ruled). That is a DECLARED reading and not a fit: Apple's
+receded window removes no light at all from 3 CSS px outward, on 121 of 121
+non-holdout inactive cells of the macOS 27 bed, 153 of 153 with the holdout and
+235 of 235 on the frozen macOS 26.5 bed, and what it does draw is one device
+pixel of dark stroke at the contour, which is a rim term. Both receded documents
+had carried their active document's anchors leaf for leaf, so vitrea drew the
+ACTIVE shadow in the inactive pose. A receded document names no length of its
+own — nothing draws at zero amplitude, so the bed cannot read one.
+
 ## Two rules, and one file that exists because of them
 
 **A document's bytes are an input to every bound stated over its bed.**

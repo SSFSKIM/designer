@@ -287,8 +287,25 @@ resolved state name the endpoint that actually drew — its profile key, its
 root.material;
 // { name: "apple-macos-27.0-glass0.5", platform: "macOS 27.0",
 //   profileKey: "apple-macos-27.0-1x-dark-standard-glass0.5-receded",
-//   resolvedMaterialSha256: "e1f42c5656ef392f", tuned: false }
+//   resolvedMaterialSha256: "6b6237b7ae241638", tuned: false }
 ```
+
+**The four digests moved again at 0.22.0, and this time the shadow's EXTERIOR
+did** (claims §5.168). `spreadPx` — the distance the shadow's silhouette is grown
+by before it is blurred — was 3.10 CSS px inherited from the macOS 26.5 default
+and had never been fitted on the macOS 27 bed; it ships at **0.50** on the light
+document and **1.80** on the dark one, which are the two beds' own readings, with
+`offsetPx` unmoved at 7.95 because a rendered coordinate step over Apple's own
+interval moves the fit's objective by 4 × 10⁻⁷. The six occlusion anchors are
+re-solved against what the shadow does between 3 and 48 CSS px, and the dark
+document's σ slope moves inside B1's window. **And the two RECEDED documents'
+amplitude is 0**: Apple's unfocused window removes no light at all from 3 CSS px
+outward, on 121 of 121 non-holdout inactive cells and 235 of 235 on the frozen
+macOS 26.5 bed, where vitrea had been drawing the active shadow leaf for leaf. So
+a window that loses focus now fades its shadow out, which is what the reference
+does, and `outerShadowReachPx` returns 0 in that pose. The four digests are
+`40a6dec2dc34c748` (light), `bd1814fac34f9b30` (dark), `f34dcc03e2774db3` (light
+receded) and `6b6237b7ae241638` (dark receded).
 
 **That digest moved at 0.21.0, and one of the two reasons is not a rendering
 change.** The four macOS 27 documents were refitted — `3dc24a74f17fd87e` (light),

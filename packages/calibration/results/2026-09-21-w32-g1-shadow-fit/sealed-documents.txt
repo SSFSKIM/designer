@@ -1,0 +1,33 @@
+== X1: the frozen macOS 26.5 documents, under rule 2 ==
+  apple-macos-26.5-1x-light-standard
+    recorded in the document  b2b570e4adcea8fb
+    rule 1 (plain)            e3a93c54e5ba60a2
+    rule 2 (under the table)  b2b570e4adcea8fb   dropped 9: bodyChromaRetention, outerShadow.sigmaSlopePerSpan, outerShadow.sigmaSpanRefPx, outerShadow.sigmaThinOffsetPx, sizeHeavySecondShare, sizeHeavySecondSigma, sizeHeavySecondSigma2x, sizeScatterScaleGain, sizeScatterScaleRef
+  apple-macos-26.5-1x-dark-standard
+    recorded in the document  874be66ea501621b
+    rule 1 (plain)            ade6eb6567c25d0d
+    rule 2 (under the table)  874be66ea501621b   dropped 9: bodyChromaRetention, outerShadow.sigmaSlopePerSpan, outerShadow.sigmaSpanRefPx, outerShadow.sigmaThinOffsetPx, sizeHeavySecondShare, sizeHeavySecondSigma, sizeHeavySecondSigma2x, sizeScatterScaleGain, sizeScatterScaleRef
+
+== the four macOS 27 documents, re-sealed under rule 2 ==
+sealed apple-macos-27.0-1x-light-standard-glass0.5
+  was                    3dc24a74f17fd87e (rule 2)
+  resolvedMaterialSha256 40a6dec2dc34c748 (rule 2)
+  dropped (5)          sizeHeavySecondShare, sizeHeavySecondSigma, sizeHeavySecondSigma2x, sizeScatterScaleGain, sizeScatterScaleRef
+  document sha256        d5bdd6eac4323e2912d46d8d78a8f2d20f428a66f4eaac397c5e4c92413b42cf
+sealed apple-macos-27.0-1x-dark-standard-glass0.5
+  was                    8a43f54162606db4 (rule 2)
+  resolvedMaterialSha256 bd1814fac34f9b30 (rule 2)
+  dropped (3)          sizeHeavySecondShare, sizeHeavySecondSigma, sizeHeavySecondSigma2x
+  document sha256        431cabd391c4320e67e5977489c6b5d6e282f470e2b2e01d3906f9d2f0de9345
+sealed apple-macos-27.0-1x-light-standard-glass0.5-receded
+  was                    ab3ed65aa02869b1 (rule 2)
+  resolvedMaterialSha256 f34dcc03e2774db3 (rule 2)
+  dropped (5)          sizeHeavySecondShare, sizeHeavySecondSigma, sizeHeavySecondSigma2x, sizeScatterScaleGain, sizeScatterScaleRef
+  document sha256        45acb6d916b9a37977f0b667d15e8e740b12c2d68485734ea8b324ad7f30c179
+sealed apple-macos-27.0-1x-dark-standard-glass0.5-receded
+  was                    e1f42c5656ef392f (rule 2)
+  resolvedMaterialSha256 6b6237b7ae241638 (rule 2)
+  dropped (3)          sizeHeavySecondShare, sizeHeavySecondSigma, sizeHeavySecondSigma2x
+  document sha256        4e68f81869f6328c9f995be042cca593fdf91f25a8b22ac9c27f38b110f68656
+
+SEAL OK

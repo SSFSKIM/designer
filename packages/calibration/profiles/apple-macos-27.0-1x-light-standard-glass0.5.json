@@ -36,7 +36,7 @@
   "colorSpace": "srgb",
   "supersedesDefaultsOf": "@vitrea/renderer-webgpu DEFAULT_MATERIAL_PROFILE",
   "supersedes": "apple-macos-26.5-1x-light-standard",
-  "resolvedMaterialSha256": "3dc24a74f17fd87e",
+  "resolvedMaterialSha256": "40a6dec2dc34c748",
   "resolvedMaterialSha256Rule": 2,
   "measurement": {
     "fixtures": "apps/reference-apple/fixtures/apple-macos-27.0-1x-light-standard-glass0.5 and -2x-, the W29 G1 bed at seven runs per cell, slider 0.5",
@@ -91,11 +91,11 @@
     "tintShadeStrength": 1,
     "outerShadow": {
       "thinOcclusionDark": 0,
-      "thinOcclusionMid": 0.068,
-      "thinOcclusionBright": 0.0683,
-      "thickOcclusionAt96": 0.1158,
-      "thickOcclusionAt128": 0.1827,
-      "thickOcclusionAt160": 0.26,
+      "thinOcclusionMid": 0.0244,
+      "thinOcclusionBright": 0.0227,
+      "thickOcclusionAt96": 0.0961,
+      "thickOcclusionAt128": 0.1797,
+      "thickOcclusionAt160": 0.2717,
       "liftAmplitude": 0.001,
       "liftSpanMin": 64,
       "liftSpanFull": 118,
@@ -103,7 +103,7 @@
       "reducedTransparencyOcclusion": 0.087,
       "offsetPx": 7.95,
       "sigmaPx": 8.96,
-      "spreadPx": 3.1,
+      "spreadPx": 0.5,
       "sizeGain": 0,
       "sigmaSlopePerSpan": 0.1314,
       "sigmaSpanRefPx": 96,
@@ -633,7 +633,8 @@
   "$comment-sha-history": [
     "e825cb034c9070e4 — sealed by W29 G3b (claims §5.154 §7). Between that seal and this one, W30 G2's eight inert operator leaves moved what this document's pin RESOLVES to without moving its bytes, and profiles/digest-supersessions.json recorded the interval's reading as 8d06a41cb70ba52f (claims §5.158 §3). This document is re-sealed at 3a2513742936ceb1 by W30 G3, which gives those leaves values (claims §5.159); the macOS 27 records leave that file in the same commit and the two frozen macOS 26.5 records stay.",
     "3a2513742936ceb1 — the reading under rule 1 (the plain resolved fingerprint). Re-sealed at 62e684744954580b under rule 2, the inert-identity rule of W31 Decision Log 1 (a): the same SHA-256 over the same resolved material with MATERIAL_IDENTITY_TABLE's entries dropped where their gates hold. W31 G3 — the digest rule lands (claims §5.164)",
-    "62e684744954580b — the reading under rule 2 (the plain resolved fingerprint). Re-sealed at 3dc24a74f17fd87e under rule 2, the inert-identity rule of W31 Decision Log 1 (a): the same SHA-256 over the same resolved material with MATERIAL_IDENTITY_TABLE's entries dropped where their gates hold. W31 G3 — the chroma retention fitted into the four documents (claims §5.164 §4)"
+    "62e684744954580b — the reading under rule 2 (the plain resolved fingerprint). Re-sealed at 3dc24a74f17fd87e under rule 2, the inert-identity rule of W31 Decision Log 1 (a): the same SHA-256 over the same resolved material with MATERIAL_IDENTITY_TABLE's entries dropped where their gates hold. W31 G3 — the chroma retention fitted into the four documents (claims §5.164 §4)",
+    "3dc24a74f17fd87e — the reading under rule 2 (the fingerprint of materialDigestInput(resolved) — the resolved material with MATERIAL_IDENTITY_TABLE's entries dropped where their gates hold their identities). Re-sealed at 40a6dec2dc34c748 under rule 2, the inert-identity rule of W31 Decision Log 1 (a): the same SHA-256 over the same resolved material with MATERIAL_IDENTITY_TABLE's entries dropped where their gates hold. W32 G1 — the outer shadow's exterior fitted as a whole: the outset per scheme, the six anchors re-solved against the 3-48 CSS px window, the dark document's σ slope inside B1, and the receded documents' amplitude stood down to 0 (claims §5.168; W32 Decision Log 2)"
   ],
   "$comment-w30-g3b": "2026-09-20, W30 G3b — the rows read at THESE bytes were captured at a renderer that draws the thin regime whole. At a casting span of 44 CSS px this document's own σ law draws σ = 2.13, and the optics pass's shadow falloff returned NaN more than 10.06 σ inside the shadow's silhouette — f32's exp overflowing inside tanh — which left a strip of a 44 px surface undrawn and put 170 texture cells outside W20's adopted declaration conformance (claims §5.159 §6, diagnosed and fixed in §5.159b, commit 35ce02b1). No constant of this document moved and no material moved: resolvedMaterialSha256 is unchanged and asserted unchanged by results/2026-09-20-w30-g3b-thin-strip/comment-generation.ts, which is what makes the re-read a generation of its own (charter Decision Log 5 (b)) rather than an overwrite of W30 G3's rows — those live in results/superseded/ by name.",
   "$comment-w31-g3c": "2026-09-21, W31 G3c — the rows read at THESE bytes were captured at a renderer in which bodyChromaRetention STANDS DOWN under an accessibility occlusion lift. W31 G3 applied the retention unconditionally, and Reduce Transparency and Increase Contrast are this document plus a lift of 0.75 (active) and 0.88/0.98 (receded, per preference), so the plate covers alpha + lift*(1 - alpha) of the backdrop there and the nominal retention restored a fraction of a chromaticity the preference had asked to have covered up: R went 0.9096 -> 3.0514 (reduced transparency, active), 0.8294 -> 2.1195 (its inactive pose) and 0.8147 -> 3.1700 (increased contrast, active), three beds inside the wave's own 0.80-1.20 band at 0.20.0. Decision Log 3 (d) ruled the fix and its fallback; the lift rule r*(1 - lift) was measured and left those beds at 1.7897 / 1.1507 / 1.8324, so the HARD GATE is what ships (claims §5.164 §13, commit c01ea4e2). No constant of this document moved and no material moved: resolvedMaterialSha256 is unchanged and asserted unchanged by results/2026-09-21-w31-g3c-accessibility-gate/comment-generation.ts, which is what makes the re-read a generation of its own rather than an overwrite of W31 G3's rows — those live in results/superseded/ by name. The two DARK documents carry no such line: the gate is the identity on every row they key, there is no dark accessibility profile in the bed, and their bytes are asserted unmoved by the same script.",
