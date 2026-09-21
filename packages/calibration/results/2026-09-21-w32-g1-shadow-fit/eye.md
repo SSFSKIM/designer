@@ -7,10 +7,12 @@ active document AND the receded one — before a pixel is copied. Layout: **nati
 ladder's probe scenes are captured on the CSS tier only on the two 1x standard profiles, which is
 the read's shape and not a choice made here).
 
-Two cells are named rather than photographed, because the profiles do not declare them: the dark
-documents carry no `photo__rrect-ml__rest` and no holdout `checkerboard__rrect-lg`, so the span-128
-ACTIVE sheet on the dark beds is the ladder's `checkerboard-8` rung and the far-halo cell appears
-on the light beds alone.
+Two cells are named rather than photographed, and it is the PROFILE's scene declaration in
+`scenes.json` that decides it, not the document: the two dark standard profiles declare neither
+`photo__rrect-ml__rest` nor `checkerboard__rrect-lg__inactive`, so the span-128 ACTIVE sheet on the
+dark beds is the ladder's `checkerboard-8` rung and the far-halo cell appears on the light beds
+alone — where it exists on a sheet at all only because `checkerboard__rrect-lg__inactive` is a
+HOLDOUT scene and this gate read the holdout once at these bytes.
 
 **Metrics are not the whole verdict** and this file is the other half. What follows is what the
 sheets show, including where they show something the numbers do not.
@@ -97,9 +99,12 @@ is nearly flat grey; vitrea's shows the checker through it. That is the receded 
 §5.154 §9's open item and the tracker's, not this wave's — and with the halo removed it is now the
 only thing on that sheet.
 
-**And the hairline is visible.** On `photo__rrect-ml__inactive` at 1x dark the native panel shows a
-thin dark stroke following the body's contour that neither vitrea panel draws, and the ΔE panel
-shows it as a closed bright outline exactly one to two pixels wide. That is the one device pixel
+**And the hairline is legible in the NATIVE panel.** On `photo__rrect-ml__inactive` at 1x dark the
+native panel itself shows a thin dark stroke following the body's contour that neither vitrea panel
+draws — that is where it is read, and its width is §5.166 §7's measurement off the fixture pixels
+rather than anything counted on a sheet. The ΔE panel carries a bright closed outline in the same
+place, and after finding B-4 that panel is not evidence of width on its own: an amplified OKLab
+distance over a dark backdrop is bright wherever the two sides differ at all. That is the one device pixel
 §5.166 §7's closure measured off the fixture PNGs, and it is now the whole of Apple's receded
 exterior that vitrea does not have. It is a RIM term and this wave's Deferred list names it.
 
@@ -111,7 +116,11 @@ exterior that vitrea does not have. It is a RIM term and this wave's Deferred li
 - **The CSS tier's exterior now tracks the WebGPU tier's by eye at every span**, which is the
   mirror carrying all three lengths. Where the two panels differ is the interior, and at span 160
   the difference is large.
-- **No sheet shows a shadow that is too SHORT.** The residual extent after the fit is +0.00 to
-  +3.50 CSS px across twelve backdrops (`anchor-solve.txt` §6), all of it positive; the fit did not
-  overshoot anywhere the eye can see, which is what a spread of 0.50 against Apple's measured
-  0.0–1.0 should produce.
+- **No sheet shows a shadow that is too SHORT.** The residual extent after the fit is −0.50 to
+  +3.50 CSS px across the NINE backdrops `anchor-solve.txt` §6 tables, and exactly one of its
+  thirty-nine rows is negative — `32 photo`, 8.50 native against 8.00 web. Everywhere else
+  vitrea's extent is still the wider of the two, which is what a spread of 0.50 against Apple's
+  measured 0.0–1.0 should produce. *(Corrected 2026-09-21, W32 G1 review closure; claims §5.168
+  §10, finding N-4: this bullet said "+0.00 to +3.50 CSS px across twelve backdrops, all of it
+  positive". Twelve is §5.166 §10's NATIVE reading over a different table. Half a CSS pixel at
+  span 32 is below what the sheets resolve, so the bullet's heading stands.)*

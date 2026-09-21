@@ -176,9 +176,17 @@ test("a visibility event or synthetic blur cannot invent document inactivity", a
  * dark document's σ slope inside B1, and **stands the two receded documents'
  * amplitude down to 0**, because Apple's receded window removes no light at all
  * from 3 CSS px outward (W32 Decision Log 2). So the two INACTIVE readings here
- * are now a material that draws no outer shadow, and the crossfade this spec
- * exercises fades the shadow OUT on deactivation, which is what the reference
- * does. The four readings before this move are `3dc24a74…`, `ab3ed65a…`,
+ * are now a material that draws no outer shadow, and on the CSS tier the
+ * shadow fades OUT on deactivation, which is what the reference does —
+ * `css-tier.ts` declares a transition on `box-shadow` on the element carrying
+ * it. On the WebGPU tier it does not: `root.ts` swaps the posed profile the
+ * instant the resolved activation changes and `receded-profile.ts` says the two
+ * endpoints are fixed rather than interpolated, so the shadow disappears in one
+ * frame. *(Corrected 2026-09-21, W32 G1 review closure; claims §5.168 §10,
+ * finding N-12: this comment said "the crossfade this spec exercises fades the
+ * shadow OUT on deactivation" without the tier. The digests below are
+ * unaffected — a discrete swap and an interpolated one seal the same bytes.)*
+ * The four readings before this move are `3dc24a74…`, `ab3ed65a…`,
  * `8a43f541…` and `e1f42c56…`, kept here rather than deleted; the four macOS
  * 26.5 readings are untouched, because a frozen document's bytes cannot move.
  */

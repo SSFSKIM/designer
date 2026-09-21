@@ -42,9 +42,41 @@ bundle was never rebuilt, and nothing under a macOS 26.5-keyed path was opened f
 | `render-bed.sh`, `round.sh`, `ladder.sh` | W31 G3's `round.sh` / `scratch-capture.sh` fused and widened; `ladder.sh` is the one place the read set is named |
 | `repro.py` | new — the pre-fit bed against the committed rows, cell by cell |
 | `check-ladder-fixtures.py` | new — the widened ladder's fixtures per profile directory |
-| `seal.ts`, `digest-sites.md`, `append-check.py`, `read-append-check.py` | W31 G3's, byte for byte (`seal.ts` takes its reason on the command line) |
+| `digest-sites.md`, `append-check.py` | W31 G3's, **byte for byte** — verified with `cmp` at the review closure |
+| `seal.ts` | W31 **G3c**'s corrected template, plus **one addition**: it writes the `$comment-sha-history-correction` into the two DARK documents, which G3c could not do because X10 forbade it their bytes (W31 Deferred item 14, closed here). Its docstring names the change and keeps G3c's header below it |
+| `read-append-check.py` | W31 G3's, with **one change** its own docstring states: `snapshot` may be taken of a NAMED matrix rather than of the live one, because this gate's read had already run when the omission was noticed and the "before" it needs is the seal commit's blob. With no argument it is W31 G3's function exactly |
 | `canonical-read.sh` | W31 G3's, with this gate's four sealed hashes and the widened `LADDER` sourced from `ladder.sh` |
-| `sheets.ts` | W31 G4's, byte for byte — its per-cell document-bytes assertion is the point |
+| `sheets.ts` | W31 G4's, with **its BED changed and nothing else** — the per-cell document-bytes assertion, the panel layout, the ΔE × 8 panel and the refusal are G4's and are the reason it was the file copied. The bed is the exterior's: three spans in both poses on all four standard profiles, plus the holdout far-halo cell |
+
+*(This table's first three rows read "W31 G3's, byte for byte" for `seal.ts`,
+`read-append-check.py` and `sheets.ts` until the review closure, 2026-09-21;
+claims §5.168 §10, findings N-9 and the same class. Two of the three carry this
+gate's own changes and the third is G3c's file rather than G3's. Nothing the
+scripts DID changes; what was wrong was the provenance beside them, which is the
+"unchanged, checked" class `CLAUDE.md` names.)*
+
+## Three files that will read oddly if taken at face value
+
+- **`digest-sites.md` is W31 G3's file byte for byte, two seals behind.** It is a
+  CHECKLIST of the places a moved digest has to reach, not a record of any
+  digest: the hashes inside it are W31 G3's and were already stale at G3c. **This
+  gate's four digests are the four in `verdict.txt` and in claims §5.168 §5**, and
+  the list of sites they were carried to is that section's "Every digest site,
+  moved" paragraph. The file is not edited, because nothing under `results/` is
+  edited after commit (review closure, finding N-10).
+- **`c1-forms.txt` prints 8 of 12 rows FAIL in its §2, and C1 PASSES.** That
+  script is G0's and re-derives form (ii)'s bound from the generation it is
+  pointed at by the charter's clause-2 rule — on the FITTED bed that rule returns
+  **0.0013**, and eight rows miss it. The bound Decision Log 1 (c) RULED is
+  **0.0042**, derived from the pre-fit bed before the fit existed, and `verdict.py`
+  reads C1 against that: **twelve of twelve PASS**. A bound re-derived on the bed
+  it is being read against is a moving target and is not the ruled clause
+  (review closure, finding N-11).
+- **`verdict.txt` §7's three `chromaStructureRatioR` rows print a frozen cut
+  beside a re-derived reading.** `stops.py` reads M1 and M2 out of W31 G4's
+  committed `chroma-cut.json`, which is one number per cell and does not move
+  when a round does; §7 now prints that value and, beside it, the same statistic
+  re-derived from the matrix this gate wrote (review closure, finding N-14).
 
 ## To reproduce
 

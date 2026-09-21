@@ -598,11 +598,49 @@ stand-down confirmed by one round: the declared judgement "the inactive departur
 has a zero denominator on every bed, so the verdict is the inactive window-restricted departure on
 the web side going to 0 (native 0.000000) and the residual inactive `T` being the `0-3` band's
 alone; the halo cell is on the sheets before and after. The window-activation crossfade now fades
-the shadow out on deactivation, which is what the reference does; the inactive reach becomes 0 and
+the shadow out on deactivation **on the CSS tier**, which is what the reference does; on the WebGPU
+tier it disappears in one frame (corrected 2026-09-21, G1 review closure; claims §5.168 §10, finding
+N-12 — `css-tier.ts` transitions `box-shadow`, `root.ts` swaps the posed profile the instant the
+resolved activation changes, and `receded-profile.ts` says the two endpoints are not an interpolated
+pose; the crossfade that would close it is a tracker entry). The inactive reach becomes 0 and
 the group clip in the inactive pose shrinks with it — recorded in the tracker's padding entry (X8:
 the advisory constant does not move). The 26.5 receded material, frozen, draws the same wrong
 shadow and stays as it is (X1); a tracker entry records it. The hairline is not this wave's
 (Deferred: a rim term).
+
+### Decision Log 3 — PUT TO THE USER 2026-09-22 by the parent, at G1's close: B3 could not have been kept, and its re-statement is a bound's re-pin
+
+**What happened.** B3 — the shadow's departure residual over the WHOLE exterior, ≤ 0.00035 on the
+WebGPU tier, a stop W30 declared and W31 and this wave carried — reads **0.00072** at G1's read,
+from 0.00034 before. It broke in two halves and neither is a fitted length. The INACTIVE half
+moved first, from 0.00039 to 0.00080 per inactive cell (0.00054 pooled), at the round that
+executed Decision Log 2 (the recede's amplitude to 0) before a single length changed, because
+Apple's receded exterior is a one-pixel contour stroke vitrea does not draw and B3 now reads that
+stroke uncancelled. The ACTIVE half moved from 0.00029 to 0.00064 because B3 pools the `0-3` band,
+where vitrea's body over-fills its declared contour (`Δa` +0.089…+0.151, §5.62), and that positive
+error had been CANCELLING the 3–48 px exterior's negative one; the fit removed the exterior's error
+and left the over-fill's standing. The same statistic over the admitted bands (3–48 px) reads
+**0.00122 → 0.00006**.
+
+**It was unattainable once Decision Log 2 was ruled**, by arithmetic over B3's own 166 cells (85
+active, 81 inactive): the inactive half alone after the stand-down contributes
+81 × 0.00080 / 166 = 0.000390 > 0.00035, so B3 fails with a PERFECT active half; and without the
+stand-down, the fitted active half alone gives (85 × 0.00064 + 81 × 0.00039) / 166 = 0.000518. No
+choice of anchors, lengths or fit order kept it. Recorded, not widened, not re-fitted (X4); the cut
+is prepared with it disclosed (G1's independent review, N-2).
+
+**The parent recommends (a): re-state B3 over the admitted bands, both poses, with the bound
+re-derived by clause 2's rule from the bed at the read**, so the stop reads the shadow and not the
+body's edge. The `0-3` band's over-fill keeps its own entry (§5.62; tracker) and the receded
+contour hairline its own (Deferred: a rim term). Alternative (b): keep B3 as stated and record it
+broken at every cut until a rim wave draws the stroke and a silhouette wave closes the over-fill —
+honest, and it makes B3 a standing red that reads nothing about the shadow. Alternative (c):
+re-state over the active pose only with `0-3` excluded — narrower than (a), and it drops the
+inactive pose from the stop just as the recede became a measured zero.
+
+Under (a) the number is a rule's output, not this wave's choice; under any of the three the
+verdict at §5.168 stands as written. Until it is ruled, 0.00072 read without `b3-window.py`
+beside it says the exterior got worse, which is the opposite of what happened. Ruled: ______.
 
 ## Surprises & Discoveries
 
@@ -612,8 +650,17 @@ shadow and stays as it is (X1); a tracker entry records it. The hairline is not 
   admitted-band objective 0.00480 → 0.00176 and 0.00381 → 0.00225 and takes C1
   from four of twelve bed × span rows passing to **ten**. The anchors, re-solved
   in closed form against the window, take it to twelve. The charter budgeted ten
-  rounds for a four-parameter joint fit; the fit converged in seven, and the
-  first of them did most of it.
+  rounds for a four-parameter joint fit; the fit used seven of them and the first
+  did most of it.
+  **Said plainly, 2026-09-21 (review closure; claims §5.168 §10, finding N-6):**
+  "converged in seven" is the budget, not a claim that each leaf was refined to a
+  minimum. The declared convergence test is REPEATABILITY at one candidate and
+  round E met it. The two LENGTHS were sampled rather than refined — the light
+  `spreadPx` took two values across the whole fit (3.10, 0.50) and the dark one
+  three (3.10, 1.80, 0.50), with nothing between them tried — so what ships is
+  the best of the sampled points under every declared stop, with 0.50 being the
+  centre of Apple's own measured outset interval [0, 1] rather than a located
+  minimum. The σ law and the six anchors are solved; the lengths are chosen.
 - **B3 was green by CANCELLATION, and the wave that fixes the exterior breaks it
   — before a single length moves** (W32 G1, claims §5.168 §7; a tracker entry).
   The stop reads 0.00034 at the shipped documents and 0.00072 at the fitted ones,
@@ -633,16 +680,37 @@ shadow and stays as it is (X1); a tracker entry records it. The hairline is not 
   displacement ships unmoved at the macOS 26.5 default. The window DEPARTURE is
   not flat in the offset, which is why a closed-form anchor solve is only valid
   at the geometry it was taken on.
+- **B2 moves the OPPOSITE way to the exterior it is supposed to describe** (W32
+  G1, claims §5.168 §7; added 2026-09-21, review closure, finding N-3). B2 — the
+  law's σ at span 44 against the bed's own measured thin σ, ≤ 1.5×, not adopted
+  (§5.156 §5 (b), §5.159) — reads **1.7622 of 1.5** at the sealed dark constants
+  against 1.3387 at the fit's unrounded ones. Holding the knee at 44 while the
+  slope drops 0.1340 → 0.1215 re-derives the thin offset −6.968 → −6.318, so the
+  thin line rises 2.072 → **2.722** CSS px against Apple's dark thin σ of 1.5446.
+  On the same bed the RENDERED thin exterior improved by 8.7× at span 44 and 24×
+  at span 32 (`T` 0.00201 → 0.00023, 0.00171 → 0.00007). A blur leaf read in
+  closed form and a rendered exterior are different quantities, and this is the
+  outset/σ confound B2 was declared a one-wave reading for.
 - **The two colour schemes do not want the same outset** (W32 G1, claims §5.168
   §2). At `spreadPx` 0.50 the dark objective RISES and span 160's `T` triples
   (0.00269 → 0.00777, 0.00241 → 0.00817). The difference is 0.0055, 2.7 times the
   bar, so the dark document carries its own 1.80 — the charter's conditional
   decided by measurement rather than by default.
-- **B1's window costs the fit a twentieth of the bar** (W32 G1, claims §5.168
-  §3). The free fit — the σ law outside B1 on both schemes, everything else held
-  — improves the objective by 0.00009 and 0.00011, and what it buys at span 128
-  it sells at span 160 on every bed. Decision Log 1 (a)'s conditional does not
-  fire and no draft on re-stating B1 goes to the user.
+- **B1's window costs the fit at least a twentieth of the bar** (W32 G1, claims
+  §5.168 §3). The free fit — the σ law outside B1 on both schemes, everything
+  else held — improves the objective by 0.00009 and 0.00011, and what it buys at
+  span 128 it sells at span 160 on every bed. Decision Log 1 (a)'s conditional
+  does not fire and no draft on re-stating B1 goes to the user.
+  **Qualified beside, 2026-09-21 (review closure; claims §5.168 §10, finding
+  N-1):** round F is ONE render at round E's anchors, and F's own window solve
+  wants anchors 3–10 % away (light 0.0244 → 0.0258, 0.0227 → 0.0250,
+  0.1797 → 0.1887; ratios 1.027–1.099), while `rounds/F/anchor-solve.txt` §1's
+  "converged" compares F's objective to E's rather than testing repeatability at
+  F's own point. The distance is therefore a **lower bound** at un-resolved
+  anchors — a free fit carried to its own convergence can only be further from
+  the constrained one. It does not change the ruling: the bar is 19 to 23 times
+  the measured distance, and the span-160 trade justifies the constrained σ on
+  its own. Round F was not re-run; that would be a fit.
 - **M2 took its first miss since adoption, and the mask it is read over did not
   move** (W32 G1, claims §5.168 §7). One cell (span 32, inactive, 1x light)
   carries a cumulative 2.775 % against 2 %. The bound is untouched and the miss

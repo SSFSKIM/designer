@@ -29,6 +29,15 @@ B3_BOUND = 0.00035
 THIN_BAR = 0.002044
 STANDARD_BEDS = ["1x light", "2x light", "1x dark", "2x dark"]
 
+# §7's two chroma metrics, and the committed cut they are frozen against.
+# W31 G4's cut carries one `interiorStdDevWebPreFit` per cell, which is M2's
+# reference and does not move when a round does.
+PACKAGE = Path(__file__).resolve().parents[2]
+CHROMA_CUT = PACKAGE / "results/2026-09-21-w31-g4-landing/chroma-cut.json"
+WORKING_MATRIX = PACKAGE / "results/matrix.json"
+CHROMA_METRIC = "chromaStructureRatioR"
+CHROMA_STRUCTURE_METRIC = "interiorStdDevStructureDelta"
+
 
 def load(directory: Path) -> dict:
     out = {}
@@ -43,6 +52,45 @@ def fmt(value, places=5, width=0):
     return text.rjust(width) if width else text
 
 
+def rederive_chroma(matrix_path: Path) -> dict[str, float]:
+    """M1's `R` and M2's structure delta, re-derived from a matrix.
+
+    §7's rows come from `stops.py`, which reads both out of W31 G4's COMMITTED
+    cut — one number per cell that does not move when a round does. That is the
+    right reading for a stop's declared value and the wrong one for a before and
+    an after, so the same statistic is taken here off the matrix this gate wrote
+    and printed BESIDE the frozen one. The population is the cut's own cells,
+    taken from it rather than restated, and `adopted-thresholds.test.ts` remains
+    the authority for both.
+    """
+    if not matrix_path.exists() or not CHROMA_CUT.exists():
+        return {}
+    cut = json.loads(CHROMA_CUT.read_text())
+    pre_fit = {
+        (row["profile"], row["scene"]): row.get("interiorStdDevWebPreFit")
+        for row in cut.get("cells") or cut.get("rows") or []
+    }
+    out: dict[str, float] = {}
+    for cell in json.loads(matrix_path.read_text())["cells"]:
+        pair = (cell["key"]["profileKey"], cell["key"]["sceneId"])
+        if pair not in pre_fit or cell["tier"] != "texture":
+            continue
+        material = cell.get("material") or {}
+
+        def read(name):
+            field = material.get(name)
+            return field["value"] if isinstance(field, dict) and "value" in field else None
+
+        native, web = read("chromaStructureRatioNative"), read("chromaStructureRatioWeb")
+        prefix = f"{cell['tier']} / {pair[1]} / {pair[0]}"
+        if native and web is not None:
+            out[f"{prefix} :: {CHROMA_METRIC}"] = web / native
+        deviation, reference = read("interiorStdDevWeb"), pre_fit[pair]
+        if deviation is not None and reference:
+            out[f"{prefix} :: {CHROMA_STRUCTURE_METRIC}"] = abs(deviation / reference - 1)
+    return out
+
+
 def arrow(before, after, places=5):
     if before is None or after is None:
         return f"{fmt(before, places)} → {fmt(after, places)}"
@@ -55,6 +103,8 @@ def main() -> int:
     parser.add_argument("--after", required=True)
     parser.add_argument("--label-before", default="before (shipped documents)")
     parser.add_argument("--label-after", default="after (sealed documents)")
+    parser.add_argument("--after-matrix", default=str(WORKING_MATRIX),
+                        help="the matrix §7's chroma rows are re-derived from")
     args = parser.parse_args()
 
     before, after = load(Path(args.before)), load(Path(args.after))
@@ -270,10 +320,20 @@ def main() -> int:
     print()
 
     # ------------------------------------------------------------- the missed rows
-    print("§7. `MISSED_27_ROWS` — the five + three, before and after; nothing is claimed")
+    print("§7. `MISSED_27_ROWS` — the five + three + one, before and after; nothing is claimed")
     print("-" * 128)
+    print("  The three `chromaStructureRatioR` rows and the one structure row are frozen against")
+    print("  W31 G4's committed cut, which is one number per cell and does not move with a round")
+    print("  (the caveat §5 carries). `re-derived` beside them is the same statistic taken off")
+    print(f"  {args.after_matrix}, which is the bed this gate read.")
+    rederived = rederive_chroma(Path(args.after_matrix))
     b_missed = (before["stops"] or {}).get("missedRows") or {}
     a_missed = (after["stops"] or {}).get("missedRows") or {}
+    # M2's row is the "+ one" and `stops.py` carries no shape for it, so it is
+    # printed from the re-derivation — the failing cells only, which is what
+    # `MISSED_27_ROWS` records and what the owner case derives from the same cut.
+    chroma_only = sorted(k for k, v in rederived.items()
+                         if k.endswith(f":: {CHROMA_STRUCTURE_METRIC}") and v > 0.02)
     for key in sorted(set(b_missed) | set(a_missed)):
         b, a = b_missed.get(key), a_missed.get(key)
         if isinstance(b, dict) or isinstance(a, dict):
@@ -285,6 +345,15 @@ def main() -> int:
                 print(f"      {field:<20}{fmt(b.get(field), 5)} → {fmt(a.get(field), 5)}")
         else:
             print(f"  {key:<60}{b} → {a}")
+        if key in rederived:
+            print(f"      {'re-derived':<20}{fmt(rederived[key], 5)}")
+    for key in chroma_only:
+        if key in b_missed or key in a_missed:
+            continue
+        print(f"  {key}   — M2's, which `stops.py` does not carry in this shape")
+        print(f"      {'bound':<20}{fmt(0.02, 5)}")
+        print(f"      {'re-derived':<20}{fmt(rederived[key], 5)}"
+              + ("   MISSED" if rederived[key] > 0.02 else ""))
     print()
 
     print("§8. The verdict in one line")

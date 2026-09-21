@@ -327,8 +327,12 @@ W32 G1 — the verdict (claims §5.168)
       windowNative    0.000000 → 0.000000
       windowWeb       0.004131 → 0.000000
 
-§7. `MISSED_27_ROWS` — the five + three, before and after; nothing is claimed
+§7. `MISSED_27_ROWS` — the five + three + one, before and after; nothing is claimed
 --------------------------------------------------------------------------------------------------------------------------------
+  The three `chromaStructureRatioR` rows and the one structure row are frozen against
+  W31 G4's committed cut, which is one number per cell and does not move with a round
+  (the caveat §5 carries). `re-derived` beside them is the same statistic taken off
+  results/matrix.json, which is the bed this gate read.
   dom / checkerboard__glass-over-glass__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean
       bound               — → 0.90000
       candidateI          — → 0.12093
@@ -402,12 +406,18 @@ W32 G1 — the verdict (claims §5.168)
   texture / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: chromaStructureRatioR
       bound               1.40000 → 1.40000
       measured            1.51552 → 1.51552
+      re-derived          1.53911
   texture / photo__rrect-sm__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: chromaStructureRatioR
       bound               1.40000 → 1.40000
       measured            1.44690 → 1.44690
+      re-derived          1.46115
   texture / photo__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: chromaStructureRatioR
       bound               1.40000 → 1.40000
       measured            1.44173 → 1.44173
+      re-derived          1.44950
+  texture / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta   — M2's, which `stops.py` does not carry in this shape
+      bound               0.02000
+      re-derived          0.02775   MISSED
 
 §8. The verdict in one line
 --------------------------------------------------------------------------------------------------------------------------------

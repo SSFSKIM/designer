@@ -4614,6 +4614,23 @@ docstring correction does not reach it. Whoever adds the refusal moves the liter
 and the committed `index.json`'s copy of it together, or the next split writes the
 claim back over the annotations.
 
+**WIDENED 2026-09-21 (W32 G1 review closure; claims §5.168 §10, finding N-7): the
+planned refusal is not enough, because the reader is per GENERATION and the flag
+is per RUN.** W32 G1's split moved two generations in one invocation — 479 light
+rows and 247 dark ones — and they were read by two different gates: the light by
+W31 G3c under §5.164 §13 and the dark by W31 G3 under §5.164, four hours apart on
+the same day, which the capture timestamps in each entry show. `apply` takes ONE
+`--read-claims`, so no value of it could have been right, and the gate passed the
+mover's own section for both. A refusal of `--read-claims == --claims` would have
+caught that particular symptom and would not have caught the disease: a run whose
+two generations were read by two gates neither of which is the mover passes the
+refusal and still writes one wrong entry. **`--read-claims` has to be per
+generation** — a mapping from the file being written to the section that read it,
+or derived rather than passed, since the script already knows each generation's
+document hashes and the ledger records which gate read at which bytes. The two
+entries W32 G1 wrote were corrected in place before they merged, which is
+available exactly once per entry and is not a mechanism.
+
 ---
 
 ## The two dark macOS 27 documents' `$comment-sha-history` carries a wrong parenthetical (W31 G4, 2026-09-21)
@@ -5078,6 +5095,16 @@ Decomposed by pose over B3's own 166 cells: the ACTIVE half goes 0.00029 →
 before a single length did — round R stands the recede down at the shipped active
 material and B3 is already 0.00054 there.
 
+**So the stop was unattainable once Decision Log 2 was ruled, and the arithmetic
+says so** (added 2026-09-21, W32 G1 review closure; claims §5.168 §10, finding
+N-2). The pooled mean is over **85 active and 81 inactive** cells. The inactive
+half alone after the stand-down contributes 81 × 0.00080 / 166 = **0.000390**,
+which is already above 0.00035 — B3 fails with a PERFECT active half. And
+without the stand-down, the fitted active half beside the pre-fit inactive one
+gives (85 × 0.00064 + 81 × 0.00039) / 166 = **0.000518**, also above it. Each
+half breaks it alone. No choice of anchors, lengths or fit order kept this stop,
+which is why the entry is a re-statement question and not a regression.
+
 **So the stop cannot separate a shadow from a rim**, and it is measured on a bed
 where one pose's whole exterior IS a rim. Both terms it now reads are outside
 what W32 X3 lets that wave touch: the body's over-fill is a silhouette term and
@@ -5240,3 +5267,85 @@ sheet over `checkerboard*`, `dark-solid` or `hc-text` inherits this.
    backdrop levels. The second changes what every past sheet means and is a
    decision; the first is additive and is what a gate making sheets should do
    next.
+
+---
+
+## B2 reads 1.7622 of 1.5 at the shipped dark material while the exterior it describes improved by a factor of 9 to 24 (W32 G1 review closure, 2026-09-21)
+
+*Read at W32 G1 (claims §5.168 §7, finding N-3). Evidence:
+`results/2026-09-21-w32-g1-shadow-fit/shadow-law-at-shipped.txt` and the same
+gate's `c1-forms.txt` before and after.*
+
+**B2** — the σ law's output at span 44 against the bed's own measured thin σ,
+≤ 1.5× — is a declared reading and **not an adopted row** (§5.156 §5 (b);
+§5.159 records it met at 1.155–1.419 when the law was fitted). At W32 G1's
+sealed dark document it reads **1.7622**: the law's thin line is 2.7220 CSS px
+against a bed σ of 1.5446.
+
+**The mechanism is the knee, not a fit that went wrong.** The joint fit dropped
+the dark slope 0.1340 → 0.1215 inside B1's window, and the knee is held at 44 by
+construction, so `sigmaThinOffsetPx` is re-derived −6.968 → −6.318 and the thin
+line rises 2.072 → 2.722. Nothing chose that number; it is what holding the knee
+costs when the slope moves.
+
+**And the rendered thin exterior went the other way on the same bed.** 1x dark
+`T` over the admitted bands reads 0.00201 → **0.00023** at span 44 and
+0.00171 → **0.00007** at span 32 — better by 8.7× and 24× — at the material
+whose B2 got worse. The thin stop, which is per cell on the inner bands, is met
+on all 206 readings with 0 worse than the bar.
+
+**So the two disagree in sign, and that is the point.** B2 compares a LEAF in
+closed form to a fit of the native render; `T` compares two rendered exteriors
+band by band. §5.162 §5 records the same confound for candidate (i), where a
+green B1 sat beside a rendered σ three CSS px too wide. Here it runs the other
+way: a red B2 sits beside a rendered thin exterior an order of magnitude better.
+
+**The fix shape** is to decide what B2 is for before anyone adopts it. If it is
+a guard against a thin blur collapsing to nothing, it should be stated on the
+RENDERED thin exterior — which the thin stop already is — and B2 retired. If it
+is a statement about the leaf, it has to be read beside the knee it depends on,
+because a slope move at a held knee changes it with no exterior change at all.
+Neither is this wave's; B2 is unadopted and W32 X4 forbids re-stating it. What
+would settle it is one sweep: the leaf's thin line and the rendered thin `T`
+against the slope, knee held and knee free, on the dark bed.
+
+---
+
+## The window pose is a discrete swap on the WebGPU tier, and the recede's stand-down made that visible (W32 G1 review closure, 2026-09-21)
+
+*Opened by W32 G1's independent review (claims §5.168 §10, finding N-12), which
+found four records claiming a crossfade the fitted tier does not perform.*
+
+**What each tier does.** `platform-web/src/css-tier.ts` declares a transition on
+`box-shadow` on the element that carries it, so on the CSS tier the outer shadow
+really does interpolate to nothing when a window loses focus. On the WebGPU tier
+it does not: `root.ts`'s scheduler participant calls `applyMaterialProfile`
+with the newly posed profile the instant `resolveWindowActivation` returns a
+different value, and `receded-profile.ts` states the design in as many words —
+"Each scheme has exactly two fixed endpoints; this is not an interpolated pose."
+The material swaps between frames.
+
+**Why it is an entry now and was not before.** Until W32 the receded documents
+carried their active document's outer-shadow anchors leaf for leaf, so the two
+endpoints drew nearly the same exterior and the discreteness of the swap had
+almost nothing to show. Decision Log 2 stood the receded amplitude down to 0, so
+the two endpoints now differ by the whole shadow — a reach of 13 to 43 CSS px
+going to zero — and on the tier that is the fidelity target it goes in one
+frame. The reference fades.
+
+**This is a motion defect and not a material one**, which is why W32 does not
+touch it: the material is right at both endpoints and the wave's own acceptance
+reads the two poses statically. Nothing in the ledger's verdict moves.
+
+**The fix shape**: a pose crossfade on the WebGPU tier — interpolate between the
+two resolved materials over the activation transition rather than swapping the
+document, which means the renderer taking two profiles and a parameter for the
+duration of the transition, or the pose resolving to a blended profile that the
+existing single-profile path already accepts. The second is much the smaller
+change and is probably where to start; what it costs is that a blended material
+is not one of the measured endpoints, so `root.material`'s readout has to say it
+is mid-transition rather than name a document — which is the honesty core's
+constraint on the design, and the reason this is not a five-line fix. The
+duration and curve should be read off the reference rather than chosen; nothing
+in the project has measured them, and the motion-metrics harness the charter
+Defers is what would.
