@@ -30,6 +30,7 @@ document's own value is read on its own beds.
 | --- | --- | ---: | ---: | ---: | --- |
 | pre-fit | — (the shipped documents) | 0.00480 | 0.00381 | 0.00034 | the before |
 | R | the receded documents' amplitude → 0 (Decision Log 2); the active material unmoved | 0.00480 | 0.00381 | **0.00054** | — |
+| A | `spreadPx` 3.10 → **0.50** (light) and → **1.80** (dark) | **0.00176** | **0.00225** | 0.00063 | — |
 
 ### pre-fit — the before
 
@@ -78,3 +79,47 @@ This is a miss and is recorded as one (X4). It is not widened and it is not re-f
 Log 2 is the parent's ruling and the stand-down ships. A Decision Log draft on B3's re-statement
 goes to the parent with §5.168 — the stop cannot separate a shadow from a rim on a pose whose
 exterior is only a rim.
+
+### A — the outset, and it is the whole story
+
+`spreadPx` 3.10 → 0.50 on the light document and 3.10 → 1.80 on the dark one; the σ law, the
+offset and all thirteen amplitude leaves unmoved; the recede still at zero. Two values in one
+round, for the reason stated above — the documents are independent and the axis is sampled twice.
+
+**The objective falls by a factor of two and a half on the light bed and a third on the dark one**,
+from one leaf that no measurement had ever fitted on the macOS 27 bed (§5.162 §2): light 0.00480 →
+**0.00176**, dark 0.00381 → **0.00225**. Per span, `T`:
+
+| bed | 32 | 44 | 96 | 128 | 160 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 1x light | 0.00294 → 0.00145 | 0.00339 → 0.00172 | 0.00408 → **0.00144** | 0.00843 → **0.00243** | 0.00796 → **0.00397** |
+| 2x light | 0.00288 → 0.00146 | 0.00337 → 0.00176 | 0.00413 → **0.00151** | 0.00889 → **0.00230** | 0.00797 → 0.00463 |
+| 1x dark | 0.00171 → 0.00121 | 0.00201 → 0.00146 | 0.00399 → **0.00204** | 0.00782 → **0.00389** | 0.00659 → **0.00265** |
+| 2x dark | 0.00168 → 0.00115 | 0.00199 → 0.00148 | 0.00385 → **0.00219** | 0.00738 → 0.00421 | 0.00627 → **0.00222** |
+
+Against C1's ruled bound of 0.0042 that is **ten of twelve bed × span rows PASSING** where four
+passed before, with the two misses `2x light` at span 160 (0.00463, by 10 %) and `2x dark` at span
+128 (0.00421, by 0.2 %). Candidate (i), the wave's headline, closes by a third at every bed and
+span: the rendered σ minus the native σ runs **+2.39 to +2.69 CSS px** where it ran +3.11 to +3.77,
+and `(i)` itself 0.414 → 0.272 on 1x light at span 96. Still outside B1's ±5 % window on all
+twelve, which is the reading and not a gate (§5.162 §5).
+
+**And the per-band table says why one leaf did this.** The `3-6` / `6-12` / `12-24` `Δa` at span
+128 on 1x light moves −0.0075 / −0.0093 / −0.0090 → **+0.0042 / +0.0002 / −0.0030**: the profile
+crosses Apple's instead of sitting under it everywhere. The whole exterior does not improve — at
+the same cells the `0-3` band goes **0.1058 → 0.1154**, further from Apple, because a smaller
+outset moves the profile inward and the `0-3` band loses what the shadow bands shed. That is the
+body's own over-fill (§5.62) and is the other half of B3's story below.
+
+**B3 reads 0.00063 against ≤ 0.00035**, and now both poses contribute:
+
+| pose | n | pre-fit | R | A |
+| --- | ---: | ---: | ---: | ---: |
+| active | 85 | 0.00029 | 0.00029 | **0.00047** |
+| inactive | 81 | 0.00039 | 0.00080 | 0.00080 |
+| pooled — the stop | 166 | 0.00034 | 0.00054 | **0.00063** |
+
+The **window-restricted** departure, the quantity the anchors are solved on, moves the other way at
+every thick span: 1x light 96 0.00176 → **0.00062**, 128 0.00433 → **0.00059**, 160 0.00463 →
+**0.00172**. So the two statistics disagree in SIGN about this round, which is §5.166 §6's finding
+arriving as a consequence rather than as a caution.
