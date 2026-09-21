@@ -85,6 +85,8 @@ closure, c9a §5.159b §10, finding 8).
 | `d0c389d70456.json` | `-1x-light-increased-contrast-coupled` (36), `-1x-light-reduced-transparency` (32), `-1x-light-standard` (228), `-2x-light-standard` (183) | `…-1x-light-standard-glass0.5.json` `sha256:d0c389d70456`, with `-receded` `sha256:2334c7b4c5e2` | c9a §5.164 | c9a §5.164 | 2026-09-20 | 2026-09-21 | 479 | 17,797,629 |
 | `880ab1e31450.json` | `-1x-dark-standard` (146), `-2x-dark-standard` (101) | `…-1x-dark-standard-glass0.5.json` `sha256:880ab1e31450`, with `-receded` `sha256:5e71370ae6d5` | c9a §5.164 | c9a §5.164 | 2026-09-20 | 2026-09-21 | 247 | 9,128,015 |
 | `e2fa07589d99.json` | `-1x-light-increased-contrast-coupled` (36), `-1x-light-reduced-transparency` (32), `-1x-light-standard` (228), `-2x-light-standard` (183) | `…-1x-light-standard-glass0.5.json` `sha256:e2fa07589d99`, with `-receded` `sha256:25863dccef9d` | c9a §5.164 | c9a §5.164 §13 | 2026-09-21 | 2026-09-21 | 479 | 18,896,698 |
+| `b5714a866288.json` | `-1x-dark-standard` (146), `-2x-dark-standard` (101) | `…-1x-dark-standard-glass0.5.json` `sha256:b5714a866288`, with `-receded` `sha256:cc4ed1038996` | c9a §5.164 (W31 G3) | c9a §5.168 | 2026-09-21 | 2026-09-21 | 247 | 9,676,070 |
+| `49490eb9ff7a.json` | `-1x-light-increased-contrast-coupled` (36), `-1x-light-reduced-transparency` (32), `-1x-light-standard` (228), `-2x-light-standard` (183) | `…-1x-light-standard-glass0.5.json` `sha256:49490eb9ff7a`, with `-receded` `sha256:14c6bacf2eda` | c9a §5.164 §13 (W31 G3c) | c9a §5.168 | 2026-09-21 | 2026-09-21 | 479 | 18,896,857 |
 
 <!-- end generated -->
 

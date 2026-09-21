@@ -2290,6 +2290,34 @@ directions and leaves the one this entry is about exactly where it was.
   state either of them, and the two-number answer is a second reason for it
   beyond the one this entry opened with.
 
+**W32's numbers, added 2026-09-21 (claims §5.168; contract X8 again leaves the
+advisory constant where it is, so this entry stays open).** The shadow wave fits
+the exterior's OUTSET and stands the receded material's amplitude down, and both
+move the reach the platform resolves.
+
+- **The advisory's own quantity is again unmoved.** `samplingPaddingFor` is 3σ of
+  the BACKDROP blur and this wave touches no backdrop constant, so 24 against the
+  material's 22.69 at span 0 on the macOS 27 light document is exactly where W30
+  left it.
+- **The active reach SHRINKS at every span, by the outset.** Light
+  13.39 → **9.08** CSS px at span 32, 13.41 → **9.23** at 44, 23.74 → **20.20**
+  at 96, 32.89 → **30.18** at 128 and 42.93 → **40.70** at 160; dark 12.76 →
+  **9.90**, 12.83 → **10.22**, 24.54 → **22.06**, 34.60 → **32.49** and 45.69 →
+  **43.04** (`results/2026-09-21-w32-g1-shadow-fit/reach.txt`, the runtime's own
+  `outerShadowReachPx`). The CSS tier's group clip follows: light 15.30 →
+  **12.70** at the thin end and 45.79 → **43.19** at span 160.
+- **And the RECEDED reach is 0 at every span, on both documents.** It was the
+  ACTIVE reach at every span — 13.39 to 42.93 on the light document — because
+  both receded documents carried their active document's anchors leaf for leaf.
+  W32 Decision Log 2 sets their amplitude to 0 on the measurement that Apple's
+  receded window removes no light from 3 CSS px outward, and
+  `outerShadowReachPx` returns 0 when `outerShadowAlpha(occlusion)` is 0, so the
+  group clip in the inactive pose collapses to the surface itself. **A pad that
+  is a function of the POSE as well as the span is a third reason for the fix
+  shape**, and the first one that can make a pad go to zero rather than merely
+  vary: an overlap check written against a scalar cannot express "this group needs
+  no pad while its window is unfocused".
+
 ## `interiorMeanBackdrop` is not a backdrop level on a sparse high-contrast backdrop (W27e G0, 2026-09-11)
 
 The canonical matrix's `material.interiorMeanBackdrop` is the backdrop's mean over the **extracted
@@ -4245,9 +4273,16 @@ Two facts, and the second is the sharper one:
 
 **What closed the immediate problem.** W31 acceptance clause 6 makes copying the
 read's tree to the canonical path part of the merge, and the parent did it at
-W31 G3c's merge: the tree now holds all six macOS 27 profiles at the shipped
+W31 G3c's merge: the tree held all six macOS 27 profiles at the shipped
 document hashes (`49490eb9ff7a` / `14c6bacf2eda`, `b5714a866288` /
-`cc4ed1038996`). W31 G4's `sheets.ts` is the first sheet script that reads the
+`cc4ed1038996`). *(Corrected beside, 2026-09-21, W32 G1 review closure; claims
+§5.168 §10: those are 0.21.0's hashes and "now" has moved on. W32 G1 sealed four
+new macOS 27 documents, and the tree its read wrote — 786 captures, checked
+786 / 786 match — names `d5bdd6eac432` / `45acb6d916b9` and `431cabd391c4` /
+`4e68f81869f6`. Copying that tree to the canonical path is the parent's step at
+the merge, which is the clause itself. A hash written as "now" in a tracker
+entry ages at the next seal; what does not age is the clause.)* W31 G4's `sheets.ts`
+is the first sheet script that reads the
 canonical tree AND asserts, per cell, that the capture names the shipped
 document bytes — receded document included — refusing rather than photographing
 a stale one.
@@ -4578,6 +4613,23 @@ verbatim by every `apply`, and it still says "They are never the same gate". The
 docstring correction does not reach it. Whoever adds the refusal moves the literal
 and the committed `index.json`'s copy of it together, or the next split writes the
 claim back over the annotations.
+
+**WIDENED 2026-09-21 (W32 G1 review closure; claims §5.168 §10, finding N-7): the
+planned refusal is not enough, because the reader is per GENERATION and the flag
+is per RUN.** W32 G1's split moved two generations in one invocation — 479 light
+rows and 247 dark ones — and they were read by two different gates: the light by
+W31 G3c under §5.164 §13 and the dark by W31 G3 under §5.164, four hours apart on
+the same day, which the capture timestamps in each entry show. `apply` takes ONE
+`--read-claims`, so no value of it could have been right, and the gate passed the
+mover's own section for both. A refusal of `--read-claims == --claims` would have
+caught that particular symptom and would not have caught the disease: a run whose
+two generations were read by two gates neither of which is the mover passes the
+refusal and still writes one wrong entry. **`--read-claims` has to be per
+generation** — a mapping from the file being written to the section that read it,
+or derived rather than passed, since the script already knows each generation's
+document hashes and the ledger records which gate read at which bytes. The two
+entries W32 G1 wrote were corrected in place before they merged, which is
+available exactly once per entry and is not a mechanism.
 
 ---
 
@@ -5003,3 +5055,297 @@ which the analysis pass already computes per source — then the material is mis
 a term and the entry becomes a charter item rather than debt. Either way the
 reading is cheap once a fit exists, and G1's verdict carries the per-backdrop
 residual regardless (claims §5.166 §4).
+
+## B3 is green by cancellation, and the wave that fits the exterior breaks it (W32 G1, 2026-09-21)
+
+*Measured at W32 G1 (claims §5.168) across seven rendered rounds of the same bed.
+Evidence: `packages/calibration/results/2026-09-21-w32-g1-shadow-fit/b3-window.py`
+and its committed output, plus `departure-stat.txt` in each round's directory.*
+
+**B3** — `|meanDepartureWeb − meanDepartureNative|`, arithmetic mean over the
+calibration + validation cells of all six macOS 27 profiles, WebGPU tier,
+≤ 0.00035 — is a STOP and not an adopted row (W30 Decision Log 3 (a); §5.159 §7
+records that it stopped nothing). It read **0.00034** at the shipped documents
+and reads **0.00072** at the fitted ones, and neither number is a statement about
+the shadow, because the same statistic over the pixels C1 is stated on goes the
+other way by a factor of twenty: **0.00122 → 0.00006**.
+
+| | whole exterior — B3 as declared | over the admitted bands, 3–48 CSS px |
+| --- | ---: | ---: |
+| shipped documents | 0.00034 | 0.00122 |
+| the recede stood down | 0.00054 | 0.00053 |
+| + the outset fitted | 0.00063 | 0.00020 |
+| + the anchors solved | 0.00072 | 0.00006 |
+
+**Why the two disagree, measured rather than argued.** B3 integrates the WHOLE
+exterior, which includes the `0-3` band every form of C1 excludes. In that band
+two things live that are not the shadow: on the ACTIVE pose vitrea's own body
+over-fills its declared contour by 3.5–4 CSS px against Apple's ≤ 1 (§5.62), so
+`Δa` there runs **+0.089 to +0.151** — vitrea removing far LESS light than
+Apple — while in 3–48 px it ran −0.008 to −0.019, removing MORE. The two errors
+had opposite signs and comparable integrals, so B3's mean sat near zero. Fixing
+the shadow removes one of them and leaves the other standing alone. On the
+INACTIVE pose the same thing happens for a different reason: Apple's entire
+receded exterior is one device pixel of dark stroke at the contour (§5.166 §7),
+which is a rim term, and vitrea's receded exterior after Decision Log 2's
+stand-down is nothing at all.
+
+Decomposed by pose over B3's own 166 cells: the ACTIVE half goes 0.00029 →
+0.00064 and the INACTIVE half 0.00039 → 0.00080, and the inactive half moved
+before a single length did — round R stands the recede down at the shipped active
+material and B3 is already 0.00054 there.
+
+**So the stop was unattainable once Decision Log 2 was ruled, and the arithmetic
+says so** (added 2026-09-21, W32 G1 review closure; claims §5.168 §10, finding
+N-2). The pooled mean is over **85 active and 81 inactive** cells. The inactive
+half alone after the stand-down contributes 81 × 0.00080 / 166 = **0.000390**,
+which is already above 0.00035 — B3 fails with a PERFECT active half. And
+without the stand-down, the fitted active half beside the pre-fit inactive one
+gives (85 × 0.00064 + 81 × 0.00039) / 166 = **0.000518**, also above it. Each
+half breaks it alone. No choice of anchors, lengths or fit order kept this stop,
+which is why the entry is a re-statement question and not a regression.
+
+**So the stop cannot separate a shadow from a rim**, and it is measured on a bed
+where one pose's whole exterior IS a rim. Both terms it now reads are outside
+what W32 X3 lets that wave touch: the body's over-fill is a silhouette term and
+the receded hairline is a rim term, and this wave's Deferred list names the
+second by name.
+
+**The fix shape** is a ruling and not an edit, which is why it is here and not
+done: B3 is re-stated over the **admitted bands** — the same window the anchors
+are solved on and C1 is read on, where the statistic reads 0.00006 — or over the
+ACTIVE pose with the `0-3` band excluded, with a bound re-derived on the
+generation that adopts it by the rule W32 clause 2 used for C1. Either is a
+re-statement of an adopted stop and belongs to the user through a wave's Decision
+Log; W32 G1 records the numbers and re-states nothing (X4). Until it is ruled,
+a later wave reading B3 at 0.00072 should read `b3-window.py` beside it or it
+will conclude the exterior got worse.
+
+---
+
+## M2's reference generation is frozen at W31's pre-fit while its subject keeps moving (W32 G1 review closure, 2026-09-21)
+
+*Opened by W32 G1's independent review (claims §5.168 §10, finding B-2), on the
+first miss M2 has taken since adoption.*
+
+M2 bounds `interiorStdDevWeb` to within **2 %** of the value the same cell read
+on **W31's pre-fit generation** — a constant carried in W31 G4's committed
+`chroma-cut.json` as `interiorStdDevWebPreFit`, one number per cell, which does
+not move when the material does. The reference is therefore fixed while the
+subject is not, so the delta is **cumulative across waves**: W31 spent 1.317 %
+of the budget on one cell and W32 G1 spent the rest of it, reaching 2.775 %
+without either wave moving the quantity by more than one and a half percent of
+its own value.
+
+That is not a defect of either wave. It is what a bound stated against a frozen
+generation does: **every wave that touches the render spends from a budget that
+is never refilled**, and on the cell with the smallest spread the budget is the
+smallest in absolute terms. A third wave that moves this cell by half a percent
+fails M2 whatever direction it moves it in, and the failure will say nothing
+about that wave.
+
+**The ruling belongs to the user**, which is why this is an entry and not a fix.
+Two forms, and they are not equivalent:
+
+1. **Re-baseline per wave** — M2 reads against the generation the previous gate
+   sealed, so the bound is "this wave did not move the structure by 2 %". That
+   makes the row a per-wave regression stop and gives up the cumulative claim
+   entirely: eight waves of 1.9 % would pass while the structure moved 16 %.
+2. **Declare the budget cumulative and say so** — keep the frozen reference,
+   and state in the row's own text that a miss is the accumulated distance from
+   W31's pre-fit material rather than a statement about the wave that records
+   it, with the recorded-miss path carrying each cell's history.
+
+The second is the honest one and the first is the useful one; a third form —
+both rows, one bounded per wave and one recorded cumulatively — costs a second
+reference per cell and is probably what a wave that has to choose should
+propose. Nothing is decided here.
+
+*See also the entry above on `interiorStdDevWeb` moving 5.69 % off the declared
+bed: that one asks whether 2 % is a bound about the material or about the
+raster, and this one asks what it is measured from. Both have to be answered
+before M2's next miss means anything.*
+
+---
+
+## The optics pass composites the outer shadow into the body's own antialiased edge, and nothing has measured what that costs an interior statistic (W32 G1 review closure, 2026-09-21)
+
+*Opened by W32 G1's independent review (claims §5.168 §10, finding B-2), as the
+CANDIDATE mechanism for M2's first miss. It is a hypothesis; the measurement
+that would test it has not been run.*
+
+**What is established.** M2's miss is not the silhouette extractor. The material
+axis's mask is the NATIVE silhouette by construction (`cli/measure.ts`: `const
+interior = nativeSil`), and across the 726 rows W32 G1 superseded and re-read,
+`silhouetteAreaNative` moved on **0** while the shape axis's own
+`silhouetteAreaWeb` moved on 80; on the miss cell the native area, the web area
+and the declared region are all 2000 with an IoU of 1 before and after
+(`results/2026-09-21-w32-g1-shadow-fit/b2-mask.py`). The mask is fixed and the
+values under it moved.
+
+**The hypothesis.** `packages/renderer-webgpu/src/wgsl/optics.ts` composites the
+exterior shadow into the same output as the body wherever coverage is partial —
+`shadowAlpha · (1 − coverage)` is added to both the colour and the alpha at the
+surface's antialiased contour. Those pixels are INSIDE the declared region and
+inside the native silhouette, so an interior statistic reads them. Changing the
+shadow therefore changes an interior statistic through the edge ring, with no
+mask movement required, and the effect should scale with the ring's share of the
+region — largest on the thinnest surface, which is where the miss landed (span
+32) and where every other large mover sits.
+
+**The measurement that would test it**, and it needs no capture: re-derive
+`interiorStdDevWeb` on the same committed captures over the native silhouette
+ERODED by one and by two device pixels, on the miss cell and on a thick control,
+at both generations. If the delta collapses as the ring is eroded away, the ring
+is the mechanism; if it survives, the body's own interior moved and the shadow
+fit reached further in than anything predicts. A second, cheaper check is the
+ratio of the eroded count to the full count per cell — the ring's share — read
+against each cell's measured move across the 726 rows.
+
+**What the answer changes.** If it is the ring, then an interior statistic over
+a mask that includes the contour cannot separate the body from the exterior on a
+thin surface, and either the statistic erodes its mask or the shadow is
+composited into a separate target. If it is not the ring, M2's miss is the first
+evidence that an exterior fit reaches the interior, which is a finding about the
+material and not about the instrument.
+
+---
+
+## Over a pure-black backdrop vitrea's exterior sits one byte above Apple's, and a ΔE × 8 panel makes that a mid-grey (W32 G1 review closure, 2026-09-21)
+
+*Opened by W32 G1's independent review (claims §5.168 §10, finding B-4), which
+read the gate's own sheets against the claim made about them. Evidence:
+`packages/calibration/results/2026-09-21-w32-g1-shadow-fit/b4-black-floor.py`
+and its committed output.*
+
+**The measurement.** On `checkerboard-8` — black and white squares at an 8 px
+pitch — Apple's macOS 27 render reads **exactly (0, 0, 0)** on the backdrop's
+black squares out in the shadow band, and vitrea reads **(1, 1, 1)**. Never
+more: across all twelve bed × span readings the count of exterior pixels where
+the native is 0 and the web exceeds 1 is zero. The count of pixels where it is
+exactly 1:
+
+| bed | span 44 | span 128 | span 160 |
+| --- | ---: | ---: | ---: |
+| 1x light | 0 / 29,330 | 2,188 / 17,532 | 3,334 / 9,440 |
+| 2x light | 0 / 117,416 | 9,104 / 70,156 | 14,384 / 38,244 |
+| 1x dark | 0 / 29,352 | 573 / 17,566 | 577 / 9,531 |
+| 2x dark | 0 / 117,436 | 2,447 / 70,447 | 2,337 / 38,335 |
+
+Present at 128 and 160 and absent at 44 on every bed. `liftSpanMin` is **64**,
+so a 44 px caster adds none of `liftAmplitude` and a 128 or 160 px one adds all
+of it: the term this points at is the LIFT, which W32 did not move (X3 forbade
+it and no stop in that wave reads it). It is pre-existing, not a regression of
+the exterior fit. What changed is that the shadow now matches, so the floor is
+the largest thing left in the exterior that the eye can see.
+
+**Why nobody had seen it, and this half is the more general lesson.** The gate's
+sheets amplify OKLab ΔE by eight. OKLab takes a cube root of linear light and
+that function's derivative diverges at zero, so the distance from sRGB byte 0 to
+byte 1 is **ΔE 0.0672** — two-thirds of the distance from grey 128 to grey 160
+— and eight times it is byte 137, a mid-grey. The panel therefore draws a full
+checkerboard where the two renders differ by one least significant bit, and
+`eye.md` read that panel as showing structure it could not explain and then
+recorded the opposite ("black past the rim band on every one of the four").
+**A ΔE × 8 OKLab panel over a backdrop containing pure black cannot be read as a
+verdict on the exterior without the LSB check**, and the check is a one-line
+count: exterior pixels where the native is 0 and the web is not. Any future
+sheet over `checkerboard*`, `dark-solid` or `hc-text` inherits this.
+
+**The fix shape**, in two parts.
+
+1. *The material question.* Sweep `liftAmplitude` and read the black-floor count
+   per span and per bed against it, on the committed captures — no new capture
+   is needed, because the floor is a property of the web render alone once the
+   native is known to be 0. Either Apple has no lift over a black backdrop, in
+   which case the leaf is conditioned on the backdrop's level and the bed
+   already carries the cells to fit it; or the lift is real and vitrea is adding
+   it where a premultiplied output cannot carry it, in which case the term is a
+   compositing defect at the alpha floor rather than a material constant.
+2. *The instrument.* The sheets should carry the LSB count beside the ΔE panel,
+   or clamp the amplification so the panel's brightness is comparable across
+   backdrop levels. The second changes what every past sheet means and is a
+   decision; the first is additive and is what a gate making sheets should do
+   next.
+
+---
+
+## B2 reads 1.7622 of 1.5 at the shipped dark material while the exterior it describes improved by a factor of 9 to 24 (W32 G1 review closure, 2026-09-21)
+
+*Read at W32 G1 (claims §5.168 §7, finding N-3). Evidence:
+`results/2026-09-21-w32-g1-shadow-fit/shadow-law-at-shipped.txt` and the same
+gate's `c1-forms.txt` before and after.*
+
+**B2** — the σ law's output at span 44 against the bed's own measured thin σ,
+≤ 1.5× — is a declared reading and **not an adopted row** (§5.156 §5 (b);
+§5.159 records it met at 1.155–1.419 when the law was fitted). At W32 G1's
+sealed dark document it reads **1.7622**: the law's thin line is 2.7220 CSS px
+against a bed σ of 1.5446.
+
+**The mechanism is the knee, not a fit that went wrong.** The joint fit dropped
+the dark slope 0.1340 → 0.1215 inside B1's window, and the knee is held at 44 by
+construction, so `sigmaThinOffsetPx` is re-derived −6.968 → −6.318 and the thin
+line rises 2.072 → 2.722. Nothing chose that number; it is what holding the knee
+costs when the slope moves.
+
+**And the rendered thin exterior went the other way on the same bed.** 1x dark
+`T` over the admitted bands reads 0.00201 → **0.00023** at span 44 and
+0.00171 → **0.00007** at span 32 — better by 8.7× and 24× — at the material
+whose B2 got worse. The thin stop, which is per cell on the inner bands, is met
+on all 206 readings with 0 worse than the bar.
+
+**So the two disagree in sign, and that is the point.** B2 compares a LEAF in
+closed form to a fit of the native render; `T` compares two rendered exteriors
+band by band. §5.162 §5 records the same confound for candidate (i), where a
+green B1 sat beside a rendered σ three CSS px too wide. Here it runs the other
+way: a red B2 sits beside a rendered thin exterior an order of magnitude better.
+
+**The fix shape** is to decide what B2 is for before anyone adopts it. If it is
+a guard against a thin blur collapsing to nothing, it should be stated on the
+RENDERED thin exterior — which the thin stop already is — and B2 retired. If it
+is a statement about the leaf, it has to be read beside the knee it depends on,
+because a slope move at a held knee changes it with no exterior change at all.
+Neither is this wave's; B2 is unadopted and W32 X4 forbids re-stating it. What
+would settle it is one sweep: the leaf's thin line and the rendered thin `T`
+against the slope, knee held and knee free, on the dark bed.
+
+---
+
+## The window pose is a discrete swap on the WebGPU tier, and the recede's stand-down made that visible (W32 G1 review closure, 2026-09-21)
+
+*Opened by W32 G1's independent review (claims §5.168 §10, finding N-12), which
+found four records claiming a crossfade the fitted tier does not perform.*
+
+**What each tier does.** `platform-web/src/css-tier.ts` declares a transition on
+`box-shadow` on the element that carries it, so on the CSS tier the outer shadow
+really does interpolate to nothing when a window loses focus. On the WebGPU tier
+it does not: `root.ts`'s scheduler participant calls `applyMaterialProfile`
+with the newly posed profile the instant `resolveWindowActivation` returns a
+different value, and `receded-profile.ts` states the design in as many words —
+"Each scheme has exactly two fixed endpoints; this is not an interpolated pose."
+The material swaps between frames.
+
+**Why it is an entry now and was not before.** Until W32 the receded documents
+carried their active document's outer-shadow anchors leaf for leaf, so the two
+endpoints drew nearly the same exterior and the discreteness of the swap had
+almost nothing to show. Decision Log 2 stood the receded amplitude down to 0, so
+the two endpoints now differ by the whole shadow — a reach of 13 to 43 CSS px
+going to zero — and on the tier that is the fidelity target it goes in one
+frame. The reference fades.
+
+**This is a motion defect and not a material one**, which is why W32 does not
+touch it: the material is right at both endpoints and the wave's own acceptance
+reads the two poses statically. Nothing in the ledger's verdict moves.
+
+**The fix shape**: a pose crossfade on the WebGPU tier — interpolate between the
+two resolved materials over the activation transition rather than swapping the
+document, which means the renderer taking two profiles and a parameter for the
+duration of the transition, or the pose resolving to a blended profile that the
+existing single-profile path already accepts. The second is much the smaller
+change and is probably where to start; what it costs is that a blended material
+is not one of the measured endpoints, so `root.material`'s readout has to say it
+is mid-transition rather than name a document — which is the honesty core's
+constraint on the design, and the reason this is not a five-line fix. The
+duration and curve should be read off the reference rather than chosen; nothing
+in the project has measured them, and the motion-metrics harness the charter
+Defers is what would.

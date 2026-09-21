@@ -1,0 +1,1534 @@
+{
+ "documents": [
+  "/tmp/w32-g1-fit/A/documents/apple-macos-27.0-1x-dark-standard-glass0.5.json sha256:783882c2343c",
+  "/tmp/w32-g1-fit/A/documents/apple-macos-27.0-1x-light-standard-glass0.5.json sha256:a81e3b1408b7"
+ ],
+ "candidateI": {
+  "1x light span 96": {
+   "n": 11,
+   "nativeSigmaCss": 8.796329967316392,
+   "renderedSigmaCss": 11.186781451165698,
+   "relativeError": 0.27169036868707347,
+   "window": [
+    8.356513468950572,
+    9.236146465682213
+   ],
+   "inside": false
+  },
+  "1x light span 128": {
+   "n": 8,
+   "nativeSigmaCss": 13.137826348556064,
+   "renderedSigmaCss": 15.163172756817165,
+   "relativeError": 0.16845112437081747,
+   "window": [
+    12.480935031128261,
+    13.794717665983868
+   ],
+   "inside": false
+  },
+  "1x light span 160": {
+   "n": 7,
+   "nativeSigmaCss": 17.317489322316977,
+   "renderedSigmaCss": 19.043810105751806,
+   "relativeError": 0.10593699921289979,
+   "window": [
+    16.45161485620113,
+    18.183363788432825
+   ],
+   "inside": false
+  },
+  "2x light span 96": {
+   "n": 11,
+   "nativeSigmaCss": 9.37038012496747,
+   "renderedSigmaCss": 11.571497748620887,
+   "relativeError": 0.23179402116476386,
+   "window": [
+    8.901861118719097,
+    9.838899131215843
+   ],
+   "inside": false
+  },
+  "2x light span 128": {
+   "n": 8,
+   "nativeSigmaCss": 13.304961181650366,
+   "renderedSigmaCss": 15.159693683834742,
+   "relativeError": 0.1484099634090315,
+   "window": [
+    12.639713122567848,
+    13.970209240732885
+   ],
+   "inside": false
+  },
+  "2x light span 160": {
+   "n": 7,
+   "nativeSigmaCss": 17.591680163762994,
+   "renderedSigmaCss": 19.097178537472217,
+   "relativeError": 0.08672947951042077,
+   "window": [
+    16.712096155574844,
+    18.471264171951145
+   ],
+   "inside": false
+  },
+  "1x dark span 96": {
+   "n": 9,
+   "nativeSigmaCss": 8.874315131365725,
+   "renderedSigmaCss": 11.566571049837023,
+   "relativeError": 0.29722969250597464,
+   "window": [
+    8.430599374797438,
+    9.318030887934011
+   ],
+   "inside": false
+  },
+  "1x dark span 128": {
+   "n": 5,
+   "nativeSigmaCss": 13.19038204281857,
+   "renderedSigmaCss": 15.719824621556988,
+   "relativeError": 0.18807104653254533,
+   "window": [
+    12.53086294067764,
+    13.8499011449595
+   ],
+   "inside": false
+  },
+  "1x dark span 160": {
+   "n": 7,
+   "nativeSigmaCss": 17.455963182251487,
+   "renderedSigmaCss": 19.547864643935682,
+   "relativeError": 0.12040949653431432,
+   "window": [
+    16.58316502313891,
+    18.328761341364064
+   ],
+   "inside": false
+  },
+  "2x dark span 96": {
+   "n": 9,
+   "nativeSigmaCss": 9.37726424575395,
+   "renderedSigmaCss": 11.903031670688502,
+   "relativeError": 0.2693501386695193,
+   "window": [
+    8.908401033466253,
+    9.846127458041648
+   ],
+   "inside": false
+  },
+  "2x dark span 128": {
+   "n": 5,
+   "nativeSigmaCss": 13.41662342184597,
+   "renderedSigmaCss": 15.908639879762273,
+   "relativeError": 0.18168900240283437,
+   "window": [
+    12.74579225075367,
+    14.087454592938268
+   ],
+   "inside": false
+  },
+  "2x dark span 160": {
+   "n": 7,
+   "nativeSigmaCss": 17.676919513180884,
+   "renderedSigmaCss": 19.70132995760949,
+   "relativeError": 0.11713997046122591,
+   "window": [
+    16.79307353752184,
+    18.56076548883993
+   ],
+   "inside": false
+  }
+ },
+ "b3": {
+  "bound": 0.00035,
+  "stop": {
+   "statistic": "arithmetic mean over the calibration + validation cells of all six profiles, the population B3's 0.00035 was read over",
+   "tier": "webgpu",
+   "value": 0.0006302473724943641,
+   "n": 166
+  },
+  "nonHoldoutIncludingProbe": {
+   "n": 386,
+   "mean": 0.0017046423964001047,
+   "max": 0.02703945320130938,
+   "worst": "light-solid__rrect-lg__inactive"
+  },
+  "windowDeparture": {
+   "1x light span 32": {
+    "n": 9,
+    "wholeAbsDelta": 0.0003135912819212618,
+    "windowAbsDelta": 0.00046808876050420266,
+    "wholeNative": 0.0006437246453343401,
+    "windowNative": 0.0002748897058823536,
+    "wholeWeb": 0.00030316273503261826,
+    "windowWeb": 0.0007429784663865563
+   },
+   "1x light span 44": {
+    "n": 24,
+    "wholeAbsDelta": 0.0004582410849364259,
+    "windowAbsDelta": 0.0006315562141869206,
+    "wholeNative": 0.0008533193587243824,
+    "windowNative": 0.0003677075676743721,
+    "wholeWeb": 0.0005775172855471298,
+    "windowWeb": 0.0009992637818612927
+   },
+   "1x light span 96": {
+    "n": 13,
+    "wholeAbsDelta": 0.0012725274684369167,
+    "windowAbsDelta": 0.0006204845360824764,
+    "wholeNative": 0.0037262307698258776,
+    "windowNative": 0.002369198383950959,
+    "wholeWeb": 0.0024565936228072047,
+    "windowWeb": 0.0029896829200334353
+   },
+   "1x light span 128": {
+    "n": 8,
+    "wholeAbsDelta": 0.0029529464461286997,
+    "windowAbsDelta": 0.0005900451166367745,
+    "wholeNative": 0.012863085789570763,
+    "windowNative": 0.016223805434503955,
+    "wholeWeb": 0.009909690292326963,
+    "windowWeb": 0.01681385055114073
+   },
+   "1x light span 160": {
+    "n": 7,
+    "wholeAbsDelta": 0.006974517387007918,
+    "windowAbsDelta": 0.001719078101071987,
+    "wholeNative": 0.04116952760443485,
+    "windowNative": 0.044146588055130144,
+    "wholeWeb": 0.03437635777806565,
+    "windowWeb": 0.042909318529862156
+   },
+   "2x light span 32": {
+    "n": 9,
+    "wholeAbsDelta": 5.054279800156212e-05,
+    "windowAbsDelta": 0.0004706185756481755,
+    "wholeNative": 0.00035330627488822043,
+    "windowNative": 0.0002759868723334439,
+    "wholeWeb": 0.000304312762832096,
+    "windowWeb": 0.0007466054479816195
+   },
+   "2x light span 44": {
+    "n": 24,
+    "wholeAbsDelta": 0.00011797390917812938,
+    "windowAbsDelta": 0.000645565620682851,
+    "wholeNative": 0.0005080885055689244,
+    "windowNative": 0.00037092219261890806,
+    "wholeWeb": 0.00057236220305853,
+    "windowWeb": 0.001016487813301759
+   },
+   "2x light span 96": {
+    "n": 13,
+    "wholeAbsDelta": 0.00037480472140015257,
+    "windowAbsDelta": 0.0006496724960808112,
+    "wholeNative": 0.0028358527991791845,
+    "windowNative": 0.0023494923532485722,
+    "wholeWeb": 0.0024617618161331453,
+    "windowWeb": 0.002999329419961676
+   },
+   "2x light span 128": {
+    "n": 8,
+    "wholeAbsDelta": 0.0016649183092885354,
+    "windowAbsDelta": 0.0005047133512889604,
+    "wholeNative": 0.011483757751504672,
+    "windowNative": 0.01620111331281263,
+    "wholeWeb": 0.009819720673716958,
+    "windowWeb": 0.01670779338207002
+   },
+   "2x light span 160": {
+    "n": 7,
+    "wholeAbsDelta": 0.004227003219193594,
+    "windowAbsDelta": 0.0018484388498402734,
+    "wholeNative": 0.03722887218759021,
+    "windowNative": 0.044221805750798704,
+    "wholeWeb": 0.034359246482812786,
+    "windowWeb": 0.042998857891373796
+   },
+   "1x dark span 32": {
+    "n": 7,
+    "wholeAbsDelta": 0.00024346430640983347,
+    "windowAbsDelta": 0.00039751129201680285,
+    "wholeNative": 0.0005124308391122866,
+    "windowNative": 0.0002748897058823536,
+    "wholeWeb": 0.000269475077052532,
+    "windowWeb": 0.0006724009978991564
+   },
+   "1x dark span 44": {
+    "n": 16,
+    "wholeAbsDelta": 0.00018773337302146738,
+    "windowAbsDelta": 0.0005421695317130997,
+    "wholeNative": 0.0007152676514075568,
+    "windowNative": 0.0003677075676743721,
+    "wholeWeb": 0.0005244547652867807,
+    "windowWeb": 0.0009098770993874718
+   },
+   "1x dark span 96": {
+    "n": 10,
+    "wholeAbsDelta": 0.0010317325790733696,
+    "windowAbsDelta": 0.0009044679576483673,
+    "wholeNative": 0.004562828648627382,
+    "windowNative": 0.003411200334354968,
+    "wholeWeb": 0.0035349165061967385,
+    "windowWeb": 0.0043156682920033355
+   },
+   "1x dark span 128": {
+    "n": 5,
+    "wholeAbsDelta": 0.002091675589536518,
+    "windowAbsDelta": 0.0011340056395795798,
+    "wholeNative": 0.016856242002545957,
+    "windowNative": 0.02365311843117148,
+    "wholeWeb": 0.014764566413009439,
+    "windowWeb": 0.0248391591899513
+   },
+   "1x dark span 160": {
+    "n": 7,
+    "wholeAbsDelta": 0.004961361521849533,
+    "windowAbsDelta": 0.0010346952526799225,
+    "wholeNative": 0.056835443479780194,
+    "windowNative": 0.06528759724349156,
+    "wholeWeb": 0.05236196113032239,
+    "windowWeb": 0.06504060949464013
+   },
+   "2x dark span 32": {
+    "n": 7,
+    "wholeAbsDelta": 4.7320640506800756e-05,
+    "windowAbsDelta": 0.00037701634394486525,
+    "wholeNative": 0.00030885270822870277,
+    "windowNative": 0.0002759868723334439,
+    "wholeWeb": 0.0002627386509302497,
+    "windowWeb": 0.0006530032162783092
+   },
+   "2x dark span 44": {
+    "n": 16,
+    "wholeAbsDelta": 4.548443937964653e-05,
+    "windowAbsDelta": 0.0005506372113676636,
+    "wholeNative": 0.0004571222723477688,
+    "windowNative": 0.00037092219261890806,
+    "wholeWeb": 0.0005031209152528682,
+    "windowWeb": 0.0009216536412078072
+   },
+   "2x dark span 96": {
+    "n": 10,
+    "wholeAbsDelta": 0.00014480622266038268,
+    "windowAbsDelta": 0.0009664750391917754,
+    "wholeNative": 0.003701302406473846,
+    "windowNative": 0.003398148475875284,
+    "wholeWeb": 0.00356048102841175,
+    "windowWeb": 0.00436462351506706
+   },
+   "2x dark span 128": {
+    "n": 5,
+    "wholeAbsDelta": 0.000683948231280691,
+    "windowAbsDelta": 0.0010562845325125083,
+    "wholeNative": 0.015386771618424151,
+    "windowNative": 0.023915947479799915,
+    "wholeWeb": 0.01470599999036384,
+    "windowWeb": 0.024972364178530198
+   },
+   "2x dark span 160": {
+    "n": 7,
+    "wholeAbsDelta": 0.001973346566507897,
+    "windowAbsDelta": 0.0010436936741214263,
+    "wholeNative": 0.05368777003787203,
+    "windowNative": 0.0652845077316294,
+    "wholeWeb": 0.05211952246778479,
+    "windowWeb": 0.06501736012779553
+   }
+  }
+ },
+ "thinRegime": {
+  "bar": 0.002044,
+  "perCell": {
+   "webgpu / probe / checkerboard-32__rrect-sm__rest / apple-macos-27.0-1x-light-standard-glass0.5": {
+    "bed": "1x light",
+    "span": 32,
+    "3-6": 0.012736999999999998,
+    "6-12": 0.0045279999999999765
+   },
+   "webgpu / probe / checkerboard-4__rrect-sm__rest / apple-macos-27.0-1x-light-standard-glass0.5": {
+    "bed": "1x light",
+    "span": 32,
+    "3-6": 0.012736999999999998,
+    "6-12": 0.0045279999999999765
+   },
+   "webgpu / probe / checkerboard-64__rrect-sm__rest / apple-macos-27.0-1x-light-standard-glass0.5": {
+    "bed": "1x light",
+    "span": 32,
+    "3-6": 0.018475999999999937,
+    "6-12": 0.007898000000000072
+   },
+   "webgpu / probe / checkerboard-8__rrect-sm__rest / apple-macos-27.0-1x-light-standard-glass0.5": {
+    "bed": "1x light",
+    "span": 32,
+    "3-6": 0.012736999999999998,
+    "6-12": 0.0045279999999999765
+   },
+   "webgpu / probe / checkerboard-lc16__rrect-sm__rest / apple-macos-27.0-1x-light-standard-glass0.5": {
+    "bed": "1x light",
+    "span": 32,
+    "3-6": 0.008948999999999985,
+    "6-12": 0.003483000000000014
+   },
+   "webgpu / calibration / checkerboard__rrect-sm__rest / apple-macos-27.0-1x-light-standard-glass0.5": {
+    "bed": "1x light",
+    "span": 32,
+    "3-6": 0.012736999999999998,
+    "6-12": 0.0045279999999999765
+   },
+   "webgpu / probe / hc-text-28__rrect-sm__rest / apple-macos-27.0-1x-light-standard-glass0.5": {
+    "bed": "1x light",
+    "span": 32,
+    "3-6": 0.00758700000000001,
+    "6-12": 0.00024299999999999322
+   },
+   "webgpu / probe / hc-text-7__rrect-sm__rest / apple-macos-27.0-1x-light-standard-glass0.5": {
+    "bed": "1x light",
+    "span": 32,
+    "3-6": 0.016210000000000058,
+    "6-12": 0.0014480000000000048
+   },
+   "webgpu / validation / photo__rrect-sm__rest / apple-macos-27.0-1x-light-standard-glass0.5": {
+    "bed": "1x light",
+    "span": 32,
+    "3-6": 0.006776000000000004,
+    "6-12": 0.0005619999999999514
+   },
+   "webgpu / probe / checkerboard-32__capsule-button__rest / apple-macos-27.0-1x-light-standard-glass0.5": {
+    "bed": "1x light",
+    "span": 44,
+    "3-6": 0.01497499999999996,
+    "6-12": 0.005441000000000029
+   },
+   "webgpu / probe / checkerboard-32__capsule-button__rest-tint-orange / apple-macos-27.0-1x-light-standard-glass0.5": {
+    "bed": "1x light",
+    "span": 44,
+    "3-6": 0.01497499999999996,
+    "6-12": 0.005441000000000029
+   },
+   "webgpu / probe / checkerboard-4__capsule-button__rest / apple-macos-27.0-1x-light-standard-glass0.5": {
+    "bed": "1x light",
+    "span": 44,
+    "3-6": 0.01497499999999996,
+    "6-12": 0.005441000000000029
+   },
+   "webgpu / probe / checkerboard-4__capsule-button__rest-tint-orange / apple-macos-27.0-1x-light-standard-glass0.5": {
+    "bed": "1x light",
+    "span": 44,
+    "3-6": 0.01497499999999996,
+    "6-12": 0.005441000000000029
+   },
+   "webgpu / probe / checkerboard-64__capsule-button__rest / apple-macos-27.0-1x-light-standard-glass0.5": {
+    "bed": "1x light",
+    "span": 44,
+    "3-6": 0.018847000000000058,
+    "6-12": 0.010110999999999981
+   },
+   "webgpu / probe / checkerboard-64__capsule-button__rest-tint-orange / apple-macos-27.0-1x-light-standard-glass0.5": {
+    "bed": "1x light",
+    "span": 44,
+    "3-6": 0.018847000000000058,
+    "6-12": 0.010110999999999981
+   },
+   "webgpu / probe / checkerboard-8__capsule-button__rest / apple-macos-27.0-1x-light-standard-glass0.5": {
+    "bed": "1x light",
+    "span": 44,
+    "3-6": 0.01497499999999996,
+    "6-12": 0.005441000000000029
+   },
+   "webgpu / probe / checkerboard-8__capsule-button__rest-tint-orange / apple-macos-27.0-1x-light-standard-glass0.5": {
+    "bed": "1x light",
+    "span": 44,
+    "3-6": 0.01497499999999996,
+    "6-12": 0.005441000000000029
+   },
+   "webgpu / probe / checkerboard-lc16__capsule-button__rest / apple-macos-27.0-1x-light-standard-glass0.5": {
+    "bed": "1x light",
+    "span": 44,
+    "3-6": 0.010712999999999973,
+    "6-12": 0.004170999999999925
+   },
+   "webgpu / calibration / checkerboard__capsule-button__rest / apple-macos-27.0-1x-light-standard-glass0.5": {
+    "bed": "1x light",
+    "span": 44,
+    "3-6": 0.01497499999999996,
+    "6-12": 0.005441000000000029
+   },
+   "webgpu / validation / checkerboard__capsule-button__rest-tint-blue / apple-macos-27.0-1x-light-standard-glass0.5": {
+    "bed": "1x light",
+    "span": 44,
+    "3-6": 0.01497499999999996,
+    "6-12": 0.005441000000000029
+   },
+   "webgpu / calibration / checkerboard__capsule-button__rest-tint-orange / apple-macos-27.0-1x-light-standard-glass0.5": {
+    "bed": "1x light",
+    "span": 44,
+    "3-6": 0.01497499999999996,
+    "6-12": 0.005441000000000029
+   },
+   "webgpu / calibration / checkerboard__toolbar-group__rest / apple-macos-27.0-1x-light-standard-glass0.5": {
+    "bed": "1x light",
+    "span": 44,
+    "3-6": 0.011484999999999967,
+    "6-12": 0.0038880000000000026
+   },
+   "webgpu / calibration / photo__capsule-button__rest / apple-macos-27.0-1x-light-standard-glass0.5": {
+    "bed": "1x light",
+    "span": 44,
+    "3-6": 0.01414099999999996,
+    "6-12": 0.003138000000000085
+   },
+   "webgpu / calibration / photo__capsule-button__rest-tint-blue / apple-macos-27.0-1x-light-standard-glass0.5": {
+    "bed": "1x light",
+    "span": 44,
+    "3-6": 0.01414099999999996,
+    "6-12": 0.003138000000000085
+   },
+   "webgpu / calibration / photo__capsule-button__rest-tint-orange / apple-macos-27.0-1x-light-standard-glass0.5": {
+    "bed": "1x light",
+    "span": 44,
+    "3-6": 0.01414099999999996,
+    "6-12": 0.003138000000000085
+   },
+   "webgpu / calibration / photo__capsule-button__rest-tint-orange-half / apple-macos-27.0-1x-light-standard-glass0.5": {
+    "bed": "1x light",
+    "span": 44,
+    "3-6": 0.01414099999999996,
+    "6-12": 0.003138000000000085
+   },
+   "webgpu / validation / photo__toolbar-group__rest / apple-macos-27.0-1x-light-standard-glass0.5": {
+    "bed": "1x light",
+    "span": 44,
+    "3-6": 0.01380300000000001,
+    "6-12": 0.002286999999999928
+   },
+   "webgpu / probe / checkerboard-32__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5": {
+    "bed": "2x light",
+    "span": 32,
+    "3-6": 0.012247000000000008,
+    "6-12": 0.004798999999999998
+   },
+   "webgpu / probe / checkerboard-4__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5": {
+    "bed": "2x light",
+    "span": 32,
+    "3-6": 0.012247000000000008,
+    "6-12": 0.004798999999999998
+   },
+   "webgpu / probe / checkerboard-64__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5": {
+    "bed": "2x light",
+    "span": 32,
+    "3-6": 0.01800400000000002,
+    "6-12": 0.008373999999999993
+   },
+   "webgpu / probe / checkerboard-8__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5": {
+    "bed": "2x light",
+    "span": 32,
+    "3-6": 0.012247000000000008,
+    "6-12": 0.004798999999999998
+   },
+   "webgpu / probe / checkerboard-lc16__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5": {
+    "bed": "2x light",
+    "span": 32,
+    "3-6": 0.008915999999999924,
+    "6-12": 0.0036289999999999933
+   },
+   "webgpu / calibration / checkerboard__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5": {
+    "bed": "2x light",
+    "span": 32,
+    "3-6": 0.012247000000000008,
+    "6-12": 0.004798999999999998
+   },
+   "webgpu / probe / hc-text-28__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5": {
+    "bed": "2x light",
+    "span": 32,
+    "3-6": 0.007454000000000072,
+    "6-12": 0.00022200000000005549
+   },
+   "webgpu / probe / hc-text-7__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5": {
+    "bed": "2x light",
+    "span": 32,
+    "3-6": 0.015620999999999996,
+    "6-12": 0.0021849999999999925
+   },
+   "webgpu / validation / photo__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5": {
+    "bed": "2x light",
+    "span": 32,
+    "3-6": 0.005301,
+    "6-12": 0.0005659999999999554
+   },
+   "webgpu / probe / checkerboard-32__capsule-button__rest / apple-macos-27.0-2x-light-standard-glass0.5": {
+    "bed": "2x light",
+    "span": 44,
+    "3-6": 0.014792999999999945,
+    "6-12": 0.005782999999999983
+   },
+   "webgpu / probe / checkerboard-32__capsule-button__rest-tint-orange / apple-macos-27.0-2x-light-standard-glass0.5": {
+    "bed": "2x light",
+    "span": 44,
+    "3-6": 0.014792999999999945,
+    "6-12": 0.005782999999999983
+   },
+   "webgpu / probe / checkerboard-4__capsule-button__rest / apple-macos-27.0-2x-light-standard-glass0.5": {
+    "bed": "2x light",
+    "span": 44,
+    "3-6": 0.014792999999999945,
+    "6-12": 0.005782999999999983
+   },
+   "webgpu / probe / checkerboard-4__capsule-button__rest-tint-orange / apple-macos-27.0-2x-light-standard-glass0.5": {
+    "bed": "2x light",
+    "span": 44,
+    "3-6": 0.014792999999999945,
+    "6-12": 0.005782999999999983
+   },
+   "webgpu / probe / checkerboard-64__capsule-button__rest / apple-macos-27.0-2x-light-standard-glass0.5": {
+    "bed": "2x light",
+    "span": 44,
+    "3-6": 0.018205000000000027,
+    "6-12": 0.010993999999999948
+   },
+   "webgpu / probe / checkerboard-64__capsule-button__rest-tint-orange / apple-macos-27.0-2x-light-standard-glass0.5": {
+    "bed": "2x light",
+    "span": 44,
+    "3-6": 0.018205000000000027,
+    "6-12": 0.010993999999999948
+   },
+   "webgpu / probe / checkerboard-8__capsule-button__rest / apple-macos-27.0-2x-light-standard-glass0.5": {
+    "bed": "2x light",
+    "span": 44,
+    "3-6": 0.014792999999999945,
+    "6-12": 0.005782999999999983
+   },
+   "webgpu / probe / checkerboard-8__capsule-button__rest-tint-orange / apple-macos-27.0-2x-light-standard-glass0.5": {
+    "bed": "2x light",
+    "span": 44,
+    "3-6": 0.014792999999999945,
+    "6-12": 0.005782999999999983
+   },
+   "webgpu / probe / checkerboard-lc16__capsule-button__rest / apple-macos-27.0-2x-light-standard-glass0.5": {
+    "bed": "2x light",
+    "span": 44,
+    "3-6": 0.010909999999999975,
+    "6-12": 0.004435000000000078
+   },
+   "webgpu / calibration / checkerboard__capsule-button__rest / apple-macos-27.0-2x-light-standard-glass0.5": {
+    "bed": "2x light",
+    "span": 44,
+    "3-6": 0.014792999999999945,
+    "6-12": 0.005782999999999983
+   },
+   "webgpu / validation / checkerboard__capsule-button__rest-tint-blue / apple-macos-27.0-2x-light-standard-glass0.5": {
+    "bed": "2x light",
+    "span": 44,
+    "3-6": 0.014792999999999945,
+    "6-12": 0.005782999999999983
+   },
+   "webgpu / calibration / checkerboard__capsule-button__rest-tint-orange / apple-macos-27.0-2x-light-standard-glass0.5": {
+    "bed": "2x light",
+    "span": 44,
+    "3-6": 0.014792999999999945,
+    "6-12": 0.005782999999999983
+   },
+   "webgpu / calibration / checkerboard__toolbar-group__rest / apple-macos-27.0-2x-light-standard-glass0.5": {
+    "bed": "2x light",
+    "span": 44,
+    "3-6": 0.011527999999999983,
+    "6-12": 0.004056999999999977
+   },
+   "webgpu / calibration / photo__capsule-button__rest / apple-macos-27.0-2x-light-standard-glass0.5": {
+    "bed": "2x light",
+    "span": 44,
+    "3-6": 0.014228000000000018,
+    "6-12": 0.003242999999999996
+   },
+   "webgpu / calibration / photo__capsule-button__rest-tint-blue / apple-macos-27.0-2x-light-standard-glass0.5": {
+    "bed": "2x light",
+    "span": 44,
+    "3-6": 0.014228000000000018,
+    "6-12": 0.003242999999999996
+   },
+   "webgpu / calibration / photo__capsule-button__rest-tint-orange / apple-macos-27.0-2x-light-standard-glass0.5": {
+    "bed": "2x light",
+    "span": 44,
+    "3-6": 0.014228000000000018,
+    "6-12": 0.003242999999999996
+   },
+   "webgpu / calibration / photo__capsule-button__rest-tint-orange-half / apple-macos-27.0-2x-light-standard-glass0.5": {
+    "bed": "2x light",
+    "span": 44,
+    "3-6": 0.014228000000000018,
+    "6-12": 0.003242999999999996
+   },
+   "webgpu / validation / photo__toolbar-group__rest / apple-macos-27.0-2x-light-standard-glass0.5": {
+    "bed": "2x light",
+    "span": 44,
+    "3-6": 0.013739000000000057,
+    "6-12": 0.0023420000000000663
+   },
+   "webgpu / probe / checkerboard-32__rrect-sm__rest / apple-macos-27.0-1x-dark-standard-glass0.5": {
+    "bed": "1x dark",
+    "span": 32,
+    "3-6": 0.008029999999999982,
+    "6-12": 0.005041999999999991
+   },
+   "webgpu / probe / checkerboard-4__rrect-sm__rest / apple-macos-27.0-1x-dark-standard-glass0.5": {
+    "bed": "1x dark",
+    "span": 32,
+    "3-6": 0.008029999999999982,
+    "6-12": 0.005041999999999991
+   },
+   "webgpu / probe / checkerboard-64__rrect-sm__rest / apple-macos-27.0-1x-dark-standard-glass0.5": {
+    "bed": "1x dark",
+    "span": 32,
+    "3-6": 0.010446999999999984,
+    "6-12": 0.00856100000000004
+   },
+   "webgpu / probe / checkerboard-8__rrect-sm__rest / apple-macos-27.0-1x-dark-standard-glass0.5": {
+    "bed": "1x dark",
+    "span": 32,
+    "3-6": 0.008029999999999982,
+    "6-12": 0.005041999999999991
+   },
+   "webgpu / probe / checkerboard-lc16__rrect-sm__rest / apple-macos-27.0-1x-dark-standard-glass0.5": {
+    "bed": "1x dark",
+    "span": 32,
+    "3-6": 0.003601999999999994,
+    "6-12": 0.0045479999999999965
+   },
+   "webgpu / probe / hc-text-28__rrect-sm__rest / apple-macos-27.0-1x-dark-standard-glass0.5": {
+    "bed": "1x dark",
+    "span": 32,
+    "3-6": 0.005170000000000008,
+    "6-12": 0.00036400000000003097
+   },
+   "webgpu / probe / hc-text-7__rrect-sm__rest / apple-macos-27.0-1x-dark-standard-glass0.5": {
+    "bed": "1x dark",
+    "span": 32,
+    "3-6": 0.009651000000000076,
+    "6-12": 0.003390000000000004
+   },
+   "webgpu / probe / checkerboard-32__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.5": {
+    "bed": "1x dark",
+    "span": 44,
+    "3-6": 0.009426000000000045,
+    "6-12": 0.006229999999999958
+   },
+   "webgpu / probe / checkerboard-32__capsule-button__rest-tint-orange / apple-macos-27.0-1x-dark-standard-glass0.5": {
+    "bed": "1x dark",
+    "span": 44,
+    "3-6": 0.009426000000000045,
+    "6-12": 0.006229999999999958
+   },
+   "webgpu / probe / checkerboard-4__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.5": {
+    "bed": "1x dark",
+    "span": 44,
+    "3-6": 0.009426000000000045,
+    "6-12": 0.006229999999999958
+   },
+   "webgpu / probe / checkerboard-4__capsule-button__rest-tint-orange / apple-macos-27.0-1x-dark-standard-glass0.5": {
+    "bed": "1x dark",
+    "span": 44,
+    "3-6": 0.009426000000000045,
+    "6-12": 0.006229999999999958
+   },
+   "webgpu / probe / checkerboard-64__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.5": {
+    "bed": "1x dark",
+    "span": 44,
+    "3-6": 0.010202999999999962,
+    "6-12": 0.011064999999999992
+   },
+   "webgpu / probe / checkerboard-64__capsule-button__rest-tint-orange / apple-macos-27.0-1x-dark-standard-glass0.5": {
+    "bed": "1x dark",
+    "span": 44,
+    "3-6": 0.010202999999999962,
+    "6-12": 0.011064999999999992
+   },
+   "webgpu / probe / checkerboard-8__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.5": {
+    "bed": "1x dark",
+    "span": 44,
+    "3-6": 0.009426000000000045,
+    "6-12": 0.006229999999999958
+   },
+   "webgpu / probe / checkerboard-8__capsule-button__rest-tint-orange / apple-macos-27.0-1x-dark-standard-glass0.5": {
+    "bed": "1x dark",
+    "span": 44,
+    "3-6": 0.009426000000000045,
+    "6-12": 0.006229999999999958
+   },
+   "webgpu / probe / checkerboard-lc16__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.5": {
+    "bed": "1x dark",
+    "span": 44,
+    "3-6": 0.0043039999999999745,
+    "6-12": 0.005549000000000026
+   },
+   "webgpu / calibration / checkerboard__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.5": {
+    "bed": "1x dark",
+    "span": 44,
+    "3-6": 0.009426000000000045,
+    "6-12": 0.006229999999999958
+   },
+   "webgpu / calibration / checkerboard__capsule-button__rest-tint-orange / apple-macos-27.0-1x-dark-standard-glass0.5": {
+    "bed": "1x dark",
+    "span": 44,
+    "3-6": 0.009426000000000045,
+    "6-12": 0.006229999999999958
+   },
+   "webgpu / calibration / photo__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.5": {
+    "bed": "1x dark",
+    "span": 44,
+    "3-6": 0.011984999999999912,
+    "6-12": 0.004117000000000037
+   },
+   "webgpu / calibration / photo__capsule-button__rest-tint-orange / apple-macos-27.0-1x-dark-standard-glass0.5": {
+    "bed": "1x dark",
+    "span": 44,
+    "3-6": 0.011984999999999912,
+    "6-12": 0.004117000000000037
+   },
+   "webgpu / probe / checkerboard-32__rrect-sm__rest / apple-macos-27.0-2x-dark-standard-glass0.5": {
+    "bed": "2x dark",
+    "span": 32,
+    "3-6": 0.007852000000000081,
+    "6-12": 0.004709000000000074
+   },
+   "webgpu / probe / checkerboard-4__rrect-sm__rest / apple-macos-27.0-2x-dark-standard-glass0.5": {
+    "bed": "2x dark",
+    "span": 32,
+    "3-6": 0.007852000000000081,
+    "6-12": 0.004709000000000074
+   },
+   "webgpu / probe / checkerboard-64__rrect-sm__rest / apple-macos-27.0-2x-dark-standard-glass0.5": {
+    "bed": "2x dark",
+    "span": 32,
+    "3-6": 0.009963999999999973,
+    "6-12": 0.007925999999999989
+   },
+   "webgpu / probe / checkerboard-8__rrect-sm__rest / apple-macos-27.0-2x-dark-standard-glass0.5": {
+    "bed": "2x dark",
+    "span": 32,
+    "3-6": 0.007852000000000081,
+    "6-12": 0.004709000000000074
+   },
+   "webgpu / probe / checkerboard-lc16__rrect-sm__rest / apple-macos-27.0-2x-dark-standard-glass0.5": {
+    "bed": "2x dark",
+    "span": 32,
+    "3-6": 0.003774999999999973,
+    "6-12": 0.004064999999999985
+   },
+   "webgpu / probe / hc-text-28__rrect-sm__rest / apple-macos-27.0-2x-dark-standard-glass0.5": {
+    "bed": "2x dark",
+    "span": 32,
+    "3-6": 0.005309000000000008,
+    "6-12": 0.00040600000000001746
+   },
+   "webgpu / probe / hc-text-7__rrect-sm__rest / apple-macos-27.0-2x-dark-standard-glass0.5": {
+    "bed": "2x dark",
+    "span": 32,
+    "3-6": 0.009431999999999996,
+    "6-12": 0.003045999999999993
+   },
+   "webgpu / probe / checkerboard-32__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.5": {
+    "bed": "2x dark",
+    "span": 44,
+    "3-6": 0.00918399999999997,
+    "6-12": 0.006496999999999975
+   },
+   "webgpu / probe / checkerboard-32__capsule-button__rest-tint-orange / apple-macos-27.0-2x-dark-standard-glass0.5": {
+    "bed": "2x dark",
+    "span": 44,
+    "3-6": 0.00918399999999997,
+    "6-12": 0.006496999999999975
+   },
+   "webgpu / probe / checkerboard-4__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.5": {
+    "bed": "2x dark",
+    "span": 44,
+    "3-6": 0.00918399999999997,
+    "6-12": 0.006496999999999975
+   },
+   "webgpu / probe / checkerboard-4__capsule-button__rest-tint-orange / apple-macos-27.0-2x-dark-standard-glass0.5": {
+    "bed": "2x dark",
+    "span": 44,
+    "3-6": 0.00918399999999997,
+    "6-12": 0.006496999999999975
+   },
+   "webgpu / probe / checkerboard-64__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.5": {
+    "bed": "2x dark",
+    "span": 44,
+    "3-6": 0.00956099999999993,
+    "6-12": 0.01194099999999998
+   },
+   "webgpu / probe / checkerboard-64__capsule-button__rest-tint-orange / apple-macos-27.0-2x-dark-standard-glass0.5": {
+    "bed": "2x dark",
+    "span": 44,
+    "3-6": 0.00956099999999993,
+    "6-12": 0.01194099999999998
+   },
+   "webgpu / probe / checkerboard-8__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.5": {
+    "bed": "2x dark",
+    "span": 44,
+    "3-6": 0.009179999999999966,
+    "6-12": 0.006496999999999975
+   },
+   "webgpu / probe / checkerboard-8__capsule-button__rest-tint-orange / apple-macos-27.0-2x-dark-standard-glass0.5": {
+    "bed": "2x dark",
+    "span": 44,
+    "3-6": 0.00918399999999997,
+    "6-12": 0.006496999999999975
+   },
+   "webgpu / probe / checkerboard-lc16__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.5": {
+    "bed": "2x dark",
+    "span": 44,
+    "3-6": 0.004421000000000008,
+    "6-12": 0.005457000000000045
+   },
+   "webgpu / calibration / checkerboard__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.5": {
+    "bed": "2x dark",
+    "span": 44,
+    "3-6": 0.00918399999999997,
+    "6-12": 0.006496999999999975
+   },
+   "webgpu / calibration / checkerboard__capsule-button__rest-tint-orange / apple-macos-27.0-2x-dark-standard-glass0.5": {
+    "bed": "2x dark",
+    "span": 44,
+    "3-6": 0.00918399999999997,
+    "6-12": 0.006496999999999975
+   },
+   "webgpu / calibration / photo__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.5": {
+    "bed": "2x dark",
+    "span": 44,
+    "3-6": 0.01184099999999999,
+    "6-12": 0.004037999999999986
+   },
+   "webgpu / calibration / photo__capsule-button__rest-tint-orange / apple-macos-27.0-2x-dark-standard-glass0.5": {
+    "bed": "2x dark",
+    "span": 44,
+    "3-6": 0.01184099999999999,
+    "6-12": 0.004037999999999986
+   },
+   "webgpu / calibration / checkerboard__capsule-button__rest / apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5": {
+    "bed": "1x light-increased-contrast-coupled",
+    "span": 44,
+    "3-6": 0.021679000000000004,
+    "6-12": 0.00848199999999999
+   },
+   "webgpu / calibration / checkerboard__capsule-button__rest-tint-orange / apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5": {
+    "bed": "1x light-increased-contrast-coupled",
+    "span": 44,
+    "3-6": 0.021679000000000004,
+    "6-12": 0.00848199999999999
+   },
+   "webgpu / calibration / photo__capsule-button__rest / apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5": {
+    "bed": "1x light-increased-contrast-coupled",
+    "span": 44,
+    "3-6": 0.020801999999999987,
+    "6-12": 0.004493999999999998
+   },
+   "webgpu / calibration / photo__capsule-button__rest-tint-orange / apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5": {
+    "bed": "1x light-increased-contrast-coupled",
+    "span": 44,
+    "3-6": 0.020801999999999987,
+    "6-12": 0.004493999999999998
+   },
+   "webgpu / validation / photo__toolbar-group__rest / apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5": {
+    "bed": "1x light-increased-contrast-coupled",
+    "span": 44,
+    "3-6": 0.019483000000000028,
+    "6-12": 0.003178999999999932
+   },
+   "webgpu / calibration / checkerboard__capsule-button__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5": {
+    "bed": "1x light-reduced-transparency",
+    "span": 44,
+    "3-6": 0.021679000000000004,
+    "6-12": 0.00848199999999999
+   },
+   "webgpu / calibration / photo__capsule-button__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5": {
+    "bed": "1x light-reduced-transparency",
+    "span": 44,
+    "3-6": 0.020801999999999987,
+    "6-12": 0.004493999999999998
+   },
+   "webgpu / calibration / photo__capsule-button__rest-tint-orange / apple-macos-27.0-1x-light-reduced-transparency-glass0.5": {
+    "bed": "1x light-reduced-transparency",
+    "span": 44,
+    "3-6": 0.020801999999999987,
+    "6-12": 0.004493999999999998
+   },
+   "webgpu / validation / photo__toolbar-group__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5": {
+    "bed": "1x light-reduced-transparency",
+    "span": 44,
+    "3-6": 0.019483000000000028,
+    "6-12": 0.003178999999999932
+   }
+  },
+  "perBed": {
+   "1x light span 32": {
+    "3-6": {
+     "median": 0.012736999999999998,
+     "max": 0.018475999999999937,
+     "n": 9
+    },
+    "6-12": {
+     "median": 0.0045279999999999765,
+     "max": 0.007898000000000072,
+     "n": 9
+    }
+   },
+   "1x light span 44": {
+    "3-6": {
+     "median": 0.01497499999999996,
+     "max": 0.018847000000000058,
+     "n": 18
+    },
+    "6-12": {
+     "median": 0.005441000000000029,
+     "max": 0.010110999999999981,
+     "n": 18
+    }
+   },
+   "2x light span 32": {
+    "3-6": {
+     "median": 0.012247000000000008,
+     "max": 0.01800400000000002,
+     "n": 9
+    },
+    "6-12": {
+     "median": 0.004798999999999998,
+     "max": 0.008373999999999993,
+     "n": 9
+    }
+   },
+   "2x light span 44": {
+    "3-6": {
+     "median": 0.014792999999999945,
+     "max": 0.018205000000000027,
+     "n": 18
+    },
+    "6-12": {
+     "median": 0.005782999999999983,
+     "max": 0.010993999999999948,
+     "n": 18
+    }
+   },
+   "1x dark span 32": {
+    "3-6": {
+     "median": 0.008029999999999982,
+     "max": 0.010446999999999984,
+     "n": 7
+    },
+    "6-12": {
+     "median": 0.005041999999999991,
+     "max": 0.00856100000000004,
+     "n": 7
+    }
+   },
+   "1x dark span 44": {
+    "3-6": {
+     "median": 0.009426000000000045,
+     "max": 0.011984999999999912,
+     "n": 13
+    },
+    "6-12": {
+     "median": 0.006229999999999958,
+     "max": 0.011064999999999992,
+     "n": 13
+    }
+   },
+   "2x dark span 32": {
+    "3-6": {
+     "median": 0.007852000000000081,
+     "max": 0.009963999999999973,
+     "n": 7
+    },
+    "6-12": {
+     "median": 0.004709000000000074,
+     "max": 0.007925999999999989,
+     "n": 7
+    }
+   },
+   "2x dark span 44": {
+    "3-6": {
+     "median": 0.00918399999999997,
+     "max": 0.01184099999999999,
+     "n": 13
+    },
+    "6-12": {
+     "median": 0.006496999999999975,
+     "max": 0.01194099999999998,
+     "n": 13
+    }
+   },
+   "1x light-increased-contrast-coupled span 44": {
+    "3-6": {
+     "median": 0.020801999999999987,
+     "max": 0.021679000000000004,
+     "n": 5
+    },
+    "6-12": {
+     "median": 0.004493999999999998,
+     "max": 0.00848199999999999,
+     "n": 5
+    }
+   },
+   "1x light-reduced-transparency span 44": {
+    "3-6": {
+     "median": 0.020801999999999987,
+     "max": 0.021679000000000004,
+     "n": 4
+    },
+    "6-12": {
+     "median": 0.004493999999999998,
+     "max": 0.00848199999999999,
+     "n": 4
+    }
+   }
+  },
+  "population": 103,
+  "beds": [
+   "1x light",
+   "2x light",
+   "1x dark",
+   "2x dark",
+   "1x light-increased-contrast-coupled",
+   "1x light-reduced-transparency"
+  ],
+  "worstCell": {
+   "value": 0.021679000000000004,
+   "bed": "1x light-increased-contrast-coupled",
+   "span": 44,
+   "band": "3-6",
+   "scene": "checkerboard__capsule-button__rest-tint-orange",
+   "set": "calibration"
+  },
+  "worstCellScenes": [
+   "1x light-increased-contrast-coupled span 44  checkerboard__capsule-button__rest",
+   "1x light-increased-contrast-coupled span 44  checkerboard__capsule-button__rest-tint-orange",
+   "1x light-reduced-transparency span 44  checkerboard__capsule-button__rest"
+  ]
+ },
+ "m2": {
+  "apple-macos-27.0-1x-dark-standard-glass0.5": {
+   "n": 4,
+   "median": 0.0032716012713972565,
+   "max": 0.006317181880721251,
+   "met": true
+  },
+  "apple-macos-27.0-1x-light-standard-glass0.5": {
+   "n": 9,
+   "median": 0.0009315131696681004,
+   "max": 0.01317438687330722,
+   "met": true
+  },
+  "apple-macos-27.0-2x-dark-standard-glass0.5": {
+   "n": 4,
+   "median": 0.0023409180126074463,
+   "max": 0.003955783326050364,
+   "met": true
+  },
+  "apple-macos-27.0-2x-light-standard-glass0.5": {
+   "n": 9,
+   "median": 0.0006214516630770283,
+   "max": 0.0073996911854048875,
+   "met": true
+  }
+ },
+ "m1": {
+  "apple-macos-27.0-1x-dark-standard-glass0.5": {
+   "n": 4,
+   "median": 0.9233855263595938,
+   "min": 0.8213247556326368,
+   "max": 1.129119169539833,
+   "outsideCell": 0,
+   "medianInside": true
+  },
+  "apple-macos-27.0-1x-light-standard-glass0.5": {
+   "n": 9,
+   "median": 1.0386858070645137,
+   "min": 0.8906497833412175,
+   "max": 1.5155228490009454,
+   "outsideCell": 1,
+   "medianInside": true
+  },
+  "apple-macos-27.0-2x-dark-standard-glass0.5": {
+   "n": 4,
+   "median": 1.075257783842288,
+   "min": 0.8747502761112579,
+   "max": 1.1866359400326556,
+   "outsideCell": 0,
+   "medianInside": true
+  },
+  "apple-macos-27.0-2x-light-standard-glass0.5": {
+   "n": 9,
+   "median": 1.0466249871585336,
+   "min": 0.8890531622827306,
+   "max": 1.4469025189843379,
+   "outsideCell": 2,
+   "medianInside": true
+  }
+ },
+ "unmoved": {
+  "1x light": {
+   "interiorStdDevWeb": {
+    "median": 0.05020762765520985,
+    "n": 61,
+    "scope": "all"
+   },
+   "interiorStdDevNative": {
+    "median": 0.05751519657524474,
+    "n": 61,
+    "scope": "all"
+   },
+   "tintChromaDeltaWeb": {
+    "median": 0.16412327378418398,
+    "n": 13,
+    "scope": "tinted"
+   },
+   "tintChromaDeltaNative": {
+    "median": 0.16518811935973196,
+    "n": 13,
+    "scope": "tinted"
+   },
+   "tintHueShiftWeb": {
+    "median": -27.22285544430453,
+    "n": 13,
+    "scope": "tinted"
+   },
+   "rimPeakLuminanceWeb": {
+    "median": 0.021204202332645472,
+    "n": 61,
+    "scope": "all"
+   },
+   "rimFwhmWeb": {
+    "median": 2.2470242485189944,
+    "n": 61,
+    "scope": "all"
+   }
+  },
+  "2x light": {
+   "interiorStdDevWeb": {
+    "median": 0.033577213606561684,
+    "n": 61,
+    "scope": "all"
+   },
+   "interiorStdDevNative": {
+    "median": 0.058933190889556404,
+    "n": 61,
+    "scope": "all"
+   },
+   "tintChromaDeltaWeb": {
+    "median": 0.16449860380981812,
+    "n": 13,
+    "scope": "tinted"
+   },
+   "tintChromaDeltaNative": {
+    "median": 0.16548191453065272,
+    "n": 13,
+    "scope": "tinted"
+   },
+   "tintHueShiftWeb": {
+    "median": -27.268984042219195,
+    "n": 13,
+    "scope": "tinted"
+   },
+   "rimPeakLuminanceWeb": {
+    "median": 0.02550680110382747,
+    "n": 61,
+    "scope": "all"
+   },
+   "rimFwhmWeb": {
+    "median": 3.7226496899707238,
+    "n": 61,
+    "scope": "all"
+   }
+  },
+  "1x dark": {
+   "interiorStdDevWeb": {
+    "median": 0.029281482917194807,
+    "n": 45,
+    "scope": "all"
+   },
+   "interiorStdDevNative": {
+    "median": 0.036118766420957286,
+    "n": 45,
+    "scope": "all"
+   },
+   "tintChromaDeltaWeb": {
+    "median": 0.1743905570869604,
+    "n": 7,
+    "scope": "tinted"
+   },
+   "tintChromaDeltaNative": {
+    "median": 0.16833919724516708,
+    "n": 7,
+    "scope": "tinted"
+   },
+   "tintHueShiftWeb": {
+    "median": -26.88509851263332,
+    "n": 7,
+    "scope": "tinted"
+   },
+   "rimPeakLuminanceWeb": {
+    "median": 0.07595556056175692,
+    "n": 45,
+    "scope": "all"
+   },
+   "rimFwhmWeb": {
+    "median": 1.1601297509377,
+    "n": 45,
+    "scope": "all"
+   }
+  },
+  "2x dark": {
+   "interiorStdDevWeb": {
+    "median": 0.027539645617619412,
+    "n": 45,
+    "scope": "all"
+   },
+   "interiorStdDevNative": {
+    "median": 0.038759909810193054,
+    "n": 45,
+    "scope": "all"
+   },
+   "tintChromaDeltaWeb": {
+    "median": 0.17473564843925646,
+    "n": 7,
+    "scope": "tinted"
+   },
+   "tintChromaDeltaNative": {
+    "median": 0.16862314246245377,
+    "n": 7,
+    "scope": "tinted"
+   },
+   "tintHueShiftWeb": {
+    "median": -27.055863843656738,
+    "n": 7,
+    "scope": "tinted"
+   },
+   "rimPeakLuminanceWeb": {
+    "median": 0.08864660240502997,
+    "n": 45,
+    "scope": "all"
+   },
+   "rimFwhmWeb": {
+    "median": 1.3510823598964783,
+    "n": 45,
+    "scope": "all"
+   }
+  }
+ },
+ "recede": {
+  "1x light span 32": {
+   "n": 2,
+   "all": 0.0,
+   "above": 0.0,
+   "below": 0.0,
+   "left": 0.0,
+   "right": 0.0,
+   "windowNative": 0.0,
+   "windowWeb": 0.0,
+   "nativeFlat": "2/2"
+  },
+  "1x light span 44": {
+   "n": 10,
+   "all": 0.0,
+   "above": 0.0,
+   "below": 0.0,
+   "left": 0.0,
+   "right": 0.0,
+   "windowNative": 0.0,
+   "windowWeb": 0.0,
+   "nativeFlat": "10/10"
+  },
+  "1x light span 96": {
+   "n": 9,
+   "all": 0.0,
+   "above": 0.0,
+   "below": 0.0,
+   "left": 0.0,
+   "right": 0.0,
+   "windowNative": 0.0,
+   "windowWeb": 0.0,
+   "nativeFlat": "9/9"
+  },
+  "1x light span 128": {
+   "n": 2,
+   "all": 0.0,
+   "above": 0.0,
+   "below": 0.0,
+   "left": 0.0,
+   "right": 0.0,
+   "windowNative": 0.0,
+   "windowWeb": 0.0,
+   "nativeFlat": "2/2"
+  },
+  "1x light span 160": {
+   "n": 4,
+   "all": 0.0,
+   "above": 0.0,
+   "below": 0.0,
+   "left": 0.0,
+   "right": 0.0,
+   "windowNative": 0.0,
+   "windowWeb": 0.0,
+   "nativeFlat": "4/4"
+  },
+  "2x light span 32": {
+   "n": 2,
+   "all": 0.0,
+   "above": 0.0,
+   "below": 0.0,
+   "left": 0.0,
+   "right": 0.0,
+   "windowNative": 0.0,
+   "windowWeb": 0.0,
+   "nativeFlat": "2/2"
+  },
+  "2x light span 44": {
+   "n": 10,
+   "all": 0.0,
+   "above": 0.0,
+   "below": 0.0,
+   "left": 0.0,
+   "right": 0.0,
+   "windowNative": 0.0,
+   "windowWeb": 0.0,
+   "nativeFlat": "10/10"
+  },
+  "2x light span 96": {
+   "n": 9,
+   "all": 0.0,
+   "above": 0.0,
+   "below": 0.0,
+   "left": 0.0,
+   "right": 0.0,
+   "windowNative": 0.0,
+   "windowWeb": 0.0,
+   "nativeFlat": "9/9"
+  },
+  "2x light span 128": {
+   "n": 2,
+   "all": 0.0,
+   "above": 0.0,
+   "below": 0.0,
+   "left": 0.0,
+   "right": 0.0,
+   "windowNative": 0.0,
+   "windowWeb": 0.0,
+   "nativeFlat": "2/2"
+  },
+  "2x light span 160": {
+   "n": 4,
+   "all": 0.0,
+   "above": 0.0,
+   "below": 0.0,
+   "left": 0.0,
+   "right": 0.0,
+   "windowNative": 0.0,
+   "windowWeb": 0.0,
+   "nativeFlat": "4/4"
+  },
+  "1x dark span 44": {
+   "n": 5,
+   "all": 0.0,
+   "above": 0.0,
+   "below": 0.0,
+   "left": 0.0,
+   "right": 0.0,
+   "windowNative": 0.0,
+   "windowWeb": 0.0,
+   "nativeFlat": "5/5"
+  },
+  "1x dark span 96": {
+   "n": 8,
+   "all": 0.0,
+   "above": 0.0,
+   "below": 0.0,
+   "left": 0.0,
+   "right": 0.0,
+   "windowNative": 0.0,
+   "windowWeb": 0.0,
+   "nativeFlat": "8/8"
+  },
+  "1x dark span 128": {
+   "n": 2,
+   "all": 0.0,
+   "above": 0.0,
+   "below": 0.0,
+   "left": 0.0,
+   "right": 0.0,
+   "windowNative": 0.0,
+   "windowWeb": 0.0,
+   "nativeFlat": "2/2"
+  },
+  "1x dark span 160": {
+   "n": 4,
+   "all": 0.0,
+   "above": 0.0,
+   "below": 0.0,
+   "left": 0.0,
+   "right": 0.0,
+   "windowNative": 0.0,
+   "windowWeb": 0.0,
+   "nativeFlat": "4/4"
+  },
+  "2x dark span 44": {
+   "n": 5,
+   "all": 0.0,
+   "above": 0.0,
+   "below": 0.0,
+   "left": 0.0,
+   "right": 0.0,
+   "windowNative": 0.0,
+   "windowWeb": 0.0,
+   "nativeFlat": "5/5"
+  },
+  "2x dark span 96": {
+   "n": 8,
+   "all": 0.0,
+   "above": 0.0,
+   "below": 0.0,
+   "left": 0.0,
+   "right": 0.0,
+   "windowNative": 0.0,
+   "windowWeb": 0.0,
+   "nativeFlat": "8/8"
+  },
+  "2x dark span 128": {
+   "n": 2,
+   "all": 0.0,
+   "above": 0.0,
+   "below": 0.0,
+   "left": 0.0,
+   "right": 0.0,
+   "windowNative": 0.0,
+   "windowWeb": 0.0,
+   "nativeFlat": "2/2"
+  },
+  "2x dark span 160": {
+   "n": 4,
+   "all": 0.0,
+   "above": 0.0,
+   "below": 0.0,
+   "left": 0.0,
+   "right": 0.0,
+   "windowNative": 0.0,
+   "windowWeb": 0.0,
+   "nativeFlat": "4/4"
+  }
+ },
+ "missedRows": {
+  "texture / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: chromaStructureRatioR": {
+   "status": "current",
+   "measured": 1.51552,
+   "bound": 1.4,
+   "verdict": "not through the shadow \u2014 a body-composite ratio"
+  },
+  "texture / photo__rrect-sm__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: chromaStructureRatioR": {
+   "status": "current",
+   "measured": 1.4469,
+   "bound": 1.4,
+   "verdict": "not through the shadow \u2014 a body-composite ratio"
+  },
+  "texture / photo__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: chromaStructureRatioR": {
+   "status": "current",
+   "measured": 1.44173,
+   "bound": 1.4,
+   "verdict": "not through the shadow \u2014 a body-composite ratio"
+  }
+ }
+}

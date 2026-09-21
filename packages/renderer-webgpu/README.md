@@ -97,15 +97,19 @@ group-shadow clip) take it at the widest span among the members, which bounds
 every member's σ rather than naming any member's, exactly while
 `sigmaSlopePerSpan ≥ 0`.
 
-**The shipped macOS 27 documents fit it** (claims §5.159): the light material's
-law is `8.96 + max(−6.8328, 0.1314 · (span − 96))` and the dark material's
-`9.04 + max(−6.968, 0.1340 · (span − 96))`, both with the derived knee at a span
-of 44. The reference is held at 96 rather than fitted, because the law has one
-flat direction — shifting `sigmaPx`, `sigmaThinOffsetPx` and `sigmaSpanRefPx`
-together leaves σ unchanged at every span — and 96 is the span the amplitude's own
-anchor is keyed to, so the shadow's two laws pivot on one abscissa. A 44 px
-control's σ goes from the 11.0 that 0.19.0 drew to 2.13, and a 160 px panel's to
-17.37.
+**The shipped macOS 27 documents fit it** (claims §5.159, as W32 G1's joint fit
+moved the dark half of it — claims §5.168 §5): the light material's law is
+`8.96 + max(−6.8328, 0.1314 · (span − 96))` and the dark material's
+`9.04 + max(−6.318, 0.1215 · (span − 96))`, both with the derived knee at a span
+of 44. *(The dark law read `9.04 + max(−6.968, 0.1340 · (span − 96))` through
+0.21.0; W32 G1 re-solved its slope inside B1's joint window and re-derived the
+thin offset to keep the knee at 44. The light law is unmoved.)* The reference is
+held at 96 rather than fitted, because the law has one flat direction — shifting
+`sigmaPx`, `sigmaThinOffsetPx` and `sigmaSpanRefPx` together leaves σ unchanged
+at every span — and 96 is the span the amplitude's own anchor is keyed to, so the
+shadow's two laws pivot on one abscissa. A 44 px control's σ goes from the 11.0
+that 0.19.0 drew to **2.13** on the light material and **2.72** on the dark one,
+and a 160 px panel's to **17.37** and **16.82**.
 
 **The scale-selective scatter's spanning set**, on `MaterialProfile`. The
 diffusion residual is non-monotone in the backdrop's pitch, which a positive mix
@@ -222,6 +226,8 @@ second half of the wave** — true of the LEAF commit, which is the claim being
 made; the fit that followed moved all four macOS 27 documents to
 `3dc24a74f17fd87e`, `8a43f54162606db4`, `ab3ed65aa02869b1` and
 `e1f42c5656ef392f`, as a fit must (claims §5.164 §13, findings F6 and N11).
+W32 G1's exterior fit moved them again, to `40a6dec2dc34c748`,
+`bd1814fac34f9b30`, `f34dcc03e2774db3` and `6b6237b7ae241638` (claims §5.168).
 
 `resolvedMaterialSha256` is taken over the fully resolved material, so before
 W31 a material that gained a key moved every document's digest whatever that key

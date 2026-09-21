@@ -1,0 +1,424 @@
+W32 G1 — the verdict (claims §5.168)
+================================================================================================================================
+  before  results/2026-09-21-w32-g1-shadow-fit/pre-fit   before (shipped documents)
+  after   results/2026-09-21-w32-g1-shadow-fit   after (the canonical read at the sealed documents)
+
+  before documents:
+    packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5.json sha256:b5714a866288
+    packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json sha256:49490eb9ff7a
+  after documents:
+    packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5.json sha256:431cabd391c4
+    packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json sha256:d5bdd6eac432
+
+§1. C1 — Decision Log 1 (c) as RULED: form (ii), per-span `T` over the admitted bands,
+    ≤ 0.0042 at spans 96, 128 and 160. Form (i) beside it, as §5.162 left it.
+--------------------------------------------------------------------------------------------------------------------------------
+  bed          span   form (ii) before → after          verdict                  n  min–max after
+  1x light       96   0.00408 → 0.00090  (-0.00318)     PASS                    10  0.00067–0.00149
+  1x light      128   0.00843 → 0.00245  (-0.00599)     PASS                     7  0.00123–0.00556
+  1x light      160   0.00796 → 0.00134  (-0.00662)     PASS                     7  0.00073–0.00275
+  2x light       96   0.00413 → 0.00088  (-0.00326)     PASS                    10  0.00066–0.00163
+  2x light      128   0.00889 → 0.00253  (-0.00636)     PASS                     7  0.00151–0.00537
+  2x light      160   0.00797 → 0.00132  (-0.00665)     PASS                     7  0.00084–0.00218
+  1x dark        96   0.00399 → 0.00125  (-0.00274)     PASS                     9  0.00104–0.00221
+  1x dark       128   0.00782 → 0.00348  (-0.00434)     PASS                     5  0.00347–0.00433
+  1x dark       160   0.00659 → 0.00164  (-0.00494)     PASS                     7  0.00084–0.00326
+  2x dark        96   0.00385 → 0.00115  (-0.00270)     PASS                     9  0.00093–0.00213
+  2x dark       128   0.00738 → 0.00391  (-0.00348)     PASS                     5  0.00319–0.00475
+  2x dark       160   0.00627 → 0.00168  (-0.00459)     PASS                     7  0.00097–0.00233
+
+  form (i), the one bound across the thick spans (≤ 0.0045), recorded beside:
+  1x light      96: 0.00408 → 0.00090  128: 0.00843 → 0.00245  160: 0.00796 → 0.00134
+  2x light      96: 0.00413 → 0.00088  128: 0.00889 → 0.00253  160: 0.00797 → 0.00132
+  1x dark       96: 0.00399 → 0.00125  128: 0.00782 → 0.00348  160: 0.00659 → 0.00164
+  2x dark       96: 0.00385 → 0.00115  128: 0.00738 → 0.00391  160: 0.00627 → 0.00168
+
+§2. Candidate (i) — the wave's headline number: the RENDERED σ against the NATIVE σ,
+    declared with the bound 'inside B1's own ±5 % window of the native σ'.
+--------------------------------------------------------------------------------------------------------------------------------
+  bed          span     σ native  σ web before  σ web after  (i) before  (i) after   window                verdict
+  1x light       96        8.796        12.570       11.364       0.414      0.299   [8.357, 9.236]        OUTSIDE
+  1x light      128       13.138        16.176       15.133       0.249      0.166   [12.481, 13.795]      OUTSIDE
+  1x light      160       17.317        20.264       18.980       0.176      0.102   [16.452, 18.183]      OUTSIDE
+  2x light       96        9.370        12.833       11.627       0.354      0.241   [8.902, 9.839]        OUTSIDE
+  2x light      128       13.305        16.360       15.155       0.240      0.148   [12.640, 13.970]      OUTSIDE
+  2x light      160       17.592        20.311       19.088       0.156      0.087   [16.712, 18.471]      OUTSIDE
+  1x dark        96        8.874        12.443       11.643       0.389      0.302   [8.431, 9.318]        OUTSIDE
+  1x dark       128       13.190        16.415       15.409       0.240      0.165   [12.531, 13.850]      OUTSIDE
+  1x dark       160       17.456        20.208       18.855       0.155      0.085   [16.583, 18.329]      OUTSIDE
+  2x dark        96        9.377        12.485       11.883       0.317      0.257   [8.908, 9.846]        OUTSIDE
+  2x dark       128       13.417        16.493       15.523       0.224      0.153   [12.746, 14.087]      OUTSIDE
+  2x dark       160       17.677        20.335       18.945       0.150      0.075   [16.793, 18.561]      OUTSIDE
+
+§3. B3 — the departure residual over the WHOLE exterior, the stop's own population
+--------------------------------------------------------------------------------------------------------------------------------
+  before (shipped documents)           0.00034  ≤ 0.00035  MET   n=166
+                                    every non-holdout row, probe included:  mean 0.00350  max 0.08441  worst light-solid__rrect-lg__inactive
+  after (the canonical read at the sealed documents)   0.00072  ≤ 0.00035  BROKEN   n=166
+                                    every non-holdout row, probe included:  mean 0.00175  max 0.02704  worst light-solid__rrect-lg__inactive
+
+  the window-restricted departure beside it, which is what the anchors were solved on:
+  bed / span                |Δ| whole before       after   |Δ| window before       after
+  1x dark span 128                   0.00043     0.00262             0.00396     0.00039
+  1x dark span 160                   0.00118     0.00474             0.00398     0.00077
+  1x dark span 32                    0.00019     0.00040             0.00057     0.00002
+  1x dark span 44                    0.00011     0.00045             0.00076     0.00002
+  1x dark span 96                    0.00044     0.00180             0.00175     0.00006
+  1x light span 128                  0.00076     0.00313             0.00433     0.00030
+  1x light span 160                  0.00142     0.00521             0.00463     0.00102
+  1x light span 32                   0.00015     0.00050             0.00098     0.00001
+  1x light span 44                   0.00023     0.00065             0.00128     0.00002
+  1x light span 96                   0.00044     0.00173             0.00176     0.00003
+  2x dark span 128                   0.00092     0.00122             0.00373     0.00018
+  2x dark span 160                   0.00231     0.00134             0.00392     0.00085
+  2x dark span 32                    0.00001     0.00020             0.00056     0.00003
+  2x dark span 44                    0.00012     0.00023             0.00075     0.00001
+  2x dark span 96                    0.00036     0.00090             0.00169     0.00005
+  2x light span 128                  0.00094     0.00183             0.00455     0.00019
+  2x light span 160                  0.00240     0.00257             0.00491     0.00092
+  2x light span 32                   0.00010     0.00024             0.00096     0.00002
+  2x light span 44                   0.00019     0.00029             0.00127     0.00001
+  2x light span 96                   0.00042     0.00083             0.00178     0.00008
+
+§4. The thin regime, per cell — no inner band's |Δa| worse than today's by more than
+    the bar 0.002044; the order statistic per bed no worse than today's.
+--------------------------------------------------------------------------------------------------------------------------------
+  206 (cell, band) readings compared; 0 worse than the bar.
+        Δ|Δa|    before     after  band   bed         cell
+     -0.00080   0.00094   0.00013  6-12   2x dark     webgpu / probe / hc-text-28__rrect-sm__rest / apple-macos-27.0-2x-dark-standard-glass0.5
+     -0.00094   0.00106   0.00012  6-12   1x dark     webgpu / probe / hc-text-28__rrect-sm__rest / apple-macos-27.0-1x-dark-standard-glass0.5
+     -0.00163   0.00163   0.00000  6-12   1x light    webgpu / probe / hc-text-28__rrect-sm__rest / apple-macos-27.0-1x-light-standard-glass0.5
+     -0.00170   0.00170   0.00000  6-12   2x light    webgpu / probe / hc-text-28__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5
+     -0.00277   0.00518   0.00240  3-6    1x dark     webgpu / probe / checkerboard-lc16__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.5
+     -0.00300   0.00531   0.00230  3-6    2x dark     webgpu / probe / checkerboard-lc16__capsule-button__rest / apple-macos-27.0-2x-dark-standard-glass0.5
+     -0.00342   0.00556   0.00214  3-6    2x dark     webgpu / probe / checkerboard-lc16__rrect-sm__rest / apple-macos-27.0-2x-dark-standard-glass0.5
+     -0.00352   0.00560   0.00208  3-6    1x dark     webgpu / probe / checkerboard-lc16__rrect-sm__rest / apple-macos-27.0-1x-dark-standard-glass0.5
+     -0.00441   0.00493   0.00053  6-12   1x light    webgpu / validation / photo__rrect-sm__rest / apple-macos-27.0-1x-light-standard-glass0.5
+     -0.00457   0.02625   0.02168  3-6    1x light-reduced-transparencywebgpu / calibration / checkerboard__capsule-button__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5
+  ... worst first; the whole table is in the two `stops.txt` §3 beside this file.
+
+  the order statistic per bed, before → after (median and max of |Δa|, both bands):
+    1x dark span 32                               3-6 med 0.01016 → 0.00097  max 0.01147 → 0.00243  6-12 med 0.00739 → 0.00012  max 0.01182 → 0.00080
+    1x dark span 44                               3-6 med 0.01061 → 0.00138  max 0.01647 → 0.00294  6-12 med 0.00936 → 0.00101  max 0.01562 → 0.00169
+    1x light span 32                              3-6 med 0.01754 → 0.00009  max 0.03433 → 0.00137  6-12 med 0.01229 → 0.00026  max 0.01995 → 0.00096
+    1x light span 44                              3-6 med 0.01865 → 0.00096  max 0.02931 → 0.00147  6-12 med 0.01494 → 0.00015  max 0.02554 → 0.00104
+    1x light-increased-contrast-coupled span 44   3-6 med 0.03179 → 0.02080  max 0.04012 → 0.02168  6-12 med 0.01423 → 0.00449  max 0.01922 → 0.00848
+    1x light-reduced-transparency span 44         3-6 med 0.04012 → 0.02080  max 0.04012 → 0.02168  6-12 med 0.01423 → 0.00449  max 0.01922 → 0.00848
+    2x dark span 32                               3-6 med 0.00970 → 0.00145  max 0.01096 → 0.00290  6-12 med 0.00744 → 0.00010  max 0.01200 → 0.00080
+    2x dark span 44                               3-6 med 0.01037 → 0.00166  max 0.01648 → 0.00358  6-12 med 0.00929 → 0.00089  max 0.01561 → 0.00144
+    2x light span 32                              3-6 med 0.01726 → 0.00033  max 0.03449 → 0.00132  6-12 med 0.01217 → 0.00033  max 0.01953 → 0.00112
+    2x light span 44                              3-6 med 0.01873 → 0.00076  max 0.02873 → 0.00138  6-12 med 0.01490 → 0.00009  max 0.02558 → 0.00090
+  order statistics that got WORSE: 0
+
+  the worst cell of the whole population, before and after:
+    before (shipped documents)        {'value': 0.04011699999999996, 'bed': '1x light-increased-contrast-coupled', 'span': 44, 'band': '3-6', 'scene': 'photo__capsule-button__rest-tint-orange', 'set': 'calibration'}   ['1x light-increased-contrast-coupled span 44  photo__capsule-button__rest', '1x light-increased-contrast-coupled span 44  photo__capsule-button__rest-tint-orange', '1x light-reduced-transparency span 44  photo__capsule-button__rest', '1x light-reduced-transparency span 44  photo__capsule-button__rest-tint-orange']
+    after (the canonical read at the sealed documents){'value': 0.021679000000000004, 'bed': '1x light-increased-contrast-coupled', 'span': 44, 'band': '3-6', 'scene': 'checkerboard__capsule-button__rest-tint-orange', 'set': 'calibration'}   ['1x light-increased-contrast-coupled span 44  checkerboard__capsule-button__rest', '1x light-increased-contrast-coupled span 44  checkerboard__capsule-button__rest-tint-orange', '1x light-reduced-transparency span 44  checkerboard__capsule-button__rest']
+
+§5. The rows expected UNMOVED — a fit that moves one of these is a warning (X3)
+--------------------------------------------------------------------------------------------------------------------------------
+  M1 and M2 as `stops.py` reads them, which is out of W31 G4's COMMITTED cut — one
+  number that does not move with a round. `chroma-recheck.py` beside this file
+  re-derives both from each matrix over the same population, which is the reading
+  that has a before and an after; `adopted-thresholds.test.ts` is the authority.
+  M1:
+    apple-macos-27.0-1x-dark-standard-glass0.5            median 0.92339 → 0.92339  min 0.82132 → 0.82132  max 1.12912 → 1.12912  outsideCell 0.00000 → 0.00000
+    apple-macos-27.0-1x-light-standard-glass0.5           median 1.03869 → 1.03869  min 0.89065 → 0.89065  max 1.51552 → 1.51552  outsideCell 1.00000 → 1.00000
+    apple-macos-27.0-2x-dark-standard-glass0.5            median 1.07526 → 1.07526  min 0.87475 → 0.87475  max 1.18664 → 1.18664  outsideCell 0.00000 → 0.00000
+    apple-macos-27.0-2x-light-standard-glass0.5           median 1.04662 → 1.04662  min 0.88905 → 0.88905  max 1.44690 → 1.44690  outsideCell 2.00000 → 2.00000
+  M2:
+    apple-macos-27.0-1x-dark-standard-glass0.5            median 0.00327 → 0.00327  max 0.00632 → 0.00632
+    apple-macos-27.0-1x-light-standard-glass0.5           median 0.00093 → 0.00093  max 0.01317 → 0.01317
+    apple-macos-27.0-2x-dark-standard-glass0.5            median 0.00234 → 0.00234  max 0.00396 → 0.00396
+    apple-macos-27.0-2x-light-standard-glass0.5           median 0.00062 → 0.00062  max 0.00740 → 0.00740
+
+  the structure, tint and rim readings, per bed — the values a shadow fit must leave:
+    1x light    interiorStdDevNative      0.05752 → 0.05752  (+0.00000)
+    1x light    interiorStdDevWeb         0.05021 → 0.05021  (+0.00000)
+    1x light    rimFwhmWeb                2.24694 → 2.24602  (-0.00092)   MOVED
+    1x light    rimPeakLuminanceWeb       0.02114 → 0.02174  (+0.00059)   MOVED
+    1x light    tintChromaDeltaNative     0.16519 → 0.16519  (+0.00000)
+    1x light    tintChromaDeltaWeb        0.16412 → 0.16412  (-0.00000)   MOVED
+    1x light    tintHueShiftWeb           -27.22088 → -27.22075  (+0.00014)   MOVED
+    2x light    interiorStdDevNative      0.05893 → 0.05893  (+0.00000)
+    2x light    interiorStdDevWeb         0.03354 → 0.03358  (+0.00004)   MOVED
+    2x light    rimFwhmWeb                3.71327 → 3.72856  (+0.01529)   MOVED
+    2x light    rimPeakLuminanceWeb       0.02541 → 0.02541  (+0.00000)
+    2x light    tintChromaDeltaNative     0.16548 → 0.16548  (+0.00000)
+    2x light    tintChromaDeltaWeb        0.16450 → 0.16450  (-0.00000)   MOVED
+    2x light    tintHueShiftWeb           -27.26898 → -27.26935  (-0.00037)   MOVED
+    1x dark     interiorStdDevNative      0.03612 → 0.03612  (+0.00000)
+    1x dark     interiorStdDevWeb         0.02921 → 0.02924  (+0.00003)   MOVED
+    1x dark     rimFwhmWeb                1.16017 → 1.15956  (-0.00061)   MOVED
+    1x dark     rimPeakLuminanceWeb       0.07585 → 0.07621  (+0.00036)   MOVED
+    1x dark     tintChromaDeltaNative     0.16834 → 0.16834  (+0.00000)
+    1x dark     tintChromaDeltaWeb        0.17439 → 0.17439  (-0.00000)   MOVED
+    1x dark     tintHueShiftWeb           -26.88537 → -26.88419  (+0.00118)   MOVED
+    2x dark     interiorStdDevNative      0.03876 → 0.03876  (+0.00000)
+    2x dark     interiorStdDevWeb         0.02748 → 0.02756  (+0.00007)   MOVED
+    2x dark     rimFwhmWeb                1.35102 → 1.34922  (-0.00181)   MOVED
+    2x dark     rimPeakLuminanceWeb       0.08863 → 0.08921  (+0.00058)   MOVED
+    2x dark     tintChromaDeltaNative     0.16862 → 0.16862  (+0.00000)
+    2x dark     tintChromaDeltaWeb        0.17474 → 0.17473  (-0.00000)   MOVED
+    2x dark     tintHueShiftWeb           -27.05601 → -27.05527  (+0.00074)   MOVED
+  readings that moved: 18
+
+§6. The recede — Decision Log 2's stand-down, read on the inactive pose
+--------------------------------------------------------------------------------------------------------------------------------
+  1x dark span 128
+      above           0.030286 → 0.000000
+      all             0.058691 → 0.000000
+      below           0.093456 → 0.000000
+      left            0.052336 → 0.000000
+      n               2.000000 → 2.000000
+      right           0.065876 → 0.000000
+      windowNative    0.000000 → 0.000000
+      windowWeb       0.027754 → 0.000000
+  1x dark span 160
+      above           0.086065 → 0.000000
+      all             0.137166 → 0.000000
+      below           0.190647 → 0.000000
+      left            0.134169 → 0.000000
+      n               4.000000 → 4.000000
+      right           0.137654 → 0.000000
+      windowNative    0.000000 → 0.000000
+      windowWeb       0.069271 → 0.000000
+  1x dark span 44
+      above           0.000000 → 0.000000
+      all             0.002807 → 0.000000
+      below           0.006645 → 0.000000
+      left            0.001690 → 0.000000
+      n               5.000000 → 5.000000
+      right           0.000660 → 0.000000
+      windowNative    0.000000 → 0.000000
+      windowWeb       0.001123 → 0.000000
+  1x dark span 96
+      above           0.002760 → 0.000000
+      all             0.012156 → 0.000000
+      below           0.024260 → 0.000000
+      left            0.010020 → 0.000000
+      n               8.000000 → 8.000000
+      right           0.009789 → 0.000000
+      windowNative    0.000000 → 0.000000
+      windowWeb       0.005301 → 0.000000
+  1x light span 128
+      above           0.023685 → 0.000000
+      all             0.042131 → 0.000000
+      below           0.069956 → 0.000000
+      left            0.039126 → 0.000000
+      n               2.000000 → 2.000000
+      right           0.043895 → 0.000000
+      windowNative    0.000000 → 0.000000
+      windowWeb       0.020559 → 0.000000
+  1x light span 160
+      above           0.060936 → 0.000000
+      all             0.097852 → 0.000000
+      below           0.139264 → 0.000000
+      left            0.094370 → 0.000000
+      n               4.000000 → 4.000000
+      right           0.094993 → 0.000000
+      windowNative    0.000000 → 0.000000
+      windowWeb       0.048972 → 0.000000
+  1x light span 32
+      above           0.000000 → 0.000000
+      all             0.003789 → 0.000000
+      below           0.010288 → 0.000000
+      left            0.006114 → 0.000000
+      n               2.000000 → 2.000000
+      right           0.002896 → 0.000000
+      windowNative    0.000000 → 0.000000
+      windowWeb       0.001256 → 0.000000
+  1x light span 44
+      above           0.000000 → 0.000000
+      all             0.004245 → 0.000000
+      below           0.010060 → 0.000000
+      left            0.008380 → 0.000000
+      n               10.000000 → 10.000000
+      right           0.001773 → 0.000000
+      windowNative    0.000000 → 0.000000
+      windowWeb       0.001633 → 0.000000
+  1x light span 96
+      above           0.002216 → 0.000000
+      all             0.009679 → 0.000000
+      below           0.018964 → 0.000000
+      left            0.008309 → 0.000000
+      n               9.000000 → 9.000000
+      right           0.007551 → 0.000000
+      windowNative    0.000000 → 0.000000
+      windowWeb       0.004128 → 0.000000
+  2x dark span 128
+      above           0.030265 → 0.000000
+      all             0.058745 → 0.000000
+      below           0.093175 → 0.000000
+      left            0.052360 → 0.000000
+      n               2.000000 → 2.000000
+      right           0.065601 → 0.000000
+      windowNative    0.000000 → 0.000000
+      windowWeb       0.027646 → 0.000000
+  2x dark span 160
+      above           0.086150 → 0.000000
+      all             0.137092 → 0.000000
+      below           0.189772 → 0.000000
+      left            0.134608 → 0.000000
+      n               4.000000 → 4.000000
+      right           0.137693 → 0.000000
+      windowNative    0.000000 → 0.000000
+      windowWeb       0.069203 → 0.000000
+  2x dark span 44
+      above           0.000000 → 0.000000
+      all             0.002792 → 0.000000
+      below           0.006803 → 0.000000
+      left            0.001716 → 0.000000
+      n               5.000000 → 5.000000
+      right           0.000698 → 0.000000
+      windowNative    0.000000 → 0.000000
+      windowWeb       0.001118 → 0.000000
+  2x dark span 96
+      above           0.002589 → 0.000000
+      all             0.012001 → 0.000000
+      below           0.024105 → 0.000000
+      left            0.009892 → 0.000000
+      n               8.000000 → 8.000000
+      right           0.009662 → 0.000000
+      windowNative    0.000000 → 0.000000
+      windowWeb       0.005238 → 0.000000
+  2x light span 128
+      above           0.023680 → 0.000000
+      all             0.042548 → 0.000000
+      below           0.070303 → 0.000000
+      left            0.039764 → 0.000000
+      n               2.000000 → 2.000000
+      right           0.044788 → 0.000000
+      windowNative    0.000000 → 0.000000
+      windowWeb       0.020753 → 0.000000
+  2x light span 160
+      above           0.060945 → 0.000000
+      all             0.098241 → 0.000000
+      below           0.139681 → 0.000000
+      left            0.095169 → 0.000000
+      n               4.000000 → 4.000000
+      right           0.096183 → 0.000000
+      windowNative    0.000000 → 0.000000
+      windowWeb       0.049183 → 0.000000
+  2x light span 32
+      above           0.000000 → 0.000000
+      all             0.003741 → 0.000000
+      below           0.010130 → 0.000000
+      left            0.005891 → 0.000000
+      n               2.000000 → 2.000000
+      right           0.003090 → 0.000000
+      windowNative    0.000000 → 0.000000
+      windowWeb       0.001236 → 0.000000
+  2x light span 44
+      above           0.000000 → 0.000000
+      all             0.004176 → 0.000000
+      below           0.009997 → 0.000000
+      left            0.008534 → 0.000000
+      n               10.000000 → 10.000000
+      right           0.001744 → 0.000000
+      windowNative    0.000000 → 0.000000
+      windowWeb       0.001624 → 0.000000
+  2x light span 96
+      above           0.002156 → 0.000000
+      all             0.009594 → 0.000000
+      below           0.018890 → 0.000000
+      left            0.008353 → 0.000000
+      n               9.000000 → 9.000000
+      right           0.007463 → 0.000000
+      windowNative    0.000000 → 0.000000
+      windowWeb       0.004131 → 0.000000
+
+§7. `MISSED_27_ROWS` — the five + three + one, before and after; nothing is claimed
+--------------------------------------------------------------------------------------------------------------------------------
+  The three `chromaStructureRatioR` rows and the one structure row are frozen against
+  W31 G4's committed cut, which is one number per cell and does not move with a round
+  (the caveat §5 carries). `re-derived` beside them is the same statistic taken off
+  results/matrix.json, which is the bed this gate read.
+  dom / checkerboard__glass-over-glass__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean
+      bound               — → 0.90000
+      candidateI          — → 0.12093
+      gap                 — → 0.00469
+      measured            — → 0.89531
+      outsideWindowShare  — → 0.38414
+      reach               — → 0.01322
+      span                — → 130.00000
+      ssimOutside         — → 0.96557
+      today               — → 0.89539
+  dom / checkerboard__rrect-lg__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean
+      bound               — → 0.90000
+      candidateI          — → 0.07383
+      gap                 — → 0.01577
+      measured            — → 0.88423
+      outsideWindowShare  — → 0.24894
+      reach               — → 0.01516
+      span                — → 160.00000
+      ssimOutside         — → 0.93910
+      today               — → 0.88421
+  dom / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: oklabDeltaEP95
+      bound               — → 0.18000
+      candidateI          — → 0.18311
+      gap                 — → 0.02095
+      measured            — → 0.20095
+      outsideWindowShare  — → 0.25015
+      reach               — → nan
+      span                — → 160.00000
+      ssimOutside         — → 0.87991
+      today               — → 0.20095
+  dom / photo__rrect-lg__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5 :: ssimOutside
+      bound               — → 0.83000
+      candidateI          — → 0.18338
+      gap                 — → 0.00305
+      measured            — → 0.82695
+      outsideWindowShare  — → 0.24887
+      reach               — → 0.17302
+      span                — → 160.00000
+      ssimOutside         — → 0.82698
+      today               — → 0.82698
+  dom / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: oklabDeltaEP95
+      bound               — → 0.19000
+      candidateI          — → 0.19036
+      gap                 — → 0.00474
+      measured            — → 0.19474
+      outsideWindowShare  — → 0.27588
+      reach               — → nan
+      span                — → 160.00000
+      ssimOutside         — → 0.92184
+      today               — → 0.19474
+  texture / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: oklabDeltaEP95
+      bound               — → 0.17000
+      candidateI          — → 0.06369
+      gap                 — → 0.04531
+      measured            — → 0.21531
+      outsideWindowShare  — → 0.25015
+      reach               — → nan
+      span                — → 160.00000
+      ssimOutside         — → 0.93302
+      today               — → 0.14655
+  texture / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: oklabDeltaEP95
+      bound               — → 0.17000
+      candidateI          — → 0.05398
+      gap                 — → 0.04341
+      measured            — → 0.21341
+      outsideWindowShare  — → 0.27588
+      reach               — → nan
+      span                — → 160.00000
+      ssimOutside         — → 0.96843
+      today               — → 0.14506
+  texture / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: chromaStructureRatioR
+      bound               1.40000 → 1.40000
+      measured            1.51552 → 1.51552
+      re-derived          1.53911
+  texture / photo__rrect-sm__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: chromaStructureRatioR
+      bound               1.40000 → 1.40000
+      measured            1.44690 → 1.44690
+      re-derived          1.46115
+  texture / photo__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: chromaStructureRatioR
+      bound               1.40000 → 1.40000
+      measured            1.44173 → 1.44173
+      re-derived          1.44950
+  texture / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta   — M2's, which `stops.py` does not carry in this shape
+      bound               0.02000
+      re-derived          0.02775   MISSED
+
+§8. The verdict in one line
+--------------------------------------------------------------------------------------------------------------------------------
+  C1 form (ii) PASSES on all 12 bed × span rows at ≤ 0.0042.

@@ -1,0 +1,323 @@
+W32 G0 — the stops, read today on the current generation
+================================================================================================================================================================
+
+Cut:        exterior-cut.json  (atDocuments=any, withHoldout=False)
+Documents:  /tmp/w32-g1-fit/A/documents/apple-macos-27.0-1x-dark-standard-glass0.5.json sha256:783882c2343c, /tmp/w32-g1-fit/A/documents/apple-macos-27.0-1x-light-standard-glass0.5.json sha256:a81e3b1408b7
+
+§1. Candidate (i): the rendered σ against the native σ, WebGPU tier
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+  The wave's headline number, read at the verdict. The bound declared for it is
+  'inside B1's own ±5 % window of the native σ' — which is the sentence W31 G1 found
+  false (§5.162 §2: the law's σ is inside that window on 25 of 25 rows and the
+  RENDERED σ is outside it on 24 of 25). Today's reading per bed, so the verdict has a
+  before.
+
+  bed          span   n   native σ  rendered σ  σ_web − σ_nat      (i)           ±5 % window   verdict
+  1x light       96  11      8.796      11.187          2.390    0.272        [8.357, 9.236]   OUTSIDE
+  1x light      128   8     13.138      15.163          2.025    0.168      [12.481, 13.795]   OUTSIDE
+  1x light      160   7     17.317      19.044          1.726    0.106      [16.452, 18.183]   OUTSIDE
+  2x light       96  11      9.370      11.571          2.201    0.232        [8.902, 9.839]   OUTSIDE
+  2x light      128   8     13.305      15.160          1.855    0.148      [12.640, 13.970]   OUTSIDE
+  2x light      160   7     17.592      19.097          1.505    0.087      [16.712, 18.471]   OUTSIDE
+  1x dark        96   9      8.874      11.567          2.692    0.297        [8.431, 9.318]   OUTSIDE
+  1x dark       128   5     13.190      15.720          2.529    0.188      [12.531, 13.850]   OUTSIDE
+  1x dark       160   7     17.456      19.548          2.092    0.120      [16.583, 18.329]   OUTSIDE
+  2x dark        96   9      9.377      11.903          2.526    0.269        [8.908, 9.846]   OUTSIDE
+  2x dark       128   5     13.417      15.909          2.492    0.182      [12.746, 14.087]   OUTSIDE
+  2x dark       160   7     17.677      19.701          2.024    0.117      [16.793, 18.561]   OUTSIDE
+
+§2. B3's departure residual, and the window-restricted departure beside it
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+  B3: |meanDepartureWeb − meanDepartureNative| ≤ 0.00035 on the WebGPU tier, the
+  arithmetic mean over the calibration + validation cells of all six profiles — the
+  population the bound was read over. `departure-stat.py` in this directory is the
+  reading; the figures below are its own JSON.
+
+  the stop, WebGPU, calibration + validation:      0.00063 over 166 rows   BROKEN against 0.00035
+  every non-holdout row, probe included, WebGPU:   0.00170 over 386 rows   (recorded, not the stop)
+
+  The window-restricted departure — the SAME functional over the admitted bands only,
+  which is what W32 clause 3 re-solves the six occlusion anchors on. The difference
+  between the two is the change of objective G1 measures at its first round, and it is
+  large: the `0-3` band the window excludes holds the body's own over-fill.
+
+  bed          span   n   whole |Δ|   window |Δ|   ratio   whole nat   window nat   whole web   window web
+  1x light       32   9     0.00031      0.00047    1.49     0.00064      0.00027     0.00030      0.00074
+  1x light       44  24     0.00046      0.00063    1.38     0.00085      0.00037     0.00058      0.00100
+  1x light       96  13     0.00127      0.00062    0.49     0.00373      0.00237     0.00246      0.00299
+  1x light      128   8     0.00295      0.00059    0.20     0.01286      0.01622     0.00991      0.01681
+  1x light      160   7     0.00697      0.00172    0.25     0.04117      0.04415     0.03438      0.04291
+  2x light       32   9     0.00005      0.00047    9.31     0.00035      0.00028     0.00030      0.00075
+  2x light       44  24     0.00012      0.00065    5.47     0.00051      0.00037     0.00057      0.00102
+  2x light       96  13     0.00037      0.00065    1.73     0.00284      0.00235     0.00246      0.00300
+  2x light      128   8     0.00166      0.00050    0.30     0.01148      0.01620     0.00982      0.01671
+  2x light      160   7     0.00423      0.00185    0.44     0.03723      0.04422     0.03436      0.04300
+  1x dark        32   7     0.00024      0.00040    1.63     0.00051      0.00027     0.00027      0.00067
+  1x dark        44  16     0.00019      0.00054    2.89     0.00072      0.00037     0.00052      0.00091
+  1x dark        96  10     0.00103      0.00090    0.88     0.00456      0.00341     0.00353      0.00432
+  1x dark       128   5     0.00209      0.00113    0.54     0.01686      0.02365     0.01476      0.02484
+  1x dark       160   7     0.00496      0.00103    0.21     0.05684      0.06529     0.05236      0.06504
+  2x dark        32   7     0.00005      0.00038    7.97     0.00031      0.00028     0.00026      0.00065
+  2x dark        44  16     0.00005      0.00055   12.11     0.00046      0.00037     0.00050      0.00092
+  2x dark        96  10     0.00014      0.00097    6.67     0.00370      0.00340     0.00356      0.00436
+  2x dark       128   5     0.00068      0.00106    1.54     0.01539      0.02392     0.01471      0.02497
+  2x dark       160   7     0.00197      0.00104    0.53     0.05369      0.06528     0.05212      0.06502
+
+§3. The thin regime, per cell — the table G1 compares against
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+  Every ACTIVE, non-holdout, WebGPU cell at spans 32 and 44, with `|Δa|` at the two
+  bands the shadow reaches there, direction `all`. The bar is 0.002044 — the MAX of
+  `shadowAffineSlopeDeltaMax` over the 432 cells of W29 G3b's native-pair noise bar,
+  which is the charter's named number. The stop is per cell: no cell's `|Δa|` at
+  either band worse than today's by more than the bar, and the order statistic per bed
+  no worse than today's.
+
+  EVERY bed, which since the review closure includes the accessibility beds (claims
+  §5.166 §10, finding N1). They were outside this table and inside the stop, and they
+  carry the population's worst reading; the standard beds' own rows are unchanged.
+
+  bed                                    spanset         scene                                           |Δa| 3-6   |Δa| 6-12
+  1x light                                 32probe       checkerboard-32__rrect-sm__rest                  0.01274     0.00453
+  1x light                                 32probe       checkerboard-4__rrect-sm__rest                   0.01274     0.00453
+  1x light                                 32probe       checkerboard-64__rrect-sm__rest                  0.01848     0.00790
+  1x light                                 32probe       checkerboard-8__rrect-sm__rest                   0.01274     0.00453
+  1x light                                 32probe       checkerboard-lc16__rrect-sm__rest                0.00895     0.00348
+  1x light                                 32calibration checkerboard__rrect-sm__rest                     0.01274     0.00453
+  1x light                                 32probe       hc-text-28__rrect-sm__rest                       0.00759     0.00024
+  1x light                                 32probe       hc-text-7__rrect-sm__rest                        0.01621     0.00145
+  1x light                                 32validation  photo__rrect-sm__rest                            0.00678     0.00056
+
+  1x light                                 44probe       checkerboard-32__capsule-button__rest            0.01497     0.00544
+  1x light                                 44probe       checkerboard-32__capsule-button__rest-tint-orange     0.01497     0.00544
+  1x light                                 44probe       checkerboard-4__capsule-button__rest             0.01497     0.00544
+  1x light                                 44probe       checkerboard-4__capsule-button__rest-tint-orange     0.01497     0.00544
+  1x light                                 44probe       checkerboard-64__capsule-button__rest            0.01885     0.01011
+  1x light                                 44probe       checkerboard-64__capsule-button__rest-tint-orange     0.01885     0.01011
+  1x light                                 44probe       checkerboard-8__capsule-button__rest             0.01497     0.00544
+  1x light                                 44probe       checkerboard-8__capsule-button__rest-tint-orange     0.01497     0.00544
+  1x light                                 44probe       checkerboard-lc16__capsule-button__rest          0.01071     0.00417
+  1x light                                 44calibration checkerboard__capsule-button__rest               0.01497     0.00544
+  1x light                                 44validation  checkerboard__capsule-button__rest-tint-blue     0.01497     0.00544
+  1x light                                 44calibration checkerboard__capsule-button__rest-tint-orange     0.01497     0.00544
+  1x light                                 44calibration checkerboard__toolbar-group__rest                0.01148     0.00389
+  1x light                                 44calibration photo__capsule-button__rest                      0.01414     0.00314
+  1x light                                 44calibration photo__capsule-button__rest-tint-blue            0.01414     0.00314
+  1x light                                 44calibration photo__capsule-button__rest-tint-orange          0.01414     0.00314
+  1x light                                 44calibration photo__capsule-button__rest-tint-orange-half     0.01414     0.00314
+  1x light                                 44validation  photo__toolbar-group__rest                       0.01380     0.00229
+
+  2x light                                 32probe       checkerboard-32__rrect-sm__rest                  0.01225     0.00480
+  2x light                                 32probe       checkerboard-4__rrect-sm__rest                   0.01225     0.00480
+  2x light                                 32probe       checkerboard-64__rrect-sm__rest                  0.01800     0.00837
+  2x light                                 32probe       checkerboard-8__rrect-sm__rest                   0.01225     0.00480
+  2x light                                 32probe       checkerboard-lc16__rrect-sm__rest                0.00892     0.00363
+  2x light                                 32calibration checkerboard__rrect-sm__rest                     0.01225     0.00480
+  2x light                                 32probe       hc-text-28__rrect-sm__rest                       0.00745     0.00022
+  2x light                                 32probe       hc-text-7__rrect-sm__rest                        0.01562     0.00218
+  2x light                                 32validation  photo__rrect-sm__rest                            0.00530     0.00057
+
+  2x light                                 44probe       checkerboard-32__capsule-button__rest            0.01479     0.00578
+  2x light                                 44probe       checkerboard-32__capsule-button__rest-tint-orange     0.01479     0.00578
+  2x light                                 44probe       checkerboard-4__capsule-button__rest             0.01479     0.00578
+  2x light                                 44probe       checkerboard-4__capsule-button__rest-tint-orange     0.01479     0.00578
+  2x light                                 44probe       checkerboard-64__capsule-button__rest            0.01821     0.01099
+  2x light                                 44probe       checkerboard-64__capsule-button__rest-tint-orange     0.01821     0.01099
+  2x light                                 44probe       checkerboard-8__capsule-button__rest             0.01479     0.00578
+  2x light                                 44probe       checkerboard-8__capsule-button__rest-tint-orange     0.01479     0.00578
+  2x light                                 44probe       checkerboard-lc16__capsule-button__rest          0.01091     0.00444
+  2x light                                 44calibration checkerboard__capsule-button__rest               0.01479     0.00578
+  2x light                                 44validation  checkerboard__capsule-button__rest-tint-blue     0.01479     0.00578
+  2x light                                 44calibration checkerboard__capsule-button__rest-tint-orange     0.01479     0.00578
+  2x light                                 44calibration checkerboard__toolbar-group__rest                0.01153     0.00406
+  2x light                                 44calibration photo__capsule-button__rest                      0.01423     0.00324
+  2x light                                 44calibration photo__capsule-button__rest-tint-blue            0.01423     0.00324
+  2x light                                 44calibration photo__capsule-button__rest-tint-orange          0.01423     0.00324
+  2x light                                 44calibration photo__capsule-button__rest-tint-orange-half     0.01423     0.00324
+  2x light                                 44validation  photo__toolbar-group__rest                       0.01374     0.00234
+
+  1x dark                                  32probe       checkerboard-32__rrect-sm__rest                  0.00803     0.00504
+  1x dark                                  32probe       checkerboard-4__rrect-sm__rest                   0.00803     0.00504
+  1x dark                                  32probe       checkerboard-64__rrect-sm__rest                  0.01045     0.00856
+  1x dark                                  32probe       checkerboard-8__rrect-sm__rest                   0.00803     0.00504
+  1x dark                                  32probe       checkerboard-lc16__rrect-sm__rest                0.00360     0.00455
+  1x dark                                  32probe       hc-text-28__rrect-sm__rest                       0.00517     0.00036
+  1x dark                                  32probe       hc-text-7__rrect-sm__rest                        0.00965     0.00339
+
+  1x dark                                  44probe       checkerboard-32__capsule-button__rest            0.00943     0.00623
+  1x dark                                  44probe       checkerboard-32__capsule-button__rest-tint-orange     0.00943     0.00623
+  1x dark                                  44probe       checkerboard-4__capsule-button__rest             0.00943     0.00623
+  1x dark                                  44probe       checkerboard-4__capsule-button__rest-tint-orange     0.00943     0.00623
+  1x dark                                  44probe       checkerboard-64__capsule-button__rest            0.01020     0.01106
+  1x dark                                  44probe       checkerboard-64__capsule-button__rest-tint-orange     0.01020     0.01106
+  1x dark                                  44probe       checkerboard-8__capsule-button__rest             0.00943     0.00623
+  1x dark                                  44probe       checkerboard-8__capsule-button__rest-tint-orange     0.00943     0.00623
+  1x dark                                  44probe       checkerboard-lc16__capsule-button__rest          0.00430     0.00555
+  1x dark                                  44calibration checkerboard__capsule-button__rest               0.00943     0.00623
+  1x dark                                  44calibration checkerboard__capsule-button__rest-tint-orange     0.00943     0.00623
+  1x dark                                  44calibration photo__capsule-button__rest                      0.01198     0.00412
+  1x dark                                  44calibration photo__capsule-button__rest-tint-orange          0.01198     0.00412
+
+  2x dark                                  32probe       checkerboard-32__rrect-sm__rest                  0.00785     0.00471
+  2x dark                                  32probe       checkerboard-4__rrect-sm__rest                   0.00785     0.00471
+  2x dark                                  32probe       checkerboard-64__rrect-sm__rest                  0.00996     0.00793
+  2x dark                                  32probe       checkerboard-8__rrect-sm__rest                   0.00785     0.00471
+  2x dark                                  32probe       checkerboard-lc16__rrect-sm__rest                0.00377     0.00406
+  2x dark                                  32probe       hc-text-28__rrect-sm__rest                       0.00531     0.00041
+  2x dark                                  32probe       hc-text-7__rrect-sm__rest                        0.00943     0.00305
+
+  2x dark                                  44probe       checkerboard-32__capsule-button__rest            0.00918     0.00650
+  2x dark                                  44probe       checkerboard-32__capsule-button__rest-tint-orange     0.00918     0.00650
+  2x dark                                  44probe       checkerboard-4__capsule-button__rest             0.00918     0.00650
+  2x dark                                  44probe       checkerboard-4__capsule-button__rest-tint-orange     0.00918     0.00650
+  2x dark                                  44probe       checkerboard-64__capsule-button__rest            0.00956     0.01194
+  2x dark                                  44probe       checkerboard-64__capsule-button__rest-tint-orange     0.00956     0.01194
+  2x dark                                  44probe       checkerboard-8__capsule-button__rest             0.00918     0.00650
+  2x dark                                  44probe       checkerboard-8__capsule-button__rest-tint-orange     0.00918     0.00650
+  2x dark                                  44probe       checkerboard-lc16__capsule-button__rest          0.00442     0.00546
+  2x dark                                  44calibration checkerboard__capsule-button__rest               0.00918     0.00650
+  2x dark                                  44calibration checkerboard__capsule-button__rest-tint-orange     0.00918     0.00650
+  2x dark                                  44calibration photo__capsule-button__rest                      0.01184     0.00404
+  2x dark                                  44calibration photo__capsule-button__rest-tint-orange          0.01184     0.00404
+
+  1x light-increased-contrast-coupled      44calibration checkerboard__capsule-button__rest               0.02168     0.00848
+  1x light-increased-contrast-coupled      44calibration checkerboard__capsule-button__rest-tint-orange     0.02168     0.00848
+  1x light-increased-contrast-coupled      44calibration photo__capsule-button__rest                      0.02080     0.00449
+  1x light-increased-contrast-coupled      44calibration photo__capsule-button__rest-tint-orange          0.02080     0.00449
+  1x light-increased-contrast-coupled      44validation  photo__toolbar-group__rest                       0.01948     0.00318
+
+  1x light-reduced-transparency            44calibration checkerboard__capsule-button__rest               0.02168     0.00848
+  1x light-reduced-transparency            44calibration photo__capsule-button__rest                      0.02080     0.00449
+  1x light-reduced-transparency            44calibration photo__capsule-button__rest-tint-orange          0.02080     0.00449
+  1x light-reduced-transparency            44validation  photo__toolbar-group__rest                       0.01948     0.00318
+
+  The order statistic per bed and span, which is the second half of the stop:
+  bed                                    span   n      median 3-6       max 3-6     median 6-12      max 6-12
+  1x light                                 32   9         0.01274       0.01848         0.00453       0.00790
+  1x light                                 44  18         0.01497       0.01885         0.00544       0.01011
+  2x light                                 32   9         0.01225       0.01800         0.00480       0.00837
+  2x light                                 44  18         0.01479       0.01821         0.00578       0.01099
+  1x dark                                  32   7         0.00803       0.01045         0.00504       0.00856
+  1x dark                                  44  13         0.00943       0.01198         0.00623       0.01106
+  2x dark                                  32   7         0.00785       0.00996         0.00471       0.00793
+  2x dark                                  44  13         0.00918       0.01184         0.00650       0.01194
+  1x light-increased-contrast-coupled      44   5         0.02080       0.02168         0.00449       0.00848
+  1x light-reduced-transparency            44   4         0.02080       0.02168         0.00449       0.00848
+
+  The worst cell over the WHOLE population, which is the figure a round is read
+  against first and which no per-bed row carries:
+    population 103 cells over 6 beds
+    worst |Δa| 0.02168 at band 3-6, read on 3 cells:
+      1x light-increased-contrast-coupled span 44  checkerboard__capsule-button__rest
+      1x light-increased-contrast-coupled span 44  checkerboard__capsule-button__rest-tint-orange
+      1x light-reduced-transparency span 44  checkerboard__capsule-button__rest
+
+§4. M1 and M2 today, from the cut they were adopted on
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+  M1: the median `R = chromaStructureRatioWeb / chromaStructureRatioNative` of every
+  bed inside [0.8, 1.2], and every cell inside [0.6, 1.4] or named in `MISSED_27_ROWS`.
+  M2: `interiorStdDevWeb` within 2 % of the pre-fit generation's, which W31 G4's cut
+  carries as `structureDeltaFraction` (the pre-fit generation lives under
+  `results/superseded/` and is read by name there).
+
+  Read from W31 G4's committed `chroma-cut.json`, which is the cut M1 and M2 were
+  adopted on and the one `adopted-thresholds.test.ts` points `CHROMA_CUT` at. This
+  file does not re-derive `R` from the matrix: the cut's own population is a filtered
+  one (nine cells per light bed, four per dark) and a second implementation of that
+  filter here would be a second thing to keep true. What proves the cut still matches
+  the matrix is the test itself — it re-reads every cell's
+  `chromaStructureRatio{Native,Web}` from `results/matrix.json` and asserts the cut's
+  figures to twelve places — and it is green today (`chain.txt`).
+
+  profile                                                           n   median R      min      max  outside cell   verdict
+  apple-macos-27.0-1x-dark-standard-glass0.5                        4    0.92339  0.82132  1.12912             0       MET
+  apple-macos-27.0-1x-light-standard-glass0.5                       9    1.03869  0.89065  1.51552             1       MET
+  apple-macos-27.0-2x-dark-standard-glass0.5                        4    1.07526  0.87475  1.18664             0       MET
+  apple-macos-27.0-2x-light-standard-glass0.5                       9    1.04662  0.88905  1.44690             2       MET
+
+  The cells outside [0.60, 1.40] are M1's three excused misses, all `photo__rrect-sm`
+  at span 32, named in `MISSED_27_ROWS` at adoption (§5.165 §1).
+
+  M2, from the same cut: `|interiorStdDevWeb / pre-fit − 1|` per bed, against 2 %.
+  profile                                                           n     median        max   verdict
+  apple-macos-27.0-1x-dark-standard-glass0.5                        4    0.00327    0.00632       MET
+  apple-macos-27.0-1x-light-standard-glass0.5                       9    0.00093    0.01317       MET
+  apple-macos-27.0-2x-dark-standard-glass0.5                        4    0.00234    0.00396       MET
+  apple-macos-27.0-2x-light-standard-glass0.5                       9    0.00062    0.00740       MET
+
+§5. The structure, tint and rim readings expected unmoved — today's VALUES per bed
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+  The bounds live in `adopted-thresholds.test.ts` and are not copied here, for that
+  file's own reason: a number retyped is a number that goes stale silently. What a
+  before-reading needs is the value, and these are the values a shadow fit must leave
+  where it found them. Active, non-holdout, WebGPU tier; median over the bed.
+
+  bed         scenes      interiorStdDevWeb  interiorStdDevNat  tintChromaDeltaWe  tintChromaDeltaNa    tintHueShiftWeb  rimPeakLuminanceW         rimFwhmWeb
+  1x light    all/tinted            0.05021            0.05752            0.16412            0.16519          -27.22286            0.02120            2.24702
+  2x light    all/tinted            0.03358            0.05893            0.16450            0.16548          -27.26898            0.02551            3.72265
+  1x dark     all/tinted            0.02928            0.03612            0.17439            0.16834          -26.88510            0.07596            1.16013
+  2x dark     all/tinted            0.02754            0.03876            0.17474            0.16862          -27.05586            0.08865            1.35108
+
+§6. The recede's declared reading
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+  The inactive `T_dir` per bed and span over the admitted bands, and what the recede's
+  anchor solve is judged on: the inactive DEPARTURE RATIO per regime. The reading that
+  governs both is §12c of `exterior-cut.txt` — on every inactive cell of this bed
+  Apple's receded window removes NO light from 3 CSS px outward, so the ratio's
+  denominator is zero and the recede is not the active shadow at a lower alpha.
+
+  bed          span   n     T all   T above   T below    T left   T right    win nat    win web   nat flat
+  1x light       32   2   0.00000   0.00000   0.00000   0.00000   0.00000   0.000000   0.000000        2/2
+  1x light       44  10   0.00000   0.00000   0.00000   0.00000   0.00000   0.000000   0.000000      10/10
+  1x light       96   9   0.00000   0.00000   0.00000   0.00000   0.00000   0.000000   0.000000        9/9
+  1x light      128   2   0.00000   0.00000   0.00000   0.00000   0.00000   0.000000   0.000000        2/2
+  1x light      160   4   0.00000   0.00000   0.00000   0.00000   0.00000   0.000000   0.000000        4/4
+  2x light       32   2   0.00000   0.00000   0.00000   0.00000   0.00000   0.000000   0.000000        2/2
+  2x light       44  10   0.00000   0.00000   0.00000   0.00000   0.00000   0.000000   0.000000      10/10
+  2x light       96   9   0.00000   0.00000   0.00000   0.00000   0.00000   0.000000   0.000000        9/9
+  2x light      128   2   0.00000   0.00000   0.00000   0.00000   0.00000   0.000000   0.000000        2/2
+  2x light      160   4   0.00000   0.00000   0.00000   0.00000   0.00000   0.000000   0.000000        4/4
+  1x dark        44   5   0.00000   0.00000   0.00000   0.00000   0.00000   0.000000   0.000000        5/5
+  1x dark        96   8   0.00000   0.00000   0.00000   0.00000   0.00000   0.000000   0.000000        8/8
+  1x dark       128   2   0.00000   0.00000   0.00000   0.00000   0.00000   0.000000   0.000000        2/2
+  1x dark       160   4   0.00000   0.00000   0.00000   0.00000   0.00000   0.000000   0.000000        4/4
+  2x dark        44   5   0.00000   0.00000   0.00000   0.00000   0.00000   0.000000   0.000000        5/5
+  2x dark        96   8   0.00000   0.00000   0.00000   0.00000   0.00000   0.000000   0.000000        8/8
+  2x dark       128   2   0.00000   0.00000   0.00000   0.00000   0.00000   0.000000   0.000000        2/2
+  2x dark       160   4   0.00000   0.00000   0.00000   0.00000   0.00000   0.000000   0.000000        4/4
+
+§7. `MISSED_27_ROWS` today, decomposed for what the shadow can reach
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+  **The list is not §5.162 §4's seven.** That section read the seven rows the list held
+  at W31 G1; two of them — `photo__rrect-lg__rest :: oklabDeltaEP95` on the WebGPU tier,
+  1x and 2x dark — CLEARED at W31 G3 (0.21531 → 0.14655 and 0.21341 → 0.14505) and are
+  no longer in it, and M1's three chroma rows joined it at W31 G4. Today it is FIVE
+  `dom`-tier rows plus THREE chroma rows, which is what the charter's Grounding says
+  and what this gate decomposes. The two cleared rows are read beside, for continuity
+  with §5.162 §4 and because they are the same scene at the same span.
+
+  Read under `--with-holdout`: all five shadow rows are holdout rows and a committed
+  row re-read is not a new read of the bed (§5.162 §4). The chroma rows are validation
+  rows and need no flag. Nothing is CLAIMED through this wave.
+
+  `share` is the fraction of the cell's SSIM windows that lie OUTSIDE the silhouette,
+  and `reach` is the most the metric could move if the exterior became perfect —
+  `share × (1 − ssimOutside)`. Where `reach` is below the gap the row is NOT reachable
+  through the shadow at all, however well the exterior is fitted.
+
+  **What `reach` assumes, said beside it** (W32 G0 review closure, claims §5.166 §10,
+  finding N13). It counts the `ssimOutside` windows only, so it treats every `ssimBand`
+  window as UNIMPROVABLE. On `checkerboard__rrect-lg__rest` that is 18,556 windows —
+  31.8 % of the cell, at `ssimBand` 0.7874, the worst of the three regions — against a
+  verdict whose margin is 0.00059. The band region holds the silhouette's own edge and
+  the `0-3` band with it, and every form of C1 EXCLUDES `0-3`, so a NOT-reachable
+  verdict here reads "not reachable by the exterior this wave fits" and not "not
+  reachable by any shadow work". The margin is printed so the thinness is visible.
+
+  tier    scene                                 bed                               metric            measured    bound      gap     today   share    reach     (i)    T all   verdict
+
+  M1's three chroma rows, which the shadow does not touch:
+  tier    scene                                 bed                               metric                  measured    bound   verdict
+  texture photo__rrect-sm__inactive             1x-light-standard                 chromaStructureRatioR    1.51552    ≤ 1.4   not through the shadow — `R` is a ratio of the BODY's chroma to its structure and the exterior is outside the silhouette
+  texture photo__rrect-sm__inactive             2x-light-standard                 chromaStructureRatioR    1.44690    ≤ 1.4   not through the shadow — `R` is a ratio of the BODY's chroma to its structure and the exterior is outside the silhouette
+  texture photo__rrect-sm__rest                 2x-light-standard                 chromaStructureRatioR    1.44173    ≤ 1.4   not through the shadow — `R` is a ratio of the BODY's chroma to its structure and the exterior is outside the silhouette
+

@@ -1,0 +1,20 @@
+W32 G1 — M1 and M2 re-derived from the matrix, over W31 G4's own population
+==============================================================================================================
+  population 26 cells, from packages/calibration/results/2026-09-21-w31-g4-landing/chroma-cut.json
+
+  /tmp/w32-matrix-before-read.json
+    profile                                                      n   median R       min       max  median sdW
+    apple-macos-27.0-1x-dark-standard-glass0.5                   4    0.92339   0.82132   1.12912     0.01297
+    apple-macos-27.0-1x-light-standard-glass0.5                  9    1.03869   0.89065   1.51552     0.04436
+    apple-macos-27.0-2x-dark-standard-glass0.5                   4    1.07526   0.87475   1.18664     0.01263
+    apple-macos-27.0-2x-light-standard-glass0.5                  9    1.04662   0.88905   1.44690     0.04637
+    0 of the cut's cells are not in this matrix
+
+  results/matrix.json
+    profile                                                      n   median R       min       max  median sdW
+    apple-macos-27.0-1x-dark-standard-glass0.5                   4    0.91843   0.81756   1.11513     0.01305
+    apple-macos-27.0-1x-light-standard-glass0.5                  9    1.03926   0.89277   1.53911     0.04430
+    apple-macos-27.0-2x-dark-standard-glass0.5                   4    1.07174   0.86612   1.17818     0.01270
+    apple-macos-27.0-2x-light-standard-glass0.5                  9    1.04716   0.88991   1.46115     0.04636
+    0 of the cut's cells are not in this matrix
+

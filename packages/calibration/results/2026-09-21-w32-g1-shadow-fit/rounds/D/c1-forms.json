@@ -1,0 +1,716 @@
+{
+ "cut": "exterior-cut.json",
+ "atDocuments": "any",
+ "withHoldout": false,
+ "documents": [
+  "/tmp/w32-g1-fit/D/documents/apple-macos-27.0-1x-dark-standard-glass0.5.json sha256:01b62923d393",
+  "/tmp/w32-g1-fit/D/documents/apple-macos-27.0-1x-light-standard-glass0.5.json sha256:f6fcf8d236c7"
+ ],
+ "population": "webgpu tier, active pose, non-holdout, the four standard macOS 27 beds",
+ "statistic": "upper middle order statistic, sorted[n // 2]",
+ "boundRule": "the worst standard bed's span-96 order statistic of that form on this generation, rounded up to two significant figures (W32 clause 2)",
+ "sigmaMultiples": [
+  0.35,
+  0.7,
+  1.4,
+  2.8
+ ],
+ "forms": {
+  "i": {
+   "bound": 0.0045,
+   "declaredBy": "W31 G1, claims \u00a75.162 \u00a73",
+   "readings": {
+    "1x light span 32": {
+     "value": 8.786666666667682e-05,
+     "n": 9,
+     "min": 8.333333333328714e-06,
+     "max": 0.00025806666666666387,
+     "bands": [
+      "3-6",
+      "6-12",
+      "12-24",
+      "24-48"
+     ]
+    },
+    "1x light span 44": {
+     "value": 0.00013493333333332766,
+     "n": 18,
+     "min": 3.3399999999998244e-05,
+     "max": 0.00033273333333333857,
+     "bands": [
+      "3-6",
+      "6-12",
+      "12-24",
+      "24-48"
+     ]
+    },
+    "1x light span 96": {
+     "value": 0.0008296000000000229,
+     "n": 10,
+     "min": 0.0006235333333333222,
+     "max": 0.0015137999999999799,
+     "bands": [
+      "3-6",
+      "6-12",
+      "12-24",
+      "24-48"
+     ]
+    },
+    "1x light span 128": {
+     "value": 0.0024452857142856894,
+     "n": 7,
+     "min": 0.0012345714285714499,
+     "max": 0.005564142857142843,
+     "bands": [
+      "3-6",
+      "6-12",
+      "12-24"
+     ]
+    },
+    "1x light span 160": {
+     "value": 0.0013369999999999955,
+     "n": 7,
+     "min": 0.000731666666666649,
+     "max": 0.002747333333333398,
+     "bands": [
+      "3-6",
+      "6-12"
+     ]
+    },
+    "2x light span 32": {
+     "value": 0.00014966666666665535,
+     "n": 9,
+     "min": 7.199999999999799e-06,
+     "max": 0.0003194666666666605,
+     "bands": [
+      "3-6",
+      "6-12",
+      "12-24",
+      "24-48"
+     ]
+    },
+    "2x light span 44": {
+     "value": 9.033333333333301e-05,
+     "n": 18,
+     "min": 3.980000000000465e-05,
+     "max": 0.0002559333333333284,
+     "bands": [
+      "3-6",
+      "6-12",
+      "12-24",
+      "24-48"
+     ]
+    },
+    "2x light span 96": {
+     "value": 0.0008351999999999915,
+     "n": 10,
+     "min": 0.0006035333333333318,
+     "max": 0.0016816666666666998,
+     "bands": [
+      "3-6",
+      "6-12",
+      "12-24",
+      "24-48"
+     ]
+    },
+    "2x light span 128": {
+     "value": 0.002406571428571385,
+     "n": 7,
+     "min": 0.0018158571428571152,
+     "max": 0.005521142857142891,
+     "bands": [
+      "3-6",
+      "6-12",
+      "12-24"
+     ]
+    },
+    "2x light span 160": {
+     "value": 0.001399000000000002,
+     "n": 7,
+     "min": 0.0008543333333333273,
+     "max": 0.001991000000000002,
+     "bands": [
+      "3-6",
+      "6-12"
+     ]
+    },
+    "1x dark span 32": {
+     "value": 7.280000000000619e-05,
+     "n": 7,
+     "min": 5.153333333333491e-05,
+     "max": 0.0002455333333333328,
+     "bands": [
+      "3-6",
+      "6-12",
+      "12-24",
+      "24-48"
+     ]
+    },
+    "1x dark span 44": {
+     "value": 0.00021646666666667405,
+     "n": 13,
+     "min": 0.00017333333333332905,
+     "max": 0.0003297999999999949,
+     "bands": [
+      "3-6",
+      "6-12",
+      "12-24",
+      "24-48"
+     ]
+    },
+    "1x dark span 96": {
+     "value": 0.0012237333333333434,
+     "n": 9,
+     "min": 0.00099226666666666,
+     "max": 0.002196400000000024,
+     "bands": [
+      "3-6",
+      "6-12",
+      "12-24",
+      "24-48"
+     ]
+    },
+    "1x dark span 128": {
+     "value": 0.0038397142857142957,
+     "n": 5,
+     "min": 0.0037318571428571596,
+     "max": 0.004655571428571426,
+     "bands": [
+      "3-6",
+      "6-12",
+      "12-24"
+     ]
+    },
+    "1x dark span 160": {
+     "value": 0.0018076666666666519,
+     "n": 7,
+     "min": 0.0010646666666666398,
+     "max": 0.0035923333333333454,
+     "bands": [
+      "3-6",
+      "6-12"
+     ]
+    },
+    "2x dark span 32": {
+     "value": 0.00010213333333332445,
+     "n": 7,
+     "min": 6.706666666666343e-05,
+     "max": 0.0002564000000000011,
+     "bands": [
+      "3-6",
+      "6-12",
+      "12-24",
+      "24-48"
+     ]
+    },
+    "2x dark span 44": {
+     "value": 0.00020399999999999677,
+     "n": 13,
+     "min": 0.0001911333333333228,
+     "max": 0.00031013333333331785,
+     "bands": [
+      "3-6",
+      "6-12",
+      "12-24",
+      "24-48"
+     ]
+    },
+    "2x dark span 96": {
+     "value": 0.0012502666666666254,
+     "n": 9,
+     "min": 0.0010102666666666298,
+     "max": 0.0021238000000000016,
+     "bands": [
+      "3-6",
+      "6-12",
+      "12-24",
+      "24-48"
+     ]
+    },
+    "2x dark span 128": {
+     "value": 0.004314857142857144,
+     "n": 5,
+     "min": 0.003652571428571418,
+     "max": 0.005190285714285655,
+     "bands": [
+      "3-6",
+      "6-12",
+      "12-24"
+     ]
+    },
+    "2x dark span 160": {
+     "value": 0.0017713333333333099,
+     "n": 7,
+     "min": 0.0014803333333333797,
+     "max": 0.00398433333333333,
+     "bands": [
+      "3-6",
+      "6-12"
+     ]
+    }
+   }
+  },
+  "ii": {
+   "bound": 0.0013000000000000002,
+   "readings": {
+    "1x light span 96": {
+     "value": 0.0008296000000000229,
+     "bound": 0.0013000000000000002,
+     "pass": true
+    },
+    "1x light span 128": {
+     "value": 0.0024452857142856894,
+     "bound": 0.0013000000000000002,
+     "pass": false
+    },
+    "1x light span 160": {
+     "value": 0.0013369999999999955,
+     "bound": 0.0013000000000000002,
+     "pass": false
+    },
+    "2x light span 96": {
+     "value": 0.0008351999999999915,
+     "bound": 0.0013000000000000002,
+     "pass": true
+    },
+    "2x light span 128": {
+     "value": 0.002406571428571385,
+     "bound": 0.0013000000000000002,
+     "pass": false
+    },
+    "2x light span 160": {
+     "value": 0.001399000000000002,
+     "bound": 0.0013000000000000002,
+     "pass": false
+    },
+    "1x dark span 96": {
+     "value": 0.0012237333333333434,
+     "bound": 0.0013000000000000002,
+     "pass": true
+    },
+    "1x dark span 128": {
+     "value": 0.0038397142857142957,
+     "bound": 0.0013000000000000002,
+     "pass": false
+    },
+    "1x dark span 160": {
+     "value": 0.0018076666666666519,
+     "bound": 0.0013000000000000002,
+     "pass": false
+    },
+    "2x dark span 96": {
+     "value": 0.0012502666666666254,
+     "bound": 0.0013000000000000002,
+     "pass": true
+    },
+    "2x dark span 128": {
+     "value": 0.004314857142857144,
+     "bound": 0.0013000000000000002,
+     "pass": false
+    },
+    "2x dark span 160": {
+     "value": 0.0017713333333333099,
+     "bound": 0.0013000000000000002,
+     "pass": false
+    }
+   }
+  },
+  "iii": {
+   "bound": 0.0025,
+   "readings": {
+    "1x light span 32": {
+     "value": 0.0005866234022503555,
+     "n": 9,
+     "sigmaBandCounts": [
+      1
+     ]
+    },
+    "1x light span 96": {
+     "value": 0.0017149128574033509,
+     "n": 10,
+     "sigmaBandCounts": [
+      3
+     ],
+     "bound": 0.0025,
+     "pass": true
+    },
+    "1x light span 128": {
+     "value": 0.0020926373399597557,
+     "n": 7,
+     "sigmaBandCounts": [
+      2
+     ],
+     "bound": 0.0025,
+     "pass": true
+    },
+    "2x light span 96": {
+     "value": 0.0015639894381069845,
+     "n": 10,
+     "sigmaBandCounts": [
+      3
+     ],
+     "bound": 0.0025,
+     "pass": true
+    },
+    "2x light span 128": {
+     "value": 0.002142418580800425,
+     "n": 7,
+     "sigmaBandCounts": [
+      2
+     ],
+     "bound": 0.0025,
+     "pass": true
+    },
+    "1x dark span 96": {
+     "value": 0.0024832900147733323,
+     "n": 9,
+     "sigmaBandCounts": [
+      3
+     ],
+     "bound": 0.0025,
+     "pass": true
+    },
+    "1x dark span 128": {
+     "value": 0.003759319888614006,
+     "n": 5,
+     "sigmaBandCounts": [
+      2
+     ],
+     "bound": 0.0025,
+     "pass": false
+    },
+    "2x dark span 32": {
+     "value": 4.6973385222381194e-05,
+     "n": 7,
+     "sigmaBandCounts": [
+      2
+     ]
+    },
+    "2x dark span 96": {
+     "value": 0.002332454014258665,
+     "n": 9,
+     "sigmaBandCounts": [
+      3
+     ],
+     "bound": 0.0025,
+     "pass": true
+    },
+    "2x dark span 128": {
+     "value": 0.003972565052581683,
+     "n": 5,
+     "sigmaBandCounts": [
+      2
+     ],
+     "bound": 0.0025,
+     "pass": false
+    }
+   }
+  }
+ },
+ "contributingCells": {
+  "1x light span 32": {
+   "calibration": 1,
+   "validation": 1,
+   "probe": 7,
+   "total": 9,
+   "admitted": [
+    "3-6",
+    "6-12",
+    "12-24",
+    "24-48"
+   ],
+   "gatedScenes": [
+    "checkerboard__rrect-sm__rest",
+    "photo__rrect-sm__rest"
+   ]
+  },
+  "1x light span 44": {
+   "calibration": 7,
+   "validation": 2,
+   "probe": 9,
+   "total": 18,
+   "admitted": [
+    "3-6",
+    "6-12",
+    "12-24",
+    "24-48"
+   ],
+   "gatedScenes": [
+    "checkerboard__capsule-button__rest",
+    "checkerboard__capsule-button__rest-tint-blue",
+    "checkerboard__capsule-button__rest-tint-orange",
+    "checkerboard__toolbar-group__rest",
+    "photo__capsule-button__rest",
+    "photo__capsule-button__rest-tint-blue",
+    "photo__capsule-button__rest-tint-orange",
+    "photo__capsule-button__rest-tint-orange-half",
+    "photo__toolbar-group__rest"
+   ]
+  },
+  "1x light span 96": {
+   "calibration": 2,
+   "validation": 1,
+   "probe": 7,
+   "total": 10,
+   "admitted": [
+    "3-6",
+    "6-12",
+    "12-24",
+    "24-48"
+   ],
+   "gatedScenes": [
+    "checkerboard__rrect-md__rest",
+    "photo__rrect-md__rest",
+    "photo__rrect-md__rest-tint-orange"
+   ]
+  },
+  "1x light span 128": {
+   "calibration": 2,
+   "validation": 0,
+   "probe": 5,
+   "total": 7,
+   "admitted": [
+    "3-6",
+    "6-12",
+    "12-24"
+   ],
+   "gatedScenes": [
+    "checkerboard__rrect-ml__rest",
+    "photo__rrect-ml__rest"
+   ]
+  },
+  "1x light span 160": {
+   "calibration": 0,
+   "validation": 0,
+   "probe": 7,
+   "total": 7,
+   "admitted": [
+    "3-6",
+    "6-12"
+   ],
+   "gatedScenes": []
+  },
+  "2x light span 32": {
+   "calibration": 1,
+   "validation": 1,
+   "probe": 7,
+   "total": 9,
+   "admitted": [
+    "3-6",
+    "6-12",
+    "12-24",
+    "24-48"
+   ],
+   "gatedScenes": [
+    "checkerboard__rrect-sm__rest",
+    "photo__rrect-sm__rest"
+   ]
+  },
+  "2x light span 44": {
+   "calibration": 7,
+   "validation": 2,
+   "probe": 9,
+   "total": 18,
+   "admitted": [
+    "3-6",
+    "6-12",
+    "12-24",
+    "24-48"
+   ],
+   "gatedScenes": [
+    "checkerboard__capsule-button__rest",
+    "checkerboard__capsule-button__rest-tint-blue",
+    "checkerboard__capsule-button__rest-tint-orange",
+    "checkerboard__toolbar-group__rest",
+    "photo__capsule-button__rest",
+    "photo__capsule-button__rest-tint-blue",
+    "photo__capsule-button__rest-tint-orange",
+    "photo__capsule-button__rest-tint-orange-half",
+    "photo__toolbar-group__rest"
+   ]
+  },
+  "2x light span 96": {
+   "calibration": 2,
+   "validation": 1,
+   "probe": 7,
+   "total": 10,
+   "admitted": [
+    "3-6",
+    "6-12",
+    "12-24",
+    "24-48"
+   ],
+   "gatedScenes": [
+    "checkerboard__rrect-md__rest",
+    "photo__rrect-md__rest",
+    "photo__rrect-md__rest-tint-orange"
+   ]
+  },
+  "2x light span 128": {
+   "calibration": 2,
+   "validation": 0,
+   "probe": 5,
+   "total": 7,
+   "admitted": [
+    "3-6",
+    "6-12",
+    "12-24"
+   ],
+   "gatedScenes": [
+    "checkerboard__rrect-ml__rest",
+    "photo__rrect-ml__rest"
+   ]
+  },
+  "2x light span 160": {
+   "calibration": 0,
+   "validation": 0,
+   "probe": 7,
+   "total": 7,
+   "admitted": [
+    "3-6",
+    "6-12"
+   ],
+   "gatedScenes": []
+  },
+  "1x dark span 32": {
+   "calibration": 0,
+   "validation": 0,
+   "probe": 7,
+   "total": 7,
+   "admitted": [
+    "3-6",
+    "6-12",
+    "12-24",
+    "24-48"
+   ],
+   "gatedScenes": []
+  },
+  "1x dark span 44": {
+   "calibration": 4,
+   "validation": 0,
+   "probe": 9,
+   "total": 13,
+   "admitted": [
+    "3-6",
+    "6-12",
+    "12-24",
+    "24-48"
+   ],
+   "gatedScenes": [
+    "checkerboard__capsule-button__rest",
+    "checkerboard__capsule-button__rest-tint-orange",
+    "photo__capsule-button__rest",
+    "photo__capsule-button__rest-tint-orange"
+   ]
+  },
+  "1x dark span 96": {
+   "calibration": 2,
+   "validation": 0,
+   "probe": 7,
+   "total": 9,
+   "admitted": [
+    "3-6",
+    "6-12",
+    "12-24",
+    "24-48"
+   ],
+   "gatedScenes": [
+    "checkerboard__rrect-md__rest",
+    "photo__rrect-md__rest"
+   ]
+  },
+  "1x dark span 128": {
+   "calibration": 0,
+   "validation": 0,
+   "probe": 5,
+   "total": 5,
+   "admitted": [
+    "3-6",
+    "6-12",
+    "12-24"
+   ],
+   "gatedScenes": []
+  },
+  "1x dark span 160": {
+   "calibration": 0,
+   "validation": 0,
+   "probe": 7,
+   "total": 7,
+   "admitted": [
+    "3-6",
+    "6-12"
+   ],
+   "gatedScenes": []
+  },
+  "2x dark span 32": {
+   "calibration": 0,
+   "validation": 0,
+   "probe": 7,
+   "total": 7,
+   "admitted": [
+    "3-6",
+    "6-12",
+    "12-24",
+    "24-48"
+   ],
+   "gatedScenes": []
+  },
+  "2x dark span 44": {
+   "calibration": 4,
+   "validation": 0,
+   "probe": 9,
+   "total": 13,
+   "admitted": [
+    "3-6",
+    "6-12",
+    "12-24",
+    "24-48"
+   ],
+   "gatedScenes": [
+    "checkerboard__capsule-button__rest",
+    "checkerboard__capsule-button__rest-tint-orange",
+    "photo__capsule-button__rest",
+    "photo__capsule-button__rest-tint-orange"
+   ]
+  },
+  "2x dark span 96": {
+   "calibration": 2,
+   "validation": 0,
+   "probe": 7,
+   "total": 9,
+   "admitted": [
+    "3-6",
+    "6-12",
+    "12-24",
+    "24-48"
+   ],
+   "gatedScenes": [
+    "checkerboard__rrect-md__rest",
+    "photo__rrect-md__rest"
+   ]
+  },
+  "2x dark span 128": {
+   "calibration": 0,
+   "validation": 0,
+   "probe": 5,
+   "total": 5,
+   "admitted": [
+    "3-6",
+    "6-12",
+    "12-24"
+   ],
+   "gatedScenes": []
+  },
+  "2x dark span 160": {
+   "calibration": 0,
+   "validation": 0,
+   "probe": 7,
+   "total": 7,
+   "admitted": [
+    "3-6",
+    "6-12"
+   ],
+   "gatedScenes": []
+  }
+ }
+}

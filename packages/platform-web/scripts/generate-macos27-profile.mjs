@@ -163,9 +163,26 @@ export const macos27DarkMaterialProfile: RendererMaterialProfile = ${print(dark.
 
 /**
  * The macOS 27 receded endpoints: a difference over the ACTIVE patch of the same
- * scheme, not a second material. The largest single change from macOS 26.5 is
- * that a receded surface keeps its outer shadow, where the 26.5 endpoint removes
- * it (claims §5.154 §6).
+ * scheme, not a second material.
+ *
+ * **A receded surface casts no exterior shadow on either generation** (W32,
+ * claims §5.166 §7 and Decision Log 2; §5.168 §4). Apple's unfocused window
+ * removes no light at all from 3 CSS px outward — 121 of 121 non-holdout
+ * inactive macOS 27 cells and 235 of 235 on the frozen macOS 26.5 bed — so the
+ * six occlusion anchors, \`liftAmplitude\` and \`reducedTransparencyOcclusion\` are
+ * **0** here as a DECLARED reading rather than a fitted value, which is what the
+ * 26.5 endpoint had carried all along. What is left of Apple's receded exterior
+ * is one device pixel of dark contour stroke, which no shadow leaf expresses.
+ * *(Until W32 these endpoints inherited their active document's anchors leaf for
+ * leaf, so vitrea drew the full ACTIVE shadow in the inactive pose and this
+ * comment said that was the reference. It was not.)*
+ *
+ * What distinguishes this endpoint from the macOS 26.5 one is therefore the rest
+ * of the difference, and it is per scheme: the backdrop tone response and its
+ * abscissa, the scale-selective scatter's ramps, the tint shades and
+ * \`reducedTintAdaptation\`, \`increasedOcclusionLift\` with its per-policy pair,
+ * \`strongBorderRim\`, \`refractionScale.approximate\` and \`bodyChromaRetention\` —
+ * the last being the receded body's own chroma carry (claims §5.164).
  */
 export const macos27RecededMaterialProfile: Readonly<
   Record<"light" | "dark", RendererMaterialProfile>

@@ -167,16 +167,38 @@ test("a visibility event or synthetic blur cannot invent document inactivity", a
  * W30's leaves existed, and dropping those leaves at their identities gives the
  * same bytes back. It is the rule's own claim — "the digest is over what draws"
  * — read from the browser.
+ *
+ * **The four macOS 27 rows moved a fourth time at W32 G1, and this time the
+ * exterior did** (claims §5.168). The wave fits the outer shadow's outset per
+ * colour scheme — `spreadPx` 3.10 → 0.50 on the light document and → 1.80 on the
+ * dark one, the first time either leaf has been fitted on the macOS 27 bed —
+ * re-solves the six occlusion anchors against the 3–48 CSS px window, moves the
+ * dark document's σ slope inside B1, and **stands the two receded documents'
+ * amplitude down to 0**, because Apple's receded window removes no light at all
+ * from 3 CSS px outward (W32 Decision Log 2). So the two INACTIVE readings here
+ * are now a material that draws no outer shadow, and on the CSS tier the
+ * shadow fades OUT on deactivation, which is what the reference does —
+ * `css-tier.ts` declares a transition on `box-shadow` on the element carrying
+ * it. On the WebGPU tier it does not: `root.ts` swaps the posed profile the
+ * instant the resolved activation changes and `receded-profile.ts` says the two
+ * endpoints are fixed rather than interpolated, so the shadow disappears in one
+ * frame. *(Corrected 2026-09-21, W32 G1 review closure; claims §5.168 §10,
+ * finding N-12: this comment said "the crossfade this spec exercises fades the
+ * shadow OUT on deactivation" without the tier. The digests below are
+ * unaffected — a discrete swap and an interpolated one seal the same bytes.)*
+ * The four readings before this move are `3dc24a74…`, `ab3ed65a…`,
+ * `8a43f541…` and `e1f42c56…`, kept here rather than deleted; the four macOS
+ * 26.5 readings are untouched, because a frozen document's bytes cannot move.
  */
 const SEALED = {
   macos27: {
     light: {
-      active: "3dc24a74f17fd87ed83da9717b57983a1ae3fa5ed37bef5ec9be1e13e19dc865",
-      inactive: "ab3ed65aa02869b11597587d59af4adf741a9b054c2b3fc9464ffc9b6f46bc38",
+      active: "40a6dec2dc34c748fe800d41c6707978aafcc74f06de566a9dd1706b6fb4ac08",
+      inactive: "f34dcc03e2774db385d233458fb9d62f38beffa52ffba4c800aad435ae676fc4",
     },
     dark: {
-      active: "8a43f54162606db431c5ab38fd9ee0bd1ee286aa67266bebb90f48f9c2156cd7",
-      inactive: "e1f42c5656ef392fa285e423595425c25de111d33f50a2e44853c4bf39ee4c23",
+      active: "bd1814fac34f9b3054767ec4520fc092035122d3118e5092b9083030a477948b",
+      inactive: "6b6237b7ae241638851192d165ddff03bdd40660ea805a3457f0211d11624831",
     },
   },
   macos26: {

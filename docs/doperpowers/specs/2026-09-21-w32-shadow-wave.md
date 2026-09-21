@@ -497,13 +497,27 @@ hairline (a rim term and not a shadow one); `standard-row-identity-matrix.txt`'s
 `interiorStdDevWeb` 5.69 % move (W31 Deferred 14, the halves not touched here); writing
 `truncatedSides` to a row.
 
+**Added 2026-09-21 (G1 review closure; claims §5.168 §10, finding B-4): the exterior BLACK FLOOR,
+which is now the dominant visible exterior residual.** Over a backdrop pixel Apple renders as
+exactly (0, 0, 0), vitrea renders (1, 1, 1) — one byte, never more — on 3,334 of 9,440 native-black
+exterior pixels at span 160 on the 1x light bed, 2,188 of 17,532 at span 128, and **0 of 29,330 at
+span 44**. Present at 160 and 128 and absent at 44, which is below `liftSpanMin` (64), so the term
+it points at is `liftAmplitude` — the lift this wave did not move (X3 leaves it alone and no stop
+reads it). It is pre-existing and not a regression; what makes it Deferred rather than invisible is
+that the shadow now matches, so the floor is what the eye sees. **The shape of the work**: read
+`liftAmplitude` against a native black floor — the per-pixel count of exterior pixels where the
+native is 0 and the web is not, per span and per bed, swept over the leaf — and decide whether the
+lift is a term Apple has at all over a black backdrop or an artefact of compositing a lift into a
+premultiplied output. `b4-black-floor.py` in G1's evidence is the reading; the tracker carries the
+entry with the reading hazard that hid it.
+
 ## Tracking Map
 
 | child | status |
 | --- | --- |
 | G0 | **MERGED-READY 2026-09-21** — the cut, the clearance table, the direction tables, the model read, the three forms and the declarations; claims §5.166; six commits on `w32-g0-exterior-cut` — **corrected beside, 2026-09-21 (review closure; claims §5.166 §10, finding N15): SEVEN landed**, `85ee970c` through `8dc93e96`, the seventh being the one that removed a suite count §5.165 §9 does not record; no capture, no material change. **Review closure ON THE BRANCH, before merge, 2026-09-21** (§5.166 §10): `main` merged in (§5.167 beside §5.166, both Tracking Map rows, both Revision Notes), then three blocking findings, one blocking for G1 and thirteen non-blocking, all closed. **No measurement is withdrawn and no statistic moves**; every correction is beside the text it corrects and dated. The recede's population is **121 / 153**, not 100 of 100, and the `0-3` range 0.01633–0.12821; the span-128 outset is **two-and-two**, with all twenty bed × span rows printed and 1x dark excluding 3.10 at span 160 as well; the encoded form's 3e−06 is scoped to spans 32/44 and 96 on two beds, with the twenty moves printed. The thin stop gains the **nine accessibility cells it always named**, which hold the population's worst `|Δa|` — **0.04012** over 103 cells on six beds. **The recede has NEVER been a shadow on this bed**: 235 of 235 frozen macOS 26.5 rows flat, and off the fixture pixels macOS 27's whole receded exterior is ONE device pixel, a dark stroke rather than a transmission, where 26.5's is none. And **Apple's active reach on macOS 27 depends on the BACKDROP outside the thin regime** — 16.0–18.5 CSS px at span 96 over twelve backdrops, 25.0–28.8 at 128 — which G1 carries as a per-backdrop residual after the fit, with the material-or-instrument question a tracker entry. Four scripts changed and re-ran into their own names; three evidence files added; `freeze.py verify` **1,818** at open and close; `pnpm -r lint` exit 0; `@vitrea/calibration` **618 over 40 files, 0 failed** |
 | G0b | **CLOSED 2026-09-21.** Three tools, no material, no capture, no number. **The holdout configuration ledger** moved to `results/holdout-configuration/`, the one location every canonical read records to, with its log **seeded byte for byte** from W31 G3's (G3's copies left byte-identical where they are) and the seed asserted field by field against them. The enumerated source list was CHECKED and deliberately **not widened**: the local import graph out of its five entry points reaches **50 further files**, around twenty of which move pixels at unmoved document bytes, and `renderer-bridge.ts` — asked about by name — holds no material constant but does decide which material reaches the renderer, so it is one of the fifty rather than a special case; widening would make every logged `sourceSha256` incomparable and fire "the sources moved" at every later read forever, so `sourceListSha256` is recorded instead and the ruling is a tracker entry. **The capture-tree checker** (`scripts/check-capture-tree.ts`, `pnpm --filter @vitrea/calibration run check-capture-tree`) compares every capture's document hashes — receded included — against the row beside it: on today's canonical tree **1,840 captures, 1,833 match, 0 mismatch, 0 superseded, 0 unreadable, 7 with no row, 0 rows with no capture, exit 0**, and one line and exit 0 where the tree is absent. **The macOS 26.5 tree reads as MATCHING**, which is the shape of W31's finding rather than a contradiction of it: the frozen documents have not moved, so that divergence is a re-capture at UNMOVED bytes and no string compare can see it — the generation half closes and the `--skip-capture` re-derivation is the narrowed tracker entry. A frozen mismatch exits **2** and a live one **1**, and `--superseded-ok` demotes only a generation the split has RECORDED. **`split-generation.py`'s docstring** made true about what it enforces (both flags required; the two being different is not checked), with the two committed entries annotated by `$comment` beside — two insertions, nothing recorded rewritten, `readme` a no-op and `plan` 1,833/1,833/0. Thirteen vitest cases; `freeze.py verify` **1,818** at open and close; **2,675 unit tests over 185 files, 0 failed**. Ledger **§5.167**; evidence `packages/calibration/results/2026-09-21-w32-g0b-evidence-tools/`. **Review closure merged 2026-09-21** (§5.167 §8): no blocking finding, seven non-blocking, all seven closed — five by a tool change, two by a record. The holdout refusal now compares against **every** record at those document hashes rather than the last, so A → B → A is refused and a named reason cannot re-open a configuration already read (the defect was inherited verbatim from W31 G3's copy, which stays byte-identical). The checker gains a **`misfiled`** class over the `deviceScaleFactor` / `colorScheme` / `accessibility` clauses, because a document is shared across profiles and a 1x capture in the 2x directory read as a MATCH; **exit 2 narrows** to a generation difference under a frozen key alone, so an unreadable or misfiled capture exits 1 whatever key it sits under; the `--superseded-ok` verdict line names its demotion; and a tree path that is a file or a dangling symlink inside one is reported with its path rather than thrown. The checker is **not** wired into `pnpm -r test` and that is a decision recorded beside §3 — the parent runs it at every merge, G2's `chain.sh` is where it becomes a step of the chain, and the tracker entry stays open on the "automatic" half. `index.json`'s two `$comment` annotations say "above" of a field below them and are noted-not-fixed (committed evidence); `CLAUDE.md`'s stale sentence is **G2's**, and what the replacement must keep is that a generation check is not a capture check. Five new cases, **2,680 over 185 files, 0 failed**; the canonical tree re-run **unchanged at 1,840 / 1,833 / 0 / 0 / 0 / 7 / 0, exit 0** with misfiled **0**; `freeze.py verify` **1,818** at open and close |
-| G1 | OPEN — dispatched after G0's merge under Decision Log 1 (c) and Decision Log 2 |
+| G1 | **MERGED-READY 2026-09-21** — the joint fit, the recede's stand-down, the seal and the read, in one branch; claims §5.168; **nineteen commits** on `w32-g1-shadow-fit`, `1d45eafc` through this row's own — *a count of a branch's commits cannot be written by one of them without being wrong by one, which is W32 G0's finding N15 and is why this row was wrong twice (eleven when sixteen had landed, seventeen when eighteen had). Eighteen had landed when this was written and the commit carrying it is the nineteenth, which is the only form of the sentence that is true when it lands.* **C1 form (ii) as Decision Log 1 (c) ruled it is MET on all twelve bed × span rows at ≤ 0.0042**, from four of twelve: span 96 0.00088–0.00125 (was 0.00385–0.00413), 128 0.00245–0.00391 (was 0.00738–0.00889, failing by 76–112 %), 160 0.00132–0.00168 (was 0.00627–0.00797, failing by 49–90 %). **One leaf carried it**: `spreadPx` 3.10 → **0.50** light and → **1.80** dark, never fitted on the macOS 27 bed before, takes the objective from 0.00480/0.00381 to 0.00176/0.00225 and C1 from four rows to ten by itself; the six anchors re-solved against the 3–48 px window take it to twelve. `offsetPx` unmoved at 7.95 on a rendered coordinate step that moved the objective by **4 × 10⁻⁷** — G0's "the offset needs nothing", confirmed. The dark document carries its OWN outset because the dark bed refuses the light bed's by 2.7 × the bar at span 160, and its σ slope 0.1340 → 0.1215 inside B1. **Candidate (i) halves and does not close**: `σ_web − σ_nat` +1.27 to +2.77 CSS px against +2.66 to +3.77, OUTSIDE on all twelve, still a one-wave reading. **The free fit's distance from the constrained one is 0.00009/0.00011 — a twentieth of the bar — so no Decision Log draft on B1 goes to the user**; what a free σ buys at span 128 it sells at 160 on every bed. **Decision Log 2 confirmed at exactly zero**: the inactive `T` and window departure read 0.000000 in all five directions on every inactive bed and span, the far halo is gone by eye, and the receded reach is 0 at every span. Eight rounds of a ten-round budget, converged (Δobjective 4 × 10⁻⁷ light, 0.00010 dark; window anchor ratios 0.985–1.020). **B3 BROKEN at 0.00072 against 0.00035 and recorded, not widened**: the same statistic over the admitted bands reads **0.00006 against 0.00122**, the break decomposes to 0.00029 → 0.00064 active and 0.00039 → 0.00080 inactive, and the inactive half moved at round R before a single length did — B3 pools the `0-3` band, where vitrea's body over-fill and Apple's rim hairline live, and both are outside X3. **M2 misses one cell** (2.775 % against 2 %, span 32 inactive) through the SILHOUETTE EXTRACTOR rather than the body, recorded in `MISSED_27_ROWS` with the 2 % untouched. Seal: four digests moved, `freeze.py verify` **1,818** at open and close, the 34 goldens byte-identical, W31 Deferred 14 closed beside the two dark documents. Read: 1,833 → 2,619 → **1,893** rows, both append-checks 6/6, the capture tree 786/786 match, **230 gated / 786** against 230 / 726 — the widened ladder added 60 probe rows and no gated cell. `pnpm -r build`/`lint` exit 0; **2,684 unit tests over 186 files, 0 failed**. **Review closure ON THE BRANCH, before merge, 2026-09-21** (claims §5.168 §10): four blocking findings and fourteen non-blocking, all eighteen closed; **no measurement is withdrawn and no statistic moves**, every correction beside the text it corrects and dated, and nothing re-captured, re-fitted or re-read. Two change what a later child is told. **M2's miss has no mechanism**: four records named the silhouette extractor and the material axis's mask is the NATIVE silhouette, which moved on **0** of the 726 re-read rows (native area = web area = region = 2000, IoU 1 on the miss cell before and after); the candidate that replaces it — the optics pass compositing the shadow into the body's antialiased contour ring — is a hypothesis with its test in the tracker. And **the exterior's dominant visible residual is no longer the shadow**: over a backdrop pixel Apple renders as exactly 0, vitrea renders 1 — never more — on 3,334 of 9,440 native-black exterior pixels at span 160 on 1x light, 2,188 of 17,532 at 128 and **0 of 29,330 at 44**, which is below `liftSpanMin` 64 and points at `liftAmplitude`; a ΔE × 8 OKLab panel renders that one byte as a mid-grey, which is why `eye.md` recorded the opposite. Also: the dark σ law was printed at the superseded constants in `renderer-webgpu/README.md`; the `PREDICATE_EXCLUDES` cell cleared the **BODY-COUNT** arm (2 → 1), not the area arm, which was clear on both sides and moved the wrong way; the free fit's 0.00009 / 0.00011 is a LOWER bound at un-resolved anchors; B3's break was unavoidable by arithmetic over its own 166 cells, and **Decision Log 3 is inserted and put to the user**; the two superseded-index entries this branch wrote named the moving gate as the reader and are corrected in place before merge; and "the crossfade fades the shadow out" is true of the **CSS tier only**. Five tracker entries written and one widened; two evidence scripts added (`b2-mask.py`, `b4-black-floor.py`); `verdict.txt` regenerated with every line but §7's chroma block unchanged; `src/macos27-profile.ts` regenerated from its generator. Chain green again at the close: `pnpm -r build` and `pnpm -r lint` exit 0, **2,684 over 186 files, 0 failed**, `freeze.py verify` **1,818**, and `git diff main..HEAD` shows no change under `apps/`, `packages/renderer-webgpu/src/` or any macOS 26.5-keyed path. **Twenty-five commits**, `1d45eafc` through this row's own, which is the twenty-fifth — the only form of that sentence that is true when it lands (W32 G0 finding N15) |
 | G2 | not opened |
 
 ## Decision Log
@@ -584,14 +598,155 @@ stand-down confirmed by one round: the declared judgement "the inactive departur
 has a zero denominator on every bed, so the verdict is the inactive window-restricted departure on
 the web side going to 0 (native 0.000000) and the residual inactive `T` being the `0-3` band's
 alone; the halo cell is on the sheets before and after. The window-activation crossfade now fades
-the shadow out on deactivation, which is what the reference does; the inactive reach becomes 0 and
+the shadow out on deactivation **on the CSS tier**, which is what the reference does; on the WebGPU
+tier it disappears in one frame (corrected 2026-09-21, G1 review closure; claims §5.168 §10, finding
+N-12 — `css-tier.ts` transitions `box-shadow`, `root.ts` swaps the posed profile the instant the
+resolved activation changes, and `receded-profile.ts` says the two endpoints are not an interpolated
+pose; the crossfade that would close it is a tracker entry). The inactive reach becomes 0 and
 the group clip in the inactive pose shrinks with it — recorded in the tracker's padding entry (X8:
 the advisory constant does not move). The 26.5 receded material, frozen, draws the same wrong
 shadow and stays as it is (X1); a tracker entry records it. The hairline is not this wave's
 (Deferred: a rim term).
 
+### Decision Log 3 — PUT TO THE USER 2026-09-22 by the parent, at G1's close: B3 could not have been kept, and its re-statement is a bound's re-pin
+
+**What happened.** B3 — the shadow's departure residual over the WHOLE exterior, ≤ 0.00035 on the
+WebGPU tier, a stop W30 declared and W31 and this wave carried — reads **0.00072** at G1's read,
+from 0.00034 before. It broke in two halves and neither is a fitted length. The INACTIVE half
+moved first, from 0.00039 to 0.00080 per inactive cell (0.00054 pooled), at the round that
+executed Decision Log 2 (the recede's amplitude to 0) before a single length changed, because
+Apple's receded exterior is a one-pixel contour stroke vitrea does not draw and B3 now reads that
+stroke uncancelled. The ACTIVE half moved from 0.00029 to 0.00064 because B3 pools the `0-3` band,
+where vitrea's body over-fills its declared contour (`Δa` +0.089…+0.151, §5.62), and that positive
+error had been CANCELLING the 3–48 px exterior's negative one; the fit removed the exterior's error
+and left the over-fill's standing. The same statistic over the admitted bands (3–48 px) reads
+**0.00122 → 0.00006**.
+
+**It was unattainable once Decision Log 2 was ruled**, by arithmetic over B3's own 166 cells (85
+active, 81 inactive): the inactive half alone after the stand-down contributes
+81 × 0.00080 / 166 = 0.000390 > 0.00035, so B3 fails with a PERFECT active half; and without the
+stand-down, the fitted active half alone gives (85 × 0.00064 + 81 × 0.00039) / 166 = 0.000518. No
+choice of anchors, lengths or fit order kept it. Recorded, not widened, not re-fitted (X4); the cut
+is prepared with it disclosed (G1's independent review, N-2).
+
+**The parent recommends (a): re-state B3 over the admitted bands, both poses, with the bound
+re-derived by clause 2's rule from the bed at the read**, so the stop reads the shadow and not the
+body's edge. The `0-3` band's over-fill keeps its own entry (§5.62; tracker) and the receded
+contour hairline its own (Deferred: a rim term). Alternative (b): keep B3 as stated and record it
+broken at every cut until a rim wave draws the stroke and a silhouette wave closes the over-fill —
+honest, and it makes B3 a standing red that reads nothing about the shadow. Alternative (c):
+re-state over the active pose only with `0-3` excluded — narrower than (a), and it drops the
+inactive pose from the stop just as the recede became a measured zero.
+
+Under (a) the number is a rule's output, not this wave's choice; under any of the three the
+verdict at §5.168 stands as written. Until it is ruled, 0.00072 read without `b3-window.py`
+beside it says the exterior got worse, which is the opposite of what happened. Ruled: ______.
+
 ## Surprises & Discoveries
 
+- **One leaf that had never been fitted carried the whole wave** (W32 G1, claims
+  §5.168 §2). `spreadPx` 3.10 → 0.50 on the light document and → 1.80 on the dark
+  one, with the σ law, the offset and all thirteen amplitudes held, moves the
+  admitted-band objective 0.00480 → 0.00176 and 0.00381 → 0.00225 and takes C1
+  from four of twelve bed × span rows passing to **ten**. The anchors, re-solved
+  in closed form against the window, take it to twelve. The charter budgeted ten
+  rounds for a four-parameter joint fit; the fit used seven of them and the first
+  did most of it.
+  **Said plainly, 2026-09-21 (review closure; claims §5.168 §10, finding N-6):**
+  "converged in seven" is the budget, not a claim that each leaf was refined to a
+  minimum. The declared convergence test is REPEATABILITY at one candidate and
+  round E met it. The two LENGTHS were sampled rather than refined — the light
+  `spreadPx` took two values across the whole fit (3.10, 0.50) and the dark one
+  three (3.10, 1.80, 0.50), with nothing between them tried — so what ships is
+  the best of the sampled points under every declared stop, with 0.50 being the
+  centre of Apple's own measured outset interval [0, 1] rather than a located
+  minimum. The σ law and the six anchors are solved; the lengths are chosen.
+- **B3 was green by CANCELLATION, and the wave that fixes the exterior breaks it
+  — before a single length moves** (W32 G1, claims §5.168 §7; a tracker entry).
+  The stop reads 0.00034 at the shipped documents and 0.00072 at the fitted ones,
+  while the same statistic over the same 166 cells restricted to the admitted
+  bands reads **0.00122 → 0.00006**. B3 integrates the WHOLE exterior, which
+  includes the `0-3` band every form of C1 excludes; in that band vitrea's body
+  over-fills its contour (`Δa` +0.089 to +0.151) where in 3–48 px it removed too
+  much (−0.008 to −0.019), and the two errors cancelled in B3's mean. Round R —
+  Decision Log 2's stand-down at the SHIPPED active material — already reads
+  0.00054, so the inactive half of the break is the parent's ruling and not the
+  fit. Neither term is one X3 lets this wave touch. **Recorded, not widened, not
+  re-fitted**; the re-statement is a ruling the user owns.
+- **`offsetPx` is flat to 4 × 10⁻⁷ over Apple's own interval** (W32 G1, claims
+  §5.168 §2). A rendered coordinate step to 7.65 at the light document's
+  converged candidate moves the objective by four parts in ten million, mixed in
+  sign per span. G0's model-fit reading is confirmed by a render, and the
+  displacement ships unmoved at the macOS 26.5 default. The window DEPARTURE is
+  not flat in the offset, which is why a closed-form anchor solve is only valid
+  at the geometry it was taken on.
+- **B2 moves the OPPOSITE way to the exterior it is supposed to describe** (W32
+  G1, claims §5.168 §7; added 2026-09-21, review closure, finding N-3). B2 — the
+  law's σ at span 44 against the bed's own measured thin σ, ≤ 1.5×, not adopted
+  (§5.156 §5 (b), §5.159) — reads **1.7622 of 1.5** at the sealed dark constants
+  against 1.3387 at the fit's unrounded ones. Holding the knee at 44 while the
+  slope drops 0.1340 → 0.1215 re-derives the thin offset −6.968 → −6.318, so the
+  thin line rises 2.072 → **2.722** CSS px against Apple's dark thin σ of 1.5446.
+  On the same bed the RENDERED thin exterior improved by 8.7× at span 44 and 24×
+  at span 32 (`T` 0.00201 → 0.00023, 0.00171 → 0.00007). A blur leaf read in
+  closed form and a rendered exterior are different quantities, and this is the
+  outset/σ confound B2 was declared a one-wave reading for.
+- **The two colour schemes do not want the same outset** (W32 G1, claims §5.168
+  §2). At `spreadPx` 0.50 the dark objective RISES and span 160's `T` triples
+  (0.00269 → 0.00777, 0.00241 → 0.00817). The difference is 0.0055, 2.7 times the
+  bar, so the dark document carries its own 1.80 — the charter's conditional
+  decided by measurement rather than by default.
+- **B1's window costs the fit at least a twentieth of the bar** (W32 G1, claims
+  §5.168 §3). The free fit — the σ law outside B1 on both schemes, everything
+  else held — improves the objective by 0.00009 and 0.00011, and what it buys at
+  span 128 it sells at span 160 on every bed. Decision Log 1 (a)'s conditional
+  does not fire and no draft on re-stating B1 goes to the user.
+  **Qualified beside, 2026-09-21 (review closure; claims §5.168 §10, finding
+  N-1):** round F is ONE render at round E's anchors, and F's own window solve
+  wants anchors 3–10 % away (light 0.0244 → 0.0258, 0.0227 → 0.0250,
+  0.1797 → 0.1887; ratios 1.027–1.099), while `rounds/F/anchor-solve.txt` §1's
+  "converged" compares F's objective to E's rather than testing repeatability at
+  F's own point. The distance is therefore a **lower bound** at un-resolved
+  anchors — a free fit carried to its own convergence can only be further from
+  the constrained one. It does not change the ruling: the bar is 19 to 23 times
+  the measured distance, and the span-160 trade justifies the constrained σ on
+  its own. Round F was not re-run; that would be a fit.
+- **M2 took its first miss since adoption, and the mask it is read over did not
+  move** (W32 G1, claims §5.168 §7). One cell (span 32, inactive, 1x light)
+  carries a cumulative 2.775 % against 2 %. The bound is untouched and the miss
+  is recorded; M2 gains the path M1 has had since adoption.
+  **Corrected beside, 2026-09-21 (review closure; claims §5.168 §10, finding
+  B-2):** this entry said the mechanism was the silhouette extractor —
+  "`interiorStdDevWeb` is read over the EXTRACTED silhouette and the extractor
+  thresholds the render against its background". The material axis's mask is the
+  NATIVE silhouette by construction (`cli/measure.ts`: `const interior =
+  nativeSil`, with the doc comment above it saying that a web-derived mask moves
+  under tuning), and over the **726** rows this gate superseded and re-read
+  `silhouetteAreaNative` moved on **0**, against 80 moves of the shape axis's
+  own `silhouetteAreaWeb` (`b2-mask.py`). On the miss cell the native area, the
+  web area and the declared region all read 2000 with an IoU of 1 before and
+  after. What moved is the render's values under a fixed mask. The CANDIDATE
+  mechanism, an unmeasured hypothesis, is the optics pass compositing
+  `shadowAlpha · (1 − coverage)` into the antialiased contour ring INSIDE the
+  declared region (`renderer-webgpu/src/wgsl/optics.ts`), which would put the
+  effect where that ring is the largest fraction of the region — the thinnest
+  span, which is where the miss landed. The deferral is repointed accordingly:
+  the lever is not the extractor's asymmetry, and the measurement that would
+  test the hypothesis is a tracker entry.
+- **The fit FIXED a conditioning exclusion.** `PREDICATE_EXCLUDES` goes 68 → 67
+  because the CSS tier's silhouette on `checkerboard__capsule-button__rest` at 1x
+  light-increased-contrast-coupled stopped drawing in two pieces, so that
+  profile's `dom` shape rows gate 7 cells where they gated 6. A wave removing a
+  cell from the excluded list by making it well-conditioned is the first time
+  that list has shrunk for that reason.
+  **Corrected beside, 2026-09-21 (review closure; claims §5.168 §10, finding
+  B-3):** this entry, the test comment and commit `0e03f189`'s body all said the
+  cell "now clears 95 % of its declared region", and the AREA arm was never the
+  one failing. Off the two generations it reads **4756 → 4755** of a 4872 px
+  region against a threshold of 4628.4 — clear on both sides, and it moved the
+  wrong way. The arm that cleared is `silhouetteBodiesWeb`, **2 → 1**: the
+  `box-shadow` outset fell 3.10 → 0.50 CSS px and the silhouette closed into one
+  body. The count, the cell and the consequence stand exactly as recorded.
 - **Apple's receded window casts no outer shadow at all beyond 3 CSS px, and vitrea draws the
   ACTIVE shadow there leaf for leaf** (W32 G0, claims §5.166 §7). On 100 of 100 non-holdout
   inactive WebGPU rows — every span, both schemes, the accessibility beds included — the native
@@ -686,6 +841,66 @@ shadow and stays as it is (X1); a tracker entry records it. The hairline is not 
 
 ## Revision Notes
 
+- 2026-09-21 (G1 review closure): **G1's review closure landed on its own branch, before merge.**
+  The independent review reproduced every number §5.168 records and found no measurement wrong and
+  nothing to re-capture, re-fit or re-read; what it found was the prose layer and one table of
+  provenance. **Four blocking findings and fourteen non-blocking, all eighteen closed** (§5.168
+  §10). **Nothing is withdrawn and no statistic moves**; `freeze.py verify` reads 1,818 at the
+  closure's open and close, the chain is green at 2,684 over 186 files, and no byte moves under
+  `apps/`, `packages/renderer-webgpu/src/` or any macOS 26.5-keyed path.
+  **Four of them change what G2 is told.** First, **M2's miss has no mechanism**: the silhouette
+  extractor is ruled out by measurement — the material axis's mask is the NATIVE silhouette and
+  moved on 0 of the 726 re-read rows, with native area = web area = region = 2000 and IoU 1 on the
+  miss cell before and after — so a wave planning around "the extractor's asymmetry" is planning
+  around nothing. The replacement is a hypothesis with its test attached: the optics pass
+  composites `shadowAlpha · (1 − coverage)` into the body's own antialiased contour ring inside the
+  declared region, which would put the effect on the thinnest span, which is where the miss landed.
+  Second, **the exterior's dominant visible residual is no longer the shadow**: over a backdrop
+  pixel Apple renders as exactly 0, vitrea renders 1 — never more — on thousands of exterior pixels
+  at spans 128 and 160 and on none at 44, which is below `liftSpanMin`. It points at
+  `liftAmplitude`, is pre-existing, and was invisible because a ΔE × 8 OKLab panel renders one
+  least significant bit at the black floor as a mid-grey. **A ΔE × 8 panel over a backdrop
+  containing pure black is not a verdict on the exterior without the LSB check** — that is the
+  general rule, and every future sheet over `checkerboard*`, `dark-solid` or `hc-text` inherits it.
+  Third, **B3 could not have been kept**, by arithmetic over its own 166 cells: the inactive half
+  alone after the ruled stand-down gives 0.000390 and the fitted active half beside the pre-fit
+  inactive one gives 0.000518, both above 0.00035. **Decision Log 3 is inserted above, verbatim and
+  unruled** — the re-statement of an adopted stop is the user's. Fourth, **the crossfade is the CSS
+  tier's alone**: `root.ts` swaps the posed profile discretely and `receded-profile.ts` says the
+  endpoints are not interpolated, so on the tier this wave fits the shadow disappears in one frame,
+  which the stand-down is exactly what made visible.
+  Two corrections to what this charter itself says are recorded beside their Surprises: the
+  `PREDICATE_EXCLUDES` cell cleared the **body-count** arm (`silhouetteBodiesWeb` 2 → 1), not the
+  area arm, which read 4756 → 4755 of a 4628.4 threshold and moved the wrong way — **commit
+  `0e03f189`'s body carries the same slip and cannot be amended**; and the free fit's
+  0.00009 / 0.00011 is a **lower bound** at anchors round F never resolved, which changes nothing
+  because the bar is 19 to 23 times it and the span-160 trade justifies the constrained σ alone.
+  Also recorded: **commit `c0f73092` carries a mid-read 2,165-row `matrix.json`** from an
+  over-broad `git add`, disclosed in `0e03f189`, which lands 1,893 — the branch merges whole so
+  `main` never sees it, but a checkout of that one commit is inconsistent. And **the parent's
+  brief for this closure gave the wrong value** for the two superseded-index entries'
+  `readUnderClaims` (`--read-claims "c9a §5.168"`, the moving gate); the right ones are §5.164 §13
+  for the 479 light rows and §5.164 for the 247 dark ones, established from the capture timestamps
+  and `git log` on `matrix.json`, and both entries are corrected in place because they have not
+  merged. Five tracker entries written and one widened; two evidence scripts added; `verdict.txt`
+  and `src/macos27-profile.ts` regenerated by their own producers.
+
+- 2026-09-21 (G1): **the fit, the recede, the seal and the read landed in one
+  branch; C1's ruled clause is met on twelve of twelve rows and two stops are
+  recorded broken.** Seven Surprises added, of which three change what a later
+  child is told. First, **B3 cannot be read as a verdict on this wave** — it is
+  green by the cancellation of a body over-fill against a shadow excess, the
+  RULED recede stand-down breaks it at the shipped active material, and the same
+  statistic over the admitted bands falls by a factor of twenty; a later wave
+  reading 0.00072 without `b3-window.py` beside it will conclude the exterior got
+  worse. Second, **candidate (i) halves and does not close**: after the fit
+  `σ_web − σ_nat` is +1.27 to +2.77 CSS px and OUTSIDE B1's window on all twelve
+  rows, so the sentence W31 G1 found false is still false and the outset was not
+  the whole of it. Third, **the per-backdrop residual is real**: `T` at span 128
+  runs 0.00253 to 0.00556 across twelve backdrops after the fit and the extent
+  excess keeps §5.166 §10's ordering, so one triple does not describe the pooled
+  bed and N17's tracker entry narrows rather than closes. G1 adopted nothing:
+  C1's adoption, the `/laws/` stage and 0.22.0 are G2's.
 - 2026-09-21 (the parent): **G0 merged (`f71c43d5`) with its review closure on the branch; Decision Log
   1 (c) RULED (form (ii), per-span `T` over the admitted bands, ≤ 0.0042) and Decision Log 2 RULED
   (the recede's outer-shadow amplitude stands down to 0 as a declared reading).** Two corrections to

@@ -1,0 +1,92 @@
+W32 G1 — the widened ladder's fixtures, per profile directory
+====================================================================================================
+  the ladder is 45 + 10 = 55 scenes (`ladder.sh`, Decision Log 1 (b))
+
+  apple-macos-27.0-1x-light-standard-glass0.5
+      declares 45 of the 45 and 10 of the ten; 0 declared with no fixture
+        checkerboard__rrect-ml__inactive        declared
+        impulse__rrect-ml__inactive             declared
+        light-solid__rrect-ml__inactive         declared
+        photo__rrect-ml__inactive               declared
+        impulse__rrect-lg__inactive             declared
+        dark-solid__rrect-lg__inactive          declared
+        mid-dark-solid__rrect-lg__inactive      declared
+        light-solid__rrect-lg__inactive         declared
+        hc-text__rrect-lg__inactive             declared
+        mid-chroma-solid__rrect-lg__inactive    declared
+  apple-macos-27.0-1x-dark-standard-glass0.5
+      declares 45 of the 45 and 10 of the ten; 0 declared with no fixture
+        checkerboard__rrect-ml__inactive        declared
+        impulse__rrect-ml__inactive             declared
+        light-solid__rrect-ml__inactive         declared
+        photo__rrect-ml__inactive               declared
+        impulse__rrect-lg__inactive             declared
+        dark-solid__rrect-lg__inactive          declared
+        mid-dark-solid__rrect-lg__inactive      declared
+        light-solid__rrect-lg__inactive         declared
+        hc-text__rrect-lg__inactive             declared
+        mid-chroma-solid__rrect-lg__inactive    declared
+  apple-macos-27.0-1x-light-reduced-transparency-glass0.5
+      declares  5 of the 45 and  3 of the ten; 0 declared with no fixture
+        checkerboard__rrect-ml__inactive        declared
+        impulse__rrect-ml__inactive             not this profile's bed
+        light-solid__rrect-ml__inactive         declared
+        photo__rrect-ml__inactive               not this profile's bed
+        impulse__rrect-lg__inactive             not this profile's bed
+        dark-solid__rrect-lg__inactive          not this profile's bed
+        mid-dark-solid__rrect-lg__inactive      not this profile's bed
+        light-solid__rrect-lg__inactive         not this profile's bed
+        hc-text__rrect-lg__inactive             declared
+        mid-chroma-solid__rrect-lg__inactive    not this profile's bed
+  apple-macos-27.0-1x-light-increased-contrast-glass0.5
+      declares  5 of the 45 and  3 of the ten; 0 declared with no fixture
+        checkerboard__rrect-ml__inactive        declared
+        impulse__rrect-ml__inactive             not this profile's bed
+        light-solid__rrect-ml__inactive         declared
+        photo__rrect-ml__inactive               not this profile's bed
+        impulse__rrect-lg__inactive             not this profile's bed
+        dark-solid__rrect-lg__inactive          not this profile's bed
+        mid-dark-solid__rrect-lg__inactive      not this profile's bed
+        light-solid__rrect-lg__inactive         not this profile's bed
+        hc-text__rrect-lg__inactive             declared
+        mid-chroma-solid__rrect-lg__inactive    not this profile's bed
+  apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5
+      declares  5 of the 45 and  3 of the ten; 0 declared with no fixture
+        checkerboard__rrect-ml__inactive        declared
+        impulse__rrect-ml__inactive             not this profile's bed
+        light-solid__rrect-ml__inactive         declared
+        photo__rrect-ml__inactive               not this profile's bed
+        impulse__rrect-lg__inactive             not this profile's bed
+        dark-solid__rrect-lg__inactive          not this profile's bed
+        mid-dark-solid__rrect-lg__inactive      not this profile's bed
+        light-solid__rrect-lg__inactive         not this profile's bed
+        hc-text__rrect-lg__inactive             declared
+        mid-chroma-solid__rrect-lg__inactive    not this profile's bed
+  apple-macos-27.0-2x-light-standard-glass0.5
+      declares 45 of the 45 and 10 of the ten; 0 declared with no fixture
+        checkerboard__rrect-ml__inactive        declared
+        impulse__rrect-ml__inactive             declared
+        light-solid__rrect-ml__inactive         declared
+        photo__rrect-ml__inactive               declared
+        impulse__rrect-lg__inactive             declared
+        dark-solid__rrect-lg__inactive          declared
+        mid-dark-solid__rrect-lg__inactive      declared
+        light-solid__rrect-lg__inactive         declared
+        hc-text__rrect-lg__inactive             declared
+        mid-chroma-solid__rrect-lg__inactive    declared
+  apple-macos-27.0-2x-dark-standard-glass0.5
+      declares 45 of the 45 and 10 of the ten; 0 declared with no fixture
+        checkerboard__rrect-ml__inactive        declared
+        impulse__rrect-ml__inactive             declared
+        light-solid__rrect-ml__inactive         declared
+        photo__rrect-ml__inactive               declared
+        impulse__rrect-lg__inactive             declared
+        dark-solid__rrect-lg__inactive          declared
+        mid-dark-solid__rrect-lg__inactive      declared
+        light-solid__rrect-lg__inactive         declared
+        hc-text__rrect-lg__inactive             declared
+        mid-chroma-solid__rrect-lg__inactive    declared
+
+  a declared scene with no fixture is a red; a scene the profile does not declare
+  is not its bed and is not a short population.
+  verdict: GREEN — every declared scene has its fixture

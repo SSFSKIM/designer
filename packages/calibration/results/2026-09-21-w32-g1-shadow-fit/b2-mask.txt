@@ -1,0 +1,12 @@
+W32 G1 review closure B-2 — the material axis's mask, before and after the fit
+================================================================================================
+  superseded rows 726   working rows 1893   same keys on both sides 726
+
+  silhouetteAreaNative   on both sides  718   moved    0   — the material axis's mask (`const interior = nativeSil`)
+  silhouetteAreaWeb      on both sides  718   moved   80   — the shape axis's own silhouette — a material CAN move this
+
+  the miss cell — texture / photo__rrect-sm__inactive / 1x light standard:
+    before  {'silhouetteAreaNative': 2000, 'silhouetteAreaWeb': 2000, 'componentRegionArea': 2000, 'silhouetteIoU': 1}
+            interiorStdDevWeb 0.018426186643228294
+    after   {'silhouetteAreaNative': 2000, 'silhouetteAreaWeb': 2000, 'componentRegionArea': 2000, 'silhouetteIoU': 1}
+            interiorStdDevWeb 0.018154066164487493

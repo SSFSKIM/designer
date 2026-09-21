@@ -62,11 +62,11 @@ export const macos27LightMaterialProfile: RendererMaterialProfile = {
   tintShadeStrength: 1,
   outerShadow: {
     thinOcclusionDark: 0,
-    thinOcclusionMid: 0.068,
-    thinOcclusionBright: 0.0683,
-    thickOcclusionAt96: 0.1158,
-    thickOcclusionAt128: 0.1827,
-    thickOcclusionAt160: 0.26,
+    thinOcclusionMid: 0.0244,
+    thinOcclusionBright: 0.0227,
+    thickOcclusionAt96: 0.0961,
+    thickOcclusionAt128: 0.1797,
+    thickOcclusionAt160: 0.2717,
     liftAmplitude: 0.001,
     liftSpanMin: 64,
     liftSpanFull: 118,
@@ -74,7 +74,7 @@ export const macos27LightMaterialProfile: RendererMaterialProfile = {
     reducedTransparencyOcclusion: 0.087,
     offsetPx: 7.95,
     sigmaPx: 8.96,
-    spreadPx: 3.1,
+    spreadPx: 0.5,
     sizeGain: 0,
     sigmaSlopePerSpan: 0.1314,
     sigmaSpanRefPx: 96,
@@ -152,20 +152,22 @@ export const macos27DarkMaterialProfile: RendererMaterialProfile = {
   adaptiveTintLight: [0.05, 0.05, 0.05],
   outerShadow: {
     thinOcclusionDark: 0,
-    thinOcclusionMid: 0.0455,
-    thinOcclusionBright: 0.0537,
-    thickOcclusionAt96: 0.133,
-    thickOcclusionAt128: 0.2263,
-    thickOcclusionAt160: 0.3409,
+    thinOcclusionMid: 0.0196,
+    thinOcclusionBright: 0.0231,
+    thickOcclusionAt96: 0.1051,
+    thickOcclusionAt128: 0.2228,
+    thickOcclusionAt160: 0.3504,
     liftAmplitude: 0.0005,
     liftSpanMin: 64,
     liftSpanFull: 118,
     liftBlurSigmaCss: 40,
     reducedTransparencyOcclusion: 0.038,
     sigmaPx: 9.04,
-    sigmaSlopePerSpan: 0.134,
+    sigmaSlopePerSpan: 0.1215,
     sigmaSpanRefPx: 96,
-    sigmaThinOffsetPx: -6.968,
+    sigmaThinOffsetPx: -6.318,
+    spreadPx: 1.8,
+    offsetPx: 7.95,
   },
   sizeHeavyTapSigma: 0,
   sizeHeavyTapSigma2x: 0,
@@ -182,9 +184,26 @@ export const macos27DarkMaterialProfile: RendererMaterialProfile = {
 
 /**
  * The macOS 27 receded endpoints: a difference over the ACTIVE patch of the same
- * scheme, not a second material. The largest single change from macOS 26.5 is
- * that a receded surface keeps its outer shadow, where the 26.5 endpoint removes
- * it (claims §5.154 §6).
+ * scheme, not a second material.
+ *
+ * **A receded surface casts no exterior shadow on either generation** (W32,
+ * claims §5.166 §7 and Decision Log 2; §5.168 §4). Apple's unfocused window
+ * removes no light at all from 3 CSS px outward — 121 of 121 non-holdout
+ * inactive macOS 27 cells and 235 of 235 on the frozen macOS 26.5 bed — so the
+ * six occlusion anchors, `liftAmplitude` and `reducedTransparencyOcclusion` are
+ * **0** here as a DECLARED reading rather than a fitted value, which is what the
+ * 26.5 endpoint had carried all along. What is left of Apple's receded exterior
+ * is one device pixel of dark contour stroke, which no shadow leaf expresses.
+ * *(Until W32 these endpoints inherited their active document's anchors leaf for
+ * leaf, so vitrea drew the full ACTIVE shadow in the inactive pose and this
+ * comment said that was the reference. It was not.)*
+ *
+ * What distinguishes this endpoint from the macOS 26.5 one is therefore the rest
+ * of the difference, and it is per scheme: the backdrop tone response and its
+ * abscissa, the scale-selective scatter's ramps, the tint shades and
+ * `reducedTintAdaptation`, `increasedOcclusionLift` with its per-policy pair,
+ * `strongBorderRim`, `refractionScale.approximate` and `bodyChromaRetention` —
+ * the last being the receded body's own chroma carry (claims §5.164).
  */
 export const macos27RecededMaterialProfile: Readonly<
   Record<"light" | "dark", RendererMaterialProfile>
@@ -212,13 +231,13 @@ export const macos27RecededMaterialProfile: Readonly<
     rimCollapsedTinted: 0,
     outerShadow: {
       thinOcclusionDark: 0,
-      thinOcclusionMid: 0.068,
-      thinOcclusionBright: 0.0683,
-      thickOcclusionAt96: 0.1158,
-      thickOcclusionAt128: 0.1827,
-      thickOcclusionAt160: 0.26,
-      liftAmplitude: 0.001,
-      reducedTransparencyOcclusion: 0.087,
+      thinOcclusionMid: 0,
+      thinOcclusionBright: 0,
+      thickOcclusionAt96: 0,
+      thickOcclusionAt128: 0,
+      thickOcclusionAt160: 0,
+      liftAmplitude: 0,
+      reducedTransparencyOcclusion: 0,
     },
     sizeScatterRampStartThick1x: 0.3,
     sizeScatterRampStartThick2x: 0.04,
@@ -271,13 +290,13 @@ export const macos27RecededMaterialProfile: Readonly<
     rimCollapsedTinted: 0,
     outerShadow: {
       thinOcclusionDark: 0,
-      thinOcclusionMid: 0.0455,
-      thinOcclusionBright: 0.0537,
-      thickOcclusionAt96: 0.133,
-      thickOcclusionAt128: 0.2263,
-      thickOcclusionAt160: 0.3409,
-      liftAmplitude: 0.0005,
-      reducedTransparencyOcclusion: 0.038,
+      thinOcclusionMid: 0,
+      thinOcclusionBright: 0,
+      thickOcclusionAt96: 0,
+      thickOcclusionAt128: 0,
+      thickOcclusionAt160: 0,
+      liftAmplitude: 0,
+      reducedTransparencyOcclusion: 0,
     },
     sizeScatterRampStartThick1x: 0.3,
     sizeScatterRampStartThick2x: 0.04,
@@ -333,8 +352,8 @@ export const macos27CssTierMapping: Partial<CssTierMapping> = {
  * back from the browser.
  */
 export const MACOS_27_RESOLVED_MATERIAL_SHA256 = {
-  light: "3dc24a74f17fd87e",
-  dark: "8a43f54162606db4",
-  recededLight: "ab3ed65aa02869b1",
-  recededDark: "e1f42c5656ef392f",
+  light: "40a6dec2dc34c748",
+  dark: "bd1814fac34f9b30",
+  recededLight: "f34dcc03e2774db3",
+  recededDark: "6b6237b7ae241638",
 } as const;
