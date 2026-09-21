@@ -1,0 +1,51 @@
+W31 G3 — B3's departure statistic, on matrix.json
+====================================================================================================
+
+  The quantity, the partition and the tier map are W30 G0's
+  (results/2026-09-20-w30-g0-cut/departure-stat.py), imported and not restated.
+  386 macOS 27 rows carry the axis  [--any-document: the capturePath hash check is off]
+
+THE STOP — calibration + validation, the population B3's 0.00035 was read over
+----------------------------------------------------------------------------------------------------
+  row set          n    mean |d|     max |d|   worst cell
+  webgpu         166     0.00072     0.00481   light-solid__rrect-ml__rest (webgpu)
+  both           166     0.00072     0.00481   light-solid__rrect-ml__rest (webgpu)
+
+Calibration alone — the partition a fit round renders, so a round is comparable to the committed bed
+----------------------------------------------------------------------------------------------------
+  row set          n    mean |d|     max |d|   worst cell
+  webgpu         134     0.00081     0.00481   light-solid__rrect-ml__rest (webgpu)
+  both           134     0.00081     0.00481   light-solid__rrect-ml__rest (webgpu)
+
+Every non-holdout row, probe included — the same clause on this child's bed
+----------------------------------------------------------------------------------------------------
+  row set          n    mean |d|     max |d|   worst cell
+  webgpu         386     0.00179     0.02704   light-solid__rrect-lg__inactive (webgpu)
+  both           386     0.00179     0.02704   light-solid__rrect-lg__inactive (webgpu)
+
+Probe (the pitch ladder) alone — no committed macOS 27 row existed before this child
+----------------------------------------------------------------------------------------------------
+  row set          n    mean |d|     max |d|   worst cell
+  webgpu         220     0.00260     0.02704   light-solid__rrect-lg__inactive (webgpu)
+  both           220     0.00260     0.02704   light-solid__rrect-lg__inactive (webgpu)
+
+Holdout only — reported, never fitted
+----------------------------------------------------------------------------------------------------
+  row set          n    mean |d|     max |d|   worst cell
+
+Per profile, calibration + validation
+----------------------------------------------------------------------------------------------------
+  profile                                                       tier        n    mean |d|
+  apple-macos-27.0-1x-dark-standard-glass0.5                    webgpu     21     0.00074
+  apple-macos-27.0-1x-dark-standard-glass0.5                    both       21     0.00074
+  apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5 webgpu     14     0.00095
+  apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5 both       14     0.00095
+  apple-macos-27.0-1x-light-reduced-transparency-glass0.5       webgpu     12     0.00097
+  apple-macos-27.0-1x-light-reduced-transparency-glass0.5       both       12     0.00097
+  apple-macos-27.0-1x-light-standard-glass0.5                   webgpu     49     0.00098
+  apple-macos-27.0-1x-light-standard-glass0.5                   both       49     0.00098
+  apple-macos-27.0-2x-dark-standard-glass0.5                    webgpu     21     0.00036
+  apple-macos-27.0-2x-dark-standard-glass0.5                    both       21     0.00036
+  apple-macos-27.0-2x-light-standard-glass0.5                   webgpu     49     0.00049
+  apple-macos-27.0-2x-light-standard-glass0.5                   both       49     0.00049
+

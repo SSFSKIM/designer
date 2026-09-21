@@ -33,6 +33,7 @@ document's own value is read on its own beds.
 | A | `spreadPx` 3.10 → **0.50** (light) and → **1.80** (dark) | **0.00176** | **0.00225** | 0.00063 | — |
 | B | A's window anchor solve applied at A's geometry | **0.00092** | **0.00156** | 0.00072 | — |
 | C | light: B's residual solve (the convergence round). dark: `spreadPx` 1.80 → 0.50 at B's anchors | **0.00089** | 0.00184 | 0.00072 | light: converged |
+| D | light: `offsetPx` 7.95 → 7.65 (the offset coordinate step). dark: back to `spreadPx` 1.80 with the σ slope at B1's low end, 0.1340 → 0.1215 | 0.00089 | **0.00147** | 0.00072 | — |
 
 ### pre-fit — the before
 
@@ -224,3 +225,38 @@ bed's reading differs from the light one's beyond the bar" arriving with a numbe
 at span 160 is 0.0055, which is 2.7 times the bar.
 
 B3 is unchanged at 0.00072.
+
+### D — the offset needs nothing, measured; and the σ law inside B1 is the dark bed's last lever
+
+**Light: `offsetPx` 7.95 → 7.65**, the low end of the interval G0 read Apple's offset in
+(7.656–8.213 at spans 44, 96 and 128), at C's converged candidate and with nothing else moved.
+The objective reads **0.00089 → 0.00089, Δ −0.0000027** — flat to the fifth decimal. Per span the
+moves are 0.00004 → 0.00009 at 32, 0.00008 → 0.00013 at 44, 0.00090 → 0.00083 at 96, 0.00245 →
+0.00245 at 128 and 0.00134 → 0.00134 at 160: mixed in sign and two orders of magnitude below the
+bar. **G0's "the offset needs nothing" is now a rendered coordinate step and not only a model fit.**
+`offsetPx` therefore ships at 7.95, the value both macOS 27 documents inherit from the macOS 26.5
+default, unmoved — the fewest leaves that state the measurement.
+
+One reading beside it, because it is the kind of thing that confounds a later round: the objective
+is flat in the offset and the WINDOW DEPARTURE is not. At 7.65 the light thin regime's window ratio
+moves 0.985 → 1.069 and the bright one 1.008 → 1.098, so the anchor solve taken at 7.65 wants thin
+anchors 7–10 % higher than the one taken at 7.95. The two quantities are not the same functional and
+a solve is only valid at the geometry it was taken on; the light document's shipped anchors are
+therefore C's, solved at 7.95, and not D's.
+
+**Dark: the σ slope 0.1340 → 0.1215**, the lowest value B1's three joint windows admit together
+(σ(96) 9.040, σ(128) 12.928, σ(160) 16.816, inside [8.9084, 9.3180], [12.7458, 13.8499] and
+[16.7931, 18.3237] with 0.023 of margin at 160), with `sigmaThinOffsetPx` re-derived as
+0.1215 · (44 − 96) = −6.318 so the knee stays at 44 (W30 Decision Log 3 (c)).
+
+Against round B — the same geometry and the same anchors at slope 0.1340 — the dark objective moves
+0.00156 → **0.00147** and the two spans the σ law reaches move with it: span 128 0.00410 → 0.00384
+(1x) and 0.00464 → **0.00431** (2x), span 160 0.00269 → 0.00181 and 0.00241 → 0.00177. Spans 32,
+44 and 96 do not move, which is the law's own shape: at the knee and below, σ is `sigmaPx +
+sigmaThinOffsetPx` and the two moved together by construction.
+
+The residual at span 128 is a SHAPE and the table says which way: on 2x dark the occlusion ratios
+web / native read **0.875 / 0.947 / 1.102** across `3-6` / `6-12` / `12-24` — too little near the
+contour and too much far out, which is a profile that falls off too slowly. A narrower σ is the
+lever and B1's floor is where it stops; what is left is an amplitude, and D's window solve wants
+`thickOcclusionAt128` 0.2181 → 0.2228, which is round E.
