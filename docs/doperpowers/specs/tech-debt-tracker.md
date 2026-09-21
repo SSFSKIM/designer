@@ -2383,7 +2383,7 @@ a per-surface axis is a new axis or a nesting of the existing ones, how the cell
 in `adopted-thresholds.test.ts` change, and whether the coherence axis follows. Worth taking with
 the next wave that touches stacked material; not worth a wave of its own.
 
-## Nothing checks the canonical matrix against a fresh capture (W27f G2, 2026-09-11)
+## Nothing checks the canonical matrix against a fresh capture (W27f G2, 2026-09-11) — NARROWED 2026-09-21 (W32 G0b): shape (2) is half-built
 
 W27f G2 found the canonical `results/matrix.json` carrying **pre-W27f-G1 rows for the two
 `glass-over-glass` scenes through the whole 0.16.0 release** (claims §5.135 §8). The rows were
@@ -2406,6 +2406,22 @@ fingerprint that drew it (the material-source digest the W27f runners already co
 when a cell's fingerprint is older than the head's, which turns this from a thing someone must
 remember into a thing the bed reports; (3) a periodic re-capture of the frozen bed, which is
 expensive and catches it only late. (2) is the one worth designing.
+
+
+**Shape (2), the staleness signal, is half-built and the built half is the cheap
+one.** A capture already records the runtime fingerprint that drew it — the
+material profile documents and their twelve-hex hashes, in its own `capturePath` —
+and `scripts/check-capture-tree.ts` now fails when a capture's fingerprint is not
+the one the row beside it names (claims §5.167 §3). That turns a stale GENERATION
+from a thing someone must remember into a thing the tree reports, at every merge,
+with no browser.
+
+It does not answer this entry's original question. A cell whose overlay is a
+DOM-sourced group still moves when the DOM material moves, and if that change
+moved no profile document the fingerprint does not move either. The W27f defect
+would still be invisible. What answers it is the same `compare --skip-capture`
+re-derivation the `web-captures/` entry now names: the committed number
+re-computed from the committed pixels. Shapes (1) and (3) are untouched.
 
 ## The composite-probe drivers write over their own committed evidence (W27e G1, 2026-09-12)
 
@@ -4199,7 +4215,7 @@ a same-day control.
 
 ---
 
-## The canonical `web-captures/` tree held no current generation, because every read ran in a worktree (W31 G4, 2026-09-21)
+## The canonical `web-captures/` tree held no current generation, because every read ran in a worktree (W31 G4, 2026-09-21) — NARROWED 2026-09-21 (W32 G0b): the generation check landed, and it cannot see the 26.5 defect
 
 *Found at the W31 charter's grounding read and sharpened by W31 G0 (charter
 Surprises; claims §5.161 §2). **Fixed for this wave and not for the class.***
@@ -4248,6 +4264,35 @@ carries, the generation it names is the one the matrix's rows for that profile
 name. It is a file walk and a string compare — no browser, no capture — and it
 can run in `pnpm -r test` as a case that skips cleanly where the tree is absent,
 which is what makes it usable on a machine that is not the capture machine.
+
+
+**The generation half is closed by a tool.**
+`packages/calibration/scripts/check-capture-tree.ts`, run as
+`pnpm --filter @vitrea/calibration run check-capture-tree`, is the file walk and
+string compare this entry asked for: every `cell__<renderer>.json`'s document
+hashes — the receded document included — against the row the working matrix holds
+for that profile, renderer and scene. It skips cleanly and exits 0 where the tree
+is absent, exits 2 rather than 1 on a frozen profile so a merge gate is not made
+un-passable for a fault contract X1 forbids anyone to clear, and `--superseded-ok`
+demotes only a generation `results/superseded/index.json` has RECORDED — stale by
+choice, which is nameable, as against stale by accident, which is not. On today's
+canonical tree: 1,840 captures, 1,833 match, 0 mismatch, 0 superseded, 0
+unreadable, 7 with no row, 0 rows with no capture, exit 0 (claims §5.167 §3).
+
+**What is left is the half this entry's own evidence is made of, and the checker
+is structurally blind to it.** The two macOS 26.5 cells above read as MATCHING.
+They are supposed to: the frozen documents have not moved since W29, so that
+divergence is a **re-capture at unmoved document bytes**, and there is no hash for
+a string compare to disagree on. A document-hash checker can tell a stale
+GENERATION from a current one and cannot tell one capture from another at the same
+bytes.
+
+**The narrowed fix shape**: a `compare --skip-capture` re-derivation of the
+committed metrics off the tree's own PNGs, cell by cell, which is exactly how W31
+G0 found those two cells. It needs no browser and no fixture beyond the tree, but
+it is minutes of CPU rather than a file walk, so it belongs at a gate's read
+rather than in `pnpm -r test` — and it is the only thing that can assert the tree
+and the rows are the same CAPTURE and not merely the same generation.
 
 ---
 
@@ -4456,7 +4501,7 @@ is a policy decision and should be made on the reading rather than before it.
 
 ---
 
-## Two superseded-index entries name the reading gate as the moving one, and a third was corrected as it was written (W31 G4, 2026-09-21)
+## Two superseded-index entries name the reading gate as the moving one, and a third was corrected as it was written (W31 G4, 2026-09-21) — NARROWED 2026-09-21 (W32 G0b): the documentation is true, the refusal is not written
 
 *Named by W31 G3c's Deferred list and by its review's NB5 (claims §5.164 §13).*
 
@@ -4482,6 +4527,30 @@ review of a split read every line instead of the new one.
 one run, which the rule says does not happen, so the refusal can be absolute),
 and writes the index with `ensure_ascii=False` so a re-emit is a no-op on the
 entries it is not changing.
+
+
+**Half closed: the docstring now describes what the script enforces**, which is
+that `apply` requires both `--claims` and `--read-claims` so neither can be
+defaulted or inherited, and states plainly that it does NOT check they differ
+(claims §5.167 §5). The two committed entries each carry a `$comment` beside their
+recorded fields naming W30 G3b (§5.159b) as the reading gate and W31 G3 (§5.164)
+as the mover; nothing recorded is rewritten and the diff is exactly two
+insertions. `split-generation.py readme` after the annotation is a no-op and
+`plan` still reports 1,833 / 1,833 / 0.
+
+**What is left is the refusal itself**, unchanged in shape: `apply` refusing
+`--read-claims` equal to `--claims`, absolutely, since the one exception the rule
+contemplates is a gate that reads and supersedes in a single run and the rule says
+that does not happen. W32 G0b ran no split, and a refusal first exercised on a
+real split is a refusal nobody has run — so it belongs to the next gate that runs
+one, together with the `ensure_ascii=False` byte-churn note below.
+
+**And a second place the same sentence lives, which that gate must move with it.**
+`split-generation.py`'s `claimsFields` LITERAL is written into `index.json`
+verbatim by every `apply`, and it still says "They are never the same gate". The
+docstring correction does not reach it. Whoever adds the refusal moves the literal
+and the committed `index.json`'s copy of it together, or the next split writes the
+claim back over the annotations.
 
 ---
 
@@ -4510,7 +4579,7 @@ gate.
 
 ---
 
-## The holdout configuration log is a cross-gate ledger living inside one gate's evidence directory (W31 G4, 2026-09-21)
+## The holdout configuration log is a cross-gate ledger living inside one gate's evidence directory (W31 G4, 2026-09-21) — CLOSED 2026-09-21 (W32 G0b)
 
 *Named by W31 G3c's Deferred list (claims §5.164 §13).*
 
@@ -4530,6 +4599,67 @@ retires it.
 `packages/calibration/results/holdout-configuration-log.json` — and make
 `configuration.py` read and append to that path wherever the script itself lives.
 A cross-gate ledger should not be a file a copying convention can fork.
+
+
+**Closed, and the closure took the fix shape's location and not its name.**
+`packages/calibration/results/holdout-configuration/` holds `configuration.py`,
+the log and a README, and it is the one location every canonical holdout read
+records to (claims §5.167 §1). A directory rather than the loose
+`holdout-configuration-log.json` this entry proposed, because the script and the
+log have to travel together: a script reaching back to a log it does not sit
+beside is the same fork with one more step in it. The log is **seeded byte for
+byte** from W31 G3's, so the two reads that exist carry across unchanged, and
+`test/w32-holdout-configuration.test.ts` asserts the seed field by field against
+the G3 file — which stays byte-identical where it is, as that gate's witness.
+Five unit cases exercise the refusal over a synthetic repository, including that
+a refused read appends nothing.
+
+---
+
+## The holdout configuration's source list is narrower than the render by fifty files, and widening it is a ruling rather than an edit (W32 G0b, 2026-09-21)
+
+*Measured at W32 G0b while moving the ledger; claims §5.167 §2, evidence
+`results/2026-09-21-w32-g0b-evidence-tools/source-list-closure.txt`.*
+
+W31 Decision Log 1 (b) defines a frozen configuration as *(the shipped document
+bytes, the renderer's material-affecting sources)*, and the second half is an
+enumerated list of 14 files — W31's charter verbatim, acceptance clause 6. It is a
+list rather than a tree for a good reason: a hash over everything would move on a
+comment in a test and say nothing about the material.
+
+**It is also incomplete, and it always was.** Following the local import graph out
+of the list's five TypeScript entry points reaches 50 further files, of which
+around twenty can move a capture's pixels at unmoved document bytes:
+`analysis.ts`, `silhouette-tone.ts`, `instances.ts`, `backdrop-fit.ts`, `color.ts`,
+`pyramid.ts`, `pyramid-plan.ts`, `render-model.ts`, `css-tier-layers.ts`,
+`css-tier-shadow.ts`, `backdrop-tone.ts`, `refraction.ts`, `tint.ts`,
+`vibrancy.ts`, `material-document.ts`, `macos27-profile.ts`, `dark-profile.ts`,
+`receded-profile.ts`, `window-activation.ts`, `media-policy.ts`. It is a lower
+bound: a package-boundary import is not followed, so core's policy and tier
+resolution are outside the count as well as outside the list. `renderer-bridge.ts`
+holds no material constant and no material arithmetic but decides which material
+reaches the renderer, so it is one of the fifty in the routing sense.
+
+So a fit that moved a constant out of a document and into, say,
+`css-tier-layers.ts` would leave the configuration hash unmoved and the artifact
+would not see it. The consequence is bounded — the refusal's FIRST half, the
+document hashes, catches every fit that moves a document, which is what a fit
+normally does — but the second half is weaker than its name.
+
+**Why W32 G0b did not widen it, and why the next gate should not either without a
+ruling.** The refusal compares today's `sourceSha256` against a LOGGED one, and a
+hash taken over a different enumeration is not a different hash but an
+incomparable one. A widened list would therefore report "the sources moved" at
+every later read forever, which retires the rule more thoroughly than the fork
+the ledger's move just prevented. Changing what a configuration IS is Decision Log
+1 (b)'s subject.
+
+**The fix shape**, and it is a decision before it is an edit: either a declared
+list that a unit case CHECKS against the import closure, so an added module is a
+red test rather than a silent gap, or a closure hash with a declared ignore list.
+Either way the rule's version has to be recorded on the entries taken under it —
+`sourceListSha256`, added at W32 G0b, is the place for it — so the two eras of
+hashes are told apart instead of compared.
 
 ---
 

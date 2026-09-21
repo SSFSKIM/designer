@@ -502,7 +502,7 @@ hairline (a rim term and not a shadow one); `standard-row-identity-matrix.txt`'s
 | child | status |
 | --- | --- |
 | G0 | OPEN — dispatched at charter v2 |
-| G0b | OPEN — dispatched at charter v2 |
+| G0b | **CLOSED 2026-09-21.** Three tools, no material, no capture, no number. **The holdout configuration ledger** moved to `results/holdout-configuration/`, the one location every canonical read records to, with its log **seeded byte for byte** from W31 G3's (G3's copies left byte-identical where they are) and the seed asserted field by field against them. The enumerated source list was CHECKED and deliberately **not widened**: the local import graph out of its five entry points reaches **50 further files**, around twenty of which move pixels at unmoved document bytes, and `renderer-bridge.ts` — asked about by name — holds no material constant but does decide which material reaches the renderer, so it is one of the fifty rather than a special case; widening would make every logged `sourceSha256` incomparable and fire "the sources moved" at every later read forever, so `sourceListSha256` is recorded instead and the ruling is a tracker entry. **The capture-tree checker** (`scripts/check-capture-tree.ts`, `pnpm --filter @vitrea/calibration run check-capture-tree`) compares every capture's document hashes — receded included — against the row beside it: on today's canonical tree **1,840 captures, 1,833 match, 0 mismatch, 0 superseded, 0 unreadable, 7 with no row, 0 rows with no capture, exit 0**, and one line and exit 0 where the tree is absent. **The macOS 26.5 tree reads as MATCHING**, which is the shape of W31's finding rather than a contradiction of it: the frozen documents have not moved, so that divergence is a re-capture at UNMOVED bytes and no string compare can see it — the generation half closes and the `--skip-capture` re-derivation is the narrowed tracker entry. A frozen mismatch exits **2** and a live one **1**, and `--superseded-ok` demotes only a generation the split has RECORDED. **`split-generation.py`'s docstring** made true about what it enforces (both flags required; the two being different is not checked), with the two committed entries annotated by `$comment` beside — two insertions, nothing recorded rewritten, `readme` a no-op and `plan` 1,833/1,833/0. Thirteen vitest cases; `freeze.py verify` **1,818** at open and close; **2,675 unit tests over 185 files, 0 failed**. Ledger **§5.167**; evidence `packages/calibration/results/2026-09-21-w32-g0b-evidence-tools/` |
 | G1 | not opened |
 | G2 | not opened |
 
@@ -572,6 +572,20 @@ may strike it without touching the material.
 (at close)
 
 ## Revision Notes
+
+- 2026-09-21 (G0b): **G0b closed** — `results/holdout-configuration/` (seeded, README, five
+  unit cases), `scripts/check-capture-tree.ts` (eight unit cases, the npm script, the run on the
+  canonical tree) and `split-generation.py`'s corrected docstring with two `$comment` annotations
+  beside the entries carrying the slip. §5.167 written; three tracker entries amended beside.
+  **Two things a later child should know.** First, the checker reads the macOS 26.5 tree as
+  MATCHING and W31's finding still stands: that divergence is a re-capture at unmoved frozen
+  document bytes, so a document-hash compare is structurally blind to it and the remaining
+  instrument is a `compare --skip-capture` re-derivation off the tree's own PNGs. G1's clause 5
+  gets the generation check it was promised and not a metric check. Second, the configuration's
+  enumerated source list was found narrower than the render by 50 files and was NOT widened, for
+  a reason that binds anyone tempted later: a `sourceSha256` taken over a different enumeration
+  is incomparable rather than different, so widening retires the refusal it is meant to sharpen.
+  That is a ruling, it is a tracker entry, and it is not G1's to take mid-fit.
 
 - 2026-09-21 (the parent): **v2 — the adversarial review folded.** Five blocking findings and
   seven non-blocking, every number reproduced by the parent from `matrix.json` before folding:
