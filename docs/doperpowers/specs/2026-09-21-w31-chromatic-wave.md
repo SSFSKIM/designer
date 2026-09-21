@@ -761,6 +761,33 @@ until somebody charters it.
   exactly (1.433 against 1.435). That is W27c's seed collapse driving the paint to neutral where
   Apple's receded material keeps it — a tint-path defect, not a body-chroma one, frozen by X3 and
   sent to the tracker.
+- **The CSS tier's room was reversed twice, and the second reversal is to
+  nothing** (2026-09-21, G3). The charter's Design put the projection's headroom
+  on the light scheme; G0's review closure corrected `css-ceiling.ts` and put it
+  on the DARK one (§5.161 §11, B1), and Decision Log 2 (b) dispatched G3 on that
+  correction. Rendered on the drawn tier the derived term buys **0.000** of the
+  gap on the dark active cells — and still 0.000 at a retention of **1** — while
+  on the light one it buys 0.76 to 1.04 and breaks both stops (§5.164 §5). So
+  the dark ceiling §5.161 §6 declares is not an upper bound there at all: it is
+  unreachable, because the alpha the expression is evaluated at is not the alpha
+  the runtime solves. That is the same class of finding as B1 itself, one solve
+  further along, and it is the second time an analytic ceiling on this tier has
+  been corrected by looking at what it actually draws. Consequence: the two
+  `dom` rows §5.161 §4 claimed conditionally are recorded as missed.
+
+- **A fix made by a review closure had a failure mode the closure's own machine
+  could not show** (2026-09-21, G3). §5.161 §11 finding N8 replaced
+  `scratch-capture.sh`'s unsupported `pgrep -fc` with
+  `pgrep -f 'playwright' | wc -l`. On a machine with NO foreign browser, BSD
+  `pgrep` exits 1, `pipefail` hands the pipeline that status, an assignment takes
+  its command substitution's status and `set -e` kills the script before a single
+  cell is captured — silently, with exit 1 and no output. G0's own run could
+  never have hit it, because the foreign `playwright-cli` daemon its §2 discloses
+  was up throughout. G3's copy swallows pgrep's empty match and nothing else;
+  G0's file is committed evidence and is not edited. The general shape is worth
+  the entry: **a guard fixed on the machine where it fired is a guard tested
+  only in the state it was fixed for.**
+
 - **The CSS tier already saturates.** `optics.ts`'s `backdrop-filter` carries `saturate()` at
   1.8 / 1.4, CSS-only, with no renderer counterpart and no pin; a chroma operator on the fidelity
   target now has an authored constant beside it on the derived tier that the charter's v1 called
