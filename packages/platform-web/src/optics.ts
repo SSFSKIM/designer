@@ -932,6 +932,18 @@ export const RIM_COLLAPSED_TINTED = 0.52;
  */
 export const RIM_TINT_CHROMA = 1;
 
+/**
+ * **The body's chroma retention, mirrored** — `MaterialProfile.bodyChromaRetention`
+ * (W31; claims §5.161 §5, fitted in §5.164). 0 on the runtime default, where the
+ * body carries only what the plate's `1 − α` lets through.
+ *
+ * A mirror and not a second opinion, like every constant in this file: the
+ * reason the number is what it is lives in `@vitrea/renderer-webgpu`'s
+ * `DEFAULT_MATERIAL_PROFILE`. What this tier does with it is
+ * `bodyChromaSaturationGain`, below.
+ */
+export const BODY_CHROMA_RETENTION = 0;
+
 /** The two absolute rims a collapsed surface keeps, bare and at full coverage. */
 export interface CollapsedRimConstants {
   readonly bare: number;
@@ -3924,16 +3936,71 @@ export function rimTintColour(
  * carries no author tint at all, and every displacement has to land through one
  * conversion or the tier would gain a second set of numbers to drift.
  */
+/**
+ * **The CSS tier's mirror of W31's body chroma retention** (claims §5.161 §5-6,
+ * §5.164), as a GAIN on the authored `saturate()` rather than as a term of its
+ * own. 1 at the retention's inert identity, exactly.
+ *
+ * The renderer restores the composited colour's chromaticity toward the blurred
+ * backdrop's at a held linear luma, so the fraction of the backdrop's
+ * chromaticity the body carries goes from `1 − α` to `(1 − α) + r·α` and the
+ * gain on it is `1 + r·α/(1 − α)`. This tier reaches the body's chroma through
+ * exactly one operator — `saturate()` inside the one `backdrop-filter`, which
+ * acts on the backdrop BEFORE the `rgba()` plate covers it — so multiplying that
+ * `saturate()` by the same gain is the same operation composed the same way.
+ *
+ * **It does not move the authored constants** (W31 X3). `s` stays 1.8 on the
+ * regular variant and 1.4 on the clear one; what this returns is a factor the
+ * material's own leaf produces, and at `bodyChromaRetention` 0 it is 1 and the
+ * declared string is the byte-identical one — which is what
+ * `w30-css-declaration-identity.test.ts` reads across the frozen macOS 26.5 bed.
+ *
+ * `alpha` is the CONVERTED alpha this tier actually draws (`cssTintAlpha` at the
+ * surface's own anchor), not the renderer's `tintAlpha`: the gain has to be
+ * taken against the plate that covers THIS tier's backdrop, and the two differ
+ * by the encoded-space conversion K5 exists for.
+ *
+ * Two residuals, stated rather than discovered. `saturate()` is defined on
+ * sRGB-encoded values where the renderer restores in linear light, so this is
+ * the same operator in a different space — the gap `sharpLayerDeclarations`
+ * already records one term along. And `saturate()` saturates ABOUT the pixel's
+ * own luma, where the renderer moves toward the BACKDROP's chromaticity: over a
+ * body that has already lost its hue the two agree in magnitude and not in
+ * direction, which is a reason the ceiling in claims §5.161 §6 is an upper bound
+ * and not a prediction.
+ */
+export function bodyChromaSaturationGain(retention: number, alpha: number): number {
+  if (!(retention > 0)) return 1;
+  const covered = clamp01(alpha);
+  const open = 1 - covered;
+  // A plate that covers everything leaves no backdrop for `saturate()` to act
+  // on, so the gain is unbounded in the algebra and meaningless in the pixels.
+  // Held at 1 there rather than clamped to a large number, which would paint a
+  // saturation onto a body nothing shows through.
+  if (open <= 1e-3) return 1;
+  return (open + clamp01(retention) * covered) / open;
+}
+
+/** The profile-level retention this tier mirrors; 0 unless a document names one. */
+export function sourceBodyChromaRetention(patch?: RendererMaterialProfile): number {
+  return patch?.bodyChromaRetention ?? BODY_CHROMA_RETENTION;
+}
+
 export function cssOpticsFromSource(
   base: MaterialOptics,
   source: MaterialSourceOptics,
   mapping: CssTierMapping = CSS_TIER_MAPPING,
   anchor: CssTintAnchor = mappingAnchor(mapping),
   variant: MaterialVariant = "regular",
+  bodyChromaRetention: number = BODY_CHROMA_RETENTION,
 ): MaterialOptics {
   const alpha = cssTintAlpha(source, mapping, anchor);
   return {
     ...base,
+    // W31's chroma retention, mirrored as a gain on the authored `saturate()`
+    // at the alpha this tier actually draws (claims §5.164). Exactly
+    // `base.saturation` at the retention's identity.
+    saturation: base.saturation * bodyChromaSaturationGain(bodyChromaRetention, alpha),
     tintAlpha: alpha,
     tint: cssTintColor(source, alpha, mapping, anchor),
     // Derived rather than inherited from `base`, because the backdrop adaptation
