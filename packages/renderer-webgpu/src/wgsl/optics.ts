@@ -1269,9 +1269,35 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
    * Before the DOM branch as well, so the secant that solves an unsampled DOM
    * group's layer alpha solves it from the material the page will actually
    * show. That branch is NOT luma-transparent — 'dom_material_alpha' clamps per
-   * channel inside a luma computation — so the 'dom' tier's alpha may move with
-   * the retention where the WebGPU tier's composite does not (claims 5.161
-   * section 11, the second reading carried forward).
+   * channel inside a luma computation — so an unsampled DOM GROUP'S layer alpha
+   * may move with the retention where a sampled composite does not (claims
+   * 5.161 section 11, the second reading carried forward).
+   *
+   * That sentence said "the 'dom' tier", which is a different thing and is the
+   * thing a reader will think of first (W31 G3c review closure; claims 5.164
+   * section 13, finding N7). The 'dom' tier is the CSS tier, the one the
+   * calibration matrix keys under that name, and it does not run this shader at
+   * all; what is meant here is THIS shader's unsampled-material path, where a
+   * group with no sampled backdrop writes a layer for the browser to composite.
+   *
+   * And on that path what the operator restores TOWARD is not the page's
+   * backdrop, because nothing sampled it. 'dom_material_backdrop()' fabricates
+   * one, and it has two modes. Mode 1, which a group with no declared
+   * 'backdropTone' takes, returns 'vec3f(ou.heavyTap.z)' — a neutral at the
+   * declared reference luminance — so the mix target is
+   * 'backdrop * (Y / Yb)' = 'vec3f(Y)', the neutral at the colour's own luma.
+   * That reads as a desaturation and is the IDENTITY in effect: on that path
+   * 'adapted' is 'solvedNeutral' and the fabricated backdrop is a grey, so the
+   * composite has no chromaticity for the target to differ from. Measured at
+   * three retentions up to 1: zero bytes moved
+   * ('e2e/gpu/w31-unsampled-dom-chroma.spec.ts').
+   *
+   * Mode 2 hands the DECLARED tone colour, which can be chromatic, and there
+   * the operator runs — the body takes the hue the page STATED is behind it
+   * rather than the hue that is. That is the residual, recorded in claims 5.164
+   * section 10, and it is a statement about the target rather than about the
+   * amount: the same spec reads the interior's chroma from 0.066 to 0.334 and
+   * finds the gamut clamp binding at the shipped retention already.
    *
    * On the unsampled LAYER path ('flags.x <= 0.5' and not 'domMaterial')
    * 'colour' is overwritten with 'adapted' a few lines below: there is no

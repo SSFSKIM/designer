@@ -34,6 +34,7 @@ import {
   backdropToneUnderPolicy as cssBackdropToneUnderPolicy,
   resolvedBackdropTone,
   MATERIAL_OPTICS,
+  POLICY_FOLD_CONSTANTS,
   BODY_CHROMA_RETENTION,
   MATERIAL_SOURCE_GLOW,
   MATERIAL_SOURCE_OPTICS,
@@ -3251,6 +3252,44 @@ describe("the mirror is EXHAUSTIVE over MaterialProfile (claims §5.164)", () =>
     }
   });
 
+  it("reads the four OPTIONAL keys on this tier, so their citations are not decoration", () => {
+    /*
+     * W31 G3c review closure (claims §5.164 §13, second addendum 1). The four
+     * keys `MaterialProfile` makes optional are absent from the DEFAULT, so the
+     * exhaustiveness case above could not see them and the file's own
+     * "cites only symbols this file actually reads" case could only check that
+     * the name appears in the import block. These are the reads.
+     */
+    // `increasedOcclusionLiftByPolicy`: the two preferences resolve two lifts
+    // out of one document, and the axis that tells them apart is `ambientTint`.
+    const SPLIT = {
+      increasedOcclusionLiftByPolicy: { reduceTransparency: 0.88, increaseContrast: 0.98 },
+    } as const;
+    const fold = { ...POLICY_FOLD_CONSTANTS, ...SPLIT };
+    const lifted = { ...NOMINAL_ACCESSIBILITY_POLICY.material, occlusion: "increased" } as const;
+    expect(cssOcclusionLiftForPolicy(lifted, fold)).toBe(0.88);
+    expect(cssOcclusionLiftForPolicy({ ...lifted, ambientTint: "reduced" }, fold)).toBe(0.98);
+    expect(cssOcclusionLiftForPolicy(lifted, fold)).toBe(
+      rendererOcclusionLiftForPolicy(lifted, withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, SPLIT)),
+    );
+    // `tintChromaScale` and `tintShadeCollapseRetention`: both defaulted on this
+    // tier and both carried through from a patch, which is the mirror.
+    expect(resolvedTintShade().chromaScale).toBe(1);
+    expect(resolvedTintShade().collapseRetention).toBe(0);
+    expect(resolvedTintShade({ tintChromaScale: 0.25 }).chromaScale).toBe(0.25);
+    expect(resolvedTintShade({ tintShadeCollapseRetention: 0.4 }).collapseRetention).toBe(0.4);
+    // `backdropToneAbscissa`: this tier's reader is a refusal, and it refuses.
+    expect(() => validateBackdropToneAbscissa({ backdropToneAbscissa: "source" })).not.toThrow();
+    expect(() =>
+      validateBackdropToneAbscissa({ backdropToneAbscissa: { kind: "silhouette" } }),
+    ).not.toThrow();
+    expect(() =>
+      validateBackdropToneAbscissa({
+        backdropToneAbscissa: { kind: "not-a-kind" } as never,
+      }),
+    ).toThrow(TypeError);
+  });
+
   it("records what the CSS tier carries of W31's chroma retention: nothing, measured", () => {
     // The wave's own leaf, called out rather than left in the table. W31
     // Decision Log 2 (b) rules a derived term kept only if it adds REACH
@@ -3273,11 +3312,13 @@ describe("the mirror is EXHAUSTIVE over MaterialProfile (claims §5.164)", () =>
      * doubles its retention widens a recorded number and this case says so.
      */
     const shipped = macos27MaterialProfileDocument;
+    const retentionOf = (endpoint: { readonly patch?: { readonly bodyChromaRetention?: number } } | undefined):
+      number | undefined => endpoint?.patch?.bodyChromaRetention;
     const gap = {
-      "active light": shipped.active.light.patch.bodyChromaRetention,
-      "active dark": shipped.active.dark.patch.bodyChromaRetention,
-      "receded light": shipped.receded?.light.patch.bodyChromaRetention,
-      "receded dark": shipped.receded?.dark.patch.bodyChromaRetention,
+      "active light": retentionOf(shipped.active.light),
+      "active dark": retentionOf(shipped.active.dark),
+      "receded light": retentionOf(shipped.receded?.light),
+      "receded dark": retentionOf(shipped.receded?.dark),
     };
     expect(gap).toStrictEqual({
       "active light": 0.282,

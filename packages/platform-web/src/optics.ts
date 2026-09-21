@@ -973,7 +973,13 @@ export const BODY_CHROMA_RETENTION = 0;
  *   - on the LIGHT bed it bought a great deal — 0.76 of the gap active, 1.04
  *     inactive — and BROKE BOTH STOPS doing it: the level-growth stop on 10 of
  *     26 cells (worst +0.0106 against 0.005) and the structure stop on 11
- *     (worst +35 % against 2 %). `saturate()` is a matrix on sRGB-ENCODED
+ *     (worst +35 % against 2 %) — **13**, beside that reading and not over it:
+ *     `css-derivation.txt` flags `STRUCTURE>2%` on thirteen rows, six at 1x
+ *     light and seven at 2x, and its own footer totals 23 stop failures, which
+ *     is 10 growth plus 13 structure (2026-09-21, W31 G3c review closure;
+ *     claims §5.164 §13, finding N8 — the decline is unchanged and the count of
+ *     what it declined over was one short here, in the ledger and in
+ *     `tier-coherence.test.ts`). `saturate()` is a matrix on sRGB-ENCODED
  *     channels and stops preserving luminance the moment one of them clips,
  *     which is what a light body near the top of the range does.
  *
