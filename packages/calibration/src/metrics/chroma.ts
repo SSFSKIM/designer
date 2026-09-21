@@ -51,6 +51,23 @@
  * composite very nearly cancels, and an instrument that cancels the mechanism
  * it is measuring is not an instrument.
  *
+ * **2026-09-21, the review closure (claims §5.161 §11, finding N3): the last
+ * clause above is wrong and the declared form is kept for a different reason.**
+ * The OKLab-L denominator does NOT cancel the plate composite. Measured on the
+ * tolerance's own bed (`results/2026-09-21-w31-g0-chroma-cut/
+ * closure-readings.txt`), the twin `chromaSpread / oklabLStdDev` reads web
+ * against native at medians of **0.498 / 0.488 light and 0.266 / 0.491 dark**
+ * — below the declared form's 0.551 / 0.514 / 0.333 / 0.584 on every one of the
+ * four beds, so it separates the residual at least as sharply — and its
+ * 1x-against-2x reproducibility is comparable (light 3.85 % against 4.59 %,
+ * dark 8.94 % against 8.60 %). The form here stays the declared one on the
+ * reason that survives measurement: its denominator is `interiorStdDev`, the
+ * quantity the wave's **structure stop** bounds and the quantity the matrix has
+ * carried since W7, so a fit cannot move the denominator out from under the
+ * statistic. Nothing bounds `sd(L_oklab)`. The twin is a reading G3 takes
+ * BESIDE `R` rather than instead of it — where the two disagree, the difference
+ * is the part of a movement that lives in the level.
+ *
  * **(ii) The raw ratio**: the interior's mean per-pixel chroma over the RAW
  * backdrop's under the same mask. The confounded one, kept and tabled so the
  * confound stays visible: a fit that moves only this one has moved the blur.

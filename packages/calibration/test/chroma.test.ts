@@ -140,9 +140,19 @@ describe("the unit cases the bound is declared against (claims §5.161 §1)", ()
     expect(dark.oklabLStdDev / bright.oklabLStdDev).toBeCloseTo(Math.cbrt(c), 2);
 
     const ratioI = (dark.chromaToStructure ?? 0) / (bright.chromaToStructure ?? 1);
-    // Stated as a relative error, because that is what 8-bit quantisation
-    // bounds: the law holds to 0.35% on a field re-encoded to bytes twice.
-    expect(ratioI / Math.pow(c, -2 / 3)).toBeCloseTo(1, 2);
+    /*
+     * Stated as a relative error, because that is what 8-bit quantisation
+     * bounds: the law holds to 0.35% on a field re-encoded to bytes twice.
+     *
+     * 2026-09-21, the review closure (claims §5.161 §11, finding N10): this was
+     * `toBeCloseTo(1, 2)`, which admits 0.5% and not the 0.35% the sentence
+     * above states. The measured relative error on this field is 0.3451%, so the
+     * assertion is written as the prose rather than near it — a case whose
+     * tolerance is looser than its own comment is a case that would pass a law
+     * the comment forbids. The field is synthetic and deterministic; there is no
+     * capture noise here for a margin to absorb.
+     */
+    expect(Math.abs(ratioI / Math.pow(c, -2 / 3) - 1)).toBeLessThan(0.0035);
     // The exponent is not zero, which is the whole point of recording it.
     expect(ratioI).toBeGreaterThan(1.5);
 

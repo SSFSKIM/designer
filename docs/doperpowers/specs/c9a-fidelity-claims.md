@@ -28034,6 +28034,33 @@ and never exported (`tintInteriorChroma{Native,Web}`, `tintBackdropChroma`). Rat
 `--blurred-chroma-reference` because recovering its radius bisects over blurs of the whole
 backdrop.
 
+> **2026-09-21, the review closure (§11, findings N7 and N3), beside this section.**
+>
+> **N7 — the count is 24, not twenty-three.** The list above is right and its total is not:
+> 3 + 6 + 3 + 3 + 2 + 2 + 2 + 2 + 1 = 24, which is what `src/report.ts` declares between its
+> `interiorChromaMeanNative` and its `tintBackdropChroma`. Nothing in the schema argument moves —
+> 24 optional additions at schema 5 are as unreachable from the 1,818 frozen rows as 23 — and the
+> charter's Tracking Map row carries the same figure, corrected beside there.
+>
+> **N3 — the invariant twin is NOT blind, so this section's last sentence is wrong and the
+> declared form is kept for a different reason.** "Under the OKLab-L denominator the plate
+> composite very nearly cancels" would mean `chromaSpread / oklabLStdDev` reads near 1 web against
+> native. Measured on the tolerance's own bed (`closure-readings.txt`), it reads medians of
+> **0.498** (light active), **0.488** (light inactive), **0.266** (dark active) and **0.491** (dark
+> inactive) — BELOW the declared form's 0.551 / 0.514 / 0.333 / 0.584 on every one of the four
+> beds, so the twin separates the residual at least as sharply rather than cancelling it. Its
+> reproducibility is comparable too: the 1x-against-2x spread runs at a median of 3.85 % light and
+> 8.94 % dark, against the declared form's 4.59 % and 8.60 % on the same pairs.
+>
+> **The declared form is KEPT**, on the reason that survives measurement: its denominator is
+> `interiorStdDev`, the quantity §7's **structure stop** bounds and the quantity the matrix has
+> carried since W7, so a fit cannot move the denominator out from under the statistic. Nothing
+> bounds `sd(L_oklab)`, and a statistic with a free denominator is one a fit can meet by moving the
+> denominator. **G3 reads the twin BESIDE `R` and records both**: where the two disagree, the
+> difference is the part of a movement that lives in the level, which is the split
+> `interiorOklabLSdDev*` was exported for. `metrics/chroma.ts`'s doc comment carries the same
+> correction beside its own wording.
+
 ### 2. The re-capture, and the reproduction check
 
 No current-generation capture tree exists on this machine (charter Surprises), so the chroma bed's
@@ -28070,6 +28097,33 @@ session's idle process a hard stop on evidence, and ignoring it silently would h
 contender. `scratch-capture.sh` refuses only another CALIBRATION capture, records the foreign count
 in `browser-runs.txt`, and leaves the reproduction check to referee it cell by cell. It did: |Δ| 0
 on 552 cells.
+
+> **2026-09-21, the review closure (§11, findings N8, N9 and N12), beside this section.**
+>
+> **N8 — the foreign count was never actually recorded.** `scratch-capture.sh` read it with
+> `pgrep -fc`, and BSD `pgrep` has no `-c`: macOS exits 2 with a usage message, the line's
+> `|| true` swallows the failure, and all three "foreign browser automation processes at start:"
+> lines in `browser-runs.txt` are blank. The sentence above should read *records the foreign count*
+> as an intent the run did not carry out. `browser-runs.txt` is left exactly as the run wrote it
+> and the script is fixed for a re-run (`pgrep -f 'playwright' | wc -l`). **What this does not
+> change is the verdict**: the disclosed condition was refereed by the reproduction check and not
+> by the count — 552 macOS 27 cells at |Δ| exactly 0 is a cell-by-cell answer to contention, and a
+> process count never was one. The RT, IC and slider readings on the same lines came from
+> `x6-read.sh` and are intact.
+>
+> **N9 — the narrowing lives in this gate's own script and propagates to nothing.**
+> `cli/compare.ts` carries no exclusivity guard at all; X6's "one capture process" has always been
+> enforced by each wave's capture script, every one of which holds its own copy of the `pgrep`
+> pattern. So refusing only another CALIBRATION capture and merely RECORDING other browser
+> automation is `scratch-capture.sh`'s decision for this bed, and a later wave inherits W29's and
+> W30's wider pattern unless it copies this one deliberately.
+>
+> **N12 — the pre-fit bed is gitignored scratch, and G3 re-derives rather than inherits it.**
+> `/tmp/w31-g0-captures` and the scratch matrix beside the evidence are outside the repository —
+> the same class of artefact this section's own Surprise records disappearing. `cut.json`
+> preserves the distilled rows and every figure in this section is recomputable from it. **G3
+> re-derives the pre-fit baseline the level stop and the structure stop are read against by running
+> `scratch-capture.sh 27` into a fresh tree at the shipped documents**, and does not read this one.
 
 **Two macOS 26.5 cells do not reproduce, and the cause is diagnosed.**
 `photo__glass-over-glass__rest` on the two light profiles, `texture` tier only, |Δ| 2.840e-03 and
@@ -28138,6 +28192,50 @@ disk. Two cautions on the table, recorded rather than smoothed: the two sides' s
 in area (the macOS 27 mask is used for both), and where the macOS 26.5 mask is the smaller the
 extra pixels sit nearer the backdrop and INFLATE the macOS 26.5 reading, so the measured rise is
 conservative.
+
+> **2026-09-21, the review closure (§11, findings N4, N2 and N6), beside this section. Every
+> median above is unmoved; two ranges and one bias factor are corrected, and one reading of ratio
+> (iii) reverses.**
+>
+> **N4 — the ratio (ii) columns are over ALL SETS while the medians beside them are the declared
+> bed.** The table's first four columns are `calibration` + `validation`, §7 (b)'s bed; its last
+> two are every set, holdout and probe included. Both, from `closure-readings.txt`:
+>
+> | scheme / pose | declared bed: native / web | all sets: native / web |
+> | --- | --- | --- |
+> | light active (10 / 14) | 0.7180–0.8329 / **0.2385**–0.3121 | 0.7180–0.8329 / 0.2385–0.3121 |
+> | light inactive (8 / 14) | **0.7089–0.8164** / 0.2526–0.3304 | 0.7089–**0.8554** / 0.2526–0.3304 |
+> | dark active (4 / 6) | 0.9173–0.9732 / **0.1059–0.1137** | 0.8993–0.9732 / 0.1059–0.1193 |
+> | dark inactive (4 / 10) | **0.9030–0.9060** / **0.1144–0.1227** | 0.8997–0.9225 / 0.1076–0.1319 |
+>
+> The four medians, the four cell counts and every verdict are unchanged. Two figures downstream
+> move with it: the light active web column's floor is **0.2385** rather than the 0.25 printed, and
+> §5's comparison of `1 − sizedAlpha` against "0.106–0.119" is against **0.1059–0.1137** on the
+> bed it is declared on.
+>
+> **N2 — ratio (iii) carries a level confound, and correcting it reverses the LIGHT reading.** The
+> blurred reference is the BACKDROP blurred, so it sits at the backdrop's level while the side sits
+> at its own, and OKLab chroma scales as `Y^(1/3)` under a luma-only change. Dividing by
+> `(Y_side / Y_backdrop)^(1/3)` before comparing:
+>
+> | | as recorded | level-corrected |
+> | --- | --- | --- |
+> | dark native (n 10) | 1.2046–1.7978 | **1.1749–1.9943** |
+> | light native (n 25) | 0.7466–1.0032 | **0.5161–0.7683** |
+>
+> The dark reading is **strengthened** — the reference keeps up to twice the chroma a matched blur
+> leaves. The light one **reverses**: "the LIGHT native body very nearly IS such a blur" is an
+> artefact of the light body sitting 2.4× above its own backdrop. Corrected, **Apple's light body
+> REMOVES 23–48 % of the chroma a level-matched blur would leave**, which is a chroma law on the
+> light scheme rather than the absence of one — and it sharpens §7 (f)'s note that a light decline
+> is unlikely. Evidence `closure-readings.txt`; `blurred-reference.txt` is unchanged.
+>
+> **N6 — `mid-chroma-solid`'s dark bias is 2.41×, not 2.29×.** The two cells this section quotes by
+> their levels are two different components: 0.0761 against 0.2856 is 1x dark
+> `capsule-button__inactive` and 0.6134 against 0.3957 is 1x light `rrect-lg__rest`. The light
+> figure's 0.75× is right; the dark one's is **2.415×**. Neither carries a bound — the anchor is
+> granted to G3 for the chromaticity direction only — so the correction moves how far the anchor's
+> level has to come before it could carry the tolerance, and nothing else.
 
 **The mask question, answered with evidence rather than inherited.** Every untinted `photo` cell of
 both dark macOS 27 profiles fails the conditioning predicate — not the three the charter's
@@ -28208,6 +28306,41 @@ judged on the gated `photo` cells of `calibration` + `validation` — the tolera
 level stop and the structure stop — and the four are read once, at G3's canonical read, as a result
 and not as an objective.
 
+> **2026-09-21, the review closure (§11, finding B2), beside this section: the reachability premise
+> is false as written and all four verdicts survive it with a factor of two and a half to spare.**
+>
+> The opening sentence is "a luma-preserving chroma operator moves `Δc` and cannot move `ΔL`". The
+> leaf of §5 preserves **linear** luma — that is what its renormalisation is for — while the `ΔL`
+> this section measures is **OKLab's**, a cube-root lightness of the LMS responses that does move
+> when chromaticity changes at a fixed linear `Y`. The P95 mechanics are right (P95 of per-pixel
+> `|ΔL|` over the same population), and the premise is a first-order statement stated as an exact
+> one.
+>
+> **Restated as measured** (`decompose-p95-closure.txt`, which applies §5's listing verbatim to
+> these four cells' own pixels at the retention each cell needs — `r` 0.979 to 0.983, bisected so
+> the restored body's mean per-pixel chroma reaches the reference's):
+>
+> *the operator moves `Δc`, and moves OKLab `ΔL` only second order — no more than **0.040**
+> anywhere on these bodies, median **−0.00001**, the sign following the backdrop's hue (magenta
+> +0.019, red +0.017, green −0.010, at a body luma of 0.173) — so `P95(|ΔL|)` is a floor to within
+> that.*
+>
+> And the floors themselves, recomputed **under the restoration** rather than under the idealised
+> `Δc → 0`:
+>
+> | row | floor as recorded | floor under the restoration | bound |
+> | --- | ---: | ---: | ---: |
+> | `texture` / `27.0-1x-dark` | 0.06309 | **0.06971** | ≤ 0.17 |
+> | `texture` / `27.0-2x-dark` | 0.06201 | **0.06772** | ≤ 0.17 |
+> | `dom` / `27.0-1x-dark` | 0.06631 | **0.07300** | ≤ 0.18 |
+> | `dom` / `27.0-2x-dark` | 0.06424 | **0.07065** | ≤ 0.19 |
+>
+> **All four stay CLAIMED**, at 41–43 % of their bounds rather than 34–37 %. The correction is in
+> the reasoning and not in a verdict, and it is recorded because a later wave whose margin is
+> thinner cannot read this section's premise as exact. The restoration is measured toward the RAW
+> backdrop where the shader restores toward the blurred one, which overstates the excursion and so
+> the movement; the closure reads the exterior and the rim unmoved, as the operator is.
+
 ### 5. The mechanism, from the shader, and the one leaf
 
 `mechanism.ts` evaluates the material's own exported functions at the photo cells' measured
@@ -28235,6 +28368,25 @@ the collapse does fire (its band is [0.02, 0.055]) and there the retention sits 
 so the gate would never be exercised there either. **Recorded as a condition rather than
 dismissed:** a future document that re-opens `backdropToneHigh` must re-examine whether the
 retention needs standing down where the collapse owns the pixel. Tracker at G4.
+
+> **2026-09-21, the review closure (§11, finding N1), beside this paragraph: "identically 0" is not
+> what the law says, and the no-gate conclusion stands on a better reason.**
+> `backdropToneAdaptation` is `backdropToneMax · (1 − smoothstep(low, high, x))` over
+> `x = level + backdropToneSizeBias · clamp01(thickness)`, so with `backdropToneMax` 1 and the band
+> [0, 1e-4] it is zero **iff `x ≥ 1e-4`** and is exactly **1** at `x = 0`. The size bias does not
+> save every cell of the bed: `sizeThickness` is `smoothstep(sizeSpanMin, sizeSpanMax, span)` and
+> `sizeSpanMin` is 32, so `rrect-sm` — span 32, a validation cell of this bed — carries thickness
+> **exactly 0** and reads `x = level` with no bias at all. What makes the claim true is therefore
+> the BACKDROP and not the law: every backdrop this bed carries is 0.17 or above, three orders over
+> `1e-4`, and `mechanism.txt`'s sweep starts at level 0 only at span 96, where the bias is 0.05.
+>
+> The conclusion — **no gate** — is unchanged, and the reason it now rests on is the stronger one:
+> a retention toward the backdrop's **chromaticity** is the identity wherever the backdrop is
+> achromatic, and a backdrop at or under `1e-4` of linear light, the only region where `toneAdapt`
+> can fire at all, is achromatic to within the capture's own quantisation. So `(1 − toneAdapt)`
+> would gate a population the operator cannot move in any case. The condition recorded for a future
+> document that re-opens `backdropToneHigh` stands exactly as written, and gains one clause: such a
+> document must also be read at span ≤ `sizeSpanMin`, where the bias term is not there to help.
 
 **The leaf.** `bodyChromaRetention ∈ [0, 1]`, inert identity **0**, applied immediately after
 `colour = mix(backdrop, adapted, presentAlpha)` and before `var materialColour = colour`:
@@ -28316,6 +28468,45 @@ against 0.352 at 1x light `capsule-button__rest`, reference 0.802. The fidelity 
 its own derived tier on that cell, which is what a CSS-only `saturate()` with no renderer
 counterpart produces.
 
+> **2026-09-21, the review closure (§11, finding B1), beside this section: the light row is at the
+> wrong anchor and unsized, and the recommendation it produced is reversed.**
+>
+> `css-ceiling.ts` evaluated an alpha the runtime does not draw, in two ways. It passed the
+> surface's-own-backdrop anchor to `cssOpticsFromSource` **unconditionally**, where `root.ts`
+> (~2683) takes it only when `!linearChainReaches(cssTierCompositeLevel(interior, level))`; and it
+> passed an **unsized** `sourceOptics(patch).regular`, where the runtime solves from
+> `shadowedSource`, which has been through `materialAtBackdrop` and so through
+> `sizeOcclusionAlphaAt`. On the light photo cells the composite is 0.5814–0.6005 against a reach
+> boundary of **0.2424**, so the chain holds it and the **fitted** anchor draws; only the dark
+> cells, whose composite is 0.0674–0.0682, take the measured one. Corrected — the same script
+> re-run into `css-ceiling-closure.txt`, with the first output standing beside it unmodified — the
+> ceiling is a function of the SPAN:
+>
+> | scheme | anchor that draws | α′ span 44 | ceiling | α′ span ≥ 96 | ceiling | recorded above | today's CSS tier |
+> | --- | --- | ---: | ---: | ---: | ---: | ---: | --- |
+> | light | fitted | 0.6669 | **0.5995** | 0.6859 | **0.5654** | 0.784 | 0.403–0.633 |
+> | dark | measured | 0.8463 | **0.2767** | 0.8527 | **0.2651** | 0.278 | 0.18–0.24 |
+>
+> **The dark row barely moves and the light row is not a bound.** 0.5654 at span ≥ 96 sits BELOW
+> the light CSS tier's own measured ratio (ii), which reaches 0.633 — so on the light scheme the
+> tier already draws through the expression. That is a fact about the expression and not about the
+> tier: it is the linear-light shape of an operation the browser performs on encoded values, and it
+> is loose in exactly the direction that shows where the plate is weak and `saturate()` is strong.
+> The section's reading that the light ceiling "sits essentially AT the reference's own reading" is
+> withdrawn; the dark reading, and the ~0.63 residual it leaves, stand as recorded.
+>
+> **G0's recommendation to G3, restated on the corrected numbers.** On the LIGHT scheme the tier is
+> already at or through its ceiling through the authored `saturate()` alone, with no chroma
+> operator anywhere in the renderer — there is no measurable room for a derived term there, and
+> adding one would be fitting a CSS-only constant to a WebGPU operator it cannot follow. On the
+> DARK scheme the ceiling binds at 0.2651–0.2767 against a reference 0.90–0.92, so a derived term
+> can carry at most ~30 % of the reference's body chroma and no more. So: **G3 derives the term
+> from the leaf on both documents only if the derivation adds REACH without moving the authored
+> constants, and records the residual otherwise** — and on these numbers the DARK scheme is where a
+> derivation can still buy something and the LIGHT scheme is where it cannot, which is the opposite
+> of what this section recommended. §4's two `dom` rows are unaffected: their condition is the dark
+> ceiling, which moves from 0.278 to 0.2651 and leaves them CLAIMED conditionally as written.
+
 ### 7. The declarations, before any leaf exists
 
 `bounds-declaration.md` is the full text; this is the ledger's copy of what binds.
@@ -28368,6 +28559,28 @@ movement is zero to rounding and 0.005 is a hundredfold margin. Today's worst on
 light and 0.0360 dark, so clause one is met today by every cell and breaks only on a fit that makes
 the level worse than the wave found it. Read before and after on scratch by G3.
 
+> **2026-09-21, the review closure (§11, finding N5), beside (c): the bound is unmoved and the
+> baseline beside it names the wrong cell and the wrong population.** Recomputed on the stop's own
+> population — the declared bed, **both tiers**, which is how the stop is written
+> (`closure-readings.txt`):
+>
+> | population | worst \|Δlevel\| | median light | median dark |
+> | --- | ---: | ---: | ---: |
+> | declared bed, both tiers (the stop's own) | **0.04933** | **0.0060** | **0.0210** |
+> | declared bed, texture only | 0.04933 | 0.0062 | 0.0208 |
+> | declared bed, texture, ACTIVE only | 0.04933 | 0.0053 | 0.0360 |
+>
+> The worst cell is **2x dark `texture` `photo__capsule-button__rest`**, native 0.22620 against web
+> 0.17687 — not the 1x `dom` row at 0.04641. The four largest are the same scene at both scales on
+> both tiers and run 0.0457 to 0.0493, so the cell is the scene and not the raster. And
+> 0.0053 / 0.0360 is the texture tier's ACTIVE half, a quarter of the stop's population.
+>
+> **0.055 is still the worst cell rounded up and clause one is still met by every cell.** What
+> moves is the baseline G3 reads clause two's "grows by no more than 0.005" against: **0.0060 light
+> and 0.0210 dark**, per cell, on both tiers. §7 (b)'s note that the dark bed's 19.41 %
+> reproducibility sits on the cell with the largest level miss also gains its raster: that cell is
+> `capsule-button__rest` at 2x on the WebGPU tier.
+
 **(d) The four rows: all four CLAIMED** (§4), the two `dom` rows conditionally on the CSS
 projection; the pre-holdout judgement named in §4.
 
@@ -28410,6 +28623,102 @@ would certify the gap, which is Decision Log 11's refusal one axis over. Absent 
 honest disposition is a one-wave reading; G0 recommends adoption with them, and the parent decides
 at G4.
 
+> **2026-09-21, the review closure (§11, finding N11 (iv)), beside (g) (ii): "near 1.0" holds on
+> the dark cells and not on the light ones, and the refusal stands for a wider reason.** The CSS
+> tier's `R` over the untinted `photo` cells, all sets: **dark 0.832–1.077**, **light
+> 0.584–1.574** (declared bed: dark 0.934–1.077, light 0.970–1.574). On the light scheme the
+> statistic overshoots the reference by up to 57 % on a tier with no chroma operator anywhere in
+> the renderer. That does not weaken the refusal, it generalises it: a statistic that reads 1.57
+> where `eye.md` records a body with no hues in it is no more gateable than one that reads 1.0.
+> What the refusal actually rests on is the **structure stop's** reason — `R` is scale-free in the
+> deviations and therefore blind to a body that loses chroma and structure together — and the CSS
+> tier is the demonstration of it at both ends of 1.0 rather than only below it.
+
+### 7b. The digest rule, as proved — the record this section did not carry (2026-09-21, the review closure)
+
+**Numbered 7b and not 8** because §§8, 9 and 10 below are recorded section numbers the charter's
+Tracking Map and Revision Notes already cite, and a recorded number is corrected beside rather than
+rewritten. Added by the review closure (§11, finding B3): acceptance clause (e) was executed in full
+and its result lived only in `digest-rule-proof.ts` / `.txt` and `identity-table.json`. This section
+is the ledger's copy, so that a reader of §5.161 can see what the rule drops without running it, and
+so that the charter's G0 Revision Note has something to point at — it said "recorded in claims
+§5.161 §§1 and 6", and §6 is the CSS projection.
+
+**The rule, version `w31-identity-1`** (W31 Decision Log 1 (a), ruled 2026-09-21). The fingerprint is
+`seal.ts`'s — SHA-256 over the fully resolved material with keys sorted, first 16 hex — taken with
+every table entry removed whose **gate leaves all hold their declared identity values**. An entry
+with no gated leaves is an ordinary value drop and is injective for free. An entry WITH gated leaves
+is a **gate-group** and goes as one unit; a gated leaf's own value is never dropped on its own,
+because a gated leaf has no identity of its own to be at. The version is recorded in every document
+re-sealed under the rule, which G3 carries.
+
+**The table, four entries** (`identity-table.json`; G3 commits the tested, append-only copy beside
+`DEFAULT_MATERIAL_PROFILE`):
+
+| wave | gate, at its identity | gated leaves | the law | the case that proves the drop |
+| --- | --- | --- | --- | --- |
+| W30 | `outerShadow.sigmaSlopePerSpan` 0 **and** `outerShadow.sigmaThinOffsetPx` 0 | `outerShadow.sigmaSpanRefPx` | `σ = sigmaPx + max(offset, slope·(span − ref))` | `w31-gate-groups.test.ts` gate-group 1 |
+| W30 | `sizeHeavySecondShare` 0 | `sizeHeavySecondSigma`, `sizeHeavySecondSigma2x` | `deep = heavy + share·(heavy2 − heavy)` | `w31-gate-groups.test.ts` gate-group 2 |
+| W30 | `sizeScatterScaleGain` 0 | `sizeScatterScaleRef` | `kScatter += gain·(stat − ref)` | `w31-gate-groups.test.ts` gate-group 3 |
+| W31 | `bodyChromaRetention` 0 | *(none — a plain value drop)* | §5's listing | **to be committed by G3 with the leaf** |
+
+The three W30 entries' cases were `w30-inert-laws.test.ts`'s until the review closure; §11 finding
+B4 records why they moved and keeps the first citations verbatim in the table's own
+`$comment-superseded`.
+
+**The two frozen macOS 26.5 documents reproduce their recorded digests under the rule**, which is
+what X1 rests on and what makes the leaf's addition free:
+
+| document | recorded | plain fingerprint today | **under the rule** | dropped |
+| --- | --- | --- | --- | ---: |
+| `apple-macos-26.5-1x-light-standard` | `b2b570e4adcea8fb` | `b340a4dee871633c` | **`b2b570e4adcea8fb`** | 8 |
+| `apple-macos-26.5-1x-dark-standard` | `874be66ea501621b` | `93ab090705c43f1f` | **`874be66ea501621b`** | 8 |
+
+Both drop all eight W30 leaves — the σ group's three, the heavy-second group's three and the
+scatter group's two — because every post-seal leaf is at its identity there.
+
+**The four macOS 27 documents under the rule, beside their current digests.** They move ONCE, in
+G3's merge, re-sealed with history and the rule's version:
+
+| document | current | under the rule | leaves dropped |
+| --- | --- | --- | --- |
+| `…-1x-light-standard-glass0.5` | `3a2513742936ceb1` | `62e684744954580b` | **5**: the heavy-second group (3) and the **scatter group (2), including `sizeScatterScaleRef` = 0.03** |
+| `…-1x-dark-standard-glass0.5` | `f3008c3e9033ed4c` | `c61194f820d77280` | **3**: the heavy-second group only |
+| `…-1x-light-standard-glass0.5-receded` | `d8015c2587126d08` | `183c8949f194ff43` | **5**, as its active document |
+| `…-1x-dark-standard-glass0.5-receded` | `8c85774d161fcbaa` | `1a64247df6786fc2` | **3**, as its active document |
+
+Neither macOS 27 document drops the σ group: both carry a fitted `sigmaSlopePerSpan` (W30 §5.159),
+so that gate is not held and all three of its leaves stay in the digest — which is the rule working,
+not an exception to it. The light document is the one that exercises the gate-group drop rather than
+a plain value drop: it **declines** the scatter with the gain at 0 and ships the reference at
+**0.03**, so a document that names the reference it declined at reads the same as one that never
+named it. The decline is not lost — it is a measurement, and it lives in the document's own patch
+and in W30's ledger, which is where a decline belongs. The dark sibling adopts the scatter at gain
+−2 and keeps the group, so the two documents' digests differ on it, as they must.
+
+**W30's objection answered by value.** With `sizeHeavySecondShare` moved off its identity to 0.1 in
+a DEFAULT in memory — nothing on disk touched — both frozen digests move:
+`b2b570e4adcea8fb` → `4e8b1504708e5c3f` and `874be66ea501621b` → `a8eff6eec9223918`, with the group
+no longer dropped in either. A pin blind to the schema would not have moved. That is the whole
+content of "the digest is over what draws".
+
+**The holes, named rather than discovered.** (a) A **mis-declared identity** is the only one with
+teeth, and it is the gate-group's: a plain value drop is injective for free, while a gate-group drop
+merges every material sharing a gate at its identity and is sound only because the gated leaves
+provably cannot reach the pixels. Mitigated by the table requiring an inert-law case per entry — and
+§11 finding B4 is what made those cases prove the statement the table makes. (b) A **default that
+moves to a value some document explicitly carried** drops out of that document's digest if the
+identity moved with it; narrow, because the identity is an append-only constant and not the default,
+and a leaf whose default leaves its identity reappears in every document's digest. (c) A **leaf added
+without a table entry** is carried at whatever it holds, so every digest moves — the loud failure,
+and the one W30 actually hit. (d) The **rule's own version**, closed by construction: a recorded
+digest names the function that produced it. The two macOS 26.5 documents need no field, because
+their recorded digests equal both definitions' output.
+
+Evidence: `digest-rule-proof.ts` / `.txt` (`PROOF OK — no failures`), re-run at the closure into
+`digest-rule-proof-closure.txt` with every digest byte-identical and only the three `proof:` citation
+lines changed; `gate-group-proof-closure.txt` for what the σ group's second gate leaf buys.
+
 ### 8. By eye, before any fit exists
 
 `eye.md`, written before the leaf, on six sheets of native | WebGPU | CSS | ΔE × 8 at 1x in both
@@ -28444,6 +28753,83 @@ can reach and not a prediction of what a fit will achieve.
 `freeze.py verify` — **26.5 freeze intact: 1818 entries** — `pnpm -r build`, `pnpm -r lint` and
 `pnpm -r test` green; `digest-rule-proof.ts` exits 0 with `PROOF OK — no failures`. Chain in
 `chain.txt`.
+
+### 11. Review closure (2026-09-21)
+
+An independent read-only review of this gate **reproduced every number in §§1–10** and found no
+measurement wrong. What it found was sixteen things — four of them blocking — and every one of them
+is in the REASONING or the RECORD rather than in a number: **no statistic, bound, floor, stop,
+count, exclusion or verdict of §§1 through §10 moves at this closure.** Two readings are corrected
+in a direction that changes what G3 should do (B1's CSS ceiling and N2's light ratio (iii)), and
+both are corrections of an evaluation, not new measurements.
+
+Every correction is recorded **beside** the text it corrects and dated. No material constant, leaf,
+profile document, native fixture, golden, bound, floor or row of `results/matrix.json` moves;
+nothing is appended anywhere; **no capture was taken** (X1, X5); `cli/gates.ts` and
+`test/compare-gates.test.ts` are untouched (X11). `digest-rule-proof.txt`, `css-ceiling.txt`,
+`decompose-p95.txt` / `.json`, `mechanism.txt`, `cut.md` / `cut.json`, `mask-adequacy.txt`,
+`native-chroma-delta.txt`, `blurred-reference.txt` and `browser-runs.txt` are byte-unchanged — every
+committed output of this gate is — and **seven** evidence files are added beside them, none
+replacing one: `css-ceiling-closure.txt`, `decompose-p95-closure.*`, `gate-group-proof-closure.*`,
+`digest-rule-proof-closure.txt`, `plate-predictor.*`, `closure-readings.*` and
+`blurred-reference-closure.txt`.
+
+| # | what the review found | verified how | what closed it |
+| --- | --- | --- | --- |
+| **B-1** | **The CSS ceiling's light figure is at the wrong anchor and unsized.** `css-ceiling.ts` passed the surface's-own-backdrop anchor unconditionally, where `root.ts` (~2683) gates it on `!linearChainReaches(cssTierCompositeLevel(…))`; and it passed an unsized `sourceOptics(patch).regular`, where the runtime solves from `shadowedSource` | the gate re-evaluated against the cells' own composites (light 0.5814–0.6005, dark 0.0674–0.0682) and the reach boundary bisected at **0.242426**; the script fixed and re-run | **CODE.** `css-ceiling.ts` now sizes through `sizeOcclusionAlphaAt` and gates the anchor, and prints per span; its output is `css-ceiling-closure.txt`, **beside** the first one and never over it. Light **0.5995** (span 44) / **0.5654** (≥ 96) against the recorded 0.784, dark **0.2767** / **0.2651** against 0.278. The light CSS tier already reads ratio (ii) up to **0.633**, so the light figure was never a bound. Restated beside in §6 and in `bounds-declaration.md` §(g), with the recommendation to G3 reversed: derive only if the derivation adds reach without moving the authored constants — and the room is on the DARK scheme, not the light one. §4's two `dom` rows are unaffected |
+| **B-2** | **§4's reachability premise is false as stated.** The leaf preserves LINEAR luma; `decompose-p95.ts` measures `ΔL` in OKLab `L`, which moves when chromaticity is restored at a fixed `Y` | **`decompose-p95-closure.ts` / `.txt` / `.json`**, new evidence beside the reader: §5's listing applied verbatim to the four cells' own pixels at the retention each needs (`r` 0.979–0.983, bisected to the reference's mean chroma) | The movement is **≤ 0.040** anywhere on these bodies, median **−0.00001**, sign following the hue (magenta +0.019, green −0.010 at body luma 0.173). Premise restated beside in §4 and in the declaration's §(d): *moves `Δc`, and moves OKLab `ΔL` only second order — ≤ 0.04 at the restorations this bed needs — so `P95(\|ΔL\|)` is a floor to within that.* The floors **recomputed under the restoration** are 0.06971 / 0.06772 / 0.07300 / 0.07065 against bounds of 0.17–0.19, so **all four verdicts stand**, at 41–43 % of their bounds |
+| **B-3** | **The digest rule has no record in the ledger.** §5.161 carried no gate-group, no identity table, neither frozen digest and none of the four macOS 27 ones; the charter's G0 Revision Note pointed at "§§1 and 6", and §6 is the CSS projection | acceptance clause (e) read against §§1–10 | **§7b above**, a new subsection carrying the rule and its version `w31-identity-1`, the four table entries with each one's case, the two frozen digests reproduced, the four macOS 27 digests with what each drops (light **5**, the scatter group **including `sizeScatterScaleRef` = 0.03**; dark **3**; the receded pair as their active documents), the in-memory default-moved demonstration and the four holes. Numbered 7b because §§8–10 are recorded numbers. The charter's Revision Note is repointed beside |
+| **B-4** | **The gate-group's stated soundness mitigation is not what the cited cases execute.** `identity-table.json` says each drop is sound because the cited `inertLawCase` proves the gated leaves cannot reach the pixels while the gate is held. Only the heavy-second entry did that: the scatter case read `sizeScatterScaleRef` off the default, where it is 0, while the shipped light document carries **0.03**; the σ case swept spans over a material whose pivot is also 0 | each case read against the claim its entry makes; reachability confirmed in code (`wgsl/optics.ts` 872, `material.ts` 4293's early return) | **CODE.** `packages/renderer-webgpu/test/w31-gate-groups.test.ts`, twelve cases: each gate held at its identity while the GATED leaf is swept over non-identity values — **twelve pivots** for the σ group (including the reach at nine amplitudes and the shader's own expression), **both widths** over nine values each for the heavy-second one, and **nine references including the shipped 0.03** for the scatter one — asserting the law's output bit-identical, with a fail-before case per group. `identity-table.json`'s `inertLawCase` names them and keeps the first citations verbatim in `$comment-superseded`. Found rather than confirmed: the scatter's multiplied zero is a **signed** zero (`0 · (0 − 0.03)` is `−0`), so the identity holds through the addition and not at the product |
+| **B-4 (b)** | **The Revision Note's premise about the charter is false.** It says Grounding "puts `sigmaThinOffsetPx` under the slope's gate" | the charter's Grounding read: it names **three** leaves as having no standalone identity and that is not one of them, which leaves it an ordinary value drop, and sound | **`gate-group-proof-closure.ts` / `.txt`**, new evidence: one material fingerprinted under three groupings. The charter's actual shape reproduces both frozen digests and REFUSES a macOS 26.5 light material with `sigmaThinOffsetPx` 5; the shape the Note attributes to it fingerprints that material to **`b2b570e4adcea8fb`**, the frozen digest itself, while it draws σ five CSS px wider at every span. So **"the charter is wrong in two places" reads one**, and the two-leaf gate is a TIGHTENING of a correct shape — it drops a strict subset — rather than a correction of a broken one. Recorded beside in the charter's Revision Note |
+| N-1 | **`toneAdapt` is not "identically 0".** The law is `max · (1 − smoothstep)` over `x = level + sizeBias·clamp01(thickness)`, zero iff `x ≥ 1e-4` and exactly 1 at `x = 0`; `sizeThickness` is exactly 0 at span ≤ `sizeSpanMin` = 32, and `rrect-sm` is a bed cell at span 32 | the law read term by term against `material.ts` ~3499 and the two documents' bands | The claim survives only because every backdrop in this bed is ≥ 0.17. Restated beside in §5 and in the declaration's §(e), with the no-gate conclusion resting on the better reason: **a retention toward the backdrop's chromaticity is inert wherever the backdrop is achromatic**, and the region where `toneAdapt` can fire at all is achromatic to within the capture's quantisation. The condition for a future document gains one clause: read it at span ≤ `sizeSpanMin` too |
+| N-2 | **Ratio (iii) carries a level confound** `(Y_side/Y_backdrop)^(1/3)` — the reference is the backdrop blurred, at the backdrop's level | `closure-readings.txt`, the correction applied per cell | Dark native **1.175–1.994** (strengthened); LIGHT native **0.516–0.768** — Apple's light body REMOVES **23–48 %** of the chroma a level-matched blur would leave, so §3's "the light native body very nearly IS such a blur" is an artefact. Corrected beside in §3 |
+| N-3 | **The invariant twin (`chromaSpread/oklabLStdDev`) is NOT blind**, so §1's reason for the declared form is wrong | `closure-readings.txt`, both forms over the declared bed | Twin medians **0.498 / 0.488 / 0.266 / 0.491** against the declared form's 0.551 / 0.514 / 0.333 / 0.584, with comparable reproducibility (3.85 % / 8.94 % against 4.59 % / 8.60 %). The declared form is **kept**, on the reason that survives: its denominator is what the structure stop bounds and nothing bounds `sd(L_oklab)`. Corrected beside in §1 and in `metrics/chroma.ts`'s doc comment; **G3 reads the twin beside `R`** |
+| N-4 | **§3's ratio (ii) columns are over all sets where the medians beside them are `calibration` + `validation`** | both populations tabled, cell for cell | Declared-bed ranges recorded beside in §3: light inactive native **0.709–0.816**, dark active web **0.106–0.114**, dark inactive native **0.903–0.906** and web **0.114–0.123**, light active web floor **0.2385**. Every median, count and verdict unmoved |
+| N-5 | **§7 (c)'s level stop names the wrong cell and the wrong population** | recomputed on the stop's own population | Worst \|Δlevel\| is **0.04933** on 2x dark `texture` `photo__capsule-button__rest` (N 0.22620 / W 0.17687), not the 1x `dom` row's 0.0464; medians on the declared bed, both tiers, are **0.0060** light and **0.0210** dark, not 0.0053 / 0.0360 (which is texture, active only). Corrected beside in §7 (c) and the declaration's §(c); the bound ≤ 0.055 is unmoved and **this is the baseline G3 reads** |
+| N-6 | **The `mid-chroma-solid` dark bias is 2.41×, not 2.29×** | recomputed through the exact `(level)^(−2/3)` | **2.415×** on 1x dark `capsule-button__inactive`; the light 0.75× is right and belongs to 1x light `rrect-lg__rest`, a different component. Corrected beside in §3. Neither carries a bound |
+| N-7 | **"Twenty-three optional fields" is 24** | counted off `src/report.ts` | 3 + 6 + 3 + 3 + 2 + 2 + 2 + 2 + 1 = 24. Corrected beside in §1 and in the charter's Tracking Map row; the schema argument is unaffected |
+| N-8 | **`scratch-capture.sh`'s `pgrep -fc` is unsupported on macOS** — exit 2, `$FOREIGN` empty, the three `browser-runs.txt` lines carry no count | run on this machine: `pgrep -fc` exits 2 with a usage message; the three lines read blank | **CODE.** The script now reads `pgrep -f 'playwright' \| wc -l`. `browser-runs.txt` is NOT rewritten. Noted beside in §2: the count was never recorded, and the disclosed condition was refereed by the reproduction check instead — \|Δ\| exactly 0 on 552 cells, which is what a process count never was |
+| N-9 | **The narrowing of the exclusivity guard lives in `scratch-capture.sh`, not in `cli/compare.ts`** | `cli/compare.ts` read: it carries no guard at all | X6's "one capture process" has always been enforced by each wave's own capture script. Said so beside in §2 and in `reproduction-check.md`: the narrowing binds this bed, and a later wave inherits W29's and W30's wider pattern unless it copies this one |
+| N-10 | **`test/chroma.test.ts`'s prose pins 0.35 % and its assertion admits 0.5 %** (`toBeCloseTo(1, 2)`) | the measured relative error printed: **0.3451 %** | **CODE.** The assertion is now `< 0.0035`, which is what the sentence above it says. The field is synthetic and deterministic, so there is no capture noise for a margin to absorb |
+| N-11 | **Four pieces of trivia** | each read against its source | (i) `reproduction-check.md`'s header writes `\|Δ\|` unescaped and breaks the table — corrected beside, with the header restated; (ii) `css-ceiling.ts` cited §5 for §6 — fixed in the rewritten module note; (iii) `eye.md`'s 0.1627 is the `dom` row where the panel described is the WebGPU one (**0.1635**) — corrected beside, the sentence unchanged at either figure; (iv) §7 (g) (ii)'s "the CSS tier's `R` is near 1.0 today" holds on dark (**0.832–1.077**) and not on light (**0.584–1.574**) — corrected beside, with the refusal generalised to the structure stop's reason |
+| N-12 | **The pre-fit scratch bed is in `/tmp` and gitignored** | the paths read | Said in §2 and in the declaration: **G3 re-derives the pre-fit baseline by running `scratch-capture.sh 27` into a fresh tree at the shipped documents**, and `cut.json` preserves the distilled rows every figure here is recomputable from |
+
+**Three readings carried forward, which G3 must read before it fits.** These are the review's
+positive findings, and none of them is a correction.
+
+1. **The plate predictor.** `ratio (ii)_web ≈ (1 − sizedAlpha) · (Y_web / Y_backdrop)^(−2/3)` holds
+   at **0.897–0.996** (median 0.953) on all **34** single-body untinted `photo` cells of the four
+   macOS 27 standard profiles, both scales, both schemes, both poses, with no fitted parameter —
+   reproduced in `plate-predictor.ts` / `.txt` / `.json` off `cut.json` alone. The exponent is §1's
+   own `−2/3`, and it is the completion of §5's arithmetic: the light scheme is not "losing chroma
+   beyond the plate", it is sitting 2.4× above its own backdrop. (`toolbar-group` and
+   `glass-over-glass` are excluded and named, not skipped: a union of bodies has no single casting
+   span for `sizedAlpha` to be evaluated at.) What it buys G3 is that the retention's target is
+   readable off the table rather than searched for.
+2. **The DOM-material solve is not luma-transparent.** `dom_material_alpha` (`wgsl/optics.ts` ~601)
+   clamps the recovered neutral **per channel** inside a luma computation, so two colours at
+   identical linear luma and different chromaticity can clamp differently and solve a different
+   alpha. §5's "unmoved because the law reads a luminance the retention preserves" covers the shade
+   law, the rim's amplitude law and the tint composition; it does **not** cover this path. Named in
+   the declaration's §(h) so that a `dom`-tier movement at G3 is explained rather than discovered on
+   a golden.
+3. **The mask-adequacy result stands**, and the conditioning predicate qualifies SHAPE rows only
+   (`adopted-thresholds.test.ts`:804). §3's answer to the dark bed's refused masks is unaffected by
+   anything in this closure.
+
+**Verification of this closure.**
+
+| step | result |
+| --- | --- |
+| `python3 results/2026-09-16-w29-freeze/freeze.py verify` | **26.5 freeze intact: 1818 entries**, at this closure's open and close |
+| `pnpm -r lint` | exit 0 |
+| `pnpm -r build` | exit 0 |
+| `pnpm -r test` | **2,438 passed over 168 files, 0 failed**, across the seven suites: geometry 170/14, renderer-webgpu **549/33**, core 302/16, platform-web 631/46, react 169/18, calibration 571/35, demo 46/6. `@vitrea/renderer-webgpu` gains one file and twelve cases (`w31-gate-groups.test.ts`); `chroma.test.ts`'s count is unchanged, one assertion tightened |
+| `test:golden` | not run and not needed: no `src/wgsl/` file is touched, so the 34 goldens cannot move (X1) |
+| `digest-rule-proof.ts` re-run into `digest-rule-proof-closure.txt` | `PROOF OK — no failures`; **every digest byte-identical** to the committed output, the only three changed lines being the `proof:` citations |
+| `gate-group-proof-closure.ts` | `CLOSURE PROOF OK — no failures` |
+| `results/matrix.json`, `profiles/`, the goldens, `test/adopted-thresholds.test.ts`, `cli/gates.ts`, `test/compare-gates.test.ts` | untouched |
+| no browser ran; no fixture was read for a new capture | X5, X6 |
 
 ## 5.162 W31 G1: the exterior-width instrument — the shadow's SHAPE is the statistic and its width is not, the clause the next shadow wave is judged on, and a green B1 sitting beside a rendered σ three CSS px too wide (2026-09-21)
 

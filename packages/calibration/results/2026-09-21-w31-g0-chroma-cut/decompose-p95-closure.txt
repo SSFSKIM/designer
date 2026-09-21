@@ -1,0 +1,65 @@
+
+== texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5
+   body 51142 px, mean linear luma 0.1740; mean per-pixel chroma native 0.14552 / web 0.04016 / at r=1 0.14747
+   retention this cell needs: r = 0.9804
+   OKLab L moves by: median -0.00001  P95 |ΔL| 0.02968  max |ΔL| 0.03994  [-0.01785, 0.03994]
+     green           21931 px  median -0.00983  P95 |ΔL| 0.01339
+     red             10152 px  median +0.01711  P95 |ΔL| 0.02924
+     blue/violet      7300 px  median +0.00928  P95 |ΔL| 0.03064
+     magenta          5629 px  median +0.01881  P95 |ΔL| 0.03612
+     cyan/blue        3868 px  median -0.00645  P95 |ΔL| 0.01117
+     orange/yellow    2262 px  median +0.00473  P95 |ΔL| 0.01397
+   the floor: recorded 0.06309  recomputed 0.06309  under the restoration 0.06971  (bound 0.17 — still CLAIMABLE)
+
+== texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5
+   body 204291 px, mean linear luma 0.1732; mean per-pixel chroma native 0.14563 / web 0.04060 / at r=1 0.14732
+   retention this cell needs: r = 0.9829
+   OKLab L moves by: median -0.00001  P95 |ΔL| 0.02949  max |ΔL| 0.04018  [-0.01824, 0.04018]
+     green           87732 px  median -0.00980  P95 |ΔL| 0.01337
+     red             40738 px  median +0.01705  P95 |ΔL| 0.02905
+     blue/violet     28969 px  median +0.00929  P95 |ΔL| 0.03073
+     magenta         22423 px  median +0.01875  P95 |ΔL| 0.03605
+     cyan/blue       15370 px  median -0.00647  P95 |ΔL| 0.01113
+     orange/yellow    9059 px  median +0.00471  P95 |ΔL| 0.01390
+   the floor: recorded 0.06201  recomputed 0.06201  under the restoration 0.06772  (bound 0.17 — still CLAIMABLE)
+
+== dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5
+   body 51142 px, mean linear luma 0.1733; mean per-pixel chroma native 0.14552 / web 0.04786 / at r=1 0.14740
+   retention this cell needs: r = 0.9795
+   OKLab L moves by: median -0.00001  P95 |ΔL| 0.02820  max |ΔL| 0.03688  [-0.01344, 0.03688]
+     green           21931 px  median -0.00884  P95 |ΔL| 0.01118
+     red             10152 px  median +0.01672  P95 |ΔL| 0.02748
+     blue/violet      7300 px  median +0.00861  P95 |ΔL| 0.02913
+     magenta          5629 px  median +0.01848  P95 |ΔL| 0.03451
+     cyan/blue        3868 px  median -0.00601  P95 |ΔL| 0.01010
+     orange/yellow    2262 px  median +0.00438  P95 |ΔL| 0.01336
+   the floor: recorded 0.06631  recomputed 0.06631  under the restoration 0.07300  (bound 0.18 — still CLAIMABLE)
+
+== dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5
+   body 204291 px, mean linear luma 0.1732; mean per-pixel chroma native 0.14563 / web 0.05046 / at r=1 0.14740
+   retention this cell needs: r = 0.9801
+   OKLab L moves by: median -0.00001  P95 |ΔL| 0.02754  max |ΔL| 0.03618  [-0.01280, 0.03618]
+     green           87732 px  median -0.00836  P95 |ΔL| 0.01095
+     red             40738 px  median +0.01634  P95 |ΔL| 0.02659
+     blue/violet     28969 px  median +0.00850  P95 |ΔL| 0.02871
+     magenta         22423 px  median +0.01827  P95 |ΔL| 0.03395
+     cyan/blue       15370 px  median -0.00600  P95 |ΔL| 0.00976
+     orange/yellow    9059 px  median +0.00422  P95 |ΔL| 0.01323
+   the floor: recorded 0.06424  recomputed 0.06424  under the restoration 0.07065  (bound 0.19 — still CLAIMABLE)
+
+== what this closes ==
+
+  §4's premise as written — "a luma-preserving chroma operator moves Δc and
+  cannot move ΔL" — is false of the statistic §4 measures, because that ΔL is
+  OKLab's and the operator preserves LINEAR luma. Restated as measured:
+
+    the operator moves Δc, and moves OKLab ΔL only second order — no more than
+    0.0402 anywhere on this bed's bodies at the retention these cells need —
+    so P95(|ΔL|) is a floor to within that.
+
+  Read against the verdicts: the floor recomputed under the restoration itself
+  is at worst 0.07300 against bounds of 0.17 to 0.19. The margin is a
+  factor of two and a half, so all four verdicts of §4 stand unchanged and none
+  of them was ever close enough to the bound for this correction to reach it.
+
+wrote decompose-p95-closure.json
