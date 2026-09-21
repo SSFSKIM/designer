@@ -143,6 +143,59 @@ to the condition that makes a group's reach a bound — a negative slope would
 invert it — on the documents a page actually draws rather than on an illustrative
 shape.
 
+## The body's chroma retention, and the digest rule that let it land free (W31)
+
+Over a photograph Apple's macOS 27 material carries the backdrop's hues through
+the body and vitrea's rendered a flat grey of the right level. No constant could
+close that: the body is a neutral plate composited over the blurred backdrop, so
+what a photograph's hues survive at is `1 − sizedAlpha` — 0.513 light, 0.095 dark
+— against a reference that reads 0.90–0.97 of its own backdrop's chroma on the
+same cells. It is a mechanism the material lacked, and **`bodyChromaRetention`**
+is it (claims §5.161 §5, fitted in §5.164).
+
+The colour is mixed toward `backdrop · (Y / Y_backdrop)` — the backdrop's
+chromaticity carried to the colour's own linear luma — by the retention. **Luma
+is held by construction, not by correction**: both endpoints of the mix carry
+linear luma exactly `Y` and linear luma is a linear functional, so the shader's
+renormalisation is an f32 rounding guard. Gamut is taken by scaling chroma toward
+the neutral at fixed luma, never clipped per channel, because a per-channel clamp
+moves the level. It is applied immediately after the composite and before the
+tint composition, so the tint's shade law — which reads the untinted material's
+LUMINANCE — is bit-identical whatever the retention holds. The CSS tier mirrors
+it as a gain on the one `saturate()` it already carries, at the alpha that tier
+actually draws.
+
+**The leaf landed without moving a single document's digest, and that is the
+second half of the wave.** `resolvedMaterialSha256` is taken over the fully
+resolved material, so before W31 a material that gained a key moved every
+document's digest whatever that key held — which is why the paragraph above this
+one says W30 "spends that disturbance". W31 Decision Log 1 (a) ruled the rule
+that ends it:
+
+> The fingerprint drops a leaf whose resolved value equals its declared inert
+> identity, and drops a **gate-group** — a gate leaf at its identity together
+> with the leaves it makes unread — as one unit.
+
+`MATERIAL_IDENTITY_TABLE`, beside `DEFAULT_MATERIAL_PROFILE`, is that table:
+append-only, versioned, each entry naming the committed unit case that proves
+its drop. `materialDigestInput` is the one implementation of the rule; the HASH
+stays duplicated at each pin site, because an algorithm restated is an algorithm
+two places can check and a table walk that drifted would drift silently.
+
+**What a later wave has to do to add a leaf for free.** Add the entry in the
+same commit as the leaf, ship the default AT the declared identity, and name the
+case that proves it. A leaf added without an entry is carried at whatever it
+holds and moves every document's digest at once — the loud failure, and the one
+worth having. A post-seal leaf's default IS its identity, forever: the digests
+recorded against this table are taken with those leaves dropped at those values.
+
+`test/w31-body-chroma.test.ts` states the law as arithmetic and asserts the
+shader's own text term for term; `e2e/gpu/w31-body-chroma.spec.ts` opens it on a
+hardware adapter over a chromatic backdrop, where the ON path moves the raster
+and the interior's mean luminance moves by a sixth of one 8-bit code;
+`test/w31-gate-groups.test.ts` holds each gate at its identity while the gated
+leaf is swept off it.
+
 ## Where the contracts live
 
 | contract | made true in |

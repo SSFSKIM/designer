@@ -286,7 +286,7 @@ def bed(rows: list[dict]) -> list[dict]:
         for r in rows
         if r["backdrop"] == "photo"
         and not r["tinted"]
-        and r["renderer"] == "texture"
+        and r["renderer"] == "webgpu"
         and r["scheme"] is not None
         and r["set"] in ("calibration", "validation")
         and r["R"] is not None
