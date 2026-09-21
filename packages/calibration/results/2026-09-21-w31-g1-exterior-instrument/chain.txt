@@ -1,0 +1,29 @@
+W31 G1 — the verification chain at this gate's head (2026-09-21)
+================================================================
+
+python3 packages/calibration/results/2026-09-16-w29-freeze/freeze.py verify
+  26.5 freeze intact: 1818 entries          (open and close; the two files beside this one)
+
+pnpm -r build      exit 0
+pnpm -r lint       exit 0   (eslint + tsc --noEmit across all nine projects)
+pnpm -r test       exit 0
+
+  packages/policy              23 passed (23)
+  packages/motion             164 passed (164)
+  packages/geometry           170 passed (170)
+  packages/renderer-webgpu    511 passed (511)
+  packages/core               302 passed (302)
+  packages/platform-web       631 passed (631)
+  packages/react              169 passed (169)
+  packages/calibration        554 passed (554)
+  apps/demo                    46 passed (46)
+  ---------------------------------------------
+  total                     2,570 passed, 0 failed
+
+Against W30 G4's closing 2,566 the difference is exactly four: this gate's
+`test/w31-exterior-instrument.test.ts`. No other suite's count moved.
+
+Nothing else in the working tree changed: `git status` at this head shows the
+two spec files, this evidence directory and the one new test, and
+`results/matrix.json`, `profiles/`, the goldens and every source file are
+untouched.
