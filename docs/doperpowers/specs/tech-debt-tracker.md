@@ -4964,3 +4964,42 @@ different reason.
 
 Until then: no wave claims either row through the shadow, and `MISSED_27_ROWS`
 carries them as missed with the reason recorded here.
+
+## Apple's active reach on macOS 27 depends on the backdrop, and nothing separates the material from the instrument (W32 G0 review closure, 2026-09-21)
+
+*Found as an incidental by W32 G0's independent review and measured by its closure
+(claims §5.166 §4 and §10, finding N17). Evidence:
+`packages/calibration/results/2026-09-21-w32-g0-exterior-cut/extents-by-backdrop.py`
+and its committed output — a read of `results/matrix.json`, no capture, no fit.*
+
+`extentBelowNative` — the axis's walk outward from the silhouette to where Apple's
+render rejoins its backdrop — varies with the BACKDROP on macOS 27 at every span,
+not only at the thin ones where a luminance keying is already expected. Over
+twelve backdrops on the four standard beds it reads **16.0–18.5 CSS px at span 96**
+and **25.0–28.8 at span 128**, a range of 14 % of the span's own median at both,
+with `light-solid` shortest and `checkerboard-lc16` longest at each — the same two
+backdrops in the same order, which is what makes it a reading rather than a
+scatter. Inside the thin regime the same figure is 12 % at span 44 and 41 % at 32.
+
+What is undecided is **which of two mechanisms it is**, and the two are observationally
+identical on this statistic:
+
+- **Apple's material conditions the shadow on the backdrop**, beyond the thin
+  regime's keying. Then a single falloff triple cannot describe the bed and the
+  material is missing a term.
+- **The estimator is conditioned on the backdrop's contrast.** An extent is a
+  threshold crossing and a backdrop with less light to remove crosses sooner, so
+  a shorter reach over `light-solid` would be the instrument and not the material.
+
+Both predict the table. Separating them needs the TRANSMISSION PROFILE rather than
+the extent — the per-band `a` against distance, which does not depend on a
+threshold — and that is a fit, which G0 does not do.
+
+**The fix shape**: at G1's first round, read the fitted residual per backdrop at
+each span rather than pooled, on the profile and not on the extent. If the residual
+is flat across backdrops the dependence was the estimator and this entry closes on
+that measurement; if it tracks the backdrop's own luminance or contrast statistic —
+which the analysis pass already computes per source — then the material is missing
+a term and the entry becomes a charter item rather than debt. Either way the
+reading is cheap once a fit exists, and G1's verdict carries the per-backdrop
+residual regardless (claims §5.166 §4).

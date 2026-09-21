@@ -32066,6 +32066,27 @@ bands — a shift moves the whole profile outward where a widening flattens it �
 but the CHECK on that separation, the opposite side moving the other way, is
 unavailable below span 96 and unreliable above it.
 
+**And a condition the review's incidental found, recorded here because G1's
+verdict must carry it** (added 2026-09-21, review closure; §10, finding N17;
+`extents-by-backdrop.txt`). Apple's ACTIVE native reach on macOS 27 depends on
+the BACKDROP, and outside the thin regime as well as inside it. `extentBelowNative`
+over twelve backdrops on the four standard beds reads **16.0–18.5 CSS px at span
+96** and **25.0–28.8 at span 128** — a range of 14 % of the span's own median at
+both — with `light-solid` shortest and `checkerboard-lc16` longest at each, the
+same two backdrops in the same order. (Between the generations the reach moved
+far more: 26.5 reads ~38 CSS px at spans 32 and 44 against macOS 27's 8, ~36
+against 17.5 at 96 and ~33 against 27 at 128, on every backdrop — which is what
+the review's two-scene contrast was actually seeing, since those two scenes
+differ in their span as well as their backdrop.) **This gate does not decide what
+the dependence is.** An extent is a threshold crossing, so a backdrop with less
+light to remove reports a shorter reach whether or not Apple's material
+conditions its shadow on it; both readings predict this table, and separating
+them needs the transmission profile rather than the extent, which is a fit. What
+follows for G1 is procedural and firm: **a fit of one falloff triple against a
+bed pooled over backdrops leaves a per-backdrop residual at every span, and G1
+reports that residual per backdrop rather than assuming one triple describes the
+pooled bed.** A tracker entry carries the undecided half.
+
 ### 5. The three forms of C1, their bounds by the declared rule, and the recommendation
 
 `c1-forms.py`. The bound rule is the charter's (clause 2) and this gate cannot
