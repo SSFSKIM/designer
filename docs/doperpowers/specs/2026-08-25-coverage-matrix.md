@@ -1061,3 +1061,57 @@ there.
 
 The tallies are therefore unchanged from the W29 reading above: **45 → 46 → 46** replicated and
 measured of 156 scoreable rows, 29.5 %.
+
+### Re-scored 2026-09-21 after W31, beside the W30 reading
+
+W31 (`2026-09-21-w31-chromatic-wave.md`) added an operator the material did not have: the body's
+CHROMATICITY is restored toward the blurred backdrop's at a held linear luma, fitted per colour
+scheme and per window pose. **One row moves and one deliberately does not.** The five tables above
+are left as written and no row's earlier record is rewritten.
+
+**Why a row moves here where W30's two operators moved none.** W30 replaced constants with functions
+inside behaviours the matrix already scored `replicated+measured` — the same claim measured better,
+and a matrix that moved a row for a better fit would be scoring accuracy where it scores coverage.
+W31 is the other case. The charter's own words are "that is a **mechanism** the material lacks, not
+a value it has wrong": the body was a neutral plate composited over the blurred backdrop, the tone
+response's solve is achromatic by construction ("chroma is untouched, the shift is achromatic", the
+shader's own comment since W9), and no constant in any document could have closed it. A photograph's
+hues arrived as a grey of the right level. That is a coverage gap and closing it is a coverage move.
+
+| row | matrix | the status as recorded 2026-08-25 | **2026-09-21 (W31)** |
+| --- | --- | --- | --- |
+| Glass is **colourless by default** and takes colour from behind it | §3.4 | `partial` — "the 'takes colour from behind' half is what the analysis pass and adaptive tint were for, now inert; the 'apply colour' half does not exist" | **`partial`, and both halves of that reason are now wrong.** The "takes colour from behind" half is no longer inert: `bodyChromaRetention` restores the body's chromaticity toward the blurred backdrop's, luma-preserving in LINEAR luma by construction and gamut-clamped by scaling chroma toward the neutral at a held level, at 0.282 / 0.349 / 0.336 / 0.142 across the four shipped macOS 27 documents — fitted against Apple's own material and gated by two adopted rows (claims §5.164 §4, §5.165 §1). The "apply colour" half has existed since W19's author-tint fold. What keeps the row `partial` is measured and is recorded beside it: **the CSS tier carries none of the operator** (§5.164 §5), so the half that draws draws on the fidelity target only |
+
+**Why the row does not go further than `partial`, stated as a number rather than as caution.** The
+statistic is `R` — the body's per-pixel OKLab chroma spread over its own luma spread, web against
+native on the same cell. Before the operator the WebGPU tier read **0.333** on the dark scheme and
+**0.551** on the light one against a reference of 1; after it, 0.9994 and 1.0486 by bed median, with
+every cell inside [0.60, 1.40] except three the gate records MISSED. On the CSS tier a derived term
+was written, rendered and declined on the measurement: it buys **0.000** of the gap on the dark
+scheme at every retention up to 1, because that tier's converted alpha leaves no backdrop for its
+`saturate()` to act on, and on the light scheme it breaks the wave's own level and structure stops.
+So one tier replicates the behaviour and the other measurably does not, which is what `partial` is
+for.
+
+**Two rows this re-score checked and did not move**, each for a reason worth naming.
+
+- §3.2's *large surfaces pick up ambient colour spill* keeps `absent, undecided`, and the distance
+  is the same one W30 named. Apple's sentence is about light from colourful content **nearby**
+  spilling onto a surface; W31's operator reads what is **behind** it. A body that now transmits its
+  own backdrop's hue is not a step toward sampling beside itself, and the structural obstacle the
+  row records is unchanged: vitrea samples a group's proxy and never the region outside the member
+  union. §3.2's box above still reads correctly — of its five facets, ambient spill remains the only
+  absent one.
+- §3.4's *a tint is a brightness-mapped range of tones, not a colour* keeps `absent, undecided`.
+  W31's retention is applied BEFORE the tint composition and is inert at full tint strength by
+  construction — 147 of the 148 shared tinted rows moved by exactly zero at the canonical read — so
+  it neither implements nor approaches Apple's backdrop-conditioned tone mapping of an author's
+  seed. Worth recording beside it: W31 G0 measured that on the RECEDED tinted cells vitrea's body
+  carries **0.001–0.006** of the backdrop's chroma against the reference's 0.54–0.65, which is
+  W27c's seed collapse and is now a tracker entry of its own.
+
+**The tally moves by nothing and the reason is the row's own shape**: §3.4's first row was `partial`
+before this wave and is `partial` after it, so the count of `replicated+measured` rows is unchanged
+at **46 of 156 scoreable rows, 29.5 %**. What would move it is the CSS tier carrying a chroma term —
+on the `rgba()` layer rather than on the backdrop beneath it — which the wave measured, declined and
+deferred with the shape of the work.

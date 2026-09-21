@@ -80,6 +80,17 @@ itself and applies the receded endpoint of the document it selected. `--out-matr
 committed evidence, and the canonical `web-captures/` beside it is gitignored — it lives on the
 capture machine and is what the sheets and the demo fixture are copied from.
 
+**And a capture tree is only that if somebody copies it there.** That last sentence was false from
+W29 to W31: every canonical read ran in an agent worktree, captures are gitignored, a worktree
+inherits none, and the worktree was removed after merge — so the pixels each generation of rows was
+measured off were deleted as the rows landed, and the macOS 26.5 tree that did survive turned out to
+be a DIFFERENT generation from the rows beside it (two cells of one scene disagree; W31 charter
+Surprises, claims §5.161 §2). **Copying the read's tree to the canonical path is part of the merge
+that lands the read**, and a sheet script reads that tree and asserts per cell that the capture names
+the shipped document bytes — the receded document included — rather than trusting the path
+(`results/2026-09-21-w31-g4-landing/sheets.ts`). Nothing yet checks the tree against the matrix
+automatically; that is a tracker entry.
+
 **Generations, and where the superseded ones live.** A cell's key includes every material profile
 document's twelve-hex content hash, so a refit that moves a document does not overwrite the rows
 read at the old one — the next run **appends** a generation beside them, because a recorded number
@@ -150,7 +161,31 @@ the fully resolved material, the dark profile is a difference document over it, 
 Adopted bounds,
 regression floors and the conditioning predicate are enforced by
 `packages/calibration/test/adopted-thresholds.test.ts`; its `PREDICATE_EXCLUDES` must equal the
-machine's output, so a fidelity change usually moves that file too.
+machine's output, so a fidelity change usually moves that file too. That file's header argues the
+MATERIAL axis is not gateable on this fixture set, and since W31 it carries two rows that are —
+`M1` on the body's chroma-to-structure ratio and `M2` on the structure it is read over, macOS 27
+standard profiles and the WebGPU tier only, with the amendment beside the header saying why they
+clear both of its grounds. Both read a cut **regenerated at the gate that adopts them** and
+re-derived from `results/matrix.json` inside the test, which is how a cut avoids becoming a frozen
+snapshot a bound can never fail against (claims §5.162 §9, §5.165 §1).
+
+**A leaf at its declared identity moves no document's digest** (W31 Decision Log 1 (a), ruled; claims
+§5.161 §7b, §5.164 §2). `resolvedMaterialSha256` is taken over the fully resolved material, so before
+W31 adding an operator moved every document's fingerprint whatever that operator held, and a wave had
+to spend an exemption to add one. **Rule 2** drops, before hashing, every entry of
+`MATERIAL_IDENTITY_TABLE` — an append-only constant beside `DEFAULT_MATERIAL_PROFILE` in
+`packages/renderer-webgpu/src/material.ts` — whose gate leaves all hold their declared identity
+values. An entry with no gated leaves is a plain value drop; an entry WITH them is a **gate-group**
+and goes as one unit, because a gated leaf has no identity of its own to be at. `materialDigestInput`
+is the one implementation of the drop and is imported by all three sorted-key SHA-256 copies; the
+rule's version is recorded in every document sealed under it, so a recorded digest names the function
+that produced it. Two consequences to know before touching a digest: the identity table makes a
+post-seal leaf's default **its identity, forever**, and the two frozen macOS 26.5 documents' own
+recorded fields are the live pin again — `profiles/digest-supersessions.json` is HISTORY, kept, with
+a test that reproduces both halves of every record and nothing reading it as a pin.
+`w31-identity-table.test.ts` pins the table to W31 G0's declaration by SHA-256 and each gate's
+identity as a literal, and `w31-gate-groups.test.ts` proves each group's drop by sweeping the gated
+leaf off its value with the gate held.
 
 **Which material a page draws, and how the runtime says so.** The renderer's `DEFAULT_MATERIAL_PROFILE`
 is the macOS 26.5 light material and does not move (W29 Decision Log 1 (i)) — every shipped material
@@ -165,6 +200,26 @@ own sibling pair. `root.material` and `GlassGroupState.materialDocument` report 
 actually drew, its digest, and whether an app tuned it — the honesty core, one axis further; in
 React the selected document itself is on `GlassRootHandle`, which is what lets `GlassToolbar`
 derive a layout number from its own material rather than from the default one.
+
+**The body carries the backdrop's hue, on the WebGPU tier only** (W31, claims §5.164). After
+`colour = mix(backdrop, adapted, presentAlpha)` the composited colour's CHROMATICITY is restored
+toward the blurred backdrop's by `bodyChromaRetention ∈ [0, 1]` — inert identity 0, fitted per colour
+scheme and per window pose in the four macOS 27 documents. It is **luma-preserving by construction
+rather than by correction**: both endpoints of that mix carry the same linear luma, so the mix lands
+on it in exact arithmetic and the renormalisation is an f32 guard; gamut is taken by scaling chroma
+toward the neutral at a held luma, never by clipping a channel. It sits before the tint composition,
+so an author's tint still displaces the result, and it is the identity wherever the backdrop is
+achromatic — which is why there is no `toneAdapt` gate and why a neutral backdrop draws
+bit-identically to 0.20.0. **It stands down entirely under an accessibility OCCLUSION lift**
+(`bodyChromaRetentionUnderPolicy`, an exhaustive switch on that axis, folded on the CPU at the
+uniform's pack site because the optics uniform carries no policy): Reduce Transparency raises the
+occlusion and stands it down, `forced-colors` draws no body at all, and **Increase Contrast alone
+does not** — it carries no occlusion key, and that combination is unmeasured (tracker). **The CSS
+tier carries none of this**: a mirror was derived from the leaf, rendered on the bed and declined on
+the measurement — 0.000 of the gap on the dark scheme at every retention, both stops broken on the
+light one — so `BODY_CHROMA_RETENTION` in `platform-web/src/optics.ts` is 0 with the measurement
+beside it, and `tier-coherence.test.ts` pins it against the SHIPPED documents' retentions so a
+document that moves one re-opens the decline instead of inheriting it.
 
 **Two of the material's operators are functions of the surface rather than constants** (W30, claims
 §5.159). The outer shadow's blur is graded by the CASTING SPAN —
