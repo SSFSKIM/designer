@@ -1,14 +1,30 @@
 import { createHash } from "node:crypto";
 import { expect, test, type Page } from "@playwright/test";
 
+import { materialDigestInput } from "../../../renderer-webgpu/src/material";
+
 import { gotoHarness } from "../support";
 
+/**
+ * The material the renderer is handed, hashed **under the digest rule** (W31
+ * Decision Log 1 (a); claims §5.164).
+ *
+ * `materialDigestInput` drops every `MATERIAL_IDENTITY_TABLE` entry whose gates
+ * hold their declared inert identities — the leaves that provably cannot reach
+ * a pixel — so the first sixteen hex digits below are the digest each document
+ * records, which is what this file's literals are for. Before W31 the hash was
+ * over the whole handed material and the correspondence held only because the
+ * fingerprint was the plain one; under the rule the two agree again, and a leaf
+ * landing at its identity moves neither.
+ */
 const hash = (value: unknown): string => {
   const sorted = (v: unknown): unknown => Array.isArray(v) ? v.map(sorted)
     : v !== null && typeof v === "object"
       ? Object.fromEntries(Object.entries(v).sort(([a], [b]) => a.localeCompare(b))
         .map(([key, entry]) => [key, sorted(entry)])) : v;
-  return createHash("sha256").update(JSON.stringify(sorted(value))).digest("hex");
+  return createHash("sha256")
+    .update(JSON.stringify(sorted(materialDigestInput(value))))
+    .digest("hex");
 };
 
 const reading = (page: Page) => page.evaluate(() => {
@@ -61,11 +77,13 @@ test("a visibility event or synthetic blur cannot invent document inactivity", a
 
 /*
  * **What these hashes are, and why there are eight of them.** Each is the sha256
- * of the material the renderer is handed, and its first sixteen hex digits are
- * the digest that document's pin RESOLVES to — `3a2513742936ceb1` and
- * `f3008c3e9033ed4c` for the two macOS 27 active endpoints,
- * `d8015c2587126d08` and `8c85774d161fcbaa` for the two macOS 27 receded ones,
- * `b340a4dee871633c` and `93ab090705c43f1f` for the two macOS 26.5 active ones.
+ * of the material the renderer is handed, taken under the digest rule, and its
+ * first sixteen hex digits are the digest that document RECORDS —
+ * `62e684744954580b` and `c61194f820d77280` for the two macOS 27 active
+ * endpoints, `183c8949f194ff43` and `1a64247df6786fc2` for the two macOS 27
+ * receded ones, `b2b570e4adcea8fb` and `874be66ea501621b` for the two macOS
+ * 26.5 active ones — the numbers those two frozen documents were sealed at in
+ * the first place.
  *
  * A receded endpoint's digest is over the COMPOSITION — the receded difference
  * over the active patch of the same scheme over the renderer's default — because
@@ -107,9 +125,9 @@ test("a visibility event or synthetic blur cannot invent document inactivity", a
  *
  * The six documents' own `resolvedMaterialSha256` fields did NOT move: no
  * profile document's bytes were edited, because those bytes are an input to
- * every bound stated over that document's bed. What the pins resolve to lives in
- * `packages/calibration/profiles/digest-supersessions.json`, and the first
- * sixteen digits above are that record's `currentSha256`.
+ * every bound stated over that document's bed. What the pins resolved to in that
+ * interval lives in `packages/calibration/profiles/digest-supersessions.json`,
+ * and the first sixteen digits then were that record's `currentSha256`.
  *
  * **The four macOS 27 rows moved again at W30 G3, and this time a material did**
  * (claims §5.159; Decision Log 4 (b)). That child gives the eight leaves values —
@@ -122,26 +140,45 @@ test("a visibility event or synthetic blur cannot invent document inactivity", a
  * unchanged, and their records are permanent because their bytes can never move.
  * The four prior macOS 27 readings are `8d06a41cb70ba52f`, `73a3fb119a81312b`,
  * `035f537d9c27e3ed` and `4763b0d195fdb077`, kept here rather than deleted.
+ *
+ * **All eight moved once more at W31 G3, and again no pixel did** (claims
+ * §5.164; W31 Decision Log 1 (a)). The wave adds one leaf — the body's chroma
+ * retention, at its inert identity 0 — and rules the digest rule that drops such
+ * a leaf from the fingerprint, which is why the hash above is taken over
+ * `materialDigestInput`. The four macOS 27 documents are re-sealed under the
+ * rule in the same merge as the read at those bytes (X10), and the two macOS
+ * 26.5 rows return to the frozen documents' OWN digests without a byte of them
+ * being edited. The eight prior readings are `3a251374…`, `d8015c25…`,
+ * `f3008c3e…`, `8c85774d…`, `b340a4de…`, `07cf4a8b…`, `93ab0907…` and
+ * `a52a5e2a…`, kept here rather than deleted.
+ *
+ * **Two of the eight went back to a number this file used to carry.** The two
+ * macOS 26.5 INACTIVE readings under the rule are `6dcb32c4…` and `70391dee…`,
+ * which are two of the pre-W30 eight listed above, to the last digit. Nothing
+ * arranged that: the frozen material's receded composition is what it was before
+ * W30's leaves existed, and dropping those leaves at their identities gives the
+ * same bytes back. It is the rule's own claim — "the digest is over what draws"
+ * — read from the browser.
  */
 const SEALED = {
   macos27: {
     light: {
-      active: "3a2513742936ceb1c17a3149d75d21b79a627a7db373b03a909dbfbd18484bcc",
-      inactive: "d8015c2587126d08f6db93315f8f249a2b2f0d19a84a0f525b966050eca7d00d",
+      active: "62e684744954580b4a702f12e984c7064fb5c91681ccf09aaa3950a669122080",
+      inactive: "183c8949f194ff43d8c7bca065c11debc7ad8cc5a0c9e7b2e7e648404d69ea74",
     },
     dark: {
-      active: "f3008c3e9033ed4cd3d55ec3a936af5ad3e91c0980f7af9a32f6b35bc843a76f",
-      inactive: "8c85774d161fcbaae973003902e8e35090c92ba5bb568d500d0d59442f701917",
+      active: "c61194f820d772808cb3607dac4f3b98d64d9ed12902ccbbe34c8ab0dfaaae51",
+      inactive: "1a64247df6786fc2fa68daa82182f3343dedde54d96a1431e4d1a555d5903dc6",
     },
   },
   macos26: {
     light: {
-      active: "b340a4dee871633c89ee06e657a5cb55066724dc7cf1d3fcfd3b136e5c486d91",
-      inactive: "07cf4a8b830cc14a8c6f27f639835df65efe9cd680186a3755d168b64d3025ce",
+      active: "b2b570e4adcea8fb9281aed4d2556598a1fc95b34ce4b12dd5a50157ac138306",
+      inactive: "6dcb32c422639d0d49a4ad2927766f97817fb48c90c8987fbc09ec6a55a2b689",
     },
     dark: {
-      active: "93ab090705c43f1fd1b09a6899e55dbfb33d46598dc839714a73c911ce7c5b4a",
-      inactive: "a52a5e2af4d5f7660a688249db8aa8bce9b6628ef3805f8da1cdddc3c5892097",
+      active: "874be66ea501621be265265424c16d2d98a01c40835d89c02de9473362c0d4dc",
+      inactive: "70391dee6d9990c22efc4b268caf9139886af9684a4255ded1128d3b7a2b7326",
     },
   },
 } as const;

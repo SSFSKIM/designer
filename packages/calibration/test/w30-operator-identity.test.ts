@@ -27,8 +27,15 @@
  * It was written and green with an EMPTY leaf list, which is the point: the test
  * passed before the commit it exists to judge, so G2 could not be the commit
  * that also wrote its own proof. G2 filled the list in the commit that added the
- * leaves (claims §5.158), and the two beds below now differ from the pre-wave
- * files in exactly eight leaves and in nothing else.
+ * leaves (claims §5.158).
+ *
+ * **W31 extends it rather than replacing it** (claims §5.164). The chroma
+ * operator adds one leaf, named in `W31_OPERATOR_LEAVES` beside W30's list, and
+ * the two beds below differ from the pre-wave files in exactly those nine leaves
+ * and in nothing else. What W31 does NOT add is an exemption: under the digest
+ * rule a leaf at its declared inert identity is dropped from the fingerprint, so
+ * the two frozen documents' recorded digests are the live pin again and no
+ * document's digest moves for this leaf at all.
  */
 
 import { readFileSync } from "node:fs";
@@ -78,6 +85,33 @@ export const W30_OPERATOR_LEAVES: readonly string[] = [
   "sizeScatterScaleRef",
 ];
 
+/**
+ * Every leaf W31's chroma operator adds to `MaterialProfile` (claims §5.161 §5,
+ * §5.164).
+ *
+ * A sibling list rather than eight more entries above, because
+ * `W30_OPERATOR_LEAVES` is W30's record and a record is added beside. The
+ * identity below is taken over the union: the pre-wave materials on disk predate
+ * both waves, so every leaf either wave added has to be named for the deep
+ * equality to mean "nothing else moved".
+ *
+ * **This wave adds no exemption.** W30's leaves needed one — a digest over the
+ * fully resolved material moves when the material gains a key — and W31
+ * Decision Log 1 (a) ruled the rule that makes a leaf at its identity
+ * digest-neutral instead. So the list below is a statement about the MATERIAL,
+ * which still gains a key, and not about any document's digest, which does not
+ * move at all.
+ */
+export const W31_OPERATOR_LEAVES: readonly string[] = [
+  // The body's chroma retention (claims §5.161 §5): how much of the blurred
+  // backdrop's chromaticity the body restores, at the luma the tone solve
+  // produced. 0 on the runtime default, where the composite is the one W30 left.
+  "bodyChromaRetention",
+];
+
+/** Both waves' leaves — what the identity below is allowed to find moved. */
+const OPERATOR_LEAVES: readonly string[] = [...W30_OPERATOR_LEAVES, ...W31_OPERATOR_LEAVES];
+
 const HERE = import.meta.dirname;
 const PROFILES = resolve(HERE, "..", "profiles");
 const EVIDENCE = resolve(HERE, "..", "results", "2026-09-20-w30-g0-cut");
@@ -124,7 +158,7 @@ describe("W30's exemption is inert at the material level (acceptance clause 1, X
     // identity below pass while hiding a leaf that really did move, which is the
     // failure a list of names has that a diff does not.
     const present = new Set(leafPaths(withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, {})));
-    for (const leaf of W30_OPERATOR_LEAVES) {
+    for (const leaf of OPERATOR_LEAVES) {
       expect(present, `${leaf}: named as a W30 operator leaf, absent from the material`).toContain(
         leaf,
       );
@@ -142,9 +176,9 @@ describe("W30's exemption is inert at the material level (acceptance clause 1, X
 
       // The pre-wave file was written at the digest the document still records,
       // which is what makes it that document's material and not some other one.
-      // After G2 the document's own field still reads this — the current digest
-      // lives in `profiles/digest-supersessions.json` beside it, never in the
-      // frozen bytes (W30 Decision Log 1 (a)).
+      // The field has never moved — W30 kept its current reading in
+      // `profiles/digest-supersessions.json` beside the frozen bytes, and W31's
+      // digest rule made the field the live fingerprint again (claims §5.164).
       expect(document.resolvedMaterialSha256).toBe(pinned);
 
       // `toStrictEqual` rather than `toEqual`, because `toEqual` treats a key
@@ -152,10 +186,11 @@ describe("W30's exemption is inert at the material level (acceptance clause 1, X
       // and not named in `W30_OPERATOR_LEAVES`, would pass the identity it exists
       // to fail (W30 Decision Log 3 (e), claims §5.156 §9).
       expect(
-        without(resolved, W30_OPERATOR_LEAVES),
+        without(resolved, OPERATOR_LEAVES),
         `${key}: the resolved material differs from the pre-wave evidence outside ` +
-          `W30_OPERATOR_LEAVES — the exemption is for the digest, not for the material`,
-      ).toStrictEqual(without(preWave, W30_OPERATOR_LEAVES));
+          `W30_OPERATOR_LEAVES and W31_OPERATOR_LEAVES — an operator wave may add its own ` +
+          `leaves and nothing else`,
+      ).toStrictEqual(without(preWave, OPERATOR_LEAVES));
     });
   }
 

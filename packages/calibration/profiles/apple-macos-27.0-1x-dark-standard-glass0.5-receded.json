@@ -152,10 +152,12 @@
       "method": "See `theRecedeNoLongerRemovesTheShadow` in fitted-receded.json. The block is this document's own active document's, leaf for leaf."
     }
   },
-  "resolvedMaterialSha256": "8c85774d161fcbaa",
+  "resolvedMaterialSha256": "1a64247df6786fc2",
+  "resolvedMaterialSha256Rule": 2,
   "resolvedOverActiveDocument": "apple-macos-27.0-1x-dark-standard-glass0.5.json",
   "$comment-sha-history": [
-    "3264b6cdde64bc8b — sealed by W29 G3b (claims §5.154 §7). Between that seal and this one, W30 G2's eight inert operator leaves moved what this document's pin RESOLVES to without moving its bytes, and profiles/digest-supersessions.json recorded the interval's reading as 4763b0d195fdb077 (claims §5.158 §3). This document is re-sealed at 8c85774d161fcbaa by W30 G3, which gives those leaves values (claims §5.159); the macOS 27 records leave that file in the same commit and the two frozen macOS 26.5 records stay."
+    "3264b6cdde64bc8b — sealed by W29 G3b (claims §5.154 §7). Between that seal and this one, W30 G2's eight inert operator leaves moved what this document's pin RESOLVES to without moving its bytes, and profiles/digest-supersessions.json recorded the interval's reading as 4763b0d195fdb077 (claims §5.158 §3). This document is re-sealed at 8c85774d161fcbaa by W30 G3, which gives those leaves values (claims §5.159); the macOS 27 records leave that file in the same commit and the two frozen macOS 26.5 records stay.",
+    "8c85774d161fcbaa — the reading under rule 1 (the plain resolved fingerprint). Re-sealed at 1a64247df6786fc2 under rule 2, the inert-identity rule of W31 Decision Log 1 (a): the same SHA-256 over the same resolved material with MATERIAL_IDENTITY_TABLE's entries dropped where their gates hold. W31 G3 — the digest rule lands (claims §5.164)"
   ],
   "$comment-w30-g3b": "2026-09-20, W30 G3b — the rows read at THESE bytes were captured at a renderer that draws the thin regime whole. At a casting span of 44 CSS px this document's own σ law draws σ = 2.13, and the optics pass's shadow falloff returned NaN more than 10.06 σ inside the shadow's silhouette — f32's exp overflowing inside tanh — which left a strip of a 44 px surface undrawn and put 170 texture cells outside W20's adopted declaration conformance (claims §5.159 §6, diagnosed and fixed in §5.159b, commit 35ce02b1). No constant of this document moved and no material moved: resolvedMaterialSha256 is unchanged and asserted unchanged by results/2026-09-20-w30-g3b-thin-strip/comment-generation.ts, which is what makes the re-read a generation of its own (charter Decision Log 5 (b)) rather than an overwrite of W30 G3's rows — those live in results/superseded/ by name."
 }

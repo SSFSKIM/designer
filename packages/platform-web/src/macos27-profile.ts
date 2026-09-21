@@ -310,17 +310,17 @@ export const macos27CssTierMapping: Partial<CssTierMapping> = {
  * not over the patch. Reported by the root's material readout so a capture, a
  * test or the demo's capabilities panel can say which document drew.
  *
- * **These are the CURRENT digests, read from
- * `packages/calibration/profiles/digest-supersessions.json`, not the documents'
- * own `resolvedMaterialSha256` fields** (W30 Decision Log 1 (a) and 4 (a);
- * claims §5.158). W30's eight inert leaves moved every document's resolved
- * fingerprint without moving a pixel, and no document's bytes were edited
- * because those bytes are an input to every bound stated over that document's
- * bed. So a document's own field is the reading it was sealed at, the record
- * beside it is what the pin resolves to now, and this module names what draws.
+ * **These are the documents' own `resolvedMaterialSha256` fields**, read from
+ * the four macOS 27 documents on disk, each sealed under digest rule 2 (W31
+ * Decision Log 1 (a); claims §5.164). Between W30 G2 and W31 G3 they came from
+ * `packages/calibration/profiles/digest-supersessions.json` instead, because a
+ * leaf added at an algebraic identity moved every document's fingerprint while
+ * moving no pixel and a frozen document's bytes could not be re-recorded. Under
+ * the rule that no longer happens, so every document's own field is what the pin
+ * resolves to and this module names what draws.
  * `packages/calibration/test/macos27-profile-export.test.ts` pins these against
- * the record and `tuned-profiles.test.ts` recomputes the record from the
- * materials themselves, so the chain ends at a material and not at the record.
+ * the documents and `tuned-profiles.test.ts` recomputes each from the material
+ * itself, so the chain ends at a material and not at a field.
  *
  * The two receded digests are taken over the COMPOSITION the page performs —
  * the receded difference over the ACTIVE patch of the same scheme over the
@@ -329,8 +329,8 @@ export const macos27CssTierMapping: Partial<CssTierMapping> = {
  * back from the browser.
  */
 export const MACOS_27_RESOLVED_MATERIAL_SHA256 = {
-  light: "3a2513742936ceb1",
-  dark: "f3008c3e9033ed4c",
-  recededLight: "d8015c2587126d08",
-  recededDark: "8c85774d161fcbaa",
+  light: "62e684744954580b",
+  dark: "c61194f820d77280",
+  recededLight: "183c8949f194ff43",
+  recededDark: "1a64247df6786fc2",
 } as const;

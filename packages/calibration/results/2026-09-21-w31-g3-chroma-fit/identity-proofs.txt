@@ -1,0 +1,47 @@
+W31 G3 — the leaf commit's identity proofs, as run (claims §5.164 §1).
+
+The leaf is `bodyChromaRetention`, inert identity 0, and every line below is a
+statement that adding it moved nothing.
+
+  freeze.py verify                       26.5 freeze intact: 1818 entries
+  test:golden                            34 passed; git status over e2e/goldens clean
+  adopted-thresholds "1,107" case        1 passed (FROZEN.length === 1107)
+  w30-operator-identity                  4 passed; the two pre-wave macOS 26.5 materials
+                                         deep-equal outside W30_OPERATOR_LEAVES +
+                                         W31_OPERATOR_LEAVES
+  w30-css-declaration-identity           green inside platform-web's 631; every declaration
+                                         character-identical to bytes recorded before a leaf
+                                         existed
+  w31-body-chroma.test.ts                6 passed — bit-identical at retention 0; linear luma
+                                         held to under 2 ULP of a double at every retention;
+                                         gamut held; chroma monotone toward the backdrop's;
+                                         the shader's own text asserted term for term
+  @gpu w31-body-chroma.spec.ts           2 passed on a hardware adapter
+                                           OFF  luma 0.622078  chroma 0.101914
+                                           0.25 luma 0.622068  chroma 0.194690  Δbytes 24
+                                           0.50 luma 0.622064  chroma 0.283414  Δbytes 31
+                                           0.80 luma 0.622089  chroma 0.347306  Δbytes 35
+                                           1.00 luma 0.622068  chroma 0.366609  Δbytes 37
+                                         luma moves by at most 2.5e-05 — a sixth of one 8-bit
+                                         code at this level — while the chroma rises 3.6x;
+                                         an EXPLICIT retention 0 is byte-identical to a
+                                         material that never names it
+  pnpm -r build                          exit 0
+  pnpm -r lint                           exit 0
+  pnpm -r test                           2,040 passed outside calibration; calibration 549
+                                         passed / 23 failed, and the 23 are X10 (below)
+
+X10, measured rather than assumed. Re-sealing the four macOS 27 documents changes
+their bytes, `SHIPPED_DOCUMENT_HASHES` is built from those bytes and
+`atAShippedDocument` keeps only rows whose `capturePath` names a current hash. So
+the macOS 27 bed empties until rows read at the new bytes exist:
+
+  macOS 27 rows total 726; at a shipped document 0; distinct cells 0
+  macOS 26.5 rows 1107 (unchanged, and every one of them still gated)
+  matrix total 1833
+
+The 23 red cases are 15 in `adopted-thresholds.test.ts` and 8 in
+`tier-coherence.test.ts`, which is the count W30 G2 measured for the same cause
+(claims §5.158). They go green in the commit that carries the canonical read,
+which is the whole content of W30 Decision Log 4 (b) and of this wave's X10 — and
+the reason the leaf, the rule, the fit, the seal and the read are one branch.

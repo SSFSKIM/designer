@@ -1,14 +1,32 @@
 /**
- * The supersession record beside the profile documents, read once for the three
- * files that pin it.
+ * The supersession record beside the profile documents — **HISTORY since W31
+ * G3**, read by the one file that pins it.
+ *
+ * ## What changed, and what did not
+ *
+ * W31 Decision Log 1 (a) ruled the digest rule: the fingerprint drops a leaf
+ * whose resolved value equals its declared inert identity
+ * (`MATERIAL_IDENTITY_TABLE`, beside `DEFAULT_MATERIAL_PROFILE`). Under it a
+ * document's own `resolvedMaterialSha256` is the live fingerprint again, so
+ * `tuned-profiles.test.ts`, `macos26-document-selection.test.ts` and
+ * `macos27-profile-export.test.ts` read the documents rather than this record,
+ * and `material-document.ts`'s two hand-written digests returned to the frozen
+ * documents' own numbers.
+ *
+ * **The record is kept and nothing in it is rewritten.** It is a true statement
+ * about what the plain fingerprint computed between W30 G2 and W31 G3, and a
+ * recorded number is added beside and never deleted. `digest-supersessions.test.ts`
+ * is what keeps it true: it reproduces every `recordedSha256` under the rule and
+ * every `currentSha256` under the plain fingerprint of the material **as it
+ * stood at W30's close** — today's material with every identity-table entry
+ * added after W30 dropped. So the history cannot quietly become false, and a
+ * later wave that adds a leaf outside the table breaks it loudly.
  *
  * Not a test file (the vitest `include` is `test/**\/*.test.ts`): it is the
- * reader `tuned-profiles.test.ts`, `macos26-document-selection.test.ts` and
- * `macos27-profile-export.test.ts` share. The `fingerprint` beside it in those
- * files is deliberately duplicated — an algorithm restated is an algorithm two
- * places can check — but a RECORD has one copy by definition, and three readers
- * that disagreed about which entry belongs to which document would be three
- * different pins.
+ * reader its own test and any later historical reader share. The `fingerprint`
+ * beside it in the pinning files is deliberately duplicated — an algorithm
+ * restated is an algorithm two places can check — but a RECORD has one copy by
+ * definition.
  *
  * ## What the record is
  *

@@ -1249,6 +1249,10 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
           adapt?.observed === true ? adapt.edgeDensity : material.sizeScatterScaleRef,
         sizeHeavySecondShare: material.sizeHeavySecondShare,
         heavySecondEnabled: pyramid?.heavy2 !== undefined,
+        // W31's body chroma retention (claims §5.164): a material constant, per
+        // group, with no source-side half — the chromaticity it restores toward
+        // is the blurred backdrop the optics pass already sampled per pixel.
+        bodyChromaRetention: material.bodyChromaRetention,
         ...(pyramid === undefined && input.unsampledMaterial !== undefined
           ? { domMaterial: {
               ...input.unsampledMaterial,

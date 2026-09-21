@@ -299,6 +299,16 @@ export {
   tintShadeLayer,
   tintToneAdaptation,
   withMaterialOverrides,
+  // W31's digest rule (Decision Log 1 (a); claims §5.161 §7b, §5.164). The
+  // TABLE and the leaves it drops live beside `DEFAULT_MATERIAL_PROFILE`
+  // because a post-seal leaf's default IS its identity; the HASH stays at each
+  // pin site, where an algorithm restated is an algorithm two places can check.
+  MATERIAL_DIGEST_RULE_VERSION,
+  MATERIAL_IDENTITY_TABLE,
+  materialDigestDroppedLeaves,
+  materialDigestInput,
+  materialLeafAt,
+  type MaterialIdentityEntry,
   type MaterialOptics,
   type MaterialOuterShadow,
   type MaterialPolicyView,
