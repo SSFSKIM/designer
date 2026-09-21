@@ -693,9 +693,12 @@ G0's two conditions — the structure stop as a second gated row, the WebGPU tie
 only — both survive. What the fit adds is a reason to change the per-cell
 clause: the bound is on the MEDIAN, the median is what the fit moved, and the
 per-cell spread widened. **G3 recommends adoption with G0's two conditions and a
-third — the per-cell clause two-sided rather than a floor alone.** A ceiling has
-to be chosen against the spread the fit leaves (worst cell 1.52) and not against
-the median it hits, which is why the number is put here rather than assumed.
+third — the per-cell clause two-sided rather than a floor alone.** The ceiling
+itself is the parent's number: the worst cell on the declared bed is **1.5155**,
+so 1.55 is green today and says almost nothing while 1.40 declares that cell and
+its 2x sibling missed. The choice is between a clause that passes and a clause
+that is worth having, and it has to be made against the spread the fit leaves
+rather than against the median it hits.
 
 **(b) Is the retention's next form a function of the SURFACE?** §5.164 §8 (a)
 measures that one constant per document closes the median and widens the spread,
