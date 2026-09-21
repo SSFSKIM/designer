@@ -518,6 +518,20 @@ CSS-tier visitors get a wider blur. The documents, the measurements behind them
 and how to read `root.material` back are in
 [`@vitreajs/vitrea-web`'s README](https://www.npmjs.com/package/@vitreajs/vitrea-web).
 
+**From 0.21.0 a surface over a coloured backdrop shows that backdrop's hues in
+its body**, where it used to render a grey of about the right lightness. Apple's
+material carries the picture through the glass; vitrea's carried its level and
+not its colour, and the macOS 27 documents now restore the body's chromaticity
+toward the blurred backdrop's at a held luminance, per colour scheme and per
+window pose. Over a neutral backdrop nothing changes, to the bit. Three
+qualifications live with the runtime and are worth knowing from here: **the CSS
+tier carries none of it** (measured and declined, not overlooked), **an
+accessibility occlusion lift stands it down** — Reduce Transparency does, Increase
+Contrast alone does not — and **`root.material`'s digests read differently**,
+partly because the four macOS 27 documents were refitted and partly because the
+fingerprint's own definition changed, so an app comparing a digest against a
+literal recorded under 0.19.0 or 0.20.0 has to re-record it.
+
 ### Window activation
 
 Apple's glass recedes when its window loses focus. That is a fact about the

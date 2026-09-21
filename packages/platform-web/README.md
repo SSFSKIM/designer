@@ -287,8 +287,22 @@ resolved state name the endpoint that actually drew — its profile key, its
 root.material;
 // { name: "apple-macos-27.0-glass0.5", platform: "macOS 27.0",
 //   profileKey: "apple-macos-27.0-1x-dark-standard-glass0.5-receded",
-//   resolvedMaterialSha256: "3264b6cdde64bc8b", tuned: false }
+//   resolvedMaterialSha256: "e1f42c5656ef392f", tuned: false }
 ```
+
+**That digest moved at 0.21.0, and one of the two reasons is not a rendering
+change.** The four macOS 27 documents were refitted — `3dc24a74f17fd87e` (light),
+`8a43f54162606db4` (dark), `ab3ed65aa02869b1` (light receded) and
+`e1f42c5656ef392f` (dark receded) — and, separately, **the fingerprint's own
+definition changed.** From 0.21.0 a leaf whose resolved value equals its declared
+inert identity is dropped before hashing, so adding an operator at its identity
+moves no document's digest at all. The visible consequence is that the two frozen
+macOS 26.5 documents report the numbers they were sealed at —
+`b2b570e4adcea8fb` and `874be66ea501621b` — instead of the numbers an inert leaf
+had pushed them to at 0.20.0, **while drawing exactly what they drew**. An app
+comparing a digest against a literal recorded under 0.19.0 or 0.20.0 has to
+re-record it; a digest is a name for a material and this release renamed some of
+them without repainting them.
 
 The `-glass0.5` in a macOS 27 key is that release's appearance slider,
 `NSGlassTintAmount`, at the position a Mac ships with; the material was measured
@@ -317,6 +331,51 @@ against a neighbour reads as further from it and a large panel near a viewport
 edge reaches further. `macos26MaterialProfileDocument` is unaffected: that
 material's σ is span-invariant and its three new leaves are zero, which is where
 its own measurement puts them.
+
+**0.21.0 gives the body the backdrop's colour, on the WebGPU tier.** Over a
+photograph, a gradient or any coloured backdrop, a surface used to render a grey
+of about the right lightness: the body is a neutral plate composited over the
+blurred backdrop, so what a backdrop's hues survived at was `1 − alpha` — about
+half of them in the light material and a tenth in the dark one — against a
+reference that keeps 0.71 to 0.83 and 0.90 to 0.97 of its own. Now the composited
+colour's chromaticity is restored toward the blurred backdrop's by a fitted
+fraction per colour scheme and per window pose. **The level does not move**: both
+ends of that mix carry the same linear luminance by construction, and gamut is
+taken by scaling chroma toward the neutral at a held luma rather than by clipping
+a channel. An author's tint still displaces the result exactly as it did, because
+the tint's shade law reads a luminance the restoration preserves. Over a NEUTRAL
+backdrop nothing changes, to the bit — restoring toward a chromaticity that is
+not there is the identity.
+
+Three things to know before taking it.
+
+- **The CSS tier carries none of it**, and that is a measurement rather than an
+  omission. The mirror was written — a gain on the one `saturate()` that tier
+  already has, at the alpha it actually solves — rendered on the measured bed and
+  taken back out. On the dark scheme it bought **nothing**, unchanged to four
+  decimals even at the largest retention the leaf can hold, because that tier's
+  converted alpha leaves no backdrop underneath for a saturation to act on; on
+  the light scheme it bought a great deal and broke the material's own level and
+  structure stops, because `saturate()` is a matrix on sRGB-encoded channels and
+  stops preserving luminance the moment one clips. So a CSS-tier visitor draws
+  the body they drew at 0.20.0, and `BODY_CHROMA_RETENTION` is exported beside
+  the tier's other mirrored constants at **0** — the constant that re-opens the
+  decline if it ever leaves that value.
+- **Under an accessibility OCCLUSION lift the retention stands down entirely.**
+  A lift sends the plate's alpha to `alpha + lift*(1 - alpha)`, so the plate
+  covers more of the backdrop and restoring the nominal fraction of its
+  chromaticity gives back what the preference asked to have covered up. **Reduce
+  Transparency** raises that occlusion and stands the operator down; those pages
+  draw what 0.20.0 drew, to the byte. **Increase Contrast alone does not** — it
+  raises no occlusion of its own, and macOS 27 decoupled the two switches — so a
+  page under Increase Contrast by itself draws the retention at full value. That
+  is not a regression against 0.20.0, which had no operator; it is a combination
+  the reference bed does not measure, and it is recorded as an open gap rather
+  than claimed either way.
+- **The fidelity target is the WebGPU tier**, which is where the fit was judged
+  and where the two adopted gate rows are stated. A page that resolves to the CSS
+  tier gets the same geometry, the same level and the same shadow, and a
+  colourless body.
 
 The demo site shows the macOS 27 pair only. A document is selected at
 construction — a page drawing one has surfaces measured against it — so a single
