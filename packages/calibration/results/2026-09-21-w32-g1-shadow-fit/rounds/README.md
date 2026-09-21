@@ -34,6 +34,7 @@ document's own value is read on its own beds.
 | B | A's window anchor solve applied at A's geometry | **0.00092** | **0.00156** | 0.00072 | — |
 | C | light: B's residual solve (the convergence round). dark: `spreadPx` 1.80 → 0.50 at B's anchors | **0.00089** | 0.00184 | 0.00072 | light: converged |
 | D | light: `offsetPx` 7.95 → 7.65 (the offset coordinate step). dark: back to `spreadPx` 1.80 with the σ slope at B1's low end, 0.1340 → 0.1215 | 0.00089 | **0.00147** | 0.00072 | — |
+| E | light: C's candidate REPEATED. dark: D's window anchor solve at D's geometry | **0.00089** | **0.00137** | 0.00072 | **SHIPPED** |
 
 ### pre-fit — the before
 
@@ -260,3 +261,35 @@ web / native read **0.875 / 0.947 / 1.102** across `3-6` / `6-12` / `12-24` — 
 contour and too much far out, which is a profile that falls off too slowly. A narrower σ is the
 lever and B1's floor is where it stops; what is left is an amplitude, and D's window solve wants
 `thickOcclusionAt128` 0.2181 → 0.2228, which is round E.
+
+### E — the shipped candidate: twelve of twelve, and a repeat that reproduces to the digit
+
+Two things at once again. **Light re-renders C's candidate unchanged** — the second round at the
+same candidate the convergence test names — and **dark takes D's window anchor solve at D's
+geometry**: `thinOcclusionMid` 0.0189 → 0.0196, `thinOcclusionBright` 0.0223 → 0.0231 (the derived
+ratio again), `thickOcclusionAt96` 0.1031 → 0.1051, `thickOcclusionAt128` 0.2181 → 0.2228,
+`thickOcclusionAt160` 0.3462 → 0.3504.
+
+**The light repeat reproduces to the digit.** Objective 0.00089 → 0.00089 (Δ +4 × 10⁻⁷), `T` at 96
+/ 128 / 160 identical to five decimals on both light beds, and the five window ratios identical
+(0.985 / 1.008 / 0.990 / 1.004 / 0.999). Two renders of one candidate on one machine are the same
+bed, which is what the convergence test needs under it.
+
+**Dark converges.** Objective 0.00147 → **0.00137**, Δ 0.00010 against a bar of 0.002044, and the
+four window ratios land at 0.995 / 1.020 / 0.996 / 1.001.
+
+**C1 form (ii), Decision Log 1 (c)'s ruled clause, is MET on all twelve bed × span rows:**
+
+| bed | span 96 | span 128 | span 160 |
+| --- | ---: | ---: | ---: |
+| 1x light | **0.00090** | **0.00245** | **0.00134** |
+| 2x light | **0.00088** | **0.00253** | **0.00132** |
+| 1x dark | **0.00125** | **0.00348** | **0.00164** |
+| 2x dark | **0.00115** | **0.00391** | **0.00168** |
+
+against ≤ 0.0042 — from four of twelve passing at the shipped documents, where 128 failed by 76–112 %
+and 160 by 49–90 %. The tightest row is `2x dark` at span 128 with 7 % of margin; the widest is
+`2x light` at 96 with 79 %.
+
+This is the candidate that ships. Nothing after this round moves a leaf: round F is the free fit,
+a measurement, and is never sealed.
