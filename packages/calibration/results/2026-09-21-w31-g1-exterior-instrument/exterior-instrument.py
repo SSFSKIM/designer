@@ -590,8 +590,13 @@ def main() -> int:
     print("  fits of both renders by one instrument. Where they disagree, the law is not what is")
     print("  wrong — what is wrong is that the law's σ is not the whole of what vitrea draws.")
     print()
-    print(f"  {'bed':<36}{'tier':<8}{'span':>5}{'n':>4}{'native σ':>11}{'law σ':>9}"
-          f"{'law err':>10}{'B1':>6}{'rendered σ':>12}{'(i)':>9}{'σ_web − σ_nat':>15}")
+    print("  `B1 window` is that bed's own ±5 % window around its median native σ — the interval")
+    print("  B1 requires the LAW's σ to sit in. `law` and `rendered` are marked IN or OUT of it,")
+    print("  which is the comparison the charter asks for: one window, two things held up to it.")
+    print()
+    print(f"  {'bed':<36}{'tier':<8}{'span':>5}{'n':>4}{'native σ':>11}"
+          f"{'B1 window':>20}{'law σ':>9}{'law err':>9}{'':>5}"
+          f"{'rendered σ':>12}{'(i)':>8}{'':>5}{'σ_web − σ_nat':>15}")
     documents_by_scheme = {}
     for scheme, name in (("light", "apple-macos-27.0-1x-light-standard-glass0.5.json"),
                          ("dark", "apple-macos-27.0-1x-dark-standard-glass0.5.json")):
@@ -616,10 +621,14 @@ def main() -> int:
                 rendered = upper_middle([r["sigmaWebCss"] for r in picked])
                 law = law_sigma(picked[0]["scheme"], span)
                 law_error = (law - native) / native
-                verdict = "PASS" if abs(law_error) <= B1_TOLERANCE else "FAIL"
-                print(f"  {bed:<36}{tier:<8}{span:>5}{len(picked):>4}{native:>11.3f}{law:>9.3f}"
-                      f"{law_error * 100:>9.2f}%{verdict:>6}{rendered:>12.3f}"
-                      f"{upper_middle([r['sigmaRelativeError'] for r in picked]):>9.3f}"
+                low, high = native * (1 - B1_TOLERANCE), native * (1 + B1_TOLERANCE)
+                inside = lambda v: " IN " if low <= v <= high else "OUT"
+                window = f"[{low:.3f}, {high:.3f}]"
+                print(f"  {bed:<36}{tier:<8}{span:>5}{len(picked):>4}{native:>11.3f}"
+                      f"{window:>20}{law:>9.3f}{law_error * 100:>8.2f}%{inside(law):>5}"
+                      f"{rendered:>12.3f}"
+                      f"{upper_middle([r['sigmaRelativeError'] for r in picked]):>8.3f}"
+                      f"{inside(rendered):>5}"
                       f"{rendered - native:>15.3f}")
     print()
     signed = [r for r in with_sigma

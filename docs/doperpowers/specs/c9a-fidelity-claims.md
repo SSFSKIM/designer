@@ -28067,7 +28067,7 @@ document's difference over the active one and is never pooled in; it reads
 Deferred item 8 seen on a second instrument.
 
 **And the two candidates disagree about which cells are wrong.** Candidate (i)
-reads the same beds at 0.15–0.41 at spans 96–160 and at **4.5–10.6 at span 44** —
+reads the same beds at 0.15–0.42 at spans 96–160 and at **4.5–10.6 at span 44** —
 that is, worst where candidate (ii) is best. On §5.160 §6's own four sheet cells,
 at 2x on the WebGPU tier:
 
@@ -28095,10 +28095,13 @@ on the span-160 ones. "Level contours rather than a haze", in numbers.
 ### 2. Candidate (i) beside B1's per-bed windows, and what the divergence means
 
 The charter asks for this table before any clause is declared, and for the reading
-to be named rather than left open. B1 is **green on every bed at every span it
-covers**, by 0.04–4.38 % against a ±5 % promise whose joint light window is
-±0.685 %. On the same cells, the RENDERED σ is wider than the native on **123 of
-150** rows that resolve both:
+to be named rather than left open. The sharpest form of it is one window with two
+things held up to it: B1's own ±5 % interval around each bed's median native σ.
+**The law's σ is INSIDE that window on every one of the twenty-five bed-tier-span
+rows the bed carries** — by 0.04–4.38 % against a promise whose joint light window
+is ±0.685 %. **The rendered σ is OUTSIDE the same window on twenty-four of the
+twenty-five**, the exception being the CSS tier at 1x light span 160. And the
+rendered σ is wider than the native on **123 of 150** rows that resolve both:
 
 | bed | tier | span | native σ | law σ | law err (B1) | rendered σ | σ_web − σ_nat |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |

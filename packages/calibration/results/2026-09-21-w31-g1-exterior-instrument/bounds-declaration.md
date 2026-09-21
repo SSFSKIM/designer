@@ -252,11 +252,13 @@ describe("W31 C1 — the shadow's exterior shape, adopted (claims §5.NNN)", () 
 
 ## 4. Candidate (i) beside B1, and what the divergence means — stated before the clause
 
-B1 is **green** on every bed at every one of its spans, and it is green by margins of 0.04–4.38 %
-against a ±5 % promise whose joint window on the light document is ±0.685 %. On the same cells,
-candidate (i) reads the rendered σ **15–41 % wider than the native** on the WebGPU tier at spans
-96–160, and the sign is one-way: **123 of 150** rows that resolve both sides read the rendered σ
-wider. Both statements are true of the same material on the same day, and the charter asks what the
+The comparison, in its sharpest form, is one window with two things held up to it: B1's own ±5 %
+interval around each bed's median native σ. **The law's σ is INSIDE it on every one of the
+twenty-five bed-tier-span rows the bed carries** — green by margins of 0.04–4.38 % against a promise
+whose joint light window is ±0.685 %. **The rendered σ is OUTSIDE it on twenty-four of those
+twenty-five**, the exception being the CSS tier at 1x light span 160. Candidate (i) reads the
+rendered σ **15–41 % wider than the native** on the WebGPU tier at spans 96–160, and the sign is
+one-way: **123 of 150** rows that resolve both sides read the rendered σ wider. Both statements are true of the same material on the same day, and the charter asks what the
 divergence means before a clause is declared. It is not ambiguous:
 
 **The two sides of B1 are not the same quantity.** B1's left-hand side is the DOCUMENT's blur leaf,
