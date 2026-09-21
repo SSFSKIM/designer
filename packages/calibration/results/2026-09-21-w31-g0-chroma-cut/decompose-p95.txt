@@ -1,0 +1,38 @@
+
+== texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: oklabDeltaEP95
+   bound 0.17   committed 0.21531   scratch 0.21530
+   reproduction: OK (|Δ| 0.000005)
+   whole capture: ΔE P95 0.21530  |ΔL| P95 0.06309  Δc P95 0.20808  chroma share of ΔE² at the P95 pixels 91.4%
+   REACHABLE by the chroma lever alone (Δc → 0): 0.06309 against a bound of 0.17  → CLAIMABLE
+     interior    43148 px  ΔE P95 0.22013  |ΔL| P95 0.06448  Δc P95 0.21227  chroma share at the P95 pixels 90.0%
+     rim         14017 px  ΔE P95 0.21253  |ΔL| P95 0.04171  Δc P95 0.21055  chroma share at the P95 pixels 96.5%
+     exterior     6835 px  ΔE P95 0.00366  |ΔL| P95 0.00357  Δc P95 0.00199  chroma share at the P95 pixels NaN%
+
+== texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: oklabDeltaEP95
+   bound 0.17   committed 0.21341   scratch 0.21341
+   reproduction: OK (|Δ| 0.000004)
+   whole capture: ΔE P95 0.21341  |ΔL| P95 0.06201  Δc P95 0.20665  chroma share of ΔE² at the P95 pixels 92.7%
+   REACHABLE by the chroma lever alone (Δc → 0): 0.06201 against a bound of 0.17  → CLAIMABLE
+     interior   173492 px  ΔE P95 0.21839  |ΔL| P95 0.06440  Δc P95 0.21134  chroma share at the P95 pixels 91.9%
+     rim         55428 px  ΔE P95 0.20699  |ΔL| P95 0.03927  Δc P95 0.20541  chroma share at the P95 pixels 95.6%
+     exterior    27080 px  ΔE P95 0.00367  |ΔL| P95 0.00359  Δc P95 0.00198  chroma share at the P95 pixels NaN%
+
+== dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: oklabDeltaEP95
+   bound 0.18   committed 0.20095   scratch 0.20095
+   reproduction: OK (|Δ| 0.000002)
+   whole capture: ΔE P95 0.20095  |ΔL| P95 0.06631  Δc P95 0.19338  chroma share of ΔE² at the P95 pixels 90.8%
+   REACHABLE by the chroma lever alone (Δc → 0): 0.06631 against a bound of 0.18  → CLAIMABLE
+     interior    43148 px  ΔE P95 0.20524  |ΔL| P95 0.06775  Δc P95 0.19772  chroma share at the P95 pixels 90.5%
+     rim         14017 px  ΔE P95 0.19873  |ΔL| P95 0.04087  Δc P95 0.19236  chroma share at the P95 pixels 92.0%
+     exterior     6835 px  ΔE P95 0.00416  |ΔL| P95 0.00379  Δc P95 0.00202  chroma share at the P95 pixels NaN%
+
+== dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: oklabDeltaEP95
+   bound 0.19   committed 0.19474   scratch 0.19474
+   reproduction: OK (|Δ| 0.000005)
+   whole capture: ΔE P95 0.19474  |ΔL| P95 0.06424  Δc P95 0.18700  chroma share of ΔE² at the P95 pixels 91.1%
+   REACHABLE by the chroma lever alone (Δc → 0): 0.06424 against a bound of 0.19  → CLAIMABLE
+     interior   173492 px  ΔE P95 0.19941  |ΔL| P95 0.06626  Δc P95 0.19130  chroma share at the P95 pixels 90.9%
+     rim         55428 px  ΔE P95 0.19135  |ΔL| P95 0.03848  Δc P95 0.18435  chroma share at the P95 pixels 92.0%
+     exterior    27080 px  ΔE P95 0.00393  |ΔL| P95 0.00364  Δc P95 0.00198  chroma share at the P95 pixels NaN%
+
+wrote decompose-p95.json
