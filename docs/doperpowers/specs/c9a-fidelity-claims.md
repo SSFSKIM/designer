@@ -31066,6 +31066,18 @@ interior chroma 0.066 → 0.334, with the gamut clamp binding at the shipped
 retention already. Recorded in §10 and in
 `e2e/gpu/w31-unsampled-dom-chroma.spec.ts`.
 
+> **The `§10` half of that pointer dangles, and the finding was carried by
+> nothing** (2026-09-21, W31 G4 review closure; §5.165 §9, finding R3). §10 above
+> records what this gate does not claim and says nothing about the unsampled-DOM
+> path; the spec file is real and pins both modes, and it was the whole of the
+> record. No tracker entry and no charter Deferred item carried it, so a measured
+> live residual with a **gamut clamp binding at the shipped retention** was one
+> test file away from being lost. **Repointed**: the record is the spec, plus the
+> tracker entry *"The unsampled-DOM path restores the body's chroma toward the
+> DECLARED tone…"* and W31 charter **Deferred item 16**, both added at that
+> closure with the reading and the policy question. The measurement is not
+> restated and nothing in the finding above moves.
+
 **The reproducibility figures were normalised two different ways**, which is why
 "within a tenth of a point" could be written at all. §7 (b)'s pre-fit figures
 divide by `R₁ₓ` and §12's post-fit figures divide by the pair's mean; the four
@@ -31371,16 +31383,46 @@ panel.
 > absorb that and M2 bounds the structure, not the level. §5.161 §7 (c) declared
 > the level stop as a number and this gate did not adopt it; tracker, with the
 > shape of the row.
+>
+> > **19.41 % is the PRE-fit reading, quoted here post-fit** (2026-09-21, §9,
+> > finding N6). On the same cell at the fitted material the pair reads **25.10 %**
+> > over the pair's mean and **28.70 %** over `R₁ₓ` — §5.164 §12 as its own closure
+> > corrects it, which is where both normalisations are tabled. The figure above is
+> > not restated. The reading it supports gets stronger rather than weaker: the
+> > quantity that biases both adopted rows is noisier after the fit than the number
+> > this paragraph cites, which is one more argument for the third row §8 declines
+> > to adopt.
 
 **`mid-chroma-solid` is not on these sheets and the reason is structural.** It is
 a PROBE scene, the canonical read is calibration + validation + the pitch ladder,
 so the canonical tree carries no macOS 27 raster of it, and X1 allows this gate no
 capture. G0's hue-ROTATION finding therefore stands open exactly where §5.164 §9
-left it, on G0's own pre-fit sheets. What is known beside it: on the `photo` cells
-the restored hues sit where the reference's do at every span and both schemes,
-which is **consistent with** a rotation that was the plate's rather than a
-hue-mapping error. This gate does not claim that, for G3's reason — the cell that
-would decide it was not read.
+left it, on G0's own pre-fit sheets.
+
+> **The second half of that reason is wrong, and the sheets are a MISS rather
+> than a structural impossibility** (2026-09-21, review closure; §9, finding R2).
+> The first half holds: the canonical tree really carries no macOS 27
+> `mid-chroma-solid` raster, so no sheet could be made from the tree. The second
+> does not. **X1 is the freeze** — no macOS 26.5-keyed path, row, bound, floor or
+> document changes — and says nothing about capture at all. **X5 bars NATIVE
+> capture**, which a web-side read is not. **X6 contemplates scratch captures by
+> name** ("RT and IC 0, the slider 0.5, one capture process, ≥ 60 s idle before
+> every browser run, **scratch captures included**"), which is a rule for how to
+> take one and therefore a licence to take one. And the proof that the route was
+> open is inside this wave: **G0 made exactly these sheets from a scratch web
+> re-capture** of the chroma bed at the shipped documents, 616 cells, nothing
+> appended (§5.161 §2). What stopped clause 7's `mid-chroma-solid` half was that
+> this gate did not run a scratch probe capture, not that it could not. Recorded
+> as a **scoping choice**: the charter's own clause 7 asked for those sheets, the
+> landing returned the `photo` half, and the miss is the charter's Deferred item 9
+> and the tracker entry beside it. Nothing about what the gate DID read moves.
+> The scene's level break — the harder half of why it could not have carried the
+> statistic anyway — is recorded with it at finding R4.
+
+What is known beside it: on the `photo` cells the restored hues sit where the
+reference's do at every span and both schemes, which is **consistent with** a
+rotation that was the plate's rather than a hue-mapping error. This gate does not
+claim that, for G3's reason — the cell that would decide it was not read.
 
 ### 3. The records
 
@@ -31586,6 +31628,19 @@ under an accessibility policy Playwright cannot record. **X6 on every browser ru
 screenshots, seven readings in `browser-runs.txt`: RT **0**, IC **0**, `NSGlassTintAmount` **0.5**,
 macOS 27.0/26A428.
 
+> **Two corrections beside that sentence, 2026-09-21 (§9, finding N10). Neither moves a reading.**
+> **(a) `browser-runs.txt` holds EIGHT**, not seven: `w31-g4-open`, `demo-shot`, `goldens`, `gpu`,
+> `platform-web`, `react-e2e`, `demo-e2e` and `w31-g4-close`. Every one reads RT 0, IC 0 and the
+> slider 0.5, so the verdict is unchanged and the count was undercounted by the gate's own open
+> reading. **(b) `macOS 27.0/26A428` is TYPED here and is machined nowhere.**
+> `record-machine.sh` reads three things — `reduceTransparency`, `increaseContrast` and
+> `NSGlassTintAmount` — and writes no OS version and no build string; the string appears in no file
+> in the evidence directory. It is the implementer's statement of the machine, believed and not
+> evidenced, and it is recorded as that rather than as a reading. A gate that wants the build string
+> to be evidence adds `sw_vers -buildVersion` to `record-machine.sh`, which is one line and is
+> deliberately not done here, because adding it now would produce a reading from a different day
+> than the runs it would sit beside.
+
 **The React suite is GREEN at this cut**, which is worth recording because the last four were not:
 0.17.0, 0.18.0, 0.19.0 and 0.20.0 each published with the tracker's standing driver-timing class
 disclosed, and 0.20.0's row in `c9d-release-checklist.md` names the two cases. Nothing was done to
@@ -31601,6 +31656,20 @@ in each; core 583,444 B, web 564,886 B, react 186,783 B.
 **Unpublished.** `pnpm release` is the user's hand — npm holds the second factor — and the tag
 `v0.21.0` follows it.
 
+> **What the rehearsal does NOT rehearse** (2026-09-21, §9, finding N10 (d)). `dry-run.sh` runs
+> `pnpm publish --dry-run` per package and then reads the packed tarballs. `pnpm release` is
+> `pnpm -r build && changeset publish`, and **`changeset publish` is never invoked, not even in a
+> dry mode** — so the step that decides WHICH packages go and in which order, and that the `fixed`
+> group moves together, is the one step no rehearsal since **0.1.0** has exercised. What the
+> rehearsal does cover is the thing npm would get wrong on its own — the `workspace:` rewrite — and
+> that is the failure this project actually hit. The tool has not moved under it either:
+> `@changesets/cli` is pinned at **3.0.1** in `pnpm-workspace.yaml`'s catalog and 3.0.1 is what is
+> installed, the same version 0.1.0 published through. So the gap is real and bounded: the publish
+> path's last live exercise is six releases old, on an unmoved tool. Recorded here and in
+> `c9d-release-checklist.md`'s 0.21.0 row rather than closed, because closing it means either
+> `changeset publish --dry-run` — which changesets does not offer in a form that proves the
+> ordering — or publishing, which is the user's hand.
+
 ### 8. What this gate does not claim
 
 It adopts no third material-axis row: the level stop of §5.161 §7 (c) is still a
@@ -31613,3 +31682,93 @@ about `mid-chroma-solid`'s hue rotation, about the retention under Increase
 Contrast alone, or about what retentions the two accessibility documents should
 carry — each is recorded with its measurement and its unknown. And it does not
 publish or tag: `pnpm release` is the user's hand.
+
+### 9. Review closure (2026-09-21)
+
+An independent read-only review of this gate found **the gate sound**: it
+reproduced the adoption's figures and found no measurement wrong, no bound
+mis-stated and no verdict unsupported by what the gate read. What it returned was
+**one blocking word in a README about to ship, four fixes to the RECORD and seven
+non-blocking items** — and, as at W31 G1's and G2's closures, not one of them in a
+number. **No statistic, bound, floor, count, exclusion or verdict of §1 through §8
+moves at this closure.**
+
+What this closure did not touch, said because an untouched thing is otherwise
+indistinguishable from an overlooked one: **no material constant, profile
+document, leaf, native fixture, golden, matrix row or superseded row**;
+**no test assertion** — the two edits to `test/adopted-thresholds.test.ts` are
+comments, and the suite's count is unchanged; **no capture of any kind** (X5, X6);
+**the version stays 0.21.0 and `.changeset/` is untouched**. Every correction is
+recorded **beside** the text it corrects and dated, the gate's committed outputs
+are byte-unchanged, and **two new evidence files are added beside them** rather
+than replacing any. `freeze.py verify` reads **1,818 intact** at this closure's
+open and at its close.
+
+| # | what the review found | verified how | what closed it |
+| --- | --- | --- | --- |
+| **B-1** | **`packages/platform-web/README.md` says the Increase-Contrast-alone gap is "a combination the reference bed does not measure".** It is about to ship in 0.21.0 and it is false about the reference bed, which is the one thing a reader could check | `apps/reference-apple/scenes.json` names the profile `apple-macos-27.0-1x-light-increased-contrast-glass0.5` — Increase Contrast ALONE, decoupled — and the **32 fixtures are on disk**; what is absent is this wave's WEB-side read of them | The word: **"the wave's bed"**, which is what the CHANGELOG and the renderer README already say. The gap is unchanged and still recorded as open; what changed is that it no longer blames the reference bed for a hole in the wave's own reading |
+| **R-2** | **Clause 7's verdict reads a bare "MET" while the chartered `mid-chroma-solid` sheets were never made**, and the reason recorded for it — "X1 allows this gate no capture" — is wrong in all four places it appears | the contracts read against each other: **X1 is the freeze** and says nothing about capture; **X5 bars NATIVE capture only**; **X6 contemplates scratch captures by name**; and **G0 made exactly those sheets from a scratch web re-capture** inside this wave (§5.161 §2) | The verdict is qualified beside — **"MET on the `photo` half; the `mid-chroma-solid` sheets are a miss, Deferred item 9"** — and the charter's Status line carries the same qualifier. The reason is corrected in all four places (§2 above, `eye.md` §6, charter Deferred item 9, the tracker entry) as a **scoping choice**: the route was open and this gate declined it. Nothing about what the gate DID read moves |
+| **R-3** | **§5.164 §13's finding N7 is carried by nothing.** The WebGPU unsampled-DOM path restores toward the DECLARED tone rather than the real backdrop — interior chroma **0.066 → 0.334**, **gamut clamp binding at the shipped retention** — and its "Recorded in §10" pointer dangles: §10 records what that gate does not claim and says nothing about it. No tracker entry, no Deferred item | §5.164 §10 read end to end; `e2e/gpu/w31-unsampled-dom-chroma.spec.ts` confirmed to exist and to pin both modes; the tracker and the charter's Deferred list searched | A **tracker entry** and **charter Deferred item 16**, each with the reading, the spec and the policy question (stand the retention down on that path, or state that a declared tone is a colour claim and not only a level one). The pointer is **repointed beside N7** at the spec, the entry and the item. A measured live residual with a binding clamp was one test file away from being lost |
+| **R-4** | **`mid-chroma-solid`'s LEVEL break is tracked nowhere.** §5.161 §3 (b) records `interiorMeanWeb` **0.0761 against a native 0.2856** at 1x dark inactive and **0.6134 against 0.3957** at 1x light rest, and the charter's Surprises rule that the anchor "must not carry the tolerance until its level agrees" — and every open record of that scene is about the hue ROTATION | both readings read back at §5.161 §3 (b) and at the charter's Surprises; the tracker and Deferred list searched for either figure | Added **beside the hue rotation** in the existing tracker entry and in Deferred item 9, with the bias factors **2.415×** and **0.75×** (§5.161 §3 (b) as its own closure corrects the dark one, N6) and the consequence stated: **a `--set probe` run answers the rotation and does not answer the level**, so a wave that reads the probe set should expect the level miss still to be there |
+| **R-5** | **Every published "before" is in a statistic no published "after" is given in.** The READMEs and the CHANGELOG state the gap as a chroma-MEAN ("about half" / "a tenth", against a reference keeping 0.71–0.83 and 0.90–0.97) and then give no after in it, because the wave fitted the SPREAD ratio. A reader cannot close the sentence — and on the light scheme the "before" is `1 − alpha`, not the mean, so a naive comparison reads "nothing moved" | **`chroma-mean-after.py` / `.txt`**, new evidence beside the gate's own, which imports `chroma-cut.py`'s bed predicate rather than restating it and reads ratio (ii) off the committed `results/matrix.json`. Cross-checked by the column that must NOT move: the run's four native ranges reproduce §5.161 §3's declared-bed table to **< 5e-5** on every bed | The table below, added beside in both READMEs and in the CHANGELOG's 0.21.0 entry, each saying in one place that the fit was judged on the SPREAD statistic and that these means are the record's other column and not the bound |
+| N-6 | **The worst dark reproducibility pair is quoted PRE-fit in three open records** — 19.41 % at the charter's Deferred item 11, at §2 (c) above and in the tracker's level-stop entry — when §5.164 §12's own closure records the post-fit figures | §5.164 §12's corrected table, both normalisations | Corrected beside in all three: **25.10 %** over the pair's mean and **28.70 %** over `R₁ₓ`. The reading gets STRONGER — the quantity biasing both adopted rows is noisier after the fit than the number those records cite, which is another argument for the third row §8 declines to adopt |
+| N-7 | **`adopted-thresholds.test.ts` justifies the band against the wrong spread, twice**: the header's "five times wider" and the M1 block's "about four times the dark bed's median spread", the latter beside a sentence that already gives the post-fit 10.6 % | arithmetic against the post-fit dark median **10.60 %** (§7 (b)'s normalisation, §5.164 §12 as corrected): ±0.20 is **1.9×** the half-band and **3.8×** the full one; against the pre-fit 9.1 % it is 2.2× and 4.4×, so five was never right either | Both corrected **in comments**, with the cited denominator moved to 10.60 % and the reason stated — the post-fit median is the spread the band has to sit above on the material this file now gates. **No assertion moves**; the suite's count is unchanged |
+| N-8 | **`cut-discrimination.txt` perturbs four of the five cases this gate adopted.** The fifth — the per-bed count guard, whose whole job is to catch a bed that quietly stopped contributing — had never been seen to fail, which is the class the file exists to close | **`cut-discrimination-closure.py` / `.txt`**, new evidence beside the committed one, which imports the original's runner rather than copying it. The guard's own failure mode: one `dark|active` cell dropped from the committed cut | The guard **goes red** (`carries every bed the two documents draw, at the cell counts the read left`), M1's median clause and the re-derivation with it, the cut is **restored byte for byte** (sha256 `e9745f6d…` before and after) and the suite is green again at the restored cut. `cut-discrimination.txt` is committed evidence and is **not rewritten** |
+| N-9 | **"The material axis gets its first two adopted rows" frames `M2` as a fidelity row** | the two clauses read against what each is stated over | Said beside in the test header and here: **`M1` is against APPLE** — web over native on the same cell — and is the fidelity bound; **`M2` is against vitrea's own PRE-FIT generation** and is a **regression stop**, green on a body that never resembled the reference. The axis gains one fidelity row and one guard on it, which is a smaller claim than the sentence carries and is the one the header's two grounds are actually answered by |
+| N-10 | **Four things in the chain's record.** (a) "seven readings in `browser-runs.txt`"; (b) the `macOS 27.0/26A428` build string in §7; (c) `chain.sh`'s `pnpm --filter` steps carry no `--fail-if-no-match`, which `CLAUDE.md` mandates; (d) `dry-run.sh` never invokes `pnpm release` | (a) the file counted: **eight**; (b) `record-machine.sh` read — it writes RT, IC and `NSGlassTintAmount` and **no OS or build string**, and `26A428` appears in no file in the directory; (c) the script read against `CLAUDE.md` and against `ci.yml`'s own usage; (d) `pnpm release` is `pnpm -r build && changeset publish`, and `changeset publish` at **3.0.1** offers no dry mode (`--help` read) | (a) corrected beside — all eight read RT 0 / IC 0 / slider 0.5, so the verdict stands; (b) recorded beside as **typed and not machined**, with the one-line fix named (`sw_vers -buildVersion` in `record-machine.sh`) and deliberately not applied, since a reading taken today would sit beside runs from another day; (c) **`chain.sh` fixed for the next chain** — the committed logs are not re-run and each names its suite and per-file counts, so the record shows the suites ran; (d) recorded beside here and in `c9d-release-checklist.md`'s 0.21.0 row: the publish command's **last live exercise is 0.1.0**, on a tool that has not moved (3.0.1, catalog-pinned and installed) |
+| N-11 | **`eye.md` §5's "the ΔE × 8 panel is nearly black on all four"** describes the interior and the field, not the panel | the four committed `rrect-sm` sheets looked at again | Corrected beside in `eye.md` §5: the field is black and the interior near-black with faint structure, and **the RIM is a bright outline on all four**, the brightest thing in the panel. The section's reading is strengthened — the overshoot the ceiling names lives in the interior, where the panel is dark, while the bright band is rim geometry `R` does not measure — but "nearly black" read as "no signal anywhere" would be wrong |
+| N-12 | **The tracker's header rule — "entries are removed when they are fixed" — is contradicted by about twenty entries closed in place**, some struck through in their heading | the file counted | The header is **reconciled to what the file does**, with both practices stated and the condition for each: **removed** when the commit is the whole record (the default, and why — a tracker of closed items is one nobody reads to the bottom), **closed in place** when the closure's own reading is worth keeping beside the finding (the fix measured something, took another shape, closed half, or reversed the premise). When in doubt, close in place: a reader can skip a closed entry and cannot recover a deleted one |
+
+**R-5's table, which is the one figure this closure adds to the record.** Ratio
+(ii), the interior's per-pixel OKLab chroma mean over the backdrop's, on the bed
+`chroma-cut.py` declares — untinted `photo`, the four macOS 27 standard profiles
+at both scales, `calibration` + `validation`, WebGPU tier, at the shipped document
+bytes, the poses separated. The BEFORE column is **not recomputed**: the pre-fit
+generation predates this instrument and those rows carry no chroma field at all
+(§5.164 §4, N15), so it is quoted from §5.161 §3 as its own closure corrects it.
+The NATIVE column is the proof that the two are the same bed.
+
+| bed | n | web BEFORE | **web AFTER** | native (this run) | native (§5.161 §3) |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| light active | 10 | 0.2385–0.3121 | **0.5118–0.5716** | 0.7180–0.8329 | 0.7180–0.8329 |
+| light inactive | 8 | 0.2526–0.3304 | **0.5757–0.6616** | 0.7089–0.8164 | 0.7089–0.8164 |
+| dark active | 4 | 0.1059–0.1137 | **0.3499–0.3672** | 0.9173–0.9732 | 0.9173–0.9732 |
+| dark inactive | 4 | 0.1144–0.1227 | **0.2188–0.2291** | 0.9030–0.9060 | 0.9030–0.9060 |
+
+The dark scheme's focused body goes from about an eighth of the backdrop's chroma
+to about a third; the light scheme's from about a quarter to about a half. Neither
+reaches the reference, and the residual is larger in this statistic than in the
+one M1 bounds — which is the point of recording both rather than one: **`R` is a
+ratio of spreads and the blur cancels in it, so a body can track the reference's
+structure of colour while carrying less colour overall.** That difference is not a
+defect found here; it is the structure deficit §5.164 §5 and the charter's
+Deferred item 5 already name, seen through a second instrument. `M1` and `M2` are
+unaffected and are stated over `R`, where they were declared.
+
+**Two things this closure found rather than the review.** First, the light
+material's published "before" — *"about half of them in the light material"* — is
+`1 − alpha`, the fraction the plate transmits, and **not** the measured mean the
+reference beside it is quoted in, which read **0.2385–0.3304**. A reader comparing
+0.513 against the after 0.51–0.57 would have concluded the light scheme did not
+move, when it roughly doubled. Both READMEs and the CHANGELOG now name which
+statistic each figure is. Second, the `--fail-if-no-match` gap in `chain.sh` is a
+**silent-green** class rather than a style lapse: a filter that matches nothing
+exits 0 and runs nothing, so a renamed package would have written an empty log, a
+green exit into `chain-status.v2.txt` and a row in §7's table saying a suite passed
+that never ran — the same shape as the clause-that-cannot-fail class this wave
+closed twice on its own bounds, arriving in the chain instead.
+
+**Verification of this closure.**
+
+| step | result |
+| --- | --- |
+| `python3 results/2026-09-16-w29-freeze/freeze.py verify` | **26.5 freeze intact: 1818 entries**, at this closure's open and close |
+| `pnpm -r build` | exit 0 |
+| `pnpm -r lint` | exit 0 |
+| `pnpm --filter @vitrea/calibration test` | **596 passed**, 0 failed — unchanged against §7's count for this package, which is what a comment-only edit to `adopted-thresholds.test.ts` has to produce |
+| `python3 chroma-mean-after.py` | exit 0; the native cross-check agrees with §5.161 §3 on all four beds to < 5e-5 |
+| `python3 cut-discrimination-closure.py` | exit 0; the per-bed count guard RED on the perturbation, the cut restored byte for byte, the suite green again |
+| `results/matrix.json`, `results/superseded/`, `profiles/`, the goldens, the native fixtures, `.changeset/` | untouched |
+| `test/adopted-thresholds.test.ts` | comments only; no assertion, bound, literal or excluded row moves |
+| the version | **0.21.0**, still prepared and unpublished |
+

@@ -1,0 +1,52 @@
+W31 G4 review closure — ratio (ii), the MEAN chroma statistic, AFTER the fit
+(claims §5.165 §9, finding R5).
+
+ratio (ii) = interiorChromaMean{Web,Native} / interiorChromaMeanBackdrop, read off
+the committed results/matrix.json on chroma-cut.py's own declared bed.
+
+shipped macOS 27 documents: {"packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5-receded.json": "cc4ed1038996", "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5.json": "b5714a866288", "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json": "14c6bacf2eda", "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json": "49490eb9ff7a"}
+
+The BEFORE column is not computable here and is not recomputed: the pre-fit
+generation predates this instrument, so those rows carry no chroma field at all
+(claims §5.164 §4, N15). It is quoted from claims §5.161 §3 as its own review
+closure corrects it (finding N4's declared-bed table), which is the same bed.
+The NATIVE column is the cross-check that it is: the reference does not move
+with the fit, so this run's native ranges must reproduce §5.161 §3's exactly.
+
+bed                n   web BEFORE       web AFTER     |   native (this run)   native (§5.161 §3)
+light|active     10   0.2385-0.3121   0.5118-0.5716   |   0.7180-0.8329   0.7180-0.8329  agrees
+light|inactive    8   0.2526-0.3304   0.5757-0.6616   |   0.7089-0.8164   0.7089-0.8164  agrees
+dark|active       4   0.1059-0.1137   0.3499-0.3672   |   0.9173-0.9732   0.9173-0.9732  agrees
+dark|inactive     4   0.1144-0.1227   0.2188-0.2291   |   0.9030-0.9060   0.9030-0.9060  agrees
+
+the native cross-check: all four beds agree to <5e-5
+
+per cell:
+
+profile                                             scene                               web (ii)  native (ii)
+apple-macos-27.0-2x-dark-standard-glass0.5          photo__capsule-button__rest           0.3672       0.9732
+apple-macos-27.0-2x-dark-standard-glass0.5          photo__rrect-md__rest                 0.3651       0.9173
+apple-macos-27.0-1x-dark-standard-glass0.5          photo__capsule-button__rest           0.3568       0.9728
+apple-macos-27.0-1x-dark-standard-glass0.5          photo__rrect-md__rest                 0.3499       0.9178
+apple-macos-27.0-1x-dark-standard-glass0.5          photo__capsule-button__inactive       0.2291       0.9034
+apple-macos-27.0-2x-dark-standard-glass0.5          photo__rrect-md__inactive             0.2271       0.9060
+apple-macos-27.0-2x-dark-standard-glass0.5          photo__capsule-button__inactive       0.2269       0.9051
+apple-macos-27.0-1x-dark-standard-glass0.5          photo__rrect-md__inactive             0.2188       0.9030
+apple-macos-27.0-1x-light-standard-glass0.5         photo__toolbar-group__rest            0.5716       0.8329
+apple-macos-27.0-1x-light-standard-glass0.5         photo__rrect-sm__rest                 0.5694       0.7212
+apple-macos-27.0-2x-light-standard-glass0.5         photo__toolbar-group__rest            0.5581       0.8315
+apple-macos-27.0-1x-light-standard-glass0.5         photo__capsule-button__rest           0.5460       0.7850
+apple-macos-27.0-2x-light-standard-glass0.5         photo__rrect-sm__rest                 0.5414       0.7180
+apple-macos-27.0-2x-light-standard-glass0.5         photo__capsule-button__rest           0.5297       0.7843
+apple-macos-27.0-1x-light-standard-glass0.5         photo__rrect-ml__rest                 0.5214       0.8025
+apple-macos-27.0-2x-light-standard-glass0.5         photo__rrect-ml__rest                 0.5202       0.8024
+apple-macos-27.0-1x-light-standard-glass0.5         photo__rrect-md__rest                 0.5181       0.7891
+apple-macos-27.0-2x-light-standard-glass0.5         photo__rrect-md__rest                 0.5118       0.7890
+apple-macos-27.0-2x-light-standard-glass0.5         photo__rrect-sm__inactive             0.6616       0.7089
+apple-macos-27.0-2x-light-standard-glass0.5         photo__toolbar-group__inactive        0.6409       0.8145
+apple-macos-27.0-1x-light-standard-glass0.5         photo__toolbar-group__inactive        0.6199       0.8164
+apple-macos-27.0-2x-light-standard-glass0.5         photo__capsule-button__inactive       0.6153       0.7492
+apple-macos-27.0-1x-light-standard-glass0.5         photo__rrect-sm__inactive             0.6055       0.7161
+apple-macos-27.0-1x-light-standard-glass0.5         photo__capsule-button__inactive       0.5908       0.7478
+apple-macos-27.0-2x-light-standard-glass0.5         photo__rrect-md__inactive             0.5894       0.7979
+apple-macos-27.0-1x-light-standard-glass0.5         photo__rrect-md__inactive             0.5757       0.7950

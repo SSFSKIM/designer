@@ -117,6 +117,17 @@ one the native plate is a small pink-lilac rectangle and vitrea's is a small pin
 with a marginally stronger, slightly bluer cast; the ΔE × 8 panel is nearly black on all four,
 where on `rrect-lg` at the same gain it is nearly white.
 
+> **"Nearly black on all four" is the INTERIOR and the field, not the whole panel** (2026-09-21,
+> review closure; claims §5.165 §9, finding N11). Re-read on the four committed sheets: the field
+> around the surface is black and the surface's interior is near-black with faint structure in it —
+> and the **RIM is a bright outline on all four**, the brightest thing in the panel by a wide margin.
+> The reading the sentence draws is unchanged and is if anything strengthened: the overshoot the
+> ceiling names lives in the INTERIOR, which is where the panel is dark, while the bright band is the
+> rim geometry these cells share with every other span and is not what `R` measures. But a later
+> reader taking "nearly black" as "no signal anywhere on the cell" would be reading the panel wrong,
+> and at span 160 the same ×8 gain has the interior bright instead — which is §4's own correction to
+> §5.164 §9 seen from the other end.
+
 That is worth saying exactly, because it cuts both ways and the record should carry both halves.
 
 - **The overshoot is real and it is not visible.** `R` 1.52 is a 52 % excess on a ratio whose
@@ -138,6 +149,17 @@ sees at span 32.** Recorded that way in §5.165 rather than as "three cells look
 `mid-chroma-solid` is a **probe** scene. The canonical read is calibration + validation + the pitch
 ladder (§5.164 §7), so the canonical tree carries no macOS 27 `mid-chroma-solid` capture at all, and
 X1 allows this gate no calibration capture of its own. So:
+
+> **Corrected beside, 2026-09-21 (review closure; claims §5.165 §9, finding R2).** The first clause
+> is right and the second is not. **X1 is the freeze** and says nothing about capture; **X5** bars
+> NATIVE capture only; **X6** contemplates scratch captures by name and is a rule for taking one
+> rather than a bar on it; and **G0 made these very sheets from a scratch web re-capture** earlier in
+> this wave. So the sheets below are a **miss of clause 7** — a scoping choice this gate made — and
+> not something the contracts forbade. Everything this section records about what WAS looked at
+> stands. Beside the rotation, the scene is also LEVEL-broken (finding R4): 1x dark inactive
+> `interiorMeanWeb` **0.0761 against a native 0.2856**, 1x light rest **0.6134 against 0.3957**,
+> which the charter's Surprises rule disqualifies it from carrying the statistic until it agrees.
+> A `--set probe` run answers the rotation and does not answer that.
 
 - **G0's hue ROTATION finding stands open exactly where §5.164 §9 left it** — the reference's body
   a clean lighter pink and vitrea's a lavender, desaturated *and* rotated toward blue, with

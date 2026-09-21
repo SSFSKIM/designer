@@ -153,6 +153,20 @@ what a photograph's hues survive at is `1 − sizedAlpha` — 0.513 light, 0.095
 light cells and 0.903–0.973 on the dark ones. It is a mechanism the material lacked, and **`bodyChromaRetention`**
 is it (claims §5.161 §5, fitted in §5.164).
 
+**Said in the statistic the reference is quoted in, before and after** (2026-09-21,
+review closure; claims §5.165 §9, finding R5). `1 − sizedAlpha` is what the plate
+TRANSMITS; the reference's 0.709–0.833 and 0.903–0.973 are a measured mean, the
+body's per-pixel OKLab chroma over the backdrop's, and the two are not the same
+number even before the fit — the light body measured **0.2385–0.3304** and the
+dark one **0.1059–0.1227** on the declared bed (§5.161 §3). After the fit the same
+measurement reads **0.5118–0.5716** light active, **0.5757–0.6616** light
+inactive, **0.3499–0.3672** dark active and **0.2188–0.2291** dark inactive
+(`chroma-mean-after.txt`, off the committed matrix). None of those is what was
+FITTED: the wave fitted `R`, the chroma-to-structure SPREAD ratio, in which the
+blur cancels and which is what the eye reads as colour in a body, and `R` is what
+`M1` bounds. The mean is recorded beside it because it is the statistic the gap
+was first stated in.
+
 The colour is mixed toward `backdrop · (Y / Y_backdrop)` — the backdrop's
 chromaticity carried to the colour's own linear luma — by the retention. **Luma
 is held by construction, not by correction**: both endpoints of the mix carry

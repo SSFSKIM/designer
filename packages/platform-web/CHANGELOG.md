@@ -17,6 +17,17 @@
   own backdrop's in the light scheme and 0.90 to 0.97 in the dark one. It is a
   mechanism the material did not have.
   
+  **Amended beside 2026-09-21 (review closure; claims §5.165 §9, finding R5): the
+  before and the reference above are two different statistics, and the after was
+  never given in either.** The reference's 0.71–0.83 and 0.90–0.97 are a measured
+  MEAN — the body's per-pixel chroma over the backdrop's — where `1 − sizedAlpha`
+  is what the plate transmits; measured the same way, vitrea's body read 0.24–0.33
+  light and 0.11–0.12 dark BEFORE the fit, and **0.51–0.57 light active, 0.58–0.66
+  light inactive, 0.35–0.37 dark active and 0.22–0.23 dark inactive after it**.
+  What the fit was judged on is neither: it is the chroma-to-structure SPREAD
+  ratio, in which the blur cancels and which is what the eye reads as colour in the
+  body. No number recorded above moves; this is the column that was missing.
+  
   It has one now. After the body's composite the colour's CHROMATICITY is restored
   toward the blurred backdrop's, carried to the colour's own linear luma, by a
   fitted fraction per colour scheme and per window pose. The level does not move:
@@ -50,7 +61,8 @@
     that backdrop's hues in its body** rather than a grey of the same lightness.
     The effect is largest where the plate left least of the backdrop to begin
     with — the dark scheme, whose body carried about a tenth of the backdrop's
-    chroma — and an unfocused window gains a chroma law it never had, though on
+    chroma and now carries between a fifth and three eighths of it (the amendment
+    above) — and an unfocused window gains a chroma law it never had, though on
     the dark scheme that endpoint is also the one the fit moved least.
   - **A surface over a neutral backdrop is unchanged**, to the bit: a retention
     toward the backdrop's chromaticity is the identity where the backdrop has none.

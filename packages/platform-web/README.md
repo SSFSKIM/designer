@@ -339,11 +339,26 @@ blurred backdrop, so what a backdrop's hues survived at was `1 − alpha` — ab
 half of them in the light material and a tenth in the dark one — against a
 reference that keeps 0.71 to 0.83 and 0.90 to 0.97 of its own. Now the composited
 colour's chromaticity is restored toward the blurred backdrop's by a fitted
-fraction per colour scheme and per window pose. **The level does not move**: both
-ends of that mix carry the same linear luminance by construction, and gamut is
-taken by scaling chroma toward the neutral at a held luma rather than by clipping
-a channel. An author's tint still displaces the result exactly as it did, because
-the tint's shade law reads a luminance the restoration preserves. Over a NEUTRAL
+fraction per colour scheme and per window pose.
+
+**The after, in the same statistic as the before, because they were not the same
+one** (2026-09-21, review closure; claims §5.165 §9, finding R5). The reference
+figures above are a measured MEAN — the body's per-pixel chroma over the
+backdrop's — and the light material's "about half" is not: it is `1 − alpha`, the
+fraction the plate transmits, where the same measurement read **0.24 to 0.33**
+before the fit. Measured the same way after it, the body keeps **0.51 to 0.57**
+of the backdrop's chroma on a focused light window and **0.58 to 0.66** on an
+unfocused one, **0.35 to 0.37** and **0.22 to 0.23** on the dark scheme's, against
+the reference's 0.71–0.83 and 0.90–0.97. What the fit was judged on is a
+different statistic again — the chroma-to-structure SPREAD ratio, in which the
+blur cancels and which is what the eye reads as colour in the body — so these
+means are the record's other column and not the bound.
+
+**The level does not move**: both ends of that mix carry the same linear
+luminance by construction, and gamut is taken by scaling chroma toward the
+neutral at a held luma rather than by clipping a channel. An author's tint still
+displaces the result exactly as it did, because the tint's shade law reads a
+luminance the restoration preserves. Over a NEUTRAL
 backdrop nothing changes, to the bit — restoring toward a chromaticity that is
 not there is the identity.
 
@@ -370,7 +385,7 @@ Three things to know before taking it.
   raises no occlusion of its own, and macOS 27 decoupled the two switches — so a
   page under Increase Contrast by itself draws the retention at full value. That
   is not a regression against 0.20.0, which had no operator; it is a combination
-  the reference bed does not measure, and it is recorded as an open gap rather
+  the wave's bed does not measure, and it is recorded as an open gap rather
   than claimed either way.
 - **The fidelity target is the WebGPU tier**, which is where the fit was judged
   and where the two adopted gate rows are stated. A page that resolves to the CSS

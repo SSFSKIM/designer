@@ -9,6 +9,27 @@ an implementation job rather than an investigation.
 Entries are removed when they are fixed, not struck through: the commit is the
 record.
 
+**Reconciled with what this file actually does, 2026-09-21** (W31 G4 review
+closure; claims §5.165 §9, finding N12). Both practices are in here — about twenty
+entries are CLOSED IN PLACE, some struck through in their heading, rather than
+removed — so the rule above described one of two. It is kept as the default and
+the second is now stated rather than left to be inferred:
+
+- **Removed when the commit is the whole record.** The entry said what was wrong,
+  a commit fixed exactly that, and nothing a later reader needs survives the fix.
+  This is most entries and stays the default: a tracker of closed items is a
+  tracker nobody reads to the bottom.
+- **Closed in place when the CLOSURE's own reading is worth keeping beside the
+  finding.** The fix measured something, or took a different shape from the one
+  the entry proposed, or closed one half and left the other, or reversed the
+  entry's premise. Then the pair — what was believed and what was found — is the
+  record, and splitting it across a commit message and a deleted entry loses it.
+  Mark the heading CLOSED with the date and the gate, keep the original text
+  unedited, and put the closure under it.
+
+When in doubt, close in place: a reader can skip a closed entry and cannot
+recover a deleted one without knowing it existed.
+
 ---
 
 ## The e2e suites inherit the machine's accessibility settings
@@ -4588,15 +4609,39 @@ allowed neither W31 G3 nor W31 G4 a capture of its own. So the canonical
 last look anyone has taken at it is G0's, at the pre-fit material, in
 `results/2026-09-21-w31-g0-chroma-cut/sheet__*__mid-chroma-solid__*.png`.
 
+**Corrected beside, 2026-09-21 (review closure; claims §5.165 §9, finding R2):
+only half of that is structural.** The canonical tree really carries no raster, so
+no sheet could come from the tree. But **X1 is the freeze** and says nothing about
+capture, **X5** bars NATIVE capture only, **X6** contemplates scratch captures by
+name, and **G0 made this scene's sheets from a scratch web re-capture** inside the
+same wave. Both gates could have run a `--set probe` capture and neither did. The
+entry stands; its reason is now "declined", not "forbidden", and clause 7's
+`mid-chroma-solid` sheets are a recorded miss rather than an impossibility.
+
+**And the rotation is not the only thing wrong with this scene** (2026-09-21,
+review closure; finding R4). It is also **LEVEL-broken**, which is tracked nowhere
+else and is the harder half. Its 1x dark inactive cell reads `interiorMeanWeb`
+**0.0761 against a native 0.2856** over a backdrop of 0.2141 — the reference's
+receded body is BRIGHTER than what is behind it and vitrea's is a quarter of it —
+and its 1x light rest cell reads **0.6134 against 0.3957**. Since the chroma ratio
+scales as `(level)^(−2/3)` exactly, those bias it by **2.415×** and **0.75×**
+(claims §5.161 §3 (b), as its own closure corrects the dark figure at N6), and the
+W31 charter's Surprises rule that the anchor **"must not carry the tolerance until
+its level agrees"**. A probe capture answers the rotation and does not touch this;
+a wave that reads the probe set should expect the level miss still to be there,
+and closing it is a separate fit on a separate lever.
+
 What is known beside it: on the `photo` cells the restored hues sit where the
 reference's do at every span and both schemes, which is **consistent with** a
 rotation that was the plate's rather than a hue-mapping error. Neither G3 nor G4
 claims that, because the cell that would decide it was not read.
 
 **The fix shape**: read the probe set at the shipped documents — it is a
-`--set probe` run, no new fixture and no native capture — and put the sheet
-beside G0's. If the rotation is gone it was the plate's and the entry closes; if
-it survives, `tintHueShift*` is the lever and it has never been fitted.
+`--set probe` run, no new fixture and no native capture, and no contract stands in
+its way — and put the sheet beside G0's. If the rotation is gone it was the
+plate's and that half closes; if it survives, `tintHueShift*` is the lever and it
+has never been fitted. The level half needs its own reading and does not close
+with the sheet.
 
 ---
 
@@ -4617,8 +4662,13 @@ capsule is not only greyer than the reference's but visibly **darker**, and the
 two are not separable by eye. That cell carries the bed's largest level miss
 (0.0457 at 1x, 0.0493 at 2x) and is the dark bed's worst 1x-against-2x
 reproducibility pair at 19.41 % — the spread is the level miss speaking through
-the exponent. M1's own band was widened to absorb it and M2 does not reach it:
-M2 bounds the structure, not the level.
+the exponent. *(2026-09-21, review closure; claims §5.165 §9, finding N6: **19.41 %
+is the PRE-fit figure**. On the same cell after the fit the pair reads **25.10 %**
+normalised over the pair's mean and **28.70 %** over `R₁ₓ` — claims §5.164 §12 as
+its own closure corrects it. The number above is not restated; the post-fit
+readings are what a wave picking this up should size the work against, and they
+make the case stronger rather than weaker.)* M1's own band was widened to absorb
+it and M2 does not reach it: M2 bounds the structure, not the level.
 
 So the material axis now has two adopted rows and the quantity that biases both
 of them is gated by nothing. Nothing else gates it either:
@@ -4663,3 +4713,46 @@ two accessibility profiles, none moved), which covers one half of it.
 **The fix shape**: commit the generator — or extend
 `accessibility-identity.py`'s selection to the standard rows, which is a change
 to one set literal — and print counts rather than a truncated enumeration.
+
+---
+
+## The unsampled-DOM path restores the body's chroma toward the DECLARED tone, not toward the real backdrop (W31 G4 review closure, 2026-09-21)
+
+*Found by W31 G3c's independent review and corrected by its closure (claims
+§5.164 §13, finding N7); carried here 2026-09-21 because §5.165 §9 finding R3
+found it recorded in no tracker entry and no Deferred item, with its ledger
+pointer aimed at a section that does not carry it.*
+
+`body_chroma_retention` restores the composited colour's chromaticity toward the
+BACKDROP's. On the unsampled-material path nothing sampled a backdrop, so the
+shader is handed `dom_material_backdrop()`, which has two modes:
+
+- **Mode 1** — a group with no declared `backdropTone` — returns a fabricated
+  NEUTRAL at the declared reference luminance. The review read this and called
+  the operator a desaturation. It is one in form and **the identity in effect**:
+  the plate is `solvedNeutral` and the fabricated backdrop is a grey, so both
+  endpoints of the mix coincide and **zero bytes move**, measured at three
+  retentions up to 1.
+- **Mode 2** returns `ou.toneColour.rgb`, the tone the page DECLARED, which can
+  carry a chromaticity. Here the operator is live and it restores toward a colour
+  the page asserted rather than toward what is actually behind the surface.
+  Measured: interior chroma **0.066 → 0.334**, with the **gamut clamp already
+  binding at the shipped retention**.
+
+So a page on the unsampled path whose declared `backdropTone` is not its real
+backdrop now gets a body carrying the hue it was told about, at a third of full
+chroma, where before 0.21.0 it got a grey. Nothing is wrong in the shader: the
+operator does what it says over the backdrop it is given, and on this path the
+declared tone IS the only backdrop the runtime has. What is undecided is whether
+restoring toward a declared tone is the right behaviour at all, and the gamut
+clamp binding at the shipped value says the question is not academic.
+
+`packages/renderer-webgpu/e2e/gpu/w31-unsampled-dom-chroma.spec.ts` is the
+evidence and pins both modes.
+
+**The fix shape**: decide the policy first, because the code follows it in one
+line either way — stand the retention down on the unsampled path (it is already
+an exhaustive switch on the occlusion axis, so a second condition is cheap), or
+keep it and document that a declared tone is a colour claim and not only a level
+claim. Whichever is chosen, the clamp wants a reading beside it: at the shipped
+retention it binds, so the fitted fraction is not what that path draws.
