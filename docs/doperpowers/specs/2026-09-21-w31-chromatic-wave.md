@@ -881,6 +881,13 @@ until somebody charters it.
 
 ## Revision Notes
 
+- 2026-09-21 (the parent): **G3c merged** (`c72f90b7`): the hard gate adopted on measurement (the lift
+  rule left two accessibility beds at R 1.79 / 1.83), 0.20.0's accessibility rasters restored 48 of 48,
+  every standard row bit-identical, the four light profiles re-read under the non-fit clause, thirty
+  review findings closed beside. The read's capture tree copied to the canonical `web-captures/`
+  (light hash `49490eb9ff7a`). **G4 dispatched** with Decision Log 3 (a)–(d) as ruled; G3c's own
+  independent review runs beside it and folds into G4's closure.
+
 - 2026-09-21 (G3c): **the regression is fixed by the fallback and not by the
   rule, and that is the gate's one finding of its own** (claims §5.164 §13).
   Four things worth carrying past this gate.
