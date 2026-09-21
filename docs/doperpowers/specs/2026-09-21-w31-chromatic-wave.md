@@ -576,7 +576,7 @@ tier's `saturate()` constants as fitted rather than authored values.
 | --- | --- | --- | --- |
 | G0 | OPEN | §5.161 | `results/2026-09-21-w31-g0-chroma-cut/` |
 | G1 | **MERGED** — the clause C1 declared on the departure profile's SHAPE; candidate (i) recorded as the diagnostic that points at `spreadPx`/`offsetPx`; nothing adopted, nothing fitted, no capture | §5.162 | `results/2026-09-21-w31-g1-exterior-instrument/` |
-| G2 | OPEN | §5.163 | `results/2026-09-21-w31-g2-range-class/` |
+| G2 | **MERGED** — 11 call sites: 8 clamped, 3 proven, 0 stopped; 5 sweeps + 3 guard cases green; goldens 34/34 byte-identical; one NEW reachable NaN found and floored as an identity (`angle_delta`); both tracker entries closed; the W30 G3b residual's candidate REFUTED and the residual re-opened | §5.163 | `results/2026-09-21-w31-g2-range-class/` |
 | G3 | not dispatched — Decision Log 1 ruled; waits on G0–G2 merged | §5.164 | `results/2026-09-21-w31-g3-chroma-fit/` |
 | G4 | not dispatched | §5.165 | `results/2026-09-21-w31-g4-landing/` |
 
@@ -656,6 +656,26 @@ band recorded, unless the user's taste says the reversal makes the section say t
 
 ## Revision Notes
 
+- 2026-09-21 (G2): **the WGSL range class and the refusal's wording landed** (claims §5.163). Every
+  transcendental in `src/wgsl/` is now classified by a committed case — eleven sites, eight clamped
+  by the source, three carrying a written range proof with a WITNESS, none stopped — and the two
+  leaf bounds those proofs rest on are pinned on the runtime default and on every committed profile
+  document, so a fit that broke one fails a case rather than a capture. Three things the charter
+  did not anticipate. **A second reachable NaN**: `highlight.ts`'s `angle_delta` goes negative past
+  one revolution into an undefined `pow` base, reachable from an application because the sweep
+  phase comes off a CSS custom property nothing clamps; floored as an identity, goldens
+  byte-identical. **The guard's predicate needed its silhouette clause to be a clause**: written as
+  enclosure alone it fired on a single pixel of the outer shadow's quantisation tail, on two of
+  forty-two `@gpu` cases, and the wall is now alpha at or above half the raster's peak — the same
+  extractor W20 reads. **The W30 G3b residual is re-opened, not closed**: the overflow is one-sided
+  so no exterior pixel can reach it, and `glass-over-glass`'s deepest interior pixel sits at
+  x = 8.45 against 10.061, so the three texture cells moved across a change provably the identity
+  on their scene. Beside it, from the same table, `rrect-48` also cleared the boundary and nothing
+  had ever read that — a probe component, so never gated. The sweep rule went to root `CLAUDE.md`'s
+  Conventions rather than to a calibration README that does not exist or to a ledger section nobody
+  would find. Two config edits beside the work: `renderer-webgpu`'s unit tsconfig gains Node types
+  for the scan's file reads and `tsconfig.build.json` takes them straight back out, so the shipped
+  compile still sees none.
 - 2026-09-21 (G1): **the exterior clause declared, and it is the SHAPE and not the width.** Both
   candidates were computed over the current generation from committed fields alone — no schema
   addition was needed, so `report.ts`'s shadow axis is untouched and X11 has nothing to report.

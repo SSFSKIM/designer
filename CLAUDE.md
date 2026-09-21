@@ -201,3 +201,8 @@ blurred interior while the eye sees the rim band, the lens curvature or the haze
   Log the change executes.
 - Scenes, fixtures, profile documents and matrices are committed evidence; never rewrite a recorded
   hash or number to what a file "should" have had — add the correct reading beside it.
+- When a change's sweep reports a file **"unchanged, checked"**, say what that file *claims* about
+  the thing being changed, not only whether it reads it. A file that merely mentions an artefact is
+  the one whose mention goes stale, because nothing executes a comment and no test reads it — a
+  runtime message, a doc comment or a consumer table can describe a state that ended waves ago and
+  still be "unchanged". (W30 G1 review closure and W31 G2; c9a §5.163 §5, tech-debt-tracker.)

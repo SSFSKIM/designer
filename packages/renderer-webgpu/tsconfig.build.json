@@ -3,7 +3,11 @@
   "compilerOptions": {
     "noEmit": false,
     "outDir": "dist",
-    "rootDir": "src"
+    "rootDir": "src",
+    // Deliberately back to none. The unit config adds Node types for the range
+    // scan's file reads; this package is bundled into a browser artifact at
+    // publish, so the compile that produces `dist/` must not see them.
+    "types": []
   },
   "include": ["src", "types"]
 }

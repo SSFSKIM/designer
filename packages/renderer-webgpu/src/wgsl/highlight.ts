@@ -85,9 +85,26 @@ const TAU = 6.283185307179586;
 
 /// Shortest angular distance, so the band wraps continuously past the seam
 /// instead of stalling there for one revolution.
+///
+/// THE RESULT IS FLOORED AT ZERO, AND THE FLOOR IS THE IDENTITY (W31 G2; claims
+/// 5.163). A distance is non-negative, and this expression is only non-negative
+/// while 'raw' stays inside one revolution: past 'TAU' the second branch goes
+/// negative and 'min' takes it. The single caller squares the quotient through
+/// 'pow(x, 2.0)', whose base WGSL leaves UNDEFINED below zero — the same shape
+/// of defect as 5.159b's 'tanh', one function along. Both arguments are angles
+/// only while the sweep phase is inside [0, 1], and the phase is read off a CSS
+/// custom property that nothing clamps (platform-web's 'readHostChannels'
+/// clamps 'materialization' and not 'sweep'), so '--vitrea-sweep: 3' puts the
+/// centre at 3 TAU and this function at -12.6 radians. 'max(., 0)' returns the
+/// same bits at every input the unfloored form was defined at, so no pixel any
+/// material or any bed reaches moves; what it removes is the undefined one.
+/// Where the phase IS out of range the band is now centred on the pixel rather
+/// than NaN, which is a defensible reading of nothing in particular — wrapping
+/// the phase where it is read is the fix that would make it mean something, and
+/// it is outside this gate's contract.
 fn angle_delta(a : f32, b : f32) -> f32 {
   let raw = abs(a - b);
-  return min(raw, TAU - raw);
+  return max(min(raw, TAU - raw), 0.0);
 }
 
 @fragment

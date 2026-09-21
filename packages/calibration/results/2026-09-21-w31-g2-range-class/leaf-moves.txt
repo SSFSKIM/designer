@@ -1,0 +1,49 @@
+W31 G2 — the widest ratio any material leaf has moved between two
+generations, read off the macOS 27 documents' own `entries[].previous`.
+Claims c9a §5.163 §2.
+
+70 leaf moves recorded; 58 carry a ratio.
+
+WIDEST: 550.0x — backdropToneHigh[0] backdropToneAdaptation 0.055 -> 0.0001
+        (apple-macos-27.0-1x-dark-standard-glass0.5.json)
+
+This is the bracket `e2e/gpu/w31-range-sweeps.spec.ts` sweeps each material
+axis over: shipped/550, shipped/23.45, shipped, shipped*23.45, shipped*550.
+A fit that moved a leaf further than any fit ever has is outside what those
+sweeps claim, which is a bound worth stating rather than a range worth
+guessing.
+
+Top 12 by ratio:
+
+     550.00x  backdropToneAdaptation       backdropToneHigh[0]        0.055 -> 0.0001
+     550.00x  backdropToneAdaptation       backdropToneHigh[0]        0.055 -> 0.0001
+      27.60x  backdropToneResponse         backdropToneAnchorX[0]     0.1104 -> 0.004
+      27.60x  backdropToneResponse         backdropToneAnchorX[0]     0.1104 -> 0.004
+      16.98x  backdropToneResponse         backdropToneResponseThin[0] 0.0126 -> 0.214
+      10.20x  outerShadow                  liftAmplitude[0]           0.0051 -> 0.0005
+      10.00x  outerShadow                  liftAmplitude[0]           0.01 -> 0.001
+       7.34x  rim                          rimAlpha[0]                0.844 -> 0.115
+       6.60x  outerShadow                  thinOcclusionMid[0]        0.33 -> 0.05
+       5.30x  rim                          rimLevelGain[0]            2.334 -> 0.44
+       5.15x  rim                          rimLevelGain[0]            -0.628 -> -0.122
+       4.33x  rim                          rimWidth[0]                1.5 -> 6.5
+
+Moves with a zero at one end (12), ratio undefined:
+
+             backdropToneAdaptation       backdropToneLow[0]         0.02 -> 0
+             scatterScaleSelectivity      sizeHeavySecondSigma[0]    0 -> 0
+             scatterScaleSelectivity      sizeHeavySecondSigma2x[0]  0 -> 0
+             scatterScaleSelectivity      sizeHeavySecondShare[0]    0 -> 0
+             scatterScaleSelectivity      sizeScatterScaleGain[0]    0 -> -2
+             scatterScaleSelectivity      sizeScatterScaleRef[0]     0 -> 0.03
+             backdropToneAdaptation       backdropToneLow[0]         0.02 -> 0
+             scatterScaleSelectivity      sizeHeavySecondSigma[0]    0 -> 0
+             scatterScaleSelectivity      sizeHeavySecondSigma2x[0]  0 -> 0
+             scatterScaleSelectivity      sizeHeavySecondShare[0]    0 -> 0
+             scatterScaleSelectivity      sizeScatterScaleGain[0]    0 -> 0
+             scatterScaleSelectivity      sizeScatterScaleRef[0]     0 -> 0.03
+
+A leaf that moved off zero — the scale-selective scatter's two, W30's
+decline turned into the dark document's adoption — is why the sweeps open
+`sizeHeavySecondShare` to 0.5 before sweeping the second tap's width: an
+inert leaf's sweep is a sweep of a multiplied zero.

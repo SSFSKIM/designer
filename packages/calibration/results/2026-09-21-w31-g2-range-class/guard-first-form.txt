@@ -1,0 +1,49 @@
+W31 G2 — what the readback guard's FIRST form caught, and why the predicate gained
+its silhouette clause. Claims c9a §5.163 §3.
+
+The guard was first written as: a pixel is a candidate when its alpha is exactly
+zero; a candidate is enclosed when it cannot reach the raster's border through
+other candidates; the guard fires on any enclosed component. Two stand-downs were
+argued for on paper — the layer path's translucent interior (not zero) and a
+surface at presence 0 (not enclosed) — and both are sound.
+
+Run over the whole `@gpu` suite it fired on TWO of forty-two cases:
+
+  page-material.spec.ts :: @gpu light DOM material matches its scalar law at 0.2706
+  page-material.spec.ts :: @gpu light DOM material matches its scalar law at 0.9505
+
+Both on `scalar-page-material`, a 400x240 scene at dpr 1 with two surfaces at
+(90, 90) and (290, 120). Measured with the guard temporarily stood down, over all
+six levels x three tint strengths x both tiers:
+
+  light 0.2706, every strength, dom AND texture:
+    1 px at (171, 139), 5x5 alpha neighbourhood
+      1,1,1,1,1 / 1,1,1,1,1 / 1,1,0,1,1 / 1,0,1,1,1 / 0,0,1,1,1        peak 252-255
+  light 0.9505, every strength, dom AND texture:
+    1 px at (178, 117), 5x5 alpha neighbourhood
+      1,1,1,2,2 / 1,1,1,2,2 / 1,1,0,2,2 / 1,1,2,2,2 / 1,0,2,2,2        peak 255
+  light 0.1104, dark at all three levels: no holes.
+
+The reading is unambiguous. Those pixels are 80 to 170 px from either surface,
+in the OUTER SHADOW's tail, where the composited alpha is one and two codes of
+255 and a pixel of it rounds to zero. It is a quantisation event in a facet, not
+a hole in a silhouette, and it reproduces identically on both tiers and at every
+tint strength — which is what a rounding boundary does and what a NaN does not.
+
+So the predicate gained the clause the charter's own wording already had and the
+first form had collapsed into "enclosed": the region must be enclosed **inside a
+declared silhouette**. Operationally the wall is alpha at or above half the
+raster's own peak, floored at one code — the same extractor W20's declaration
+conformance reads — and the border walk goes through everything that is not a
+wall. The shadow's tail is not a wall, so the walk reaches those pixels and the
+guard is silent; the W30 strip was walled in by material at full alpha, so it is
+not reached and the guard fires. Both sides are pinned in
+`packages/renderer-webgpu/test/alpha-holes.test.ts`.
+
+The floor at one code is the presence-0 case: a raster that drew nothing has a
+peak of zero, and a cutoff of zero would make every pixel a wall and an empty
+render a solid one.
+
+After the clause: `test:gpu` 42 passed, `test:golden` 34 passed with
+`e2e/goldens` clean, and the guard is silent on all thirteen scene names, on the
+unsampled layer path, and at presence 0, 0.05, 0.5 and 0.95.

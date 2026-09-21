@@ -28,6 +28,7 @@ import {
   type MaterialProfilePatch,
 } from "../../src/index";
 import { CROSS_CHECK_WORKGROUP, crossCheckKernelModule } from "../../src/wgsl";
+import { alphaHoleRefusal } from "./alpha-holes";
 import { sceneByName, SCENE_NAMES, type BackdropSpec, type Scene } from "./scenes";
 
 interface AdapterReport {
@@ -220,6 +221,41 @@ async function readback(
   return out;
 }
 
+/**
+ * A seeded hole, consumed by the next guarded readback and then forgotten.
+ *
+ * The guard is a predicate over BYTES, so the honest seed is at the bytes. A
+ * seed at the shader would need a material that reaches an unclamped
+ * transcendental, and there is no longer one to reach: W30 G3b clamped the
+ * `tanh` and W31 G2 floored the `angle_delta`, which is what makes the guard's
+ * own case need a hook rather than a profile. What the hook proves is that the
+ * guard is WIRED — that a raster carrying the signature does not get past
+ * `renderScene` — and the predicate itself is proven on both sides in
+ * `test/alpha-holes.test.ts`, on synthetic rasters, without a GPU.
+ */
+let seededHole: { readonly x: number; readonly y: number; readonly w: number; readonly h: number } | undefined;
+
+/**
+ * Refuse a raster whose alpha has an enclosed hole, after applying any seed.
+ *
+ * Beside the `gpuErrors` refusal and for the same reason: a render that says
+ * nothing and draws a hole is the failure mode worth spending a pass on.
+ */
+function guardReadback(bytes: Uint8Array, width: number, height: number, label: string): void {
+  const seed = seededHole;
+  seededHole = undefined;
+  if (seed !== undefined) {
+    for (let y = seed.y; y < seed.y + seed.h; y += 1) {
+      for (let x = seed.x; x < seed.x + seed.w; x += 1) {
+        if (x < 0 || y < 0 || x >= width || y >= height) continue;
+        bytes[(y * width + x) * 4 + 3] = 0;
+      }
+    }
+  }
+  const refusal = alphaHoleRefusal({ width, height, data: bytes }, label);
+  if (refusal !== undefined) throw new Error(refusal);
+}
+
 function toBase64(bytes: Uint8Array): string {
   let binary = "";
   const chunk = 0x8000;
@@ -390,6 +426,24 @@ const api = {
   },
 
   /**
+   * Punch an enclosed block of zero alpha into the NEXT guarded readback, in
+   * device px, before the guard reads it (W31 G2; claims §5.163 §3).
+   *
+   * This is the seam that proves the guard is wired into the live readback path
+   * rather than merely written. It is a byte-level seed because the guard is a
+   * byte-level predicate, and because there is no longer a material that reaches
+   * an unclamped transcendental to seed it from the shader — which is the point
+   * of the gate that added it. The predicate's own two sides are tested without
+   * a GPU in `test/alpha-holes.test.ts`.
+   *
+   * One shot: the seed is consumed by the next readback and forgotten, so a
+   * spec cannot leave it armed for the next one.
+   */
+  seedAlphaHole(hole: { x: number; y: number; w: number; h: number }): void {
+    seededHole = hole;
+  },
+
+  /**
    * Render one scene.
    *
    * `materialProfile` is the isolation-proof seam (Decision Log #31(a)): the same
@@ -416,6 +470,7 @@ const api = {
       if (gpuErrors.length > 0) {
         throw new Error(`WebGPU reported ${gpuErrors.length} error(s): ${gpuErrors.join(" | ")}`);
       }
+      guardReadback(bytes, run.width, run.height, `renderScene(${scene.name})`);
       return { width: run.width, height: run.height, pixels: toBase64(bytes) };
     } finally {
       run.dispose();
@@ -448,6 +503,7 @@ const api = {
       if (gpuErrors.length > 0) {
         throw new Error(`WebGPU reported ${gpuErrors.length} error(s): ${gpuErrors.join(" | ")}`);
       }
+      guardReadback(bytes, run.width, run.height, `renderAtGovernorLevel(${scene.name}, ${level})`);
       return { width: run.width, height: run.height, pixels: toBase64(bytes) };
     } finally {
       run.dispose();
