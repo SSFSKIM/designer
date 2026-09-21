@@ -1,0 +1,138 @@
+
+######## the bed: calibration+validation ########
+
+== 0.20.0, pre-fit (retention absent) — /Users/new/Developer/GitHub/designer/.claude/worktrees/w31-g3c-accessibility-gate/packages/calibration/results/2026-09-21-w31-g3-chroma-fit/pre-fit-matrix.json ==
+   documents on the capturePath: [('66f29eb27e1f', '3714970944ff')]
+   bed                      tier    pose       n         R    ΔE P95
+   increased contrast       css     active     3    0.8581   0.01380
+   increased contrast       css     inactive   3    0.8467   0.02686
+   increased contrast       webgpu  active     3    0.8147   0.01107
+   increased contrast       webgpu  inactive   3    0.1552   0.03705
+   reduced transparency     css     active     3    2.2799   0.03190
+   reduced transparency     css     inactive   3    1.4557   0.01878
+   reduced transparency     webgpu  active     3    0.9096   0.02882
+   reduced transparency     webgpu  inactive   3    0.8294   0.01362
+== at G3, the retention applied unconditionally — /Users/new/Developer/GitHub/designer/.claude/worktrees/w31-g3c-accessibility-gate/packages/calibration/results/matrix.json ==
+   documents on the capturePath: [('e2fa07589d99', '25863dccef9d')]
+   bed                      tier    pose       n         R    ΔE P95
+   increased contrast       css     active     3    0.8581   0.01380
+   increased contrast       css     inactive   3    0.8467   0.02686
+   increased contrast       webgpu  active     3    3.1700   0.01539
+   increased contrast       webgpu  inactive   3    0.1722   0.03714
+   reduced transparency     css     active     3    2.2799   0.03190
+   reduced transparency     css     inactive   3    1.4557   0.01878
+   reduced transparency     webgpu  active     3    3.0514   0.03362
+   reduced transparency     webgpu  inactive   3    2.1195   0.01336
+== under the lift rule (hard-gate) — scratch-hard-gate-matrix.json (/tmp/w31-g3c-captures/hard-gate/matrix.json) ==
+   documents on the capturePath: [('e2fa07589d99', '25863dccef9d')]
+   bed                      tier    pose       n         R    ΔE P95
+   increased contrast       css     active     3    0.8581   0.01380
+   increased contrast       css     inactive   3    0.8467   0.02686
+   increased contrast       webgpu  active     3    0.8147   0.01107
+   increased contrast       webgpu  inactive   3    0.1552   0.03705
+   reduced transparency     css     active     3    2.2799   0.03190
+   reduced transparency     css     inactive   3    1.4557   0.01878
+   reduced transparency     webgpu  active     3    0.9096   0.02882
+   reduced transparency     webgpu  inactive   3    0.8294   0.01362
+
+   -- the movement, calibration+validation --
+   bed                      tier    pose       R 0.20.0   R at G3     R now |  ΔE .20.0  ΔE at G3    ΔE now
+   increased contrast       css     active      0.85812   0.85812    0.8581 |   0.01380   0.01380   0.01380
+   increased contrast       css     inactive    0.84673   0.84673    0.8467 |   0.02686   0.02686   0.02686
+   increased contrast       webgpu  active      0.81466   3.17003    0.8147 |   0.01107   0.01539   0.01107
+   increased contrast       webgpu  inactive    0.15517   0.17220    0.1552 |   0.03705   0.03714   0.03705
+   reduced transparency     css     active      2.27994   2.27994    2.2799 |   0.03190   0.03190   0.03190
+   reduced transparency     css     inactive    1.45569   1.45569    1.4557 |   0.01878   0.01878   0.01878
+   reduced transparency     webgpu  active      0.90964   3.05135    0.9096 |   0.02882   0.03362   0.02882
+   reduced transparency     webgpu  inactive    0.82942   2.11955    0.8294 |   0.01362   0.01336   0.01362
+== under the lift rule (lift-rule) — scratch-lift-rule-matrix.json (/tmp/w31-g3c-captures/lift-rule/matrix.json) ==
+   documents on the capturePath: [('e2fa07589d99', '25863dccef9d')]
+   bed                      tier    pose       n         R    ΔE P95
+   increased contrast       css     active     3    0.8581   0.01380
+   increased contrast       css     inactive   3    0.8467   0.02686
+   increased contrast       webgpu  active     3    1.8324   0.00989
+   increased contrast       webgpu  inactive   3    0.1595   0.03696
+   reduced transparency     css     active     3    2.2799   0.03190
+   reduced transparency     css     inactive   3    1.4557   0.01878
+   reduced transparency     webgpu  active     3    1.7897   0.02946
+   reduced transparency     webgpu  inactive   3    1.1507   0.01121
+
+   -- the movement, calibration+validation --
+   bed                      tier    pose       R 0.20.0   R at G3     R now |  ΔE .20.0  ΔE at G3    ΔE now
+   increased contrast       css     active      0.85812   0.85812    0.8581 |   0.01380   0.01380   0.01380
+   increased contrast       css     inactive    0.84673   0.84673    0.8467 |   0.02686   0.02686   0.02686
+   increased contrast       webgpu  active      0.81466   3.17003    1.8324 |   0.01107   0.01539   0.00989
+   increased contrast       webgpu  inactive    0.15517   0.17220    0.1595 |   0.03705   0.03714   0.03696
+   reduced transparency     css     active      2.27994   2.27994    2.2799 |   0.03190   0.03190   0.03190
+   reduced transparency     css     inactive    1.45569   1.45569    1.4557 |   0.01878   0.01878   0.01878
+   reduced transparency     webgpu  active      0.90964   3.05135    1.7897 |   0.02882   0.03362   0.02946
+   reduced transparency     webgpu  inactive    0.82942   2.11955    1.1507 |   0.01362   0.01336   0.01121
+
+######## the bed: calibration+validation+holdout ########
+
+== 0.20.0, pre-fit (retention absent) — /Users/new/Developer/GitHub/designer/.claude/worktrees/w31-g3c-accessibility-gate/packages/calibration/results/2026-09-21-w31-g3-chroma-fit/pre-fit-matrix.json ==
+   documents on the capturePath: [('66f29eb27e1f', '3714970944ff')]
+   bed                      tier    pose       n         R    ΔE P95
+   increased contrast       css     active     4    0.8338   0.01612
+   increased contrast       css     inactive   4    0.6130   0.03265
+   increased contrast       webgpu  active     4    0.7834   0.01223
+   increased contrast       webgpu  inactive   4    0.1213   0.03912
+   reduced transparency     css     active     4    2.3201   0.03322
+   reduced transparency     css     inactive   4    1.2861   0.02014
+   reduced transparency     webgpu  active     4    0.9076   0.03031
+   reduced transparency     webgpu  inactive   4    0.7517   0.01409
+== at G3, the retention applied unconditionally — /Users/new/Developer/GitHub/designer/.claude/worktrees/w31-g3c-accessibility-gate/packages/calibration/results/matrix.json ==
+   documents on the capturePath: [('e2fa07589d99', '25863dccef9d')]
+   bed                      tier    pose       n         R    ΔE P95
+   increased contrast       css     active     4    0.8338   0.01612
+   increased contrast       css     inactive   4    0.6130   0.03265
+   increased contrast       webgpu  active     4    2.9489   0.02341
+   increased contrast       webgpu  inactive   4    0.1381   0.03916
+   reduced transparency     css     active     4    2.3201   0.03322
+   reduced transparency     css     inactive   4    1.2861   0.02014
+   reduced transparency     webgpu  active     4    3.0374   0.03806
+   reduced transparency     webgpu  inactive   4    1.9923   0.01448
+== under the lift rule (hard-gate) — scratch-hard-gate-matrix.json (/tmp/w31-g3c-captures/hard-gate/matrix.json) ==
+   documents on the capturePath: [('e2fa07589d99', '25863dccef9d')]
+   bed                      tier    pose       n         R    ΔE P95
+   increased contrast       css     active     3    0.8581   0.01380
+   increased contrast       css     inactive   3    0.8467   0.02686
+   increased contrast       webgpu  active     3    0.8147   0.01107
+   increased contrast       webgpu  inactive   3    0.1552   0.03705
+   reduced transparency     css     active     3    2.2799   0.03190
+   reduced transparency     css     inactive   3    1.4557   0.01878
+   reduced transparency     webgpu  active     3    0.9096   0.02882
+   reduced transparency     webgpu  inactive   3    0.8294   0.01362
+
+   -- the movement, calibration+validation+holdout --
+   bed                      tier    pose       R 0.20.0   R at G3     R now |  ΔE .20.0  ΔE at G3    ΔE now
+   increased contrast       css     active      0.83384   0.83384    0.8581 |   0.01612   0.01612   0.01380
+   increased contrast       css     inactive    0.61301   0.61301    0.8467 |   0.03265   0.03265   0.02686
+   increased contrast       webgpu  active      0.78343   2.94885    0.8147 |   0.01223   0.02341   0.01107
+   increased contrast       webgpu  inactive    0.12133   0.13808    0.1552 |   0.03912   0.03916   0.03705
+   reduced transparency     css     active      2.32005   2.32005    2.2799 |   0.03322   0.03322   0.03190
+   reduced transparency     css     inactive    1.28612   1.28612    1.4557 |   0.02014   0.02014   0.01878
+   reduced transparency     webgpu  active      0.90762   3.03741    0.9096 |   0.03031   0.03806   0.02882
+   reduced transparency     webgpu  inactive    0.75173   1.99227    0.8294 |   0.01409   0.01448   0.01362
+== under the lift rule (lift-rule) — scratch-lift-rule-matrix.json (/tmp/w31-g3c-captures/lift-rule/matrix.json) ==
+   documents on the capturePath: [('e2fa07589d99', '25863dccef9d')]
+   bed                      tier    pose       n         R    ΔE P95
+   increased contrast       css     active     3    0.8581   0.01380
+   increased contrast       css     inactive   3    0.8467   0.02686
+   increased contrast       webgpu  active     3    1.8324   0.00989
+   increased contrast       webgpu  inactive   3    0.1595   0.03696
+   reduced transparency     css     active     3    2.2799   0.03190
+   reduced transparency     css     inactive   3    1.4557   0.01878
+   reduced transparency     webgpu  active     3    1.7897   0.02946
+   reduced transparency     webgpu  inactive   3    1.1507   0.01121
+
+   -- the movement, calibration+validation+holdout --
+   bed                      tier    pose       R 0.20.0   R at G3     R now |  ΔE .20.0  ΔE at G3    ΔE now
+   increased contrast       css     active      0.83384   0.83384    0.8581 |   0.01612   0.01612   0.01380
+   increased contrast       css     inactive    0.61301   0.61301    0.8467 |   0.03265   0.03265   0.02686
+   increased contrast       webgpu  active      0.78343   2.94885    1.8324 |   0.01223   0.02341   0.00989
+   increased contrast       webgpu  inactive    0.12133   0.13808    0.1595 |   0.03912   0.03916   0.03696
+   reduced transparency     css     active      2.32005   2.32005    2.2799 |   0.03322   0.03322   0.03190
+   reduced transparency     css     inactive    1.28612   1.28612    1.4557 |   0.02014   0.02014   0.01878
+   reduced transparency     webgpu  active      0.90762   3.03741    1.7897 |   0.03031   0.03806   0.02946
+   reduced transparency     webgpu  inactive    0.75173   1.99227    1.1507 |   0.01409   0.01448   0.01121

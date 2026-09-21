@@ -1254,18 +1254,14 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         // group, with no source-side half — the chromaticity it restores toward
         // is the blurred backdrop the optics pass already sampled per pixel.
         //
-        // Under the accessibility fold it acts on the plate's UN-LIFTED share
-        // (W31 Decision Log 3 (d); claims §5.164 §8 (b) and §13): an occlusion
-        // lift covers more of the backdrop, so restoring the nominal fraction of
-        // its chromaticity gives back what the preference asked to have covered.
-        // `bodyChromaRetentionUnderPolicy` is exactly `material.bodyChromaRetention`
-        // where no preference is set, which is why every standard row is
-        // bit-identical across this fold.
-        bodyChromaRetention: bodyChromaRetentionUnderPolicy(
-          material.bodyChromaRetention,
-          policy,
-          material,
-        ),
+        // Under the accessibility fold it stands down (W31 Decision Log 3 (d);
+        // claims §5.164 §8 (b) and §13): an occlusion lift covers more of the
+        // backdrop, so restoring the nominal fraction of its chromaticity gives
+        // back what the preference asked to have covered — measured at `R` 3.05
+        // and 3.17 against a reference of 1. `bodyChromaRetentionUnderPolicy` is
+        // exactly `material.bodyChromaRetention` where no preference is set,
+        // which is why every standard row is bit-identical across this fold.
+        bodyChromaRetention: bodyChromaRetentionUnderPolicy(material.bodyChromaRetention, policy),
         ...(pyramid === undefined && input.unsampledMaterial !== undefined
           ? { domMaterial: {
               ...input.unsampledMaterial,

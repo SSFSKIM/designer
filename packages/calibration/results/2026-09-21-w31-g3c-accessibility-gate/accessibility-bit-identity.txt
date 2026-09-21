@@ -1,0 +1,63 @@
+W31 G3c — the hard gate restores 0.20.0's accessibility rendering, BYTE FOR BYTE
+(Decision Log 3 (d); claims §5.164 §13)
+
+Left:  /tmp/w31-g3-captures — W31 G3's PRE-FIT bed, captured with the retention absent
+       from the documents (claims §5.164 §3). That is 0.20.0's rendering on these beds:
+       the retention is the only thing W31 moved on the light documents.
+Right: /tmp/w31-g3c-captures/hard-gate/web-captures — this gate's scratch, under the gate.
+
+PNG rasters only. The cell/report JSON beside them differs by construction and is not
+compared: it carries the capturePath, and the documents' FILE hashes moved between the
+two runs (66f29eb27e1f/3714970944ff -> e2fa07589d99/25863dccef9d) when G3 re-sealed them
+under the digest rule and fitted the retention into them. The pixels are the claim.
+
+  identical  photo__capsule-button__inactive/photo__capsule-button__inactive__css__alpha.png reduced-transparency-glass0.5
+  identical  photo__capsule-button__inactive/photo__capsule-button__inactive__css.png reduced-transparency-glass0.5
+  identical  photo__capsule-button__inactive/photo__capsule-button__inactive__webgpu__alpha.png reduced-transparency-glass0.5
+  identical  photo__capsule-button__inactive/photo__capsule-button__inactive__webgpu.png reduced-transparency-glass0.5
+  identical  photo__capsule-button__rest/photo__capsule-button__rest__css__alpha.png reduced-transparency-glass0.5
+  identical  photo__capsule-button__rest/photo__capsule-button__rest__css.png reduced-transparency-glass0.5
+  identical  photo__capsule-button__rest/photo__capsule-button__rest__webgpu__alpha.png reduced-transparency-glass0.5
+  identical  photo__capsule-button__rest/photo__capsule-button__rest__webgpu.png reduced-transparency-glass0.5
+  identical  photo__rrect-md__inactive/photo__rrect-md__inactive__css__alpha.png reduced-transparency-glass0.5
+  identical  photo__rrect-md__inactive/photo__rrect-md__inactive__css.png reduced-transparency-glass0.5
+  identical  photo__rrect-md__inactive/photo__rrect-md__inactive__webgpu__alpha.png reduced-transparency-glass0.5
+  identical  photo__rrect-md__inactive/photo__rrect-md__inactive__webgpu.png reduced-transparency-glass0.5
+  identical  photo__rrect-md__rest/photo__rrect-md__rest__css__alpha.png reduced-transparency-glass0.5
+  identical  photo__rrect-md__rest/photo__rrect-md__rest__css.png reduced-transparency-glass0.5
+  identical  photo__rrect-md__rest/photo__rrect-md__rest__webgpu__alpha.png reduced-transparency-glass0.5
+  identical  photo__rrect-md__rest/photo__rrect-md__rest__webgpu.png reduced-transparency-glass0.5
+  identical  photo__toolbar-group__inactive/photo__toolbar-group__inactive__css__alpha.png reduced-transparency-glass0.5
+  identical  photo__toolbar-group__inactive/photo__toolbar-group__inactive__css.png reduced-transparency-glass0.5
+  identical  photo__toolbar-group__inactive/photo__toolbar-group__inactive__webgpu__alpha.png reduced-transparency-glass0.5
+  identical  photo__toolbar-group__inactive/photo__toolbar-group__inactive__webgpu.png reduced-transparency-glass0.5
+  identical  photo__toolbar-group__rest/photo__toolbar-group__rest__css__alpha.png reduced-transparency-glass0.5
+  identical  photo__toolbar-group__rest/photo__toolbar-group__rest__css.png reduced-transparency-glass0.5
+  identical  photo__toolbar-group__rest/photo__toolbar-group__rest__webgpu__alpha.png reduced-transparency-glass0.5
+  identical  photo__toolbar-group__rest/photo__toolbar-group__rest__webgpu.png reduced-transparency-glass0.5
+  identical  photo__capsule-button__inactive/photo__capsule-button__inactive__css__alpha.png increased-contrast-coupled-glass0.5
+  identical  photo__capsule-button__inactive/photo__capsule-button__inactive__css.png increased-contrast-coupled-glass0.5
+  identical  photo__capsule-button__inactive/photo__capsule-button__inactive__webgpu__alpha.png increased-contrast-coupled-glass0.5
+  identical  photo__capsule-button__inactive/photo__capsule-button__inactive__webgpu.png increased-contrast-coupled-glass0.5
+  identical  photo__capsule-button__rest/photo__capsule-button__rest__css__alpha.png increased-contrast-coupled-glass0.5
+  identical  photo__capsule-button__rest/photo__capsule-button__rest__css.png increased-contrast-coupled-glass0.5
+  identical  photo__capsule-button__rest/photo__capsule-button__rest__webgpu__alpha.png increased-contrast-coupled-glass0.5
+  identical  photo__capsule-button__rest/photo__capsule-button__rest__webgpu.png increased-contrast-coupled-glass0.5
+  identical  photo__rrect-md__inactive/photo__rrect-md__inactive__css__alpha.png increased-contrast-coupled-glass0.5
+  identical  photo__rrect-md__inactive/photo__rrect-md__inactive__css.png increased-contrast-coupled-glass0.5
+  identical  photo__rrect-md__inactive/photo__rrect-md__inactive__webgpu__alpha.png increased-contrast-coupled-glass0.5
+  identical  photo__rrect-md__inactive/photo__rrect-md__inactive__webgpu.png increased-contrast-coupled-glass0.5
+  identical  photo__rrect-md__rest/photo__rrect-md__rest__css__alpha.png increased-contrast-coupled-glass0.5
+  identical  photo__rrect-md__rest/photo__rrect-md__rest__css.png increased-contrast-coupled-glass0.5
+  identical  photo__rrect-md__rest/photo__rrect-md__rest__webgpu__alpha.png increased-contrast-coupled-glass0.5
+  identical  photo__rrect-md__rest/photo__rrect-md__rest__webgpu.png increased-contrast-coupled-glass0.5
+  identical  photo__toolbar-group__inactive/photo__toolbar-group__inactive__css__alpha.png increased-contrast-coupled-glass0.5
+  identical  photo__toolbar-group__inactive/photo__toolbar-group__inactive__css.png increased-contrast-coupled-glass0.5
+  identical  photo__toolbar-group__inactive/photo__toolbar-group__inactive__webgpu__alpha.png increased-contrast-coupled-glass0.5
+  identical  photo__toolbar-group__inactive/photo__toolbar-group__inactive__webgpu.png increased-contrast-coupled-glass0.5
+  identical  photo__toolbar-group__rest/photo__toolbar-group__rest__css__alpha.png increased-contrast-coupled-glass0.5
+  identical  photo__toolbar-group__rest/photo__toolbar-group__rest__css.png increased-contrast-coupled-glass0.5
+  identical  photo__toolbar-group__rest/photo__toolbar-group__rest__webgpu__alpha.png increased-contrast-coupled-glass0.5
+  identical  photo__toolbar-group__rest/photo__toolbar-group__rest__webgpu.png increased-contrast-coupled-glass0.5
+
+identical: 48    differing: 0    absent from the pre-fit tree: 0

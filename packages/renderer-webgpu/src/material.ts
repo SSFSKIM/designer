@@ -2020,57 +2020,68 @@ export function occlusionLiftForPolicy(
 }
 
 /**
- * **The retention acts on the plate's UN-LIFTED share** — W31 Decision Log 3 (d),
+ * **The retention stands down under an occlusion lift** — W31 Decision Log 3 (d),
  * the fix for the regression claims §5.164 §8 (b) recorded and §5.164 §13
  * measures.
  *
  * `bodyChromaRetention` restores a fraction of the backdrop's chromaticity into
- * a body that lost it to a neutral plate, and the amount the plate took is
- * `α`. Under an accessibility occlusion lift the plate takes more —
+ * a body that lost it to a neutral plate, and the amount the plate took is `α`.
+ * Under an accessibility occlusion lift the plate takes more —
  * `occlusionAlphaUnderPolicy` sends `α` to `α + lift·(1 − α)`, so what is left
- * of the backdrop is `1 − α_eff = (1 − α)·(1 − lift)` — and a retention applied
- * at its nominal value there restores a fraction of a chromaticity the
- * preference asked to have covered up. Measured, it did exactly that: the two
- * light accessibility beds read `R` 3.04 and 2.95 against a reference of 1
- * where 0.20.0 read 0.91 and 0.81.
+ * of the backdrop is `1 − α_eff = (1 − α)·(1 − lift)` — and the leaf as W31 G3
+ * shipped it was applied at its nominal value there, restoring a fraction of a
+ * chromaticity the preference had just asked to have covered up. Measured on
+ * the untinted `photo` beds of the two light accessibility profiles, `R` went
+ * 0.9096 → 3.0514 (reduced transparency, active), 0.8294 → 2.1195 (reduced
+ * transparency, inactive) and 0.8147 → 3.1700 (increased contrast, active),
+ * three beds that sat inside the wave's own 0.80–1.20 band before the leaf.
  *
- * So the retention is scaled by the same `(1 − lift)` the plate's remaining
- * share is scaled by. Three properties, and each of them is why this is the
- * rule rather than a tuning:
+ * **The rule here is the HARD GATE, and that is a measurement rather than a
+ * preference** (claims §5.164 §13). Decision Log 3 (d) ruled the smaller rule
+ * first — the retention acting on the plate's un-lifted share,
+ * `r_eff = r · (1 − lift)` — and ruled the hard gate as its fallback if the
+ * measured `R` did not come back inside the band. It did not: under the lift
+ * rule the same three beds read **1.7897**, **1.1507** and **1.8324**, two of
+ * them still nearly twice the reference. `1 − α` is so small under a lift of
+ * 0.75–0.98 that even a retention scaled by `(1 − lift)` is a large relative
+ * gain on what little chroma the plate leaves, which is the same reading
+ * Decision Log 3 (b) records as the operator's structural defect: the retention
+ * restores a constant fraction of the FULL backdrop chromaticity regardless of
+ * what the plate transmits.
  *
- *  - **It is an EXACT identity where no preference is set.** `lift` is 0 under
- *    `occlusion: "nominal"`, and `r · (1 − 0)` is `r` to the bit in IEEE-754.
- *    Every standard row, every golden and every document digest is unmoved.
- *  - **It is 0 where the plate is opaque.** `occlusion: "opaque"` is
- *    `α_eff = 1`, which is a lift of exactly 1: no backdrop survives the plate,
- *    so there is no chromaticity to restore and the operator stands down. That
- *    state arrives only with `glass: "none"` (core's `forcedColors` row), so it
- *    draws nothing either way — but the switch is exhaustive rather than an
- *    `else 0`, because the branch that is unreachable today is the one a later
- *    policy row makes reachable silently.
- *  - **It carries the document's OWN lift**, per policy: the receded light
- *    document splits `increasedOcclusionLiftByPolicy` into 0.88 for Reduce
- *    Transparency and 0.98 for Increase Contrast, so the two preferences get
- *    two retentions out of one fitted constant without either document naming
- *    one. Decision Log 3 (c) defers giving them their own values behind this.
+ * So under any lifted occlusion the operator is the identity — which restores
+ * 0.20.0's rendering on those beds EXACTLY, not approximately, because the
+ * retention is the only thing this wave moved there. Decision Log 3 (c) defers
+ * giving the two accessibility documents retentions of their own; until a wave
+ * measures them, an inherited constant is not applied to a plate it was not
+ * fitted against.
+ *
+ * Two properties, and each of them is why this is a rule rather than a tuning:
+ *
+ *  - **It is an EXACT identity where no preference is set**, which is what lets
+ *    every standard row, every golden and every document digest be unmoved
+ *    across the fold.
+ *  - **It is written as an exhaustive switch on the occlusion axis**, not an
+ *    `if (increased)`. `occlusion: "opaque"` is `α_eff = 1` and arrives only
+ *    with `glass: "none"`, so it draws nothing either way today — but the branch
+ *    that is unreachable now is the one a later policy row makes reachable
+ *    silently, and a new axis value should surface here as a missing branch.
  *
  * It is folded HERE, on the CPU at the uniform's pack site, and not in the
- * shader: the optics pass's uniform carries no lift at all — `opticsUnderPolicy`
- * has already folded it into `tintAlpha` — so the shader could learn it only
- * from a new lane, and W30's rule forbids packing an operator into a
- * neighbour's padding. A whole vec4 for a factor of two numbers the CPU holds
- * is a layout change for nothing.
+ * shader: the optics pass's uniform carries no policy at all — `opticsUnderPolicy`
+ * has already folded the lift into `tintAlpha` — so the shader could learn it
+ * only from a new lane, and W30's rule forbids packing an operator into a
+ * neighbour's padding. A whole vec4 for a factor the CPU already holds is a
+ * layout change for nothing.
  */
 export function bodyChromaRetentionUnderPolicy(
   retention: number,
   policy: MaterialPolicyView,
-  profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
 ): number {
   switch (policy.occlusion) {
     case "nominal":
       return retention;
     case "increased":
-      return retention * (1 - occlusionLiftForPolicy(policy, profile));
     case "opaque":
       return 0;
   }
