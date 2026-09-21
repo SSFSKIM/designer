@@ -1,0 +1,24 @@
+W32 G1 — the chain, at the sealed documents and the landed read
+================================================================================
+
+  step                          reading                                  log
+  ----------------------------  ---------------------------------------  ---------------------
+  freeze.py verify (open)       26.5 freeze intact: 1818 entries         freeze-verify-open.txt
+  pnpm -r build                 exit 0                                   chain-build.txt
+  pnpm -r lint                  exit 0                                   chain-lint.txt
+  pnpm -r test                  2,684 over 186 files, 0 failed           chain-test.txt
+  test:golden                   34 passed, byte-identical, no regen      goldens.txt
+  gated-count.py                27: 230 gated / 786 rows;                gated-count.txt
+                                26.5: 229 gated / 1107 rows
+  check-capture-tree            786 captures, 786 match, 0 mismatch,     check-capture-tree.txt
+                                0 misfiled, 0 unreadable, exit 0
+  read-append-check.py verify   6 / 6 PASS                               read-append-check.txt
+  split-generation.py apply     726 rows to two files                    split-apply.txt
+  append-check.py               6 / 6 PASS                               append-check.txt
+  freeze.py verify (close)      26.5 freeze intact: 1818 entries         freeze-verify-close.txt
+
+  The capture tree this read wrote is left at packages/calibration/web-captures/
+  IN THIS WORKTREE, 786 captures over six profile directories, 71 MB. Captures
+  are gitignored, a worktree inherits none, and a worktree is removed after
+  merge — so copying this tree to the capture machine's canonical path is part
+  of the merge that lands the read (CLAUDE.md; W31 charter Surprises).
