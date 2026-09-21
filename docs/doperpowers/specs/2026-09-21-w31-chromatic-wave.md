@@ -9,6 +9,12 @@ follows it. The user's eye on the sheets is the one remaining acceptance
 input; `packages/calibration/results/2026-09-21-w31-g4-landing/eye.md` is the implementer's, and it
 records no regression on the accessibility band and no reason to stop the cut.
 
+**0.21.0 PUBLISHED 2026-09-21, by the user's `pnpm release` on `c87b5493` (the parent's final
+chain record, the head at publish); tag `v0.21.0` annotated on that commit and pushed by the
+parent the same day.** Registry: core 08:10:02.146Z, react 08:10:04.854Z, web 08:12:09.283Z — the
+record beside the "prepared and UNPUBLISHED" status above, as the 0.20.0 record sits in W30; the
+verification is in §Outcomes & Retrospective.
+
 *Opened as:* **OPEN 2026-09-21 — chartered by the parent on the user's "let's proceed with next wave"
 after the 0.20.0 publish, under the standing "rest on your judgement"; adversarially reviewed the
 same day and the review folded (v2, Revision Notes).** Executes W29 Decision Log 6 (c) (the
@@ -1042,6 +1048,31 @@ Notes, 2026-09-21): every suite green except the React driver-timing class, red 
 cases this run and green on G4's run of the same head minus the closure — disclosed, as at
 0.17.0–0.20.0; accepting it is the user's.*
 
+**0.21.0 PUBLISHED 2026-09-21, by the user's `pnpm release` on `c87b5493` (the head after the
+parent's final chain record; the version bump itself landed on G4's branch); tag `v0.21.0`
+(annotated, on that commit) pushed by the parent on 2026-09-21.** Registry: core 08:10:02.146Z,
+react 08:10:04.854Z, web 08:12:09.283Z — **web last, and in two steps**: the React binding, which
+requires `@vitreajs/vitrea-web@^0.21.0`, was listed 124 s before the web package's packument
+carried 0.21.0 (span core→web 127.1 s), and the web TARBALL was not served for a further five
+minutes after that — `GET …/vitrea-web-0.21.0.tgz` returned 404 at 08:12:39Z with the version
+already in the packument, and 200 at 08:17:15Z — so the release-chain window recurred, the
+eleventh time, and for the first time in two layers (metadata, then content); an install attempted
+at 08:12:39Z inside it failed on the tarball and is recorded as such (it is the parent's own
+first cold-install attempt, not an installation anybody depended on). Verified by a cold install
+outside the workspace after the tarball was served (`npm install --prefer-online` of the three at
+`0.21.0` plus React 19): all three at 0.21.0, ranges `^0.21.0`, all three entry points import
+(core 44 exports, web **258**, react 37 — web's one new export is `BODY_CHROMA_RETENTION`, the CSS
+tier's declined mirror at 0, §5.164 §11), `GlassRootHandle.materialProfileDocument` in the React
+declarations, both material documents exported, no private package installed; installed
+1 996 / 1 940 / 659 kB against 1 942 / 1 930 / 658 at 0.20.0 (the web package carries the four
+re-sealed macOS 27 documents and the retention leaf's CSS-side constant; core's growth is the
+changelog). **One reading moved by design and is recorded so nobody reads it as drift**: the
+shipped `macos26MaterialProfileDocument` now reports the light active digest `b2b570e4adcea8fb` —
+the document's OWN sealed field, which 0.20.0 reported as `currentSha256` `b340a4dee871633c` under
+W30's supersession record — because rule 2 (Decision Log 1 (a); §5.161 §7b) drops the inert leaves
+before hashing and the recorded digests are the live pin again. The publish accepts the two React
+driver-timing reds as disclosed, as at 0.17.0–0.20.0.
+
 The one-line result of the wave: **the body stopped being a neutral plate — it carries the
 backdrop's chromaticity now, at a held linear luma, fitted per colour scheme and per window pose —
 two of the seven rows `MISSED_27_ROWS` had carried since W29 cleared on a MECHANISM where the list's
@@ -1215,6 +1246,17 @@ text it corrects and not one recorded number is rewritten.
 
 ## Revision Notes
 
+- 2026-09-21 (the parent): **0.21.0 PUBLISHED**, by the user's `pnpm release` on `c87b5493`
+  (registry core 08:10:02Z, react 08:10:04Z, web 08:12:09Z — web listed last, 127 s after core,
+  and its tarball served only at 08:17:15Z, five minutes after its packument: the release-chain
+  window recurred, the eleventh, in two layers for the first time; the parent's own cold install at
+  08:12:39Z failed on the tarball's 404 and was rerun after it was served); tag `v0.21.0` annotated
+  on `c87b5493` and pushed; cold install verified (core 44 / web 258 / react 37 exports, the one
+  addition `BODY_CHROMA_RETENTION` at 0; both material documents exported;
+  `GlassRootHandle.materialProfileDocument` declared; the shipped 26.5 light digest reads the
+  document's own `b2b570e4adcea8fb` by rule 2's design where 0.20.0 read `b340a4dee871633c`;
+  1 996 / 1 940 / 659 kB). The publish accepts the React driver-timing reds as disclosed. Status
+  and §Outcomes carry the record beside the "prepared and UNPUBLISHED" text.
 - 2026-09-21 (the parent): **G4 merged (`3e3c906c`), its review closure merged (`05d2d5a7`), and the
   parent's final chain run on the merged tree at the 0.21.0 head** — machine 27.0/26A428 (typed),
   RT 0, IC 0, slider 0.5 recorded before each browser suite: freeze 1,818 at open and close; build,

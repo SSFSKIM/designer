@@ -207,6 +207,9 @@ Two runs of one head, one green and one red on the same two cases, is the class'
 Not rerun. Log `results/2026-09-21-w31-g4-landing/chain-parent-final-react-e2e.txt`. The entry stays
 open; the 0.21.0 cut carries it disclosed.
 
+*2026-09-21 (the parent, the 0.21.0 publish):* 0.21.0 published by the user on `c87b5493` with
+the two reds above disclosed, the fifth cut in a row carrying this class. The entry stays open.
+
 *Found 2026-08-30, running the suites for the tint API (W3).*
 
 Two to four cases in `packages/react/e2e/press.spec.ts` and `morph.spec.ts` fail
