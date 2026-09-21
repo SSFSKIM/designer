@@ -31954,7 +31954,57 @@ spread held, σ, the offset and the amplitude re-fitted):
 bed and vitrea's 3.10 is outside the one-sigma interval on all of them.** At span
 128 the beds disagree — three exclude 3.10 and 2x light does not — and at 160 the
 interval spans 0.0–5.0 and excludes nothing. **Apple's offset reads 7.65–8.22 at
-every span**, which is vitrea's 7.95 to within a quarter of a pixel. So §2's
+every span**, which is vitrea's 7.95 to within a quarter of a pixel.
+
+**Corrected beside, 2026-09-21 (review closure; §10, finding B2). All twenty
+bed × span rows, because the eight printed above were a selection and the
+selection carried the sentence** (`model-fit.txt` §5, unmoved):
+
+| bed | span | Apple's spread | 1σ interval | vitrea's 3.10 | Apple's offset | − vitrea's 7.95 |
+| --- | ---: | ---: | --- | --- | ---: | ---: |
+| 1x light | 32 | −1.346 | [1.00, 1.00] | excluded | 10.315 | +2.37 |
+| 1x light | 44 | −0.013 | [0.00, 1.00] | excluded | 8.213 | +0.26 |
+| 1x light | 96 | 0.552 | [0.75, 1.00] | excluded | 7.753 | −0.20 |
+| 1x light | 128 | 0.717 | [0.25, 2.00] | excluded | 8.054 | +0.10 |
+| 1x light | 160 | 1.426 | [0.00, 4.00] | **INSIDE** | 8.241 | +0.29 |
+| 2x light | 32 | −1.356 | [0.75, 0.75] | excluded | 8.971 | +1.02 |
+| 2x light | 44 | −0.018 | [0.00, 1.00] | excluded | 8.079 | +0.13 |
+| 2x light | 96 | 0.419 | [0.00, 1.00] | excluded | 7.946 | −0.00 |
+| 2x light | 128 | 2.816 | [3.00, 3.10] | **INSIDE** | 7.668 | −0.28 |
+| 2x light | 160 | 2.087 | [0.25, 5.00] | **INSIDE** | 8.675 | +0.72 |
+| 1x dark | 32 | −1.346 | [0.00, 1.00] | excluded | 9.012 | +1.06 |
+| 1x dark | 44 | −0.013 | [0.00, 1.00] | excluded | 8.213 | +0.26 |
+| 1x dark | 96 | 0.582 | [0.25, 1.00] | excluded | 7.740 | −0.21 |
+| 1x dark | 128 | 0.487 | [0.00, 1.00] | excluded | 8.181 | +0.23 |
+| 1x dark | 160 | 0.483 | [0.00, 2.50] | excluded | 7.805 | −0.15 |
+| 2x dark | 32 | −1.720 | [0.25, 1.00] | excluded | 8.953 | +1.00 |
+| 2x dark | 44 | −0.018 | [0.00, 1.00] | excluded | 8.104 | +0.15 |
+| 2x dark | 96 | −0.149 | [0.00, 0.50] | excluded | 7.930 | −0.02 |
+| 2x dark | 128 | 3.370 | [3.00, 4.00] | **INSIDE** | 7.656 | −0.29 |
+| 2x dark | 160 | 3.481 | [1.50, 6.00] | **INSIDE** | 8.647 | +0.70 |
+
+**Restated.** At spans 32, 44 and 96 Apple's outset reads 0.0–1.0 CSS px on
+every standard bed and vitrea's 3.10 is outside the one-sigma interval on all
+twelve — that half stands. **At span 128 the beds split two and two, not three
+and one**: 1x light `[0.25, 2.00]` and 1x dark `[0.00, 1.00]` exclude 3.10 and
+**2x light `[3.00, 3.10]` and 2x dark `[3.00, 4.00]` include it**. And at span
+160 "the interval spans 0.0–5.0 and excludes nothing" is false twice over: the
+four intervals are `[0.00, 4.00]`, `[0.25, 5.00]`, `[0.00, 2.50]` and
+`[1.50, 6.00]`, and **1x dark excludes 3.10**. What G1 may take from span 128 as
+a prior is therefore that the bed is EVENLY SPLIT there — not that one scale
+dissents — which is a weaker prior than §4 as written offered and agrees with §4's
+own next paragraph, where the instrument does not recover the shipped spread at
+128 on any bed.
+
+**Found by this closure rather than by the review, in the same table.** "Apple's
+offset reads 7.65–8.22 at every span" is true at spans 44, 96 and 128
+(7.656–8.213) and false outside them: at span 160 it runs to **8.675** and at
+span 32 to **10.315**. The span-32 figure is the fit's own degeneracy rather
+than a reading — `above` draws nothing there on either side (§3), so the offset
+leg has one side to stand on — and the agreement with vitrea's 7.95 is claimed
+over the spans the fit recovers the shipped triple at, which §4's next paragraph
+names as 32, 44 and 96. Scoped beside rather than withdrawn: the +5.00 px
+isotropic extent excess and the outset remain one finding with one cause. So §2's
 +2.66…+3.77 CSS px of fitted-σ gap, §3's +5.00 px of isotropic extent excess and
 its agreeing displacement are one finding with one cause, and the cause is the
 OUTSET. What §5.162 §2 could only call suggestive is now measured with an

@@ -419,6 +419,43 @@ nothing. **Apple's offset reads 7.65–8.22 at every span**, which is vitrea's 7
 quarter of a pixel. So the exterior's +5.00 CSS px of isotropic extent excess and its agreeing
 displacement are one finding with one cause, and the cause is the outset.
 
+**Corrected beside, 2026-09-21 (review closure; claims §5.166 §10, finding B2). All twenty bed × span
+rows, because the eight above were a selection and the selection carried the sentence**
+(`model-fit.txt` §5, unmoved):
+
+| bed | span | Apple's spread | 1σ interval | vitrea's 3.10 | Apple's offset | − vitrea's 7.95 |
+| --- | ---: | ---: | --- | --- | ---: | ---: |
+| 1x light | 32 | −1.346 | [1.00, 1.00] | excluded | 10.315 | +2.37 |
+| 1x light | 44 | −0.013 | [0.00, 1.00] | excluded | 8.213 | +0.26 |
+| 1x light | 96 | 0.552 | [0.75, 1.00] | excluded | 7.753 | −0.20 |
+| 1x light | 128 | 0.717 | [0.25, 2.00] | excluded | 8.054 | +0.10 |
+| 1x light | 160 | 1.426 | [0.00, 4.00] | **INSIDE** | 8.241 | +0.29 |
+| 2x light | 32 | −1.356 | [0.75, 0.75] | excluded | 8.971 | +1.02 |
+| 2x light | 44 | −0.018 | [0.00, 1.00] | excluded | 8.079 | +0.13 |
+| 2x light | 96 | 0.419 | [0.00, 1.00] | excluded | 7.946 | −0.00 |
+| 2x light | 128 | 2.816 | [3.00, 3.10] | **INSIDE** | 7.668 | −0.28 |
+| 2x light | 160 | 2.087 | [0.25, 5.00] | **INSIDE** | 8.675 | +0.72 |
+| 1x dark | 32 | −1.346 | [0.00, 1.00] | excluded | 9.012 | +1.06 |
+| 1x dark | 44 | −0.013 | [0.00, 1.00] | excluded | 8.213 | +0.26 |
+| 1x dark | 96 | 0.582 | [0.25, 1.00] | excluded | 7.740 | −0.21 |
+| 1x dark | 128 | 0.487 | [0.00, 1.00] | excluded | 8.181 | +0.23 |
+| 1x dark | 160 | 0.483 | [0.00, 2.50] | excluded | 7.805 | −0.15 |
+| 2x dark | 32 | −1.720 | [0.25, 1.00] | excluded | 8.953 | +1.00 |
+| 2x dark | 44 | −0.018 | [0.00, 1.00] | excluded | 8.104 | +0.15 |
+| 2x dark | 96 | −0.149 | [0.00, 0.50] | excluded | 7.930 | −0.02 |
+| 2x dark | 128 | 3.370 | [3.00, 4.00] | **INSIDE** | 7.656 | −0.29 |
+| 2x dark | 160 | 3.481 | [1.50, 6.00] | **INSIDE** | 8.647 | +0.70 |
+
+At spans 32, 44 and 96 the reading stands: 0.0–1.0 CSS px on every standard bed, 3.10 outside the
+interval on all twelve. **At span 128 the beds split two and two, not three and one** — 1x light
+`[0.25, 2.00]` and 1x dark `[0.00, 1.00]` exclude 3.10, 2x light `[3.00, 3.10]` and 2x dark
+`[3.00, 4.00]` include it — so what G1 may take from span 128 as a prior is an evenly split bed and
+not a single dissenting scale. And at span 160 the intervals are `[0.00, 4.00]`, `[0.25, 5.00]`,
+`[0.00, 2.50]` and `[1.50, 6.00]`: **1x dark excludes 3.10**, so "excludes nothing" is false and the
+range is 0.0–6.0 rather than 0.0–5.0. *Found by this closure in the same table:* "Apple's offset
+reads 7.65–8.22 at every span" holds at spans 44, 96 and 128 (7.656–8.213), runs to 8.675 at 160 and
+to 10.315 at 32, where `above` draws nothing on either side and the offset leg is one-sided.
+
 ### The instrument's model against the shader — the error before any prior is trusted
 
 The same fit on VITREA's render must return the shipped triple. What it returns instead is the
