@@ -35,3 +35,17 @@ Untouched, and checked rather than assumed:
  M docs/doperpowers/specs/c9a-fidelity-claims.md
 ?? packages/calibration/results/2026-09-21-w32-g0b-evidence-tools/verification.txt
   (working tree clean apart from the records commit staged beside this file)
+
+== Re-run AT THE FINAL HEAD, beside the reading above and not replacing it ==
+
+The reading above was taken at 20cfbcf0, before 97d478d8 rewrote the checker's composite
+key from three raw NUL bytes to the `\0` escape (same separator, same behaviour, a file
+git no longer classes as binary). The whole chain was re-run at the head that carries it:
+
+  freeze.py verify   26.5 freeze intact: 1818 entries
+  pnpm -r build      exit 0
+  pnpm -r lint       exit 0
+  pnpm -r test       exit 0 — 185 files, 2675 tests, 0 failed, across all nine packages
+
+Identical to the reading above, package for package. The checker's run on the canonical
+tree also reproduces check-capture-tree.txt line for line at exit 0.

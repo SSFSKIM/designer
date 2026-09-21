@@ -576,7 +576,9 @@ may strike it without touching the material.
 - 2026-09-21 (G0b): **G0b closed** — `results/holdout-configuration/` (seeded, README, five
   unit cases), `scripts/check-capture-tree.ts` (eight unit cases, the npm script, the run on the
   canonical tree) and `split-generation.py`'s corrected docstring with two `$comment` annotations
-  beside the entries carrying the slip. §5.167 written; three tracker entries amended beside.
+  beside the entries carrying the slip. §5.167 written; FOUR tracker entries amended beside (the fourth being W27f G2's
+  "Nothing checks the canonical matrix against a fresh capture", whose shape (2) this half-
+  builds) and one new one written, on the source list against the render's import closure.
   **Two things a later child should know.** First, the checker reads the macOS 26.5 tree as
   MATCHING and W31's finding still stands: that divergence is a re-capture at unmoved frozen
   document bytes, so a document-hash compare is structurally blind to it and the remaining
