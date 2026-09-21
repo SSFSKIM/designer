@@ -52,6 +52,32 @@
  *     met by accident. Its `interiorMeanWeb` field is read here for one purpose
  *     only — cross-checking the coherence ratio, which is a cross-tier quantity,
  *     not a fidelity one.
+ *
+ *     > **2026-09-21, W31 G4 (Decision Log 3 (a); claims §5.165 §1): the material
+ *     > axis gets its first two adopted rows, and the paragraph above is the
+ *     > standard they had to meet rather than a rule they break.** `M1` and `M2`
+ *     > at the foot of this file gate the body's chroma-to-structure ratio and
+ *     > the structure it is read over, on the macOS 27 standard profiles and the
+ *     > WebGPU tier only. The two grounds the paragraph names are the two the
+ *     > identifiability argument answers with numbers (claims §5.161 §7 (g), read
+ *     > again at §5.164 §12). **Not below quantisation**: the statistic's
+ *     > numerator is an OKLab chroma spread of 0.02–0.11 against an 8-bit
+ *     > capture's OKLab quantisation near 0.002, and all 552 macOS 27 cells of
+ *     > W31 G0's re-capture reproduced their committed rows to |Δ| exactly 0, so
+ *     > the only spread in it is the 4.5 % / 9.1 % across rasters that the
+ *     > adopted band is five times wider than. **Not unidentifiable**: the NATIVE
+ *     > side separates by geometry over 1.47× light and 1.69× dark with the web
+ *     > side tracking it cell for cell, and the quantity the operator moved was
+ *     > three times the band's own half-width.
+ *     >
+ *     > It is still the narrower claim the paragraph asks for. Neither row is
+ *     > stated on any other axis's sub-metric, on the CSS tier — whose `R` reads
+ *     > near the reference with no chroma operator anywhere in the renderer,
+ *     > which is Decision Log 11's refusal one axis over — or on the two
+ *     > accessibility profiles, which stand the operator down entirely. And `M1`
+ *     > does not travel alone: `M2` is adopted with it because `R` is scale-free
+ *     > in the deviations and is therefore equally blind to a body that loses
+ *     > chroma and structure together.
  *   - **The motion axis is not gated.** No frame sequences were captured on the
  *     native side, and the still `pressed` fixtures cannot substitute: they are
  *     byte-identical to their rest counterparts (§6.3), so those cells measure
@@ -1705,6 +1731,26 @@ interface MissedRow {
   readonly bound: string;
 }
 
+/*
+ * **2026-09-21, W31 G4: three of the entries below are recorded AT ADOPTION, by
+ * the row that records them** (Decision Log 3 (a); claims §5.165 §1).
+ *
+ * Every other entry in this list is a row that was gated first and missed later.
+ * `M1`'s three are the other order: the parent chose the per-cell ceiling knowing
+ * which cells it declares missed, because the alternative — a ceiling at 1.55,
+ * above the bed's own worst cell — is a clause that passes and says nothing. The
+ * worst cell on the declared bed reads 1.5155 and the ruling took 1.40, so the
+ * thinnest surface in the bed and two of its siblings enter this list on the day
+ * the row enters the file. That is the shape W29 used at the 27 tables' own
+ * adoption and it is the only honest one: a bound is worth having when it is
+ * stated against the spread a fit leaves rather than the median it hits.
+ *
+ * The lever is named with each: a retention conditioned on the SURFACE rather
+ * than one constant per document (charter Decision Log 3 (b), claims §5.164 §8
+ * (a)). `1 − sizedAlpha` falls as the span rises, so one multiplicative constant
+ * buys a larger relative chroma gain on a thinner plate; span 32 is the thinnest
+ * the bed carries and it is where the overshoot is.
+ */
 const MISSED_27_ROWS: Readonly<Record<string, MissedRow>> = {
   "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": { measured: 0.89531, bound: "≥ 0.9" },
   "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": { measured: 0.88423, bound: "≥ 0.9" },
@@ -1721,6 +1767,12 @@ const MISSED_27_ROWS: Readonly<Record<string, MissedRow>> = {
   "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: oklabDeltaEP95": { measured: 0.20095, bound: "≤ 0.18" },
   "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5 :: ssimOutside": { measured: 0.82695, bound: "≥ 0.83" },
   "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: oklabDeltaEP95": { measured: 0.19474, bound: "≤ 0.19" },
+  // W31 M1's three, recorded at adoption. All three are `photo__rrect-sm` — span
+  // 32, the thinnest surface the bed carries — and the lever that closes them is
+  // a retention conditioned on the surface rather than one constant per document.
+  "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: chromaStructureRatioR": { measured: 1.51552, bound: "≤ 1.40" },
+  "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: chromaStructureRatioR": { measured: 1.44690, bound: "≤ 1.40" },
+  "texture / validation / photo__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: chromaStructureRatioR": { measured: 1.44173, bound: "≤ 1.40" },
 };
 
 /*
@@ -2088,6 +2140,113 @@ const cellsOf = (profileKey: string, tier?: "texture" | "dom"): readonly Cell[] 
 const predicateExcludedCount = (profileKey: string, tier: string): number =>
   PREDICATE_EXCLUDES.filter((line) => line.startsWith(`${tier} / `) && line.endsWith(` / ${profileKey}`))
     .length;
+
+// ---------------------------------------------------------------------------
+// W31 M1 / M2 — the body's chroma, read from a cut regenerated at the adopting
+// gate (W31 Decision Log 3 (a), claims §5.165 §1). The rows themselves are at
+// the foot of this file; what lives here is the reading they and the
+// `MISSED_27_ROWS` derivation both need.
+// ---------------------------------------------------------------------------
+
+interface ChromaCutCell {
+  readonly profile: string;
+  readonly scene: string;
+  readonly set: string;
+  readonly tier: "texture" | "dom";
+  readonly scheme: "light" | "dark";
+  readonly scale: number;
+  readonly pose: "active" | "inactive";
+  readonly chromaStructureRatioNative: number;
+  readonly chromaStructureRatioWeb: number;
+  readonly interiorStdDevWeb: number;
+  readonly R: number;
+  readonly interiorStdDevWebPreFit: number;
+  readonly structureDeltaFraction: number;
+}
+
+interface ChromaCut {
+  readonly mode: string;
+  readonly atDocuments: string;
+  readonly withHoldout: boolean;
+  readonly tier: string;
+  readonly renderer: string;
+  readonly sets: readonly string[];
+  readonly preFitGeneration: Readonly<
+    Record<string, { readonly activeDocumentSha256: string; readonly file: string }>
+  >;
+  readonly beds: Readonly<
+    Record<
+      string,
+      {
+        readonly cells: number;
+        readonly median: number;
+        readonly min: number;
+        readonly max: number;
+        readonly worstStructureDeltaFraction: number;
+      }
+    >
+  >;
+  readonly cells: readonly ChromaCutCell[];
+}
+
+/**
+ * The cut, written by `chroma-cut.py` in the same evidence directory, at the
+ * gate that adopts the rows reading it.
+ *
+ * **Why a path and not a literal, and why a path is not enough.** B1 above reads
+ * W30 G0's `shadow-cut.json`, and W31 G1's review closure found what that shape
+ * costs when the reading gate is not the declaring one: a cut committed at an
+ * earlier gate is a SNAPSHOT of the matrix, so a bound stated over it asserts
+ * frozen numbers and can never fail (claims §5.162 §9). Decision Log 3 (a) rules
+ * the cut regenerated here; the case below closes the other half by re-deriving
+ * every figure in it from `results/matrix.json` and from the superseded files it
+ * names, so a read that moves a row moves these rows whether or not anyone
+ * re-runs the script.
+ */
+const CHROMA_CUT = readJson<ChromaCut>(
+  resolve(PACKAGE_ROOT, "results", "2026-09-21-w31-g4-landing", "chroma-cut.json"),
+);
+
+/**
+ * The four beds M1 and M2 are stated over, with the scheme each reads at.
+ *
+ * The two macOS 27 accessibility profiles are deliberately absent. They inherit
+ * the light document and then stand the retention DOWN entirely under their
+ * occlusion lift (W31 Decision Log 3 (d), claims §5.164 §13), so their body is
+ * byte for byte what 0.20.0 drew and a chroma row over them would be a promise
+ * about a material this wave did not change. What they need instead is a
+ * retention of their own, measured — deferred, with the evidence, to a later
+ * chromatic wave (Decision Log 3 (c)).
+ */
+const CHROMA_BED_PROFILES: Readonly<Record<string, "light" | "dark">> = {
+  "apple-macos-27.0-1x-light-standard-glass0.5": "light",
+  "apple-macos-27.0-2x-light-standard-glass0.5": "light",
+  "apple-macos-27.0-1x-dark-standard-glass0.5": "dark",
+  "apple-macos-27.0-2x-dark-standard-glass0.5": "dark",
+};
+
+/** The metric name the misses are keyed under, in `MISSED_27_ROWS`'s own shape. */
+const CHROMA_METRIC = "chromaStructureRatioR";
+
+/** M1's two clauses (W31 Decision Log 3 (a), ruled). */
+const CHROMA_MEDIAN_MIN = 0.8;
+const CHROMA_MEDIAN_MAX = 1.2;
+const CHROMA_CELL_MIN = 0.6;
+const CHROMA_CELL_MAX = 1.4;
+
+/** M2's clause: `interiorStdDevWeb` within 2 % of the pre-fit generation's. */
+const CHROMA_STRUCTURE_TOLERANCE = 0.02;
+
+const chromaKey = (cell: ChromaCutCell): string =>
+  `${cell.tier} / ${cell.set} / ${cell.scene} / ${cell.profile}`;
+
+/**
+ * Which cells of the cut fail M1's per-cell clause — the same derivation the
+ * `MISSED_27_ROWS` owner runs and the same one M1 excuses, so a miss can only be
+ * recorded and never widened away.
+ */
+const chromaPerCellMisses = (): readonly ChromaCutCell[] =>
+  CHROMA_CUT.cells.filter((cell) => cell.R < CHROMA_CELL_MIN || cell.R > CHROMA_CELL_MAX);
 
 // ---------------------------------------------------------------------------
 
@@ -2750,9 +2909,38 @@ describe("the macOS 27 tables, declared before the refit's read (W29 Decision Lo
         }
       }
     }
+    /*
+     * **W31 M1's misses join the same derivation** (2026-09-21, Decision Log
+     * 3 (a); claims §5.165 §1).
+     *
+     * The loop above walks the transcribed per-cell tables, and M1 is not one of
+     * them — it is stated over a cut and over a bed that includes the INACTIVE
+     * pose, which `MATRIX` drops. Left out, its three recorded misses would make
+     * this case red in one direction (entries nothing derives) and, worse, a
+     * fourth cell crossing 1.40 later would be silent. So the derivation is
+     * extended rather than the list exempted: the chroma row's failures are
+     * computed from the same cut M1 reads and appended here, which keeps the one
+     * property this case exists for — a row that starts missing and a row that
+     * stops missing both fail it.
+     */
+    for (const cell of chromaPerCellMisses()) {
+      missed.push(`${chromaKey(cell)} :: ${CHROMA_METRIC}`);
+    }
     expect(missed.sort(), "the 27 rows that miss their declared bound").toEqual(
       Object.keys(MISSED_27_ROWS).sort(),
     );
+
+    // And each chroma miss's recorded reading is the cut's own, to five decimals,
+    // on the same rule as the tabled rows below: the prose beside the list cannot
+    // drift from the artifact it describes.
+    for (const cell of chromaPerCellMisses()) {
+      const row = MISSED_27_ROWS[`${chromaKey(cell)} :: ${CHROMA_METRIC}`];
+      expect(row, `${chromaKey(cell)}: a chroma miss with no recorded reading`).toBeDefined();
+      expect(cell.R, `${chromaKey(cell)} :: ${CHROMA_METRIC}`).toBeCloseTo(
+        row?.measured ?? Number.NaN,
+        5,
+      );
+    }
 
     // Every recorded reading is the one the sealed read took, to five decimals —
     // so the prose beside the list cannot drift from the artifact it describes.
@@ -3574,6 +3762,271 @@ describe("W30 B1 — the shadow's σ law, adopted (claims §5.160)", () => {
         ).toBeGreaterThanOrEqual(low);
         expect(value).toBeLessThanOrEqual(high);
       }
+    }
+  });
+});
+
+/**
+ * **M1 and M2, adopted — the body carries the backdrop's hue, and the structure
+ * it is read over does not move** (W31 G4, Decision Log 3 (a) as ruled; declared
+ * at claims §5.161 §7 (b) before any leaf existed, fitted and met at §5.164 §4,
+ * adopted at §5.165 §1).
+ *
+ * **The first two adopted rows on the material axis.** The header at the top of
+ * this file argues the axis is not gateable on this fixture set, on two grounds,
+ * and carries the amendment that says why these two clear both. What follows is
+ * what they assert.
+ *
+ * **M1, the chroma tolerance.** `R = chromaStructureRatioWeb /
+ * chromaStructureRatioNative` — web against native on the same cell and never
+ * against 1, which is what makes it a fidelity statement rather than a promise
+ * about a constant. The numerator of each side is the interior's per-pixel OKLab
+ * chroma spread and the denominator is its own luma spread, so a body that blurs
+ * more but keeps its hues reads the same as one that blurs less: the structure
+ * deficit this wave did not touch cancels instead of being absorbed as
+ * saturation. Two clauses, over four document beds — the four macOS 27 standard
+ * profiles at both scales, untinted `photo`, `calibration` + `validation`, the
+ * two poses separated because they draw two different documents:
+ *
+ *   1. **the median per bed is inside [0.80, 1.20]**, two-sided because an
+ *      over-fitted retention adds chroma the reference does not have;
+ *   2. **every cell is inside [0.60, 1.40]**, also two-sided, and the ceiling is
+ *      the parent's number rather than the bed's. The worst cell reads 1.5155,
+ *      so 1.55 would be green today and say almost nothing; 1.40 declares three
+ *      cells MISSED and they are in `MISSED_27_ROWS` with the lever. A miss is
+ *      recorded, never widened.
+ *
+ * The band's half-width is justified from the instrument's own reproducibility,
+ * the 1x-against-2x spread of `R` on the bed's own cells: 4.5 % median light and
+ * 9.1 % dark pre-fit, 4.5 % and 10.6 % after (claims §5.164 §12 as its closure
+ * corrects it). Plus or minus 0.20 is about four times the dark bed's median
+ * spread, and what it had to detect was a residual 0.45 and 0.67 away from 1.
+ *
+ * **M2, the structure stop, and why M1 does not travel alone.** `R` is scale-free
+ * in the deviations. That is what makes the blur cancel and it is exactly what
+ * makes `R` insufficient on its own: a body that lost its chroma AND its
+ * structure together reads the same ratio as one that kept both. The CSS tier is
+ * the demonstration and not a hypothesis — its `R` reads near the reference on
+ * the dark cells while its ratio (ii) reads 0.19 to 0.24 against 0.90 and the
+ * sheets show a body with no hues in it at all (claims §5.161 §7 (b)). So M2
+ * bounds `interiorStdDevWeb` to within 2 % of what the same cell drew at the
+ * **pre-fit generation** — the rows read at the macOS 27 documents before any
+ * retention was fitted into them, which the split moved to
+ * `results/superseded/`. A retention that bought its ratio by flattening the body
+ * fails M2 before M1 notices.
+ *
+ * **The WebGPU tier only** (`tier === "texture"`), which is G0's second condition
+ * and is stronger after the read than before it. The CSS tier's `R` at the
+ * canonical read sits at 0.95 to 1.12 by bed median on a tier that carries none
+ * of this operator — a derivation was written, rendered and declined on the
+ * measurement (claims §5.164 §5) — so gating it would certify the gap, which is
+ * Decision Log 11's refusal one axis over. The two accessibility profiles are out
+ * for a different reason: they stand the retention down entirely under their
+ * occlusion lift (W31 Decision Log 3 (d)), so their body is 0.20.0's and this row
+ * would be asserting nothing about this wave.
+ *
+ * **Read from a cut regenerated at this gate, never from a literal.** See
+ * `CHROMA_CUT` above for why the path alone is not enough and what closes the
+ * rest.
+ */
+describe("W31 M1 / M2 — the body's chroma and the structure it is read over (claims §5.165)", () => {
+  /** Which beds the cut must carry, and with how many cells — B1's own guard. */
+  const CONTRIBUTING_CELLS: Readonly<Record<string, number>> = {
+    "light|active": 10,
+    "light|inactive": 8,
+    "dark|active": 4,
+    "dark|inactive": 4,
+  };
+
+  /**
+   * The bed, re-derived here from the matrix rather than taken from the cut.
+   *
+   * `MATRIX` is not usable: it drops the inactive pose, and half this bed is the
+   * inactive pose, because the receded documents carry their own retention and
+   * are bounded separately. So the selection is restated over `MATRIX_FILE` with
+   * the shipped-document guard applied to EVERY document a row names — the
+   * receded one included, which `atAShippedDocument` does not reach and which is
+   * what decides what an inactive row drew.
+   */
+  const bedFromMatrix = (): Map<string, Cell> => {
+    const out = new Map<string, Cell>();
+    for (const cell of MATRIX_FILE.cells) {
+      if (CHROMA_BED_PROFILES[cell.key.profileKey] === undefined) continue;
+      if (cell.key.web.renderer !== "webgpu") continue;
+      if (cell.fixtureSet !== "calibration" && cell.fixtureSet !== "validation") continue;
+      const scene = cell.key.sceneId;
+      if (!scene.startsWith("photo__") || scene.includes("-tint-")) continue;
+      const named = [
+        ...cell.key.web.capturePath.matchAll(
+          /(?:materialProfile|recededProfile)=(\S+) sha256:([0-9a-f]{12})/g,
+        ),
+      ];
+      if (named.length === 0) continue;
+      if (!named.every((match) => SHIPPED_DOCUMENT_HASHES.get(match[1] ?? "") === match[2])) {
+        continue;
+      }
+      out.set(`${cell.key.profileKey} ${scene}`, cell);
+    }
+    return out;
+  };
+
+  it("reads a cut taken at this gate, in the declared mode, over the bed the matrix itself carries", () => {
+    // The guard everything below leans on, and the one W31 G1's closure named: a
+    // cut in another mode, at other documents, or with the holdout in it would
+    // let every window below pass over the wrong numbers.
+    expect(CHROMA_CUT.mode).toContain("chromaStructureRatioWeb / chromaStructureRatioNative");
+    expect(CHROMA_CUT.mode).toContain("median per scheme and pose");
+    expect(CHROMA_CUT.atDocuments).toBe("shipped");
+    expect(CHROMA_CUT.withHoldout).toBe(false);
+    expect(CHROMA_CUT.tier).toBe("texture");
+    expect(CHROMA_CUT.renderer).toBe("webgpu");
+    expect([...CHROMA_CUT.sets].sort()).toEqual(["calibration", "validation"]);
+
+    // No declared holdout scene reached it, asserted against the declaration
+    // rather than against the set label, because the two could disagree.
+    const holdout = new Set(SCENE_DECLARATION.split["holdout"] ?? []);
+    expect(
+      CHROMA_CUT.cells.filter((cell) => holdout.has(cell.scene)).map(chromaKey),
+      "a declared holdout scene in the cut (contract X4)",
+    ).toEqual([]);
+
+    /*
+     * **The cut is a record and never the only copy.** Every figure in it is
+     * re-derived here from the committed matrix and from the pre-fit generations
+     * it names, in both directions, so the snapshot problem W31 G1's review
+     * closure found in B1's shape cannot live here: a canonical read that moves a
+     * row makes M1 and M2 read the new number, and a cut nobody regenerated fails
+     * this case instead of quietly gating yesterday's bed.
+     */
+    const bed = bedFromMatrix();
+    expect(
+      CHROMA_CUT.cells.map((cell) => `${cell.profile} ${cell.scene}`).sort(),
+      "the cut's cells against the bed the matrix carries",
+    ).toEqual([...bed.keys()].sort());
+
+    const preFit = new Map<string, Cell>();
+    for (const [scheme, generation] of Object.entries(CHROMA_CUT.preFitGeneration)) {
+      const file = readJson<ResultMatrix>(
+        resolve(PACKAGE_ROOT, "results", "superseded", generation.file),
+      );
+      for (const cell of file.cells) {
+        // Named, not inferred: a row in the file read at some other document
+        // would be a different baseline wearing the same key.
+        if (!cell.key.web.capturePath.includes(`sha256:${generation.activeDocumentSha256}`)) {
+          continue;
+        }
+        const scheme_ = CHROMA_BED_PROFILES[cell.key.profileKey];
+        if (scheme_ === undefined) continue;
+        expect(
+          scheme_,
+          `${generation.file}: ${cell.key.profileKey} is not a ${scheme} bed`,
+        ).toBe(scheme);
+        preFit.set(`${cell.key.profileKey} ${cell.key.sceneId}`, cell);
+      }
+    }
+
+    for (const cut of CHROMA_CUT.cells) {
+      const key = `${cut.profile} ${cut.scene}`;
+      const cell = bed.get(key);
+      expect(cell, `${chromaKey(cut)}: in the cut and not in the matrix`).toBeDefined();
+      if (cell === undefined) continue;
+      expect(cell.tier, chromaKey(cut)).toBe(cut.tier);
+      expect(cell.fixtureSet, chromaKey(cut)).toBe(cut.set);
+      const native = reading(cell, "material", "chromaStructureRatioNative");
+      const web = reading(cell, "material", "chromaStructureRatioWeb");
+      expect(cut.chromaStructureRatioNative, chromaKey(cut)).toBeCloseTo(native, 12);
+      expect(cut.chromaStructureRatioWeb, chromaKey(cut)).toBeCloseTo(web, 12);
+      expect(cut.R, `${chromaKey(cut)}: R against the matrix`).toBeCloseTo(web / native, 12);
+      expect(cut.interiorStdDevWeb, chromaKey(cut)).toBeCloseTo(
+        reading(cell, "material", "interiorStdDevWeb"),
+        12,
+      );
+
+      const before = preFit.get(key);
+      expect(before, `${chromaKey(cut)}: no pre-fit row in the named generation`).toBeDefined();
+      if (before === undefined) continue;
+      // The pre-fit generation predates the instrument, which is the check that
+      // it really is pre-fit: `chromaStructureRatio*` entered the schema with this
+      // wave, so a baseline row carrying one was read after the leaf.
+      expect(
+        before.material?.["chromaStructureRatioWeb"],
+        `${chromaKey(cut)}: the baseline row carries a chroma field, so it is not pre-fit`,
+      ).toBeUndefined();
+      const baseline = reading(before, "material", "interiorStdDevWeb");
+      expect(cut.interiorStdDevWebPreFit, chromaKey(cut)).toBeCloseTo(baseline, 12);
+      expect(cut.structureDeltaFraction, chromaKey(cut)).toBeCloseTo(
+        (cut.interiorStdDevWeb - baseline) / baseline,
+        12,
+      );
+    }
+  });
+
+  it("carries every bed the two documents draw, at the cell counts the read left", () => {
+    // B1's `CONTRIBUTING_BEDS` one row along, and for its reason: a bed that
+    // stopped contributing would leave the median to the cells that remain rather
+    // than fail. Counted, so an emptied bed is a red.
+    const counted: Record<string, number> = {};
+    for (const cell of CHROMA_CUT.cells) {
+      const bed = `${cell.scheme}|${cell.pose}`;
+      counted[bed] = (counted[bed] ?? 0) + 1;
+    }
+    expect(counted).toEqual(CONTRIBUTING_CELLS);
+    // And both scales are in every bed, which is what the reproducibility the
+    // band is justified from is measured across.
+    for (const bed of Object.keys(CONTRIBUTING_CELLS)) {
+      const scales = new Set(
+        CHROMA_CUT.cells
+          .filter((cell) => `${cell.scheme}|${cell.pose}` === bed)
+          .map((cell) => cell.scale),
+      );
+      expect([...scales].sort(), `${bed}: the scales the bed carries`).toEqual([1, 2]);
+    }
+  });
+
+  it("M1: the median R of every bed is inside [0.80, 1.20]", () => {
+    for (const bed of Object.keys(CONTRIBUTING_CELLS)) {
+      const values = CHROMA_CUT.cells
+        .filter((cell) => `${cell.scheme}|${cell.pose}` === bed)
+        .map((cell) => cell.R)
+        .sort((a, b) => a - b);
+      expect(values.length, bed).toBe(CONTRIBUTING_CELLS[bed]);
+      const middle = values.length / 2;
+      const median =
+        values.length % 2 === 0
+          ? ((values[middle - 1] ?? Number.NaN) + (values[middle] ?? Number.NaN)) / 2
+          : (values[Math.floor(middle)] ?? Number.NaN);
+      expect(median, `${bed}: median R over ${values.length} cells`).toBeGreaterThanOrEqual(
+        CHROMA_MEDIAN_MIN,
+      );
+      expect(median, `${bed}: median R over ${values.length} cells`).toBeLessThanOrEqual(
+        CHROMA_MEDIAN_MAX,
+      );
+      // The cut's own summary has to agree with the statistic computed here, or
+      // its printed table describes a different bed from the gated one.
+      expect(CHROMA_CUT.beds[bed]?.median, `${bed}: the cut's median`).toBeCloseTo(median, 12);
+    }
+  });
+
+  it("M1: every cell is inside [0.60, 1.40], or is named in MISSED_27_ROWS", () => {
+    for (const cell of CHROMA_CUT.cells) {
+      const key = `${chromaKey(cell)} :: ${CHROMA_METRIC}`;
+      // Recorded, not widened: the three cells the ruling declared missed are
+      // excused here and only here, and `MISSED_27_ROWS`'s owner asserts that the
+      // set of excused cells is exactly the set that fails.
+      if (MISSED_27_ROWS[key] !== undefined) continue;
+      expect(cell.R, `${key}: R ${cell.R.toFixed(4)}`).toBeGreaterThanOrEqual(CHROMA_CELL_MIN);
+      expect(cell.R, `${key}: R ${cell.R.toFixed(4)}`).toBeLessThanOrEqual(CHROMA_CELL_MAX);
+    }
+  });
+
+  it("M2: interiorStdDevWeb is within 2% of the pre-fit generation on every cell", () => {
+    for (const cell of CHROMA_CUT.cells) {
+      expect(
+        Math.abs(cell.structureDeltaFraction),
+        `${chromaKey(cell)}: interiorStdDevWeb ${cell.interiorStdDevWebPreFit.toFixed(6)} -> `
+          + `${cell.interiorStdDevWeb.toFixed(6)}, `
+          + `${(cell.structureDeltaFraction * 100).toFixed(3)}%`,
+      ).toBeLessThanOrEqual(CHROMA_STRUCTURE_TOLERANCE);
     }
   });
 });
