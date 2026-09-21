@@ -1,0 +1,30 @@
+W32 G1 — the reach per span, before and after the fit, from the runtime's own functions
+========================================================================================================================
+
+documents  /Users/new/Developer/GitHub/designer/.claude/worktrees/w32-g1-shadow-fit/packages/calibration/profiles
+`reach` is `outerShadowReachPx` at that caster's own occlusion — the scissor pad the optics
+pass sizes itself from, and the runtime's own statement of where the shadow ends.
+`css clip` is the CSS tier's group clip: blur radius + spread + |offset|.
+
+apple-macos-27.0-1x-light-standard-glass0.5
+  σ law  sigmaPx 8.96  slope 0.1314  ref 96  thin offset -6.8328   offsetPx 7.95  spreadPx 0.5
+
+   span  occlusion        σ    reach  css clip  receded occ  receded reach
+     32     0.0244     2.13     9.08     12.70       0.0000           0.00
+     44     0.0261     2.13     9.23     12.70       0.0000           0.00
+     96     0.0961     8.96    20.20     26.37       0.0000           0.00
+    128     0.1797    13.16    30.18     34.78       0.0000           0.00
+    130     0.1855    13.43    30.83     35.31       0.0000           0.00
+    160     0.2717    17.37    40.70     43.19       0.0000           0.00
+
+apple-macos-27.0-1x-dark-standard-glass0.5
+  σ law  sigmaPx 9.04  slope 0.1215  ref 96  thin offset -6.318   offsetPx 7.95  spreadPx 1.8
+
+   span  occlusion        σ    reach  css clip  receded occ  receded reach
+     32     0.0196     2.72     9.90     15.19       0.0000           0.00
+     44     0.0217     2.72    10.22     15.19       0.0000           0.00
+     96     0.1051     9.04    22.06     27.83       0.0000           0.00
+    128     0.2228    12.93    32.49     35.61       0.0000           0.00
+    130     0.2308    13.17    33.15     36.09       0.0000           0.00
+    160     0.3504    16.82    43.04     43.38       0.0000           0.00
+

@@ -2290,6 +2290,34 @@ directions and leaves the one this entry is about exactly where it was.
   state either of them, and the two-number answer is a second reason for it
   beyond the one this entry opened with.
 
+**W32's numbers, added 2026-09-21 (claims §5.168; contract X8 again leaves the
+advisory constant where it is, so this entry stays open).** The shadow wave fits
+the exterior's OUTSET and stands the receded material's amplitude down, and both
+move the reach the platform resolves.
+
+- **The advisory's own quantity is again unmoved.** `samplingPaddingFor` is 3σ of
+  the BACKDROP blur and this wave touches no backdrop constant, so 24 against the
+  material's 22.69 at span 0 on the macOS 27 light document is exactly where W30
+  left it.
+- **The active reach SHRINKS at every span, by the outset.** Light
+  13.39 → **9.08** CSS px at span 32, 13.41 → **9.23** at 44, 23.74 → **20.20**
+  at 96, 32.89 → **30.18** at 128 and 42.93 → **40.70** at 160; dark 12.76 →
+  **9.90**, 12.83 → **10.22**, 24.54 → **22.06**, 34.60 → **32.49** and 45.69 →
+  **43.04** (`results/2026-09-21-w32-g1-shadow-fit/reach.txt`, the runtime's own
+  `outerShadowReachPx`). The CSS tier's group clip follows: light 15.30 →
+  **12.70** at the thin end and 45.79 → **43.19** at span 160.
+- **And the RECEDED reach is 0 at every span, on both documents.** It was the
+  ACTIVE reach at every span — 13.39 to 42.93 on the light document — because
+  both receded documents carried their active document's anchors leaf for leaf.
+  W32 Decision Log 2 sets their amplitude to 0 on the measurement that Apple's
+  receded window removes no light from 3 CSS px outward, and
+  `outerShadowReachPx` returns 0 when `outerShadowAlpha(occlusion)` is 0, so the
+  group clip in the inactive pose collapses to the surface itself. **A pad that
+  is a function of the POSE as well as the span is a third reason for the fix
+  shape**, and the first one that can make a pad go to zero rather than merely
+  vary: an overlap check written against a scalar cannot express "this group needs
+  no pad while its window is unfocused".
+
 ## `interiorMeanBackdrop` is not a backdrop level on a sparse high-contrast backdrop (W27e G0, 2026-09-11)
 
 The canonical matrix's `material.interiorMeanBackdrop` is the backdrop's mean over the **extracted
@@ -5003,3 +5031,58 @@ which the analysis pass already computes per source — then the material is mis
 a term and the entry becomes a charter item rather than debt. Either way the
 reading is cheap once a fit exists, and G1's verdict carries the per-backdrop
 residual regardless (claims §5.166 §4).
+
+## B3 is green by cancellation, and the wave that fits the exterior breaks it (W32 G1, 2026-09-21)
+
+*Measured at W32 G1 (claims §5.168) across seven rendered rounds of the same bed.
+Evidence: `packages/calibration/results/2026-09-21-w32-g1-shadow-fit/b3-window.py`
+and its committed output, plus `departure-stat.txt` in each round's directory.*
+
+**B3** — `|meanDepartureWeb − meanDepartureNative|`, arithmetic mean over the
+calibration + validation cells of all six macOS 27 profiles, WebGPU tier,
+≤ 0.00035 — is a STOP and not an adopted row (W30 Decision Log 3 (a); §5.159 §7
+records that it stopped nothing). It read **0.00034** at the shipped documents
+and reads **0.00072** at the fitted ones, and neither number is a statement about
+the shadow, because the same statistic over the pixels C1 is stated on goes the
+other way by a factor of twenty: **0.00122 → 0.00006**.
+
+| | whole exterior — B3 as declared | over the admitted bands, 3–48 CSS px |
+| --- | ---: | ---: |
+| shipped documents | 0.00034 | 0.00122 |
+| the recede stood down | 0.00054 | 0.00053 |
+| + the outset fitted | 0.00063 | 0.00020 |
+| + the anchors solved | 0.00072 | 0.00006 |
+
+**Why the two disagree, measured rather than argued.** B3 integrates the WHOLE
+exterior, which includes the `0-3` band every form of C1 excludes. In that band
+two things live that are not the shadow: on the ACTIVE pose vitrea's own body
+over-fills its declared contour by 3.5–4 CSS px against Apple's ≤ 1 (§5.62), so
+`Δa` there runs **+0.089 to +0.151** — vitrea removing far LESS light than
+Apple — while in 3–48 px it ran −0.008 to −0.019, removing MORE. The two errors
+had opposite signs and comparable integrals, so B3's mean sat near zero. Fixing
+the shadow removes one of them and leaves the other standing alone. On the
+INACTIVE pose the same thing happens for a different reason: Apple's entire
+receded exterior is one device pixel of dark stroke at the contour (§5.166 §7),
+which is a rim term, and vitrea's receded exterior after Decision Log 2's
+stand-down is nothing at all.
+
+Decomposed by pose over B3's own 166 cells: the ACTIVE half goes 0.00029 →
+0.00064 and the INACTIVE half 0.00039 → 0.00080, and the inactive half moved
+before a single length did — round R stands the recede down at the shipped active
+material and B3 is already 0.00054 there.
+
+**So the stop cannot separate a shadow from a rim**, and it is measured on a bed
+where one pose's whole exterior IS a rim. Both terms it now reads are outside
+what W32 X3 lets that wave touch: the body's over-fill is a silhouette term and
+the receded hairline is a rim term, and this wave's Deferred list names the
+second by name.
+
+**The fix shape** is a ruling and not an edit, which is why it is here and not
+done: B3 is re-stated over the **admitted bands** — the same window the anchors
+are solved on and C1 is read on, where the statistic reads 0.00006 — or over the
+ACTIVE pose with the `0-3` band excluded, with a bound re-derived on the
+generation that adopts it by the rule W32 clause 2 used for C1. Either is a
+re-statement of an adopted stop and belongs to the user through a wave's Decision
+Log; W32 G1 records the numbers and re-states nothing (X4). Until it is ruled,
+a later wave reading B3 at 0.00072 should read `b3-window.py` beside it or it
+will conclude the exterior got worse.
