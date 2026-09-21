@@ -54,6 +54,13 @@ largest below because that is where the shadow is, not because the shadow is in 
 | 2x dark `above` | 0.00000 | 0.00000 | 0.00197 | 0.00931 | 0.01386 |
 | 2x dark `below` | 0.00443 | 0.00472 | 0.00528 | 0.01022 | 0.00604 |
 
+**Corrected beside, 2026-09-21 (review closure; claims §5.166 §10, finding N10).** The paragraph
+above says `above` "overtakes `below` at **span 128**". It does on three beds of four — 1x light
+0.00843 against 0.00813, 2x light 0.00898 against 0.00829, 1x dark 0.00975 against 0.00905 — and
+**not on 2x dark, where `above` is 0.00931 against `below`'s 0.01022**. On that bed the crossing is
+between 128 and 160. The shape is unchanged: zero at the thin spans, rising to 2.7× `below` by 160
+on the light beds; span 128 is where the two directions MEET rather than where one passes the other.
+
 `above` is exactly 0.00000 — min and max both — on all four standard beds and on both accessibility
 beds at spans 32 and 44. The admitted set is `3-6/6-12/12-24/24-48` at 32, 44 and 96,
 `3-6/6-12/12-24` at 128 and `3-6/6-12` at 160.

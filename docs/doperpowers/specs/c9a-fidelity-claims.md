@@ -31924,7 +31924,18 @@ information at all.
 
 `above` begins to carry shadow at **span 96** (0.00183–0.00215 on the four
 standard beds), overtakes `below` at **128** (0.00843–0.00975 against
-0.00813–0.01022) and is 2.7× it at **160** on the light beds. Left and right agree
+0.00813–0.01022) and is 2.7× it at **160** on the light beds.
+
+**Corrected beside, 2026-09-21 (review closure; §10, finding N10).** "Overtakes
+`below` at 128" is true on **three beds of four**. 1x light 0.00843 against
+0.00813, 2x light 0.00898 against 0.00829 and 1x dark 0.00975 against 0.00905
+are overtakes; **2x dark reads `above` 0.00931 against `below` 0.01022** and is
+not. The crossing is therefore between spans 128 and 160 on that bed rather than
+at 128, which does not change the shape the paragraph describes — `above` rises
+from exactly zero at the thin spans to 2.7× `below` by 160 on the light beds —
+but does mean span 128 is where the two directions MEET rather than where one
+passes the other.
+ Left and right agree
 with each other to 0.0005 at every span, *(Corrected beside,
 2026-09-21, review closure; §10, finding N9: 0.0005 is the 1x light reading. Over
 the four standard beds the largest `left` − `right` disagreement is **0.00083**,
