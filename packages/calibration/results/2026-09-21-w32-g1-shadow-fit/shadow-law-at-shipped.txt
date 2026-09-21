@@ -1,0 +1,148 @@
+W30 G3 — the sigma law and the anchors, from W30 G0's native cut
+====================================================================================================
+
+  source     results/2026-09-20-w30-g0-cut/shadow-cut.json
+  statistic  upper middle order statistic of sigma_css, active cells, sigma_css > span excluded
+  law        sigma(span) = sigmaPx + max(sigmaThinOffsetPx, sigmaSlopePerSpan * (span - 96))
+
+  --fit-on non-holdout  the adopted fit's slope range and grid read the NON-HOLDOUT medians; B1's windows and the verdict are on the pooled medians either way
+  --at-shipped on       B1 and B2 re-read at the rounded constants the seal wrote
+
+1. The native sigma per bed per span — pooled (B1's population) and non-holdout (the fit's)
+----------------------------------------------------------------------------------------------------
+  bed                                                 32              44              96             128             130             160
+  1x dark                                    2.0528 ( 3)     1.5446 (12)     8.8743 (10)    13.1904 ( 5)    13.4217 ( 1)    17.4512 (11)
+  1x light                                   2.6318 ( 3)     1.5228 (20)     8.7954 (16)    13.1378 ( 8)    13.3567 ( 2)    17.2991 (13)
+  1x light-increased-contrast                          —     1.5228 ( 6)     8.7968 ( 2)               —               —    16.9684 ( 1)
+  1x light-increased-contrast-coupled                  —     1.4995 ( 6)     8.5898 ( 2)               —               —    16.9712 ( 1)
+  1x light-reduced-transparency                        —     1.4995 ( 5)     8.5898 ( 2)               —               —    16.9712 ( 1)
+  2x dark                                    1.8924 ( 7)     2.7842 (12)     9.3773 (10)    13.4166 ( 5)    13.7413 ( 1)    17.6769 (11)
+  2x light                                   2.1098 ( 7)     1.5755 (23)     9.3648 (16)    13.3050 ( 8)    13.5835 ( 2)    17.5824 (13)
+
+  the same, non-holdout only (what the fit may see)
+  1x dark                                    2.0528 ( 3)     1.5185 (11)     8.8743 (10)    13.1904 ( 5)               —    17.4560 (10)
+  1x light                                   2.6318 ( 3)     1.4171 (17)     8.7954 (15)    13.1378 ( 8)               —    17.3605 (10)
+  1x light-increased-contrast                          —     1.5228 ( 5)     8.7968 ( 2)               —               —               —
+  1x light-increased-contrast-coupled                  —     1.4995 ( 5)     8.5898 ( 2)               —               —               —
+  1x light-reduced-transparency                        —     1.4995 ( 4)     8.5898 ( 2)               —               —               —
+  2x dark                                    1.8924 ( 7)     2.6743 (11)     9.3773 (10)    13.4166 ( 5)               —    17.6774 (10)
+  2x light                                   2.1098 ( 7)     1.3036 (20)     9.3648 (15)    13.3050 ( 8)               —    17.5917 (10)
+
+2. The light document — joint over 1x light, 2x light, 1x light-reduced-transparency, 1x light-increased-contrast-coupled
+----------------------------------------------------------------------------------------------------
+  unconstrained least squares, absolute CSS px:   sigmaPx 8.8751, slope 0.13080, worst relative error 5.229 %
+  the same restricted to B1's joint windows:      sigmaPx 8.8966, slope 0.13043
+  MINIMAX relative (B1's own currency, recorded): sigmaPx 8.9613, slope 0.12930, worst relative error 4.324 % against B1's 5 %
+  each served bed's own least-squares slope: 1x light 0.1338, 2x light 0.1285
+  JOINT MARGIN over B1 and B2, slope inside [0.1285, 0.1338] — THE FIT THIS CHILD ADOPTS: sigmaPx 8.9604, slope 0.13139; B1 worst 4.318 % of 5 %, B2 worst 1.419 of 1.5
+  sum of squares 0.741648 free, 0.743686 window-constrained, 0.774619 minimax, 0.853315 joint-margin, over 10 bed-span observations
+  the same point against B1's POOLED population: B1 worst 4.318 % of 5 %, B2 worst 1.419 of 1.5
+  B1 window at span 96   [8.8966, 9.0193]  (+-0.685 % about its own centre)
+  B1 window at span 128  [12.6397, 13.7947]  (+-4.369 % about its own centre)
+  B1 window at span 160  [16.7033, 17.8198]  (+-3.234 % about its own centre)
+
+  span           law                    window    position   per bed
+  96          8.9604          [8.8966, 9.0193]      INSIDE   1x light: +1.88 %  2x light: -4.32 %  1x light-reduced-transparency: +4.31 %  1x light-increased-contrast-coupled: +4.31 %
+  128        13.1650        [12.6397, 13.7947]      INSIDE   1x light: +0.21 %  2x light: -1.05 %
+  160        17.3695        [16.7033, 17.8198]      INSIDE   1x light: +0.41 %  2x light: -1.21 %  1x light-reduced-transparency: +2.35 %  1x light-increased-contrast-coupled: +2.35 %
+  => B1 MET on the light document at the three thick spans
+
+  the floor, by declaration: the thick line at span 44 is 2.1281, so sigmaThinOffsetPx = -6.8323
+  B2's statistic (untinted, non-holdout, dpr-1, span 44):
+    1x light                                1.8430 over  8 cells   law/bed 1.155x  inside the factor 1.5
+    1x light-reduced-transparency           1.4995 over  3 cells   law/bed 1.419x  inside the factor 1.5
+    1x light-increased-contrast-coupled     1.4995 over  3 cells   law/bed 1.419x  inside the factor 1.5
+    1x light-increased-contrast             1.5228 over  3 cells   law/bed 1.397x  inside the factor 1.5
+    shipped sigmaPx 11.0 against the same statistic: 1x light 5.97x  1x light-reduced-transparency 7.34x  1x light-increased-contrast-coupled 7.34x  1x light-increased-contrast 7.22x
+  the derived knee: 44.00 CSS px (sigmaSpanRefPx + sigmaThinOffsetPx / sigmaSlopePerSpan)
+  AT THE SEALED, ROUNDED CONSTANTS — apple-macos-27.0-1x-light-standard-glass0.5.json
+    the fit      sigmaPx 8.96045, slope 0.131391: B1 worst 4.3177 % of 5 %, B2 worst 1.4193 of 1.5
+    the document sigmaPx 8.96000, slope 0.131400: B1 worst 4.3225 % of 5 %, B2 worst 1.4186 of 1.5
+    the document's own thin line at span 44 is 2.1272 CSS px, sigmaThinOffsetPx -6.8328
+    span 96       8.9600   INSIDE its pooled window
+    span 128     13.1648   INSIDE its pooled window
+    span 160     17.3696   INSIDE its pooled window
+
+2. The dark document — joint over 1x dark, 2x dark
+----------------------------------------------------------------------------------------------------
+  unconstrained least squares, absolute CSS px:   sigmaPx 9.1120, slope 0.13185, worst relative error 2.829 %
+  the same restricted to B1's joint windows:      sigmaPx 9.1120, slope 0.13185
+  MINIMAX relative (B1's own currency, recorded): sigmaPx 9.1199, slope 0.13170, worst relative error 2.768 % against B1's 5 %
+  each served bed's own least-squares slope: 1x dark 0.1341, 2x dark 0.1297
+  JOINT MARGIN over B1 and B2, slope inside [0.1297, 0.1341] — THE FIT THIS CHILD ADOPTS: sigmaPx 9.0405, slope 0.13409; B1 worst 3.592 % of 5 %, B2 worst 1.339 of 1.5
+  sum of squares 0.179842 free, 0.179842 window-constrained, 0.179994 minimax, 0.200406 joint-margin, over 6 bed-span observations
+  the same point against B1's POOLED population: B1 worst 3.592 % of 5 %, B2 worst 1.339 of 1.5
+  B1 window at span 96   [8.9084, 9.3180]  (+-2.247 % about its own centre)
+  B1 window at span 128  [12.7458, 13.8499]  (+-4.151 % about its own centre)
+  B1 window at span 160  [16.7931, 18.3237]  (+-4.359 % about its own centre)
+
+  span           law                    window    position   per bed
+  96          9.0405          [8.9084, 9.3180]      INSIDE   1x dark: +1.87 %  2x dark: -3.59 %
+  128        13.3313        [12.7458, 13.8499]      INSIDE   1x dark: +1.07 %  2x dark: -0.64 %
+  160        17.6221        [16.7931, 18.3237]      INSIDE   1x dark: +0.98 %  2x dark: -0.31 %
+  => B1 MET on the dark document at the three thick spans
+
+  the floor, by declaration: the thick line at span 44 is 2.0679, so sigmaThinOffsetPx = -6.9726
+  B2's statistic (untinted, non-holdout, dpr-1, span 44):
+    1x dark                                 1.5446 over  6 cells   law/bed 1.339x  inside the factor 1.5
+    1x light-increased-contrast             1.5228 over  3 cells   law/bed 1.358x  inside the factor 1.5
+    shipped sigmaPx 11.0 against the same statistic: 1x dark 7.12x  1x light-increased-contrast 7.22x
+  the derived knee: 44.00 CSS px (sigmaSpanRefPx + sigmaThinOffsetPx / sigmaSlopePerSpan)
+  AT THE SEALED, ROUNDED CONSTANTS — apple-macos-27.0-1x-dark-standard-glass0.5.json
+    the fit      sigmaPx 9.04046, slope 0.134088: B1 worst 3.5918 % of 5 %, B2 worst 1.3387 of 1.5
+    the document sigmaPx 9.04000, slope 0.121500: B1 worst 4.8703 % of 5 %, B2 worst 1.7622 of 1.5
+    the document's own thin line at span 44 is 2.7220 CSS px, sigmaThinOffsetPx -6.3180
+    span 96       9.0400   INSIDE its pooled window
+    span 128     12.9280   INSIDE its pooled window
+    span 160     16.8160   INSIDE its pooled window
+
+3. The native falloff amplitude per bed per span — what the anchors are solved toward
+----------------------------------------------------------------------------------------------------
+  The reader's amplitude is the model's occlusion at the contour and is
+  sigma-INDEPENDENT by construction (the blurred-edge shape is 0.5 at distance
+  zero whatever sigma is), so these are readable before a candidate is rendered.
+
+  bed                                                 32              44              96             128             130             160
+  1x dark                                    0.0907 ( 3)     0.1632 (11)     0.1536 (10)     0.2634 ( 5)               —     0.3814 (10)
+  1x light                                   0.0628 ( 3)     0.1827 (17)     0.1061 (15)     0.1814 ( 8)               —     0.2583 (10)
+  1x light-increased-contrast                          —     0.1535 ( 5)     0.1074 ( 2)               —               —               —
+  1x light-increased-contrast-coupled                  —     0.1645 ( 5)     0.1112 ( 2)               —               —               —
+  1x light-reduced-transparency                        —     0.1645 ( 4)     0.1112 ( 2)               —               —               —
+  2x dark                                    0.0535 ( 7)     0.0613 (11)     0.1496 (10)     0.2672 ( 5)               —     0.3826 (10)
+  2x light                                   0.0465 ( 7)     0.1000 (20)     0.1039 (15)     0.1827 ( 8)               —     0.2592 (10)
+
+  pooled (holdout included), for the spans the fit has no cell at
+  1x dark                                    0.0907 ( 3)     0.1632 (12)     0.1536 (10)     0.2634 ( 5)     0.2740 ( 1)     0.3814 (11)
+  1x light                                   0.0628 ( 3)     0.1827 (20)     0.1061 (16)     0.1814 ( 8)     0.1856 ( 2)     0.2567 (13)
+  1x light-increased-contrast                          —     0.1535 ( 6)     0.1074 ( 2)               —               —     0.2511 ( 1)
+  1x light-increased-contrast-coupled                  —     0.1645 ( 6)     0.1112 ( 2)               —               —     0.2511 ( 1)
+  1x light-reduced-transparency                        —     0.1587 ( 5)     0.1112 ( 2)               —               —     0.2511 ( 1)
+  2x dark                                    0.0535 ( 7)     0.0613 (12)     0.1496 (10)     0.2672 ( 5)     0.2724 ( 1)     0.3826 (11)
+  2x light                                   0.0465 ( 7)     0.0776 (23)     0.1043 (16)     0.1827 ( 8)     0.1867 ( 2)     0.2592 (13)
+
+  the thin regime's amplitude by backdrop class, 1x, non-holdout, untinted
+  bed                                   backdrop                span   amplitude    n
+  1x dark                               checkerboard           32/44      0.1632    1
+  1x dark                               checkerboard-32        32/44      0.1574    1
+  1x dark                               checkerboard-4         32/44      0.1883    1
+  1x dark                               checkerboard-64        32/44      0.0659    1
+  1x dark                               checkerboard-8         32/44      0.1711    1
+  1x dark                               hc-text-28             32/44      0.0907    1
+  1x dark                               hc-text-7              32/44      0.1995    1
+  1x dark                               photo                  32/44      0.1230    2
+  1x light                              checkerboard           32/44      0.1115    2
+  1x light                              checkerboard-32        32/44      0.0930    1
+  1x light                              checkerboard-4         32/44      0.1901    1
+  1x light                              checkerboard-64        32/44      0.0574    1
+  1x light                              checkerboard-8         32/44      0.1344    1
+  1x light                              hc-text-28             32/44      0.0628    1
+  1x light                              hc-text-7              32/44      0.1846    1
+  1x light                              light-solid            32/44      0.0990    1
+  1x light                              photo                  32/44      0.1535    2
+  1x light-increased-contrast           checkerboard           32/44      0.1092    1
+  1x light-increased-contrast           photo                  32/44      0.1535    2
+  1x light-increased-contrast-coupled   checkerboard           32/44      0.1645    1
+  1x light-increased-contrast-coupled   photo                  32/44      0.1587    2
+  1x light-reduced-transparency         checkerboard           32/44      0.1645    1
+  1x light-reduced-transparency         photo                  32/44      0.1587    2
+

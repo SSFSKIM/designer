@@ -66,7 +66,7 @@
  * G0's hue-ROTATION finding on them stands open exactly as claims §5.164 §9
  * leaves it. `eye.md` carries the consequence.
  */
-import { readFileSync, readdirSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { resolve } from "node:path";
 
@@ -98,20 +98,14 @@ const STANDARD_PROFILES = [
  * exists only because the holdout was read.
  */
 const STANDARD_SCENES = [
-  ["photo__capsule-button__rest", "both"],
-  ["photo__capsule-button__inactive", "both"],
-  ["photo__rrect-ml__rest", "both"],
-  ["photo__rrect-ml__inactive", "ladder"],
-  ["checkerboard-8__rrect-lg__rest", "ladder"],
-  ["checkerboard-8__rrect-lg__inactive", "ladder"],
-  ["checkerboard__rrect-lg__inactive", "both"],
+  "photo__capsule-button__rest",
+  "photo__capsule-button__inactive",
+  "checkerboard-8__rrect-ml__rest",
+  "photo__rrect-ml__inactive",
+  "checkerboard-8__rrect-lg__rest",
+  "checkerboard-8__rrect-lg__inactive",
+  "checkerboard__rrect-lg__inactive",
 ] as const;
-
-/** The two profiles the canonical read takes the CSS tier of the ladder on. */
-const LADDER_CSS_PROFILES: readonly string[] = [
-  "apple-macos-27.0-1x-light-standard-glass0.5",
-  "apple-macos-27.0-1x-dark-standard-glass0.5",
-];
 
 const ACCESSIBILITY = [
   "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
@@ -224,11 +218,28 @@ function sheet(profileKey: string, scene: string, tiers: "both" | "webgpu"): str
 
 const written: string[] = [];
 console.log(`captures: ${CAPTURES}\n`);
+/*
+ * Which tiers a cell can be photographed at is a property of the READ and not a
+ * choice made here, so it is read off the tree rather than tabled: the canonical
+ * read takes both tiers on the calibration, validation and holdout sets of every
+ * profile and the CSS tier of the ladder's probe scenes on the two 1x standard
+ * profiles alone. A cell a profile does not declare has no capture at all and is
+ * NAMED rather than skipped quietly — the dark documents declare no `photo`
+ * `rrect-ml` and no holdout `checkerboard__rrect-lg`, which is a fact about
+ * `scenes.json` and is what a reader of the sheets needs to know when a bed is
+ * missing a panel.
+ */
+const has = (profileKey: string, scene: string, tier: "webgpu" | "css"): boolean =>
+  existsSync(resolve(CAPTURES, profileKey, scene, `cell__${tier}.json`));
+
 console.log("== the exterior's bed: three spans, both poses, both schemes, both scales ==\n");
 for (const profileKey of STANDARD_PROFILES) {
-  for (const [scene, tiers] of STANDARD_SCENES) {
-    const both = tiers === "both" || LADDER_CSS_PROFILES.includes(profileKey);
-    written.push(sheet(profileKey, scene, both ? "both" : "webgpu"));
+  for (const scene of STANDARD_SCENES) {
+    if (!has(profileKey, scene, "webgpu")) {
+      console.log(`${profileKey} / ${scene}\n  not this profile's bed — no capture in the read`);
+      continue;
+    }
+    written.push(sheet(profileKey, scene, has(profileKey, scene, "css") ? "both" : "webgpu"));
   }
 }
 console.log("\n== the accessibility band: the thin caster, where the stop's worst cell lives ==\n");
