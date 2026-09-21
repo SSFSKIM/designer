@@ -31958,6 +31958,21 @@ spread held, σ, the offset and the amplitude re-fitted):
 | 1x dark | 128 | 0.487 | [0.00, 1.00] | excluded | 8.181 |
 | 2x dark | 96 | −0.149 | [0.00, 1.00] | excluded | 7.930 |
 
+**The two columns are two estimators, said plainly beside them** (added
+2026-09-21, review closure; §10, finding N3). "Apple's spread" is the **median
+of the per-cell free fits** on that bed and span, where all four parameters move
+together. The interval is a **profile likelihood over the POOLED observation
+vector** — the median `a` per band and direction — with the spread HELD at each
+value of a **13-point grid whose lowest point is 0.0** (`model-fit.json`'s
+`spreadSweep`: 0, 0.25, 0.5, 0.75, 1, 1.5, 2, 2.5, 3, 3.1, 4, 5, 6) and σ, the
+offset and the amplitude re-fitted. They are different quantities computed from
+different data, which is why a point estimate can and does fall outside its own
+interval — every span-32 and span-44 spread is negative and no interval can
+reach it, because the grid is floored at 0.0. Nothing here is wrong; what the
+table needed was to say which column is which. **The finding the section states
+rests on the INTERVALS**, which are the quantity the grid and the floor belong
+to, and not on the point estimates.
+
 **At spans 32, 44 and 96 Apple's outset reads 0.0–1.0 CSS px on every standard
 bed and vitrea's 3.10 is outside the one-sigma interval on all of them.** At span
 128 the beds disagree — three exclude 3.10 and 2x light does not — and at 160 the
