@@ -586,6 +586,11 @@ may strike it without touching the material.
   Two of that section's seven cleared at W31 G3 (0.21531 → 0.14655, 0.21341 → 0.14505) and M1's
   three joined at W31 G4. Decomposed, `checkerboard__rrect-lg__rest :: ssimMean` is NOT reachable
   through the shadow at all — a perfect exterior moves it 0.01518 against a 0.01577 gap.
+  **Qualified beside, 2026-09-21 (review closure; claims §5.166 §10, finding N13):** the margin is
+  **0.00059**, and `reach` counts only the 14,519 `ssimOutside` windows while treating the 18,556
+  `ssimBand` windows — 31.8 % of the cell, at `ssimBand` 0.7874 — as unimprovable. The `0-3` band
+  every form of C1 excludes lives in that region, so the verdict reads "not reachable by the
+  exterior this wave fits" rather than "not reachable by any shadow work".
 - **The window-restricted departure is a different objective, not a tidier one** (W32 G0, claims
   §5.166 §6). Over the admitted bands the web-minus-native difference is 3.3 to 6.4 times the
   whole-exterior one and it reverses the sign structure: over the whole exterior vitrea's departure

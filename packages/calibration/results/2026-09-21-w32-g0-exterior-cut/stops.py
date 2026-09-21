@@ -461,6 +461,15 @@ def main() -> int:
     print("  `share × (1 − ssimOutside)`. Where `reach` is below the gap the row is NOT reachable")
     print("  through the shadow at all, however well the exterior is fitted.")
     print()
+    print("  **What `reach` assumes, said beside it** (W32 G0 review closure, claims §5.166 §10,")
+    print("  finding N13). It counts the `ssimOutside` windows only, so it treats every `ssimBand`")
+    print("  window as UNIMPROVABLE. On `checkerboard__rrect-lg__rest` that is 18,556 windows —")
+    print("  31.8 % of the cell, at `ssimBand` 0.7874, the worst of the three regions — against a")
+    print("  verdict whose margin is 0.00059. The band region holds the silhouette's own edge and")
+    print("  the `0-3` band with it, and every form of C1 EXCLUDES `0-3`, so a NOT-reachable")
+    print("  verdict here reads \"not reachable by the exterior this wave fits\" and not \"not")
+    print("  reachable by any shadow work\". The margin is printed so the thinness is visible.")
+    print()
     missed = [
         ("dom", "apple-macos-27.0-1x-light-standard-glass0.5",
          "checkerboard__glass-over-glass__rest", "ssimMean", 0.89531, 0.9, "≥", "current"),

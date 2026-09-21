@@ -32295,7 +32295,11 @@ chroma rows joined at W31 G4, so the list is **five + three** today, as the
 charter's Grounding says. Decomposed by the share of each cell's SSIM windows
 that lie outside the silhouette: `checkerboard__rrect-lg__rest :: ssimMean` is
 **NOT reachable through the shadow** — a perfect exterior moves it 0.01518
-against a 0.01577 gap — while the reduced-transparency `ssimOutside` row is
+against a 0.01577 gap *(qualified beside at §10, finding N13 — a 0.00059
+margin, and `reach` counts only the 14,519 `ssimOutside` windows while the
+18,556 `ssimBand` windows, 31.8 % of the cell at `ssimBand` 0.7874, are treated
+as unimprovable; the verdict is "not reachable by the exterior this wave fits",
+since every form of C1 excludes the `0-3` band that lives in that region)* — while the reduced-transparency `ssimOutside` row is
 scored entirely outside the silhouette, carries the largest `T` of the list
 (0.05669, five times the next) and needs 2 % of its own residual;
 `checkerboard__glass-over-glass__rest :: ssimMean` is reachable if the exterior
@@ -32303,6 +32307,16 @@ closes 35 % of its residual. The two ΔE rows **cannot be decided from the
 committed fields at all** — the axis carries no exterior-restricted ΔE — and M1's
 three are not through the shadow, `R` being the body's chroma over its structure.
 Nothing is claimed.
+
+**Qualified beside, 2026-09-21 (review closure; §10, finding N13).** That verdict has a margin of
+**0.00059** and rests on an assumption the decomposition makes and does not state: `reach` is
+`share × (1 − ssimOutside)`, which counts only the **14,519 `ssimOutside` windows** and treats the
+**18,556 `ssimBand` windows — 31.8 % of the cell, at `ssimBand` 0.7874, the worst of the three
+regions** — as unimprovable. The band region is where the silhouette's own edge is, and the `0-3`
+band lives there: every form of C1 EXCLUDES `0-3`, so the fit this wave runs would not move it, but
+a shadow change that reached the rim would, and 0.00059 is a twenty-fifth of what the band region
+has on the table. So the verdict is **"not reachable by the exterior this wave fits"**, which is
+what G1 needs, and not "not reachable by any shadow work".
 
 ### 7. The recede, which on this bed is not an outer shadow at all
 

@@ -301,6 +301,15 @@ Documents:  packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glas
   `share × (1 − ssimOutside)`. Where `reach` is below the gap the row is NOT reachable
   through the shadow at all, however well the exterior is fitted.
 
+  **What `reach` assumes, said beside it** (W32 G0 review closure, claims §5.166 §10,
+  finding N13). It counts the `ssimOutside` windows only, so it treats every `ssimBand`
+  window as UNIMPROVABLE. On `checkerboard__rrect-lg__rest` that is 18,556 windows —
+  31.8 % of the cell, at `ssimBand` 0.7874, the worst of the three regions — against a
+  verdict whose margin is 0.00059. The band region holds the silhouette's own edge and
+  the `0-3` band with it, and every form of C1 EXCLUDES `0-3`, so a NOT-reachable
+  verdict here reads "not reachable by the exterior this wave fits" and not "not
+  reachable by any shadow work". The margin is printed so the thinness is visible.
+
   tier    scene                                 bed                               metric            measured    bound      gap     today   share    reach     (i)    T all   verdict
   dom     checkerboard__glass-over-glass__rest  1x light                          ssimMean           0.89531    ≥ 0.9  0.00469   0.89531   0.384  0.01325   0.027  0.01156   reachable if the exterior closes 35 % of its own residual
   dom     checkerboard__rrect-lg__rest          1x light                          ssimMean           0.88423    ≥ 0.9  0.01577   0.88423   0.249  0.01518   0.000  0.01142   NOT through the shadow

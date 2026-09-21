@@ -598,7 +598,7 @@ metric could move if the exterior became perfect (`stops.txt` §7):
 | tier | scene | bed | metric | gap | share | reach | `T` | verdict |
 | --- | --- | --- | --- | ---: | ---: | ---: | ---: | --- |
 | dom | `checkerboard__glass-over-glass__rest` | 1x light | ssimMean | 0.00469 | 0.384 | 0.01325 | 0.01156 | **reachable if** the exterior closes 35 % of its own residual |
-| dom | `checkerboard__rrect-lg__rest` | 1x light | ssimMean | 0.01577 | 0.249 | 0.01518 | 0.01142 | **NOT through the shadow** — a perfect exterior moves it 0.01518 against a 0.01577 gap |
+| dom | `checkerboard__rrect-lg__rest` | 1x light | ssimMean | 0.01577 | 0.249 | 0.01518 | 0.01142 | **NOT through the shadow** — a perfect exterior moves it 0.01518 against a 0.01577 gap *(qualified at claims §5.166 §10, N13: margin 0.00059, and `reach` treats the 18,556 `ssimBand` windows as unimprovable)* |
 | dom | `photo__rrect-lg__rest` | 1x dark | oklabDeltaEP95 | 0.02095 | 0.250 | — | 0.01532 | undecidable from the committed fields |
 | dom | `photo__rrect-lg__rest` | 1x RT | ssimOutside | 0.00305 | — | 0.17305 | **0.05669** | **reachable** — the metric IS the exterior; 2 % of its residual |
 | dom | `photo__rrect-lg__rest` | 2x dark | oklabDeltaEP95 | 0.00474 | 0.276 | — | 0.01571 | undecidable from the committed fields |
@@ -612,6 +612,18 @@ perfect exterior leaves it missed**, by 0.00059, so a wave that claimed it throu
 be claiming something the decomposition forbids. The two ΔE rows cannot be decided from the
 committed fields at all — the axis carries no exterior-restricted ΔE — and that is a tracker entry,
 not a verdict. **Nothing is claimed through this wave.**
+
+---
+
+**Qualified beside, 2026-09-21 (review closure; claims §5.166 §10, finding N13).** That verdict has a margin of
+**0.00059** and rests on an assumption the decomposition makes and does not state: `reach` is
+`share × (1 − ssimOutside)`, which counts only the **14,519 `ssimOutside` windows** and treats the
+**18,556 `ssimBand` windows — 31.8 % of the cell, at `ssimBand` 0.7874, the worst of the three
+regions** — as unimprovable. The band region is where the silhouette's own edge is, and the `0-3`
+band lives there: every form of C1 EXCLUDES `0-3`, so the fit this wave runs would not move it, but
+a shadow change that reached the rim would, and 0.00059 is a twenty-fifth of what the band region
+has on the table. So the verdict is **"not reachable by the exterior this wave fits"**, which is
+what G1 needs, and not "not reachable by any shadow work".
 
 ---
 
