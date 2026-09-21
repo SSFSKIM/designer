@@ -98,15 +98,33 @@ export function matrixSchemaRefusal(
    * instrument, and the answer for all three is the same — this build cannot
    * merge into them, and it must not rewrite them either, because a recorded
    * number is never rewritten.
+   *
+   * The two directions are NOT the same sentence, and saying so is finding N4 of
+   * this gate's own review closure (2026-09-21; c9a §5.163 §8). The three files
+   * enumerated above are all at an OLDER schema — every one of them was written
+   * by a build of this repository that has since been superseded. A file at a
+   * NEWER schema is not on that list and cannot be: nothing in the tree has
+   * written one, so it came from a build this checkout does not have, which
+   * means a branch ahead of this one or a working tree that bumped the schema.
+   * The instruction is the same and the diagnosis is not, and offering the older
+   * list to someone holding the newer file sends them to look for a file that
+   * does not exist.
    */
-  const direction = existingVersion < buildVersion ? "an older" : "a newer";
+  const older = existingVersion < buildVersion;
+  const diagnosis = older
+    ? `A file at an older schema is a reading taken under an earlier instrument: the usual ones ` +
+      `are a scratch matrix an earlier --out-matrix wrote, one restored from a branch, and a ` +
+      `superseded generation under results/superseded/. None of them is a target to write into ` +
+      `— a recorded number is never rewritten — so send this run somewhere else with ` +
+      `--out-matrix results/<name>.json.`
+    : `A file at a newer schema was written by a build this checkout does not have — a branch ` +
+      `ahead of this one, or a working tree that bumped RESULT_MATRIX_SCHEMA_VERSION. Nothing ` +
+      `in this tree can have written it, so it is not a scratch file of yours to reuse: check ` +
+      `out the build that wrote it, or send this run somewhere else with ` +
+      `--out-matrix results/<name>.json.`;
   return (
     `${path} is a schema-${existingVersion} matrix and this build writes schema ${buildVersion}, so it ` +
-    `can be neither read nor merged into. A file at ${direction} schema is a reading taken under ` +
-    `${direction === "an older" ? "an earlier" : "a later"} instrument: the usual ones are a scratch matrix an earlier ` +
-    `--out-matrix wrote, one restored from a branch, and a superseded generation under ` +
-    `results/superseded/. None of them is a target to write into — a recorded number is never ` +
-    `rewritten — so send this run somewhere else with --out-matrix results/<name>.json.`
+    `can be neither read nor merged into. ${diagnosis}`
   );
 }
 

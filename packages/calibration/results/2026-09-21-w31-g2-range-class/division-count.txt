@@ -1,0 +1,42 @@
+uniform variables declared: au, checkCount, cu, fu, hu, iu, ou, u
+
+file                      with imports  divisions
+analysis.ts                          8          8
+backdrop.ts                          3          3
+cross-check.ts                       0          0
+field.ts                            19         18
+highlight.ts                         5          5
+index.ts                            15          0
+optics.ts                           57         57
+prelude.ts                           3          3
+silhouette-tone.ts                   7          5
+TOTAL                              117         99
+
+uniform as the immediate divisor, with NO floor: 3
+  analysis.ts:82  …= f32(i % u32(au.grid.x)); let gy = f32(i / u32(au.grid.x)); let uv
+  optics.ts:706  …le.falloff; let viewport01 = in.position.xy / ou.screen.xy;
+  silhouette-tone.ts:51  …distance > 0.0) { continue; } let uv = (p / u.viewport.xy) * u.fit.xy +
+
+None of them is a material leaf: two are the viewport's own size in device
+px (>= 1 wherever a pass runs at all) and one is the analysis reduction's
+fixed 64x64 grid.
+
+uniform as the divisor, floored by max()/clamp(): 14
+  field.ts:417  …c.g / len; let coverage = clamp(0.5 - acc.d / max(fu.screen.w, 1e-6), 0.0,
+  highlight.ts:149  …let rim = clamp(1.0 - abs(d) / max(hu.sweep.w, 1e-4), 0.0,
+  highlight.ts:160  …hu.glow.xy); let radial = clamp(1.0 - dist / max(hu.glow.z, 1e-4), 0.0, 1
+  highlight.ts:181  …t spanT = clamp( (aux.z - hu.toneLevel.y) / max(hu.toneLevel.z - hu.tone
+  highlight.ts:190  …toneT = clamp( (toneX - hu.toneAdapt.x) / max(hu.toneAdapt.y - hu.tone
+  optics.ts:508  …stT = clamp( (shadowAux.z - ou.scatter.z) / max(ou.scatter.w - ou.scatte
+  optics.ts:564  …p( (shadow.castSpanCss - ou.shadowLift.y) / max(ou.shadowLift.z - ou.sha
+  optics.ts:765  …); let thickT = clamp((span - ou.scatter.z) / max(ou.scatter.w - ou.scatte
+  optics.ts:833  …0); let deepT = clamp((span - ou.scatter.z) / max(ou.lensOval.w - ou.scatt
+  optics.ts:846  …- kDeep; let rampT = max(1.0 - max(-d, 0.0) / max(ou.lensOval.z, 1e-6), 0.
+  optics.ts:847  ….0); let farT = clamp((span - ou.scatter.w) / max(ou.lensOval.w - ou.scatt
+  optics.ts:890  …let thickScale = lensThick / max(ou.lensShape.w, 1e-4);
+  optics.ts:906  …let ovalT = clamp((span - ou.lensOval.x) / max(ou.lensOval.y - ou.lensO
+  optics.ts:1064  …toneT = clamp( (toneX - ou.toneAdapt.x) / max(ou.toneAdapt.y - ou.tone
+
+This is the other half of the paragraph scan.ts rests on, measured: every
+divisor a material leaf can reach is written max(x, 1e-4) or max(x, 1e-6) in
+the shader's own idiom.

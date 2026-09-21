@@ -1,0 +1,61 @@
+W31 G2 review closure, finding N9 — the CROSS term (claims c9a §5.163 §8).
+
+Every reading in `sweeps.txt` beside this file holds one axis at the shipped
+values while it sweeps the other: the five material ladders all run at span 96 /
+radius 24, and the scene axis runs at the shipped material. §5.159b's defect was
+neither — it was a COMBINATION, a caster deep enough measured in a σ narrow
+enough, each half unremarkable alone — so a pair of one-dimensional sweeps
+cannot see that class.
+
+These are each material ladder's two ENDPOINTS re-read at the scene axis's own
+two ends, span 32 (macOS 27's σ law at its thin floor) and span 340 (past where
+the macOS 26.5 material reached the overflow), at radius 12. Ten pairings, twenty
+readings, plus two leaves whose extreme obviously interacts with span — the lens
+profile's exponent, whose base is the pixel's depth over a span-scaled extent,
+and the rim's, which shapes the lit edge around a contour the scene decides —
+at their own extremes, for twenty-eight in all.
+
+Every one is 0 undrawn at containment 1.0000, and the readback guard (now
+reading each declared surface's wall from its own peak, finding N1) is silent on
+all of them.
+
+A NOTE ON THE COLUMN, dated 2026-09-21 (finding N2): `sweeps.txt` beside this
+file records the same statistic under the heading "IoU". The number is
+CONTAINMENT — `intersection / declared`, the drawn fraction of the declared
+mask, identically `1 − undrawn/declared` — and not an intersection over union.
+Its recorded values are unchanged and stay as recorded; the field, and this
+file's own column, are named for what they measure.
+
+Read from `pnpm --filter @vitrea/renderer-webgpu test:gpu`
+(`e2e/gpu/w31-range-sweeps.spec.ts`, "the cross term"), machine read before and
+after in `machine.txt`.
+
+[w31 cross term]
+  span 32 × lens ×0.001818: 856 declared, 0 undrawn, containment 1.0000, peak 255
+  span 32 × lens ×550.0: 856 declared, 0 undrawn, containment 1.0000, peak 255
+  span 32 × heavy tap ×0.001818: 856 declared, 0 undrawn, containment 1.0000, peak 255
+  span 32 × heavy tap ×550.0: 856 declared, 0 undrawn, containment 1.0000, peak 255
+  span 32 × second tap ×0.001818: 856 declared, 0 undrawn, containment 1.0000, peak 255
+  span 32 × second tap ×550.0: 856 declared, 0 undrawn, containment 1.0000, peak 255
+  span 32 × tone knots ×0.001818: 856 declared, 0 undrawn, containment 1.0000, peak 255
+  span 32 × tone knots ×550.0: 856 declared, 0 undrawn, containment 1.0000, peak 255
+  span 32 × tone abscissa ×0.001818: 856 declared, 0 undrawn, containment 1.0000, peak 255
+  span 32 × tone abscissa ×550.0: 856 declared, 0 undrawn, containment 1.0000, peak 255
+  span 32 × lensProfileExponent 0.01: 856 declared, 0 undrawn, containment 1.0000, peak 255
+  span 32 × lensProfileExponent 64: 856 declared, 0 undrawn, containment 1.0000, peak 255
+  span 32 × rimLitExponent 0: 856 declared, 0 undrawn, containment 1.0000, peak 255
+  span 32 × rimLitExponent 64: 856 declared, 0 undrawn, containment 1.0000, peak 255
+  span 340 × lens ×0.001818: 115432 declared, 0 undrawn, containment 1.0000, peak 255
+  span 340 × lens ×550.0: 115432 declared, 0 undrawn, containment 1.0000, peak 255
+  span 340 × heavy tap ×0.001818: 115432 declared, 0 undrawn, containment 1.0000, peak 255
+  span 340 × heavy tap ×550.0: 115432 declared, 0 undrawn, containment 1.0000, peak 255
+  span 340 × second tap ×0.001818: 115432 declared, 0 undrawn, containment 1.0000, peak 255
+  span 340 × second tap ×550.0: 115432 declared, 0 undrawn, containment 1.0000, peak 255
+  span 340 × tone knots ×0.001818: 115432 declared, 0 undrawn, containment 1.0000, peak 255
+  span 340 × tone knots ×550.0: 115432 declared, 0 undrawn, containment 1.0000, peak 255
+  span 340 × tone abscissa ×0.001818: 115432 declared, 0 undrawn, containment 1.0000, peak 255
+  span 340 × tone abscissa ×550.0: 115432 declared, 0 undrawn, containment 1.0000, peak 255
+  span 340 × lensProfileExponent 0.01: 115432 declared, 0 undrawn, containment 1.0000, peak 255
+  span 340 × lensProfileExponent 64: 115432 declared, 0 undrawn, containment 1.0000, peak 255
+  span 340 × rimLitExponent 0: 115432 declared, 0 undrawn, containment 1.0000, peak 255
+  span 340 × rimLitExponent 64: 115432 declared, 0 undrawn, containment 1.0000, peak 255

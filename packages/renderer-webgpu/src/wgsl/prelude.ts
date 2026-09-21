@@ -18,7 +18,13 @@ export const WGSL_PRELUDE = `// vitrea:wgsl-marker
 
 fn srgb_to_linear(c : vec3f) -> vec3f {
   let lo = c / 12.92;
-  let hi = pow((c + vec3f(0.055)) / 1.055, vec3f(2.4));
+  // The floor is the identity at every component the select below KEEPS: it
+  // keeps hi only where c > 0.04045, and there the base is already above 0.0905.
+  // Below zero the base is a pow WGSL leaves undefined, and a clamp in the
+  // source is preferred to a proof of the select's discard (W31 G2 review
+  // closure, claims §5.163 §8, finding N8). Same shape as linear_to_srgb's own
+  // max, one line down.
+  let hi = pow(max((c + vec3f(0.055)) / 1.055, vec3f(0.0)), vec3f(2.4));
   return select(hi, lo, c <= vec3f(0.04045));
 }
 

@@ -86,6 +86,13 @@ const SHIPPED = {
   rimLitExponent: 0.85,
 } as const;
 
+/**
+ * The scene axis's two ends, for the cross term below: the thin floor of macOS
+ * 27's σ law, and the caster past where the macOS 26.5 material reached the
+ * overflow.
+ */
+const CROSS_SPANS = [32, 340] as const;
+
 const scaled = (row: readonly number[], factor: number): number[] =>
   row.map((value) => value * factor);
 
@@ -186,10 +193,14 @@ const readOne = async (
   expect(read.peak, `${label}: the optics pass wrote no alpha at all`).toBeGreaterThan(16);
   expect(
     read.undrawn,
-    `${label}: ${read.undrawn} of ${read.declared} declared px undrawn, IoU ${read.iou.toFixed(4)}`,
+    `${label}: ${read.undrawn} of ${read.declared} declared px undrawn, ` +
+      `containment ${read.containment.toFixed(4)}`,
   ).toBe(0);
-  expect(read.iou, `${label}: declaration conformance`).toBeGreaterThanOrEqual(0.99);
-  return `${label}: ${read.declared} declared, ${read.undrawn} undrawn, IoU ${read.iou.toFixed(4)}, peak ${read.peak}`;
+  expect(read.containment, `${label}: declaration conformance`).toBeGreaterThanOrEqual(0.99);
+  return (
+    `${label}: ${read.declared} declared, ${read.undrawn} undrawn, ` +
+    `containment ${read.containment.toFixed(4)}, peak ${read.peak}`
+  );
 };
 
 test.describe("@gpu the material's range: a swept leaf does not decide what the surface covers", () => {
@@ -343,5 +354,112 @@ test.describe("@gpu the material's range: a swept leaf does not decide what the 
       }
     }
     record("w31 scene axis", lines);
+  });
+
+  /**
+   * The CROSS term: a material at an extreme ON a scene at an extreme (review
+   * closure 2026-09-21; claims §5.163 §8, finding N9).
+   *
+   * Every case above holds one axis at the shipped values while it sweeps the
+   * other — the material ladders all run at span 96 / radius 24, and the scene
+   * axis runs at the shipped material. §5.159b's own defect was neither: it was
+   * a COMBINATION, a caster deep enough measured in a σ narrow enough, and each
+   * half of it was unremarkable alone. A pair of one-dimensional sweeps cannot
+   * see that class, which is the same reason the review closure of §5.159b
+   * added the scene's axis in the first place.
+   *
+   * So each material ladder's two ENDPOINTS are re-read at the scene axis's own
+   * two ends — span 32, where macOS 27's σ law sits at its thin floor, and span
+   * 340, past where the macOS 26.5 material reached the overflow — asserting the
+   * same invariant, because the invariant is the same one: no constant of the
+   * material decides what the surface covers, at any surface. Two leaves whose
+   * extreme obviously interacts with span are carried in beside them: the lens
+   * profile's exponent, whose base is the pixel's depth over the lens's
+   * span-scaled extent, and the rim's, which shapes the lit edge around a
+   * contour whose curvature is the scene's.
+   */
+  test("the cross term: each material extreme at each end of the scene's axis", async ({
+    page,
+  }) => {
+    const report = await openHarness(page);
+    requireHardwareAdapter(report);
+
+    const ends = [1 / WIDEST_LEAF_MOVE, WIDEST_LEAF_MOVE] as const;
+    const ladders: readonly (readonly [string, (factor: number) => Record<string, unknown>])[] = [
+      [
+        "lens",
+        (factor) => ({
+          lensHeightPerSpan: SHIPPED.lensHeightPerSpan * factor,
+          lensHeightMax: SHIPPED.lensHeightMax * factor,
+          lensAmountPerSpan: SHIPPED.lensAmountPerSpan * factor,
+          lensAmountMax: SHIPPED.lensAmountMax * factor,
+          lensExtentGain: SHIPPED.lensExtentGain * factor,
+        }),
+      ],
+      [
+        "heavy tap",
+        (factor) => ({
+          sizeHeavyTapSigma: SHIPPED.sizeHeavyTapSigma * factor,
+          sizeHeavyTapSigma2x: SHIPPED.sizeHeavyTapSigma2x * factor,
+        }),
+      ],
+      [
+        "second tap",
+        (factor) => ({
+          sizeHeavySecondSigma: SHIPPED.sizeHeavySecondSigma * factor,
+          sizeHeavySecondSigma2x: SHIPPED.sizeHeavySecondSigma2x * factor,
+          sizeHeavySecondShare: 0.5,
+        }),
+      ],
+      [
+        "tone knots",
+        (factor) => ({
+          backdropToneAnchorX: scaled(SHIPPED.toneAnchorX, factor),
+          backdropToneResponseThin: scaled(SHIPPED.toneThin, factor),
+          backdropToneResponseThick: scaled(SHIPPED.toneThick, factor),
+        }),
+      ],
+      [
+        "tone abscissa",
+        (factor) => ({
+          backdropToneAnchorX: scaled(SHIPPED.toneAnchorX, factor),
+          backdropToneResponseThin: [...SHIPPED.toneThin],
+          backdropToneResponseThick: [...SHIPPED.toneThick],
+        }),
+      ],
+    ];
+
+    const lines: string[] = [];
+    for (const span of CROSS_SPANS) {
+      const radius = Math.min(12, span / 2);
+      for (const [name, patch] of ladders) {
+        for (const factor of ends) {
+          lines.push(
+            await readOne(
+              page,
+              span,
+              radius,
+              `span ${span} × ${name} ×${factor.toPrecision(4)}`,
+              patch(factor),
+            ),
+          );
+        }
+      }
+      for (const exponent of [0.01, 64]) {
+        lines.push(
+          await readOne(page, span, radius, `span ${span} × lensProfileExponent ${exponent}`, {
+            lensProfileExponent: exponent,
+          }),
+        );
+      }
+      for (const exponent of [0, 64]) {
+        lines.push(
+          await readOne(page, span, radius, `span ${span} × rimLitExponent ${exponent}`, {
+            optics: { regular: { rimLitExponent: exponent }, clear: { rimLitExponent: exponent } },
+          }),
+        );
+      }
+    }
+    record("w31 cross term", lines);
   });
 });

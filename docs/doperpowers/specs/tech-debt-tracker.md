@@ -3953,6 +3953,18 @@ the old copy: the ruling must not be cited, and the three files must be. The
 same stale claim lived in `cli/compare.ts`'s and `cli/diff.ts`'s own comments,
 both corrected beside with the old reading named.
 
+*Amended 2026-09-21 (review closure; claims §5.163 §8, finding N4): the three
+files are all OLDER-schema artefacts and the message offered them in both
+directions.* Each of them was written by a build of this repository that has
+since been superseded. A file at a NEWER schema is none of them and cannot be —
+nothing in this tree has written one — so it came from a build this checkout does
+not have: a branch ahead of this one, or a working tree that bumped
+`RESULT_MATRIX_SCHEMA_VERSION`. The enumeration is now in the older branch alone
+and the newer branch says that instead. The pinned case for the newer branch
+asserted the two words "a newer" and would have passed on the wrong sentence,
+which is this entry's own failure mode one layer down; it now asserts five
+substrings of its own and that the older branch's list is absent.
+
 The RULE — *when a sweep reports a file "unchanged, checked", say what the file
 CLAIMS about the thing being changed, not only whether it reads it* — is in the
 root `CLAUDE.md`'s Conventions, beside "never rewrite a recorded hash". The two
@@ -4011,19 +4023,43 @@ refuted and the residual is re-opened.**
    entry's own defect. Bare division is outside the rule by decision, with the
    reasons in `scan.ts`'s module note and the one measurement that decided it:
    of over a thousand divisions in `src/wgsl/`, exactly one has a uniform as its
-   immediate divisor.
+   immediate divisor. *(Corrected 2026-09-21, review closure; claims §5.163 §8,
+   finding N5: both counts are wrong. There are **99** divisions once comments
+   and the TypeScript import paths are out — the raw slash count is 117 and
+   `index.ts` contributes 15 of them with no arithmetic at all — and **three**,
+   not one, have a uniform as their immediate divisor: the viewport's own size
+   in `optics.ts` and in `silhouette-tone.ts`, and the analysis reduction's
+   fixed grid. None of the three is a material leaf, which is what the decision
+   rested on, and the fourteen uniform divisors a leaf CAN reach are all floored
+   by the shader's own `max(x, 1e-6)` idiom. `division-count.py` / `.txt` in the
+   gate's evidence directory.)*
 2. The `@gpu` sweeps exist: `e2e/gpu/w31-range-sweeps.spec.ts`, both halves of
    every ratio — the material axis bracketed by **550×**, which is the widest
    ratio any leaf has moved between two material generations rather than a
    number somebody liked, and the scene axis over spans 32…340 at the shipped
    material. The lens depth, the lens exponent, both scatter taps, the tone
    knots, the abscissa alone, the rim's exponent and its axis: every reading
-   0 undrawn at IoU 1.0000.
+   0 undrawn at IoU 1.0000. *(Amended 2026-09-21, review closure; claims §5.163
+   §8, findings N2 and N9. The column is CONTAINMENT, not IoU — the drawn
+   fraction of the declared mask, which is blind to over-draw by construction —
+   and the recorded values are unchanged. And each ladder's endpoints are now
+   also read at spans 32 and 340, twenty-eight CROSS readings in
+   `sweeps-cross.txt`, because a pair of one-dimensional sweeps cannot see a
+   defect that is a combination, and §5.159b's was.)*
 3. The standing guard exists: `renderScene`'s readback refuses an enclosed
    region of zero alpha **inside the drawn silhouette**. The silhouette clause
    was earned rather than designed — the first form had only enclosure and fired
    on a single pixel of the outer shadow's quantisation tail, on two of
-   forty-two `@gpu` cases (`guard-first-form.txt`).
+   forty-two `@gpu` cases (`guard-first-form.txt`). *(Amended 2026-09-21, review
+   closure; claims §5.163 §8, findings N1 and N7. Two things. The wall is now
+   read **per declared region** — half the peak alpha inside the region being
+   read — because a raster-wide wall made a surface's sensitivity depend on what
+   else was in the frame: a hole punched through a dim surface read 0 holes with
+   a bright surface elsewhere and 1 without it, and `glass-over-glass` is a
+   two-surface scene. And the guard is **test-time**: `renderScene` here is
+   `window.vitrea.renderScene` in the e2e harness, nothing under `src/` runs it,
+   so "every scene" is every scene an e2e spec renders and not a runtime
+   property of the renderer.)*
 
 **And the class had one more member than anyone had found.** `highlight.ts`'s
 `angle_delta` returns `min(raw, TAU - raw)`, which goes negative past one
@@ -4032,11 +4068,38 @@ application: the sweep phase comes off a CSS custom property that nothing clamps
 (`readHostChannels` clamps `materialization` and not `sweep`). Floored as an
 identity; the goldens are byte-identical.
 
-**The fix shape left open, narrower than this entry was.** The floor makes an
-out-of-range phase safe without making it mean anything — the band is centred on
-the pixel rather than NaN. Wrapping the phase where it is READ, in
-`platform-web`'s `readHostChannels` beside the clamp `materialization` already
-has, is what would make it a phase again. One line, outside W31 G2's contract.
+**The fix shape left open is now its own entry**, below: *"The sweep phase
+reaches the uniform unwrapped"*. It was a paragraph here until 2026-09-21, which
+is to say inside a CLOSED entry, where a reader looking for open work does not
+go (review closure; claims §5.163 §8, finding N3).
+
+---
+
+## The sweep phase reaches the uniform unwrapped (W31 G2, 2026-09-21)
+
+*Opened at W31 G2's review closure out of a paragraph inside the closed WGSL
+range-class entry above (claims §5.163 §2 and §8, finding N3).*
+
+The highlight's specular band is centred on a sweep PHASE that comes off a CSS
+custom property, and nothing wraps it. `readHostChannels` in `platform-web`
+clamps `materialization` and does not touch `sweep`, so `--vitrea-sweep: 3` puts
+the band's centre at three τ. Before W31 G2 that reached a negative `pow` base
+through `angle_delta`'s `min(raw, TAU - raw)` and was a NaN; the floor that gate
+added makes it **safe** without making it **mean** anything — out of range, the
+band is now centred on the pixel, which is a defensible reading of nothing in
+particular.
+
+**The fix shape**: wrap the phase where it is READ, in `platform-web`'s
+`readHostChannels`, beside the clamp `materialization` already has. One line. It
+belongs there rather than in the shader because a phase is periodic and a clamp
+is not: wrapping is the operation that makes an out-of-range value the value the
+author meant, while the shader's floor is only the operation that keeps it
+finite.
+
+**What it is worth**: the defect it would fix is cosmetic and reachable only from
+an application that writes a phase outside [0, τ), which nothing vitrea ships
+does. It is recorded because the next channel of this shape will have the same
+gap, and because the shader floor above is easy to mistake for the whole fix.
 
 ---
 

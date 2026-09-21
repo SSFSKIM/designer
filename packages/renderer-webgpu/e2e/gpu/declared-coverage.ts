@@ -5,10 +5,24 @@
  * The rule is W20's, read the way the calibration harness reads it per cell
  * (`declared-conformance.test.ts`, the alpha extractor at threshold 0.5): the
  * DRAWN silhouette — alpha at or above half of what the material composites at —
- * must CONTAIN the declared region, and agree with it to an IoU of 0.99. It is
- * the invariant a sweep over a material axis can assert without knowing what the
- * axis does, which is the whole shape of the instrument: **no constant of the
- * material decides what the surface covers.**
+ * must CONTAIN the declared region. It is the invariant a sweep over a material
+ * axis can assert without knowing what the axis does, which is the whole shape
+ * of the instrument: **no constant of the material decides what the surface
+ * covers.**
+ *
+ * **What this measures is CONTAINMENT, and the field said `iou` until
+ * 2026-09-21** (review closure; claims §5.163 §8, finding N2). The number
+ * returned is `intersection / declared.length` — the fraction of the DECLARED
+ * mask that carries material, which is recall over the declaration and is
+ * identically `1 − undrawn/declared`. It is not an intersection-over-union: the
+ * union would add the drawn pixels outside the declaration, and those are
+ * deliberately not counted, because the exterior there is the shadow — a facet,
+ * not a silhouette. Two consequences worth stating rather than discovering. A
+ * sweep that asserts `undrawn === 0` has already asserted `containment === 1`,
+ * so the `≥ 0.99` clause beside it is implied and is there to say what the
+ * reading MEANS rather than to catch anything the other clause would miss. And
+ * OVER-draw is invisible to this number by construction; the instrument that
+ * sees it is the calibration harness's silhouette metrics, not this one.
  *
  * `w30-thin-sigma-coverage.spec.ts` carries its own copy of these four
  * functions and deliberately keeps it. That case is the committed reading of a
@@ -81,7 +95,8 @@ export const drawnPixels = (raster: Raster): { readonly set: Set<number>; readon
 export interface Conformance {
   readonly undrawn: number;
   readonly declared: number;
-  readonly iou: number;
+  /** The declared mask's drawn fraction. Containment, not IoU — module note. */
+  readonly containment: number;
   readonly peak: number;
 }
 
@@ -98,7 +113,7 @@ export const conformance = (raster: Raster, regions: readonly Region[]): Conform
   return {
     undrawn: declared.length - intersection,
     declared: declared.length,
-    iou: declared.length === 0 ? 1 : intersection / declared.length,
+    containment: declared.length === 0 ? 1 : intersection / declared.length,
     peak,
   };
 };

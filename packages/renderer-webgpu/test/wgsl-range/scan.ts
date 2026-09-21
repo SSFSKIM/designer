@@ -44,16 +44,31 @@
  * than an omission.** Three reasons, in the order that decided it. (1) A divisor
  * that reaches zero returns `±Inf` from a finite numerator; only `0/0` returns
  * the NaN that travels through a multiply by zero into alpha, which is the
- * signature this class exists for. (2) `src/wgsl/` performs over a thousand
- * divisions and exactly ONE of them has a uniform as its immediate divisor
- * (`in.position.xy / ou.screen.xy`, the viewport's own size in device px, which
- * is ≥ 1 wherever a pass runs at all); every divisor a material leaf can reach
- * is already written `max(x, 1e-4)` or `max(x, 1e-6)` in the shader's own idiom.
- * A per-site rule over the other thousand would be a proof table the size of the
- * shader, and a table that size is one nobody re-reads. (3) The standing readback
- * guard catches the alpha-hole signature of a NaN however it was produced,
- * including from a division, which is the coverage a division rule would buy at a
- * fraction of its cost.
+ * signature this class exists for. (2) `src/wgsl/` performs **99 divisions**,
+ * and the three whose immediate divisor is a uniform are all viewport or grid
+ * geometry rather than material: `in.position.xy / ou.screen.xy` (`optics.ts`)
+ * and `p / u.viewport.xy` (`silhouette-tone.ts`), the viewport's own size in
+ * device px, which is ≥ 1 wherever a pass runs at all; and
+ * `i / u32(au.grid.x)` (`analysis.ts`), the reduction's fixed 64×64 grid. **No
+ * material leaf is an immediate divisor anywhere** — every divisor a leaf can
+ * reach is already written `max(x, 1e-4)` or `max(x, 1e-6)` in the shader's own
+ * idiom. A per-site rule over the other ninety-six would be a proof table the
+ * size of the shader, and a table that size is one nobody re-reads. (3) The
+ * standing readback guard catches the alpha-hole signature of a NaN however it
+ * was produced, including from a division, which is the coverage a division rule
+ * would buy at a fraction of its cost.
+ *
+ * *Corrected 2026-09-21 (review closure; claims §5.163 §8, finding N5). This
+ * paragraph said "over a thousand divisions" and "exactly ONE has a uniform as
+ * its immediate divisor". Both readings are wrong and the recount is committed
+ * beside the gate's evidence
+ * (`packages/calibration/results/2026-09-21-w31-g2-range-class/division-count.py`,
+ * `.txt`): there are 99 divisions once comments and the TypeScript import paths
+ * are taken out — `index.ts` is nothing but imports and contributed 15 slashes
+ * and no arithmetic — and three, not one, have a uniform as their immediate
+ * divisor. The argument the paragraph was making is unaffected, and is now
+ * stated as the thing that was actually measured: none of the three is a
+ * material leaf.*
  */
 
 import { readdirSync, readFileSync } from "node:fs";
