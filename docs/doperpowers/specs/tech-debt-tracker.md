@@ -5093,3 +5093,91 @@ re-statement of an adopted stop and belongs to the user through a wave's Decisio
 Log; W32 G1 records the numbers and re-states nothing (X4). Until it is ruled,
 a later wave reading B3 at 0.00072 should read `b3-window.py` beside it or it
 will conclude the exterior got worse.
+
+---
+
+## M2's reference generation is frozen at W31's pre-fit while its subject keeps moving (W32 G1 review closure, 2026-09-21)
+
+*Opened by W32 G1's independent review (claims §5.168 §10, finding B-2), on the
+first miss M2 has taken since adoption.*
+
+M2 bounds `interiorStdDevWeb` to within **2 %** of the value the same cell read
+on **W31's pre-fit generation** — a constant carried in W31 G4's committed
+`chroma-cut.json` as `interiorStdDevWebPreFit`, one number per cell, which does
+not move when the material does. The reference is therefore fixed while the
+subject is not, so the delta is **cumulative across waves**: W31 spent 1.317 %
+of the budget on one cell and W32 G1 spent the rest of it, reaching 2.775 %
+without either wave moving the quantity by more than one and a half percent of
+its own value.
+
+That is not a defect of either wave. It is what a bound stated against a frozen
+generation does: **every wave that touches the render spends from a budget that
+is never refilled**, and on the cell with the smallest spread the budget is the
+smallest in absolute terms. A third wave that moves this cell by half a percent
+fails M2 whatever direction it moves it in, and the failure will say nothing
+about that wave.
+
+**The ruling belongs to the user**, which is why this is an entry and not a fix.
+Two forms, and they are not equivalent:
+
+1. **Re-baseline per wave** — M2 reads against the generation the previous gate
+   sealed, so the bound is "this wave did not move the structure by 2 %". That
+   makes the row a per-wave regression stop and gives up the cumulative claim
+   entirely: eight waves of 1.9 % would pass while the structure moved 16 %.
+2. **Declare the budget cumulative and say so** — keep the frozen reference,
+   and state in the row's own text that a miss is the accumulated distance from
+   W31's pre-fit material rather than a statement about the wave that records
+   it, with the recorded-miss path carrying each cell's history.
+
+The second is the honest one and the first is the useful one; a third form —
+both rows, one bounded per wave and one recorded cumulatively — costs a second
+reference per cell and is probably what a wave that has to choose should
+propose. Nothing is decided here.
+
+*See also the entry above on `interiorStdDevWeb` moving 5.69 % off the declared
+bed: that one asks whether 2 % is a bound about the material or about the
+raster, and this one asks what it is measured from. Both have to be answered
+before M2's next miss means anything.*
+
+---
+
+## The optics pass composites the outer shadow into the body's own antialiased edge, and nothing has measured what that costs an interior statistic (W32 G1 review closure, 2026-09-21)
+
+*Opened by W32 G1's independent review (claims §5.168 §10, finding B-2), as the
+CANDIDATE mechanism for M2's first miss. It is a hypothesis; the measurement
+that would test it has not been run.*
+
+**What is established.** M2's miss is not the silhouette extractor. The material
+axis's mask is the NATIVE silhouette by construction (`cli/measure.ts`: `const
+interior = nativeSil`), and across the 726 rows W32 G1 superseded and re-read,
+`silhouetteAreaNative` moved on **0** while the shape axis's own
+`silhouetteAreaWeb` moved on 80; on the miss cell the native area, the web area
+and the declared region are all 2000 with an IoU of 1 before and after
+(`results/2026-09-21-w32-g1-shadow-fit/b2-mask.py`). The mask is fixed and the
+values under it moved.
+
+**The hypothesis.** `packages/renderer-webgpu/src/wgsl/optics.ts` composites the
+exterior shadow into the same output as the body wherever coverage is partial —
+`shadowAlpha · (1 − coverage)` is added to both the colour and the alpha at the
+surface's antialiased contour. Those pixels are INSIDE the declared region and
+inside the native silhouette, so an interior statistic reads them. Changing the
+shadow therefore changes an interior statistic through the edge ring, with no
+mask movement required, and the effect should scale with the ring's share of the
+region — largest on the thinnest surface, which is where the miss landed (span
+32) and where every other large mover sits.
+
+**The measurement that would test it**, and it needs no capture: re-derive
+`interiorStdDevWeb` on the same committed captures over the native silhouette
+ERODED by one and by two device pixels, on the miss cell and on a thick control,
+at both generations. If the delta collapses as the ring is eroded away, the ring
+is the mechanism; if it survives, the body's own interior moved and the shadow
+fit reached further in than anything predicts. A second, cheaper check is the
+ratio of the eroded count to the full count per cell — the ring's share — read
+against each cell's measured move across the 726 rows.
+
+**What the answer changes.** If it is the ring, then an interior statistic over
+a mask that includes the contour cannot separate the body from the exterior on a
+thin surface, and either the statistic erodes its mask or the shadow is
+composited into a separate target. If it is not the ring, M2's miss is the first
+evidence that an exterior fit reaches the interior, which is a finding about the
+material and not about the instrument.

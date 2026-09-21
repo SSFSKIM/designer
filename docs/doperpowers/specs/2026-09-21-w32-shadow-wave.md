@@ -629,13 +629,28 @@ shadow and stays as it is (X1); a tracker entry records it. The hairline is not 
   — improves the objective by 0.00009 and 0.00011, and what it buys at span 128
   it sells at span 160 on every bed. Decision Log 1 (a)'s conditional does not
   fire and no draft on re-stating B1 goes to the user.
-- **M2 took its first miss since adoption, and not through the body** (W32 G1,
-  claims §5.168 §7). `interiorStdDevWeb` is read over the EXTRACTED silhouette
-  and the extractor thresholds the render against its background, so removing a
-  shadow moves which edge pixels it takes — and a standard deviation lives on
-  edge pixels. One cell (span 32, inactive, 1x light) carries a cumulative
-  2.775 % against 2 %. The bound is untouched and the miss is recorded; M2 gains
-  the path M1 has had since adoption.
+- **M2 took its first miss since adoption, and the mask it is read over did not
+  move** (W32 G1, claims §5.168 §7). One cell (span 32, inactive, 1x light)
+  carries a cumulative 2.775 % against 2 %. The bound is untouched and the miss
+  is recorded; M2 gains the path M1 has had since adoption.
+  **Corrected beside, 2026-09-21 (review closure; claims §5.168 §10, finding
+  B-2):** this entry said the mechanism was the silhouette extractor —
+  "`interiorStdDevWeb` is read over the EXTRACTED silhouette and the extractor
+  thresholds the render against its background". The material axis's mask is the
+  NATIVE silhouette by construction (`cli/measure.ts`: `const interior =
+  nativeSil`, with the doc comment above it saying that a web-derived mask moves
+  under tuning), and over the **726** rows this gate superseded and re-read
+  `silhouetteAreaNative` moved on **0**, against 80 moves of the shape axis's
+  own `silhouetteAreaWeb` (`b2-mask.py`). On the miss cell the native area, the
+  web area and the declared region all read 2000 with an IoU of 1 before and
+  after. What moved is the render's values under a fixed mask. The CANDIDATE
+  mechanism, an unmeasured hypothesis, is the optics pass compositing
+  `shadowAlpha · (1 − coverage)` into the antialiased contour ring INSIDE the
+  declared region (`renderer-webgpu/src/wgsl/optics.ts`), which would put the
+  effect where that ring is the largest fraction of the region — the thinnest
+  span, which is where the miss landed. The deferral is repointed accordingly:
+  the lever is not the extractor's asymmetry, and the measurement that would
+  test the hypothesis is a tracker entry.
 - **The fit FIXED a conditioning exclusion.** `PREDICATE_EXCLUDES` goes 68 → 67
   because the CSS tier's silhouette on `checkerboard__capsule-button__rest` at 1x
   light-increased-contrast-coupled now clears 95 % of its declared region, so that

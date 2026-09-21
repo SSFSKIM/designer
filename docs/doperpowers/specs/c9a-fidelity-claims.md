@@ -33216,19 +33216,48 @@ W31 G4's own population: 1x dark 0.92339 → 0.91843, 1x light 1.03869 → 1.039
 +0.0006, `interiorStdDevWeb` +0.00004 to +0.00010, `tintHueShiftWeb` ±0.0012.
 `tier-coherence.test.ts`'s recorded structure ratios move in the fourth decimal
 on the light beds and the third on the dark ones and were re-recorded with the
-section that moved them. **The mechanism is the silhouette extractor**:
-`interiorStdDev*` is read over the EXTRACTED silhouette and the extractor
-thresholds the render against its background, so a narrower shadow moves which
-edge pixels it takes, and edge pixels are where a standard deviation lives. Every
-large mover is inactive, thin, or both.
+section that moved them. Every large mover is inactive, thin, or both.
+
+**The mechanism is NOT the silhouette extractor, and the mask did not move**
+*(corrected 2026-09-21, review closure; §10, finding B-2. What this section and
+two comments in `adopted-thresholds.test.ts` said — "`interiorStdDev*` is read
+over the EXTRACTED silhouette and the extractor thresholds the render against
+its background, so a narrower shadow moves which edge pixels it takes" —
+requires a WEB-derived mask, and the material axis does not use one.)*
+`packages/calibration/cli/measure.ts:481` is `const interior = nativeSil;`, and
+the doc comment at 459–480 argues the case in as many words: a mask that shifts
+as the web side is tuned moves the native figure it is being compared against,
+which is tuning against a moving target. Measured on this gate's own two
+generations (`b2-mask.py`): over the **726** rows the read superseded and
+re-read, `silhouetteAreaNative` — the material axis's mask — moved on **0** of
+the 718 that carry it, while `silhouetteAreaWeb`, which only the SHAPE axis
+reads, moved on 80. On the miss cell itself the native area, the web area and
+the declared region are all **2000** with `silhouetteIoU` 1 **before and after**.
+What moved is the web render's VALUES under a fixed mask.
+
+**The candidate mechanism, stated as an unmeasured hypothesis.** The optics
+pass composites the outer shadow into the same output as the body at the
+antialiased contour — `packages/renderer-webgpu/src/wgsl/optics.ts:1659–1667`
+adds `shadowAlpha · (1 − coverage)` to the pixel's light and alpha — so a
+partly covered edge pixel INSIDE the declared region carries some of the
+shadow's colour, and changing the shadow changes it. That would put the effect
+where the ring is largest as a fraction of the region, which is the thinnest
+span, which is where the miss landed. It is a hypothesis and nothing here
+measures it; the measurement that would is in the tracker. **The deferral is
+repointed: the lever is not the extractor's asymmetry.**
 
 **M2 misses on one cell, and it is the first miss M2 has had since adoption.**
 `texture / validation / photo__rrect-sm__inactive /
 apple-macos-27.0-1x-light-standard-glass0.5` reads a structure delta of
-**2.775 %** against 2 %: `interiorStdDevWeb` 0.018432 → 0.018154 here, carrying
-the CUMULATIVE delta from W31's pre-fit generation (0.018672) past the bound,
-−1.317 % → −2.775 %. Span 32, INACTIVE — the thinnest caster the bed carries, in
-the pose whose whole exterior this wave removed. **The 2 % is untouched**: M2
+**2.775 %** against 2 %: `interiorStdDevWeb` **0.0184262** → 0.018154 here,
+carrying the CUMULATIVE delta from W31's pre-fit generation (0.0186722) past the
+bound, −1.317 % → −2.775 %. *(Corrected 2026-09-21, review closure; §10, finding
+B-2: the first value was transcribed here as 0.018432 and the reference as
+0.018672. The superseded row reads 0.018426186643228294 and W31 G4's cut carries
+`interiorStdDevWebPreFit` 0.01867218118188696; **both percentages were computed
+from those and are right**, so nothing derived moves — the transcription alone
+was wrong.)* Span 32, INACTIVE — the thinnest caster the bed carries, in the pose
+whose whole exterior this wave removed. **The 2 % is untouched**: M2
 gains the recorded-miss path M1 has had since adoption, the owner case derives
 M2's failures from the same cut so the excused set is exactly the failing set,
 and the tracker carries the ruling — M2's reference generation is frozen at W31's

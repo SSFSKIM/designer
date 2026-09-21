@@ -1798,17 +1798,28 @@ const MISSED_27_ROWS: Readonly<Record<string, MissedRow>> = {
   "texture / validation / photo__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: chromaStructureRatioR": { measured: 1.44950, bound: "≤ 1.40" },
   // W32 G1's one (claims §5.168), and M2's first since adoption. The outer
   // shadow's exterior is fitted and the receded documents stop drawing one at
-  // all, so the silhouette extractor — which thresholds the render against its
-  // background — takes a different set of edge pixels on this cell, and a
-  // standard deviation over the interior reads them. `interiorStdDevWeb`
-  // 0.018432 → 0.018154 at this gate, which carries the CUMULATIVE delta from
-  // W31's pre-fit generation (0.018672) past 2 %: −1.317 % → −2.775 %. The
-  // lever that closes it is not in the shadow — it is the extractor's
-  // asymmetry, which the tracker already carries in two entries — and M2's
-  // reference generation being frozen at W31's pre-fit while its subject keeps
-  // moving is the second half, recorded in the tracker as a ruling the user
-  // owns. The cell is span 32 INACTIVE, the thinnest caster the bed carries and
-  // the pose whose whole exterior this wave removed.
+  // all, and this cell's `interiorStdDevWeb` moves 0.0184262 → 0.018154, which
+  // carries the CUMULATIVE delta from W31's pre-fit generation (0.0186722) past
+  // 2 %: −1.317 % → −2.775 %. The cell is span 32 INACTIVE, the thinnest caster
+  // the bed carries and the pose whose whole exterior this wave removed.
+  //
+  // 2026-09-21, W32 G1 review closure (claims §5.168 §10, finding B-2): this
+  // comment said the mechanism was "the silhouette extractor — which thresholds
+  // the render against its background — takes a different set of edge pixels",
+  // and the first value was transcribed as 0.018432. **The mask did not move
+  // and it is not web-derived**: `cli/measure.ts` takes `const interior =
+  // nativeSil`, and over the 726 rows this gate superseded and re-read,
+  // `silhouetteAreaNative` moved on 0 (`results/2026-09-21-w32-g1-shadow-fit/
+  // b2-mask.py`); on this cell the native area, the web area and the declared
+  // region are all 2000 with an IoU of 1 before and after. What moved is the
+  // render's values under a fixed mask. The candidate mechanism — untested — is
+  // the optics pass compositing `shadowAlpha · (1 − coverage)` into the
+  // antialiased contour ring INSIDE the declared region, which would put the
+  // effect where that ring is the largest fraction of the region, the thinnest
+  // span. Both percentages above were computed from the right values and do not
+  // move. The tracker carries the measurement that would test the hypothesis,
+  // and beside it the half that is a ruling the user owns: M2's reference
+  // generation is frozen at W31's pre-fit while its subject keeps moving.
   "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta": { measured: 0.02775, bound: "≤ 0.02" },
 };
 
@@ -2296,11 +2307,19 @@ const CHROMA_METRIC = "chromaStructureRatioR";
  * **M2 gains the recorded-miss path M1 has had since adoption, and the BOUND
  * does not move.** M2 was adopted with no miss, so it had no path; W32 G1 is the
  * first wave to move its subject without touching its operator and it produced
- * one. `interiorStdDevWeb` is read over the EXTRACTED silhouette, and the
- * silhouette extractor thresholds the render against its background — so a wave
- * that removes the shadow around a surface moves which edge pixels clear the
- * threshold, and edge pixels are where a standard deviation lives. Every cell
- * that moved by more than half a percent is inactive, thin, or both.
+ * one. Every cell that moved by more than half a percent is inactive, thin, or
+ * both.
+ *
+ * *(2026-09-21, W32 G1 review closure; claims §5.168 §10, finding B-2. This
+ * paragraph said `interiorStdDevWeb` "is read over the EXTRACTED silhouette,
+ * and the silhouette extractor thresholds the render against its background".
+ * It is read over the NATIVE silhouette — `cli/measure.ts` is `const interior =
+ * nativeSil`, deliberately, because a web-derived mask moves as the web side is
+ * tuned — and `silhouetteAreaNative` moved on 0 of the 726 rows this gate
+ * re-read. The mask is not the mechanism; the values under it are what moved.
+ * The untested candidate is the optics pass compositing the shadow into the
+ * antialiased contour ring inside the declared region, and the tracker carries
+ * the measurement that would test it.)*
  *
  * The 2 % is untouched and the miss is named, which is the difference between
  * recording and widening: `chromaStructureMisses()` derives the failures from the
