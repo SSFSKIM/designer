@@ -60,3 +60,8 @@ python3 stops.py > stops.txt
 4. **Apple's receded window removes no light at all from 3 CSS px outward**, on 100 of 100 inactive
    cells, while vitrea draws the active shadow there leaf for leaf. The recede is not the active
    shadow at a lower alpha; on this bed it is not an outer shadow at all.
+   *Corrected beside, 2026-09-21 (review closure; claims §5.166 §10, finding B1):* the population
+   is **121 of 121** non-holdout inactive WebGPU rows (`exterior-cut.txt` §12c's `n` column) and
+   **153 of 153** with the holdout admitted (`recede-26.5.txt` §3) — and *(finding N16)* the same
+   census over the FROZEN macOS 26.5 rows reads **235 of 235**, so the recede has never been an
+   outer shadow on this bed (`recede-26.5.txt`, `recede-cross-section.txt`).

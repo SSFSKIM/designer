@@ -32091,6 +32091,19 @@ clear the occlusion threshold. Apple's whole receded exterior lives in the `0-3`
 band, where the native departure reads 0.024–0.128 — a contour hairline, which
 this wave's Deferred list already names as a rim term and not a shadow one.
 
+**Corrected beside, 2026-09-21 (review closure; §10, finding B1).** The
+population is **121**, not 100: `exterior-cut.txt` §12c's own `n` column sums to
+121 — 108 rows on the four standard beds and 13 on the two accessibility beds —
+and every one of them is flat. With the holdout admitted it is **153 of 153**
+(`recede-26.5.txt` §3). `a` = 1.000000 holds on all 121 and on 150 of the 153;
+the three exceptions are holdout rows, all in the `6-12` band at span 160
+(`photo__rrect-lg__inactive` on 2x dark and 2x light and its `-tint-orange`
+sibling on 2x light), and all read `a` = **1.000001** with `c` = 0 — a
+transmission one part in a million ABOVE unity, which is not a shadow either.
+The `0-3` native departure's per-bed medians run **0.01633–0.12821**, not
+0.024–0.128; the low end is 2x dark at span 44 and the high end 1x dark at 160.
+No verdict of this section moves.
+
 Vitrea draws a full receded shadow out to 48 CSS px on every one of those cells,
 with `a` running 0.887 → 0.980 across the bands, because **the receded documents
 carry their active document's anchors leaf for leaf** and `outerShadowReachPx`

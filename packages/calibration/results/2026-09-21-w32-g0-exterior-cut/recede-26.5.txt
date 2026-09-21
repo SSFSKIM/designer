@@ -1,0 +1,175 @@
+W32 G0 review closure — the recede on both generations (claims §5.166 §10)
+================================================================================================================================================================
+
+Matrix:   /Users/new/Developer/GitHub/designer/.claude/worktrees/w32-g0-exterior-cut/packages/calibration/results/matrix.json
+Read:     committed evidence only. No capture, no browser, nothing written
+          under a macOS 26.5-keyed path (W32 X1, X2, X5).
+
+# 183 holdout row(s) in matrix.json and NOT read:
+#   apple-macos-26.5-1x-dark-standard checkerboard__glass-over-glass__rest
+#   apple-macos-26.5-1x-dark-standard mid-dark-solid__capsule-button__rest
+#   apple-macos-26.5-1x-dark-standard photo__rrect-lg__rest
+#   apple-macos-26.5-1x-light-increased-contrast hc-text__capsule-button__rest
+#   apple-macos-26.5-1x-light-increased-contrast photo__rrect-lg__rest
+#   apple-macos-26.5-1x-light-reduced-transparency hc-text__capsule-button__rest
+#   apple-macos-26.5-1x-light-reduced-transparency photo__rrect-lg__rest
+#   apple-macos-26.5-1x-light-standard checkerboard__glass-over-glass__rest
+#   apple-macos-26.5-1x-light-standard checkerboard__rrect-lg__rest
+#   apple-macos-26.5-1x-light-standard dark-solid__capsule-button__rest-tint-blue
+#   apple-macos-26.5-1x-light-standard hc-text__capsule-button__rest
+#   apple-macos-26.5-1x-light-standard hc-text__capsule-button__rest-tint-orange
+#   apple-macos-26.5-1x-light-standard hc-text__rrect-md__rest
+#   apple-macos-26.5-1x-light-standard mid-dark-solid__capsule-button__rest
+#   apple-macos-26.5-1x-light-standard photo__glass-over-glass__rest
+#   apple-macos-26.5-1x-light-standard photo__rrect-lg__rest
+#   apple-macos-26.5-1x-light-standard photo__rrect-lg__rest-tint-orange
+#   apple-macos-26.5-2x-dark-standard checkerboard__glass-over-glass__rest
+#   apple-macos-26.5-2x-dark-standard mid-dark-solid__capsule-button__rest
+#   apple-macos-26.5-2x-dark-standard photo__rrect-lg__rest
+#   apple-macos-26.5-2x-light-standard checkerboard__glass-over-glass__rest
+#   apple-macos-26.5-2x-light-standard checkerboard__rrect-lg__rest
+#   apple-macos-26.5-2x-light-standard dark-solid__capsule-button__rest-tint-blue
+#   apple-macos-26.5-2x-light-standard hc-text__capsule-button__rest
+#   apple-macos-26.5-2x-light-standard hc-text__capsule-button__rest-tint-orange
+#   apple-macos-26.5-2x-light-standard hc-text__rrect-md__rest
+#   apple-macos-26.5-2x-light-standard mid-dark-solid__capsule-button__rest
+#   apple-macos-26.5-2x-light-standard photo__glass-over-glass__rest
+#   apple-macos-26.5-2x-light-standard photo__rrect-lg__rest
+#   apple-macos-26.5-2x-light-standard photo__rrect-lg__rest-tint-orange
+#   apple-macos-27.0-1x-dark-standard-glass0.5 checkerboard__glass-over-glass__inactive
+#   apple-macos-27.0-1x-dark-standard-glass0.5 checkerboard__glass-over-glass__rest
+#   apple-macos-27.0-1x-dark-standard-glass0.5 mid-dark-solid__capsule-button__inactive
+#   apple-macos-27.0-1x-dark-standard-glass0.5 mid-dark-solid__capsule-button__rest
+#   apple-macos-27.0-1x-dark-standard-glass0.5 photo__glass-over-glass__inactive
+#   apple-macos-27.0-1x-dark-standard-glass0.5 photo__rrect-lg__inactive
+#   apple-macos-27.0-1x-dark-standard-glass0.5 photo__rrect-lg__rest
+#   apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5 hc-text__capsule-button__inactive
+#   apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5 hc-text__capsule-button__rest
+#   apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5 photo__rrect-lg__inactive
+#   apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5 photo__rrect-lg__rest
+#   apple-macos-27.0-1x-light-reduced-transparency-glass0.5 hc-text__capsule-button__inactive
+#   apple-macos-27.0-1x-light-reduced-transparency-glass0.5 hc-text__capsule-button__rest
+#   apple-macos-27.0-1x-light-reduced-transparency-glass0.5 photo__rrect-lg__inactive
+#   apple-macos-27.0-1x-light-reduced-transparency-glass0.5 photo__rrect-lg__rest
+#   apple-macos-27.0-1x-light-standard-glass0.5 checkerboard__glass-over-glass__inactive
+#   apple-macos-27.0-1x-light-standard-glass0.5 checkerboard__glass-over-glass__rest
+#   apple-macos-27.0-1x-light-standard-glass0.5 checkerboard__rrect-lg__inactive
+#   apple-macos-27.0-1x-light-standard-glass0.5 checkerboard__rrect-lg__rest
+#   apple-macos-27.0-1x-light-standard-glass0.5 dark-solid__capsule-button__inactive-tint-blue
+#   apple-macos-27.0-1x-light-standard-glass0.5 dark-solid__capsule-button__rest-tint-blue
+#   apple-macos-27.0-1x-light-standard-glass0.5 hc-text__capsule-button__inactive
+#   apple-macos-27.0-1x-light-standard-glass0.5 hc-text__capsule-button__inactive-tint-orange
+#   apple-macos-27.0-1x-light-standard-glass0.5 hc-text__capsule-button__rest
+#   apple-macos-27.0-1x-light-standard-glass0.5 hc-text__capsule-button__rest-tint-orange
+#   apple-macos-27.0-1x-light-standard-glass0.5 hc-text__rrect-md__inactive
+#   apple-macos-27.0-1x-light-standard-glass0.5 hc-text__rrect-md__rest
+#   apple-macos-27.0-1x-light-standard-glass0.5 mid-dark-solid__capsule-button__inactive
+#   apple-macos-27.0-1x-light-standard-glass0.5 mid-dark-solid__capsule-button__rest
+#   apple-macos-27.0-1x-light-standard-glass0.5 photo__glass-over-glass__inactive
+#   apple-macos-27.0-1x-light-standard-glass0.5 photo__glass-over-glass__rest
+#   apple-macos-27.0-1x-light-standard-glass0.5 photo__rrect-lg__inactive
+#   apple-macos-27.0-1x-light-standard-glass0.5 photo__rrect-lg__inactive-tint-orange
+#   apple-macos-27.0-1x-light-standard-glass0.5 photo__rrect-lg__rest
+#   apple-macos-27.0-1x-light-standard-glass0.5 photo__rrect-lg__rest-tint-orange
+#   apple-macos-27.0-2x-dark-standard-glass0.5 checkerboard__glass-over-glass__inactive
+#   apple-macos-27.0-2x-dark-standard-glass0.5 checkerboard__glass-over-glass__rest
+#   apple-macos-27.0-2x-dark-standard-glass0.5 mid-dark-solid__capsule-button__inactive
+#   apple-macos-27.0-2x-dark-standard-glass0.5 mid-dark-solid__capsule-button__rest
+#   apple-macos-27.0-2x-dark-standard-glass0.5 photo__glass-over-glass__inactive
+#   apple-macos-27.0-2x-dark-standard-glass0.5 photo__rrect-lg__inactive
+#   apple-macos-27.0-2x-dark-standard-glass0.5 photo__rrect-lg__rest
+#   apple-macos-27.0-2x-light-standard-glass0.5 checkerboard__glass-over-glass__inactive
+#   apple-macos-27.0-2x-light-standard-glass0.5 checkerboard__glass-over-glass__rest
+#   apple-macos-27.0-2x-light-standard-glass0.5 checkerboard__rrect-lg__inactive
+#   apple-macos-27.0-2x-light-standard-glass0.5 checkerboard__rrect-lg__rest
+#   apple-macos-27.0-2x-light-standard-glass0.5 dark-solid__capsule-button__inactive-tint-blue
+#   apple-macos-27.0-2x-light-standard-glass0.5 dark-solid__capsule-button__rest-tint-blue
+#   apple-macos-27.0-2x-light-standard-glass0.5 hc-text__capsule-button__inactive
+#   apple-macos-27.0-2x-light-standard-glass0.5 hc-text__capsule-button__inactive-tint-orange
+#   apple-macos-27.0-2x-light-standard-glass0.5 hc-text__capsule-button__rest
+#   apple-macos-27.0-2x-light-standard-glass0.5 hc-text__capsule-button__rest-tint-orange
+#   apple-macos-27.0-2x-light-standard-glass0.5 hc-text__rrect-md__inactive
+#   apple-macos-27.0-2x-light-standard-glass0.5 hc-text__rrect-md__rest
+#   apple-macos-27.0-2x-light-standard-glass0.5 mid-dark-solid__capsule-button__inactive
+#   apple-macos-27.0-2x-light-standard-glass0.5 mid-dark-solid__capsule-button__rest
+#   apple-macos-27.0-2x-light-standard-glass0.5 photo__glass-over-glass__inactive
+#   apple-macos-27.0-2x-light-standard-glass0.5 photo__glass-over-glass__rest
+#   apple-macos-27.0-2x-light-standard-glass0.5 photo__rrect-lg__inactive
+#   apple-macos-27.0-2x-light-standard-glass0.5 photo__rrect-lg__inactive-tint-orange
+#   apple-macos-27.0-2x-light-standard-glass0.5 photo__rrect-lg__rest
+#   apple-macos-27.0-2x-light-standard-glass0.5 photo__rrect-lg__rest-tint-orange
+§1. The frozen bed, and the documents its rows name
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+  1048 macOS 26.5 rows carry a shadow axis, read at `--at-documents any`
+  because a frozen row names a document this generation does not ship.
+     425  packages/calibration/profiles/apple-macos-26.5-1x-dark-standard.json sha256:950ce1c3e917
+     623  packages/calibration/profiles/apple-macos-26.5-1x-light-standard.json sha256:6a9600720477
+  Of them, 235 are INACTIVE, on the WebGPU tier, non-holdout,
+  and identify at least one admitted band — the population §5.166 §7's sentence
+  is stated over, on the generation it was not stated over.
+
+§2. The census: does Apple's receded window remove light from 3 CSS px outward?
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+  `nat flat` counts the rows whose NATIVE render equals its backdrop, to the axis's
+  six written decimals, in EVERY admitted band. `0-3 nat` is the native departure in
+  the body's own edge band beside it, `σ nat` how many rows resolve a native falloff
+  σ at all, and `win nat` the native window-restricted departure over 3–48 CSS px.
+  The columns are §12c's of `exterior-cut.txt` with the window departure added.
+
+  macOS 26.5, inactive, WebGPU, non-holdout
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+    bed                                    span   n  nat flat  web flat    0-3 nat    0-3 web   σ nat   σ web    win nat    win web
+    1x dark                                  32   5       5/5       5/5    0.00012    0.00005     0/5     0/5   0.000000   0.000000
+    1x dark                                  44  11     11/11     11/11    0.00241    0.00349    0/11    0/11   0.000000   0.000000
+    1x dark                                  96  12     12/12     12/12    0.00501    0.00354    0/12    0/12   0.000000   0.000000
+    1x dark                                 128   5       5/5       5/5    0.00193    0.00175     0/5     0/5   0.000000   0.000000
+    1x dark                                 160  10     10/10     10/10    0.00170    0.00151    0/10    0/10   0.000000   0.000000
+    2x dark                                  32   5       5/5       5/5    0.00008    0.00006     0/5     0/5   0.000000   0.000000
+    2x dark                                  44  11     11/11     11/11    0.00121    0.00191    0/11    0/11   0.000000   0.000000
+    2x dark                                  96  12     12/12     12/12    0.00250    0.00227    0/12    0/12   0.000000   0.000000
+    2x dark                                 128   5       5/5       5/5    0.00063    0.00055     0/5     0/5   0.000000   0.000000
+    2x dark                                 160  10     10/10     10/10    0.00064    0.00065    0/10    0/10   0.000000   0.000000
+    1x light                                 32   6       6/6       6/6   -0.00001    0.00000     0/6     0/6   0.000000   0.000000
+    1x light                                 44  18     18/18     18/18   -0.00018   -0.00023    0/18    0/18   0.000000   0.000000
+    1x light                                 96  15     15/15     15/15   -0.00069   -0.00046    0/15    0/15   0.000000   0.000000
+    1x light                                128   4       4/4       4/4    0.00000   -0.00009     0/4     0/4   0.000000   0.000000
+    1x light                                160   9       9/9       9/9   -0.00081   -0.00066     0/9     0/9   0.000000   0.000000
+    2x light                                 32   6       6/6       6/6   -0.00014   -0.00010     0/6     0/6   0.000000   0.000000
+    2x light                                 44  18     18/18     18/18   -0.00011   -0.00013    0/18    0/18   0.000000   0.000000
+    2x light                                 96  15     15/15     15/15   -0.00041   -0.00034    0/15    0/15   0.000000   0.000000
+    2x light                                128   4       4/4       4/4    0.00000   -0.00003     0/4     0/4   0.000000   0.000000
+    2x light                                160   9       9/9       9/9   -0.00028   -0.00028     0/9     0/9   0.000000   0.000000
+    1x light-increased-contrast              32   1       1/1       1/1    0.07894    0.00144     0/1     0/1   0.000000   0.000000
+    1x light-increased-contrast              44   6       6/6       6/6    0.07555    0.01250     0/6     0/6   0.000000   0.000000
+    1x light-increased-contrast              96   7       7/7       7/7    0.08238    0.00465     0/7     0/7   0.000000   0.000000
+    1x light-increased-contrast             128   2       2/2       2/2    0.14614    0.01038     0/2     0/2   0.000000   0.000000
+    1x light-increased-contrast             160   1       1/1       1/1    0.09865    0.00799     0/1     0/1   0.000000   0.000000
+    1x light-reduced-transparency            32   1       1/1       1/1   -0.00069   -0.00032     0/1     0/1   0.000000   0.000000
+    1x light-reduced-transparency            44   5       5/5       5/5   -0.00528   -0.00504     0/5     0/5   0.000000   0.000000
+    1x light-reduced-transparency            96   7       7/7       7/7   -0.00057   -0.00049     0/7     0/7   0.000000   0.000000
+    1x light-reduced-transparency           128   2       2/2       2/2   -0.00047   -0.00072     0/2     0/2   0.000000   0.000000
+    1x light-reduced-transparency           160   1       1/1       1/1   -0.00031   -0.00054     0/1     0/1   0.000000   0.000000
+
+# --with-holdout: every row of matrix.json is read, the holdout included.
+§3. The same statistic over the two populations, counted
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+  §5.166 §7 wrote '100 of 100'. The population is larger on both counts and the
+  verdict is unchanged on every one of them; the count is the correction.
+
+  macOS 26.5, non-holdout         rows  235   native flat 235/235   native window departure exactly 0 on 235/235   `falloffSigmaNative` on 0/235
+  macOS 27, non-holdout           rows  121   native flat 121/121   native window departure exactly 0 on 121/121   `falloffSigmaNative` on 0/121
+  macOS 27, holdout admitted      rows  153   native flat 153/153   native window departure exactly 0 on 153/153   `falloffSigmaNative` on 0/153
+
+  Every admitted band whose native `a` is not exactly 1.000000, on either count:
+    frozen: none
+    shipped: holdout   2x dark     span  160  photo__rrect-lg__inactive                      6-12  a = 1.000001  c = 0
+    shipped: holdout   2x light    span  160  photo__rrect-lg__inactive-tint-orange          6-12  a = 1.000001  c = 0
+    shipped: holdout   2x light    span  160  photo__rrect-lg__inactive                      6-12  a = 1.000001  c = 0
+
+§4. What this makes of §5.166 §7
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+  The recede's native exterior is empty beyond 3 CSS px on the FROZEN bed too, so
+  the finding is not a macOS 27 behaviour and clause 4's zero denominator is not a
+  property of this generation's documents. What lives in `0-3` is a contour hairline
+  on both generations; `recede-cross-section.txt` reads it pixel by pixel.
+

@@ -507,6 +507,18 @@ exterior Apple draws lives entirely in the `0-3` band, where the native departur
 (`exterior-cut.txt` §12c) — a contour hairline, which this wave's Deferred list already names as a
 rim term and not a shadow one.
 
+**Corrected beside, 2026-09-21 (review closure; §5.166 §10, finding B1).** The population is **121**
+non-holdout inactive WebGPU rows, not 100 — 108 on the four standard beds and 13 on the two
+accessibility beds, which is what `exterior-cut.txt` §12c's own `n` column sums to — and every one of
+the 121 is flat. Read with the holdout admitted it is **153 of 153** (`recede-26.5.txt` §3). The
+sentence "where the affine pair is identified there it reads `a` = 1.000000" holds on all 121 and on
+150 of the 153: the three exceptions are all holdout, all the `6-12` band at span 160
+(`photo__rrect-lg__inactive` on 2x dark and 2x light and its `-tint-orange` sibling on 2x light), and
+all read `a` = **1.000001** with `c` = 0, which is a transmission above unity by one part in a million
+and not a shadow either. And the `0-3` native departure's per-bed medians run **0.01633 to 0.12821**,
+not 0.024 to 0.128 — the low end is 2x dark at span 44 and the high end 1x dark at 160. No verdict
+moves; the count and the range do.
+
 Vitrea draws a full receded shadow out to 48 CSS px on every one of those cells, with `a` running
 0.887 → 0.980 across the bands, because **the receded documents carry their active document's
 anchors leaf for leaf** (light 0.1158 / 0.1827 / 0.26, dark 0.133 / 0.2263 / 0.3409) and

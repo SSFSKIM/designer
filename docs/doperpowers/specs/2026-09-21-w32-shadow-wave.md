@@ -549,6 +549,12 @@ may strike it without touching the material.
   exterior lives in the `0-3` band at a departure of 0.024–0.128 — the contour hairline this
   wave's Deferred list already names as a rim term. Vitrea's receded documents carry their active
   document's anchors leaf for leaf, so `outerShadowReachPx` returns the active reach at every span.
+  **Corrected beside, 2026-09-21 (review closure; claims §5.166 §10, finding B1):** the population
+  is **121 of 121** — 108 standard-bed rows and 13 accessibility-bed rows, which is what
+  `exterior-cut.txt` §12c's `n` column sums to — and **153 of 153** with the holdout admitted, the
+  only three admitted bands on either count whose native `a` is not exactly 1.000000 being holdout
+  `6-12` bands at span 160 reading 1.000001 with `c` = 0. The `0-3` departure's per-bed medians run
+  **0.01633–0.12821**, not 0.024–0.128. No verdict moves.
   Clause 4's "the receded documents' anchors are solved on the inactive cells" is therefore a solve
   whose target is ZERO amplitude in the 3–48 px window, not a lower alpha on the same falloff, and
   the departure ratio it is judged on has a zero denominator at every span on every bed.
