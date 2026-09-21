@@ -10,7 +10,7 @@
 set -e
 here=$(cd "$(dirname "$0")" && pwd)
 repo=$(cd "$here/../../../.." && pwd)
-out=${1:-/tmp/w31-g4-pack}
+out=${1:-/tmp/w32-g2-pack}
 mkdir -p "$out"
 
 for package in core platform-web react; do

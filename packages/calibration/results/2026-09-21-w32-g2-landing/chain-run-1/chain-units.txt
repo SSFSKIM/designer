@@ -2,18 +2,18 @@ Scope: 9 of 10 workspace projects
 packages/geometry test$ vitest run
 packages/motion test$ vitest run
 packages/policy test$ vitest run
-packages/policy test:  RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/w32-g2-landing/packages/policy
 packages/geometry test:  RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/w32-g2-landing/packages/geometry
 packages/motion test:  RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/w32-g2-landing/packages/motion
+packages/policy test:  RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/w32-g2-landing/packages/policy
 packages/policy test:  Test Files  2 passed (2)
 packages/policy test:       Tests  23 passed (23)
-packages/policy test:    Start at  06:01:40
-packages/policy test:    Duration  326ms (transform 50ms, setup 0ms, import 81ms, tests 13ms, environment 0ms)
+packages/policy test:    Start at  05:47:38
+packages/policy test:    Duration  316ms (transform 51ms, setup 0ms, import 70ms, tests 10ms, environment 0ms)
 packages/policy test: Done
 packages/motion test:  Test Files  10 passed (10)
 packages/motion test:       Tests  164 passed (164)
-packages/motion test:    Start at  06:01:40
-packages/motion test:    Duration  733ms (transform 754ms, setup 0ms, import 1.29s, tests 578ms, environment 1ms)
+packages/motion test:    Start at  05:47:38
+packages/motion test:    Duration  796ms (transform 902ms, setup 0ms, import 1.38s, tests 567ms, environment 0ms)
 packages/motion test: Done
 packages/geometry test: === the crossing: Apple's dump against the reference construction at the same reach ===
 packages/geometry test: 120x44    r*  14.3916  hausdorff  0.092982 px  = 0.00646086 r
@@ -50,22 +50,22 @@ packages/geometry test: h  40  drawn r  12.0000  s_eff 0.5287  radius lost 0.000
 packages/geometry test: h  48  drawn r  12.0000  s_eff 0.5287  radius lost 0.0000 CSS px
 packages/geometry test:  Test Files  14 passed (14)
 packages/geometry test:       Tests  170 passed (170)
-packages/geometry test:    Start at  06:01:40
-packages/geometry test:    Duration  11.38s (transform 1.27s, setup 0ms, import 9.93s, tests 13.74s, environment 1ms)
+packages/geometry test:    Start at  05:47:38
+packages/geometry test:    Duration  11.07s (transform 1.24s, setup 0ms, import 10.11s, tests 13.59s, environment 1ms)
 packages/geometry test: Done
 packages/renderer-webgpu test$ vitest run
 packages/renderer-webgpu test:  RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/w32-g2-landing/packages/renderer-webgpu
 packages/renderer-webgpu test:  Test Files  34 passed (34)
 packages/renderer-webgpu test:       Tests  561 passed (561)
-packages/renderer-webgpu test:    Start at  06:01:51
-packages/renderer-webgpu test:    Duration  1.03s (transform 1.97s, setup 260ms, import 3.50s, tests 1.60s, environment 2ms)
+packages/renderer-webgpu test:    Start at  05:47:50
+packages/renderer-webgpu test:    Duration  1.08s (transform 2.35s, setup 256ms, import 4.11s, tests 1.37s, environment 2ms)
 packages/renderer-webgpu test: Done
 packages/core test$ vitest run
 packages/core test:  RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/w32-g2-landing/packages/core
 packages/core test:  Test Files  16 passed (16)
 packages/core test:       Tests  302 passed (302)
-packages/core test:    Start at  06:01:53
-packages/core test:    Duration  2.39s (transform 1.47s, setup 0ms, import 1.94s, tests 3.30s, environment 1ms)
+packages/core test:    Start at  05:47:51
+packages/core test:    Duration  2.49s (transform 1.35s, setup 0ms, import 1.88s, tests 3.07s, environment 1ms)
 packages/core test: Done
 packages/platform-web test$ vitest run
 packages/platform-web test:  RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/w32-g2-landing/packages/platform-web
@@ -87,11 +87,11 @@ packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() me
 packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
 packages/platform-web test:  Test Files  46 passed (46)
 packages/platform-web test:       Tests  631 passed (631)
-packages/platform-web test:    Start at  06:01:55
-packages/platform-web test:    Duration  4.94s (transform 3.21s, setup 0ms, import 7.22s, tests 6.71s, environment 22.71s)
+packages/platform-web test:    Start at  05:47:54
+packages/platform-web test:    Duration  5.16s (transform 3.42s, setup 0ms, import 8.86s, tests 6.15s, environment 23.17s)
 packages/platform-web test: Done
-packages/calibration test$ vitest run
 packages/react test$ vitest run
+packages/calibration test$ vitest run
 packages/calibration test:  RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/w32-g2-landing/packages/calibration
 packages/react test:  RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/w32-g2-landing/packages/react
 packages/react test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
@@ -104,18 +104,18 @@ packages/react test: Not implemented: HTMLCanvasElement's getContext() method: w
 packages/react test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
 packages/react test:  Test Files  18 passed (18)
 packages/react test:       Tests  169 passed (169)
-packages/react test:    Start at  06:02:00
-packages/react test:    Duration  5.72s (transform 7.80s, setup 2.49s, import 11.91s, tests 13.40s, environment 17.39s)
+packages/react test:    Start at  05:48:00
+packages/react test:    Duration  6.17s (transform 4.83s, setup 2.80s, import 9.15s, tests 20.29s, environment 16.75s)
 packages/react test: Done
 packages/calibration test:  Test Files  40 passed (40)
 packages/calibration test:       Tests  632 passed (632)
-packages/calibration test:    Start at  06:02:00
-packages/calibration test:    Duration  6.18s (transform 8.06s, setup 0ms, import 16.08s, tests 22.75s, environment 2ms)
+packages/calibration test:    Start at  05:47:59
+packages/calibration test:    Duration  6.81s (transform 10.38s, setup 0ms, import 21.49s, tests 26.46s, environment 2ms)
 packages/calibration test: Done
 apps/demo test$ vitest run
 apps/demo test:  RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/w32-g2-landing/apps/demo
 apps/demo test:  Test Files  6 passed (6)
 apps/demo test:       Tests  46 passed (46)
-apps/demo test:    Start at  06:02:07
-apps/demo test:    Duration  999ms (transform 1.45s, setup 0ms, import 2.01s, tests 334ms, environment 0ms)
+apps/demo test:    Start at  05:48:07
+apps/demo test:    Duration  919ms (transform 1.30s, setup 0ms, import 1.93s, tests 321ms, environment 0ms)
 apps/demo test: Done

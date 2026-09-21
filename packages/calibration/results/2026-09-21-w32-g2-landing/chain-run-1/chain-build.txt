@@ -1,4 +1,10 @@
 Scope: 9 of 10 workspace projects
+Scope: all 10 workspace projects
+✓ Lockfile passes supply-chain policies (verified 10d ago)
+Lockfile is up to date, resolution step is skipped
+Already up to date
+
+Done in 616ms using pnpm v11.23.0
 packages/geometry build$ tsc -p tsconfig.build.json
 packages/motion build$ tsc -p tsconfig.build.json
 packages/policy build$ tsc -p tsconfig.build.json
@@ -16,14 +22,14 @@ packages/core build: CLI Target: es2022
 packages/core build: CLI Cleaning output folder
 packages/core build: ESM Build start
 packages/core build: DTS Build start
-packages/core build: ESM dist/chunk-IOTISK2R.js     19.40 KB
 packages/core build: ESM dist/index.js              42.69 KB
+packages/core build: ESM dist/chunk-IOTISK2R.js     19.40 KB
 packages/core build: ESM dist/dist-N437MSRG.js      361.94 KB
 packages/core build: ESM dist/chunk-IOTISK2R.js.map 102.61 KB
 packages/core build: ESM dist/index.js.map          171.36 KB
 packages/core build: ESM dist/dist-N437MSRG.js.map  945.72 KB
-packages/core build: ESM ⚡️ Build success in 229ms
-packages/core build: DTS ⚡️ Build success in 1249ms
+packages/core build: ESM ⚡️ Build success in 234ms
+packages/core build: DTS ⚡️ Build success in 1356ms
 packages/core build: DTS dist/index.d.ts 256.01 KB
 packages/core build: Done
 packages/platform-web build$ tsup
@@ -37,12 +43,12 @@ packages/platform-web build: ESM Build start
 packages/platform-web build: DTS Build start
 packages/platform-web build: ESM dist/index.js     295.87 KB
 packages/platform-web build: ESM dist/index.js.map 1.15 MB
-packages/platform-web build: ESM ⚡️ Build success in 241ms
-packages/platform-web build: DTS ⚡️ Build success in 809ms
+packages/platform-web build: ESM ⚡️ Build success in 238ms
+packages/platform-web build: DTS ⚡️ Build success in 820ms
 packages/platform-web build: DTS dist/index.d.ts 379.88 KB
 packages/platform-web build: Done
-packages/calibration build$ tsc -p tsconfig.build.json
 packages/react build$ tsup
+packages/calibration build$ tsc -p tsconfig.build.json
 packages/react build: CLI Building entry: src/index.ts
 packages/react build: CLI Using tsconfig: tsconfig.json
 packages/react build: CLI tsup v8.5.1
@@ -52,10 +58,10 @@ packages/react build: CLI Cleaning output folder
 packages/react build: ESM Build start
 packages/react build: ESM dist/index.js     100.47 KB
 packages/react build: ESM dist/index.js.map 408.92 KB
-packages/react build: ESM ⚡️ Build success in 148ms
+packages/react build: ESM ⚡️ Build success in 151ms
 packages/react build: DTS Build start
 packages/calibration build: Done
-packages/react build: DTS ⚡️ Build success in 1214ms
+packages/react build: DTS ⚡️ Build success in 1261ms
 packages/react build: DTS dist/index.d.ts 66.20 KB
 packages/react build: Done
 apps/demo build$ vite build
@@ -78,7 +84,7 @@ apps/demo build: dist/assets/ActionsMenu-Bn92XB7x.js     107.37 kB │ gzip:  34
 apps/demo build: dist/assets/src-BrT3K0XR.js             221.28 kB │ gzip:  72.51 kB
 apps/demo build: dist/assets/client-CMZQ5Qc4.js          363.50 kB │ gzip: 117.63 kB
 apps/demo build: dist/assets/index-BceXKQOh.js           692.52 kB │ gzip:  73.35 kB
-apps/demo build: ✓ built in 373ms
+apps/demo build: ✓ built in 397ms
 apps/demo build: [plugin builtin:vite-reporter] 
 apps/demo build: (!) Some chunks are larger than 500 kB after minification. Consider:
 apps/demo build: - Using dynamic import() to code-split the application
