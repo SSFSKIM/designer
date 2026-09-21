@@ -31937,6 +31937,20 @@ others, and the contour instrument's refusals dropped rows whose captures remain
 a capture without a row is evidence of a read that happened rather than of a
 generation that drifted, and it is reported without failing.
 
+*Beside §3 (2026-09-21, the review closure, NB3; §8 below).* **The checker is not
+wired into** `pnpm -r test`, *and "runnable at every merge" above is a statement
+about its cost, not about anything that runs it.* **It is run by the parent** *— at
+every merge, and as the charter's G1 clause 5 names it inside the read — and it is
+not yet a step of any committed* `chain.sh`; *G2's, copied from W31 G4's, is where it
+becomes one. Wiring it into the unit suite was considered and* **declined**: *the
+canonical tree lives on the capture machine, a gate mid-read leaves it at a
+generation the split has not recorded yet, and* `--superseded-ok` *demotes only
+generations already RECORDED — so the suite would go red on the one machine that
+holds the tree, for the duration of every read, with no flag that says why. A test
+somebody switches off during a read is this tool's own failure mode one level up.
+The tracker entry stays* **open on the "automatic" half**, *and carries what closing
+it would take.*
+
 ### 4. What the macOS 26.5 tree reads, and why that is recorded rather than failed
 
 **Every macOS 26.5 capture MATCHES.** That is not a contradiction of W31's finding; it
