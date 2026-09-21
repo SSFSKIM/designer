@@ -1,0 +1,36 @@
+
+== the declared bed — R = chromaStructureRatioWeb / chromaStructureRatioNative ==
+scheme pose         n   median R    min R    max R  median twin  median r2 W  median r2 N
+light  active      10     1.2677   1.1086   1.9057       1.3931       0.6921       0.7891
+light  inactive     8     1.2113   1.1306   1.8759       1.4634       0.7485       0.7721
+dark   active       4     0.5515   0.4613   0.6080       0.4379       0.1921       0.9453
+dark   inactive     4     0.7016   0.6017   0.8015       0.5702       0.1478       0.9042
+
+-- the declared bed, cell by cell --
+profile                                           scene                                 set                R    twin     r2W    lvlN    lvlW     |d|      sdW
+apple-macos-27.0-1x-dark-standard-glass0.5        photo__capsule-button__inactive       calibration   0.7806  0.6171  0.1490  0.2037  0.1878  0.0158  0.00994
+apple-macos-27.0-1x-dark-standard-glass0.5        photo__capsule-button__rest           calibration   0.4613  0.3512  0.1897  0.2254  0.1797  0.0457  0.02039
+apple-macos-27.0-1x-dark-standard-glass0.5        photo__rrect-md__inactive             calibration   0.6227  0.5233  0.1467  0.1695  0.1620  0.0076  0.00945
+apple-macos-27.0-1x-dark-standard-glass0.5        photo__rrect-md__rest                 calibration   0.5242  0.4283  0.1906  0.1887  0.1637  0.0250  0.01600
+apple-macos-27.0-1x-light-standard-glass0.5       photo__capsule-button__inactive       calibration   1.2699  1.5981  0.7237  0.4975  0.4987  0.0011  0.03594
+apple-macos-27.0-1x-light-standard-glass0.5       photo__capsule-button__rest           calibration   1.2739  1.4866  0.7010  0.5353  0.5388  0.0035  0.03956
+apple-macos-27.0-1x-light-standard-glass0.5       photo__rrect-md__inactive             calibration   1.2030  1.3008  0.6772  0.4955  0.4852  0.0102  0.04433
+apple-macos-27.0-1x-light-standard-glass0.5       photo__rrect-md__rest                 calibration   1.2409  1.3493  0.6254  0.5456  0.5592  0.0137  0.04851
+apple-macos-27.0-1x-light-standard-glass0.5       photo__rrect-ml__rest                 calibration   1.2492  1.3418  0.6269  0.5639  0.5615  0.0024  0.05527
+apple-macos-27.0-1x-light-standard-glass0.5       photo__rrect-sm__inactive             validation    1.8759  1.7017  0.7522  0.4657  0.4747  0.0090  0.01844
+apple-macos-27.0-1x-light-standard-glass0.5       photo__rrect-sm__rest                 validation    1.7872  1.7583  0.7463  0.5089  0.5179  0.0090  0.02306
+apple-macos-27.0-1x-light-standard-glass0.5       photo__toolbar-group__inactive        validation    1.2031  1.3847  0.7455  0.5215  0.5153  0.0062  0.06548
+apple-macos-27.0-1x-light-standard-glass0.5       photo__toolbar-group__rest            validation    1.1086  1.2198  0.7176  0.5540  0.5612  0.0072  0.07238
+apple-macos-27.0-2x-dark-standard-glass0.5        photo__capsule-button__inactive       calibration   0.8015  0.6437  0.1462  0.2046  0.1880  0.0166  0.00922
+apple-macos-27.0-2x-dark-standard-glass0.5        photo__capsule-button__rest           calibration   0.5788  0.4474  0.1936  0.2262  0.1769  0.0493  0.01680
+apple-macos-27.0-2x-dark-standard-glass0.5        photo__rrect-md__inactive             calibration   0.6017  0.5005  0.1527  0.1697  0.1625  0.0072  0.01046
+apple-macos-27.0-2x-dark-standard-glass0.5        photo__rrect-md__rest                 calibration   0.6080  0.5038  0.1993  0.1890  0.1627  0.0263  0.01477
+apple-macos-27.0-2x-light-standard-glass0.5       photo__capsule-button__inactive       calibration   1.2195  1.5422  0.7515  0.4987  0.4997  0.0010  0.03880
+apple-macos-27.0-2x-light-standard-glass0.5       photo__capsule-button__rest           calibration   1.3370  1.6497  0.6832  0.5375  0.5390  0.0015  0.03698
+apple-macos-27.0-2x-light-standard-glass0.5       photo__rrect-md__inactive             calibration   1.1385  1.2000  0.6893  0.4982  0.4872  0.0110  0.04833
+apple-macos-27.0-2x-light-standard-glass0.5       photo__rrect-md__rest                 calibration   1.2814  1.4282  0.6205  0.5474  0.5589  0.0115  0.04637
+apple-macos-27.0-2x-light-standard-glass0.5       photo__rrect-ml__rest                 calibration   1.2615  1.3579  0.6251  0.5641  0.5610  0.0031  0.05481
+apple-macos-27.0-2x-light-standard-glass0.5       photo__rrect-sm__inactive             validation    1.7971  1.6657  0.8219  0.4671  0.4732  0.0060  0.01736
+apple-macos-27.0-2x-light-standard-glass0.5       photo__rrect-sm__rest                 validation    1.9057  1.8733  0.7148  0.5111  0.5186  0.0075  0.01962
+apple-macos-27.0-2x-light-standard-glass0.5       photo__toolbar-group__inactive        validation    1.1306  1.2606  0.7699  0.5257  0.5215  0.0042  0.06917
+apple-macos-27.0-2x-light-standard-glass0.5       photo__toolbar-group__rest            validation    1.1123  1.2365  0.7051  0.5596  0.5623  0.0027  0.06792

@@ -28,9 +28,11 @@ import { describe, expect, it } from "vitest";
 
 import { CSS_TIER_MAPPING, type CssTierMapping } from "@vitreajs/vitrea-web";
 
-import { DIGEST_SUPERSESSIONS, supersessionFor } from "./digest-supersessions";
+import { DIGEST_SUPERSESSIONS } from "./digest-supersessions";
 import {
   DEFAULT_MATERIAL_PROFILE,
+  MATERIAL_DIGEST_RULE_VERSION,
+  materialDigestInput,
   withMaterialOverrides,
   type MaterialProfilePatch,
 } from "@vitrea/renderer-webgpu";
@@ -42,6 +44,11 @@ interface TunedProfile {
   /** K5's half of the same document: what the crossing to the CSS tier costs. */
   readonly cssTierMapping?: Partial<CssTierMapping>;
   readonly identityWithRuntimeDefault?: boolean;
+  /**
+   * Which digest rule that field was sealed under (W31; claims §5.164). Absent
+   * means rule 1, the plain resolved fingerprint.
+   */
+  readonly resolvedMaterialSha256Rule?: number;
   /** Digest over the RESOLVED material — see the profile's `$comment-provenance`. */
   readonly resolvedMaterialSha256: string;
   /**
@@ -223,6 +230,12 @@ const FITTED_CONSTANTS = [
  * A digest over a resolved material profile: keys sorted, then SHA-256, first 16
  * hex. Sorting makes the digest a property of the values rather than of
  * declaration order, so re-ordering the renderer's literal cannot fail the pin.
+ *
+ * Deliberately duplicated here, in `macos26-document-selection.test.ts` and in
+ * the sealing script — an algorithm restated is an algorithm two places can
+ * check. What is NOT duplicated is the RULE: since W31 the digest is taken over
+ * `materialDigestInput(resolved)`, and a table walk whose drift would be silent
+ * lives in one place, beside `DEFAULT_MATERIAL_PROFILE`.
  */
 function fingerprint(resolved: unknown): string {
   const canonical = (value: unknown): unknown =>
@@ -238,6 +251,38 @@ function fingerprint(resolved: unknown): string {
   return createHash("sha256").update(JSON.stringify(canonical(resolved))).digest("hex").slice(0, 16);
 }
 
+/**
+ * **The digest a document records, under the rule it records** (W31 Decision
+ * Log 1 (a); claims §5.161 §7b, §5.164).
+ *
+ * Rule 1 is the plain resolved fingerprint above. Rule 2 takes the same
+ * fingerprint over the material with `MATERIAL_IDENTITY_TABLE`'s entries dropped
+ * where their gates hold their declared identities, so an operator landing at
+ * its identity moves no document's digest and the two frozen macOS 26.5
+ * documents' recorded fields are the live fingerprint again.
+ *
+ * **The LIVE fingerprint is always the current rule.** A document's
+ * `resolvedMaterialSha256Rule` is provenance — which rule sealed it — and the
+ * two frozen macOS 26.5 documents carry none because they were never re-sealed.
+ * That they still reproduce under rule 2 is not a coincidence to be worked
+ * around: it is the rule's whole purpose and X1's proof.
+ *
+ * Their digests do NOT reproduce under today's rule 1, and the precision is
+ * worth stating because claims §5.161 §7b rounds it off: rule 1 over a material
+ * carrying nine leaves those documents never named is a different number
+ * (`e3a93c54e5ba60a2` / `ade6eb6567c25d0d`). What their recorded fields equal is
+ * the plain fingerprint of the material **as it stood when they were sealed**,
+ * which is what rule 2 reconstructs by dropping exactly those nine.
+ */
+const digestUnder = (rule: number, resolved: unknown): string =>
+  rule >= 2 ? fingerprint(materialDigestInput(resolved)) : fingerprint(resolved);
+
+const liveDigest = (resolved: unknown): string =>
+  digestUnder(MATERIAL_DIGEST_RULE_VERSION, resolved);
+
+const ruleOf = (document: { readonly resolvedMaterialSha256Rule?: number }): number =>
+  document.resolvedMaterialSha256Rule ?? 1;
+
 const PROFILES = resolve(import.meta.dirname, "..", "profiles");
 
 function load(key: string): TunedProfile {
@@ -248,24 +293,24 @@ const LIGHT = load("apple-macos-26.5-1x-light-standard");
 const DARK = load("apple-macos-26.5-1x-dark-standard");
 
 /**
- * The supersession record beside the two frozen documents (W30 Decision Log
- * 1 (a); claims §5.158).
+ * The supersession record beside the two frozen documents — **history since
+ * W31 G3** (W30 Decision Log 1 (a), claims §5.158; W31 Decision Log 1 (a),
+ * claims §5.164).
  *
  * W30's operator wave added eight leaves to `DEFAULT_MATERIAL_PROFILE` at values
  * that are algebraic identities. A digest over the fully RESOLVED material moves
  * when the material gains a key, whatever that key holds, so the two frozen
- * documents' fingerprints moved while no macOS 26.5 pixel did. That is the
- * one-time X1 exemption W29 Decision Log 7 (a) granted.
+ * documents' fingerprints moved while no macOS 26.5 pixel did. That was the
+ * one-time X1 exemption W29 Decision Log 7 (a) granted, and it was spent as a
+ * record beside the documents rather than as a re-recorded digest inside them.
  *
- * It is spent as a record BESIDE the documents rather than as a re-recorded
- * digest inside them (Decision Log 1 (a)), and the record covers all six shipped
- * documents rather than only the frozen two (Decision Log 4 (a)) —
- * `test/digest-supersessions.ts` is the reader and carries the reasoning.
- *
- * So the pins below assert BOTH readings, for the macOS 26.5 pair and for the
- * macOS 27 four alike. The document's own field must still be the digest it was
- * sealed at, and the material it resolves to today must be the record's current
- * digest. Neither can move without this file going red.
+ * W31 ruled the rule that makes such an exemption unnecessary: the fingerprint
+ * drops a leaf at its declared inert identity, so **the frozen documents' own
+ * recorded fields are the live fingerprint again** and the pins below read those
+ * fields rather than the record. The record is KEPT — it is a true statement
+ * about what rule 1 computed in the interval, and a recorded number is never
+ * deleted — and `digest-supersessions.test.ts` asserts it still reproduces under
+ * rule 1 so the history stays true.
  */
 
 /**
@@ -351,29 +396,29 @@ describe("tuned calibration profiles", () => {
      * not of anyone's declaration order.
      */
     for (const profile of [LIGHT, DARK]) {
-      const record = supersessionFor(profile.profileKey);
-      // The document's own field is the reading it was SEALED at, and it may not
-      // move: these are frozen bytes and every gated macOS 26.5 row names them.
-      expect(
-        profile.resolvedMaterialSha256,
-        `${profile.profileKey}: the document's own digest moved — the frozen bytes ` +
-          `are an input to every bound over this bed (W30 Decision Log 1 (a))`,
-      ).toBe(record.recordedSha256);
+      /*
+       * **The document's own field is the pin again** (W31 Decision Log 1 (a);
+       * claims §5.164). Under the digest rule every leaf added since these bytes
+       * were sealed is dropped while it holds its declared identity, so the
+       * material a root resolves fingerprints to the number the document
+       * records — one reading rather than two, and no indirection through a
+       * record beside it.
+       */
       const resolved = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, profile.patch);
       expect(
-        fingerprint(resolved),
-        `${profile.profileKey}: the resolved material no longer matches the digest ` +
-          `recorded beside the document — re-run ` +
-          `results/2026-09-20-w30-g2-leaves/reseal.ts, and say in the record what moved`,
-      ).toBe(record.currentSha256);
+        liveDigest(resolved),
+        `${profile.profileKey}: the resolved material no longer fingerprints to the ` +
+          `digest the document records — under the rule it must, and a leaf added ` +
+          `without a MATERIAL_IDENTITY_TABLE entry is what breaks it (claims §5.161 §7b)`,
+      ).toBe(profile.resolvedMaterialSha256);
+      // And the rule is DOING something here: the plain fingerprint of the same
+      // material is a different number, which is the whole content of the rule.
+      expect(digestUnder(1, resolved)).not.toBe(profile.resolvedMaterialSha256);
     }
 
     // And the two profiles resolve differently, so the fingerprint is discriminating
     // rather than a constant that would match anything.
     expect(LIGHT.resolvedMaterialSha256).not.toBe(DARK.resolvedMaterialSha256);
-    expect(supersessionFor(LIGHT.profileKey).currentSha256).not.toBe(
-      supersessionFor(DARK.profileKey).currentSha256,
-    );
     /*
      * The exemption is spent ONCE (W29 Decision Log 7 (a)), and the record is
      * exactly the two FROZEN documents — no more and no fewer. A third entry is
@@ -416,10 +461,13 @@ describe("tuned calibration profiles", () => {
      */
     for (const profile of [LIGHT_27, DARK_27]) {
       const resolved = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, profile.patch);
+      expect(ruleOf(profile), `${profile.profileKey}: sealed under an unrecorded rule`).toBe(
+        MATERIAL_DIGEST_RULE_VERSION,
+      );
       expect(
-        fingerprint(resolved),
+        liveDigest(resolved),
         `${profile.profileKey}: the resolved material no longer matches the document's own ` +
-          `fingerprint — re-run results/2026-09-20-w30-g3-operators/seal.ts and say in the ` +
+          `fingerprint — re-run results/2026-09-21-w31-g3-chroma-fit/seal.ts and say in the ` +
           `document's $comment-sha-history what moved`,
       ).toBe(profile.resolvedMaterialSha256);
       expect(profile.identityWithRuntimeDefault).toBeUndefined();
@@ -436,8 +484,8 @@ describe("tuned calibration profiles", () => {
      * digest and an unfrozen one does.
      */
     const digests = [
-      supersessionFor(LIGHT.profileKey).currentSha256,
-      supersessionFor(DARK.profileKey).currentSha256,
+      LIGHT.resolvedMaterialSha256,
+      DARK.resolvedMaterialSha256,
       LIGHT_27.resolvedMaterialSha256,
       DARK_27.resolvedMaterialSha256,
     ];
@@ -463,13 +511,14 @@ describe("tuned calibration profiles", () => {
      * over the renderer's default and the receded patch over that, and the
      * digest is over the result.
      *
-     * **Where that digest lives differs by document, since W30 G3.** The four
-     * macOS 27 documents were re-sealed at the fitted operators and read at
-     * those bytes in the same commit (Decision Log 4 (b); claims §5.159), so
-     * each carries its own current digest in its own field. The two frozen macOS
-     * 26.5 documents cannot: their bytes are an input to every bound stated over
-     * that bed, so their current digests stay in the record beside them,
-     * permanently.
+     * **Since W31 G3 all six carry their own digest in their own field**
+     * (Decision Log 1 (a); claims §5.164). The asymmetry W30 G3 left — the four
+     * macOS 27 documents pinned to themselves and the two frozen ones pinned to
+     * a record beside them — was a consequence of a fingerprint that moved when
+     * a leaf was added at an identity. Under the rule it does not move, so the
+     * frozen bytes and the live fingerprint agree again and the loop below reads
+     * one number per document. Each is taken under the rule the document itself
+     * records.
      */
     const SHIPPED = [
       "apple-macos-26.5-1x-light-standard",
@@ -491,20 +540,22 @@ describe("tuned calibration profiles", () => {
               DEFAULT_MATERIAL_PROFILE,
               load(over.replace(/\.json$/, "")).patch,
             );
-      const resolved = fingerprint(withMaterialOverrides(base, document.patch));
-      const frozen = key.startsWith("apple-macos-26.5-");
-      const record = frozen ? supersessionFor(key) : undefined;
-      if (record !== undefined) {
-        expect(document.resolvedMaterialSha256, `${key}: a frozen document's digest moved`).toBe(
-          record.recordedSha256,
+      const resolved = liveDigest(withMaterialOverrides(base, document.patch));
+      // Where a document names a rule it must name the CURRENT one: a document
+      // sealed under an older rule whose digest no longer reproduces is a
+      // document that has to be re-sealed, not one to be read leniently.
+      if (document.resolvedMaterialSha256Rule !== undefined) {
+        expect(document.resolvedMaterialSha256Rule, `${key}: sealed under an older rule`).toBe(
+          MATERIAL_DIGEST_RULE_VERSION,
         );
       }
       expect(
         resolved,
         `${key}: the material this document resolves to — composed over ` +
-          `${over ?? "DEFAULT_MATERIAL_PROFILE"} — does not fingerprint to the digest its pin ` +
-          `resolves to; re-run results/2026-09-20-w30-g3-operators/seal.ts`,
-      ).toBe(record === undefined ? document.resolvedMaterialSha256 : record.currentSha256);
+          `${over ?? "DEFAULT_MATERIAL_PROFILE"} — does not fingerprint to the digest it ` +
+          `records under rule ${String(MATERIAL_DIGEST_RULE_VERSION)}; re-run ` +
+          `results/2026-09-21-w31-g3-chroma-fit/seal.ts`,
+      ).toBe(document.resolvedMaterialSha256);
       current.push(resolved);
     }
 
@@ -516,9 +567,9 @@ describe("tuned calibration profiles", () => {
     for (const key of SHIPPED) {
       const document = load(key);
       if (document.resolvedOverActiveDocument === undefined) continue;
-      expect(fingerprint(withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, document.patch))).not.toBe(
-        document.resolvedMaterialSha256,
-      );
+      expect(
+        liveDigest(withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, document.patch)),
+      ).not.toBe(document.resolvedMaterialSha256);
     }
     expect(
       SHIPPED.filter((key) => load(key).resolvedOverActiveDocument !== undefined).length,

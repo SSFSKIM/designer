@@ -29917,3 +29917,756 @@ for.
 | the range scan, re-read | **11 call sites, 8 clamped, 3 proven, 0 STOPPED** — unchanged (`call-sites-closure.txt`) |
 | X6 machine read | **27.0/26A428, RT 0, IC 0, `NSGlassTintAmount` 0.5**, before and after each of the closure's browser runs (`machine.txt`, four more lines) |
 | `src/metrics/`, `cli/measure.ts`, `src/report.ts`, `results/matrix.json`, `profiles/`, `adopted-thresholds.test.ts` | untouched (X11) |
+
+## 5.164 W31 G3: the leaf, the rule, the fit, the seal and the read — the body carries the backdrop's hue, and an operator at its identity stops moving every document's digest (2026-09-21)
+
+**Gate: W31 G3, acceptance clauses 5 and 6; contracts X1–X11; Decision Log 1 (a)
+and (b), Decision Log 2 (a)–(g).** Evidence is
+`packages/calibration/results/2026-09-21-w31-g3-chroma-fit/`. Ledger section
+§5.164. The leaf, the digest rule, the fit, the re-seal and the canonical read
+land on ONE branch and are merged whole (X10), because re-sealing a macOS 27
+document empties its bed out of every bound until rows read at the new bytes
+exist — measured here, not assumed: 726 rows, 0 at a shipped document, 23 cases
+red, between the seal and the read.
+
+**No macOS 26.5-keyed byte moves at this gate** (X1): not a document, not the
+seed, not a fixture, not a row. `freeze.py verify` reads **1,818 intact** at the
+gate's opening and at its close. The two frozen documents are not edited and
+their own recorded digests are the live fingerprint again, which is the rule
+working rather than an exemption spent. No native capture (X5). The matrix schema
+stays at 5 (X7).
+
+### 1. The leaf, and the four proofs that it is inert
+
+`bodyChromaRetention ∈ [0, 1]`, inert identity **0**, on `MaterialProfile` and
+`MaterialProfilePatch`, applied immediately after
+`colour = mix(backdrop, adapted, presentAlpha)` and before
+`var materialColour = colour`:
+
+    if (retention <= 0.0) { return colour; }
+    let Y = dot(colour, W);  if (!(Y > 1e-6 && Y <= 1.0)) { return colour; }
+    let Yb = dot(backdrop, W);  if (Yb <= 1e-6) { return colour; }
+    let toward = backdrop * (Y / Yb);
+    var restored = mix(colour, toward, clamp(retention, 0.0, 1.0));
+    let Yr = dot(restored, W);
+    if (Yr > 1e-6) { restored = restored * (Y / Yr); }
+    return gamut_at_luma(restored, Y);
+
+**Luma is held by construction and not by correction.** Both endpoints of the mix
+carry linear luma exactly `Y` — `colour` by definition, `toward` because it is the
+backdrop scaled to `Y` — and linear luma is a linear functional, so the mix lands
+on `Y` in exact arithmetic and the renormalisation is an f32 rounding guard.
+Measured over a bed of 224 composites (eight backdrops × four neutrals × seven
+plate alphas) at eight retentions, the worst relative movement of linear luma is
+**4.35e-16**, under two ULP of a double. `gamut_at_luma` scales chroma toward the
+neutral AT that luma — `mix(vec3f(Y), c, t)` with `t` the largest value in [0, 1]
+keeping every channel in gamut — so the clamp moves chroma and not level.
+
+**No `toneAdapt` gate**, on the reason the G0 review closure substituted for the
+one G0 gave (§5.161 §11, N1): a retention toward the backdrop's CHROMATICITY is
+the identity wherever the backdrop is achromatic, and the only region
+`backdropToneAdaptation` can fire in on the macOS 27 documents is
+`x < backdropToneHigh` = 1e-4 of linear light, achromatic to within the capture's
+own quantisation. The condition for a document that re-opens the band — including
+the closure's added clause, that such a document be read at a span at or below
+`sizeSpanMin` where the size bias is not there to help — is recorded on the leaf's
+own doc comment.
+
+**The place it cannot act, declared rather than discovered.** On the unsampled
+layer path (`flags.x <= 0.5` and not `domMaterial`) the shader overwrites `colour`
+with `adapted` a few lines later: there is no backdrop in hand and no
+chromaticity to restore toward, and the retention is silently the identity there.
+An unsampled group on the WebGPU tier carries none of this operator.
+
+One uniform vec4 of its own at floats **132..135** (the next vec4 boundary; the
+pass's slot grows from 132 to 136), on W30's rule that an operator packed into a
+neighbour's padding is a layout nobody could read back.
+
+**The four identity proofs, each run and committed** (`identity-proofs.txt`):
+
+| proof | result |
+| --- | --- |
+| `freeze.py verify` | **26.5 freeze intact: 1818 entries**, at open and at close |
+| `test:golden` | **34 passed**, `git status` over `e2e/goldens` clean — byte-identical |
+| the 1,107 gated-row pin | green (`FROZEN.length === 1107`) |
+| `w30-operator-identity` | the two pre-wave macOS 26.5 materials deep-equal outside `W30_OPERATOR_LEAVES` + `W31_OPERATOR_LEAVES`, which is nine leaves and nothing else |
+| `w30-css-declaration-identity` | every declaration character-identical to bytes recorded before any leaf existed |
+| `w31-body-chroma.test.ts` | 6 cases: bit-identical at 0; luma held to under 2 ULP; gamut held; chroma monotone toward the backdrop's over 100+ cells; the shader's own text asserted term for term |
+| `@gpu w31-body-chroma.spec.ts` | 2 cases on a hardware adapter — see below |
+
+The `@gpu` case is the one the others cannot supply, and it is the shape of the
+defect W30 G2 found after every inertness proof was green over a misaligned vec4
+(§5.158 §6): a lane nobody reads at a non-zero value is indistinguishable from a
+lane wired to the wrong offset. It needed a backdrop with a chromaticity to
+restore toward, which no scene in `e2e/fixtures/scenes.ts` had — every one is a
+checkerboard, a flat grey or a near-black gradient — so `w31-body-chroma` is a
+magenta-to-green gradient under one deep surface. Read off the raster:
+
+| retention | interior mean luminance | interior mean chroma | worst byte Δ from OFF |
+| ---: | ---: | ---: | ---: |
+| OFF | 0.622078 | 0.101914 | — |
+| 0.25 | 0.622068 | 0.194690 | 24 |
+| 0.50 | 0.622064 | 0.283414 | 31 |
+| 0.80 | 0.622089 | 0.347306 | 35 |
+| 1.00 | 0.622068 | 0.366609 | 37 |
+
+The luma moves by at most **2.5e-05** — a sixth of one 8-bit code at this level —
+while the chroma rises **3.6×**. And an EXPLICIT `bodyChromaRetention: 0` is
+byte-identical to a material that never names it, which is the pixel half of the
+plain value drop the digest rule takes.
+
+**One thing the operator found on a real adapter that no unit case could.** The
+first draft named the mix's second endpoint `target`, which is a **reserved
+keyword in WGSL**: the shader module failed to compile, every `@gpu` case in the
+file failed at once, and nothing in the unit suite or the type checker had said
+so. It is `toward` now, and `w31-body-chroma.test.ts` asserts the shader's text
+at that name — which is why the assertion is on the source and not only on the
+arithmetic.
+### 2. The digest rule, executed — every site, rule 1 → rule 2
+
+W31 Decision Log 1 (a), ruled, as Decision Log 2 (c) shapes its execution. The
+full table of sites with both readings is `digest-sites.md`; this is the ledger's
+copy of what binds.
+
+**The rule and where it lives.** `MATERIAL_IDENTITY_TABLE` is an append-only
+constant beside `DEFAULT_MATERIAL_PROFILE` in `packages/renderer-webgpu/src/material.ts`,
+carrying the four gate-groups `identity-table.json` declares after G0's review
+closure — the two-leaf σ gate `{sigmaSlopePerSpan 0, sigmaThinOffsetPx 0}` over
+`sigmaSpanRefPx`, `sizeHeavySecondShare` 0 over the two widths,
+`sizeScatterScaleGain` 0 over `sizeScatterScaleRef`, and this wave's leaf at 0 as
+a plain value drop. `materialDigestInput(resolved)` is the one implementation of
+the drop; `MATERIAL_DIGEST_RULE_VERSION` is **2**, and rule 1 is the plain
+resolved digest every document sealed before this branch carries.
+
+**The hash stays duplicated and the RULE does not.** `seal.ts`,
+`tuned-profiles.test.ts` and `macos26-document-selection.test.ts` each keep their
+own sorted-key SHA-256 — an algorithm restated is an algorithm two places can
+check, which is why three copies of it have existed since W7 — and all three now
+take it over `materialDigestInput`. A table walk that drifted would drift
+silently, so it has one copy and is imported. The file layout allows it: the
+renderer package is a dependency of all three sites, the table is pure data and
+a path walk, and no `node:crypto` crosses into a package that ships to a browser.
+
+**The two frozen macOS 26.5 documents, NOT edited**:
+
+| document | recorded (unmoved) | rule 1 today | **rule 2** | dropped |
+| --- | --- | --- | --- | ---: |
+| `apple-macos-26.5-1x-light-standard` | `b2b570e4adcea8fb` | `e3a93c54e5ba60a2` | **`b2b570e4adcea8fb`** | 9 |
+| `apple-macos-26.5-1x-dark-standard` | `874be66ea501621b` | `ade6eb6567c25d0d` | **`874be66ea501621b`** | 9 |
+
+> **A precision §5.161 §7b rounds off, recorded beside it rather than over it.**
+> §7b says the two frozen documents "need no field, because their recorded
+> digests equal both definitions' output". They do not equal today's rule 1 —
+> the middle column above is what today's plain fingerprint gives, over a
+> material carrying nine leaves those documents never named. What they equal is
+> the plain fingerprint of the material **as it stood when they were sealed**,
+> which is exactly what rule 2 reconstructs by dropping those nine. The
+> conclusion — no field needed — is unchanged and the reason is the sharper one.
+> `tuned-profiles.test.ts` carries it beside its own reader.
+
+**The four macOS 27 documents, re-sealed under rule 2 with history** — and these
+are the digests **G0 PREDICTED** before the leaf existed (§5.161 §7b):
+
+| document | was (rule 1) | now (rule 2) | dropped | G0 predicted |
+| --- | --- | --- | ---: | --- |
+| `…-1x-light-standard-glass0.5` | `3a2513742936ceb1` | `62e684744954580b` | 6 | `62e684744954580b` |
+| `…-1x-dark-standard-glass0.5` | `f3008c3e9033ed4c` | `c61194f820d77280` | 4 | `c61194f820d77280` |
+| `…-1x-light-…-receded` | `d8015c2587126d08` | `183c8949f194ff43` | 6 | `183c8949f194ff43` |
+| `…-1x-dark-…-receded` | `8c85774d161fcbaa` | `1a64247df6786fc2` | 4 | `1a64247df6786fc2` |
+
+**They reproduce to the digit with the leaf added.** G0 computed them on a
+material that did not have `bodyChromaRetention`; this seal computed them on one
+that does. What moved is the DROP COUNT, 5/3/5/3 → 6/4/6/4: the leaf is dropped
+too, and dropping it changes nothing. That is the whole claim of a
+digest-neutral operator, checked rather than asserted.
+
+**Every pin site, and where it went**:
+
+| site | was | now |
+| --- | --- | --- |
+| the four macOS 27 documents | rule-1 digests, no rule field | rule-2 digests + `resolvedMaterialSha256Rule: 2` + a line in `$comment-sha-history` |
+| the two macOS 26.5 documents | untouched | **untouched** (X1) |
+| `tuned-profiles.test.ts` | frozen pair through `supersessionFor(…).currentSha256` | all six through their own fields under the rule, with a case that rule 1 gives a different number |
+| `macos26-document-selection.test.ts` | `currentSha256` | the documents' own fields |
+| `test/digest-supersessions.ts` | the shared pin reader | **history**, pinned by a new `digest-supersessions.test.ts` |
+| `material-document.ts` | `b340a4dee871633c` / `93ab090705c43f1f` | `b2b570e4adcea8fb` / `874be66ea501621b` |
+| `macos27-profile.ts` | the four rule-1 digests | the four rule-2 digests, regenerated from the documents |
+| `window-activation.spec.ts` | sha256 over the whole handed material | over `materialDigestInput` of it; all eight literals re-read from Chromium |
+
+**`digest-supersessions.json` is kept and is still true.** Nothing in it is
+rewritten. `digest-supersessions.test.ts` reproduces every `recordedSha256` under
+the rule — which is "the pins returned to the documents" read from the record's
+own side — and every `currentSha256` under the plain fingerprint of the material
+**as it stood at W30's close**, i.e. today's resolved material with every
+identity-table entry added after W30 dropped. So the history cannot quietly
+become false, and a later wave that adds a leaf outside the table breaks it
+loudly, which is hole (c) of the rule's own list.
+
+**Two of the eight browser-read hashes came home further than that.** Under the
+rule the two macOS 26.5 INACTIVE readings are `6dcb32c4…` and `70391dee…` — two
+of the pre-W30 eight `window-activation.spec.ts` already had on file, to the last
+digit. Nothing arranged it: the frozen material's receded composition is what it
+was before W30's leaves existed, and dropping those leaves at their identities
+hands back the same bytes. It is the rule's own sentence, "the digest is over
+what draws", read from a browser instead of from a script.
+
+**The append-only constraint is a test, not a convention.**
+`w31-identity-table.test.ts` joins the live constant to G0's committed
+`identity-table.json`: every entry G0 declared is still there, in order, with the
+same gate, the same gated leaves and the same identity values; every gate leaf
+still holds its declared identity in `DEFAULT_MATERIAL_PROFILE`; every entry
+names a committed case and none says "TO BE COMMITTED"; and moving any gate off
+its identity drops nothing, so the rule discriminates. The one thing that
+legitimately moved is W31's own `law` and `inertLawCase` prose — G0 could not
+name a case for a leaf that did not exist — and the declaration is kept verbatim
+in the entry's own `declaredFirstAs`, which the test requires whenever the prose
+differs. That is `identity-table.json`'s `$comment-superseded` idiom, one file
+along.
+### 3. The pre-fit bed, re-derived and not inherited
+
+§5.161 §11 finding N12 records that G0's pre-fit bed lived in `/tmp` and beside
+its evidence as a gitignored scratch matrix — the same class of artefact the
+charter's own Surprise records disappearing — and rules that G3 re-derive it.
+`scratch-capture.sh 27` ran into a fresh tree at the sealed documents: **332
+cells**, six macOS 27 profiles, both tiers, active and inactive, nothing appended
+to `results/matrix.json` and no macOS 26.5 path opened for writing. RT 0, IC 0,
+slider 0.5, read before and after and recorded in `browser-runs.txt` (X6).
+
+**It reproduces G0's four medians to the last digit**, which is the check that
+the bed the fit is judged on is the bed the tolerance was declared on:
+
+| bed | G0 (§5.161 §3) | re-derived | cells |
+| --- | ---: | ---: | ---: |
+| light active | 0.551 | **0.5506** | 10 |
+| light inactive | 0.514 | **0.5137** | 8 |
+| dark active | 0.333 | **0.3332** | 4 |
+| dark inactive | 0.584 | **0.5841** | 4 |
+
+And the level stop's corrected baseline with it: worst `|Δlevel|` **0.04933** on
+2x dark `photo__capsule-button__rest`, which is exactly the cell and the figure
+the review closure named (§5.161 §11, N5).
+
+The whole matrix is committed (`pre-fit-matrix.json`, 13 MB) with a distilled
+`pre-fit-rows.csv` beside it, because a bed nobody can read back is the thing
+N12 objected to.
+
+> **One finding on G0's own script, found by running it on a clean machine.**
+> The fix finding N8 made — `pgrep -f 'playwright' | wc -l` — has a failure mode
+> G0 could not have seen: BSD `pgrep` exits 1 when nothing matches, `pipefail`
+> hands the pipeline that status, an assignment takes its substitution's status,
+> and `set -e` then kills the script before a single cell is captured, silently,
+> with exit 1 and no output at all. G0's run never hit it because a foreign
+> `playwright-cli` daemon was up throughout (§5.161 §2). This gate's copy
+> swallows pgrep's empty match and nothing else. `scratch-capture.sh` in G0's
+> directory is committed evidence and is not edited.
+
+### 4. The fit — four retentions, two rounds, and why there is no third
+
+**The objective, from §5.161 §7 (b) and Decision Log 2 (d)**:
+`R = chromaStructureRatioWeb / chromaStructureRatioNative`, web against native on
+the same cell and never against 1, median over the untinted `photo` cells of the
+four macOS 27 standard profiles at both scales, `calibration` + `validation`, on
+the **WebGPU tier**, the two poses bounded separately because they draw two
+different documents. Bound `0.80 ≤ median R ≤ 1.20`, per-cell floor `R ≥ 0.60`.
+The holdout is dropped **by construction** in `chroma-fit.py`'s `cells()`, the
+one function every reader in the loop is built on, and `render` refuses a `--set`
+or a `--scene` that names a holdout id at all — so no holdout number reached a
+table or a log during the fit.
+
+**Round A** probed one point per bed and measured the slope; **round B** solved
+it. The parent's own plate model predicted the dark slope well and the light one
+badly — `k` predicted 0.95 light against 2.89 measured — so the secant is what
+the values rest on and the model is not:
+
+| bed | R before | probe `r` | R at the probe | slope `k` | **fitted `r`** | **R after** | twin after |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| light active (10) | 0.5506 | 0.45 | 1.2677 | 2.894 | **0.282** | **1.0486** | 1.080 |
+| light inactive (8) | 0.5137 | 0.50 | 1.2113 | 2.716 | **0.349** | **1.0205** | 1.141 |
+| dark active (4) | 0.3332 | 0.11 | 0.5515 | 5.956 | **0.336** | **0.9994** | 0.850 |
+| dark inactive (4) | 0.5841 | 0.04 | 0.7016 | 5.029 | **0.142** | **1.0170** | 0.941 |
+
+All four medians are inside the bound; every cell is above the 0.60 floor, worst
+**0.8213**. The invariant twin (`chromaSpread / oklabLStdDev`, §5.161 §11 N3) is
+read beside `R` at every step and is in the last column: where the two disagree,
+the difference is the part of the movement that lives in the level, and here
+they agree to within 0.12 on every bed.
+
+**There is no round C, and that is a decision rather than an omission.** The
+residuals from 1.0 are 0.06 %, 1.7 %, 2.1 % and 4.9 %, against an instrument
+whose own 1x-against-2x reproducibility is 4.5 % light and 9.1 % dark
+(§5.161 §7 (b)). A third round would be fitting noise, and the tolerance's own
+half-width is ±0.20.
+
+**Both hard stops held on every cell of the bed** (`stops.txt`):
+
+| stop | clause | worst on the bed |
+| --- | --- | ---: |
+| level | `\|interiorMeanWeb − interiorMeanNative\| ≤ 0.055` | **0.04932** |
+| level, clause two | that quantity grows by ≤ 0.005 from pre-fit | **+0.00006** |
+| structure | `interiorStdDevWeb` within 2 % of pre-fit | **1.317 %** |
+
+Clause two is the operative one and it is met by a factor of **eighty**, which
+is what "luma-preserving by construction" means when it is read off a raster
+instead of off the algebra.
+
+> **The structure residual is the capture's 8-bit quantisation and not the
+> operator, and the bed says which.** The movement scales inversely with the
+> cell's own spread: −1.32 % on `photo__rrect-sm__inactive` at `sd` 0.0187,
+> −0.74 % on its 2x sibling, −0.04 % on `photo__toolbar-group__inactive` at `sd`
+> 0.0680. A chroma change moves which quantisation bin each channel lands in, so
+> the luma reconstructed from three 8-bit codes jitters by a fraction of a code
+> — a fixed absolute jitter, which is a larger fraction of a smaller spread.
+> The operator holds luma to under two ULP of a double in the law and to a sixth
+> of one code on a real adapter (§1); it does not move `interiorStdDev` by 1.3 %.
+### 5. The CSS tier: derived, measured, and declined
+
+Decision Log 2 (b) rules a term derived from the leaf **only if the derivation
+adds REACH without moving the authored `saturate()` constants, measured on
+scratch**, and otherwise the tier records the residual and carries nothing. The
+term was written, wired through `root.ts`, rendered on the declared bed and then
+taken back out. The decline is a measurement and this is it.
+
+**What was derived.** The only operator this tier has on the body's chroma is the
+`saturate()` inside its one `backdrop-filter`, which acts on the backdrop BEFORE
+the `rgba()` plate covers it. The renderer's retention takes the fraction of the
+backdrop's chromaticity the body carries from `1 − α` to `(1 − α) + r·α`, so the
+mirror is a GAIN on that `saturate()` — `1 + r·α′/(1 − α′)`, at the CONVERTED
+alpha this tier solves — which leaves the authored 1.8 and 1.4 exactly where X3
+froze them and is exactly 1 at the leaf's identity.
+
+**What it measured** (`css-derivation.txt`, `css-derivation-probe.txt`), on the
+`dom` tier over the same bed, with reach = the share of the gap to the
+reference's own ratio (ii) that the term closes:
+
+| bed | ratio (ii) native | before | after | **reach** |
+| --- | ---: | ---: | ---: | ---: |
+| light active (10) | 0.7891 | 0.4719 | 0.7142 | **0.764** |
+| light inactive (8) | 0.7721 | 0.4990 | 0.7818 | **1.035** |
+| dark active (4) | 0.9453 | 0.2024 | **0.2024** | **0.000** |
+| dark inactive (4) | 0.9042 | 0.2224 | 0.2288 | **0.009** |
+
+**On the DARK scheme — the one G0's closure said the room was on — it buys
+nothing at all**, and a probe settles that it is not a matter of the fitted
+value: at a retention of **1**, the most the leaf can hold, the dark active
+cells still read **0.2024**, unchanged to four decimals. The only term in the law
+that can produce an exactly unchanged reading is its own `open ≤ 1e-3` guard, so
+on those cells this tier's converted alpha leaves no backdrop for a saturation to
+act on. The dark INACTIVE cells do move — 0.2224 → **0.3211** at retention 1, a
+seventh of the gap, and 0.2288 at the fitted 0.142.
+
+So **§5.161 §6's dark ceiling is not an upper bound on the active cells; it is
+unreachable**, because the alpha that expression is evaluated at is not the alpha
+the runtime solves there. That is the same class of finding the section's own
+review closure made about `css-ceiling.ts` (§5.161 §11, B1) — an expression
+evaluated at an alpha the runtime does not draw — one solve further along, and it
+is recorded beside §6 rather than over it.
+
+**On the LIGHT scheme it buys a great deal and breaks both stops doing it.**
+Reach 0.76 active and 1.04 inactive — and the level-growth stop fails on **10 of
+26** cells (worst **+0.0106** against 0.005) and the structure stop on **11**
+(worst **+35.1 %** against 2 %). The cause is not a mis-derivation: `saturate()`
+is a matrix on sRGB-ENCODED channels and stops preserving luminance the moment
+one of them clips, which is what a light body near the top of the range does. The
+residual `sharpLayerDeclarations` already records — "the same operator in a
+different space" — is what fails here, measured.
+
+**A capped gain is refused rather than tried.** A cap is a fitted CSS-only
+constant on an operator this tier cannot follow, which is what X3 forbids and
+what G0's closure warned against in the same breath; and on the dark scheme,
+where the two conditionally-claimed rows live, no cap helps because the term
+buys 0.000 at every value.
+
+**So the tier carries nothing, and the record is load-bearing.**
+`BODY_CHROMA_RETENTION` stays in `platform-web/src/optics.ts` as a mirror of the
+renderer's DEFAULT with the measurement in the paragraph beside it;
+`tier-coherence.test.ts`'s exhaustiveness case pins that mirror to
+`DEFAULT_MATERIAL_PROFILE.bodyChromaRetention` and pins the two authored
+`saturate()` constants at 1.8 and 1.4, so a default leaving its identity re-opens
+the decline instead of inheriting it.
+
+**The consequence for §5.161 §4's claims, stated plainly: the two `dom` rows
+revert to "reachable if the CSS tier carries a chroma term".** They were CLAIMED
+conditionally on this derivation and the condition is not met. The two `texture`
+rows are unaffected — their floors are 0.06971 and 0.06772 against bounds of
+0.17 — and §7 below records where all four actually landed.
+
+**What would change it**, for the wave that wants those two rows: a body whose
+plate this tier does not solve to full coverage, or a chroma operator on the
+`rgba()` layer rather than on the backdrop beneath it. Both are work; neither is
+this wave's (X3). Tracker at G4.
+
+**The exhaustiveness case, which is what makes a decline a mirror.**
+`tier-coherence.test.ts` mirrored an ENUMERATED list, which is the right shape
+for a constant somebody already thought about and the wrong one for a constant
+nobody has: a leaf added to the renderer's material passed every case in the file
+by not being in any list, and "tier-coherence green" then said nothing about it.
+The list is closed now. All **75** of `MaterialProfile`'s top-level keys are
+classified exactly once — 22 compared by VALUE against `MATERIAL_SOURCE_SIZE`
+and 18 more against `MATERIAL_SOURCE_OUTER_SHADOW`, the rest cited to a CSS-side
+symbol the file actually imports (checked against its own import block, so a
+citation cannot rot into decoration), and **16** recorded as having no CSS
+counterpart with the reason: the eleven lens constants (this tier has no
+refraction at all — a `backdrop-filter` cannot displace a sample), the two
+resting-sweep constants (a highlight-pass animation with no CSS analogue), the
+adaptive tint's two luminance knots (core's own, read inside `glassTint`, so
+this tier never sees them as numbers), and **this wave's leaf**. A key with no
+line fails the case; a line naming no key fails it too.
+### 6. The frozen configuration, recorded before the holdout was read
+
+Decision Log 1 (b) ruled that a frozen configuration is *(the shipped document
+bytes, the renderer's material-affecting sources)*, that the holdout is read once
+per configuration, and that **no fitted constant may change between two holdout
+reads of the same document bytes**. Decision Log 2 (e) makes it an artifact.
+`configuration.py` is that artifact, and it ran before the read:
+
+```
+  apple-macos-27.0-1x-light-standard-glass0.5.json          e2fa07589d9984366f36aafb6b8897f4ef978fe592b66d478f3c702ac6a10e50
+  apple-macos-27.0-1x-dark-standard-glass0.5.json           b5714a8662880ff7a70fbfa51a2fa14e3098f11889fcec30edfac6450322bf06
+  apple-macos-27.0-1x-light-standard-glass0.5-receded.json  25863dccef9d62651da4e62cd2c150e021f1cf2859fd2f1769c1dcce018ea1dc
+  apple-macos-27.0-1x-dark-standard-glass0.5-receded.json   cc4ed1038996c0b1b0b51eb0bdf07fae637c004cc671aa5069336fbfdf27013e
+  source list          14 files
+  SOURCE SHA-256       493059f4d40be071bac3b0d3986f39ce18b062d7649aa402f365234b7984c8c8
+```
+
+The source hash is over the charter's own enumerated list — `src/wgsl/` entire
+(nine files), `material.ts`, `renderer.ts`, `passes.ts`, and the CSS tier's
+`optics.ts` and `css-tier.ts` — each file's bytes preceded by its repo-relative
+path, in sorted order. A list rather than a tree, because a hash over everything
+would move on a comment in a test and say nothing about the material.
+
+**What it refuses, verified by running it twice.** A second `record` at document
+hashes already in `configuration-log.json` is refused unless the SOURCE hash has
+moved AND `--source-moved-because` names a reason. Both halves are required: a
+reason without a moved source is a fit being called a fix, and a moved source
+without a reason is a change nobody wrote down. The second invocation printed
+`REFUSED: identical document bytes AND identical sources.`
+
+The log is append-only and is what the refusal reads — not the world — so the
+record survives a worktree, a rebase or a machine.
+
+**The one thing the rule cannot see, named rather than left implicit.** A fit
+that moves a value out of a document and into a shader default is a document
+change AND a source change, and it is caught as the former: the document hashes
+move, so the read is a new configuration and the rule does not apply to it. That
+is the ruling's own wording and not a hole in it.
+
+`canonical-read.sh` carries the four document hashes, filled from
+`sealed-documents-fitted.txt` and never by hand, and refuses any other bytes
+before it opens a browser.
+### 7. The read, and the verdict
+
+**X6 on every browser run**, read before and after and recorded in
+`browser-runs.txt`: RT 0, IC 0, `NSGlassTintAmount` 0.5, macOS 27.0/26A428. One
+capture process throughout — `pgrep` reported **0** foreign browser-automation
+processes at the read's open, so G0's disclosed condition (§5.161 §2) does not
+apply to this read at all. Idle between runs; the display's mode read once per
+run by the script.
+
+Three modes, in order, at the four sealed documents the script refuses to run
+without: **calibration + validation** (332 cells), **the ladder** as probe rows
+(270), then the **holdout once** (124). 726 rows appended, and the matrix goes
+1,833 → 2,559.
+
+**The read's own append-check** (`read-append-check.txt`), against a snapshot
+taken before a byte moved:
+
+| clause | result |
+| --- | --- |
+| rows preserved | PASS — all 1,833 |
+| byte-identical | PASS |
+| order unchanged | PASS |
+| 26.5 first, intact | PASS — the 1,107 frozen rows are still the file's first 1,107 |
+| counts add up | PASS — before + appended == after, per profile |
+| no 26.5 row appended | PASS |
+
+> **A read APPENDS, and "appends" does not mean "at the end".** The first draft
+> of this checker asserted a prefix and called a correct append a failure:
+> `compare` writes a new generation of a cell BESIDE the old one, so this read's
+> 726 rows land at positions 1,108 through 2,558, interleaved among the rows
+> they supersede. That is what lets `split-generation.py` find both generations
+> of a key by walking the file once. The invariant a read has to hold is that no
+> recorded row moved PAST another recorded row and that the frozen bed is still
+> the contiguous block `freeze.py`'s positional read walks — a subsequence, not
+> a prefix — and that is what the file asserts now.
+
+**The four claimed rows, before and after** (`verdict.txt`; before and after are
+told apart by the `capturePath`'s own content hashes and nothing is transcribed):
+
+| row (all `photo__rrect-lg__rest`, holdout) | bound | before | **after** | verdict |
+| --- | ---: | ---: | ---: | --- |
+| `texture` / `27.0-1x-dark` | ≤ 0.17 | 0.21531 | **0.14655** | **CLEARED** |
+| `texture` / `27.0-2x-dark` | ≤ 0.17 | 0.21341 | **0.14505** | **CLEARED** |
+| `dom` / `27.0-1x-dark` | ≤ 0.18 | 0.20095 | **0.20095** | **MISSED, unmoved** |
+| `dom` / `27.0-2x-dark` | ≤ 0.19 | 0.19474 | **0.19474** | **MISSED, unmoved** |
+
+**Two of the seven rows `MISSED_27_ROWS` has carried since W29 G3 are gone.**
+The list is five now, and its own doc comment said of these four that "no
+constant in either document can close it" — which was right, and what closed
+two of them was a MECHANISM rather than a constant.
+
+**The two `dom` rows are unmoved to the fifth decimal, and that is the CSS
+decline and not a failure of the operator.** §4 declared them CLAIMED
+*conditionally on G3 deriving a term for that tier*; §5 above is the measurement
+that declined it, and these two rows are what the condition was for. They are
+recorded as missed, not widened and not re-fitted, with the lever named in
+`MISSED_27_ROWS` itself.
+
+**The recede's worst cell** (§5.161 §7 (e)), reported and not claimed —
+`photo__rrect-lg__inactive`, WebGPU tier, macOS 27 dark:
+
+| | `R` before | **`R` after** | ratio (ii) native | web after | `interiorMean` N / W | ΔE P95 |
+| --- | ---: | ---: | ---: | ---: | --- | --- |
+| 1x | 0.537 | **0.9811** | 0.9225 | 0.2328 | 0.1708 / 0.1606 | 0.2201 → **0.1845** |
+| 2x | 0.514 | **0.9431** | 0.9205 | 0.2429 | 0.1705 / 0.1608 | 0.2170 → **0.1783** |
+
+The level is unmoved to the fourth decimal. This cell's population is the one
+W27c's chroma collapse does not reach, so the receded documents'
+`bodyChromaRetention` is the first chroma law it has ever had, and it reads
+within 2 % and 6 % of the reference's chroma-to-structure.
+
+**The rows declared EXPECTED UNMOVED, and they are** (the full table is
+`verdict.txt`):
+
+| row | before | after | Δ |
+| --- | ---: | ---: | ---: |
+| tinted `photo__capsule-button__rest-tint-orange` `tintDeltaLWeb`, dark | 0.16674 | 0.16674 | **+0.00000** |
+| the same, light | 0.11162 | 0.11162 | **+0.00000** |
+| `…-tint-orange-half` `tintDeltaLWeb`, light | 0.15187 | 0.15256 | +0.00069 |
+| `interiorStdDevWeb`, dark `photo__rrect-md__rest` | 0.01600 | 0.01603 | +0.00003 |
+| `interiorStdDevWeb`, dark `photo__capsule-button__rest` | 0.02034 | 0.02043 | +0.00009 |
+| `interiorStdDevWeb`, light `photo__rrect-md__rest` | 0.04860 | 0.04854 | −0.00006 |
+| `rimPeakLuminanceWeb`, dark `photo__rrect-md__rest` | 0.01159 | 0.01155 | −0.00005 |
+| `rimPeakLuminanceWeb`, light `photo__rrect-md__rest` | 0.02790 | 0.02779 | −0.00011 |
+
+The tinted rows at full strength are **exactly** zero, which is §5.161 §5's
+"unmoved by construction at `s = 1`" read off a raster: the tint's shade law
+reads the untinted material's luminance and the retention preserves it, so
+`mix(encodedMaterial, encodedLayer, 1)` cannot see the change. At
+`tint-orange-half` the row moves by half the body's change, +0.00069, which is
+the same statement one step down the composition.
+
+**B3, the departure stop** (`departure-stat.txt`): the WebGPU tier's mean
+absolute exterior departure over the declared population is **0.00034**, at or
+better than the 0.00035 W30 Decision Log 3 (a) restated, with the both-tier
+figure 0.00080 beside it. The retention acts inside the body composite and
+reaches no exterior pixel, and the exterior says so.
+
+**Nothing moved that was not declared.** `verdict.txt`'s tail ranks every row by
+how far it moved: the top forty are all `oklabDeltaEP95` on untinted `photo`
+cells, every one of them DOWN, from −0.069 on the wave's own cell to −0.033;
+**no native reading moved at all** (any number there but 0 is a measurement
+fault rather than a result). The largest unclaimed improvements are
+`photo__rrect-lg__inactive` on the two light profiles (−0.0509, −0.0509) and
+`photo__glass-over-glass__inactive` (−0.0472, −0.0467).
+
+**The 27 bed is back, exactly where X10 pins it.** Between the seal and the read
+it was 726 rows and **0** at a shipped document, with 23 cases red. After the
+read: **230 gated cells / 726 rows**, `MATRIX_CELLS` 459 unmoved,
+`MATRIX_PARTITION` unmoved per profile, `PREDICATE_EXCLUDES` unmoved — the
+conditioning predicate refuses the same 68 cells it refused at 0.20.0, so this
+material changed no cell's shape.
+
+**The layout after the split** (`split-plan.txt`, `split-apply.txt`,
+`append-check.txt` — all six of that checker's clauses PASS, including the
+reconstruction):
+
+| file | rows | bytes |
+| --- | ---: | ---: |
+| `results/matrix.json` | 1,833 | 67,723,100 |
+| `results/superseded/880ab1e31450.json` (new) | 247 | 9,128,015 |
+| `results/superseded/d0c389d70456.json` (new) | 479 | 17,797,629 |
+
+The two new files are named by the 0.20.0 ACTIVE documents whose rows they hold,
+and `superseded/index.json` and its generated `README.md` now map eight files.
+`freeze.py verify` reads **26.5 freeze intact: 1818 entries** at this gate's
+opening and at its close.
+### 8. What the fit did not close, measured rather than inferred
+
+Three residuals the read makes visible, each with the number and the shape of the
+work that would close it. None is chartered here (X3 keeps this wave to one
+leaf).
+
+**(a) A single retention per document scales the per-cell spread, it does not
+close it.** The bound is on the MEDIAN and the medians land; the per-cell spread
+does not shrink. On the light active bed the pre-fit range is 0.5095–0.6533 (a
+factor of 1.28 between the extremes) and after the fit it is 1.0020–1.4417 (a
+factor of 1.44). The same components are the outliers on both sides:
+`photo__rrect-sm` — span 32, the thinnest surface in the bed — is the highest
+cell before the fit and the highest after, at 1.36 to 1.52; `photo__toolbar-group`
+is the lowest on both, at 0.89. A multiplicative operator with one constant per
+document cannot do otherwise.
+
+**On the holdout cell that is a measured overshoot**, and it is recorded here
+rather than discovered later: `photo__rrect-lg__rest` on the WebGPU tier reads
+`R` **1.2391** (1x dark) and **1.3596** (2x). That is outside the 0.80–1.20 the
+median is bounded to, on a cell the bound is not stated over — the tolerance's
+bed is `calibration` + `validation` by construction — and it did the row no
+harm: the same cell's ΔE P95 fell from 0.21531 to 0.14655. But it is an
+over-fit in the direction the two-sided bound exists to catch, and it is on the
+largest span in the bed.
+
+The shape of the work is named by the same reading: `1 − sizedAlpha` falls as
+the span rises, so the same retention buys a larger relative chroma gain on a
+larger surface. **A retention conditioned on the surface — a function of the
+plate's own alpha, as W30 made σ a function of the casting span — is the natural
+next form**, and it would be fitted on a bed that has more than one span per
+scheme. Deferred, and to the tracker at G4.
+
+**(b) The two accessibility documents inherit the light value and land nowhere
+near 1.** Decision Log 2 (a) rules that the accessibility documents inherit the
+light document's retention, and they were never in the tolerance's bed. Read at
+the canonical bytes, their untinted `photo` medians on the WebGPU tier are:
+
+| profile | active | inactive |
+| --- | ---: | ---: |
+| `…-1x-light-reduced-transparency-glass0.5` | **3.0374** | 1.9923 |
+| `…-1x-light-increased-contrast-coupled-glass0.5` | **2.9489** | **0.1381** |
+
+Reduced transparency lifts the material's occlusion and increased contrast lifts
+it further, so `1 − α` is a different number there and one inherited constant
+cannot serve both. These beds carry no bound and this wave declares none; the
+readings are recorded because a constant inherited rather than measured is
+exactly the kind of thing that stays unmeasured. Tracker at G4.
+
+**(c) The CSS tier carries none of the operator**, which §5 measures and §7's
+two `dom` rows pay for. On the dark scheme a derived term is not merely
+insufficient, it is inert: the tier's own converted alpha leaves no backdrop for
+`saturate()` to act on. The reachable work is a chroma operator on the `rgba()`
+layer rather than on the backdrop beneath it, or a plate this tier does not
+solve to full coverage.
+
+### 9. By eye, at the fit
+
+`eye.md`, written from the canonical read's own capture tree against G0's
+pre-fit `eye.md` cell for cell, on four sheets of `native | WebGPU | CSS | ΔE × 8`
+at 1x in both schemes.
+
+G0's first finding — *the reference's dark body over the photograph is a
+photograph seen through glass, with its hues in place; vitrea's is a flat warm
+grey, and the difference panel is saturated white across the whole interior* —
+is **gone on the WebGPU tier and exactly as recorded on the CSS tier**. The
+magenta-to-green diagonal the reference carries runs through vitrea's body in
+the same places and the same direction, muted against the reference's but a
+coloured body rather than a grey one. On the dark sheets the THIRD panel is the
+one G0 described and the second one is not, which is the plainest statement of
+the residual this wave leaves.
+
+G0's second — *the reference reads as a transparent slab and vitrea's as a
+painted panel on top of the image* — is resolved on the fidelity target. On 1x
+light `photo__rrect-md__rest` the first two panels are hard to tell apart at a
+glance, and that cell's `R` is 1.0387.
+
+**One thing the sheets found that the metrics did not.** On the light sheets the
+ΔE × 8 panel has INVERTED: the interior is now mostly dark and the brightest
+band is the RIM, a bright outline all the way round. Before the fit the interior
+was the bright part. The rim did not move — `rimPeakLuminanceWeb` is −0.00005
+and −0.00011 on the two cells (§7) — the interior fell away from it. So on the
+light scheme the body's chroma is no longer the largest thing on the cell, and
+a wave that wants this cell further should read the rim.
+
+**And one G0 finding this gate does NOT re-read.** G0 recorded a hue ROTATION
+over `mid-chroma-solid` — the reference's body a clean lighter pink, vitrea's a
+lavender, desaturated *and* rotated toward blue — and noted that `tintHueShift*`
+had never been read on those cells. `mid-chroma-solid` is a probe scene and is
+not in this canonical read (calibration + validation + the pitch ladder), so the
+finding stands open. On the `photo` cells the restored hues sit where the
+reference's do by eye, which is consistent with a rotation that was the plate's
+rather than a hue-mapping error, but this gate does not claim that.
+
+### 10. What this gate does not claim
+
+The chroma tolerance of §5.161 §7 (b) is **declared and still not adopted** —
+the parent decides at G4 on §7 (g)'s identifiability argument and on this gate's
+own reproducibility, with the structure stop as a second gated row and the
+WebGPU tier only. Nothing in `test/adopted-thresholds.test.ts`'s bounds moved
+at this gate; `MISSED_27_ROWS` lost two entries because two rows CLEARED, which
+is the list doing its job rather than a bound being widened.
+
+It claims nothing about the accessibility beds, about `mid-chroma-solid`'s hue
+rotation, or about the CSS tier's chroma beyond the decline it measured. It
+takes no native capture (X5). It moves no macOS 26.5 byte (X1). And it does not
+re-open the analysis pass, the tint's chroma law, or the recede's seed collapse
+(X3) — the last of those is §5.161 §3's finding (b), still on the tracker.
+
+### 11. Verification record
+
+| step | result |
+| --- | --- |
+| `freeze.py verify` | **26.5 freeze intact: 1818 entries**, at open and at close |
+| `pnpm -r build` | exit 0 |
+| `pnpm -r lint` | exit 0 |
+| `pnpm -r test` | **2,651 passed over 183 files, 0 failed** across nine suites |
+| `test:golden` | **34 passed**, `e2e/goldens` clean — byte-identical across the leaf commit |
+| `@gpu w31-body-chroma.spec.ts` | 2 passed on a hardware adapter |
+| `e2e/shared/window-activation.spec.ts` | 6 passed on chromium, all eight hashes re-read from the browser |
+| the 27 gated-cell count | **230 cells / 726 rows**, `MATRIX_CELLS` 459, `PREDICATE_EXCLUDES` unmoved |
+| the read's append-check | 6 clauses PASS |
+| the split's append-check | 6 clauses PASS, reconstruction included |
+| `configuration.py record` | one entry; a second invocation REFUSED |
+
+The read's capture tree is left in the worktree at
+**`packages/calibration/web-captures/`** for the parent to copy to the canonical
+tree at merge (charter Surprises; acceptance clause 6).
+
+### 12. The adoption question, put to the parent
+
+Decision Log 2 (g) leaves adoption to G4, on §5.161 §7 (g)'s identifiability
+argument **and the fit's own reproducibility**. This is that second half,
+measured at the fitted material rather than at the pre-fit one.
+
+**The fit's reproducibility**, as the same 1x-against-2x spread §7 (b) justified
+the bound from, read again on `R` AFTER the fit:
+
+| scheme | pairs | median spread | worst |
+| --- | ---: | ---: | ---: |
+| light | 9 | **4.36 %** | 6.16 % |
+| dark | 4 | **9.93 %** | **25.10 %** |
+
+Both are within a tenth of a point of the pre-fit figures the bound was
+justified from (4.49 % / 9.09 %), so the operator did not make the instrument
+noisier. The dark bed's worst pair is **25.10 %**, worse than the pre-fit
+19.41 %, and it is the same cell for the same reason: `photo__capsule-button__rest`,
+whose level miss is 0.0457 at 1x and 0.0493 at 2x and whose `R` is biased by that
+through the exact `(level)^(−2/3)`. The level stop does not remove that bias, it
+only stops the fit from making it worse — which it did not, by a factor of
+eighty.
+
+**What G0's argument is, and what this gate adds to it.** §7 (g) argued the row
+is identifiable on two grounds — the numerator is one to two orders above the
+capture's quantisation, and the native side separates by geometry over 1.47×
+(light) and 1.69× (dark) with the web side tracking it cell for cell — and it
+proposed two conditions: adopt **with the structure stop as a second gated row**,
+and **on the WebGPU tier only**. Both conditions survive this gate and the second
+is now stronger than it was: the CSS tier's `R` at the canonical read reads
+**0.951–1.118** on the four standard profiles while its ratio (ii) on the dark
+cells is 0.19–0.24 against a reference of 0.90 — a tier with no chroma operator
+anywhere in the renderer, reading near the reference on the statistic — which is
+§7 (g) (ii)'s own refusal, measured one generation later.
+
+**What this gate adds against adoption**, and it is new: §8 (a). The bound is on
+the median and the median is what the fit moved; the per-cell spread widened, and
+the holdout cell — outside the bed by construction — overshoots at `R` 1.24 and
+1.36. A bound of 0.80–1.20 on the median would be green today and would stay
+green through a refit that pushed more cells past 1.20, because nothing gates a
+cell from above. **If the row is adopted, the per-cell clause should be
+two-sided** — a ceiling as well as the 0.60 floor — or the bound should be
+stated on a spread rather than on a median.
+
+**The parent's call, with what each choice costs.** Adopting gates the first
+material-axis row the project has, on a bed of 10 / 8 / 4 / 4 cells whose dark
+half is four cells at one span each. Declining leaves the wave's whole result as
+a one-wave reading, recorded here and in no test, and the next material change
+can move it without anything going red. G3 recommends **adoption with G0's two
+conditions and a third**: the per-cell clause **two-sided**, a ceiling as well as
+the 0.60 floor.
+
+**The ceiling is the parent's number and not G3's**, because the bed makes it a
+choice rather than a reading. The worst cell on the declared bed is **1.5155** —
+`photo__rrect-sm__inactive` at 1x light, span 32, the thinnest surface in the bed
+and the highest cell before the fit as well as after. So a ceiling at 1.55 is
+green today and says almost nothing; a ceiling at 1.40 declares that cell and its
+2x sibling MISSED, which is a truthful statement about an over-corrected thin
+surface and is the shape §8 (a) argues for. What the parent is choosing between
+is a clause that passes and a clause that is worth having, and the number is
+named here rather than at G4 so the choice is made against the spread the fit
+actually leaves and not against the median it hits.

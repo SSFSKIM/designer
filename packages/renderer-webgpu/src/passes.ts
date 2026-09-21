@@ -243,6 +243,13 @@ export interface OpticsPassArgs {
   readonly backdropScaleStatistic: number;
   readonly sizeHeavySecondShare: number;
   readonly heavySecondEnabled: boolean;
+  /**
+   * W31's body chroma retention (claims §5.161 §5, §5.164) — how much of the
+   * blurred backdrop's chromaticity the body restores, at the luma the tone
+   * solve produced. 0 on the runtime default, where the composite is the one
+   * W30 left, bit for bit.
+   */
+  readonly bodyChromaRetention: number;
   /** DOM-layer mode: 0 is off, 1 is unknown tone, and 2 has a measured tone. */
   readonly domMaterial?: {
     readonly mode: number;
@@ -767,7 +774,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
     },
 
     opticsPass(encoder, args) {
-      const slot = uniformSlot(`optics:${args.resourceId}`, 132);
+      const slot = uniformSlot(`optics:${args.resourceId}`, 136);
       const d = slot.data;
       d[0] = args.viewportDevice[0];
       d[1] = args.viewportDevice[1];
@@ -971,6 +978,15 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[129] = args.heavySecondEnabled ? 1 : 0;
       d[130] = 0;
       d[131] = 0;
+      // W31's body chroma retention, in a vec4 of its own on the same rule as
+      // W30's three above: 132 is the next vec4 boundary and an operator packed
+      // into 130 would read two of its neighbour's lanes. 0 on the landed
+      // default, so the bytes this pass writes are the 0.20.0 bed's with one
+      // zeroed vec4 appended.
+      d[132] = args.bodyChromaRetention;
+      d[133] = 0;
+      d[134] = 0;
+      d[135] = 0;
       slot.write();
 
       const chain = args.backdrop?.chain ?? placeholderView;

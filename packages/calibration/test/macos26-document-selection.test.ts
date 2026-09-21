@@ -44,9 +44,9 @@ import { describe, expect, it } from "vitest";
 
 import { colorSchemeMaterialProfile, macos26MaterialProfileDocument } from "@vitreajs/vitrea-web";
 
-import { supersessionFor } from "./digest-supersessions";
 import {
   DEFAULT_MATERIAL_PROFILE,
+  materialDigestInput,
   withMaterialOverrides,
   type MaterialProfilePatch,
 } from "@vitrea/renderer-webgpu";
@@ -69,21 +69,19 @@ const DOCUMENTS = {
 } as const;
 
 /**
- * The digests the two frozen documents' pins resolve to today, recorded beside
- * them rather than in them (W30 Decision Log 1 (a); claims §5.158).
+ * **The two frozen documents' own fields are the pin again** (W31 Decision Log
+ * 1 (a); claims §5.164).
  *
- * W30's eight inert leaves moved every document's resolved fingerprint without
- * moving a pixel, and no document's bytes changed — every gated matrix row names
- * them (Decision Log 4 (a)). So this file asserts both readings:
- * the document's own field is still what it was sealed at, and the material a
- * root actually selects fingerprints to the record's current digest, which is
- * also what `macos26MaterialProfileDocument`'s endpoints report because
- * `root.material` names what drew.
+ * Between W30 G2 and W31 G3 this file read the digests through
+ * `profiles/digest-supersessions.json`, because W30's eight inert leaves moved
+ * every document's resolved fingerprint without moving a pixel and a frozen
+ * document's bytes could not be re-recorded. The digest rule removes the
+ * indirection: the fingerprint drops a leaf at its declared inert identity, so
+ * the material a root selects fingerprints to the number the document records,
+ * and `root.material` reports that same number.
+ *
+ * The record is kept as history and pinned by `digest-supersessions.test.ts`.
  */
-const CURRENT = {
-  light: supersessionFor("apple-macos-26.5-1x-light-standard"),
-  dark: supersessionFor("apple-macos-26.5-1x-dark-standard"),
-} as const;
 
 /** `tuned-profiles.test.ts`'s fingerprint: sorted keys, sha256, first 16 hex. */
 const fingerprint = (resolved: unknown): string => {
@@ -100,33 +98,44 @@ const fingerprint = (resolved: unknown): string => {
   return createHash("sha256").update(JSON.stringify(canonical(resolved))).digest("hex").slice(0, 16);
 };
 
+/**
+ * The live fingerprint, under the digest rule (W31; claims §5.161 §7b).
+ *
+ * The hash above is deliberately restated in three places; the RULE is not —
+ * `materialDigestInput` is the one implementation, beside
+ * `DEFAULT_MATERIAL_PROFILE`, because a table walk whose drift would be silent
+ * is the half a second copy could not check.
+ */
+const liveDigest = (resolved: unknown): string => fingerprint(materialDigestInput(resolved));
+
 describe("the macOS 26.5 document, as a root selects it", () => {
   for (const scheme of ["light", "dark"] as const) {
     it(`${scheme}: the selected patch resolves to the document's own recorded material`, () => {
       const selected = colorSchemeMaterialProfile(scheme, macos26MaterialProfileDocument);
       const resolved = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, selected ?? {});
       expect(
-        fingerprint(resolved),
+        liveDigest(resolved),
         `${DOCUMENTS[scheme].profileKey}: selecting macos26MaterialProfileDocument no longer ` +
           `draws the material that document records — a page pinned to macOS 26.5 is drawing ` +
           `something else`,
-      ).toBe(CURRENT[scheme].currentSha256);
-      // And the document's own field is untouched: the reading it was sealed at
-      // stays the reading, because those bytes are an input to every bound over
-      // the frozen bed.
-      expect(DOCUMENTS[scheme].resolvedMaterialSha256).toBe(CURRENT[scheme].recordedSha256);
+      ).toBe(DOCUMENTS[scheme].resolvedMaterialSha256);
+      // And the document's bytes are untouched, which is what X1 protects: the
+      // pin returns to the recorded field by a rule, never by an edit.
+      expect(DOCUMENTS[scheme].resolvedMaterialSha256).toBe(
+        scheme === "light" ? "b2b570e4adcea8fb" : "874be66ea501621b",
+      );
     });
 
     it(`${scheme}: the endpoint's hand-written digest is the current one`, () => {
       // These two are hand-written rather than generated — the macOS 26.5
       // documents predate `generate-macos27-profile.mjs` and its sibling — so
       // they are the two digests in either shipped document with nothing
-      // upstream of them. This is that missing upstream, and since W30 G2 the
-      // upstream is the supersession record rather than the document's own
-      // field: `root.material` names what actually drew, and what draws today is
-      // the material the eight inert leaves are part of.
+      // upstream of them. This is that missing upstream, and since W31 G3 the
+      // upstream is the document's own field again: `root.material` names what
+      // actually drew, and under the digest rule what draws fingerprints to the
+      // number the document was sealed at.
       expect(macos26MaterialProfileDocument.active[scheme].resolvedMaterialSha256).toBe(
-        CURRENT[scheme].currentSha256,
+        DOCUMENTS[scheme].resolvedMaterialSha256,
       );
       expect(macos26MaterialProfileDocument.active[scheme].profileKey).toBe(
         DOCUMENTS[scheme].profileKey,
@@ -144,6 +153,5 @@ describe("the macOS 26.5 document, as a root selects it", () => {
     expect(DOCUMENTS.light.identityWithRuntimeDefault).toBe(true);
     expect(colorSchemeMaterialProfile("dark", macos26MaterialProfileDocument)).toBeDefined();
     expect(DOCUMENTS.light.resolvedMaterialSha256).not.toBe(DOCUMENTS.dark.resolvedMaterialSha256);
-    expect(CURRENT.light.currentSha256).not.toBe(CURRENT.dark.currentSha256);
   });
 });

@@ -245,6 +245,14 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   /// switch living in another facet's spare lane is a layout nobody could read
   /// back. (z) and (w) free.
   scatterHeavy2 : vec4f,
+  /// W31's body chroma retention (claims 5.161 section 5, 5.164): how much of
+  /// the blurred backdrop's CHROMATICITY the body restores, at the luma the
+  /// tone solve produced (x). A vec4 of its own on W30's rule — 132 is the next
+  /// vec4 boundary and an operator packed into the block above would read two
+  /// of its neighbour's lanes. (y), (z) and (w) free. At the shipped 0 the mix
+  /// below is multiplied by zero and the composite is bit-identical to the one
+  /// W30 left, which is why the 34 goldens do not move.
+  bodyChroma : vec4f,
 };
 
 @group(0) @binding(0) var<uniform> ou : OpticsUniforms;
@@ -616,6 +624,54 @@ fn dom_material_output(encodedComposite : vec3f, encodedBackdrop : vec3f, alpha 
     (c - b) / max(vec3f(1.0) - b, vec3f(1e-6)), c >= b);
   let a = clamp(max(alpha, max(need.x, max(need.y, need.z))), 0.0, 1.0);
   return vec4f(clamp(c - b * (1.0 - a), vec3f(0.0), vec3f(a)), a);
+}
+
+/// W31 — the body's chroma retention, at a held linear luma (claims 5.161
+/// section 5, fitted in 5.164).
+///
+/// The body is a neutral plate over the blurred backdrop, so what a
+/// photograph's hues survive the composite at is '1 - sizedAlpha'. This
+/// restores the colour's CHROMATICITY toward the blurred backdrop's, carried to
+/// the colour's OWN linear luma, by the material's retention.
+///
+/// **Luma is held by construction rather than by correction.** Both endpoints
+/// of the mix have linear luma exactly 'Y' — 'colour' by definition and
+/// 'target' because it is the backdrop scaled to 'Y' — and linear luma is a
+/// linear functional, so the mix has luma 'Y' in exact arithmetic. The
+/// renormalisation afterwards is an f32 rounding guard and nothing else.
+///
+/// Gamut by scaling chroma toward the neutral AT that luma, never by clipping
+/// per channel: a per-channel clamp moves the level, which is the one thing
+/// this operator may not do.
+///
+/// The retention is the identity outside 'Y' in (1e-6, 1], which is a
+/// finiteness guard rather than a restriction: 'backdrop' and 'adapted' are both
+/// in [0, 1] and 'presentAlpha' is in [0, 1], so their mix is too. Writing it as
+/// a branch on the retention as well makes the identity at 0 EXACT — no
+/// division, no rounding, the composite left as it arrived.
+fn gamut_at_luma(c : vec3f, Y : f32) -> vec3f {
+  var t = 1.0;
+  for (var i = 0u; i < 3u; i = i + 1u) {
+    let d = c[i] - Y;
+    if (d > 1e-7) { t = min(t, (1.0 - Y) / d); }
+    else if (d < -1e-7) { t = min(t, -Y / d); }
+  }
+  return mix(vec3f(Y), c, clamp(t, 0.0, 1.0));
+}
+
+fn body_chroma_retention(colour : vec3f, backdrop : vec3f, retention : f32) -> vec3f {
+  if (retention <= 0.0) { return colour; }
+  let W = vec3f(0.2126, 0.7152, 0.0722);
+  let Y = dot(colour, W);
+  if (!(Y > 1e-6 && Y <= 1.0)) { return colour; }
+  let Yb = dot(backdrop, W);
+  if (Yb <= 1e-6) { return colour; }
+  // 'toward' and not 'target': WGSL reserves the latter.
+  let toward = backdrop * (Y / Yb);
+  var restored = mix(colour, toward, clamp(retention, 0.0, 1.0));
+  let Yr = dot(restored, W);
+  if (Yr > 1e-6) { restored = restored * (Y / Yr); }
+  return gamut_at_luma(restored, Y);
 }
 
 @fragment
@@ -1199,6 +1255,30 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
    */
   let presentAlpha = adaptedAlpha * mat;
   var colour = mix(backdrop, adapted, presentAlpha);
+  /*
+   * W31's chroma retention, HERE and not later (claims 5.161 section 5).
+   *
+   * Immediately after the composite, because the composite is where the
+   * chroma is lost — the plate is neutral and the backdrop's chromaticity
+   * survives it scaled by '1 - presentAlpha'. Before the tint composition
+   * below, so an author's tint still displaces the result per the composition
+   * contract; the tint's shade law reads the untinted material's LUMINANCE,
+   * which this preserves exactly, so 'shade', 'layer' and 'rimTintColour' are
+   * bit-identical whatever the retention holds.
+   *
+   * Before the DOM branch as well, so the secant that solves an unsampled DOM
+   * group's layer alpha solves it from the material the page will actually
+   * show. That branch is NOT luma-transparent — 'dom_material_alpha' clamps per
+   * channel inside a luma computation — so the 'dom' tier's alpha may move with
+   * the retention where the WebGPU tier's composite does not (claims 5.161
+   * section 11, the second reading carried forward).
+   *
+   * On the unsampled LAYER path ('flags.x <= 0.5' and not 'domMaterial')
+   * 'colour' is overwritten with 'adapted' a few lines below: there is no
+   * backdrop in hand and no chromaticity to restore toward, and the retention is
+   * silently the identity. That is a declared residual, not an oversight.
+   */
+  colour = body_chroma_retention(colour, backdrop, ou.bodyChroma.x);
   /*
    * How much of this pixel the SURFACE owns, as the canvas will composite it.
    *

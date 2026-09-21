@@ -1708,6 +1708,61 @@ export interface MaterialProfile {
   readonly collapseTransmission2x: number;
 
   /**
+   * **How much of the blurred backdrop's CHROMATICITY the body restores** (W31;
+   * claims §5.161 §5, fitted in §5.164) — a fraction in [0, 1], inert at 0.
+   *
+   * The body is a neutral plate composited over the blurred backdrop, so what a
+   * photograph's hues survive the composite at is `1 − sizedAlpha` — 0.513 on the
+   * macOS 27 light document and 0.095 on the dark one, against a reference that
+   * reads 0.90–0.97 of its own backdrop's chroma on the same cells. Apple's body
+   * at the same LEVEL keeps the hue, which is what a darkening acting on the
+   * backdrop's luma while leaving its chromaticity alone does and what a plate
+   * does not. No constant the material had could close that (W29 Decision Log
+   * 6 (c)): it is a mechanism, and this is the one leaf that adds it.
+   *
+   * Applied immediately after `colour = mix(backdrop, adapted, presentAlpha)`
+   * and before the tint composition, so an author's tint still displaces the
+   * result. The colour is mixed toward `backdrop · (Y / Y_backdrop)` — the
+   * backdrop's chromaticity carried to the colour's OWN linear luma — by this
+   * fraction, so **luma is preserved by construction rather than by
+   * correction**: both endpoints of the mix have linear luma exactly `Y`,
+   * `dot(rgb, (0.2126, 0.7152, 0.0722))` is a linear functional, and the mix has
+   * luma `Y` in exact arithmetic. (OKLab `L` is NOT linear luma, which is why the
+   * formulation is in linear RGB: holding `L` while moving toward a saturated
+   * chromaticity moves `Y` by −22 % at sRGB blue and +10 % at green.) Gamut is
+   * taken by scaling chroma toward the neutral at fixed luma, never by clipping
+   * per channel.
+   *
+   * **No `toneAdapt` gate**, and the reason is measured rather than assumed
+   * (claims §5.161 §11, finding N1). A retention toward the backdrop's
+   * chromaticity is the identity wherever the backdrop is achromatic, and the
+   * only region `backdropToneAdaptation` can fire in on the macOS 27 documents
+   * is `x < backdropToneHigh` = 1e-4 of linear light — achromatic to within the
+   * capture's own quantisation. A future document that re-opens
+   * `backdropToneHigh` must re-examine that, and must read it at a span at or
+   * below `sizeSpanMin` where `backdropToneSizeBias` is not there to help.
+   *
+   * Conditioned by SCHEME (two values across the light and dark documents) and
+   * by POSE: each receded document carries its own, read on the inactive cells,
+   * because the recede's untinted body has no chroma law at all otherwise —
+   * W27c's collapse acts on the tint SEED inside `if (tintK > 0.0)`. The
+   * accessibility documents inherit the light value.
+   *
+   * **Ships at 0, a multiplied zero**: the mix's second term is `0 · (target −
+   * colour)` and `colour` leaves the composite exactly as
+   * `mix(backdrop, adapted, presentAlpha)` produced it, which is why the 34
+   * renderer goldens are byte-identical across the commit that added it and why
+   * `MATERIAL_IDENTITY_TABLE` can drop it from the fingerprint.
+   *
+   * One place it cannot act, declared rather than discovered: on the unsampled
+   * layer path (`flags.x <= 0.5` and not `domMaterial`) the shader overwrites
+   * `colour` with `adapted` and writes a layer for the browser to composite, so
+   * there is no backdrop in hand and no chromaticity to restore toward. The
+   * retention is silently the identity there.
+   */
+  readonly bodyChromaRetention: number;
+
+  /**
    * **The rim that survives the collapse (W23)** — the one mark the collapsed
    * appearance keeps.
    *
@@ -2669,6 +2724,18 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   collapseTransmission2x: 0.07,
 
   /*
+   * **SHIPS AT 0** (W31 G3; claims §5.164). The identity, and a post-seal leaf's
+   * default IS its identity, forever: `MATERIAL_IDENTITY_TABLE` is append-only
+   * and the fingerprint drops this leaf while it holds this value, so a default
+   * that moved off 0 would move every shipped document's digest at once.
+   *
+   * The macOS 27 documents carry their fitted values as patches; the two frozen
+   * macOS 26.5 documents carry none, which is what makes their recorded digests
+   * reproduce under the rule (claims §5.161 §7b).
+   */
+  bodyChromaRetention: 0,
+
+  /*
    * FITTED 0.038 (W23 G1; claims §5.100 §3, W23 Decision Log 2 (b)) — and it is
    * NOT the dark material's rim, which is the one thing the charter thought it
    * might be.
@@ -2876,6 +2943,272 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   sweepGain: 0.85,
 };
 
+/**
+ * One entry of the inert-identity table the material's fingerprint is taken
+ * under (W31 Decision Log 1 (a), ruled 2026-09-21; claims §5.161 §7b, §5.164).
+ *
+ * A gate leaf is a leaf with a declared inert identity. `gated` names the leaves
+ * that entry makes UNREAD while every gate leaf holds its identity — leaves with
+ * no identity of their own to be at, because what makes them inert is the gate
+ * and not their own value.
+ */
+export interface MaterialIdentityEntry {
+  /** The wave that added the entry. */
+  readonly wave: string;
+  /** Gate leaf (dotted path into the resolved material) → its inert identity. */
+  readonly gate: Readonly<Record<string, number>>;
+  /** The leaves the gate makes unread; empty for a plain value drop. */
+  readonly gated: readonly string[];
+  /** The law the entry is an identity of, as the material's own doc comment states it. */
+  readonly law: string;
+  /** The committed unit case that proves the drop, named file and case. */
+  readonly inertLawCase: string;
+  /** Why the gated leaves cannot reach the pixels while the gate is held. */
+  readonly whyGated: string;
+  /** The ledger sections the entry executes. */
+  readonly claims: string;
+  /**
+   * Where the entry's prose was declared BEFORE the operator existed, kept
+   * verbatim (the `$comment-superseded` idiom of `identity-table.json`).
+   *
+   * The gate, the gated leaves and the identity values are append-only and are
+   * never edited. `law` and `inertLawCase` are prose about them, and W31's
+   * declaration could not name a case for a leaf that did not exist yet; where
+   * such a line is sharpened the first wording is preserved here rather than
+   * overwritten, and `w31-identity-table.test.ts` requires exactly that.
+   */
+  readonly declaredFirstAs?: { readonly law: string; readonly inertLawCase: string };
+}
+
+/**
+ * **The version of the digest rule, recorded in every document sealed under it.**
+ *
+ * Rule **1** is the plain fingerprint of the fully resolved material: every leaf
+ * hashed, whatever it holds. Every document sealed before W31 G3 carries a rule-1
+ * digest and `profiles/digest-supersessions.json` is rule 1's history.
+ *
+ * Rule **2** is this one — the same fingerprint with `MATERIAL_IDENTITY_TABLE`'s
+ * entries dropped where their gates hold. A document sealed under it records
+ * `resolvedMaterialSha256Rule: 2` beside its digest, so a recorded digest names
+ * the function that produced it and a reader never has to guess which.
+ */
+export const MATERIAL_DIGEST_RULE_VERSION = 2;
+
+/**
+ * **The inert-identity table the material's fingerprint is taken under** — a
+ * committed, tested, APPEND-ONLY constant (W31 Decision Log 1 (a); claims
+ * §5.161 §7b).
+ *
+ * ## The rule
+ *
+ * The fingerprint is taken over the fully resolved material with every entry
+ * below removed whose gate leaves ALL hold their declared identity values. An
+ * entry with no gated leaves is an ordinary value drop: the leaf goes when it
+ * holds its identity. An entry WITH gated leaves is a **gate-group** and goes as
+ * one unit; a gated leaf's own value is never dropped on its own, because a
+ * gated leaf has no identity of its own to be at.
+ *
+ * ## Why it exists
+ *
+ * Every profile document's `resolvedMaterialSha256` is a digest over the fully
+ * resolved material, so a material that GAINS a key moves every document's
+ * digest whatever that key holds — including the two frozen macOS 26.5
+ * documents, whose pixels do not move at all. W30 spent the one X1 exemption W29
+ * Decision Log 7 (a) granted on exactly that, for eight leaves at algebraic
+ * identities (claims §5.158). Under this rule an operator landing at its
+ * identity moves no document's digest, the two frozen documents' recorded
+ * digests are the live fingerprint again, and no wave spends an exemption for an
+ * inert leaf.
+ *
+ * ## Why the table is append-only, and what that costs
+ *
+ * A post-seal leaf's default IS its identity, forever: the digests recorded
+ * against this table are computed with these leaves dropped at these values, so
+ * moving a default off its identity here would move every shipped document's
+ * digest at once. Removing an entry would do the same. So entries are added and
+ * never edited, and a leaf's DEFAULT is the thing that may not move rather than
+ * the documents' patches — a document is free to carry any value it measures.
+ *
+ * ## Why only the gate-group needs the unit case
+ *
+ * A plain value drop is injective for free: every resolved material carries
+ * every key, so two materials with the same post-drop object agree on the
+ * dropped leaves too (both hold the identity) and therefore agree everywhere. A
+ * gate-group drop is NOT free — it merges every material that shares a gate at
+ * its identity whatever the gated leaves hold — and it is sound only because the
+ * gated leaves provably cannot reach the PIXELS while the gate is at its
+ * identity. That is what `inertLawCase` names, per entry.
+ *
+ * The pixels, and not the uniform bytes: a gated leaf still travels to the GPU
+ * (the scatter reference occupies two lanes of the optics uniform), so two
+ * materials the digest merges do not write identical uniform bytes. They draw
+ * identical pixels, and the digest is over what draws.
+ *
+ * ## The holes, named rather than discovered
+ *
+ * (a) A **mis-declared identity** is the one with teeth, and it is the
+ * gate-group's; mitigated by the `inertLawCase` each entry is required to name.
+ * (b) A **default that moves to a value some document explicitly carried** drops
+ * out of that document's digest if the identity moved with it; narrow, because
+ * the identity is this append-only constant and not the default. (c) A **leaf
+ * added without a table entry** is carried at whatever it holds, so every digest
+ * moves — the loud failure, and the one W30 actually hit. (d) The **rule's own
+ * version**, closed by construction through `MATERIAL_DIGEST_RULE_VERSION`.
+ */
+export const MATERIAL_IDENTITY_TABLE: readonly MaterialIdentityEntry[] = [
+  {
+    wave: "W30",
+    /*
+     * A TWO-LEAF gate, and the second leaf is in it rather than gated by it.
+     * `sigmaThinOffsetPx` is not gated by the slope — at slope 0 a non-zero
+     * offset moves σ at every span — and it is not inert on its own at a
+     * non-zero slope either, where it is a real floor on the line. What the
+     * committed case proves is the pair TOGETHER, and the grouping that would
+     * put the offset under the slope's gate merges a macOS 26.5 light material
+     * carrying `sigmaThinOffsetPx` 5 — five CSS px of extra blur on every outer
+     * shadow, on both tiers — into the frozen digest itself (claims §5.161 §11,
+     * finding B4 (b)).
+     */
+    gate: { "outerShadow.sigmaSlopePerSpan": 0, "outerShadow.sigmaThinOffsetPx": 0 },
+    gated: ["outerShadow.sigmaSpanRefPx"],
+    law: "σ(span) = sigmaPx + max(sigmaThinOffsetPx, sigmaSlopePerSpan·(span − sigmaSpanRefPx))",
+    inertLawCase:
+      'packages/renderer-webgpu/test/w31-gate-groups.test.ts — "gate-group 1 — ' +
+      '{sigmaSlopePerSpan 0, sigmaThinOffsetPx 0} gates sigmaSpanRefPx"; with the ' +
+      "shipped-value half in w30-inert-laws.test.ts",
+    whyGated:
+      "The pivot is multiplied by the slope, so at slope 0 no value of it can reach σ. " +
+      "The offset is NOT gated by the slope and is in the gate for that reason.",
+    claims: "c9a §5.156 §2, §5.158, §5.161 §7b",
+  },
+  {
+    wave: "W30",
+    gate: { sizeHeavySecondShare: 0 },
+    gated: ["sizeHeavySecondSigma", "sizeHeavySecondSigma2x"],
+    law: "deep = heavy + sizeHeavySecondShare·(heavy2 − heavy), heavy2 at sizeHeavySecondSigma{,2x}",
+    inertLawCase:
+      'packages/renderer-webgpu/test/w31-gate-groups.test.ts — "gate-group 2 — ' +
+      '{sizeHeavySecondShare 0} gates the two second-heavy widths"; with the ' +
+      "shipped-value half in w30-inert-laws.test.ts",
+    whyGated:
+      "At share 0 the second heavy texture is not allocated, no pass is encoded and the " +
+      "optics pass never samples one, so the widths are unread whatever they hold.",
+    claims: "c9a §5.156 §3, §5.158, §5.161 §7b",
+  },
+  {
+    wave: "W30",
+    gate: { sizeScatterScaleGain: 0 },
+    gated: ["sizeScatterScaleRef"],
+    law: "kScatter += sizeScatterScaleGain·(stat − sizeScatterScaleRef)",
+    inertLawCase:
+      'packages/renderer-webgpu/test/w31-gate-groups.test.ts — "gate-group 3 — ' +
+      '{sizeScatterScaleGain 0} gates sizeScatterScaleRef"; with the shipped-value ' +
+      "half in w30-inert-laws.test.ts",
+    whyGated:
+      "The reference is only ever read as a difference the gain multiplies, so at gain 0 no " +
+      "value of it can reach the mix. The macOS 27 LIGHT document exercises this entry: it " +
+      "declines the scatter with the gain at 0 and ships the reference at 0.03.",
+    claims: "c9a §5.156 §3, §5.158, §5.161 §7b",
+  },
+  {
+    wave: "W31",
+    /*
+     * A plain value drop, and injective for free. The retention multiplies the
+     * mix's second term, so at 0 the composite is bit-identical to the one W30
+     * left — which is what the goldens and the composite-identity case below
+     * assert, and what lets this leaf land without an exemption.
+     */
+    gate: { bodyChromaRetention: 0 },
+    gated: [],
+    law: "colour = gamutAtLuma(mix(colour, backdrop·(Y/Y_backdrop), bodyChromaRetention), Y)",
+    inertLawCase:
+      'packages/renderer-webgpu/test/w31-body-chroma.test.ts — "the composite is ' +
+      'bit-identical at retention 0", "linear luma is held at every retention" and "is the ' +
+      'shader\'s expression, term for term"; the drawn half in ' +
+      'packages/renderer-webgpu/e2e/gpu/w31-body-chroma.spec.ts — "is bit-identical at the ' +
+      'shipped identity, named explicitly" and "ON draws differently from OFF"; the CSS ' +
+      "tier's half in packages/platform-web/test/w30-css-declaration-identity.test.ts, " +
+      "which compares every declaration against bytes recorded before any leaf existed",
+    whyGated:
+      "Not gated — a plain value drop. At retention 0 the mix's second term is multiplied " +
+      "by zero and `colour` leaves the composite exactly as mix(backdrop, adapted, " +
+      "presentAlpha) produced it.",
+    claims: "c9a §5.161 §5, §5.164",
+    declaredFirstAs: {
+      law:
+        "colour = renormaliseToLinearLuma(mix(colour, chromaticityOf(backdrop) at colour's " +
+        "luma, bodyChromaRetention))",
+      inertLawCase:
+        "TO BE COMMITTED BY W31 G3 — the leaf does not exist yet. G0 names the shape and its " +
+        "identity (W31 X2); the case that proves the composite is bit-identical at 0, and the " +
+        "`test:gpu` case that the on state draws differently from off, land with the leaf.",
+    },
+  },
+];
+
+/**
+ * A value at a dotted path of a resolved material, or `undefined`.
+ *
+ * Exported because every reader of the rule needs it and three copies of a path
+ * walk is three places a gate can be read from the wrong node.
+ */
+export function materialLeafAt(resolved: unknown, path: string): unknown {
+  return path.split(".").reduce<unknown>(
+    (node, key) =>
+      node !== null && typeof node === "object" ? (node as Record<string, unknown>)[key] : undefined,
+    resolved,
+  );
+}
+
+/**
+ * The dotted leaf paths `MATERIAL_IDENTITY_TABLE` drops from this material's
+ * fingerprint, sorted.
+ *
+ * A gate leaf the material does not HAVE is not "at its identity" — it is
+ * absent, and an entry naming it is a table that has drifted from the material.
+ * Such an entry is not dropped, so the drift shows as a moved digest rather than
+ * as a silent merge.
+ */
+export function materialDigestDroppedLeaves(resolved: unknown): readonly string[] {
+  const dropped: string[] = [];
+  for (const entry of MATERIAL_IDENTITY_TABLE) {
+    const held = Object.entries(entry.gate).every(([path, identity]) => {
+      const value = materialLeafAt(resolved, path);
+      return value !== undefined && value === identity;
+    });
+    if (held) dropped.push(...Object.keys(entry.gate), ...entry.gated);
+  }
+  return dropped.sort();
+}
+
+/**
+ * **The digest rule's input**: a copy of the resolved material with the dropped
+ * leaves removed. Hash this, not the material.
+ *
+ * The one implementation of the rule. The HASH itself stays duplicated at each
+ * pin site on purpose — an algorithm restated is an algorithm two places can
+ * check, and the sorted-key SHA-256 has been read three ways since W7 — but the
+ * rule is a table walk whose drift would be silent, so it lives here and is
+ * imported.
+ *
+ * Removal rather than substitution, so a dropped leaf cannot be confused with a
+ * leaf that happens to hold a sentinel, and so a table naming a leaf the
+ * material does not have shows up as a key-set difference.
+ */
+export function materialDigestInput(resolved: unknown): unknown {
+  const dropped = materialDigestDroppedLeaves(resolved);
+  const strip = (value: unknown, prefix = ""): unknown => {
+    if (value === null || typeof value !== "object" || Array.isArray(value)) return value;
+    return Object.fromEntries(
+      Object.entries(value)
+        .map(([key, child]) => [prefix === "" ? key : `${prefix}.${key}`, key, child] as const)
+        .filter(([path]) => !dropped.includes(path))
+        .map(([path, key, child]) => [key, strip(child, path)]),
+    );
+  };
+  return strip(resolved);
+}
+
 // The default profile's numbers, under the names the rest of the package and its
 // tests already know them by. Derived rather than duplicated: a re-tuned default
 // moves both at once, and there is no second place for the two to disagree.
@@ -3000,6 +3333,7 @@ export interface MaterialProfilePatch {
   readonly backdropToneSizeBias?: number;
   readonly collapseTransmission?: number;
   readonly collapseTransmission2x?: number;
+  readonly bodyChromaRetention?: number;
   readonly rimCollapsed?: number;
   readonly rimCollapsedTinted?: number;
   readonly rimTintChroma?: number;
@@ -3248,6 +3582,7 @@ export function withMaterialOverrides(
     collapseTransmission: patch.collapseTransmission ?? base.collapseTransmission,
     collapseTransmission2x:
       patch.collapseTransmission2x ?? patch.collapseTransmission ?? base.collapseTransmission2x,
+    bodyChromaRetention: patch.bodyChromaRetention ?? base.bodyChromaRetention,
     rimCollapsed: patch.rimCollapsed ?? base.rimCollapsed,
     rimCollapsedTinted: patch.rimCollapsedTinted ?? base.rimCollapsedTinted,
     rimTintChroma: patch.rimTintChroma ?? base.rimTintChroma,

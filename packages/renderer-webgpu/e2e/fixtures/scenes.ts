@@ -637,6 +637,52 @@ export const W30_DEEP_CASTER_COVERAGE_SCENE: Scene = {
   ],
 };
 
+/**
+ * A CHROMATIC backdrop under one deep surface — the one thing W31's operator
+ * needs and no scene here had (claims §5.161 §5, §5.164).
+ *
+ * The body's chroma retention restores the composited colour's chromaticity
+ * toward the blurred backdrop's at a held linear luma. Over a checkerboard or a
+ * flat grey the backdrop has no chromaticity to restore toward and the operator
+ * is the identity at every retention — so every existing scene in this file
+ * would measure it as dead, whatever it holds. A gate nothing can open is
+ * indistinguishable from a gate wired to nothing, which is exactly what
+ * `w30-heavy-second-tap.spec.ts` exists to say one facet along.
+ *
+ * So the backdrop is a gradient from saturated magenta to saturated green: two
+ * hues on opposite sides of the neutral, at levels a plate composite can sit
+ * between, so a restoration has somewhere to go in both directions and the
+ * capture carries the sign of the move as well as its size.
+ *
+ * DPR 1 and `measureOnly`: this is read back and differenced, never committed,
+ * so it cannot move a golden.
+ *
+ * The surface is 240 × 160 with a 400 px-class span, deep enough that
+ * `kScatter` has saturated and the body is nearly all heavy scatter — the
+ * regime the plate's alpha dominates, which is where the chroma is lost.
+ */
+export const W31_BODY_CHROMA_SCENE: Scene = {
+  name: "w31-body-chroma",
+  widthCss: 320,
+  heightCss: 240,
+  devicePixelRatio: 1,
+  measureOnly: true,
+  backdrop: { kind: "gradient", from: [0.55, 0.02, 0.85], to: [0.04, 0.45, 0.06] },
+  groups: [
+    group("g", [
+      rect("s", [160, 120], [240, 160], {
+        shape: {
+          center: [160, 120],
+          size: [240, 160],
+          radii: [32, 32, 32, 32],
+          smoothing: 0,
+          thickness: 12,
+        },
+      }),
+    ]),
+  ],
+};
+
 export const ALL_SCENES: readonly Scene[] = [
   ...SCENES,
   LENS_DEPTH_SCENE,
@@ -646,6 +692,7 @@ export const ALL_SCENES: readonly Scene[] = [
   W30_SCATTER_SCALE_SCENE,
   W30_THIN_SIGMA_COVERAGE_SCENE,
   W30_DEEP_CASTER_COVERAGE_SCENE,
+  W31_BODY_CHROMA_SCENE,
 ];
 
 export const SCENE_NAMES = SCENES.map((scene) => scene.name);

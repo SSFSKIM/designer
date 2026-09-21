@@ -150,6 +150,13 @@ export const MATERIAL_PATCH_KEYS = new Set([
   // because one profile document serves both scales and the reference's
   // transmitted kernel is a different width at each of them.
   "collapseTransmission2x",
+  // W31's chroma operator, one leaf (claims §5.161 §5, §5.164). How much of the
+  // blurred backdrop's chromaticity the body restores at the luma the tone solve
+  // produced — the mechanism the material lacked, conditioned by SCHEME and by
+  // POSE, so all four macOS 27 documents name it and a run that could not apply
+  // it would measure a body with no hues in it and say the document had been
+  // applied. Which is this allowlist's own founding failure, one leaf along.
+  "bodyChromaRetention",
   // The rim that survives the collapse (W23): a profile-level constant, because
   // the collapsed appearance is one appearance in both schemes (the reference's
   // light and dark fixtures of the collapsed cells are byte-identical).

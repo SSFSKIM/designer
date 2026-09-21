@@ -1,0 +1,24 @@
+{
+  "$comment": [
+    "Every holdout read of the macOS 27 bed, by frozen configuration",
+    "(W31 Decision Log 1 (b); claims \u00a75.164 \u00a76). APPEND-ONLY: a recorded",
+    "read is never rewritten, and `configuration.py record` refuses a",
+    "second entry at document hashes already here unless the source hash",
+    "moved for a named non-fit reason."
+  ],
+  "reads": [
+    {
+      "at": "2026-09-21T04:09:52Z",
+      "head": "bca47c4c",
+      "claims": "c9a \u00a75.164",
+      "documents": {
+        "apple-macos-27.0-1x-light-standard-glass0.5.json": "e2fa07589d9984366f36aafb6b8897f4ef978fe592b66d478f3c702ac6a10e50",
+        "apple-macos-27.0-1x-dark-standard-glass0.5.json": "b5714a8662880ff7a70fbfa51a2fa14e3098f11889fcec30edfac6450322bf06",
+        "apple-macos-27.0-1x-light-standard-glass0.5-receded.json": "25863dccef9d62651da4e62cd2c150e021f1cf2859fd2f1769c1dcce018ea1dc",
+        "apple-macos-27.0-1x-dark-standard-glass0.5-receded.json": "cc4ed1038996c0b1b0b51eb0bdf07fae637c004cc671aa5069336fbfdf27013e"
+      },
+      "sourceSha256": "493059f4d40be071bac3b0d3986f39ce18b062d7649aa402f365234b7984c8c8",
+      "sourceFileCount": 14
+    }
+  ]
+}

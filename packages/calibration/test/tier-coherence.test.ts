@@ -34,6 +34,7 @@ import {
   backdropToneUnderPolicy as cssBackdropToneUnderPolicy,
   resolvedBackdropTone,
   MATERIAL_OPTICS,
+  BODY_CHROMA_RETENTION,
   MATERIAL_SOURCE_GLOW,
   MATERIAL_SOURCE_OPTICS,
   MATERIAL_SOURCE_OUTER_SHADOW,
@@ -2971,5 +2972,247 @@ describe("the CSS tier's structure attenuation, measured (W30 G0 (d))", () => {
     expect(measured.get(`${dark}|css`)).toBeLessThan(
       (measured.get(`${dark}|webgpu`) as number) / 2,
     );
+  });
+});
+
+/**
+ * What the CSS tier carries of W31's body chroma retention (claims §5.164).
+ *
+ * Declared as its own constant so the exhaustiveness table below and the case
+ * that reads it cannot disagree, and so that the wave's decision about this
+ * tier is one line a reader can find. W31 Decision Log 2 (b): a term is derived
+ * from the leaf only if the derivation adds REACH without moving the authored
+ * `saturate()` constants, measured on scratch; otherwise the tier records the
+ * residual and carries nothing.
+ */
+const W31_BODY_CHROMA_CSS_COUNTERPART =
+  "none: DERIVED, MEASURED AND DECLINED (claims §5.164 §5). The only operator this tier has " +
+  "on the body's chroma is the `saturate()` inside its one `backdrop-filter`, and the leaf " +
+  "was mirrored as a gain on it — `1 + r*alpha'/(1 - alpha')`, at the alpha this tier " +
+  "solves. Rendered on the declared bed it bought NOTHING on the dark scheme (ratio (ii) " +
+  "0.2024 before and after, and still 0.2024 at a retention of 1) and 0.76-1.04 of the gap " +
+  "on the light one while breaking the level-growth stop on 10 of 26 cells and the " +
+  "structure stop on 11, because `saturate()` stops preserving luminance the moment an " +
+  "sRGB channel clips. The tier records the residual and carries nothing; " +
+  "`BODY_CHROMA_RETENTION` mirrors the renderer's default and the paragraph beside it " +
+  "carries the measurement.";
+
+/**
+ * **Every key of `MaterialProfile`, accounted for** (W31 acceptance clause 5;
+ * charter Design, "The CSS projection"; claims §5.164).
+ *
+ * The cases above are a mirror over an ENUMERATED list, which is the right
+ * shape for a constant somebody already thought about and the wrong shape for a
+ * constant nobody has: a leaf added to the renderer's material passes every one
+ * of them by not being in any list. "tier-coherence green" then says nothing
+ * about the new leaf, which is exactly the hole W31's own operator would have
+ * fallen into.
+ *
+ * So the list is closed here. Each of the material's top-level keys is
+ * classified once, and the case asserts the classification covers the material
+ * EXACTLY — a leaf added without a line fails, and a line naming a leaf that no
+ * longer exists fails too.
+ *
+ * Three classifications, and the third is a mirror as much as the first two:
+ *
+ *  - `MATERIAL_SOURCE_SIZE` / `MATERIAL_SOURCE_OUTER_SHADOW` — the CSS tier
+ *    carries a field of the SAME NAME, and the value is compared here, leaf by
+ *    leaf, mechanically.
+ *  - a named CSS-side symbol — the tier carries the constant under another name
+ *    or through a law, pinned by one of the cases above. The citation is checked
+ *    against this file's own imports, so it cannot rot into decoration.
+ *  - **`none:`** — the CSS tier carries NOTHING of this leaf, with the reason.
+ *    A recorded absence is the honest half of a mirror, and the reason is what a
+ *    later wave reads before assuming the tier could follow.
+ */
+const CSS_COUNTERPART: Readonly<Record<string, string>> = {
+  // The size law, name for name (W2, W11c, W15, W25, W26, W30).
+  refractionScale: "MATERIAL_SOURCE_SIZE",
+  sizeSpanMin: "MATERIAL_SOURCE_SIZE",
+  sizeSpanMax: "MATERIAL_SOURCE_SIZE",
+  sizeScatterGainMax: "MATERIAL_SOURCE_SIZE",
+  sizeScatterFloor: "MATERIAL_SOURCE_SIZE",
+  sizeScatterSpanMax: "MATERIAL_SOURCE_SIZE",
+  sizeScatterGainMax2x: "MATERIAL_SOURCE_SIZE",
+  sizeScatterFloor2x: "MATERIAL_SOURCE_SIZE",
+  sizeScatterSpanMax2x: "MATERIAL_SOURCE_SIZE",
+  sizeScatterGainFar2x: "MATERIAL_SOURCE_SIZE",
+  sizeScatterRampStartThin1x: "MATERIAL_SOURCE_SIZE",
+  sizeScatterRampStartThick1x: "MATERIAL_SOURCE_SIZE",
+  sizeScatterRampStartFar1x: "MATERIAL_SOURCE_SIZE",
+  sizeScatterRampStartThin2x: "MATERIAL_SOURCE_SIZE",
+  sizeScatterRampStartThick2x: "MATERIAL_SOURCE_SIZE",
+  sizeScatterRampStartFar2x: "MATERIAL_SOURCE_SIZE",
+  sizeScatterRampReach1xPx: "MATERIAL_SOURCE_SIZE",
+  sizeScatterRampReach2xPx: "MATERIAL_SOURCE_SIZE",
+  sizeScatterHeavyShareThick1x: "MATERIAL_SOURCE_SIZE",
+  sizeScatterHeavyShareThick2x: "MATERIAL_SOURCE_SIZE",
+  sizeToneLevelFar: "MATERIAL_SOURCE_SIZE",
+  sizeOcclusionGain: "MATERIAL_SOURCE_SIZE",
+  // The outer shadow, name for name including W30's three σ leaves.
+  outerShadow: "MATERIAL_SOURCE_OUTER_SHADOW",
+  // The optics, per variant, under the CSS tier's own field names.
+  optics: "MATERIAL_SOURCE_OPTICS",
+  // The heavy taps: the widths reach the tier as CSS-px blur radii rather than
+  // as device-px sigmas, so the pin is on the derived width and not on the name.
+  sizeHeavyTapSigma: "cssTierHeavySigmaCssPx",
+  sizeHeavyTapSigma2x: "cssTierHeavySigmaCssPx",
+  sizeHeavySecondSigma: "cssTierHeavyStepSigmaCssPx",
+  sizeHeavySecondSigma2x: "cssTierHeavyStepSigmaCssPx",
+  sizeHeavySecondShare: "cssTierHeavyShareAt",
+  // W30's scale-selective scatter reaches this tier through the same share.
+  sizeScatterScaleGain: "cssTierHeavyShareAt",
+  sizeScatterScaleRef: "cssTierHeavyShareAt",
+  // The interior light: the renderer's two size gains under the CSS tier's own
+  // names (`shadowDepthGainMax`, `shadowAmplitudeGainMax`).
+  lensSizeGainMax: "sourceInteriorLight",
+  sizeShadowGainMax: "sourceInteriorLight",
+  lightDirection: "sourceInteriorLight",
+  rimLitAxis: "sourceInteriorLight",
+  // The glow, under `radiusCss` and `gain`.
+  glowRadiusCss: "MATERIAL_SOURCE_GLOW",
+  glowGain: "MATERIAL_SOURCE_GLOW",
+  // The accessibility fold and the two policy constants.
+  reducedTransparencyFrost: "REDUCED_TRANSPARENCY_FROST",
+  increasedOcclusionLift: "INCREASED_OCCLUSION_LIFT",
+  reducedTintAdaptation: "cssTierOpticsUnderPolicy",
+  strongBorderRim: "STRONG_BORDER",
+  // The rim's collapsed constants and the author tint's share of its light.
+  rimCollapsed: "RIM_COLLAPSED",
+  rimCollapsedTinted: "RIM_COLLAPSED_TINTED",
+  rimTintChroma: "RIM_TINT_CHROMA",
+  // The author tint's shade law.
+  tintShadeDark: "TINT_SHADE",
+  tintShadeLight: "TINT_SHADE",
+  tintShadeStrength: "TINT_SHADE",
+  // The backdrop tone adaptation's band and its response curve.
+  backdropToneMax: "BACKDROP_TONE",
+  backdropToneLow: "BACKDROP_TONE",
+  backdropToneHigh: "BACKDROP_TONE",
+  backdropToneSizeBias: "BACKDROP_TONE",
+  backdropToneAnchorX: "resolvedBackdropToneResponse",
+  backdropToneResponseThin: "resolvedBackdropToneResponse",
+  backdropToneResponseThick: "resolvedBackdropToneResponse",
+  backdropToneResponseStrength: "resolvedBackdropToneResponse",
+  // The collapse's transmission, per scale.
+  collapseTransmission: "adaptedSourceOptics",
+  collapseTransmission2x: "adaptedSourceOptics",
+  // The adaptive tint's two poles.
+  adaptiveTintDark: "glassTint",
+  adaptiveTintLight: "glassTint",
+  adaptiveLuminanceLow:
+    "none: the adaptive tint's two LUMINANCE knots are core's (`glassTint` takes the poles and " +
+    "reads the level itself), so this tier never sees the knots as numbers. A document that " +
+    "moved them would move both tiers through core, which is why nothing here mirrors them.",
+  adaptiveLuminanceHigh: "none: as `adaptiveLuminanceLow`.",
+  // The lens. The CSS tier has no refraction at all — `backdrop-filter` cannot
+  // displace a sample — so every constant of the lens PROFILE is renderer-only.
+  // `lensSizeGainMax` is the exception above, and it is one because the inner
+  // shadow's depth gain happens to be the same number, not because the tier
+  // refracts.
+  lensRefractionGain: "none: no refraction on this tier; a `backdrop-filter` cannot displace.",
+  lensHeightPerSpan: "none: no refraction on this tier.",
+  lensHeightMax: "none: no refraction on this tier.",
+  lensAmountPerSpan: "none: no refraction on this tier.",
+  lensAmountMax: "none: no refraction on this tier.",
+  lensThicknessReference: "none: no refraction on this tier.",
+  lensExtentGain: "none: no refraction on this tier.",
+  lensProfileExponent: "none: no refraction on this tier.",
+  lensOvalization: "none: no refraction on this tier.",
+  lensOvalizationSpanMin: "none: no refraction on this tier.",
+  lensOvalizationSpanMax: "none: no refraction on this tier.",
+  // The resting sweep is an animated specular pass in the highlight shader with
+  // no CSS analogue at all.
+  sweepBandRadians: "none: the resting sweep is a highlight-pass animation; this tier has none.",
+  sweepGain: "none: as `sweepBandRadians`.",
+  bodyChromaRetention: W31_BODY_CHROMA_CSS_COUNTERPART,
+};
+
+describe("the mirror is EXHAUSTIVE over MaterialProfile (claims §5.164)", () => {
+  /*
+   * This file's own IMPORT block — everything above the first `describe`. The
+   * citation check reads it rather than the whole file, because the table below
+   * contains its own citations and a search over the whole file would match
+   * them and prove nothing.
+   */
+  const IMPORTS = (() => {
+    const source = readFileSync(new URL(import.meta.url), "utf8");
+    return source.slice(0, source.indexOf("describe("));
+  })();
+
+  it("classifies every key of the resolved material, and only those", () => {
+    const material = new Set(Object.keys(withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, {})));
+    const classified = new Set(Object.keys(CSS_COUNTERPART));
+    for (const key of material) {
+      expect(
+        classified,
+        `${key}: a MaterialProfile key with no line in CSS_COUNTERPART. Mirror it on the CSS ` +
+          `tier, or record that the tier carries nothing of it and why — a recorded absence ` +
+          `is a mirror (W31 charter Design, "The CSS projection")`,
+      ).toContain(key);
+    }
+    for (const key of classified) {
+      expect(material, `${key}: classified here, absent from MaterialProfile`).toContain(key);
+    }
+    // The count is printed rather than asserted as a literal: a later wave adds
+    // leaves and the equality above is the guarantee, not the number.
+    expect(classified.size).toBe(material.size);
+  });
+
+  it("compares the same-named leaves by VALUE, not by citation", () => {
+    // The half that is arithmetic rather than bookkeeping. Every leaf whose
+    // classification is one of the two same-named structures is read out of the
+    // CSS tier and compared to the renderer's, so a mirror that drifted fails
+    // here whether or not anybody maintained the table.
+    let compared = 0;
+    for (const [key, where] of Object.entries(CSS_COUNTERPART)) {
+      if (where === "MATERIAL_SOURCE_SIZE") {
+        // `toStrictEqual` rather than `toBe`: `refractionScale` is a block of
+        // per-quality scalars and the others are numbers, and a deep equality
+        // covers both without the table having to say which is which.
+        expect((MATERIAL_SOURCE_SIZE as unknown as Record<string, unknown>)[key], key).toStrictEqual(
+          (DEFAULT_MATERIAL_PROFILE as unknown as Record<string, unknown>)[key],
+        );
+        compared += 1;
+      }
+    }
+    for (const [leaf, value] of Object.entries(DEFAULT_MATERIAL_PROFILE.outerShadow)) {
+      expect((MATERIAL_SOURCE_OUTER_SHADOW as unknown as Record<string, unknown>)[leaf], leaf).toStrictEqual(
+        value,
+      );
+      compared += 1;
+    }
+    expect(compared).toBeGreaterThanOrEqual(40);
+  });
+
+  it("cites only symbols this file actually reads, so a citation cannot rot", () => {
+    for (const [key, where] of Object.entries(CSS_COUNTERPART)) {
+      if (where.startsWith("none:")) {
+        // A recorded absence carries a REASON and not only the word.
+        expect(where.length, `${key}: "none" with no reason`).toBeGreaterThan(20);
+        continue;
+      }
+      expect(
+        IMPORTS.includes(where),
+        `${key}: cites ${where}, which this file does not import — a citation that names ` +
+          `nothing the mirror reads is decoration`,
+      ).toBe(true);
+    }
+  });
+
+  it("records what the CSS tier carries of W31's chroma retention: nothing, measured", () => {
+    // The wave's own leaf, called out rather than left in the table. W31
+    // Decision Log 2 (b) rules a derived term kept only if it adds REACH
+    // without moving the authored `saturate()` constants; it was written,
+    // rendered and declined on the measurement, and the tier records the
+    // residual instead. What is pinned here is the MIRROR of the renderer's
+    // default — so if that default ever leaves its identity, this case goes red
+    // and the decline is re-read rather than inherited.
+    expect(CSS_COUNTERPART["bodyChromaRetention"]).toBe(W31_BODY_CHROMA_CSS_COUNTERPART);
+    expect(BODY_CHROMA_RETENTION).toBe(DEFAULT_MATERIAL_PROFILE.bodyChromaRetention);
+    // And the tier's authored saturation is where X3 froze it, on both
+    // variants: the declined derivation moved neither.
+    expect(CSS_TIER_MAPPING.saturation.regular).toBe(1.8);
+    expect(CSS_TIER_MAPPING.saturation.clear).toBe(1.4);
   });
 });

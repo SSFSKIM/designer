@@ -30,6 +30,33 @@
       "bytes": 3986816,
       "sha256": "091ee5e6235db551cb7d6f814e1053a40823569057e53f79c56ddfc9738d1ecf"
     },
+    "880ab1e31450.json": {
+      "activeDocumentSha256": "880ab1e31450",
+      "documents": [
+        {
+          "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5-receded.json",
+          "sha256": "5e71370ae6d5"
+        },
+        {
+          "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5.json",
+          "sha256": "880ab1e31450"
+        }
+      ],
+      "readUnderClaims": "c9a §5.164",
+      "movedUnderClaims": "c9a §5.164",
+      "capturedAt": {
+        "first": "2026-09-20T11:30:55.461Z",
+        "last": "2026-09-20T11:46:07.194Z"
+      },
+      "supersededOn": "2026-09-21",
+      "rowCount": 247,
+      "rowsByProfileKey": {
+        "apple-macos-27.0-1x-dark-standard-glass0.5": 146,
+        "apple-macos-27.0-2x-dark-standard-glass0.5": 101
+      },
+      "bytes": 9128015,
+      "sha256": "9f3ef6b6a1c57238ac94d0c45581a67186d910ce8703c008d797fae811e29487"
+    },
     "96b36eedf1c4.json": {
       "activeDocumentSha256": "96b36eedf1c4",
       "documents": [
@@ -79,6 +106,35 @@
       },
       "bytes": 9128088,
       "sha256": "680f6ee8f85d2fe4f4c22ab3dcc657480df6d8a8def8549add10152ece8c84ed"
+    },
+    "d0c389d70456.json": {
+      "activeDocumentSha256": "d0c389d70456",
+      "documents": [
+        {
+          "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json",
+          "sha256": "2334c7b4c5e2"
+        },
+        {
+          "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json",
+          "sha256": "d0c389d70456"
+        }
+      ],
+      "readUnderClaims": "c9a §5.164",
+      "movedUnderClaims": "c9a §5.164",
+      "capturedAt": {
+        "first": "2026-09-20T11:26:05.645Z",
+        "last": "2026-09-20T11:46:39.349Z"
+      },
+      "supersededOn": "2026-09-21",
+      "rowCount": 479,
+      "rowsByProfileKey": {
+        "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5": 36,
+        "apple-macos-27.0-1x-light-reduced-transparency-glass0.5": 32,
+        "apple-macos-27.0-1x-light-standard-glass0.5": 228,
+        "apple-macos-27.0-2x-light-standard-glass0.5": 183
+      },
+      "bytes": 17797629,
+      "sha256": "a2ae78c3be5d3513a667483d37691d942699105649433c88f93575aca435db63"
     },
     "d731b3838994.json": {
       "activeDocumentSha256": "d731b3838994",
@@ -165,12 +221,16 @@
     }
   },
   "byDocumentSha256": {
+    "2334c7b4c5e2": "d0c389d70456.json",
     "272d1b0c3e10": "272d1b0c3e10.json",
     "59d4b20a4596": "f42ddec1cf5a.json",
     "5c81bc72edad": "272d1b0c3e10.json",
+    "5e71370ae6d5": "880ab1e31450.json",
+    "880ab1e31450": "880ab1e31450.json",
     "96b36eedf1c4": "96b36eedf1c4.json",
     "b4a5914c7b9c": "d731b3838994.json",
     "ce1af58886ff": "ce1af58886ff.json",
+    "d0c389d70456": "d0c389d70456.json",
     "d449ea0649f4": "ce1af58886ff.json",
     "d731b3838994": "d731b3838994.json",
     "f42ddec1cf5a": "f42ddec1cf5a.json",
