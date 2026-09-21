@@ -78,6 +78,29 @@
  *     > does not travel alone: `M2` is adopted with it because `R` is scale-free
  *     > in the deviations and is therefore equally blind to a body that loses
  *     > chroma and structure together.
+ *     >
+ *     > **Two corrections beside the paragraph above, 2026-09-21 (W31 G4 review
+ *     > closure; claims §5.165 §9, findings N7 and N9). No assertion moves.**
+ *     >
+ *     >   - **"Five times wider" is wrong under either reading of the spread.**
+ *     >     The 4.5 % / 9.1 % quoted are the PRE-fit medians; the dark half got
+ *     >     noisier with the fit and reads **10.60 %** after it, on §7 (b)'s own
+ *     >     normalisation (claims §5.164 §12 as its closure corrects it). Against
+ *     >     the post-fit dark median the adopted band is **1.9× on the half-band
+ *     >     (±0.20) and 3.8× on the full one** — 2.2× and 4.4× against the pre-fit
+ *     >     9.1 %, so five was never the number. The argument is unaffected: a
+ *     >     band several times the instrument's own spread is what "not below
+ *     >     quantisation" needs, and the residual it had to detect sits 0.45 and
+ *     >     0.67 from 1.
+ *     >   - **"The material axis gets its first two adopted rows" reads `M2` as a
+ *     >     fidelity row and it is not one.** `M1` is stated against APPLE — web
+ *     >     over native on the same cell — and is a fidelity bound. `M2` is stated
+ *     >     against vitrea's OWN pre-fit generation and is a **regression stop**:
+ *     >     it says the fit did not buy its ratio by flattening the body, and it
+ *     >     would be green on a body that never resembled the reference. So the
+ *     >     axis gains one fidelity row and one guard on it, which is the pair the
+ *     >     paragraph's two grounds are answered by and is a smaller claim than
+ *     >     "two adopted rows" on its own suggests.
  *   - **The motion axis is not gated.** No frame sequences were captured on the
  *     native side, and the still `pressed` fixtures cannot substitute: they are
  *     byte-identical to their rest counterparts (§6.3), so those cells measure
@@ -3799,8 +3822,13 @@ describe("W30 B1 — the shadow's σ law, adopted (claims §5.160)", () => {
  * The band's half-width is justified from the instrument's own reproducibility,
  * the 1x-against-2x spread of `R` on the bed's own cells: 4.5 % median light and
  * 9.1 % dark pre-fit, 4.5 % and 10.6 % after (claims §5.164 §12 as its closure
- * corrects it). Plus or minus 0.20 is about four times the dark bed's median
- * spread, and what it had to detect was a residual 0.45 and 0.67 away from 1.
+ * corrects it). Plus or minus 0.20 is **1.9 times** the dark bed's post-fit median
+ * spread of **10.60 %** — 3.8 times on the full band — and what it had to detect
+ * was a residual 0.45 and 0.67 away from 1. *(Corrected 2026-09-21, W31 G4 review
+ * closure, claims §5.165 §9 finding N7: "about four times" was taken against the
+ * PRE-fit 9.1 %, where it is 2.2× on the half-band and 4.4× on the full one. The
+ * post-fit median is the right denominator, because it is the spread the band has
+ * to sit above on the material this file now gates.)*
  *
  * **M2, the structure stop, and why M1 does not travel alone.** `R` is scale-free
  * in the deviations. That is what makes the blur cancel and it is exactly what

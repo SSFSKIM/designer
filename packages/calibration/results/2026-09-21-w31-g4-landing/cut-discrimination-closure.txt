@@ -1,0 +1,23 @@
+W31 G4 review closure — the fifth perturbation (claims §5.165 §9, finding N8).
+
+`cut-discrimination.txt` perturbed four of the five cases this gate adopted.
+The fifth is the per-bed count guard, and this is it going red. The committed
+cut is restored byte for byte after it.
+
+chroma-cut.json sha256 before: e9745f6dde3b00cdff12bdf121d6c0636fd88177aaaf88703ffb175472a2d8a5
+
+── baseline (the committed cut)
+   exit=0
+   RED: (none)
+
+── 5. one dark|active cell dropped from the bed (apple-macos-27.0-1x-dark-standard-glass0.5 photo__capsule-button__rest)
+   exit=1
+   RED: M1: the median R of every bed is inside [0.80, 1.20] 0ms
+   RED: carries every bed the two documents draw, at the cell counts the read left 1ms
+   RED: reads a cut taken at this gate, in the declared mode, over the bed the matrix itself carries 6ms
+
+the per-bed count guard went red: YES
+chroma-cut.json sha256 after: e9745f6dde3b00cdff12bdf121d6c0636fd88177aaaf88703ffb175472a2d8a5
+RESTORED, byte for byte
+the suite at the restored cut: exit=0
+   RED: (none)
