@@ -32,6 +32,7 @@ document's own value is read on its own beds.
 | R | the receded documents' amplitude → 0 (Decision Log 2); the active material unmoved | 0.00480 | 0.00381 | **0.00054** | — |
 | A | `spreadPx` 3.10 → **0.50** (light) and → **1.80** (dark) | **0.00176** | **0.00225** | 0.00063 | — |
 | B | A's window anchor solve applied at A's geometry | **0.00092** | **0.00156** | 0.00072 | — |
+| C | light: B's residual solve (the convergence round). dark: `spreadPx` 1.80 → 0.50 at B's anchors | **0.00089** | 0.00184 | 0.00072 | light: converged |
 
 ### pre-fit — the before
 
@@ -196,3 +197,30 @@ both are outside what X3 lets this wave touch.
 Candidate (i) at B: `σ_web − σ_nat` **+1.52 to +2.76 CSS px** against G0's +2.66 to +3.77, and
 (i) itself 0.274 / 0.168 / 0.103 on 1x light at spans 96 / 128 / 160 against 0.414 / 0.249 / 0.176.
 OUTSIDE B1's ±5 % window on all twelve, as the reading it is.
+
+### C — the light document converges, and the dark bed says its outset is not the light bed's
+
+Two different questions in one round. **Light** takes B's residual window solve at B's geometry —
+`thinOcclusionMid` 0.0251 → 0.0244, `thinOcclusionBright` 0.0239 → 0.0227, `thickOcclusionAt96`
+0.0920 → 0.0961, `thickOcclusionAt128` 0.1801 → 0.1797, `thickOcclusionAt160` 0.2742 → 0.2717 —
+and **dark** moves `spreadPx` 1.80 → 0.50, the light document's value, at B's dark anchors.
+
+**Light converges.** The objective moves 0.00092 → **0.00089**, Δ −0.00003 against a bar of
+0.002044, and every window ratio is inside 1.5 % of unity (0.985 / 1.008 / 0.990 / 1.004 / 0.999).
+`T` at 96 / 128 / 160 reads **0.00090 / 0.00245 / 0.00134** on 1x light and **0.00088 / 0.00253 /
+0.00132** on 2x — all six rows inside C1's 0.0042 with 40 % to 97 % of margin. The light half of
+the fit is finished at `spreadPx` 0.50, `offsetPx` 7.95 and the shipped σ law.
+
+**Dark says no to the light document's outset, on every span.** At `spreadPx` 0.50 the dark
+objective goes 0.00156 → **0.00184** and `T` rises at every span: 96 0.00122 → 0.00160, 128 0.00410
+→ 0.00473 (1x) and 0.00464 → 0.00522 (2x), and span **160 0.00269 → 0.00777** and 0.00241 →
+0.00817, a factor of three. The anchors were solved at 1.80 and the window ratios move to
+1.067–1.363, so part of that is an amplitude the round did not re-solve — but a factor of three at
+span 160 is not an amplitude, and the direction is unambiguous: **the two schemes do not want the
+same outset.** The dark document carries its own `spreadPx` and the reading is this round.
+
+That is the charter's "the dark documents carry their own `spreadPx` and `offsetPx` if the dark
+bed's reading differs from the light one's beyond the bar" arriving with a number: the difference
+at span 160 is 0.0055, which is 2.7 times the bar.
+
+B3 is unchanged at 0.00072.

@@ -1,0 +1,165 @@
+W32 G0 — C1 in three forms, over the admitted bands
+================================================================================================================================================================
+
+Cut:        exterior-cut.json  (atDocuments=any, withHoldout=False)
+Documents:  /tmp/w32-g1-fit/C/documents/apple-macos-27.0-1x-dark-standard-glass0.5.json sha256:977f565938ee, /tmp/w32-g1-fit/C/documents/apple-macos-27.0-1x-light-standard-glass0.5.json sha256:0868a51f084d
+Population: WebGPU tier, active pose, non-holdout, the four standard macOS 27 beds
+Statistic:  the upper middle order statistic, `sorted[n // 2]` — B1's convention
+
+THE BOUND RULE, stated before the tables (W32 clause 2): the bound of forms (ii) and
+(iii) at every span is the WORST standard bed's span-96 order statistic of that form
+on this generation, rounded UP to two significant figures. Form (i)'s bound is W31 G1's
+declared 0.0045 and is not re-stated here (X4).
+
+§1. Form (i): `T` as declared, one bound across the thick spans
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+  Printed twice: over the ADMITTED bands, which is this gate's rule, and over W31 G1's
+  own per-cell renormalisation, which is what §5.162 §1 records. They are the same
+  number wherever the clearance holds all four bands and differ at spans 128 and 160,
+  where the band the frame ate was in the sum. Neither is withdrawn.
+
+  bed                            span 32                   span 44                   span 96                  span 128                  span 160
+  1x light                   0.00004 (9)              0.00008 (18)              0.00090 (10)               0.00245 (7)               0.00134 (7)
+  2x light                   0.00007 (9)              0.00006 (18)              0.00088 (10)               0.00253 (7)               0.00132 (7)
+  1x dark                    0.00026 (7)              0.00023 (13)               0.00160 (9)               0.00473 (5)               0.00777 (7)
+  2x dark                    0.00029 (7)              0.00026 (13)               0.00162 (9)               0.00522 (5)               0.00817 (7)
+
+  Against the declared 0.0045 at the three spans C1 is stated over:
+  bed                        span 96              span 128              span 160
+  1x light              0.00090 PASS          0.00245 PASS          0.00134 PASS
+  2x light              0.00088 PASS          0.00253 PASS          0.00132 PASS
+  1x dark               0.00160 PASS          0.00473 FAIL          0.00777 FAIL
+  2x dark               0.00162 PASS          0.00522 FAIL          0.00817 FAIL
+
+§2. Form (ii): the same statistic, bounded PER SPAN
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+  The values are form (i)'s — the two forms differ in what they are compared against,
+  not in what they measure. The bound is the rule's.
+
+  The four standard beds at span 96 read 0.00088, 0.00090, 0.00160, 0.00162; the worst is 0.00162 and
+  the bound by the rule is 0.0017 at EVERY span.
+
+  bed                        span 96              span 128              span 160
+  1x light              0.00090 PASS          0.00245 FAIL          0.00134 PASS
+  2x light              0.00088 PASS          0.00253 FAIL          0.00132 PASS
+  1x dark               0.00160 PASS          0.00473 FAIL          0.00777 FAIL
+  2x dark               0.00162 PASS          0.00522 FAIL          0.00817 FAIL
+
+§3. Form (iii): the σ-normalised window
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+  σ-band edges at [0.35, 0.7, 1.4, 2.8] × the row's own native σ in CSS px. A σ-band is
+  admitted where it lies inside the row's clearance and inside the range the fixed
+  bands cover, which starts at 3 CSS px because `0-3` is excluded from every form.
+
+  What the bed leaves, per span. `covers` is the distance range the fixed bands
+  actually reach at that span, in CSS px: a σ-band outside it has no profile to
+  average, and at span 160 that is the binding constraint rather than the clearance —
+  the admitted bands stop at 12 CSS px and the FIRST σ-band ends at 0.7 σ = 12.1, so
+  the form reads nothing there, by a tenth of a pixel.
+
+  The clearance measured in the bed's own native σ is the deeper reading: 5.5–5.9 σ at
+  span 96, 2.7 at 128 and 1.1 at 160. "The same number of falloff lengths at every
+  span" is not purchasable on this canvas at any choice of multiples.
+  bed          span   native σ  clearance  clearance/σ    covers  σ-bands   the σ-bands, CSS px
+  1x light       32      4.061      83.50        20.56      3–48        1   [5.7, 11.4)
+  1x light       44      1.417      77.50        54.69      3–48        0   none — no σ-band fits inside the clearance
+  1x light       96      8.796      51.50         5.85      3–48        3   [3.1, 6.2), [6.2, 12.3), [12.3, 24.6)
+  1x light      128     13.138      35.50         2.70      3–24        2   [4.6, 9.2), [9.2, 18.4)
+  1x light      160     17.317      19.50         1.13      3–12        0   none — no σ-band fits inside the clearance
+  2x light       32      2.110      83.75        39.70      3–48        0   none — no σ-band fits inside the clearance
+  2x light       44      1.576      77.75        49.35      3–48        0   none — no σ-band fits inside the clearance
+  2x light       96      9.370      51.75         5.52      3–48        3   [3.3, 6.6), [6.6, 13.1), [13.1, 26.2)
+  2x light      128     13.305      35.75         2.69      3–24        2   [4.7, 9.3), [9.3, 18.6)
+  2x light      160     17.592      19.75         1.12      3–12        0   none — no σ-band fits inside the clearance
+  1x dark        96      8.874      51.50         5.80      3–48        3   [3.1, 6.2), [6.2, 12.4), [12.4, 24.8)
+  1x dark       128     13.190      35.50         2.69      3–24        2   [4.6, 9.2), [9.2, 18.5)
+  1x dark       160     17.456      19.50         1.12      3–12        0   none — no σ-band fits inside the clearance
+  2x dark        44     73.821      77.75         1.05      3–48        0   none — no σ-band fits inside the clearance
+  2x dark        96      9.377      51.75         5.52      3–48        3   [3.3, 6.6), [6.6, 13.1), [13.1, 26.3)
+  2x dark       128     13.417      35.75         2.66      3–24        2   [4.7, 9.4), [9.4, 18.8)
+  2x dark       160     17.677      19.75         1.12      3–12        0   none — no σ-band fits inside the clearance
+
+  bed                            span 32                   span 44                   span 96                  span 128                  span 160
+  1x light                   0.00025 (9)                         —              0.00186 (10)               0.00209 (7)                         —
+  2x light                             —                         —              0.00165 (10)               0.00222 (7)                         —
+  1x dark                              —                         —               0.00325 (9)               0.00518 (5)                         —
+  2x dark                              —                         —               0.00299 (9)               0.00552 (5)                         —
+
+  The four standard beds at span 96 read 0.00165, 0.00186, 0.00299, 0.00325; the worst is 0.00325
+  and the bound by the rule is 0.0033 at EVERY span.
+
+  bed                        span 96              span 128              span 160
+  1x light              0.00186 PASS          0.00209 PASS                     —
+  2x light              0.00165 PASS          0.00222 PASS                     —
+  1x dark               0.00325 PASS          0.00518 FAIL                     —
+  2x dark               0.00299 PASS          0.00552 FAIL                     —
+
+§4. The composition of the bed each form is read on, per bed per span per pose
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+  `CONTRIBUTING_CELLS` for the adopting gate's guard, counted from the bed rather than
+  transcribed — the reason W30 G4's review gave `CONTRIBUTING_BEDS` (§5.160 §9): a bed
+  that stopped contributing would otherwise leave the clause to the beds that remain
+  instead of failing. §5.162 §9's finding N-6 re-counted the composition; this is that
+  count re-derived on the current generation and under the admitted-band rule.
+
+  bed          span  cal  val  probe  total                admitted   scenes
+  1x light       32    1    1      7      9    3-6/6-12/12-24/24-48   checkerboard__rrect-sm__rest, photo__rrect-sm__rest
+  1x light       44    7    2      9     18    3-6/6-12/12-24/24-48   checkerboard__capsule-button__rest, checkerboard__capsule-button__rest-tint-blue, checkerboard__capsule-button__rest-tint-orange, checkerboard__toolbar-group__rest, photo__capsule-button__rest, photo__capsule-button__rest-tint-blue, photo__capsule-button__rest-tint-orange, photo__capsule-button__rest-tint-orange-half, photo__toolbar-group__rest
+  1x light       96    2    1      7     10    3-6/6-12/12-24/24-48   checkerboard__rrect-md__rest, photo__rrect-md__rest, photo__rrect-md__rest-tint-orange
+  1x light      128    2    0      5      7          3-6/6-12/12-24   checkerboard__rrect-ml__rest, photo__rrect-ml__rest
+  1x light      160    0    0      7      7                3-6/6-12   all probe
+  2x light       32    1    1      7      9    3-6/6-12/12-24/24-48   checkerboard__rrect-sm__rest, photo__rrect-sm__rest
+  2x light       44    7    2      9     18    3-6/6-12/12-24/24-48   checkerboard__capsule-button__rest, checkerboard__capsule-button__rest-tint-blue, checkerboard__capsule-button__rest-tint-orange, checkerboard__toolbar-group__rest, photo__capsule-button__rest, photo__capsule-button__rest-tint-blue, photo__capsule-button__rest-tint-orange, photo__capsule-button__rest-tint-orange-half, photo__toolbar-group__rest
+  2x light       96    2    1      7     10    3-6/6-12/12-24/24-48   checkerboard__rrect-md__rest, photo__rrect-md__rest, photo__rrect-md__rest-tint-orange
+  2x light      128    2    0      5      7          3-6/6-12/12-24   checkerboard__rrect-ml__rest, photo__rrect-ml__rest
+  2x light      160    0    0      7      7                3-6/6-12   all probe
+  1x dark        32    0    0      7      7    3-6/6-12/12-24/24-48   all probe
+  1x dark        44    4    0      9     13    3-6/6-12/12-24/24-48   checkerboard__capsule-button__rest, checkerboard__capsule-button__rest-tint-orange, photo__capsule-button__rest, photo__capsule-button__rest-tint-orange
+  1x dark        96    2    0      7      9    3-6/6-12/12-24/24-48   checkerboard__rrect-md__rest, photo__rrect-md__rest
+  1x dark       128    0    0      5      5          3-6/6-12/12-24   all probe
+  1x dark       160    0    0      7      7                3-6/6-12   all probe
+  2x dark        32    0    0      7      7    3-6/6-12/12-24/24-48   all probe
+  2x dark        44    4    0      9     13    3-6/6-12/12-24/24-48   checkerboard__capsule-button__rest, checkerboard__capsule-button__rest-tint-orange, photo__capsule-button__rest, photo__capsule-button__rest-tint-orange
+  2x dark        96    2    0      7      9    3-6/6-12/12-24/24-48   checkerboard__rrect-md__rest, photo__rrect-md__rest
+  2x dark       128    0    0      5      5          3-6/6-12/12-24   all probe
+  2x dark       160    0    0      7      7                3-6/6-12   all probe
+
+§5. What G0 recommends, and why — the parent rules (Decision Log 1 (c))
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+  **Form (ii), the per-span bound, at 0.0042.**
+
+  Form (iii) is withdrawn on measurement, as the v1 charter's depth-normalised form
+  was. It cannot be stated at span 160 on ANY bed — the admitted bands reach 12 CSS px
+  there and the first σ-band ends at 0.7 σ = 12.1 — and span 160 is the span C1 exists
+  for: it is where the residual the eye named is largest and where every non-ladder
+  cell is holdout. It is also unreadable at span 44 on all four beds and at span 32 on
+  two, so the thin regime this wave admits to the fit would carry no shape clause at
+  all. And the reason is not the choice of multiples: the clearance in the bed's own
+  native σ is 5.5–5.9 at span 96, 2.7 at 128 and 1.1 at 160, so no set of multiples
+  buys the same number of falloff lengths at every span on a 320x200 canvas. The form
+  is right in principle and the bed cannot carry it; it becomes available when the
+  canvas does, which is this wave's first Deferred item.
+
+  Form (i) is one bound across three spans and §5.162 §9's finding N-9 already records
+  that it is span-confounded. The admitted-band rule makes it worse rather than better:
+  the band SET now differs per span — four bands at 96, three at 128, two at 160 — so
+  one number is a promise about three different statistics. It is kept as the reference
+  reading and is not the clause.
+
+  Form (ii) changes nothing about what is measured. It is form (i)'s own value read
+  against a bound stated per span, which is the minimum change that makes the promise
+  true: `no worse at any span than at span 96 today`. It keeps the statistic, the
+  exclusions, the population and the order statistic exactly as W31 G1 declared them,
+  it needs no re-binning and no assumption about the profile between band edges, and
+  it fails today at 128 and 160 on all four beds, by 76–112 % at span 128 and 49–90 %
+  at span 160 —
+  which is the position B1 was in at its own declaration and is what makes it a clause
+  a wave can be judged on rather than a restatement of a residual missed everywhere.
+
+  What adopting it costs, stated plainly: the bound is 0.0042 rather than 0.0045, so
+  span 96 passes with 1.7–8.3 % of headroom (2x light 0.00413, 1x light 0.00408, 1x
+  dark 0.00399, 2x dark 0.00385) where form (i) leaves 8–14 %. The rule is the
+  charter's, so this is what the rule produces on this generation and not a number this
+  gate chose; and the thin margin at span 96 is the clause's own statement that span 96
+  is not free either — a fit that buys span 128 by widening span 96 fails.
+
