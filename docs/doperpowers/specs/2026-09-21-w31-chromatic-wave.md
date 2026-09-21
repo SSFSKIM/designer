@@ -5,9 +5,9 @@ after the 0.20.0 publish, under the standing "rest on your judgement".** Execute
 Log 6 (c) (the chromatic-transmission child, the largest residual on W30's own sheets) and carries
 three of W30's Deferred-at-close items whose evidence is on disk and which need no ruling: the
 exterior-width instrument (item 1), the WGSL range class (item 12) and the refusal-wording sweep
-(item 13). Grounded on main at `8d9b6ceb` (0.20.0 published). **Three rulings are drafted for the
-user in Decision Log 1 and are needed before the leaf lands (G3); the three instrument children
-run first and do not wait on them.**
+(item 13). Grounded on main at `8d9b6ceb` (0.20.0 published). **Three rulings were drafted for the
+user in Decision Log 1 and ruled the same day, all as recommended (the digest rule by value, the
+holdout rule as practised, the tone stage kept); the three instrument children run first.**
 
 ## Purpose
 
@@ -399,12 +399,27 @@ bed's 16 px structure (W30 Deferred 3).
 | G0 | OPEN | §5.161 | `results/2026-09-21-w31-g0-chroma-cut/` |
 | G1 | OPEN | §5.162 | `results/2026-09-21-w31-g1-exterior-instrument/` |
 | G2 | OPEN | §5.163 | `results/2026-09-21-w31-g2-range-class/` |
-| G3 | not dispatched — waits on Decision Log 1 (a), (b) | §5.164 | `results/2026-09-21-w31-g3-chroma-fit/` |
+| G3 | not dispatched — Decision Log 1 ruled; waits on G0–G2 merged | §5.164 | `results/2026-09-21-w31-g3-chroma-fit/` |
 | G4 | not dispatched | §5.165 | `results/2026-09-21-w31-g4-landing/` |
 
 ## Decision Log
 
-### Decision Log 1 — DRAFTED 2026-09-21 by the parent, for the user: the digest rule, the holdout rule, and the tone stage
+### Decision Log 1 — RULED 2026-09-21 (the user: "all according to you recommendation", on the parent's draft below): the digest rule by value, the holdout rule as practised, the tone stage kept
+
+**Ruled.** (a) **The fingerprint drops a leaf whose resolved value equals its declared inert
+identity** — option (i); no exemption is spent by this wave or by any later inert-leaf addition,
+the two frozen macOS 26.5 documents' recorded digests become the live fingerprint again, and
+`digest-supersessions.json` becomes history with its records kept. G0 proves the rule reproduces
+the recorded digests before G3 executes it. (b) **A frozen configuration is (the shipped document
+bytes, the renderer's material-affecting sources); the holdout is read once per configuration; no
+fitted constant may change between two holdout reads of the same document bytes.** A renderer fix
+after a read may be re-read once and disclosed as such; a fit may not. (c) **The tone stage stays
+as re-ranged**, with the 40 px plate's band recorded in the tracker; W29 Deferred item 8 and the
+tracker's "designed around a convergence macOS 27 does not have" entry close on this ruling, which
+G4 records beside them.
+
+*The draft as put to the user:*
+
 
 **(a) The digest rule — the parent recommends the rule.** Either (i) **the fingerprint drops a leaf
 whose resolved value equals its declared inert identity**, with the identity table a tested
@@ -442,6 +457,10 @@ band recorded, unless the user's taste says the reversal makes the section say t
 
 ## Revision Notes
 
+- 2026-09-21 (the parent): **Decision Log 1 ruled by the user** — "all according to you
+  recommendation" — before the adversarial review returned: the digest rule by value, the holdout
+  rule as W30 practised it, the tone stage kept. G3's precondition is now the review's fold and
+  the three instrument children's merge.
 - 2026-09-21: v1 of this charter, drafted by the parent from a read-only grounding of the composite,
   the chroma instrument, the four missed rows, W30's Deferred-at-close list and the two rulings its
   review asked for. Sent for adversarial review before any child opens.
