@@ -31867,7 +31867,20 @@ records this BESIDE it in `scenes.json`, never over it.
 **Span 160, with numbers beside the charter's Surprises entry.** The frame ends
 at 43 % of the declared reach. The `24-48` band survives on a median of **3,878**
 pixels against span 128's **39,518** — a tenth, all of it in the capture's four
-corners. Every extent the axis would have reported is withheld on **all 28**
+corners.
+
+**Corrected beside, 2026-09-21 (review closure; §10, finding N6).** 3,878,
+39,518, 6,374 and 13,194 are medians over the 1x and 2x rows POOLED, and a
+sample count is in device pixels — four times as many at 2x for the same band on
+the same scene — so each is the median of two disjoint clusters and is a count no
+capture carries. Per scale (`clearance.txt` §4's second table, added at this
+closure): the `24-48` band reads **1,548 at 1x and 6,208 at 2x at span 160**,
+against **15,804 and 63,232 at span 128**; and `3-6` / `6-12` at span 160 read
+**2,544 / 5,292 at 1x** and **10,204 / 21,096 at 2x**, against 1,520 / 3,212 and
+6,048 / 12,848 at span 96. Both readings the section draws survive on each scale
+on its own: the surviving `24-48` band is a **tenth** of span 128's (0.098 at
+both scales), and the two inner bands do carry more at 160 than at 96.
+ Every extent the axis would have reported is withheld on **all 28**
 active non-holdout WebGPU rows, on BOTH sides, in all four directions, and both
 offsets with them; over all 60 span-160 rows the native extents survive on 18 and
 the web extents on none. What the bed CAN still see there is the transmission

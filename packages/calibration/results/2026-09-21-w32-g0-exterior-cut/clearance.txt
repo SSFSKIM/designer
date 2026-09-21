@@ -89,6 +89,19 @@ Reach:      `outerShadowReachPx` at the shipped documents, via `reach.ts` beside
       128        5158       10710       23122       39518
       160        6374       13194       20802        3878
 
+    The same counts split by SCALE, which is what one capture carries:
+     span scale         3-6        6-12       12-24       24-48
+       32     1         616        1416        3500        9700
+       32     2        2480        5624       14012       38824
+       44     1         952        2080        4852       12360
+       44     2        3820        8328       19372       49552
+       96     1        1520        3212        7088       16892
+       96     2        6048       12848       28348       67576
+      128     1        2072        4284        9248       15804
+      128     2        8244       17136       36996       63232
+      160     1        2544        5292        8312        1548
+      160     2       10204       21096       33292        6208
+
 §5. The σ fit's own residual per span, native side — what the frame did to the fit
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
   `falloffSigmaResidualNative` is the blurred-edge model's own goodness of fit on
@@ -147,13 +160,21 @@ Reach:      `outerShadowReachPx` at the shipped documents, via `reach.ts` beside
   shadow does. Two bands are outside it — `12-24` by 4.5 px and `24-48` by 28.5 — and
   the rows show what that leaves: the `24-48` band survives on a median of 3,878 pixels
   at span 160 against 39,518 at span 128, a tenth, and all of them in the capture's
-  four corners. Every extent the axis would have reported is withheld on the active
+  four corners. **Corrected beside, 2026-09-21** (review closure; claims §5.166 §10,
+  finding N6): those two medians are taken over 1x and 2x rows pooled, and a sample
+  count is in DEVICE pixels, so neither is a count any capture carries. Per scale the
+  `24-48` band reads 1,548 at 1x and 6,208 at 2x at span 160, against 15,804 and
+  63,232 at span 128 — §4's second table. The RATIO is a tenth on each scale, so
+  "a tenth" stands. Every extent the axis would have reported is withheld on the active
   non-holdout WebGPU population — 0 of 28 on both sides, in all four directions, and
   both offsets with them — so at span 160 the bed can see neither side's reach at all.
 
   What it CAN see is the transmission at 3–12 CSS px, on a whole annulus, on both
   sides: `3-6` and `6-12` carry 6,374 and 13,194 pixels, more than either carries at
-  span 96. That is the reading W32 admits at span 160 and it is a reading of the
+  span 96. (Corrected beside, as above: per scale they are 2,544 and 5,292 at 1x and
+  10,204 and 21,096 at 2x, against 1,520 / 3,212 and 6,048 / 12,848 at span 96 — so
+  "more than either carries at span 96" holds on each scale on its own.) That is the
+  reading W32 admits at span 160 and it is a reading of the
   falloff's INNER twelve px, which is about 0.7 σ of a σ ≈ 17 px shadow. What it cannot
   see is the outer falloff, the reach, the displacement, or any σ that is not biased
   toward the window by the axis's own figure — roughly 8 % low. §5.162's span-160 `T`

@@ -208,6 +208,7 @@ def main() -> int:
     print("  and not in the cut. Median over the active, non-holdout, WebGPU rows at each span.")
     print()
     counts: dict[tuple[int, str], list[int]] = {}
+    by_scale: dict[tuple[int, int, str], list[int]] = {}
     for cell in json.loads(MATRIX.read_text())["cells"]:
         if not cell["key"]["profileKey"].startswith(GENERATION):
             continue
@@ -226,6 +227,9 @@ def main() -> int:
             if entry["direction"] != "all":
                 continue
             counts.setdefault((span, entry["ringLabel"]), []).append(entry["sampleCount"])
+            scale = 2 if "-2x-" in cell["key"]["profileKey"] else 1
+            by_scale.setdefault((span, scale, entry["ringLabel"]), []).append(
+                entry["sampleCount"])
     import statistics
     print(f"    {'span':>5}" + "".join(f"{b:>12}" for b, _ in BANDS))
     for span in sorted({s for s, _ in counts}):
@@ -234,6 +238,23 @@ def main() -> int:
             here = counts.get((span, band))
             line += f"{statistics.median(here):>12.0f}" if here else f"{'—':>12}"
         print(line)
+    print()
+    # A sample count is in DEVICE pixels, so the same band on the same scene carries
+    # four times as many at 2x as at 1x, and a median over the pooled rows is the
+    # median of two disjoint clusters — a number no capture has. The pooled table
+    # above is left exactly as it was recorded and the split is printed beside it
+    # (W32 G0 review closure, claims §5.166 §10, finding N6).
+    print("    The same counts split by SCALE, which is what one capture carries:")
+    print(f"    {'span':>5}{'scale':>6}" + "".join(f"{b:>12}" for b, _ in BANDS))
+    for span in sorted({s for s, _, _ in by_scale}):
+        for scale in (1, 2):
+            if not any((span, scale, band) in by_scale for band, _ in BANDS):
+                continue
+            line = f"    {span:>5}{scale:>6}"
+            for band, _ in BANDS:
+                here = by_scale.get((span, scale, band))
+                line += f"{statistics.median(here):>12.0f}" if here else f"{'—':>12}"
+            print(line)
     print()
 
     # ------------------------------------------------------------------
@@ -324,13 +345,21 @@ def main() -> int:
     print("  shadow does. Two bands are outside it — `12-24` by 4.5 px and `24-48` by 28.5 — and")
     print("  the rows show what that leaves: the `24-48` band survives on a median of 3,878 pixels")
     print("  at span 160 against 39,518 at span 128, a tenth, and all of them in the capture's")
-    print("  four corners. Every extent the axis would have reported is withheld on the active")
+    print("  four corners. **Corrected beside, 2026-09-21** (review closure; claims §5.166 §10,")
+    print("  finding N6): those two medians are taken over 1x and 2x rows pooled, and a sample")
+    print("  count is in DEVICE pixels, so neither is a count any capture carries. Per scale the")
+    print("  `24-48` band reads 1,548 at 1x and 6,208 at 2x at span 160, against 15,804 and")
+    print("  63,232 at span 128 — §4's second table. The RATIO is a tenth on each scale, so")
+    print("  \"a tenth\" stands. Every extent the axis would have reported is withheld on the active")
     print("  non-holdout WebGPU population — 0 of 28 on both sides, in all four directions, and")
     print("  both offsets with them — so at span 160 the bed can see neither side's reach at all.")
     print()
     print("  What it CAN see is the transmission at 3–12 CSS px, on a whole annulus, on both")
     print("  sides: `3-6` and `6-12` carry 6,374 and 13,194 pixels, more than either carries at")
-    print("  span 96. That is the reading W32 admits at span 160 and it is a reading of the")
+    print("  span 96. (Corrected beside, as above: per scale they are 2,544 and 5,292 at 1x and")
+    print("  10,204 and 21,096 at 2x, against 1,520 / 3,212 and 6,048 / 12,848 at span 96 — so")
+    print("  \"more than either carries at span 96\" holds on each scale on its own.) That is the")
+    print("  reading W32 admits at span 160 and it is a reading of the")
     print("  falloff's INNER twelve px, which is about 0.7 σ of a σ ≈ 17 px shadow. What it cannot")
     print("  see is the outer falloff, the reach, the displacement, or any σ that is not biased")
     print("  toward the window by the axis's own figure — roughly 8 % low. §5.162's span-160 `T`")
