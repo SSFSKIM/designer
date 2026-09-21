@@ -1,8 +1,33 @@
 /**
- * W31 G4 — the landing's sheets, from the CANONICAL capture tree (claims §5.165 §2).
+ * W32 G1 — the fit's sheets, from THIS GATE'S read tree (claims §5.168).
  *
- *   VITREA_WEB_CAPTURES=<the capture machine's canonical tree> \
- *     npx tsx results/2026-09-21-w31-g4-landing/sheets.ts
+ *   VITREA_WEB_CAPTURES=<the tree this gate's canonical read wrote> \
+ *     npx tsx results/2026-09-21-w32-g1-shadow-fit/sheets.ts
+ *
+ * W31 G4's `sheets.ts` copied on that directory's own convention — nothing under
+ * `results/` is edited after commit — with its BED changed and nothing else. The
+ * per-cell document-bytes assertion, the panel layout, the ΔE × 8 difference
+ * panel and the refusal are that file's, byte for byte, and they are the reason
+ * it was the one copied: a sheet that photographed a cell drawn at documents
+ * other than the shipped ones would look right and be of a material nobody
+ * shipped.
+ *
+ * **The bed is the exterior's**, which is what this wave moved: `capsule-button`
+ * (span 44), `rrect-ml` (128) and `rrect-lg` (160) in BOTH poses on all four
+ * standard profiles, so both schemes at both scales and active beside inactive —
+ * because the inactive pose is where Decision Log 2's stand-down has to be
+ * looked at rather than counted. `checkerboard__rrect-lg__inactive` is the
+ * tracker's far-halo cell and is a HOLDOUT scene, so it is here from the holdout
+ * read and from nowhere else.
+ *
+ * The CSS tier is on a sheet only where the canonical read captured it: both
+ * tiers on the calibration and holdout scenes of every standard profile, and on
+ * the two 1x standard profiles for the ladder's probe scenes, which is the read's
+ * own shape and not a choice made here. Where it is absent the sheet is
+ * native | WebGPU | ΔE × 8 and says so.
+ *
+ * *(what follows is W31 G4's own header, kept because the mechanism it describes
+ * is the mechanism this file still uses)*
  *
  * W31 G3's `sheets.ts` (`results/2026-09-21-w31-g3-chroma-fit/sheets.ts`), copied
  * rather than reused on that directory's own convention, with three changes.
@@ -64,38 +89,37 @@ const STANDARD_PROFILES = [
   "apple-macos-27.0-2x-dark-standard-glass0.5",
 ] as const;
 
+/**
+ * The exterior's bed, per component and pose, with the tier set the canonical
+ * read actually captured for it. `photo` where the scene set has it; the pitch
+ * ladder's `checkerboard-8` at `rrect-lg`, whose `rest` and `inactive` are both
+ * probe rows; and the holdout `checkerboard__rrect-lg__inactive`, which is the
+ * far-halo cell the tracker measured at 17.42 and the one cell of this wave that
+ * exists only because the holdout was read.
+ */
 const STANDARD_SCENES = [
-  "photo__capsule-button__rest",
-  "photo__rrect-md__rest",
-  "photo__rrect-lg__rest",
+  ["photo__capsule-button__rest", "both"],
+  ["photo__capsule-button__inactive", "both"],
+  ["photo__rrect-ml__rest", "both"],
+  ["photo__rrect-ml__inactive", "ladder"],
+  ["checkerboard-8__rrect-lg__rest", "ladder"],
+  ["checkerboard-8__rrect-lg__inactive", "ladder"],
+  ["checkerboard__rrect-lg__inactive", "both"],
 ] as const;
+
+/** The two profiles the canonical read takes the CSS tier of the ladder on. */
+const LADDER_CSS_PROFILES: readonly string[] = [
+  "apple-macos-27.0-1x-light-standard-glass0.5",
+  "apple-macos-27.0-1x-dark-standard-glass0.5",
+];
 
 const ACCESSIBILITY = [
   "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
   "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
 ] as const;
 
-const ACCESSIBILITY_SCENES = ["photo__rrect-md__rest", "photo__rrect-md__inactive"] as const;
+const ACCESSIBILITY_SCENES = ["photo__capsule-button__rest", "photo__capsule-button__inactive"] as const;
 
-/**
- * The overshoot band: `photo__rrect-sm`, span 32 — the thinnest surface the bed
- * carries, and the three cells M1's per-cell ceiling declares MISSED at adoption
- * (claims §5.165 §1). The fourth, 1x light `__rest` at `R` 1.3567, is here
- * because a sheet of three failures and no near-miss beside them cannot show
- * what 1.40 is separating.
- *
- * The eye's question is specific and is not the one the other bands ask: an
- * over-restored body is not a body with a defect in it, it is a body with MORE
- * of the backdrop's colour than the reference has. If 1.45 and 1.36 look alike,
- * the ceiling is a statistic and not a picture — which is worth knowing either
- * way and is recorded as it reads.
- */
-const OVERSHOOT = [
-  ["apple-macos-27.0-1x-light-standard-glass0.5", "photo__rrect-sm__inactive"],
-  ["apple-macos-27.0-2x-light-standard-glass0.5", "photo__rrect-sm__inactive"],
-  ["apple-macos-27.0-2x-light-standard-glass0.5", "photo__rrect-sm__rest"],
-  ["apple-macos-27.0-1x-light-standard-glass0.5", "photo__rrect-sm__rest"],
-] as const;
 
 /** The shipped documents' twelve-hex content hashes, derived and never typed. */
 const SHIPPED = new Map(
@@ -200,20 +224,19 @@ function sheet(profileKey: string, scene: string, tiers: "both" | "webgpu"): str
 
 const written: string[] = [];
 console.log(`captures: ${CAPTURES}\n`);
-console.log("== the standard bed: three spans, both schemes, both scales ==\n");
+console.log("== the exterior's bed: three spans, both poses, both schemes, both scales ==\n");
 for (const profileKey of STANDARD_PROFILES) {
-  for (const scene of STANDARD_SCENES) written.push(sheet(profileKey, scene, "both"));
+  for (const [scene, tiers] of STANDARD_SCENES) {
+    const both = tiers === "both" || LADDER_CSS_PROFILES.includes(profileKey);
+    written.push(sheet(profileKey, scene, both ? "both" : "webgpu"));
+  }
 }
-console.log("\n== the overshoot band: span 32, the three M1 declares missed and the one it does not ==\n");
-for (const [profileKey, scene] of OVERSHOOT) written.push(sheet(profileKey, scene, "both"));
-console.log("\n== the accessibility band (W31 Decision Log 3 (c)) ==\n");
+console.log("\n== the accessibility band: the thin caster, where the stop's worst cell lives ==\n");
 for (const profileKey of ACCESSIBILITY) {
   for (const scene of ACCESSIBILITY_SCENES) written.push(sheet(profileKey, scene, "webgpu"));
 }
 console.log(
   `\n${written.length} sheet(s).`
-    + `\nNOT here: mid-chroma-solid is a probe scene and the canonical read does not carry it,`
-    + `\nso the canonical tree has no macOS 27 capture of it and X1 allows this gate none.`
-    + `\nG0's pre-fit sheets of it are at results/2026-09-21-w31-g0-chroma-cut/ and its hue-rotation`
-    + `\nfinding stands open exactly as claims §5.164 §9 leaves it.`,
+    + `\nNOT here: the span-32 rrect-sm band and the chroma bed, which this wave does not move.`
+    + `\nW31 G4's sheets of both are committed at results/2026-09-21-w31-g4-landing/.`,
 );
