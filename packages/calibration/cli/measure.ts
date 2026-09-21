@@ -33,6 +33,7 @@ import { readFileSync } from "node:fs";
 
 import {
   blurEdgeSpread,
+  chromaStructure,
   componentRegion,
   contourDistance,
   coherenceAxisReport,
@@ -65,6 +66,7 @@ import {
   type CalibrationImage,
   type CanvasSize,
   type CellResult,
+  type ChromaStructureReport,
   type CoherenceAxisReport,
   type DeclaredConformanceInput,
   type DeclaredComponent,
@@ -140,6 +142,18 @@ export interface MeasureInput {
    * `DRAWN_ALPHA_THRESHOLD` for the one condition under which it is read.
    */
   readonly drawnAlphaPath?: string;
+  /**
+   * Compute ratio (iii) of the per-pixel chroma instrument — the side's mean
+   * chroma against a backdrop blurred to that side's own measured structure
+   * (W31 G0, claims §5.161).
+   *
+   * Off by default and named rather than inferred, because it is the one
+   * material statistic whose cost is not linear in the crop: recovering the
+   * reference radius is a bisection, and each step blurs the whole backdrop
+   * twice. Ratios (i) and (ii) are always computed; absent here means ratio
+   * (iii)'s rows are absent, never that the reference agreed.
+   */
+  readonly blurredChromaReference?: boolean;
 }
 
 export interface MeasureOutcome {
@@ -513,6 +527,28 @@ export function measureCell(input: MeasureInput): MeasureOutcome {
 
     const nativeBlur = edgeSpread(native, "native");
     const webBlur = edgeSpread(web, "web");
+
+    /*
+     * The per-pixel chroma reading (W31 G0, claims §5.161), over the same
+     * native silhouette every other material statistic is masked by.
+     *
+     * Ratio (iii)'s reference blur is two bisections over separable Gaussians
+     * of the whole backdrop, which is the most expensive thing in this
+     * function, so it is asked for only where it is identifiable and worth
+     * paying for: a backdrop that actually carries structure. On a solid it
+     * would search for the radius at which a flat field becomes flat.
+     */
+    let chroma: ChromaStructureReport | undefined;
+    try {
+      chroma = chromaStructure(native, web, background, interior, {
+        blurredReference: input.blurredChromaReference ?? false,
+      });
+    } catch (error) {
+      notes.push(
+        `per-pixel chroma NOT MEASURED: ${error instanceof Error ? error.message : String(error)}`,
+      );
+    }
+
     material = materialAxisReport({
       native: {
         ...(nativeBlur === undefined ? {} : { blur: nativeBlur }),
@@ -530,6 +566,7 @@ export function measureCell(input: MeasureInput): MeasureOutcome {
       },
       backdropInterior: interiorLevel(background, { interior }),
       ...(luminance === undefined ? {} : { luminance }),
+      ...(chroma === undefined ? {} : { chroma }),
     });
   } else {
     notes.push(

@@ -283,6 +283,13 @@ interface Options {
   readonly recededProfile: string | undefined;
   readonly webAccessibility: WebAccessibilityMode;
   readonly matrixPath: string;
+  /**
+   * Compute ratio (iii) of the per-pixel chroma instrument (W31 G0, claims
+   * §5.161): `--blurred-chroma-reference`. Off by default because recovering
+   * the reference radius bisects over blurs of the whole backdrop, and the two
+   * ratios the wave's tolerance is declared on do not need it.
+   */
+  readonly blurredChromaReference: boolean;
   readonly silhouetteThreshold: number;
   readonly silhouetteChromaThreshold: number;
   /**
@@ -369,6 +376,7 @@ function parseOptions(argv: readonly string[]): Options {
     renderer,
     skipCapture: argv.includes("--skip-capture"),
     alpha: argv.includes("--alpha"),
+    blurredChromaReference: argv.includes("--blurred-chroma-reference"),
     writePartial: argv.includes("--write-partial"),
     allowMaterialFree: argv.includes("--allow-material-free"),
     allowColourlessTints: argv.includes("--allow-colourless-tints"),
@@ -816,6 +824,7 @@ function main(): void {
         // bed holding both poses can be read one pose at a time (X3).
         state: cell.state,
         blurAxis: "x",
+        blurredChromaReference: options.blurredChromaReference,
         silhouetteThreshold: options.silhouetteThreshold,
         silhouetteChromaThreshold: options.silhouetteChromaThreshold,
         component: declaredComponentOf(geometry, cell.sceneId),
