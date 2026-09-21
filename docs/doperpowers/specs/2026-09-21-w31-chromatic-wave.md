@@ -1,13 +1,14 @@
 # W31 — the chromatic wave: the body carries the backdrop's hue, with three instruments in front
 
 **Status: OPEN 2026-09-21 — chartered by the parent on the user's "let's proceed with next wave"
-after the 0.20.0 publish, under the standing "rest on your judgement".** Executes W29 Decision
-Log 6 (c) (the chromatic-transmission child, the largest residual on W30's own sheets) and carries
-three of W30's Deferred-at-close items whose evidence is on disk and which need no ruling: the
-exterior-width instrument (item 1), the WGSL range class (item 12) and the refusal-wording sweep
-(item 13). Grounded on main at `8d9b6ceb` (0.20.0 published). **Three rulings were drafted for the
-user in Decision Log 1 and ruled the same day, all as recommended (the digest rule by value, the
-holdout rule as practised, the tone stage kept); the three instrument children run first.**
+after the 0.20.0 publish, under the standing "rest on your judgement"; adversarially reviewed the
+same day and the review folded (v2, Revision Notes).** Executes W29 Decision Log 6 (c) (the
+chromatic-transmission child, the largest residual on W30's own sheets) and carries three of W30's
+Deferred-at-close items whose evidence is on disk and which need no ruling: the exterior-width
+instrument (item 1), the WGSL range class (item 12) and the refusal-wording sweep (item 13).
+Grounded on main at `8d9b6ceb` (0.20.0 published). **Three rulings were drafted for the user in
+Decision Log 1 and ruled the same day, all as recommended (the digest rule by value, the holdout
+rule as practised, the tone stage kept); the three instrument children run first.**
 
 ## Purpose
 
@@ -30,119 +31,196 @@ transmits is mostly the neutral, and a photograph's hues arrive as a grey of the
 Apple's material at the same level keeps the hue, which is what a darkening that acts on the
 backdrop's luma while leaving its chromaticity alone does, and a plate does not. That is a
 **mechanism** the material lacks, not a value it has wrong, and it is the operator this wave adds:
-a chroma-retaining term in the body's composite, fitted per scheme, with the level held.
+a chroma-retaining term in the body's composite, fitted per scheme, with the level held in the
+renderer's own linear luma.
+
+The review of this charter named the trap in that sentence and the wave is written around it:
+W29 Decision Log 6 (c) framed the finding on the interior's SPREAD (0.0417 against 0.0142) and
+said the chromatic residual and §5.151 §5's "conditioned on something beyond the backdrop's
+mean" are "plausibly the same finding read two ways". vitrea passes about a quarter of the native
+structure on that cell (`interiorStdDev` 0.0091 / 0.0141 against 0.0417, over a backdrop at
+0.1256), and this wave declines to touch the structure (X3; the analysis pass is deferred). A
+per-pixel chroma ratio read against the raw backdrop measures the blur and the chroma loss
+together, so a retention fitted to close it would absorb the structure deficit as saturation and
+call it a result. The instrument is therefore defined so that the blur cancels (Design), the
+acceptance is web against NATIVE on the same cell and never against 1, and the four claimed rows
+are decomposed into their luma and chroma parts before any claim is declared.
 
 Three instruments come first, in parallel, because their evidence is on disk and none needs a
 ruling. **The exterior's width** (W30 Deferred 1): the three rows W30 claimed through the σ law
 moved by 0.0002 where they needed 0.016, because whole-cell SSIM is dominated by the interior, while
 `falloffSigmaWeb` — the axis the lever actually moves — moved by up to 30 CSS px under no gated
-bound at all; the wave that next moves the shadow needs a clause that reads what the lever moves.
-**The WGSL range class** (W30 Deferred 12): the `tanh` overflow is fixed as an identity and the
-class is not; `src/wgsl/` evaluates `exp`, `pow`, `tanh` and polynomials on document-scaled
-quantities with nothing asserting an argument stays inside f32. **The refusal's wording and the
-sweep rule** (W30 Deferred 13): `matrixSchemaRefusal` still offers an operator a ruling that ended.
+bound on the rendered side (B1 bounds the DOCUMENT's law against the native σ, and is green at
+±0.685 % on the light document while the rendered σ disagrees — that disagreement is itself a
+finding G1 surfaces). **The WGSL range class** (W30 Deferred 12): the `tanh` overflow is fixed as
+an identity and the class is not; `src/wgsl/` has sixteen transcendental call sites on
+document-scaled quantities with nothing asserting an argument stays where the result is finite in
+f32. **The refusal's wording and the sweep rule** (W30 Deferred 13): `matrixSchemaRefusal` still
+offers an operator a ruling that ended.
 
 What this wave does **not** do: it does not move the shadow's σ law, the scatter, the tone
-response's abscissa or any anchor (X3); it does not build the highlight's angular reader; it does
-not fix `compare`'s decoupled-contrast flag; it does not re-open the analysis pass (W30 Deferred 2,
-the user's to charter); it captures **no native pixel**; and it does not decide the tone stage's
-fate (Decision Log 1 (c) puts it to the user beside the two rulings the leaf needs).
+response's abscissa, any anchor, or the CSS tier's existing `saturate()` constants (X3); it does
+not build the highlight's angular reader; it does not fix `compare`'s decoupled-contrast flag; it
+does not re-open the analysis pass (W30 Deferred 2, the user's to charter); it captures **no native
+pixel**; and it does not bump the matrix schema.
 
 ## Parent-Level Acceptance
 
-1. **The chroma is measured before the operator exists, by an instrument that reads hue per
-   pixel.** The matrix's `tintChromaDelta` is over the interior's MEAN OKLab against the backdrop's
-   mean, so a balanced photograph whose hues pass through reads near zero on both sides; it is the
-   wrong instrument for this residual and G0 says so with the numbers. G0 adds a per-pixel chroma
-   instrument to `packages/calibration` — the mean per-pixel OKLab chroma over the interior and the
-   standard deviations of `a` and `b`, native, web and backdrop, so a **chroma transmission ratio**
-   (interior over backdrop) can be read per cell — runs it over every chroma-carrying cell of the
-   current generation (the `photo` scenes, `mid-chroma-solid`, the tinted cells; both schemes,
-   both tiers, both scales, active and inactive; the macOS 26.5 rows beside for comparison) from
-   committed fixtures and the captures the ledger names, and tables it per backdrop class per
-   scheme per tier per span. The native delta between 26.5 and 27 on the same statistic is read from
-   W29 G2's evidence or recomputed, so the wave knows whether Apple moved the chroma or vitrea never
-   had it.
+1. **The chroma is measured before the operator exists, by an instrument in which the blur
+   cancels.** The matrix's `tintChromaDelta` is over the interior's MEAN OKLab against the
+   backdrop's mean, so a balanced photograph whose hues pass through reads near zero on both
+   sides; it is the wrong instrument for this residual and G0 says so with the numbers. G0 adds a
+   per-pixel chroma instrument to `packages/calibration` — per pixel over the interior silhouette,
+   the mean OKLab chroma and the standard deviations of `a` and `b`, for native, web and backdrop
+   — and reads it as a **chroma-to-structure ratio**: the interior's per-pixel chroma spread over
+   its own luma spread, so a body that blurs more but keeps its hues reads the same as one that
+   blurs less. The raw-backdrop ratio is tabled beside it so the confound is visible, and the
+   backdrop blurred at the material's own radius is a third column where G0 can compute it. Every
+   statistic is stated as **web against native on the same cell**, never against 1. The new fields
+   are **optional additions at schema 5, no version bump**, on `drawnAreaWeb`'s precedent
+   (`report.ts`); they cannot reach the 1,818 frozen rows, so the macOS 26.5 readings live in the
+   evidence directory only and any adopted row on the statistic is macOS 27-only. The web side of
+   the chroma bed is **re-captured as scratch** (no current-generation capture tree exists on this
+   machine — Surprises), and for every re-captured cell G0 re-derives at least one committed metric
+   and shows it reproduces the committed row within the repeat noise before reading a new
+   statistic off it. The native delta between 26.5 and 27 on the same statistic is recomputed from
+   the fixture pairs, so the wave knows whether Apple moved the chroma or vitrea never had it.
 2. **The mechanism is named from the shader, and the leaf shape from the tables.** G0 states, from
    `optics.ts` and `material.ts`, exactly where the backdrop's chroma is lost (the plate's alpha in
-   the composite; the achromatic solve; the tint's own chroma path; the recede's chroma collapse),
-   which of those the light and dark documents exercise, and names **one** leaf shape with its
-   inert identity under which every shipped document is bit-identical — a chroma retention that
-   acts on the body's transmitted colour with the luma held, so the interior-level bounds do not
-   move — with "conditioned by scheme" meaning two values of one leaf in the light and dark
-   documents. It says what the CSS tier's two layers can carry of it (a `saturate()` term in the one
-   `backdrop-filter` is available; whether it is the right projection is measured, not assumed)
-   and what stays a recorded residual.
-3. **Bounds before reads; the digest rule and the holdout rule are ruled before the leaf lands.**
-   G0 declares the wave's acceptance — a tolerance on the chroma transmission ratio per backdrop
-   class per scheme on the WebGPU tier with the CSS tier recorded; the four missed `oklabDeltaEP95`
-   rows claimed, with the lever and the tier; the recede's worst cell reported; the interior-level
-   and departure stops the fit must hold; every other adopted row expected unmoved, the shadow's
-   and the scatter's named — and whether each tolerance becomes an adopted row at G4 or stays a
-   one-wave reading. The 27 tables stay at their ruled values; no floor. **G0 also proves what
-   Decision Log 1 (a) asks the user to rule on**: the fingerprint of each macOS 26.5 document with
-   every leaf at its declared inert identity dropped equals the document's own recorded
-   `resolvedMaterialSha256` (`b2b570e4adcea8fb`, `874be66ea501621b`), with the inert-identity
-   table committed beside the proof.
-4. **Three instruments land without a material change.** G1: a statistic over the exterior's
-   fitted width and the departure profile's shape, a reader, and a clause shape declared as the
-   candidate adopted row for the wave that next moves the shadow, read on the current generation
-   as a one-wave reading with the seven missed rows' figures beside — not adopted, not fitted. G2:
-   a unit case over `src/wgsl/` requiring every transcendental's argument to be clamped or to carry
-   a named range proof; `@gpu` sweeps in the shape of `w30-thin-sigma-coverage.spec.ts` over **both
-   halves** of each guarded ratio (the material's axis and the scene's) for the lens depth, the
-   scatter widths and the tone knots; a readback guard that refuses a raster with an alpha hole
-   inside a declared silhouette; `matrixSchemaRefusal`'s wording re-read against what trips it
-   today; and the sweep rule recorded where consumer tables are written. Goldens 34/34
-   byte-identical across G1 and G2; `freeze.py verify` 1,818 intact.
-5. **The operator lands on the fidelity target with the CSS tier derived in the same commit, and
-   the level is held.** The leaf at its inert identity in one commit under the digest rule the user
-   chose (Decision Log 1 (a)); the identity proofs W30 established (the resolved-material identity
-   test extended with the new leaf; the CSS declaration-identity case; the goldens; the 1,107
-   gated-row pin). Then the fit per scheme on the calibration set (the probe `mid-chroma-solid`
-   rows granted, as W30 Decision Log 2 (a) granted the ladder) through the reader with the holdout
-   dropped by construction, checked on validation, the interior-level stop held, the receded
-   documents inheriting; the macOS 27 documents re-sealed; `tier-coherence` green; the tinted cells'
-   own chroma path proven unmoved (their rows expected unmoved, or the reason recorded).
-6. **Read once per frozen configuration, under the ruled definition.** With the documents sealed and
-   their hashes in the ledger, the canonical run appended beside the 0.20.0 rows — six profiles, two
-   tiers, calibration + validation, the ladder — then the holdout **once**; the append-check; the
-   split moves the generation this read supersedes; `freeze.py verify` 1,818 intact throughout. The
+   the composite; the achromatic solve), that the two collapses are different things (the backdrop
+   tone collapse `toneAdapt` pulls `adapted` toward `toneTarget` for every body; W27c's chroma
+   collapse acts on the tint SEED inside `if (tintK > 0.0)` and does nothing to an untinted body),
+   which of those the light and dark documents exercise at the photo cells' levels, and names
+   **one** leaf shape with its inert identity under which every shipped document is bit-identical:
+   a chroma retention on the composited colour that is **luma-preserving in the renderer's own
+   linear luma** (restore chromaticity, then renormalise so `dot(rgb, (0.2126, 0.7152, 0.0722))`
+   is unchanged), with its gamut behaviour stated (chroma scaled down until in gamut with luma
+   held, never clipped per channel), its behaviour as a function of `toneAdapt` stated (a gate, or
+   the reason none is needed), its place in the shader's order named (after
+   `colour = mix(backdrop, adapted, presentAlpha)` and before the tint composition, so the author's
+   tint still displaces the result per the composition contract), and the receded documents
+   carrying their **own** value read on the inactive cells rather than inheriting one nobody
+   measured. "Conditioned by scheme" means two values of one leaf in the light and dark documents.
+   It says what the CSS tier's two layers can carry of it: the tier's `backdrop-filter` already
+   carries a CSS-only `saturate()` at 1.8 (regular) / 1.4 (clear) that the renderer has no
+   counterpart to, whose value does not move (X3); a projection of the retention onto that layer
+   acts BEFORE the `rgba()` plate covers it, so the reachable interior chroma is bounded by
+   `(1 − α)·s` and the ceiling is lowest in the dark scheme — G0 states that analytic ceiling per
+   scheme as a **declared residual** before the fit, and whether a derived term is worth adding or
+   the CSS tier records the residual and carries nothing.
+3. **Bounds before reads; the stop is a number; the rulings are already made.** G0 declares the
+   wave's acceptance — a tolerance on the chroma-to-structure ratio, web against native, per
+   backdrop class per scheme on the WebGPU tier with the CSS tier recorded, with the statistic
+   (which cells, which order statistic, which conditioning, the noise bar it is justified from)
+   — and its fate: **a one-wave reading unless G0 makes the identifiability argument**, because a
+   chroma row adopted at G4 would be the first material-axis adopted row in
+   `adopted-thresholds.test.ts`, whose header says the material axis is not gated on this fixture
+   set; the parent decides at G4 on G0's argument. **The level stop is an explicit numeric
+   tolerance on `interiorMeanWeb` against `interiorMeanNative` per cell, declared by G0 from the
+   committed rows and read before and after on scratch** — there is no adopted interior-level row
+   to cite (the only one, `interiorLevelRatioGpuOverCss`, is blind to both tiers moving together).
+   The four missed `oklabDeltaEP95` rows are **decomposed** on the committed captures into their
+   ΔL and Δ(a,b) parts (the P95 is over the whole capture, interior, rim and exterior together) and
+   the headroom the chroma lever alone can reach is stated; each row is then declared CLAIMED or
+   "reachable if" on that number, with the lever and the tier, and what the fit is judged on
+   BEFORE the holdout read (the gated photo cells on calibration + validation) is named, since all
+   four are holdout rows. The recede's worst cell is reported. The shadow's, the scatter's and the
+   tinted cells' rows are declared expected unmoved. The 27 tables stay at their ruled values; no
+   floor. **G0 also proves what Decision Log 1 (a) ruled**: the fingerprint of each macOS 26.5
+   document with every identity-valued leaf (and gate-group) dropped equals the document's own
+   recorded `resolvedMaterialSha256` (`b2b570e4adcea8fb`, `874be66ea501621b`), with the identity
+   table committed beside the proof and the holes the rule does not cover named.
+4. **Three instruments land without a material change.** G1: the two exterior statistics, a
+   reader, candidate (i) tabled beside B1's per-bed windows on the same cells with what a
+   divergence means, and a clause shape declared as the candidate adopted row for the wave that
+   next moves the shadow, read on the current generation as a one-wave reading with the seven
+   missed rows' figures beside — not adopted, not fitted. G2: a unit case over `src/wgsl/`
+   requiring every transcendental's argument to be **clamped to a range on which the result is
+   finite in f32, per argument** (a `pow` base non-negative), or to carry a named range proof;
+   `@gpu` sweeps in the shape of `w30-thin-sigma-coverage.spec.ts` over **both halves** of each
+   guarded ratio (the material's axis and the scene's) for the lens depth, the scatter widths and
+   the tone knots; a readback guard whose predicate is an ENCLOSED region of zero alpha inside a
+   declared silhouette (not any low alpha — the unsampled layer path writes a translucent interior
+   and `dom_material_alpha` is 0 at presence 0, both stood down by rule); `matrixSchemaRefusal`'s
+   wording re-read against what trips it today; and the sweep rule recorded where consumer tables
+   are written. Goldens 34/34 byte-identical across G1 and G2; `freeze.py verify` 1,818 intact.
+5. **The operator lands on the fidelity target with the CSS tier derived in the same commit, the
+   level held, and the re-seal and the read in ONE merge.** The leaf at its inert identity, the
+   digest rule executed (the identity table with gate-groups; `fingerprint()` under the rule in
+   `seal.ts` and both test copies; the pins returning to the recorded 26.5 digests; the four
+   macOS 27 documents re-sealed with history and the rule's version recorded in them), the
+   identity proofs W30 established (the resolved-material identity test extended; the CSS
+   declaration-identity case; the goldens; the 1,107 gated-row pin); then the fit per scheme on the
+   calibration set (the probe `mid-chroma-solid` rows granted, as W30 Decision Log 2 (a) granted
+   the ladder) through the reader with the holdout dropped by construction, checked on validation,
+   the level stop held, the receded documents read on the inactive cells; the macOS 27 documents
+   re-sealed; `tier-coherence`'s mirror list extended with a case that the list is exhaustive over
+   `MaterialProfile`'s keys (green is otherwise vacuous for a new leaf); the tinted cells read
+   before and after. **Every re-seal of a macOS 27 document empties the 27 bed out of every bound
+   until rows at its bytes exist** (`atAShippedDocument` hashes the documents' bytes; 230 gated
+   cells / 726 rows today), so — as W30 Decision Log 4 (b) ruled — the re-seal and the canonical
+   read at those bytes land in one merge: **G3 fits, seals and reads; G4 lands** (Ordering, X10).
+6. **Read once per frozen configuration, under the ruled definition as enforced by artifact.** The
+   configuration is recorded in the read's own evidence as the four document file hashes plus a
+   hash over an enumerated source list (`packages/renderer-webgpu/src/wgsl/`, `src/material.ts`,
+   `src/renderer.ts`, `src/passes.ts`, `packages/platform-web/src/{optics,css-tier}.ts`); a second
+   read of the same document hashes requires the source hash to have moved for a named non-fit
+   reason. With the documents sealed and their hashes in the ledger, the canonical run appended
+   beside the 0.20.0 rows — six profiles, two tiers, calibration + validation, the ladder — then
+   the holdout **once**; the append-check; the split moves the generation this read supersedes;
+   the read's capture tree copied to the canonical `web-captures/` on the main checkout at merge
+   (Surprises); `freeze.py verify` 1,818 intact and the 27 gated-cell count pinned throughout. The
    verdict per profile per tier per clause with every missed cell named; a miss is recorded, not
    widened, not re-fitted; every passing tolerance G0 marked for adoption carried into
-   `adopted-thresholds.test.ts`.
+   `adopted-thresholds.test.ts` on the parent's decision.
 7. **The landing.** Sheets native | WebGPU | CSS | difference for the photo cells and
    `mid-chroma-solid` in both schemes at both scales, looked at, with what the eye sees recorded;
    the demo's figures on the operator; the coverage matrix re-scored where a row moved;
-   `CLAUDE.md`, READMEs and CHANGELOG say what moved; the fixed group versioned **0.21.0** and
-   prepared, `pnpm release` the user's hand, the tag after.
+   `CLAUDE.md`, READMEs and CHANGELOG say what moved; the tone stage's two open records closed on
+   Decision Log 1 (c); the fixed group versioned **0.21.0** and prepared, `pnpm release` the
+   user's hand, the tag after.
 
 ## Grounding Baseline (main at `8d9b6ceb`, 0.20.0 published)
 
 - **The composite, and where the chroma goes.** The optics pass composites a neutral plate of alpha
   `sizedAlpha` over the blurred backdrop and solves the plate's luma so the post-collapse mean lands
   on the measured response — `mean = (1 − k)·M₀ + k·toneLuma`, `M₀ = (1 − α)·bgLinear + α·L(neutral)`
-  (`optics.ts`, the W9 solve; "chroma is untouched — the shift is achromatic"). On the dark documents
-  α is large, so the body is mostly neutral. The tint path carries its own chroma law
-  (`tintChromaScale`, `rimTintChroma`, the adapted tint) and the recede carries a chroma collapse
-  (W27c); neither is the untinted body's transmission. The CSS tier composes one `backdrop-filter`
+  (`optics.ts`, the W9 solve; "chroma is untouched — the shift is achromatic"), luma being LINEAR
+  luma, `dot(rgb, (0.2126, 0.7152, 0.0722))`, which is also what `interiorLevel` measures in
+  `metrics/material.ts`. On the dark documents α is large, so the body is mostly neutral. The
+  backdrop tone collapse (`toneAdapt`, `adapted` toward `toneTarget`) acts on every body; the
+  composite is `colour = mix(backdrop, adapted, presentAlpha)`; the tint path carries its own
+  chroma law (`tintChromaScale`, `rimTintChroma`, the adapted tint) and W27c's chroma collapse acts
+  on the tint seed inside `if (tintK > 0.0)` — so an untinted receded body, the recede's worst
+  cell's population, has no chroma law at all today. The CSS tier composes one `backdrop-filter`
   and one `rgba()` layer from the same profile (`platform-web/src/optics.ts`, `css-tier.ts`), pinned
-  to the WebGPU tier by `tier-coherence.test.ts`.
+  to the WebGPU tier by `tier-coherence.test.ts` over an ENUMERATED list of constants; the filter
+  already carries `saturate()` at 1.8 / 1.4, documented as CSS-only with no renderer counterpart,
+  and the dom tier's chroma reads −0.01345 against texture's −0.01457 on the dark photo cell — the
+  existing 1.8× buys about 0.001.
 - **The instrument today.** `metrics/material.ts`'s `tintResponse` reads the interior's MEAN linear
-  RGB and the backdrop's, converts each to OKLab once, and reports `chromaDelta` as the difference
-  of the two means' chromas, with `interiorChroma` and `backdropChroma` computed but not exported
-  to the row (the row carries `tintDelta{L,A,B}`, `tintChromaDelta`, `tintHueShift`). On the dark
-  1x `photo__rrect-lg__rest` row: native ΔA +0.0287 / ΔB −0.0217 / chroma +0.0022; web (dom)
-  +0.0116 / −0.0069 / −0.0135. A mean-colour instrument cannot distinguish "the hues pass through"
-  from "the mean is tinted"; the per-pixel one G0 adds can. The interior's luma spread
-  (`interiorStdDev`) is the structure instrument and is not chroma.
-- **The chroma-carrying cells.** `photo` is a deterministic multi-frequency colour field with
-  saturated hue transitions (`scenes.json`); `mid-chroma-solid` is sRGB (213, 2, 255), the W27c
-  chroma anchor, probe-only; the tinted cells carry the author's chroma on top of the backdrop's.
-  Active untinted `photo` cells per profile: calibration `capsule-button`, `rrect-md`, `rrect-ml`;
-  validation `rrect-sm`, `toolbar-group`; holdout `rrect-lg`, `glass-over-glass`. The inactive
-  poses mirror that split. The bed for this operator is thin, which is why the probe anchor is
-  granted to the fit and why the tolerance is read on the gated `photo` cells.
+  RGB and the RAW backdrop's under the same mask, converts each to OKLab once, and reports
+  `chromaDelta` as the difference of the two means' chromas, with `interiorChroma` and
+  `backdropChroma` computed but not exported to the row. On the dark 1x `photo__rrect-lg__rest`
+  row: native ΔA +0.0287 / ΔB −0.0217 / chroma +0.0022; web (dom) +0.0116 / −0.0069 / −0.0135. The
+  mean gap between native and web is about 0.023 in OKLab, a sixth of the P95 the four rows carry.
+  `oklabDeltaE` (`metrics/perceptual.ts`) is a per-pixel distance over the WHOLE capture. The
+  interior's luma spread (`interiorStdDev`) is the structure instrument: backdrop 0.1256, native
+  0.0417 (0.33 of it), web 0.0091 / 0.0141 (0.073 / 0.11).
+- **The chroma-carrying cells, and their conditioning.** `photo` is a deterministic multi-frequency
+  colour field with saturated hue transitions (`scenes.json`); `mid-chroma-solid` is sRGB
+  (213, 2, 255), the W27c chroma anchor, probe-only; the tinted cells carry the author's chroma on
+  top of the backdrop's. Active untinted `photo` cells per profile: calibration `capsule-button`,
+  `rrect-md`, `rrect-ml`; validation `rrect-sm`, `toolbar-group`; holdout `rrect-lg`,
+  `glass-over-glass`; the inactive poses mirror that split. **On the dark profiles,
+  `photo__capsule-button__rest`, `photo__rrect-md__rest` and `photo__rrect-lg__rest` are in
+  `PREDICATE_EXCLUDES` at both scales and both tiers** — the silhouette-quality predicate refuses
+  them (`photo__rrect-lg__rest` 1x dark: `silhouetteAreaNative` 39,392 against a region of 43,816,
+  3 bodies, 68 holes) — which leaves the dark calibration bed at one well-conditioned untinted
+  photo cell (`rrect-ml`) plus the probe anchor. The material metrics read the declared interior
+  mask, not the contour; G0 reports the conditioning state of every cell the fit and the tolerance
+  read and says, with evidence, whether a mask the shape rows refuse is adequate for a per-pixel
+  chroma statistic.
 - **The four missed rows.** `MISSED_27_ROWS` holds seven: this cell's `oklabDeltaEP95` on
   `apple-macos-27.0-{1x,2x}-dark-standard-glass0.5` × `{texture,dom}` (0.21531 / 0.21341 against
   ≤ 0.17 on `texture`; 0.20095 / 0.19474 against ≤ 0.18 / ≤ 0.19 on `dom`), and three the σ law was
@@ -150,247 +228,347 @@ fate (Decision Log 1 (c) puts it to the user beside the two rulings the leaf nee
   `checkerboard__glass-over-glass__rest :: ssimMean` on 1x-light dom, 0.88423 / 0.89531 against
   ≥ 0.9; `photo__rrect-lg__rest :: ssimOutside` on reduced-transparency dom, 0.82695 against ≥ 0.83).
   All seven are holdout rows.
-- **The fingerprint and the exemption.** `fingerprint()` is SHA-256 over
-  `withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch)` with keys sorted, first 16 hex. W30
+- **The bed's byte dependence.** `SHIPPED_DOCUMENT_HASHES` is built from the bytes of every file
+  in `profiles/`; `atAShippedDocument` keeps rows whose `capturePath` names a current hash;
+  `MATRIX_CELLS = 459` and the 27 half of it — 230 gated cells, 726 rows across six profile keys —
+  drops the moment a 27 document's bytes change, restored only by rows read at the new bytes.
+  `resolvedMaterialSha256` and `$comment-sha-history` live inside the documents, so a re-seal is a
+  byte change. W30 Decision Log 4 (b): a re-seal and its canonical read land in ONE merge.
+- **The fingerprint and the rule.** `fingerprint()` is SHA-256 over
+  `withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch)` with keys sorted, first 16 hex,
+  duplicated in `seal.ts`, `tuned-profiles.test.ts` and `macos26-document-selection.test.ts`. W30
   spent the one exemption W29 Decision Log 7 (a) granted: eight leaves at inert identities moved
   every document's digest; the two macOS 26.5 documents stayed byte-identical and
   `profiles/digest-supersessions.json` records `recordedSha256` → `currentSha256` per document
-  (`b2b570e4adcea8fb` → `b340a4dee871633c`, `874be66ea501621b` → `93ab090705c43f1f`); the pin
-  tests read `currentSha256` from the record. W30's charter weighed and withdrew a fingerprint
-  blind to new leaves ("a default that can then change without any document being re-recorded",
-  the `sizeOcclusionGain` failure) — the objection was to a pin blind by SCHEMA, so that an
-  uncovered leaf's default could move unseen. Decision Log 1 (a) proposes a pin blind by VALUE:
-  a leaf is dropped from the digest only while its resolved value equals its declared inert
-  identity, so a moved default reappears in the digest the moment it moves. Adding a leaf at its
-  identity then moves no digest at all, and the exemption class ends.
+  (`b2b570e4adcea8fb` → `b340a4dee871633c`, `874be66ea501621b` → `93ab090705c43f1f`). **Three of the
+  eight leaves have no standalone identity by the material's own words**: `sigmaSpanRefPx` is inert
+  because the slope is 0 whatever the pivot holds; `sizeHeavySecondSigma{,2x}` are unread while
+  `sizeHeavySecondShare` is 0; `sizeScatterScaleRef` cannot reach the mix while
+  `sizeScatterScaleGain` is 0 — and the light 27 document ships it at 0.03 with the gain at 0,
+  provably inert and off any would-be identity. Decision Log 1 (a) as executed therefore drops
+  **gate-groups**: a gated leaf is dropped only jointly with its gate at the gate's identity
+  (Design). Under the rule the 26.5 digests reproduce because every post-seal leaf is at its
+  identity there, which makes the identity table a permanent constraint on
+  `DEFAULT_MATERIAL_PROFILE`: a post-seal leaf's default IS its identity, forever, and the table is
+  append-only.
 - **The holdout rule as practised.** W30 read the holdout twice at one document set — G3 at the
   sealed documents and G3b again after a renderer fix with no constant moved — and its review said
   a third read would need a ruling naming "the smallest thing that makes a configuration new"
-  (§5.159b §10, finding 13). Decision Log 1 (b) drafts that ruling.
+  (§5.159b §10, finding 13). Decision Log 1 (b) ruled it; clause 6 enforces it by artifact.
 - **The exterior instrument.** Every row carries, on its `shadow` axis, `falloffSigma{Native,Web}`,
   `falloffAmplitude{Native,Web}`, `falloffSigmaResidual`, `meanDeparture{Native,Web}`, the
   `extent*`/`offset*` per direction, and the affine rings (`affineNative`/`affineWeb`: rendered
   against backdrop luminance per ring 0–3, 3–6, 6–12, 12–24, 24–48 CSS px, per direction). No
-  adopted clause reads any of them; B3 (the departure residual) is a stop, not a bound.
+  adopted clause reads any of them from the rendered side; B1 (adopted at W30 G4) bounds the
+  DOCUMENT's σ law against the native σ per bed at ±5 % (±0.685 % effective on the light document);
+  B3 (the departure residual) is a stop, not a bound.
 - **Evidence layout.** `results/matrix.json` one generation per profile (1,833 rows / 66,075,976 B
   at W30's close); `results/superseded/` by active-document hash with `index.json`;
   `split-generation.py plan|apply` runs after the read that supersedes; `freeze.py verify` reads
-  1,818 intact. The demo reads a build-time projection.
+  1,818 intact; `deserializeResultMatrix` hard-refuses any envelope whose `schemaVersion` differs
+  from the build's, so a schema bump would make the append impossible and additions are optional
+  fields at schema 5. The demo reads a build-time projection.
+- **Where the captures are.** `packages/calibration/web-captures/` on the main checkout holds the
+  six macOS 26.5 trees only (last written 2026-09-15). Two agent worktrees hold macOS 27 trees at
+  document hashes `96b36eedf1c4` and `272d1b0c3e10` — earlier generations, not the current
+  `880ab1e31450` family; G3b's worktree, which read the current generation, is gone. Captures are
+  gitignored and a worktree inherits none. So the chroma bed's web side does not exist on disk at
+  the current generation and G0 re-captures it as scratch (clause 1).
 - **Tests that go red at a new default leaf** (W30 Grounding, unchanged): `tuned-profiles`,
   `macos26-document-selection`, `macos27-profile-export`'s digest case, `window-activation.spec.ts`'s
-  eight hashes, `seal.ts`'s X1 loop, and now `w30-operator-identity.test.ts`. Under Decision Log
-  1 (a)'s rule none of them moves for a leaf at its identity; under a second supersession all of
-  them are re-recorded beside, as W30 G2 did.
+  eight hashes, `seal.ts`'s X1 loop, and `w30-operator-identity.test.ts`. Under the rule none of
+  them moves for a leaf at its identity; the four 27 digests move once when the rule itself lands,
+  in G3's one merge.
 
 ## Design (advisory unless marked)
 
-**The instrument (G0, clause 1).** A per-pixel OKLab read over the interior silhouette — for native,
-web and backdrop — producing: mean per-pixel chroma; standard deviation of `a` and of `b`; the
-chroma transmission ratio `mean chroma(interior) / mean chroma(backdrop)`; and the same ratio on
-the spread (`sd(a,b)` interior over backdrop), which is the "hues pass through" reading. Exported
-on the row's `material` axis beside the mean-based fields, never replacing them. Runs from the
-fixture and the capture the row names; where the current generation's captures are not on this
-machine's canonical tree, G0 says so and takes scratch captures for the cells it sheets under X6
-(that is a browser run, not a read: nothing is appended).
+**The instrument (G0, clause 1).** Per pixel over the interior silhouette, OKLab for native, web
+and backdrop; per cell: mean per-pixel chroma, sd(a), sd(b), and the luma sd the row already
+carries. The reading the bound is declared on is the **chroma-to-structure ratio**
+`sqrt(sd(a)² + sd(b)²) / sd(L_linear)` of the interior, web against native on the same cell: a
+body that blurs more but keeps its hues reads the same as one that blurs less, so the structure
+deficit this wave does not touch cancels rather than being absorbed. Tabled beside it: the raw
+ratio (interior per-pixel chroma over the raw backdrop's, the confounded one, so the reader sees
+the confound), and the blurred-reference ratio (the backdrop blurred at the material's own radius)
+where G0 can compute the radius from the document. Unit cases: a grey plate over a colour field
+reads 0 on every ratio; a luma-only darkening leaves the chroma-to-structure ratio unchanged; a
+blur alone leaves it unchanged while it moves the raw ratio. Exported on the row's `material` axis
+as optional fields at schema 5 beside the mean-based ones, never replacing them.
 
 **The mechanism (G0, clause 2).** Apple's dark body at the same luma keeps the backdrop's
-chromaticity; a plate composite cannot, because `(1 − α)·bg + α·neutral` scales chroma by
-`(1 − α)`. The shape the parent expects — advisory — is a **chroma retention** on the transmitted
-backdrop: after the solve fixes the body's luma, the body's OKLab `a`/`b` are restored toward the
-blurred backdrop's by a fraction `bodyChromaRetention ∈ [0, 1]` (inert 0: the plate as today; 1:
-the backdrop's chromaticity at the solved luma), applied before the tint composition so the author's
-tint still displaces the result per the composition contract, and before the recede's collapse so
-the inactive pose's chroma law is unchanged in shape. Two values across the light and dark documents
-(the renderer has no scheme input); the accessibility documents inherit the light value. The CSS
-tier: `saturate()` in the one `backdrop-filter` scales the backdrop's chroma before the `rgba()`
-layer covers it, which is the same algebra one layer earlier; whether one scalar projects the
-retention well enough is a measured residual, recorded, and the CSS tier is never bounded on it.
-G0 may name a different shape if the tables demand it; it may not name two.
+chromaticity; a plate composite scales chroma by `(1 − α)`. The shape the parent expects —
+advisory — is a **chroma retention** on the composited colour: after
+`colour = mix(backdrop, adapted, presentAlpha)`, restore the colour's chromaticity toward the
+blurred backdrop's by `bodyChromaRetention ∈ [0, 1]` (inert 0) **and renormalise so the linear
+luma is exactly what the solve produced** (OKLab L is not linear luma: holding L while moving
+toward a saturated chromaticity changes Y by −22 % at sRGB blue, −14 % at red, +10 % at green;
+`mid-chroma-solid` sits at ratio ≈ 0.82). Gamut: scale the chroma down until every channel is in
+[0, 1] with the luma held, never clip per channel. Gate: state the term as a function of
+`toneAdapt` — at high adaptation the reference renders a flat dark body and a retention with no
+gate would add chroma the reference does not have; G0 reads the photo cells' `toneAdapt` and says
+whether `(1 − toneAdapt)` or nothing is the gate. Before the tint composition, so the author's
+tint still displaces the result. The receded documents carry their own value, read on the
+inactive photo cells (the recede's worst cell is untinted and inactive; today it has no chroma law
+at all). Two values across the light and dark documents; the accessibility documents inherit the
+light value. G0 may name a different single mechanism if the tables demand it (a lower plate alpha
+with a darker neutral; a multiplicative darkening of the backdrop); it may not name two.
 
-**The digest rule (Decision Log 1 (a), for the user).** The fingerprint drops a leaf whose resolved
-value equals its declared inert identity. The identity table is a committed, tested constant beside
-`DEFAULT_MATERIAL_PROFILE` (leaf path → identity value → the law's proof); the unit case that a
-leaf is inert at its identity is the law's, as W30 wrote them. Consequences, all proven by G0
-before the ruling: the two macOS 26.5 documents' recorded digests become the live fingerprint
-again (`b2b570e4adcea8fb`, `874be66ea501621b`); `digest-supersessions.json` becomes history with
-its records kept; `material-document.ts` and `window-activation.spec.ts` return to the recorded
-digests; the four macOS 27 documents' digests move once (they carry non-identity values on the σ
-law and the scatter, which stay in the digest) and are re-sealed with history. The alternative is
-W30's shape again — a second supersession row per document, a second exemption spent — which the
-parent does not recommend: the class recurs every time an operator is added, and the rule closes it.
+**The CSS projection (G0 states, G3 executes or declines).** `saturate()` in the one
+`backdrop-filter` acts on the backdrop before the `rgba()` plate covers it, so the interior chroma
+it can reach is bounded by `(1 − α)·s`; the existing constants 1.8 / 1.4 are CSS-only and do not
+move (X3). G0 states the ceiling per scheme as a declared residual. G3 either derives one further
+term from the leaf with `tier-coherence` extended to cover it, or records that the CSS tier carries
+nothing of this operator, with the residual measured. `tier-coherence.test.ts` mirrors an
+enumerated list; G3 adds a case that the list is exhaustive over `MaterialProfile`'s keys, so that
+"tier-coherence green" says something about a new leaf.
 
-**The holdout rule (Decision Log 1 (b), for the user).** A frozen configuration is the pair
-(the shipped document bytes, the renderer's material-affecting sources); the holdout is read once
-per configuration; **no fitted constant may change between two holdout reads of the same document
-bytes**, so a renderer fix may be re-read once and a fit may not — which is what W30 did and what
-this rule writes down. The stricter alternative, once per wave, would have left 0.20.0's holdout
-evidence at the unfixed renderer.
+**The digest rule as executed (Decision Log 1 (a), ruled; the execution shape is the parent's).**
+The fingerprint drops a leaf whose resolved value equals its declared inert identity, and drops a
+**gate-group** — a gate leaf at its identity together with the leaves it makes unread — as one
+unit; a gated leaf's own value is never dropped on its own. The identity table is a committed,
+tested, **append-only** constant beside `DEFAULT_MATERIAL_PROFILE`: leaf path → identity value (or
+gate → gated leaves), the inert-law unit case that proves it (`w30-inert-laws.test.ts` per leaf;
+this wave's leaf gets its own), and the wave that added it. A leaf a document sets EXPLICITLY to
+its identity reads as absent (the digest is over what draws, and an explicit identity draws
+nothing) — G0 states this and its consequence for the light 27 document's declined scatter. The
+rule has a version, recorded in every document re-sealed under it (a `resolvedMaterialSha256Rule`
+field, or the history idiom), so a recorded digest names the function that produced it; the two
+26.5 documents are not edited — their recorded digests equal both definitions' output, which is the
+proof G0 commits. Consequences: the 26.5 documents' recorded digests are the live fingerprint again;
+`digest-supersessions.json` becomes history with its records kept and the pins reading the
+documents' own fields; `material-document.ts` and `window-activation.spec.ts` return to the
+recorded digests; the four 27 documents' digests move once, re-sealed with history, in G3's merge.
+What the rule does not catch, named for the record: a mis-declared identity (mitigated by the
+unit case the table requires); a default that moves TO a value some document explicitly carried
+(the document's digest then drops the leaf — G0 says whether that is a hole).
 
-**The exterior clause (G1, advisory).** Two candidates, both from fields every row already
-carries: (i) the fitted σ's error, `|falloffSigmaWeb − falloffSigmaNative| / falloffSigmaNative`
-per cell, on cells whose fit converged (`falloffSigmaResidual` under the threshold G0 of W30
-named), by span class; (ii) the departure profile's shape — the affine rings' `interceptC` and
-`slopeA` against native per ring, which reads the exterior's level per distance band and is not
-dominated by the interior. G1 tables both on the current generation, says which one the seven
-missed rows move under, and declares the clause the next shadow wave adopts.
+**The holdout rule as enforced (Decision Log 1 (b), ruled).** The configuration is recorded in the
+read's evidence as the four 27 document file hashes plus a SHA-256 over the enumerated source list
+in clause 6, by a script G3 commits; a second holdout read at identical document hashes is refused
+by that script unless the source hash moved and a non-fit reason is named on the command line and
+recorded. A fit that moves a value from a document into a shader default is a document change AND
+a source change and is caught as the former.
+
+**The exterior clause (G1, advisory).** Two candidates from fields every row carries: (i) the
+fitted σ's error, `|falloffSigmaWeb − falloffSigmaNative| / falloffSigmaNative` per cell on
+converged fits, by span class — tabled BESIDE B1's per-bed windows on the same cells, because B1
+bounds the same quantity from the document's side and is green where (i) is not; what a
+divergence means (the document's law right and the rendered σ wrong, or the instrument reading
+something the law does not model) is stated before the clause is declared; (ii) the departure
+profile's shape — the affine rings' `interceptC` and `slopeA` against native per ring, not
+dominated by the interior. G1 says which one the seven missed rows move under and which the eye
+agrees with (§5.160 §6), and declares the clause the next shadow wave adopts.
 
 ## Children
 
 ### G0: The chromatic cut, the instrument and the declarations — no material change
 
 *Opens on main, parallel with G1 and G2. Read-only on the material; writes an instrument, evidence,
-tables, tests and declarations.*
+tables, tests and declarations. Does not touch `cli/gates.ts` or `test/compare-gates.test.ts` (G2's).*
 
-- (a) The per-pixel chroma instrument in `packages/calibration/src/metrics/` with unit cases on
-  synthetic interiors (a grey plate over a colour field reads ratio 0; a pass-through reads 1);
-  exported on the row beside the mean-based fields; the report/schema readers updated; the
-  matrix's schema version and its refusal handled as the project does (no rewrite of any row: the
-  new fields are absent on old rows and the readers say so).
-- (b) The cut: the statistic over every chroma-carrying cell of the current generation from
-  committed fixtures and the captures the ledger names (or scratch captures under X6, disclosed),
-  tabled per backdrop class per scheme per tier per span, active and inactive, both scales; the
-  26.5 rows beside; the 26.5→27 native delta on the same statistic. State plainly whether the
-  light scheme has the residual too (the eye said the light photo cells beside it read grey).
-- (c) The mechanism, from the shader: where chroma is lost, which documents exercise which path,
-  the one leaf shape with its inert identity, the CSS projection and its expected residual, what
-  the tinted cells' own chroma law does under it.
-- (d) The digest-rule proof: the inert-identity table for every leaf added since the 26.5 seal
-  (W30's eight) and for the leaf this wave names; a script that fingerprints each 26.5 document
-  with identity-valued leaves dropped and shows `b2b570e4adcea8fb` / `874be66ea501621b`; the
-  four 27 documents' digests under the rule, beside their current ones. No test or document
-  changes: the proof is evidence for the ruling.
-- (e) The declarations, committed last: tolerances with statistic and fate; the four rows claimed
-  with lever and tier; the recede's worst cell reported; the stops (interior level per the adopted
-  tables; the departure residual at B3's 0.00035; the shadow's and scatter's rows expected
-  unmoved); the 27 tables cited from `adopted-thresholds.test.ts`, never transcribed; no floor.
-- (f) Sheets: native | WebGPU | CSS | ×8 difference for `photo__rrect-md__rest`,
+- (a) The per-pixel chroma instrument in `packages/calibration/src/metrics/` with the unit cases
+  Design names; the three ratios; exported on the row beside the mean-based fields as optional
+  schema-5 additions (no bump; `report.ts`'s `drawnAreaWeb` precedent); `interiorChroma` /
+  `backdropChroma` exported too.
+- (b) The scratch re-capture of the chroma bed's web side at the shipped documents under X6
+  (`--out-matrix`, `VITREA_WEB_CAPTURES`; nothing appended; disclosed), with a reproduction check
+  per re-captured cell (at least `interiorMeanWeb` and `ssimMean` against the committed row, within
+  the row's `repeatNoise` or the bar G0 states); then the cut: the statistic over every
+  chroma-carrying cell — `photo`, `mid-chroma-solid`, the tinted cells; both schemes, tiers, scales;
+  active and inactive — tabled per backdrop class per scheme per tier per span with the conditioning
+  state of each cell, the 26.5 rows beside (from the canonical 26.5 trees), and the 26.5→27 native
+  delta on the same statistic from the fixture pairs, with the mean-OKLab instrument's reading
+  beside so the ledger says why the per-pixel one was needed. Whether the light scheme carries the
+  residual; whether Apple moved it or vitrea never had it.
+- (c) The four claimed rows decomposed: `oklabDeltaEP95` on the four dark `photo__rrect-lg__rest`
+  rows split into its ΔL and Δ(a,b) contributions over the whole capture (interior, rim,
+  exterior), and the headroom the chroma lever alone can reach stated per row.
+- (d) The mechanism, from the shader, as clause 2 requires: where chroma is lost; the two collapses
+  told apart; the leaf shape with its identity, its luma-preservation rule in linear luma, its
+  gamut behaviour, its `toneAdapt` gate or the reason none, its place in the order; the receded
+  documents' own value; the tint path under it; the CSS ceiling per scheme as a declared residual.
+- (e) The digest-rule proof: the identity table with gate-groups for the eight W30 leaves and this
+  wave's leaf; a script that fingerprints each 26.5 document under the rule and prints
+  `b2b570e4adcea8fb` / `874be66ea501621b`; the four 27 documents' digests under the rule beside
+  their current ones; a run with a default moved off its identity in memory showing the 26.5
+  digests move; the holes named (Design). No test or document changes.
+- (f) The declarations, committed last: the tolerances with statistic, conditioning and fate
+  (one-wave unless the identifiability argument is made); the level stop as a number per cell;
+  the four rows each CLAIMED or "reachable if" on (c)'s headroom, with the pre-holdout judgement
+  named; the recede's worst cell reported; the expected-unmoved rows (shadow, scatter, tint); B3's
+  departure stop 0.00035 on the WebGPU tier; the 27 tables cited, never transcribed; no floor.
+- (g) Sheets: native | WebGPU | CSS | ×8 difference for `photo__rrect-md__rest`,
   `photo__rrect-lg__rest` and `mid-chroma-solid__capsule-button__rest` in both schemes at 1x, from
-  the current generation, with what the eye sees written down before any fit exists.
+  the scratch captures (disclosed), with `eye.md` written before any fit exists — hue, not level.
 - Ledger: **§5.161**. Evidence: `results/2026-09-21-w31-g0-chroma-cut/`.
 
 ### G1: The exterior-width instrument — parallel with G0
 
 - The two candidate statistics computed over the current generation for every row with a shadow
-  axis, from committed fields only; per cell, per span class, per scheme, per tier, per scale; the
-  seven missed rows' readings under each; the non-converged fits excluded by the rule W30 G0 named
-  (the 74.3 and 157.7 class) and counted. A reader script under the evidence dir, a unit case on a
-  scratch matrix, and the clause declared — the statistic, the bound it would carry and the bed it
-  is read on — as the **candidate adopted row for the wave that next moves the shadow**, recorded as
-  a one-wave reading here. Nothing adopted, nothing fitted, no capture.
+  axis, from committed fields only; per cell, span class, scheme, tier, scale; candidate (i) beside
+  B1's per-bed windows on the same cells with what a divergence means; the seven missed rows'
+  readings under each; the non-converged fits excluded by W30 G0's rule and counted; the G3
+  generation against its superseded predecessor on both statistics (which one the lever moved). A
+  reader script under the evidence dir, a unit case on a scratch matrix, and the clause declared —
+  statistic, bound, bed, row shape — as the **candidate adopted row for the wave that next moves
+  the shadow**, recorded as a one-wave reading here. Nothing adopted, nothing fitted, no capture.
 - Ledger: **§5.162**. Evidence: `results/2026-09-21-w31-g1-exterior-instrument/`.
 
 ### G2: The WGSL range class and the refusal's wording — parallel with G0 and G1
 
+*Sole owner of `packages/calibration/cli/gates.ts` and `test/compare-gates.test.ts` in this wave.*
+
 - (a) A unit case over `packages/renderer-webgpu/src/wgsl/*.ts` that finds every `exp`, `exp2`,
-  `pow`, `tanh`, `log`, `sinh`/`cosh` call and requires its argument to be clamped in the same
-  expression or to be listed in a committed range-proof table (call site → bound → why), which the
-  case reads; every current call site classified, with the proofs written for the ones that need
-  none.
+  `pow`, `tanh`, `sinh`, `cosh`, `log`, `log2` call (sixteen sites today: optics 11, highlight 2,
+  prelude 2, backdrop 1) and requires each argument to be **clamped to a range on which the result
+  is finite in f32** — a clamp to the function's saturation point, as G3b's ±20 was, not merely a
+  clamp — with a `pow` base required non-negative, or to appear in a committed range-proof table
+  (call site → bound → the leaf and scene quantities it depends on → why the bound holds over the
+  bed and over any value a fit could produce). Every site classified; a site that can be neither
+  proven nor clamped as an identity STOPS the child on that site.
 - (b) `@gpu` sweeps in the shape of `w30-thin-sigma-coverage.spec.ts`, each over BOTH halves of its
-  ratio — the material's axis and the scene's — for the lens depth, the scatter widths and the tone
-  response's knots, asserting an invariant that does not depend on the swept value (coverage
-  inside the silhouette; no NaN in the readback).
-- (c) The readback guard: `renderScene`'s readback refuses a raster whose alpha has a hole inside
-  a declared silhouette, with a case that a seeded NaN trips it.
-- (d) `matrixSchemaRefusal`'s message re-read against what trips it today and rewritten; the
-  consumer-table rule ("unchanged, checked" says what the file CLAIMS) recorded where such tables
-  are written; the W30 G3b `glass-over-glass` residual (four dark cells, ≤ 8·10⁻⁴ px) re-read under
-  (a)'s range proof and closed or left open with the reason.
+  ratio — the material's axis over the range a fit could reach and the scene's axis at the shipped
+  values — for the lens depth, the scatter widths, the tone response's knots and the rim's exponent,
+  asserting an invariant that does not depend on the swept value: silhouette coverage (IoU ≥ 0.99)
+  and no NaN in the readback.
+- (c) The readback guard: refuse a raster with an **enclosed** region of zero alpha inside a
+  declared silhouette, stood down on the layer path (translucent interior by design) and at
+  presence 0 (`dom_material_alpha` is legitimately 0); a case that a seeded NaN trips it and a case
+  that a legitimately translucent interior does not; proof it never fires on the 34 goldens or the
+  coverage cases; and a sentence on what (c) adds over (b) — (b) is the shape that caught the W30
+  strip; (c) is the cheap standing guard for a scene no sweep named.
+- (d) `matrixSchemaRefusal`'s message rewritten to what trips it today, its pinned cases updated;
+  the consumer-table rule ("unchanged, checked" says what the file CLAIMS) recorded where such
+  tables are written; the W30 G3b `glass-over-glass` residual (four dark cells, ≤ 8·10⁻⁴ px)
+  re-read under (a)'s range proof for the outer-shadow falloff and closed or left open with the
+  reason.
 - Goldens 34/34 byte-identical; `test:gpu` green; no material change; both tracker entries
   amended beside.
 - Ledger: **§5.163**. Evidence: `results/2026-09-21-w31-g2-range-class/`.
 
-### G3: The leaf and the fit — opens after G0's declarations, G1 and G2 merged, and Decision Log 1 (a) and (b) ruled
+### G3: The leaf, the rule, the fit, the seal and the read — one merge; opens after G0, G1 and G2 are merged and reviewed
 
-- (a) The leaf in one commit at its inert identity: `MaterialProfile`, `MaterialProfilePatch`,
-  `withMaterialOverrides`, the allowlists, the CSS mirror, the uniform and the shader with the
-  composite bit-identical at the identity; under the digest rule if ruled (the identity table, the
-  fingerprint's rule, the pins returning to the recorded digests, the four 27 documents re-sealed
-  with history) or under a second supersession row if that is the ruling; the identity test's leaf
-  list extended; the CSS declaration-identity case; the inert-law unit case; a `test:gpu` case that
-  the on state draws differently from off. Proofs as W30 G2's, each output committed.
+- (a) The leaf at its inert identity and the digest rule in one commit: `MaterialProfile`,
+  `MaterialProfilePatch`, `withMaterialOverrides`, the allowlists, the CSS mirror (or its declined
+  record), the uniform and the shader with the composite bit-identical at the identity; the
+  identity table with gate-groups; `fingerprint()` under the rule in `seal.ts` and both test
+  copies, the rule's version recorded; the pins returning to the recorded 26.5 digests
+  (`digest-supersessions.json` kept as history, its reader retired or made historical);
+  `material-document.ts`, `window-activation.spec.ts` and `macos27-profile.ts` moved to what the
+  rule computes; the identity test's leaf list extended; the CSS declaration-identity case; the
+  inert-law unit case for the new leaf; a `test:gpu` case that the on state draws differently from
+  off; `tier-coherence`'s mirror list extended with the exhaustiveness case. Proofs as W30 G2's,
+  each output committed: freeze 1,818; goldens 34/34; the 1,107 pin; the 26.5 digests reproduced.
 - (b) The fit per scheme on calibration + the granted probe anchor through the reader with the
-  holdout dropped, checked on validation; the interior-level stop and the departure stop held; the
-  receded documents inheriting; the tinted cells read before and after; the 27 documents re-sealed;
-  `tier-coherence` green; the CSS projection's residual measured and recorded; `PREDICATE_EXCLUDES`
-  and every count test moved to what the machine says; a changeset (a `@vitreajs/vitrea-web`
-  minor at least); sheets at the fit by eye.
+  holdout dropped, checked on validation; the level stop and the departure stop held on scratch;
+  the receded documents' own value read on the inactive cells; the tinted cells read before and
+  after; the four 27 documents re-sealed with history under the rule; `PREDICATE_EXCLUDES` and
+  every count test moved to what the machine says **only in the commit that carries the read**; a
+  changeset (a `@vitreajs/vitrea-web` minor at least); sheets at the fit by eye.
+- (c) The read, in the same gate: RT and IC read 0, `NSGlassTintAmount` 0.5, one capture process,
+  idle ≥ 60 s; the configuration script (document hashes + source hash) run and its output in the
+  ledger before the read; the canonical run over six profiles × two tiers, calibration + validation
+  + the ladder appended beside the 0.20.0 rows; holdout **once**; the append-check; the split; the
+  append-check again; freeze 1,818; the 27 gated-cell count back at 230 (or at what the machine
+  says, with the difference explained cell by cell); the capture tree kept for the parent to copy
+  to the canonical `web-captures/` at merge.
+- (d) The verdict per profile per tier per clause; the claimed, expected-unmoved and reported rows
+  each named with before and after; misses recorded; Decision Log entries drafted where a ruling
+  is needed; the adoption question put to the parent with G0's identifiability argument.
 - Ledger: **§5.164**. Evidence: `results/2026-09-21-w31-g3-chroma-fit/`.
 
-### G4: The sealed read, the verdict, and the landing — 0.21.0 prepared
+### G4: The landing — 0.21.0 prepared
 
-- (a) RT and IC read 0, `NSGlassTintAmount` 0.5, one capture process, idle ≥ 60 s; the sealed
-  hashes in the ledger before the read; the canonical run over six profiles × two tiers,
-  calibration + validation + ladder appended beside the 0.20.0 rows; holdout **once** under the
-  ruled definition; the append-check; the split; the append-check again; freeze 1,818.
-- (b) The verdict per profile per tier per clause; the claimed, expected-unmoved and reported rows
-  each named with before and after; adoptions carried in; misses recorded; Decision Log entries
-  drafted where a ruling is needed.
-- (c) The landing: sheets, the demo's figures, the coverage matrix, `CLAUDE.md`, READMEs,
-  CHANGELOG; the fixed group versioned 0.21.0, dry runs green, unpublished.
+- Adoptions carried in on the parent's decision; sheets native | WebGPU | CSS | difference for the
+  photo cells and `mid-chroma-solid` in both schemes at both scales, looked at; the demo's figures;
+  the coverage matrix; `CLAUDE.md`, READMEs, CHANGELOG; the tone stage's two records closed on
+  Decision Log 1 (c); the fixed group versioned 0.21.0, dry runs green, unpublished; the chain.
 - Ledger: **§5.165**. Evidence: `results/2026-09-21-w31-g4-landing/`.
 
 ## Cross-Child Contracts
 
 - **X1 — the freeze, intact.** No macOS 26.5-keyed path, row, bound, floor or document changes;
   `freeze.py verify` reports 1,818 intact at every merge; the 34 goldens byte-identical through G1,
-  G2 and G3's leaf commit; the 1,107 gated-row pin holds. No exemption is spent without the ruling
-  in Decision Log 1 (a), and if the rule is chosen no exemption is spent at all.
+  G2 and G3's leaf commit; the 1,107 gated-row pin holds. No exemption is spent: the digest rule
+  makes the leaf's addition digest-neutral, and the 26.5 documents' recorded digests are reproduced
+  by proof before the rule lands.
 - **X2 — the cut precedes the operator.** G0 names the leaf shape and its identity from the
   instrument's tables before G3 writes a leaf; G3 adds no leaf G0 did not name.
 - **X3 — the operator changes nothing outside the body's chroma path.** The σ law, the scatter, the
-  tone solve's luma, the anchors, the tint's chroma law and the recede's collapse do not move; a fit
-  that moves a shadow, structure or tint row is a warning, not a result.
-- **X4 — bounds before reads; holdout once under Decision Log 1 (b); a miss is recorded.**
+  tone solve's luma, the anchors, the tint's chroma law, the recede's seed collapse and the CSS
+  tier's existing `saturate()` constants do not move; a fit that moves a shadow, structure or tint
+  row is a warning, not a result.
+- **X4 — bounds before reads; the level stop is a number; holdout once under Decision Log 1 (b)
+  as enforced by artifact; a miss is recorded.**
 - **X5 — no native capture; the granted bundle is never rebuilt and nothing is added under its
   identifier.** Every fixture is on disk from W29.
 - **X6 — RT and IC 0, the slider 0.5, one capture process, ≥ 60 s idle** before every browser run,
   scratch captures included; every run recorded.
 - **X7 — the evidence layout changes by the one rule**: the split after the read that supersedes;
-  every superseded row one `git show` away; the freeze's row hashes verify at every merge.
+  every superseded row one `git show` away; the freeze's row hashes verify at every merge; no
+  schema bump, additions optional at schema 5.
 - **X8 — padding untouched.** The chroma term reaches no pad; the advisory constant's retirement
   stays undecided.
 - **X9 — no GPT-rung agents**; children and reviews are opus `general-purpose` (read-only for
   reviews); ledger sections assigned above; merges `--no-ff -F <file>` with the freeze verified at
   each; no attribution trailers, no session URLs; committed evidence never rewritten.
+- **X10 — the 27 bed never empties between merges.** A macOS 27 document's bytes change only in a
+  merge that also carries rows read at the new bytes (W30 Decision Log 4 (b)); the parent pins the
+  27 gated-cell count (230 cells / 726 rows, or what the machine says after G3 with the difference
+  explained) at every merge, and `MATRIX_CELLS` / `PREDICATE_EXCLUDES` move only in the commit that
+  carries the read.
+- **X11 — file ownership among the parallel children.** G2 owns `cli/gates.ts` and
+  `test/compare-gates.test.ts`; G0 owns `src/metrics/`, `cli/measure.ts` and `src/report.ts`'s
+  material axis; G1 owns nothing G0 touches except `report.ts`'s shadow axis if it adds a field
+  (say so). Every child appends its ledger section at the tail and its Tracking Map row; the parent
+  merges **G1 → G2 → G0** and resolves the tail by keeping every section in numeric order.
 
 ## Ordering & Dependency Map
 
-Charter → adversarial review → fold → **G0 ∥ G1 ∥ G2** → each merged and reviewed → the user rules
-Decision Log 1 (a), (b) (and (c) whenever) → **G3** → **G4** → the user's eye on the sheets →
-`pnpm release` (the user) → tag. After this wave, in the order W30's Deferred kept: the analysis
-pass (W30 Deferred 2, the user's to charter); the shadow's next wave carrying G1's clause; the
-identifying sitting on the 27 bed; the highlight's angular reader; the decoupled-contrast flag and
-its read; the motion-metrics harness.
+Charter → adversarial review → fold (done) → **G0 ∥ G1 ∥ G2** → merged in the order G1, G2, G0,
+each reviewed → **G3** (leaf + rule + fit + seal + read, one merge, reviewed) → the parent's
+adoption decision → **G4** → the user's eye on the sheets → `pnpm release` (the user) → tag. After
+this wave, in the order W30's Deferred kept: the analysis pass (W30 Deferred 2, the user's to
+charter); the shadow's next wave carrying G1's clause; the identifying sitting on the 27 bed; the
+highlight's angular reader; the decoupled-contrast flag and its read; the motion-metrics harness.
 
 ## Risks & Mitigations
 
-- **The chroma term moves the level.** The retention acts on OKLab `a`/`b` at the solved luma, and
-  the interior-level rows are declared stops; G3 reads them before and after on scratch.
-- **The bed is thin: five gated untinted photo cells per profile.** The probe anchor is granted to
-  the fit; the tolerance is read on the gated `photo` cells; the tinted cells are read as a check,
-  not fitted on; a fit that only matches `mid-chroma-solid` shows on the photo rows.
+- **The chroma term moves the level.** The retention is luma-preserving in linear luma by
+  construction and the level stop is a declared number per cell, read before and after on scratch.
+- **The instrument rewards absorbing the structure deficit.** The bound is on the
+  chroma-to-structure ratio, in which blur cancels; the raw ratio is tabled beside so a fit that
+  moves only the raw one is visible; the structure rows are expected unmoved (X3).
+- **The bed is thin: one well-conditioned untinted dark photo cell per profile.** The probe anchor
+  is granted; G0 reports conditioning and argues the mask; the tolerance's fate is a one-wave
+  reading unless identifiability is argued; the tinted cells are read as a check, not fitted on.
 - **The tinted cells' chroma law absorbs it.** Their rows are declared expected unmoved; the
-  retention is applied before the tint composition, and G0 says what the tint path does under it.
-- **The CSS projection is wrong in one scheme.** Recorded, never bounded; `tier-coherence` pins the
-  projection's derivation, not its residual.
+  retention is applied before the tint composition.
+- **The CSS projection is wrong in one scheme, or worthless.** The ceiling is declared before the
+  fit; the tier may carry nothing, recorded; `tier-coherence` is made exhaustive so green means
+  something.
 - **The light scheme has no residual and the leaf is fitted to zero there.** A declined value is a
-  measurement, recorded as W30 recorded the light scatter.
-- **The digest rule hides a leaf whose identity is mis-declared.** The identity table is tested by
-  the law's own inert-identity unit case; a leaf enters the table only with that case.
-- **The rulings arrive late.** G0, G1 and G2 need none; G3 waits; the wave loses no time before it.
+  measurement, recorded as W30 recorded the light scatter; an explicit identity reads as absent in
+  the digest.
+- **The digest rule hides a leaf whose identity is mis-declared, or a gated leaf on its own.** The
+  identity table requires the inert-law unit case per entry and drops gate-groups only as a unit;
+  the table is append-only.
+- **The re-seal empties the 27 bed.** X10: seal and read in one merge, the count pinned.
+- **The re-capture reads a different renderer day.** The reproduction check per re-captured cell
+  against the committed row, within the repeat noise, before any new statistic is read.
 - **A read appends to a 66 MB file.** X7, once.
 
 ## Deferred / Out of Scope
 
 The analysis pass's scale statistic (W30 Deferred 2); the shadow's next fit under G1's clause (the
-seven rows are not claimed through the shadow here; the four dark ones are claimed through the
-chroma); the highlight's angular reader; the decoupled increased-contrast read and `compare`'s
-flag; the identifying sitting; the motion-metrics harness; the CSS tier over pure black; inactive
-calibration cells above span 96; `samplingPaddingFor`'s advisory constant; the Reduced Transparency
-opacity policy and the impulse specular point; the slider's ends as evidence classes; a shadow
-section for `/laws/` (W30 Deferred 10); the thin regime's instrument (W30 Deferred 4); the light
-bed's 16 px structure (W30 Deferred 3).
+seven rows are not claimed through the shadow here; the four dark ones are claimed or "reachable
+if" through the chroma on G0's decomposition); the highlight's angular reader; the decoupled
+increased-contrast read and `compare`'s flag; the identifying sitting; the motion-metrics harness;
+the CSS tier over pure black; inactive calibration cells above span 96; `samplingPaddingFor`'s
+advisory constant; the Reduced Transparency opacity policy and the impulse specular point; the
+slider's ends as evidence classes; a shadow section for `/laws/` (W30 Deferred 10); the thin
+regime's instrument (W30 Deferred 4); the light bed's 16 px structure (W30 Deferred 3); the CSS
+tier's `saturate()` constants as fitted rather than authored values.
 
 ## Tracking Map
 
@@ -418,8 +596,16 @@ as re-ranged**, with the 40 px plate's band recorded in the tracker; W29 Deferre
 tracker's "designed around a convergence macOS 27 does not have" entry close on this ruling, which
 G4 records beside them.
 
-*The draft as put to the user:*
+*Execution notes beside the ruling, 2026-09-21 (the parent, from the adversarial review; the
+ruling is unchanged, its enforcement is made mechanical):* (a) is executed over **gate-groups**,
+because three of W30's eight leaves are inert only through a gate (Grounding); the identity table
+is append-only and each entry carries its inert-law unit case; the rule is versioned and the
+version recorded in every document re-sealed under it; the 26.5 documents are not edited. (b) is
+enforced by artifact: the four document file hashes plus a hash over the enumerated source list in
+clause 6, recorded by a committed script in every read's evidence, which refuses a second read at
+identical document hashes unless the source hash moved and a non-fit reason is named.
 
+*The draft as put to the user:*
 
 **(a) The digest rule — the parent recommends the rule.** Either (i) **the fingerprint drops a leaf
 whose resolved value equals its declared inert identity**, with the identity table a tested
@@ -449,7 +635,20 @@ band recorded, unless the user's taste says the reversal makes the section say t
 
 ## Surprises & Discoveries
 
-*(none yet)*
+- **The current generation's web captures exist nowhere on disk** (2026-09-21, the parent, on the
+  review's finding). The canonical `web-captures/` holds the six macOS 26.5 trees; the two agent
+  worktrees that still hold macOS 27 trees are at earlier document hashes (`96b36eedf1c4`,
+  `272d1b0c3e10`), and G3b's worktree — which read the `880ab1e31450` generation the matrix now
+  carries — was removed after merge. Every W30 read ran in a worktree and copied nothing to the
+  canonical tree. `CLAUDE.md`'s "the canonical `web-captures/` beside it is gitignored — it lives on
+  the capture machine and is what the sheets and the demo fixture are copied from" has been false
+  since W29. Consequence here: the chroma cut re-captures its bed as scratch with a reproduction
+  check (clause 1); from G3 on, the parent copies the read's tree to the canonical path at merge
+  (clause 6). Tracker entry at G4.
+- **The CSS tier already saturates.** `optics.ts`'s `backdrop-filter` carries `saturate()` at
+  1.8 / 1.4, CSS-only, with no renderer counterpart and no pin; a chroma operator on the fidelity
+  target now has an authored constant beside it on the derived tier that the charter's v1 called
+  "available". Recorded in Grounding and X3.
 
 ## Outcomes & Retrospective
 
@@ -457,6 +656,23 @@ band recorded, unless the user's taste says the reversal makes the section say t
 
 ## Revision Notes
 
+- 2026-09-21 (the parent): **v2, the adversarial review folded** (opus, read-only; one P0, seven
+  P1, seven P2, all folded; nothing dismissed). What moved: the re-seal and the read are one gate
+  (G3) under a new contract X10 pinning the 27 gated-cell count — the P0: a re-seal empties 230
+  gated cells out of every bound until rows at the new bytes exist, which W30 Decision Log 4 (b)
+  had already ruled and v1 had not carried. The mechanism is luma-preserving in LINEAR luma with
+  gamut and `toneAdapt` behaviour stated and the two collapses told apart; the receded documents
+  carry their own value. The instrument is the chroma-to-structure ratio, in which blur cancels,
+  stated web-against-native and never against 1, with the raw ratio beside; the level stop is a
+  declared number per cell, since no adopted row gates the material axis; the four claimed rows
+  are decomposed into ΔL and Δ(a,b) before any claim; the chroma tolerance's fate is a one-wave
+  reading unless identifiability is argued. The web side is re-captured as scratch with a
+  reproduction check (Surprises). The CSS tier's existing `saturate()` is named, frozen under X3,
+  and the projection's ceiling is a declared residual; `tier-coherence` gains an exhaustiveness
+  case. The digest rule is executed over gate-groups with an append-only, versioned table; the
+  holdout rule is enforced by artifact. G1 tables its candidate (i) beside B1. G2's clamp is to the
+  finite range, its hole is an enclosed region with two stand-downs. File ownership and the merge
+  order are X11. The dark bed's conditioning is in Grounding.
 - 2026-09-21 (the parent): **Decision Log 1 ruled by the user** — "all according to you
   recommendation" — before the adversarial review returned: the digest rule by value, the holdout
   rule as W30 practised it, the tone stage kept. G3's precondition is now the review's fold and
