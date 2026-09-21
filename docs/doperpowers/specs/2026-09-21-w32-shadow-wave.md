@@ -503,12 +503,12 @@ hairline (a rim term and not a shadow one); `standard-row-identity-matrix.txt`'s
 | --- | --- |
 | G0 | **MERGED-READY 2026-09-21** — the cut, the clearance table, the direction tables, the model read, the three forms and the declarations; claims §5.166; six commits on `w32-g0-exterior-cut` — **corrected beside, 2026-09-21 (review closure; claims §5.166 §10, finding N15): SEVEN landed**, `85ee970c` through `8dc93e96`, the seventh being the one that removed a suite count §5.165 §9 does not record; no capture, no material change. **Review closure ON THE BRANCH, before merge, 2026-09-21** (§5.166 §10): `main` merged in (§5.167 beside §5.166, both Tracking Map rows, both Revision Notes), then three blocking findings, one blocking for G1 and thirteen non-blocking, all closed. **No measurement is withdrawn and no statistic moves**; every correction is beside the text it corrects and dated. The recede's population is **121 / 153**, not 100 of 100, and the `0-3` range 0.01633–0.12821; the span-128 outset is **two-and-two**, with all twenty bed × span rows printed and 1x dark excluding 3.10 at span 160 as well; the encoded form's 3e−06 is scoped to spans 32/44 and 96 on two beds, with the twenty moves printed. The thin stop gains the **nine accessibility cells it always named**, which hold the population's worst `|Δa|` — **0.04012** over 103 cells on six beds. **The recede has NEVER been a shadow on this bed**: 235 of 235 frozen macOS 26.5 rows flat, and off the fixture pixels macOS 27's whole receded exterior is ONE device pixel, a dark stroke rather than a transmission, where 26.5's is none. And **Apple's active reach on macOS 27 depends on the BACKDROP outside the thin regime** — 16.0–18.5 CSS px at span 96 over twelve backdrops, 25.0–28.8 at 128 — which G1 carries as a per-backdrop residual after the fit, with the material-or-instrument question a tracker entry. Four scripts changed and re-ran into their own names; three evidence files added; `freeze.py verify` **1,818** at open and close; `pnpm -r lint` exit 0; `@vitrea/calibration` **618 over 40 files, 0 failed** |
 | G0b | **CLOSED 2026-09-21.** Three tools, no material, no capture, no number. **The holdout configuration ledger** moved to `results/holdout-configuration/`, the one location every canonical read records to, with its log **seeded byte for byte** from W31 G3's (G3's copies left byte-identical where they are) and the seed asserted field by field against them. The enumerated source list was CHECKED and deliberately **not widened**: the local import graph out of its five entry points reaches **50 further files**, around twenty of which move pixels at unmoved document bytes, and `renderer-bridge.ts` — asked about by name — holds no material constant but does decide which material reaches the renderer, so it is one of the fifty rather than a special case; widening would make every logged `sourceSha256` incomparable and fire "the sources moved" at every later read forever, so `sourceListSha256` is recorded instead and the ruling is a tracker entry. **The capture-tree checker** (`scripts/check-capture-tree.ts`, `pnpm --filter @vitrea/calibration run check-capture-tree`) compares every capture's document hashes — receded included — against the row beside it: on today's canonical tree **1,840 captures, 1,833 match, 0 mismatch, 0 superseded, 0 unreadable, 7 with no row, 0 rows with no capture, exit 0**, and one line and exit 0 where the tree is absent. **The macOS 26.5 tree reads as MATCHING**, which is the shape of W31's finding rather than a contradiction of it: the frozen documents have not moved, so that divergence is a re-capture at UNMOVED bytes and no string compare can see it — the generation half closes and the `--skip-capture` re-derivation is the narrowed tracker entry. A frozen mismatch exits **2** and a live one **1**, and `--superseded-ok` demotes only a generation the split has RECORDED. **`split-generation.py`'s docstring** made true about what it enforces (both flags required; the two being different is not checked), with the two committed entries annotated by `$comment` beside — two insertions, nothing recorded rewritten, `readme` a no-op and `plan` 1,833/1,833/0. Thirteen vitest cases; `freeze.py verify` **1,818** at open and close; **2,675 unit tests over 185 files, 0 failed**. Ledger **§5.167**; evidence `packages/calibration/results/2026-09-21-w32-g0b-evidence-tools/`. **Review closure merged 2026-09-21** (§5.167 §8): no blocking finding, seven non-blocking, all seven closed — five by a tool change, two by a record. The holdout refusal now compares against **every** record at those document hashes rather than the last, so A → B → A is refused and a named reason cannot re-open a configuration already read (the defect was inherited verbatim from W31 G3's copy, which stays byte-identical). The checker gains a **`misfiled`** class over the `deviceScaleFactor` / `colorScheme` / `accessibility` clauses, because a document is shared across profiles and a 1x capture in the 2x directory read as a MATCH; **exit 2 narrows** to a generation difference under a frozen key alone, so an unreadable or misfiled capture exits 1 whatever key it sits under; the `--superseded-ok` verdict line names its demotion; and a tree path that is a file or a dangling symlink inside one is reported with its path rather than thrown. The checker is **not** wired into `pnpm -r test` and that is a decision recorded beside §3 — the parent runs it at every merge, G2's `chain.sh` is where it becomes a step of the chain, and the tracker entry stays open on the "automatic" half. `index.json`'s two `$comment` annotations say "above" of a field below them and are noted-not-fixed (committed evidence); `CLAUDE.md`'s stale sentence is **G2's**, and what the replacement must keep is that a generation check is not a capture check. Five new cases, **2,680 over 185 files, 0 failed**; the canonical tree re-run **unchanged at 1,840 / 1,833 / 0 / 0 / 0 / 7 / 0, exit 0** with misfiled **0**; `freeze.py verify` **1,818** at open and close |
-| G1 | not opened |
+| G1 | OPEN — dispatched after G0's merge under Decision Log 1 (c) and Decision Log 2 |
 | G2 | not opened |
 
 ## Decision Log
 
-### Decision Log 1 — 2026-09-21: (a) and (b) RULED by the parent under the standing "rest on your judgement", (c) to be ruled at G0's close, (d) the user's
+### Decision Log 1 — 2026-09-21: (a), (b) and (c) RULED by the parent under the standing "rest on your judgement" ((c) at G0's close), (d) the user's
 
 **(a) B1 and the joint fit — RULED: the constrained fit ships; the free fit is a measurement.**
 The σ law's leaves may move only inside B1's joint windows at the shipped bytes, `sigmaSpanRefPx`
@@ -530,13 +530,65 @@ beside. The v1 draft granted "the ladder's inactive rungs at 128 and 160", which
 did not exist at 128 in the matrix and were three cells at 160 (Surprises); the fixtures did, and
 this is the read-set decision that uses them.
 
-**(c) C1's adopted form — to be RULED by the parent at G0's close**, among `T` as declared,
+**(c) C1's adopted form — RULED by the parent at G0's close, 2026-09-21, on G0's tables (claims
+§5.166 §5; `bounds-declaration.md` §2) as reproduced cell for cell by G0's independent review:
+form (ii), per-span `T` over the admitted bands, ≤ 0.0042 at spans 96, 128 and 160.** The bound is
+the charter's rule applied to the bed (the worst standard bed's span-96 order statistic, 0.00413,
+rounded up to two significant figures); the statistic, the exclusions, the population and the order
+statistic are exactly §5.162 §3's; the admitted band set per span is 3-6 / 6-12 / 12-24 / 24-48 at
+96, 3-6 / 6-12 / 12-24 at 128 (the `24-48` band is outside the frame by half a pixel on every
+side), and 3-6 / 6-12 at 160 — not the three bands the v2 Design paragraph named, corrected beside
+in the Revision Notes. Form (i) is recorded beside at every read and stays §5.162's before-reading.
+Form (iii), the σ-normalised window, is **withdrawn on measurement**: the clearance measured in the
+bed's own native σ is 5.5–5.9 at span 96, 2.7 at 128 and 1.1 at 160, so it reads nothing at the
+span whose residual is largest at any choice of multiples; it becomes available when the canvas
+does (Deferred). What the ruling costs: span 96 passes today with 1.7 % of headroom on 2x light, so
+a fit that buys span 128 by widening span 96 fails, which is the clause's own statement that span
+96 is not free either. Today: PASS at 96 on all four beds; FAIL at 128 by 76–112 % and at 160 by
+49–90 %.
+
+*As drafted at v2:* (c) to be ruled by the parent at G0's close, among `T` as declared,
 per-span `T`, and the σ-normalised window, every one over the admitted bands, with the bounds of
 the two non-declared forms fixed by clause 2's rule before G0's tables exist. The v1 prior on a
 depth-normalised form is withdrawn on the review's measurement.
 
 **(d) The `/laws/` shadow stage — the user's.** G2 puts a sketch before implementing; the user
 may strike it without touching the material.
+
+### Decision Log 2 — RULED by the parent at G0's close, 2026-09-21, under the standing "rest on your judgement": the recede's outer shadow stands down to the measurement
+
+**Ruled.** The receded documents' outer-shadow AMPLITUDE — the six occlusion anchors,
+`liftAmplitude`, and the receded documents' own `reducedTransparencyOcclusion` — is set to **0**,
+as a declared reading rather than a fitted value (the way W30 Decision Log 2 (b) declared
+`sigmaThinOffsetPx`), and G1 confirms it with one round on the inactive bed. The receded lengths
+stay the active document's and are recorded as unread, since nothing draws at zero amplitude. The
+active documents' accessibility fold amplitude does not move (X3).
+
+**Why.** G0 found what no wave had written down (claims §5.166 §7; its review reproduced it
+independently and extended it): on every non-holdout inactive WebGPU row of the macOS 27 bed —
+**121 of 121**, both schemes, both scales, the accessibility beds included; 153 of 153 with the
+holdout — Apple's receded window removes no light from 3 CSS px outward: the native transmission
+reads exactly 1.000000 with no lift in every admitted band, `falloffSigmaNative` resolves on none,
+and at the pixel level the native inactive capture is byte-identical to the backdrop raster from
+2 device px outward. The same holds on the frozen macOS 26.5 bed (235 of 235; byte-identical from
+1 device px). What Apple's receded exterior has is a one-device-pixel dark stroke at the contour
+(body 188, first exterior row 156 over a backdrop of 255 and 0–6 over a backdrop of 0, below `checkerboard__rrect-lg__inactive` at 1x) —
+the hairline the tracker already names as a rim term. Vitrea draws the full ACTIVE shadow in the
+inactive pose because both receded documents carry their active document's anchors leaf for leaf,
+so `outerShadowReachPx` returns the active reach at every span; the inactive `T` at span 160 reads
+0.098 / 0.137 (1x light / dark) against the active 0.008, and the far halo the tracker measured at
+17.42 / 15.89 is that shadow.
+
+**What it changes in the charter.** Clause 4's "anchor solve on the inactive cells" becomes a
+stand-down confirmed by one round: the declared judgement "the inactive departure ratio per regime"
+has a zero denominator on every bed, so the verdict is the inactive window-restricted departure on
+the web side going to 0 (native 0.000000) and the residual inactive `T` being the `0-3` band's
+alone; the halo cell is on the sheets before and after. The window-activation crossfade now fades
+the shadow out on deactivation, which is what the reference does; the inactive reach becomes 0 and
+the group clip in the inactive pose shrinks with it — recorded in the tracker's padding entry (X8:
+the advisory constant does not move). The 26.5 receded material, frozen, draws the same wrong
+shadow and stays as it is (X1); a tracker entry records it. The hairline is not this wave's
+(Deferred: a rim term).
 
 ## Surprises & Discoveries
 
@@ -634,6 +686,17 @@ may strike it without touching the material.
 
 ## Revision Notes
 
+- 2026-09-21 (the parent): **G0 merged (`f71c43d5`) with its review closure on the branch; Decision Log
+  1 (c) RULED (form (ii), per-span `T` over the admitted bands, ≤ 0.0042) and Decision Log 2 RULED
+  (the recede's outer-shadow amplitude stands down to 0 as a declared reading).** Two corrections to
+  v2 from G0's tables, recorded beside rather than rewritten: span 160 admits TWO bands (3-6 / 6-12),
+  not the three the Design paragraph "Which spans fit and which are read" names — the `12-24` band's
+  outer edge is 24 CSS px against 19.5 of clearance; and at span 128 the `24-48` band is outside the
+  frame on the left and right too (47.5 against 48.0), not only above and below. Clause 4 is executed
+  as Decision Log 2 states it. G1 carries two readings G0's closure added: the span-128 outset prior
+  is an evenly split bed (two beds include 3.10, two exclude it), and Apple's active reach on macOS
+  27 varies with the backdrop by 14 % of the span's median at 96 and 128 (`extents-by-backdrop.txt`),
+  which G1 reports as a per-backdrop residual after the fit. G1 dispatched.
 - 2026-09-21 (G0 review closure): **G0's review closure landed on its own branch, before merge.**
   The independent review reproduced every committed script byte for byte and every statistic off
   `matrix.json` and found the METHOD sound and both headline findings true; what it found was the
