@@ -198,6 +198,15 @@ open; the 0.20.0 cut carries it disclosed.
 *2026-09-21 (the parent, the 0.20.0 publish):* 0.20.0 published by the user on `484ec8a4` with
 the two reds above disclosed, the fourth cut in a row carrying this class. The entry stays open.
 
+*2026-09-21 (the parent, the final chain at the 0.21.0 head `05d2d5a7`):* the three-engine run read
+**two red** — `presence.spec.ts` "authored presence is monotone in place" on **chromium** (elapsed
+533.1 ms against 420.1 allowed) and `morph-materialize.spec.ts` "the end that is absent is inert, and
+is released when it has gone" on **firefox** (`toHaveCount` on the release) — the same two cases as
+W30's G4 run; W31 G4's own run of the suite at `3e3c906c`, minutes of docs earlier, read 174 / 3 / 0.
+Two runs of one head, one green and one red on the same two cases, is the class's own signature.
+Not rerun. Log `results/2026-09-21-w31-g4-landing/chain-parent-final-react-e2e.txt`. The entry stays
+open; the 0.21.0 cut carries it disclosed.
+
 *Found 2026-08-30, running the suites for the tint API (W3).*
 
 Two to four cases in `packages/react/e2e/press.spec.ts` and `morph.spec.ts` fail

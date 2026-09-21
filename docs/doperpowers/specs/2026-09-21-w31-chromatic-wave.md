@@ -1037,7 +1037,10 @@ until somebody charters it.
 
 **CLOSED 2026-09-21 by G4's landing**, against the seven Parent-Level Acceptance clauses, on this
 wave's branch at the 0.21.0 version head. The cut is prepared and unpublished: `pnpm release` is the
-user's hand and the tag follows it.
+user's hand and the tag follows it. *The parent's final chain at the merged head `05d2d5a7` (Revision
+Notes, 2026-09-21): every suite green except the React driver-timing class, red on its two standing
+cases this run and green on G4's run of the same head minus the closure — disclosed, as at
+0.17.0–0.20.0; accepting it is the user's.*
 
 The one-line result of the wave: **the body stopped being a neutral plate — it carries the
 backdrop's chromaticity now, at a held linear luma, fitted per colour scheme and per window pose —
@@ -1211,6 +1214,21 @@ and §5.164 §13 as the four review closures — in which every corrected number
 text it corrects and not one recorded number is rewritten.
 
 ## Revision Notes
+
+- 2026-09-21 (the parent): **G4 merged (`3e3c906c`), its review closure merged (`05d2d5a7`), and the
+  parent's final chain run on the merged tree at the 0.21.0 head** — machine 27.0/26A428 (typed),
+  RT 0, IC 0, slider 0.5 recorded before each browser suite: freeze 1,818 at open and close; build,
+  lint and root eslint exit 0; unit **2,662** (policy 23, motion 164, geometry 170, renderer-webgpu
+  561, core 302, platform-web 631, react 169, calibration 596, demo 46); goldens 34 byte-identical;
+  gpu 48; platform-web 410 across four projects; demo 59; the 27 bed 230 gated cells / 726 rows;
+  React **172 passed, 3 skipped, 2 failed** in the driver-timing class — `presence.spec.ts`
+  "authored presence is monotone in place" on chromium (elapsed 533.1 ms against 420.1) and
+  `morph-materialize.spec.ts` "the end that is absent is inert, and is released when it has gone"
+  on firefox — the same two cases as W30's G4 run, recorded in the tracker beside and not rerun;
+  G4's own run of the same suite at this cut was green (174 / 3 / 0). Logs
+  `results/2026-09-21-w31-g4-landing/chain-parent-final-*.txt` beside G4's, written by
+  `chain-parent-final.sh` (G4's `chain.sh` with the parent's file names). The status stands:
+  **CLOSED, 0.21.0 PREPARED, UNPUBLISHED**; `pnpm release` is the user's hand and the tag follows it.
 
 - 2026-09-21 (G4 review closure): **the gate was sound and the record was not, and the two ways it
   was wrong are both worth carrying** (claims §5.165 §9). Nothing in a number moved; 0.21.0 did not
