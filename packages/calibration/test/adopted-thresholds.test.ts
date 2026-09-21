@@ -1852,12 +1852,21 @@ const MISSED_27_ROWS: Readonly<Record<string, MissedRow>> = {
  *
  * `dom / calibration / checkerboard__capsule-button__rest /
  * apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5` was here because
- * the CSS tier's silhouette on that cell did not clear 95 % of its declared
- * region. The outer shadow's outset fell 3.10 → 0.50 CSS px and the tier's
- * `box-shadow` fell with it, and the cell now clears the arm and JOINS the gated
- * bed — so the increased-contrast profile's `dom` shape rows gate 7 cells where
- * they gated 6, and the count above is derived from this list rather than typed,
- * which is why one deletion moves both.
+ * the CSS tier's silhouette on that cell drew in TWO pieces: `silhouetteBodiesWeb`
+ * read 2 against the predicate's ≤ 1. The outer shadow's outset fell 3.10 → 0.50
+ * CSS px and the tier's `box-shadow` fell with it, the silhouette closed into one
+ * body, and the cell JOINS the gated bed — so the increased-contrast profile's
+ * `dom` shape rows gate 7 cells where they gated 6, and the count above is
+ * derived from this list rather than typed, which is why one deletion moves both.
+ *
+ * 2026-09-21, W32 G1 review closure (claims §5.168 §10, finding B-3): this
+ * comment said the cell "did not clear 95 % of its declared region", and that
+ * arm was never the one failing. Off the two generations the area arm reads
+ * 4756 → 4755 of a 4872 px region against a threshold of 4628.4 — clear before
+ * and after, and it moved the wrong way — while `silhouetteBodiesWeb` reads
+ * 2 → 1. The count, the cell and the consequence are unchanged; the arm named
+ * beside them was wrong, and commit `0e03f189`'s body carries the same slip
+ * where it cannot be amended.
  *
  * Its macOS 26.5 sibling one line up is unmoved and cannot move: that document is
  * frozen. The two beds reading the same scene at different conditioning is the

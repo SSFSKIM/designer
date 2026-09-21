@@ -653,10 +653,18 @@ shadow and stays as it is (X1); a tracker entry records it. The hairline is not 
   test the hypothesis is a tracker entry.
 - **The fit FIXED a conditioning exclusion.** `PREDICATE_EXCLUDES` goes 68 → 67
   because the CSS tier's silhouette on `checkerboard__capsule-button__rest` at 1x
-  light-increased-contrast-coupled now clears 95 % of its declared region, so that
+  light-increased-contrast-coupled stopped drawing in two pieces, so that
   profile's `dom` shape rows gate 7 cells where they gated 6. A wave removing a
   cell from the excluded list by making it well-conditioned is the first time
   that list has shrunk for that reason.
+  **Corrected beside, 2026-09-21 (review closure; claims §5.168 §10, finding
+  B-3):** this entry, the test comment and commit `0e03f189`'s body all said the
+  cell "now clears 95 % of its declared region", and the AREA arm was never the
+  one failing. Off the two generations it reads **4756 → 4755** of a 4872 px
+  region against a threshold of 4628.4 — clear on both sides, and it moved the
+  wrong way. The arm that cleared is `silhouetteBodiesWeb`, **2 → 1**: the
+  `box-shadow` outset fell 3.10 → 0.50 CSS px and the silhouette closed into one
+  body. The count, the cell and the consequence stand exactly as recorded.
 - **Apple's receded window casts no outer shadow at all beyond 3 CSS px, and vitrea draws the
   ACTIVE shadow there leaf for leaf** (W32 G0, claims §5.166 §7). On 100 of 100 non-holdout
   inactive WebGPU rows — every span, both schemes, the accessibility beds included — the native

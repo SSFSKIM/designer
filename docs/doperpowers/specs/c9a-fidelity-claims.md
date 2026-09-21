@@ -33120,6 +33120,25 @@ rows are the widened ladder's, all probe: +20 on each 1x standard profile (ten
 WebGPU and ten CSS) and +10 on each 2x standard one. **The gated count is unmoved
 to the cell**, which is what the charter predicted in as many words.
 
+**`PREDICATE_EXCLUDES` goes 68 → 67, and the arm that cleared is the BODY COUNT**
+(added 2026-09-21, review closure; §10, finding B-3 — the commit body, the
+charter's Surprises and the test comment all named the AREA arm, and the area arm
+was never the one failing). `dom / calibration /
+checkerboard__capsule-button__rest /
+apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5` reads, off the two
+generations:
+
+| arm | before → after | threshold |
+| --- | --- | --- |
+| `silhouetteAreaWeb` / region | 4756 → **4755** of 4872 | ≥ 0.95 × region = 4628.4 — **clear on both sides**, and it moved the wrong way |
+| `silhouetteBodiesWeb` | **2 → 1** | ≤ 1 — **failing before, clear after** |
+
+So the CSS tier's silhouette on that cell stopped fragmenting into two pieces
+when the `box-shadow` outset fell 3.10 → 0.50 CSS px; it never failed to recover
+95 % of its declared region. The count, the cell and the consequence — that
+profile's `dom` shape rows gate 7 cells where they gated 6 — are unchanged; the
+mechanism named beside them was wrong.
+
 ### 7. The verdict, stop by stop
 
 **C1 form (ii), Decision Log 1 (c)'s ruled clause — PASS on all twelve bed ×
