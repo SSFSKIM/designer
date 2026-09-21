@@ -1,0 +1,152 @@
+W31 G1 review closure — the backdrop-support rule, checked against the bed
+==============================================================================================================
+
+Matrix:  results/matrix.json, under packages/calibration
+Rows:    602 macOS 27 rows at the shipped documents, holdout dropped by
+         `exterior-instrument.py`'s own `cells()`, as in its default run.
+Rule:    backdropSupport < 0.1 (`DEFAULT_MIN_BACKDROP_SUPPORT`, src/metrics/shadow.ts)
+Nothing here is fitted, adopted or captured; no row, bound or document moves.
+
+§1. What the rule removes, by backdrop class
+--------------------------------------------------------------------------------------------------------------
+  80 rows are below the axis's floor. By backdrop:
+      48 rows over `dark-solid`  backdropSupport 0.0000–0.0000
+         of those, 48 identify NO affine band in 3–48 CSS px and would carry no `T` with the rule off either;
+         0 would carry one, and 0 of those are NON-ZERO.
+      32 rows over `impulse`  backdropSupport 0.0038–0.0039
+         of those, 0 identify NO affine band in 3–48 CSS px and would carry no `T` with the rule off either;
+         32 would carry one, and 14 of those are NON-ZERO (0.000295–0.004287).
+
+  So the rule's REAL reach is the rows that would otherwise carry a number:
+    32 rows, every one over `impulse`.
+
+§2. Every row the rule actually reaches, with the `T` it would have carried
+--------------------------------------------------------------------------------------------------------------
+    T (admitted)  L (admitted)   support  span  bed                               tier    pose      set         scene
+        0.004287      0.000000    0.0039    96  1x light                          css     active    validation  impulse__rrect-md__rest
+        0.003937      0.000000    0.0039    96  2x light                          css     active    validation  impulse__rrect-md__rest
+        0.003453      0.000000    0.0039    96  2x light                          webgpu  inactive  validation  impulse__rrect-md__inactive
+        0.003452      0.000000    0.0039    96  1x light                          webgpu  inactive  validation  impulse__rrect-md__inactive
+        0.002890      0.000000    0.0039    96  1x light                          css     inactive  validation  impulse__rrect-md__inactive
+        0.002875      0.000000    0.0039    96  2x light                          css     inactive  validation  impulse__rrect-md__inactive
+        0.002662      0.000000    0.0039    96  2x light                          webgpu  active    validation  impulse__rrect-md__rest
+        0.002534      0.000000    0.0039    96  1x light                          webgpu  active    validation  impulse__rrect-md__rest
+        0.000307      0.000004    0.0038    44  1x light                          css     active    calibration impulse__capsule-button__rest-tint-orange
+        0.000306      0.000002    0.0038    44  1x light                          css     active    validation  impulse__capsule-button__rest
+        0.000304      0.000001    0.0038    44  1x dark                           css     active    validation  impulse__capsule-button__rest
+        0.000295      0.000000    0.0038    44  2x dark                           css     active    validation  impulse__capsule-button__rest
+        0.000295      0.000000    0.0038    44  2x light                          css     active    calibration impulse__capsule-button__rest-tint-orange
+        0.000295      0.000000    0.0038    44  2x light                          css     active    validation  impulse__capsule-button__rest
+        0.000000      0.000000    0.0038    44  1x dark                           css     inactive  validation  impulse__capsule-button__inactive
+        0.000000      0.000000    0.0038    44  1x dark                           webgpu  inactive  validation  impulse__capsule-button__inactive
+        0.000000      0.000000    0.0038    44  1x dark                           webgpu  active    validation  impulse__capsule-button__rest
+        0.000000      0.000000    0.0038    44  1x light                          css     inactive  calibration impulse__capsule-button__inactive-tint-orange
+        0.000000      0.000000    0.0038    44  1x light                          webgpu  inactive  calibration impulse__capsule-button__inactive-tint-orange
+        0.000000      0.000000    0.0038    44  1x light                          css     inactive  validation  impulse__capsule-button__inactive
+        0.000000      0.000000    0.0038    44  1x light                          webgpu  inactive  validation  impulse__capsule-button__inactive
+        0.000000      0.000000    0.0038    44  1x light                          webgpu  active    calibration impulse__capsule-button__rest-tint-orange
+        0.000000      0.000000    0.0038    44  1x light                          webgpu  active    validation  impulse__capsule-button__rest
+        0.000000      0.000000    0.0038    44  2x dark                           css     inactive  validation  impulse__capsule-button__inactive
+        0.000000      0.000000    0.0038    44  2x dark                           webgpu  inactive  validation  impulse__capsule-button__inactive
+        0.000000      0.000000    0.0038    44  2x dark                           webgpu  active    validation  impulse__capsule-button__rest
+        0.000000      0.000000    0.0038    44  2x light                          css     inactive  calibration impulse__capsule-button__inactive-tint-orange
+        0.000000      0.000000    0.0038    44  2x light                          webgpu  inactive  calibration impulse__capsule-button__inactive-tint-orange
+        0.000000      0.000000    0.0038    44  2x light                          css     inactive  validation  impulse__capsule-button__inactive
+        0.000000      0.000000    0.0038    44  2x light                          webgpu  inactive  validation  impulse__capsule-button__inactive
+        0.000000      0.000000    0.0038    44  2x light                          webgpu  active    calibration impulse__capsule-button__rest-tint-orange
+        0.000000      0.000000    0.0038    44  2x light                          webgpu  active    validation  impulse__capsule-button__rest
+
+  `L` is printed because it is the second half of the same finding: the reader's
+  justification says a LIFT is measured cleanly over black — which is exactly where a
+  transmission has no denominator — and yet `shape_error()`'s gate withholds `L` on
+  these rows along with `T`. `L` is RECORDED and not bounded (claims §5.162 §3), so the
+  closure records it here rather than changing what the reader reports.
+  What the withheld lift is worth, measured: 0.000000–0.000004 over all
+  32 reached rows — so the inconsistency costs the record nothing in
+  magnitude, and is recorded because a justification that does not match its code is
+  a thing a later wave would otherwise have to rediscover.
+
+§3. The bed with the rule ON and with it OFF, per bed, tier and span
+--------------------------------------------------------------------------------------------------------------
+  Active pose, non-holdout — the population any clause is read over. `median (n)`,
+  the upper middle order statistic, five decimals, which is the precision C1 is
+  stated at.
+
+  tier webgpu
+    bed                                span               rule ON              rule OFF   verdict
+    1x dark                              32           0.00171 (7)           0.00171 (7)   
+    1x dark                              44          0.00201 (13)          0.00201 (14)   count 13 → 14
+    1x dark                              96           0.00399 (9)           0.00399 (9)   
+    1x dark                             128           0.00511 (5)           0.00511 (5)   
+    1x dark                             160           0.00921 (7)           0.00921 (7)   
+    2x dark                              32           0.00168 (7)           0.00168 (7)   
+    2x dark                              44          0.00199 (13)          0.00199 (14)   count 13 → 14
+    2x dark                              96           0.00385 (9)           0.00385 (9)   
+    2x dark                             128           0.00487 (5)           0.00487 (5)   
+    2x dark                             160           0.00916 (7)           0.00916 (7)   
+    1x light                             32           0.00294 (9)           0.00294 (9)   
+    1x light                             44          0.00339 (18)          0.00339 (20)   count 18 → 20
+    1x light                             96          0.00408 (10)          0.00408 (11)   count 10 → 11
+    1x light                            128           0.00502 (7)           0.00502 (7)   
+    1x light                            160           0.00735 (7)           0.00735 (7)   
+    2x light                             32           0.00288 (9)           0.00288 (9)   
+    2x light                             44          0.00337 (18)          0.00337 (20)   count 18 → 20
+    2x light                             96          0.00413 (10)          0.00413 (11)   count 10 → 11
+    2x light                            128           0.00532 (7)           0.00532 (7)   
+    2x light                            160           0.00733 (7)           0.00733 (7)   
+    1x light-increased-contrast-coupled   44           0.00448 (5)           0.00448 (5)   
+    1x light-increased-contrast-coupled   96           0.00337 (2)           0.00337 (2)   
+    1x light-reduced-transparency        44           0.00468 (4)           0.00468 (4)   
+    1x light-reduced-transparency        96           0.00337 (2)           0.00337 (2)   
+
+  tier css
+    bed                                span               rule ON              rule OFF   verdict
+    1x dark                              32           0.00246 (7)           0.00246 (7)   
+    1x dark                              44          0.00288 (13)          0.00288 (14)   count 13 → 14
+    1x dark                              96           0.00574 (9)           0.00574 (9)   
+    1x dark                             128           0.00726 (5)           0.00726 (5)   
+    1x dark                             160           0.00789 (7)           0.00789 (7)   
+    2x dark                              44           0.00356 (4)           0.00290 (5)   count 4 → 5, STATISTIC MOVES
+    2x dark                              96           0.00830 (2)           0.00830 (2)   
+    1x light                             32           0.00379 (9)           0.00379 (9)   
+    1x light                             44          0.00518 (18)          0.00512 (20)   count 18 → 20, STATISTIC MOVES
+    1x light                             96          0.00547 (10)          0.00547 (11)   count 10 → 11
+    1x light                            128           0.00720 (7)           0.00720 (7)   
+    1x light                            160           0.00776 (7)           0.00776 (7)   
+    2x light                             32           0.00607 (2)           0.00607 (2)   
+    2x light                             44           0.00520 (9)          0.00520 (11)   count 9 → 11
+    2x light                             96           0.00745 (3)           0.00745 (4)   count 3 → 4
+    2x light                            128           0.00924 (2)           0.00924 (2)   
+    1x light-increased-contrast-coupled   44           0.02643 (5)           0.02643 (5)   
+    1x light-increased-contrast-coupled   96           0.02971 (2)           0.02971 (2)   
+    1x light-reduced-transparency        44           0.00710 (4)           0.00710 (4)   
+    1x light-reduced-transparency        96           0.00484 (2)           0.00484 (2)   
+
+§4. The verdict
+--------------------------------------------------------------------------------------------------------------
+  Counts that move: 12.
+    webgpu  1x dark                           span  44:  13 → 14
+    webgpu  2x dark                           span  44:  13 → 14
+    webgpu  1x light                          span  44:  18 → 20
+    webgpu  1x light                          span  96:  10 → 11
+    webgpu  2x light                          span  44:  18 → 20
+    webgpu  2x light                          span  96:  10 → 11
+    css     1x dark                           span  44:  13 → 14
+    css     2x dark                           span  44:  4 → 5
+    css     1x light                          span  44:  18 → 20
+    css     1x light                          span  96:  10 → 11
+    css     2x light                          span  44:  9 → 11
+    css     2x light                          span  96:  3 → 4
+
+  Upper middle order statistics that move at five decimals: 2.
+    css     2x dark                           span  44:  0.00356 → 0.00290
+    css     1x light                          span  44:  0.00518 → 0.00512
+
+  On the WebGPU tier — the bed C1 is read on — 0 statistics move.
+  The rule is therefore KEPT: it is the shadow axis's own constant rather than this
+  gate's, it is the condition the axis already applies before reporting any normalised
+  figure, and turning it off moves no number the clause is stated over. What the
+  record has to say instead is what this file measured: the rule's reach is the
+  32 `impulse` rows and not eighty, the `dark-solid` rows are out for a
+  different reason the axis states (no identified affine band at all), and among the
+  rows it does reach the readings are not all zero.

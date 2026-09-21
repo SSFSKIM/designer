@@ -71,6 +71,33 @@ every band, which is the backdrop's floor and not a fidelity reading. The
 constant is the axis's, not this gate's, and the cells it removes are counted
 and named by class.
 
+**Beside, 2026-09-21 (review closure; claims §5.162 §9, finding B-2). The two
+sentences above overstate what this rule does, and the correction is measured in
+`support-rule-check.py` / `.txt` beside this file — nothing this reader prints
+moves.** The 48 `dark-solid` rows identify NO affine band in 3–48 CSS px at all,
+so they carry no `T` with the rule or without it: the rule's real reach is the
+**32 `impulse` rows**, not eighty. And those 32 do not all read zero — **14 of
+them carry a non-zero `T`, from 0.000295 to 0.004287**, the largest being
+`impulse__rrect-md__rest` on the 1x light CSS tier, whose Δa reads −0.005190,
+−0.012409 and 0.000000 over the `6-12`, `12-24` and `24-48` bands. So "left in,
+they would have made the bed look better" is wrong in count for all eighty and
+wrong in direction for the fourteen. The rule is nevertheless KEPT, and for the
+reason it was taken rather than for the one written down: it is the shadow
+axis's own condition on reporting a normalised figure, and admitting all 32
+moves **no upper middle order statistic on the WebGPU tier**, the bed C1 is read
+on. It moves twelve per-span COUNTS and two CSS-tier span-44 medians (1x light
+0.00518 → 0.00512, 2x dark 0.00356 → 0.00290), neither of them a figure the
+ledger or the declaration prints.
+
+**Beside, 2026-09-21 (same finding): a code inconsistency, recorded and not
+changed.** `shape_error()` applies this gate to `L` as well as to `T`, while the
+justification above is that a LIFT is measured cleanly over black — which is
+exactly where a transmission has no denominator. `L` is recorded and not bounded
+(claims §5.162 §3), so the closure records the withheld `L` on every reached row
+in `support-rule-check.txt` §2 rather than changing what this reader reports;
+the withheld values are 0.000000–0.000004 on all 32. A later wave that wants `L`
+over an unlit backdrop takes it from there, or moves the gate deliberately.
+
 The `0-3` band is excluded from `T` by the axis's own caveat: it holds the
 body's own edge, and vitrea's GPU capsule over-fills its declared contour by
 3.5–4 CSS px where Apple's does by ≤ 1 (claims §5.62). Bands from `3-6` outward

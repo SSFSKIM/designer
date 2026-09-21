@@ -575,7 +575,7 @@ tier's `saturate()` constants as fitted rather than authored values.
 | Child | Status | Claims section | Evidence |
 | --- | --- | --- | --- |
 | G0 | OPEN | §5.161 | `results/2026-09-21-w31-g0-chroma-cut/` |
-| G1 | **MERGED** — the clause C1 declared on the departure profile's SHAPE; candidate (i) recorded as the diagnostic that points at `spreadPx`/`offsetPx`; nothing adopted, nothing fitted, no capture | §5.162 | `results/2026-09-21-w31-g1-exterior-instrument/` |
+| G1 | **MERGED** — the clause C1 declared on the departure profile's SHAPE; candidate (i) recorded as the diagnostic that points at `spreadPx`/`offsetPx`; nothing adopted, nothing fitted, no capture. **Amended beside 2026-09-21 (review closure; claims §5.162 §9), no number in this row or in §5.162 rewritten:** an independent read reproduced every figure of both statistics and found no measurement wrong; its fourteen findings, two blocking, were **all in the record**, and **no statistic, bound, count, exclusion or verdict moved**. The two blocking: the drafted C1 row read a **frozen snapshot** of the matrix, so a dated condition now requires the adopting gate to re-run `exterior-instrument.py` into its own evidence directory and point `CUT` there, and the draft gains the two provenance assertions it lacked (`atDocuments` shipped, `withHoldout` false); and the backdrop-support rule's reach is **32 `impulse` rows, fourteen carrying a non-zero `T` up to 0.004287**, not eighty rows of zeros — the 48 `dark-solid` rows identify no affine band at all — with the rule **kept** because it is the axis's own constant and admitting all 32 moves no WebGPU-tier order statistic (it moves twelve counts and two unprinted CSS-tier span-44 medians). One reason **withdrawn**: "its own lever reverses" applies to candidate (ii) too, and the choice stands on the other two and on the per-band structure. Corrections beside: the span-96 per-cell maxima are 0.00508–0.00561 and all above 0.0045; the CSS tier is NOT worse everywhere (1x dark span 160, 0.00789 against 0.00921); §6's improvement ranges are 20–54 % and 8.5–32 %; **all 726** macOS 27 rows carry a shadow axis and 602 is the non-holdout count; span 128 on the light beds is **two** gated cells; the +2.66…+3.77 gap is the **WebGPU tier's** (CSS runs −4.74…+5.36); the `spreadPx` reading assumes Apple's outset ≈ 0 and is softened, with the unfitted half verified across three documents; the bilateral σ rule is inert on today's bed; and `T` is declared **span-confounded**, with a per-span bound or a σ-normalised window named as what adoption must consider. New evidence `support-rule-check.py` / `.txt`; `test/adopted-thresholds.test.ts` untouched; freeze 1,818 at open and close | §5.162, §5.162 §9 | `results/2026-09-21-w31-g1-exterior-instrument/`, `support-rule-check.txt` |
 | G2 | **MERGED** — 11 call sites: 8 clamped, 3 proven, 0 stopped; 5 sweeps + 3 guard cases green; goldens 34/34 byte-identical; one NEW reachable NaN found and floored as an identity (`angle_delta`); both tracker entries closed; the W30 G3b residual's candidate REFUTED and the residual re-opened | §5.163 | `results/2026-09-21-w31-g2-range-class/` |
 | G3 | not dispatched — Decision Log 1 ruled; waits on G0–G2 merged | §5.164 | `results/2026-09-21-w31-g3-chroma-fit/` |
 | G4 | not dispatched | §5.165 | `results/2026-09-21-w31-g4-landing/` |
@@ -655,6 +655,39 @@ band recorded, unless the user's taste says the reversal makes the section say t
 *(at close)*
 
 ## Revision Notes
+
+- 2026-09-21 (G1 review closure): **fourteen findings closed, none of them in a number** (claims
+  §5.162 §9, the new section listing each finding, how it was verified and what closed it). The
+  review reproduced every figure of both statistics and found no measurement wrong; everything it
+  found was in the record — the part a reproduction of the numbers cannot check. Every correction is
+  **beside** the text it corrects and dated, the reader's committed `.txt` and `.json` re-run
+  byte-identical, one evidence file is added beside them and none replaced, and no material
+  constant, document, fixture, golden, bound, floor, leaf or matrix row moved (X1, X5;
+  `freeze.py verify` **1,818 intact** at open and close; no capture; `adopted-thresholds.test.ts`
+  untouched, as X11 requires). What a later child has to carry from it:
+  - **C1 is not adoptable as drafted.** The row shape read its cut from *this gate's* evidence
+    directory, which is a snapshot of the matrix at W31 G1: adopted verbatim it would assert
+    ≤ 0.0045 against frozen numbers and could never fail. **The wave that adopts C1 re-runs
+    `exterior-instrument.py` into its own evidence directory and points `CUT` there**, and the
+    block now also asserts the cut's provenance (`atDocuments` = shipped, `withHoldout` = false),
+    which the draft did not. This is B1's own discipline one level up — in a path instead of a
+    literal.
+  - **`T` is span-confounded as one bound across 96, 128 and 160.** The window is fixed at 3–48 CSS
+    px whatever the caster is and the `24-48` band carries 53 % of the weight, so part of the rise
+    with span is the window filling up. Adoption considers a **per-span bound** or a **σ-normalised
+    window**; the statistic and the exclusions stay exactly as declared either way.
+  - **The population table the adopting wave writes its guard from is right in its counts and wrong
+    in its composition**: span 128 on the light beds is **two** gated cells, not one.
+  - **The `spreadPx` finding is softened but its Deferred item is not.** The size agreement assumes
+    Apple's own outset is ≈ 0, which this bed does not measure; what is verified is that `spreadPx`
+    3.1 and `offsetPx` 7.95 are byte-identical across the macOS 26.5 default, the 26.5 light and the
+    27 light documents and that **neither dark document carries either** — so the joint fit of the
+    shadow's three lengths stays the named work, and it is not this wave's (X3).
+  - The backdrop-support rule is **kept** and its record corrected: reach 32 `impulse` rows, 14
+    non-zero, no WebGPU-tier statistic moved (`support-rule-check.py` / `.txt`, new evidence).
+  - One reason **withdrawn** rather than restated: "its own lever reverses" told the two candidates
+    apart in the record and does not on the bed — candidate (ii) reverses at the same spans. The
+    verdict is unmoved and rests on the other two reasons and on the per-band structure.
 
 - 2026-09-21 (G2): **the WGSL range class and the refusal's wording landed** (claims §5.163). Every
   transcendental in `src/wgsl/` is now classified by a committed case — eleven sites, eight clamped

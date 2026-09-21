@@ -20,7 +20,9 @@ so `src/report.ts` and `cli/measure.ts` are untouched (X11).
 | `exterior-instrument.txt` / `.json` | its default run: the holdout dropped, 602 macOS 27 rows at the shipped documents |
 | `exterior-instrument-with-holdout.txt` / `.json` | the reported check: the same run with the seven `MISSED_27_ROWS` readings, the two span-160 sheet cells, and the lever against two superseded generations |
 | `bounds-declaration.md` | the clause the next shadow wave adopts a row on — statistic, bed, exclusions, bound and the row shape in `adopted-thresholds.test.ts`'s idiom — plus candidate (i) beside B1 and what their divergence means |
+| `support-rule-check.py` / `.txt` | **added by the review closure (2026-09-21; claims §5.162 §9, finding B-2).** What the axis's `DEFAULT_MIN_BACKDROP_SUPPORT` rule actually removes: the whole bed recomputed with the rule off, beside itself. It imports `exterior-instrument.py` rather than copying it, so it cannot drift from the reader it checks, and the reader's own output is untouched |
 | `freeze-verify-open.txt` / `-close.txt` | `freeze.py verify` at this gate's open and close |
+| `freeze-verify-closure.txt` | `freeze.py verify` at the review closure's open and close (2026-09-21) |
 | `chain.txt` | the build, lint and unit chain at this gate's head — 2,570 passed, 0 failed, four more than W30 G4's close |
 
 ## The test this gate adds
@@ -48,6 +50,20 @@ The two `--against` labels are the generations `results/superseded/index.json` m
 the first is 0.19.0's read at a span-invariant σ of 11.0 CSS px, which makes the comparison the σ
 law's own lever; the second is W30 G3's read at the sealed material before G3b's `tanh` fix, which
 isolates that fix and shows it moved neither statistic on any row.
+
+## The review closure (2026-09-21)
+
+An independent read reproduced every figure of both statistics and found no measurement wrong; the
+fourteen findings it returned, two of them blocking, were all in the RECORD. **No statistic, bound,
+count, exclusion or verdict moved**, and nothing in this directory was rewritten: every correction
+is beside the text it corrects and dated, `support-rule-check.py` / `.txt` is added beside the
+reader, and `exterior-instrument.py`'s committed `.txt` and `.json` re-run byte-identical apart from
+the absolute matrix path in their header. The two blocking findings and what closed them: the
+drafted C1 row read a frozen snapshot of the matrix, so **the adopting gate must re-run the reader
+into its own evidence directory and point `CUT` there** (a dated condition beside the block, plus
+two provenance assertions the draft lacked); and the backdrop-support rule's reach is **32 `impulse`
+rows, fourteen of them non-zero**, not eighty rows of zeros — the rule is kept because it is the
+axis's own constant and moves no WebGPU-tier statistic. The full table is claims §5.162 §9.
 
 ## The one-line verdict
 
