@@ -30638,10 +30638,10 @@ capture's quantisation, and the native side separates by geometry over 1.47×
 proposed two conditions: adopt **with the structure stop as a second gated row**,
 and **on the WebGPU tier only**. Both conditions survive this gate and the second
 is now stronger than it was: the CSS tier's `R` at the canonical read reads
-0.96–1.12 on the standard profiles while its ratio (ii) is 0.19–0.24 against a
-reference 0.90 — a tier with no chroma operator anywhere in the renderer reading
-near the reference on the statistic — which is §7 (g) (ii)'s own refusal,
-measured one generation later.
+**0.951–1.118** on the four standard profiles while its ratio (ii) on the dark
+cells is 0.19–0.24 against a reference of 0.90 — a tier with no chroma operator
+anywhere in the renderer, reading near the reference on the statistic — which is
+§7 (g) (ii)'s own refusal, measured one generation later.
 
 **What this gate adds against adoption**, and it is new: §8 (a). The bound is on
 the median and the median is what the fit moved; the per-cell spread widened, and
@@ -30657,8 +30657,16 @@ material-axis row the project has, on a bed of 10 / 8 / 4 / 4 cells whose dark
 half is four cells at one span each. Declining leaves the wave's whole result as
 a one-wave reading, recorded here and in no test, and the next material change
 can move it without anything going red. G3 recommends **adoption with G0's two
-conditions and a third**: the per-cell clause two-sided at `0.60 ≤ R ≤ 1.40`,
-which every cell of the declared bed meets today with the worst at 1.52 on
-`photo__rrect-sm__inactive` — so **1.40 would not be green**, and that is the
-point of naming it here rather than at G4: the ceiling has to be chosen against
-the spread the fit actually leaves, not against the median it hits.
+conditions and a third**: the per-cell clause **two-sided**, a ceiling as well as
+the 0.60 floor.
+
+**The ceiling is the parent's number and not G3's**, because the bed makes it a
+choice rather than a reading. The worst cell on the declared bed is **1.5155** —
+`photo__rrect-sm__inactive` at 1x light, span 32, the thinnest surface in the bed
+and the highest cell before the fit as well as after. So a ceiling at 1.55 is
+green today and says almost nothing; a ceiling at 1.40 declares that cell and its
+2x sibling MISSED, which is a truthful statement about an over-corrected thin
+surface and is the shape §8 (a) argues for. What the parent is choosing between
+is a clause that passes and a clause that is worth having, and the number is
+named here rather than at G4 so the choice is made against the spread the fit
+actually leaves and not against the median it hits.
