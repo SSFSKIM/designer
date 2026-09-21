@@ -154,8 +154,11 @@ function main(): void {
 
   // Checked before measuring, and for the reason `compare` checks before
   // capturing: a matrix written under another schema can be neither read nor
-  // merged into, and `results/matrix.json` is frozen under one for the duration
-  // of the interregnum. See `matrixSchemaRefusal`.
+  // merged into. `results/matrix.json` is at the schema this build writes, so
+  // what reaches this is a named target — a scratch matrix, one restored from a
+  // branch, or a superseded generation. See `matrixSchemaRefusal`. (This
+  // comment said `results/matrix.json` was frozen "for the duration of the
+  // interregnum" until 2026-09-21, W31 G2, c9a §5.163 §5.)
   if (args.matrix !== undefined && existsSync(args.matrix)) {
     const onDisk: unknown = JSON.parse(readFileSync(args.matrix, "utf8"));
     const version = (onDisk as { schemaVersion?: unknown }).schemaVersion;

@@ -1,0 +1,61 @@
+W31 G2 — the outer shadow's falloff argument at the deepest pixel of each bed
+component, against the overflow boundary. Claims c9a §5.163 §4.
+
+The boundary: tanh's exp(2t) lowering overflows f32 at t > 44.3614,
+which K(x + C x^3) crosses at x = 10.0610.
+
+x_max = (halfSpan + spreadPx) / sigma(span), the deepest interior pixel of the
+shadow's own silhouette. An EXTERIOR pixel has x < 0 and cannot reach a
+one-sided +2t overflow at all.
+
+## apple-macos-27.0-1x-light-standard-glass0.5
+   sigmaPx 8.96, slope 0.1314, ref 96, thin floor -6.8328, spread 3.1
+
+   component                  part      span    sigma    depth    x_max  verdict
+   capsule-button                       44.0   2.1272    25.10  11.7995  REACHES the boundary
+   glass-over-glass           base     130.0  13.4276    68.10   5.0716  under
+   glass-over-glass           over      56.0   3.7040    31.10   8.3963  under
+   rrect-48                             48.0   2.6528    27.10  10.2156  REACHES the boundary
+   rrect-64                             64.0   4.7552    35.10   7.3814  under
+   rrect-80                             80.0   6.8576    43.10   6.2850  under
+   rrect-lg                            160.0  17.3696    83.10   4.7842  under
+   rrect-md                             96.0   8.9600    51.10   5.7031  under
+   rrect-md-clear20                     96.0   8.9600    51.10   5.7031  under
+   rrect-ml                            128.0  13.1648    67.10   5.0969  under
+   rrect-sm                             32.0   2.1272    19.10   8.9789  under
+   toolbar-group              item0     44.0   2.1272    25.10  11.7995  REACHES the boundary
+   toolbar-group              item1     44.0   2.1272    25.10  11.7995  REACHES the boundary
+   toolbar-group              item2     44.0   2.1272    25.10  11.7995  REACHES the boundary
+
+## apple-macos-27.0-1x-dark-standard-glass0.5
+   sigmaPx 9.04, slope 0.134, ref 96, thin floor -6.968, spread 3.1
+
+   component                  part      span    sigma    depth    x_max  verdict
+   capsule-button                       44.0   2.0720    25.10  12.1139  REACHES the boundary
+   glass-over-glass           base     130.0  13.5960    68.10   5.0088  under
+   glass-over-glass           over      56.0   3.6800    31.10   8.4511  under
+   rrect-48                             48.0   2.6080    27.10  10.3911  REACHES the boundary
+   rrect-64                             64.0   4.7520    35.10   7.3864  under
+   rrect-80                             80.0   6.8960    43.10   6.2500  under
+   rrect-lg                            160.0  17.6160    83.10   4.7173  under
+   rrect-md                             96.0   9.0400    51.10   5.6527  under
+   rrect-md-clear20                     96.0   9.0400    51.10   5.6527  under
+   rrect-ml                            128.0  13.3280    67.10   5.0345  under
+   rrect-sm                             32.0   2.0720    19.10   9.2181  under
+   toolbar-group              item0     44.0   2.0720    25.10  12.1139  REACHES the boundary
+   toolbar-group              item1     44.0   2.0720    25.10  12.1139  REACHES the boundary
+   toolbar-group              item2     44.0   2.0720    25.10  12.1139  REACHES the boundary
+
+## The W30 G3b residual, settled on this table
+
+   glass-over-glass on apple-macos-27.0-1x-light-standard-glass0.5: the deepest x is 8.3963 on the 'over' surface (span 56, sigma 3.7040), against 10.0610. Margin 1.6646 in x, 6.17 CSS px of depth.
+   glass-over-glass on apple-macos-27.0-1x-dark-standard-glass0.5: the deepest x is 8.4511 on the 'over' surface (span 56, sigma 3.6800), against 10.0610. Margin 1.6099 in x, 5.92 CSS px of depth.
+
+   So NO pixel of that scene reaches the overflow, on either document, from
+   the inside — and no exterior pixel can reach it from the outside, because
+   the lowering is one-sided. The tracker's candidate for the three texture
+   cells is refuted, and the residual is re-opened rather than closed.
+
+   (Cross-check, the cells that DID fail: the span-44 capsule reaches x = 11.7995 on the light document, over the boundary — which is claims §5.159b §1's own reading.)
+
+Any component reaching the boundary at the shipped documents: True

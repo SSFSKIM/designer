@@ -66,7 +66,8 @@ export function shouldWriteMatrix(failureCount: number, writePartial: boolean): 
  * from a branch, or a committed matrix a future bump leaves behind, as wave
  * Decision Log 15 ruling 3 deliberately did until the post-W8 pass re-read the
  * bed. (Corrected 2026-09-20, W30 G1 review closure, c9a §5.157 §10: this
- * paragraph still described that interregnum as the present.)
+ * paragraph still described that interregnum as the present. The MESSAGE below
+ * still did too, and is rewritten 2026-09-21 by W31 G2, c9a §5.163 §5.)
  *
  * A predicate rather than an assertion, so the CLIs that need it phrase the
  * refusal in their own terms and this file stays free of I/O.
@@ -77,11 +78,35 @@ export function matrixSchemaRefusal(
   path: string,
 ): string | undefined {
   if (existingVersion === buildVersion) return undefined;
+  /*
+   * What the operator is actually holding, as of W31 (c9a §5.163 §5).
+   *
+   * The message this replaced offered "If that is the frozen inactive-bed
+   * matrix, it is meant to stay frozen (wave Decision Log 15 ruling 3)". That
+   * was true during the schema-4/5 interregnum, when the committed default
+   * target was itself a refused file and a reader landing here had most likely
+   * just run `compare` with no flags. The post-W8 pass re-read the bed and ended
+   * it: `results/matrix.json` is at schema 5 and has been for eleven waves, so
+   * nobody arrives here from the default invocation any more, and a sentence
+   * telling them their file is meant to stay frozen sends them to look for a
+   * ruling that no longer applies to anything.
+   *
+   * A run that trips this today got here by naming a target, and there are only
+   * three such files: a scratch matrix an earlier `--out-matrix` wrote, one
+   * restored from a branch or from `git show`, and a superseded generation under
+   * `results/superseded/`. All three are readings taken under an older
+   * instrument, and the answer for all three is the same — this build cannot
+   * merge into them, and it must not rewrite them either, because a recorded
+   * number is never rewritten.
+   */
+  const direction = existingVersion < buildVersion ? "an older" : "a newer";
   return (
     `${path} is a schema-${existingVersion} matrix and this build writes schema ${buildVersion}, so it ` +
-    `can be neither read nor merged into. If that is the frozen inactive-bed matrix, it is meant to ` +
-    `stay frozen (wave Decision Log 15 ruling 3) — send this run somewhere else with ` +
-    `--out-matrix results/<name>.json.`
+    `can be neither read nor merged into. A file at ${direction} schema is a reading taken under ` +
+    `${direction === "an older" ? "an earlier" : "a later"} instrument: the usual ones are a scratch matrix an earlier ` +
+    `--out-matrix wrote, one restored from a branch, and a superseded generation under ` +
+    `results/superseded/. None of them is a target to write into — a recorded number is never ` +
+    `rewritten — so send this run somewhere else with --out-matrix results/<name>.json.`
   );
 }
 

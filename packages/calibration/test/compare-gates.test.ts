@@ -69,18 +69,51 @@ describe("matrixSchemaRefusal", () => {
     ).toBeUndefined();
   });
 
-  it("refuses the frozen inactive-bed matrix by name, and says where to write instead", () => {
-    // The interregnum case, and the one a default invocation lands on: the
-    // committed matrix is schema 4 by ruling, this build writes 5. Checked
-    // before capture, so the refusal costs nothing but a message.
-    const refusal = matrixSchemaRefusal(4, 5, "results/matrix.json");
-    expect(refusal).toContain("results/matrix.json");
+  it("refuses a target at an older schema, and says where to write instead", () => {
+    // Checked before capture, so the refusal costs nothing but a message.
+    const refusal = matrixSchemaRefusal(4, 5, "results/scratch.json");
+    expect(refusal).toContain("results/scratch.json");
     expect(refusal).toContain("schema-4");
     expect(refusal).toContain("--out-matrix");
   });
 
   it("refuses a target from a newer build too, not only an older one", () => {
     expect(matrixSchemaRefusal(6, 5, "results/next.json")).toBeDefined();
+  });
+
+  /**
+   * What the message SAYS, re-read against what trips it (W31 G2; c9a §5.163
+   * §5; the tracker's "A change's 'checked, unchanged' sweep read the imports
+   * and not the prose").
+   *
+   * The refusal used to offer "If that is the frozen inactive-bed matrix, it is
+   * meant to stay frozen (wave Decision Log 15 ruling 3)", which described the
+   * schema-4/5 interregnum. That ended when the post-W8 pass re-read the bed:
+   * the committed matrix is at the schema this build writes, so the default
+   * invocation no longer lands here at all and the ruling no longer applies to
+   * any file an operator could be holding. The sentence survived the W30 G1
+   * closure because that closure's subject was the split and this is user-facing
+   * copy — which is exactly the shape of rot the tracker entry names.
+   *
+   * These two cases are what stops it happening again: the ruling must not be
+   * cited, and the three files that DO reach this predicate must be.
+   */
+  it("does not cite a ruling that stopped applying when the interregnum ended", () => {
+    const refusal = matrixSchemaRefusal(4, 5, "results/scratch.json") ?? "";
+    expect(refusal).not.toContain("Decision Log 15");
+    expect(refusal).not.toContain("frozen inactive-bed");
+    expect(refusal).not.toContain("meant to stay frozen");
+  });
+
+  it("names what a run that trips it today is actually holding", () => {
+    const older = matrixSchemaRefusal(4, 5, "results/scratch.json") ?? "";
+    expect(older).toContain("--out-matrix");
+    expect(older).toContain("results/superseded/");
+    expect(older).toContain("never");
+    expect(older).toContain("an older");
+
+    const newer = matrixSchemaRefusal(6, 5, "results/next.json") ?? "";
+    expect(newer).toContain("a newer");
   });
 });
 

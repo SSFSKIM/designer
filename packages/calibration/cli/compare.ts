@@ -668,8 +668,12 @@ function main(): void {
    *
    * The matrix is only deserialised after the capture step, so a target this
    * build cannot merge into would otherwise cost a whole browser run before
-   * failing — and during the schema-4/5 interregnum the *default* target is
-   * exactly such a file. See `matrixSchemaRefusal`.
+   * failing. The default target is not such a file and has not been since the
+   * post-W8 pass re-read the bed — what reaches this today is a NAMED one: a
+   * scratch matrix, a matrix restored from a branch, or a superseded
+   * generation. See `matrixSchemaRefusal`. (This paragraph described the
+   * schema-4/5 interregnum as the present until 2026-09-21, W31 G2, c9a
+   * §5.163 §5.)
    */
   if (existsSync(options.matrixPath)) {
     const existing: unknown = JSON.parse(readFileSync(options.matrixPath, "utf8"));

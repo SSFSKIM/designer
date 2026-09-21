@@ -3941,6 +3941,31 @@ retained and 0 moved), which is the state the paragraph describes.
 
 ## A change's "checked, unchanged" sweep read the imports and not the prose (W30 G1 review closure, 2026-09-20)
 
+**CLOSED 2026-09-21 by W31 G2 (claims §5.163 §5), on both halves.**
+`matrixSchemaRefusal`'s message no longer cites wave Decision Log 15
+ruling 3: re-read against what trips it today, a run reaching that predicate
+got there by NAMING a target, and the three such files are a scratch matrix an
+earlier `--out-matrix` wrote, one restored from a branch, and a superseded
+generation under `results/superseded/` — which is what it now says, with "a
+recorded number is never rewritten" as the reason none of them is a target.
+`test/compare-gates.test.ts` gains two cases in place of the one that pinned
+the old copy: the ruling must not be cited, and the three files must be. The
+same stale claim lived in `cli/compare.ts`'s and `cli/diff.ts`'s own comments,
+both corrected beside with the old reading named.
+
+The RULE — *when a sweep reports a file "unchanged, checked", say what the file
+CLAIMS about the thing being changed, not only whether it reads it* — is in the
+root `CLAUDE.md`'s Conventions, beside "never rewrite a recorded hash". The two
+homes the charter offered do not work: `packages/calibration` has no README, and
+the ledger is a flat sequence of dated claims a child reads by section, so a rule
+in §5.163 would be found only by whoever already knew to look. `CLAUDE.md` is
+loaded before any work begins, which is when a sweep is planned rather than after
+it has gone stale.
+
+---
+
+*The original entry, kept:*
+
 *Found 2026-09-20 by the independent review of the W30 G1 generation split
 (claims §5.157 §7). The instance: `src/report.ts`, `cli/gates.ts` and
 `test/adopted-thresholds.test.ts` each described `results/matrix.json` as a
@@ -3970,6 +3995,52 @@ reads it.
 ---
 
 ## Nothing checks that a WGSL transcendental's argument stays inside f32 (W30 G3b, 2026-09-20)
+
+**CLOSED 2026-09-21 by W31 G2 (claims §5.163) on all three fix shapes, with the
+residual paragraph amended beside rather than over — the candidate it named is
+refuted and the residual is re-opened.**
+
+1. The unit case exists: `packages/renderer-webgpu/test/w31-wgsl-range.test.ts`
+   over `test/wgsl-range/`, which reads every file in `src/wgsl/`, finds every
+   call of `exp`, `exp2`, `pow`, `tanh`, `sinh`, `cosh`, `log`, `log2` and
+   `inverseSqrt`, resolves each argument's interval through bindings, helpers
+   and the bounding builtins, and requires the result to be finite in f32 or the
+   argument to carry a committed range proof with a witness. **Eleven sites,
+   eight clamped by the source, three proven, none STOPPED.** Run against the
+   unfixed `outer_shadow_falloff` it reads UNBOUNDED at the very site of this
+   entry's own defect. Bare division is outside the rule by decision, with the
+   reasons in `scan.ts`'s module note and the one measurement that decided it:
+   of over a thousand divisions in `src/wgsl/`, exactly one has a uniform as its
+   immediate divisor.
+2. The `@gpu` sweeps exist: `e2e/gpu/w31-range-sweeps.spec.ts`, both halves of
+   every ratio — the material axis bracketed by **550×**, which is the widest
+   ratio any leaf has moved between two material generations rather than a
+   number somebody liked, and the scene axis over spans 32…340 at the shipped
+   material. The lens depth, the lens exponent, both scatter taps, the tone
+   knots, the abscissa alone, the rim's exponent and its axis: every reading
+   0 undrawn at IoU 1.0000.
+3. The standing guard exists: `renderScene`'s readback refuses an enclosed
+   region of zero alpha **inside the drawn silhouette**. The silhouette clause
+   was earned rather than designed — the first form had only enclosure and fired
+   on a single pixel of the outer shadow's quantisation tail, on two of
+   forty-two `@gpu` cases (`guard-first-form.txt`).
+
+**And the class had one more member than anyone had found.** `highlight.ts`'s
+`angle_delta` returns `min(raw, TAU - raw)`, which goes negative past one
+revolution, into a `pow` base WGSL leaves undefined. It is reachable from an
+application: the sweep phase comes off a CSS custom property that nothing clamps
+(`readHostChannels` clamps `materialization` and not `sweep`). Floored as an
+identity; the goldens are byte-identical.
+
+**The fix shape left open, narrower than this entry was.** The floor makes an
+out-of-range phase safe without making it mean anything — the band is centred on
+the pixel rather than NaN. Wrapping the phase where it is READ, in
+`platform-web`'s `readHostChannels` beside the clamp `materialization` already
+has, is what would make it a phase again. One line, outside W31 G2's contract.
+
+---
+
+*The original entry, kept:*
 
 *Found 2026-09-20 by W30 G3b diagnosing §5.159 §6's undrawn strip (claims
 §5.159b). The instance is fixed; the class is not.*
@@ -4015,6 +4086,32 @@ fix that landed is a clamp on one argument; the generalisation is not there.
    validation error, and it could also refuse a raster whose alpha has a hole
    inside a declared silhouette. That is the signature a NaN leaves, and it is
    one pass over the bytes the harness already has in hand.
+
+**AMENDED 2026-09-21 (W31 G2, claims §5.163 §6): the candidate below is
+refuted and the residual is re-opened.** The range proof (1) asks for was run per
+component per document (`falloff-reach.py`). Two independent readings. The
+overflow is **one-sided**: it needs `2t > +88.7228`, so only a pixel INSIDE the
+shadow's silhouette can reach it, and an exterior pixel's `t` is negative, where
+the same lowering drives `exp(2t)` to zero and returns −1 without leaving f32. So
+"a handful of exterior pixels at the overflow boundary" cannot be the cause of
+anything. And no interior pixel of that scene reaches it either: the deepest sits
+at `x = (halfSpan + spreadPx)/σ`, which is **8.3963** on the light document and
+**8.4511** on the dark — both on the `over` surface at span 56 — against 10.0610,
+a margin of about 6 CSS px of depth. The three texture cells therefore moved
+across a change that is provably the identity on every pixel of their scene.
+Their remaining candidate is the one the FOURTH cell already has, this tracker's
+"The CSS tier's capture is not byte-reproducible across landings" — which would
+have to be wider than that entry says, since these are texture rows — and what
+would settle it is that entry's own fix shape: the three cells captured twice in
+one day at one renderer, with `shadow.falloffSigmaWeb` read for whether it
+reproduces to the digit.
+
+*Beside it, from the same table: `rrect-48` clears the boundary too, at x =
+10.2156 light and 10.3911 dark — 1.5 % and 3.3 % over, a thin strip. It is a
+probe component, so its rows are never gated and W20's declaration conformance
+could not have flagged it; it sits inside §5.159b §3's "the ladder's span-44
+column WAS" and was never named separately. The fix that closed it is the same
+one and nothing is owed.*
 
 **One residual this gate measured and did not explain.** Four `glass-over-glass`
 cells on the dark beds moved across the fix by up to 8·10⁻⁴ CSS px on a fitted
