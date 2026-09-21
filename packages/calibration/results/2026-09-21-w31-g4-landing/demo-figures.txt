@@ -1,0 +1,122 @@
+W31 G4 — the demo's calibration readout, at the wave's two ends
+====================================================================================================
+
+  after   packages/calibration/results/matrix.json (the generation the page reduces)
+  before  results/superseded/d0c389d70456.json + 880ab1e31450.json — the PRE-FIT
+          generation, what the page printed at the 0.20.0 cut
+  rule    primary profile per scheme, texture tier, `matrix-reduction.ts`'s PROJECTED
+
+light scheme — apple-macos-27.0-1x-light-standard-glass0.5
+----------------------------------------------------------------------------------------------------
+  photo__rrect-sm__rest                        span  32
+      shape.silhouetteIoU                      0.999500 ->     0.999500   +0.000000
+      shape.contourDistanceMean                0.005814 ->     0.005814   +0.000000
+      shape.contourDistanceP95                 0.000000 ->     0.000000   +0.000000
+      perceptual.ssimMean                      0.997578 ->     0.997512   -0.000066
+      perceptual.oklabDeltaEMean               0.001929 ->     0.001170   -0.000759
+      material.luminanceSlopeNative            0.159461 ->     0.159461   +0.000000
+      material.luminanceSlopeWeb               0.241339 ->     0.242791   +0.001452
+      material.chromaStructureRatioNative             — ->     1.307499     NEW AT THIS GATE
+      material.chromaStructureRatioWeb                — ->     1.773859     NEW AT THIS GATE
+      shadow.falloffSigmaWeb                  11.081649 ->    11.081649   +0.000000
+  photo__capsule-button__rest                  span  44
+      shape.silhouetteIoU                      0.999384 ->     0.999384   +0.000000
+      shape.contourDistanceMean                0.010870 ->     0.010870   +0.000000
+      shape.contourDistanceP95                 0.000000 ->     0.000000   +0.000000
+      perceptual.ssimMean                      0.996035 ->     0.995953   -0.000083
+      perceptual.oklabDeltaEMean               0.005220 ->     0.003265   -0.001955
+      material.luminanceSlopeNative            0.522821 ->     0.522821   +0.000000
+      material.luminanceSlopeWeb               0.390945 ->     0.391223   +0.000278
+      material.chromaStructureRatioNative             — ->     1.591569     NEW AT THIS GATE
+      material.chromaStructureRatioWeb                — ->     1.594731     NEW AT THIS GATE
+      shadow.falloffSigmaNative                1.522835 ->     1.522835   +0.000000
+      shadow.falloffSigmaWeb                  12.763311 ->    12.763311   +0.000000
+  photo__rrect-md__rest                        span  96
+      shape.silhouetteIoU                      0.999734 ->     0.999734   +0.000000
+      shape.contourDistanceMean                0.008621 ->     0.008621   +0.000000
+      shape.contourDistanceP95                 0.000000 ->     0.000000   +0.000000
+      perceptual.ssimMean                      0.991670 ->     0.991775   +0.000105
+      perceptual.oklabDeltaEMean               0.019252 ->     0.011963   -0.007288
+      material.luminanceSlopeNative            0.635495 ->     0.635495   +0.000000
+      material.luminanceSlopeWeb               0.384463 ->     0.384236   -0.000227
+      material.chromaStructureRatioNative             — ->     1.512072     NEW AT THIS GATE
+      material.chromaStructureRatioWeb                — ->     1.570568     NEW AT THIS GATE
+      shadow.falloffSigmaNative                8.572982 ->     8.572982   +0.000000
+      shadow.falloffSigmaWeb                  12.120323 ->    12.120323   +0.000000
+  photo__rrect-lg__rest                        span 160
+      shape.silhouetteIoU                      0.999544 ->     0.999544   +0.000000
+      shape.contourDistanceMean                0.025000 ->     0.025000   +0.000000
+      shape.contourDistanceP95                 0.000000 ->     0.000000   +0.000000
+      perceptual.ssimMean                      0.983564 ->     0.983963   +0.000399
+      perceptual.oklabDeltaEMean               0.060882 ->     0.037431   -0.023451
+      material.luminanceSlopeNative            0.686180 ->     0.686180   +0.000000
+      material.luminanceSlopeWeb               0.397027 ->     0.397030   +0.000003
+      material.chromaStructureRatioNative             — ->     1.414017     NEW AT THIS GATE
+      material.chromaStructureRatioWeb                — ->     1.618483     NEW AT THIS GATE
+      shadow.falloffSigmaNative               16.968423 ->    16.968423   +0.000000
+      shadow.falloffSigmaWeb                  19.802558 ->    19.802558   +0.000000
+  checkerboard__rrect-md__rest                 span  96
+      shape.silhouetteIoU                      1.000000 ->     1.000000   +0.000000
+      shape.contourDistanceMean                0.000000 ->     0.000000   +0.000000
+      shape.contourDistanceP95                 0.000000 ->     0.000000   +0.000000
+      perceptual.ssimMean                      0.945366 ->     0.945366   +0.000000
+      perceptual.oklabDeltaEMean               0.009365 ->     0.009365   +0.000000
+      material.luminanceSlopeNative            0.072099 ->     0.072099   +0.000000
+      material.luminanceSlopeWeb               0.126843 ->     0.126843   +0.000000
+      material.chromaStructureRatioNative             — ->     0.004113     NEW AT THIS GATE
+      material.chromaStructureRatioWeb                — ->     0.000000     NEW AT THIS GATE
+      shadow.falloffSigmaNative                8.796781 ->     8.796781   +0.000000
+      shadow.falloffSigmaWeb                  12.569820 ->    12.569820   +0.000000
+
+dark scheme — apple-macos-27.0-1x-dark-standard-glass0.5
+----------------------------------------------------------------------------------------------------
+  photo__rrect-sm__rest                        span  32   no cell in either generation
+  photo__capsule-button__rest                  span  44
+      shape.silhouetteIoU                      0.988829 ->     0.988380   -0.000449
+      shape.contourDistanceMean                0.132404 ->     0.134215   +0.001812
+      shape.contourDistanceP95                 1.000000 ->     1.000000   +0.000000
+      perceptual.ssimMean                      0.988858 ->     0.988752   -0.000106
+      perceptual.oklabDeltaEMean               0.008835 ->     0.006996   -0.001839
+      material.luminanceSlopeNative            0.412845 ->     0.412845   +0.000000
+      material.luminanceSlopeWeb               0.090668 ->     0.091196   +0.000528
+      material.chromaStructureRatioNative             — ->     2.397907     NEW AT THIS GATE
+      material.chromaStructureRatioWeb                — ->     1.969460     NEW AT THIS GATE
+      shadow.falloffSigmaNative                1.698105 ->     1.698105   +0.000000
+      shadow.falloffSigmaWeb                  15.574819 ->    15.574819   +0.000000
+  photo__rrect-md__rest                        span  96
+      shape.silhouetteIoU                      0.988925 ->     0.988854   -0.000071
+      shape.contourDistanceMean                0.278319 ->     0.278319   +0.000000
+      shape.contourDistanceP95                 1.000000 ->     1.000000   +0.000000
+      perceptual.ssimMean                      0.978845 ->     0.978904   +0.000059
+      perceptual.oklabDeltaEMean               0.029154 ->     0.021626   -0.007528
+      material.luminanceSlopeNative            0.283009 ->     0.283009   +0.000000
+      material.luminanceSlopeWeb               0.067472 ->     0.067360   -0.000112
+      material.chromaStructureRatioNative             — ->     3.595190     NEW AT THIS GATE
+      material.chromaStructureRatioWeb                — ->     3.386068     NEW AT THIS GATE
+      shadow.falloffSigmaNative                9.036832 ->     9.036832   +0.000000
+      shadow.falloffSigmaWeb                  12.206513 ->    12.206513   +0.000000
+  photo__rrect-lg__rest                        span 160
+      shape.silhouetteIoU                      0.997722 ->     0.997627   -0.000096
+      shape.contourDistanceMean                0.152662 ->     0.155110   +0.002448
+      shape.contourDistanceP95                 1.000000 ->     1.000000   +0.000000
+      perceptual.ssimMean                      0.957005 ->     0.958455   +0.001450
+      perceptual.oklabDeltaEMean               0.088737 ->     0.062830   -0.025907
+      material.luminanceSlopeNative            0.277548 ->     0.277548   +0.000000
+      material.luminanceSlopeWeb               0.070525 ->     0.070583   +0.000059
+      material.chromaStructureRatioNative             — ->     3.759584     NEW AT THIS GATE
+      material.chromaStructureRatioWeb                — ->     4.658471     NEW AT THIS GATE
+      shadow.falloffSigmaNative               17.384673 ->    17.384673   +0.000000
+      shadow.falloffSigmaWeb                  19.829848 ->    19.829848   +0.000000
+  checkerboard__rrect-md__rest                 span  96
+      shape.silhouetteIoU                      1.000000 ->     1.000000   +0.000000
+      shape.contourDistanceMean                0.000000 ->     0.000000   +0.000000
+      shape.contourDistanceP95                 0.000000 ->     0.000000   +0.000000
+      perceptual.ssimMean                      0.966131 ->     0.966131   +0.000000
+      perceptual.oklabDeltaEMean               0.005996 ->     0.005996   +0.000000
+      material.luminanceSlopeNative            0.034757 ->     0.034757   +0.000000
+      material.luminanceSlopeWeb               0.034014 ->     0.034014   +0.000000
+      material.chromaStructureRatioNative             — ->     0.014639     NEW AT THIS GATE
+      material.chromaStructureRatioWeb                — ->     0.000000     NEW AT THIS GATE
+      shadow.falloffSigmaNative                8.871118 ->     8.871118   +0.000000
+      shadow.falloffSigmaWeb                  12.322779 ->    12.322779   +0.000000
+

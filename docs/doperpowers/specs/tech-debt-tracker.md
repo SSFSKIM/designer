@@ -3579,60 +3579,6 @@ cell before anything is changed.
 
 ---
 
-## The site's tone stage was designed around a convergence macOS 27 does not have (W29 G4, 2026-09-20)
-
-*Found 2026-09-20 landing the macOS 27 selection (claims §5.155), when two of the
-section's three e2e cases failed for the right reason.*
-
-`apps/demo`'s "Taking the tone of the backdrop" section exists to show one thing:
-drag the ground down and the 40px plate takes the backdrop's own colour exactly,
-body and rim, while the 112px plate barely moves. That was true of macOS 26.5's
-material. On macOS 27 it is not true of any plate at any stop — Apple's body over
-a near-black backdrop measures 0.29 linear against the backdrop's 0.06 (§5.151 §4)
-and the adaptation band that took vitrea's the rest of the way measures inert
-(§5.153 §2 item 1) — so the three plates now sit within 0.016 of each other and
-about a hundred times above the ground at the bottom stop
-(`results/2026-09-20-w29-g4-landing/tone-probe.json`).
-
-**What G4 did** is make the page honest rather than redesign it: the prose now
-says what the curve does on macOS 27 and names the macOS 26.5 behaviour as what
-changed, the control and the three plates are untouched, and the two e2e cases
-were moved against the committed reading rather than against whatever passed.
-
-**What is left is a design question, and it is the user's.** The stage's
-*geometry* — three plates at 40, 68 and 112px, one ground slider running to
-near-black — was chosen to make a size-gated convergence visible. With the
-convergence gone, the control's dark half demonstrates much less than it did: the
-separation the sweep is about is plain over the bright half and closes to nothing
-at the dark end, which is the opposite of the range the slider is weighted
-towards. Three shapes, none of them mechanical: re-range the slider so its
-resolution sits where the plates actually separate; keep the range and make the
-section's subject the *curve* rather than its endpoint, which is what the new
-prose already half does; or retire the stage and spend the space on a behaviour
-macOS 27 made more visible rather than less. Not taken here because which of
-those is right is a decision about what the site is for.
-
-**RULED and CLOSED 2026-09-20: the first shape, re-ranged by W30 G4** (charter
-Decision Log 1 (e), claims §5.160). The control's value is now a POSITION on a
-geometric ladder between the same two ends — 81 stops of equal ratio from 0.0020
-to 0.1600 — so the band where the plates separate holds 40 of its stops against
-16 of the old 80, and both ends survive: the near-black stop is still one `Home`
-away and the top stop is still `STAGE_HINT`'s own level.
-
-**The paragraph above has its axis backwards, and the reading that executed the
-ruling is what found it.** `packages/calibration/results/2026-09-20-w30-g4-landing/tone-range.json`
-walks all eighty stops of the old control on the shipped material: the three
-bodies separate by **0.026, about 11 % of their own level, over a ground of
-0.006** and by **0.0148, 2.4 %, at 0.16**. So the separation is widest over the
-DARK half and narrowest at the bright end — the opposite of "plain over the
-bright half and closes to nothing at the dark end". What does close at the bottom
-is the ORDER, which is the entry below, and the two were being read as one
-quantity. Recorded beside rather than over, because the ruling it produced stands
-either way: resolution belongs where the plates separate, and that is where it
-now is.
-
----
-
 ## The tone stage's three bodies are not ordered by span at the curve's first anchor (W29 G4, 2026-09-20)
 
 *Found 2026-09-20 by the reading that moved the site's tone cases (claims §5.155);
@@ -3715,6 +3661,21 @@ a residual of that size on `interiorLevel` at the darkest `dark-solid` cells is
 well inside what the committed rows can resolve, so the question "is this the CSS
 tier's composite or the material's" is answerable from rows already on disk
 rather than needing a capture.
+
+**Deliberately kept open, 2026-09-21 (W31 Decision Log 1 (c), ruled by the user;
+recorded at W31 G4, claims §5.165 §3).** The ruling that closed this entry's
+SIBLING — "the site's tone stage was designed around a convergence macOS 27 does
+not have", now removed, ruled keep-as-re-ranged and executed by W30 G4 — names
+this entry as what survives it: *the tone stage stays as re-ranged, with the
+40 px plate's band recorded in the tracker*. So the band above is not a loose end
+of a decision that was pending; it is the one thing the decision left standing,
+and the stage's design question is settled around it. W29's Deferred item 8
+closes on the same ruling.
+
+Nothing in W31 moved it. The wave's leaf is inert over an achromatic backdrop and
+the tone stage's ground is a neutral ramp, so the 40 px plate's alpha step is
+exactly where W30 G4 measured it. The fix shape above is unchanged and is still a
+read of rows already on disk.
 
 ---
 
@@ -4202,3 +4163,503 @@ flips between landings and never within a day's runs — and G3's read and G3b's
 are two landings. Not settled: settling it wants that entry's own fix shape, the
 page settled for two animation frames before the CSS path's screenshot, and then
 a same-day control.
+
+---
+
+## The canonical `web-captures/` tree held no current generation, because every read ran in a worktree (W31 G4, 2026-09-21)
+
+*Found at the W31 charter's grounding read and sharpened by W31 G0 (charter
+Surprises; claims §5.161 §2). **Fixed for this wave and not for the class.***
+
+`CLAUDE.md` has said since W29 that the canonical `packages/calibration/web-captures/`
+"lives on the capture machine and is what the sheets and the demo fixture are
+copied from". That sentence was false for two years' worth of waves and nobody
+noticed, because nothing reads the tree except a person making a sheet.
+
+Two facts, and the second is the sharper one:
+
+- **The tree held no macOS 27 generation at all.** It carried the six macOS 26.5
+  trees, last written 2026-09-10. Every W29 and W30 read ran in an agent
+  worktree, captures are gitignored, a worktree inherits none, and the worktree
+  was removed after merge — so the pixels the committed rows were measured off
+  were deleted as soon as the rows landed. The two surviving worktree trees were
+  at earlier document hashes.
+- **The macOS 26.5 tree that DID exist was a different generation from the rows
+  beside it.** W31 G0 re-measured all six frozen trees with `--skip-capture` —
+  no browser, today's metric on both sides — and reproduced 282 of 284 cells
+  exactly. The two that miss are `photo__glass-over-glass__rest` on the two light
+  profiles, `texture` tier, `interiorMeanWeb` 2.840e-03 and 2.527e-03 out, with
+  the `dom` tier of the same cells reproducing to the last bit. The tree's files
+  are dated 2026-09-10 and the rows were measured 2026-09-11. **So the macOS 26.5
+  columns of that one scene are read off pixels the committed row was not read
+  off**, and any sheet made from them carries that sentence.
+
+**What closed the immediate problem.** W31 acceptance clause 6 makes copying the
+read's tree to the canonical path part of the merge, and the parent did it at
+W31 G3c's merge: the tree now holds all six macOS 27 profiles at the shipped
+document hashes (`49490eb9ff7a` / `14c6bacf2eda`, `b5714a866288` /
+`cc4ed1038996`). W31 G4's `sheets.ts` is the first sheet script that reads the
+canonical tree AND asserts, per cell, that the capture names the shipped
+document bytes — receded document included — refusing rather than photographing
+a stale one.
+
+**What is NOT closed, and it is the class.** The copy is a step in a charter, not
+a rule anything enforces, and the next wave that reads in a worktree and forgets
+it puts the tree back where it was. **Nothing anywhere checks that the canonical
+tree and `results/matrix.json` are the same generation.** The two frozen macOS
+26.5 cells above are the standing proof that they can silently diverge.
+
+**The fix shape**: a checker that walks the canonical tree's `cell__*.json`, reads
+each capture's document hashes, and asserts that for every profile the tree
+carries, the generation it names is the one the matrix's rows for that profile
+name. It is a file walk and a string compare — no browser, no capture — and it
+can run in `pnpm -r test` as a case that skips cleanly where the tree is absent,
+which is what makes it usable on a machine that is not the capture machine.
+
+---
+
+## A retention conditioned on the SURFACE is the operator's next form, and the same defect already shipped once as a policy bug (W31 G4, 2026-09-21)
+
+*Deferred by W31 Decision Log 3 (b) with its evidence measured rather than
+anticipated (claims §5.164 §8 (a), §13; §5.165).*
+
+`bodyChromaRetention` is one constant per document. It restores a constant
+fraction of the FULL backdrop chromaticity regardless of what the plate actually
+transmits, and `1 − sizedAlpha` — what the plate leaves — falls as the span
+rises. So the same constant buys a larger relative chroma gain on a larger
+surface, and the operator scales the per-cell spread rather than closing it.
+
+The numbers, all from the canonical read:
+
+- **The fit closes the median and widens the spread.** The light active bed's
+  per-cell range goes from 0.5095–0.6533 before to 0.8891–1.4417 after — a factor
+  between the extremes of **1.2824 → 1.6216**, like for like over all ten cells.
+- **The largest span overshoots.** `photo__rrect-lg__rest` on the WebGPU tier
+  reads `R` **1.2391** (1x dark) and **1.3596** (2x), outside the 0.80–1.20 the
+  median is bounded to, on a holdout cell the bound is not stated over.
+- **The thinnest surfaces overshoot the other way and are now gated.** W31 G4's
+  M1 records three `photo__rrect-sm` cells MISSED at 1.5155, 1.4469 and 1.4417.
+- **The gain is uncorrelated with what the plate transmits**: correlation −0.39
+  between transmitted chroma and gain over 56 cells.
+
+**It has already shipped once as something else.** W31 G3's leaf was applied
+unconditionally, and under an accessibility occlusion lift — where `1 − α` is a
+tenth to a fiftieth of nominal — it took the body's chroma-to-structure to three
+times the reference's. W31 Decision Log 3 (d) fixed that with a hard stand-down,
+and the ruled smaller rule (`r · (1 − lift)`) was measured and DECLINED because
+scaling a constant fraction of the full chromaticity by the plate's remaining
+share still over-restores where that share is small. **The accessibility path and
+the span overshoot are the same defect read at two axes**, and the stand-down is
+its first policy-level instance rather than a separate fix.
+
+**The fix shape**: make the retention a function of the plate's own alpha — as
+W30 made σ a function of the casting span — so that what is restored is a
+fraction of what the plate TOOK rather than of what the backdrop has. The
+preconditions are named and one of them is a scenes decision: the dark bed has
+four cells at one span each, which is not enough to fit a slope on, so the wave
+that takes this first widens the dark bed's spans in
+`apps/reference-apple/scenes.json`. A law rather than a value also has to be
+mirrored on both tiers and pinned by `tier-coherence.test.ts` — except that this
+tier carries none of the operator at all (entry below), so the mirror is a
+recorded decline.
+
+---
+
+## The two accessibility documents inherit a retention nobody measured, and now stand it down entirely (W31 G4, 2026-09-21)
+
+*Deferred by W31 Decision Log 3 (c) behind (d) (claims §5.164 §8 (b), §13).*
+
+Reduce Transparency and Increase Contrast are the light document plus an
+occlusion lift, and W31 Decision Log 2 (a) ruled that they inherit the light
+document's `bodyChromaRetention`. Read at the canonical bytes with the leaf
+applied, their untinted `photo` medians on the WebGPU tier were **3.0374** and
+1.9923 (reduced transparency, active and inactive) and **2.9489** and **0.1381**
+(increased contrast) — an inherited constant reading three times the reference on
+one bed and a seventh of it on another.
+
+W31 Decision Log 3 (d) stands the retention down under any occlusion lift, so
+0.21.0 draws what 0.20.0 drew on those beds: R **0.9096 / 0.8294 / 0.8147 /
+0.1552**, proven at the raster (48 of 48 PNGs identical) and re-derived at W31 G4
+off the committed matrix (`accessibility-identity.txt`: 6,855 numeric readings
+across every axis, none moved). So there is no regression and there is also no
+measurement: **the question of what retentions those two documents should carry
+is now open on a material that has none.**
+
+Two readings that say the answer is not obviously zero:
+
+- **The increased-contrast INACTIVE bed reads 0.1552 against a reference of 1**,
+  and always has. That bed's body carries a seventh of the reference's
+  chroma-to-structure with or without this wave, which is a gap the stand-down
+  freezes rather than creates. W31 G4's `eye.md` §1 sees it: vitrea's plate is a
+  clean white where the reference keeps a faint warm-to-green cast.
+- **The declined lift rule's perceptual rows were BETTER on three of four beds.**
+  Under `r · (1 − lift)`, `oklabDeltaEP95` read 0.02946 / 0.01121 / 0.00989 /
+  0.03696 against 0.02882 / 0.01362 / 0.01107 / 0.03705 at 0.20.0. The choice was
+  made on `R`, correctly — a body at twice the reference's chroma under a
+  preference asking for less transparency is the defect whatever a whole-cell P95
+  says — but it means a fitted retention for those documents is not obviously a
+  retention of zero.
+
+**The fix shape**: fit the two accessibility documents' own retentions on their
+own beds, which carry sixteen and eighteen gated cells, and decide whether the
+right form is a value per document or the surface-conditioned law above evaluated
+at the lifted alpha. The second is the more likely answer and is why this entry
+sits behind that one.
+
+---
+
+## The CSS tier carries none of the body's chroma operator, and on the dark scheme its one lever is inert (W31 G4, 2026-09-21)
+
+*Measured and declined at W31 G3 (claims §5.164 §5, §8 (c)); the two `dom` rows
+it costs are in `MISSED_27_ROWS`.*
+
+The CSS tier's only operator on the body's chroma is the `saturate()` inside its
+one `backdrop-filter`, which acts on the backdrop BEFORE the `rgba()` plate
+covers it. A mirror of the renderer's retention was derived from the leaf — a
+gain `1 + r·α′/(1 − α′)` at the converted alpha this tier solves, leaving the
+authored 1.8 and 1.4 exactly where X3 froze them and exactly 1 at the identity —
+written, wired through `root.ts`, rendered on the declared bed, and taken back
+out on the measurement.
+
+| bed | ratio (ii) native | before | after | reach |
+| --- | ---: | ---: | ---: | ---: |
+| light active (10) | 0.7891 | 0.4719 | 0.7142 | 0.764 |
+| light inactive (8) | 0.7721 | 0.4990 | 0.7818 | 1.035 |
+| dark active (4) | 0.9453 | 0.2024 | **0.2024** | **0.000** |
+| dark inactive (4) | 0.9042 | 0.2224 | 0.2288 | 0.009 |
+
+**On the dark scheme it is not merely insufficient, it is inert.** A probe at a
+retention of **1** — the most the leaf can hold — leaves the dark active cells at
+0.2024, unchanged to four decimals, which is the law's own `open ≤ 1e-3` guard
+speaking: the converted alpha there leaves no backdrop for a saturation to act
+on. §5.161 §6's dark ceiling is therefore unreachable rather than an upper bound.
+**On the light scheme it buys a great deal and breaks both stops doing it** —
+the level-growth stop on 10 of 26 cells and the structure stop on 13 — because
+`saturate()` is a matrix on sRGB-ENCODED channels and stops preserving luminance
+the moment one clips.
+
+The cost is recorded rather than approximated: `photo__rrect-lg__rest ::
+oklabDeltaEP95` on the two dark `dom` rows is **unmoved to the fifth decimal**
+(0.20095 and 0.19474 against ≤ 0.18 and ≤ 0.19) while its `texture` siblings
+cleared at the same material. W31 G4's sheets show it directly — on the dark
+sheets the third panel is the flat grey body G0 described and the second one is
+not.
+
+**The fix shape, and it is the `rgba()` layer rather than the backdrop beneath
+it.** A gain on `saturate()` is inert where the converted alpha covers the
+backdrop and clips the level where it does not, so the reachable work is a chroma
+term on the covering layer — a tint whose chromaticity is derived from the
+sampled backdrop rather than authored — or a plate this tier does not solve to
+full coverage. `BODY_CHROMA_RETENTION` stays exported from
+`platform-web/src/optics.ts` at 0 with the measurement beside it, and
+`tier-coherence.test.ts` pins it against the four SHIPPED documents' retentions
+as literals, so a document that doubles its retention widens a recorded gap and
+the case says so.
+
+---
+
+## On the receded TINTED cells vitrea's body has no chroma at all (W31 G4, 2026-09-21)
+
+*Found by W31 G0's per-pixel instrument (charter Surprises; claims §5.161 §3
+finding (b)); frozen out of W31 by X3.*
+
+Ratio (ii) — the interior's per-pixel chroma over the raw backdrop's — reads
+**0.001–0.006** on the receded tinted cells against the reference's **0.54–0.65**,
+while the ACTIVE tinted cells match almost exactly (1.433 against 1.435). So on
+an unfocused window vitrea's tinted body is achromatic where Apple's keeps its
+colour, and the defect is specific to the recede and specific to the tint path.
+
+**The cause is named and is not this wave's operator.** W27c's chroma collapse
+acts on the tint SEED inside `if (tintK > 0.0)` and drives the paint to neutral
+in the receded composition. `bodyChromaRetention` is applied BEFORE the tint
+composition and is inert at `s = 1` by construction — the canonical read
+confirms it, 147 of the 148 shared tinted rows at exactly zero movement — so this
+wave neither caused it nor could have closed it. X3 froze the tint's chroma law
+for the whole of W31.
+
+**The fix shape**: re-read W27c's seed collapse against the macOS 27 receded
+fixtures, which is a different bed from the one it was fitted on, and decide
+whether the collapse is a receded behaviour Apple has at all or a macOS 26.5
+reading that macOS 27 ended. The instrument to judge it on exists now: ratio (ii)
+on the receded tinted cells, web against native, which is the table above.
+
+---
+
+## The retention under Increase Contrast ALONE is unmeasured, and the bed cannot measure it (W31 G4, 2026-09-21)
+
+*Found by W31 G3c's independent review, folded at W31 G4 (claims §5.165).*
+
+`bodyChromaRetentionUnderPolicy` stands the retention down on
+`policy.occlusion === "increased" | "opaque"`. Only **Reduce Transparency** sets
+an occlusion: `ACCESSIBILITY_BEHAVIOR_TABLE`'s `increasedContrast` row carries
+`border`, `foreground` and `ambientTint` and no occlusion key, and
+`media-policy.ts` matches `prefers-contrast: more` and
+`prefers-reduced-transparency: reduce` independently. **So a 0.21.0 page under
+Increase Contrast alone draws the retention at its full value.**
+
+That is internally consistent — IC alone lifts no occlusion, so the plate takes
+its nominal alpha and the retention is acting on the plate it was fitted against
+— and it is not a regression against 0.20.0, which had no operator to stand
+down. What it is, is **unmeasured**: macOS 27 decoupled the two switches
+(`apps/reference-apple/scenes.json`, the `-increased-contrast-` entry: all seven
+of that profile's runs attested `increaseContrast=1` with `reduceTransparency=0`),
+and the profile this wave's beds actually read is the **COUPLED** one, whose
+occlusion IS lifted. The decoupled macOS 27 increased-contrast bed has never been
+read against vitrea at all — `compare` cannot tell the two contrast states apart
+from the field it picks them off, which is this tracker's own standing entry.
+
+**And there is a design question under it, not only a measurement gap.**
+Increase Contrast's own consequence in §Accessibility is
+**`ambientTint: "reduced"`**, documented as the material's colour cast picked up
+from its backdrop — which is literally what this leaf restores. A preference that
+asks for less ambient tint arguably asks this operator to back off, and nothing
+in the runtime connects the two: `bodyChromaRetentionUnderPolicy` reads the
+occlusion axis and never looks at `ambientTint`.
+
+**The fix shape**: read the decoupled increased-contrast bed against vitrea (it
+needs `compare`'s flag fixed first), then decide whether the retention should
+read `ResolvedMaterialPolicy.ambientTint` as well as `occlusion`. The second half
+is a policy decision and should be made on the reading rather than before it.
+
+---
+
+## Two superseded-index entries name the reading gate as the moving one, and a third was corrected as it was written (W31 G4, 2026-09-21)
+
+*Named by W31 G3c's Deferred list and by its review's NB5 (claims §5.164 §13).*
+
+`results/superseded/index.json`'s own `claimsFields` note says of
+`readUnderClaims` and `movedUnderClaims` that "they are never the same gate", and
+`split-generation.py` **documents that rule without enforcing it**. Three entries
+have been written with the two equal. One — `e2fa07589d99.json` — was corrected
+by hand as it was written. Two are committed evidence and are not edited:
+`880ab1e31450.json` and `d0c389d70456.json` both read `c9a §5.164` for rows W30
+G3b READ under §5.159b.
+
+The practical cost is small and real: a reader tracing where a generation came
+from gets the mover's section for both halves, so the provenance chain has a
+gap exactly where the split exists to record one.
+
+**Beside it, a byte-churn note.** W31 G3c's split re-emitted the index's
+pre-existing entries with `§` HTML-escaped — content-identical, so nothing
+recorded changed value, but the diff shows every entry as touched, which makes a
+review of a split read every line instead of the new one.
+
+**The fix shape**: `split-generation.py` refuses `--read-claims` equal to
+`--claims` (the one legitimate exception is a gate that reads and supersedes in
+one run, which the rule says does not happen, so the refusal can be absolute),
+and writes the index with `ensure_ascii=False` so a re-emit is a no-op on the
+entries it is not changing.
+
+---
+
+## The two dark macOS 27 documents' `$comment-sha-history` carries a wrong parenthetical (W31 G4, 2026-09-21)
+
+*Named by W31 G3c's Deferred list; finding N9 of its review (claims §5.164 §13).*
+
+`seal.ts`'s history template wrote "the reading under rule 2 (the plain resolved
+fingerprint)" into all four macOS 27 documents. **Rule 2 is not the plain
+fingerprint** — it is the fingerprint with every identity-table entry dropped,
+which is the whole content of W31 Decision Log 1 (a). The two LIGHT documents
+gained a `$comment-sha-history-correction` in the same edit as W31 G3c's dated
+line; the two DARK documents did not, because they were not re-read in that
+branch and a correcting comment would move their file hashes and empty the dark
+half of the macOS 27 bed out of every bound until rows at the new bytes exist
+(contract X10).
+
+So the defect is a sentence in two committed documents, and the cost of fixing it
+in isolation is a canonical read of two profiles.
+
+**The fix shape**: whoever next re-seals or re-reads the dark pair carries the
+correction in the same merge. `seal.ts` in
+`results/2026-09-21-w31-g3c-accessibility-gate/` is the corrected template and
+will not write it again — it is committed and was deliberately NOT run at that
+gate.
+
+---
+
+## The holdout configuration log is a cross-gate ledger living inside one gate's evidence directory (W31 G4, 2026-09-21)
+
+*Named by W31 G3c's Deferred list (claims §5.164 §13).*
+
+W31 Decision Log 1 (b) is enforced by artifact: `configuration.py record` refuses
+a second holdout read at identical document hashes unless the source hash moved
+and a non-fit reason is named. The refusal reads `configuration-log.json` — **not
+the world** — which is what makes it survive a worktree, a rebase or a machine.
+
+But every script under `results/` is copied per gate by convention, and **a copy
+starts with an empty log**, which would make the refusal blind to every read
+before it. W31 G3c avoided that by running W31 G3's copy in place and appending
+to its log. The next gate has the same choice and no rule telling it which to
+make, and the two options are not equivalent: one keeps the rule and one silently
+retires it.
+
+**The fix shape**: move the log out of any one gate's directory —
+`packages/calibration/results/holdout-configuration-log.json` — and make
+`configuration.py` read and append to that path wherever the script itself lives.
+A cross-gate ledger should not be a file a copying convention can fork.
+
+---
+
+## `interiorStdDevWeb` moves 5.69 % on a standard light cell off the declared bed, against a 2 % stop on it (W31 G4, 2026-09-21)
+
+*Named by W31 G3c's Deferred list; finding N12 of its review (claims §5.164 §4,
+§13).*
+
+W31's structure stop bounds `interiorStdDevWeb` to within 2 % of its pre-fit
+value on the declared bed's 26 cells, and it is met on all of them at a worst of
+**1.317 %** — adopted at W31 G4 as `M2`. Off that bed the same quantity moves
+further: the worst macOS 27 WebGPU row is 2x light
+`photo__capsule-button__rest-tint-orange-half` at **−5.69 %** (0.020154 →
+0.019006), on a standard light profile.
+
+**The cause is understood and is not the operator.** The movement scales
+inversely with the cell's own spread — −1.32 % at `sd` 0.0187, −0.74 % at 0.0175,
+−0.04 % at `sd` 0.0680 — which is the capture's 8-bit quantisation: a chroma
+change moves which bin each channel lands in, so the luma reconstructed from
+three 8-bit codes jitters by a fixed fraction of a code, and a fixed absolute
+jitter is a larger fraction of a smaller spread. The operator holds linear luma
+to under two ULP of a double in the law and to a sixth of one code on a hardware
+adapter.
+
+What makes it an entry rather than a footnote is scope: **a stop stated over a
+bed is a statement about that bed**, and M2 is now an adopted row over 26 cells.
+A wave that widens the bed — the surface-conditioned retention needs more spans
+on the dark side, so one will — meets this reading first, and will have to decide
+whether 2 % is a bound about the material or about the raster.
+
+**The fix shape**: state the structure clause against a floor that scales with
+the cell's own spread, or read `interiorStdDev` off a higher-bit-depth capture
+where the quantisation is not the signal. The first is cheaper and is probably
+right; the second is what would settle whether 1.317 % is anything at all.
+
+---
+
+## 0.21.0's headline operator has no stage on the demo that shows it (W31 G4, 2026-09-21)
+
+*Found by W31 G4's own sheets (claims §5.165 §4; `eye.md` §8;
+`sheets/apple-macos-27.0-2x-dark-standard-glass0.5.png`).*
+
+`bodyChromaRetention` restores the backdrop's chromaticity into the body, so it
+is the exact identity over an achromatic backdrop. The demo has one stage whose
+backdrop has hues in it — the material stage's multi-lobe `oklch` bloom — and on
+neither scheme does it demonstrate the operator:
+
+- **Dark: there are no lobes.** `StageBackdrop.tsx`'s `DARK_GROUND` carries
+  **`field: 0`**, with the reason written beside it: the lobes composite with
+  `multiply`, which is how colour is put into a LIGHT ground, and multiplying a
+  light lobe onto near-black is very nearly nothing. So the dark stage is a
+  near-black paper with a white graticule and no chroma at all — **and the dark
+  scheme is the endpoint this wave moved most**, ratio (i) 0.3332 → 0.9994.
+- **Light: the plates are in the wrong corner.** The bloom is centred right of
+  the stage and the three plates are stacked at the left, over ground that is
+  nearly the base `#dde6eb`. The 112 px plate picks up a faint warm-green cast at
+  its right edge; the 40 px plate picks up almost nothing.
+
+Neither is a defect in the operator and neither was a mistake when it was made:
+the dark field is 0 for a measured accessibility reason that
+`apps/demo/e2e/contrast.spec.ts` guards, and the plates' position is the size
+sweep's own composition.
+
+**The fix shape**, and it is a design decision before it is an implementation:
+give the dark scheme a chromatic ground it can carry — lobes composited so they
+ADD on a dark ground, at a chroma the contrast case still passes — or move the
+sweep's surfaces over the bloom's centre, or give the operator a stage of its own
+the way the tone response has one. What the site says about it today is a number
+rather than a picture: the calibration readout prints the chroma-to-structure
+pair per cell (claims §5.165 §4).
+
+---
+
+## `mid-chroma-solid`'s hue ROTATION was found before the fit and has not been looked at since (W31 G4, 2026-09-21)
+
+*Found by W31 G0 (claims §5.161 §8); left open by W31 G3 (§5.164 §9) and by W31
+G4 for the same reason.*
+
+On `mid-chroma-solid` — sRGB (213, 2, 255), the W27c chroma anchor — G0's sheets
+record the reference's body as a clean lighter pink and vitrea's as a lavender:
+desaturated **and rotated toward blue**. `tintHueShift*` has never been read on
+those cells.
+
+It has not been re-read at the fitted material by anyone, and the reason is
+structural rather than an oversight: **`mid-chroma-solid` is a PROBE scene**, the
+canonical read is calibration + validation + the pitch ladder, and contract X1
+allowed neither W31 G3 nor W31 G4 a capture of its own. So the canonical
+`web-captures/` tree carries no macOS 27 `mid-chroma-solid` raster at all and the
+last look anyone has taken at it is G0's, at the pre-fit material, in
+`results/2026-09-21-w31-g0-chroma-cut/sheet__*__mid-chroma-solid__*.png`.
+
+What is known beside it: on the `photo` cells the restored hues sit where the
+reference's do at every span and both schemes, which is **consistent with** a
+rotation that was the plate's rather than a hue-mapping error. Neither G3 nor G4
+claims that, because the cell that would decide it was not read.
+
+**The fix shape**: read the probe set at the shipped documents — it is a
+`--set probe` run, no new fixture and no native capture — and put the sheet
+beside G0's. If the rotation is gone it was the plate's and the entry closes; if
+it survives, `tintHueShift*` is the lever and it has never been fitted.
+
+---
+
+## The level stop the chroma statistic depends on is a declared number and not an adopted row (W31 G4, 2026-09-21)
+
+*Found by W31 G4's own eye (claims §5.165 §2; `eye.md` §3).*
+
+`R` scales as `(level)^(−2/3)` exactly, so a cell whose interior level misses the
+reference's carries that miss into the chroma statistic. W31 declared a level
+stop as a number — `|interiorMeanWeb − interiorMeanNative| ≤ 0.055` per cell on
+both tiers, and that quantity growing by no more than 0.005 from its pre-fit
+value — and W31 G4 adopted `M1` (the ratio) and `M2` (the structure) and **not
+that**.
+
+The consequence is visible before it is arithmetic. On 1x dark
+`photo__capsule-button__rest`, the bed's lowest cell at `R` 0.8213, vitrea's
+capsule is not only greyer than the reference's but visibly **darker**, and the
+two are not separable by eye. That cell carries the bed's largest level miss
+(0.0457 at 1x, 0.0493 at 2x) and is the dark bed's worst 1x-against-2x
+reproducibility pair at 19.41 % — the spread is the level miss speaking through
+the exponent. M1's own band was widened to absorb it and M2 does not reach it:
+M2 bounds the structure, not the level.
+
+So the material axis now has two adopted rows and the quantity that biases both
+of them is gated by nothing. Nothing else gates it either:
+`interiorLevelRatioGpuOverCss` is a cross-tier ratio, blind to both tiers moving
+together, which is exactly why §5.161 §7 (c) had to declare a number in the first
+place.
+
+**The fix shape**: adopt the level clause as a third material-axis row, on the
+same bed and in the same shape as M1 and M2 — the cut already carries
+`interiorMean{Native,Web}` per cell, so it is a clause and not a capture. What has
+to be decided first is the bound: 0.055 is the worst cell rounded up, so adopting
+it as stated would be green today and say very little, which is the same choice
+W31 Decision Log 3 (a) faced on M1's ceiling and answered by taking a number that
+declares the outliers missed.
+
+---
+
+## `standard-row-identity-matrix.txt` has no generator committed beside it and under-reports what it enumerates (W31 G4, 2026-09-21)
+
+*Found by W31 G3c's independent review, folded at W31 G4 (claims §5.165).*
+
+W31 G3c's `standard-row-identity-matrix.txt` is the field-by-field evidence for
+the strongest claim of that gate — that the accessibility stand-down moved
+nothing on any standard row. The claim is true and the review verified it
+independently and **stronger than the file states: 411 standard rows, 255,750
+leaves, none moved.** The artefact that records it has four defects:
+
+- **No generator is committed beside it.** Every other checker in that directory
+  has its script; this one is output with no input.
+- It enumerates **12 of the 32** moved accessibility rows with no truncation
+  notice, so a reader counting from the file gets 12.
+- It **under-lists the moved fields per row** — 6 where
+  `texture/calibration/photo__capsule-button__inactive` moved 29.
+- It prints profile keys with the **first character chopped**.
+
+Nothing recorded is wrong; the file is committed evidence and is not edited. What
+is wrong is that the artefact is weaker than the claim it supports and cannot be
+regenerated to check it. W31 G4's `accessibility-identity.py` takes the same
+claim by a different route with its generator committed (6,855 readings on the
+two accessibility profiles, none moved), which covers one half of it.
+
+**The fix shape**: commit the generator — or extend
+`accessibility-identity.py`'s selection to the standard rows, which is a change
+to one set literal — and print counts rather than a truncated enumeration.

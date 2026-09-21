@@ -1,0 +1,40 @@
+W31 G4 — cut discrimination (claims §5.165 §1).
+
+The committed cut, perturbed one field at a time, with the cases each
+perturbation turns red. A green baseline is recorded first, because
+"it went red" means nothing without "and it was green before".
+
+chroma-cut.json sha256 before: e9745f6dde3b00cdff12bdf121d6c0636fd88177aaaf88703ffb175472a2d8a5
+
+── baseline (the committed cut)
+   exit=0
+   RED: (none)
+
+── 1. a passing cell pushed to R 1.45
+   exit=1
+   RED: M1: every cell is inside [0.60, 1.40], or is named in MISSED_27_ROWS 0ms
+   RED: names every 27 row the refit missed, and nothing it did not 6ms
+   RED: reads a cut taken at this gate, in the declared mode, over the bed the matrix itself carries 57ms
+
+── 2. the dark active bed's R halved
+   exit=1
+   RED: M1: every cell is inside [0.60, 1.40], or is named in MISSED_27_ROWS 0ms
+   RED: M1: the median R of every bed is inside [0.80, 1.20] 0ms
+   RED: names every 27 row the refit missed, and nothing it did not 6ms
+   RED: reads a cut taken at this gate, in the declared mode, over the bed the matrix itself carries 56ms
+
+── 3. one cell's interiorStdDevWeb moved 3% off its pre-fit baseline
+   exit=1
+   RED: M2: interiorStdDevWeb is within 2% of the pre-fit generation on every cell 0ms
+   RED: reads a cut taken at this gate, in the declared mode, over the bed the matrix itself carries 60ms
+
+── 4. one cell's R moved away from the matrix it was read off
+   exit=1
+   RED: M1: the median R of every bed is inside [0.80, 1.20] 0ms
+   RED: reads a cut taken at this gate, in the declared mode, over the bed the matrix itself carries 61ms
+
+chroma-cut.json sha256 after the last perturbation: e9745f6dde3b00cdff12bdf121d6c0636fd88177aaaf88703ffb175472a2d8a5
+RESTORED, byte for byte
+chroma-cut.py re-run at this head reproduces the committed cut (every field but generatedAt): YES
+the suite at the restored cut: exit=0
+   RED: (none)
