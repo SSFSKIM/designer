@@ -30959,7 +30959,7 @@ forbids packing an operator into a neighbour's padding.
 | the unit cases | 3, over the whole retention sweep: the identity at every lift-free policy, the stand-down at every lifted one, and the lift rule's own `r · (1 − lift)` restated so the ledger's reason survives without a browser (`w31-body-chroma.test.ts`, 9 cases in the file) |
 | `@gpu w31-body-chroma.spec.ts` | 3 on a hardware adapter — the third reads the stand-down, and reads it at a lift of **0** as well, where the occlusion fold is the identity on the optics too and the bytes must be the NOMINAL policy's |
 | `standard-row-identity.txt` | two calibration captures of the same four standard cells, minutes apart, differing only in the renderer at `c3e6815a` against this branch: **8 PNGs identical, 0 differing** |
-| the canonical read | every standard light row and every CSS row **+0.0000** in `verdict-closure.txt` |
+| the canonical read | every standard light row and every CSS row **+0.0000** in `verdict-closure.txt`, and field by field in `standard-row-identity-matrix.txt`: the 411 standard rows this read replaced carry **48,627 numeric readings across every axis and not one of them moved**. Of the 68 accessibility rows 32 did, and the 16 of those on the CSS tier moved only in the cross-tier COHERENCE axis — which reads the WebGPU tier's own capture, so a `dom` row follows its texture twin and that tier is untouched |
 
 **The generation.** The gate moves the renderer and not a document, so the rows
 it reads would key to the cells W31 G3's read wrote. W30 G3b's idiom, on

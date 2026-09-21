@@ -1,0 +1,67 @@
+W31 G3c — every re-read row against the generation it supersedes, field by field
+(claims §5.164 §13). No metric is selected: every numeric reading under every axis of
+every cell is compared, and the rows are grouped by whether the gate is supposed to have
+moved them.
+
+== standard (the gate must not move these) ==
+   411 row(s), 48627 numeric readings compared
+   rows with any field moved: 0
+
+== accessibility (the gate restores 0.20.0 here) ==
+   68 row(s), 8215 numeric readings compared
+   rows with any field moved: 32
+     css     calibration  photo__capsule-button__inactive            ncreased-contrast-coupled-glass0.5
+        coherence.crossTierOklabDeltaEMean 0.0030987987529671277 -> 0.003056186100010313
+        coherence.interiorLevelRatioGpuOverCss 0.9854361320153758 -> 0.9839062732857936
+     css     calibration  photo__capsule-button__rest                ncreased-contrast-coupled-glass0.5
+        coherence.crossTierOklabDeltaEMean 0.006077197652604492 -> 0.004830921731072045
+        coherence.interiorLevelRatioGpuOverCss 0.9823572107354425 -> 0.9831389002648003
+     css     holdout      photo__rrect-lg__inactive                  ncreased-contrast-coupled-glass0.5
+        coherence.crossTierOklabDeltaEMean 0.010155234840144899 -> 0.009533683753617319
+        coherence.interiorLevelRatioGpuOverCss 0.993680337962276 -> 0.992891179837815
+     css     holdout      photo__rrect-lg__rest                      ncreased-contrast-coupled-glass0.5
+        coherence.crossTierOklabDeltaEMean 0.031718904295614324 -> 0.015336952072973746
+        coherence.interiorLevelRatioGpuOverCss 0.9948645505998184 -> 0.995168630219981
+     css     calibration  photo__rrect-md__inactive                  ncreased-contrast-coupled-glass0.5
+        coherence.crossTierOklabDeltaEMean 0.005208216073346543 -> 0.004998226353814337
+        coherence.interiorLevelRatioGpuOverCss 0.9842645031345737 -> 0.9832025892168493
+     css     calibration  photo__rrect-md__rest                      ncreased-contrast-coupled-glass0.5
+        coherence.crossTierOklabDeltaEMean 0.012540329367769646 -> 0.008318843617701344
+        coherence.interiorLevelRatioGpuOverCss 0.9870221727828905 -> 0.9872521219341077
+     css     validation   photo__toolbar-group__inactive             ncreased-contrast-coupled-glass0.5
+        coherence.crossTierOklabDeltaEMean 0.0057493764355780385 -> 0.005749922603410757
+        coherence.interiorLevelRatioGpuOverCss 1.0524290776441079 -> 1.050918298091676
+     css     validation   photo__toolbar-group__rest                 ncreased-contrast-coupled-glass0.5
+        coherence.crossTierOklabDeltaEMean 0.008787129915336206 -> 0.007618848111112781
+        coherence.interiorLevelRatioGpuOverCss 0.9898260337768695 -> 0.9911483660566464
+     webgpu  calibration  photo__capsule-button__inactive            ncreased-contrast-coupled-glass0.5
+        material.chromaStructureRatioWeb   0.04301116850618736 -> 0.03875727545992312
+        material.interiorChromaMeanWeb     0.0033941798202025645 -> 0.00085927153280469
+        material.interiorChromaSdAWeb      0.006118555434151284 -> 0.005411365975989412
+        material.interiorChromaSdBWeb      0.00591164804005052 -> 0.005412489112459805
+        material.interiorMeanWeb           0.9455563912583462 -> 0.9440884445771947
+        material.interiorOklabLSdDevWeb    0.12728778513533165 -> 0.12718805651734078
+     webgpu  calibration  photo__capsule-button__rest                ncreased-contrast-coupled-glass0.5
+        material.chromaStructureRatioWeb   1.0877994204514343 -> 0.2532017762913172
+        material.interiorChromaMeanWeb     0.02714596256810756 -> 0.005682478878005399
+        material.interiorChromaSdAWeb      0.026411428388661645 -> 0.006321731871607596
+        material.interiorChromaSdBWeb      0.016783656843263876 -> 0.004202293469860221
+        material.interiorMeanWeb           0.9001393467686413 -> 0.900855613208835
+        material.interiorOklabLSdDevWeb    0.009575490414987519 -> 0.010276449676939652
+     webgpu  holdout      photo__rrect-lg__inactive                  ncreased-contrast-coupled-glass0.5
+        material.chromaStructureRatioWeb   0.04987922525307709 -> 0.03723868167276318
+        material.interiorChromaMeanWeb     0.0035224608742929326 -> 0.0005315090594153984
+        material.interiorChromaSdAWeb      0.004115161561070498 -> 0.0030073102922902805
+        material.interiorChromaSdBWeb      0.004257871290055157 -> 0.003234834762343164
+        material.interiorMeanWeb           0.9761897509981795 -> 0.9754144834965648
+        material.interiorOklabLSdDevWeb    0.07607007051199045 -> 0.07599156630375707
+     webgpu  holdout      photo__rrect-lg__rest                      ncreased-contrast-coupled-glass0.5
+        material.chromaStructureRatioWeb   1.45714218959895 -> 0.3896495650286917
+        material.interiorChromaMeanWeb     0.03355001381441519 -> 0.008108614882305427
+        material.interiorChromaSdAWeb      0.028131253374742368 -> 0.007606478666952858
+        material.interiorChromaSdBWeb      0.02259911758310471 -> 0.006377659627510159
+        material.interiorMeanWeb           0.8989694992069384 -> 0.8992442685749814
+        material.interiorOklabLSdDevWeb    0.00925951088674664 -> 0.00981420670312074
+
+The standard block is the claim: the fold is an identity where no preference lifts the
+occlusion, read off the matrix rather than off the shader.
