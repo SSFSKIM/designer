@@ -96,7 +96,8 @@
       0.0155,
       0.164,
       0.186
-    ]
+    ],
+    "bodyChromaRetention": 0.142
   },
   "entries": {
     "backdropToneResponse": {
@@ -150,14 +151,57 @@
       "status": "measured — the recede no longer removes the shadow",
       "previous": "every amplitude leaf zero (W27c G1, claims §5.130)",
       "method": "See `theRecedeNoLongerRemovesTheShadow` in fitted-receded.json. The block is this document's own active document's, leaf for leaf."
+    },
+    "bodyChromaRetention": {
+      "status": "measured",
+      "value": {
+        "bodyChromaRetention": 0.142
+      },
+      "previous": {
+        "bodyChromaRetention": 0
+      },
+      "method": [
+        "W31's chroma retention (claims §5.161 §5, fitted in §5.164 §4). How much of",
+        "the blurred backdrop's CHROMATICITY the body restores, at the luma the tone",
+        "solve produced. Fitted per SCHEME and per POSE: this document is the",
+        "dark scheme's inactive endpoint and carries its own value, because the four",
+        "beds read 0.551 / 0.514 / 0.333 / 0.584 before the fit and are not one number.",
+        "",
+        "Objective: R = chromaStructureRatioWeb / chromaStructureRatioNative, web",
+        "against native on the same cell and never against 1, median over the untinted",
+        "`photo` cells of the four macOS 27 standard profiles at both scales — 4 cells",
+        "on this bed — `calibration` + `validation`, WebGPU tier, holdout dropped by",
+        "construction in the fit loop's own reader. Bound 0.80 ≤ median R ≤ 1.20 with a",
+        "per-cell floor of 0.60, two-sided because an over-fitted retention adds chroma",
+        "the reference does not have.",
+        "",
+        "Two rounds. Round A probed one point and measured the bed's slope; round B",
+        "solved it. R moves 0.5841 → 1.0170 on this bed, inside the bound and",
+        "inside the instrument's own 1x-against-2x reproducibility (4.5 % light, 9.1 %",
+        "dark), which is why there is no round C: a third would be fitting noise.",
+        "",
+        "Both hard stops held with margin on every cell of the bed. The LEVEL stop —",
+        "|interiorMeanWeb − interiorMeanNative| ≤ 0.055, growing by no more than 0.005",
+        "from its pre-fit value — reads a worst |Δ| of 0.04932 and a worst growth of",
+        "+0.00006, eighty times inside the clause that binds, because the operator is",
+        "luma-preserving by construction. The STRUCTURE stop — interiorStdDevWeb within",
+        "2 % of its pre-fit value — reads a worst 1.317 %, on the bed's smallest",
+        "spread, and that residual is the capture's own 8-bit quantisation rather than",
+        "the operator: the movement scales inversely with the cell's spread.",
+        "",
+        "The CSS tier carries NOTHING of this constant. A derived term was written,",
+        "rendered and declined on the measurement (§5.164 §5): on the dark bed it",
+        "bought nothing at all, and on the light bed it broke both stops."
+      ]
     }
   },
-  "resolvedMaterialSha256": "1a64247df6786fc2",
+  "resolvedMaterialSha256": "e1f42c5656ef392f",
   "resolvedMaterialSha256Rule": 2,
   "resolvedOverActiveDocument": "apple-macos-27.0-1x-dark-standard-glass0.5.json",
   "$comment-sha-history": [
     "3264b6cdde64bc8b — sealed by W29 G3b (claims §5.154 §7). Between that seal and this one, W30 G2's eight inert operator leaves moved what this document's pin RESOLVES to without moving its bytes, and profiles/digest-supersessions.json recorded the interval's reading as 4763b0d195fdb077 (claims §5.158 §3). This document is re-sealed at 8c85774d161fcbaa by W30 G3, which gives those leaves values (claims §5.159); the macOS 27 records leave that file in the same commit and the two frozen macOS 26.5 records stay.",
-    "8c85774d161fcbaa — the reading under rule 1 (the plain resolved fingerprint). Re-sealed at 1a64247df6786fc2 under rule 2, the inert-identity rule of W31 Decision Log 1 (a): the same SHA-256 over the same resolved material with MATERIAL_IDENTITY_TABLE's entries dropped where their gates hold. W31 G3 — the digest rule lands (claims §5.164)"
+    "8c85774d161fcbaa — the reading under rule 1 (the plain resolved fingerprint). Re-sealed at 1a64247df6786fc2 under rule 2, the inert-identity rule of W31 Decision Log 1 (a): the same SHA-256 over the same resolved material with MATERIAL_IDENTITY_TABLE's entries dropped where their gates hold. W31 G3 — the digest rule lands (claims §5.164)",
+    "1a64247df6786fc2 — the reading under rule 2 (the plain resolved fingerprint). Re-sealed at e1f42c5656ef392f under rule 2, the inert-identity rule of W31 Decision Log 1 (a): the same SHA-256 over the same resolved material with MATERIAL_IDENTITY_TABLE's entries dropped where their gates hold. W31 G3 — the chroma retention fitted into the four documents (claims §5.164 §4)"
   ],
   "$comment-w30-g3b": "2026-09-20, W30 G3b — the rows read at THESE bytes were captured at a renderer that draws the thin regime whole. At a casting span of 44 CSS px this document's own σ law draws σ = 2.13, and the optics pass's shadow falloff returned NaN more than 10.06 σ inside the shadow's silhouette — f32's exp overflowing inside tanh — which left a strip of a 44 px surface undrawn and put 170 texture cells outside W20's adopted declaration conformance (claims §5.159 §6, diagnosed and fixed in §5.159b, commit 35ce02b1). No constant of this document moved and no material moved: resolvedMaterialSha256 is unchanged and asserted unchanged by results/2026-09-20-w30-g3b-thin-strip/comment-generation.ts, which is what makes the re-read a generation of its own (charter Decision Log 5 (b)) rather than an overwrite of W30 G3's rows — those live in results/superseded/ by name."
 }

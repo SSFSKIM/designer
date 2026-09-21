@@ -34,6 +34,7 @@ import {
   backdropToneUnderPolicy as cssBackdropToneUnderPolicy,
   resolvedBackdropTone,
   MATERIAL_OPTICS,
+  BODY_CHROMA_RETENTION,
   MATERIAL_SOURCE_GLOW,
   MATERIAL_SOURCE_OPTICS,
   MATERIAL_SOURCE_OUTER_SHADOW,
@@ -2984,12 +2985,17 @@ describe("the CSS tier's structure attenuation, measured (W30 G0 (d))", () => {
  * `saturate()` constants, measured on scratch; otherwise the tier records the
  * residual and carries nothing.
  */
-const W31_BODY_CHROMA_CSS_COUNTERPART = 
-  "none: the tier carries nothing of it, and the residual is recorded. `saturate()` acts on " +
-  "the backdrop BEFORE the `rgba()` plate covers it, so the reachable interior chroma is " +
-  "bounded by `(1 - alpha')*s` with the authored `s` frozen by W31 X3 — a ceiling of " +
-  "0.5654-0.5995 light and 0.2651-0.2767 dark on ratio (ii) (claims §5.161 §6 as its review " +
-  "closure corrects it). See claims §5.164 for what the derivation measured on scratch.";
+const W31_BODY_CHROMA_CSS_COUNTERPART =
+  "none: DERIVED, MEASURED AND DECLINED (claims §5.164 §5). The only operator this tier has " +
+  "on the body's chroma is the `saturate()` inside its one `backdrop-filter`, and the leaf " +
+  "was mirrored as a gain on it — `1 + r*alpha'/(1 - alpha')`, at the alpha this tier " +
+  "solves. Rendered on the declared bed it bought NOTHING on the dark scheme (ratio (ii) " +
+  "0.2024 before and after, and still 0.2024 at a retention of 1) and 0.76-1.04 of the gap " +
+  "on the light one while breaking the level-growth stop on 10 of 26 cells and the " +
+  "structure stop on 11, because `saturate()` stops preserving luminance the moment an " +
+  "sRGB channel clips. The tier records the residual and carries nothing; " +
+  "`BODY_CHROMA_RETENTION` mirrors the renderer's default and the paragraph beside it " +
+  "carries the measurement.";
 
 /**
  * **Every key of `MaterialProfile`, accounted for** (W31 acceptance clause 5;
@@ -3194,13 +3200,19 @@ describe("the mirror is EXHAUSTIVE over MaterialProfile (claims §5.164)", () =>
     }
   });
 
-  it("records what the CSS tier carries of W31's chroma retention", () => {
-    // The wave's own leaf, called out rather than left in the table: G0 declared
-    // the tier's analytic ceiling per scheme as a residual before the fit
-    // (claims §5.161 §6 as its review closure corrects it), and W31 Decision
-    // Log 2 (b) rules that a term is derived only if it adds REACH without
-    // moving the authored `saturate()` constants. Whatever this line says, it
-    // says it here where the exhaustiveness case can see it.
+  it("records what the CSS tier carries of W31's chroma retention: nothing, measured", () => {
+    // The wave's own leaf, called out rather than left in the table. W31
+    // Decision Log 2 (b) rules a derived term kept only if it adds REACH
+    // without moving the authored `saturate()` constants; it was written,
+    // rendered and declined on the measurement, and the tier records the
+    // residual instead. What is pinned here is the MIRROR of the renderer's
+    // default — so if that default ever leaves its identity, this case goes red
+    // and the decline is re-read rather than inherited.
     expect(CSS_COUNTERPART["bodyChromaRetention"]).toBe(W31_BODY_CHROMA_CSS_COUNTERPART);
+    expect(BODY_CHROMA_RETENTION).toBe(DEFAULT_MATERIAL_PROFILE.bodyChromaRetention);
+    // And the tier's authored saturation is where X3 froze it, on both
+    // variants: the declined derivation moved neither.
+    expect(CSS_TIER_MAPPING.saturation.regular).toBe(1.8);
+    expect(CSS_TIER_MAPPING.saturation.clear).toBe(1.4);
   });
 });

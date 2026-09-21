@@ -1,0 +1,67 @@
+# 60 holdout row(s) in pre-fit-matrix.json and NOT read (X4):
+#   apple-macos-27.0-1x-dark-standard-glass0.5 photo__glass-over-glass__inactive
+#   apple-macos-27.0-1x-dark-standard-glass0.5 photo__rrect-lg__inactive
+#   apple-macos-27.0-1x-dark-standard-glass0.5 photo__rrect-lg__rest
+#   apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5 photo__rrect-lg__inactive
+#   apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5 photo__rrect-lg__rest
+#   apple-macos-27.0-1x-light-reduced-transparency-glass0.5 photo__rrect-lg__inactive
+#   apple-macos-27.0-1x-light-reduced-transparency-glass0.5 photo__rrect-lg__rest
+#   apple-macos-27.0-1x-light-standard-glass0.5 dark-solid__capsule-button__inactive-tint-blue
+#   apple-macos-27.0-1x-light-standard-glass0.5 dark-solid__capsule-button__rest-tint-blue
+#   apple-macos-27.0-1x-light-standard-glass0.5 hc-text__capsule-button__inactive-tint-orange
+#   apple-macos-27.0-1x-light-standard-glass0.5 hc-text__capsule-button__rest-tint-orange
+#   apple-macos-27.0-1x-light-standard-glass0.5 photo__glass-over-glass__inactive
+#   apple-macos-27.0-1x-light-standard-glass0.5 photo__glass-over-glass__rest
+#   apple-macos-27.0-1x-light-standard-glass0.5 photo__rrect-lg__inactive
+#   apple-macos-27.0-1x-light-standard-glass0.5 photo__rrect-lg__inactive-tint-orange
+#   apple-macos-27.0-1x-light-standard-glass0.5 photo__rrect-lg__rest
+#   apple-macos-27.0-1x-light-standard-glass0.5 photo__rrect-lg__rest-tint-orange
+#   apple-macos-27.0-2x-dark-standard-glass0.5 photo__glass-over-glass__inactive
+#   apple-macos-27.0-2x-dark-standard-glass0.5 photo__rrect-lg__inactive
+#   apple-macos-27.0-2x-dark-standard-glass0.5 photo__rrect-lg__rest
+#   apple-macos-27.0-2x-light-standard-glass0.5 dark-solid__capsule-button__inactive-tint-blue
+#   apple-macos-27.0-2x-light-standard-glass0.5 dark-solid__capsule-button__rest-tint-blue
+#   apple-macos-27.0-2x-light-standard-glass0.5 hc-text__capsule-button__inactive-tint-orange
+#   apple-macos-27.0-2x-light-standard-glass0.5 hc-text__capsule-button__rest-tint-orange
+#   apple-macos-27.0-2x-light-standard-glass0.5 photo__glass-over-glass__inactive
+#   apple-macos-27.0-2x-light-standard-glass0.5 photo__glass-over-glass__rest
+#   apple-macos-27.0-2x-light-standard-glass0.5 photo__rrect-lg__inactive
+#   apple-macos-27.0-2x-light-standard-glass0.5 photo__rrect-lg__inactive-tint-orange
+#   apple-macos-27.0-2x-light-standard-glass0.5 photo__rrect-lg__rest
+#   apple-macos-27.0-2x-light-standard-glass0.5 photo__rrect-lg__rest-tint-orange
+
+== the declared bed — R = chromaStructureRatioWeb / chromaStructureRatioNative ==
+scheme pose         n   median R    min R    max R  median twin  median r2 W  median r2 N
+light  active      10     0.5506   0.5095   0.6533       0.4816       0.2633       0.7891
+light  inactive     8     0.5137   0.4890   0.6525       0.4785       0.2774       0.7721
+dark   active       4     0.3332   0.2945   0.3615       0.2398       0.1081       0.9453
+dark   inactive     4     0.5841   0.4951   0.6583       0.4394       0.1174       0.9042
+
+-- the declared bed, cell by cell --
+profile                                           scene                                 set                R    twin     r2W    lvlN    lvlW     |d|      sdW
+apple-macos-27.0-1x-dark-standard-glass0.5        photo__capsule-button__inactive       calibration   0.6562  0.4736  0.1170  0.2037  0.1878  0.0159  0.00985
+apple-macos-27.0-1x-dark-standard-glass0.5        photo__capsule-button__rest           calibration   0.2945  0.1936  0.1059  0.2254  0.1797  0.0457  0.02034
+apple-macos-27.0-1x-dark-standard-glass0.5        photo__rrect-md__inactive             calibration   0.5121  0.4052  0.1179  0.1695  0.1619  0.0076  0.00946
+apple-macos-27.0-1x-dark-standard-glass0.5        photo__rrect-md__rest                 calibration   0.3147  0.2372  0.1091  0.1887  0.1637  0.0250  0.01600
+apple-macos-27.0-1x-light-standard-glass0.5       photo__capsule-button__inactive       calibration   0.5119  0.4899  0.2724  0.4975  0.4986  0.0011  0.03594
+apple-macos-27.0-1x-light-standard-glass0.5       photo__capsule-button__rest           calibration   0.5197  0.4733  0.2673  0.5353  0.5388  0.0035  0.03960
+apple-macos-27.0-1x-light-standard-glass0.5       photo__rrect-md__inactive             calibration   0.5118  0.4276  0.2723  0.4955  0.4852  0.0103  0.04438
+apple-macos-27.0-1x-light-standard-glass0.5       photo__rrect-md__rest                 calibration   0.5444  0.4661  0.2574  0.5456  0.5592  0.0136  0.04860
+apple-macos-27.0-1x-light-standard-glass0.5       photo__rrect-ml__rest                 calibration   0.5706  0.4811  0.2676  0.5639  0.5615  0.0024  0.05529
+apple-macos-27.0-1x-light-standard-glass0.5       photo__rrect-sm__inactive             validation    0.6525  0.6102  0.2526  0.4657  0.4746  0.0089  0.01867
+apple-macos-27.0-1x-light-standard-glass0.5       photo__rrect-sm__rest                 validation    0.6147  0.6066  0.2506  0.5089  0.5180  0.0091  0.02345
+apple-macos-27.0-1x-light-standard-glass0.5       photo__toolbar-group__inactive        validation    0.5505  0.4985  0.3196  0.5215  0.5152  0.0063  0.06551
+apple-macos-27.0-1x-light-standard-glass0.5       photo__toolbar-group__rest            validation    0.5128  0.4520  0.3121  0.5540  0.5611  0.0071  0.07247
+apple-macos-27.0-2x-dark-standard-glass0.5        photo__capsule-button__inactive       calibration   0.6583  0.4882  0.1144  0.2046  0.1880  0.0166  0.00919
+apple-macos-27.0-2x-dark-standard-glass0.5        photo__capsule-button__rest           calibration   0.3517  0.2423  0.1070  0.2262  0.1769  0.0493  0.01679
+apple-macos-27.0-2x-dark-standard-glass0.5        photo__rrect-md__inactive             calibration   0.4951  0.3897  0.1227  0.1697  0.1625  0.0072  0.01044
+apple-macos-27.0-2x-dark-standard-glass0.5        photo__rrect-md__rest                 calibration   0.3615  0.2752  0.1137  0.1890  0.1627  0.0263  0.01475
+apple-macos-27.0-2x-light-standard-glass0.5       photo__capsule-button__inactive       calibration   0.4890  0.4671  0.2823  0.4987  0.4997  0.0010  0.03881
+apple-macos-27.0-2x-light-standard-glass0.5       photo__capsule-button__rest           calibration   0.5442  0.5098  0.2599  0.5375  0.5390  0.0015  0.03700
+apple-macos-27.0-2x-light-standard-glass0.5       photo__rrect-md__inactive             calibration   0.4985  0.4097  0.2834  0.4982  0.4872  0.0110  0.04836
+apple-macos-27.0-2x-light-standard-glass0.5       photo__rrect-md__rest                 calibration   0.5567  0.4821  0.2527  0.5474  0.5589  0.0115  0.04640
+apple-macos-27.0-2x-light-standard-glass0.5       photo__rrect-ml__rest                 calibration   0.5756  0.4872  0.2666  0.5641  0.5610  0.0031  0.05481
+apple-macos-27.0-2x-light-standard-glass0.5       photo__rrect-sm__inactive             validation    0.6025  0.5937  0.2702  0.4671  0.4732  0.0060  0.01752
+apple-macos-27.0-2x-light-standard-glass0.5       photo__rrect-sm__rest                 validation    0.6533  0.6568  0.2385  0.5111  0.5186  0.0076  0.01981
+apple-macos-27.0-2x-light-standard-glass0.5       photo__toolbar-group__inactive        validation    0.5154  0.4446  0.3304  0.5257  0.5214  0.0043  0.06919
+apple-macos-27.0-2x-light-standard-glass0.5       photo__toolbar-group__rest            validation    0.5095  0.4393  0.3029  0.5596  0.5622  0.0027  0.06796

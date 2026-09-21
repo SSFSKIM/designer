@@ -128,6 +128,7 @@ export const macos27LightMaterialProfile: RendererMaterialProfile = {
   sizeHeavySecondShare: 0,
   sizeScatterScaleGain: 0,
   sizeScatterScaleRef: 0.03,
+  bodyChromaRetention: 0.282,
 };
 
 /** The macOS 27 dark-standard material, in the same relation to the default. */
@@ -176,6 +177,7 @@ export const macos27DarkMaterialProfile: RendererMaterialProfile = {
   sizeHeavySecondShare: 0,
   sizeScatterScaleGain: -2,
   sizeScatterScaleRef: 0.03,
+  bodyChromaRetention: 0.336,
 };
 
 /**
@@ -243,6 +245,7 @@ export const macos27RecededMaterialProfile: Readonly<
       rimWidth: 1,
       rimAlpha: -3.5,
     },
+    bodyChromaRetention: 0.349,
   },
   dark: {
     backdropToneAbscissa: {
@@ -288,6 +291,7 @@ export const macos27RecededMaterialProfile: Readonly<
     backdropToneAnchorX: [0.004, 0.11, 0.47, 0.95],
     backdropToneResponseThin: [0, 0.0187, 0.192, 0.448],
     backdropToneResponseThick: [0, 0.0155, 0.164, 0.186],
+    bodyChromaRetention: 0.142,
   },
 };
 
@@ -329,8 +333,8 @@ export const macos27CssTierMapping: Partial<CssTierMapping> = {
  * back from the browser.
  */
 export const MACOS_27_RESOLVED_MATERIAL_SHA256 = {
-  light: "62e684744954580b",
-  dark: "c61194f820d77280",
-  recededLight: "183c8949f194ff43",
-  recededDark: "1a64247df6786fc2",
+  light: "3dc24a74f17fd87e",
+  dark: "8a43f54162606db4",
+  recededLight: "ab3ed65aa02869b1",
+  recededDark: "e1f42c5656ef392f",
 } as const;

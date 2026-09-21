@@ -151,7 +151,6 @@ import {
   boundedForegroundLevel,
   CSS_TIER_MAPPING,
   cssOpticsFromSource,
-  sourceBodyChromaRetention,
   cssShadowBlurRadius,
   cssTierCompositeLevel,
   cssTierOptics,
@@ -1280,17 +1279,6 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
    */
   let gpuOptics = sourceOptics(initialProfile);
   /**
-   * W31's body chroma retention, off the resolved profile (claims §5.164).
-   *
-   * Profile-level rather than per variant, so it rides beside `interiorLight`
-   * and `rimTintChromaConstant` rather than inside the optics block. This tier
-   * reaches the body's chroma through one operator and carries the leaf as a
-   * gain on it, at the alpha the surface's own conversion solves — which is why
-   * it is read here and applied at `cssOpticsFromSource` below rather than in
-   * `cssTierOptics`, where no backdrop has been measured yet.
-   */
-  let bodyChromaRetention = sourceBodyChromaRetention(initialProfile);
-  /**
    * The DOM canvas's conversion convention, shared with the CSS mirror.
    * It does not depend on the profile: the profile is evaluated before conversion.
    */
@@ -1364,7 +1352,6 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     resolvedProfile = profile;
     cssOptics = cssTierOptics(profile, cssMapping);
     gpuOptics = sourceOptics(profile);
-    bodyChromaRetention = sourceBodyChromaRetention(profile);
     interiorLight = sourceInteriorLight(profile);
     policyFold = resolvedPolicyFold(profile);
     tintShade = resolvedTintShade(profile);
@@ -2704,7 +2691,6 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
           cssMapping,
           conversionAnchor,
           variant,
-          bodyChromaRetention,
         );
         // The conversion is computed once and travels twice (W19 G1, claims §5.80
         // §7). The FOLD is still what the renderer input, the encoded form and

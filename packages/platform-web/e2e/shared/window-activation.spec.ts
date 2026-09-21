@@ -152,6 +152,14 @@ test("a visibility event or synthetic blur cannot invent document inactivity", a
  * `f3008c3e…`, `8c85774d…`, `b340a4de…`, `07cf4a8b…`, `93ab0907…` and
  * `a52a5e2a…`, kept here rather than deleted.
  *
+ * **And the four macOS 27 rows moved a SECOND time in the same branch, because
+ * this one a material really did.** The retention is fitted into the four
+ * documents — 0.282 light active, 0.349 light receded, 0.336 dark active, 0.142
+ * dark receded — and a leaf that leaves its declared identity reappears in the
+ * digest, which is the rule's own other half. The readings between the two
+ * moves, at the rule with the leaf still inert, are `62e68474…`, `183c8949…`,
+ * `c61194f8…` and `1a64247d…`, kept here beside the rest.
+ *
  * **Two of the eight went back to a number this file used to carry.** The two
  * macOS 26.5 INACTIVE readings under the rule are `6dcb32c4…` and `70391dee…`,
  * which are two of the pre-W30 eight listed above, to the last digit. Nothing
@@ -163,12 +171,12 @@ test("a visibility event or synthetic blur cannot invent document inactivity", a
 const SEALED = {
   macos27: {
     light: {
-      active: "62e684744954580b4a702f12e984c7064fb5c91681ccf09aaa3950a669122080",
-      inactive: "183c8949f194ff43d8c7bca065c11debc7ad8cc5a0c9e7b2e7e648404d69ea74",
+      active: "3dc24a74f17fd87ed83da9717b57983a1ae3fa5ed37bef5ec9be1e13e19dc865",
+      inactive: "ab3ed65aa02869b11597587d59af4adf741a9b054c2b3fc9464ffc9b6f46bc38",
     },
     dark: {
-      active: "c61194f820d772808cb3607dac4f3b98d64d9ed12902ccbbe34c8ab0dfaaae51",
-      inactive: "1a64247df6786fc2fa68daa82182f3343dedde54d96a1431e4d1a555d5903dc6",
+      active: "8a43f54162606db431c5ab38fd9ee0bd1ee286aa67266bebb90f48f9c2156cd7",
+      inactive: "e1f42c5656ef392fa285e423595425c25de111d33f50a2e44853c4bf39ee4c23",
     },
   },
   macos26: {
