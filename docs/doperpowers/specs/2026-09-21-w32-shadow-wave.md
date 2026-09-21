@@ -566,8 +566,13 @@ per-span `T`, and the σ-normalised window, every one over the admitted bands, w
 the two non-declared forms fixed by clause 2's rule before G0's tables exist. The v1 prior on a
 depth-normalised form is withdrawn on the review's measurement.
 
-**(d) The `/laws/` shadow stage — the user's.** G2 puts a sketch before implementing; the user
-may strike it without touching the material.
+**(d) The `/laws/` shadow stage — RULED by the user 2026-09-22, at G1's merge: one caster on a
+structured ground with a span slider and a focus (recede) toggle**, the exterior's own numbers
+beside it read from the shipped document at runtime (σ at the span, the outset, the offset, the
+depth at three distances) and the recede's zero shadow shown as what it is. The other three shapes
+put (two casters thin/thick; extending the body stage; strike) were declined. G2 implements it
+with its own e2e pin beside `laws.spec.ts`'s `body-shadow-sigma` case and re-pins the demo
+suite's count; a sketch is no longer owed.
 
 ### Decision Log 2 — RULED by the parent at G0's close, 2026-09-21, under the standing "rest on your judgement": the recede's outer shadow stands down to the measurement
 
@@ -608,7 +613,7 @@ the advisory constant does not move). The 26.5 receded material, frozen, draws t
 shadow and stays as it is (X1); a tracker entry records it. The hairline is not this wave's
 (Deferred: a rim term).
 
-### Decision Log 3 — PUT TO THE USER 2026-09-22 by the parent, at G1's close: B3 could not have been kept, and its re-statement is a bound's re-pin
+### Decision Log 3 — RULED by the user 2026-09-22 at G1's merge, (a): B3 could not have been kept, and its re-statement is a bound's re-pin
 
 **What happened.** B3 — the shadow's departure residual over the WHOLE exterior, ≤ 0.00035 on the
 WebGPU tier, a stop W30 declared and W31 and this wave carried — reads **0.00072** at G1's read,
@@ -640,7 +645,36 @@ inactive pose from the stop just as the recede became a measured zero.
 
 Under (a) the number is a rule's output, not this wave's choice; under any of the three the
 verdict at §5.168 stands as written. Until it is ruled, 0.00072 read without `b3-window.py`
-beside it says the exterior got worse, which is the opposite of what happened. Ruled: ______.
+beside it says the exterior got worse, which is the opposite of what happened.
+
+**Ruled (a), by the user, 2026-09-22.** B3 is re-stated over the admitted bands (3–48 px, per
+cell per direction by G0's band rule), both poses, on the WebGPU tier, as a STOP in W30's sense
+(read by script at every fit gate, not an adopted test row); its bound is re-derived by clause 2's
+rule from the bed at G1's read and written by G2 into §5.169 with the derivation, the population
+and the reading at the shipped bytes (0.00006 today) beside the whole-exterior form's 0.00072,
+which stays recorded as the superseded statement's last reading. The `0-3` band's over-fill and
+the receded contour hairline keep their own entries.
+
+### Decision Log 4 — RULED by the user 2026-09-22 at G1's merge: M2's reference generation is re-baselined at each adopting gate
+
+**Put.** M2 (`adopted-thresholds.test.ts`, W31 G4) holds `interiorStdDevWeb` within 2 % of the
+PRE-FIT generation's reading, and that reference was frozen at W31's pre-fit rows while every
+later wave moves the render: G1 spent 1.317 % → 2.775 % of the budget on
+`photo__rrect-sm__inactive` (1x light, WebGPU) through the shadow's lengths alone, the mask the
+statistic is read over unmoved on every cell (§5.168 §7, §10). Left as it was, M2 fails on drift
+rather than on a defect, one cell per wave. Two forms were put: re-baseline the reference at each
+gate that adopts a material change, recording the per-wave move; or declare the 2 % cumulative and
+carry the miss.
+
+**Ruled: re-baseline per adopting gate.** The gate that adopts a material change re-points M2's
+reference at the generation it read (the rows the split moved to `results/superseded/` at that
+read, resolved through the index as `chroma-cut.py` already does), and records in the ledger the
+per-wave move of every gated cell against the previous reference, so the cumulative drift from
+W31's pre-fit stays readable in the ledger while the bound reads one wave's change. Under this
+ruling G1's miss closes by re-baseline at G2 — `MISSED_27_ROWS`'s entry is retired with its
+reading kept beside — and a wave whose own change moves a cell past 2 % of ITS reference is a
+miss the way W31 stated it. What the ruling costs: the bound no longer stops a slow walk; the
+ledger's per-wave table is what would show one, and G2 writes the first row of it.
 
 ## Surprises & Discoveries
 
