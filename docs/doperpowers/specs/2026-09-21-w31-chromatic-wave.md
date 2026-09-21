@@ -578,7 +578,7 @@ tier's `saturate()` constants as fitted rather than authored values.
 | G0 review closure | **CLOSED 2026-09-21**, beside the row above and moving nothing in a number. An independent read reproduced every figure of §§1–10 and found sixteen things in the reasoning and the record — four blocking. **B1**: `css-ceiling.ts` evaluated an alpha the runtime does not draw (the anchor forced where `root.ts` gates it on `linearChainReaches`, the source unsized where the runtime sizes through `sizeOcclusionAlphaAt`); corrected, the CSS ceiling is **0.5995 / 0.5654 light** and **0.2767 / 0.2651 dark** by span against the recorded 0.784 / 0.278 — and since today's light CSS tier already reads ratio (ii) to 0.633 the light figure was never a bound. **The recommendation to G3 is reversed**: the room for a derived term is on the DARK scheme, not the light one. **B2**: §4's floor is measured in OKLab `L` while the leaf preserves LINEAR luma; measured, the restoration moves `L` by ≤ **0.040** and the four floors recomputed under it are 0.0677–0.0730 against bounds of 0.17–0.19, so all four rows stay CLAIMED. **B3**: the digest rule had no record in the ledger — now §5.161 **§7b**, with the rule, its version, the table, both frozen digests and the four macOS 27 ones. **B4**: two of the three gate-groups' cited cases did not prove the statement the table makes; closed by **code** (`w31-gate-groups.test.ts`, twelve cases, the shipped `sizeScatterScaleRef` = 0.03 among them), and the Revision Note's "wrong in two places" **reads one** — under the grouping it attributes to the charter, a material with `sigmaThinOffsetPx` 5 fingerprints to the frozen `b2b570e4adcea8fb`. Twelve non-blocking, all beside: `toneAdapt` is not identically 0 (it is zero because every backdrop is ≫ 1e-4); ratio (iii)'s level confound reverses the LIGHT reading — Apple's light body REMOVES 23–48 % of a matched blur's chroma; the invariant twin is not blind and G3 reads it beside `R`; §3's ratio (ii) columns are all-sets where its medians are the declared bed; the level stop's baseline is **0.0060 / 0.0210** on both tiers with the worst cell 2x dark `texture`; the anchor's dark bias is **2.41×**; **24** optional fields, not 23. Carried forward for G3: the level-corrected plate predictor `(1 − sizedAlpha)·(Y_web/Y_backdrop)^(−2/3)` holds at **0.897–0.996 on all 34** single-body photo cells, and `dom_material_alpha` clamps per channel inside a luma computation, so the `dom` tier is not luma-transparent | §5.161 §11, §7b | `results/2026-09-21-w31-g0-chroma-cut/` (seven evidence files added beside, none replaced) |
 | G1 | **MERGED** — the clause C1 declared on the departure profile's SHAPE; candidate (i) recorded as the diagnostic that points at `spreadPx`/`offsetPx`; nothing adopted, nothing fitted, no capture. **Amended beside 2026-09-21 (review closure; claims §5.162 §9), no number in this row or in §5.162 rewritten:** an independent read reproduced every figure of both statistics and found no measurement wrong; its fourteen findings, two blocking, were **all in the record**, and **no statistic, bound, count, exclusion or verdict moved**. The two blocking: the drafted C1 row read a **frozen snapshot** of the matrix, so a dated condition now requires the adopting gate to re-run `exterior-instrument.py` into its own evidence directory and point `CUT` there, and the draft gains the two provenance assertions it lacked (`atDocuments` shipped, `withHoldout` false); and the backdrop-support rule's reach is **32 `impulse` rows, fourteen carrying a non-zero `T` up to 0.004287**, not eighty rows of zeros — the 48 `dark-solid` rows identify no affine band at all — with the rule **kept** because it is the axis's own constant and admitting all 32 moves no WebGPU-tier order statistic (it moves twelve counts and two unprinted CSS-tier span-44 medians). One reason **withdrawn**: "its own lever reverses" applies to candidate (ii) too, and the choice stands on the other two and on the per-band structure. Corrections beside: the span-96 per-cell maxima are 0.00508–0.00561 and all above 0.0045; the CSS tier is NOT worse everywhere (1x dark span 160, 0.00789 against 0.00921); §6's improvement ranges are 20–54 % and 8.5–32 %; **all 726** macOS 27 rows carry a shadow axis and 602 is the non-holdout count; span 128 on the light beds is **two** gated cells; the +2.66…+3.77 gap is the **WebGPU tier's** (CSS runs −4.74…+5.36); the `spreadPx` reading assumes Apple's outset ≈ 0 and is softened, with the unfitted half verified across three documents; the bilateral σ rule is inert on today's bed; and `T` is declared **span-confounded**, with a per-span bound or a σ-normalised window named as what adoption must consider. New evidence `support-rule-check.py` / `.txt`; `test/adopted-thresholds.test.ts` untouched; freeze 1,818 at open and close | §5.162, §5.162 §9 | `results/2026-09-21-w31-g1-exterior-instrument/`, `support-rule-check.txt` |
 | G2 | **MERGED** — 11 call sites: 8 clamped, 3 proven, 0 stopped; 5 sweeps + 3 guard cases green; goldens 34/34 byte-identical; one NEW reachable NaN found and floored as an identity (`angle_delta`); both tracker entries closed; the W30 G3b residual's candidate REFUTED and the residual re-opened. **Amended beside 2026-09-21 (review closure; claims §5.163 §8), no number in this row or in §5.163 rewritten:** an independent read reproduced every figure and found **no blocking finding** and nine non-blocking ones; no material constant, leaf, document, bound, floor, row or golden moves. Two are code. **The guard's wall was the raster's peak**, so a hole inside a dim surface escaped whenever a brighter one was in frame — the review's pair read 0 against 1, and `glass-over-glass` is a two-surface scene; the wall is now read **per declared region** with candidates bounded to the declared silhouettes, which is the charter's own (c) taken literally, and the presence-0 stand-down becomes exact rather than incidental. **The cross term was never rendered**: twenty-eight readings now pair each material ladder's endpoints with spans 32 and 340, every one 0 undrawn at containment 1.0000 (`sweeps-cross.txt`). Beside them: `iou` was **containment** and is renamed in the shared module and both specs, recorded values unchanged; the refusal's **newer**-schema branch enumerated older-schema artefacts and now has its own sentence and a case that reads more than two words; `prelude.ts`'s `pow` base is **floored as an identity** (goldens byte-identical) and the site stays PROVEN because the base's ceiling is what the scanner still objects to — the split is unchanged at 8/3/0; the division count was **99**, not "over a thousand", with **three** uniform divisors and none of them a material leaf (`division-count.py`); §7's totals were a pre-merge branch reading, **2,613** at this closure's head and **2,617** after it, `test:gpu` **43**; the guard is **test-time**, in the e2e harness; and the sweep-phase residual is now its own tracker entry instead of a paragraph inside a closed one. One defect the closure found itself: merging two declared masks with a spread `push` overflowed the stack on a 340 px caster and took `w30-heavy-second-tap` down — fixed and pinned by a case. Goldens 34/34, `e2e/goldens` clean, freeze **1,818** | §5.163, §5.163 §8 | `results/2026-09-21-w31-g2-range-class/`, `sweeps-cross.txt`, `division-count.py`, `call-sites-closure.txt` |
-| G3 | not dispatched — Decision Log 1 ruled; waits on G0–G2 merged | §5.164 | `results/2026-09-21-w31-g3-chroma-fit/` |
+| G3 | **OPEN 2026-09-21** — dispatched on main after G0, G1, G2 and their three closures merged; Decision Log 2 | §5.164 | `results/2026-09-21-w31-g3-chroma-fit/` |
 | G4 | not dispatched | §5.165 | `results/2026-09-21-w31-g4-landing/` |
 
 ## Decision Log
@@ -633,6 +633,38 @@ bottom is their ORDER, not their separation. The re-ranged stage is true to that
 prose says so; retirement removes the one live figure on the site that shows the tone law across a
 ground, and what it would spare is the 40 px plate's published-alpha band (tracker). Keep, with the
 band recorded, unless the user's taste says the reversal makes the section say the wrong thing.
+
+### Decision Log 2 — RULED 2026-09-21 by the parent at G3's dispatch, under the standing "rest on your judgement": what the fit gate carries
+
+Ruled on §5.161 as corrected by its closure (§11), with G1 and G2 merged and closed. (a) **The
+leaf is `bodyChromaRetention`** exactly as §5.161 §5 names it: inert identity 0; after
+`colour = mix(backdrop, adapted, presentAlpha)` and before `var materialColour = colour`;
+chromaticity restored toward the blurred backdrop's carried to the colour's own linear luma,
+luma held by construction, chroma scaled toward the neutral at fixed luma for gamut; **no
+`toneAdapt` gate**, on the closure's reason (a retention toward the backdrop's chromaticity is
+inert wherever the backdrop is achromatic, the only region the band can fire in) with the
+condition recorded on any document that re-opens the band; two values across the light and dark
+documents; the receded documents carry their **own** value read on the inactive cells; the
+accessibility documents inherit the light value. (b) **The CSS projection on the corrected
+ceilings** (light 0.5654–0.5995, already met by the authored `saturate()`; dark 0.2651–0.2767
+against 0.906): a term is derived from the leaf on both documents only if it adds reach without
+moving the authored constants, measured on scratch, else the tier records the residual and
+carries nothing; the two `dom` rows are claimed conditionally on the dark tier's term and revert
+to "reachable if" without one. (c) **The digest rule executes in G3** with the identity table as
+`identity-table.json` declares it after the closure (the two-leaf σ gate; the heavy-second gate;
+the scatter gate; this wave's leaf), append-only, versioned, each entry naming its gate-group
+case (`w31-gate-groups.test.ts`); the 26.5 documents unedited and their own fields the live pin;
+`digest-supersessions.json` history with a test that it still reproduces under rule 1. (d)
+**`mid-chroma-solid` is granted for direction only**; the objective is R on the gated untinted
+photo cells per pose; the level stop at the closure's corrected baseline, the structure stop,
+B3, and the expected-unmoved rows are hard stops; the invariant twin is read beside R. (e) **The
+holdout rule by artifact**: a committed configuration script (document hashes + a hash over the
+enumerated source list) run before the read, refusing a second read at identical document hashes
+without a named non-fit reason. (f) **One merge** (X10): the leaf, the rule, the fit, the seal and
+the read land on one branch and are merged whole; `PREDICATE_EXCLUDES` and the counts move only in
+the commit that carries the read. (g) **Adoption is decided at G4** on G0's identifiability
+argument and the fit's own reproducibility, with the structure stop as a second gated row and the
+WebGPU tier only if adopted.
 
 ## Surprises & Discoveries
 
@@ -689,6 +721,11 @@ band recorded, unless the user's taste says the reversal makes the section say t
 *(at close)*
 
 ## Revision Notes
+
+- 2026-09-21 (the parent): **G3 dispatched** on main after G0, G1, G2 and their three review
+  closures merged (`89aba451`; freeze 1,818; 2,629 unit tests green), under Decision Log 2 — the
+  parent's rulings for the fit gate on §5.161 as corrected. One merge for the leaf, the rule, the
+  fit, the seal and the read (X10).
 
 - 2026-09-21 (G2 review closure): **nine findings closed, no blocking one, and the guard's
   predicate was the only thing that was wrong rather than mis-stated** (claims §5.163 §8). An
