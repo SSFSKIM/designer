@@ -448,6 +448,16 @@ nothing. **Apple's offset reads 7.65–8.22 at every span**, which is vitrea's 7
 quarter of a pixel. So the exterior's +5.00 CSS px of isotropic extent excess and its agreeing
 displacement are one finding with one cause, and the cause is the outset.
 
+**What "with an interval" is worth** (added 2026-09-21, review closure; claims §5.166 §10, finding
+N4). It is a **lack-of-fit contour of unknown coverage**, not a confidence interval: the residual is
+5e−4 to 2e−3 against a capture noise of 6e−6 to 1.3e−4, so the contour is shaped by model
+misspecification and not by measurement error, and `sqrt(1 + 1/(n − p)) − 1` is calibrated for the
+opposite case. "3.10 is outside the interval" means *3.10 fits this bed appreciably worse than half
+a pixel does under this model* and carries no probability. The claim's real support is the
+**web-side control** in the next subsection: the same instrument on vitrea's render, whose outset IS
+3.10, returns 3.15–3.41 at span 32, 3.10–3.41 at 44 and 2.82–3.41 at 96 — it recovers a 3.10 when
+one is there, and returns 0.0–1.0 on Apple's render at the same spans.
+
 **Corrected beside, 2026-09-21 (review closure; claims §5.166 §10, finding B2). All twenty bed × span
 rows, because the eight above were a selection and the selection carried the sentence**
 (`model-fit.txt` §5, unmoved):

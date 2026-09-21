@@ -32034,6 +32034,22 @@ OUTSET. What §5.162 §2 could only call suggestive is now measured with an
 interval: Apple's outset is not zero, it is about half a pixel, and vitrea's is
 six times it.
 
+**What "with an interval" is worth, said beside it** (added 2026-09-21, review
+closure; §10, finding N4). The interval is a **lack-of-fit contour of UNKNOWN
+COVERAGE**, not a confidence interval. The next paragraph says why in its own
+words and does not draw the consequence: the residual is 5e−4 to 2e−3 against a
+capture noise of 6e−6 to 1.3e−4, a hundred times the bar, so what the contour is
+shaped by is **model misspecification and not measurement error** — and
+`sqrt(1 + 1/(n − p)) − 1` is calibrated for the opposite case. "3.10 is outside
+the one-sigma interval" therefore means *3.10 fits this bed appreciably worse
+than half a pixel does under this model*, and it does not carry a probability.
+**The claim's real support is the WEB-SIDE CONTROL**: the same instrument on
+vitrea's own render, whose outset is known to be exactly 3.10, returns 3.15–3.41
+at span 32, 3.10–3.41 at 44 and 2.82–3.41 at 96 — so at those spans the
+instrument recovers a 3.10 when a 3.10 is there, and on Apple's render at the
+same spans it returns 0.0–1.0 instead. That is the argument; the contour is the
+scale on which it is stated.
+
 **The conditioning, and what counts as separation.** Not the native-pair bar: the
 bar is the noise on ONE band's `a` (6e-6 to 1.3e-4 on these cells) and the
 residual is an RMS over eight to sixteen bands at 5e-4 to 2e-3 — a hundred times
