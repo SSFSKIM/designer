@@ -45,3 +45,27 @@ The 23 red cases are 15 in `adopted-thresholds.test.ts` and 8 in
 (claims §5.158). They go green in the commit that carries the canonical read,
 which is the whole content of W30 Decision Log 4 (b) and of this wave's X10 — and
 the reason the leaf, the rule, the fit, the seal and the read are one branch.
+
+---
+AT THE GATE'S CLOSE, after the fit, the seal and the read (claims §5.164 §11).
+
+  freeze.py verify                       26.5 freeze intact: 1818 entries
+  pnpm -r build                          exit 0
+  pnpm -r lint                           exit 0
+  pnpm -r test                           2,651 passed over 183 files, 0 failed
+                                         (policy 23/2, motion 164/10, geometry 170/14,
+                                          renderer-webgpu 558/34, core 302/16,
+                                          platform-web 631/46, react 169/18,
+                                          calibration 588/37, demo 46/6)
+  test:golden                            34 passed; e2e/goldens clean
+  test:gpu                               45 passed on a hardware adapter
+  window-activation (chromium)           6 passed; eight hashes re-read from the browser
+  the 27 gated-cell count                230 cells / 726 rows; MATRIX_CELLS 459;
+                                         MATRIX_PARTITION and PREDICATE_EXCLUDES unmoved
+  the read's append-check                6 clauses PASS
+  the split's append-check               6 clauses PASS (reconstruction included)
+  configuration.py record                one entry; a second invocation REFUSED
+
+The 23 cases that were red between the seal and the read — 15 in
+adopted-thresholds and 8 in tier-coherence — are green. That interval is X10,
+and it is why the leaf, the rule, the fit, the seal and the read are one branch.
