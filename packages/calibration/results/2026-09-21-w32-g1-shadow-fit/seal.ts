@@ -1,8 +1,35 @@
 /**
- * W31 G3 — seal the four macOS 27 profile documents UNDER THE DIGEST RULE, and
- * record their file hashes before the canonical read.
+ * W32 G1 — seal the four macOS 27 documents at the fitted exterior, and finish
+ * the correction W31 G3c could only start (claims §5.168; W31 Deferred item 14).
  *
- *   npx tsx results/2026-09-21-w31-g3-chroma-fit/seal.ts [--reason "<why>"]
+ * **This is W31 G3c's `seal.ts`, the corrected template it committed for
+ * exactly this moment, copied byte for byte** — its docstring is kept below in
+ * full because the corrections it carries are the ones being used — **with one
+ * addition: the TWO DARK documents get the `$comment-sha-history-correction`
+ * the two light ones already carry.** G3c could not write it: X10 forbade that
+ * gate to move the dark documents' bytes, and §5.164 §13 left the entry for
+ * whoever re-sealed them next. This gate re-seals them, so this gate writes it.
+ * Nothing recorded is rewritten — the wrong parenthetical stays in the history
+ * line it was written into and the correction sits beside it, which is the
+ * rule that governs every recorded number here.
+ *
+ * ---
+ *
+ * W31 G3's `seal.ts` with the review's finding N9 corrected — NOT RUN AT THIS
+ * GATE, committed so the next seal copies a template that tells the truth
+ * (claims §5.164 §13, finding N9).
+ *
+ * W31 G3c seals nothing: it moves two documents' BYTES with a dated comment and
+ * re-reads them (`comment-generation.ts`), and no digest moves. G3's own file is
+ * committed evidence and is not edited; the two corrections are here, each
+ * marked `G3c`, and the four documents' already-written history lines are
+ * corrected BESIDE themselves by `$comment-sha-history-correction` on the two
+ * light documents — the dark two are not edited at this gate (X10) and §13
+ * carries the entry for whoever re-seals them next.
+ *
+ * ---
+ *
+ *   npx tsx results/2026-09-21-w31-g3c-accessibility-gate/seal.ts [--reason "<why>"]
  *
  * W29 G3's `results/2026-09-19-w29-g3-refit/seal.ts` one rule along, copied
  * rather than reused on that file's own convention: nothing under `results/` is
@@ -23,7 +50,17 @@
  * documents are NOT edited and NOT re-sealed: under rule 2 their own recorded
  * fields are the live fingerprint again, which this script asserts before it
  * writes a byte (X1), and a document with no field naming a rule is rule 1 by
- * default — which for those two is the same number under either.
+ * default.
+ *
+ * **G3c (claims §5.164 §13, finding N9): the clause that closed that sentence
+ * was wrong.** It said the frozen pair's digests are "the same number under
+ * either" rule. They are not. Rule 1 over TODAY's material gives
+ * `e3a93c54e5ba60a2` and `ade6eb6567c25d0d` — the plain fingerprint of a
+ * material carrying nine leaves those documents never named. What they equal is
+ * the plain fingerprint of the material AS IT STOOD WHEN THEY WERE SEALED,
+ * which is exactly what rule 2 reconstructs by dropping those nine, and that is
+ * why they need no rule field. The conclusion is unchanged and claims §5.164 §2
+ * already records the sharper reason; this is the script's own copy of it.
  *
  * It refuses to write if the assertions fail, so the X1 proof runs before the
  * seal rather than after it.
@@ -153,9 +190,22 @@ for (const [name, resolveIt] of TARGETS) {
     ? [...(document["$comment-sha-history"] as string[])]
     : [];
   if (after !== before || beforeRule !== MATERIAL_DIGEST_RULE_VERSION) {
+    /*
+     * G3c (claims §5.164 §13, finding N9): the parenthetical was unconditional.
+     * "The plain resolved fingerprint" is what rule 1 is and what rule 2 is not,
+     * and appending it whatever `beforeRule` held wrote a false description of
+     * the function into all four documents on the second seal of that branch.
+     * The digest in the line was right; only the sentence about it was wrong.
+     */
+    const RULES: Readonly<Record<string, string>> = {
+      "1": "the plain resolved fingerprint",
+      "2": "the fingerprint of materialDigestInput(resolved) — the resolved material with " +
+        "MATERIAL_IDENTITY_TABLE's entries dropped where their gates hold their identities",
+    };
+    const priorRule = RULES[String(beforeRule)] ?? "a rule this script does not name";
     history.push(
-      `${before} — the reading under rule ${String(beforeRule)} (the plain resolved ` +
-        `fingerprint). Re-sealed at ${after} under rule ${String(MATERIAL_DIGEST_RULE_VERSION)}, ` +
+      `${before} — the reading under rule ${String(beforeRule)} (${priorRule}` +
+        `). Re-sealed at ${after} under rule ${String(MATERIAL_DIGEST_RULE_VERSION)}, ` +
         `the inert-identity rule of W31 Decision Log 1 (a): the same SHA-256 over the same ` +
         `resolved material with MATERIAL_IDENTITY_TABLE's entries dropped where their gates ` +
         `hold. ${REASON}`,
@@ -170,6 +220,27 @@ for (const [name, resolveIt] of TARGETS) {
     }
   }
   rebuilt["$comment-sha-history"] = history;
+  /*
+   * W32 G1 (claims §5.168; W31 Deferred item 14). The two LIGHT documents carry
+   * a `$comment-sha-history-correction` written at W31 G3c; the two DARK ones do
+   * not, because X10 forbade that gate to move their bytes. Their history lines
+   * carry the same wrong parenthetical, so the correction is written here, in
+   * the same re-seal, in the same words — and only where it is absent, so a
+   * document that already carries one is not rewritten.
+   */
+  if (rebuilt["$comment-sha-history-correction"] === undefined) {
+    rebuilt["$comment-sha-history-correction"] =
+      "2026-09-21, W31 G3c (review closure; claims §5.164 §13, finding N9), written here at W32 G1 "
+      + "(claims §5.168) because W31 G3c could not move this document's bytes (W31 Deferred item 14). "
+      + "A line of $comment-sha-history above reads \"the reading under rule 2 (the plain resolved "
+      + "fingerprint)\", and rule 2 is NOT the plain resolved fingerprint — it is the fingerprint of "
+      + "materialDigestInput(resolved), the material with MATERIAL_IDENTITY_TABLE's entries dropped "
+      + "where their gates hold their declared identities (W31 Decision Log 1 (a)). The parenthetical "
+      + "belongs to rule 1 alone and seal.ts's template appended it whatever rule the previous reading "
+      + "was taken under. The DIGESTS in that line are correct and are not restated here; only the "
+      + "description of the function is wrong. The corrected template is "
+      + "results/2026-09-21-w31-g3c-accessibility-gate/seal.ts, which this gate ran.";
+  }
   writeFileSync(path, `${JSON.stringify(rebuilt, null, 2)}\n`);
   const file = createHash("sha256").update(readFileSync(path)).digest("hex");
   console.log(`sealed ${name}`);

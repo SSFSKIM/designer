@@ -35,6 +35,7 @@ document's own value is read on its own beds.
 | C | light: B's residual solve (the convergence round). dark: `spreadPx` 1.80 → 0.50 at B's anchors | **0.00089** | 0.00184 | 0.00072 | light: converged |
 | D | light: `offsetPx` 7.95 → 7.65 (the offset coordinate step). dark: back to `spreadPx` 1.80 with the σ slope at B1's low end, 0.1340 → 0.1215 | 0.00089 | **0.00147** | 0.00072 | — |
 | E | light: C's candidate REPEATED. dark: D's window anchor solve at D's geometry | **0.00089** | **0.00137** | 0.00072 | **SHIPPED** |
+| F | **the free fit**: the σ law taken OUTSIDE B1 on both schemes | 0.00080 | 0.00126 | 0.00073 | never — a measurement |
 
 ### pre-fit — the before
 
@@ -293,3 +294,35 @@ and 160 by 49–90 %. The tightest row is `2x dark` at span 128 with 7 % of marg
 
 This is the candidate that ships. Nothing after this round moves a leaf: round F is the free fit,
 a measurement, and is never sealed.
+
+### F — the free fit, and what B1's window costs: less than the bar
+
+The charter runs two fits and ships one (Decision Log 1 (a)). This is the other: the σ law taken
+**outside B1's joint windows** on both schemes at E's other leaves — light slope 0.1314 → 0.1100
+(σ(128) 12.480 against a window floor of 12.6397, σ(160) 16.000 against 16.7033) and dark 0.1215 →
+0.1050 (σ(128) 12.400 against 12.7458, σ(160) 15.760 against 16.7931), with the knee held at 44 by
+the same construction so that B1's window is the only difference between this round and E.
+
+**The free fit's distance from the constrained one is 0.00009 on the light bed and 0.00011 on the
+dark one** — objective 0.00089 → 0.00080 and 0.00137 → 0.00126 — which is a **twentieth of the bar
+0.002044**. So the charter's conditional does not fire: there is no Decision Log draft on
+re-stating B1, because on this bed B1's window is not what is holding the fit.
+
+And what the free σ actually does is a TRADE rather than a gain, which the per-span table says and
+the one-number objective cannot, because the objective excludes span 160:
+
+| bed | span 128, constrained → free | span 160, constrained → free |
+| --- | --- | --- |
+| 1x light | 0.00245 → **0.00203** | 0.00134 → **0.00169** |
+| 2x light | 0.00253 → **0.00210** | 0.00132 → **0.00214** |
+| 1x dark | 0.00348 → **0.00301** | 0.00164 → **0.00335** |
+| 2x dark | 0.00391 → **0.00354** | 0.00168 → **0.00270** |
+
+A narrower σ buys span 128 and sells span 160, on every bed, and the two spans are inside C1 either
+way. The thin regime pays too: the accessibility beds' span-44 `T` moves 0.00199 → 0.00236, because
+the knee held at 44 ties the thin σ to the slope. Under the free σ the shipped material would be
+better at the span the canvas can see properly and worse at the span it cannot, which is the
+opposite of the trade this bed should take.
+
+B3 is 0.00073 against E's 0.00072, and the window figure 0.00008 against 0.00006 — both inside the
+noise of the statistic. Nothing here is sealed.
