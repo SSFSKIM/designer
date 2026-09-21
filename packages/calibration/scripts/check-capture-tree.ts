@@ -48,9 +48,11 @@
  * walk, and a different tool. That remainder is a tracker entry; this one closes the
  * generation half and says so.
  *
- * **Anything outside the documents.** An engine version, a GPU adapter, an accessibility
- * setting or a scenes file that moved between the capture and the row is not a document
- * hash and is not read here.
+ * **Anything outside the documents and the pose.** An engine version, a GPU adapter or a
+ * scenes file that moved between the capture and the row is neither a document hash nor a
+ * pose clause and is not read here. The scale, the scheme and the accessibility policy ARE
+ * read, since the review closure: they are on the same string and a miscopy across profiles
+ * moves them while leaving the documents alone (NB2; claims §5.167 §8).
  *
  * ## The verdicts, and why they are not all the same colour
  *
@@ -63,7 +65,14 @@
  *   Stale by ACCIDENT — a generation nothing recorded — is never anything but a failure, and
  *   the difference between the two is the whole reason the flag exists rather than a
  *   blanket tolerance.
- * - **frozen** — a mismatch under a macOS 26.5 key exits **2** rather than 1. Those rows are
+ * - **misfiled** — a capture whose `deviceScaleFactor`, `colorScheme` or `accessibility`
+ *   clause is not the row's. The documents can agree here and usually do: every macOS 26.5
+ *   profile is keyed to the one light or dark document and a macOS 27 accessibility profile
+ *   to the standard pair, so a cross-profile miscopy is invisible to a document compare and
+ *   is the one shape of stale tree that reads as a MATCH. It exits **1** under a frozen key
+ *   as well as a live one — a capture sitting in a directory it does not belong in is a
+ *   fault in the copy, not a row anybody is forbidden to re-read.
+ * - **frozen** — a generation mismatch under a macOS 26.5 key exits **2** rather than 1. Those rows are
  *   frozen evidence under contract X1 and no wave may re-read them, so a mismatch there is a
  *   fact about the tree on this machine and not a fault a gate can clear; reporting it with
  *   the same exit code as a live mismatch would make a merge gate un-passable for a reason
@@ -93,6 +102,29 @@ const FROZEN = /^apple-macos-26\.5-/;
  */
 const CLAUSE = /(?:materialProfile|recededProfile)=(\S+) sha256:([0-9a-f]{12})/g;
 
+/**
+ * The clauses that say which PROFILE a capture was taken at, beside the ones that say
+ * which material it drew. A document compare alone reads a cross-profile miscopy as a
+ * MATCH, because a document is shared across profiles by design: all six macOS 26.5
+ * profiles are keyed to the one light or dark document, and a macOS 27 accessibility
+ * profile is read at the standard pair. So a 1x capture dropped into the 2x directory, or
+ * a reduced-transparency capture into the standard one, names exactly the documents the
+ * row names and is compared cell for cell against pixels drawn at a different scale or a
+ * different policy — which is the shape of every defect this checker exists for, arriving
+ * by the one route it could not see (review closure NB2; claims §5.167 §8).
+ *
+ * Each value runs to the next `, <name>=` clause rather than to the next comma, because
+ * `accessibility=` carries spaces and parentheses:
+ * `accessibility=reducedTransparency+increasedContrast (others explicitly off)`.
+ */
+const POSE = ["deviceScaleFactor", "colorScheme", "accessibility"].map(
+  (name) => [name, new RegExp(`${name}=(.*?)(?=,\\s*[A-Za-z][A-Za-z0-9]*=|$)`)] as const);
+
+/** `<name>=<value>` for each pose clause, or `<name>=(absent)` where the string has none. */
+function poseOf(capturePath: string): readonly string[] {
+  return POSE.map(([name, pattern]) => `${name}=${pattern.exec(capturePath)?.[1] ?? "(absent)"}`);
+}
+
 /** Sorted `<file name> <hash>` pairs — a generation, in the form both sides are compared in. */
 function documentsOf(capturePath: string): readonly string[] {
   return [...capturePath.matchAll(CLAUSE)]
@@ -102,6 +134,7 @@ function documentsOf(capturePath: string): readonly string[] {
 
 interface Row {
   readonly documents: readonly string[];
+  readonly pose: readonly string[];
 }
 
 interface MatrixCell {
@@ -138,7 +171,7 @@ function walk(tree: string): { profile: string; scene: string; renderer: string;
   return found;
 }
 
-type Verdict = "match" | "superseded" | "mismatch" | "no-row" | "unreadable";
+type Verdict = "match" | "superseded" | "mismatch" | "misfiled" | "no-row" | "unreadable";
 
 interface Finding {
   readonly profile: string;
@@ -180,7 +213,10 @@ export function checkCaptureTree(options: {
   const generations = new Map<string, string[][]>();
   for (const cell of matrix.cells) {
     const documents = documentsOf(cell.key.web.capturePath);
-    rows.set(cellKey(cell.key.profileKey, cell.key.web.renderer, cell.key.sceneId), { documents });
+    rows.set(
+      cellKey(cell.key.profileKey, cell.key.web.renderer, cell.key.sceneId),
+      { documents, pose: poseOf(cell.key.web.capturePath) },
+    );
     const bucket = generations.get(cellKey(cell.key.profileKey, cell.key.web.renderer, "")) ?? [];
     if (!bucket.some((seen) => seen.join("|") === documents.join("|"))) bucket.push([...documents]);
     generations.set(cellKey(cell.key.profileKey, cell.key.web.renderer, ""), bucket);
@@ -242,6 +278,24 @@ export function checkCaptureTree(options: {
       findings.push({ ...capture, verdict: "no-row", capture: named, row: [] });
       continue;
     }
+    // Before the documents, because a miscopy across profiles agrees on them: the scale,
+    // the scheme and the accessibility policy the two strings name have to be the same
+    // pose, or the comparison below is between a row and pixels drawn at another one.
+    const pose = poseOf(meta.capturePath ?? "");
+    // A clause the ROW's own string does not carry is reported rather than passed: two
+    // strings that both say nothing about the scale agree on nothing, and a checker that
+    // reads that as a match is answering a question it never asked.
+    const disagreeing = pose.flatMap((clause, index) =>
+      clause === row.pose[index] && !clause.endsWith("=(absent)")
+        ? []
+        : [`${clause} against the row's ${row.pose[index] ?? "(no clause)"}`]);
+    if (disagreeing.length > 0) {
+      findings.push({
+        ...capture, verdict: "misfiled", capture: named, row: row.documents,
+        note: `the capture is posed ${disagreeing.join("; ")}`,
+      });
+      continue;
+    }
     if (named.join("|") === row.documents.join("|")) {
       findings.push({ ...capture, verdict: "match", capture: named, row: row.documents });
       continue;
@@ -270,10 +324,15 @@ export function checkCaptureTree(options: {
   const failing = findings.filter(
     (finding) =>
       finding.verdict === "mismatch"
+      || finding.verdict === "misfiled"
       || finding.verdict === "unreadable"
       || (finding.verdict === "superseded" && !options.supersededOk),
   );
-  const live = failing.some((finding) => !FROZEN.test(finding.profile));
+  // A misfiled copy exits 1 under a frozen key as well as a live one: contract X1 forbids
+  // re-READING a macOS 26.5 row, and the tree is gitignored, so deleting a capture from
+  // the directory it does not belong in is a fault anybody may clear.
+  const live = failing.some(
+    (finding) => finding.verdict === "misfiled" || !FROZEN.test(finding.profile));
   return {
     treePresent: true,
     tree: options.tree,
@@ -308,6 +367,7 @@ export function formatReport(report: Report, supersededOk: boolean): string {
         `    ${renderer.padEnd(7)} captures ${String(mine.length).padStart(4)}`
         + `  match ${String(count("match")).padStart(4)}`
         + `  mismatch ${String(count("mismatch")).padStart(3)}`
+        + `  misfiled ${String(count("misfiled")).padStart(3)}`
         + `  superseded ${String(count("superseded")).padStart(3)}`
         + `  unreadable ${String(count("unreadable")).padStart(3)}`
         + `  no-row ${String(count("no-row")).padStart(3)}`
@@ -335,7 +395,8 @@ export function formatReport(report: Report, supersededOk: boolean): string {
   const total = (verdict: Verdict): number => report.findings.filter((f) => f.verdict === verdict).length;
   out.push("");
   out.push(`  totals   captures ${report.findings.length}  match ${total("match")}`
-    + `  mismatch ${total("mismatch")}  superseded ${total("superseded")}`
+    + `  mismatch ${total("mismatch")}  misfiled ${total("misfiled")}`
+    + `  superseded ${total("superseded")}`
     + `  unreadable ${total("unreadable")}  no-row ${total("no-row")}`);
   out.push(
     report.exitCode === 0
