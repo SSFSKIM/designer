@@ -560,7 +560,7 @@ highlight's angular reader; the decoupled-contrast flag and its read; the motion
 
 ## Deferred / Out of Scope
 
-The analysis pass's scale statistic (W30 Deferred 2); the shadow's next fit under G1's clause (the
+The analysis pass's scale statistic (W30 Deferred 2); the shadow's next fit under G1's clause C1, and beside it **a joint fit of the shadow's three lengths — `sigmaPx`, `spreadPx` and `offsetPx` — against the exterior it draws rather than the blur alone**, which G1's candidate (i) names with a number (§5.162 §2, §5) (the
 seven rows are not claimed through the shadow here; the four dark ones are claimed or "reachable
 if" through the chroma on G0's decomposition); the highlight's angular reader; the decoupled
 increased-contrast read and `compare`'s flag; the identifying sitting; the motion-metrics harness;
@@ -575,7 +575,7 @@ tier's `saturate()` constants as fitted rather than authored values.
 | Child | Status | Claims section | Evidence |
 | --- | --- | --- | --- |
 | G0 | OPEN | §5.161 | `results/2026-09-21-w31-g0-chroma-cut/` |
-| G1 | OPEN | §5.162 | `results/2026-09-21-w31-g1-exterior-instrument/` |
+| G1 | **MERGED** — the clause C1 declared on the departure profile's SHAPE; candidate (i) recorded as the diagnostic that points at `spreadPx`/`offsetPx`; nothing adopted, nothing fitted, no capture | §5.162 | `results/2026-09-21-w31-g1-exterior-instrument/` |
 | G2 | OPEN | §5.163 | `results/2026-09-21-w31-g2-range-class/` |
 | G3 | not dispatched — Decision Log 1 ruled; waits on G0–G2 merged | §5.164 | `results/2026-09-21-w31-g3-chroma-fit/` |
 | G4 | not dispatched | §5.165 | `results/2026-09-21-w31-g4-landing/` |
@@ -655,6 +655,23 @@ band recorded, unless the user's taste says the reversal makes the section say t
 *(at close)*
 
 ## Revision Notes
+
+- 2026-09-21 (G1): **the exterior clause declared, and it is the SHAPE and not the width.** Both
+  candidates were computed over the current generation from committed fields alone — no schema
+  addition was needed, so `report.ts`'s shadow axis is untouched and X11 has nothing to report.
+  Candidate (ii), the departure profile's shape read off the affine bands as a width-weighted
+  transmission error `T`, **agrees with §5.160 §6's eye**; candidate (i), the fitted σ's relative
+  error, **anti-correlates with it by a factor of forty** and reads 0.000 on the largest of W30's
+  three refuted rows. C1 is declared on candidate (ii) at ≤ 0.0045 per standard bed per thick span
+  — a bound today's material misses at spans 128 and 160 on all four beds and meets at 96 — as a
+  **one-wave reading**, with the row shape written out in `bounds-declaration.md` rather than as a
+  skipped case, because `adopted-thresholds.test.ts`'s convention is that every case in it is live.
+  The charter's Design paragraph asked what a divergence between candidate (i) and B1 would mean
+  and the bed answered it: **the two sides of B1 are not the same quantity** — B1 bounds the
+  document's blur leaf, candidate (i) reads the rendered exterior — and the gap is additive and
+  nearly constant at +2.66 to +3.77 CSS px, the size of the shipped `spreadPx`, a leaf the macOS 27
+  material inherited and no wave has fitted. That is a new piece of named work for the Deferred
+  list (§5.162 §5) and it is NOT this wave's (X3).
 
 - 2026-09-21 (the parent): **v2, the adversarial review folded** (opus, read-only; one P0, seven
   P1, seven P2, all folded; nothing dismissed). What moved: the re-seal and the read are one gate
