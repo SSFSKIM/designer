@@ -567,12 +567,21 @@ wave itself leaves.
    read at one gate and 247 dark rows read at another. The two committed entries were corrected in
    place before merge; the tool still cannot express the shape. **The work**: a per-generation reader
    on the apply path, which is the tracker entry W32 G1's review closure widened.
-8. **The frozen macOS 26.5 receded material draws a shadow its own bed says is not there.** All 235
-   frozen inactive rows read a native transmission of exactly 1.000000 from 3 CSS px outward and the
-   26.5 receded endpoints carry the active anchors, exactly as the macOS 27 ones did before this
-   wave. X1 freezes it and this wave does not touch it. **The work**: it is a material change to a
-   frozen document, so it needs the freeze's own ruling before anything else, and the 1,107 frozen
-   rows would have to be re-read at the new bytes.
+8. **NO WORK — withdrawn 2026-09-22 at G2's review closure (claims §5.169 §10, finding B1). The
+   26.5 receded endpoints already carry zero shadow.** *As written this item said "the frozen macOS
+   26.5 receded material draws a shadow its own bed says is not there… the 26.5 receded endpoints
+   carry the active anchors, exactly as the macOS 27 ones did before this wave", and chartered a
+   freeze ruling plus a re-read of the 1,107 frozen rows to fix it. There is nothing to fix.*
+   `packages/platform-web/src/receded-profile.ts`'s shared block sets all eight `outerShadow`
+   leaves — the six occlusion anchors, `liftAmplitude` and `reducedTransparencyOcclusion` — to
+   **0**, and has since W27c; `receded-profile-export.test.ts` pins them. The committed rows agree:
+   over the 235 frozen inactive WebGPU rows `shadow.meanDepartureWeb` means **0.000039** against
+   **0.012208** over the 318 active ones, three orders of magnitude apart, and the native side
+   means 0.000223 against 0.012192. So the 26.5 recede removes no light on either side, which is
+   the reading, and this wave's stand-down is a macOS 27 change alone. The wrong sentence entered
+   through G1's Decision Log 2 text and propagated to `CLAUDE.md`; both are corrected beside. **No
+   freeze ruling is needed and no frozen row is re-read** — which also means the "tracker entry
+   records it" that Decision Log 2 promised never existed and is not owed.
 9. **The retention under Increase Contrast alone is unmeasured.** `ACCESSIBILITY_BEHAVIOR_TABLE`'s
    `increasedContrast` row carries no occlusion key and macOS 27 decoupled the two switches, so a
    page under Increase Contrast by itself draws W31's chroma retention at full value — and the
@@ -737,6 +746,18 @@ the group clip in the inactive pose shrinks with it — recorded in the tracker'
 the advisory constant does not move). The 26.5 receded material, frozen, draws the same wrong
 shadow and stays as it is (X1); a tracker entry records it. The hairline is not this wave's
 (Deferred: a rim term).
+
+> **Corrected beside, 2026-09-22 (G2 review closure; claims §5.169 §10, finding B1).** The
+> sentence "the 26.5 receded material, frozen, draws the same wrong shadow" is **false**, and it
+> is the origin of the same claim in `CLAUDE.md` and in Deferred item 8.
+> `packages/platform-web/src/receded-profile.ts` sets all eight `outerShadow` leaves of the shared
+> 26.5 receded block to **0** and has since W27c, `receded-profile-export.test.ts` pins them, and
+> the committed rows read it: `shadow.meanDepartureWeb` means **0.000039** over the 235 frozen
+> inactive WebGPU rows against **0.012208** over the 318 active ones. The 26.5 recede draws no
+> outer shadow and never has, so what this ruling moved is the macOS 27 endpoints alone. **The
+> tracker entry this sentence promised was never written, and is not owed**: there is nothing to
+> record. Nothing else in Decision Log 2 moves — the ruling, its measurement and its consequences
+> for the macOS 27 documents all stand as written.
 
 ### Decision Log 3 — RULED by the user 2026-09-22 at G1's merge, (a): B3 could not have been kept, and its re-statement is a bound's re-pin
 

@@ -279,7 +279,9 @@ recede does have is one device pixel of dark stroke at the contour, which is a r
 drawn. On the CSS tier the window-activation transition therefore fades the shadow OUT, which is
 what the reference does; on the WebGPU tier the posed profile is swapped the instant the resolved
 activation changes and the shadow leaves in one frame (a tracker entry). The frozen macOS 26.5
-receded material draws the same wrong shadow it always did and stays as it is.
+receded material draws **no outer shadow either, and never did**: `receded-profile.ts`'s shared
+block sets all eight `outerShadow` leaves to 0, so the 26.5 recede has removed no light since W27c.
+The macOS 27 endpoints are the ones this wave moved, from their active document's anchors to zero.
 
 **The fidelity discipline.** `docs/doperpowers/specs/c9a-fidelity-claims.md` is the ledger: every
 measurement, every adopted bound, every floor and why. Work runs as waves (composite specs dated
