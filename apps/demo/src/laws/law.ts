@@ -203,9 +203,20 @@ export const fixed = (value: number, places = 3): string => value.toFixed(places
  * documents. Rather than track the pose in page state and hope the root agrees,
  * the section asks the group what it drew — `GlassGroupState.materialDocument`
  * carries `resolvedMaterialSha256`, the digest over the fully resolved material
- * — and looks that digest up among the selected document's four endpoints. A
- * digest that matches none of them is an app that tuned the material, and the
- * readout says so instead of printing numbers from an endpoint nothing drew.
+ * — and looks that digest up among the selected document's four endpoints.
+ *
+ * **What a miss means, exactly.** A digest matching none of the four says the
+ * material that drew is **not an endpoint of the document this page named** —
+ * which is what a root built with a different document reports — and the readout
+ * says so instead of printing numbers from an endpoint nothing drew. It does NOT
+ * say the material was TUNED: `root.ts`'s `resolvedMaterialDocument` takes the
+ * digest from the endpoint and reports tuning in a separate `tuned` boolean
+ * beside it, so a page that tunes the optics still reports the endpoint's own
+ * untouched digest and still matches here. Tuning is read from that flag, which
+ * is what `Laws.tsx` does with it. *(Corrected 2026-09-22 at W32 G2's review
+ * closure — claims §5.169 §10, finding N3. This comment, §5.169 §4 and the
+ * charter's G2 row all said a miss detects a tuned material, and the refusal
+ * could never fire for that cause.)*
  *
  * A receded endpoint's patch is a DIFFERENCE over the active endpoint of its own
  * scheme (`material-document.ts`), never a whole material, so it is composed the

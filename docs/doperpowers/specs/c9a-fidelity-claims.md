@@ -33807,8 +33807,17 @@ two different documents. So it asks the group what it drew:
 resolved material, and `endpointByDigest` looks that digest up among the selected
 document's four endpoints, composing a receded patch over its own scheme's active
 one because a receded document is a difference and never a whole material. A
-digest matching none of the four is an app that tuned the material and the readout
-says so rather than printing numbers from an endpoint nothing drew. `shadowLaw`
+digest matching none of the four is a root built with some OTHER document, and the
+readout says so rather than printing numbers from an endpoint nothing drew.
+
+*Corrected 2026-09-22 (§10, finding N3): that sentence said the refusal detects an
+app that TUNED the material, and it cannot fire for that cause.*
+`root.ts`'s `resolvedMaterialDocument` builds its digest from the endpoint's own
+`resolvedMaterialSha256` and reports tuning in a separate `tuned` boolean, so a
+tuned material reports an untouched endpoint digest and matches. The readout now
+reads that flag and prints `<endpoint> — tuned by the app` when it is set, which
+is the reading the refusal was claimed to be. `law.ts`'s declaration site and the
+charter's G2 row carry the same correction. `shadowLaw`
 then evaluates `outerShadowSigmaPx`, `outerShadowUnderPolicy`,
 `outerShadowOcclusionAt`, `outerShadowFalloff` and `cssTierShadowAlpha` — the
 runtime's own functions on the runtime's own constants.

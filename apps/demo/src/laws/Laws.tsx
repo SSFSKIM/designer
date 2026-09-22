@@ -213,14 +213,22 @@ export function Laws(props: LawsProps): ReactNode {
    * GROUP reports the digest of the material that actually drew it, so the
    * endpoint the law is evaluated at is found by matching that digest against
    * the document's four — not by the page deciding which pose it thinks is on.
-   * Before the first frame, and on a material an app has tuned, there is no
-   * endpoint to name and the readout says so rather than quoting one.
+   * Before the first frame, and on a root built with some other document, there
+   * is no endpoint to name and the readout says so rather than quoting one.
+   *
+   * TUNING is a separate reading and a separate field. The digest the runtime
+   * reports is the ENDPOINT's, so an app that tunes the optics still matches one
+   * of the four; what says the material moved under that name is
+   * `materialDocument.tuned`, and the readout carries it rather than letting the
+   * endpoint's name stand for a material nothing quite drew (W32 G2 review
+   * closure, claims §5.169 §10 finding N3).
    */
   const shadowGroup = useGlassCapabilities("laws-shadow");
   const shadowEndpoint = endpointByDigest(
     LAWS_DOCUMENT,
     shadowGroup?.materialDocument?.resolvedMaterialSha256,
   );
+  const shadowTuned = shadowGroup?.materialDocument?.tuned === true;
   const shadow =
     shadowEndpoint === undefined
       ? undefined
@@ -565,9 +573,9 @@ export function Laws(props: LawsProps): ReactNode {
             and at the pixel level the capture is byte-identical to the ground. So
             the receded material carries an amplitude of zero, which is a
             measurement written down rather than a value fitted, and the readout
-            below shows it as the zero it is. What Apple&rsquo;s receded window does
-            have is one device pixel of dark stroke at the contour, which is a rim
-            term and is not drawn here.
+            below shows it as the zero it is. What Apple draws at the contour in
+            both poses is one device pixel of dark stroke, which is a rim term and
+            is not drawn here.
           </p>
           <dl className="readout" data-testid="shadow-law">
             <div className="readout__head">
@@ -577,7 +585,11 @@ export function Laws(props: LawsProps): ReactNode {
             <div className="readout__row">
               <dt>Endpoint drawing</dt>
               <dd data-testid="shadow-endpoint">
-                {shadowEndpoint?.profileKey ?? "none — the material is not a shipped endpoint"}
+                {shadowEndpoint === undefined
+                  ? "none — the material is not an endpoint of this page's document"
+                  : shadowTuned
+                    ? `${shadowEndpoint.profileKey ?? "unnamed endpoint"} — tuned by the app`
+                    : shadowEndpoint.profileKey}
               </dd>
             </div>
             <div className="readout__row">
