@@ -33706,6 +33706,8 @@ and exits nonzero on a fail, which is the difference between a stop and a table.
 The re-statement is recorded beside W30's Decision Log 3 (a) — its own declaration
 site — and both tracker entries close.
 
+**Corrected beside, W33 G0, 2026-09-22 (claims §5.170):** the existing W32 `contour-stroke.txt` reads native−web **−31.95 to −13.19 bytes** on those22 stroke cells, not14–30. The old range is retained above as the record being corrected. Its two dark active capsule exceptions concern STRAIGHT edges only; G0 reads their corner arcs too and finds a substantial residual there. The widened non-holdout offset2–6 baselines are per cell, not a universal fraction-of-a-byte promise.
+
 ### 3. M2's reference stops standing still, and the first per-wave table
 
 W32 Decision Log 4, **ruled by the user 2026-09-22**: the reference generation is
@@ -33968,6 +33970,8 @@ any of the 24, which is what an over-fill would look like. §5.62's 3.5–4 CSS 
 stands where it was taken — W14, the macOS 26.5 material, the shape axis — and is
 not withdrawn; it is not what these bytes show.*
 
+**Corrected beside, W33 G0, 2026-09-22 (claims §5.170):** the existing W32 `contour-stroke.txt` reads native−web **−31.95 to −13.19 bytes** on those22 stroke cells, not14–30. The old range is retained above as the record being corrected. Its two dark active capsule exceptions concern STRAIGHT edges only; G0 reads their corner arcs too and finds a substantial residual there. The widened non-holdout offset2–6 baselines are per cell, not a universal fraction-of-a-byte promise.
+
 ### 6. The docs, and what each file CLAIMED before
 
 **`CLAUDE.md`, three paragraphs and a clause.** The Calibration paragraph ended
@@ -34226,6 +34230,8 @@ macOS 27 profiles — 24 cells:
 | **2 to 6 device px** | the two agree to a fraction of a byte on the four standard beds |
 | anywhere in the band | the web is darker than the native on **0 of 24** |
 
+**Corrected beside, W33 G0, 2026-09-22 (claims §5.170):** the existing W32 `contour-stroke.txt` reads native−web **−31.95 to −13.19 bytes** on those22 stroke cells, not14–30. The old range is retained above as the record being corrected. Its two dark active capsule exceptions concern STRAIGHT edges only; G0 reads their corner arcs too and finds a substantial residual there. The widened non-holdout offset2–6 baselines are per cell, not a universal fraction-of-a-byte promise.
+
 At 2x the stroke is still **one DEVICE pixel**, so it is half a CSS pixel rather
 than three and a half of them; it is on the ACTIVE pose as well as the receded
 one; and it is on the two accessibility beds as well as the four standard ones. So
@@ -34314,3 +34320,305 @@ export tests **19 of 19** and `platform-web`'s publish-shape **9 of 9**;
 **229 / 1,107**; the demo `/laws/` suite **10 of 10** with X6 read before it; and
 the publish rehearsal clean at 0.22.0 with `workspace:^` rewritten. Nothing is
 published and nothing is tagged.
+
+## 5.170 W33 G0: the rim cut — the zero lift is identified, but a uniform contour stroke is not (2026-09-22)
+
+**Cut and declarations complete; model/form decision still OPEN, before G1.** W33 clauses1–3,
+X1–X13; branch `w33-g0-rim-cut`, from `6f2fe987`. Evidence:
+`packages/calibration/results/2026-09-22-w33-g0-rim-cut/`. No material source, profile, native
+fixture, matrix row, adopted gate or frozen number changes. No capture, seal, holdout configuration
+read, merge or publish. The four requested stale-record categories are corrected beside, below.
+
+### 1. The gate opened only after its isolation proof
+
+The worker's first attempt could not load workspace `dist` dependencies and ran no tests.
+The parent built the worktree, read RT0 / IC0 / NSGlassTintAmount0.5, and ran the proof:
+**17/17 chromium-gpu,6.8s, finished2026-09-22T06:12:07Z**. `browser-runs.txt` records it as
+“run by the parent after the worktree was built”. The foreign-process count and idle interval
+were **unrecorded**, not inferred. G0 did not rerun it or launch another browser.
+
+### 2. Two inventories, not one interchangeable population
+
+The archival **native-only** full-exterior inventory, deduplicated across tiers, has **448 cells,
+264 with native-black exterior pixels**, including **30** held-out cells with black. This does
+not open held-out web pixels or influence a fitted constant. The committed reader's count is
+**14,329,648**, not the memo's **14,325,464**. The difference of4,184 is left **UNREPRODUCED**:
+the memo's author confirmed the earlier total came from an unverified helper. No recorded number
+is rewritten to an expectation.
+
+| full-exterior bbox convention tested | native-black pixel count |
+| --- | ---: |
+| far-exclusive: outside at x>=x1 or y>=y1, no inset — committed |14,329,648|
+| inclusive far edge: x>x1 or y>y1 |14,295,374|
+| far edge moved inward one device pixel |14,343,649|
+| all four box sides expanded one device pixel |14,261,258|
+
+The component's box is centred with its declared offset. Toolbar bbox156×44 names three44px
+items with two12px gaps; the stack inventory names its120×56 overlay at[0,-8]. A bbox is not
+claimed to be a union contour. All span/cell/role counts reproduce the memo; changing the above
+edge convention does not reproduce its pixel total. Four `dark-solid` inactive tinted capsules
+carry **680** black pixels (116 each at1x,224 each at2x); two are holdout, two calibration. They
+are NOT backdrop-black pixels and are recorded beside, outside A's nine-backdrop definition.
+
+**A's exterior convention, stated once:** integer offset>=2 CSS px from the declared rect,
+far edge exclusive, so at1x the first admitted centre is1.5 CSS px outside. The analytic
+Euclidean distance>=2 CSS px mask is printed beside for every cell. Its eligible backdrop
+must read RGB(0,0,0), then native RGB(0,0,0); Apple's own nonzero count is taken BEFORE that
+second restriction so it is not tautologically zero. The full-exterior inventory above has
+no inset and no backdrop-black restriction. They are different cuts.
+
+### 3. A — the lift's stand-down is supported; “pitch-independent” needs qualification
+
+`referee.py` reads **232 non-holdout texture cells** over the nine backdrops: the five pure
+black/white checkerboards, impulse and three hc-text rasters. `referee.json.black` records
+integer and analytic per-cell counts; `blackSummary` and `tables.txt` pool them by profile,
+pose and span. The four frozen/standard1x native inventories reproduce the memo exactly:
+
+| native-only inventory, all roles | cells | backdrop-black exterior pixels | cells with Apple nonzero |
+| --- | ---: | ---: | ---: |
+|27 light1x|67|1,546,726|0|
+|27 dark1x|50|1,099,348|0|
+|26.5 light1x, read-only control|69|1,646,109|21|
+|26.5 dark1x, read-only control|56|1,247,597|18|
+
+Every27 native row is zero on this backdrop-black exterior, all six profiles; the frozen
+control is nonzero on **39/125**. The non-holdout receded WEB rows read **0.0%** on every
+bed×span at liftAmplitude0. Source inspection supplies the mechanism: the lift samples the
+sigma40 blurred chain at the exterior pixel's own position, encodes its linear light, and
+stores it into premultiplied rgba8unorm. A local black square does not imply a black blur tap.
+
+| 1x light active span160, integer convention | web>0 / eligible | fraction | web>1 |
+| --- | ---: | ---: | ---: |
+|checkerboard-4|3,101 /9,158|33.861%|0|
+|checkerboard-8|3,098 /9,158|33.828%|0|
+|checkerboard-32|1,787 /9,158|19.513%|0|
+|checkerboard-64|528 /10,508|5.025%|0|
+|hc-text-7|1,353 /1,437|94.154%|39|
+|hc-text-28|1,827 /1,848|98.864%|66|
+
+The fine-pitch plateau is nearly invariant, but the **whole population is not pitch-independent**:
+the coarse pitches change the blurred local energy and the admitted black-pixel locations.
+That dependence is compatible with the code's blurred-source lift, not evidence that an unrelated
+alpha-compositing defect has been isolated. Impulse at the available active spans44/96 reads0;
+there is no active span160 impulse capture in this fitting population. Receded impulse at128/160
+also reads0. Do not manufacture a missing high-span active counterfactual. The whole receded
+shadow was stood down, so pose evidence is corroboration plus source attribution, not a controlled
+experiment moving only one leaf.
+
+**The web>1 floor was not zero.**1x light hc-text28/7 counts **66/39**,2x **222/150**; analytic
+>=2 gives **44/39** and **180/150**. They are per-cell non-regression baselines. The separate
+stand-down target is **0/0**, not a rewrite of them. Span160 is entirely probe-strength.
+The explicitly requested predecessor `halo.py` rerun reads active WebGPU max **137.10** at both
+scales and inactive mean/max **0.00/0.00** on both tiers. That existing held-out-scene reading is
+archival corroboration, not a candidate referee or an input to the stroke family or bound.
+
+### 4. B — absolute RGB per pixel, straight edges AND normal-distance corner arcs
+
+`referee.py` excludes holdout and recorded membership **before opening web PNGs**. It carries
+`--include-holdout` for G1's post-seal use; that flag has not run. For every exact single rounded
+rectangle/capsule with a committed pair, offset1 is the SDF shell d in[0,1) DEVICE px. Corners
+are radial-normal shells of the exact rounded-rect SDF, each raster pixel counted once, four
+corners separately; straight sides remain separate. The referee computes absolute residual
+BEFORE either channel or spatial averaging and keeps signed channel means beside it.
+
+| standard profile / pose | available | holdout excluded | fitting | native notch median | web notch median | native cells below−5 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+|1x light active|51|5|46|−19.689|+1.361|41|
+|1x light inactive|37|5|32|−21.673|+1.752|26|
+|2x light active|51|5|46|−17.824|+1.256|42|
+|2x light inactive|37|5|32|−20.827|+1.595|26|
+|1x dark active|40|2|38|−13.742|+1.073|30|
+|1x dark inactive|30|2|28|−19.058|+12.869|22|
+|2x dark active|40|2|38|−13.274|+0.897|31|
+|2x dark inactive|30|2|28|−14.816|+12.255|21|
+
+Each accessibility bed contributes4 active+4 inactive fitting cells after2+2 holdout exclusions.
+The total27 stroke fitting population is **304**. **12 non-holdout composite cells are explicitly
+declined** as single-shape stroke samples, names/reasons in the artifact; their actual union
+geometry IS read in the forms experiment. This is a scope gap, not an unmentioned absence.
+
+The model-free detector is native ring-luma[0]−min(ring-luma[-1],ring-luma[1]); it does not
+replace B's absolute RGB statistic. On the frozen control, after the same holdout exclusion,
+light active/inactive native medians **+2.698/+1.848**, web **+1.734/+1.522** (63/42 cells);
+dark **+12.536/+34.253**, web **+24.953/+37.377** (55/41). The single negative light-active
+outlier remains;26.5 does not exhibit27's systematic notch. These control web PNGs are today's
+canonical captures; unchanged document identity is not proof that they are the original frozen
+matrix capture generation. Nothing under a26.5 path was changed.
+
+Offsets2–6 are in every cell's `offsets`, with absolute RGB and signed channels. Straight signed
+means reach **−2.07386** (1x dark hc-text7/md,offset2), not+0.00…+0.21. Including the corners,
+the shell mean reaches **−5.56621** (dark inactive light-solid capsule,offset2); the worst shell
+MAE is **7.26027** (RT inactive checkerboard capsule,offset2). A corners-aware referee cannot
+inherit the straight-only baseline. None of these numbers is called a new stroke-width fit.
+
+### 5. Conditionality and colour: an off-switch and a scalar black stroke are both insufficient
+
+The two dark active capsule “no stroke” readings are about **horizontal straight edges**, not
+about their arcs. The non-holdout photo cells provide a same-backdrop check:
+
+|1x dark cell|top signed RGB mean|bottom|left|right|corner mean|
+| --- | ---: | ---: | ---: | ---: | ---: |
+|capsule active|0.00|−0.539|no straight segment|no straight segment|−19.752|
+|rrect-md active|−0.353|−3.047|−54.536|−50.488|−16.030|
+|capsule inactive|−29.566|−29.351|no straight segment|no straight segment|−25.936|
+
+Thus **scheme×pose×contour orientation is necessary**; span alone and a capsule-wide disable
+are falsified. In the same dark scheme, the active horizontal sides stand near zero while
+vertical sides/arcs do not, and the inactive pose restores horizontal darkening. This explains
+why dark active aggregate notches are shallower without claiming a universal angular law.
+Spatially structured backgrounds also confound a ring-mean notch by sampling different content
+at adjacent offsets. The per-pixel referee and backdrop stratification are essential.
+
+Eight diagnostic families are tabled per profile/pose/backdrop and also per side: neutral
+multiply, signed additive, neutral affine(two parameters), and tinted affine(common slope,
+three channel intercepts), in ENCODED sRGB and LINEAR sRGB. Predictions are clamped in their
+own space, encoded back to bytes, then read by the same per-channel absolute referee. Their
+least-squares parameters are diagnostic of the existing residual, not material constants.
+
+|1x light PHOTO family|active MAE|inactive MAE|
+| --- | ---: | ---: |
+|encoded neutral multiply|9.604|8.553|
+|encoded signed additive|9.633|10.194|
+|encoded neutral affine|9.723|8.309|
+|linear neutral multiply|8.679|8.622|
+|linear neutral affine|10.316|9.601|
+|encoded tinted affine|9.709|8.311|
+
+For the best active row here, RGB MAEs are **8.230/9.245/8.562**, not cancellation to zero.
+Direction-stratified results remain in `referee.json.models`: separating sides helps but does
+not identify a family reproducing all channels across light-solid, photo and black-bearing
+backdrops. A pure multiply cannot raise a black backdrop; a constant signed dark addition
+cannot simultaneously raise black and darken white; allowing a tinted intercept does not
+remove the structured residual. The rank of encoded versus linear models also changes with
+pose/stratum. **No one-/two-parameter family in this experiment reproduces the stroke, and its
+internal compositing space is not identified by these bytes.** G0 declines to invent that result.
+The signed/blended family in the charter remains a hypothesis; model form must be settled
+before the amplitude/width implementation. This is a gate finding, not a fitted failure hidden
+by a broad bound.
+
+### 6. Four forms, by FINISHED RGBA8, plus a colour-independent feasibility lower bound
+
+`forms.ts` imports the actual region, silhouette extraction, contour distance, IoU and connected
+body functions. All four original shape readings reproduce the matrix exactly on **380**
+non-holdout pairs. Metadata census: **442**27 texture rows carrying conformance, **254** at
+contour1; the adopted test's active non-probe selection has **115**, **48** at1. Held-out WEB
+pixels are not opened. The baseline shapes are held fixed and the four counterfactuals are
+constructed in memory, never written as capture evidence.
+
+Form(i) uses the per-cell least-squares neutral-black source-over depth at d∈[0,1);(ii) puts
+that same depth at d∈[−1,0);(iii) uses0.49 at the outside shell;(iv) targets native RGB at held
+coverage, clamping only where premultiplied output would otherwise be invalid. Scalar depth
+is not claimed to be Apple's colour law. The table therefore includes residual feasibility,
+not just a green gate beside a wrong image.
+
+|form|broad contour / IoU failures|selected non-holdout contour / IoU failures|max contour|min IoU|new thresholded pixels|conditioning changes broad / selected|changed native-mask pixels|
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+|(i) outside, measured scalar depth|17 /17|1 /1|√2|0.944186|18,744|0 /0|0|
+|(ii) inside|2 /1|0 /0|√2|0.981289|4,115|5 /1|234,138|
+|(iii) outside,stroke alpha0.49|113 /123|37 /41|√2|0.947499|101,954|0 /0|0|
+|(iv) held coverage|0 /0|0 /0|1|0.998722|0|0 /0|0|
+
+The selected conditioning move is IC-coupled `checkerboard__rrect-md__rest`, excluded→included:
+one known exclusion clears. Holding unread holdout rows unchanged would take67 to66; the full
+post-seal count is not predicted. Every per-cell area/body reading is
+in `forms.json`, with `isWellConditioned` reimplemented over both native and web arms. Broad
+probe/inactive failures are not mislabeled as failures of the active non-probe adopted selection.
+
+The named light-solid/md active1x counterexample reproduces: existing ring alpha
+**0.007843–0.427451**;0.49 source-over yields finished RGBA8 alpha **0.494118–0.709804**,
+**320** new thresholded pixels, contour **1→√2**, IoU **0.998935→0.978102**. The unquantised
+upper endpoint is about0.708; the final byte is181/255. “Stroke alpha below0.5” is not a gate.
+
+**Held coverage passes the gates and fails the bytes:** at fixed A over backdrop B, a target N
+requires premultiplied colour P=N−(1−A)B and every channel must lie in[0,255A]. **380/380**
+cells have at least one infeasible pixel; **378** still do allowing one byte.181,644 pixels
+are infeasible at exact precision. This is not equivalent to adding source-over coverage.
+
+To avoid rejecting only a poorly chosen black colour, the oracle permits an independent colour
+at EVERY pixel and computes the minimum source-over alpha that could reach native RGB. Even
+that lower bound forces **50,911** crossings, **73/59** broad contour/IoU failures and
+**23/24** selected ones. It is not a fifth material candidate. It shows that re-adopting
+`DECLARED_CONTOUR_MAX_PX` alone does not settle the IoU conflict. **None of the four tested
+constructions both reproduces the bytes and preserves every existing promise. DL2 is drafted,
+UNRULED.** Inside survives the selected conformance gates but misses the measured outside
+location, changes the conditioning population and touches M2; held coverage preserves gates
+but is only an approximation. No ruling is smuggled into a constant change.
+
+### 7. Bounds and expected stops, before any fit
+
+`bounds-declaration.md` states the complete rules; its SHA is pinned by
+`test/w33-rim-cut.test.ts`. A applies `ceil2sf(0)=0` to the receded fraction: **0** at every cell
+and bed×span, plus a separate **web>1 count0** target. Today's counts remain non-regression
+baselines, not achieved zeros. B declares **304** profile×pose×backdrop×side/corner ceilings,
+pixel-weighted mean absolute RGB rounded upward to two significant figures, **0.5–200 bytes**.
+These are non-regression ceilings, not a claim of fidelity at200 bytes. Offsets2–6 retain
+unrounded per-cell absolute residual baselines. No pooled mean can buy one stratum's regression
+with another's improvement. G1 may propose tighter adopted numbers by the same rule after its
+canonical read; it may not widen these pre-fit ceilings silently.
+
+C1 remains **0.0042** on twelve rows; thin per-cell change bar **0.002044**; B1's six windows
+and exact unchanged-law expectations are in the declaration. Thin absolute mismatch **0.02168**
+on an accessibility cell is inherited, not resolved or re-pinned here. The lift/anchor trade
+uses encoded alpha `1−(1−occlusion)^(1/2.4)`: **5–7% at span160 is an estimate**, replacing the
+memo's wrong-space2.4%, and the rendered round must replace it with a reading.
+
+B3 reruns at **0.00005596255774381109 <=0.000056**,166 rows. The inactive admitted-band half is
+**exactly0**, versus **0.0007967193578457206** over the whole exterior. A stroke confined to the
+first device pixel leaves the admitted half0 and the pooled stroke-only B3 unchanged; reproducing
+the exterior stroke should move the inactive whole reading toward0. The entire whole-exterior
+warning is **0.0007158135811605964**, expected downward, not bounded. A failed colour model is
+not entitled to claim that expected gain. Active anchor compensation may move B3 and must be
+rendered against the unchanged bound; no exact numeric forecast is asserted for a future refit.
+
+M2's mask is **native-derived and region-bounded**. Outside forms touch0 of its pixels on all
+**26** cells. Inside form changes every cell's mask-covered pixels, **257–1,311 per cell**;
+`tables.json.m2` names each. W32 DL4 still requires rebaselining at the adopting gate and a
+per-cell/cumulative drift record, not a claim that an edge change is a body-law change.
+
+### 8. Identity and accessibility declared, not implemented
+
+`identity-proof.ts` resolves the live material and all six documents, hashes through the live
+`materialDigestInput`, and extends its exact path-drop in memory before any shader code exists.
+Flat `contourStrokeAlpha:0` plus gated `contourStrokeWidthDevicePx` preserves both frozen
+**b2b570e4adcea8fb /874be66ea501621b** and all four27 digests at widths0,.5,1,2,3,1000. A nested
+container survives as`contourStroke:{}` and moves all six; frozen light becomes
+**da59d059f9526c73**. Nonzero alpha does not drop. The declared default width is1 DEVICE px,
+not a CSS length. No identity table or default was edited.
+
+G1's obligations are named: append the gate-group and `contourStrokeAlpha:0` literal to
+calibration `w31-identity-table.test.ts`; inertLawCase in renderer `w33-contour-stroke.test.ts`,
+“alpha zero leaves the composited pixel unchanged at every width and device scale”; extend
+renderer `w31-gate-groups.test.ts` with the gated-width sweep. A digest-route proof is not yet
+proof of shader pixel identity.
+
+**Accessibility fold: leave the new contour term independent of the strong-border rim
+substitution**, not silently zeroed or replaced with the lit rim. Native notch medians on RT
+active/inactive are **−16.678/−18.359**, IC-coupled **−17.014/−18.694**; every4/4 cell is below−5
+on both beds and poses while web medians are positive. Record the eventual fold's readings,
+not an accessibility shadow refit. Forced-colours draws no optical body and no stroke; isolated
+IC, dark and2x accessibility are not inferred from the coupled1x light bed.
+
+### 9. Stale records, checks, and what this gate does not claim
+
+Corrections are BESIDE, never replacement of recorded numbers: the required four14–30 sites
+(W32 Deferred3, G2 Tracking Map, tracker hairline, §5.169 §10 B2), plus four repeated occurrences
+found by the sweep, now cite the predecessor artifact's **−31.95…−13.19** range. The W32 G0
+README annotates `exterior-cut.py:170–175` without editing that script. The tracker's dead
+receded-halo half is closed at0; its superseded active-over-fill explanation is corrected to
+one-device-pixel native stroke on both poses. New tracker work records the unsettled
+orientation/colour law, contour AND IoU ruling, composite sampler gap and unreproduced inventory.
+
+**Verification:** calibration **638/638 over41 files**, including six new rim-cut cases; freeze
+**1,818 entries intact**. The first new arithmetic case failed while the reader was absent,
+then passed after implementation. Portable pure-statistic tests need standard-library Python;
+only raster analysis needs Python3.12/PIL/numpy. Tests pin populations, four>1 baselines,
+channel-before-reduction, corner participation, six offsets, the declaration SHA, six digest
+proof rows, composed-alpha counterexample, conformance counts and the oracle. No independent
+review was dispatched by this gate; that is the parent's next step under the brief.
+
+This gate does **not** claim the model is settled, that any rendered improvement occurred,
+that the default changed, that a CSS mirror exists, that the holds-out residual was fitted,
+that a26.5 control capture is byte-identical to its original frozen matrix generation, or that
+its inventory discrepancy has been reconciled. A, B and the forms are offline readings of the
+committed bed. The necessary next step is the model/form ruling and independent review, not
+an amplitude fit premised on an invented universal black stroke.

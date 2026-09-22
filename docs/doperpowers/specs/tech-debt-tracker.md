@@ -3578,6 +3578,13 @@ fitted, and the cell that shows this is **holdout** — the bed declares no inac
 calibration cell above span 96 at all, which is the same gap §5.154 §9 records for
 the receded body's diffusion.
 
+**Halo half CLOSED, corrected beside at W33 G0, 2026-09-22 (§5.170).** The paragraph
+above records W29's generation, not today's documents. W32 DL2 stood every receded shadow
+amplitude and lift down, and W32 G2's `halo.py`, rerun here on the canonical captures, reads
+**0.00 mean / 0.00 max** on both inactive scales and both tiers. No above-span96 shadow fit
+remains owed by this half of the entry. The active WebGPU black-floor max137.10 is a different
+residual, chartered under W33 A; the contour stroke below remains open.
+
 **The missing contour hairline.** On the same sheets, `light-solid__capsule-button__inactive`:
 the native drops one pixel to 186.4 from a backdrop of 242.4 before rising to the
 body's 233.4 — a 56-level dark stroke at the contour — and vitrea's WebGPU strip
@@ -3611,6 +3618,8 @@ macOS 27 profiles — 24 cells:
 | **1 device px** | native **14 to 30 bytes darker** than the web, on **22 of 24** cells |
 | **2 to 6 device px** | the two agree to a fraction of a byte on the four standard beds |
 | anywhere in the band | the web is darker than the native on **0 of 24** |
+
+**Corrected beside, W33 G0, 2026-09-22 (claims §5.170):** the existing W32 `contour-stroke.txt` reads native−web **−31.95 to −13.19 bytes** on those22 stroke cells, not14–30. The old range is retained above as the record being corrected. Its two dark active capsule exceptions concern STRAIGHT edges only; G0 reads their corner arcs too and finds a substantial residual there. The widened non-holdout offset2–6 baselines are per cell, not a universal fraction-of-a-byte promise.
 
 At 2x the stroke is still **one DEVICE pixel**, so it is half a CSS pixel and not
 three and a half of them, and it is present on the ACTIVE pose and on the two
@@ -5178,6 +5187,14 @@ receded exterior is one device pixel of dark stroke at the contour (§5.166 §7)
 which is a rim term, and vitrea's receded exterior after Decision Log 2's
 stand-down is nothing at all.
 
+**Mechanism corrected beside, W33 G0, 2026-09-22 (§5.170; §5.169 §10 B2).** The
+paragraph above and this entry's later “silhouette term” wording are superseded on the27 bed:
+the positive `0–3` residual is the native's undrawn contour stroke on BOTH poses, not a
+3.5–4px web-body over-fill. Its sign is native darker, and its width one DEVICE pixel. The
+whole/admitted-band numbers and the cancellation argument remain the measurements they were;
+§5.62's26.5 measurement is not withdrawn. The user already ruled the admitted-band form at
+W32 DL3(a), as this entry's closure below records; no second re-statement is pending here.
+
 Decomposed by pose over B3's own 166 cells: the ACTIVE half goes 0.00029 →
 0.00064 and the INACTIVE half 0.00039 → 0.00080, and the inactive half moved
 before a single length did — round R stands the recede down at the shipped active
@@ -5626,3 +5643,43 @@ flat" against a WebGPU body that is not) and has not been carried onto the 27 on
 objective on cells the bed already holds — with this cell and this statistic added
 to what that fit is judged on, because the shadow-side fit W32 left those beds with
 moves the exterior and not the plate. No capture is needed: the rows are committed.
+
+
+---
+
+## W33 G0: the contour needs an orientation/colour law and a coverage ruling before a fit
+
+*Measured 2026-09-22, claims §5.170; evidence
+`packages/calibration/results/2026-09-22-w33-g0-rim-cut/`.*
+
+The dark active photo capsule's near-zero straight-edge residual is not a whole-surface
+absence:1x straight native−web−0.27 bytes, corner average−19.75. At span96 the horizontal
+sides remain much shallower than the vertical ones. Scheme×pose×contour orientation is a
+necessary condition of the stroke model; span or a capsule-wide off-switch is insufficient.
+Eight neutral/tinted multiply/add/affine diagnostic families in encoded/linear sRGB do not
+reproduce all RGB channels, even after stratification. **Next work:** settle a physically
+composable, direction-aware colour law against G0's non-holdout referee before fitting any
+material amplitude. Do not widen G0's per-stratum ceilings to hide the residual.
+
+The finished-alpha experiment reads380 non-holdout captures. Outside measured-depth
+source-over fails contour/IoU17/17 cells; inside2/1; outside0.49 fails113/123. Held coverage
+passes every shape gate but cannot reach the exact native RGB on380/380 cells (378/380 even
+with one-byte tolerance). A per-pixel colour oracle still needs alpha that fails73/59 broad
+and23/24 selected contour/IoU rows. **Next decision:** W33 DL2, before G1; a contour re-pin
+alone does not settle the IoU conflict. Inside placement changes the native-mask pixels in
+all26 M2 cells and one selected conditioning exclusion; it also misses the measured exterior
+location. No form is silently accepted as equivalent.
+
+**Inventory qualification:** the memo's14,325,464 native-black full-exterior pixels remains
+unreproduced; the declared bbox reader finds14,329,648 with the same448/264/30-held-out census
+counts. Four convention attempts are in the README. Its author identified the earlier total
+as an unverified helper read. Resolve only from a recoverable pixel-mask definition, never by
+editing the committed count to match an expected number. The separate backdrop-black lift
+census DOES reproduce, including all39/125 nonzero frozen control cells.
+
+**Scope left explicit:**12 non-holdout27 composite scenes are outside the single-rounded-rect
+stroke sampler (their names in `referee.json.declined`); the forms experiment uses their real
+union geometry. A complete composite contour referee must separate the exposed contours of
+group/stack members rather than assign the bbox's corners to the material. IC-alone and
+dark/2x accessibility stay unmeasured. The opening proof's process-count/idle half of X6 was
+unrecorded; it is not retroactively attested.

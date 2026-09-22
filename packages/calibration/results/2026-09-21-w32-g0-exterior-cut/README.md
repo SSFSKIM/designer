@@ -88,3 +88,14 @@ So a diff on that file is expected to be non-empty and a diff on the text is not
    **153 of 153** with the holdout admitted (`recede-26.5.txt` §3) — and *(finding N16)* the same
    census over the FROZEN macOS 26.5 rows reads **235 of 235**, so the recede has never been an
    outer shadow on this bed (`recede-26.5.txt`, `recede-cross-section.txt`).
+
+
+## W33 correction beside the frozen reader (2026-09-22; claims §5.170)
+
+`exterior-cut.py:170–175` still says `0–3` is excluded because vitrea's GPU capsule over-fills
+its declared contour by3.5–4 CSS px. That is §5.62's historical26.5 shape-axis result, not the
+macOS27 mechanism: W32 G2 measured the native DARKER than web in a one-device-pixel contour
+stroke, and W33's widened referee reads the corners and the per-cell offsets2–6 beside it.
+The correct reason to exclude `0–3` from C1 is that it contains the rim/body-boundary terms,
+not shadow alone. The admitted bands and every recorded number remain unchanged. This README
+annotates the committed script; the historical script itself is deliberately not edited.
