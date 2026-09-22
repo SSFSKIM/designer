@@ -4,6 +4,23 @@
 acceptance clauses met, two of them by a ruling the user made at G1's merge (B3 re-stated over the
 admitted bands, M2's reference re-baselined per adopting gate) and one by a design the user chose
 (the `/laws/` shadow stage), and a fourth ruling — **Decision Log 5**, `useGlassRootHandle` exported — made at G2's own close. G2's review closure landed on the branch before the merge: two blocking findings and ten non-blocking, all twelve closed, no measurement withdrawn and no statistic moved (claims §5.169 §10). `pnpm release` is the user's hand and the tag `v0.22.0` follows it.
+**0.22.0 PUBLISHED 2026-09-22, by the user's `pnpm release` on `c46eeba3` (the head after the
+parent's merge record for G2; the version bump itself landed on G2's branch); tag `v0.22.0`
+(annotated, on that commit) pushed by the parent the same day.** Registry: core 04:42:00.474Z,
+web 04:42:22.767Z, react 04:42:24.076Z — web BEFORE react this time, the whole group listed in
+23.6 s, and the web tarball served on the first cold install twelve minutes later, so the
+release-chain window 0.21.0 recorded (web listed 127 s after core and its tarball 404 for five
+minutes more) did not recur. Cold install verified in a fresh directory: all three at 0.22.0,
+ranges `^0.22.0` in both dependents; exports core 44 / web 258 / react **38**
+(`useGlassRootHandle` a function, Decision Log 5); the shipped macOS 27 documents report
+`40a6dec2dc34c748` / `bd1814fac34f9b30` / `f34dcc03e2774db3` / `6b6237b7ae241638` and the frozen
+26.5 pair `b2b570e4adcea8fb` / `874be66ea501621b`; the web bundle carries `spreadPx` 0.5 and 1.8
+and `sigmaThinOffsetPx` −6.318 (303,215 B, byte-identical to the local rebuild). Unpacked sizes
+core 1,968 / web 1,920 / react 660 kB. *A note for the next cold install: the parent's first
+digest check ran in a leftover `/tmp/vitrea-cold-0.19.0/` directory that sorted before the new
+one and read the W29 digests back; re-run in the right directory, nothing was wrong. Pick the
+newest directory, not the first by name.*
+
 *Originally: OPEN 2026-09-21 — chartered by the parent on the user's "W32 Shadow wave will be it"
 after the 0.21.0 publish, under the standing "rest on your judgement"; adversarially reviewed the
 same day and the review folded (v2, Revision Notes).* Executes W31's Deferred-at-close item 4
@@ -1131,6 +1148,23 @@ under 0.22.0 for `@vitreajs/vitrea-react` written by hand (the version was alrea
 wave's branch at the 0.22.0 version head. The cut is **prepared and unpublished**: `pnpm release` is
 the user's hand, npm holds the second factor, and the tag `v0.22.0` follows it.
 
+**0.22.0 PUBLISHED 2026-09-22, by the user's `pnpm release` on `c46eeba3` (the head after the
+parent's merge record for G2; the version bump itself landed on G2's branch); tag `v0.22.0`
+(annotated, on that commit) pushed by the parent the same day.** Registry: core 04:42:00.474Z,
+web 04:42:22.767Z, react 04:42:24.076Z — web BEFORE react this time, the whole group listed in
+23.6 s, and the web tarball served on the first cold install twelve minutes later, so the
+release-chain window 0.21.0 recorded (web listed 127 s after core and its tarball 404 for five
+minutes more) did not recur. Cold install verified in a fresh directory: all three at 0.22.0,
+ranges `^0.22.0` in both dependents; exports core 44 / web 258 / react **38**
+(`useGlassRootHandle` a function, Decision Log 5); the shipped macOS 27 documents report
+`40a6dec2dc34c748` / `bd1814fac34f9b30` / `f34dcc03e2774db3` / `6b6237b7ae241638` and the frozen
+26.5 pair `b2b570e4adcea8fb` / `874be66ea501621b`; the web bundle carries `spreadPx` 0.5 and 1.8
+and `sigmaThinOffsetPx` −6.318 (303,215 B, byte-identical to the local rebuild). Unpacked sizes
+core 1,968 / web 1,920 / react 660 kB. *A note for the next cold install: the parent's first
+digest check ran in a leftover `/tmp/vitrea-cold-0.19.0/` directory that sorted before the new
+one and read the W29 digests back; re-run in the right directory, nothing was wrong. Pick the
+newest directory, not the first by name.*
+
 ### The acceptance, as verified
 
 1. **The exterior is cut per direction and per band inside each cell's clearance before any length
@@ -1285,6 +1319,10 @@ reader can move the casting span and watch the exterior follow it — and toggle
 it stop.
 
 ## Revision Notes
+- 2026-09-22 (the parent): **0.22.0 PUBLISHED**, by the user's `pnpm release` on `c46eeba3`; tag
+  `v0.22.0` pushed; cold install verified (exports 44 / 258 / 38, the four macOS 27 digests and the
+  26.5 pair reading their own fields, the fitted lengths in the bundle); the Status line, the
+  Outcomes and the c9d row carry the record. The wave is closed and published.
 - 2026-09-22 (G2 review closure, ON THE BRANCH and before the merge; claims §5.169 §10): **two
   blocking findings and ten non-blocking, all twelve closed, plus Decision Log 5 ruled and
   executed.** The independent review reproduced what §5.169 records and found no measurement wrong
