@@ -5233,6 +5233,12 @@ band's over-fill (§5.62)" and "the receded contour hairline", and
 poses)*; and it does not make the bound spacious — 0.07 % of headroom means the
 next fit gate that moves the exterior at all will have to read this number
 deliberately, which is the same thing C1's 1.7 % at span 96 says one row over.
+*Corrected beside, 2026-09-22 (same closure, finding N1): C1's 1.7 % is a PRE-FIT
+figure and is not a live peer of this 0.07 %.* It is 2x light's span-96 reading on
+the generation C1 was declared against; at the shipped bytes that cell reads
+**0.00088** — 79 % of headroom — and the tightest of C1's twelve rows is 2x dark at
+span 128 with 6.9 %. B3's 0.07 % is a reading at the shipped bytes. The sentence
+holds of B3 alone.
 
 ---
 

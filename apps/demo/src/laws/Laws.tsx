@@ -249,7 +249,7 @@ export function Laws(props: LawsProps): ReactNode {
           <p className="wordmark">vitrea</p>
           <h1 className="display">The material laws</h1>
           <p className="lead">
-            Five things the reference material does that vitrea now does too, each
+            Six things the reference material does that vitrea now does too, each
             measured against captures of Apple&rsquo;s own renderer before it was
             written into the material. One law per section, running live in the
             window on the right, on whatever tier this browser can give it.

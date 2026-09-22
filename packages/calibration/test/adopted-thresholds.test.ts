@@ -4269,6 +4269,22 @@ describe("W31 M1 / M2 — the body's chroma and the structure it is read over (c
  * What it costs is stated rather than discovered — span 96 passes with 1.7 % of
  * headroom on 2x light, so a fit that buys span 128 by widening span 96 fails.
  *
+ * > **Corrected beside, 2026-09-22 (W32 G2 review closure; claims §5.169 §10,
+ * > finding N1). The 1.7 % is a PRE-FIT figure and the protective property it
+ * > carried no longer holds.** 0.00413 was 2x light's span-96 reading on the
+ * > generation the clause was declared against, and the bound is still that
+ * > number rounded up, which does not move. But the bed this file now asserts
+ * > over is the fitted one, where 2x light at span 96 reads **0.00088** — **79 %
+ * > of headroom**, not 1.7 % — and the twelve cases run 0.00088 to 0.00391. So
+ * > "a fit that buys span 128 by widening span 96 fails" is false at the shipped
+ * > bytes: span 96 could take four and a half times its present reading before
+ * > this clause noticed, where span 128's worst (2x dark, 0.00391) has **6.9 %**.
+ * > What actually holds span 96 honest today is nothing in this file. Two
+ * > consequences worth carrying: the twelve cases are no longer one constraint
+ * > with one tight corner but eleven loose rows and one tight one, and a re-pin
+ * > at the shipped bed is the thing that would restore the property — which is a
+ * > user decision, with the rule that would produce it in the tracker.
+ *
  * **Why not the fitted σ, and why that is the header's own argument.** W31 G1
  * computed that candidate beside this one and it reads the bed backwards: 0.000
  * and 0.027 on the two refuted rows, against 5.4 and 6.2 on the two cells

@@ -33646,6 +33646,15 @@ C1 and B3 round through one implementation — gives **0.000056**. That is
 chose; C1 got 1.7 % at span 96 from the same rule on different digits, and the
 charter's own sentence about that applies here too.
 
+*Corrected beside, 2026-09-22 (§10, finding N1): C1's 1.7 % is a PRE-FIT figure
+and is not a live peer of B3's 0.07 %.* 0.00413 was 2x light's span-96 reading on
+the generation C1 was declared against; at the shipped bytes the same cell reads
+**0.00088**, which is **79 % of headroom**, and the tightest of C1's twelve rows
+is 2x dark at span 128 with **6.9 %**. B3's 0.07 % is a reading at the shipped
+bytes and C1's 1.7 % is not, so the two are not the same kind of number. The
+sentence they have in common still holds of B3 alone: the next gate that moves the
+exterior at all has to read this number deliberately.
+
 Clause 2 states the rule as *"the worst standard BED's span-96 order statistic"*
 because C1 is stated per bed and per span. **B3 is not**: W30 declared it as one
 pooled arithmetic mean over its whole population, the re-statement changes the
@@ -33835,7 +33844,11 @@ rather than faintness, and that the group names the receded endpoint. Both are
 mutation-checked (`laws-pin-discrimination.txt`): dropping the 2σ convention from
 the blur row reds the span case, and putting a floor of 0.0004 under the depth
 reds both. **The demo suite is 61 e2e cases against §5.165 §7's 59** and 46 unit;
-the `laws` chunk goes 26.96 kB / gzip 8.67 → **33.90 / 10.52**.
+the `laws` chunk goes 26.96 kB / gzip 8.67 → **33.90 / 10.52**. *Beside, 2026-09-22
+(§10, finding N4): the chain's own build log and the packed artifact read **33.85 /
+10.50** (`chain-build.txt`, `dist/assets/laws-DMYMuhne.js`). 33.90 / 10.52 was read
+off a build taken before this gate's last two commits; the log is the artifact and
+is the figure a reader should use. Both are kept.*
 
 **One thing the stage cannot do, recorded as a page decision.** A 16 px
 checkerboard makes the shadow's PRESENCE unmistakable and its GRADE harder to see,

@@ -20,9 +20,19 @@ statement about `liftAmplitude` rather than about the renderer's black.
 (`photo__capsule-button__rest`, 1x light), at 128 and at 160 on all four standard
 profiles, the ΔE × 8 column is BLACK from the contour outward — no band, no halo,
 no falloff visible at eight times gain. What is left on those panels is entirely
-inside the body: a bright ring on the contour and the interior's own structure and
-chroma. On the dark beds the interior is brighter still, which is the cell
-`MISSED_27_ROWS` carries at `oklabDeltaEP95` 0.20095 and is not this wave's.
+inside the body: a bright ring at the contour and the interior's own structure and
+chroma. On the dark beds the interior is brighter still, which is the dark bed's
+diffusion residual over a photograph and is not this wave's — `MISSED_27_ROWS`'s
+own `dom` row for that cell reads `oklabDeltaEP95` **0.20095** against ≤ 0.18.
+
+*Corrected 2026-09-22 at this gate's review closure (finding N8). That figure is
+the **CSS** tier's and was cited here to explain a **WebGPU** panel. The WebGPU
+rows for `photo__rrect-lg__rest` on the two dark beds are not in
+`MISSED_27_ROWS` at all: they cleared at W31 G3 and read **0.14655** (1x) and
+**0.14505** (2x) against ≤ 0.17, which is inside bound. What the WebGPU panel
+shows is therefore the residual the bound admits rather than a recorded miss —
+the level agrees and the structure does not, §5.153 §6's scatter, which is the
+same family the two `dom` rows miss on. Both readings are kept.*
 
 That is the wave's own claim, seen rather than scored: C1 reads 0.00088–0.00391
 over twelve bed × span rows against ≤ 0.0042, and the picture agrees — at eight
