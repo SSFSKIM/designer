@@ -3593,6 +3593,37 @@ moving a cell between sets is evidence-visible. The hairline additionally wants 
 receded rim to be a fitted term rather than a subtraction: W27c's endpoint removes
 rim, and what the 27 native does at the contour is draw a stroke the recede keeps.
 
+**Widened 2026-09-22 (W32 G2 review closure; claims §5.169 §10, finding B2): the
+hairline is on BOTH poses, and it is what the `0-3` band has been reading all
+along.** This entry has scoped the missing stroke to the receded pose since it was
+written, and W32's records inherited that scope — every W32 site that named the
+`0-3` band's residual named it as *vitrea's body over-filling its declared contour
+by 3.5–4 CSS px* on the active pose (§5.62, measured at W14 on the macOS 26.5
+material through the shape axis) and the hairline on the inactive one. On the
+macOS 27 bed that has the sign and the width backwards.
+`packages/calibration/results/2026-09-21-w32-g2-landing/contour-stroke.py` reads
+the band outward from the declared rect one DEVICE pixel at a time along the four
+straight edges, on the `photo` bed at spans 44 and 160, both poses, over all six
+macOS 27 profiles — 24 cells:
+
+| offset from the declared rect | what the bytes do |
+| --- | --- |
+| **1 device px** | native **14 to 30 bytes darker** than the web, on **22 of 24** cells |
+| **2 to 6 device px** | the two agree to a fraction of a byte on the four standard beds |
+| anywhere in the band | the web is darker than the native on **0 of 24** |
+
+At 2x the stroke is still **one DEVICE pixel**, so it is half a CSS pixel and not
+three and a half of them, and it is present on the ACTIVE pose and on the two
+accessibility beds as well. The two exceptions are the dark standard beds' active
+capsule (`photo__capsule-button__rest`), where Apple draws no stroke at all — worth
+a look of its own, since it makes the stroke conditional on something. The literal
+transect that started this, `photo__rrect-lg__rest` at 1x light, row y=100: the two
+captures are equal byte for byte from x=12 to x=18, at x=19 — the last exterior
+pixel — the native reads (20, 124, 8) against the web's (54, 196, 25), and x=20 is
+the first body pixel. **The fix shape is unchanged in kind and wider in scope**: it
+is one rim term on both poses, and §5.62 is not withdrawn — it stands where it was
+taken, and a silhouette wave is still free to read it there.
+
 ---
 
 ## The two tiers miss the backdrop's structure in opposite directions, and the bed only ever showed one of them
@@ -5192,10 +5223,14 @@ rather than a choice. The reader is
 the statistic, the bound and PASS/FAIL and exits nonzero on a fail;
 `departure-stat.py` runs beside it at the same generation so the superseded
 whole-exterior form keeps its last reading (**0.00072**) rather than
-disappearing. Two things this closure does NOT do: it does not touch the `0-3`
-band's over-fill (§5.62, its own entry) or the receded contour hairline (a rim
-term, W32's Deferred list), which are the two quantities the old statement was
-reading; and it does not make the bound spacious — 0.07 % of headroom means the
+disappearing. Two things this closure does NOT do: it does not touch the contour
+hairline — Apple's one-device-pixel stroke, un-drawn by vitrea on **both** poses,
+which is the quantity the old statement was reading in the `0-3` band and which
+has its own entry above and a Deferred item of its own *(re-stated 2026-09-22 at
+the same closure, finding B2: this sentence first named two quantities, "the `0-3`
+band's over-fill (§5.62)" and "the receded contour hairline", and
+`contour-stroke.txt` reads the band's sign directly — it is one rim term on both
+poses)*; and it does not make the bound spacious — 0.07 % of headroom means the
 next fit gate that moves the exterior at all will have to read this number
 deliberately, which is the same thing C1's 1.7 % at span 96 says one row over.
 

@@ -531,14 +531,25 @@ wave itself leaves.
    against the per-pixel black-floor count per span and per bed, and decide whether the lift is a
    term Apple has at all over a black backdrop or an artefact of compositing a lift into a
    premultiplied output. `b4-black-floor.py` and `halo.py` are the two readings.
-3. **The `0-3` band's over-fill and the receded contour hairline** — the two terms the old B3 was
-   reading and the re-stated one no longer does. On the active pose vitrea's body over-fills its
-   declared contour by **3.5–4 CSS px** against Apple's ≤ 1, giving `Δa` +0.089 to +0.151 there
-   (§5.62); on the inactive pose Apple's entire exterior is **one device pixel** of dark stroke at
-   the contour (body 188, first exterior row 156 over a backdrop of 255), which vitrea does not draw
-   at all. Both are visible on every sheet as the bright ring on the contour and as a missing line.
-   **The work**: the first is a silhouette/contour wave and the second is a rim term; neither is a
-   shadow, which is why W32 X3 forbade this wave to touch them and why B3 was re-stated instead.
+3. **The contour stroke vitrea does not draw, on BOTH poses** — the term the old B3 was reading in
+   the `0-3` band and the re-stated one no longer does. *Re-chartered 2026-09-22 at G2's review
+   closure (claims §5.169 §10, finding B2) as ONE rim term. As written this item named two: "the
+   `0-3` band's over-fill" on the active pose, at 3.5–4 CSS px with `Δa` +0.089 to +0.151 (§5.62),
+   and the receded hairline on the inactive one. The active half has the sign and the width
+   backwards on this bed.* Apple draws **one device pixel** of dark stroke at the contour and
+   vitrea draws none, on the active pose as well as the receded one. `contour-stroke.py` reads it
+   outward from the declared rect one device pixel at a time on the `photo` bed: the native is
+   **14 to 30 bytes darker** at one device pixel and the two sides agree to a fraction of a byte
+   from two pixels out, on **22 of 24** cells over six macOS 27 profiles, both poses and both
+   scales — the two exceptions being the dark beds' active capsule, where Apple draws no stroke.
+   On none of the 24 is the web darker than the native anywhere in the band, which is what an
+   over-fill would look like. On the inactive pose it is Apple's ENTIRE exterior (body 188, first
+   exterior row 156 over a backdrop of 255). It is visible on every sheet as the bright ring at the
+   contour. **The work**: a rim term — fit the contour stroke as a term of the material on both
+   poses rather than as a subtraction, which is what W27c's endpoint does today. It is not a
+   shadow, which is why W32 X3 forbade this wave to touch it and why B3 was re-stated instead.
+   §5.62's own measurement is not withdrawn: it stands on the material and through the instrument
+   it was taken with, and a silhouette wave is still free to read it there.
 4. **Candidate (i) — the rendered σ against Apple's fitted σ.** It halved and did not close:
    **+1.27 to +2.77 CSS px** against +2.66 to +3.77 before, OUTSIDE its declared ±5 % window on all
    twelve bed × span rows at the shipped documents (§5.169 §1). It stays a one-wave reading and is
@@ -772,6 +783,21 @@ where vitrea's body over-fills its declared contour (`Δa` +0.089…+0.151, §5.
 error had been CANCELLING the 3–48 px exterior's negative one; the fit removed the exterior's error
 and left the over-fill's standing. The same statistic over the admitted bands (3–48 px) reads
 **0.00122 → 0.00006**.
+
+> **Corrected beside, 2026-09-22 (G2 review closure; claims §5.169 §10, finding B2): the active
+> half's MECHANISM, not its arithmetic.** Every number above stands — 0.00029 → 0.00064 active,
+> 0.00039 → 0.00080 inactive, 0.00122 → 0.00006 over the admitted bands — and so does the
+> conclusion that B3 broke by losing one side of a cancellation. What the `0-3` band holds is
+> **not** vitrea over-filling its declared contour. `contour-stroke.py` in G2's evidence directory
+> reads the band outward from the declared rect one DEVICE pixel at a time on the `photo` bed: the
+> native is **14 to 30 bytes darker than the web at exactly one device pixel** and the two sides
+> agree to a fraction of a byte from two pixels out, on **22 of 24** cells over six macOS 27
+> profiles, both poses and both scales; the web is darker than the native **nowhere** in the band
+> on any of the 24, which is the reading an over-fill would have to produce. So the term that had
+> been cancelling on the ACTIVE pose is the same one-device-pixel contour stroke standing un-drawn,
+> and the `0-3` band is one rim term rather than two. §5.62's 3.5–4 CSS px was measured at W14 on
+> the macOS 26.5 material through the shape axis; it is not withdrawn and it is not what these
+> bytes show.
 
 **It was unattainable once Decision Log 2 was ruled**, by arithmetic over B3's own 166 cells (85
 active, 81 inactive): the inactive half alone after the stand-down contributes

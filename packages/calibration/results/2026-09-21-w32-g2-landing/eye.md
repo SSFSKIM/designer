@@ -117,9 +117,22 @@ at W29.
 Two more, both recorded before and both unmoved here: the CSS panel on every
 `photo` sheet is visibly flatter and greyer in the body than the WebGPU one, which
 is W31's chroma decline on that tier (§5.164 §5, the two `dom` rows in
-`MISSED_27_ROWS`); and every active panel carries a bright ring on the contour,
-which is the body over-filling its declared contour by 3.5–4 CSS px against
-Apple's ≤ 1 (§5.62) — the term that stopped cancelling B3 and has its own entry.
+`MISSED_27_ROWS`); and every panel carries a bright ring at the contour, which is
+**Apple's one-device-pixel contour stroke, which vitrea does not draw** — the term
+that stopped cancelling B3, and it is one term on both poses rather than two.
+
+*Re-stated 2026-09-22 at this gate's review closure (finding B2;
+`contour-stroke.py`, `contour-stroke.txt` beside this file). The sentence above
+first read "the body over-filling its declared contour by 3.5–4 CSS px against
+Apple's ≤ 1 (§5.62)", which has the sign and the width backwards on this bed.
+Read outward from the declared rect one DEVICE pixel at a time on the `photo`
+bed, the native is 14 to 30 bytes DARKER than the web at exactly one device
+pixel and the two agree to a fraction of a byte from two pixels out — on 22 of
+24 cells across six macOS 27 profiles, both poses, both scales. On none of the
+24 is the web darker than the native anywhere in the band, which is what an
+over-fill would look like. §5.62's 3.5–4 CSS px was measured at W14 on the macOS
+26.5 material through the shape axis and is not withdrawn; it is simply not what
+these bytes show.*
 
 ## 4b. The level contours, named because the clause asks for them present or absent
 
@@ -133,10 +146,14 @@ on the dark beds); on the `checkerboard-8` and `checkerboard` beds, the ground's
 own pattern read through the body (the same residual at the pitch the ground
 supplies it); and on the tinted and `photo` cells a smooth chromatic field with
 no steps in it. **The only hard edge anywhere on any panel is the ring at the
-contour**, which is the body's over-fill of its declared silhouette (§5.62) and
-is a silhouette term rather than a level one — it appears at the same radius on
-every span and every scheme, including the two accessibility beds where the body
-is an occluded plate with no structure at all behind the ring.
+contour**, which is Apple's one-device-pixel contour stroke standing un-drawn and
+is a RIM term rather than a level one — it appears at the same radius on every
+span and every scheme, including the two accessibility beds where the body is an
+occluded plate with no structure at all behind the ring. *(Re-stated 2026-09-22,
+finding B2: this sentence read "the body's over-fill of its declared silhouette
+(§5.62)" and "is a silhouette term". `contour-stroke.txt` reads the band's sign
+directly and it is the other way round; the ring's width — one device pixel at
+1x and at 2x alike — is the other half of the reading.)*
 
 Recorded as an absence rather than left unmentioned, because an absent artefact
 and an unlooked-for one are the same thing in a record.

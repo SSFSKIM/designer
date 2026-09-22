@@ -33675,10 +33675,22 @@ Decision Log 2's stand-down as arithmetic: Apple removes no light there and
 neither does vitrea. The whole-exterior form's **0.00072** stays recorded as the
 superseded statement's last reading and is not rewritten anywhere.
 
-**What the re-statement does not do.** It does not touch the two quantities the
-old statement was actually reading — the body's over-fill of its declared contour
-in the `0-3` band (§5.62) and Apple's one-device-pixel receded contour stroke —
-and both keep their own entries. And it does not make the stop spacious: at
+**What the re-statement does not do.** It does not touch the quantity the old
+statement was actually reading in the `0-3` band — **Apple's one-device-pixel
+contour stroke, which vitrea draws on neither pose** — and that keeps its own
+entry. *Re-stated 2026-09-22 at this gate's review closure (§10, finding B2). This
+paragraph read "the two quantities … the body's over-fill of its declared contour
+in the `0-3` band (§5.62) and Apple's one-device-pixel RECEDED contour stroke", and
+the arithmetic above is unaffected: the active half still went 0.00034 → 0.00072
+and the admitted-band form 0.00122 → 0.00006. What is corrected is the MECHANISM of
+the active half. It is not a vitrea over-fill cancelling an exterior excess; it is
+the same un-drawn stroke, present on the active pose as well as the receded one,
+read uncancelled once the exterior itself matched. `contour-stroke.txt` reads the
+band outward one device pixel at a time on 24 cells over six profiles: the native
+is 14–30 bytes darker at one device pixel and the two sides agree from two out,
+and the web is darker than the native nowhere in the band on any cell. So the
+`0-3` term is ONE rim term on both poses, not two terms one per pose.* And it
+does not make the stop spacious: at
 0.07 % of headroom the next gate that moves the exterior at all has to read this
 number deliberately. `b3-stop.py` prints the statistic, the bound and PASS/FAIL
 and exits nonzero on a fail, which is the difference between a stop and a table.
@@ -33917,9 +33929,22 @@ spans 128 and 160. It goes to the Deferred-at-close list with that said.
 
 Two more, both recorded before and both unmoved: the CSS panel on every `photo`
 sheet is visibly flatter and greyer in the body, which is W31's chroma decline on
-that tier; and every active panel carries a bright ring on the contour, which is
-the body over-filling its declared contour by 3.5–4 CSS px against Apple's ≤ 1 —
-the term that stopped cancelling B3.
+that tier; and every panel carries a bright ring at the contour, which is **Apple's
+one-device-pixel contour stroke standing un-drawn** — the term that stopped
+cancelling B3.
+
+*Re-stated 2026-09-22 at this gate's review closure (§10, finding B2;
+`contour-stroke.py`, `contour-stroke.txt`). That sentence read "the body
+over-filling its declared contour by 3.5–4 CSS px against Apple's ≤ 1", which has
+the sign and the width backwards on this bed. Read outward from the declared rect
+one DEVICE pixel at a time on the `photo` bed, the native is 14 to 30 bytes DARKER
+than the web at exactly one device pixel and the two agree to a fraction of a byte
+from two pixels out — on 22 of 24 cells over six macOS 27 profiles, both poses,
+both scales, the two exceptions being the dark beds' active capsule where Apple
+draws no stroke at all. The web is darker than the native nowhere in the band on
+any of the 24, which is what an over-fill would look like. §5.62's 3.5–4 CSS px
+stands where it was taken — W14, the macOS 26.5 material, the shape axis — and is
+not withdrawn; it is not what these bytes show.*
 
 ### 6. The docs, and what each file CLAIMED before
 

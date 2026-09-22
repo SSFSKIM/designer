@@ -739,10 +739,17 @@ declarations — the part the wave is judged against. Ruled, for the review clos
 
   > **Re-stated again 2026-09-22, beside this, by W32 Decision Log 3 (a) as RULED by the user;
   > executed at W32 G2 (claims §5.169 §2).** The statistic above reads the WHOLE exterior, which
-  > includes the `0-3` band, where vitrea's body over-fills its declared contour on the active
-  > pose and Apple's receded exterior is a one-device-pixel rim stroke on the inactive one. Those
-  > two errors had been CANCELLING the exterior's own, so W32's fit of the exterior broke the stop
-  > by removing one side of a cancellation — 0.00034 → **0.00072** — while the same functional
+  > includes the `0-3` band, where Apple draws a one-device-pixel stroke at the contour that vitrea
+  > draws on NEITHER pose. *(Corrected beside, 2026-09-22, at the same gate's review closure —
+  > claims §5.169 §10, finding B2. This sentence first named two terms, "vitrea's body over-fills
+  > its declared contour on the active pose and Apple's receded exterior is a one-device-pixel rim
+  > stroke on the inactive one". `contour-stroke.txt` reads the band outward one device pixel at a
+  > time on 24 cells over six macOS 27 profiles and finds the native 14–30 bytes DARKER at one
+  > device pixel on 22 of them, both poses, with the two sides agreeing from two pixels out and the
+  > web darker than the native nowhere in the band. It is one rim term on both poses, and the
+  > arithmetic below does not move.)* That error had been CANCELLING the exterior's own, so W32's
+  > fit of the exterior broke the stop by removing one side of a cancellation — 0.00034 →
+  > **0.00072** — while the same functional
   > over the admitted bands went **0.00122 → 0.00006** (claims §5.168 §7). B3 is now the same
   > arithmetic mean over the same 166 cells restricted to the **admitted bands** (3–48 CSS px,
   > W32 G0's per-cell per-direction clearance rule), both poses, WebGPU tier, bounded at
