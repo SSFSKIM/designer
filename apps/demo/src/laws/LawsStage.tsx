@@ -24,7 +24,7 @@ import { StageBackdrop } from "../site/StageBackdrop";
 import { TONE_SPANS } from "./law";
 import { LawsBackdrop, paintChecker, paintFlat, paintSplit, paintText, type Painter } from "./LawsBackdrop";
 
-export type LawMode = "tone" | "tint" | "body" | "lens" | "nested";
+export type LawMode = "tone" | "tint" | "body" | "shadow" | "lens" | "nested";
 
 export const TEXTURE_SOURCE_ID = "vitrea.laws.stage";
 
@@ -36,6 +36,7 @@ export const GROUPS_BY_MODE: Record<LawMode, readonly { id: string; label: strin
     { id: "laws-tint-light", label: "laws-tint-light (registered texture, light half)" },
   ],
   body: [{ id: "laws-body", label: "laws-body (registered texture)" }],
+  shadow: [{ id: "laws-shadow", label: "laws-shadow (registered texture)" }],
   lens: [{ id: "laws-lens", label: "laws-lens (registered texture)" }],
   nested: [
     { id: "laws-nested-base", label: "laws-nested-base (registered texture, base plane)" },
@@ -56,6 +57,20 @@ export const NEST = {
 const THICKNESS = 8;
 
 /**
+ * The shadow stage's ground, declared rather than sampled.
+ *
+ * The exterior shadow is drawn OUTSIDE the caster, so what it darkens is the
+ * ground itself, and the group has to state the level it sits over because the
+ * shadow's amplitude is a function of that level below the size law's ceiling.
+ * The bed is `paintChecker`, the lens law's own — a structured ground is what
+ * makes a transmission legible as a transmission: the shadow multiplies the
+ * checker rather than washing over it, and the light squares are where a few per
+ * cent of removed light can be seen at all. The level is the lens section's own
+ * statement about the same painter, for the same reason it is a statement there.
+ */
+export const SHADOW_HINT = { tone: "mixed", luminance: 0.4 } as const;
+
+/**
  * X6's hint, load-bearing here as on the site: it is the one mechanism for telling
  * the runtime what it cannot see about the ground, and the foreground decision
  * only has a backdrop to reason about when a group declares one. The stage is a
@@ -72,6 +87,8 @@ export interface LawsStageProps {
   readonly tint: string;
   /** The body law's short span, CSS px. */
   readonly bodySpan: number;
+  /** The shadow law's casting span, CSS px — its own control, over its own range. */
+  readonly shadowSpan: number;
   readonly animate: boolean;
 }
 
@@ -87,6 +104,7 @@ const LEGENDS: Readonly<Record<LawMode, string | null>> = {
   tone: null,
   tint: null,
   body: null,
+  shadow: null,
   lens: null,
   nested: "A base surface over the texture, and a pane over the base surface.",
 };
@@ -100,7 +118,7 @@ export function LawsGround(props: LawsStageProps): ReactNode {
         ? paintSplit(TINT_GROUNDS.dark, TINT_GROUNDS.light)
         : mode === "body"
           ? paintText
-          : mode === "lens"
+          : mode === "lens" || mode === "shadow"
             ? paintChecker
             : null;
   const legend = LEGENDS[mode];
@@ -213,6 +231,33 @@ export function LawsGlass(props: LawsStageProps & { readonly plane: GlassPlane }
               data-testid="body-plate"
             >
               <strong>{props.bodySpan}px</strong>
+            </GlassSurface>
+          </GlassGroup>
+        ) : null}
+
+        {mode === "shadow" && plane === "base" ? (
+          /*
+           * W32. One caster over the structured ground, whose short side is the
+           * reader's — the same construction as the body law's plate, because the
+           * casting span is the same argument and showing it twice with two
+           * different geometries would make the span look like two quantities.
+           * What differs is what is being looked at: here it is the ground
+           * OUTSIDE the plate, so the stack's inset has to leave the shadow room
+           * to fall into, which it does at every span this control reaches.
+           */
+          <GlassGroup
+            id="laws-shadow"
+            backdrop={{ kind: "texture", id: TEXTURE_SOURCE_ID }}
+            hint={SHADOW_HINT}
+          >
+            <GlassSurface
+              className="plate plate--laws-shadow"
+              radius={Math.min(26, Math.round(props.shadowSpan / 4))}
+              thickness={THICKNESS}
+              style={{ height: `${props.shadowSpan}px` }}
+              data-testid="shadow-plate"
+            >
+              <strong>{props.shadowSpan}px</strong>
             </GlassSurface>
           </GlassGroup>
         ) : null}

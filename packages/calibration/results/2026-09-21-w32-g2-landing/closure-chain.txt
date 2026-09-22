@@ -1,0 +1,42 @@
+W32 G2 review closure — the verification at the closure's head (claims §5.169 §10)
+Run 2026-09-22 on `w32-g2-landing`, twenty-one commits over main `e8dbbe4b`.
+No native capture (X5); nothing re-read (X4); no material change (X1).
+
+step                                           result
+----                                           ------
+freeze.py verify (open)                        26.5 freeze intact: 1818 entries, exit 0
+pnpm -r build                                  exit 0
+pnpm -r lint                                   exit 0
+npx eslint . (root)                            exit 0
+pnpm -r test                                   2,703 passed over 187 files, 0 failed
+packages/policy test:  Test Files  2 passed (2)
+packages/policy test:       Tests  23 passed (23)
+packages/motion test:  Test Files  10 passed (10)
+packages/motion test:       Tests  164 passed (164)
+packages/geometry test:  Test Files  14 passed (14)
+packages/geometry test:       Tests  170 passed (170)
+packages/renderer-webgpu test:  Test Files  34 passed (34)
+packages/renderer-webgpu test:       Tests  561 passed (561)
+packages/core test:  Test Files  16 passed (16)
+packages/core test:       Tests  302 passed (302)
+packages/platform-web test:  Test Files  46 passed (46)
+packages/platform-web test:       Tests  631 passed (631)
+packages/react test:  Test Files  19 passed (19)
+packages/react test:       Tests  174 passed (174)
+packages/calibration test:  Test Files  40 passed (40)
+packages/calibration test:       Tests  632 passed (632)
+apps/demo test:  Test Files  6 passed (6)
+apps/demo test:       Tests  46 passed (46)
+
+The targeted suites this closure names:
+calibration profile export tests (3 files)      Tests 19 passed (19)
+platform-web publish-shape                      Tests 9 passed (9)
+react root-handle-export (new)                  Tests 5 passed (5)
+demo e2e laws.spec.ts (after N3)               10 passed, see laws-e2e-n3.txt
+dry-run.sh at 0.22.0                           three dry runs clean, see dry-run.txt
+
+The pins, unmoved:
+    TOTAL at a shipped document                                     1107 row(s),  229 gated
+    TOTAL at a shipped document                                      786 row(s),  230 gated
+
+freeze.py verify (close)                       26.5 freeze intact: 1818 entries, exit 0

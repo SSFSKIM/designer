@@ -1,0 +1,42 @@
+W32 G2 — M2's reference re-baselined: the per-wave move and the drift beside it
+============================================================================================================
+  Decision Log 4, ruled by the user 2026-09-22. `interiorStdDevWeb` on the 26 gated
+  cells, at three generations. The per-wave column is what M2 bounds at 2 %; the
+  cumulative column is bounded by nothing and is what would show a slow walk.
+
+  profile                                       scene                               pre-fit    W32 ref        now   per wave  cumulative
+  apple-macos-27.0-1x-dark-standard-glass0.5    photo__capsule-button__inactive   0.0098525  0.0099147  0.0100462     1.325%      1.966%
+  apple-macos-27.0-1x-dark-standard-glass0.5    photo__capsule-button__rest       0.0203373  0.0204260  0.0205248     0.484%      0.922%
+  apple-macos-27.0-1x-dark-standard-glass0.5    photo__rrect-md__inactive         0.0094567  0.0094577  0.0095521     0.997%      1.008%
+  apple-macos-27.0-1x-dark-standard-glass0.5    photo__rrect-md__rest             0.0159968  0.0160317  0.0160636     0.199%      0.418%
+  apple-macos-27.0-1x-light-standard-glass0.5   photo__capsule-button__inactive   0.0359419  0.0359085  0.0358148    -0.261%     -0.354%
+  apple-macos-27.0-1x-light-standard-glass0.5   photo__capsule-button__rest       0.0396036  0.0395541  0.0394979    -0.142%     -0.267%
+  apple-macos-27.0-1x-light-standard-glass0.5   photo__rrect-md__inactive         0.0443801  0.0443617  0.0442959    -0.148%     -0.190%
+  apple-macos-27.0-1x-light-standard-glass0.5   photo__rrect-md__rest             0.0486013  0.0485394  0.0485155    -0.049%     -0.177%
+  apple-macos-27.0-1x-light-standard-glass0.5   photo__rrect-ml__rest             0.0552932  0.0552687  0.0552536    -0.027%     -0.072%
+  apple-macos-27.0-1x-light-standard-glass0.5   photo__rrect-sm__inactive         0.0186722  0.0184262  0.0181541    -1.477%     -2.775%
+  apple-macos-27.0-1x-light-standard-glass0.5   photo__rrect-sm__rest             0.0234460  0.0233418  0.0231867    -0.665%     -1.106%
+  apple-macos-27.0-1x-light-standard-glass0.5   photo__toolbar-group__inactive    0.0655139  0.0654816  0.0652856    -0.299%     -0.348%
+  apple-macos-27.0-1x-light-standard-glass0.5   photo__toolbar-group__rest        0.0724684  0.0724112  0.0722627    -0.205%     -0.284%
+  apple-macos-27.0-2x-dark-standard-glass0.5    photo__capsule-button__inactive   0.0091887  0.0092251  0.0092952     0.760%      1.159%
+  apple-macos-27.0-2x-dark-standard-glass0.5    photo__capsule-button__rest       0.0167898  0.0168178  0.0168874     0.414%      0.581%
+  apple-macos-27.0-2x-dark-standard-glass0.5    photo__rrect-md__inactive         0.0104418  0.0104602  0.0105716     1.065%      1.244%
+  apple-macos-27.0-2x-dark-standard-glass0.5    photo__rrect-md__rest             0.0147546  0.0147976  0.0148370     0.266%      0.558%
+  apple-macos-27.0-2x-light-standard-glass0.5   photo__capsule-button__inactive   0.0388063  0.0387817  0.0387502    -0.081%     -0.145%
+  apple-macos-27.0-2x-light-standard-glass0.5   photo__capsule-button__rest       0.0369982  0.0369834  0.0369685    -0.040%     -0.080%
+  apple-macos-27.0-2x-light-standard-glass0.5   photo__rrect-md__inactive         0.0483583  0.0483224  0.0482781    -0.092%     -0.166%
+  apple-macos-27.0-2x-light-standard-glass0.5   photo__rrect-md__rest             0.0464008  0.0463719  0.0463553    -0.036%     -0.098%
+  apple-macos-27.0-2x-light-standard-glass0.5   photo__rrect-ml__rest             0.0548079  0.0548110  0.0547970    -0.026%     -0.020%
+  apple-macos-27.0-2x-light-standard-glass0.5   photo__rrect-sm__inactive         0.0175179  0.0173883  0.0172220    -0.956%     -1.689%
+  apple-macos-27.0-2x-light-standard-glass0.5   photo__rrect-sm__rest             0.0198079  0.0197136  0.0196102    -0.524%     -0.998%
+  apple-macos-27.0-2x-light-standard-glass0.5   photo__toolbar-group__inactive    0.0691898  0.0691621  0.0690893    -0.105%     -0.145%
+  apple-macos-27.0-2x-light-standard-glass0.5   photo__toolbar-group__rest        0.0679592  0.0679408  0.0678825    -0.086%     -0.113%
+
+  worst per-wave       -1.477%   apple-macos-27.0-1x-light-standard-glass0.5 photo__rrect-sm__inactive
+  worst cumulative     -2.775%   apple-macos-27.0-1x-light-standard-glass0.5 photo__rrect-sm__inactive
+  M2's bound             2.000%   on the per-wave column alone
+
+  The cell W32 G1 recorded MISSED — photo__rrect-sm__inactive on 1x light — reads
+  2.775 % cumulative and is the worst cumulative here; against this gate's own
+  reference it reads the per-wave figure in its row, which is what retires the
+  entry. The 2.775 % is kept in the record and is not rewritten.

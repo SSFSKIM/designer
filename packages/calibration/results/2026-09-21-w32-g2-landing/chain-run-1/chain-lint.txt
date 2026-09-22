@@ -1,0 +1,23 @@
+Scope: 9 of 10 workspace projects
+packages/geometry lint$ eslint . && tsc --noEmit
+packages/motion lint$ eslint . && tsc --noEmit
+packages/policy lint$ eslint . && tsc --noEmit
+packages/policy lint: Done
+packages/motion lint: Done
+packages/geometry lint: Done
+packages/renderer-webgpu lint$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json
+packages/renderer-webgpu lint: Done
+packages/core lint$ eslint . && tsc --noEmit
+packages/core lint: Done
+packages/platform-web lint$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json
+packages/platform-web lint: Done
+packages/react lint$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json
+packages/calibration lint$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.cli.json && tsc --noEmit -p web/tsconfig.json && tsc --noEmit -p scripts/tsconfig.json
+packages/react lint: Done
+packages/calibration lint: Done
+apps/demo lint$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json
+apps/demo lint: src/laws/law.ts(32,8): error TS2305: Module '"@vitreajs/vitrea-web"' has no exported member 'ResolvedMaterialPolicy'.
+apps/demo lint: Failed
+/Users/new/Developer/GitHub/designer/.claude/worktrees/w32-g2-landing/apps/demo:
+[ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL] demo@0.0.0 lint: `eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json`
+Exit status 2

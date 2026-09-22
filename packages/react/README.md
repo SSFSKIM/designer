@@ -492,8 +492,8 @@ tier and both poses together. It is read at construction: a scheme and a window
 pose move *within* one material, where a different document is a different
 material.
 
-The document the root actually selected is on the root handle from 0.20.0, which
-is what lets a layout ask its own material's questions:
+The document the root actually selected is on the root handle, which is what lets
+a layout ask its own material's questions:
 
 ```tsx
 import { useGlassRootHandle } from "@vitreajs/vitrea-react";
@@ -504,7 +504,38 @@ const { materialProfileDocument } = useGlassRootHandle();
 It is what the RUNTIME selected and not what the prop currently says — the two
 differ if a parent re-renders with another document, because the root reads it
 once — and it is there before the mount effect has built the runtime, so a
-component that has to produce a layout number on its first render can.
+component that has to produce a layout number on its first render can. That is how
+`GlassToolbar` sizes its gap.
+
+> **`useGlassRootHandle` is exported from 0.22.0, and in 0.20.0 and 0.21.0 it was
+> not** *(recorded 2026-09-22; the correction G2 wrote is kept rather than
+> deleted)*. The paragraph above, with this same import, is what the 0.20.0 and
+> 0.21.0 READMEs said — and the hook was internal in both, this package exporting
+> the `GlassRootHandle` TYPE and `useGlassRoot()`, which returns the `GlassRoot`
+> itself and not the handle. **That import threw in two published READMEs.** An
+> app pinned to either version reads the digest route below instead; from 0.22.0
+> the paragraph is true as written.
+>
+> **The digest route is also the stronger reading, and is worth knowing whichever
+> version you are on.** The handle carries the document the root SELECTED.
+> `useGlassCapabilities(groupId)` carries what actually DREW: the group's resolved
+> state, whose `materialDocument` names the endpoint, carries
+> `resolvedMaterialSha256` over the fully resolved material, and says whether an
+> app has tuned it. A layout can match that digest against the endpoints of
+> whatever document it built its root with and refuse to guess when it matches
+> none — the material on the screen rather than the material that was asked for.
+> The demo's `/laws/` shadow stage is that code.
+>
+> ```tsx
+> import { useGlassCapabilities } from "@vitreajs/vitrea-react";
+>
+> const { materialDocument } = useGlassCapabilities("my-group") ?? {};
+> // materialDocument?.profileKey, .resolvedMaterialSha256, .tuned
+> ```
+>
+> What it cannot do is produce a number on the FIRST render, before a frame has
+> resolved a group — which is exactly what the handle is for, and why both are
+> documented here rather than one replacing the other.
 
 `materialProfile` (a tuning of the renderer's optical constants, applied live)
 and `cssTierMapping` (the CSS crossing) are surfaced beside it for an app naming
@@ -531,6 +562,15 @@ Contrast alone does not — and **`root.material`'s digests read differently**,
 partly because the four macOS 27 documents were refitted and partly because the
 fingerprint's own definition changed, so an app comparing a digest against a
 literal recorded under 0.19.0 or 0.20.0 has to re-record it.
+
+**From 0.22.0 the outer shadow's exterior is fitted against Apple's own render**
+rather than only its blur. The shadow's outset falls from 3.10 CSS px to 0.50 on
+the light material and 1.80 on the dark one, the amplitudes are re-solved with it,
+and a 44 px control on the dark material blurs its shadow about a third wider than
+it did. A React app sees it in three places without asking for it: the shadow
+under every surface, a group's sampling reach moving with it, and the receded pose
+above, which now draws no exterior at all. The four digests `root.material`
+reports move again, as a fit must.
 
 ### Window activation
 
@@ -564,9 +604,18 @@ binding does not re-assert its prop on every frame, so what you set by hand
 stays set until the prop itself changes.
 
 The material it selects is the receded endpoint of whichever document the root
-drew. On macOS 27's, which is the default, the body darkens and the surface
-**keeps** its outer shadow; on macOS 26.5's the shadow and the bright rim go
-entirely. In both, an author's tint survives as an achromatic shade. It is a
+drew. On **neither** generation does a receded surface cast an outer shadow: on
+macOS 26.5's it never did, and from **0.22.0** the macOS 27 endpoints' amplitudes
+are 0 too, because Apple's unfocused window was measured to remove no light at all
+from 3 CSS px outward on every inactive cell of the bed. *(Through 0.21.0 this
+paragraph said the macOS 27 material **keeps** its outer shadow, which was true of
+what vitrea drew and not of what the reference does — the receded documents
+carried their active document's anchors leaf for leaf.)* The body still darkens on
+macOS 27's and the bright rim still goes on macOS 26.5's, and in both an author's
+tint survives as an achromatic shade. On the CSS tier the shadow fades out as the
+pose changes, because the `box-shadow` that tier writes carries a transition; on
+the WebGPU tier the two poses are fixed endpoints rather than an interpolation and
+it goes in one frame. It is a
 fitted appearance rather than a pixel-match guarantee, and the gaps are named in
 [`@vitreajs/vitrea-web`'s README](https://www.npmjs.com/package/@vitreajs/vitrea-web).
 

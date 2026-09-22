@@ -1,0 +1,275 @@
+W32 G2 review closure — the `0-3` band, read outward one DEVICE pixel at a time
+====================================================================================================
+
+  native and web are the mean of the three channels over every sample at that
+  offset; `n−w` is native minus web, so a NEGATIVE number is the native being
+  darker — Apple removing light vitrea does not. A body over-filling its contour
+  by 3.5–4 CSS px would read POSITIVE across offsets 1 to 4 at 1x.
+
+  profile                                      scene                            off      n   native      web       n−w
+  --------------------------------------------------------------------------------------------------------------------
+  -27.0-1x-light-standard-glass0.5             photo__rrect-lg__rest              1    608    78.37   100.46    -22.09
+  -27.0-1x-light-standard-glass0.5             photo__rrect-lg__rest              2    608   100.78   100.60     +0.17
+  -27.0-1x-light-standard-glass0.5             photo__rrect-lg__rest              3    608   101.13   101.08     +0.04
+  -27.0-1x-light-standard-glass0.5             photo__rrect-lg__rest              4    608   101.47   101.43     +0.03
+  -27.0-1x-light-standard-glass0.5             photo__rrect-lg__rest              5    608   101.78   101.56     +0.21
+  -27.0-1x-light-standard-glass0.5             photo__rrect-lg__rest              6    608   102.05   101.98     +0.07
+                                               span 160                         → STROKE at one device px, absent beyond it
+
+  profile                                      scene                            off      n   native      web       n−w
+  --------------------------------------------------------------------------------------------------------------------
+  -27.0-1x-light-standard-glass0.5             photo__rrect-lg__inactive          1    608    80.41   106.70    -26.29
+  -27.0-1x-light-standard-glass0.5             photo__rrect-lg__inactive          2    608   106.76   106.76     +0.00
+  -27.0-1x-light-standard-glass0.5             photo__rrect-lg__inactive          3    608   106.85   106.85     +0.00
+  -27.0-1x-light-standard-glass0.5             photo__rrect-lg__inactive          4    608   106.89   106.89     +0.00
+  -27.0-1x-light-standard-glass0.5             photo__rrect-lg__inactive          5    608   106.94   106.94     +0.00
+  -27.0-1x-light-standard-glass0.5             photo__rrect-lg__inactive          6    608   106.96   106.96     +0.00
+                                               span 160                         → STROKE at one device px, absent beyond it
+
+  profile                                      scene                            off      n   native      web       n−w
+  --------------------------------------------------------------------------------------------------------------------
+  -27.0-1x-light-standard-glass0.5             photo__capsule-button__rest        1    152   105.12   122.90    -17.78
+  -27.0-1x-light-standard-glass0.5             photo__capsule-button__rest        2    152   123.06   123.05     +0.01
+  -27.0-1x-light-standard-glass0.5             photo__capsule-button__rest        3    152   123.16   123.16     +0.01
+  -27.0-1x-light-standard-glass0.5             photo__capsule-button__rest        4    152   123.36   123.33     +0.03
+  -27.0-1x-light-standard-glass0.5             photo__capsule-button__rest        5    152   123.50   123.45     +0.05
+  -27.0-1x-light-standard-glass0.5             photo__capsule-button__rest        6    152   123.71   123.57     +0.15
+                                               span 44                          → STROKE at one device px, absent beyond it
+
+  profile                                      scene                            off      n   native      web       n−w
+  --------------------------------------------------------------------------------------------------------------------
+  -27.0-1x-light-standard-glass0.5             photo__capsule-button__inactive    1    152    94.57   123.63    -29.06
+  -27.0-1x-light-standard-glass0.5             photo__capsule-button__inactive    2    152   123.77   123.77     +0.00
+  -27.0-1x-light-standard-glass0.5             photo__capsule-button__inactive    3    152   123.88   123.88     +0.00
+  -27.0-1x-light-standard-glass0.5             photo__capsule-button__inactive    4    152   124.05   124.05     +0.00
+  -27.0-1x-light-standard-glass0.5             photo__capsule-button__inactive    5    152   124.16   124.16     +0.00
+  -27.0-1x-light-standard-glass0.5             photo__capsule-button__inactive    6    152   124.28   124.28     +0.00
+                                               span 44                          → STROKE at one device px, absent beyond it
+
+  profile                                      scene                            off      n   native      web       n−w
+  --------------------------------------------------------------------------------------------------------------------
+  -27.0-2x-light-standard-glass0.5             photo__rrect-lg__rest              1   1216    79.54   100.29    -20.75
+  -27.0-2x-light-standard-glass0.5             photo__rrect-lg__rest              2   1216   100.55   100.47     +0.08
+  -27.0-2x-light-standard-glass0.5             photo__rrect-lg__rest              3   1216   100.68   100.58     +0.10
+  -27.0-2x-light-standard-glass0.5             photo__rrect-lg__rest              4   1216   100.84   100.77     +0.07
+  -27.0-2x-light-standard-glass0.5             photo__rrect-lg__rest              5   1216   101.03   100.94     +0.08
+  -27.0-2x-light-standard-glass0.5             photo__rrect-lg__rest              6   1216   101.18   101.07     +0.11
+                                               span 160                         → STROKE at one device px, absent beyond it
+
+  profile                                      scene                            off      n   native      web       n−w
+  --------------------------------------------------------------------------------------------------------------------
+  -27.0-2x-light-standard-glass0.5             photo__rrect-lg__inactive          1   1216    81.29   106.67    -25.39
+  -27.0-2x-light-standard-glass0.5             photo__rrect-lg__inactive          2   1216   106.71   106.71     +0.00
+  -27.0-2x-light-standard-glass0.5             photo__rrect-lg__inactive          3   1216   106.74   106.74     +0.00
+  -27.0-2x-light-standard-glass0.5             photo__rrect-lg__inactive          4   1216   106.77   106.77     +0.00
+  -27.0-2x-light-standard-glass0.5             photo__rrect-lg__inactive          5   1216   106.80   106.80     +0.00
+  -27.0-2x-light-standard-glass0.5             photo__rrect-lg__inactive          6   1216   106.84   106.84     +0.00
+                                               span 160                         → STROKE at one device px, absent beyond it
+
+  profile                                      scene                            off      n   native      web       n−w
+  --------------------------------------------------------------------------------------------------------------------
+  -27.0-2x-light-standard-glass0.5             photo__capsule-button__rest        1    304   105.62   122.80    -17.18
+  -27.0-2x-light-standard-glass0.5             photo__capsule-button__rest        2    304   122.84   122.88     -0.04
+  -27.0-2x-light-standard-glass0.5             photo__capsule-button__rest        3    304   122.96   122.95     +0.01
+  -27.0-2x-light-standard-glass0.5             photo__capsule-button__rest        4    304   123.02   123.01     +0.01
+  -27.0-2x-light-standard-glass0.5             photo__capsule-button__rest        5    304   123.08   123.07     +0.01
+  -27.0-2x-light-standard-glass0.5             photo__capsule-button__rest        6    304   123.15   123.14     +0.01
+                                               span 44                          → STROKE at one device px, absent beyond it
+
+  profile                                      scene                            off      n   native      web       n−w
+  --------------------------------------------------------------------------------------------------------------------
+  -27.0-2x-light-standard-glass0.5             photo__capsule-button__inactive    1    304    95.41   123.53    -28.12
+  -27.0-2x-light-standard-glass0.5             photo__capsule-button__inactive    2    304   123.60   123.60     +0.00
+  -27.0-2x-light-standard-glass0.5             photo__capsule-button__inactive    3    304   123.67   123.67     +0.00
+  -27.0-2x-light-standard-glass0.5             photo__capsule-button__inactive    4    304   123.73   123.73     +0.00
+  -27.0-2x-light-standard-glass0.5             photo__capsule-button__inactive    5    304   123.80   123.80     +0.00
+  -27.0-2x-light-standard-glass0.5             photo__capsule-button__inactive    6    304   123.86   123.86     +0.00
+                                               span 44                          → STROKE at one device px, absent beyond it
+
+  profile                                      scene                            off      n   native      web       n−w
+  --------------------------------------------------------------------------------------------------------------------
+  -27.0-1x-dark-standard-glass0.5              photo__rrect-lg__rest              1    608    83.24    97.59    -14.34
+  -27.0-1x-dark-standard-glass0.5              photo__rrect-lg__rest              2    608    97.78    97.91     -0.13
+  -27.0-1x-dark-standard-glass0.5              photo__rrect-lg__rest              3    608    98.29    98.40     -0.11
+  -27.0-1x-dark-standard-glass0.5              photo__rrect-lg__rest              4    608    98.75    98.84     -0.09
+  -27.0-1x-dark-standard-glass0.5              photo__rrect-lg__rest              5    608    99.20    99.29     -0.08
+  -27.0-1x-dark-standard-glass0.5              photo__rrect-lg__rest              6    608    99.61    99.71     -0.10
+                                               span 160                         → STROKE at one device px, absent beyond it
+
+  profile                                      scene                            off      n   native      web       n−w
+  --------------------------------------------------------------------------------------------------------------------
+  -27.0-1x-dark-standard-glass0.5              photo__rrect-lg__inactive          1    608    74.75   106.70    -31.95
+  -27.0-1x-dark-standard-glass0.5              photo__rrect-lg__inactive          2    608   106.76   106.76     +0.00
+  -27.0-1x-dark-standard-glass0.5              photo__rrect-lg__inactive          3    608   106.85   106.85     +0.00
+  -27.0-1x-dark-standard-glass0.5              photo__rrect-lg__inactive          4    608   106.89   106.89     +0.00
+  -27.0-1x-dark-standard-glass0.5              photo__rrect-lg__inactive          5    608   106.94   106.94     +0.00
+  -27.0-1x-dark-standard-glass0.5              photo__rrect-lg__inactive          6    608   106.96   106.96     +0.00
+                                               span 160                         → STROKE at one device px, absent beyond it
+
+  profile                                      scene                            off      n   native      web       n−w
+  --------------------------------------------------------------------------------------------------------------------
+  -27.0-1x-dark-standard-glass0.5              photo__capsule-button__rest        1    152   122.86   123.13     -0.27
+  -27.0-1x-dark-standard-glass0.5              photo__capsule-button__rest        2    152   123.06   123.29     -0.22
+  -27.0-1x-dark-standard-glass0.5              photo__capsule-button__rest        3    152   123.16   123.40     -0.23
+  -27.0-1x-dark-standard-glass0.5              photo__capsule-button__rest        4    152   123.36   123.58     -0.23
+  -27.0-1x-dark-standard-glass0.5              photo__capsule-button__rest        5    152   123.50   123.70     -0.20
+  -27.0-1x-dark-standard-glass0.5              photo__capsule-button__rest        6    152   123.71   123.82     -0.11
+                                               span 44                          → no stroke at this cell
+
+  profile                                      scene                            off      n   native      web       n−w
+  --------------------------------------------------------------------------------------------------------------------
+  -27.0-1x-dark-standard-glass0.5              photo__capsule-button__inactive    1    152    94.17   123.63    -29.46
+  -27.0-1x-dark-standard-glass0.5              photo__capsule-button__inactive    2    152   123.77   123.77     +0.00
+  -27.0-1x-dark-standard-glass0.5              photo__capsule-button__inactive    3    152   123.88   123.88     +0.00
+  -27.0-1x-dark-standard-glass0.5              photo__capsule-button__inactive    4    152   124.05   124.05     +0.00
+  -27.0-1x-dark-standard-glass0.5              photo__capsule-button__inactive    5    152   124.16   124.16     +0.00
+  -27.0-1x-dark-standard-glass0.5              photo__capsule-button__inactive    6    152   124.28   124.28     +0.00
+                                               span 44                          → STROKE at one device px, absent beyond it
+
+  profile                                      scene                            off      n   native      web       n−w
+  --------------------------------------------------------------------------------------------------------------------
+  -27.0-2x-dark-standard-glass0.5              photo__rrect-lg__rest              1   1216    84.14    97.33    -13.19
+  -27.0-2x-dark-standard-glass0.5              photo__rrect-lg__rest              2   1216    97.42    97.59     -0.18
+  -27.0-2x-dark-standard-glass0.5              photo__rrect-lg__rest              3   1216    97.66    97.78     -0.12
+  -27.0-2x-dark-standard-glass0.5              photo__rrect-lg__rest              4   1216    97.92    98.07     -0.15
+  -27.0-2x-dark-standard-glass0.5              photo__rrect-lg__rest              5   1216    98.12    98.26     -0.14
+  -27.0-2x-dark-standard-glass0.5              photo__rrect-lg__rest              6   1216    98.38    98.54     -0.16
+                                               span 160                         → STROKE at one device px, absent beyond it
+
+  profile                                      scene                            off      n   native      web       n−w
+  --------------------------------------------------------------------------------------------------------------------
+  -27.0-2x-dark-standard-glass0.5              photo__rrect-lg__inactive          1   1216    75.98   106.67    -30.70
+  -27.0-2x-dark-standard-glass0.5              photo__rrect-lg__inactive          2   1216   106.71   106.71     +0.00
+  -27.0-2x-dark-standard-glass0.5              photo__rrect-lg__inactive          3   1216   106.74   106.74     +0.00
+  -27.0-2x-dark-standard-glass0.5              photo__rrect-lg__inactive          4   1216   106.77   106.77     +0.00
+  -27.0-2x-dark-standard-glass0.5              photo__rrect-lg__inactive          5   1216   106.80   106.80     +0.00
+  -27.0-2x-dark-standard-glass0.5              photo__rrect-lg__inactive          6   1216   106.84   106.84     +0.00
+                                               span 160                         → STROKE at one device px, absent beyond it
+
+  profile                                      scene                            off      n   native      web       n−w
+  --------------------------------------------------------------------------------------------------------------------
+  -27.0-2x-dark-standard-glass0.5              photo__capsule-button__rest        1    304   122.77   123.03     -0.27
+  -27.0-2x-dark-standard-glass0.5              photo__capsule-button__rest        2    304   122.84   123.11     -0.27
+  -27.0-2x-dark-standard-glass0.5              photo__capsule-button__rest        3    304   122.96   123.18     -0.23
+  -27.0-2x-dark-standard-glass0.5              photo__capsule-button__rest        4    304   123.02   123.25     -0.23
+  -27.0-2x-dark-standard-glass0.5              photo__capsule-button__rest        5    304   123.08   123.32     -0.24
+  -27.0-2x-dark-standard-glass0.5              photo__capsule-button__rest        6    304   123.15   123.39     -0.24
+                                               span 44                          → no stroke at this cell
+
+  profile                                      scene                            off      n   native      web       n−w
+  --------------------------------------------------------------------------------------------------------------------
+  -27.0-2x-dark-standard-glass0.5              photo__capsule-button__inactive    1    304    95.04   123.53    -28.49
+  -27.0-2x-dark-standard-glass0.5              photo__capsule-button__inactive    2    304   123.60   123.60     +0.00
+  -27.0-2x-dark-standard-glass0.5              photo__capsule-button__inactive    3    304   123.67   123.67     +0.00
+  -27.0-2x-dark-standard-glass0.5              photo__capsule-button__inactive    4    304   123.73   123.73     +0.00
+  -27.0-2x-dark-standard-glass0.5              photo__capsule-button__inactive    5    304   123.80   123.80     +0.00
+  -27.0-2x-dark-standard-glass0.5              photo__capsule-button__inactive    6    304   123.86   123.86     +0.00
+                                               span 44                          → STROKE at one device px, absent beyond it
+
+  profile                                      scene                            off      n   native      web       n−w
+  --------------------------------------------------------------------------------------------------------------------
+  -27.0-1x-light-reduced-transparency-glass0.5 photo__rrect-lg__rest              1    608    78.76   104.77    -26.02
+  -27.0-1x-light-reduced-transparency-glass0.5 photo__rrect-lg__rest              2    608   100.78   104.84     -4.06
+  -27.0-1x-light-reduced-transparency-glass0.5 photo__rrect-lg__rest              3    608   101.13   105.03     -3.90
+  -27.0-1x-light-reduced-transparency-glass0.5 photo__rrect-lg__rest              4    608   101.47   105.21     -3.74
+  -27.0-1x-light-reduced-transparency-glass0.5 photo__rrect-lg__rest              5    608   101.78   105.26     -3.48
+  -27.0-1x-light-reduced-transparency-glass0.5 photo__rrect-lg__rest              6    608   102.05   105.43     -3.38
+                                               span 160                         → STROKE at one device px, absent beyond it
+
+  profile                                      scene                            off      n   native      web       n−w
+  --------------------------------------------------------------------------------------------------------------------
+  -27.0-1x-light-reduced-transparency-glass0.5 photo__rrect-lg__inactive          1    608    79.83   106.70    -26.87
+  -27.0-1x-light-reduced-transparency-glass0.5 photo__rrect-lg__inactive          2    608   106.76   106.76     +0.00
+  -27.0-1x-light-reduced-transparency-glass0.5 photo__rrect-lg__inactive          3    608   106.85   106.85     +0.00
+  -27.0-1x-light-reduced-transparency-glass0.5 photo__rrect-lg__inactive          4    608   106.89   106.89     +0.00
+  -27.0-1x-light-reduced-transparency-glass0.5 photo__rrect-lg__inactive          5    608   106.94   106.94     +0.00
+  -27.0-1x-light-reduced-transparency-glass0.5 photo__rrect-lg__inactive          6    608   106.96   106.96     +0.00
+                                               span 160                         → STROKE at one device px, absent beyond it
+
+  profile                                      scene                            off      n   native      web       n−w
+  --------------------------------------------------------------------------------------------------------------------
+  -27.0-1x-light-reduced-transparency-glass0.5 photo__capsule-button__rest        1    152   105.04   121.45    -16.41
+  -27.0-1x-light-reduced-transparency-glass0.5 photo__capsule-button__rest        2    152   123.06   121.59     +1.47
+  -27.0-1x-light-reduced-transparency-glass0.5 photo__capsule-button__rest        3    152   123.16   121.67     +1.50
+  -27.0-1x-light-reduced-transparency-glass0.5 photo__capsule-button__rest        4    152   123.36   121.86     +1.50
+  -27.0-1x-light-reduced-transparency-glass0.5 photo__capsule-button__rest        5    152   123.50   122.00     +1.50
+  -27.0-1x-light-reduced-transparency-glass0.5 photo__capsule-button__rest        6    152   123.71   122.12     +1.59
+                                               span 44                          → STROKE at one device px, absent beyond it
+
+  profile                                      scene                            off      n   native      web       n−w
+  --------------------------------------------------------------------------------------------------------------------
+  -27.0-1x-light-reduced-transparency-glass0.5 photo__capsule-button__inactive    1    152    93.79   123.63    -29.83
+  -27.0-1x-light-reduced-transparency-glass0.5 photo__capsule-button__inactive    2    152   123.77   123.77     +0.00
+  -27.0-1x-light-reduced-transparency-glass0.5 photo__capsule-button__inactive    3    152   123.88   123.88     +0.00
+  -27.0-1x-light-reduced-transparency-glass0.5 photo__capsule-button__inactive    4    152   124.05   124.05     +0.00
+  -27.0-1x-light-reduced-transparency-glass0.5 photo__capsule-button__inactive    5    152   124.16   124.16     +0.00
+  -27.0-1x-light-reduced-transparency-glass0.5 photo__capsule-button__inactive    6    152   124.28   124.28     +0.00
+                                               span 44                          → STROKE at one device px, absent beyond it
+
+  profile                                      scene                            off      n   native      web       n−w
+  --------------------------------------------------------------------------------------------------------------------
+  -27.0-1x-light-increased-contrast-coupled-glass0.5 photo__rrect-lg__rest              1    608    78.76   104.77    -26.02
+  -27.0-1x-light-increased-contrast-coupled-glass0.5 photo__rrect-lg__rest              2    608   100.78   104.84     -4.06
+  -27.0-1x-light-increased-contrast-coupled-glass0.5 photo__rrect-lg__rest              3    608   101.13   105.03     -3.90
+  -27.0-1x-light-increased-contrast-coupled-glass0.5 photo__rrect-lg__rest              4    608   101.47   105.21     -3.74
+  -27.0-1x-light-increased-contrast-coupled-glass0.5 photo__rrect-lg__rest              5    608   101.78   105.26     -3.48
+  -27.0-1x-light-increased-contrast-coupled-glass0.5 photo__rrect-lg__rest              6    608   102.05   105.43     -3.38
+                                               span 160                         → STROKE at one device px, absent beyond it
+
+  profile                                      scene                            off      n   native      web       n−w
+  --------------------------------------------------------------------------------------------------------------------
+  -27.0-1x-light-increased-contrast-coupled-glass0.5 photo__rrect-lg__inactive          1    608    79.83   106.70    -26.87
+  -27.0-1x-light-increased-contrast-coupled-glass0.5 photo__rrect-lg__inactive          2    608   106.76   106.76     +0.00
+  -27.0-1x-light-increased-contrast-coupled-glass0.5 photo__rrect-lg__inactive          3    608   106.85   106.85     +0.00
+  -27.0-1x-light-increased-contrast-coupled-glass0.5 photo__rrect-lg__inactive          4    608   106.89   106.89     +0.00
+  -27.0-1x-light-increased-contrast-coupled-glass0.5 photo__rrect-lg__inactive          5    608   106.94   106.94     +0.00
+  -27.0-1x-light-increased-contrast-coupled-glass0.5 photo__rrect-lg__inactive          6    608   106.96   106.96     +0.00
+                                               span 160                         → STROKE at one device px, absent beyond it
+
+  profile                                      scene                            off      n   native      web       n−w
+  --------------------------------------------------------------------------------------------------------------------
+  -27.0-1x-light-increased-contrast-coupled-glass0.5 photo__capsule-button__rest        1    152   105.03   121.45    -16.42
+  -27.0-1x-light-increased-contrast-coupled-glass0.5 photo__capsule-button__rest        2    152   123.06   121.59     +1.47
+  -27.0-1x-light-increased-contrast-coupled-glass0.5 photo__capsule-button__rest        3    152   123.16   121.67     +1.50
+  -27.0-1x-light-increased-contrast-coupled-glass0.5 photo__capsule-button__rest        4    152   123.36   121.86     +1.50
+  -27.0-1x-light-increased-contrast-coupled-glass0.5 photo__capsule-button__rest        5    152   123.50   122.00     +1.50
+  -27.0-1x-light-increased-contrast-coupled-glass0.5 photo__capsule-button__rest        6    152   123.71   122.12     +1.59
+                                               span 44                          → STROKE at one device px, absent beyond it
+
+  profile                                      scene                            off      n   native      web       n−w
+  --------------------------------------------------------------------------------------------------------------------
+  -27.0-1x-light-increased-contrast-coupled-glass0.5 photo__capsule-button__inactive    1    152    93.79   123.63    -29.83
+  -27.0-1x-light-increased-contrast-coupled-glass0.5 photo__capsule-button__inactive    2    152   123.77   123.77     +0.00
+  -27.0-1x-light-increased-contrast-coupled-glass0.5 photo__capsule-button__inactive    3    152   123.88   123.88     +0.00
+  -27.0-1x-light-increased-contrast-coupled-glass0.5 photo__capsule-button__inactive    4    152   124.05   124.05     +0.00
+  -27.0-1x-light-increased-contrast-coupled-glass0.5 photo__capsule-button__inactive    5    152   124.16   124.16     +0.00
+  -27.0-1x-light-increased-contrast-coupled-glass0.5 photo__capsule-button__inactive    6    152   124.28   124.28     +0.00
+                                               span 44                          → STROKE at one device px, absent beyond it
+
+  cells read 24; one-device-pixel native stroke on 22 of them
+  cells whose web is darker than the native anywhere in the band: 0
+    no stroke: -27.0-1x-dark-standard-glass0.5 photo__capsule-button__rest
+    no stroke: -27.0-2x-dark-standard-glass0.5 photo__capsule-button__rest
+
+  The over-fill count is the reading that decides the sign. A body over-filling its
+  declared contour by 3.5–4 CSS px would show WEB below NATIVE across the band on
+  every active cell; it shows on none, and what shows instead is the native below
+  the web at exactly one device pixel and nowhere else.
+
+  The transect, printed literally: -27.0-1x-light-standard-glass0.5 photo__rrect-lg__rest, row y=100
+  the declared rect's left edge is x=20, so x=19 is the last
+  exterior pixel and x=20 is the first body one.
+
+       x             native                web
+      12      (31, 239, 18)      (31, 239, 18)
+      13      (34, 235, 18)      (34, 234, 18)
+      14      (38, 229, 18)      (38, 230, 18)
+      15      (42, 223, 19)      (42, 223, 19)
+      16      (46, 217, 20)      (45, 216, 20)
+      17      (49, 209, 21)      (49, 210, 21)
+      18      (52, 203, 24)      (52, 203, 24)
+      19       (20, 124, 8)      (54, 196, 25)
+      20    (125, 249, 132)    (188, 201, 198)
+      21    (143, 238, 136)    (189, 200, 186)
+      22    (146, 237, 129)    (189, 200, 177)
+      23    (148, 237, 126)    (187, 202, 171)

@@ -11,7 +11,7 @@
 
 import { expect, test, type Page } from "@playwright/test";
 
-const SECTIONS = ["tone", "tint", "body", "lens", "nested"] as const;
+const SECTIONS = ["tone", "tint", "body", "shadow", "lens", "nested"] as const;
 
 async function gotoLaws(page: Page, query = "?renderer=css"): Promise<void> {
   await page.goto(`/laws/${query}`);
@@ -178,6 +178,167 @@ test("the outer shadow's σ readout is the σ the tier drew, at both ends of the
   const note = await page.locator("#body .note").last().textContent();
   expect(note).toContain(`${thin.toFixed(2)}px band`);
   expect(note).toContain(`${Math.round(wide / thin)} times as wide`);
+});
+
+/**
+ * The `/laws/` shadow stage, against the exterior the tier actually drew (W32 G2;
+ * Decision Log 1 (d) as ruled by the user; claims §5.169 §4).
+ *
+ * The case above pins the σ readout in the BODY section, which is where the σ law
+ * first appeared as a number a reader could move. This section is the operator's
+ * own, and it prints three more of the material's numbers and the depth at three
+ * distances — so it is pinned the same way and for the same reason: against what
+ * the tier wrote, never against a literal. `outerShadowDrawn` reads all four
+ * lengths and the alpha out of the computed `box-shadow` rather than the inline
+ * one, because what a browser serialises the property back to is not what the
+ * tier wrote it as.
+ *
+ * The receded half is the other assertion and is not a variation of the first.
+ * The receded documents carry an amplitude of zero (W32 Decision Log 2, on 121 of
+ * 121 inactive rows where Apple's own transmission reads exactly 1.000000), so
+ * `outerShadowDeclaration` resolves `"none"` and there is no outer entry in the
+ * list at all. A test that only checked the shadow got smaller would pass on a
+ * receded material that merely faded.
+ */
+interface DrawnShadow {
+  readonly offsetYPx: number;
+  readonly blurPx: number;
+  readonly spreadPx: number;
+  readonly alpha: number;
+}
+
+const outerShadowDrawn = (page: Page, testId: string): Promise<DrawnShadow | null> =>
+  page.getByTestId(testId).evaluate((element) => {
+    const layer = element.querySelector<HTMLElement>('[data-vitrea-css-layer="overlay"]');
+    if (layer === null) throw new Error("the plate has no overlay layer to carry a shadow");
+    const drawn = getComputedStyle(layer).boxShadow;
+    // The rim is the inset entry of the same list; the outer shadow is the other,
+    // and its absence is the receded material's whole statement.
+    const outer = drawn
+      .split(/,(?![^(]*\))/)
+      .map((part) => part.trim())
+      .find((part) => part !== "" && part !== "none" && !part.includes("inset"));
+    if (outer === undefined) return null;
+    const lengths = (outer.match(/-?\d+(?:\.\d+)?px/g) ?? []).map(Number.parseFloat);
+    if (lengths.length !== 4) throw new Error(`unreadable shadow "${outer}"`);
+    const alpha = /rgba?\([^)]*?([\d.]+)\s*\)/.exec(outer);
+    // `<colour> <x> <y> <blur> <spread>`, normalised.
+    return {
+      offsetYPx: lengths[1] ?? Number.NaN,
+      blurPx: lengths[2] ?? Number.NaN,
+      spreadPx: lengths[3] ?? Number.NaN,
+      alpha: alpha === null ? 1 : Number.parseFloat(alpha[1] ?? "1"),
+    };
+  });
+
+/**
+ * Pin the window pose through the page's own control and wait for the RUNTIME to
+ * report it. The select's value is the pose the group reports, never the one
+ * asked for, so waiting on the endpoint readout is waiting on the material.
+ */
+async function pinPose(page: Page, pose: "active" | "receded"): Promise<void> {
+  await page.getByTestId("shadow-pose").selectOption(pose);
+  const endpoint = page.getByTestId("shadow-endpoint");
+  await expect(endpoint).toHaveText(/^apple-macos-/);
+  if (pose === "receded") await expect(endpoint).toHaveText(/-receded$/);
+  else await expect(endpoint).not.toHaveText(/-receded$/);
+  await page.waitForTimeout(400);
+}
+
+test("the exterior's readout is the shadow the tier drew, at both ends of the span", async ({
+  page,
+}) => {
+  await gotoLaws(page);
+  await showSection(page, "shadow");
+  await pinPose(page, "active");
+
+  const drawn: Record<string, DrawnShadow> = {};
+  const depths: Record<string, readonly number[]> = {};
+  for (const span of ["32", "160"] as const) {
+    await page.getByTestId("shadow-span").fill(span);
+    await expect(page.getByTestId("shadow-span-readout")).toContainText(`${span}px`);
+    await page.waitForTimeout(400);
+    const here = await outerShadowDrawn(page, "shadow-plate");
+    if (here === null) throw new Error(`no outer shadow drawn at span ${span}`);
+    drawn[span] = here;
+
+    // Every length the readout prints, against the length the tier wrote. The
+    // blur radius is 2σ by CSS Backgrounds 3's convention, which is why the σ row
+    // and the blur row are both here: they are one number under two conventions
+    // and getting the factor wrong would halve or double the shadow silently.
+    await expect(page.getByTestId("shadow-sigma"), `σ at span ${span}`).toHaveText(
+      `${(here.blurPx / 2).toFixed(2)} px`,
+    );
+    await expect(page.getByTestId("shadow-css-blur"), `the blur radius at span ${span}`).toHaveText(
+      `${here.blurPx.toFixed(2)} px`,
+    );
+    await expect(page.getByTestId("shadow-outset"), `the outset at span ${span}`).toHaveText(
+      `${here.spreadPx.toFixed(2)} px`,
+    );
+    await expect(page.getByTestId("shadow-offset"), `the offset at span ${span}`).toHaveText(
+      `${here.offsetYPx.toFixed(2)} px`,
+    );
+    // The depth is the falloff the other tier evaluates per pixel and this tier
+    // hands to a blur, so it is not readable off the `box-shadow`. What is
+    // asserted here is that it is a graded profile rather than one number: the
+    // shadow is deepest nearest the edge and falls monotonically away from it.
+    depths[span] = await Promise.all(
+      [3, 12, 24].map(async (distance) =>
+        Number.parseFloat(
+          (await page.getByTestId(`shadow-depth-${distance}`).innerText()).replace(" %", ""),
+        ),
+      ),
+    );
+    const profile = depths[span] ?? [];
+    expect(profile[0], `the depth at 3px, span ${span}`).toBeGreaterThan(0);
+    expect(profile[0], `the depth profile at span ${span}`).toBeGreaterThan(profile[1] ?? 0);
+    expect(profile[1], `the depth profile at span ${span}`).toBeGreaterThanOrEqual(
+      profile[2] ?? 0,
+    );
+  }
+
+  // The σ law is graded in the casting span and the two lengths are NOT: they are
+  // lengths of the material, and a page that printed them off the caster would
+  // show them moving here.
+  expect(drawn["160"]?.blurPx ?? 0).toBeGreaterThan(drawn["32"]?.blurPx ?? 0);
+  expect(drawn["160"]?.spreadPx).toBe(drawn["32"]?.spreadPx);
+  expect(drawn["160"]?.offsetYPx).toBe(drawn["32"]?.offsetYPx);
+
+  // And the REACH grades with it, which is the consequence of the σ law a reader
+  // can see on the stage: at the thinnest caster the shadow is gone by 24 CSS px
+  // below the edge and the readout prints the zero, while at the widest it is
+  // still several per cent deep there. A law that had collapsed to a constant
+  // would print the same two profiles.
+  expect(depths["32"]?.[2], "the thin caster's shadow does not reach 24px").toBe(0);
+  expect(depths["160"]?.[2] ?? 0, "the wide caster's shadow does").toBeGreaterThan(0);
+});
+
+test("the receded window casts no exterior at all, and the readout shows the zero", async ({
+  page,
+}) => {
+  await gotoLaws(page);
+  await showSection(page, "shadow");
+
+  await pinPose(page, "active");
+  const focused = await outerShadowDrawn(page, "shadow-plate");
+  if (focused === null) throw new Error("the focused caster drew no outer shadow");
+  expect(focused.alpha).toBeGreaterThan(0);
+
+  await pinPose(page, "receded");
+  // Not fainter — absent. `outerShadowDeclaration` resolves `"none"` at zero
+  // alpha, so there is no outer entry in the list for the reader to look for.
+  expect(await outerShadowDrawn(page, "shadow-plate")).toBeNull();
+  for (const distance of [3, 12, 24]) {
+    await expect(
+      page.getByTestId(`shadow-depth-${distance}`),
+      `the depth ${distance}px below the edge, receded`,
+    ).toHaveText("0.00 %");
+  }
+  // And the group itself names the receded endpoint, which is what the readout's
+  // numbers were resolved through.
+  await expect(
+    page.locator("#shadow").getByTestId("material-document"),
+  ).toContainText("-receded");
 });
 
 test("the refraction rung is a policy result, and the readout says which", async ({ page }) => {

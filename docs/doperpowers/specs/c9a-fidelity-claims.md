@@ -33516,3 +33516,801 @@ holdout clause explains only why the far-halo cell is on a sheet at all. The
 sentence is made precise — it is the PROFILE's declaration and not the document
 that decides, and the holdout clause is stated where it applies — rather than
 deleted. Nothing else in that finding is changed.
+
+## 5.169 W32 G2: the landing — the exterior's shape adopted as a bound, a stop re-stated over the pixels it was supposed to read, a reference that stops standing still, and 0.22.0 prepared (2026-09-22)
+
+**Gate: W32 G2, acceptance clauses 2, 6 and 7; contracts X1, X4, X5, X6, X10;
+Decision Log 1 (c) and (d), Decision Log 2, Decision Log 3 (a) and Decision Log 4,
+all as RULED.** Evidence is
+`packages/calibration/results/2026-09-21-w32-g2-landing/`. Ledger section §5.169.
+
+**Nothing this gate does is a material change** (X1): no macOS 26.5-keyed path, no
+profile document, no leaf, no constant, no fixture, no golden and no row of
+`results/matrix.json` moves. `freeze.py verify` reads **1,818 intact** at the
+gate's opening and at its close, the macOS 27 bed reads **230 gated cells / 786
+rows** throughout — exactly where §5.168 §6 pins it — and the frozen bed reads
+**229 / 1,107**. Nothing is re-read (X4): the holdout was read once by G1 and the
+only browser runs here are the two demo screenshot passes and the chain's own
+suites, each preceded by X6's machine reading. No native capture (X5).
+
+### 1. C1 adopted, in the form the parent ruled
+
+W32 Decision Log 1 (c), ruled at G0's close: **form (ii), per-span `T` over the
+admitted bands, ≤ 0.0042**. One clause in
+`packages/calibration/test/adopted-thresholds.test.ts` in M1 and M2's shape —
+twelve bounded cases, one per bed per span, plus two that hold the cut honest.
+
+**What it asserts.** The shadow axis fits an affine map of the backdrop,
+`y = a·bg + c`, per band and per direction strictly outside the declared contour.
+`a` is the transmission the exterior applies at that distance, so the sequence of
+`a` with distance is the falloff's SHAPE, read without assuming the profile is a
+blurred edge. `T` is the width-weighted mean of `|a_web − a_native|` over the
+admitted bands of direction `all`, in linear light; `L`, the same mean over the
+intercepts, is recorded beside it and is not bounded, because a shadow that
+removes less light and a shadow that adds some are different findings (W14 X7).
+The statistic, the exclusions, the population and the order statistic are exactly
+§5.162 §3's; the admitted band set per span is W32 G0's clearance rule.
+
+**The twelve readings at the cut this gate re-ran**, which reproduce §5.168 §7's
+to the digit:
+
+| bed | 96 | 128 | 160 |
+| --- | ---: | ---: | ---: |
+| 1x light | **0.00090** (10 cells, 0.00067–0.00149) | **0.00245** (7, 0.00123–0.00556) | **0.00134** (7, 0.00073–0.00275) |
+| 2x light | **0.00088** (10, 0.00066–0.00163) | **0.00253** (7, 0.00151–0.00537) | **0.00132** (7, 0.00084–0.00218) |
+| 1x dark | **0.00125** (9, 0.00104–0.00221) | **0.00348** (5, 0.00347–0.00433) | **0.00164** (7, 0.00084–0.00326) |
+| 2x dark | **0.00115** (9, 0.00093–0.00213) | **0.00391** (5, 0.00319–0.00475) | **0.00168** (7, 0.00097–0.00233) |
+
+The tightest row is 2x dark at span 128, with 7 % of the bound unused; the widest
+is 2x light at 96, with 79 %. The per-cell MAXIMA at span 128 are above the bound
+on the two light beds, which is why the clause is stated over the order statistic
+and why the count, the min and the max are in every failure message.
+
+**The cut is re-run at this gate and then re-derived from the matrix, and both
+halves are the clause.** §5.162 §9's finding B-1 asks the adopting gate to re-run
+`exterior-cut.py` into its own directory against the matrix it read its own bed
+at, and the case asserts `atDocuments: "shipped"` and `withHoldout: false`, the
+declared quantity, the band rule, the admitted band set per span and
+`CONTRIBUTING_CELLS` counted from the bed (10 / 7 / 7 on each light bed, 9 / 5 / 7
+on each dark one). That is the first half. The second is W31 G4's own lesson one
+row over: **a cut committed at a gate is a snapshot, and if it is also the only
+copy then a read that moves a row leaves the bound gating yesterday's bed in
+silence.** So the clause re-derives every reading it uses from
+`results/matrix.json` — the admitted-band rule applied to each row's own
+`clearance*`, the width-weighted mean over the bands that survive it, the span
+from `scenes.json`'s component declaration — in BOTH directions over the
+population, and refuses a cut that disagrees.
+
+**It discriminates, proved rather than asserted** (`cut-discrimination.txt`, five
+perturbations each restored before the next, the three files byte-identical
+afterwards with their SHA-256 printed):
+
+| perturbation | what went red |
+| --- | --- |
+| the ten 1x light span-96 cells pushed to `T` 0.0061 | the bound's own case and the re-derivation |
+| one cell's `T` moved away from the matrix, still inside the bound | **the re-derivation alone** |
+| span 160's admitted set widened to three bands under the cut | the provenance case, the re-derivation and all four span-160 rows |
+| an M2 cell moved 3 % off this gate's reference | M2, the cut case and the `MISSED_27_ROWS` owner |
+| **a bogus M2 excuse seeded for a cell that PASSES** | the owner case — Decision Log 4's own ask |
+
+**Candidate (i) is recorded and is not adopted**, which is the wave's headline
+number read one more time at the landing's own cut. `σ_web − σ_nat`, upper middle
+order statistic, WebGPU tier, active, non-holdout:
+
+| bed | span | σ native | σ web | σ_web − σ_nat | (i) |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 1x light | 96 / 128 / 160 | 8.796 / 13.138 / 17.317 | 11.364 / 15.133 / 18.980 | **+2.568 / +1.995 / +1.663** | 0.299 / 0.166 / 0.102 |
+| 2x light | 96 / 128 / 160 | 9.370 / 13.305 / 17.592 | 11.627 / 15.155 / 19.088 | **+2.257 / +1.850 / +1.497** | 0.241 / 0.148 / 0.087 |
+| 1x dark | 96 / 128 / 160 | 8.874 / 13.190 / 17.456 | 11.643 / 15.409 / 18.855 | **+2.769 / +2.219 / +1.399** | 0.302 / 0.165 / 0.085 |
+| 2x dark | 96 / 128 / 160 | 9.377 / 13.417 / 17.677 | 11.883 / 15.523 / 18.945 | **+2.506 / +2.107 / +1.268** | 0.257 / 0.153 / 0.075 |
+
+Against G0's before — +2.658 to +3.773 CSS px — the gap closes by 26–46 % at
+every bed and span and does not close. It stays OUTSIDE its declared ±5 % window
+on all twelve, stays a one-wave reading (§5.162 §5) and is gated by nothing.
+
+**The header's argument about the MATERIAL axis is amended beside, and the
+amendment's strongest clause is about what is still NOT gated.** The file has
+argued since W1 that the axis is not gateable on this fixture set on two grounds —
+below the capture's quantisation, or unidentifiable — and `C1` answers both with
+numbers: each band's `a` is a least-squares slope over thousands of exterior
+pixels, the native-pair reproducibility of that family is **0.002044** as a MAX
+over 432 cells, the bound is 2.1× that bar, and one leaf that had never been
+fitted moved the statistic 0.00843 → 0.00245 at span 128. **And §6.1's own
+sub-metric stays ungated**: candidate (i) IS a fitted-σ comparison, it was
+declared beside `C1`, it was halved by a wave chartered to close it, and it is
+still outside its window on all twelve rows. `C1` is adopted because it reads the
+falloff's shape without fitting a σ to it. It is stated on the WebGPU tier, the
+four standard beds, the active pose and the three thick spans alone; the CSS
+tier, the inactive pose, the two accessibility beds, the thin spans and `L` are
+all recorded and none of them bounded.
+
+`PREDICATE_EXCLUDES` does not move (nothing is re-read) and stands at the 67
+entries W32 G1's read left.
+
+### 2. B3, re-stated over the pixels it was supposed to be reading
+
+W32 Decision Log 3, **ruled (a) by the user 2026-09-22**. B3 is re-stated over the
+**admitted bands** (3–48 CSS px, per cell per direction by G0's clearance rule),
+**both poses**, on the WebGPU tier, as a **STOP** in W30's sense — read by script
+at every fit gate, not an adopted test row — over its own population unchanged:
+calibration + validation across all six macOS 27 profiles, **166 cells, 85 active
+and 81 inactive**, arithmetic mean of `|window departure web − window departure
+native|` per cell.
+
+**The bound, and the choice inside the rule.** W32 clause 2's rule is *the form's
+reading on the generation it is derived from, rounded UP to two significant
+figures*. The statistic reads **0.0000559626** at W32 G1's read, and
+`round_up_2sf` — W32 G0's `c1-forms.py`'s own function, copied byte for byte so
+C1 and B3 round through one implementation — gives **0.000056**. That is
+**0.07 % of headroom**, which is what the rule produced and not what this gate
+chose; C1 got 1.7 % at span 96 from the same rule on different digits, and the
+charter's own sentence about that applies here too.
+
+*Corrected beside, 2026-09-22 (§10, finding N1): C1's 1.7 % is a PRE-FIT figure
+and is not a live peer of B3's 0.07 %.* 0.00413 was 2x light's span-96 reading on
+the generation C1 was declared against; at the shipped bytes the same cell reads
+**0.00088**, which is **79 % of headroom**, and the tightest of C1's twelve rows
+is 2x dark at span 128 with **6.9 %**. B3's 0.07 % is a reading at the shipped
+bytes and C1's 1.7 % is not, so the two are not the same kind of number. The
+sentence they have in common still holds of B3 alone: the next gate that moves the
+exterior at all has to read this number deliberately.
+
+Clause 2 states the rule as *"the worst standard BED's span-96 order statistic"*
+because C1 is stated per bed and per span. **B3 is not**: W30 declared it as one
+pooled arithmetic mean over its whole population, the re-statement changes the
+pixel set and nothing else, so the form has exactly one value on the generation
+and "the worst" selects it trivially. The rule's other reading — the worst
+STANDARD bed — gives 0.000036 from 2x light and would be a bound derived over four
+profiles for a stop read over six, with the two accessibility beds (which hold the
+largest per-bed readings) inside the statistic and outside its bound. That is a
+different population, not a stricter bound. The per-bed decomposition is printed
+under every run so the pooled number cannot hide a bed.
+
+**The reading at the shipped bytes, with the superseded statement's last reading
+beside it** (`b3-stop.txt`, `departure-stat.txt`, both at the same generation):
+
+| population | n | B3, admitted bands | the whole exterior — the superseded form |
+| --- | ---: | ---: | ---: |
+| pooled — the stop | 166 | **0.00005596** against ≤ 0.000056, PASS | **0.00071581** |
+| active | 85 | 0.00010929 | 0.00063872 |
+| inactive | 81 | **0.00000000** | 0.00079672 |
+| 1x light / 2x light | 49 / 49 | 0.00003327 / 0.00003595 | 0.00097372 / 0.00047811 |
+| 1x dark / 2x dark | 21 / 21 | 0.00000842 / 0.00000502 | 0.00073307 / 0.00035255 |
+| 1x light reduced-transparency | 12 | 0.00019460 | 0.00096778 |
+| 1x light increased-contrast-coupled | 14 | 0.00023433 | 0.00094815 |
+
+The inactive half reads **exactly zero** over the admitted bands, which is
+Decision Log 2's stand-down as arithmetic: Apple removes no light there and
+neither does vitrea. The whole-exterior form's **0.00072** stays recorded as the
+superseded statement's last reading and is not rewritten anywhere.
+
+**What the re-statement does not do.** It does not touch the quantity the old
+statement was actually reading in the `0-3` band — **Apple's one-device-pixel
+contour stroke, which vitrea draws on neither pose** — and that keeps its own
+entry. *Re-stated 2026-09-22 at this gate's review closure (§10, finding B2). This
+paragraph read "the two quantities … the body's over-fill of its declared contour
+in the `0-3` band (§5.62) and Apple's one-device-pixel RECEDED contour stroke", and
+the arithmetic above is unaffected: the active half still went 0.00034 → 0.00072
+and the admitted-band form 0.00122 → 0.00006. What is corrected is the MECHANISM of
+the active half. It is not a vitrea over-fill cancelling an exterior excess; it is
+the same un-drawn stroke, present on the active pose as well as the receded one,
+read uncancelled once the exterior itself matched. `contour-stroke.txt` reads the
+band outward one device pixel at a time on 24 cells over six profiles: the native
+is 14–30 bytes darker at one device pixel and the two sides agree from two out,
+and the web is darker than the native nowhere in the band on any cell. So the
+`0-3` term is ONE rim term on both poses, not two terms one per pose.* And it
+does not make the stop spacious: at
+0.07 % of headroom the next gate that moves the exterior at all has to read this
+number deliberately. `b3-stop.py` prints the statistic, the bound and PASS/FAIL
+and exits nonzero on a fail, which is the difference between a stop and a table.
+The re-statement is recorded beside W30's Decision Log 3 (a) — its own declaration
+site — and both tracker entries close.
+
+### 3. M2's reference stops standing still, and the first per-wave table
+
+W32 Decision Log 4, **ruled by the user 2026-09-22**: the reference generation is
+re-baselined at **each gate that adopts a material change**. M2's reference here
+is the generation W32 G1 read — the rows the split moved to
+`results/superseded/49490eb9ff7a.json` (479 light) and `b5714a866288.json` (247
+dark), resolved through `superseded/index.json` exactly as W31's pre-fit pair was.
+**The 2 % does not move.**
+
+**The guard is inverted rather than dropped.** W31 G4 asserted that a baseline row
+carries NO chroma field, because `chromaStructureRatio*` entered the schema with
+that wave and a row carrying one was read after the leaf. This gate's reference is
+a generation read AT the leaf, so the same evidence points the other way: a
+baseline row that carries no chroma field is a pre-W31 generation wearing this
+gate's name, and it is refused. The cut's field is `interiorStdDevWebReference`
+and its key is `referenceGeneration`; the test's re-derivation of every figure
+from the matrix and from the named superseded files is unchanged.
+
+**The per-wave table the ruling asks the ledger for** (`m2-rebaseline.txt`, all 26
+gated cells at three generations; the per-wave column is what M2 bounds and the
+cumulative column is bounded by nothing):
+
+| profile | scene | pre-fit | W32 ref | now | per wave | cumulative |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| 1x dark | `photo__capsule-button__inactive` | 0.0098525 | 0.0099147 | 0.0100462 | +1.325 % | **+1.966 %** |
+| 1x dark | `photo__capsule-button__rest` | 0.0203373 | 0.0204260 | 0.0205248 | +0.484 % | +0.922 % |
+| 1x dark | `photo__rrect-md__inactive` | 0.0094567 | 0.0094577 | 0.0095521 | +0.997 % | +1.008 % |
+| 1x dark | `photo__rrect-md__rest` | 0.0159968 | 0.0160317 | 0.0160636 | +0.199 % | +0.418 % |
+| 1x light | `photo__capsule-button__inactive` | 0.0359419 | 0.0359085 | 0.0358148 | −0.261 % | −0.354 % |
+| 1x light | `photo__capsule-button__rest` | 0.0396036 | 0.0395541 | 0.0394979 | −0.142 % | −0.267 % |
+| 1x light | `photo__rrect-md__inactive` | 0.0443801 | 0.0443617 | 0.0442959 | −0.148 % | −0.190 % |
+| 1x light | `photo__rrect-md__rest` | 0.0486013 | 0.0485394 | 0.0485155 | −0.049 % | −0.177 % |
+| 1x light | `photo__rrect-ml__rest` | 0.0552932 | 0.0552687 | 0.0552536 | −0.027 % | −0.072 % |
+| 1x light | `photo__rrect-sm__inactive` | 0.0186722 | 0.0184262 | 0.0181541 | **−1.477 %** | **−2.775 %** |
+| 1x light | `photo__rrect-sm__rest` | 0.0234460 | 0.0233418 | 0.0231867 | −0.665 % | −1.106 % |
+| 1x light | `photo__toolbar-group__inactive` | 0.0655139 | 0.0654816 | 0.0652856 | −0.299 % | −0.348 % |
+| 1x light | `photo__toolbar-group__rest` | 0.0724684 | 0.0724112 | 0.0722627 | −0.205 % | −0.284 % |
+| 2x dark | `photo__capsule-button__inactive` | 0.0091887 | 0.0092251 | 0.0092952 | +0.760 % | +1.159 % |
+| 2x dark | `photo__capsule-button__rest` | 0.0167898 | 0.0168178 | 0.0168874 | +0.414 % | +0.581 % |
+| 2x dark | `photo__rrect-md__inactive` | 0.0104418 | 0.0104602 | 0.0105716 | +1.065 % | +1.244 % |
+| 2x dark | `photo__rrect-md__rest` | 0.0147546 | 0.0147976 | 0.0148370 | +0.266 % | +0.558 % |
+| 2x light | `photo__capsule-button__inactive` | 0.0388063 | 0.0387817 | 0.0387502 | −0.081 % | −0.145 % |
+| 2x light | `photo__capsule-button__rest` | 0.0369982 | 0.0369834 | 0.0369685 | −0.040 % | −0.080 % |
+| 2x light | `photo__rrect-md__inactive` | 0.0483583 | 0.0483224 | 0.0482781 | −0.092 % | −0.166 % |
+| 2x light | `photo__rrect-md__rest` | 0.0464008 | 0.0463719 | 0.0463553 | −0.036 % | −0.098 % |
+| 2x light | `photo__rrect-ml__rest` | 0.0548079 | 0.0548110 | 0.0547970 | −0.026 % | −0.020 % |
+| 2x light | `photo__rrect-sm__inactive` | 0.0175179 | 0.0173883 | 0.0172220 | −0.956 % | −1.689 % |
+| 2x light | `photo__rrect-sm__rest` | 0.0198079 | 0.0197136 | 0.0196102 | −0.524 % | −0.998 % |
+| 2x light | `photo__toolbar-group__inactive` | 0.0691898 | 0.0691621 | 0.0690893 | −0.105 % | −0.145 % |
+| 2x light | `photo__toolbar-group__rest` | 0.0679592 | 0.0679408 | 0.0678825 | −0.086 % | −0.113 % |
+
+Worst per-wave **−1.477 %**, worst cumulative **−2.775 %**, both on
+`photo__rrect-sm__inactive` at 1x light. **One number in it is what the ruling's
+own cost looks like**: 1x dark `photo__capsule-button__inactive` reads **+1.966 %
+cumulative**, a thirty-fourth of a percentage point from the bound M2 no longer
+measures, reached in the same two waves and in the opposite direction from the
+cell that missed. The drift is real, it is not one-signed, and this table is the
+only thing that will show it.
+
+**The miss is retired and its reading is kept.** W32 G1 recorded
+`texture / validation / photo__rrect-sm__inactive /
+apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta` at
+**0.02775 against ≤ 0.02** — M2's first since adoption. Against the generation G1
+actually read, the same cell moves −1.477 %, so the entry has nothing to excuse
+and is **deleted** rather than kept at a bound it now meets: the owner case
+asserts that the excused set IS the failing set, and an entry for a passing cell
+fails it as loudly as a missing entry for a failing one. The reading is not
+deleted — it is in the comment where the entry stood, in §5.168 §7, and in the
+table above. **And the owner case still reds on a bogus excuse**, which the ruling
+asks this gate to prove rather than assert: an excuse was seeded for
+`photo__rrect-md__rest` on 1x light, a cell that passes, the case went red, and
+the excuse was removed (`cut-discrimination.txt`, the fifth perturbation). The
+mechanism behind the original miss is still unnamed — W32 G1's review closure
+ruled the silhouette extractor out by measurement and the coverage-ramp candidate
+is a hypothesis in the tracker.
+
+### 4. The `/laws/` shadow stage, and the pin that is not a literal
+
+W32 Decision Log 1 (d), **ruled by the user 2026-09-22** from four shapes put to
+them: one caster on a structured ground with a span slider and a focus/recede
+toggle. A sixth section on `/laws/`, between the body law and the lens.
+
+**The stage.** One `GlassSurface` over the lens law's 16 px checkerboard — a
+structured ground, so the shadow reads as the transmission it is rather than as a
+wash — whose short side is the reader's, on a slider from **32 to 160**. It stops
+at 160 and not at the body slider's 288 because 160 is the widest caster Apple's
+material was captured over and the amplitude's three thick anchors are fitted AT
+96, 128 and 160; past it every number beside the control would be an
+extrapolation of a law nobody measured there. Beside it a two-position control for
+the window pose, which is owned in `laws/main.tsx` because a pose is a property of
+the ROOT, and which starts at `"auto"` so the page behaves exactly as it did until
+a reader pins it.
+
+**The numbers are the runtime's, and the endpoint is resolved by DIGEST.** Every
+other readout on the page evaluates the light active endpoint, which the shadow
+section cannot do because its second control is the pose and the two poses draw
+two different documents. So it asks the group what it drew:
+`GlassGroupState.materialDocument` carries `resolvedMaterialSha256` over the fully
+resolved material, and `endpointByDigest` looks that digest up among the selected
+document's four endpoints, composing a receded patch over its own scheme's active
+one because a receded document is a difference and never a whole material. A
+digest matching none of the four is a root built with some OTHER document, and the
+readout says so rather than printing numbers from an endpoint nothing drew.
+
+*Corrected 2026-09-22 (§10, finding N3): that sentence said the refusal detects an
+app that TUNED the material, and it cannot fire for that cause.*
+`root.ts`'s `resolvedMaterialDocument` builds its digest from the endpoint's own
+`resolvedMaterialSha256` and reports tuning in a separate `tuned` boolean, so a
+tuned material reports an untouched endpoint digest and matches. The readout now
+reads that flag and prints `<endpoint> — tuned by the app` when it is set, which
+is the reading the refusal was claimed to be. `law.ts`'s declaration site and the
+charter's G2 row carry the same correction. `shadowLaw`
+then evaluates `outerShadowSigmaPx`, `outerShadowUnderPolicy`,
+`outerShadowOcclusionAt`, `outerShadowFalloff` and `cssTierShadowAlpha` — the
+runtime's own functions on the runtime's own constants.
+
+**What it shows** (`laws-shadow-*.png`, four shots, the readout printed beside
+each):
+
+| | σ at the span | outset | offset | 3 px below | 12 px | 24 px |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| focused, span 96 | 8.96 px | 0.50 px | 7.95 px | 7.00 % | 3.33 % | 0.40 % |
+| focused, span 160 | 17.37 px | 0.50 px | 7.95 px | 16.93 % | 11.39 % | 5.04 % |
+| receded, either span | 8.96 / 17.37 px | 0.50 px | 7.95 px | **0.00 %** | **0.00 %** | **0.00 %** |
+
+The depth is read BELOW the contour because the shader evaluates the falloff on
+the field's signed distance at the position shifted by `offsetPx`, so a point `d`
+CSS px below sits `d − offsetPx − spreadPx` outside the shadow's own silhouette;
+reading it anywhere else would need a different expression per side. **The
+recede's zero is shown as the zero it is**: at the receded endpoint the six
+anchors and the lift are 0, `outerShadowDeclaration` resolves `"none"` and there
+is no outer entry in the `box-shadow` list at all, and the prose says what that
+measures — 121 of 121 inactive rows at a native transmission of exactly 1.000000 —
+and names the one-device-pixel contour stroke as the rim term this stage does not
+draw.
+
+**Its own pin, beside `laws.spec.ts`'s `body-shadow-sigma` case.** All four
+lengths are read out of the COMPUTED `box-shadow` — a browser reserialises the
+property with the colour first and every entry at four lengths, which is the trap
+W30 G4's closure hit — and asserted against the four rows at both ends of the
+span, plus two consequences a constant law would not have: the blur grades while
+the outset and the offset do not, and the thin caster's shadow is gone by 24 CSS
+px where the wide one is still 5 % deep. The receded half asserts **absence**
+rather than faintness, and that the group names the receded endpoint. Both are
+mutation-checked (`laws-pin-discrimination.txt`): dropping the 2σ convention from
+the blur row reds the span case, and putting a floor of 0.0004 under the depth
+reds both. **The demo suite is 61 e2e cases against §5.165 §7's 59** and 46 unit;
+the `laws` chunk goes 26.96 kB / gzip 8.67 → **33.90 / 10.52**. *Beside, 2026-09-22
+(§10, finding N4): the chain's own build log and the packed artifact read **33.85 /
+10.50** (`chain-build.txt`, `dist/assets/laws-DMYMuhne.js`). 33.90 / 10.52 was read
+off a build taken before this gate's last two commits; the log is the artifact and
+is the figure a reader should use. Both are kept.*
+
+**One thing the stage cannot do, recorded as a page decision.** A 16 px
+checkerboard makes the shadow's PRESENCE unmistakable and its GRADE harder to see,
+because the falloff is read across hard square edges. The readout carries the
+grade; a reader who wants to see it has to drag the slider. That is a property of
+the bed the stage inherited from the lens law, and it is on the Deferred list with
+the alternative named.
+
+### 5. The sheets, and the eye
+
+`eye.md` is written from **thirty-one sheets** (`sheets.ts`, `sheets.txt`) and
+three demo-beside-harness rows (`demo-sheet.py`), from the **canonical**
+`packages/calibration/web-captures/` — the tree the parent copied at G1's merge,
+so these are the pixels the committed rows beside them were measured off. The
+script asserts per cell that the capture names the SHIPPED document bytes, the
+receded document included, and refuses rather than photographing a stale one; all
+thirty-one passed that assertion. The bed is the landing's: `capsule-button` (44),
+`rrect-ml` (128) and `rrect-lg` (160) in both poses on all four standard
+profiles, `photo` where a profile declares it and the ladder's `checkerboard-8`
+where it does not, with the substitution NAMED; plus B-4's own three spans on 1x
+light and the accessibility band's four.
+
+**The verdict: nothing found stops the landing.** Every difference the eye found
+is already measured and already recorded, three of them with numbers this gate
+adds to.
+
+**(a) The exterior is out of the difference panel.** On the `photo` bed at every
+span on every standard profile the ΔE × 8 column is BLACK from the contour
+outward — no band, no halo, no falloff at eight times gain — and what is left is
+entirely inside the body: a bright ring on the contour and the interior's own
+structure and chroma. That is C1's twelve readings as a picture.
+
+**(b) The black floor, confirmed from a second direction and with its control.**
+§5.168 §10's finding B-4 is that over a backdrop pixel Apple renders as exactly
+(0,0,0) vitrea renders (1,1,1) — never more — and that a ΔE × 8 OKLab panel draws
+that one byte as a MID-GREY, because OKLab takes a cube root of linear light and
+its derivative diverges at zero. Every panel here carries the count beside it, and
+B-4's three spans reproduce **to the pixel** through a TypeScript reader sharing
+no code with `b4-black-floor.py`:
+
+| cell, 1x light | native-black exterior px | web at exactly 1 | above 1 | worst byte |
+| --- | ---: | ---: | ---: | ---: |
+| `checkerboard-8__capsule-button__rest` (44) | 29,330 | **0** | 0 | **0** |
+| `checkerboard-8__rrect-ml__rest` (128) | 17,532 | **2,188** | 0 | 1 |
+| `checkerboard-8__rrect-lg__rest` (160) | 9,440 | **3,334** | 0 | 1 |
+
+The panels say the same: a faint grey checkerboard in the exterior at 128 and
+160, and **pure black with no pattern at all at 44**, which is below
+`liftSpanMin` 64. `halo.txt` reads it from the other end over W29 G3b's
+far-exterior band (more than 12 CSS px outside the component's box, the same
+amplification), before and after:
+
+| cell | tier | 0.21.0 | shipped |
+| --- | --- | ---: | ---: |
+| `checkerboard__rrect-lg__inactive`, 1x / 2x light | WebGPU | 34.82 / 34.78 | **0.00 / 0.00** |
+| the same | CSS | 16.74 / 17.11 | **0.00 / 0.00** |
+| `checkerboard__rrect-lg__rest`, 1x / 2x light | WebGPU | 20.67 / 20.54 | 11.98 / 12.76 |
+| the same | CSS | 4.39 / 5.04 | 2.34 / 1.94 |
+
+The active pose halves and does not clear, and its maximum is **137.10** on every
+WebGPU row before and after — which is ΔE(OKLab) between sRGB (0,0,0) and (1,1,1),
+0.0672, times eight times 255. **The CSS tier, which cannot paint a lift at all,
+is five times cleaner in the same band on the same cells.** A tier that does not
+draw the term does not have the residual: that is the strongest evidence this gate
+has that what is left in the active far exterior is the lift's and not the
+shadow's, and it is a reading rather than a verdict. Nothing here moves
+`liftAmplitude`.
+
+**(c) Decision Log 2 closes on a number.** Every inactive sheet's ΔE × 8 column is
+black outside the contour edge to edge, and the far exterior of the holdout
+`checkerboard__rrect-lg__inactive` reads **0.00 mean and 0.00 max on both tiers
+and both scales**: vitrea's capture is byte-identical to Apple's out there. The
+tracker's far-halo entry measured 17.42 on the WebGPU sheet and 15.89 on the CSS
+one; both are zero. `demo-beside-harness-160-receded.png` is the same thing as a
+shape — Apple's inactive capture, vitrea's, the `/laws/` stage toggled to receded,
+and the site's material stage — with the checkerboard running up to the plate's
+edge on all four and no band under it anywhere.
+
+**(d) What the inactive sheets DO show, and where it is written down.** Apple's
+receded body is nearly opaque and vitrea's is not: on
+`checkerboard__rrect-lg__inactive` at 2x light the reference's plate passes almost
+none of the checker and vitrea's passes it plainly, `interiorStdDevNative`
+**0.01526** against `interiorStdDevWeb` **0.03705**, a factor of 2.43 the wrong
+way — where the same cell's ACTIVE pose reads 0.04622 against 0.03019, a factor of
+0.65. **The structure deficit reverses its sign with the pose.** This is claims
+§5.154's own recorded eye finding at W29 G3b, and the reason it recorded for not
+fitting it — no inactive calibration cell above span 96 to fit it on, and the
+cells that show it are holdout — **is weaker after this wave than before it**,
+because Decision Log 1 (b) widened the read set to nine inactive probe scenes at
+spans 128 and 160. It goes to the Deferred-at-close list with that said.
+
+Two more, both recorded before and both unmoved: the CSS panel on every `photo`
+sheet is visibly flatter and greyer in the body, which is W31's chroma decline on
+that tier; and every panel carries a bright ring at the contour, which is **Apple's
+one-device-pixel contour stroke standing un-drawn** — the term that stopped
+cancelling B3.
+
+*Re-stated 2026-09-22 at this gate's review closure (§10, finding B2;
+`contour-stroke.py`, `contour-stroke.txt`). That sentence read "the body
+over-filling its declared contour by 3.5–4 CSS px against Apple's ≤ 1", which has
+the sign and the width backwards on this bed. Read outward from the declared rect
+one DEVICE pixel at a time on the `photo` bed, the native is 14 to 30 bytes DARKER
+than the web at exactly one device pixel and the two agree to a fraction of a byte
+from two pixels out — on 22 of 24 cells over six macOS 27 profiles, both poses,
+both scales, the two exceptions being the dark beds' active capsule where Apple
+draws no stroke at all. The web is darker than the native nowhere in the band on
+any of the 24, which is what an over-fill would look like. §5.62's 3.5–4 CSS px
+stands where it was taken — W14, the macOS 26.5 material, the shape axis — and is
+not withdrawn; it is not what these bytes show.*
+
+### 6. The docs, and what each file CLAIMED before
+
+**`CLAUDE.md`, three paragraphs and a clause.** The Calibration paragraph ended
+*"Nothing yet checks the tree against the matrix automatically; that is a tracker
+entry"*, which has been false since W32 G0b; it now names
+`check-capture-tree`, its exit codes, what it checks — a GENERATION and not a
+capture, which is why the frozen macOS 26.5 tree reads as MATCHING — why it is not
+wired into `pnpm -r test`, and the
+`web-captures-superseded/<active-document-sha>/` sidecar the replaced generation
+moves to. The adopted-rows paragraph claimed the material axis carries **two**
+rows; it carries three, and the amendment beside it now also says why the
+sub-metric §6.1 calls unidentifiable is STILL not gated. The operators paragraph
+claimed **two** of the material's operators are functions of the surface and said
+nothing about the shadow's other two lengths, which it left looking like
+constants nobody had questioned; it now carries them as fitted values with `C1`
+named as what bounds them and nothing pinning them as numbers, and a paragraph on
+the receded documents casting no exterior at all. And the sentence claiming the
+selected document is on `GlassRootHandle` "in React" is qualified: it is, and the
+hook that returns it is not exported.
+
+**`packages/platform-web/README.md`** already carried W32 G1's four-digest
+paragraph; it gains a 0.22.0 entry in the release list, which ran
+0.19.0 → 0.20.0 → 0.21.0 and stopped. **`packages/react/README.md` carried two
+false claims.** Its window-activation section said the macOS 27 receded material
+**keeps** its outer shadow — true of what vitrea drew and false of the reference,
+and false of vitrea from 0.22.0 — corrected with the superseded sentence quoted.
+And it told applications to `import { useGlassRootHandle } from
+"@vitreajs/vitrea-react"`, **a symbol the package does not export**: it exports the
+`GlassRootHandle` TYPE and `useGlassRoot`, which returns the `GlassRoot`. That
+import has thrown since it was written, in the 0.20.0 and 0.21.0 READMEs as
+published, and it was found by building against it — the `/laws/` stage needed
+exactly the capability the paragraph promises. The correction documents the route
+that works, which is matching the digest the group state reports against the
+document the root was built with, and names the one-line export as the shape of
+the fix rather than making it: a public-surface addition is not a fidelity
+release's to decide. Tracker entry with the design question under it.
+
+**The CHANGELOGs** are `changeset version`'s output from W32 G1's changeset,
+consumed as it stands.
+
+**The coverage matrix, re-scored after W32: no row moves**, on W30's own argument
+— a matrix that moved a row for a better fit of a replicated behaviour would score
+accuracy where it scores coverage. What changes is §1.7's recorded limit
+(`MISSED_27_ROWS` re-counted at **eight**, with M2's retired by re-baseline rather
+than by a fix) and a FINDING recorded beside the W29 re-score: its *"a receded
+surface now keeps its outer shadow, where the macOS 26.5 endpoint removes it
+entirely"* was true of vitrea and false of the reference. Three rows checked and
+held with the distance named, including §3.5's *light bleeds into the shadow*,
+which the black floor points AWAY from rather than toward. Tally unchanged at
+**46 of 156 scoreable rows, 29.5 %** — the fourth consecutive fidelity wave to
+move the material and not the coverage.
+
+### 7. The chain, per suite
+
+Serial, one browser at a time, each browser step preceded by a machine-settings
+reading that refuses under an accessibility policy Playwright cannot record.
+`chain-status.v2.txt` is the MACHINE's exit codes and this table is written from
+it. **The chain ran twice and both runs are disclosed**, which is W30 G4's own
+precedent: the first was red on one step, the defect it found is real and is fixed
+in the commit after it, and the second run is at the fixed head.
+
+RUN 1 — RED ON `lint`, AND THE FAILURE IS A FINDING. `apps/demo`'s type-check
+refused `src/laws/law.ts`'s `import type { ResolvedMaterialPolicy } from
+"@vitreajs/vitrea-web"`: that type is **core's**, and neither
+`@vitreajs/vitrea-web` nor `@vitreajs/vitrea-react` re-exports it, so a page that
+needs to name the material half of the resolved accessibility policy cannot
+import it. Nothing was wrong with the arithmetic — `vite` strips types, so the
+built page, the demo e2e suite and the four stage screenshots taken before the
+chain are unaffected — and the fix takes the type from the signature that
+consumes it (`Parameters<typeof outerShadowUnderPolicy>[1]`), which cannot drift
+from what the runtime applies. It is the second of two API-surface gaps this gate
+found by building against the package rather than reading about it; the other is
+the React README's import, §6.
+
+
+RUN 2 — GREEN END TO END, at the head after the fix, **thirteen steps of thirteen
+at exit 0**:
+
+| step | result | log |
+| --- | --- | --- |
+| `freeze.py verify` (open) | **26.5 freeze intact: 1818 entries** | `chain-freeze-open.txt` |
+| `check-capture-tree` | **1,900 captures, 1,893 match, 0 mismatch, 0 misfiled, 0 superseded, 0 unreadable, 7 no-row, exit 0** — "the tree and the working matrix name the same generation everywhere they meet". The seven with no row are the frozen macOS 26.5 extras G0b's own run reported | `chain-capture-tree.txt` |
+| `pnpm -r build` | exit 0 | `chain-build.txt` |
+| `pnpm -r lint` | exit 0 | `chain-lint.txt` |
+| `npx eslint .` (root) | exit 0 | `chain-eslint-root.txt` |
+| `pnpm -r test` | **2,698 passed over 186 files, 0 failed** across nine suites (policy 23, motion 164, geometry 170, renderer-webgpu 561, core 302, platform-web 631, react 169, calibration **632**, demo 46) | `chain-units.txt` |
+| `@vitrea/renderer-webgpu test:golden` | **34 passed**, byte-identical, no regen | `chain-goldens.txt` |
+| `@vitrea/renderer-webgpu test:gpu` | **48 passed** on a hardware adapter | `chain-gpu.txt` |
+| `@vitreajs/vitrea-web` Playwright | **410 passed**, 0 failed — chromium, firefox, webkit and the real-adapter GPU project | `chain-platform-web.txt` |
+| `@vitreajs/vitrea-react` Playwright | **174 passed, 3 skipped, 0 failed** on three engines | `chain-react-e2e.txt` |
+| `demo` Playwright | **61 passed**, 0 failed — 59 at §5.165 §7 plus this gate's two | `chain-demo-e2e.txt` |
+| the 27 gated-cell count | **230 cells / 786 rows**; the frozen bed **229 / 1,107**; `PREDICATE_EXCLUDES` unmoved at 67 | `chain-gated-count.txt` |
+| `freeze.py verify` (close) | **26.5 freeze intact: 1818 entries** | `chain-freeze-close.txt` |
+
+The calibration suite is **632 against §5.168 §8's 618**: C1's fourteen cases —
+two that hold the cut honest and twelve bounded — and nothing else. Every other
+suite's count is unmoved except the demo's, which is 61 against 59 for the two
+cases the `/laws/` stage brought.
+
+*Beside, 2026-09-22 (§10): the review closure moves this table's unit row once
+more.* Decision Log 5 adds five React cases, so the suite runs **2,703 over 187
+files** at the closure's head — react **174** against the 169 above, every other
+count unmoved — and the demo e2e's `laws` file re-ran on its own at **10 of 10**
+after finding N3's readout change, with X6 read before it (`laws-e2e-n3.txt`; the
+readings file is at **sixteen**). Both totals are kept: 2,698 / 186 is what the
+chain read at the cut, and 2,703 / 187 is what the branch carries into the merge.
+
+**The React suite is GREEN at this cut**, as it was at 0.21.0's and unlike
+0.17.0 through 0.20.0, each of which published with the tracker's standing
+driver-timing class disclosed. Nothing was done to that class here — it is a run
+that did not hit it rather than a fix — and the entry is unchanged.
+
+**X6 on every browser run** (`browser-runs.txt`, **fourteen readings**: four for
+this gate's own work — the `/laws/` pin, the stage shots, the demo suite's count
+and the site's material stage — and five for each of the two chain runs). Every
+one reads RT **0**, IC **0**, `NSGlassTintAmount` **0.5**. One honesty note about
+that file rather than about the machine: the `/laws/` pin was iterated between
+20:20 and 20:24 while the case and its two seeded defects were written, and those
+iterations are bracketed by the file rather than each recorded — the readings on
+either side of the window are identical and the pin's authoritative run is inside
+the chain's own bracketed `demo-e2e` step, where it is one of the 61. The
+mutation results are committed at `laws-pin-discrimination.txt`.
+
+`record-machine.sh` reads three values and writes no OS version and no build
+string, as §5.165 §7's own correction records; no machine string is claimed here.
+
+*Disclosed beside, 2026-09-22 (§10, finding N7): X6 has a second half and this
+gate recorded none of it.* The contract asks for the capture machine's state —
+one capture process and at least sixty seconds of idle before a run — as well as
+its accessibility settings. `record-machine.sh` reads `reduceTransparency`,
+`increaseContrast` and `NSGlassTintAmount`, refuses on the first two, and reads
+**nothing about the process table or the idle time**; the fourteen readings in
+`browser-runs.txt` therefore attest the accessibility half alone. Nothing here
+turns on it — no native fixture is captured at this gate (X5) and the web side is
+deterministic, which is the whole reason a browser run can be re-run and compared
+— but the readings should not be read as attesting more than they measure. The
+process half **has** been read before, on the capture path rather than here: W31
+G0's `scratch-capture.sh` counts `pgrep -f 'playwright' | wc -l`, and §5.162 §3's
+own note records the failure mode a later copy hit (BSD `pgrep` exits 1 on an
+empty match, which under `pipefail` and `set -e` kills the script silently). So
+what would close it is those lines moved into `record-machine.sh` with that
+swallow kept, and the gate that moves them owns the question the count does not
+answer: what "one capture process" means on a machine running a Playwright worker
+pool.
+
+
+### 8. The cut
+
+`pnpm changeset version` consuming W32 G1's `.changeset/w32-shadow-exterior.md` —
+the only changeset under `.changeset/`, corrected at that gate's review closure
+and consumed here as it stands — takes the `fixed` group to **0.22.0**:
+`@vitreajs/vitrea`, `@vitreajs/vitrea-web` (the minor) and
+`@vitreajs/vitrea-react`.
+
+**The publish rehearsal at 0.22.0, clean** (`dry-run.txt`): `pnpm publish
+--dry-run` on all three packages, then the thing npm would get wrong read off the
+packed tarballs rather than assumed — `@vitreajs/vitrea-web`'s dependency reads
+`workspace:^` in the repo and **`^0.22.0`** in the artifact, and
+`@vitreajs/vitrea-react`'s reads `^0.22.0` for both. `LICENSE`, `NOTICE` and a
+README in each; core **583,443 B**, web **567,784 B**, react **187,860 B**
+against 583,444 / 564,886 / 186,783 at 0.21.0.
+
+*Re-run 2026-09-22 at this gate's review closure, because Decision Log 5 gives the
+React package a source change after the cut (§10).* Same script, same
+verdict — three dry runs clean, `workspace:^` rewritten to `^0.22.0` in both
+dependents, `LICENSE` / `NOTICE` / `README.md` in each. Core and web are
+**byte-identical at 583,443 and 567,784**; react is **188,179 B** against the
+187,860 above, which is the one exported symbol, its doc comment and the README's
+restored paragraph. The package's export count goes **37 → 38**, read off the
+built `dist/index.js` rather than counted by hand, and 37 is the number 0.21.0's
+cold install verified (c9d, the 0.21.0 row). Both readings of the tarball are
+kept; `dry-run.txt` holds the second.
+
+**The four macOS 27 document digests this release carries** are the four W32 G1
+sealed — `40a6dec2dc34c748` (light), `bd1814fac34f9b30` (dark),
+`f34dcc03e2774db3` (light receded) and `6b6237b7ae241638` (dark receded) — over
+files whose own content hashes are `d5bdd6eac432`, `431cabd391c4`,
+`45acb6d916b9` and `4e68f81869f6`. The two frozen macOS 26.5 documents report
+their own recorded fields, `b2b570e4adcea8fb` and `874be66ea501621b`, unchanged.
+
+**Unpublished.** `pnpm release` is the user's hand — npm holds the second factor
+— and the tag `v0.22.0` follows it. What the rehearsal does NOT rehearse is
+unchanged from §5.165 §7's record and is not re-stated: `changeset publish` is
+never invoked, not even in a dry mode, so the step that decides which packages go
+and in which order has not been exercised since 0.1.0, on a `@changesets/cli`
+pinned at 3.0.1 that has not moved under the gap.
+
+### 9. What this gate does not claim
+
+It adopts **one** row and declines the other candidate by name: candidate (i) is
+outside its declared window on all twelve bed × span rows and is recorded, not
+gated, and the header's amendment says that is §6.1's own argument holding rather
+than being overturned. It re-states two stops and **widens neither bound's
+value** — B3's new number is clause 2's rule applied to the bed at G1's read and
+M2's 2 % does not move — and both superseded statements keep their last readings.
+It re-reads nothing (X4), captures nothing but the demo screenshots and the
+chain's own suites (X6, read before each), moves no macOS 26.5 byte, no profile
+document, no leaf and no fitted value (X1, X5, X10), and the digests
+`root.material` reports are the four W32 G1 sealed.
+
+It claims nothing about the black floor's cause — a tier that cannot paint a lift
+is five times cleaner in the same band, which is evidence and not a verdict, and
+`liftAmplitude` is not moved. It claims nothing about the receded body's
+structure except that the bed to fit it on now exists. It claims nothing through
+the eight rows in `MISSED_27_ROWS`. And it does not publish or tag.
+
+### 10. Review closure, on the branch and before the merge (2026-09-22)
+
+An independent review of `w32-g2-landing` against `main` at `e8dbbe4b`. It
+reproduced what this section records and found **no measurement wrong and nothing
+to re-capture, re-fit or re-read**; what it found was two records that state a
+residual backwards, ten smaller gaps, and one API decision that belonged to the
+user. **Two blocking findings and ten non-blocking, all twelve closed**, plus
+**Decision Log 5**, ruled by the user at this gate's close and executed here.
+
+**Nothing is withdrawn and no statistic moves.** Every correction is beside the
+text it corrects and dated; no recorded number is rewritten; no material, profile
+document, leaf, fixture, golden or row of `results/matrix.json` moves; no capture
+is taken beyond one re-run of the demo's `/laws/` suite, with X6 read before it.
+`freeze.py verify` reads **1,818 intact** at the closure's open and close, the
+macOS 27 bed **230 gated cells / 786 rows** and the frozen bed **229 / 1,107**,
+`PREDICATE_EXCLUDES` unmoved at 67, and the chain is green at **2,703 unit tests
+over 187 files** — 2,698 over 186 plus Decision Log 5's five React cases.
+
+**B1 — the frozen macOS 26.5 receded material draws no shadow, and three records
+on this branch said it does.** `CLAUDE.md`'s material paragraph ended *"The frozen
+macOS 26.5 receded material draws the same wrong shadow it always did and stays as
+it is"*, the charter's Decision Log 2 carries the same sentence, and Deferred item
+8 chartered a **freeze ruling and a re-read of the 1,107 frozen rows** to fix it.
+There is nothing to fix. `packages/platform-web/src/receded-profile.ts` sets all
+eight `outerShadow` leaves of the shared 26.5 receded block — the six occlusion
+anchors, `liftAmplitude` and `reducedTransparencyOcclusion` — to **0**, and has
+since W27c; `receded-profile-export.test.ts` pins them; and the committed rows
+read it, `shadow.meanDepartureWeb` meaning **0.000039** over the 235 frozen
+inactive WebGPU rows against **0.012208** over the 318 active ones (native
+0.000223 against 0.012192). So the 26.5 recede removes no light on either side and
+this wave's stand-down is a macOS 27 change alone. `CLAUDE.md` now says what the
+code holds; Decision Log 2 keeps its text with a dated correction beside it, since
+it is where the claim started; Deferred 8 is re-stated as **NO WORK**. One
+consequence worth stating: the "a tracker entry records it" that sentence promised
+was never written and is **not owed**.
+
+**B2 — the `0-3` band's residual is Apple's contour hairline standing UN-DRAWN,
+not vitrea over-filling its contour. Opposite sign, and a quarter of the width.**
+Every W32 record that named the band named it as *"vitrea's body over-fills its
+declared contour by 3.5–4 CSS px against Apple's ≤ 1 (§5.62)"*. §5.62 measured
+that at W14, on the macOS 26.5 material, through the shape axis. It is not what
+the macOS 27 bytes show. `contour-stroke.py` (this gate's directory) reads the
+band outward from the declared rect **one DEVICE pixel at a time** along the four
+straight edges, on the `photo` bed at spans 44 and 160, both poses, over all six
+macOS 27 profiles — 24 cells:
+
+| offset from the declared rect | what the bytes do |
+| --- | --- |
+| **1 device px** | native **14 to 30 bytes darker** than the web, on **22 of 24** cells |
+| **2 to 6 device px** | the two agree to a fraction of a byte on the four standard beds |
+| anywhere in the band | the web is darker than the native on **0 of 24** |
+
+At 2x the stroke is still **one DEVICE pixel**, so it is half a CSS pixel rather
+than three and a half of them; it is on the ACTIVE pose as well as the receded
+one; and it is on the two accessibility beds as well as the four standard ones. So
+it is neither a CSS-px term nor receded-only, and the `0-3` band is **one rim term
+on both poses** rather than two terms one per pose. The two exceptions are the
+dark standard beds' active capsule, where Apple draws no stroke at all — recorded
+rather than explained. The literal transect, `photo__rrect-lg__rest` at 1x light,
+row y=100: the two captures are equal byte for byte from x=12 to x=18; at x=19,
+the last exterior pixel, the native reads **(20, 124, 8)** against the web's
+**(54, 196, 25)**; x=20 is the first body pixel.
+
+**What B2 does and does not move.** B3's arithmetic is untouched — 0.00029 →
+0.00064 active, 0.00039 → 0.00080 inactive, 0.00122 → 0.00006 over the admitted
+bands — and so is the conclusion that B3 broke by losing one side of a
+cancellation; what changes is the MECHANISM of the active half, which is the same
+un-drawn stroke read uncancelled once the exterior matched. §5.62 is **not
+withdrawn**: it stands on the material and through the instrument it was taken
+with, and a silhouette wave is still free to read it there. Re-stated at every
+site this branch wrote — `eye.md` §4 and §4b, §5.169 §2 and §5 above, the W30
+declaration-site note, the charter's Deferred item 3 (re-chartered as ONE rim
+term) and Decision Log 3 (beside, dated) — and the tracker's hairline entry is
+widened from the receded pose to both with the probe numbers.
+
+**The ten non-blocking findings, all closed.**
+
+| # | what it was | where it closed |
+| --- | --- | --- |
+| N1 | C1's "1.7 % of headroom at span 96" is a **pre-fit** figure, quoted as a live peer of B3's 0.07 %. At the shipped bytes 2x light span 96 reads **0.00088** — **79 %** of headroom — and the tightest of C1's twelve rows is 2x dark at span 128 with **6.9 %**, so the clause's stated protection *"a fit that buys span 128 by widening span 96 fails"* is **false today** | `adopted-thresholds.test.ts`'s C1 header, §5.169 §2, the tracker's B3 closure — all beside |
+| N2 | **B3's bound has no instrument bar** where C1's is 2.1× the native-pair noise bar. The nearest relative in W29 G3b's `noise-bar.json` — `shadowMeanDepartureDelta`, per-cell max **0.00006605** over 624 cells — **exceeds B3's whole bound** of 0.000056. The position recorded: the bound stands as the rule's literal output (Decision Log 3 (a), *"the number is a rule's output, not this wave's choice"*), 0.07 % is where the two-significant-figure boundary fell, no bar exists for the admitted-band form, and the stop does not red on noise — frozen native fixtures, a deterministic web side, a script stop | Deferred **16**: measure a repeatability bar for the admitted-band departure and re-derive B3 against it. A re-pin is the user's, with this evidence |
+| N3 | `endpointByDigest` **cannot detect a tuned material**, and three records claimed that refusal. `root.ts:1252-1271` builds the digest from the endpoint's own `resolvedMaterialSha256` and reports tuning in a separate `tuned` boolean | `law.ts`'s declaration site, §5.169 §4 and the charter's G2 row all now say what it detects — a root built with some other document — and the `/laws/` readout reads the flag, printing `<endpoint> — tuned by the app`. Demo `/laws/` suite re-run **10 of 10**, X6 read before it. Deferred **20** carries the pre-mount reading |
+| N4 | the `laws` chunk recorded at **33.90 kB / gzip 10.52**; `chain-build.txt` and the packed artifact read **33.85 / 10.50** | §5.169 §4, beside; both kept |
+| N5 | `/laws/` has **six** sections and three places said five — the page lead, `apps/demo/laws/index.html`'s `<meta name="description">` and `apps/demo/README.md` | all three corrected |
+| N6 | both macOS 27 `*-receded.json` `measurement` blocks read `"status": "measured — the recede no longer removes the shadow"` / `"previous": "every amplitude leaf zero"` while **every leaf is 0** | recorded as stale rather than annotated — see below |
+| N7 | X6 has a second half — one capture process, ≥ 60 s idle — and `record-machine.sh` reads none of it, so the readings attest the accessibility half alone | disclosed in §5.169 §7, beside the OS/build note, with the place the process count already exists (W31 G0's `scratch-capture.sh`) named as what a later gate moves in |
+| N8 | `eye.md` cited a **CSS-tier** `MISSED_27_ROWS` entry (0.20095) to explain a **WebGPU** panel; the WebGPU rows for that cell cleared at W31 G3 and read **0.14655 / 0.14505** against ≤ 0.17, inside bound | `eye.md` §1, corrected with both readings kept |
+| N9 | nothing proposes **re-pinning C1** at the shipped bed, where the bound is **4.8×** the reading it was derived from | tracker entry with the rule that would produce one (**0.0013 / 0.0040 / 0.0017** per span) and the two questions it raises; Deferred **17** |
+| N10 | an unrecorded macOS 27 gap: reduced-transparency `photo__capsule-button__rest` reads `interiorMeanNative` **0.96841** against **0.88872** (WebGPU) and **0.88505** (CSS) — the largest at that cell on any macOS 27 profile, on **both** tiers, so it is the level and not a tier's compositing. Only the STRUCTURE half of that residual is recorded on the 27 bed | tracker entry with the numbers; Deferred **18**, folded into the accessibility fit item 10 already names |
+
+**N6 in full, because the reason it is recorded rather than fixed is a trap
+worth knowing.** The obvious correction is a `$comment-w32-g2-provenance` key
+beside the stale block, which those two documents already carry three times. It
+cannot be used here. A profile document's twelve-hex identity is `sha256` over
+**the whole file** — `material-profile-file.ts`'s own comment says so, *"hashed
+over the file, not the extracted sections… provenance included"* — and that
+string is written into every capture's `capturePath` and therefore into every
+committed row's KEY. Adding one key moves it, measured rather than assumed:
+**45acb6d916b9 → 664f455a55bd** (light) and **4e68f81869f6 → de6a7e2b1808**
+(dark). Every inactive row of `results/matrix.json` would then name a receded
+document no file on disk has; `check-capture-tree` would exit 1 and `sheets.ts`
+would refuse to photograph a stale capture, which is the refusal it exists to
+make. **`resolvedMaterialSha256` would NOT move** — the seal is over the resolved
+material, not over the file — so the export tests and `freeze.py verify` would
+stay green while the generation the rows were read at stopped existing. That is
+why the three existing annotations were each added at a gate that RE-READ the bed
+and each says *"the rows read at THESE bytes"*. The bytes are left alone; the
+staleness is recorded here, in the tracker and at Deferred **19**. The two "the
+recede keeps the outer shadow" sentences in W30's own spec are corrected beside,
+dated, on the same finding.
+
+**Decision Log 5 — `useGlassRootHandle` is exported, ruled by the user.** G2 found
+by building against the published packages that the React README has told
+applications to `import { useGlassRootHandle } from "@vitreajs/vitrea-react"`
+since 0.20.0 and that the symbol is internal, so that import threw in the 0.20.0
+and 0.21.0 READMEs as published; G2 corrected the README and left the export as
+the user's, since it is public surface. **Ruled: export it in 0.22.0.** One line
+in `src/index.ts`; `test/root-handle-export.test.tsx`, five cases through the
+package's own entry point — the export resolves, the handle's
+`materialProfileDocument` is the document the root SELECTED (asserted on the
+non-default document, so a test reading the package default could not pass), the
+default when none is named, the document present on the FIRST render while `root`
+is still `null`, and a throw outside `<GlassRoot>`; the README's original
+paragraph and import restored with G2's correction kept beside as the record of
+what 0.20.0 and 0.21.0 shipped; and a **hand-written** CHANGELOG entry under
+0.22.0 (Minor Changes), because the version was already cut and a new changeset
+file would re-bump the fixed group. Deferred item 13 closes beside; the reviewer's
+caveat is kept as Deferred **20** — the export hands an app the SELECTION, and a
+`root.material`-shaped reading of what DREW, available before the first frame, is
+what the honesty core implies and what `GlassToolbar` actually needs. The
+rehearsal was re-run for it and its readings are in §8 above.
+
+**The verification, at the closure's head.** `pnpm -r build` exit 0; `pnpm -r
+lint` exit 0 and root `npx eslint .` exit 0; **2,703 unit tests over 187 files, 0
+failed** (react **174** against 169, everything else unmoved); the three profile
+export tests **19 of 19** and `platform-web`'s publish-shape **9 of 9**;
+`freeze.py verify` **1,818** at open and close; the gated count **230 / 786** and
+**229 / 1,107**; the demo `/laws/` suite **10 of 10** with X6 read before it; and
+the publish rehearsal clean at 0.22.0 with `workspace:^` rewritten. Nothing is
+published and nothing is tagged.

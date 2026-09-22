@@ -13,7 +13,11 @@
  * prop, so it has to be there before the first frame.
  */
 
-import { GlassRoot, type AccessibilityOverride } from "@vitreajs/vitrea-react";
+import {
+  GlassRoot,
+  type AccessibilityOverride,
+  type GlassWindowActivation,
+} from "@vitreajs/vitrea-react";
 import { StrictMode, useState, type ReactNode } from "react";
 import { createRoot } from "react-dom/client";
 
@@ -33,13 +37,27 @@ function LawsRoot(): ReactNode {
   const [reducedTransparency, setReducedTransparency] = useState<AccessibilityOverride>(
     INITIAL_REDUCED_TRANSPARENCY,
   );
+  /*
+   * The window pose, held here because it is a root property: the shadow section
+   * asks for a change and this is where it is applied, the same shape the
+   * reduce-transparency override already has. It starts at `"auto"` so the page
+   * follows the real window until a reader pins it, which is what the shadow
+   * section's own control says it does.
+   */
+  const [windowActivation, setWindowActivation] = useState<GlassWindowActivation>("auto");
 
   return (
-    <GlassRoot renderer={REQUESTED_RENDERER} reducedTransparency={reducedTransparency}>
+    <GlassRoot
+      renderer={REQUESTED_RENDERER}
+      reducedTransparency={reducedTransparency}
+      windowActivation={windowActivation}
+    >
       <Laws
         requestedRenderer={REQUESTED_RENDERER}
         reducedTransparency={reducedTransparency}
         onReducedTransparencyChange={setReducedTransparency}
+        windowActivation={windowActivation}
+        onWindowActivationChange={setWindowActivation}
       />
     </GlassRoot>
   );

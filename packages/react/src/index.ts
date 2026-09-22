@@ -82,7 +82,28 @@ export {
   type GlassSegmentedControlProps,
 } from "./controls/segmented-control";
 
-export { useGlassRoot, type GlassRootHandle, type RecordedDiagnostic } from "./context";
+/**
+ * `useGlassRootHandle` is exported from 0.22.0 (W32 Decision Log 5, ruled by the
+ * user). It returns the handle itself rather than the runtime, which is the only
+ * route to `materialProfileDocument` — the document the root SELECTED, readable
+ * on the first render, before the mount effect has built the runtime. That is
+ * what `GlassToolbar` derives its gap from, and the README has told applications
+ * to reach it this way since 0.20.0 while the symbol was internal; that import
+ * threw in two published READMEs and this line is what makes the paragraph true.
+ *
+ * It hands an app the SELECTION. The stronger reading — the endpoint that
+ * actually DREW, its digest and whether an app has tuned it — is
+ * `GlassGroupState.materialDocument` through `useGlassCapabilities`, and it is
+ * not available before a frame has resolved a group. Both are documented; which
+ * one an app wants depends on whether it must produce a number before the first
+ * frame (W32 Deferred 20).
+ */
+export {
+  useGlassRoot,
+  useGlassRootHandle,
+  type GlassRootHandle,
+  type RecordedDiagnostic,
+} from "./context";
 export { GLASS_CHANNEL_PROPERTIES } from "./interaction";
 export {
   PlanePortal,

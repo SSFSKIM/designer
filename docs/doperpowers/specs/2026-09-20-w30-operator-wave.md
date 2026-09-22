@@ -240,6 +240,19 @@ profiles' rows between the two reads); it does not re-open the level law's absci
   the cell whose own native σ is the profile's only span-160 reading.
 - **The recede.** On macOS 27 the recede keeps the outer shadow (§5.154 §5), the receded documents
   carry their active document's `outerShadow` block leaf for leaf, and the receded pose's far-exterior
+
+  > **Corrected beside, 2026-09-22 (W32 G2 review closure; claims §5.169 §10, finding N6).** Two
+  > sentences in this bullet read as claims about macOS 27 and are claims about **vitrea**. Apple's
+  > macOS 27 recede does NOT keep the outer shadow: it removes no light at all from 3 CSS px
+  > outward, the native transmission reading exactly 1.000000 on 121 of 121 non-holdout inactive
+  > rows and 153 of 153 with the holdout, and the capture byte-identical to the backdrop from 2
+  > device px out (W32 G0, claims §5.166 §7). What kept a shadow in the inactive pose was the
+  > second sentence — the receded documents carrying their active document's `outerShadow` block
+  > leaf for leaf — and W32 Decision Log 2 sets those amplitudes to **0**, so from 0.22.0 that
+  > sentence is false of vitrea too. The far-exterior numbers this bullet quotes (17.42 WebGPU /
+  > 15.89 CSS) are the measurement of the defect and stand; at the shipped bytes the same band
+  > reads **0.00 / 0.00** (claims §5.169 §5). Nothing else in the bullet moves: the bed's gap —
+  > no non-holdout inactive cell above span 96 — is still what it says it is.
   difference at span 160 is 17.42 (WebGPU) / 15.89 (CSS) against ≤ 5.92 on any active strip — the old
   halo, still there, on the pose whose shadow the σ law re-shapes at exactly that span (tracker: "The
   macOS 27 recede's exterior is unfitted above span 96"). The law is expected to narrow it, since the
@@ -736,6 +749,26 @@ declarations — the part the wave is judged against. Ruled, for the review clos
   tier's mean absolute exterior departure over the non-holdout cells of all six profiles, 0.00035
   today, held at or better by G3's sealed fit**, with the both-tier figure (0.00079) recorded beside
   as the CSS tier's reading. The correction is recorded beside §5.154 §3 and §4, not over them.
+
+  > **Re-stated again 2026-09-22, beside this, by W32 Decision Log 3 (a) as RULED by the user;
+  > executed at W32 G2 (claims §5.169 §2).** The statistic above reads the WHOLE exterior, which
+  > includes the `0-3` band, where Apple draws a one-device-pixel stroke at the contour that vitrea
+  > draws on NEITHER pose. *(Corrected beside, 2026-09-22, at the same gate's review closure —
+  > claims §5.169 §10, finding B2. This sentence first named two terms, "vitrea's body over-fills
+  > its declared contour on the active pose and Apple's receded exterior is a one-device-pixel rim
+  > stroke on the inactive one". `contour-stroke.txt` reads the band outward one device pixel at a
+  > time on 24 cells over six macOS 27 profiles and finds the native 14–30 bytes DARKER at one
+  > device pixel on 22 of them, both poses, with the two sides agreeing from two pixels out and the
+  > web darker than the native nowhere in the band. It is one rim term on both poses, and the
+  > arithmetic below does not move.)* That error had been CANCELLING the exterior's own, so W32's
+  > fit of the exterior broke the stop by removing one side of a cancellation — 0.00034 →
+  > **0.00072** — while the same functional
+  > over the admitted bands went **0.00122 → 0.00006** (claims §5.168 §7). B3 is now the same
+  > arithmetic mean over the same 166 cells restricted to the **admitted bands** (3–48 CSS px,
+  > W32 G0's per-cell per-direction clearance rule), both poses, WebGPU tier, bounded at
+  > **0.000056** by W32 clause 2's rule from the bed at W32 G1's read. The 0.00035 above is the
+  > superseded statement's bound and 0.00072 its last reading; both are kept, neither is
+  > rewritten, and W32 G2's `b3-stop.py` is the reader.
 - (b) **B4 binds the four standard beds only.** "Toward 1.0 on every one of the six profiles" cannot
   pass: the reduced-transparency and coupled-contrast beds are captured at the light standard
   document and inherit its scatter values, and the light bed needs structure removed (1.567) where

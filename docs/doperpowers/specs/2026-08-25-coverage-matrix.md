@@ -1115,3 +1115,73 @@ before this wave and is `partial` after it, so the count of `replicated+measured
 at **46 of 156 scoreable rows, 29.5 %**. What would move it is the CSS tier carrying a chroma term —
 on the `rgba()` layer rather than on the backdrop beneath it — which the wave measured, declined and
 deferred with the shape of the work.
+
+### Re-scored 2026-09-22 after W32, beside the W31 reading
+
+W32 (`2026-09-21-w32-shadow-wave.md`) fitted the outer shadow's EXTERIOR as a whole — the outset and
+the offset, which had never been fitted on the macOS 27 bed, together with the amplitudes that ride
+the same falloff — and set the receded documents' shadow amplitude to zero on the measurement.
+**No row moves.** The six tables above are left as written and no row's earlier record is rewritten.
+
+**Why nothing moves, and it is W30's reason rather than a new one.** Both halves of this wave land
+inside behaviours the matrix already scores. §3.2's *larger surfaces refract, shadow, and scatter
+more* has been `replicated+measured` since 2026-09-10 and W30 made the shadow's blur a function of
+the span inside it; W32 makes the same shadow's OTHER two lengths fitted values instead of inherited
+ones and re-solves its amplitudes against a sharper objective. That is the same claim measured
+better. §3.6's *window / scene focus state changes the material* has been `replicated+measured`
+since W27 and was re-read on the macOS 27 bed at W29; W32 corrects what vitrea draws in that pose.
+A matrix that moved a row for a better fit of a replicated behaviour would be scoring accuracy where
+it scores coverage — which is the sentence the W30 re-score wrote and this one is bound by.
+
+**What changes is a limit recorded inside a row, and a FINDING recorded beside one**, both here and
+neither rewritten where they stand.
+
+| row | matrix | the limit as recorded 2026-09-20 (W30) | 2026-09-22 (W32) |
+| --- | --- | --- | --- |
+| The material itself moved with no API change | §1.7 | "seven declared rows are still recorded as missed" beside the closed σ limit | **Narrowed and re-counted, not closed.** `MISSED_27_ROWS` holds **eight** entries after this wave: the five W29 G3 recorded, the three W31 M1 declared at adoption, and none of W32's — M2's first miss, which W32 G1 recorded, is retired by the reference re-baseline Decision Log 4 ruled rather than by a fix (claims §5.169 §3). Of the five, the one W32 G0 declared unreachable through this wave's exterior moved by **0.00002**, which is the decomposition holding. The row's other two named limits stand unchanged: the highlight's directionality is still unfitted, and the by-eye residuals of §5.153–§5.155 are unchanged except where §5.169 §5 reads them again |
+
+> **A finding recorded at the W29 re-score above is falsified, and the correction is here rather
+> than over it (2026-09-22; claims §5.166 §7, §5.168 §4).** The §3.6 bullet in that re-score reads
+> *"W29 G3b refit the pose on the new bed and found the largest single difference from macOS 26.5 —
+> a receded surface now **keeps** its outer shadow, where the macOS 26.5 endpoint removes it
+> entirely"*. That was true of what **vitrea** drew and false of the reference. Apple's macOS 27
+> receded window removes no light at all from 3 CSS px outward — the native transmission reads
+> exactly 1.000000 in every admitted band on **121 of 121** non-holdout inactive rows, 153 with the
+> holdout, and the capture is byte-identical to the backdrop raster from 2 device px out, exactly as
+> on the frozen macOS 26.5 bed's 235 of 235. What kept the shadow was that both receded documents
+> carried their active document's anchors leaf for leaf, so `outerShadowReachPx` returned the active
+> reach in the inactive pose. W32 Decision Log 2 sets those amplitudes to 0 as a declared reading,
+> and the far-exterior difference on `checkerboard__rrect-lg__inactive` goes from 34.82 to **0.00**
+> on the WebGPU tier and 16.74 to **0.00** on the CSS one — byte-identical to Apple out there
+> (§5.169 §5). **The score does not move**: §3.6 was `replicated+measured` before and is after, and
+> what changed is that one of its recorded facts was a fact about vitrea wearing the reference's
+> name. What Apple's recede does have and vitrea does not is one device pixel of dark stroke at the
+> contour, which is a rim term and is on the wave's Deferred list.
+
+**Three rows this re-score checked and did not move**, each for a reason worth naming.
+
+- §3.2's *larger surfaces refract, shadow, and scatter more* keeps `replicated+measured`, as above.
+  Worth stating beside it: this wave's own headline reading is that the shape is now inside its
+  bound at every measured span (`T` 0.00088–0.00391 against ≤ 0.0042 on twelve bed × span rows)
+  **and the rendered blur is still 1.27 to 2.77 CSS px wider than Apple's fitted blur** — halved by
+  the fit and not closed. Those two live together because they are different quantities: the first
+  is the transmission profile's shape, read per band, and the second is a σ fitted to each render.
+  The row scores the behaviour, both readings qualify it, and neither moves it.
+- §3.4's *shadow opacity is content-aware* keeps `absent, undecided`. The amplitudes this wave
+  re-solved are conditioned on the casting SPAN and on the backdrop's LEVEL through the thin
+  regime's three anchors, which the material has had since W14 — not on whether there is text
+  behind the surface. The row's recorded reason that the scene matrix is nearly blind to the
+  behaviour is unchanged: `hc-text` is the one bed that would show it and it is holdout.
+- §3.5's *light bleeds into the shadow* keeps `absent, undecided`, and this wave measured something
+  next to it rather than into it. `liftAmplitude` — the term that adds a blurred copy of the
+  backdrop's own light back into the shadow — was NOT moved (contract X3), and the landing's eye
+  found that over a backdrop Apple renders as exactly black vitrea renders one byte, on 3,334 of
+  9,440 exterior pixels at span 160 and **0 of 29,330 at span 44**, which is below `liftSpanMin`.
+  That is the closest thing on the bed to a reading of this row and it points the wrong way: what it
+  says is that vitrea's lift may be a term the reference does not have over black, not that vitrea
+  has replicated one it does. It is the wave's own Deferred item with the measurement attached.
+
+**The tally is unchanged at 46 of 156 scoreable rows, 29.5 %** — the same number the W29, W30 and
+W31 re-scores carry. Four consecutive fidelity waves have moved the material and not the coverage,
+which is what the matrix is for: it scores what the runtime CAN do, and a wave that makes what it
+already does closer to Apple is read in the ledger rather than here.

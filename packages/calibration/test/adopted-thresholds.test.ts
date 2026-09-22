@@ -101,6 +101,35 @@
  *     >     axis gains one fidelity row and one guard on it, which is the pair the
  *     >     paragraph's two grounds are answered by and is a smaller claim than
  *     >     "two adopted rows" on its own suggests.
+ *     >
+ *     > **2026-09-22, W32 G2 (Decision Log 1 (c) as RULED; claims §5.169 §1): a
+ *     > SHADOW row joins them, and it clears the same two grounds by the same
+ *     > kind of evidence.** `C1` at the foot of this file bounds the outer
+ *     > shadow's exterior SHAPE per span — the sequence of the band-fitted
+ *     > transmission `a` with distance outside the declared contour, web against
+ *     > native on the same cell. **Not below quantisation**: each band's `a` is a
+ *     > least-squares slope over thousands of exterior pixels (the `24-48` band
+ *     > carries 10,181 samples above the caster alone at span 128), and the
+ *     > native-pair reproducibility of that family is **0.002044** as a MAX over
+ *     > the 432 cells of `results/2026-09-19-w29-g3b-shadow-recede/noise-bar.json`
+ *     > — the bound is 2.1× that bar, and the residual it had to detect stood at
+ *     > 0.00843, four times the bar, before the fit. **Not unidentifiable**: one
+ *     > leaf that had never been fitted on this bed (`spreadPx` 3.10 → 0.50)
+ *     > moved the statistic 0.00843 → 0.00245 at span 128 and took the clause
+ *     > from four passing rows of twelve to ten (§5.168 §2), which is a quantity
+ *     > the bed separates rather than one it meets by accident.
+ *     >
+ *     > It is the narrower claim too, and the narrowing is the header's own
+ *     > argument rather than a concession to it. **The sub-metric §6.1 names as
+ *     > unidentifiable is still not gated**: candidate (i), the fitted σ read
+ *     > against Apple's fitted σ, was declared beside `C1`, was halved by the
+ *     > wave that fitted the exterior and is still OUTSIDE its declared window on
+ *     > all twelve bed × span rows (+1.27 to +2.77 CSS px). It stays a one-wave
+ *     > reading. `C1` is adopted because it reads the falloff's shape without
+ *     > fitting a σ to it — and it is stated on the WebGPU tier, the four
+ *     > standard beds, the active pose and the three thick spans alone, with the
+ *     > CSS tier, the inactive pose, the two accessibility beds, the thin spans
+ *     > and `L` all recorded and none of them bounded.
  *   - **The motion axis is not gated.** No frame sequences were captured on the
  *     native side, and the still `pressed` fixtures cannot substitute: they are
  *     byte-identical to their rest counterparts (§6.3), so those cells measure
@@ -1796,31 +1825,31 @@ const MISSED_27_ROWS: Readonly<Record<string, MissedRow>> = {
   "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: chromaStructureRatioR": { measured: 1.53911, bound: "≤ 1.40" },
   "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: chromaStructureRatioR": { measured: 1.46115, bound: "≤ 1.40" },
   "texture / validation / photo__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: chromaStructureRatioR": { measured: 1.44950, bound: "≤ 1.40" },
-  // W32 G1's one (claims §5.168), and M2's first since adoption. The outer
-  // shadow's exterior is fitted and the receded documents stop drawing one at
-  // all, and this cell's `interiorStdDevWeb` moves 0.0184262 → 0.018154, which
-  // carries the CUMULATIVE delta from W31's pre-fit generation (0.0186722) past
-  // 2 %: −1.317 % → −2.775 %. The cell is span 32 INACTIVE, the thinnest caster
-  // the bed carries and the pose whose whole exterior this wave removed.
+  // **W32 G1's one is RETIRED here and its reading is kept** (2026-09-22, W32 G2;
+  // Decision Log 4 as ruled; claims §5.169 §3). M2's first miss since adoption
+  // was `texture / validation / photo__rrect-sm__inactive /
+  // apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta`
+  // at **0.02775 against ≤ 0.02** — `interiorStdDevWeb` 0.0186722 at W31's
+  // pre-fit generation, 0.0184262 at W31 G3's, 0.0181541 after W32 G1's
+  // exterior fit, so −1.317 % then −2.775 % CUMULATIVE from a reference that
+  // never moved. The user ruled that the reference is re-baselined at each gate
+  // that adopts a material change, so against the generation W32 G1 actually
+  // read the same cell moves **−1.477 %** and the entry has nothing to excuse.
+  // It is deleted from this list rather than kept at a bound it now meets,
+  // because the list's owner case asserts that the excused set IS the failing
+  // set — an entry for a passing cell fails that case as loudly as a missing
+  // entry for a failing one. The reading is not deleted: it is here, it is in
+  // §5.168 §7, and §5.169 §3 carries the per-wave table the ruling asks for.
   //
-  // 2026-09-21, W32 G1 review closure (claims §5.168 §10, finding B-2): this
-  // comment said the mechanism was "the silhouette extractor — which thresholds
-  // the render against its background — takes a different set of edge pixels",
-  // and the first value was transcribed as 0.018432. **The mask did not move
-  // and it is not web-derived**: `cli/measure.ts` takes `const interior =
-  // nativeSil`, and over the 726 rows this gate superseded and re-read,
-  // `silhouetteAreaNative` moved on 0 (`results/2026-09-21-w32-g1-shadow-fit/
-  // b2-mask.py`); on this cell the native area, the web area and the declared
-  // region are all 2000 with an IoU of 1 before and after. What moved is the
-  // render's values under a fixed mask. The candidate mechanism — untested — is
+  // The mechanism is still unnamed. W32 G1's review closure ruled OUT the
+  // silhouette extractor — the material axis's mask is the NATIVE silhouette
+  // (`cli/measure.ts`: `const interior = nativeSil`) and `silhouetteAreaNative`
+  // moved on 0 of the 726 re-read rows, with native area = web area = region =
+  // 2000 and IoU 1 on this very cell before and after. The untested candidate is
   // the optics pass compositing `shadowAlpha · (1 − coverage)` into the
   // antialiased contour ring INSIDE the declared region, which would put the
-  // effect where that ring is the largest fraction of the region, the thinnest
-  // span. Both percentages above were computed from the right values and do not
-  // move. The tracker carries the measurement that would test the hypothesis,
-  // and beside it the half that is a ruling the user owns: M2's reference
-  // generation is frozen at W31's pre-fit while its subject keeps moving.
-  "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta": { measured: 0.02775, bound: "≤ 0.02" },
+  // effect where that ring is the largest fraction of the region: the thinnest
+  // span, which is where it landed. The tracker carries the measurement.
 };
 
 /*
@@ -2235,7 +2264,12 @@ interface ChromaCutCell {
   readonly chromaStructureRatioWeb: number;
   readonly interiorStdDevWeb: number;
   readonly R: number;
-  readonly interiorStdDevWebPreFit: number;
+  /**
+   * The same cell at the REFERENCE generation — the rows the adopting gate's own
+   * read superseded (W32 Decision Log 4). Named `…PreFit` until W32 G2, when the
+   * reference stopped being W31's pre-fit bed and became a per-gate baseline.
+   */
+  readonly interiorStdDevWebReference: number;
   readonly structureDeltaFraction: number;
 }
 
@@ -2246,7 +2280,7 @@ interface ChromaCut {
   readonly tier: string;
   readonly renderer: string;
   readonly sets: readonly string[];
-  readonly preFitGeneration: Readonly<
+  readonly referenceGeneration: Readonly<
     Record<string, { readonly activeDocumentSha256: string; readonly file: string }>
   >;
   readonly beds: Readonly<
@@ -2286,7 +2320,17 @@ const CHROMA_CUT = readJson<ChromaCut>(
   // exact failure the paragraph above describes — and the case that re-derives
   // every figure from `results/matrix.json` is what caught it. The script is
   // W31 G4's `chroma-cut.py`, copied byte for byte and re-run.
-  resolve(PACKAGE_ROOT, "results", "2026-09-21-w32-g1-shadow-fit", "chroma-cut.json"),
+  //
+  // 2026-09-22, W32 G2 (Decision Log 4 as RULED; claims §5.169 §3): re-pointed
+  // again, at the LANDING's own directory, and this time one thing inside the
+  // cut moves with it. M2's structure reading is a difference from a reference
+  // generation, and the ruling re-baselines that reference at each gate that
+  // adopts a material change — so the cut regenerated here names W32 G1's read
+  // as the baseline (`superseded/49490eb9ff7a.json` light, `b5714a866288.json`
+  // dark) where every cut before it named W31's pre-fit bed. The 2 % does not
+  // move; what the bound reads is one wave's change instead of a cumulative
+  // drift, and §5.169 §3's per-wave table is where the drift stays readable.
+  resolve(PACKAGE_ROOT, "results", "2026-09-21-w32-g2-landing", "chroma-cut.json"),
 );
 
 /**
@@ -2343,7 +2387,11 @@ const CHROMA_MEDIAN_MAX = 1.2;
 const CHROMA_CELL_MIN = 0.6;
 const CHROMA_CELL_MAX = 1.4;
 
-/** M2's clause: `interiorStdDevWeb` within 2 % of the pre-fit generation's. */
+/**
+ * M2's clause: `interiorStdDevWeb` within 2 % of the REFERENCE generation's —
+ * the rows the adopting gate's own read superseded (W32 Decision Log 4, ruled).
+ * The tolerance has not moved since adoption and does not move here.
+ */
 const CHROMA_STRUCTURE_TOLERANCE = 0.02;
 
 const chromaKey = (cell: ChromaCutCell): string =>
@@ -3952,6 +4000,20 @@ describe("W30 B1 — the shadow's σ law, adopted (claims §5.160)", () => {
  * `results/superseded/`. A retention that bought its ratio by flattening the body
  * fails M2 before M1 notices.
  *
+ * > **2026-09-22, W32 G2 (Decision Log 4 as RULED by the user; claims §5.169
+ * > §3): the reference is no longer the pre-fit generation, and the 2 % is
+ * > unmoved.** What the paragraph above describes is a reference frozen at one
+ * > wave's bed while every later wave moves the render: W32 G1 spent 1.317 % →
+ * > 2.775 % of the budget on `photo__rrect-sm__inactive` through the shadow's
+ * > three lengths alone, with the mask the statistic is read over unmoved on
+ * > every cell (§5.168 §7, §10). M2 was failing on DRIFT rather than on a
+ * > defect, one cell per wave. The ruling re-baselines the reference at each
+ * > gate that ADOPTS a material change, so the reference here is the generation
+ * > W32 G1 read and M2 bounds one wave's change; the cumulative drift is not
+ * > bounded by anything and is tabled per wave in the ledger instead, which is
+ * > the cost the ruling names in its own words. The worst per-wave move on this
+ * > bed is −1.477 % and the worst cumulative is −2.775 %, on the same cell.
+ *
  * **The WebGPU tier only** (`tier === "texture"`), which is G0's second condition
  * and is stronger after the read than before it. The CSS tier's `R` at the
  * canonical read sits at 0.95 to 1.12 by bed median on a tier that carries none
@@ -4029,8 +4091,8 @@ describe("W31 M1 / M2 — the body's chroma and the structure it is read over (c
 
     /*
      * **The cut is a record and never the only copy.** Every figure in it is
-     * re-derived here from the committed matrix and from the pre-fit generations
-     * it names, in both directions, so the snapshot problem W31 G1's review
+     * re-derived here from the committed matrix and from the reference
+     * generations it names, in both directions, so the snapshot problem W31 G1's review
      * closure found in B1's shape cannot live here: a canonical read that moves a
      * row makes M1 and M2 read the new number, and a cut nobody regenerated fails
      * this case instead of quietly gating yesterday's bed.
@@ -4041,8 +4103,8 @@ describe("W31 M1 / M2 — the body's chroma and the structure it is read over (c
       "the cut's cells against the bed the matrix carries",
     ).toEqual([...bed.keys()].sort());
 
-    const preFit = new Map<string, Cell>();
-    for (const [scheme, generation] of Object.entries(CHROMA_CUT.preFitGeneration)) {
+    const reference = new Map<string, Cell>();
+    for (const [scheme, generation] of Object.entries(CHROMA_CUT.referenceGeneration)) {
       const file = readJson<ResultMatrix>(
         resolve(PACKAGE_ROOT, "results", "superseded", generation.file),
       );
@@ -4058,7 +4120,7 @@ describe("W31 M1 / M2 — the body's chroma and the structure it is read over (c
           scheme_,
           `${generation.file}: ${cell.key.profileKey} is not a ${scheme} bed`,
         ).toBe(scheme);
-        preFit.set(`${cell.key.profileKey} ${cell.key.sceneId}`, cell);
+        reference.set(`${cell.key.profileKey} ${cell.key.sceneId}`, cell);
       }
     }
 
@@ -4079,18 +4141,22 @@ describe("W31 M1 / M2 — the body's chroma and the structure it is read over (c
         12,
       );
 
-      const before = preFit.get(key);
-      expect(before, `${chromaKey(cut)}: no pre-fit row in the named generation`).toBeDefined();
+      const before = reference.get(key);
+      expect(before, `${chromaKey(cut)}: no reference row in the named generation`).toBeDefined();
       if (before === undefined) continue;
-      // The pre-fit generation predates the instrument, which is the check that
-      // it really is pre-fit: `chromaStructureRatio*` entered the schema with this
-      // wave, so a baseline row carrying one was read after the leaf.
+      // W31 G4 asserted the opposite of this, for the same purpose. Its reference
+      // predated the chroma instrument — `chromaStructureRatio*` entered the
+      // schema with that wave — so a baseline row CARRYING the field was a row
+      // read after the leaf and was refused. Under Decision Log 4 the reference
+      // is a generation read AT the leaf, so the same evidence points the other
+      // way: a baseline row missing the field is a pre-W31 generation wearing
+      // this gate's name. The guard is inverted, not dropped.
       expect(
         before.material?.["chromaStructureRatioWeb"],
-        `${chromaKey(cut)}: the baseline row carries a chroma field, so it is not pre-fit`,
-      ).toBeUndefined();
+        `${chromaKey(cut)}: the reference row carries no chroma field, so it predates the leaf`,
+      ).toBeDefined();
       const baseline = reading(before, "material", "interiorStdDevWeb");
-      expect(cut.interiorStdDevWebPreFit, chromaKey(cut)).toBeCloseTo(baseline, 12);
+      expect(cut.interiorStdDevWebReference, chromaKey(cut)).toBeCloseTo(baseline, 12);
       expect(cut.structureDeltaFraction, chromaKey(cut)).toBeCloseTo(
         (cut.interiorStdDevWeb - baseline) / baseline,
         12,
@@ -4156,7 +4222,7 @@ describe("W31 M1 / M2 — the body's chroma and the structure it is read over (c
     }
   });
 
-  it("M2: interiorStdDevWeb is within 2% of the pre-fit generation, or is named in MISSED_27_ROWS", () => {
+  it("M2: interiorStdDevWeb is within 2% of the reference generation, or is named in MISSED_27_ROWS", () => {
     for (const cell of CHROMA_CUT.cells) {
       // Recorded, not widened — the same path M1 has one case up, added at W32 G1
       // (claims §5.168) when the first miss appeared. The tolerance above is
@@ -4165,10 +4231,335 @@ describe("W31 M1 / M2 — the body's chroma and the structure it is read over (c
       if (MISSED_27_ROWS[`${chromaKey(cell)} :: ${CHROMA_STRUCTURE_METRIC}`] !== undefined) continue;
       expect(
         Math.abs(cell.structureDeltaFraction),
-        `${chromaKey(cell)}: interiorStdDevWeb ${cell.interiorStdDevWebPreFit.toFixed(6)} -> `
+        `${chromaKey(cell)}: interiorStdDevWeb ${cell.interiorStdDevWebReference.toFixed(6)} -> `
           + `${cell.interiorStdDevWeb.toFixed(6)}, `
           + `${(cell.structureDeltaFraction * 100).toFixed(3)}%`,
       ).toBeLessThanOrEqual(CHROMA_STRUCTURE_TOLERANCE);
     }
   });
+});
+
+/**
+ * **C1, adopted — the outer shadow's exterior SHAPE, per span** (declared W31 G1
+ * at claims §5.162 §3 as one bound across three spans; re-stated per span and
+ * over the admitted bands at W32 G0, claims §5.166 §2; ruled in that form by the
+ * parent at W32 Decision Log 1 (c); fitted and met at claims §5.168 §7 and
+ * adopted here at §5.169 §1).
+ *
+ * **What it asserts.** The shadow axis fits an affine map of the backdrop,
+ * `y = a·bg + c`, per band and per direction outside the declared contour. `a`
+ * is the transmission the exterior applies at that distance, so the sequence of
+ * `a` with distance is the falloff's SHAPE — read without assuming the profile
+ * is a blurred edge, and strictly outside the contour, so the interior cannot
+ * dilute it the way it diluted the two `ssimMean` rows W30 claimed through this
+ * same lever and had refuted (§5.159 §7). `T` is the width-weighted mean of
+ * `|a_web − a_native|` over the admitted bands of direction `all`, in linear
+ * light; `L`, the same mean over the intercepts, is recorded beside it and is
+ * not bounded, because a shadow that removes less light and a shadow that adds
+ * some are different findings (W14 X7).
+ *
+ * **Per span, and over the admitted bands.** One bound across 96, 128 and 160 is
+ * span-confounded (§5.162 §9, finding N-9) and the admitted-band rule sharpens
+ * that rather than softening it: the band SET differs per span because the
+ * capture's clearance does — four bands at 96, three at 128, two at 160 on a
+ * 320 × 200 canvas — so one number would be a promise about three different
+ * statistics. The bound is the worst standard bed's span-96 reading on the
+ * generation the clause was declared against, rounded up to two significant
+ * figures (0.00413 → **0.0042**): "no worse at any span than at span 96 was".
+ * What it costs is stated rather than discovered — span 96 passes with 1.7 % of
+ * headroom on 2x light, so a fit that buys span 128 by widening span 96 fails.
+ *
+ * > **Corrected beside, 2026-09-22 (W32 G2 review closure; claims §5.169 §10,
+ * > finding N1). The 1.7 % is a PRE-FIT figure and the protective property it
+ * > carried no longer holds.** 0.00413 was 2x light's span-96 reading on the
+ * > generation the clause was declared against, and the bound is still that
+ * > number rounded up, which does not move. But the bed this file now asserts
+ * > over is the fitted one, where 2x light at span 96 reads **0.00088** — **79 %
+ * > of headroom**, not 1.7 % — and the twelve cases run 0.00088 to 0.00391. So
+ * > "a fit that buys span 128 by widening span 96 fails" is false at the shipped
+ * > bytes: span 96 could take four and a half times its present reading before
+ * > this clause noticed, where span 128's worst (2x dark, 0.00391) has **6.9 %**.
+ * > What actually holds span 96 honest today is nothing in this file. Two
+ * > consequences worth carrying: the twelve cases are no longer one constraint
+ * > with one tight corner but eleven loose rows and one tight one, and a re-pin
+ * > at the shipped bed is the thing that would restore the property — which is a
+ * > user decision, with the rule that would produce it in the tracker.
+ *
+ * **Why not the fitted σ, and why that is the header's own argument.** W31 G1
+ * computed that candidate beside this one and it reads the bed backwards: 0.000
+ * and 0.027 on the two refuted rows, against 5.4 and 6.2 on the two cells
+ * §5.160 §6's eye called RIGHT. It is still outside its declared window on all
+ * twelve bed × span rows after a wave fitted the exterior against it
+ * (`σ_web − σ_nat` +1.27 to +2.77 CSS px, §5.168 §7), and it stays a one-wave
+ * reading and is not gated. That is §6.1's "blur sigma is unidentifiable on this
+ * fixture set" holding, not being overturned — and it is why the row that IS
+ * adopted reads the falloff's shape without fitting a σ to it.
+ */
+describe("W32 C1 — the shadow's exterior shape, per span (claims §5.169)", () => {
+  /** Decision Log 1 (c), ruled: per-span `T`, WebGPU tier, the four standard beds. */
+  const C1_TOLERANCE = 0.0042;
+  const C1_SPANS = [96, 128, 160] as const;
+
+  /** W30 G0's statistic, and B1's: the upper middle order statistic. */
+  const upperMiddle = (values: readonly number[]): number =>
+    [...values].sort((a, b) => a - b)[Math.floor(values.length / 2)] ?? Number.NaN;
+
+  /**
+   * The cut, RE-RUN by the adopting gate into its own directory against the
+   * matrix it read its own bed at (§5.162 §9, finding B-1). Left pointing at a
+   * predecessor's directory this case would assert a bound against a frozen
+   * snapshot and could never fail — B1's own doc comment's "a number retyped
+   * after a refit is a number that goes stale silently", one level up. The
+   * second half of that hole is closed below, by re-deriving every figure in it
+   * from `results/matrix.json`.
+   */
+  const CUT = readJson<{
+    readonly atDocuments: string;
+    readonly withHoldout: boolean;
+    readonly candidateII: { readonly quantity: string };
+    readonly admittedBandRule: { readonly rule: string };
+    readonly rows: readonly {
+      readonly profile: string;
+      readonly scene: string;
+      readonly component: string;
+      readonly bed: string;
+      readonly tier: string;
+      readonly set: string;
+      readonly state: string | null;
+      readonly span: number | null;
+      readonly T: number | null;
+      readonly admitted: readonly string[];
+      readonly bandsUsed: readonly string[];
+    }[];
+  }>(resolve(PACKAGE_ROOT, "results", "2026-09-21-w32-g2-landing", "exterior-cut.json"));
+
+  /**
+   * The band set the clearance admits at each span, asserted rather than
+   * trusted. A cut whose band rule had moved would satisfy every other guard in
+   * this case and would not be the statistic C1 is stated over; and a canvas
+   * change — W32's first Deferred item — moves these sets, which is exactly the
+   * kind of change that should turn this case red until somebody re-reads the
+   * clause.
+   */
+  const ADMITTED_BANDS: Readonly<Record<number, readonly string[]>> = {
+    96: ["3-6", "6-12", "12-24", "24-48"],
+    128: ["3-6", "6-12", "12-24"],
+    160: ["3-6", "6-12"],
+  };
+
+  /**
+   * How many cells each standard bed contributes at each asserted span —
+   * counted, not merely required to be non-zero, for the reason W30 G4's review
+   * gave `CONTRIBUTING_BEDS` (§5.160 §9): a bed that stopped contributing would
+   * leave the clause to the beds that remain instead of failing. Counted from
+   * the bed at W32 G0 and unmoved by W32 G1's read (§5.166 §3): span 160's cells
+   * are the pitch ladder's alone, and span 128's are two calibration cells and
+   * five probe on each light bed and five probe on each dark one.
+   */
+  const CONTRIBUTING_CELLS: Readonly<Record<string, Readonly<Record<number, number>>>> = {
+    "1x light": { 96: 10, 128: 7, 160: 7 },
+    "2x light": { 96: 10, 128: 7, 160: 7 },
+    "1x dark": { 96: 9, 128: 5, 160: 7 },
+    "2x dark": { 96: 9, 128: 5, 160: 7 },
+  };
+
+  /** The clause's own population, restated here and taken from nowhere else. */
+  const readingsAt = (bed: string, span: number) =>
+    CUT.rows.filter(
+      (row) =>
+        row.bed === bed &&
+        row.span === span &&
+        row.tier === "webgpu" &&
+        row.state !== "inactive" &&
+        row.set !== "holdout" &&
+        row.T !== null &&
+        row.bandsUsed.join("/") === row.admitted.join("/"),
+    );
+
+  it("reads the cut at the declared quantity, band rule and provenance", () => {
+    expect(CUT.candidateII.quantity).toContain("slopeAWeb");
+    expect(CUT.admittedBandRule.rule).toContain("outer edge in CSS px");
+    // A cut taken with `--with-holdout`, or at `--at-documents any` over a
+    // superseded generation, satisfies every other guard here and is not the bed
+    // C1 is stated on (§5.162 §9, finding B-1).
+    expect(CUT.atDocuments).toBe("shipped");
+    expect(CUT.withHoldout).toBe(false);
+    for (const bed of Object.keys(CONTRIBUTING_CELLS)) {
+      for (const span of C1_SPANS) {
+        const rows = readingsAt(bed, span);
+        expect(rows.length, `${bed} at span ${span}`).toBe(CONTRIBUTING_CELLS[bed]?.[span]);
+        for (const row of rows) {
+          expect(row.admitted.join("/"), `${bed} at span ${span}`).toBe(
+            ADMITTED_BANDS[span]?.join("/"),
+          );
+        }
+      }
+    }
+  });
+
+  /**
+   * Every figure the clause reads, re-derived from `results/matrix.json` — the
+   * other half of the snapshot hole, and the half a path alone cannot close.
+   *
+   * M1 and M2 carry the same case one row over and for the same reason (W31 G4,
+   * claims §5.165 §1): a cut committed at a gate is a record of what was
+   * adopted, and if it is also the only copy then a canonical read that moves a
+   * row leaves the bound gating yesterday's bed in silence. So the statistic is
+   * computed here from the axis's own entries — the admitted-band rule applied
+   * to the row's own `clearance*`, the width-weighted mean of `|Δa|` over the
+   * bands that survive it — in BOTH directions over the population, and a cut
+   * that disagrees with the matrix fails rather than being believed.
+   *
+   * The selection is restated rather than taken from `MATRIX`, which drops the
+   * probe set: span 160's cells are the pitch ladder's alone and span 128's are
+   * mostly probe, so gating C1 through `MATRIX` would read two of its three
+   * spans off an empty bed.
+   */
+  it("re-derives every reading of the clause from results/matrix.json", () => {
+    const BAND_WIDTH_CSS_PX: Readonly<Record<string, number>> = {
+      "3-6": 3,
+      "6-12": 6,
+      "12-24": 12,
+      "24-48": 24,
+    };
+    /** The axis's own floor on the backdrop's spread; below it the row has no `T`. */
+    const MIN_BACKDROP_SUPPORT = 0.1;
+
+    interface AffineEntry {
+      readonly direction: string;
+      readonly ringLabel: string;
+      readonly slopeALinear?: number;
+    }
+    interface ShadowAxis {
+      readonly affineNative?: readonly AffineEntry[];
+      readonly affineWeb?: readonly AffineEntry[];
+      readonly [field: string]: unknown;
+    }
+    const axisValue = (axis: ShadowAxis, field: string): number | undefined => {
+      const entry = axis[field];
+      return typeof entry === "object" && entry !== null && "value" in entry
+        ? ((entry as { value: number }).value)
+        : undefined;
+    };
+
+    const components = readJson<{
+      readonly components: Readonly<
+        Record<
+          string,
+          {
+            readonly kind: string;
+            readonly size?: readonly number[];
+            readonly base?: { readonly size: readonly number[] };
+            readonly items?: readonly { readonly size: readonly number[] }[];
+          }
+        >
+      >;
+    }>(resolve(PACKAGE_ROOT, "..", "..", "apps", "reference-apple", "scenes.json")).components;
+    /** The casting span: the declared component's shorter side (W30 G0's rule). */
+    const spanOf = (component: string): number | undefined => {
+      const spec = components[component];
+      if (spec === undefined) return undefined;
+      if (spec.kind === "capsule" || spec.kind === "rrect") return Math.min(...(spec.size ?? []));
+      if (spec.kind === "stack") return Math.min(...(spec.base?.size ?? []));
+      if (spec.kind === "group") {
+        return Math.min(...(spec.items ?? []).map((item) => Math.min(...item.size)));
+      }
+      return undefined;
+    };
+
+    const derived = new Map<string, { readonly T: number; readonly bandsUsed: string }>();
+    for (const cell of MATRIX_FILE.cells) {
+      const profileKey = cell.key.profileKey;
+      if (!profileKey.startsWith("apple-macos-27.0-")) continue;
+      if (cell.fixtureSet === "holdout") continue;
+      if (!atAShippedDocument(cell)) continue;
+      if (cell.tier !== "texture") continue;
+      if (cell.state === "inactive") continue;
+      const shadow = (cell as unknown as { readonly shadow?: ShadowAxis }).shadow;
+      if (shadow === undefined) continue;
+      const component = cell.key.sceneId.split("__")[1] ?? "";
+      const span = spanOf(component);
+      if (span === undefined || !C1_SPANS.includes(span as (typeof C1_SPANS)[number])) continue;
+      const scale = profileKey.includes("-2x-") ? 2 : 1;
+      const bed = `${scale}x ${profileKey.includes("-dark-") ? "dark" : "light"}`;
+      if (CONTRIBUTING_CELLS[bed] === undefined) continue;
+      if (!profileKey.includes("-standard-")) continue;
+
+      const clearance =
+        Math.min(
+          ...["clearanceAbove", "clearanceBelow", "clearanceLeft", "clearanceRight"].map(
+            (field) => axisValue(shadow, field) ?? Number.NaN,
+          ),
+        ) / scale;
+      const admitted = Object.keys(BAND_WIDTH_CSS_PX).filter(
+        (band) => Number(band.split("-")[1]) <= clearance,
+      );
+      const slopeOf = (side: "affineNative" | "affineWeb", band: string): number | undefined =>
+        (shadow[side] ?? []).find(
+          (entry) => entry.direction === "all" && entry.ringLabel === band,
+        )?.slopeALinear;
+      const support = axisValue(shadow, "backdropSupport");
+      if (support !== undefined && support < MIN_BACKDROP_SUPPORT) continue;
+      const usable = admitted.filter(
+        (band) => slopeOf("affineNative", band) !== undefined
+          && slopeOf("affineWeb", band) !== undefined,
+      );
+      if (usable.length === 0) continue;
+      // The clause reads only the cells that carry their span's whole admitted
+      // set; a cell that identified fewer bands is a different statistic and the
+      // cut counts it apart.
+      if (usable.join("/") !== (ADMITTED_BANDS[span] ?? []).join("/")) continue;
+      const total = usable.reduce((sum, band) => sum + (BAND_WIDTH_CSS_PX[band] ?? 0), 0);
+      const T =
+        usable.reduce(
+          (sum, band) =>
+            sum
+            + (BAND_WIDTH_CSS_PX[band] ?? 0)
+              * Math.abs(
+                (slopeOf("affineWeb", band) ?? Number.NaN)
+                  - (slopeOf("affineNative", band) ?? Number.NaN),
+              ),
+          0,
+        ) / total;
+      derived.set(`${profileKey} ${cell.key.sceneId}`, { T, bandsUsed: usable.join("/") });
+    }
+
+    const fromCut = new Map(
+      C1_SPANS.flatMap((span) =>
+        Object.keys(CONTRIBUTING_CELLS).flatMap((bed) =>
+          readingsAt(bed, span).map((row) => [`${row.profile} ${row.scene}`, row] as const),
+        ),
+      ),
+    );
+    // Both directions: a cell in the matrix and not in the cut is a cut nobody
+    // regenerated, and a cell in the cut and not in the matrix is a cut read off
+    // a bed this file does not gate.
+    expect([...fromCut.keys()].sort(), "the clause's cells against the matrix's").toEqual(
+      [...derived.keys()].sort(),
+    );
+    for (const [key, row] of fromCut) {
+      const here = derived.get(key);
+      expect(here, `${key}: in the cut and not in the matrix`).toBeDefined();
+      if (here === undefined) continue;
+      expect(row.bandsUsed.join("/"), `${key}: the bands the cut used`).toBe(here.bandsUsed);
+      expect(row.T ?? Number.NaN, `${key}: T against the matrix`).toBeCloseTo(here.T, 12);
+    }
+  });
+
+  for (const bed of Object.keys(CONTRIBUTING_CELLS)) {
+    for (const span of C1_SPANS) {
+      it(`${bed}, span ${span}: the exterior's shape is within ${C1_TOLERANCE}`, () => {
+        const readings = readingsAt(bed, span).map((row) => row.T ?? Number.NaN);
+        const statistic = upperMiddle(readings);
+        // min, max and count beside the number, for the reason §5.162 §9's
+        // finding N-1 gives: the per-cell maxima at span 96 are above the bound
+        // and the clause is stated over the order statistic.
+        expect(
+          statistic,
+          `${bed} span ${span}: ${readings.length} cells, `
+            + `${Math.min(...readings).toFixed(5)}–${Math.max(...readings).toFixed(5)}`,
+        ).toBeLessThanOrEqual(C1_TOLERANCE);
+      });
+    }
+  }
 });

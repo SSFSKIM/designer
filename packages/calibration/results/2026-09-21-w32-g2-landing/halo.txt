@@ -1,0 +1,45 @@
+W32 G2 — the far-exterior difference, W29 G3b's band and amplification — BEFORE, the 0.21.0 generation
+================================================================================================
+  every pixel more than 12 CSS px outside the component's declared box;
+  mean of ΔE(OKLab) × 8 on 0–255, which is what the sheets draw.
+  tree: /Users/new/Developer/GitHub/designer/packages/calibration/web-captures-superseded/49490eb9ff7a
+
+  profile                                       scene                                 tier     far mean  far max
+  apple-macos-27.0-1x-light-standard-glass0.5   checkerboard__rrect-lg__inactive      webgpu      34.82   137.10
+  apple-macos-27.0-1x-light-standard-glass0.5   checkerboard__rrect-lg__inactive      css         16.74    79.25
+  apple-macos-27.0-1x-light-standard-glass0.5   checkerboard__rrect-lg__rest          webgpu      20.67   137.10
+  apple-macos-27.0-1x-light-standard-glass0.5   checkerboard__rrect-lg__rest          css          4.39    18.39
+  apple-macos-27.0-2x-light-standard-glass0.5   checkerboard__rrect-lg__inactive      webgpu      34.78   137.10
+  apple-macos-27.0-2x-light-standard-glass0.5   checkerboard__rrect-lg__inactive      css         17.11    85.38
+  apple-macos-27.0-2x-light-standard-glass0.5   checkerboard__rrect-lg__rest          webgpu      20.54   137.10
+  apple-macos-27.0-2x-light-standard-glass0.5   checkerboard__rrect-lg__rest          css          5.04    24.53
+
+W32 G2 — the far-exterior difference, W29 G3b's band and amplification — AFTER, the shipped bytes
+================================================================================================
+  every pixel more than 12 CSS px outside the component's declared box;
+  mean of ΔE(OKLab) × 8 on 0–255, which is what the sheets draw.
+  tree: /Users/new/Developer/GitHub/designer/packages/calibration/web-captures
+
+  profile                                       scene                                 tier     far mean  far max
+  apple-macos-27.0-1x-light-standard-glass0.5   checkerboard__rrect-lg__inactive      webgpu       0.00     0.00
+  apple-macos-27.0-1x-light-standard-glass0.5   checkerboard__rrect-lg__inactive      css          0.00     0.00
+  apple-macos-27.0-1x-light-standard-glass0.5   checkerboard__rrect-lg__rest          webgpu      11.98   137.10
+  apple-macos-27.0-1x-light-standard-glass0.5   checkerboard__rrect-lg__rest          css          2.34    12.25
+  apple-macos-27.0-2x-light-standard-glass0.5   checkerboard__rrect-lg__inactive      webgpu       0.00     0.00
+  apple-macos-27.0-2x-light-standard-glass0.5   checkerboard__rrect-lg__inactive      css          0.00     0.00
+  apple-macos-27.0-2x-light-standard-glass0.5   checkerboard__rrect-lg__rest          webgpu      12.76   137.10
+  apple-macos-27.0-2x-light-standard-glass0.5   checkerboard__rrect-lg__rest          css          1.94    12.25
+
+  The receded halo the tracker measured at 17.42 (WebGPU) and 15.89 (CSS) off W29 G3b's sheets
+  is EXACTLY ZERO here on both tiers and both scales: in the far exterior of the inactive pose
+  vitrea's capture is byte-identical to Apple's. That is Decision Log 2's stand-down, seen.
+
+  The active pose halves and does not clear, and what is left is not the shadow. Its maximum is
+  137.10 on every WebGPU row before and after, which is the amplification of ONE BYTE at black
+  (ΔE(OKLab) between sRGB (0,0,0) and (1,1,1) is 0.0672; × 8 × 255 = 137.1) — the black floor
+  §5.168 §10 finding B-4 opened. The CSS tier, which paints no lift at all, reads 2.34 and 1.94
+  against the WebGPU tier's 11.98 and 12.76 on the same cells, with a maximum of 12.25. A tier
+  that cannot draw the term is five times cleaner in the far exterior of a checkerboard bed,
+  which is the strongest evidence this gate has that the residual is the lift's and not the
+  shadow's, and it is a reading rather than a verdict: the measurement that decides it is the
+  Deferred item's, and nothing here moves `liftAmplitude`.

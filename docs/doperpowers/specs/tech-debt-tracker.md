@@ -3593,6 +3593,37 @@ moving a cell between sets is evidence-visible. The hairline additionally wants 
 receded rim to be a fitted term rather than a subtraction: W27c's endpoint removes
 rim, and what the 27 native does at the contour is draw a stroke the recede keeps.
 
+**Widened 2026-09-22 (W32 G2 review closure; claims §5.169 §10, finding B2): the
+hairline is on BOTH poses, and it is what the `0-3` band has been reading all
+along.** This entry has scoped the missing stroke to the receded pose since it was
+written, and W32's records inherited that scope — every W32 site that named the
+`0-3` band's residual named it as *vitrea's body over-filling its declared contour
+by 3.5–4 CSS px* on the active pose (§5.62, measured at W14 on the macOS 26.5
+material through the shape axis) and the hairline on the inactive one. On the
+macOS 27 bed that has the sign and the width backwards.
+`packages/calibration/results/2026-09-21-w32-g2-landing/contour-stroke.py` reads
+the band outward from the declared rect one DEVICE pixel at a time along the four
+straight edges, on the `photo` bed at spans 44 and 160, both poses, over all six
+macOS 27 profiles — 24 cells:
+
+| offset from the declared rect | what the bytes do |
+| --- | --- |
+| **1 device px** | native **14 to 30 bytes darker** than the web, on **22 of 24** cells |
+| **2 to 6 device px** | the two agree to a fraction of a byte on the four standard beds |
+| anywhere in the band | the web is darker than the native on **0 of 24** |
+
+At 2x the stroke is still **one DEVICE pixel**, so it is half a CSS pixel and not
+three and a half of them, and it is present on the ACTIVE pose and on the two
+accessibility beds as well. The two exceptions are the dark standard beds' active
+capsule (`photo__capsule-button__rest`), where Apple draws no stroke at all — worth
+a look of its own, since it makes the stroke conditional on something. The literal
+transect that started this, `photo__rrect-lg__rest` at 1x light, row y=100: the two
+captures are equal byte for byte from x=12 to x=18, at x=19 — the last exterior
+pixel — the native reads (20, 124, 8) against the web's (54, 196, 25), and x=20 is
+the first body pixel. **The fix shape is unchanged in kind and wider in scope**: it
+is one rim term on both poses, and §5.62 is not withdrawn — it stands where it was
+taken, and a silhouette wave is still free to read it there.
+
 ---
 
 ## The two tiers miss the backdrop's structure in opposite directions, and the bed only ever showed one of them
@@ -5068,6 +5099,51 @@ a term and the entry becomes a charter item rather than debt. Either way the
 reading is cheap once a fit exists, and G1's verdict carries the per-backdrop
 residual regardless (claims §5.166 §4).
 
+## `@vitreajs/vitrea-react`'s README documented an import that does not exist, and the capability behind it is package-internal (W32 G2, 2026-09-22)
+
+*Found while building the `/laws/` shadow stage (claims §5.169 §4), which needed
+exactly the thing the README says an app can have. Corrected in the README at
+0.22.0; the export itself is not made.*
+
+`useGlassRootHandle()` returns the `GlassRootHandle`, which carries
+`materialProfileDocument` — the document the ROOT selected, available before the
+mount effect has built the runtime, which is what lets `GlassToolbar` derive its
+gap from its own material rather than from the package default. The React
+package's README has told applications to reach it the same way since 0.20.0:
+
+```tsx
+import { useGlassRootHandle } from "@vitreajs/vitrea-react";
+```
+
+**`packages/react/src/index.ts` exports no such symbol.** It exports the
+`GlassRootHandle` TYPE and `useGlassRoot`, which returns `GlassRoot | null` — the
+runtime, not the handle — so that import has thrown since it was written, in the
+0.20.0 and 0.21.0 READMEs as published, and the capability is reachable only from
+inside the package. Nothing about `GlassToolbar` is wrong; what was wrong is the
+claim that an app can do what it does.
+
+**What an app does today**, and the `/laws/` stage is the worked example: read
+what DREW rather than what was selected. `useGlassCapabilities(groupId)` gives the
+group's resolved state, whose `materialDocument` carries `resolvedMaterialSha256`
+over the fully resolved material, so a layout matches that digest against the
+endpoints of the document it built its root with and refuses to name one when it
+matches none. That is a stronger statement than the selection — it is the material
+on the screen — and it is what `endpointByDigest` in `apps/demo/src/laws/law.ts`
+does. What it cannot do is produce a number on the FIRST render, before a frame
+has resolved a group; the toolbar's whole reason for reading the handle is that it
+must.
+
+**The shape of the work**, and why it is not done here: `export { useGlassRootHandle }`
+from `packages/react/src/index.ts` is one line and makes the README's original
+paragraph true. It is a public-surface addition and this release is a fidelity
+one, so it belongs to a wave that can state the API and test it — with the
+question that comes with it, which is whether an app should be given the
+SELECTION at all when the honesty core's whole argument is that a consumer reads
+what drew. The two answers are different APIs: the handle, or a
+`root.material`-shaped reading available before the first frame.
+
+---
+
 ## B3 is green by cancellation, and the wave that fits the exterior breaks it (W32 G1, 2026-09-21)
 
 *Measured at W32 G1 (claims §5.168) across seven rendered rounds of the same bed.
@@ -5133,6 +5209,37 @@ Log; W32 G1 records the numbers and re-states nothing (X4). Until it is ruled,
 a later wave reading B3 at 0.00072 should read `b3-window.py` beside it or it
 will conclude the exterior got worse.
 
+**RULED (a) by the user 2026-09-22 and executed at W32 G2 — this entry is
+CLOSED** (W32 Decision Log 3; claims §5.169 §2). B3 is re-stated over the
+**admitted bands** (3–48 CSS px, per cell per direction by W32 G0's clearance
+rule), **both poses**, WebGPU tier, calibration + validation over all six macOS
+27 profiles — the same 166 cells, 85 active and 81 inactive, and the same
+arithmetic mean — and it stays a **STOP** in W30's sense rather than becoming an
+adopted row. Its bound is W32 clause 2's rule applied to the bed at W32 G1's
+read: the form reads **0.0000559626** there and rounds up to two significant
+figures at **0.000056**, which is 0.07 % of headroom and is a rule's output
+rather than a choice. The reader is
+`packages/calibration/results/2026-09-21-w32-g2-landing/b3-stop.py`, which prints
+the statistic, the bound and PASS/FAIL and exits nonzero on a fail;
+`departure-stat.py` runs beside it at the same generation so the superseded
+whole-exterior form keeps its last reading (**0.00072**) rather than
+disappearing. Two things this closure does NOT do: it does not touch the contour
+hairline — Apple's one-device-pixel stroke, un-drawn by vitrea on **both** poses,
+which is the quantity the old statement was reading in the `0-3` band and which
+has its own entry above and a Deferred item of its own *(re-stated 2026-09-22 at
+the same closure, finding B2: this sentence first named two quantities, "the `0-3`
+band's over-fill (§5.62)" and "the receded contour hairline", and
+`contour-stroke.txt` reads the band's sign directly — it is one rim term on both
+poses)*; and it does not make the bound spacious — 0.07 % of headroom means the
+next fit gate that moves the exterior at all will have to read this number
+deliberately, which is the same thing C1's 1.7 % at span 96 says one row over.
+*Corrected beside, 2026-09-22 (same closure, finding N1): C1's 1.7 % is a PRE-FIT
+figure and is not a live peer of this 0.07 %.* It is 2x light's span-96 reading on
+the generation C1 was declared against; at the shipped bytes that cell reads
+**0.00088** — 79 % of headroom — and the tightest of C1's twelve rows is 2x dark at
+span 128 with 6.9 %. B3's 0.07 % is a reading at the shipped bytes. The sentence
+holds of B3 alone.
+
 ---
 
 ## M2's reference generation is frozen at W31's pre-fit while its subject keeps moving (W32 G1 review closure, 2026-09-21)
@@ -5177,6 +5284,31 @@ propose. Nothing is decided here.
 bed: that one asks whether 2 % is a bound about the material or about the
 raster, and this one asks what it is measured from. Both have to be answered
 before M2's next miss means anything.*
+
+**RULED at W32 Decision Log 4 by the user 2026-09-22 and executed at W32 G2 —
+this entry is CLOSED, in form 1 with form 2's claim moved to the ledger** (claims
+§5.169 §3). The reference is re-baselined at **each gate that adopts a material
+change**: `chroma-cut.py` in that gate's directory names the generation the gate
+read (here `superseded/49490eb9ff7a.json` light and `b5714a866288.json` dark,
+resolved through the index), the field is `interiorStdDevWebReference` and the
+guard that proved the old reference PRE-dated the chroma instrument is inverted
+rather than dropped — the new reference is a generation read AT the leaf, so a
+baseline row that carries no chroma field is refused. The **2 % does not move**,
+and W32 G1's miss closes by re-baseline: the cell reads **−1.477 %** per wave
+against **−2.775 %** cumulative, and its `MISSED_27_ROWS` entry is retired with
+its reading kept in the comment where the entry stood.
+
+What the ruling gives up is form 1's own cost, stated where it can be seen: eight
+waves of 1.9 % would pass while the structure moved 16 %. What replaces it is
+**not a bound but a record** — the ledger's per-wave table, first written at
+§5.169 §3 from `m2-rebaseline.py`, which prints all 26 cells at three generations
+with the per-wave and cumulative columns side by side. **One number in that table
+is worth a later wave's attention**: 1x dark `photo__capsule-button__inactive`
+reads **+1.966 % cumulative** — 0.034 of a percentage point from 2 % — and it got
+there in the same two waves, so the drift the ruling stopped bounding is real and
+is already at the old bound on a second cell. A wave that wants the cumulative
+claim back adds the second reference per cell that the third form named; nothing
+here does.
 
 ---
 
@@ -5361,3 +5493,136 @@ constraint on the design, and the reason this is not a five-line fix. The
 duration and curve should be read off the reference rather than chosen; nothing
 in the project has measured them, and the motion-metrics harness the charter
 Defers is what would.
+
+---
+
+## The two macOS 27 receded documents' provenance blocks describe the pre-W32 state, and no `$comment` can be added beside them without moving a recorded hash (W32 G2 review closure, 2026-09-22)
+
+*Found 2026-09-22 by the review closure of W32 G2 (claims §5.169 §10, finding N6).
+No number moves; the document bytes are deliberately left alone.*
+
+`profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json` and its dark
+sibling carry a `measurement` block whose `status` reads *"measured — the recede no
+longer removes the shadow"* and whose `previous` reads *"every amplitude leaf
+zero"*. Both sentences describe the state W29 G3b left and W32 Decision Log 2
+reversed: every amplitude leaf of both documents is **0** today, so the block's
+`status` and `previous` are the wrong way round at the shipped bytes.
+
+**Why it is recorded here rather than annotated in place.** The obvious fix is a
+`$comment-w32-g2-provenance` key beside the block, which is the pattern those two
+documents already carry three times (`$comment-w30-g3b`, `$comment-w31-g3c`,
+`$comment-sha-history-correction`). It cannot be used here. Those annotations were
+added at gates that **re-read the bed**, and each says so in as many words — *"the
+rows read at THESE bytes"* — because a profile document's twelve-hex identity is
+`sha256` over **the whole file**, provenance included:
+
+```ts
+// packages/calibration/scripts/material-profile-file.ts
+// Hashed over the file, not the extracted sections: the cell should name the
+// artefact a human can go and read, provenance included.
+sha256: createHash("sha256").update(text).digest("hex").slice(0, 12),
+```
+
+That twelve-hex string is written into every capture's `capturePath` and therefore
+into every committed row's KEY (`recededProfile=…-receded.json sha256:45acb6d916b9`).
+Adding one `$comment` key moves it — measured rather than assumed: **45acb6d916b9 →
+664f455a55bd** (light) and **4e68f81869f6 → de6a7e2b1808** (dark). Every inactive
+row of `results/matrix.json` would then name a receded document no file on disk
+has; `check-capture-tree` would report a live mismatch and exit 1; `sheets.ts`'s
+per-cell assertion that a capture names the SHIPPED document bytes would refuse,
+which is exactly the refusal it exists to make; and claims §5.169 §8 and the c9d
+0.22.0 row would both be naming a superseded hash. `resolvedMaterialSha256` would
+NOT move — the seal is over the resolved material and not over the file — which is
+precisely what makes this trap quiet: the seal tests and `freeze.py verify` would
+stay green while the generation the rows were read at stopped existing.
+
+**The fix shape.** The correction belongs to the next gate that re-reads the
+inactive bed, which pays for the moved content hash with the read that justifies
+it — the same bargain W30 G3b and W31 G3c made. Until then this entry is where the
+staleness is recorded, and claims §5.169 §10 names it. A wave that wants it sooner
+has one structural option worth weighing: give a document a provenance sidecar that
+is not part of the hashed file, so a record can be corrected without inventing a
+generation. That is a schema decision and not a wave's.
+
+---
+
+## Nothing proposes re-pinning C1 at the shipped bed, where its bound is 4.8× the reading it was derived from (W32 G2 review closure, 2026-09-22)
+
+*Found 2026-09-22 by the review closure of W32 G2 (claims §5.169 §10, finding N9).
+A re-pin is the user's; what is recorded here is the rule that would produce one
+and what it would cost.*
+
+`C1`'s bound, **0.0042**, is W32 clause 2's rule applied to the generation the
+clause was DECLARED against: the worst standard bed's span-96 order statistic,
+0.00413, rounded up to two significant figures. At the shipped bytes that same
+cell — 2x light, span 96 — reads **0.00088**. The bound is 4.8 times the number it
+was derived from, and the twelve adopted rows read:
+
+| span | 1x light | 2x light | 1x dark | 2x dark | headroom at the worst |
+| ---: | ---: | ---: | ---: | ---: | ---: |
+| 96 | 0.00090 | 0.00088 | 0.00125 | 0.00115 | **70 %** |
+| 128 | 0.00245 | 0.00253 | 0.00348 | 0.00391 | **6.9 %** |
+| 160 | 0.00134 | 0.00132 | 0.00164 | 0.00168 | **60 %** |
+
+So eleven of the twelve rows are loose and one is tight, and the clause's own
+stated protection — *"a fit that buys span 128 by widening span 96 fails"* — is
+false at the shipped bytes, because span 96 could take four and a half times its
+present reading before this clause noticed (claims §5.169 §10, finding N1).
+
+**The rule that would produce a re-pin**, stated so a later gate does not have to
+re-derive it: clause 2 rounds the worst standard bed's reading UP to two
+significant figures, and C1 is stated per span, so applying it per span at the
+shipped generation gives **0.0013 / 0.0040 / 0.0017** at spans 96 / 128 / 160 —
+tightening span 96 by 3.2×, span 160 by 2.5×, and span 128 by almost nothing. Two
+things a gate has to decide before it can be adopted. First, whether a per-span
+re-pin is what clause 2 means at all: the clause's text names *the span-96 order
+statistic* as the source of ONE number, and the per-span form is the ruled shape of
+the row rather than of the rule. Second, whether a bound with 0 % of headroom at
+two of three spans is a stop or a tripwire — the same question B3's 0.07 % raises
+one entry over, and the reason a re-pin is recorded as a user decision here rather
+than proposed.
+
+**The fix shape**: a gate that adopts a material change on the exterior re-derives
+the three numbers from its own cut, puts them beside the readings, and asks. There
+is no measurement to take: the cut is already regenerated at every adopting gate,
+which is what makes this cheap.
+
+---
+
+## Under Reduced Transparency the macOS 27 body's LEVEL misses by 0.08 at span 44, and only the structure half is recorded on that bed (W32 G2 review closure, 2026-09-22)
+
+*Found 2026-09-22 by the review closure of W32 G2, read off the committed matrix
+and visible on `sheet__apple-macos-27.0-1x-light-reduced-transparency-glass0.5__photo__capsule-button__rest.png`
+(claims §5.169 §10, finding N10). No capture; no number moves.*
+
+On `apple-macos-27.0-1x-light-reduced-transparency-glass0.5`,
+`photo__capsule-button__rest`:
+
+| tier | `interiorMeanNative` | `interiorMeanWeb` | native − web |
+| --- | ---: | ---: | ---: |
+| WebGPU (`texture`) | 0.96841 | **0.88872** | **+0.07970** |
+| CSS (`dom`) | 0.96841 | **0.88505** | **+0.08336** |
+
+Apple's plate under that preference is very nearly white and vitrea's is eight
+points of luminance below it, on **both** tiers — so it is the level and not one
+tier's compositing. It is the largest interior-level gap at that cell on any macOS
+27 profile: the four standard beds read −0.0035 to +0.0049 there and the coupled
+increased-contrast bed −0.029 to −0.014.
+
+**What is already recorded, and what is not.** The tracker's W29 G3b entry *"Under
+Reduced Transparency the GPU tier is under-opaque"* is on this bed and is about the
+**structure** half at a different cell (`checkerboard__rrect-md__rest`: native sd
+0.43, WebGPU 3.49, CSS 1.03), with the level named only as *"both tiers sit 6–7
+levels below the native's"*. Eight points of luminance at span 44 is an order
+larger than that and it is at the span the accessibility documents' own
+`reducedTransparencyOcclusion` was never fitted at (W32 Deferred 10). The LEVEL half
+of this residual is written up on the macOS **26.5** bed (§5.73's two
+reduced-transparency cells lost to the fold's level, and §5.146's 26.5 sheet
+narrative, whose reduced-transparency paragraph reads the native panels as "nearly
+flat" against a WebGPU body that is not) and has not been carried onto the 27 one.
+
+**The fix shape**: it is the same work W32's Deferred item 10 already names — fit
+`reducedTransparencyOcclusion` per accessibility document against the admitted-band
+objective on cells the bed already holds — with this cell and this statistic added
+to what that fit is judged on, because the shadow-side fit W32 left those beds with
+moves the exterior and not the plate. No capture is needed: the rows are committed.

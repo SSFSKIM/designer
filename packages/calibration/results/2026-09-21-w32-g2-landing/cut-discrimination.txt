@@ -1,0 +1,63 @@
+W32 G2 — the new and re-pointed rows discriminate, proved rather than asserted
+=============================================================================================
+
+  W31 G2's closure and W31 G3c's `append-check-discrimination.txt` record the same lesson from
+  two directions — a clause that cannot fail reads PASS forever, and the only way that class is
+  ever found is by making it fail — and a newly adopted row is where it matters, because it has
+  never been red. Five perturbations, each restored before the next so nothing accumulates,
+  including by name the seeded bogus excuse W32 Decision Log 4 asks this gate to prove.
+
+  Every perturbation is made in place and reverted from a copy taken before the first; the two
+  cuts' SHA-256 are printed at the end against the copies, so the committed files are the
+  unperturbed ones.
+
+── baseline — C1's twelve rows, M1, M2 and the two owner cases
+    Test Files  1 passed (1)
+         Tests  93 passed (93)
+
+   (every 1x light span-96 T set to 0.0061, 10 cells)
+── C1: the 1x light span-96 cells pushed to T 0.0061
+        × re-derives every reading of the clause from results/matrix.json 7ms
+        × 1x light, span 96: the exterior's shape is within 0.0042 0ms
+    Test Files  1 failed (1)
+         Tests  2 failed | 91 passed (93)
+
+   (apple-macos-27.0-2x-dark-standard-glass0.5 checkerboard-32__rrect-lg__rest: T 0.00156733 -> 0.00100000)
+── C1: one cell's T moved away from the matrix it was read off (still inside the bound)
+        × re-derives every reading of the clause from results/matrix.json 8ms
+    Test Files  1 failed (1)
+         Tests  1 failed | 92 passed (93)
+
+   (span 160's admitted set widened to three bands on 96 rows)
+── C1: the admitted band set at span 160 widened under the cut
+        × reads the cut at the declared quantity, band rule and provenance 5ms
+        × re-derives every reading of the clause from results/matrix.json 5ms
+        × 1x light, span 160: the exterior's shape is within 0.0042 0ms
+        × 2x light, span 160: the exterior's shape is within 0.0042 0ms
+        × 1x dark, span 160: the exterior's shape is within 0.0042 0ms
+        × 2x dark, span 160: the exterior's shape is within 0.0042 0ms
+    Test Files  1 failed (1)
+         Tests  6 failed | 87 passed (93)
+
+   (apple-macos-27.0-1x-light-standard-glass0.5 photo__rrect-md__rest: Δsd -0.049% -> -3.000%)
+── M2: one cell moved 3% off THIS gate's reference
+        × names every 27 row the refit missed, and nothing it did not 6ms
+        × reads a cut taken at this gate, in the declared mode, over the bed the matrix itself carries 65ms
+        × M2: interiorStdDevWeb is within 2% of the reference generation, or is named in MISSED_27_ROWS 0ms
+    Test Files  1 failed (1)
+         Tests  3 failed | 90 passed (93)
+
+   (a bogus M2 excuse seeded for photo__rrect-md__rest on 1x light, a cell that PASSES)
+── M2: a bogus excuse for a passing cell (Decision Log 4's own proof)
+        × names every 27 row the refit missed, and nothing it did not 6ms
+    Test Files  1 failed (1)
+         Tests  1 failed | 92 passed (93)
+
+── restored — baseline again
+    Test Files  1 passed (1)
+         Tests  93 passed (93)
+
+── the committed files, against the copies taken before the first perturbation
+   exterior-cut.json  01ee24cacea518854abe2597cbe8bd32b54572c9c76a910c1dd8c321dffb0221  identical
+   chroma-cut.json  888c836db575a8f3dc79e6090b191283e8c378be45be888d4c9ce9a38b5c62f4  identical
+   adopted-thresholds.test.ts  767532205313f93847032ccdbba4a2ccbd55da084f464f9ceb0827e6deb45361  identical
