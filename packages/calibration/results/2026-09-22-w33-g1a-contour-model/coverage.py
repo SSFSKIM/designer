@@ -6,6 +6,14 @@ signed depth plus an even normal term, on flat solids. Grid ranges within .5
 byte of the best score are sensitivity intervals, NOT confidence intervals.
 The rrect's circular SDF is intentionally the same estimator as G0, not a
 claim that it is Apple's continuous curve. No width is sealed by this reader.
+
+Review correction beside, 2026-09-22: "Capsule raster control" is not a circular
+geometry control. SwiftUI Capsule() defaults to .continuous; capsule-geometry.swift
+and its output attest that path without rendering. The circular annulus grid's
+recorded values mix geometry and coverage: pixel-area spread is possible, not
+isolated. Capsule-vs-md does not isolate circle-vs-continuous geometry. G0's fixed
+mask remains a valid shared-pixel non-regression referee, not isolated corner
+colour-law accuracy. No recorded coverage values have been changed.
 """
 import json
 import sys

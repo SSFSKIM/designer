@@ -34707,6 +34707,20 @@ the along-side field has zero side mean. G0's pure-side dark active photo/md top
 are−.353/−3.047, left/right−54.536/−50.488. Any common value has at least**27.0915 bytes** maximum
 residual on those four means. The SDF/normal machinery is reusable; this directional law is not.
 
+**Review bound qualification, 2026-09-22 (§5.171):** 27.0915 bytes bounds a common cardinal
+ADDITIVE response against these four means, not arbitrary retuning of the whole shader.
+
+**Review qualification beside, 2026-09-22 (§5.171):** one byte is an encoding-resolution
+diagnostic, not a native noise bar. The 78 straight / 3 arc closures count the recorded
+least-squares fits, not a proof over all coefficients. At three bytes those fits close
+8/152 combined, 104/152 straight and 12/152 arc strata. The reviewer's minimax fits close
+0/152, 79/152, 4/152 respectively at one byte and 16/152, 111/152, 20/152 at three bytes.
+Omitted families close individual full strata at one byte: rotated axis 0/152; isotropic plus
+two orthogonal even-axis terms 7/152; gradient 0/152; colour plus gradient 3/152. For example,
+dark inactive 1x dark-solid capsule fits `−22.650771 + 6.304978|nx|^0.5 + 13.357469|ny|^0.5`
+with max-bin residual 0.31 bytes. Thus the original no-full-closure statement is about the
+recorded families and fits, not every separable law or coefficient choice.
+
 ### 3. Radial placement: one device pixel on safe sides, pixel-area spread on circles, geometry on continuous corners
 
 At both scales the light-solid inactive safe straight core has its notch at sampled d=.5,
@@ -34719,6 +34733,19 @@ capsule arcs, mean RGB residuals in d bins−1/0/1 are about**−9.06/−31.22/�
 are**−9.96/−28.31/−4.51**. Both are0 from d≥2. This cannot be blamed on `.continuous`: SwiftUI
 uses `Capsule()`, whose arcs are exact circles. A one-pixel annulus integrated over a pixel
 footprint can touch three centre-distance shells; these are not three pixels of geometric width.
+
+**Review correction beside, 2026-09-22 (§5.171):** the circular-control interpretation above
+is withdrawn. `SceneViews.swift:60` supplies `Capsule()`, whose default is `.continuous`, not
+`.circular`. `capsule-geometry.swift` and its `.txt` output attest the 120×44 paths without
+rendering: default equals explicit continuous and differs from explicit circular; the straight
+segment starts at 33.6306 (1.528665 × 22), not 22. The independent review's curve sampling found
+−0.303570…+0.043123 CSS px against the circular SDF (down to −0.607 device px at 2x), whereas
+explicit circular's cubic approximation stays within +0.006 CSS px. These are path diagnostics,
+not a recapture or proof of the fixture's raster alignment. The recorded shell/grid numbers stay;
+pixel-area spread is possible but is NOT isolated from geometry, and capsule-vs-md is NOT a
+circle-vs-continuous experiment. G0's fixed-mask ceilings remain valid non-regression measurements
+because candidate and baseline use the same declared pixels; corner ceilings do not isolate
+colour-law accuracy. Both supplied shapes require geometry qualification.
 
 The64-sample annulus grid spans widths.5/.75/1/1.25/1.5 and centres0/.25/.5/.75/1. On
 light-solid inactive capsules, both schemes and scales select centre**.5**; within best MAE+.5
@@ -34738,6 +34765,11 @@ native and web1x light-solid inactive capsule were also inspected at native size
 web contour is visible; the numerical spread is not claimed as a visual measurement of width.
 
 ### 4. Colour: the angular extension still does not close a family
+
+**Review fixed-colour check, 2026-09-22 (§5.171):** a fixed-colour blend is contained in the
+affine family: `m0 = −a0`, `m1 = −a1`, `b0 = a0·c`, `b1 = a1·c`. The independent constrained
+fit on light-inactive black-bearing leaves 35.40 bytes encoded / 40.81 linear (worst-channel
+MAE, evaluated in encoded bytes). No fixed blend colour is identified by that fit.
 
 Eight families extend G0's floor: neutral multiply/add/affine and tinted affine in encoded and
 linear sRGB, now with isotropic and even-angular terms. Fits over all backdrops share one
@@ -34879,12 +34911,37 @@ remaining18.4324 bytes as identified fidelity. The other options stay available 
 is identified: exact placement with both conformance prices acknowledged, or the cap with its
 loss tabled. The user's bounds have not moved; this is a recommendation, not their approval.
 
+**Third option beside the DL3 draft, 2026-09-22 (§5.171), UNRULED:** the independent reviewer
+also demonstrated a gate-preserving EMPIRICAL partial correction, rather than waiting for an
+identified law or relaxing conformance. It uses isotropic affine on light-active and both
+inactive endpoints, `|nx|²` on dark-active, accessibility unchanged, and coefficients shared
+across 1x/2x. Attenuation is sampled under every G0 ceiling with the finished-alpha cap.
+Pooled ring MAE is **34.979077 → 20.599081 bytes**, with **0/0** contour/IoU failures,
+zero predicate/area/body/native-mask changes, min IoU **0.998722**, and whole-exterior warning
+**0.000446**. Isotropic-only leaves **23.768**; `|nx|²`-only **29.561** (dark-active
+**25.649 → 12.304**). The baseline is **34.979077**, not “~20”; 20.599 is the partial result.
+These are in-sample, offline, unrendered review readings: no CSS result and no identified law.
+`review-partial-combined.py` and `review-partial-prices.json` preserve the review artifacts.
+**Recommendation remains stop at the finding:** geometry and colour remain unseparated, and
+in-sample non-regression is not identification or rendered validation. This empirical route
+is the user's third alternative, not a ruling or authority to implement it; no gate moves.
+
 Next identifying evidence: repeated same-geometry circular capsules over uniform grey and RGB
 levels, with subpixel-phase sweeps at1x/2x, then the matched continuous rectangles, both poses
 and schemes. This separates colour, normal response, coverage and corner geometry and supplies
 a repeatability bar. It needs a new authorised native-capture/split plan; X5 forbids it here.
 The independently supported lift stand-down remains chartered, waiting with G1b under the
 one-seal/one-read route; splitting that work is a parent/user scope decision, not silently done.
+
+**Amended next-capture plan beside, 2026-09-22 (§5.171):** capture an explicitly circular,
+path-ATTESTED capsule beside the default continuous one, then matched continuous rectangles;
+export the supplied geometry and alignment and include an opaque geometry/raster control.
+Use matched local-colour scenes with varied backdrop-gradient direction and magnitude and a
+small spatial-frequency ladder, alongside uniform-grey/RGB and subpixel-phase sweeps at both
+scales, schemes and poses. No-glass references must have identical colour management. Take
+enough repeats to estimate per-bin, per-channel variability BEFORE choosing a closure threshold;
+declare calibration/validation/holdout membership before fitting. This is a plan requiring new
+native-capture authorisation, not a capture performed here; X5 remains intact.
 
 ### 8. Checks and what this gate does not claim
 
@@ -34914,3 +34971,31 @@ erased or claimed green. This touched the test only, not any measured evidence o
 rows,216 at contour1; selected85/30 at1. The candidate applies to22 of26 M2 cells and explicitly
 holds four outside its domain unchanged; the oracle covers26. All remain untouched in the
 native mask. This is not an extrapolated model on the four unmodelled M2 cells.
+
+
+### 9. Review closure — 2026-09-22
+
+The independent review found one blocking interpretation error: the harness's `Capsule()`
+is continuous, not circular. Dated corrections sit beside §3, the gate README, the coverage
+reader's docstring, the charter's G1a and DL3 entries, and the tracker; a non-rendering Swift
+path witness and its output are committed. The harness README notes the default; no harness
+source or build changed. Fixed-mask non-regression survives, isolated corner colour-law
+accuracy and circle-vs-continuous identification do not.
+
+Seven non-blocking folds are recorded beside the corresponding claims: (1) encoding-resolution
+versus noise, least-squares versus minimax closures and omitted angular families; (2) the
+common-cardinal-additive scope of 27.0915; (3) the constrained fixed-colour blend and its affine
+containment; (4) the correct pooled baseline 34.979077 bytes, not “~20”; (5) DL3's empirical,
+gate-preserving third option, with the independent reviewer's scripts/output archived and
+stop-at-the-finding still recommended; (6) a path-attested, geometry/raster/gradient/frequency
+and repeatability-aware next-capture plan with its split declared before fitting; (7) raw-log
+trailing blank lines left intact and `git diff --check` qualified in the gate README.
+
+No capture, render, material document, matrix, native fixture, runtime source or frozen-keyed
+file changes. No fit is rerun and no bound or user decision is adopted by this closure.
+
+
+**Closure checks:** calibration **644/644 in 42 files**, lint (eslint plus four TypeScript
+checks) passed, freeze verification **1,818 entries intact**; `review-closure-*.txt` preserves
+the results. The test wrapper's zsh `status` assignment failed after the successful suite;
+the result is read from the completed log, not inferred from that wrapper's exit status.

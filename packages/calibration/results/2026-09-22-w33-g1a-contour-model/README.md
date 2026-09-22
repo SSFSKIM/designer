@@ -47,6 +47,17 @@ coefficients among closures; otherwise show the smallest-error sampled family as
 | straight only |152|78|
 | arcs only |152|3|
 
+**Review qualification beside, 2026-09-22 (§5.171):** one byte is an encoding-resolution
+diagnostic, not a native noise bar. The 78 straight / 3 arc closures count the recorded
+least-squares fits, not a proof over all coefficients. At three bytes those fits close
+8/152 combined, 104/152 straight and 12/152 arc strata. The reviewer's minimax fits close
+0/152, 79/152, 4/152 respectively at one byte and 16/152, 111/152, 20/152 at three bytes.
+Omitted families close individual full strata at one byte: rotated axis 0/152; isotropic plus
+two orthogonal even-axis terms 7/152; gradient 0/152; colour plus gradient 3/152. For example,
+dark inactive 1x dark-solid capsule fits `−22.650771 + 6.304978|nx|^0.5 + 13.357469|ny|^0.5`
+with max-bin residual 0.31 bytes. Thus the original no-full-closure statement is about the
+recorded families and fits, not every separable law or coefficient choice.
+
 A two-term even response captures the axis contrast; no universal exponent or pose-independent
 law is identified. Dark active photo/md's best sampled full profile is
 `−2.678989 − 43.765422 |nx|^4`, with **14.762813** bytes worst bin residual. Its signed residuals
@@ -66,6 +77,9 @@ at least **27.0915** bytes maximum residual on those four means (half their rang
 independent of the unit-exponent diagnostic's ranking. The inactive capsule restores both
 horizontal sides, **−29.566/−29.351**, so a capsule-wide disable is also wrong.
 
+**Review bound qualification, 2026-09-22 (§5.171):** 27.0915 bytes bounds a common cardinal
+ADDITIVE response against these four means, not arbitrary retuning of the whole shader.
+
 ## Radial finding and uncertainty
 
 On light-solid inactive safe straight sides, both scales put the notch in **[0,1)**, sampled
@@ -79,6 +93,19 @@ continuous-corner error. Their exact circular arcs have nonzero residuals in **[
 in those shells are about **−9.06/−31.22/−5.70** for d bins −1/0/1; from d≥2 they are zero.
 The 2x reading is about **−9.96/−28.31/−4.51**, also zero beyond d≥2. One device pixel of
 geometric support can touch parts of three sampled shells; that is not three geometric pixels.
+
+**Review correction beside, 2026-09-22 (§5.171):** the circular-control interpretation above
+is withdrawn. `SceneViews.swift:60` supplies `Capsule()`, whose default is `.continuous`, not
+`.circular`. `capsule-geometry.swift` and its `.txt` output attest the 120×44 paths without
+rendering: default equals explicit continuous and differs from explicit circular; the straight
+segment starts at 33.6306 (1.528665 × 22), not 22. The independent review's curve sampling found
+−0.303570…+0.043123 CSS px against the circular SDF (down to −0.607 device px at 2x), whereas
+explicit circular's cubic approximation stays within +0.006 CSS px. These are path diagnostics,
+not a recapture or proof of the fixture's raster alignment. The recorded shell/grid numbers stay;
+pixel-area spread is possible but is NOT isolated from geometry, and capsule-vs-md is NOT a
+circle-vs-continuous experiment. G0's fixed-mask ceilings remain valid non-regression measurements
+because candidate and baseline use the same declared pixels; corner ceilings do not isolate
+colour-law accuracy. Both supplied shapes require geometry qualification.
 
 The 8×8 annulus grid (width .5,.75,1,1.25,1.5; centre 0,.25,.5,.75,1) on light-solid inactive
 capsules selects centre **.5 at both scales and schemes**. Within best MAE+.5 byte, light
@@ -103,6 +130,11 @@ Black-bearing inactive ring pixels brighten over backdrop black and darken over 
 schemes. For example the light left-side class means are about **+37.4 RGB over black** and
 **−138.3 over white**; these are the widened class, not §5.166's particular 0–6/156 transect.
 A multiply cannot do both. Spatial sampling, native coverage and body colour remain confounded.
+
+**Review fixed-colour check, 2026-09-22 (§5.171):** a fixed-colour blend is contained in the
+affine family: `m0 = −a0`, `m1 = −a1`, `b0 = a0·c`, `b1 = a1·c`. The independent constrained
+fit on light-inactive black-bearing leaves 35.40 bytes encoded / 40.81 linear (worst-channel
+MAE, evaluated in encoded bytes). No fixed blend colour is identified by that fit.
 
 `candidate.json` declares one **falsified diagnostic family**, with coefficients in
 `colour.json.models[].candidate`:
@@ -200,6 +232,31 @@ grey and RGB backdrops, repeat measurements, and sweep subpixel phase at1x/2x be
 continuous rectangles. That separates angular response, pixel-area coverage and colour. It
 requires a new authorised native capture/split plan; X5 forbids doing it in this gate.
 
+**Third option beside the DL3 draft, 2026-09-22 (§5.171), UNRULED:** the independent reviewer
+also demonstrated a gate-preserving EMPIRICAL partial correction, rather than waiting for an
+identified law or relaxing conformance. It uses isotropic affine on light-active and both
+inactive endpoints, `|nx|²` on dark-active, accessibility unchanged, and coefficients shared
+across 1x/2x. Attenuation is sampled under every G0 ceiling with the finished-alpha cap.
+Pooled ring MAE is **34.979077 → 20.599081 bytes**, with **0/0** contour/IoU failures,
+zero predicate/area/body/native-mask changes, min IoU **0.998722**, and whole-exterior warning
+**0.000446**. Isotropic-only leaves **23.768**; `|nx|²`-only **29.561** (dark-active
+**25.649 → 12.304**). The baseline is **34.979077**, not “~20”; 20.599 is the partial result.
+These are in-sample, offline, unrendered review readings: no CSS result and no identified law.
+`review-partial-combined.py` and `review-partial-prices.json` preserve the review artifacts.
+**Recommendation remains stop at the finding:** geometry and colour remain unseparated, and
+in-sample non-regression is not identification or rendered validation. This empirical route
+is the user's third alternative, not a ruling or authority to implement it; no gate moves.
+
+**Amended next-capture plan beside, 2026-09-22 (§5.171):** capture an explicitly circular,
+path-ATTESTED capsule beside the default continuous one, then matched continuous rectangles;
+export the supplied geometry and alignment and include an opaque geometry/raster control.
+Use matched local-colour scenes with varied backdrop-gradient direction and magnitude and a
+small spatial-frequency ladder, alongside uniform-grey/RGB and subpixel-phase sweeps at both
+scales, schemes and poses. No-glass references must have identical colour management. Take
+enough repeats to estimate per-bin, per-channel variability BEFORE choosing a closure threshold;
+declare calibration/validation/holdout membership before fitting. This is a plan requiring new
+native-capture authorisation, not a capture performed here; X5 remains intact.
+
 ## Reproduce and limits
 
 Set `VITREA_WEB_CAPTURES` to the main checkout's read-only canonical tree. Run `model.py` with
@@ -226,3 +283,42 @@ cells,216 at contour1; selected85,30 at1. Of26 M2 cells,22 are in the candidate 
 are held unchanged, while the oracle covers all26. This qualification is separate from the
 0-pixel-touch result. `prices-final.txt` records the final run; no measured price changed when
 the inherited G0 archival metadata inventory was restricted to this gate's non-holdout scope.
+
+
+## Review closure — 2026-09-22 (§5.171 §9)
+
+The dated corrections beside the radial finding withdraw the circular-capsule premise, not the
+recorded numbers. `capsule-geometry.swift` ran directly with `swift`; `capsule-geometry.txt`
+records paths and straight-segment starts. It neither renders nor builds the capture harness.
+The harness change is README-only; the granted bundle and Swift sources are untouched.
+
+`review-partial-*`, `review-minimax.*`, `review-extend.*` and `review-colour-check.*` are the
+independent reviewer's OFFLINE scratch artifacts, not this closure's new fits. JSON and logs
+are copied byte-for-byte; script headers identify provenance. In particular,
+`review-partial-prices.json` is the reviewer's in-sample output, NOT a runtime or matrix read.
+The scripts retain their original scratch paths and dependencies (including `records.pkl`,
+`partial.json`, and the generated price harness); this is an archival snapshot, not a portable
+replay package. No reviewer fit or price script was rerun here. The combined capped row, not
+its exact row or oracle rows, supplies the third option's figures.
+
+`git diff --check` reports trailing blank lines in preserved raw logs from the original gate;
+leave those records intact rather than rewrite their output. This is not a lint/test failure.
+
+
+**Closure verification, 2026-09-22:** calibration **644/644 across 42 files**, calibration lint
+(eslint and all four TypeScript checks) passed, frozen macOS 26.5 **1,818 entries intact**.
+Logs: `review-closure-tests.txt`, `review-closure-lint.txt`, `review-closure-freeze.txt`.
+The test command completed successfully; its wrapper subsequently tried assigning zsh's
+read-only `status` variable, so that wrapper exited 1 after the successful test log was written.
+No failed test is hidden by this shell-only error.
+
+The initial path witness is retained as `capsule-geometry-initial.txt`: exact y comparison
+included zero-length lines and missed circular lines with floating-point y noise. The final
+witness excludes degenerate lines and uses 1e-9 y tolerance; `capsule-geometry.txt` records
+both genuine straight-segment starts. The path coordinates and path-equality result are not
+rewritten; the initial output stays beside the corrected diagnostic.
+
+
+**Diff-check detail:** against `bc2631df`, the five original test logs have trailing blank
+lines; staging this closure adds the same raw-output warning for `review-closure-tests.txt`.
+Those six EOF-only warnings are retained records. No other whitespace warning was reported.
