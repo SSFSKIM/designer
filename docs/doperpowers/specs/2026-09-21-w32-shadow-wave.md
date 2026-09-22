@@ -567,6 +567,9 @@ wave itself leaves.
    shadow, which is why W32 X3 forbade this wave to touch it and why B3 was re-stated instead.
    §5.62's own measurement is not withdrawn: it stands on the material and through the instrument
    it was taken with, and a silhouette wave is still free to read it there.
+
+   **Corrected beside, W33 G0, 2026-09-22 (claims §5.170):** the existing W32 `contour-stroke.txt` reads native−web **−31.95 to −13.19 bytes** on those22 stroke cells, not14–30. The old range is retained above as the record being corrected. Its two dark active capsule exceptions concern STRAIGHT edges only; G0 reads their corner arcs too and finds a substantial residual there. The widened non-holdout offset2–6 baselines are per cell, not a universal fraction-of-a-byte promise.
+
 4. **Candidate (i) — the rendered σ against Apple's fitted σ.** It halved and did not close:
    **+1.27 to +2.77 CSS px** against +2.66 to +3.77 before, OUTSIDE its declared ±5 % window on all
    twelve bed × span rows at the shipped documents (§5.169 §1). It stays a one-wave reading and is
@@ -648,8 +651,6 @@ wave itself leaves.
     export. **The work**: one line, plus the design question that comes with it — whether an app
     should be given the SELECTION at all when the honesty core's argument is that a consumer reads
     what DREW. The `/laws/` stage is the worked example of the second answer.
-
-**Corrected beside, W33 G0, 2026-09-22 (claims §5.170):** the existing W32 `contour-stroke.txt` reads native−web **−31.95 to −13.19 bytes** on those22 stroke cells, not14–30. The old range is retained above as the record being corrected. Its two dark active capsule exceptions concern STRAIGHT edges only; G0 reads their corner arcs too and finds a substantial residual there. The widened non-holdout offset2–6 baselines are per cell, not a universal fraction-of-a-byte promise.
 
     > **CLOSED beside, 2026-09-22 (Decision Log 5, RULED by the user at G2's close; claims §5.169
     > §10).** `useGlassRootHandle` is exported from `@vitreajs/vitrea-react` in **0.22.0** — one
