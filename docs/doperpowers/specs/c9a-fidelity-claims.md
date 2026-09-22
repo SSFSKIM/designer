@@ -35326,3 +35326,18 @@ No identity-table leaf is added and no bound/floor is widened. The five composit
 holdout pixels remain recorded misses until G2 fixes the referee's domain before
 adoption. The later identifying contour capture remains Decision Log3's first
 Deferred item, requiring its own native-capture authorization.
+
+
+### 11. Verification-scope correction before hand-off
+
+The unqualified `git diff --check` sentence in§10 above checked pending changes,
+not the entire committed branch. **The full-range reading is exit2:1,511 whitespace
+diagnostics in23 raw `.txt` evidence files**, solely CLI padding/trailing blank
+lines. The raw output bytes are retained, as at G1a's closure; no measured number
+or capture is reformatted to obtain a cosmetic green. Excluding those text-evidence
+paths, **the full-range authored source, documentation and JSON check exits0**.
+`whitespace-scope.json` records both command results and every affected file.
+The build/lint/test, golden, activation, freeze and capture-tree results in§10 are
+unchanged. This is a records-only third commit, after seal`0d0594b2` and
+read/split`6f3435de`; the commit carrying this correction is the third, not the
+second described at the original Tracking Map write.
