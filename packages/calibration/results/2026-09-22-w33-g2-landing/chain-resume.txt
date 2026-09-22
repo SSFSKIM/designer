@@ -1,0 +1,39 @@
+{"time": "2026-09-22T11:48:10.072897+00:00", "run": "goldens", "reduceTransparency": "0", "increaseContrast": "0", "NSGlassTintAmount": "0.5", "foreignProcessCount": 0, "foreignProcesses": [], "idleStart": "2026-09-22T11:47:09.925900+00:00", "idleSeconds": 60.147}
+
+== goldens
+goldens exit=0
+{"time": "2026-09-22T11:49:24.431987+00:00", "run": "gpu", "reduceTransparency": "0", "increaseContrast": "0", "NSGlassTintAmount": "0.5", "foreignProcessCount": 0, "foreignProcesses": [], "idleStart": "2026-09-22T11:48:24.367324+00:00", "idleSeconds": 60.065}
+
+== gpu
+gpu exit=0
+{"time": "2026-09-22T11:50:47.768028+00:00", "run": "platform-web", "reduceTransparency": "0", "increaseContrast": "0", "NSGlassTintAmount": "0.5", "foreignProcessCount": 0, "foreignProcesses": [], "idleStart": "2026-09-22T11:49:47.684586+00:00", "idleSeconds": 60.084}
+
+== platform-web
+platform-web exit=0
+{"time": "2026-09-22T11:52:53.739150+00:00", "run": "react-e2e", "reduceTransparency": "0", "increaseContrast": "0", "NSGlassTintAmount": "0.5", "foreignProcessCount": 0, "foreignProcesses": [], "idleStart": "2026-09-22T11:51:53.630147+00:00", "idleSeconds": 60.109}
+
+== react-e2e
+react-e2e exit=0
+{"time": "2026-09-22T11:55:01.660615+00:00", "run": "demo-e2e", "reduceTransparency": "0", "increaseContrast": "0", "NSGlassTintAmount": "0.5", "foreignProcessCount": 0, "foreignProcesses": [], "idleStart": "2026-09-22T11:54:01.545711+00:00", "idleSeconds": 60.115}
+
+== demo-e2e
+demo-e2e exit=1
+
+== gated-count
+gated-count exit=0
+
+== freeze-close
+freeze-close exit=0
+freeze-open exit=0
+capture-tree exit=0
+build exit=0
+lint exit=0
+eslint-root exit=0
+units exit=0
+goldens exit=0
+gpu exit=0
+platform-web exit=0
+react-e2e exit=0
+demo-e2e exit=1
+gated-count exit=0
+freeze-close exit=0

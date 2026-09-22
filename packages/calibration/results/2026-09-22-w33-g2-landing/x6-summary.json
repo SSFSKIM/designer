@@ -1,0 +1,19 @@
+{
+  "readings": 10,
+  "refused": 1,
+  "eligible": 9,
+  "minimumEligibleIdleSeconds": 60.065,
+  "allEligibleSettings": [
+    "0",
+    "0",
+    "0.5"
+  ],
+  "allEligibleForeignProcessCounts": 0,
+  "refusedRun": "laws-eye: own setup shell contained the search strings; no browser launched.",
+  "notes": [
+    "laws-eye-after-shell-stop: CLI could not locate its expected browser; no launch.",
+    "laws-eye-explicit-installed-binary: real full Chromium opened; unsupported CLI option prevented screenshots.",
+    "laws-eye-cli-inline: all four screenshots succeeded in one session.",
+    "demo-e2e: server collision before any test; isolated-port continuation separately attested."
+  ]
+}

@@ -172,19 +172,19 @@ export function figuresOf(cell: Cell): readonly Figure[] {
    * cell's figures and omits the axis its own material just changed is printing
    * the figures that happened to exist.
    *
-   * The web reading at a thin span is NOT the material's σ and the note says so.
-   * The instrument fits one blurred edge to the whole exterior departure, and
-   * below the knee the lift — a 40 px blur by its own constant — is what most of
-   * that departure is, so the fit returns the lift's width rather than the
-   * shadow's. It is a reading of the composite, which is what the pair is for;
-   * the material's own law is `outerShadowSigmaPx`, and `/laws/` evaluates it.
+   * This fit is a reading of the composite, not the material's blur law.
+   * The macOS 27 documents have no lift after W33; attributing the thin-span
+   * fit to the lift's width would describe a term the default no longer draws.
+   * The frozen macOS 26.5 material retains that term. The independently fitted
+   * native and web edge widths are diagnostics, not C1's adopted shape metric;
+   * the material's own law is `outerShadowSigmaPx`, evaluated on `/laws/`.
    */
   add("Shadow falloff sigma, native", metric(cell.shadow, "falloffSigmaNative"), 2);
   add(
     "Shadow falloff sigma, web",
     metric(cell.shadow, "falloffSigmaWeb"),
     2,
-    "One blurred edge fitted to the whole exterior departure, not the material's own blur constant. Below the size law's knee the outer shadow is narrower than the lift that surrounds it, so this fit returns the lift's width and reads several times the native's; above the knee the two are the same quantity and comparable. The material's own law is evaluated on the /laws/ page.",
+    "One blurred edge fitted to the whole exterior departure, not the material's own blur constant. The macOS 27 material has no lift; macOS 26.5 retains its blurred lift, which can dominate this composite reading at thin spans. These fitted widths remain diagnostics, not the adopted exterior-shape bound. The material's own law is evaluated on the /laws/ page.",
   );
   return out;
 }

@@ -34412,6 +34412,20 @@ The explicitly requested predecessor `halo.py` rerun reads active WebGPU max **1
 scales and inactive mean/max **0.00/0.00** on both tiers. That existing held-out-scene reading is
 archival corroboration, not a candidate referee or an input to the stroke family or bound.
 
+
+**Composite-domain correction beside, W33 G2, 2026-09-22 (§5.173; DL4).** The232
+non-holdout referee cells above remain that reading. The adopted X1 population is218
+standard-profile single-shape cells:10 accessibility cells and4 composites are excluded.
+The ten accessibility cells also read0 at G1b/G2, but the fold stands down the material
+W33 changed, so they do not enter this row. G0's committed `geometry()` uses only the
+stack overlay; G1b's one holdout read then exposed five unchanged base-edge pixels on
+four2x glass-over-glass cells. G2's separate `referee-union.py` reads12 composite cells
+at the canonical pixels: all five legacy pixels lie inside the base, outside the overlay,
+and both exterior masks count0 >0 and0 >1 under the union box. This corrects the domain,
+not the original numbers or the material. Composites remain DECLINED from X1; a bounding
+box is not an adopted union-of-contours model. No capture or holdout configuration was read
+again to make this correction.
+
 ### 4. B — absolute RGB per pixel, straight edges AND normal-distance corner arcs
 
 `referee.py` excludes holdout and recorded membership **before opening web PNGs**. It carries
@@ -35341,3 +35355,232 @@ The build/lint/test, golden, activation, freeze and capture-tree results in§10 
 unchanged. This is a records-only third commit, after seal`0d0594b2` and
 read/split`6f3435de`; the commit carrying this correction is the third, not the
 second described at the original Tracking Map write.
+
+
+## 5.173 W33 G2: the black floor adopted, the composite referee corrected, and the landing at 0.23.0 (2026-09-22)
+
+**Landing prepared at0.23.0; independent review pending, unpublished.** W33 Decision Logs1–4,
+especially DL3's stop at the contour finding and DL4's adopted domain. Evidence is
+`packages/calibration/results/2026-09-22-w33-g2-landing/`; branch `w33-g2-landing`, from
+main`460cc512`. No material, profile document, identity-table leaf, matrix row, frozen-keyed
+path or golden is edited. No native capture, calibration re-read, seal or holdout artifact
+is made here. Pixels are read from the MAIN checkout's canonical tree, read-only.
+
+### 1. X1 adopts the zero, not G0's entire population
+
+`adopted-thresholds.test.ts` now carries **X1**: per cell, fraction of native-black exterior
+pixels with web>0 **0**, and separately count web>1 **0**. The four standard macOS27 beds,
+WebGPU only, active AND inactive, calibration/validation/probe but no holdout, the nine
+black-bearing backdrops, single rounded rectangles/capsules only. Span160 is probe-strength.
+
+G0's **232** cells are not silently relabelled218: its ten accessibility cells and four
+composites explain the difference, named with both readings in`black-cut.txt`. Accessibility
+reads0 too, but its fold stands down the material W33 changed; like M1/M2/C1, X1 would
+otherwise promise something about a material this wave did not fit. The composite correction
+is §2. The resulting **218 cells,38 bed×pose×span groups** contain **12,681,980** eligible
+integer-mask pixels; the analytic companion contains **12,593,524**. Every nativeNonzero,
+web>0, web>1 and per-cell fraction is0 on both masks. Active/inactive cell counts are
+**39/20 per light scale**, **34/16 per dark scale**. The corresponding G0 single-shape
+standard counts were138,390 >0 and477 >1; none was in the excluded14 cells.
+
+The exterior is G0's **integer offset>=2 from the declared rect**, far edge exclusive;
+its first centre at1x is1.5CSSpx outside, NOT analytic>=2CSSpx. The Euclidean analytic-box
+mask remains beside it. Both require backdrop RGB0 and native RGB0. The cut carries all
+six figures per mask (backdrop-black, native-nonzero, eligible, above-zero, above-one,
+fraction), identity, pose, role, span, backdrop and matrix capturePath.
+
+`referee.py` and`rules.py` are copied byte for byte from G0 and regenerated HERE, without
+`--include-holdout`. `black-cut.py` selects from that output through the live scene+matrix
+population and validates both named document hashes; `black-cut.json` records
+**atDocuments="shipped", withHoldout=false**. The test independently re-derives the
+population from`scenes.json`+`results/matrix.json`, then every figure from native/backdrop
+and web PNG bytes; capture metadata must equal the matrix's capturePath, and both active
+AND receded hashes must equal the shipped files. This is not a cut gating its own snapshot.
+
+The header amendment answers the material-axis objection: this observable IS a stored code
+crossing0, not a sub-byte inferred amplitude, and the leaf-only experiment separated it from
+anchor fitting. It adopts neither an unidentified blur nor the stopped contour model.
+The contour's304 G0 ceilings stay declared script-read stops; no B row is adopted.
+
+**Discrimination exercised against the real four X1 cases:** a cut's backdropBlack+1 is RED;
+a single eligible scratch PNG channel0→1 is RED; a bogus `missed` excuse is RED. The canonical
+tree is never written. `discrimination*.txt` keeps each failure. `x1-first.txt` is4/4 green.
+Without the tree, the pixel case explicitly calls `ctx.skip` with **UNMEASURED X1** and does
+not pass; the verbose proof is`x1-unmeasured.txt` (3 pass,1 X1 unmeasured, other cases filtered).
+The full landing's pixel case must run with the tree; it does in the unit chain below.
+`PREDICATE_EXCLUDES` is unmoved at67; this row adds no predicate excuse or missed row.
+
+### 2. The five composite pixels stay recorded, with their corrected domain beside
+
+`referee-union.py` is a new instrument, not an edit to G0's committed evidence. It constructs
+the union BOUNDING box of the component's parts, reads all **12** standard composite
+black-bearing cells from the current canonical tree (including the already-read holdout),
+and records the legacy and corrected counts per mask. This is archival analysis of one
+read's pixels, not a new holdout capture or fit. All12 cells read0 >0 and0 >1 under both
+union masks. The four non-holdout composite cells are still declined from X1.
+
+| legacy 2x checkerboard stack | >0 pixels | device(x,y), inside base / outside overlay |
+| --- | ---: | --- |
+| dark inactive |1|(142,329)|
+| dark active |1|(142,70)|
+| light inactive |2|(100,287), (142,329)|
+| light active |1|(142,70)|
+
+These are G1b's five unchanged one-byte pixels. The base box is[50,35]–[270,165] CSS;
+the overlay is[100,64]–[220,120]. G0 called the latter the component, so its exterior
+admitted the former's edge. `referee-union.json` proves all five lie inside the base and
+outside the overlay, and zero remain outside the union. The correction sits beside §5.170's
+numbers and closes the urgent tracker entry, not a claim of exact composite contour geometry.
+
+### 3. M2 confirms G1b's reference, and the per-wave table gains its second row
+
+W32 DL4's reference is **W32 G1's generation**, active hashes`d5bdd6eac432`/`431cabd391c4`,
+resolved through the superseded index. G1b already advanced it; G2 does NOT advance it again.
+Its unchanged `chroma-cut.py` and`m2-rebaseline.py` are copied and regenerated here. The full
+26-cell per-wave/cumulative table is byte-equal as JSON values to G1b's`m2-rebaseline.json`,
+and the adopted tests now read G2's regenerated chroma cut. No metric is remeasured.
+
+| adopting wave | M2 cells passing | worst per-wave change | cumulative worst magnitude |
+| --- | ---: | ---: | ---: |
+| W32, §5.169 |26/26|−1.477%|−2.774796%|
+| W33, §5.172 confirmed here |26/26|−0.039391%|−2.774796%|
+
+The W33 worst is1x dark photo/md active;20 cells are exactly unchanged. The cumulative
+small-light inactive cell has0 per-wave change here. The2% bound is unchanged; cumulative
+drift is visible, not reset or claimed bounded. `MISSED_27_ROWS` remains the same eight
+(five image metrics and three M1 cells); no M2 miss is added or silently retired at G2.
+
+### 4. Sheets and eye: the temporary stop was a display false alarm
+
+**24 canonical sheets**, both schemes/scales, cover hc-text28/7, checkerboard8 at128/160,
+photo/lg and photo/capsule. Every panel asserts the shipped documents, including the receded
+one. Every ×8 panel prints **137.10/255** for one byte above black and actual >0/>1 counts.
+All24 were viewed. Eight2x CSS probe panels are labelled absent; no substituted pixels and
+no new row. The black floor is0, the known contour/body/chroma and CSS near-edge residuals
+remain, with no new unexplained terrace or material difference. **Four more rows**, native
+| harness WebGPU | `/laws/`, cover96/160 in both poses atDPR2; all were viewed. Different
+page/harness grounds and widths make them juxtapositions, not equality assertions.
+
+`laws-readings.txt` reports active depths at3/12/24 of **6.34/3.01/0.36%** at96 and
+**15.69/10.55/4.67%** at160, receded depths all0; σ8.96/17.37px, outset0.50, offset7.95.
+The resolved endpoint names are active/receded as posed. The pre-existing `/laws/` pin
+checks the readout against the drawn CSS shadow and is run in the demo chain below, without
+hand-editing a digest literal or generated runtime file.
+
+**STOPPED, investigated, then resumed — not concealed as an uninterrupted eye pass.** The
+worker mistook the downscaled outer ground for vertical stripes. The coordinator separately
+questioned apparent bands inside the glass. The chain stopped after its first six green
+steps, before any browser suite. Raw pixels closed both concerns: outer colours alternate
+in X AND Y every32device px; the interior's matched label-free161px transects have64px
+components **0.981231 horizontal /1.438915 vertical bytes peak-to-peak**, with raw ranges
+1.0722/2.9278. Near-top horizontal period64.5px changes polarity/depth withY; central red
+samples are218 in both axes. The initially requested horizontal crossed the160px text
+and its190.5788-byte range was NOT attributed to material. The vertical requested line
+has2.057936-byte64px component, including edge/lens variation. Full arrays and FFT readings
+are retained in`eye-transects.json`; `eye.md` records the sequence and the coordinator's
+closure. Its first attenuation estimate used the SHADOWσ, not the body's wider blur.
+
+This was display downscaling of a fine checker, not an established sampling defect. No fix
+wave, no W32 eye correction, and no further capture were needed. The lesson is to inspect
+an ×8 panel or raw crop and sample both axes before trusting a downscaled patterned view.
+Only the unrun browser tail resumes behind fresh X6; no green suite is rerun for this alarm.
+
+### 5. The docs sweep — what each file claimed BEFORE, and what changes
+
+| site | prior claim | disposition at G2 |
+| --- | --- | --- |
+| `CLAUDE.md`, material rows | M1/M2/C1, all three re-derived from matrix cuts | Four with X1; its capture-pixel derivation and explicit unmeasured case, standard/single-shape domain and probe strength are named. M2's per-wave/cumulative distinction stays. |
+| `CLAUDE.md`, exterior prose | Receded shadows were zero and the contour undrawn; no standalone active zero-lift declaration | Names macOS27 lift0 on all four endpoints, retained26.5 lifts, the uniform-black-only meaning of the leaf comment, C1's anchor trade, and the present-but-unidentified contour with its identifying capture. |
+| `CLAUDE.md`, capture-tree paragraph | Merge copies the tree; checker compares generations, including receded hashes, not immutable pixel identity; superseded pixels live under active hash | **Unchanged, checked.** G2 reads the main canonical tree and runs that checker. It does not upgrade generation agreement into proof against a same-document re-capture. |
+| demo `calibration.ts` | Below the knee the fitted exterior width returns the lift's40px width; above it the quantities are the same and comparable | Corrected both tooltip and adjacent doc comment: macOS27 has no lift,26.5 retains it; the whole-exterior fitted width is diagnostic, not the material law or adopted C1. |
+| platform-web README | G1b's new active digests already named; receded zero-shadow and historical digest sequence retained, without current lift/anchor numeric explanation | Adds0.23.0's all-endpoint lift0, six active anchors, uniform-black qualification, X1 scope and stopped contour. Keeps prior digest readings. |
+| renderer-webgpu README | Same current digests already added by G1b beside older identity/chroma history | Same lift/anchor/scope explanation added; no default profile or digest changed. |
+| three CHANGELOGs |0.22.0 was the newest generated release section | `pnpm changeset version` consumes the one pending changeset; generated0.23.0 sections, not hand-edited. Its232-cell statement remains the broad referee, not X1's218. |
+| coverage matrix |46/156=29.5%; W32 suspected unwanted lift but had not moved it; eight missed rows and contour/structure gaps remained | Re-scored beside: tally unchanged, wrong floor closed only on X1's domain, no light-bleed capability claimed; content-aware shadow still absent; contour identification deferred. |
+| `/laws/` law/readout/pin | Resolve the reported endpoint digest, with tuned flag separate; compare readout to the shadow actually drawn | **Unchanged, checked.** Generated current document resolves the new digests; readouts photographed, existing pin runs in demo e2e. No hand-maintained digest substituted. |
+| c9d checklist | Latest row was0.22.0, with prior chain caveats and publication record | Adds0.23.0's actual per-suite results, new active/unchanged receded digests, exact file hashes and rehearsal; publication remains the user's. |
+| tracker and G0 claims | Composite-mask repair and stale demo tooltip were open; legacy five pixels were a referee miss | Corrected beside, preserving counts; urgent repair and tooltip closed, future composite adoption still deferred. |
+
+The four live documents are unchanged from G1b, and the generated runtime profile is untouched:
+
+| endpoint | resolved digest prefix | file SHA-256 first12 |
+| --- | --- | --- |
+| light active |`dcbccbd9feac9881`|`6e509c7f76cc`|
+| dark active |`e59f9106bcd7c966`|`eab099cc6698`|
+| light receded |`f34dcc03e2774db3`|`45acb6d916b9`|
+| dark receded |`6b6237b7ae241638`|`4e68f81869f6`|
+
+### 6. Version generation and the rehearsal, not a publication
+
+`pnpm changeset version` consumed every pending changeset and generated **0.23.0** on the
+fixed group (core/web/react). No generated file was hand-edited. `dry-run.sh`, copied from
+W32's landing with this gate's version/path, ran `pnpm publish --dry-run --no-git-checks`
+and `pnpm pack` for each package, exit0. Packed versions are0.23.0; every dependent workspace
+range becomes **^0.23.0**. Each has LICENSE, NOTICE, README and dist (7/3/3 entries for
+core/web/react). Tarballs: **583,802 B core /568,292 B web /188,179 B react**.
+
+The rehearsal does not invoke `changeset publish`; its last live exercise remains0.1.0
+and the installed CLI remains3.0.1. No merge, push, publication or tag is performed. The
+user's sanctioned `pnpm release` and subsequent tag remain later actions after review.
+
+### 7. The chain, with every attempt retained
+
+W32's `chain.sh` and`dry-run.sh` are copied for this gate; `record-machine.sh` now calls
+an instrument that records RT, IC, slider, foreign-process count and the measured idle
+interval, refusing before launch unless all four X6 facts hold. It observes capture-idle
+for60seconds, not background-task completion. `browser-runs.txt` has **10 readings**:
+one false-positive own-shell refusal before launch, and nine eligible attempts, all
+**RT0 /IC0 /slider0.5 /foreign0**, minimum idle **60.065s**. `x6-summary.json` records
+the attempts. An unavailable CLI browser and an unsupported screenshot-option error are
+retained separately; the installed full Chromium and supported inline command took the
+four successful page screenshots. No native harness was run.
+
+`chain-status.txt` is the machine's exit record, not a claimed all-zero script. The six
+non-browser steps completed before the temporary eye stop; `chain-resume.sh` ran ONLY
+the unrun browser tail and closing checks. No suite was repeated to settle the false alarm.
+
+| step | result |
+| --- | --- |
+| freeze open |1,818 intact|
+| capture-tree checker |1,900 captures;1,893 match;0 mismatch/misfiled/superseded/unreadable;7 no-row, the known extras. All786 live macOS27 rows have captures.|
+| recursive build |exit0|
+| recursive lint |exit0|
+| root eslint |exit0|
+| recursive unit suites |**2,719 /189 files**: policy23, motion164, geometry170, renderer561, core302, platform631, React174, calibration648, demo46. X1 adds4 cases; its pixel case ran with the canonical tree, not skipped.|
+| goldens |**34 passed**, no regeneration;13 PNGs byte-identical|
+| GPU |**48 passed**|
+| platform-web browser suite |**410 passed**|
+| React browser suite |**174 passed /3 skipped /0 failed**, first and only run; no timing-red rerun and no claim that this fixes the standing driver-timing class|
+| demo, normal config/port5177 |**setup exit1, zero tests**: occupied by an orphaned Vite from the removed W32 G2 worktree|
+| demo, isolated config/port5197 |**61 passed (9.9min)**, including all10 `/laws/` cases at the new document bytes; one test invocation, no second run|
+| gated counts |macOS27 **230 /786**, frozen26.5 **229 /1,107**; predicate67|
+| freeze close |**1,818 intact**|
+
+The demo port collision is not a test failure disguised as a green rerun. PID53715's cwd
+was the old W32 G2 worktree and its start was05:21; the parent confirmed that the directory
+had been removed and stopped the orphan. The gate had already started its isolated-port
+invocation, so it keeps that one and does not start a normal-port second run.
+`demo-isolated.config.ts` imports the normal config, keeping tests/projects/launch policy;
+it changes only the absolute testDir, Vite/baseURL port and disables server reuse. The
+original setup error stays in`chain-demo-e2e.txt`; the actual suite is
+`chain-demo-e2e-isolated.txt`. `demo-port-collision.json` records the distinction.
+
+The byte audit checks **54 material/profile/matrix/golden files unchanged from460cc512**,
+plus `PREDICATE_EXCLUDES` byte-identical. Both G0 reader copies have SHA-256 proof. The
+full staged diff-check is qualified: **13 whitespace diagnostics** in eight retained raw
+text logs and the changeset-generated web CHANGELOG. The authored source/docs/JSON scope
+is exit0; generated whitespace is not hand-edited to manufacture an unqualified green.
+`whitespace-scope.json` records every affected path and both exits. No independent review
+has been dispatched by this gate; that is the parent's next step before merge/publication.
+
+
+**Chain closure, 2026-09-22:** the isolated demo suite completed **61/61**, exit0,
+including the existing exterior/readout and receded-zero pins. The apparent delay was its
+four label-contrast sweeps, **9.4min** in one file, not a stalled or repeated suite.
+`freeze-final.txt` verifies **1,818** again AFTER that last browser run. The original
+normal-port setup exit1 is retained; all thirteen required chain STEPS are now fulfilled,
+with fourteen invocation records because one demo setup launched no tests. The4-case X1
+addition gives2,719 unit tests, and no runtime material or calibration evidence was changed
+to make any suite pass. The closing charter records Outcomes & Retrospective against all
+seven clauses and the Deferred-at-close list with the identifying contour capture FIRST.
+The next action is independent review by the parent, not another material fit or holdout read.

@@ -1,0 +1,15 @@
+### Browser `w33-g2` opened with pid 33572.
+- w33-g2:
+  - browser-type: chrome
+  - user-data-dir: <in-memory>
+  - headed: false
+---
+### Ran Playwright code
+```js
+await page.goto('http://localhost:5174/laws/?renderer=webgpu');
+```
+### Page
+- Page URL: http://localhost:5174/laws/?renderer=webgpu
+- Page Title: vitrea — the material laws
+### Snapshot
+- [Snapshot](.playwright-cli/page-2026-09-22T11-40-33-118Z.yml)

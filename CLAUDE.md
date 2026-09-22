@@ -174,15 +174,19 @@ regression floors and the conditioning predicate are enforced by
 `packages/calibration/test/adopted-thresholds.test.ts`; its `PREDICATE_EXCLUDES` must equal the
 machine's output, so a fidelity change usually moves that file too. That file's header argues the
 MATERIAL axis is not gateable on this fixture set, and since W31 it carries rows that are —
-`M1` on the body's chroma-to-structure ratio, `M2` on the structure it is read over, and since W32
-`C1` on the outer shadow's exterior SHAPE per span — macOS 27 standard profiles and the WebGPU tier
-only, each with an amendment beside the header saying why it clears both of the argument's grounds.
+`M1` on the body's chroma-to-structure ratio, `M2` on the structure it is read over, since W32
+`C1` on the outer shadow's exterior SHAPE per span, and since W33 `X1` on its native-black floor —
+macOS 27 standard profiles and the WebGPU tier only, each with an amendment beside the header
+saying why it clears both of the argument's grounds.
 `C1`'s amendment also says why the sub-metric §6.1 calls unidentifiable is STILL not gated: the
 fitted-σ candidate was declared beside `C1`, halved by W32's fit and is outside its window on all
 twelve bed × span rows, so it stays a one-wave reading, and the adopted row is the one that reads
-the falloff's shape without fitting a σ to it. All three read a cut **regenerated at the gate that
-adopts them** and re-derived from `results/matrix.json` inside the test, which is how a cut avoids
-becoming a frozen snapshot a bound can never fail against (claims §5.162 §9, §5.165 §1, §5.169 §1).
+the falloff's shape without fitting a σ to it. All four read a cut **regenerated at the gate that
+adopts them**. M1/M2/C1 are re-derived from `results/matrix.json`; X1 re-derives every pixel
+count from its matrix-named captures and reports UNMEASURED when that tree is absent. X1 covers
+218 non-holdout standard-profile single-shape cells in both poses, including probe-strength span
+160; composites and accessibility are declined. This is how a cut avoids becoming a frozen
+snapshot a bound can never fail against (claims §5.162 §9, §5.165 §1, §5.169 §1, §5.173).
 `M2` is a regression stop rather than a fidelity bound and its reference generation is
 **re-baselined at each gate that adopts a material change** (W32 Decision Log 4, ruled), so it
 bounds one wave's change and the cumulative drift is tabled in the ledger instead of bounded
@@ -271,15 +275,27 @@ against Apple's own render rather than about a constant. The rendered σ is stil
 wider than Apple's fitted σ after all of it, which is halved and not closed and is recorded, not
 gated.
 
+**The macOS 27 lift is zero by measurement, not a fitted positive floor** (W33, §5.172–§5.173).
+All four endpoints hold `liftAmplitude: 0`; the frozen macOS 26.5 active documents keep
+0.01 / 0.0051 because their native material has a lift. The leaf's “exactly zero over black”
+is a UNIFORM-backdrop statement: its sigma-40 blurred source can carry light onto a locally black
+pixel of a structured backdrop. The three active thick anchors compensate the stand-down under
+C1; the near 3–6 band trades rather than staying identical. No contour leaf was added.
+
 **And the receded documents cast no outer shadow at all** (W32 Decision Log 2, ruled on the
 measurement): their six amplitude anchors, `liftAmplitude` and `reducedTransparencyOcclusion` are
 **0**, because Apple's unfocused window removes no light from 3 CSS px outward on any of the 121
 non-holdout inactive rows the bed carries — the native transmission reads exactly 1.000000 in every
 band and the capture is byte-identical to the backdrop from 2 device px out. Their lengths stay the
 active document's and are recorded as unread, since nothing draws at zero amplitude. What Apple's
-recede does have is one device pixel of dark stroke at the contour, which is a rim term and is not
-drawn. On the CSS tier the window-activation transition therefore fades the shadow OUT, which is
-what the reference does; on the WebGPU tier the posed profile is swapped the instant the resolved
+macOS 27 material does have, in both poses, is a contour term vitrea does not draw. W33 found
+its angular/colour/coverage law unidentified on this bed, not absent (Decision Log 3, ruled).
+The next identifying capture is §5.171's path-attested circular capsules beside continuous ones,
+matched continuous rectangles, uniform and gradient/frequency controls, independent x/y subpixel
+phases at 1x/2x, colour-managed no-glass references and repeats before thresholds, with the split
+declared before fitting; native capture needs the user to lift X5. On the CSS tier the
+window-activation transition therefore fades the shadow OUT, which is what the reference does;
+on the WebGPU tier the posed profile is swapped the instant the resolved
 activation changes and the shadow leaves in one frame (a tracker entry). The frozen macOS 26.5
 receded material draws **no outer shadow either, and never did**: `receded-profile.ts`'s shared
 block sets all eight `outerShadow` leaves to 0, so the 26.5 recede has removed no light since W27c.

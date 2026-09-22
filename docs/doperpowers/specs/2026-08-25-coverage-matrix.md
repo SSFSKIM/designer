@@ -1185,3 +1185,32 @@ neither rewritten where they stand.
 W31 re-scores carry. Four consecutive fidelity waves have moved the material and not the coverage,
 which is what the matrix is for: it scores what the runtime CAN do, and a wave that makes what it
 already does closer to Apple is read in the ledger rather than here.
+
+### Re-scored 2026-09-22 after W33, beside the W32 reading
+
+W33's landing (§5.173) changes no behaviour score: **46 / 156, 29.5 %** remains.
+It removes an exterior term the macOS 27 reference does not have and records why the
+contour term cannot yet be identified, rather than calling a partial fit a new capability.
+
+- §3.5's *light bleeds into the shadow* remains `absent, undecided`. The W32 paragraph
+  above left the WebGPU lift untouched and suspected it was false over black. W33 G0
+  identified its absence on macOS 27; G1b declared all four endpoints at zero and G2
+  adopted X1 on 218 non-holdout standard single-shape cells, both poses. This closes the
+  erroneous floor there, not a claim that light bleed has been replicated. The frozen
+  macOS 26.5 active documents keep their measured 0.01 / 0.0051 lift.
+- §3.2's size-dependent refraction/shadow/scatter retains `replicated+measured`. The three
+  thick anchors compensate under C1 (all twelve rows); the near 3–6 band trades, not
+  every pixel held unchanged. No new size behaviour or larger canvas was introduced.
+- §3.4's content-aware shadow opacity remains `absent, undecided`: compensation is by
+  span, not by text content. The hc-text pitch readings identify the unwanted floor,
+  not a content-aware shadow law.
+- §1.7's material-without-API-change limit still names **eight** missed rows. M2 confirms
+  26 passing cells against W32 G1's generation, with worst per-wave −0.039391 % and
+  cumulative −2.774796 % retained, not reset. The contour term is present but unidentified;
+  no contour leaf or CSS contour approximation ships (Decision Log 3). Its next capture
+  must separate path geometry, phase, angular response and colour (§5.171's amended plan).
+
+The composite floor is not silently included in the closure: G0's overlay-only box admitted
+five base-surface pixels on four holdout cells. The union-box correction reads zero beside
+those preserved counts, while composites remain outside X1. Accessibility's ten cells also
+read zero but are outside the adopted row because the fold draws a material W33 did not change.

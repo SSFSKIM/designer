@@ -130,6 +130,19 @@
  *     > standard beds, the active pose and the three thick spans alone, with the
  *     > CSS tier, the inactive pose, the two accessibility beds, the thin spans
  *     > and `L` all recorded and none of them bounded.
+ *     > **2026-09-22, W33 G2 (Decision Log 4; claims §5.173): X1 reads the
+ *     > exterior's black floor, independently of any fitted blur or rim model.**
+ *     > Not below quantisation: its observable IS a stored code crossing from
+ *     > native black to a nonzero web byte, not a sub-byte inferred amplitude.
+ *     > Not unidentifiable: G1b's leaf-only stand-down removed 138,390 nonzero
+ *     > pixels (477 above one) on G0's 232-cell referee, with anchors held.
+ *     > X1 narrows that population to 218 standard-profile single-shape cells:
+ *     > the ten accessibility cells draw a folded material this wave did not
+ *     > change, and four composites do not have the referee's single box.
+ *     > The zero bound is the receded reading rounded by G0's declared rule,
+ *     > not an epsilon. Both poses and probe cells are explicit; neither the
+ *     > CSS tier nor the stopped contour model gains a bound. The historical
+ *     > probe/inactive exclusions below still govern their original axes.
  *   - **The motion axis is not gated.** No frame sequences were captured on the
  *     native side, and the still `pressed` fixtures cannot substitute: they are
  *     byte-identical to their rest counterparts (§6.3), so those cells measure
@@ -171,11 +184,12 @@
  */
 
 import { createHash } from "node:crypto";
-import { readFileSync, readdirSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 
 import { RESULT_MATRIX_SCHEMA_VERSION } from "../src/report";
+import { decodePng, type CalibrationImage } from "../src/image";
 
 // ---------------------------------------------------------------------------
 // §5, transcribed
@@ -2335,7 +2349,8 @@ const CHROMA_CUT = readJson<ChromaCut>(
   // W33 G1b (§5.172): regenerate at the sealed read and advance M2's per-wave
   // reference to W32 G1's d5bdd6eac432 / 431cabd391c4 generation through the
   // superseded index. The 2% bound stays; every cell's drift is recorded beside.
-  resolve(PACKAGE_ROOT, "results", "2026-09-22-w33-g1b-rim-fit", "chroma-cut.json"),
+  // G2 confirms the same reference and regenerates this cut; no second rebaseline.
+  resolve(PACKAGE_ROOT, "results", "2026-09-22-w33-g2-landing", "chroma-cut.json"),
 );
 
 /**
@@ -4570,4 +4585,192 @@ describe("W32 C1 — the shadow's exterior shape, per span (claims §5.169)", ()
       });
     }
   }
+});
+
+/**
+ * X1 — the exterior's black floor (W33 DL4; claims §5.173).
+ *
+ * Integer offset >= 2 from the declared box, exactly as G0 counted it: at 1x the
+ * first centre is 1.5 CSS px out. The analytic >= 2 CSS px mask is read beside it.
+ * Both require black backdrop AND native pixels. This is not a contour model.
+ * Single shapes only: G0's overlay box admitted five base-surface pixels on the
+ * composite holdout. Accessibility is outside the row: its fold stands down the
+ * material this wave changed. Span 160 remains probe-strength. No miss is excused.
+ *
+ * The cut is a record, not the oracle: every figure is re-derived from the pixels
+ * whose metadata names the matrix's capturePath, checking both document hashes.
+ * On machines without the gitignored tree the pixel case is explicitly SKIPPED
+ * as unmeasured, never green on an empty population. The landing chain supplies
+ * the tree and must show this case passing, not merely the cut's zero values.
+ */
+describe("W33 X1 — the native-black exterior stays black (claims §5.173)", () => {
+  interface Reading {
+    readonly backdropBlack: number;
+    readonly nativeNonzero: number;
+    readonly pixels: number;
+    readonly aboveZero: number;
+    readonly aboveOne: number;
+    readonly fraction: number | null;
+  }
+  interface BlackCell {
+    readonly profile: string;
+    readonly scene: string;
+    readonly role: string;
+    readonly span: number;
+    readonly pose: string;
+    readonly background: string;
+    readonly capturePath: string;
+    readonly integer: Reading;
+    readonly analytic: Reading;
+  }
+  const CUT = readJson<{
+    readonly atDocuments: string;
+    readonly withHoldout: boolean;
+    readonly blackBackdrops: readonly string[];
+    readonly targets: { readonly blackFraction: number; readonly aboveOne: number };
+    readonly missed: readonly string[];
+    readonly cells: readonly BlackCell[];
+  }>(process.env["VITREA_X1_CUT"] ?? resolve(
+    PACKAGE_ROOT, "results", "2026-09-22-w33-g2-landing", "black-cut.json",
+  ));
+  const BLACK = ["checkerboard", "checkerboard-4", "checkerboard-8", "checkerboard-32",
+    "checkerboard-64", "impulse", "hc-text", "hc-text-7", "hc-text-28"];
+  const declaration = readJson<{
+    readonly canvas: { readonly width: number; readonly height: number };
+    readonly components: Readonly<Record<string, {
+      readonly kind: string;
+      readonly size?: readonly [number, number];
+      readonly offset?: readonly [number, number];
+    }>>;
+    readonly scenes: readonly {
+      readonly id: string; readonly state: string; readonly component: string;
+      readonly background: string;
+    }[];
+    readonly split: Readonly<Record<string, readonly string[]>>;
+  }>(resolve(PACKAGE_ROOT, "../../apps/reference-apple/scenes.json"));
+  const scenes = new Map(declaration.scenes.map(s => [s.id, s]));
+  const roles = new Map(Object.entries(declaration.split)
+    .filter(([role]) => !role.startsWith("$"))
+    .flatMap(([role, ids]) => ids.map(id => [id, role] as const)));
+  const population = MATRIX_FILE.cells.filter(cell => {
+    const scene = scenes.get(cell.key.sceneId);
+    const kind = declaration.components[scene?.component ?? ""]?.kind;
+    return cell.key.profileKey.startsWith("apple-macos-27.0-")
+      && cell.key.profileKey.includes("-standard-")
+      && cell.tier === "texture" && cell.key.web.renderer === "webgpu"
+      && ["calibration", "validation", "probe"].includes(roles.get(cell.key.sceneId) ?? "")
+      && ["rest", "inactive"].includes(scene?.state ?? "")
+      && BLACK.includes(scene?.background ?? "")
+      && (kind === "rrect" || kind === "capsule");
+  });
+  const key = (profile: string, scene: string): string => `${profile} / ${scene}`;
+
+  it("guards the shipped non-holdout domain and derives its population from the bed", () => {
+    expect(CUT.atDocuments).toBe("shipped");
+    expect(CUT.withHoldout).toBe(false);
+    expect(CUT.blackBackdrops).toEqual(BLACK);
+    expect(population.length).toBeGreaterThan(0);
+    expect(CUT.cells.map(r => key(r.profile, r.scene)).sort()).toEqual(
+      population.map(c => key(c.key.profileKey, c.key.sceneId)).sort(),
+    );
+    for (const c of population) expect(atAShippedDocument(c), key(
+      c.key.profileKey, c.key.sceneId,
+    )).toBe(true);
+  });
+
+  it("accepts no excuse and keeps both adopted targets exactly zero", () => {
+    expect(CUT.missed).toEqual([]);
+    expect(CUT.targets).toEqual({ blackFraction: 0, aboveOne: 0 });
+  });
+
+  it("X1: fraction web > 0 and count web > 1 are zero on every cell", () => {
+    expect(CUT.cells.length).toBeGreaterThan(0);
+    for (const r of CUT.cells) {
+      for (const mask of ["integer", "analytic"] as const) {
+        expect(r[mask].pixels, key(r.profile, r.scene)).toBeGreaterThan(0);
+        expect(r[mask].fraction, key(r.profile, r.scene)).toBe(0);
+        expect(r[mask].aboveZero, key(r.profile, r.scene)).toBe(0);
+        expect(r[mask].aboveOne, key(r.profile, r.scene)).toBe(0);
+      }
+    }
+  });
+
+  it("re-derives every figure from the matrix-named captures, or reports unmeasured", ctx => {
+    const captures = process.env["VITREA_WEB_CAPTURES"] ?? resolve(PACKAGE_ROOT, "web-captures");
+    if (!existsSync(captures)) {
+      ctx.skip("UNMEASURED X1: canonical capture tree absent; no pixel assertion passed");
+    }
+    const fixtures = resolve(PACKAGE_ROOT, "../../apps/reference-apple/fixtures");
+    const load = (path: string): CalibrationImage => decodePng(readFileSync(path));
+    for (const cell of population) {
+      const profile = cell.key.profileKey, id = cell.key.sceneId;
+      const label = key(profile, id);
+      const row = CUT.cells.find(r => r.profile === profile && r.scene === id);
+      expect(row, label).toBeDefined();
+      if (row === undefined) throw new Error(`${label}: absent from the cut`);
+      const scene = scenes.get(id)!;
+      const component = declaration.components[scene.component]!;
+      const scale = profile.includes("-2x-") ? 2 : 1;
+      const directory = resolve(captures, profile, id);
+      const meta = readJson<{ readonly capturePath: string }>(
+        resolve(directory, "cell__webgpu.json"),
+      );
+      expect(meta.capturePath, label).toBe(cell.key.web.capturePath);
+      expect(row.capturePath, label).toBe(cell.key.web.capturePath);
+      const documents = [...meta.capturePath.matchAll(
+        /(?:materialProfile|recededProfile)=(\S+) sha256:([0-9a-f]{12})/g,
+      )];
+      expect(documents.length, label).toBe(2);
+      for (const match of documents) {
+        expect(SHIPPED_DOCUMENT_HASHES.get(match[1] ?? ""), label).toBe(match[2]);
+      }
+      const native = load(resolve(fixtures, profile, `${id}.png`));
+      const web = load(resolve(directory, `${id}__webgpu.png`));
+      const backdrop = load(resolve(fixtures, "backgrounds", `${scene.background}@${scale}x.png`));
+      const dimensions = [declaration.canvas.width * scale, declaration.canvas.height * scale];
+      for (const image of [native, web, backdrop]) {
+        expect([image.width, image.height], label).toEqual(dimensions);
+      }
+      const [width, height] = component.size!;
+      const [dx, dy] = component.offset ?? [0, 0];
+      const x0 = ((declaration.canvas.width - width) / 2 + dx) * scale;
+      const y0 = ((declaration.canvas.height - height) / 2 + dy) * scale;
+      const x1 = x0 + width * scale, y1 = y0 + height * scale;
+      expect({ role: row.role, span: row.span, pose: row.pose, background: row.background }).toEqual({
+        role: roles.get(id), span: Math.min(width, height), pose: scene.state,
+        background: scene.background,
+      });
+      const empty = () => ({ backdropBlack: 0, nativeNonzero: 0, pixels: 0,
+        aboveZero: 0, aboveOne: 0, fraction: null as number | null });
+      const derived = { integer: empty(), analytic: empty() };
+      for (let y = 0; y < native.height; y++) {
+        for (let x = 0; x < native.width; x++) {
+          const offset = (y * native.width + x) * 4;
+          const blackAt = (image: CalibrationImage) =>
+            image.data[offset] === 0 && image.data[offset + 1] === 0 && image.data[offset + 2] === 0;
+          if (!blackAt(backdrop)) continue;
+          const masks = {
+            integer: Math.max(x0 - x, x - (x1 - 1), y0 - y, y - (y1 - 1)) >= 2 * scale,
+            analytic: Math.hypot(Math.max(x0 - (x + .5), x + .5 - x1, 0),
+              Math.max(y0 - (y + .5), y + .5 - y1, 0)) >= 2 * scale,
+          };
+          for (const mask of ["integer", "analytic"] as const) {
+            if (!masks[mask]) continue;
+            const reading = derived[mask];
+            reading.backdropBlack++;
+            if (!blackAt(native)) { reading.nativeNonzero++; continue; }
+            reading.pixels++;
+            const maximum = Math.max(web.data[offset]!, web.data[offset + 1]!, web.data[offset + 2]!);
+            if (maximum > 0) reading.aboveZero++;
+            if (maximum > 1) reading.aboveOne++;
+          }
+        }
+      }
+      for (const mask of ["integer", "analytic"] as const) {
+        const d = derived[mask];
+        d.fraction = d.pixels ? d.aboveZero / d.pixels : null;
+        expect(d, `${label}: ${mask} pixels disagree with the cut`).toEqual(row[mask]);
+      }
+    }
+  }, 30_000);
 });
