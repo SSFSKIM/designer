@@ -305,9 +305,14 @@ macOS 26.5 bed, where vitrea had been drawing the active shadow leaf for leaf. S
 a window that loses focus drops its shadow and `outerShadowReachPx` returns 0 in
 that pose — **fading out on the CSS tier**, where the `box-shadow` carries a
 transition, and in one frame on the WebGPU tier, whose two poses are fixed
-endpoints rather than an interpolation. The four digests are
+endpoints rather than an interpolation. W32's four digests were
 `40a6dec2dc34c748` (light), `bd1814fac34f9b30` (dark), `f34dcc03e2774db3` (light
 receded) and `6b6237b7ae241638` (dark receded).
+
+W33 G1b's lift stand-down and thick-anchor compensation (claims §5.172) move the
+active digests to `dcbccbd9feac9881` (light) and `e59f9106bcd7c966` (dark).
+The receded digests above and both frozen macOS 26.5 digests are unchanged; the
+prior readings remain here as history.
 
 **That digest moved at 0.21.0, and one of the two reasons is not a rendering
 change.** The four macOS 27 documents were refitted — `3dc24a74f17fd87e` (light),

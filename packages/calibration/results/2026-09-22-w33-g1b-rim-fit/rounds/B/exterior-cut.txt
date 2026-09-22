@@ -1,0 +1,1339 @@
+W32 G0 — the direction-resolved exterior cut, read inside each cell's own clearance
+================================================================================================================================================================
+
+Matrix:  /tmp/w33-g1b-fit/B/declared-matrix.json
+Spans:   the declared component's shorter side, from apps/reference-apple/scenes.json
+         rrect-sm=32  capsule-button=44  toolbar-group=44  rrect-48=48  rrect-64=64  rrect-80=80  rrect-md=96  rrect-md-clear20=96  rrect-ml=128  glass-over-glass=130  rrect-lg=160
+Cells:   the macOS 27 generation, at whatever documents the rows name
+Nothing here is fitted, adopted or captured. Every figure is a cut of committed evidence.
+
+
+§0. The bed
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+  386 macOS 27 rows carry a shadow axis. Documents they name:
+     152  /tmp/w33-g1b-fit/B/documents/apple-macos-27.0-1x-dark-standard-glass0.5.json sha256:88aeb2e65419
+     234  /tmp/w33-g1b-fit/B/documents/apple-macos-27.0-1x-light-standard-glass0.5.json sha256:8bbcbcddaf23
+  candidate (i)  reads 142 rows: 233 carry no σ on one or both sides (the axis's own absence — no backdrop light to remove, or fewer than three rings past the edge ring), 11 are excluded by W30 G0's rule.
+  candidate (ii) reads 302 rows: 32 identify no affine band in 3–48 CSS px (a solid backdrop makes `a` and `c` collinear), and 52 have a backdrop with no light to remove.
+      28 rows over `dark-solid`, backdropSupport 0.000–0.000, below the axis's own 0.1
+      24 rows over `impulse`, backdropSupport 0.000–0.004, below the axis's own 0.1
+
+  The cells candidate (i) excludes, every one named:
+    σ native     9.50  web    98.08  span  32  2x light                            webgpu  checkerboard-64__rrect-sm__rest                   probe
+    σ native     4.06  web    86.95  span  32  1x light                            webgpu  checkerboard-64__rrect-sm__rest                   probe
+    σ native    74.31  web    81.97  span  44  1x light                            webgpu  checkerboard-64__capsule-button__rest-tint-orange probe
+    σ native    74.31  web    81.97  span  44  1x light                            webgpu  checkerboard-64__capsule-button__rest             probe
+    σ native    74.31  web    12.50  span  44  1x dark                             webgpu  checkerboard-64__capsule-button__rest-tint-orange probe
+    σ native    74.31  web    12.50  span  44  1x dark                             webgpu  checkerboard-64__capsule-button__rest             probe
+    σ native    73.82  web    14.10  span  44  2x dark                             webgpu  checkerboard-64__capsule-button__rest-tint-orange probe
+    σ native    73.82  web    14.10  span  44  2x dark                             webgpu  checkerboard-64__capsule-button__rest             probe
+    σ native    73.82  web    61.74  span  44  2x light                            webgpu  checkerboard-64__capsule-button__rest             probe
+    σ native    73.58  web    61.74  span  44  2x light                            webgpu  checkerboard-64__capsule-button__rest-tint-orange probe
+    σ native    38.99  web    25.89  span  32  2x light                            webgpu  hc-text-7__rrect-sm__rest                         probe
+
+§0b. The admitted-band rule, per span and per direction
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+  A band is admitted where its OUTER edge in CSS px is inside that direction's own
+  clearance (the row's `clearance*` in device px, divided by the row's scale); `all`
+  takes the minimum of the four. The rule is geometric, so the set is a property of the
+  component and the scale — every cell at a span carries the same one, which is what
+  makes an order statistic over a span comparable at all (W32 clause 1).
+
+   span  component          scale      clearance CSS px (a/b/l/r)   admitted (all)          above                   below                   left                    right                     rows
+     32  rrect-sm               1       83.50/83.50/127.50/127.50   3-6/6-12/12-24/24-48    3-6/6-12/12-24/24-48    3-6/6-12/12-24/24-48    3-6/6-12/12-24/24-48    3-6/6-12/12-24/24-48        18
+     32  rrect-sm               2       83.75/83.75/127.75/127.75   3-6/6-12/12-24/24-48    3-6/6-12/12-24/24-48    3-6/6-12/12-24/24-48    3-6/6-12/12-24/24-48    3-6/6-12/12-24/24-48        18
+     44  capsule-button         1         77.50/77.50/99.50/99.50   3-6/6-12/12-24/24-48    3-6/6-12/12-24/24-48    3-6/6-12/12-24/24-48    3-6/6-12/12-24/24-48    3-6/6-12/12-24/24-48        75
+     44  capsule-button         2         77.75/77.75/99.75/99.75   3-6/6-12/12-24/24-48    3-6/6-12/12-24/24-48    3-6/6-12/12-24/24-48    3-6/6-12/12-24/24-48    3-6/6-12/12-24/24-48        61
+     44  toolbar-group          1         77.50/77.50/81.50/81.50   3-6/6-12/12-24/24-48    3-6/6-12/12-24/24-48    3-6/6-12/12-24/24-48    3-6/6-12/12-24/24-48    3-6/6-12/12-24/24-48         8
+     44  toolbar-group          2         77.75/77.75/81.75/81.75   3-6/6-12/12-24/24-48    3-6/6-12/12-24/24-48    3-6/6-12/12-24/24-48    3-6/6-12/12-24/24-48    3-6/6-12/12-24/24-48         4
+     96  rrect-md               1         51.50/51.50/79.50/79.50   3-6/6-12/12-24/24-48    3-6/6-12/12-24/24-48    3-6/6-12/12-24/24-48    3-6/6-12/12-24/24-48    3-6/6-12/12-24/24-48        52
+     96  rrect-md               2         51.75/51.75/79.75/79.75   3-6/6-12/12-24/24-48    3-6/6-12/12-24/24-48    3-6/6-12/12-24/24-48    3-6/6-12/12-24/24-48    3-6/6-12/12-24/24-48        44
+    128  rrect-ml               1         35.50/35.50/47.50/47.50   3-6/6-12/12-24          3-6/6-12/12-24          3-6/6-12/12-24          3-6/6-12/12-24          3-6/6-12/12-24              21
+    128  rrect-ml               2         35.75/35.75/47.75/47.75   3-6/6-12/12-24          3-6/6-12/12-24          3-6/6-12/12-24          3-6/6-12/12-24          3-6/6-12/12-24              21
+    160  rrect-lg               1         19.50/19.50/19.50/19.50   3-6/6-12                3-6/6-12                3-6/6-12                3-6/6-12                3-6/6-12                    32
+    160  rrect-lg               2         19.75/19.75/19.75/19.75   3-6/6-12                3-6/6-12                3-6/6-12                3-6/6-12                3-6/6-12                    32
+
+  What the bed says, and where it departs from what the charter expected:
+    span  32: admitted (all) 3-6/6-12/12-24/24-48     36 rows, 0 of which identify fewer bands than the set admits
+    span  44: admitted (all) 3-6/6-12/12-24/24-48     148 rows, 38 of which identify fewer bands than the set admits
+    span  96: admitted (all) 3-6/6-12/12-24/24-48     96 rows, 16 of which identify fewer bands than the set admits
+    span 128: admitted (all) 3-6/6-12/12-24           42 rows, 10 of which identify fewer bands than the set admits
+    span 160: admitted (all) 3-6/6-12                 64 rows, 20 of which identify fewer bands than the set admits
+
+§1 to §3b read the ACTIVE pose only, which is the pose W30 G0's own σ cut is read on
+(claims §5.156 §2). The inactive pose is a receded document's difference over the active
+one and is reported apart, at §7.
+
+§1. Candidate (i): the fitted σ's relative error, `median [min–max] (n)`
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+  tier webgpu
+    bed                                 set                              span 32                       span 44                       span 96                      span 128                      span 130                      span 160                      span 220
+    1x dark                             cal+val                                —                             —       0.302 [0.258–0.302] (2)                             —                             —                             —                             —
+    1x dark                             probe                                  —                             —       0.302 [0.233–0.399] (7)       0.146 [0.117–0.187] (5)                             —       0.072 [0.025–0.092] (7)                             —
+    2x dark                             cal+val                                —                             —       0.252 [0.228–0.252] (2)                             —                             —                             —                             —
+    2x dark                             probe            1.541 [1.541–1.541] (1)                             —       0.252 [0.223–0.347] (7)       0.134 [0.119–0.176] (5)                             —       0.062 [0.019–0.083] (7)                             —
+    1x light                            cal+val                                —     12.597 [6.091–16.198] (9)       0.317 [0.239–0.341] (4)       0.142 [0.120–0.147] (3)                             —                             —                             —
+    1x light                            probe                                  —     12.216 [7.208–13.871] (6)       0.316 [0.254–0.381] (7)       0.126 [0.094–0.186] (5)                             —       0.078 [0.028–0.117] (7)                             —
+    2x light                            cal+val          5.407 [5.407–5.407] (1)     14.224 [2.907–30.598] (9)       0.191 [0.161–0.217] (4)       0.122 [0.112–0.140] (3)                             —                             —                             —
+    2x light                            probe            5.493 [2.705–6.182] (4)     12.590 [3.250–26.379] (7)       0.180 [0.159–0.285] (7)       0.120 [0.090–0.160] (5)                             —       0.061 [0.035–0.100] (7)                             —
+    1x light-increased-contrast-coupled cal+val                                —       6.010 [5.444–7.415] (4)       0.338 [0.314–0.338] (2)                             —                             —                             —                             —
+    1x light-reduced-transparency       cal+val                                —       5.537 [5.444–6.045] (3)       0.338 [0.314–0.338] (2)                             —                             —                             —                             —
+
+§2. Candidate (i) beside B1's per-bed windows, on the same cells
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+  B1 (adopted, W30 G4, claims §5.160) asserts the σ law's closed form is within ±5 % of
+  the bed's median NATIVE σ at spans 96, 128 and 160. Candidate (i) asserts the RENDERED
+  σ is within some tolerance of the same native σ on the same cell. The two sides of B1
+  are the document's blur leaf and a fit of Apple's render; candidate (i)'s two sides are
+  fits of both renders by one instrument. Where they disagree, the law is not what is
+  wrong — what is wrong is that the law's σ is not the whole of what vitrea draws.
+
+  `B1 window` is that bed's own ±5 % window around its median native σ — the interval
+  B1 requires the LAW's σ to sit in. `law` and `rendered` are marked IN or OUT of it,
+  which is the comparison the charter asks for: one window, two things held up to it.
+
+  bed                                 tier     span   n   native σ           B1 window    law σ  law err       rendered σ     (i)       σ_web − σ_nat
+  Extended beyond §5.162 §2's eight rows, for the record and at W32 clause 1's ask:
+  every bed and every span the bed carries, spans 32 and 44 included, where the law's
+  σ is the thin regime's floor and the instrument's isotropic ring mean is mostly
+  reading the displacement (§5.162 §2). B1 is stated at 96, 128 and 160 only; the rows
+  at 32, 44 and 130 are printed and are not B1's.
+
+  1x dark                             webgpu     96   9      8.874      [8.431, 9.318]    9.040    1.87%  IN       11.546   0.302  OUT          2.671    B1
+  1x dark                             webgpu    128   5     13.190    [12.531, 13.850]   12.928   -1.99%  IN       15.114   0.146  OUT          1.924    B1
+  1x dark                             webgpu    160   7     17.456    [16.583, 18.329]   16.816   -3.67%  IN       18.704   0.072  OUT          1.248    B1
+  2x dark                             webgpu     32   1      8.401      [7.981, 8.821]    2.722  -67.60%  OUT      21.350   1.541  OUT         12.949      
+  2x dark                             webgpu     96   9      9.377      [8.908, 9.846]    9.040   -3.60%  IN       11.736   0.252  OUT          2.359    B1
+  2x dark                             webgpu    128   5     13.417    [12.746, 14.087]   12.928   -3.64%  IN       15.215   0.134  OUT          1.799    B1
+  2x dark                             webgpu    160   7     17.677    [16.793, 18.561]   16.816   -4.87%  IN       18.781   0.062  OUT          1.104    B1
+  1x light                            webgpu     44  15      1.408      [1.337, 1.478]    2.127   51.11%  OUT      16.793  12.370  OUT         15.385      
+  1x light                            webgpu     96  11      8.796      [8.357, 9.236]    8.960    1.86%  IN       11.447   0.316  OUT          2.651    B1
+  1x light                            webgpu    128   8     13.138    [12.481, 13.795]   13.165    0.21%  IN       14.749   0.134  OUT          1.611    B1
+  1x light                            webgpu    160   7     17.317    [16.452, 18.183]   17.370    0.30%  IN       18.558   0.078  OUT          1.240    B1
+  2x light                            webgpu     32   5      2.081      [1.977, 2.185]    2.127    2.22%  IN       13.333   5.407  OUT         11.252      
+  2x light                            webgpu     44  16      1.303      [1.238, 1.368]    2.127   63.24%  OUT      17.257  14.224  OUT         15.954      
+  2x light                            webgpu     96  11      9.370      [8.902, 9.839]    8.960   -4.38%  IN       11.105   0.180  OUT          1.735    B1
+  2x light                            webgpu    128   8     13.305    [12.640, 13.970]   13.165   -1.05%  IN       14.828   0.122  OUT          1.523    B1
+  2x light                            webgpu    160   7     17.592    [16.712, 18.471]   17.370   -1.26%  IN       18.649   0.061  OUT          1.057    B1
+  1x light-increased-contrast-coupled webgpu     44   4      1.499      [1.424, 1.574]    2.127   41.86%  OUT       9.802   6.010  OUT          8.303      
+  1x light-increased-contrast-coupled webgpu     96   2      8.590      [8.160, 9.019]    8.960    4.31%  IN       11.494   0.338  OUT          2.904    B1
+  1x light-reduced-transparency       webgpu     44   3      1.499      [1.424, 1.574]    2.127   41.86%  OUT       9.802   5.537  OUT          8.303      
+  1x light-reduced-transparency       webgpu     96   2      8.590      [8.160, 9.019]    8.960    4.31%  IN       11.494   0.338  OUT          2.904    B1
+
+  Sign, at the thick spans: the rendered σ is WIDER than the native on 96 of 98 rows that resolve both.
+
+§3 and §3b are read over the ADMITTED bands and over the cells carrying their span's
+whole admitted set, which is W32 clause 1's pooling rule. §5.162's own `T` renormalised
+per cell over whatever bands it found usable, so at spans 128 and 160 it summed bands
+the frame had eaten; §3c prints the two side by side.
+
+§3. Candidate (ii): `T`, the width-weighted transmission error over the admitted bands
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+  tier webgpu
+    bed                                 set                                span 32                         span 44                         span 96                        span 128                        span 130                        span 160                        span 220
+    1x dark                             cal+val                                  —   0.00037 [0.00023–0.00037] (4)   0.00220 [0.00126–0.00220] (2)                               —                               —                               —                               —
+    1x dark                             probe        0.00007 [0.00005–0.00025] (7)   0.00023 [0.00019–0.00033] (9)   0.00126 [0.00102–0.00152] (7)   0.00350 [0.00344–0.00350] (5)                               —   0.00116 [0.00096–0.00147] (7)                               —
+    2x dark                             cal+val                                  —   0.00033 [0.00023–0.00033] (4)   0.00219 [0.00124–0.00219] (2)                               —                               —                               —                               —
+    2x dark                             probe        0.00010 [0.00007–0.00025] (7)   0.00023 [0.00016–0.00036] (9)   0.00124 [0.00100–0.00156] (7)   0.00382 [0.00324–0.00391] (5)                               —   0.00107 [0.00081–0.00193] (7)                               —
+    1x light                            cal+val      0.00007 [0.00004–0.00007] (2)   0.00008 [0.00003–0.00013] (9)   0.00130 [0.00058–0.00130] (3)   0.00307 [0.00207–0.00307] (2)                               —                               —                               —
+    1x light                            probe        0.00004 [0.00001–0.00022] (7)   0.00008 [0.00008–0.00021] (9)   0.00058 [0.00053–0.00101] (7)   0.00207 [0.00201–0.00284] (5)                               —   0.00025 [0.00019–0.00272] (7)                               —
+    2x light                            cal+val      0.00011 [0.00007–0.00011] (2)   0.00006 [0.00002–0.00011] (9)   0.00135 [0.00067–0.00135] (3)   0.00333 [0.00212–0.00333] (2)                               —                               —                               —
+    2x light                            probe        0.00007 [0.00000–0.00023] (7)   0.00006 [0.00006–0.00015] (9)   0.00067 [0.00061–0.00105] (7)   0.00212 [0.00209–0.00294] (5)                               —   0.00064 [0.00036–0.00362] (7)                               —
+    1x light-increased-contrast-coupled cal+val                                  —   0.00199 [0.00172–0.00258] (5)   0.00130 [0.00058–0.00130] (2)                               —                               —                               —                               —
+    1x light-reduced-transparency       cal+val                                  —   0.00199 [0.00172–0.00258] (4)   0.00130 [0.00058–0.00130] (2)                               —                               —                               —                               —
+
+§3b. `L` beside it: the same weighted mean over the LIFT `c`, linear luminance
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+  tier webgpu
+    bed                                 set                                span 32                         span 44                         span 96                        span 128                        span 130                        span 160                        span 220
+    1x dark                             cal+val                                  —   0.00005 [0.00000–0.00005] (4)   0.00033 [0.00000–0.00033] (2)                               —                               —                               —                               —
+    1x dark                             probe        0.00000 [0.00000–0.00011] (7)   0.00000 [0.00000–0.00012] (9)   0.00000 [0.00000–0.00057] (7)   0.00000 [0.00000–0.00142] (5)                               —   0.00000 [0.00000–0.00102] (7)                               —
+    2x dark                             cal+val                                  —   0.00006 [0.00000–0.00006] (4)   0.00034 [0.00000–0.00034] (2)                               —                               —                               —                               —
+    2x dark                             probe        0.00000 [0.00000–0.00011] (7)   0.00000 [0.00000–0.00011] (9)   0.00000 [0.00000–0.00057] (7)   0.00000 [0.00000–0.00143] (5)                               —   0.00000 [0.00000–0.00098] (7)                               —
+    1x light                            cal+val      0.00001 [0.00000–0.00001] (2)   0.00000 [0.00000–0.00001] (9)   0.00019 [0.00000–0.00019] (3)   0.00019 [0.00000–0.00019] (2)                               —                               —                               —
+    1x light                            probe        0.00000 [0.00000–0.00012] (7)   0.00000 [0.00000–0.00015] (9)   0.00000 [0.00000–0.00051] (7)   0.00000 [0.00000–0.00154] (5)                               —   0.00000 [0.00000–0.00154] (7)                               —
+    2x light                            cal+val      0.00002 [0.00000–0.00002] (2)   0.00001 [0.00000–0.00001] (9)   0.00021 [0.00000–0.00021] (3)   0.00022 [0.00000–0.00022] (2)                               —                               —                               —
+    2x light                            probe        0.00000 [0.00000–0.00012] (7)   0.00000 [0.00000–0.00014] (9)   0.00000 [0.00000–0.00053] (7)   0.00000 [0.00000–0.00151] (5)                               —   0.00000 [0.00000–0.00148] (7)                               —
+    1x light-increased-contrast-coupled cal+val                                  —   0.00011 [0.00000–0.00016] (5)   0.00019 [0.00000–0.00019] (2)                               —                               —                               —                               —
+    1x light-reduced-transparency       cal+val                                  —   0.00016 [0.00000–0.00016] (4)   0.00019 [0.00000–0.00019] (2)                               —                               —                               —                               —
+
+§3c. What the admitted-band rule changes, against W31 G1's own renormalisation
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+  Left: `T` as §5.162 read it — every band the cell identified in 3–48 CSS px, the
+  weights renormalised per cell. Right: `T` over the admitted bands only, on the cells
+  carrying the span's whole set. A span whose clearance holds all four bands reads the
+  same number twice; a span whose clearance does not is where the two part company.
+
+  bed                                    span                admitted  n (W31)  T (W31 rule)  n (admitted)  T (admitted)           Δ
+  1x dark                                  32    3-6/6-12/12-24/24-48        7       0.00007             7       0.00007    +0.00000
+  1x dark                                  44    3-6/6-12/12-24/24-48       13       0.00023            13       0.00023    +0.00000
+  1x dark                                  96    3-6/6-12/12-24/24-48        9       0.00126             9       0.00126    +0.00000
+  1x dark                                 128          3-6/6-12/12-24        5       0.00221             5       0.00350    +0.00129
+  1x dark                                 160                3-6/6-12        7       0.00277             7       0.00116    -0.00161
+  2x dark                                  32    3-6/6-12/12-24/24-48        7       0.00010             7       0.00010    +0.00000
+  2x dark                                  44    3-6/6-12/12-24/24-48       13       0.00023            13       0.00023    +0.00000
+  2x dark                                  96    3-6/6-12/12-24/24-48        9       0.00124             9       0.00124    +0.00000
+  2x dark                                 128          3-6/6-12/12-24        5       0.00233             5       0.00382    +0.00149
+  2x dark                                 160                3-6/6-12        7       0.00272             7       0.00107    -0.00165
+  1x light                                 32    3-6/6-12/12-24/24-48        9       0.00004             9       0.00004    +0.00000
+  1x light                                 44    3-6/6-12/12-24/24-48       18       0.00008            18       0.00008    +0.00000
+  1x light                                 96    3-6/6-12/12-24/24-48       10       0.00058            10       0.00058    +0.00000
+  1x light                                128          3-6/6-12/12-24        7       0.00116             7       0.00207    +0.00092
+  1x light                                160                3-6/6-12        7       0.00181             7       0.00025    -0.00156
+  2x light                                 32    3-6/6-12/12-24/24-48        9       0.00007             9       0.00007    +0.00000
+  2x light                                 44    3-6/6-12/12-24/24-48       18       0.00006            18       0.00006    +0.00000
+  2x light                                 96    3-6/6-12/12-24/24-48       10       0.00067            10       0.00067    +0.00000
+  2x light                                128          3-6/6-12/12-24        7       0.00122             7       0.00212    +0.00090
+  2x light                                160                3-6/6-12        7       0.00177             7       0.00064    -0.00113
+  1x light-increased-contrast-coupled      44    3-6/6-12/12-24/24-48        5       0.00199             5       0.00199    +0.00000
+  1x light-increased-contrast-coupled      96    3-6/6-12/12-24/24-48        2       0.00130             2       0.00130    +0.00000
+  1x light-reduced-transparency            44    3-6/6-12/12-24/24-48        4       0.00199             4       0.00199    +0.00000
+  1x light-reduced-transparency            96    3-6/6-12/12-24/24-48        2       0.00130             2       0.00130    +0.00000
+
+§4. Candidate (ii) per band and per direction, on the cells the eye read (§5.160 §6)
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+  The sheets were native | vitrea WebGPU | difference ×8 at 2x, two cells per scheme.
+  `below` is the direction the material's own `offsetPx` displaces the shadow into.
+
+  photo__capsule-button__rest — 2x light, span 44, calibration — the eye: right — the difference is confined to the body
+    candidate (i) 9.285   candidate (ii) T 0.00011   L 0.00001   native-pair bar on `a` 0.000073   agreement radius 12
+    band              all        above        below         left        right
+    0-3           0.05124      0.06543      0.01812      0.13834     -0.02434   Δa (web−nat)
+    3-6          -0.00121      0.00000     -0.00221     -0.00222     -0.00172   Δa (web−nat)
+    6-12         -0.00023      0.00000     -0.00118     -0.00026     -0.00004   Δa (web−nat)
+    12-24         0.00000      0.00000      0.00000      0.00000      0.00000   Δa (web−nat)
+    24-48         0.00000      0.00000      0.00000      0.00000      0.00000   Δa (web−nat)
+    0-3           0.00044     -0.00290      0.00444     -0.00784      0.03981   Δc (web−nat)
+    3-6           0.00007      0.00000      0.00007      0.00033      0.00053   Δc (web−nat)
+    6-12          0.00004      0.00000      0.00027      0.00003     -0.00000   Δc (web−nat)
+    12-24         0.00000      0.00000      0.00000      0.00000      0.00000   Δc (web−nat)
+    24-48         0.00000      0.00000      0.00000      0.00000      0.00000   Δc (web−nat)
+
+  photo__capsule-button__rest — 2x dark, span 44, calibration — the eye: right — the difference is confined to the body
+    candidate (i) —   candidate (ii) T 0.00033   L 0.00006   native-pair bar on `a` 0.000006   agreement radius 12
+    band              all        above        below         left        right
+    0-3           0.06538      0.00909      0.01938      0.12590      0.00794   Δa (web−nat)
+    3-6          -0.00216      0.00000      0.00043     -0.01011     -0.00183   Δa (web−nat)
+    6-12         -0.00143      0.00000     -0.00494     -0.00285      0.00004   Δa (web−nat)
+    12-24         0.00000      0.00000      0.00000      0.00000      0.00000   Δa (web−nat)
+    24-48         0.00000      0.00000      0.00000      0.00000      0.00000   Δa (web−nat)
+    0-3          -0.00769     -0.00088     -0.00187     -0.00720      0.02469   Δc (web−nat)
+    3-6           0.00081      0.00000      0.00132      0.00142     -0.00013   Δc (web−nat)
+    6-12          0.00005      0.00000      0.00057      0.00036     -0.00026   Δc (web−nat)
+    12-24         0.00000      0.00000      0.00000      0.00000      0.00000   Δc (web−nat)
+    24-48         0.00000      0.00000      0.00000      0.00000      0.00000   Δc (web−nat)
+
+  photo__rrect-lg__rest on 2x light: not read here (holdout, without the flag)
+  photo__rrect-lg__rest on 2x dark: not read here (holdout, without the flag)
+
+§5. The seven rows `MISSED_27_ROWS` holds — NOT READ
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+  All 7 are holdout rows and this reader drops the holdout by
+  construction. Re-run with `--with-holdout` for the reported check.
+
+§6. The native pair's noise bar, on both statistics
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+  Source: results/2026-09-19-w29-g3b-shadow-recede/noise-bar.json — the max over 21 pairs of a cell's seven
+  raw macOS 27 runs, which is what `within noise` means on this bed.
+
+  candidate (i)'s σ, device px         n  249  non-zero   49  p95 0.002120  max 0.017704  bed floor 1.452e-05
+  candidate (ii)'s `a`, worst band     n  432  non-zero   78  p95 0.000229  max 0.002044  bed floor 6.450e-06
+  the lift `c`, worst band             n  432  non-zero   78  p95 0.00004059  max 0.00063438  bed floor 4.385e-15
+
+  span  32: T median 0.00007 over 32 active non-holdout WebGPU rows, against a median per-cell bar of 0.000006 — 11×
+  span  44: T median 0.00019 over 71 active non-holdout WebGPU rows, against a median per-cell bar of 0.000006 — 29×
+  span  96: T median 0.00111 over 42 active non-holdout WebGPU rows, against a median per-cell bar of 0.000006 — 172×
+  span 128: T median 0.00307 over 24 active non-holdout WebGPU rows, against a median per-cell bar of 0.000006 — 476×
+  span 160: T median 0.00104 over 28 active non-holdout WebGPU rows, against a median per-cell bar of 0.000039 — 27×
+
+§7. The bed a clause would be read on: ACTIVE pose, WebGPU tier, non-holdout
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+  The shadow is the WebGPU tier's to fit — the CSS tier derives one `box-shadow` blur
+  radius per surface from the same profile — so the clause is read there and the CSS
+  tier is recorded beside it (the tier rule, Decision Log 23 of 2026-09-05). The
+  inactive pose is a different document's difference and is reported, never pooled in.
+
+  bed                                 pose                             span 32                       span 44                       span 96                      span 128                      span 130                      span 160                      span 220
+  1x dark                             active     0.00007 [0.00005–0.00025] (7)0.00023 [0.00019–0.00037] (13) 0.00126 [0.00102–0.00220] (9) 0.00350 [0.00344–0.00350] (5)                             — 0.00116 [0.00096–0.00147] (7)                             —
+  1x dark                             inactive                               — 0.00000 [0.00000–0.00000] (5) 0.00000 [0.00000–0.00000] (8) 0.00000 [0.00000–0.00000] (2)                             — 0.00000 [0.00000–0.00000] (4)                             —
+  2x dark                             active     0.00010 [0.00007–0.00025] (7)0.00023 [0.00016–0.00036] (13) 0.00124 [0.00100–0.00219] (9) 0.00382 [0.00324–0.00391] (5)                             — 0.00107 [0.00081–0.00193] (7)                             —
+  2x dark                             inactive                               — 0.00000 [0.00000–0.00000] (5) 0.00000 [0.00000–0.00000] (8) 0.00000 [0.00000–0.00000] (2)                             — 0.00000 [0.00000–0.00000] (4)                             —
+  1x light                            active     0.00004 [0.00001–0.00022] (9)0.00008 [0.00003–0.00021] (18)0.00058 [0.00053–0.00130] (10) 0.00207 [0.00201–0.00307] (7)                             — 0.00025 [0.00019–0.00272] (7)                             —
+  1x light                            inactive   0.00000 [0.00000–0.00000] (2)0.00000 [0.00000–0.00000] (10) 0.00000 [0.00000–0.00000] (9) 0.00000 [0.00000–0.00000] (2)                             — 0.00000 [0.00000–0.00000] (4)                             —
+  2x light                            active     0.00007 [0.00000–0.00023] (9)0.00006 [0.00002–0.00015] (18)0.00067 [0.00061–0.00135] (10) 0.00212 [0.00209–0.00333] (7)                             — 0.00064 [0.00036–0.00362] (7)                             —
+  2x light                            inactive   0.00000 [0.00000–0.00000] (2)0.00000 [0.00000–0.00000] (10) 0.00000 [0.00000–0.00000] (9) 0.00000 [0.00000–0.00000] (2)                             — 0.00000 [0.00000–0.00000] (4)                             —
+  1x light-increased-contrast-coupled active                                 — 0.00199 [0.00172–0.00258] (5) 0.00130 [0.00058–0.00130] (2)                             —                             —                             —                             —
+  1x light-increased-contrast-coupled inactive                               — 0.00000 [0.00000–0.00000] (5) 0.00000 [0.00000–0.00000] (2)                             —                             —                             —                             —
+  1x light-reduced-transparency       active                                 — 0.00199 [0.00172–0.00258] (4) 0.00130 [0.00058–0.00130] (2)                             —                             —                             —                             —
+  1x light-reduced-transparency       inactive                               — 0.00000 [0.00000–0.00000] (4) 0.00000 [0.00000–0.00000] (2)                             —                             —                             —                             —
+
+§9. The direction-resolved cut: `T_dir` per bed, per span, per direction
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+  WebGPU tier, non-holdout, over the admitted bands, on the cells carrying the
+  direction's whole admitted set. `below` is the direction `offsetPx` displaces the
+  shadow into and `above` is the direction it displaces it out of: a SHIFT moves the
+  two in opposite directions where a WIDENING moves them together, which is what makes
+  the direction resolution the thing that identifies the offset (W32 Design).
+
+  tier webgpu, pose active
+    bed                                    span direction                admitted    n      T_dir        min        max   bands-used
+    1x dark                                  32       all    3-6/6-12/12-24/24-48    7    0.00007    0.00005    0.00025   3-6/6-12/12-24/24-48
+    1x dark                                  32     above    3-6/6-12/12-24/24-48    6    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x dark                                  32     below    3-6/6-12/12-24/24-48    7    0.00042    0.00034    0.00078   3-6/6-12/12-24/24-48
+    1x dark                                  32      left    3-6/6-12/12-24/24-48    6    0.00014    0.00008    0.00024   3-6/6-12/12-24/24-48
+    1x dark                                  32     right    3-6/6-12/12-24/24-48    6    0.00013    0.00005    0.00017   3-6/6-12/12-24/24-48
+    1x dark                                  44       all    3-6/6-12/12-24/24-48   13    0.00023    0.00019    0.00037   3-6/6-12/12-24/24-48
+    1x dark                                  44     above    3-6/6-12/12-24/24-48   13    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x dark                                  44     below    3-6/6-12/12-24/24-48   13    0.00067    0.00053    0.00082   3-6/6-12/12-24/24-48
+    1x dark                                  44      left    3-6/6-12/12-24/24-48   11    0.00019    0.00015    0.00108   3-6/6-12/12-24/24-48
+    1x dark                                  44     right    3-6/6-12/12-24/24-48   11    0.00013    0.00001    0.00016   3-6/6-12/12-24/24-48
+    1x dark                                  96       all    3-6/6-12/12-24/24-48    9    0.00126    0.00102    0.00220   3-6/6-12/12-24/24-48
+    1x dark                                  96     above    3-6/6-12/12-24/24-48    9    0.00083    0.00026    0.00131   3-6/6-12/12-24/24-48
+    1x dark                                  96     below    3-6/6-12/12-24/24-48    9    0.00455    0.00445    0.00607   3-6/6-12/12-24/24-48
+    1x dark                                  96      left    3-6/6-12/12-24/24-48    9    0.00142    0.00096    0.00317   3-6/6-12/12-24/24-48
+    1x dark                                  96     right    3-6/6-12/12-24/24-48    9    0.00139    0.00077    0.00144   3-6/6-12/12-24/24-48
+    1x dark                                 128       all          3-6/6-12/12-24    5    0.00350    0.00344    0.00350   3-6/6-12/12-24
+    1x dark                                 128     above          3-6/6-12/12-24    5    0.00391    0.00228    0.00391   3-6/6-12/12-24
+    1x dark                                 128     below          3-6/6-12/12-24    5    0.00723    0.00723    0.00942   3-6/6-12/12-24
+    1x dark                                 128      left          3-6/6-12/12-24    5    0.00340    0.00303    0.00374   3-6/6-12/12-24
+    1x dark                                 128     right          3-6/6-12/12-24    5    0.00342    0.00303    0.00358   3-6/6-12/12-24
+    1x dark                                 160       all                3-6/6-12    7    0.00116    0.00096    0.00147   3-6/6-12
+    1x dark                                 160     above                3-6/6-12    6    0.00355    0.00290    0.00355   3-6/6-12
+    1x dark                                 160     below                3-6/6-12    7    0.00415    0.00321    0.00431   3-6/6-12
+    1x dark                                 160      left                3-6/6-12    7    0.00133    0.00046    0.00153   3-6/6-12
+    1x dark                                 160     right                3-6/6-12    5    0.00128    0.00093    0.00152   3-6/6-12
+    2x dark                                  32       all    3-6/6-12/12-24/24-48    7    0.00010    0.00007    0.00025   3-6/6-12/12-24/24-48
+    2x dark                                  32     above    3-6/6-12/12-24/24-48    6    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    2x dark                                  32     below    3-6/6-12/12-24/24-48    7    0.00042    0.00038    0.00076   3-6/6-12/12-24/24-48
+    2x dark                                  32      left    3-6/6-12/12-24/24-48    6    0.00009    0.00005    0.00015   3-6/6-12/12-24/24-48
+    2x dark                                  32     right    3-6/6-12/12-24/24-48    6    0.00008    0.00003    0.00009   3-6/6-12/12-24/24-48
+    2x dark                                  44       all    3-6/6-12/12-24/24-48   13    0.00023    0.00016    0.00036   3-6/6-12/12-24/24-48
+    2x dark                                  44     above    3-6/6-12/12-24/24-48   13    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    2x dark                                  44     below    3-6/6-12/12-24/24-48   13    0.00068    0.00047    0.00069   3-6/6-12/12-24/24-48
+    2x dark                                  44      left    3-6/6-12/12-24/24-48   11    0.00019    0.00014    0.00105   3-6/6-12/12-24/24-48
+    2x dark                                  44     right    3-6/6-12/12-24/24-48   11    0.00013    0.00001    0.00016   3-6/6-12/12-24/24-48
+    2x dark                                  96       all    3-6/6-12/12-24/24-48    9    0.00124    0.00100    0.00219   3-6/6-12/12-24/24-48
+    2x dark                                  96     above    3-6/6-12/12-24/24-48    9    0.00084    0.00039    0.00144   3-6/6-12/12-24/24-48
+    2x dark                                  96     below    3-6/6-12/12-24/24-48    9    0.00455    0.00445    0.00618   3-6/6-12/12-24/24-48
+    2x dark                                  96      left    3-6/6-12/12-24/24-48    9    0.00144    0.00110    0.00313   3-6/6-12/12-24/24-48
+    2x dark                                  96     right    3-6/6-12/12-24/24-48    9    0.00143    0.00112    0.00149   3-6/6-12/12-24/24-48
+    2x dark                                 128       all          3-6/6-12/12-24    5    0.00382    0.00324    0.00391   3-6/6-12/12-24
+    2x dark                                 128     above          3-6/6-12/12-24    5    0.00388    0.00282    0.00388   3-6/6-12/12-24
+    2x dark                                 128     below          3-6/6-12/12-24    5    0.00773    0.00770    0.00911   3-6/6-12/12-24
+    2x dark                                 128      left          3-6/6-12/12-24    5    0.00367    0.00353    0.00391   3-6/6-12/12-24
+    2x dark                                 128     right          3-6/6-12/12-24    5    0.00354    0.00350    0.00399   3-6/6-12/12-24
+    2x dark                                 160       all                3-6/6-12    7    0.00107    0.00081    0.00193   3-6/6-12
+    2x dark                                 160     above                3-6/6-12    6    0.00312    0.00240    0.00312   3-6/6-12
+    2x dark                                 160     below                3-6/6-12    7    0.00492    0.00485    0.00515   3-6/6-12
+    2x dark                                 160      left                3-6/6-12    7    0.00137    0.00090    0.00180   3-6/6-12
+    2x dark                                 160     right                3-6/6-12    5    0.00130    0.00090    0.00167   3-6/6-12
+    1x light                                 32       all    3-6/6-12/12-24/24-48    9    0.00004    0.00001    0.00022   3-6/6-12/12-24/24-48
+    1x light                                 32     above    3-6/6-12/12-24/24-48    8    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x light                                 32     below    3-6/6-12/12-24/24-48    9    0.00011    0.00000    0.00059   3-6/6-12/12-24/24-48
+    1x light                                 32      left    3-6/6-12/12-24/24-48    7    0.00002    0.00000    0.00004   3-6/6-12/12-24/24-48
+    1x light                                 32     right    3-6/6-12/12-24/24-48    8    0.00003    0.00000    0.00010   3-6/6-12/12-24/24-48
+    1x light                                 44       all    3-6/6-12/12-24/24-48   18    0.00008    0.00003    0.00021   3-6/6-12/12-24/24-48
+    1x light                                 44     above    3-6/6-12/12-24/24-48   18    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x light                                 44     below    3-6/6-12/12-24/24-48   18    0.00022    0.00009    0.00043   3-6/6-12/12-24/24-48
+    1x light                                 44      left    3-6/6-12/12-24/24-48   16    0.00002    0.00001    0.00019   3-6/6-12/12-24/24-48
+    1x light                                 44     right    3-6/6-12/12-24/24-48   16    0.00002    0.00000    0.00012   3-6/6-12/12-24/24-48
+    1x light                                 96       all    3-6/6-12/12-24/24-48   10    0.00058    0.00053    0.00130   3-6/6-12/12-24/24-48
+    1x light                                 96     above    3-6/6-12/12-24/24-48   10    0.00045    0.00023    0.00094   3-6/6-12/12-24/24-48
+    1x light                                 96     below    3-6/6-12/12-24/24-48   10    0.00210    0.00195    0.00351   3-6/6-12/12-24/24-48
+    1x light                                 96      left    3-6/6-12/12-24/24-48   10    0.00066    0.00050    0.00222   3-6/6-12/12-24/24-48
+    1x light                                 96     right    3-6/6-12/12-24/24-48   10    0.00060    0.00032    0.00068   3-6/6-12/12-24/24-48
+    1x light                                128       all          3-6/6-12/12-24    7    0.00207    0.00201    0.00307   3-6/6-12/12-24
+    1x light                                128     above          3-6/6-12/12-24    7    0.00196    0.00196    0.00502   3-6/6-12/12-24
+    1x light                                128     below          3-6/6-12/12-24    7    0.00440    0.00431    0.00648   3-6/6-12/12-24
+    1x light                                128      left          3-6/6-12/12-24    7    0.00215    0.00183    0.00271   3-6/6-12/12-24
+    1x light                                128     right          3-6/6-12/12-24    7    0.00215    0.00185    0.00248   3-6/6-12/12-24
+    1x light                                160       all                3-6/6-12    7    0.00025    0.00019    0.00272   3-6/6-12
+    1x light                                160     above                3-6/6-12    6    0.00230    0.00197    0.00230   3-6/6-12
+    1x light                                160     below                3-6/6-12    7    0.00276    0.00265    0.00521   3-6/6-12
+    1x light                                160      left                3-6/6-12    7    0.00060    0.00001    0.00132   3-6/6-12
+    1x light                                160     right                3-6/6-12    5    0.00058    0.00001    0.00149   3-6/6-12
+    2x light                                 32       all    3-6/6-12/12-24/24-48    9    0.00007    0.00000    0.00023   3-6/6-12/12-24/24-48
+    2x light                                 32     above    3-6/6-12/12-24/24-48    8    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    2x light                                 32     below    3-6/6-12/12-24/24-48    9    0.00020    0.00000    0.00064   3-6/6-12/12-24/24-48
+    2x light                                 32      left    3-6/6-12/12-24/24-48    7    0.00001    0.00000    0.00004   3-6/6-12/12-24/24-48
+    2x light                                 32     right    3-6/6-12/12-24/24-48    8    0.00000    0.00000    0.00007   3-6/6-12/12-24/24-48
+    2x light                                 44       all    3-6/6-12/12-24/24-48   18    0.00006    0.00002    0.00015   3-6/6-12/12-24/24-48
+    2x light                                 44     above    3-6/6-12/12-24/24-48   18    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    2x light                                 44     below    3-6/6-12/12-24/24-48   18    0.00015    0.00007    0.00035   3-6/6-12/12-24/24-48
+    2x light                                 44      left    3-6/6-12/12-24/24-48   16    0.00003    0.00000    0.00018   3-6/6-12/12-24/24-48
+    2x light                                 44     right    3-6/6-12/12-24/24-48   16    0.00003    0.00000    0.00012   3-6/6-12/12-24/24-48
+    2x light                                 96       all    3-6/6-12/12-24/24-48   10    0.00067    0.00061    0.00135   3-6/6-12/12-24/24-48
+    2x light                                 96     above    3-6/6-12/12-24/24-48   10    0.00051    0.00023    0.00098   3-6/6-12/12-24/24-48
+    2x light                                 96     below    3-6/6-12/12-24/24-48   10    0.00240    0.00232    0.00388   3-6/6-12/12-24/24-48
+    2x light                                 96      left    3-6/6-12/12-24/24-48   10    0.00075    0.00027    0.00218   3-6/6-12/12-24/24-48
+    2x light                                 96     right    3-6/6-12/12-24/24-48   10    0.00074    0.00030    0.00078   3-6/6-12/12-24/24-48
+    2x light                                128       all          3-6/6-12/12-24    7    0.00212    0.00209    0.00333   3-6/6-12/12-24
+    2x light                                128     above          3-6/6-12/12-24    7    0.00207    0.00207    0.00498   3-6/6-12/12-24
+    2x light                                128     below          3-6/6-12/12-24    7    0.00460    0.00431    0.00683   3-6/6-12/12-24
+    2x light                                128      left          3-6/6-12/12-24    7    0.00212    0.00171    0.00253   3-6/6-12/12-24
+    2x light                                128     right          3-6/6-12/12-24    7    0.00214    0.00203    0.00317   3-6/6-12/12-24
+    2x light                                160       all                3-6/6-12    7    0.00064    0.00036    0.00362   3-6/6-12
+    2x light                                160     above                3-6/6-12    6    0.00186    0.00141    0.00354   3-6/6-12
+    2x light                                160     below                3-6/6-12    7    0.00371    0.00352    0.00620   3-6/6-12
+    2x light                                160      left                3-6/6-12    7    0.00093    0.00090    0.00158   3-6/6-12
+    2x light                                160     right                3-6/6-12    5    0.00092    0.00088    0.00146   3-6/6-12
+    1x light-increased-contrast-coupled      44       all    3-6/6-12/12-24/24-48    5    0.00199    0.00172    0.00258   3-6/6-12/12-24/24-48
+    1x light-increased-contrast-coupled      44     above    3-6/6-12/12-24/24-48    5    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x light-increased-contrast-coupled      44     below    3-6/6-12/12-24/24-48    5    0.00521    0.00506    0.00667   3-6/6-12/12-24/24-48
+    1x light-increased-contrast-coupled      44      left    3-6/6-12/12-24/24-48    5    0.00291    0.00083    0.00348   3-6/6-12/12-24/24-48
+    1x light-increased-contrast-coupled      44     right    3-6/6-12/12-24/24-48    5    0.00046    0.00015    0.00124   3-6/6-12/12-24/24-48
+    1x light-increased-contrast-coupled      96       all    3-6/6-12/12-24/24-48    2    0.00130    0.00058    0.00130   3-6/6-12/12-24/24-48
+    1x light-increased-contrast-coupled      96     above    3-6/6-12/12-24/24-48    2    0.00094    0.00045    0.00094   3-6/6-12/12-24/24-48
+    1x light-increased-contrast-coupled      96     below    3-6/6-12/12-24/24-48    2    0.00351    0.00201    0.00351   3-6/6-12/12-24/24-48
+    1x light-increased-contrast-coupled      96      left    3-6/6-12/12-24/24-48    2    0.00222    0.00065    0.00222   3-6/6-12/12-24/24-48
+    1x light-increased-contrast-coupled      96     right    3-6/6-12/12-24/24-48    2    0.00061    0.00058    0.00061   3-6/6-12/12-24/24-48
+    1x light-reduced-transparency            44       all    3-6/6-12/12-24/24-48    4    0.00199    0.00172    0.00258   3-6/6-12/12-24/24-48
+    1x light-reduced-transparency            44     above    3-6/6-12/12-24/24-48    4    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x light-reduced-transparency            44     below    3-6/6-12/12-24/24-48    4    0.00521    0.00506    0.00667   3-6/6-12/12-24/24-48
+    1x light-reduced-transparency            44      left    3-6/6-12/12-24/24-48    4    0.00348    0.00083    0.00348   3-6/6-12/12-24/24-48
+    1x light-reduced-transparency            44     right    3-6/6-12/12-24/24-48    4    0.00124    0.00015    0.00124   3-6/6-12/12-24/24-48
+    1x light-reduced-transparency            96       all    3-6/6-12/12-24/24-48    2    0.00130    0.00058    0.00130   3-6/6-12/12-24/24-48
+    1x light-reduced-transparency            96     above    3-6/6-12/12-24/24-48    2    0.00094    0.00045    0.00094   3-6/6-12/12-24/24-48
+    1x light-reduced-transparency            96     below    3-6/6-12/12-24/24-48    2    0.00351    0.00201    0.00351   3-6/6-12/12-24/24-48
+    1x light-reduced-transparency            96      left    3-6/6-12/12-24/24-48    2    0.00222    0.00065    0.00222   3-6/6-12/12-24/24-48
+    1x light-reduced-transparency            96     right    3-6/6-12/12-24/24-48    2    0.00061    0.00058    0.00061   3-6/6-12/12-24/24-48
+
+  tier webgpu, pose inactive
+    bed                                    span direction                admitted    n      T_dir        min        max   bands-used
+    1x dark                                  44       all    3-6/6-12/12-24/24-48    5    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x dark                                  44     above    3-6/6-12/12-24/24-48    5    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x dark                                  44     below    3-6/6-12/12-24/24-48    5    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x dark                                  44      left    3-6/6-12/12-24/24-48    5    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x dark                                  44     right    3-6/6-12/12-24/24-48    5    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x dark                                  96       all    3-6/6-12/12-24/24-48    8    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x dark                                  96     above    3-6/6-12/12-24/24-48    8    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x dark                                  96     below    3-6/6-12/12-24/24-48    8    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x dark                                  96      left    3-6/6-12/12-24/24-48    8    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x dark                                  96     right    3-6/6-12/12-24/24-48    8    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x dark                                 128       all          3-6/6-12/12-24    2    0.00000    0.00000    0.00000   3-6/6-12/12-24
+    1x dark                                 128     above          3-6/6-12/12-24    2    0.00000    0.00000    0.00000   3-6/6-12/12-24
+    1x dark                                 128     below          3-6/6-12/12-24    2    0.00000    0.00000    0.00000   3-6/6-12/12-24
+    1x dark                                 128      left          3-6/6-12/12-24    2    0.00000    0.00000    0.00000   3-6/6-12/12-24
+    1x dark                                 128     right          3-6/6-12/12-24    2    0.00000    0.00000    0.00000   3-6/6-12/12-24
+    1x dark                                 160       all                3-6/6-12    4    0.00000    0.00000    0.00000   3-6/6-12
+    1x dark                                 160     above                3-6/6-12    4    0.00000    0.00000    0.00000   3-6/6-12
+    1x dark                                 160     below                3-6/6-12    4    0.00000    0.00000    0.00000   3-6/6-12
+    1x dark                                 160      left                3-6/6-12    4    0.00000    0.00000    0.00000   3-6/6-12
+    1x dark                                 160     right                3-6/6-12    3    0.00000    0.00000    0.00000   3-6/6-12
+    2x dark                                  44       all    3-6/6-12/12-24/24-48    5    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    2x dark                                  44     above    3-6/6-12/12-24/24-48    5    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    2x dark                                  44     below    3-6/6-12/12-24/24-48    5    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    2x dark                                  44      left    3-6/6-12/12-24/24-48    5    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    2x dark                                  44     right    3-6/6-12/12-24/24-48    5    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    2x dark                                  96       all    3-6/6-12/12-24/24-48    8    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    2x dark                                  96     above    3-6/6-12/12-24/24-48    8    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    2x dark                                  96     below    3-6/6-12/12-24/24-48    8    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    2x dark                                  96      left    3-6/6-12/12-24/24-48    8    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    2x dark                                  96     right    3-6/6-12/12-24/24-48    8    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    2x dark                                 128       all          3-6/6-12/12-24    2    0.00000    0.00000    0.00000   3-6/6-12/12-24
+    2x dark                                 128     above          3-6/6-12/12-24    2    0.00000    0.00000    0.00000   3-6/6-12/12-24
+    2x dark                                 128     below          3-6/6-12/12-24    2    0.00000    0.00000    0.00000   3-6/6-12/12-24
+    2x dark                                 128      left          3-6/6-12/12-24    2    0.00000    0.00000    0.00000   3-6/6-12/12-24
+    2x dark                                 128     right          3-6/6-12/12-24    2    0.00000    0.00000    0.00000   3-6/6-12/12-24
+    2x dark                                 160       all                3-6/6-12    4    0.00000    0.00000    0.00000   3-6/6-12
+    2x dark                                 160     above                3-6/6-12    4    0.00000    0.00000    0.00000   3-6/6-12
+    2x dark                                 160     below                3-6/6-12    4    0.00000    0.00000    0.00000   3-6/6-12
+    2x dark                                 160      left                3-6/6-12    4    0.00000    0.00000    0.00000   3-6/6-12
+    2x dark                                 160     right                3-6/6-12    3    0.00000    0.00000    0.00000   3-6/6-12
+    1x light                                 32       all    3-6/6-12/12-24/24-48    2    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x light                                 32     above    3-6/6-12/12-24/24-48    2    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x light                                 32     below    3-6/6-12/12-24/24-48    2    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x light                                 32      left    3-6/6-12/12-24/24-48    1    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x light                                 32     right    3-6/6-12/12-24/24-48    2    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x light                                 44       all    3-6/6-12/12-24/24-48   10    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x light                                 44     above    3-6/6-12/12-24/24-48   10    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x light                                 44     below    3-6/6-12/12-24/24-48   10    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x light                                 44      left    3-6/6-12/12-24/24-48   10    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x light                                 44     right    3-6/6-12/12-24/24-48   10    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x light                                 96       all    3-6/6-12/12-24/24-48    9    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x light                                 96     above    3-6/6-12/12-24/24-48    9    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x light                                 96     below    3-6/6-12/12-24/24-48    9    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x light                                 96      left    3-6/6-12/12-24/24-48    9    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x light                                 96     right    3-6/6-12/12-24/24-48    9    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x light                                128       all          3-6/6-12/12-24    2    0.00000    0.00000    0.00000   3-6/6-12/12-24
+    1x light                                128     above          3-6/6-12/12-24    2    0.00000    0.00000    0.00000   3-6/6-12/12-24
+    1x light                                128     below          3-6/6-12/12-24    2    0.00000    0.00000    0.00000   3-6/6-12/12-24
+    1x light                                128      left          3-6/6-12/12-24    2    0.00000    0.00000    0.00000   3-6/6-12/12-24
+    1x light                                128     right          3-6/6-12/12-24    2    0.00000    0.00000    0.00000   3-6/6-12/12-24
+    1x light                                160       all                3-6/6-12    4    0.00000    0.00000    0.00000   3-6/6-12
+    1x light                                160     above                3-6/6-12    4    0.00000    0.00000    0.00000   3-6/6-12
+    1x light                                160     below                3-6/6-12    4    0.00000    0.00000    0.00000   3-6/6-12
+    1x light                                160      left                3-6/6-12    4    0.00000    0.00000    0.00000   3-6/6-12
+    1x light                                160     right                3-6/6-12    3    0.00000    0.00000    0.00000   3-6/6-12
+    2x light                                 32       all    3-6/6-12/12-24/24-48    2    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    2x light                                 32     above    3-6/6-12/12-24/24-48    2    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    2x light                                 32     below    3-6/6-12/12-24/24-48    2    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    2x light                                 32      left    3-6/6-12/12-24/24-48    1    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    2x light                                 32     right    3-6/6-12/12-24/24-48    2    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    2x light                                 44       all    3-6/6-12/12-24/24-48   10    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    2x light                                 44     above    3-6/6-12/12-24/24-48   10    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    2x light                                 44     below    3-6/6-12/12-24/24-48   10    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    2x light                                 44      left    3-6/6-12/12-24/24-48   10    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    2x light                                 44     right    3-6/6-12/12-24/24-48   10    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    2x light                                 96       all    3-6/6-12/12-24/24-48    9    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    2x light                                 96     above    3-6/6-12/12-24/24-48    9    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    2x light                                 96     below    3-6/6-12/12-24/24-48    9    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    2x light                                 96      left    3-6/6-12/12-24/24-48    9    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    2x light                                 96     right    3-6/6-12/12-24/24-48    9    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    2x light                                128       all          3-6/6-12/12-24    2    0.00000    0.00000    0.00000   3-6/6-12/12-24
+    2x light                                128     above          3-6/6-12/12-24    2    0.00000    0.00000    0.00000   3-6/6-12/12-24
+    2x light                                128     below          3-6/6-12/12-24    2    0.00000    0.00000    0.00000   3-6/6-12/12-24
+    2x light                                128      left          3-6/6-12/12-24    2    0.00000    0.00000    0.00000   3-6/6-12/12-24
+    2x light                                128     right          3-6/6-12/12-24    2    0.00000    0.00000    0.00000   3-6/6-12/12-24
+    2x light                                160       all                3-6/6-12    4    0.00000    0.00000    0.00000   3-6/6-12
+    2x light                                160     above                3-6/6-12    4    0.00000    0.00000    0.00000   3-6/6-12
+    2x light                                160     below                3-6/6-12    4    0.00000    0.00000    0.00000   3-6/6-12
+    2x light                                160      left                3-6/6-12    4    0.00000    0.00000    0.00000   3-6/6-12
+    2x light                                160     right                3-6/6-12    3    0.00000    0.00000    0.00000   3-6/6-12
+    1x light-increased-contrast-coupled      44       all    3-6/6-12/12-24/24-48    5    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x light-increased-contrast-coupled      44     above    3-6/6-12/12-24/24-48    5    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x light-increased-contrast-coupled      44     below    3-6/6-12/12-24/24-48    5    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x light-increased-contrast-coupled      44      left    3-6/6-12/12-24/24-48    5    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x light-increased-contrast-coupled      44     right    3-6/6-12/12-24/24-48    5    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x light-increased-contrast-coupled      96       all    3-6/6-12/12-24/24-48    2    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x light-increased-contrast-coupled      96     above    3-6/6-12/12-24/24-48    2    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x light-increased-contrast-coupled      96     below    3-6/6-12/12-24/24-48    2    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x light-increased-contrast-coupled      96      left    3-6/6-12/12-24/24-48    2    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x light-increased-contrast-coupled      96     right    3-6/6-12/12-24/24-48    2    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x light-reduced-transparency            44       all    3-6/6-12/12-24/24-48    4    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x light-reduced-transparency            44     above    3-6/6-12/12-24/24-48    4    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x light-reduced-transparency            44     below    3-6/6-12/12-24/24-48    4    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x light-reduced-transparency            44      left    3-6/6-12/12-24/24-48    4    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x light-reduced-transparency            44     right    3-6/6-12/12-24/24-48    4    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x light-reduced-transparency            96       all    3-6/6-12/12-24/24-48    2    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x light-reduced-transparency            96     above    3-6/6-12/12-24/24-48    2    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x light-reduced-transparency            96     below    3-6/6-12/12-24/24-48    2    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x light-reduced-transparency            96      left    3-6/6-12/12-24/24-48    2    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+    1x light-reduced-transparency            96     right    3-6/6-12/12-24/24-48    2    0.00000    0.00000    0.00000   3-6/6-12/12-24/24-48
+
+  The CSS tier is RECORDED and not bounded (the tier rule, Decision Log 23 of
+  2026-09-05): it derives one `box-shadow` blur radius per surface from the same
+  profile rather than drawing the material, so its exterior is a consequence of the
+  leaves and not a second fit. Every row's per-band per-direction `Δa` and `Δc` are in
+  `exterior-cut.json` on both tiers whatever the tables below print.
+
+  tier css, pose active
+    bed                                    span direction                admitted    n      T_dir        min        max   bands-used
+
+  tier css, pose inactive
+    bed                                    span direction                admitted    n      T_dir        min        max   bands-used
+
+§9b. The per-band `Δa` median per direction — the profile the summary is a mean of
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+  WebGPU tier, active, non-holdout. A band outside the span's clearance is printed as
+  `(x)` around its figure rather than omitted, so the reading the frame ate is visible
+  and is not in any statistic. `0-3` is the body's own edge and is never in `T`.
+
+  1x dark, span 32, active — 7 cells, admitted 3-6/6-12/12-24/24-48
+    band                 all           above           below            left           right
+    0-3            (0.08998)       (0.01175)       (0.01996)       (0.22745)       (0.23495)   Δa (web−nat)
+    3-6              0.00097         0.00000         0.00485        -0.00160        -0.00156   Δa (web−nat)
+    6-12             0.00006         0.00000         0.00022        -0.00006         0.00000   Δa (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    0-3           (-0.00095)      (-0.00005)      (-0.00016)      (-0.00241)      (-0.00228)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+
+  1x dark, span 44, active — 16 cells, admitted 3-6/6-12/12-24/24-48
+    band                 all           above           below            left           right
+    0-3            (0.06337)       (0.00523)       (0.01441)       (0.18453)       (0.19151)   Δa (web−nat)
+    3-6              0.00138         0.00000         0.00508        -0.00183        -0.00052   Δa (web−nat)
+    6-12            -0.00101         0.00000        -0.00249        -0.00042        -0.00001   Δa (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    0-3           (-0.00085)      (-0.00017)       (0.00002)      (-0.00111)      (-0.00016)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+
+  1x dark, span 96, active — 10 cells, admitted 3-6/6-12/12-24/24-48
+    band                 all           above           below            left           right
+    0-3            (0.12058)       (0.02094)       (0.06608)       (0.24853)       (0.24886)   Δa (web−nat)
+    3-6              0.00944        -0.00343         0.02955         0.00392         0.00322   Δa (web−nat)
+    6-12             0.00099        -0.00454         0.01290        -0.00404        -0.00420   Δa (web−nat)
+    12-24           -0.00188         0.00000        -0.00317        -0.00236        -0.00227   Δa (web−nat)
+    24-48           -0.00001         0.00000        -0.00002         0.00000         0.00000   Δa (web−nat)
+    0-3           (-0.00092)      (-0.00014)      (-0.00004)      (-0.00171)      (-0.00193)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+
+  1x dark, span 128, active — 5 cells, admitted 3-6/6-12/12-24
+    band                 all           above           below            left           right
+    0-3            (0.11168)       (0.02438)       (0.05073)       (0.23238)       (0.24045)   Δa (web−nat)
+    3-6              0.00716        -0.00536         0.02161         0.00561         0.00561   Δa (web−nat)
+    6-12             0.00246        -0.00361         0.01204        -0.00036        -0.00031   Δa (web−nat)
+    12-24           -0.00310        -0.00370        -0.00123        -0.00420        -0.00413   Δa (web−nat)
+    24-48         (-0.00108)       (0.00000)      (-0.00238)      (-0.00097)      (-0.00094)   Δa (web−nat)
+    0-3           (-0.00071)      (-0.00001)      (-0.00011)      (-0.00186)      (-0.00191)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    24-48          (0.00000)       (0.00000)       (0.00000)       (0.00000)       (0.00000)   Δc (web−nat)
+
+  1x dark, span 160, active — 7 cells, admitted 3-6/6-12
+    band                 all           above           below            left           right
+    0-3            (0.09332)       (0.02097)       (0.03259)       (0.20579)       (0.20460)   Δa (web−nat)
+    3-6              0.00138        -0.00338         0.00750         0.00018         0.00034   Δa (web−nat)
+    6-12            -0.00105        -0.00361         0.00245        -0.00191        -0.00174   Δa (web−nat)
+    12-24         (-0.00347)      (-0.00482)      (-0.00160)      (-0.00391)      (-0.00386)   Δa (web−nat)
+    24-48         (-0.00302)      (-0.00214)      (-0.00355)      (-0.00249)      (-0.00351)   Δa (web−nat)
+    0-3           (-0.00042)      (-0.00015)      (-0.00012)      (-0.00079)      (-0.00125)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    12-24          (0.00000)       (0.00000)       (0.00000)       (0.00000)       (0.00000)   Δc (web−nat)
+    24-48          (0.00000)       (0.00000)       (0.00000)       (0.00000)       (0.00000)   Δc (web−nat)
+
+  2x dark, span 32, active — 7 cells, admitted 3-6/6-12/12-24/24-48
+    band                 all           above           below            left           right
+    0-3            (0.04352)       (0.00639)       (0.01466)       (0.10595)       (0.09343)   Δa (web−nat)
+    3-6              0.00145         0.00000         0.00550        -0.00114        -0.00104   Δa (web−nat)
+    6-12            -0.00005         0.00000        -0.00013        -0.00004         0.00000   Δa (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    0-3           (-0.00040)      (-0.00003)      (-0.00004)      (-0.00088)      (-0.00088)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+
+  2x dark, span 44, active — 16 cells, admitted 3-6/6-12/12-24/24-48
+    band                 all           above           below            left           right
+    0-3            (0.03115)       (0.00120)       (0.01029)       (0.09296)       (0.09335)   Δa (web−nat)
+    3-6              0.00166         0.00000         0.00584        -0.00174        -0.00050   Δa (web−nat)
+    6-12            -0.00088         0.00000        -0.00214        -0.00038         0.00000   Δa (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    0-3           (-0.00005)       (0.00016)       (0.00027)       (0.00005)       (0.00013)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+
+  2x dark, span 96, active — 10 cells, admitted 3-6/6-12/12-24/24-48
+    band                 all           above           below            left           right
+    0-3            (0.06233)       (0.00586)       (0.04821)       (0.12006)       (0.12006)   Δa (web−nat)
+    3-6              0.00891        -0.00349         0.02852         0.00331         0.00289   Δa (web−nat)
+    6-12             0.00101        -0.00455         0.01341        -0.00422        -0.00455   Δa (web−nat)
+    12-24           -0.00191         0.00000        -0.00319        -0.00236        -0.00239   Δa (web−nat)
+    24-48           -0.00000         0.00000        -0.00001         0.00000         0.00000   Δa (web−nat)
+    0-3           (-0.00024)       (0.00003)       (0.00004)      (-0.00019)      (-0.00039)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+
+  2x dark, span 128, active — 5 cells, admitted 3-6/6-12/12-24
+    band                 all           above           below            left           right
+    0-3            (0.05685)       (0.00898)       (0.03715)       (0.11458)       (0.11402)   Δa (web−nat)
+    3-6              0.00906        -0.00317         0.02344         0.00751         0.00714   Δa (web−nat)
+    6-12             0.00304        -0.00462         0.01435        -0.00008         0.00058   Δa (web−nat)
+    12-24           -0.00291        -0.00369        -0.00049        -0.00427        -0.00419   Δa (web−nat)
+    24-48         (-0.00102)       (0.00000)      (-0.00217)      (-0.00097)      (-0.00094)   Δa (web−nat)
+    0-3           (-0.00104)      (-0.00005)      (-0.00006)      (-0.00279)      (-0.00264)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    24-48          (0.00000)       (0.00000)       (0.00000)       (0.00000)       (0.00000)   Δc (web−nat)
+
+  2x dark, span 160, active — 7 cells, admitted 3-6/6-12
+    band                 all           above           below            left           right
+    0-3            (0.04279)       (0.00612)       (0.01868)       (0.09253)       (0.09195)   Δa (web−nat)
+    3-6              0.00196        -0.00225         0.00768         0.00068         0.00089   Δa (web−nat)
+    6-12            -0.00062        -0.00354         0.00354        -0.00172        -0.00155   Δa (web−nat)
+    12-24         (-0.00352)      (-0.00520)      (-0.00131)      (-0.00392)      (-0.00397)   Δa (web−nat)
+    24-48         (-0.00294)      (-0.00201)      (-0.00340)      (-0.00240)      (-0.00360)   Δa (web−nat)
+    0-3           (-0.00004)       (0.00000)      (-0.00000)      (-0.00015)      (-0.00003)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    12-24          (0.00000)       (0.00000)       (0.00000)       (0.00000)       (0.00000)   Δc (web−nat)
+    24-48          (0.00000)       (0.00000)       (0.00000)       (0.00000)       (0.00000)   Δc (web−nat)
+
+  1x light, span 32, active — 9 cells, admitted 3-6/6-12/12-24/24-48
+    band                 all           above           below            left           right
+    0-3            (0.11207)       (0.06701)       (0.05790)       (0.21868)       (0.16206)   Δa (web−nat)
+    3-6              0.00009         0.00000         0.00000         0.00039         0.00039   Δa (web−nat)
+    6-12             0.00026         0.00000         0.00079         0.00000         0.00000   Δa (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    0-3           (-0.00101)      (-0.00009)      (-0.00005)      (-0.00248)      (-0.00270)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+
+  1x light, span 44, active — 24 cells, admitted 3-6/6-12/12-24/24-48
+    band                 all           above           below            left           right
+    0-3            (0.10929)       (0.17818)       (0.11179)       (0.17095)       (0.13099)   Δa (web−nat)
+    3-6             -0.00091         0.00000        -0.00249        -0.00009         0.00000   Δa (web−nat)
+    6-12             0.00015         0.00000         0.00040         0.00000         0.00000   Δa (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    0-3           (-0.00060)      (-0.00529)      (-0.00096)      (-0.00460)       (0.00057)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+
+  1x light, span 96, active — 13 cells, admitted 3-6/6-12/12-24/24-48
+    band                 all           above           below            left           right
+    0-3            (0.12919)       (0.06644)       (0.09338)       (0.19117)       (0.17467)   Δa (web−nat)
+    3-6              0.00442        -0.00352         0.01644         0.00167         0.00117   Δa (web−nat)
+    6-12             0.00081        -0.00159         0.00599        -0.00116        -0.00156   Δa (web−nat)
+    12-24           -0.00067         0.00000        -0.00046        -0.00138        -0.00106   Δa (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    0-3           (-0.00080)      (-0.00029)      (-0.00010)      (-0.00171)      (-0.00203)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+
+  1x light, span 128, active — 8 cells, admitted 3-6/6-12/12-24
+    band                 all           above           below            left           right
+    0-3            (0.11899)       (0.06822)       (0.08071)       (0.17595)       (0.18656)   Δa (web−nat)
+    3-6              0.00568        -0.00062         0.01365         0.00525         0.00384   Δa (web−nat)
+    6-12             0.00179        -0.00315         0.00811         0.00053         0.00129   Δa (web−nat)
+    12-24           -0.00131        -0.00171         0.00024        -0.00221        -0.00235   Δa (web−nat)
+    24-48         (-0.00035)       (0.00000)      (-0.00033)      (-0.00056)      (-0.00054)   Δa (web−nat)
+    0-3           (-0.00057)       (0.00002)      (-0.00012)      (-0.00131)      (-0.00190)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    24-48          (0.00000)       (0.00000)       (0.00000)       (0.00000)       (0.00000)   Δc (web−nat)
+
+  1x light, span 160, active — 7 cells, admitted 3-6/6-12
+    band                 all           above           below            left           right
+    0-3            (0.09571)       (0.06944)       (0.06737)       (0.15765)       (0.14152)   Δa (web−nat)
+    3-6              0.00031        -0.00284         0.00338         0.00026         0.00038   Δa (web−nat)
+    6-12            -0.00012        -0.00202         0.00245        -0.00074        -0.00055   Δa (web−nat)
+    12-24         (-0.00251)      (-0.00421)      (-0.00052)      (-0.00278)      (-0.00263)   Δa (web−nat)
+    24-48         (-0.00207)      (-0.00150)      (-0.00228)      (-0.00176)      (-0.00191)   Δa (web−nat)
+    0-3           (-0.00030)      (-0.00019)      (-0.00016)      (-0.00050)      (-0.00081)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    12-24          (0.00000)       (0.00000)       (0.00000)       (0.00000)       (0.00000)   Δc (web−nat)
+    24-48          (0.00000)       (0.00000)       (0.00000)       (0.00000)       (0.00000)   Δc (web−nat)
+
+  2x light, span 32, active — 9 cells, admitted 3-6/6-12/12-24/24-48
+    band                 all           above           below            left           right
+    0-3            (0.05151)       (0.03012)       (0.02878)       (0.10012)       (0.07432)   Δa (web−nat)
+    3-6              0.00033         0.00000         0.00096         0.00008         0.00000   Δa (web−nat)
+    6-12             0.00033         0.00000         0.00099         0.00000         0.00000   Δa (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    0-3           (-0.00041)      (-0.00004)      (-0.00003)      (-0.00090)      (-0.00090)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+
+  2x light, span 44, active — 24 cells, admitted 3-6/6-12/12-24/24-48
+    band                 all           above           below            left           right
+    0-3            (0.05405)       (0.09814)       (0.05350)       (0.07931)       (0.05982)   Δa (web−nat)
+    3-6             -0.00068         0.00000        -0.00179        -0.00019        -0.00012   Δa (web−nat)
+    6-12             0.00010         0.00000         0.00026         0.00002         0.00002   Δa (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    0-3           (-0.00007)      (-0.00290)      (-0.00041)      (-0.00537)       (0.00040)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+
+  2x light, span 96, active — 13 cells, admitted 3-6/6-12/12-24/24-48
+    band                 all           above           below            left           right
+    0-3            (0.05914)       (0.02680)       (0.05045)       (0.08410)       (0.07779)   Δa (web−nat)
+    3-6              0.00413        -0.00443         0.01628         0.00128         0.00118   Δa (web−nat)
+    6-12             0.00112        -0.00159         0.00769        -0.00171        -0.00212   Δa (web−nat)
+    12-24           -0.00091         0.00000        -0.00110        -0.00148        -0.00121   Δa (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    0-3           (-0.00014)       (0.00002)       (0.00007)      (-0.00007)      (-0.00027)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+
+  2x light, span 128, active — 8 cells, admitted 3-6/6-12/12-24
+    band                 all           above           below            left           right
+    0-3            (0.06942)       (0.04228)       (0.05025)       (0.10734)       (0.10368)   Δa (web−nat)
+    3-6              0.00554        -0.00062         0.01351         0.00412         0.00430   Δa (web−nat)
+    6-12             0.00192        -0.00312         0.00859         0.00058         0.00111   Δa (web−nat)
+    12-24           -0.00137        -0.00190         0.00038        -0.00231        -0.00241   Δa (web−nat)
+    24-48         (-0.00043)       (0.00000)      (-0.00065)      (-0.00053)      (-0.00055)   Δa (web−nat)
+    0-3           (-0.00153)      (-0.00043)      (-0.00017)      (-0.00246)      (-0.00334)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    24-48          (0.00000)       (0.00000)       (0.00000)       (0.00000)       (0.00000)   Δc (web−nat)
+
+  2x light, span 160, active — 7 cells, admitted 3-6/6-12
+    band                 all           above           below            left           right
+    0-3            (0.03925)       (0.02932)       (0.03183)       (0.06690)       (0.05633)   Δa (web−nat)
+    3-6              0.00168        -0.00161         0.00510         0.00161         0.00163   Δa (web−nat)
+    6-12             0.00012        -0.00196         0.00301        -0.00058        -0.00053   Δa (web−nat)
+    12-24         (-0.00199)      (-0.00346)      (-0.00014)      (-0.00232)      (-0.00223)   Δa (web−nat)
+    24-48         (-0.00209)      (-0.00140)      (-0.00240)      (-0.00182)      (-0.00201)   Δa (web−nat)
+    0-3           (-0.00001)       (0.00003)      (-0.00001)      (-0.00002)       (0.00012)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    12-24          (0.00000)       (0.00000)       (0.00000)       (0.00000)       (0.00000)   Δc (web−nat)
+    24-48          (0.00000)       (0.00000)       (0.00000)       (0.00000)       (0.00000)   Δc (web−nat)
+
+  1x light-increased-contrast-coupled, span 44, active — 5 cells, admitted 3-6/6-12/12-24/24-48
+    band                 all           above           below            left           right
+    0-3            (0.12408)       (0.17426)       (0.05075)       (0.11142)       (0.14304)   Δa (web−nat)
+    3-6             -0.02080         0.00000        -0.04919        -0.03510        -0.00130   Δa (web−nat)
+    6-12            -0.00449         0.00000        -0.01617        -0.00409        -0.00047   Δa (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    0-3           (-0.00226)      (-0.00978)       (0.00014)       (0.00308)       (0.01005)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00502         0.00000   Δc (web−nat)
+    6-12            -0.00064         0.00000         0.00000         0.00050        -0.00018   Δc (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+
+  1x light-increased-contrast-coupled, span 96, active — 2 cells, admitted 3-6/6-12/12-24/24-48
+    band                 all           above           below            left           right
+    0-3            (0.19835)       (0.17069)       (0.16007)       (0.29194)       (0.21255)   Δa (web−nat)
+    3-6              0.00442        -0.00352         0.01644         0.00741         0.00099   Δa (web−nat)
+    6-12             0.00081        -0.00159         0.00661        -0.00050        -0.00164   Δa (web−nat)
+    12-24           -0.00067         0.00000        -0.00046        -0.00154        -0.00086   Δa (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    0-3           (-0.00248)      (-0.00011)       (0.00018)       (0.00977)      (-0.00648)   Δc (web−nat)
+    3-6              0.00045         0.00014         0.00001         0.00000         0.00099   Δc (web−nat)
+    6-12             0.00069         0.00035         0.00000         0.00000         0.00005   Δc (web−nat)
+    12-24            0.00027         0.00000         0.00075         0.00080         0.00000   Δc (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+
+  1x light-reduced-transparency, span 44, active — 4 cells, admitted 3-6/6-12/12-24/24-48
+    band                 all           above           below            left           right
+    0-3            (0.08751)       (0.13050)       (0.04977)       (0.09885)       (0.12495)   Δa (web−nat)
+    3-6             -0.02080         0.00000        -0.04919        -0.03510        -0.00130   Δa (web−nat)
+    6-12            -0.00449         0.00000        -0.01447        -0.00409        -0.00047   Δa (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    0-3           (-0.00048)      (-0.00019)       (0.00487)       (0.00499)       (0.04966)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00582         0.00432   Δc (web−nat)
+    6-12            -0.00064         0.00000         0.00000         0.00050        -0.00018   Δc (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+
+  1x light-reduced-transparency, span 96, active — 2 cells, admitted 3-6/6-12/12-24/24-48
+    band                 all           above           below            left           right
+    0-3            (0.19749)       (0.13280)       (0.14301)       (0.29024)       (0.22010)   Δa (web−nat)
+    3-6              0.00442        -0.00352         0.01644         0.00741         0.00099   Δa (web−nat)
+    6-12             0.00081        -0.00159         0.00661        -0.00050        -0.00164   Δa (web−nat)
+    12-24           -0.00067         0.00000        -0.00046        -0.00154        -0.00086   Δa (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    0-3           (-0.00343)      (-0.00088)      (-0.00058)       (0.01072)      (-0.00950)   Δc (web−nat)
+    3-6              0.00045         0.00014         0.00001         0.00000         0.00099   Δc (web−nat)
+    6-12             0.00069         0.00035         0.00000         0.00000         0.00005   Δc (web−nat)
+    12-24            0.00027         0.00000         0.00075         0.00080         0.00000   Δc (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+
+  1x dark, span 44, inactive — 9 cells, admitted 3-6/6-12/12-24/24-48
+    band                 all           above           below            left           right
+    0-3            (0.21272)       (0.17359)       (0.24293)       (0.19815)       (0.23097)   Δa (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    0-3           (-0.00007)      (-0.00492)      (-0.01439)       (0.00012)       (0.00083)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+
+  1x dark, span 96, inactive — 9 cells, admitted 3-6/6-12/12-24/24-48
+    band                 all           above           below            left           right
+    0-3            (0.26904)       (0.24975)       (0.24975)       (0.29304)       (0.28878)   Δa (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    0-3           (-0.00940)      (-0.00833)      (-0.00765)      (-0.01334)      (-0.01256)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+
+  1x dark, span 128, inactive — 4 cells, admitted 3-6/6-12/12-24
+    band                 all           above           below            left           right
+    0-3            (0.23700)       (0.25181)       (0.15750)       (0.28055)       (0.31744)   Δa (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    24-48          (0.00000)       (0.00000)       (0.00000)       (0.00000)       (0.00000)   Δa (web−nat)
+    0-3           (-0.00787)      (-0.00021)      (-0.00253)       (0.00713)      (-0.01432)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    24-48          (0.00000)       (0.00000)       (0.00000)       (0.00000)       (0.00000)   Δc (web−nat)
+
+  1x dark, span 160, inactive — 9 cells, admitted 3-6/6-12
+    band                 all           above           below            left           right
+    0-3            (0.27859)       (0.25060)       (0.26224)       (0.30600)       (0.27061)   Δa (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    12-24          (0.00000)       (0.00000)       (0.00000)       (0.00000)       (0.00000)   Δa (web−nat)
+    24-48          (0.00000)       (0.00000)       (0.00000)       (0.00000)       (0.00000)   Δa (web−nat)
+    0-3           (-0.00046)      (-0.00037)      (-0.00018)      (-0.00065)      (-0.00059)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    12-24          (0.00000)       (0.00000)       (0.00000)       (0.00000)       (0.00000)   Δc (web−nat)
+    24-48          (0.00000)       (0.00000)       (0.00000)       (0.00000)       (0.00000)   Δc (web−nat)
+
+  2x dark, span 44, inactive — 9 cells, admitted 3-6/6-12/12-24/24-48
+    band                 all           above           below            left           right
+    0-3            (0.09932)       (0.08328)       (0.10517)       (0.10562)       (0.11881)   Δa (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    0-3           (-0.00040)      (-0.00205)      (-0.00442)      (-0.00034)       (0.00005)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+
+  2x dark, span 96, inactive — 9 cells, admitted 3-6/6-12/12-24/24-48
+    band                 all           above           below            left           right
+    0-3            (0.12455)       (0.11437)       (0.11836)       (0.13327)       (0.13176)   Δa (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    0-3           (-0.00351)      (-0.00190)      (-0.00190)      (-0.00549)      (-0.00626)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+
+  2x dark, span 128, inactive — 4 cells, admitted 3-6/6-12/12-24
+    band                 all           above           below            left           right
+    0-3            (0.09954)       (0.11350)       (0.04116)       (0.12864)       (0.14296)   Δa (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    24-48          (0.00000)       (0.00000)       (0.00000)       (0.00000)       (0.00000)   Δa (web−nat)
+    0-3           (-0.00249)       (0.00130)       (0.00000)       (0.00748)      (-0.00623)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    24-48          (0.00000)       (0.00000)       (0.00000)       (0.00000)       (0.00000)   Δc (web−nat)
+
+  2x dark, span 160, inactive — 9 cells, admitted 3-6/6-12
+    band                 all           above           below            left           right
+    0-3            (0.12548)       (0.11623)       (0.13009)       (0.13712)       (0.11878)   Δa (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    12-24          (0.00000)       (0.00000)       (0.00000)       (0.00000)       (0.00000)   Δa (web−nat)
+    24-48          (0.00000)       (0.00000)       (0.00000)       (0.00000)       (0.00000)   Δa (web−nat)
+    0-3           (-0.00077)      (-0.00053)      (-0.00011)      (-0.00112)      (-0.00108)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    12-24          (0.00000)       (0.00000)       (0.00000)       (0.00000)       (0.00000)   Δc (web−nat)
+    24-48          (0.00000)       (0.00000)       (0.00000)       (0.00000)       (0.00000)   Δc (web−nat)
+
+  1x light, span 32, inactive — 2 cells, admitted 3-6/6-12/12-24/24-48
+    band                 all           above           below            left           right
+    0-3            (0.19442)       (0.13939)       (0.11082)       (0.35415)       (0.32318)   Δa (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    0-3            (0.00388)       (0.00038)       (0.02752)      (-0.00203)       (0.01679)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+
+  1x light, span 44, inactive — 16 cells, admitted 3-6/6-12/12-24/24-48
+    band                 all           above           below            left           right
+    0-3            (0.15039)       (0.15097)       (0.16814)       (0.16790)       (0.08187)   Δa (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    0-3            (0.00087)       (0.00011)       (0.00872)       (0.00200)       (0.00884)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+
+  1x light, span 96, inactive — 12 cells, admitted 3-6/6-12/12-24/24-48
+    band                 all           above           below            left           right
+    0-3            (0.24877)       (0.24550)       (0.20408)       (0.28106)       (0.23382)   Δa (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    0-3           (-0.01620)      (-0.01028)      (-0.01028)      (-0.01830)      (-0.01830)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+
+  1x light, span 128, inactive — 4 cells, admitted 3-6/6-12/12-24
+    band                 all           above           below            left           right
+    0-3            (0.14617)       (0.25069)       (0.09529)       (0.30723)       (0.33084)   Δa (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    24-48          (0.00000)       (0.00000)       (0.00000)       (0.00000)       (0.00000)   Δa (web−nat)
+    0-3           (-0.00100)      (-0.00026)       (0.00011)       (0.00861)      (-0.02932)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    24-48          (0.00000)       (0.00000)       (0.00000)       (0.00000)       (0.00000)   Δc (web−nat)
+
+  1x light, span 160, inactive — 9 cells, admitted 3-6/6-12
+    band                 all           above           below            left           right
+    0-3            (0.19783)       (0.14666)       (0.18643)       (0.18220)       (0.16350)   Δa (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    12-24          (0.00000)       (0.00000)       (0.00000)       (0.00000)       (0.00000)   Δa (web−nat)
+    24-48          (0.00000)       (0.00000)       (0.00000)       (0.00000)       (0.00000)   Δa (web−nat)
+    0-3           (-0.00038)      (-0.00033)      (-0.00027)      (-0.00035)      (-0.00046)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    12-24          (0.00000)       (0.00000)       (0.00000)       (0.00000)       (0.00000)   Δc (web−nat)
+    24-48          (0.00000)       (0.00000)       (0.00000)       (0.00000)       (0.00000)   Δc (web−nat)
+
+  2x light, span 32, inactive — 2 cells, admitted 3-6/6-12/12-24/24-48
+    band                 all           above           below            left           right
+    0-3            (0.10045)       (0.07863)       (0.06219)       (0.15515)       (0.14309)   Δa (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    0-3            (0.00246)      (-0.00068)       (0.01392)      (-0.00261)       (0.00938)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+
+  2x light, span 44, inactive — 16 cells, admitted 3-6/6-12/12-24/24-48
+    band                 all           above           below            left           right
+    0-3            (0.08090)       (0.07780)       (0.09318)       (0.09313)       (0.04716)   Δa (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    0-3            (0.00051)      (-0.00018)       (0.00304)       (0.00041)       (0.00097)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+
+  2x light, span 96, inactive — 12 cells, admitted 3-6/6-12/12-24/24-48
+    band                 all           above           below            left           right
+    0-3            (0.09939)       (0.11117)       (0.08016)       (0.12450)       (0.10084)   Δa (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    0-3           (-0.00739)      (-0.00208)      (-0.00096)      (-0.00915)      (-0.00987)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+
+  2x light, span 128, inactive — 4 cells, admitted 3-6/6-12/12-24
+    band                 all           above           below            left           right
+    0-3            (0.05631)       (0.07988)       (0.01602)       (0.14270)       (0.15508)   Δa (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    24-48          (0.00000)       (0.00000)       (0.00000)       (0.00000)       (0.00000)   Δa (web−nat)
+    0-3           (-0.00000)       (0.00134)       (0.00004)       (0.00992)       (0.00163)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    24-48          (0.00000)       (0.00000)       (0.00000)       (0.00000)       (0.00000)   Δc (web−nat)
+
+  2x light, span 160, inactive — 9 cells, admitted 3-6/6-12
+    band                 all           above           below            left           right
+    0-3            (0.09297)       (0.06284)       (0.08520)       (0.11177)       (0.08716)   Δa (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    12-24          (0.00000)       (0.00000)       (0.00000)       (0.00000)       (0.00000)   Δa (web−nat)
+    24-48          (0.00000)       (0.00000)       (0.00000)       (0.00000)       (0.00000)   Δa (web−nat)
+    0-3           (-0.00082)      (-0.00052)      (-0.00020)      (-0.00121)      (-0.00120)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    12-24          (0.00000)       (0.00000)       (0.00000)       (0.00000)       (0.00000)   Δc (web−nat)
+    24-48          (0.00000)       (0.00000)       (0.00000)       (0.00000)       (0.00000)   Δc (web−nat)
+
+  1x light-increased-contrast-coupled, span 44, inactive — 5 cells, admitted 3-6/6-12/12-24/24-48
+    band                 all           above           below            left           right
+    0-3            (0.12850)       (0.20199)       (0.07781)       (0.20431)       (0.18524)   Δa (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    0-3           (-0.01463)      (-0.00012)      (-0.01173)      (-0.02126)      (-0.01870)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+
+  1x light-increased-contrast-coupled, span 96, inactive — 2 cells, admitted 3-6/6-12/12-24/24-48
+    band                 all           above           below            left           right
+    0-3            (0.32488)       (0.31578)       (0.32054)       (0.33443)       (0.33997)   Δa (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    0-3           (-0.00879)      (-0.00501)      (-0.01134)       (0.00898)      (-0.04468)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+
+  1x light-reduced-transparency, span 44, inactive — 4 cells, admitted 3-6/6-12/12-24/24-48
+    band                 all           above           below            left           right
+    0-3            (0.19523)       (0.27094)       (0.11153)       (0.27710)       (0.17509)   Δa (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    0-3           (-0.00068)      (-0.00304)       (0.01479)      (-0.00224)       (0.04513)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+
+  1x light-reduced-transparency, span 96, inactive — 2 cells, admitted 3-6/6-12/12-24/24-48
+    band                 all           above           below            left           right
+    0-3            (0.33262)       (0.32210)       (0.32682)       (0.34953)       (0.34540)   Δa (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δa (web−nat)
+    0-3           (-0.00579)      (-0.00907)      (-0.01549)       (0.00559)      (-0.02211)   Δc (web−nat)
+    3-6              0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    6-12             0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    12-24            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+    24-48            0.00000         0.00000         0.00000         0.00000         0.00000   Δc (web−nat)
+
+
+§10. The reach: per-direction extents and the two offsets, web − native, in CSS px
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+  An extent is ABSENT where the walk reached the canvas edge, which the axis withholds
+  rather than reporting the size of the window. The absence is the reading: a span at
+  which the web side carries no extent is a span at which the bed cannot see vitrea's
+  own reach at all. Read per tier and per pose; the CSS tier is recorded.
+
+  tier webgpu, pose active, non-holdout
+   span     field  n both  nat absent  web absent     native        web  web − native
+     32     above      32        0/32        0/32       0.00       0.00          0.00
+     32     below      32        0/32        0/32       8.00       8.00          0.00
+     32      left      32        0/32        0/32       2.00       0.00         -1.00
+     32     right      32        0/32        0/32       2.00       0.00         -1.00
+     32   offsetX      32        0/32        0/32       0.00       0.00          0.00
+     32   offsetY      32        0/32        0/32       4.00       4.00          0.00
+
+     44     above      75       14/89       14/89       0.00       0.00          0.00
+     44     below      75       14/89       14/89       8.00       9.00          0.50
+     44      left      75       14/89       14/89       2.00       0.00          0.00
+     44     right      75       14/89       14/89       2.00       0.00         -1.00
+     44   offsetX      75       14/89       14/89       0.00       0.00          0.00
+     44   offsetY      75       14/89       14/89       4.00       4.50          0.50
+
+     96     above      44        6/50        6/50       2.00       2.00          1.00
+     96     below      44        6/50        6/50      17.00      17.50          1.00
+     96      left      44        6/50        6/50      10.00      12.00          1.50
+     96     right      44        6/50        6/50      10.00      12.00          2.00
+     96   offsetX      44        6/50        6/50       0.00       0.00          0.00
+     96   offsetY      44        6/50        6/50       7.75       8.00          0.25
+
+    128     above      26        0/26        0/26      11.00      12.00          2.00
+    128     below      26        0/26        0/26      27.00      27.00          2.00
+    128      left      26        0/26        0/26      20.00      22.00          2.00
+    128     right      26        0/26        0/26      19.00      22.00          2.00
+    128   offsetX      26        0/26        0/26       0.00       0.25          0.00
+    128   offsetY      26        0/26        0/26       8.00       8.00          0.00
+
+    160     above       0       28/28       28/28          —          —             —
+    160     below       0       28/28       28/28          —          —             —
+    160      left       0       28/28       28/28          —          —             —
+    160     right       0       28/28       28/28          —          —             —
+    160   offsetX       0       28/28       28/28          —          —             —
+    160   offsetY       0       28/28       28/28          —          —             —
+
+  tier webgpu, pose inactive, non-holdout
+   span     field  n both  nat absent  web absent     native        web  web − native
+     32     above       4         0/4         0/4       1.00       0.00         -1.00
+     32     below       4         0/4         0/4       0.00       0.00          0.00
+     32      left       4         0/4         0/4       2.00       0.00         -1.00
+     32     right       4         0/4         0/4       2.00       0.00         -1.00
+     32   offsetX       0         0/4         4/4       0.00          —             —
+     32   offsetY       0         0/4         4/4      -0.50          —             —
+
+     44     above      45       14/59       14/59       1.00       0.00         -1.00
+     44     below      45       14/59       14/59       2.00       0.00         -2.00
+     44      left      45       14/59       14/59       2.00       0.00         -2.00
+     44     right      45       14/59       14/59       2.00       0.00         -2.00
+     44   offsetX       0       14/59       59/59       0.00          —             —
+     44   offsetY       0       14/59       59/59       0.00          —             —
+
+     96     above      40        6/46        6/46       0.00       0.00          0.00
+     96     below      40        6/46        6/46       0.00       0.00          0.00
+     96      left      40        6/46        6/46       2.00       0.00         -2.00
+     96     right      40        6/46        6/46       2.00       0.00         -1.00
+     96   offsetX       0        6/46       46/46       0.00          —             —
+     96   offsetY       0        6/46       46/46       0.00          —             —
+
+    128     above      12        4/16        4/16       0.00       0.00          0.00
+    128     below      12        4/16        4/16       0.00       0.00          0.00
+    128      left      12        4/16        4/16       2.00       0.00         -1.00
+    128     right      12        4/16        4/16       2.00       0.00         -1.00
+    128   offsetX       0        4/16       16/16       0.00          —             —
+    128   offsetY       0        4/16       16/16       0.00          —             —
+
+    160     above      28        8/36        8/36       0.00       0.00          0.00
+    160     below      28        8/36        8/36       0.00       0.00          0.00
+    160      left      28        8/36        8/36       1.00       0.00         -1.00
+    160     right      28        8/36        8/36       1.00       0.00         -1.00
+    160   offsetX       0       12/36       36/36       0.00          —             —
+    160   offsetY       0       12/36       36/36       0.00          —             —
+
+  tier css, pose active, non-holdout
+   span     field  n both  nat absent  web absent     native        web  web − native
+  tier css, pose inactive, non-holdout
+   span     field  n both  nat absent  web absent     native        web  web − native
+
+§11. The departure: the whole exterior, and the same quantity restricted to 3–48 CSS px
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+  `meanDeparture` is `mean(backdrop − rendered)` over every exterior pixel and is what
+  B3 is stated over. The window-restricted figure is the same functional over the
+  admitted bands only, recovered exactly from each band's `sampleCount`,
+  `backdropMeanLinear` and `renderedLevelLinear` — a count-weighted mean of means is
+  the mean of the union. W32 clause 3 solves the six anchors on the restricted one
+  because `0-3` holds the body's own over-fill and is of the opposite sign; the
+  difference between the two solves is what G1 measures at its first round.
+
+  tier webgpu, active, non-holdout
+    bed                                    span   n  whole nat  whole web   ratio  |Δ| whole    win nat    win web  win ratio  |Δ| window    nat 0   bands
+    1x dark                                  32   7    0.00051    0.00011    0.21    0.00040   0.000275   0.000252       0.92     0.00002            3-6/6-12/12-24/24-48
+    1x dark                                  44  16    0.00072    0.00025    0.37    0.00045   0.000368   0.000387       1.05     0.00002     3/16   3-6/6-12/12-24/24-48
+    1x dark                                  96  10    0.00456    0.00276    0.60    0.00181   0.003411   0.003339       0.99     0.00007            3-6/6-12/12-24/24-48
+    1x dark                                 128   5    0.01686    0.01412    0.84    0.00274   0.023653   0.023759       1.00     0.00011            3-6/6-12/12-24
+    1x dark                                 160   7    0.05684    0.05211    0.92    0.00483   0.065288   0.065417       1.00     0.00013            3-6/6-12
+    2x dark                                  32   7    0.00031    0.00011    0.35    0.00020   0.000276   0.000249       0.90     0.00003            3-6/6-12/12-24/24-48
+    2x dark                                  44  16    0.00046    0.00022    0.50    0.00023   0.000371   0.000377       1.02     0.00001     3/16   3-6/6-12/12-24/24-48
+    2x dark                                  96  10    0.00370    0.00274    0.74    0.00096   0.003398   0.003344       0.99     0.00005            3-6/6-12/12-24/24-48
+    2x dark                                 128   5    0.01539    0.01404    0.91    0.00135   0.023916   0.023762       0.99     0.00015            3-6/6-12/12-24
+    2x dark                                 160   7    0.05369    0.05192    0.97    0.00179   0.065285   0.065176       1.00     0.00011            3-6/6-12
+    1x light                                 32   9    0.00064    0.00012    0.19    0.00050   0.000275   0.000261       0.95     0.00001            3-6/6-12/12-24/24-48
+    1x light                                 44  24    0.00085    0.00024    0.22    0.00065   0.000368   0.000382       1.04     0.00001     4/24   3-6/6-12/12-24/24-48
+    1x light                                 96  13    0.00373    0.00191    0.53    0.00176   0.002369   0.002290       0.97     0.00004            3-6/6-12/12-24/24-48
+    1x light                                128   8    0.01286    0.00940    0.75    0.00334   0.016224   0.015992       0.99     0.00023            3-6/6-12/12-24
+    1x light                                160   7    0.04117    0.03502    0.87    0.00595   0.044147   0.044138       1.00     0.00011            3-6/6-12
+    2x light                                 32   9    0.00035    0.00011    0.33    0.00024   0.000276   0.000254       0.92     0.00002            3-6/6-12/12-24/24-48
+    2x light                                 44  24    0.00051    0.00023    0.35    0.00030   0.000371   0.000382       1.03     0.00001     4/24   3-6/6-12/12-24/24-48
+    2x light                                 96  13    0.00284    0.00192    0.70    0.00086   0.002349   0.002290       0.97     0.00006            3-6/6-12/12-24/24-48
+    2x light                                128   8    0.01148    0.00938    0.85    0.00180   0.016201   0.015977       0.99     0.00022            3-6/6-12/12-24
+    2x light                                160   7    0.03723    0.03490    0.94    0.00233   0.044222   0.043907       0.99     0.00031            3-6/6-12
+    1x light-increased-contrast-coupled      44   5    0.00049    0.00022    0.46    0.00034   0.000164   0.000615       3.69     0.00045            3-6/6-12/12-24/24-48
+    1x light-increased-contrast-coupled      96   2    0.00411    0.00186    0.45    0.00226   0.002369   0.002290       1.01     0.00008            3-6/6-12/12-24/24-48
+    1x light-reduced-transparency            44   4    0.00046    0.00034    0.71    0.00029   0.000164   0.000615       3.76     0.00045            3-6/6-12/12-24/24-48
+    1x light-reduced-transparency            96   2    0.00411    0.00189    0.46    0.00222   0.002369   0.002290       1.01     0.00008            3-6/6-12/12-24/24-48
+
+  tier css, active, non-holdout
+    bed                                    span   n  whole nat  whole web   ratio  |Δ| whole    win nat    win web  win ratio  |Δ| window    nat 0   bands
+
+
+§12. The inactive pose as its own population — never pooled with the active
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+  A receded document is a DIFFERENCE over its own scheme's active document, so an
+  inactive row is a reading of a different material and an average across the two poses
+  is an average of two materials. W32 clause 4 solves the receded documents' anchors
+  here, on the fixtures the bed already holds.
+
+  §12a. `T` over the admitted bands, inactive pose
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+  tier webgpu
+    bed                                 set                                span 32                         span 44                         span 96                        span 128                        span 130                        span 160                        span 220
+    1x dark                             cal+val                                  —   0.00000 [0.00000–0.00000] (4)   0.00000 [0.00000–0.00000] (2)                               —                               —                               —                               —
+    1x dark                             probe                                    —   0.00000 [0.00000–0.00000] (1)   0.00000 [0.00000–0.00000] (6)   0.00000 [0.00000–0.00000] (2)                               —   0.00000 [0.00000–0.00000] (4)                               —
+    2x dark                             cal+val                                  —   0.00000 [0.00000–0.00000] (4)   0.00000 [0.00000–0.00000] (2)                               —                               —                               —                               —
+    2x dark                             probe                                    —   0.00000 [0.00000–0.00000] (1)   0.00000 [0.00000–0.00000] (6)   0.00000 [0.00000–0.00000] (2)                               —   0.00000 [0.00000–0.00000] (4)                               —
+    1x light                            cal+val      0.00000 [0.00000–0.00000] (2)   0.00000 [0.00000–0.00000] (9)   0.00000 [0.00000–0.00000] (3)                               —                               —                               —                               —
+    1x light                            probe                                    —   0.00000 [0.00000–0.00000] (1)   0.00000 [0.00000–0.00000] (6)   0.00000 [0.00000–0.00000] (2)                               —   0.00000 [0.00000–0.00000] (4)                               —
+    2x light                            cal+val      0.00000 [0.00000–0.00000] (2)   0.00000 [0.00000–0.00000] (9)   0.00000 [0.00000–0.00000] (3)                               —                               —                               —                               —
+    2x light                            probe                                    —   0.00000 [0.00000–0.00000] (1)   0.00000 [0.00000–0.00000] (6)   0.00000 [0.00000–0.00000] (2)                               —   0.00000 [0.00000–0.00000] (4)                               —
+    1x light-increased-contrast-coupled cal+val                                  —   0.00000 [0.00000–0.00000] (5)   0.00000 [0.00000–0.00000] (2)                               —                               —                               —                               —
+    1x light-reduced-transparency       cal+val                                  —   0.00000 [0.00000–0.00000] (4)   0.00000 [0.00000–0.00000] (2)                               —                               —                               —                               —
+
+  §12b. The inactive departure, whole exterior and window-restricted
+    bed                                    span    tier   n  whole nat  whole web   ratio    win nat    win web  win ratio     nat 0
+    1x dark                                  44  webgpu   9    0.00051    0.00003    0.04   0.000000   0.000000          —       9/9
+    1x dark                                  96  webgpu   9    0.00375    0.00008    0.02   0.000000   0.000000          —       9/9
+    1x dark                                 128  webgpu   4    0.00717    0.00019    0.03   0.000000   0.000000          —       4/4
+    1x dark                                 160  webgpu   9    0.01539    0.00015    0.02   0.000000   0.000000          —       9/9
+    2x dark                                  44  webgpu   9    0.00025    0.00002    0.05   0.000000   0.000000          —       9/9
+    2x dark                                  96  webgpu   9    0.00180    0.00005    0.03   0.000000   0.000000          —       9/9
+    2x dark                                 128  webgpu   4    0.00332    0.00006    0.02   0.000000   0.000000          —       4/4
+    2x dark                                 160  webgpu   9    0.00700    0.00006    0.02   0.000000   0.000000          —       9/9
+    1x light                                 32  webgpu   2    0.00062    0.00001    0.01   0.000000   0.000000          —       2/2
+    1x light                                 44  webgpu  16    0.00075   -0.00001    0.01   0.000000   0.000000          —     16/16
+    1x light                                 96  webgpu  12    0.00253    0.00002    0.01   0.000000   0.000000          —     12/12
+    1x light                                128  webgpu   4    0.00545    0.00002    0.01   0.000000   0.000000          —       4/4
+    1x light                                160  webgpu   9    0.00754   -0.00004    0.00   0.000000   0.000000          —       9/9
+    2x light                                 32  webgpu   2    0.00035    0.00001    0.02   0.000000   0.000000          —       2/2
+    2x light                                 44  webgpu  16    0.00036   -0.00001    0.01   0.000000   0.000000          —     16/16
+    2x light                                 96  webgpu  12    0.00114    0.00001    0.01   0.000000   0.000000          —     12/12
+    2x light                                128  webgpu   4    0.00205    0.00001    0.01   0.000000   0.000000          —       4/4
+    2x light                                160  webgpu   9    0.00402   -0.00002    0.00   0.000000   0.000000          —       9/9
+    1x light-increased-contrast-coupled      44  webgpu   5    0.00074    0.00019    0.15   0.000000   0.000000          —       5/5
+    1x light-increased-contrast-coupled      96  webgpu   2    0.00306    0.00014    0.07   0.000000   0.000000          —       2/2
+    1x light-reduced-transparency            44  webgpu   4    0.00073   -0.00006   -0.09   0.000000   0.000000          —       4/4
+    1x light-reduced-transparency            96  webgpu   2    0.00305   -0.00001   -0.00   0.000000   0.000000          —       2/2
+
+  §12c. What the native side of the inactive pose actually carries
+  --------------------------------------------------------------------------------------------------------------------------------------------------------------
+    `nat flat` counts the inactive rows whose NATIVE render equals its backdrop, to the
+    axis's six written decimals, in EVERY admitted band — a receded window that removes
+    no light at all from 3 CSS px outward. Where the affine pair is identified on those
+    rows it reads `a` = 1.000000 and `c` = 0. `0-3 nat` is the native departure in the
+    body's own edge band beside it — which is where the recede's whole exterior lives —
+    and `σ nat` is how many of those rows resolve a native falloff σ at all (the axis
+    withholds it below three qualifying rings). Read on the WebGPU tier; the native
+    side is the same capture on both tiers.
+
+    bed                                    span   n  nat flat  web flat    0-3 nat    0-3 web   σ nat   σ web
+    1x dark                                  44   9       9/9       9/9    0.03359    0.00190     0/9     0/9
+    1x dark                                  96   9       9/9       9/9    0.12617    0.00270     0/9     0/9
+    1x dark                                 128   4       4/4       4/4    0.12894    0.00338     0/4     0/4
+    1x dark                                 160   9       9/9       9/9    0.12481    0.00120     0/9     0/9
+    2x dark                                  44   9       9/9       9/9    0.01633    0.00102     0/9     0/9
+    2x dark                                  96   9       9/9       9/9    0.06007    0.00173     0/9     0/9
+    2x dark                                 128   4       4/4       4/4    0.05979    0.00108     0/4     0/4
+    2x dark                                 160   9       9/9       9/9    0.05674    0.00052     0/9     0/9
+    1x light                                 32   2       2/2       2/2    0.06835    0.00082     0/2     0/2
+    1x light                                 44  16     16/16     16/16    0.04874   -0.00084    0/16    0/16
+    1x light                                 96  12     12/12     12/12    0.08519    0.00074    0/12    0/12
+    1x light                                128   4       4/4       4/4    0.09791    0.00031     0/4     0/4
+    1x light                                160   9       9/9       9/9    0.06121   -0.00033     0/9     0/9
+    2x light                                 32   2       2/2       2/2    0.03901    0.00076     0/2     0/2
+    2x light                                 44  16     16/16     16/16    0.02370   -0.00051    0/16    0/16
+    2x light                                 96  12     12/12     12/12    0.03818    0.00044    0/12    0/12
+    2x light                                128   4       4/4       4/4    0.03693    0.00012     0/4     0/4
+    2x light                                160   9       9/9       9/9    0.03257   -0.00014     0/9     0/9
+    1x light-increased-contrast-coupled      44   5       5/5       5/5    0.04827    0.01155     0/5     0/5
+    1x light-increased-contrast-coupled      96   2       2/2       2/2    0.10306    0.00465     0/2     0/2
+    1x light-reduced-transparency            44   4       4/4       4/4    0.04780   -0.00410     0/4     0/4
+    1x light-reduced-transparency            96   2       2/2       2/2    0.10275   -0.00048     0/2     0/2
+

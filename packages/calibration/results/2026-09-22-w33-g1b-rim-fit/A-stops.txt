@@ -1,0 +1,1185 @@
+{
+  "label": "A",
+  "matrix": "/tmp/w33-g1b-fit/A/matrix.json",
+  "documents": [
+    "/tmp/w33-g1b-fit/A/documents/apple-macos-27.0-1x-dark-standard-glass0.5.json sha256:4b4eaf4a750a",
+    "/tmp/w33-g1b-fit/A/documents/apple-macos-27.0-1x-light-standard-glass0.5.json sha256:ac126ee7fddc"
+  ],
+  "diagnosticOnlyRows": [],
+  "C1": [
+    {
+      "bed": "1x light",
+      "span": 96,
+      "cells": 10,
+      "value": 0.0006436000000000034,
+      "passStop": true
+    },
+    {
+      "bed": "1x light",
+      "span": 128,
+      "cells": 7,
+      "value": 0.002623428571428626,
+      "passStop": true
+    },
+    {
+      "bed": "1x light",
+      "span": 160,
+      "cells": 7,
+      "value": 0.007005333333333345,
+      "passStop": false
+    },
+    {
+      "bed": "2x light",
+      "span": 96,
+      "cells": 10,
+      "value": 0.0006221333333333338,
+      "passStop": true
+    },
+    {
+      "bed": "2x light",
+      "span": 128,
+      "cells": 7,
+      "value": 0.002463428571428545,
+      "passStop": true
+    },
+    {
+      "bed": "2x light",
+      "span": 160,
+      "cells": 7,
+      "value": 0.00659800000000003,
+      "passStop": false
+    },
+    {
+      "bed": "1x dark",
+      "span": 96,
+      "cells": 9,
+      "value": 0.0012480666666666363,
+      "passStop": true
+    },
+    {
+      "bed": "1x dark",
+      "span": 128,
+      "cells": 5,
+      "value": 0.0031361428571428256,
+      "passStop": true
+    },
+    {
+      "bed": "1x dark",
+      "span": 160,
+      "cells": 7,
+      "value": 0.001667333333333354,
+      "passStop": true
+    },
+    {
+      "bed": "2x dark",
+      "span": 96,
+      "cells": 9,
+      "value": 0.0011482666666666752,
+      "passStop": true
+    },
+    {
+      "bed": "2x dark",
+      "span": 128,
+      "cells": 5,
+      "value": 0.003526428571428597,
+      "passStop": true
+    },
+    {
+      "bed": "2x dark",
+      "span": 160,
+      "cells": 7,
+      "value": 0.0025283333333333546,
+      "passStop": true
+    }
+  ],
+  "B3": {
+    "bound": 5.6e-05,
+    "value": 0.0001127574638189092,
+    "cells": 166,
+    "passStop": false,
+    "wholeExteriorWarning": 0.0006666827908936966,
+    "archivalWarning": 0.0007158135811605964,
+    "decomposition": [
+      {
+        "population": "active",
+        "cells": 85,
+        "value": 0.00022020869404634034,
+        "whole": 0.0005427655917982383
+      },
+      {
+        "population": "inactive",
+        "cells": 81,
+        "value": 0.0,
+        "whole": 0.0007967193578457206
+      },
+      {
+        "population": "1x dark",
+        "cells": 21,
+        "value": 8.492029776629634e-06,
+        "whole": 0.0007328008929781957
+      },
+      {
+        "population": "1x light",
+        "cells": 49,
+        "value": 0.00013405059333699467,
+        "whole": 0.0008907089007182403
+      },
+      {
+        "population": "1x light-increased-contrast-coupled",
+        "cells": 14,
+        "value": 0.00023433386656180013,
+        "whole": 0.0009481498820189823
+      },
+      {
+        "population": "1x light-reduced-transparency",
+        "cells": 12,
+        "value": 0.00019459678227902563,
+        "whole": 0.000967777155471853
+      },
+      {
+        "population": "2x dark",
+        "cells": 21,
+        "value": 5.084883089162472e-06,
+        "whole": 0.0003523265931555216
+      },
+      {
+        "population": "2x light",
+        "cells": 49,
+        "value": 0.00012751651491900093,
+        "whole": 0.00039488787204946537
+      }
+    ]
+  },
+  "thinOrderStatistics": [
+    {
+      "bed": "1x dark",
+      "span": 32,
+      "band": "3-6",
+      "before": 0.0009660000000000224,
+      "value": 0.0009660000000000224,
+      "passStop": true
+    },
+    {
+      "bed": "1x dark",
+      "span": 32,
+      "band": "6-12",
+      "before": 0.0001220000000000665,
+      "value": 0.0001220000000000665,
+      "passStop": true
+    },
+    {
+      "bed": "1x dark",
+      "span": 44,
+      "band": "3-6",
+      "before": 0.001383000000000023,
+      "value": 0.001383000000000023,
+      "passStop": true
+    },
+    {
+      "bed": "1x dark",
+      "span": 44,
+      "band": "6-12",
+      "before": 0.0010069999999999801,
+      "value": 0.0010069999999999801,
+      "passStop": true
+    },
+    {
+      "bed": "1x light",
+      "span": 32,
+      "band": "3-6",
+      "before": 8.60000000000305e-05,
+      "value": 8.60000000000305e-05,
+      "passStop": true
+    },
+    {
+      "bed": "1x light",
+      "span": 32,
+      "band": "6-12",
+      "before": 0.000264000000000042,
+      "value": 0.000264000000000042,
+      "passStop": true
+    },
+    {
+      "bed": "1x light",
+      "span": 44,
+      "band": "3-6",
+      "before": 0.0009620000000000184,
+      "value": 0.0009620000000000184,
+      "passStop": true
+    },
+    {
+      "bed": "1x light",
+      "span": 44,
+      "band": "6-12",
+      "before": 0.00014599999999997948,
+      "value": 0.00014599999999997948,
+      "passStop": true
+    },
+    {
+      "bed": "1x light-increased-contrast-coupled",
+      "span": 44,
+      "band": "3-6",
+      "before": 0.020801999999999987,
+      "value": 0.020801999999999987,
+      "passStop": true
+    },
+    {
+      "bed": "1x light-increased-contrast-coupled",
+      "span": 44,
+      "band": "6-12",
+      "before": 0.004493999999999998,
+      "value": 0.004493999999999998,
+      "passStop": true
+    },
+    {
+      "bed": "1x light-reduced-transparency",
+      "span": 44,
+      "band": "3-6",
+      "before": 0.020801999999999987,
+      "value": 0.020801999999999987,
+      "passStop": true
+    },
+    {
+      "bed": "1x light-reduced-transparency",
+      "span": 44,
+      "band": "6-12",
+      "before": 0.004493999999999998,
+      "value": 0.004493999999999998,
+      "passStop": true
+    },
+    {
+      "bed": "2x dark",
+      "span": 32,
+      "band": "3-6",
+      "before": 0.0014520000000000088,
+      "value": 0.0014520000000000088,
+      "passStop": true
+    },
+    {
+      "bed": "2x dark",
+      "span": 32,
+      "band": "6-12",
+      "before": 9.599999999998499e-05,
+      "value": 9.599999999998499e-05,
+      "passStop": true
+    },
+    {
+      "bed": "2x dark",
+      "span": 44,
+      "band": "3-6",
+      "before": 0.0016610000000000236,
+      "value": 0.0016610000000000236,
+      "passStop": true
+    },
+    {
+      "bed": "2x dark",
+      "span": 44,
+      "band": "6-12",
+      "before": 0.0008859999999999424,
+      "value": 0.0008859999999999424,
+      "passStop": true
+    },
+    {
+      "bed": "2x light",
+      "span": 32,
+      "band": "3-6",
+      "before": 0.00033399999999994545,
+      "value": 0.00033399999999994545,
+      "passStop": true
+    },
+    {
+      "bed": "2x light",
+      "span": 32,
+      "band": "6-12",
+      "before": 0.00033199999999999896,
+      "value": 0.00033199999999999896,
+      "passStop": true
+    },
+    {
+      "bed": "2x light",
+      "span": 44,
+      "band": "3-6",
+      "before": 0.0007559999999999789,
+      "value": 0.0007559999999999789,
+      "passStop": true
+    },
+    {
+      "bed": "2x light",
+      "span": 44,
+      "band": "6-12",
+      "before": 9.100000000006325e-05,
+      "value": 9.100000000006325e-05,
+      "passStop": true
+    }
+  ],
+  "band3to6": [
+    {
+      "bed": "1x dark",
+      "span": 32,
+      "cells": 7,
+      "signedUpperMiddle": 0.0009660000000000224,
+      "absoluteUpperMiddle": 0.0009660000000000224,
+      "min": 0.0005289999999998907,
+      "max": 0.0024250000000000105
+    },
+    {
+      "bed": "1x dark",
+      "span": 44,
+      "cells": 14,
+      "signedUpperMiddle": 0.001383000000000023,
+      "absoluteUpperMiddle": 0.001383000000000023,
+      "min": -0.002210999999999963,
+      "max": 0.002935000000000021
+    },
+    {
+      "bed": "1x dark",
+      "span": 96,
+      "cells": 9,
+      "signedUpperMiddle": 0.009268999999999972,
+      "absoluteUpperMiddle": 0.009268999999999972,
+      "min": 0.003817999999999988,
+      "max": 0.010797999999999974
+    },
+    {
+      "bed": "1x dark",
+      "span": 128,
+      "cells": 5,
+      "signedUpperMiddle": 0.005391000000000035,
+      "absoluteUpperMiddle": 0.005391000000000035,
+      "min": 0.005391000000000035,
+      "max": 0.01127800000000001
+    },
+    {
+      "bed": "1x dark",
+      "span": 160,
+      "cells": 7,
+      "signedUpperMiddle": 0.00037199999999992794,
+      "absoluteUpperMiddle": 0.00037799999999998946,
+      "min": -0.0014239999999999808,
+      "max": 0.001595000000000013
+    },
+    {
+      "bed": "1x light",
+      "span": 32,
+      "cells": 9,
+      "signedUpperMiddle": 8.60000000000305e-05,
+      "absoluteUpperMiddle": 8.60000000000305e-05,
+      "min": -5.000000000032756e-06,
+      "max": 0.001371000000000011
+    },
+    {
+      "bed": "1x light",
+      "span": 44,
+      "cells": 20,
+      "signedUpperMiddle": -0.0009620000000000184,
+      "absoluteUpperMiddle": 0.0009620000000000184,
+      "min": -0.001466999999999996,
+      "max": 0.0005649999999999267
+    },
+    {
+      "bed": "1x light",
+      "span": 96,
+      "cells": 10,
+      "signedUpperMiddle": 0.0019780000000000353,
+      "absoluteUpperMiddle": 0.0019780000000000353,
+      "min": 0.0003649999999999487,
+      "max": 0.00622199999999995
+    },
+    {
+      "bed": "1x light",
+      "span": 128,
+      "cells": 7,
+      "signedUpperMiddle": -0.0005220000000000224,
+      "absoluteUpperMiddle": 0.0005220000000000224,
+      "min": -0.0009909999999999641,
+      "max": 0.0012590000000000101
+    },
+    {
+      "bed": "1x light",
+      "span": 160,
+      "cells": 7,
+      "signedUpperMiddle": -0.007404000000000077,
+      "absoluteUpperMiddle": 0.007404000000000077,
+      "min": -0.007496000000000058,
+      "max": -0.005946000000000007
+    },
+    {
+      "bed": "1x light-increased-contrast-coupled",
+      "span": 44,
+      "cells": 5,
+      "signedUpperMiddle": -0.020801999999999987,
+      "absoluteUpperMiddle": 0.020801999999999987,
+      "min": -0.021679000000000004,
+      "max": -0.019483000000000028
+    },
+    {
+      "bed": "1x light-increased-contrast-coupled",
+      "span": 96,
+      "cells": 2,
+      "signedUpperMiddle": 0.004418000000000033,
+      "absoluteUpperMiddle": 0.004418000000000033,
+      "min": 0.0024599999999999067,
+      "max": 0.004418000000000033
+    },
+    {
+      "bed": "1x light-reduced-transparency",
+      "span": 44,
+      "cells": 4,
+      "signedUpperMiddle": -0.020801999999999987,
+      "absoluteUpperMiddle": 0.020801999999999987,
+      "min": -0.021679000000000004,
+      "max": -0.019483000000000028
+    },
+    {
+      "bed": "1x light-reduced-transparency",
+      "span": 96,
+      "cells": 2,
+      "signedUpperMiddle": 0.004418000000000033,
+      "absoluteUpperMiddle": 0.004418000000000033,
+      "min": 0.0024599999999999067,
+      "max": 0.004418000000000033
+    },
+    {
+      "bed": "2x dark",
+      "span": 32,
+      "cells": 7,
+      "signedUpperMiddle": 0.0014520000000000088,
+      "absoluteUpperMiddle": 0.0014520000000000088,
+      "min": 0.0007289999999999797,
+      "max": 0.0028970000000000384
+    },
+    {
+      "bed": "2x dark",
+      "span": 44,
+      "cells": 14,
+      "signedUpperMiddle": 0.0016610000000000236,
+      "absoluteUpperMiddle": 0.0016610000000000236,
+      "min": -0.002155000000000018,
+      "max": 0.0035770000000000524
+    },
+    {
+      "bed": "2x dark",
+      "span": 96,
+      "cells": 9,
+      "signedUpperMiddle": 0.008448000000000011,
+      "absoluteUpperMiddle": 0.008448000000000011,
+      "min": 0.0022770000000000845,
+      "max": 0.011804000000000037
+    },
+    {
+      "bed": "2x dark",
+      "span": 128,
+      "cells": 5,
+      "signedUpperMiddle": 0.006956999999999991,
+      "absoluteUpperMiddle": 0.006956999999999991,
+      "min": 0.006956999999999991,
+      "max": 0.011194999999999955
+    },
+    {
+      "bed": "2x dark",
+      "span": 160,
+      "cells": 7,
+      "signedUpperMiddle": -0.0010189999999999921,
+      "absoluteUpperMiddle": 0.0010189999999999921,
+      "min": -0.0022729999999999695,
+      "max": 0.0013340000000000574
+    },
+    {
+      "bed": "2x light",
+      "span": 32,
+      "cells": 9,
+      "signedUpperMiddle": 0.00033399999999994545,
+      "absoluteUpperMiddle": 0.00033399999999994545,
+      "min": -0.0013180000000000414,
+      "max": 0.0012490000000000556
+    },
+    {
+      "bed": "2x light",
+      "span": 44,
+      "cells": 20,
+      "signedUpperMiddle": -0.0007559999999999789,
+      "absoluteUpperMiddle": 0.0007559999999999789,
+      "min": -0.0013779999999999903,
+      "max": 0.00041400000000002546
+    },
+    {
+      "bed": "2x light",
+      "span": 96,
+      "cells": 10,
+      "signedUpperMiddle": 0.0009759999999999769,
+      "absoluteUpperMiddle": 0.0011899999999999133,
+      "min": -0.0013090000000000046,
+      "max": 0.005776000000000003
+    },
+    {
+      "bed": "2x light",
+      "span": 128,
+      "cells": 7,
+      "signedUpperMiddle": -7.599999999996498e-05,
+      "absoluteUpperMiddle": 7.599999999996498e-05,
+      "min": -7.599999999996498e-05,
+      "max": 0.0008710000000000662
+    },
+    {
+      "bed": "2x light",
+      "span": 160,
+      "cells": 7,
+      "signedUpperMiddle": -0.006569999999999965,
+      "absoluteUpperMiddle": 0.006569999999999965,
+      "min": -0.006643999999999983,
+      "max": -0.005156000000000049
+    }
+  ],
+  "B1": [
+    {
+      "scheme": "light",
+      "span": 96,
+      "sigma": 8.96,
+      "window": [
+        8.8966,
+        9.0193
+      ],
+      "passStop": true
+    },
+    {
+      "scheme": "light",
+      "span": 128,
+      "sigma": 13.1648,
+      "window": [
+        12.6397,
+        13.7947
+      ],
+      "passStop": true
+    },
+    {
+      "scheme": "light",
+      "span": 160,
+      "sigma": 17.3696,
+      "window": [
+        16.7033,
+        17.8198
+      ],
+      "passStop": true
+    },
+    {
+      "scheme": "dark",
+      "span": 96,
+      "sigma": 9.04,
+      "window": [
+        8.9084,
+        9.318
+      ],
+      "passStop": true
+    },
+    {
+      "scheme": "dark",
+      "span": 128,
+      "sigma": 12.927999999999999,
+      "window": [
+        12.7458,
+        13.8499
+      ],
+      "passStop": true
+    },
+    {
+      "scheme": "dark",
+      "span": 160,
+      "sigma": 16.816,
+      "window": [
+        16.7931,
+        18.3237
+      ],
+      "passStop": true
+    }
+  ],
+  "blackSummary": [
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "span": 44,
+      "cells": 3,
+      "pixels": 116552,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 116552,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "span": 96,
+      "cells": 6,
+      "pixels": 117456,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 117456,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "span": 128,
+      "cells": 2,
+      "pixels": 51786,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 51786,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "span": 160,
+      "cells": 5,
+      "pixels": 50033,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 50033,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "rest",
+      "span": 32,
+      "cells": 6,
+      "pixels": 155710,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 155710,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "rest",
+      "span": 44,
+      "cells": 11,
+      "pixels": 353964,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 353964,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "rest",
+      "span": 96,
+      "cells": 7,
+      "pixels": 141518,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 141518,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "rest",
+      "span": 128,
+      "cells": 4,
+      "pixels": 71062,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 71062,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "rest",
+      "span": 160,
+      "cells": 6,
+      "pixels": 41267,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 41267,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "pose": "inactive",
+      "span": 44,
+      "cells": 2,
+      "pixels": 58388,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 58388,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "pose": "inactive",
+      "span": 96,
+      "cells": 1,
+      "pixels": 24062,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 24062,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "pose": "rest",
+      "span": 44,
+      "cells": 2,
+      "pixels": 58388,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 58388,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "pose": "rest",
+      "span": 96,
+      "cells": 1,
+      "pixels": 24062,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 24062,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "pose": "inactive",
+      "span": 44,
+      "cells": 1,
+      "pixels": 29194,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 29194,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "pose": "inactive",
+      "span": 96,
+      "cells": 1,
+      "pixels": 24062,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 24062,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "pose": "rest",
+      "span": 44,
+      "cells": 1,
+      "pixels": 29194,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 29194,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "pose": "rest",
+      "span": 96,
+      "cells": 1,
+      "pixels": 24062,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 24062,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "inactive",
+      "span": 32,
+      "cells": 1,
+      "pixels": 30878,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 30878,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "inactive",
+      "span": 44,
+      "cells": 6,
+      "pixels": 232273,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 232276,
+      "nativeNonzero": 3,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "inactive",
+      "span": 96,
+      "cells": 7,
+      "pixels": 165388,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 165388,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "inactive",
+      "span": 128,
+      "cells": 2,
+      "pixels": 51786,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 51786,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "inactive",
+      "span": 160,
+      "cells": 5,
+      "pixels": 50033,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 50033,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "rest",
+      "span": 32,
+      "cells": 7,
+      "pixels": 186588,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 186588,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "rest",
+      "span": 44,
+      "cells": 14,
+      "pixels": 469688,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 469688,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "rest",
+      "span": 96,
+      "cells": 8,
+      "pixels": 189450,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 189450,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "rest",
+      "span": 128,
+      "cells": 5,
+      "pixels": 88372,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 88372,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "rest",
+      "span": 160,
+      "cells": 6,
+      "pixels": 41267,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 41267,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "span": 44,
+      "cells": 3,
+      "pixels": 464856,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 464856,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "span": 96,
+      "cells": 6,
+      "pixels": 467275,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 467275,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "span": 128,
+      "cells": 2,
+      "pixels": 205002,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 205002,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "span": 160,
+      "cells": 5,
+      "pixels": 194935,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 194935,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "rest",
+      "span": 32,
+      "cells": 6,
+      "pixels": 621618,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 621618,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "rest",
+      "span": 44,
+      "cells": 11,
+      "pixels": 1411636,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 1411636,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "rest",
+      "span": 96,
+      "cells": 7,
+      "pixels": 563001,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 563001,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "rest",
+      "span": 128,
+      "cells": 4,
+      "pixels": 281446,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 281446,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "rest",
+      "span": 160,
+      "cells": 6,
+      "pixels": 160375,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 160375,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "inactive",
+      "span": 32,
+      "cells": 1,
+      "pixels": 123310,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 123310,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "inactive",
+      "span": 44,
+      "cells": 6,
+      "pixels": 926328,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 926328,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "inactive",
+      "span": 96,
+      "cells": 7,
+      "pixels": 657959,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 657959,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "inactive",
+      "span": 128,
+      "cells": 2,
+      "pixels": 205002,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 205002,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "inactive",
+      "span": 160,
+      "cells": 5,
+      "pixels": 194935,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 194935,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "rest",
+      "span": 32,
+      "cells": 7,
+      "pixels": 744928,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 744928,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "rest",
+      "span": 44,
+      "cells": 14,
+      "pixels": 1873108,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 1873108,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "rest",
+      "span": 96,
+      "cells": 8,
+      "pixels": 753685,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 753685,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "rest",
+      "span": 128,
+      "cells": 5,
+      "pixels": 349972,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 349972,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "rest",
+      "span": 160,
+      "cells": 6,
+      "pixels": 160375,
+      "aboveZero": 0,
+      "aboveOne": 0,
+      "backdropBlack": 160375,
+      "nativeNonzero": 0,
+      "fraction": 0.0
+    }
+  ],
+  "halo": [
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "scene": "checkerboard-8__rrect-lg__rest",
+      "pixels": 8064,
+      "mean": 2.2153396127107894,
+      "max": 6.124352313734035,
+      "belowArchival137_10": true
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "scene": "checkerboard-8__rrect-lg__inactive",
+      "pixels": 8064,
+      "mean": 0.0,
+      "max": 0.0,
+      "belowArchival137_10": true
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "scene": "checkerboard-8__rrect-lg__rest",
+      "pixels": 32256,
+      "mean": 1.9799070070488443,
+      "max": 6.124352313734035,
+      "belowArchival137_10": true
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "scene": "checkerboard-8__rrect-lg__inactive",
+      "pixels": 32256,
+      "mean": 0.0,
+      "max": 0.0,
+      "belowArchival137_10": true
+    }
+  ]
+}
+thin 206 failures 0 largest increase 0.0
+black 232 nonzero 0 aboveOne 0

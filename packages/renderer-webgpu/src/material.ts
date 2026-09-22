@@ -330,8 +330,14 @@ export interface MaterialRim {
  * (the ENCODED-space mean, decoded — `backdropToneAnchorX`'s own axis), through
  * the same thickness curve that gates that regime. Above the knee it is the
  * composite's transmission by span. The second term is the lift, GPU-tier only,
- * and it is exactly zero below the knee and exactly zero over black, so the
- * facet's "invisible over a black backdrop" property survives both terms.
+ * and it is exactly zero below the knee. It is also zero over a UNIFORMLY black
+ * backdrop, not necessarily over a locally black pixel: its source is the
+ * sigma-40 blurred backdrop chain sampled at that pixel's position, so nearby
+ * light can survive the blur and be added over black (W14 S6, claims §5.65).
+ * W33 G1b (§5.172) corrects the earlier "exactly zero over black" wording; no
+ * runtime value changes with this comment. The macOS 27 documents declare the
+ * lift at zero under Decision Log 1 (a), while the frozen macOS 26.5 material
+ * keeps the lift its native bed measures.
  *
  * The layer tree's `inputShadowAmount` and `inputShadowHeight` are NOT either
  * term's spatial extent — the charter's advisory was wrong there, and G0's free
