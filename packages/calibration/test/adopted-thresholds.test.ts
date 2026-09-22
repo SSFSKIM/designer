@@ -1803,9 +1803,11 @@ interface MissedRow {
  * buys a larger relative chroma gain on a thinner plate; span 32 is the thinnest
  * the bed carries and it is where the overshoot is.
  */
+// W33 G1b (§5.172): dom / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean
+// measured 0.88421 -> 0.88424; still missed, bound unchanged.
 const MISSED_27_ROWS: Readonly<Record<string, MissedRow>> = {
   "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": { measured: 0.89539, bound: "≥ 0.9" },
-  "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": { measured: 0.88421, bound: "≥ 0.9" },
+  "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean": { measured: 0.88424, bound: "≥ 0.9" },
   // The two DARK `dom` rows below are unmoved to the fifth decimal by W31's
   // chroma operator, and that is the CSS tier's decline rather than the operator
   // failing: this tier carries nothing of it (claims §5.164 §5). Their siblings
@@ -2330,7 +2332,10 @@ const CHROMA_CUT = readJson<ChromaCut>(
   // dark) where every cut before it named W31's pre-fit bed. The 2 % does not
   // move; what the bound reads is one wave's change instead of a cumulative
   // drift, and §5.169 §3's per-wave table is where the drift stays readable.
-  resolve(PACKAGE_ROOT, "results", "2026-09-21-w32-g2-landing", "chroma-cut.json"),
+  // W33 G1b (§5.172): regenerate at the sealed read and advance M2's per-wave
+  // reference to W32 G1's d5bdd6eac432 / 431cabd391c4 generation through the
+  // superseded index. The 2% bound stays; every cell's drift is recorded beside.
+  resolve(PACKAGE_ROOT, "results", "2026-09-22-w33-g1b-rim-fit", "chroma-cut.json"),
 );
 
 /**
@@ -4331,7 +4336,10 @@ describe("W32 C1 — the shadow's exterior shape, per span (claims §5.169)", ()
       readonly admitted: readonly string[];
       readonly bandsUsed: readonly string[];
     }[];
-  }>(resolve(PACKAGE_ROOT, "results", "2026-09-21-w32-g2-landing", "exterior-cut.json"));
+  }>(
+    // W33 G1b (§5.172): the lift/anchor read, under the unchanged C1 definition.
+    resolve(PACKAGE_ROOT, "results", "2026-09-22-w33-g1b-rim-fit", "exterior-cut.json"),
+  );
 
   /**
    * The band set the clearance admits at each span, asserted rather than

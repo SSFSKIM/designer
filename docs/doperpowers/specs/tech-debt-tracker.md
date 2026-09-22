@@ -5429,6 +5429,16 @@ sheet over `checkerboard*`, `dark-solid` or `hc-text` inherits this.
    decision; the first is additive and is what a gate making sheets should do
    next.
 
+
+**Lift term closed beside,2026-09-22, W33 G1b (§5.172).** The two active macOS27
+amplitudes are declared0 and the three thick anchors compensate under all stops;
+232/232 non-holdout cells,13,236,229 eligible pixels, read0 under both masks.
+The original statement and counts above remain their generation's evidence.
+The four2x composite holdout rows retain five unchanged base-edge pixels because
+G0's mask names the overlay box, not the stack. That zero-target miss is recorded
+and remains an instrument task below, not a widened bound. The frozen26.5 material
+keeps its lift. Every new sheet carries the LSB check;17 were viewed. Nine supplemental2x sheets were then viewed,26 total; unmeasured CSS probe panels are labelled.
+
 ---
 
 ## B2 reads 1.7622 of 1.5 at the shipped dark material while the exterior it describes improved by a factor of 9 to 24 (W32 G1 review closure, 2026-09-21)
@@ -5786,3 +5796,37 @@ These are in-sample, offline, unrendered review readings: no CSS result and no i
 **Recommendation remains stop at the finding:** geometry and colour remain unseparated, and
 in-sample non-regression is not identification or rendered validation. This empirical route
 is the user's third alternative, not a ruling or authority to implement it; no gate moves.
+
+
+---
+
+## W33 G1b: correct the black-floor referee's composite domain before adoption
+
+The post-seal holdout (§5.172; `holdout-composite-decomposition.json`) reads five
+one-byte pixels on four2x `checkerboard__glass-over-glass` rows. All were1 before
+and after. All lie inside base box[50,35]–[270,165], outside overlay box
+[100,64]–[220,120]; G0's56px component surrogate calls base-edge pixels exterior.
+The same mask makes dark active's count2485→1 and light active9871→1, while the
+inactive counts1/2 stay. No new lift persists beyond the stack. **G2, before the
+zero row is adopted:** read a union box or decline composites explicitly as the
+stroke referee does; keep this held-out reading and show the corrected domain's
+reading beside it, without a new capture or a fitted constant. The zero is not
+widened and this is not an excuse to erase the five pixels from their first cut.
+
+## W33 G1b: CSS near-edge black pixels are not its far-exterior lift floor
+
+`css-floor.json` (§5.172) reads pre-existing, unchanged counts under G0's integer
+mask: checkerboard8/lg170,ml134,hc-text28/lg165,light impulse/md204 at1x. The mask
+admits centres1.5CSSpx outside the box; analytic BOX-distance>=2 reads0 for all,
+while rounded-contour distance reaches2.77CSSpx. Thus the older far-halo “no floor”
+claim is true on its domain, not a proof that CSS matches the near contour. This
+is not the WebGPU lift and no CSS constant moved to hide it. Carry it into the
+geometry-qualified CSS contour work, with both distance conventions explicit.
+
+## W33 G2 prose follow-up: the demo's lift-width explanation no longer names its default
+
+`apps/demo/src/site/calibration.ts:187` and its adjacent doc comment attribute the
+thin-span fitted width to the lift. W33 G1b's default macOS27 material has lift0;
+its shape leaves are unread. Correct that sentence at G2's landing, keeping the
+fit-versus-material-sigma distinction without attributing a zero operator's width.
+The footer is flagged here, not changed as part of the material seal.

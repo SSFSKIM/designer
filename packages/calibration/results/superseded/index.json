@@ -30,6 +30,33 @@
       "bytes": 3986816,
       "sha256": "091ee5e6235db551cb7d6f814e1053a40823569057e53f79c56ddfc9738d1ecf"
     },
+    "431cabd391c4.json": {
+      "activeDocumentSha256": "431cabd391c4",
+      "documents": [
+        {
+          "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5-receded.json",
+          "sha256": "4e68f81869f6"
+        },
+        {
+          "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5.json",
+          "sha256": "431cabd391c4"
+        }
+      ],
+      "readUnderClaims": "c9a §5.168",
+      "movedUnderClaims": "c9a §5.172",
+      "capturedAt": {
+        "first": "2026-09-21T14:29:24.233Z",
+        "last": "2026-09-21T14:48:48.225Z"
+      },
+      "supersededOn": "2026-09-22",
+      "rowCount": 277,
+      "rowsByProfileKey": {
+        "apple-macos-27.0-1x-dark-standard-glass0.5": 166,
+        "apple-macos-27.0-2x-dark-standard-glass0.5": 111
+      },
+      "bytes": 10631089,
+      "sha256": "9727e882b1d52770d7fa61f5d5827fff4bbf8456f57b424230ad938fa2dbd87f"
+    },
     "49490eb9ff7a.json": {
       "$comment": "CORRECTED IN PLACE before this entry merged (W32 G1 review closure, 2026-09-21; claims §5.168 §10, finding N-7). `split-generation.py apply` was invoked with --read-claims 'c9a §5.168', which is the MOVING gate — and `claimsFields` above says the two fields are never the same gate. These 479 light rows were READ by W31 G3c under c9a §5.164 §13, which is where that gate's read is recorded and what the capture timestamps beside them are, and were moved here by W32 G1 under c9a §5.168. The two COMMITTED entries carrying the same slip are annotated and not edited; this entry had not merged, so it is written correct.",
       "activeDocumentSha256": "49490eb9ff7a",
@@ -196,6 +223,35 @@
       "bytes": 17797629,
       "sha256": "a2ae78c3be5d3513a667483d37691d942699105649433c88f93575aca435db63"
     },
+    "d5bdd6eac432.json": {
+      "activeDocumentSha256": "d5bdd6eac432",
+      "documents": [
+        {
+          "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json",
+          "sha256": "45acb6d916b9"
+        },
+        {
+          "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json",
+          "sha256": "d5bdd6eac432"
+        }
+      ],
+      "readUnderClaims": "c9a §5.168",
+      "movedUnderClaims": "c9a §5.172",
+      "capturedAt": {
+        "first": "2026-09-21T14:24:18.604Z",
+        "last": "2026-09-21T14:49:21.086Z"
+      },
+      "supersededOn": "2026-09-22",
+      "rowCount": 509,
+      "rowsByProfileKey": {
+        "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5": 36,
+        "apple-macos-27.0-1x-light-reduced-transparency-glass0.5": 32,
+        "apple-macos-27.0-1x-light-standard-glass0.5": 248,
+        "apple-macos-27.0-2x-light-standard-glass0.5": 193
+      },
+      "bytes": 19792970,
+      "sha256": "bb94489595bdb0adeadd20eee06c70b054586616f4510523d5b6e780be5854bf"
+    },
     "d731b3838994.json": {
       "activeDocumentSha256": "d731b3838994",
       "documents": [
@@ -315,7 +371,10 @@
     "2334c7b4c5e2": "d0c389d70456.json",
     "25863dccef9d": "e2fa07589d99.json",
     "272d1b0c3e10": "272d1b0c3e10.json",
+    "431cabd391c4": "431cabd391c4.json",
+    "45acb6d916b9": "d5bdd6eac432.json",
     "49490eb9ff7a": "49490eb9ff7a.json",
+    "4e68f81869f6": "431cabd391c4.json",
     "59d4b20a4596": "f42ddec1cf5a.json",
     "5c81bc72edad": "272d1b0c3e10.json",
     "5e71370ae6d5": "880ab1e31450.json",
@@ -327,6 +386,7 @@
     "ce1af58886ff": "ce1af58886ff.json",
     "d0c389d70456": "d0c389d70456.json",
     "d449ea0649f4": "ce1af58886ff.json",
+    "d5bdd6eac432": "d5bdd6eac432.json",
     "d731b3838994": "d731b3838994.json",
     "e2fa07589d99": "e2fa07589d99.json",
     "f42ddec1cf5a": "f42ddec1cf5a.json",

@@ -32,11 +32,12 @@ def module(name,path):
 reader=module('w33_round_reader',HERE/'read-round.py')
 referee=module('w33_sheet_referee',G0/'referee.py')
 sealed=json.loads((HERE/'sealed-manifest.json').read_text())['documents']
-output=HERE/'sheets'; output.mkdir(exist_ok=False)
+output=HERE/'sheets'; output.mkdir(exist_ok=True)
 font=ImageFont.truetype('/System/Library/Fonts/Supplemental/Arial.ttf',16)
 small=ImageFont.truetype('/System/Library/Fonts/Supplemental/Arial.ttf',12)
 lsb=float(np.linalg.norm(reader.lab(np.ones((1,1,3)))-reader.lab(np.zeros((1,1,3))))*8*255)
 records=[]
+declined=[]
 
 
 def load(tree,profile,scene,tier,after):
@@ -60,6 +61,9 @@ for scheme in ('light','dark'):
         cells += [(p,f'photo__{component}__rest') for component in ('rrect-lg','capsule-button')]
 
 for profile,scene in cells:
+    if not (FIXTURES/profile/(scene+'.png')).exists():
+        declined.append(dict(profile=profile,scene=scene,reason='No native fixture; not substituted or inferred.'))
+        continue
     n=referee.rgb(FIXTURES/profile/(scene+'.png'))
     height,width=n.shape[:2]; scale=width/320
     rect,_,_=referee.geometry(scene,scale)
@@ -95,7 +99,11 @@ for profile,scene in cells:
                             lsbBlackOneByteAmplification=lsb,black=black,cssBlack=cssblack,
                             maximumExteriorByteDifference=max_byte))
     filename=profile.replace('apple-macos-27.0-','')+'__'+scene+'.png'
-    page.save(output/filename)
+    if (output/filename).exists():
+        assert np.array_equal(np.asarray(Image.open(output/filename)),np.asarray(page))
+    else:
+        page.save(output/filename)
     print(filename)
 (HERE/'sheet-readings.json').write_text(json.dumps(records,indent=1)+'\n')
-print('sheets',len(cells),'rows',len(records),'one-byte at black x8',lsb)
+(HERE/'sheet-declined.json').write_text(json.dumps(declined,indent=2)+'\n')
+print('sheets',len(cells)-len(declined),'rows',len(records),'one-byte at black x8',lsb)
