@@ -1,0 +1,38 @@
+
+ RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/w33-g2-landing/packages/calibration
+
+ ❯ test/adopted-thresholds.test.ts (97 tests | 1 failed | 93 skipped) 2878ms
+     × accepts no excuse and keeps both adopted targets exactly zero 6ms
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 3 passed | 93 skipped (97)
+   Start at  20:34:49
+   Duration  3.30s (transform 98ms, setup 0ms, import 319ms, tests 2.88s, environment 0ms)
+
+undefined
+/Users/new/Developer/GitHub/designer/.claude/worktrees/w33-g2-landing/packages/calibration:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/adopted-thresholds.test.ts -t 'W33 X1'
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/adopted-thresholds.test.ts > W33 X1 — the native-black exterior stays black (claims §5.173) > accepts no excuse and keeps both adopted targets exactly zero
+AssertionError: expected [ 'bogus excuse' ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   "bogus excuse",
++ ]
+
+ ❯ test/adopted-thresholds.test.ts:4668:24
+    4666|
+    4667|   it("accepts no excuse and keeps both adopted targets exactly zero", …
+    4668|     expect(CUT.missed).toEqual([]);
+       |                        ^
+    4669|     expect(CUT.targets).toEqual({ blackFraction: 0, aboveOne: 0 });
+    4670|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+

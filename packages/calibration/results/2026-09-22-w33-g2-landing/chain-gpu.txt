@@ -1,0 +1,148 @@
+$ playwright test --grep @gpu
+
+Running 48 tests using 1 worker
+
+  ✓   1 [chromium-gpu] › e2e/gpu/cross-check.spec.ts:46:3 › @gpu the f32 cross-check (Decision Log #20) › both families agree with f64 to a rounding error on this adapter (755ms)
+  ✓   2 [chromium-gpu] › e2e/gpu/cross-check.spec.ts:132:3 › @gpu the f32 cross-check (Decision Log #20) › the shader computes the same function as the TypeScript, not merely a close one (259ms)
+  ✓   3 [chromium-gpu] › e2e/gpu/materialization.spec.ts:149:3 › @gpu W27d presence reaches the shader › a surface at 0.35 draws a different material from the same surface at 1 (303ms)
+  ✓   4 [chromium-gpu] › e2e/gpu/materialization.spec.ts:169:3 › @gpu W27d presence reaches the shader › the channel is monotone: 0 moves at least as far as 0.35 (338ms)
+  ✓   5 [chromium-gpu] › e2e/gpu/materialization.spec.ts:187:3 › @gpu W27d presence reaches the shader › driving the channel to 1 renders the bytes of a scene nobody drove (332ms)
+  ✓   6 [chromium-gpu] › e2e/gpu/materialization.spec.ts:206:3 › @gpu W27d the identity endpoint › at 0 the surface is not there at all (335ms)
+  ✓   7 [chromium-gpu] › e2e/gpu/materialization.spec.ts:249:3 › @gpu W27d one absent member of a connected group › leaves its present neighbour the group it would have had alone (321ms)
+  ✓   8 [chromium-gpu] › e2e/gpu/page-material.spec.ts:49:5 › @gpu light DOM material matches its scalar law at 0.1104 (473ms)
+  ✓   9 [chromium-gpu] › e2e/gpu/page-material.spec.ts:49:5 › @gpu light DOM material matches its scalar law at 0.2706 (438ms)
+  ✓  10 [chromium-gpu] › e2e/gpu/page-material.spec.ts:49:5 › @gpu light DOM material matches its scalar law at 0.9505 (465ms)
+  ✓  11 [chromium-gpu] › e2e/gpu/page-material.spec.ts:49:5 › @gpu dark DOM material matches its scalar law at 0.1104 (439ms)
+  ✓  12 [chromium-gpu] › e2e/gpu/page-material.spec.ts:49:5 › @gpu dark DOM material matches its scalar law at 0.2706 (440ms)
+  ✓  13 [chromium-gpu] › e2e/gpu/page-material.spec.ts:49:5 › @gpu dark DOM material matches its scalar law at 0.9505 (428ms)
+  ✓  14 [chromium-gpu] › e2e/gpu/runtime.spec.ts:21:3 › @gpu the dirty-epoch invariant on a device › rebuilds an always-dirty source once per frame, never twice (235ms)
+  ✓  15 [chromium-gpu] › e2e/gpu/runtime.spec.ts:42:3 › @gpu device-loss recovery › an app-owned device reports the loss and waits for a replacement (354ms)
+  ✓  16 [chromium-gpu] › e2e/gpu/runtime.spec.ts:63:3 › @gpu device-loss recovery › a vitrea-owned device recovers and draws again (322ms)
+  ✓  17 [chromium-gpu] › e2e/gpu/runtime.spec.ts:82:3 › @gpu the shipped shaders compile › every pass builds a pipeline without a validation error (292ms)
+  ✓  18 [chromium-gpu] › e2e/gpu/runtime.spec.ts:99:3 › @gpu the governor's field families agree › family C renders the same silhouette as family D (306ms)
+  ✓  19 [chromium-gpu] › e2e/gpu/runtime.spec.ts:144:3 › @gpu the governor's resolution rungs › rungs 2 and 3 render the same material through a coarser field (310ms)
+  ✓  20 [chromium-gpu] › e2e/gpu/shadow-extent.spec.ts:48:3 › @gpu the outer shadow's field extent › falls off the same way above a top-adjacent surface as above a free one (265ms)
+  ✓  21 [chromium-gpu] › e2e/gpu/shadow-extent.spec.ts:91:3 › @gpu the outer shadow's field extent › keeps the shadow's own reach, and stops there (259ms)
+  ✓  22 [chromium-gpu] › e2e/gpu/silhouette-tone.spec.ts:30:3 › @gpu W28 silhouette abscissa › clips the reduction extent before counting even a huge offscreen rectangle (225ms)
+  ✓  23 [chromium-gpu] › e2e/gpu/silhouette-tone.spec.ts:42:3 › @gpu W28 silhouette abscissa › encodes raw texels before averaging, separately for both hosts (349ms)
+  ✓  24 [chromium-gpu] › e2e/gpu/silhouette-tone.spec.ts:62:3 › @gpu W28 silhouette abscissa › all solve consumers use the local reference and the union keeps both hosts (566ms)
+  ✓  25 [chromium-gpu] › e2e/gpu/silhouette-tone.spec.ts:74:3 › @gpu W28 silhouette abscissa › transparent texels carry no colour and an empty mask reports its valid fallback (530ms)
+  ✓  26 [chromium-gpu] › e2e/gpu/silhouette-tone.spec.ts:94:3 › @gpu W28 silhouette abscissa › an empty mask with no source reference still omits the abscissa (429ms)
+  ✓  27 [chromium-gpu] › e2e/gpu/silhouette-tone.spec.ts:103:3 › @gpu W28 silhouette abscissa › an author hint bypasses the reduction on every host (450ms)
+  ✓  28 [chromium-gpu] › e2e/gpu/silhouette-tone.spec.ts:116:3 › @gpu W28 silhouette abscissa › absent and explicit source preserve the same drawing (474ms)
+second heavy tap: widths-only Δ 0; share −1 Δ 41; share +1 Δ 32; sign Δ 73
+  ✓  29 [chromium-gpu] › e2e/gpu/w30-heavy-second-tap.spec.ts:128:3 › @gpu W30's three operator vec4s (claims §5.156 §2 and §3, §5.158) › draws nothing at the shipped share and something at a fitted one (547ms)
+shadow σ law: span 44 Δ 0, span 160 Δ 7; one width for both: span 44 Δ 5, span 160 Δ 7
+  ✓  30 [chromium-gpu] › e2e/gpu/w30-heavy-second-tap.spec.ts:172:3 › @gpu W30's three operator vec4s (claims §5.156 §2 and §3, §5.158) › grades the shadow's σ by the CASTER's own span, not the group's (445ms)
+scatter scale: reference-only Δ 0; gain −2.5 Δ 6; gain +2.5 Δ 6; sign Δ 12
+  ✓  31 [chromium-gpu] › e2e/gpu/w30-heavy-second-tap.spec.ts:239:3 › @gpu W30's three operator vec4s (claims §5.156 §2 and §3, §5.158) › keys the scatter on the SOURCE's measured scale, at a real statistic (404ms)
+  ✓  32 [chromium-gpu] › e2e/gpu/w30-thin-sigma-coverage.spec.ts:208:3 › @gpu the surface draws everywhere it declared, at a thin σ › a 44 px capsule and a 44 px toolbar are drawn whole under macOS 27's σ law (268ms)
+  ✓  33 [chromium-gpu] › e2e/gpu/w30-thin-sigma-coverage.spec.ts:250:3 › @gpu the surface draws everywhere it declared, at a thin σ › the drawn silhouette is the same at every σ (326ms)
+  ✓  34 [chromium-gpu] › e2e/gpu/w30-thin-sigma-coverage.spec.ts:287:3 › @gpu the surface draws everywhere it declared, at a thin σ › a 340 px caster is drawn whole at the macOS 26.5 σ (289ms)
+body chroma retention: OFF luma 0.622078 chroma 0.101914; r=0.25 luma 0.622068 chroma 0.194690 Δbytes 24; r=0.5 luma 0.622064 chroma 0.283414 Δbytes 31; r=0.8 luma 0.622089 chroma 0.347306 Δbytes 35; r=1 luma 0.622068 chroma 0.366609 Δbytes 37
+  ✓  35 [chromium-gpu] › e2e/gpu/w31-body-chroma.spec.ts:127:3 › @gpu W31's body chroma retention (claims §5.161 §5, §5.164) › ON draws differently from OFF, and holds the luma while it does (386ms)
+  ✓  36 [chromium-gpu] › e2e/gpu/w31-body-chroma.spec.ts:191:3 › @gpu W31's body chroma retention (claims §5.161 §5, §5.164) › is bit-identical at the shipped identity, named explicitly (323ms)
+the gate under a lift of 0: Δbytes from the nominal OFF render 0
+  ✓  37 [chromium-gpu] › e2e/gpu/w31-body-chroma.spec.ts:201:3 › @gpu W31's body chroma retention (claims §5.161 §5, §5.164) › it stands down entirely under an occlusion lift (448ms)
+[w31 lens depth]
+  lens ×0.001818: 8628 declared, 0 undrawn, containment 1.0000, peak 255
+  lens ×0.04264: 8628 declared, 0 undrawn, containment 1.0000, peak 255
+  lens ×1.000: 8628 declared, 0 undrawn, containment 1.0000, peak 255
+  lens ×23.45: 8628 declared, 0 undrawn, containment 1.0000, peak 255
+  lens ×550.0: 8628 declared, 0 undrawn, containment 1.0000, peak 255
+  lensProfileExponent 0.01: 8628 declared, 0 undrawn, containment 1.0000, peak 255
+  lensProfileExponent 0.5: 8628 declared, 0 undrawn, containment 1.0000, peak 255
+  lensProfileExponent 3.69: 8628 declared, 0 undrawn, containment 1.0000, peak 255
+  lensProfileExponent 16: 8628 declared, 0 undrawn, containment 1.0000, peak 255
+  lensProfileExponent 64: 8628 declared, 0 undrawn, containment 1.0000, peak 255
+  ✓  38 [chromium-gpu] › e2e/gpu/w31-range-sweeps.spec.ts:207:3 › @gpu the material's range: a swept leaf does not decide what the surface covers › the lens depth, over the range a fit could reach (415ms)
+[w31 scatter widths]
+  heavy tap ×0.001818: 8628 declared, 0 undrawn, containment 1.0000, peak 255
+  second tap ×0.001818: 8628 declared, 0 undrawn, containment 1.0000, peak 255
+  heavy tap ×0.04264: 8628 declared, 0 undrawn, containment 1.0000, peak 255
+  second tap ×0.04264: 8628 declared, 0 undrawn, containment 1.0000, peak 255
+  heavy tap ×1.000: 8628 declared, 0 undrawn, containment 1.0000, peak 255
+  second tap ×1.000: 8628 declared, 0 undrawn, containment 1.0000, peak 255
+  heavy tap ×23.45: 8628 declared, 0 undrawn, containment 1.0000, peak 255
+  second tap ×23.45: 8628 declared, 0 undrawn, containment 1.0000, peak 255
+  heavy tap ×550.0: 8628 declared, 0 undrawn, containment 1.0000, peak 255
+  second tap ×550.0: 8628 declared, 0 undrawn, containment 1.0000, peak 255
+  ✓  39 [chromium-gpu] › e2e/gpu/w31-range-sweeps.spec.ts:239:3 › @gpu the material's range: a swept leaf does not decide what the surface covers › the scatter widths, both taps, over the range a fit could reach (426ms)
+[w31 tone knots]
+  tone knots ×0.001818: 8628 declared, 0 undrawn, containment 1.0000, peak 255
+  tone abscissa ×0.001818: 8628 declared, 0 undrawn, containment 1.0000, peak 255
+  tone knots ×0.04264: 8628 declared, 0 undrawn, containment 1.0000, peak 255
+  tone abscissa ×0.04264: 8628 declared, 0 undrawn, containment 1.0000, peak 255
+  tone knots ×1.000: 8628 declared, 0 undrawn, containment 1.0000, peak 255
+  tone abscissa ×1.000: 8628 declared, 0 undrawn, containment 1.0000, peak 255
+  tone knots ×23.45: 8628 declared, 0 undrawn, containment 1.0000, peak 255
+  tone abscissa ×23.45: 8628 declared, 0 undrawn, containment 1.0000, peak 255
+  tone knots ×550.0: 8628 declared, 0 undrawn, containment 1.0000, peak 255
+  tone abscissa ×550.0: 8628 declared, 0 undrawn, containment 1.0000, peak 255
+  ✓  40 [chromium-gpu] › e2e/gpu/w31-range-sweeps.spec.ts:268:3 › @gpu the material's range: a swept leaf does not decide what the surface covers › the tone response's knots, abscissa and both ordinate rows (407ms)
+[w31 rim exponent]
+  rimLitExponent 0: 8628 declared, 0 undrawn, containment 1.0000, peak 255
+  rimLitExponent 0.1: 8628 declared, 0 undrawn, containment 1.0000, peak 255
+  rimLitExponent 0.85: 8628 declared, 0 undrawn, containment 1.0000, peak 255
+  rimLitExponent 8: 8628 declared, 0 undrawn, containment 1.0000, peak 255
+  rimLitExponent 64: 8628 declared, 0 undrawn, containment 1.0000, peak 255
+  rimLitAxis [-0.7071, -0.7071]: 8628 declared, 0 undrawn, containment 1.0000, peak 255
+  rimLitAxis [1, 0]: 8628 declared, 0 undrawn, containment 1.0000, peak 255
+  rimLitAxis [-1.4142, -1.4142]: 8628 declared, 0 undrawn, containment 1.0000, peak 255
+  ✓  41 [chromium-gpu] › e2e/gpu/w31-range-sweeps.spec.ts:305:3 › @gpu the material's range: a swept leaf does not decide what the surface covers › the rim's lit-edge exponent, across the window its range proof claims (382ms)
+[w31 scene axis]
+  span 32 r 0: 1024 declared, 0 undrawn, containment 1.0000, peak 255
+  span 32 r 12: 856 declared, 0 undrawn, containment 1.0000, peak 255
+  span 32 r 16: 740 declared, 0 undrawn, containment 1.0000, peak 255
+  span 44 r 0: 1936 declared, 0 undrawn, containment 1.0000, peak 255
+  span 44 r 12: 1768 declared, 0 undrawn, containment 1.0000, peak 255
+  span 44 r 22: 1436 declared, 0 undrawn, containment 1.0000, peak 255
+  span 96 r 0: 9216 declared, 0 undrawn, containment 1.0000, peak 255
+  span 96 r 12: 9048 declared, 0 undrawn, containment 1.0000, peak 255
+  span 96 r 48: 7080 declared, 0 undrawn, containment 1.0000, peak 255
+  span 160 r 0: 25600 declared, 0 undrawn, containment 1.0000, peak 255
+  span 160 r 12: 25432 declared, 0 undrawn, containment 1.0000, peak 255
+  span 160 r 80: 19856 declared, 0 undrawn, containment 1.0000, peak 255
+  span 340 r 0: 115600 declared, 0 undrawn, containment 1.0000, peak 255
+  span 340 r 12: 115432 declared, 0 undrawn, containment 1.0000, peak 255
+  span 340 r 170: 90224 declared, 0 undrawn, containment 1.0000, peak 255
+  ✓  42 [chromium-gpu] › e2e/gpu/w31-range-sweeps.spec.ts:332:3 › @gpu the material's range: a swept leaf does not decide what the surface covers › the SCENE's axis at the shipped material: span, radius and depth (712ms)
+[w31 cross term]
+  span 32 × lens ×0.001818: 856 declared, 0 undrawn, containment 1.0000, peak 255
+  span 32 × lens ×550.0: 856 declared, 0 undrawn, containment 1.0000, peak 255
+  span 32 × heavy tap ×0.001818: 856 declared, 0 undrawn, containment 1.0000, peak 255
+  span 32 × heavy tap ×550.0: 856 declared, 0 undrawn, containment 1.0000, peak 255
+  span 32 × second tap ×0.001818: 856 declared, 0 undrawn, containment 1.0000, peak 255
+  span 32 × second tap ×550.0: 856 declared, 0 undrawn, containment 1.0000, peak 255
+  span 32 × tone knots ×0.001818: 856 declared, 0 undrawn, containment 1.0000, peak 255
+  span 32 × tone knots ×550.0: 856 declared, 0 undrawn, containment 1.0000, peak 255
+  span 32 × tone abscissa ×0.001818: 856 declared, 0 undrawn, containment 1.0000, peak 255
+  span 32 × tone abscissa ×550.0: 856 declared, 0 undrawn, containment 1.0000, peak 255
+  span 32 × lensProfileExponent 0.01: 856 declared, 0 undrawn, containment 1.0000, peak 255
+  span 32 × lensProfileExponent 64: 856 declared, 0 undrawn, containment 1.0000, peak 255
+  span 32 × rimLitExponent 0: 856 declared, 0 undrawn, containment 1.0000, peak 255
+  span 32 × rimLitExponent 64: 856 declared, 0 undrawn, containment 1.0000, peak 255
+  span 340 × lens ×0.001818: 115432 declared, 0 undrawn, containment 1.0000, peak 255
+  span 340 × lens ×550.0: 115432 declared, 0 undrawn, containment 1.0000, peak 255
+  span 340 × heavy tap ×0.001818: 115432 declared, 0 undrawn, containment 1.0000, peak 255
+  span 340 × heavy tap ×550.0: 115432 declared, 0 undrawn, containment 1.0000, peak 255
+  span 340 × second tap ×0.001818: 115432 declared, 0 undrawn, containment 1.0000, peak 255
+  span 340 × second tap ×550.0: 115432 declared, 0 undrawn, containment 1.0000, peak 255
+  span 340 × tone knots ×0.001818: 115432 declared, 0 undrawn, containment 1.0000, peak 255
+  span 340 × tone knots ×550.0: 115432 declared, 0 undrawn, containment 1.0000, peak 255
+  span 340 × tone abscissa ×0.001818: 115432 declared, 0 undrawn, containment 1.0000, peak 255
+  span 340 × tone abscissa ×550.0: 115432 declared, 0 undrawn, containment 1.0000, peak 255
+  span 340 × lensProfileExponent 0.01: 115432 declared, 0 undrawn, containment 1.0000, peak 255
+  span 340 × lensProfileExponent 64: 115432 declared, 0 undrawn, containment 1.0000, peak 255
+  span 340 × rimLitExponent 0: 115432 declared, 0 undrawn, containment 1.0000, peak 255
+  span 340 × rimLitExponent 64: 115432 declared, 0 undrawn, containment 1.0000, peak 255
+  ✓  43 [chromium-gpu] › e2e/gpu/w31-range-sweeps.spec.ts:381:3 › @gpu the material's range: a swept leaf does not decide what the surface covers › the cross term: each material extreme at each end of the scene's axis (1.1s)
+  ✓  44 [chromium-gpu] › e2e/gpu/w31-readback-guard.spec.ts:35:3 › @gpu the readback guard refuses an enclosed zero-alpha region › a seeded hole does not get past renderScene (316ms)
+  ✓  45 [chromium-gpu] › e2e/gpu/w31-readback-guard.spec.ts:58:3 › @gpu the readback guard refuses an enclosed zero-alpha region › the seed is one shot, so the next render is clean again (281ms)
+  ✓  46 [chromium-gpu] › e2e/gpu/w31-readback-guard.spec.ts:75:3 › @gpu the readback guard refuses an enclosed zero-alpha region › it is silent on every scene this package renders, and on both stand-downs (698ms)
+unsampled DOM, mode 1 (no declared tone): r=0.282 Δbytes 0 chroma 0.00000000; r=0.5 Δbytes 0 chroma 0.00000000; r=1 Δbytes 0 chroma 0.00000000
+  ✓  47 [chromium-gpu] › e2e/gpu/w31-unsampled-dom-chroma.spec.ts:139:3 › @gpu W31's retention on the unsampled-DOM path (claims §5.164 §13, N7) › mode 1 is the identity in EFFECT: the fabricated backdrop and the plate are both grey (305ms)
+unsampled DOM, mode 2 (declared tone): OFF chroma 0.066117; r=0.05 Δbytes 14 chroma 0.025087; r=0.282 Δbytes 67 chroma 0.334384; r=1 Δbytes 67 chroma 0.334384
+  ✓  48 [chromium-gpu] › e2e/gpu/w31-unsampled-dom-chroma.spec.ts:171:3 › @gpu W31's retention on the unsampled-DOM path (claims §5.164 §13, N7) › mode 2 restores toward the DECLARED tone, which is the residual (354ms)
+
+  48 passed (22.5s)

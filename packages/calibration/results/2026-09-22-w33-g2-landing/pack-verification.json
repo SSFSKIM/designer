@@ -1,0 +1,31 @@
+[
+  {
+    "tarball": "vitreajs-vitrea-0.23.0.tgz",
+    "bytes": 583802,
+    "sha256": "8d13990d18c48d9c4354b60494666d9823477171cfddf1222b63f3dd76a4ae39",
+    "package": "@vitreajs/vitrea",
+    "version": "0.23.0",
+    "dependencies": {}
+  },
+  {
+    "tarball": "vitreajs-vitrea-react-0.23.0.tgz",
+    "bytes": 188179,
+    "sha256": "e51a4137abc8792d20279e103ec07d5dee1b0d0651d367d1222e5cc5c27f6c90",
+    "package": "@vitreajs/vitrea-react",
+    "version": "0.23.0",
+    "dependencies": {
+      "@vitreajs/vitrea": "^0.23.0",
+      "@vitreajs/vitrea-web": "^0.23.0"
+    }
+  },
+  {
+    "tarball": "vitreajs-vitrea-web-0.23.0.tgz",
+    "bytes": 568292,
+    "sha256": "5d907bf083087e14cc24b47bdfa9c035e1556cf2371175240192364753fb6e7a",
+    "package": "@vitreajs/vitrea-web",
+    "version": "0.23.0",
+    "dependencies": {
+      "@vitreajs/vitrea": "^0.23.0"
+    }
+  }
+]

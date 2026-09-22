@@ -1,0 +1,31 @@
+### Result
+{"url":"http://localhost:5174/laws/?renderer=webgpu","dpr":2,"readings":[{"name":"laws-shadow-active-96.png","shadow-endpoint":"apple-macos-27.0-1x-light-standard-glass0.5","shadow-sigma":"8.96 px","shadow-outset":"0.50 px","shadow-offset":"7.95 px","shadow-depth-3":"6.34 %","shadow-depth-12":"3.01 %","shadow-depth-24":"0.36 %"},{"name":"laws-shadow-active-160.png","shadow-endpoint":"apple-macos-27.0-1x-light-standard-glass0.5","shadow-sigma":"17.37 px","shadow-outset":"0.50 px","shadow-offset":"7.95 px","shadow-depth-3":"15.69 %","shadow-depth-12":"10.55 %","shadow-depth-24":"4.67 %"},{"name":"laws-shadow-receded-96.png","shadow-endpoint":"apple-macos-27.0-1x-light-standard-glass0.5-receded","shadow-sigma":"8.96 px","shadow-outset":"0.50 px","shadow-offset":"7.95 px","shadow-depth-3":"0.00 %","shadow-depth-12":"0.00 %","shadow-depth-24":"0.00 %"},{"name":"laws-shadow-receded-160.png","shadow-endpoint":"apple-macos-27.0-1x-light-standard-glass0.5-receded","shadow-sigma":"17.37 px","shadow-outset":"0.50 px","shadow-offset":"7.95 px","shadow-depth-3":"0.00 %","shadow-depth-12":"0.00 %","shadow-depth-24":"0.00 %"}]}
+### Ran Playwright code
+```js
+await (async page => {
+  // W33 G2, §5.173: the installed full Chromium at DPR 2, one X6-attested session.
+  const out = '/Users/new/Developer/GitHub/designer/.claude/worktrees/w33-g2-landing/packages/calibration/results/2026-09-22-w33-g2-landing';
+  await page.waitForSelector('[data-vitrea-root]', { state: 'attached' });
+  await page.evaluate(() => document.getElementById('shadow')?.scrollIntoView({
+    block: 'center', behavior: 'instant',
+  }));
+  const readings = [];
+  for (const pose of ['active', 'receded']) {
+    await page.getByTestId('shadow-pose').selectOption(pose);
+    for (const span of ['96', '160']) {
+      await page.getByTestId('shadow-span').fill(span);
+      await page.waitForTimeout(1200);
+      const name = `laws-shadow-${pose}-${span}.png`;
+      await page.locator('.stage').first().screenshot({ path: `${out}/${name}` });
+      const read = await page.evaluate(() => Object.fromEntries(
+        ['shadow-endpoint', 'shadow-sigma', 'shadow-outset', 'shadow-offset',
+         'shadow-depth-3', 'shadow-depth-12', 'shadow-depth-24'].map(id => [
+          id, document.querySelector(`[data-testid="${id}"]`)?.textContent ?? '',
+        ]),
+      ));
+      readings.push({ name, ...read });
+    }
+  }
+  return { url: page.url(), dpr: await page.evaluate(() => devicePixelRatio), readings };
+})(page);
+```

@@ -314,6 +314,20 @@ active digests to `dcbccbd9feac9881` (light) and `e59f9106bcd7c966` (dark).
 The receded digests above and both frozen macOS 26.5 digests are unchanged; the
 prior readings remain here as history.
 
+**0.23.0 carries that declaration, not a new rim model** (claims §5.173).
+`liftAmplitude` is 0 on all four macOS 27 endpoints; the frozen 26.5 active
+material keeps 0.01 / 0.0051. “Zero over black” for the leaf means a uniformly
+black source: its 40 px blurred input can lift locally black pixels beside light.
+The active `thickOcclusionAt96/128/160` anchors compensate at
+**0.0870 / 0.1650 / 0.2518** light and **0.1038 / 0.2188 / 0.3443** dark;
+the six receded anchors remain zero. C1 passes on all twelve strata, with a
+near/far trade rather than unchanged 3–6 bands. X1 now gates the WebGPU black
+floor at zero on 218 non-holdout standard single-shape cells, both poses; the
+CSS tier and composites are not claimed by that row. Apple's contour term is
+present but unidentified here and remains undrawn under W33 Decision Log 3;
+§5.171 records the native capture needed to separate its geometry and colour.
+
+
 **That digest moved at 0.21.0, and one of the two reasons is not a rendering
 change.** The four macOS 27 documents were refitted — `3dc24a74f17fd87e` (light),
 `8a43f54162606db4` (dark), `ab3ed65aa02869b1` (light receded) and

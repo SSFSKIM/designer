@@ -5821,6 +5821,14 @@ stroke referee does; keep this held-out reading and show the corrected domain's
 reading beside it, without a new capture or a fitted constant. The zero is not
 widened and this is not an excuse to erase the five pixels from their first cut.
 
+**Closed as a referee correction at W33 G2 (§5.173), not as a material fix.**
+`2026-09-22-w33-g2-landing/referee-union.py` reads all12 standard-profile composite
+black-bearing cells from the canonical tree. Both masks read0 >0 and0 >1 under the
+union bounding box; the four holdout cells' five legacy pixels are all inside the
+base and outside the overlay. Their original readings above remain. X1 DECLINES
+composites rather than adopting this correction as a contour/union-of-shapes claim.
+A future composite gate needs that qualified geometry and its own declared population.
+
 ## W33 G1b: CSS near-edge black pixels are not its far-exterior lift floor
 
 `css-floor.json` (§5.172) reads pre-existing, unchanged counts under G0's integer
@@ -5838,3 +5846,25 @@ thin-span fitted width to the lift. W33 G1b's default macOS27 material has lift0
 its shape leaves are unread. Correct that sentence at G2's landing, keeping the
 fit-versus-material-sigma distinction without attributing a zero operator's width.
 The footer is flagged here, not changed as part of the material seal.
+
+**Closed at W33 G2 (§5.173):** the calibration readout now distinguishes the
+composite fitted width from the material law without attributing it to a zero
+macOS27 lift. It names the retained26.5 lift and the diagnostic status of fitted σ.
+
+## W33 G2: the closed black floor and the contour work that remains
+
+The W32 black-floor entry above is closed on the WebGPU standard single-shape
+non-holdout domain by X1:218 cells,12,681,980 integer-mask pixels, zero >0 and >1.
+The analytic companion has12,593,524 pixels and also zero; span160 is probe-strength.
+G0's232-cell referee remains232:10 accessibility cells and4 composites explain
+its difference from X1. Accessibility reads zero too but the fold stands down the
+material W33 changed, so it is not silently included in the adopted row.
+
+Decision Log3 declined the empirical20.60-from34.98-byte contour correction: it
+was in-sample, offline and unrendered, not an identified law. First next work is
+§5.171's geometry-qualified native capture: path-attested circular beside default
+continuous capsules, matched continuous rectangles, uniform-grey/RGB and independent
+x/y subpixel phases at1x/2x, matched local colours with varied gradient direction
+and magnitude and a frequency ladder, colour-managed no-glass controls, repeats
+for per-bin variability before thresholds, and a split declared before fitting.
+This needs the user to lift X5; no contour leaf or CSS approximation shipped.

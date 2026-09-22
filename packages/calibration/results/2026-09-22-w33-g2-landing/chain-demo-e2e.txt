@@ -1,0 +1,13 @@
+$ playwright test
+[WebServer] error when starting dev server:
+[WebServer] Error: Port 5177 is already in use
+[WebServer]     at httpServerStart (file:///Users/new/Developer/GitHub/designer/.claude/worktrees/w33-g2-landing/node_modules/.pnpm/vite@8.2.2_@types+node@26.2.0_esbuild@0.27.7_tsx@4.20.6_yaml@2.9.0/node_modules/vite/dist/node/chunks/node.js:11681:10)
+[WebServer]     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+[WebServer]     at async startServer (file:///Users/new/Developer/GitHub/designer/.claude/worktrees/w33-g2-landing/node_modules/.pnpm/vite@8.2.2_@types+node@26.2.0_esbuild@0.27.7_tsx@4.20.6_yaml@2.9.0/node_modules/vite/dist/node/chunks/node.js:26694:30)
+[WebServer]     at async Object.listen (file:///Users/new/Developer/GitHub/designer/.claude/worktrees/w33-g2-landing/node_modules/.pnpm/vite@8.2.2_@types+node@26.2.0_esbuild@0.27.7_tsx@4.20.6_yaml@2.9.0/node_modules/vite/dist/node/chunks/node.js:26511:4)
+[WebServer]     at async CAC.<anonymous> (file:///Users/new/Developer/GitHub/designer/.claude/worktrees/w33-g2-landing/node_modules/.pnpm/vite@8.2.2_@types+node@26.2.0_esbuild@0.27.7_tsx@4.20.6_yaml@2.9.0/node_modules/vite/dist/node/cli.js:721:3)
+Error: Process from config.webServer was not able to start. Exit code: 1
+
+/Users/new/Developer/GitHub/designer/.claude/worktrees/w33-g2-landing/apps/demo:
+[ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL] demo@0.0.0 test:e2e: `playwright test`
+Exit status 1
