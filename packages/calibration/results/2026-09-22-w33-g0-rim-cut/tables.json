@@ -1,0 +1,7272 @@
+{
+  "rule": "pixel-weighted mean absolute RGB per profile/pose/backdrop/side, ceil 2sf",
+  "bounds": [
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "bottom",
+      "cells": 15,
+      "pixels": 2272,
+      "mae": 67.06660798122066,
+      "maeRGB": [
+        67.07174295774648,
+        67.06426056338029,
+        67.06382042253522
+      ],
+      "signedRGB": [
+        -49.473151408450704,
+        -49.485915492957744,
+        -49.48547535211268
+      ],
+      "bound": 68.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "corner-bl",
+      "cells": 15,
+      "pixels": 621,
+      "mae": 42.288244766505635,
+      "maeRGB": [
+        42.28180354267311,
+        42.293075684380035,
+        42.289855072463766
+      ],
+      "signedRGB": [
+        -32.5426731078905,
+        -32.56038647342995,
+        -32.553945249597426
+      ],
+      "bound": 43.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "corner-br",
+      "cells": 15,
+      "pixels": 621,
+      "mae": 38.17713365539453,
+      "maeRGB": [
+        38.175523349436396,
+        38.17713365539453,
+        38.17874396135266
+      ],
+      "signedRGB": [
+        -28.098228663446054,
+        -28.112721417069242,
+        -28.11111111111111
+      ],
+      "bound": 39.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "corner-tl",
+      "cells": 15,
+      "pixels": 621,
+      "mae": 37.67418142780462,
+      "maeRGB": [
+        37.671497584541065,
+        37.67471819645733,
+        37.67632850241546
+      ],
+      "signedRGB": [
+        -26.93719806763285,
+        -26.950080515297905,
+        -26.948470209339774
+      ],
+      "bound": 38.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "corner-tr",
+      "cells": 15,
+      "pixels": 621,
+      "mae": 43.89747718733226,
+      "maeRGB": [
+        43.892109500805155,
+        43.90016103059581,
+        43.90016103059581
+      ],
+      "signedRGB": [
+        -34.98389694041868,
+        -35.00161030595813,
+        -34.99838969404187
+      ],
+      "bound": 44.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "left",
+      "cells": 13,
+      "pixels": 944,
+      "mae": 91.83862994350282,
+      "maeRGB": [
+        91.83580508474576,
+        91.84004237288136,
+        91.84004237288136
+      ],
+      "signedRGB": [
+        -58.76588983050848,
+        -58.789194915254235,
+        -58.789194915254235
+      ],
+      "bound": 92.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "right",
+      "cells": 13,
+      "pixels": 944,
+      "mae": 103.03389830508475,
+      "maeRGB": [
+        103.03389830508475,
+        103.03389830508475,
+        103.03389830508475
+      ],
+      "signedRGB": [
+        -75.78601694915254,
+        -75.80932203389831,
+        -75.80932203389831
+      ],
+      "bound": 110.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "top",
+      "cells": 15,
+      "pixels": 2272,
+      "mae": 62.11913145539906,
+      "maeRGB": [
+        62.110915492957744,
+        62.12852112676056,
+        62.11795774647887
+      ],
+      "signedRGB": [
+        -39.02904929577465,
+        -39.046654929577464,
+        -39.036091549295776
+      ],
+      "bound": 63.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "dark-or-other-solid",
+      "side": "bottom",
+      "cells": 7,
+      "pixels": 1028,
+      "mae": 24.029182879377434,
+      "maeRGB": [
+        26.474708171206224,
+        19.69260700389105,
+        25.920233463035018
+      ],
+      "signedRGB": [
+        -26.474708171206224,
+        -19.69260700389105,
+        -25.920233463035018
+      ],
+      "bound": 25.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "dark-or-other-solid",
+      "side": "corner-bl",
+      "cells": 7,
+      "pixels": 293,
+      "mae": 18.168373151308305,
+      "maeRGB": [
+        19.044368600682596,
+        16.167235494880547,
+        19.293515358361773
+      ],
+      "signedRGB": [
+        -17.726962457337883,
+        -16.167235494880547,
+        -17.006825938566553
+      ],
+      "bound": 19.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "dark-or-other-solid",
+      "side": "corner-br",
+      "cells": 7,
+      "pixels": 293,
+      "mae": 18.16268486916951,
+      "maeRGB": [
+        19.051194539249146,
+        16.156996587030715,
+        19.27986348122867
+      ],
+      "signedRGB": [
+        -17.706484641638227,
+        -16.156996587030715,
+        -16.986348122866893
+      ],
+      "bound": 19.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "dark-or-other-solid",
+      "side": "corner-tl",
+      "cells": 7,
+      "pixels": 293,
+      "mae": 17.796359499431173,
+      "maeRGB": [
+        18.679180887372013,
+        15.795221843003413,
+        18.914675767918087
+      ],
+      "signedRGB": [
+        -17.361774744027304,
+        -15.795221843003413,
+        -16.627986348122867
+      ],
+      "bound": 18.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "dark-or-other-solid",
+      "side": "corner-tr",
+      "cells": 7,
+      "pixels": 293,
+      "mae": 18.50853242320819,
+      "maeRGB": [
+        19.38566552901024,
+        16.50853242320819,
+        19.631399317406142
+      ],
+      "signedRGB": [
+        -18.054607508532424,
+        -16.50853242320819,
+        -17.344709897610922
+      ],
+      "bound": 19.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "dark-or-other-solid",
+      "side": "left",
+      "cells": 5,
+      "pixels": 388,
+      "mae": 34.705326460481096,
+      "maeRGB": [
+        38.75,
+        27.391752577319586,
+        37.97422680412371
+      ],
+      "signedRGB": [
+        -38.75,
+        -27.391752577319586,
+        -37.97422680412371
+      ],
+      "bound": 35.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "dark-or-other-solid",
+      "side": "right",
+      "cells": 5,
+      "pixels": 388,
+      "mae": 32.468213058419245,
+      "maeRGB": [
+        36.51288659793814,
+        25.15463917525773,
+        35.73711340206186
+      ],
+      "signedRGB": [
+        -36.51288659793814,
+        -25.15463917525773,
+        -35.73711340206186
+      ],
+      "bound": 33.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "dark-or-other-solid",
+      "side": "top",
+      "cells": 7,
+      "pixels": 1028,
+      "mae": 23.939040207522698,
+      "maeRGB": [
+        26.392996108949415,
+        19.598249027237355,
+        25.825875486381324
+      ],
+      "signedRGB": [
+        -26.392996108949415,
+        -19.598249027237355,
+        -25.825875486381324
+      ],
+      "bound": 24.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "light-solid",
+      "side": "bottom",
+      "cells": 3,
+      "pixels": 458,
+      "mae": 108.68850072780204,
+      "maeRGB": [
+        108.14410480349345,
+        108.17030567685589,
+        109.75109170305677
+      ],
+      "signedRGB": [
+        -108.14410480349345,
+        -108.17030567685589,
+        -109.75109170305677
+      ],
+      "bound": 110.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "light-solid",
+      "side": "corner-bl",
+      "cells": 3,
+      "pixels": 132,
+      "mae": 72.75757575757575,
+      "maeRGB": [
+        72.5530303030303,
+        72.56818181818181,
+        73.15151515151516
+      ],
+      "signedRGB": [
+        -72.5530303030303,
+        -72.56818181818181,
+        -73.15151515151516
+      ],
+      "bound": 73.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "light-solid",
+      "side": "corner-br",
+      "cells": 3,
+      "pixels": 132,
+      "mae": 72.75252525252526,
+      "maeRGB": [
+        72.5530303030303,
+        72.56060606060606,
+        73.14393939393939
+      ],
+      "signedRGB": [
+        -72.5530303030303,
+        -72.56060606060606,
+        -73.14393939393939
+      ],
+      "bound": 73.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "light-solid",
+      "side": "corner-tl",
+      "cells": 3,
+      "pixels": 132,
+      "mae": 72.74242424242425,
+      "maeRGB": [
+        72.53030303030303,
+        72.54545454545455,
+        73.15151515151516
+      ],
+      "signedRGB": [
+        -72.53030303030303,
+        -72.54545454545455,
+        -73.15151515151516
+      ],
+      "bound": 73.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "light-solid",
+      "side": "corner-tr",
+      "cells": 3,
+      "pixels": 132,
+      "mae": 72.75757575757575,
+      "maeRGB": [
+        72.5530303030303,
+        72.56818181818181,
+        73.15151515151516
+      ],
+      "signedRGB": [
+        -72.5530303030303,
+        -72.56818181818181,
+        -73.15151515151516
+      ],
+      "bound": 73.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "light-solid",
+      "side": "left",
+      "cells": 2,
+      "pixels": 166,
+      "mae": 160.45180722891567,
+      "maeRGB": [
+        159.74698795180723,
+        159.75903614457832,
+        161.84939759036143
+      ],
+      "signedRGB": [
+        -159.74698795180723,
+        -159.75903614457832,
+        -161.84939759036143
+      ],
+      "bound": 170.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "light-solid",
+      "side": "right",
+      "cells": 2,
+      "pixels": 166,
+      "mae": 160.44979919678713,
+      "maeRGB": [
+        159.74096385542168,
+        159.75903614457832,
+        161.84939759036143
+      ],
+      "signedRGB": [
+        -159.74096385542168,
+        -159.75903614457832,
+        -161.84939759036143
+      ],
+      "bound": 170.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "light-solid",
+      "side": "top",
+      "cells": 3,
+      "pixels": 458,
+      "mae": 108.68850072780204,
+      "maeRGB": [
+        108.14410480349345,
+        108.17030567685589,
+        109.75109170305677
+      ],
+      "signedRGB": [
+        -108.14410480349345,
+        -108.17030567685589,
+        -109.75109170305677
+      ],
+      "bound": 110.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "bottom",
+      "cells": 3,
+      "pixels": 366,
+      "mae": 29.35792349726776,
+      "maeRGB": [
+        36.431693989071036,
+        20.366120218579233,
+        31.275956284153004
+      ],
+      "signedRGB": [
+        -36.431693989071036,
+        -19.896174863387976,
+        -31.275956284153004
+      ],
+      "bound": 30.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "corner-bl",
+      "cells": 3,
+      "pixels": 112,
+      "mae": 24.833333333333336,
+      "maeRGB": [
+        25.357142857142858,
+        26.982142857142858,
+        22.160714285714285
+      ],
+      "signedRGB": [
+        -25.357142857142858,
+        -26.982142857142858,
+        -22.160714285714285
+      ],
+      "bound": 25.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "corner-br",
+      "cells": 3,
+      "pixels": 112,
+      "mae": 26.99404761904762,
+      "maeRGB": [
+        28.366071428571427,
+        35.455357142857146,
+        17.160714285714285
+      ],
+      "signedRGB": [
+        -28.366071428571427,
+        -35.455357142857146,
+        -17.160714285714285
+      ],
+      "bound": 27.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "corner-tl",
+      "cells": 3,
+      "pixels": 112,
+      "mae": 21.684523809523807,
+      "maeRGB": [
+        20.196428571428573,
+        20.901785714285715,
+        23.955357142857142
+      ],
+      "signedRGB": [
+        -20.196428571428573,
+        -20.5625,
+        -23.633928571428573
+      ],
+      "bound": 22.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "corner-tr",
+      "cells": 3,
+      "pixels": 112,
+      "mae": 22.392857142857142,
+      "maeRGB": [
+        11.785714285714286,
+        28.607142857142858,
+        26.785714285714285
+      ],
+      "signedRGB": [
+        -11.785714285714286,
+        -28.607142857142858,
+        -26.785714285714285
+      ],
+      "bound": 23.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "left",
+      "cells": 2,
+      "pixels": 130,
+      "mae": 44.21282051282051,
+      "maeRGB": [
+        41.5,
+        52.261538461538464,
+        38.87692307692308
+      ],
+      "signedRGB": [
+        -41.5,
+        -52.261538461538464,
+        -38.87692307692308
+      ],
+      "bound": 45.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "right",
+      "cells": 2,
+      "pixels": 130,
+      "mae": 44.707692307692305,
+      "maeRGB": [
+        27.284615384615385,
+        87.48461538461538,
+        19.353846153846153
+      ],
+      "signedRGB": [
+        -27.146153846153847,
+        -87.48461538461538,
+        -19.353846153846153
+      ],
+      "bound": 45.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "top",
+      "cells": 3,
+      "pixels": 366,
+      "mae": 27.287795992714024,
+      "maeRGB": [
+        29.59016393442623,
+        18.024590163934427,
+        34.24863387978142
+      ],
+      "signedRGB": [
+        -29.59016393442623,
+        -17.128415300546447,
+        -34.24863387978142
+      ],
+      "bound": 28.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "bottom",
+      "cells": 29,
+      "pixels": 3536,
+      "mae": 3.161010558069382,
+      "maeRGB": [
+        3.1609162895927603,
+        3.1611990950226243,
+        3.1609162895927603
+      ],
+      "signedRGB": [
+        -3.055712669683258,
+        -3.0554298642533935,
+        -3.055712669683258
+      ],
+      "bound": 3.2
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "corner-bl",
+      "cells": 29,
+      "pixels": 1005,
+      "mae": 26.031177446102816,
+      "maeRGB": [
+        26.03084577114428,
+        26.029850746268657,
+        26.03283582089552
+      ],
+      "signedRGB": [
+        -21.68059701492537,
+        -21.675621890547262,
+        -21.682587064676618
+      ],
+      "bound": 27.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "corner-br",
+      "cells": 29,
+      "pixels": 1005,
+      "mae": 30.181426202321724,
+      "maeRGB": [
+        30.181094527363182,
+        30.17910447761194,
+        30.18407960199005
+      ],
+      "signedRGB": [
+        -27.440796019900496,
+        -27.438805970149254,
+        -27.443781094527363
+      ],
+      "bound": 31.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "corner-tl",
+      "cells": 29,
+      "pixels": 1005,
+      "mae": 27.406965174129354,
+      "maeRGB": [
+        27.408955223880596,
+        27.4,
+        27.411940298507464
+      ],
+      "signedRGB": [
+        -23.82089552238806,
+        -23.807960199004974,
+        -23.82587064676617
+      ],
+      "bound": 28.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "corner-tr",
+      "cells": 29,
+      "pixels": 1005,
+      "mae": 28.48988391376451,
+      "maeRGB": [
+        28.491542288557213,
+        28.487562189054728,
+        28.49054726368159
+      ],
+      "signedRGB": [
+        -24.206965174129355,
+        -24.197014925373136,
+        -24.207960199004976
+      ],
+      "bound": 29.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "left",
+      "cells": 23,
+      "pixels": 1336,
+      "mae": 94.19510978043913,
+      "maeRGB": [
+        94.19685628742515,
+        94.18862275449102,
+        94.19985029940119
+      ],
+      "signedRGB": [
+        -78.98428143712574,
+        -78.97155688622755,
+        -78.9872754491018
+      ],
+      "bound": 95.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "right",
+      "cells": 23,
+      "pixels": 1336,
+      "mae": 105.19560878243513,
+      "maeRGB": [
+        105.19685628742515,
+        105.187874251497,
+        105.20209580838323
+      ],
+      "signedRGB": [
+        -93.2627245508982,
+        -93.25374251497006,
+        -93.26796407185628
+      ],
+      "bound": 110.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "top",
+      "cells": 29,
+      "pixels": 3536,
+      "mae": 1.6481900452488687,
+      "maeRGB": [
+        1.648472850678733,
+        1.6476244343891402,
+        1.648472850678733
+      ],
+      "signedRGB": [
+        -1.2672511312217194,
+        -1.2664027149321266,
+        -1.2672511312217194
+      ],
+      "bound": 1.7000000000000002
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "dark-or-other-solid",
+      "side": "bottom",
+      "cells": 7,
+      "pixels": 822,
+      "mae": 3.021086780210868,
+      "maeRGB": [
+        3.019464720194647,
+        3.019464720194647,
+        3.024330900243309
+      ],
+      "signedRGB": [
+        -3.019464720194647,
+        -3.019464720194647,
+        -3.024330900243309
+      ],
+      "bound": 3.1
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "dark-or-other-solid",
+      "side": "corner-bl",
+      "cells": 7,
+      "pixels": 244,
+      "mae": 24.482240437158467,
+      "maeRGB": [
+        24.450819672131146,
+        24.438524590163933,
+        24.557377049180328
+      ],
+      "signedRGB": [
+        -24.28688524590164,
+        -24.2827868852459,
+        -24.39344262295082
+      ],
+      "bound": 25.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "dark-or-other-solid",
+      "side": "corner-br",
+      "cells": 7,
+      "pixels": 244,
+      "mae": 24.172131147540984,
+      "maeRGB": [
+        24.151639344262296,
+        24.12295081967213,
+        24.241803278688526
+      ],
+      "signedRGB": [
+        -24.151639344262296,
+        -24.12295081967213,
+        -24.241803278688526
+      ],
+      "bound": 25.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "dark-or-other-solid",
+      "side": "corner-tl",
+      "cells": 7,
+      "pixels": 244,
+      "mae": 23.69945355191257,
+      "maeRGB": [
+        23.67622950819672,
+        23.672131147540984,
+        23.75
+      ],
+      "signedRGB": [
+        -23.67622950819672,
+        -23.672131147540984,
+        -23.75
+      ],
+      "bound": 24.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "dark-or-other-solid",
+      "side": "corner-tr",
+      "cells": 7,
+      "pixels": 244,
+      "mae": 23.583333333333332,
+      "maeRGB": [
+        23.549180327868854,
+        23.549180327868854,
+        23.651639344262296
+      ],
+      "signedRGB": [
+        -23.360655737704917,
+        -23.360655737704917,
+        -23.438524590163933
+      ],
+      "bound": 24.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "dark-or-other-solid",
+      "side": "left",
+      "cells": 5,
+      "pixels": 294,
+      "mae": 84.47845804988661,
+      "maeRGB": [
+        84.41156462585035,
+        84.38775510204081,
+        84.6360544217687
+      ],
+      "signedRGB": [
+        -84.41156462585035,
+        -84.38775510204081,
+        -84.6360544217687
+      ],
+      "bound": 85.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "dark-or-other-solid",
+      "side": "right",
+      "cells": 5,
+      "pixels": 294,
+      "mae": 79.44557823129252,
+      "maeRGB": [
+        79.37755102040816,
+        79.35374149659864,
+        79.60544217687075
+      ],
+      "signedRGB": [
+        -79.37755102040816,
+        -79.35374149659864,
+        -79.60544217687075
+      ],
+      "bound": 80.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "dark-or-other-solid",
+      "side": "top",
+      "cells": 7,
+      "pixels": 822,
+      "mae": 1.210462287104623,
+      "maeRGB": [
+        1.2080291970802919,
+        1.2080291970802919,
+        1.2153284671532847
+      ],
+      "signedRGB": [
+        -0.9768856447688564,
+        -0.9768856447688564,
+        -0.9841849148418491
+      ],
+      "bound": 1.3
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "bottom",
+      "cells": 2,
+      "pixels": 196,
+      "mae": 2.074829931972789,
+      "maeRGB": [
+        3.1377551020408165,
+        1.5051020408163265,
+        1.5816326530612246
+      ],
+      "signedRGB": [
+        -3.1377551020408165,
+        -1.5051020408163265,
+        -1.5816326530612246
+      ],
+      "bound": 2.1
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "corner-bl",
+      "cells": 2,
+      "pixels": 67,
+      "mae": 20.263681592039802,
+      "maeRGB": [
+        22.567164179104477,
+        19.253731343283583,
+        18.970149253731343
+      ],
+      "signedRGB": [
+        -17.791044776119403,
+        -19.253731343283583,
+        -18.970149253731343
+      ],
+      "bound": 21.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "corner-br",
+      "cells": 2,
+      "pixels": 67,
+      "mae": 20.696517412935325,
+      "maeRGB": [
+        21.223880597014926,
+        23.597014925373134,
+        17.26865671641791
+      ],
+      "signedRGB": [
+        -21.223880597014926,
+        -23.35820895522388,
+        -17.26865671641791
+      ],
+      "bound": 21.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "corner-tl",
+      "cells": 2,
+      "pixels": 67,
+      "mae": 17.572139303482587,
+      "maeRGB": [
+        18.17910447761194,
+        15.26865671641791,
+        19.26865671641791
+      ],
+      "signedRGB": [
+        -18.17910447761194,
+        -15.26865671641791,
+        -15.119402985074627
+      ],
+      "bound": 18.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "corner-tr",
+      "cells": 2,
+      "pixels": 67,
+      "mae": 16.736318407960198,
+      "maeRGB": [
+        11.044776119402986,
+        20.432835820895523,
+        18.73134328358209
+      ],
+      "signedRGB": [
+        -10.985074626865671,
+        -19.53731343283582,
+        -18.074626865671643
+      ],
+      "bound": 17.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "left",
+      "cells": 1,
+      "pixels": 56,
+      "mae": 54.535714285714285,
+      "maeRGB": [
+        52.482142857142854,
+        49.5,
+        61.625
+      ],
+      "signedRGB": [
+        -52.482142857142854,
+        -49.5,
+        -61.625
+      ],
+      "bound": 55.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "right",
+      "cells": 1,
+      "pixels": 56,
+      "mae": 50.48809523809524,
+      "maeRGB": [
+        36.482142857142854,
+        96.19642857142857,
+        18.785714285714285
+      ],
+      "signedRGB": [
+        -36.482142857142854,
+        -96.19642857142857,
+        -18.785714285714285
+      ],
+      "bound": 51.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "top",
+      "cells": 2,
+      "pixels": 196,
+      "mae": 0.5561224489795918,
+      "maeRGB": [
+        0.5714285714285714,
+        0.2653061224489796,
+        0.8316326530612245
+      ],
+      "signedRGB": [
+        -0.2653061224489796,
+        -0.17346938775510204,
+        -0.20918367346938777
+      ],
+      "bound": 0.56
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "bottom",
+      "cells": 2,
+      "pixels": 196,
+      "mae": 132.99489795918367,
+      "maeRGB": [
+        132.99489795918367,
+        132.99489795918367,
+        132.99489795918367
+      ],
+      "signedRGB": [
+        -20.698979591836736,
+        -20.698979591836736,
+        -20.698979591836736
+      ],
+      "bound": 140.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "corner-bl",
+      "cells": 2,
+      "pixels": 67,
+      "mae": 70.80597014925372,
+      "maeRGB": [
+        70.80597014925372,
+        70.80597014925372,
+        70.80597014925372
+      ],
+      "signedRGB": [
+        -4.776119402985074,
+        -4.776119402985074,
+        -4.776119402985074
+      ],
+      "bound": 71.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "corner-br",
+      "cells": 2,
+      "pixels": 67,
+      "mae": 77.08955223880596,
+      "maeRGB": [
+        77.08955223880596,
+        77.08955223880596,
+        77.08955223880596
+      ],
+      "signedRGB": [
+        1.4477611940298507,
+        1.4477611940298507,
+        1.4477611940298507
+      ],
+      "bound": 78.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "corner-tl",
+      "cells": 2,
+      "pixels": 67,
+      "mae": 72.0,
+      "maeRGB": [
+        72.0,
+        72.0,
+        72.0
+      ],
+      "signedRGB": [
+        37.55223880597015,
+        37.55223880597015,
+        37.55223880597015
+      ],
+      "bound": 72.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "corner-tr",
+      "cells": 2,
+      "pixels": 67,
+      "mae": 71.38805970149254,
+      "maeRGB": [
+        71.38805970149254,
+        71.38805970149254,
+        71.38805970149254
+      ],
+      "signedRGB": [
+        -37.47761194029851,
+        -37.47761194029851,
+        -37.47761194029851
+      ],
+      "bound": 72.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "left",
+      "cells": 1,
+      "pixels": 56,
+      "mae": 199.375,
+      "maeRGB": [
+        199.375,
+        199.375,
+        199.375
+      ],
+      "signedRGB": [
+        -60.089285714285715,
+        -60.089285714285715,
+        -60.089285714285715
+      ],
+      "bound": 200.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "right",
+      "cells": 1,
+      "pixels": 56,
+      "mae": 190.75,
+      "maeRGB": [
+        190.75,
+        190.75,
+        190.75
+      ],
+      "signedRGB": [
+        -0.7142857142857143,
+        -0.7142857142857143,
+        -0.7142857142857143
+      ],
+      "bound": 200.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "top",
+      "cells": 2,
+      "pixels": 196,
+      "mae": 121.97448979591837,
+      "maeRGB": [
+        121.97448979591837,
+        121.97448979591837,
+        121.97448979591837
+      ],
+      "signedRGB": [
+        -24.4234693877551,
+        -24.4234693877551,
+        -24.4234693877551
+      ],
+      "bound": 130.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "bottom",
+      "cells": 2,
+      "pixels": 196,
+      "mae": 30.09353741496599,
+      "maeRGB": [
+        42.15816326530612,
+        18.382653061224488,
+        29.739795918367346
+      ],
+      "signedRGB": [
+        -42.15816326530612,
+        -13.535714285714286,
+        -28.556122448979593
+      ],
+      "bound": 31.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "corner-bl",
+      "cells": 2,
+      "pixels": 67,
+      "mae": 26.30348258706468,
+      "maeRGB": [
+        26.328358208955223,
+        26.507462686567163,
+        26.074626865671643
+      ],
+      "signedRGB": [
+        -3.1641791044776117,
+        -7.462686567164179,
+        -3.208955223880597
+      ],
+      "bound": 27.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "corner-br",
+      "cells": 2,
+      "pixels": 67,
+      "mae": 23.597014925373134,
+      "maeRGB": [
+        22.970149253731343,
+        30.46268656716418,
+        17.35820895522388
+      ],
+      "signedRGB": [
+        -2.2238805970149254,
+        -10.104477611940299,
+        12.223880597014926
+      ],
+      "bound": 24.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "corner-tl",
+      "cells": 2,
+      "pixels": 67,
+      "mae": 25.318407960199007,
+      "maeRGB": [
+        24.98507462686567,
+        21.223880597014926,
+        29.746268656716417
+      ],
+      "signedRGB": [
+        -2.5074626865671643,
+        5.134328358208955,
+        -9.835820895522389
+      ],
+      "bound": 26.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "corner-tr",
+      "cells": 2,
+      "pixels": 67,
+      "mae": 24.59203980099502,
+      "maeRGB": [
+        17.98507462686567,
+        30.671641791044777,
+        25.119402985074625
+      ],
+      "signedRGB": [
+        12.791044776119403,
+        -3.328358208955224,
+        -5.029850746268656
+      ],
+      "bound": 25.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "left",
+      "cells": 1,
+      "pixels": 56,
+      "mae": 37.273809523809526,
+      "maeRGB": [
+        33.17857142857143,
+        37.160714285714285,
+        41.482142857142854
+      ],
+      "signedRGB": [
+        -33.17857142857143,
+        -37.160714285714285,
+        -41.482142857142854
+      ],
+      "bound": 38.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "right",
+      "cells": 1,
+      "pixels": 56,
+      "mae": 28.291666666666668,
+      "maeRGB": [
+        22.535714285714285,
+        54.464285714285715,
+        7.875
+      ],
+      "signedRGB": [
+        -20.928571428571427,
+        -54.464285714285715,
+        -4.053571428571429
+      ],
+      "bound": 29.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "top",
+      "cells": 2,
+      "pixels": 196,
+      "mae": 30.566326530612244,
+      "maeRGB": [
+        27.464285714285715,
+        22.102040816326532,
+        42.13265306122449
+      ],
+      "signedRGB": [
+        -27.005102040816325,
+        -15.928571428571429,
+        -42.13265306122449
+      ],
+      "bound": 31.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "bottom",
+      "cells": 2,
+      "pixels": 196,
+      "mae": 20.785714285714285,
+      "maeRGB": [
+        20.785714285714285,
+        20.785714285714285,
+        20.785714285714285
+      ],
+      "signedRGB": [
+        -14.76530612244898,
+        -14.76530612244898,
+        -14.76530612244898
+      ],
+      "bound": 21.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "corner-bl",
+      "cells": 2,
+      "pixels": 67,
+      "mae": 29.756218905472636,
+      "maeRGB": [
+        29.761194029850746,
+        29.746268656716417,
+        29.761194029850746
+      ],
+      "signedRGB": [
+        -19.37313432835821,
+        -19.388059701492537,
+        -19.37313432835821
+      ],
+      "bound": 30.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "corner-br",
+      "cells": 2,
+      "pixels": 67,
+      "mae": 31.44776119402985,
+      "maeRGB": [
+        31.44776119402985,
+        31.44776119402985,
+        31.44776119402985
+      ],
+      "signedRGB": [
+        -23.597014925373134,
+        -23.597014925373134,
+        -23.597014925373134
+      ],
+      "bound": 32.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "corner-tl",
+      "cells": 2,
+      "pixels": 67,
+      "mae": 29.940298507462686,
+      "maeRGB": [
+        29.940298507462686,
+        29.940298507462686,
+        29.940298507462686
+      ],
+      "signedRGB": [
+        -21.52238805970149,
+        -21.52238805970149,
+        -21.52238805970149
+      ],
+      "bound": 30.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "corner-tr",
+      "cells": 2,
+      "pixels": 67,
+      "mae": 31.865671641791046,
+      "maeRGB": [
+        31.865671641791046,
+        31.865671641791046,
+        31.865671641791046
+      ],
+      "signedRGB": [
+        -21.98507462686567,
+        -21.98507462686567,
+        -21.98507462686567
+      ],
+      "bound": 32.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "left",
+      "cells": 1,
+      "pixels": 56,
+      "mae": 117.30357142857143,
+      "maeRGB": [
+        117.30357142857143,
+        117.30357142857143,
+        117.30357142857143
+      ],
+      "signedRGB": [
+        -74.91071428571429,
+        -74.91071428571429,
+        -74.91071428571429
+      ],
+      "bound": 120.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "right",
+      "cells": 1,
+      "pixels": 56,
+      "mae": 99.64285714285714,
+      "maeRGB": [
+        99.64285714285714,
+        99.64285714285714,
+        99.64285714285714
+      ],
+      "signedRGB": [
+        -42.392857142857146,
+        -42.392857142857146,
+        -42.392857142857146
+      ],
+      "bound": 100.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "top",
+      "cells": 2,
+      "pixels": 196,
+      "mae": 16.698979591836736,
+      "maeRGB": [
+        16.698979591836736,
+        16.698979591836736,
+        16.698979591836736
+      ],
+      "signedRGB": [
+        -12.841836734693878,
+        -12.841836734693878,
+        -12.841836734693878
+      ],
+      "bound": 17.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "bottom",
+      "cells": 2,
+      "pixels": 196,
+      "mae": 16.540816326530614,
+      "maeRGB": [
+        20.602040816326532,
+        13.025510204081632,
+        15.994897959183673
+      ],
+      "signedRGB": [
+        -20.602040816326532,
+        -13.025510204081632,
+        -15.994897959183673
+      ],
+      "bound": 17.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "corner-bl",
+      "cells": 2,
+      "pixels": 67,
+      "mae": 26.512437810945276,
+      "maeRGB": [
+        28.074626865671643,
+        26.44776119402985,
+        25.01492537313433
+      ],
+      "signedRGB": [
+        -28.044776119402986,
+        -26.44776119402985,
+        -25.01492537313433
+      ],
+      "bound": 27.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "corner-br",
+      "cells": 2,
+      "pixels": 67,
+      "mae": 23.004975124378113,
+      "maeRGB": [
+        24.01492537313433,
+        29.223880597014926,
+        15.776119402985074
+      ],
+      "signedRGB": [
+        -24.01492537313433,
+        -29.223880597014926,
+        -14.611940298507463
+      ],
+      "bound": 24.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "corner-tl",
+      "cells": 2,
+      "pixels": 67,
+      "mae": 25.383084577114424,
+      "maeRGB": [
+        26.895522388059703,
+        20.17910447761194,
+        29.074626865671643
+      ],
+      "signedRGB": [
+        -26.895522388059703,
+        -20.149253731343283,
+        -29.074626865671643
+      ],
+      "bound": 26.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "corner-tr",
+      "cells": 2,
+      "pixels": 67,
+      "mae": 23.44278606965174,
+      "maeRGB": [
+        13.701492537313433,
+        29.611940298507463,
+        27.01492537313433
+      ],
+      "signedRGB": [
+        -11.582089552238806,
+        -29.611940298507463,
+        -27.01492537313433
+      ],
+      "bound": 24.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "left",
+      "cells": 1,
+      "pixels": 56,
+      "mae": 55.345238095238095,
+      "maeRGB": [
+        52.05357142857143,
+        50.17857142857143,
+        63.80357142857143
+      ],
+      "signedRGB": [
+        -52.05357142857143,
+        -50.17857142857143,
+        -63.80357142857143
+      ],
+      "bound": 56.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "right",
+      "cells": 1,
+      "pixels": 56,
+      "mae": 38.00595238095237,
+      "maeRGB": [
+        30.946428571428573,
+        67.94642857142857,
+        15.125
+      ],
+      "signedRGB": [
+        -30.660714285714285,
+        -67.94642857142857,
+        -14.625
+      ],
+      "bound": 39.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "top",
+      "cells": 2,
+      "pixels": 196,
+      "mae": 16.928571428571427,
+      "maeRGB": [
+        17.153061224489797,
+        13.428571428571429,
+        20.20408163265306
+      ],
+      "signedRGB": [
+        -17.153061224489797,
+        -13.428571428571429,
+        -20.20408163265306
+      ],
+      "bound": 17.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "bottom",
+      "cells": 2,
+      "pixels": 196,
+      "mae": 133.01020408163265,
+      "maeRGB": [
+        133.01020408163265,
+        133.01020408163265,
+        133.01020408163265
+      ],
+      "signedRGB": [
+        -20.683673469387756,
+        -20.683673469387756,
+        -20.683673469387756
+      ],
+      "bound": 140.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "corner-bl",
+      "cells": 2,
+      "pixels": 67,
+      "mae": 73.70149253731343,
+      "maeRGB": [
+        73.70149253731343,
+        73.70149253731343,
+        73.70149253731343
+      ],
+      "signedRGB": [
+        -22.507462686567163,
+        -22.507462686567163,
+        -22.507462686567163
+      ],
+      "bound": 74.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "corner-br",
+      "cells": 2,
+      "pixels": 67,
+      "mae": 67.49253731343283,
+      "maeRGB": [
+        67.49253731343283,
+        67.49253731343283,
+        67.49253731343283
+      ],
+      "signedRGB": [
+        -16.328358208955223,
+        -16.328358208955223,
+        -16.328358208955223
+      ],
+      "bound": 68.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "corner-tl",
+      "cells": 2,
+      "pixels": 67,
+      "mae": 64.67164179104478,
+      "maeRGB": [
+        64.67164179104478,
+        64.67164179104478,
+        64.67164179104478
+      ],
+      "signedRGB": [
+        19.865671641791046,
+        19.865671641791046,
+        19.865671641791046
+      ],
+      "bound": 65.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "corner-tr",
+      "cells": 2,
+      "pixels": 67,
+      "mae": 72.85074626865672,
+      "maeRGB": [
+        72.85074626865672,
+        72.85074626865672,
+        72.85074626865672
+      ],
+      "signedRGB": [
+        -55.26865671641791,
+        -55.26865671641791,
+        -55.26865671641791
+      ],
+      "bound": 73.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "left",
+      "cells": 1,
+      "pixels": 56,
+      "mae": 199.42857142857142,
+      "maeRGB": [
+        199.42857142857142,
+        199.42857142857142,
+        199.42857142857142
+      ],
+      "signedRGB": [
+        -60.035714285714285,
+        -60.035714285714285,
+        -60.035714285714285
+      ],
+      "bound": 200.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "right",
+      "cells": 1,
+      "pixels": 56,
+      "mae": 190.76785714285714,
+      "maeRGB": [
+        190.76785714285714,
+        190.76785714285714,
+        190.76785714285714
+      ],
+      "signedRGB": [
+        -0.6964285714285714,
+        -0.6964285714285714,
+        -0.6964285714285714
+      ],
+      "bound": 200.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "top",
+      "cells": 2,
+      "pixels": 196,
+      "mae": 121.97448979591837,
+      "maeRGB": [
+        121.97448979591837,
+        121.97448979591837,
+        121.97448979591837
+      ],
+      "signedRGB": [
+        -24.4234693877551,
+        -24.4234693877551,
+        -24.4234693877551
+      ],
+      "bound": 130.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "bottom",
+      "cells": 2,
+      "pixels": 196,
+      "mae": 30.09353741496599,
+      "maeRGB": [
+        42.15816326530612,
+        18.382653061224488,
+        29.739795918367346
+      ],
+      "signedRGB": [
+        -42.15816326530612,
+        -13.535714285714286,
+        -28.556122448979593
+      ],
+      "bound": 31.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "corner-bl",
+      "cells": 2,
+      "pixels": 67,
+      "mae": 22.129353233830848,
+      "maeRGB": [
+        20.611940298507463,
+        24.98507462686567,
+        20.791044776119403
+      ],
+      "signedRGB": [
+        -20.611940298507463,
+        -24.98507462686567,
+        -20.671641791044777
+      ],
+      "bound": 23.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "corner-br",
+      "cells": 2,
+      "pixels": 67,
+      "mae": 18.825870646766173,
+      "maeRGB": [
+        20.01492537313433,
+        27.850746268656717,
+        8.611940298507463
+      ],
+      "signedRGB": [
+        -20.01492537313433,
+        -27.850746268656717,
+        -5.567164179104478
+      ],
+      "bound": 19.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "corner-tl",
+      "cells": 2,
+      "pixels": 67,
+      "mae": 20.27860696517413,
+      "maeRGB": [
+        19.940298507462686,
+        13.671641791044776,
+        27.223880597014926
+      ],
+      "signedRGB": [
+        -19.940298507462686,
+        -12.298507462686567,
+        -27.223880597014926
+      ],
+      "bound": 21.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "corner-tr",
+      "cells": 2,
+      "pixels": 67,
+      "mae": 19.074626865671643,
+      "maeRGB": [
+        8.611940298507463,
+        25.313432835820894,
+        23.29850746268657
+      ],
+      "signedRGB": [
+        -4.91044776119403,
+        -21.01492537313433,
+        -22.791044776119403
+      ],
+      "bound": 20.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "left",
+      "cells": 1,
+      "pixels": 56,
+      "mae": 37.273809523809526,
+      "maeRGB": [
+        33.17857142857143,
+        37.160714285714285,
+        41.482142857142854
+      ],
+      "signedRGB": [
+        -33.17857142857143,
+        -37.160714285714285,
+        -41.482142857142854
+      ],
+      "bound": 38.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "right",
+      "cells": 1,
+      "pixels": 56,
+      "mae": 28.291666666666668,
+      "maeRGB": [
+        22.535714285714285,
+        54.464285714285715,
+        7.875
+      ],
+      "signedRGB": [
+        -20.928571428571427,
+        -54.464285714285715,
+        -4.053571428571429
+      ],
+      "bound": 29.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "top",
+      "cells": 2,
+      "pixels": 196,
+      "mae": 30.566326530612244,
+      "maeRGB": [
+        27.464285714285715,
+        22.102040816326532,
+        42.13265306122449
+      ],
+      "signedRGB": [
+        -27.005102040816325,
+        -15.928571428571429,
+        -42.13265306122449
+      ],
+      "bound": 31.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "bottom",
+      "cells": 2,
+      "pixels": 196,
+      "mae": 20.785714285714285,
+      "maeRGB": [
+        20.785714285714285,
+        20.785714285714285,
+        20.785714285714285
+      ],
+      "signedRGB": [
+        -14.76530612244898,
+        -14.76530612244898,
+        -14.76530612244898
+      ],
+      "bound": 21.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "corner-bl",
+      "cells": 2,
+      "pixels": 67,
+      "mae": 27.104477611940297,
+      "maeRGB": [
+        27.104477611940297,
+        27.104477611940297,
+        27.104477611940297
+      ],
+      "signedRGB": [
+        -15.313432835820896,
+        -15.313432835820896,
+        -15.313432835820896
+      ],
+      "bound": 28.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "corner-br",
+      "cells": 2,
+      "pixels": 67,
+      "mae": 28.00995024875622,
+      "maeRGB": [
+        28.01492537313433,
+        28.0,
+        28.01492537313433
+      ],
+      "signedRGB": [
+        -18.104477611940297,
+        -18.08955223880597,
+        -18.104477611940297
+      ],
+      "bound": 29.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "corner-tl",
+      "cells": 2,
+      "pixels": 67,
+      "mae": 27.253731343283583,
+      "maeRGB": [
+        27.253731343283583,
+        27.253731343283583,
+        27.253731343283583
+      ],
+      "signedRGB": [
+        -17.223880597014926,
+        -17.223880597014926,
+        -17.223880597014926
+      ],
+      "bound": 28.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "corner-tr",
+      "cells": 2,
+      "pixels": 67,
+      "mae": 30.47761194029851,
+      "maeRGB": [
+        30.47761194029851,
+        30.47761194029851,
+        30.47761194029851
+      ],
+      "signedRGB": [
+        -18.029850746268657,
+        -18.029850746268657,
+        -18.029850746268657
+      ],
+      "bound": 31.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "left",
+      "cells": 1,
+      "pixels": 56,
+      "mae": 117.30357142857143,
+      "maeRGB": [
+        117.30357142857143,
+        117.30357142857143,
+        117.30357142857143
+      ],
+      "signedRGB": [
+        -74.91071428571429,
+        -74.91071428571429,
+        -74.91071428571429
+      ],
+      "bound": 120.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "right",
+      "cells": 1,
+      "pixels": 56,
+      "mae": 99.64285714285714,
+      "maeRGB": [
+        99.64285714285714,
+        99.64285714285714,
+        99.64285714285714
+      ],
+      "signedRGB": [
+        -42.392857142857146,
+        -42.392857142857146,
+        -42.392857142857146
+      ],
+      "bound": 100.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "top",
+      "cells": 2,
+      "pixels": 196,
+      "mae": 16.698979591836736,
+      "maeRGB": [
+        16.698979591836736,
+        16.698979591836736,
+        16.698979591836736
+      ],
+      "signedRGB": [
+        -12.841836734693878,
+        -12.841836734693878,
+        -12.841836734693878
+      ],
+      "bound": 17.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "bottom",
+      "cells": 2,
+      "pixels": 196,
+      "mae": 16.537414965986393,
+      "maeRGB": [
+        20.596938775510203,
+        13.020408163265307,
+        15.994897959183673
+      ],
+      "signedRGB": [
+        -20.596938775510203,
+        -13.020408163265307,
+        -15.994897959183673
+      ],
+      "bound": 17.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "corner-bl",
+      "cells": 2,
+      "pixels": 67,
+      "mae": 19.91044776119403,
+      "maeRGB": [
+        21.46268656716418,
+        19.80597014925373,
+        18.46268656716418
+      ],
+      "signedRGB": [
+        -21.313432835820894,
+        -19.80597014925373,
+        -18.432835820895523
+      ],
+      "bound": 20.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "corner-br",
+      "cells": 2,
+      "pixels": 67,
+      "mae": 16.950248756218905,
+      "maeRGB": [
+        17.776119402985074,
+        22.91044776119403,
+        10.164179104477611
+      ],
+      "signedRGB": [
+        -17.776119402985074,
+        -22.91044776119403,
+        -8.402985074626866
+      ],
+      "bound": 17.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "corner-tl",
+      "cells": 2,
+      "pixels": 67,
+      "mae": 18.875621890547265,
+      "maeRGB": [
+        20.149253731343283,
+        13.925373134328359,
+        22.55223880597015
+      ],
+      "signedRGB": [
+        -20.149253731343283,
+        -13.537313432835822,
+        -22.55223880597015
+      ],
+      "bound": 19.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "corner-tr",
+      "cells": 2,
+      "pixels": 67,
+      "mae": 17.402985074626866,
+      "maeRGB": [
+        8.492537313432836,
+        23.149253731343283,
+        20.567164179104477
+      ],
+      "signedRGB": [
+        -5.298507462686567,
+        -23.149253731343283,
+        -20.567164179104477
+      ],
+      "bound": 18.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "left",
+      "cells": 1,
+      "pixels": 56,
+      "mae": 55.345238095238095,
+      "maeRGB": [
+        52.05357142857143,
+        50.17857142857143,
+        63.80357142857143
+      ],
+      "signedRGB": [
+        -52.05357142857143,
+        -50.17857142857143,
+        -63.80357142857143
+      ],
+      "bound": 56.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "right",
+      "cells": 1,
+      "pixels": 56,
+      "mae": 38.00595238095237,
+      "maeRGB": [
+        30.946428571428573,
+        67.94642857142857,
+        15.125
+      ],
+      "signedRGB": [
+        -30.660714285714285,
+        -67.94642857142857,
+        -14.625
+      ],
+      "bound": 39.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "top",
+      "cells": 2,
+      "pixels": 196,
+      "mae": 16.928571428571427,
+      "maeRGB": [
+        17.153061224489797,
+        13.428571428571429,
+        20.20408163265306
+      ],
+      "signedRGB": [
+        -17.153061224489797,
+        -13.428571428571429,
+        -20.20408163265306
+      ],
+      "bound": 17.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "bottom",
+      "cells": 17,
+      "pixels": 2440,
+      "mae": 47.93633879781421,
+      "maeRGB": [
+        47.937295081967214,
+        47.9344262295082,
+        47.937295081967214
+      ],
+      "signedRGB": [
+        -23.46844262295082,
+        -23.465573770491805,
+        -23.46844262295082
+      ],
+      "bound": 48.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "corner-bl",
+      "cells": 17,
+      "pixels": 666,
+      "mae": 29.98948948948949,
+      "maeRGB": [
+        29.98948948948949,
+        29.98798798798799,
+        29.99099099099099
+      ],
+      "signedRGB": [
+        -17.22972972972973,
+        -17.22822822822823,
+        -17.234234234234233
+      ],
+      "bound": 30.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "corner-br",
+      "cells": 17,
+      "pixels": 666,
+      "mae": 25.11161161161161,
+      "maeRGB": [
+        25.11261261261261,
+        25.10960960960961,
+        25.11261261261261
+      ],
+      "signedRGB": [
+        -13.241741741741741,
+        -13.241741741741741,
+        -13.244744744744745
+      ],
+      "bound": 26.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "corner-tl",
+      "cells": 17,
+      "pixels": 666,
+      "mae": 27.647147147147148,
+      "maeRGB": [
+        27.647147147147148,
+        27.644144144144143,
+        27.65015015015015
+      ],
+      "signedRGB": [
+        -14.397897897897899,
+        -14.394894894894895,
+        -14.4009009009009
+      ],
+      "bound": 28.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "corner-tr",
+      "cells": 17,
+      "pixels": 666,
+      "mae": 26.75775775775776,
+      "maeRGB": [
+        26.75825825825826,
+        26.75075075075075,
+        26.764264264264263
+      ],
+      "signedRGB": [
+        -15.343843843843844,
+        -15.333333333333334,
+        -15.34984984984985
+      ],
+      "bound": 27.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "left",
+      "cells": 15,
+      "pixels": 1016,
+      "mae": 76.81725721784777,
+      "maeRGB": [
+        76.81791338582677,
+        76.81692913385827,
+        76.81692913385827
+      ],
+      "signedRGB": [
+        -31.249015748031496,
+        -31.246062992125985,
+        -31.25
+      ],
+      "bound": 77.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "right",
+      "cells": 15,
+      "pixels": 1016,
+      "mae": 73.75885826771653,
+      "maeRGB": [
+        73.76181102362204,
+        73.75393700787401,
+        73.76082677165354
+      ],
+      "signedRGB": [
+        -30.58267716535433,
+        -30.572834645669293,
+        -30.583661417322833
+      ],
+      "bound": 74.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "top",
+      "cells": 17,
+      "pixels": 2440,
+      "mae": 52.60560109289618,
+      "maeRGB": [
+        52.60655737704918,
+        52.60368852459016,
+        52.60655737704918
+      ],
+      "signedRGB": [
+        -12.689344262295082,
+        -12.686475409836065,
+        -12.689344262295082
+      ],
+      "bound": 53.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "dark-or-other-solid",
+      "side": "bottom",
+      "cells": 7,
+      "pixels": 1028,
+      "mae": 19.9798962386511,
+      "maeRGB": [
+        22.43579766536965,
+        15.63715953307393,
+        21.866731517509727
+      ],
+      "signedRGB": [
+        -21.455252918287936,
+        -14.656614785992218,
+        -20.886186770428015
+      ],
+      "bound": 20.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "dark-or-other-solid",
+      "side": "corner-bl",
+      "cells": 7,
+      "pixels": 293,
+      "mae": 14.693970420932878,
+      "maeRGB": [
+        15.733788395904437,
+        13.058020477815699,
+        15.290102389078498
+      ],
+      "signedRGB": [
+        -14.757679180887372,
+        -12.361774744027304,
+        -14.709897610921502
+      ],
+      "bound": 15.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "dark-or-other-solid",
+      "side": "corner-br",
+      "cells": 7,
+      "pixels": 293,
+      "mae": 14.749715585893062,
+      "maeRGB": [
+        15.788395904436861,
+        13.119453924914676,
+        15.341296928327646
+      ],
+      "signedRGB": [
+        -15.167235494880545,
+        -12.77815699658703,
+        -15.1160409556314
+      ],
+      "bound": 15.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "dark-or-other-solid",
+      "side": "corner-tl",
+      "cells": 7,
+      "pixels": 293,
+      "mae": 14.01023890784983,
+      "maeRGB": [
+        15.051194539249147,
+        12.37542662116041,
+        14.604095563139932
+      ],
+      "signedRGB": [
+        -14.361774744027304,
+        -11.965870307167236,
+        -14.310580204778157
+      ],
+      "bound": 15.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "dark-or-other-solid",
+      "side": "corner-tr",
+      "cells": 7,
+      "pixels": 293,
+      "mae": 14.969283276450511,
+      "maeRGB": [
+        16.006825938566553,
+        13.334470989761092,
+        15.566552901023892
+      ],
+      "signedRGB": [
+        -15.590443686006825,
+        -13.197952218430034,
+        -15.546075085324231
+      ],
+      "bound": 15.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "dark-or-other-solid",
+      "side": "left",
+      "cells": 5,
+      "pixels": 388,
+      "mae": 31.759450171821303,
+      "maeRGB": [
+        35.8041237113402,
+        24.445876288659793,
+        35.02835051546392
+      ],
+      "signedRGB": [
+        -32.654639175257735,
+        -21.29639175257732,
+        -31.878865979381445
+      ],
+      "bound": 32.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "dark-or-other-solid",
+      "side": "right",
+      "cells": 5,
+      "pixels": 388,
+      "mae": 29.648625429553263,
+      "maeRGB": [
+        33.69329896907217,
+        22.335051546391753,
+        32.91752577319588
+      ],
+      "signedRGB": [
+        -29.34278350515464,
+        -17.984536082474225,
+        -28.567010309278352
+      ],
+      "bound": 30.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "dark-or-other-solid",
+      "side": "top",
+      "cells": 7,
+      "pixels": 1028,
+      "mae": 19.120622568093385,
+      "maeRGB": [
+        21.575875486381324,
+        14.778210116731518,
+        21.007782101167315
+      ],
+      "signedRGB": [
+        -21.486381322957197,
+        -14.688715953307392,
+        -20.91828793774319
+      ],
+      "bound": 20.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "light-solid",
+      "side": "bottom",
+      "cells": 4,
+      "pixels": 578,
+      "mae": 37.49942329873126,
+      "maeRGB": [
+        37.80968858131488,
+        37.77162629757785,
+        36.916955017301035
+      ],
+      "signedRGB": [
+        -37.80968858131488,
+        -37.77162629757785,
+        -36.916955017301035
+      ],
+      "bound": 38.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "light-solid",
+      "side": "corner-bl",
+      "cells": 4,
+      "pixels": 165,
+      "mae": 27.34141414141414,
+      "maeRGB": [
+        27.503030303030304,
+        27.387878787878787,
+        27.133333333333333
+      ],
+      "signedRGB": [
+        -27.503030303030304,
+        -27.387878787878787,
+        -27.133333333333333
+      ],
+      "bound": 28.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "light-solid",
+      "side": "corner-br",
+      "cells": 4,
+      "pixels": 165,
+      "mae": 27.33737373737374,
+      "maeRGB": [
+        27.503030303030304,
+        27.381818181818183,
+        27.12727272727273
+      ],
+      "signedRGB": [
+        -27.503030303030304,
+        -27.381818181818183,
+        -27.12727272727273
+      ],
+      "bound": 28.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "light-solid",
+      "side": "corner-tl",
+      "cells": 4,
+      "pixels": 165,
+      "mae": 27.33737373737374,
+      "maeRGB": [
+        27.503030303030304,
+        27.387878787878787,
+        27.12121212121212
+      ],
+      "signedRGB": [
+        -27.503030303030304,
+        -27.387878787878787,
+        -27.12121212121212
+      ],
+      "bound": 28.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "light-solid",
+      "side": "corner-tr",
+      "cells": 4,
+      "pixels": 165,
+      "mae": 27.34141414141414,
+      "maeRGB": [
+        27.509090909090908,
+        27.387878787878787,
+        27.12727272727273
+      ],
+      "signedRGB": [
+        -27.509090909090908,
+        -27.387878787878787,
+        -27.12727272727273
+      ],
+      "bound": 28.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "light-solid",
+      "side": "left",
+      "cells": 3,
+      "pixels": 222,
+      "mae": 54.208708708708706,
+      "maeRGB": [
+        54.288288288288285,
+        54.18468468468468,
+        54.153153153153156
+      ],
+      "signedRGB": [
+        -54.288288288288285,
+        -54.18468468468468,
+        -54.153153153153156
+      ],
+      "bound": 55.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "light-solid",
+      "side": "right",
+      "cells": 3,
+      "pixels": 222,
+      "mae": 54.208708708708706,
+      "maeRGB": [
+        54.288288288288285,
+        54.18468468468468,
+        54.153153153153156
+      ],
+      "signedRGB": [
+        -54.288288288288285,
+        -54.18468468468468,
+        -54.153153153153156
+      ],
+      "bound": 55.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "light-solid",
+      "side": "top",
+      "cells": 4,
+      "pixels": 578,
+      "mae": 37.49942329873126,
+      "maeRGB": [
+        37.80968858131488,
+        37.77162629757785,
+        36.916955017301035
+      ],
+      "signedRGB": [
+        -37.80968858131488,
+        -37.77162629757785,
+        -36.916955017301035
+      ],
+      "bound": 38.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "bottom",
+      "cells": 4,
+      "pixels": 414,
+      "mae": 27.319645732689207,
+      "maeRGB": [
+        33.6256038647343,
+        18.833333333333332,
+        29.5
+      ],
+      "signedRGB": [
+        -33.6256038647343,
+        -18.417874396135264,
+        -29.5
+      ],
+      "bound": 28.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "corner-bl",
+      "cells": 4,
+      "pixels": 124,
+      "mae": 21.677419354838708,
+      "maeRGB": [
+        23.330645161290324,
+        22.274193548387096,
+        19.427419354838708
+      ],
+      "signedRGB": [
+        -23.330645161290324,
+        -22.274193548387096,
+        -19.427419354838708
+      ],
+      "bound": 22.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "corner-br",
+      "cells": 4,
+      "pixels": 124,
+      "mae": 18.89516129032258,
+      "maeRGB": [
+        19.370967741935484,
+        25.362903225806452,
+        11.951612903225806
+      ],
+      "signedRGB": [
+        -19.370967741935484,
+        -25.362903225806452,
+        -11.564516129032258
+      ],
+      "bound": 19.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "corner-tl",
+      "cells": 4,
+      "pixels": 124,
+      "mae": 20.948924731182796,
+      "maeRGB": [
+        20.169354838709676,
+        18.798387096774192,
+        23.879032258064516
+      ],
+      "signedRGB": [
+        -20.169354838709676,
+        -18.491935483870968,
+        -23.879032258064516
+      ],
+      "bound": 21.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "corner-tr",
+      "cells": 4,
+      "pixels": 124,
+      "mae": 17.634408602150536,
+      "maeRGB": [
+        9.82258064516129,
+        22.68548387096774,
+        20.39516129032258
+      ],
+      "signedRGB": [
+        -9.112903225806452,
+        -22.68548387096774,
+        -20.39516129032258
+      ],
+      "bound": 18.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "left",
+      "cells": 3,
+      "pixels": 146,
+      "mae": 39.0662100456621,
+      "maeRGB": [
+        36.76027397260274,
+        45.31506849315068,
+        35.12328767123287
+      ],
+      "signedRGB": [
+        -36.76027397260274,
+        -45.31506849315068,
+        -35.12328767123287
+      ],
+      "bound": 40.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "right",
+      "cells": 3,
+      "pixels": 146,
+      "mae": 28.84474885844749,
+      "maeRGB": [
+        18.52054794520548,
+        52.26712328767123,
+        15.746575342465754
+      ],
+      "signedRGB": [
+        -16.589041095890412,
+        -52.26712328767123,
+        -14.267123287671232
+      ],
+      "bound": 29.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "top",
+      "cells": 4,
+      "pixels": 414,
+      "mae": 27.544283413848632,
+      "maeRGB": [
+        29.5,
+        18.707729468599034,
+        34.42512077294686
+      ],
+      "signedRGB": [
+        -29.5,
+        -17.915458937198068,
+        -34.42512077294686
+      ],
+      "bound": 28.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "bottom",
+      "cells": 32,
+      "pixels": 3874,
+      "mae": 16.5988642230253,
+      "maeRGB": [
+        16.58544140423335,
+        16.625709860609188,
+        16.58544140423335
+      ],
+      "signedRGB": [
+        -12.509550851832731,
+        -12.54981930820857,
+        -12.509550851832731
+      ],
+      "bound": 17.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "corner-bl",
+      "cells": 32,
+      "pixels": 1095,
+      "mae": 20.730898021308978,
+      "maeRGB": [
+        20.723287671232878,
+        20.746118721461187,
+        20.723287671232878
+      ],
+      "signedRGB": [
+        -15.168949771689498,
+        -15.197260273972603,
+        -15.176255707762557
+      ],
+      "bound": 21.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "corner-br",
+      "cells": 32,
+      "pixels": 1095,
+      "mae": 20.707153729071536,
+      "maeRGB": [
+        20.698630136986303,
+        20.72511415525114,
+        20.69771689497717
+      ],
+      "signedRGB": [
+        -16.660273972602738,
+        -16.688584474885843,
+        -16.663013698630138
+      ],
+      "bound": 21.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "corner-tl",
+      "cells": 32,
+      "pixels": 1095,
+      "mae": 20.868188736681887,
+      "maeRGB": [
+        20.862100456621004,
+        20.877625570776257,
+        20.8648401826484
+      ],
+      "signedRGB": [
+        -15.855707762557078,
+        -15.871232876712329,
+        -15.858447488584474
+      ],
+      "bound": 21.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "corner-tr",
+      "cells": 32,
+      "pixels": 1095,
+      "mae": 19.74764079147641,
+      "maeRGB": [
+        19.740639269406394,
+        19.76164383561644,
+        19.740639269406394
+      ],
+      "signedRGB": [
+        -14.584474885844749,
+        -14.605479452054794,
+        -14.584474885844749
+      ],
+      "bound": 20.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "left",
+      "cells": 26,
+      "pixels": 1482,
+      "mae": 59.19343229869546,
+      "maeRGB": [
+        59.17341430499325,
+        59.233468286099864,
+        59.17341430499325
+      ],
+      "signedRGB": [
+        -43.3421052631579,
+        -43.40215924426451,
+        -43.3421052631579
+      ],
+      "bound": 60.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "right",
+      "cells": 26,
+      "pixels": 1482,
+      "mae": 57.47863247863248,
+      "maeRGB": [
+        57.446693657219974,
+        57.54251012145749,
+        57.446693657219974
+      ],
+      "signedRGB": [
+        -45.11875843454791,
+        -45.21457489878542,
+        -45.11875843454791
+      ],
+      "bound": 58.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "top",
+      "cells": 32,
+      "pixels": 3874,
+      "mae": 18.11400791602134,
+      "maeRGB": [
+        18.106350025813114,
+        18.12932369643779,
+        18.106350025813114
+      ],
+      "signedRGB": [
+        -14.299948373773876,
+        -14.322922044398554,
+        -14.299948373773876
+      ],
+      "bound": 19.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "dark-or-other-solid",
+      "side": "bottom",
+      "cells": 7,
+      "pixels": 822,
+      "mae": 18.20721816707218,
+      "maeRGB": [
+        18.156934306569344,
+        18.156934306569344,
+        18.30778588807786
+      ],
+      "signedRGB": [
+        -18.156934306569344,
+        -18.156934306569344,
+        -18.30778588807786
+      ],
+      "bound": 19.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "dark-or-other-solid",
+      "side": "corner-bl",
+      "cells": 7,
+      "pixels": 244,
+      "mae": 20.785519125683063,
+      "maeRGB": [
+        20.741803278688526,
+        20.75,
+        20.864754098360656
+      ],
+      "signedRGB": [
+        -20.65983606557377,
+        -20.668032786885245,
+        -20.7827868852459
+      ],
+      "bound": 21.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "dark-or-other-solid",
+      "side": "corner-br",
+      "cells": 7,
+      "pixels": 244,
+      "mae": 19.601092896174865,
+      "maeRGB": [
+        19.55327868852459,
+        19.561475409836067,
+        19.688524590163933
+      ],
+      "signedRGB": [
+        -19.50409836065574,
+        -19.512295081967213,
+        -19.639344262295083
+      ],
+      "bound": 20.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "dark-or-other-solid",
+      "side": "corner-tl",
+      "cells": 7,
+      "pixels": 244,
+      "mae": 20.207650273224044,
+      "maeRGB": [
+        20.168032786885245,
+        20.168032786885245,
+        20.28688524590164
+      ],
+      "signedRGB": [
+        -20.118852459016395,
+        -20.118852459016395,
+        -20.24590163934426
+      ],
+      "bound": 21.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "dark-or-other-solid",
+      "side": "corner-tr",
+      "cells": 7,
+      "pixels": 244,
+      "mae": 19.307377049180328,
+      "maeRGB": [
+        19.274590163934427,
+        19.274590163934427,
+        19.37295081967213
+      ],
+      "signedRGB": [
+        -19.192622950819672,
+        -19.192622950819672,
+        -19.307377049180328
+      ],
+      "bound": 20.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "dark-or-other-solid",
+      "side": "left",
+      "cells": 5,
+      "pixels": 294,
+      "mae": 55.65532879818594,
+      "maeRGB": [
+        55.58163265306123,
+        55.58163265306123,
+        55.802721088435376
+      ],
+      "signedRGB": [
+        -55.58163265306123,
+        -55.58163265306123,
+        -55.802721088435376
+      ],
+      "bound": 56.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "dark-or-other-solid",
+      "side": "right",
+      "cells": 5,
+      "pixels": 294,
+      "mae": 53.1281179138322,
+      "maeRGB": [
+        53.054421768707485,
+        53.054421768707485,
+        53.275510204081634
+      ],
+      "signedRGB": [
+        -53.054421768707485,
+        -53.054421768707485,
+        -53.275510204081634
+      ],
+      "bound": 54.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "dark-or-other-solid",
+      "side": "top",
+      "cells": 7,
+      "pixels": 822,
+      "mae": 17.857664233576642,
+      "maeRGB": [
+        17.82116788321168,
+        17.82116788321168,
+        17.93065693430657
+      ],
+      "signedRGB": [
+        -17.82116788321168,
+        -17.82116788321168,
+        -17.93065693430657
+      ],
+      "bound": 18.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "light-solid",
+      "side": "bottom",
+      "cells": 3,
+      "pixels": 366,
+      "mae": 23.87249544626594,
+      "maeRGB": [
+        24.05464480874317,
+        24.05464480874317,
+        23.508196721311474
+      ],
+      "signedRGB": [
+        -24.05464480874317,
+        -24.05464480874317,
+        -23.508196721311474
+      ],
+      "bound": 24.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "light-solid",
+      "side": "corner-bl",
+      "cells": 3,
+      "pixels": 112,
+      "mae": 26.372023809523807,
+      "maeRGB": [
+        26.607142857142858,
+        26.598214285714285,
+        25.910714285714285
+      ],
+      "signedRGB": [
+        -26.607142857142858,
+        -26.598214285714285,
+        -25.910714285714285
+      ],
+      "bound": 27.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "light-solid",
+      "side": "corner-br",
+      "cells": 3,
+      "pixels": 112,
+      "mae": 26.383928571428573,
+      "maeRGB": [
+        26.625,
+        26.616071428571427,
+        25.910714285714285
+      ],
+      "signedRGB": [
+        -26.625,
+        -26.616071428571427,
+        -25.910714285714285
+      ],
+      "bound": 27.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "light-solid",
+      "side": "corner-tl",
+      "cells": 3,
+      "pixels": 112,
+      "mae": 24.625,
+      "maeRGB": [
+        24.8125,
+        24.803571428571427,
+        24.258928571428573
+      ],
+      "signedRGB": [
+        -24.8125,
+        -24.803571428571427,
+        -24.258928571428573
+      ],
+      "bound": 25.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "light-solid",
+      "side": "corner-tr",
+      "cells": 3,
+      "pixels": 112,
+      "mae": 24.61309523809524,
+      "maeRGB": [
+        24.794642857142858,
+        24.785714285714285,
+        24.258928571428573
+      ],
+      "signedRGB": [
+        -24.794642857142858,
+        -24.785714285714285,
+        -24.258928571428573
+      ],
+      "bound": 25.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "light-solid",
+      "side": "left",
+      "cells": 2,
+      "pixels": 130,
+      "mae": 63.2974358974359,
+      "maeRGB": [
+        63.48461538461538,
+        63.48461538461538,
+        62.92307692307692
+      ],
+      "signedRGB": [
+        -63.48461538461538,
+        -63.48461538461538,
+        -62.92307692307692
+      ],
+      "bound": 64.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "light-solid",
+      "side": "right",
+      "cells": 2,
+      "pixels": 130,
+      "mae": 63.2974358974359,
+      "maeRGB": [
+        63.48461538461538,
+        63.48461538461538,
+        62.92307692307692
+      ],
+      "signedRGB": [
+        -63.48461538461538,
+        -63.48461538461538,
+        -62.92307692307692
+      ],
+      "bound": 64.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "light-solid",
+      "side": "top",
+      "cells": 3,
+      "pixels": 366,
+      "mae": 21.47176684881603,
+      "maeRGB": [
+        21.55191256830601,
+        21.55191256830601,
+        21.311475409836067
+      ],
+      "signedRGB": [
+        -21.55191256830601,
+        -21.55191256830601,
+        -21.311475409836067
+      ],
+      "bound": 22.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "bottom",
+      "cells": 4,
+      "pixels": 414,
+      "mae": 17.781803542673106,
+      "maeRGB": [
+        22.42512077294686,
+        13.16183574879227,
+        17.758454106280194
+      ],
+      "signedRGB": [
+        -22.42512077294686,
+        -13.16183574879227,
+        -17.758454106280194
+      ],
+      "bound": 18.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "corner-bl",
+      "cells": 4,
+      "pixels": 124,
+      "mae": 21.868279569892472,
+      "maeRGB": [
+        23.572580645161292,
+        21.258064516129032,
+        20.774193548387096
+      ],
+      "signedRGB": [
+        -23.072580645161292,
+        -21.258064516129032,
+        -20.774193548387096
+      ],
+      "bound": 22.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "corner-br",
+      "cells": 4,
+      "pixels": 124,
+      "mae": 19.481182795698924,
+      "maeRGB": [
+        18.798387096774192,
+        25.217741935483872,
+        14.42741935483871
+      ],
+      "signedRGB": [
+        -18.798387096774192,
+        -25.217741935483872,
+        -14.314516129032258
+      ],
+      "bound": 20.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "corner-tl",
+      "cells": 4,
+      "pixels": 124,
+      "mae": 20.771505376344084,
+      "maeRGB": [
+        20.661290322580644,
+        18.806451612903224,
+        22.846774193548388
+      ],
+      "signedRGB": [
+        -20.661290322580644,
+        -18.806451612903224,
+        -22.04032258064516
+      ],
+      "bound": 21.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "corner-tr",
+      "cells": 4,
+      "pixels": 124,
+      "mae": 18.002688172043012,
+      "maeRGB": [
+        10.161290322580646,
+        23.596774193548388,
+        20.25
+      ],
+      "signedRGB": [
+        -9.46774193548387,
+        -23.596774193548388,
+        -20.25
+      ],
+      "bound": 19.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "left",
+      "cells": 3,
+      "pixels": 146,
+      "mae": 51.76940639269406,
+      "maeRGB": [
+        50.3013698630137,
+        54.12328767123287,
+        50.88356164383562
+      ],
+      "signedRGB": [
+        -50.3013698630137,
+        -54.12328767123287,
+        -50.88356164383562
+      ],
+      "bound": 52.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "right",
+      "cells": 3,
+      "pixels": 146,
+      "mae": 36.262557077625566,
+      "maeRGB": [
+        23.027397260273972,
+        65.48630136986301,
+        20.273972602739725
+      ],
+      "signedRGB": [
+        -23.013698630136986,
+        -65.48630136986301,
+        -20.273972602739725
+      ],
+      "bound": 37.0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "top",
+      "cells": 4,
+      "pixels": 414,
+      "mae": 17.344605475040257,
+      "maeRGB": [
+        18.033816425120772,
+        12.545893719806763,
+        21.454106280193237
+      ],
+      "signedRGB": [
+        -18.033816425120772,
+        -12.545893719806763,
+        -21.454106280193237
+      ],
+      "bound": 18.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "bottom",
+      "cells": 15,
+      "pixels": 4544,
+      "mae": 63.85299295774648,
+      "maeRGB": [
+        63.84198943661972,
+        63.858494718309856,
+        63.858494718309856
+      ],
+      "signedRGB": [
+        -48.57878521126761,
+        -48.60585387323944,
+        -48.60541373239437
+      ],
+      "bound": 64.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "corner-bl",
+      "cells": 15,
+      "pixels": 1229,
+      "mae": 34.18633034987795,
+      "maeRGB": [
+        34.181448331977215,
+        34.18958502847844,
+        34.18795768917819
+      ],
+      "signedRGB": [
+        -27.239218877135883,
+        -27.250610252237593,
+        -27.248982912937347
+      ],
+      "bound": 35.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "corner-br",
+      "cells": 15,
+      "pixels": 1229,
+      "mae": 29.688093300786544,
+      "maeRGB": [
+        29.6826688364524,
+        29.690805532953622,
+        29.690805532953622
+      ],
+      "signedRGB": [
+        -21.38161106590724,
+        -21.394629780309195,
+        -21.39300244100895
+      ],
+      "bound": 30.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "corner-tl",
+      "cells": 15,
+      "pixels": 1229,
+      "mae": 30.312449145646866,
+      "maeRGB": [
+        30.30675345809601,
+        30.315703824247354,
+        30.314890154597233
+      ],
+      "signedRGB": [
+        -22.66965012205045,
+        -22.67860048820179,
+        -22.677786818551667
+      ],
+      "bound": 31.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "corner-tr",
+      "cells": 15,
+      "pixels": 1229,
+      "mae": 33.600216978573364,
+      "maeRGB": [
+        33.59804719283971,
+        33.60211554109032,
+        33.60048820179007
+      ],
+      "signedRGB": [
+        -26.743694060211553,
+        -26.759153783563875,
+        -26.752644426362895
+      ],
+      "bound": 34.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "left",
+      "cells": 13,
+      "pixels": 1888,
+      "mae": 91.21433615819208,
+      "maeRGB": [
+        91.21398305084746,
+        91.21504237288136,
+        91.21398305084746
+      ],
+      "signedRGB": [
+        -57.23199152542373,
+        -57.27012711864407,
+        -57.26377118644068
+      ],
+      "bound": 92.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "right",
+      "cells": 13,
+      "pixels": 1888,
+      "mae": 100.30632062146893,
+      "maeRGB": [
+        100.31091101694915,
+        100.30455508474576,
+        100.30349576271186
+      ],
+      "signedRGB": [
+        -73.11599576271186,
+        -73.13930084745763,
+        -73.13824152542372
+      ],
+      "bound": 110.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "top",
+      "cells": 15,
+      "pixels": 4544,
+      "mae": 59.654709507042256,
+      "maeRGB": [
+        59.670334507042256,
+        59.648987676056336,
+        59.64480633802817
+      ],
+      "signedRGB": [
+        -39.59727112676056,
+        -39.67231514084507,
+        -39.666373239436616
+      ],
+      "bound": 60.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "dark-or-other-solid",
+      "side": "bottom",
+      "cells": 7,
+      "pixels": 2056,
+      "mae": 23.507782101167315,
+      "maeRGB": [
+        25.89250972762646,
+        19.291828793774318,
+        25.339007782101167
+      ],
+      "signedRGB": [
+        -25.89250972762646,
+        -19.291828793774318,
+        -25.339007782101167
+      ],
+      "bound": 24.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "dark-or-other-solid",
+      "side": "corner-bl",
+      "cells": 7,
+      "pixels": 593,
+      "mae": 15.302417088251826,
+      "maeRGB": [
+        15.890387858347387,
+        13.937605396290051,
+        16.079258010118043
+      ],
+      "signedRGB": [
+        -14.790893760539628,
+        -13.937605396290051,
+        -14.254637436762225
+      ],
+      "bound": 16.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "dark-or-other-solid",
+      "side": "corner-br",
+      "cells": 7,
+      "pixels": 593,
+      "mae": 14.617200674536257,
+      "maeRGB": [
+        15.202360876897133,
+        13.252951096121416,
+        15.396290050590219
+      ],
+      "signedRGB": [
+        -14.102866779089377,
+        -13.252951096121416,
+        -13.571669477234401
+      ],
+      "bound": 15.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "dark-or-other-solid",
+      "side": "corner-tl",
+      "cells": 7,
+      "pixels": 593,
+      "mae": 15.080944350758854,
+      "maeRGB": [
+        15.66610455311973,
+        13.718381112984822,
+        15.858347386172007
+      ],
+      "signedRGB": [
+        -14.566610455311974,
+        -13.718381112984822,
+        -14.03372681281619
+      ],
+      "bound": 16.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "dark-or-other-solid",
+      "side": "corner-tr",
+      "cells": 7,
+      "pixels": 593,
+      "mae": 14.834738617200674,
+      "maeRGB": [
+        15.418212478920742,
+        13.473861720067454,
+        15.612141652613827
+      ],
+      "signedRGB": [
+        -14.318718381112985,
+        -13.473861720067454,
+        -13.78752107925801
+      ],
+      "bound": 15.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "dark-or-other-solid",
+      "side": "left",
+      "cells": 5,
+      "pixels": 776,
+      "mae": 33.144329896907216,
+      "maeRGB": [
+        36.90850515463917,
+        26.31958762886598,
+        36.204896907216494
+      ],
+      "signedRGB": [
+        -36.90850515463917,
+        -26.31958762886598,
+        -36.204896907216494
+      ],
+      "bound": 34.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "dark-or-other-solid",
+      "side": "right",
+      "cells": 5,
+      "pixels": 776,
+      "mae": 30.86984536082474,
+      "maeRGB": [
+        34.63530927835052,
+        24.04381443298969,
+        33.93041237113402
+      ],
+      "signedRGB": [
+        -34.63530927835052,
+        -24.04381443298969,
+        -33.93041237113402
+      ],
+      "bound": 31.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "dark-or-other-solid",
+      "side": "top",
+      "cells": 7,
+      "pixels": 2056,
+      "mae": 23.46271076523995,
+      "maeRGB": [
+        25.843385214007778,
+        19.249027237354085,
+        25.295719844357976
+      ],
+      "signedRGB": [
+        -25.843385214007778,
+        -19.249027237354085,
+        -25.295719844357976
+      ],
+      "bound": 24.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "light-solid",
+      "side": "bottom",
+      "cells": 3,
+      "pixels": 916,
+      "mae": 105.7612809315866,
+      "maeRGB": [
+        105.24454148471615,
+        105.24890829694323,
+        106.79039301310044
+      ],
+      "signedRGB": [
+        -105.24454148471615,
+        -105.24890829694323,
+        -106.79039301310044
+      ],
+      "bound": 110.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "light-solid",
+      "side": "corner-bl",
+      "cells": 3,
+      "pixels": 259,
+      "mae": 56.22651222651223,
+      "maeRGB": [
+        56.03088803088803,
+        56.08108108108108,
+        56.567567567567565
+      ],
+      "signedRGB": [
+        -56.03088803088803,
+        -56.08108108108108,
+        -56.567567567567565
+      ],
+      "bound": 57.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "light-solid",
+      "side": "corner-br",
+      "cells": 3,
+      "pixels": 259,
+      "mae": 56.22651222651223,
+      "maeRGB": [
+        56.03088803088803,
+        56.08108108108108,
+        56.567567567567565
+      ],
+      "signedRGB": [
+        -56.03088803088803,
+        -56.08108108108108,
+        -56.567567567567565
+      ],
+      "bound": 57.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "light-solid",
+      "side": "corner-tl",
+      "cells": 3,
+      "pixels": 259,
+      "mae": 56.22651222651223,
+      "maeRGB": [
+        56.03088803088803,
+        56.08108108108108,
+        56.567567567567565
+      ],
+      "signedRGB": [
+        -56.03088803088803,
+        -56.08108108108108,
+        -56.567567567567565
+      ],
+      "bound": 57.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "light-solid",
+      "side": "corner-tr",
+      "cells": 3,
+      "pixels": 259,
+      "mae": 56.22651222651223,
+      "maeRGB": [
+        56.03088803088803,
+        56.08108108108108,
+        56.567567567567565
+      ],
+      "signedRGB": [
+        -56.03088803088803,
+        -56.08108108108108,
+        -56.567567567567565
+      ],
+      "bound": 57.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "light-solid",
+      "side": "left",
+      "cells": 2,
+      "pixels": 332,
+      "mae": 150.71887550200805,
+      "maeRGB": [
+        150.07831325301206,
+        150.1024096385542,
+        151.97590361445782
+      ],
+      "signedRGB": [
+        -150.07831325301206,
+        -150.1024096385542,
+        -151.97590361445782
+      ],
+      "bound": 160.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "light-solid",
+      "side": "right",
+      "cells": 2,
+      "pixels": 332,
+      "mae": 150.71887550200805,
+      "maeRGB": [
+        150.07831325301206,
+        150.1024096385542,
+        151.97590361445782
+      ],
+      "signedRGB": [
+        -150.07831325301206,
+        -150.1024096385542,
+        -151.97590361445782
+      ],
+      "bound": 160.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "light-solid",
+      "side": "top",
+      "cells": 3,
+      "pixels": 916,
+      "mae": 105.7612809315866,
+      "maeRGB": [
+        105.24454148471615,
+        105.24890829694323,
+        106.79039301310044
+      ],
+      "signedRGB": [
+        -105.24454148471615,
+        -105.24890829694323,
+        -106.79039301310044
+      ],
+      "bound": 110.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "bottom",
+      "cells": 3,
+      "pixels": 732,
+      "mae": 28.152550091074684,
+      "maeRGB": [
+        34.85792349726776,
+        20.233606557377048,
+        29.366120218579233
+      ],
+      "signedRGB": [
+        -34.85792349726776,
+        -20.170765027322403,
+        -29.366120218579233
+      ],
+      "bound": 29.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "corner-bl",
+      "cells": 3,
+      "pixels": 217,
+      "mae": 21.173579109062977,
+      "maeRGB": [
+        20.580645161290324,
+        22.903225806451612,
+        20.036866359447004
+      ],
+      "signedRGB": [
+        -20.47926267281106,
+        -22.903225806451612,
+        -20.036866359447004
+      ],
+      "bound": 22.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "corner-br",
+      "cells": 3,
+      "pixels": 217,
+      "mae": 22.956989247311828,
+      "maeRGB": [
+        24.3963133640553,
+        29.023041474654377,
+        15.451612903225806
+      ],
+      "signedRGB": [
+        -24.3963133640553,
+        -29.023041474654377,
+        -15.451612903225806
+      ],
+      "bound": 23.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "corner-tl",
+      "cells": 3,
+      "pixels": 217,
+      "mae": 18.25960061443932,
+      "maeRGB": [
+        17.304147465437786,
+        17.5852534562212,
+        19.889400921658986
+      ],
+      "signedRGB": [
+        -17.304147465437786,
+        -17.52995391705069,
+        -19.502304147465438
+      ],
+      "bound": 19.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "corner-tr",
+      "cells": 3,
+      "pixels": 217,
+      "mae": 19.411674347158222,
+      "maeRGB": [
+        10.654377880184331,
+        24.88479262672811,
+        22.695852534562214
+      ],
+      "signedRGB": [
+        -10.654377880184331,
+        -24.88479262672811,
+        -22.695852534562214
+      ],
+      "bound": 20.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "left",
+      "cells": 2,
+      "pixels": 260,
+      "mae": 43.2448717948718,
+      "maeRGB": [
+        41.33461538461538,
+        48.55769230769231,
+        39.84230769230769
+      ],
+      "signedRGB": [
+        -41.33461538461538,
+        -48.55769230769231,
+        -39.84230769230769
+      ],
+      "bound": 44.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "right",
+      "cells": 2,
+      "pixels": 260,
+      "mae": 42.312820512820515,
+      "maeRGB": [
+        25.776923076923076,
+        83.16153846153846,
+        18.0
+      ],
+      "signedRGB": [
+        -25.776923076923076,
+        -83.16153846153846,
+        -18.0
+      ],
+      "bound": 43.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "top",
+      "cells": 3,
+      "pixels": 732,
+      "mae": 26.25227686703096,
+      "maeRGB": [
+        27.87568306010929,
+        18.064207650273225,
+        32.81693989071038
+      ],
+      "signedRGB": [
+        -27.87568306010929,
+        -17.7827868852459,
+        -32.81693989071038
+      ],
+      "bound": 27.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "bottom",
+      "cells": 29,
+      "pixels": 7072,
+      "mae": 2.805524132730015,
+      "maeRGB": [
+        2.8055712669683257,
+        2.8055712669683257,
+        2.8054298642533935
+      ],
+      "signedRGB": [
+        -2.744485294117647,
+        -2.744485294117647,
+        -2.744626696832579
+      ],
+      "bound": 2.9000000000000004
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "corner-bl",
+      "cells": 29,
+      "pixels": 1997,
+      "mae": 22.629110332164913,
+      "maeRGB": [
+        22.629444166249375,
+        22.626940410615923,
+        22.630946419629446
+      ],
+      "signedRGB": [
+        -19.505758637956934,
+        -19.501251877816724,
+        -19.507260891337005
+      ],
+      "bound": 23.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "corner-br",
+      "cells": 29,
+      "pixels": 1997,
+      "mae": 24.862126523118008,
+      "maeRGB": [
+        24.86229344016024,
+        24.86029043565348,
+        24.86379569354031
+      ],
+      "signedRGB": [
+        -22.926389584376565,
+        -22.924386579869804,
+        -22.928893340010013
+      ],
+      "bound": 25.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "corner-tl",
+      "cells": 29,
+      "pixels": 1997,
+      "mae": 23.16057419462527,
+      "maeRGB": [
+        23.162243365047573,
+        23.156234351527292,
+        23.16324486730095
+      ],
+      "signedRGB": [
+        -20.749624436654983,
+        -20.743615423134703,
+        -20.750625938908364
+      ],
+      "bound": 24.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "corner-tr",
+      "cells": 29,
+      "pixels": 1997,
+      "mae": 23.03989317309297,
+      "maeRGB": [
+        23.040060090135203,
+        23.038557836755132,
+        23.041061592388584
+      ],
+      "signedRGB": [
+        -19.691036554832248,
+        -19.690535803705558,
+        -19.695042563845767
+      ],
+      "bound": 24.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "left",
+      "cells": 23,
+      "pixels": 2672,
+      "mae": 88.95708582834331,
+      "maeRGB": [
+        88.95284431137725,
+        88.95097305389221,
+        88.96744011976048
+      ],
+      "signedRGB": [
+        -75.33682634730539,
+        -75.33495508982035,
+        -75.35291916167665
+      ],
+      "bound": 89.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "right",
+      "cells": 23,
+      "pixels": 2672,
+      "mae": 100.63610279441119,
+      "maeRGB": [
+        100.6369760479042,
+        100.62163173652695,
+        100.6497005988024
+      ],
+      "signedRGB": [
+        -88.44011976047904,
+        -88.42252994011976,
+        -88.45508982035928
+      ],
+      "bound": 110.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "top",
+      "cells": 29,
+      "pixels": 7072,
+      "mae": 1.3506787330316743,
+      "maeRGB": [
+        1.3506787330316743,
+        1.3506787330316743,
+        1.3506787330316743
+      ],
+      "signedRGB": [
+        -0.8017533936651584,
+        -0.8017533936651584,
+        -0.8017533936651584
+      ],
+      "bound": 1.4000000000000001
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "dark-or-other-solid",
+      "side": "bottom",
+      "cells": 7,
+      "pixels": 1644,
+      "mae": 2.7933901054339008,
+      "maeRGB": [
+        2.79014598540146,
+        2.79014598540146,
+        2.7998783454987834
+      ],
+      "signedRGB": [
+        -2.79014598540146,
+        -2.79014598540146,
+        -2.7998783454987834
+      ],
+      "bound": 2.8000000000000003
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "dark-or-other-solid",
+      "side": "corner-bl",
+      "cells": 7,
+      "pixels": 485,
+      "mae": 21.05635738831615,
+      "maeRGB": [
+        21.03917525773196,
+        21.024742268041237,
+        21.105154639175257
+      ],
+      "signedRGB": [
+        -20.775257731958764,
+        -20.760824742268042,
+        -20.857731958762887
+      ],
+      "bound": 22.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "dark-or-other-solid",
+      "side": "corner-br",
+      "cells": 7,
+      "pixels": 485,
+      "mae": 20.160137457044673,
+      "maeRGB": [
+        20.136082474226804,
+        20.1340206185567,
+        20.210309278350515
+      ],
+      "signedRGB": [
+        -20.123711340206185,
+        -20.121649484536082,
+        -20.197938144329896
+      ],
+      "bound": 21.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "dark-or-other-solid",
+      "side": "corner-tl",
+      "cells": 7,
+      "pixels": 485,
+      "mae": 20.712027491408936,
+      "maeRGB": [
+        20.68659793814433,
+        20.684536082474228,
+        20.76494845360825
+      ],
+      "signedRGB": [
+        -20.64536082474227,
+        -20.643298969072166,
+        -20.723711340206187
+      ],
+      "bound": 21.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "dark-or-other-solid",
+      "side": "corner-tr",
+      "cells": 7,
+      "pixels": 485,
+      "mae": 18.972508591065296,
+      "maeRGB": [
+        18.948453608247423,
+        18.94639175257732,
+        19.022680412371134
+      ],
+      "signedRGB": [
+        -18.581443298969074,
+        -18.57938144329897,
+        -18.676288659793816
+      ],
+      "bound": 19.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "dark-or-other-solid",
+      "side": "left",
+      "cells": 5,
+      "pixels": 588,
+      "mae": 80.15192743764173,
+      "maeRGB": [
+        80.09013605442176,
+        80.06632653061224,
+        80.29931972789116
+      ],
+      "signedRGB": [
+        -80.09013605442176,
+        -80.06632653061224,
+        -80.29931972789116
+      ],
+      "bound": 81.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "dark-or-other-solid",
+      "side": "right",
+      "cells": 5,
+      "pixels": 588,
+      "mae": 74.10090702947846,
+      "maeRGB": [
+        74.04591836734694,
+        74.00170068027211,
+        74.25510204081633
+      ],
+      "signedRGB": [
+        -74.04591836734694,
+        -74.00170068027211,
+        -74.25510204081633
+      ],
+      "bound": 75.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "dark-or-other-solid",
+      "side": "top",
+      "cells": 7,
+      "pixels": 1644,
+      "mae": 1.0450121654501217,
+      "maeRGB": [
+        1.0450121654501217,
+        1.0450121654501217,
+        1.0450121654501217
+      ],
+      "signedRGB": [
+        -0.6131386861313869,
+        -0.6131386861313869,
+        -0.6131386861313869
+      ],
+      "bound": 1.1
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "bottom",
+      "cells": 2,
+      "pixels": 392,
+      "mae": 2.022108843537415,
+      "maeRGB": [
+        3.066326530612245,
+        1.4464285714285714,
+        1.5535714285714286
+      ],
+      "signedRGB": [
+        -3.066326530612245,
+        -1.4464285714285714,
+        -1.5535714285714286
+      ],
+      "bound": 2.1
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "corner-bl",
+      "cells": 2,
+      "pixels": 136,
+      "mae": 18.556372549019606,
+      "maeRGB": [
+        20.03676470588235,
+        17.78676470588235,
+        17.845588235294116
+      ],
+      "signedRGB": [
+        -15.845588235294118,
+        -17.78676470588235,
+        -17.845588235294116
+      ],
+      "bound": 19.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "corner-br",
+      "cells": 2,
+      "pixels": 136,
+      "mae": 20.230392156862745,
+      "maeRGB": [
+        20.41176470588235,
+        21.669117647058822,
+        18.610294117647058
+      ],
+      "signedRGB": [
+        -20.41176470588235,
+        -21.28676470588235,
+        -18.610294117647058
+      ],
+      "bound": 21.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "corner-tl",
+      "cells": 2,
+      "pixels": 136,
+      "mae": 16.901960784313726,
+      "maeRGB": [
+        17.11764705882353,
+        15.948529411764707,
+        17.639705882352942
+      ],
+      "signedRGB": [
+        -17.102941176470587,
+        -15.948529411764707,
+        -13.919117647058824
+      ],
+      "bound": 17.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "corner-tr",
+      "cells": 2,
+      "pixels": 136,
+      "mae": 15.97549019607843,
+      "maeRGB": [
+        12.389705882352942,
+        18.308823529411764,
+        17.227941176470587
+      ],
+      "signedRGB": [
+        -12.345588235294118,
+        -17.779411764705884,
+        -16.301470588235293
+      ],
+      "bound": 16.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "left",
+      "cells": 1,
+      "pixels": 112,
+      "mae": 52.25297619047619,
+      "maeRGB": [
+        49.910714285714285,
+        47.88392857142857,
+        58.964285714285715
+      ],
+      "signedRGB": [
+        -49.910714285714285,
+        -47.88392857142857,
+        -58.964285714285715
+      ],
+      "bound": 53.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "right",
+      "cells": 1,
+      "pixels": 112,
+      "mae": 48.20238095238095,
+      "maeRGB": [
+        35.767857142857146,
+        91.67857142857143,
+        17.160714285714285
+      ],
+      "signedRGB": [
+        -35.767857142857146,
+        -91.67857142857143,
+        -17.160714285714285
+      ],
+      "bound": 49.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "top",
+      "cells": 2,
+      "pixels": 392,
+      "mae": 0.49914965986394555,
+      "maeRGB": [
+        0.5229591836734694,
+        0.2066326530612245,
+        0.7678571428571429
+      ],
+      "signedRGB": [
+        -0.20153061224489796,
+        -0.18112244897959184,
+        -0.14540816326530612
+      ],
+      "bound": 0.5
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "bottom",
+      "cells": 17,
+      "pixels": 4880,
+      "mae": 43.43367486338798,
+      "maeRGB": [
+        43.43422131147541,
+        43.43114754098361,
+        43.43565573770492
+      ],
+      "signedRGB": [
+        -22.417418032786884,
+        -22.41393442622951,
+        -22.418852459016392
+      ],
+      "bound": 44.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "corner-bl",
+      "cells": 17,
+      "pixels": 1319,
+      "mae": 24.959059893858985,
+      "maeRGB": [
+        24.959818043972707,
+        24.956027293404095,
+        24.96133434420015
+      ],
+      "signedRGB": [
+        -16.348749052312357,
+        -16.344958301743745,
+        -16.351781652767247
+      ],
+      "bound": 25.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "corner-br",
+      "cells": 17,
+      "pixels": 1319,
+      "mae": 18.673237300985594,
+      "maeRGB": [
+        18.675511751326763,
+        18.669446550416982,
+        18.67475360121304
+      ],
+      "signedRGB": [
+        -9.295678544351782,
+        -9.289613343442001,
+        -9.297952994692949
+      ],
+      "bound": 19.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "corner-tl",
+      "cells": 17,
+      "pixels": 1319,
+      "mae": 22.3580995703816,
+      "maeRGB": [
+        22.35936315390447,
+        22.354814253222138,
+        22.360121304018197
+      ],
+      "signedRGB": [
+        -13.725549658832449,
+        -13.721000758150113,
+        -13.727824109173616
+      ],
+      "bound": 23.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "corner-tr",
+      "cells": 17,
+      "pixels": 1319,
+      "mae": 20.169572908769272,
+      "maeRGB": [
+        20.170583775587566,
+        20.164518574677786,
+        20.173616376042457
+      ],
+      "signedRGB": [
+        -11.618650492797574,
+        -11.612585291887793,
+        -11.62319939347991
+      ],
+      "bound": 21.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "left",
+      "cells": 15,
+      "pixels": 2032,
+      "mae": 81.43471128608924,
+      "maeRGB": [
+        81.43503937007874,
+        81.43356299212599,
+        81.43553149606299
+      ],
+      "signedRGB": [
+        -30.448818897637796,
+        -30.44734251968504,
+        -30.451279527559056
+      ],
+      "bound": 82.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "right",
+      "cells": 15,
+      "pixels": 2032,
+      "mae": 75.13172572178478,
+      "maeRGB": [
+        75.13336614173228,
+        75.12746062992126,
+        75.13435039370079
+      ],
+      "signedRGB": [
+        -28.343996062992126,
+        -28.334153543307085,
+        -28.34498031496063
+      ],
+      "bound": 76.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "black-bearing",
+      "side": "top",
+      "cells": 17,
+      "pixels": 4880,
+      "mae": 46.844877049180326,
+      "maeRGB": [
+        46.84549180327869,
+        46.84344262295082,
+        46.84569672131148
+      ],
+      "signedRGB": [
+        -14.017213114754098,
+        -14.014754098360656,
+        -14.017418032786885
+      ],
+      "bound": 47.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "dark-or-other-solid",
+      "side": "bottom",
+      "cells": 7,
+      "pixels": 2056,
+      "mae": 18.502756160830092,
+      "maeRGB": [
+        20.89056420233463,
+        14.285505836575876,
+        20.332198443579767
+      ],
+      "signedRGB": [
+        -20.86624513618677,
+        -14.261186770428015,
+        -20.307879377431906
+      ],
+      "bound": 19.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "dark-or-other-solid",
+      "side": "corner-bl",
+      "cells": 7,
+      "pixels": 593,
+      "mae": 13.201798763350197,
+      "maeRGB": [
+        13.84654300168634,
+        12.15345699831366,
+        13.60539629005059
+      ],
+      "signedRGB": [
+        -13.448566610455313,
+        -11.903878583473862,
+        -13.409780775716694
+      ],
+      "bound": 14.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "dark-or-other-solid",
+      "side": "corner-br",
+      "cells": 7,
+      "pixels": 593,
+      "mae": 11.893760539629005,
+      "maeRGB": [
+        12.537942664418212,
+        10.84654300168634,
+        12.296795952782462
+      ],
+      "signedRGB": [
+        -12.322091062394604,
+        -10.779089376053962,
+        -12.283305227655987
+      ],
+      "bound": 12.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "dark-or-other-solid",
+      "side": "corner-tl",
+      "cells": 7,
+      "pixels": 593,
+      "mae": 12.492973580663293,
+      "maeRGB": [
+        13.138279932546375,
+        11.445193929173692,
+        12.895446880269814
+      ],
+      "signedRGB": [
+        -12.875210792580102,
+        -11.330522765598651,
+        -12.834738617200674
+      ],
+      "bound": 13.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "dark-or-other-solid",
+      "side": "corner-tr",
+      "cells": 7,
+      "pixels": 593,
+      "mae": 12.442945474985946,
+      "maeRGB": [
+        13.086003372681281,
+        11.396290050590219,
+        12.84654300168634
+      ],
+      "signedRGB": [
+        -12.876897133220911,
+        -11.335581787521079,
+        -12.839797639123104
+      ],
+      "bound": 13.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "dark-or-other-solid",
+      "side": "left",
+      "cells": 5,
+      "pixels": 776,
+      "mae": 31.34707903780069,
+      "maeRGB": [
+        35.11340206185567,
+        24.52061855670103,
+        34.40721649484536
+      ],
+      "signedRGB": [
+        -30.90979381443299,
+        -20.317010309278352,
+        -30.20360824742268
+      ],
+      "bound": 32.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "dark-or-other-solid",
+      "side": "right",
+      "cells": 5,
+      "pixels": 776,
+      "mae": 29.303264604810998,
+      "maeRGB": [
+        33.06958762886598,
+        22.47680412371134,
+        32.36340206185567
+      ],
+      "signedRGB": [
+        -27.162371134020617,
+        -16.56958762886598,
+        -26.45618556701031
+      ],
+      "bound": 30.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "dark-or-other-solid",
+      "side": "top",
+      "cells": 7,
+      "pixels": 2056,
+      "mae": 18.45460440985733,
+      "maeRGB": [
+        20.842412451361866,
+        14.237354085603112,
+        20.284046692607003
+      ],
+      "signedRGB": [
+        -20.842412451361866,
+        -14.237354085603112,
+        -20.284046692607003
+      ],
+      "bound": 19.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "light-solid",
+      "side": "bottom",
+      "cells": 4,
+      "pixels": 1156,
+      "mae": 36.55651672433679,
+      "maeRGB": [
+        36.844290657439444,
+        36.83044982698962,
+        35.99480968858131
+      ],
+      "signedRGB": [
+        -36.844290657439444,
+        -36.83044982698962,
+        -35.99480968858131
+      ],
+      "bound": 37.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "light-solid",
+      "side": "corner-bl",
+      "cells": 4,
+      "pixels": 324,
+      "mae": 22.16872427983539,
+      "maeRGB": [
+        22.25925925925926,
+        22.209876543209877,
+        22.037037037037038
+      ],
+      "signedRGB": [
+        -22.25925925925926,
+        -22.209876543209877,
+        -22.037037037037038
+      ],
+      "bound": 23.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "light-solid",
+      "side": "corner-br",
+      "cells": 4,
+      "pixels": 324,
+      "mae": 22.17078189300412,
+      "maeRGB": [
+        22.262345679012345,
+        22.212962962962962,
+        22.037037037037038
+      ],
+      "signedRGB": [
+        -22.262345679012345,
+        -22.212962962962962,
+        -22.037037037037038
+      ],
+      "bound": 23.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "light-solid",
+      "side": "corner-tl",
+      "cells": 4,
+      "pixels": 324,
+      "mae": 22.16872427983539,
+      "maeRGB": [
+        22.25925925925926,
+        22.209876543209877,
+        22.037037037037038
+      ],
+      "signedRGB": [
+        -22.25925925925926,
+        -22.209876543209877,
+        -22.037037037037038
+      ],
+      "bound": 23.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "light-solid",
+      "side": "corner-tr",
+      "cells": 4,
+      "pixels": 324,
+      "mae": 22.16872427983539,
+      "maeRGB": [
+        22.25925925925926,
+        22.209876543209877,
+        22.037037037037038
+      ],
+      "signedRGB": [
+        -22.25925925925926,
+        -22.209876543209877,
+        -22.037037037037038
+      ],
+      "bound": 23.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "light-solid",
+      "side": "left",
+      "cells": 3,
+      "pixels": 444,
+      "mae": 51.20420420420421,
+      "maeRGB": [
+        51.27477477477478,
+        51.189189189189186,
+        51.148648648648646
+      ],
+      "signedRGB": [
+        -51.27477477477478,
+        -51.189189189189186,
+        -51.148648648648646
+      ],
+      "bound": 52.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "light-solid",
+      "side": "right",
+      "cells": 3,
+      "pixels": 444,
+      "mae": 51.20420420420421,
+      "maeRGB": [
+        51.27477477477478,
+        51.189189189189186,
+        51.148648648648646
+      ],
+      "signedRGB": [
+        -51.27477477477478,
+        -51.189189189189186,
+        -51.148648648648646
+      ],
+      "bound": 52.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "light-solid",
+      "side": "top",
+      "cells": 4,
+      "pixels": 1156,
+      "mae": 36.55651672433679,
+      "maeRGB": [
+        36.844290657439444,
+        36.83044982698962,
+        35.99480968858131
+      ],
+      "signedRGB": [
+        -36.844290657439444,
+        -36.83044982698962,
+        -35.99480968858131
+      ],
+      "bound": 37.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "bottom",
+      "cells": 4,
+      "pixels": 828,
+      "mae": 26.530998389694037,
+      "maeRGB": [
+        32.509661835748794,
+        19.01086956521739,
+        28.07246376811594
+      ],
+      "signedRGB": [
+        -32.509661835748794,
+        -18.955314009661837,
+        -28.07246376811594
+      ],
+      "bound": 27.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "corner-bl",
+      "cells": 4,
+      "pixels": 242,
+      "mae": 19.162534435261712,
+      "maeRGB": [
+        19.801652892561982,
+        19.28099173553719,
+        18.40495867768595
+      ],
+      "signedRGB": [
+        -19.801652892561982,
+        -19.28099173553719,
+        -18.40495867768595
+      ],
+      "bound": 20.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "corner-br",
+      "cells": 4,
+      "pixels": 242,
+      "mae": 16.895316804407713,
+      "maeRGB": [
+        17.214876033057852,
+        22.070247933884296,
+        11.400826446280991
+      ],
+      "signedRGB": [
+        -17.214876033057852,
+        -22.070247933884296,
+        -11.285123966942148
+      ],
+      "bound": 17.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "corner-tl",
+      "cells": 4,
+      "pixels": 242,
+      "mae": 18.377410468319557,
+      "maeRGB": [
+        18.210743801652892,
+        16.39669421487603,
+        20.524793388429753
+      ],
+      "signedRGB": [
+        -18.210743801652892,
+        -16.347107438016526,
+        -20.524793388429753
+      ],
+      "bound": 19.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "corner-tr",
+      "cells": 4,
+      "pixels": 242,
+      "mae": 16.235537190082646,
+      "maeRGB": [
+        9.037190082644628,
+        21.462809917355372,
+        18.206611570247933
+      ],
+      "signedRGB": [
+        -8.483471074380166,
+        -21.462809917355372,
+        -18.206611570247933
+      ],
+      "bound": 17.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "left",
+      "cells": 3,
+      "pixels": 292,
+      "mae": 38.18493150684932,
+      "maeRGB": [
+        36.61643835616438,
+        41.784246575342465,
+        36.1541095890411
+      ],
+      "signedRGB": [
+        -36.61643835616438,
+        -41.784246575342465,
+        -36.1541095890411
+      ],
+      "bound": 39.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "right",
+      "cells": 3,
+      "pixels": 292,
+      "mae": 26.931506849315067,
+      "maeRGB": [
+        16.95205479452055,
+        49.18835616438356,
+        14.654109589041095
+      ],
+      "signedRGB": [
+        -16.5,
+        -49.18835616438356,
+        -14.229452054794521
+      ],
+      "bound": 27.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "inactive",
+      "backdropClass": "photo",
+      "side": "top",
+      "cells": 4,
+      "pixels": 828,
+      "mae": 26.63244766505636,
+      "maeRGB": [
+        28.02294685990338,
+        18.782608695652176,
+        33.091787439613526
+      ],
+      "signedRGB": [
+        -28.02294685990338,
+        -18.533816425120772,
+        -33.091787439613526
+      ],
+      "bound": 27.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "bottom",
+      "cells": 32,
+      "pixels": 7748,
+      "mae": 16.00447427293065,
+      "maeRGB": [
+        15.995611770779556,
+        16.022199277232833,
+        15.995611770779556
+      ],
+      "signedRGB": [
+        -12.809241094475993,
+        -12.835828600929272,
+        -12.809241094475993
+      ],
+      "bound": 17.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "corner-bl",
+      "cells": 32,
+      "pixels": 2168,
+      "mae": 16.791205412054122,
+      "maeRGB": [
+        16.78367158671587,
+        16.80350553505535,
+        16.786439114391143
+      ],
+      "signedRGB": [
+        -13.091789667896679,
+        -13.114391143911439,
+        -13.095479704797048
+      ],
+      "bound": 17.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "corner-br",
+      "cells": 32,
+      "pixels": 2168,
+      "mae": 17.38929889298893,
+      "maeRGB": [
+        17.381457564575644,
+        17.40359778597786,
+        17.382841328413285
+      ],
+      "signedRGB": [
+        -14.531826568265682,
+        -14.556734317343173,
+        -14.535055350553506
+      ],
+      "bound": 18.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "corner-tl",
+      "cells": 32,
+      "pixels": 2168,
+      "mae": 16.93819188191882,
+      "maeRGB": [
+        16.92758302583026,
+        16.956642066420663,
+        16.930350553505534
+      ],
+      "signedRGB": [
+        -13.651752767527675,
+        -13.680811808118081,
+        -13.654520295202952
+      ],
+      "bound": 17.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "corner-tr",
+      "cells": 32,
+      "pixels": 2168,
+      "mae": 16.453567035670357,
+      "maeRGB": [
+        16.440036900369005,
+        16.47970479704797,
+        16.440959409594097
+      ],
+      "signedRGB": [
+        -12.400369003690036,
+        -12.441881918819188,
+        -12.402214022140221
+      ],
+      "bound": 17.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "left",
+      "cells": 26,
+      "pixels": 2964,
+      "mae": 56.010796221322536,
+      "maeRGB": [
+        55.996288798920375,
+        56.03981106612686,
+        55.996288798920375
+      ],
+      "signedRGB": [
+        -40.6831983805668,
+        -40.72672064777328,
+        -40.6831983805668
+      ],
+      "bound": 57.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "right",
+      "cells": 26,
+      "pixels": 2964,
+      "mae": 57.227732793522264,
+      "maeRGB": [
+        57.20647773279352,
+        57.270580296896085,
+        57.20614035087719
+      ],
+      "signedRGB": [
+        -42.94197031039136,
+        -43.006072874493924,
+        -42.94163292847503
+      ],
+      "bound": 58.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "black-bearing",
+      "side": "top",
+      "cells": 32,
+      "pixels": 7748,
+      "mae": 17.49518155222853,
+      "maeRGB": [
+        17.48993288590604,
+        17.505678884873515,
+        17.48993288590604
+      ],
+      "signedRGB": [
+        -13.901393908105318,
+        -13.917139907072793,
+        -13.901393908105318
+      ],
+      "bound": 18.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "dark-or-other-solid",
+      "side": "bottom",
+      "cells": 7,
+      "pixels": 1644,
+      "mae": 17.62368207623682,
+      "maeRGB": [
+        17.570559610705597,
+        17.570559610705597,
+        17.72992700729927
+      ],
+      "signedRGB": [
+        -17.570559610705597,
+        -17.570559610705597,
+        -17.72992700729927
+      ],
+      "bound": 18.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "dark-or-other-solid",
+      "side": "corner-bl",
+      "cells": 7,
+      "pixels": 485,
+      "mae": 17.72508591065292,
+      "maeRGB": [
+        17.684536082474228,
+        17.69278350515464,
+        17.797938144329898
+      ],
+      "signedRGB": [
+        -17.622680412371135,
+        -17.630927835051548,
+        -17.756701030927836
+      ],
+      "bound": 18.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "dark-or-other-solid",
+      "side": "corner-br",
+      "cells": 7,
+      "pixels": 485,
+      "mae": 17.4213058419244,
+      "maeRGB": [
+        17.38762886597938,
+        17.385567010309277,
+        17.490721649484534
+      ],
+      "signedRGB": [
+        -17.325773195876288,
+        -17.323711340206184,
+        -17.449484536082473
+      ],
+      "bound": 18.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "dark-or-other-solid",
+      "side": "corner-tl",
+      "cells": 7,
+      "pixels": 485,
+      "mae": 17.594501718213056,
+      "maeRGB": [
+        17.556701030927837,
+        17.556701030927837,
+        17.670103092783506
+      ],
+      "signedRGB": [
+        -17.47422680412371,
+        -17.47422680412371,
+        -17.6
+      ],
+      "bound": 18.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "dark-or-other-solid",
+      "side": "corner-tr",
+      "cells": 7,
+      "pixels": 485,
+      "mae": 16.73745704467354,
+      "maeRGB": [
+        16.69896907216495,
+        16.69896907216495,
+        16.814432989690722
+      ],
+      "signedRGB": [
+        -16.637113402061857,
+        -16.637113402061857,
+        -16.76494845360825
+      ],
+      "bound": 17.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "dark-or-other-solid",
+      "side": "left",
+      "cells": 5,
+      "pixels": 588,
+      "mae": 53.02721088435374,
+      "maeRGB": [
+        52.954081632653065,
+        52.954081632653065,
+        53.173469387755105
+      ],
+      "signedRGB": [
+        -52.954081632653065,
+        -52.954081632653065,
+        -53.173469387755105
+      ],
+      "bound": 54.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "dark-or-other-solid",
+      "side": "right",
+      "cells": 5,
+      "pixels": 588,
+      "mae": 50.09183673469388,
+      "maeRGB": [
+        50.0187074829932,
+        50.0187074829932,
+        50.23809523809524
+      ],
+      "signedRGB": [
+        -50.0187074829932,
+        -50.0187074829932,
+        -50.23809523809524
+      ],
+      "bound": 51.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "dark-or-other-solid",
+      "side": "top",
+      "cells": 7,
+      "pixels": 1644,
+      "mae": 17.28669910786699,
+      "maeRGB": [
+        17.251824817518248,
+        17.251824817518248,
+        17.356447688564476
+      ],
+      "signedRGB": [
+        -17.251824817518248,
+        -17.251824817518248,
+        -17.356447688564476
+      ],
+      "bound": 18.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "light-solid",
+      "side": "bottom",
+      "cells": 3,
+      "pixels": 732,
+      "mae": 23.35063752276867,
+      "maeRGB": [
+        23.52185792349727,
+        23.52185792349727,
+        23.008196721311474
+      ],
+      "signedRGB": [
+        -23.52185792349727,
+        -23.52185792349727,
+        -23.008196721311474
+      ],
+      "bound": 24.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "light-solid",
+      "side": "corner-bl",
+      "cells": 3,
+      "pixels": 217,
+      "mae": 22.72811059907834,
+      "maeRGB": [
+        22.903225806451612,
+        22.903225806451612,
+        22.377880184331797
+      ],
+      "signedRGB": [
+        -22.903225806451612,
+        -22.903225806451612,
+        -22.377880184331797
+      ],
+      "bound": 23.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "light-solid",
+      "side": "corner-br",
+      "cells": 3,
+      "pixels": 217,
+      "mae": 22.729646697388635,
+      "maeRGB": [
+        22.898617511520737,
+        22.898617511520737,
+        22.391705069124423
+      ],
+      "signedRGB": [
+        -22.898617511520737,
+        -22.898617511520737,
+        -22.391705069124423
+      ],
+      "bound": 23.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "light-solid",
+      "side": "corner-tl",
+      "cells": 3,
+      "pixels": 217,
+      "mae": 21.093701996927805,
+      "maeRGB": [
+        21.207373271889402,
+        21.207373271889402,
+        20.86635944700461
+      ],
+      "signedRGB": [
+        -21.19815668202765,
+        -21.19815668202765,
+        -20.857142857142858
+      ],
+      "bound": 22.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "light-solid",
+      "side": "corner-tr",
+      "cells": 3,
+      "pixels": 217,
+      "mae": 21.08909370199693,
+      "maeRGB": [
+        21.207373271889402,
+        21.207373271889402,
+        20.852534562211982
+      ],
+      "signedRGB": [
+        -21.19815668202765,
+        -21.19815668202765,
+        -20.84331797235023
+      ],
+      "bound": 22.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "light-solid",
+      "side": "left",
+      "cells": 2,
+      "pixels": 260,
+      "mae": 60.248717948717946,
+      "maeRGB": [
+        60.41538461538462,
+        60.41538461538462,
+        59.91538461538462
+      ],
+      "signedRGB": [
+        -60.41538461538462,
+        -60.41538461538462,
+        -59.91538461538462
+      ],
+      "bound": 61.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "light-solid",
+      "side": "right",
+      "cells": 2,
+      "pixels": 260,
+      "mae": 60.248717948717946,
+      "maeRGB": [
+        60.41538461538462,
+        60.41538461538462,
+        59.91538461538462
+      ],
+      "signedRGB": [
+        -60.41538461538462,
+        -60.41538461538462,
+        -59.91538461538462
+      ],
+      "bound": 61.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "light-solid",
+      "side": "top",
+      "cells": 3,
+      "pixels": 732,
+      "mae": 20.448998178506375,
+      "maeRGB": [
+        20.527322404371585,
+        20.527322404371585,
+        20.292349726775956
+      ],
+      "signedRGB": [
+        -20.527322404371585,
+        -20.527322404371585,
+        -20.292349726775956
+      ],
+      "bound": 21.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "bottom",
+      "cells": 4,
+      "pixels": 828,
+      "mae": 17.42874396135266,
+      "maeRGB": [
+        22.02536231884058,
+        12.81280193236715,
+        17.448067632850243
+      ],
+      "signedRGB": [
+        -22.02536231884058,
+        -12.81280193236715,
+        -17.448067632850243
+      ],
+      "bound": 18.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "corner-bl",
+      "cells": 4,
+      "pixels": 242,
+      "mae": 19.447658402203857,
+      "maeRGB": [
+        20.5,
+        19.111570247933884,
+        18.731404958677686
+      ],
+      "signedRGB": [
+        -20.119834710743802,
+        -19.111570247933884,
+        -18.731404958677686
+      ],
+      "bound": 20.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "corner-br",
+      "cells": 4,
+      "pixels": 242,
+      "mae": 17.742424242424242,
+      "maeRGB": [
+        17.09090909090909,
+        22.00826446280992,
+        14.12809917355372
+      ],
+      "signedRGB": [
+        -17.082644628099175,
+        -22.00826446280992,
+        -14.061983471074381
+      ],
+      "bound": 18.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "corner-tl",
+      "cells": 4,
+      "pixels": 242,
+      "mae": 18.65013774104683,
+      "maeRGB": [
+        19.08677685950413,
+        17.272727272727273,
+        19.59090909090909
+      ],
+      "signedRGB": [
+        -19.078512396694215,
+        -17.272727272727273,
+        -18.979338842975206
+      ],
+      "bound": 19.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "corner-tr",
+      "cells": 4,
+      "pixels": 242,
+      "mae": 16.35399449035813,
+      "maeRGB": [
+        10.417355371900827,
+        20.74793388429752,
+        17.89669421487603
+      ],
+      "signedRGB": [
+        -9.921487603305785,
+        -20.739669421487605,
+        -17.888429752066116
+      ],
+      "bound": 17.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "left",
+      "cells": 3,
+      "pixels": 292,
+      "mae": 49.40981735159818,
+      "maeRGB": [
+        48.02054794520548,
+        51.582191780821915,
+        48.62671232876713
+      ],
+      "signedRGB": [
+        -48.02054794520548,
+        -51.582191780821915,
+        -48.62671232876713
+      ],
+      "bound": 50.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "right",
+      "cells": 3,
+      "pixels": 292,
+      "mae": 34.65981735159817,
+      "maeRGB": [
+        22.08219178082192,
+        62.5513698630137,
+        19.345890410958905
+      ],
+      "signedRGB": [
+        -22.027397260273972,
+        -62.5513698630137,
+        -19.25
+      ],
+      "bound": 35.0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "pose": "rest",
+      "backdropClass": "photo",
+      "side": "top",
+      "cells": 4,
+      "pixels": 828,
+      "mae": 16.741948470209337,
+      "maeRGB": [
+        17.51086956521739,
+        12.16425120772947,
+        20.55072463768116
+      ],
+      "signedRGB": [
+        -17.51086956521739,
+        -12.16425120772947,
+        -20.55072463768116
+      ],
+      "bound": 17.0
+    }
+  ],
+  "nativeLift": [
+    {
+      "profile": "apple-macos-26.5-1x-dark-standard",
+      "cells": 56,
+      "nonzeroCells": 18,
+      "pixels": 1247597,
+      "nonzeroPixels": 112624
+    },
+    {
+      "profile": "apple-macos-26.5-1x-light-standard",
+      "cells": 69,
+      "nonzeroCells": 21,
+      "pixels": 1646109,
+      "nonzeroPixels": 156599
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "cells": 50,
+      "nonzeroCells": 0,
+      "pixels": 1099348,
+      "nonzeroPixels": 0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "cells": 8,
+      "nonzeroCells": 0,
+      "pixels": 194048,
+      "nonzeroPixels": 0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "cells": 6,
+      "nonzeroCells": 0,
+      "pixels": 135660,
+      "nonzeroPixels": 0
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "cells": 67,
+      "nonzeroCells": 0,
+      "pixels": 1546726,
+      "nonzeroPixels": 0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "cells": 50,
+      "nonzeroCells": 0,
+      "pixels": 4370144,
+      "nonzeroPixels": 0
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "cells": 67,
+      "nonzeroCells": 0,
+      "pixels": 6151898,
+      "nonzeroPixels": 0
+    }
+  ],
+  "conditionality": [
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "scene": "light-solid__capsule-button__rest",
+      "span": 44,
+      "nativeNotch": -20.886332990867572,
+      "straightSigned": -19.899122807017545,
+      "cornerSigned": -26.833333333333332,
+      "sideSigned": {
+        "corner-tl": -26.65686274509804,
+        "corner-tr": -26.61764705882353,
+        "corner-bl": -27.009803921568626,
+        "corner-br": -27.049019607843135,
+        "top": -19.75438596491228,
+        "bottom": -20.043859649122805
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "scene": "photo__capsule-button__rest",
+      "span": 44,
+      "nativeNotch": -14.925425608828036,
+      "straightSigned": -17.782894736842103,
+      "cornerSigned": -23.28676470588235,
+      "sideSigned": {
+        "corner-tl": -23.274509803921568,
+        "corner-tr": -21.009803921568626,
+        "corner-bl": -25.627450980392158,
+        "corner-br": -23.235294117647058,
+        "top": -18.04824561403509,
+        "bottom": -17.517543859649123
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "scene": "light-solid__rrect-md__rest",
+      "span": 96,
+      "nativeNotch": -31.37652644628099,
+      "straightSigned": -35.79356060606061,
+      "cornerSigned": -25.055555555555554,
+      "sideSigned": {
+        "corner-tl": -23.808080808080806,
+        "corner-tr": -23.808080808080806,
+        "corner-bl": -26.303030303030305,
+        "corner-br": -26.303030303030305,
+        "top": -20.988888888888887,
+        "bottom": -24.872222222222224,
+        "left": -63.35714285714286,
+        "right": -63.35714285714286
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "scene": "photo__rrect-md__rest",
+      "span": 96,
+      "nativeNotch": -22.088303305785118,
+      "straightSigned": -26.632575757575758,
+      "cornerSigned": -17.669191919191917,
+      "sideSigned": {
+        "corner-tl": -17.434343434343432,
+        "corner-tr": -15.707070707070708,
+        "corner-bl": -20.383838383838384,
+        "corner-br": -17.151515151515152,
+        "top": -17.02777777777778,
+        "bottom": -18.319444444444443,
+        "left": -54.50595238095238,
+        "right": -37.154761904761905
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "scene": "light-solid__rrect-ml__rest",
+      "span": 128,
+      "nativeNotch": -30.97829592088553,
+      "straightSigned": -35.71584699453552,
+      "cornerSigned": -24.814814814814813,
+      "sideSigned": {
+        "corner-tl": -23.68888888888889,
+        "corner-tr": -23.68888888888889,
+        "corner-bl": -25.94074074074074,
+        "corner-br": -25.94074074074074,
+        "top": -22.580392156862747,
+        "bottom": -24.87843137254902,
+        "left": -63.252252252252255,
+        "right": -63.252252252252255
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "scene": "photo__rrect-ml__rest",
+      "span": 128,
+      "nativeNotch": -21.166521308292516,
+      "straightSigned": -23.98360655737705,
+      "cornerSigned": -18.142592592592596,
+      "sideSigned": {
+        "corner-tl": -19.83703703703704,
+        "corner-tr": -15.77037037037037,
+        "corner-bl": -19.83703703703704,
+        "corner-br": -17.125925925925927,
+        "top": -16.794117647058822,
+        "bottom": -17.3,
+        "left": -47.76126126126126,
+        "right": -32.07657657657658
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "scene": "photo__rrect-sm__rest",
+      "span": 32,
+      "nativeNotch": -24.7723075918762,
+      "straightSigned": -28.223958333333332,
+      "cornerSigned": -22.5625,
+      "sideSigned": {
+        "corner-tl": -23.583333333333332,
+        "corner-tr": -21.77777777777778,
+        "corner-bl": -21.194444444444443,
+        "corner-br": -23.694444444444446,
+        "top": -18.97222222222222,
+        "bottom": -18.5625,
+        "left": -60.729166666666664,
+        "right": -52.458333333333336
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "scene": "light-solid__capsule-button__inactive",
+      "span": 44,
+      "nativeNotch": -23.0212089984351,
+      "straightSigned": -37.04385964912281,
+      "cornerSigned": -31.225490196078432,
+      "sideSigned": {
+        "corner-tl": -31.225490196078432,
+        "corner-tr": -31.225490196078432,
+        "corner-bl": -31.225490196078432,
+        "corner-br": -31.225490196078432,
+        "top": -37.04385964912281,
+        "bottom": -37.04385964912281
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "scene": "light-solid__rrect-md__inactive",
+      "span": 96,
+      "nativeNotch": -28.840519182960406,
+      "straightSigned": -43.32954545454545,
+      "cornerSigned": -27.616161616161616,
+      "sideSigned": {
+        "corner-tl": -27.616161616161616,
+        "corner-tr": -27.616161616161616,
+        "corner-bl": -27.616161616161616,
+        "corner-br": -27.616161616161616,
+        "top": -37.800000000000004,
+        "bottom": -37.800000000000004,
+        "left": -55.17857142857143,
+        "right": -55.17857142857143
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "scene": "photo__capsule-button__inactive",
+      "span": 44,
+      "nativeNotch": -20.591295871385086,
+      "straightSigned": -29.057017543859647,
+      "cornerSigned": -23.375,
+      "sideSigned": {
+        "corner-tl": -23.647058823529413,
+        "corner-tr": -21.235294117647058,
+        "corner-bl": -26.107843137254903,
+        "corner-br": -22.509803921568626,
+        "top": -29.54824561403509,
+        "bottom": -28.565789473684212
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "scene": "photo__rrect-md__inactive",
+      "span": 96,
+      "nativeNotch": -22.434771487603285,
+      "straightSigned": -28.87689393939394,
+      "cornerSigned": -17.22979797979798,
+      "sideSigned": {
+        "corner-tl": -17.555555555555557,
+        "corner-tr": -15.09090909090909,
+        "corner-bl": -20.09090909090909,
+        "corner-br": -16.18181818181818,
+        "top": -26.669444444444444,
+        "bottom": -26.966666666666665,
+        "left": -39.333333333333336,
+        "right": -27.24404761904762
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "scene": "photo__rrect-sm__inactive",
+      "span": 32,
+      "nativeNotch": -28.91892444390716,
+      "straightSigned": -33.752604166666664,
+      "cornerSigned": -23.229166666666668,
+      "sideSigned": {
+        "corner-tl": -24.77777777777778,
+        "corner-tr": -22.166666666666668,
+        "corner-bl": -22.305555555555554,
+        "corner-br": -23.666666666666668,
+        "top": -30.4375,
+        "bottom": -30.305555555555554,
+        "left": -46.583333333333336,
+        "right": -41.208333333333336
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "scene": "light-solid__rrect-ml__inactive",
+      "span": 128,
+      "nativeNotch": -27.782766996069228,
+      "straightSigned": -42.69945355191257,
+      "cornerSigned": -26.844444444444445,
+      "sideSigned": {
+        "corner-tl": -26.844444444444445,
+        "corner-tr": -26.844444444444445,
+        "corner-bl": -26.844444444444445,
+        "corner-br": -26.844444444444445,
+        "top": -37.627450980392155,
+        "bottom": -37.627450980392155,
+        "left": -54.351351351351354,
+        "right": -54.351351351351354
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "scene": "light-solid__rrect-lg__inactive",
+      "span": 160,
+      "nativeNotch": -26.22306361287997,
+      "straightSigned": -42.266447368421055,
+      "cornerSigned": -25.09433962264151,
+      "sideSigned": {
+        "corner-tl": -25.08805031446541,
+        "corner-tr": -25.10062893081761,
+        "corner-bl": -25.10062893081761,
+        "corner-br": -25.08805031446541,
+        "top": -37.38993710691824,
+        "bottom": -37.38993710691824,
+        "left": -53.5036231884058,
+        "right": -53.5036231884058
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "scene": "photo__rrect-ml__inactive",
+      "span": 128,
+      "nativeNotch": -22.255263113772457,
+      "straightSigned": -27.4474043715847,
+      "cornerSigned": -17.716666666666665,
+      "sideSigned": {
+        "corner-tl": -20.096296296296295,
+        "corner-tr": -14.918518518518518,
+        "corner-bl": -19.325925925925926,
+        "corner-br": -16.525925925925925,
+        "top": -25.805882352941175,
+        "bottom": -25.83137254901961,
+        "left": -37.23873873873874,
+        "right": -25.13963963963964
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "scene": "photo__capsule-button__rest",
+      "span": 44,
+      "nativeNotch": -7.2771800989345365,
+      "straightSigned": -0.26973684210526316,
+      "cornerSigned": -19.752450980392155,
+      "sideSigned": {
+        "corner-tl": -18.323529411764707,
+        "corner-tr": -18.323529411764707,
+        "corner-bl": -18.833333333333336,
+        "corner-br": -23.52941176470588,
+        "top": 0.0,
+        "bottom": -0.5394736842105263
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "scene": "photo__rrect-md__rest",
+      "span": 96,
+      "nativeNotch": -18.336515702479318,
+      "straightSigned": -17.867424242424242,
+      "cornerSigned": -16.03030303030303,
+      "sideSigned": {
+        "corner-tl": -13.98989898989899,
+        "corner-tr": -14.01010101010101,
+        "corner-bl": -18.505050505050505,
+        "corner-br": -17.616161616161616,
+        "top": -0.3527777777777778,
+        "bottom": -3.047222222222222,
+        "left": -54.535714285714285,
+        "right": -50.488095238095234
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "scene": "light-solid__capsule-button__inactive",
+      "span": 44,
+      "nativeNotch": -7.656412089201893,
+      "straightSigned": -75.79824561403508,
+      "cornerSigned": -61.69607843137254,
+      "sideSigned": {
+        "corner-tl": -61.69607843137255,
+        "corner-tr": -61.69607843137255,
+        "corner-bl": -61.69607843137255,
+        "corner-br": -61.69607843137255,
+        "top": -75.79824561403508,
+        "bottom": -75.79824561403508
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "scene": "photo__capsule-button__inactive",
+      "span": 44,
+      "nativeNotch": -24.015353041862284,
+      "straightSigned": -29.458333333333332,
+      "cornerSigned": -25.936274509803923,
+      "sideSigned": {
+        "corner-tl": -22.931372549019606,
+        "corner-tr": -25.470588235294116,
+        "corner-bl": -24.941176470588236,
+        "corner-br": -30.401960784313726,
+        "top": -29.565789473684212,
+        "bottom": -29.350877192982455
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "scene": "photo__rrect-md__inactive",
+      "span": 96,
+      "nativeNotch": -27.07456533964927,
+      "straightSigned": -34.17992424242424,
+      "cornerSigned": -21.535353535353533,
+      "sideSigned": {
+        "corner-tl": -18.313131313131315,
+        "corner-tr": -20.22222222222222,
+        "corner-bl": -24.404040404040405,
+        "corner-br": -23.2020202020202,
+        "top": -26.78333333333333,
+        "bottom": -30.980555555555558,
+        "left": -43.38690476190476,
+        "right": -47.67857142857143
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "scene": "light-solid__rrect-ml__inactive",
+      "span": 128,
+      "nativeNotch": 2.870441071231781,
+      "straightSigned": -129.5983606557377,
+      "cornerSigned": -79.61481481481482,
+      "sideSigned": {
+        "corner-tl": -79.61481481481482,
+        "corner-tr": -79.61481481481482,
+        "corner-bl": -79.61481481481482,
+        "corner-br": -79.61481481481482,
+        "top": -115.61960784313725,
+        "bottom": -115.61960784313725,
+        "left": -161.7117117117117,
+        "right": -161.7117117117117
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "scene": "light-solid__rrect-lg__inactive",
+      "span": 160,
+      "nativeNotch": 4.601934236453204,
+      "straightSigned": -128.39309210526315,
+      "cornerSigned": -74.01886792452831,
+      "sideSigned": {
+        "corner-tl": -73.9937106918239,
+        "corner-tr": -74.03144654088051,
+        "corner-bl": -74.03144654088051,
+        "corner-br": -74.0188679245283,
+        "top": -114.92138364779875,
+        "bottom": -114.92138364779875,
+        "left": -159.43840579710144,
+        "right": -159.43478260869566
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "scene": "photo__rrect-ml__inactive",
+      "span": 128,
+      "nativeNotch": -23.703559904118137,
+      "straightSigned": -31.988387978142075,
+      "cornerSigned": -24.14814814814815,
+      "sideSigned": {
+        "corner-tl": -22.666666666666668,
+        "corner-tr": -21.659259259259258,
+        "corner-bl": -25.066666666666666,
+        "corner-br": -27.2,
+        "top": -25.982352941176472,
+        "bottom": -27.87843137254902,
+        "left": -44.83783783783784,
+        "right": -42.37837837837838
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "scene": "photo__capsule-button__rest",
+      "span": 44,
+      "nativeNotch": -12.542742941400306,
+      "straightSigned": -16.412280701754383,
+      "cornerSigned": -20.27450980392157,
+      "sideSigned": {
+        "corner-tl": -22.205882352941178,
+        "corner-tr": -19.30392156862745,
+        "corner-bl": -21.264705882352942,
+        "corner-br": -18.323529411764707,
+        "top": -18.083333333333332,
+        "bottom": -14.741228070175438
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "scene": "photo__rrect-md__rest",
+      "span": 96,
+      "nativeNotch": -20.813985537190064,
+      "straightSigned": -26.357007575757574,
+      "cornerSigned": -15.300505050505052,
+      "sideSigned": {
+        "corner-tl": -15.181818181818182,
+        "corner-tr": -13.282828282828284,
+        "corner-bl": -18.393939393939394,
+        "corner-br": -14.343434343434343,
+        "top": -16.197222222222223,
+        "bottom": -17.675,
+        "left": -55.345238095238095,
+        "right": -37.74404761904762
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "scene": "photo__capsule-button__inactive",
+      "span": 44,
+      "nativeNotch": -18.06863766171992,
+      "straightSigned": -29.833333333333332,
+      "cornerSigned": -22.345588235294116,
+      "sideSigned": {
+        "corner-tl": -22.57843137254902,
+        "corner-tr": -20.137254901960784,
+        "corner-bl": -25.11764705882353,
+        "corner-br": -21.54901960784314,
+        "top": -30.12280701754386,
+        "bottom": -29.54385964912281
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+      "scene": "photo__rrect-md__inactive",
+      "span": 96,
+      "nativeNotch": -18.650119834710722,
+      "straightSigned": -28.68655303030303,
+      "cornerSigned": -15.53282828282828,
+      "sideSigned": {
+        "corner-tl": -16.97979797979798,
+        "corner-tr": -12.222222222222221,
+        "corner-bl": -18.96969696969697,
+        "corner-br": -13.959595959595958,
+        "top": -27.23611111111111,
+        "bottom": -27.15833333333333,
+        "left": -37.273809523809526,
+        "right": -26.482142857142858
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "scene": "photo__capsule-button__rest",
+      "span": 44,
+      "nativeNotch": -12.997407524733632,
+      "straightSigned": -16.416666666666664,
+      "cornerSigned": -28.32598039215686,
+      "sideSigned": {
+        "corner-tl": -30.313725490196077,
+        "corner-tr": -27.30392156862745,
+        "corner-bl": -29.57843137254902,
+        "corner-br": -26.107843137254903,
+        "top": -18.083333333333332,
+        "bottom": -14.75
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "scene": "photo__rrect-md__rest",
+      "span": 96,
+      "nativeNotch": -21.031507851239652,
+      "straightSigned": -26.357007575757574,
+      "cornerSigned": -20.166666666666668,
+      "sideSigned": {
+        "corner-tl": -20.282828282828284,
+        "corner-tr": -18.03030303030303,
+        "corner-bl": -23.333333333333332,
+        "corner-br": -19.02020202020202,
+        "top": -16.197222222222223,
+        "bottom": -17.675,
+        "left": -55.345238095238095,
+        "right": -37.74404761904762
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "scene": "photo__capsule-button__inactive",
+      "span": 44,
+      "nativeNotch": -18.52821057838659,
+      "straightSigned": -29.833333333333332,
+      "cornerSigned": -0.16176470588235306,
+      "sideSigned": {
+        "corner-tl": -0.53921568627451,
+        "corner-tr": 2.147058823529412,
+        "corner-bl": -3.0686274509803924,
+        "corner-br": 0.813725490196078,
+        "top": -30.12280701754386,
+        "bottom": -29.54385964912281
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+      "scene": "photo__rrect-md__inactive",
+      "span": 96,
+      "nativeNotch": -18.859540082644614,
+      "straightSigned": -28.68655303030303,
+      "cornerSigned": -2.6616161616161618,
+      "sideSigned": {
+        "corner-tl": -4.3232323232323235,
+        "corner-tr": 0.7878787878787881,
+        "corner-bl": -6.202020202020202,
+        "corner-br": -0.9090909090909091,
+        "top": -27.23611111111111,
+        "bottom": -27.15833333333333,
+        "left": -37.273809523809526,
+        "right": -26.482142857142858
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "scene": "light-solid__capsule-button__rest",
+      "span": 44,
+      "nativeNotch": -20.032733319636577,
+      "straightSigned": -19.20175438596491,
+      "cornerSigned": -24.919014084507044,
+      "sideSigned": {
+        "corner-tl": -24.774647887323944,
+        "corner-tr": -24.75586854460094,
+        "corner-bl": -25.070422535211268,
+        "corner-br": -25.075117370892016,
+        "top": -19.07017543859649,
+        "bottom": -19.333333333333332
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "scene": "photo__capsule-button__rest",
+      "span": 44,
+      "nativeNotch": -14.691851917545549,
+      "straightSigned": -17.179824561403507,
+      "cornerSigned": -22.6349765258216,
+      "sideSigned": {
+        "corner-tl": -22.760563380281692,
+        "corner-tr": -20.643192488262912,
+        "corner-bl": -24.732394366197184,
+        "corner-br": -22.4037558685446,
+        "top": -17.42324561403509,
+        "bottom": -16.93640350877193
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "scene": "light-solid__rrect-md__rest",
+      "span": 96,
+      "nativeNotch": -29.28270497925311,
+      "straightSigned": -34.65246212121212,
+      "cornerSigned": -21.62820512820513,
+      "sideSigned": {
+        "corner-tl": -20.415384615384617,
+        "corner-tr": -20.415384615384617,
+        "corner-bl": -22.84102564102564,
+        "corner-br": -22.84102564102564,
+        "top": -20.475,
+        "bottom": -24.458333333333332,
+        "left": -60.764880952380956,
+        "right": -60.764880952380956
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "scene": "photo__rrect-md__rest",
+      "span": 96,
+      "nativeNotch": -20.67680497925312,
+      "straightSigned": -25.80871212121212,
+      "cornerSigned": -16.415384615384614,
+      "sideSigned": {
+        "corner-tl": -16.153846153846153,
+        "corner-tr": -14.702564102564102,
+        "corner-bl": -18.307692307692307,
+        "corner-br": -16.4974358974359,
+        "top": -16.65,
+        "bottom": -18.020833333333332,
+        "left": -52.351190476190474,
+        "right": -35.580357142857146
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "scene": "light-solid__rrect-ml__rest",
+      "span": 128,
+      "nativeNotch": -28.107718998844945,
+      "straightSigned": -33.9733606557377,
+      "cornerSigned": -19.486625514403293,
+      "sideSigned": {
+        "corner-tl": -18.386831275720166,
+        "corner-tr": -18.390946502057613,
+        "corner-bl": -20.584362139917697,
+        "corner-br": -20.584362139917697,
+        "top": -21.04705882352941,
+        "bottom": -24.36470588235294,
+        "left": -59.85810810810811,
+        "right": -59.85810810810811
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "scene": "photo__rrect-ml__rest",
+      "span": 128,
+      "nativeNotch": -20.521860157080155,
+      "straightSigned": -22.873975409836067,
+      "cornerSigned": -14.096707818930042,
+      "sideSigned": {
+        "corner-tl": -15.57201646090535,
+        "corner-tr": -12.205761316872428,
+        "corner-bl": -15.448559670781894,
+        "corner-br": -13.160493827160494,
+        "top": -15.909803921568628,
+        "bottom": -16.93137254901961,
+        "left": -45.090090090090094,
+        "right": -30.30855855855856
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "scene": "photo__rrect-sm__rest",
+      "span": 32,
+      "nativeNotch": -23.100000222249662,
+      "straightSigned": -27.7734375,
+      "cornerSigned": -20.793333333333337,
+      "sideSigned": {
+        "corner-tl": -21.44,
+        "corner-tr": -20.253333333333334,
+        "corner-bl": -19.133333333333333,
+        "corner-br": -22.346666666666668,
+        "top": -18.84027777777778,
+        "bottom": -18.489583333333336,
+        "left": -59.09375,
+        "right": -51.104166666666664
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "scene": "light-solid__capsule-button__inactive",
+      "span": 44,
+      "nativeNotch": -19.841356462585054,
+      "straightSigned": -35.78508771929825,
+      "cornerSigned": -28.309859154929576,
+      "sideSigned": {
+        "corner-tl": -28.309859154929576,
+        "corner-tr": -28.309859154929576,
+        "corner-bl": -28.309859154929576,
+        "corner-br": -28.309859154929576,
+        "top": -35.78508771929825,
+        "bottom": -35.78508771929825
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "scene": "light-solid__rrect-md__inactive",
+      "span": 96,
+      "nativeNotch": -25.39272821222113,
+      "straightSigned": -42.214015151515156,
+      "cornerSigned": -23.764102564102565,
+      "sideSigned": {
+        "corner-tl": -23.764102564102565,
+        "corner-tr": -23.764102564102565,
+        "corner-bl": -23.764102564102565,
+        "corner-br": -23.764102564102565,
+        "top": -37.15277777777778,
+        "bottom": -37.15277777777778,
+        "left": -53.05952380952381,
+        "right": -53.05952380952381
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "scene": "photo__capsule-button__inactive",
+      "span": 44,
+      "nativeNotch": -20.013529801853622,
+      "straightSigned": -28.11622807017544,
+      "cornerSigned": -21.94131455399061,
+      "sideSigned": {
+        "corner-tl": -22.136150234741784,
+        "corner-tr": -20.08450704225352,
+        "corner-bl": -24.384976525821596,
+        "corner-br": -21.15962441314554,
+        "top": -28.56798245614035,
+        "bottom": -27.664473684210527
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "scene": "photo__rrect-md__inactive",
+      "span": 96,
+      "nativeNotch": -21.828658506224045,
+      "straightSigned": -28.36221590909091,
+      "cornerSigned": -15.947435897435897,
+      "sideSigned": {
+        "corner-tl": -16.112820512820512,
+        "corner-tr": -14.58974358974359,
+        "corner-bl": -17.825641025641026,
+        "corner-br": -15.26153846153846,
+        "top": -26.006944444444443,
+        "bottom": -26.3625,
+        "left": -39.37797619047619,
+        "right": -26.67857142857143
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "scene": "photo__rrect-sm__inactive",
+      "span": 32,
+      "nativeNotch": -27.51273878873934,
+      "straightSigned": -33.420572916666664,
+      "cornerSigned": -21.78333333333333,
+      "sideSigned": {
+        "corner-tl": -23.0,
+        "corner-tr": -20.85333333333333,
+        "corner-bl": -20.96,
+        "corner-br": -22.32,
+        "top": -30.39236111111111,
+        "bottom": -30.041666666666668,
+        "left": -45.739583333333336,
+        "right": -40.322916666666664
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "scene": "light-solid__rrect-ml__inactive",
+      "span": 128,
+      "nativeNotch": -23.20644920304923,
+      "straightSigned": -41.22950819672131,
+      "cornerSigned": -20.65843621399177,
+      "sideSigned": {
+        "corner-tl": -20.65843621399177,
+        "corner-tr": -20.65843621399177,
+        "corner-bl": -20.65843621399177,
+        "corner-br": -20.65843621399177,
+        "top": -36.77647058823529,
+        "bottom": -36.77647058823529,
+        "left": -51.45945945945946,
+        "right": -51.45945945945946
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "scene": "light-solid__rrect-lg__inactive",
+      "span": 160,
+      "nativeNotch": -21.174366909975646,
+      "straightSigned": -40.41995614035088,
+      "cornerSigned": -18.269470404984425,
+      "sideSigned": {
+        "corner-tl": -18.26791277258567,
+        "corner-tr": -18.26791277258567,
+        "corner-bl": -18.26791277258567,
+        "corner-br": -18.274143302180686,
+        "top": -36.319182389937104,
+        "bottom": -36.319182389937104,
+        "left": -49.869565217391305,
+        "right": -49.869565217391305
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "scene": "photo__rrect-ml__inactive",
+      "span": 128,
+      "nativeNotch": -21.91075277893276,
+      "straightSigned": -26.42827868852459,
+      "cornerSigned": -13.852880658436213,
+      "sideSigned": {
+        "corner-tl": -15.423868312757202,
+        "corner-tr": -12.205761316872428,
+        "corner-bl": -15.102880658436215,
+        "corner-br": -12.679012345679013,
+        "top": -24.945098039215686,
+        "bottom": -25.10686274509804,
+        "left": -35.648648648648646,
+        "right": -23.6509009009009
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "scene": "photo__capsule-button__rest",
+      "span": 44,
+      "nativeNotch": -7.747624238688772,
+      "straightSigned": -0.26535087719298245,
+      "cornerSigned": -19.649061032863848,
+      "sideSigned": {
+        "corner-tl": -18.314553990610328,
+        "corner-tr": -18.511737089201876,
+        "corner-bl": -18.685446009389672,
+        "corner-br": -23.08450704225352,
+        "top": 0.0,
+        "bottom": -0.5307017543859649
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "scene": "photo__rrect-md__rest",
+      "span": 96,
+      "nativeNotch": -17.02320933609957,
+      "straightSigned": -17.09090909090909,
+      "cornerSigned": -14.312820512820512,
+      "sideSigned": {
+        "corner-tl": -12.753846153846153,
+        "corner-tr": -12.158974358974358,
+        "corner-bl": -15.492307692307692,
+        "corner-br": -16.846153846153847,
+        "top": -0.2875,
+        "bottom": -2.966666666666667,
+        "left": -52.25297619047619,
+        "right": -48.202380952380956
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "scene": "light-solid__capsule-button__inactive",
+      "span": 44,
+      "nativeNotch": -3.1432476190475995,
+      "straightSigned": -73.21929824561404,
+      "cornerSigned": -55.093896713615024,
+      "sideSigned": {
+        "corner-tl": -55.093896713615024,
+        "corner-tr": -55.093896713615024,
+        "corner-bl": -55.093896713615024,
+        "corner-br": -55.093896713615024,
+        "top": -73.21929824561404,
+        "bottom": -73.21929824561404
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "scene": "photo__capsule-button__inactive",
+      "span": 44,
+      "nativeNotch": -20.96754557823128,
+      "straightSigned": -28.49122807017544,
+      "cornerSigned": -23.725352112676056,
+      "sideSigned": {
+        "corner-tl": -20.845070422535212,
+        "corner-tr": -23.727699530516432,
+        "corner-bl": -22.544600938967136,
+        "corner-br": -27.784037558685444,
+        "top": -28.589912280701753,
+        "bottom": -28.392543859649123
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "scene": "photo__rrect-md__inactive",
+      "span": 96,
+      "nativeNotch": -24.00821116874137,
+      "straightSigned": -33.34706439393939,
+      "cornerSigned": -18.810256410256407,
+      "sideSigned": {
+        "corner-tl": -15.666666666666666,
+        "corner-tr": -17.94871794871795,
+        "corner-bl": -21.123076923076923,
+        "corner-br": -20.5025641025641,
+        "top": -26.105555555555554,
+        "bottom": -30.06111111111111,
+        "left": -42.973214285714285,
+        "right": -46.279761904761905
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "scene": "light-solid__rrect-ml__inactive",
+      "span": 128,
+      "nativeNotch": 10.005774009702009,
+      "straightSigned": -125.25956284153006,
+      "cornerSigned": -61.34979423868314,
+      "sideSigned": {
+        "corner-tl": -61.34979423868313,
+        "corner-tr": -61.34979423868313,
+        "corner-bl": -61.34979423868313,
+        "corner-br": -61.34979423868313,
+        "top": -113.02745098039216,
+        "bottom": -113.02745098039216,
+        "left": -153.36036036036037,
+        "right": -153.36036036036037
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "scene": "light-solid__rrect-lg__inactive",
+      "span": 160,
+      "nativeNotch": 13.536755717761551,
+      "straightSigned": -122.79605263157895,
+      "cornerSigned": -53.099688473520246,
+      "sideSigned": {
+        "corner-tl": -53.099688473520246,
+        "corner-tr": -53.099688473520246,
+        "corner-bl": -53.099688473520246,
+        "corner-br": -53.099688473520246,
+        "top": -111.6006289308176,
+        "bottom": -111.6006289308176,
+        "left": -148.59420289855072,
+        "right": -148.59420289855072
+      }
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "scene": "photo__rrect-ml__inactive",
+      "span": 128,
+      "nativeNotch": -20.168885151767142,
+      "straightSigned": -30.58162568306011,
+      "cornerSigned": -18.77469135802469,
+      "sideSigned": {
+        "corner-tl": -17.679012345679013,
+        "corner-tr": -16.80246913580247,
+        "corner-bl": -19.921810699588477,
+        "corner-br": -20.695473251028808,
+        "top": -25.108823529411765,
+        "bottom": -26.652941176470588,
+        "left": -43.450450450450454,
+        "right": -39.31081081081081
+      }
+    }
+  ],
+  "stops": {
+    "b3": 5.596255774381109e-05,
+    "b3Bound": 5.6e-05,
+    "whole": 0.0007158135811605964,
+    "inactiveAdmitted": 0.0,
+    "inactiveWhole": 0.0007967193578457206
+  },
+  "m2": [
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "scene": "photo__capsule-button__inactive",
+      "interiorRingPixels": 257,
+      "changedByOutside": 0,
+      "changedByInside": 257
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "scene": "photo__capsule-button__rest",
+      "interiorRingPixels": 272,
+      "changedByOutside": 0,
+      "changedByInside": 272
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "scene": "photo__rrect-md__inactive",
+      "interiorRingPixels": 471,
+      "changedByOutside": 0,
+      "changedByInside": 471
+    },
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "scene": "photo__rrect-md__rest",
+      "interiorRingPixels": 469,
+      "changedByOutside": 0,
+      "changedByInside": 469
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "scene": "photo__capsule-button__inactive",
+      "interiorRingPixels": 280,
+      "changedByOutside": 0,
+      "changedByInside": 280
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "scene": "photo__capsule-button__rest",
+      "interiorRingPixels": 281,
+      "changedByOutside": 0,
+      "changedByInside": 281
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "scene": "photo__rrect-md__inactive",
+      "interiorRingPixels": 490,
+      "changedByOutside": 0,
+      "changedByInside": 490
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "scene": "photo__rrect-md__rest",
+      "interiorRingPixels": 488,
+      "changedByOutside": 0,
+      "changedByInside": 488
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "scene": "photo__rrect-ml__rest",
+      "interiorRingPixels": 646,
+      "changedByOutside": 0,
+      "changedByInside": 646
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "scene": "photo__rrect-sm__inactive",
+      "interiorRingPixels": 180,
+      "changedByOutside": 0,
+      "changedByInside": 180
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "scene": "photo__rrect-sm__rest",
+      "interiorRingPixels": 179,
+      "changedByOutside": 0,
+      "changedByInside": 179
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "scene": "photo__toolbar-group__inactive",
+      "interiorRingPixels": 387,
+      "changedByOutside": 0,
+      "changedByInside": 387
+    },
+    {
+      "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "scene": "photo__toolbar-group__rest",
+      "interiorRingPixels": 393,
+      "changedByOutside": 0,
+      "changedByInside": 393
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "scene": "photo__capsule-button__inactive",
+      "interiorRingPixels": 524,
+      "changedByOutside": 0,
+      "changedByInside": 524
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "scene": "photo__capsule-button__rest",
+      "interiorRingPixels": 546,
+      "changedByOutside": 0,
+      "changedByInside": 546
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "scene": "photo__rrect-md__inactive",
+      "interiorRingPixels": 899,
+      "changedByOutside": 0,
+      "changedByInside": 899
+    },
+    {
+      "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "scene": "photo__rrect-md__rest",
+      "interiorRingPixels": 894,
+      "changedByOutside": 0,
+      "changedByInside": 894
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "scene": "photo__capsule-button__inactive",
+      "interiorRingPixels": 576,
+      "changedByOutside": 0,
+      "changedByInside": 576
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "scene": "photo__capsule-button__rest",
+      "interiorRingPixels": 578,
+      "changedByOutside": 0,
+      "changedByInside": 578
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "scene": "photo__rrect-md__inactive",
+      "interiorRingPixels": 922,
+      "changedByOutside": 0,
+      "changedByInside": 922
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "scene": "photo__rrect-md__rest",
+      "interiorRingPixels": 919,
+      "changedByOutside": 0,
+      "changedByInside": 919
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "scene": "photo__rrect-ml__rest",
+      "interiorRingPixels": 1311,
+      "changedByOutside": 0,
+      "changedByInside": 1311
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "scene": "photo__rrect-sm__inactive",
+      "interiorRingPixels": 351,
+      "changedByOutside": 0,
+      "changedByInside": 351
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "scene": "photo__rrect-sm__rest",
+      "interiorRingPixels": 348,
+      "changedByOutside": 0,
+      "changedByInside": 348
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "scene": "photo__toolbar-group__inactive",
+      "interiorRingPixels": 839,
+      "changedByOutside": 0,
+      "changedByInside": 839
+    },
+    {
+      "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "scene": "photo__toolbar-group__rest",
+      "interiorRingPixels": 847,
+      "changedByOutside": 0,
+      "changedByInside": 847
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+
+ RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/w33-g0-rim-cut/packages/calibration
+
+ ❯ test/w33-rim-cut.test.ts (1 test | 1 failed) 55ms
+     × keeps opposite channel errors and distinguishes integer and analytic exterior 54ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/w33-rim-cut.test.ts > W33 rim referee arithmetic > keeps opposite channel errors and distinguishes integer and analytic exterior
+AssertionError: Traceback (most recent call last):
+  File "<string>", line 4, in <module>
+ModuleNotFoundError: No module named 'referee'
+: expected 1 to be +0 // Object.is equality
+
+- Expected
++ Received
+
+- 0
++ 1
+
+ ❯ test/w33-rim-cut.test.ts:20:36
+     18|                      analytic=bool(b[4,1]), holdout=fitting_role('hold…
+     19| `], { encoding: "utf8" });
+     20|     expect(run.status, run.stderr).toBe(0);
+       |                                    ^
+     21|     const result = JSON.parse(run.stdout);
+     22|     expect(result.mae).toBeCloseTo(40 / 3);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  15:16:24
+   Duration  159ms (transform 10ms, setup 0ms, import 16ms, tests 55ms, environment 0ms)
+
+undefined
+/Users/new/Developer/GitHub/designer/.claude/worktrees/w33-g0-rim-cut/packages/calibration:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/w33-rim-cut.test.ts

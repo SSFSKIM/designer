@@ -1,0 +1,15 @@
+W32 G2 — the far-exterior difference, W29 G3b's band and amplification — W33-G0
+================================================================================================
+  every pixel more than 12 CSS px outside the component's declared box;
+  mean of ΔE(OKLab) × 8 on 0–255, which is what the sheets draw.
+  tree: /Users/new/Developer/GitHub/designer/packages/calibration/web-captures
+
+  profile                                       scene                                 tier     far mean  far max
+  apple-macos-27.0-1x-light-standard-glass0.5   checkerboard__rrect-lg__inactive      webgpu       0.00     0.00
+  apple-macos-27.0-1x-light-standard-glass0.5   checkerboard__rrect-lg__inactive      css          0.00     0.00
+  apple-macos-27.0-1x-light-standard-glass0.5   checkerboard__rrect-lg__rest          webgpu      11.98   137.10
+  apple-macos-27.0-1x-light-standard-glass0.5   checkerboard__rrect-lg__rest          css          2.34    12.25
+  apple-macos-27.0-2x-light-standard-glass0.5   checkerboard__rrect-lg__inactive      webgpu       0.00     0.00
+  apple-macos-27.0-2x-light-standard-glass0.5   checkerboard__rrect-lg__inactive      css          0.00     0.00
+  apple-macos-27.0-2x-light-standard-glass0.5   checkerboard__rrect-lg__rest          webgpu      12.76   137.10
+  apple-macos-27.0-2x-light-standard-glass0.5   checkerboard__rrect-lg__rest          css          1.94    12.25

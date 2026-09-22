@@ -1,0 +1,100 @@
+{
+  "inventory": {
+    "all": 442,
+    "atOne": 254,
+    "selected": 115,
+    "selectedAtOne": 48
+  },
+  "summary": [
+    {
+      "name": "i-outside-measured",
+      "cells": 380,
+      "contourFailures": 17,
+      "iouFailures": 17,
+      "maxContour": 1.4142135623730951,
+      "minIoU": 0.9441860465116279,
+      "newlyThresholded": 18744,
+      "selectedContourFailures": 1,
+      "selectedIoUFailures": 1,
+      "selectedPredicateChanges": [],
+      "predicateChanges": [],
+      "changedInteriorPixels": 0,
+      "infeasibleBeyondOneCells": 0,
+      "infeasibleCells": 0,
+      "infeasiblePixels": 0
+    },
+    {
+      "name": "ii-inside-measured",
+      "cells": 380,
+      "contourFailures": 2,
+      "iouFailures": 1,
+      "maxContour": 1.4142135623730951,
+      "minIoU": 0.9812887915297553,
+      "newlyThresholded": 4115,
+      "selectedContourFailures": 0,
+      "selectedIoUFailures": 0,
+      "selectedPredicateChanges": [
+        {
+          "profile": "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5",
+          "scene": "checkerboard__rrect-md__rest",
+          "before": false,
+          "after": true
+        }
+      ],
+      "predicateChanges": [
+        "apple-macos-27.0-1x-dark-standard-glass0.5/dark-solid__capsule-button__inactive-tint-orange",
+        "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5/checkerboard__rrect-md__rest",
+        "apple-macos-27.0-1x-light-standard-glass0.5/dark-solid__capsule-button__inactive-tint-orange",
+        "apple-macos-27.0-1x-light-standard-glass0.5/impulse__capsule-button__inactive-tint-orange",
+        "apple-macos-27.0-2x-light-standard-glass0.5/checkerboard-lc16__capsule-button__inactive"
+      ],
+      "changedInteriorPixels": 234138,
+      "infeasibleBeyondOneCells": 0,
+      "infeasibleCells": 0,
+      "infeasiblePixels": 0
+    },
+    {
+      "name": "iii-outside-0.49",
+      "cells": 380,
+      "contourFailures": 113,
+      "iouFailures": 123,
+      "maxContour": 1.4142135623730951,
+      "minIoU": 0.9474989665150889,
+      "newlyThresholded": 101954,
+      "selectedContourFailures": 37,
+      "selectedIoUFailures": 41,
+      "selectedPredicateChanges": [],
+      "predicateChanges": [],
+      "changedInteriorPixels": 0,
+      "infeasibleBeyondOneCells": 0,
+      "infeasibleCells": 0,
+      "infeasiblePixels": 0
+    },
+    {
+      "name": "iv-held-coverage",
+      "cells": 380,
+      "contourFailures": 0,
+      "iouFailures": 0,
+      "maxContour": 1,
+      "minIoU": 0.9987221613727638,
+      "newlyThresholded": 0,
+      "selectedContourFailures": 0,
+      "selectedIoUFailures": 0,
+      "selectedPredicateChanges": [],
+      "predicateChanges": [],
+      "changedInteriorPixels": 0,
+      "infeasibleBeyondOneCells": 378,
+      "infeasibleCells": 380,
+      "infeasiblePixels": 181644
+    }
+  ],
+  "oracleSummary": {
+    "cells": 380,
+    "contourFailures": 73,
+    "iouFailures": 59,
+    "crossings": 50911,
+    "selectedContourFailures": 23,
+    "selectedIoUFailures": 24
+  },
+  "skipped": []
+}
