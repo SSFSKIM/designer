@@ -4408,6 +4408,14 @@ named the way `results/superseded/<sha>.json` is, gitignored beside the canonica
 reads that sidecar yet; a sheet of a superseded generation would point `VITREA_WEB_CAPTURES` at
 it and the checker would class every cell `superseded` there, which is the reading it is for.
 
+**Merge record 2026-09-22 (W33 G1b's merge, `979c63e3`).** Same rule, second time: the worktree's
+tree (786 captures, the read at the lift-stand-down documents) copied byte for byte to the canonical
+`web-captures/`; the checker there reads **1,900 captures, 1,893 match, 0 mismatch, 0 misfiled,
+0 superseded, 7 no-row**; gated 230 / 786. The generation it replaced — the six macOS 27 subtrees at
+documents `d5bdd6eac432` (light) / `431cabd391c4` (dark), the pixels the rows now in
+`results/superseded/d5bdd6eac432.json` and `431cabd391c4.json` were measured off — moved to
+`web-captures-superseded/<sha>/` beside W32's pair. The sidecar now holds four generations.
+
 ---
 
 ## A retention conditioned on the SURFACE is the operator's next form, and the same defect already shipped once as a policy bug (W31 G4, 2026-09-21)
