@@ -34117,6 +34117,17 @@ packed tarballs rather than assumed — `@vitreajs/vitrea-web`'s dependency read
 README in each; core **583,443 B**, web **567,784 B**, react **187,860 B**
 against 583,444 / 564,886 / 186,783 at 0.21.0.
 
+*Re-run 2026-09-22 at this gate's review closure, because Decision Log 5 gives the
+React package a source change after the cut (§10).* Same script, same
+verdict — three dry runs clean, `workspace:^` rewritten to `^0.22.0` in both
+dependents, `LICENSE` / `NOTICE` / `README.md` in each. Core and web are
+**byte-identical at 583,443 and 567,784**; react is **188,179 B** against the
+187,860 above, which is the one exported symbol, its doc comment and the README's
+restored paragraph. The package's export count goes **37 → 38**, read off the
+built `dist/index.js` rather than counted by hand, and 37 is the number 0.21.0's
+cold install verified (c9d, the 0.21.0 row). Both readings of the tarball are
+kept; `dry-run.txt` holds the second.
+
 **The four macOS 27 document digests this release carries** are the four W32 G1
 sealed — `40a6dec2dc34c748` (light), `bd1814fac34f9b30` (dark),
 `f34dcc03e2774db3` (light receded) and `6b6237b7ae241638` (dark receded) — over

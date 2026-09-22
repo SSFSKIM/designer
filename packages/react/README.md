@@ -492,30 +492,39 @@ tier and both poses together. It is read at construction: a scheme and a window
 pose move *within* one material, where a different document is a different
 material.
 
-The document the root actually selected is on the root handle from 0.20.0 — it is
-what the RUNTIME selected and not what the prop currently says, the two differing
-if a parent re-renders with another document because the root reads it once, and
-it is there before the mount effect has built the runtime, so a component that has
-to produce a layout number on its first render can. That is how `GlassToolbar`
-sizes its gap.
+The document the root actually selected is on the root handle, which is what lets
+a layout ask its own material's questions:
 
-> **Corrected 2026-09-22, at 0.22.0: this paragraph carried an import that does
-> not exist.** It read `import { useGlassRootHandle } from "@vitreajs/vitrea-react"`
-> and `const { materialProfileDocument } = useGlassRootHandle()`. The hook is
-> **internal** — this package exports the `GlassRootHandle` TYPE and
-> `useGlassRoot()`, which returns the `GlassRoot` itself and not the handle — so
-> that import has thrown since it was written, in the 0.20.0 and 0.21.0 READMEs as
-> published. Nothing about what `GlassToolbar` does is wrong; what was wrong was
-> the claim that an app can reach the same thing by the same route.
+```tsx
+import { useGlassRootHandle } from "@vitreajs/vitrea-react";
+
+const { materialProfileDocument } = useGlassRootHandle();
+```
+
+It is what the RUNTIME selected and not what the prop currently says — the two
+differ if a parent re-renders with another document, because the root reads it
+once — and it is there before the mount effect has built the runtime, so a
+component that has to produce a layout number on its first render can. That is how
+`GlassToolbar` sizes its gap.
+
+> **`useGlassRootHandle` is exported from 0.22.0, and in 0.20.0 and 0.21.0 it was
+> not** *(recorded 2026-09-22; the correction G2 wrote is kept rather than
+> deleted)*. The paragraph above, with this same import, is what the 0.20.0 and
+> 0.21.0 READMEs said — and the hook was internal in both, this package exporting
+> the `GlassRootHandle` TYPE and `useGlassRoot()`, which returns the `GlassRoot`
+> itself and not the handle. **That import threw in two published READMEs.** An
+> app pinned to either version reads the digest route below instead; from 0.22.0
+> the paragraph is true as written.
 >
-> **What an app does instead**, and it is the honest route rather than a
-> workaround: read what actually DREW. `useGlassCapabilities(groupId)` gives the
-> group's resolved state, whose `materialDocument` names the endpoint and carries
-> `resolvedMaterialSha256` over the fully resolved material, so a layout can match
-> that digest against the endpoints of whatever document it built its root with
-> and refuse to guess when it matches none — which is a stronger statement than
-> reading the selection back, because it is the material on the screen rather than
-> the material that was asked for. The demo's `/laws/` shadow stage is that code.
+> **The digest route is also the stronger reading, and is worth knowing whichever
+> version you are on.** The handle carries the document the root SELECTED.
+> `useGlassCapabilities(groupId)` carries what actually DREW: the group's resolved
+> state, whose `materialDocument` names the endpoint, carries
+> `resolvedMaterialSha256` over the fully resolved material, and says whether an
+> app has tuned it. A layout can match that digest against the endpoints of
+> whatever document it built its root with and refuse to guess when it matches
+> none — the material on the screen rather than the material that was asked for.
+> The demo's `/laws/` shadow stage is that code.
 >
 > ```tsx
 > import { useGlassCapabilities } from "@vitreajs/vitrea-react";
@@ -524,9 +533,9 @@ sizes its gap.
 > // materialDocument?.profileKey, .resolvedMaterialSha256, .tuned
 > ```
 >
-> Exporting the hook would make the original paragraph true and is a one-line API
-> addition; it is not made here, because an export is a public-surface decision
-> and this release is a fidelity one. It is recorded with the shape of the work.
+> What it cannot do is produce a number on the FIRST render, before a frame has
+> resolved a group — which is exactly what the handle is for, and why both are
+> documented here rather than one replacing the other.
 
 `materialProfile` (a tuning of the renderer's optical constants, applied live)
 and `cssTierMapping` (the CSS crossing) are surfaced beside it for an app naming

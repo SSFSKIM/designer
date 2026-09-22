@@ -915,6 +915,23 @@ reading kept beside — and a wave whose own change moves a cell past 2 % of ITS
 miss the way W31 stated it. What the ruling costs: the bound no longer stops a slow walk; the
 ledger's per-wave table is what would show one, and G2 writes the first row of it.
 
+### Decision Log 5 — RULED by the user 2026-09-22 at G2's close: `useGlassRootHandle` is exported from `@vitreajs/vitrea-react` in 0.22.0
+
+**Put.** G2 found, by building the `/laws/` stage against the published packages, that
+`packages/react/README.md` as published in 0.20.0 and 0.21.0 tells an app to
+`import { useGlassRootHandle } from "@vitreajs/vitrea-react"` and read `materialProfileDocument`
+from it, and that the hook has never been exported: `src/index.ts` exports `useGlassRoot` (the
+runtime or `null`) and the TYPE `GlassRootHandle`, whose own doc comment says the document sits
+on the handle so a consumer can read it before the mount effect (W30 Decision Log 1 (f)). No
+exported route reaches that document. G2 corrected the README to the route that works and left
+the export as the user's, since it is public surface.
+
+**Ruled: export it in 0.22.0.** One line in `src/index.ts`, a test that the export resolves and
+returns the handle with the selected document (and throws outside `<GlassRoot>`), the README
+restored to the direct route with the corrected sentence kept beside, and a CHANGELOG entry
+under 0.22.0 for `@vitreajs/vitrea-react` written by hand (the version was already cut by
+`changeset version`; a new changeset file would re-bump the group).
+
 ## Surprises & Discoveries
 
 - **One leaf that had never been fitted carried the whole wave** (W32 G1, claims

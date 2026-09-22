@@ -1,7 +1,10 @@
 #!/bin/sh
-# The publish rehearsal at 0.21.0, short of publishing (claims §5.165 §5).
+# The publish rehearsal at 0.22.0, short of publishing (claims §5.169 §8).
 #
-# W29 G4's script by way of W30 G4's, unchanged but for this line and the scratch directory.
+# W29 G4's script by way of W30 G4's and W31 G4's, unchanged but for this line and the
+# scratch directory. (This line read "0.21.0 … §5.165 §5" when the file landed, which is
+# the version and the section it was copied from; corrected 2026-09-22 at the gate's
+# review closure, claims §5.169 §10, when the rehearsal was re-run for Decision Log 5.)
 #
 # `pnpm publish --dry-run` per published package, and then the two things npm would get
 # wrong on its own, read off the packed tarball rather than assumed: every `workspace:`

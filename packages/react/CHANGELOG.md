@@ -2,6 +2,23 @@
 
 ## 0.22.0
 
+### Minor Changes
+
+- `useGlassRootHandle` is exported. The hook returns the root handle, whose
+  `materialProfileDocument` is the measured material the root selected — readable
+  on the first render, before the mount effect has built the runtime, which is
+  what a layout deriving a number from its own material needs and what
+  `GlassToolbar` already does. **This package's README has told applications to
+  import it since 0.20.0 and the symbol was internal**, so that import threw in
+  the 0.20.0 and 0.21.0 READMEs as published; this export is what makes the
+  paragraph true. It hands an app the SELECTION: the endpoint that actually drew,
+  its digest and whether an app tuned it are on
+  `GlassGroupState.materialDocument` through `useGlassCapabilities`, which needs a
+  frame. Both routes are documented in the README.
+
+  *Written by hand rather than through a changeset: 0.22.0 was already cut by
+  `changeset version`, and a new changeset file would re-bump the fixed group.*
+
 ### Patch Changes
 
 - Updated dependencies [742e244]
