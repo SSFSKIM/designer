@@ -1,0 +1,21 @@
+$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.cli.json && tsc --noEmit -p web/tsconfig.json && tsc --noEmit -p scripts/tsconfig.json
+
+/Users/new/Developer/GitHub/designer/.claude/worktrees/w33-g1a-contour-model/packages/calibration/test/w33-contour-model.test.ts
+   35:44  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   41:40  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   44:37  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   52:43  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   56:39  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   64:41  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   76:35  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   90:39  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  104:50  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  120:41  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  122:35  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  123:35  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+✖ 12 problems (12 errors, 0 warnings)
+
+/Users/new/Developer/GitHub/designer/.claude/worktrees/w33-g1a-contour-model/packages/calibration:
+[ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL] @vitrea/calibration@0.0.0 lint: `eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.cli.json && tsc --noEmit -p web/tsconfig.json && tsc --noEmit -p scripts/tsconfig.json`
+Exit status 1

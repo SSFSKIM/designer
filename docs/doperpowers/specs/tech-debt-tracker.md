@@ -5683,3 +5683,106 @@ union geometry. A complete composite contour referee must separate the exposed c
 group/stack members rather than assign the bbox's corners to the material. IC-alone and
 dark/2x accessibility stay unmeasured. The opening proof's process-count/idle half of X6 was
 unrecorded; it is not retroactively attested.
+
+
+## W33 G1a: angular, radial and colour identification does not close; do not buy a fit with a shape re-pin
+
+*Measured 2026-09-22, claims §5.171; evidence
+`packages/calibration/results/2026-09-22-w33-g1a-contour-model/`.*
+
+**Update beside the G0 entry:** DL2 is now ruled as the identification route; DL3 is the user's
+remaining bound/model decision. On304 non-holdout cells,0/152 combined angular strata close
+under a one-byte diagnostic comparator, against78/152 straight-only and3/152 arc-only. A
+scheme/pose-conditioned isotropic+even term explains the axis contrast but not every bin;
+dark active photo/md's best sampled law leaves14.762813 bytes worst-bin residual. The shipped
+diagonal rim gives identical cardinal-normal values at every exponent and cannot carry that
+contrast. Straight-only data cannot identify the even exponent at all.
+
+**Colour remains open.** The angular encoded/linear multiply/add/affine families leave
+multi-byte RGB residuals. The representative encoded tinted affine improves pooled ringMAE
+34.9791→18.1383 but fails52/304 G0 ceilings; its coefficients are still independently diagnostic
+at each scale. Exact placement costs36 contour/14 IoU failures on298 measurable cells; capping
+previously sub-threshold finished coverage at127/255 keeps shape but leaves18.4324 bytes.
+Do not ship this law, widen G0's ceilings, or interpret the native-colour oracle's0 MAE as a
+fit. Oracle replacement needs40/45 conformance failures on380 cells, whereas G0's73/59 oracle
+was source-over on the existing layer, not a lower bound over replacement layers. Both numbers
+stand on their distinct definitions.
+
+**Coverage and geometry need an identifying experiment.** Exact capsule arcs already spread
+one geometric pixel into centre-distance shells[−1,0) and[1,2). The64-sample area-control grid
+selects centre.5 on light-solid inactive capsules at both scales; width sensitivity is1–1.25
+light/.75–1 dark, not a confidence interval. Continuous md best centre moves.5→.25 between
+scales where capsule centre holds, exposing the declared circular SDF's corner confound.
+The support[0,1) price touches0 M2 pixels; a full antialiased term can enter the inner ring
+and must be priced again, including G0's257–1,311 inside-mask pixels/cell, rather than inherit
+that zero. A one-byte encoding comparator is not the missing native repeatability bar.
+
+**Review qualification beside, 2026-09-22 (§5.171):** one byte is an encoding-resolution
+diagnostic, not a native noise bar. The 78 straight / 3 arc closures count the recorded
+least-squares fits, not a proof over all coefficients. At three bytes those fits close
+8/152 combined, 104/152 straight and 12/152 arc strata. The reviewer's minimax fits close
+0/152, 79/152, 4/152 respectively at one byte and 16/152, 111/152, 20/152 at three bytes.
+Omitted families close individual full strata at one byte: rotated axis 0/152; isotropic plus
+two orthogonal even-axis terms 7/152; gradient 0/152; colour plus gradient 3/152. For example,
+dark inactive 1x dark-solid capsule fits `−22.650771 + 6.304978|nx|^0.5 + 13.357469|ny|^0.5`
+with max-bin residual 0.31 bytes. Thus the original no-full-closure statement is about the
+recorded families and fits, not every separable law or coefficient choice.
+
+**Review bound qualification, 2026-09-22 (§5.171):** 27.0915 bytes bounds a common cardinal
+ADDITIVE response against these four means, not arbitrary retuning of the whole shader.
+
+**Review fixed-colour check, 2026-09-22 (§5.171):** a fixed-colour blend is contained in the
+affine family: `m0 = −a0`, `m1 = −a1`, `b0 = a0·c`, `b1 = a1·c`. The independent constrained
+fit on light-inactive black-bearing leaves 35.40 bytes encoded / 40.81 linear (worst-channel
+MAE, evaluated in encoded bytes). No fixed blend colour is identified by that fit.
+
+**Review correction beside, 2026-09-22 (§5.171):** the circular-control interpretation above
+is withdrawn. `SceneViews.swift:60` supplies `Capsule()`, whose default is `.continuous`, not
+`.circular`. `capsule-geometry.swift` and its `.txt` output attest the 120×44 paths without
+rendering: default equals explicit continuous and differs from explicit circular; the straight
+segment starts at 33.6306 (1.528665 × 22), not 22. The independent review's curve sampling found
+−0.303570…+0.043123 CSS px against the circular SDF (down to −0.607 device px at 2x), whereas
+explicit circular's cubic approximation stays within +0.006 CSS px. These are path diagnostics,
+not a recapture or proof of the fixture's raster alignment. The recorded shell/grid numbers stay;
+pixel-area spread is possible but is NOT isolated from geometry, and capsule-vs-md is NOT a
+circle-vs-continuous experiment. G0's fixed-mask ceilings remain valid non-regression measurements
+because candidate and baseline use the same declared pixels; corner ceilings do not isolate
+colour-law accuracy. Both supplied shapes require geometry qualification.
+
+**Next work:** repeated same-geometry capsules over uniform grey and RGB levels, subpixel-phase
+sweeps at1x/2x, then matched continuous rectangles, both schemes and poses, with a declared
+split and noise bar. This requires authorisation beyond W33 X5; it was not captured here.
+After a law is identified, settle the CSS dpr-aware inset/side-separated approximation by
+experiment, not by assuming its corner response. Unmeasured IC-alone/dark accessibility and
+composite exposed contours remain open. Candidate forecasts explicitly leave66/166 stop rows
+outside their single-shape untinted domain unchanged; there is no whole-bed fit hidden in them.
+
+**Amended next-capture plan beside, 2026-09-22 (§5.171):** capture an explicitly circular,
+path-ATTESTED capsule beside the default continuous one, then matched continuous rectangles;
+export the supplied geometry and alignment and include an opaque geometry/raster control.
+Use matched local-colour scenes with varied backdrop-gradient direction and magnitude and a
+small spatial-frequency ladder, alongside uniform-grey/RGB and subpixel-phase sweeps at both
+scales, schemes and poses. No-glass references must have identical colour management. Take
+enough repeats to estimate per-bin, per-channel variability BEFORE choosing a closure threshold;
+declare calibration/validation/holdout membership before fitting. This is a plan requiring new
+native-capture authorisation, not a capture performed here; X5 remains intact.
+
+**Recommended decision:** stop the contour term at the finding; DL3 remains unruled. The
+independent lift stand-down is still supported, but separating its seal/read from the contour
+would change the parent's one-seal route and has not been done. No material gap is closed by
+this identification gate.
+
+**Third option beside the DL3 draft, 2026-09-22 (§5.171), UNRULED:** the independent reviewer
+also demonstrated a gate-preserving EMPIRICAL partial correction, rather than waiting for an
+identified law or relaxing conformance. It uses isotropic affine on light-active and both
+inactive endpoints, `|nx|²` on dark-active, accessibility unchanged, and coefficients shared
+across 1x/2x. Attenuation is sampled under every G0 ceiling with the finished-alpha cap.
+Pooled ring MAE is **34.979077 → 20.599081 bytes**, with **0/0** contour/IoU failures,
+zero predicate/area/body/native-mask changes, min IoU **0.998722**, and whole-exterior warning
+**0.000446**. Isotropic-only leaves **23.768**; `|nx|²`-only **29.561** (dark-active
+**25.649 → 12.304**). The baseline is **34.979077**, not “~20”; 20.599 is the partial result.
+These are in-sample, offline, unrendered review readings: no CSS result and no identified law.
+`review-partial-combined.py` and `review-partial-prices.json` preserve the review artifacts.
+**Recommendation remains stop at the finding:** geometry and colour remain unseparated, and
+in-sample non-regression is not identification or rendered validation. This empirical route
+is the user's third alternative, not a ruling or authority to implement it; no gate moves.

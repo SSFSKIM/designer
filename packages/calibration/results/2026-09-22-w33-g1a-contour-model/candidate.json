@@ -1,0 +1,38 @@
+{
+  "status": "falsified diagnostic candidate; no law identified or authorised for shipping",
+  "claims": "5.171",
+  "supportDevicePx": [
+    0,
+    1
+  ],
+  "formula": "T=clamp(W + gate*((mul0 + q*mul1)*W + add0 + q*add1),0,1); q=abs(dot(normal,[cos(angle),sin(angle)]))^exponent. W and T are encoded sRGB. Support is centre +/- width/2. Each coefficient has R/G/B leaves.",
+  "composition": "Replacement layer source-over the backdrop: A=max(oldA,ceil255(max_c(requiredCoverage(T_c,B_c)))); P=T-(1-A)*B. Shape-preserving branch caps A at 127/255 iff oldA<0.5, then projects P to [0,A]. RGBA8 is rounded before final composition. Gate zero returns original bytes without a solve.",
+  "gate": {
+    "contourStrokeAlpha": 0
+  },
+  "gated": {
+    "contourStrokeWidthDevicePx": 1,
+    "contourStrokeCentreDevicePx": 0.5,
+    "contourStrokeNormalExponent": 2,
+    "contourStrokeAxisRadians": 0,
+    "contourStrokeMultiplyIsotropicR": 0,
+    "contourStrokeMultiplyIsotropicG": 0,
+    "contourStrokeMultiplyIsotropicB": 0,
+    "contourStrokeMultiplyAnisotropicR": 0,
+    "contourStrokeMultiplyAnisotropicG": 0,
+    "contourStrokeMultiplyAnisotropicB": 0,
+    "contourStrokeAddIsotropicR": 0,
+    "contourStrokeAddIsotropicG": 0,
+    "contourStrokeAddIsotropicB": 0,
+    "contourStrokeAddAnisotropicR": 0,
+    "contourStrokeAddAnisotropicG": 0,
+    "contourStrokeAddAnisotropicB": 0
+  },
+  "inertLawCase": "alpha zero returns the original premultiplied pixel at every gated value, device scale and policy; no reconstruction or coverage solve executes.",
+  "limitations": [
+    "No coefficients close the colour law; coefficients differ by scale and are NOT proposed document patches.",
+    "No native repeatability bar exists for this pixel/angle estimator; one byte is a diagnostic encoding comparator.",
+    "Support [0,1) is the price experiment, not an identified continuous-corner coverage kernel.",
+    "Accessiblity follows G0: independent of strongBorderRim, forced-colors draws none; coefficients here are diagnostic outputs, not a fold."
+  ]
+}

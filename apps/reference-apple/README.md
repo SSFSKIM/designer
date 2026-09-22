@@ -8,6 +8,8 @@ It renders the canonical scene matrix with the real Liquid Glass API surface and
 captures it into versioned fixture profiles. Fixture *schema* and diff *metrics*
 live in `packages/calibration`; this app produces the native side.
 
+Geometry note (§5.171 review, 2026-09-22): `Capsule()` defaults to `.continuous`, as do the harness's rounded rectangles; the capsule is not a circular control.
+
 No workspace `package.json` here on purpose — pnpm only picks up directories that
 have one, so the Xcode toolchain stays out of the JavaScript graph.
 

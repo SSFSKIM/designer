@@ -1,0 +1,151 @@
+{
+  "summary": [
+    {
+      "name": "candidate-exact",
+      "cells": 304,
+      "conformanceCells": 298,
+      "contourFailures": 36,
+      "iouFailures": 14,
+      "uniqueRedCells": 42,
+      "selectedCells": 52,
+      "selectedContourFailures": 2,
+      "selectedIoUFailures": 1,
+      "selectedUniqueRedCells": 2,
+      "maxContour": 1.4142135623730951,
+      "minIoU": 0.9712918660287081,
+      "newlyThresholded": 15867,
+      "predicateChanges": 0,
+      "areaChanges": 0,
+      "bodiesChanges": 0,
+      "nativeMaskPixelsTouched": 0,
+      "infeasibleCells": 0,
+      "pooledMAE": 18.13826708351943,
+      "lossRGB": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "candidate-capped",
+      "cells": 304,
+      "conformanceCells": 298,
+      "contourFailures": 0,
+      "iouFailures": 0,
+      "uniqueRedCells": 0,
+      "selectedCells": 52,
+      "selectedContourFailures": 0,
+      "selectedIoUFailures": 0,
+      "selectedUniqueRedCells": 0,
+      "maxContour": 1,
+      "minIoU": 0.9987221613727638,
+      "newlyThresholded": 0,
+      "predicateChanges": 0,
+      "areaChanges": 0,
+      "bodiesChanges": 0,
+      "nativeMaskPixelsTouched": 0,
+      "infeasibleCells": 120,
+      "pooledMAE": 18.43241476849784,
+      "lossRGB": [
+        0.8111031710585083,
+        0.9085529254131308,
+        0.660830728003573
+      ]
+    },
+    {
+      "name": "oracle-exact",
+      "cells": 386,
+      "conformanceCells": 380,
+      "contourFailures": 40,
+      "iouFailures": 45,
+      "uniqueRedCells": 58,
+      "selectedCells": 85,
+      "selectedContourFailures": 19,
+      "selectedIoUFailures": 22,
+      "selectedUniqueRedCells": 24,
+      "maxContour": 1.4142135623730951,
+      "minIoU": 0.9456521739130435,
+      "newlyThresholded": 36972,
+      "predicateChanges": 0,
+      "areaChanges": 0,
+      "bodiesChanges": 0,
+      "nativeMaskPixelsTouched": 0,
+      "infeasibleCells": 0,
+      "pooledMAE": 0,
+      "lossRGB": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "oracle-capped",
+      "cells": 386,
+      "conformanceCells": 380,
+      "contourFailures": 0,
+      "iouFailures": 0,
+      "uniqueRedCells": 0,
+      "selectedCells": 85,
+      "selectedContourFailures": 0,
+      "selectedIoUFailures": 0,
+      "selectedUniqueRedCells": 0,
+      "maxContour": 1,
+      "minIoU": 0.9987221613727638,
+      "newlyThresholded": 0,
+      "predicateChanges": 0,
+      "areaChanges": 0,
+      "bodiesChanges": 0,
+      "nativeMaskPixelsTouched": 0,
+      "infeasibleCells": 296,
+      "pooledMAE": 3.4464310299989314,
+      "lossRGB": [
+        3.2711568174516974,
+        2.6022044088176353,
+        4.465931863727455
+      ]
+    }
+  ],
+  "forecasts": [
+    {
+      "name": "candidate-exact",
+      "cells": 166,
+      "changedDomain": 100,
+      "before": 0.0007158135811605965,
+      "after": 0.00032105717637714176,
+      "inactiveCells": 81,
+      "inactiveBefore": 0.0007967193578457207,
+      "inactiveAfter": 0.00038795541158439904
+    },
+    {
+      "name": "candidate-capped",
+      "cells": 166,
+      "changedDomain": 100,
+      "before": 0.0007158135811605965,
+      "after": 0.0003190980826599792,
+      "inactiveCells": 81,
+      "inactiveBefore": 0.0007967193578457207,
+      "inactiveAfter": 0.000383072087240715
+    },
+    {
+      "name": "oracle-exact",
+      "cells": 166,
+      "changedDomain": 166,
+      "before": 0.0007158135811605965,
+      "after": 0.00006889628785194578,
+      "inactiveCells": 81,
+      "inactiveBefore": 0.0007967193578457207,
+      "inactiveAfter": 0.0000545729313117451
+    },
+    {
+      "name": "oracle-capped",
+      "cells": 166,
+      "changedDomain": 166,
+      "before": 0.0007158135811605965,
+      "after": 0.00008458555014280945,
+      "inactiveCells": 81,
+      "inactiveBefore": 0.0007967193578457207,
+      "inactiveAfter": 0.00007259456356365947
+    }
+  ],
+  "skipped": []
+}
