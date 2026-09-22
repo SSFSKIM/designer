@@ -34622,3 +34622,295 @@ that a26.5 control capture is byte-identical to its original frozen matrix gener
 its inventory discrepancy has been reconciled. A, B and the forms are offline readings of the
 committed bed. The necessary next step is the model/form ruling and independent review, not
 an amplitude fit premised on an invented universal black stroke.
+
+## 5.171 W33 G1a: angular response and raster coverage separate, but no tested colour law closes (2026-09-22)
+
+**Identification complete as a negative finding; G1b's contour fit is NOT ready.** W33 clauses
+1–3 and5, Decision Log2's ruled route, X1–X13. Branch `w33-g1a-contour-model`, from `bc2631df`.
+Evidence `packages/calibration/results/2026-09-22-w33-g1a-contour-model/`. No material source,
+profile document, matrix row, adopted bar, native fixture or macOS26.5-keyed file changes.
+No capture, seal, holdout read, merge or publish. **Recommend DL3's stop-at-the-finding option**,
+not weaker conformance promises for a candidate that still fails52 of G0's304 ceilings.
+
+### 1. Population and instruments, extended rather than substituted
+
+`model.py` imports G0's population rule, exact circular SDF, geometry and per-pixel/channel
+absolute referee. The **304 non-holdout27 single-shape cells** contribute **223,900** offset-one
+pixels. Scene membership is checked before any PNG read; capture metadata must match the
+matrix generation and every document hash in its provenance must match the shipped bytes.
+`--include-holdout` retains G0's deliberate post-seal meaning and was NOT used. G0's archival
+holdout census is not rerun. Its non-holdout frozen notch readings remain read-only controls:
+light active native median+2.698 on63 cells, not the27 systematic notch. The earlier all-role
++2.68/1-of68 remains the earlier reading, not a substituted denominator.
+
+There are **456 angular strata**: profile × pose × backdrop class × span × geometry kind,
+with straight, arc and combined parts per152 base strata. Sixteen nearest-normal bins at
+22.5° steps assign each raster pixel once; 0° points right,90° bottom,180° left,270° top.
+Combined axis bins include near-axis arc pixels and must not be quoted as G0's pure-side means.
+The angular table records signed RGB, absolute RGB, fitted signed mean and residual per bin.
+
+The radial table has **5,472 rows** at device distances[−2,−1),…,[3,4), split into straight,
+safe straight core and arcs. Safe cores exclude the documented1.528665-radius continuous-corner
+reach. `coverage.py` integrates a circular annulus over64 subpixel samples per pixel on26
+available standard solid/capsule/md cells. The colour table splits mid-solids and other rasters
+from dark-solid, giving400 side strata, then RECOMBINES them to G0's304 parent ceilings before
+any gate comparison. Fitting a diagnostic on non-holdout pixels is not a new canonical read.
+
+**One byte is an encoding-resolution comparator, NOT native repeatability.** No repeat capture
+exists for this angle/coverage instrument. An angular “closure” here means every populated
+bin's signed channel-mean residual≤1 byte. Passing that weak diagnostic would not pass the
+absolute per-pixel referee; failing it already refutes the proposed bin-mean shape.
+
+### 2. Angular law: even plus isotropic is useful, not identified; the shipped rim is the wrong shape
+
+Tested constant, `|nx|^k`, `a+b|nx|^k` at k=.5/1/2/4/8, one-sided diagonal, shipped-diagonal
+unit-exponent diagnostic, and signed-normal affine. Select the fewest coefficients among
+closures; if none closes, show the lowest-error sampled family as UNCLOSED. The results:
+
+|part|strata|closures|
+|---|---:|---:|
+|straight and arcs together|152|0|
+|straight only|152|78|
+|arcs only|152|3|
+
+For dark active photo/md, the best sampled full-profile law is
+**−2.678989−43.765422·|nx|⁴**, worst-bin residual**14.762813 bytes**. Its full sixteen-bin
+signed profile and residual, in bytes (the complete precision lives in `angular.json`):
+
+|normal angle|native−web mean|remaining signed residual|
+|---:|---:|---:|
+|0|−46.57|−0.26|
+|22.5|−22.44|+12.21|
+|45|−22.19|−7.91|
+|67.5|−13.15|−9.15|
+|90|−3.36|−0.68|
+|112.5|−11.19|−7.19|
+|135|−17.48|−3.19|
+|157.5|−27.74|+6.91|
+|180|−50.51|−4.19|
+|202.5|−20.30|+14.36|
+|225|−16.43|−2.15|
+|247.5|−8.00|−4.00|
+|270|−0.64|+2.04|
+|292.5|−8.63|−4.63|
+|315|−15.14|−0.86|
+|337.5|−19.89|+14.76|
+
+An isotropic+even k8 wins81/152 combined strata but is the grid's endpoint, not an identified
+power. Straight-only readings cannot identify an exponent because |nx| is0 or1. Scheme/pose
+must participate: G0's dark active capsule horizontal sides are0/−.539, inactive−29.566/−29.351.
+Neither a capsule-wide disable nor a one-sided light source explains opposite vertical sides.
+
+**The shipped rim fails independently of which exponent is chosen.** Its declared diagonal
+axis normalises `(sqrt(2)·abs(dot(n,L)))^exponent` to the same value on all four cardinal normals;
+the along-side field has zero side mean. G0's pure-side dark active photo/md top/bottom means
+are−.353/−3.047, left/right−54.536/−50.488. Any common value has at least**27.0915 bytes** maximum
+residual on those four means. The SDF/normal machinery is reusable; this directional law is not.
+
+### 3. Radial placement: one device pixel on safe sides, pixel-area spread on circles, geometry on continuous corners
+
+At both scales the light-solid inactive safe straight core has its notch at sampled d=.5,
+inside**[0,1) device px**, and equals the backdrop at d≥1. The nominal centre is.5, width1.
+The discrete sample centres do not locate both continuous boundaries: centre precision without
+a coverage model is no better than±.5 device px, and depth trades with width.
+
+**A circle already spreads the residual into neighbouring shells.** On1x light-solid inactive
+capsule arcs, mean RGB residuals in d bins−1/0/1 are about**−9.06/−31.22/−5.70**; at2x they
+are**−9.96/−28.31/−4.51**. Both are0 from d≥2. This cannot be blamed on `.continuous`: SwiftUI
+uses `Capsule()`, whose arcs are exact circles. A one-pixel annulus integrated over a pixel
+footprint can touch three centre-distance shells; these are not three pixels of geometric width.
+
+The64-sample annulus grid spans widths.5/.75/1/1.25/1.5 and centres0/.25/.5/.75/1. On
+light-solid inactive capsules, both schemes and scales select centre**.5**; within best MAE+.5
+byte, light widths are**1–1.25**, dark widths**.75–1**. These are sampled-grid sensitivity
+intervals, NOT confidence intervals. The best1x light six-shell RGB MAE is**1.070/1.065/1.250**,
+but offset-one alone still reads**2.427/2.392/2.381**. Neither a universal width nor the colour
+space is thereby identified. Dark-solid fits can move to the grid boundary because body and
+coverage errors remain in the native−web signal.
+
+Continuous md corners are a DIFFERENT confound: their best light-solid centre moves.5 at1x
+→.25 at2x, at width1.25, while the capsule stays.5. At2x light inactive, best md mean error is
+**2.98 bytes**, capsule**1.63**. G0's circular SDF shell assigns a continuous-corner pixel the
+normal/distance of a different curve; its residual can therefore contain body coverage and
+geometry, not just colour. This does not justify translating the whole contour or changing
+straight-side placement. `radial.json`/`coverage.json` preserve every channel and cell. The
+native and web1x light-solid inactive capsule were also inspected at native size: the missing
+web contour is visible; the numerical spread is not claimed as a visual measurement of width.
+
+### 4. Colour: the angular extension still does not close a family
+
+Eight families extend G0's floor: neutral multiply/add/affine and tinted affine in encoded and
+linear sRGB, now with isotropic and even-angular terms. Fits over all backdrops share one
+coefficient set per profile/pose; local side/backdrop fits are optimistic diagnostics only.
+Internal space, fixed blend colour and tint remain unidentified: the ordering of spaces changes
+by stratum, and every family leaves multi-byte residuals. A pure multiply cannot brighten a
+backdrop-black pixel while darkening white; the widened1x light inactive black-bearing left
+stratum reads about**+37.4 RGB over black/−138.3 over white**, not §5.166's particular0–6/156
+checkerboard transect. Neither observation identifies a unique source colour or alpha.
+
+The representative **encoded tinted angular affine** candidate's channelwise MAE follows.
+Every2x/accessibility/side reading, and the optimistic encoded/linear comparison, is in
+`tables.json.colour` and `colour.json.strata`; no absent active mid-solid stratum is invented.
+
+|1x standard bed/pose|class|candidate R/G/B MAE|
+|---|---|---|
+|light active|light-solid|10.01/9.98/11.07|
+|light active|photo|8.89/9.02/8.94|
+|light active|dark-solid|6.96/7.20/7.48|
+|light active|black-bearing|12.29/12.18/12.16|
+|light inactive|light-solid|24.50/26.27/23.82|
+|light inactive|photo|13.29/12.77/12.83|
+|light inactive|dark-solid|18.86/17.11/18.29|
+|light inactive|mid-solids|18.56/16.01/25.80|
+|light inactive|black-bearing|33.48/33.19/33.28|
+|dark active|photo|8.02/9.15/9.31|
+|dark active|dark-solid|3.43/3.66/3.46|
+|dark active|black-bearing|11.72/11.73/11.73|
+|dark inactive|light-solid|25.80/24.45/27.50|
+|dark inactive|photo|18.48/16.48/19.36|
+|dark inactive|dark-solid|12.05/9.61/10.44|
+|dark inactive|mid-solids|32.14/9.73/42.56|
+|dark inactive|black-bearing|24.18/22.47/24.95|
+
+Even the optimistic local encoded photo fits leave1x light active**2.93/3.64/3.18**, dark
+active**3.41/3.60/3.39**, light inactive**5.60/5.58/6.16**, dark inactive**6.47/5.46/6.65**.
+Those fits can choose a family per side/backdrop and are not an implementable material.
+**No tested family closes below encoding resolution; below native noise is not asserted**,
+because this instrument has no repeatability reading. The price candidate fails**52/304**
+G0 ceilings after recombining refined classes. The400 refined rows'76 individual parent-bar
+exceedances are diagnostic only, NOT76 failures of G0's304-stratum referee.
+
+### 5. One composable but falsified candidate; seventeen flat leaves, all six digests held
+
+`candidate.json` declares encoded target
+`T=clamp(W+gate*((m0+q*m1)*W+b0+q*b1),0,1)`, `q=abs(dot(n,axis))^k`, support[0,1).
+The exponent is selected on angular errors with equal full-stratum weighting BEFORE colour
+fitting. Standard dark active selects2, the other standard endpoints8. Coefficients are still
+separate at1x/2x and are not a unified device-scale material. This family is tabled to expose
+both prices; its binary support is NOT asserted to reproduce the native antialiased annulus.
+
+Gate `contourStrokeAlpha` has identity0. Its sixteen flat gated leaves are width/centre in
+DEVICE px, normal exponent, axis radians, and Multiply/Add × Isotropic/Anisotropic × R/G/B.
+No nested container. `identity-proof.ts` extends G0's live rule-2 drop in memory, sweeps each
+of16 leaves through−1000/0/.5/1/1000 on each document (**480 sweeps**, plus36 width sweeps),
+and proves the nonidentity gate stays present. The unchanged resolved digests:
+
+|document|digest|
+|---|---|
+|frozen26.5 light|b2b570e4adcea8fb|
+|frozen26.5 dark|874be66ea501621b|
+|27 active light|40a6dec2dc34c748|
+|27 active dark|bd1814fac34f9b30|
+|27 receded light|f34dcc03e2774db3|
+|27 receded dark|6b6237b7ae241638|
+
+The proposed `inertLawCase` is a direct gate-zero return of the original premultiplied pixel,
+at every gated value and device scale: no target reconstruction or coverage solve executes.
+No shader exists for it, so shader inertness/goldens are NOT claimed as tested. WebGPU can use
+its existing normal/distance and solve a valid layer. CSS uniform inset/border cannot express
+the angular law; a future dpr-aware inset versus side-separated approximation experiment must
+read both G0's corner referee and dom bounds at1x/2x before carry/decline. No experiment or
+mirror was fabricated. G0's accessibility declaration stands, including no forced-colours body.
+
+### 6. Exact placement versus shape preservation, by finished RGBA8
+
+`prices.ts` reuses G0's actual contour/IoU/area/body functions and verifies baseline pixels
+against matrix shape/departure values. The replacement layer is source-over the backdrop:
+`A=max(oldA,ceil255(required(T,B)))`, `P=T−(1−A)B`. The cap branch caps A at127/255 only where
+oldA<.5, then projects P to[0,A]. RGBA8 is rounded BEFORE final source-over. These are not
+G0's73/59 source-over-STROKE oracle: they can replace the existing layer's premultiplied colour.
+
+|construction|cells/conformance measured|broad contour/IoU failures|selected contour/IoU failures|distinct red rows broad/selected|ring MAE|
+|---|---:|---:|---:|---:|---:|
+|candidate exact|304/298|36/14|2/1|42/2|18.1383|
+|candidate capped|304/298|0/0|0/0|0/0|18.4324|
+|native-colour oracle exact|386/380|40/45|19/22|58/24|0|
+|native-colour oracle capped|386/380|0/0|0/0|0/0|3.4464|
+
+Each cell here is one texture matrix row. Selected means the adopted active non-probe selector
+intersected with non-holdout cells:52 candidate,85 oracle. Exact candidate would red50 metric
+assertions on42 rows, selected3 on2. Oracle85 assertions on58 rows, selected41 on24. Six
+candidate cells lack conformance under the production refusal; null is neither green nor red.
+The oracle includes G0's380 plus those six. Its cap has infeasible targets on296 cells, or290
+on G0's380, reproducing the independent review without changing its denominator silently.
+
+Candidate baseline**34.9791→18.1383** bytes still fails52 G0 ceilings. Exact max contour√2,
+minIoU**.971292**; cap loss against the target**.811/.909/.661 RGB** with120 infeasible cells.
+Oracle exact minIoU**.945652**; oracle cap loss**3.271/2.602/4.466 RGB**. Every exact target is
+reached byte-for-byte, but only the oracle is allowed to look up native colours per pixel;
+its0 MAE is NOT a fitted law. The proposed and oracle prices are never conflated.
+
+Every construction preserves silhouette area/bodies and both conditioning arms:0 predicate
+moves and0 changed native-mask pixels. Thus the67-list is unchanged by THESE exterior-only
+counterfactuals, without pretending to read holdout. All26 M2 masks are untouched; G0's inside
+alternative touches257–1,311 pixels/cell. Offsets2–6 remain exactly their baseline errors.
+`prices.json` records each cell; `tables.json.prices` records RGB loss and all six offsets per
+profile/pose/class/span/kind. A true antialiased annulus can enter the inner ring, so it must
+be priced anew and cannot inherit this experiment's0 M2-touch claim.
+
+### 7. Stops forecast, and Decision Log3 draft
+
+The support-limited candidate has stroke-only change0 on C1's twelve rows, on the thin stop
+and on B3's admitted bands. C1 stays.00088–.00391 under.0042; thin inherited accessibility
+worst.02168 is not fixed or re-pinned. B1 remains light8.9600/13.1648/17.3696 and
+dark9.0400/12.9280/16.8160. Admitted B3 stays**.00005596255774381109**, inactive half exactly0.
+Lift/anchor compensation is not part of this algebra and no new numeric result is invented.
+
+`prices.ts` recomputes the warning in LINEAR light over the same166 rows, with baseline
+agreement against the actual shadow metric. Candidate forecasts explicitly hold66 out-of-domain
+rows unchanged and change100; the oracle covers166. Inactive membership remains81:
+
+|construction|whole exterior .00071581358→|inactive .00079671936→|
+|---|---:|---:|
+|candidate exact|.00032105718|.00038795541|
+|candidate capped|.00031909808|.00038307209|
+|oracle exact|.00006889629|.00005457293|
+|oracle capped|.00008458555|.00007259456|
+
+Even exact native offset-one colours leave a warning: the neighbouring-shell arc residual and
+other exterior differences remain. Capping can slightly improve the scalar warning for the
+wrong candidate while worsening RGB fidelity; the warning is not the fitting objective.
+No golden was rerun. Nothing under renderer source/defaults/goldens changed; the gate-zero
+byte-preserving case is declared for a future implementation, not passed off as a GPU test.
+
+**DL3 draft, UNRULED:** recommend stop the contour term at this finding. Do not re-adopt
+contour1→√2 and the IoU floor for a family that still fails52 ceilings, nor accept the cap's
+remaining18.4324 bytes as identified fidelity. The other options stay available AFTER a law
+is identified: exact placement with both conformance prices acknowledged, or the cap with its
+loss tabled. The user's bounds have not moved; this is a recommendation, not their approval.
+
+Next identifying evidence: repeated same-geometry circular capsules over uniform grey and RGB
+levels, with subpixel-phase sweeps at1x/2x, then the matched continuous rectangles, both poses
+and schemes. This separates colour, normal response, coverage and corner geometry and supplies
+a repeatability bar. It needs a new authorised native-capture/split plan; X5 forbids it here.
+The independently supported lift stand-down remains chartered, waiting with G1b under the
+one-seal/one-read route; splitting that work is a parent/user scope decision, not silently done.
+
+### 8. Checks and what this gate does not claim
+
+Calibration suite **644/644**,42 files; focused identification test**6/6**. Frozen26.5
+**1,818 entries intact**. `w33-contour-model.test.ts` pins population, angular profile and
+candidate declaration by SHA; checks holdout membership, bin arithmetic, parent-ceiling
+recombination, null conformance, both finished-alpha prices, unchanged offsets2–6, the
+complete166-row forecast and all480 gated digest sweeps. Logs are beside the evidence.
+
+No rendering was needed; `browser-runs.txt` explicitly records no browser run, so there is
+no invented RT/IC/slider/process-count/idle attestation. The main checkout's canonical captures
+were read-only. No agent was dispatched and no independent review is claimed in this gate;
+parent review remains the next check before merge. No native noise bar, universal exponent,
+closed colour law, exact continuous-corner SDF, CSS mirror, unmeasured accessibility behaviour,
+holdout forecast, rendered candidate or approved re-pin is claimed. **This refutes the tested
+separable families, not every possible material law.** Every unresolved mechanism is in the
+tracker and the charter's appended revision, rather than hidden behind the oracle's score.
+
+
+**Close lint, beside:** the first calibration lint rejected twelve `any` annotations in the
+new evidence test. Typed interfaces replaced them; eslint and all four calibration tsc checks
+then passed (`calibration-lint-fixed.txt`). The initial diagnostic is retained separately, not
+erased or claimed green. This touched the test only, not any measured evidence or runtime law.
+
+
+**Population qualification:** even the final price inventory excludes holdout:380 conformance
+rows,216 at contour1; selected85/30 at1. The candidate applies to22 of26 M2 cells and explicitly
+holds four outside its domain unchanged; the oracle covers26. All remain untouched in the
+native mask. This is not an extrapolated model on the four unmodelled M2 cells.

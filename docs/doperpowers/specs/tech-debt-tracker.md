@@ -5683,3 +5683,49 @@ union geometry. A complete composite contour referee must separate the exposed c
 group/stack members rather than assign the bbox's corners to the material. IC-alone and
 dark/2x accessibility stay unmeasured. The opening proof's process-count/idle half of X6 was
 unrecorded; it is not retroactively attested.
+
+
+## W33 G1a: angular, radial and colour identification does not close; do not buy a fit with a shape re-pin
+
+*Measured 2026-09-22, claims §5.171; evidence
+`packages/calibration/results/2026-09-22-w33-g1a-contour-model/`.*
+
+**Update beside the G0 entry:** DL2 is now ruled as the identification route; DL3 is the user's
+remaining bound/model decision. On304 non-holdout cells,0/152 combined angular strata close
+under a one-byte diagnostic comparator, against78/152 straight-only and3/152 arc-only. A
+scheme/pose-conditioned isotropic+even term explains the axis contrast but not every bin;
+dark active photo/md's best sampled law leaves14.762813 bytes worst-bin residual. The shipped
+diagonal rim gives identical cardinal-normal values at every exponent and cannot carry that
+contrast. Straight-only data cannot identify the even exponent at all.
+
+**Colour remains open.** The angular encoded/linear multiply/add/affine families leave
+multi-byte RGB residuals. The representative encoded tinted affine improves pooled ringMAE
+34.9791→18.1383 but fails52/304 G0 ceilings; its coefficients are still independently diagnostic
+at each scale. Exact placement costs36 contour/14 IoU failures on298 measurable cells; capping
+previously sub-threshold finished coverage at127/255 keeps shape but leaves18.4324 bytes.
+Do not ship this law, widen G0's ceilings, or interpret the native-colour oracle's0 MAE as a
+fit. Oracle replacement needs40/45 conformance failures on380 cells, whereas G0's73/59 oracle
+was source-over on the existing layer, not a lower bound over replacement layers. Both numbers
+stand on their distinct definitions.
+
+**Coverage and geometry need an identifying experiment.** Exact capsule arcs already spread
+one geometric pixel into centre-distance shells[−1,0) and[1,2). The64-sample area-control grid
+selects centre.5 on light-solid inactive capsules at both scales; width sensitivity is1–1.25
+light/.75–1 dark, not a confidence interval. Continuous md best centre moves.5→.25 between
+scales where capsule centre holds, exposing the declared circular SDF's corner confound.
+The support[0,1) price touches0 M2 pixels; a full antialiased term can enter the inner ring
+and must be priced again, including G0's257–1,311 inside-mask pixels/cell, rather than inherit
+that zero. A one-byte encoding comparator is not the missing native repeatability bar.
+
+**Next work:** repeated same-geometry capsules over uniform grey and RGB levels, subpixel-phase
+sweeps at1x/2x, then matched continuous rectangles, both schemes and poses, with a declared
+split and noise bar. This requires authorisation beyond W33 X5; it was not captured here.
+After a law is identified, settle the CSS dpr-aware inset/side-separated approximation by
+experiment, not by assuming its corner response. Unmeasured IC-alone/dark accessibility and
+composite exposed contours remain open. Candidate forecasts explicitly leave66/166 stop rows
+outside their single-shape untinted domain unchanged; there is no whole-bed fit hidden in them.
+
+**Recommended decision:** stop the contour term at the finding; DL3 remains unruled. The
+independent lift stand-down is still supported, but separating its seal/read from the contour
+would change the parent's one-seal route and has not been done. No material gap is closed by
+this identification gate.
