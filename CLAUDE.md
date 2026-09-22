@@ -218,12 +218,14 @@ them by `packages/calibration/test/macos27-profile-export.test.ts`, as `src/dark
 own sibling pair. `root.material` and `GlassGroupState.materialDocument` report the endpoint that
 actually drew, its digest, and whether an app tuned it — the honesty core, one axis further; in
 React the selected document itself is on `GlassRootHandle`, which is what lets `GlassToolbar`
-derive a layout number from its own material rather than from the default one. **That last route is
-the package's own and not an app's**: `useGlassRootHandle` is internal and `@vitreajs/vitrea-react`
-exports only the TYPE and `useGlassRoot`, which returns the `GlassRoot` — so a page outside the
-package resolves a document by matching the digest `GlassGroupState.materialDocument` reports
-against the endpoints of the document it built its root with, which is what the demo's `/laws/`
-shadow stage does (W32 G2; a tracker entry).
+derive a layout number from its own material rather than from the default one. **Since 0.22.0 an
+app reaches that same handle through `useGlassRootHandle`** (W32 Decision Log 5, ruled; the README
+had promised the hook since 0.20.0 while the package exported only the TYPE and `useGlassRoot`). What
+it hands an app is the SELECTION; a reading of what DREW that is available before the first frame
+is a deferred item, and a page that wants the drawn endpoint resolves it by matching the digest
+`GlassGroupState.materialDocument` reports against the document's endpoints — with `tuned` read
+beside it, because that digest is the endpoint's and cannot see a tune — which is what the demo's
+`/laws/` shadow stage does (W32 G2 and its review closure; a tracker entry).
 
 **The body carries the backdrop's hue, on the WebGPU tier only** (W31, claims §5.164). After
 `colour = mix(backdrop, adapted, presentAlpha)` the composited colour's CHROMATICITY is restored
