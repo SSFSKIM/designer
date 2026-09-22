@@ -34103,10 +34103,15 @@ its accessibility settings. `record-machine.sh` reads `reduceTransparency`,
 `browser-runs.txt` therefore attest the accessibility half alone. Nothing here
 turns on it — no native fixture is captured at this gate (X5) and the web side is
 deterministic, which is the whole reason a browser run can be re-run and compared
-— but the readings should not be read as attesting more than they measure. What
-would close it is three more lines in `record-machine.sh`, and the gate that adds
-them owns the question of what "one capture process" means on a machine running a
-Playwright worker pool.
+— but the readings should not be read as attesting more than they measure. The
+process half **has** been read before, on the capture path rather than here: W31
+G0's `scratch-capture.sh` counts `pgrep -f 'playwright' | wc -l`, and §5.162 §3's
+own note records the failure mode a later copy hit (BSD `pgrep` exits 1 on an
+empty match, which under `pipefail` and `set -e` kills the script silently). So
+what would close it is those lines moved into `record-machine.sh` with that
+swallow kept, and the gate that moves them owns the question the count does not
+answer: what "one capture process" means on a machine running a Playwright worker
+pool.
 
 
 ### 8. The cut
@@ -34254,7 +34259,7 @@ widened from the receded pose to both with the probe numbers.
 | N4 | the `laws` chunk recorded at **33.90 kB / gzip 10.52**; `chain-build.txt` and the packed artifact read **33.85 / 10.50** | §5.169 §4, beside; both kept |
 | N5 | `/laws/` has **six** sections and three places said five — the page lead, `apps/demo/laws/index.html`'s `<meta name="description">` and `apps/demo/README.md` | all three corrected |
 | N6 | both macOS 27 `*-receded.json` `measurement` blocks read `"status": "measured — the recede no longer removes the shadow"` / `"previous": "every amplitude leaf zero"` while **every leaf is 0** | recorded as stale rather than annotated — see below |
-| N7 | X6 has a second half — one capture process, ≥ 60 s idle — and `record-machine.sh` reads none of it, so the fourteen readings attest the accessibility half alone | disclosed in §5.169 §7, beside the OS/build note |
+| N7 | X6 has a second half — one capture process, ≥ 60 s idle — and `record-machine.sh` reads none of it, so the readings attest the accessibility half alone | disclosed in §5.169 §7, beside the OS/build note, with the place the process count already exists (W31 G0's `scratch-capture.sh`) named as what a later gate moves in |
 | N8 | `eye.md` cited a **CSS-tier** `MISSED_27_ROWS` entry (0.20095) to explain a **WebGPU** panel; the WebGPU rows for that cell cleared at W31 G3 and read **0.14655 / 0.14505** against ≤ 0.17, inside bound | `eye.md` §1, corrected with both readings kept |
 | N9 | nothing proposes **re-pinning C1** at the shipped bed, where the bound is **4.8×** the reading it was derived from | tracker entry with the rule that would produce one (**0.0013 / 0.0040 / 0.0017** per span) and the two questions it raises; Deferred **17** |
 | N10 | an unrecorded macOS 27 gap: reduced-transparency `photo__capsule-button__rest` reads `interiorMeanNative` **0.96841** against **0.88872** (WebGPU) and **0.88505** (CSS) — the largest at that cell on any macOS 27 profile, on **both** tiers, so it is the level and not a tier's compositing. Only the STRUCTURE half of that residual is recorded on the 27 bed | tracker entry with the numbers; Deferred **18**, folded into the accessibility fit item 10 already names |

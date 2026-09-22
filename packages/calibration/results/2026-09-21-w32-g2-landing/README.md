@@ -41,6 +41,24 @@ carries all fourteen X6 readings, both runs' and this gate's own.
 of W30 G4's and W31 G4's. `gated-count.py` is W32 G1's, copied.
 `record-machine.sh` is W31 G4's, unchanged.
 
+## The review closure (2026-09-22; claims §5.169 §10)
+
+Six files added after the cut, by the closure that landed on this branch before
+the merge. Nothing else in this directory moves except `eye.md` and `dry-run.*`,
+each corrected or re-run where the closure's findings say so.
+
+| file | provenance |
+| --- | --- |
+| `contour-stroke.py` / `.txt` | New, finding **B2**. Reads the `0-3` band outward from the declared rect **one DEVICE pixel at a time** along the four straight edges, on the `photo` bed at spans 44 and 160, both poses, over all six macOS 27 profiles — 24 cells. It shares no code with `b4-black-floor.py` beside it. What it decides is the band's SIGN and WIDTH: the native is 14–30 bytes darker at one device pixel on 22 of 24, the two sides agree from two pixels out, and the web is darker than the native on 0 of 24. So the term is Apple's contour hairline standing un-drawn on both poses, not a 3.5–4 CSS px vitrea over-fill. It ends with the literal transect the finding started from |
+| `laws-e2e-n3.txt` | New, finding **N3**. The demo's `/laws/` suite re-run after the readout began reading `materialDocument.tuned` — 10 of 10, with the machine reading taken before it (`browser-runs.txt`, `laws-e2e-n3`) |
+| `closure-chain.txt` | New. The verification at the closure's head: `freeze.py verify` 1,818 at open and close, build / lint / root eslint exit 0, **2,703 unit tests over 187 files**, the three profile export tests, `publish-shape`, the new React case, the `/laws/` e2e and the rehearsal, with the two gated-count pins unmoved |
+| `closure-freeze-open.txt` / `closure-freeze-close.txt` | New. The freeze at the closure's own open and close, kept separately from the cut's pair so neither reading is rewritten |
+| `dry-run.txt` | **Re-run**, because Decision Log 5 gives the React package a source change after the cut. Core and web are byte-identical; react is 188,179 B against 187,860 and its export count 37 → 38. `dry-run.sh`'s header said "0.21.0 … §5.165 §5", the version it was copied from, and is corrected to its own gate |
+| `eye.md` | **Corrected in place, beside**: §4 and §4b for B2's sign, and §1 for N8 — a CSS-tier `MISSED_27_ROWS` entry was cited to explain a WebGPU panel whose own rows cleared at W31 G3 |
+
+`browser-runs.txt` goes from fourteen X6 readings to **sixteen**, the two new ones
+bracketing the `/laws/` re-run. Every one reads RT 0, IC 0, `NSGlassTintAmount` 0.5.
+
 ## What is NOT here
 
 No matrix, no profile document, no capture and no fixture: this gate wrote none
