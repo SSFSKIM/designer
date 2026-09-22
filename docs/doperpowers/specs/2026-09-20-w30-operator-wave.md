@@ -240,6 +240,19 @@ profiles' rows between the two reads); it does not re-open the level law's absci
   the cell whose own native σ is the profile's only span-160 reading.
 - **The recede.** On macOS 27 the recede keeps the outer shadow (§5.154 §5), the receded documents
   carry their active document's `outerShadow` block leaf for leaf, and the receded pose's far-exterior
+
+  > **Corrected beside, 2026-09-22 (W32 G2 review closure; claims §5.169 §10, finding N6).** Two
+  > sentences in this bullet read as claims about macOS 27 and are claims about **vitrea**. Apple's
+  > macOS 27 recede does NOT keep the outer shadow: it removes no light at all from 3 CSS px
+  > outward, the native transmission reading exactly 1.000000 on 121 of 121 non-holdout inactive
+  > rows and 153 of 153 with the holdout, and the capture byte-identical to the backdrop from 2
+  > device px out (W32 G0, claims §5.166 §7). What kept a shadow in the inactive pose was the
+  > second sentence — the receded documents carrying their active document's `outerShadow` block
+  > leaf for leaf — and W32 Decision Log 2 sets those amplitudes to **0**, so from 0.22.0 that
+  > sentence is false of vitrea too. The far-exterior numbers this bullet quotes (17.42 WebGPU /
+  > 15.89 CSS) are the measurement of the defect and stand; at the shipped bytes the same band
+  > reads **0.00 / 0.00** (claims §5.169 §5). Nothing else in the bullet moves: the bed's gap —
+  > no non-holdout inactive cell above span 96 — is still what it says it is.
   difference at span 160 is 17.42 (WebGPU) / 15.89 (CSS) against ≤ 5.92 on any active strip — the old
   halo, still there, on the pose whose shadow the σ law re-shapes at exactly that span (tracker: "The
   macOS 27 recede's exterior is unfitted above span 96"). The law is expected to narrow it, since the

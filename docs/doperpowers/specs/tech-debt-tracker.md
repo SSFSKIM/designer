@@ -5493,3 +5493,136 @@ constraint on the design, and the reason this is not a five-line fix. The
 duration and curve should be read off the reference rather than chosen; nothing
 in the project has measured them, and the motion-metrics harness the charter
 Defers is what would.
+
+---
+
+## The two macOS 27 receded documents' provenance blocks describe the pre-W32 state, and no `$comment` can be added beside them without moving a recorded hash (W32 G2 review closure, 2026-09-22)
+
+*Found 2026-09-22 by the review closure of W32 G2 (claims §5.169 §10, finding N6).
+No number moves; the document bytes are deliberately left alone.*
+
+`profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json` and its dark
+sibling carry a `measurement` block whose `status` reads *"measured — the recede no
+longer removes the shadow"* and whose `previous` reads *"every amplitude leaf
+zero"*. Both sentences describe the state W29 G3b left and W32 Decision Log 2
+reversed: every amplitude leaf of both documents is **0** today, so the block's
+`status` and `previous` are the wrong way round at the shipped bytes.
+
+**Why it is recorded here rather than annotated in place.** The obvious fix is a
+`$comment-w32-g2-provenance` key beside the block, which is the pattern those two
+documents already carry three times (`$comment-w30-g3b`, `$comment-w31-g3c`,
+`$comment-sha-history-correction`). It cannot be used here. Those annotations were
+added at gates that **re-read the bed**, and each says so in as many words — *"the
+rows read at THESE bytes"* — because a profile document's twelve-hex identity is
+`sha256` over **the whole file**, provenance included:
+
+```ts
+// packages/calibration/scripts/material-profile-file.ts
+// Hashed over the file, not the extracted sections: the cell should name the
+// artefact a human can go and read, provenance included.
+sha256: createHash("sha256").update(text).digest("hex").slice(0, 12),
+```
+
+That twelve-hex string is written into every capture's `capturePath` and therefore
+into every committed row's KEY (`recededProfile=…-receded.json sha256:45acb6d916b9`).
+Adding one `$comment` key moves it — measured rather than assumed: **45acb6d916b9 →
+664f455a55bd** (light) and **4e68f81869f6 → de6a7e2b1808** (dark). Every inactive
+row of `results/matrix.json` would then name a receded document no file on disk
+has; `check-capture-tree` would report a live mismatch and exit 1; `sheets.ts`'s
+per-cell assertion that a capture names the SHIPPED document bytes would refuse,
+which is exactly the refusal it exists to make; and claims §5.169 §8 and the c9d
+0.22.0 row would both be naming a superseded hash. `resolvedMaterialSha256` would
+NOT move — the seal is over the resolved material and not over the file — which is
+precisely what makes this trap quiet: the seal tests and `freeze.py verify` would
+stay green while the generation the rows were read at stopped existing.
+
+**The fix shape.** The correction belongs to the next gate that re-reads the
+inactive bed, which pays for the moved content hash with the read that justifies
+it — the same bargain W30 G3b and W31 G3c made. Until then this entry is where the
+staleness is recorded, and claims §5.169 §10 names it. A wave that wants it sooner
+has one structural option worth weighing: give a document a provenance sidecar that
+is not part of the hashed file, so a record can be corrected without inventing a
+generation. That is a schema decision and not a wave's.
+
+---
+
+## Nothing proposes re-pinning C1 at the shipped bed, where its bound is 4.8× the reading it was derived from (W32 G2 review closure, 2026-09-22)
+
+*Found 2026-09-22 by the review closure of W32 G2 (claims §5.169 §10, finding N9).
+A re-pin is the user's; what is recorded here is the rule that would produce one
+and what it would cost.*
+
+`C1`'s bound, **0.0042**, is W32 clause 2's rule applied to the generation the
+clause was DECLARED against: the worst standard bed's span-96 order statistic,
+0.00413, rounded up to two significant figures. At the shipped bytes that same
+cell — 2x light, span 96 — reads **0.00088**. The bound is 4.8 times the number it
+was derived from, and the twelve adopted rows read:
+
+| span | 1x light | 2x light | 1x dark | 2x dark | headroom at the worst |
+| ---: | ---: | ---: | ---: | ---: | ---: |
+| 96 | 0.00090 | 0.00088 | 0.00125 | 0.00115 | **70 %** |
+| 128 | 0.00245 | 0.00253 | 0.00348 | 0.00391 | **6.9 %** |
+| 160 | 0.00134 | 0.00132 | 0.00164 | 0.00168 | **60 %** |
+
+So eleven of the twelve rows are loose and one is tight, and the clause's own
+stated protection — *"a fit that buys span 128 by widening span 96 fails"* — is
+false at the shipped bytes, because span 96 could take four and a half times its
+present reading before this clause noticed (claims §5.169 §10, finding N1).
+
+**The rule that would produce a re-pin**, stated so a later gate does not have to
+re-derive it: clause 2 rounds the worst standard bed's reading UP to two
+significant figures, and C1 is stated per span, so applying it per span at the
+shipped generation gives **0.0013 / 0.0040 / 0.0017** at spans 96 / 128 / 160 —
+tightening span 96 by 3.2×, span 160 by 2.5×, and span 128 by almost nothing. Two
+things a gate has to decide before it can be adopted. First, whether a per-span
+re-pin is what clause 2 means at all: the clause's text names *the span-96 order
+statistic* as the source of ONE number, and the per-span form is the ruled shape of
+the row rather than of the rule. Second, whether a bound with 0 % of headroom at
+two of three spans is a stop or a tripwire — the same question B3's 0.07 % raises
+one entry over, and the reason a re-pin is recorded as a user decision here rather
+than proposed.
+
+**The fix shape**: a gate that adopts a material change on the exterior re-derives
+the three numbers from its own cut, puts them beside the readings, and asks. There
+is no measurement to take: the cut is already regenerated at every adopting gate,
+which is what makes this cheap.
+
+---
+
+## Under Reduced Transparency the macOS 27 body's LEVEL misses by 0.08 at span 44, and only the structure half is recorded on that bed (W32 G2 review closure, 2026-09-22)
+
+*Found 2026-09-22 by the review closure of W32 G2, read off the committed matrix
+and visible on `sheet__apple-macos-27.0-1x-light-reduced-transparency-glass0.5__photo__capsule-button__rest.png`
+(claims §5.169 §10, finding N10). No capture; no number moves.*
+
+On `apple-macos-27.0-1x-light-reduced-transparency-glass0.5`,
+`photo__capsule-button__rest`:
+
+| tier | `interiorMeanNative` | `interiorMeanWeb` | native − web |
+| --- | ---: | ---: | ---: |
+| WebGPU (`texture`) | 0.96841 | **0.88872** | **+0.07970** |
+| CSS (`dom`) | 0.96841 | **0.88505** | **+0.08336** |
+
+Apple's plate under that preference is very nearly white and vitrea's is eight
+points of luminance below it, on **both** tiers — so it is the level and not one
+tier's compositing. It is the largest interior-level gap at that cell on any macOS
+27 profile: the four standard beds read −0.0035 to +0.0049 there and the coupled
+increased-contrast bed −0.029 to −0.014.
+
+**What is already recorded, and what is not.** The tracker's W29 G3b entry *"Under
+Reduced Transparency the GPU tier is under-opaque"* is on this bed and is about the
+**structure** half at a different cell (`checkerboard__rrect-md__rest`: native sd
+0.43, WebGPU 3.49, CSS 1.03), with the level named only as *"both tiers sit 6–7
+levels below the native's"*. Eight points of luminance at span 44 is an order
+larger than that and it is at the span the accessibility documents' own
+`reducedTransparencyOcclusion` was never fitted at (W32 Deferred 10). The LEVEL half
+of this residual is written up on the macOS **26.5** bed (§5.73's two
+reduced-transparency cells lost to the fold's level, and §5.146's 26.5 sheet
+narrative, whose reduced-transparency paragraph reads the native panels as "nearly
+flat" against a WebGPU body that is not) and has not been carried onto the 27 one.
+
+**The fix shape**: it is the same work W32's Deferred item 10 already names — fit
+`reducedTransparencyOcclusion` per accessibility document against the admitted-band
+objective on cells the bed already holds — with this cell and this statistic added
+to what that fit is judged on, because the shadow-side fit W32 left those beds with
+moves the exterior and not the plate. No capture is needed: the rows are committed.

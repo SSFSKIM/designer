@@ -631,6 +631,15 @@ wave itself leaves.
     export. **The work**: one line, plus the design question that comes with it — whether an app
     should be given the SELECTION at all when the honesty core's argument is that a consumer reads
     what DREW. The `/laws/` stage is the worked example of the second answer.
+
+    > **CLOSED beside, 2026-09-22 (Decision Log 5, RULED by the user at G2's close; claims §5.169
+    > §10).** `useGlassRootHandle` is exported from `@vitreajs/vitrea-react` in **0.22.0** — one
+    > line in `src/index.ts`, a test in `test/root-handle-export.test.tsx` that the export resolves,
+    > returns the handle whose `materialProfileDocument` is the document the root selected, and
+    > throws outside `<GlassRoot>`, the README restored to the direct route with G2's correction
+    > kept beside it, and a hand-written CHANGELOG entry under 0.22.0 (the version was cut by
+    > `changeset version` and a new changeset file would re-bump the group). The design question
+    > the item names is NOT closed by the export and is carried on as item 20.
 14. **`ResolvedMaterialPolicy` is core's type and no published package re-exports it**, so a page
     that needs to name the material half of the resolved accessibility policy takes it from a
     signature. Found by `pnpm -r lint` on this gate's own first chain run (§5.169 §7). **The work**:
@@ -641,6 +650,64 @@ wave itself leaves.
     carries the grade and a reader has to drag the slider to see it. **The work**: a bed of its own —
     a smooth mid-level ground with a fine graticule would show the falloff and a checkerboard shows
     the multiply, and which of the two the section wants is a page decision.
+
+*Added 2026-09-22 at G2's review closure (claims §5.169 §10). Five more, each with the finding that
+raised it.*
+
+16. **B3's bound has no instrument bar, where C1's has one** (finding N2). C1's amendment argues
+    the material axis is gateable partly because the bound is **2.1× the native-pair noise bar**
+    (0.002044 as a max over 432 cells of seven runs, W29 G3b's `noise-bar.json`). B3's re-stated
+    bound is **0.000056** and no bar exists for the ADMITTED-BAND form of the departure at all.
+    The nearest relative in that same file — `shadowMeanDepartureDelta`, the whole-exterior
+    departure's pairwise spread — reads **0.00006605** as a per-cell max over 624 cells, which
+    **exceeds B3's entire bound**. That is not a defect in the bound and the stop is not at risk of
+    reading noise: B3 is a script stop over frozen native fixtures and a deterministic web side, so
+    the same bytes give the same number, and what matters for a stop of that kind is the
+    reproducibility of the pipeline rather than of the capture. But the two rows are not comparable
+    the way they now sit beside each other. **The work**: measure a repeatability bar for the
+    admitted-band departure over the native pairs the noise-bar study already holds, and re-derive
+    B3 against it. A re-pin of an adopted stop is the user's, and this is the evidence such a
+    ruling would need.
+17. **C1's bound is 4.8× the reading it was derived from, and nothing proposes re-pinning it**
+    (finding N9). Eleven of the twelve adopted rows have 60–79 % of headroom and one — 2x dark at
+    span 128 — has 6.9 %, and the clause's own stated protection ("a fit that buys span 128 by
+    widening span 96 fails") is false at the shipped bytes. **The work**: clause 2's rule applied
+    per span at the shipped generation gives **0.0013 / 0.0040 / 0.0017**; a gate that adopts an
+    exterior change re-derives those from its own cut and puts them to the user, with the two
+    questions the tracker entry names — whether a per-span re-pin is what clause 2 means, and
+    whether a bound at 0 % of headroom is a stop or a tripwire.
+18. **The Reduced Transparency body's LEVEL on the macOS 27 bed is unrecorded and misses by 0.08**
+    (finding N10). `photo__capsule-button__rest` reads `interiorMeanNative` **0.96841** against
+    **0.88872** on the WebGPU tier and **0.88505** on the CSS one — the largest interior-level gap
+    at that cell on any macOS 27 profile, on both tiers, so it is the level and not one tier's
+    compositing. The macOS 27 bed records the STRUCTURE half of this residual (W29 G3b) and the
+    level half is written up on the 26.5 bed alone. **The work**: item 10 above, with this cell and
+    this statistic added to what the accessibility fit is judged on. The rows are committed; no
+    capture is needed.
+19. **The two macOS 27 receded documents' provenance blocks describe the pre-W32 state and cannot
+    be annotated without moving a recorded hash** (finding N6). Both read `"status": "measured —
+    the recede no longer removes the shadow"` and `"previous": "every amplitude leaf zero"`, which
+    are the wrong way round now that Decision Log 2 has set every amplitude leaf to 0. A
+    `$comment` key beside them — the pattern those documents carry three times already — would move
+    the file's twelve-hex content hash (**45acb6d916b9 → 664f455a55bd** light, **4e68f81869f6 →
+    de6a7e2b1808** dark), and that string sits in every inactive row's key, so the rows would name
+    a document no file has while `resolvedMaterialSha256` and `freeze.py verify` stayed green.
+    **The work**: the next gate that re-reads the inactive bed corrects them and pays for the moved
+    hash with the read, as W30 G3b and W31 G3c did. A schema option worth weighing first: a
+    provenance sidecar outside the hashed file, so a record can be corrected without inventing a
+    generation.
+20. **`useGlassRootHandle` hands an app the SELECTION, and what the honesty core implies is a
+    reading of what DREW, available before the first frame** (finding N3, and Decision Log 5's own
+    caveat, kept when item 13 closed). From 0.22.0 the hook is exported and the README's original
+    route works. It is still the weaker of the two readings: the handle carries the document the
+    root SELECTED, where `GlassGroupState.materialDocument` carries the endpoint that actually
+    drew, its digest and whether an app tuned it — and only the second is the honesty core's own
+    statement. What the second cannot do is produce a number on the first render, before a frame
+    has resolved a group, which is exactly what `GlassToolbar` needs and why the handle exists.
+    **The work**: a `root.material`-shaped reading available pre-mount — the endpoint's identity
+    resolved from the selection at construction rather than observed off a frame — so a layout can
+    ask what WILL draw without being handed the whole document. That is an API design question and
+    the two answers are different surfaces.
 
 **Added 2026-09-21 (G1 review closure; claims §5.168 §10, finding B-4): the exterior BLACK FLOOR,
 which is now the dominant visible exterior residual.** Over a backdrop pixel Apple renders as

@@ -34077,6 +34077,20 @@ mutation results are committed at `laws-pin-discrimination.txt`.
 `record-machine.sh` reads three values and writes no OS version and no build
 string, as §5.165 §7's own correction records; no machine string is claimed here.
 
+*Disclosed beside, 2026-09-22 (§10, finding N7): X6 has a second half and this
+gate recorded none of it.* The contract asks for the capture machine's state —
+one capture process and at least sixty seconds of idle before a run — as well as
+its accessibility settings. `record-machine.sh` reads `reduceTransparency`,
+`increaseContrast` and `NSGlassTintAmount`, refuses on the first two, and reads
+**nothing about the process table or the idle time**; the fourteen readings in
+`browser-runs.txt` therefore attest the accessibility half alone. Nothing here
+turns on it — no native fixture is captured at this gate (X5) and the web side is
+deterministic, which is the whole reason a browser run can be re-run and compared
+— but the readings should not be read as attesting more than they measure. What
+would close it is three more lines in `record-machine.sh`, and the gate that adds
+them owns the question of what "one capture process" means on a machine running a
+Playwright worker pool.
+
 
 ### 8. The cut
 
