@@ -35520,7 +35520,7 @@ range becomes **^0.23.0**. Each has LICENSE, NOTICE, README and dist (7/3/3 entr
 core/web/react). Tarballs: **583,802 B core /568,292 B web /188,179 B react**.
 
 The rehearsal does not invoke `changeset publish`; its last live exercise remains0.1.0
-and the installed CLI remains3.0.1. No merge, push, publication or tag is performed. The
+and the installed CLI remains3. *(Corrected beside at the G2 review closure, 2026-09-22: `pnpm release` is `pnpm -r build && changeset publish`, so the user's release of 0.22.0 on `c46eeba3` — and 0.21.0 before it, both recorded as `pnpm release` — DID invoke `changeset publish`; what this rehearsal does not exercise is that step. The 0.21.0 row's "not invoked since 0.1.0" is carried as recorded, unverified here for the releases before 0.21.0.)*0.1. No merge, push, publication or tag is performed. The
 user's sanctioned `pnpm release` and subsequent tag remain later actions after review.
 
 ### 7. The chain, with every attempt retained
