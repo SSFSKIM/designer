@@ -1,0 +1,35 @@
+W33 G1b, claims §5.172 — rule 2, no identity-table entry added.
+
+Changed:
+- Two active macOS 27 documents: lift declared 0 and three thick anchors compensated;
+  prior resolved digests appended to history. Full before/after hashes: sealed-manifest.json.
+- platform-web/src/macos27-profile.ts: regenerated from all four documents, never hand-edited.
+- platform-web/e2e/shared/window-activation.spec.ts: two active full hashes changed;
+  prior full hashes retained beside the reason, four frozen and two receded hashes unchanged.
+- renderer-webgpu/README.md and platform-web/README.md: the current active digests are named
+  beside the retained W32 readings, so consumer prose does not imply the old hashes still ship.
+- canonical-read.py: every document is refused unless its bytes equal sealed-manifest.json;
+  all four hashes are derived from the seal, not typed into the runner.
+
+Unchanged, with their claims checked:
+- Two frozen macOS 26.5 documents: their own recorded digests remain the live rule-2 pins,
+  b2b570e4adcea8fb / 874be66ea501621b. The seal asserts both before writing anything.
+- Two macOS 27 receded differences: all four moving amplitudes are already 0, so their
+  COMPOSED materials and file bytes stay identical, not just their standalone patches.
+- test/tuned-profiles.test.ts: recomputes all six resolved pins through their own composition;
+  no literal active digest to update. The three seal suites pass (seal-tests.txt).
+- test/macos26-document-selection.test.ts: selects the frozen document and its own digest;
+  neither its selection nor the frozen endpoint changes.
+- test/digest-supersessions.ts and test/digest-supersessions.test.ts: historical rule changes,
+  not current pins. No new digest-rule transition occurred, so no supersession is added.
+- platform-web/src/material-document.ts: selects the generated macOS 27 endpoints; its literal
+  macOS 26.5 endpoints remain the frozen values. The macOS 27 selection remains the default.
+- platform-web/scripts/generate-macos27-profile.mjs: describes no exterior shadow on either
+  receded generation, which remains true; the active documents still compose over the default.
+- MATERIAL_IDENTITY_TABLE and DEFAULT_MATERIAL_PROFILE: no value or entry changes. The only
+  handwritten src change is the material.ts documentation correction about a local black pixel.
+- profiles/README.md: explains the patch/difference and rule-2 constructions; it carries no
+  current active digest literal that this seal invalidates. The two active files alone change.
+
+The calibration.ts:187 lift-width sentence belongs to G2's prose correction, not to the
+fingerprint protocol; it must not survive this zero-lift default as a current explanation.

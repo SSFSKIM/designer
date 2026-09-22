@@ -189,15 +189,23 @@ test("a visibility event or synthetic blur cannot invent document inactivity", a
  * The four readings before this move are `3dc24a74…`, `ab3ed65a…`,
  * `8a43f541…` and `e1f42c56…`, kept here rather than deleted; the four macOS
  * 26.5 readings are untouched, because a frozen document's bytes cannot move.
+ *
+ * W33 G1b (§5.172; Decision Log 1 (a)) moves only the two active readings:
+ * the macOS 27 lift stands down and the three thick anchors take its measured
+ * compensation. The receded differences already override these amplitudes to
+ * zero, so their composed hashes stay unchanged; every macOS 26.5 hash stays.
+ * The prior active full hashes are retained here rather than overwritten in history:
+ * 40a6dec2dc34c748fe800d41c6707978aafcc74f06de566a9dd1706b6fb4ac08
+ * bd1814fac34f9b3054767ec4520fc092035122d3118e5092b9083030a477948b
  */
 const SEALED = {
   macos27: {
     light: {
-      active: "40a6dec2dc34c748fe800d41c6707978aafcc74f06de566a9dd1706b6fb4ac08",
+      active: "dcbccbd9feac9881bceca0e80f8a07ddf7a67b2d43fa21c58b7b8bc397bf8516",
       inactive: "f34dcc03e2774db385d233458fb9d62f38beffa52ffba4c800aad435ae676fc4",
     },
     dark: {
-      active: "bd1814fac34f9b3054767ec4520fc092035122d3118e5092b9083030a477948b",
+      active: "e59f9106bcd7c966f12b0418d3e6e6c5ba9982eab22c36a93fd6d260abd49d5c",
       inactive: "6b6237b7ae241638851192d165ddff03bdd40660ea805a3457f0211d11624831",
     },
   },

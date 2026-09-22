@@ -1,0 +1,51 @@
+W33 G1b, claims §5.172 — sealed sheets and eye
+
+Reviewed all 17 native | WebGPU | CSS | OKLab x8 before/after sheets produced by
+sheets.py. Both document hashes are asserted per panel. The eight photo sheets
+cover rrect-lg and capsule-button, both schemes and scales. The other nine cover
+the hc-text pair, checkerboard-8 at spans128/160, and light impulse/md. The dark
+impulse/md fixture does not exist; sheet-declined.json records it, not a substitute.
+
+The black-floor checker disappears from the amplified exterior on both schemes.
+The hc-text28 and hc-text7 exterior black stripes likewise stop glowing in the
+WebGPU difference panel. Impulse's black exterior was already zero and stays so.
+The removal does not erase the remaining bright contour hairline in the difference
+panel: that is the contour discrepancy G1a measured and Decision Log3 stopped,
+not a new stroke implementation. The body/checker and photo-chroma differences
+remain conspicuous, especially on dark photo, and are present before and after.
+
+Level contours: no new terrace, second shadow edge, or visibly banded falloff is
+apparent in the unamplified native/WebGPU panels below rrect-lg. Faint quantized
+level contours ARE present in amplified residuals over the light exteriors,
+before as well as after; 'no level contours anywhere' would be too broad. They
+are not the removed mid-grey one-byte checker. Every x8 panel prints the actual
+black counts and the calibration that byte0->1 alone maps to137.10/255 at x8.
+
+CSS: 'no black floor' needs its mask. The original far-exterior halo reading now
+has mean/max2.01/12.24 at1x and1.49/12.20 at2x (the old1x reading2.34/12.25 is kept
+in W32). On the wider integer-offset>=2 mask, the sheets also count pre-existing
+CSS near-edge pixels:170 at checkerboard-8/lg,134 at ml,165 at hc-text28/lg and204
+at light impulse/md; all unchanged before/after. css-floor.json decomposes them:
+analytic BOX distance>=2 has0; the integer convention includes centres1.5CSSpx
+outside the box, and the rounded-contour distances of the admitted pixels extend
+to2.77CSSpx. This is a near-edge/geometry residual, not a far lift and not fixed
+by this wave. It is recorded rather than concealed behind the older far statistic.
+
+No new eye-only regression or unexplained material difference was found, so the
+eye did NOT stop the gate. The separate post-seal metric reader DID record five
+one-byte pixels on four2x glass-over-glass holdout cells. Their coordinates and
+unchanged predecessor values are in holdout-composite-decomposition.json: all are
+inside the BASE bounding box and outside G0's overlay-only box. That mask admits
+base-edge pixels into the claimed exterior. The miss stays a miss under the
+unmodified referee; G2 must repair its composite domain before adopting the zero
+row. No fit or bound changed after this holdout reading.
+
+
+Supplemental two-scale eye, same gate (2026-09-22): nine more black-cell sheets
+in sheets-2x/ were generated from the SAME committed captures and all nine viewed.
+The total is now17+9=26 sheets. The2x hc-text >1 baselines222/150 disappear, as do
+the checkerboard8 exterior floors on both schemes; the known body/contour residuals
+remain. No new eye-only regression or terrace is found. The existing canonical read
+has no2x CSS probe captures for the eight hc-text/checker cells; all16 before/after
+CSS panels state that absence explicitly. Light impulse/md has measured CSS panels;
+dark impulse/md again has no native fixture. No capture, holdout read or row was added.

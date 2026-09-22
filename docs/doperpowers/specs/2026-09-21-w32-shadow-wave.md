@@ -548,6 +548,14 @@ wave itself leaves.
    against the per-pixel black-floor count per span and per bed, and decide whether the lift is a
    term Apple has at all over a black backdrop or an artefact of compositing a lift into a
    premultiplied output. `b4-black-floor.py` and `halo.py` are the two readings.
+   **Closed beside, W33 G1b,2026-09-22 (§5.172):** macOS27's lift is declared0,
+   the three thick anchors compensate, and all232 declared non-holdout black-floor
+   cells read0 under both masks. The holdout records five unchanged base-edge
+   pixels on four composite rows admitted by an overlay-only referee box; this is
+   a separate G2 instrument-domain correction before adoption, not a retained lift
+   or a widened zero. Frozen26.5 keeps its measured lift. The sheets print the LSB
+   check; no contour term was added under W33 DL3.
+
 3. **The contour stroke vitrea does not draw, on BOTH poses** — the term the old B3 was reading in
    the `0-3` band and the re-stated one no longer does. *Re-chartered 2026-09-22 at G2's review
    closure (claims §5.169 §10, finding B2) as ONE rim term. As written this item named two: "the

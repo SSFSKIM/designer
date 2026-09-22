@@ -2903,19 +2903,32 @@ describe("the CSS tier's structure attenuation, measured (W30 G0 (d))", () => {
    * mirror carrying the same three lengths. All twelve move TOWARD 1.0 except
    * 1x light, which was already above it.
    */
+  /*
+   * W33 G1b (§5.172): re-recorded after the sealed lift/anchor read. The mask is
+   * native-derived; these are changed rendered values, not a moved extractor.
+   * No structure constant or bound moved. W32's prior table is retained below.
+   * const RECORDED: Record<string, { webgpu: number; css: number }> = {
+   * "apple-macos-27.0-1x-light-standard-glass0.5": { webgpu: 1.567275, css: 0.968141 },
+   * "apple-macos-27.0-2x-light-standard-glass0.5": { webgpu: 0.42579, css: 0.383834 },
+   * "apple-macos-27.0-1x-dark-standard-glass0.5": { webgpu: 0.976648, css: 0.355507 },
+   * "apple-macos-27.0-2x-dark-standard-glass0.5": { webgpu: 0.769618, css: 0.253689 },
+   * "apple-macos-27.0-1x-light-reduced-transparency-glass0.5": {
+   * webgpu: 0.817721,
+   * css: 0.197722,
+   * },
+   * "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5": {
+   * webgpu: 0.969039,
+   * css: 0.33196,
+   * },
+   * };
+   */
   const RECORDED: Record<string, { webgpu: number; css: number }> = {
-    "apple-macos-27.0-1x-light-standard-glass0.5": { webgpu: 1.567275, css: 0.968141 },
-    "apple-macos-27.0-2x-light-standard-glass0.5": { webgpu: 0.42579, css: 0.383834 },
-    "apple-macos-27.0-1x-dark-standard-glass0.5": { webgpu: 0.976648, css: 0.355507 },
-    "apple-macos-27.0-2x-dark-standard-glass0.5": { webgpu: 0.769618, css: 0.253689 },
-    "apple-macos-27.0-1x-light-reduced-transparency-glass0.5": {
-      webgpu: 0.817721,
-      css: 0.197722,
-    },
-    "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5": {
-      webgpu: 0.969039,
-      css: 0.33196,
-    },
+    "apple-macos-27.0-1x-light-standard-glass0.5": { webgpu: 1.567263, css: 0.968141 },
+    "apple-macos-27.0-2x-light-standard-glass0.5": { webgpu: 0.425839, css: 0.383834 },
+    "apple-macos-27.0-1x-dark-standard-glass0.5": { webgpu: 0.976045, css: 0.355507 },
+    "apple-macos-27.0-2x-dark-standard-glass0.5": { webgpu: 0.769417, css: 0.253689 },
+    "apple-macos-27.0-1x-light-reduced-transparency-glass0.5": { webgpu: 0.817721, css: 0.197722 },
+    "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5": { webgpu: 0.969039, css: 0.331960 },
   };
 
   const PACKAGE_ROOT = resolve(import.meta.dirname, "..");

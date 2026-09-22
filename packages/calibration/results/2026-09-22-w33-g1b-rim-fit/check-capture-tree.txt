@@ -1,0 +1,37 @@
+== the canonical capture tree against the working matrix (W32 G0b; claims §5.167) ==
+  tree              /Users/new/Developer/GitHub/designer/.claude/worktrees/w33-g1b-rim-fit/packages/calibration/web-captures
+  --superseded-ok   off
+
+  apple-macos-27.0-1x-dark-standard-glass0.5
+    css     captures   83  match   83  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-dark-standard-glass0.5-receded.json 4e68f81869f6 + apple-macos-27.0-1x-dark-standard-glass0.5.json eab099cc6698
+    webgpu  captures   83  match   83  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-dark-standard-glass0.5-receded.json 4e68f81869f6 + apple-macos-27.0-1x-dark-standard-glass0.5.json eab099cc6698
+  apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5
+    css     captures   18  match   18  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-light-standard-glass0.5-receded.json 45acb6d916b9 + apple-macos-27.0-1x-light-standard-glass0.5.json 6e509c7f76cc
+    webgpu  captures   18  match   18  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-light-standard-glass0.5-receded.json 45acb6d916b9 + apple-macos-27.0-1x-light-standard-glass0.5.json 6e509c7f76cc
+  apple-macos-27.0-1x-light-reduced-transparency-glass0.5
+    css     captures   16  match   16  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-light-standard-glass0.5-receded.json 45acb6d916b9 + apple-macos-27.0-1x-light-standard-glass0.5.json 6e509c7f76cc
+    webgpu  captures   16  match   16  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-light-standard-glass0.5-receded.json 45acb6d916b9 + apple-macos-27.0-1x-light-standard-glass0.5.json 6e509c7f76cc
+  apple-macos-27.0-1x-light-standard-glass0.5
+    css     captures  124  match  124  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-light-standard-glass0.5-receded.json 45acb6d916b9 + apple-macos-27.0-1x-light-standard-glass0.5.json 6e509c7f76cc
+    webgpu  captures  124  match  124  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-light-standard-glass0.5-receded.json 45acb6d916b9 + apple-macos-27.0-1x-light-standard-glass0.5.json 6e509c7f76cc
+  apple-macos-27.0-2x-dark-standard-glass0.5
+    css     captures   28  match   28  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-dark-standard-glass0.5-receded.json 4e68f81869f6 + apple-macos-27.0-1x-dark-standard-glass0.5.json eab099cc6698
+    webgpu  captures   83  match   83  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-dark-standard-glass0.5-receded.json 4e68f81869f6 + apple-macos-27.0-1x-dark-standard-glass0.5.json eab099cc6698
+  apple-macos-27.0-2x-light-standard-glass0.5
+    css     captures   69  match   69  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-light-standard-glass0.5-receded.json 45acb6d916b9 + apple-macos-27.0-1x-light-standard-glass0.5.json 6e509c7f76cc
+    webgpu  captures  124  match  124  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-light-standard-glass0.5-receded.json 45acb6d916b9 + apple-macos-27.0-1x-light-standard-glass0.5.json 6e509c7f76cc
+
+  totals   captures 786  match 786  mismatch 0  misfiled 0  superseded 0  unreadable 0  no-row 0
+  VERDICT  the tree and the working matrix name the same generation everywhere they meet.

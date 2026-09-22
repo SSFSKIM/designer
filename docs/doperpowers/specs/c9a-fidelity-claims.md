@@ -34999,3 +34999,345 @@ file changes. No fit is rerun and no bound or user decision is adopted by this c
 checks) passed, freeze verification **1,818 entries intact**; `review-closure-*.txt` preserves
 the results. The test wrapper's zsh `status` assignment failed after the successful suite;
 the result is read from the completed log, not inferred from that wrapper's exit status.
+
+
+## 5.172 W33 G1b: the lift stands down, the anchors compensate, and the holdout exposes the composite referee's domain (2026-09-22)
+
+**Fit, seal and read complete; independent review pending.** W33 Decision Log1(a)/(d)
+and Decision Log3 as RULED: the contour term stops at G1a's finding. Evidence is
+`packages/calibration/results/2026-09-22-w33-g1b-rim-fit/`; branch `w33-g1b-rim-fit`.
+Only the two ACTIVE macOS27 documents' lift amplitude and three thick anchors move.
+No contour leaf, rim term, sigma law, length, thin anchor, policy amplitude, body,
+chroma, tone, tint or scatter constant moves. No native capture or harness build.
+
+### 1. The pre-fit bed reproduces, with an initial selection error kept visible
+
+The declared bed is **386 WebGPU calibration/validation/probe cells**, six profiles,
+with G0's **232 non-holdout black-floor cells** inside it. Shipped-byte scratch captures
+reproduce every compared shadow field on every cell exactly: **386/386, zero native
+and zero web differences**, not merely differences under a tolerance. C1, B1, B3,
+the thin bands, both black masks and the probe halo equal the archival reader's values.
+`pre-fit-repro.txt`, `reader-validation.txt`, and `rounds/pre-fit/` preserve the proof.
+
+The first scratch runner was too broad: it selected six additional black-bearing
+probe IDs and accessibility probes. It stopped on two undeclared RT probes with a
+zero-length contour (`hc-text__rrect-lg__inactive`, `hc-text-28__rrect-md__inactive`).
+Its **19 extra measured rows** remain in the raw scratch matrix and are named in
+`prefit-diagnostic-only.json`; none enters a fit, stop, or canonical pass. The
+completion run filled only missing declared identities and asserted every already
+written row unchanged. `declared-bed.json` pins the intended identities. No scene
+changed split, no holdout was opened during fitting, and no capture was taken at26.5.
+
+### 2. A declaration, not a fitted zero
+
+`liftAmplitude` is **0.001→0 on light and0.0005→0 on dark**. The measurement sits beside
+it in each active document's `$comment`: Apple's27 exterior is zero on **67/50 cells,
+1,546,726/1,099,348 backdrop-black pixels**, while the frozen26.5 control is nonzero on
+**39/125 cells** and keeps **0.01/0.0051** and its digests (§5.170). Both receded
+documents already held0 and are not rewritten. `liftSpanMin`, `liftSpanFull` and the
+blur/shape leaves stay and are **unread at amplitude0**.
+
+The handwritten `material.ts` change is a **doc comment only**. “Exactly zero over
+black” holds for a uniformly black source, not every local black pixel: the lift
+samples the sigma40 blurred chain at that pixel's position (`wgsl/optics.ts`'s
+`outer_shadow_lift`, §5.65's S6). No runtime source value changes by hand; the selected
+patch and digest changes in `macos27-profile.ts` are generated from the documents.
+
+### 3. The rounds and every carried stop
+
+A is lift0 with shipped anchors. B is A's closed-form window departure solve,
+`anchor × departure_native / departure_web`, rounded to the existing four-decimal
+anchor precision. R repeats B **unchanged**. All eight stop/diagnostic structures
+reproduce exactly between B and R, and the canonical read's shadow fields then
+reproduce B on all386 declared cells. Two fitted candidates and one repeat, within
+the ten-round budget; no search for an unspecified minimum and no post-holdout fit.
+
+| reading | C1 passing /12 | thin per-cell /206 | B1 /6 | B3, bound0.000056 | whole exterior, warning only | black >0 / >1 pixels | probe halo max |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| pre-fit | 12 | 206 | 6 | 0.0000559626 | 0.0007158136 | 138,390 / 477 | 137.097415 |
+| A | 10 | 206 | 6 | 0.0001127575 | 0.0006666828 | 0 / 0 | 6.124352 |
+| B | 12 | 206 | 6 | 0.0000512877 | 0.0007120269 | 0 / 0 | 6.119589 |
+| R | 12 | 206 | 6 | 0.0000512877 | 0.0007120269 | 0 / 0 | 6.119589 |
+
+**A breaks two C1 rows and B3; neither bound is widened.** B's constants below keep
+them. B3's active half is0.0001092916→0.0002202087→0.0001001619; the81 inactive
+rows remain exactly0 throughout. Both accessibility halves also stay exact. A's
+break is therefore in the active standard material, not the recede or the policy.
+B improves the pooled departure stop by8.35% from the shipped reading and leaves
+8.41% of its unchanged bound unused. Every round's bed/pose decomposition is in
+`stops.json`; `b3-sealed.txt` independently reruns W32 G2's adopted functional.
+
+C1 is the upper-middle admitted-band T, bound **0.0042**, on the same twelve rows:
+
+| bed / span | pre-fit | A | B = R = canonical |
+| --- | ---: | ---: | ---: |
+| 1x light / 96 | 0.00090053 | 0.00064360 | 0.00058053 |
+| 1x light / 128 | 0.00244529 | 0.00262343 | 0.00207371 |
+| 1x light / 160 | 0.00133700 | 0.00700533 | 0.00024667 |
+| 2x light / 96 | 0.00087533 | 0.00062213 | 0.00066627 |
+| 2x light / 128 | 0.00252900 | 0.00246343 | 0.00212100 |
+| 2x light / 160 | 0.00132267 | 0.00659800 | 0.00064200 |
+| 1x dark / 96 | 0.00124807 | 0.00124807 | 0.00126447 |
+| 1x dark / 128 | 0.00347614 | 0.00313614 | 0.00349529 |
+| 1x dark / 160 | 0.00164100 | 0.00166733 | 0.00116067 |
+| 2x dark / 96 | 0.00114827 | 0.00114827 | 0.00123927 |
+| 2x dark / 128 | 0.00390543 | 0.00352643 | 0.00382471 |
+| 2x dark / 160 | 0.00168233 | 0.00252833 | 0.00106667 |
+
+B1 is unchanged in EVERY round: light sigma96/128/160 **8.9600/13.1648/17.3696**
+inside **[8.8966,9.0193]/[12.6397,13.7947]/[16.7033,17.8198]**; dark
+**9.0400/12.9280/16.8160** inside **[8.9084,9.3180]/[12.7458,13.8499]/[16.7931,18.3237]**.
+
+**Thin passes, not unchanged.** A's206 band readings are exact. B/R's largest per-cell
+increase is **0.000151**, `photo__toolbar-group__rest`,1x light,3–6, inside the
+**0.002044** bar; all206 pass. One diagnostic order statistic moves **0.000091→0.000102**
+at2x light/span44/6–12: **+0.000011**, with every constituent per-cell change inside
+the bar. The older zero-tolerance order-statistic comparison is a diagnostic, not
+an additional W33 stop; its `passStop` field in the copied-style round artifacts
+names that comparison and must not be mistaken for the declared per-cell gate.
+The mechanism is the existing thin/thick blend: `sizeThickness(44)=0.09228515625`,
+whose second smoothstep gives the thick anchor **0.0239777479** weight. Unchanged
+thin anchors do not isolate span44 from the96 anchor. Span32 stays exact.
+
+### 4. The compensated anchors, and the near band that trades rather than stays identical
+
+| leaf | light old→new | dark old→new |
+| --- | --- | --- |
+| thickOcclusionAt96 |0.0961→0.0870|0.1051→0.1038|
+| thickOcclusionAt128 |0.1797→0.1650|0.2228→0.2188|
+| thickOcclusionAt160 |0.2717→0.2518|0.3504→0.3443|
+
+The span160 peak ENCODED-alpha reductions are **7.9983% light /1.9815% dark**, from
+`1−(1−occlusion)^(1/2.4)` at the unchanged sizeGain0. The anchor's own linear-occlusion
+reductions are7.3243%/1.7409%, different quantities. `compensation-units.json` replaces
+the pre-fit5–7% estimate with these readings and does not repeat the old wrong-space
+2.4% estimate.
+
+The watched3–6 band is **not claimed identical**. Its absolute upper-middle residuals
+are below; the largest increase is **+0.001065 at1x light/span128**, while that cell
+stratum's full-window C1 improves0.00244529→0.00207371. This is a near/far trade, not
+proof that every lit pixel loses nothing. No new zero-tolerance band bound is invented.
+
+| bed / span | pre-fit | A | B = R |
+| --- | ---: | ---: | ---: |
+| 1x dark / 96 | 0.009269 | 0.009269 | 0.009439 |
+| 1x dark / 128 | 0.008066 | 0.005391 | 0.007157 |
+| 1x dark / 160 | 0.002422 | 0.000378 | 0.001382 |
+| 1x light / 96 | 0.004750 | 0.001978 | 0.004418 |
+| 1x light / 128 | 0.004613 | 0.000522 | 0.005678 |
+| 1x light / 160 | 0.002065 | 0.007404 | 0.000310 |
+| 1x light-increased-contrast-coupled / 96 | 0.004418 | 0.004418 | 0.004418 |
+| 1x light-reduced-transparency / 96 | 0.004418 | 0.004418 | 0.004418 |
+| 2x dark / 96 | 0.008448 | 0.008448 | 0.008907 |
+| 2x dark / 128 | 0.009648 | 0.006957 | 0.009063 |
+| 2x dark / 160 | 0.001608 | 0.001019 | 0.001956 |
+| 2x light / 96 | 0.003811 | 0.001190 | 0.004134 |
+| 2x light / 128 | 0.005059 | 0.000076 | 0.005543 |
+| 2x light / 160 | 0.001399 | 0.006570 | 0.001680 |
+
+### 5. The black-floor referee, the dark declaration, and the holdout's five pixels
+
+The declared non-holdout population has **232 cells,13,236,229 eligible pixels**,46
+bed×pose×span groups. **138,390 web>0 pixels→0;477 web>1→0**, in both A and B/R,
+under both G0 masks. The four light hc-text28/7 counts go **66/39 at1x and222/150
+at2x→0**. All46 group fractions are0. Span160 remains probe-strength.
+
+The dark amplitude IS separately visible in this controlled leaf-only reading:
+**23,015 nonzero pixels on24 active dark cells→0 in A**, with anchors held. Its
+non-holdout dark pooled fraction is **0.4208% over both poses**, or0.6054% active
+only, not a silent rewrite of the memo's broader0.44%. The lit-pixel degeneracy
+still does not identify a nonzero lift; the native black pixels declare0.
+
+**Halo and holdout discipline.** The original `halo.py` cells are holdout. Each round
+therefore uses its unchanged far-exterior statistic on non-holdout `checkerboard-8`
+probe analogues;137.10 is retained as archival corroboration. At the one post-seal
+holdout capture, the original checkerboard cells read WebGPU mean/max **0.88/6.11
+at1x,0.83/6.12 at2x**, down from the archival1x11.98/137.10. Inactive mean/max stay0.
+CSS reads **2.01/12.24 at1x,1.49/12.20 at2x**, with its old2.34/12.25 kept in W32.
+
+**The zero target misses four composite HOLDOUT cells, recorded under X4.** Extending
+G0's unchanged reader after the seal gives260 black-bearing cells,28 held out,
+14,136,826 eligible pixels. Five one-byte pixels remain; web>1 stays0 everywhere:
+
+|2x checkerboard glass-over-glass|web>0 /eligible|device coordinates|prior pixel RGB→now|
+| --- | ---: | --- | --- |
+|dark inactive|1/71,272|(142,329)|(1,1,1)→(1,1,1)|
+|dark active|1/71,468|(142,70)|(1,1,1)→(1,1,1)|
+|light inactive|2/71,272|(100,287),(142,329)|(1,1,1)→(1,1,1)|
+|light active|1/71,227|(142,70)|(1,1,1)→(1,1,1)|
+
+All five lie **inside the BASE box [50,35]–[270,165] and outside the OVERLAY box
+[100,64]–[220,120]**. G0's composite `geometry()` names the56px overlay, so its
+“exterior” admits base-edge pixels. Both integer and analytic masks inherit that
+wrong component domain. Dark active's total count nevertheless falls2485→1 and
+light active9871→1; inactive1/2 are unchanged. This is the composite referee's
+domain miss, not a newly introduced lift outside the stack. The unchanged referee
+STILL MISSES: the five pixels are not deleted, excused by a widened zero, or fitted
+away. `holdout-composite-decomposition.json` records coordinates and both generations.
+**G2 must correct the composite domain before adopting the zero row** (union box or
+an explicit composite decline, as G0's stroke referee already does). No new native
+capture, material change, holdout render or contour decision follows this finding.
+
+### 6. The rule-2 seal and its sites
+
+Seal commit **0d0594b2** carries `configuration.py record` as read4 BEFORE any pass.
+Source-list hash remains`c16d6294a00c8ac770781701b2154d636c7b287490526d49f3782aa1d2102a9d`;
+source hash is`c48b40b13135efa121c7be4d4b2de08c131438187e2276bea1d19b3928e09cdf`.
+The source hash moved on the doc comment, not a shader/default change.
+
+|endpoint|resolved digest old→new|file SHA-256 first12 old→new|
+| --- | --- | --- |
+|light active|`40a6dec2dc34c748`→`dcbccbd9feac9881`|`d5bdd6eac432`→`6e509c7f76cc`|
+|dark active|`bd1814fac34f9b30`→`e59f9106bcd7c966`|`431cabd391c4`→`eab099cc6698`|
+|light receded|`f34dcc03e2774db3`→`f34dcc03e2774db3`|`45acb6d916b9`→`45acb6d916b9`|
+|dark receded|`6b6237b7ae241638`→`6b6237b7ae241638`|`4e68f81869f6`→`4e68f81869f6`|
+
+`sealed-manifest.json` carries all full SHA-256 values. The seal asserts both frozen
+resolved digests **b2b570e4adcea8fb/874be66ea501621b** before writing, and asserts both
+receded COMPOSED digests after applying the changed active endpoint. Receded files
+are never written. The identity table and rule2 are unchanged; no supersession record.
+
+`digest-sites.txt` states each site's claim, not only whether it reads a digest:
+the two active documents/history; generated runtime profile; two active full hashes
+in `window-activation.spec.ts` with their prior values retained; the canonical runner's
+four file-hash refusal checks; and live README digest prose. Frozen selection, history
+readers and composition tests keep their promises unchanged. Seal tests36/36.
+
+### 7. The canonical read, split, conditioning and current witnesses
+
+Exactly **786 rows appended**:332 calibration/validation,330 unchanged ladder,
+124 holdout, the latter once by artifact. **1,893→2,679→1,893** working rows;
+**509 light** move to`superseded/d5bdd6eac432.json`, **277 dark** to`431cabd391c4.json`.
+The split records `--claims "c9a §5.172" --read-claims "c9a §5.168"`: mover and reader
+are different gates. Both append-checks pass **6/6**, including byte reconstruction.
+No26.5 row is changed or appended;1,107 remain. The19 diagnostic scratch rows are
+not promoted. The capture tree is this worktree's, **786/786 match**, no mismatches,
+misfiled, superseded, unreadable, no-row or missing captures among its live profiles.
+The parent must copy it at merge and archive the previous tree under the active hashes.
+
+`PREDICATE_EXCLUDES` remains **67**, byte-identical to its prior declaration and
+machine-verified by its owner case. The gated count is **230/786**, plus229/1,107
+frozen; no cell is smuggled out of a gate. C1 and M1/M2 cuts are regenerated here and
+the tests re-derive their numbers from the matrix. `SHIPPED_DOCUMENT_HASHES` remains
+derived from the files, not a hand-maintained list.
+
+One existing recorded CSS miss reads **0.88421→0.88424** (`checkerboard__rrect-lg`,
+1x light,SSIM mean); it still misses≥0.9. The missed SET remains the same eight rows
+(five image metrics, three M1 cells); no M2 miss is added. Four standard structure
+witnesses also move. `refresh-read-witnesses.py` derives their current readings and
+keeps prior digits beside them. These are witness updates, not bound changes. The
+initial suite reports five stale-witness failures; after refresh **644/644** pass.
+
+### 8. M2, every gated cell's per-wave move and cumulative drift
+
+W32 Decision Log4 advances the reference to the generation this read supersedes,
+resolved through the index: light`d5bdd6eac432`, dark`431cabd391c4`. The2% bound is
+unchanged and all26 cells pass. Cumulative drift is measured from W31's pre-fit
+`d0c389d70456`/`880ab1e31450`, also via the index, not bounded away or reset. L/D mean
+light/dark standard; all rows are untinted photo on the WebGPU tier. Full precision
+and reference values are in`m2-rebaseline.json`; the mask is native-derived.
+
+|bed|photo component /pose|reference stddev→current|per-wave %|cumulative %|
+| --- | --- | --- | ---: | ---: |
+|1x D|capsule-button / inactive|0.010046151→0.010046151|+0.000000|+1.965563|
+|1x D|capsule-button / rest|0.020524782→0.020524782|+0.000000|+0.921701|
+|1x D|rrect-md / inactive|0.009552061→0.009552061|+0.000000|+1.008499|
+|1x D|rrect-md / rest|0.016063639→0.016057312|-0.039391|+0.378408|
+|1x L|capsule-button / inactive|0.035814758→0.035814758|+0.000000|-0.353862|
+|1x L|capsule-button / rest|0.039497935→0.039497935|+0.000000|-0.266905|
+|1x L|rrect-md / inactive|0.044295876→0.044295876|+0.000000|-0.189762|
+|1x L|rrect-md / rest|0.048515463→0.048518963|+0.007215|-0.169412|
+|1x L|rrect-ml / rest|0.055253572→0.055255197|+0.002941|-0.068771|
+|1x L|rrect-sm / inactive|0.018154066→0.018154066|+0.000000|-2.774796|
+|1x L|rrect-sm / rest|0.023186734→0.023186734|+0.000000|-1.105612|
+|1x L|toolbar-group / inactive|0.065285642→0.065285642|+0.000000|-0.348446|
+|1x L|toolbar-group / rest|0.072262676→0.072262676|+0.000000|-0.283896|
+|2x D|capsule-button / inactive|0.009295234→0.009295234|+0.000000|+1.159059|
+|2x D|capsule-button / rest|0.016887410→0.016887410|+0.000000|+0.581340|
+|2x D|rrect-md / inactive|0.010571608→0.010571608|+0.000000|+1.243596|
+|2x D|rrect-md / rest|0.014836959→0.014835942|-0.006850|+0.551310|
+|2x L|capsule-button / inactive|0.038750212→0.038750212|+0.000000|-0.144652|
+|2x L|capsule-button / rest|0.036968546→0.036968546|+0.000000|-0.080102|
+|2x L|rrect-md / inactive|0.048278117→0.048278117|+0.000000|-0.165903|
+|2x L|rrect-md / rest|0.046355269→0.046353058|-0.004769|-0.102797|
+|2x L|rrect-ml / rest|0.054797017→0.054796856|-0.000294|-0.020152|
+|2x L|rrect-sm / inactive|0.017222009→0.017222009|+0.000000|-1.689221|
+|2x L|rrect-sm / rest|0.019610189→0.019610189|+0.000000|-0.998120|
+|2x L|toolbar-group / inactive|0.069089335→0.069089335|+0.000000|-0.145131|
+|2x L|toolbar-group / rest|0.067882457→0.067882457|+0.000000|-0.112931|
+
+The worst per-wave move is **−0.039391%**,1x dark photo/md active. Twenty cells are
+exactly unchanged. The old1x-light/small-inactive cumulative **−2.774796%** remains
+visible while this wave's change on that cell is0. No body parameter was fitted.
+
+### 9. The sheets and the eye
+
+**17 sheets reviewed**, native|WebGPU|CSS|x8 before/after, with one-byte-at-black
+**137.10/255** and actual counts beside EVERY difference panel. Photo/lg and capsule
+cover both schemes/scales. The black-floor sheets cover hc-text28/7,checkerboard8
+at128/160 and light impulse/md. Dark impulse/md has no native fixture and is declined
+explicitly, not substituted. `eye.txt` records the observations and `sheet-readings.json`
+the bytes/provenance. The first sheet pass stopped at that absent fixture; completion
+asserted existing images pixel-identical before writing the remaining ones.
+
+The mid-grey exterior checker and hc-text stripe glow disappear. The known contour
+hairline and body/chroma/structure residuals remain. No new terrace or secondary edge
+is visible in unamplified native/WebGPU exteriors; faint quantized level contours are
+PRESENT in amplified residuals before and after, so “none anywhere” is not claimed.
+**No new eye-only regression was found; the eye did not STOP the gate.** The holdout
+composite miss is the separate metric finding in§5 above.
+
+CSS's no-floor statement is **far-exterior/analytic-box qualified**. The integer
+mask admits centres1.5CSSpx out: CSS counts170 on checker8/lg,134 on ml,165 on
+hc-text28/lg and204 on light impulse/md, unchanged before/after. All have analytic
+BOX-distance≥2 count0; their rounded-contour distances extend to2.77CSSpx. This
+pre-existing near-edge geometry residual is not the WebGPU lift and is not closed
+silently. `css-floor.json` records both masks and distances; the tracker carries it.
+
+**Supplemental two-scale eye, same gate:** nine more black-cell sheets in
+`sheets-2x/` were generated from the same captures and all nine viewed: **17+9=26**
+sheets total. They show the2x hc-text >1 counts222/150 disappearing and both schemes'
+checkerboard8 floors disappearing, with no new eye-only regression. The eight2x
+CSS probe cells are not in the canonical read: all16 before/after CSS panels say
+**unmeasured**, not blank-as-zero or substituted pixels. Light impulse/md has CSS;
+dark impulse/md lacks a native fixture at both scales. No browser, row or holdout
+read was added. `sheet-readings-2x.json` retains every panel's provenance/LSB check.
+
+### 10. Verification and what this gate does not claim
+
+**Closing chain:** build/lint exit0; **2,715 unit tests in189 files**,0 failed;
+calibration644/644; renderer goldens **34/34**,13 PNGs byte-identical with no regen;
+window-activation **6/6** on Chromium, including all eight endpoint hash readings;
+freeze **1,818** at open/close; capture checker **786/786** again at close. All21
+pinned document/source/fixture/golden files are byte-identical. `git diff --check`
+passes. **59 browser invocations** each have RT0,IC0,slider0.5,foreign-process count0
+and an explicit60-second idle interval recorded before the run, including the failed
+undeclared scratch probe invocation. No browser suite overlaps a capture pass.
+
+A minor`@vitreajs/vitrea-web` changeset names the native counts, compensated anchors,
+four resolved/file hashes and unchanged26.5/receded documents. Versioning/publishing,
+independent review, merge and capture-tree transfer belong to the parent/G2; none was
+done here. `calibration.ts:187`'s lift-width sentence is flagged for G2.
+
+This gate does **not** claim a contour law, a new rim, a universal zero over the
+unchanged composite referee, an exactly unchanged3–6 band, a located fit minimum,
+a CSS near-edge match, or closure of the photo body's known chroma/structure gap.
+No identity-table leaf is added and no bound/floor is widened. The five composite
+holdout pixels remain recorded misses until G2 fixes the referee's domain before
+adoption. The later identifying contour capture remains Decision Log3's first
+Deferred item, requiring its own native-capture authorization.
+
+
+### 11. Verification-scope correction before hand-off
+
+The unqualified `git diff --check` sentence in§10 above checked pending changes,
+not the entire committed branch. **The full-range reading is exit2:1,511 whitespace
+diagnostics in23 raw `.txt` evidence files**, solely CLI padding/trailing blank
+lines. The raw output bytes are retained, as at G1a's closure; no measured number
+or capture is reformatted to obtain a cosmetic green. Excluding those text-evidence
+paths, **the full-range authored source, documentation and JSON check exits0**.
+`whitespace-scope.json` records both command results and every affected file.
+The build/lint/test, golden, activation, freeze and capture-tree results in§10 are
+unchanged. This is a records-only third commit, after seal`0d0594b2` and
+read/split`6f3435de`; the commit carrying this correction is the third, not the
+second described at the original Tracking Map write.

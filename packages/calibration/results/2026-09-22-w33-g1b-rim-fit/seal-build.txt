@@ -1,0 +1,45 @@
+Scope: 7 of 10 workspace projects
+packages/geometry build$ tsc -p tsconfig.build.json
+packages/motion build$ tsc -p tsconfig.build.json
+packages/policy build$ tsc -p tsconfig.build.json
+packages/policy build: Done
+packages/motion build: Done
+packages/geometry build: Done
+packages/renderer-webgpu build$ tsc -p tsconfig.build.json
+packages/renderer-webgpu build: Done
+packages/core build$ tsup
+packages/core build: CLI Building entry: src/index.ts
+packages/core build: CLI Using tsconfig: tsconfig.json
+packages/core build: CLI tsup v8.5.1
+packages/core build: CLI Using tsup config: /Users/new/Developer/GitHub/designer/.claude/worktrees/w33-g1b-rim-fit/packages/core/tsup.config.ts
+packages/core build: CLI Target: es2022
+packages/core build: CLI Cleaning output folder
+packages/core build: ESM Build start
+packages/core build: DTS Build start
+packages/core build: ESM dist/index.js              42.69 KB
+packages/core build: ESM dist/chunk-IOTISK2R.js     19.40 KB
+packages/core build: ESM dist/dist-NMQ322KB.js      361.94 KB
+packages/core build: ESM dist/chunk-IOTISK2R.js.map 102.61 KB
+packages/core build: ESM dist/index.js.map          171.36 KB
+packages/core build: ESM dist/dist-NMQ322KB.js.map  946.16 KB
+packages/core build: ESM ⚡️ Build success in 234ms
+packages/core build: DTS ⚡️ Build success in 1327ms
+packages/core build: DTS dist/index.d.ts 256.44 KB
+packages/core build: Done
+packages/platform-web build$ tsup
+packages/platform-web build: CLI Building entry: src/index.ts
+packages/platform-web build: CLI Using tsconfig: tsconfig.json
+packages/platform-web build: CLI tsup v8.5.1
+packages/platform-web build: CLI Using tsup config: /Users/new/Developer/GitHub/designer/.claude/worktrees/w33-g1b-rim-fit/packages/platform-web/tsup.config.ts
+packages/platform-web build: CLI Target: es2022
+packages/platform-web build: CLI Cleaning output folder
+packages/platform-web build: ESM Build start
+packages/platform-web build: DTS Build start
+packages/platform-web build: ESM dist/index.js     295.87 KB
+packages/platform-web build: ESM dist/index.js.map 1.15 MB
+packages/platform-web build: ESM ⚡️ Build success in 250ms
+packages/platform-web build: DTS ⚡️ Build success in 848ms
+packages/platform-web build: DTS dist/index.d.ts 379.88 KB
+packages/platform-web build: Done
+packages/calibration build$ tsc -p tsconfig.build.json
+packages/calibration build: Done

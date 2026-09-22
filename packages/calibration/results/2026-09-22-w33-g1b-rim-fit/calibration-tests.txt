@@ -1,0 +1,83 @@
+$ vitest run
+
+ RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/w33-g1b-rim-fit/packages/calibration
+
+ ❯ test/adopted-thresholds.test.ts (93 tests | 1 failed) 185ms
+     × names every 27 row the refit missed, and nothing it did not 6ms
+ ❯ test/tier-coherence.test.ts (64 tests | 4 failed) 137ms
+     × records what each tier passes on apple-macos-27.0-1x-light-standard-glass0.5 6ms
+     × records what each tier passes on apple-macos-27.0-2x-light-standard-glass0.5 0ms
+     × records what each tier passes on apple-macos-27.0-1x-dark-standard-glass0.5 0ms
+     × records what each tier passes on apple-macos-27.0-2x-dark-standard-glass0.5 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the macOS 27 tables, declared before the refit's read (W29 Decision Log 4 (a)) > names every 27 row the refit missed, and nothing it did not
+AssertionError: dom / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean: expected 0.884236578776211 to be close to 0.88421, received difference is 0.00002657877621092819, but expected 0.000005
+ ❯ test/adopted-thresholds.test.ts:3136:79
+    3134|             const row = MISSED_27_ROWS[`${name(cell)} :: ${metric}`];
+    3135|             if (row === undefined) continue;
+    3136|             expect(reading(cell, axis, metric), `${name(cell)} :: ${me…
+       |                                                                               ^
+    3137|               row.measured,
+    3138|               5,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+ FAIL  test/tier-coherence.test.ts > the CSS tier's structure attenuation, measured (W30 G0 (d)) > records what each tier passes on apple-macos-27.0-1x-light-standard-glass0.5
+AssertionError: apple-macos-27.0-1x-light-standard-glass0.5 WebGPU structure ratio moved — re-record with the section that moved it: expected 1.5672632120425107 to be close to 1.567275, received difference is 0.000011787957489239886, but expected 0.000005
+ ❯ test/tier-coherence.test.ts:2976:9
+    2974|         measured.get(`${profile}|webgpu`),
+    2975|         `${profile} WebGPU structure ratio moved — re-record with the …
+    2976|       ).toBeCloseTo(recorded.webgpu, 5);
+       |         ^
+    2977|       expect(
+    2978|         measured.get(`${profile}|css`),
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯
+
+ FAIL  test/tier-coherence.test.ts > the CSS tier's structure attenuation, measured (W30 G0 (d)) > records what each tier passes on apple-macos-27.0-2x-light-standard-glass0.5
+AssertionError: apple-macos-27.0-2x-light-standard-glass0.5 WebGPU structure ratio moved — re-record with the section that moved it: expected 0.42583870880172836 to be close to 0.42579, received difference is 0.000048708801728358786, but expected 0.000005
+ ❯ test/tier-coherence.test.ts:2976:9
+    2974|         measured.get(`${profile}|webgpu`),
+    2975|         `${profile} WebGPU structure ratio moved — re-record with the …
+    2976|       ).toBeCloseTo(recorded.webgpu, 5);
+       |         ^
+    2977|       expect(
+    2978|         measured.get(`${profile}|css`),
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯
+
+ FAIL  test/tier-coherence.test.ts > the CSS tier's structure attenuation, measured (W30 G0 (d)) > records what each tier passes on apple-macos-27.0-1x-dark-standard-glass0.5
+AssertionError: apple-macos-27.0-1x-dark-standard-glass0.5 WebGPU structure ratio moved — re-record with the section that moved it: expected 0.9760452065950846 to be close to 0.976648, received difference is 0.0006027934049153139, but expected 0.000005
+ ❯ test/tier-coherence.test.ts:2976:9
+    2974|         measured.get(`${profile}|webgpu`),
+    2975|         `${profile} WebGPU structure ratio moved — re-record with the …
+    2976|       ).toBeCloseTo(recorded.webgpu, 5);
+       |         ^
+    2977|       expect(
+    2978|         measured.get(`${profile}|css`),
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/5]⎯
+
+ FAIL  test/tier-coherence.test.ts > the CSS tier's structure attenuation, measured (W30 G0 (d)) > records what each tier passes on apple-macos-27.0-2x-dark-standard-glass0.5
+AssertionError: apple-macos-27.0-2x-dark-standard-glass0.5 WebGPU structure ratio moved — re-record with the section that moved it: expected 0.7694165501422 to be close to 0.769618, received difference is 0.0002014498578000179, but expected 0.000005
+ ❯ test/tier-coherence.test.ts:2976:9
+    2974|         measured.get(`${profile}|webgpu`),
+    2975|         `${profile} WebGPU structure ratio moved — re-record with the …
+    2976|       ).toBeCloseTo(recorded.webgpu, 5);
+       |         ^
+    2977|       expect(
+    2978|         measured.get(`${profile}|css`),
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/5]⎯
+
+
+ Test Files  2 failed | 40 passed (42)
+      Tests  5 failed | 639 passed (644)
+   Start at  19:38:18
+   Duration  4.23s (transform 4.69s, setup 0ms, import 9.54s, tests 12.52s, environment 3ms)
+
+/Users/new/Developer/GitHub/designer/.claude/worktrees/w33-g1b-rim-fit/packages/calibration:
+[ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL] @vitrea/calibration@0.0.0 test: `vitest run`
+Exit status 1

@@ -229,6 +229,11 @@ made; the fit that followed moved all four macOS 27 documents to
 W32 G1's exterior fit moved them again, to `40a6dec2dc34c748`,
 `bd1814fac34f9b30`, `f34dcc03e2774db3` and `6b6237b7ae241638` (claims §5.168).
 
+W33 G1b's lift stand-down and thick-anchor compensation (claims §5.172) move the
+active digests to `dcbccbd9feac9881` (light) and `e59f9106bcd7c966` (dark).
+The receded digests above and both frozen macOS 26.5 digests are unchanged; the
+prior readings remain here as history.
+
 `resolvedMaterialSha256` is taken over the fully resolved material, so before
 W31 a material that gained a key moved every document's digest whatever that key
 held — which is why the paragraph above this
