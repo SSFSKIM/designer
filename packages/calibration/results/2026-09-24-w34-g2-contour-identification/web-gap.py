@@ -8,7 +8,7 @@ from PIL import Image
 import identification as M
 
 
-def run(records):
+def run(records, prefix="web"):
     rows=[];notches=[];provenance=[]
     for r in records:
         profile,sid=r['cell'].split('/',1)
@@ -32,9 +32,9 @@ def run(records):
             notches.append(dict(cell=r['cell'],part=part,notch=means[1]-min(means[0],means[2])))
         provenance.append(dict(cell=r['cell'],material=report['page']['material'],web=meta,
             pngSha256=M.hashlib.sha256((root/(sid+'__webgpu.png')).read_bytes()).hexdigest()))
-    M.save(M.HERE/'web-gap.json.gz',rows)
-    M.save(M.HERE/'web-notches.json',notches)
-    M.save(M.HERE/'web-provenance.json',provenance)
+    M.save(M.HERE/(prefix+'-gap.json.gz'),rows)
+    M.save(M.HERE/(prefix+'-notches.json'),notches)
+    M.save(M.HERE/(prefix+'-provenance.json'),provenance)
 
 
 if __name__=='__main__':

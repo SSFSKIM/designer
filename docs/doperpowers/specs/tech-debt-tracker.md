@@ -5942,3 +5942,20 @@ before the next native sitting, whether repeat archives live in the repository, 
 a release asset named by hash from the ledger — the requirement is that the bar re-derives from
 what a reader can fetch by the name the ledger records, not that it sits in every clone. Nothing
 here is wrong; it is weight.
+
+## W34 G2: comparer publication seams and missing curvature rows
+
+2026-09-24, §5.176; `results/2026-09-24-w34-g2-contour-identification/`.
+G1's materialized manifest omits `caveats`, while the comparer unconditionally iterates it in
+its final reporter. The first G2 profile rendered and wrote its matrix, then threw. G2 keeps
+that attempt and uses a provenance-recorded manifest projection adding only the caveat field;
+no fixture metadata or pixels were changed. A future producer/consumer contract change should
+make that schema field explicit and test a materialized probe manifest end to end, rather than
+repeat this evidence-only projection. This did not justify changing shipped code in G2.
+
+Three of 336 non-holdout captured cells produce no standard matrix row: 1x dark inactive
+`gradient-90-small__circular-120`, and 1x light active `grey-255__circular-120` /
+`grey-255__circular-200`. `contourCurvature` refuses their zero-length recovered contour.
+All captures are preserved and the fixed-mask contour instrument reads all 336. Follow-up should
+return an explicit unmeasured curvature axis while retaining independently measurable axes,
+with the current failures as regression cases; it must not invent a zero curvature reading.

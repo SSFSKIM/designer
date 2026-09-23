@@ -33,6 +33,37 @@ class Identification(unittest.TestCase):
         self.assertFalse(row['admissible'])
         self.assertEqual(row['status'], 'unmeasured: population below four')
 
+    def test_forward_matches_declared_compositor_on_curved_partial_pixels(self):
+        import forward as F
+        component={'kind':'capsule-circular','size':[120,44],
+                   'suppliedPaths':[{'frameOrigin':[100,78],'elements':[]}]}
+        xy=np.array([[99,99],[100,89],[219,100],[107,84]])
+        cov=M.coverage(xy,component,1,(.125,-.0625))
+        r=dict(component=component,scale=1,xy=xy,D=np.tile([128.,192.,64.],(4,1)),
+               body=dict(betaRGB=[180.,200.,120.],uncertaintyRGB=[.5,.5,.5]))
+        for space in ['encoded','linear']:
+            base=F.baseline(r,space,(.125,-.0625),cov=cov)[0]
+            target=np.array([50.,70.,90.])/255
+            if space=='linear':target=M.decode(target)
+            coefs=[[-.4,.4*target[c]] for c in range(3)]
+            got=np.floor(F.prediction(r,dict(space=space,name='body-forward-affine',power=2.),coefs,cov,base)+.5)
+            field=lambda rgb:lambda x,y:np.tile(rgb,(len(x),1))
+            expected=M.I.forward_circular(xy,component,1,field([128,192,64]),field([180,200,120]),
+                lambda x,y,nx,ny:(np.full(len(x),.4),np.tile([50,70,90],(len(x),1))),
+                translation=(.125,-.0625),space=space)
+            np.testing.assert_array_equal(got,expected)
+
+    def test_physical_alpha_identifies_one_shared_alpha_and_bounded_target(self):
+        import alpha
+        colour=np.array([[.1,.2,.3],[.4,.5,.6],[.7,.8,.9]])
+        X=np.zeros((3,3,4));X[:,:,0]=-colour
+        for c in range(3):X[:,c,c+1]=1
+        y=(-.5*colour+np.array([.1,.2,.3])).ravel()
+        for method in ['least-squares','minimax']:
+            got=alpha.solve(X.reshape(-1,4),y,method)
+            np.testing.assert_allclose(got,[.5,.1,.2,.3],atol=1e-5)
+            self.assertTrue(np.all(got[1:]<=got[0]+1e-8))
+
 
 if __name__ == '__main__':
     unittest.main()

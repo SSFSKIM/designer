@@ -36153,3 +36153,131 @@ qualifications survive the sitting. The original grant is still a wave-close obl
 
 The next gate is parent review and merge of this evidence, then G2 identification against the
 published bars. G1 does not open G2 itself, merge, push or restore the original grant.
+
+## 5.176 W34 G2: contour identification against the captured bar (2026-09-24)
+
+**Checkpoint: calibration and validation recorded; the holdout remains sealed.** W34 clauses
+5, 6 and 8, X1–X14; branch `w34-g2-contour-identification`, from `44605805`. Evidence is
+`packages/calibration/results/2026-09-24-w34-g2-contour-identification/` (September **24**, not
+G2's prospective September 23 directory in the charter). No material, profile, adopted threshold,
+golden, canonical matrix, native fixture, native capture, bundle build or TCC change.
+
+### 1. What was read, and what the residual means
+
+G0's reader supplies materialized native pixels from G1's probe inventory and the repeat archive's
+captured no-glass, opaque-control and grey-alignment dependencies. All **336 non-holdout glass
+cells** are read on the repeat archive's **fixed** masks; each bin's population is asserted equal
+to G1's bar before comparison. There is no per-model registration or plurality-selected bar.
+The instrument reports six device-pixel shells, sixteen normal bins, each channel independently,
+with arcs and straights separate. Absolute values precede every reduction. The **192 deficient
+1x rectangle bin/shell rows remain unmeasured**; geometrically absent straight bins are not
+invented. `native-zero.json.gz` is the full native-minus-no-glass response, not an assertion that
+the entire six-shell signal is a stroke: inner shells carry body and active outer shells can
+carry shadow. The web gap likewise includes body and geometry differences, not only the term
+that a future contour leaf could close.
+
+Every table carries the actual bin bar and population. **Tolerance is `max(1 code, bar)`, which
+is one code on every measured normal bin.** The largest normal bar is **0.5**, 1x light-active
+arcs; 2x dark-active arcs reach **0.0625**. G1's long protocol stays separate; its 0.17647 arc /
+0.22368 straight maxima are not pooled into the normal protocol. Zero observed spread is not
+zero variability or a precision guarantee.
+
+`native-controls.json` reports ordinary-fill alignment in encoded and linear interpretations,
+separately from the glass half-interior-contrast fit. Neither is called a hidden raster origin.
+Circular bins use the analytic stadium with the **0.006·radius/22 CSS-pixel** cubic qualification;
+continuous bins use G0's flattened supplied path. `native-bodies.json` records G0's median or
+bounded affine interior fit and its **unshrunk** uncertainty. Structured backdrops route to an
+effective rendered response, not a uniquely identified boundary body. The qualified forward
+follow-up integrates the body field at subpixels and keeps body, reference, geometry and
+numerical uncertainty separate from the one-code tolerance.
+
+### 2. The notch, with W33's different population kept beside it
+
+The following medians each cover **42 calibration/validation cells**, not W33's canonical cohort.
+All six-shell maxima use admitted bins, not pooled error. `strata.json` and the per-bin artifacts
+retain precision. These are measurements of this sparse colour/geometry bed; changes from W33
+are **not** material changes or an improvement claim.
+
+| stratum | part | native notch | web notch | max native–web | pixels | bar / tolerance |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| 1x/dark/inactive | arc | -16.492 | 1.997 | 151.250 | 42228 | 0 / 1 |
+| 1x/dark/inactive | straight | -25.042 | 2.388 | 144.000 | 37800 | 0 / 1 |
+| 1x/dark/active | arc | -10.993 | 3.236 | 136.714 | 42258 | 0 / 1 |
+| 1x/dark/active | straight | 0.000 | 0.000 | 144.000 | 37800 | 0 / 1 |
+| 1x/light/inactive | arc | -14.205 | 7.174 | 165.333 | 42228 | 0 / 1 |
+| 1x/light/inactive | straight | -29.582 | 0.000 | 117.481 | 37800 | 0 / 1 |
+| 1x/light/active | arc | -11.233 | 8.755 | 94.143 | 42228 | 0.5 / 1 |
+| 1x/light/active | straight | -19.572 | 0.000 | 99.000 | 37800 | 0 / 1 |
+| 2x/dark/inactive | arc | -16.835 | 1.944 | 144.000 | 83226 | 0 / 1 |
+| 2x/dark/inactive | straight | -25.042 | 2.395 | 144.000 | 75528 | 0 / 1 |
+| 2x/dark/active | arc | -10.994 | 3.762 | 138.438 | 83028 | 0.0625 / 1 |
+| 2x/dark/active | straight | 0.000 | 0.000 | 148.000 | 75528 | 0 / 1 |
+| 2x/light/inactive | arc | -13.452 | 9.169 | 98.333 | 82932 | 0 / 1 |
+| 2x/light/inactive | straight | -30.198 | 0.000 | 91.000 | 75528 | 0 / 1 |
+| 2x/light/active | arc | -10.458 | 8.858 | 97.625 | 82974 | 0 / 1 |
+| 2x/light/active | straight | -19.500 | 0.000 | 102.000 | 75528 | 0 / 1 |
+
+W33 §5.170's non-holdout, combined-contour notch medians were: 1x light active/inactive
+**−19.689 / −21.673**, 2x light **−17.824 / −20.827**, 1x dark **−13.742 / −19.058**, 2x dark
+**−13.274 / −14.816**, on 46/32 light and 38/28 dark cells. W34 does not silently substitute its
+arc-only or straight-only median for those combined-contour readings. Dark-active straights
+again have median **0**, while their arcs have a negative median at both scales: the orientation
+contrast survived the new bed. Structured-background notch readings remain model-free diagnostics,
+not isolated measurements of stroke depth.
+
+### 3. Calibration-only fits, validation failures, and the remaining qualification
+
+The first pass completed **400 configurations**: eleven W33 angular-family names first, then
+seven new-axis names in encoded and linear sRGB, each with least squares and minimax at all
+eight scale/scheme/pose endpoints. Power grids are .5/1/2/4/8; the rotated axis samples 2.5°.
+The chosen power and rotation come from **calibration**, never validation. Coefficients are
+shared across that endpoint's calibration backdrops; no scene or backdrop switch is fitted.
+Arcs and straights share coefficients but never share a referee bin. These coefficients remain
+scale-specific diagnostics, not a device-scale-invariant runtime material.
+
+`fits.json` records every coefficient and selection grid. `validation-residuals.json.gz` reports
+every per-cell/bin/shell/channel residual. `family-best.csv` gives each family's best of its two
+reported objectives per stratum, beside the bar, population and domain. **None of the first
+400 configurations closes a complete validation stratum.** The initial new-axis diagnostic is
+circular-only and its compact body extrapolation is explicitly distinguished from the exact
+body-integral follow-up; it cannot borrow a physical-compositing claim from that follow-up.
+
+Minimax here is **pixelwise L-infinity in the nominated composition space**, solved by constraint
+generation and verified against every pixel constraint. It is not minimax of signed bin means,
+and linear-space minimax is not asserted to minimize the final encoded-byte referee. A failed
+nominated fit rejects that fitted configuration at the declared resolution, **not every possible
+coefficient in a family, every continuous exponent, or every possible Apple law**. The physical
+shared-alpha follow-up constrains 0≤alpha≤1 and 0≤premultiplied target≤alpha; unconstrained affine
+response coefficients by themselves do not identify a physical alpha or source colour.
+
+W33's native-minus-web comparator is also rerun separately against this gate's actual shipped
+web captures (`w33-web-*`). The first family pass's native-minus-no-glass comparator is not
+passed off as the same observation. W34's calibration/validation protocol also differs from
+W33's in-sample diagnostics, so an apparent score change is not a like-for-like improvement.
+The exact-body and nuisance checks and the once-only holdout are recorded in the completion
+addendum below, after they finish; this checkpoint supplies no holdout result.
+
+### 4. Four browser launches, all captured; three standard metric refusals
+
+`browser-runs.txt` records fresh RT0, IC0, slider0.5, Show Borders0, zero foreign capture processes
+and HID idle over sixty seconds before **each** of the four non-holdout profile launches.
+Every capture reports Chromium's real **apple/metal-3** adapter and the untuned shipped macOS27
+material, including its actually drawn active/receded endpoint. `web-provenance.json` retains the
+endpoint identities and PNG hashes. No native capture ran beside them.
+
+All **336 cells rendered**. The wave-local `matrix.json` has **333 probe rows**, not 336: standard
+`contourCurvature` refuses a zero-length contour on 1x dark inactive gradient-90-small/circular120,
+and 1x light active grey255/circular120 and circular200. All three captured cells remain in the
+native-mask contour residual table, which does not depend on that recovered-contour metric.
+The initial comparer also threw in its final reporter because G1's materialized manifest omitted
+`caveats`; its capture and matrix writes preceded that error. A provenance-recorded, wave-local
+manifest projection adds only that field and links the unchanged non-holdout pixels. The first
+profile was remeasured **without another browser**, exposing its metric refusal; no pixel was
+recaptured to make a run green. These failures remain in their original logs.
+
+The circular web counterpart is the runtime's **zero-smoothing stadium**. That comparison does
+not establish exact native cubic geometry, glass-path coverage or hidden alignment. Existing
+continuous native capsules retain the older circular web mapping, so their gap includes that
+geometry mismatch. At native size, the 1x light inactive grey255 circular120 pair was inspected:
+the native outline is visible where the web has no outline, and the interiors differ too.
+The six-shell RGB gap is therefore not labelled entirely recoverable by adding a stroke.
