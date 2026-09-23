@@ -616,6 +616,17 @@ G1 exclusivity remains the parent's decision. Subsequent reads currently report 
 
 ## Surprises & Discoveries
 
+- **G2's nominated boundary body fails where the outside stroke has no support**
+  (2026-09-24, §5.176 §5). At nominal geometry, every subpixel in shell [−2,−1) is
+  inside the body and the outside [0,1) band has zero coverage. Yet populated validation
+  bins miss by 2–27.375 encoded codes, with both parts and every endpoint represented;
+  the linear family also fails. All stroke coefficients are algebraically inert there.
+  This sharpens the negative beyond an optimizer failure while narrowing its physical
+  meaning: it rejects the nominated body/path/stroke decomposition, not Apple's colour
+  law in isolation. A body-boundary/radial study on existing non-holdout data is a more
+  useful next step than another full sitting that merely adds repeats. No new model,
+  capture permission or G3 leaf is authorised by that recommendation.
+
 - **G0 grant-after refused despite distinct bundle identifiers** (2026-09-23, §5.174).
   The original captured before; the side captured after the user's grant; the original then
   returned TCC denial without a manifest. Both binary identities are unchanged. The side's

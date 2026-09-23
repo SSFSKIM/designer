@@ -110,3 +110,12 @@ Pre-exposure amendment, retained beside the unspent first candidate document
   existed from that attempt. The final run is forward-reference-propagation-run.txt.
   The receipt-only runner reads its candidate document from the authorization,
   not from a hard-coded filename. The first candidate file is not rewritten.
+
+Structural limit
+  coefficient-independent-floors.json and prove-baseline-floor.py show why retuning
+  the outside band's coefficients cannot point-close the nominated six-shell model:
+  shell [-2,-1) is wholly inside the body and the band has zero coverage there.
+  Every endpoint and part has a populated validation counterexample above one code.
+  This is a limitation of the nominated decomposition, not a universal rejection of
+  Apple's colour law. It is why the body/geometry nuisance and non-identification
+  language are necessary, rather than merely attaching a larger tolerance to a fit.

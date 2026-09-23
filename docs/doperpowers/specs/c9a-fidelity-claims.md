@@ -36304,3 +36304,44 @@ synthetic check reads 0 contribution inside the body, .3 at alpha .4, and 1.5 fo
 The stopped propagation logs are retained; no completed nuisance table was replaced and the
 real receipt was still unspent. This changes neither a fitted coefficient nor a point residual
 or the declared one-code tolerance; it corrects the separate interval/discrimination reading.
+
+### 5. A stronger negative than optimizer failure — and a narrower physical conclusion
+
+`coefficient-independent-floors.json` gives a counterexample that changing an optimizer,
+colour coefficient or angular exponent cannot remove **within the nominated decomposition**.
+In shell **[−2,−1)**, every point of a device pixel lies inside the nominated body: the pixel
+half-diagonal is √0.5<1. The outside **[0,1)** stroke band therefore has **zero coverage** there.
+All stroke coefficients multiply zero, and all four exact-body alternatives in each space
+produce identical residuals in every such bin. Each row below is a worst populated validation
+bin in that unreachable shell, not a pooled error or a fitted lower bound. Its tolerance is1.
+
+| scale / scheme / pose | arc floor, codes | straight floor, codes |
+| --- | ---: | ---: |
+| 1x dark active | 9.000 | 9.237 |
+| 1x dark inactive | 3.000 | 3.000 |
+| 1x light active | 10.250 | 10.000 |
+| 1x light inactive | 2.500 | 2.000 |
+| 2x dark active | 27.375 | 27.000 |
+| 2x dark inactive | 2.778 | 3.000 |
+| 2x light active | 21.875 | 21.000 |
+| 2x light inactive | 2.000 | 2.000 |
+
+These are the encoded-family floors; the artifact carries both spaces, witnesses, RGB,
+populations and bars, and **every linear-family row also exceeds one code**. Thus none of the
+fixed-band candidates can point-close the entire six-shell forward prediction merely by
+retuning its stroke. **This rejects the nominated body/path/stroke decomposition, not Apple's
+stroke-colour law in isolation.** The independently constrained body boundary or radial placement
+is part of what remains unresolved. Its nuisance interval can still be compatible, which is why
+interval compatibility/discrimination is reported separately rather than declaring every colour
+mechanism falsified. The 1x/2x and pose dependence of the floors is evidence, not permission to
+fit a correction on validation.
+
+This also changes the sensible next step: do not commission another full sitting merely to add
+repeats. First test an explicitly declared extension of the body-boundary/radial model on the
+existing non-holdout evidence. A subsequent blind confirmation would need a new authorised
+receipt and genuinely unexposed cells; W34's holdout is not reusable after its one exposure.
+If another native bed is chartered, it must improve glass-path registration/coverage and boundary
+body identification, prove a reachable independent phase mechanism before scaling up, and retain
+local-colour/gradient contrasts, adequate arc populations and separate pose/scheme/scale controls.
+Ordinary opaque fill is not that missing glass-path control, and more unanimous repeats cannot
+remove a structural residual at the one-code floor. G3 and a new capture remain user decisions.
