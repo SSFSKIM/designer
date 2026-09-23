@@ -527,7 +527,7 @@ grant; G2 needs neither.
 
 | child | status |
 | --- | --- |
-| G0 | DELIVERED for independent review — phase grid unreachable, 148 cells/pass declared, side active and canonical pixel check positive; DL1 ruling and review/merge pending (§5.174). Original grant recovery deferred by DL4 |
+| G0 | DELIVERED for independent review — phase grid unreachable, 148 cells/pass declared, side active and canonical pixel check positive; DL1 ruling and review/merge pending (§5.174). Original grant recovery deferred by DL4 **MERGED 2026-09-23 as `d2201845`; Decision Log 1 ruled at the merge.** |
 | G1 | CHARTERED, opens after G0's merge |
 | G2 | CHARTERED, opens after G1's merge |
 | G3 | CONDITIONAL on Decision Log 2 |
@@ -535,6 +535,21 @@ grant; G2 needs neither.
 ## Decision Log
 
 ### Decision Log 1 — the bed's final shape and its price (after G0's draft; the parent's, under the standing "rest on your judgement")
+
+**RULED by the parent 2026-09-23 at G0's merge (`d2201845`), under the standing "rest on your
+judgement": the full sparse bed at 148 cells per pass, as G0 declared and its independent review
+recommended.** The 120-cell alternative is declined because its 28 drops per pass are the
+second-radius pair with its opaque controls, both 135° gradients and their references, and both
+y-edge local-colour contrasts — the curvature-against-size and directional contrasts this wave
+exists to identify. The phase axis is absent by measurement (quarter-device steps collapse to two
+states at both scales; no window-origin workaround), which is a recorded finding and not a trim.
+The three longer-settle, reordered sentinels per pass stay, kept apart from the seven runs, and G1
+publishes the normal and long protocols as separate bars because the grey sentinel moved one code
+at eighteen edge pixels. Price accepted at 10.9356 h plus 12.6 min before waits and the display
+switches; G1 opens only in a window the user names for leaving the machine untouched, with the
+other session's browser closed, because G1's driver requires zero foreign capture processes and
+the user's G0 exception does not extend to it. The identification split (138 / 26 / 30) and the
+closure declaration are frozen as pinned; G2 chooses nothing that G0 did not declare.
 
 **G0 draft, 2026-09-23; parent ruling still open.** Recommend the full sparse bed at **148
 cells/pass**, seven runs in each of four passes: **10.9356 h** at W29's 9.5 s/cell, plus
