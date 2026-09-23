@@ -1,6 +1,6 @@
 # W34 — the contour wave: the capture that identifies Apple's macOS 27 contour stroke (2026-09-23)
 
-**Status: CHARTERED 2026-09-23, v2 — nine blocking findings of the adversarial review folded (Revision Notes); a second round on the folds before G0 opens.** Chartered
+**Status: CHARTERED 2026-09-23, v3 — two review rounds folded (nine findings, then three on the split's execution contracts); G0 open.** Chartered
 by the parent on the user's "W34 contour capture wave (Recommended)" after the 0.23.0 publish
 (main `011de142`), under the standing "rest on your judgement" and the routing the user set on
 2026-09-22 (X9). This is the wave W33 Decision Log 3 named when it ruled "stop": the identifying
@@ -78,8 +78,12 @@ frozen bed and the shipped macOS 27 bed untouched until a law closes, and every 
    losing states preserved**, and from a committed **repeat-evidence artifact** — unrounded per-run,
    per-cell, per-bin channel statistics with populations, input hashes, state membership and the
    estimator, plus deduplicated contour-band and interior crops of every distinct state with their
-   run mapping — so the bar and the instrument re-run from the repository without the raw PNGs
-   (which stay on the machine, X12). No closure threshold is chosen before the bar exists; "one
+   run mapping, **as lossless pixel values in their original coordinates and dimensions together
+   with every sampled dependency** (the geometry and alignment inputs, the no-glass and opaque-control
+   pixels, any neighbourhood an estimator reads) — so the bar AND the instrument re-run from the
+   repository without the raw PNGs (which stay on the machine, X12); G0 demonstrates identical
+   instrument outputs from raw inputs and from the archive alone, because a table that merely
+   reproduces the spread is not replay. No closure threshold is chosen before the bar exists; "one
    byte" appears only as the encoding's resolution; a zero observed spread is not evidence of zero
    variability and buys no tolerance.
 5. **The instrument separates what W33 could not, and says what each control proves.** Circular
@@ -126,9 +130,22 @@ frozen bed and the shipped macOS 27 bed untouched until a law closes, and every 
    membership and `compare.ts` selects by one role), and the wave's identification split is a
    separate, wave-local, hashed `split.json` — calibration, validation and holdout over probe-role
    cells, whole phase, geometry and gradient combinations held out and not only interleaved levels —
-   enforced by every reader before image access (`referee.py`'s `fitting_role` pattern). The bar is
-   published from calibration and validation cells; holdout cells' repeat statistics are sealed with
-   the holdout and read with it once. A **semantic twin audit** precedes the split: any W34 cell
+   **enforced by a wave reader and launcher G0 owns**, not by a hash alone and not by copying W33's
+   `rules.py` (which admits every `probe`): the launcher takes an explicit identification-role
+   selector defaulting to calibration and validation, validates complete and disjoint membership
+   against the declared cells, pins the scenes-file and `split.json` hashes, and drives
+   `compare.ts` through its `--scene` allowlist with the native-only controls excluded — the bare
+   `--set probe` command is never the documented entry point, because it selects the wave holdout
+   too; the reader refuses to open a holdout PNG, crop or numeric-statistics payload the caller has
+   not been authorised for, and **negative tests trip on each of those** including when the
+   underlying fixture role is `probe`. The bar is published from calibration and validation cells.
+   **Sealing is a procedural access boundary, not a claim that committed plaintext is unreadable**:
+   the holdout cells' numeric payload, crops and state diagnostics live in their own directory apart
+   from the calibration and validation artifacts; a deterministic producer (the capture, the
+   materialiser, the archiver) may process holdout inputs without publishing analytical values and
+   exposes only the declared inventory, integrity hashes and the admission result; G1's reporting
+   and every pre-holdout reader are tested never to deserialise or print that payload; and the
+   payload is read once, on the wave-identification receipt (G2). A **semantic twin audit** precedes the split: any W34 cell
    whose geometry and backdrop duplicate a canonical holdout scene (`mid-dark-solid__capsule-button`
    in both poses is one) is excluded from calibration and validation and from the bar, or dropped —
    the same audit applies to the uniform levels. `freeze.py verify` **1,818** at every merge.
@@ -182,7 +199,12 @@ record before anything is built.
   adapters accept only `capsule` and `rrect` (`src/component-region.ts` throws on any other kind;
   `web/scenes.ts` maps the family by the old capsule name). The capture filter is
   `SCContentFilter(desktopIndependentWindow:)` with `colorSpaceName` sRGB: it captures the window's
-  own pixels, so moving the window does not move the contour against the captured grid. Shape kinds are `capsule`
+  own pixels, so moving the window does not move the contour against the captured grid. The
+  canonical holdout recorder `results/holdout-configuration/configuration.py` keys on the four
+  shipped documents and the renderer sources and nothing else; the current configuration already
+  carries W33's read (2026-09-22T09:42:53Z, §5.172), so its `record` would refuse a W34 read and
+  would in any case freeze none of the wave's fitting inputs — it stays the canonical material
+  receipt for G3, and the wave's identification read needs a receipt of its own. Shape kinds are `capsule`
   (→ `Capsule()`, `.continuous` by default — G1a's witness: default equals explicit continuous and
   differs from explicit circular, the straight-segment starts −0.30…+0.04 CSS px from the circle)
   and `rrect` (`RoundedRectangle(…, style: .continuous)`); a shape spec's `offset: [x, y]` goes to
@@ -281,10 +303,15 @@ never through `capture.sh`, and its rehearsal exercises the non-dry inactive bra
 **The instrument** (G0): W33 G0's referee re-derived for the new bed — the circular capsule's arcs
 read on the circular SDF with the cubic's qualified error, the rendered alignment measured from the
 capture, the opaque control's coverage read from its own capture as an alignment measurement, the
-no-glass reference read as the backdrop, the forward model's body baseline from stroke-free
-interior samples — and the run-to-run bar's estimator declared: per bin and per channel across ALL
-admitted runs before plurality, from the repeat-evidence artifact, with the minimum population per
-bin and the absolute resolution floor declared beside it (G1 publishes; G0 declares how).
+no-glass reference read as the backdrop, the forward model's body baseline **in declared algebra**
+(the constrained form, the stroke-free sampling domain, and the propagation to the edge fit — not
+the phrase "interior baseline"; where interior samples cannot identify a structured backdrop's
+boundary value, the outcome is the effective-response or insufficient-resolution one) — and the
+run-to-run bar's estimator declared: per bin and per channel across ALL admitted runs before
+plurality, from the repeat-evidence artifact, with the minimum population per bin chosen from the
+declared geometry and phase sampling and the absolute resolution floor and discrimination rule from
+the quantisation and predeclared synthetic alternatives — non-circular routes that consult no fitted
+native residual (G1 publishes; G0 declares how).
 
 **Identification** (G2): G1a's families first, then the ones the new axes make testable — a
 coverage-weighted stroke (a one-device-pixel band's geometric coverage times a stroke alpha, in
@@ -304,8 +331,10 @@ are not rendered.
 Ledger **§5.174**; evidence `packages/calibration/results/2026-09-23-w34-g0-contour-bed/`. Owns the
 harness additions, `build.sh`'s identifier override and protected-path refusal, the calibration
 adapters (`src/component-region.ts`, `web/scenes.ts`, the shape typing) with their non-capturing
-tests, `apps/reference-apple/scenes-w34-contour.json`, the wave-local `split.json`, the derived
-sitting script, `test/w34-*.test.ts` and its evidence dir. Does: the machine record (W33 G2's `record-machine.py`
+tests, `apps/reference-apple/scenes-w34-contour.json`, the wave-local `split.json` with its reader
+and launcher (the identification-role selector, the membership validation, the hash pins, the
+`--scene` allowlist, the native-only exclusion, the negative tests), the wave-identification receipt
+tool (G2's), the derived sitting script, `test/w34-*.test.ts` and its evidence dir. Does: the machine record (W33 G2's `record-machine.py`
 widened with Show Borders, the display mode, the two bundles' cdhashes and linked SDKs); proves the
 granted bundle still captures BEFORE any TCC change; the Swift additions with the self-check; the
 side build outside the repository; the grant (amigo, else the user) and its positive check; the
@@ -314,9 +343,11 @@ path attestation written, the empty component and the opaque control rendering a
 gradient cell's bytes matching its declaration — each a handful of cells into `~/vitrea-w34/scratch/`,
 never under the evidence dir; the bed declared (scenes file with every cell `probe`, the twin audit, the hashed
 `split.json`, per-pass cell lists via a `pass-spec.py` of its own, the priced sparse plan at the
-bar); the instrument, the estimator, the minimum populations, the resolution floor and the
-discriminating-power requirement declared; the repeat-evidence artifact's format declared and
-produced from the scratch runs; the side bundle finalised, cdhash-pinned and granted; a rehearsal
+bar); the instrument, the forward model's algebra, the estimator, the minimum populations, the
+resolution floor and the discriminating-power requirement declared by their non-circular routes;
+the repeat-evidence artifact's format declared, produced from the scratch runs, and shown to replay
+the instrument identically from the archive alone; the split reader and launcher with their
+negative tests; the wave-identification receipt tool with its refusals tested; the side bundle finalised, cdhash-pinned and granted; a rehearsal
 that exercises the non-dry inactive branch as well as `DRY=1`; a Decision Log 1 draft for the
 parent.
 Acceptance: the record; both grant checks green; every scratch measurement answered; the
@@ -336,11 +367,15 @@ each cell's own manifest entry and path attestation; **the repeat-evidence artif
 all seven runs before plurality (per-run, per-cell, per-bin unrounded channel statistics, hashes,
 state membership, the deduplicated contour-band and interior crops of every distinct state with
 their run mapping); the per-bin, per-channel bar of every declared statistic over calibration and
-validation cells, published as a table before G2 opens, the holdout cells' sealed beside it;
+validation cells, published as a table before G2 opens, the holdout cells' payload, crops and state
+diagnostics written by the producer into their own directory with only their inventory, hashes and
+admission result exposed (the materialiser prints voted and refused-state diagnostics today — the
+holdout's are captured to that directory, not to the report);
 `sitting.md` with wall clock per pass; per-run attestations and distilled logs committed as W29
 G1's were. Acceptance: every run attested; the cell count per pass as declared or each shortfall
 named; the artifact and the bar committed and re-derivable from the repository; the frozen manifest
-and `fixtures/` re-verified untouched; no vitrea render and no read of a wave holdout cell's values.
+and `fixtures/` re-verified untouched; no vitrea render; the holdout payload processed by the
+producer only, with the test that G1's reporting never deserialises or prints it green.
 Stop conditions: a pass that cannot attest; a cell that will not settle across seven runs
 (recorded, not forced); the display mode drifting mid-pass; the grant lost mid-sitting.
 
@@ -348,8 +383,12 @@ Stop conditions: a pass that cannot attest; a cell that will not settle across s
 
 Ledger **§5.176**; evidence `packages/calibration/results/2026-09-23-w34-g2-contour-identification/`.
 Does: the instrument run on the committed bed; G1a's families first, then the new ones; fits on the
-calibration subset, checks on validation, the wave's holdout once by artifact (`configuration.py
-record` before the read); vitrea's render of the same scenes through `compare.ts --set probe` into
+calibration subset, checks on validation, the wave's holdout once **on the wave-identification
+receipt** — its own persistent log and a configuration digest over the scenes-file and `split.json`
+hashes, the evidence generation, the instrument and closure declaration, and the committed
+candidate families with their coefficients, recorded before the payload is opened, authorised
+once, with a failed attempt recorded and a changed candidate after exposure or a second read
+refused (tests pin both) — the canonical `configuration.py` untouched and reserved for G3; vitrea's render of the same scenes through `compare.ts --set probe` into
 the wave's own matrix (`--out-matrix`), X6's four facts before every browser run; the residual
 tables against zero and against vitrea; a Decision Log 2 draft for the user with the closure or the
 negative, the families excluded and the resolution reached. Acceptance: every family's residual per
@@ -376,8 +415,9 @@ the changeset. Merged with its capture tree by the X10/X7 rule of W32/W33.
   G1 captures that declaration and no other; G2 reads what G1 committed and no other.
 - **X3 — the side bundle.** Built by `build.sh` under `VITREA_BUILD_OUT` outside the repository,
   same toolchain, SDK and flags as the granted bundle, identifier `dev.vitrea.reference-apple.w34`,
-  **finalised and cdhash-pinned before it is granted, and any rebuild is a new grant with a fresh
-  positive check**; `build/` never rebuilt and `build.sh` made to refuse it; `build-probe/` never
+  **finalised from the last accepted build-input revision and cdhash-pinned before it is granted;
+  any change to a build input is a rebuild, a new grant and a fresh positive check, while
+  evidence-only commits are not**; `build/` never rebuilt and `build.sh` made to refuse it; `build-probe/` never
   granted; the granted bundle's grant checked before and after; the side bundle's cdhash in every
   attestation; every invocation with explicit roots, none through `capture.sh`.
 - **X4 — attestation before pixels.** The four facts, Show Borders, the display mode and colour
@@ -394,9 +434,10 @@ the changeset. Merged with its capture tree by the X10/X7 rule of W32/W33.
   closure threshold exists before it; "one byte" is the encoding's resolution and nothing else.
 - **X8 — the split precedes the fit.** Every W34 cell `probe` in its scenes file; the wave's
   identification split in a hashed wave-local `split.json` declared at G0 after the twin audit,
-  enforced by every reader before image access, never re-cut; the wave's holdout read once by
-  artifact with its repeat statistics sealed until then; the canonical holdout untouched until G3
-  and never a fitting or bar input here.
+  enforced by the wave reader and launcher before any image, crop or statistic is opened, never
+  re-cut; the holdout's payload behind the procedural boundary of clause 7 and read once on the
+  wave-identification receipt; the canonical holdout untouched until G3 and never a fitting or bar
+  input here.
 - **X9 — routing** (the user's, 2026-09-22): children, reviews and fix waves on `astra-medium` /
   `astra-high` or the default `sol` worker at xhigh; the charter's review on
   `doperpowers:adversarial-reviewer`; reviews read-only; ledger sections as assigned; merges
@@ -494,6 +535,22 @@ Open. W33 G0's forms table stands: no compositing form both reproduces Apple's b
 
 ## Revision Notes
 
+- 2026-09-23 (the parent, v3): the second round attacked the folds and found six of nine sound as
+  written, one sound operationally (the cdhash pin, with "final commit" read as the last accepted
+  build-input revision — X3 now says so), one sound but incomplete at the holdout boundary (the
+  repeat archive, which now has to hold lossless pixels with every sampled dependency and be shown
+  to replay the instrument — clause 4), and one incomplete (the probe role with an independent
+  split), which its three blocking findings complete: (1) `compare.ts --set probe` selects the wave
+  holdout and the native-only controls, and W33's `rules.py` admits every `probe`, so G0 owns a
+  wave reader and launcher with an identification-role selector, membership validation, hash pins,
+  the `--scene` allowlist and negative tests on PNG, crop and statistics access (clause 7, G0, X8);
+  (2) the canonical holdout recorder keys on the shipped documents and sources, already carries
+  W33's read and would freeze none of the wave's fitting inputs, so G2 reads on a
+  wave-identification receipt of its own (Grounding, G2); (3) sealing is defined as a procedural
+  access boundary with a producer exception, a separate holdout directory and tests that reporting
+  never prints the payload (clause 7, G1). The body baseline's algebra and the non-circular routes
+  for populations, floor and discrimination are G0 obligations stated in Design. No third round:
+  the remaining questions are G0 design work, and G0's declaration is itself reviewed before G1.
 - 2026-09-23 (the parent, v2): the adversarial review of v1 returned nine findings, all blocking
   and all verified against the files it cited; every one is folded. (1) The closure test is the
   absolute per-shell residual with minimum populations, a resolution floor, the estimator and
