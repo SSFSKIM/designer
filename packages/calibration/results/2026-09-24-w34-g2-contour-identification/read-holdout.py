@@ -19,6 +19,10 @@ import fast
 
 
 def dependencies(document):
+    for name,sha in document['inventories'].items():
+        path=M.W.ROOT/name
+        if M.W.committed(path)!=sha or hashlib.sha256(path.read_bytes()).hexdigest()!=sha:
+            raise RuntimeError('Frozen inventory moved: '+name)
     for name,sha in document['dependencies'].items():
         path=HERE/name
         if hashlib.sha256(path.read_bytes()).hexdigest()!=sha:
@@ -47,7 +51,7 @@ def capture(wave,token):
 
 
 def main(wave,token):
-    document=json.loads((HERE/'candidates.json').read_text());dependencies(document)
+    document=token.configuration['candidate']['document'];dependencies(document)
     fast.activate()
     records,controls=M.extract(wave,['holdout'],token)
     M.instrument_tables(records,controls,'holdout-native')
@@ -87,11 +91,12 @@ def main(wave,token):
             headlines.append(dict(candidate=index,selection=entry['selection'],profile=fit['profile'],pose=fit['pose'],
                 part=part,cells=len(rs),bins=len(admitted),pixels=sum(r['pixels'] for r in admitted),
                 underpopulated=len(rows)-len(admitted),worstMAE=max(max(r['maeRGB']) for r in admitted),
-                maxBar=max(max(r['barRGB']) for r in admitted),tau=1,
+                maxBar=max(max(r['barRGB']) for r in admitted),
+                maxTolerance=max(max(r['tauRGB']) for r in admitted),
                 pointClosure=all(r['status']=='point compatible' for r in admitted),
                 failedBins=sum(r['status']=='point fails' for r in admitted)))
     M.save(HERE/'holdout-residuals.json.gz',tables)
-    M.save(HERE/'holdout-result.json',dict(candidateSha256=hashlib.sha256((HERE/'candidates.json').read_bytes()).hexdigest(),
+    M.save(HERE/'holdout-result.json',dict(candidateSha256=token.configuration['candidate']['sha256'],
         cells=len(records),headlines=headlines,refit=False,
         note='One receipt exposure; only frozen validation nominees, no coefficient adjustment.'))
     F.verify(records,physical,'holdout-qualified')

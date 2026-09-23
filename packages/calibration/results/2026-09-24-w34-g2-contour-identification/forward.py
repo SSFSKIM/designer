@@ -56,6 +56,29 @@ def prediction(record, spec, coefficients, cov, base):
     return 255*(M.encode(result) if spec['space']=='linear' else result)
 
 
+def reference_uncertainty(record,spec,coefficients,cov,nominal):
+    """Propagate the captured backdrop's half-code through the actual response.
+
+    For a physical stroke this is (1-s)*(1-a). The unrestricted affine diagnostic
+    can amplify a backdrop perturbation, so a constant half-code is not its bound.
+    Encoding is propagated at both interval endpoints, not by a gamma multiplier.
+    """
+    D=record['D']/255
+    low=np.clip(D-.5/255,0,1);high=np.clip(D+.5/255,0,1)
+    value=nominal/255
+    if spec['space']=='linear':D,low,high,value=[M.decode(v) for v in [D,low,high,value]]
+    weight=np.tile((1-cov['body'])[:,None],(1,3))
+    for c,coef in enumerate(coefficients):
+        weight[:,c]+=cov['band']*coef[0]
+        if 'even' in spec['name']:weight[:,c]+=cov['q'+str(spec['power'])]*coef[2]
+    errors=[]
+    for endpoint in [low,high]:
+        shifted=np.clip(value+(endpoint-D)*weight,0,1)
+        if spec['space']=='linear':shifted=M.encode(shifted)
+        errors.append(abs(255*shifted-nominal))
+    return np.maximum(*errors)
+
+
 def verify(records,fitrows,prefix):
     """Re-evaluate nominated forward fits; never refit against validation.
 
@@ -102,9 +125,7 @@ def verify(records,fitrows,prefix):
             if bk not in cache:cache[bk]=baseline(record,space,align,samples=128,cov=cache[nk])[0]
             highres=prediction(record,spec,fit['coefficients'],cache[nk],cache[bk])
             numerical=abs(highres-nominal)
-            # Both compositions end in byte quantisation. Reference contributes
-            # through its unoccluded weight; .5 here is a conservative bound.
-            quant=np.full_like(nominal,.5)
+            quant=reference_uncertainty(record,spec,fit['coefficients'],record['cov'],nominal)
             unc=body_unc+geometry_unc+numerical+quant
             rounded=np.floor(nominal+.5)
             predictions[(record['cell'],index)]=(rounded,unc)

@@ -36281,3 +36281,26 @@ continuous native capsules retain the older circular web mapping, so their gap i
 geometry mismatch. At native size, the 1x light inactive grey255 circular120 pair was inspected:
 the native outline is visible where the web has no outline, and the interiors differ too.
 The six-shell RGB gap is therefore not labelled entirely recoverable by adding a stroke.
+
+**Control detail beside the checkpoint.** Forty non-holdout profile/pose/geometry control
+sets are read. Ordinary-fill fitted translation reaches **0.125 device px**; the glass
+supplied-path isoresponse fit on continuous geometry reaches **0.614415 device px** in y.
+This is further reason not to transfer the ordinary fill's origin or coverage to glass.
+The body records route **208 cells** through the uniform baseline, **56** through the
+qualified affine-gradient baseline and **72** through structured-boundary non-identification.
+The exact physical follow-up uses the **184 circular solid/gradient cells** (19 calibration
+and four validation per endpoint); continuous physical forward fits are **not claimed**.
+Their supplied-path residuals remain in the full instrument and W33-family tables. Failure
+already on circular controls needs no invented continuous coverage model to block G3.
+All 336 non-holdout web captures report deterministic repeats. The four drawn endpoint
+digests match the shipped documents' own recorded digests (`shipped-document-provenance.json`).
+
+**Pre-exposure uncertainty correction, beside.** `candidates-v2.json` preserves all forty
+nominees and all coefficients/inventories from the unspent first document, while naming the
+corrected forward dependency. No-glass half-code uncertainty now propagates through the actual
+body/stroke weight and encoding. A flat .5-code allowance was over-wide in fully covered body
+pixels and could be under-wide for an unrestricted affine response with gain above one. The
+synthetic check reads 0 contribution inside the body, .3 at alpha .4, and 1.5 for affine gain3.
+The stopped propagation logs are retained; no completed nuisance table was replaced and the
+real receipt was still unspent. This changes neither a fitted coefficient nor a point residual
+or the declared one-code tolerance; it corrects the separate interval/discrimination reading.

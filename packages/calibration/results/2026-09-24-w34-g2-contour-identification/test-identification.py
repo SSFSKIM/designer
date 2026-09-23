@@ -64,6 +64,17 @@ class Identification(unittest.TestCase):
             np.testing.assert_allclose(got,[.5,.1,.2,.3],atol=1e-5)
             self.assertTrue(np.all(got[1:]<=got[0]+1e-8))
 
+    def test_reference_interval_uses_body_and_stroke_weights(self):
+        import forward as F
+        r=dict(D=np.full((3,3),128.))
+        cov=dict(body=np.array([1.,0.,0.]),band=np.array([0.,1.,1.]))
+        nominal=np.full((3,3),128.)
+        spec=dict(space='encoded',name='body-forward-affine')
+        physical=F.reference_uncertainty(r,spec,[[-.4,.2]]*3,cov,nominal)
+        np.testing.assert_allclose(physical[:,0],[0,.3,.3],atol=1e-12)
+        amplified=F.reference_uncertainty(r,spec,[[2.,0]]*3,cov,nominal)
+        np.testing.assert_allclose(amplified[:,0],[0,1.5,1.5],atol=1e-12)
+
 
 if __name__ == '__main__':
     unittest.main()
