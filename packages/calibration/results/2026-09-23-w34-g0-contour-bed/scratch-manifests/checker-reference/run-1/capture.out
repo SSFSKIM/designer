@@ -1,0 +1,5 @@
+capturing 1 fixtures via screencapturekit at 2.0x (interleaved)
+  [1/1] apple-macos-27.0-2x-light-standard-glass0.5/checkerboard__none__rest byte-stable EMPTY(==background)
+manifest → /Users/new/vitrea-w34/scratch/checker-reference/run-1/manifest.json
+CAVEAT: Narrowed by --scenes to 1 cells over 1 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root — publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits.
+CAVEAT: 1 of 1 fixtures are PIXEL-IDENTICAL to their own background raster: the component contributed no pixels whatsoever. These carry zero information about shape or material and exist only to exercise the diff pipeline end to end.

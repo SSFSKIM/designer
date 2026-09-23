@@ -44,6 +44,8 @@ import type { Silhouette } from "./silhouette";
 /** One rounded rectangle, exactly as the scene matrix declares it, in points. */
 export interface DeclaredShape {
   readonly kind: string;
+  readonly opaque?: boolean;
+  readonly fillSRGB?: readonly [number, number, number];
   readonly size: readonly [number, number];
   /** Absent on a capsule, whose radius is half its short side by definition. */
   readonly radius?: number;
@@ -65,7 +67,17 @@ export interface DeclaredStack {
   readonly over: DeclaredShape;
 }
 
-export type DeclaredComponent = DeclaredShape | DeclaredGroup | DeclaredStack;
+export interface DeclaredNone { readonly kind: "none" }
+
+export type DeclaredComponent = DeclaredShape | DeclaredGroup | DeclaredStack | DeclaredNone;
+
+/** Native controls carry no glass or shape metric in the web comparison. */
+export function isNativeOnly(component: DeclaredComponent): boolean {
+  if (component.kind === "none") return true;
+  if (isGroup(component)) return component.items.some((item) => item.opaque === true);
+  if (isStack(component)) return component.base.opaque === true || component.over.opaque === true;
+  return (component as DeclaredShape).opaque === true;
+}
 
 /** The canvas the scene matrix declares, in points. */
 export interface CanvasSize {
@@ -89,12 +101,14 @@ const isStack = (spec: DeclaredComponent): spec is DeclaredStack => spec.kind ==
 
 /**
  * A capsule's corner radius is half its short side — the value that makes the
- * shape a stadium, which is what `Capsule()` draws. Derived rather than read,
+ * analytic measurement mask a stadium. Native `Capsule()` is continuous; the
+ * new `capsule-circular` supplies circular arcs. The existing mask is unchanged.
+ * Derived rather than read,
  * because `scenes.json` gives capsules no radius and a second copy of the rule
  * could disagree with the native side's.
  */
 function radiusOf(spec: DeclaredShape): number {
-  if (spec.kind === "capsule") return Math.min(spec.size[0], spec.size[1]) / 2;
+  if (spec.kind === "capsule" || spec.kind === "capsule-circular") return Math.min(spec.size[0], spec.size[1]) / 2;
   if (spec.kind === "rrect") return spec.radius ?? 0;
   throw new CalibrationError(
     "malformed-report",
@@ -131,6 +145,7 @@ function place(spec: DeclaredShape, canvas: CanvasSize, left?: number, top?: num
  * the layout.
  */
 export function placeComponent(component: DeclaredComponent, canvas: CanvasSize): readonly PlacedShape[] {
+  if (isNativeOnly(component)) return [];
   if (isGroup(component)) {
     const total =
       component.items.reduce((sum, item) => sum + item.size[0], 0) +
@@ -151,7 +166,7 @@ export function placeComponent(component: DeclaredComponent, canvas: CanvasSize)
     return [place(component.base, canvas), place(component.over, canvas)];
   }
 
-  return [place(component, canvas)];
+  return [place(component as DeclaredShape, canvas)];
 }
 
 /**
@@ -250,6 +265,9 @@ export function componentRegion(
   component: DeclaredComponent,
   options: ComponentRegionOptions,
 ): ComponentRegion {
+  if (isNativeOnly(component)) {
+    throw new CalibrationError("malformed-report", "componentRegion: native-only control has no shape or material metric.");
+  }
   const { canvas, scale, width, height } = options;
   const marginPx = options.marginPx ?? DEFAULT_COMPONENT_REGION_MARGIN_PX;
 

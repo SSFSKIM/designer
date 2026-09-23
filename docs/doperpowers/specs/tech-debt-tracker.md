@@ -5868,3 +5868,42 @@ x/y subpixel phases at1x/2x, matched local colours with varied gradient directio
 and magnitude and a frequency ladder, colour-managed no-glass controls, repeats
 for per-bin variability before thresholds, and a split declared before fitting.
 This needs the user to lift X5; no contour leaf or CSS approximation shipped.
+
+**W34 G0 follow-up to the contour capture above (2026-09-23, §5.174).** The identifying
+bed is declared, not yet captured at G1's bar. The requested fractional phase axis failed
+its scratch test: on both scales, zero/quarter/joint-quarter are identical and half equals
+three-quarter. Best whole-pixel translation leaves a small nonzero remainder, retained.
+No window-origin workaround was attempted. If G2 needs independent phase to distinguish
+coverage/body/stroke, a future authorised, pre-split experiment must demonstrate a genuinely
+independent raster-phase mechanism from pixels rather than merely export fractional inputs.
+
+The longer-settle/changed-order grey sentinel differs by one code at 18 edge pixels, while
+each three-run arm is unanimous. Dwell and order remain confounded; a factored experiment is
+the work that would separate them. The current quantum floor is not widened to hide the
+reading, and neither arm is claimed to establish universal settledness. Both states are in
+the replayable archive. The 1x radius12 rectangle also has sixteen bins below the declared
+four-pixel minimum; they are unmeasured, not closures. More population or a newly declared
+binning design would be needed to close that angular/radial coverage gap, not retrospective
+pooling chosen after a fit.
+
+The new native circular capsule has a circular web counterpart. The **existing continuous
+native capsule still maps to vitrea's circular stadium**, unchanged in this gate; its known
+geometry mismatch must not be attributed entirely to a contour-colour law. A separate
+geometry-qualified comparison and any consequent runtime mapping change belong after the
+identification, with canonical conformance/stops re-read rather than inherited. Supplied-path
+attestation is not the window server's raster origin, and ordinary-fill coverage is not
+assumed to transfer to glass. The radius22 cubic's +0.006 CSS-px qualification scales to
+about +0.0131 at radius48; that larger-radius uncertainty is explicitly carried in W34.
+
+## W34: the original Screen Recording grant must be restored at wave close
+
+Found 2026-09-23 (§5.174; charter DL4). Original grant-before captured positively; after the
+user granted the distinct-identifier side bundle, the side captured and the original was
+TCC-denied. Both binary hashes were unchanged. This is an observed failure of simultaneous
+availability, not proof of which internal TCC key or UI-row identity caused it. The parent
+ruled to keep the side for the wave and avoid an unnecessary grant swap mid-sitting. At wave
+close, restore the original by its exact protected path using the README remove/re-add
+recipe and positively capture it; do not rebuild it or grant `build-probe`. Record what
+happens to the side grant then. The side's first post-grant launch also failed active-pose
+attestation; a later quiet launch attested and matched a canonical fixture byte-for-byte,
+but the first-launch cause remains unidentified and the failed reading stays beside it.

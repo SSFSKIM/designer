@@ -1,0 +1,20 @@
+swiftc → /Users/new/vitrea-w34/verify-guard/VitreaReference.app/Contents/MacOS/VitreaReference
+/Users/new/Developer/GitHub/designer/.claude/worktrees/w34-g0-contour-bed/apps/reference-apple/Sources/LayerDump.swift:41:3: warning: 'nonisolated(unsafe)' is unnecessary for a constant with 'Sendable' type 'Bool', consider removing it
+ 39 |   /// documented. The trace is the only way to name the culprit, and it is off by
+ 40 |   /// default because it is one line per property per object.
+ 41 |   nonisolated(unsafe) private static let trace =
+    |   `- warning: 'nonisolated(unsafe)' is unnecessary for a constant with 'Sendable' type 'Bool', consider removing it
+ 42 |     ProcessInfo.processInfo.environment["VITREA_DUMP_TRACE"] == "1"
+ 43 |
+/Users/new/Developer/GitHub/designer/.claude/worktrees/w34-g0-contour-bed/apps/reference-apple/Sources/Manifest.swift:328:12: warning: 'init(cString:)' is deprecated: Use String(decoding: array, as: UTF8.self) instead, after truncating the null termination. [#DeprecatedDeclaration]
+326 |     var buf = [CChar](repeating: 0, count: size)
+327 |     guard sysctlbyname(name, &buf, &size, nil, 0) == 0 else { return "" }
+328 |     return String(cString: buf)
+    |            `- warning: 'init(cString:)' is deprecated: Use String(decoding: array, as: UTF8.self) instead, after truncating the null termination. [#DeprecatedDeclaration]
+329 |   }
+330 |
+
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>
+built. Try:
+  /Users/new/vitrea-w34/verify-guard/harness backgrounds
+  /Users/new/vitrea-w34/verify-guard/harness probe

@@ -1,0 +1,95 @@
+FFFFFFFFFF
+======================================================================
+FAIL: test_protected_aliases_and_failed_signing (__main__.BuildGuard.test_protected_aliases_and_failed_signing) (protected='build', descendant='')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/Developer/GitHub/designer/.claude/worktrees/w34-g0-contour-bed/packages/calibration/results/2026-09-23-w34-g0-contour-bed/test-build-guard.py", line 59, in test_protected_aliases_and_failed_signing
+    self.assertNotEqual(p.returncode, 0, descendant)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 == 0 :
+
+======================================================================
+FAIL: test_protected_aliases_and_failed_signing (__main__.BuildGuard.test_protected_aliases_and_failed_signing) (protected='build', descendant='Contents')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/Developer/GitHub/designer/.claude/worktrees/w34-g0-contour-bed/packages/calibration/results/2026-09-23-w34-g0-contour-bed/test-build-guard.py", line 59, in test_protected_aliases_and_failed_signing
+    self.assertNotEqual(p.returncode, 0, descendant)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 == 0 : Contents
+
+======================================================================
+FAIL: test_protected_aliases_and_failed_signing (__main__.BuildGuard.test_protected_aliases_and_failed_signing) (protected='build', descendant='Contents/MacOS')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/Developer/GitHub/designer/.claude/worktrees/w34-g0-contour-bed/packages/calibration/results/2026-09-23-w34-g0-contour-bed/test-build-guard.py", line 59, in test_protected_aliases_and_failed_signing
+    self.assertNotEqual(p.returncode, 0, descendant)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 == 0 : Contents/MacOS
+
+======================================================================
+FAIL: test_protected_aliases_and_failed_signing (__main__.BuildGuard.test_protected_aliases_and_failed_signing) (protected='build', descendant='Contents/Info.plist')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/Developer/GitHub/designer/.claude/worktrees/w34-g0-contour-bed/packages/calibration/results/2026-09-23-w34-g0-contour-bed/test-build-guard.py", line 59, in test_protected_aliases_and_failed_signing
+    self.assertNotEqual(p.returncode, 0, descendant)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 == 0 : Contents/Info.plist
+
+======================================================================
+FAIL: test_protected_aliases_and_failed_signing (__main__.BuildGuard.test_protected_aliases_and_failed_signing) (protected='build', descendant='Contents/MacOS/VitreaReference')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/Developer/GitHub/designer/.claude/worktrees/w34-g0-contour-bed/packages/calibration/results/2026-09-23-w34-g0-contour-bed/test-build-guard.py", line 59, in test_protected_aliases_and_failed_signing
+    self.assertNotEqual(p.returncode, 0, descendant)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 == 0 : Contents/MacOS/VitreaReference
+
+======================================================================
+FAIL: test_protected_aliases_and_failed_signing (__main__.BuildGuard.test_protected_aliases_and_failed_signing) (protected='build-probe', descendant='')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/Developer/GitHub/designer/.claude/worktrees/w34-g0-contour-bed/packages/calibration/results/2026-09-23-w34-g0-contour-bed/test-build-guard.py", line 59, in test_protected_aliases_and_failed_signing
+    self.assertNotEqual(p.returncode, 0, descendant)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 == 0 :
+
+======================================================================
+FAIL: test_protected_aliases_and_failed_signing (__main__.BuildGuard.test_protected_aliases_and_failed_signing) (protected='build-probe', descendant='Contents')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/Developer/GitHub/designer/.claude/worktrees/w34-g0-contour-bed/packages/calibration/results/2026-09-23-w34-g0-contour-bed/test-build-guard.py", line 59, in test_protected_aliases_and_failed_signing
+    self.assertNotEqual(p.returncode, 0, descendant)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 == 0 : Contents
+
+======================================================================
+FAIL: test_protected_aliases_and_failed_signing (__main__.BuildGuard.test_protected_aliases_and_failed_signing) (protected='build-probe', descendant='Contents/MacOS')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/Developer/GitHub/designer/.claude/worktrees/w34-g0-contour-bed/packages/calibration/results/2026-09-23-w34-g0-contour-bed/test-build-guard.py", line 59, in test_protected_aliases_and_failed_signing
+    self.assertNotEqual(p.returncode, 0, descendant)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 == 0 : Contents/MacOS
+
+======================================================================
+FAIL: test_protected_aliases_and_failed_signing (__main__.BuildGuard.test_protected_aliases_and_failed_signing) (protected='build-probe', descendant='Contents/Info.plist')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/Developer/GitHub/designer/.claude/worktrees/w34-g0-contour-bed/packages/calibration/results/2026-09-23-w34-g0-contour-bed/test-build-guard.py", line 59, in test_protected_aliases_and_failed_signing
+    self.assertNotEqual(p.returncode, 0, descendant)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 == 0 : Contents/Info.plist
+
+======================================================================
+FAIL: test_protected_aliases_and_failed_signing (__main__.BuildGuard.test_protected_aliases_and_failed_signing) (protected='build-probe', descendant='Contents/MacOS/VitreaReference')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/Developer/GitHub/designer/.claude/worktrees/w34-g0-contour-bed/packages/calibration/results/2026-09-23-w34-g0-contour-bed/test-build-guard.py", line 59, in test_protected_aliases_and_failed_signing
+    self.assertNotEqual(p.returncode, 0, descendant)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 == 0 : Contents/MacOS/VitreaReference
+
+----------------------------------------------------------------------
+Ran 1 test in 0.984s
+
+FAILED (failures=10)

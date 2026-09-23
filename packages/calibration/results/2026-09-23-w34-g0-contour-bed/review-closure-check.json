@@ -1,0 +1,21 @@
+{
+  "closureSha256": "6b4788206cdf584004723766ad033f3b586cf3eb717e40a2a7436c4a5fbd714d",
+  "closureBytesUnchanged": true,
+  "declaredNumbersMoved": [],
+  "syntheticPopulationAndResolutionUnchanged": true,
+  "gradientRegression": {
+    "input": "100+5*u+3*v+12*u*v, u=(x-160)/60, v=(y-100)/22; circular120x44 at1x",
+    "oldUncertaintyRGB": [
+      14.14418257235846,
+      14.14418257235846,
+      14.14418257235846
+    ],
+    "correctedUncertaintyRGB": [
+      18.659485249792155,
+      18.659485249792155,
+      18.659485249792155
+    ],
+    "formula": "max_boundary(max_quadrants(prediction)-min_quadrants(prediction)) + max_interior(abs(residual)) + 0.5",
+    "scope": "Synthetic only, not a rewritten native reading"
+  }
+}

@@ -24,6 +24,28 @@ enum Backgrounds {
     let cs = CGColorSpace(name: CGColorSpace.sRGB)!
 
     switch spec {
+    case .linearGradient(let from, let to, let angle):
+      // Encoded-sRGB interpolation at pixel centres. Zero degrees runs left to
+      // right; positive angles turn toward image-down. The canvas projection
+      // fixes the endpoints, including diagonals, without a platform gradient.
+      let a = angle * .pi / 180
+      let nx = cos(a), ny = sin(a)
+      let extent = abs(nx) * canvas.width + abs(ny) * canvas.height
+      return perPixel(width: w, height: h, colorSpace: cs) { x, y in
+        let px = (Double(x) + 0.5) / scale - canvas.width / 2
+        let py = (Double(y) + 0.5) / scale - canvas.height / 2
+        let t = max(0, min(1, 0.5 + (px * nx + py * ny) / extent))
+        let rgb = (0..<3).map { UInt8((Double(from[$0]) * (1 - t) + Double(to[$0]) * t).rounded()) }
+        return (rgb[0], rgb[1], rgb[2])
+      }
+    case .split(let from, let to, let axis, let position):
+      // A local-colour contrast aligned by a CSS coordinate, not by scene id.
+      // This is a step at pixel centres, with no interpolation or antialiasing.
+      return perPixel(width: w, height: h, colorSpace: cs) { x, y in
+        let coordinate = (Double(axis == "x" ? x : y) + 0.5) / scale
+        let rgb = coordinate < position ? from : to
+        return (UInt8(rgb[0]), UInt8(rgb[1]), UInt8(rgb[2]))
+      }
     case .syntheticPhoto(let seed):
       // Evaluated per pixel rather than drawn, so the result is a pure function
       // of (x, y, seed) — no rasteriser in the loop at all.
@@ -109,8 +131,8 @@ enum Backgrounds {
         y += rh; row += 1
       }
 
-    case .syntheticPhoto:
-      preconditionFailure("synthetic-photo is rendered per pixel, not drawn")
+    case .syntheticPhoto, .linearGradient, .split:
+      preconditionFailure("arithmetic backgrounds are rendered per pixel, not drawn")
     }
   }
 

@@ -1,0 +1,52 @@
+{
+  "schema": 1,
+  "declaredBeforeModelResiduals": true,
+  "purpose": "Identify a contour law, or state insufficient resolution/effective rendered response; not a new shipped-material gate.",
+  "coordinates": "Pixel centres (x+0.5,y+0.5), image y down; signed distance in device pixels, negative inside. Six radial shells [-2,-1),[-1,0),[0,1),[1,2),[2,3),[3,4). Sixteen nearest-normal bins at 22.5 degrees. Straight segments and arcs never pool.",
+  "geometry": {
+    "circular": "Analytic stadium SDF at supplied frame origin plus measured alignment. The SwiftUI circular cubic deviation is +0.006 CSS px at radius22; carry the radius-scaled envelope 0.006*r/22 (0.013091 at radius48). The supplied-path sampling is in circular-cubic-errors.json; this is not exact raster attestation.",
+    "continuous": "Distance to the attested supplied path, flattened with a control-polygon second-derivative chord-error bound <=1/1024 CSS px. Raster alignment remains measured, not supplied.",
+    "opaque": "Black-on-white and white-on-black ordinary-fill edge profiles, interpreted in encoded and linear sRGB separately. These constrain ordinary-fill alignment only, never assumed to transfer to glass.",
+    "glassAlignment": "Fit a circular SDF to the half-interior-contrast contour over uniform grey, reporting fitted translation and radius/outset nuisance independently. Directional stroke and coverage confound physical origin; the fitted isoresponse is not Apple's hidden geometric transform. Report qualification beside fitted parameters."
+  },
+  "forwardModel": {
+    "algebra": "For channel c and pixel P, N_c(P)=Q(E(mean_{u in P}[(1-s(u))*((1-a(u))*D_c(u)+a(u)*B_c(u))+s(u)*T_c(D(u),n(u))])). a is the body-path indicator; s=alpha(D,n,pose,scheme)*1_{abs(d-centre)<=width/2}. D is the identically colour-managed no-glass capture. B is the fully composited stroke-free body colour, not an inferred layer opacity. E is identity for the encoded family and sRGB encoding for the linear family; inputs are decoded before composition in the latter. Q rounds to the nearest byte after the pixel average.",
+    "bodyUniform": "B_c(u)=beta_c, beta_c=median of native channel samples at d<=-6 device pixels. U_c=max(abs(sample-beta_c))+0.5 byte. This is a deterministic envelope, not a confidence interval; it is not shrunk by sample count.",
+    "bodyGradient": "B_c(u)=beta0_c+betaX_c*x+betaY_c*y, constrained to [0,255] over the body, fitted ONLY to d<=-6. Boundary uncertainty is the maximum difference among leave-one-quadrant-out predictions plus max interior absolute residual plus 0.5 byte. If those interiors cannot identify the boundary, no unique stroke decomposition is claimed.",
+    "bodyStructured": "Checkerboards, splits and photo do not identify an arbitrary body boundary from interior samples. Their primary result is an effective rendered contour response against the no-glass capture; a physical stroke/coverage decomposition is insufficient resolution unless an independently constrained body model is supplied before exposure.",
+    "propagation": "At each pixel the body interval propagates with weight mean((1-s)*a); no-glass quantisation contributes mean((1-s)*(1-a))*0.5. Alignment/path uncertainty is propagated by the envelope of forward predictions at declared geometry perturbations. Report these separately; a wide nuisance interval does not establish identification.",
+    "coverage": "Integrate composition per subpixel rather than multiplying separately averaged body and stroke coverages. Start at 64x64 samples/pixel; compare against 128x128 on synthetic alternatives. Numerical disagreement belongs in the uncertainty budget, never in a fitted native tolerance."
+  },
+  "population": {
+    "minimumPerBinShellPart": 4,
+    "route": "Declared pixel-centre geometry at radii22/48 and the measured reachable integer phases, not native residuals. Four is a sampling admissibility floor, not a precision guarantee; enumerate every deficient bin and report it unmeasured, not closed. Straight bins at non-cardinal normals are geometrically absent, not failures.",
+    "repeatCount": 7,
+    "stateDiscovery": "Seven independent draws see a one-in-six minority with probability 1-(5/6)^7=0.720918. This is a state-discovery convention, not a precision guarantee."
+  },
+  "repeatBar": {
+    "estimator": "For each cell, part, angular bin, radial shell and channel: maximum over all admitted run pairs of mean(abs(N_i-N_j)) at identical pixel coordinates. Absolute values precede every spatial reduction. Keep per-run unrounded means, population, extrema, hashes and state mapping beside it. No plurality selection precedes this computation.",
+    "multiplier": 1,
+    "multiplierRule": "Fixed at one because the estimator already takes the full observed pairwise envelope; never choose a multiplier from model residuals. Report finite-run discovery limits rather than attach an unsupported confidence level.",
+    "quantisationFloorBytes": 1,
+    "floorRoute": "Two independently rounded byte observations each represent a half-code interval; their difference has one code of quantisation ambiguity. Zero observed spread therefore never buys zero tolerance.",
+    "tolerance": "tau=max(1 byte,bar). Model uncertainty is reported separately through the forward-model interval, not absorbed by widening tau."
+  },
+  "closure": {
+    "residual": "For every populated cell/part/bin/shell/channel, mean(abs(N_c-predicted_c)); take absolute values before spatial or channel reduction. No averaging across channels, cells, arcs/straights or radial shells can buy a pass. Signed bin means are diagnostic only.",
+    "intervalVerdict": "Report absolute residual both at the nominated prediction and against its nuisance interval. Point closure requires all nominated residuals <=tau. Interval-only compatibility is effective rendered response, not unique compositing-law identification.",
+    "discrimination": "Competing committed candidate families must differ by more than 2*tau plus both nuisance-envelope widths in at least two populated independent angular/radial strata on calibration and validation. Otherwise the result is insufficient resolution, even if both fit.",
+    "syntheticAlternatives": "Before native fitting, inject signed channel responses of 1,2,4 and 8 bytes separately on arcs and straights, with equal positive/negative pixels to falsify signed-mean closure, and perturb geometry by the radius-scaled circular envelope +/-0.006*r/22 CSS px and ordinary pixel quantisation by +/-0.5. Require the 4-byte zero-nuisance alternative to separate from zero at floor1 in at least two bins; 1-byte alternatives are intentionally unresolved.",
+    "fitProtocol": "Least squares and minimax both reported. W33 G1a's families first, then coverage-weighted encoded/linear, local-colour multiply/screen/affine and two-term even laws. Fit calibration, verify validation, commit candidate families and coefficients, expose wave holdout once through its own receipt.",
+    "admissibleOutcomes": [
+      "identified law at the stated resolution",
+      "effective rendered contour response",
+      "insufficient resolution",
+      "tested families rejected at the stated resolution"
+    ]
+  },
+  "archive": {
+    "format": "Content-addressed gzip JSON containing lossless uint8 RGB arrays, original [x,y,width,height] crop coordinates, canvas dimensions, complete supplied path/alignment inputs, no-glass and opaque pixels and every neighbourhood sampled by the instrument. Full-canvas crops are allowed and used in G0 to make the dependency closure directly replayable. Distinct states deduplicate only within an identification role; each admitted run maps to its state, before plurality. Unrounded per-run/bin/shell/channel statistics and populations are separate guarded payloads.",
+    "holdoutBoundary": "Each role owns its payload directory. Public inventory contains declared identities, paths, content hashes and admission only, never holdout state counts, state frequencies, channel statistics or crops. Producers may process holdout but reporting readers may not deserialize or print its payload before the once-only receipt. This is procedural sealing, not encryption.",
+    "replayRequirement": "Run the same instrument once from raw decoded images and once from archive-only lossless values; require identical structured output, not merely a reproduced spread table."
+  }
+}

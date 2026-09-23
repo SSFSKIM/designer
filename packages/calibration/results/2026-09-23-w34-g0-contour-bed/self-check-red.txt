@@ -1,0 +1,64 @@
+== self-check: W34 scene kinds decode from JSON ==
+  FAIL circular capsule -> false, expected true
+  FAIL empty control -> false, expected true
+  FAIL opaque control -> false, expected true
+  FAIL gradient -> false, expected true
+  FAIL local contrast -> false, expected true
+== self-check: Capture.cellMayBeWritten ==
+  ok   active key=true active=true unlocked -> true, expected true
+  ok   active key=true active=true locked -> false, expected false
+  ok   active key=true active=true unreadable -> false, expected false
+  ok   active key=true active=false unlocked -> false, expected false
+  ok   active key=true active=false locked -> false, expected false
+  ok   active key=true active=false unreadable -> false, expected false
+  ok   active key=false active=true unlocked -> false, expected false
+  ok   active key=false active=true locked -> false, expected false
+  ok   active key=false active=true unreadable -> false, expected false
+  ok   active key=false active=false unlocked -> false, expected false
+  ok   active key=false active=false locked -> false, expected false
+  ok   active key=false active=false unreadable -> false, expected false
+  ok   inactive key=true active=true unlocked -> false, expected false
+  ok   inactive key=true active=true locked -> false, expected false
+  ok   inactive key=true active=true unreadable -> false, expected false
+  ok   inactive key=true active=false unlocked -> false, expected false
+  ok   inactive key=true active=false locked -> false, expected false
+  ok   inactive key=true active=false unreadable -> false, expected false
+  ok   inactive key=false active=true unlocked -> false, expected false
+  ok   inactive key=false active=true locked -> false, expected false
+  ok   inactive key=false active=true unreadable -> false, expected false
+  ok   inactive key=false active=false unlocked -> true, expected true
+  ok   inactive key=false active=false locked -> false, expected false
+  ok   inactive key=false active=false unreadable -> false, expected false
+
+== the rows the gates exist for ==
+  ok   inactive, key=false active=false, LOCKED (attests for the wrong reason) -> false, expected false
+  ok   inactive, key=false active=false, unlocked (the real recede) -> true, expected true
+  ok   neither pose: key=true active=false, unlocked -> false, expected false
+  ok   active, key=true active=true, unlocked -> true, expected true
+  ok   active on a LOCKED screen refuses too -> false, expected false
+
+== self-check: Capture.cellVerdict (what a run DOES about a refused cell) ==
+  ok   active unlocked dryRun=false -> write, expected write
+  ok   active unlocked dryRun=true -> write, expected write
+  ok   active locked dryRun=false -> refuse, expected refuse
+  ok   active locked dryRun=true -> rehearse, expected rehearse
+  ok   active unreadable dryRun=false -> refuse, expected refuse
+  ok   active unreadable dryRun=true -> rehearse, expected rehearse
+  ok   inactive unlocked dryRun=false -> write, expected write
+  ok   inactive unlocked dryRun=true -> write, expected write
+  ok   inactive locked dryRun=false -> refuse, expected refuse
+  ok   inactive locked dryRun=true -> rehearse, expected rehearse
+  ok   inactive unreadable dryRun=false -> refuse, expected refuse
+  ok   inactive unreadable dryRun=true -> rehearse, expected rehearse
+  ok   a LOCKED screen stops a real inactive pass -> true, expected true
+  ok   a LOCKED screen lets the REHEARSAL through, to be reported -> true, expected true
+  ok   a lost pose still stops a real pass -> true, expected true
+  ok   a lost pose is REPORTED, not refused, in a rehearsal -> true, expected true
+
+== self-check: Capture.cellRefusal names the CAUSE, not the symptom ==
+  ok   locked screen reports the lock, not a pose mismatch -> true, expected true
+  ok   unreadable session is its own cause, not 'unlocked' -> true, expected true
+  ok   a real pose mismatch on an unlocked screen reports the pose -> true, expected true
+  ok   nothing to report when the pose holds on an unlocked screen -> true, expected true
+
+5 row(s) wrong.

@@ -320,9 +320,14 @@ the gradient cells separating local colour from angle, the two-term even law wit
 identifiable on exact arcs, and per-pose and per-scheme coefficients. Closure by clause 6's absolute
 test on validation; the holdout once; "insufficient resolution" and "effective rendered contour
 response" as admissible outcomes. The vitrea side of the glass scenes is rendered through
-`compare.ts --set probe` under `VITREA_SCENES` / `VITREA_FIXTURES` (the adapters G0 lands) so the
+`wave.py plan --roles calibration,validation --execute`, with the explicit fixture, matrix
+and capture roots documented in G0’s evidence README and its glass-only scene allowlist so the
 residual is read against what vitrea draws today as well as against zero; the native-only controls
 are not rendered.
+
+**2026-09-23 G0 review correction:** the guarded launcher replaces the former bare probe-set
+invocation here. Identification roles, not the native fixture role, control selection;
+holdout selection belongs to the once-only receipt and its authorised launcher call.
 
 ## Children
 
@@ -388,13 +393,18 @@ receipt** — its own persistent log and a configuration digest over the scenes-
 hashes, the evidence generation, the instrument and closure declaration, and the committed
 candidate families with their coefficients, recorded before the payload is opened, authorised
 once, with a failed attempt recorded and a changed candidate after exposure or a second read
-refused (tests pin both) — the canonical `configuration.py` untouched and reserved for G3; vitrea's render of the same scenes through `compare.ts --set probe` into
-the wave's own matrix (`--out-matrix`), X6's four facts before every browser run; the residual
+refused (tests pin both) — the canonical `configuration.py` untouched and reserved for G3;
+vitrea's render of the same scenes through the guarded `wave.py` launcher into the wave's
+own matrix (`--out-matrix`), X6's four facts before every browser run; the residual
 tables against zero and against vitrea; a Decision Log 2 draft for the user with the closure or the
 negative, the families excluded and the resolution reached. Acceptance: every family's residual per
 bin beside the bar; the split honoured (holdout read once); no material, document, threshold or
 canonical row changed. Stop conditions: a holdout read before the calibration fit is committed; a
 closure claimed against anything but the published bar.
+
+**2026-09-23 G0 review correction:** this G2 contract also replaces the former bare probe-set
+invocation with G0’s role-aware launcher. The receipt freezes all permitted inventory hashes
+before exposure; repeat and materialized archives must each be named if both will be read.
 
 ### G3 (conditional on Decision Log 2 finding a law): The leaf, the seal, the read, the landing
 
@@ -420,6 +430,11 @@ the changeset. Merged with its capture tree by the X10/X7 rule of W32/W33.
   evidence-only commits are not**; `build/` never rebuilt and `build.sh` made to refuse it; `build-probe/` never
   granted; the granted bundle's grant checked before and after; the side bundle's cdhash in every
   attestation; every invocation with explicit roots, none through `capture.sh`.
+  **Execution ruling, 2026-09-23 (DL4):** grant-before passed, side SCK passed, original
+  grant-after was denied despite distinct identifiers. The wave keeps the side grant;
+  the original grant's recovery and positive check are deferred to wave close, not a G0 stop.
+  Both identities and the denial are recorded in §5.174; coexistence and the TCC mechanism
+  are not established.
 - **X4 — attestation before pixels.** The four facts, Show Borders, the display mode and colour
   context, the bundle cdhash and linked SDK, opening and closing; per cell `deterministic` and the
   pose as the harness attests it (`presentedActive` true on active passes, false with the
@@ -494,6 +509,13 @@ grant; G2 needs neither.
 
 ## Deferred / Out of Scope
 
+- G0's quarter-phase axis is unreachable on the measured path; a genuinely independent
+  phase mechanism needs a new identifying experiment if G2 cannot close without it (§5.174).
+- The original bundle's grant is restored and positively checked at wave close under DL4.
+- The one-code settle/order dependence, sixteen under-populated 1x rectangle bins and the
+  existing continuous-native/circular-web capsule mismatch remain qualified gaps (§5.174,
+  tracker), not silently accepted fidelity or permission to pool bins after fitting.
+
 - The accessibility beds' contour (Reduce Transparency, Increase Contrast, coupled): not captured
   here; the standard bed identifies the law first.
 - The empirical partial correction W33 declined (20.60 from 34.98 bytes): stays declined.
@@ -505,7 +527,7 @@ grant; G2 needs neither.
 
 | child | status |
 | --- | --- |
-| G0 | CHARTERED |
+| G0 | DELIVERED for independent review — phase grid unreachable, 148 cells/pass declared, side active and canonical pixel check positive; DL1 ruling and review/merge pending (§5.174). Original grant recovery deferred by DL4 |
 | G1 | CHARTERED, opens after G0's merge |
 | G2 | CHARTERED, opens after G1's merge |
 | G3 | CONDITIONAL on Decision Log 2 |
@@ -514,8 +536,32 @@ grant; G2 needs neither.
 
 ### Decision Log 1 — the bed's final shape and its price (after G0's draft; the parent's, under the standing "rest on your judgement")
 
-Open. G0 drafts the cell lists per pass, the priced plan, the split and the statistics; the parent
-rules the shape and any trimming here.
+**G0 draft, 2026-09-23; parent ruling still open.** Recommend the full sparse bed at **148
+cells/pass**, seven runs in each of four passes: **10.9356 h** at W29's 9.5 s/cell, plus
+**12.6 min** for three longer-settle/order-seed sentinels per pass. The phase grid is omitted
+under the measured-unreachable clause: quarter-device steps collapse to two states at both
+scales; no window-origin workaround. Every original/corrected reading is retained (§5.174).
+
+194 scene ids, all fixture-role probe; identification split **138 calibration / 26 validation /
+30 holdout**, pinned separately. Both poses and schemes remain on glass; the 46 native-only
+controls/references per pass are captured in the light profile and shared across schemes.
+No-glass grey in the inactive scratch is byte-stable in both schemes; the raster path itself
+has no scheme-dependent colour input. Geometry/backdrop twins of canonical holdout are
+excluded from fitting even across tint or pose, so the dark-solid capsule bridge is
+identification-holdout-only, beside the explicitly omitted mid-dark bridge.
+
+`pass-plan.json` names all cells and an exact **120-cell alternative**: drop 28/pass by
+removing the second-radius pair and its opaque controls, both 135° gradients/references,
+and both y-edge local-colour contrasts/references. That loses identifying axes and is not
+G0's recommendation. The bed with the phase axis absent is the alternative this gate puts
+before DL1, not permission to silently substitute a different mechanism.
+
+`closure.json` fixes the absolute per-channel/shell statistic, population floor4, observed
+pair envelope with multiplier1, one-code quantisation floor, nuisance propagation and
+competing-family discrimination. Sixteen 1x rectangle bins remain under-populated; actual
+physical decomposition can still return insufficient resolution. The grey sentinel's two
+internally unanimous protocols differ by one code at 18 edge pixels; neither is relabelled
+zero or universal settledness. Seven-run bars remain G1's, not these scratch readings.
 
 ### Decision Log 2 — a law or the negative (after G2; the user's)
 
@@ -527,13 +573,56 @@ user rules whether a law is identified and whether G3 opens.
 Open. W33 G0's forms table stands: no compositing form both reproduces Apple's bytes and keeps
 `declaredContourMaxWeb ≤ 1`. If a law closes, the re-pin question is put here with numbers.
 
+### Decision Log 4 — keep the side grant for the wave; restore the original at close (2026-09-23, parent ruling)
+
+Under the standing “rest on your judgement”, the parent rules that the wave runs on the
+side bundle and does not restore the original grant now. Restoring it might displace the
+side grant, and no remaining G0/G1 step needs an original-bundle capture: canonical decoding
+was already proved with `dump-layers`. Original grant recovery by the README recipe and a
+positive capture check are required at wave close. The supplied distinct identifiers did
+not yield simultaneous grants in the observed checks; no internal TCC mechanism is inferred.
+Original cdhash `88cbbb5b2db0af50167c0d7004f3bd7d3ebe6427`; side cdhash
+`830a00c6ff7b9ff74898c745e30e9335e31488a5`; §5.174 preserves the original's denial.
+
+The side's first launch after granting was repeat-stable but inactive. Up to three fresh
+one-cell scratch checks are authorised to establish the active pose, keeping every attempt;
+if none attests active, diagnose before measuring. This is a pose check, not permission to
+repeat noisy measurements until they pass. The user's earlier “Proceed; record it as foreign”
+ruling remains: every capture carries opening/closing foreign-process counts and PIDs;
+G1 exclusivity remains the parent's decision. Subsequent reads currently report zero.
+
 ## Surprises & Discoveries
+
+- **G0 grant-after refused despite distinct bundle identifiers** (2026-09-23, §5.174).
+  The original captured before; the side captured after the user's grant; the original then
+  returned TCC denial without a manifest. Both binary identities are unchanged. The side's
+  capture was repeat-stable but not actively presented, so it is not an admitted active
+  baseline. The UI/TCC mechanism is not identified. Recovery through the user's hand and
+  positive checks of both bundles remain pending; no rebuild or further grant change occurred.
+  DL4 subsequently defers original-grant recovery to wave close while the side runs the wave;
+  the original denial stays recorded rather than being relabelled a positive coexistence check.
 
 - **The parent found 53 leftover agent worktrees under `.claude/worktrees/` (31 GB)** from merged
   waves W12–W28 while grounding this charter, two of them carrying only a stray
   `tsconfig.stripped-dts.json`; all were removed and pruned on 2026-09-23. Their branches remain.
 
 ## Revision Notes
+
+- 2026-09-23 (G0 delivered, §5.174): the side active pose and one canonical byte identity
+  proved; quarter-device phases collapse at both scales. Declared the phase-free sparse bed,
+  conservative canonical-twin audit, separately pinned split, wave reader/launcher and receipt,
+  forward/closure algebra, role-separated repeat archive and actual archive-only replay.
+  Controls and both inactive schemes attested; a one-code sentinel protocol difference is
+  preserved. Four real no-pixel rehearsals presented 148 each; the non-dry inactive root seam
+  was separately exercised without capture. No wave capture or fit, browser render, material
+  change or canonical holdout read. DL1 and independent review/merge remain the next gate.
+
+- 2026-09-23 (G0 checkpoint, §5.174): native controls, supplied-path export, protected build
+  guard and calibration adapters built and tested. The user allowed the foreign browser to
+  remain during G0 with opening/closing process counts and repeat failures preserved; this is
+  not a G0 exclusivity stop. Companion credits exhausted before GUI action, so the user granted
+  the side and owns subsequent toggles through the parent. Original grant-after denied; G0
+  stops for recovery. No bed/split, instrument/bar or G1 permission is implied by this checkpoint.
 
 - 2026-09-23 (the parent, v3): the second round attacked the folds and found six of nine sound as
   written, one sound operationally (the cdhash pin, with "final commit" read as the last accepted
@@ -580,3 +669,11 @@ Open. W33 G0's forms table stands: no compositing form both reproduces Apple's b
   contrast, three pitches, the display colour context attested. Sent to a second round on the folds.
 - 2026-09-23 (the parent): v1 chartered from the grounding above; sent to adversarial review before
   G0 opens.
+
+- 2026-09-23 (G0 independent-review fix wave, §5.174 §14): reject symlinked build descendants
+  before writes and prove binary neutrality by the fresh verification build's matching cdhash;
+  bind every holdout reader to the receipt's frozen inventory-hash manifest; implement the
+  declared gradient prediction range rather than deviation from the full fit. Regression
+  tests reproduced all three defects before the fixes. The two operational bare-probe
+  instructions above now name the guarded launcher. No closure declaration number changed;
+  the full 148-cell recommendation and pending DL1 are unchanged.

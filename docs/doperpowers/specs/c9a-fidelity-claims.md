@@ -35597,3 +35597,377 @@ pair `b2b570e4adcea8fb` / `874be66ea501621b`, `liftAmplitude: 0` on the macOS 27
 303,207 B web bundle, and the three published tarballs at **583,802 / 568,292 / 188,179 B, the
 rehearsal's sizes byte for byte**. The "independent review pending, unpublished" at this section's
 head is the state at G2's close and is kept as written.
+
+## 5.174 W34 G0: the identifying bed declared; fractional phases unreachable; side grant retained (2026-09-23)
+
+**Completion: delivered for independent review and DL1, with the readings in §§6–13 below.**
+The original grant remains deferred to wave close under DL4; no seven-run wave bar or law is
+claimed. The earlier checkpoint is preserved next, not overwritten by the later outcome.
+
+**Initial checkpoint: OPEN, stopped at the grant-after check; no contour bed or bar declared yet.** W34
+clauses 2–3 and 5, X3–X5 and X14. Branch `w34-g0-contour-bed`, from `ff6c78b2`;
+evidence `packages/calibration/results/2026-09-23-w34-g0-contour-bed/`. Raw scratch pixels
+stay under `~/vitrea-w34/scratch/`; no canonical scene, fixture, profile, matrix, adopted
+threshold, golden or protected build changed.
+
+### 1. The machine and the foreign-process ruling
+
+Opening read: macOS **27.0 / 26A428**, Reduce Transparency **0**, Increase Contrast **0**,
+`NSGlassTintAmount` **0.5**, Show Borders **0**; display persistent id
+`7709FD0F-F423-4277-B0C8-7CA94F85723A`, mode **68** current, **69** available. No display
+switch has occurred. Toolchain: Xcode **26.6**, Swift **6.3.3**, SDK **26.5**.
+
+The first read found ten foreign Playwright/Chrome processes. **The user ruled “Proceed;
+record it as foreign”: the browser stays, G0 records the count and PIDs at both ends of
+each scratch capture, and repeat failures are retained, not retried away.** Exclusivity is
+not a G0 stop condition; the parent settles G1's sitting separately. The original pause
+and the continuation ruling remain beside each other in `pause.json`. G0 neither closed
+nor controlled that browser. Grant-before reads ten matching processes at both ends;
+the later side and grant-after reads report **zero** at both ends, not an assumed ten.
+
+### 2. Three grant checks, with their different outcomes kept separate
+
+The protected binary still has SHA-256
+`bd3092e8d6d1f50ba43124adf42bed8a29e96646adb97bb3a538582653fda212`, designated cdhash
+`88cbbb5b2db0af50167c0d7004f3bd7d3ebe6427`, `LC_BUILD_VERSION` minos/sdk **26.0/26.0**,
+and its September 12 modification time. The final accepted Swift build-input revision is
+`6ebffcfc`. `build.sh` built the side at `~/vitrea-w34/side/VitreaReference.app`, identifier
+`dev.vitrea.reference-apple.w34`, cdhash **830a00c6ff7b9ff74898c745e30e9335e31488a5**,
+minos/sdk **26.0/26.0**. These are distinct identifiers and unchanged binaries.
+
+All three attempts name one `checkerboard__capsule-button__rest` cell under the macOS 27
+2x light key, use `open -W`, explicit scenes and fixture roots, six-second reset and the
+45-second HID idle gate. Every opening/closing machine read is committed.
+
+| attempt | SCK/material | active pose | immediate repeat | outcome |
+| --- | --- | --- | --- | --- |
+| original, before | rendered | true | deterministic, noise 0 | positive grant check |
+| side, after user grant | rendered | **false** | deterministic, noise 0 | grant available; **not an admitted active material cell** |
+| original, after | **TCC denied** | no fixture | no fixture | **no manifest published; recovery required** |
+
+Both successful captures are 640×400 at backing scale 2; display name and colour profile
+are `가상 16:9`, captured colour space `kCGColorSpaceSRGB`. The side's idle reads 57.5566 s
+at its cell. Its stable repeat does not cure its failed active-pose attestation; it must
+not become an active baseline or enter the future bar. The supplied path was written.
+
+The companion failed before GUI action because Codex credits were exhausted. The user
+then added the side bundle by hand and reported the existing row untouched. **After that,
+the original bundle was denied**, despite distinct identifiers. That is an observed
+sequence, not proof of TCC's internal key or of which UI row macOS replaced. G0 made no
+further GUI action, re-grant or rebuild. The recovery is the harness README's original-row
+remove-and-re-add recipe at its exact protected path, through the user's hand; fresh
+positive checks must then establish whether both grants coexist. The parent directs all
+remaining GUI toggles to the user while the companion is unavailable.
+
+### 3. Implemented and non-capturing checks
+
+The harness decodes explicit circular capsules, empty components, opaque single-shape
+controls, encoded-sRGB linear gradients and a coordinate-declared two-colour split. Opaque
+controls use a Boolean on the same shape spec, so their supplied geometry is the glass
+twin's rather than another family; they apply no glass effect. Per-fixture `suppliedPaths`
+exports CGPath elements in local CSS points plus canvas frame origins. It attests only the
+supplied path, not raster alignment or the material's coverage. `--initial-settle` exposes
+the initial material dwell for the future sentinel; the default remains 1.75 s.
+
+`build.sh` refuses protected build/build-probe outputs and their aliases, supports an
+explicit bundle identifier and fails on signing failure. Native-only controls are skipped
+before rendering or material/shape metrics. The runtime's capsule really is circular:
+`geometry/src/shape.ts` resolves it at smoothing zero. W34's circular kind therefore maps
+to a circular web stadium, not a continuous approximation; the existing continuous native
+capsule's older web mapping is left unchanged.
+
+Five new decoding checks failed before implementation. Side self-check passes the new
+kinds, path witness (default equals continuous and differs from circular), fractional
+origins, opaque path equality, serialization and hand-derived raster samples, plus the
+existing capture truth tables. Build-guard tests pass; two adapter tests pass; calibration
+lint passes. At this checkpoint the complete calibration suite is **649 passed, 1 skipped
+in 43 files**; freeze **1,818 intact**. A canonical `dump-layers` on the protected bundle
+completed without capturing pixels, proving canonical decoding; it does not prove pixel
+identity of the new side bundle. That comparison remains pending.
+
+### 4. What this checkpoint does not claim
+
+No fractional-phase measurement, rendered-path alignment, colour-management control,
+opaque-edge measurement, inactive-pose check or settle sentinel has run. No final bed,
+semantic-twin audit, split, count, price, instrument, resolution rule, repeat archive,
+access boundary, receipt or sitting script has been declared. No side-versus-committed
+pixel comparison is claimed. G0 is not closed or ready for review; the next step is the
+original grant's recovery, not G1's capture.
+
+
+### 5. Execution ruling beside the stopped checkpoint (2026-09-23)
+
+The parent ruled charter DL4 under “rest on your judgement”: **keep the side grant and run
+this wave on the side bundle; restore the original at wave close**, by the README recipe
+and a positive capture check. No further original capture is required for G0/G1; its
+canonical decoding proof is already complete. The observed checks did not find both grants
+available even with distinct identifiers. Original cdhash `88cbbb5b2db0af50167c0d7004f3bd7d3ebe6427`
+and side cdhash `830a00c6ff7b9ff74898c745e30e9335e31488a5` remain unchanged; the denial above
+is not rewritten and the internal TCC mechanism is not inferred. Original-grant recovery
+is now a wave-close obligation, not a G0 stop. The user's foreign-browser ruling in §1
+remains beside it. Up to three retained one-cell pose checks on the side are authorised;
+noisy measurement runs are still not repeated away.
+
+### 6. Completion reading: the side attests active; one canonical pixel comparison is exact
+
+The first two additional pose attempts were refused **before pixels** by the HID gate at
+17.9 s and 4.4 s. Neither is a failed material repeat or an activation measurement. The
+third followed an independent **103.1014 s** idle read and attested
+`materialRendered=true`, `presentedActive=true`, `deterministic=true`, `repeatNoise=0`.
+It is the admitted active baseline; the earlier side capture remains the first, inactive
+reading after the grant. Its cause is not established and it was not overwritten.
+
+That admitted `checkerboard__capsule-button__rest` capture is **byte-identical**, including
+the PNG SHA-256, to the committed macOS 27 2x light fixture:
+`6c15311b06af50a17141c54d7a71645cf63518c844b61d113b9426e15bcbf1d0`.
+`side-canonical-comparison.json` gives both paths. This proves one existing cell survived
+the side build, not that every canonical cell did. The original grant remains deferred
+under DL4; this is not a repaired grant-after or proof of simultaneous grants.
+
+### 7. The fractional phase axis is unreachable on the measured path, at both scales
+
+Five light-active circular-capsule cells over RGB128, three runs each at 1x and 2x:
+zero; x¼, x½, x¾ DEVICE px; and joint (¼,¼), divided by scale in the declaration.
+All **30** observations attested and every same-cell three-run comparison is byte-identical.
+At both scales the full-image equivalence classes are **zero = x¼ = joint¼/¼** and
+**x½ = x¾**. Four requested device phases produce only two byte-states. No window-origin
+fallback was attempted; a desktop-independent window capture would not provide that axis.
+
+The moved state has best integer translation **(+1,0)**, but is **not exactly** an integer
+translation: mean absolute RGB error over the declared comparison crop is
+**0.002308641975308642 bytes at 1x**, **0.0005489530277306169 at 2x**. The zero/moved states
+differ at **664 / 1,605 pixels**, respectively. `phase-reading.json` retains raw RGB
+transects across the arc apex and straight edge, signed apparent body contrast, all input
+hashes and the three-run comparisons. Apparent contrast is not asserted to be glass
+coverage. The initial exact-translation criterion did not pass and is retained in
+`phase-reading-initial.json`; the corrected conclusion rests on the collapsed byte-state
+classes, not on rounding that small translation residual to zero.
+
+This identifies the failure of the requested quarter-phase grid on the tested light-active
+path. It does not infer a new window-server rounding implementation or measurements of every
+other scheme/pose. The declared bed omits the phase axis under the charter's measured-snap
+route. The gap to an independently phased identification experiment remains explicit.
+
+### 8. Controls, supplied paths and rendered alignment
+
+At **both scales**, all five no-glass controls — grey, white, black, the chromatic 45°
+gradient and the local-colour split — equal their own raster **at every RGB byte**.
+`deltaFromBackground=0`; the gradient and split rasters also match independent arithmetic
+from their declarations. A separate 2x checkerboard no-glass capture supplies the sentinel's
+archive dependency. Display name/profile `가상 16:9` and captured sRGB are recorded beside
+these readings; no claim is made about a different display profile or EDID generation.
+
+All four opaque high-contrast controls (two fills × two scales) equal the requested fill
+at d≤−3 device px and their backdrop at d≥3, with **zero changed exterior pixels there**.
+They draw an ordinary antialiased fill and no material/shadow. Encoded-space ordinary-fill
+alignment fits read translation **(0,0)** at both scales; the glass half-interior-contrast
+SDF fit reads **(0,−0.0625) device px**. Linear-space interpretations of the fill differ
+by up to 0.125 device px in y. These are measured isoresponse fits, with nuisance outset,
+RMSE and pixel populations in `control-readings.json`, not proof of a hidden raster origin
+or permission to transfer ordinary-fill coverage to `glassEffect`.
+
+The capture exports the supplied paths and frame origins; self-check proves default equals
+explicit continuous and differs from circular. `supplied-paths.json` exports every declared
+component through the same resolver without rendering. **The circular cubic's error scales
+with radius:** the supplied-path reading is +0.00599566003 CSS px at radius22 and
++0.01308143972 at radius48. The qualified envelope is **0.006·r/22 CSS px**, not a universal
+0.006 for both radii. Tiny negative numerical deviations are preserved in
+`circular-cubic-errors.json`. Neither path export attests the server's transform/coverage.
+
+Inactive 2x light and dark each captured the circular and empty controls with
+`presentedActive=false`, `observedPose=inactive`, key=false, app-active=false, the accessory
+mechanism recorded, material capability true and repeat noise zero. That is the correct
+inactive attestation, not the earlier failed active-pose check.
+
+### 9. The settle sentinel detects a small, repeatable protocol dependence
+
+Two cells, three ordinary runs and three runs with initial dwell **8 s** instead of
+**1.75 s**, order seed **3401** instead of the default. The seed actually reverses the two
+cells' order, as the recorded `orderIndex` values show. Every immediate repeat attested.
+Each three-run arm is internally unanimous, and checkerboard is identical across all six.
+The grey cell is **not**: **18 edge pixels differ by one code** between the two arms.
+`sentinel-protocol-difference.json` gives every coordinate, RGB pair and signed distance.
+
+Dwell and order changed together, so this does not identify which caused the difference,
+and it does not prove which arm is fully settled. It does show why a byte-stable immediate
+repeat is not the same as protocol independence. No run was discarded or retried away.
+The initial control table's overbroad “no difference” sentence is retained separately;
+`control-readings.json` and this reading correct it beside the unchanged numbers.
+
+### 10. The sparse declaration and its price — Decision Log 1 draft, not a ruling
+
+**194 scene ids**, all native `probe`; four standard macOS 27 profile keys, both scales,
+both schemes and both poses. Each pass has **148 cells**: 102 glass cells (51 per scheme)
+and 46 light-profile native-only controls/references. Native-only raster/fill controls are
+shared across schemes, not forced through glass metrics; both poses/scales still capture
+their own controls. The circular anchor carries eight greys, six chromatic solids, eight
+gradients, four local-colour contrasts and three pitches. Six other geometries carry a
+matched subset; four canonical bridge backgrounds remain. No fractional-phase cells remain.
+
+The semantic audit compares geometry/backdrop declarations conservatively **even across
+tint and pose**. Thus the untinted dark-solid capsule bridge is identification-holdout-only:
+its canonical geometry/backdrop twin has a blue tint and is held out. Both bridge poses
+are excluded from calibration, validation and the bar, rather than excused by the tint.
+No canonical holdout PNG was opened. The initial draft audit/split is preserved under
+`declaration-draft-initial/`; this correction precedes the committed declaration and any
+wave capture/fitting. Final identification membership: **138 calibration, 26 validation,
+30 holdout scene ids**, disjoint and covering the declaration. Whole geometry/backdrop and
+gradient combinations are held out. `pins.json` binds both files; the native split stays
+single-role `probe` throughout.
+
+At W29's **9.5 s/cell**, each seven-run pass is **9,842 s = 2.7339 h**, four passes
+**39,368 s = 10.9356 h**. Three long sentinels of four cells per pass add **756 s = 12.6 min**;
+total nominal capture time **11.1456 h**, excluding idle waits, switches and rehearsals.
+`pass-plan.json` contains every cell and the exact **28 drops/pass** for a 120-cell trim:
+the second-radius pair and its opaque controls, both 135° gradients and their references,
+and both y-edge local-colour contrasts and their references. That trim loses identifying
+axes; recommend the full 148, with the parent's ruling still required.
+
+### 11. The instrument, bar and replay — declared, not a fitted contour law
+
+`closure.json` declares the forward model as pixel-integrated backdrop/body/stroke
+composition in encoded and linear sRGB. Uniform body baselines are constrained by d≤−6
+interior samples; gradient baselines use a bounded affine form with leave-one-quadrant-out
+boundary envelopes. Structured backdrops whose interiors do not identify their boundary
+are explicitly routed to effective-response/insufficient-resolution outcomes. Body,
+geometry and numerical uncertainty do not disappear into a larger fitted tolerance.
+The circular forward compositor is implemented and checked on an analytic straight edge;
+continuous reads use the supplied path with a ≤1/1024 CSS-px flattening bound, not a circular
+SDF masquerading as the native corner.
+
+The repeat statistic is **maximum pairwise mean absolute channel difference at identical
+pixels**, over every admitted run before plurality, separately by cell, straight/arc,
+22.5° bin and six radial shells. Absolute values precede every spatial/channel reduction.
+The multiplier is fixed at **1**, because this is already the full observed pair envelope.
+Tolerance is `max(1 byte, bar)`: the one-byte floor comes from two half-code quantisation
+intervals, not native repeat precision. Seven runs give **72.0918%** state discovery for a
+one-in-six minority, not a confidence interval on the mean. Zero observed spread buys no
+zero tolerance. Normal and longer-settle protocols remain separate strata.
+
+Minimum bin population **4** is a sampling admission rule, derived from declared geometry,
+not a native residual. `synthetic-proof.json` enumerates all bins: the 1x radius12 rectangle
+has **16 under-populated bins**, reported unmeasured, not silently closed; the other nominal
+geometries/scales have none. Synthetic signed-cancellation alternatives test the absolute
+statistic. A four-code zero-nuisance alternative separates from zero; nuisance envelopes can
+still make actual families indistinguishable. The synthetic 64/128 subpixel comparison
+moves a rounded prediction by up to **1 code**; the radius-scaled geometry perturbation
+moves one by up to **4 codes**. These are declared numerical/geometry qualifications, not
+thresholds chosen from a native fit. Point closure, interval compatibility, discrimination
+and nonunique body/coverage decomposition have separate executable verdicts.
+
+The committed repeat artifact contains **all 42 planned phase/sentinel observations**,
+including both grey-sentinel states, as deduplicated lossless RGB crops with original
+coordinates/dimensions, supplied geometry, measured alignment inputs, no-glass/fill pixels
+and every sampled dependency. G0 uses full-canvas crops. All **71** scratch measurement
+captures inventoried have alpha255 everywhere, so no varying alpha sample was omitted.
+Every one of **12 cells** replays the instrument identically from archive values; alignment
+fits also replay. `archive-only-replay-bound.json` comes from a separate process in which
+opening anything under `~/vitrea-w34` is forbidden. This is actual instrument replay, not
+reproduction of a saved spread table. It does not claim a seven-run W34 bed bar: that is G1.
+
+### 12. The boundary, receipt and sitting are executable
+
+`wave.py` checks both declaration hashes, disjoint/complete membership and the evidence
+inventory's declaration binding. It refuses unauthorised holdout PNGs, crops and statistics
+before opening their payload, even when fixture membership is `probe`. The launcher uses
+an explicit glass-only `--scene` allowlist; bare `--set probe` is not its entry point.
+Producer exceptions are explicit. `archive-producer.py` archives before plurality;
+`materialize-producer.py` requires those source-manifest hashes, partitions native output
+by role and keeps full holdout metadata/state diagnostics in `holdout/`. Public manifests
+carry inventory/admission, not held-out numerical readings. G1 reporting uses the guarded
+reader and tests succeed even when holdout payload is replaced with unreadable data.
+This is procedural sealing, not encryption of committed plaintext.
+
+The wave receipt has its own persistent log. It records begin before exposure, records a
+failed attempt, and refuses a changed candidate or a second read. Its digest names scenes,
+split, evidence generation, instrument/closure and committed candidate families/coefficients;
+analysis dependencies are checked before the attempt can be spent. No real wave receipt
+was spent in G0; refusal tests use temporary synthetic data. The canonical material receipt
+is untouched and remains G3's.
+
+The derived sitting driver keeps the version/mode/identity/idle gates, complete cell
+membership, opening/closing agreement and quarantine, and passes explicit roots on every
+invocation. Four **real DRY rehearsals presented 148/148** each, without native captures;
+the display returned to mode68. The first dry driver attempt refused on foreign processes;
+that record is retained. As in W29, no-pixel rehearsal now reports that a real pass would
+refuse, while real G1 passes still require exclusivity. The user's G0 exception is not a
+G1 waiver. The non-dry inactive branch was separately exercised with machine/launcher
+stubs and the **real** side `rehearse-tints`; its explicit roots are recorded, and no
+canonical PNG was opened because the wave declares no tints. No real sitting pass ran.
+
+### 13. Completion limits and next gate
+
+G0 changes no runtime material, canonical fixture/scenes file, profile document, matrix,
+threshold, golden or frozen-keyed artifact. It fits no native contour family and reads no
+wave holdout payload; those pixels do not exist yet. No browser rendering ran. The compare
+CLI's native-only negative test exits before planning any browser/metric work. The foreign
+browser reappeared during G0 and is recorded, not closed; the late dry reads report 18–20
+matching processes, so G1 exclusivity still needs the parent.
+
+The original grant's recovery remains a wave-close obligation under DL4. The quarter-phase
+axis, small non-translation remainder, one-code sentinel dependence, continuous-vs-circular
+counterpart gap and under-populated rectangle bins remain explicit limitations. The next
+step is **independent review and Decision Log 1**, not launching G1 or changing a material.
+
+Closing verification (`close-*.txt`): **658 calibration tests passed, 1 skipped, 44 files**;
+ESLint and all four TypeScript checks passed; the pinned side binary's native self-check
+reported **all rows hold**; the macOS 26.5 freeze verified **1,818 entries**. The final
+archive-only replay (`archive-only-replay-close.json`) again reproduced all **12 cells /
+42 observations** with raw-root access forbidden. There are no PNG files in this evidence
+directory; the explicit lossless repeat archive is the permitted committed pixel derivative.
+
+`machine-close.json` reads mode **68**, RT0, IC0, slider0.5 and Show Borders0. Both the
+protected original and side binary hashes are unchanged. It records **9** foreign processes
+with their PIDs; none was closed by this work. Companion availability was restored after
+the earlier outage, and the standing companion-first GUI rule applies again; no further
+permission action was needed. The full seven-run G1 archive/materialization pipeline has
+not run on the real bed: its gates and publication boundaries are tested, not its future
+G1 outcome. Independent review and DL1 remain pending.
+
+### 14. G0 independent-review fix wave (2026-09-23)
+
+The independent review accepted the declaration, split, audit, price, archive, once-only
+spending, sitting and records, and recommended the full 148-cell bed. It reproduced three
+blocking defects. Each now has a regression observed failing before its implementation fix;
+`review-*-red*.txt` and `review-*-green.txt` retain both outcomes.
+
+1. **Protected build descendants.** Resolving only the output root left a symlinked app,
+   Contents, MacOS directory, plist or executable able to redirect writes into either protected
+   bundle. `build.sh` now rejects symlinks throughout the destination app before its first write.
+   Stubbed tests cover all five placements against both `build/` and `build-probe/`, without
+   compiling or signing any real protected bundle. A fresh build into
+   `~/vitrea-w34/verify-guard`, identifier `dev.vitrea.reference-apple.w34`, reproduced cdhash
+   **830a00c6ff7b9ff74898c745e30e9335e31488a5**, exactly the pinned side cdhash.
+   `bundle-pin.json` records both, the verification binary hash and the guard script hash.
+   The side was neither rebuilt nor granted again; the verification bundle was never launched
+   or granted. The guard's binary neutrality is measured rather than inferred.
+2. **Receipt generation binding.** A declaration match formerly let one receipt read another
+   inventory generation. The receipt now freezes a sorted manifest of permitted inventory
+   SHA-256 hashes; repeat `--inventory` to name the repeat and materialized archives together.
+   Reader construction checks the hash of the exact inventory bytes it parses, and every
+   holdout payload read rechecks that generation with the active token. The negative test
+   refuses inventory B under A's receipt despite equal scene/split pins; its positive companion
+   admits both only when both hashes were frozen. No real receipt was spent.
+3. **Gradient boundary envelope.** The implementation measured omitted-quadrant predictions
+   against the full fit, understating the declaration when they straddled it. It now takes the
+   per-pixel, per-channel range across the four predictions, maximizes over boundary pixels,
+   then adds the interior residual and half-code term. The curved-body synthetic regression
+   records the old **14.14418257235846** and corrected **18.659485249792155** codes per channel
+   beside each other in `review-closure-check.json`. These are synthetic, not rewritten native
+   readings. **No number or byte in `closure.json` moved:** its formula was already correct.
+   Re-derived populations and resolution alternatives equal the original declaration proof.
+
+The two operational bare-probe invocations in the charter are replaced by the guarded launcher,
+with dated corrections beside them. The sweep of this section found only its existing explicit
+prohibition; the tracker contains no bare-probe invocation to correct. Its contour follow-up
+still describes the measured gaps and its grant entry still requires wave-close recovery.
+The charter's v3 history retains the old invocation as the example of why it is unsafe, not
+as an instruction. The evidence README now shows both inventory arguments before exposure.
+
+Closing fix-wave checks: **658 calibration tests passed, 1 skipped, 44 files**; ESLint and all
+four TypeScript checks passed; build-guard suite passed (including ten descendant placements),
+wave boundary suite **6/6**, numeric instrument suite **9/9**; freeze **1,818** intact.
+`review-archive-only-replay.json` reproduces all **12 cells / 42 observations** with raw-root
+access forbidden. The archive's native repeats are solid/checkerboard cells, so the corrected
+gradient baseline changes none of those recorded outputs. No native capture, browser run,
+TCC change, side rebuild, canonical evidence change or closure-number re-pin occurred.

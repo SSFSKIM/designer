@@ -1,0 +1,387 @@
+{
+  "backgrounds" : {
+    "black@2x" : "backgrounds/black@2x.png",
+    "checkerboard@2x" : "backgrounds/checkerboard@2x.png",
+    "gradient@2x" : "backgrounds/gradient@2x.png",
+    "grey@2x" : "backgrounds/grey@2x.png",
+    "split@2x" : "backgrounds/split@2x.png",
+    "white@2x" : "backgrounds/white@2x.png"
+  },
+  "captureProtocol" : {
+    "hidIdleSecondsAtEnd" : 295.668120458,
+    "hidIdleSecondsAtStart" : 276.445179916,
+    "initialSettleSeconds" : 1.75,
+    "minIdleSeconds" : 60,
+    "resetCarriesGlass" : false,
+    "resetInterstitialSeconds" : 6,
+    "runLabel" : "w34-g0-sentinel-normal-2",
+    "userIsActiveAtStart" : true
+  },
+  "caveats" : [
+    "Narrowed by --scenes to 2 cells over 1 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root — publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits."
+  ],
+  "generatedAt" : "2026-09-23T01:49:36Z",
+  "hardware" : {
+    "cpu" : "Apple M2 Pro",
+    "model" : "Mac14,12",
+    "osBuild" : "26A428",
+    "osVersion" : "Version 27.0 (Build 26A428)",
+    "sdk" : "unknown",
+    "xcodeVersion" : "unknown"
+  },
+  "profiles" : [
+    {
+      "a11yMode" : "standard",
+      "colorScheme" : "light",
+      "display" : {
+        "actualBackingScale" : 2,
+        "colorSpace" : "kCGColorSpaceSRGB",
+        "displayColorProfile" : "가상 16:9",
+        "displayName" : "가상 16:9",
+        "pixelSize" : [
+          640,
+          400
+        ],
+        "requestedScale" : 2
+      },
+      "fixtures" : [
+        {
+          "captureMethod" : "screencapturekit",
+          "capturedAt" : "2026-09-23T01:49:27Z",
+          "chromaShift" : 0.0843,
+          "deltaFromBackground" : 8.923049479166666,
+          "deterministic" : true,
+          "file" : "apple-macos-27.0-2x-light-standard-glass0.5/checkerboard__circular__rest.png",
+          "fixtureSet" : "probe",
+          "height" : 400,
+          "hidIdleSeconds" : 286.119383875,
+          "identicalToBackground" : false,
+          "materialRendered" : true,
+          "orderIndex" : 0,
+          "presentedActive" : true,
+          "repeatNoise" : 0,
+          "sceneId" : "checkerboard__circular__rest",
+          "settleIterations" : 1,
+          "settleSeconds" : 3.0578590631484985,
+          "suppliedPaths" : [
+            {
+              "elements" : [
+                {
+                  "points" : [
+                    [
+                      120.00000000000001,
+                      22
+                    ]
+                  ],
+                  "type" : 0
+                },
+                {
+                  "points" : [
+                    [
+                      120.00000000000003,
+                      22.00000000000002
+                    ]
+                  ],
+                  "type" : 1
+                },
+                {
+                  "points" : [
+                    [
+                      120.00000000000001,
+                      34.150264496277465
+                    ],
+                    [
+                      110.15026449627749,
+                      44
+                    ],
+                    [
+                      98.00000000000003,
+                      44
+                    ]
+                  ],
+                  "type" : 3
+                },
+                {
+                  "points" : [
+                    [
+                      22,
+                      44.00000000000001
+                    ]
+                  ],
+                  "type" : 1
+                },
+                {
+                  "points" : [
+                    [
+                      9.8497355044,
+                      44.00000000000001
+                    ],
+                    [
+                      7.439891261665134e-16,
+                      34.15026449560001
+                    ],
+                    [
+                      0,
+                      22.00000000000001
+                    ]
+                  ],
+                  "type" : 3
+                },
+                {
+                  "points" : [
+                    [
+                      0,
+                      22
+                    ]
+                  ],
+                  "type" : 1
+                },
+                {
+                  "points" : [
+                    [
+                      1.4879782523330268e-15,
+                      9.8497355044
+                    ],
+                    [
+                      9.849735504400005,
+                      3.3970030560176617e-15
+                    ],
+                    [
+                      22.000000000000004,
+                      4.884981308350689e-15
+                    ]
+                  ],
+                  "type" : 3
+                },
+                {
+                  "points" : [
+                    [
+                      98.00000000000001,
+                      0
+                    ]
+                  ],
+                  "type" : 1
+                },
+                {
+                  "points" : [
+                    [
+                      110.15026449560001,
+                      7.439891261665134e-16
+                    ],
+                    [
+                      120.00000000000001,
+                      9.8497355044
+                    ],
+                    [
+                      120.00000000000001,
+                      22
+                    ]
+                  ],
+                  "type" : 3
+                },
+                {
+                  "points" : [
+
+                  ],
+                  "type" : 4
+                }
+              ],
+              "frameOrigin" : [
+                100,
+                78
+              ],
+              "kind" : "capsule-circular",
+              "opaque" : false,
+              "rect" : [
+                0,
+                0,
+                120,
+                44
+              ]
+            }
+          ],
+          "width" : 640
+        },
+        {
+          "captureMethod" : "screencapturekit",
+          "capturedAt" : "2026-09-23T01:49:36Z",
+          "chromaShift" : 0.0175,
+          "deltaFromBackground" : 5.169283854166666,
+          "deterministic" : true,
+          "file" : "apple-macos-27.0-2x-light-standard-glass0.5/grey__circular__rest.png",
+          "fixtureSet" : "probe",
+          "height" : 400,
+          "hidIdleSeconds" : 295.666189125,
+          "identicalToBackground" : false,
+          "materialRendered" : true,
+          "orderIndex" : 1,
+          "presentedActive" : true,
+          "repeatNoise" : 0,
+          "sceneId" : "grey__circular__rest",
+          "settleIterations" : 1,
+          "settleSeconds" : 2.9886200428009033,
+          "suppliedPaths" : [
+            {
+              "elements" : [
+                {
+                  "points" : [
+                    [
+                      120.00000000000001,
+                      22
+                    ]
+                  ],
+                  "type" : 0
+                },
+                {
+                  "points" : [
+                    [
+                      120.00000000000003,
+                      22.00000000000002
+                    ]
+                  ],
+                  "type" : 1
+                },
+                {
+                  "points" : [
+                    [
+                      120.00000000000001,
+                      34.150264496277465
+                    ],
+                    [
+                      110.15026449627749,
+                      44
+                    ],
+                    [
+                      98.00000000000003,
+                      44
+                    ]
+                  ],
+                  "type" : 3
+                },
+                {
+                  "points" : [
+                    [
+                      22,
+                      44.00000000000001
+                    ]
+                  ],
+                  "type" : 1
+                },
+                {
+                  "points" : [
+                    [
+                      9.8497355044,
+                      44.00000000000001
+                    ],
+                    [
+                      7.439891261665134e-16,
+                      34.15026449560001
+                    ],
+                    [
+                      0,
+                      22.00000000000001
+                    ]
+                  ],
+                  "type" : 3
+                },
+                {
+                  "points" : [
+                    [
+                      0,
+                      22
+                    ]
+                  ],
+                  "type" : 1
+                },
+                {
+                  "points" : [
+                    [
+                      1.4879782523330268e-15,
+                      9.8497355044
+                    ],
+                    [
+                      9.849735504400005,
+                      3.3970030560176617e-15
+                    ],
+                    [
+                      22.000000000000004,
+                      4.884981308350689e-15
+                    ]
+                  ],
+                  "type" : 3
+                },
+                {
+                  "points" : [
+                    [
+                      98.00000000000001,
+                      0
+                    ]
+                  ],
+                  "type" : 1
+                },
+                {
+                  "points" : [
+                    [
+                      110.15026449560001,
+                      7.439891261665134e-16
+                    ],
+                    [
+                      120.00000000000001,
+                      9.8497355044
+                    ],
+                    [
+                      120.00000000000001,
+                      22
+                    ]
+                  ],
+                  "type" : 3
+                },
+                {
+                  "points" : [
+
+                  ],
+                  "type" : 4
+                }
+              ],
+              "frameOrigin" : [
+                100,
+                78
+              ],
+              "kind" : "capsule-circular",
+              "opaque" : false,
+              "rect" : [
+                0,
+                0,
+                120,
+                44
+              ]
+            }
+          ],
+          "width" : 640
+        }
+      ],
+      "profileKey" : "apple-macos-27.0-2x-light-standard-glass0.5"
+    }
+  ],
+  "sceneSpecVersion" : 1,
+  "schemaVersion" : 3,
+  "split" : {
+    "calibration" : [
+
+    ],
+    "holdout" : [
+
+    ],
+    "note" : "Holdout scene ids are declared here, as data. Tuning code must read the 'calibration' list; it must never name a holdout scene. A 'recorded' scene is captured and committed and read by nothing: no fit, no self-check, no bound and no claim may cite it. A 'probe' scene is the other way round: fits and claims read it, and no adopted bound, regression floor or conditioning exclusion is stated over it, so the frozen bed's gate does not move with it.",
+    "probe" : [
+      "grey__circular__rest",
+      "checkerboard__circular__rest"
+    ],
+    "recorded" : [
+
+    ],
+    "validation" : [
+
+    ]
+  }
+}

@@ -13,6 +13,32 @@ Geometry note (§5.171 review, 2026-09-22): `Capsule()` defaults to `.continuous
 No workspace `package.json` here on purpose — pnpm only picks up directories that
 have one, so the Xcode toolchain stays out of the JavaScript graph.
 
+## W34 operational note (2026-09-23; claims §5.174)
+
+The investigations below preserve historical capture/toolchain findings; they are not all a
+statement of today's machine. W34's runbook is
+`packages/calibration/results/2026-09-23-w34-g0-contour-bed/README.md`.
+
+`build.sh` now refuses `build/`, `build-probe/` and aliases/case variants by default, even if
+`capture.sh` tries to auto-build a missing launcher. A protected rebuild requires an explicit
+`VITREA_ALLOW_PROTECTED_REBUILD=1` decision; W34 never uses it. Side builds use an external
+`VITREA_BUILD_OUT` and `VITREA_BUNDLE_ID`; signing failure is fatal. The already-granted W34
+side binary is pinned and must not be rebuilt during the sitting.
+
+The new probe kinds are `capsule-circular`, `linear-gradient` (encoded sRGB endpoints,
+image-down angle, pixel-centre interpolation), `split` (a coordinate-declared two-colour
+step), and component `none`. `opaque: true` with `fillSRGB` on a single shape supplies an
+ordinary fill without `glassEffect`. Captures export `suppliedPaths`; those are supplied
+CGPath elements and frame origins, not a claim about the window server's raster origin.
+Native-only controls carry no web material/shape metric. The capture-method field
+`materialRendered` describes SCK capability even on a deliberately empty control.
+
+The side binary's compiled root points into its build worktree. Supply **both**
+`VITREA_SCENES` and `VITREA_FIXTURES` on every invocation, including `rehearse-tints`, so
+removing that worktree cannot redirect a later command into a missing or wrong fixture root.
+DL4 runs W34 on the side grant and defers the original bundle's grant recovery and positive
+check to wave close; do not restore the original mid-wave or grant `build-probe`.
+
 ## Running it
 
 ```sh

@@ -55,9 +55,10 @@ private extension CGImage {
 }
 
 /// A shape spec resolved to the SwiftUI shape `glassEffect(in:)` takes.
-private func glassShape(_ s: ShapeSpec) -> AnyShape {
+func glassShape(_ s: ShapeSpec) -> AnyShape {
   switch s.kind {
   case "capsule": return AnyShape(Capsule())
+  case "capsule-circular": return AnyShape(Capsule(style: .circular))
   case "rrect":
     // `.continuous` is the Apple corner S2 measured (edge reach 1.528665,
     // published as cornerCurveExpansionFactor). Naming it explicitly rather than
@@ -129,10 +130,21 @@ struct SceneView: View {
   @ViewBuilder
   private var componentBody: some View {
     switch component {
+    case .none:
+      EmptyView()
     case .shape(let s):
-      glassContent(s.cgSize)
-        .glassEffect(material(), in: glassShape(s))
-        .offset(x: s.cgOffset.width, y: s.cgOffset.height)
+      if s.opaque == true {
+        let rgb = s.fillSRGB!
+        glassShape(s)
+          .fill(Color(.sRGB, red: Double(rgb[0]) / 255, green: Double(rgb[1]) / 255,
+                      blue: Double(rgb[2]) / 255, opacity: 1))
+          .frame(width: s.cgSize.width, height: s.cgSize.height)
+          .offset(x: s.cgOffset.width, y: s.cgOffset.height)
+      } else {
+        glassContent(s.cgSize)
+          .glassEffect(material(), in: glassShape(s))
+          .offset(x: s.cgOffset.width, y: s.cgOffset.height)
+      }
 
     case .group(let items, let spacing):
       // One container for the whole row: this is the container-scoped sampling

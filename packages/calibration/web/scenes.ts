@@ -22,7 +22,7 @@ import type { GlassPlane } from "@vitreajs/vitrea-web";
 // declaration out through one function or the difference between them would
 // read as a fidelity finding. Imported by module rather than through the barrel,
 // which pulls `pngjs` and `node:buffer` in for the PNG decoder.
-import { placeComponent, type CanvasSize, type DeclaredComponent, type PlacedShape } from "../src/component-region";
+import { isNativeOnly, placeComponent, type CanvasSize, type DeclaredComponent, type PlacedShape } from "../src/component-region";
 
 // Vite resolves this through `server.fs.allow`; it is the native harness's own
 // file, not a copy. See `vite.config.ts`.
@@ -136,10 +136,14 @@ const cssColour = (spec: TintSpec): string => {
 
 export const CANVAS: CanvasSize = matrix.canvas;
 
-export const SCENE_IDS: readonly string[] = scenes.map((entry) => entry.id);
+export const SCENE_IDS: readonly string[] = scenes
+  .filter((entry) => !isNativeOnly(components[entry.component]!)).map((entry) => entry.id);
 
 const familyOf = (shape: PlacedShape): ShapeFamily =>
-  shape.kind === "capsule" ? "capsule" : "fixed-rounded-rect";
+  // Geometry.resolveShape's capsule is a circular stadium (smoothing zero), so
+  // W34's circular native control has a circular web counterpart. The existing
+  // continuous native capsule's older mapping remains unchanged (§5.174).
+  shape.kind === "capsule" || shape.kind === "capsule-circular" ? "capsule" : "fixed-rounded-rect";
 
 /** The box `registerHost` needs, straight off the shared placement. */
 const boxOf = (shape: PlacedShape): { left: number; top: number; width: number; height: number } => ({
@@ -165,6 +169,10 @@ export function resolveScene(sceneId: string, backdropMode: GroupSource = "textu
   const component = components[scene.component];
   if (component === undefined) {
     throw new Error(`Scene "${sceneId}" names component "${scene.component}", which is absent.`);
+  }
+
+  if (isNativeOnly(component)) {
+    throw new Error(`Scene "${sceneId}" is a native-only control; no web material or shape metric.`);
   }
 
   // Refuse rather than guess, the same posture the native harness takes at load:

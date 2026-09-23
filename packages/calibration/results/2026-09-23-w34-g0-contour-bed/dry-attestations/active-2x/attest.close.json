@@ -1,0 +1,320 @@
+{
+  "schema": 1,
+  "gate": "W34 G0; §5.174 clauses 2–3",
+  "phase": "w34-active-2x-1-close",
+  "recordedAt": "2026-09-23T02:02:48.624703+00:00",
+  "os": {
+    "command": [
+      "sw_vers"
+    ],
+    "exitCode": 0,
+    "stdout": "ProductName:\t\tmacOS\nProductVersion:\t\t27.0\nBuildVersion:\t\t26A428",
+    "stderr": ""
+  },
+  "settings": {
+    "reduceTransparency": {
+      "command": [
+        "defaults",
+        "read",
+        "com.apple.universalaccess",
+        "reduceTransparency"
+      ],
+      "exitCode": 0,
+      "stdout": "0",
+      "stderr": ""
+    },
+    "increaseContrast": {
+      "command": [
+        "defaults",
+        "read",
+        "com.apple.universalaccess",
+        "increaseContrast"
+      ],
+      "exitCode": 0,
+      "stdout": "0",
+      "stderr": ""
+    },
+    "NSGlassTintAmount": {
+      "command": [
+        "defaults",
+        "read",
+        "-g",
+        "NSGlassTintAmount"
+      ],
+      "exitCode": 0,
+      "stdout": "0.5",
+      "stderr": ""
+    },
+    "ButtonShapesEnabled": {
+      "command": [
+        "defaults",
+        "read",
+        "com.apple.Accessibility",
+        "ButtonShapesEnabled"
+      ],
+      "exitCode": 0,
+      "stdout": "0",
+      "stderr": ""
+    }
+  },
+  "display": {
+    "command": [
+      "/opt/homebrew/bin/displayplacer",
+      "list"
+    ],
+    "exitCode": 0,
+    "stdout": "Persistent screen id: 7709FD0F-F423-4277-B0C8-7CA94F85723A\nContextual screen id: 5\nSerial screen id: s752515769\nType: 24 inch external screen\nResolution: 2560x1440\nHertz: 60\nColor Depth: 4\nScaling: on\nOrigin: (0,0) - main display\nRotation: 0\nEnabled: true\nResolutions for rotation 0:\n  mode 0: res:800x600 hz:60 color_depth:4 scaling:on\n  mode 1: res:800x600 hz:60 color_depth:4\n  mode 2: res:960x540 hz:60 color_depth:4 scaling:on\n  mode 3: res:1024x576 hz:60 color_depth:4\n  mode 4: res:1024x768 hz:60 color_depth:4\n  mode 5: res:1280x720 hz:60 color_depth:4 scaling:on\n  mode 6: res:1280x720 hz:60 color_depth:4\n  mode 7: res:1280x960 hz:60 color_depth:4\n  mode 8: res:1312x738 hz:60 color_depth:4 scaling:on\n  mode 9: res:1344x756 hz:60 color_depth:4 scaling:on\n  mode 10: res:1344x756 hz:60 color_depth:4\n  mode 11: res:1344x1008 hz:60 color_depth:4\n  mode 12: res:1376x774 hz:60 color_depth:4 scaling:on\n  mode 13: res:1408x792 hz:60 color_depth:4 scaling:on\n  mode 14: res:1408x792 hz:60 color_depth:4\n  mode 15: res:1440x810 hz:60 color_depth:4 scaling:on\n  mode 16: res:1472x828 hz:60 color_depth:4 scaling:on\n  mode 17: res:1472x828 hz:60 color_depth:4\n  mode 18: res:1504x846 hz:60 color_depth:4 scaling:on\n  mode 19: res:1536x864 hz:60 color_depth:4 scaling:on\n  mode 20: res:1536x864 hz:60 color_depth:4\n  mode 21: res:1568x882 hz:60 color_depth:4 scaling:on\n  mode 22: res:1600x900 hz:60 color_depth:4 scaling:on\n  mode 23: res:1600x900 hz:60 color_depth:4\n  mode 24: res:1600x1200 hz:60 color_depth:4\n  mode 25: res:1632x918 hz:60 color_depth:4 scaling:on\n  mode 26: res:1664x936 hz:60 color_depth:4 scaling:on\n  mode 27: res:1664x936 hz:60 color_depth:4\n  mode 28: res:1696x954 hz:60 color_depth:4 scaling:on\n  mode 29: res:1728x972 hz:60 color_depth:4 scaling:on\n  mode 30: res:1728x972 hz:60 color_depth:4\n  mode 31: res:1760x990 hz:60 color_depth:4 scaling:on\n  mode 32: res:1792x1008 hz:60 color_depth:4 scaling:on\n  mode 33: res:1792x1008 hz:60 color_depth:4\n  mode 34: res:1824x1026 hz:60 color_depth:4 scaling:on\n  mode 35: res:1856x1044 hz:60 color_depth:4 scaling:on\n  mode 36: res:1856x1044 hz:60 color_depth:4\n  mode 37: res:1888x1062 hz:60 color_depth:4 scaling:on\n  mode 38: res:1920x1080 hz:60 color_depth:4 scaling:on\n  mode 39: res:1920x1080 hz:60 color_depth:4\n  mode 40: res:1952x1098 hz:60 color_depth:4 scaling:on\n  mode 41: res:1984x1116 hz:60 color_depth:4 scaling:on\n  mode 42: res:1984x1116 hz:60 color_depth:4\n  mode 43: res:2016x1134 hz:60 color_depth:4 scaling:on\n  mode 44: res:2048x1152 hz:60 color_depth:4 scaling:on\n  mode 45: res:2048x1152 hz:60 color_depth:4\n  mode 46: res:2080x1170 hz:60 color_depth:4 scaling:on\n  mode 47: res:2112x1188 hz:60 color_depth:4 scaling:on\n  mode 48: res:2112x1188 hz:60 color_depth:4\n  mode 49: res:2144x1206 hz:60 color_depth:4 scaling:on\n  mode 50: res:2176x1224 hz:60 color_depth:4 scaling:on\n  mode 51: res:2176x1224 hz:60 color_depth:4\n  mode 52: res:2208x1242 hz:60 color_depth:4 scaling:on\n  mode 53: res:2240x1260 hz:60 color_depth:4 scaling:on\n  mode 54: res:2240x1260 hz:60 color_depth:4\n  mode 55: res:2272x1278 hz:60 color_depth:4 scaling:on\n  mode 56: res:2304x1296 hz:60 color_depth:4 scaling:on\n  mode 57: res:2304x1296 hz:60 color_depth:4\n  mode 58: res:2336x1314 hz:60 color_depth:4 scaling:on\n  mode 59: res:2368x1332 hz:60 color_depth:4 scaling:on\n  mode 60: res:2368x1332 hz:60 color_depth:4\n  mode 61: res:2400x1350 hz:60 color_depth:4 scaling:on\n  mode 62: res:2432x1368 hz:60 color_depth:4 scaling:on\n  mode 63: res:2432x1368 hz:60 color_depth:4\n  mode 64: res:2464x1386 hz:60 color_depth:4 scaling:on\n  mode 65: res:2496x1404 hz:60 color_depth:4 scaling:on\n  mode 66: res:2496x1404 hz:60 color_depth:4\n  mode 67: res:2528x1422 hz:60 color_depth:4 scaling:on\n  mode 68: res:2560x1440 hz:60 color_depth:4 scaling:on <-- current mode\n  mode 69: res:2560x1440 hz:60 color_depth:4\n  mode 70: res:2592x1458 hz:60 color_depth:4 scaling:on\n  mode 71: res:2624x1476 hz:60 color_depth:4 scaling:on\n  mode 72: res:2624x1476 hz:60 color_depth:4\n  mode 73: res:2656x1494 hz:60 color_depth:4 scaling:on\n  mode 74: res:2688x1512 hz:60 color_depth:4 scaling:on\n  mode 75: res:2688x1512 hz:60 color_depth:4\n  mode 76: res:2720x1530 hz:60 color_depth:4 scaling:on\n  mode 77: res:2752x1548 hz:60 color_depth:4 scaling:on\n  mode 78: res:2752x1548 hz:60 color_depth:4\n  mode 79: res:2784x1566 hz:60 color_depth:4 scaling:on\n  mode 80: res:2816x1584 hz:60 color_depth:4 scaling:on\n  mode 81: res:2816x1584 hz:60 color_depth:4\n  mode 82: res:2848x1602 hz:60 color_depth:4 scaling:on\n  mode 83: res:2880x1620 hz:60 color_depth:4 scaling:on\n  mode 84: res:2880x1620 hz:60 color_depth:4\n  mode 85: res:2912x1638 hz:60 color_depth:4 scaling:on\n  mode 86: res:2944x1656 hz:60 color_depth:4 scaling:on\n  mode 87: res:2944x1656 hz:60 color_depth:4\n  mode 88: res:2976x1674 hz:60 color_depth:4 scaling:on\n  mode 89: res:3008x1692 hz:60 color_depth:4 scaling:on\n  mode 90: res:3008x1692 hz:60 color_depth:4\n  mode 91: res:3040x1710 hz:60 color_depth:4 scaling:on\n  mode 92: res:3072x1728 hz:60 color_depth:4 scaling:on\n  mode 93: res:3072x1728 hz:60 color_depth:4\n  mode 94: res:3104x1746 hz:60 color_depth:4 scaling:on\n  mode 95: res:3136x1764 hz:60 color_depth:4 scaling:on\n  mode 96: res:3136x1764 hz:60 color_depth:4\n  mode 97: res:3168x1782 hz:60 color_depth:4 scaling:on\n  mode 98: res:3200x1800 hz:60 color_depth:4 scaling:on\n  mode 99: res:3200x1800 hz:60 color_depth:4\n  mode 100: res:3232x1818 hz:60 color_depth:4 scaling:on\n  mode 101: res:3264x1836 hz:60 color_depth:4 scaling:on\n  mode 102: res:3264x1836 hz:60 color_depth:4\n  mode 103: res:3296x1854 hz:60 color_depth:4 scaling:on\n  mode 104: res:3328x1872 hz:60 color_depth:4 scaling:on\n  mode 105: res:3328x1872 hz:60 color_depth:4\n  mode 106: res:3360x1890 hz:60 color_depth:4 scaling:on\n  mode 107: res:3392x1908 hz:60 color_depth:4 scaling:on\n  mode 108: res:3392x1908 hz:60 color_depth:4\n  mode 109: res:3424x1926 hz:60 color_depth:4 scaling:on\n  mode 110: res:3456x1944 hz:60 color_depth:4 scaling:on\n  mode 111: res:3456x1944 hz:60 color_depth:4\n  mode 112: res:3488x1962 hz:60 color_depth:4 scaling:on\n  mode 113: res:3520x1980 hz:60 color_depth:4 scaling:on\n  mode 114: res:3520x1980 hz:60 color_depth:4\n  mode 115: res:3552x1998 hz:60 color_depth:4 scaling:on\n  mode 116: res:3584x2016 hz:60 color_depth:4 scaling:on\n  mode 117: res:3584x2016 hz:60 color_depth:4\n  mode 118: res:3616x2034 hz:60 color_depth:4 scaling:on\n  mode 119: res:3648x2052 hz:60 color_depth:4 scaling:on\n  mode 120: res:3648x2052 hz:60 color_depth:4\n  mode 121: res:3680x2070 hz:60 color_depth:4 scaling:on\n  mode 122: res:3712x2088 hz:60 color_depth:4 scaling:on\n  mode 123: res:3712x2088 hz:60 color_depth:4\n  mode 124: res:3744x2106 hz:60 color_depth:4 scaling:on\n  mode 125: res:3776x2124 hz:60 color_depth:4 scaling:on\n  mode 126: res:3776x2124 hz:60 color_depth:4\n  mode 127: res:3840x2160 hz:60 color_depth:4 scaling:on\n  mode 128: res:3840x2160 hz:60 color_depth:4\n  mode 129: res:3904x2196 hz:60 color_depth:4\n  mode 130: res:3968x2232 hz:60 color_depth:4\n  mode 131: res:4032x2268 hz:60 color_depth:4\n  mode 132: res:4096x2304 hz:60 color_depth:4\n  mode 133: res:4160x2340 hz:60 color_depth:4\n  mode 134: res:4224x2376 hz:60 color_depth:4\n  mode 135: res:4288x2412 hz:60 color_depth:4\n  mode 136: res:4352x2448 hz:60 color_depth:4\n  mode 137: res:4416x2484 hz:60 color_depth:4\n  mode 138: res:4480x2520 hz:60 color_depth:4\n  mode 139: res:4544x2556 hz:60 color_depth:4\n  mode 140: res:4608x2592 hz:60 color_depth:4\n  mode 141: res:4672x2628 hz:60 color_depth:4\n  mode 142: res:4736x2664 hz:60 color_depth:4\n  mode 143: res:4800x2700 hz:60 color_depth:4\n  mode 144: res:4864x2736 hz:60 color_depth:4\n  mode 145: res:4928x2772 hz:60 color_depth:4\n  mode 146: res:4992x2808 hz:60 color_depth:4\n  mode 147: res:5056x2844 hz:60 color_depth:4\n  mode 148: res:5120x2880 hz:60 color_depth:4\n  mode 149: res:5184x2916 hz:60 color_depth:4\n  mode 150: res:5248x2952 hz:60 color_depth:4\n  mode 151: res:5312x2988 hz:60 color_depth:4\n  mode 152: res:5376x3024 hz:60 color_depth:4\n  mode 153: res:5440x3060 hz:60 color_depth:4\n  mode 154: res:5504x3096 hz:60 color_depth:4\n  mode 155: res:5568x3132 hz:60 color_depth:4\n  mode 156: res:5632x3168 hz:60 color_depth:4\n  mode 157: res:5696x3204 hz:60 color_depth:4\n  mode 158: res:5760x3240 hz:60 color_depth:4\n  mode 159: res:5824x3276 hz:60 color_depth:4\n  mode 160: res:5888x3312 hz:60 color_depth:4\n  mode 161: res:5952x3348 hz:60 color_depth:4\n  mode 162: res:6016x3384 hz:60 color_depth:4\n  mode 163: res:6080x3420 hz:60 color_depth:4\n  mode 164: res:6144x3456 hz:60 color_depth:4\n  mode 165: res:6208x3492 hz:60 color_depth:4\n  mode 166: res:6272x3528 hz:60 color_depth:4\n  mode 167: res:6336x3564 hz:60 color_depth:4\n  mode 168: res:6400x3600 hz:60 color_depth:4\n  mode 169: res:6464x3636 hz:60 color_depth:4\n  mode 170: res:6528x3672 hz:60 color_depth:4\n  mode 171: res:6592x3708 hz:60 color_depth:4\n  mode 172: res:6656x3744 hz:60 color_depth:4\n  mode 173: res:6720x3780 hz:60 color_depth:4\n  mode 174: res:6784x3816 hz:60 color_depth:4\n  mode 175: res:6848x3852 hz:60 color_depth:4\n  mode 176: res:6912x3888 hz:60 color_depth:4\n  mode 177: res:6976x3924 hz:60 color_depth:4\n  mode 178: res:7040x3960 hz:60 color_depth:4\n  mode 179: res:7104x3996 hz:60 color_depth:4\n  mode 180: res:7168x4032 hz:60 color_depth:4\n  mode 181: res:7232x4068 hz:60 color_depth:4\n  mode 182: res:7296x4104 hz:60 color_depth:4\n  mode 183: res:7360x4140 hz:60 color_depth:4\n  mode 184: res:7424x4176 hz:60 color_depth:4\n  mode 185: res:7488x4212 hz:60 color_depth:4\n  mode 186: res:7552x4248 hz:60 color_depth:4\n  mode 187: res:7680x4320 hz:60 color_depth:4\n  mode 188: res:400x300 hz:60 color_depth:4 scaling:on\n  mode 189: res:512x384 hz:60 color_depth:4 scaling:on\n  mode 190: res:640x360 hz:60 color_depth:4 scaling:on\n  mode 191: res:640x360 hz:60 color_depth:4 scaling:on\n  mode 192: res:640x480 hz:60 color_depth:4 scaling:on\n  mode 193: res:640x480 hz:60 color_depth:4\n  mode 194: res:672x378 hz:60 color_depth:4 scaling:on\n  mode 195: res:672x378 hz:60 color_depth:4 scaling:on\n  mode 196: res:672x504 hz:60 color_depth:4 scaling:on\n  mode 197: res:704x396 hz:60 color_depth:4 scaling:on\n  mode 198: res:736x414 hz:60 color_depth:4 scaling:on\n  mode 199: res:768x432 hz:60 color_depth:4 scaling:on\n  mode 200: res:800x450 hz:60 color_depth:4 scaling:on\n  mode 201: res:800x450 hz:60 color_depth:4 scaling:on\n  mode 202: res:832x468 hz:60 color_depth:4 scaling:on\n  mode 203: res:864x486 hz:60 color_depth:4 scaling:on\n  mode 204: res:896x504 hz:60 color_depth:4 scaling:on\n  mode 205: res:928x522 hz:60 color_depth:4 scaling:on\n  mode 206: res:960x540 hz:60 color_depth:4 scaling:on\n  mode 207: res:992x558 hz:60 color_depth:4 scaling:on\n  mode 208: res:1024x576 hz:60 color_depth:4 scaling:on\n  mode 209: res:1056x594 hz:60 color_depth:4 scaling:on\n  mode 210: res:1088x612 hz:60 color_depth:4 scaling:on\n  mode 211: res:1120x630 hz:60 color_depth:4 scaling:on\n  mode 212: res:1152x648 hz:60 color_depth:4 scaling:on\n  mode 213: res:1184x666 hz:60 color_depth:4 scaling:on\n  mode 214: res:1216x684 hz:60 color_depth:4 scaling:on\n  mode 215: res:1248x702 hz:60 color_depth:4 scaling:on\n  mode 216: res:1280x720 hz:60 color_depth:4\n  mode 217: res:1344x756 hz:60 color_depth:4\n  mode 218: res:1600x900 hz:60 color_depth:4\n  mode 219: res:1920x1080 hz:60 color_depth:4\n\nExecute the command below to set your screens to the current arrangement. If screen ids are switching, please run `displayplacer --help` for info on using contextual or serial ids instead of persistent ids.\n\ndisplayplacer \"id:7709FD0F-F423-4277-B0C8-7CA94F85723A res:2560x1440 hz:60 color_depth:4 enabled:true scaling:on origin:(0,0) degree:0\"",
+    "stderr": ""
+  },
+  "displayColourContext": {
+    "command": [
+      "system_profiler",
+      "SPDisplaysDataType",
+      "-json"
+    ],
+    "exitCode": 0,
+    "stdout": "{\n  \"SPDisplaysDataType\" : [\n    {\n      \"_name\" : \"Apple M2 Pro\",\n      \"spdisplays_mtlgpufamilysupport\" : \"spdisplays_metal4\",\n      \"spdisplays_ndrvs\" : [\n        {\n          \"_name\" : \"가상 16:9\",\n          \"_spdisplays_display-product-id\" : \"8973\",\n          \"_spdisplays_display-serial-number\" : \"2cda7ab9\",\n          \"_spdisplays_display-vendor-id\" : \"896\",\n          \"_spdisplays_display-week\" : \"0\",\n          \"_spdisplays_display-year\" : \"0\",\n          \"_spdisplays_displayID\" : \"5\",\n          \"_spdisplays_pixels\" : \"5120 x 2880\",\n          \"_spdisplays_resolution\" : \"2560 x 1440 @ 60.00Hz\",\n          \"spdisplays_main\" : \"spdisplays_yes\",\n          \"spdisplays_mirror\" : \"spdisplays_off\",\n          \"spdisplays_online\" : \"spdisplays_yes\",\n          \"spdisplays_pixelresolution\" : \"spdisplays_5k-uhgplus\",\n          \"spdisplays_resolution\" : \"2560 x 1440 @ 60.00Hz\",\n          \"spdisplays_rotation\" : \"spdisplays_supported\"\n        }\n      ],\n      \"spdisplays_vendor\" : \"sppci_vendor_Apple\",\n      \"sppci_bus\" : \"spdisplays_builtin\",\n      \"sppci_cores\" : \"16\",\n      \"sppci_device_type\" : \"spdisplays_gpu\",\n      \"sppci_model\" : \"Apple M2 Pro\"\n    }\n  ]\n}",
+    "stderr": ""
+  },
+  "toolchain": {
+    "xcode": {
+      "command": [
+        "/Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild",
+        "-version"
+      ],
+      "exitCode": 0,
+      "stdout": "Xcode 26.6\nBuild version 17F113",
+      "stderr": ""
+    },
+    "swift": {
+      "command": [
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+        "--version"
+      ],
+      "exitCode": 0,
+      "stdout": "Apple Swift version 6.3.3 (swiftlang-6.3.3.1.3 clang-2100.1.1.101)\nTarget: arm64-apple-macosx28.0",
+      "stderr": "swift-driver version: 1.148.6"
+    },
+    "sdk": {
+      "command": [
+        "/usr/libexec/PlistBuddy",
+        "-c",
+        "Print :Version",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/SDKSettings.plist"
+      ],
+      "exitCode": 0,
+      "stdout": "26.5",
+      "stderr": ""
+    }
+  },
+  "python": {
+    "command": [
+      "python3.12",
+      "-c",
+      "import PIL, numpy; print(PIL.__version__, numpy.__version__)"
+    ],
+    "exitCode": 0,
+    "stdout": "12.3.0 2.5.1",
+    "stderr": ""
+  },
+  "granted": {
+    "path": "/Users/new/Developer/GitHub/designer/apps/reference-apple/build/VitreaReference.app",
+    "present": true,
+    "binarySha256": "bd3092e8d6d1f50ba43124adf42bed8a29e96646adb97bb3a538582653fda212",
+    "binaryModifiedAt": "2026-09-12T08:18:21.224031+00:00",
+    "identifier": {
+      "command": [
+        "/usr/libexec/PlistBuddy",
+        "-c",
+        "Print :CFBundleIdentifier",
+        "/Users/new/Developer/GitHub/designer/apps/reference-apple/build/VitreaReference.app/Contents/Info.plist"
+      ],
+      "exitCode": 0,
+      "stdout": "dev.vitrea.reference-apple",
+      "stderr": ""
+    },
+    "signature": {
+      "command": [
+        "codesign",
+        "-dvvv",
+        "/Users/new/Developer/GitHub/designer/apps/reference-apple/build/VitreaReference.app"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "Executable=/Users/new/Developer/GitHub/designer/apps/reference-apple/build/VitreaReference.app/Contents/MacOS/VitreaReference\nIdentifier=dev.vitrea.reference-apple\nFormat=app bundle with Mach-O thin (arm64)\nCodeDirectory v=20400 size=2035 flags=0x2(adhoc) hashes=57+3 location=embedded\nHash type=sha256 size=32\nCandidateCDHash sha256=88cbbb5b2db0af50167c0d7004f3bd7d3ebe6427\nCandidateCDHashFull sha256=88cbbb5b2db0af50167c0d7004f3bd7d3ebe64275a6b17a23de63f4608cae5e9\nHash choices=sha256\nCMSDigest=88cbbb5b2db0af50167c0d7004f3bd7d3ebe64275a6b17a23de63f4608cae5e9\nCMSDigestType=2\nCDHash=88cbbb5b2db0af50167c0d7004f3bd7d3ebe6427\nSignature=adhoc\nInfo.plist entries=7\nTeamIdentifier=not set\nSealed Resources version=2 rules=13 files=0\nInternal requirements count=0 size=12\nTotal signatures=1\nChosen signature=1"
+    },
+    "designatedRequirement": {
+      "command": [
+        "codesign",
+        "-d",
+        "-r-",
+        "/Users/new/Developer/GitHub/designer/apps/reference-apple/build/VitreaReference.app"
+      ],
+      "exitCode": 0,
+      "stdout": "# designated => cdhash H\"88cbbb5b2db0af50167c0d7004f3bd7d3ebe6427\"",
+      "stderr": "Executable=/Users/new/Developer/GitHub/designer/apps/reference-apple/build/VitreaReference.app/Contents/MacOS/VitreaReference"
+    },
+    "buildVersion": {
+      "command": [
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/vtool",
+        "-show-build",
+        "/Users/new/Developer/GitHub/designer/apps/reference-apple/build/VitreaReference.app/Contents/MacOS/VitreaReference"
+      ],
+      "exitCode": 0,
+      "stdout": "/Users/new/Developer/GitHub/designer/apps/reference-apple/build/VitreaReference.app/Contents/MacOS/VitreaReference:\nLoad command 11\n      cmd LC_BUILD_VERSION\n  cmdsize 32\n platform MACOS\n    minos 26.0\n      sdk 26.0\n   ntools 1\n     tool LD\n  version 1267.0",
+      "stderr": ""
+    }
+  },
+  "side": {
+    "path": "/Users/new/vitrea-w34/side/VitreaReference.app",
+    "present": true,
+    "binarySha256": "9c6167b853b8f3d33074c4edc2f851c0f663e7293b2f423c4bb88496048551f1",
+    "binaryModifiedAt": "2026-09-23T01:10:58.032135+00:00",
+    "identifier": {
+      "command": [
+        "/usr/libexec/PlistBuddy",
+        "-c",
+        "Print :CFBundleIdentifier",
+        "/Users/new/vitrea-w34/side/VitreaReference.app/Contents/Info.plist"
+      ],
+      "exitCode": 0,
+      "stdout": "dev.vitrea.reference-apple.w34",
+      "stderr": ""
+    },
+    "signature": {
+      "command": [
+        "codesign",
+        "-dvvv",
+        "/Users/new/vitrea-w34/side/VitreaReference.app"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "Executable=/Users/new/vitrea-w34/side/VitreaReference.app/Contents/MacOS/VitreaReference\nIdentifier=dev.vitrea.reference-apple.w34\nFormat=app bundle with Mach-O thin (arm64)\nCodeDirectory v=20400 size=2231 flags=0x2(adhoc) hashes=63+3 location=embedded\nHash type=sha256 size=32\nCandidateCDHash sha256=830a00c6ff7b9ff74898c745e30e9335e31488a5\nCandidateCDHashFull sha256=830a00c6ff7b9ff74898c745e30e9335e31488a5108316b06dc0ee8c31633dba\nHash choices=sha256\nCMSDigest=830a00c6ff7b9ff74898c745e30e9335e31488a5108316b06dc0ee8c31633dba\nCMSDigestType=2\nCDHash=830a00c6ff7b9ff74898c745e30e9335e31488a5\nSignature=adhoc\nInfo.plist entries=7\nTeamIdentifier=not set\nSealed Resources version=2 rules=13 files=0\nInternal requirements count=0 size=12\nTotal signatures=1\nChosen signature=1"
+    },
+    "designatedRequirement": {
+      "command": [
+        "codesign",
+        "-d",
+        "-r-",
+        "/Users/new/vitrea-w34/side/VitreaReference.app"
+      ],
+      "exitCode": 0,
+      "stdout": "# designated => cdhash H\"830a00c6ff7b9ff74898c745e30e9335e31488a5\"",
+      "stderr": "Executable=/Users/new/vitrea-w34/side/VitreaReference.app/Contents/MacOS/VitreaReference"
+    },
+    "buildVersion": {
+      "command": [
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/vtool",
+        "-show-build",
+        "/Users/new/vitrea-w34/side/VitreaReference.app/Contents/MacOS/VitreaReference"
+      ],
+      "exitCode": 0,
+      "stdout": "/Users/new/vitrea-w34/side/VitreaReference.app/Contents/MacOS/VitreaReference:\nLoad command 11\n      cmd LC_BUILD_VERSION\n  cmdsize 32\n platform MACOS\n    minos 26.0\n      sdk 26.0\n   ntools 1\n     tool LD\n  version 1267.0",
+      "stderr": ""
+    }
+  },
+  "foreignProcessCount": 20,
+  "foreignProcesses": [
+    [
+      "40255",
+      "1",
+      "/Users/new/.nvm/versions/node/v24.18.0/bin/node /Users/new/.nvm/versions/node/v24.18.0/lib/node_modules/@playwright/cli/node_modules/playwright/cli.js run-cli-server --daemon-session=/Users/new/Library/Caches/ms-playwright/daemon/cd912897287dd5e2/mc.session"
+    ],
+    [
+      "40258",
+      "40255",
+      "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints,AutomationControlled --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --user-data-dir=/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/playwright_chromiumdev_profile-mzek2A --remote-debugging-port=60911 --no-startup-window"
+    ],
+    [
+      "40262",
+      "40258",
+      "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.57/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper --type=gpu-process --gpu-recent-crash-count=0 --disable-breakpad --headless --metrics-client-id=20e34cf7-42dd-4e01-afc6-2fabd109473c --noerrdialogs --user-data-dir=/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/playwright_chromiumdev_profile-mzek2A --gpu-preferences=WAAAAAAAAAAgAQAEAAAAAAAAAAAAAGAAQAAAAAAAAAADAAAAAAAAADgAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAKAAAAAAAAAAoAAAAAAAAAAgAAAAAAAAADAAAAAEAAAAAAAAAAAAAAAgAAAAAAAAACAAAAAAAAAA= --shared-files --field-trial-handle=1718379636,r,5975685969579401343,12155574227687897835,262144 --enable-features=CDPScreenshotNewSurface --disable-features=AutoDeElevate,AutomationControlled,AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,OptimizationHints,PaintHolding,RenderDocument,ThirdPartyStoragePartitioning,Translate --variations-seed-version --pseudonymization-salt-handle=1935764596,r,9721998918727032374,3292406802632626905,4 --trace-process-track-uuid=3190708988185955192 --seatbelt-client=30"
+    ],
+    [
+      "40263",
+      "40258",
+      "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.57/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper --type=utility --utility-sub-type=network.mojom.NetworkService --lang=ko --service-sandbox-type=network --mute-audio --metrics-client-id=20e34cf7-42dd-4e01-afc6-2fabd109473c --noerrdialogs --user-data-dir=/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/playwright_chromiumdev_profile-mzek2A --shared-files --field-trial-handle=1718379636,r,5975685969579401343,12155574227687897835,262144 --enable-features=CDPScreenshotNewSurface --disable-features=AutoDeElevate,AutomationControlled,AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,OptimizationHints,PaintHolding,RenderDocument,ThirdPartyStoragePartitioning,Translate --variations-seed-version --pseudonymization-salt-handle=1935764596,r,9721998918727032374,3292406802632626905,4 --trace-process-track-uuid=3190708989122997041 --seatbelt-client=30"
+    ],
+    [
+      "40264",
+      "40258",
+      "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.57/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper --type=utility --utility-sub-type=storage.mojom.StorageService --lang=ko --service-sandbox-type=service --mute-audio --metrics-client-id=20e34cf7-42dd-4e01-afc6-2fabd109473c --noerrdialogs --user-data-dir=/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/playwright_chromiumdev_profile-mzek2A --shared-files --field-trial-handle=1718379636,r,5975685969579401343,12155574227687897835,262144 --enable-features=CDPScreenshotNewSurface --disable-features=AutoDeElevate,AutomationControlled,AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,OptimizationHints,PaintHolding,RenderDocument,ThirdPartyStoragePartitioning,Translate --variations-seed-version --pseudonymization-salt-handle=1935764596,r,9721998918727032374,3292406802632626905,4 --trace-process-track-uuid=3190708990060038890 --seatbelt-client=45"
+    ],
+    [
+      "40265",
+      "40258",
+      "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.57/Helpers/Google Chrome Helper (Alerts).app/Contents/MacOS/Google Chrome Helper (Alerts) --type=utility --utility-sub-type=mac_notifications.mojom.MacNotificationProvider --lang=ko --service-sandbox-type=none --mute-audio --message-loop-type-ui --metrics-client-id=20e34cf7-42dd-4e01-afc6-2fabd109473c --noerrdialogs --user-data-dir=/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/playwright_chromiumdev_profile-mzek2A --shared-files --field-trial-handle=1718379636,r,5975685969579401343,12155574227687897835,262144 --enable-features=CDPScreenshotNewSurface --disable-features=AutoDeElevate,AutomationControlled,AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,OptimizationHints,PaintHolding,RenderDocument,ThirdPartyStoragePartitioning,Translate --variations-seed-version --pseudonymization-salt-handle=1935764596,r,9721998918727032374,3292406802632626905,4 --trace-process-track-uuid=3190708990997080739"
+    ],
+    [
+      "40266",
+      "40258",
+      "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.57/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer) --type=renderer --top-chrome-webui --metrics-client-id=20e34cf7-42dd-4e01-afc6-2fabd109473c --noerrdialogs --user-data-dir=/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/playwright_chromiumdev_profile-mzek2A --disable-back-forward-cache --disable-background-timer-throttling --disable-breakpad --force-color-profile=srgb --remote-debugging-port=60911 --allow-pre-commit-input --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --lang=ko --num-raster-threads=4 --enable-zero-copy --enable-gpu-memory-buffer-compositor-resources --enable-main-frame-before-activation --renderer-client-id=6 --launch-time-ticks=420587959587 --shared-files --field-trial-handle=1718379636,r,5975685969579401343,12155574227687897835,262144 --enable-features=CDPScreenshotNewSurface --disable-features=AutoDeElevate,AutomationControlled,AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,OptimizationHints,PaintHolding,RenderDocument,ThirdPartyStoragePartitioning,Translate --variations-seed-version --pseudonymization-salt-handle=1935764596,r,9721998918727032374,3292406802632626905,4 --trace-process-track-uuid=3190708991934122588 --seatbelt-client=80"
+    ],
+    [
+      "40272",
+      "40258",
+      "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.57/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer) --type=renderer --metrics-client-id=20e34cf7-42dd-4e01-afc6-2fabd109473c --noerrdialogs --user-data-dir=/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/playwright_chromiumdev_profile-mzek2A --disable-back-forward-cache --disable-background-timer-throttling --disable-breakpad --force-color-profile=srgb --remote-debugging-port=60911 --allow-pre-commit-input --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --lang=ko --num-raster-threads=4 --enable-zero-copy --enable-gpu-memory-buffer-compositor-resources --enable-main-frame-before-activation --renderer-client-id=9 --launch-time-ticks=420589066066 --shared-files --field-trial-handle=1718379636,r,5975685969579401343,12155574227687897835,262144 --enable-features=CDPScreenshotNewSurface --disable-features=AutoDeElevate,AutomationControlled,AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,OptimizationHints,PaintHolding,RenderDocument,ThirdPartyStoragePartitioning,Translate --variations-seed-version --pseudonymization-salt-handle=1935764596,r,9721998918727032374,3292406802632626905,4 --trace-process-track-uuid=3190708994745248135 --seatbelt-client=83"
+    ],
+    [
+      "45150",
+      "40258",
+      "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.57/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer) --type=renderer --metrics-client-id=20e34cf7-42dd-4e01-afc6-2fabd109473c --noerrdialogs --user-data-dir=/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/playwright_chromiumdev_profile-mzek2A --disable-back-forward-cache --disable-background-timer-throttling --disable-breakpad --force-color-profile=srgb --remote-debugging-port=60911 --allow-pre-commit-input --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --lang=ko --num-raster-threads=4 --enable-zero-copy --enable-gpu-memory-buffer-compositor-resources --enable-main-frame-before-activation --renderer-client-id=12 --launch-time-ticks=420699622251 --shared-files --field-trial-handle=1718379636,r,5975685969579401343,12155574227687897835,262144 --enable-features=CDPScreenshotNewSurface --disable-features=AutoDeElevate,AutomationControlled,AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,OptimizationHints,PaintHolding,RenderDocument,ThirdPartyStoragePartitioning,Translate --variations-seed-version --pseudonymization-salt-handle=1935764596,r,9721998918727032374,3292406802632626905,4 --trace-process-track-uuid=3190708997556373682 --seatbelt-client=100"
+    ],
+    [
+      "49317",
+      "1",
+      "/Users/new/.nvm/versions/node/v24.18.0/bin/node /Users/new/.nvm/versions/node/v24.18.0/lib/node_modules/@playwright/cli/node_modules/playwright/cli.js run-cli-server --daemon-session=/Users/new/Library/Caches/ms-playwright/daemon/cd912897287dd5e2/default.session"
+    ],
+    [
+      "49322",
+      "49317",
+      "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints,AutomationControlled --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --user-data-dir=/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/playwright_chromiumdev_profile-gngChP --remote-debugging-port=61164 --no-startup-window"
+    ],
+    [
+      "49328",
+      "49322",
+      "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.57/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper --type=gpu-process --gpu-recent-crash-count=0 --disable-breakpad --headless --metrics-client-id=20e34cf7-42dd-4e01-afc6-2fabd109473c --noerrdialogs --user-data-dir=/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/playwright_chromiumdev_profile-gngChP --gpu-preferences=WAAAAAAAAAAgAQAEAAAAAAAAAAAAAGAAQAAAAAAAAAADAAAAAAAAADgAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAKAAAAAAAAAAoAAAAAAAAAAgAAAAAAAAADAAAAAEAAAAAAAAAAAAAAAgAAAAAAAAACAAAAAAAAAA= --shared-files --field-trial-handle=1718379636,r,9240497225429440644,8335496755061586111,262144 --enable-features=CDPScreenshotNewSurface --disable-features=AutoDeElevate,AutomationControlled,AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,OptimizationHints,PaintHolding,RenderDocument,ThirdPartyStoragePartitioning,Translate --variations-seed-version --pseudonymization-salt-handle=1935764596,r,12033799374276832127,17138671993964805238,4 --trace-process-track-uuid=3190708988185955192 --seatbelt-client=26"
+    ],
+    [
+      "49329",
+      "49322",
+      "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.57/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper --type=utility --utility-sub-type=network.mojom.NetworkService --lang=ko --service-sandbox-type=network --mute-audio --metrics-client-id=20e34cf7-42dd-4e01-afc6-2fabd109473c --noerrdialogs --user-data-dir=/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/playwright_chromiumdev_profile-gngChP --shared-files --field-trial-handle=1718379636,r,9240497225429440644,8335496755061586111,262144 --enable-features=CDPScreenshotNewSurface --disable-features=AutoDeElevate,AutomationControlled,AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,OptimizationHints,PaintHolding,RenderDocument,ThirdPartyStoragePartitioning,Translate --variations-seed-version --pseudonymization-salt-handle=1935764596,r,12033799374276832127,17138671993964805238,4 --trace-process-track-uuid=3190708989122997041 --seatbelt-client=26"
+    ],
+    [
+      "49330",
+      "49322",
+      "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.57/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper --type=utility --utility-sub-type=storage.mojom.StorageService --lang=ko --service-sandbox-type=service --mute-audio --metrics-client-id=20e34cf7-42dd-4e01-afc6-2fabd109473c --noerrdialogs --user-data-dir=/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/playwright_chromiumdev_profile-gngChP --shared-files --field-trial-handle=1718379636,r,9240497225429440644,8335496755061586111,262144 --enable-features=CDPScreenshotNewSurface --disable-features=AutoDeElevate,AutomationControlled,AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,OptimizationHints,PaintHolding,RenderDocument,ThirdPartyStoragePartitioning,Translate --variations-seed-version --pseudonymization-salt-handle=1935764596,r,12033799374276832127,17138671993964805238,4 --trace-process-track-uuid=3190708990060038890 --seatbelt-client=34"
+    ],
+    [
+      "49331",
+      "49322",
+      "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.57/Helpers/Google Chrome Helper (Alerts).app/Contents/MacOS/Google Chrome Helper (Alerts) --type=utility --utility-sub-type=mac_notifications.mojom.MacNotificationProvider --lang=ko --service-sandbox-type=none --mute-audio --message-loop-type-ui --metrics-client-id=20e34cf7-42dd-4e01-afc6-2fabd109473c --noerrdialogs --user-data-dir=/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/playwright_chromiumdev_profile-gngChP --shared-files --field-trial-handle=1718379636,r,9240497225429440644,8335496755061586111,262144 --enable-features=CDPScreenshotNewSurface --disable-features=AutoDeElevate,AutomationControlled,AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,OptimizationHints,PaintHolding,RenderDocument,ThirdPartyStoragePartitioning,Translate --variations-seed-version --pseudonymization-salt-handle=1935764596,r,12033799374276832127,17138671993964805238,4 --trace-process-track-uuid=3190708990997080739"
+    ],
+    [
+      "49332",
+      "49322",
+      "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.57/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer) --type=renderer --top-chrome-webui --metrics-client-id=20e34cf7-42dd-4e01-afc6-2fabd109473c --noerrdialogs --user-data-dir=/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/playwright_chromiumdev_profile-gngChP --disable-back-forward-cache --disable-background-timer-throttling --disable-breakpad --force-color-profile=srgb --remote-debugging-port=61164 --allow-pre-commit-input --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --lang=ko --num-raster-threads=4 --enable-zero-copy --enable-gpu-memory-buffer-compositor-resources --enable-main-frame-before-activation --renderer-client-id=6 --launch-time-ticks=420802847900 --shared-files --field-trial-handle=1718379636,r,9240497225429440644,8335496755061586111,262144 --enable-features=CDPScreenshotNewSurface --disable-features=AutoDeElevate,AutomationControlled,AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,OptimizationHints,PaintHolding,RenderDocument,ThirdPartyStoragePartitioning,Translate --variations-seed-version --pseudonymization-salt-handle=1935764596,r,12033799374276832127,17138671993964805238,4 --trace-process-track-uuid=3190708991934122588 --seatbelt-client=80"
+    ],
+    [
+      "49335",
+      "49322",
+      "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.57/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer) --type=renderer --metrics-client-id=20e34cf7-42dd-4e01-afc6-2fabd109473c --noerrdialogs --user-data-dir=/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/playwright_chromiumdev_profile-gngChP --disable-back-forward-cache --disable-background-timer-throttling --disable-breakpad --force-color-profile=srgb --remote-debugging-port=61164 --allow-pre-commit-input --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --lang=ko --num-raster-threads=4 --enable-zero-copy --enable-gpu-memory-buffer-compositor-resources --enable-main-frame-before-activation --renderer-client-id=7 --launch-time-ticks=420802887667 --shared-files --field-trial-handle=1718379636,r,9240497225429440644,8335496755061586111,262144 --enable-features=CDPScreenshotNewSurface --disable-features=AutoDeElevate,AutomationControlled,AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,OptimizationHints,PaintHolding,RenderDocument,ThirdPartyStoragePartitioning,Translate --variations-seed-version --pseudonymization-salt-handle=1935764596,r,12033799374276832127,17138671993964805238,4 --trace-process-track-uuid=3190708992871164437 --seatbelt-client=80"
+    ],
+    [
+      "49372",
+      "49322",
+      "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.57/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer) --type=renderer --metrics-client-id=20e34cf7-42dd-4e01-afc6-2fabd109473c --noerrdialogs --user-data-dir=/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/playwright_chromiumdev_profile-gngChP --disable-back-forward-cache --disable-background-timer-throttling --disable-breakpad --force-color-profile=srgb --remote-debugging-port=61164 --allow-pre-commit-input --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --lang=ko --num-raster-threads=4 --enable-zero-copy --enable-gpu-memory-buffer-compositor-resources --enable-main-frame-before-activation --renderer-client-id=12 --launch-time-ticks=420805225772 --shared-files --field-trial-handle=1718379636,r,9240497225429440644,8335496755061586111,262144 --enable-features=CDPScreenshotNewSurface --disable-features=AutoDeElevate,AutomationControlled,AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,OptimizationHints,PaintHolding,RenderDocument,ThirdPartyStoragePartitioning,Translate --variations-seed-version --pseudonymization-salt-handle=1935764596,r,12033799374276832127,17138671993964805238,4 --trace-process-track-uuid=3190708997556373682 --seatbelt-client=98"
+    ],
+    [
+      "49374",
+      "49373",
+      "npm exec @playwright/cli run-code async page => {\\012  const code = 'VIS-041';\\012  const body = async () => (await page.evaluate(() => document.body.innerText)).replace(/\\n+/g, ' | ');\\012  const until = async (re, tries) => { for (let i = 0; i < tries; i++) { if (re.test(await body())) return true; await page.waitForTimeout(3000); } return false; };\\012  await page.goto('https://tss.ucsd.edu/fiori#YStudent-Overview', { waitUntil: 'domcontentloaded' }); if (!await until(/TSS Apps - Main Campus/, 12)) return code + ' :: OVERVIEW_FAILED ' + (await body()).slice(0, 100);\\012  await page.waitForTimeout(2000);\\012  await page.goto('https://tss.ucsd.edu/fiori#YSchedule-view', { waitUntil: 'domcontentloaded' });\\012  if (!await until(/Adapt Filters/, 12)) return code + ' :: SCHEDULE_APP_FAILED ' + (await body()).slice(0, 100);\\012  await page.getByRole('searchbox').first().fill(code);\\012  await page.getByRole('button', { name: 'Go' }).last().click();\\012  await page.waitForTimeout(8000);\\012  const row = page.getByRole('row', { name: new RegExp('^' + code + ' ') }).first();\\012  if (await row.count() === 0) return code + ' :: NOT_OFFERED';\\012  await row.getByRole('img', { name: 'Navigation' }).click();\\012  await page.waitForTimeout(5000);\\012  const href = await page.evaluate(() => location.href);\\012  const mid = (href.match(/ModuleID='(\\d+)'/) || [])[1] || '';\\012  if (!mid) return code + ' :: NO_MODULE_ID';\\012  await page.goto(\"https://tss.ucsd.edu/fiori#YSchedule-view&/YUCSD_CON_MODULE(AcademicYear='2026',AcademicPeriod='2',ModuleID='\" + mid + \"')?layout=MidColumnFullScreen\", { waitUntil: 'domcontentloaded' });\\012  let t = '';\\012  for (let i = 0; i < 8; i++) { await page.waitForTimeout(4000); t = await body(); if (new RegExp(code + ' \\\\(P-').test(t) && /Go To Booking/.test(t)) break; }\\012  const pk = [...t.matchAll(new RegExp(code + ' \\\\(P-([\\\\d-]+)\\\\) \\\\| (SE\\\\d+) \\\\| ([\\\\s\\\\S]*?)Go To Booking', 'g'))].map(x => {\\012    const st = x[3]; const av = (st.match(/Available: (\\d+)/) || [])[1]; const wl = (st.match(/Waitlisted: (\\d+)/) || [])[1];\\012    return 'P-' + x[1] + '=' + x[2] + (av !== undefined ? ' avail=' + av : '') + (/Waitlist Only/.test(st) ? ' WLONLY' : '') + (wl ? ' wl=' + wl : '');\\012  });\\012  const mt = [...t.matchAll(/(Lecture|Discussion|Seminar|Laboratory|Studio)\\t([MTWFSa, ]+\\d{1,2}:\\d{2} [AP]M - \\d{1,2}:\\d{2} [AP]M)/g)].map(x => x[1].slice(0, 3) + ':' + x[2].trim());\\012  const req = (t.match(/Allowed student classifications \\| ([^|]+(?:\\| [^|]+){0,3})/) || [])[1] || '';\\012  const fin = (t.match(/Final Examination (\\d\\d\\/\\d\\d\\/\\d{4} [^|\\t]{0,25})/) || [])[1] || '';\\012  return code + \" ::RAW:: \" + t.slice(t.indexOf(\"Class Sections\"), t.indexOf(\"Class Sections\") + 6000);\\012}"
+    ],
+    [
+      "49401",
+      "49374",
+      "node /Users/new/.nvm/versions/node/v24.18.0/bin/playwright-cli run-code async page => {\\012  const code = 'VIS-041';\\012  const body = async () => (await page.evaluate(() => document.body.innerText)).replace(/\\n+/g, ' | ');\\012  const until = async (re, tries) => { for (let i = 0; i < tries; i++) { if (re.test(await body())) return true; await page.waitForTimeout(3000); } return false; };\\012  await page.goto('https://tss.ucsd.edu/fiori#YStudent-Overview', { waitUntil: 'domcontentloaded' }); if (!await until(/TSS Apps - Main Campus/, 12)) return code + ' :: OVERVIEW_FAILED ' + (await body()).slice(0, 100);\\012  await page.waitForTimeout(2000);\\012  await page.goto('https://tss.ucsd.edu/fiori#YSchedule-view', { waitUntil: 'domcontentloaded' });\\012  if (!await until(/Adapt Filters/, 12)) return code + ' :: SCHEDULE_APP_FAILED ' + (await body()).slice(0, 100);\\012  await page.getByRole('searchbox').first().fill(code);\\012  await page.getByRole('button', { name: 'Go' }).last().click();\\012  await page.waitForTimeout(8000);\\012  const row = page.getByRole('row', { name: new RegExp('^' + code + ' ') }).first();\\012  if (await row.count() === 0) return code + ' :: NOT_OFFERED';\\012  await row.getByRole('img', { name: 'Navigation' }).click();\\012  await page.waitForTimeout(5000);\\012  const href = await page.evaluate(() => location.href);\\012  const mid = (href.match(/ModuleID='(\\d+)'/) || [])[1] || '';\\012  if (!mid) return code + ' :: NO_MODULE_ID';\\012  await page.goto(\"https://tss.ucsd.edu/fiori#YSchedule-view&/YUCSD_CON_MODULE(AcademicYear='2026',AcademicPeriod='2',ModuleID='\" + mid + \"')?layout=MidColumnFullScreen\", { waitUntil: 'domcontentloaded' });\\012  let t = '';\\012  for (let i = 0; i < 8; i++) { await page.waitForTimeout(4000); t = await body(); if (new RegExp(code + ' \\\\(P-').test(t) && /Go To Booking/.test(t)) break; }\\012  const pk = [...t.matchAll(new RegExp(code + ' \\\\(P-([\\\\d-]+)\\\\) \\\\| (SE\\\\d+) \\\\| ([\\\\s\\\\S]*?)Go To Booking', 'g'))].map(x => {\\012    const st = x[3]; const av = (st.match(/Available: (\\d+)/) || [])[1]; const wl = (st.match(/Waitlisted: (\\d+)/) || [])[1];\\012    return 'P-' + x[1] + '=' + x[2] + (av !== undefined ? ' avail=' + av : '') + (/Waitlist Only/.test(st) ? ' WLONLY' : '') + (wl ? ' wl=' + wl : '');\\012  });\\012  const mt = [...t.matchAll(/(Lecture|Discussion|Seminar|Laboratory|Studio)\\t([MTWFSa, ]+\\d{1,2}:\\d{2} [AP]M - \\d{1,2}:\\d{2} [AP]M)/g)].map(x => x[1].slice(0, 3) + ':' + x[2].trim());\\012  const req = (t.match(/Allowed student classifications \\| ([^|]+(?:\\| [^|]+){0,3})/) || [])[1] || '';\\012  const fin = (t.match(/Final Examination (\\d\\d\\/\\d\\d\\/\\d{4} [^|\\t]{0,25})/) || [])[1] || '';\\012  return code + \" ::RAW:: \" + t.slice(t.indexOf(\"Class Sections\"), t.indexOf(\"Class Sections\") + 6000);\\012}"
+    ]
+  ],
+  "idleScope": "Instantaneous process census, not a browser idle attestation."
+}
