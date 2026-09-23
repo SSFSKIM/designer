@@ -1,6 +1,8 @@
 # W34 — the contour wave: the capture that identifies Apple's macOS 27 contour stroke (2026-09-23)
 
-**Status: CHARTERED 2026-09-23, v3 — two review rounds folded (nine findings, then three on the split's execution contracts); G0 open.** Chartered
+**Status: G1 DELIVERED 2026-09-24 for parent review/merge; G2 awaits that merge.**
+The v3 charter folded two review rounds (nine findings, then three on the split's execution
+contracts); G0 merged and Decision Log 1 is ruled. Chartered
 by the parent on the user's "W34 contour capture wave (Recommended)" after the 0.23.0 publish
 (main `011de142`), under the standing "rest on your judgement" and the routing the user set on
 2026-09-22 (X9). This is the wave W33 Decision Log 3 named when it ruled "stop": the identifying
@@ -528,7 +530,7 @@ grant; G2 needs neither.
 | child | status |
 | --- | --- |
 | G0 | DELIVERED for independent review — phase grid unreachable, 148 cells/pass declared, side active and canonical pixel check positive; DL1 ruling and review/merge pending (§5.174). Original grant recovery deferred by DL4 **MERGED 2026-09-23 as `d2201845`; Decision Log 1 ruled at the merge.** |
-| G1 | CHARTERED, opens after G0's merge |
+| G1 | DELIVERED 2026-09-24 for parent review/merge — all 40 runs admitted, 592/592 cells published, separate bars and archive-only replay complete (§5.175); G2 not opened |
 | G2 | CHARTERED, opens after G1's merge |
 | G3 | CONDITIONAL on Decision Log 2 |
 
@@ -692,3 +694,11 @@ G1 exclusivity remains the parent's decision. Subsequent reads currently report 
   tests reproduced all three defects before the fixes. The two operational bare-probe
   instructions above now name the guarded launcher. No closure declaration number changed;
   the full 148-cell recommendation and pending DL1 are unchanged.
+
+- 2026-09-24 (G1 delivered, §5.175): all 28 normal and 12 long sentinel runs admitted,
+  no refusal or quarantine; 592/592 cells materialized only after the full repeat archive
+  was committed. Normal/long bars published separately on 336/16 non-holdout cells, with
+  maximum admitted envelopes 0.5/0.223684211 byte and 192 under-populated normal 1x arc bins
+  unmeasured. Archive-only instrument and alignment replay reproduce 2,400 observations;
+  holdout producer payloads stay sealed and the receipt remains unspent. Mode68 restored;
+  freeze1,818 and all required checks pass. Parent review/merge precedes G2; no fit or render.

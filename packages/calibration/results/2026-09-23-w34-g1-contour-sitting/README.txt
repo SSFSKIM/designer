@@ -6,6 +6,7 @@ The side bundle was not rebuilt or re-granted. The display returned to mode 68.
 No browser, vitrea render, native model fit or holdout receipt ran in this gate.
 
 Records
+  sitting.json                   Final structured sitting record, bars, checks and hashes.
   sitting-capture-complete.json   Immutable capture checkpoint and eight pass wall clocks.
                                  G0 rehearsal intervals are explicitly distinguished from
                                  process wall clocks; no new G1 dry rehearsal was run.
@@ -24,6 +25,7 @@ Evidence and access boundary
   bar.json                       Normal seven-run calibration/validation bar.
   sentinel-bar.json              Long-protocol three-run calibration/validation bar.
   archive-only-replay.json        Instrument replay with raw-root access forbidden.
+  archive-alignment-replay.json   Alignment fits independently recomputed from archived inputs.
   holdout/                       Producer-only precomputed held bars, never analytically
                                  exposed by G1. Bulk producer files are retained beside
                                  per-cell, receipt-compatible payloads under holdout/bars/.

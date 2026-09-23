@@ -5907,3 +5907,26 @@ recipe and positively capture it; do not rebuild it or grant `build-probe`. Reco
 happens to the side grant then. The side's first post-grant launch also failed active-pose
 attestation; a later quiet launch attested and matched a canonical fixture byte-for-byte,
 but the first-launch cause remains unidentified and the failed reading stays beside it.
+
+
+## W34 G1: the captured repeat bar preserves the remaining identification limits
+
+2026-09-24, §5.175; evidence `results/2026-09-23-w34-g1-contour-sitting/`.
+The G0 declaration above is now captured at seven normal runs per pass, with three separate
+long sentinels; 592/592 cells materialized and every run attested. This closes the absence
+of a native repeat bed, not the absence of an identified contour law.
+
+The actual 1x normal masks leave 192 under-populated arc bin/shell rows across twelve
+rectangle cells, matching sixteen per cell. They remain unmeasured; a newly declared
+sampling/geometry design, not retrospective bin pooling, must close that coverage gap.
+The normal maximum admitted envelope is 0.5 byte; the long maximum is 0.2236842105263158
+on dark-active 2x straights, with 0.17647058823529413 on arcs. Quiet strata are finite-run
+observations, not zero variability. The long arm has only three runs and does not inherit
+the normal arm's seven-run state-discovery convention. Which arm is settled and whether
+dwell or order explains the G0 protocol dependence remain unresolved; a factored experiment
+is still the work needed if G2's inference depends on them. No tolerance was widened.
+
+The phase mechanism, ordinary-fill/glass transfer, body/coverage ambiguity, radius-scaled
+cubic uncertainty and continuous-native/circular-web mismatch remain as recorded above.
+G2 now has the replayable pixels and published populations to decide identification at
+that resolution. Original-grant recovery remains DL4's wave-close work; G1 did not touch TCC.
