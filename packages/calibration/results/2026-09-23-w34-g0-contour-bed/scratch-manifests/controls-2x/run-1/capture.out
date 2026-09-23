@@ -1,0 +1,16 @@
+capturing 12 fixtures via screencapturekit at 2.0x (interleaved)
+  [1/12] apple-macos-27.0-2x-light-standard-glass0.5/gradient__circular__rest byte-stable
+  [2/12] apple-macos-27.0-2x-light-standard-glass0.5/grey__none__rest byte-stable EMPTY(==background)
+  [3/12] apple-macos-27.0-2x-light-standard-glass0.5/split__none__rest byte-stable EMPTY(==background)
+  [4/12] apple-macos-27.0-2x-light-standard-glass0.5/black__opaque-white__rest byte-stable
+  [5/12] apple-macos-27.0-2x-light-standard-glass0.5/black__none__rest byte-stable EMPTY(==background)
+  [6/12] apple-macos-27.0-2x-light-standard-glass0.5/white__none__rest byte-stable EMPTY(==background)
+  [7/12] apple-macos-27.0-2x-light-standard-glass0.5/gradient__none__rest byte-stable EMPTY(==background)
+  [8/12] apple-macos-27.0-2x-light-standard-glass0.5/split__circular__rest byte-stable
+  [9/12] apple-macos-27.0-2x-light-standard-glass0.5/white__opaque-black__rest byte-stable
+  [10/12] apple-macos-27.0-2x-light-standard-glass0.5/grey__continuous__rest byte-stable
+  [11/12] apple-macos-27.0-2x-light-standard-glass0.5/checkerboard__circular__rest byte-stable
+  [12/12] apple-macos-27.0-2x-light-standard-glass0.5/grey__circular__rest byte-stable
+manifest → /Users/new/vitrea-w34/scratch/controls-2x/run-1/manifest.json
+CAVEAT: Narrowed by --scenes to 12 cells over 1 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root — publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits.
+CAVEAT: 5 of 12 fixtures are PIXEL-IDENTICAL to their own background raster: the component contributed no pixels whatsoever. These carry zero information about shape or material and exist only to exercise the diff pipeline end to end.

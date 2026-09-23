@@ -1,0 +1,10 @@
+capturing 4 fixtures via screencapturekit at 2.0x (interleaved)
+presenting INACTIVE: key=false NSApp.isActive=false policy=accessory canBecomeKey=false
+  [1/4] apple-macos-27.0-2x-light-standard-glass0.5/grey__circular__inactive byte-stable
+  [2/4] apple-macos-27.0-2x-light-standard-glass0.5/grey__none__inactive byte-stable EMPTY(==background)
+  [3/4] apple-macos-27.0-2x-dark-standard-glass0.5/grey__circular__inactive byte-stable
+  [4/4] apple-macos-27.0-2x-dark-standard-glass0.5/grey__none__inactive byte-stable EMPTY(==background)
+manifest → /Users/new/vitrea-w34/scratch/inactive/run-1/manifest.json
+CAVEAT: Narrowed by --scenes to 4 cells over 2 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root — publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits.
+CAVEAT: 4 of 4 fixtures were captured in the INACTIVE pose, which is what this run is: the .accessory activation policy, a window that cannot become key, and no activation on any path (Capture.presentInactive). Every entry carries a per-cell `presentation` attestation sampled immediately before its capture, with `isKeyWindow` and `appIsActive` recorded separately — claims §5.134 §5's inversion of `presentedActive`, which is written false here rather than left absent as it is on all 121 recovered fixtures. These cells record the window-recede pose deliberately and are NOT comparable with the active bed's cells of the same scene.
+CAVEAT: 2 of 4 fixtures are PIXEL-IDENTICAL to their own background raster: the component contributed no pixels whatsoever. These carry zero information about shape or material and exist only to exercise the diff pipeline end to end.

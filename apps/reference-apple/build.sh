@@ -36,7 +36,10 @@ BUNDLE_ID="${VITREA_BUNDLE_ID:-dev.vitrea.reference-apple}"
 # that output. Both historical bundles share an identifier and must be protected
 # in every checkout, not only the checkout this script was invoked from (§5.174).
 OUT="$(python3 -c 'import os,sys; print(os.path.realpath(sys.argv[1]))' "$OUT")"
-case "$OUT/" in
+# The macOS volume may be case-insensitive. Changing spelling must not bypass
+# the same protected location; this guard does not change any binary input.
+OUT_CHECK="$(printf '%s/' "$OUT" | tr '[:upper:]' '[:lower:]')"
+case "$OUT_CHECK" in
   */apps/reference-apple/build/*|*/apps/reference-apple/build-probe/*)
     if [ "${VITREA_ALLOW_PROTECTED_REBUILD:-0}" != "1" ]; then
       echo "REFUSED: protected output $OUT. Use an external VITREA_BUILD_OUT and a distinct VITREA_BUNDLE_ID; an intentional protected rebuild requires VITREA_ALLOW_PROTECTED_REBUILD=1." >&2

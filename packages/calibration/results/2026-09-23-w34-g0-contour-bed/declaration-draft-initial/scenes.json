@@ -1,0 +1,2604 @@
+{
+  "version": 1,
+  "$comment": {
+    "purpose": "W34 contour identification; probe only; no canonical bed changes.",
+    "colours": "Circular 120x44 anchor carries eight greys and six chromatic solids.",
+    "structure": "Eight encoded gradients, four matched local-colour steps, pitches 4/16/64.",
+    "geometry": "Six matched geometry contrasts over grey128, white and red; full colour product declined.",
+    "controls": "Every backdrop has a no-glass reference; seven paths have both opaque high-contrast fills. Controls captured in light only, separately in both poses/scales; these are native-only.",
+    "phase": "UNREACHABLE at both scales by scratch capture. No window-origin workaround. Phase evidence hash bf0155e0e73f40806d18af98bf0bf8cf7fde7568753de94367ab5930a1fa88cf",
+    "bridge": "Canonical capsule over light-solid, dark-solid, photo and checkerboard; canonical holdout twins audited before split.",
+    "split": "All fixture roles probe. Identification uses the pinned wave-local split and wave.py, never bare --set probe.",
+    "sentinels": "Grey128 and checkerboard circular anchor also run three times at initial-settle8 with seed3401; normal seven-run sitting remains separate."
+  },
+  "canvas": {
+    "width": 320,
+    "height": 200
+  },
+  "backgrounds": {
+    "grey-0": {
+      "kind": "solid",
+      "srgb": [
+        0,
+        0,
+        0
+      ]
+    },
+    "grey-32": {
+      "kind": "solid",
+      "srgb": [
+        32,
+        32,
+        32
+      ]
+    },
+    "grey-64": {
+      "kind": "solid",
+      "srgb": [
+        64,
+        64,
+        64
+      ]
+    },
+    "grey-96": {
+      "kind": "solid",
+      "srgb": [
+        96,
+        96,
+        96
+      ]
+    },
+    "grey-128": {
+      "kind": "solid",
+      "srgb": [
+        128,
+        128,
+        128
+      ]
+    },
+    "grey-160": {
+      "kind": "solid",
+      "srgb": [
+        160,
+        160,
+        160
+      ]
+    },
+    "grey-208": {
+      "kind": "solid",
+      "srgb": [
+        208,
+        208,
+        208
+      ]
+    },
+    "grey-255": {
+      "kind": "solid",
+      "srgb": [
+        255,
+        255,
+        255
+      ]
+    },
+    "red": {
+      "kind": "solid",
+      "srgb": [
+        192,
+        32,
+        32
+      ]
+    },
+    "green": {
+      "kind": "solid",
+      "srgb": [
+        32,
+        192,
+        32
+      ]
+    },
+    "blue": {
+      "kind": "solid",
+      "srgb": [
+        32,
+        32,
+        192
+      ]
+    },
+    "yellow": {
+      "kind": "solid",
+      "srgb": [
+        192,
+        192,
+        32
+      ]
+    },
+    "magenta": {
+      "kind": "solid",
+      "srgb": [
+        192,
+        32,
+        192
+      ]
+    },
+    "cyan": {
+      "kind": "solid",
+      "srgb": [
+        32,
+        192,
+        192
+      ]
+    },
+    "gradient-0-small": {
+      "kind": "linear-gradient",
+      "from": [
+        96,
+        96,
+        96
+      ],
+      "to": [
+        160,
+        160,
+        160
+      ],
+      "angle": 0
+    },
+    "gradient-0-large": {
+      "kind": "linear-gradient",
+      "from": [
+        32,
+        32,
+        32
+      ],
+      "to": [
+        224,
+        224,
+        224
+      ],
+      "angle": 0
+    },
+    "gradient-45-small": {
+      "kind": "linear-gradient",
+      "from": [
+        96,
+        96,
+        96
+      ],
+      "to": [
+        160,
+        160,
+        160
+      ],
+      "angle": 45
+    },
+    "gradient-45-large": {
+      "kind": "linear-gradient",
+      "from": [
+        32,
+        32,
+        32
+      ],
+      "to": [
+        224,
+        224,
+        224
+      ],
+      "angle": 45
+    },
+    "gradient-90-small": {
+      "kind": "linear-gradient",
+      "from": [
+        96,
+        96,
+        96
+      ],
+      "to": [
+        160,
+        160,
+        160
+      ],
+      "angle": 90
+    },
+    "gradient-90-large": {
+      "kind": "linear-gradient",
+      "from": [
+        32,
+        32,
+        32
+      ],
+      "to": [
+        224,
+        224,
+        224
+      ],
+      "angle": 90
+    },
+    "gradient-135-small": {
+      "kind": "linear-gradient",
+      "from": [
+        96,
+        96,
+        96
+      ],
+      "to": [
+        160,
+        160,
+        160
+      ],
+      "angle": 135
+    },
+    "gradient-135-large": {
+      "kind": "linear-gradient",
+      "from": [
+        32,
+        32,
+        32
+      ],
+      "to": [
+        224,
+        224,
+        224
+      ],
+      "angle": 135
+    },
+    "local-x-64": {
+      "kind": "split",
+      "from": [
+        64,
+        64,
+        64
+      ],
+      "to": [
+        128,
+        128,
+        128
+      ],
+      "axis": "x",
+      "position": 100
+    },
+    "local-x-192": {
+      "kind": "split",
+      "from": [
+        192,
+        192,
+        192
+      ],
+      "to": [
+        128,
+        128,
+        128
+      ],
+      "axis": "x",
+      "position": 100
+    },
+    "local-y-64": {
+      "kind": "split",
+      "from": [
+        64,
+        64,
+        64
+      ],
+      "to": [
+        128,
+        128,
+        128
+      ],
+      "axis": "y",
+      "position": 78
+    },
+    "local-y-192": {
+      "kind": "split",
+      "from": [
+        192,
+        192,
+        192
+      ],
+      "to": [
+        128,
+        128,
+        128
+      ],
+      "axis": "y",
+      "position": 78
+    },
+    "checkerboard-4": {
+      "kind": "checkerboard",
+      "cell": 4,
+      "a": [
+        0,
+        0,
+        0
+      ],
+      "b": [
+        255,
+        255,
+        255
+      ],
+      "$comment": "The finest pitch: below every plausible kernel width, so the material's response to it is flat and the cell reads the passband's far end."
+    },
+    "checkerboard": {
+      "kind": "checkerboard",
+      "cell": 16,
+      "a": [
+        0,
+        0,
+        0
+      ],
+      "b": [
+        255,
+        255,
+        255
+      ],
+      "$comment": "Spec-mandated. Every cell edge is a step edge, so one capture yields many edge-spread samples for blur system identification."
+    },
+    "checkerboard-64": {
+      "kind": "checkerboard",
+      "cell": 64,
+      "a": [
+        0,
+        0,
+        0
+      ],
+      "b": [
+        255,
+        255,
+        255
+      ],
+      "$comment": "Four times the canonical pitch. At this pitch the thin surfaces still read 2.00-2.10 device px while the thick ones read 6.00-6.75, which is the separation the wave is fitted on; rrect-sm is 64 px wide and centred, so it lies inside one uniform cell and its reading there is geometry rather than material."
+    },
+    "light-solid": {
+      "kind": "solid",
+      "srgb": [
+        242,
+        242,
+        247
+      ],
+      "$comment": "System light grey. The flat case: no backdrop detail, so tint and rim read alone."
+    },
+    "dark-solid": {
+      "kind": "solid",
+      "srgb": [
+        28,
+        28,
+        30
+      ],
+      "$comment": "System dark. Pairs with the dark-scheme profiles."
+    },
+    "photo": {
+      "kind": "synthetic-photo",
+      "seed": 20260825,
+      "$comment": "A deterministic multi-frequency colour field rather than a real photograph: it carries broadband detail and saturated hue transitions (what a photo contributes to a glass diff) with no licensed asset and no decode differences between the two renderers."
+    }
+  },
+  "components": {
+    "circular-120": {
+      "kind": "capsule-circular",
+      "size": [
+        120,
+        44
+      ]
+    },
+    "capsule-button": {
+      "kind": "capsule",
+      "size": [
+        120,
+        44
+      ],
+      "$comment": "The canonical control. Capsules are exact in vitrea's field family (S2), so this scene isolates material error from corner error."
+    },
+    "circular-160": {
+      "kind": "capsule-circular",
+      "size": [
+        160,
+        96
+      ]
+    },
+    "continuous-160": {
+      "kind": "capsule",
+      "size": [
+        160,
+        96
+      ]
+    },
+    "circular-200": {
+      "kind": "capsule-circular",
+      "size": [
+        200,
+        44
+      ]
+    },
+    "continuous-200": {
+      "kind": "capsule",
+      "size": [
+        200,
+        44
+      ]
+    },
+    "rectangle-120": {
+      "kind": "rrect",
+      "size": [
+        120,
+        44
+      ],
+      "radius": 12
+    },
+    "circular-120-opaque-0": {
+      "kind": "capsule-circular",
+      "size": [
+        120,
+        44
+      ],
+      "opaque": true,
+      "fillSRGB": [
+        0,
+        0,
+        0
+      ]
+    },
+    "circular-120-opaque-255": {
+      "kind": "capsule-circular",
+      "size": [
+        120,
+        44
+      ],
+      "opaque": true,
+      "fillSRGB": [
+        255,
+        255,
+        255
+      ]
+    },
+    "capsule-button-opaque-0": {
+      "kind": "capsule",
+      "size": [
+        120,
+        44
+      ],
+      "$comment": "The canonical control. Capsules are exact in vitrea's field family (S2), so this scene isolates material error from corner error.",
+      "opaque": true,
+      "fillSRGB": [
+        0,
+        0,
+        0
+      ]
+    },
+    "capsule-button-opaque-255": {
+      "kind": "capsule",
+      "size": [
+        120,
+        44
+      ],
+      "$comment": "The canonical control. Capsules are exact in vitrea's field family (S2), so this scene isolates material error from corner error.",
+      "opaque": true,
+      "fillSRGB": [
+        255,
+        255,
+        255
+      ]
+    },
+    "circular-160-opaque-0": {
+      "kind": "capsule-circular",
+      "size": [
+        160,
+        96
+      ],
+      "opaque": true,
+      "fillSRGB": [
+        0,
+        0,
+        0
+      ]
+    },
+    "circular-160-opaque-255": {
+      "kind": "capsule-circular",
+      "size": [
+        160,
+        96
+      ],
+      "opaque": true,
+      "fillSRGB": [
+        255,
+        255,
+        255
+      ]
+    },
+    "continuous-160-opaque-0": {
+      "kind": "capsule",
+      "size": [
+        160,
+        96
+      ],
+      "opaque": true,
+      "fillSRGB": [
+        0,
+        0,
+        0
+      ]
+    },
+    "continuous-160-opaque-255": {
+      "kind": "capsule",
+      "size": [
+        160,
+        96
+      ],
+      "opaque": true,
+      "fillSRGB": [
+        255,
+        255,
+        255
+      ]
+    },
+    "circular-200-opaque-0": {
+      "kind": "capsule-circular",
+      "size": [
+        200,
+        44
+      ],
+      "opaque": true,
+      "fillSRGB": [
+        0,
+        0,
+        0
+      ]
+    },
+    "circular-200-opaque-255": {
+      "kind": "capsule-circular",
+      "size": [
+        200,
+        44
+      ],
+      "opaque": true,
+      "fillSRGB": [
+        255,
+        255,
+        255
+      ]
+    },
+    "continuous-200-opaque-0": {
+      "kind": "capsule",
+      "size": [
+        200,
+        44
+      ],
+      "opaque": true,
+      "fillSRGB": [
+        0,
+        0,
+        0
+      ]
+    },
+    "continuous-200-opaque-255": {
+      "kind": "capsule",
+      "size": [
+        200,
+        44
+      ],
+      "opaque": true,
+      "fillSRGB": [
+        255,
+        255,
+        255
+      ]
+    },
+    "rectangle-120-opaque-0": {
+      "kind": "rrect",
+      "size": [
+        120,
+        44
+      ],
+      "radius": 12,
+      "opaque": true,
+      "fillSRGB": [
+        0,
+        0,
+        0
+      ]
+    },
+    "rectangle-120-opaque-255": {
+      "kind": "rrect",
+      "size": [
+        120,
+        44
+      ],
+      "radius": 12,
+      "opaque": true,
+      "fillSRGB": [
+        255,
+        255,
+        255
+      ]
+    },
+    "none": {
+      "kind": "none"
+    }
+  },
+  "tints": {},
+  "scenes": [
+    {
+      "id": "grey-0__circular-120__rest",
+      "background": "grey-0",
+      "component": "circular-120",
+      "state": "rest"
+    },
+    {
+      "id": "grey-32__circular-120__rest",
+      "background": "grey-32",
+      "component": "circular-120",
+      "state": "rest"
+    },
+    {
+      "id": "grey-64__circular-120__rest",
+      "background": "grey-64",
+      "component": "circular-120",
+      "state": "rest"
+    },
+    {
+      "id": "grey-96__circular-120__rest",
+      "background": "grey-96",
+      "component": "circular-120",
+      "state": "rest"
+    },
+    {
+      "id": "grey-128__circular-120__rest",
+      "background": "grey-128",
+      "component": "circular-120",
+      "state": "rest"
+    },
+    {
+      "id": "grey-160__circular-120__rest",
+      "background": "grey-160",
+      "component": "circular-120",
+      "state": "rest"
+    },
+    {
+      "id": "grey-208__circular-120__rest",
+      "background": "grey-208",
+      "component": "circular-120",
+      "state": "rest"
+    },
+    {
+      "id": "grey-255__circular-120__rest",
+      "background": "grey-255",
+      "component": "circular-120",
+      "state": "rest"
+    },
+    {
+      "id": "red__circular-120__rest",
+      "background": "red",
+      "component": "circular-120",
+      "state": "rest"
+    },
+    {
+      "id": "green__circular-120__rest",
+      "background": "green",
+      "component": "circular-120",
+      "state": "rest"
+    },
+    {
+      "id": "blue__circular-120__rest",
+      "background": "blue",
+      "component": "circular-120",
+      "state": "rest"
+    },
+    {
+      "id": "yellow__circular-120__rest",
+      "background": "yellow",
+      "component": "circular-120",
+      "state": "rest"
+    },
+    {
+      "id": "magenta__circular-120__rest",
+      "background": "magenta",
+      "component": "circular-120",
+      "state": "rest"
+    },
+    {
+      "id": "cyan__circular-120__rest",
+      "background": "cyan",
+      "component": "circular-120",
+      "state": "rest"
+    },
+    {
+      "id": "gradient-0-small__circular-120__rest",
+      "background": "gradient-0-small",
+      "component": "circular-120",
+      "state": "rest"
+    },
+    {
+      "id": "gradient-0-large__circular-120__rest",
+      "background": "gradient-0-large",
+      "component": "circular-120",
+      "state": "rest"
+    },
+    {
+      "id": "gradient-45-small__circular-120__rest",
+      "background": "gradient-45-small",
+      "component": "circular-120",
+      "state": "rest"
+    },
+    {
+      "id": "gradient-45-large__circular-120__rest",
+      "background": "gradient-45-large",
+      "component": "circular-120",
+      "state": "rest"
+    },
+    {
+      "id": "gradient-90-small__circular-120__rest",
+      "background": "gradient-90-small",
+      "component": "circular-120",
+      "state": "rest"
+    },
+    {
+      "id": "gradient-90-large__circular-120__rest",
+      "background": "gradient-90-large",
+      "component": "circular-120",
+      "state": "rest"
+    },
+    {
+      "id": "gradient-135-small__circular-120__rest",
+      "background": "gradient-135-small",
+      "component": "circular-120",
+      "state": "rest"
+    },
+    {
+      "id": "gradient-135-large__circular-120__rest",
+      "background": "gradient-135-large",
+      "component": "circular-120",
+      "state": "rest"
+    },
+    {
+      "id": "local-x-64__circular-120__rest",
+      "background": "local-x-64",
+      "component": "circular-120",
+      "state": "rest"
+    },
+    {
+      "id": "local-x-192__circular-120__rest",
+      "background": "local-x-192",
+      "component": "circular-120",
+      "state": "rest"
+    },
+    {
+      "id": "local-y-64__circular-120__rest",
+      "background": "local-y-64",
+      "component": "circular-120",
+      "state": "rest"
+    },
+    {
+      "id": "local-y-192__circular-120__rest",
+      "background": "local-y-192",
+      "component": "circular-120",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard-4__circular-120__rest",
+      "background": "checkerboard-4",
+      "component": "circular-120",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard__circular-120__rest",
+      "background": "checkerboard",
+      "component": "circular-120",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard-64__circular-120__rest",
+      "background": "checkerboard-64",
+      "component": "circular-120",
+      "state": "rest"
+    },
+    {
+      "id": "grey-128__capsule-button__rest",
+      "background": "grey-128",
+      "component": "capsule-button",
+      "state": "rest"
+    },
+    {
+      "id": "grey-255__capsule-button__rest",
+      "background": "grey-255",
+      "component": "capsule-button",
+      "state": "rest"
+    },
+    {
+      "id": "red__capsule-button__rest",
+      "background": "red",
+      "component": "capsule-button",
+      "state": "rest"
+    },
+    {
+      "id": "grey-128__circular-160__rest",
+      "background": "grey-128",
+      "component": "circular-160",
+      "state": "rest"
+    },
+    {
+      "id": "grey-255__circular-160__rest",
+      "background": "grey-255",
+      "component": "circular-160",
+      "state": "rest"
+    },
+    {
+      "id": "red__circular-160__rest",
+      "background": "red",
+      "component": "circular-160",
+      "state": "rest"
+    },
+    {
+      "id": "grey-128__continuous-160__rest",
+      "background": "grey-128",
+      "component": "continuous-160",
+      "state": "rest"
+    },
+    {
+      "id": "grey-255__continuous-160__rest",
+      "background": "grey-255",
+      "component": "continuous-160",
+      "state": "rest"
+    },
+    {
+      "id": "red__continuous-160__rest",
+      "background": "red",
+      "component": "continuous-160",
+      "state": "rest"
+    },
+    {
+      "id": "grey-128__circular-200__rest",
+      "background": "grey-128",
+      "component": "circular-200",
+      "state": "rest"
+    },
+    {
+      "id": "grey-255__circular-200__rest",
+      "background": "grey-255",
+      "component": "circular-200",
+      "state": "rest"
+    },
+    {
+      "id": "red__circular-200__rest",
+      "background": "red",
+      "component": "circular-200",
+      "state": "rest"
+    },
+    {
+      "id": "grey-128__continuous-200__rest",
+      "background": "grey-128",
+      "component": "continuous-200",
+      "state": "rest"
+    },
+    {
+      "id": "grey-255__continuous-200__rest",
+      "background": "grey-255",
+      "component": "continuous-200",
+      "state": "rest"
+    },
+    {
+      "id": "red__continuous-200__rest",
+      "background": "red",
+      "component": "continuous-200",
+      "state": "rest"
+    },
+    {
+      "id": "grey-128__rectangle-120__rest",
+      "background": "grey-128",
+      "component": "rectangle-120",
+      "state": "rest"
+    },
+    {
+      "id": "grey-255__rectangle-120__rest",
+      "background": "grey-255",
+      "component": "rectangle-120",
+      "state": "rest"
+    },
+    {
+      "id": "red__rectangle-120__rest",
+      "background": "red",
+      "component": "rectangle-120",
+      "state": "rest"
+    },
+    {
+      "id": "light-solid__capsule-button__rest",
+      "background": "light-solid",
+      "component": "capsule-button",
+      "state": "rest"
+    },
+    {
+      "id": "dark-solid__capsule-button__rest",
+      "background": "dark-solid",
+      "component": "capsule-button",
+      "state": "rest"
+    },
+    {
+      "id": "photo__capsule-button__rest",
+      "background": "photo",
+      "component": "capsule-button",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard__capsule-button__rest",
+      "background": "checkerboard",
+      "component": "capsule-button",
+      "state": "rest"
+    },
+    {
+      "id": "grey-255__circular-120-opaque-0__rest",
+      "background": "grey-255",
+      "component": "circular-120-opaque-0",
+      "state": "rest"
+    },
+    {
+      "id": "grey-0__circular-120-opaque-255__rest",
+      "background": "grey-0",
+      "component": "circular-120-opaque-255",
+      "state": "rest"
+    },
+    {
+      "id": "grey-255__capsule-button-opaque-0__rest",
+      "background": "grey-255",
+      "component": "capsule-button-opaque-0",
+      "state": "rest"
+    },
+    {
+      "id": "grey-0__capsule-button-opaque-255__rest",
+      "background": "grey-0",
+      "component": "capsule-button-opaque-255",
+      "state": "rest"
+    },
+    {
+      "id": "grey-255__circular-160-opaque-0__rest",
+      "background": "grey-255",
+      "component": "circular-160-opaque-0",
+      "state": "rest"
+    },
+    {
+      "id": "grey-0__circular-160-opaque-255__rest",
+      "background": "grey-0",
+      "component": "circular-160-opaque-255",
+      "state": "rest"
+    },
+    {
+      "id": "grey-255__continuous-160-opaque-0__rest",
+      "background": "grey-255",
+      "component": "continuous-160-opaque-0",
+      "state": "rest"
+    },
+    {
+      "id": "grey-0__continuous-160-opaque-255__rest",
+      "background": "grey-0",
+      "component": "continuous-160-opaque-255",
+      "state": "rest"
+    },
+    {
+      "id": "grey-255__circular-200-opaque-0__rest",
+      "background": "grey-255",
+      "component": "circular-200-opaque-0",
+      "state": "rest"
+    },
+    {
+      "id": "grey-0__circular-200-opaque-255__rest",
+      "background": "grey-0",
+      "component": "circular-200-opaque-255",
+      "state": "rest"
+    },
+    {
+      "id": "grey-255__continuous-200-opaque-0__rest",
+      "background": "grey-255",
+      "component": "continuous-200-opaque-0",
+      "state": "rest"
+    },
+    {
+      "id": "grey-0__continuous-200-opaque-255__rest",
+      "background": "grey-0",
+      "component": "continuous-200-opaque-255",
+      "state": "rest"
+    },
+    {
+      "id": "grey-255__rectangle-120-opaque-0__rest",
+      "background": "grey-255",
+      "component": "rectangle-120-opaque-0",
+      "state": "rest"
+    },
+    {
+      "id": "grey-0__rectangle-120-opaque-255__rest",
+      "background": "grey-0",
+      "component": "rectangle-120-opaque-255",
+      "state": "rest"
+    },
+    {
+      "id": "grey-0__none__rest",
+      "background": "grey-0",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "grey-32__none__rest",
+      "background": "grey-32",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "grey-64__none__rest",
+      "background": "grey-64",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "grey-96__none__rest",
+      "background": "grey-96",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "grey-128__none__rest",
+      "background": "grey-128",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "grey-160__none__rest",
+      "background": "grey-160",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "grey-208__none__rest",
+      "background": "grey-208",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "grey-255__none__rest",
+      "background": "grey-255",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "red__none__rest",
+      "background": "red",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "green__none__rest",
+      "background": "green",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "blue__none__rest",
+      "background": "blue",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "yellow__none__rest",
+      "background": "yellow",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "magenta__none__rest",
+      "background": "magenta",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "cyan__none__rest",
+      "background": "cyan",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "gradient-0-small__none__rest",
+      "background": "gradient-0-small",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "gradient-0-large__none__rest",
+      "background": "gradient-0-large",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "gradient-45-small__none__rest",
+      "background": "gradient-45-small",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "gradient-45-large__none__rest",
+      "background": "gradient-45-large",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "gradient-90-small__none__rest",
+      "background": "gradient-90-small",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "gradient-90-large__none__rest",
+      "background": "gradient-90-large",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "gradient-135-small__none__rest",
+      "background": "gradient-135-small",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "gradient-135-large__none__rest",
+      "background": "gradient-135-large",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "local-x-64__none__rest",
+      "background": "local-x-64",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "local-x-192__none__rest",
+      "background": "local-x-192",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "local-y-64__none__rest",
+      "background": "local-y-64",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "local-y-192__none__rest",
+      "background": "local-y-192",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard-4__none__rest",
+      "background": "checkerboard-4",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard__none__rest",
+      "background": "checkerboard",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "checkerboard-64__none__rest",
+      "background": "checkerboard-64",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "light-solid__none__rest",
+      "background": "light-solid",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "dark-solid__none__rest",
+      "background": "dark-solid",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "photo__none__rest",
+      "background": "photo",
+      "component": "none",
+      "state": "rest"
+    },
+    {
+      "id": "grey-0__circular-120__inactive",
+      "background": "grey-0",
+      "component": "circular-120",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-32__circular-120__inactive",
+      "background": "grey-32",
+      "component": "circular-120",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-64__circular-120__inactive",
+      "background": "grey-64",
+      "component": "circular-120",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-96__circular-120__inactive",
+      "background": "grey-96",
+      "component": "circular-120",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-128__circular-120__inactive",
+      "background": "grey-128",
+      "component": "circular-120",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-160__circular-120__inactive",
+      "background": "grey-160",
+      "component": "circular-120",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-208__circular-120__inactive",
+      "background": "grey-208",
+      "component": "circular-120",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-255__circular-120__inactive",
+      "background": "grey-255",
+      "component": "circular-120",
+      "state": "inactive"
+    },
+    {
+      "id": "red__circular-120__inactive",
+      "background": "red",
+      "component": "circular-120",
+      "state": "inactive"
+    },
+    {
+      "id": "green__circular-120__inactive",
+      "background": "green",
+      "component": "circular-120",
+      "state": "inactive"
+    },
+    {
+      "id": "blue__circular-120__inactive",
+      "background": "blue",
+      "component": "circular-120",
+      "state": "inactive"
+    },
+    {
+      "id": "yellow__circular-120__inactive",
+      "background": "yellow",
+      "component": "circular-120",
+      "state": "inactive"
+    },
+    {
+      "id": "magenta__circular-120__inactive",
+      "background": "magenta",
+      "component": "circular-120",
+      "state": "inactive"
+    },
+    {
+      "id": "cyan__circular-120__inactive",
+      "background": "cyan",
+      "component": "circular-120",
+      "state": "inactive"
+    },
+    {
+      "id": "gradient-0-small__circular-120__inactive",
+      "background": "gradient-0-small",
+      "component": "circular-120",
+      "state": "inactive"
+    },
+    {
+      "id": "gradient-0-large__circular-120__inactive",
+      "background": "gradient-0-large",
+      "component": "circular-120",
+      "state": "inactive"
+    },
+    {
+      "id": "gradient-45-small__circular-120__inactive",
+      "background": "gradient-45-small",
+      "component": "circular-120",
+      "state": "inactive"
+    },
+    {
+      "id": "gradient-45-large__circular-120__inactive",
+      "background": "gradient-45-large",
+      "component": "circular-120",
+      "state": "inactive"
+    },
+    {
+      "id": "gradient-90-small__circular-120__inactive",
+      "background": "gradient-90-small",
+      "component": "circular-120",
+      "state": "inactive"
+    },
+    {
+      "id": "gradient-90-large__circular-120__inactive",
+      "background": "gradient-90-large",
+      "component": "circular-120",
+      "state": "inactive"
+    },
+    {
+      "id": "gradient-135-small__circular-120__inactive",
+      "background": "gradient-135-small",
+      "component": "circular-120",
+      "state": "inactive"
+    },
+    {
+      "id": "gradient-135-large__circular-120__inactive",
+      "background": "gradient-135-large",
+      "component": "circular-120",
+      "state": "inactive"
+    },
+    {
+      "id": "local-x-64__circular-120__inactive",
+      "background": "local-x-64",
+      "component": "circular-120",
+      "state": "inactive"
+    },
+    {
+      "id": "local-x-192__circular-120__inactive",
+      "background": "local-x-192",
+      "component": "circular-120",
+      "state": "inactive"
+    },
+    {
+      "id": "local-y-64__circular-120__inactive",
+      "background": "local-y-64",
+      "component": "circular-120",
+      "state": "inactive"
+    },
+    {
+      "id": "local-y-192__circular-120__inactive",
+      "background": "local-y-192",
+      "component": "circular-120",
+      "state": "inactive"
+    },
+    {
+      "id": "checkerboard-4__circular-120__inactive",
+      "background": "checkerboard-4",
+      "component": "circular-120",
+      "state": "inactive"
+    },
+    {
+      "id": "checkerboard__circular-120__inactive",
+      "background": "checkerboard",
+      "component": "circular-120",
+      "state": "inactive"
+    },
+    {
+      "id": "checkerboard-64__circular-120__inactive",
+      "background": "checkerboard-64",
+      "component": "circular-120",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-128__capsule-button__inactive",
+      "background": "grey-128",
+      "component": "capsule-button",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-255__capsule-button__inactive",
+      "background": "grey-255",
+      "component": "capsule-button",
+      "state": "inactive"
+    },
+    {
+      "id": "red__capsule-button__inactive",
+      "background": "red",
+      "component": "capsule-button",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-128__circular-160__inactive",
+      "background": "grey-128",
+      "component": "circular-160",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-255__circular-160__inactive",
+      "background": "grey-255",
+      "component": "circular-160",
+      "state": "inactive"
+    },
+    {
+      "id": "red__circular-160__inactive",
+      "background": "red",
+      "component": "circular-160",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-128__continuous-160__inactive",
+      "background": "grey-128",
+      "component": "continuous-160",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-255__continuous-160__inactive",
+      "background": "grey-255",
+      "component": "continuous-160",
+      "state": "inactive"
+    },
+    {
+      "id": "red__continuous-160__inactive",
+      "background": "red",
+      "component": "continuous-160",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-128__circular-200__inactive",
+      "background": "grey-128",
+      "component": "circular-200",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-255__circular-200__inactive",
+      "background": "grey-255",
+      "component": "circular-200",
+      "state": "inactive"
+    },
+    {
+      "id": "red__circular-200__inactive",
+      "background": "red",
+      "component": "circular-200",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-128__continuous-200__inactive",
+      "background": "grey-128",
+      "component": "continuous-200",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-255__continuous-200__inactive",
+      "background": "grey-255",
+      "component": "continuous-200",
+      "state": "inactive"
+    },
+    {
+      "id": "red__continuous-200__inactive",
+      "background": "red",
+      "component": "continuous-200",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-128__rectangle-120__inactive",
+      "background": "grey-128",
+      "component": "rectangle-120",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-255__rectangle-120__inactive",
+      "background": "grey-255",
+      "component": "rectangle-120",
+      "state": "inactive"
+    },
+    {
+      "id": "red__rectangle-120__inactive",
+      "background": "red",
+      "component": "rectangle-120",
+      "state": "inactive"
+    },
+    {
+      "id": "light-solid__capsule-button__inactive",
+      "background": "light-solid",
+      "component": "capsule-button",
+      "state": "inactive"
+    },
+    {
+      "id": "dark-solid__capsule-button__inactive",
+      "background": "dark-solid",
+      "component": "capsule-button",
+      "state": "inactive"
+    },
+    {
+      "id": "photo__capsule-button__inactive",
+      "background": "photo",
+      "component": "capsule-button",
+      "state": "inactive"
+    },
+    {
+      "id": "checkerboard__capsule-button__inactive",
+      "background": "checkerboard",
+      "component": "capsule-button",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-255__circular-120-opaque-0__inactive",
+      "background": "grey-255",
+      "component": "circular-120-opaque-0",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-0__circular-120-opaque-255__inactive",
+      "background": "grey-0",
+      "component": "circular-120-opaque-255",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-255__capsule-button-opaque-0__inactive",
+      "background": "grey-255",
+      "component": "capsule-button-opaque-0",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-0__capsule-button-opaque-255__inactive",
+      "background": "grey-0",
+      "component": "capsule-button-opaque-255",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-255__circular-160-opaque-0__inactive",
+      "background": "grey-255",
+      "component": "circular-160-opaque-0",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-0__circular-160-opaque-255__inactive",
+      "background": "grey-0",
+      "component": "circular-160-opaque-255",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-255__continuous-160-opaque-0__inactive",
+      "background": "grey-255",
+      "component": "continuous-160-opaque-0",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-0__continuous-160-opaque-255__inactive",
+      "background": "grey-0",
+      "component": "continuous-160-opaque-255",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-255__circular-200-opaque-0__inactive",
+      "background": "grey-255",
+      "component": "circular-200-opaque-0",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-0__circular-200-opaque-255__inactive",
+      "background": "grey-0",
+      "component": "circular-200-opaque-255",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-255__continuous-200-opaque-0__inactive",
+      "background": "grey-255",
+      "component": "continuous-200-opaque-0",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-0__continuous-200-opaque-255__inactive",
+      "background": "grey-0",
+      "component": "continuous-200-opaque-255",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-255__rectangle-120-opaque-0__inactive",
+      "background": "grey-255",
+      "component": "rectangle-120-opaque-0",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-0__rectangle-120-opaque-255__inactive",
+      "background": "grey-0",
+      "component": "rectangle-120-opaque-255",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-0__none__inactive",
+      "background": "grey-0",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-32__none__inactive",
+      "background": "grey-32",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-64__none__inactive",
+      "background": "grey-64",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-96__none__inactive",
+      "background": "grey-96",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-128__none__inactive",
+      "background": "grey-128",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-160__none__inactive",
+      "background": "grey-160",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-208__none__inactive",
+      "background": "grey-208",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "grey-255__none__inactive",
+      "background": "grey-255",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "red__none__inactive",
+      "background": "red",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "green__none__inactive",
+      "background": "green",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "blue__none__inactive",
+      "background": "blue",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "yellow__none__inactive",
+      "background": "yellow",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "magenta__none__inactive",
+      "background": "magenta",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "cyan__none__inactive",
+      "background": "cyan",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "gradient-0-small__none__inactive",
+      "background": "gradient-0-small",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "gradient-0-large__none__inactive",
+      "background": "gradient-0-large",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "gradient-45-small__none__inactive",
+      "background": "gradient-45-small",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "gradient-45-large__none__inactive",
+      "background": "gradient-45-large",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "gradient-90-small__none__inactive",
+      "background": "gradient-90-small",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "gradient-90-large__none__inactive",
+      "background": "gradient-90-large",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "gradient-135-small__none__inactive",
+      "background": "gradient-135-small",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "gradient-135-large__none__inactive",
+      "background": "gradient-135-large",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "local-x-64__none__inactive",
+      "background": "local-x-64",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "local-x-192__none__inactive",
+      "background": "local-x-192",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "local-y-64__none__inactive",
+      "background": "local-y-64",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "local-y-192__none__inactive",
+      "background": "local-y-192",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "checkerboard-4__none__inactive",
+      "background": "checkerboard-4",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "checkerboard__none__inactive",
+      "background": "checkerboard",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "checkerboard-64__none__inactive",
+      "background": "checkerboard-64",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "light-solid__none__inactive",
+      "background": "light-solid",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "dark-solid__none__inactive",
+      "background": "dark-solid",
+      "component": "none",
+      "state": "inactive"
+    },
+    {
+      "id": "photo__none__inactive",
+      "background": "photo",
+      "component": "none",
+      "state": "inactive"
+    }
+  ],
+  "profiles": [
+    {
+      "key": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "colorScheme": "light",
+      "a11y": "standard",
+      "scenes": [
+        "grey-0__circular-120__rest",
+        "grey-32__circular-120__rest",
+        "grey-64__circular-120__rest",
+        "grey-96__circular-120__rest",
+        "grey-128__circular-120__rest",
+        "grey-160__circular-120__rest",
+        "grey-208__circular-120__rest",
+        "grey-255__circular-120__rest",
+        "red__circular-120__rest",
+        "green__circular-120__rest",
+        "blue__circular-120__rest",
+        "yellow__circular-120__rest",
+        "magenta__circular-120__rest",
+        "cyan__circular-120__rest",
+        "gradient-0-small__circular-120__rest",
+        "gradient-0-large__circular-120__rest",
+        "gradient-45-small__circular-120__rest",
+        "gradient-45-large__circular-120__rest",
+        "gradient-90-small__circular-120__rest",
+        "gradient-90-large__circular-120__rest",
+        "gradient-135-small__circular-120__rest",
+        "gradient-135-large__circular-120__rest",
+        "local-x-64__circular-120__rest",
+        "local-x-192__circular-120__rest",
+        "local-y-64__circular-120__rest",
+        "local-y-192__circular-120__rest",
+        "checkerboard-4__circular-120__rest",
+        "checkerboard__circular-120__rest",
+        "checkerboard-64__circular-120__rest",
+        "grey-128__capsule-button__rest",
+        "grey-255__capsule-button__rest",
+        "red__capsule-button__rest",
+        "grey-128__circular-160__rest",
+        "grey-255__circular-160__rest",
+        "red__circular-160__rest",
+        "grey-128__continuous-160__rest",
+        "grey-255__continuous-160__rest",
+        "red__continuous-160__rest",
+        "grey-128__circular-200__rest",
+        "grey-255__circular-200__rest",
+        "red__circular-200__rest",
+        "grey-128__continuous-200__rest",
+        "grey-255__continuous-200__rest",
+        "red__continuous-200__rest",
+        "grey-128__rectangle-120__rest",
+        "grey-255__rectangle-120__rest",
+        "red__rectangle-120__rest",
+        "light-solid__capsule-button__rest",
+        "dark-solid__capsule-button__rest",
+        "photo__capsule-button__rest",
+        "checkerboard__capsule-button__rest",
+        "grey-255__circular-120-opaque-0__rest",
+        "grey-0__circular-120-opaque-255__rest",
+        "grey-255__capsule-button-opaque-0__rest",
+        "grey-0__capsule-button-opaque-255__rest",
+        "grey-255__circular-160-opaque-0__rest",
+        "grey-0__circular-160-opaque-255__rest",
+        "grey-255__continuous-160-opaque-0__rest",
+        "grey-0__continuous-160-opaque-255__rest",
+        "grey-255__circular-200-opaque-0__rest",
+        "grey-0__circular-200-opaque-255__rest",
+        "grey-255__continuous-200-opaque-0__rest",
+        "grey-0__continuous-200-opaque-255__rest",
+        "grey-255__rectangle-120-opaque-0__rest",
+        "grey-0__rectangle-120-opaque-255__rest",
+        "grey-0__none__rest",
+        "grey-32__none__rest",
+        "grey-64__none__rest",
+        "grey-96__none__rest",
+        "grey-128__none__rest",
+        "grey-160__none__rest",
+        "grey-208__none__rest",
+        "grey-255__none__rest",
+        "red__none__rest",
+        "green__none__rest",
+        "blue__none__rest",
+        "yellow__none__rest",
+        "magenta__none__rest",
+        "cyan__none__rest",
+        "gradient-0-small__none__rest",
+        "gradient-0-large__none__rest",
+        "gradient-45-small__none__rest",
+        "gradient-45-large__none__rest",
+        "gradient-90-small__none__rest",
+        "gradient-90-large__none__rest",
+        "gradient-135-small__none__rest",
+        "gradient-135-large__none__rest",
+        "local-x-64__none__rest",
+        "local-x-192__none__rest",
+        "local-y-64__none__rest",
+        "local-y-192__none__rest",
+        "checkerboard-4__none__rest",
+        "checkerboard__none__rest",
+        "checkerboard-64__none__rest",
+        "light-solid__none__rest",
+        "dark-solid__none__rest",
+        "photo__none__rest",
+        "grey-0__circular-120__inactive",
+        "grey-32__circular-120__inactive",
+        "grey-64__circular-120__inactive",
+        "grey-96__circular-120__inactive",
+        "grey-128__circular-120__inactive",
+        "grey-160__circular-120__inactive",
+        "grey-208__circular-120__inactive",
+        "grey-255__circular-120__inactive",
+        "red__circular-120__inactive",
+        "green__circular-120__inactive",
+        "blue__circular-120__inactive",
+        "yellow__circular-120__inactive",
+        "magenta__circular-120__inactive",
+        "cyan__circular-120__inactive",
+        "gradient-0-small__circular-120__inactive",
+        "gradient-0-large__circular-120__inactive",
+        "gradient-45-small__circular-120__inactive",
+        "gradient-45-large__circular-120__inactive",
+        "gradient-90-small__circular-120__inactive",
+        "gradient-90-large__circular-120__inactive",
+        "gradient-135-small__circular-120__inactive",
+        "gradient-135-large__circular-120__inactive",
+        "local-x-64__circular-120__inactive",
+        "local-x-192__circular-120__inactive",
+        "local-y-64__circular-120__inactive",
+        "local-y-192__circular-120__inactive",
+        "checkerboard-4__circular-120__inactive",
+        "checkerboard__circular-120__inactive",
+        "checkerboard-64__circular-120__inactive",
+        "grey-128__capsule-button__inactive",
+        "grey-255__capsule-button__inactive",
+        "red__capsule-button__inactive",
+        "grey-128__circular-160__inactive",
+        "grey-255__circular-160__inactive",
+        "red__circular-160__inactive",
+        "grey-128__continuous-160__inactive",
+        "grey-255__continuous-160__inactive",
+        "red__continuous-160__inactive",
+        "grey-128__circular-200__inactive",
+        "grey-255__circular-200__inactive",
+        "red__circular-200__inactive",
+        "grey-128__continuous-200__inactive",
+        "grey-255__continuous-200__inactive",
+        "red__continuous-200__inactive",
+        "grey-128__rectangle-120__inactive",
+        "grey-255__rectangle-120__inactive",
+        "red__rectangle-120__inactive",
+        "light-solid__capsule-button__inactive",
+        "dark-solid__capsule-button__inactive",
+        "photo__capsule-button__inactive",
+        "checkerboard__capsule-button__inactive",
+        "grey-255__circular-120-opaque-0__inactive",
+        "grey-0__circular-120-opaque-255__inactive",
+        "grey-255__capsule-button-opaque-0__inactive",
+        "grey-0__capsule-button-opaque-255__inactive",
+        "grey-255__circular-160-opaque-0__inactive",
+        "grey-0__circular-160-opaque-255__inactive",
+        "grey-255__continuous-160-opaque-0__inactive",
+        "grey-0__continuous-160-opaque-255__inactive",
+        "grey-255__circular-200-opaque-0__inactive",
+        "grey-0__circular-200-opaque-255__inactive",
+        "grey-255__continuous-200-opaque-0__inactive",
+        "grey-0__continuous-200-opaque-255__inactive",
+        "grey-255__rectangle-120-opaque-0__inactive",
+        "grey-0__rectangle-120-opaque-255__inactive",
+        "grey-0__none__inactive",
+        "grey-32__none__inactive",
+        "grey-64__none__inactive",
+        "grey-96__none__inactive",
+        "grey-128__none__inactive",
+        "grey-160__none__inactive",
+        "grey-208__none__inactive",
+        "grey-255__none__inactive",
+        "red__none__inactive",
+        "green__none__inactive",
+        "blue__none__inactive",
+        "yellow__none__inactive",
+        "magenta__none__inactive",
+        "cyan__none__inactive",
+        "gradient-0-small__none__inactive",
+        "gradient-0-large__none__inactive",
+        "gradient-45-small__none__inactive",
+        "gradient-45-large__none__inactive",
+        "gradient-90-small__none__inactive",
+        "gradient-90-large__none__inactive",
+        "gradient-135-small__none__inactive",
+        "gradient-135-large__none__inactive",
+        "local-x-64__none__inactive",
+        "local-x-192__none__inactive",
+        "local-y-64__none__inactive",
+        "local-y-192__none__inactive",
+        "checkerboard-4__none__inactive",
+        "checkerboard__none__inactive",
+        "checkerboard-64__none__inactive",
+        "light-solid__none__inactive",
+        "dark-solid__none__inactive",
+        "photo__none__inactive"
+      ]
+    },
+    {
+      "key": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "colorScheme": "dark",
+      "a11y": "standard",
+      "scenes": [
+        "grey-0__circular-120__rest",
+        "grey-32__circular-120__rest",
+        "grey-64__circular-120__rest",
+        "grey-96__circular-120__rest",
+        "grey-128__circular-120__rest",
+        "grey-160__circular-120__rest",
+        "grey-208__circular-120__rest",
+        "grey-255__circular-120__rest",
+        "red__circular-120__rest",
+        "green__circular-120__rest",
+        "blue__circular-120__rest",
+        "yellow__circular-120__rest",
+        "magenta__circular-120__rest",
+        "cyan__circular-120__rest",
+        "gradient-0-small__circular-120__rest",
+        "gradient-0-large__circular-120__rest",
+        "gradient-45-small__circular-120__rest",
+        "gradient-45-large__circular-120__rest",
+        "gradient-90-small__circular-120__rest",
+        "gradient-90-large__circular-120__rest",
+        "gradient-135-small__circular-120__rest",
+        "gradient-135-large__circular-120__rest",
+        "local-x-64__circular-120__rest",
+        "local-x-192__circular-120__rest",
+        "local-y-64__circular-120__rest",
+        "local-y-192__circular-120__rest",
+        "checkerboard-4__circular-120__rest",
+        "checkerboard__circular-120__rest",
+        "checkerboard-64__circular-120__rest",
+        "grey-128__capsule-button__rest",
+        "grey-255__capsule-button__rest",
+        "red__capsule-button__rest",
+        "grey-128__circular-160__rest",
+        "grey-255__circular-160__rest",
+        "red__circular-160__rest",
+        "grey-128__continuous-160__rest",
+        "grey-255__continuous-160__rest",
+        "red__continuous-160__rest",
+        "grey-128__circular-200__rest",
+        "grey-255__circular-200__rest",
+        "red__circular-200__rest",
+        "grey-128__continuous-200__rest",
+        "grey-255__continuous-200__rest",
+        "red__continuous-200__rest",
+        "grey-128__rectangle-120__rest",
+        "grey-255__rectangle-120__rest",
+        "red__rectangle-120__rest",
+        "light-solid__capsule-button__rest",
+        "dark-solid__capsule-button__rest",
+        "photo__capsule-button__rest",
+        "checkerboard__capsule-button__rest",
+        "grey-0__circular-120__inactive",
+        "grey-32__circular-120__inactive",
+        "grey-64__circular-120__inactive",
+        "grey-96__circular-120__inactive",
+        "grey-128__circular-120__inactive",
+        "grey-160__circular-120__inactive",
+        "grey-208__circular-120__inactive",
+        "grey-255__circular-120__inactive",
+        "red__circular-120__inactive",
+        "green__circular-120__inactive",
+        "blue__circular-120__inactive",
+        "yellow__circular-120__inactive",
+        "magenta__circular-120__inactive",
+        "cyan__circular-120__inactive",
+        "gradient-0-small__circular-120__inactive",
+        "gradient-0-large__circular-120__inactive",
+        "gradient-45-small__circular-120__inactive",
+        "gradient-45-large__circular-120__inactive",
+        "gradient-90-small__circular-120__inactive",
+        "gradient-90-large__circular-120__inactive",
+        "gradient-135-small__circular-120__inactive",
+        "gradient-135-large__circular-120__inactive",
+        "local-x-64__circular-120__inactive",
+        "local-x-192__circular-120__inactive",
+        "local-y-64__circular-120__inactive",
+        "local-y-192__circular-120__inactive",
+        "checkerboard-4__circular-120__inactive",
+        "checkerboard__circular-120__inactive",
+        "checkerboard-64__circular-120__inactive",
+        "grey-128__capsule-button__inactive",
+        "grey-255__capsule-button__inactive",
+        "red__capsule-button__inactive",
+        "grey-128__circular-160__inactive",
+        "grey-255__circular-160__inactive",
+        "red__circular-160__inactive",
+        "grey-128__continuous-160__inactive",
+        "grey-255__continuous-160__inactive",
+        "red__continuous-160__inactive",
+        "grey-128__circular-200__inactive",
+        "grey-255__circular-200__inactive",
+        "red__circular-200__inactive",
+        "grey-128__continuous-200__inactive",
+        "grey-255__continuous-200__inactive",
+        "red__continuous-200__inactive",
+        "grey-128__rectangle-120__inactive",
+        "grey-255__rectangle-120__inactive",
+        "red__rectangle-120__inactive",
+        "light-solid__capsule-button__inactive",
+        "dark-solid__capsule-button__inactive",
+        "photo__capsule-button__inactive",
+        "checkerboard__capsule-button__inactive"
+      ]
+    },
+    {
+      "key": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "colorScheme": "light",
+      "a11y": "standard",
+      "scenes": [
+        "grey-0__circular-120__rest",
+        "grey-32__circular-120__rest",
+        "grey-64__circular-120__rest",
+        "grey-96__circular-120__rest",
+        "grey-128__circular-120__rest",
+        "grey-160__circular-120__rest",
+        "grey-208__circular-120__rest",
+        "grey-255__circular-120__rest",
+        "red__circular-120__rest",
+        "green__circular-120__rest",
+        "blue__circular-120__rest",
+        "yellow__circular-120__rest",
+        "magenta__circular-120__rest",
+        "cyan__circular-120__rest",
+        "gradient-0-small__circular-120__rest",
+        "gradient-0-large__circular-120__rest",
+        "gradient-45-small__circular-120__rest",
+        "gradient-45-large__circular-120__rest",
+        "gradient-90-small__circular-120__rest",
+        "gradient-90-large__circular-120__rest",
+        "gradient-135-small__circular-120__rest",
+        "gradient-135-large__circular-120__rest",
+        "local-x-64__circular-120__rest",
+        "local-x-192__circular-120__rest",
+        "local-y-64__circular-120__rest",
+        "local-y-192__circular-120__rest",
+        "checkerboard-4__circular-120__rest",
+        "checkerboard__circular-120__rest",
+        "checkerboard-64__circular-120__rest",
+        "grey-128__capsule-button__rest",
+        "grey-255__capsule-button__rest",
+        "red__capsule-button__rest",
+        "grey-128__circular-160__rest",
+        "grey-255__circular-160__rest",
+        "red__circular-160__rest",
+        "grey-128__continuous-160__rest",
+        "grey-255__continuous-160__rest",
+        "red__continuous-160__rest",
+        "grey-128__circular-200__rest",
+        "grey-255__circular-200__rest",
+        "red__circular-200__rest",
+        "grey-128__continuous-200__rest",
+        "grey-255__continuous-200__rest",
+        "red__continuous-200__rest",
+        "grey-128__rectangle-120__rest",
+        "grey-255__rectangle-120__rest",
+        "red__rectangle-120__rest",
+        "light-solid__capsule-button__rest",
+        "dark-solid__capsule-button__rest",
+        "photo__capsule-button__rest",
+        "checkerboard__capsule-button__rest",
+        "grey-255__circular-120-opaque-0__rest",
+        "grey-0__circular-120-opaque-255__rest",
+        "grey-255__capsule-button-opaque-0__rest",
+        "grey-0__capsule-button-opaque-255__rest",
+        "grey-255__circular-160-opaque-0__rest",
+        "grey-0__circular-160-opaque-255__rest",
+        "grey-255__continuous-160-opaque-0__rest",
+        "grey-0__continuous-160-opaque-255__rest",
+        "grey-255__circular-200-opaque-0__rest",
+        "grey-0__circular-200-opaque-255__rest",
+        "grey-255__continuous-200-opaque-0__rest",
+        "grey-0__continuous-200-opaque-255__rest",
+        "grey-255__rectangle-120-opaque-0__rest",
+        "grey-0__rectangle-120-opaque-255__rest",
+        "grey-0__none__rest",
+        "grey-32__none__rest",
+        "grey-64__none__rest",
+        "grey-96__none__rest",
+        "grey-128__none__rest",
+        "grey-160__none__rest",
+        "grey-208__none__rest",
+        "grey-255__none__rest",
+        "red__none__rest",
+        "green__none__rest",
+        "blue__none__rest",
+        "yellow__none__rest",
+        "magenta__none__rest",
+        "cyan__none__rest",
+        "gradient-0-small__none__rest",
+        "gradient-0-large__none__rest",
+        "gradient-45-small__none__rest",
+        "gradient-45-large__none__rest",
+        "gradient-90-small__none__rest",
+        "gradient-90-large__none__rest",
+        "gradient-135-small__none__rest",
+        "gradient-135-large__none__rest",
+        "local-x-64__none__rest",
+        "local-x-192__none__rest",
+        "local-y-64__none__rest",
+        "local-y-192__none__rest",
+        "checkerboard-4__none__rest",
+        "checkerboard__none__rest",
+        "checkerboard-64__none__rest",
+        "light-solid__none__rest",
+        "dark-solid__none__rest",
+        "photo__none__rest",
+        "grey-0__circular-120__inactive",
+        "grey-32__circular-120__inactive",
+        "grey-64__circular-120__inactive",
+        "grey-96__circular-120__inactive",
+        "grey-128__circular-120__inactive",
+        "grey-160__circular-120__inactive",
+        "grey-208__circular-120__inactive",
+        "grey-255__circular-120__inactive",
+        "red__circular-120__inactive",
+        "green__circular-120__inactive",
+        "blue__circular-120__inactive",
+        "yellow__circular-120__inactive",
+        "magenta__circular-120__inactive",
+        "cyan__circular-120__inactive",
+        "gradient-0-small__circular-120__inactive",
+        "gradient-0-large__circular-120__inactive",
+        "gradient-45-small__circular-120__inactive",
+        "gradient-45-large__circular-120__inactive",
+        "gradient-90-small__circular-120__inactive",
+        "gradient-90-large__circular-120__inactive",
+        "gradient-135-small__circular-120__inactive",
+        "gradient-135-large__circular-120__inactive",
+        "local-x-64__circular-120__inactive",
+        "local-x-192__circular-120__inactive",
+        "local-y-64__circular-120__inactive",
+        "local-y-192__circular-120__inactive",
+        "checkerboard-4__circular-120__inactive",
+        "checkerboard__circular-120__inactive",
+        "checkerboard-64__circular-120__inactive",
+        "grey-128__capsule-button__inactive",
+        "grey-255__capsule-button__inactive",
+        "red__capsule-button__inactive",
+        "grey-128__circular-160__inactive",
+        "grey-255__circular-160__inactive",
+        "red__circular-160__inactive",
+        "grey-128__continuous-160__inactive",
+        "grey-255__continuous-160__inactive",
+        "red__continuous-160__inactive",
+        "grey-128__circular-200__inactive",
+        "grey-255__circular-200__inactive",
+        "red__circular-200__inactive",
+        "grey-128__continuous-200__inactive",
+        "grey-255__continuous-200__inactive",
+        "red__continuous-200__inactive",
+        "grey-128__rectangle-120__inactive",
+        "grey-255__rectangle-120__inactive",
+        "red__rectangle-120__inactive",
+        "light-solid__capsule-button__inactive",
+        "dark-solid__capsule-button__inactive",
+        "photo__capsule-button__inactive",
+        "checkerboard__capsule-button__inactive",
+        "grey-255__circular-120-opaque-0__inactive",
+        "grey-0__circular-120-opaque-255__inactive",
+        "grey-255__capsule-button-opaque-0__inactive",
+        "grey-0__capsule-button-opaque-255__inactive",
+        "grey-255__circular-160-opaque-0__inactive",
+        "grey-0__circular-160-opaque-255__inactive",
+        "grey-255__continuous-160-opaque-0__inactive",
+        "grey-0__continuous-160-opaque-255__inactive",
+        "grey-255__circular-200-opaque-0__inactive",
+        "grey-0__circular-200-opaque-255__inactive",
+        "grey-255__continuous-200-opaque-0__inactive",
+        "grey-0__continuous-200-opaque-255__inactive",
+        "grey-255__rectangle-120-opaque-0__inactive",
+        "grey-0__rectangle-120-opaque-255__inactive",
+        "grey-0__none__inactive",
+        "grey-32__none__inactive",
+        "grey-64__none__inactive",
+        "grey-96__none__inactive",
+        "grey-128__none__inactive",
+        "grey-160__none__inactive",
+        "grey-208__none__inactive",
+        "grey-255__none__inactive",
+        "red__none__inactive",
+        "green__none__inactive",
+        "blue__none__inactive",
+        "yellow__none__inactive",
+        "magenta__none__inactive",
+        "cyan__none__inactive",
+        "gradient-0-small__none__inactive",
+        "gradient-0-large__none__inactive",
+        "gradient-45-small__none__inactive",
+        "gradient-45-large__none__inactive",
+        "gradient-90-small__none__inactive",
+        "gradient-90-large__none__inactive",
+        "gradient-135-small__none__inactive",
+        "gradient-135-large__none__inactive",
+        "local-x-64__none__inactive",
+        "local-x-192__none__inactive",
+        "local-y-64__none__inactive",
+        "local-y-192__none__inactive",
+        "checkerboard-4__none__inactive",
+        "checkerboard__none__inactive",
+        "checkerboard-64__none__inactive",
+        "light-solid__none__inactive",
+        "dark-solid__none__inactive",
+        "photo__none__inactive"
+      ]
+    },
+    {
+      "key": "apple-macos-27.0-2x-dark-standard-glass0.5",
+      "colorScheme": "dark",
+      "a11y": "standard",
+      "scenes": [
+        "grey-0__circular-120__rest",
+        "grey-32__circular-120__rest",
+        "grey-64__circular-120__rest",
+        "grey-96__circular-120__rest",
+        "grey-128__circular-120__rest",
+        "grey-160__circular-120__rest",
+        "grey-208__circular-120__rest",
+        "grey-255__circular-120__rest",
+        "red__circular-120__rest",
+        "green__circular-120__rest",
+        "blue__circular-120__rest",
+        "yellow__circular-120__rest",
+        "magenta__circular-120__rest",
+        "cyan__circular-120__rest",
+        "gradient-0-small__circular-120__rest",
+        "gradient-0-large__circular-120__rest",
+        "gradient-45-small__circular-120__rest",
+        "gradient-45-large__circular-120__rest",
+        "gradient-90-small__circular-120__rest",
+        "gradient-90-large__circular-120__rest",
+        "gradient-135-small__circular-120__rest",
+        "gradient-135-large__circular-120__rest",
+        "local-x-64__circular-120__rest",
+        "local-x-192__circular-120__rest",
+        "local-y-64__circular-120__rest",
+        "local-y-192__circular-120__rest",
+        "checkerboard-4__circular-120__rest",
+        "checkerboard__circular-120__rest",
+        "checkerboard-64__circular-120__rest",
+        "grey-128__capsule-button__rest",
+        "grey-255__capsule-button__rest",
+        "red__capsule-button__rest",
+        "grey-128__circular-160__rest",
+        "grey-255__circular-160__rest",
+        "red__circular-160__rest",
+        "grey-128__continuous-160__rest",
+        "grey-255__continuous-160__rest",
+        "red__continuous-160__rest",
+        "grey-128__circular-200__rest",
+        "grey-255__circular-200__rest",
+        "red__circular-200__rest",
+        "grey-128__continuous-200__rest",
+        "grey-255__continuous-200__rest",
+        "red__continuous-200__rest",
+        "grey-128__rectangle-120__rest",
+        "grey-255__rectangle-120__rest",
+        "red__rectangle-120__rest",
+        "light-solid__capsule-button__rest",
+        "dark-solid__capsule-button__rest",
+        "photo__capsule-button__rest",
+        "checkerboard__capsule-button__rest",
+        "grey-0__circular-120__inactive",
+        "grey-32__circular-120__inactive",
+        "grey-64__circular-120__inactive",
+        "grey-96__circular-120__inactive",
+        "grey-128__circular-120__inactive",
+        "grey-160__circular-120__inactive",
+        "grey-208__circular-120__inactive",
+        "grey-255__circular-120__inactive",
+        "red__circular-120__inactive",
+        "green__circular-120__inactive",
+        "blue__circular-120__inactive",
+        "yellow__circular-120__inactive",
+        "magenta__circular-120__inactive",
+        "cyan__circular-120__inactive",
+        "gradient-0-small__circular-120__inactive",
+        "gradient-0-large__circular-120__inactive",
+        "gradient-45-small__circular-120__inactive",
+        "gradient-45-large__circular-120__inactive",
+        "gradient-90-small__circular-120__inactive",
+        "gradient-90-large__circular-120__inactive",
+        "gradient-135-small__circular-120__inactive",
+        "gradient-135-large__circular-120__inactive",
+        "local-x-64__circular-120__inactive",
+        "local-x-192__circular-120__inactive",
+        "local-y-64__circular-120__inactive",
+        "local-y-192__circular-120__inactive",
+        "checkerboard-4__circular-120__inactive",
+        "checkerboard__circular-120__inactive",
+        "checkerboard-64__circular-120__inactive",
+        "grey-128__capsule-button__inactive",
+        "grey-255__capsule-button__inactive",
+        "red__capsule-button__inactive",
+        "grey-128__circular-160__inactive",
+        "grey-255__circular-160__inactive",
+        "red__circular-160__inactive",
+        "grey-128__continuous-160__inactive",
+        "grey-255__continuous-160__inactive",
+        "red__continuous-160__inactive",
+        "grey-128__circular-200__inactive",
+        "grey-255__circular-200__inactive",
+        "red__circular-200__inactive",
+        "grey-128__continuous-200__inactive",
+        "grey-255__continuous-200__inactive",
+        "red__continuous-200__inactive",
+        "grey-128__rectangle-120__inactive",
+        "grey-255__rectangle-120__inactive",
+        "red__rectangle-120__inactive",
+        "light-solid__capsule-button__inactive",
+        "dark-solid__capsule-button__inactive",
+        "photo__capsule-button__inactive",
+        "checkerboard__capsule-button__inactive"
+      ]
+    }
+  ],
+  "split": {
+    "calibration": [],
+    "validation": [],
+    "holdout": [],
+    "probe": [
+      "grey-0__circular-120__rest",
+      "grey-32__circular-120__rest",
+      "grey-64__circular-120__rest",
+      "grey-96__circular-120__rest",
+      "grey-128__circular-120__rest",
+      "grey-160__circular-120__rest",
+      "grey-208__circular-120__rest",
+      "grey-255__circular-120__rest",
+      "red__circular-120__rest",
+      "green__circular-120__rest",
+      "blue__circular-120__rest",
+      "yellow__circular-120__rest",
+      "magenta__circular-120__rest",
+      "cyan__circular-120__rest",
+      "gradient-0-small__circular-120__rest",
+      "gradient-0-large__circular-120__rest",
+      "gradient-45-small__circular-120__rest",
+      "gradient-45-large__circular-120__rest",
+      "gradient-90-small__circular-120__rest",
+      "gradient-90-large__circular-120__rest",
+      "gradient-135-small__circular-120__rest",
+      "gradient-135-large__circular-120__rest",
+      "local-x-64__circular-120__rest",
+      "local-x-192__circular-120__rest",
+      "local-y-64__circular-120__rest",
+      "local-y-192__circular-120__rest",
+      "checkerboard-4__circular-120__rest",
+      "checkerboard__circular-120__rest",
+      "checkerboard-64__circular-120__rest",
+      "grey-128__capsule-button__rest",
+      "grey-255__capsule-button__rest",
+      "red__capsule-button__rest",
+      "grey-128__circular-160__rest",
+      "grey-255__circular-160__rest",
+      "red__circular-160__rest",
+      "grey-128__continuous-160__rest",
+      "grey-255__continuous-160__rest",
+      "red__continuous-160__rest",
+      "grey-128__circular-200__rest",
+      "grey-255__circular-200__rest",
+      "red__circular-200__rest",
+      "grey-128__continuous-200__rest",
+      "grey-255__continuous-200__rest",
+      "red__continuous-200__rest",
+      "grey-128__rectangle-120__rest",
+      "grey-255__rectangle-120__rest",
+      "red__rectangle-120__rest",
+      "light-solid__capsule-button__rest",
+      "dark-solid__capsule-button__rest",
+      "photo__capsule-button__rest",
+      "checkerboard__capsule-button__rest",
+      "grey-255__circular-120-opaque-0__rest",
+      "grey-0__circular-120-opaque-255__rest",
+      "grey-255__capsule-button-opaque-0__rest",
+      "grey-0__capsule-button-opaque-255__rest",
+      "grey-255__circular-160-opaque-0__rest",
+      "grey-0__circular-160-opaque-255__rest",
+      "grey-255__continuous-160-opaque-0__rest",
+      "grey-0__continuous-160-opaque-255__rest",
+      "grey-255__circular-200-opaque-0__rest",
+      "grey-0__circular-200-opaque-255__rest",
+      "grey-255__continuous-200-opaque-0__rest",
+      "grey-0__continuous-200-opaque-255__rest",
+      "grey-255__rectangle-120-opaque-0__rest",
+      "grey-0__rectangle-120-opaque-255__rest",
+      "grey-0__none__rest",
+      "grey-32__none__rest",
+      "grey-64__none__rest",
+      "grey-96__none__rest",
+      "grey-128__none__rest",
+      "grey-160__none__rest",
+      "grey-208__none__rest",
+      "grey-255__none__rest",
+      "red__none__rest",
+      "green__none__rest",
+      "blue__none__rest",
+      "yellow__none__rest",
+      "magenta__none__rest",
+      "cyan__none__rest",
+      "gradient-0-small__none__rest",
+      "gradient-0-large__none__rest",
+      "gradient-45-small__none__rest",
+      "gradient-45-large__none__rest",
+      "gradient-90-small__none__rest",
+      "gradient-90-large__none__rest",
+      "gradient-135-small__none__rest",
+      "gradient-135-large__none__rest",
+      "local-x-64__none__rest",
+      "local-x-192__none__rest",
+      "local-y-64__none__rest",
+      "local-y-192__none__rest",
+      "checkerboard-4__none__rest",
+      "checkerboard__none__rest",
+      "checkerboard-64__none__rest",
+      "light-solid__none__rest",
+      "dark-solid__none__rest",
+      "photo__none__rest",
+      "grey-0__circular-120__inactive",
+      "grey-32__circular-120__inactive",
+      "grey-64__circular-120__inactive",
+      "grey-96__circular-120__inactive",
+      "grey-128__circular-120__inactive",
+      "grey-160__circular-120__inactive",
+      "grey-208__circular-120__inactive",
+      "grey-255__circular-120__inactive",
+      "red__circular-120__inactive",
+      "green__circular-120__inactive",
+      "blue__circular-120__inactive",
+      "yellow__circular-120__inactive",
+      "magenta__circular-120__inactive",
+      "cyan__circular-120__inactive",
+      "gradient-0-small__circular-120__inactive",
+      "gradient-0-large__circular-120__inactive",
+      "gradient-45-small__circular-120__inactive",
+      "gradient-45-large__circular-120__inactive",
+      "gradient-90-small__circular-120__inactive",
+      "gradient-90-large__circular-120__inactive",
+      "gradient-135-small__circular-120__inactive",
+      "gradient-135-large__circular-120__inactive",
+      "local-x-64__circular-120__inactive",
+      "local-x-192__circular-120__inactive",
+      "local-y-64__circular-120__inactive",
+      "local-y-192__circular-120__inactive",
+      "checkerboard-4__circular-120__inactive",
+      "checkerboard__circular-120__inactive",
+      "checkerboard-64__circular-120__inactive",
+      "grey-128__capsule-button__inactive",
+      "grey-255__capsule-button__inactive",
+      "red__capsule-button__inactive",
+      "grey-128__circular-160__inactive",
+      "grey-255__circular-160__inactive",
+      "red__circular-160__inactive",
+      "grey-128__continuous-160__inactive",
+      "grey-255__continuous-160__inactive",
+      "red__continuous-160__inactive",
+      "grey-128__circular-200__inactive",
+      "grey-255__circular-200__inactive",
+      "red__circular-200__inactive",
+      "grey-128__continuous-200__inactive",
+      "grey-255__continuous-200__inactive",
+      "red__continuous-200__inactive",
+      "grey-128__rectangle-120__inactive",
+      "grey-255__rectangle-120__inactive",
+      "red__rectangle-120__inactive",
+      "light-solid__capsule-button__inactive",
+      "dark-solid__capsule-button__inactive",
+      "photo__capsule-button__inactive",
+      "checkerboard__capsule-button__inactive",
+      "grey-255__circular-120-opaque-0__inactive",
+      "grey-0__circular-120-opaque-255__inactive",
+      "grey-255__capsule-button-opaque-0__inactive",
+      "grey-0__capsule-button-opaque-255__inactive",
+      "grey-255__circular-160-opaque-0__inactive",
+      "grey-0__circular-160-opaque-255__inactive",
+      "grey-255__continuous-160-opaque-0__inactive",
+      "grey-0__continuous-160-opaque-255__inactive",
+      "grey-255__circular-200-opaque-0__inactive",
+      "grey-0__circular-200-opaque-255__inactive",
+      "grey-255__continuous-200-opaque-0__inactive",
+      "grey-0__continuous-200-opaque-255__inactive",
+      "grey-255__rectangle-120-opaque-0__inactive",
+      "grey-0__rectangle-120-opaque-255__inactive",
+      "grey-0__none__inactive",
+      "grey-32__none__inactive",
+      "grey-64__none__inactive",
+      "grey-96__none__inactive",
+      "grey-128__none__inactive",
+      "grey-160__none__inactive",
+      "grey-208__none__inactive",
+      "grey-255__none__inactive",
+      "red__none__inactive",
+      "green__none__inactive",
+      "blue__none__inactive",
+      "yellow__none__inactive",
+      "magenta__none__inactive",
+      "cyan__none__inactive",
+      "gradient-0-small__none__inactive",
+      "gradient-0-large__none__inactive",
+      "gradient-45-small__none__inactive",
+      "gradient-45-large__none__inactive",
+      "gradient-90-small__none__inactive",
+      "gradient-90-large__none__inactive",
+      "gradient-135-small__none__inactive",
+      "gradient-135-large__none__inactive",
+      "local-x-64__none__inactive",
+      "local-x-192__none__inactive",
+      "local-y-64__none__inactive",
+      "local-y-192__none__inactive",
+      "checkerboard-4__none__inactive",
+      "checkerboard__none__inactive",
+      "checkerboard-64__none__inactive",
+      "light-solid__none__inactive",
+      "dark-solid__none__inactive",
+      "photo__none__inactive"
+    ]
+  }
+}

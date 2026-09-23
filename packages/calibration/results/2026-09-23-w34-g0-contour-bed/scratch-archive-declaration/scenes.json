@@ -1,0 +1,221 @@
+{
+  "components": {
+    "phase-1x-grey__p0__rest": {
+      "kind": "capsule-circular",
+      "size": [
+        120,
+        44
+      ],
+      "offset": [
+        0.0,
+        0.0
+      ]
+    },
+    "phase-1x-grey__x25__rest": {
+      "kind": "capsule-circular",
+      "size": [
+        120,
+        44
+      ],
+      "offset": [
+        0.25,
+        0.0
+      ]
+    },
+    "phase-1x-grey__x50__rest": {
+      "kind": "capsule-circular",
+      "size": [
+        120,
+        44
+      ],
+      "offset": [
+        0.5,
+        0.0
+      ]
+    },
+    "phase-1x-grey__x75__rest": {
+      "kind": "capsule-circular",
+      "size": [
+        120,
+        44
+      ],
+      "offset": [
+        0.75,
+        0.0
+      ]
+    },
+    "phase-1x-grey__xy25__rest": {
+      "kind": "capsule-circular",
+      "size": [
+        120,
+        44
+      ],
+      "offset": [
+        0.25,
+        0.25
+      ]
+    },
+    "phase-2x-grey__p0__rest": {
+      "kind": "capsule-circular",
+      "size": [
+        120,
+        44
+      ],
+      "offset": [
+        0.0,
+        0.0
+      ]
+    },
+    "phase-2x-grey__x25__rest": {
+      "kind": "capsule-circular",
+      "size": [
+        120,
+        44
+      ],
+      "offset": [
+        0.125,
+        0.0
+      ]
+    },
+    "phase-2x-grey__x50__rest": {
+      "kind": "capsule-circular",
+      "size": [
+        120,
+        44
+      ],
+      "offset": [
+        0.25,
+        0.0
+      ]
+    },
+    "phase-2x-grey__x75__rest": {
+      "kind": "capsule-circular",
+      "size": [
+        120,
+        44
+      ],
+      "offset": [
+        0.375,
+        0.0
+      ]
+    },
+    "phase-2x-grey__xy25__rest": {
+      "kind": "capsule-circular",
+      "size": [
+        120,
+        44
+      ],
+      "offset": [
+        0.125,
+        0.125
+      ]
+    },
+    "sentinel-checkerboard__circular__rest": {
+      "kind": "capsule-circular",
+      "size": [
+        120,
+        44
+      ]
+    },
+    "sentinel-grey__circular__rest": {
+      "kind": "capsule-circular",
+      "size": [
+        120,
+        44
+      ]
+    }
+  },
+  "scenes": [
+    {
+      "id": "phase-1x-grey__p0__rest",
+      "component": "phase-1x-grey__p0__rest"
+    },
+    {
+      "id": "phase-1x-grey__x25__rest",
+      "component": "phase-1x-grey__x25__rest"
+    },
+    {
+      "id": "phase-1x-grey__x50__rest",
+      "component": "phase-1x-grey__x50__rest"
+    },
+    {
+      "id": "phase-1x-grey__x75__rest",
+      "component": "phase-1x-grey__x75__rest"
+    },
+    {
+      "id": "phase-1x-grey__xy25__rest",
+      "component": "phase-1x-grey__xy25__rest"
+    },
+    {
+      "id": "phase-2x-grey__p0__rest",
+      "component": "phase-2x-grey__p0__rest"
+    },
+    {
+      "id": "phase-2x-grey__x25__rest",
+      "component": "phase-2x-grey__x25__rest"
+    },
+    {
+      "id": "phase-2x-grey__x50__rest",
+      "component": "phase-2x-grey__x50__rest"
+    },
+    {
+      "id": "phase-2x-grey__x75__rest",
+      "component": "phase-2x-grey__x75__rest"
+    },
+    {
+      "id": "phase-2x-grey__xy25__rest",
+      "component": "phase-2x-grey__xy25__rest"
+    },
+    {
+      "id": "sentinel-checkerboard__circular__rest",
+      "component": "sentinel-checkerboard__circular__rest"
+    },
+    {
+      "id": "sentinel-grey__circular__rest",
+      "component": "sentinel-grey__circular__rest"
+    }
+  ],
+  "profiles": [
+    {
+      "key": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "scenes": [
+        "phase-1x-grey__p0__rest",
+        "phase-1x-grey__x25__rest",
+        "phase-1x-grey__x50__rest",
+        "phase-1x-grey__x75__rest",
+        "phase-1x-grey__xy25__rest"
+      ]
+    },
+    {
+      "key": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "scenes": [
+        "phase-2x-grey__p0__rest",
+        "phase-2x-grey__x25__rest",
+        "phase-2x-grey__x50__rest",
+        "phase-2x-grey__x75__rest",
+        "phase-2x-grey__xy25__rest",
+        "sentinel-checkerboard__circular__rest",
+        "sentinel-grey__circular__rest"
+      ]
+    }
+  ],
+  "split": {
+    "calibration": [],
+    "validation": [],
+    "holdout": [],
+    "probe": [
+      "phase-1x-grey__p0__rest",
+      "phase-1x-grey__x25__rest",
+      "phase-1x-grey__x50__rest",
+      "phase-1x-grey__x75__rest",
+      "phase-1x-grey__xy25__rest",
+      "phase-2x-grey__p0__rest",
+      "phase-2x-grey__x25__rest",
+      "phase-2x-grey__x50__rest",
+      "phase-2x-grey__x75__rest",
+      "phase-2x-grey__xy25__rest",
+      "sentinel-checkerboard__circular__rest",
+      "sentinel-grey__circular__rest"
+    ]
+  }
+}

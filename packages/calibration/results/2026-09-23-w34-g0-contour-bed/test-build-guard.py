@@ -35,7 +35,7 @@ class BuildGuard(unittest.TestCase):
                 protected = harness / name
                 protected.mkdir(exist_ok=True)
                 alias = root / (name+'-alias'); alias.symlink_to(protected)
-                for out in [protected, protected/'nested', alias]:
+                for out in [protected, protected/'nested', alias, harness/name.upper()]:
                     p = subprocess.run(['bash', str(script)], env={**env,'VITREA_BUILD_OUT':str(out)},
                                        capture_output=True,text=True)
                     self.assertNotEqual(p.returncode, 0, str(out))
