@@ -1,0 +1,78 @@
+FFFF
+======================================================================
+FAIL: test_affine_body_retains_integer_sample_centres_and_partial_integral (__main__.ReviewFixes.test_affine_body_retains_integer_sample_centres_and_partial_integral)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/Developer/GitHub/designer/.claude/worktrees/w34-g2-contour-identification/packages/calibration/results/2026-09-24-w34-g2-contour-identification/test-review-fixes.py", line 32, in test_affine_body_retains_integer_sample_centres_and_partial_integral
+    np.testing.assert_allclose(got[:,0],expected,atol=1e-10,rtol=0)
+  File "/Users/new/Library/Python/3.12/lib/python/site-packages/numpy/testing/_private/utils.py", line 1780, in assert_allclose
+    assert_array_compare(compare, actual, desired, err_msg=str(err_msg),
+  File "/Users/new/Library/Python/3.12/lib/python/site-packages/numpy/testing/_private/utils.py", line 988, in assert_array_compare
+    raise AssertionError(msg)
+AssertionError: 
+Not equal to tolerance rtol=0, atol=1e-10
+
+Mismatched elements: 2 / 2 (100%)
+Mismatch at indices:
+ [0]: 100.11250000000011 (ACTUAL), 100.0 (DESIRED)
+ [1]: 120.46249999999971 (ACTUAL), 120.434375 (DESIRED)
+Max absolute difference among violations: 0.1125
+Max relative difference among violations: 0.001125
+ ACTUAL: array([100.1125, 120.4625])
+ DESIRED: array([100.      , 120.434375])
+
+======================================================================
+FAIL: test_runner_keeps_bookkeeping_outside_the_frozen_document (__main__.ReviewFixes.test_runner_keeps_bookkeeping_outside_the_frozen_document)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/Developer/GitHub/designer/.claude/worktrees/w34-g2-contour-identification/packages/calibration/results/2026-09-24-w34-g2-contour-identification/test-review-fixes.py", line 71, in test_runner_keeps_bookkeeping_outside_the_frozen_document
+    self.assertEqual(document,original)
+AssertionError: {'inv[196 chars]0.0]], 'receiptCandidateIndex': 0}, 'selection[38 chars]s'}]} != {'inv[196 chars]0.0]]}, 'selection': 'synthetic', 'comparator': 'no-glass'}]}
+  {'candidates': [{'comparator': 'no-glass',
+                   'fit': {'coefficients': [[0.0, 0.0], [0.0, 0.0], [0.0, 0.0]],
+                           'pose': 'rest',
+                           'profile': 'synthetic',
+-                          'receiptCandidateIndex': 0,
+                           'spec': {'exactBody': True, 'stage': 'new-axes'}},
+                   'selection': 'synthetic'}],
+   'dependencies': {},
+   'inventories': {}}
+
+======================================================================
+FAIL: test_w33_gradient_uses_quartic_even_response (__main__.ReviewFixes.test_w33_gradient_uses_quartic_even_response)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/Developer/GitHub/designer/.claude/worktrees/w34-g2-contour-identification/packages/calibration/results/2026-09-24-w34-g2-contour-identification/test-review-fixes.py", line 43, in test_w33_gradient_uses_quartic_even_response
+    self.assertAlmostEqual(X[0,1],.5**4)
+AssertionError: np.float64(0.25) != 0.0625 within 7 places (np.float64(0.1875) difference)
+
+======================================================================
+FAIL: test_w33_two_axis_rotates_both_orthogonal_axes (__main__.ReviewFixes.test_w33_two_axis_rotates_both_orthogonal_axes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/Developer/GitHub/designer/.claude/worktrees/w34-g2-contour-identification/packages/calibration/results/2026-09-24-w34-g2-contour-identification/test-review-fixes.py", line 51, in test_w33_two_axis_rotates_both_orthogonal_axes
+    np.testing.assert_allclose(X,[[1,.25,.25],[1,.25,.25]],atol=1e-14)
+  File "/Users/new/Library/Python/3.12/lib/python/site-packages/numpy/testing/_private/utils.py", line 1780, in assert_allclose
+    assert_array_compare(compare, actual, desired, err_msg=str(err_msg),
+  File "/Users/new/Library/Python/3.12/lib/python/site-packages/numpy/testing/_private/utils.py", line 988, in assert_array_compare
+    raise AssertionError(msg)
+AssertionError: 
+Not equal to tolerance rtol=1e-07, atol=1e-14
+
+Mismatched elements: 4 / 6 (66.7%)
+Mismatch at indices:
+ [0, 1]: 1.0 (ACTUAL), 0.25 (DESIRED)
+ [0, 2]: 0.0 (ACTUAL), 0.25 (DESIRED)
+ [1, 1]: 0.0 (ACTUAL), 0.25 (DESIRED)
+ [1, 2]: 1.0 (ACTUAL), 0.25 (DESIRED)
+Max absolute difference among violations: 0.75
+Max relative difference among violations: 3.
+ ACTUAL: array([[1., 1., 0.],
+       [1., 0., 1.]])
+ DESIRED: array([[1.  , 0.25, 0.25],
+       [1.  , 0.25, 0.25]])
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.023s
+
+FAILED (failures=4)

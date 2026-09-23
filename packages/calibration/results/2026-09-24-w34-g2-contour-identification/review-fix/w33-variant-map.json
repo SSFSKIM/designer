@@ -1,0 +1,37 @@
+{
+  "originalArtifacts": [
+    "fits.json",
+    "w33-web-fits.json",
+    "validation-headlines.json",
+    "w33-web-validation-headlines.json",
+    "family-best-complete.csv"
+  ],
+  "variants": [
+    {
+      "family": "gradient",
+      "originalG2Variant": "q=abs(nx)^2",
+      "faithfulReference": "q=abs(nx)^4"
+    },
+    {
+      "family": "colour-gradient",
+      "originalG2Variant": "q=abs(nx)^2; normalized gradient/colour columns",
+      "faithfulReference": "q=abs(nx)^4; original column order with explicitly normalized code-unit columns"
+    },
+    {
+      "family": "isotropic-two-axis",
+      "originalG2Variant": "axis angle0 only; powers .5,1,2,4,8",
+      "faithfulReference": "both orthogonal axes rotated over 0..177.5 degrees at2.5-degree steps; powers .5,1,2,4,8,16"
+    },
+    {
+      "family": "rotated-axis",
+      "originalG2Variant": "powers .5,1,2,4,8",
+      "faithfulReference": "original extended-reference grid also includes16"
+    }
+  ],
+  "referenceSource": "packages/calibration/results/2026-09-22-w33-g1a-contour-model/review-extend.py",
+  "note": "Original artifacts are retained, not relabelled in place. Faithful basis reruns use W34 calibration/validation roles and its absolute per-bin referee; they do not recreate W33 in-sample signed-mean scores. Code-valued gradient/colour columns are scaled by1/255, an invertible coefficient-unit conversion.",
+  "frozenNominees": {
+    "candidates.json": "84ff1cf57b4569e0a7530840ab380cd45f970aba993961da99c4b7477a65688e",
+    "candidates-v2.json": "482036865d2f70a48710414742f7b2964d401ee31ce4e5a20a85ba5700a923bf"
+  }
+}

@@ -5942,3 +5942,44 @@ before the next native sitting, whether repeat archives live in the repository, 
 a release asset named by hash from the ledger — the requirement is that the bar re-derives from
 what a reader can fetch by the name the ledger records, not that it sits in every clone. Nothing
 here is wrong; it is weight.
+
+## W34 G2: comparer publication seams and missing curvature rows
+
+2026-09-24, §5.176; `results/2026-09-24-w34-g2-contour-identification/`.
+G1's materialized manifest omits `caveats`, while the comparer unconditionally iterates it in
+its final reporter. The first G2 profile rendered and wrote its matrix, then threw. G2 keeps
+that attempt and uses a provenance-recorded manifest projection adding only the caveat field;
+no fixture metadata or pixels were changed. A future producer/consumer contract change should
+make that schema field explicit and test a materialized probe manifest end to end, rather than
+repeat this evidence-only projection. This did not justify changing shipped code in G2.
+
+Three of 336 non-holdout captured cells produce no standard matrix row: 1x dark inactive
+`gradient-90-small__circular-120`, and 1x light active `grey-255__circular-120` /
+`grey-255__circular-200`. `contourCurvature` refuses their zero-length recovered contour.
+All captures are preserved and the fixed-mask contour instrument reads all 336. Follow-up should
+return an explicit unmeasured curvature axis while retaining independently measurable axes,
+with the current failures as regression cases; it must not invent a zero curvature reading.
+
+## W34 G2: the boundary body must be identified before an outside-only stroke can close
+
+2026-09-24, §5.176; `results/2026-09-24-w34-g2-contour-identification/`.
+The new repeat bed removes W33's missing-bar objection: the one-code resolution floor dominates
+the observed normal envelopes. It does not yield a point-closed contour law. A coefficient-free
+counterexample now separates two questions previously conflated: in the nominated inner shell
+[−2,−1), an outside [0,1) device-pixel band has zero geometric coverage, yet the exact-body
+forward model misses populated validation bins by **2–27.375 codes** on the encoded family,
+with every scale/scheme/pose and both contour parts represented. Both composition spaces fail
+there. No retuning of that band's alpha, target or exponent can repair those pixels. This rejects
+the nominated body/path/stroke decomposition, not every possible stroke-colour mechanism.
+The full witness RGB, population and bar are in `coefficient-independent-floors.json`.
+
+The useful continuation is a declared non-holdout study of the boundary-body and radial-placement
+alternatives before another expensive full sitting. It must retain the physical/effective-response
+distinction and cannot recycle a spent holdout as blind evidence. A genuinely identifying new
+bed would need independent glass-path coverage/registration or a defensible boundary body model,
+a phase mechanism proved reachable before the full run, local-colour/gradient contrasts and
+populated arc bins. Ordinary opaque fill does not identify glass coverage. More quiet repeats
+alone cannot remove this structural residual; the missing contour and the continuous-native /
+circular-web geometry mismatch remain unshipped fidelity work. The 192 under-populated 1x
+rectangle bins remain unmeasured, not pooled after fitting. DL2 belongs to the user; no G3 leaf,
+CSS approximation, conformance re-pin or material-document change follows from this entry.

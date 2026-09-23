@@ -1,0 +1,1087 @@
+$ tsx cli/compare.ts -- --set probe --scene blue__circular-120__inactive,blue__circular-120__rest,checkerboard-4__circular-120__inactive,checkerboard-4__circular-120__rest,checkerboard-64__circular-120__inactive,checkerboard-64__circular-120__rest,checkerboard__capsule-button__inactive,checkerboard__capsule-button__rest,checkerboard__circular-120__inactive,checkerboard__circular-120__rest,cyan__circular-120__inactive,cyan__circular-120__rest,gradient-0-large__circular-120__inactive,gradient-0-large__circular-120__rest,gradient-0-small__circular-120__inactive,gradient-0-small__circular-120__rest,gradient-135-small__circular-120__inactive,gradient-135-small__circular-120__rest,gradient-45-large__circular-120__inactive,gradient-45-large__circular-120__rest,gradient-45-small__circular-120__inactive,gradient-45-small__circular-120__rest,gradient-90-large__circular-120__inactive,gradient-90-large__circular-120__rest,gradient-90-small__circular-120__inactive,gradient-90-small__circular-120__rest,green__circular-120__inactive,green__circular-120__rest,grey-0__circular-120__inactive,grey-0__circular-120__rest,grey-128__capsule-button__inactive,grey-128__capsule-button__rest,grey-128__circular-120__inactive,grey-128__circular-120__rest,grey-128__circular-200__inactive,grey-128__circular-200__rest,grey-128__continuous-160__inactive,grey-128__continuous-160__rest,grey-128__rectangle-120__inactive,grey-128__rectangle-120__rest,grey-160__circular-120__inactive,grey-160__circular-120__rest,grey-255__capsule-button__inactive,grey-255__capsule-button__rest,grey-255__circular-120__inactive,grey-255__circular-120__rest,grey-255__circular-200__inactive,grey-255__circular-200__rest,grey-255__continuous-160__inactive,grey-255__continuous-160__rest,grey-255__rectangle-120__inactive,grey-255__rectangle-120__rest,grey-32__circular-120__inactive,grey-32__circular-120__rest,grey-64__circular-120__inactive,grey-64__circular-120__rest,grey-96__circular-120__inactive,grey-96__circular-120__rest,light-solid__capsule-button__inactive,light-solid__capsule-button__rest,local-x-192__circular-120__inactive,local-x-192__circular-120__rest,local-x-64__circular-120__inactive,local-x-64__circular-120__rest,local-y-192__circular-120__inactive,local-y-192__circular-120__rest,local-y-64__circular-120__inactive,local-y-64__circular-120__rest,magenta__circular-120__inactive,magenta__circular-120__rest,photo__capsule-button__inactive,photo__capsule-button__rest,red__capsule-button__inactive,red__capsule-button__rest,red__circular-120__inactive,red__circular-120__rest,red__circular-200__inactive,red__circular-200__rest,red__continuous-160__inactive,red__continuous-160__rest,red__rectangle-120__inactive,red__rectangle-120__rest,yellow__circular-120__inactive,yellow__circular-120__rest --renderer webgpu --out-matrix /Users/new/Developer/GitHub/designer/.claude/worktrees/w34-g2-contour-identification/packages/calibration/results/2026-09-24-w34-g2-contour-identification/matrix.json --write-partial --profile apple-macos-27.0-2x-light-standard-glass0.5
+
+── web capture (apple-macos-27.0-2x-light-standard-glass0.5, 84 scene(s)) ─────────────────────────────
+scene server: http://localhost:5189
+engine: chromium 151.0.7922.34
+
+grey-255__rectangle-120__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/grey-255__rectangle-120__inactive/
+
+grey-96__circular-120__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/grey-96__circular-120__rest/
+
+blue__circular-120__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/blue__circular-120__inactive/
+
+grey-32__circular-120__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/grey-32__circular-120__rest/
+
+red__continuous-160__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/red__continuous-160__rest/
+
+gradient-90-small__circular-120__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/gradient-90-small__circular-120__rest/
+
+green__circular-120__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/green__circular-120__inactive/
+
+grey-128__rectangle-120__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/grey-128__rectangle-120__rest/
+
+grey-128__circular-120__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/grey-128__circular-120__inactive/
+
+photo__capsule-button__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/photo__capsule-button__inactive/
+
+red__circular-120__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/red__circular-120__rest/
+
+grey-128__circular-200__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/grey-128__circular-200__rest/
+
+green__circular-120__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/green__circular-120__rest/
+
+grey-255__circular-120__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/grey-255__circular-120__rest/
+
+gradient-0-small__circular-120__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/gradient-0-small__circular-120__rest/
+
+grey-128__circular-200__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/grey-128__circular-200__inactive/
+
+grey-64__circular-120__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/grey-64__circular-120__inactive/
+
+grey-255__continuous-160__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/grey-255__continuous-160__inactive/
+
+local-x-192__circular-120__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/local-x-192__circular-120__inactive/
+
+local-x-64__circular-120__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/local-x-64__circular-120__rest/
+
+grey-128__continuous-160__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/grey-128__continuous-160__inactive/
+
+red__continuous-160__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/red__continuous-160__inactive/
+
+grey-128__rectangle-120__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/grey-128__rectangle-120__inactive/
+
+grey-255__rectangle-120__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/grey-255__rectangle-120__rest/
+
+grey-64__circular-120__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/grey-64__circular-120__rest/
+
+magenta__circular-120__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/magenta__circular-120__inactive/
+
+gradient-135-small__circular-120__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/gradient-135-small__circular-120__rest/
+
+cyan__circular-120__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/cyan__circular-120__rest/
+
+gradient-45-small__circular-120__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/gradient-45-small__circular-120__inactive/
+
+local-y-192__circular-120__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/local-y-192__circular-120__rest/
+
+grey-255__circular-200__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/grey-255__circular-200__rest/
+
+grey-255__circular-200__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/grey-255__circular-200__inactive/
+
+gradient-135-small__circular-120__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/gradient-135-small__circular-120__inactive/
+
+red__capsule-button__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/red__capsule-button__rest/
+
+light-solid__capsule-button__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/light-solid__capsule-button__rest/
+
+grey-160__circular-120__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/grey-160__circular-120__rest/
+
+checkerboard__circular-120__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/checkerboard__circular-120__inactive/
+
+cyan__circular-120__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/cyan__circular-120__inactive/
+
+grey-0__circular-120__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/grey-0__circular-120__inactive/
+
+grey-255__capsule-button__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/grey-255__capsule-button__rest/
+
+red__circular-120__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/red__circular-120__inactive/
+
+gradient-45-small__circular-120__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/gradient-45-small__circular-120__rest/
+
+gradient-90-large__circular-120__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/gradient-90-large__circular-120__rest/
+
+checkerboard__capsule-button__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/checkerboard__capsule-button__inactive/
+
+local-y-64__circular-120__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/local-y-64__circular-120__rest/
+
+checkerboard-64__circular-120__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/checkerboard-64__circular-120__rest/
+
+grey-128__capsule-button__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/grey-128__capsule-button__rest/
+
+grey-255__capsule-button__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/grey-255__capsule-button__inactive/
+
+grey-128__continuous-160__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/grey-128__continuous-160__rest/
+
+grey-32__circular-120__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/grey-32__circular-120__inactive/
+
+gradient-45-large__circular-120__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/gradient-45-large__circular-120__inactive/
+
+checkerboard-4__circular-120__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/checkerboard-4__circular-120__inactive/
+
+grey-255__circular-120__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/grey-255__circular-120__inactive/
+
+local-y-192__circular-120__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/local-y-192__circular-120__inactive/
+
+gradient-0-large__circular-120__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/gradient-0-large__circular-120__rest/
+
+gradient-0-large__circular-120__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/gradient-0-large__circular-120__inactive/
+
+red__circular-200__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/red__circular-200__rest/
+
+checkerboard__circular-120__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/checkerboard__circular-120__rest/
+
+local-y-64__circular-120__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/local-y-64__circular-120__inactive/
+
+yellow__circular-120__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/yellow__circular-120__inactive/
+
+checkerboard__capsule-button__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/checkerboard__capsule-button__rest/
+
+checkerboard-64__circular-120__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/checkerboard-64__circular-120__inactive/
+
+red__circular-200__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/red__circular-200__inactive/
+
+grey-128__capsule-button__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/grey-128__capsule-button__inactive/
+
+gradient-0-small__circular-120__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/gradient-0-small__circular-120__inactive/
+
+checkerboard-4__circular-120__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/checkerboard-4__circular-120__rest/
+
+grey-128__circular-120__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/grey-128__circular-120__rest/
+
+light-solid__capsule-button__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/light-solid__capsule-button__inactive/
+
+gradient-90-large__circular-120__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/gradient-90-large__circular-120__inactive/
+
+magenta__circular-120__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/magenta__circular-120__rest/
+
+red__rectangle-120__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/red__rectangle-120__rest/
+
+local-x-64__circular-120__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/local-x-64__circular-120__inactive/
+
+gradient-45-large__circular-120__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/gradient-45-large__circular-120__rest/
+
+photo__capsule-button__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/photo__capsule-button__rest/
+
+red__rectangle-120__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/red__rectangle-120__inactive/
+
+grey-160__circular-120__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/grey-160__circular-120__inactive/
+
+gradient-90-small__circular-120__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/gradient-90-small__circular-120__inactive/
+
+grey-255__continuous-160__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/grey-255__continuous-160__rest/
+
+local-x-192__circular-120__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/local-x-192__circular-120__rest/
+
+yellow__circular-120__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/yellow__circular-120__rest/
+
+grey-0__circular-120__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/grey-0__circular-120__rest/
+
+red__capsule-button__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/red__capsule-button__inactive/
+
+blue__circular-120__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/blue__circular-120__rest/
+
+grey-96__circular-120__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       packages/calibration/results/2026-09-24-w34-g2-contour-identification/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/grey-96__circular-120__inactive/
+
+84 scene(s) captured; 0 fell back to the CSS tier; 0 carry problems.
+
+── measure (84 cell(s)) ─────────────────────────────
+matrix → /Users/new/Developer/GitHub/designer/.claude/worktrees/w34-g2-contour-identification/packages/calibration/results/2026-09-24-w34-g2-contour-identification/matrix.json (333 cell(s) total)
+
+set         profile                        scene                                        IoU    cMean   SSIM    dE       lum slope N/W     interior mean N/W    interior sd N/W     rim peak N/W
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+probe       2x-light-standard-glass0.5    grey-255__rectangle-120__inactive             1.000    0.00   0.984   0.0015     —   /  —       0.8708/ 0.8310    0.0081/ 0.0043    0.0000/ 0.0083
+probe       2x-light-standard-glass0.5    grey-96__circular-120__rest                   1.000    0.00   0.998   0.0022     —   /  —       0.4574/ 0.5011    0.0346/ 0.0156    0.0797/ 0.0345
+probe       2x-light-standard-glass0.5    blue__circular-120__inactive                  1.000    0.00   1.000   0.0006     —   /  —       0.3182/ 0.3262    0.0130/ 0.0102    0.0000/ 0.0000
+probe       2x-light-standard-glass0.5    grey-32__circular-120__rest                   1.000    0.00   0.999   0.0006     —   /  —       0.3020/ 0.3026    0.0309/ 0.0188    0.0740/ 0.0520
+probe       2x-light-standard-glass0.5    red__continuous-160__rest                     0.998    0.11   0.991   0.0168     —   /  —       0.4012/ 0.5251    0.0202/ 0.0123    0.0224/ 0.0282
+probe       2x-light-standard-glass0.5    gradient-90-small__circular-120__rest         1.000    0.00   0.998   0.0023    0.982/ 0.292    0.5467/ 0.5973    0.0387/ 0.0139    0.0874/ 0.0225
+probe       2x-light-standard-glass0.5    green__circular-120__inactive                 0.999    0.03   0.997   0.0076     —   /  —       0.6447/ 0.5735    0.0132/ 0.0050    0.0000/ 0.0000
+probe       2x-light-standard-glass0.5    grey-128__rectangle-120__rest                 1.000    0.01   0.997   0.0025     —   /  —       0.5466/ 0.5999    0.0365/ 0.0125    0.0891/ 0.0257
+probe       2x-light-standard-glass0.5    grey-128__circular-120__inactive              1.000    0.00   0.998   0.0012     —   /  —       0.5016/ 0.5264    0.0153/ 0.0093    0.0000/ 0.0000
+probe       2x-light-standard-glass0.5    photo__capsule-button__inactive               0.999    0.02   0.996   0.0023    0.466/ 0.397    0.4987/ 0.4998    0.0493/ 0.0388    0.0085/ 0.0037
+probe       2x-light-standard-glass0.5    red__circular-120__rest                       1.000    0.00   0.998   0.0057     —   /  —       0.3983/ 0.5111    0.0180/ 0.0152    0.0365/ 0.0259
+probe       2x-light-standard-glass0.5    grey-128__circular-200__rest                  1.000    0.00   0.997   0.0040     —   /  —       0.5483/ 0.5997    0.0366/ 0.0112    0.1253/ 0.0252
+probe       2x-light-standard-glass0.5    green__circular-120__rest                     1.000    0.01   0.998   0.0092     —   /  —       0.6884/ 0.7130    0.0200/ 0.0105    0.0412/ 0.0095
+probe       2x-light-standard-glass0.5    grey-255__circular-120__rest                  0.843    3.05   0.989   0.0011     —   /  —       0.9576/ 0.9359    0.0136/ 0.0046    0.0164/ 0.0000
+probe       2x-light-standard-glass0.5    gradient-0-small__circular-120__rest          1.000    0.00   0.998   0.0023    0.765/ 0.477    0.5464/ 0.5974    0.0404/ 0.0173    0.0887/ 0.0239
+probe       2x-light-standard-glass0.5    grey-128__circular-200__inactive              1.000    0.00   0.996   0.0021     —   /  —       0.5021/ 0.5267    0.0116/ 0.0071    0.0000/ 0.0000
+probe       2x-light-standard-glass0.5    grey-64__circular-120__inactive               1.000    0.00   0.999   0.0012     —   /  —       0.3551/ 0.3754    0.0153/ 0.0113    0.0000/ 0.0000
+probe       2x-light-standard-glass0.5    grey-255__continuous-160__inactive            1.000    0.02   0.984   0.0035     —   /  —       0.8702/ 0.8310    0.0115/ 0.0034    0.0000/ 0.0114
+probe       2x-light-standard-glass0.5    local-x-192__circular-120__inactive           1.000    0.00   0.997   0.0013     —   /  —       0.5016/ 0.5266    0.0153/ 0.0094    0.0000/ 0.0000
+probe       2x-light-standard-glass0.5    local-x-64__circular-120__rest                1.000    0.00   0.998   0.0014     —   /  —       0.5424/ 0.5668    0.0382/ 0.0126    0.0790/ 0.0258
+probe       2x-light-standard-glass0.5    grey-128__continuous-160__inactive            0.999    0.10   0.991   0.0026     —   /  —       0.5002/ 0.5206    0.0262/ 0.0064    0.0000/ 0.0000
+probe       2x-light-standard-glass0.5    red__continuous-160__inactive                 0.998    0.14   0.994   0.0027     —   /  —       0.3835/ 0.3797    0.0195/ 0.0067    0.0000/ 0.0000
+probe       2x-light-standard-glass0.5    grey-128__rectangle-120__inactive             1.000    0.01   0.997   0.0013     —   /  —       0.5017/ 0.5266    0.0152/ 0.0086    0.0000/ 0.0000
+probe       2x-light-standard-glass0.5    grey-255__rectangle-120__rest                 0.844    3.11   0.988   0.0012     —   /  —       0.9572/ 0.9359    0.0152/ 0.0048    0.0152/ 0.0000
+probe       2x-light-standard-glass0.5    grey-64__circular-120__rest                   1.000    0.00   0.999   0.0017     —   /  —       0.3739/ 0.4015    0.0334/ 0.0169    0.0796/ 0.0405
+probe       2x-light-standard-glass0.5    magenta__circular-120__inactive               1.000    0.00   0.999   0.0033     —   /  —       0.4280/ 0.4052    0.0117/ 0.0083    0.0000/ 0.0000
+probe       2x-light-standard-glass0.5    gradient-135-small__circular-120__rest        1.000    0.00   0.998   0.0023    0.825/ 0.454    0.5467/ 0.5987    0.0382/ 0.0150    0.0879/ 0.0237
+probe       2x-light-standard-glass0.5    cyan__circular-120__rest                      1.000    0.01   0.998   0.0051     —   /  —       0.7099/ 0.7333    0.0246/ 0.0094    0.0621/ 0.0078
+probe       2x-light-standard-glass0.5    gradient-45-small__circular-120__inactive     1.000    0.00   0.998   0.0012    0.592/ 0.490    0.5037/ 0.5266    0.0179/ 0.0122    0.0000/ 0.0008
+probe       2x-light-standard-glass0.5    local-y-192__circular-120__rest               1.000    0.00   0.995   0.0023     —   /  —       0.5722/ 0.6188    0.0485/ 0.0144    0.1088/ 0.0167
+probe       2x-light-standard-glass0.5    grey-255__circular-200__rest                  0.820    3.74   0.983   0.0019     —   /  —       0.9579/ 0.9363    0.0125/ 0.0042    0.0172/ 0.0000
+probe       2x-light-standard-glass0.5    grey-255__circular-200__inactive              1.000    0.00   0.977   0.0024     —   /  —       0.8710/ 0.8309    0.0054/ 0.0030    0.0000/ 0.0060
+probe       2x-light-standard-glass0.5    gradient-135-small__circular-120__inactive    1.000    0.00   0.998   0.0012    0.592/ 0.490    0.5037/ 0.5266    0.0179/ 0.0122    0.0000/ 0.0008
+probe       2x-light-standard-glass0.5    red__capsule-button__rest                     0.999    0.02   0.998   0.0057     —   /  —       0.3973/ 0.5112    0.0202/ 0.0150    0.0390/ 0.0257
+probe       2x-light-standard-glass0.5    light-solid__capsule-button__rest             0.736    5.35   0.992   0.0007     —   /  —       0.9352/ 0.9359    0.0207/ 0.0064    0.0143/ 0.0000
+probe       2x-light-standard-glass0.5    grey-160__circular-120__rest                  1.000    0.01   0.997   0.0021     —   /  —       0.6442/ 0.6946    0.0366/ 0.0098    0.0949/ 0.0130
+probe       2x-light-standard-glass0.5    checkerboard__circular-120__inactive          1.000    0.00   0.977   0.0046    0.043/ 0.150    0.5245/ 0.5254    0.0423/ 0.1355    0.0031/ 0.0000
+probe       2x-light-standard-glass0.5    cyan__circular-120__inactive                  0.999    0.03   0.997   0.0041     —   /  —       0.6590/ 0.6074    0.0129/ 0.0052    0.0000/ 0.0000
+probe       2x-light-standard-glass0.5    grey-0__circular-120__inactive                1.000    0.00   0.995   0.0120     —   /  —       0.2334/ 0.4605    0.0130/ 0.0203    0.0000/ 0.0000
+probe       2x-light-standard-glass0.5    grey-255__capsule-button__rest                0.849    2.67   0.990   0.0011     —   /  —       0.9574/ 0.9358    0.0149/ 0.0047    0.0168/ 0.0000
+probe       2x-light-standard-glass0.5    red__circular-120__inactive                   1.000    0.00   1.000   0.0008     —   /  —       0.3845/ 0.3783    0.0115/ 0.0088    0.0000/ 0.0000
+probe       2x-light-standard-glass0.5    gradient-45-small__circular-120__rest         1.000    0.00   0.998   0.0023    0.825/ 0.457    0.5467/ 0.5987    0.0382/ 0.0150    0.0879/ 0.0237
+probe       2x-light-standard-glass0.5    gradient-90-large__circular-120__rest         1.000    0.00   0.997   0.0015    0.823/ 0.290    0.5486/ 0.5719    0.0504/ 0.0195    0.0937/ 0.0267
+probe       2x-light-standard-glass0.5    checkerboard__capsule-button__inactive        1.000    0.01   0.977   0.0046    0.044/ 0.150    0.5236/ 0.5255    0.0463/ 0.1354    0.0027/ 0.0006
+probe       2x-light-standard-glass0.5    local-y-64__circular-120__rest                1.000    0.00   0.998   0.0013     —   /  —       0.5330/ 0.5573    0.0339/ 0.0135    0.0647/ 0.0302
+probe       2x-light-standard-glass0.5    checkerboard-64__circular-120__rest           0.991    0.32   0.994   0.0016    0.467/ 0.404    0.6539/ 0.6370    0.2423/ 0.2074    0.0098/ 0.0216
+probe       2x-light-standard-glass0.5    grey-128__capsule-button__rest                0.999    0.03   0.997   0.0024     —   /  —       0.5452/ 0.5996    0.0368/ 0.0129    0.0833/ 0.0241
+probe       2x-light-standard-glass0.5    grey-255__capsule-button__inactive            1.000    0.00   0.987   0.0014     —   /  —       0.8703/ 0.8311    0.0106/ 0.0040    0.0000/ 0.0089
+probe       2x-light-standard-glass0.5    grey-128__continuous-160__rest                0.999    0.06   0.992   0.0063     —   /  —       0.5592/ 0.6155    0.0328/ 0.0108    0.0395/ 0.0233
+probe       2x-light-standard-glass0.5    grey-32__circular-120__inactive               1.000    0.00   1.000   0.0001     —   /  —       0.2905/ 0.2909    0.0143/ 0.0105    0.0000/ 0.0000
+probe       2x-light-standard-glass0.5    gradient-45-large__circular-120__inactive     1.000    0.02   0.997   0.0011    0.596/ 0.479    0.5042/ 0.5265    0.0317/ 0.0247    0.0000/ 0.0000
+probe       2x-light-standard-glass0.5    checkerboard-4__circular-120__inactive        1.000    0.00   0.959   0.0033    0.000/ 0.072    0.5035/ 0.5258    0.0182/ 0.0753    0.0000/ 0.0000
+probe       2x-light-standard-glass0.5    grey-255__circular-120__inactive              1.000    0.00   0.986   0.0014     —   /  —       0.8708/ 0.8311    0.0070/ 0.0040    0.0000/ 0.0089
+probe       2x-light-standard-glass0.5    local-y-192__circular-120__inactive           1.000    0.00   0.994   0.0014     —   /  —       0.5016/ 0.5274    0.0153/ 0.0097    0.0000/ 0.0000
+probe       2x-light-standard-glass0.5    gradient-0-large__circular-120__rest          1.000    0.01   0.997   0.0015    0.771/ 0.496    0.5483/ 0.5745    0.0659/ 0.0378    0.0910/ 0.0254
+probe       2x-light-standard-glass0.5    gradient-0-large__circular-120__inactive      0.999    0.02   0.997   0.0011    0.633/ 0.505    0.5044/ 0.5263    0.0475/ 0.0373    0.0003/ 0.0004
+probe       2x-light-standard-glass0.5    red__circular-200__rest                       1.000    0.00   0.997   0.0096     —   /  —       0.3991/ 0.5114    0.0177/ 0.0126    0.0537/ 0.0269
+probe       2x-light-standard-glass0.5    checkerboard__circular-120__rest              1.000    0.00   0.985   0.0021    0.149/ 0.094    0.6289/ 0.6050    0.1101/ 0.0854    0.0699/ 0.0227
+probe       2x-light-standard-glass0.5    local-y-64__circular-120__inactive            1.000    0.00   0.998   0.0012     —   /  —       0.5016/ 0.5259    0.0153/ 0.0095    0.0000/ 0.0021
+probe       2x-light-standard-glass0.5    yellow__circular-120__inactive                0.998    0.07   0.995   0.0056     —   /  —       0.6747/ 0.6634    0.0107/ 0.0037    0.0000/ 0.0000
+probe       2x-light-standard-glass0.5    checkerboard__capsule-button__rest            0.999    0.02   0.985   0.0021    0.151/ 0.094    0.6277/ 0.6052    0.1115/ 0.0851    0.0751/ 0.0229
+probe       2x-light-standard-glass0.5    checkerboard-64__circular-120__inactive       1.000    0.00   0.992   0.0020    0.416/ 0.472    0.5938/ 0.5800    0.2205/ 0.2379    0.0000/ 0.0000
+probe       2x-light-standard-glass0.5    red__circular-200__inactive                   1.000    0.00   0.999   0.0014     —   /  —       0.3849/ 0.3786    0.0088/ 0.0067    0.0000/ 0.0000
+probe       2x-light-standard-glass0.5    grey-128__capsule-button__inactive            0.999    0.03   0.997   0.0013     —   /  —       0.5005/ 0.5264    0.0225/ 0.0091    0.0000/ 0.0000
+probe       2x-light-standard-glass0.5    gradient-0-small__circular-120__inactive      1.000    0.01   0.998   0.0012    0.616/ 0.512    0.5031/ 0.5266    0.0209/ 0.0153    0.0000/ 0.0008
+probe       2x-light-standard-glass0.5    checkerboard-4__circular-120__rest            1.000    0.00   0.969   0.0027    0.092/ 0.050    0.6156/ 0.6235    0.1006/ 0.0531    0.0693/ 0.0206
+probe       2x-light-standard-glass0.5    grey-128__circular-120__rest                  1.000    0.00   0.998   0.0024     —   /  —       0.5466/ 0.5995    0.0361/ 0.0133    0.0855/ 0.0243
+probe       2x-light-standard-glass0.5    light-solid__capsule-button__inactive         1.000    0.00   0.988   0.0004     —   /  —       0.8318/ 0.8326    0.0125/ 0.0013    0.0000/ 0.0025
+probe       2x-light-standard-glass0.5    gradient-90-large__circular-120__inactive     1.000    0.01   0.997   0.0011    0.350/ 0.293    0.5047/ 0.5262    0.0212/ 0.0177    0.0000/ 0.0000
+probe       2x-light-standard-glass0.5    magenta__circular-120__rest                   1.000    0.00   0.998   0.0060     —   /  —       0.4389/ 0.5490    0.0151/ 0.0146    0.0276/ 0.0234
+probe       2x-light-standard-glass0.5    red__rectangle-120__rest                      1.000    0.01   0.998   0.0060     —   /  —       0.3982/ 0.5115    0.0186/ 0.0146    0.0376/ 0.0272
+probe       2x-light-standard-glass0.5    local-x-64__circular-120__inactive            1.000    0.00   0.998   0.0012     —   /  —       0.5016/ 0.5264    0.0153/ 0.0094    0.0000/ 0.0000
+probe       2x-light-standard-glass0.5    gradient-45-large__circular-120__rest         1.000    0.01   0.998   0.0019    0.789/ 0.466    0.5476/ 0.5862    0.0517/ 0.0258    0.0901/ 0.0247
+probe       2x-light-standard-glass0.5    photo__capsule-button__rest                   0.999    0.02   0.997   0.0028    0.530/ 0.366    0.5375/ 0.5390    0.0598/ 0.0370    0.0761/ 0.0272
+probe       2x-light-standard-glass0.5    red__rectangle-120__inactive                  0.999    0.02   0.999   0.0009     —   /  —       0.3846/ 0.3786    0.0107/ 0.0070    0.0000/ 0.0000
+probe       2x-light-standard-glass0.5    grey-160__circular-120__inactive              0.999    0.05   0.996   0.0010     —   /  —       0.5892/ 0.6101    0.0115/ 0.0054    0.0000/ 0.0000
+probe       2x-light-standard-glass0.5    gradient-90-small__circular-120__inactive     1.000    0.00   0.998   0.0012    0.398/ 0.274    0.5037/ 0.5265    0.0163/ 0.0105    0.0000/ 0.0000
+probe       2x-light-standard-glass0.5    grey-255__continuous-160__rest                0.292    6.31   0.986   0.0025     —   /  —       0.9560/ 0.9498    0.0232/ 0.0056    0.0181/ 0.0000
+probe       2x-light-standard-glass0.5    local-x-192__circular-120__rest               1.000    0.00   0.998   0.0026     —   /  —       0.5541/ 0.6130    0.0375/ 0.0134    0.0940/ 0.0184
+probe       2x-light-standard-glass0.5    yellow__circular-120__rest                    0.999    0.02   0.996   0.0071     —   /  —       0.7393/ 0.7706    0.0365/ 0.0078    0.0927/ 0.0060
+probe       2x-light-standard-glass0.5    grey-0__circular-120__rest                    1.000    0.00   0.995   0.0120     —   /  —       0.2360/ 0.4654    0.0291/ 0.0225    0.0723/ 0.0374
+probe       2x-light-standard-glass0.5    red__capsule-button__inactive                 0.999    0.03   0.999   0.0009     —   /  —       0.3836/ 0.3784    0.0172/ 0.0084    0.0000/ 0.0000
+probe       2x-light-standard-glass0.5    blue__circular-120__rest                      1.000    0.00   0.999   0.0040     —   /  —       0.3299/ 0.3992    0.0262/ 0.0177    0.0609/ 0.0430
+probe       2x-light-standard-glass0.5    grey-96__circular-120__inactive               1.000    0.00   0.999   0.0010     —   /  —       0.4273/ 0.4444    0.0158/ 0.0105    0.0000/ 0.0000
+
+2x-light-standard-glass0.5    probe       n=84  IoU mean 0.9804 worst 0.2923   contour p95 mean 1.12 worst 37.00   SSIM mean 0.9940 worst 0.9587   dE mean 0.00292 worst 0.01684
+
+── the shadow axis: what each side does to the backdrop it does not cover ────────────
+profile                       scene                                        support  strength N/W     extent above/below/left/right N       W                 offset y N/W     blur sigma N/W
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2x-light-standard-glass0.5    grey-255__rectangle-120__inactive               1.00  0.3264/ 0.0047    0/  0/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    grey-96__circular-120__rest                     1.00  0.2601/ 0.0100    2/ 16/  2/  2    0/ 17/  0/  0      7.0/   8.5     —   /  —   
+2x-light-standard-glass0.5    blue__circular-120__inactive                    1.00  0.2298/ 0.0000    2/  2/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    grey-32__circular-120__rest                     0.00    —   /   —       —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        —   /  —   
+2x-light-standard-glass0.5    red__continuous-160__rest                       1.00  0.1770/ 0.0412    7/ 37/ 20/ 20   14/ 40/ 24/ 24     15.0/  13.0     16.5/  22.3
+2x-light-standard-glass0.5    gradient-90-small__circular-120__rest           1.00  0.2763/ 0.0148    2/ 20/  2/  2    0/ 19/  3/  3      9.0/   9.5      6.0/  27.7
+2x-light-standard-glass0.5    green__circular-120__inactive                   1.00  0.3136/ 0.0000    2/  2/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    grey-128__rectangle-120__rest                   1.00  0.3300/ 0.0157    0/ 18/  2/  2    0/ 19/  4/  4      9.0/   9.5     —   /  24.2
+2x-light-standard-glass0.5    grey-128__circular-120__inactive                1.00  0.3775/ 0.0000    2/  2/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    photo__capsule-button__inactive                 1.00  0.3375/ 0.0000    0/  0/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    red__circular-120__rest                         1.00  0.1767/ 0.0102    0/ 16/  2/  2    0/ 17/  0/  0      8.0/   8.5     —   /  —   
+2x-light-standard-glass0.5    grey-128__circular-200__rest                    1.00  0.2890/ 0.0159    0/ 18/  2/  2    0/ 19/  4/  4      9.0/   9.5     —   /  43.8
+2x-light-standard-glass0.5    green__circular-120__rest                       1.00  0.2344/ 0.0111    0/ 18/  2/  2    0/ 18/  0/  0      9.0/   9.0      2.1/  41.7
+2x-light-standard-glass0.5    grey-255__circular-120__rest                    1.00  0.2057/ 0.0153    0/ 16/  2/  2    0/ 16/  0/  0      8.0/   8.0      7.4/  33.9
+2x-light-standard-glass0.5    gradient-0-small__circular-120__rest            1.00  0.2763/ 0.0116    2/ 18/  2/  2    0/ 17/  0/  3      8.0/   8.5      1.6/  36.3
+2x-light-standard-glass0.5    grey-128__circular-200__inactive                1.00  0.4059/ 0.0000    0/  0/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    grey-64__circular-120__inactive                 1.00  0.3229/ 0.0000    2/  2/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    grey-255__continuous-160__inactive              1.00  0.2311/ 0.0125    0/  0/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    local-x-192__circular-120__inactive             1.00  0.3825/ 0.0000    2/  2/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    local-x-64__circular-120__rest                  1.00  0.2822/ 0.0151    2/ 18/  2/  2    0/ 19/  0/  3      8.0/   9.5     —   /  29.5
+2x-light-standard-glass0.5    grey-128__continuous-160__inactive              1.00  0.2574/ 0.0000    2/  2/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    red__continuous-160__inactive                   1.00  0.1710/ 0.0000    0/  0/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    grey-128__rectangle-120__inactive               1.00  0.4110/ 0.0000    0/  0/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    grey-255__rectangle-120__rest                   1.00  0.2187/ 0.0137    0/ 16/  2/  2    0/ 16/  0/  0      8.0/   8.0      8.8/  26.2
+2x-light-standard-glass0.5    grey-64__circular-120__rest                     1.00  0.1764/ 0.0140    2/ 13/  2/  2    0/ 16/  0/  0      5.5/   8.0      5.9/  32.0
+2x-light-standard-glass0.5    magenta__circular-120__inactive                 1.00  0.2801/ 0.0000    2/  2/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    gradient-135-small__circular-120__rest          1.00  0.2768/ 0.0128    2/ 18/  2/  2    0/ 19/  3/  0      8.0/   9.5      2.9/  38.0
+2x-light-standard-glass0.5    cyan__circular-120__rest                        1.00  0.2399/ 0.0111    0/ 18/  2/  2    0/ 18/  0/  0      9.0/   9.0      2.1/  41.7
+2x-light-standard-glass0.5    gradient-45-small__circular-120__inactive       1.00  0.3761/ 0.0000    2/  2/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    local-y-192__circular-120__rest                 1.00  0.2627/ 0.0154    2/ 18/  2/  2    0/ 19/  3/  3      8.0/   9.5     —   /  28.9
+2x-light-standard-glass0.5    grey-255__circular-200__rest                    1.00  0.1984/ 0.0146    0/ 16/  2/  2    0/ 16/  0/  0      8.0/   8.0     14.4/  49.0
+2x-light-standard-glass0.5    grey-255__circular-200__inactive                1.00  0.3286/ 0.0052    0/  0/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    gradient-135-small__circular-120__inactive      1.00  0.3761/ 0.0000    2/  2/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    red__capsule-button__rest                       1.00  0.1949/ 0.0102    0/ 16/  2/  2    0/ 17/  0/  0      8.0/   8.5     —   /  —   
+2x-light-standard-glass0.5    light-solid__capsule-button__rest               1.00  0.2005/ 0.0126    0/ 15/  2/  2    0/ 16/  0/  0      7.5/   8.0      8.2/  31.9
+2x-light-standard-glass0.5    grey-160__circular-120__rest                    1.00  0.2741/ 0.0126    2/ 20/  2/  2    0/ 19/  0/  0      9.0/   9.5      5.2/  33.6
+2x-light-standard-glass0.5    checkerboard__circular-120__inactive            0.50  0.5261/ 0.0225    2/  2/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    cyan__circular-120__inactive                    1.00  0.3177/ 0.0000    2/  2/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    grey-0__circular-120__inactive                  0.00    —   /   —       —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        —   /  —   
+2x-light-standard-glass0.5    grey-255__capsule-button__rest                  1.00  0.1925/ 0.0153    0/ 16/  2/  2    0/ 16/  0/  0      8.0/   8.0      8.4/  33.9
+2x-light-standard-glass0.5    red__circular-120__inactive                     1.00  0.2708/ 0.0000    2/  2/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    gradient-45-small__circular-120__rest           1.00  0.2768/ 0.0128    2/ 18/  2/  2    0/ 19/  0/  3      8.0/   9.5      2.9/  38.0
+2x-light-standard-glass0.5    gradient-90-large__circular-120__rest           0.82  0.2740/ 0.0136    2/ 18/  2/  2    0/ 19/  3/  3      8.0/   9.5      4.7/  27.9
+2x-light-standard-glass0.5    checkerboard__capsule-button__inactive          0.50  0.4764/ 0.0225    0/  0/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    local-y-64__circular-120__rest                  1.00  0.2767/ 0.0154    2/ 18/  2/  2    0/ 19/  3/  3      8.0/   9.5     —   /  28.9
+2x-light-standard-glass0.5    checkerboard-64__circular-120__rest             0.46  0.1876/ 0.0135    0/ 16/  0/  0    0/ 17/  0/  0      8.0/   8.5    157.4/ 123.5
+2x-light-standard-glass0.5    grey-128__capsule-button__rest                  1.00  0.2760/ 0.0154    0/ 18/  2/  2    0/ 19/  3/  3      9.0/   9.5     —   /  28.9
+2x-light-standard-glass0.5    grey-255__capsule-button__inactive              1.00  0.2911/ 0.0081    0/  0/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    grey-128__continuous-160__rest                  1.00  0.2617/ 0.0416    4/ 34/ 19/ 19   14/ 40/ 27/ 27     15.0/  13.0     15.4/  24.0
+2x-light-standard-glass0.5    grey-32__circular-120__inactive                 0.00    —   /   —       —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        —   /  —   
+2x-light-standard-glass0.5    gradient-45-large__circular-120__inactive       0.94  0.3723/ 0.0000    2/  2/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    checkerboard-4__circular-120__inactive          0.50  0.7204/ 0.0274    2/  2/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    grey-255__circular-120__inactive                1.00  0.3214/ 0.0081    2/  2/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    local-y-192__circular-120__inactive             1.00  0.4346/ 0.0000    2/  2/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    gradient-0-large__circular-120__rest            0.82  0.2670/ 0.0114    2/ 18/  2/  2    0/ 17/  0/  0      8.0/   8.5      1.9/  36.5
+2x-light-standard-glass0.5    gradient-0-large__circular-120__inactive        0.82  0.3673/ 0.0000    2/  2/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    red__circular-200__rest                         1.00  0.2057/ 0.0103    0/ 17/  2/  2    0/ 17/  0/  0      8.5/   8.5     —   /  78.6
+2x-light-standard-glass0.5    checkerboard__circular-120__rest                0.50  0.2441/ 0.0297    0/ 16/  5/  2    0/ 17/  5/  0      8.0/   8.5      6.9/  34.5
+2x-light-standard-glass0.5    local-y-64__circular-120__inactive              1.00  0.1469/ 0.0000    0/  2/  2/  2    0/  0/  0/  0      1.0/  —        —   /  —   
+2x-light-standard-glass0.5    yellow__circular-120__inactive                  1.00  0.3256/ 0.0000    2/  2/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    checkerboard__capsule-button__rest              0.50  0.2235/ 0.0297    0/ 16/  5/  2    0/ 17/  5/  0      8.0/   8.5      7.8/  34.5
+2x-light-standard-glass0.5    checkerboard-64__circular-120__inactive         0.46  0.3623/ 0.0000    0/  0/  0/  0    0/  0/  0/  0     —   /  —        —   /  —   
+2x-light-standard-glass0.5    red__circular-200__inactive                     1.00  0.3091/ 0.0000    0/  0/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    grey-128__capsule-button__inactive              1.00  0.3539/ 0.0000    0/  0/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    gradient-0-small__circular-120__inactive        1.00  0.3763/ 0.0000    2/  2/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    checkerboard-4__circular-120__rest              0.50  0.2995/ 0.0317    0/ 16/  2/  2    0/ 17/  2/  5      8.0/   8.5      5.4/  34.5
+2x-light-standard-glass0.5    grey-128__circular-120__rest                    1.00  0.2764/ 0.0154    2/ 18/  2/  2    0/ 19/  3/  3      8.0/   9.5     —   /  28.9
+2x-light-standard-glass0.5    light-solid__capsule-button__inactive           1.00  0.2757/ 0.0029    0/  0/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    gradient-90-large__circular-120__inactive       0.82  0.3721/ 0.0000    2/  2/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    magenta__circular-120__rest                     1.00  0.1904/ 0.0105    0/ 17/  2/  2    0/ 17/  0/  0      8.5/   8.5     —   /  50.3
+2x-light-standard-glass0.5    red__rectangle-120__rest                        1.00  0.2508/ 0.0103    0/ 16/  2/  2    0/ 17/  0/  0      8.0/   8.5     —   /  —   
+2x-light-standard-glass0.5    local-x-64__circular-120__inactive              1.00  0.3543/ 0.0000    2/  2/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    gradient-45-large__circular-120__rest           0.94  0.2726/ 0.0121    2/ 18/  2/  2    0/ 19/  0/  0      8.0/   9.5      3.2/  38.6
+2x-light-standard-glass0.5    photo__capsule-button__rest                     1.00  0.2607/ 0.0117    0/ 17/  2/  2    0/ 17/  0/  3      8.5/   8.5      3.9/  39.7
+2x-light-standard-glass0.5    red__rectangle-120__inactive                    1.00  0.3214/ 0.0000    0/  0/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    grey-160__circular-120__inactive                1.00  0.3589/ 0.0000    2/  2/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    gradient-90-small__circular-120__inactive       1.00  0.3732/ 0.0000    2/  2/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    grey-255__continuous-160__rest                  1.00  0.2140/ 0.0433    2/ 33/ 20/ 20    5/ 35/ 23/ 23     15.5/  15.0     17.3/  21.9
+2x-light-standard-glass0.5    local-x-192__circular-120__rest                 1.00  0.2677/ 0.0153    2/ 18/  2/  2    0/ 19/  3/  3      8.0/   9.5     —   /  29.1
+2x-light-standard-glass0.5    yellow__circular-120__rest                      1.00  0.2499/ 0.0112    0/ 18/  2/  2    0/ 18/  0/  0      9.0/   9.0      2.1/  41.7
+2x-light-standard-glass0.5    grey-0__circular-120__rest                      0.00    —   /   —       —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        —   /  —   
+2x-light-standard-glass0.5    red__capsule-button__inactive                   1.00  0.2633/ 0.0000    0/  0/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    blue__circular-120__rest                        1.00  0.1125/ 0.0082    0/ 13/  2/  2    0/ 16/  0/  0      6.5/   8.0     —   /  —   
+2x-light-standard-glass0.5    grey-96__circular-120__inactive                 1.00  0.3741/ 0.0000    2/  2/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+
+── what this run does and does not show ────────────
+All native fixtures used here carry the composited material (materialRendered: true).
+the shape axis is BOUNDED to the declared component region (margin 0 device px): within it, coverage, contour and corner profile are measured as before; outside it nothing is recovered, so a surface drawn LARGER than its declaration reads as a match. Area recovery is assumed, not measured — read silhouetteArea{Native,Web} against componentRegionArea.
+shadow axis NOT NORMALISED on 4 cell(s) across 4 scene(s): grey-32__circular-120__rest, grey-0__circular-120__inactive, grey-32__circular-120__inactive, grey-0__circular-120__rest. Those backdrops carry too little light for an occlusion ratio to exist; the absolute departure is still reported and every ratio is absent, not zero.
+caveat: W34 G2 projection: G1 omitted the caveats key; no fixture metadata or pixel changed. Native-only controls are excluded by G0 launcher.
+web accessibility for apple-macos-27.0-2x-light-standard-glass0.5 (native standard): browser preferences, no overrides
+
+── notes (219) ────────────
+  grey-255__rectangle-120__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  grey-255__rectangle-120__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  grey-255__rectangle-120__inactive: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 20620 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  grey-96__circular-120__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  grey-96__circular-120__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  grey-96__circular-120__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19468 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  blue__circular-120__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  blue__circular-120__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  blue__circular-120__inactive: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19468 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  grey-32__circular-120__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  grey-32__circular-120__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  grey-32__circular-120__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19468 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  grey-32__circular-120__rest: shadow axis NOT NORMALISED: only 0.0% of the exterior has a backdrop above 0.05 linear luminance, so an occlusion ratio is not identifiable here — a shadow removes a fraction of the light behind it, and over this backdrop there is none to remove. The absolute departure (meanDeparture{Native,Web}) is still reported; every ratio-valued field is absent, not zero.
+  red__continuous-160__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  red__continuous-160__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 53452 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  gradient-90-small__circular-120__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  gradient-90-small__circular-120__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  green__circular-120__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  green__circular-120__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  green__circular-120__inactive: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19452 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  grey-128__rectangle-120__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  grey-128__rectangle-120__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  grey-128__rectangle-120__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 20612 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  grey-128__circular-120__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  grey-128__circular-120__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  grey-128__circular-120__inactive: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19468 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  photo__capsule-button__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__capsule-button__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  red__circular-120__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  red__circular-120__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  red__circular-120__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19468 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  grey-128__circular-200__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  grey-128__circular-200__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  grey-128__circular-200__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 33548 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  green__circular-120__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  green__circular-120__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  green__circular-120__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19464 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  grey-255__circular-120__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  grey-255__circular-120__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  grey-255__circular-120__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 9884 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  gradient-0-small__circular-120__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  gradient-0-small__circular-120__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  grey-128__circular-200__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  grey-128__circular-200__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  grey-128__circular-200__inactive: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 33548 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  grey-64__circular-120__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  grey-64__circular-120__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  grey-64__circular-120__inactive: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19468 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  grey-255__continuous-160__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  grey-255__continuous-160__inactive: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 53532 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  local-x-192__circular-120__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  local-x-192__circular-120__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  local-x-192__circular-120__inactive: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19468 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  local-x-64__circular-120__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  local-x-64__circular-120__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  local-x-64__circular-120__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19466 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  grey-128__continuous-160__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  grey-128__continuous-160__inactive: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 53452 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  red__continuous-160__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  red__continuous-160__inactive: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 53424 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  grey-128__rectangle-120__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  grey-128__rectangle-120__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  grey-128__rectangle-120__inactive: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 20612 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  grey-255__rectangle-120__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  grey-255__rectangle-120__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  grey-255__rectangle-120__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 10588 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  grey-64__circular-120__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  grey-64__circular-120__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  grey-64__circular-120__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19468 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  magenta__circular-120__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  magenta__circular-120__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  magenta__circular-120__inactive: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19468 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  gradient-135-small__circular-120__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  gradient-135-small__circular-120__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  cyan__circular-120__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  cyan__circular-120__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  cyan__circular-120__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19460 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  gradient-45-small__circular-120__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  gradient-45-small__circular-120__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  local-y-192__circular-120__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  local-y-192__circular-120__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  local-y-192__circular-120__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19468 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  grey-255__circular-200__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  grey-255__circular-200__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  grey-255__circular-200__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 15644 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  grey-255__circular-200__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  grey-255__circular-200__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  grey-255__circular-200__inactive: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 33548 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  gradient-135-small__circular-120__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  gradient-135-small__circular-120__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  red__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  red__capsule-button__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  red__capsule-button__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19456 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  light-solid__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  light-solid__capsule-button__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  light-solid__capsule-button__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 14372 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  grey-160__circular-120__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  grey-160__circular-120__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  grey-160__circular-120__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19460 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  checkerboard__circular-120__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  cyan__circular-120__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  cyan__circular-120__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  cyan__circular-120__inactive: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19452 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  grey-0__circular-120__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  grey-0__circular-120__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  grey-0__circular-120__inactive: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19468 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  grey-0__circular-120__inactive: shadow axis NOT NORMALISED: only 0.0% of the exterior has a backdrop above 0.05 linear luminance, so an occlusion ratio is not identifiable here — a shadow removes a fraction of the light behind it, and over this backdrop there is none to remove. The absolute departure (meanDeparture{Native,Web}) is still reported; every ratio-valued field is absent, not zero.
+  grey-255__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  grey-255__capsule-button__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  grey-255__capsule-button__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 10100 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  red__circular-120__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  red__circular-120__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  red__circular-120__inactive: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19468 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  gradient-45-small__circular-120__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  gradient-45-small__circular-120__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  gradient-90-large__circular-120__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  gradient-90-large__circular-120__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  checkerboard__capsule-button__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  local-y-64__circular-120__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  local-y-64__circular-120__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  local-y-64__circular-120__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19468 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  checkerboard-64__circular-120__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  grey-128__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  grey-128__capsule-button__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  grey-128__capsule-button__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19454 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  grey-255__capsule-button__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  grey-255__capsule-button__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  grey-255__capsule-button__inactive: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19468 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  grey-128__continuous-160__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  grey-128__continuous-160__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 53492 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  grey-32__circular-120__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  grey-32__circular-120__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  grey-32__circular-120__inactive: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19468 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  grey-32__circular-120__inactive: shadow axis NOT NORMALISED: only 0.0% of the exterior has a backdrop above 0.05 linear luminance, so an occlusion ratio is not identifiable here — a shadow removes a fraction of the light behind it, and over this backdrop there is none to remove. The absolute departure (meanDeparture{Native,Web}) is still reported; every ratio-valued field is absent, not zero.
+  gradient-45-large__circular-120__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  gradient-45-large__circular-120__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  checkerboard-4__circular-120__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  grey-255__circular-120__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  grey-255__circular-120__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  grey-255__circular-120__inactive: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19468 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  local-y-192__circular-120__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  local-y-192__circular-120__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  local-y-192__circular-120__inactive: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19468 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  gradient-0-large__circular-120__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  gradient-0-large__circular-120__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  gradient-0-large__circular-120__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  gradient-0-large__circular-120__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  red__circular-200__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  red__circular-200__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  red__circular-200__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 33548 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  checkerboard__circular-120__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  local-y-64__circular-120__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  local-y-64__circular-120__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  local-y-64__circular-120__inactive: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19468 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  yellow__circular-120__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  yellow__circular-120__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  yellow__circular-120__inactive: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19432 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  checkerboard__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  checkerboard-64__circular-120__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  red__circular-200__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  red__circular-200__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  red__circular-200__inactive: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 33548 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  grey-128__capsule-button__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  grey-128__capsule-button__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  grey-128__capsule-button__inactive: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19452 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  gradient-0-small__circular-120__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  gradient-0-small__circular-120__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  checkerboard-4__circular-120__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  grey-128__circular-120__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  grey-128__circular-120__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  grey-128__circular-120__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19468 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  light-solid__capsule-button__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  light-solid__capsule-button__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  light-solid__capsule-button__inactive: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19468 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  gradient-90-large__circular-120__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  gradient-90-large__circular-120__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  magenta__circular-120__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  magenta__circular-120__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  magenta__circular-120__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19468 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  red__rectangle-120__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  red__rectangle-120__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  red__rectangle-120__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 20616 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  local-x-64__circular-120__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  local-x-64__circular-120__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  local-x-64__circular-120__inactive: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19468 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  gradient-45-large__circular-120__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  gradient-45-large__circular-120__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  photo__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__capsule-button__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  red__rectangle-120__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  red__rectangle-120__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  red__rectangle-120__inactive: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 20608 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  grey-160__circular-120__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  grey-160__circular-120__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  grey-160__circular-120__inactive: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19440 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  gradient-90-small__circular-120__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  gradient-90-small__circular-120__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  grey-255__continuous-160__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  grey-255__continuous-160__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  grey-255__continuous-160__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 15636 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  local-x-192__circular-120__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  local-x-192__circular-120__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  local-x-192__circular-120__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19468 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  yellow__circular-120__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  yellow__circular-120__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  yellow__circular-120__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19458 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  grey-0__circular-120__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  grey-0__circular-120__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  grey-0__circular-120__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19468 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  grey-0__circular-120__rest: shadow axis NOT NORMALISED: only 0.0% of the exterior has a backdrop above 0.05 linear luminance, so an occlusion ratio is not identifiable here — a shadow removes a fraction of the light behind it, and over this backdrop there is none to remove. The absolute departure (meanDeparture{Native,Web}) is still reported; every ratio-valued field is absent, not zero.
+  red__capsule-button__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  red__capsule-button__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  red__capsule-button__inactive: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19452 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  blue__circular-120__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  blue__circular-120__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  blue__circular-120__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19468 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  grey-96__circular-120__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  grey-96__circular-120__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  grey-96__circular-120__inactive: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19468 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.

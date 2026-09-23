@@ -36153,3 +36153,464 @@ qualifications survive the sitting. The original grant is still a wave-close obl
 
 The next gate is parent review and merge of this evidence, then G2 identification against the
 published bars. G1 does not open G2 itself, merge, push or restore the original grant.
+
+## 5.176 W34 G2: contour identification against the captured bar (2026-09-24)
+
+**Completion: DELIVERED as a negative finding, for parent review and the user's DL2 ruling.**
+The checkpoint below is preserved; §§6–8 record completion, including the one receipt exposure.
+No G3 leaf is identified or authorised. The nominated boundary body, not only a stroke colour
+coefficient, must be resolved before an outside-only term can satisfy this six-shell instrument.
+
+**Checkpoint: calibration and validation recorded; the holdout remains sealed.** W34 clauses
+5, 6 and 8, X1–X14; branch `w34-g2-contour-identification`, from `44605805`. Evidence is
+`packages/calibration/results/2026-09-24-w34-g2-contour-identification/` (September **24**, not
+G2's prospective September 23 directory in the charter). No material, profile, adopted threshold,
+golden, canonical matrix, native fixture, native capture, bundle build or TCC change.
+
+### 1. What was read, and what the residual means
+
+G0's reader supplies materialized native pixels from G1's probe inventory and the repeat archive's
+captured no-glass, opaque-control and grey-alignment dependencies. All **336 non-holdout glass
+cells** are read on the repeat archive's **fixed** masks; each bin's population is asserted equal
+to G1's bar before comparison. There is no per-model registration or plurality-selected bar.
+The instrument reports six device-pixel shells, sixteen normal bins, each channel independently,
+with arcs and straights separate. Absolute values precede every reduction. The **192 deficient
+1x rectangle bin/shell rows remain unmeasured**; geometrically absent straight bins are not
+invented. `native-zero.json.gz` is the full native-minus-no-glass response, not an assertion that
+the entire six-shell signal is a stroke: inner shells carry body and active outer shells can
+carry shadow. The web gap likewise includes body and geometry differences, not only the term
+that a future contour leaf could close.
+
+Every table carries the actual bin bar and population. **Tolerance is `max(1 code, bar)`, which
+is one code on every measured normal bin.** The largest normal bar is **0.5**, 1x light-active
+arcs; 2x dark-active arcs reach **0.0625**. G1's long protocol stays separate; its 0.17647 arc /
+0.22368 straight maxima are not pooled into the normal protocol. Zero observed spread is not
+zero variability or a precision guarantee.
+
+`native-controls.json` reports ordinary-fill alignment in encoded and linear interpretations,
+separately from the glass half-interior-contrast fit. Neither is called a hidden raster origin.
+Circular bins use the analytic stadium with the **0.006·radius/22 CSS-pixel** cubic qualification;
+continuous bins use G0's flattened supplied path. `native-bodies.json` records G0's median or
+bounded affine interior fit and its **unshrunk** uncertainty. Structured backdrops route to an
+effective rendered response, not a uniquely identified boundary body. The qualified forward
+follow-up integrates the body field at subpixels and keeps body, reference, geometry and
+numerical uncertainty separate from the one-code tolerance.
+
+### 2. The notch, with W33's different population kept beside it
+
+The following medians each cover **42 calibration/validation cells**, not W33's canonical cohort.
+All six-shell maxima use admitted bins, not pooled error. `strata.json` and the per-bin artifacts
+retain precision. These are measurements of this sparse colour/geometry bed; changes from W33
+are **not** material changes or an improvement claim.
+
+| stratum | part | native notch | web notch | max native–web | pixels | bar / tolerance |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| 1x/dark/inactive | arc | -16.492 | 1.997 | 151.250 | 42228 | 0 / 1 |
+| 1x/dark/inactive | straight | -25.042 | 2.388 | 144.000 | 37800 | 0 / 1 |
+| 1x/dark/active | arc | -10.993 | 3.236 | 136.714 | 42258 | 0 / 1 |
+| 1x/dark/active | straight | 0.000 | 0.000 | 144.000 | 37800 | 0 / 1 |
+| 1x/light/inactive | arc | -14.205 | 7.174 | 165.333 | 42228 | 0 / 1 |
+| 1x/light/inactive | straight | -29.582 | 0.000 | 117.481 | 37800 | 0 / 1 |
+| 1x/light/active | arc | -11.233 | 8.755 | 94.143 | 42228 | 0.5 / 1 |
+| 1x/light/active | straight | -19.572 | 0.000 | 99.000 | 37800 | 0 / 1 |
+| 2x/dark/inactive | arc | -16.835 | 1.944 | 144.000 | 83226 | 0 / 1 |
+| 2x/dark/inactive | straight | -25.042 | 2.395 | 144.000 | 75528 | 0 / 1 |
+| 2x/dark/active | arc | -10.994 | 3.762 | 138.438 | 83028 | 0.0625 / 1 |
+| 2x/dark/active | straight | 0.000 | 0.000 | 148.000 | 75528 | 0 / 1 |
+| 2x/light/inactive | arc | -13.452 | 9.169 | 98.333 | 82932 | 0 / 1 |
+| 2x/light/inactive | straight | -30.198 | 0.000 | 91.000 | 75528 | 0 / 1 |
+| 2x/light/active | arc | -10.458 | 8.858 | 97.625 | 82974 | 0 / 1 |
+| 2x/light/active | straight | -19.500 | 0.000 | 102.000 | 75528 | 0 / 1 |
+
+W33 §5.170's non-holdout, combined-contour notch medians were: 1x light active/inactive
+**−19.689 / −21.673**, 2x light **−17.824 / −20.827**, 1x dark **−13.742 / −19.058**, 2x dark
+**−13.274 / −14.816**, on 46/32 light and 38/28 dark cells. W34 does not silently substitute its
+arc-only or straight-only median for those combined-contour readings. Dark-active straights
+again have median **0**, while their arcs have a negative median at both scales: the orientation
+contrast survived the new bed. Structured-background notch readings remain model-free diagnostics,
+not isolated measurements of stroke depth.
+
+### 3. Calibration-only fits, validation failures, and the remaining qualification
+
+The first pass completed **400 configurations**: eleven W33 angular-family names first, then
+seven new-axis names in encoded and linear sRGB, each with least squares and minimax at all
+eight scale/scheme/pose endpoints. Power grids are .5/1/2/4/8; the rotated axis samples 2.5°.
+The chosen power and rotation come from **calibration**, never validation. Coefficients are
+shared across that endpoint's calibration backdrops; no scene or backdrop switch is fitted.
+Arcs and straights share coefficients but never share a referee bin. These coefficients remain
+scale-specific diagnostics, not a device-scale-invariant runtime material.
+
+`fits.json` records every coefficient and selection grid. `validation-residuals.json.gz` reports
+every per-cell/bin/shell/channel residual. `family-best.csv` gives each family's best of its two
+reported objectives per stratum, beside the bar, population and domain. **None of the first
+400 configurations closes a complete validation stratum.** The initial new-axis diagnostic is
+circular-only and its compact body extrapolation is explicitly distinguished from the exact
+body-integral follow-up; it cannot borrow a physical-compositing claim from that follow-up.
+
+Minimax here is **pixelwise L-infinity in the nominated composition space**, solved by constraint
+generation and verified against every pixel constraint. It is not minimax of signed bin means,
+and linear-space minimax is not asserted to minimize the final encoded-byte referee. A failed
+nominated fit rejects that fitted configuration at the declared resolution, **not every possible
+coefficient in a family, every continuous exponent, or every possible Apple law**. The physical
+shared-alpha follow-up constrains 0≤alpha≤1 and 0≤premultiplied target≤alpha; unconstrained affine
+response coefficients by themselves do not identify a physical alpha or source colour.
+
+W33's native-minus-web comparator is also rerun separately against this gate's actual shipped
+web captures (`w33-web-*`). The first family pass's native-minus-no-glass comparator is not
+passed off as the same observation. W34's calibration/validation protocol also differs from
+W33's in-sample diagnostics, so an apparent score change is not a like-for-like improvement.
+The exact-body and nuisance checks and the once-only holdout are recorded in the completion
+addendum below, after they finish; this checkpoint supplies no holdout result.
+
+### 4. Four browser launches, all captured; three standard metric refusals
+
+`browser-runs.txt` records fresh RT0, IC0, slider0.5, Show Borders0, zero foreign capture processes
+and HID idle over sixty seconds before **each** of the four non-holdout profile launches.
+Every capture reports Chromium's real **apple/metal-3** adapter and the untuned shipped macOS27
+material, including its actually drawn active/receded endpoint. `web-provenance.json` retains the
+endpoint identities and PNG hashes. No native capture ran beside them.
+
+All **336 cells rendered**. The wave-local `matrix.json` has **333 probe rows**, not 336: standard
+`contourCurvature` refuses a zero-length contour on 1x dark inactive gradient-90-small/circular120,
+and 1x light active grey255/circular120 and circular200. All three captured cells remain in the
+native-mask contour residual table, which does not depend on that recovered-contour metric.
+The initial comparer also threw in its final reporter because G1's materialized manifest omitted
+`caveats`; its capture and matrix writes preceded that error. A provenance-recorded, wave-local
+manifest projection adds only that field and links the unchanged non-holdout pixels. The first
+profile was remeasured **without another browser**, exposing its metric refusal; no pixel was
+recaptured to make a run green. These failures remain in their original logs.
+
+The circular web counterpart is the runtime's **zero-smoothing stadium**. That comparison does
+not establish exact native cubic geometry, glass-path coverage or hidden alignment. Existing
+continuous native capsules retain the older circular web mapping, so their gap includes that
+geometry mismatch. At native size, the 1x light inactive grey255 circular120 pair was inspected:
+the native outline is visible where the web has no outline, and the interiors differ too.
+The six-shell RGB gap is therefore not labelled entirely recoverable by adding a stroke.
+
+**Control detail beside the checkpoint.** Forty non-holdout profile/pose/geometry control
+sets are read. Ordinary-fill fitted translation reaches **0.125 device px**; the glass
+supplied-path isoresponse fit on continuous geometry reaches **0.614415 device px** in y.
+This is further reason not to transfer the ordinary fill's origin or coverage to glass.
+The body records route **208 cells** through the uniform baseline, **56** through the
+qualified affine-gradient baseline and **72** through structured-boundary non-identification.
+The exact physical follow-up uses the **184 circular solid/gradient cells** (19 calibration
+and four validation per endpoint); continuous physical forward fits are **not claimed**.
+Their supplied-path residuals remain in the full instrument and W33-family tables. Failure
+already on circular controls needs no invented continuous coverage model to block G3.
+All 336 non-holdout web captures report deterministic repeats. The four drawn endpoint
+digests match the shipped documents' own recorded digests (`shipped-document-provenance.json`).
+
+**Pre-exposure uncertainty correction, beside.** `candidates-v2.json` preserves all forty
+nominees and all coefficients/inventories from the unspent first document, while naming the
+corrected forward dependency. No-glass half-code uncertainty now propagates through the actual
+body/stroke weight and encoding. A flat .5-code allowance was over-wide in fully covered body
+pixels and could be under-wide for an unrestricted affine response with gain above one. The
+synthetic check reads 0 contribution inside the body, .3 at alpha .4, and 1.5 for affine gain3.
+The stopped propagation logs are retained; no completed nuisance table was replaced and the
+real receipt was still unspent. This changes neither a fitted coefficient nor a point residual
+or the declared one-code tolerance; it corrects the separate interval/discrimination reading.
+
+### 5. A stronger negative than optimizer failure — and a narrower physical conclusion
+
+`coefficient-independent-floors.json` gives a counterexample that changing an optimizer,
+colour coefficient or angular exponent cannot remove **within the nominated decomposition**.
+In shell **[−2,−1)**, every point of a device pixel lies inside the nominated body: the pixel
+half-diagonal is √0.5<1. The outside **[0,1)** stroke band therefore has **zero coverage** there.
+All stroke coefficients multiply zero, and all four exact-body alternatives in each space
+produce identical residuals in every such bin. Each row below is a worst populated validation
+bin in that unreachable shell, not a pooled error or a fitted lower bound. Its tolerance is1.
+
+| scale / scheme / pose | arc floor, codes | straight floor, codes |
+| --- | ---: | ---: |
+| 1x dark active | 9.000 | 9.237 |
+| 1x dark inactive | 3.000 | 3.000 |
+| 1x light active | 10.250 | 10.000 |
+| 1x light inactive | 2.500 | 2.000 |
+| 2x dark active | 27.375 | 27.000 |
+| 2x dark inactive | 2.778 | 3.000 |
+| 2x light active | 21.875 | 21.000 |
+| 2x light inactive | 2.000 | 2.000 |
+
+**Review correction beside, 2026-09-24 (§9, finding 1):** the table above is the original
+instrument's reading and stays as recorded. Re-read with the corrected half-pixel coordinate
+convention, three entries move: 1x dark active arc **9.000 → 10.000** and straight
+**9.237 → 10.000**, and 2x dark inactive arc **2.778 → 3.000**. The other thirteen entries are
+unchanged, the smallest is still **2.000**, and every row in both spaces still exceeds one code.
+§9 gives the witnesses.
+
+These are the encoded-family floors; the artifact carries both spaces, witnesses, RGB,
+populations and bars, and **every linear-family row also exceeds one code**. Thus none of the
+fixed-band candidates can point-close the entire six-shell forward prediction merely by
+retuning its stroke. **This rejects the nominated body/path/stroke decomposition, not Apple's
+stroke-colour law in isolation.** The independently constrained body boundary or radial placement
+is part of what remains unresolved. Its nuisance interval can still be compatible, which is why
+interval compatibility/discrimination is reported separately rather than declaring every colour
+mechanism falsified. The 1x/2x and pose dependence of the floors is evidence, not permission to
+fit a correction on validation.
+
+This also changes the sensible next step: do not commission another full sitting merely to add
+repeats. First test an explicitly declared extension of the body-boundary/radial model on the
+existing non-holdout evidence. A subsequent blind confirmation would need a new authorised
+receipt and genuinely unexposed cells; W34's holdout is not reusable after its one exposure.
+If another native bed is chartered, it must improve glass-path registration/coverage and boundary
+body identification, prove a reachable independent phase mechanism before scaling up, and retain
+local-colour/gradient contrasts, adequate arc populations and separate pose/scheme/scale controls.
+Ordinary opaque fill is not that missing glass-path control, and more unanimous repeats cannot
+remove a structural residual at the one-code floor. G3 and a new capture remain user decisions.
+
+### 6. Completed pre-holdout qualification and frozen nominees
+
+There are **672 fitted configurations** in total: the first400, W33's176 against the shipped
+web, 64 exact-body fits and32 constrained shared-alpha fits. The complete per-family/space/
+comparator/domain/part index is `family-best-complete.csv` (**672 validation summary rows**,
+selecting the better reported objective per displayed part, not inventing a part-switching law).
+Every contributing absolute bin, bar and population remains in its corresponding compressed
+residual table. No configuration point-closes a complete validation part.
+
+The exact-body family nominees are below. Each is fitted on19 circular solid/gradient
+calibration cells and checked on4 such validation cells per endpoint. Maxima cover **both parts
+and every populated shell/bin/channel**, never an average between parts. The shared-alpha
+column is its independently nominated physical source-over subset. All observed validation
+bars are below1, so every table entry is compared with **one code**, not zero. Full coefficients
+are frozen in `candidates-v2.json`; a grid endpoint at power8 is not an identified exponent.
+
+| scale / scheme / pose | best exact body family | objective / power | worst validation bin | shared-alpha worst bin | tolerance |
+| --- | --- | --- | ---: | ---: | ---: |
+| 1x / dark / inactive | encoded body-forward-even-affine | least-squares / 8 | 16.750 | 17.750 | 1 |
+| 1x / dark / active | encoded body-forward-even-affine | least-squares / 2 | 36.000 | 37.000 | 1 |
+| 1x / light / inactive | encoded body-forward-even-affine | least-squares / 8 | 9.500 | 15.000 | 1 |
+| 1x / light / active | linear body-forward-even-affine | least-squares / 4 | 29.000 | 32.333 | 1 |
+| 2x / dark / inactive | encoded body-forward-even-affine | least-squares / 8 | 12.444 | 15.111 | 1 |
+| 2x / dark / active | encoded body-forward-even-affine | least-squares / 2 | 47.000 | 47.000 | 1 |
+| 2x / light / inactive | encoded body-forward-even-affine | least-squares / 8 | 10.000 | 14.500 | 1 |
+| 2x / light / active | linear body-forward-even-affine | least-squares / 4 | 36.000 | 36.000 | 1 |
+
+`qualified-validation-forward.json.gz` separates the propagated body interval, actual weighted
+reference quantisation, eight finite alignment/path perturbations and64/128-sample disagreement.
+`qualified-validation-discrimination.json.gz` records per-bin prediction separation against
+`2*tau + both nuisance-envelope widths`. G0's executable `closure_verdict` returns
+**insufficient resolution on all128 exact-body fit/part readings**: the competing nominated
+families do not separate in two independent angular/radial strata in both fitting roles under
+that budget. **19/128 validation-only fit/part interval checks** are compatible at one code;
+none is a point closure, and that count is not19 laws or19 whole-gate passes. The finite
+perturbation envelope is not a confidence interval or a proof over every hidden raster origin.
+The first-pass compact diagnostics do not inherit a physical uncertainty claim from this table.
+
+The computational shortcuts preserve all body/band/angular coverage moments on the **ten distinct
+non-holdout circular fixed-mask geometries**: body and band/angular differences are0; coordinate
+moments differ by at most **5.551115123125783e−17**. The separate64/128 gradient/encoding check
+has36 comparisons with maximum difference0. This is evidence about the implemented quadrature,
+not about Apple's rasterizer. All fitted coefficients and validation/qualification tables are
+committed before exposure. The prepared receipt digest is recorded in `receipt-preflight.json`;
+construction of that object did **not** expose a payload. The actual spend and result follow in
+§7, and no negative validation result is used as an excuse to omit the prescribed one read.
+
+### 7. The holdout read's own table — one receipt, no refit
+
+**Review qualification beside, 2026-09-24 (§9 below):** these held figures are readings of
+this gate's **original instrument**. They have not been re-read with the corrected affine
+coordinate convention or W33 bases. The begin event reproduces its digest; the complete event's
+serialized configuration contains a metadata-only bookkeeping mutation and does not reproduce
+that recorded digest. Both original events remain untouched; the explicit audit is below.
+
+The real receipt contains exactly **begin → complete**, with no failed attempt or second
+exposure. Configuration digest:
+
+`3c4c046541f91ab7cd5dab2bdd8c450869e595c50736d538085cbfb98e54b93f`
+
+The receipt freezes scenes/split, G0's instrument/archive/reader/closure, the committed runner,
+`candidates-v2.json` and its analysis dependencies, and all three G1 inventories: repeat,
+materialized probe, and root sealed-bar inventory. `3a6464dd` committed the completed
+qualification before exposure. The first candidate document remains beside its unspent amendment;
+no candidate, coefficient, scene, split or inventory changed after exposure.
+
+G0's authorised readers opened **72 glass cells**; the40 predeclared validation nominees were
+read without a stroke-coefficient refit. Per-cell stroke-free body estimation is part of the
+frozen instrument, including on holdout, not an edge fit or a runtime material estimate. All
+**80 nominee/part readings fail point closure**. The full table is `holdout-residuals.json.gz`
+and its unrounded index `holdout-result.json`. The exact-body nominees' own held reading follows;
+each row covers5 circular solid/gradient cells, with all shell/bin/channel maxima and population
+beside it. Held normal bars read0 on the admitted bins, so the effective tolerance remains1;
+this is not a claim of zero variability.
+
+| scale / scheme / pose | exact-body arc MAE / pixels | exact-body straight MAE / pixels | observed bar / tolerance |
+| --- | ---: | ---: | ---: |
+| 1x / dark / inactive | 55.444 / 7196 | 51.000 / 4128 | 0 / 1 |
+| 1x / dark / active | 56.421 / 7292 | 60.000 / 4128 | 0 / 1 |
+| 1x / light / inactive | 14.667 / 7262 | 7.500 / 4128 | 0 / 1 |
+| 1x / light / active | 21.889 / 7262 | 27.961 / 4128 | 0 / 1 |
+| 2x / dark / inactive | 54.158 / 14356 | 51.000 / 8256 | 0 / 1 |
+| 2x / dark / active | 52.917 / 14228 | 45.000 / 8256 | 0 / 1 |
+| 2x / light / inactive | 14.211 / 14348 | 7.664 / 8256 | 0 / 1 |
+| 2x / light / active | 21.595 / 14348 | 33.836 / 8256 | 0 / 1 |
+
+`holdout-qualified-forward.json.gz` retains separate nuisance contributions for the frozen
+exact-body and physical-alpha nominees; its local fit ids map back to the receipt through
+`holdout-qualified-index.json`. `holdout-qualified-discrimination.json.gz` records their
+per-bin separation. These are this read's own tables, not a new selection or fitting round.
+
+The same receipt authorised G0's glass-only holdout web allowlist. Four further X6 preflights
+preceded four profile launches,18 scenes each, all on real Apple Metal WebGPU. All72 captures
+report deterministic repeats and the correct untuned shipped endpoint for their pose. Their
+fixed-mask gap and provenance are kept separately as `holdout-web-*`; they are not mixed into
+the non-holdout family-selection tables. **All408 declared glass cells now have web captures.**
+The standard comparer matrix remains333 non-holdout rows; held cells are read by the contour
+instrument through the receipt, not by an unguarded native comparer or a canonical matrix write.
+Every one of the eight browser preflights records RT0, IC0, slider0.5, Show Borders0, zero foreign
+capture processes and at least sixty seconds idle; the minimum was43,932.134631333 seconds.
+No native capture, rebuild, TCC change, merge or push was used to complete this read.
+
+### 8. Decision Log 2 recommendation, checks, and what this gate does not claim
+
+**Recommend closing W34 at this negative and not opening G3.** No leaf, identity value, CSS
+approximation, material-document movement or conformance re-pin is nominated. First declare
+and test a boundary-body/radial-model extension on the existing non-holdout evidence if the user
+wants to continue. A new blind confirmation must be newly authorised; the spent W34 receipt
+cannot be reset by changing a candidate. The third-bed requirements are in §5 and the charter's
+DL2 draft. They are a recommendation, not permission for native capture or a silently chosen
+continuation. DL4's original Screen Recording grant recovery remains the parent's/user's
+wave-close obligation; this gate did not alter TCC or perform its positive native check.
+
+Closing checks (`close-*.txt`): calibration **658 passed,1 skipped across44 files**; G0 boundary
+**6/6**; the identifying reader's synthetic solver/compositor/physical-alpha/reference-propagation
+checks **6/6**; macOS26.5 freeze **1,818 intact**. The ten-geometry quadrature check is separately
+recorded, as are all initial failed/partial computational and browser reporting attempts. No
+independent reviewer was dispatched under this gate's explicit no-agent constraint; parent review
+is still required. The operational index is **README.txt**, because this worker's instructions
+forbid creating Markdown report files; the requested narrative lives here and in the charter.
+
+This gate does **not** claim Apple's internal compositor is identified; that all possible
+coefficients, continuous exponents, radial supports or body models have been excluded; that a
+body-constrained scientific predictor is already a runtime material; that ordinary-fill coverage
+transfers to glass; that supplied paths attest a hidden raster transform; that zero repeat spread
+is zero variability; that an interval-only fit is a law; or that geometry uncertainty is a
+probability distribution. New physical forward fits on continuous shapes are declined rather than
+silently using circles; those shapes remain in the fixed supplied-path instrument and W33-family
+readings. No accessibility behaviour, composite contour law, CSS mirror, rendered candidate,
+canonical-row improvement, release, merge or push is claimed. The standard comparer has three
+explicit non-holdout metric holes, not three absent captures. Every measured gap remains evidence
+or follow-up, not a new accepted fidelity ceiling.
+
+**Diff-check qualification:** one trailing blank line in the preserved raw
+`close-calibration-tests.txt` log is retained (`close-diff-check.txt`). Authored source/spec
+text has no whitespace warning. This is not reported as a failed test or silently normalized.
+
+
+### 9. Independent-review fix wave — 2026-09-24
+
+The read-only independent review reproduced four exact-body fits and all432 validation bins
+per fit, and checked two minimax optima with full LPs. It found the negative sound in its
+stated scope and the no-G3 recommendation appropriate for the user, with three evidence
+corrections. All original readings, nominees and the spent receipt are preserved. Corrections
+are appended under `review-fix/`; no holdout payload, image or capture is reopened.
+
+**Receipt integrity, corrected record beside (§9, finding3).** The original runner aliased
+`document` to the authorization's configuration, then wrote `receiptCandidateIndex` into each
+of its forty fit dictionaries. Those bookkeeping fields therefore entered the complete event's
+serialized configuration even though its recorded digest remained the pre-exposure digest.
+`review-fix/receipt-integrity-audit.json` reads only the committed receipt events and records:
+
+- Begin's actual and recorded configuration digest:
+  `3c4c046541f91ab7cd5dab2bdd8c450869e595c50736d538085cbfb98e54b93f`.
+- Complete's **actual serialized-configuration digest**:
+  `daccc0e84a0f116d32a49ab1c1a011636013005a344286001f06fd083b92b0ad`.
+  Its recorded digest still says `3c4c0465…`; that mismatch is not repaired in place.
+- Removing **only** the forty enumerated bookkeeping fields makes canonical JSON exactly equal
+  to begin and restores the full `3c4c0465…` digest. Coefficients, inventories and every other
+  configuration field are unchanged. The receipt file itself is byte-identical to `44e007f8`.
+
+The runner now keeps local-to-receipt indices in a separate map and never writes into the
+frozen document. Its regression exercises the real main-loop bookkeeping with synthetic empty
+I/O, catches the original mutation, and verifies both document equality and the separate map.
+This correction is for future use only: the actual receipt remains spent, with no re-run or
+new authorization. A valid begin pin and metadata-only completion discrepancy are the claims,
+not a claim that the original complete event passes its literal hash check.
+
+**Affine body coordinates, corrected reading beside (§9, finding 1; 2026-09-24).** The
+original exact-body and compact evaluators sampled the affine interior fit at coordinates
+half a device pixel away from the convention that fitted it, so each of the **56**
+affine-gradient bodies was displaced by a constant `β_x/(2·320·s) + β_y/(2·200·s)`. The
+old-minus-corrected encoded displacement reaches **0.305 codes**, median 0.066
+(`review-fix/coordinate-offsets.json`). Uniform bodies were never affected. One conversion now
+serves both evaluators and the body moments. `review-rerun.py coordinates` re-evaluates the
+**published** coefficients under it; nothing is refitted and no nominee moves. It covers the 64
+compact body-forward fits on 240 cells (`coordinate-compact-*`, mapped to their original ids by
+`coordinate-compact-index.json`), and the 64 exact-body and 32 shared-alpha fits on the 184
+circular solid/gradient cells (`coordinate-exact-*`, `coordinate-alpha-*`).
+
+No worst-bin headline moves in any of the 640 fit/role/part rows, and point closures stay
+**0**. Failed validation bins move by a handful: exact body **15,986 → 15,994** of 27,648,
+shared alpha **8,039 → 8,042** of 13,824, compact **15,917 → 15,913** of 27,648. The §6
+nominee table is therefore unchanged as printed. In the unreachable shell [−2,−1) the four
+fitted alternatives per space still agree exactly on every bin, so the floor stays
+coefficient-independent. Three of §5's sixteen encoded entries move, identically in the linear
+family:
+
+| entry | original floor, witness | corrected floor, witness |
+| --- | --- | --- |
+| 1x dark active arc | 9.000, gradient-45-small bin 12 (tied) | **10.000**, gradient-90-large bin 12 |
+| 1x dark active straight | 9.236842, gradient-45-small bin 12 | **10.000**, gradient-90-large bin 12 |
+| 2x dark inactive arc | 2.777778, gradient-90-large bin 12 | **3.000**, the same bin (G/B; R unchanged) |
+
+The review predicted the 1x dark active straight witness would move **9.236842 → 9.368421**, and
+at that bin it does. A different bin of the same endpoint, gradient-90-large bin 12 on the
+circular-120 rest cell, moves 9 → 10 on both parts and becomes the witness. The review's 2x
+dark inactive prediction, 2.777778 → 3, is confirmed as stated. Every one of the 32 rows still
+exceeds one code, and the smallest is still **2.000**. The **2–27.375 code** range that the
+charter and the tracker cite is unchanged.
+
+The qualified forward propagation and G0's closure verdict were re-run under the corrected
+convention with the frozen coefficients (`coordinate-qualified-*`,
+`coordinate-closure-verdicts.json`). All **128** exact-body fit/part readings are again
+**insufficient resolution**, for the same reason: the families do not separate in two strata per
+fitting role. The interval-compatible count is again **19/128**, the same nineteen fit/part
+pairs. No validation worst point moves, and the worst interval widens by at most **0.087 codes**.
+
+**The held figures are the original instrument's and were not re-read.** §7's table and every
+`holdout-*` artifact were computed before this correction. The receipt is spent, so the corrected
+evaluator has not been run on a held cell and no corrected held value exists anywhere.
+
+**W33 bases, faithful rerun beside (§9, finding 2; 2026-09-24).** The first pass ran four W33
+family names on bases that differed from W33's own: the gradient and colour-gradient families
+used `|nx|^2` instead of `|nx|^4`, the isotropic two-axis family used one axis angle instead of
+the rotated orthogonal pair, and neither axis family had W33's power-16 grid endpoint
+(`review-fix/w33-variant-map.json`). Those readings stay under their original names.
+`review-rerun.py bases` fits the faithful variants on W34's calibration cells, 64 fits per
+comparator (four families × eight endpoints × least squares and minimax, encoded). It fits
+against native-minus-no-glass and again against the shipped web captures, and referees them on
+validation with the absolute per-bin referee at `max(1 code, bar)`.
+
+**None closes: 0/128 validation fit/part rows per comparator, in every one of the sixteen
+strata.** Each stratum's best worst bin equals the original variant's exactly. Against no-glass
+it is **97.000–131.462 codes**, and against the web **57.000–130.322**, with every observed bar
+**0**. All four families, in both variants, share that worst value in every stratum, so the
+faithful bases change only how many bins fail. Summed over strata, the best-failed-bin count out
+of 6,048 admitted bins per family is:
+
+| family | no-glass, original → faithful | web, original → faithful |
+| --- | ---: | ---: |
+| gradient | 4,304 → 4,295 | 3,854 → 3,857 |
+| colour-gradient | 4,308 → 4,297 | 3,852 → 3,852 |
+| rotated-axis | 4,295 → 4,295 | 3,853 → 3,853 |
+| isotropic-two-axis | 4,302 → 4,299 | 3,854 → 3,854 |
+
+Calibration selects power 4 for gradient and colour-gradient at every endpoint. It selects the
+new power-16 endpoint for rotated-axis in 9/16 no-glass and 10/16 web fits; a grid endpoint is
+not an identified exponent.
+
+§5.171's review qualification counted **in-sample** one-byte closures of individual W33 strata:
+rotated axis 0/152, isotropic two-axis 7/152, gradient 0/152 and colour-gradient 3/152. Those
+used per-stratum fits over W33's canonical cohort, scored on the strata they were fitted to.
+W34 fits one coefficient set per endpoint across backdrops on calibration cells only, then
+referees held-back validation bins. The two readings differ in population, fitting unit and
+referee, so this rerun neither reproduces nor contradicts W33's isolated closures. It shows only
+that the first pass's non-faithful bases are not why no W33 family closed here.
+
+**Closing checks for the fix wave (2026-09-24).** The review-fix logs record calibration **658
+passed, 1 skipped across 44 files**, G0 boundary **6/6**, the gate's numerical tests **6/6**, the
+review regressions **5/5** and the macOS 26.5 freeze **1,818 intact**. The same five checks were
+re-run green once every corrected reading above had finished and been recorded. The receipt audit's
+digests were also recomputed independently from the committed events and agree. No native capture,
+browser run, bundle build, TCC change, holdout read or receipt spend was part of this wave.
+As at the gate's close, the raw `review-fix/calibration-tests.txt` log keeps vitest's trailing
+blank line, which `git diff --check` reports; it is retained as evidence, not normalized.
