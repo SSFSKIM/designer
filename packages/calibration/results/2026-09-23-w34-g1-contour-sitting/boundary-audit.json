@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "publicBarCellsDisjointFromHoldout": true,
+  "publicMaximumWitnessesDisjointFromHoldout": true,
+  "publicHoldoutManifestFieldsWhitelisted": true,
+  "rawCaptureLogsAbsentFromPublicLogs": true,
+  "materializerDiagnosticsUnderHoldout": true,
+  "originalAndSideBinaryHashesUnchanged": true,
+  "waveReceiptAbsent": true,
+  "sealedBarUnauthorisedReadsRefused": 144,
+  "scope": "Structural inspection of actual published artifacts; no held analytical payload decoded",
+  "checkedArtifactSha256": {
+    "bar.json": "73a9733b74155c7ba51ebda35640fa78f5eeb14097488d4a58f5bf14d00ec951",
+    "sentinel-bar.json": "a8e4f4fdc95a62271b51010490e8327225d12a930991d011fb8b0521779c5fb7",
+    "sitting.json": "0e08389ace610e9fd5869fb26f2ba9cc11d5c4028189de695ccd7d742c9e448d",
+    "probe/manifest.json": "d665eca2327720ffe9ad6ba3150a8b49741b2114a0fada38e55a99734f0d0186",
+    "sealed-bars-boundary-check.json": "d807483a627d21b6f53bfb3a2c3babbe2bbbe2899fa6d250b755898f41d9d069"
+  }
+}

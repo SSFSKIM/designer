@@ -35971,3 +35971,185 @@ wave boundary suite **6/6**, numeric instrument suite **9/9**; freeze **1,818** 
 access forbidden. The archive's native repeats are solid/checkerboard cells, so the corrected
 gradient baseline changes none of those recorded outputs. No native capture, browser run,
 TCC change, side rebuild, canonical evidence change or closure-number re-pin occurred.
+
+
+## 5.175 W34 G1: the contour bed captured, archived before plurality and published at its repeat bar (2026-09-24)
+
+**Completion: DELIVERED for parent review and merge.** W34 clauses 3, 4 and 7, Decision Log 1,
+X1–X8 and X12–X13. Branch `w34-g1-contour-sitting`, from `b420118c`; evidence
+`packages/calibration/results/2026-09-23-w34-g1-contour-sitting/`. The native sitting admitted
+**28 normal runs and 12 long-protocol sentinel runs, 4,192 cell captures**, with **no refusal
+and no quarantine**. All **592 declared cells** materialized. No model was fitted, no vitrea
+render ran, no holdout receipt was spent, and no shipped material or canonical evidence moved.
+
+### 1. The sitting, in actual order
+
+All timestamps below are UTC; the sitting crossed midnight in KST. `sitting.json` preserves
+unrounded process wall clocks, the source attestations and artifact digests. The earlier
+`sitting-capture-complete.json` remains an immutable checkpoint, not a file updated to a later state.
+
+| pass | runs | cells/run | started UTC | finished UTC | wall clock |
+| --- | ---: | ---: | --- | --- | ---: |
+| active-2x | 7 | 148 | 2026-09-23 06:24:27Z | 2026-09-23 09:09:37Z | 2 h 45 m 10 s |
+| inactive-2x | 7 | 148 | 2026-09-23 09:10:41Z | 2026-09-23 11:55:33Z | 2 h 44 m 52 s |
+| active-1x | 7 | 148 | 2026-09-23 11:56:12Z | 2026-09-23 14:40:40Z | 2 h 44 m 28 s |
+| inactive-1x | 7 | 148 | 2026-09-23 14:41:27Z | 2026-09-23 17:26:03Z | 2 h 44 m 37 s |
+| active-2x-sentinel | 3 | 4 | 2026-09-23 17:26:56Z | 2026-09-23 17:30:15Z | 0 h 03 m 19 s |
+| inactive-2x-sentinel | 3 | 4 | 2026-09-23 17:30:43Z | 2026-09-23 17:34:03Z | 0 h 03 m 19 s |
+| active-1x-sentinel | 3 | 4 | 2026-09-23 17:34:38Z | 2026-09-23 17:37:54Z | 0 h 03 m 17 s |
+| inactive-1x-sentinel | 3 | 4 | 2026-09-23 17:38:24Z | 2026-09-23 17:41:41Z | 0 h 03 m 17 s |
+
+Normal pass time totals **10 h 59 m 07 s**; the four sentinel passes **13 m 12 s**. Summed
+process wall time is **11 h 12 m 19 s**; first launch to last completion, including checkpoints
+and display switches, is **11 h 17 m 15 s**. Every pass's driver log, attestations and
+holdout-safe output distillation was committed immediately after that pass completed.
+
+The four accepted G0 full-pass dry rehearsals were reused, not repeated in G1. Their
+opening-to-closing attestation intervals were **41.879939 / 42.018582 / 40.959467 / 40.772477 s**
+in normal-pass order. These are attestation intervals, not separately timed rehearsal processes.
+The inactive driver also exercised its explicit-root, no-tint rehearsal; its separate process
+wall clock was not instrumented. No failed rehearsal was hidden or restarted in G1.
+
+### 2. What the machine attested
+
+All **80 run-level opening/closing reads** reported zero foreign capture processes. Every
+launch's recorded session was unlocked and at least sixty seconds idle; the minimum prelaunch
+read was **224.925137916 s**. Independent `ioreg` reads preceded each pass. The driver made
+its own session/idle read before each of the forty launches. A deterministic producer also
+checked every captured cell's idle admission: **all 4,192 clear sixty seconds**; held-out
+per-cell values were not disclosed (`cell-admission-check.json`). No disturbance was found.
+
+All runs: macOS **27.0 / 26A428**, RT **0**, IC **0**, `NSGlassTintAmount` **0.5**, Show Borders
+**0**; display `가상 16:9`, persistent id `7709FD0F-F423-4277-B0C8-7CA94F85723A`, with its
+colour context recorded. The side bundle remained identifier `dev.vitrea.reference-apple.w34`,
+cdhash **830a00c6ff7b9ff74898c745e30e9335e31488a5**, binary SHA-256
+`9c6167b853b8f3d33074c4edc2f851c0f663e7293b2f423c4bb88496048551f1`, linked minos/sdk **26.0/26.0**.
+It was never rebuilt or re-granted. Neither the original bundle nor build-probe was launched;
+TCC was not touched. Successful material and pose attestations establish the side's grant for
+this sitting, not coexistence with the original grant. DL4's original recovery remains pending.
+
+The display sequence was **68 → 69 → 68 → 69 → 68**, with a readback at each switch: normal
+2x, normal 1x, sentinel 2x, sentinel 1x, restored. No opening/closing configuration drift occurred.
+The restored mode68 closing read again passed the pinned machine check with zero foreign processes.
+All cells attested their intended pose, repeat determinism, material and declared backing scale.
+
+### 3. The archive before the vote, then the complete publication
+
+The committed `repeat/` inventory names **all 40 source-manifest hashes and 408 glass cells**.
+It preserves every admitted state's lossless RGB pixels, every sampled no-glass/fill/alignment
+input, the supplied geometry, fixed per-cell masks, per-run raw alignment fit, unrounded channel
+statistics and losing states, separated by identification role. The 184 native-only control
+cells are captured in the bed and carried as sampled dependencies, not assigned glass metrics.
+The archive was completed and committed **before** materialization. Raw runs remain at
+`/Users/new/vitrea-w34/run/`; raw capture output was not copied into public evidence logs.
+
+The materializer checked the seven runs of each pass against that archive and published
+**592/592** cells: **148/148 per pose/scale pass**, no shortfall, refusal or forced settlement.
+
+| profile (macOS27 standard glass0.5) | active | inactive | total / declared |
+| --- | ---: | ---: | ---: |
+| 1x light | 97 | 97 | 194 / 194 |
+| 1x dark | 51 | 51 | 102 / 102 |
+| 2x light | 97 | 97 | 194 / 194 |
+| 2x dark | 51 | 51 | 102 / 102 |
+
+Every one of the **1,184** published image/metadata inventory hashes matches its payload.
+Each captured cell carries its own supplied-path field; native-only empty controls have no
+shape to export. Held-out metadata and materializer state-frequency diagnostics remain in
+`probe/holdout/`. Public held entries are restricted to inventory and admission fields; no
+held-out state counts, channel values or settling values were published.
+
+### 4. The normal and long bars, with populations rather than a precision claim
+
+`bar.json` reports **336 calibration/validation glass cells**, each with seven admitted normal
+runs. `sentinel-bar.json` reports the **16 declared sentinel cells**, each with three long runs;
+its other 320 non-holdout cells explicitly say insufficient repeats, because that protocol did
+not capture them. The protocols are not pooled. The estimator is the declared maximum over
+admitted run pairs of mean absolute channel difference at identical pixels, absolute before
+any spatial/channel reduction. Channels, arc/straight parts, angular bins and shells remain
+separate in the full payload. The following are headline maxima, not a closure statistic.
+
+Values are encoded byte units. Population is the sum of admitted fixed-mask pixels over the
+stratum's cells, **not** multiplied by runs or channels. Bin counts are populated part/bin/shell
+rows; there are three channel rows per bin. Normal strata contain **42 cells each**, long
+strata **2 cells each**. `bar-headlines.json` also records the maximum's cell/bin/channel witness.
+
+**Normal, seven runs per cell**
+
+| scale / scheme / pose | arc max / pixels | straight max / pixels | bins: arc / straight |
+| --- | ---: | ---: | ---: |
+| 1x / light / active | 0.5 / 42,228 | 0 / 37,800 | 3,984 / 540 |
+| 1x / light / inactive | 0 / 42,228 | 0 / 37,800 | 3,984 / 540 |
+| 1x / dark / active | 0 / 42,258 | 0 / 37,800 | 3,984 / 540 |
+| 1x / dark / inactive | 0 / 42,228 | 0 / 37,800 | 3,984 / 540 |
+| 2x / light / active | 0 / 82,974 | 0 / 75,528 | 4,032 / 540 |
+| 2x / light / inactive | 0 / 82,932 | 0 / 75,528 | 4,032 / 540 |
+| 2x / dark / active | 0.0625 / 83,028 | 0 / 75,528 | 4,032 / 540 |
+| 2x / dark / inactive | 0 / 83,226 | 0 / 75,528 | 4,032 / 540 |
+
+**Long, three runs per cell, eight-second initial dwell and order seed3401**
+
+| scale / scheme / pose | arc max / pixels | straight max / pixels | bins: arc / straight |
+| --- | ---: | ---: | ---: |
+| 1x / light / active | 0 / 1,724 | 0 / 1,824 | 192 / 24 |
+| 1x / light / inactive | 0 / 1,724 | 0 / 1,824 | 192 / 24 |
+| 1x / dark / active | 0 / 1,724 | 0 / 1,824 | 192 / 24 |
+| 1x / dark / inactive | 0 / 1,724 | 0 / 1,824 | 192 / 24 |
+| 2x / light / active | 0 / 3,356 | 0 / 3,648 | 192 / 24 |
+| 2x / light / inactive | 0 / 3,356 | 0 / 3,648 | 192 / 24 |
+| 2x / dark / active | 0.176470588 / 3,356 | 0.223684211 / 3,648 | 192 / 24 |
+| 2x / dark / inactive | 0 / 3,376 | 0 / 3,648 | 192 / 24 |
+
+The largest normal admitted envelope is **0.5 byte**, on 1x light-active arcs. The long maximum
+is **0.2236842105263158 byte**, on 2x dark-active straights; that stratum's arc maximum is
+**0.17647058823529413**. The normal 2x dark-active arc maximum is **0.0625**. All other headline
+maxima are zero. All admitted envelopes are below G0's already-declared one-byte quantisation
+floor; **no threshold was chosen or widened from this observation, and no model closure is claimed**.
+
+The actual 1x normal cuts contain **192 under-populated arc bin/shell rows** across the twelve
+rectangle cells: 48 in each scheme/pose stratum, matching three cells times the declared sixteen
+nominal deficiencies. They are reported unmeasured, not pooled or passed. No long-sentinel bin
+is under-populated. Seven normal runs remain a state-discovery convention, not a precision
+interval; three long runs have a smaller discovery population. Zero observed spread proves
+neither zero population variability nor equality between protocols or universal settledness.
+The G0 one-code protocol dependence remains a qualified finding, not annulled by quiet G1 strata.
+
+### 5. Replay and the holdout boundary
+
+`archive-only-replay.json` reproduces the complete instrument output for **336 non-holdout
+cells / 2,400 observations**, with filesystem access under `/Users/new/vitrea-w34` actively
+forbidden. This re-runs the instrument on archived lossless values, not a saved spread table.
+`archive-alignment-replay.json` separately recomputes all those observations' alignment fits
+from their archived grey-image/background dependencies: **40 distinct input combinations,
+all exactly identical**, with the same enforced raw-root ban. Held-out analytical payloads
+were not replayed or inspected by G1's reader.
+
+Deterministic producers processed held-out inputs only to archive, materialize and seal their
+own normal/long bars under `holdout/`. `inventory.json` is a third, receipt-compatible inventory
+for those precomputed bar payloads. **All 144 unauthorised per-cell bar reads refuse.** If G2
+uses those precomputed bars, its once-only receipt must name this inventory beside
+`repeat/inventory.json` and `probe/inventory.json`; otherwise it can derive bars through its
+authorised repeat reader. The bulk sealed producer files are not an access shortcut. No
+wave-identification receipt exists from G1, and no canonical holdout receipt was touched.
+
+The public bars contain only calibration/validation scene ids; the public manifest's held
+entries pass the exact admission-field whitelist. Public logs carry driver admission or
+integrity/timestamp distillations, never raw held-out capture/state diagnostics. `test-wave.py`
+passes its missing/invalid-payload refusal and reporting tests; this gate's sealed-bar check
+also tests refusal against the actual generation without spending a receipt.
+
+### 6. Closing checks and what this gate does not claim
+
+Calibration suite: **658 passed, 1 skipped, 44 files**. Wave boundary tests **6/6**; sitting
+gates **2/2**; macOS26.5 freeze **1,818 intact**. Sitting records are in `sitting.json`
+and `provenance.json`; `README.txt` gives the operational replay and receipt entry points.
+
+No contour law, fitted coefficient, discrimination result, model closure, vitrea comparison,
+browser capture, runtime improvement, canonical fixture/scenes change, profile change,
+canonical matrix row, threshold re-pin or golden change is claimed. No G1 analytical holdout
+exposure occurred. A supplied path is not an attested raster origin; opaque coverage is not
+assumed to transfer to glass; G0's phase-axis, body/coverage, cubic-error and geometry-counterpart
+qualifications survive the sitting. The original grant is still a wave-close obligation.
+
+The next gate is parent review and merge of this evidence, then G2 identification against the
+published bars. G1 does not open G2 itself, merge, push or restore the original grant.

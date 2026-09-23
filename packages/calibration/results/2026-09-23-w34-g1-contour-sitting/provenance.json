@@ -1,0 +1,646 @@
+{
+  "schema": 1,
+  "gate": "W34 G1; \u00a75.175 clauses 3\u20134 and 7",
+  "runs": [
+    {
+      "directory": "/Users/new/vitrea-w34/run/active-1x/run-1",
+      "manifestSha256": "c05882749979c8ffa858d4bbf72337a3a5d59749cd321c369aa2d2d5b729b8f0",
+      "cells": 148,
+      "firstCapturedAt": "2026-09-23T11:56:23Z",
+      "lastCapturedAt": "2026-09-23T12:19:42Z",
+      "attestationSha256": {
+        "attest.open.json": "c672ad33e07f0d1ccb80313864e013e2dbe5e93babae35fed9edd2cc011a3d0f",
+        "attest.close.json": "46377fac9fd2870fc3b61ef083c931077e8fe45c166fe38b1ca72615512dc406",
+        "attest.read": "3752ab12654729a7a968140bc9fecf4757fbbd9c442c841835596fa706070bc1",
+        "attest.close": "1c16fc0a842df4f9e77910d6444ade7bbf3923ccb91ba47f9c52b86c6964dc0d",
+        "session-before.json": "498976713798b54202293ceb65eb49d14fb2675b7be460074083914e42296044",
+        "admission.json": "23ce5e613963454dc08701e9e8b56ba1b38aec43b2f4e25ddf94d6e74eca3301"
+      },
+      "admitted": true
+    },
+    {
+      "directory": "/Users/new/vitrea-w34/run/active-1x/run-2",
+      "manifestSha256": "30f57fc05d8250083b9d48756d2459861f926ed4ff5f00ed85b61a19c0598068",
+      "cells": 148,
+      "firstCapturedAt": "2026-09-23T12:19:53Z",
+      "lastCapturedAt": "2026-09-23T12:43:13Z",
+      "attestationSha256": {
+        "attest.open.json": "82b6bca091efdcb251122885ef0f03c61957285cded7e003ff7a55f05f0fe09c",
+        "attest.close.json": "4f4d3db253e5c679da5d5289d90283716198bd9dcf6bbec9d2780c1f195f9940",
+        "attest.read": "16253ff82117f3439c84fd505be0fcd980a6f4eeb8bcd482d7c55bb274cbdbb2",
+        "attest.close": "353f5516692520525348b8bb3f0fffcfaa69b32f85f0f1bf1e2639f05c592580",
+        "session-before.json": "6beacf0f4ae026aeb53dfa4a7c83289a539925f88cc662e933e321ba2a465ec0",
+        "admission.json": "23ce5e613963454dc08701e9e8b56ba1b38aec43b2f4e25ddf94d6e74eca3301"
+      },
+      "admitted": true
+    },
+    {
+      "directory": "/Users/new/vitrea-w34/run/active-1x/run-3",
+      "manifestSha256": "b071155305cb38355e95df0d4d5b3cf9277e7497fc656e463e02d0352a0b6f32",
+      "cells": 148,
+      "firstCapturedAt": "2026-09-23T12:43:26Z",
+      "lastCapturedAt": "2026-09-23T13:06:47Z",
+      "attestationSha256": {
+        "attest.open.json": "707e73d77d5ead1a288e106cbf152a5dc12b964dfd50a2d71c8091bcfde58b0d",
+        "attest.close.json": "16faab83c5c2483f507d2dea4546fe8ed59f5b57bb4cf7d0c41ba005095a5b06",
+        "attest.read": "bdd6f2c32e06acf4ff9ba1711a4d49b17eced3e67ff3c3e9e4664a7e2332d9eb",
+        "attest.close": "8d952840441b879b87d793911d137f38f8a7101b2b1b624fa8402d81588ff71b",
+        "session-before.json": "b75cdea88e9aeff0b25f61b6f66f53ecb7d57d7e1ad3193ccc0786ea5382c510",
+        "admission.json": "23ce5e613963454dc08701e9e8b56ba1b38aec43b2f4e25ddf94d6e74eca3301"
+      },
+      "admitted": true
+    },
+    {
+      "directory": "/Users/new/vitrea-w34/run/active-1x/run-4",
+      "manifestSha256": "f8b1dbb36e42e7578bcb569032322f670ff4301a8d9d717c0e2bf16d440ee34c",
+      "cells": 148,
+      "firstCapturedAt": "2026-09-23T13:06:58Z",
+      "lastCapturedAt": "2026-09-23T13:30:18Z",
+      "attestationSha256": {
+        "attest.open.json": "5946608419b1c7ee11904298161eed16e6f7a62f18fe3b0fe898bc9d98c508e1",
+        "attest.close.json": "6bac9bea06b9439fa9142967863f8e349ef696be7a287f664267e57f367c0d94",
+        "attest.read": "c417b2596780e553e0b2abf02cd9c8e5e49569e48b3a5112892604f6a66d7892",
+        "attest.close": "5c50913159a4a4517612d55fd202c2f9da9209d29e3eee809d0f7dfe20c6a0fc",
+        "session-before.json": "ce9219f27f4586d6477c3d9502cd9e132c76e6b1ef3e46ecae61d1689bdaad31",
+        "admission.json": "23ce5e613963454dc08701e9e8b56ba1b38aec43b2f4e25ddf94d6e74eca3301"
+      },
+      "admitted": true
+    },
+    {
+      "directory": "/Users/new/vitrea-w34/run/active-1x/run-5",
+      "manifestSha256": "d8eaefcacb95719e532896cbf69904d7b8ddac22fab62ea0b8575caf688c9f7b",
+      "cells": 148,
+      "firstCapturedAt": "2026-09-23T13:30:30Z",
+      "lastCapturedAt": "2026-09-23T13:53:46Z",
+      "attestationSha256": {
+        "attest.open.json": "6cbc1b4914b86dc49fe4d6e89dcb335282dcd9000b2e99211a2c81a6e56ede7e",
+        "attest.close.json": "090ee8b0ffd732404015abe4cb3aab61690a3f788431a5a8ef32a4de9f40d313",
+        "attest.read": "f71cbe313d409c596b565ffff68ca5979c023fe6ca7528895ba60b3806c0f0ef",
+        "attest.close": "8c7d995adea8dae865a5c99220a9650e56c3f16affb7c8ee300498fb7bd113c9",
+        "session-before.json": "441a4bcfe8e196ec93bbc407d1588a18870c4be6ab45817b2293eced36947c53",
+        "admission.json": "23ce5e613963454dc08701e9e8b56ba1b38aec43b2f4e25ddf94d6e74eca3301"
+      },
+      "admitted": true
+    },
+    {
+      "directory": "/Users/new/vitrea-w34/run/active-1x/run-6",
+      "manifestSha256": "a3e436a8c5504c4fbc59ead58c1c557109b4cc58aa6f9a586a801f59d2a10cf6",
+      "cells": 148,
+      "firstCapturedAt": "2026-09-23T13:53:58Z",
+      "lastCapturedAt": "2026-09-23T14:17:12Z",
+      "attestationSha256": {
+        "attest.open.json": "4e13f8988095ee01b34ce73f6a3c218f94a9a94a741ff70db5c9441e8768e174",
+        "attest.close.json": "1a033d35c16eb601e1ce3c78c6462c7d8857d018979d4f09d2c8421f475a008b",
+        "attest.read": "8371e4811115a578da9b977c86cc60b7210c51c7a75bc302820b6302f5c61126",
+        "attest.close": "e10ddf186b5b661e30795d2f7aff60fd8c30c15b865e47da85abb46db3a42f62",
+        "session-before.json": "6b9fd7cda37f36043f8edd46c006fb394f58b32d83cda81328d254f3f24fb596",
+        "admission.json": "23ce5e613963454dc08701e9e8b56ba1b38aec43b2f4e25ddf94d6e74eca3301"
+      },
+      "admitted": true
+    },
+    {
+      "directory": "/Users/new/vitrea-w34/run/active-1x/run-7",
+      "manifestSha256": "9098ad64a8d8595d2adf09dceddd794984238ea4c7b597e0d0c9082ea3f65c75",
+      "cells": 148,
+      "firstCapturedAt": "2026-09-23T14:17:24Z",
+      "lastCapturedAt": "2026-09-23T14:40:39Z",
+      "attestationSha256": {
+        "attest.open.json": "283f82714954048319bbf1024bc160d66015d882d136bca67f78446c5615b597",
+        "attest.close.json": "090b706a556ba22d18341b850090ff313fc601b64d4099d70f88218ee7dd3436",
+        "attest.read": "85843fd7f62ca5df907f7fdaea296336db433f56a69ed6c89c6fc5b206b4184a",
+        "attest.close": "e24244f12343e378a453b7aad16d2a27534f27ced7b50e6b9fcb43d9ce600f0f",
+        "session-before.json": "d1ebc40fac7e51c2434de93d06966cf5f23f12270d40cda2e3f4e8760692b257",
+        "admission.json": "23ce5e613963454dc08701e9e8b56ba1b38aec43b2f4e25ddf94d6e74eca3301"
+      },
+      "admitted": true
+    },
+    {
+      "directory": "/Users/new/vitrea-w34/run/active-1x-sentinel/run-1",
+      "manifestSha256": "03ffb4ba3f71472b9b5ad511ba280cc435415a4a168fe097a50f4ef40ef0d9f5",
+      "cells": 4,
+      "firstCapturedAt": "2026-09-23T17:34:55Z",
+      "lastCapturedAt": "2026-09-23T17:35:42Z",
+      "attestationSha256": {
+        "attest.open.json": "c652af0430b84537144f3673a8ab2148a49c109921e0926533b8cee130042f44",
+        "attest.close.json": "d0a3efbb72f37a7716469f6dbd137ec7c12820876fe371f6f01cdd67b210e25e",
+        "attest.read": "da08f7dadd5d2ba79580e95650fbc115a9236e32022ab0445c4d5ca5ddabf660",
+        "attest.close": "fc0a46118b8710964a7ceca2bcbbb4c72104eddfecac2af1bea10653cba3848b",
+        "session-before.json": "aad4a08b63f6e1fdb5e2828d8d3680698c9a87be2601f1c0899841a7d4226461",
+        "admission.json": "3fdf2e4a1ddcc3d32847c9e42a67e7da8823608271199051c9e161b75f00bd38"
+      },
+      "admitted": true
+    },
+    {
+      "directory": "/Users/new/vitrea-w34/run/active-1x-sentinel/run-2",
+      "manifestSha256": "bb6ac0fff34027cc1b9e57b5ec73c1ec7f53ed8763cd5b57ba3dbfe16cf174e4",
+      "cells": 4,
+      "firstCapturedAt": "2026-09-23T17:36:00Z",
+      "lastCapturedAt": "2026-09-23T17:36:48Z",
+      "attestationSha256": {
+        "attest.open.json": "90597611dd14f62f6fd5db4d0731dfd8f2bebbba31ce52d2346c7853888dbed3",
+        "attest.close.json": "ca66a62ef78266a71a2d79dc7d3070d6ad1a926ea2d6828b12acda2859db42b9",
+        "attest.read": "625114eb2a6c9d6ce9ed998581296addc03d1497e5d52d8ad59fa2c6a39b68ba",
+        "attest.close": "71150c25090a0a89dd3be215b785d967aac4bf097ae43578928da8d90111d57f",
+        "session-before.json": "77b1351f29176ec22b517669c8f492650ecdfbb8a865152898b7faea155f883b",
+        "admission.json": "3fdf2e4a1ddcc3d32847c9e42a67e7da8823608271199051c9e161b75f00bd38"
+      },
+      "admitted": true
+    },
+    {
+      "directory": "/Users/new/vitrea-w34/run/active-1x-sentinel/run-3",
+      "manifestSha256": "5717dcdbc790f56363df1a901d4bb069989cff9ad8f2a70db0959be016a89733",
+      "cells": 4,
+      "firstCapturedAt": "2026-09-23T17:37:05Z",
+      "lastCapturedAt": "2026-09-23T17:37:54Z",
+      "attestationSha256": {
+        "attest.open.json": "1e9b62d59810de6f6e6996631900014110e79d3e70e5ae11c3c75242b4b97211",
+        "attest.close.json": "bff4c3670692cc951d35d44b10a57fde5c40a46f5e032c4f488c612af795ee5b",
+        "attest.read": "fefa62c68832db2df34f7896ebd600bb238db689105fda9564376e922a56337d",
+        "attest.close": "eaf92942c7949a2fdf4647d71a070dacfb11eb0efe390fcfef5bc175281f7f00",
+        "session-before.json": "fdadf1f9861c1c39bf548e9abfcccbb4032331e3aa7c9ebf2d1e6e235c080a50",
+        "admission.json": "3fdf2e4a1ddcc3d32847c9e42a67e7da8823608271199051c9e161b75f00bd38"
+      },
+      "admitted": true
+    },
+    {
+      "directory": "/Users/new/vitrea-w34/run/active-2x/run-1",
+      "manifestSha256": "0490bb7de557e77f757ee4bb146e13dc95498fb861d835989216a59236551850",
+      "cells": 148,
+      "firstCapturedAt": "2026-09-23T06:24:38Z",
+      "lastCapturedAt": "2026-09-23T06:48:01Z",
+      "attestationSha256": {
+        "attest.open.json": "c9017303265f1bd846f121697e053620a00244eb8acd8dae3922fb06362fd207",
+        "attest.close.json": "ecac8510093875575d1ce0a487aec108dbba2f6220277100efcf166f495cddc0",
+        "attest.read": "4034a0bf10c74e581227926fdf79f099acf95bc36f6ebb22359ddad33306440f",
+        "attest.close": "9894a01c7a75d4f1d2f6421d9ad2eba9bd5381c9a8141a1bd8d1d6b1884aa49c",
+        "session-before.json": "652dca91058a567c866132975dabbdade9e464fee444f5692f968e672e9e8aa2",
+        "admission.json": "23ce5e613963454dc08701e9e8b56ba1b38aec43b2f4e25ddf94d6e74eca3301"
+      },
+      "admitted": true
+    },
+    {
+      "directory": "/Users/new/vitrea-w34/run/active-2x/run-2",
+      "manifestSha256": "60391212cd94bd0d352865eca4a8dad5b0b4d65ad5428884023b23f05f4fd34f",
+      "cells": 148,
+      "firstCapturedAt": "2026-09-23T06:48:12Z",
+      "lastCapturedAt": "2026-09-23T07:11:35Z",
+      "attestationSha256": {
+        "attest.open.json": "bd763621956d264744b266b39ff971022abb7595b2b4971304a82370d1e09557",
+        "attest.close.json": "22919371acb30cf4b7b9b269b1644e12d3f2a1846e4df4e369dbd6903de39ffc",
+        "attest.read": "e1b9e08ebb9e5a94a4b78f6481276a2a729c8fe03d1fc6df9206e7bb3a8a8058",
+        "attest.close": "2ebeafb489377072d9256e4b9b0849e1638f59f573ad5643f00a1bc4cf3b81b6",
+        "session-before.json": "9c7110efd03a20ba9bf50416c8478f41874eb1b628d3ee71d4b27a382c822078",
+        "admission.json": "23ce5e613963454dc08701e9e8b56ba1b38aec43b2f4e25ddf94d6e74eca3301"
+      },
+      "admitted": true
+    },
+    {
+      "directory": "/Users/new/vitrea-w34/run/active-2x/run-3",
+      "manifestSha256": "1890712aae0ceb4835f9f16ee02e82341ce48e722649ac2d03e4778918703daa",
+      "cells": 148,
+      "firstCapturedAt": "2026-09-23T07:11:47Z",
+      "lastCapturedAt": "2026-09-23T07:35:10Z",
+      "attestationSha256": {
+        "attest.open.json": "47f1401da9509f6052ddb3934751001237275e5fb3183bcd12b70d0f0d652a3c",
+        "attest.close.json": "f93d1fc5d61af9bb451327aa21f4d2942451572af76dc197c23e69cef196c41e",
+        "attest.read": "eb5bf70ca56fe8983b43e6dbe9a71546f1c1c3ceb1b385d3e8e0086b9d880693",
+        "attest.close": "39d5a870d4d3a67c01f9884f6986f165bee5e0326406070a83271cf32eff223a",
+        "session-before.json": "98f93881566c758f0fc1da2eea7bc69c25fbd521b772434fa7ce0aa80fa63f5f",
+        "admission.json": "23ce5e613963454dc08701e9e8b56ba1b38aec43b2f4e25ddf94d6e74eca3301"
+      },
+      "admitted": true
+    },
+    {
+      "directory": "/Users/new/vitrea-w34/run/active-2x/run-4",
+      "manifestSha256": "e016f3768b404c8134bbda7f472373fdb5a22483ed71549a773aba0274f816bc",
+      "cells": 148,
+      "firstCapturedAt": "2026-09-23T07:35:22Z",
+      "lastCapturedAt": "2026-09-23T07:58:46Z",
+      "attestationSha256": {
+        "attest.open.json": "21ac85621af4ad00ab50e48c9c018025a7f80fcf6d56a4de98b8cd8ecb06952a",
+        "attest.close.json": "ac3805f4e37defc73d769d2648a93568f5e6da11ced6a7d63c5c98880816a3ed",
+        "attest.read": "53c5209efb72c493ff24a1b6fc2d5f5f2d9ad921be633213fab948b323efcc75",
+        "attest.close": "eb299f800fa20c6c36fb3269a6da207a92eee2ec29e80f80e52946187105563a",
+        "session-before.json": "1472bef56e863aa6dc6274d1e431cfe017fb411cf4d6e4acb68b99c1af8fbd57",
+        "admission.json": "23ce5e613963454dc08701e9e8b56ba1b38aec43b2f4e25ddf94d6e74eca3301"
+      },
+      "admitted": true
+    },
+    {
+      "directory": "/Users/new/vitrea-w34/run/active-2x/run-5",
+      "manifestSha256": "a4949bddf0bb99eaf3086002d6b876c96d20297e75206686f11c6ebb8882d90c",
+      "cells": 148,
+      "firstCapturedAt": "2026-09-23T07:58:58Z",
+      "lastCapturedAt": "2026-09-23T08:22:22Z",
+      "attestationSha256": {
+        "attest.open.json": "c75a00b72071939fa1f7b198408adc927be45c0b38bcc1e388255f880dab124a",
+        "attest.close.json": "95de0874227a3fb28cc33312e79cf7efc99f01c3bae8547b446674c4e37ccd2b",
+        "attest.read": "cb3bf53ac094d44bcfa0314084910777d7c35d7626edb1251bc694f49ef5e5e3",
+        "attest.close": "c01196ee423f99dce236b856e4865062ccf2513b6354255ac9764dabb8382ed1",
+        "session-before.json": "a72b897ba0e09433c8987038df0237a0703694b2f69d28c8a1458c7fdbdb63f9",
+        "admission.json": "23ce5e613963454dc08701e9e8b56ba1b38aec43b2f4e25ddf94d6e74eca3301"
+      },
+      "admitted": true
+    },
+    {
+      "directory": "/Users/new/vitrea-w34/run/active-2x/run-6",
+      "manifestSha256": "3724fc4807fb0325cfc54cf4e11874323fb4096f38146f60a199fa95a14c0971",
+      "cells": 148,
+      "firstCapturedAt": "2026-09-23T08:22:35Z",
+      "lastCapturedAt": "2026-09-23T08:45:59Z",
+      "attestationSha256": {
+        "attest.open.json": "6f7b4a076296b6052b31a85017a8238155507eaf99b213e70d527eaba6465ddd",
+        "attest.close.json": "d15e5074ff07f2b3e5424aa5082c2eef25dcd1464a4e430e5aebf49a6b01909d",
+        "attest.read": "84daea2498802aa4378b7ec7a01d6faca3ffe429a7468bc1378c3c100c3b1ef5",
+        "attest.close": "c634ed3488b39a64fd89cbbd3049bc83a1917b2a20f0b054418cf2e16d1c928a",
+        "session-before.json": "ac47a2a585ffaf1fa5ac7f34ef613f6be4520039b50f480cfaa590aefba85931",
+        "admission.json": "23ce5e613963454dc08701e9e8b56ba1b38aec43b2f4e25ddf94d6e74eca3301"
+      },
+      "admitted": true
+    },
+    {
+      "directory": "/Users/new/vitrea-w34/run/active-2x/run-7",
+      "manifestSha256": "27ab2c941e9d4baa7924412583356723e319498c4ed2fbf085ab793e0d6a6047",
+      "cells": 148,
+      "firstCapturedAt": "2026-09-23T08:46:11Z",
+      "lastCapturedAt": "2026-09-23T09:09:36Z",
+      "attestationSha256": {
+        "attest.open.json": "c2e851e1119ea56bf5226416d6aaa3de26b69f3366b88f1404171dceeadff337",
+        "attest.close.json": "c5a8fd8f52d20e7d70ef66a1ad1bbf64fdae009dd1f8be77d33772191416de37",
+        "attest.read": "5c42ba016d190ec316ea29b3bdb85c489a62b5290baafeb680e3800f6b47249e",
+        "attest.close": "fd9937bf6512ded2cf04617b51fc39ef2db29ce876033c3de990193746433736",
+        "session-before.json": "324edbbb24d5236e1aab75181fd03de41099bee42c10cec012af6cfd57078f6e",
+        "admission.json": "23ce5e613963454dc08701e9e8b56ba1b38aec43b2f4e25ddf94d6e74eca3301"
+      },
+      "admitted": true
+    },
+    {
+      "directory": "/Users/new/vitrea-w34/run/active-2x-sentinel/run-1",
+      "manifestSha256": "81cb1543c8a5a80c8bc12247896ab97c1f01af3e8c3e0feec82f909f38f63d42",
+      "cells": 4,
+      "firstCapturedAt": "2026-09-23T17:27:13Z",
+      "lastCapturedAt": "2026-09-23T17:28:01Z",
+      "attestationSha256": {
+        "attest.open.json": "c199ee60ee06eb5d8ba393ed0f39b9817817c2e6dff2dccc1d6d339f0e7d723a",
+        "attest.close.json": "554df8834f5e4f364aa184f45c3d0b614d8d94f8a63b2ffc30db3dcdfdda5a22",
+        "attest.read": "a1dae51dafff719932ecab3bd554dcb3267fa441b5b05979ec23e186240f6c1a",
+        "attest.close": "428de528819313a2beaef21a8c3fb95eb6af8b2f51e2e79ad60636fb3b400587",
+        "session-before.json": "b444bf0b21d757ae05bf3f292956441a90d773e5d5b79f9bd93cd110554afb58",
+        "admission.json": "3fdf2e4a1ddcc3d32847c9e42a67e7da8823608271199051c9e161b75f00bd38"
+      },
+      "admitted": true
+    },
+    {
+      "directory": "/Users/new/vitrea-w34/run/active-2x-sentinel/run-2",
+      "manifestSha256": "59ac17a2ccf015e1faef74cedb69bcf0eac33476d90d639b0c6cd6ed41423ca5",
+      "cells": 4,
+      "firstCapturedAt": "2026-09-23T17:28:19Z",
+      "lastCapturedAt": "2026-09-23T17:29:08Z",
+      "attestationSha256": {
+        "attest.open.json": "5efb4259c876e0f597472dfa136e8d9c3b5046a92f36292185db44177bf51bb1",
+        "attest.close.json": "7466b73adb6a6ecd39daa49712c70d4aae33058c2f1d012a1a9e45123568d140",
+        "attest.read": "e179a9166ae1eed081ad404e71784def3854b1bbe2e51da527cf4b2fae611708",
+        "attest.close": "811e1b0bddfbf3fe4caa2640604d121dc8ca822df2941482a24e754ea84dd6a0",
+        "session-before.json": "758ddad48e41e433c7ca3b46905db102519736f22105c7499d14f424399dc5a4",
+        "admission.json": "3fdf2e4a1ddcc3d32847c9e42a67e7da8823608271199051c9e161b75f00bd38"
+      },
+      "admitted": true
+    },
+    {
+      "directory": "/Users/new/vitrea-w34/run/active-2x-sentinel/run-3",
+      "manifestSha256": "ab52befb22489e9aeb2dcb337614f17f4c6b726c7e23198cebd2b647ba6b2c7d",
+      "cells": 4,
+      "firstCapturedAt": "2026-09-23T17:29:26Z",
+      "lastCapturedAt": "2026-09-23T17:30:14Z",
+      "attestationSha256": {
+        "attest.open.json": "e60a443f23a0dceafac3cf3ab862ef378d0a5fe6a59450a31c8c09798f355d75",
+        "attest.close.json": "f54037e0facfdf48526e75d94f95155bdc2fd61eba8ac89237d8a5d4662d2dba",
+        "attest.read": "f138059ecb78a27daa7275507fd1494e2d506449276bccdd242a4c290aaaa0d6",
+        "attest.close": "2295475d34baba8e75f5fb829ac71153e057e2653d88753159dda4117ea40e9e",
+        "session-before.json": "f3084db1b90c917893d113c195ef33e028a15e5ea8cec131fa1549f5e5031ac3",
+        "admission.json": "3fdf2e4a1ddcc3d32847c9e42a67e7da8823608271199051c9e161b75f00bd38"
+      },
+      "admitted": true
+    },
+    {
+      "directory": "/Users/new/vitrea-w34/run/inactive-1x/run-1",
+      "manifestSha256": "8aea295fa697df1a2cc19606917a5c4ff25d409ab86cdbdd9dbbdaf9c4b8743e",
+      "cells": 148,
+      "firstCapturedAt": "2026-09-23T14:41:37Z",
+      "lastCapturedAt": "2026-09-23T15:04:59Z",
+      "attestationSha256": {
+        "attest.open.json": "98ca7273245d1b5fff7899a98b5eed6f5a8db856a90f7d067029e5ed3624acce",
+        "attest.close.json": "d689659a7f20d464b710aaba77ad11fbe8d070bde4df0d479ad7e9a61309222f",
+        "attest.read": "bf3c0bdaccaf1f6ead2f11841d995442277d293883a1e757538f7ee92b84e8e2",
+        "attest.close": "fecec2c685dd4742f0bf276cceb6fdc1be147a30b17a53d94d7cea6a46f092f1",
+        "session-before.json": "7f6307d5638bd6d6110fe2ae5213d14810c35429090d897af26b6f8b1fde9c85",
+        "admission.json": "23ce5e613963454dc08701e9e8b56ba1b38aec43b2f4e25ddf94d6e74eca3301"
+      },
+      "admitted": true
+    },
+    {
+      "directory": "/Users/new/vitrea-w34/run/inactive-1x/run-2",
+      "manifestSha256": "2d3251f031a1482e5321845554c6231c3cd0465b5aa80b622838ae49b65a8696",
+      "cells": 148,
+      "firstCapturedAt": "2026-09-23T15:05:11Z",
+      "lastCapturedAt": "2026-09-23T15:28:31Z",
+      "attestationSha256": {
+        "attest.open.json": "a6d3e6f96fd3565cc84843b0938cb735579d4ffc90973611f3680de0eca645a6",
+        "attest.close.json": "2c99456bb520a24b1c8577636a0fe2226118b3b9783a6ef2aae5eb3170f404af",
+        "attest.read": "4def2b261be6803def80d3e7b9c7873887b35d81d35cf85b46196d1473e47176",
+        "attest.close": "de6b55ec502ddd05f544d9c13ec1117194af3e3fd59b931b8027528578cd8977",
+        "session-before.json": "8c1273c807c5eff64cf5e7aa6873c75bf4d141da6781a76a3207294a8cd75d68",
+        "admission.json": "23ce5e613963454dc08701e9e8b56ba1b38aec43b2f4e25ddf94d6e74eca3301"
+      },
+      "admitted": true
+    },
+    {
+      "directory": "/Users/new/vitrea-w34/run/inactive-1x/run-3",
+      "manifestSha256": "58dd3d86dcdea8ac1fbb6344d03d7ad4d2a2f7ee25eaaad96cb9ba00ad23e5c5",
+      "cells": 148,
+      "firstCapturedAt": "2026-09-23T15:28:43Z",
+      "lastCapturedAt": "2026-09-23T15:52:02Z",
+      "attestationSha256": {
+        "attest.open.json": "40c956fd269d846aa871075a0f62ea50ac0823b01e2c4c8a63ba697ab38992c5",
+        "attest.close.json": "16407eb638d572d33ab5d8cd8ded5eb31ee9b6d267a1ca3c52b8710b31aee2e8",
+        "attest.read": "3d7d9ab964c86f5da56c59716bf7f96aee80aa2237eb1bc3d60650f8bc3b8725",
+        "attest.close": "07db6e6139c51fb3ae216c1de69367218c40c93747922932620b4942c17fad3f",
+        "session-before.json": "d611daf80752a5aa4e8fd1fecd3b9189f7fe2645d8285e2f9f9f98319005c0d3",
+        "admission.json": "23ce5e613963454dc08701e9e8b56ba1b38aec43b2f4e25ddf94d6e74eca3301"
+      },
+      "admitted": true
+    },
+    {
+      "directory": "/Users/new/vitrea-w34/run/inactive-1x/run-4",
+      "manifestSha256": "55917334994441ebb8e87b74f9755b27d7d29c15995e9c4da116e68c7fe6ed81",
+      "cells": 148,
+      "firstCapturedAt": "2026-09-23T15:52:14Z",
+      "lastCapturedAt": "2026-09-23T16:15:32Z",
+      "attestationSha256": {
+        "attest.open.json": "c48fad81a908090e902ef32881240c4d8a7da4d559284e709afaa56c5d09b478",
+        "attest.close.json": "59871dce00d4c28757ca082408b33d7559fdce67dbddc979cbfcde304ba6a66a",
+        "attest.read": "086da81980b8719c91fa02962f83e8d6a2a986599cf0b3ec51dc641d223820e4",
+        "attest.close": "0863e0a4a53656c8034160461d1475fe5448c4ba3d66ae59629b910f338cf968",
+        "session-before.json": "b3eb06a06ede5a774ccd0ca2d0d3c7c4250c06221cdd0acb683b54f6746728e7",
+        "admission.json": "23ce5e613963454dc08701e9e8b56ba1b38aec43b2f4e25ddf94d6e74eca3301"
+      },
+      "admitted": true
+    },
+    {
+      "directory": "/Users/new/vitrea-w34/run/inactive-1x/run-5",
+      "manifestSha256": "c8bcce52573a24d045a853161e8ae53272a9b923489dc235b45431f148e29e15",
+      "cells": 148,
+      "firstCapturedAt": "2026-09-23T16:15:44Z",
+      "lastCapturedAt": "2026-09-23T16:39:01Z",
+      "attestationSha256": {
+        "attest.open.json": "2a905fe1be079ecb05cee40b794869e5f8ac98aa132e2f44174b0333e7a7a96e",
+        "attest.close.json": "ecd8ec3fbb4a75a04ed84d0f38d2cb250d322f030b573579b12d5888ea108061",
+        "attest.read": "8849d8dcdfb299dd7240b0ae86f5985f7a3593d866f10098605709c939f94321",
+        "attest.close": "4e669c43321fd9dc85c7a6124c387dcfa74e6be137a1306957453b2f6af153e3",
+        "session-before.json": "00c91977a0dcc968da491cc2f35e8347fd7e31b1cafe7a218b49575ebf034ddd",
+        "admission.json": "23ce5e613963454dc08701e9e8b56ba1b38aec43b2f4e25ddf94d6e74eca3301"
+      },
+      "admitted": true
+    },
+    {
+      "directory": "/Users/new/vitrea-w34/run/inactive-1x/run-6",
+      "manifestSha256": "f75e58405e46fff707937f73fd998003f43b9a7cd9de290af9932c5a151ea81e",
+      "cells": 148,
+      "firstCapturedAt": "2026-09-23T16:39:13Z",
+      "lastCapturedAt": "2026-09-23T17:02:32Z",
+      "attestationSha256": {
+        "attest.open.json": "35b0a4c70806aba6ad8e2d6278bb03c159fc869ae61d8dd22a691482e9f098f7",
+        "attest.close.json": "0001bf7b95f44e4a62d0b59bf0782601e265a7ae5f50c3aaded6142c7eae15ad",
+        "attest.read": "0de7d241973e5dd4f9049b3e60baabd769f2133ce0f484ca45ba4dc7cfe9bad7",
+        "attest.close": "eca7c3362fc5aa3b2b9a48f2682887cac0986ff24e43032e7bc7d5254d2b8501",
+        "session-before.json": "235776a3fc046a8e18a7979f4c1b4ead2e61bf9f1dc6743bc47524c1161f8bcd",
+        "admission.json": "23ce5e613963454dc08701e9e8b56ba1b38aec43b2f4e25ddf94d6e74eca3301"
+      },
+      "admitted": true
+    },
+    {
+      "directory": "/Users/new/vitrea-w34/run/inactive-1x/run-7",
+      "manifestSha256": "2b0616abc634fc819386ca5a292f1de64cb496873b9b787f51ee1a9d977c6726",
+      "cells": 148,
+      "firstCapturedAt": "2026-09-23T17:02:43Z",
+      "lastCapturedAt": "2026-09-23T17:26:03Z",
+      "attestationSha256": {
+        "attest.open.json": "10a3158b82f7465bbfd141aac4670050b1630dd429d4209b581cc2f91d76f5e1",
+        "attest.close.json": "f9ff5d193c598537a400dc9107ed37f0a98fa9b7dfb35adf78e747f5ff7f7ffb",
+        "attest.read": "5aa1be8610f61a56847f549bf9aa51828023c6c4462c64ad8a63dd956552b6b4",
+        "attest.close": "ebb65c7766fcc80564b21522d8d9f5d7093b55091218180d5f5ef821229cb3ed",
+        "session-before.json": "e30874ea0fbf158abd69f0ef4b277329acd01ebb0d0af646bd48598b3eec7ae0",
+        "admission.json": "23ce5e613963454dc08701e9e8b56ba1b38aec43b2f4e25ddf94d6e74eca3301"
+      },
+      "admitted": true
+    },
+    {
+      "directory": "/Users/new/vitrea-w34/run/inactive-1x-sentinel/run-1",
+      "manifestSha256": "28b24472f13139774e124b6539b37b51792ac14edccff47a5adae6cc63cfee94",
+      "cells": 4,
+      "firstCapturedAt": "2026-09-23T17:38:42Z",
+      "lastCapturedAt": "2026-09-23T17:39:30Z",
+      "attestationSha256": {
+        "attest.open.json": "d9f0127818bc59ebb6c28ec5d5a7a23d07ba9e98d273048b3059f8895478d81f",
+        "attest.close.json": "eccec6a0c26d224f8b9e8d9fd21c70ae0662f9a0ba4807f59f8035c4fddf5b8e",
+        "attest.read": "b79862fc547c57f308dbe3ac7659955d318f9401a9b26806206b56150583fc7b",
+        "attest.close": "f61b5218953e19b8cb8078aada28778a8a006c50442fc582db0ab4b34963cf80",
+        "session-before.json": "9bac457ed00416c81ec28fa10741f129df14d795ba4b68c3fe2db3e465b34de8",
+        "admission.json": "3fdf2e4a1ddcc3d32847c9e42a67e7da8823608271199051c9e161b75f00bd38"
+      },
+      "admitted": true
+    },
+    {
+      "directory": "/Users/new/vitrea-w34/run/inactive-1x-sentinel/run-2",
+      "manifestSha256": "162b139c8ee1a06aadd389f4342023f3e79e3eda68f3984e8c6f59e5dff640fc",
+      "cells": 4,
+      "firstCapturedAt": "2026-09-23T17:39:47Z",
+      "lastCapturedAt": "2026-09-23T17:40:35Z",
+      "attestationSha256": {
+        "attest.open.json": "e1abb19c36937f0a91c56bd301981c9a9c1f7bf3cb95b0b6f85f0b2dcaf80a9c",
+        "attest.close.json": "f226a481aa4434d8a8c58ec9660397707cb8e36c960452583e76cebde0f483e1",
+        "attest.read": "16309d5c3944ef9e5bd1c263e74226aa7e3180276c7e5cb7969f63d211e3dea8",
+        "attest.close": "79ff17cb45e60cbe1eb8346d33167ed2ec8648dd036afe2a43bf478f5a05f753",
+        "session-before.json": "aa06f153030deffcc47e1e6e061d02c831a0ec95d18ca6ec74b587b4b415a438",
+        "admission.json": "3fdf2e4a1ddcc3d32847c9e42a67e7da8823608271199051c9e161b75f00bd38"
+      },
+      "admitted": true
+    },
+    {
+      "directory": "/Users/new/vitrea-w34/run/inactive-1x-sentinel/run-3",
+      "manifestSha256": "cfabf1c9ae1fc5aa53f16b376ffe984fbd0e09f5b351be4c9e864a9d2d76d4cc",
+      "cells": 4,
+      "firstCapturedAt": "2026-09-23T17:40:52Z",
+      "lastCapturedAt": "2026-09-23T17:41:40Z",
+      "attestationSha256": {
+        "attest.open.json": "926dd571e42563105a22dd27c9fb81aca48c3b1881468b15063f9fb16519ba94",
+        "attest.close.json": "96fb28262e2117ec242c2254bf268945e13acd7031fe3961ef57c3a891788d2e",
+        "attest.read": "1fc0266305a9dd1b737ca2717985e4964cd1a8e3ccba5411cb02a2bf4f8b42ee",
+        "attest.close": "6323a1413d763dbb4b89ddf89d2a06cf8e8ded4a8349b00cc775dd322cc26fa6",
+        "session-before.json": "cd78f0bc1cc5ab53ac015f5b59c24e82d91a01a4838f86e59c76037b070126c3",
+        "admission.json": "3fdf2e4a1ddcc3d32847c9e42a67e7da8823608271199051c9e161b75f00bd38"
+      },
+      "admitted": true
+    },
+    {
+      "directory": "/Users/new/vitrea-w34/run/inactive-2x/run-1",
+      "manifestSha256": "e947503beaa746066e6c20e548097642b918baed4e7ffa6ce661b68d5b354505",
+      "cells": 148,
+      "firstCapturedAt": "2026-09-23T09:10:53Z",
+      "lastCapturedAt": "2026-09-23T09:34:14Z",
+      "attestationSha256": {
+        "attest.open.json": "325b23b1adaf63f6b76e7ef61c37fee980d67f5e6d7b3222108b99b1512b0682",
+        "attest.close.json": "252c244d9378733ffb72152c1384bf0b75aedf82689f2f59e959cdd88e3eb4e5",
+        "attest.read": "6db527d8e384b1e60367d707be3356afca56e946284937d384e3bdcd37434b20",
+        "attest.close": "6b8c01e5f700a6c3c716bd0328bdc604e409c063a0ae6874ecce852d10b128c1",
+        "session-before.json": "281526ada57274a20f1d9a792285ceaef204c47edae9e44914446c894b6ea3de",
+        "admission.json": "23ce5e613963454dc08701e9e8b56ba1b38aec43b2f4e25ddf94d6e74eca3301"
+      },
+      "admitted": true
+    },
+    {
+      "directory": "/Users/new/vitrea-w34/run/inactive-2x/run-2",
+      "manifestSha256": "0db625a3b8bff30a434bdd898a5a2dbccd4d5ab4a5b4b6c14a6f44b6946230f0",
+      "cells": 148,
+      "firstCapturedAt": "2026-09-23T09:34:26Z",
+      "lastCapturedAt": "2026-09-23T09:57:46Z",
+      "attestationSha256": {
+        "attest.open.json": "786a5f5acd0aad67b813a1579afcc48d36e06f08a7f97e9efa4c6f909bf86692",
+        "attest.close.json": "58c3d2c0a1089e19be03b1410649869ec192ed66947fb45682366e110484612f",
+        "attest.read": "eb0eeabbfdd32266618c0ad55b7a96d30176f7773b1373cf886fbb3b228d84ad",
+        "attest.close": "3511247006e209a8016c6e0d0dd185b6d1fd29e170556f9d604a4d21b25928c7",
+        "session-before.json": "ceb31b45dd9538bb150b7b4391920406fa5c209367272fef5bed5d4ad8d7fd42",
+        "admission.json": "23ce5e613963454dc08701e9e8b56ba1b38aec43b2f4e25ddf94d6e74eca3301"
+      },
+      "admitted": true
+    },
+    {
+      "directory": "/Users/new/vitrea-w34/run/inactive-2x/run-3",
+      "manifestSha256": "ebac488a83900446c97045417c0448435f4935308e0e6468704f21e900753fc3",
+      "cells": 148,
+      "firstCapturedAt": "2026-09-23T09:57:59Z",
+      "lastCapturedAt": "2026-09-23T10:21:21Z",
+      "attestationSha256": {
+        "attest.open.json": "f2282ca483526c24b8656a1f66242fdfeffa9582e0262bfcb04c51418f927cc9",
+        "attest.close.json": "8930b9b58d6a087f4342847425c6ac2d123b84eab2f385c65928758b23ac1be3",
+        "attest.read": "748aba31651f2b9b2454e48708186291d2a2965a2d0d73a9e58dfdadcef554f1",
+        "attest.close": "0183dd1971772931288e566369891d0850e9dcd54be939d42809f8295cf48a82",
+        "session-before.json": "7ec0f04271f2ed0b19d82fab036296be75071b81d5223cdce7a63a252bde2ffd",
+        "admission.json": "23ce5e613963454dc08701e9e8b56ba1b38aec43b2f4e25ddf94d6e74eca3301"
+      },
+      "admitted": true
+    },
+    {
+      "directory": "/Users/new/vitrea-w34/run/inactive-2x/run-4",
+      "manifestSha256": "9a25c0d87d1e9f59633fcda0f0f8fe9a7dec9ea665359b71fad49d1eeb18ac5f",
+      "cells": 148,
+      "firstCapturedAt": "2026-09-23T10:21:33Z",
+      "lastCapturedAt": "2026-09-23T10:44:54Z",
+      "attestationSha256": {
+        "attest.open.json": "4477cda5534ddc50e80aca0cb264673ddbd6647236cd618c45d0b8cd239d87a3",
+        "attest.close.json": "dcb382179e4f6f6c64a4b45ebe8ca6f53aaed2f4d7d2481f7e08d994b9876b0a",
+        "attest.read": "798f66d7650c8348b88edd26ee389fc10c63dad2a009a111bdf1a2b555043cdf",
+        "attest.close": "f7b3e52b71d69b8b24498fc9eb77dc724ec6176ca9ebc30f9dcb7e9de95bed43",
+        "session-before.json": "1b30599d18a9603cb98b43a77633f866aff6a28b9a58b4b52ab205f495de54cf",
+        "admission.json": "23ce5e613963454dc08701e9e8b56ba1b38aec43b2f4e25ddf94d6e74eca3301"
+      },
+      "admitted": true
+    },
+    {
+      "directory": "/Users/new/vitrea-w34/run/inactive-2x/run-5",
+      "manifestSha256": "b97e1d65b9695304130cc881ef9d6d98b552bf17bec6723f9d73ca4be9b2a80f",
+      "cells": 148,
+      "firstCapturedAt": "2026-09-23T10:45:06Z",
+      "lastCapturedAt": "2026-09-23T11:08:27Z",
+      "attestationSha256": {
+        "attest.open.json": "01f505ce468c26d57e5654a484224db1a6c9b967233a6bdb148dfb8e60258c6b",
+        "attest.close.json": "fa374db08e61eb1f10ae27f940aa181e30a6b9e2608627da29b2458c123a3650",
+        "attest.read": "f00a18c87fbd751624c0512d22a054defef8872d0e14b10234c63f009e06952f",
+        "attest.close": "cac609f04b0690c1bda750101d3f95fe8c15e00725a6d932659adb7abcf5275e",
+        "session-before.json": "f15c8ffb2a039ea11aad17f8191a459807c2edea518bf58ddef76a5694c84103",
+        "admission.json": "23ce5e613963454dc08701e9e8b56ba1b38aec43b2f4e25ddf94d6e74eca3301"
+      },
+      "admitted": true
+    },
+    {
+      "directory": "/Users/new/vitrea-w34/run/inactive-2x/run-6",
+      "manifestSha256": "838a401cb099f9448b492e0c564de4938330fa0a8f0e6d37148887ea347f1b43",
+      "cells": 148,
+      "firstCapturedAt": "2026-09-23T11:08:39Z",
+      "lastCapturedAt": "2026-09-23T11:31:59Z",
+      "attestationSha256": {
+        "attest.open.json": "96ce0e9754dbc909fb29cb188f10439465ed01daa8965a51546b0d9d490bdfe5",
+        "attest.close.json": "7c10abeb77f209447da8657070725a26124d2d7cc002fe5fbc83012a81227c2f",
+        "attest.read": "e583d085afe48db41040d66cfbea580c4d8c772c144a90693f2a3d5092aa2ea9",
+        "attest.close": "79b5fb6d4a42e48dd2126654aaae81bfec670e52c3d6c60722c28e0d076bb094",
+        "session-before.json": "44c4bf0c77d975e1fa5b940be02560b4e33a25bb266ee14f75765986cd627059",
+        "admission.json": "23ce5e613963454dc08701e9e8b56ba1b38aec43b2f4e25ddf94d6e74eca3301"
+      },
+      "admitted": true
+    },
+    {
+      "directory": "/Users/new/vitrea-w34/run/inactive-2x/run-7",
+      "manifestSha256": "24983570d775642e3354a809203d9846b764b4abbb8ed28f279c106275ad7670",
+      "cells": 148,
+      "firstCapturedAt": "2026-09-23T11:32:12Z",
+      "lastCapturedAt": "2026-09-23T11:55:32Z",
+      "attestationSha256": {
+        "attest.open.json": "489771bbb9cbcd7948d550d66d94eaef71b7ccdecf8168bfa897de010037369e",
+        "attest.close.json": "aa2b1e2645a64187a3eef0bbe4d1535ee59b488efac4670b4678fe23fb62ece3",
+        "attest.read": "107115316c390985339a5150bb24610012cf0ffae3a20eae9055e09d26324db2",
+        "attest.close": "7142606d48a7adbb261aeb24af9aad9ad09c37d4bff54c09b366f8c6bcc27d4d",
+        "session-before.json": "f40d1fe27634abb29dbf36f4173d0647181796ef10b03f53d77d156a2a67686c",
+        "admission.json": "23ce5e613963454dc08701e9e8b56ba1b38aec43b2f4e25ddf94d6e74eca3301"
+      },
+      "admitted": true
+    },
+    {
+      "directory": "/Users/new/vitrea-w34/run/inactive-2x-sentinel/run-1",
+      "manifestSha256": "0e6e8f1418226a87d46bb23828e6fc9665805dcef93125aaf60818a545e1b1a5",
+      "cells": 4,
+      "firstCapturedAt": "2026-09-23T17:31:01Z",
+      "lastCapturedAt": "2026-09-23T17:31:49Z",
+      "attestationSha256": {
+        "attest.open.json": "b63a292730ff2d3f3f276f1ab6fb6249fe3c457e38aeaaad32c93da7a129ed4b",
+        "attest.close.json": "57a750e1c23ace2eb785f0ce2b75c76c7db8981883fe681315b3316226ccb932",
+        "attest.read": "fde3700e7386e586f6cd227b4c4910c1842cbe1c15a317df80b64c8c4d2cb3b8",
+        "attest.close": "4fd461cc8951b87b9cbd6db329381420ac8883bc6b255ad9fadd55480ef03606",
+        "session-before.json": "985f5f133c4629ad92ee20ddc50cb0b2bf62fe3bc7cbc704fd25bac5d18b9936",
+        "admission.json": "3fdf2e4a1ddcc3d32847c9e42a67e7da8823608271199051c9e161b75f00bd38"
+      },
+      "admitted": true
+    },
+    {
+      "directory": "/Users/new/vitrea-w34/run/inactive-2x-sentinel/run-2",
+      "manifestSha256": "11b2734d59b83c03a8e669f569c9dcd3838d746d7ffb6c974bc56fea34f8a8bf",
+      "cells": 4,
+      "firstCapturedAt": "2026-09-23T17:32:07Z",
+      "lastCapturedAt": "2026-09-23T17:32:55Z",
+      "attestationSha256": {
+        "attest.open.json": "6b65623dc1888486f8a5fd108b508d8ccedcdacf89e614e03b0dad5d463d92fb",
+        "attest.close.json": "806febd5c299293b99ae7e5dd5da220fe42a9893410402a2aa33d452c55cc2a6",
+        "attest.read": "042970c81edffd84bd11c8f8023050ea4412e56a1387d9d02343f0466beba189",
+        "attest.close": "06406b5a1bfb669258387d5178de90ee42fd1de214bb3647f3be2fe44b7d5e01",
+        "session-before.json": "b4c80a11c0247e6b590c7506914e2e4c140abe58e95eadf01146b1654ec5f8c4",
+        "admission.json": "3fdf2e4a1ddcc3d32847c9e42a67e7da8823608271199051c9e161b75f00bd38"
+      },
+      "admitted": true
+    },
+    {
+      "directory": "/Users/new/vitrea-w34/run/inactive-2x-sentinel/run-3",
+      "manifestSha256": "aa361734623f67135c586e894b246197a0d4442ee9b91f763c1dfbf17d8a8a79",
+      "cells": 4,
+      "firstCapturedAt": "2026-09-23T17:33:14Z",
+      "lastCapturedAt": "2026-09-23T17:34:02Z",
+      "attestationSha256": {
+        "attest.open.json": "1f601997522f78ac416d67d953e9ad6d0b24eb12052aad3e2652516252b031f8",
+        "attest.close.json": "df4f9101b7ed270d4d08b2614d2c84c89414eeca63ad799ce97f3a16dfdbcdb1",
+        "attest.read": "304e6b451632f52e32a0414ff027efed6e54255f731a107078a2cec6f2536dc8",
+        "attest.close": "7b97b05cdf3c11118b0c0ff751228f1d8e7009e70846a9ca374332da97bd2f36",
+        "session-before.json": "0101e3ec9978ccea4e7ffdbb05b71d912017c1e1546c5e563988041d6b15541e",
+        "admission.json": "3fdf2e4a1ddcc3d32847c9e42a67e7da8823608271199051c9e161b75f00bd38"
+      },
+      "admitted": true
+    }
+  ]
+}

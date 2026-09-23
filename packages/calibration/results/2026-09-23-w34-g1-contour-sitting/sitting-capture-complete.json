@@ -1,0 +1,229 @@
+{
+  "schema": 1,
+  "gate": "W34 G1; \u00a75.175",
+  "status": "Captures complete; archive and publication pending",
+  "passes": [
+    {
+      "passName": "active-2x",
+      "protocol": "normal",
+      "started": "2026-09-23T06:24:27.166599+00:00",
+      "finished": "2026-09-23T09:09:37.146858+00:00",
+      "wallSeconds": 9909.999442916014,
+      "independentOpeningIdleSeconds": 224.254482416,
+      "exitCode": 0,
+      "rehearsal": "G0 four full dry rehearsals; no G1 repetition before this pass"
+    },
+    {
+      "passName": "inactive-2x",
+      "protocol": "normal",
+      "started": "2026-09-23T09:10:41.534307+00:00",
+      "finished": "2026-09-23T11:55:33.773281+00:00",
+      "wallSeconds": 9892.258118416998,
+      "independentOpeningIdleSeconds": 10198.641616541,
+      "exitCode": 0,
+      "rehearsal": "G0 non-dry inactive seam and full dry rehearsals; driver also runs its no-tint rehearsal"
+    },
+    {
+      "passName": "active-1x",
+      "protocol": "normal",
+      "started": "2026-09-23T11:56:12.858272+00:00",
+      "finished": "2026-09-23T14:40:40.679257+00:00",
+      "wallSeconds": 9867.841154374997,
+      "independentOpeningIdleSeconds": 20129.984912375,
+      "exitCode": 0,
+      "rehearsal": "G0 full dry rehearsal; G1 mode 69 switched and independently read back"
+    },
+    {
+      "passName": "inactive-1x",
+      "protocol": "normal",
+      "started": "2026-09-23T14:41:27.081977+00:00",
+      "finished": "2026-09-23T17:26:03.905800+00:00",
+      "wallSeconds": 9876.84367379197,
+      "independentOpeningIdleSeconds": 30044.22904225,
+      "exitCode": 0,
+      "rehearsal": "G0 non-dry inactive seam and full dry rehearsal; driver also runs its no-tint rehearsal"
+    },
+    {
+      "passName": "active-2x-sentinel",
+      "protocol": "long",
+      "started": "2026-09-23T17:26:56.050452+00:00",
+      "finished": "2026-09-23T17:30:15.351762+00:00",
+      "wallSeconds": 199.30159524996998,
+      "independentOpeningIdleSeconds": 39973.217777166,
+      "exitCode": 0
+    },
+    {
+      "passName": "inactive-2x-sentinel",
+      "protocol": "long",
+      "started": "2026-09-23T17:30:43.586853+00:00",
+      "finished": "2026-09-23T17:34:03.007020+00:00",
+      "wallSeconds": 199.42045187501935,
+      "independentOpeningIdleSeconds": 40200.754615708,
+      "exitCode": 0
+    },
+    {
+      "passName": "active-1x-sentinel",
+      "protocol": "long",
+      "started": "2026-09-23T17:34:38.219128+00:00",
+      "finished": "2026-09-23T17:37:54.852562+00:00",
+      "wallSeconds": 196.63369012495968,
+      "independentOpeningIdleSeconds": 40435.387354583,
+      "exitCode": 0
+    },
+    {
+      "passName": "inactive-1x-sentinel",
+      "protocol": "long",
+      "started": "2026-09-23T17:38:24.901874+00:00",
+      "finished": "2026-09-23T17:41:41.668004+00:00",
+      "wallSeconds": 196.76638466701843,
+      "independentOpeningIdleSeconds": 40662.070465708,
+      "exitCode": 0
+    }
+  ],
+  "rehearsals": [
+    {
+      "passName": "active-2x",
+      "gate": "G0; reused, not repeated in G1",
+      "source": "packages/calibration/results/2026-09-23-w34-g0-contour-bed/dry-attestations/active-2x",
+      "started": "2026-09-23T02:02:06.744764+00:00",
+      "finished": "2026-09-23T02:02:48.624703+00:00",
+      "attestedIntervalSeconds": 41.879939,
+      "scope": "Opening-to-closing attestation interval, not an independently recorded process wall clock",
+      "admission": {
+        "admitted": true,
+        "cells": 148,
+        "dry": true
+      }
+    },
+    {
+      "passName": "inactive-2x",
+      "gate": "G0; reused, not repeated in G1",
+      "source": "packages/calibration/results/2026-09-23-w34-g0-contour-bed/dry-attestations/inactive-2x",
+      "started": "2026-09-23T02:02:49.499645+00:00",
+      "finished": "2026-09-23T02:03:31.518227+00:00",
+      "attestedIntervalSeconds": 42.018582,
+      "scope": "Opening-to-closing attestation interval, not an independently recorded process wall clock",
+      "admission": {
+        "admitted": true,
+        "cells": 148,
+        "dry": true
+      }
+    },
+    {
+      "passName": "active-1x",
+      "gate": "G0; reused, not repeated in G1",
+      "source": "packages/calibration/results/2026-09-23-w34-g0-contour-bed/dry-attestations/active-1x",
+      "started": "2026-09-23T02:03:33.109976+00:00",
+      "finished": "2026-09-23T02:04:14.069443+00:00",
+      "attestedIntervalSeconds": 40.959467,
+      "scope": "Opening-to-closing attestation interval, not an independently recorded process wall clock",
+      "admission": {
+        "admitted": true,
+        "cells": 148,
+        "dry": true
+      }
+    },
+    {
+      "passName": "inactive-1x",
+      "gate": "G0; reused, not repeated in G1",
+      "source": "packages/calibration/results/2026-09-23-w34-g0-contour-bed/dry-attestations/inactive-1x",
+      "started": "2026-09-23T02:04:14.891203+00:00",
+      "finished": "2026-09-23T02:04:55.663680+00:00",
+      "attestedIntervalSeconds": 40.772477,
+      "scope": "Opening-to-closing attestation interval, not an independently recorded process wall clock",
+      "admission": {
+        "admitted": true,
+        "cells": 148,
+        "dry": true
+      }
+    }
+  ],
+  "attestationSummary": [
+    {
+      "passName": "active-2x",
+      "machineReads": 14,
+      "foreignProcessCount": 0,
+      "launches": 7,
+      "minimumPrelaunchIdleSeconds": 224.925137916,
+      "allUnlocked": true
+    },
+    {
+      "passName": "inactive-2x",
+      "machineReads": 14,
+      "foreignProcessCount": 0,
+      "launches": 7,
+      "minimumPrelaunchIdleSeconds": 10199.56593075,
+      "allUnlocked": true
+    },
+    {
+      "passName": "active-1x",
+      "machineReads": 14,
+      "foreignProcessCount": 0,
+      "launches": 7,
+      "minimumPrelaunchIdleSeconds": 20130.691256625,
+      "allUnlocked": true
+    },
+    {
+      "passName": "inactive-1x",
+      "machineReads": 14,
+      "foreignProcessCount": 0,
+      "launches": 7,
+      "minimumPrelaunchIdleSeconds": 30044.927779458,
+      "allUnlocked": true
+    },
+    {
+      "passName": "active-2x-sentinel",
+      "machineReads": 6,
+      "foreignProcessCount": 0,
+      "launches": 3,
+      "minimumPrelaunchIdleSeconds": 39973.941079333,
+      "allUnlocked": true
+    },
+    {
+      "passName": "inactive-2x-sentinel",
+      "machineReads": 6,
+      "foreignProcessCount": 0,
+      "launches": 3,
+      "minimumPrelaunchIdleSeconds": 40201.439507,
+      "allUnlocked": true
+    },
+    {
+      "passName": "active-1x-sentinel",
+      "machineReads": 6,
+      "foreignProcessCount": 0,
+      "launches": 3,
+      "minimumPrelaunchIdleSeconds": 40436.055100708,
+      "allUnlocked": true
+    },
+    {
+      "passName": "inactive-1x-sentinel",
+      "machineReads": 6,
+      "foreignProcessCount": 0,
+      "launches": 3,
+      "minimumPrelaunchIdleSeconds": 40662.713995291,
+      "allUnlocked": true
+    }
+  ],
+  "normalRuns": 28,
+  "sentinelRuns": 12,
+  "normalCellsPerRun": 148,
+  "sentinelCellsPerRun": 4,
+  "totalCellCaptures": 4192,
+  "quarantines": [],
+  "refusals": [],
+  "captureWallSeconds": 40339.064511416946,
+  "sittingElapsedSeconds": 40634.501405,
+  "displaySequence": [
+    68,
+    69,
+    68,
+    69,
+    68
+  ],
+  "recordNotes": [
+    "All driver, attestation and provenance checkpoints committed after each pass.",
+    "No extra G1 dry runs; G0 full-pass rehearsals reused. Inactive driver also executes its no-tint rehearsal; its separate wall clock was not instrumented.",
+    "Raw capture logs stay under /Users/new/vitrea-w34/run; committed per-run output is restricted to inventory, hashes, times and admission.",
+    "No browser, vitrea render, fit, threshold choice, canonical evidence change, TCC operation or bundle rebuild."
+  ]
+}
