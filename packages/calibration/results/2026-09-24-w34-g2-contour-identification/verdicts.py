@@ -6,10 +6,10 @@ from collections import defaultdict
 import identification as M
 
 
-def main():
-    rows=json.loads(gzip.decompress((M.HERE/'qualified-validation-forward.json.gz').read_bytes()))
-    pairs=json.loads(gzip.decompress((M.HERE/'qualified-validation-discrimination.json.gz').read_bytes()))
-    fits=json.loads((M.HERE/'qualified-fits.json').read_text())
+def main(prefix="qualified-validation",fits_path=None,output="closure-verdicts.json"):
+    rows=json.loads(gzip.decompress((M.HERE/(prefix+'-forward.json.gz')).read_bytes()))
+    pairs=json.loads(gzip.decompress((M.HERE/(prefix+'-discrimination.json.gz')).read_bytes()))
+    fits=json.loads((fits_path or M.HERE/'qualified-fits.json').read_text())
     by_fit=defaultdict(list);by_pair=defaultdict(list)
     for r in rows:
         r['stratum']=f"{r['part']}/{r['shell']}/{r['bin']}"
@@ -34,7 +34,7 @@ def main():
                 validationBins=len(validation),validationPixels=sum(r['pixels'] for r in validation),
                 competingPairs=len(alternatives),tau=1,
                 qualifications='Finite declared perturbations, not a confidence interval or exhaustive raster-origin bound.'))
-    M.save(M.HERE/'closure-verdicts.json',out)
+    M.save(M.HERE/output,out)
     print(json.dumps({outcome:sum(r['verdict']['outcome']==outcome for r in out)
                       for outcome in sorted({r['verdict']['outcome'] for r in out})}))
 

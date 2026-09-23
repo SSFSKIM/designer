@@ -26,9 +26,8 @@ def coverage(pixels,component,scale,translation,samples=64):
         return coverage_reference(pixels,component,scale,translation,samples)
     d=distances(pixels,component,scale,translation)
     body=(d<0).astype(float)
-    out=dict(body=body,band=np.zeros(len(pixels)),
-             bodyX=body*((pixels[:,0]+.5)/(320*scale)-.5),
-             bodyY=body*((pixels[:,1]+.5)/(200*scale)-.5))
+    bx,by=M.body_coordinates(pixels[:,0]+.5,pixels[:,1]+.5,scale)
+    out=dict(body=body,band=np.zeros(len(pixels)),bodyX=body*bx,bodyY=body*by)
     for k in M.POWERS:out['q'+str(k)]=np.zeros(len(pixels))
     partial=(d>=-np.sqrt(.5))&(d<=1+np.sqrt(.5))
     if partial.any():
@@ -49,7 +48,8 @@ def baseline(record,space,translation,samples=64,cov=None):
         output=[[],[],[]];back=[];scale=record['scale']
         for start in range(0,len(record['xy']),64):
             xy=record['xy'][start:start+64];x=xy[:,0,None]+ox;y=xy[:,1,None]+oy
-            B=beta[0]+(x[:,:,None]/(320*scale)-.5)*beta[1]+(y[:,:,None]/(200*scale)-.5)*beta[2]
+            bx,by=M.body_coordinates(x,y,scale)
+            B=beta[0]+bx[:,:,None]*beta[1]+by[:,:,None]*beta[2]
             values=[np.clip(B,0,1),np.clip(B-U,0,1),np.clip(B+U,0,1)]
             D=np.broadcast_to(record['D'][start:start+64,None,:]/255,B.shape)
             if space=='linear':values=[M.decode(v) for v in values];D=M.decode(D)

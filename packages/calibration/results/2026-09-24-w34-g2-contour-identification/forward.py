@@ -31,7 +31,8 @@ def baseline(record, space, translation, samples=64, cov=None):
         a=M.I.stadium(x,y,rect,min(size)/2)[0]<0
         if 'coefficients' in body:
             beta=np.array(body['coefficients'])/255
-            B=beta[0]+(x[:,:,None]/(320*scale)-.5)*beta[1]+(y[:,:,None]/(200*scale)-.5)*beta[2]
+            bx,by=M.body_coordinates(x,y,scale)
+            B=beta[0]+bx[:,:,None]*beta[1]+by[:,:,None]*beta[2]
         else:B=np.broadcast_to(np.array(body['betaRGB'])/255,(*x.shape,3))
         U=np.array(body['uncertaintyRGB'])/255
         low,high=np.clip(B-U,0,1),np.clip(B+U,0,1);B=np.clip(B,0,1)

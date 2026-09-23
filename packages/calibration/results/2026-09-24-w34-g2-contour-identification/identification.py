@@ -73,6 +73,17 @@ def fit(X, y, method):
     raise RuntimeError('Minimax did not satisfy every pixel constraint')
 
 
+def body_coordinates(x,y,scale):
+    """Evaluate G0's integer-index affine fit at geometric subpixel positions.
+
+    Index x names the observation centred at geometric x+.5. Equivalently,
+    converting its coefficients subtracts betaX/(2*w)+betaY/(2*h) from beta0.
+    The frozen coefficients are not mutated; both quadrature paths and the
+    compact body moments use this same coordinate conversion.
+    """
+    return (x-.5)/(320*scale)-.5,(y-.5)/(200*scale)-.5
+
+
 def coverage(pixels, component, scale, translation, samples=64):
     """Integrate disjoint body and outside one-device-pixel band at subpixels.
 
@@ -123,8 +134,9 @@ def coverage(pixels, component, scale, translation, samples=64):
             nx=normal[:,0].reshape(x.shape); ny=normal[:,1].reshape(x.shape)
         body = d<0; band=(d>=0)&(d<1)
         output['body'].extend(body.mean(axis=1)); output['band'].extend(band.mean(axis=1))
-        output['bodyX'].extend((body*(x/(320*scale)-.5)).mean(axis=1))
-        output['bodyY'].extend((body*(y/(200*scale)-.5)).mean(axis=1))
+        bx,by=body_coordinates(x,y,scale)
+        output['bodyX'].extend((body*bx).mean(axis=1))
+        output['bodyY'].extend((body*by).mean(axis=1))
         for k in POWERS:
             output['q'+str(k)].extend((band*np.abs(nx)**k).mean(axis=1))
     return {k:np.array(v) for k,v in output.items()}
@@ -206,7 +218,7 @@ def extract(wave, roles=('calibration','validation'), authorization=None):
     return records,controls
 
 
-def angular_basis(r, family, power=2., angle=0.):
+def angular_basis(r, family, power=2., angle=0., reference=False):
     x,y=r['nx'],r['ny']; one=np.ones(len(x));q=np.abs(x)**power
     if family=='constant': cols=[one]
     elif family=='even': cols=[q]
@@ -216,13 +228,18 @@ def angular_basis(r, family, power=2., angle=0.):
     elif family=='signed-normal':cols=[one,x,y]
     elif family=='two-term-even':cols=[np.abs(x)**power,np.abs(y)**power]
     elif family=='rotated-axis':cols=[one,np.abs(x*np.cos(angle)+y*np.sin(angle))**power]
-    elif family=='isotropic-two-axis':cols=[one,q,np.abs(y)**power]
+    elif family=='isotropic-two-axis':
+        if reference:
+            v=x*np.cos(angle)+y*np.sin(angle);u=-x*np.sin(angle)+y*np.cos(angle)
+            cols=[one,np.abs(v)**power,np.abs(u)**power]
+        else:cols=[one,q,np.abs(y)**power]  # Original G2 axis-fixed variant.
     elif family in ['gradient','colour-gradient']:
         gx,gy=r['gx']/255,r['gy']/255;dot=x*gx+y*gy
         cols=[one,q,gx,gy,dot,np.abs(dot)]
         if family=='colour-gradient':
             colour=r['D'].mean(axis=1)/255
-            cols.extend([colour,q*colour])
+            cols=([one,q,colour,q*colour,gx,gy,dot,np.abs(dot)] if reference else
+                  [*cols,colour,q*colour])
     else:raise ValueError(family)
     return np.column_stack(cols)
 
@@ -242,11 +259,13 @@ def family_specs():
 
 
 def design(r, spec, channel):
-    name=spec['name'];space=spec['space'];power=spec.get('power',2.)
+    name=spec['name'];space=spec['space']
+    reference=spec.get('w33Reference',False)
+    power=spec.get('power',4. if reference and name in ['gradient','colour-gradient'] else 2.)
     D=r['D']/255;B=r['B']/255
     if space=='linear':D,B=decode(D),decode(B)
     if spec['stage']=='W33-first':
-        X=angular_basis(r,name,power,spec.get('angle',0.))
+        X=angular_basis(r,name,power,spec.get('angle',0.),reference)
         support=((r['d']>=0)&(r['d']<1)).astype(float)
         return X*support[:,None],D[:,channel]
     cov=r['cov'];g=cov['band'];a=cov['body'];q=cov['q'+str(power)]
@@ -294,6 +313,17 @@ def fit_spec(records,spec,method):
     return coefficients,objective
 
 
+def parameter_grid(template):
+    name=template['name']
+    if template.get('w33Reference'):
+        if name in ['gradient','colour-gradient']:return [4.],[0.]
+        if name in ['rotated-axis','isotropic-two-axis']:
+            return [*POWERS,16.],np.arange(0,np.pi,np.pi/72)
+    powers=POWERS if name in ['even','isotropic-even','two-term-even','rotated-axis',
+        'isotropic-two-axis','coverage-even-affine','body-forward-even-affine'] else [2.]
+    return powers,np.arange(0,np.pi,np.pi/72) if name=='rotated-axis' else [0.]
+
+
 def fit_all(records):
     results=[]
     groups=sorted({(r['profile'],r['pose']) for r in records})
@@ -304,11 +334,9 @@ def fit_all(records):
                      and (template['stage']=='W33-first' or r['cov'] is not None)]
             for method in ['least-squares','minimax']:
                 name=template['name']
-                powers=POWERS if name in ['even','isotropic-even','two-term-even','rotated-axis',
-                    'isotropic-two-axis','coverage-even-affine','body-forward-even-affine'] else [2.]
-                # Rotated axis is a sampled family as in W33, not a continuous
-                # optimum. The grid and every selected calibration score are recorded.
-                angles=np.arange(0,np.pi,np.pi/72) if name=='rotated-axis' else [0.]
+                # The explicit reference flag selects W33's original grid;
+                # unflagged frozen fits retain their separately labelled G2 variant.
+                powers,angles=parameter_grid(template)
                 best=None;grid=[]
                 for power in powers:
                     for angle in angles:

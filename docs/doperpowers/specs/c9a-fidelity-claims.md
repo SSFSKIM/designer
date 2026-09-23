@@ -36400,6 +36400,12 @@ construction of that object did **not** expose a payload. The actual spend and r
 
 ### 7. The holdout read's own table — one receipt, no refit
 
+**Review qualification beside, 2026-09-24 (§9 below):** these held figures are readings of
+this gate's **original instrument**. They have not been re-read with the corrected affine
+coordinate convention or W33 bases. The begin event reproduces its digest; the complete event's
+serialized configuration contains a metadata-only bookkeeping mutation and does not reproduce
+that recorded digest. Both original events remain untouched; the explicit audit is below.
+
 The real receipt contains exactly **begin → complete**, with no failed attempt or second
 exposure. Configuration digest:
 
@@ -36481,3 +36487,34 @@ or follow-up, not a new accepted fidelity ceiling.
 **Diff-check qualification:** one trailing blank line in the preserved raw
 `close-calibration-tests.txt` log is retained (`close-diff-check.txt`). Authored source/spec
 text has no whitespace warning. This is not reported as a failed test or silently normalized.
+
+
+### 9. Independent-review fix wave — 2026-09-24
+
+The read-only independent review reproduced four exact-body fits and all432 validation bins
+per fit, and checked two minimax optima with full LPs. It found the negative sound in its
+stated scope and the no-G3 recommendation appropriate for the user, with three evidence
+corrections. All original readings, nominees and the spent receipt are preserved. Corrections
+are appended under `review-fix/`; no holdout payload, image or capture is reopened.
+
+**Receipt integrity, corrected record beside (§9, finding3).** The original runner aliased
+`document` to the authorization's configuration, then wrote `receiptCandidateIndex` into each
+of its forty fit dictionaries. Those bookkeeping fields therefore entered the complete event's
+serialized configuration even though its recorded digest remained the pre-exposure digest.
+`review-fix/receipt-integrity-audit.json` reads only the committed receipt events and records:
+
+- Begin's actual and recorded configuration digest:
+  `3c4c046541f91ab7cd5dab2bdd8c450869e595c50736d538085cbfb98e54b93f`.
+- Complete's **actual serialized-configuration digest**:
+  `daccc0e84a0f116d32a49ab1c1a011636013005a344286001f06fd083b92b0ad`.
+  Its recorded digest still says `3c4c0465…`; that mismatch is not repaired in place.
+- Removing **only** the forty enumerated bookkeeping fields makes canonical JSON exactly equal
+  to begin and restores the full `3c4c0465…` digest. Coefficients, inventories and every other
+  configuration field are unchanged. The receipt file itself is byte-identical to `44e007f8`.
+
+The runner now keeps local-to-receipt indices in a separate map and never writes into the
+frozen document. Its regression exercises the real main-loop bookkeeping with synthetic empty
+I/O, catches the original mutation, and verifies both document equality and the separate map.
+This correction is for future use only: the actual receipt remains spent, with no re-run or
+new authorization. A valid begin pin and metadata-only completion discrepancy are the claims,
+not a claim that the original complete event passes its literal hash check.

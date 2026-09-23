@@ -63,13 +63,14 @@ def main(wave,token):
         if r['cov'] is not None and r['backgroundKind'] in ['solid','linear-gradient']:
             r['exactBaselines']={space:F.baseline(r,space,r['alignment']['translationDevicePx'],cov=r['cov'])[0]
                                  for space in ['encoded','linear']}
-    tables=[];headlines=[];physical=[]
+    tables=[];headlines=[];physical=[];physical_indices={}
     for index,entry in enumerate(document['candidates']):
-        fit=entry['fit'];fit['receiptCandidateIndex']=index
+        fit=entry['fit']
         rs=[r for r in records if (r['profile'],r['pose'])==(fit['profile'],fit['pose'])]
         if fit['spec']['stage']!='W33-first':rs=[r for r in rs if r['cov'] is not None]
         if fit['spec'].get('exactBody'):
             rs=[r for r in rs if r['backgroundKind'] in ['solid','linear-gradient']]
+            physical_indices[len(physical)]=index
             physical.append(fit)
         per={}
         for source in rs:
@@ -99,6 +100,7 @@ def main(wave,token):
     M.save(HERE/'holdout-result.json',dict(candidateSha256=token.configuration['candidate']['sha256'],
         cells=len(records),headlines=headlines,refit=False,
         note='One receipt exposure; only frozen validation nominees, no coefficient adjustment.'))
+    M.save(HERE/'holdout-qualified-candidate-map.json',physical_indices)
     F.verify(records,physical,'holdout-qualified')
 
 
