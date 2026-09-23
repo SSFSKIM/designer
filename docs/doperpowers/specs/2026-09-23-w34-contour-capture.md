@@ -530,7 +530,7 @@ grant; G2 needs neither.
 | child | status |
 | --- | --- |
 | G0 | DELIVERED for independent review — phase grid unreachable, 148 cells/pass declared, side active and canonical pixel check positive; DL1 ruling and review/merge pending (§5.174). Original grant recovery deferred by DL4 **MERGED 2026-09-23 as `d2201845`; Decision Log 1 ruled at the merge.** |
-| G1 | DELIVERED 2026-09-24 for parent review/merge — all 40 runs admitted, 592/592 cells published, separate bars and archive-only replay complete (§5.175); G2 not opened |
+| G1 | DELIVERED 2026-09-24 for parent review/merge — all 40 runs admitted, 592/592 cells published, separate bars and archive-only replay complete (§5.175); G2 not opened **MERGED 2026-09-24 as `7c5c71c3`** (§5.175; independent review with no material finding). |
 | G2 | CHARTERED, opens after G1's merge |
 | G3 | CONDITIONAL on Decision Log 2 |
 
@@ -625,6 +625,16 @@ G1 exclusivity remains the parent's decision. Subsequent reads currently report 
 
 ## Revision Notes
 
+- 2026-09-24 (the parent, G1's merge): G1 merged to main as `7c5c71c3` with `--no-ff` after an
+  independent review (astra, high) that re-derived every published hash, plurality, attestation
+  and bar and found no material finding; `freeze.py verify` 1,818; the bed of 592 cells and the
+  114 MiB repeat archive are committed as the charter's clause 4 asks, the archive being 103 MiB
+  of per-run statistics and 11 MiB of compressed lossless crops (a tracker entry weighs the
+  repository cost). The evidence index is renamed from `README.txt` to `README.md` in this record
+  and the sitting record stays `sitting.json`, because the worker's own model instructions forbid
+  Markdown reports; §5.175 carries the narrative tables. One correction to the parent's own
+  dispatch summary, not to the evidence: the normal bars also reach 0.5 byte on 1x light active
+  arcs (one witness, population 8), as §5.175 records. G2 opens on this revision.
 - 2026-09-23 (G0 delivered, §5.174): the side active pose and one canonical byte identity
   proved; quarter-device phases collapse at both scales. Declared the phase-free sparse bed,
   conservative canonical-twin audit, separately pinned split, wave reader/launcher and receipt,

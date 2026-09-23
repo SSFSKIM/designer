@@ -5930,3 +5930,15 @@ The phase mechanism, ordinary-fill/glass transfer, body/coverage ambiguity, radi
 cubic uncertainty and continuous-native/circular-web mismatch remain as recorded above.
 G2 now has the replayable pixels and published populations to decide identification at
 that resolution. Original-grant recovery remains DL4's wave-close work; G1 did not touch TCC.
+
+## The W34 repeat archive adds 114 MiB to a 328 MiB pack, and the next sitting would add as much again (W34 G1 merge, 2026-09-24)
+
+The charter's clause 4 asks for the run-to-run bar to re-derive from the repository without the
+raw PNGs, and G1 delivered it: `results/2026-09-23-w34-g1-contour-sitting/repeat/` holds 103 MiB
+of per-run, per-bin statistics and 11 MiB of compressed lossless crops for 408 glass cells over 40
+runs. That is the right artefact for this wave and it is committed. It is also a third of the
+pack, and a second sitting at this bed's size would double it. **Shape of the work:** decide,
+before the next native sitting, whether repeat archives live in the repository, in Git LFS, or as
+a release asset named by hash from the ledger — the requirement is that the bar re-derives from
+what a reader can fetch by the name the ledger records, not that it sits in every clone. Nothing
+here is wrong; it is weight.
