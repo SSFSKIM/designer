@@ -5983,3 +5983,16 @@ alone cannot remove this structural residual; the missing contour and the contin
 circular-web geometry mismatch remain unshipped fidelity work. The 192 under-populated 1x
 rectangle bins remain unmeasured, not pooled after fitting. DL2 belongs to the user; no G3 leaf,
 CSS approximation, conformance re-pin or material-document change follows from this entry.
+
+## Two harness bundles never both hold Screen Recording on this machine, whatever their identifiers (W34 close, 2026-09-24)
+
+W29 measured that a second bundle under the harness's identifier evicts the harness's grant. W34
+gave its side bundle a distinct identifier (`dev.vitrea.reference-apple.w34`) and a distinct
+cdhash and found the same thing twice: granting the side refused the original (G0, §5.174), and
+re-adding the original refused the side (close, W34 Decision Log 4). The internal key TCC uses is
+not inferred; what is established is the operational rule: one harness bundle holds the grant at
+a time, each switch is one user action in System Settings, and each switch is followed by a
+positive capture check on BOTH bundles. **Shape of the work:** a native wave that needs two
+bundles (a canonical recapture beside a probe bed) plans the switches into its runbook and its
+price; a test of whether a Developer ID signature changes the behaviour is a separate, small
+experiment nobody has run.

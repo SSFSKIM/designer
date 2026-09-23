@@ -36614,3 +36614,12 @@ digests were also recomputed independently from the committed events and agree. 
 browser run, bundle build, TCC change, holdout read or receipt spend was part of this wave.
 As at the gate's close, the raw `review-fix/calibration-tests.txt` log keeps vitest's trailing
 blank line, which `git diff --check` reports; it is retained as evidence, not normalized.
+
+**Wave close, 2026-09-24 (the parent; W34 Decision Logs 2 and 4).** The user ruled close at the
+finding: no G3, no leaf, no bound moved. Decision Log 4 executed at close — the original harness
+bundle re-added to Screen Recording by the user's hand and positively checked (one 27-only 2x
+light checkerboard capsule cell, `materialRendered` true, `presentedActive` true, `deterministic`
+true, `repeatNoise` 0, zero foreign processes, 78 s idle), the side bundle refused by TCC twelve
+seconds later under the same construction (`results/2026-09-24-w34-close/`). Two bundles with
+distinct identifiers and cdhashes never both held the grant on this machine; the key is not
+inferred. Nothing published moved in W34, so no release follows it.

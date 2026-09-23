@@ -1,6 +1,7 @@
 # W34 — the contour wave: the capture that identifies Apple's macOS 27 contour stroke (2026-09-23)
 
 **Status: G2 DELIVERED as a negative finding (2026-09-24); parent review and user DL2 ruling pending.**
+**CLOSED 2026-09-24 at the finding, by the user's Decision Log 2 ruling: no contour law is identified on the bed this wave captured, at the declared tolerance; no G3; no leaf; no bound moved. Decision Log 4 executed at close (the original bundle's grant restored and positively checked; the side bundle's refused). The bed, the archive and the instrument are committed and replayable (§5.174–§5.176).**
 The v3 charter folded two review rounds (nine findings, then three on the split's execution
 contracts); G0 merged and Decision Log 1 is ruled. Chartered
 by the parent on the user's "W34 contour capture wave (Recommended)" after the 0.23.0 publish
@@ -525,6 +526,74 @@ grant; G2 needs neither.
 - Span 160's canvas and split (W33 Deferred 4): unchanged; the bed keeps the 320×200 canvas.
 - Any change to the canonical bed's scenes or the gate's counts: a later wave's, on a ruling.
 
+## Deferred at close — in priority order (2026-09-24)
+
+1. **The body's boundary behaviour, before any further stroke question.** G2's coefficient-
+   independent finding is that the declared body model already misses by 2–27 codes in shell
+   [−2,−1), inside the edge, where an outside stroke has no reach; the native–web gap over six
+   shells is 91–165 codes across the sixteen strata. The next study is a declared
+   boundary-body / radial model of Apple's material near the edge on the W34 bed's non-holdout
+   pixels (exact circular arcs, no-glass references, opaque alignment controls, the archive's
+   dependencies) against vitrea's WebGPU render — no capture, no holdout read, no permission —
+   and only then whether a stroke term is well-posed over the corrected body.
+2. **A later blind confirmation** needs newly authorised, genuinely unexposed cells (this bed's
+   holdout is spent), improved glass-path coverage or registration, and any new phase mechanism
+   proved reachable first (quarter-device offsets collapse to two states on the shape path).
+3. **The repeat archive's home** (tracker): in-repository, Git LFS, or a release asset named by
+   hash — decided before the next sitting.
+4. **The one-grant behaviour of TCC** on this machine (Decision Log 4 executed): one harness
+   bundle at a time; a later native wave plans the switch and both positive checks.
+5. **The accessibility beds' contour and body** (Reduce Transparency, Increase Contrast, coupled):
+   still uncaptured on this bed.
+6. **The empirical partial correction** (W33): declined, unchanged.
+7. **W33's Deferred 3, 4, 6–13** carry unchanged (composite geometry, span 160, B3's bar, C1's
+   re-pin, the dark receded floor, the CSS near-contour residual, M2's mechanism, body
+   chroma/structure, the pose crossfade, tooling limits).
+
+## Outcomes & Retrospective — W34 close, 2026-09-24
+
+**CLOSED at the finding**, against the eight Parent-Level Acceptance clauses:
+
+1. **The bed was declared before it was captured** (G0, §5.174; two adversarial rounds on the
+   charter and an independent review of the declaration with three defects closed before G1).
+2. **The side bundle carried its own identity and the granted bundle was untouched** — bytes
+   untouched; its GRANT was evicted by the side's and restored at close, both by the user's hand,
+   both positively checked. Distinct identifiers did not buy simultaneous grants (DL4).
+3. **Every run attested**: 40 runs, 80 machine reads agreeing, zero foreign processes, every
+   launch above 60 s idle, the display mode per scale, the side cdhash in every attestation.
+4. **Repeats before thresholds, reproducible from the repository**: seven runs per pass, the bar
+   published before G2 from a committed 114 MiB archive computed before plurality, replayed
+   identically with the raw root denied; the bar at most 0.5 code, so the one-code quantisation
+   floor was the tolerance almost everywhere and is recorded as such, not as zero variability.
+5. **The instrument separated what W33 could not** — circular against continuous arcs, coverage
+   from corner geometry, local colour from angle, the no-glass reference equal to its raster to
+   the byte — and found the phase axis unreachable on the shape path (declared, not worked
+   around), and the opaque control an alignment measurement only.
+6. **Identification preceded fitting and the split preceded identification**: 672 configurations,
+   W33's families first (faithfully re-run after the review), the new families after, the holdout
+   once on a receipt binding all three inventories; none closes; the discrimination rule returned
+   insufficient resolution for every exact-body comparison; the decisive inner-shell floor is
+   coefficient-independent.
+7. **Nothing shipped moved**: no material, document, threshold, golden, canonical row or fixture
+   changed in G0–G2; the freeze read 1,818 at every merge; no release is cut.
+8. **The negative is recorded at its resolution**: what is excluded is an outside-only stroke over
+   the declared body and path model at one code, not Apple's colour law; what would identify more
+   is written in Deferred-at-close.
+
+**What this wave cost and found.** One machine-day: 11 h 17 m of native capture, three review
+rounds on the charter and one per gate, four fix waves. It found that the question W33 asked —
+"what stroke law does Apple draw at the contour?" — is downstream of a question nobody had
+declared: how Apple's BODY behaves in the last two device pixels inside the edge, where the
+declared body model already fails. That is the finding, and it changes what the next wave is.
+
+**Lessons worth carrying.** A distinct bundle identifier does not give a second harness bundle
+its own Screen Recording grant here; plan one grant at a time. The harness's offset path snaps
+to the device grid, so subpixel phase needs a different mechanism. The codex companion's usage
+limit is a single point of failure for both GUI control and the GPT rungs; the user's hand and
+the default Claude worker were the fallbacks, both recorded. A run-to-run bar near zero makes
+the quantisation floor the real tolerance, which is worth saying before the fits rather than
+after.
+
 ## Tracking Map
 
 | child | status |
@@ -532,7 +601,7 @@ grant; G2 needs neither.
 | G0 | DELIVERED for independent review — phase grid unreachable, 148 cells/pass declared, side active and canonical pixel check positive; DL1 ruling and review/merge pending (§5.174). Original grant recovery deferred by DL4 **MERGED 2026-09-23 as `d2201845`; Decision Log 1 ruled at the merge.** |
 | G1 | DELIVERED 2026-09-24 for parent review/merge — all 40 runs admitted, 592/592 cells published, separate bars and archive-only replay complete (§5.175); G2 not opened **MERGED 2026-09-24 as `7c5c71c3`** (§5.175; independent review with no material finding). |
 | G2 | DELIVERED, §5.176 — no point-closed law; boundary-body counterexample and qualification recorded; once-only receipt complete; web bed captured. Parent review and DL2 ruling pending. Evidence directory is dated 2026-09-24. **MERGED 2026-09-24 as `5e807599`** (§5.176; review closure `053bb29e`–`81ad53c7`; Decision Log 2 put to the user). |
-| G3 | CONDITIONAL on Decision Log 2 |
+| G3 | **NOT OPENED** — Decision Log 2 ruled close at the finding (2026-09-24) |
 
 ## Decision Log
 
@@ -582,6 +651,12 @@ zero or universal settledness. Seven-run bars remain G1's, not these scratch rea
 
 ### Decision Log 2 — a law or the negative (after G2; the user's)
 
+**RULED by the user 2026-09-24, after G2's merge (`5e807599`): close W34 at the finding.** No G3 opens,
+no contour leaf enters the material, no bound is widened, and the empirical partial correction
+W33 declined stays declined. The alternative put beside it — a body-boundary study on the
+existing non-holdout pixels, no capture — is not chartered by this ruling and is the first item
+of Deferred-at-close for the next wave's consideration.
+
 **DRAFT FOR THE USER, not ruled (G2 complete, 2026-09-24; §5.176).** Recommend closing W34
 at the negative and **not opening G3**. No tested fitted configuration point-closes validation
 at the declared one-code floor. More importantly, every endpoint and both contour parts have
@@ -626,6 +701,20 @@ repeat noisy measurements until they pass. The user's earlier “Proceed; record
 ruling remains: every capture carries opening/closing foreign-process counts and PIDs;
 G1 exclusivity remains the parent's decision. Subsequent reads currently report zero.
 
+**Executed at wave close, 2026-09-24 (the parent; evidence `results/2026-09-24-w34-close/`).** The
+user re-added `apps/reference-apple/build/VitreaReference.app` to Screen & System Audio
+Recording by the README recipe (the codex companion was refused by the Codex accounts' usage
+limit, so the user's hand was the route). The positive check, one 27-only 2x light checkerboard
+capsule cell with explicit scratch roots at 78 s HID idle and zero foreign processes: the
+original bundle **captures** — `materialRendered` true, `presentedActive` true, `deterministic`
+true, `repeatNoise` 0. The side bundle, checked twelve seconds later under the same construction:
+**refused** by ScreenCaptureKit's TCC gate, no manifest. So on this machine the harness's two
+bundles never both held the grant — side granted → original refused (G0), original re-added →
+side refused (close) — with distinct identifiers and distinct cdhashes; the internal key TCC uses
+is still not inferred. Consequence for any later native wave: one harness bundle holds the grant
+at a time, the switch is one user action each way, and each switch is followed by a positive
+check on both. The side bundle stays at `~/vitrea-w34/side/` ungranted, its cdhash pinned.
+
 ## Surprises & Discoveries
 
 - **G2's nominated boundary body fails where the outside stroke has no support**
@@ -654,6 +743,12 @@ G1 exclusivity remains the parent's decision. Subsequent reads currently report 
 
 ## Revision Notes
 
+- 2026-09-24 (the parent, close): **W34 CLOSED at the finding** on the user's Decision Log 2
+  ruling; Decision Log 4 executed (the original bundle re-granted by the user and positively
+  checked, the side bundle refused; evidence `results/2026-09-24-w34-close/`); Outcomes &
+  Retrospective and Deferred-at-close written; the G3 row closed as not opened; the root
+  `CLAUDE.md` paragraph on the contour updated beside; a tracker entry for TCC's one-grant
+  behaviour. No release: no published package source moved in this wave.
 - 2026-09-24 (the parent, G2's merge): G2 merged to main as `5e807599` with `--no-ff` after an
   independent review (astra, high) that reproduced fits and minimax optima, found the negative
   sound in its scope and three evidence defects, all closed on the branch with red-then-green

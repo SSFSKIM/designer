@@ -293,7 +293,13 @@ its angular/colour/coverage law unidentified on this bed, not absent (Decision L
 The next identifying capture is §5.171's path-attested circular capsules beside continuous ones,
 matched continuous rectangles, uniform and gradient/frequency controls, independent x/y subpixel
 phases at 1x/2x, colour-managed no-glass references and repeats before thresholds, with the split
-declared before fitting; native capture needs the user to lift X5. On the CSS tier the
+declared before fitting; native capture needs the user to lift X5. **W34 ran that capture
+(§5.174–§5.176, 2026-09-23/24):** a 592-cell probe bed with the run-to-run bar measured (≤ 0.5
+code) and 672 fitted configurations, and no law closes at one code — the decisive finding is that
+the declared BODY model already misses by 2–27 codes in the shell just inside the edge, where an
+outside stroke has no reach, so the next question is the body's boundary behaviour, not the
+stroke's colour (W34 Deferred-at-close 1). The wave's bed, archive and instrument are committed
+and replayable; its holdout is spent. On the CSS tier the
 window-activation transition therefore fades the shadow OUT, which is what the reference does;
 on the WebGPU tier the posed profile is swapped the instant the resolved
 activation changes and the shadow leaves in one frame (a tracker entry). The frozen macOS 26.5
