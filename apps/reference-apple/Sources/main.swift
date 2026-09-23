@@ -226,6 +226,53 @@ func runSelfCheck() {
     if !ok { failures += 1 }
     print("  \(ok ? "ok  " : "FAIL") \(label) -> \(detail ?? "\(got), expected \(want)")")
   }
+  print("== self-check: W34 scene kinds decode from JSON ==")
+  for (name, raw) in [
+    ("circular capsule", #"{"kind":"capsule-circular","size":[120,44]}"#),
+    ("empty control", #"{"kind":"none"}"#),
+    ("opaque control", #"{"kind":"capsule-circular","size":[120,44],"opaque":true,"fillSRGB":[0,0,0]}"#)
+  ] {
+    let decoded = try? JSONDecoder().decode(ComponentSpec.self, from: Data(raw.utf8))
+    check(name, decoded != nil, true)
+  }
+  for (name, raw) in [
+    ("gradient", #"{"kind":"linear-gradient","from":[0,0,0],"to":[255,255,255],"angle":45}"#),
+    ("local contrast", #"{"kind":"split","from":[0,0,0],"to":[255,255,255],"axis":"x","position":100}"#)
+  ] {
+    let decoded = try? JSONDecoder().decode(BackgroundSpec.self, from: Data(raw.utf8))
+    check(name, decoded != nil, true)
+  }
+  print("== self-check: W34 supplied geometry and raster encoding ==")
+  do {
+    func component(_ raw: String) throws -> ComponentSpec {
+      try JSONDecoder().decode(ComponentSpec.self, from: Data(raw.utf8))
+    }
+    let canvas = CGSize(width: 320, height: 200)
+    let circular = try component(#"{"kind":"capsule-circular","size":[120,44],"offset":[0.125,0.375]}"#)
+    let continuous = try component(#"{"kind":"capsule","size":[120,44]}"#)
+    let paths = suppliedShapePaths(circular, canvas: canvas)
+    check("fractional frame origin survives export", paths[0].frameOrigin == [100.125,78.375], true)
+    check("circular differs from default", paths[0].elements != suppliedShapePaths(continuous, canvas: canvas)[0].elements, true)
+    let rect = CGRect(x: 0, y: 0, width: 120, height: 44)
+    check("default is continuous witness", Capsule().path(in: rect).cgPath == Capsule(style: .continuous).path(in: rect).cgPath, true)
+    check("empty exports no path", suppliedShapePaths(try component(#"{"kind":"none"}"#), canvas: canvas).isEmpty, true)
+    let opaque = try component(#"{"kind":"capsule-circular","size":[120,44],"offset":[0.125,0.375],"opaque":true,"fillSRGB":[0,0,0]}"#)
+    let control = suppliedShapePaths(opaque, canvas: canvas)
+    check("opaque uses the same supplied path", control[0].elements == paths[0].elements && control[0].opaque, true)
+    let json = try JSONEncoder().encode(paths)
+    let round = try JSONDecoder().decode([SuppliedShapePath].self, from: json)
+    check("path points survive manifest encoding", round[0].elements == paths[0].elements, true)
+    let gradient = Backgrounds.render(.linearGradient(from: [0,0,0], to: [255,255,255], angle: 0),
+                                     canvas: CGSize(width: 4, height: 2), scale: 1)
+    let rgba = try Capture.rgba(gradient)
+    check("gradient samples encoded pixel centres", (0..<4).map { rgba[$0 * 4] } == [32,96,159,223], true)
+    let split = Backgrounds.render(.split(from: [255,0,0], to: [0,0,255], axis: "x", position: 1.5),
+                                  canvas: CGSize(width: 4, height: 2), scale: 1)
+    let rgb = try Capture.rgba(split)
+    check("split comparison is strict at centre", Array(rgb[0..<12]) == [255,0,0,255,0,0,255,255,0,0,255,255], true)
+  } catch {
+    check("W34 geometry/raster check threw", false, true, detail: error.localizedDescription)
+  }
   print("== self-check: Capture.cellMayBeWritten ==")
   for pose in [CapturePose.active, .inactive] {
     for key in [true, false] {
@@ -994,6 +1041,7 @@ func runDumpLayers(sceneIds: [String], outDir: String, settleSeconds: Double, sc
 /// with no study flags is the same run it always was.
 struct CaptureOptions {
   var runLabel: String?
+  var initialSettleSeconds: Double = 1.75
   /// Permutes the capture order. Absent keeps the fixed stable order, which is
   /// what makes two ordinary runs comparable — see `interleaved`.
   var orderSeed: UInt64?
@@ -1347,6 +1395,7 @@ func runCapture(method: CaptureMethod, allowColourlessTints: Bool, options: Capt
       captureProtocol: .init(
         runLabel: options.runLabel,
         orderSeed: options.orderSeed,
+        initialSettleSeconds: options.initialSettleSeconds,
         resetInterstitialSeconds: options.resetInterstitialSeconds,
         resetCarriesGlass: options.resetCarriesGlass,
         minIdleSeconds: options.minIdleSeconds,
@@ -1885,6 +1934,7 @@ func runCapture(method: CaptureMethod, allowColourlessTints: Bool, options: Capt
         presentedActive: window.map { Capture.isActivelyPresented($0) },
         presentation: presentation,
         tint: attestation,
+        suppliedPaths: suppliedShapePaths(component, canvas: canvas),
         capturedAt: Environment.timestamp()))
 
       let d = deterministic.map { $0 ? " byte-stable" : " NOISY(\(noise ?? -1))" } ?? ""
@@ -1964,7 +2014,7 @@ func runCapture(method: CaptureMethod, allowColourlessTints: Bool, options: Capt
               // taken nine seconds later would describe a different moment.
               let attested = attestPose(w)
               let began = Date()
-              try await Task.sleep(nanoseconds: 1_750_000_000)
+              try await Task.sleep(nanoseconds: UInt64(options.initialSettleSeconds * 1_000_000_000))
               var previous = try await Capture.screenCaptureKit(windowID: CGWindowID(w.windowNumber), pixelSize: px)
               var settled = false
               var lastMad = 0.0
@@ -2101,7 +2151,7 @@ struct Harness {
       let out = value(of: "--out", in: args) ?? "\(ROOT)/build/layer-dumps"
       var settle = 1.5
       if let raw = value(of: "--settle", in: args) {
-        guard let parsed = Double(raw), parsed >= 0 else {
+        guard let parsed = Double(raw), parsed.isFinite, parsed >= 0, parsed <= 3600 else {
           fail("--settle takes a non-negative number of seconds, not '\(raw)'")
         }
         settle = parsed
@@ -2150,13 +2200,14 @@ struct Harness {
       // disagree with no way to ask why.
       func number(_ flag: String) -> Double? {
         guard let raw = value(of: flag, in: args) else { return nil }
-        guard let parsed = Double(raw), parsed >= 0 else {
+        guard let parsed = Double(raw), parsed.isFinite, parsed >= 0, parsed <= 3600 else {
           fail("\(flag) takes a non-negative number of seconds, not '\(raw)'")
         }
         return parsed
       }
       var options = CaptureOptions()
       options.runLabel = value(of: "--run-label", in: args)
+      options.initialSettleSeconds = number("--initial-settle") ?? 1.75
       if let raw = value(of: "--order-seed", in: args) {
         guard let seed = UInt64(raw) else { fail("--order-seed takes an unsigned integer, not '\(raw)'") }
         options.orderSeed = seed
@@ -2259,6 +2310,7 @@ struct Harness {
           --dry-run                   present and attest every cell, capture and write nothing
           --allow-colourless-tints    publish a bed whose tints did not reach the material
           --run-label <s>             recorded in the manifest, so a study's arms are separable
+          --initial-settle <s>        initial material dwell, default 1.75 seconds
           --order-seed <n>            permute the capture order; absent keeps the one stable order
           --reset-interstitial <s>    dwell on a neutral field before each cell
           --reset-glass               that dwell carries a canonical glass surface

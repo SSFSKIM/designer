@@ -23,5 +23,12 @@
     "freeze": "1818 entries intact"
   },
   "next": "Coordinate closure of the foreign session, re-read the machine, then launch the existing granted bundle through open -W with explicit scratch roots and verify its capture manifest before building anything.",
-  "unchanged": "No harness source, canonical scene declaration, fixture, material profile, matrix, golden, threshold or existing build was modified."
+  "unchanged": "No harness source, canonical scene declaration, fixture, material profile, matrix, golden, threshold or existing build was modified.",
+  "continuation": [
+    {
+      "recordedAt": "2026-09-23T01:02:22.432911+00:00",
+      "ruling": "User chose Proceed; record it as foreign. The foreign Playwright session stays. G0 records opening/closing count and PIDs on every capture; repeat failures are retained, not retried away. Exclusivity is not a G0 stop condition; G1 exclusivity is for the parent to settle.",
+      "next": "Resume prepared grant-before scratch capture, before any build or TCC change."
+    }
+  ]
 }

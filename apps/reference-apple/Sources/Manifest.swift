@@ -162,6 +162,10 @@ struct FixtureEntry: Codable {
   /// took a downstream fit to notice. A capture that records the colour it applied
   /// beside the colour it observed cannot repeat that.
   var tint: TintAttestation?
+  /// The SUPPLIED SwiftUI paths in local CSS coordinates, with their canvas
+  /// frame origins. This does not attest the window server's raster alignment,
+  /// transform or glass coverage; those require pixel measurements (§5.174).
+  let suppliedPaths: [SuppliedShapePath]?
   let capturedAt: String
 }
 
@@ -215,6 +219,9 @@ struct FixtureManifest: Codable {
     /// Permutation seed for the capture order. Absent is the fixed, stable order
     /// every bed before this was captured under.
     let orderSeed: UInt64?
+    /// Initial material dwell after layout, before the one-second repeat loop.
+    /// Absent on historical manifests whose fixed dwell was 1.75 seconds.
+    let initialSettleSeconds: Double?
     /// Neutral-field dwell inserted before each cell, in seconds. Absent means
     /// no interstitial: each cell begins from whatever the previous one left.
     let resetInterstitialSeconds: Double?

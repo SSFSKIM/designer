@@ -121,7 +121,8 @@ import {
   type SceneSpec,
 } from "./gates";
 import { DEFAULT_SILHOUETTE_THRESHOLD, DEFAULT_SILHOUETTE_CHROMA_THRESHOLD, measureCell } from "./measure";
-import { declaredComponentOf, readSceneGeometry } from "./scene-geometry";
+import { isNativeOnly } from "../src/component-region";
+import { declaredComponentOf, readSceneGeometry, type SceneGeometryMatrix } from "./scene-geometry";
 
 const PACKAGE_ROOT = resolve(fileURLToPath(new URL(".", import.meta.url)), "..");
 const REPO_ROOT = resolve(PACKAGE_ROOT, "..", "..");
@@ -415,6 +416,7 @@ function plan(
   manifest: Manifest,
   options: Options,
   colourlessTints: ColourlessTintEvidence | undefined,
+  geometry: SceneGeometryMatrix,
 ): PlannedCell[] {
   const setOf = (sceneId: string): FixtureSet => {
     for (const set of FIXTURE_SETS) {
@@ -454,6 +456,9 @@ function plan(
         );
       }
       if (!options.sets.includes(declared)) continue;
+      // Control captures describe rasterisation or the backdrop, not glass.
+      // Skip before the material-free refusal and before any metric or render.
+      if (isNativeOnly(declaredComponentOf(geometry, fixture.sceneId))) continue;
 
       /*
        * Skipped, not failed. A bed that dropped the tint colour is a property of
@@ -650,7 +655,7 @@ function main(): void {
     ? undefined
     : colourlessTintEvidence(spec, manifest, FIXTURES);
 
-  const planned = plan(spec, manifest, options, colourlessTints);
+  const planned = plan(spec, manifest, options, colourlessTints, geometry);
   if (planned.length === 0) {
     throw new Error(
       "compare: the filters selected no cells. Check --scene / --profile / --set." +

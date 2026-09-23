@@ -19,6 +19,8 @@ struct CanvasSize: Decodable {
 /// renderers must produce the *same* raster and only a generator can promise that.
 enum BackgroundSpec {
   case solid(srgb: [Int])
+  case linearGradient(from: [Int], to: [Int], angle: Double)
+  case split(from: [Int], to: [Int], axis: String, position: Double)
   case checkerboard(cell: Double, a: [Int], b: [Int])
   case impulse(background: [Int], foreground: [Int], size: Double, spacing: Double)
   case syntheticPhoto(seed: Int)
@@ -28,6 +30,7 @@ enum BackgroundSpec {
 extension BackgroundSpec: Decodable {
   private enum CodingKeys: String, CodingKey {
     case kind, srgb, cell, a, b, background, foreground, size, spacing, seed, rowHeight, barHeight
+    case from, to, angle, axis, position
   }
 
   init(from decoder: Decoder) throws {
@@ -36,6 +39,25 @@ extension BackgroundSpec: Decodable {
     switch kind {
     case "solid":
       self = .solid(srgb: try c.decode([Int].self, forKey: .srgb))
+    case "linear-gradient", "split":
+      let from = try c.decode([Int].self, forKey: .from)
+      let to = try c.decode([Int].self, forKey: .to)
+      guard [from, to].allSatisfy({ $0.count == 3 && $0.allSatisfy({ (0...255).contains($0) }) }) else {
+        throw DecodingError.dataCorruptedError(forKey: .from, in: c,
+          debugDescription: "gradient/split endpoints must be three sRGB bytes")
+      }
+      if kind == "linear-gradient" {
+        let angle = try c.decode(Double.self, forKey: .angle)
+        self = .linearGradient(from: from, to: to, angle: angle)
+      } else {
+        let axis = try c.decode(String.self, forKey: .axis)
+        guard axis == "x" || axis == "y" else {
+          throw DecodingError.dataCorruptedError(forKey: .axis, in: c,
+            debugDescription: "split axis must be x or y")
+        }
+        self = .split(from: from, to: to, axis: axis,
+                      position: try c.decode(Double.self, forKey: .position))
+      }
     case "checkerboard":
       self = .checkerboard(cell: try c.decode(Double.self, forKey: .cell),
                            a: try c.decode([Int].self, forKey: .a),
@@ -59,18 +81,23 @@ extension BackgroundSpec: Decodable {
   }
 }
 
-/// A shape, in the two families v1 calibrates (X8's uniform-radii restriction holds).
+/// A supplied shape. Circular capsules are a probe control beside the existing continuous paths.
 struct ShapeSpec: Decodable {
-  let kind: String          // "capsule" | "rrect"
+  let kind: String          // "capsule" | "capsule-circular" | "rrect"
   let size: [Double]
   let radius: Double?
   let offset: [Double]?
+  /// An ordinary opaque fill, never a material. Keeping the control on the same
+  /// shape spec guarantees it resolves the same supplied path as its glass twin.
+  let opaque: Bool?
+  let fillSRGB: [Int]?
 
   var cgSize: CGSize { CGSize(width: size[0], height: size[1]) }
   var cgOffset: CGSize { CGSize(width: offset?[0] ?? 0, height: offset?[1] ?? 0) }
 }
 
 enum ComponentSpec {
+  case none
   case shape(ShapeSpec)
   case group(items: [ShapeSpec], spacing: Double)
   case stack(base: ShapeSpec, over: ShapeSpec)
@@ -85,8 +112,9 @@ extension ComponentSpec: Decodable {
     let c = try decoder.container(keyedBy: CodingKeys.self)
     let kind = try c.decode(String.self, forKey: .kind)
     switch kind {
-    case "capsule", "rrect":
+    case "capsule", "capsule-circular", "rrect":
       self = .shape(try ShapeSpec(from: decoder))
+    case "none": self = .none
     case "group":
       self = .group(items: try c.decode([ShapeSpec].self, forKey: .items),
                     spacing: try c.decode(Double.self, forKey: .spacing))
@@ -297,6 +325,40 @@ struct SceneSpecFile: Decodable {
       // which is the entire question. Refused rather than silently dropped.
       if case .shape = components[s.component] {} else {
         problems.append("scene '\(s.id)': a label may only be declared on a single-shape component")
+      }
+    }
+    func validateShape(_ s: ShapeSpec, _ id: String) {
+      if !["capsule", "capsule-circular", "rrect"].contains(s.kind)
+          || s.size.count != 2 || !s.size.allSatisfy({ $0.isFinite && $0 > 0 }) {
+        problems.append("component '\(id)': invalid shape kind or size")
+      }
+      if let offset = s.offset, offset.count != 2 || !offset.allSatisfy({ $0.isFinite }) {
+        problems.append("component '\(id)': offset must be two finite CSS lengths")
+      }
+      if s.opaque == true {
+        guard let rgb = s.fillSRGB, rgb.count == 3,
+              rgb.allSatisfy({ (0...255).contains($0) }) else {
+          problems.append("component '\(id)': opaque control needs three fillSRGB bytes")
+          return
+        }
+      } else if s.fillSRGB != nil {
+        problems.append("component '\(id)': fillSRGB requires opaque true")
+      }
+    }
+    for (id, component) in components {
+      switch component {
+      case .none: break
+      case .shape(let shape): validateShape(shape, id)
+      case .group(let items, _):
+        for shape in items { validateShape(shape, id) }
+        if items.contains(where: { $0.opaque == true }) {
+          problems.append("component '\(id)': opaque controls require a single shape")
+        }
+      case .stack(let base, let over):
+        validateShape(base, id); validateShape(over, id)
+        if base.opaque == true || over.opaque == true {
+          problems.append("component '\(id)': opaque controls require a single shape")
+        }
       }
     }
     for p in profiles {

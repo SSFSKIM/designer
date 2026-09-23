@@ -31,6 +31,21 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # which captures no pixels and needs no grant — is built beside the granted
 # bundle rather than over it (2026-09-12).
 OUT="${VITREA_BUILD_OUT:-$HERE/build}"
+BUNDLE_ID="${VITREA_BUNDLE_ID:-dev.vitrea.reference-apple}"
+# Resolve aliases before the refusal: a symlink into a granted output is still
+# that output. Both historical bundles share an identifier and must be protected
+# in every checkout, not only the checkout this script was invoked from (§5.174).
+OUT="$(python3 -c 'import os,sys; print(os.path.realpath(sys.argv[1]))' "$OUT")"
+case "$OUT/" in
+  */apps/reference-apple/build/*|*/apps/reference-apple/build-probe/*)
+    if [ "${VITREA_ALLOW_PROTECTED_REBUILD:-0}" != "1" ]; then
+      echo "REFUSED: protected output $OUT. Use an external VITREA_BUILD_OUT and a distinct VITREA_BUNDLE_ID; an intentional protected rebuild requires VITREA_ALLOW_PROTECTED_REBUILD=1." >&2
+      exit 1
+    fi;;
+esac
+case "$BUNDLE_ID" in
+  ""|*[!a-zA-Z0-9.-]*) echo "error: invalid VITREA_BUNDLE_ID" >&2; exit 1;;
+esac
 
 if [ ! -x "$TOOLCHAIN/swiftc" ]; then
   echo "error: no swiftc at $TOOLCHAIN — set DEVELOPER_DIR to an Xcode install" >&2
@@ -49,13 +64,13 @@ mkdir -p "$OUT"
 APP="$OUT/VitreaReference.app"
 mkdir -p "$APP/Contents/MacOS"
 
-cat > "$APP/Contents/Info.plist" <<'PLIST'
+cat > "$APP/Contents/Info.plist" <<PLIST
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
   <key>CFBundleExecutable</key><string>VitreaReference</string>
-  <key>CFBundleIdentifier</key><string>dev.vitrea.reference-apple</string>
+  <key>CFBundleIdentifier</key><string>$BUNDLE_ID</string>
   <key>CFBundleName</key><string>Vitrea Reference</string>
   <key>CFBundlePackageType</key><string>APPL</string>
   <key>CFBundleShortVersionString</key><string>1.0</string>
@@ -79,7 +94,8 @@ echo "swiftc → $APP/Contents/MacOS/VitreaReference"
 # Ad-hoc signature: enough for a stable bundle identity on this machine. A real
 # Developer ID would be needed to move the bundle between machines.
 codesign --force --sign - "$APP" >/dev/null 2>&1 || {
-  echo "warning: codesign failed — TCC may not be able to identify the app" >&2
+  echo "error: codesign failed — no usable capture bundle was built" >&2
+  exit 1
 }
 
 # A convenience symlink for the non-GUI subcommand (`backgrounds`), which needs no
