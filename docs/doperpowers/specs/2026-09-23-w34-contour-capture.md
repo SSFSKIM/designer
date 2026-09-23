@@ -1,6 +1,6 @@
 # W34 — the contour wave: the capture that identifies Apple's macOS 27 contour stroke (2026-09-23)
 
-**Status: CHARTERED 2026-09-23, v1 — sent to adversarial review before any child opens.** Chartered
+**Status: CHARTERED 2026-09-23, v2 — nine blocking findings of the adversarial review folded (Revision Notes); a second round on the folds before G0 opens.** Chartered
 by the parent on the user's "W34 contour capture wave (Recommended)" after the 0.23.0 publish
 (main `011de142`), under the standing "rest on your judgement" and the routing the user set on
 2026-09-22 (X9). This is the wave W33 Decision Log 3 named when it ruled "stop": the identifying
@@ -63,35 +63,75 @@ frozen bed and the shipped macOS 27 bed untouched until a law closes, and every 
 3. **Every run is attested as W29's were, and a run that fails to attest is quarantined.** macOS
    27.0 build 26A428; `NSGlassTintAmount` 0.5; Reduce Transparency and Increase Contrast 0; Show
    Borders (`ButtonShapesEnabled`) 0; the display mode read before the pass and the manifest's
-   `actualBackingScale` checked after; the capturing bundle's cdhash and `LC_BUILD_VERSION`; an
-   opening and a closing read that must agree; per cell `presentedActive` true and `deterministic`
-   recorded. The sitting script is derived from `run-sitting-27.sh` with its `VITREA_APP` /
+   `actualBackingScale` checked after; the capturing bundle's cdhash and `LC_BUILD_VERSION`; the
+   display's colour context beside the capture's sRGB setting (`Manifest.swift` records shifts up to
+   4/255 from a display-profile change despite it); an opening and a closing read that must agree;
+   per cell `deterministic` recorded and the pose attested as the harness attests it —
+   `presentedActive` **true** on an active pass, **false with the presentation fields** on an
+   inactive one (`Manifest.swift`, W27c). The sitting script is derived from `run-sitting-27.sh` with its `VITREA_APP` /
    `VITREA_HARNESS` seams pointed at the side bundle and its version gate kept.
-4. **Repeats before thresholds.** Seven runs per pass, W29's bar. The per-bin, per-channel
-   run-to-run spread of every statistic the identification reads is published in G1, before G2
-   opens, and **no closure threshold is chosen before it exists**. "One byte" appears in this wave
-   only as the encoding's resolution, never as a bar.
-5. **The instrument separates what W33 could not.** Circular capsules whose rendered path is
-   attested by the harness itself (the elements of `shape.path(in:)` written beside the capture,
-   the construction of G1a's `capsule-geometry.swift` applied in-process) beside default continuous
-   ones of the same rect; continuous rounded rectangles of the same rect at a smaller radius; an
-   opaque control of each path with no glass; uniform levels and chromatic solids; gradient
-   backdrops with declared direction and magnitude; a frequency ladder; x and y subpixel phases
-   swept independently at 1x and 2x; both schemes; both poses; and no-glass references of every
-   backdrop captured through ScreenCaptureKit like the glass cells. Arcs and straights are separate
-   strata everywhere (W33 X12 carried). The existing `capsule-button` over the existing backdrops
-   is in the bed as a **bridge**, so the new bar can be laid beside W33's readings.
-6. **Identification precedes fitting and the split precedes identification.** G2 fits on the
-   calibration subset, checks on validation, reads holdout once; least-squares and minimax are both
-   reported; a family "closes" only when every populated bin's signed channel residual lies within
-   the declared multiple of that bin's measured bar. The candidate families G1a tested are re-run
-   on the new bed first, so the finding is comparable, before any new family is tried.
+4. **Repeats before thresholds, and the repeats reproducible from the repository.** Seven runs
+   per pass, W29's bar — which is a **state-discovery** convention (the materialiser's own formula
+   gives 72.1 % of seeing a one-in-six minority state in seven), not a precision guarantee, and is
+   named as such. The per-bin, per-channel run-to-run spread of every declared statistic is
+   published in G1 before G2 opens, **computed from all admitted runs before plurality, with the
+   losing states preserved**, and from a committed **repeat-evidence artifact** — unrounded per-run,
+   per-cell, per-bin channel statistics with populations, input hashes, state membership and the
+   estimator, plus deduplicated contour-band and interior crops of every distinct state with their
+   run mapping — so the bar and the instrument re-run from the repository without the raw PNGs
+   (which stay on the machine, X12). No closure threshold is chosen before the bar exists; "one
+   byte" appears only as the encoding's resolution; a zero observed spread is not evidence of zero
+   variability and buys no tolerance.
+5. **The instrument separates what W33 could not, and says what each control proves.** Circular
+   capsules beside default continuous ones of the same rect, with the harness writing the
+   **supplied** path (the elements of `shape.path(in:)`, G1a's witness applied in-process) beside
+   each capture — which attests the path SwiftUI supplied, **not** the transform, pixel origin or
+   geometry the window server rasterised, so the rendered alignment is MEASURED from the capture
+   (the opaque control's edge and the SDF fit) and the circular cubic's deviation from a true circle
+   (+0.006 CSS px, §5.171) is carried as a qualified error, never "exact by attestation";
+   continuous rounded rectangles of the same rect at a smaller radius, and a fixed-radius,
+   varying-length contrast so curvature separates from surface size; **opaque controls** in
+   high-contrast pairs, which measure the rasteriser's alignment and coverage on the ordinary fill
+   path and are NOT assumed to transfer to the `glassEffect` path — a partially covered glass edge
+   pixel carries the material's body, so the identification declares a **forward model** whose body
+   baseline is constrained from stroke-free interior samples with its uncertainty propagated into
+   the edge fit; uniform levels and chromatic solids; **matched local-colour contrasts** (the
+   backdrop's colour varying ACROSS the contour, as §5.171 asks) beside gradients of declared
+   direction and magnitude; a short frequency ladder; subpixel phases defined in **device pixels
+   divided by the scale** (so 2x sweeps device phases, not ½-device-px aliases of CSS quarters),
+   swept in x and in y with a small **joint x/y** subset; both schemes; both poses; and no-glass
+   references of every backdrop captured through ScreenCaptureKit like the glass cells. Arcs and
+   straights are separate strata everywhere (W33 X12 carried). A **bridge** of existing cells over
+   existing backdrops lays the new bar beside W33's readings — after a **semantic twin audit**
+   (clause 7).
+6. **Identification precedes fitting and the split precedes identification; a bin mean is not a
+   closure.** G2 fits on the calibration subset, checks on validation, reads holdout once;
+   least-squares and minimax are both reported. The closure test is the **absolute** per-channel,
+   per-radial-shell residual (W33 G0's referee form, absolute values taken before any spatial or
+   channel reduction — §5.171 says of the signed bin-mean diagnostic that passing it would not
+   establish fidelity, and it is kept as a diagnostic only), over bins with a declared **minimum
+   population**, against BOTH the measured bar and an absolute resolution floor declared in G0, with
+   the estimator, the multiplier-selection rule, the quantisation treatment and the required
+   discriminating power **declared before any model residual is inspected**. Competing families must
+   be distinguishable at that resolution; a bed that cannot distinguish them yields the outcome
+   **"insufficient resolution"**, and a decomposition that stays non-unique (coverage against body)
+   is reported as an **effective rendered contour response**, not as Apple's compositing law
+   identified. G1a's families are re-run first so the finding is comparable.
 7. **Nothing shipped moves until a law closes.** In G0–G2 no byte changes under `scenes.json`,
    `fixtures/`, `results/matrix.json`, the six material documents, the goldens or any adopted
    threshold; the wave's bed is a probe bed under its own scenes file and fixture root (claims
    §5.30's pattern; W9, W12, W20, W21 and W27e's precedent), committed under the capturing gate's
-   evidence directory and read with `fixtureSet: "probe"` into the wave's own matrix.
-   `freeze.py verify` **1,818** at every merge.
+   evidence directory and read with `fixtureSet: "probe"` into the wave's own matrix. **Every W34
+   cell carries the single role `probe` in its scenes file** (`SceneSpec.swift` refuses double
+   membership and `compare.ts` selects by one role), and the wave's identification split is a
+   separate, wave-local, hashed `split.json` — calibration, validation and holdout over probe-role
+   cells, whole phase, geometry and gradient combinations held out and not only interleaved levels —
+   enforced by every reader before image access (`referee.py`'s `fitting_role` pattern). The bar is
+   published from calibration and validation cells; holdout cells' repeat statistics are sealed with
+   the holdout and read with it once. A **semantic twin audit** precedes the split: any W34 cell
+   whose geometry and backdrop duplicate a canonical holdout scene (`mid-dark-solid__capsule-button`
+   in both poses is one) is excluded from calibration and validation and from the bar, or dropped —
+   the same audit applies to the uniform levels. `freeze.py verify` **1,818** at every merge.
 8. **A law lands as W33 planned it, or the negative is recorded with its resolution.** If Decision
    Log 2 finds a law: G3 adds the leaf through the identity table (flat leaves; the frozen 26.5
    documents at its identity), the WGSL term, the CSS carry-or-decline, the seal, the canonical read,
@@ -123,14 +163,26 @@ record before anything is built.
   27 material the granted one draws.
 - **The grant.** W29 Surprises: TCC keeps one row per bundle identifier and the last code hash added
   owns it; adding the 27-SDK side bundle by path evicted the granted bundle's grant, which the user
-  restored by re-adding its path. The README's recipe: remove the row and re-add, because a recorded
+  restored by re-adding its path. Both existing bundles' designated requirements are **cdhash
+  requirements** (`codesign -d -r-`: `designated => cdhash H"88cbbb5b…"` on the granted one), so a
+  grant is to one binary's hash: a rebuilt side bundle is a new grant, whatever its identifier.
+  `build.sh` has **no guard** over `build/` — it defaults there, overwrites and re-signs — and
+  `capture.sh` invokes that default build when `build/harness` is missing; the charter's v1 sentence
+  that it "keeps refusing" was wrong and is corrected in Design. The README's recipe: remove the row and re-add, because a recorded
   denial suppresses the prompt. The user's standing instruction for GUI toggles is the codex
   companion's `amigo` first and their own hand if it fails; `amigo` needs `--write`, a per-turn
   bootstrap, and can hang on a first approval (its reference), which is why the fallback is named.
 - **The harness.** `capture.sh` execs `build/harness` and nothing else; the W29 sitting script's
   `VITREA_APP` / `VITREA_HARNESS` seams are how another bundle runs a pass. `VITREA_SCENES` and
   `VITREA_FIXTURES` are honoured by both the harness and `cli/compare.ts`, which is what makes a
-  probe bed measurable end to end without touching the canonical layout. Shape kinds are `capsule`
+  probe bed measurable end to end without touching the canonical layout — but not by every
+  invocation: `run-sitting-27.sh` calls `rehearse-tints` on a non-dry inactive pass without a
+  fixture root, and `main.swift` then opens the compiled `ROOT`'s manifest, which a side bundle
+  compiled in a removed worktree no longer has; `DRY=1` skips that branch. The calibration side's
+  adapters accept only `capsule` and `rrect` (`src/component-region.ts` throws on any other kind;
+  `web/scenes.ts` maps the family by the old capsule name). The capture filter is
+  `SCContentFilter(desktopIndependentWindow:)` with `colorSpaceName` sRGB: it captures the window's
+  own pixels, so moving the window does not move the contour against the captured grid. Shape kinds are `capsule`
   (→ `Capsule()`, `.continuous` by default — G1a's witness: default equals explicit continuous and
   differs from explicit circular, the straight-segment starts −0.30…+0.04 CSS px from the circle)
   and `rrect` (`RoundedRectangle(…, style: .continuous)`); a shape spec's `offset: [x, y]` goes to
@@ -163,83 +215,116 @@ record before anything is built.
 Decision Log 1 from G0's draft. The shape the parent expects:
 
 - *Shapes.* `capsule-circular` (new kind → `Capsule(style: .circular)`) and `capsule` (continuous,
-  existing) at the bed's 120×44; the same pair at a second rect (160×96) so the arcs come at two
-  radii; `rrect` continuous at 120×44 with radius 12 as the matched rectangle (straight sides of
-  known length beside arcs of known continuous geometry); and an **opaque control** of each — the
-  same path filled with an opaque colour and no `glassEffect` — which reads the rasteriser's own edge
-  coverage and antialiasing so the material's stroke is a difference from geometry, not from an
-  assumed ideal circle.
-- *Backdrops.* Uniform greys at eight levels (0 … 255) and six chromatic solids; gradients as a new
-  `linear-gradient` kind with `from`, `to` and `angle` at 0°, 45°, 90°, 135° and two magnitudes;
-  the existing checkerboard pitches 4, 8, 16, 32, 64 as the frequency ladder; a no-glass reference of
-  every backdrop as a scene with an empty component (new kind `none`), captured through
-  ScreenCaptureKit exactly as the glass cells are, which is what makes the reference's colour
-  management identical.
-- *Phase.* The circular capsule over one mid grey with `offset` swept at 0, ¼, ½, ¾ CSS px in x
-  and, separately, in y — seven cells per scale — at 1x and 2x; G0's scratch measurement decides
-  whether the sweep is real at all (a snapped shape collapses it) and, if it is, whether it needs to
-  be in both schemes.
+  existing) at the bed's 120×44 — the **circular anchor** carries the full colour sweep; the same
+  pair at a second rect (160×96) so the arcs come at two radii, and a fixed-radius, varying-length
+  pair (120×44 and 200×44) so curvature separates from surface size; `rrect` continuous at 120×44
+  with radius 12 as the matched rectangle; and **opaque controls** of each path in high-contrast
+  pairs (black on white, white on black), which measure the ordinary fill path's alignment and
+  coverage and nothing about the glass path — the continuous shapes and the opaque controls take a
+  **matched subset** of the backdrops, not the full sweep.
+- *Backdrops.* Uniform greys at eight levels (0 … 255) and six chromatic solids on the circular
+  anchor; gradients as a new `linear-gradient` kind with `from`, `to` and `angle` at 0°, 45°, 90°,
+  135° and two magnitudes, AND matched local-colour contrasts whose colour changes across the
+  contour itself (a two-colour backdrop split under the edge), because a global gradient does not
+  hold local colour fixed; three separated checkerboard pitches (4, 16, 64) as the frequency
+  ladder; a no-glass reference of every backdrop as a scene with an empty component (new kind
+  `none`), captured through ScreenCaptureKit exactly as the glass cells are, which is what makes the
+  reference's colour management identical.
+- *Phase.* The circular capsule over one mid grey with `offset` swept at 0, ¼, ½, ¾ **device**
+  pixels divided by the scale (at 2x: 0, ⅛, ¼, ⅜ CSS px — a CSS-quarter sweep at 2x would alias to
+  device phases 0, ½, 0, ½), in x and separately in y, plus a small joint x/y subset (¼,¼ and
+  ½,½), at 1x and 2x. G0's scratch measurement decides whether the composited shape honours a
+  fractional offset at all; if it snaps, **the phase axis is declared unreachable and recorded** —
+  the v1 window-origin fallback is withdrawn, because the capture filter takes the window's own
+  pixels.
 - *Poses, schemes, scales.* Both schemes in one pass (the harness captures light and dark profiles
   from one process); active and inactive passes; 1x and 2x. Four passes.
-- *Bridge.* `capsule-button` over `light-solid`, `dark-solid`, `mid-dark-solid`, `photo` and
-  `checkerboard` exactly as the canonical bed has them, so the new run-to-run bar is laid beside
-  W33's readings of the same cells.
-- *Budget.* Keep each pass near 120–160 cells so seven runs cost 2–3 h and the four passes about
-  10–12 h of machine time, the accessibility beds excluded (Deferred). G0 prices the plan at the
-  bar and the parent trims in Decision Log 1 rather than the child.
-- *Split.* Declared in the scenes file: calibration, validation and holdout by construction —
-  levels, angles and phases interleaved so no family can close on calibration by memorising a
-  bin — with the holdout list read once by artifact.
+- *Bridge.* `capsule-button` over `light-solid`, `dark-solid`, `photo` and `checkerboard` exactly
+  as the canonical bed has them, so the new run-to-run bar is laid beside W33's readings of the
+  same cells; `mid-dark-solid` is NOT in the bridge — both its capsule poses are canonical holdout
+  — and the twin audit decides the rest.
+- *Sentinels.* A small set of cells captured with a longer settle and a different order seed, so a
+  transient the settle procedure repeatably captures is separable from a settled appearance
+  (`main.swift` records that distinction).
+- *Budget.* The full product of five glass geometries by 27 backdrops by two schemes is about 270
+  cells a pass and about 20 h for four seven-run passes at W29's rate — **that is not the plan**.
+  The plan is the sparse crossed design above, priced by G0 per pass at the bar, with the cells a
+  trim to 120 per pass would drop named, and the parent trims in Decision Log 1.
+- *Split.* Every cell `probe` in the scenes file; the wave's own hashed `split.json` beside it
+  (clause 7): calibration, validation and holdout with whole phase, geometry and gradient
+  combinations held out, the holdout read once by artifact.
 
 **The harness change** (G0): the new shape kind, the gradient kind, the empty component, the opaque
 control, a per-scene **path attestation** (the `CGPath` elements of the resolved shape in the
 capture's rect, written beside the fixture in the manifest entry), and `build.sh` gaining a
-`VITREA_BUNDLE_ID` override that defaults to today's identifier — every addition decoded from JSON
-and covered by the harness's own `self-check`, with the canonical `scenes.json` still decoding to
-byte-identical fixtures on the granted bundle (proved by `dump-layers` on one scene, which captures
-no pixels). `build.sh` keeps refusing to build over `build/` unless asked, as it does today.
+`VITREA_BUNDLE_ID` override that defaults to today's identifier **and a refusal to write over
+`build/`** (or any protected output path) unless an explicit override is set, failing closed when
+signing fails — every addition decoded from JSON and covered by the harness's own `self-check`, with
+the canonical `scenes.json` still decoding on the granted bundle (proved by `dump-layers` on one
+scene, which captures no pixels). **The calibration adapters are part of the change**:
+`src/component-region.ts`, `web/scenes.ts` and the scene matrix's shape typing learn
+`capsule-circular` (with a stated vitrea counterpart — the geometry package's corner curve is
+continuous; whether a circular capsule can be drawn on the web is a G0 answer, and if it cannot, the
+web comparison for circular cells is declared against the continuous render), and declare `none`
+and the opaque controls as **native-only** with no material or shape metric rather than forcing
+them through a glass referee; each with a non-capturing test.
 
 **The grant** (G0): the side bundle at `~/vitrea-w34/side/VitreaReference.app` with identifier
-`dev.vitrea.reference-apple.w34`; the grant obtained through `amigo` driving System Settings, or the
+`dev.vitrea.reference-apple.w34`, **finalised and cdhash-pinned before it is granted** — built from
+G0's final commit, its cdhash recorded, and reused by G1 as that binary; any rebuild is a new grant
+and a fresh positive check. The grant obtained through `amigo` driving System Settings, or the
 user's hand if that fails; positively checked by one scratch capture that renders the material; the
-granted bundle re-checked afterwards.
+granted bundle re-checked afterwards. The runbook drives the side bundle by explicit commands with
+explicit `VITREA_SCENES` / `VITREA_FIXTURES` on **every** invocation (`rehearse-tints` included),
+never through `capture.sh`, and its rehearsal exercises the non-dry inactive branch.
 
-**The instrument** (G0): W33 G0's referee re-derived for the new bed, with the circular capsule's
-arcs read as exact circles from the attested path, the opaque control's edge coverage read from
-its own capture, the no-glass reference read as the backdrop, and the run-to-run bar computed per
-bin and per channel across the seven runs (G1 publishes it; G0 declares how).
+**The instrument** (G0): W33 G0's referee re-derived for the new bed — the circular capsule's arcs
+read on the circular SDF with the cubic's qualified error, the rendered alignment measured from the
+capture, the opaque control's coverage read from its own capture as an alignment measurement, the
+no-glass reference read as the backdrop, the forward model's body baseline from stroke-free
+interior samples — and the run-to-run bar's estimator declared: per bin and per channel across ALL
+admitted runs before plurality, from the repeat-evidence artifact, with the minimum population per
+bin and the absolute resolution floor declared beside it (G1 publishes; G0 declares how).
 
 **Identification** (G2): G1a's families first, then the ones the new axes make testable — a
 coverage-weighted stroke (a one-device-pixel band's geometric coverage times a stroke alpha, in
 linear and encoded sRGB), colour blends against the local backdrop (multiply, screen, affine) with
 the gradient cells separating local colour from angle, the two-term even law with the exponent now
-identifiable on exact arcs, and per-pose and per-scheme coefficients. Closure against the bar on
-validation; the holdout once. The vitrea side of the same scenes is rendered through
-`compare.ts --set probe` under `VITREA_SCENES` / `VITREA_FIXTURES` so the residual is read against
-what vitrea draws today as well as against zero.
+identifiable on exact arcs, and per-pose and per-scheme coefficients. Closure by clause 6's absolute
+test on validation; the holdout once; "insufficient resolution" and "effective rendered contour
+response" as admissible outcomes. The vitrea side of the glass scenes is rendered through
+`compare.ts --set probe` under `VITREA_SCENES` / `VITREA_FIXTURES` (the adapters G0 lands) so the
+residual is read against what vitrea draws today as well as against zero; the native-only controls
+are not rendered.
 
 ## Children
 
 ### G0: The bed, the bundle, the grant and the instrument — declared and rehearsed, nothing captured into evidence
 
 Ledger **§5.174**; evidence `packages/calibration/results/2026-09-23-w34-g0-contour-bed/`. Owns the
-harness additions, `build.sh`'s identifier override, `apps/reference-apple/scenes-w34-contour.json`,
-`test/w34-*.test.ts` and its evidence dir. Does: the machine record (W33 G2's `record-machine.py`
+harness additions, `build.sh`'s identifier override and protected-path refusal, the calibration
+adapters (`src/component-region.ts`, `web/scenes.ts`, the shape typing) with their non-capturing
+tests, `apps/reference-apple/scenes-w34-contour.json`, the wave-local `split.json`, the derived
+sitting script, `test/w34-*.test.ts` and its evidence dir. Does: the machine record (W33 G2's `record-machine.py`
 widened with Show Borders, the display mode, the two bundles' cdhashes and linked SDKs); proves the
 granted bundle still captures BEFORE any TCC change; the Swift additions with the self-check; the
 side build outside the repository; the grant (amigo, else the user) and its positive check; the
 granted bundle re-checked; **the scratch measurements** — fractional offset honoured or snapped, the
 path attestation written, the empty component and the opaque control rendering as intended, a
 gradient cell's bytes matching its declaration — each a handful of cells into `~/vitrea-w34/scratch/`,
-never under the evidence dir; the bed declared (scenes file, split, per-pass cell lists via a
-`pass-spec.py` of its own, the priced pass plan at the bar); the instrument and the statistics
-declared; a `DRY=1` rehearsal of every pass's refusals; a Decision Log 1 draft for the parent.
+never under the evidence dir; the bed declared (scenes file with every cell `probe`, the twin audit, the hashed
+`split.json`, per-pass cell lists via a `pass-spec.py` of its own, the priced sparse plan at the
+bar); the instrument, the estimator, the minimum populations, the resolution floor and the
+discriminating-power requirement declared; the repeat-evidence artifact's format declared and
+produced from the scratch runs; the side bundle finalised, cdhash-pinned and granted; a rehearsal
+that exercises the non-dry inactive branch as well as `DRY=1`; a Decision Log 1 draft for the
+parent.
 Acceptance: the record; both grant checks green; every scratch measurement answered; the
 declaration reviewed; nothing under `fixtures/`, `profiles/`, `results/matrix.json` or `build/`
 touched; freeze 1,818. Stop conditions: the granted bundle no longer captures before G0 touches TCC;
-the side bundle's grant evicts the granted bundle's and the recipe does not recover it; a fractional
-offset that snaps AND no other phase mechanism; the canonical `scenes.json` no longer decoding on
-the granted bundle after the Swift change.
+the side bundle's grant evicts the granted bundle's and the recipe does not recover it; the canonical `scenes.json` no longer decoding on
+the granted bundle after the Swift change. A fractional offset that snaps is NOT a stop: the phase
+axis is declared unreachable and the bed proceeds without it.
 
 ### G1: The sitting — the bed captured at the bar, materialised, committed; the bar published; no read against vitrea
 
@@ -247,11 +332,15 @@ Ledger **§5.175**; evidence `packages/calibration/results/2026-09-23-w34-g1-con
 probe fixtures under its `probe/<profile-key>/`. Does: the four passes with the derived sitting
 script (opening and closing attestation, HID idle, the version gate), seven runs each, raw runs on
 the machine under `~/vitrea-w34/run/`; `materialize` with `--set probe` into the evidence dir with
-each cell's own manifest entry and path attestation; the per-bin, per-channel run-to-run bar of every
-declared statistic, published as a table before G2 opens; `sitting.md` with wall clock per pass;
-per-run attestations and distilled logs committed as W29 G1's were. Acceptance: every run attested;
-the cell count per pass as declared or each shortfall named; the bar published; the frozen manifest
-and `fixtures/` re-verified untouched; no vitrea render and no read of a wave holdout cell.
+each cell's own manifest entry and path attestation; **the repeat-evidence artifact** committed from
+all seven runs before plurality (per-run, per-cell, per-bin unrounded channel statistics, hashes,
+state membership, the deduplicated contour-band and interior crops of every distinct state with
+their run mapping); the per-bin, per-channel bar of every declared statistic over calibration and
+validation cells, published as a table before G2 opens, the holdout cells' sealed beside it;
+`sitting.md` with wall clock per pass; per-run attestations and distilled logs committed as W29
+G1's were. Acceptance: every run attested; the cell count per pass as declared or each shortfall
+named; the artifact and the bar committed and re-derivable from the repository; the frozen manifest
+and `fixtures/` re-verified untouched; no vitrea render and no read of a wave holdout cell's values.
 Stop conditions: a pass that cannot attest; a cell that will not settle across seven runs
 (recorded, not forced); the display mode drifting mid-pass; the grant lost mid-sitting.
 
@@ -286,12 +375,15 @@ the changeset. Merged with its capture tree by the X10/X7 rule of W32/W33.
 - **X2 — the bed before the pixels.** G0's declaration is reviewed and merged before G1 captures;
   G1 captures that declaration and no other; G2 reads what G1 committed and no other.
 - **X3 — the side bundle.** Built by `build.sh` under `VITREA_BUILD_OUT` outside the repository,
-  same toolchain, SDK and flags as the granted bundle, identifier `dev.vitrea.reference-apple.w34`;
-  `build/` never rebuilt; `build-probe/` never granted; the granted bundle's grant checked before
-  and after; the side bundle's cdhash in every attestation.
-- **X4 — attestation before pixels.** The four facts, Show Borders, the display mode, the bundle
-  cdhash and linked SDK, opening and closing; per cell `presentedActive` and `deterministic`; a run
-  that fails to attest is quarantined and named.
+  same toolchain, SDK and flags as the granted bundle, identifier `dev.vitrea.reference-apple.w34`,
+  **finalised and cdhash-pinned before it is granted, and any rebuild is a new grant with a fresh
+  positive check**; `build/` never rebuilt and `build.sh` made to refuse it; `build-probe/` never
+  granted; the granted bundle's grant checked before and after; the side bundle's cdhash in every
+  attestation; every invocation with explicit roots, none through `capture.sh`.
+- **X4 — attestation before pixels.** The four facts, Show Borders, the display mode and colour
+  context, the bundle cdhash and linked SDK, opening and closing; per cell `deterministic` and the
+  pose as the harness attests it (`presentedActive` true on active passes, false with the
+  presentation fields on inactive ones); a run that fails to attest is quarantined and named.
 - **X5 — the lift, bounded.** Native capture is authorised for the W34 probe bed only: the
   wave-local scenes file, the wave's fixture root, the side bundle. The canonical `scenes.json` and
   `fixtures/` do not change; no 26.5 key is captured; no accessibility pass is run.
@@ -300,8 +392,11 @@ the changeset. Merged with its capture tree by the X10/X7 rule of W32/W33.
   never a browser capture while a native pass runs.
 - **X7 — repeats before thresholds.** The run-to-run bar is published in G1 before G2 opens; no
   closure threshold exists before it; "one byte" is the encoding's resolution and nothing else.
-- **X8 — the split precedes the fit.** Declared in the scenes file at G0, never re-cut; the wave's
-  holdout read once by artifact; the canonical holdout untouched until G3.
+- **X8 — the split precedes the fit.** Every W34 cell `probe` in its scenes file; the wave's
+  identification split in a hashed wave-local `split.json` declared at G0 after the twin audit,
+  enforced by every reader before image access, never re-cut; the wave's holdout read once by
+  artifact with its repeat statistics sealed until then; the canonical holdout untouched until G3
+  and never a fitting or bar input here.
 - **X9 — routing** (the user's, 2026-09-22): children, reviews and fix waves on `astra-medium` /
   `astra-high` or the default `sol` worker at xhigh; the charter's review on
   `doperpowers:adversarial-reviewer`; reviews read-only; ledger sections as assigned; merges
@@ -314,10 +409,12 @@ the changeset. Merged with its capture tree by the X10/X7 rule of W32/W33.
   G1 its dir and the committed probe fixtures; G2 its dir; G3 as W33 X11. Nobody touches
   `receded-profile.ts`'s 26.5 block, `DEFAULT_MATERIAL_PROFILE`'s existing values, or
   `SceneViews.swift`'s existing `capsule` and `rrect` resolutions.
-- **X12 — raw runs stay on the machine**; logs, attestations and the materialised bed are what is
-  committed, as W29 G1 did.
-- **X13 — arcs and straights are separate strata everywhere**, and the circular capsule's arcs are
-  exact circles by attestation, not by assumption.
+- **X12 — raw runs stay on the machine**; logs, attestations, the materialised bed AND the
+  repeat-evidence artifact (statistics and contour/interior crops of every distinct state) are what
+  is committed, so the bar re-derives from the repository.
+- **X13 — arcs and straights are separate strata everywhere**; the circular capsule's arcs are read
+  on the circular SDF with the cubic's qualified error and the rendered alignment measured, not
+  "exact by attestation".
 - **X14 — the machine's GUI is touched by `amigo` first and the user second**, and every toggle's
   effect is read back from the machine (the TCC check, `defaults`, `displayplacer`), never assumed
   from the action.
@@ -332,9 +429,15 @@ grant; G2 needs neither.
 ## Risks & Mitigations
 
 - **The glass shape snaps to the device grid at a fractional offset**, collapsing the phase sweep.
-  G0 measures it first; the fallbacks are a window-origin phase (moving the capture window by a
-  fraction, if ScreenCaptureKit's crop honours it) or a 2x-only sweep, and a null result is itself
-  a finding about how Apple rasterises the material.
+  G0 measures it first; if it snaps the axis is declared unreachable and recorded (a finding about
+  how Apple rasterises the material), and no window-origin fallback is attempted — the capture
+  filter takes the window's own pixels, so moving the window moves nothing against the grid.
+- **Seven runs discover states; they do not measure precision.** The bar is a spread estimate with
+  a stated population; the closure test carries an absolute floor and an "insufficient resolution"
+  outcome so a quiet bin cannot manufacture a closure.
+- **The opaque control does not transfer to the glass path**, and coverage against body may stay
+  non-unique. The forward model and its body baseline are declared; a non-unique decomposition is
+  reported as an effective response, not a law.
 - **TCC evicts the granted bundle's grant despite the distinct identifier** (if it keys on
   something other than the identifier). Positively checked; the recipe recovers; recorded.
 - **`amigo` cannot drive System Settings** (first-approval hang, no permission callback). The user's
@@ -391,5 +494,32 @@ Open. W33 G0's forms table stands: no compositing form both reproduces Apple's b
 
 ## Revision Notes
 
+- 2026-09-23 (the parent, v2): the adversarial review of v1 returned nine findings, all blocking
+  and all verified against the files it cited; every one is folded. (1) The closure test is the
+  absolute per-shell residual with minimum populations, a resolution floor, the estimator and
+  multiplier rule declared before residuals are seen, distinguishability required and
+  "insufficient resolution" / "effective rendered contour response" as outcomes — the signed
+  bin-mean is a diagnostic only (clause 6). (2) The opaque control measures the fill path's
+  alignment and coverage and is not assumed to transfer to the glass path; a forward model with a
+  body baseline from stroke-free interior samples; matched local-colour contrasts across the
+  contour (clause 5, Design). (3) The bar re-derives from a committed repeat-evidence artifact
+  computed before plurality with losing states kept; X12 amended (clause 4, G1). (4) Phase offsets
+  in device pixels over the scale with a joint x/y subset; the path export attests the supplied path
+  only, alignment is measured, the cubic's error qualified; the window-origin fallback withdrawn
+  because the capture filter is window-independent (clause 5, Design, Risks). (5) Every cell is
+  `probe` in the scenes file and the identification split is a hashed wave-local `split.json`
+  enforced before image access, whole combinations held out, holdout repeat statistics sealed
+  (clause 7, X8). (6) A semantic twin audit before the split; `mid-dark-solid` dropped from the
+  bridge because both its capsule poses are canonical holdout (clause 7, Design). (7) G0 owns the
+  calibration adapters and their tests; native-only controls declined from glass metrics; the
+  circular capsule's web counterpart is a G0 answer (Design, G0). (8) Every invocation with explicit
+  roots including `rehearse-tints`, a rehearsal of the non-dry inactive branch, and clause 3's pose
+  attestation corrected — inactive captures attest `presentedActive` false (clause 3, X3, X4).
+  (9) `build.sh` has no guard today and designated requirements are cdhash-based: the side bundle is
+  finalised and cdhash-pinned before granting, any rebuild is a new grant, `build.sh` gains the
+  refusal, `capture.sh` is never used for it (Grounding, Design, X3). The review's verdict notes are
+  folded too: the sparse crossed design replaces the unpriced full product (about 270 cells a pass,
+  about 20 h), sentinels with a longer settle and another order seed, a fixed-radius varying-length
+  contrast, three pitches, the display colour context attested. Sent to a second round on the folds.
 - 2026-09-23 (the parent): v1 chartered from the grounding above; sent to adversarial review before
   G0 opens.
