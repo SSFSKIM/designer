@@ -1,0 +1,31 @@
+{
+  "directory": "/Users/new/vitrea-w34/run/inactive-1x-sentinel/run-2",
+  "manifestSha256": "162b139c8ee1a06aadd389f4342023f3e79e3eda68f3984e8c6f59e5dff640fc",
+  "cells": 4,
+  "firstCapturedAt": "2026-09-23T17:39:47Z",
+  "lastCapturedAt": "2026-09-23T17:40:35Z",
+  "attestationSha256": {
+    "attest.open.json": "e1abb19c36937f0a91c56bd301981c9a9c1f7bf3cb95b0b6f85f0b2dcaf80a9c",
+    "attest.close.json": "f226a481aa4434d8a8c58ec9660397707cb8e36c960452583e76cebde0f483e1",
+    "attest.read": "16309d5c3944ef9e5bd1c263e74226aa7e3180276c7e5cb7969f63d211e3dea8",
+    "attest.close": "79ff17cb45e60cbe1eb8346d33167ed2ec8648dd036afe2a43bf478f5a05f753",
+    "session-before.json": "aa06f153030deffcc47e1e6e061d02c831a0ec95d18ca6ec74b587b4b415a438",
+    "admission.json": "3fdf2e4a1ddcc3d32847c9e42a67e7da8823608271199051c9e161b75f00bd38"
+  },
+  "admitted": true,
+  "rawProducerLogs": {
+    "producer-capture.out": {
+      "sha256": "b9cf0ba05968532697f7a4cbb22d1c93427eda031a7018b0663a5576b623a13d",
+      "bytes": 1578
+    },
+    "producer-capture.err": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "producer-backgrounds.out": {
+      "sha256": "bd27fb42b651277ee6de6649616f25b4c9f0b11ce5942a2a2460427f0824c9ca",
+      "bytes": 1441
+    }
+  },
+  "disclosure": "Raw output remains on machine; only inventory, hashes, times and admission are distilled here. No held-out numerical or state diagnostics."
+}
