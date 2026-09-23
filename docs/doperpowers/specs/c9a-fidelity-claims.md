@@ -35584,3 +35584,16 @@ addition gives2,719 unit tests, and no runtime material or calibration evidence 
 to make any suite pass. The closing charter records Outcomes & Retrospective against all
 seven clauses and the Deferred-at-close list with the identifying contour capture FIRST.
 The next action is independent review by the parent, not another material fit or holdout read.
+
+**Merge and publish record, the parent (§5.173 close).** Reviewed on the branch — every artifact
+reproduced, merged as-is, two record nits closed there (`d26a2fa9`, `75435daf`) — and merged to
+main as `e6c80c7f` on 2026-09-22 (`freeze.py verify` 1,818; chain re-run on main: build and lint
+9 / 9, unit 2,719 over 189 files). **0.23.0 PUBLISHED 2026-09-23** by the user's `pnpm release` on
+`e6c80c7f`; tag `v0.23.0` pushed. Registry core 00:05:49.034Z / web 00:05:51.043Z / react
+00:05:52.031Z, the group listed in 3.0 s; cold install in a fresh `mktemp -d` directory verified
+all three at 0.23.0, ranges `^0.23.0`, exports 44 / 258 / 38, the four macOS 27 digests
+`dcbccbd9feac9881` / `e59f9106bcd7c966` / `f34dcc03e2774db3` / `6b6237b7ae241638` and the frozen
+pair `b2b570e4adcea8fb` / `874be66ea501621b`, `liftAmplitude: 0` on the macOS 27 endpoints in a
+303,207 B web bundle, and the three published tarballs at **583,802 / 568,292 / 188,179 B, the
+rehearsal's sizes byte for byte**. The "independent review pending, unpublished" at this section's
+head is the state at G2's close and is kept as written.
