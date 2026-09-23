@@ -36345,3 +36345,50 @@ body identification, prove a reachable independent phase mechanism before scalin
 local-colour/gradient contrasts, adequate arc populations and separate pose/scheme/scale controls.
 Ordinary opaque fill is not that missing glass-path control, and more unanimous repeats cannot
 remove a structural residual at the one-code floor. G3 and a new capture remain user decisions.
+
+### 6. Completed pre-holdout qualification and frozen nominees
+
+There are **672 fitted configurations** in total: the first400, W33's176 against the shipped
+web, 64 exact-body fits and32 constrained shared-alpha fits. The complete per-family/space/
+comparator/domain/part index is `family-best-complete.csv` (**672 validation summary rows**,
+selecting the better reported objective per displayed part, not inventing a part-switching law).
+Every contributing absolute bin, bar and population remains in its corresponding compressed
+residual table. No configuration point-closes a complete validation part.
+
+The exact-body family nominees are below. Each is fitted on19 circular solid/gradient
+calibration cells and checked on4 such validation cells per endpoint. Maxima cover **both parts
+and every populated shell/bin/channel**, never an average between parts. The shared-alpha
+column is its independently nominated physical source-over subset. All observed validation
+bars are below1, so every table entry is compared with **one code**, not zero. Full coefficients
+are frozen in `candidates-v2.json`; a grid endpoint at power8 is not an identified exponent.
+
+| scale / scheme / pose | best exact body family | objective / power | worst validation bin | shared-alpha worst bin | tolerance |
+| --- | --- | --- | ---: | ---: | ---: |
+| 1x / dark / inactive | encoded body-forward-even-affine | least-squares / 8 | 16.750 | 17.750 | 1 |
+| 1x / dark / active | encoded body-forward-even-affine | least-squares / 2 | 36.000 | 37.000 | 1 |
+| 1x / light / inactive | encoded body-forward-even-affine | least-squares / 8 | 9.500 | 15.000 | 1 |
+| 1x / light / active | linear body-forward-even-affine | least-squares / 4 | 29.000 | 32.333 | 1 |
+| 2x / dark / inactive | encoded body-forward-even-affine | least-squares / 8 | 12.444 | 15.111 | 1 |
+| 2x / dark / active | encoded body-forward-even-affine | least-squares / 2 | 47.000 | 47.000 | 1 |
+| 2x / light / inactive | encoded body-forward-even-affine | least-squares / 8 | 10.000 | 14.500 | 1 |
+| 2x / light / active | linear body-forward-even-affine | least-squares / 4 | 36.000 | 36.000 | 1 |
+
+`qualified-validation-forward.json.gz` separates the propagated body interval, actual weighted
+reference quantisation, eight finite alignment/path perturbations and64/128-sample disagreement.
+`qualified-validation-discrimination.json.gz` records per-bin prediction separation against
+`2*tau + both nuisance-envelope widths`. G0's executable `closure_verdict` returns
+**insufficient resolution on all128 exact-body fit/part readings**: the competing nominated
+families do not separate in two independent angular/radial strata in both fitting roles under
+that budget. **19/128 validation-only fit/part interval checks** are compatible at one code;
+none is a point closure, and that count is not19 laws or19 whole-gate passes. The finite
+perturbation envelope is not a confidence interval or a proof over every hidden raster origin.
+The first-pass compact diagnostics do not inherit a physical uncertainty claim from this table.
+
+The computational shortcuts preserve all body/band/angular coverage moments on the **ten distinct
+non-holdout circular fixed-mask geometries**: body and band/angular differences are0; coordinate
+moments differ by at most **5.551115123125783e−17**. The separate64/128 gradient/encoding check
+has36 comparisons with maximum difference0. This is evidence about the implemented quadrature,
+not about Apple's rasterizer. All fitted coefficients and validation/qualification tables are
+committed before exposure. The prepared receipt digest is recorded in `receipt-preflight.json`;
+construction of that object did **not** expose a payload. The actual spend and result follow in
+§7, and no negative validation result is used as an excuse to omit the prescribed one read.
