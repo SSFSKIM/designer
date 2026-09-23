@@ -1,6 +1,6 @@
 # W34 — the contour wave: the capture that identifies Apple's macOS 27 contour stroke (2026-09-23)
 
-**Status: G1 merged; G2 IN PROGRESS on the committed bed (2026-09-24).**
+**Status: G2 DELIVERED as a negative finding (2026-09-24); parent review and user DL2 ruling pending.**
 The v3 charter folded two review rounds (nine findings, then three on the split's execution
 contracts); G0 merged and Decision Log 1 is ruled. Chartered
 by the parent on the user's "W34 contour capture wave (Recommended)" after the 0.23.0 publish
@@ -531,7 +531,7 @@ grant; G2 needs neither.
 | --- | --- |
 | G0 | DELIVERED for independent review — phase grid unreachable, 148 cells/pass declared, side active and canonical pixel check positive; DL1 ruling and review/merge pending (§5.174). Original grant recovery deferred by DL4 **MERGED 2026-09-23 as `d2201845`; Decision Log 1 ruled at the merge.** |
 | G1 | DELIVERED 2026-09-24 for parent review/merge — all 40 runs admitted, 592/592 cells published, separate bars and archive-only replay complete (§5.175); G2 not opened **MERGED 2026-09-24 as `7c5c71c3`** (§5.175; independent review with no material finding). |
-| G2 | IN PROGRESS, §5.176 — calibration/validation fits and 336 non-holdout web captures committed; qualification and the once-only receipt pending. Evidence directory is dated 2026-09-24. |
+| G2 | DELIVERED, §5.176 — no point-closed law; boundary-body counterexample and qualification recorded; once-only receipt complete; web bed captured. Parent review and DL2 ruling pending. Evidence directory is dated 2026-09-24. |
 | G3 | CONDITIONAL on Decision Log 2 |
 
 ## Decision Log
@@ -582,14 +582,26 @@ zero or universal settledness. Seven-run bars remain G1's, not these scratch rea
 
 ### Decision Log 2 — a law or the negative (after G2; the user's)
 
-**DRAFT, not ruled; G2 checkpoint 2026-09-24 (§5.176).** Recommend no G3 leaf on the current
-reading: no nominated angular, coverage, affine or physically constrained shared-alpha fit
-closes validation at the declared one-code floor. Coefficients and per-bin failures are in G2's
-artifacts, not adopted material constants. The body/coverage decomposition remains qualified;
-a wide uncertainty interval cannot convert a failed point prediction into an identified law.
-The exact-body discrimination and the once-only holdout are still pending at this checkpoint;
-G2 must append their actual readings before delivery. The user, not this draft, rules whether
-the finding closes the wave or a separately chartered third bed is warranted.
+**DRAFT FOR THE USER, not ruled (G2 complete, 2026-09-24; §5.176).** Recommend closing W34
+at the negative and **not opening G3**. No tested fitted configuration point-closes validation
+at the declared one-code floor. More importantly, every endpoint and both contour parts have
+an inner-shell counterexample where the nominated outside stroke has zero support: changing
+its alpha, colour or exponent cannot repair that nominated body/path decomposition. The
+separate nuisance/discrimination checks establish no unique physical decomposition. The once-only
+receipt is complete; its unaltered held reading is confined to §5.176 §7 and its own artifacts.
+
+No G3 leaf or identity values are nominated, and **no material document moves**. The next useful
+study is an explicitly declared body-boundary/radial-model extension on the existing non-holdout
+pixels, not another full sitting merely to add repeats. If the user chooses to continue, a later
+blind confirmation needs a newly authorised, genuinely unexposed bed/receipt; it must improve
+independent glass-path coverage/registration or the boundary body constraint, prove any new
+phase mechanism reachable first, and retain local-colour/gradient contrasts and populated arcs.
+The physically constrained alpha family and the affine/angular families' coefficients, residuals,
+populations and bars are in the gate's complete index. Failed nominated fits are not a claim
+that every possible colour law is excluded, and interval compatibility is not Apple's internal
+compositing law identified. The alternatives remain the user's: close at this finding, or charter
+that narrower continuation. No threshold widening, partial correction, native capture or G3 work
+has been chosen on their behalf. Original-grant restoration remains DL4's wave-close obligation.
 
 ### Decision Log 3 — the contour and IoU bounds if a law lands (in G3; the user's)
 
@@ -738,3 +750,14 @@ G1 exclusivity remains the parent's decision. Subsequent reads currently report 
   uncertainty propagation is offline; no native capture, build, TCC action or material change.
   G2's actual evidence directory is dated September 24, beside the prospective September 23
   path in its original child brief. No holdout reading or user ruling is asserted here.
+
+- 2026-09-24 (G2 delivered, §5.176): 672 calibration-fitted configurations and their validation
+  bins recorded; the nominated outside-only decomposition has a coefficient-independent inner-body
+  floor, and no point-closed law is identified. Full body/reference/geometry/numerical propagation
+  and G0 discrimination precede the committed once-only receipt. The held read and its web captures
+  are complete, with no refit or second exposure; its figures stay in its own ledger table.
+  All 408 glass cells have real-GPU web captures. The standard matrix remains 333 non-holdout rows,
+  with three curvature refusals preserved; held cells are read by the guarded contour instrument.
+  Closing calibration 658 passed/1 skipped, boundary 6/6, numeric 6/6, freeze1,818. No material,
+  canonical evidence, adopted bound, native capture, rebuild or TCC change. Parent review and the
+  user's DL2 ruling are next; this child neither merges nor opens G3.

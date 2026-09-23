@@ -36156,6 +36156,11 @@ published bars. G1 does not open G2 itself, merge, push or restore the original 
 
 ## 5.176 W34 G2: contour identification against the captured bar (2026-09-24)
 
+**Completion: DELIVERED as a negative finding, for parent review and the user's DL2 ruling.**
+The checkpoint below is preserved; §§6–8 record completion, including the one receipt exposure.
+No G3 leaf is identified or authorised. The nominated boundary body, not only a stroke colour
+coefficient, must be resolved before an outside-only term can satisfy this six-shell instrument.
+
 **Checkpoint: calibration and validation recorded; the holdout remains sealed.** W34 clauses
 5, 6 and 8, X1–X14; branch `w34-g2-contour-identification`, from `44605805`. Evidence is
 `packages/calibration/results/2026-09-24-w34-g2-contour-identification/` (September **24**, not
@@ -36392,3 +36397,87 @@ not about Apple's rasterizer. All fitted coefficients and validation/qualificati
 committed before exposure. The prepared receipt digest is recorded in `receipt-preflight.json`;
 construction of that object did **not** expose a payload. The actual spend and result follow in
 §7, and no negative validation result is used as an excuse to omit the prescribed one read.
+
+### 7. The holdout read's own table — one receipt, no refit
+
+The real receipt contains exactly **begin → complete**, with no failed attempt or second
+exposure. Configuration digest:
+
+`3c4c046541f91ab7cd5dab2bdd8c450869e595c50736d538085cbfb98e54b93f`
+
+The receipt freezes scenes/split, G0's instrument/archive/reader/closure, the committed runner,
+`candidates-v2.json` and its analysis dependencies, and all three G1 inventories: repeat,
+materialized probe, and root sealed-bar inventory. `3a6464dd` committed the completed
+qualification before exposure. The first candidate document remains beside its unspent amendment;
+no candidate, coefficient, scene, split or inventory changed after exposure.
+
+G0's authorised readers opened **72 glass cells**; the40 predeclared validation nominees were
+read without a stroke-coefficient refit. Per-cell stroke-free body estimation is part of the
+frozen instrument, including on holdout, not an edge fit or a runtime material estimate. All
+**80 nominee/part readings fail point closure**. The full table is `holdout-residuals.json.gz`
+and its unrounded index `holdout-result.json`. The exact-body nominees' own held reading follows;
+each row covers5 circular solid/gradient cells, with all shell/bin/channel maxima and population
+beside it. Held normal bars read0 on the admitted bins, so the effective tolerance remains1;
+this is not a claim of zero variability.
+
+| scale / scheme / pose | exact-body arc MAE / pixels | exact-body straight MAE / pixels | observed bar / tolerance |
+| --- | ---: | ---: | ---: |
+| 1x / dark / inactive | 55.444 / 7196 | 51.000 / 4128 | 0 / 1 |
+| 1x / dark / active | 56.421 / 7292 | 60.000 / 4128 | 0 / 1 |
+| 1x / light / inactive | 14.667 / 7262 | 7.500 / 4128 | 0 / 1 |
+| 1x / light / active | 21.889 / 7262 | 27.961 / 4128 | 0 / 1 |
+| 2x / dark / inactive | 54.158 / 14356 | 51.000 / 8256 | 0 / 1 |
+| 2x / dark / active | 52.917 / 14228 | 45.000 / 8256 | 0 / 1 |
+| 2x / light / inactive | 14.211 / 14348 | 7.664 / 8256 | 0 / 1 |
+| 2x / light / active | 21.595 / 14348 | 33.836 / 8256 | 0 / 1 |
+
+`holdout-qualified-forward.json.gz` retains separate nuisance contributions for the frozen
+exact-body and physical-alpha nominees; its local fit ids map back to the receipt through
+`holdout-qualified-index.json`. `holdout-qualified-discrimination.json.gz` records their
+per-bin separation. These are this read's own tables, not a new selection or fitting round.
+
+The same receipt authorised G0's glass-only holdout web allowlist. Four further X6 preflights
+preceded four profile launches,18 scenes each, all on real Apple Metal WebGPU. All72 captures
+report deterministic repeats and the correct untuned shipped endpoint for their pose. Their
+fixed-mask gap and provenance are kept separately as `holdout-web-*`; they are not mixed into
+the non-holdout family-selection tables. **All408 declared glass cells now have web captures.**
+The standard comparer matrix remains333 non-holdout rows; held cells are read by the contour
+instrument through the receipt, not by an unguarded native comparer or a canonical matrix write.
+Every one of the eight browser preflights records RT0, IC0, slider0.5, Show Borders0, zero foreign
+capture processes and at least sixty seconds idle; the minimum was43,932.134631333 seconds.
+No native capture, rebuild, TCC change, merge or push was used to complete this read.
+
+### 8. Decision Log 2 recommendation, checks, and what this gate does not claim
+
+**Recommend closing W34 at this negative and not opening G3.** No leaf, identity value, CSS
+approximation, material-document movement or conformance re-pin is nominated. First declare
+and test a boundary-body/radial-model extension on the existing non-holdout evidence if the user
+wants to continue. A new blind confirmation must be newly authorised; the spent W34 receipt
+cannot be reset by changing a candidate. The third-bed requirements are in §5 and the charter's
+DL2 draft. They are a recommendation, not permission for native capture or a silently chosen
+continuation. DL4's original Screen Recording grant recovery remains the parent's/user's
+wave-close obligation; this gate did not alter TCC or perform its positive native check.
+
+Closing checks (`close-*.txt`): calibration **658 passed,1 skipped across44 files**; G0 boundary
+**6/6**; the identifying reader's synthetic solver/compositor/physical-alpha/reference-propagation
+checks **6/6**; macOS26.5 freeze **1,818 intact**. The ten-geometry quadrature check is separately
+recorded, as are all initial failed/partial computational and browser reporting attempts. No
+independent reviewer was dispatched under this gate's explicit no-agent constraint; parent review
+is still required. The operational index is **README.txt**, because this worker's instructions
+forbid creating Markdown report files; the requested narrative lives here and in the charter.
+
+This gate does **not** claim Apple's internal compositor is identified; that all possible
+coefficients, continuous exponents, radial supports or body models have been excluded; that a
+body-constrained scientific predictor is already a runtime material; that ordinary-fill coverage
+transfers to glass; that supplied paths attest a hidden raster transform; that zero repeat spread
+is zero variability; that an interval-only fit is a law; or that geometry uncertainty is a
+probability distribution. New physical forward fits on continuous shapes are declined rather than
+silently using circles; those shapes remain in the fixed supplied-path instrument and W33-family
+readings. No accessibility behaviour, composite contour law, CSS mirror, rendered candidate,
+canonical-row improvement, release, merge or push is claimed. The standard comparer has three
+explicit non-holdout metric holes, not three absent captures. Every measured gap remains evidence
+or follow-up, not a new accepted fidelity ceiling.
+
+**Diff-check qualification:** one trailing blank line in the preserved raw
+`close-calibration-tests.txt` log is retained (`close-diff-check.txt`). Authored source/spec
+text has no whitespace warning. This is not reported as a failed test or silently normalized.

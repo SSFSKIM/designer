@@ -119,3 +119,38 @@ Structural limit
   This is a limitation of the nominated decomposition, not a universal rejection of
   Apple's colour law. It is why the body/geometry nuisance and non-identification
   language are necessary, rather than merely attaching a larger tolerance to a fit.
+
+Completion
+  Identification is delivered as a negative, not a material implementation. DL2
+  recommends no G3 and remains the user's decision. Parent independent review is
+  pending. The original Screen Recording grant remains DL4's wave-close obligation.
+
+  closure-verdicts.json                   G0's 128 exact-body fit/part verdicts.
+  qualified-validation-forward.json.gz    Separate point and nuisance interval tables.
+  qualified-validation-discrimination.json.gz
+                                         Competing predictions against the fixed rule.
+  receipt-preflight.json                  Prepared configuration, before exposure.
+  ../2026-09-23-w34-g0-contour-bed/wave-identification-receipt.jsonl
+                                         Actual begin/complete, spent once.
+  holdout-result.json / holdout-residuals.json.gz
+                                         Only the frozen nominees' held result table.
+  holdout-qualified-*.json.gz             Frozen physical nominees' held qualification.
+  holdout-qualified-index.json            Local ids mapped to receipt candidate ids.
+  holdout-native-* / holdout-web-*        The same receipt's native and shipped-web cut.
+  holdout-browser-*.txt / holdout-read.txt Retained execution logs, no subsequent refit.
+  close-*.txt                            Required closing checks.
+
+Receipt configuration SHA-256:
+  3c4c046541f91ab7cd5dab2bdd8c450869e595c50736d538085cbfb98e54b93f
+
+Do not run expose again. It is spent, including for changed candidates. Read the
+holdout result's own tables; do not reopen native held PNGs/crops/statistics. The
+per-cell body estimate on held cells was part of the frozen instrument, not a
+new stroke-coefficient fit. All 408 glass cells have shipped-WebGPU captures; the
+standard comparer matrix has 333 non-holdout rows, with held contour readings kept
+in their own receipt artifacts and the three non-holdout curvature refusals intact.
+
+Diff check
+  close-diff-check.txt reports one trailing blank line in the preserved raw
+  close-calibration-tests.txt output. It is retained as evidence. Authored Python
+  and specification text have no whitespace warning; no raw test log was rewritten.
