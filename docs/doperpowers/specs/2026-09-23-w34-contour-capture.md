@@ -761,3 +761,13 @@ G1 exclusivity remains the parent's decision. Subsequent reads currently report 
   Closing calibration 658 passed/1 skipped, boundary 6/6, numeric 6/6, freeze1,818. No material,
   canonical evidence, adopted bound, native capture, rebuild or TCC change. Parent review and the
   user's DL2 ruling are next; this child neither merges nor opens G3.
+
+- 2026-09-24 (G2 review fix wave, §5.176 §9): the independent review's three corrections are
+  applied beside the original readings. Under the corrected half-pixel affine-body convention,
+  three inner-shell floors move (1x dark active 9.000 / 9.237 → 10.000 on arc / straight, 2x
+  dark inactive arc 2.778 → 3.000); every floor still exceeds one code, and the 2–27.375 code
+  range this charter's Surprises entry cites is unchanged. G0's verdicts stay 128 insufficient
+  resolution with 19/128 interval-compatible. The faithful W33 bases close 0/128 against both
+  no-glass and the web. The spent receipt's complete event carries forty bookkeeping fields;
+  stripping them restores the begin digest exactly. The held figures were not re-read. Decision
+  Log 2's draft and the tracker entry cite no number that moved, and the conclusion stands.

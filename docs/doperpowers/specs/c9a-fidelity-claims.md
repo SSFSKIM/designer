@@ -36331,6 +36331,13 @@ bin in that unreachable shell, not a pooled error or a fitted lower bound. Its t
 | 2x light active | 21.875 | 21.000 |
 | 2x light inactive | 2.000 | 2.000 |
 
+**Review correction beside, 2026-09-24 (§9, finding 1):** the table above is the original
+instrument's reading and stays as recorded. Re-read with the corrected half-pixel coordinate
+convention, three entries move: 1x dark active arc **9.000 → 10.000** and straight
+**9.237 → 10.000**, and 2x dark inactive arc **2.778 → 3.000**. The other thirteen entries are
+unchanged, the smallest is still **2.000**, and every row in both spaces still exceeds one code.
+§9 gives the witnesses.
+
 These are the encoded-family floors; the artifact carries both spaces, witnesses, RGB,
 populations and bars, and **every linear-family row also exceeds one code**. Thus none of the
 fixed-band candidates can point-close the entire six-shell forward prediction merely by
@@ -36518,3 +36525,92 @@ I/O, catches the original mutation, and verifies both document equality and the 
 This correction is for future use only: the actual receipt remains spent, with no re-run or
 new authorization. A valid begin pin and metadata-only completion discrepancy are the claims,
 not a claim that the original complete event passes its literal hash check.
+
+**Affine body coordinates, corrected reading beside (§9, finding 1; 2026-09-24).** The
+original exact-body and compact evaluators sampled the affine interior fit at coordinates
+half a device pixel away from the convention that fitted it, so each of the **56**
+affine-gradient bodies was displaced by a constant `β_x/(2·320·s) + β_y/(2·200·s)`. The
+old-minus-corrected encoded displacement reaches **0.305 codes**, median 0.066
+(`review-fix/coordinate-offsets.json`). Uniform bodies were never affected. One conversion now
+serves both evaluators and the body moments. `review-rerun.py coordinates` re-evaluates the
+**published** coefficients under it; nothing is refitted and no nominee moves. It covers the 64
+compact body-forward fits on 240 cells (`coordinate-compact-*`, mapped to their original ids by
+`coordinate-compact-index.json`), and the 64 exact-body and 32 shared-alpha fits on the 184
+circular solid/gradient cells (`coordinate-exact-*`, `coordinate-alpha-*`).
+
+No worst-bin headline moves in any of the 640 fit/role/part rows, and point closures stay
+**0**. Failed validation bins move by a handful: exact body **15,986 → 15,994** of 27,648,
+shared alpha **8,039 → 8,042** of 13,824, compact **15,917 → 15,913** of 27,648. The §6
+nominee table is therefore unchanged as printed. In the unreachable shell [−2,−1) the four
+fitted alternatives per space still agree exactly on every bin, so the floor stays
+coefficient-independent. Three of §5's sixteen encoded entries move, identically in the linear
+family:
+
+| entry | original floor, witness | corrected floor, witness |
+| --- | --- | --- |
+| 1x dark active arc | 9.000, gradient-45-small bin 12 (tied) | **10.000**, gradient-90-large bin 12 |
+| 1x dark active straight | 9.236842, gradient-45-small bin 12 | **10.000**, gradient-90-large bin 12 |
+| 2x dark inactive arc | 2.777778, gradient-90-large bin 12 | **3.000**, the same bin (G/B; R unchanged) |
+
+The review predicted the 1x dark active straight witness would move **9.236842 → 9.368421**, and
+at that bin it does. A different bin of the same endpoint, gradient-90-large bin 12 on the
+circular-120 rest cell, moves 9 → 10 on both parts and becomes the witness. The review's 2x
+dark inactive prediction, 2.777778 → 3, is confirmed as stated. Every one of the 32 rows still
+exceeds one code, and the smallest is still **2.000**. The **2–27.375 code** range that the
+charter and the tracker cite is unchanged.
+
+The qualified forward propagation and G0's closure verdict were re-run under the corrected
+convention with the frozen coefficients (`coordinate-qualified-*`,
+`coordinate-closure-verdicts.json`). All **128** exact-body fit/part readings are again
+**insufficient resolution**, for the same reason: the families do not separate in two strata per
+fitting role. The interval-compatible count is again **19/128**, the same nineteen fit/part
+pairs. No validation worst point moves, and the worst interval widens by at most **0.087 codes**.
+
+**The held figures are the original instrument's and were not re-read.** §7's table and every
+`holdout-*` artifact were computed before this correction. The receipt is spent, so the corrected
+evaluator has not been run on a held cell and no corrected held value exists anywhere.
+
+**W33 bases, faithful rerun beside (§9, finding 2; 2026-09-24).** The first pass ran four W33
+family names on bases that differed from W33's own: the gradient and colour-gradient families
+used `|nx|^2` instead of `|nx|^4`, the isotropic two-axis family used one axis angle instead of
+the rotated orthogonal pair, and neither axis family had W33's power-16 grid endpoint
+(`review-fix/w33-variant-map.json`). Those readings stay under their original names.
+`review-rerun.py bases` fits the faithful variants on W34's calibration cells, 64 fits per
+comparator (four families × eight endpoints × least squares and minimax, encoded). It fits
+against native-minus-no-glass and again against the shipped web captures, and referees them on
+validation with the absolute per-bin referee at `max(1 code, bar)`.
+
+**None closes: 0/128 validation fit/part rows per comparator, in every one of the sixteen
+strata.** Each stratum's best worst bin equals the original variant's exactly. Against no-glass
+it is **97.000–131.462 codes**, and against the web **57.000–130.322**, with every observed bar
+**0**. All four families, in both variants, share that worst value in every stratum, so the
+faithful bases change only how many bins fail. Summed over strata, the best-failed-bin count out
+of 6,048 admitted bins per family is:
+
+| family | no-glass, original → faithful | web, original → faithful |
+| --- | ---: | ---: |
+| gradient | 4,304 → 4,295 | 3,854 → 3,857 |
+| colour-gradient | 4,308 → 4,297 | 3,852 → 3,852 |
+| rotated-axis | 4,295 → 4,295 | 3,853 → 3,853 |
+| isotropic-two-axis | 4,302 → 4,299 | 3,854 → 3,854 |
+
+Calibration selects power 4 for gradient and colour-gradient at every endpoint. It selects the
+new power-16 endpoint for rotated-axis in 9/16 no-glass and 10/16 web fits; a grid endpoint is
+not an identified exponent.
+
+§5.171's review qualification counted **in-sample** one-byte closures of individual W33 strata:
+rotated axis 0/152, isotropic two-axis 7/152, gradient 0/152 and colour-gradient 3/152. Those
+used per-stratum fits over W33's canonical cohort, scored on the strata they were fitted to.
+W34 fits one coefficient set per endpoint across backdrops on calibration cells only, then
+referees held-back validation bins. The two readings differ in population, fitting unit and
+referee, so this rerun neither reproduces nor contradicts W33's isolated closures. It shows only
+that the first pass's non-faithful bases are not why no W33 family closed here.
+
+**Closing checks for the fix wave (2026-09-24).** The review-fix logs record calibration **658
+passed, 1 skipped across 44 files**, G0 boundary **6/6**, the gate's numerical tests **6/6**, the
+review regressions **5/5** and the macOS 26.5 freeze **1,818 intact**. The same five checks were
+re-run green once every corrected reading above had finished and been recorded. The receipt audit's
+digests were also recomputed independently from the committed events and agree. No native capture,
+browser run, bundle build, TCC change, holdout read or receipt spend was part of this wave.
+As at the gate's close, the raw `review-fix/calibration-tests.txt` log keeps vitest's trailing
+blank line, which `git diff --check` reports; it is retained as evidence, not normalized.

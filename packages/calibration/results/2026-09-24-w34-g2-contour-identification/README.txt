@@ -154,3 +154,40 @@ Diff check
   close-diff-check.txt reports one trailing blank line in the preserved raw
   close-calibration-tests.txt output. It is retained as evidence. Authored Python
   and specification text have no whitespace warning; no raw test log was rewritten.
+
+Independent-review fix wave, 2026-09-24 (§5.176 §9)
+  Every original reading, nominee and the spent receipt stay as recorded. The
+  corrections are appended under review-fix/ and read no held payload.
+  test-review-fixes.py      Regressions for the three findings, red before the fixes
+                           (review-fixes-red.txt) and green after (review-fixes-green.txt,
+                           review-fix/regressions-green.txt, review-fix/review-regressions.txt).
+  review-rerun.py           Non-holdout re-reads only; refits nothing it re-evaluates.
+  audit-receipt.py          Reads only the committed receipt events.
+
+  Finding 1, the affine body's half-pixel coordinate convention
+    review-fix/coordinate-offsets.json      Old-minus-corrected displacement, 56 affine bodies.
+    review-fix/coordinate-compact-*         64 compact body-forward fits re-evaluated;
+                                           the index maps them to their original ids.
+    review-fix/coordinate-exact-*           64 exact-body fits re-evaluated.
+    review-fix/coordinate-alpha-*           32 shared-alpha fits re-evaluated.
+    review-fix/coordinate-qualified-*       The qualified forward and discrimination tables
+    review-fix/coordinate-closure-verdicts.json
+                                           and G0's verdicts, under the corrected convention.
+    review-fix/coordinate-run.txt           The run's log.
+    The corrected inner-shell floors are recomputed from coordinate-exact-residuals
+    and recorded in §5.176 §9; coefficient-independent-floors.json is not rewritten.
+    The held tables were not re-read with the correction.
+
+  Finding 2, the faithful W33 bases
+    review-fix/w33-variant-map.json         Original variant versus faithful reference.
+    review-fix/w33-reference-{no-glass,web}-{fits,headlines,residuals}
+                                           64 calibration fits per comparator and their
+                                           validation referee; review-fix/w33-bases-run.txt.
+
+  Finding 3, the receipt bookkeeping
+    review-fix/receipt-integrity-audit.json Begin 3c4c0465..., complete daccc0e8...; the
+                                           forty removed fields and the proof of equality.
+    review-fix/receipt-audit.txt            The audit's printed digests.
+
+  Closing checks: review-fix/{calibration,boundary,numerical}-tests.txt and
+  review-fix/freeze-verify.txt; the re-run once every reading had finished is in §5.176 §9.
