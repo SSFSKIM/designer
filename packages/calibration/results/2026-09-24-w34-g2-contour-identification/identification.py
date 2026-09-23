@@ -251,7 +251,9 @@ def design(r, spec, channel):
         return X*support[:,None],D[:,channel]
     cov=r['cov'];g=cov['band'];a=cov['body'];q=cov['q'+str(power)]
     base=D[:,channel]
-    if name.startswith('body-forward'):
+    if spec.get('exactBody'):
+        base=r['exactBaselines'][space][:,channel]
+    elif name.startswith('body-forward'):
         base=base+a*(B[:,channel]-base)
         if space=='encoded' and 'coefficients' in r['body']:
             c=np.array(r['body']['coefficients'])[:,channel]/255

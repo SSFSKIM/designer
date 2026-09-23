@@ -1,0 +1,236 @@
+{
+  "capturedAt": "2026-09-23T18:44:48.013Z",
+  "requestedRenderer": "webgpu",
+  "colorScheme": "light",
+  "accessibility": null,
+  "materialProfile": null,
+  "recededProfile": null,
+  "fallback": null,
+  "problems": [],
+  "page": {
+    "sceneId": "gradient-0-large__circular-120__inactive",
+    "requestedRenderer": "webgpu",
+    "requestedScale": 2,
+    "requestedBackdropMode": "texture",
+    "requestedBackdropLevel": null,
+    "devicePixelRatio": 2,
+    "frames": 8,
+    "canvas": {
+      "width": 320,
+      "height": 200
+    },
+    "pixelSize": [
+      640,
+      400
+    ],
+    "background": {
+      "id": "gradient-0-large",
+      "url": "/reference-fixtures/backgrounds/gradient-0-large@2x.png",
+      "naturalWidth": 640,
+      "naturalHeight": 400
+    },
+    "pressed": false,
+    "tint": null,
+    "materialProfile": null,
+    "recededMaterialProfile": {
+      "backdropToneAbscissa": {
+        "kind": "silhouette"
+      },
+      "tintChromaScale": 0,
+      "tintShadeCollapseRetention": 1,
+      "tintShadeStrength": 1,
+      "optics": {
+        "regular": {
+          "rimAlpha": 0,
+          "rimLevelGain": 0,
+          "shadowAlpha": 0
+        },
+        "clear": {
+          "rimAlpha": 0,
+          "rimLevelGain": 0,
+          "shadowAlpha": 0
+        }
+      },
+      "rimCollapsed": 0,
+      "rimCollapsedTinted": 0,
+      "outerShadow": {
+        "thinOcclusionDark": 0,
+        "thinOcclusionMid": 0,
+        "thinOcclusionBright": 0,
+        "thickOcclusionAt96": 0,
+        "thickOcclusionAt128": 0,
+        "thickOcclusionAt160": 0,
+        "liftAmplitude": 0,
+        "reducedTransparencyOcclusion": 0
+      },
+      "sizeScatterRampStartThick1x": 0.3,
+      "sizeScatterRampStartThick2x": 0.04,
+      "sizeScatterRampStartFar2x": 0.04,
+      "sizeHeavyTapSigma2x": 14,
+      "tintShadeDark": 0.0288,
+      "tintShadeLight": 0.76,
+      "reducedTintAdaptation": 0.88,
+      "sizeScatterFloor": 0.7,
+      "sizeScatterRampStartThin1x": 0.55,
+      "sizeScatterRampStartThin2x": 0.7,
+      "backdropToneAnchorX": [
+        0.004,
+        0.11,
+        0.425,
+        0.95
+      ],
+      "backdropToneResponseThin": [
+        0.1647,
+        0.2809,
+        0.4775,
+        0.8293
+      ],
+      "backdropToneResponseThick": [
+        0.1442,
+        0.2823,
+        0.4695,
+        0.832
+      ],
+      "refractionScale": {
+        "approximate": 0
+      },
+      "increasedOcclusionLift": 0.96,
+      "increasedOcclusionLiftByPolicy": {
+        "reduceTransparency": 0.88,
+        "increaseContrast": 0.98
+      },
+      "strongBorderRim": {
+        "rimWidth": 1,
+        "rimAlpha": -3.5
+      },
+      "bodyChromaRetention": 0.349
+    },
+    "candidateRecededMaterialProfile": null,
+    "windowActivation": "inactive",
+    "colorScheme": "light",
+    "material": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5-receded",
+      "resolvedMaterialSha256": "f34dcc03e2774db3",
+      "tuned": false
+    },
+    "cssTierMapping": null,
+    "transparentPage": false,
+    "accessibilityOverrides": null,
+    "accessibilityPolicy": {
+      "reducedTransparency": false,
+      "reducedMotion": false,
+      "increasedContrast": false,
+      "forcedColors": false,
+      "material": {
+        "glass": "material",
+        "colorSource": "material",
+        "frost": "nominal",
+        "refraction": "nominal",
+        "occlusion": "nominal",
+        "border": "nominal",
+        "ambientTint": "nominal",
+        "foreground": "adaptive"
+      },
+      "motion": {
+        "overshoot": "elastic",
+        "deformation": "nominal",
+        "shimmer": "travel",
+        "morph": "elastic",
+        "crossfade": "never",
+        "positionalContinuity": true
+      }
+    },
+    "groups": [
+      {
+        "id": "component",
+        "configuredSource": "texture",
+        "state": {
+          "configuredSource": "texture",
+          "activeRenderer": "webgpu",
+          "samplingBackend": "gpu-texture",
+          "refraction": "true",
+          "analysis": "exact",
+          "health": "ok",
+          "materialDocument": {
+            "name": "apple-macos-27.0-glass0.5",
+            "platform": "macOS 27.0",
+            "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5-receded",
+            "resolvedMaterialSha256": "f34dcc03e2774db3",
+            "tuned": false
+          },
+          "backdropToneAbscissae": [
+            {
+              "surfaceId": "body",
+              "sourceWidth": 640,
+              "sourceHeight": 400,
+              "sampledWidth": 640,
+              "sampledHeight": 400,
+              "kind": "silhouette",
+              "level": 0,
+              "color": [
+                0.2225341945886612,
+                0.2225341945886612,
+                0.2225341945886612
+              ],
+              "luminance": 0.2157912701368332,
+              "encodedLuminance": 0.5018863677978516,
+              "linearLuminance": 0.2225341945886612,
+              "sampleCount": 19468
+            }
+          ]
+        },
+        "probeVerdict": "pass",
+        "unsampledMaterial": null,
+        "backdropTone": {
+          "level": 0.21540481795969196,
+          "linearLuminance": 0.27030066416256615,
+          "rgb": [
+            0.27030066416256615,
+            0.27030066416256615,
+            0.27030066416256615
+          ]
+        }
+      }
+    ],
+    "surfaces": [
+      {
+        "nodeId": "body",
+        "groupId": "component",
+        "plane": "base",
+        "family": "capsule",
+        "radius": 22,
+        "bounds": {
+          "x": 100,
+          "y": 78,
+          "width": 120,
+          "height": 44
+        },
+        "refraction": {
+          "state": "true",
+          "accessibilityCap": "true",
+          "effective": "true"
+        }
+      }
+    ],
+    "webgpu": {
+      "available": true,
+      "deviceHealth": "ok",
+      "ownership": "vitrea"
+    },
+    "rendererActive": true,
+    "adapter": {
+      "ok": true,
+      "vendor": "apple",
+      "architecture": "metal-3",
+      "device": "",
+      "description": "",
+      "isFallback": false
+    },
+    "canvasColorSpace": "srgb",
+    "canvasColorSpaceNote": "read back from the configured canvas context.",
+    "diagnostics": [],
+    "problems": []
+  }
+}

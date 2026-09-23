@@ -1,0 +1,224 @@
+{
+  "capturedAt": "2026-09-23T18:42:13.481Z",
+  "requestedRenderer": "webgpu",
+  "colorScheme": "dark",
+  "accessibility": null,
+  "materialProfile": null,
+  "recededProfile": null,
+  "fallback": null,
+  "problems": [],
+  "page": {
+    "sceneId": "magenta__circular-120__inactive",
+    "requestedRenderer": "webgpu",
+    "requestedScale": 2,
+    "requestedBackdropMode": "texture",
+    "requestedBackdropLevel": null,
+    "devicePixelRatio": 2,
+    "frames": 8,
+    "canvas": {
+      "width": 320,
+      "height": 200
+    },
+    "pixelSize": [
+      640,
+      400
+    ],
+    "background": {
+      "id": "magenta",
+      "url": "/reference-fixtures/backgrounds/magenta@2x.png",
+      "naturalWidth": 640,
+      "naturalHeight": 400
+    },
+    "pressed": false,
+    "tint": null,
+    "materialProfile": null,
+    "recededMaterialProfile": {
+      "backdropToneAbscissa": {
+        "kind": "silhouette"
+      },
+      "tintChromaScale": 0,
+      "tintShadeCollapseRetention": 1,
+      "tintShadeStrength": 1,
+      "optics": {
+        "regular": {
+          "rimAlpha": 0,
+          "rimLevelGain": 0,
+          "shadowAlpha": 0,
+          "tintAlpha": 0.89
+        },
+        "clear": {
+          "rimAlpha": 0,
+          "rimLevelGain": 0,
+          "shadowAlpha": 0
+        }
+      },
+      "rimCollapsed": 0,
+      "rimCollapsedTinted": 0,
+      "outerShadow": {
+        "thinOcclusionDark": 0,
+        "thinOcclusionMid": 0,
+        "thinOcclusionBright": 0,
+        "thickOcclusionAt96": 0,
+        "thickOcclusionAt128": 0,
+        "thickOcclusionAt160": 0,
+        "liftAmplitude": 0,
+        "reducedTransparencyOcclusion": 0
+      },
+      "sizeScatterRampStartThick1x": 0.3,
+      "sizeScatterRampStartThick2x": 0.04,
+      "sizeScatterRampStartFar2x": 0.04,
+      "sizeHeavyTapSigma2x": 14,
+      "tintShadeDark": 0.0202,
+      "tintShadeLight": 1.46,
+      "sizeScatterRampStartThin1x": 1,
+      "sizeScatterRampStartThin2x": 1,
+      "sizeScatterHeavyShareThick1x": 0.25,
+      "backdropToneAnchorX": [
+        0.004,
+        0.11,
+        0.47,
+        0.95
+      ],
+      "backdropToneResponseThin": [
+        0,
+        0.0187,
+        0.192,
+        0.448
+      ],
+      "backdropToneResponseThick": [
+        0,
+        0.0155,
+        0.164,
+        0.186
+      ],
+      "bodyChromaRetention": 0.142
+    },
+    "candidateRecededMaterialProfile": null,
+    "windowActivation": "inactive",
+    "colorScheme": "dark",
+    "material": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5-receded",
+      "resolvedMaterialSha256": "6b6237b7ae241638",
+      "tuned": false
+    },
+    "cssTierMapping": null,
+    "transparentPage": false,
+    "accessibilityOverrides": null,
+    "accessibilityPolicy": {
+      "reducedTransparency": false,
+      "reducedMotion": false,
+      "increasedContrast": false,
+      "forcedColors": false,
+      "material": {
+        "glass": "material",
+        "colorSource": "material",
+        "frost": "nominal",
+        "refraction": "nominal",
+        "occlusion": "nominal",
+        "border": "nominal",
+        "ambientTint": "nominal",
+        "foreground": "adaptive"
+      },
+      "motion": {
+        "overshoot": "elastic",
+        "deformation": "nominal",
+        "shimmer": "travel",
+        "morph": "elastic",
+        "crossfade": "never",
+        "positionalContinuity": true
+      }
+    },
+    "groups": [
+      {
+        "id": "component",
+        "configuredSource": "texture",
+        "state": {
+          "configuredSource": "texture",
+          "activeRenderer": "webgpu",
+          "samplingBackend": "gpu-texture",
+          "refraction": "true",
+          "analysis": "exact",
+          "health": "ok",
+          "materialDocument": {
+            "name": "apple-macos-27.0-glass0.5",
+            "platform": "macOS 27.0",
+            "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5-receded",
+            "resolvedMaterialSha256": "6b6237b7ae241638",
+            "tuned": false
+          },
+          "backdropToneAbscissae": [
+            {
+              "surfaceId": "body",
+              "sourceWidth": 640,
+              "sourceHeight": 400,
+              "sampledWidth": 640,
+              "sampledHeight": 400,
+              "kind": "silhouette",
+              "level": 0,
+              "color": [
+                0.52685546875,
+                0.014442444778978825,
+                0.52685546875
+              ],
+              "luminance": 0.07530347257852554,
+              "encodedLuminance": 0.304135799407959,
+              "linearLuminance": 0.16037766635417938,
+              "sampleCount": 19468
+            }
+          ]
+        },
+        "probeVerdict": "pass",
+        "unsampledMaterial": null,
+        "backdropTone": {
+          "level": 0.1604526247406475,
+          "linearLuminance": 0.1604526247406763,
+          "rgb": [
+            0.5271151257048976,
+            0.014443843596087042,
+            0.5271151257048976
+          ]
+        }
+      }
+    ],
+    "surfaces": [
+      {
+        "nodeId": "body",
+        "groupId": "component",
+        "plane": "base",
+        "family": "capsule",
+        "radius": 22,
+        "bounds": {
+          "x": 100,
+          "y": 78,
+          "width": 120,
+          "height": 44
+        },
+        "refraction": {
+          "state": "true",
+          "accessibilityCap": "true",
+          "effective": "true"
+        }
+      }
+    ],
+    "webgpu": {
+      "available": true,
+      "deviceHealth": "ok",
+      "ownership": "vitrea"
+    },
+    "rendererActive": true,
+    "adapter": {
+      "ok": true,
+      "vendor": "apple",
+      "architecture": "metal-3",
+      "device": "",
+      "description": "",
+      "isFallback": false
+    },
+    "canvasColorSpace": "srgb",
+    "canvasColorSpaceNote": "read back from the configured canvas context.",
+    "diagnostics": [],
+    "problems": []
+  }
+}
