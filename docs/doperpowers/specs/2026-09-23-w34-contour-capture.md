@@ -531,7 +531,7 @@ grant; G2 needs neither.
 | --- | --- |
 | G0 | DELIVERED for independent review — phase grid unreachable, 148 cells/pass declared, side active and canonical pixel check positive; DL1 ruling and review/merge pending (§5.174). Original grant recovery deferred by DL4 **MERGED 2026-09-23 as `d2201845`; Decision Log 1 ruled at the merge.** |
 | G1 | DELIVERED 2026-09-24 for parent review/merge — all 40 runs admitted, 592/592 cells published, separate bars and archive-only replay complete (§5.175); G2 not opened **MERGED 2026-09-24 as `7c5c71c3`** (§5.175; independent review with no material finding). |
-| G2 | DELIVERED, §5.176 — no point-closed law; boundary-body counterexample and qualification recorded; once-only receipt complete; web bed captured. Parent review and DL2 ruling pending. Evidence directory is dated 2026-09-24. |
+| G2 | DELIVERED, §5.176 — no point-closed law; boundary-body counterexample and qualification recorded; once-only receipt complete; web bed captured. Parent review and DL2 ruling pending. Evidence directory is dated 2026-09-24. **MERGED 2026-09-24 as `5e807599`** (§5.176; review closure `053bb29e`–`81ad53c7`; Decision Log 2 put to the user). |
 | G3 | CONDITIONAL on Decision Log 2 |
 
 ## Decision Log
@@ -654,6 +654,17 @@ G1 exclusivity remains the parent's decision. Subsequent reads currently report 
 
 ## Revision Notes
 
+- 2026-09-24 (the parent, G2's merge): G2 merged to main as `5e807599` with `--no-ff` after an
+  independent review (astra, high) that reproduced fits and minimax optima, found the negative
+  sound in its scope and three evidence defects, all closed on the branch with red-then-green
+  tests and the corrections beside the recorded values; `freeze.py verify` 1,818. **Routing
+  deviation, recorded:** the review fix wave began on `astra-high` and was cut off by the Codex
+  accounts' usage limit after committing the code corrections; a `sol-xhigh` continuation was
+  refused by the same limit before it started; the closing (recording the re-derived readings and
+  committing them) ran on the default Claude worker, against the user's routing note of
+  2026-09-22, because nothing else was available and the work was bounded and fully specified.
+  Decision Log 2 is put to the user with G2's draft; Decision Log 4's restoration of the original
+  bundle's grant is the wave-close action that follows the ruling.
 - 2026-09-24 (the parent, G1's merge): G1 merged to main as `7c5c71c3` with `--no-ff` after an
   independent review (astra, high) that re-derived every published hash, plurality, attestation
   and bar and found no material finding; `freeze.py verify` 1,818; the bed of 592 cells and the
