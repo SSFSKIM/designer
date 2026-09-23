@@ -320,9 +320,14 @@ the gradient cells separating local colour from angle, the two-term even law wit
 identifiable on exact arcs, and per-pose and per-scheme coefficients. Closure by clause 6's absolute
 test on validation; the holdout once; "insufficient resolution" and "effective rendered contour
 response" as admissible outcomes. The vitrea side of the glass scenes is rendered through
-`compare.ts --set probe` under `VITREA_SCENES` / `VITREA_FIXTURES` (the adapters G0 lands) so the
+`wave.py plan --roles calibration,validation --execute`, with the explicit fixture, matrix
+and capture roots documented in G0’s evidence README and its glass-only scene allowlist so the
 residual is read against what vitrea draws today as well as against zero; the native-only controls
 are not rendered.
+
+**2026-09-23 G0 review correction:** the guarded launcher replaces the former bare probe-set
+invocation here. Identification roles, not the native fixture role, control selection;
+holdout selection belongs to the once-only receipt and its authorised launcher call.
 
 ## Children
 
@@ -388,13 +393,18 @@ receipt** — its own persistent log and a configuration digest over the scenes-
 hashes, the evidence generation, the instrument and closure declaration, and the committed
 candidate families with their coefficients, recorded before the payload is opened, authorised
 once, with a failed attempt recorded and a changed candidate after exposure or a second read
-refused (tests pin both) — the canonical `configuration.py` untouched and reserved for G3; vitrea's render of the same scenes through `compare.ts --set probe` into
-the wave's own matrix (`--out-matrix`), X6's four facts before every browser run; the residual
+refused (tests pin both) — the canonical `configuration.py` untouched and reserved for G3;
+vitrea's render of the same scenes through the guarded `wave.py` launcher into the wave's
+own matrix (`--out-matrix`), X6's four facts before every browser run; the residual
 tables against zero and against vitrea; a Decision Log 2 draft for the user with the closure or the
 negative, the families excluded and the resolution reached. Acceptance: every family's residual per
 bin beside the bar; the split honoured (holdout read once); no material, document, threshold or
 canonical row changed. Stop conditions: a holdout read before the calibration fit is committed; a
 closure claimed against anything but the published bar.
+
+**2026-09-23 G0 review correction:** this G2 contract also replaces the former bare probe-set
+invocation with G0’s role-aware launcher. The receipt freezes all permitted inventory hashes
+before exposure; repeat and materialized archives must each be named if both will be read.
 
 ### G3 (conditional on Decision Log 2 finding a law): The leaf, the seal, the read, the landing
 
@@ -659,3 +669,11 @@ G1 exclusivity remains the parent's decision. Subsequent reads currently report 
   contrast, three pitches, the display colour context attested. Sent to a second round on the folds.
 - 2026-09-23 (the parent): v1 chartered from the grounding above; sent to adversarial review before
   G0 opens.
+
+- 2026-09-23 (G0 independent-review fix wave, §5.174 §14): reject symlinked build descendants
+  before writes and prove binary neutrality by the fresh verification build's matching cdhash;
+  bind every holdout reader to the receipt's frozen inventory-hash manifest; implement the
+  declared gradient prediction range rather than deviation from the full fit. Regression
+  tests reproduced all three defects before the fixes. The two operational bare-probe
+  instructions above now name the guarded launcher. No closure declaration number changed;
+  the full 148-cell recommendation and pending DL1 are unchanged.

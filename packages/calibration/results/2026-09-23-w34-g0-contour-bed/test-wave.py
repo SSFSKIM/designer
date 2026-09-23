@@ -116,10 +116,34 @@ class WaveBoundary(unittest.TestCase):
         with self.assertRaises(PermissionError):reader.read('profile/held','png')
         self.assertNotIn('TOP_SECRET',json.dumps(reader.report_inventory()))
 
+    def test_receipt_refuses_another_inventory_under_the_same_declaration(self):
+        wave=self.wave()
+        other=json.loads((self.root/'inventory.json').read_text())
+        other['generationNote']='another generation with the same scenes and split'
+        self.put('other/inventory.json',other)
+        config={'scenes':wave.scenes_sha,'split':wave.split_sha,
+                'generation':[sha(self.root/'inventory.json')],
+                'instrument':'i','closure':'c','candidate':'candidate'}
+        with self.mod.Receipt(self.root/'generation-receipt.jsonl',config).expose() as token:
+            reader=wave.reader(self.root,roles=['holdout'],authorization=token)
+            self.assertEqual(json.loads(reader.read('profile/held','statistics')),{'secret':'held'})
+            with self.assertRaisesRegex(PermissionError,'generation'):
+                wave.reader(self.root/'other',roles=['holdout'],authorization=token)
+        # A repeat archive and a materialized archive may be frozen together;
+        # only the explicitly named inventory hashes become readable.
+        config['generation'].append(sha(self.root/'other/inventory.json'))
+        for kind in ['png','crop','statistics']:
+            self.put('other/holdout/held.'+kind,{'secret':'held'})
+        with self.mod.Receipt(self.root/'two-inventory-receipt.jsonl',config).expose() as token:
+            for root in [self.root,self.root/'other']:
+                reader=wave.reader(root,roles=['holdout'],authorization=token)
+                self.assertEqual(json.loads(reader.read('profile/held','statistics')),{'secret':'held'})
+
+
     def test_receipt_spends_attempt_before_payload_and_refuses_changed_candidate(self):
         wave=self.wave(); log=self.root/'receipt.jsonl'
         config={'scenes':self.pins['scenesSha256'],'split':self.pins['splitSha256'],
-                'generation':'evidence-a','instrument':'instrument-a','closure':'closure-a',
+                'generation':[sha(self.root/'inventory.json')],'instrument':'instrument-a','closure':'closure-a',
                 'candidate':{'family':'affine','coefficients':[1,2]}}
         receipt=self.mod.Receipt(log,config)
         with self.assertRaisesRegex(RuntimeError,'intentional'):

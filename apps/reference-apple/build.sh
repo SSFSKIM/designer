@@ -59,6 +59,24 @@ if [ ! -d "$SDK" ]; then
   exit 1
 fi
 
+# The output root can be innocent while an existing bundle (or a child that
+# codesign visits) redirects a write elsewhere. This generated bundle needs no
+# symlinked children: refuse them before the first mkdir, plist or compiler write.
+# OUT/harness is our convenience link and is deliberately outside this check.
+python3 - "$OUT/VitreaReference.app" <<'PYGUARD'
+import os
+from pathlib import Path
+import sys
+app = Path(sys.argv[1])
+if app.is_symlink():
+    raise SystemExit(f"REFUSED: symlinked bundle destination {app}")
+for root, dirs, files in os.walk(app, followlinks=False):
+    for name in dirs + files:
+        path = Path(root) / name
+        if path.is_symlink():
+            raise SystemExit(f"REFUSED: symlinked bundle descendant {path}")
+PYGUARD
+
 mkdir -p "$OUT"
 
 # An .app bundle, not a bare executable. Screen Recording (TCC) is granted per

@@ -35923,3 +35923,51 @@ the earlier outage, and the standing companion-first GUI rule applies again; no 
 permission action was needed. The full seven-run G1 archive/materialization pipeline has
 not run on the real bed: its gates and publication boundaries are tested, not its future
 G1 outcome. Independent review and DL1 remain pending.
+
+### 14. G0 independent-review fix wave (2026-09-23)
+
+The independent review accepted the declaration, split, audit, price, archive, once-only
+spending, sitting and records, and recommended the full 148-cell bed. It reproduced three
+blocking defects. Each now has a regression observed failing before its implementation fix;
+`review-*-red*.txt` and `review-*-green.txt` retain both outcomes.
+
+1. **Protected build descendants.** Resolving only the output root left a symlinked app,
+   Contents, MacOS directory, plist or executable able to redirect writes into either protected
+   bundle. `build.sh` now rejects symlinks throughout the destination app before its first write.
+   Stubbed tests cover all five placements against both `build/` and `build-probe/`, without
+   compiling or signing any real protected bundle. A fresh build into
+   `~/vitrea-w34/verify-guard`, identifier `dev.vitrea.reference-apple.w34`, reproduced cdhash
+   **830a00c6ff7b9ff74898c745e30e9335e31488a5**, exactly the pinned side cdhash.
+   `bundle-pin.json` records both, the verification binary hash and the guard script hash.
+   The side was neither rebuilt nor granted again; the verification bundle was never launched
+   or granted. The guard's binary neutrality is measured rather than inferred.
+2. **Receipt generation binding.** A declaration match formerly let one receipt read another
+   inventory generation. The receipt now freezes a sorted manifest of permitted inventory
+   SHA-256 hashes; repeat `--inventory` to name the repeat and materialized archives together.
+   Reader construction checks the hash of the exact inventory bytes it parses, and every
+   holdout payload read rechecks that generation with the active token. The negative test
+   refuses inventory B under A's receipt despite equal scene/split pins; its positive companion
+   admits both only when both hashes were frozen. No real receipt was spent.
+3. **Gradient boundary envelope.** The implementation measured omitted-quadrant predictions
+   against the full fit, understating the declaration when they straddled it. It now takes the
+   per-pixel, per-channel range across the four predictions, maximizes over boundary pixels,
+   then adds the interior residual and half-code term. The curved-body synthetic regression
+   records the old **14.14418257235846** and corrected **18.659485249792155** codes per channel
+   beside each other in `review-closure-check.json`. These are synthetic, not rewritten native
+   readings. **No number or byte in `closure.json` moved:** its formula was already correct.
+   Re-derived populations and resolution alternatives equal the original declaration proof.
+
+The two operational bare-probe invocations in the charter are replaced by the guarded launcher,
+with dated corrections beside them. The sweep of this section found only its existing explicit
+prohibition; the tracker contains no bare-probe invocation to correct. Its contour follow-up
+still describes the measured gaps and its grant entry still requires wave-close recovery.
+The charter's v3 history retains the old invocation as the example of why it is unsafe, not
+as an instruction. The evidence README now shows both inventory arguments before exposure.
+
+Closing fix-wave checks: **658 calibration tests passed, 1 skipped, 44 files**; ESLint and all
+four TypeScript checks passed; build-guard suite passed (including ten descendant placements),
+wave boundary suite **6/6**, numeric instrument suite **9/9**; freeze **1,818** intact.
+`review-archive-only-replay.json` reproduces all **12 cells / 42 observations** with raw-root
+access forbidden. The archive's native repeats are solid/checkerboard cells, so the corrected
+gradient baseline changes none of those recorded outputs. No native capture, browser run,
+TCC change, side rebuild, canonical evidence change or closure-number re-pin occurred.

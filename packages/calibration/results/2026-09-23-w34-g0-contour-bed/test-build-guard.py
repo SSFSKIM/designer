@@ -40,6 +40,27 @@ class BuildGuard(unittest.TestCase):
                                        capture_output=True,text=True)
                     self.assertNotEqual(p.returncode, 0, str(out))
                     self.assertFalse((root/'compiler-called').exists(), str(out))
+                target = protected/'VitreaReference.app'
+                (target/'Contents/MacOS').mkdir(parents=True)
+                for descendant in ['', 'Contents', 'Contents/MacOS', 'Contents/Info.plist',
+                                   'Contents/MacOS/VitreaReference']:
+                    with self.subTest(protected=name, descendant=descendant):
+                        (root/'compiler-called').unlink(missing_ok=True)
+                        external = root/(name+'-external-'+descendant.replace('/', '-'))
+                        link = external/'VitreaReference.app'/descendant
+                        link.parent.mkdir(parents=True, exist_ok=True)
+                        destination = target/descendant
+                        if descendant.endswith(('Info.plist', 'MacOS/VitreaReference')):
+                            destination.write_text('PROTECTED SENTINEL')
+                        link.symlink_to(destination)
+                        p = subprocess.run(['bash', str(script)],
+                            env={**env, 'VITREA_BUILD_OUT':str(external)},
+                            capture_output=True, text=True)
+                        self.assertNotEqual(p.returncode, 0, descendant)
+                        self.assertFalse((root/'compiler-called').exists())
+                        if destination.is_file():
+                            self.assertEqual(destination.read_text(), 'PROTECTED SENTINEL')
+                (root/'compiler-called').unlink(missing_ok=True)
             out = root / 'side'
             p = subprocess.run(['bash', str(script)], env={**env,'VITREA_BUILD_OUT':str(out),
                                'VITREA_BUNDLE_ID':'dev.vitrea.reference-apple.w34','SIGN_EXIT':'1'},

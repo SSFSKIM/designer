@@ -1,0 +1,14 @@
+...F..
+======================================================================
+FAIL: test_receipt_refuses_another_inventory_under_the_same_declaration (__main__.WaveBoundary.test_receipt_refuses_another_inventory_under_the_same_declaration)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/Developer/GitHub/designer/.claude/worktrees/w34-g0-contour-bed/packages/calibration/results/2026-09-23-w34-g0-contour-bed/test-wave.py", line 130, in test_receipt_refuses_another_inventory_under_the_same_declaration
+    with self.assertRaisesRegex(PermissionError,'generation'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: PermissionError not raised
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.032s
+
+FAILED (failures=1)

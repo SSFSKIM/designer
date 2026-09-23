@@ -9,7 +9,10 @@ G1 does not open until the parent rules Decision Log 1 and the declaration is re
 Use the existing side binary at `~/vitrea-w34/side/VitreaReference.app`, not `capture.sh`.
 `bundle-pin.json` names its binary hash, cdhash and Swift build-input revision. Any rebuild
 requires a new grant and a fresh positive check. The later case-insensitive build-output guard
-changes no compiler input, compiler flag, bundle identifier or binary byte.
+changes no compiler input, compiler flag, bundle identifier or binary byte. The review fix
+also rejects a symlinked app or descendant before any write. A fresh, ungranted build under
+`~/vitrea-w34/verify-guard` reproduced the pinned cdhash; `bundle-pin.json` records both.
+Neither verification nor the guard fix rebuilt the granted side bundle.
 
 The binary's compiled `#filePath` root is the G0 worktree. Removing the worktree removes that
 fallback source/spec/fixture location, **not** the external binary or its TCC identity. Every
@@ -131,8 +134,14 @@ Commit the G2 candidate families/coefficients and the analysis runner before exp
 
 ```bash
 python3.12 "$E/wave.py" expose --inventory "$G1/repeat/inventory.json" \
+  --inventory "$G1/probe/inventory.json" \
   --candidate "$G2/candidates.json" --runner "$G2/read-holdout.py"
 ```
+
+Repeat `--inventory` for every evidence archive that the one exposure may read. The receipt
+freezes their SHA-256 hashes as a sorted manifest; a reader checks its exact inventory hash
+before any holdout payload access. Matching scenes/split pins alone do not authorise another
+generation. Both the repeat and materialized archives above are named before exposure.
 
 The runner receives `W34_WAVE` and `W34_AUTHORIZATION` globals. It obtains a reader with
 `roles=["holdout"], authorization=W34_AUTHORIZATION`; the same token authorises

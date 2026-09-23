@@ -3,5 +3,17 @@
   "binarySha256": "9c6167b853b8f3d33074c4edc2f851c0f663e7293b2f423c4bb88496048551f1",
   "cdhash": "830a00c6ff7b9ff74898c745e30e9335e31488a5",
   "buildInputRevision": "6ebffcfc",
-  "rebuildRequires": "new grant and fresh positive check; never rebuild the protected original"
+  "rebuildRequires": "new grant and fresh positive check; never rebuild the protected original",
+  "guardVerification": {
+    "at": "2026-09-23T03:22:29.886374+00:00",
+    "path": "/Users/new/vitrea-w34/verify-guard/VitreaReference.app",
+    "identifier": "dev.vitrea.reference-apple.w34",
+    "pinnedCdhash": "830a00c6ff7b9ff74898c745e30e9335e31488a5",
+    "builtCdhash": "830a00c6ff7b9ff74898c745e30e9335e31488a5",
+    "binarySha256": "9c6167b853b8f3d33074c4edc2f851c0f663e7293b2f423c4bb88496048551f1",
+    "buildScriptSha256": "ca68245d423eca1a6e1c7913d5c190f9f2dcf3c39916fea22586bcfff2a48322",
+    "matchesPin": true,
+    "sideBinarySha256": "9c6167b853b8f3d33074c4edc2f851c0f663e7293b2f423c4bb88496048551f1",
+    "scope": "Fresh ungranted build only; no side rebuild, launch, capture or TCC change."
+  }
 }

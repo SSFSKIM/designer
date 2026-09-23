@@ -190,7 +190,9 @@ def body_baseline(rgb,d,kind):
             kept=domain&~(((x-w/2)*sx>=0)&((y-h/2)*sy>=0))
             fit=np.linalg.lstsq(design[kept],rgb[kept],rcond=None)[0]
             alternatives.append(np.clip(design[boundary]@fit,0,255))
-        uncertainty=np.max(np.abs(np.asarray(alternatives)-prediction[boundary]),axis=(0,1))
+        # The declared envelope is between omitted-quadrant predictions, not
+        # their distances from the full-data fit (which can lie between them).
+        uncertainty=np.max(np.ptp(np.asarray(alternatives),axis=0),axis=0)
         uncertainty+=np.max(np.abs(rgb[domain]-prediction[domain]),axis=0)+.5
         result.update(coefficients=coef.tolist(),uncertaintyRGB=uncertainty.tolist(),
                       outcome='affine interior extrapolation, boundary envelope qualified')

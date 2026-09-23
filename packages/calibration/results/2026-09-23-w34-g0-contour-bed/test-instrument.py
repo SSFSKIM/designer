@@ -56,6 +56,26 @@ class Instrument(unittest.TestCase):
         self.assertEqual(result.get('translationDevicePx'),[0,0])
         self.assertIsNone(result['physicalContourUncertaintyDevicePx'])
 
+    def test_gradient_envelope_spans_opposite_omitted_quadrant_predictions(self):
+        component=I.synthetic_payload()['component']
+        d,*_=I.geometry(320,200,component,1)
+        y,x=np.mgrid[:200,:320]
+        u=(x-160)/60;v=(y-100)/22
+        rgb=np.repeat((100+5*u+3*v+12*u*v)[...,None],3,axis=2)
+        domain=d<=-6;boundary=np.abs(d)<4
+        design=np.stack([np.ones_like(x),x/320-.5,y/200-.5],axis=2)
+        full=design@np.linalg.lstsq(design[domain],rgb[domain],rcond=None)[0]
+        predictions=[]
+        for sx,sy in [(1,1),(1,-1),(-1,1),(-1,-1)]:
+            kept=domain&~(((x-160)*sx>=0)&((y-100)*sy>=0))
+            predictions.append(design[boundary]@np.linalg.lstsq(design[kept],rgb[kept],rcond=None)[0])
+        predictions=np.array(predictions)
+        self.assertTrue(np.any((predictions.min(axis=0)<full[boundary]) &
+                               (predictions.max(axis=0)>full[boundary])))
+        declared=np.max(predictions.max(axis=0)-predictions.min(axis=0),axis=0)
+        declared+=np.max(np.abs(rgb[domain]-full[domain]),axis=0)+.5
+        np.testing.assert_allclose(I.body_baseline(rgb,d,'linear-gradient')['uncertaintyRGB'],declared)
+
     def test_forward_composes_body_and_stroke_before_pixel_reduction(self):
         payload=I.synthetic_payload();component=payload['component']
         bg=lambda u,v:np.tile([128,128,128],(len(u),1))

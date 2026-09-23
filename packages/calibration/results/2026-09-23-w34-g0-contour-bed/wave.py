@@ -80,7 +80,10 @@ class Reader:
         self.wave, self.root = wave, Path(root).resolve()
         self.allowed = set(wave.select(roles, authorization))
         self.authorization = authorization
-        inventory = json.loads((self.root/'inventory.json').read_text())
+        raw_inventory = (self.root/'inventory.json').read_bytes()
+        self.generation = hashlib.sha256(raw_inventory).hexdigest()
+        if 'holdout' in roles: authorization.check(wave, self.generation)
+        inventory = json.loads(raw_inventory)
         if inventory.get('scenesSha256') != wave.scenes_sha or inventory.get('splitSha256') != wave.split_sha:
             raise ValueError('evidence generation does not name this pinned declaration')
         self.entries = {}
@@ -100,7 +103,7 @@ class Reader:
         sid = cell.split('/',1)[1]
         if sid not in self.allowed:
             raise PermissionError(self.wave.roles[sid]+' payload is outside authorised identification roles')
-        if self.wave.roles[sid] == 'holdout': self.authorization.check(self.wave)
+        if self.wave.roles[sid] == 'holdout': self.authorization.check(self.wave, self.generation)
         row = self.entries[(cell,kind)]
         path = (self.root/row['path']).resolve()
         if self.root not in path.parents: raise ValueError('payload escaped evidence root')
@@ -117,10 +120,12 @@ class _Authorization:
     def __init__(self, configuration):
         self.configuration, self.active = configuration, True
 
-    def check(self, wave):
+    def check(self, wave, generation=None):
         if not self.active: raise PermissionError('inactive exposure receipt')
         if self.configuration['scenes'] != wave.scenes_sha or self.configuration['split'] != wave.split_sha:
             raise PermissionError('receipt does not authorise this declaration')
+        if generation is not None and generation not in self.configuration['generation']:
+            raise PermissionError('receipt does not authorise this evidence generation')
 
 
 class Receipt:
@@ -128,6 +133,11 @@ class Receipt:
         self.log, self.configuration = Path(log), configuration
         if not {'scenes','split','generation','instrument','closure','candidate'} <= set(configuration):
             raise ValueError('incomplete identification configuration')
+        generations = configuration['generation']
+        if not isinstance(generations, list) or not generations or any(
+                not isinstance(g, str) or len(g) != 64 or any(c not in '0123456789abcdef' for c in g)
+                for g in generations):
+            raise ValueError('generation must freeze the permitted inventory SHA-256 hashes')
         self.sha = hashlib.sha256(stable(configuration).encode()).hexdigest()
 
     def append(self,event):
@@ -169,10 +179,10 @@ def committed(path):
     return hashlib.sha256(saved).hexdigest()
 
 
-def configuration(wave, inventory, candidate, runner):
+def configuration(wave, inventories, candidate, runner):
     # Exact committed inputs, not today's shipped material: the canonical G3
     # holdout recorder intentionally remains untouched.
-    return dict(scenes=wave.scenes_sha,split=wave.split_sha,generation=digest(inventory),
+    return dict(scenes=wave.scenes_sha,split=wave.split_sha,generation=sorted({digest(p) for p in inventories}),
                 instrument={str(p.relative_to(ROOT)):committed(p) for p in
                     [HERE/'instrument.py',HERE/'archive.py',HERE/'wave.py',Path(runner).resolve()]},
                 closure=committed(HERE/'closure.json'),
@@ -190,7 +200,7 @@ def main():
     plan.add_argument('--fixtures',type=Path,required=True);plan.add_argument('--out-matrix',type=Path,required=True)
     plan.add_argument('--captures',type=Path,required=True);plan.add_argument('--execute',action='store_true')
     report=sub.add_parser('inventory');report.add_argument('root',type=Path)
-    expose=sub.add_parser('expose');expose.add_argument('--inventory',type=Path,required=True)
+    expose=sub.add_parser('expose');expose.add_argument('--inventory',type=Path,action='append',required=True)
     expose.add_argument('--candidate',type=Path,required=True);expose.add_argument('--runner',type=Path,required=True)
     args=ap.parse_args();wave=default_wave()
     if args.action=='inventory': print(json.dumps(wave.reader(args.root).report_inventory(),indent=2))
