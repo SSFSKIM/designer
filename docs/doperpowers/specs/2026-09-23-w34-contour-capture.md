@@ -505,7 +505,7 @@ grant; G2 needs neither.
 
 | child | status |
 | --- | --- |
-| G0 | CHARTERED |
+| G0 | OPEN — controls built; grant-before positive, side SCK positive but active pose failed, original grant-after TCC denied; user recovery pending (§5.174) |
 | G1 | CHARTERED, opens after G0's merge |
 | G2 | CHARTERED, opens after G1's merge |
 | G3 | CONDITIONAL on Decision Log 2 |
@@ -529,11 +529,25 @@ Open. W33 G0's forms table stands: no compositing form both reproduces Apple's b
 
 ## Surprises & Discoveries
 
+- **G0 grant-after refused despite distinct bundle identifiers** (2026-09-23, §5.174).
+  The original captured before; the side captured after the user's grant; the original then
+  returned TCC denial without a manifest. Both binary identities are unchanged. The side's
+  capture was repeat-stable but not actively presented, so it is not an admitted active
+  baseline. The UI/TCC mechanism is not identified. Recovery through the user's hand and
+  positive checks of both bundles remain pending; no rebuild or further grant change occurred.
+
 - **The parent found 53 leftover agent worktrees under `.claude/worktrees/` (31 GB)** from merged
   waves W12–W28 while grounding this charter, two of them carrying only a stray
   `tsconfig.stripped-dts.json`; all were removed and pruned on 2026-09-23. Their branches remain.
 
 ## Revision Notes
+
+- 2026-09-23 (G0 checkpoint, §5.174): native controls, supplied-path export, protected build
+  guard and calibration adapters built and tested. The user allowed the foreign browser to
+  remain during G0 with opening/closing process counts and repeat failures preserved; this is
+  not a G0 exclusivity stop. Companion credits exhausted before GUI action, so the user granted
+  the side and owns subsequent toggles through the parent. Original grant-after denied; G0
+  stops for recovery. No bed/split, instrument/bar or G1 permission is implied by this checkpoint.
 
 - 2026-09-23 (the parent, v3): the second round attacked the folds and found six of nine sound as
   written, one sound operationally (the cdhash pin, with "final commit" read as the last accepted

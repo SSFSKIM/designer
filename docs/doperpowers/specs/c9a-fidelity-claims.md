@@ -35597,3 +35597,95 @@ pair `b2b570e4adcea8fb` / `874be66ea501621b`, `liftAmplitude: 0` on the macOS 27
 303,207 B web bundle, and the three published tarballs at **583,802 / 568,292 / 188,179 B, the
 rehearsal's sizes byte for byte**. The "independent review pending, unpublished" at this section's
 head is the state at G2's close and is kept as written.
+
+## 5.174 W34 G0: native controls built; the original grant needs recovery (2026-09-23)
+
+**OPEN, stopped at the grant-after check; no contour bed or bar is declared yet.** W34
+clauses 2–3 and 5, X3–X5 and X14. Branch `w34-g0-contour-bed`, from `ff6c78b2`;
+evidence `packages/calibration/results/2026-09-23-w34-g0-contour-bed/`. Raw scratch pixels
+stay under `~/vitrea-w34/scratch/`; no canonical scene, fixture, profile, matrix, adopted
+threshold, golden or protected build changed.
+
+### 1. The machine and the foreign-process ruling
+
+Opening read: macOS **27.0 / 26A428**, Reduce Transparency **0**, Increase Contrast **0**,
+`NSGlassTintAmount` **0.5**, Show Borders **0**; display persistent id
+`7709FD0F-F423-4277-B0C8-7CA94F85723A`, mode **68** current, **69** available. No display
+switch has occurred. Toolchain: Xcode **26.6**, Swift **6.3.3**, SDK **26.5**.
+
+The first read found ten foreign Playwright/Chrome processes. **The user ruled “Proceed;
+record it as foreign”: the browser stays, G0 records the count and PIDs at both ends of
+each scratch capture, and repeat failures are retained, not retried away.** Exclusivity is
+not a G0 stop condition; the parent settles G1's sitting separately. The original pause
+and the continuation ruling remain beside each other in `pause.json`. G0 neither closed
+nor controlled that browser. Grant-before reads ten matching processes at both ends;
+the later side and grant-after reads report **zero** at both ends, not an assumed ten.
+
+### 2. Three grant checks, with their different outcomes kept separate
+
+The protected binary still has SHA-256
+`bd3092e8d6d1f50ba43124adf42bed8a29e96646adb97bb3a538582653fda212`, designated cdhash
+`88cbbb5b2db0af50167c0d7004f3bd7d3ebe6427`, `LC_BUILD_VERSION` minos/sdk **26.0/26.0**,
+and its September 12 modification time. The final accepted Swift build-input revision is
+`6ebffcfc`. `build.sh` built the side at `~/vitrea-w34/side/VitreaReference.app`, identifier
+`dev.vitrea.reference-apple.w34`, cdhash **830a00c6ff7b9ff74898c745e30e9335e31488a5**,
+minos/sdk **26.0/26.0**. These are distinct identifiers and unchanged binaries.
+
+All three attempts name one `checkerboard__capsule-button__rest` cell under the macOS 27
+2x light key, use `open -W`, explicit scenes and fixture roots, six-second reset and the
+45-second HID idle gate. Every opening/closing machine read is committed.
+
+| attempt | SCK/material | active pose | immediate repeat | outcome |
+| --- | --- | --- | --- | --- |
+| original, before | rendered | true | deterministic, noise 0 | positive grant check |
+| side, after user grant | rendered | **false** | deterministic, noise 0 | grant available; **not an admitted active material cell** |
+| original, after | **TCC denied** | no fixture | no fixture | **no manifest published; recovery required** |
+
+Both successful captures are 640×400 at backing scale 2; display name and colour profile
+are `가상 16:9`, captured colour space `kCGColorSpaceSRGB`. The side's idle reads 57.5566 s
+at its cell. Its stable repeat does not cure its failed active-pose attestation; it must
+not become an active baseline or enter the future bar. The supplied path was written.
+
+The companion failed before GUI action because Codex credits were exhausted. The user
+then added the side bundle by hand and reported the existing row untouched. **After that,
+the original bundle was denied**, despite distinct identifiers. That is an observed
+sequence, not proof of TCC's internal key or of which UI row macOS replaced. G0 made no
+further GUI action, re-grant or rebuild. The recovery is the harness README's original-row
+remove-and-re-add recipe at its exact protected path, through the user's hand; fresh
+positive checks must then establish whether both grants coexist. The parent directs all
+remaining GUI toggles to the user while the companion is unavailable.
+
+### 3. Implemented and non-capturing checks
+
+The harness decodes explicit circular capsules, empty components, opaque single-shape
+controls, encoded-sRGB linear gradients and a coordinate-declared two-colour split. Opaque
+controls use a Boolean on the same shape spec, so their supplied geometry is the glass
+twin's rather than another family; they apply no glass effect. Per-fixture `suppliedPaths`
+exports CGPath elements in local CSS points plus canvas frame origins. It attests only the
+supplied path, not raster alignment or the material's coverage. `--initial-settle` exposes
+the initial material dwell for the future sentinel; the default remains 1.75 s.
+
+`build.sh` refuses protected build/build-probe outputs and their aliases, supports an
+explicit bundle identifier and fails on signing failure. Native-only controls are skipped
+before rendering or material/shape metrics. The runtime's capsule really is circular:
+`geometry/src/shape.ts` resolves it at smoothing zero. W34's circular kind therefore maps
+to a circular web stadium, not a continuous approximation; the existing continuous native
+capsule's older web mapping is left unchanged.
+
+Five new decoding checks failed before implementation. Side self-check passes the new
+kinds, path witness (default equals continuous and differs from circular), fractional
+origins, opaque path equality, serialization and hand-derived raster samples, plus the
+existing capture truth tables. Build-guard tests pass; two adapter tests pass; calibration
+lint passes. At this checkpoint the complete calibration suite is **649 passed, 1 skipped
+in 43 files**; freeze **1,818 intact**. A canonical `dump-layers` on the protected bundle
+completed without capturing pixels, proving canonical decoding; it does not prove pixel
+identity of the new side bundle. That comparison remains pending.
+
+### 4. What this checkpoint does not claim
+
+No fractional-phase measurement, rendered-path alignment, colour-management control,
+opaque-edge measurement, inactive-pose check or settle sentinel has run. No final bed,
+semantic-twin audit, split, count, price, instrument, resolution rule, repeat archive,
+access boundary, receipt or sitting script has been declared. No side-versus-committed
+pixel comparison is claimed. G0 is not closed or ready for review; the next step is the
+original grant's recovery, not G1's capture.

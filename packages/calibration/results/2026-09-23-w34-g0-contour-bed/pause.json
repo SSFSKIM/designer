@@ -29,6 +29,11 @@
       "recordedAt": "2026-09-23T01:02:22.432911+00:00",
       "ruling": "User chose Proceed; record it as foreign. The foreign Playwright session stays. G0 records opening/closing count and PIDs on every capture; repeat failures are retained, not retried away. Exclusivity is not a G0 stop condition; G1 exclusivity is for the parent to settle.",
       "next": "Resume prepared grant-before scratch capture, before any build or TCC change."
+    },
+    {
+      "ruling": "User granted side by hand. Companion out of credits; remaining GUI toggles go through parent to user, never companion.",
+      "result": "Side captures SCK with materialRendered true, deterministic true, repeatNoise 0, but presentedActive false. Original grant-after refuses TCC and writes no manifest. Both binary identities unchanged. Stop for original grant recovery; no re-grant or rebuild attempted.",
+      "recovery": "System Settings > Privacy & Security > Screen & System Audio Recording: remove the original harness row and use + to re-add /Users/new/Developer/GitHub/designer/apps/reference-apple/build/VitreaReference.app, enable it. Do not select build-probe. Original grant and side coexistence require fresh positive checks afterwards."
     }
   ]
 }
