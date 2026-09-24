@@ -37,12 +37,16 @@ def encode(v):
 
 def forward(body,d,scale,a=0,g=0,width=2,shadow_alpha=.05,shadow_depth=.35,
             shadow_reach=9.18125,ramp=0,ramp_reach=6,alpha=1,tone=0,coverage=1,lit=1,along=1):
-    """Sampled-texture branch at mat=present=1, no tint; ramp precedes shadow.
+    """Opaque, full-coverage sampled-texture branch at mat=present=1, no tint.
 
-    body and outputs before encoding are linear sRGB. Alpha is explicit for the
-    counterfactual but native identification nominates opaque A=1; final native
-    RGB cannot identify a translucent layer's unpremultiplied colour and alpha.
+    The ramp precedes shadow; body and the pre-rim field are linear sRGB. Alpha
+    and coverage must both be exactly one, as in every committed G0a check.
+    Fractional inputs are refused: the runtime encodes before premultiplication
+    and browser composition, which this branch does not model (§5.177 §10).
+    Final native RGB does not identify a translucent layer's colour and alpha.
     """
+    if not np.all(np.asarray(alpha)==1) or not np.all(np.asarray(coverage)==1):
+        raise ValueError('forward models the opaque full-coverage branch only')
     d=np.asarray(d,float)/scale;body=np.asarray(body,float)
     r=np.maximum(1-np.maximum(-d,0)/ramp_reach,0)**2*ramp
     c=body+r[...,None]

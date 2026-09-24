@@ -16,6 +16,20 @@ class Arithmetic(unittest.TestCase):
         self.assertAlmostEqual(out['level'][0],.2*k)
         self.assertAlmostEqual(out['linear'][0,0],.2*k+(1-.5/2)**2*(.1+.4*.2*k))
 
+    def test_forward_refuses_translucent_or_partial_coverage_inputs(self):
+        # The runtime encodes before coverage premultiplication. This helper
+        # models only the opaque, fully covered branch used by the frozen cut.
+        for options in [dict(alpha=.5), dict(coverage=.5),
+                        dict(alpha=np.array([1., .5])), dict(coverage=np.array([1., .5]))]:
+            with self.subTest(options=options):
+                with self.assertRaisesRegex(ValueError, 'opaque full-coverage'):
+                    forward(np.ones((2,3)),np.full(2,-.5),1,shadow_alpha=0,**options)
+
+    def test_opaque_full_coverage_still_encodes_white_as_255(self):
+        out=forward(np.ones((1,3)),np.array([-.5]),1,shadow_alpha=0,alpha=1,coverage=1)
+        np.testing.assert_array_equal(out['linear'],np.ones((1,3)))
+        np.testing.assert_allclose(out['encoded'],np.full((1,3),255),rtol=0,atol=1e-12)
+
     def test_recovery_discriminates_baseline_from_coefficient_change(self):
         b=np.repeat(np.array([.03,.12,.3,.55])[:,None],3,axis=1);d=np.full(4,-.5)
         options=dict(width=2,shadow_alpha=.1,shadow_depth=.35,shadow_reach=6)

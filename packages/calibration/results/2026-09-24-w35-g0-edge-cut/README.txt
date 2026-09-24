@@ -74,3 +74,12 @@ executable invocation". No native capture, build, open, TCC or grant operation r
 staged-diff-check.txt reports trailing whitespace in retained raw comparer/test
 logs. Those logs are not edited to make a whitespace check green. The authored
 Python/TypeScript/specification files have no whitespace warning.
+
+Independent-review correction (§5.177 §10)
+  edge.forward now refuses alpha or coverage other than1: its supported contract
+  is the opaque, fully covered sampled-texture branch used by every recorded check.
+  bounds-declaration-addendum.txt narrows the earlier wording beside the original
+  declaration and domain, whose bytes and SHA pins remain unchanged.
+  review-composition-before.txt records the old fractional-coverage counterexample.
+  review-composition-red.txt / review-composition-green.txt retain failing/passing
+  refusal regressions and the opaque-white and existing forward cases.

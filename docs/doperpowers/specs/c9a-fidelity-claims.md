@@ -36937,3 +36937,35 @@ permission. This worker stops at G0a.
 decoding/arithmetic self-check with a temporary fixture root, not a native capture or a GUI
 app-bundle launch. No `open`, capture command, build, TCC change or grant operation was made.
 The statement “no native capture” must not be expanded to “no native executable was invoked”.
+
+### 10. G0a independent-review correction: the helper is opaque and fully covered only
+
+The independent review reproduced the declaration order, all64 candidate hashes, the four
+headline misses, synthetic test, W29 estimator, level readings, M2 erosion, receded controls
+and identity calculation, and accepted G0a as a qualified negative. Its one bounded finding
+was an overbroad forward-helper contract, not a change to those measurements.
+
+**Correction beside §5's composition sentence.** `edge.forward` previously accepted arbitrary
+`alpha` and `coverage`, but composed in linear light before encoding. Runtime `encode_output`
+in `renderer-webgpu/src/wgsl/prelude.ts` encodes first and premultiplies/composites in encoded
+space. White over black with zero shadow/rim and coverage0.5 therefore returned
+**187.51603067837462 codes** in the helper where the runtime gives **127.5**. The earlier
+sentence “including alpha and coverage arguments” did not establish fractional-output fidelity.
+
+The helper is now explicitly restricted to **alpha=coverage=1**, including every element of
+array arguments, and refuses other inputs. Its claim is the **opaque, full-coverage sampled-
+texture branch only**. The existing fully opaque arithmetic is unchanged; no fractional-output
+implementation or new capture is claimed. All committed forward checks used those unit inputs,
+so their results and the qualified-negative verdict stand.
+
+`review-composition-red.txt` records four failed scalar/array refusal regressions before the
+guard; `review-composition-green.txt` passes all five instrument tests afterward, including
+opaque white at255 and the prior conditioning/recovery cases. The counterexample is retained
+in `review-composition-before.txt`. The bounds-declaration's A=1 nomination and whole-pixel
+closure wording were checked: `bounds-declaration-addendum.txt` states this same full-coverage
+limit and qualifies the frozen domain's coverage-diagnostic prose. Neither original declaration
+nor its SHA pin, closure domain, bound, population or recorded number is rewritten.
+
+Correction verification: calibration **665 passed,1 skipped,45 files**; macOS26.5 freeze
+**1,818 intact** (`review-calibration-tests.txt`, `review-freeze.txt`). No browser run,
+native capture, shipped runtime/material change or evidence re-measurement was needed for this fix.
