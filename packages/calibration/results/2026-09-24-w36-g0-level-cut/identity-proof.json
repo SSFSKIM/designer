@@ -1,0 +1,180 @@
+{
+  "declaration": {
+    "wave": "W36",
+    "gate": {
+      "backdropToneBlackStrength": 0
+    },
+    "gated": [
+      "backdropToneBlackLevel"
+    ],
+    "law": "At gate 0 execute the old authority and response branch exactly. At gate 1 use full response authority and a linear segment from (0, blackLevel) to the existing first knot; above that knot use the old response. The black level is shared across thickness rows.",
+    "inertLawCase": "G1: packages/renderer-webgpu/test/w36-black-knot.test.ts — gate 0 holds the old solve at every blackLevel; packages/renderer-webgpu/e2e/gpu/w36-black-knot.spec.ts — gate 0 draws pinned bytes, gate 1 changes black; CSS declaration identity and tier coherence",
+    "literalIdentity": "G1 appends backdropToneBlackStrength: 0 to calibration/test/w31-identity-table.test.ts"
+  },
+  "rows": [
+    {
+      "name": "apple-macos-26.5-1x-light-standard",
+      "recorded": "b2b570e4adcea8fb",
+      "before": "b2b570e4adcea8fb",
+      "checks": [
+        {
+          "blackLevel": 0,
+          "identity": "b2b570e4adcea8fb"
+        },
+        {
+          "blackLevel": 0.001,
+          "identity": "b2b570e4adcea8fb"
+        },
+        {
+          "blackLevel": 0.1,
+          "identity": "b2b570e4adcea8fb"
+        },
+        {
+          "blackLevel": 0.5,
+          "identity": "b2b570e4adcea8fb"
+        },
+        {
+          "blackLevel": 1,
+          "identity": "b2b570e4adcea8fb"
+        }
+      ]
+    },
+    {
+      "name": "apple-macos-26.5-1x-dark-standard",
+      "recorded": "874be66ea501621b",
+      "before": "874be66ea501621b",
+      "checks": [
+        {
+          "blackLevel": 0,
+          "identity": "874be66ea501621b"
+        },
+        {
+          "blackLevel": 0.001,
+          "identity": "874be66ea501621b"
+        },
+        {
+          "blackLevel": 0.1,
+          "identity": "874be66ea501621b"
+        },
+        {
+          "blackLevel": 0.5,
+          "identity": "874be66ea501621b"
+        },
+        {
+          "blackLevel": 1,
+          "identity": "874be66ea501621b"
+        }
+      ]
+    },
+    {
+      "name": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "recorded": "dcbccbd9feac9881",
+      "before": "dcbccbd9feac9881",
+      "checks": [
+        {
+          "blackLevel": 0,
+          "identity": "dcbccbd9feac9881"
+        },
+        {
+          "blackLevel": 0.001,
+          "identity": "dcbccbd9feac9881"
+        },
+        {
+          "blackLevel": 0.1,
+          "identity": "dcbccbd9feac9881"
+        },
+        {
+          "blackLevel": 0.5,
+          "identity": "dcbccbd9feac9881"
+        },
+        {
+          "blackLevel": 1,
+          "identity": "dcbccbd9feac9881"
+        }
+      ]
+    },
+    {
+      "name": "apple-macos-27.0-1x-light-standard-glass0.5-receded",
+      "recorded": "f34dcc03e2774db3",
+      "before": "f34dcc03e2774db3",
+      "checks": [
+        {
+          "blackLevel": 0,
+          "identity": "f34dcc03e2774db3"
+        },
+        {
+          "blackLevel": 0.001,
+          "identity": "f34dcc03e2774db3"
+        },
+        {
+          "blackLevel": 0.1,
+          "identity": "f34dcc03e2774db3"
+        },
+        {
+          "blackLevel": 0.5,
+          "identity": "f34dcc03e2774db3"
+        },
+        {
+          "blackLevel": 1,
+          "identity": "f34dcc03e2774db3"
+        }
+      ]
+    },
+    {
+      "name": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "recorded": "e59f9106bcd7c966",
+      "before": "e59f9106bcd7c966",
+      "checks": [
+        {
+          "blackLevel": 0,
+          "identity": "e59f9106bcd7c966"
+        },
+        {
+          "blackLevel": 0.001,
+          "identity": "e59f9106bcd7c966"
+        },
+        {
+          "blackLevel": 0.1,
+          "identity": "e59f9106bcd7c966"
+        },
+        {
+          "blackLevel": 0.5,
+          "identity": "e59f9106bcd7c966"
+        },
+        {
+          "blackLevel": 1,
+          "identity": "e59f9106bcd7c966"
+        }
+      ]
+    },
+    {
+      "name": "apple-macos-27.0-1x-dark-standard-glass0.5-receded",
+      "recorded": "6b6237b7ae241638",
+      "before": "6b6237b7ae241638",
+      "checks": [
+        {
+          "blackLevel": 0,
+          "identity": "6b6237b7ae241638"
+        },
+        {
+          "blackLevel": 0.001,
+          "identity": "6b6237b7ae241638"
+        },
+        {
+          "blackLevel": 0.1,
+          "identity": "6b6237b7ae241638"
+        },
+        {
+          "blackLevel": 0.5,
+          "identity": "6b6237b7ae241638"
+        },
+        {
+          "blackLevel": 1,
+          "identity": "6b6237b7ae241638"
+        }
+      ]
+    }
+  ],
+  "renderedNewLeafIdentity": false,
+  "qualification": "Digest route and exact identity branch proved; no leaf exists. G1 must prove rendered identity."
+}

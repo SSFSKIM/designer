@@ -1,0 +1,324 @@
+{
+  "summary": [
+    {
+      "scheme": "light",
+      "pose": "rest",
+      "uncensoredColours": 3,
+      "impliedRetentionRange": [
+        0.8638100735672161,
+        0.9158133542646208
+      ],
+      "requiredOperatorRange": [
+        0.8186033397241966,
+        0.882401800862842
+      ],
+      "secantM1Range": [
+        1.8550898998138254,
+        1.9567562919972088
+      ],
+      "maxNativeHueRotationDegrees": 0.5716435540387863,
+      "maxWebHueRotationDegrees": 1.86113662306866
+    },
+    {
+      "scheme": "light",
+      "pose": "inactive",
+      "uncensoredColours": 3,
+      "impliedRetentionRange": [
+        0.878604521217527,
+        0.9315235069744051
+      ],
+      "requiredOperatorRange": [
+        0.8122727680016023,
+        0.8874626743455455
+      ],
+      "secantM1Range": [
+        1.6469829659158357,
+        1.7518879232469051
+      ],
+      "maxNativeHueRotationDegrees": 0.513782839471304,
+      "maxWebHueRotationDegrees": 1.5311999611334954
+    },
+    {
+      "scheme": "dark",
+      "pose": "rest",
+      "uncensoredColours": 5,
+      "impliedRetentionRange": [
+        0.9636323194916556,
+        1.0214781032417972
+      ],
+      "requiredOperatorRange": [
+        0.9606296149519782,
+        1.0251554195679242
+      ],
+      "secantM1Range": [
+        2.239613135854699,
+        2.3676675281061623
+      ],
+      "maxNativeHueRotationDegrees": 0.4905202838289142,
+      "maxWebHueRotationDegrees": 6.819284017641934
+    },
+    {
+      "scheme": "dark",
+      "pose": "inactive",
+      "uncensoredColours": 6,
+      "impliedRetentionRange": [
+        0.9500790082338372,
+        1.0260059762058065
+      ],
+      "requiredOperatorRange": [
+        0.941389765160726,
+        1.0310190770312067
+      ],
+      "secantM1Range": [
+        3.349432435159634,
+        3.612718538779171
+      ],
+      "maxNativeHueRotationDegrees": 0.8460604193347763,
+      "maxWebHueRotationDegrees": 11.431146089407605
+    }
+  ],
+  "structure": [
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/checkerboard__capsule-button__inactive",
+      "nativeMedian": [
+        126.0,
+        126.0,
+        126.0
+      ],
+      "webMedian": [
+        125.0,
+        125.0,
+        125.0
+      ],
+      "nativeDeepChroma": 2.2107330424286334e-08,
+      "webDeepChroma": 2.19809348985894e-08
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/checkerboard__capsule-button__rest",
+      "nativeMedian": [
+        131.0,
+        131.5,
+        131.0
+      ],
+      "webMedian": [
+        127.0,
+        127.0,
+        127.0
+      ],
+      "nativeDeepChroma": 0.0009486106278304627,
+      "webDeepChroma": 2.223354548257118e-08
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/photo__capsule-button__inactive",
+      "nativeMedian": [
+        147.0,
+        102.0,
+        137.0
+      ],
+      "webMedian": [
+        126.0,
+        116.0,
+        122.0
+      ],
+      "nativeDeepChroma": 0.0756841064960401,
+      "webDeepChroma": 0.015187256669107552
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/photo__capsule-button__rest",
+      "nativeMedian": [
+        152.0,
+        106.0,
+        144.0
+      ],
+      "webMedian": [
+        127.0,
+        110.0,
+        121.0
+      ],
+      "nativeDeepChroma": 0.07898946248738298,
+      "webDeepChroma": 0.02673738878916427
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/checkerboard__capsule-button__inactive",
+      "nativeMedian": [
+        189.0,
+        189.0,
+        189.0
+      ],
+      "webMedian": [
+        192.0,
+        192.0,
+        192.0
+      ],
+      "nativeDeepChroma": 2.97585283258888e-08,
+      "webDeepChroma": 3.010979328285864e-08
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/checkerboard__capsule-button__rest",
+      "nativeMedian": [
+        194.0,
+        194.0,
+        194.0
+      ],
+      "webMedian": [
+        203.0,
+        203.0,
+        203.0
+      ],
+      "nativeDeepChroma": 3.034340130114538e-08,
+      "webDeepChroma": 3.138915680631365e-08
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/photo__capsule-button__inactive",
+      "nativeMedian": [
+        208.0,
+        171.0,
+        200.0
+      ],
+      "webMedian": [
+        206.0,
+        175.0,
+        196.0
+      ],
+      "nativeDeepChroma": 0.05794417430691516,
+      "webDeepChroma": 0.04554865425398032
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/photo__capsule-button__rest",
+      "nativeMedian": [
+        211.0,
+        177.0,
+        207.0
+      ],
+      "webMedian": [
+        210.0,
+        183.0,
+        200.0
+      ],
+      "nativeDeepChroma": 0.056183962963886544,
+      "webDeepChroma": 0.038327583319594294
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/checkerboard__capsule-button__inactive",
+      "nativeMedian": [
+        127.0,
+        126.5,
+        126.5
+      ],
+      "webMedian": [
+        125.0,
+        125.0,
+        125.0
+      ],
+      "nativeDeepChroma": 0.0006038036955652496,
+      "webDeepChroma": 2.19809348985894e-08
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/checkerboard__capsule-button__rest",
+      "nativeMedian": [
+        131.0,
+        131.0,
+        131.0
+      ],
+      "webMedian": [
+        127.0,
+        127.0,
+        127.0
+      ],
+      "nativeDeepChroma": 2.2736632076951993e-08,
+      "webDeepChroma": 2.223354548257118e-08
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/photo__capsule-button__inactive",
+      "nativeMedian": [
+        147.0,
+        102.0,
+        137.0
+      ],
+      "webMedian": [
+        126.0,
+        116.0,
+        122.0
+      ],
+      "nativeDeepChroma": 0.0756841064960401,
+      "webDeepChroma": 0.015187256669107552
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/photo__capsule-button__rest",
+      "nativeMedian": [
+        152.0,
+        106.0,
+        143.0
+      ],
+      "webMedian": [
+        127.0,
+        110.0,
+        120.0
+      ],
+      "nativeDeepChroma": 0.07803243745571933,
+      "webDeepChroma": 0.025864499829644515
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/checkerboard__capsule-button__inactive",
+      "nativeMedian": [
+        189.0,
+        189.0,
+        188.0
+      ],
+      "webMedian": [
+        192.0,
+        192.0,
+        192.0
+      ],
+      "nativeDeepChroma": 0.0013900733267143007,
+      "webDeepChroma": 3.010979328285864e-08
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/checkerboard__capsule-button__rest",
+      "nativeMedian": [
+        194.0,
+        194.0,
+        194.0
+      ],
+      "webMedian": [
+        204.0,
+        204.0,
+        204.0
+      ],
+      "nativeDeepChroma": 3.034340130114538e-08,
+      "webDeepChroma": 3.150481045485645e-08
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/photo__capsule-button__inactive",
+      "nativeMedian": [
+        208.0,
+        171.0,
+        200.0
+      ],
+      "webMedian": [
+        206.0,
+        175.0,
+        195.0
+      ],
+      "nativeDeepChroma": 0.05794417430691516,
+      "webDeepChroma": 0.044716757220784734
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/photo__capsule-button__rest",
+      "nativeMedian": [
+        211.0,
+        177.0,
+        207.0
+      ],
+      "webMedian": [
+        209.0,
+        182.0,
+        201.0
+      ],
+      "nativeDeepChroma": 0.056183962963886544,
+      "webDeepChroma": 0.040043156574468726
+    }
+  ],
+  "partB": "UNIDENTIFIED. No operator nominated. Retention alone misses M1 under the old-tone secant, some solids require r>1, and it cannot raise dark luma. A plate-mean term is not inferred from that failure.",
+  "abscissaDecisionDraft": "Keep the silhouette domain. Sum linear RGB to Y before encoding each pixel, then average over that SAME domain, is closer on uncensored receded colours and identical on greys. It does not explain the dark chromatic level excess; G1 still needs structured regression checks."
+}

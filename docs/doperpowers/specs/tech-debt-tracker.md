@@ -6063,3 +6063,41 @@ Source-prose follow-up for the boundary owner: the inherited inner-shadow commen
 That is historical default-material provenance, not a claim that W35 found macOS27's
 boundary correct. G0a is forbidden to edit src/ and leaves the comment untouched; an
 adopting source change must preserve the26.5 provenance while naming the27 qualification.
+
+
+---
+
+## W36's uniform-level correction conflicts with the structured stops; no operator is identified (2026-09-24)
+
+**Open, §5.178; W36 G0, not a newly authorised initiative.** The black fallback
+is identified (181/60 from sized alpha times neutral); the shared thin/thick
+three-shift middle refit is not a shippable closure. On64 deterministic scratch
+captures, light photo/rrect-md level-error growth0.02937–0.03371 exceeds0.005;
+dark active photo structure grows3.14–4.13%, beyond M2's2%. Twenty-four of32
+non-black grey trial cells meet the one-code median tolerance. No bound moves.
+A negative result for this constrained family is not a proof that every uniform
+response fails. Work that could close it: a declared lower-dimensional thickness
+model or a separately identified colour/structure-conditioned response, tested
+jointly on the native greys and photo under the frozen stops before another seal.
+No free thick black is identified: only span44 uniform black is on the fit bed.
+
+The chroma diagnosis sharpens the existing hue/level debt without closing it.
+Full-RGB inversion excludes light red/blue/magenta in both poses and dark active
+blue (both scales), plus every admitted27 canonical mid-chroma cell. Native
+implied q about0.86–0.93 light/0.95–1.03 dark is not the shader's r. Correctly
+converted r still extrapolates outside M1 under W31's OLD-tone multiplicative
+secant; full retention cannot supply the dark chromatic luma excess. Part B is
+UNIDENTIFIED, not a plate-mean term waiting only for implementation. Closing
+work must define spatial domain, colour space, gamut and tint placement and
+predict solids AND photo at the candidate tone; no native capture is authorised.
+
+The level-stop debt above is now **declared completely, still not adopted**:
+L1 has140 standard27 WebGPU calibration/validation rows,136 measured, two named
+light inactive tinted-impulse misses0.066016/0.066059 against0.055 and four
+UNMEASURED dark inactive dark-solid material rows. Probe diagnostics and W34
+deep medians are separate. Baseline W33 document hashes and its future superseded
+paths are pinned in G0, so neither a missing row nor a changed baseline can
+silently buy a pass. Adoption remains the parent's Decision Log4 and a later
+successful gate. CSS's black derivation/chroma decline, the tinted candidate
+shade check and full-cohort exterior/conditioning checks remain unperformed;
+G0's zero exterior pixel delta is a24-cell subset witness, not their adoption.

@@ -1,0 +1,80 @@
+[
+  {
+    "scheme": "light",
+    "pose": "rest",
+    "uncensoredColours": 3,
+    "impliedRetentionRange": [
+      0.8638100735672161,
+      0.9158133542646208
+    ],
+    "requiredOperatorRange": [
+      0.8186033397241966,
+      0.882401800862842
+    ],
+    "secantM1Range": [
+      1.8550898998138254,
+      1.9567562919972088
+    ],
+    "maxNativeHueRotationDegrees": 0.5716435540387863,
+    "maxWebHueRotationDegrees": 1.86113662306866
+  },
+  {
+    "scheme": "light",
+    "pose": "inactive",
+    "uncensoredColours": 3,
+    "impliedRetentionRange": [
+      0.878604521217527,
+      0.9315235069744051
+    ],
+    "requiredOperatorRange": [
+      0.8122727680016023,
+      0.8874626743455455
+    ],
+    "secantM1Range": [
+      1.6469829659158357,
+      1.7518879232469051
+    ],
+    "maxNativeHueRotationDegrees": 0.513782839471304,
+    "maxWebHueRotationDegrees": 1.5311999611334954
+  },
+  {
+    "scheme": "dark",
+    "pose": "rest",
+    "uncensoredColours": 5,
+    "impliedRetentionRange": [
+      0.9636323194916556,
+      1.0214781032417972
+    ],
+    "requiredOperatorRange": [
+      0.9606296149519782,
+      1.0251554195679242
+    ],
+    "secantM1Range": [
+      2.239613135854699,
+      2.3676675281061623
+    ],
+    "maxNativeHueRotationDegrees": 0.4905202838289142,
+    "maxWebHueRotationDegrees": 6.819284017641934
+  },
+  {
+    "scheme": "dark",
+    "pose": "inactive",
+    "uncensoredColours": 6,
+    "impliedRetentionRange": [
+      0.9500790082338372,
+      1.0260059762058065
+    ],
+    "requiredOperatorRange": [
+      0.941389765160726,
+      1.0310190770312067
+    ],
+    "secantM1Range": [
+      3.349432435159634,
+      3.612718538779171
+    ],
+    "maxNativeHueRotationDegrees": 0.8460604193347763,
+    "maxWebHueRotationDegrees": 11.431146089407605
+  }
+]
+light inactive formula errors old/new [('cyan', 0.0591, -0.0754, -0.0312), ('green', 0.0766, -0.0926, -0.038), ('yellow', 0.0212, -0.0249, -0.0089)]
+dark inactive formula errors old/new [('blue', 0.0807, -0.0431, -0.0132), ('cyan', 0.0591, -0.0775, -0.0495), ('green', 0.0766, -0.1013, -0.0588), ('magenta', 0.133, -0.125, -0.0555), ('red', 0.1274, -0.1076, -0.0429), ('yellow', 0.0212, -0.0348, -0.0252)]
