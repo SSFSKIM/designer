@@ -2350,7 +2350,10 @@ const CHROMA_CUT = readJson<ChromaCut>(
   // reference to W32 G1's d5bdd6eac432 / 431cabd391c4 generation through the
   // superseded index. The 2% bound stays; every cell's drift is recorded beside.
   // G2 confirms the same reference and regenerates this cut; no second rebaseline.
-  resolve(PACKAGE_ROOT, "results", "2026-09-22-w33-g2-landing", "chroma-cut.json"),
+  // W36 G1 (§5.179): the black-only read. W32 DL4 advances M2 to the W33
+  // generation now retired at 6e509c7f76cc / eab099cc6698; the prior reference
+  // remains in W33's cut and the cumulative drift is tabled beside this one.
+  resolve(PACKAGE_ROOT, "results", "2026-09-24-w36-g1-black-branch", "chroma-cut.json"),
 );
 
 /**
@@ -4352,8 +4355,9 @@ describe("W32 C1 — the shadow's exterior shape, per span (claims §5.169)", ()
       readonly bandsUsed: readonly string[];
     }[];
   }>(
-    // W33 G1b (§5.172): the lift/anchor read, under the unchanged C1 definition.
-    resolve(PACKAGE_ROOT, "results", "2026-09-22-w33-g1b-rim-fit", "exterior-cut.json"),
+    // W33's lift/anchor cut remains its record. W36 G1 regenerates this cut
+    // at the black-only read, under the unchanged active-only C1 definition.
+    resolve(PACKAGE_ROOT, "results", "2026-09-24-w36-g1-black-branch", "exterior-cut.json"),
   );
 
   /**
@@ -4631,7 +4635,7 @@ describe("W33 X1 — the native-black exterior stays black (claims §5.173)", ()
     readonly missed: readonly string[];
     readonly cells: readonly BlackCell[];
   }>(process.env["VITREA_X1_CUT"] ?? resolve(
-    PACKAGE_ROOT, "results", "2026-09-22-w33-g2-landing", "black-cut.json",
+    PACKAGE_ROOT, "results", "2026-09-24-w36-g1-black-branch", "black-cut.json",
   ));
   const BLACK = ["checkerboard", "checkerboard-4", "checkerboard-8", "checkerboard-32",
     "checkerboard-64", "impulse", "hc-text", "hc-text-7", "hc-text-28"];

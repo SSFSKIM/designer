@@ -1,0 +1,10 @@
+$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json
+
+/Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g1-black-branch/packages/platform-web/e2e/pixel/backdrop-tone-pixels.spec.ts
+  454:3  error  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+
+✖ 1 problem (1 error, 0 warnings)
+
+/Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g1-black-branch/packages/platform-web:
+[ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL] @vitreajs/vitrea-web@0.23.0 lint: `eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json`
+Exit status 1

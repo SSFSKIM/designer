@@ -89,6 +89,17 @@ closure, c9a §5.159b §10, finding 8).
 | `49490eb9ff7a.json` | `-1x-light-increased-contrast-coupled` (36), `-1x-light-reduced-transparency` (32), `-1x-light-standard` (228), `-2x-light-standard` (183) | `…-1x-light-standard-glass0.5.json` `sha256:49490eb9ff7a`, with `-receded` `sha256:14c6bacf2eda` | c9a §5.164 §13 (W31 G3c) | c9a §5.168 | 2026-09-21 | 2026-09-21 | 479 | 18,896,857 |
 | `d5bdd6eac432.json` | `-1x-light-increased-contrast-coupled` (36), `-1x-light-reduced-transparency` (32), `-1x-light-standard` (248), `-2x-light-standard` (193) | `…-1x-light-standard-glass0.5.json` `sha256:d5bdd6eac432`, with `-receded` `sha256:45acb6d916b9` | c9a §5.168 | c9a §5.172 | 2026-09-21 | 2026-09-22 | 509 | 19,792,970 |
 | `431cabd391c4.json` | `-1x-dark-standard` (166), `-2x-dark-standard` (111) | `…-1x-dark-standard-glass0.5.json` `sha256:431cabd391c4`, with `-receded` `sha256:4e68f81869f6` | c9a §5.168 | c9a §5.172 | 2026-09-21 | 2026-09-22 | 277 | 10,631,089 |
+| `6e509c7f76cc.json` | `-1x-light-increased-contrast-coupled` (36), `-1x-light-reduced-transparency` (32), `-1x-light-standard` (248), `-2x-light-standard` (193) | `…-1x-light-standard-glass0.5.json` `sha256:6e509c7f76cc`, with `-receded` `sha256:45acb6d916b9` | c9a §5.172 | c9a §5.179 | 2026-09-22 | 2026-09-24 | 509 | 19,788,488 |
+| `eab099cc6698.json` | `-1x-dark-standard` (166), `-2x-dark-standard` (111) | `…-1x-dark-standard-glass0.5.json` `sha256:eab099cc6698`, with `-receded` `sha256:4e68f81869f6` | c9a §5.172 | c9a §5.179 | 2026-09-22 | 2026-09-24 | 277 | 10,630,454 |
+
+### Shared receded documents
+
+The historical alias is retained. A receded hash alone does not identify a composed generation; resolve its active hash for a particular file.
+
+| receded hash | historical alias | files carrying the difference |
+| --- | --- | --- |
+| `45acb6d916b9` | `d5bdd6eac432.json` | `d5bdd6eac432.json`, `6e509c7f76cc.json` |
+| `4e68f81869f6` | `431cabd391c4.json` | `431cabd391c4.json`, `eab099cc6698.json` |
 
 <!-- end generated -->
 

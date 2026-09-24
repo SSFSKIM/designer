@@ -37398,3 +37398,137 @@ The first broad seal test command included the eight matrix-dependent structure
 witnesses: they report no current row in the intentional interval after document
 seal and before the new read. They are not accepted as passes or re-pinned; the
 same-branch read must restore their bed. The document/export/identity tests pass.
+
+The dispatch brief named §5.179 twice in the split command; the parent corrected
+that attribution before the split to mover §5.179 / original reader **§5.172**, since
+the retired generation is W33 G1b's, not a W36 reading.
+
+### 6. Configuration five, read once, with the old generation retained
+
+Seal `2f49d390` is followed by registration `26be8ede` BEFORE any canonical pass.
+The cross-gate log's fifth configuration names source SHA
+`4e2786c83d452d9d47ac79770fbfa2bccef82728ee69d798cfbf79942671dbb4` and the unchanged
+source-list SHA `c16d6294a00c8ac770781701b2154d636c7b287490526d49f3782aa1d2102a9d`.
+All pass launches carry X6 facts in `browser-runs.txt`; each pass has an exclusive
+start receipt and completion receipt. The read appends **786 rows**: 268 calibration,
+64 validation, 330 ladder probes and **124 holdout**, the latter once on the sealed
+configuration. W34's holdout is not read. No native application is built or launched.
+
+The matrix reaches 2,679 rows, then the split moves **509 light and 277 dark** W33
+rows to `superseded/6e509c7f76cc.json` and `superseded/eab099cc6698.json`. The working
+file returns to **1,893 = 1,107 frozen + 786 new**. The six read-append clauses pass
+against the seal's matrix blob, whose SHA equals the live `before-read.json` witness;
+the six split clauses pass, including a raw reconstruction of the full pre-split file
+at SHA `caa60b9beea2ef0c2646734511417edc7be66b937853d0c7dd8917c673eea1f9`.
+The reconstruction is a data-integrity check, not another capture or holdout read.
+Freeze remains **1,818**; the worktree capture checker reads **786/786 MATCH**, with
+zero mismatch, misfiled, superseded, unreadable or no-row captures. The frozen tree
+was not copied into this worktree; its 1,107 rows remain evidence, not claimed captures.
+
+**The split needed an additive index fix.** W33 had reused W32's receded documents,
+so `45acb6d916b9` and `4e68f81869f6` already aliased W32's files. The original apply
+refused before writing; that assumption made an unchanged receded difference over a
+new active generation unrepresentable. `sharedReceded` now lists both files while
+`byDocumentSha256` keeps its historical first alias. Active collisions still refuse;
+an incoming shared clause must really be receded and its prior holder's metadata,
+bytes and full hash are checked before any write. Six synthetic apply tests include
+the two successful-sharing cases that failed before this fix; the seven older
+classifier cases also pass. All **13 prior file entries, 24 aliases and three root
+metadata values** remain byte-identical (`index-history-preservation.json`). The two
+new active entries and the generated README's sharing table are additive. Mover is
+§5.179, original reader §5.172. The earlier refused apply and premature witness attempt
+are retained beside the successful logs; no row, number or recorded hash is corrected.
+
+### 7. The regenerated stops, at the shipped hashes
+
+| referee | frozen expectation | once-read result |
+| --- | --- | --- |
+| L1 | 140 declared / 136 measured; absolute ≤0.055, growth ≤0.005 against W33 | 136 measured; the same two orange inactive capsule absolute misses and four dark inactive missing means; maximum growth **0**, zero new failures |
+| M1 | four medians in [0.8,1.2], per-cell [0.6,1.4] with existing named misses | light active/inactive **1.049011/1.022977**, dark active/inactive **0.996608/1.005978**; unchanged |
+| M2 | photo structure growth ≤2% | all **26** cells **0%** against W33; no change |
+| C1 | active exterior shape, twelve bed × span rows, ≤0.0042 | all twelve unchanged; maximum **0.0038247143** |
+| X1 | 218 cells; zero exterior pixels above native black, also above one code | **0/12,681,980** integer-mask and **0/12,593,524** analytic-mask pixels; all 218 pass |
+| B1 | six existing native sigma windows | six unchanged passes |
+| coherence | ΔE≤0.05; ratio [0.8,1.25] on the existing predicate | adopted population passes; scratch black qualifications remain §3's, not new exceptions |
+
+The macOS 27 gated count stays **230/786**; frozen macOS 26.5 stays **229/1,107**.
+`PREDICATE_EXCLUDES` stays **67** and `MISSED_27_ROWS` stays **8**: the owner tests
+confirm their unchanged named sets, so none is re-pinned. The regenerated chroma,
+exterior and black cuts name the four sealed document hashes, and the owner test
+pointers move in the read commit. L1 is regenerated from this matrix against G0's
+frozen population and W33 baseline; formal adoption is G2's step, not a new G1 rule.
+
+M2's reference advances from W32 to the superseded W33 generation, as Decision Log 4
+of W32 requires. The old cuts/references remain history. `m2-rebaseline.json` tables
+all 26 cumulative readings against W31: **−2.774796% to +1.965563%**, with W36's own
+increment zero everywhere. This is drift reported, not a cumulative bound invented.
+The full calibration suite after split and regeneration is **47 files, 678 passes**,
+no skips; this also closes the seal interval's eight temporarily missing-row witnesses.
+
+### 8. The holdout is kept, including its five changed pixels
+
+Across all 786 new cells, **785 normal PNGs and all 786 alpha PNGs** equal W33's
+surviving captures byte for byte. Every GPU PNG is identical. The sole changed normal
+image is the CSS holdout `apple-macos-27.0-1x-dark-standard-glass0.5 / checkerboard__glass-over-glass__rest`.
+Five exterior pixels rise one grey code: (80,167) and (241,167), 235→236;
+(248,167), 236→237; (258,170), 241→242; (83,185), 248→249. The alpha PNG and shape
+axis are exact. SSIM changes 0.9089461488940684→0.9089463077097065, mean OKLab ΔE
+0.01511985414791558→0.015119995869117931, cross-tier ΔE
+0.014556996425129639→0.014556855210054299. All adopted stops pass at these actual values.
+
+Both groups' inputs are identical: component level 0.21404114048223255, linear
+luminance 0.5, and overlaid component level/linear luminance 0.17291949423767553.
+They are far above the black branch's support. The new capture reports deterministic
+true and repeat noise zero on Chromium 151.0.7922.34 / Apple Metal-3. **The cause of
+the difference is unidentified**; it is neither attributed to the black branch nor
+called noise. `holdout-difference.py/json` preserves the pixels, inputs and scalar
+changes. No repeat, fit or tolerance change is made from this holdout observation.
+
+### 9. What this gate does not claim
+
+Uniform span-44 black is identified and closed on the GPU tier; the thick black
+ordinate equals the thin one by declared rule, not by another fitted anchor. The
+open interval between black and the join is an interpolation without native anchors.
+The grey middle and saturated-channel/chroma gaps remain exactly the named misses;
+the conditional receded formula was declined, not smuggled into the black seal.
+The active CSS +1/+2-code boundary residual remains measured, and the native angular
+inner line/contour remains outside this branch's reach. The 18 viewed triptychs close
+the black body, not those bands; unchanged photo/impulse/grey panels retain their gaps.
+No new eye-only regression was identified. This gate does not claim a deployed demo
+comparison or a release: the parent owns landing, G2, the demo fixture and 0.24.0.
+
+The new pixels live in this worktree's `packages/calibration/web-captures/`, not the
+main checkout. At merge, archive the superseded main tree under its active document
+hashes, copy this tree to the canonical location, and run the checker there before
+removing the worktree. This is part of landing the read, not optional cleanup.
+
+### 10. Closing verification and the black-ramp oracle repair
+
+The closing workspace build and lint pass. Unit suites: calibration **678**, core
+**302**, renderer **566**, platform-web **634**, React **174**, geometry **170**,
+motion **164**, policy **23**, demo **46** — **2,757 total**, no unit skips. Renderer
+goldens **34/34** (isolation hashes unchanged), renderer GPU **49/49**, platform e2e
+**410/410**, React e2e **174 passed / 3 declared skips** (Firefox forced colours;
+WebKit increased contrast and forced colours). Freeze **1,818** and capture tree
+**786/786** pass. The configuration's source and document hashes still equal the
+registered fifth read. No goldens are regenerated, no material-affecting source or document moves after
+that read, and the experiment's reverted colour formula remains reverted.
+
+The first platform run was **409 passed / 1 failed**, not a clean run discarded.
+Its black-ramp oracle integrated the rim INTERCEPT instead of its evaluated amplitude;
+at the newly lowered black level this crossed the CSS chain's reach seam and selected
+the wrong conversion anchor (expected opacity0.648 against actual0.706). Its colour
+helper also omitted the chosen anchor. Both mirrors now follow the production chain,
+with a colour assertion on every ramp step. After that repair the old test REQUIRED
+a >20-code black overshoot, precisely the fallback this gate fixes: the diagnostic
+read **141.3822→144.1696**, then the unchanged remainder. The exclusion of step zero
+is removed by fix and monotonicity now covers it, with the same one-code tolerance.
+The complete corrected suite passes410, not only the failing case. The old raw logs,
+oracle source and readings remain in evidence. A temporary diagnostic console caused
+one lint failure; removing that logging restores lint without changing assertions.
+This is a test-only repair; sealed material, canonical pixels and holdout stay untouched.
+
+The old W29 tracker diagnosis of a black conversion-quantum overshoot is explicitly
+superseded beside its preserved reading. This closes that first-step monotonicity
+exception, not the W36 CSS boundary residual. Independent review, merge and release
+are the parent's next gates; no worker agent is dispatched and nothing is pushed.

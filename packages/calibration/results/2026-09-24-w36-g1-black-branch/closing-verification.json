@@ -1,0 +1,79 @@
+{
+  "claims": "c9a §5.179",
+  "sealedDocumentsUnchanged": true,
+  "materialSourcesUnchanged": true,
+  "build": {
+    "exitCode": 0,
+    "log": "final-build.txt"
+  },
+  "lint": {
+    "exitCode": 0,
+    "logs": [
+      "final-lint.txt",
+      "final-platform-lint-clean.txt"
+    ]
+  },
+  "unitTotal": 2757,
+  "calibration": 678,
+  "otherUnits": [
+    {
+      "package": "packages/policy",
+      "passed": 23
+    },
+    {
+      "package": "packages/motion",
+      "passed": 164
+    },
+    {
+      "package": "packages/geometry",
+      "passed": 170
+    },
+    {
+      "package": "packages/renderer-webgpu",
+      "passed": 566
+    },
+    {
+      "package": "packages/core",
+      "passed": 302
+    },
+    {
+      "package": "packages/platform-web",
+      "passed": 634
+    },
+    {
+      "package": "packages/react",
+      "passed": 174
+    },
+    {
+      "package": "apps/demo",
+      "passed": 46
+    }
+  ],
+  "browserChecks": {
+    "final-goldens": {
+      "passed": 34,
+      "log": "final-goldens.txt"
+    },
+    "final-gpu": {
+      "passed": 49,
+      "log": "final-gpu.txt"
+    },
+    "final-platform-e2e-corrected": {
+      "passed": 410,
+      "log": "final-platform-e2e-corrected.txt"
+    },
+    "final-react-e2e": {
+      "passed": 174,
+      "log": "final-react-e2e.txt",
+      "skipped": 3
+    }
+  },
+  "freezeEntries": 1818,
+  "captureMatch": 786,
+  "initialPlatformFailure": "final-platform-e2e.txt: 409 passed / 1 failed. The test oracle omitted evaluated band amplitude and the selected conversion anchor; its obsolete black-overshoot assertion was removed by fix. Full corrected suite passes.",
+  "limitations": [
+    "Three declared React browser-capability skips.",
+    "One CSS holdout changes five exterior pixels by one code, cause unidentified; no retry or fit.",
+    "Independent review, canonical tree landing, demo comparison and release belong to the parent."
+  ]
+}

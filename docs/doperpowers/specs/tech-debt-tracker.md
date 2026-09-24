@@ -3796,7 +3796,19 @@ read of rows already on disk.
 
 ---
 
-## The CSS tier overshoots the curve's target over a pure black backdrop, and macOS 27 exposed it (W29 G4, 2026-09-20)
+## The CSS tier overshoots the curve's target over a pure black backdrop, and macOS 27 exposed it (W29 G4, 2026-09-20) — first-step overshoot CLOSED W36 G1
+
+**W36 update (§5.179): the old first-step overshoot is closed, and the original
+causal explanation below is superseded.** G0 identified the black response's zero
+authority fallback, not conversion quantisation. The compact black branch now makes
+the same ramp start at 141.3822 then 144.1696; monotonicity includes step zero again.
+The test's stale band-amplitude oracle and anchor-blind colour conversion were also
+corrected to the production chain; the former had selected the wrong anchor at black.
+These ramp pixels are not the native deep measurement: its registered tone texture
+is not painted behind the hosts. The measured native-black CSS residual is +1/+2
+codes in the active pose and zero receded, recorded under W36 below. Near-black
+interpolation and the CSS boundary projection remain open, not hidden by this closure.
+The following original reading is retained as history, not the current diagnosis.
 
 *Found 2026-09-20 landing the macOS 27 selection (claims §5.155 §5), by
 `platform-web/e2e/pixel/backdrop-tone-pixels.spec.ts`'s twelve-step ramp.*
@@ -4620,6 +4632,21 @@ occlusion axis and never looks at `ambientTint`.
 needs `compare`'s flag fixed first), then decide whether the retention should
 read `ResolvedMaterialPolicy.ambientTint` as well as `occlusion`. The second half
 is a policy decision and should be made on the reading rather than before it.
+
+---
+
+## Shared receded documents across superseded active generations — CLOSED W36 G1 (2026-09-24)
+
+The W33-to-W36 split initially refused because W33 reused W32's receded bytes:
+`45acb6d916b9` and `4e68f81869f6` already aliased W32 holders. One receded difference
+can belong to several active generations, while an active hash still names one file.
+The tool now records `sharedReceded` without repointing historical aliases, verifies
+the prior holder's bytes and receded metadata before writing, and renders the sharing
+in its generated README. Six synthetic apply tests cover sharing and refused active
+or corrupt-holder collisions; all seven prior classifier tests remain green. The
+13 historical entries and 24 aliases remain byte-identical. No capture is repeated.
+Evidence: §5.179, `index-history-preservation.json`, `shared-receded-{red,green}.txt`.
+This closes the sharing limitation, not the separate attribution-enforcement debt below.
 
 ---
 
@@ -6101,3 +6128,61 @@ silently buy a pass. Adoption remains the parent's Decision Log4 and a later
 successful gate. CSS's black derivation/chroma decline, the tinted candidate
 shade check and full-cohort exterior/conditioning checks remain unperformed;
 G0's zero exterior pixel delta is a24-cell subset witness, not their adoption.
+
+### W36 G1's priced black branch and the gaps it leaves (§5.179, 2026-09-24)
+
+The black-only seal closes the GPU deep medians on the eight span44 black cells:
+132/133 light and32/20 dark, both scales. It does not close the grey middle, chroma,
+inner line, contour or the impulse residuals named above. The branch's support ends
+at encoded0.003 before every admitted packed impulse input; the interval between
+black and that join is a declared interpolation, not a measured native curve.
+Thick equals thin by a declared extrapolation because this bed has no thick black.
+Closing those identification gaps needs independently declared near-black and thick
+anchors, and native capture remains subject to X5 rather than implied by this entry.
+
+**CSS-only boundary residual, carried rather than fitted.** The three +2-code deep
+black cells are `apple-macos-27.0-1x-dark-standard-glass0.5/grey-0__circular-120__rest`
+and its2x twin (34 against32), and
+`apple-macos-27.0-2x-light-standard-glass0.5/grey-0__circular-120__rest` (134 against132).
+The1x light counterpart is+1 (133 against132); all receded black medians are exact.
+A diagnostic stand-down of CSS rimAlpha/rimLevelGain/shadowAlpha together removes
+all four residuals at unchanged black ordinates. This identifies the combined
+existing boundary projection, not which leaf. No diagnostic boundary constant
+ships. The parent clarified that the one-code W34 referee is GPU-only; CSS keeps
+its coherence gates and records what its layers cannot carry. The future shared
+boundary work should price this projection too; this is not a CSS-only charter.
+Evidence: §5.179's `css-boundary-isolation.json` and `price-css-greys.json`.
+
+The dark active black coherence ratios1.991940/1.589439 are rim-only diagnostics,
+excluded by the existing95%-area/body-count predicate, not new exceptions. At1x,
+the native mask is374/4872px with six bodies and CSS104/4872px with eleven; its
+mean cannot judge the deep body. Dark receded has no extracted native mean. The
+deep-domain medians and unconditional cross-tier DeltaE (maximum0.004064) remain
+measured separately. Do not quote the excluded ratio as a passing body comparison.
+
+**The receded colour-formula nomination is declined.** Linear-luma-then-encode on
+the unchanged footprint preserves74 achromatic controls but breaks16 L1 growth
+rows and three M2 rows: light inactive toolbar structure+17.8049%/+16.9386% at1x/2x,
+plus small inactive+3.6174% at1x, against2%. Both experimental sources are restored.
+The formula's improvement on saturated solids does not authorise a structured
+regression. Closure needs a jointly identified tone/chroma form under the frozen
+photo and structure stops; this finding does not justify abandoning footprint locality.
+
+The broadened scratch price also records two inherited CSS probe coherence gaps:
+dark inactive `impulse__rrect-lg`, DeltaE0.071495 at1x and0.065547 at2x, above0.05.
+They are outside the canonical gated population and unchanged by either the black
+branch or the formula trial. Their ratios0.137263/0.173454 are predicate-excluded.
+They remain diagnostic gaps, not new canonical floors and not formula-induced failures.
+
+
+## W36 canonical CSS holdout: five exterior pixels differ by one code (2026-09-24)
+
+The dark 1x `checkerboard__glass-over-glass__rest` CSS holdout differs from W33 at
+five exterior grey pixels by +1 code; the alpha image and shape axis are identical.
+Both group inputs are unchanged and above the black branch support. The capture
+reports deterministic true and repeatNoise zero, and the adopted gates pass. The
+cause is UNIDENTIFIED, not attributed to the black law or described as random noise.
+No holdout retry or fit follows it. Evidence: §5.179 `holdout-difference.json` with
+coordinates, before/after values, metadata and scalars. Future raster/projection work
+can investigate this on a declared non-holdout control; this tiny discrepancy does
+not justify spending the same frozen holdout again.

@@ -1,0 +1,128 @@
+[
+  {
+    "label": "final-calibration",
+    "command": [
+      "pnpm",
+      "--filter",
+      "@vitrea/calibration",
+      "--fail-if-no-match",
+      "test"
+    ],
+    "exitCode": 0,
+    "evidenceLog": "read-calibration-tests.txt",
+    "reuse": "Already run after split and cut regeneration; no relevant file has changed since."
+  },
+  {
+    "label": "final-build",
+    "command": [
+      "pnpm",
+      "-r",
+      "build"
+    ],
+    "exitCode": 0
+  },
+  {
+    "label": "final-lint",
+    "command": [
+      "pnpm",
+      "-r",
+      "lint"
+    ],
+    "exitCode": 0
+  },
+  {
+    "label": "final-other-units",
+    "command": [
+      "pnpm",
+      "--filter",
+      "!@vitrea/calibration",
+      "--fail-if-no-match",
+      "-r",
+      "test"
+    ],
+    "exitCode": 0
+  },
+  {
+    "label": "final-goldens",
+    "command": [
+      "pnpm",
+      "--dir",
+      "/Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g1-black-branch",
+      "--filter",
+      "@vitrea/renderer-webgpu",
+      "--fail-if-no-match",
+      "run",
+      "test:golden"
+    ],
+    "exitCode": 0
+  },
+  {
+    "label": "final-gpu",
+    "command": [
+      "pnpm",
+      "--dir",
+      "/Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g1-black-branch",
+      "--filter",
+      "@vitrea/renderer-webgpu",
+      "--fail-if-no-match",
+      "run",
+      "test:gpu"
+    ],
+    "exitCode": 0
+  },
+  {
+    "label": "final-platform-e2e",
+    "command": [
+      "pnpm",
+      "--dir",
+      "/Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g1-black-branch",
+      "--filter",
+      "@vitreajs/vitrea-web",
+      "--fail-if-no-match",
+      "exec",
+      "playwright",
+      "test",
+      "--workers=1",
+      "--retries=0"
+    ],
+    "exitCode": 1
+  },
+  {
+    "label": "final-react-e2e",
+    "command": [
+      "pnpm",
+      "--dir",
+      "/Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g1-black-branch",
+      "--filter",
+      "@vitreajs/vitrea-react",
+      "--fail-if-no-match",
+      "exec",
+      "playwright",
+      "test",
+      "--workers=1",
+      "--retries=0"
+    ],
+    "exitCode": 0
+  },
+  {
+    "label": "final-freeze",
+    "command": [
+      "python3",
+      "/Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g1-black-branch/packages/calibration/results/2026-09-16-w29-freeze/freeze.py",
+      "verify"
+    ],
+    "exitCode": 0
+  },
+  {
+    "label": "final-capture-tree",
+    "command": [
+      "pnpm",
+      "--filter",
+      "@vitrea/calibration",
+      "--fail-if-no-match",
+      "run",
+      "check-capture-tree"
+    ],
+    "exitCode": 0
+  }
+]

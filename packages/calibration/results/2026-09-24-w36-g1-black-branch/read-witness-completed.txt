@@ -1,0 +1,47 @@
+{
+  "workingRows": 1893,
+  "frozenRows": 1107,
+  "newRows": 786,
+  "supersededRows": 786,
+  "roles": {
+    "calibration": 268,
+    "holdout": 124,
+    "probe": 330,
+    "validation": 64
+  },
+  "changedAxes": [
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/checkerboard__glass-over-glass__rest/css",
+      "axes": {
+        "shape": true,
+        "material": false,
+        "perceptual": false,
+        "shadow": false,
+        "coherence": false
+      }
+    }
+  ],
+  "changedPng": [
+    {
+      "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "scene": "checkerboard__glass-over-glass__rest",
+      "renderer": "css",
+      "role": "holdout",
+      "axes": {
+        "shape": true,
+        "material": false,
+        "perceptual": false,
+        "shadow": false,
+        "coherence": false
+      },
+      "pngSame": false,
+      "newSha256": "b2e114dc1ce77f676916d6d8f863f0bb7a83c73cd8752001212dd8e6bc6681e6",
+      "beforeSha256": "aa9e2a2f41aec5c88b07beef5f3a1357818853dbcdfb07d8701f6645b0bc6ed3",
+      "alphaCompared": true,
+      "alphaSame": true
+    }
+  ],
+  "alphaCompared": 786,
+  "changedAlpha": [],
+  "holdoutRows": 124
+}
