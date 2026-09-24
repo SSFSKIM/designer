@@ -37375,3 +37375,26 @@ Both experimental source files are restored to their exact pre-trial SHA-256;
 the temporary unit case and candidate patch remain as evidence. No colour-formula
 leaf, material value or frozen26.5 behaviour lands from this experiment. The seal
 is the black branch ALONE, as Decision Log2's failed-regression arm directs.
+
+### 5. The black-only rule-2 seal
+
+| endpoint | resolved digest before → after | file hash before → after |
+| --- | --- | --- |
+| light-standard-glass0.5 | `dcbccbd9feac9881` → `be13dae45098fc89` | `6e509c7f76cc` → `85ad7f7e3e0d` |
+| light-standard-glass0.5-receded | `f34dcc03e2774db3` → `b0d0d8dacc6a03af` | `45acb6d916b9` → `30fbe05986ae` |
+| dark-standard-glass0.5 | `e59f9106bcd7c966` → `2a4323f33df8d799` | `eab099cc6698` → `0eac5b294cc2` |
+| dark-standard-glass0.5-receded | `6b6237b7ae241638` → `7c454858a3cbad5b` | `4e68f81869f6` → `5cec8c961201` |
+
+All four patches move only the three black leaves; receded values are explicit
+and their digests are over composition with the active endpoint. Rule2 is recorded
+on each document, the generated macos27 profile is regenerated, and activation's
+four full hashes move with the old pins kept beside. The frozen digests remain
+b2b570e4adcea8fb/874be66ea501621b; freeze1,818. Both READMEs now describe the
+current endpoints while keeping prior readings as history; release/version records
+remain unchanged history. The default renderer material remains gate0, so the
+34 golden hashes need no change or regeneration. No contour/grey/chroma value moves.
+
+The first broad seal test command included the eight matrix-dependent structure
+witnesses: they report no current row in the intentional interval after document
+seal and before the new read. They are not accepted as passes or re-pinned; the
+same-branch read must restore their bed. The document/export/identity tests pass.

@@ -4193,10 +4193,12 @@ export function backdropToneBlackWeight(encodedInput: number, profile: MaterialP
 /**
  * How much authority the response law has at this input, 0…1 (W9).
  *
- * Full on its measured domain (the dark anchor upward), fading to zero over
+ * At the default identity: full on its measured domain (the dark anchor upward), fading to zero over
  * the dark anchor's own lower half — below it the only evidence is
  * `impulse__rrect-md`, which the collapse constants were fitted on and the
  * response surface would contradict. Derived from the anchor, not a constant.
+ * W36's selected black branch restores authority only within its separate support;
+ * the fade and every old response slope remain unchanged at and above that join.
  */
 export function backdropToneSolveWeight(
   encodedInput: number,

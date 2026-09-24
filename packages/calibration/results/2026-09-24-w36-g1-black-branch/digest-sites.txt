@@ -1,0 +1,32 @@
+W36 §5.179 seal sites and what they claim
+
+Changed:
+- Four profiles: rule2 digests name the fully resolved active/receded material;
+  their patches gain only the black strength and two ordinates. Old hashes stay
+  in each history; all four new file hashes are locked by sealed-manifest.json.
+- platform-web/src/macos27-profile.ts: generated patch and endpoint digest for
+  what applications select. Regenerated, never hand-edited.
+- platform-web/e2e/shared/window-activation.spec.ts: browser-resolved COMPOSED
+  materials must hash to these full pins. Four changed, prior full pins retained.
+- platform-web/README.md: live dark-receded root.material example and current
+  endpoint prose now name the black seal; older wave paragraphs remain history.
+- renderer-webgpu/README.md: current endpoint prose now names the black seal,
+  while explaining the default/identity distinction and keeping prior digests.
+
+Unchanged, checked:
+- material-document.ts: selects generated macOS27 endpoints and explicitly pins
+  the frozen26.5 digests. It claims no literal27 fingerprint, so still current.
+- materialDigestInput and rule version2: one gate-group drop implementation used
+  by all digest copies. New table entry is appended; rule version stays2.
+- digest-supersessions.json and its tests: historical pairs are history, not live
+  pins; no supersession record or frozen document is rewritten.
+- tuned-profiles.test.ts / macos27-profile-export.test.ts: recompute all endpoint
+  digests and compare generated exports to document patches, rather than retaping
+  expected27 values. They pass at the new documents.
+- golden/isolation.spec.ts: raw renderer DEFAULT material, not the selected27
+  document. Its old hashes are still the identity proof, not stale27 constants.
+- c9d-release-checklist.md, CHANGELOG.md and closed wave specs: released0.22/0.23
+  history names those releases' bytes. Those statements remain true and do not
+  claim the new seal has already been published.
+- adopted-thresholds.test.ts: derives SHIPPED_DOCUMENT_HASHES from the current
+  documents. No missing matrix is excused; the read must land in this same branch.

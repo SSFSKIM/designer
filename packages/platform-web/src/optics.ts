@@ -613,8 +613,9 @@ function blackBranchWeight(x: number, response: BackdropToneResponseConstants): 
  * under `adaptedSourceOptics` reduces to
  * `mean = (1 − k)·((1 − α)·bgLinear + α·L(tint)) + k·toneLuminance`, so the
  * tint's luma is shifted, achromatically, to land the post-collapse mean on
- * `R(encodedInput, thickness)`. The solve's authority fades to zero below the
- * dark anchor (the impulse domain the collapse constants were fitted on) and
+ * `R(encodedInput, thickness)`. At the default identity, authority fades below
+ * the dark anchor; W36 restores it within the selected black branch's separate
+ * support, leaving the old impulse/middle response intact. The solve always
  * stands down entirely at k → 1, where the collapse owns the surface.
  */
 export function toneRespondedSourceOptics(

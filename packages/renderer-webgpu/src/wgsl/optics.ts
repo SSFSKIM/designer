@@ -1156,8 +1156,9 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
    *
    * Three stand-downs, each measured rather than defensive: the whole axis is
    * off where no backdrop tone was measured (same gate as the collapse); the
-   * solve's authority fades to zero below the dark anchor, where the only
-   * evidence is the impulse cell the collapse constants were fitted on; and
+   * default solve's authority fades to zero below the dark anchor, where W9
+   * had only its impulse evidence (W36's selected black branch restores that
+   * authority within its separate support); and
    * at k → 1 the collapse owns the pixel outright, so the solve's
    * extrapolation is never evaluated against a vanishing (1 − k).
    */

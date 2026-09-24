@@ -1,0 +1,127 @@
+
+ RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g1-black-branch/packages/calibration
+
+ ❯ test/tier-coherence.test.ts (65 tests | 8 failed) 89ms
+     × reads the cell on every macOS 27 profile on both tiers 5ms
+     × records what each tier passes on apple-macos-27.0-1x-light-standard-glass0.5 0ms
+     × records what each tier passes on apple-macos-27.0-2x-light-standard-glass0.5 0ms
+     × records what each tier passes on apple-macos-27.0-1x-dark-standard-glass0.5 0ms
+     × records what each tier passes on apple-macos-27.0-2x-dark-standard-glass0.5 0ms
+     × records what each tier passes on apple-macos-27.0-1x-light-reduced-transparency-glass0.5 0ms
+     × records what each tier passes on apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5 0ms
+     × keeps the two tiers' residuals apart, and on opposite sides in the light scheme 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/tier-coherence.test.ts > the CSS tier's structure attenuation, measured (W30 G0 (d)) > reads the cell on every macOS 27 profile on both tiers
+AssertionError: apple-macos-27.0-1x-light-standard-glass0.5 / webgpu: no row: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ test/tier-coherence.test.ts:2979:84
+    2977|     for (const profile of Object.keys(RECORDED)) {
+    2978|       for (const tier of ["webgpu", "css"]) {
+    2979|         expect(measured.has(`${profile}|${tier}`), `${profile} / ${tie…
+       |                                                                                    ^
+    2980|       }
+    2981|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯
+
+ FAIL  test/tier-coherence.test.ts > the CSS tier's structure attenuation, measured (W30 G0 (d)) > records what each tier passes on apple-macos-27.0-1x-light-standard-glass0.5
+AssertionError: apple-macos-27.0-1x-light-standard-glass0.5 WebGPU structure ratio moved — re-record with the section that moved it: expected undefined to be close to 1.567263, received difference is NaN, but expected 0.000005
+ ❯ test/tier-coherence.test.ts:2989:9
+    2987|         measured.get(`${profile}|webgpu`),
+    2988|         `${profile} WebGPU structure ratio moved — re-record with the …
+    2989|       ).toBeCloseTo(recorded.webgpu, 5);
+       |         ^
+    2990|       expect(
+    2991|         measured.get(`${profile}|css`),
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯
+
+ FAIL  test/tier-coherence.test.ts > the CSS tier's structure attenuation, measured (W30 G0 (d)) > records what each tier passes on apple-macos-27.0-2x-light-standard-glass0.5
+AssertionError: apple-macos-27.0-2x-light-standard-glass0.5 WebGPU structure ratio moved — re-record with the section that moved it: expected undefined to be close to 0.425839, received difference is NaN, but expected 0.000005
+ ❯ test/tier-coherence.test.ts:2989:9
+    2987|         measured.get(`${profile}|webgpu`),
+    2988|         `${profile} WebGPU structure ratio moved — re-record with the …
+    2989|       ).toBeCloseTo(recorded.webgpu, 5);
+       |         ^
+    2990|       expect(
+    2991|         measured.get(`${profile}|css`),
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯
+
+ FAIL  test/tier-coherence.test.ts > the CSS tier's structure attenuation, measured (W30 G0 (d)) > records what each tier passes on apple-macos-27.0-1x-dark-standard-glass0.5
+AssertionError: apple-macos-27.0-1x-dark-standard-glass0.5 WebGPU structure ratio moved — re-record with the section that moved it: expected undefined to be close to 0.976045, received difference is NaN, but expected 0.000005
+ ❯ test/tier-coherence.test.ts:2989:9
+    2987|         measured.get(`${profile}|webgpu`),
+    2988|         `${profile} WebGPU structure ratio moved — re-record with the …
+    2989|       ).toBeCloseTo(recorded.webgpu, 5);
+       |         ^
+    2990|       expect(
+    2991|         measured.get(`${profile}|css`),
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯
+
+ FAIL  test/tier-coherence.test.ts > the CSS tier's structure attenuation, measured (W30 G0 (d)) > records what each tier passes on apple-macos-27.0-2x-dark-standard-glass0.5
+AssertionError: apple-macos-27.0-2x-dark-standard-glass0.5 WebGPU structure ratio moved — re-record with the section that moved it: expected undefined to be close to 0.769417, received difference is NaN, but expected 0.000005
+ ❯ test/tier-coherence.test.ts:2989:9
+    2987|         measured.get(`${profile}|webgpu`),
+    2988|         `${profile} WebGPU structure ratio moved — re-record with the …
+    2989|       ).toBeCloseTo(recorded.webgpu, 5);
+       |         ^
+    2990|       expect(
+    2991|         measured.get(`${profile}|css`),
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/8]⎯
+
+ FAIL  test/tier-coherence.test.ts > the CSS tier's structure attenuation, measured (W30 G0 (d)) > records what each tier passes on apple-macos-27.0-1x-light-reduced-transparency-glass0.5
+AssertionError: apple-macos-27.0-1x-light-reduced-transparency-glass0.5 WebGPU structure ratio moved — re-record with the section that moved it: expected undefined to be close to 0.817721, received difference is NaN, but expected 0.000005
+ ❯ test/tier-coherence.test.ts:2989:9
+    2987|         measured.get(`${profile}|webgpu`),
+    2988|         `${profile} WebGPU structure ratio moved — re-record with the …
+    2989|       ).toBeCloseTo(recorded.webgpu, 5);
+       |         ^
+    2990|       expect(
+    2991|         measured.get(`${profile}|css`),
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/8]⎯
+
+ FAIL  test/tier-coherence.test.ts > the CSS tier's structure attenuation, measured (W30 G0 (d)) > records what each tier passes on apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5
+AssertionError: apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5 WebGPU structure ratio moved — re-record with the section that moved it: expected undefined to be close to 0.969039, received difference is NaN, but expected 0.000005
+ ❯ test/tier-coherence.test.ts:2989:9
+    2987|         measured.get(`${profile}|webgpu`),
+    2988|         `${profile} WebGPU structure ratio moved — re-record with the …
+    2989|       ).toBeCloseTo(recorded.webgpu, 5);
+       |         ^
+    2990|       expect(
+    2991|         measured.get(`${profile}|css`),
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/8]⎯
+
+ FAIL  test/tier-coherence.test.ts > the CSS tier's structure attenuation, measured (W30 G0 (d)) > keeps the two tiers' residuals apart, and on opposite sides in the light scheme
+TypeError: actual value must be number or bigint, received "undefined"
+ ❯ test/tier-coherence.test.ts:3010:45
+    3008|     const light = "apple-macos-27.0-1x-light-standard-glass0.5";
+    3009|     const dark = "apple-macos-27.0-1x-dark-standard-glass0.5";
+    3010|     expect(measured.get(`${light}|webgpu`)).toBeGreaterThan(1);
+       |                                             ^
+    3011|     expect(measured.get(`${light}|css`)).toBeLessThan(measured.get(`${…
+    3012|     expect(measured.get(`${dark}|webgpu`)).toBeLessThan(1);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/8]⎯
+
+
+ Test Files  1 failed | 3 passed (4)
+      Tests  8 failed | 93 passed (101)
+   Start at  20:34:08
+   Duration  796ms (transform 1.13s, setup 0ms, import 1.59s, tests 120ms, environment 0ms)
+
+undefined
+/Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g1-black-branch/packages/calibration:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/tuned-profiles.test.ts test/macos27-profile-export.test.ts test/w31-identity-table.test.ts test/tier-coherence.test.ts
