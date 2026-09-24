@@ -1,0 +1,631 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: morph-materialize.spec.ts >> the end that is absent is inert, and is released when it has gone
+- Location: e2e/morph-materialize.spec.ts:178:1
+
+# Error details
+
+```
+Error: expect(locator).toHaveCount(expected) failed
+
+Locator:  locator('[data-vitrea-morph-end="destination"]')
+Expected: 0
+Received: 1
+Timeout:  5000ms
+
+Call log:
+  - Expect "toHaveCount" with timeout 5000ms
+  - waiting for locator('[data-vitrea-morph-end="destination"]')
+    13 × locator resolved to 1 element
+       - unexpected value "1"
+
+```
+
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - main [ref=e3]:
+    - generic [ref=e4]:
+      - paragraph [ref=e5]: "backdrop: arbitrary DOM"
+      - generic [ref=e6]:
+        - heading "Ordinary page content" [level=2] [ref=e7]
+        - paragraph [ref=e8]: This column is plain DOM and stays plain DOM. Select this sentence, tab through the link, type into a field — nothing here is painted into a canvas, which is what makes the glass above it composable with a real application.
+        - paragraph [ref=e9]:
+          - text: A dom-backdrop group samples what is behind it through the browser’s own
+          - code [ref=e10]: backdrop-filter
+          - text: ", so the material adapts to whatever the app renders."
+    - paragraph [ref=e12]: "backdrop: registered texture"
+    - complementary "Runtime readout" [ref=e14]:
+      - generic [ref=e15]:
+        - heading "vitrea playground" [level=1] [ref=e16]
+        - paragraph [ref=e17]: "Glass over two backdrops: an arbitrary-DOM region and a registered texture. Every value below is read from the runtime, not from what the page asked for."
+      - generic [ref=e18]:
+        - heading "Resolved group state (X2)" [level=2] [ref=e19]
+        - table [ref=e20]:
+          - caption [ref=e21]: dom-region (arbitrary DOM)
+          - rowgroup [ref=e22]:
+            - row [ref=e23]:
+              - rowheader "materialDocument" [ref=e24]
+              - cell "apple-macos-27.0-1x-light-standard-glass0.5" [ref=e25]
+            - row [ref=e26]:
+              - rowheader "configuredSource" [ref=e27]
+              - cell "dom" [ref=e28]
+            - row [ref=e29]:
+              - rowheader "activeRenderer" [ref=e30]
+              - cell "css" [ref=e31]
+            - row [ref=e32]:
+              - rowheader "samplingBackend" [ref=e33]
+              - cell "css-backdrop" [ref=e34]
+            - row [ref=e35]:
+              - rowheader "refraction" [ref=e36]
+              - cell "none" [ref=e37]
+            - row [ref=e38]:
+              - rowheader "analysis" [ref=e39]
+              - cell "hint" [ref=e40]
+            - row [ref=e41]:
+              - rowheader "health" [ref=e42]
+              - cell "ok" [ref=e43]
+            - row [ref=e44]:
+              - rowheader "demotionReason" [ref=e45]
+              - cell "—" [ref=e46]
+        - table [ref=e47]:
+          - caption [ref=e48]: texture-region (registered texture)
+          - rowgroup [ref=e49]:
+            - row [ref=e50]:
+              - rowheader "materialDocument" [ref=e51]
+              - cell "apple-macos-27.0-1x-light-standard-glass0.5" [ref=e52]
+            - row [ref=e53]:
+              - rowheader "configuredSource" [ref=e54]
+              - cell "texture" [ref=e55]
+            - row [ref=e56]:
+              - rowheader "activeRenderer" [ref=e57]
+              - cell "css" [ref=e58]
+            - row [ref=e59]:
+              - rowheader "samplingBackend" [ref=e60]
+              - cell "css-backdrop" [ref=e61]
+            - row [ref=e62]:
+              - rowheader "refraction" [ref=e63]
+              - cell "none" [ref=e64]
+            - row [ref=e65]:
+              - rowheader "analysis" [ref=e66]
+              - cell "none" [ref=e67]
+            - row [ref=e68]:
+              - rowheader "health" [ref=e69]
+              - cell "ok" [ref=e70]
+            - row [ref=e71]:
+              - rowheader "demotionReason" [ref=e72]
+              - cell "—" [ref=e73]
+        - table [ref=e74]:
+          - caption [ref=e75]: segmented (the view control's track)
+          - rowgroup [ref=e76]:
+            - row [ref=e77]:
+              - rowheader "materialDocument" [ref=e78]
+              - cell "apple-macos-27.0-1x-light-standard-glass0.5" [ref=e79]
+            - row [ref=e80]:
+              - rowheader "configuredSource" [ref=e81]
+              - cell "dom" [ref=e82]
+            - row [ref=e83]:
+              - rowheader "activeRenderer" [ref=e84]
+              - cell "css" [ref=e85]
+            - row [ref=e86]:
+              - rowheader "samplingBackend" [ref=e87]
+              - cell "css-backdrop" [ref=e88]
+            - row [ref=e89]:
+              - rowheader "refraction" [ref=e90]
+              - cell "none" [ref=e91]
+            - row [ref=e92]:
+              - rowheader "analysis" [ref=e93]
+              - cell "none" [ref=e94]
+            - row [ref=e95]:
+              - rowheader "health" [ref=e96]
+              - cell "ok" [ref=e97]
+            - row [ref=e98]:
+              - rowheader "demotionReason" [ref=e99]
+              - cell "—" [ref=e100]
+        - table [ref=e101]:
+          - caption [ref=e102]: toolbar
+          - rowgroup [ref=e103]:
+            - row [ref=e104]:
+              - rowheader "materialDocument" [ref=e105]
+              - cell "apple-macos-27.0-1x-light-standard-glass0.5" [ref=e106]
+            - row [ref=e107]:
+              - rowheader "configuredSource" [ref=e108]
+              - cell "dom" [ref=e109]
+            - row [ref=e110]:
+              - rowheader "activeRenderer" [ref=e111]
+              - cell "css" [ref=e112]
+            - row [ref=e113]:
+              - rowheader "samplingBackend" [ref=e114]
+              - cell "css-backdrop" [ref=e115]
+            - row [ref=e116]:
+              - rowheader "refraction" [ref=e117]
+              - cell "none" [ref=e118]
+            - row [ref=e119]:
+              - rowheader "analysis" [ref=e120]
+              - cell "none" [ref=e121]
+            - row [ref=e122]:
+              - rowheader "health" [ref=e123]
+              - cell "ok" [ref=e124]
+            - row [ref=e125]:
+              - rowheader "demotionReason" [ref=e126]
+              - cell "—" [ref=e127]
+        - table [ref=e128]:
+          - caption [ref=e129]: toolbar-menu (the morph)
+          - rowgroup [ref=e130]:
+            - row [ref=e131]:
+              - rowheader "materialDocument" [ref=e132]
+              - cell "apple-macos-27.0-1x-light-standard-glass0.5" [ref=e133]
+            - row [ref=e134]:
+              - rowheader "configuredSource" [ref=e135]
+              - cell "dom" [ref=e136]
+            - row [ref=e137]:
+              - rowheader "activeRenderer" [ref=e138]
+              - cell "css" [ref=e139]
+            - row [ref=e140]:
+              - rowheader "samplingBackend" [ref=e141]
+              - cell "css-backdrop" [ref=e142]
+            - row [ref=e143]:
+              - rowheader "refraction" [ref=e144]
+              - cell "none" [ref=e145]
+            - row [ref=e146]:
+              - rowheader "analysis" [ref=e147]
+              - cell "none" [ref=e148]
+            - row [ref=e149]:
+              - rowheader "health" [ref=e150]
+              - cell "ok" [ref=e151]
+            - row [ref=e152]:
+              - rowheader "demotionReason" [ref=e153]
+              - cell "—" [ref=e154]
+        - table [ref=e155]:
+          - caption [ref=e156]: ink-light-action (the light ground's tinted button)
+          - rowgroup [ref=e157]:
+            - row [ref=e158]:
+              - rowheader "materialDocument" [ref=e159]
+              - cell "apple-macos-27.0-1x-light-standard-glass0.5" [ref=e160]
+            - row [ref=e161]:
+              - rowheader "configuredSource" [ref=e162]
+              - cell "dom" [ref=e163]
+            - row [ref=e164]:
+              - rowheader "activeRenderer" [ref=e165]
+              - cell "css" [ref=e166]
+            - row [ref=e167]:
+              - rowheader "samplingBackend" [ref=e168]
+              - cell "css-backdrop" [ref=e169]
+            - row [ref=e170]:
+              - rowheader "refraction" [ref=e171]
+              - cell "none" [ref=e172]
+            - row [ref=e173]:
+              - rowheader "analysis" [ref=e174]
+              - cell "hint" [ref=e175]
+            - row [ref=e176]:
+              - rowheader "health" [ref=e177]
+              - cell "ok" [ref=e178]
+            - row [ref=e179]:
+              - rowheader "demotionReason" [ref=e180]
+              - cell "—" [ref=e181]
+        - table [ref=e182]:
+          - caption [ref=e183]: ink-dark-action (the dark ground's tinted button)
+          - rowgroup [ref=e184]:
+            - row [ref=e185]:
+              - rowheader "materialDocument" [ref=e186]
+              - cell "apple-macos-27.0-1x-light-standard-glass0.5" [ref=e187]
+            - row [ref=e188]:
+              - rowheader "configuredSource" [ref=e189]
+              - cell "dom" [ref=e190]
+            - row [ref=e191]:
+              - rowheader "activeRenderer" [ref=e192]
+              - cell "css" [ref=e193]
+            - row [ref=e194]:
+              - rowheader "samplingBackend" [ref=e195]
+              - cell "css-backdrop" [ref=e196]
+            - row [ref=e197]:
+              - rowheader "refraction" [ref=e198]
+              - cell "none" [ref=e199]
+            - row [ref=e200]:
+              - rowheader "analysis" [ref=e201]
+              - cell "hint" [ref=e202]
+            - row [ref=e203]:
+              - rowheader "health" [ref=e204]
+              - cell "ok" [ref=e205]
+            - row [ref=e206]:
+              - rowheader "demotionReason" [ref=e207]
+              - cell "—" [ref=e208]
+      - generic [ref=e209]:
+        - heading "Renderer" [level=2] [ref=e210]
+        - paragraph [ref=e211]:
+          - text: This root asks for
+          - code [ref=e212]: renderer="webgpu"
+          - text: ", and the rows above say what it got. Where a device and the renderer are both had, glass bodies are drawn by the WebGPU optical engine onto the plane’s own canvas, and a texture-backed group samples the registered source directly —"
+          - code [ref=e213]: "samplingBackend: gpu-texture"
+          - text: ", with true refraction rather than a blur. Where either is missing, every group resolves to the CSS tier and says so by name."
+        - paragraph [ref=e214]:
+          - text: "Asking is not getting, and the panel never smooths over the difference: a demoted group keeps its"
+          - code [ref=e215]: configuredSource
+          - text: alongside the renderer that is actually painting it, so what the app declared and what the browser could do stay separately readable.
+        - paragraph [ref=e216]:
+          - text: Add
+          - code [ref=e217]: "?renderer=css"
+          - text: to compare the tiers. Note what that does
+          - emphasis [ref=e218]: not
+          - text: "say: a root that chose the CSS tier reads"
+          - code [ref=e219]: "health: ok"
+          - text: with no demotion reason, because choosing is not failing — labelling intent as fault would invert the whole point of these rows.
+      - generic [ref=e220]:
+        - heading "Window activation" [level=2] [ref=e221]
+        - paragraph [ref=e222]:
+          - text: "Apple’s glass recedes when its window loses focus, so the pose belongs to the root: one window is active or it is not, and no individual surface carries the answer. Leave the pin on"
+          - code [ref=e223]: auto
+          - text: and click away from this window — to another window, and every surface on the page drops its outer shadow and its bright rim together. The row below is the runtime’s own answer, with
+          - code [ref=e224]: auto
+          - text: already folded against the window’s focus.
+        - generic [ref=e225]:
+          - combobox "windowActivation pin" [ref=e226]:
+            - option "auto" [selected]
+            - option "active"
+            - option "inactive"
+          - text: windowActivation pin
+        - table [ref=e227]:
+          - rowgroup [ref=e228]:
+            - row [ref=e229]:
+              - rowheader "windowActivation" [ref=e230]
+              - cell "active" [ref=e231]
+        - paragraph [ref=e232]:
+          - text: "Pinning wins over the window, in both directions:"
+          - code [ref=e233]: inactive
+          - text: holds the recede while this window has focus, which is what a preview or a capture harness needs, and
+          - code [ref=e234]: active
+          - text: holds the live material while it does not.
+        - paragraph [ref=e235]:
+          - text: The recede is fitted per colour scheme — a material document carries a light receded endpoint and a dark one — so the pin below selects which of the two the pose above resolves to. It moves this page’s own ground with it, and it moves the
+          - code [ref=e236]: materialDocument
+          - text: row in each group’s table, which names the endpoint that actually drew.
+        - generic [ref=e237]:
+          - combobox "colorScheme pin" [ref=e238]:
+            - option "light" [selected]
+            - option "dark"
+            - option "auto"
+          - text: colorScheme pin
+      - generic [ref=e239]:
+        - 'heading "Accessibility (acceptance #6)" [level=2] [ref=e240]'
+        - generic [ref=e241]:
+          - generic [ref=e242]:
+            - combobox "reducedMotion" [ref=e243]:
+              - option "system" [selected]
+              - option "on"
+              - option "off"
+            - text: reducedMotion
+          - generic [ref=e244]:
+            - combobox "reducedTransparency" [ref=e245]:
+              - option "system" [selected]
+              - option "on"
+              - option "off"
+            - text: reducedTransparency
+          - generic [ref=e246]:
+            - combobox "increasedContrast" [ref=e247]:
+              - option "system" [selected]
+              - option "on"
+              - option "off"
+            - text: increasedContrast
+        - table [ref=e248]:
+          - rowgroup [ref=e249]:
+            - row [ref=e250]:
+              - rowheader "forcedColors" [ref=e251]
+              - cell "false" [ref=e252]
+            - row [ref=e253]:
+              - rowheader "glass" [ref=e254]
+              - cell "material" [ref=e255]
+            - row [ref=e256]:
+              - rowheader "frost" [ref=e257]
+              - cell "nominal" [ref=e258]
+            - row [ref=e259]:
+              - rowheader "refraction cap" [ref=e260]
+              - cell "nominal" [ref=e261]
+            - row [ref=e262]:
+              - rowheader "overshoot" [ref=e263]
+              - cell "elastic" [ref=e264]
+            - row [ref=e265]:
+              - rowheader "deformation" [ref=e266]
+              - cell "nominal" [ref=e267]
+        - paragraph [ref=e268]:
+          - code [ref=e269]: forced-colors
+          - text: "has no override and never will: it is an operating-system accessibility mandate, so core’s type excludes it from the prop set."
+      - generic [ref=e270]:
+        - heading "Dev-mode findings" [level=2] [ref=e271]
+        - paragraph [ref=e272]:
+          - text: The band below styles something with
+          - code [ref=e273]: "--vitrea-foreground-quaternary"
+          - text: ", so every surface in this page under the material’s thin/thick knee reports the fourth level’s advisory once. That is the finding working: the scan is of the document, not of the element, and the playground is full of thin controls."
+        - generic [ref=e274]:
+          - checkbox "mix regular and clear in one group" [ref=e275]
+          - text: mix regular and clear in one group
+        - list [ref=e276]:
+          - listitem [ref=e277]:
+            - strong [ref=e278]: quaternary-ink-on-thin-material
+            - text: "Surface \"vitrea-node_r_g_\" has a span of 40 CSS px, below the material's thin/thick knee at 64, and this document styles something with --vitrea-foreground-quaternary. Apple documents the quaternary label level as too low-contrast to read on a thin material — it carries no WCAG floor, unlike --vitrea-foreground-secondary, which vitrea raises to hold 4.5 against whatever level this surface resolved at. The token is still published: use --vitrea-foreground-tertiary for anything a reader has to read here, and keep quaternary for a separator or a decorative glyph. This finding is about the page rather than this element — vitrea can see that a rule names the token, not which element it lands on."
+          - listitem [ref=e279]:
+            - strong [ref=e280]: quaternary-ink-on-thin-material
+            - text: "Surface \"vitrea-node_r_j_\" has a span of 44 CSS px, below the material's thin/thick knee at 64, and this document styles something with --vitrea-foreground-quaternary. Apple documents the quaternary label level as too low-contrast to read on a thin material — it carries no WCAG floor, unlike --vitrea-foreground-secondary, which vitrea raises to hold 4.5 against whatever level this surface resolved at. The token is still published: use --vitrea-foreground-tertiary for anything a reader has to read here, and keep quaternary for a separator or a decorative glyph. This finding is about the page rather than this element — vitrea can see that a rule names the token, not which element it lands on."
+          - listitem [ref=e281]:
+            - strong [ref=e282]: quaternary-ink-on-thin-material
+            - text: "Surface \"vitrea-node_r_k_\" has a span of 44 CSS px, below the material's thin/thick knee at 64, and this document styles something with --vitrea-foreground-quaternary. Apple documents the quaternary label level as too low-contrast to read on a thin material — it carries no WCAG floor, unlike --vitrea-foreground-secondary, which vitrea raises to hold 4.5 against whatever level this surface resolved at. The token is still published: use --vitrea-foreground-tertiary for anything a reader has to read here, and keep quaternary for a separator or a decorative glyph. This finding is about the page rather than this element — vitrea can see that a rule names the token, not which element it lands on."
+          - listitem [ref=e283]:
+            - strong [ref=e284]: quaternary-ink-on-thin-material
+            - text: "Surface \"vitrea-node_r_l_\" has a span of 44 CSS px, below the material's thin/thick knee at 64, and this document styles something with --vitrea-foreground-quaternary. Apple documents the quaternary label level as too low-contrast to read on a thin material — it carries no WCAG floor, unlike --vitrea-foreground-secondary, which vitrea raises to hold 4.5 against whatever level this surface resolved at. The token is still published: use --vitrea-foreground-tertiary for anything a reader has to read here, and keep quaternary for a separator or a decorative glyph. This finding is about the page rather than this element — vitrea can see that a rule names the token, not which element it lands on."
+          - listitem [ref=e285]:
+            - strong [ref=e286]: quaternary-ink-on-thin-material
+            - text: "Surface \"vitrea-node_r_q_\" has a span of 0 CSS px, below the material's thin/thick knee at 64, and this document styles something with --vitrea-foreground-quaternary. Apple documents the quaternary label level as too low-contrast to read on a thin material — it carries no WCAG floor, unlike --vitrea-foreground-secondary, which vitrea raises to hold 4.5 against whatever level this surface resolved at. The token is still published: use --vitrea-foreground-tertiary for anything a reader has to read here, and keep quaternary for a separator or a decorative glyph. This finding is about the page rather than this element — vitrea can see that a rule names the token, not which element it lands on."
+          - listitem [ref=e287]:
+            - strong [ref=e288]: quaternary-ink-on-thin-material
+            - text: "Surface \"vitrea-node_r_s_\" has a span of 0 CSS px, below the material's thin/thick knee at 64, and this document styles something with --vitrea-foreground-quaternary. Apple documents the quaternary label level as too low-contrast to read on a thin material — it carries no WCAG floor, unlike --vitrea-foreground-secondary, which vitrea raises to hold 4.5 against whatever level this surface resolved at. The token is still published: use --vitrea-foreground-tertiary for anything a reader has to read here, and keep quaternary for a separator or a decorative glyph. This finding is about the page rather than this element — vitrea can see that a rule names the token, not which element it lands on."
+    - region "Tint and ink" [ref=e289]:
+      - generic [ref=e290]:
+        - generic [ref=e291]:
+          - text: GlassGroup tint
+          - generic [ref=e292]:
+            - generic [ref=e293]:
+              - generic [ref=e294]: GlassGroup tint seed
+              - textbox "GlassGroup tint seed" [ref=e295] [cursor=pointer]: "#3f7fe0"
+            - generic [ref=e296]:
+              - generic [ref=e297]: GlassGroup tint strength
+              - slider "GlassGroup tint strength" [ref=e298]: "45"
+            - generic [ref=e299]:
+              - checkbox "Vitrea owns bookmark ink" [checked] [ref=e300]
+              - generic [ref=e301]: vibrant
+          - paragraph [ref=e302]: rgb(63 127 224 / 45%)
+        - generic [ref=e303]:
+          - text: GlassButton tint
+          - generic [ref=e304]:
+            - generic [ref=e305]:
+              - generic [ref=e306]: GlassButton tint seed
+              - textbox "GlassButton tint seed" [ref=e307] [cursor=pointer]: "#ff9500"
+            - generic [ref=e308]:
+              - generic [ref=e309]: GlassButton tint strength
+              - slider "GlassButton tint strength" [ref=e310]: "100"
+          - paragraph [ref=e311]: rgb(255 149 0 / 100%)
+      - paragraph [ref=e313]: light ground · 0.799 linear · css · css-backdrop
+      - paragraph [ref=e315]: dark ground · 0.012 linear · css · css-backdrop
+    - status [ref=e316]
+  - generic:
+    - generic:
+      - generic:
+        - generic:
+          - region "Tint and ink levels":
+            - generic:
+              - generic [ref=e317]:
+                - generic [ref=e318]:
+                  - generic [ref=e319]: Aa
+                  - generic [ref=e320]: primary
+                - generic [ref=e321]:
+                  - generic [ref=e322]: Aa
+                  - generic [ref=e323]: secondary
+                - generic [ref=e324]:
+                  - generic [ref=e325]: Aa
+                  - generic [ref=e326]: tertiary
+                - generic [ref=e327]:
+                  - generic [ref=e328]: Aa
+                  - generic [ref=e329]: quaternary
+              - button "Bookmark the light ground" [ref=e330] [cursor=pointer]:
+                - generic [ref=e331]: ☆
+              - button "Publish to the light ground" [ref=e332] [cursor=pointer]: Publish
+            - generic:
+              - generic [ref=e333]:
+                - generic [ref=e334]:
+                  - generic [ref=e335]: Aa
+                  - generic [ref=e336]: primary
+                - generic [ref=e337]:
+                  - generic [ref=e338]: Aa
+                  - generic [ref=e339]: secondary
+                - generic [ref=e340]:
+                  - generic [ref=e341]: Aa
+                  - generic [ref=e342]: tertiary
+                - generic [ref=e343]:
+                  - generic [ref=e344]: Aa
+                  - generic [ref=e345]: quaternary
+              - button "Bookmark the dark ground" [ref=e346] [cursor=pointer]:
+                - generic [ref=e347]: ☆
+              - button "Publish to the dark ground" [ref=e348] [cursor=pointer]: Publish
+        - generic:
+          - region "Glass surfaces":
+            - generic:
+              - generic:
+                - generic [ref=e349]:
+                  - strong [ref=e350]: Regular material
+                  - generic [ref=e351]: dom backdrop · author hint
+                - generic [ref=e352]:
+                  - button "Dismiss glass" [ref=e353] [cursor=pointer]
+                  - generic [ref=e354]:
+                    - checkbox "Materialize the Actions menu" [checked] [ref=e355]
+                    - text: Materialize the Actions menu
+            - generic:
+              - generic:
+                - generic [ref=e356]:
+                  - strong [ref=e357]: Larger surface
+                  - generic [ref=e358]: deeper material, stronger lensing
+                - generic [ref=e359]: regular
+        - generic:
+          - region "View controls":
+            - radiogroup "Time range" [ref=e361]:
+              - radio "Day" [ref=e362] [cursor=pointer]
+              - radio "Week" [checked] [ref=e363] [cursor=pointer]
+              - radio "Month" [ref=e364] [cursor=pointer]
+        - generic:
+          - navigation "Playground toolbar":
+            - toolbar "Playground actions":
+              - button "Share" [ref=e365] [cursor=pointer]
+              - button "Add to favorites" [ref=e366] [cursor=pointer]:
+                - generic [ref=e367]: ☆
+              - button "Disabled" [disabled] [ref=e368]
+    - menu "Actions ▾" [ref=e371]:
+      - menuitem "Duplicate" [ref=e372] [cursor=pointer]
+      - menuitem "Rename…" [ref=e373] [cursor=pointer]
+      - menuitem "Export as PNG" [ref=e374] [cursor=pointer]
+      - menuitem "Delete" [ref=e375] [cursor=pointer]
+```
+
+# Test source
+
+```ts
+  105 | test.beforeEach(async ({ page }, testInfo) => {
+  106 |   // Emulated per page rather than through `test.use`: the runtime reads the
+  107 |   // query with `matchMedia` at construction, and only a page-level emulation is
+  108 |   // in force before the root is built.
+  109 |   if (testInfo.titlePath.join(" ").includes("Reduced Motion")) {
+  110 |     await page.emulateMedia({ reducedMotion: "reduce" });
+  111 |   }
+  112 |   await gotoPlayground(page);
+  113 |   await useMaterialize(page);
+  114 | });
+  115 | 
+  116 | test("the two ends are two surfaces, and neither travels toward the other", async ({ page }) => {
+  117 |   const source = page.locator(SOURCE);
+  118 |   const before = await rectOf(source);
+  119 | 
+  120 |   await press(page, page.getByRole("button", { name: "Actions" }));
+  121 |   await settled(page, DESTINATION);
+  122 | 
+  123 |   const destination = page.locator(DESTINATION);
+  124 |   await expect(destination).toHaveCount(1);
+  125 | 
+  126 |   const ids = await page.evaluate(() =>
+  127 |     [...document.querySelectorAll("[data-vitrea-morph]")].map((element) =>
+  128 |       element.getAttribute("data-vitrea-node"),
+  129 |     ),
+  130 |   );
+  131 |   expect(ids).toHaveLength(2);
+  132 |   expect(new Set(ids).size, "the two ends share a node id").toBe(2);
+  133 | 
+  134 |   // The closed end stayed exactly where it was: nothing here matches geometry,
+  135 |   // so the source's box is the same box it had before the transition began.
+  136 |   const after = await rectOf(source);
+  137 |   expect(Math.abs(after.x - before.x)).toBeLessThan(1);
+  138 |   expect(Math.abs(after.y - before.y)).toBeLessThan(1);
+  139 |   expect(Math.abs(after.width - before.width)).toBeLessThan(1);
+  140 |   expect(Math.abs(after.height - before.height)).toBeLessThan(1);
+  141 | 
+  142 |   const platter = await rectOf(destination);
+  143 |   expect(platter.height).toBeGreaterThan(after.height);
+  144 | });
+  145 | 
+  146 | test("the crossfade is the content's, and no host or ancestor leaves opacity 1", async ({
+  147 |   page,
+  148 | }) => {
+  149 |   const recording = recordCrossfade(page);
+  150 |   await press(page, page.getByRole("button", { name: "Actions" }));
+  151 |   const samples = await recording;
+  152 | 
+  153 |   expect(samples.length).toBeGreaterThan(2);
+  154 | 
+  155 |   // X6, machine-checked on every frame of the transition: the material's
+  156 |   // presence is what arrives, so element opacity never moves at all.
+  157 |   for (const sample of samples) {
+  158 |     expect(sample.opacityDeficit, "presence must never be element opacity").toBeCloseTo(0, 5);
+  159 |   }
+  160 | 
+  161 |   const destination = samples.map((sample) => sample.destinationContent);
+  162 |   const source = samples.map((sample) => sample.sourceContent);
+  163 |   expect(destination.at(-1)).toBeCloseTo(1, 2);
+  164 |   expect(source.at(-1)).toBeCloseTo(0, 2);
+  165 |   expect(
+  166 |     destination.some((alpha) => alpha > 0.02 && alpha < 0.98),
+  167 |     "the content never crossfaded — it switched",
+  168 |   ).toBe(true);
+  169 | 
+  170 |   for (const [index, alpha] of destination.entries()) {
+  171 |     if (index === 0) continue;
+  172 |     expect(alpha, "the crossfade went backwards").toBeGreaterThanOrEqual(
+  173 |       (destination[index - 1] ?? 0) - 1e-3,
+  174 |     );
+  175 |   }
+  176 | });
+  177 | 
+  178 | test("the end that is absent is inert, and is released when it has gone", async ({ page }) => {
+  179 |   const trigger = page.getByRole("button", { name: "Actions" });
+  180 |   const footprint = await rectOf(trigger);
+  181 |   const sourceId = await page.locator(SOURCE).getAttribute("data-vitrea-node");
+  182 | 
+  183 |   await press(page, trigger);
+  184 |   await settled(page, DESTINATION);
+  185 | 
+  186 |   // The open end is on top of its own box, and the closed end — still registered,
+  187 |   // still on its footprint, and with no presence — is not a target at all.
+  188 |   const platter = await rectOf(page.locator(DESTINATION));
+  189 |   const overPlatter = await topmostAt(page, platter.x + platter.width / 2, platter.y + 20);
+  190 |   expect(overPlatter).toBe(await page.locator(DESTINATION).getAttribute("data-vitrea-node"));
+  191 | 
+  192 |   const overFootprint = await topmostAt(
+  193 |     page,
+  194 |     footprint.x + footprint.width / 2,
+  195 |     footprint.y + footprint.height / 2,
+  196 |   );
+  197 |   expect(overFootprint).not.toBe(sourceId);
+  198 | 
+  199 |   const hidden = await page.locator(`${SOURCE} [data-vitrea-morph-content]`).evaluate(
+  200 |     (element) => getComputedStyle(element).visibility,
+  201 |   );
+  202 |   expect(hidden, "the absent end is still in the tab order").toBe("hidden");
+  203 | 
+  204 |   await page.keyboard.press("Escape");
+> 205 |   await expect(page.locator(DESTINATION)).toHaveCount(0);
+      |                                           ^ Error: expect(locator).toHaveCount(expected) failed
+  206 |   await expect(page.locator(SOURCE)).toHaveCount(1);
+  207 | });
+  208 | 
+  209 | /**
+  210 |  * Focus comes back, on the ordinary dismissal an app writes.
+  211 |  *
+  212 |  * The engine is what this needs rather than jsdom, and specifically: a
+  213 |  * `visibility: hidden` element is not focusable, and `focus()` on one is a
+  214 |  * silent no-op that no jsdom assertion feels. The playground's menu returns
+  215 |  * focus to its trigger the way any app would — one `focus()` in the effect that
+  216 |  * sees the menu close — and the trigger lives inside the source end's content,
+  217 |  * whose alpha is 0 on exactly that commit. If that end is hidden rather than
+  218 |  * merely transparent, the call does nothing and focus falls to `<body>` when the
+  219 |  * open end unmounts, which is a keyboard user losing their place in the page.
+  220 |  */
+  221 | test("returns focus to the trigger when the menu is dismissed", async ({ page }) => {
+  222 |   const trigger = page.getByRole("button", { name: "Actions" });
+  223 | 
+  224 |   await press(page, trigger);
+  225 |   await settled(page, DESTINATION);
+  226 |   const inPlatter = await page.evaluate(() =>
+  227 |     document.querySelector('[data-vitrea-morph-end="destination"]')?.contains(document.activeElement),
+  228 |   );
+  229 |   expect(inPlatter, "focus never entered the open platter").toBe(true);
+  230 | 
+  231 |   await page.keyboard.press("Escape");
+  232 |   await expect(trigger).toBeFocused();
+  233 | 
+  234 |   // And it is still there once the transition has finished, rather than having
+  235 |   // been taken by the destination's release on its way out.
+  236 |   await expect(page.locator(DESTINATION)).toHaveCount(0);
+  237 |   await expect(trigger).toBeFocused();
+  238 | });
+  239 | 
+  240 | test.describe("under Reduced Motion", () => {
+  241 |   test("presence and content both land without travelling", async ({ page }) => {
+  242 |     const recording = recordCrossfade(page);
+  243 |     await press(page, page.getByRole("button", { name: "Actions" }));
+  244 |     const samples = await recording;
+  245 | 
+  246 |     for (const sample of samples) {
+  247 |       expect(sample.opacityDeficit).toBeCloseTo(0, 5);
+  248 |       // Every recorded frame is at one end or the other. The reduced rule is
+  249 |       // that presence steps, and the content steps with it.
+  250 |       if (sample.ends < 2) continue;
+  251 |       expect(
+  252 |         sample.destinationContent === 0 || sample.destinationContent === 1,
+  253 |         "the crossfade animated under Reduced Motion",
+  254 |       ).toBe(true);
+  255 |     }
+  256 |     expect(samples.at(-1)?.destinationContent).toBe(1);
+  257 |   });
+  258 | });
+  259 | 
+```

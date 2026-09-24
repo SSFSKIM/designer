@@ -1,0 +1,16 @@
+{
+  "browser": {
+    "browserName": "chromium",
+    "isolated": true,
+    "launchOptions": {
+      "executablePath": "/Users/new/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
+      "headless": true,
+      "args": ["--enable-unsafe-webgpu", "--enable-features=Vulkan,WebGPU"]
+    },
+    "contextOptions": {
+      "viewport": {"width": 1440, "height": 1000},
+      "deviceScaleFactor": 1,
+      "colorScheme": "light"
+    }
+  }
+}

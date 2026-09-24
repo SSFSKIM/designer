@@ -46,6 +46,12 @@ test("the ground control moves the tone the runtime declares", async ({ page }) 
   await gotoLaws(page);
   await showSection(page, "tone");
 
+  // The advertised black endpoint must be reachable, not clamped to a near-black
+  // ground above the compact branch's support (W36 G2, claims §5.180).
+  await page.getByTestId("tone-level").fill("0");
+  await expect(page.getByTestId("tone-level-readout")).toContainText("0.000 linear");
+  await expect(page.getByTestId("tone-law")).toContainText("0.231");
+
   await page.getByTestId("tone-level").fill("20");
   await expect(page.getByTestId("tone-level-readout")).toContainText("0.020 linear");
   await page.waitForTimeout(400);

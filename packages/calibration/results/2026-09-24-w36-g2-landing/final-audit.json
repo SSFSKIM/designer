@@ -1,0 +1,101 @@
+{
+  "claims": "c9a \u00a75.180",
+  "protectedFilesStillUnchanged": 125,
+  "goldenPNGs": [
+    {
+      "path": "packages/renderer-webgpu/e2e/goldens/body-ramp-1x.png",
+      "sha256": "3a054fc13e855e0dbd71c24be894e2adf9b7fd188350faae8d5ecd5f06c63c13"
+    },
+    {
+      "path": "packages/renderer-webgpu/e2e/goldens/collapsed-tone-textured.png",
+      "sha256": "1fc8fc4e98359b542f4bbd93859e9230defe24464746f24ee9addc1115f58f5f"
+    },
+    {
+      "path": "packages/renderer-webgpu/e2e/goldens/collapsed-tone.png",
+      "sha256": "1e3c46063a070e2fe7a444b51ace97a23ff2645a483ba6a7612dad9cadfed59e"
+    },
+    {
+      "path": "packages/renderer-webgpu/e2e/goldens/concentric-nesting.png",
+      "sha256": "89a8f59723b0411c568d0ba5afcef7648f1f8bae72c22a705edc1ccc9529959a"
+    },
+    {
+      "path": "packages/renderer-webgpu/e2e/goldens/field-mask.png",
+      "sha256": "99bc0ec4b80cd101a211b6457334d4f0b87c84bdb2d4f3f3f5229c431f9c8a67"
+    },
+    {
+      "path": "packages/renderer-webgpu/e2e/goldens/highlight-press-glow.png",
+      "sha256": "933cd6801af9bb742cf88281afb2658d3b4f98db8c44d5ecf6b97aa3eeed632a"
+    },
+    {
+      "path": "packages/renderer-webgpu/e2e/goldens/lens-size-scaling.png",
+      "sha256": "e595342dbf249b9697a94ef1b2a42e1c08eee042220a1642cb5f12570b888a95"
+    },
+    {
+      "path": "packages/renderer-webgpu/e2e/goldens/placed-checkerboard.png",
+      "sha256": "46e51eaafdff1d907313df49b708182af32dac8cb64b6e8753e61fa8e254bbb6"
+    },
+    {
+      "path": "packages/renderer-webgpu/e2e/goldens/refraction-checkerboard.png",
+      "sha256": "3e45a0a57892997c0fc6af70181d5732a0ef6298eada18b0844ba199fdda5f7c"
+    },
+    {
+      "path": "packages/renderer-webgpu/e2e/goldens/rim-two-references.png",
+      "sha256": "46d2f51bdf00ee4296841dcd322479d2b9e50f7f9a796394445600fec2a4ab22"
+    },
+    {
+      "path": "packages/renderer-webgpu/e2e/goldens/tint-adaptation-dark.png",
+      "sha256": "47db8d9fbbec51a90db86fb032480bf8b01bbd35c7cc918b84477f471a825342"
+    },
+    {
+      "path": "packages/renderer-webgpu/e2e/goldens/tint-adaptation-light.png",
+      "sha256": "0a0e7e9b41e62681339a109cf703b7541a725f4b1305c45aaf274165c6cb22c1"
+    },
+    {
+      "path": "packages/renderer-webgpu/e2e/goldens/union-pair.png",
+      "sha256": "a7be35417f06e3bc7def26e33999601f901aff01eb4ad81314ab9fd5d35cd282"
+    }
+  ],
+  "unitCounts": {
+    "packages/policy": 23,
+    "packages/motion": 164,
+    "packages/geometry": 170,
+    "packages/renderer-webgpu": 566,
+    "packages/core": 302,
+    "packages/platform-web": 634,
+    "packages/react": 174,
+    "packages/calibration": 682,
+    "apps/demo": 46
+  },
+  "unitFiles": {
+    "packages/policy": 2,
+    "packages/motion": 10,
+    "packages/geometry": 14,
+    "packages/renderer-webgpu": 35,
+    "packages/core": 16,
+    "packages/platform-web": 47,
+    "packages/react": 19,
+    "packages/calibration": 47,
+    "apps/demo": 6
+  },
+  "unitTotal": 2761,
+  "unitFileTotal": 196,
+  "browserPreflightCount": 9,
+  "minimumIdleSeconds": 43325.053817291,
+  "foreignCounts": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1
+  ],
+  "foreignQualification": "Both count1 readings are PID85913, the owned Vite-launch shell whose command text contains the Chromium config. The raw census is retained, not rewritten. No foreign browser was closed; final eye repeats are byte-identical.",
+  "react": "173 passed /3 skipped /1 Firefox morph-release failure; first run, not rerun",
+  "demo": "61 full-suite passes; after black control/prose repair, 10 laws passes; 46 demo units unchanged",
+  "eye": "Hardware apple/metal-3, no fallback, two stage PNGs byte-identical",
+  "frozenPathsChanged": [],
+  "materialOrMatrixChanged": []
+}

@@ -1,0 +1,48 @@
+{
+  "endpoints": [
+    {
+      "document": "apple-macos-27.0-1x-light-standard-glass0.5.json",
+      "digest": "be13dae45098fc89",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "pose": "active",
+      "scheme": "light",
+      "blackThin": 0.23074004852434915,
+      "blackThick": 0.23074004852434915
+    },
+    {
+      "document": "apple-macos-27.0-1x-light-standard-glass0.5-receded.json",
+      "digest": "b0d0d8dacc6a03af",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5-receded",
+      "pose": "receded",
+      "scheme": "light",
+      "blackThin": 0.23455058216100522,
+      "blackThick": 0.23455058216100522
+    },
+    {
+      "document": "apple-macos-27.0-1x-dark-standard-glass0.5.json",
+      "digest": "2a4323f33df8d799",
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "pose": "active",
+      "scheme": "dark",
+      "blackThin": 0.014443843596092545,
+      "blackThick": 0.014443843596092545
+    },
+    {
+      "document": "apple-macos-27.0-1x-dark-standard-glass0.5-receded.json",
+      "digest": "7c454858a3cbad5b",
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5-receded",
+      "pose": "receded",
+      "scheme": "dark",
+      "blackThin": 0.006995410187265387,
+      "blackThick": 0.006995410187265387
+    }
+  ],
+  "black": {
+    "encoded": 0,
+    "small": 0.23074004852434915,
+    "large": 0.23074004852434915
+  },
+  "smallSpan": 40,
+  "largeSpan": 112,
+  "qualification": "The page's spans differ from the measured span44; thick black is extrapolated."
+}

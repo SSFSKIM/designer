@@ -86,10 +86,10 @@ const SECTIONS: readonly SectionSpec[] = [
  * site's reason: a range input validates against `min + n * step` in binary
  * floating point, and a fractional grid rejects most of its own positions.
  *
- * Black to white, the whole axis, because the response curve spans the whole
- * axis: its anchors sit at encoded means of 0.11, 0.27 and 0.95.
+ * Black to white, including W36's separate low-end branch. A lower stop of
+ * 0.002 linear never reached that branch despite the page calling it black.
  */
-const TONE_GROUND = { min: 2, max: 1000, step: 2, initial: 300 } as const;
+const TONE_GROUND = { min: 0, max: 1000, step: 2, initial: 300 } as const;
 
 /** The body control's stops: the size law's floor, past the scatter's ceiling. */
 const BODY_SPAN = { min: 32, max: 288, step: 4, initial: 112 } as const;
@@ -288,13 +288,13 @@ export function Laws(props: LawsProps): ReactNode {
 
         <Section spec={SECTIONS[0]} active={active}>
           <p className="body">
-            Liquid Glass takes the tone of what is behind it. Swept across solid and
-            patterned backdrops from black to white, the reference settles its
-            interior on one curve of the backdrop&rsquo;s level: a monotone curve
-            through three measured anchors, whose ends move with the surface&rsquo;s
-            size. It reads that level as the mean taken in encoded sRGB, not in
-            linear light. The difference only shows over structured content, where
-            an average taken before a non-linearity is not the average after it.
+            This stage evaluates the shipped macOS 27 response over a uniform
+            ground. Its four-anchor curve varies with surface size, with a separate
+            black branch below 0.003 encoded input. The active material reads the
+            backdrop as a mean in encoded sRGB, not linear light; over structured
+            content, averaging before a non-linearity differs from averaging after
+            it. The measured black body is closed, but the uniform-grey middle and
+            coloured backdrops still have named gaps to the reference.
           </p>
           <Fields legend="Backdrop">
             <label className="field">
@@ -312,16 +312,16 @@ export function Laws(props: LawsProps): ReactNode {
               />
               <span className="field__hint" data-testid="tone-level-readout">
                 {toneLevel.toFixed(3)} linear, {fixed(tone.encoded)} encoded. The
-                anchors sit at 0.110, 0.271 and 0.951 encoded.
+                response below is evaluated from this page&rsquo;s selected material.
               </span>
             </label>
           </Fields>
           <p className="body">
-            Drag the ground from black to white. The 40px plate follows the curve
-            almost all the way; the 112px plate holds more of its own appearance at
-            every stop, because the anchors&rsquo; settled levels are functions of
-            size. The near-black end is the collapse the material already had,
-            byte for byte.
+            Drag the ground from black to white. Away from black, the two plates
+            target size-dependent levels. At black the shipped thin and thick
+            targets agree: the thin body is measured at 44px, while thick black is
+            an extrapolation. This page&rsquo;s 40px and 112px plates are a live
+            illustration, not two additional native calibration anchors.
           </p>
           <dl className="readout" data-testid="tone-law">
             <div className="readout__head">

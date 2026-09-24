@@ -1,0 +1,40 @@
+[
+  {
+    "name": "@vitreajs/vitrea",
+    "version": "0.24.0",
+    "bytes": 586228,
+    "sha256": "7801873d7b8ff927ed7b3fef4b674ff3e162aebd6b586d07348d6e7f3d169ce7",
+    "dependencies": {},
+    "peerDependencies": {},
+    "distEntries": 7,
+    "requiredFiles": true
+  },
+  {
+    "name": "@vitreajs/vitrea-web",
+    "version": "0.24.0",
+    "bytes": 569814,
+    "sha256": "4340a14b6c44fc60c41ac917a81554c19b14216bf318f742ca6c26b3fab3f418",
+    "dependencies": {
+      "@vitreajs/vitrea": "^0.24.0"
+    },
+    "peerDependencies": {},
+    "distEntries": 3,
+    "requiredFiles": true
+  },
+  {
+    "name": "@vitreajs/vitrea-react",
+    "version": "0.24.0",
+    "bytes": 188606,
+    "sha256": "1d3357b7946e75a32bba03b78a4873496aa562a665efc132ff3d09b093eddda1",
+    "dependencies": {
+      "@vitreajs/vitrea": "^0.24.0",
+      "@vitreajs/vitrea-web": "^0.24.0"
+    },
+    "peerDependencies": {
+      "react": ">=19.0.0",
+      "react-dom": ">=19.0.0"
+    },
+    "distEntries": 3,
+    "requiredFiles": true
+  }
+]

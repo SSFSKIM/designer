@@ -1,0 +1,15 @@
+### Browser `w36-g2-eye` opened with pid 87227.
+- w36-g2-eye:
+  - browser-type: chrome
+  - user-data-dir: <in-memory>
+  - headed: false
+---
+### Ran Playwright code
+```js
+await page.goto('http://localhost:5197/laws/?renderer=webgpu');
+```
+### Page
+- Page URL: http://localhost:5197/laws/?renderer=webgpu
+- Page Title: vitrea — the material laws
+### Snapshot
+- [Snapshot](.playwright-cli/page-2026-09-24T13-24-23-793Z.yml)
