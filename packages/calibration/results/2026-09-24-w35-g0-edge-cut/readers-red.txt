@@ -1,0 +1,29 @@
+EEE
+======================================================================
+ERROR: test_canonical_refuses_holdout_recorded_probe_and_paths (__main__.Boundary.test_canonical_refuses_holdout_recorded_probe_and_paths)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/Developer/GitHub/designer/.claude/worktrees/w35-g0-edge-cut/packages/calibration/results/2026-09-24-w35-g0-edge-cut/test-readers.py", line 20, in test_canonical_refuses_holdout_recorded_probe_and_paths
+    from w35_readers import CanonicalNativeReader
+ModuleNotFoundError: No module named 'w35_readers'
+
+======================================================================
+ERROR: test_canonical_web_has_the_same_role_boundary (__main__.Boundary.test_canonical_web_has_the_same_role_boundary)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/Developer/GitHub/designer/.claude/worktrees/w35-g0-edge-cut/packages/calibration/results/2026-09-24-w35-g0-edge-cut/test-readers.py", line 29, in test_canonical_web_has_the_same_role_boundary
+    from w35_readers import WebReader
+ModuleNotFoundError: No module named 'w35_readers'
+
+======================================================================
+ERROR: test_web_refuses_holdout_and_bare_paths_before_open (__main__.Boundary.test_web_refuses_holdout_and_bare_paths_before_open)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/Developer/GitHub/designer/.claude/worktrees/w35-g0-edge-cut/packages/calibration/results/2026-09-24-w35-g0-edge-cut/test-readers.py", line 11, in test_web_refuses_holdout_and_bare_paths_before_open
+    from w35_readers import WebReader
+ModuleNotFoundError: No module named 'w35_readers'
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.000s
+
+FAILED (errors=3)

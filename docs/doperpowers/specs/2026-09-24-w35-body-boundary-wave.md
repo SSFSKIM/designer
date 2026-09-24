@@ -450,7 +450,7 @@ machine quiet for X6 but not untouched) → review → merge with the capture tr
 
 | child | status |
 | --- | --- |
-| G0 | CHARTERED |
+| G0 | G0a OPEN: access guards and pre-candidate domain committed; §5.177 |
 | G1 | CHARTERED, opens after G0's merge and Decision Log 1 |
 | G2 | CHARTERED, opens after G1's merge |
 

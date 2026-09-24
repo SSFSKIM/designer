@@ -1,0 +1,69 @@
+{
+  "schema": 1,
+  "claims": "c9a \u00a75.177, clauses 1, 3 and 4",
+  "status": "Frozen before candidate residuals; diagnostic observations are not candidate fitting",
+  "coordinates": "Pixel centres x+0.5,y+0.5; W34 fixed alignment; shells [s,s+1) device px; 16 nearest-normal bins; parts separate",
+  "diagnosticShells": "[-H,4), H=min(component size)*scale/2",
+  "deepBody": {
+    "innerEdgeCssPx": 6,
+    "estimator": "per-channel median over d<=-6*scale",
+    "spread": "min, max, and max absolute deviation plus half-code; no sample-count shrinkage",
+    "trough": "8\u201314 CSS px is inside this domain",
+    "memoControl": "also report d<=-6 device px median, never substitute it for the declared baseline"
+  },
+  "closure": {
+    "innerEdgeCssPx": 6,
+    "outerEdgeDevicePx": 0,
+    "minimumPixels": 4,
+    "roles": [
+      "calibration",
+      "validation"
+    ],
+    "backgrounds": [
+      "solid"
+    ],
+    "geometry": "circular native stadium only; continuous straights diagnostic transfer, continuous arcs carry counterpart mismatch",
+    "wholePixelRule": "A pixel must be wholly inside the supplied aligned body: all four pixel corners have d<=0 (convex geometry). No separately averaged coverage products. On this domain the exact-body area integral is identically one. Non-unit coverage pixels are diagnostic-only, including straight pixels crossing the aligned edge.",
+    "toleranceCodes": "max(1, per-cell per-part per-bin per-shell per-channel normal repeat bar)",
+    "residual": "mean(abs(native excess - predicted excess)) per channel at fixed pixels before any reduction; no channel/shell/part pooling"
+  },
+  "line": {
+    "domain": "-1<=d/scale<0; width is a diagnostic partition, not rimWidth",
+    "decomposition": "Ramp extrapolation into line is the affine continuation through the two nearest non-line shell means per channel; line is native minus that continuation, not a separately identified Apple layer"
+  },
+  "ramp": {
+    "domain": "-6<=d/scale<-1",
+    "decomposition": "Observed excess above own deep median; no claim of a lens or light mechanism from subtraction"
+  },
+  "diagnosticOnly": {
+    "trough": "d/scale<-6: body field outside the compact boundary model; included in full profile and baseline uncertainty",
+    "coverage": "any pixel failing wholePixelRule: hidden glass coverage not identified by opaque controls",
+    "mixedArcs": "arc pixels failing wholePixelRule can mix an outside stroke; no stroke model authorised",
+    "outside": "d>=0: W34's unidentified stroke and shipped outer shadow, not this model",
+    "structured": "gradient and local split profiles report response but do not identify a boundary body from a median"
+  },
+  "space": "Forward model in linear sRGB; diagnostics and closure in encoded sRGB codes",
+  "conditioning": "Counterfactual materialAlpha*dot(materialColour,[.2126,.7152,.0722])+(1-materialAlpha)*backdropTone after inner-shadow occlusion and before rim; native final RGB is not this intermediate",
+  "forward": "Native deep RGB decoded as an opaque sampled-texture composite A=1; optional ramp added to that composite before the shipped multiplicative inner shadow; shadow keeps k=1-profile*shadowDepth*shadowAlpha*present*mat; A'=1-k*(1-A), C'=k*A*C/A'; L=A'*Y(C')+(1-A')*tone; rim=rw*lit*along*(a+g*L)*present*mat; sampled-texture output Q(encode(C'+rim)) at full coverage. Coverage diagnostics use runtime centre coverage clamp(.5-dDevice,0,1), not the native exact-body integral. Ramp before shadow is the nominated ownership/order, not an observed Apple operator.",
+  "identification": "Native-only calibration across levels; validation never fitted. Clipped channels >=254.5 codes are censored inequalities, not recovered added light. Baseline spread, quantisation, alignment/path, model discrepancy remain separate from repeat tolerance. Without a demonstrated mapping from native deep baseline to runtime intermediate, coefficients are effective only and transfer is not authorised.",
+  "synthetic": {
+    "numericalTolerance": 1e-10,
+    "quantisationPredictionToleranceCodes": 1,
+    "tests": [
+      "nonzero gain recovered",
+      "baseline changed before shadow/rim/composition at fixed coefficients",
+      "coefficients changed at fixed baseline",
+      "encoded final constant as control only"
+    ]
+  },
+  "runtimeUniformInputs": {
+    "thicknessCssPx": 8,
+    "spanCssPx": 44,
+    "sizeThickness": 0.09228515625,
+    "shadowReachCssPx": 9.18125,
+    "shadowDepth": 0.35,
+    "shadowAlpha": 0.05,
+    "presence": 1,
+    "reason": "W34 untinted sampled-texture solids: A=1. Tone argument includes backdropToneSizeBias .05 times sizeThickness; at span44 even black exceeds toneHigh .0001, so toneAdapt=0."
+  }
+}

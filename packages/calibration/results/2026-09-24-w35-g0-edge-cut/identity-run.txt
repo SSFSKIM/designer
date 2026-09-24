@@ -1,0 +1,116 @@
+[
+  {
+    "name": "apple-macos-26.5-1x-light-standard",
+    "recorded": "b2b570e4adcea8fb",
+    "before": "b2b570e4adcea8fb",
+    "after": "b2b570e4adcea8fb",
+    "nonzero": "3f116cc8caec8f26",
+    "proposedEntry": {
+      "wave": "W35",
+      "gate": {
+        "bodyBoundaryRamp": 0
+      },
+      "gated": [],
+      "law": "C_preShadow += bodyBoundaryRamp * compactBoundaryRamp(d, nativeIdentifiedLevelLaw)",
+      "inertLawCase": "TO BE IMPLEMENTED: packages/renderer-webgpu/test/w35-boundary-ramp.test.ts — zero ramp preserves the pre-shadow composite bit-identically",
+      "literalAssertion": "expect(DEFAULT_MATERIAL_PROFILE.bodyBoundaryRamp).toBe(0)",
+      "claims": "c9a §5.177, X13",
+      "runtimeTested": false
+    }
+  },
+  {
+    "name": "apple-macos-26.5-1x-dark-standard",
+    "recorded": "874be66ea501621b",
+    "before": "874be66ea501621b",
+    "after": "874be66ea501621b",
+    "nonzero": "40cc5dcc8b7dba50",
+    "proposedEntry": {
+      "wave": "W35",
+      "gate": {
+        "bodyBoundaryRamp": 0
+      },
+      "gated": [],
+      "law": "C_preShadow += bodyBoundaryRamp * compactBoundaryRamp(d, nativeIdentifiedLevelLaw)",
+      "inertLawCase": "TO BE IMPLEMENTED: packages/renderer-webgpu/test/w35-boundary-ramp.test.ts — zero ramp preserves the pre-shadow composite bit-identically",
+      "literalAssertion": "expect(DEFAULT_MATERIAL_PROFILE.bodyBoundaryRamp).toBe(0)",
+      "claims": "c9a §5.177, X13",
+      "runtimeTested": false
+    }
+  },
+  {
+    "name": "apple-macos-27.0-1x-light-standard-glass0.5",
+    "recorded": "dcbccbd9feac9881",
+    "before": "dcbccbd9feac9881",
+    "after": "dcbccbd9feac9881",
+    "nonzero": "43f4bb5dc71be89f",
+    "proposedEntry": {
+      "wave": "W35",
+      "gate": {
+        "bodyBoundaryRamp": 0
+      },
+      "gated": [],
+      "law": "C_preShadow += bodyBoundaryRamp * compactBoundaryRamp(d, nativeIdentifiedLevelLaw)",
+      "inertLawCase": "TO BE IMPLEMENTED: packages/renderer-webgpu/test/w35-boundary-ramp.test.ts — zero ramp preserves the pre-shadow composite bit-identically",
+      "literalAssertion": "expect(DEFAULT_MATERIAL_PROFILE.bodyBoundaryRamp).toBe(0)",
+      "claims": "c9a §5.177, X13",
+      "runtimeTested": false
+    }
+  },
+  {
+    "name": "apple-macos-27.0-1x-dark-standard-glass0.5",
+    "recorded": "e59f9106bcd7c966",
+    "before": "e59f9106bcd7c966",
+    "after": "e59f9106bcd7c966",
+    "nonzero": "2c95db5df677f324",
+    "proposedEntry": {
+      "wave": "W35",
+      "gate": {
+        "bodyBoundaryRamp": 0
+      },
+      "gated": [],
+      "law": "C_preShadow += bodyBoundaryRamp * compactBoundaryRamp(d, nativeIdentifiedLevelLaw)",
+      "inertLawCase": "TO BE IMPLEMENTED: packages/renderer-webgpu/test/w35-boundary-ramp.test.ts — zero ramp preserves the pre-shadow composite bit-identically",
+      "literalAssertion": "expect(DEFAULT_MATERIAL_PROFILE.bodyBoundaryRamp).toBe(0)",
+      "claims": "c9a §5.177, X13",
+      "runtimeTested": false
+    }
+  },
+  {
+    "name": "apple-macos-27.0-1x-light-standard-glass0.5-receded",
+    "recorded": "f34dcc03e2774db3",
+    "before": "f34dcc03e2774db3",
+    "after": "f34dcc03e2774db3",
+    "nonzero": "b689e1b58d90f11c",
+    "proposedEntry": {
+      "wave": "W35",
+      "gate": {
+        "bodyBoundaryRamp": 0
+      },
+      "gated": [],
+      "law": "C_preShadow += bodyBoundaryRamp * compactBoundaryRamp(d, nativeIdentifiedLevelLaw)",
+      "inertLawCase": "TO BE IMPLEMENTED: packages/renderer-webgpu/test/w35-boundary-ramp.test.ts — zero ramp preserves the pre-shadow composite bit-identically",
+      "literalAssertion": "expect(DEFAULT_MATERIAL_PROFILE.bodyBoundaryRamp).toBe(0)",
+      "claims": "c9a §5.177, X13",
+      "runtimeTested": false
+    }
+  },
+  {
+    "name": "apple-macos-27.0-1x-dark-standard-glass0.5-receded",
+    "recorded": "6b6237b7ae241638",
+    "before": "6b6237b7ae241638",
+    "after": "6b6237b7ae241638",
+    "nonzero": "92580385c87d5a54",
+    "proposedEntry": {
+      "wave": "W35",
+      "gate": {
+        "bodyBoundaryRamp": 0
+      },
+      "gated": [],
+      "law": "C_preShadow += bodyBoundaryRamp * compactBoundaryRamp(d, nativeIdentifiedLevelLaw)",
+      "inertLawCase": "TO BE IMPLEMENTED: packages/renderer-webgpu/test/w35-boundary-ramp.test.ts — zero ramp preserves the pre-shadow composite bit-identically",
+      "literalAssertion": "expect(DEFAULT_MATERIAL_PROFILE.bodyBoundaryRamp).toBe(0)",
+      "claims": "c9a §5.177, X13",
+      "runtimeTested": false
+    }
+  }
+]

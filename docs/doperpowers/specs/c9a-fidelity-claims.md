@@ -36623,3 +36623,46 @@ true, `repeatNoise` 0, zero foreign processes, 78 s idle), the side bundle refus
 seconds later under the same construction (`results/2026-09-24-w34-close/`). Two bundles with
 distinct identifiers and cdhashes never both held the grant on this machine; the key is not
 inferred. Nothing published moved in W34, so no release follows it.
+
+
+## 5.177 W35 G0a: the body-boundary cut and frozen declaration (2026-09-24)
+
+**Checkpoint: OPEN.** Clauses 1–5 and E1's proposed form, X1–X14; branch
+`w35-g0-edge-cut`, from `2203b6bb`. Evidence:
+`packages/calibration/results/2026-09-24-w35-g0-edge-cut/`. Nothing is shipped.
+
+### 1. Opening, access and the pre-candidate domain
+
+The opening isolation proof passes **17/17**, once, on Chromium's hardware path. Its first
+preflight refused before launching: nine foreign processes. The parent directed proceeding
+with the unrelated College Playwright session left alone, citing the existing foreign-session
+ruling; every launch records its census, settings and idle interval. A hash mismatch stops
+without retry; a non-deterministic candidate capture is retained and not used.
+`browser-runs.txt` retains both the refusal and admitted launch.
+
+The canonical generation checker ran in the MAIN checkout before any canonical web pixel:
+**1,893 matching, zero mismatch/misfiled/superseded/unreadable, seven no-row, 1,900 captures**.
+No-row is not a generation match claim for those seven captures. The canonical tree is read-only.
+
+W34 native payloads use the unchanged `Wave.reader` with calibration/validation only.
+`w35_readers.py`, a new sibling of `wave.py`, owns every web-pixel read and refuses W34 holdout
+ids and bare paths before opening payloads. Canonical fixtures cannot be assigned fake W34
+identities: the parent's explicit extension has its own canonical role guard, admitting
+calibration, validation and probe diagnostics (W25 DL3(e)), refusing holdout and recorded.
+Canonical web reads share that same guard. Negative tests exercise these boundaries.
+`mid-light-solid__rrect-md__rest` is not a canonical scene; no other scene substitutes for it.
+
+`domain.json` freezes the diagnostic/closure partition before any candidate residual:
+full shells from the half-span to +4 device px; deep median at d<=−6 CSS px with its
+unshrunk spread; closure on solid circular cells in −6<=d/scale<0 only where all four
+pixel corners lie inside the aligned convex body. Its exact-body area integral is one.
+Coverage pixels, mixed arcs, outside stroke, deeper trough, structured and continuous
+geometry are diagnostic-only with reasons. Straight and arc bins never pool; population
+floor4 and max(1 code, observed bar) remain fixed. The rule may leave part of the line
+diagnostic-only: that is an explicit coverage limit, not a later residual exclusion.
+
+The forward model is linear sRGB, native deep RGB supplied to the sampled-texture branch
+at alpha1; a nominated ramp precedes the multiplicative inner shadow; the line conditions
+on that shadowed material luminance, then adds light before encoding. Final native RGB is
+not claimed to expose that intermediate. Model identification, uncertainty, censoring,
+transfer and feasibility remain to be measured; this checkpoint makes no closure claim.
