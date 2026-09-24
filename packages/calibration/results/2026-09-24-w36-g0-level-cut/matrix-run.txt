@@ -1,0 +1,56 @@
+{
+  "declaredPopulation": 140,
+  "measuredPopulation": 136,
+  "missing": [
+    "apple-macos-27.0-1x-dark-standard-glass0.5/dark-solid__capsule-button__inactive",
+    "apple-macos-27.0-1x-dark-standard-glass0.5/dark-solid__rrect-md__inactive",
+    "apple-macos-27.0-2x-dark-standard-glass0.5/dark-solid__capsule-button__inactive",
+    "apple-macos-27.0-2x-dark-standard-glass0.5/dark-solid__rrect-md__inactive"
+  ],
+  "absoluteMisses": [
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/impulse__capsule-button__inactive-tint-orange",
+      "absoluteError": 0.06601612591220249
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/impulse__capsule-button__inactive-tint-orange",
+      "absoluteError": 0.06605893950809574
+    }
+  ],
+  "absoluteBound": 0.055,
+  "growthBound": 0.005,
+  "baselineGeneration": {
+    "light": {
+      "active": "6e509c7f76cc",
+      "receded": "45acb6d916b9",
+      "supersededFile": "results/superseded/6e509c7f76cc.json"
+    },
+    "dark": {
+      "active": "eab099cc6698",
+      "receded": "4e68f81869f6",
+      "supersededFile": "results/superseded/eab099cc6698.json"
+    }
+  },
+  "baselineLocation": "Working matrix at G0; named superseded files after G1 split",
+  "estimator": "mean linear Rec.709 luminance over the native silhouette; material.interiorMean{Native,Web}",
+  "predicate": "No shape conditioning exclusion. Missing material metrics are UNMEASURED, not passes.",
+  "existingMissTreatment": "The absolute bound remains 0.055. Name both existing misses, never floor them; growth <=0.005 applies to them too. Adoption may report these misses, not claim every cell passes.",
+  "sets": [
+    "calibration",
+    "validation"
+  ],
+  "renderer": "webgpu",
+  "tier": "texture",
+  "probe": "Diagnostic only",
+  "populationByProfile": {
+    "apple-macos-27.0-1x-dark-standard-glass0.5": 21,
+    "apple-macos-27.0-1x-light-standard-glass0.5": 49,
+    "apple-macos-27.0-2x-dark-standard-glass0.5": 21,
+    "apple-macos-27.0-2x-light-standard-glass0.5": 49
+  }
+}
+M1 baseline
+light rest 10 1.0490108837500483
+light inactive 8 1.0229768219161657
+dark rest 4 0.9966083336463607
+dark inactive 4 1.0059779993315683

@@ -1,0 +1,534 @@
+{
+  "responseChecks": [
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/grey-32__circular-120__rest",
+      "x": 0.1254901960784314,
+      "predictedCodes": 147.8371373059545,
+      "observedCodes": 148.0,
+      "errorCodes": -0.16286269404548648,
+      "censoredDiagnosticOnly": false
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/grey-64__circular-120__rest",
+      "x": 0.2509803921568628,
+      "predictedCodes": 168.71275197777254,
+      "observedCodes": 168.99999999999997,
+      "errorCodes": -0.2872480222274305,
+      "censoredDiagnosticOnly": false
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/grey-96__circular-120__rest",
+      "x": 0.3764705882352941,
+      "predictedCodes": 187.4853415586783,
+      "observedCodes": 187.0,
+      "errorCodes": 0.4853415586783001,
+      "censoredDiagnosticOnly": false
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/grey-128__circular-120__rest",
+      "x": 0.5019607843137256,
+      "predictedCodes": 203.19520463512993,
+      "observedCodes": 203.00000000000006,
+      "errorCodes": 0.19520463512986908,
+      "censoredDiagnosticOnly": false
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/grey-160__circular-120__rest",
+      "x": 0.6274509803921569,
+      "predictedCodes": 217.0581246444664,
+      "observedCodes": 217.0,
+      "errorCodes": 0.0581246444664032,
+      "censoredDiagnosticOnly": false
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/grey-255__circular-120__rest",
+      "x": 0.9999999999999998,
+      "predictedCodes": 247.85965921531437,
+      "observedCodes": 248.0,
+      "errorCodes": -0.14034078468563393,
+      "censoredDiagnosticOnly": false
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/red__circular-120__rest",
+      "x": 0.38625448937875484,
+      "predictedCodes": 188.81753781971463,
+      "observedCodes": 188.9979178598099,
+      "errorCodes": -0.1803800400952582,
+      "censoredDiagnosticOnly": true
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/green__circular-120__rest",
+      "x": 0.6508109105719134,
+      "predictedCodes": 219.49071940863854,
+      "observedCodes": 219.6196373749491,
+      "errorCodes": -0.12891796631055286,
+      "censoredDiagnosticOnly": false
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/blue__circular-120__rest",
+      "x": 0.2514504991418964,
+      "predictedCodes": 168.78806696879238,
+      "observedCodes": 168.44463892240233,
+      "errorCodes": 0.343428046390045,
+      "censoredDiagnosticOnly": true
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/yellow__circular-120__rest",
+      "x": 0.7287986564453084,
+      "predictedCodes": 227.33798353249435,
+      "observedCodes": 227.3472990524113,
+      "errorCodes": -0.009315519916953008,
+      "censoredDiagnosticOnly": false
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/magenta__circular-120__rest",
+      "x": 0.4372060758670743,
+      "predictedCodes": 195.40357085566595,
+      "observedCodes": 195.16259965668053,
+      "errorCodes": 0.2409711989854202,
+      "censoredDiagnosticOnly": true
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/cyan__circular-120__rest",
+      "x": 0.6786040318180173,
+      "predictedCodes": 222.33348996341397,
+      "observedCodes": 222.38477653702768,
+      "errorCodes": -0.0512865736137087,
+      "censoredDiagnosticOnly": false
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/grey-32__circular-120__inactive",
+      "x": 0.1254901960784314,
+      "predictedCodes": 147.2806209008413,
+      "observedCodes": 147.0,
+      "errorCodes": 0.2806209008413134,
+      "censoredDiagnosticOnly": false
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/grey-64__circular-120__inactive",
+      "x": 0.2509803921568628,
+      "predictedCodes": 164.84109076166158,
+      "observedCodes": 165.00000000000003,
+      "errorCodes": -0.1589092383384525,
+      "censoredDiagnosticOnly": false
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/grey-96__circular-120__inactive",
+      "x": 0.3764705882352941,
+      "predictedCodes": 178.38696993345863,
+      "observedCodes": 177.99999999999997,
+      "errorCodes": 0.3869699334586585,
+      "censoredDiagnosticOnly": false
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/grey-128__circular-120__inactive",
+      "x": 0.5019607843137256,
+      "predictedCodes": 192.0702542126894,
+      "observedCodes": 192.0,
+      "errorCodes": 0.0702542126894059,
+      "censoredDiagnosticOnly": false
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/grey-160__circular-120__inactive",
+      "x": 0.6274509803921566,
+      "predictedCodes": 205.10533314655962,
+      "observedCodes": 205.0,
+      "errorCodes": 0.1053331465596159,
+      "censoredDiagnosticOnly": false
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/grey-255__circular-120__inactive",
+      "x": 1.0,
+      "predictedCodes": 234.82441638998412,
+      "observedCodes": 234.99999999999997,
+      "errorCodes": -0.175583610015849,
+      "censoredDiagnosticOnly": false
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/red__circular-120__inactive",
+      "x": 0.2588862745098039,
+      "predictedCodes": 165.75039382031548,
+      "observedCodes": 165.5435357658657,
+      "errorCodes": 0.206858054449782,
+      "censoredDiagnosticOnly": true
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/green__circular-120__inactive",
+      "x": 0.5742431372549018,
+      "predictedCodes": 199.68142866260573,
+      "observedCodes": 199.4168318589508,
+      "errorCodes": 0.2645968036549391,
+      "censoredDiagnosticOnly": false
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/blue__circular-120__inactive",
+      "x": 0.1707921568627451,
+      "predictedCodes": 154.49973868935166,
+      "observedCodes": 154.84251341945782,
+      "errorCodes": -0.3427747301061572,
+      "censoredDiagnosticOnly": true
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/yellow__circular-120__inactive",
+      "x": 0.7076392156862744,
+      "predictedCodes": 212.99740142538735,
+      "observedCodes": 212.74655539296512,
+      "errorCodes": 0.25084603242223125,
+      "censoredDiagnosticOnly": false
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/magenta__circular-120__inactive",
+      "x": 0.3041882352941176,
+      "predictedCodes": 170.7427207688557,
+      "observedCodes": 170.73236503729888,
+      "errorCodes": 0.010355731556813907,
+      "censoredDiagnosticOnly": true
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/cyan__circular-120__inactive",
+      "x": 0.6195450980392155,
+      "predictedCodes": 204.3089244009134,
+      "observedCodes": 204.5968479652527,
+      "errorCodes": -0.28792356433928035,
+      "censoredDiagnosticOnly": false
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/grey-32__circular-120__rest",
+      "x": 0.1254901960784314,
+      "predictedCodes": 59.031129239495115,
+      "observedCodes": 58.999999999999986,
+      "errorCodes": 0.031129239495129468,
+      "censoredDiagnosticOnly": false
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/grey-64__circular-120__rest",
+      "x": 0.2509803921568628,
+      "predictedCodes": 81.83572866594812,
+      "observedCodes": 82.0,
+      "errorCodes": -0.16427133405187533,
+      "censoredDiagnosticOnly": false
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/grey-96__circular-120__rest",
+      "x": 0.3764705882352941,
+      "predictedCodes": 107.74003735051424,
+      "observedCodes": 108.0,
+      "errorCodes": -0.2599626494857574,
+      "censoredDiagnosticOnly": false
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/grey-128__circular-120__rest",
+      "x": 0.5019607843137256,
+      "predictedCodes": 127.46548552007529,
+      "observedCodes": 127.00000000000001,
+      "errorCodes": 0.4654855200752763,
+      "censoredDiagnosticOnly": false
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/grey-160__circular-120__rest",
+      "x": 0.6274509803921569,
+      "predictedCodes": 144.0659100641793,
+      "observedCodes": 144.0,
+      "errorCodes": 0.0659100641792918,
+      "censoredDiagnosticOnly": false
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/grey-255__circular-120__rest",
+      "x": 0.9999999999999998,
+      "predictedCodes": 180.20583789759854,
+      "observedCodes": 180.0,
+      "errorCodes": 0.20583789759854199,
+      "censoredDiagnosticOnly": false
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/red__circular-120__rest",
+      "x": 0.38625448937875484,
+      "predictedCodes": 109.54416628631915,
+      "observedCodes": 109.77252240443731,
+      "errorCodes": -0.22835611811815681,
+      "censoredDiagnosticOnly": false
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/green__circular-120__rest",
+      "x": 0.6508109105719134,
+      "predictedCodes": 147.01643973164246,
+      "observedCodes": 146.79477829311196,
+      "errorCodes": 0.22166143853050357,
+      "censoredDiagnosticOnly": false
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/blue__circular-120__rest",
+      "x": 0.2514504991418964,
+      "predictedCodes": 81.93741068786144,
+      "observedCodes": 81.81671891844039,
+      "errorCodes": 0.12069176942105742,
+      "censoredDiagnosticOnly": true
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/yellow__circular-120__rest",
+      "x": 0.7287986564453084,
+      "predictedCodes": 156.5133006818632,
+      "observedCodes": 156.69523320518078,
+      "errorCodes": -0.18193252331758458,
+      "censoredDiagnosticOnly": false
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/magenta__circular-120__rest",
+      "x": 0.4372060758670743,
+      "predictedCodes": 118.2060450591742,
+      "observedCodes": 118.3741106040503,
+      "errorCodes": -0.16806554487610015,
+      "censoredDiagnosticOnly": false
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/cyan__circular-120__rest",
+      "x": 0.6786040318180173,
+      "predictedCodes": 150.4644827338981,
+      "observedCodes": 150.61498846185407,
+      "errorCodes": -0.1505057279559594,
+      "censoredDiagnosticOnly": false
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/grey-32__circular-120__inactive",
+      "x": 0.1254901960784314,
+      "predictedCodes": 41.72820634148318,
+      "observedCodes": 42.0,
+      "errorCodes": -0.27179365851682036,
+      "censoredDiagnosticOnly": false
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/grey-64__circular-120__inactive",
+      "x": 0.2509803921568628,
+      "predictedCodes": 76.87522181597399,
+      "observedCodes": 76.99999999999999,
+      "errorCodes": -0.12477818402599894,
+      "censoredDiagnosticOnly": false
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/grey-96__circular-120__inactive",
+      "x": 0.3764705882352941,
+      "predictedCodes": 105.05764588172161,
+      "observedCodes": 105.0,
+      "errorCodes": 0.05764588172161211,
+      "censoredDiagnosticOnly": false
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/grey-128__circular-120__inactive",
+      "x": 0.5019607843137256,
+      "predictedCodes": 125.65152164436066,
+      "observedCodes": 126.00000000000001,
+      "errorCodes": -0.34847835563935803,
+      "censoredDiagnosticOnly": false
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/grey-160__circular-120__inactive",
+      "x": 0.6274509803921566,
+      "predictedCodes": 142.3388706943454,
+      "observedCodes": 142.0,
+      "errorCodes": 0.3388706943453883,
+      "censoredDiagnosticOnly": false
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/grey-255__circular-120__inactive",
+      "x": 1.0,
+      "predictedCodes": 177.3725441188832,
+      "observedCodes": 177.0,
+      "errorCodes": 0.37254411888321215,
+      "censoredDiagnosticOnly": false
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/red__circular-120__inactive",
+      "x": 0.2588862745098039,
+      "predictedCodes": 78.87224588790552,
+      "observedCodes": 78.92096909597015,
+      "errorCodes": -0.048723208064629375,
+      "censoredDiagnosticOnly": false
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/green__circular-120__inactive",
+      "x": 0.5742431372549018,
+      "predictedCodes": 135.51919103821587,
+      "observedCodes": 135.47091704371869,
+      "errorCodes": 0.04827399449717973,
+      "censoredDiagnosticOnly": false
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/blue__circular-120__inactive",
+      "x": 0.1707921568627451,
+      "predictedCodes": 55.04987504828289,
+      "observedCodes": 54.91309068260152,
+      "errorCodes": 0.13678436568137187,
+      "censoredDiagnosticOnly": false
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/yellow__circular-120__inactive",
+      "x": 0.7076392156862744,
+      "predictedCodes": 151.9956908019931,
+      "observedCodes": 151.5465853267185,
+      "errorCodes": 0.44910547527459244,
+      "censoredDiagnosticOnly": false
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/magenta__circular-120__inactive",
+      "x": 0.3041882352941176,
+      "predictedCodes": 89.7470815679703,
+      "observedCodes": 89.47199608035383,
+      "errorCodes": 0.27508548761646523,
+      "censoredDiagnosticOnly": false
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/cyan__circular-120__inactive",
+      "x": 0.6195450980392155,
+      "predictedCodes": 141.34746575170166,
+      "observedCodes": 141.32716175227978,
+      "errorCodes": 0.0203039994218841,
+      "censoredDiagnosticOnly": false
+    }
+  ],
+  "black": [
+    {
+      "scheme": "light",
+      "pose": "rest",
+      "sizeK": 0.09228515625,
+      "thickWeight": 0.023977747885510325,
+      "sizedAlpha": 0.46249169921875,
+      "neutral": [
+        1,
+        1,
+        1
+      ],
+      "fallbackCodes": 181.0729095855759,
+      "nativeCodes": 132.0,
+      "authorityOneCodes": 127.67348248494909,
+      "authorityOneMissCodes": -4.326517515050909
+    },
+    {
+      "scheme": "light",
+      "pose": "inactive",
+      "sizeK": 0.09228515625,
+      "thickWeight": 0.023977747885510325,
+      "sizedAlpha": 0.46249169921875,
+      "neutral": [
+        1,
+        1,
+        1
+      ],
+      "fallbackCodes": 181.0729095855759,
+      "nativeCodes": 133.0,
+      "authorityOneCodes": 112.70344498440586,
+      "authorityOneMissCodes": -20.296555015594137
+    },
+    {
+      "scheme": "dark",
+      "pose": "rest",
+      "sizeK": 0.09228515625,
+      "thickWeight": 0.023977747885510325,
+      "sizedAlpha": 0.90046142578125,
+      "neutral": [
+        0.05,
+        0.05,
+        0.05
+      ],
+      "fallbackCodes": 59.88852914547936,
+      "nativeCodes": 32.0,
+      "authorityOneCodes": 53.21820147408829,
+      "authorityOneMissCodes": 21.21820147408829
+    },
+    {
+      "scheme": "dark",
+      "pose": "inactive",
+      "sizeK": 0.09228515625,
+      "thickWeight": 0.023977747885510325,
+      "sizedAlpha": 0.8905075683593751,
+      "neutral": [
+        0.05,
+        0.05,
+        0.05
+      ],
+      "fallbackCodes": 59.54698631561857,
+      "nativeCodes": 20.0,
+      "authorityOneCodes": 0.0,
+      "authorityOneMissCodes": -20.0
+    }
+  ],
+  "middle": [
+    {
+      "scheme": "light",
+      "pose": "rest",
+      "x": 0.425,
+      "nativeInterpolated": 0.48750034992675606,
+      "thinKnot": 0.5383,
+      "excess": 0.05079965007324394
+    },
+    {
+      "scheme": "light",
+      "pose": "inactive",
+      "x": 0.425,
+      "nativeInterpolated": 0.45738346606877983,
+      "thinKnot": 0.4775,
+      "excess": 0.02011653393122015
+    },
+    {
+      "scheme": "dark",
+      "pose": "rest",
+      "x": 0.47,
+      "nativeInterpolated": 0.2197377975191017,
+      "thinKnot": 0.199,
+      "excess": -0.02073779751910168
+    },
+    {
+      "scheme": "dark",
+      "pose": "inactive",
+      "x": 0.47,
+      "nativeInterpolated": 0.1948859563068246,
+      "thinKnot": 0.192,
+      "excess": -0.0028859563068245886
+    }
+  ],
+  "m1Secants": [
+    {
+      "scheme": "light",
+      "pose": "rest",
+      "R0": 0.5506,
+      "probe": 0.45,
+      "Rprobe": 1.2677,
+      "k": 2.894216410380595,
+      "operatorRetention": 0.9,
+      "extrapolatedR": 1.9848,
+      "qualification": "W31 secant at old tone, not a new-tone measurement"
+    },
+    {
+      "scheme": "light",
+      "pose": "inactive",
+      "R0": 0.5137,
+      "probe": 0.5,
+      "Rprobe": 1.2113,
+      "k": 2.7159820907144248,
+      "operatorRetention": 0.9,
+      "extrapolatedR": 1.7693800000000002,
+      "qualification": "W31 secant at old tone, not a new-tone measurement"
+    },
+    {
+      "scheme": "dark",
+      "pose": "rest",
+      "R0": 0.3332,
+      "probe": 0.11,
+      "Rprobe": 0.5515,
+      "k": 5.956018771144822,
+      "operatorRetention": 1,
+      "extrapolatedR": 2.3177454545454546,
+      "qualification": "W31 secant at old tone, not a new-tone measurement"
+    },
+    {
+      "scheme": "dark",
+      "pose": "inactive",
+      "R0": 0.5841,
+      "probe": 0.04,
+      "Rprobe": 0.7016,
+      "k": 5.029104605375795,
+      "operatorRetention": 1,
+      "extrapolatedR": 3.5216000000000016,
+      "qualification": "W31 secant at old tone, not a new-tone measurement"
+    }
+  ]
+}
