@@ -1,6 +1,7 @@
 # W35 — the body-boundary wave: Apple's inner edge line and ramp, fitted as excess over the body (2026-09-24)
 
-**Status: CHARTERED 2026-09-24, v3 — two review rounds folded (two findings, then two on the folds); G0 is a two-phase gate (G0a the frozen declaration, G0b an authorised non-shipping runtime prototype at identity) and the fit-and-land contract (G1, G2, E1) is authorised only by Decision Log 1 on actual prototype renders. G0a open.** Chartered
+**Status: CHARTERED 2026-09-24, v3 — two review rounds folded (two findings, then two on the folds); G0 is a two-phase gate (G0a the frozen declaration, G0b an authorised non-shipping runtime prototype at identity) and the fit-and-land contract (G1, G2, E1) is authorised only by Decision Log 1 on actual prototype renders. G0a open.**
+**CLOSED 2026-09-24 at G0a's qualified negative, by the user's Decision Log 1 ruling: the existing rim band cannot draw Apple's inner line (best residuals 25.50 / 33.75 / 36.00 / 46.57 codes against one), the line is angular and chromatic, only an effective response is identified on native pixels and no coefficient transfers; no G0b, no G1, no G2, no E1. Decision Log 2 ruled: the deep body's level is the next wave (W36). G0a merged as `ea990213` (§5.177).** Chartered
 by the parent on the user's "W35 body-boundary wave (Recommended)" after W34 closed at its finding
 (main `d1162106`), under the standing "rest on your judgement" and the routing the user set on
 2026-09-22 (X9, with the Codex-limit fallback recorded there). Grounded on a read-only memo taken off
@@ -446,13 +447,75 @@ machine quiet for X6 but not untouched) → review → merge with the capture tr
 - The accessibility documents' edge: unmeasured here.
 - W34's Deferred-at-close 2–7 carry.
 
+## Deferred at close — in priority order (2026-09-24)
+
+1. **The deep body's level** (Decision Log 2, ruled): W36, chartered next.
+2. **The edge, re-chartered after the level**: a colour-conditioned, angular boundary law declared
+   FIRST — the line lifts the body's own saturated channels (dark cyan 18/186/186 → 19/233/233),
+   is bright at vertical normals and faint at horizontal across all thirteen active solid levels at
+   2x, and sits over a six-CSS-px rise — with its forward model, discrimination tests, the
+   existing angular controls (`rimLitAxis`, `rimLitExponent`, `rimAlongSideSlope`, the inner
+   shadow's depth and reach, none of which G0a searched) examined before any prototype, the
+   transfer and the canonical expectations supplied before a G0b is authorised, and the receded
+   documents' explicit zeros for any new leaf. G0a's cut, readers, forward model (opaque
+   full-coverage branch only), W29 reconciliation and closure domain are the starting evidence.
+3. **The forward helper's fractional-coverage branch**: the runtime encodes first and composites
+   in encoded space; the helper is restricted to opaque full coverage until someone implements
+   and tests the encoded branch (127.5 for half-covered white over black).
+4. **M2 and the ring**: a one-pixel erosion moves the dark photo capsule's interior spread by
+   −60 % / −48 %; the eroded-mask attribution stays a reading, and the mask question returns
+   with the next edge candidate.
+5. **The CSS tier's one inset** cannot carry a two-row line (analytic minimax mismatch 6.5 codes
+   on light grey-128, 8.5 on dark); recorded, not measured on a render.
+6. W34's Deferred-at-close 2–7 carry unchanged.
+
+## Outcomes & Retrospective — W35 close, 2026-09-24
+
+**CLOSED at G0a's qualified negative**, against the eight Parent-Level Acceptance clauses:
+
+1. **The cut preceded the fit, on the full profile, with the bars derived** — 336 cells, 42,444
+   profile rows, 238,292 repeat-bin rows before plurality, the bar at most 0.5 code with a new
+   0.214 at 2x dark shell −4; the closure domain frozen and hashed before the first render; the
+   memo reproduced with its small discrepancies corrected beside.
+2. **W29's width reconciled**: its estimator replayed exactly (2.416 device px at 1x, 0.831 CSS px
+   at 2x) — a different estimand from a bright-row count, not an error, and not shown to be "line
+   plus ramp as one rim".
+3. **The level tabled and kept out of the fit**: +49 / +28 on blacks, 111 / 144 on saturated
+   channels; a forward model in linear sRGB conditioned on the shadowed pre-rim composite,
+   reconstructing vitrea's own render within 0.873 code and passing the synthetic pre-composition
+   tests; on native pixels only an effective response, no coefficient transfer — as the clause
+   requires.
+4. **Bounds declared before reads**, every existing stop retained, the post-fit canonical
+   expectations left explicitly unidentified because no candidate was admitted: the honest
+   adoption blocker, not an invented pass.
+5. **The fit's reach never exercised**: eight tune-path launches of the existing leaves (64
+   deterministic captures, 115 widths, five shadow amplitudes; the lit axis, the lit exponent, the
+   along-side slope and the shadow's depth and reach not searched) missed the frozen domain by
+   25.50–46.57 codes; the receded controls pixel-identical to shipped; no leaf moved.
+6. **The CSS tier**: an analytic two-row mismatch recorded, no render.
+7. **No seal, no read**: nothing shipped moved; the freeze 1,818; no release.
+8. **The negative recorded at its resolution**: the line one CSS px, +24…+53 codes, angular and
+   chromatic; what an operator would need is written in Deferred-at-close 2.
+
+**What this wave cost and found.** One declaration gate, two adversarial rounds on the charter, one
+independent review with one bounded finding closed. It found that the inner line is not a rim in
+vitrea's sense — a white band along a diagonal light axis — but a colour-following, orientation-
+dependent lift of the body itself, and that the body underneath it is wrong by more than the line
+is tall. The wave stopped where its own declaration said it should.
+
+**Lessons worth carrying.** Freezing the closure domain and hashing it before the first render made
+the negative unarguable. A forward model that reconstructs vitrea's own output within a code is the
+right instrument for a transfer question, and it says nothing about Apple's internal state. A
+feasibility phase with a legitimate "cannot identify within the operator budget" outcome costs one
+gate and saves a wave.
+
 ## Tracking Map
 
 | child | status |
 | --- | --- |
-| G0 | G0a DELIVERED FOR REVIEW as a qualified negative (§5.177); no transferable law or G0b operator identified |
-| G1 | CHARTERED, opens after G0's merge and Decision Log 1 |
-| G2 | CHARTERED, opens after G1's merge |
+| G0 | G0a DELIVERED FOR REVIEW as a qualified negative (§5.177); no transferable law or G0b operator identified **G0a MERGED 2026-09-24 as `ea990213`** (§5.177, a qualified negative; review closure `f8e229f4`); **G0b NOT OPENED** (Decision Log 1 ruled close). |
+| G1 | CHARTERED, opens after G0's merge and Decision Log 1 **NOT OPENED** — Decision Log 1 ruled close at the finding. |
+| G2 | CHARTERED, opens after G1's merge **NOT OPENED** — Decision Log 1 ruled close at the finding. |
 
 ## Decision Log
 
@@ -467,6 +530,19 @@ identify within this wave's operator budget" with what a larger budget would nee
 native law's conditioning has a demonstrated mapping to the runtime's (else an effective response
 and no coefficient transfer); the leaves G1 would move. The parent rules whether G1 opens, and on
 what.
+
+**RULED by the user 2026-09-24 at G0a's merge (`ea990213`): close W35 at the finding.** No G0b
+prototype is commissioned — neither a one-leaf ramp nor a larger operator with a vertical light
+axis and per-channel gain — because the existing rim band misses the frozen domain by 25.50 /
+33.75 / 36.00 / 46.57 codes (1x light / dark, 2x light / dark) against a tolerance of one, the
+misses survive the exclusion of marginal corner pixels (10.9 / 15.8 / 25.1 / 31.9), the native
+line is angular and chromatic in ways the inherited operator does not express, only an effective
+response is identified on native pixels, and the deep body's level miss (Decision Log 2) would
+confound any edge fit's canonical referee. The cut, the readers, the forward model, the W29
+reconciliation, the M2 erosion reading and the measured gaps stay committed. The edge is
+re-chartered after the level wave with a colour-conditioned angular law declared first
+(Deferred-at-close 1). The alternatives put — a larger prototype now, or pausing the wave until
+after the level wave — were declined by the user.
 
 **G0a draft, 2026-09-24 (§5.177; not ruled).** Do not open G1 or nominate a radial
 ramp prototype on this evidence alone. The frozen-domain existing-leaf candidates fail
@@ -483,6 +559,13 @@ whether a useful G0b prototype can be stated; this worker starts none.
 
 ### Decision Log 2 — the deep body's level (after G0; the user's)
 
+**RULED by the user 2026-09-24 at G0a's merge: the level is the next wave, W36.** G0a's table:
+web − native at the deep body +49 codes on light black, +28 on dark black, +8 on light grey-128,
+−7 on dark grey-128, and up to 111 (active) / 144 (inactive) codes on saturated channels — larger
+than the edge line it was found beside, and the largest gap measured in the project. The level
+wave is chartered separately from its own grounding memo; nothing about it constrained this
+wave's fit, because no fit was authorised.
+
 Open. G0 tables the level miss on greys and colour solids, both schemes; the user rules whether a
 level wave follows W35 and whether anything about it constrains this wave's fit.
 
@@ -493,6 +576,8 @@ The user decides whether that wave precedes any renewed boundary transfer; G0a r
 keeping native-only edge identification independent and forbidding tone compensation.
 
 ### Decision Log 3 — M2's mask if the ring is what it reads (after G0's eroded-mask test; the user's)
+
+**Not reached (2026-09-24):** no candidate was admitted, so no M2 ruling was needed; G0a's erosion reading (−60 % / −48 % on the dark photo capsule at one pixel) is recorded in §5.177 as edge sensitivity, not as an attribution or a waiver, and the 2 % stop stands.
 
 Open. If the eroded-mask attribution shows M2 would stop a correct edge change, the re-pin or the
 mask change is put here with numbers before G1 opens.
@@ -506,6 +591,8 @@ actual delta. The eroded statistic does not itself authorise a new bound or mask
 
 ### Decision Log 4 — the E1 row's adopted form (after G1's read; the parent's)
 
+**Not reached (2026-09-24):** E1 was never adoptable because the post-fit canonical expectations were explicitly unidentified (§5.177).
+
 Open.
 
 ## Surprises & Discoveries
@@ -514,6 +601,12 @@ Open.
 
 ## Revision Notes
 
+- 2026-09-24 (the parent, close): **W35 CLOSED at G0a's qualified negative** on the user's Decision
+  Log 1 ruling; Decision Log 2 ruled (the level wave, W36, next); Decision Logs 3 and 4 not reached;
+  Outcomes & Retrospective and Deferred-at-close written; the G1 and G2 rows closed as not opened;
+  the root `CLAUDE.md` paragraph updated beside; §5.177 carries the close paragraph. No release:
+  nothing shipped moved. G0a ran on `astra-high` and its review on the astra/high reviewer; the
+  grounding memo ran on the default Claude worker while the Codex limit held (X9).
 - 2026-09-24 (G0a worker): the frozen pre-candidate domain committed in ae7492a8;
   §5.177 delivers336-cell deep profiles/bars, actual W29 replay, native-only forward
   diagnostics,26-cell M2 erosion attribution and eight candidate launches/64 deterministic

@@ -36969,3 +36969,10 @@ nor its SHA pin, closure domain, bound, population or recorded number is rewritt
 Correction verification: calibration **665 passed,1 skipped,45 files**; macOS26.5 freeze
 **1,818 intact** (`review-calibration-tests.txt`, `review-freeze.txt`). No browser run,
 native capture, shipped runtime/material change or evidence re-measurement was needed for this fix.
+
+**Wave close, 2026-09-24 (the parent; W35 Decision Logs 1 and 2).** The user ruled close at G0a's
+qualified negative: no G0b prototype, no fit, no landing, nothing shipped moved. Decision Log 2
+ruled the deep body's level the next wave. The cut, the guarded readers (calibration, validation
+and probe admitted; holdout and recorded refused), the opaque-branch forward model, the W29
+reconciliation, the closure domain and the measured gaps stay committed as the starting evidence
+for the edge's re-charter after the level wave.

@@ -299,7 +299,14 @@ code) and 672 fitted configurations, and no law closes at one code — the decis
 the declared BODY model already misses by 2–27 codes in the shell just inside the edge, where an
 outside stroke has no reach, so the next question is the body's boundary behaviour, not the
 stroke's colour (W34 Deferred-at-close 1). The wave's bed, archive and instrument are committed
-and replayable; its holdout is spent. On the CSS tier the
+and replayable; its holdout is spent. **W35 (§5.177) then read the body's own edge on that bed**: in
+the active pose Apple's body carries a one-CSS-px bright inner line, 24–53 codes above the deep
+body, that lifts the body's own saturated channels and is bright at vertical normals and faint at
+horizontal — not a white band along a diagonal axis, which is what vitrea's rim is — and the
+existing rim leaves cannot draw it (best 25–47 codes against one). It also read that the deep
+body's LEVEL misses by 28–49 codes on blacks and over 100 on saturated channels, which is the next
+wave (W36); the edge returns after it with a colour-conditioned angular law declared first. On the
+CSS tier the
 window-activation transition therefore fades the shadow OUT, which is what the reference does;
 on the WebGPU tier the posed profile is swapped the instant the resolved
 activation changes and the shadow leaves in one frame (a tracker entry). The frozen macOS 26.5
