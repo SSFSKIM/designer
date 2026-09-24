@@ -37269,3 +37269,23 @@ identity/coherence/document calibration checks 85/85 before the added cross-tier
 branch sweep. Workspace build and corrected lint pass. The first lint attempt found
 an incomplete test-only optics fixture, corrected to use the full production fixture;
 no material value changed in that correction. Freeze: 1,818 intact.
+
+### 2. Native black ordinates and pre-seal price declaration
+
+W35's guarded readers reproduce eight black deep medians (both scales): light
+active/inactive **132/133**, dark **32/20**. In linear light the thin AND thick
+ordinates are respectively **0.23074004852434915 / 0.23455058216100522 /
+0.014443843596092545 / 0.006995410187265387**. Thick equals thin by declaration,
+not by measurement. Receded values are explicit because their patches compose over
+active. Candidate documents are scratch only; their old recorded seal fields are
+not candidate digests. The canonical documents have not moved.
+
+The guarded scratch projection prices all admitted canonical calibration, validation
+and probe scenes at the four standard profiles, plus W34 circular black, grey32 and
+validation grey96 in both poses: **512 cells**, 114/142 per dark/light profile and
+scale. Original roles are retained in `projection.json`; no holdout is relabelled.
+This deliberately broadens the price beyond the twenty sub-anchor impulse rows so
+M1, M2 and the exterior can be compared from actual captures, not assumed unchanged.
+The frozen G0 bounds remain the referee; Decision Log5 explicitly leaves the old
+non-black grey misses named, so the grey32/96 rows are regression controls, not a
+claim that the narrowed black branch closes their level. Both tiers are priced.
