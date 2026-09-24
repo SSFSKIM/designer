@@ -1,0 +1,29 @@
+
+ RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g1-black-branch/packages/platform-web
+
+ ❯ test/w36-receded-formula.test.ts (2 tests | 1 failed) 6ms
+   × encodes per-pixel linear luminance while keeping the linear colour reference 3ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/w36-receded-formula.test.ts > encodes per-pixel linear luminance while keeping the linear colour reference
+AssertionError: expected 0.25888627450980395 to be close to 0.3862544893787548, received difference is 0.12736821486895084, but expected 5e-13
+ ❯ test/w36-receded-formula.test.ts:12:33
+     10|   const rgb = [192, 32, 32].map(c => decode(c / 255));
+     11|   const y = rgb[0]! * 0.2126 + rgb[1]! * 0.7152 + rgb[2]! * 0.0722;
+     12|   expect(read.encodedLuminance).toBeCloseTo(encode(y), 12);
+       |                                 ^
+     13|   expect(read.rgb).toEqual(rgb);
+     14|   expect(read.footprint?.sampleCount).toBe(1);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed (2)
+   Start at  20:22:40
+   Duration  586ms (transform 25ms, setup 0ms, import 38ms, tests 6ms, environment 463ms)
+
+undefined
+/Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g1-black-branch/packages/platform-web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/w36-receded-formula.test.ts

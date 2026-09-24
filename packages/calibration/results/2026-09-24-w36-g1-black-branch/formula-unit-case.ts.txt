@@ -1,0 +1,22 @@
+/** Temporary conditional experiment, W36 DL2; retained as evidence if declined (§5.179). */
+import { expect, it } from "vitest";
+import { silhouetteBackdropTone } from "../src/backdrop-tone";
+const geometry = { bounds: { x: 0, y: 0, width: 1, height: 1 }, radius: 0,
+  viewport: { width: 1, height: 1, devicePixelRatio: 1 } };
+const decode = (x: number) => x <= 0.04045 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4;
+const encode = (x: number) => x <= 0.0031308 ? x * 12.92 : 1.055 * x ** (1 / 2.4) - 0.055;
+it("encodes per-pixel linear luminance while keeping the linear colour reference", () => {
+  const read = silhouetteBackdropTone(new Uint8ClampedArray([192, 32, 32, 255]), 1, 1, geometry)!;
+  const rgb = [192, 32, 32].map(c => decode(c / 255));
+  const y = rgb[0]! * 0.2126 + rgb[1]! * 0.7152 + rgb[2]! * 0.0722;
+  expect(read.encodedLuminance).toBeCloseTo(encode(y), 12);
+  expect(read.rgb).toEqual(rgb);
+  expect(read.footprint?.sampleCount).toBe(1);
+});
+it("retains exactly the old arithmetic on all 256 achromatic codes", () => {
+  for (let code = 0; code < 256; code++) {
+    const p = code / 255;
+    const read = silhouetteBackdropTone(new Uint8ClampedArray([code, code, code, 255]), 1, 1, geometry)!;
+    expect(read.encodedLuminance).toBe(0.2126 * p + 0.7152 * p + 0.0722 * p);
+  }
+});

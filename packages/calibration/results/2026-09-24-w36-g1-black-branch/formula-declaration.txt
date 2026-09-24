@@ -1,0 +1,18 @@
+W36 DL2 conditional experiment — §5.179 step4, before rendering.
+
+Only the colour formula changes: each unassociated linear texel's Rec.709 luma
+is encoded before the existing alpha weighting, bilinear interpolation and
+silhouette reduction. The linear RGB reference, sample grid, footprint, placement,
+alpha weights and reduction remain unchanged. Achromatic texels explicitly retain
+the old expression, so the grey/impulse/checker controls are formula-identical.
+Both GPU and CSS change together. No material constant changes from the black price.
+
+Read every admitted inactive photo, checkerboard, hc-text-7, impulse and tinted
+scene in the already-guarded price projection, both scales and schemes, both tiers.
+No canonical or W34 holdout is present. L1/growth and M1/M2 compare against W33;
+coherence retains its existing predicate. Active scenes keep the source formula.
+If any conditional stop fails, retain the measurement and restore both source
+files exactly; the black branch alone may seal. If it passes, the formula must be
+selected only by macOS27 before shipping so frozen26.5 behaviour remains untouched.
+This provisional global formula is executed only on the declared scratch27 cells;
+it is not a claim that a global change is permitted to land.
