@@ -1,0 +1,32 @@
+
+Running 1 test using 1 worker
+
+W36 ramp diagnostic {"value":0,"small":{"occlusion":0.706,"tint":"rgba(187, 187, 187, 0.706)"},"expected":{"colour":"187, 187, 187","occlusion":0.648,"target":0.23074004852434915}}
+  ✘  1 [chromium] › e2e/pixel/backdrop-tone-pixels.spec.ts:392:1 › across the transition the level is monotone, the collapse is a slope, and the opacity hands over (530ms)
+
+
+  1) [chromium] › e2e/pixel/backdrop-tone-pixels.spec.ts:392:1 › across the transition the level is monotone, the collapse is a slope, and the opacity hands over 
+
+    Error: occlusion at 0
+
+    expect(received).toBeLessThanOrEqual(expected)
+
+    Expected: <= 0.0015
+    Received:    0.05799999999999994
+
+      426 |       Math.abs(small.occlusion - lawDeclares(value, 44).occlusion),
+      427 |       `occlusion at ${value}`,
+    > 428 |     ).toBeLessThanOrEqual(ROUNDING);
+          |       ^
+      429 |     occlusions.push(small.occlusion);
+      430 |     levels.push(level((await sample(page, SMALL)).at(60, 22)));
+      431 |   }
+        at /Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g1-black-branch/packages/platform-web/e2e/pixel/backdrop-tone-pixels.spec.ts:428:7
+
+    Error Context: test-results/pixel-backdrop-tone-pixels-dd906--and-the-opacity-hands-over-chromium/error-context.md
+
+  1 failed
+    [chromium] › e2e/pixel/backdrop-tone-pixels.spec.ts:392:1 › across the transition the level is monotone, the collapse is a slope, and the opacity hands over 
+undefined
+/Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g1-black-branch/packages/platform-web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: playwright test e2e/pixel/backdrop-tone-pixels.spec.ts '--project=chromium' '--workers=1' '--retries=0' --grep 'across the transition'

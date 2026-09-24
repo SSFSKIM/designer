@@ -87,6 +87,12 @@ describe("the material profile document's key admission", () => {
     return path;
   };
 
+  it("admits the black branch tune without silently measuring the old fallback", () => {
+    const patch = { backdropToneBlackStrength: 1,
+      backdropToneBlackThin: 0.2, backdropToneBlackThick: 0.3 };
+    expect(readMaterialProfileFile(write({ patch })).patch).toEqual(patch);
+  });
+
   it("admits only a source or silhouette abscissa, without swallowing malformed variants", () => {
     for (const abscissa of ["source", { kind: "silhouette" }]) {
       expect(readMaterialProfileFile(write({ backdropToneAbscissa: abscissa })).patch)

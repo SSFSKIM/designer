@@ -1,0 +1,445 @@
+$ tsx cli/compare.ts -- --renderer webgpu --set probe --scene checkerboard-32__rrect-lg__inactive,checkerboard-4__rrect-md__inactive,checkerboard-64__rrect-lg__inactive,checkerboard-64__rrect-md__inactive,checkerboard-8__rrect-lg__inactive,checkerboard-8__rrect-md__inactive,checkerboard-lc16__capsule-button__inactive,checkerboard-lc16__rrect-md__inactive,checkerboard__capsule-button__inactive,checkerboard__capsule-button__inactive-tint-blue,checkerboard__capsule-button__inactive-tint-orange,checkerboard__rrect-md__inactive,checkerboard__rrect-ml__inactive,checkerboard__rrect-sm__inactive,checkerboard__toolbar-group__inactive,dark-solid__capsule-button__inactive-tint-orange,hc-text-7__rrect-md__inactive,impulse__capsule-button__inactive,impulse__capsule-button__inactive-tint-orange,impulse__rrect-lg__inactive,impulse__rrect-md__inactive,impulse__rrect-ml__inactive,light-solid__capsule-button__inactive-tint-orange,mid-chroma-solid__capsule-button__inactive-tint-orange,photo__capsule-button__inactive,photo__capsule-button__inactive-tint-blue,photo__capsule-button__inactive-tint-orange,photo__capsule-button__inactive-tint-orange-half,photo__rrect-md__inactive,photo__rrect-md__inactive-tint-orange,photo__rrect-ml__inactive,photo__rrect-sm__inactive,photo__toolbar-group__inactive --profile apple-macos-27.0-2x-light-standard-glass0.5 --material-profile /Users/new/vitrea-w36/scratch/black-price/apple-macos-27.0-2x-light-standard-glass0.5/candidate.json --receded-profile /Users/new/vitrea-w36/scratch/black-price/apple-macos-27.0-2x-light-standard-glass0.5/receded.json --out-matrix /Users/new/vitrea-w36/scratch/receded-formula/apple-macos-27.0-2x-light-standard-glass0.5/matrix.json --write-partial --alpha
+
+── web capture (apple-macos-27.0-2x-light-standard-glass0.5, 33 scene(s)) ─────────────────────────────
+scene server: http://localhost:5197
+engine: chromium 151.0.7922.34
+material profile: materialProfile=/Users/new/vitrea-w36/scratch/black-price/apple-macos-27.0-2x-light-standard-glass0.5/candidate.json sha256:7f34de7bfa9d sections=renderer
+receded profile:, recededProfile=/Users/new/vitrea-w36/scratch/black-price/apple-macos-27.0-2x-light-standard-glass0.5/receded.json sha256:8e77b8899598
+
+photo__capsule-button__inactive-tint-orange-half
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w36/scratch/receded-formula/apple-macos-27.0-2x-light-standard-glass0.5/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/photo__capsule-button__inactive-tint-orange-half/
+
+light-solid__capsule-button__inactive-tint-orange
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w36/scratch/receded-formula/apple-macos-27.0-2x-light-standard-glass0.5/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/light-solid__capsule-button__inactive-tint-orange/
+
+checkerboard__rrect-ml__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w36/scratch/receded-formula/apple-macos-27.0-2x-light-standard-glass0.5/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/checkerboard__rrect-ml__inactive/
+
+checkerboard__capsule-button__inactive-tint-blue
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w36/scratch/receded-formula/apple-macos-27.0-2x-light-standard-glass0.5/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/checkerboard__capsule-button__inactive-tint-blue/
+
+dark-solid__capsule-button__inactive-tint-orange
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w36/scratch/receded-formula/apple-macos-27.0-2x-light-standard-glass0.5/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/dark-solid__capsule-button__inactive-tint-orange/
+
+photo__capsule-button__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w36/scratch/receded-formula/apple-macos-27.0-2x-light-standard-glass0.5/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/photo__capsule-button__inactive/
+
+checkerboard-lc16__rrect-md__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w36/scratch/receded-formula/apple-macos-27.0-2x-light-standard-glass0.5/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/checkerboard-lc16__rrect-md__inactive/
+
+checkerboard-32__rrect-lg__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w36/scratch/receded-formula/apple-macos-27.0-2x-light-standard-glass0.5/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/checkerboard-32__rrect-lg__inactive/
+
+photo__rrect-md__inactive-tint-orange
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w36/scratch/receded-formula/apple-macos-27.0-2x-light-standard-glass0.5/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/photo__rrect-md__inactive-tint-orange/
+
+photo__toolbar-group__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w36/scratch/receded-formula/apple-macos-27.0-2x-light-standard-glass0.5/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/photo__toolbar-group__inactive/
+
+photo__rrect-sm__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w36/scratch/receded-formula/apple-macos-27.0-2x-light-standard-glass0.5/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/photo__rrect-sm__inactive/
+
+checkerboard-8__rrect-lg__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w36/scratch/receded-formula/apple-macos-27.0-2x-light-standard-glass0.5/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/checkerboard-8__rrect-lg__inactive/
+
+impulse__rrect-md__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w36/scratch/receded-formula/apple-macos-27.0-2x-light-standard-glass0.5/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/impulse__rrect-md__inactive/
+
+mid-chroma-solid__capsule-button__inactive-tint-orange
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w36/scratch/receded-formula/apple-macos-27.0-2x-light-standard-glass0.5/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/mid-chroma-solid__capsule-button__inactive-tint-orange/
+
+checkerboard-64__rrect-lg__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w36/scratch/receded-formula/apple-macos-27.0-2x-light-standard-glass0.5/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/checkerboard-64__rrect-lg__inactive/
+
+photo__capsule-button__inactive-tint-blue
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w36/scratch/receded-formula/apple-macos-27.0-2x-light-standard-glass0.5/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/photo__capsule-button__inactive-tint-blue/
+
+impulse__rrect-lg__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w36/scratch/receded-formula/apple-macos-27.0-2x-light-standard-glass0.5/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/impulse__rrect-lg__inactive/
+
+checkerboard__rrect-sm__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w36/scratch/receded-formula/apple-macos-27.0-2x-light-standard-glass0.5/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/checkerboard__rrect-sm__inactive/
+
+checkerboard-4__rrect-md__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w36/scratch/receded-formula/apple-macos-27.0-2x-light-standard-glass0.5/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/checkerboard-4__rrect-md__inactive/
+
+photo__capsule-button__inactive-tint-orange
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w36/scratch/receded-formula/apple-macos-27.0-2x-light-standard-glass0.5/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/photo__capsule-button__inactive-tint-orange/
+
+impulse__capsule-button__inactive-tint-orange
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w36/scratch/receded-formula/apple-macos-27.0-2x-light-standard-glass0.5/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/impulse__capsule-button__inactive-tint-orange/
+
+checkerboard__capsule-button__inactive-tint-orange
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w36/scratch/receded-formula/apple-macos-27.0-2x-light-standard-glass0.5/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/checkerboard__capsule-button__inactive-tint-orange/
+
+checkerboard__rrect-md__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w36/scratch/receded-formula/apple-macos-27.0-2x-light-standard-glass0.5/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/checkerboard__rrect-md__inactive/
+
+checkerboard__capsule-button__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w36/scratch/receded-formula/apple-macos-27.0-2x-light-standard-glass0.5/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/checkerboard__capsule-button__inactive/
+
+checkerboard__toolbar-group__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w36/scratch/receded-formula/apple-macos-27.0-2x-light-standard-glass0.5/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/checkerboard__toolbar-group__inactive/
+
+checkerboard-8__rrect-md__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w36/scratch/receded-formula/apple-macos-27.0-2x-light-standard-glass0.5/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/checkerboard-8__rrect-md__inactive/
+
+hc-text-7__rrect-md__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w36/scratch/receded-formula/apple-macos-27.0-2x-light-standard-glass0.5/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/hc-text-7__rrect-md__inactive/
+
+impulse__rrect-ml__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w36/scratch/receded-formula/apple-macos-27.0-2x-light-standard-glass0.5/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/impulse__rrect-ml__inactive/
+
+photo__rrect-ml__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w36/scratch/receded-formula/apple-macos-27.0-2x-light-standard-glass0.5/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/photo__rrect-ml__inactive/
+
+checkerboard-lc16__capsule-button__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w36/scratch/receded-formula/apple-macos-27.0-2x-light-standard-glass0.5/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/checkerboard-lc16__capsule-button__inactive/
+
+photo__rrect-md__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w36/scratch/receded-formula/apple-macos-27.0-2x-light-standard-glass0.5/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/photo__rrect-md__inactive/
+
+checkerboard-64__rrect-md__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w36/scratch/receded-formula/apple-macos-27.0-2x-light-standard-glass0.5/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/checkerboard-64__rrect-md__inactive/
+
+impulse__capsule-button__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w36/scratch/receded-formula/apple-macos-27.0-2x-light-standard-glass0.5/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/impulse__capsule-button__inactive/
+
+33 scene(s) captured; 0 fell back to the CSS tier; 0 carry problems.
+
+── measure (33 cell(s)) ─────────────────────────────
+matrix → /Users/new/vitrea-w36/scratch/receded-formula/apple-macos-27.0-2x-light-standard-glass0.5/matrix.json (33 cell(s) total)
+
+set         profile                        scene                                        IoU    cMean   SSIM    dE       lum slope N/W     interior mean N/W    interior sd N/W     rim peak N/W
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+probe       2x-light-standard-glass0.5    photo__capsule-button__inactive-tint-orange-half  1.000    0.02   0.995   0.0039    0.403/ 0.336    0.4218/ 0.4574    0.0431/ 0.0328    0.0071/ 0.0033
+probe       2x-light-standard-glass0.5    light-solid__capsule-button__inactive-tint-orange  1.000    0.00   0.986   0.0008     —   /  —       0.6443/ 0.6380    0.0106/ 0.0060    0.0000/ 0.0132
+probe       2x-light-standard-glass0.5    checkerboard__rrect-ml__inactive              1.000    0.02   0.977   0.0064    0.016/ 0.039    0.5133/ 0.5179    0.0228/ 0.0365    0.0002/ 0.0003
+probe       2x-light-standard-glass0.5    checkerboard__capsule-button__inactive-tint-blue  0.999    0.03   0.980   0.0041    0.036/ 0.110    0.3799/ 0.4133    0.0369/ 0.0994    0.0025/ 0.0018
+probe       2x-light-standard-glass0.5    dark-solid__capsule-button__inactive-tint-orange  0.996    0.14   0.997   0.0039     —   /  —       0.1870/ 0.2342    0.0107/ 0.0057    0.0000/ 0.0000
+probe       2x-light-standard-glass0.5    photo__capsule-button__inactive               0.999    0.02   0.997   0.0025    0.466/ 0.397    0.4987/ 0.5164    0.0493/ 0.0389    0.0085/ 0.0038
+probe       2x-light-standard-glass0.5    checkerboard-lc16__rrect-md__inactive         1.000    0.02   0.986   0.0021    0.020/ 0.033    0.6453/ 0.6554    0.0195/ 0.0216    0.0025/ 0.0001
+probe       2x-light-standard-glass0.5    checkerboard-32__rrect-lg__inactive           1.000    0.05   0.952   0.0278    0.069/ 0.145    0.5231/ 0.5182    0.0544/ 0.1323    0.0054/ 0.0049
+probe       2x-light-standard-glass0.5    photo__rrect-md__inactive-tint-orange         1.000    0.02   0.989   0.0216    0.403/ 0.286    0.3521/ 0.4037    0.0504/ 0.0355    0.0093/ 0.0031
+probe       2x-light-standard-glass0.5    photo__toolbar-group__inactive                0.999    0.02   0.997   0.0031    0.564/ 0.537    0.5257/ 0.5420    0.0862/ 0.0808    0.0013/ 0.0009
+probe       2x-light-standard-glass0.5    photo__rrect-sm__inactive                     1.000    0.00   0.998   0.0008    0.177/ 0.217    0.4671/ 0.4863    0.0219/ 0.0175    0.0012/ 0.0008
+probe       2x-light-standard-glass0.5    checkerboard-8__rrect-lg__inactive            1.000    0.04   0.975   0.0075   -0.002/ 0.005    0.5040/ 0.5188    0.0166/ 0.0169    0.0000/ 0.0002
+probe       2x-light-standard-glass0.5    impulse__rrect-md__inactive                   0.999    0.04   0.999   0.0065    0.019/ 0.024    0.2349/ 0.2677    0.0102/ 0.0079    0.0000/ 0.0000
+probe       2x-light-standard-glass0.5    mid-chroma-solid__capsule-button__inactive-tint-orange  1.000    0.00   0.990   0.0170     —   /  —       0.2276/ 0.4117    0.0098/ 0.0107    0.0000/ 0.0000
+probe       2x-light-standard-glass0.5    checkerboard-64__rrect-lg__inactive           0.999    0.07   0.965   0.0186    0.306/ 0.352    0.5377/ 0.5289    0.1766/ 0.1977    0.0008/ 0.0229
+probe       2x-light-standard-glass0.5    photo__capsule-button__inactive-tint-blue     1.000    0.01   0.992   0.0058    0.348/ 0.292    0.3550/ 0.4065    0.0378/ 0.0284    0.0063/ 0.0027
+probe       2x-light-standard-glass0.5    impulse__rrect-lg__inactive                   1.000    0.05   0.979   0.0624    0.007/ 0.015    0.2351/ 0.1459    0.0082/ 0.0053    0.0000/ 0.0000
+probe       2x-light-standard-glass0.5    checkerboard__rrect-sm__inactive              1.000    0.00   0.990   0.0024    0.062/ 0.193    0.5284/ 0.5253    0.0551/ 0.1632    0.0006/ 0.0009
+probe       2x-light-standard-glass0.5    checkerboard-4__rrect-md__inactive            1.000    0.01   0.990   0.0033    0.000/ 0.004    0.5027/ 0.5182    0.0175/ 0.0169    0.0017/ 0.0000
+probe       2x-light-standard-glass0.5    photo__capsule-button__inactive-tint-orange   1.000    0.01   0.992   0.0058    0.348/ 0.292    0.3550/ 0.4065    0.0378/ 0.0284    0.0063/ 0.0027
+probe       2x-light-standard-glass0.5    impulse__capsule-button__inactive-tint-orange  0.995    0.16   0.996   0.0055    0.022/ 0.123    0.1473/ 0.2134    0.0095/ 0.0122    0.0004/ 0.0033
+probe       2x-light-standard-glass0.5    checkerboard__capsule-button__inactive-tint-orange  0.999    0.03   0.980   0.0041    0.036/ 0.110    0.3799/ 0.4133    0.0369/ 0.0994    0.0025/ 0.0018
+probe       2x-light-standard-glass0.5    checkerboard__rrect-md__inactive              1.000    0.01   0.982   0.0037    0.024/ 0.034    0.5193/ 0.5178    0.0323/ 0.0374    0.0054/ 0.0000
+probe       2x-light-standard-glass0.5    checkerboard__capsule-button__inactive        1.000    0.01   0.977   0.0046    0.044/ 0.150    0.5236/ 0.5255    0.0463/ 0.1354    0.0027/ 0.0006
+probe       2x-light-standard-glass0.5    checkerboard__toolbar-group__inactive         1.000    0.00   0.977   0.0049    0.044/ 0.146    0.5223/ 0.5246    0.0510/ 0.1463    0.0000/ 0.0008
+probe       2x-light-standard-glass0.5    checkerboard-8__rrect-md__inactive            1.000    0.00   0.988   0.0029   -0.001/ 0.005    0.5041/ 0.5180    0.0169/ 0.0159    0.0016/ 0.0001
+probe       2x-light-standard-glass0.5    hc-text-7__rrect-md__inactive                 1.000    0.01   0.979   0.0038    0.023/ 0.018    0.5839/ 0.5988    0.0565/ 0.0411    0.0080/ 0.0141
+probe       2x-light-standard-glass0.5    impulse__rrect-ml__inactive                   0.999    0.05   0.998   0.0089    0.010/ 0.010    0.2347/ 0.2130    0.0089/ 0.0055    0.0005/ 0.0017
+probe       2x-light-standard-glass0.5    photo__rrect-ml__inactive                     0.999    0.05   0.994   0.0194    0.600/ 0.439    0.5015/ 0.5145    0.0800/ 0.0571    0.0151/ 0.0165
+probe       2x-light-standard-glass0.5    checkerboard-lc16__capsule-button__inactive   0.990    0.33   0.985   0.0023    0.036/ 0.150    0.6466/ 0.6594    0.0278/ 0.0767    0.0013/ 0.0006
+probe       2x-light-standard-glass0.5    photo__rrect-md__inactive                     1.000    0.03   0.996   0.0091    0.533/ 0.390    0.4982/ 0.5127    0.0653/ 0.0484    0.0110/ 0.0045
+probe       2x-light-standard-glass0.5    checkerboard-64__rrect-md__inactive           1.000    0.00   0.984   0.0089    0.235/ 0.206    0.5154/ 0.4781    0.1575/ 0.1881    0.0276/ 0.0413
+probe       2x-light-standard-glass0.5    impulse__capsule-button__inactive             0.998    0.07   0.998   0.0013    0.030/ 0.169    0.2338/ 0.2517    0.0167/ 0.0176    0.0006/ 0.0046
+
+2x-light-standard-glass0.5    probe       n=33  IoU mean 0.9991 worst 0.9897   contour p95 mean 0.24 worst 2.00   SSIM mean 0.9866 worst 0.9522   dE mean 0.00865 worst 0.06235
+
+── declaration conformance: the web tier's DRAWN silhouette against the declaration ──
+profile                       scene                                        drawn px  declared px  IoU     contour p95  contour max
+2x-light-standard-glass0.5    photo__capsule-button__inactive-tint-orange-half    19468        19468  1.0000         0.00         0.00
+2x-light-standard-glass0.5    light-solid__capsule-button__inactive-tint-orange    19468        19468  1.0000         0.00         0.00
+2x-light-standard-glass0.5    checkerboard__rrect-ml__inactive               112064       112200  0.9988         1.00         1.00
+2x-light-standard-glass0.5    checkerboard__capsule-button__inactive-tint-blue    19468        19468  1.0000         0.00         0.00
+2x-light-standard-glass0.5    dark-solid__capsule-button__inactive-tint-orange    19468        19468  1.0000         0.00         0.00
+2x-light-standard-glass0.5    photo__capsule-button__inactive                 19468        19468  1.0000         0.00         0.00
+2x-light-standard-glass0.5    checkerboard-lc16__rrect-md__inactive           60000        60064  0.9989         1.00         1.00
+2x-light-standard-glass0.5    checkerboard-32__rrect-lg__inactive            175056       175240  0.9989         1.00         1.00
+2x-light-standard-glass0.5    photo__rrect-md__inactive-tint-orange           60000        60064  0.9989         1.00         1.00
+2x-light-standard-glass0.5    photo__toolbar-group__inactive                  18276        18276  1.0000         0.00         0.00
+2x-light-standard-glass0.5    photo__rrect-sm__inactive                        7972         7980  0.9990         0.00         1.00
+2x-light-standard-glass0.5    checkerboard-8__rrect-lg__inactive             175056       175240  0.9989         1.00         1.00
+2x-light-standard-glass0.5    impulse__rrect-md__inactive                     60000        60064  0.9989         1.00         1.00
+2x-light-standard-glass0.5    mid-chroma-solid__capsule-button__inactive-tint-orange    19468        19468  1.0000         0.00         0.00
+2x-light-standard-glass0.5    checkerboard-64__rrect-lg__inactive            175056       175240  0.9989         1.00         1.00
+2x-light-standard-glass0.5    photo__capsule-button__inactive-tint-blue       19468        19468  1.0000         0.00         0.00
+2x-light-standard-glass0.5    impulse__rrect-lg__inactive                    175056       175240  0.9989         1.00         1.00
+2x-light-standard-glass0.5    checkerboard__rrect-sm__inactive                 7972         7980  0.9990         0.00         1.00
+2x-light-standard-glass0.5    checkerboard-4__rrect-md__inactive              60000        60064  0.9989         1.00         1.00
+2x-light-standard-glass0.5    photo__capsule-button__inactive-tint-orange     19468        19468  1.0000         0.00         0.00
+2x-light-standard-glass0.5    impulse__capsule-button__inactive-tint-orange    19468        19468  1.0000         0.00         0.00
+2x-light-standard-glass0.5    checkerboard__capsule-button__inactive-tint-orange    19468        19468  1.0000         0.00         0.00
+2x-light-standard-glass0.5    checkerboard__rrect-md__inactive                60000        60064  0.9989         1.00         1.00
+2x-light-standard-glass0.5    checkerboard__capsule-button__inactive          19468        19468  1.0000         0.00         0.00
+2x-light-standard-glass0.5    checkerboard__toolbar-group__inactive           18276        18276  1.0000         0.00         0.00
+2x-light-standard-glass0.5    checkerboard-8__rrect-md__inactive              60000        60064  0.9989         1.00         1.00
+2x-light-standard-glass0.5    hc-text-7__rrect-md__inactive                   60000        60064  0.9989         1.00         1.00
+2x-light-standard-glass0.5    impulse__rrect-ml__inactive                    112064       112200  0.9988         1.00         1.00
+2x-light-standard-glass0.5    photo__rrect-ml__inactive                      112064       112200  0.9988         1.00         1.00
+2x-light-standard-glass0.5    checkerboard-lc16__capsule-button__inactive     19468        19468  1.0000         0.00         0.00
+2x-light-standard-glass0.5    photo__rrect-md__inactive                       60000        60064  0.9989         1.00         1.00
+2x-light-standard-glass0.5    checkerboard-64__rrect-md__inactive             60000        60064  0.9989         1.00         1.00
+2x-light-standard-glass0.5    impulse__capsule-button__inactive               19468        19468  1.0000         0.00         0.00
+
+── the shadow axis: what each side does to the backdrop it does not cover ────────────
+profile                       scene                                        support  strength N/W     extent above/below/left/right N       W                 offset y N/W     blur sigma N/W
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2x-light-standard-glass0.5    photo__capsule-button__inactive-tint-orange-half    1.00  0.4746/ 0.0000    0/  0/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    light-solid__capsule-button__inactive-tint-orange    1.00  0.4230/ 0.0141    0/  0/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    checkerboard__rrect-ml__inactive                0.50  0.5254/ 0.0068    0/  0/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    checkerboard__capsule-button__inactive-tint-blue    0.50  0.5859/ 0.0302    0/  2/  2/  2    0/  0/  0/  0      1.0/  —        —   /  —   
+2x-light-standard-glass0.5    dark-solid__capsule-button__inactive-tint-orange    0.00    —   /   —       —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        —   /  —   
+2x-light-standard-glass0.5    photo__capsule-button__inactive                 1.00  0.3375/ 0.0000    0/  0/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    checkerboard-lc16__rrect-md__inactive           1.00  0.2399/ 0.0000    0/  0/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    checkerboard-32__rrect-lg__inactive             0.50  0.4019/ 0.0080    0/  0/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    photo__rrect-md__inactive-tint-orange           1.00  0.6549/ 0.0000    0/  0/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    photo__toolbar-group__inactive                  1.00  0.2538/ 0.0000    2/  2/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    photo__rrect-sm__inactive                       1.00  0.4403/ 0.0000    2/  0/  2/  2    0/  0/  0/  0     -1.0/  —        —   /  —   
+2x-light-standard-glass0.5    checkerboard-8__rrect-lg__inactive              0.50  0.6720/ 0.0084    0/  0/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    impulse__rrect-md__inactive                     0.00    —   /   —       —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        —   /  —   
+2x-light-standard-glass0.5    mid-chroma-solid__capsule-button__inactive-tint-orange    1.00  0.6001/ 0.0024    2/  2/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    checkerboard-64__rrect-lg__inactive             0.41  0.4264/ 0.0000    0/  0/  0/  0    0/  0/  0/  0     —   /  —        —   /  —   
+2x-light-standard-glass0.5    photo__capsule-button__inactive-tint-blue       1.00  0.5914/ 0.0000    2/  0/  2/  2    0/  0/  0/  0     -1.0/  —        —   /  —   
+2x-light-standard-glass0.5    impulse__rrect-lg__inactive                     0.00    —   /   —       —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        —   /  —   
+2x-light-standard-glass0.5    checkerboard__rrect-sm__inactive                0.50  0.5528/ 0.0114    2/  0/  2/  2    0/  0/  0/  0     -1.0/  —        —   /  —   
+2x-light-standard-glass0.5    checkerboard-4__rrect-md__inactive              0.50  0.7136/ 0.0107    0/  0/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    photo__capsule-button__inactive-tint-orange     1.00  0.5914/ 0.0000    2/  0/  2/  2    0/  0/  0/  0     -1.0/  —        —   /  —   
+2x-light-standard-glass0.5    impulse__capsule-button__inactive-tint-orange    0.00    —   /   —       —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        —   /  —   
+2x-light-standard-glass0.5    checkerboard__capsule-button__inactive-tint-orange    0.50  0.5859/ 0.0302    0/  2/  2/  2    0/  0/  0/  0      1.0/  —        —   /  —   
+2x-light-standard-glass0.5    checkerboard__rrect-md__inactive                0.50  0.5424/ 0.0107    0/  0/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    checkerboard__capsule-button__inactive          0.50  0.4764/ 0.0225    0/  0/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    checkerboard__toolbar-group__inactive           0.50  0.4675/ 0.0481    2/  2/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    checkerboard-8__rrect-md__inactive              0.50  0.6216/ 0.0108    0/  0/  2/  0    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    hc-text-7__rrect-md__inactive                   0.79  0.6691/ 0.0054    0/  0/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    impulse__rrect-ml__inactive                     0.00    —   /   —       —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        —   /  —   
+2x-light-standard-glass0.5    photo__rrect-ml__inactive                       1.00  0.3724/ 0.0000    0/  0/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    checkerboard-lc16__capsule-button__inactive     1.00  0.2669/ 0.0000    0/  0/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    photo__rrect-md__inactive                       1.00  0.3733/ 0.0000    0/  0/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    checkerboard-64__rrect-md__inactive             0.48  0.3063/ 0.0388    0/  0/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    impulse__capsule-button__inactive               0.00    —   /   —       —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        —   /  —   
+
+── what this run does and does not show ────────────
+All native fixtures used here carry the composited material (materialRendered: true).
+the shape axis is BOUNDED to the declared component region (margin 0 device px): within it, coverage, contour and corner profile are measured as before; outside it nothing is recovered, so a surface drawn LARGER than its declaration reads as a match. Area recovery is assumed, not measured — read silhouetteArea{Native,Web} against componentRegionArea.
+shadow axis NOT NORMALISED on 6 cell(s) across 6 scene(s): dark-solid__capsule-button__inactive-tint-orange, impulse__rrect-md__inactive, impulse__rrect-lg__inactive, impulse__capsule-button__inactive-tint-orange, impulse__rrect-ml__inactive, impulse__capsule-button__inactive. Those backdrops carry too little light for an occlusion ratio to exist; the absolute departure is still reported and every ratio is absent, not zero.
+caveat: W36 scratch projection, guarded non-holdout only; original roles retained in projection.json
+receded profile posed on the inactive scenes: /Users/new/vitrea-w36/scratch/black-price/apple-macos-27.0-2x-light-standard-glass0.5/receded.json
+material profile applied to the web side: /Users/new/vitrea-w36/scratch/black-price/apple-macos-27.0-2x-light-standard-glass0.5/candidate.json
+web accessibility for apple-macos-27.0-2x-light-standard-glass0.5 (native standard): browser preferences, no overrides
+
+── notes (47) ────────────
+  photo__capsule-button__inactive-tint-orange-half: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__capsule-button__inactive-tint-orange-half: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  light-solid__capsule-button__inactive-tint-orange: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  light-solid__capsule-button__inactive-tint-orange: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  light-solid__capsule-button__inactive-tint-orange: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19468 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  checkerboard__capsule-button__inactive-tint-blue: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  dark-solid__capsule-button__inactive-tint-orange: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  dark-solid__capsule-button__inactive-tint-orange: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  dark-solid__capsule-button__inactive-tint-orange: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19388 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  dark-solid__capsule-button__inactive-tint-orange: shadow axis NOT NORMALISED: only 0.0% of the exterior has a backdrop above 0.05 linear luminance, so an occlusion ratio is not identifiable here — a shadow removes a fraction of the light behind it, and over this backdrop there is none to remove. The absolute departure (meanDeparture{Native,Web}) is still reported; every ratio-valued field is absent, not zero.
+  photo__capsule-button__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__capsule-button__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  photo__rrect-md__inactive-tint-orange: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  photo__toolbar-group__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__toolbar-group__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  photo__rrect-sm__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__rrect-sm__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  checkerboard-8__rrect-lg__inactive: blur NOT MEASURED on the web side: blurEdgeSpread: the region's profile rises by 0.00e+0 of linear luminance end to end — there is no step edge here, so no blur width is identifiable.
+  impulse__rrect-md__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  impulse__rrect-md__inactive: shadow axis NOT NORMALISED: only 0.4% of the exterior has a backdrop above 0.05 linear luminance, so an occlusion ratio is not identifiable here — a shadow removes a fraction of the light behind it, and over this backdrop there is none to remove. The absolute departure (meanDeparture{Native,Web}) is still reported; every ratio-valued field is absent, not zero.
+  mid-chroma-solid__capsule-button__inactive-tint-orange: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  mid-chroma-solid__capsule-button__inactive-tint-orange: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  mid-chroma-solid__capsule-button__inactive-tint-orange: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19468 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  photo__capsule-button__inactive-tint-blue: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__capsule-button__inactive-tint-blue: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  impulse__rrect-lg__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  impulse__rrect-lg__inactive: shadow axis NOT NORMALISED: only 0.0% of the exterior has a backdrop above 0.05 linear luminance, so an occlusion ratio is not identifiable here — a shadow removes a fraction of the light behind it, and over this backdrop there is none to remove. The absolute departure (meanDeparture{Native,Web}) is still reported; every ratio-valued field is absent, not zero.
+  checkerboard__rrect-sm__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  checkerboard-4__rrect-md__inactive: blur NOT MEASURED on the native side: blurEdgeSpread: the region's profile rises by 0.00e+0 of linear luminance end to end — there is no step edge here, so no blur width is identifiable.
+  checkerboard-4__rrect-md__inactive: blur NOT MEASURED on the web side: blurEdgeSpread: the region's profile rises by 0.00e+0 of linear luminance end to end — there is no step edge here, so no blur width is identifiable.
+  photo__capsule-button__inactive-tint-orange: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__capsule-button__inactive-tint-orange: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  impulse__capsule-button__inactive-tint-orange: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  impulse__capsule-button__inactive-tint-orange: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  impulse__capsule-button__inactive-tint-orange: shadow axis NOT NORMALISED: only 0.4% of the exterior has a backdrop above 0.05 linear luminance, so an occlusion ratio is not identifiable here — a shadow removes a fraction of the light behind it, and over this backdrop there is none to remove. The absolute departure (meanDeparture{Native,Web}) is still reported; every ratio-valued field is absent, not zero.
+  checkerboard__capsule-button__inactive-tint-orange: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  checkerboard__capsule-button__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  checkerboard__toolbar-group__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  hc-text-7__rrect-md__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  impulse__rrect-ml__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  impulse__rrect-ml__inactive: shadow axis NOT NORMALISED: only 0.4% of the exterior has a backdrop above 0.05 linear luminance, so an occlusion ratio is not identifiable here — a shadow removes a fraction of the light behind it, and over this backdrop there is none to remove. The absolute departure (meanDeparture{Native,Web}) is still reported; every ratio-valued field is absent, not zero.
+  photo__rrect-ml__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  checkerboard-lc16__capsule-button__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  photo__rrect-md__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  impulse__capsule-button__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  impulse__capsule-button__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  impulse__capsule-button__inactive: shadow axis NOT NORMALISED: only 0.4% of the exterior has a backdrop above 0.05 linear luminance, so an occlusion ratio is not identifiable here — a shadow removes a fraction of the light behind it, and over this backdrop there is none to remove. The absolute departure (meanDeparture{Native,Web}) is still reported; every ratio-valued field is absent, not zero.

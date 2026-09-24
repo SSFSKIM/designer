@@ -37232,3 +37232,303 @@ any G1 work.
 673 passed, one skipped**; `freeze.py verify` reports **1,818 intact**. The new
 W36 suite contributes eight checks. No independent review was dispatched by
 this worker; the parent owns that next gate.
+
+## 5.179 W36 G1: the compact black branch, identity before price (2026-09-24)
+
+**In progress, unsealed.** Decision Log 5 as ruled; clauses 2 and 4–7, X1–X14.
+Evidence: `packages/calibration/results/2026-09-24-w36-g1-black-branch/`.
+The grey middle and Part B remain frozen. No document, matrix or holdout moves at identity.
+
+The live gate-group is `backdropToneBlackStrength: 0`, gating the linear black ordinates
+`backdropToneBlackThin` and `backdropToneBlackThick`. The join is **0.003 encoded input**,
+against a minimum admitted packed impulse input **0.0031948897521942854**. `inputs.py`
+reads the checked canonical reports through W35's role guard: the receded input is the
+packed silhouette reading, not the source mean beside it. No native capture is made.
+
+Below the join, `b = strength * (1 - smoothstep(0, 0.003, x))` blends the old response
+ordinate toward the thin/thick black ordinate and the old authority toward full authority.
+At gate 0 and at/above the join the old arithmetic executes without the blend. This is a
+compact-support branch, not an interpolant knot; no old Hermite slope changes. Existing
+no-tone, policy, alpha and collapse stand-downs remain outside the branch. Thick black
+is not independently identified; its equality to thin will be a declared extrapolation.
+
+The step-1 identity readings and subsequent price will be added beside this declaration.
+
+### 1. Identity, on-state and the first commit
+
+The real rule-2 code path preserves all six resolved digests:
+`b2b570e4adcea8fb`, `874be66ea501621b`, `dcbccbd9feac9881`,
+`f34dcc03e2774db3`, `e59f9106bcd7c966`, `6b6237b7ae241638`, sweeping both
+unread ordinates. Six scratch endpoint captures are byte-identical to the checked
+canonical PNGs, deterministic with repeat noise 0 on Apple/Metal-3. The unchanged
+golden suite passes 34/34, including isolation's unmoved pins; no regeneration.
+The rendered branch case passes on-state and gate-group identity plus no-tone,
+policy, alpha and full-collapse stand-downs. CSS's pre-leaf declaration bytes remain
+identical (10 checks including the new CSS solve). Renderer unit checks 17/17;
+identity/coherence/document calibration checks 85/85 before the added cross-tier
+branch sweep. Workspace build and corrected lint pass. The first lint attempt found
+an incomplete test-only optics fixture, corrected to use the full production fixture;
+no material value changed in that correction. Freeze: 1,818 intact.
+
+### 2. Native black ordinates and pre-seal price declaration
+
+W35's guarded readers reproduce eight black deep medians (both scales): light
+active/inactive **132/133**, dark **32/20**. In linear light the thin AND thick
+ordinates are respectively **0.23074004852434915 / 0.23455058216100522 /
+0.014443843596092545 / 0.006995410187265387**. Thick equals thin by declaration,
+not by measurement. Receded values are explicit because their patches compose over
+active. Candidate documents are scratch only; their old recorded seal fields are
+not candidate digests. The canonical documents have not moved.
+
+The guarded scratch projection prices all admitted canonical calibration, validation
+and probe scenes at the four standard profiles, plus W34 circular black, grey32 and
+validation grey96 in both poses: **512 cells**, 114/142 per dark/light profile and
+scale. Original roles are retained in `projection.json`; no holdout is relabelled.
+This deliberately broadens the price beyond the twenty sub-anchor impulse rows so
+M1, M2 and the exterior can be compared from actual captures, not assumed unchanged.
+The frozen G0 bounds remain the referee; Decision Log5 explicitly leaves the old
+non-black grey misses named, so the grey32/96 rows are regression controls, not a
+claim that the narrowed black branch closes their level. Both tiers are priced.
+
+### 3. The price holds, with the CSS residual and referee corrections kept beside it
+
+**512 GPU and 512 CSS captures**, all deterministic. Of the canonical cells with
+shipped captures, **360 GPU and 250 CSS PNGs are byte-identical**. Every shared
+material, perceptual, shadow and shape field is unchanged. Four alpha-only shape
+fields were not requested in this scratch read (354 GPU/56 CSS rows), explicitly
+UNMEASURED rather than asserted unchanged; the canonical pass will request alpha.
+The conditioning predicate reads the shared area/body-count fields, all unchanged.
+The extra admitted probe captures with no prior row remain diagnostics, not new
+members of a gated population or a substitute baseline.
+
+The eight GPU black deep medians are **132/133/32/20**, exactly native at both
+scales; all sixteen grey32/96 controls are unchanged. L1 remains140/136 measured,
+zero growth on every measured row, the same two0.066016/0.066059 tinted misses and
+four missing dark-solid means. M1 medians remain1.049010884/1.022976822 light and
+0.996608334/1.005977999 dark (active/inactive); all26 M2 changes against W33 are0.
+C1's twelve active-only values are unchanged and all<=0.0042; X1 is0 under both
+masks on all218 cells; B1's six native windows hold at the unchanged law.
+
+**CSS carries the branch, with a boundary residual.** Its active black deep medians
+are light133/134 at1x/2x against132, and dark34/34 against32; inactive133/20 are
+exact at both scales. The three +2 cells are not silently called one-code matches.
+The parent clarified before seal, under the standing judgement delegation, that
+W34's one-code referee binds the WebGPU fidelity target only; CSS-only residuals
+are recorded under the repository's tier doctrine and clause6, while CSS is gated
+by coherence and the existing conditioning predicate. No bound or population moves.
+Zeroing the diagnostic CSS rimAlpha/rimLevelGain/shadowAlpha TOGETHER makes all
+four active deep medians exactly native (132/32): the +1/+2 belongs to the existing
+combined boundary projection, not the response target. No diagnostic leaf ships.
+
+The black cross-tier DeltaE maximum is0.004064314 against0.05; the four light ratios
+are within0.8–1.25. Dark active ratios1.991940/1.589439 remain measured diagnostics:
+the existing95%-area/body-count predicate excludes their rim-only masks (at1x,
+native374/4872px and CSS104/4872px, six/eleven bodies against one). Dark inactive
+has no extracted native material mean and its ratio is UNMEASURED. Deep medians
+are a separate referee and are not replaced by either mask. The first inspection
+provisionally treated the unconditioned1.99194 as a stop; the existing rule, read
+before proceeding, refuted that interpretation. `coherence-mask-decomposition.json`
+keeps the number and its actual domain. `price-css-summary.json` similarly keeps
+its pre-clarification CSS one-code flags; `price-final.json` applies the ruled tier
+scope without changing any reading. The first C1 summary pooled both poses;
+`price-gpu-closure.json` corrects it to the adopted active-only population, with all
+per-cell T values retained and unchanged.
+
+The price's operational corrections are also preserved. The first command refused
+new material keys BEFORE launching; a regression test now covers their admission.
+The first admitted projection omitted the tint registry and stopped partway; only
+missing cells were completed after adding that registry, and every retained file
+hash was checked unchanged. No captured cell was retried. The historical W30
+material-comparison test now names W36's three new identity keys beside W30/W31's
+lists; all older leaves still compare exactly to the pre-wave materials.
+
+All18 raw triptychs were viewed (`eye.txt`): the black body's level visibly closes;
+the active inner-line/contour gap remains, and the unchanged impulse/photo/grey
+controls retain their known level and chroma gaps. No new eye-only regression was
+identified. Every x8 panel carries the137.097415/255 one-byte-at-black check.
+
+### 4. The receded formula is declined on its own regression
+
+Decision Log2's conditional nomination was implemented on both tiers, with the
+same silhouette, per-texel alpha weighting, bilinear placement and linear RGB
+reference. Achromatic texels keep the old expression exactly. The unit's colour
+case fails before the change and passes after it; all256 grey inputs are identical.
+**110 inactive cells per tier** were rendered, with no holdout. All74 achromatic
+GPU controls have identical packed readings AND PNG bytes to the black-only price.
+
+The chromatic photo cost refuses the change: **16 L1 growth failures** against
+0.005, including light inactive capsule0.016501/0.016667 at1x/2x and orange-tinted
+rrect-md0.018640/0.018617; dark orange-tinted capsule0.016710/0.015816. **Three M2
+failures**: light small inactive+3.6174% at1x, toolbar inactive+17.8049%/+16.9386%
+at1x/2x, against2%. M1 medians stay inside0.8–1.2, which does not excuse either
+failure. The same-domain colour formula is closer on G0's solids but not permitted
+by this joint structured regression. It is not a source-domain refutation.
+
+Two dark inactive impulse/lg probe DeltaE readings0.071495/0.065547 also appear
+as flags in the initial formula reader, but are BYTE-IDENTICAL to the black-only
+price and outside the canonical gated population. They are inherited probe
+coherence diagnostics, not failures caused by this formula. The independent
+L1/M2 failures stand without them. `formula-outcome.json` classifies them beside
+the raw reading, rather than changing either number.
+
+Both experimental source files are restored to their exact pre-trial SHA-256;
+the temporary unit case and candidate patch remain as evidence. No colour-formula
+leaf, material value or frozen26.5 behaviour lands from this experiment. The seal
+is the black branch ALONE, as Decision Log2's failed-regression arm directs.
+
+### 5. The black-only rule-2 seal
+
+| endpoint | resolved digest before → after | file hash before → after |
+| --- | --- | --- |
+| light-standard-glass0.5 | `dcbccbd9feac9881` → `be13dae45098fc89` | `6e509c7f76cc` → `85ad7f7e3e0d` |
+| light-standard-glass0.5-receded | `f34dcc03e2774db3` → `b0d0d8dacc6a03af` | `45acb6d916b9` → `30fbe05986ae` |
+| dark-standard-glass0.5 | `e59f9106bcd7c966` → `2a4323f33df8d799` | `eab099cc6698` → `0eac5b294cc2` |
+| dark-standard-glass0.5-receded | `6b6237b7ae241638` → `7c454858a3cbad5b` | `4e68f81869f6` → `5cec8c961201` |
+
+All four patches move only the three black leaves; receded values are explicit
+and their digests are over composition with the active endpoint. Rule2 is recorded
+on each document, the generated macos27 profile is regenerated, and activation's
+four full hashes move with the old pins kept beside. The frozen digests remain
+b2b570e4adcea8fb/874be66ea501621b; freeze1,818. Both READMEs now describe the
+current endpoints while keeping prior readings as history; release/version records
+remain unchanged history. The default renderer material remains gate0, so the
+34 golden hashes need no change or regeneration. No contour/grey/chroma value moves.
+
+The first broad seal test command included the eight matrix-dependent structure
+witnesses: they report no current row in the intentional interval after document
+seal and before the new read. They are not accepted as passes or re-pinned; the
+same-branch read must restore their bed. The document/export/identity tests pass.
+
+The dispatch brief named §5.179 twice in the split command; the parent corrected
+that attribution before the split to mover §5.179 / original reader **§5.172**, since
+the retired generation is W33 G1b's, not a W36 reading.
+
+### 6. Configuration five, read once, with the old generation retained
+
+Seal `2f49d390` is followed by registration `26be8ede` BEFORE any canonical pass.
+The cross-gate log's fifth configuration names source SHA
+`4e2786c83d452d9d47ac79770fbfa2bccef82728ee69d798cfbf79942671dbb4` and the unchanged
+source-list SHA `c16d6294a00c8ac770781701b2154d636c7b287490526d49f3782aa1d2102a9d`.
+All pass launches carry X6 facts in `browser-runs.txt`; each pass has an exclusive
+start receipt and completion receipt. The read appends **786 rows**: 268 calibration,
+64 validation, 330 ladder probes and **124 holdout**, the latter once on the sealed
+configuration. W34's holdout is not read. No native application is built or launched.
+
+The matrix reaches 2,679 rows, then the split moves **509 light and 277 dark** W33
+rows to `superseded/6e509c7f76cc.json` and `superseded/eab099cc6698.json`. The working
+file returns to **1,893 = 1,107 frozen + 786 new**. The six read-append clauses pass
+against the seal's matrix blob, whose SHA equals the live `before-read.json` witness;
+the six split clauses pass, including a raw reconstruction of the full pre-split file
+at SHA `caa60b9beea2ef0c2646734511417edc7be66b937853d0c7dd8917c673eea1f9`.
+The reconstruction is a data-integrity check, not another capture or holdout read.
+Freeze remains **1,818**; the worktree capture checker reads **786/786 MATCH**, with
+zero mismatch, misfiled, superseded, unreadable or no-row captures. The frozen tree
+was not copied into this worktree; its 1,107 rows remain evidence, not claimed captures.
+
+**The split needed an additive index fix.** W33 had reused W32's receded documents,
+so `45acb6d916b9` and `4e68f81869f6` already aliased W32's files. The original apply
+refused before writing; that assumption made an unchanged receded difference over a
+new active generation unrepresentable. `sharedReceded` now lists both files while
+`byDocumentSha256` keeps its historical first alias. Active collisions still refuse;
+an incoming shared clause must really be receded and its prior holder's metadata,
+bytes and full hash are checked before any write. Six synthetic apply tests include
+the two successful-sharing cases that failed before this fix; the seven older
+classifier cases also pass. All **13 prior file entries, 24 aliases and three root
+metadata values** remain byte-identical (`index-history-preservation.json`). The two
+new active entries and the generated README's sharing table are additive. Mover is
+§5.179, original reader §5.172. The earlier refused apply and premature witness attempt
+are retained beside the successful logs; no row, number or recorded hash is corrected.
+
+### 7. The regenerated stops, at the shipped hashes
+
+| referee | frozen expectation | once-read result |
+| --- | --- | --- |
+| L1 | 140 declared / 136 measured; absolute ≤0.055, growth ≤0.005 against W33 | 136 measured; the same two orange inactive capsule absolute misses and four dark inactive missing means; maximum growth **0**, zero new failures |
+| M1 | four medians in [0.8,1.2], per-cell [0.6,1.4] with existing named misses | light active/inactive **1.049011/1.022977**, dark active/inactive **0.996608/1.005978**; unchanged |
+| M2 | photo structure growth ≤2% | all **26** cells **0%** against W33; no change |
+| C1 | active exterior shape, twelve bed × span rows, ≤0.0042 | all twelve unchanged; maximum **0.0038247143** |
+| X1 | 218 cells; zero exterior pixels above native black, also above one code | **0/12,681,980** integer-mask and **0/12,593,524** analytic-mask pixels; all 218 pass |
+| B1 | six existing native sigma windows | six unchanged passes |
+| coherence | ΔE≤0.05; ratio [0.8,1.25] on the existing predicate | adopted population passes; scratch black qualifications remain §3's, not new exceptions |
+
+The macOS 27 gated count stays **230/786**; frozen macOS 26.5 stays **229/1,107**.
+`PREDICATE_EXCLUDES` stays **67** and `MISSED_27_ROWS` stays **8**: the owner tests
+confirm their unchanged named sets, so none is re-pinned. The regenerated chroma,
+exterior and black cuts name the four sealed document hashes, and the owner test
+pointers move in the read commit. L1 is regenerated from this matrix against G0's
+frozen population and W33 baseline; formal adoption is G2's step, not a new G1 rule.
+
+M2's reference advances from W32 to the superseded W33 generation, as Decision Log 4
+of W32 requires. The old cuts/references remain history. `m2-rebaseline.json` tables
+all 26 cumulative readings against W31: **−2.774796% to +1.965563%**, with W36's own
+increment zero everywhere. This is drift reported, not a cumulative bound invented.
+The full calibration suite after split and regeneration is **47 files, 678 passes**,
+no skips; this also closes the seal interval's eight temporarily missing-row witnesses.
+
+### 8. The holdout is kept, including its five changed pixels
+
+Across all 786 new cells, **785 normal PNGs and all 786 alpha PNGs** equal W33's
+surviving captures byte for byte. Every GPU PNG is identical. The sole changed normal
+image is the CSS holdout `apple-macos-27.0-1x-dark-standard-glass0.5 / checkerboard__glass-over-glass__rest`.
+Five exterior pixels rise one grey code: (80,167) and (241,167), 235→236;
+(248,167), 236→237; (258,170), 241→242; (83,185), 248→249. The alpha PNG and shape
+axis are exact. SSIM changes 0.9089461488940684→0.9089463077097065, mean OKLab ΔE
+0.01511985414791558→0.015119995869117931, cross-tier ΔE
+0.014556996425129639→0.014556855210054299. All adopted stops pass at these actual values.
+
+Both groups' inputs are identical: component level 0.21404114048223255, linear
+luminance 0.5, and overlaid component level/linear luminance 0.17291949423767553.
+They are far above the black branch's support. The new capture reports deterministic
+true and repeat noise zero on Chromium 151.0.7922.34 / Apple Metal-3. **The cause of
+the difference is unidentified**; it is neither attributed to the black branch nor
+called noise. `holdout-difference.py/json` preserves the pixels, inputs and scalar
+changes. No repeat, fit or tolerance change is made from this holdout observation.
+
+### 9. What this gate does not claim
+
+Uniform span-44 black is identified and closed on the GPU tier; the thick black
+ordinate equals the thin one by declared rule, not by another fitted anchor. The
+open interval between black and the join is an interpolation without native anchors.
+The grey middle and saturated-channel/chroma gaps remain exactly the named misses;
+the conditional receded formula was declined, not smuggled into the black seal.
+The active CSS +1/+2-code boundary residual remains measured, and the native angular
+inner line/contour remains outside this branch's reach. The 18 viewed triptychs close
+the black body, not those bands; unchanged photo/impulse/grey panels retain their gaps.
+No new eye-only regression was identified. This gate does not claim a deployed demo
+comparison or a release: the parent owns landing, G2, the demo fixture and 0.24.0.
+
+The new pixels live in this worktree's `packages/calibration/web-captures/`, not the
+main checkout. At merge, archive the superseded main tree under its active document
+hashes, copy this tree to the canonical location, and run the checker there before
+removing the worktree. This is part of landing the read, not optional cleanup.
+
+### 10. Closing verification and the black-ramp oracle repair
+
+The closing workspace build and lint pass. Unit suites: calibration **678**, core
+**302**, renderer **566**, platform-web **634**, React **174**, geometry **170**,
+motion **164**, policy **23**, demo **46** — **2,757 total**, no unit skips. Renderer
+goldens **34/34** (isolation hashes unchanged), renderer GPU **49/49**, platform e2e
+**410/410**, React e2e **174 passed / 3 declared skips** (Firefox forced colours;
+WebKit increased contrast and forced colours). Freeze **1,818** and capture tree
+**786/786** pass. The configuration's source and document hashes still equal the
+registered fifth read. No goldens are regenerated, no material-affecting source or document moves after
+that read, and the experiment's reverted colour formula remains reverted.
+
+The first platform run was **409 passed / 1 failed**, not a clean run discarded.
+Its black-ramp oracle integrated the rim INTERCEPT instead of its evaluated amplitude;
+at the newly lowered black level this crossed the CSS chain's reach seam and selected
+the wrong conversion anchor (expected opacity0.648 against actual0.706). Its colour
+helper also omitted the chosen anchor. Both mirrors now follow the production chain,
+with a colour assertion on every ramp step. After that repair the old test REQUIRED
+a >20-code black overshoot, precisely the fallback this gate fixes: the diagnostic
+read **141.3822→144.1696**, then the unchanged remainder. The exclusion of step zero
+is removed by fix and monotonicity now covers it, with the same one-code tolerance.
+The complete corrected suite passes410, not only the failing case. The old raw logs,
+oracle source and readings remain in evidence. A temporary diagnostic console caused
+one lint failure; removing that logging restores lint without changing assertions.
+This is a test-only repair; sealed material, canonical pixels and holdout stay untouched.
+
+The old W29 tracker diagnosis of a black conversion-quantum overshoot is explicitly
+superseded beside its preserved reading. This closes that first-step monotonicity
+exception, not the W36 CSS boundary residual. Independent review, merge and release
+are the parent's next gates; no worker agent is dispatched and nothing is pushed.

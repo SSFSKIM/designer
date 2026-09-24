@@ -87,6 +87,35 @@
       "bytes": 18896857,
       "sha256": "bc84f3e5420f00e9904a4ead1a0b40383866a1652781efefc466dc36039c0114"
     },
+    "6e509c7f76cc.json": {
+      "activeDocumentSha256": "6e509c7f76cc",
+      "documents": [
+        {
+          "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json",
+          "sha256": "45acb6d916b9"
+        },
+        {
+          "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json",
+          "sha256": "6e509c7f76cc"
+        }
+      ],
+      "readUnderClaims": "c9a §5.172",
+      "movedUnderClaims": "c9a §5.179",
+      "capturedAt": {
+        "first": "2026-09-22T09:46:04.423Z",
+        "last": "2026-09-22T10:36:42.347Z"
+      },
+      "supersededOn": "2026-09-24",
+      "rowCount": 509,
+      "rowsByProfileKey": {
+        "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5": 36,
+        "apple-macos-27.0-1x-light-reduced-transparency-glass0.5": 32,
+        "apple-macos-27.0-1x-light-standard-glass0.5": 248,
+        "apple-macos-27.0-2x-light-standard-glass0.5": 193
+      },
+      "bytes": 19788488,
+      "sha256": "6e1396bd6dc51ed09aae47248bf9a5a805c1fce4f1e4afa4b69b4ae2a816bda3"
+    },
     "880ab1e31450.json": {
       "$comment": "ANNOTATION, not a correction (W32 G0b, 2026-09-21; claims §5.167; tracker, \"Two superseded-index entries name the reading gate as the moving one\"). `readUnderClaims` above carries the MOVER's section, not the reader's: these rows were READ by W30 G3b under c9a §5.159b — the capture timestamps beside them are that gate's — and moved here by W31 G3 under c9a §5.164. The recorded fields are left exactly as the split wrote them, because a recorded field is annotated and never rewritten; `claimsFields` above states the two are never the same gate, and `split-generation.py` documented that rule without enforcing it until its docstring was corrected at this gate. The refusal that would enforce it is a behaviour change and stays a tracker entry for a gate that runs a split.",
       "activeDocumentSha256": "880ab1e31450",
@@ -311,6 +340,33 @@
       "sha256": "df22d34d6f8692c4671e8368ab5384fdcb909d8d3540df58f5783bdafe26e776",
       "$comment-w31-g3c": "readUnderClaims is c9a §5.164 and not §5.164 §13: these rows were READ by W31 G3, and W31 G3c superseded them. `split-generation.py apply` was invoked with --read-claims equal to --claims, which this index's own claimsFields note forbids (\"They are never the same gate\"); the field is written correct here rather than left as the invocation wrote it. The script does not enforce the rule it documents — recorded in c9a §5.164 §13, together with the two entries above that carry the same slip and are committed evidence."
     },
+    "eab099cc6698.json": {
+      "activeDocumentSha256": "eab099cc6698",
+      "documents": [
+        {
+          "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5-receded.json",
+          "sha256": "4e68f81869f6"
+        },
+        {
+          "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5.json",
+          "sha256": "eab099cc6698"
+        }
+      ],
+      "readUnderClaims": "c9a §5.172",
+      "movedUnderClaims": "c9a §5.179",
+      "capturedAt": {
+        "first": "2026-09-22T09:55:07.194Z",
+        "last": "2026-09-22T10:32:06.288Z"
+      },
+      "supersededOn": "2026-09-24",
+      "rowCount": 277,
+      "rowsByProfileKey": {
+        "apple-macos-27.0-1x-dark-standard-glass0.5": 166,
+        "apple-macos-27.0-2x-dark-standard-glass0.5": 111
+      },
+      "bytes": 10630454,
+      "sha256": "e7b9affe4f10f0e13dacbaab721adcbcac8d582ed43c97d72cf812b2e69fcb33"
+    },
     "f42ddec1cf5a.json": {
       "activeDocumentSha256": "f42ddec1cf5a",
       "documents": [
@@ -378,6 +434,7 @@
     "59d4b20a4596": "f42ddec1cf5a.json",
     "5c81bc72edad": "272d1b0c3e10.json",
     "5e71370ae6d5": "880ab1e31450.json",
+    "6e509c7f76cc": "6e509c7f76cc.json",
     "880ab1e31450": "880ab1e31450.json",
     "96b36eedf1c4": "96b36eedf1c4.json",
     "b4a5914c7b9c": "d731b3838994.json",
@@ -389,7 +446,19 @@
     "d5bdd6eac432": "d5bdd6eac432.json",
     "d731b3838994": "d731b3838994.json",
     "e2fa07589d99": "e2fa07589d99.json",
+    "eab099cc6698": "eab099cc6698.json",
     "f42ddec1cf5a": "f42ddec1cf5a.json",
     "fa872c683f3e": "fa872c683f3e.json"
+  },
+  "sharedRecededRule": "byDocumentSha256 retains its original historical alias. sharedReceded maps an unchanged receded document to every indexed file carrying rows composed over it, in discovery order. Resolve an active hash for a particular generation; active aliases never share or move. Added at c9a §5.179.",
+  "sharedReceded": {
+    "45acb6d916b9": [
+      "d5bdd6eac432.json",
+      "6e509c7f76cc.json"
+    ],
+    "4e68f81869f6": [
+      "431cabd391c4.json",
+      "eab099cc6698.json"
+    ]
   }
 }

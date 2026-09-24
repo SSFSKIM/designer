@@ -1,0 +1,44 @@
+
+Running 1 test using 1 worker
+
+W36 ramp diagnostic {"value":0,"small":{"occlusion":0.706,"tint":"rgba(187, 187, 187, 0.706)"},"expected":{"colour":"175, 175, 175","occlusion":0.706,"target":0.23074004852434915}}
+W36 ramp diagnostic {"value":13,"small":{"occlusion":0.649,"tint":"rgba(191, 191, 191, 0.649)"},"expected":{"colour":"191, 191, 191","occlusion":0.649,"target":0.2446338988163446}}
+W36 ramp diagnostic {"value":25,"small":{"occlusion":0.653,"tint":"rgba(200, 200, 200, 0.653)"},"expected":{"colour":"200, 200, 200","occlusion":0.653,"target":0.2755947249796645}}
+W36 ramp diagnostic {"value":38,"small":{"occlusion":0.656,"tint":"rgba(211, 211, 211, 0.656)"},"expected":{"colour":"211, 211, 211","occlusion":0.656,"target":0.3131795079235819}}
+W36 ramp diagnostic {"value":51,"small":{"occlusion":0.659,"tint":"rgba(221, 221, 221, 0.659)"},"expected":{"colour":"221, 221, 221","occlusion":0.659,"target":0.3533908758353177}}
+W36 ramp diagnostic {"value":64,"small":{"occlusion":0.662,"tint":"rgba(230, 230, 230, 0.662)"},"expected":{"colour":"230, 230, 230","occlusion":0.662,"target":0.3952624251426453}}
+W36 ramp diagnostic {"value":76,"small":{"occlusion":0.664,"tint":"rgba(237, 237, 237, 0.664)"},"expected":{"colour":"237, 237, 237","occlusion":0.664,"target":0.4346240914503834}}
+W36 ramp diagnostic {"value":89,"small":{"occlusion":0.666,"tint":"rgba(245, 245, 245, 0.666)"},"expected":{"colour":"245, 245, 245","occlusion":0.666,"target":0.47721008007088467}}
+W36 ramp diagnostic {"value":102,"small":{"occlusion":0.667,"tint":"rgba(251, 251, 251, 0.667)"},"expected":{"colour":"251, 251, 251","occlusion":0.667,"target":0.5188789041814952}}
+W36 ramp diagnostic {"value":115,"small":{"occlusion":0.672,"tint":"rgba(254, 254, 254, 0.672)"},"expected":{"colour":"254, 254, 254","occlusion":0.672,"target":0.5589987328016502}}
+W36 ramp diagnostic {"value":127,"small":{"occlusion":0.687,"tint":"rgba(254, 254, 254, 0.687)"},"expected":{"colour":"254, 254, 254","occlusion":0.687,"target":0.5954676883378145}}
+W36 ramp diagnostic {"value":140,"small":{"occlusion":0.7,"tint":"rgba(254, 254, 254, 0.7)"},"expected":{"colour":"254, 254, 254","occlusion":0.7,"target":0.6346211422732964}}
+W36 ramp readings {"occlusions":[0.706,0.649,0.653,0.656,0.659,0.662,0.664,0.666,0.667,0.672,0.687,0.7],"levels":[141.38219999999998,144.16959999999997,150.09740000000002,156.5948,164.1656,169.4504,174.663,179.66299999999998,183.663,187.5186,189.80339999999998,192.73119999999997]}
+  ✘  1 [chromium] › e2e/pixel/backdrop-tone-pixels.spec.ts:399:1 › across the transition the level is monotone, the collapse is a slope, and the opacity hands over (1.7s)
+
+
+  1) [chromium] › e2e/pixel/backdrop-tone-pixels.spec.ts:399:1 › across the transition the level is monotone, the collapse is a slope, and the opacity hands over 
+
+    Error: the black step's overshoot
+
+    expect(received).toBeGreaterThan(expected)
+
+    Expected: > 20
+    Received:   -2.787399999999991
+
+      463 |   }
+      464 |   expect((levels[0] as number) - (levels[1] as number), "the black step's overshoot")
+    > 465 |     .toBeGreaterThan(20);
+          |      ^
+      466 |
+      467 |   /*
+      468 |    * The dark end. It was `1 − collapseTransmission` while the collapse owned
+        at /Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g1-black-branch/packages/platform-web/e2e/pixel/backdrop-tone-pixels.spec.ts:465:6
+
+    Error Context: test-results/pixel-backdrop-tone-pixels-dd906--and-the-opacity-hands-over-chromium/error-context.md
+
+  1 failed
+    [chromium] › e2e/pixel/backdrop-tone-pixels.spec.ts:399:1 › across the transition the level is monotone, the collapse is a slope, and the opacity hands over 
+undefined
+/Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g1-black-branch/packages/platform-web:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: playwright test e2e/pixel/backdrop-tone-pixels.spec.ts '--project=chromium' '--workers=1' '--retries=0' --grep 'across the transition'

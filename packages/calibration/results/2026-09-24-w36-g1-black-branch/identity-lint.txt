@@ -1,0 +1,24 @@
+Scope: 9 of 10 workspace projects
+packages/geometry lint$ eslint . && tsc --noEmit
+packages/motion lint$ eslint . && tsc --noEmit
+packages/policy lint$ eslint . && tsc --noEmit
+packages/policy lint: Done
+packages/motion lint: Done
+packages/geometry lint: Done
+packages/renderer-webgpu lint$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json
+packages/renderer-webgpu lint: Done
+packages/core lint$ eslint . && tsc --noEmit
+packages/core lint: Done
+packages/platform-web lint$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json
+packages/platform-web lint: test/w36-black-branch.test.ts(15,46): error TS2345: Argument of type '{ blurSigma: number; tint: readonly [1, 1, 1]; tintAlpha: number; }' is not assignable to parameter of type 'MaterialSourceOptics'.
+packages/platform-web lint:   Type '{ blurSigma: number; tint: readonly [1, 1, 1]; tintAlpha: number; }' is missing the following properties from type 'MaterialSourceOptics': rimAlpha, rimLevelGain, highlight, rimWidth, and 5 more.
+packages/platform-web lint: test/w36-black-branch.test.ts(24,40): error TS2345: Argument of type '{ tintAlpha: number; blurSigma: number; tint: readonly [1, 1, 1]; }' is not assignable to parameter of type 'MaterialSourceOptics'.
+packages/platform-web lint:   Type '{ tintAlpha: number; blurSigma: number; tint: readonly [1, 1, 1]; }' is missing the following properties from type 'MaterialSourceOptics': rimAlpha, rimLevelGain, highlight, rimWidth, and 5 more.
+packages/platform-web lint: test/w36-black-branch.test.ts(27,38): error TS2345: Argument of type '{ blurSigma: number; tint: readonly [1, 1, 1]; tintAlpha: number; }' is not assignable to parameter of type 'MaterialSourceOptics'.
+packages/platform-web lint:   Type '{ blurSigma: number; tint: readonly [1, 1, 1]; tintAlpha: number; }' is missing the following properties from type 'MaterialSourceOptics': rimAlpha, rimLevelGain, highlight, rimWidth, and 5 more.
+packages/platform-web lint: test/w36-black-branch.test.ts(33,74): error TS2345: Argument of type '{ blurSigma: number; tint: readonly [1, 1, 1]; tintAlpha: number; }' is not assignable to parameter of type 'MaterialSourceOptics'.
+packages/platform-web lint:   Type '{ blurSigma: number; tint: readonly [1, 1, 1]; tintAlpha: number; }' is missing the following properties from type 'MaterialSourceOptics': rimAlpha, rimLevelGain, highlight, rimWidth, and 5 more.
+packages/platform-web lint: Failed
+/Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g1-black-branch/packages/platform-web:
+[ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL] @vitreajs/vitrea-web@0.23.0 lint: `eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json`
+Exit status 2

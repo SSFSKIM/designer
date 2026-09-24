@@ -234,6 +234,14 @@ active digests to `dcbccbd9feac9881` (light) and `e59f9106bcd7c966` (dark).
 The receded digests above and both frozen macOS 26.5 digests are unchanged; the
 prior readings remain here as history.
 
+W36 G1's black-only seal (claims §5.179) carries `be13dae45098fc89` (light active),
+`2a4323f33df8d799` (dark active), `b0d0d8dacc6a03af` (light receded) and
+`7c454858a3cbad5b` (dark receded). A separate identity-gated response below encoded
+input 0.003 closes the measured black fallback without moving the old middle or
+impulse response. Thick black is extrapolated from thin; the grey/chroma and rim
+gaps remain. The two frozen macOS 26.5 digests stay unchanged.
+
+
 **0.23.0 carries that declaration, not a new rim model** (claims §5.173).
 `liftAmplitude` is 0 on all four macOS 27 endpoints; the frozen 26.5 active
 material keeps 0.01 / 0.0051. “Zero over black” for the leaf means a uniformly

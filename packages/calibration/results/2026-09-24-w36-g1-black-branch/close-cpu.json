@@ -1,0 +1,42 @@
+[
+  {
+    "label": "close-build",
+    "command": [
+      "pnpm",
+      "-r",
+      "build"
+    ],
+    "exitCode": 0
+  },
+  {
+    "label": "close-lint",
+    "command": [
+      "pnpm",
+      "-r",
+      "lint"
+    ],
+    "exitCode": 0
+  },
+  {
+    "label": "close-calibration",
+    "command": [
+      "pnpm",
+      "--filter",
+      "@vitrea/calibration",
+      "--fail-if-no-match",
+      "test"
+    ],
+    "exitCode": 0
+  },
+  {
+    "label": "close-renderer-unit",
+    "command": [
+      "pnpm",
+      "--filter",
+      "@vitrea/renderer-webgpu",
+      "--fail-if-no-match",
+      "test"
+    ],
+    "exitCode": 0
+  }
+]

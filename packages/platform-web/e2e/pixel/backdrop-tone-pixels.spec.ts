@@ -7,9 +7,9 @@ import {
   cssOpticsFromSource,
   cssTierCompositeLevel,
   cssTierOptics,
-  cssTintColor,
   resolvedBackdropTone,
   resolvedBackdropToneResponse,
+  rimAmplitude,
   sourceInteriorLight,
   sourceSize,
   COLLAPSE_TRANSMISSION,
@@ -244,21 +244,27 @@ const lawDeclares = (grey: number, spanPx: number): LawDeclared => {
   const interior = {
     tintAlpha: shadowed.tintAlpha,
     tint: shadowed.tint,
-    addedLight: interiorBandLight(SOURCE, geometry, 1 - collapse, INTERIOR_LIGHT),
+    // The band carries its evaluated amplitude, not the intercept (W23).
+    // W36's lower black body reaches the conversion seam, exposing the stale
+    // intercept here: it selected the reference anchor instead of measured black.
+    addedLight: interiorBandLight(
+      { ...SOURCE, rimAlpha: rimAmplitude(SOURCE, linear) },
+      geometry, 1 - collapse, INTERIOR_LIGHT,
+    ),
   };
   const anchor = linearChainReaches(cssTierCompositeLevel(interior, tone.luminance))
     ? undefined
     : { linearMean: tone.linearLuminance, toneLevel: tone.luminance };
-  const alpha = cssOpticsFromSource(
+  const converted = cssOpticsFromSource(
     cssTierOptics(PROFILE, MAPPING).regular,
     shadowed,
     MAPPING,
     anchor,
     "regular",
-  ).tintAlpha;
+  );
   return {
-    colour: cssTintColor(shadowed, alpha).join(", "),
-    occlusion: Math.round(alpha * 1000) / 1000,
+    colour: converted.tint.join(", "),
+    occlusion: Math.round(converted.tintAlpha * 1000) / 1000,
     target: backdropToneResponseLevel(grey / 255, thickness, RESPONSE),
   };
 };
@@ -421,6 +427,7 @@ test("across the transition the level is monotone, the collapse is a slope, and 
     const value = Math.round((i / (steps - 1)) * 140);
     await buildScene(page, `rgb(${value}, ${value}, ${value})`);
     const small = await declared(page, "small");
+    expect(colourOf(small.tint), `tint at ${value}`).toBe(lawDeclares(value, 44).colour);
     expect(
       Math.abs(small.occlusion - lawDeclares(value, 44).occlusion),
       `occlusion at ${value}`,
@@ -430,30 +437,23 @@ test("across the transition the level is monotone, the collapse is a slope, and 
   }
 
   /*
-   * **Monotone from the first step on, with the zeroth named** (W29 G4).
+   * **Monotone including black since W36** (claims §5.179).
    *
-   * The reading, on the macOS 27 material: 187.5, 144.2, 150.1, 156.6, 164.2,
-   * 169.5, 174.7, 179.7, 183.7, 187.5, 189.8, 192.7. Every step but the first
-   * rises. The first falls by 43 codes, and it is not the law — the curve's own
-   * target over this ramp is strictly increasing at both spans
-   * (`results/2026-09-20-w29-g4-landing/ramp-probe.txt`: 0.2147 → 0.6346 at span
-   * 44). It is the CSS tier's conversion over a PURE BLACK backdrop, where the
-   * encoded overlay's quantum is coarsest and the solve lands about 58 codes
-   * above a target of 0.2147 linear.
+   * W29's recorded ramp was 187.5, 144.2, 150.1, 156.6, 164.2, 169.5, 174.7,
+   * 179.7, 183.7, 187.5, 189.8, 192.7. Its old assertion REQUIRED the first
+   * step's >20-code overshoot. G0 identified that black as the response's zero
+   * authority fallback, not the conversion quantum the old comment blamed.
+   * W36's compact black branch removes it: this harness reads 141.3822 then
+   * 144.1696, with all subsequent steps unchanged. The registered texture is
+   * not painted behind these hosts, so this is a monotonicity check, not the
+   * native-black deep-domain measurement in the calibration bed.
    *
-   * It is newly VISIBLE rather than newly true: on macOS 26.5 the collapse owned
-   * everything below grey 38 (`k` 1.00 at greys 0, 13 and 25), so the surface
-   * simply became its backdrop there and the conversion was never asked for a
-   * level it could not reach. macOS 27 has no collapse anywhere, which exposes
-   * the region. **No committed row covers it**: the bed's darkest backdrop is
-   * `dark-solid` at (28, 28, 30), which is step 2 of this ramp and tracks. It is
-   * in the tracker as a CSS-tier residual.
+   * The old exclusion of step zero now comes off by fix. The one-code rounding
+   * allowance stays the same; no ramp value is pinned to a new literal.
    */
-  for (let i = 2; i < steps; i += 1) {
+  for (let i = 1; i < steps; i += 1) {
     expect(levels[i] as number, `level ${i}`).toBeGreaterThanOrEqual((levels[i - 1] as number) - 1);
   }
-  expect((levels[0] as number) - (levels[1] as number), "the black step's overshoot")
-    .toBeGreaterThan(20);
 
   /*
    * The dark end. It was `1 − collapseTransmission` while the collapse owned

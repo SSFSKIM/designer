@@ -1334,6 +1334,9 @@ export function createWebGPURenderer(options: WebGPURendererOptions = {}): Glass
         // from `backdropToneLevel`, so the fourth slot carries the linear
         // mean — the one quantity the solve needs that the tone colour does
         // not already hold.
+        backdropToneBlackStrength: material.backdropToneBlackStrength,
+        backdropToneBlackThin: material.backdropToneBlackThin,
+        backdropToneBlackThick: material.backdropToneBlackThick,
         backdropToneAnchorX: material.backdropToneAnchorX,
         backdropToneResponseThin: material.backdropToneResponseThin,
         backdropToneResponseThick: material.backdropToneResponseThick,

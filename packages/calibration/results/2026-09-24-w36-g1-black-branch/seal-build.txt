@@ -1,0 +1,82 @@
+Scope: 9 of 10 workspace projects
+packages/geometry build$ tsc -p tsconfig.build.json
+packages/motion build$ tsc -p tsconfig.build.json
+packages/policy build$ tsc -p tsconfig.build.json
+packages/policy build: Done
+packages/motion build: Done
+packages/geometry build: Done
+packages/renderer-webgpu build$ tsc -p tsconfig.build.json
+packages/renderer-webgpu build: Done
+packages/core build$ tsup
+packages/core build: CLI Building entry: src/index.ts
+packages/core build: CLI Using tsconfig: tsconfig.json
+packages/core build: CLI tsup v8.5.1
+packages/core build: CLI Using tsup config: /Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g1-black-branch/packages/core/tsup.config.ts
+packages/core build: CLI Target: es2022
+packages/core build: CLI Cleaning output folder
+packages/core build: ESM Build start
+packages/core build: DTS Build start
+packages/core build: ESM dist/chunk-IOTISK2R.js     19.40 KB
+packages/core build: ESM dist/index.js              42.69 KB
+packages/core build: ESM dist/dist-K743C2OC.js      364.78 KB
+packages/core build: ESM dist/chunk-IOTISK2R.js.map 102.61 KB
+packages/core build: ESM dist/index.js.map          171.36 KB
+packages/core build: ESM dist/dist-K743C2OC.js.map  951.94 KB
+packages/core build: ESM ⚡️ Build success in 243ms
+packages/core build: DTS ⚡️ Build success in 1278ms
+packages/core build: DTS dist/index.d.ts 257.20 KB
+packages/core build: Done
+packages/platform-web build$ tsup
+packages/platform-web build: CLI Building entry: src/index.ts
+packages/platform-web build: CLI Using tsconfig: tsconfig.json
+packages/platform-web build: CLI tsup v8.5.1
+packages/platform-web build: CLI Using tsup config: /Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g1-black-branch/packages/platform-web/tsup.config.ts
+packages/platform-web build: CLI Target: es2022
+packages/platform-web build: CLI Cleaning output folder
+packages/platform-web build: ESM Build start
+packages/platform-web build: DTS Build start
+packages/platform-web build: ESM dist/index.js     297.11 KB
+packages/platform-web build: ESM dist/index.js.map 1.15 MB
+packages/platform-web build: ESM ⚡️ Build success in 247ms
+packages/platform-web build: DTS ⚡️ Build success in 834ms
+packages/platform-web build: DTS dist/index.d.ts 380.16 KB
+packages/platform-web build: Done
+packages/calibration build$ tsc -p tsconfig.build.json
+packages/react build$ tsup
+packages/react build: CLI Building entry: src/index.ts
+packages/react build: CLI Using tsconfig: tsconfig.json
+packages/react build: CLI tsup v8.5.1
+packages/react build: CLI Using tsup config: /Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g1-black-branch/packages/react/tsup.config.ts
+packages/react build: CLI Target: es2022
+packages/react build: CLI Cleaning output folder
+packages/react build: ESM Build start
+packages/react build: ESM dist/index.js     100.49 KB
+packages/react build: ESM dist/index.js.map 409.94 KB
+packages/react build: ESM ⚡️ Build success in 161ms
+packages/react build: DTS Build start
+packages/calibration build: Done
+packages/react build: DTS ⚡️ Build success in 1242ms
+packages/react build: DTS dist/index.d.ts 66.27 KB
+packages/react build: Done
+apps/demo build$ vite build
+apps/demo build: vite v8.2.2 building client environment for production...
+apps/demo build: transforming...
+apps/demo build: ✓ 1218 modules transformed.
+apps/demo build: rendering chunks...
+apps/demo build: computing gzip size...
+apps/demo build: dist/index.html                           1.15 kB │ gzip:   0.56 kB
+apps/demo build: dist/playground/index.html                1.16 kB │ gzip:   0.60 kB
+apps/demo build: dist/laws/index.html                      1.50 kB │ gzip:   0.73 kB
+apps/demo build: dist/assets/laws-_ZxSrlgO.css             0.96 kB │ gzip:   0.43 kB
+apps/demo build: dist/assets/playground-C6LzDn36.css       8.96 kB │ gzip:   2.59 kB
+apps/demo build: dist/assets/StageBackdrop-CuaKctqy.css   15.83 kB │ gzip:   3.92 kB
+apps/demo build: dist/assets/StageBackdrop-ByLlO5rV.js     4.20 kB │ gzip:   1.88 kB
+apps/demo build: dist/assets/concentric-lxgsKR3K.js        8.08 kB │ gzip:   3.40 kB
+apps/demo build: dist/assets/playground-Df-MhwM9.js       18.85 kB │ gzip:   5.92 kB
+apps/demo build: dist/assets/laws-D9p5MWwe.js             33.97 kB │ gzip:  10.55 kB
+apps/demo build: dist/assets/ActionsMenu-Cakeg9GT.js     107.37 kB │ gzip:  34.98 kB
+apps/demo build: dist/assets/src-DBA1E35o.js             223.49 kB │ gzip:  73.14 kB
+apps/demo build: dist/assets/client-CZdxhj8l.js          364.29 kB │ gzip: 117.85 kB
+apps/demo build: dist/assets/index-CjWSMOzn.js           395.80 kB │ gzip:  53.21 kB
+apps/demo build: ✓ built in 385ms
+apps/demo build: Done

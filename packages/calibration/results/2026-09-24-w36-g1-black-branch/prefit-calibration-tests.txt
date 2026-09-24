@@ -1,0 +1,81 @@
+$ vitest run
+
+ RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g1-black-branch/packages/calibration
+
+ ❯ test/w30-operator-identity.test.ts (4 tests | 2 failed) 59ms
+     × resolves apple-macos-26.5-1x-light-standard to its pre-wave material outside the named leaves 43ms
+     × resolves apple-macos-26.5-1x-dark-standard to its pre-wave material outside the named leaves 10ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/w30-operator-identity.test.ts > W30's exemption is inert at the material level (acceptance clause 1, X1) > resolves apple-macos-26.5-1x-light-standard to its pre-wave material outside the named leaves
+AssertionError: apple-macos-26.5-1x-light-standard: the resolved material differs from the pre-wave evidence outside W30_OPERATOR_LEAVES and W31_OPERATOR_LEAVES — an operator wave may add its own leaves and nothing else: expected { optics: { …(2) }, …(71) } to strictly equal { adaptiveLuminanceHigh: 0.42, …(68) }
+
+- Expected
++ Received
+
+@@ -14,10 +14,13 @@
+    "backdropToneAnchorX": [
+      0.1104,
+      0.2706,
+      0.9505,
+    ],
++   "backdropToneBlackStrength": 0,
++   "backdropToneBlackThick": 0,
++   "backdropToneBlackThin": 0,
+    "backdropToneHigh": 0.055,
+    "backdropToneLow": 0.02,
+    "backdropToneMax": 1,
+    "backdropToneResponseStrength": 1,
+    "backdropToneResponseThick": [
+
+ ❯ test/w30-operator-identity.test.ts:193:9
+    191|           `W30_OPERATOR_LEAVES and W31_OPERATOR_LEAVES — an operator w…
+    192|           `leaves and nothing else`,
+    193|       ).toStrictEqual(without(preWave, OPERATOR_LEAVES));
+       |         ^
+    194|     });
+    195|   }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  test/w30-operator-identity.test.ts > W30's exemption is inert at the material level (acceptance clause 1, X1) > resolves apple-macos-26.5-1x-dark-standard to its pre-wave material outside the named leaves
+AssertionError: apple-macos-26.5-1x-dark-standard: the resolved material differs from the pre-wave evidence outside W30_OPERATOR_LEAVES and W31_OPERATOR_LEAVES — an operator wave may add its own leaves and nothing else: expected { optics: { …(2) }, …(71) } to strictly equal { adaptiveLuminanceHigh: 0.42, …(68) }
+
+- Expected
++ Received
+
+@@ -14,10 +14,13 @@
+    "backdropToneAnchorX": [
+      0.1104,
+      0.2706,
+      0.9505,
+    ],
++   "backdropToneBlackStrength": 0,
++   "backdropToneBlackThick": 0,
++   "backdropToneBlackThin": 0,
+    "backdropToneHigh": 0.055,
+    "backdropToneLow": 0.02,
+    "backdropToneMax": 1,
+    "backdropToneResponseStrength": 1,
+    "backdropToneResponseThick": [
+
+ ❯ test/w30-operator-identity.test.ts:193:9
+    191|           `W30_OPERATOR_LEAVES and W31_OPERATOR_LEAVES — an operator w…
+    192|           `leaves and nothing else`,
+    193|       ).toStrictEqual(without(preWave, OPERATOR_LEAVES));
+       |         ^
+    194|     });
+    195|   }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed | 45 passed (46)
+      Tests  2 failed | 673 passed | 1 skipped (676)
+   Start at  19:58:57
+   Duration  11.14s (transform 6.98s, setup 0ms, import 15.06s, tests 27.88s, environment 3ms)
+
+/Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g1-black-branch/packages/calibration:
+[ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL] @vitrea/calibration@0.0.0 test: `vitest run`
+Exit status 1

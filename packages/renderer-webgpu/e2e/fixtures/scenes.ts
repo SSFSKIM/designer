@@ -683,6 +683,16 @@ export const W31_BODY_CHROMA_SCENE: Scene = {
   ],
 };
 
+/** W36's branch/stand-down witnesses, not additions to the golden scene population. */
+const W36_BLACK_SCENES: readonly Scene[] = [true, false].map(measured => ({
+  name: measured ? "w36-black" : "w36-no-tone",
+  widthCss: 160, heightCss: 100, devicePixelRatio: 1, measureOnly: true,
+  backdrop: { kind: "flat", luminance: 0 },
+  groups: [group("g", [rect("s", [80, 50], [120, 44])], measured ? {
+    backdropTone: [0, 0, 0], backdropToneLevel: 0, backdropToneLinearLuminance: 0,
+  } : {})],
+}));
+
 export const ALL_SCENES: readonly Scene[] = [
   ...SCENES,
   LENS_DEPTH_SCENE,
@@ -693,6 +703,7 @@ export const ALL_SCENES: readonly Scene[] = [
   W30_THIN_SIGMA_COVERAGE_SCENE,
   W30_DEEP_CASTER_COVERAGE_SCENE,
   W31_BODY_CHROMA_SCENE,
+  ...W36_BLACK_SCENES,
 ];
 
 export const SCENE_NAMES = SCENES.map((scene) => scene.name);

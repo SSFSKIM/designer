@@ -201,12 +201,12 @@ test("a visibility event or synthetic blur cannot invent document inactivity", a
 const SEALED = {
   macos27: {
     light: {
-      active: "dcbccbd9feac9881bceca0e80f8a07ddf7a67b2d43fa21c58b7b8bc397bf8516",
-      inactive: "f34dcc03e2774db385d233458fb9d62f38beffa52ffba4c800aad435ae676fc4",
+      active: "be13dae45098fc8929a7b92d26e09a0369047ed18d370e96cea97ecbc6bda36f",
+      inactive: "b0d0d8dacc6a03af8017d0d9a4cec3486bfd95b09c93280a2d2643cf8d0d6c09",
     },
     dark: {
-      active: "e59f9106bcd7c966f12b0418d3e6e6c5ba9982eab22c36a93fd6d260abd49d5c",
-      inactive: "6b6237b7ae241638851192d165ddff03bdd40660ea805a3457f0211d11624831",
+      active: "2a4323f33df8d7992d2e49ac2481c4c4be1bb172a84d3d28da8e428fc09ce384",
+      inactive: "7c454858a3cbad5b85f9389e3cb43aad96f3a52a3c1e83e16e3024af883e5a0e",
     },
   },
   macos26: {
@@ -262,3 +262,18 @@ for (const materialDocument of ["macos27", "macos26"] as const) {
     });
   }
 }
+
+/* W36 G1 black-only seal (§5.179, Decision Log 5), prior full pins retained.
+ * apple-macos-27.0-1x-light-standard-glass0.5.json:
+ * dcbccbd9feac9881bceca0e80f8a07ddf7a67b2d43fa21c58b7b8bc397bf8516
+ * -> be13dae45098fc8929a7b92d26e09a0369047ed18d370e96cea97ecbc6bda36f
+ * apple-macos-27.0-1x-light-standard-glass0.5-receded.json:
+ * f34dcc03e2774db385d233458fb9d62f38beffa52ffba4c800aad435ae676fc4
+ * -> b0d0d8dacc6a03af8017d0d9a4cec3486bfd95b09c93280a2d2643cf8d0d6c09
+ * apple-macos-27.0-1x-dark-standard-glass0.5.json:
+ * e59f9106bcd7c966f12b0418d3e6e6c5ba9982eab22c36a93fd6d260abd49d5c
+ * -> 2a4323f33df8d7992d2e49ac2481c4c4be1bb172a84d3d28da8e428fc09ce384
+ * apple-macos-27.0-1x-dark-standard-glass0.5-receded.json:
+ * 6b6237b7ae241638851192d165ddff03bdd40660ea805a3457f0211d11624831
+ * -> 7c454858a3cbad5b85f9389e3cb43aad96f3a52a3c1e83e16e3024af883e5a0e
+ */

@@ -1,0 +1,38 @@
+diff --git a/packages/platform-web/src/backdrop-tone.ts b/packages/platform-web/src/backdrop-tone.ts
+index a534bc29..eef530fb 100644
+--- a/packages/platform-web/src/backdrop-tone.ts
++++ b/packages/platform-web/src/backdrop-tone.ts
+@@ -399,7 +399,13 @@ export function silhouetteBackdropTone(
+           const pr = (data[i] as number) / 255;
+           const pg = (data[i + 1] as number) / 255;
+           const pb = (data[i + 2] as number) / 255;
+-          encoded += (0.2126 * pr + 0.7152 * pg + 0.0722 * pb) * a;
++          let pixelLevel = 0.2126 * pr + 0.7152 * pg + 0.0722 * pb;
++          // W36 DL2 candidate, with the achromatic arithmetic kept exactly.
++          if (pr !== pg || pg !== pb) {
++            const y = 0.2126 * srgbDecode(pr) + 0.7152 * srgbDecode(pg) + 0.0722 * srgbDecode(pb);
++            pixelLevel = y <= 0.0031308 ? 12.92 * y : 1.055 * y ** (1 / 2.4) - 0.055;
++          }
++          encoded += pixelLevel * a;
+           r += srgbDecode(pr) * a;
+           g += srgbDecode(pg) * a;
+           b += srgbDecode(pb) * a;
+diff --git a/packages/renderer-webgpu/src/wgsl/silhouette-tone.ts b/packages/renderer-webgpu/src/wgsl/silhouette-tone.ts
+index 6edbf455..3083782c 100644
+--- a/packages/renderer-webgpu/src/wgsl/silhouette-tone.ts
++++ b/packages/renderer-webgpu/src/wgsl/silhouette-tone.ts
+@@ -23,7 +23,13 @@ fn raw_tone(texel : vec2i) -> RawTone {
+   let dims = vec2i(textureDimensions(source));
+   let rgba = textureLoad(source, clamp(texel, vec2i(0), dims - 1), 0);
+   let rgb = rgba.rgb / max(rgba.a, 1e-6);
+-  return RawTone(vec4f(rgb, dot(linear_to_srgb(rgb), vec3f(0.2126, 0.7152, 0.0722))) * rgba.a, rgba.a);
++  var encoded = dot(linear_to_srgb(rgb), vec3f(0.2126, 0.7152, 0.0722));
++  // W36 DL2 candidate: change only the colour formula, not its spatial domain.
++  // Keep the old achromatic expression exactly, including its f32 rounding.
++  if (rgb.r != rgb.g || rgb.g != rgb.b) {
++    encoded = linear_to_srgb(vec3f(luminance(rgb))).r;
++  }
++  return RawTone(vec4f(rgb, encoded) * rgba.a, rgba.a);
+ }
+ 
+ @compute @workgroup_size(256)

@@ -109,8 +109,18 @@ export const W31_OPERATOR_LEAVES: readonly string[] = [
   "bodyChromaRetention",
 ];
 
-/** Both waves' leaves — what the identity below is allowed to find moved. */
-const OPERATOR_LEAVES: readonly string[] = [...W30_OPERATOR_LEAVES, ...W31_OPERATOR_LEAVES];
+/** W36 adds three identity-gated keys, not an exemption (§5.179, Decision Log 5).
+ * The literal gate and the unread-ordinate sweep are pinned by the W31 table tests.
+ * The historical materials below still differ in no previously existing value.
+ */
+const W36_OPERATOR_LEAVES = [
+  "backdropToneBlackStrength", "backdropToneBlackThin", "backdropToneBlackThick",
+] as const;
+
+/** Every later wave's additions, beside rather than rewriting either original list. */
+const OPERATOR_LEAVES: readonly string[] = [
+  ...W30_OPERATOR_LEAVES, ...W31_OPERATOR_LEAVES, ...W36_OPERATOR_LEAVES,
+];
 
 const HERE = import.meta.dirname;
 const PROFILES = resolve(HERE, "..", "profiles");
@@ -188,7 +198,7 @@ describe("W30's exemption is inert at the material level (acceptance clause 1, X
       expect(
         without(resolved, OPERATOR_LEAVES),
         `${key}: the resolved material differs from the pre-wave evidence outside ` +
-          `W30_OPERATOR_LEAVES and W31_OPERATOR_LEAVES — an operator wave may add its own ` +
+          `the named W30/W31/W36 operator leaves — an operator wave may add its own ` +
           `leaves and nothing else`,
       ).toStrictEqual(without(preWave, OPERATOR_LEAVES));
     });

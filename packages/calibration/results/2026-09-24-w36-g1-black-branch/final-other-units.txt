@@ -1,0 +1,114 @@
+Scope: 8 of 10 workspace projects
+packages/geometry test$ vitest run
+packages/policy test$ vitest run
+packages/motion test$ vitest run
+packages/policy test:  RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g1-black-branch/packages/policy
+packages/motion test:  RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g1-black-branch/packages/motion
+packages/geometry test:  RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g1-black-branch/packages/geometry
+packages/policy test:  Test Files  2 passed (2)
+packages/policy test:       Tests  23 passed (23)
+packages/policy test:    Start at  21:15:35
+packages/policy test:    Duration  257ms (transform 85ms, setup 0ms, import 156ms, tests 11ms, environment 0ms)
+packages/policy test: Done
+packages/motion test:  Test Files  10 passed (10)
+packages/motion test:       Tests  164 passed (164)
+packages/motion test:    Start at  21:15:35
+packages/motion test:    Duration  657ms (transform 574ms, setup 0ms, import 1.00s, tests 465ms, environment 0ms)
+packages/motion test: Done
+packages/geometry test: === the crossing: Apple's dump against the reference construction at the same reach ===
+packages/geometry test: 120x44    r*  14.3916  hausdorff  0.092982 px  = 0.00646086 r
+packages/geometry test: 64x30     r*   9.8125  hausdorff  0.063450 px  = 0.00646621 r
+packages/geometry test: 44x44     r*  14.3916  hausdorff  0.092982 px  = 0.00646086 r
+packages/geometry test: 160x96    r*  31.3999  hausdorff  0.202744 px  = 0.00645684 r
+packages/geometry test: 280x160   r*  52.3332  hausdorff  0.337875 px  = 0.00645622 r
+packages/geometry test: contour step per 0.002 px of r across the crossing: 0.092906 px at r 14.3936
+packages/geometry test: === the render path at 1x (device px) ===
+packages/geometry test: shape                  r/min   declared  render r  render reach  spec r   sat  gap→declared  gap render↔spec
+packages/geometry test: capsule-button         0.5000     22.00     22.00         22.00   22.00  YES        0.0000           0.0000
+packages/geometry test: toolbar-group item     0.5000     22.00     22.00         22.00   22.00  YES        0.0000           0.0000
+packages/geometry test: rrect-sm               0.2500      8.00      8.00         12.23    8.00   no        0.1104           0.0000
+packages/geometry test: rrect-md               0.2083     20.00     20.00         30.57   20.00   no        0.2760           0.0000
+packages/geometry test: rrect-ml               0.2109     27.00     27.00         41.27   27.00   no        0.3726           0.0000
+packages/geometry test: rrect-lg               0.2125     34.00     34.00         51.97   34.00   no        0.4691           0.0000
+packages/geometry test: glass-over-glass base  0.1846     24.00     24.00         36.69   24.00   no        0.3312           0.0000
+packages/geometry test: glass-over-glass over  0.2857     16.00     16.00         24.46   16.00   no        0.2208           0.0000
+packages/geometry test: === the render path at 2x (device px) ===
+packages/geometry test: shape                  r/min   declared  render r  render reach  spec r   sat  gap→declared  gap render↔spec
+packages/geometry test: capsule-button         0.5000     44.00     44.00         44.00   44.00  YES        0.0000           0.0000
+packages/geometry test: toolbar-group item     0.5000     44.00     44.00         44.00   44.00  YES        0.0000           0.0000
+packages/geometry test: rrect-sm               0.2500     16.00     16.00         24.46   16.00   no        0.2208           0.0000
+packages/geometry test: rrect-md               0.2083     40.00     40.00         61.15   40.00   no        0.5519           0.0000
+packages/geometry test: rrect-ml               0.2109     54.00     54.00         82.55   54.00   no        0.7451           0.0000
+packages/geometry test: rrect-lg               0.2125     68.00     68.00        103.95   68.00   no        0.9383           0.0000
+packages/geometry test: glass-over-glass base  0.1846     48.00     48.00         73.38   48.00   no        0.6623           0.0000
+packages/geometry test: glass-over-glass over  0.2857     32.00     32.00         48.92   32.00   no        0.4416           0.0000
+packages/geometry test: === DEFAULT_HOST_SHAPE radius 12, 200 x h ===
+packages/geometry test: h  24  drawn r  12.0000  s_eff 0.0000  radius lost 0.0000 CSS px
+packages/geometry test: h  32  drawn r  12.0000  s_eff 0.3333  radius lost 0.0000 CSS px
+packages/geometry test: h  36  drawn r  12.0000  s_eff 0.5000  radius lost 0.0000 CSS px
+packages/geometry test: h  40  drawn r  12.0000  s_eff 0.5287  radius lost 0.0000 CSS px
+packages/geometry test: h  48  drawn r  12.0000  s_eff 0.5287  radius lost 0.0000 CSS px
+packages/geometry test:  Test Files  14 passed (14)
+packages/geometry test:       Tests  170 passed (170)
+packages/geometry test:    Start at  21:15:35
+packages/geometry test:    Duration  10.67s (transform 1.13s, setup 0ms, import 9.78s, tests 13.02s, environment 1ms)
+packages/geometry test: Done
+packages/renderer-webgpu test$ vitest run
+packages/renderer-webgpu test:  RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g1-black-branch/packages/renderer-webgpu
+packages/renderer-webgpu test:  Test Files  35 passed (35)
+packages/renderer-webgpu test:       Tests  566 passed (566)
+packages/renderer-webgpu test:    Start at  21:15:46
+packages/renderer-webgpu test:    Duration  1.03s (transform 1.97s, setup 217ms, import 3.60s, tests 1.63s, environment 2ms)
+packages/renderer-webgpu test: Done
+packages/core test$ vitest run
+packages/core test:  RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g1-black-branch/packages/core
+packages/core test:  Test Files  16 passed (16)
+packages/core test:       Tests  302 passed (302)
+packages/core test:    Start at  21:15:48
+packages/core test:    Duration  2.45s (transform 1.24s, setup 0ms, import 1.73s, tests 3.06s, environment 1ms)
+packages/core test: Done
+packages/platform-web test$ vitest run
+packages/platform-web test:  RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g1-black-branch/packages/platform-web
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test:  Test Files  47 passed (47)
+packages/platform-web test:       Tests  634 passed (634)
+packages/platform-web test:    Start at  21:15:50
+packages/platform-web test:    Duration  5.06s (transform 3.65s, setup 0ms, import 8.60s, tests 5.53s, environment 22.73s)
+packages/platform-web test: Done
+packages/react test$ vitest run
+packages/react test:  RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g1-black-branch/packages/react
+packages/react test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/react test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/react test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/react test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/react test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/react test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/react test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/react test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/react test:  Test Files  19 passed (19)
+packages/react test:       Tests  174 passed (174)
+packages/react test:    Start at  21:15:56
+packages/react test:    Duration  3.14s (transform 2.11s, setup 1.84s, import 4.52s, tests 8.00s, environment 8.92s)
+packages/react test: Done
+apps/demo test$ vitest run
+apps/demo test:  RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g1-black-branch/apps/demo
+apps/demo test:  Test Files  6 passed (6)
+apps/demo test:       Tests  46 passed (46)
+apps/demo test:    Start at  21:15:59
+apps/demo test:    Duration  989ms (transform 1.76s, setup 0ms, import 2.24s, tests 321ms, environment 0ms)
+apps/demo test: Done

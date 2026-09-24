@@ -253,6 +253,8 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   /// below is multiplied by zero and the composite is bit-identical to the one
   /// W30 left, which is why the 34 goldens do not move.
   bodyChroma : vec4f,
+  /// W36: strength, linear thin/thick black ordinates, padding. Gate 0 is identity.
+  toneBlack : vec4f,
 };
 
 @group(0) @binding(0) var<uniform> ou : OpticsUniforms;
@@ -1154,8 +1156,9 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
    *
    * Three stand-downs, each measured rather than defensive: the whole axis is
    * off where no backdrop tone was measured (same gate as the collapse); the
-   * solve's authority fades to zero below the dark anchor, where the only
-   * evidence is the impulse cell the collapse constants were fitted on; and
+   * default solve's authority fades to zero below the dark anchor, where W9
+   * had only its impulse evidence (W36's selected black branch restores that
+   * authority within its separate support); and
    * at k → 1 the collapse owns the pixel outright, so the solve's
    * extrapolation is never evaluated against a vanishing (1 − k).
    */
@@ -1165,10 +1168,22 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
       sizedAlpha > 1e-3 && toneAdapt < 0.995) {
     let encodedInput = srgb_encode(toneColour.w);
     let anchor = max(ou.toneAnchor.x, 1e-4);
-    let authority =
+    var authority =
       smoothstep(anchor * 0.5, anchor, encodedInput) * clamp(ou.toneRowThin.w, 0.0, 1.0);
+    var blackWeight = 0.0;
+    // Compact support rejoins before the smallest packed impulse input. Keep
+    // the gate-0 and above-join arithmetic exact; no Hermite slope is touched.
+    if (ou.toneBlack.x > 0.0 && encodedInput < 0.003) {
+      blackWeight = clamp(ou.toneBlack.x, 0.0, 1.0) *
+        (1.0 - smoothstep(0.0, 0.003, encodedInput));
+      authority = mix(authority, clamp(ou.toneRowThin.w, 0.0, 1.0), blackWeight);
+    }
     if (authority > 0.0) {
-      let response = tone_response(encodedInput, sizeK, toneLevelFar);
+      var response = tone_response(encodedInput, sizeK, toneLevelFar);
+      if (blackWeight > 0.0) {
+        let f = sizeK * sizeK * (3.0 - 2.0 * sizeK);
+        response = mix(response, mix(ou.toneBlack.y, ou.toneBlack.z, f), blackWeight);
+      }
       // The collapse's mean pull is toward L(toneColour.rgb) — the LINEAR
       // mean, which toneAnchor.w carries — not toward the encoded level.
       let preCollapse = (response - toneAdapt * toneLinearMean) / (1.0 - toneAdapt);

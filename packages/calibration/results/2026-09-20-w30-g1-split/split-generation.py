@@ -37,8 +37,17 @@ an active document that still ships — the unfocused endpoint alone is refitted
 a superseded row names a CURRENT active document. The active hash alone would misdescribe
 that file, so the generation is named by the whole of what it was read at: a COMPOUND
 `<active>-<receded>.json`, with `index.json` mapping both hashes to it. The lookup is
-what finds it; the name is never parsed. A hash that would name two different superseded
-files is refused rather than silently overwritten in the index.
+what finds it; the name is never parsed. An active hash that would name two different
+superseded files is refused rather than silently overwritten in the index.
+
+**An unchanged receded difference can belong to several active generations** (W36,
+claims §5.179). The original alias in `byDocumentSha256` is history and is NEVER
+repointed. `sharedReceded[hash]` lists its files in discovery order, beginning with
+that historical alias; a reader needing a particular composed generation resolves
+its ACTIVE hash, not the receded hash alone. Each association is verified against
+that file's recorded documents and bytes before any write. Active-hash collisions
+still refuse. The generated README prints the shared associations beside its file
+table. This is additive: every prior file entry and every prior alias is retained.
 
 `--current` takes the hashes that are current and everything else moves; it is repeatable
 and takes any number of hashes after each use. It defaults to the twelve-hex SHA-256 of
@@ -139,6 +148,7 @@ TODAY = datetime.date.today().isoformat()
 # it with the same shape.
 DOCUMENT_CLAUSE = re.compile(r"(?:materialProfile|recededProfile)=(\S+) sha256:([0-9a-f]{12})")
 ACTIVE_CLAUSE = re.compile(r"materialProfile=(\S+) sha256:([0-9a-f]{12})")
+RECEDED_CLAUSE = re.compile(r"recededProfile=(\S+) sha256:([0-9a-f]{12})")
 HASH_TOKEN = re.compile(r"^[0-9a-f]{12}$")
 
 # The profiles whose rows are frozen evidence (`results/2026-09-16-w29-freeze/`), and
@@ -237,6 +247,7 @@ def classify(raw: bytes, span, current: dict):
         "fixtureSet": row["fixtureSet"],
         "capturedAt": row["capturedAt"],
         "documents": [{"path": d, "sha256": h} for d, h in named],
+        "recededDocuments": [{"path": d, "sha256": h} for d, h in RECEDED_CLAUSE.findall(path)],
         "activeDocument": None if active is None else active.group(1),
         "activeSha256": None if active is None else active.group(2),
         "current": is_current,
@@ -300,6 +311,58 @@ def destinations(rows, current: dict):
         stem = h if h not in current.values() else "-".join([h] + stale)
         dest.setdefault(stem, []).append(i)
     return keep_idx, dest
+
+
+def index_aliases(prior: dict, rows: list[dict], dest: dict, directory: pathlib.Path):
+    """Plan aliases without repointing history; only a proved receded association can share.
+
+    Planning covers every destination before writes. A shared document may appear in
+    two destinations in this same split, so prospective owners are known alongside
+    old files; old owners additionally have their bytes verified against the index.
+    """
+    lookup = dict(prior.get("byDocumentSha256", {}))
+    shared = {h: list(names) for h, names in prior.get("sharedReceded", {}).items()}
+    owners = dict(prior.get("files", {}))
+    attempts = set()
+    for stem, indices in dest.items():
+        filename = stem + ".json"
+        documents = {(d["path"], d["sha256"]) for i in indices for d in rows[i]["documents"]}
+        owners[filename] = {
+            "activeDocumentSha256": rows[indices[0]]["activeSha256"],
+            "documents": [{"path": path, "sha256": h} for path, h in sorted(documents)],
+        }
+        for i in indices:
+            for d in rows[i]["documents"]:
+                attempts.add((filename, d["path"], d["sha256"],
+                              d in rows[i]["recededDocuments"]))
+    verified = set()
+    for filename, path, h, receded in sorted(attempts):
+        held = lookup.get(h)
+        if held is None:
+            lookup[h] = filename
+            continue
+        if held == filename:
+            continue
+        owner = owners.get(held, {})
+        if (not receded or owner.get("activeDocumentSha256") == h or
+                {"path": path, "sha256": h} not in owner.get("documents", [])):
+            raise ValueError(f"index.json maps document {h} to {held}; "
+                             f"cannot share it with {filename} as a receded document")
+        if held in prior.get("files", {}) and held not in verified:
+            try:
+                raw = (directory / held).read_bytes()
+            except OSError as error:
+                raise ValueError(f"cannot verify historical alias {held}: {error}") from error
+            if (len(raw) != owner.get("bytes") or
+                    hashlib.sha256(raw).hexdigest() != owner.get("sha256")):
+                raise ValueError(f"historical alias {held} differs from its recorded bytes")
+            verified.add(held)
+        names = shared.setdefault(h, [held])
+        if held not in names:
+            raise ValueError(f"shared receded document {h} omits its historical alias {held}")
+        if filename not in names:
+            names.append(filename)
+    return lookup, shared
 
 
 README_BEGIN = "<!-- generated by split-generation.py readme; do not edit between the markers -->"
@@ -367,6 +430,17 @@ def write_readme() -> int:
             f"| `{name}` | {profiles} | {document} | {entry.get('readUnderClaims', '—')} | "
             f"{entry.get('movedUnderClaims', '—')} | {entry['capturedAt']['first'][:10]} | "
             f"{entry['supersededOn']} | {entry['rowCount']} | {entry['bytes']:,} |")
+
+    shared = index.get("sharedReceded", {})
+    if shared:
+        rows += ["", "### Shared receded documents", "",
+                 "The historical alias is retained. A receded hash alone does not identify "
+                 "a composed generation; resolve its active hash for a particular file.", "",
+                 "| receded hash | historical alias | files carrying the difference |",
+                 "| --- | --- | --- |"]
+        for h, names in sorted(shared.items()):
+            rows.append(f"| `{h}` | `{index['byDocumentSha256'][h]}` | " +
+                        ", ".join(f"`{name}`" for name in names) + " |")
 
     text = readme_path.read_text()
     start, end = text.index(README_BEGIN), text.index(README_END)
@@ -470,7 +544,6 @@ def main() -> int:
     prior = {}
     if (SUPERSEDED / "index.json").exists():
         prior = json.loads((SUPERSEDED / "index.json").read_text())
-    prior_lookup = dict(prior.get("byDocumentSha256", {}))
 
     # Every destination is checked before a byte is written, so a refusal leaves the
     # tree as it stood rather than half split. Three ways a run would overwrite a
@@ -486,13 +559,10 @@ def main() -> int:
         out = SUPERSEDED / f"{stem}.json"
         if out.exists():
             blocked.append(f"{out} already exists; a recorded generation is never overwritten")
-        for i in dest[stem]:
-            for d in rows[i]["documents"]:
-                held = prior_lookup.get(d["sha256"])
-                if held is not None and held != f"{stem}.json":
-                    blocked.append(
-                        f"index.json maps document {d['sha256']} to {held}; this run would "
-                        f"point it at {stem}.json")
+    try:
+        planned_lookup, shared_receded = index_aliases(prior, rows, dest, SUPERSEDED)
+    except ValueError as error:
+        blocked.append(str(error))
     if blocked:
         for line in sorted(set(blocked)):
             print(line)
@@ -550,8 +620,16 @@ def main() -> int:
             "was being written with the mover's section by some gates and the reader's by "
             "others, and README.md's table disagreed with it."
         ),
+        # Recorded metadata is kept as well as the file entries and aliases.
+        **prior,
         "files": dict(prior.get("files", {})),
-        "byDocumentSha256": dict(prior.get("byDocumentSha256", {})),
+        "byDocumentSha256": planned_lookup,
+        "sharedRecededRule": prior.get("sharedRecededRule",
+            "byDocumentSha256 retains its original historical alias. sharedReceded maps "
+            "an unchanged receded document to every indexed file carrying rows composed "
+            "over it, in discovery order. Resolve an active hash for a particular generation; "
+            "active aliases never share or move. Added at c9a §5.179."),
+        "sharedReceded": shared_receded,
     }
     files = index["files"]
     lookup = index["byDocumentSha256"]
@@ -577,8 +655,6 @@ def main() -> int:
             "bytes": out.stat().st_size,
             "sha256": hashlib.sha256(out.read_bytes()).hexdigest(),
         }
-        for _, s in named:
-            lookup[s] = f"{stem}.json"
         print(f"wrote {out.relative_to(ROOT)}  {len(dest[stem])} rows  {out.stat().st_size} bytes")
 
     index["files"] = dict(sorted(files.items()))

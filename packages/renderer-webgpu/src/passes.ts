@@ -250,6 +250,10 @@ export interface OpticsPassArgs {
    * W30 left, bit for bit.
    */
   readonly bodyChromaRetention: number;
+  /** W36 black branch: strength and linear thin/thick ordinates, identity-gated. */
+  readonly backdropToneBlackStrength: number;
+  readonly backdropToneBlackThin: number;
+  readonly backdropToneBlackThick: number;
   /** DOM-layer mode: 0 is off, 1 is unknown tone, and 2 has a measured tone. */
   readonly domMaterial?: {
     readonly mode: number;
@@ -774,7 +778,7 @@ export function createPassRunner(context: GpuContext): PassRunner {
     },
 
     opticsPass(encoder, args) {
-      const slot = uniformSlot(`optics:${args.resourceId}`, 136);
+      const slot = uniformSlot(`optics:${args.resourceId}`, 140);
       const d = slot.data;
       d[0] = args.viewportDevice[0];
       d[1] = args.viewportDevice[1];
@@ -987,6 +991,11 @@ export function createPassRunner(context: GpuContext): PassRunner {
       d[133] = 0;
       d[134] = 0;
       d[135] = 0;
+      // W36 has its own vec4: no neighbour's spare lane changes ownership.
+      d[136] = args.backdropToneBlackStrength;
+      d[137] = args.backdropToneBlackThin;
+      d[138] = args.backdropToneBlackThick;
+      d[139] = 0;
       slot.write();
 
       const chain = args.backdrop?.chain ?? placeholderView;

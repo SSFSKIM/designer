@@ -1,0 +1,182 @@
+{
+  "declaration": {
+    "wave": "W36",
+    "gate": {
+      "backdropToneBlackStrength": 0
+    },
+    "gated": [
+      "backdropToneBlackThin",
+      "backdropToneBlackThick"
+    ],
+    "law": "Below x=0.003 blend response and authority toward the black endpoint by strength*(1-smoothstep(0,0.003,x)); elsewhere execute the old solve exactly.",
+    "inertLawCase": "packages/renderer-webgpu/test/w31-gate-groups.test.ts — \"gate-group 4 — black strength 0 gates both black ordinates\"; drawn identity in packages/renderer-webgpu/e2e/gpu/w36-black-branch.spec.ts",
+    "whyGated": "The strength-0 branch never reads either ordinate, preserving the old solve.",
+    "claims": "c9a §5.179; W36 Decision Log 5"
+  },
+  "rows": [
+    {
+      "name": "apple-macos-26.5-1x-light-standard",
+      "recorded": "b2b570e4adcea8fb",
+      "before": "b2b570e4adcea8fb",
+      "checks": [
+        {
+          "blackLevel": 0,
+          "identity": "b2b570e4adcea8fb"
+        },
+        {
+          "blackLevel": 0.001,
+          "identity": "b2b570e4adcea8fb"
+        },
+        {
+          "blackLevel": 0.1,
+          "identity": "b2b570e4adcea8fb"
+        },
+        {
+          "blackLevel": 0.5,
+          "identity": "b2b570e4adcea8fb"
+        },
+        {
+          "blackLevel": 1,
+          "identity": "b2b570e4adcea8fb"
+        }
+      ]
+    },
+    {
+      "name": "apple-macos-26.5-1x-dark-standard",
+      "recorded": "874be66ea501621b",
+      "before": "874be66ea501621b",
+      "checks": [
+        {
+          "blackLevel": 0,
+          "identity": "874be66ea501621b"
+        },
+        {
+          "blackLevel": 0.001,
+          "identity": "874be66ea501621b"
+        },
+        {
+          "blackLevel": 0.1,
+          "identity": "874be66ea501621b"
+        },
+        {
+          "blackLevel": 0.5,
+          "identity": "874be66ea501621b"
+        },
+        {
+          "blackLevel": 1,
+          "identity": "874be66ea501621b"
+        }
+      ]
+    },
+    {
+      "name": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "recorded": "dcbccbd9feac9881",
+      "before": "dcbccbd9feac9881",
+      "checks": [
+        {
+          "blackLevel": 0,
+          "identity": "dcbccbd9feac9881"
+        },
+        {
+          "blackLevel": 0.001,
+          "identity": "dcbccbd9feac9881"
+        },
+        {
+          "blackLevel": 0.1,
+          "identity": "dcbccbd9feac9881"
+        },
+        {
+          "blackLevel": 0.5,
+          "identity": "dcbccbd9feac9881"
+        },
+        {
+          "blackLevel": 1,
+          "identity": "dcbccbd9feac9881"
+        }
+      ]
+    },
+    {
+      "name": "apple-macos-27.0-1x-light-standard-glass0.5-receded",
+      "recorded": "f34dcc03e2774db3",
+      "before": "f34dcc03e2774db3",
+      "checks": [
+        {
+          "blackLevel": 0,
+          "identity": "f34dcc03e2774db3"
+        },
+        {
+          "blackLevel": 0.001,
+          "identity": "f34dcc03e2774db3"
+        },
+        {
+          "blackLevel": 0.1,
+          "identity": "f34dcc03e2774db3"
+        },
+        {
+          "blackLevel": 0.5,
+          "identity": "f34dcc03e2774db3"
+        },
+        {
+          "blackLevel": 1,
+          "identity": "f34dcc03e2774db3"
+        }
+      ]
+    },
+    {
+      "name": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "recorded": "e59f9106bcd7c966",
+      "before": "e59f9106bcd7c966",
+      "checks": [
+        {
+          "blackLevel": 0,
+          "identity": "e59f9106bcd7c966"
+        },
+        {
+          "blackLevel": 0.001,
+          "identity": "e59f9106bcd7c966"
+        },
+        {
+          "blackLevel": 0.1,
+          "identity": "e59f9106bcd7c966"
+        },
+        {
+          "blackLevel": 0.5,
+          "identity": "e59f9106bcd7c966"
+        },
+        {
+          "blackLevel": 1,
+          "identity": "e59f9106bcd7c966"
+        }
+      ]
+    },
+    {
+      "name": "apple-macos-27.0-1x-dark-standard-glass0.5-receded",
+      "recorded": "6b6237b7ae241638",
+      "before": "6b6237b7ae241638",
+      "checks": [
+        {
+          "blackLevel": 0,
+          "identity": "6b6237b7ae241638"
+        },
+        {
+          "blackLevel": 0.001,
+          "identity": "6b6237b7ae241638"
+        },
+        {
+          "blackLevel": 0.1,
+          "identity": "6b6237b7ae241638"
+        },
+        {
+          "blackLevel": 0.5,
+          "identity": "6b6237b7ae241638"
+        },
+        {
+          "blackLevel": 1,
+          "identity": "6b6237b7ae241638"
+        }
+      ]
+    }
+  ],
+  "renderedNewLeafIdentity": "see identity capture byte comparisons and identity-goldens.txt",
+  "qualification": "Live materialDigestInput and live backdropToneSolveWeight; six shipped documents remain unchanged."
+}
