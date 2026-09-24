@@ -37346,3 +37346,32 @@ All18 raw triptychs were viewed (`eye.txt`): the black body's level visibly clos
 the active inner-line/contour gap remains, and the unchanged impulse/photo/grey
 controls retain their known level and chroma gaps. No new eye-only regression was
 identified. Every x8 panel carries the137.097415/255 one-byte-at-black check.
+
+### 4. The receded formula is declined on its own regression
+
+Decision Log2's conditional nomination was implemented on both tiers, with the
+same silhouette, per-texel alpha weighting, bilinear placement and linear RGB
+reference. Achromatic texels keep the old expression exactly. The unit's colour
+case fails before the change and passes after it; all256 grey inputs are identical.
+**110 inactive cells per tier** were rendered, with no holdout. All74 achromatic
+GPU controls have identical packed readings AND PNG bytes to the black-only price.
+
+The chromatic photo cost refuses the change: **16 L1 growth failures** against
+0.005, including light inactive capsule0.016501/0.016667 at1x/2x and orange-tinted
+rrect-md0.018640/0.018617; dark orange-tinted capsule0.016710/0.015816. **Three M2
+failures**: light small inactive+3.6174% at1x, toolbar inactive+17.8049%/+16.9386%
+at1x/2x, against2%. M1 medians stay inside0.8–1.2, which does not excuse either
+failure. The same-domain colour formula is closer on G0's solids but not permitted
+by this joint structured regression. It is not a source-domain refutation.
+
+Two dark inactive impulse/lg probe DeltaE readings0.071495/0.065547 also appear
+as flags in the initial formula reader, but are BYTE-IDENTICAL to the black-only
+price and outside the canonical gated population. They are inherited probe
+coherence diagnostics, not failures caused by this formula. The independent
+L1/M2 failures stand without them. `formula-outcome.json` classifies them beside
+the raw reading, rather than changing either number.
+
+Both experimental source files are restored to their exact pre-trial SHA-256;
+the temporary unit case and candidate patch remain as evidence. No colour-formula
+leaf, material value or frozen26.5 behaviour lands from this experiment. The seal
+is the black branch ALONE, as Decision Log2's failed-regression arm directs.
