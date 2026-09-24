@@ -1,0 +1,355 @@
+{
+  "status": "PASS under the frozen tier-specific contracts",
+  "GPU": {
+    "population": 140,
+    "measured": 136,
+    "maxGrowth": 0.0,
+    "absoluteMisses": [
+      {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/impulse__capsule-button__inactive-tint-orange",
+        "baselineError": 0.06601612591220249,
+        "error": 0.06601612591220249,
+        "growth": 0.0,
+        "existingAbsoluteMiss": true,
+        "passStop": true
+      },
+      {
+        "cell": "apple-macos-27.0-2x-light-standard-glass0.5/impulse__capsule-button__inactive-tint-orange",
+        "baselineError": 0.06605893950809574,
+        "error": 0.06605893950809574,
+        "growth": 0.0,
+        "existingAbsoluteMiss": true,
+        "passStop": true
+      }
+    ]
+  },
+  "M1": {
+    "dark|inactive": 1.0059779993315683,
+    "dark|active": 0.9966083336463607,
+    "light|inactive": 1.0229768219161657,
+    "light|active": 1.0490108837500483
+  },
+  "M2MaxFraction": 0.0,
+  "C1": [
+    {
+      "bed": "1x dark",
+      "span": 96,
+      "cells": 9,
+      "T": 0.0012644666666666489,
+      "expectedBound": 0.0042,
+      "passStop": true
+    },
+    {
+      "bed": "1x dark",
+      "span": 128,
+      "cells": 5,
+      "T": 0.003495285714285669,
+      "expectedBound": 0.0042,
+      "passStop": true
+    },
+    {
+      "bed": "1x dark",
+      "span": 160,
+      "cells": 7,
+      "T": 0.0011606666666666616,
+      "expectedBound": 0.0042,
+      "passStop": true
+    },
+    {
+      "bed": "1x light",
+      "span": 96,
+      "cells": 10,
+      "T": 0.000580533333333344,
+      "expectedBound": 0.0042,
+      "passStop": true
+    },
+    {
+      "bed": "1x light",
+      "span": 128,
+      "cells": 7,
+      "T": 0.0020737142857142976,
+      "expectedBound": 0.0042,
+      "passStop": true
+    },
+    {
+      "bed": "1x light",
+      "span": 160,
+      "cells": 7,
+      "T": 0.0002466666666666543,
+      "expectedBound": 0.0042,
+      "passStop": true
+    },
+    {
+      "bed": "2x dark",
+      "span": 96,
+      "cells": 9,
+      "T": 0.0012392666666666793,
+      "expectedBound": 0.0042,
+      "passStop": true
+    },
+    {
+      "bed": "2x dark",
+      "span": 128,
+      "cells": 5,
+      "T": 0.00382471428571434,
+      "expectedBound": 0.0042,
+      "passStop": true
+    },
+    {
+      "bed": "2x dark",
+      "span": 160,
+      "cells": 7,
+      "T": 0.0010666666666666973,
+      "expectedBound": 0.0042,
+      "passStop": true
+    },
+    {
+      "bed": "2x light",
+      "span": 96,
+      "cells": 10,
+      "T": 0.0006662666666666632,
+      "expectedBound": 0.0042,
+      "passStop": true
+    },
+    {
+      "bed": "2x light",
+      "span": 128,
+      "cells": 7,
+      "T": 0.002120999999999992,
+      "expectedBound": 0.0042,
+      "passStop": true
+    },
+    {
+      "bed": "2x light",
+      "span": 160,
+      "cells": 7,
+      "T": 0.0006419999999999945,
+      "expectedBound": 0.0042,
+      "passStop": true
+    }
+  ],
+  "X1Cells": 218,
+  "canonicalByteIdentity": {
+    "webgpu": 360,
+    "css": 250
+  },
+  "CSSResiduals": [
+    {
+      "stop": "CSS black level",
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/grey-0__circular-120__rest",
+      "median": [
+        34.0,
+        34.0,
+        34.0
+      ],
+      "native": [
+        32.0,
+        32.0,
+        32.0
+      ],
+      "miss": [
+        2.0,
+        2.0,
+        2.0
+      ],
+      "coherence": {
+        "crossTierOklabDeltaEMean": 0.0024213179653164918,
+        "interiorLevelRatioGpuOverCss": 1.9919398803486932
+      },
+      "ratioStatus": "PREDICATE EXCLUDED",
+      "mask": {
+        "silhouetteAreaNative": {
+          "value": 374,
+          "units": "px^2"
+        },
+        "silhouetteAreaWeb": {
+          "value": 104,
+          "units": "px^2"
+        },
+        "componentRegionArea": {
+          "value": 4872,
+          "units": "px^2"
+        },
+        "silhouetteBodiesNative": {
+          "value": 6,
+          "units": "count"
+        },
+        "silhouetteBodiesWeb": {
+          "value": 11,
+          "units": "count"
+        },
+        "componentRegionBodies": {
+          "value": 1,
+          "units": "count"
+        }
+      }
+    },
+    {
+      "stop": "CSS black level",
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/grey-0__circular-120__rest",
+      "median": [
+        34.0,
+        34.0,
+        34.0
+      ],
+      "native": [
+        32.0,
+        32.0,
+        32.0
+      ],
+      "miss": [
+        2.0,
+        2.0,
+        2.0
+      ],
+      "coherence": {
+        "crossTierOklabDeltaEMean": 0.0022003598281409606,
+        "interiorLevelRatioGpuOverCss": 1.5894388513285984
+      },
+      "ratioStatus": "PREDICATE EXCLUDED",
+      "mask": {
+        "silhouetteAreaNative": {
+          "value": 1592,
+          "units": "px^2"
+        },
+        "silhouetteAreaWeb": {
+          "value": 435,
+          "units": "px^2"
+        },
+        "componentRegionArea": {
+          "value": 19468,
+          "units": "px^2"
+        },
+        "silhouetteBodiesNative": {
+          "value": 6,
+          "units": "count"
+        },
+        "silhouetteBodiesWeb": {
+          "value": 5,
+          "units": "count"
+        },
+        "componentRegionBodies": {
+          "value": 1,
+          "units": "count"
+        }
+      }
+    },
+    {
+      "stop": "CSS black level",
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/grey-0__circular-120__rest",
+      "median": [
+        134.0,
+        134.0,
+        134.0
+      ],
+      "native": [
+        132.0,
+        132.0,
+        132.0
+      ],
+      "miss": [
+        2.0,
+        2.0,
+        2.0
+      ],
+      "coherence": {
+        "crossTierOklabDeltaEMean": 0.004064313246117458,
+        "interiorLevelRatioGpuOverCss": 1.0194892804543478
+      },
+      "ratioStatus": "GATED",
+      "mask": {
+        "silhouetteAreaNative": {
+          "value": 19468,
+          "units": "px^2"
+        },
+        "silhouetteAreaWeb": {
+          "value": 19468,
+          "units": "px^2"
+        },
+        "componentRegionArea": {
+          "value": 19468,
+          "units": "px^2"
+        },
+        "silhouetteBodiesNative": {
+          "value": 1,
+          "units": "count"
+        },
+        "silhouetteBodiesWeb": {
+          "value": 1,
+          "units": "count"
+        },
+        "componentRegionBodies": {
+          "value": 1,
+          "units": "count"
+        }
+      }
+    }
+  ],
+  "CSSCoherence": [
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/grey-0__circular-120__rest",
+      "metrics": {
+        "crossTierOklabDeltaEMean": 0.0024213179653164918,
+        "interiorLevelRatioGpuOverCss": 1.9919398803486932
+      },
+      "ratioStatus": "PREDICATE EXCLUDED"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/grey-0__circular-120__inactive",
+      "metrics": {
+        "crossTierOklabDeltaEMean": 1.2193561849083164e-06
+      },
+      "ratioStatus": "UNMEASURED"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/grey-0__circular-120__rest",
+      "metrics": {
+        "crossTierOklabDeltaEMean": 0.003889352079902175,
+        "interiorLevelRatioGpuOverCss": 1.018009434931163
+      },
+      "ratioStatus": "GATED"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/grey-0__circular-120__inactive",
+      "metrics": {
+        "crossTierOklabDeltaEMean": 3.4723770373134293e-06,
+        "interiorLevelRatioGpuOverCss": 0.9998583537003788
+      },
+      "ratioStatus": "GATED"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/grey-0__circular-120__rest",
+      "metrics": {
+        "crossTierOklabDeltaEMean": 0.0022003598281409606,
+        "interiorLevelRatioGpuOverCss": 1.5894388513285984
+      },
+      "ratioStatus": "PREDICATE EXCLUDED"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/grey-0__circular-120__inactive",
+      "metrics": {
+        "crossTierOklabDeltaEMean": 1.4094056262871454e-07
+      },
+      "ratioStatus": "UNMEASURED"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/grey-0__circular-120__rest",
+      "metrics": {
+        "crossTierOklabDeltaEMean": 0.004064313246117458,
+        "interiorLevelRatioGpuOverCss": 1.0194892804543478
+      },
+      "ratioStatus": "GATED"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/grey-0__circular-120__inactive",
+      "metrics": {
+        "crossTierOklabDeltaEMean": 5.361749348690021e-07,
+        "interiorLevelRatioGpuOverCss": 0.9999712012054933
+      },
+      "ratioStatus": "GATED"
+    }
+  ],
+  "ruling": "Parent clarification under standing rest on your judgement: W34 deep tolerance binds WebGPU only; CSS derives the same material and is gated by its own coherence and existing predicate. CSS-only residual is recorded, never used to move a bound.",
+  "caveat": "Price did not request --alpha: four declared-alpha fields are UNMEASURED, not changed. All shared shape fields (the conditioning inputs included) are exact; the normal PNGs are byte-identical. The attributed canonical read will include --alpha.",
+  "frozenStopsBroken": []
+}

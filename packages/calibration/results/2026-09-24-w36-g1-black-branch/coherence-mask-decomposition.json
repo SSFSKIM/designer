@@ -1,0 +1,19 @@
+{
+  "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/grey-0__circular-120__rest",
+  "ratio": 1.9919398803486932,
+  "numericWindow": [
+    0.8,
+    1.25
+  ],
+  "crossTierDeltaE": 0.0024213179653164918,
+  "deltaEBound": 0.05,
+  "nativeMask": 374,
+  "cssMask": 104,
+  "region": 4872,
+  "nativeBodies": 6,
+  "cssBodies": 11,
+  "regionBodies": 1,
+  "areaRatioRequired": 0.95,
+  "conclusion": "Not a frozen-stop failure. The adopted coherence ratio is conditioned by the same 95%-area/body-count predicate as shape; this sample fails all four arms. The ratio measures the bright rim rather than the dark deep body. The unconditional DeltaE passes.",
+  "correction": "The first inspection compared only the numeric ratio window and provisionally paused the seal. The existing predicate was then read from adopted-thresholds.test.ts lines 2698-2778 and applied unchanged. No new exclusion or bound is introduced; the raw diagnostic remains above."
+}

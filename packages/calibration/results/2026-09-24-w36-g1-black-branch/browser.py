@@ -34,6 +34,7 @@ def prepare():
     scratchScenes=copy.deepcopy(wave.spec)
     scratchScenes['components'].update(cn.roles.spec['components'])
     scratchScenes['backgrounds'].update(cn.roles.spec['backgrounds'])
+    scratchScenes['tints'].update(cn.roles.spec['tints'])
     selectedW=[f'grey-{v}__circular-120__{pose}' for v in [0,32,96] for pose in ['rest','inactive']]
     # Price every admitted canonical row, not just the below-anchor subset.
     selectedC=sorted(sid for sid,role in cn.roles.roles.items() if role in ['calibration','validation','probe'])
@@ -99,13 +100,25 @@ def render():
     rel=str((HERE.parent/'2026-09-24-w36-g0-level-cut/bounds-declaration.md').relative_to(ROOT))
     assert subprocess.check_output(['git','-C',str(ROOT),'show','HEAD:'+rel])==(HERE.parent/'2026-09-24-w36-g0-level-cut/bounds-declaration.md').read_bytes()
     for plan in json.loads((HERE/'candidate-plans.json').read_text()):
-        profile=plan['profile'];out=HERE/('price-admitted-'+profile+'.txt')
+        profile=plan['profile'];out=HERE/('price-complete-'+profile+'.txt')
         if out.exists():raise RuntimeError('already attempted; no implicit retry')
-        old.preflight('black-price-'+profile)
+        # Retain already captured bytes from the aborted registry projection;
+        # launch only missing scenes, then measure all captures without a browser.
+        captures=Path(plan['root'])/'web-captures'/profile
+        held={p:hashlib.sha256(p.read_bytes()).hexdigest() for p in captures.rglob('*') if p.is_file()} if captures.exists() else {}
+        missing=[sid for sid in plan['scenes'] if not (captures/sid/'cell__webgpu.json').exists()]
+        command=list(plan['command']);command[command.index('--scene')+1]=','.join(missing)
+        old.log(dict(label='completion-selection-'+profile,retainedFiles=len(held),missingScenes=missing))
+        old.preflight('black-price-completion-'+profile)
         with out.open('x') as f:
-            result=subprocess.run(plan['command'],env={**os.environ,**plan['environment']},stdout=f,stderr=subprocess.STDOUT)
+            result=subprocess.run(command,env={**os.environ,**plan['environment']},stdout=f,stderr=subprocess.STDOUT)
         old.log(dict(label='black-price-'+profile,exitCode=result.returncode,
             completed=datetime.datetime.now(datetime.timezone.utc).isoformat(),retried=False))
+        for path,digest in held.items():
+            if hashlib.sha256(path.read_bytes()).hexdigest()!=digest:raise RuntimeError('retained capture changed')
+        with (HERE/('price-measure-'+profile+'.txt')).open('x') as f:
+            measured=subprocess.run([*plan['command'],'--skip-capture'],env={**os.environ,**plan['environment']},stdout=f,stderr=subprocess.STDOUT)
+        old.log(dict(label='measure-only-'+profile,exitCode=measured.returncode,browser=False))
         w34=WebReader.w34(Path(plan['root'])/'web-captures');canonical=WebReader.canonical(Path(plan['root'])/'web-captures');checks=[]
         for sid in plan['scenes']:
             reader=w34 if '__circular-120__' in sid else canonical;cell=profile+'/'+sid

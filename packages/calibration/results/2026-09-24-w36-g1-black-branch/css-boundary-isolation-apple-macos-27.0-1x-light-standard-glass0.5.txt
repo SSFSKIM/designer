@@ -1,0 +1,47 @@
+$ tsx cli/compare.ts -- --renderer css --set probe --scene grey-0__circular-120__rest --profile apple-macos-27.0-1x-light-standard-glass0.5 --material-profile /Users/new/vitrea-w36/scratch/black-css-boundary-isolation/apple-macos-27.0-1x-light-standard-glass0.5/diagnostic.json --receded-profile /Users/new/vitrea-w36/scratch/black-price/apple-macos-27.0-1x-light-standard-glass0.5/receded.json --out-matrix /Users/new/vitrea-w36/scratch/black-css-boundary-isolation/apple-macos-27.0-1x-light-standard-glass0.5/matrix.json --write-partial
+
+── web capture (apple-macos-27.0-1x-light-standard-glass0.5, 1 scene(s)) ─────────────────────────────
+scene server: http://localhost:5197
+engine: chromium 151.0.7922.34
+material profile: materialProfile=/Users/new/vitrea-w36/scratch/black-css-boundary-isolation/apple-macos-27.0-1x-light-standard-glass0.5/diagnostic.json sha256:7f46a982ab64 sections=renderer
+receded profile:, recededProfile=/Users/new/vitrea-w36/scratch/black-price/apple-macos-27.0-1x-light-standard-glass0.5/receded.json sha256:8e77b8899598
+
+grey-0__circular-120__rest
+  tier          css / css-backdrop
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w36/scratch/black-css-boundary-isolation/apple-macos-27.0-1x-light-standard-glass0.5/web-captures/apple-macos-27.0-1x-light-standard-glass0.5/grey-0__circular-120__rest/
+
+1 scene(s) captured; 0 fell back to the CSS tier; 0 carry problems.
+
+── measure (1 cell(s)) ─────────────────────────────
+matrix → /Users/new/vitrea-w36/scratch/black-css-boundary-isolation/apple-macos-27.0-1x-light-standard-glass0.5/matrix.json (1 cell(s) total)
+
+set         profile                        scene                                        IoU    cMean   SSIM    dE       lum slope N/W     interior mean N/W    interior sd N/W     rim peak N/W
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+probe       1x-light-standard-glass0.5    grey-0__circular-120__rest                    1.000    0.00   0.974   0.0038     —   /  —       0.2342/ 0.2303    0.0285/ 0.0073    0.0398/ 0.0000
+
+1x-light-standard-glass0.5    probe       n= 1  IoU mean 1.0000 worst 1.0000   contour p95 mean 0.00 worst 0.00   SSIM mean 0.9744 worst 0.9744   dE mean 0.00375 worst 0.00375
+
+── the shadow axis: what each side does to the backdrop it does not cover ────────────
+profile                       scene                                        support  strength N/W     extent above/below/left/right N       W                 offset y N/W     blur sigma N/W
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1x-light-standard-glass0.5    grey-0__circular-120__rest                      0.00    —   /   —       —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        —   /  —   
+
+── what this run does and does not show ────────────
+All native fixtures used here carry the composited material (materialRendered: true).
+the shape axis is BOUNDED to the declared component region (margin 0 device px): within it, coverage, contour and corner profile are measured as before; outside it nothing is recovered, so a surface drawn LARGER than its declaration reads as a match. Area recovery is assumed, not measured — read silhouetteArea{Native,Web} against componentRegionArea.
+shadow axis NOT NORMALISED on 1 cell(s) across 1 scene(s): grey-0__circular-120__rest. Those backdrops carry too little light for an occlusion ratio to exist; the absolute departure is still reported and every ratio is absent, not zero.
+coherence axis on 0 of 1 dom cell(s) — this tier against its texture twin, web against web; absent on 1 scene(s) with no webgpu capture on disk: grey-0__circular-120__rest. Run the webgpu tier first to pair them.
+caveat: W36 scratch projection, guarded non-holdout only; original roles retained in projection.json
+receded profile posed on the inactive scenes: /Users/new/vitrea-w36/scratch/black-price/apple-macos-27.0-1x-light-standard-glass0.5/receded.json
+material profile applied to the web side: /Users/new/vitrea-w36/scratch/black-css-boundary-isolation/apple-macos-27.0-1x-light-standard-glass0.5/diagnostic.json
+web accessibility for apple-macos-27.0-1x-light-standard-glass0.5 (native standard): browser preferences, no overrides
+
+── notes (4) ────────────
+  grey-0__circular-120__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  grey-0__circular-120__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  grey-0__circular-120__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 4872 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  grey-0__circular-120__rest: shadow axis NOT NORMALISED: only 0.0% of the exterior has a backdrop above 0.05 linear luminance, so an occlusion ratio is not identifiable here — a shadow removes a fraction of the light behind it, and over this backdrop there is none to remove. The absolute departure (meanDeparture{Native,Web}) is still reported; every ratio-valued field is absent, not zero.

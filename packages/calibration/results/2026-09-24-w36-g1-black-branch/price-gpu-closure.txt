@@ -1,0 +1,111 @@
+{
+  "correction": "The initial C1 table pooled both poses; C1 gates active only. Per-cell T readings were correct and unchanged. This table executes the adopted active-only population.",
+  "C1": [
+    {
+      "bed": "1x dark",
+      "span": 96,
+      "cells": 9,
+      "T": 0.0012644666666666489,
+      "expectedBound": 0.0042,
+      "passStop": true
+    },
+    {
+      "bed": "1x dark",
+      "span": 128,
+      "cells": 5,
+      "T": 0.003495285714285669,
+      "expectedBound": 0.0042,
+      "passStop": true
+    },
+    {
+      "bed": "1x dark",
+      "span": 160,
+      "cells": 7,
+      "T": 0.0011606666666666616,
+      "expectedBound": 0.0042,
+      "passStop": true
+    },
+    {
+      "bed": "1x light",
+      "span": 96,
+      "cells": 10,
+      "T": 0.000580533333333344,
+      "expectedBound": 0.0042,
+      "passStop": true
+    },
+    {
+      "bed": "1x light",
+      "span": 128,
+      "cells": 7,
+      "T": 0.0020737142857142976,
+      "expectedBound": 0.0042,
+      "passStop": true
+    },
+    {
+      "bed": "1x light",
+      "span": 160,
+      "cells": 7,
+      "T": 0.0002466666666666543,
+      "expectedBound": 0.0042,
+      "passStop": true
+    },
+    {
+      "bed": "2x dark",
+      "span": 96,
+      "cells": 9,
+      "T": 0.0012392666666666793,
+      "expectedBound": 0.0042,
+      "passStop": true
+    },
+    {
+      "bed": "2x dark",
+      "span": 128,
+      "cells": 5,
+      "T": 0.00382471428571434,
+      "expectedBound": 0.0042,
+      "passStop": true
+    },
+    {
+      "bed": "2x dark",
+      "span": 160,
+      "cells": 7,
+      "T": 0.0010666666666666973,
+      "expectedBound": 0.0042,
+      "passStop": true
+    },
+    {
+      "bed": "2x light",
+      "span": 96,
+      "cells": 10,
+      "T": 0.0006662666666666632,
+      "expectedBound": 0.0042,
+      "passStop": true
+    },
+    {
+      "bed": "2x light",
+      "span": 128,
+      "cells": 7,
+      "T": 0.002120999999999992,
+      "expectedBound": 0.0042,
+      "passStop": true
+    },
+    {
+      "bed": "2x light",
+      "span": 160,
+      "cells": 7,
+      "T": 0.0006419999999999945,
+      "expectedBound": 0.0042,
+      "passStop": true
+    }
+  ],
+  "sharedMetricChanges": [],
+  "missingMetrics": {
+    "drawnAreaWeb": 354,
+    "declaredIoUWeb": 354,
+    "declaredContourP95Web": 354,
+    "declaredContourMaxWeb": 354
+  },
+  "alphaQualification": "Price did not request --alpha: four declared-alpha fields are UNMEASURED, not changed. All shared shape fields (the conditioning inputs included) are exact; the normal PNGs are byte-identical. The attributed canonical read will include --alpha.",
+  "materialPerceptualShadow": "Every common field equals its W33 row exactly; no new per-cell miss or predicate movement on measured fields.",
+  "passStop": true
+}

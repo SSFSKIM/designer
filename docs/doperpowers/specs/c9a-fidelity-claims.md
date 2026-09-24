@@ -37289,3 +37289,60 @@ M1, M2 and the exterior can be compared from actual captures, not assumed unchan
 The frozen G0 bounds remain the referee; Decision Log5 explicitly leaves the old
 non-black grey misses named, so the grey32/96 rows are regression controls, not a
 claim that the narrowed black branch closes their level. Both tiers are priced.
+
+### 3. The price holds, with the CSS residual and referee corrections kept beside it
+
+**512 GPU and 512 CSS captures**, all deterministic. Of the canonical cells with
+shipped captures, **360 GPU and 250 CSS PNGs are byte-identical**. Every shared
+material, perceptual, shadow and shape field is unchanged. Four alpha-only shape
+fields were not requested in this scratch read (354 GPU/56 CSS rows), explicitly
+UNMEASURED rather than asserted unchanged; the canonical pass will request alpha.
+The conditioning predicate reads the shared area/body-count fields, all unchanged.
+The extra admitted probe captures with no prior row remain diagnostics, not new
+members of a gated population or a substitute baseline.
+
+The eight GPU black deep medians are **132/133/32/20**, exactly native at both
+scales; all sixteen grey32/96 controls are unchanged. L1 remains140/136 measured,
+zero growth on every measured row, the same two0.066016/0.066059 tinted misses and
+four missing dark-solid means. M1 medians remain1.049010884/1.022976822 light and
+0.996608334/1.005977999 dark (active/inactive); all26 M2 changes against W33 are0.
+C1's twelve active-only values are unchanged and all<=0.0042; X1 is0 under both
+masks on all218 cells; B1's six native windows hold at the unchanged law.
+
+**CSS carries the branch, with a boundary residual.** Its active black deep medians
+are light133/134 at1x/2x against132, and dark34/34 against32; inactive133/20 are
+exact at both scales. The three +2 cells are not silently called one-code matches.
+The parent clarified before seal, under the standing judgement delegation, that
+W34's one-code referee binds the WebGPU fidelity target only; CSS-only residuals
+are recorded under the repository's tier doctrine and clause6, while CSS is gated
+by coherence and the existing conditioning predicate. No bound or population moves.
+Zeroing the diagnostic CSS rimAlpha/rimLevelGain/shadowAlpha TOGETHER makes all
+four active deep medians exactly native (132/32): the +1/+2 belongs to the existing
+combined boundary projection, not the response target. No diagnostic leaf ships.
+
+The black cross-tier DeltaE maximum is0.004064314 against0.05; the four light ratios
+are within0.8–1.25. Dark active ratios1.991940/1.589439 remain measured diagnostics:
+the existing95%-area/body-count predicate excludes their rim-only masks (at1x,
+native374/4872px and CSS104/4872px, six/eleven bodies against one). Dark inactive
+has no extracted native material mean and its ratio is UNMEASURED. Deep medians
+are a separate referee and are not replaced by either mask. The first inspection
+provisionally treated the unconditioned1.99194 as a stop; the existing rule, read
+before proceeding, refuted that interpretation. `coherence-mask-decomposition.json`
+keeps the number and its actual domain. `price-css-summary.json` similarly keeps
+its pre-clarification CSS one-code flags; `price-final.json` applies the ruled tier
+scope without changing any reading. The first C1 summary pooled both poses;
+`price-gpu-closure.json` corrects it to the adopted active-only population, with all
+per-cell T values retained and unchanged.
+
+The price's operational corrections are also preserved. The first command refused
+new material keys BEFORE launching; a regression test now covers their admission.
+The first admitted projection omitted the tint registry and stopped partway; only
+missing cells were completed after adding that registry, and every retained file
+hash was checked unchanged. No captured cell was retried. The historical W30
+material-comparison test now names W36's three new identity keys beside W30/W31's
+lists; all older leaves still compare exactly to the pre-wave materials.
+
+All18 raw triptychs were viewed (`eye.txt`): the black body's level visibly closes;
+the active inner-line/contour gap remains, and the unchanged impulse/photo/grey
+controls retain their known level and chroma gaps. No new eye-only regression was
+identified. Every x8 panel carries the137.097415/255 one-byte-at-black check.
