@@ -1,6 +1,6 @@
 # W35 — the body-boundary wave: Apple's inner edge line and ramp, fitted as excess over the body (2026-09-24)
 
-**Status: CHARTERED 2026-09-24, v1 — sent to adversarial review before any child opens.** Chartered
+**Status: CHARTERED 2026-09-24, v2 — two blocking findings of the adversarial review folded (Revision Notes); G0 is a declaration-and-feasibility gate and the fit-and-land contract (G1, G2, E1) is authorised only by Decision Log 1's feasibility verdict.** Chartered
 by the parent on the user's "W35 body-boundary wave (Recommended)" after W34 closed at its finding
 (main `d1162106`), under the standing "rest on your judgement" and the routing the user set on
 2026-09-22 (X9, with the Codex-limit fallback recorded there). Grounded on a read-only memo taken off
@@ -59,18 +59,34 @@ body's level recorded and not moved, and every gap written down.
    radial profile as **excess over the deep body** (the median over a declared interior domain whose
    inner edge is stated and whose trough is inside it), vitrea's WebGPU profile on the same masks, and
    the line / ramp decomposition (the line's width in device px per scale, its height per level; the
-   ramp's reach and height). The memo's readings above are reproduced, not copied.
+   ramp's reach and height). The memo's readings above are reproduced, not copied. **The diagnostic
+   cut and the closure domain are distinct**: the cut covers every shell; the closure domain G0
+   declares covers only the shells and pixels the model claims — the deep trough (~3 codes at
+   8–14 CSS px inside), the coverage pixel and the arc pixels mixed with the outside stroke, and the
+   stroke itself are given an explicit model or a justified DIAGNOSTIC-ONLY status before any fit,
+   so that execution can neither fail on phenomena the model excludes nor narrow the domain after
+   seeing residuals. Alignment and path uncertainty stay separate from the repeat tolerance and
+   absolute values precede every averaging, as W34's `closure.json` holds.
 2. **W29's width is reconciled before any width is fitted.** G0 re-reads the canonical solids
    (`light-solid`, `dark-solid`, `mid-dark-solid`, `mid-light-solid`, `mid-chroma-solid` over
    `rrect-md`, both schemes and scales, the committed fixtures) with the line + ramp decomposition
    beside W29 G3's FWHM reading, and says which of "2.2 CSS px" and "~1 CSS px" is Apple's line and
    what the other measured. The canonical web captures are verified by `check-capture-tree` for
    generation before they are read.
-3. **The deep body's level is not this wave's.** The fitted law is the excess; the model's body term
-   is each image's own deep-body reading, never a fitted level. G0 tables the level miss (greys and
-   colour solids, both schemes) and puts it to the user as Decision Log 2, a wave of its own. If G1's
-   fit is found to be absorbing level (a declared diagnostic: the fitted excess correlating with the
-   level miss across cells), the wave stops for a ruling.
+3. **The deep body's level is not this wave's, and subtracting it does not make absorption
+   impossible.** The rim's amplitude law is conditioned on a level, and the runtime evaluates it on
+   the LOCAL shadowed material luminance (`optics.ts` ~1554–1556), not on an encoded deep-body
+   median; so comparing native excess at Apple's level with rendered excess at vitrea's level leaves
+   `g · (L_web − L_native)`, which a fit on the native–web residual can absorb into the rim's
+   coefficients without touching any tone leaf — and the +28-code dark-grey miss makes that real.
+   Therefore: G0 **declares the colour space and the conditioning variable** of the law; the native
+   excess law `E(L)` is **identified on native pixels alone** across the bed's levels, never on the
+   native–web residual; the **transfer** at the runtime's actual conditioning level is reported
+   separately, with the tone error's contribution shown; a **synthetic level-offset test** proves the
+   instrument distinguishes a changed baseline from a changed boundary response; and if the transfer
+   cannot close without compensating the tone error, the result is a qualified or stopped one, put
+   to the user — never a fit that hides the level in the edge. G0 tables the level miss (greys and
+   colour solids, both schemes) and puts it to the user as Decision Log 2, a wave of its own.
 4. **Bounds before reads; a miss is recorded, not widened; holdout once by artifact.** G0 declares:
    the closure test on W34's validation greys and solids (absolute per-shell, per-channel residual
    within `max(1 code, bar)` over bins with the population floor, the derived deep-shell bars
@@ -79,17 +95,23 @@ body's level recorded and not moved, and every gap written down.
    M2 re-baselined per W32 Decision Log 4 with the eroded-mask attribution of the ring recorded, X1,
    C1, B1 — and the stops. Every stop carries its expected post-fit value. The canonical holdout is
    read once, at the sealed configuration, by `configuration.py record` (its fifth read); the W34
-   bed's holdout is spent and its cells serve calibration and validation only; every W35 script that
-   opens G2's web captures filters them against W34's `split.json` itself, because that directory
-   holds 72 holdout cells and the declared reader guards native pixels only.
+   bed's holdout is spent and its cells serve calibration and validation only; G0 delivers **one
+   shared guarded reader for web pixels** beside W34's native reader, with negative tests that trip
+   on a holdout id, because G2's web-capture directory holds 72 holdout cells among 408 and the
+   native reader guards native pixels only — hand-written filters in each script are not the
+   mechanism. The split is modest (one circular validation grey and one circular validation colour
+   per endpoint, the other two validation circulars being gradients), which is why the canonical
+   structured cells are the referee and the canonical holdout the blind read.
 5. **The fit moves the rim's leaves and at most one appended leaf, on the macOS 27 ACTIVE documents.**
    `rimWidth`, `rimWidth2x`, `rimAlpha`, `rimLevelGain` (and `rimLitExponent` /
    `rimAlongSideSlope` only if G0's read of the along-side and lit fields demands it, with the read
    shown), plus **one** new leaf for the ramp added through the identity table at identity 0 — or the
    inner shadow re-signed and re-shaped if G0 shows that operator owns the ramp, with the read shown.
    Nothing else: not the lens, not the size law, not `bodyChromaRetention`, not the tone response, not
-   the outer shadow, not the receded documents (they stay flat: their rim and inner shadow are 0 and
-   the inactive pose is measured flat). The frozen 26.5 documents' rim leaves do not move and the
+   the outer shadow, not the receded documents — which stay flat by a CHECKED composition: the
+   receded patches compose OVER the active endpoint (`material-document.ts` ~82–85), so any new
+   leaf needs an explicit zero override in both receded difference documents, or a proven existing
+   zero gate, and G1 reads the receded pose to show it flat. The frozen 26.5 documents' rim leaves do not move and the
    new leaf sits at its identity there, so no 26.5 digest moves and no exemption is spent (X1, X13).
 6. **The CSS tier derives or declines by measurement.** Its one inset (`optics.ts:133–180`, a single
    alpha with `rimAlpha` / `rimLevelGain` mirrored, no band, no `rimWidth2x`, no inner shadow) is
@@ -103,8 +125,9 @@ body's level recorded and not moved, and every gap written down.
    copies the read's capture tree to the canonical path with the replaced generation aside, and runs
    `check-capture-tree`; M2 is re-baselined at G1; the sheets and the eye with the LSB check beside
    every ×8 panel.
-8. **Landing and every gap recorded.** G2 adopts, if the read supports it, one row — **E1, the inner
-   edge's shape per pose** on the macOS 27 standard profiles, WebGPU tier, re-derived from the matrix
+8. **Landing and every gap recorded — only if Decision Log 1 authorised the fit.** G0's feasibility
+   verdict (a legitimate outcome is "cannot identify within this wave's operator budget") gates G1;
+   G2 adopts, if the read supports it, one row — **E1, the inner edge's shape per pose** on the macOS 27 standard profiles, WebGPU tier, re-derived from the matrix
    and the captures at the adopting gate, with the amendment beside the header saying why it clears
    the MATERIAL-axis argument's grounds (as C1 and X1 do) — prepares 0.24.0, and writes Outcomes,
    Deferred-at-close and the Tracking Map. A CSS-only residual, an arc residual, the level miss and
@@ -124,6 +147,22 @@ body's level recorded and not moved, and every gap written down.
   inactive rows 2.0–3.0. The nominated body was flat to d = 0 with a bounded affine interior fit over
   d ≤ −6 (`closure.json`, `instrument.py`). The six-shell native–web gap 91–165 codes per stratum;
   the native-minus-no-glass response up to 222 codes.
+- **The line's discriminants** (the review's read of the guarded archive): 2x light grey-128 reads
+  213 / 226 on the two inner rows against a 195 deep median and a 128 background, and 219 at 1x;
+  the black-on-white and white-on-black opaque controls show no intermediate straight-edge rows;
+  an ordinary coverage mixture of body, darker outside stroke and background cannot produce 226;
+  the surface sits inside the 320×200 canvas, not at the harness window's edge, the window is
+  borderless and shadowless (`Capture.swift` ~120–127) and captured with explicit dimensions and
+  `scalesToFit = false` (~393–402); W34's controls attest backing scales 1 and 2 and exact raster
+  equality. These establish the line as material behaviour to investigate, not Apple's internal
+  operator.
+- **W29's width is a different estimand, not a contradiction**: `src/metrics/material.ts` ~658–673
+  averages LINEAR-light luminance over integer distance-transform rings with the deepest ring as
+  baseline, and ~704–708 doubles the inward half-width when the peak sits in the outermost ring;
+  W29 G3's `baseline-matrix.json` records light `dark-solid__rrect-md__rest` at **2.4161 device px
+  at 1x** (peak in ring 1) and **1.6628 device px = 0.8314 CSS px at 2x** (peak in ring 2). G0
+  replays that estimator beside the new physical-distance profiles — units, mask, ring averaging,
+  baseline and the doubling convention — and does not preselect "line plus ramp read as one rim".
 - **The memo's first look** (§2 of the memo; reproduced by G0): the profile table above; arcs read
   on the circular SDF: 2x light grey-128 −8 / −3 / −2 / −1 / 0 / +1 = 193.5 / 194.6 / 200.0 / 186.6 /
   111.8 / 122.5 native against 203.4 / 205.6 / 206.3 / 196.7 / 136.1 / 127.2 web — arc pixels at −1
@@ -176,7 +215,9 @@ body's level recorded and not moved, and every gap written down.
 
 **The model.** Per pose (active only — the inactive pose is a flat control that must stay flat),
 per scheme and scale, the radial excess `E(d) = B_line(d) + B_ramp(d)` over the image's own deep body
-`L` in the last N device px inside the edge: the line a narrow band of declared width `w_line` (about
+`L` in the last N device px inside the edge, **in a declared colour space with a declared
+conditioning variable** (the runtime's is the local shadowed material luminance; G0 says whether the
+law is identified on that or on the deep-body level, and how the two relate on this bed): the line a narrow band of declared width `w_line` (about
 one CSS px: G0 reads it per scale) whose height follows W23's amplitude form `a + g · L`; the ramp a
 low band of reach `r_ramp` (about 12 device px) and height `h_ramp(L)`. Which operator owns the ramp
 is G0's reading (Decision Log 1): the rim's `rw` band widened, a second rim component, or the inner
@@ -189,10 +230,17 @@ check on W34's validation cells, referee on the canonical bed's structured cells
 existing gates and the per-cell tables — the canonical cells are never fitted on. The level miss is
 a declared diagnostic in the fit (clause 3).
 
-**The leaves.** Most likely: `rimWidth` / `rimWidth2x` narrowed to the line, `rimAlpha` /
-`rimLevelGain` refit at that width (W23's peak/0.336 calibration is width-dependent, so narrowing
+**Feasibility before leaves.** A one-CSS-px observed line is not a one-CSS-px `rimWidth`: the
+squared band weight, pixel-centre sampling, coverage, linear-light addition and the encoding decide
+the output, and two bright 2x rows followed by an abrupt drop may not be drawable by `rw` at all. G0
+therefore renders candidates on the bed through the runtime's tune path (a scratch material document,
+nothing shipped, `--out-matrix` to scratch) and reports the best the existing band plus the proposed
+ramp can do against the declared closure domain — the feasibility verdict Decision Log 1 rules on.
+
+**The leaves, if feasible.** Most likely: `rimWidth` / `rimWidth2x` narrowed to the line, `rimAlpha`
+/ `rimLevelGain` refit at that width (W23's peak/0.336 calibration is width-dependent, so narrowing
 re-opens the amplitude), and one appended identity-0 leaf for the ramp (gate-group if it gates
-others). The dark document's rim (2.2 / 1.35 at 0.055 / 0.44) is refit on the same read. The
+others) with explicit zero overrides in both receded documents. The dark document's rim (2.2 / 1.35 at 0.055 / 0.44) is refit on the same read. The
 receded documents keep 0.
 
 **The CSS tier.** Re-derive the one inset from the new leaves; render; read; carry or decline.
@@ -213,25 +261,36 @@ reproducing the memo; the line / ramp decomposition per scale and level; W29 G3'
 the canonical solids with the capture tree's generation verified; the eroded-mask M2 test and the ring
 attribution; the level-miss table (greys, colour solids) and a Decision Log 2 draft for the user; which
 operator owns the ramp (a Decision Log 1 draft for the parent, with the inner-shadow reading beside);
-the model's declared form; the CSS tier's derivation plan; the bounds and stops with expected post-fit
-values (`bounds-declaration.md`); the E1 row's proposed form; the identity route proven for the new
+the model's declared form, colour space and conditioning variable; the native-only identification
+of `E(L)` across levels with the transfer at the runtime's conditioning level reported separately;
+the synthetic level-offset test; the diagnostic cut partitioned from the closure domain with the
+trough, the coverage pixel, the mixed arc pixels and the stroke each given a model or a
+diagnostic-only status; W29's estimator replayed beside the new profiles; the **feasibility
+verdict** from scratch renders of candidates on the bed (the tune path; nothing shipped); the shared
+guarded web reader with its negative tests; the CSS tier's derivation plan; the bounds and stops
+with expected post-fit values (`bounds-declaration.md`); the E1 row's proposed form and precisely
+what its evidence can establish; the identity route proven for the new
 leaf (flat leaf, gate-group if needed; both 26.5 digests and the four 27 digests unmoved — the script
 of W33 G0's `identity-proof.ts` shape). Acceptance: every number of the memo reproduced or corrected
 beside; the bars for every shell the model reads; the declaration reviewed; nothing under `src/`,
 `profiles/`, `fixtures/`, `results/matrix.json` or the canonical `scenes.json` touched; freeze 1,818.
 Stop conditions: the level miss dominates the excess so the edge cannot be separated (re-scope as a
 level wave, the user's); no deep-shell bar derivable from the archive; the canonical capture tree
-at a generation the checker refuses.
+at a generation the checker refuses. **A feasibility verdict of "cannot identify within this
+wave's operator budget" is not a stop but a legitimate G0 outcome**, put to the parent in Decision
+Log 1 with what a larger budget would need.
 
-### G1: The fit, the seal, the read — one merge
+### G1: The fit, the seal, the read — one merge; opens only on Decision Log 1's feasibility verdict
 
 Ledger **§5.178**; evidence `packages/calibration/results/2026-09-24-w35-g1-edge-fit/`. Owns
 `material.ts`'s rim leaves' values on the four documents and the new leaf with its identity-table
 entry and tests, the WGSL ramp term if one is added, `optics.ts` / `css-tier.ts`'s mirror or decline,
 the four macOS 27 documents, the generated profile, `adopted-thresholds.test.ts`'s
 `PREDICATE_EXCLUDES` and `MISSED_27_ROWS`, `window-activation.spec.ts`'s hashes if they move. Does:
-the fit on W34 calibration greys and solids against the WebGPU render (the level-absorption diagnostic
-beside it), the check on W34 validation, the canonical solids read before the seal; the leaves added
+the native-identified law transferred at the runtime's conditioning level with the tone error's
+contribution shown (a transfer that closes only by compensating the tone error is a stop), the check
+on W34 validation through the guarded readers, the canonical solids read before the seal, the
+receded pose read flat; the leaves added
 through the identity table; the CSS experiment; the seal (rule 2, every digest site, the goldens
 attributed and the isolation proof re-recorded with reason); `configuration.py record` before the
 passes; the canonical read on the WebGPU tier, the ladder, the holdout once; the split
@@ -258,14 +317,15 @@ CHANGELOG, the coverage matrix; the `/laws/` stage's readout re-checked (digest-
 - **X2 — the cut precedes the fit.** G0's tables, bars, decomposition, reconciliation, bounds and
   stops are committed and reviewed before G1 opens; G1 fits against them and no other.
 - **X3 — the fit's reach.** The rim leaves on the four macOS 27 documents, one appended leaf (or the
-  inner shadow's sign and shape, on G0's reading and Decision Log 1), the receded documents flat.
+  inner shadow's sign and shape, on G0's reading and Decision Log 1), the receded documents flat by
+  explicit zero overrides for any new leaf and a read of the receded pose.
   Not the lens, the size law, the tone response, the chroma retention, the outer shadow, the body's
   level, the scatter, or any 26.5 value. A fit that moves a row outside the edge axis is a warning,
   not a result.
 - **X4 — bounds before reads; a miss is recorded, not widened; holdout once by artifact.** The
   canonical holdout at the sealed configuration only, `configuration.py record` first; the W34
-  bed's holdout is spent and is never read; W35 scripts filter G2's web captures against W34's
-  `split.json` before opening any.
+  bed's holdout is spent and is never read; W35 reads web pixels only through G0's shared guarded
+  web reader (negative tests), never a hand-written filter.
 - **X5 — no native capture; the canvas does not change; no bundle is rebuilt or granted.** W34's bed
   and archive are read through W34's reader roles, read-only.
 - **X6 — RT and IC 0, the slider 0.5, Show Borders 0, one capture process, ≥ 60 s idle and the
@@ -290,8 +350,10 @@ CHANGELOG, the coverage matrix; the `/laws/` stage's readout re-checked (digest-
   continuous-native / circular-web mapping mismatch carried as a qualification on arc bins.
 - **X13 — the new leaf through the identity table**, flat, at identity 0, gate-group if it gates
   others, its rule-2 version recorded in every sealed document.
-- **X14 — M2 re-baselined per W32 Decision Log 4 at G1**, with the eroded-mask attribution of the
-  ring recorded beside the re-baseline so the cumulative drift the tracker tables stays visible.
+- **X14 — M2 re-baselined per W32 Decision Log 4 at G1**, its reference the superseded pre-W35
+  generation and never the new result, with the eroded-mask attribution of the ring recorded beside
+  the re-baseline so the cumulative drift the tracker tables stays visible; attribution does not
+  waive the 2 % stop.
 
 ## Ordering & Dependency Map
 
@@ -301,10 +363,17 @@ machine quiet for X6 but not untouched) → review → merge with the capture tr
 
 ## Risks & Mitigations
 
-- **W29's 2.2 CSS px FWHM was Apple's rim and the line is something else** (an antialiasing artefact
-  of the harness's window edge, a display-scaling effect). G0's reconciliation on the canonical solids
-  with the no-glass references and the opaque controls settles which; the line is on the canonical
-  bed at 1x and 2x, which argues against a scaling artefact.
+- **The line is an artefact, not Apple's material.** The discriminants in Grounding (opaque controls
+  without intermediate rows, the surface inside the canvas, `scalesToFit = false`, attested backing
+  scales, 219 at 1x and 213 / 226 at 2x against 195 / 128) argue it is material behaviour; G0's
+  reconciliation on the canonical solids with the no-glass references and W29's estimator replayed
+  settles what W29 measured. Neither identifies Apple's internal operator.
+- **The band cannot draw the profile** (two bright rows and an abrupt drop are not a squared band):
+  the feasibility verdict is G0's, with "cannot identify within this wave's operator budget" a
+  legitimate outcome.
+- **The fit absorbs the tone error through the level conditioning**: native-only identification,
+  the transfer reported separately, the synthetic level-offset test, a stop if the transfer needs
+  the compensation.
 - **The ramp is the lens or the scatter, not light**: on uniform backdrops both are identities, so a
   ramp seen on greys is not them; G0 reads the gradient cells beside to say whether the ramp changes
   with backdrop structure.
@@ -337,9 +406,12 @@ machine quiet for X6 but not untouched) → review → merge with the capture tr
 
 ### Decision Log 1 — the model's form and the ramp's owner (after G0; the parent's, under the standing "rest on your judgement")
 
-Open. G0 drafts: the line's width per scale and its amplitude form; which operator owns the ramp
-(rim band, second component, inner shadow re-signed); the reconciliation of W29's width; the leaves
-G1 moves. The parent rules.
+Open. G0 drafts: the line's width per scale and its amplitude form in the declared colour space and
+conditioning variable; which operator owns the ramp (rim band, second component, inner shadow
+re-signed); the reconciliation of W29's estimator; the closure domain; **the feasibility verdict**
+from the scratch renders — the existing band plus the proposed ramp closes the declared domain, or
+"cannot identify within this wave's operator budget" with what a larger budget would need; the
+leaves G1 would move. The parent rules whether G1 opens, and on what.
 
 ### Decision Log 2 — the deep body's level (after G0; the user's)
 
@@ -361,6 +433,25 @@ Open.
 
 ## Revision Notes
 
+- 2026-09-24 (the parent, v2): the adversarial review of v1 returned two blocking findings, both
+  folded, and five sound notes, all folded. (1) Subtracting the body's level does not isolate a
+  level-conditioned law — the runtime conditions the rim on the local shadowed luminance and a fit
+  on the native–web residual can absorb the tone error: clause 3 rewritten (declared colour space
+  and conditioning variable, native-only identification of `E(L)`, the transfer reported separately,
+  a synthetic level-offset test, a stop if the transfer needs compensation); the correlation
+  diagnostic withdrawn. (2) The full-profile closure included phenomena the model excludes: clause 1
+  partitions the diagnostic cut from the closure domain, gives the trough, the coverage pixel, the
+  mixed arc pixels and the stroke a model or a diagnostic-only status, and G0 delivers a feasibility
+  verdict — with "cannot identify within this wave's operator budget" a legitimate outcome — before
+  G1 or E1 is authorised (clause 8, G0, G1, Decision Log 1). The notes: the line's discriminants
+  replace "seen at both scales" in Grounding and Risks; W29's width is a different estimand (linear-
+  light ring averages, deepest-ring baseline, the doubling convention; 2.4161 dp at 1x, 0.8314 CSS
+  px at 2x) and G0 replays the estimator rather than presuming the explanation; a one-CSS-px line is
+  not `rimWidth` 1 and G0 renders candidates through the tune path for feasibility; the receded
+  documents compose over the active endpoint so a new leaf needs explicit zero overrides (clause 5,
+  X3); one shared guarded web reader with negative tests replaces per-script filters (clause 4, X4);
+  M2's reference is the superseded generation (X14). The wave stays one staged wave: G0 is a
+  declaration-and-feasibility gate; G1 and G2 open only on Decision Log 1.
 - 2026-09-24 (the parent): v1 chartered from the grounding memo; sent to adversarial review before
   G0 opens. The memo was written by the default Claude worker because the Codex accounts' usage limit
   refused the GPT rungs (X9).
