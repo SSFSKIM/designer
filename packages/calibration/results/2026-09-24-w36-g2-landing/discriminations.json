@@ -1,0 +1,28 @@
+[
+  {
+    "mutation": "absolute",
+    "exitCode": 1,
+    "owner": "L1: absolute error",
+    "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/checkerboard__capsule-button__inactive",
+    "baselineError": 0.019613222742264708,
+    "mutatedError": 0.056,
+    "regeneratedRecord": true
+  },
+  {
+    "mutation": "growth",
+    "exitCode": 1,
+    "owner": "L1: error growth",
+    "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/checkerboard__capsule-button__inactive",
+    "baselineError": 0.019613222742264708,
+    "mutatedError": 0.025613222742264706,
+    "regeneratedRecord": true
+  },
+  {
+    "mutation": "unmeasured",
+    "exitCode": 1,
+    "owner": "guards the declared population",
+    "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/dark-solid__capsule-button__inactive",
+    "measuredBefore": 136,
+    "measuredAfter": 137
+  }
+]

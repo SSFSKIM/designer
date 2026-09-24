@@ -1,0 +1,36 @@
+
+ RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g2-landing/packages/calibration
+
+ ❯ test/adopted-thresholds.test.ts (101 tests | 1 failed | 100 skipped) 8ms
+     × L1: absolute error is at most 0.055 except the two named, unfloored misses 7ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/adopted-thresholds.test.ts > W36 L1 — fixed-native-silhouette level and pre-fit growth (claims §5.180) > L1: absolute error is at most 0.055 except the two named, unfloored misses
+AssertionError: expected [ …(3) ] to deeply equal [ …(2) ]
+
+- Expected
++ Received
+
+  [
++   "apple-macos-27.0-1x-dark-standard-glass0.5/checkerboard__capsule-button__inactive",
+    "apple-macos-27.0-1x-light-standard-glass0.5/impulse__capsule-button__inactive-tint-orange",
+    "apple-macos-27.0-2x-light-standard-glass0.5/impulse__capsule-button__inactive-tint-orange",
+  ]
+
+ ❯ test/adopted-thresholds.test.ts:4924:20
+    4922|   it("L1: absolute error is at most 0.055 except the two named, unfloo…
+    4923|     const misses = population.filter(c => (error(c) ?? -Infinity) > 0.…
+    4924|     expect(misses).toEqual(MISSES);
+       |                    ^
+    4925|   });
+    4926|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 100 skipped (101)
+   Start at  22:02:06
+   Duration  460ms (transform 96ms, setup 0ms, import 367ms, tests 8ms, environment 0ms)
+

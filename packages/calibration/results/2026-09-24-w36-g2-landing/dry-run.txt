@@ -1,0 +1,36 @@
+══ core
+📦 @vitreajs/vitrea@0.24.0 → https://registry.npmjs.org/
+[WARN] Skip publishing @vitreajs/vitrea@0.24.0 (dry run)
+══ platform-web
+📦 @vitreajs/vitrea-web@0.24.0 → https://registry.npmjs.org/
+[WARN] Skip publishing @vitreajs/vitrea-web@0.24.0 (dry run)
+══ react
+📦 @vitreajs/vitrea-react@0.24.0 → https://registry.npmjs.org/
+[WARN] Skip publishing @vitreajs/vitrea-react@0.24.0 (dry run)
+── vitreajs-vitrea-0.24.0.tgz
+package/LICENSE
+package/NOTICE
+package/README.md
+  dist entries: 7
+  version 0.24.0
+  dependencies {}
+  peerDependencies {}
+  size:   586228 bytes
+── vitreajs-vitrea-react-0.24.0.tgz
+package/LICENSE
+package/NOTICE
+package/README.md
+  dist entries: 3
+  version 0.24.0
+  dependencies {"@vitreajs/vitrea": "^0.24.0", "@vitreajs/vitrea-web": "^0.24.0"}
+  peerDependencies {"react": ">=19.0.0", "react-dom": ">=19.0.0"}
+  size:   188606 bytes
+── vitreajs-vitrea-web-0.24.0.tgz
+package/LICENSE
+package/NOTICE
+package/README.md
+  dist entries: 3
+  version 0.24.0
+  dependencies {"@vitreajs/vitrea": "^0.24.0"}
+  peerDependencies {}
+  size:   569814 bytes

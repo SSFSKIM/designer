@@ -314,12 +314,18 @@ active digests to `dcbccbd9feac9881` (light) and `e59f9106bcd7c966` (dark).
 The receded digests above and both frozen macOS 26.5 digests are unchanged; the
 prior readings remain here as history.
 
-W36 G1's black-only seal (claims §5.179) carries `be13dae45098fc89` (light active),
+**0.24.0 carries W36's black-only seal** (claims §5.179–§5.180): `be13dae45098fc89` (light active),
 `2a4323f33df8d799` (dark active), `b0d0d8dacc6a03af` (light receded) and
 `7c454858a3cbad5b` (dark receded). A separate identity-gated response below encoded
 input 0.003 closes the measured black fallback without moving the old middle or
 impulse response. Thick black is extrapolated from thin; the grey/chroma and rim
-gaps remain. The two frozen macOS 26.5 digests stay unchanged.
+gaps remain. The two frozen macOS 26.5 digests stay unchanged. CSS derives the same
+response, with a measured +1/+2-code active-black boundary residual and exact
+receded black. The separate receded colour-formula trial was declined on level-growth
+and structure stops; footprint locality is retained. L1 now gates fixed-native-mask
+mean linear level error ≤ 0.055 and growth ≤ 0.005 against W33 on 140 standard WebGPU
+calibration/validation rows: 136 measured, four UNMEASURED, two named 0.066 misses.
+That is not a deep-body or an all-cell-pass claim (claims §5.180).
 
 
 **0.23.0 carries that declaration, not a new rim model** (claims §5.173).

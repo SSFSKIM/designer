@@ -6196,3 +6196,50 @@ No holdout retry or fit follows it. Evidence: §5.179 `holdout-difference.json` 
 coordinates, before/after values, metadata and scalars. Future raster/projection work
 can investigate this on a declared non-holdout control; this tiny discrepancy does
 not justify spending the same frozen holdout again.
+
+
+### W36 G2 adoption closes the missing level gate, not its named gaps (2026-09-24)
+
+**Adopted, §5.180; W36 Decision Log 4 and clause 8.** The G0 paragraph above's
+“still not adopted” is its historical state. L1 now independently re-derives 140 rows
+from the live matrix and the named W33 superseded files: 136 measured, four dark
+inactive dark-solid means UNMEASURED, two light inactive orange-tinted impulse
+capsule misses 0.066016/0.066059 against 0.055, maximum growth 0 against 0.005.
+The two misses are not floored; all measured rows, including those misses, obey
+growth. Three scratch mutations prove the absolute, growth and unmeasured-count
+clauses fail. W34's deep-median tolerance is not adopted as a canonical row.
+
+G1 completed the broader CSS, tinted, exterior and conditioning readings that G0
+left unperformed; its qualified results remain §5.179's, not newly invented passes.
+M2 retains G1's W33 reference: 26 zero wave increments, cumulative drift
+−2.774796% to +1.965563% against W31. The middle/chroma diagnosis, declined receded
+formula, CSS boundary and probe residuals, five-pixel holdout anomaly, and unmeasured
+thick/near-black intervals above all remain open. The edge returns only under a new
+charter with its colour-conditioned angular form and joint body/structure prediction
+declared first; W36 has not silently authorised it or another native capture.
+
+
+### W36 G2: the standing Firefox morph-release timing red recurred (2026-09-24)
+
+The first and only full React three-engine run at the 0.24.0 preparation reads
+**173 passed / 3 skipped / 1 failed**. The failure is the already-recorded W30/W31
+case: `morph-materialize.spec.ts` “the end that is absent is inert, and is released
+when it has gone”, Firefox, destination still mounted five seconds after Escape
+(line 205, expected count 0, received 1). No React source changes at this landing;
+no rerun, tolerance edit or release exception is manufactured. Log and retained
+error context: `results/2026-09-24-w36-g2-landing/chain-react-e2e.txt` and
+`react-first-failure-context.txt` (§5.180). It remains a disclosed driver-timing
+class, not a claim that this gate proved its underlying cause or fixed it.
+
+
+### W36 G2: `/laws/` black endpoint and stale tone prose closed by fix (2026-09-24)
+
+The page promised a black-to-white sweep while its slider started at0.002 linear,
+above W36's compact support; its literal anchors and “unchanged byte for byte”
+black-collapse sentence described the old26.5 curve. The lower stop is now0 and
+prose follows the selected macOS27 four-anchor response plus separate black branch,
+with grey/chroma and thick-black qualifications. The existing ground-control case
+fails on fill(0) before the fix; all10 laws cases pass after. The hardware live-eye
+stage repeats byte-identically and its named label-free rectangle readsRGB132.
+This is a consumer/control correction, not a material refit. Evidence §5.180's
+`demo-black-control-red.txt`, `demo-laws-green.txt`, `demo-black-reading.json`.

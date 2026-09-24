@@ -1,0 +1,59 @@
+W36 G2 eye — §5.180 clause 8
+
+All 24 unresampled triptychs in sheet-readings.json were viewed: eight W34 black
+cells and sixteen canonical impulse/photo capsules, both schemes, poses and
+rasters. Each absolute OKLab x8 panel prints its own 137.097415/255 response to
+one code above black. That amplification is a calibration, not a one-code match.
+
+The black body visibly closes: the previous light capsule is plainly too bright,
+the previous dark capsule too grey. The new deep body has native's level. The
+active rim still distributes brightness differently: native has the directional
+inner line, whereas the web boundary carries its old broader rim/inner-shadow
+profile. Inactive is much closer across the flat body, leaving the contour and
+coverage differences visible at x8. Those are the already named boundary gaps,
+not a discovery that the level failed.
+
+Impulse and photo previous/shipped columns are visually unchanged. Dark impulse
+still looks too light, and the point spread is not native's. Photo still carries
+less colour and a different near-edge response, particularly dark and inactive;
+the two web columns share it. None is included in the black closure. No new
+unexplained eye-only regression was found, and no eye stop was needed.
+
+Provenance qualification: W34 black has no canonical sealed-generation row. Its
+third panel is G1's retained pre-seal price, explicitly labelled "Shipped law
+(G1 pre-seal price)". The script proves old base plus active tune equals the live
+active patch, and the explicit receded patch equals the live receded patch;
+metadata is deterministic with zero repeat noise on Apple/Metal-3. It does not
+replace that tune-path digest with a sealed digest. Canonical panels check both
+active and receded document hashes against the matrix and the superseded tree.
+No holdout payload or new calibration capture is used.
+
+Live demo beside the harness
+---------------------------
+The first black-control inspection found a real page problem before any screenshot:
+its prose promised black-to-white, but min=2 meant 0.002 linear, above the new
+branch's support. The existing ground-control test was extended and failed with
+"Malformed value" on fill(0). The lower stop is now 0, with the stale three-anchor
+and unchanged-black prose corrected to the selected four-anchor material and its
+separate black branch. All ten laws e2e cases pass after that repair. No material
+source or published-package source changed.
+
+The live /laws/ capture is full Chromium, Apple/Metal-3, WebGPU/gpu-texture, light
+active, DPR1, no fallback and no authoring findings. The two stage PNGs are byte-
+identical. A labelled, label-free rectangle [51,240,65,248] in the stage reads
+RGB132 in every channel and pixel. The page's targets are0.230740 linear for both
+40px and112px. Native and retained harness span44 are placed beside the live40px
+surface in demo-black-pair.png, which was viewed: the body has the same grey;
+the broader web edge remains visible. Different widths/radii/spans and the demo
+label make this a juxtaposition, not a silhouette equality claim. The thin vertical
+line in the demo crop is the page-stage border, not a material band.
+
+Two setup corrections stay recorded. The CPU demo-reader invocation initially
+lacked the app's tsconfig aliases; the corrected invocation uses that tsconfig and
+resolves all four sealed digests. The installed CLI refused the skill's --filename
+option before executing the eye script; no screenshot existed. A new X6-attested
+session used the supported inline form, with no repeat of a nondeterministic image.
+Both CLI browsers were closed; the owned Vite on5197 was stopped after inspection
+(exit143 from that deliberate stop). The actual raw census during both eye sessions
+was1, the owned Vite-launch shell whose command text contains the browser config;
+those values remain unedited beside the successful byte-determinism check.

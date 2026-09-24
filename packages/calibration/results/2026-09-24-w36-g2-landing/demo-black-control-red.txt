@@ -1,0 +1,33 @@
+
+Running 1 test using 1 worker
+
+  ✘  1 [chromium] › e2e/laws.spec.ts:45:1 › the ground control moves the tone the runtime declares (831ms)
+
+
+  1) [chromium] › e2e/laws.spec.ts:45:1 › the ground control moves the tone the runtime declares ───
+
+    Error: locator.fill: Error: Malformed value
+    Call log:
+      - waiting for getByTestId('tone-level')
+        - locator resolved to <input min="2" step="2" max="1000" value="300" type="range" class="field__range" data-testid="tone-level" aria-valuetext="0.300 linear"/>
+        - fill("0")
+      - attempting fill action
+        - waiting for element to be visible, enabled and editable
+
+
+      49 |   // The advertised black endpoint must be reachable, not clamped to a near-black
+      50 |   // ground above the compact branch's support (W36 G2, claims §5.180).
+    > 51 |   await page.getByTestId("tone-level").fill("0");
+         |                                        ^
+      52 |   await expect(page.getByTestId("tone-level-readout")).toContainText("0.000 linear");
+      53 |   await expect(page.getByTestId("tone-law")).toContainText("0.231");
+      54 |
+        at /Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g2-landing/apps/demo/e2e/laws.spec.ts:51:40
+
+    Error Context: test-results/laws-the-ground-control-moves-the-tone-the-runtime-declares-chromium/error-context.md
+
+  1 failed
+    [chromium] › e2e/laws.spec.ts:45:1 › the ground control moves the tone the runtime declares ────
+undefined
+/Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g2-landing/apps/demo:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: playwright test e2e/laws.spec.ts -g 'ground control moves'

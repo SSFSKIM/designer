@@ -572,6 +572,20 @@ under every surface, a group's sampling reach moving with it, and the receded po
 above, which now draws no exterior at all. The four digests `root.material`
 reports move again, as a fit must.
 
+**From 0.24.0 the macOS 27 material's measured black body matches the native level**
+on the WebGPU tier at span 44, both scales and window poses: light 132/133 and dark
+32/20 codes (active/receded). The response rejoins the old solve below the canonical
+impulse inputs; grey-middle, chroma and inner-edge gaps remain. Thick black is a
+thin-to-thick extrapolation, not another measured anchor. CSS derives the branch but
+keeps a +1/+2-code active boundary residual. Its receded black is exact.
+
+The selected document and the digest route above remain the API. The four macOS 27
+digests are now `be13dae45098fc89` / `2a4323f33df8d799` (light/dark active) and
+`b0d0d8dacc6a03af` / `7c454858a3cbad5b` (light/dark receded); the selectable macOS 26.5
+material and its two fingerprints do not change. No React binding or activation
+semantics changed in this release; the material's scope and the newly adopted L1
+level row are documented in fidelity claims §5.179–§5.180.
+
 ### Window activation
 
 Apple's glass recedes when its window loses focus. That is a fact about the

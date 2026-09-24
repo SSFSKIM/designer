@@ -143,6 +143,18 @@
  *     > not an epsilon. Both poses and probe cells are explicit; neither the
  *     > CSS tier nor the stopped contour model gains a bound. The historical
  *     > probe/inactive exclusions below still govern their original axes.
+ *     > **2026-09-24, W36 G2 (Decision Log 4; claims §5.180): L1 adds the
+ *     > fixed-native-silhouette mean linear-luminance error and its growth.**
+ *     > Not unidentifiable: it reads two measured means over the SAME native
+ *     > mask, not an inferred blur or a web-selected silhouette. Native and W33
+ *     > baseline were fixed before fitting. Not below quantisation: the black
+ *     > fallback misses by 28–49 codes, the separate deep-median repeat bar is
+ *     > zero on 120 grey cells, and 0.055 exceeds even one code's linear step
+ *     > at white. That repeat reading motivates resolution; it does not make
+ *     > W34's deep median the canonical estimator. L1 states 140 standard-profile
+ *     > WebGPU calibration/validation rows: 136 measured, four UNMEASURED and
+ *     > two named 0.066 absolute misses, not an all-cell pass. Growth <= 0.005
+ *     > applies to the misses too. W34's one-code tolerance is NOT adopted here.
  *   - **The motion axis is not gated.** No frame sequences were captured on the
  *     native side, and the still `pressed` fixtures cannot substitute: they are
  *     byte-identical to their rest counterparts (§6.3), so those cells measure
@@ -4777,4 +4789,152 @@ describe("W33 X1 — the native-black exterior stays black (claims §5.173)", ()
       }
     }
   }, 30_000);
+});
+
+/**
+ * L1 — the body's level on the fixed native silhouette (W36 DL4; claims §5.180).
+ *
+ * The absolute clause is a fidelity bound; growth is a regression stop against
+ * W33, frozen before fitting. Neither is W34's deep-body median. Both poses,
+ * tints and composites are included without a shape-predicate exclusion; probes,
+ * holdout, accessibility and CSS are outside this declaration. The two existing
+ * absolute misses remain misses, not floors, and still obey the growth clause.
+ * Four absent dark inactive means are UNMEASURED, never zero-valued passes.
+ *
+ * The record is independently reconstructed from the live matrix and the named
+ * superseded generation. A stale cut cannot certify a changed matrix, and a cut
+ * regenerated after a regression still fails the bound that regression crossed.
+ */
+describe("W36 L1 — fixed-native-silhouette level and pre-fit growth (claims §5.180)", () => {
+  interface LevelCell {
+    readonly cell: string;
+    readonly capturePath: string;
+    readonly native: number | null;
+    readonly web: number | null;
+    readonly baselineError: number | null;
+    readonly error: number | null;
+    readonly growth: number | null;
+    readonly status: string;
+    readonly existingMiss: boolean;
+  }
+  const CUT = readJson<{
+    readonly atDocuments: string;
+    readonly withHoldout: boolean;
+    readonly matrixSha256: string;
+    readonly absoluteBound: number;
+    readonly growthBound: number;
+    readonly baselineGeneration: Record<string, {
+      readonly active: string; readonly receded: string; readonly supersededFile: string;
+    }>;
+    readonly population: number;
+    readonly measured: number;
+    readonly missing: readonly string[];
+    readonly absoluteMisses: readonly LevelCell[];
+    readonly growthFailures: readonly LevelCell[];
+    readonly cells: readonly LevelCell[];
+  }>(process.env["VITREA_L1_CUT"] ?? resolve(
+    PACKAGE_ROOT, "results/2026-09-24-w36-g2-landing/l1-cut.json",
+  ));
+  const BASELINE = {
+    light: { active: "6e509c7f76cc", receded: "45acb6d916b9",
+      supersededFile: "results/superseded/6e509c7f76cc.json" },
+    dark: { active: "eab099cc6698", receded: "4e68f81869f6",
+      supersededFile: "results/superseded/eab099cc6698.json" },
+  };
+  const MISSING = [1, 2].flatMap(scale => ["capsule-button", "rrect-md"].map(component =>
+    `apple-macos-27.0-${scale}x-dark-standard-glass0.5/dark-solid__${component}__inactive`));
+  const MISSES = [1, 2].map(scale =>
+    `apple-macos-27.0-${scale}x-light-standard-glass0.5/impulse__capsule-button__inactive-tint-orange`);
+  const allowed = new Set([
+    ...SCENE_DECLARATION.split["calibration"]!, ...SCENE_DECLARATION.split["validation"]!,
+  ]);
+  const selected = (c: Cell): boolean => c.key.profileKey.startsWith("apple-macos-27.0-")
+    && c.key.profileKey.includes("-standard-") && c.tier === "texture"
+    && c.key.web.renderer === "webgpu" && allowed.has(c.key.sceneId);
+  const key = (c: Cell): string => `${c.key.profileKey}/${c.key.sceneId}`;
+  const population = MATRIX_FILE.cells.filter(selected);
+  const old = Object.values(BASELINE).flatMap(g =>
+    readJson<ResultMatrix>(resolve(PACKAGE_ROOT, g.supersededFile)).cells.filter(selected));
+  const value = (c: Cell, metric: string): number | null => {
+    const m = c.material?.[metric];
+    return typeof m === "object" ? m.value : null;
+  };
+  const error = (c: Cell): number | null => {
+    const n = value(c, "interiorMeanNative"), w = value(c, "interiorMeanWeb");
+    return n === null || w === null ? null : Math.abs(w - n);
+  };
+
+  it("guards the declared population, named missing means and pre-fit generation", () => {
+    expect(CUT.atDocuments).toBe("shipped");
+    expect(CUT.withHoldout).toBe(false);
+    expect(CUT.absoluteBound).toBe(0.055);
+    expect(CUT.growthBound).toBe(0.005);
+    expect(CUT.baselineGeneration).toEqual(BASELINE);
+    expect(population).toHaveLength(140);
+    expect(old).toHaveLength(140);
+    expect(new Set(population.map(key)).size).toBe(140);
+    expect(new Set(old.map(key)).size).toBe(140);
+    expect(CUT.population).toBe(140);
+    expect(CUT.cells.map(r => r.cell).sort()).toEqual(population.map(key).sort());
+    const missing = population.filter(c => error(c) === null).map(key).sort();
+    expect(missing).toEqual(MISSING);
+    expect(CUT.missing).toEqual(missing);
+    expect(CUT.measured).toBe(population.length - missing.length);
+    expect(CUT.measured).toBe(136);
+    for (const c of population) {
+      const documents = [...c.key.web.capturePath.matchAll(
+        /(?:materialProfile|recededProfile)=(\S+) sha256:([0-9a-f]{12})/g,
+      )];
+      expect(documents, key(c)).toHaveLength(2);
+      for (const match of documents) {
+        expect(SHIPPED_DOCUMENT_HASHES.get(match[1]!), key(c)).toBe(match[2]);
+      }
+    }
+    for (const c of old) {
+      const generation = c.key.profileKey.includes("-dark-") ? BASELINE.dark : BASELINE.light;
+      expect(c.key.web.capturePath, key(c)).toContain(`sha256:${generation.active}`);
+      expect(c.key.web.capturePath, key(c)).toContain(`sha256:${generation.receded}`);
+    }
+  });
+
+  it("re-derives every recorded mean, error and growth from the two generations", () => {
+    expect(CUT.matrixSha256).toBe(createHash("sha256")
+      .update(readFileSync(MATRIX_PATH)).digest("hex"));
+    for (const c of population) {
+      const baseline = old.find(b => key(b) === key(c));
+      expect(baseline, key(c)).toBeDefined();
+      if (baseline === undefined) throw new Error(`L1 baseline absent: ${key(c)}`);
+      const n = value(c, "interiorMeanNative"), w = value(c, "interiorMeanWeb");
+      expect(n, key(c)).toBe(value(baseline, "interiorMeanNative"));
+      const e = error(c), before = error(baseline);
+      expect(CUT.cells.find(r => r.cell === key(c)), key(c)).toEqual({
+        cell: key(c), capturePath: c.key.web.capturePath, native: n, web: w,
+        baselineError: before, error: e,
+        growth: e === null || before === null ? null : e - before,
+        status: e === null ? "UNMEASURED" : "MEASURED",
+        existingMiss: before !== null && before > 0.055,
+      });
+    }
+    expect(CUT.absoluteMisses).toEqual(CUT.cells.filter(r => r.error !== null && r.error > 0.055));
+    expect(CUT.growthFailures).toEqual(CUT.cells.filter(r => r.growth !== null && r.growth > 0.005));
+  });
+
+  it("L1: absolute error is at most 0.055 except the two named, unfloored misses", () => {
+    const misses = population.filter(c => (error(c) ?? -Infinity) > 0.055).map(key).sort();
+    expect(misses).toEqual(MISSES);
+  });
+
+  it("L1: error growth is at most 0.005, including both existing absolute misses", () => {
+    for (const c of population) {
+      const baseline = old.find(b => key(b) === key(c));
+      expect(baseline, key(c)).toBeDefined();
+      if (baseline === undefined) throw new Error(`L1 baseline absent: ${key(c)}`);
+      const e = error(c), before = error(baseline);
+      if (e === null || before === null) {
+        expect(MISSING, `UNMEASURED L1: ${key(c)}`).toContain(key(c));
+        continue;
+      }
+      expect(e - before, key(c)).toBeLessThanOrEqual(0.005);
+    }
+  });
 });

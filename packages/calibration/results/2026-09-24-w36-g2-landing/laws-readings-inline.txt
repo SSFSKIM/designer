@@ -1,0 +1,40 @@
+### Result
+{"url":"http://localhost:5197/laws/?renderer=webgpu","dpr":1,"stageBox":{"x":648,"y":0,"width":792,"height":1000},"smallBox":{"x":681,"y":224,"width":144,"height":40},"deterministic":true,"adapter":{"vendor":"apple","architecture":"metal-3","isFallbackAdapter":false},"reading":"Taking the tone of the backdrop, on a curve\n\nThis stage evaluates the shipped macOS 27 response over a uniform ground. Its four-anchor curve varies with surface size, with a separate black branch below 0.003 encoded input. The active material reads the backdrop as a mean in encoded sRGB, not linear light; over structured content, averaging before a non-linearity differs from averaging after it. The measured black body is closed, but the uniform-grey middle and coloured backdrops still have named gaps to the reference.\n\nBACKDROP\nGround level\n0.000 linear, 0.000 encoded. The response below is evaluated from this page’s selected material.\n\nDrag the ground from black to white. Away from black, the two plates target size-dependent levels. At black the shipped thin and thick targets agree: the thin body is measured at 44px, while thick black is an extrapolation. This page’s 40px and 112px plates are a live illustration, not two additional native calibration anchors.\n\nThe law\nevaluated from the published curve\nEncoded mean the law reads\n0.000\nInterior it targets, 40px\n0.231\nInterior it targets, 112px\n0.231\nSurface\nthe 40px plate\nTint\nnot published on this tier\nOcclusion\nnot published on this tier\nBlur\nnot published on this tier\nBorder\nnot published on this tier\nForeground\nrgb(0 0 0 / 0.847059)\nSurface\nthe 112px plate\nTint\nnot published on this tier\nOcclusion\nnot published on this tier\nBlur\nnot published on this tier\nBorder\nnot published on this tier\nForeground\nrgb(0 0 0 / 0.847059)\nGroup\nlaws-tone (registered texture, declared level)\nMaterial measured against\napple-macos-27.0-1x-light-standard-glass0.5 (macOS 27.0)\nWhat the page declared\ntexture\nWhat is drawing\nwebgpu\nWhere the backdrop comes from\ngpu-texture\nRefraction\ntrue\nBackdrop analysis\nexact\nHealth\nok\nDemotion reason\nnone\n\nOn the CSS tier the read is one mean per backdrop source, taken in the same space. On the WebGPU tier it is per pixel, corrected so its mean matches the model exactly. Reduce transparency and increase contrast keep the behaviour they were fitted to: the law rides only the un-degraded material.\n\nAuthoring checks: no findings. Overlap, proxy overlap, variant rules, padding floors and plane containment are all being checked in this build, on this layout.","qualification":"Demo spans40/112 beside measured span44; juxtaposition, not silhouette equality."}
+### Ran Playwright code
+```js
+await (async page => {
+  const out = '/Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g2-landing/packages/calibration/results/2026-09-24-w36-g2-landing';
+  await page.waitForSelector('[data-vitrea-root]', { state: 'attached' });
+  await page.getByTestId('shadow-pose').selectOption('active');
+  await page.evaluate(() => document.getElementById('tone').scrollIntoView({
+    block: 'center', behavior: 'instant',
+  }));
+  await page.getByTestId('tone-level').fill('0');
+  await page.waitForFunction(() => {
+    const text = document.getElementById('tone').textContent;
+    return text.includes('0.000 linear') && text.includes('webgpu') && text.includes('gpu-texture');
+  });
+  await page.evaluate(() => document.fonts.ready);
+  await page.waitForTimeout(1200);
+  const stage = page.locator('.stage').first();
+  const stageBox = await stage.boundingBox();
+  const smallBox = await page.getByTestId('tone-small').boundingBox();
+  const first = await stage.screenshot({ path: `${out}/laws-black.png`, animations: 'disabled' });
+  await page.waitForTimeout(250);
+  const second = await stage.screenshot({ path: `${out}/laws-black-repeat.png`, animations: 'disabled' });
+  const deterministic = first.equals(second);
+  const reading = await page.locator('#tone').innerText();
+  const adapter = await page.evaluate(async () => {
+    const a = await navigator.gpu.requestAdapter();
+    return a ? { vendor: a.info.vendor, architecture: a.info.architecture,
+      isFallbackAdapter: a.info.isFallbackAdapter } : null;
+  });
+  if (!deterministic) throw new Error('Eye capture is not byte-deterministic; retain, do not retry');
+  if (!adapter || adapter.vendor !== 'apple' || adapter.isFallbackAdapter) {
+    throw new Error('Eye capture did not use the hardware adapter');
+  }
+  return { url: page.url(), dpr: await page.evaluate(() => devicePixelRatio),
+    stageBox, smallBox, deterministic, adapter, reading,
+    qualification: 'Demo spans40/112 beside measured span44; juxtaposition, not silhouette equality.' };
+})(page);
+```

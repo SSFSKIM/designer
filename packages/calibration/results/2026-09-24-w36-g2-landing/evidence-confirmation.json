@@ -1,0 +1,846 @@
+{
+  "claims": "c9a \u00a75.180",
+  "unchangedFrom": "fe3067a8",
+  "protectedFiles": [
+    {
+      "path": "packages/calibration/profiles/README.md",
+      "sha256": "955e9f522aefa33e83642d188ccfebb94acc1b44960f031d319065d40770cbc8"
+    },
+    {
+      "path": "packages/calibration/profiles/apple-macos-26.5-1x-dark-standard.json",
+      "sha256": "950ce1c3e91715ee470dd02d10c589f3ebae0f2b88d6ae85f4a2de6986020e12"
+    },
+    {
+      "path": "packages/calibration/profiles/apple-macos-26.5-1x-light-standard.json",
+      "sha256": "6a9600720477dd433539d7af477b838776410e957d63fa7e63059dab214c5d26"
+    },
+    {
+      "path": "packages/calibration/profiles/apple-macos-26.5.seed.json",
+      "sha256": "737642e1394262d3b246d752c2d8cffb0457efebb36e1d36e88e43e1eafbdd58"
+    },
+    {
+      "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5-receded.json",
+      "sha256": "5cec8c9612012a8988e37ee51a80bcc8de35b306f6f8464d596dfdbbdbcef0d2"
+    },
+    {
+      "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5.json",
+      "sha256": "0eac5b294cc235e2ba03841472211e63f85d36258a20951bef6f974931cda445"
+    },
+    {
+      "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json",
+      "sha256": "30fbe05986aea1c3f84f1055825b3bba65ef8d7cc3a9d1a44934b6eae56705bd"
+    },
+    {
+      "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json",
+      "sha256": "85ad7f7e3e0d6cb61de88c43bb2e48d78c1fa6779dbb85c627a3676d7fa04936"
+    },
+    {
+      "path": "packages/calibration/profiles/digest-supersessions.json",
+      "sha256": "6da7ff4d21f487469132d0db2fa79de4a441262be71fbd7744f6b528c48654c6"
+    },
+    {
+      "path": "packages/calibration/results/matrix.json",
+      "sha256": "7df96c9246bc9b964fd6e173e742f49dcf493ccb360f7df505a0157240eaf0de"
+    },
+    {
+      "path": "packages/calibration/results/superseded/272d1b0c3e10.json",
+      "sha256": "091ee5e6235db551cb7d6f814e1053a40823569057e53f79c56ddfc9738d1ecf"
+    },
+    {
+      "path": "packages/calibration/results/superseded/431cabd391c4.json",
+      "sha256": "9727e882b1d52770d7fa61f5d5827fff4bbf8456f57b424230ad938fa2dbd87f"
+    },
+    {
+      "path": "packages/calibration/results/superseded/49490eb9ff7a.json",
+      "sha256": "bc84f3e5420f00e9904a4ead1a0b40383866a1652781efefc466dc36039c0114"
+    },
+    {
+      "path": "packages/calibration/results/superseded/6e509c7f76cc.json",
+      "sha256": "6e1396bd6dc51ed09aae47248bf9a5a805c1fce4f1e4afa4b69b4ae2a816bda3"
+    },
+    {
+      "path": "packages/calibration/results/superseded/880ab1e31450.json",
+      "sha256": "9f3ef6b6a1c57238ac94d0c45581a67186d910ce8703c008d797fae811e29487"
+    },
+    {
+      "path": "packages/calibration/results/superseded/96b36eedf1c4.json",
+      "sha256": "490b395e4127713f24197d2fc5f0985dc0c46f367bf44d61520fc3bcb504a8e7"
+    },
+    {
+      "path": "packages/calibration/results/superseded/README.md",
+      "sha256": "5fd953a5b656fb01593d0dbafd376548d56a0d865038306b4e49c39423ee1643"
+    },
+    {
+      "path": "packages/calibration/results/superseded/b5714a866288.json",
+      "sha256": "61e4be511b05a0153a17c656658d51c32486615d8711be2a8c5f9ce0acb1285c"
+    },
+    {
+      "path": "packages/calibration/results/superseded/ce1af58886ff.json",
+      "sha256": "680f6ee8f85d2fe4f4c22ab3dcc657480df6d8a8def8549add10152ece8c84ed"
+    },
+    {
+      "path": "packages/calibration/results/superseded/d0c389d70456.json",
+      "sha256": "a2ae78c3be5d3513a667483d37691d942699105649433c88f93575aca435db63"
+    },
+    {
+      "path": "packages/calibration/results/superseded/d5bdd6eac432.json",
+      "sha256": "bb94489595bdb0adeadd20eee06c70b054586616f4510523d5b6e780be5854bf"
+    },
+    {
+      "path": "packages/calibration/results/superseded/d731b3838994.json",
+      "sha256": "b81a029238a13add43bc7a2f49af24ef0151d18eebffbc0a9427194daf86ab18"
+    },
+    {
+      "path": "packages/calibration/results/superseded/e2fa07589d99.json",
+      "sha256": "df22d34d6f8692c4671e8368ab5384fdcb909d8d3540df58f5783bdafe26e776"
+    },
+    {
+      "path": "packages/calibration/results/superseded/eab099cc6698.json",
+      "sha256": "e7b9affe4f10f0e13dacbaab721adcbcac8d582ed43c97d72cf812b2e69fcb33"
+    },
+    {
+      "path": "packages/calibration/results/superseded/f42ddec1cf5a.json",
+      "sha256": "84e84f5fd84fbe2f051b831c7a0769540d8cffddf39a4284da48640a6f36988e"
+    },
+    {
+      "path": "packages/calibration/results/superseded/fa872c683f3e.json",
+      "sha256": "c79d99264770ccdc97317a948564eefdaa1c43aa2c1f3c63d527a1096cd7f615"
+    },
+    {
+      "path": "packages/calibration/results/superseded/index.json",
+      "sha256": "0a22c92fe01bf8691aa08b181b92c1428d0ed88fd89869aa17de0241aa90b024"
+    },
+    {
+      "path": "packages/core/src/accessibility.ts",
+      "sha256": "8e26e432389e96be5cd10e521783de1cea3b11b90d587038814dc0ddb259f977"
+    },
+    {
+      "path": "packages/core/src/backdrop-hint.ts",
+      "sha256": "4e440e6b1ecff7be0bb6d0cdb8fda5c6cdebca823f21b0f2ed7bdc686b8312e5"
+    },
+    {
+      "path": "packages/core/src/capability.ts",
+      "sha256": "3fec0247ae75c3fa1b4e6f4ca94f03444b390fb35e761b672b7272053f13dda2"
+    },
+    {
+      "path": "packages/core/src/diagnostics.ts",
+      "sha256": "235a13b1fbf9f4871e92477fb9e487d95f5c8de164babefb768434078f5a6a1a"
+    },
+    {
+      "path": "packages/core/src/foreground.ts",
+      "sha256": "3ecb04947aacd14553dee985a507ef39c1d68312573e490c9a3e921e385e0c4a"
+    },
+    {
+      "path": "packages/core/src/frame.ts",
+      "sha256": "0c2c95e7462c0940aeb1beb7b53e362647d9a3d5f998a2cfb8a5dceddf63fd33"
+    },
+    {
+      "path": "packages/core/src/index.ts",
+      "sha256": "863d67dc602c8ea4afd40d9f4c72141032638796d3c8421e6a81b0c22a0a0a20"
+    },
+    {
+      "path": "packages/core/src/material.ts",
+      "sha256": "3b7baa0842fbb0c4312ef3fc9ef58e8b1b366dbb93c56d5ab5a5d9159472a802"
+    },
+    {
+      "path": "packages/core/src/planes.ts",
+      "sha256": "d1d162b3a77b923a24300179fbbecb8d315d26136913a8c021665349f7f842cb"
+    },
+    {
+      "path": "packages/core/src/renderer-seam.ts",
+      "sha256": "90fbfb6c8da9b2b13d58f0c94e0e9c9b6aec7cca5720b092dacd42c0239adb27"
+    },
+    {
+      "path": "packages/core/src/scene.ts",
+      "sha256": "51675dd03277576a707a01dc6245609c1d6d57f1f97d8dbf2973ada5e21290d7"
+    },
+    {
+      "path": "packages/core/src/scheduler.ts",
+      "sha256": "d0bbdee0dc7ee369396ac1602e727002e1c121cce249cf1ec979225ee4ee0f96"
+    },
+    {
+      "path": "packages/core/src/state.ts",
+      "sha256": "a00a1e7c3339acfcbeb802bc32a97c1662b34d7894d001d64f45118552fade48"
+    },
+    {
+      "path": "packages/platform-web/src/backdrop-proxy.ts",
+      "sha256": "231d2f7829fc3e2eeb65876f4b06b0724b16a6d5bf62ff16510214a6447fcded"
+    },
+    {
+      "path": "packages/platform-web/src/backdrop-stack.ts",
+      "sha256": "4aebd6aa03ed7b29ae23017a8e656527275d73d24c16e0029717641ec1f32fdd"
+    },
+    {
+      "path": "packages/platform-web/src/backdrop-tone.ts",
+      "sha256": "4ddf562b443347b7b35097eb7e267cd58e294b8e25166e9e095d29b211a76506"
+    },
+    {
+      "path": "packages/platform-web/src/channels.ts",
+      "sha256": "d9bcbc7a73a025a29bda637a70f6862852926dc87f275bcf72c2abed284593d3"
+    },
+    {
+      "path": "packages/platform-web/src/color-scheme.ts",
+      "sha256": "54bc178e8488b669c89d1cef43fce8f4b426fe19de9cdfea9256a9e3d9a827ea"
+    },
+    {
+      "path": "packages/platform-web/src/css-tier-layers.ts",
+      "sha256": "78fd8fb2b41126f79a671e3a7fd721cc79c16f708c41e2b0571fb222c9533799"
+    },
+    {
+      "path": "packages/platform-web/src/css-tier-shadow.ts",
+      "sha256": "d0debe636198bd1b0f791077576100b5c64d3158111f956518b15cdaced70123"
+    },
+    {
+      "path": "packages/platform-web/src/css-tier.ts",
+      "sha256": "4e116807a590f6ff7df5099ae5ee0cd3b42a2529d601adbdcd95118c2082679a"
+    },
+    {
+      "path": "packages/platform-web/src/dark-profile.ts",
+      "sha256": "e9d4c349ca82dd088c26884b7aef4a6822df99aca968b4742e2ba0ec03e00e75"
+    },
+    {
+      "path": "packages/platform-web/src/diagnostics.ts",
+      "sha256": "c107192eaa588d5a4438e1ff5e8e4a8450623f3555b31ca56435e57be52a3e78"
+    },
+    {
+      "path": "packages/platform-web/src/geometry-sync.ts",
+      "sha256": "2d27b6abcb1f96f66c304c82174fd1b978e13063a248d1f51523a34eb68f2435"
+    },
+    {
+      "path": "packages/platform-web/src/group-state.ts",
+      "sha256": "dfe57e778d6876af81d6c3a12a9f93de3d216455b794e508202dec584de14618"
+    },
+    {
+      "path": "packages/platform-web/src/host.ts",
+      "sha256": "66d23a59046d283346b163aa19c1649431e5bc717ca68340721f0282352bfa8a"
+    },
+    {
+      "path": "packages/platform-web/src/index.ts",
+      "sha256": "25c4d3c6ae5f2098ad2dbd50102854a053dfdb3cdb55db378b5c501b57875a1e"
+    },
+    {
+      "path": "packages/platform-web/src/ink-stylesheet.ts",
+      "sha256": "073df7f2b8058694911e20ea43207fe8556d07f92479e39f6ee4c83365e5fd6c"
+    },
+    {
+      "path": "packages/platform-web/src/layer-model.ts",
+      "sha256": "684428a8783a4b8d6fe61d9f05034994da0852fc674a14bccdf6723f1f7a295c"
+    },
+    {
+      "path": "packages/platform-web/src/macos27-profile.ts",
+      "sha256": "ab953bfe1e06e38a7eb405b96cfbab506dc0e93b9dbfc65f056f22557b4878a2"
+    },
+    {
+      "path": "packages/platform-web/src/material-document.ts",
+      "sha256": "b38fd2c0f680817c20c00907fbe3b0ed99bf8bfe9446df8b7d779fd69d04c86b"
+    },
+    {
+      "path": "packages/platform-web/src/measure.ts",
+      "sha256": "242adc5075307594f7b7d180192522f94ce1a802c39852a12d4ac8d88bec720b"
+    },
+    {
+      "path": "packages/platform-web/src/media-policy.ts",
+      "sha256": "ef08388f9a2bef32dee0837f1df35c640dabb3aeb78ade2ad212226696e345c6"
+    },
+    {
+      "path": "packages/platform-web/src/optics.ts",
+      "sha256": "d64fd46b03a140a58f8284f68cc09775d939a4026092f725b63f709967d17ecb"
+    },
+    {
+      "path": "packages/platform-web/src/planes.ts",
+      "sha256": "19122645501fb84bea5b09cd942f2819c4ea52fa97e6c3ce3e3a8d13e32c2f58"
+    },
+    {
+      "path": "packages/platform-web/src/probe/backdrop-root.ts",
+      "sha256": "cb007fb27a96f67e15d4a865778957efb0c91a4c3d5d700f92a459dfceba59a2"
+    },
+    {
+      "path": "packages/platform-web/src/probe/conformance-table.ts",
+      "sha256": "222dde1c8a288d0a40e6eb56b9a627efb8fc5bc1c04d383b36db8c87a3fa58e3"
+    },
+    {
+      "path": "packages/platform-web/src/probe/engine-defects.ts",
+      "sha256": "41e71115ab683edecd70c3aaecf02e49080c07bc64ddb6cad21aac0ba319e77a"
+    },
+    {
+      "path": "packages/platform-web/src/probe/index.ts",
+      "sha256": "607fe6a847b34ce2f509b87cde85c137a4dfa92371beaa7e2370a93f7230e55a"
+    },
+    {
+      "path": "packages/platform-web/src/probe/support-gate.ts",
+      "sha256": "820275ef1f9c71a903f168df4a549bf47960874485dc6f7b01ff856a2205b8cb"
+    },
+    {
+      "path": "packages/platform-web/src/proxy-geometry.ts",
+      "sha256": "23138ff7d8936379a8c41397c14b994053580140f95d392ce1e62e548f4c5494"
+    },
+    {
+      "path": "packages/platform-web/src/receded-profile.ts",
+      "sha256": "245ed3484f92278c68db5b680b4b984753da255511a1fa5d5b59760e9d7d7bf0"
+    },
+    {
+      "path": "packages/platform-web/src/refraction.ts",
+      "sha256": "31e6a7249602bce69fa5ae046d96f07fc9dbfa663da6c65ea5701a45298f5ece"
+    },
+    {
+      "path": "packages/platform-web/src/renderer-bridge.ts",
+      "sha256": "044e4af5690eec6740604776b6af734306dbb94151fb0c1abde4c178837a6ad4"
+    },
+    {
+      "path": "packages/platform-web/src/root.ts",
+      "sha256": "bc28f70b65dc0f62b98c05a5f9ba6c935c567baeb3e253f71fabdb1cfc91261a"
+    },
+    {
+      "path": "packages/platform-web/src/tint.ts",
+      "sha256": "55ede850cfdb1c05e358ae5dcabcd245f022616633b836e8de8f3493bb3b3195"
+    },
+    {
+      "path": "packages/platform-web/src/vibrancy.ts",
+      "sha256": "d6fef8ada88a18754e000851e40bb73e70ed3dc6a0ca256935ddec74675a8a21"
+    },
+    {
+      "path": "packages/platform-web/src/webgpu.ts",
+      "sha256": "8897ee578f68312bf0f6d82f0ab32a919bf8ac019c5eee0379a6d0d1aee90fe0"
+    },
+    {
+      "path": "packages/platform-web/src/window-activation.ts",
+      "sha256": "71eb80a6339e2ac21f6ada0fb0c260ebb3f9642f808b2742653ea5eb4bb44a33"
+    },
+    {
+      "path": "packages/react/src/as-child.ts",
+      "sha256": "14fb17dbccc0bfb2e683d367c1468b374113a0b9514aeff7d1349474a68ded3e"
+    },
+    {
+      "path": "packages/react/src/context.ts",
+      "sha256": "40fd6dbfcfdf150921c1a87a6bff18b471777b76bfd45685f497d42e14bd9fce"
+    },
+    {
+      "path": "packages/react/src/controls/button.tsx",
+      "sha256": "641e171b05a4a71cf312649aaa5154821281647a3a9b55e5ea47a6e365bd3f66"
+    },
+    {
+      "path": "packages/react/src/controls/segmented-control.tsx",
+      "sha256": "9b94338ed3028157655f9d6b6bfbf71a1307d96168d34ad0e2cf5e00911bb663"
+    },
+    {
+      "path": "packages/react/src/controls/toolbar.tsx",
+      "sha256": "d946f7def6156ad461f38a3efe736694d8ea65d182e1a992aace9961ad6bc51d"
+    },
+    {
+      "path": "packages/react/src/group.tsx",
+      "sha256": "6ee7df5733583ff5c28ec229222b374ff78c4f8a87ee0944374bac8747595c48"
+    },
+    {
+      "path": "packages/react/src/index.ts",
+      "sha256": "5114a0ba961bd7ea90a5855b2681e7b9fbabb6c70ebb556deb6db37d2ab2bb69"
+    },
+    {
+      "path": "packages/react/src/interaction.ts",
+      "sha256": "05004caa0250757cf246c43abd6f8e95e366f79c2ae68b84db079cf14b532a32"
+    },
+    {
+      "path": "packages/react/src/morph.tsx",
+      "sha256": "4879e010b5d363af8597b4e7c192603dbe97dbfe9532181a2c04bc2508325fc0"
+    },
+    {
+      "path": "packages/react/src/plane-portal.tsx",
+      "sha256": "2f8d85c5e7c8fbfd6d7596b1548b509fb37b928b5b5aa2663a859e48a71370fa"
+    },
+    {
+      "path": "packages/react/src/root.tsx",
+      "sha256": "b175a9ab899a89dbca3e9022115539217c2ad52d634979f263e7decf86246298"
+    },
+    {
+      "path": "packages/react/src/shape.ts",
+      "sha256": "7aad7a457e453a90b4d7e81a9d32cbb02fb549f0015ec70263cf8e267c2b3ca4"
+    },
+    {
+      "path": "packages/react/src/store.ts",
+      "sha256": "63e5532d1e72fddaa420f46da595f342eefca8b358ebd0c1fb14aae19a97b587"
+    },
+    {
+      "path": "packages/react/src/surface.tsx",
+      "sha256": "f986c13a4c6ac64c616a11a244213c5f08a5042d7bd63dedf8ceed4e51bc2f4d"
+    },
+    {
+      "path": "packages/react/src/ticker.ts",
+      "sha256": "a6f202f9aa6e72848e4ec18a3ee31f5aebb0c750f660d1027b2af0c7907d93ba"
+    },
+    {
+      "path": "packages/renderer-webgpu/e2e/golden/isolation.spec.ts",
+      "sha256": "5374c25c061f532d6f268c0a3e6c14f7e5c593472f7453f04d72ce9c3f345ca0"
+    },
+    {
+      "path": "packages/renderer-webgpu/e2e/golden/receded-tint.spec.ts",
+      "sha256": "210e0c3819612c7a6c0f2cc48a3991824d183b412c22d4253ed55dbb32e90d6d"
+    },
+    {
+      "path": "packages/renderer-webgpu/e2e/golden/scenes.spec.ts",
+      "sha256": "5bc4f55b7a0f206c9acf53855aec109cab9c1cec8d876b96cbd3a8c4fd29b10f"
+    },
+    {
+      "path": "packages/renderer-webgpu/e2e/golden/w15-attribution.spec.ts",
+      "sha256": "88fef96f9628e58d5db632cd39b667e81438afce160e46b984a6b96e9d6eb19f"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/analysis.ts",
+      "sha256": "7354f9b2700c09d8a26a66091a94cb0e94884af6d4a24c46be5ebf8eda0680ff"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/backdrop-fit.ts",
+      "sha256": "1dfa57e0a20e6aab26e64400a26eb710fec3ef6ced4a37b608edb38681e64d54"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/backdrop.ts",
+      "sha256": "15c2a332b67c2393b34026b49bee6f866a59d7f958fdbd7842593af88c255a16"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/color.ts",
+      "sha256": "741ff49285659b10ffa15f079c23045114d9e1d392e5d8c19cace21a9118dc7a"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/device.ts",
+      "sha256": "196db857fa7070da666d5aa254c8e7ea8bf4ace299b4369b6a49d21e3a8391fa"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/errors.ts",
+      "sha256": "0d43be3782cf274f995a0fb15efc12967753259c350937763b1c751d7298b510"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/governor.ts",
+      "sha256": "92ce3c2332f08584415448ba515474cfd03536eeffbeed28b1118aaaaf544ff5"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/gpu-context.ts",
+      "sha256": "e258c382774107049c9380e6be5db008bdfd51ff59a83054f8f098aa264403aa"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/index.ts",
+      "sha256": "71a683e5875f4b3d04f6d6281aba423d122d6650f05193679ead8b82898250da"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/instances.ts",
+      "sha256": "474733181df23d8a421def4c8c3c3efa31a429f00e0d5498319aea34568fb3d2"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/material.ts",
+      "sha256": "64168ea938cdb57462151c174d6a39b3ef2c6fe0e92d4a3c1d9cf2f77bd2c22d"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/passes.ts",
+      "sha256": "ad288d8d86b9bc00acc5f4d7ded441d30d7409dcc39943ccdb895f6e806f80a3"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/pipeline-cache.ts",
+      "sha256": "ba6c401286cf1dd8bacb7c0366b7ae381ff88061c7e932d344b0c3a5018d1dcf"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/pyramid-plan.ts",
+      "sha256": "ad051a77663bae7116a065b994a4164d1bced0b0a45ea592fa0957d2a3314ac2"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/pyramid.ts",
+      "sha256": "4200b190bbe7f2bbc4285973bbaeb1647510963d91bb34750865bdb1e193fa93"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/rebuild-ledger.ts",
+      "sha256": "78cf7c30e45076acfae498da9baff073b14f9d96c0c2b315b196ef6017e73886"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/render-model.ts",
+      "sha256": "2edca16d4d7e92bac6443eeb14d77b12028fb3036aea21e4e3c4ce1a67a552ec"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/renderer.ts",
+      "sha256": "478c95f3df9b1bfc1521967884f45dffab33ed4151596e1b9f31d8e5718594ff"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/silhouette-tone.ts",
+      "sha256": "6c4ec82bd5efccef7afbc42345e1708d42767e83673c11d78ed645c29abe907e"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/texture-pool.ts",
+      "sha256": "b07f9ed551a3eeaa3000756d0aae3b5cb18eeef6e695706810fafae9482b85ee"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/timing.ts",
+      "sha256": "c88a2d9493f4985dfa92b4ea79b7d141fe81afe0a798f0fa0a754a32daf85226"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/wgsl/analysis.ts",
+      "sha256": "60d3a49228d446db683fbb76b463a0e64807bba61f9308bd8f58c5f6ca0e772a"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/wgsl/backdrop.ts",
+      "sha256": "676323120b90dbcd8bfe7176d33a48e6dc3d94782b5310b6507dec406f035c66"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/wgsl/cross-check.ts",
+      "sha256": "fa4904c1f5e02e7cc67ee0bcb6cb4d5d4a6b070a75c13dacf2bcfdb5e616b500"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/wgsl/field.ts",
+      "sha256": "2c18f5eb405db0795460ed872ce8dfd6ff2ea4cc9baf69b55ffa5f3d834a9a1c"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/wgsl/highlight.ts",
+      "sha256": "917fc0dbecd3aa2036f6204ba92d304e8187ed9a24eeeb1cd206ce3c99b8831c"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/wgsl/index.ts",
+      "sha256": "e2d9185d7f1785b2b5eeda13dd8a26ee116bc3915ff2dbdc97de80b6ff535073"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/wgsl/optics.ts",
+      "sha256": "ef762dd1348a7c8e89615ad024b19b2f815d317d723007ba0d80accc97d387a1"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/wgsl/prelude.ts",
+      "sha256": "beb2fb3c03c61e00f6a24d1c1dee55c22b63830dc415e1e95d34a43a6e8981f6"
+    },
+    {
+      "path": "packages/renderer-webgpu/src/wgsl/silhouette-tone.ts",
+      "sha256": "65e66f70d2ce855b69173c260de7b870e3e3c97c175abe2043fad8adb65a7c56"
+    }
+  ],
+  "boundSets": {
+    "PREDICATE_EXCLUDES": {
+      "sha256": "67c70bb88951b3abc50a2bcfa6e48eb347eb5f7c9a1cb347150557df49220bfd",
+      "unchanged": true
+    },
+    "MISSED_27_ROWS": {
+      "sha256": "a396f6a9bb12b18c043ec7206a9a486a1c87c7e4d614702b1a6096a49973cc25",
+      "unchanged": true
+    }
+  },
+  "sealedDocuments": {
+    "apple-macos-27.0-1x-light-standard-glass0.5.json": {
+      "beforeDigest": "dcbccbd9feac9881",
+      "beforeFullDigest": "dcbccbd9feac9881bceca0e80f8a07ddf7a67b2d43fa21c58b7b8bc397bf8516",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "fullDigest": "be13dae45098fc8929a7b92d26e09a0369047ed18d370e96cea97ecbc6bda36f",
+      "beforeFileSha256": "6e509c7f76cc1a70e405f66b1d22833d1bdf2f4ae5830cc9b02a0a719585c337",
+      "fileSha256": "85ad7f7e3e0d6cb61de88c43bb2e48d78c1fa6779dbb85c627a3676d7fa04936",
+      "black": {
+        "backdropToneBlackStrength": 1,
+        "backdropToneBlackThin": 0.23074004852434915,
+        "backdropToneBlackThick": 0.23074004852434915
+      }
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5-receded.json": {
+      "beforeDigest": "f34dcc03e2774db3",
+      "beforeFullDigest": "f34dcc03e2774db385d233458fb9d62f38beffa52ffba4c800aad435ae676fc4",
+      "resolvedMaterialSha256": "b0d0d8dacc6a03af",
+      "fullDigest": "b0d0d8dacc6a03af8017d0d9a4cec3486bfd95b09c93280a2d2643cf8d0d6c09",
+      "beforeFileSha256": "45acb6d916b9a37977f0b667d15e8e740b12c2d68485734ea8b324ad7f30c179",
+      "fileSha256": "30fbe05986aea1c3f84f1055825b3bba65ef8d7cc3a9d1a44934b6eae56705bd",
+      "black": {
+        "backdropToneBlackStrength": 1,
+        "backdropToneBlackThin": 0.23455058216100522,
+        "backdropToneBlackThick": 0.23455058216100522
+      }
+    },
+    "apple-macos-27.0-1x-dark-standard-glass0.5.json": {
+      "beforeDigest": "e59f9106bcd7c966",
+      "beforeFullDigest": "e59f9106bcd7c966f12b0418d3e6e6c5ba9982eab22c36a93fd6d260abd49d5c",
+      "resolvedMaterialSha256": "2a4323f33df8d799",
+      "fullDigest": "2a4323f33df8d7992d2e49ac2481c4c4be1bb172a84d3d28da8e428fc09ce384",
+      "beforeFileSha256": "eab099cc66988264e5d13ee4c3a554217eb18d1bd17ba043b7d4e7873566e63b",
+      "fileSha256": "0eac5b294cc235e2ba03841472211e63f85d36258a20951bef6f974931cda445",
+      "black": {
+        "backdropToneBlackStrength": 1,
+        "backdropToneBlackThin": 0.014443843596092545,
+        "backdropToneBlackThick": 0.014443843596092545
+      }
+    },
+    "apple-macos-27.0-1x-dark-standard-glass0.5-receded.json": {
+      "beforeDigest": "6b6237b7ae241638",
+      "beforeFullDigest": "6b6237b7ae241638851192d165ddff03bdd40660ea805a3457f0211d11624831",
+      "resolvedMaterialSha256": "7c454858a3cbad5b",
+      "fullDigest": "7c454858a3cbad5b85f9389e3cb43aad96f3a52a3c1e83e16e3024af883e5a0e",
+      "beforeFileSha256": "4e68f81869f6328c9f995be042cca593fdf91f25a8b22ac9c27f38b110f68656",
+      "fileSha256": "5cec8c9612012a8988e37ee51a80bcc8de35b306f6f8464d596dfdbbdbcef0d2",
+      "black": {
+        "backdropToneBlackStrength": 1,
+        "backdropToneBlackThin": 0.006995410187265387,
+        "backdropToneBlackThick": 0.006995410187265387
+      }
+    }
+  },
+  "m2": {
+    "referenceGeneration": {
+      "dark": {
+        "activeDocumentSha256": "eab099cc6698",
+        "file": "eab099cc6698.json"
+      },
+      "light": {
+        "activeDocumentSha256": "6e509c7f76cc",
+        "file": "6e509c7f76cc.json"
+      }
+    },
+    "cells": [
+      {
+        "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+        "scene": "photo__capsule-button__inactive",
+        "w31PreFit": 0.009852494148753393,
+        "waveReference": 0.010046151126749121,
+        "value": 0.010046151126749121,
+        "perWave": 0.0,
+        "cumulative": 0.01965562984071714,
+        "passStop": true
+      },
+      {
+        "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+        "scene": "photo__capsule-button__rest",
+        "w31PreFit": 0.020337332305618454,
+        "waveReference": 0.020524781721532197,
+        "value": 0.020524781721532197,
+        "perWave": 0.0,
+        "cumulative": 0.009217011016826348,
+        "passStop": true
+      },
+      {
+        "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+        "scene": "photo__rrect-md__inactive",
+        "w31PreFit": 0.009456690639081762,
+        "waveReference": 0.00955206126690363,
+        "value": 0.00955206126690363,
+        "perWave": 0.0,
+        "cumulative": 0.010084989713814801,
+        "passStop": true
+      },
+      {
+        "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+        "scene": "photo__rrect-md__rest",
+        "w31PreFit": 0.0159967786246052,
+        "waveReference": 0.016057311759412985,
+        "value": 0.016057311759412985,
+        "perWave": 0.0,
+        "cumulative": 0.0037840827974375026,
+        "passStop": true
+      },
+      {
+        "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+        "scene": "photo__capsule-button__inactive",
+        "w31PreFit": 0.03594194320615711,
+        "waveReference": 0.035814758339236454,
+        "value": 0.035814758339236454,
+        "perWave": 0.0,
+        "cumulative": -0.0035386196620239515,
+        "passStop": true
+      },
+      {
+        "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+        "scene": "photo__capsule-button__rest",
+        "w31PreFit": 0.03960363910570759,
+        "waveReference": 0.03949793485110859,
+        "value": 0.03949793485110859,
+        "perWave": 0.0,
+        "cumulative": -0.002669054081541862,
+        "passStop": true
+      },
+      {
+        "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+        "scene": "photo__rrect-md__inactive",
+        "w31PreFit": 0.04438009279727724,
+        "waveReference": 0.044295876435910625,
+        "value": 0.044295876435910625,
+        "perWave": 0.0,
+        "cumulative": -0.001897615711425056,
+        "passStop": true
+      },
+      {
+        "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+        "scene": "photo__rrect-md__rest",
+        "w31PreFit": 0.04860129916844631,
+        "waveReference": 0.04851896296762562,
+        "value": 0.04851896296762562,
+        "perWave": 0.0,
+        "cumulative": -0.0016941152238611613,
+        "passStop": true
+      },
+      {
+        "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+        "scene": "photo__rrect-ml__rest",
+        "w31PreFit": 0.05529322287954205,
+        "waveReference": 0.05525519724086033,
+        "value": 0.05525519724086033,
+        "perWave": 0.0,
+        "cumulative": -0.0006877088493206961,
+        "passStop": true
+      },
+      {
+        "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+        "scene": "photo__rrect-sm__inactive",
+        "w31PreFit": 0.01867218118188696,
+        "waveReference": 0.018154066164487493,
+        "value": 0.018154066164487493,
+        "perWave": 0.0,
+        "cumulative": -0.02774796433006267,
+        "passStop": true
+      },
+      {
+        "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+        "scene": "photo__rrect-sm__rest",
+        "w31PreFit": 0.023445955450685042,
+        "waveReference": 0.023186734148722063,
+        "value": 0.023186734148722063,
+        "perWave": 0.0,
+        "cumulative": -0.01105612021264015,
+        "passStop": true
+      },
+      {
+        "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+        "scene": "photo__toolbar-group__inactive",
+        "w31PreFit": 0.06551392268437238,
+        "waveReference": 0.0652856423467612,
+        "value": 0.0652856423467612,
+        "perWave": 0.0,
+        "cumulative": -0.003484455338004667,
+        "passStop": true
+      },
+      {
+        "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+        "scene": "photo__toolbar-group__rest",
+        "w31PreFit": 0.07246841106870175,
+        "waveReference": 0.07226267579473558,
+        "value": 0.07226267579473558,
+        "perWave": 0.0,
+        "cumulative": -0.00283896488045151,
+        "passStop": true
+      },
+      {
+        "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+        "scene": "photo__capsule-button__inactive",
+        "w31PreFit": 0.009188730998895308,
+        "waveReference": 0.009295233816440217,
+        "value": 0.009295233816440217,
+        "perWave": 0.0,
+        "cumulative": 0.011590590426220326,
+        "passStop": true
+      },
+      {
+        "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+        "scene": "photo__capsule-button__rest",
+        "w31PreFit": 0.016789804575301936,
+        "waveReference": 0.016887410429379465,
+        "value": 0.016887410429379465,
+        "perWave": 0.0,
+        "cumulative": 0.005813400247737713,
+        "passStop": true
+      },
+      {
+        "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+        "scene": "photo__rrect-md__inactive",
+        "w31PreFit": 0.010441754653474815,
+        "waveReference": 0.010571607941888144,
+        "value": 0.010571607941888144,
+        "perWave": 0.0,
+        "cumulative": 0.012435964330010017,
+        "passStop": true
+      },
+      {
+        "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+        "scene": "photo__rrect-md__rest",
+        "w31PreFit": 0.014754598893968561,
+        "waveReference": 0.014835942443293908,
+        "value": 0.014835942443293908,
+        "perWave": 0.0,
+        "cumulative": 0.005513097977783633,
+        "passStop": true
+      },
+      {
+        "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+        "scene": "photo__capsule-button__inactive",
+        "w31PreFit": 0.038806346566297785,
+        "waveReference": 0.03875021243974247,
+        "value": 0.03875021243974247,
+        "perWave": 0.0,
+        "cumulative": -0.0014465192300288606,
+        "passStop": true
+      },
+      {
+        "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+        "scene": "photo__capsule-button__rest",
+        "w31PreFit": 0.03699818234368014,
+        "waveReference": 0.036968545938222776,
+        "value": 0.036968545938222776,
+        "perWave": 0.0,
+        "cumulative": -0.0008010232822268373,
+        "passStop": true
+      },
+      {
+        "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+        "scene": "photo__rrect-md__inactive",
+        "w31PreFit": 0.048358344703363636,
+        "waveReference": 0.04827811652577723,
+        "value": 0.04827811652577723,
+        "perWave": 0.0,
+        "cumulative": -0.001659034817641828,
+        "passStop": true
+      },
+      {
+        "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+        "scene": "photo__rrect-md__rest",
+        "w31PreFit": 0.04640075700573945,
+        "waveReference": 0.046353058409961234,
+        "value": 0.046353058409961234,
+        "perWave": 0.0,
+        "cumulative": -0.001027970206872212,
+        "passStop": true
+      },
+      {
+        "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+        "scene": "photo__rrect-ml__rest",
+        "w31PreFit": 0.05480790094860157,
+        "waveReference": 0.05479685617058988,
+        "value": 0.05479685617058988,
+        "perWave": 0.0,
+        "cumulative": -0.00020151798956959184,
+        "passStop": true
+      },
+      {
+        "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+        "scene": "photo__rrect-sm__inactive",
+        "w31PreFit": 0.017517925876061755,
+        "waveReference": 0.017222009406800687,
+        "value": 0.017222009406800687,
+        "perWave": 0.0,
+        "cumulative": -0.01689220923496643,
+        "passStop": true
+      },
+      {
+        "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+        "scene": "photo__rrect-sm__rest",
+        "w31PreFit": 0.019807895065761444,
+        "waveReference": 0.019610188535525652,
+        "value": 0.019610188535525652,
+        "perWave": 0.0,
+        "cumulative": -0.009981198384755858,
+        "passStop": true
+      },
+      {
+        "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+        "scene": "photo__toolbar-group__inactive",
+        "w31PreFit": 0.06918975077811848,
+        "waveReference": 0.06908933499847215,
+        "value": 0.06908933499847215,
+        "perWave": 0.0,
+        "cumulative": -0.0014513100353308842,
+        "passStop": true
+      },
+      {
+        "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+        "scene": "photo__toolbar-group__rest",
+        "w31PreFit": 0.06795920397958381,
+        "waveReference": 0.06788245681502367,
+        "value": 0.06788245681502367,
+        "perWave": 0.0,
+        "cumulative": -0.001129312294228778,
+        "passStop": true
+      }
+    ],
+    "cumulativeMin": -0.02774796433006267,
+    "cumulativeMax": 0.01965562984071714
+  }
+}
