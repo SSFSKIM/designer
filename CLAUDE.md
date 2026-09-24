@@ -175,18 +175,24 @@ regression floors and the conditioning predicate are enforced by
 machine's output, so a fidelity change usually moves that file too. That file's header argues the
 MATERIAL axis is not gateable on this fixture set, and since W31 it carries rows that are —
 `M1` on the body's chroma-to-structure ratio, `M2` on the structure it is read over, since W32
-`C1` on the outer shadow's exterior SHAPE per span, and since W33 `X1` on its native-black floor —
+`C1` on the outer shadow's exterior SHAPE per span, since W33 `X1` on its native-black floor, and since W36 `L1` on its fixed-native-silhouette
+mean level and growth against the pre-fit W33 generation —
 macOS 27 standard profiles and the WebGPU tier only, each with an amendment beside the header
 saying why it clears both of the argument's grounds.
 `C1`'s amendment also says why the sub-metric §6.1 calls unidentifiable is STILL not gated: the
 fitted-σ candidate was declared beside `C1`, halved by W32's fit and is outside its window on all
 twelve bed × span rows, so it stays a one-wave reading, and the adopted row is the one that reads
-the falloff's shape without fitting a σ to it. All four read a cut **regenerated at the gate that
-adopts them**. M1/M2/C1 are re-derived from `results/matrix.json`; X1 re-derives every pixel
+the falloff's shape without fitting a σ to it. All five read a cut **regenerated at the gate that
+adopts them**. M1/M2/C1/L1 are re-derived from `results/matrix.json` (L1 also reads its named
+superseded W33 baseline); X1 re-derives every pixel
 count from its matrix-named captures and reports UNMEASURED when that tree is absent. X1 covers
 218 non-holdout standard-profile single-shape cells in both poses, including probe-strength span
 160; composites and accessibility are declined. This is how a cut avoids becoming a frozen
-snapshot a bound can never fail against (claims §5.162 §9, §5.165 §1, §5.169 §1, §5.173).
+snapshot a bound can never fail against (claims §5.162 §9, §5.165 §1, §5.169 §1, §5.173, §5.180). L1 states 140 standard WebGPU
+calibration/validation rows without a conditioning drop: 136 measured, four dark inactive
+dark-solid means UNMEASURED, and two light inactive tinted-impulse misses at 0.066 against
+0.055. Growth is bounded at 0.005 even on those misses. W34's deep-median one-code tolerance
+is a separate fit-set referee, not a canonical adopted row.
 `M2` is a regression stop rather than a fidelity bound and its reference generation is
 **re-baselined at each gate that adopts a material change** (W32 Decision Log 4, ruled), so it
 bounds one wave's change and the cumulative drift is tabled in the ledger instead of bounded
@@ -251,6 +257,28 @@ light one — so `BODY_CHROMA_RETENTION` in `platform-web/src/optics.ts` is 0 wi
 beside it, and `tier-coherence.test.ts` pins it against the SHIPPED documents' retentions so a
 document that moves one re-opens the decline instead of inheriting it.
 
+**The macOS 27 black body is a separate low-end branch** (W36, §5.179–§5.180).
+The old authority fade is zero at black and falls back to `sizedAlpha * neutral` (181 light /
+60 dark codes at span 44); moving the old first knot cannot fix a solve with no authority.
+`backdropToneBlackStrength: 0` is an identity gate-group with `backdropToneBlackThin` and
+`backdropToneBlackThick`. At strength 1 it blends the old target toward those ordinates and
+the old authority toward 1 below encoded input 0.003, continuously rejoining the old solve
+before the lowest packed impulse input 0.00319488975. No Hermite slope above the join moves.
+The four macOS 27 endpoints read native black exactly at span 44: 132/133 light and 32/20
+dark (active/receded), both scales. Thin and thick are equal by declaration; thick black and
+the open interval below the join remain unidentified. The digests are `be13dae45098fc89` /
+`2a4323f33df8d799` active light/dark, `b0d0d8dacc6a03af` / `7c454858a3cbad5b` receded;
+the frozen 26.5 pair remains `b2b570e4adcea8fb` / `874be66ea501621b` at the identity gate.
+
+The grey middle and chroma are named misses, not included in that closure: the shared middle
+refit fails photo level-growth and M2, and a retention increase cannot jointly meet saturated
+solids and photo's M1 or supply the dark chromatic luma excess. Part B is unidentified, not a
+plate-mean operator awaiting implementation; censored channels are excluded from full-RGB
+inversion. The same-footprint receded colour-formula change was tested and declined on 16 L1
+growth and three M2 failures. CSS derives the branch but retains +1/+2 active-black codes from
+its combined boundary projection; its receded black is exact and its existing coherence and
+conditioning contracts remain. No rim, contour, middle or chroma leaf moved in this seal.
+
 **Two of the material's operators are functions of the surface rather than constants** (W30, claims
 §5.159). The outer shadow's blur is graded by the CASTING SPAN —
 `σ(span) = sigmaPx + max(sigmaThinOffsetPx, sigmaSlopePerSpan · (span − sigmaSpanRefPx))`,
@@ -304,8 +332,9 @@ the active pose Apple's body carries a one-CSS-px bright inner line, 24–53 cod
 body, that lifts the body's own saturated channels and is bright at vertical normals and faint at
 horizontal — not a white band along a diagonal axis, which is what vitrea's rim is — and the
 existing rim leaves cannot draw it (best 25–47 codes against one). It also read that the deep
-body's LEVEL misses by 28–49 codes on blacks and over 100 on saturated channels, which is the next
-wave (W36); the edge returns after it with a colour-conditioned angular law declared first. On the
+body's LEVEL misses by 28–49 codes on blacks and over 100 on saturated channels, which W36 then separated: the black fallback closes, while the middle and chroma remain
+named misses (§5.179–§5.180). The edge needs a re-charter with a colour-conditioned angular
+law declared first; that is not an implicit boundary fix in the black branch. On the
 CSS tier the
 window-activation transition therefore fades the shadow OUT, which is what the reference does;
 on the WebGPU tier the posed profile is swapped the instant the resolved

@@ -1214,3 +1214,20 @@ The composite floor is not silently included in the closure: G0's overlay-only b
 five base-surface pixels on four holdout cells. The union-box correction reads zero beside
 those preserved counts, while composites remain outside X1. Accessibility's ten cells also
 read zero but are outside the adopted row because the fold draws a material W33 did not change.
+
+
+### Re-scored 2026-09-24 after W36, beside the W33 reading
+
+W36's landing (§5.180) leaves **46 / 156, 29.5 %** unchanged. The body's existing
+backdrop-response capability is closer at uniform black, not a new API or native
+behaviour added to this inventory. §1.7's material-without-API-change qualification
+still has eight `MISSED_27_ROWS`; L1 separately records two absolute level misses and
+four unmeasured means on its broader two-pose population. Neither count replaces the other.
+
+The span-44 WebGPU black body now reads 132/133 light and 32/20 dark; the thick black
+ordinate equals thin by declaration, not measurement. §3.2's size-dependent behaviour
+remains `replicated+measured`, with that extrapolation explicit. The uniform-grey
+middle and saturated-colour/chroma gaps remain; no chroma operator was identified.
+§3.4's content-aware shadow and §3.5's light bleed remain `absent, undecided`: no shadow
+leaf moves here. W34/W35 identified boundary gaps but no shipping contour law, and W36
+adds none. The CSS branch's +1/+2-code active boundary residual remains measured.

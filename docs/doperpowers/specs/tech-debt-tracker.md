@@ -6196,3 +6196,24 @@ No holdout retry or fit follows it. Evidence: §5.179 `holdout-difference.json` 
 coordinates, before/after values, metadata and scalars. Future raster/projection work
 can investigate this on a declared non-holdout control; this tiny discrepancy does
 not justify spending the same frozen holdout again.
+
+
+### W36 G2 adoption closes the missing level gate, not its named gaps (2026-09-24)
+
+**Adopted, §5.180; W36 Decision Log 4 and clause 8.** The G0 paragraph above's
+“still not adopted” is its historical state. L1 now independently re-derives 140 rows
+from the live matrix and the named W33 superseded files: 136 measured, four dark
+inactive dark-solid means UNMEASURED, two light inactive orange-tinted impulse
+capsule misses 0.066016/0.066059 against 0.055, maximum growth 0 against 0.005.
+The two misses are not floored; all measured rows, including those misses, obey
+growth. Three scratch mutations prove the absolute, growth and unmeasured-count
+clauses fail. W34's deep-median tolerance is not adopted as a canonical row.
+
+G1 completed the broader CSS, tinted, exterior and conditioning readings that G0
+left unperformed; its qualified results remain §5.179's, not newly invented passes.
+M2 retains G1's W33 reference: 26 zero wave increments, cumulative drift
+−2.774796% to +1.965563% against W31. The middle/chroma diagnosis, declined receded
+formula, CSS boundary and probe residuals, five-pixel holdout anomaly, and unmeasured
+thick/near-black intervals above all remain open. The edge returns only under a new
+charter with its colour-conditioned angular form and joint body/structure prediction
+declared first; W36 has not silently authorised it or another native capture.
