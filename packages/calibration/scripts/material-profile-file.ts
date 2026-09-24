@@ -173,6 +173,10 @@ export const MATERIAL_PATCH_KEYS = new Set([
   "backdropToneResponseThin",
   "backdropToneResponseThick",
   "backdropToneResponseStrength",
+  // W36's identity-gated black branch and explicit per-endpoint ordinates (§5.179).
+  "backdropToneBlackStrength",
+  "backdropToneBlackThin",
+  "backdropToneBlackThick",
   // The outer shadow (W8, re-read by W14 G1). One key, FIFTEEN constants under
   // it — a nested block like `strongBorderRim`, so the cascade's fit lands as
   // `{ outerShadow: { … } }` and a sweep axis names a dotted leaf inside it

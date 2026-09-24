@@ -1,0 +1,31 @@
+
+ RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g1-black-branch/packages/calibration
+
+ ❯ test/capture-integrity.test.ts (20 tests | 1 failed | 19 skipped) 4ms
+     × admits the black branch tune without silently measuring the old fallback 3ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/capture-integrity.test.ts > the material profile document's key admission > admits the black branch tune without silently measuring the old fallback
+Error: --material-profile /var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/vitrea-profile-vDvwxX/profile.json names 3 key(s) the renderer's MaterialProfilePatch does not have: backdropToneBlackStrength, backdropToneBlackThin, backdropToneBlackThick. Applying it would have silently measured the defaults. Known keys: optics, adaptiveTintDark, adaptiveTintLight, adaptiveLuminanceLow, adaptiveLuminanceHigh, refractionScale, sizeSpanMin, sizeSpanMax, lensSizeGainMax, sizeScatterGainMax, sizeOcclusionGain, sizeShadowGainMax, sizeScatterFloor, sizeScatterSpanMax, sizeScatterGainMax2x, sizeScatterFloor2x, sizeScatterSpanMax2x, sizeScatterGainFar2x, sizeScatterRampStartThin1x, sizeScatterRampStartThick1x, sizeScatterRampStartThin2x, sizeScatterRampStartThick2x, sizeScatterRampStartFar1x, sizeScatterRampStartFar2x, sizeScatterRampReach1xPx, sizeScatterRampReach2xPx, sizeScatterHeavyShareThick1x, sizeScatterHeavyShareThick2x, sizeToneLevelFar, sizeHeavyTapSigma, sizeHeavyTapSigma2x, sizeHeavySecondSigma, sizeHeavySecondSigma2x, sizeHeavySecondShare, sizeScatterScaleGain, sizeScatterScaleRef, lensRefractionGain, lensHeightPerSpan, lensHeightMax, lensAmountPerSpan, lensAmountMax, lensThicknessReference, lensExtentGain, lensProfileExponent, lensOvalization, lensOvalizationSpanMin, lensOvalizationSpanMax, reducedTransparencyFrost, increasedOcclusionLift, increasedOcclusionLiftByPolicy, strongBorderRim, reducedTintAdaptation, tintShadeDark, tintShadeLight, tintShadeStrength, tintChromaScale, tintShadeCollapseRetention, backdropToneMax, backdropToneLow, backdropToneHigh, backdropToneSizeBias, collapseTransmission, collapseTransmission2x, bodyChromaRetention, rimCollapsed, rimCollapsedTinted, rimTintChroma, backdropToneAbscissa, backdropToneAnchorX, backdropToneResponseThin, backdropToneResponseThick, backdropToneResponseStrength, outerShadow, lightDirection, rimLitAxis, sweepBandRadians, glowRadiusCss, glowGain, sweepGain.
+ ❯ reject scripts/material-profile-file.ts:326:11
+    324|     const unknown = keys.filter((key) => !allowed.has(key));
+    325|     if (unknown.length === 0) return;
+    326|     throw new Error(
+       |           ^
+    327|       `--material-profile ${path} names ${unknown.length} key(s) ${sec…
+    328|         `${unknown.join(", ")}. Applying it would have silently measur…
+ ❯ readMaterialProfileFile scripts/material-profile-file.ts:332:3
+ ❯ test/capture-integrity.test.ts:93:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 19 skipped (20)
+   Start at  19:51:43
+   Duration  114ms (transform 27ms, setup 0ms, import 36ms, tests 4ms, environment 0ms)
+
+undefined
+/Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g1-black-branch/packages/calibration:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/capture-integrity.test.ts -t 'black branch'

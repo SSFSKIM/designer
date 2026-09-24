@@ -99,7 +99,7 @@ def render():
     rel=str((HERE.parent/'2026-09-24-w36-g0-level-cut/bounds-declaration.md').relative_to(ROOT))
     assert subprocess.check_output(['git','-C',str(ROOT),'show','HEAD:'+rel])==(HERE.parent/'2026-09-24-w36-g0-level-cut/bounds-declaration.md').read_bytes()
     for plan in json.loads((HERE/'candidate-plans.json').read_text()):
-        profile=plan['profile'];out=HERE/('price-'+profile+'.txt')
+        profile=plan['profile'];out=HERE/('price-admitted-'+profile+'.txt')
         if out.exists():raise RuntimeError('already attempted; no implicit retry')
         old.preflight('black-price-'+profile)
         with out.open('x') as f:
