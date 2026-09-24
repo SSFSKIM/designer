@@ -36976,3 +36976,259 @@ ruled the deep body's level the next wave. The cut, the guarded readers (calibra
 and probe admitted; holdout and recorded refused), the opaque-branch forward model, the W29
 reconciliation, the closure domain and the measured gaps stay committed as the starting evidence
 for the edge's re-charter after the level wave.
+
+
+## 5.178 W36 G0: the level cut reproduced, its stops frozen, and the shared-shift trial refused (2026-09-24)
+
+**Completion: DELIVERED FOR REVIEW; the candidate is NOT fit to ship.** Clauses 1–6,
+X1–X14; branch `w36-g0-level-cut`, from `d22b9f48`. Evidence:
+`packages/calibration/results/2026-09-24-w36-g0-level-cut/`. No runtime, profile,
+fixture, canonical matrix or scene changed. Decision Logs 1, 2 and 4 remain drafts
+for the parent, and G1 must not open on the failed candidate below.
+
+### 1. Access, generation and the reproduced level
+
+The main checkout's canonical checker reports **1,900 captures, 1,893 match,
+seven no-row, zero mismatch/misfiled/superseded/unreadable**. A no-row capture is
+not thereby matched. Native W34 pixels pass through W35's unchanged guarded
+readers, canonical pixels through its separate canonical guard. Both holdouts
+remain refused. Canonical `hc-text__rrect-md__rest/inactive` are HOLDOUT, so the
+brief's requested text comparison cannot be made: `hc-text-7__rrect-md__rest`
+is the separately named PROBE diagnostic, not a renamed holdout or a validation
+cell. `prelaunch-corrections.txt` corrects the first declaration's role wording.
+
+`cut.py` recomputes **336 deep medians**, with **104 circular solid cells** in
+the cross-product of thirteen colours/greys, four scheme/pose endpoints and two
+scales. All 104 agree with W35; both scales agree. The estimator is the
+per-channel median at **d <= -6 CSS px**, never the old device-pixel domain.
+Per-channel encoded and linear residuals and the unshrunk native min/max are
+kept. `deep-median-bars.json` separately replays all **120 admitted grey cells**,
+seven normal observations each: maximum deep-MEDIAN repeat bar **0**. W35's
+**0.5-code** maximum was a shell statistic, not this median's bar. Zero observed
+spread is not zero uncertainty; the declared tolerance remains **max(1,bar)**.
+
+| grey | light active native/web | light inactive | dark active | dark inactive |
+| --- | --- | --- | --- | --- |
+| 0 | 132/181 | 133/181 | 32/60 | 20/60 |
+| 32 | 148/148 | 147/147 | 62/59 | 52/42 |
+| 64 | 164/169 | 161/165 | 89/82 | 80/77 |
+| 96, validation | 179/187 | 175/178 | 113/108 | 106/105 |
+| 128 | 195/203 | 188/192 | 134/127 | 127/126 |
+| 160 | 210/217 | 202/205 | 151/144 | 146/142 |
+| 255 | 253/248 | 240/235 | 184/180 | 180/177 |
+
+The canonical centre-box reading (inset16 CSS px, not the W34 distance median)
+has **39 admitted cells**, 15 without canonical web captures. Missing web is
+not filled from another generation. It reproduces light dark-solid148/150 and
+dark57/52; dark inactive48/33, both scales. Every admitted 27 mid-chroma cell is
+censored. The frozen26.5 dark inactive mid-chroma control reads native146/9/174,
+web79/25/95: **-67/+16/-79**, unchanged and not a W36 fit target.
+
+### 2. Black is a missing authority domain; the middle is a different problem
+
+The shipped Hermite response at the actual abscissae reconstructs **48/48**
+non-black1x medians within **0.485342 code**. This includes a forward diagnostic
+of encoded censored output, not reuse of that cell for a full-RGB inversion.
+At span44, sizeK **0.09228515625** and the response's thick-row weight
+**0.0239777478855**; the fallback is `sizedAlpha * neutral`, giving
+**181.072910 / 181.072910 / 59.888529 / 59.546986** codes in light active,
+light inactive, dark active, dark inactive order. The measured web medians are
+181/181/60/60. The black miss is therefore explained, not fitted by a new curve.
+
+Authority1 alone predicts **127.673483 / 112.703445 / 53.218201 / 0** against
+native132/133/32/20: **-4.326518 / -20.296555 / +21.218201 / -20**. W9's fade
+preserved impulse-domain behaviour while its response was extrapolating below
+the darkest solid anchor (§5.34); it is **not** a guard against log(0), division
+by backdrop luminance or the collapse denominator. Alpha and collapse have
+separate guards. A black knot must specify a finite level, join the first knot,
+not divide by black backdrop Y, and retain the old branch exactly at identity.
+The dark-recede impulse floor of §5.154 remains a plausible related mechanism,
+not a claim that this uniform-black derivation identifies that structured cell.
+
+At knot3, native-grey interpolation against the shipped thin ordinate gives
+**+0.05079965 / +0.02011653 / -0.02073780 / -0.00288596 linear** in the same
+endpoint order. The light-active middle sits where photo put it, not where
+uniform grey does. Native neutral checkerboard/capsule reads194 against grey128
+195 in light and131/131.5/131 against134 in dark: roughly1–3 codes, with the
+per-channel half-code kept rather than rounded into one G-channel headline.
+Photo's native/web deep chroma reads **0.0562/0.0383 light active** and
+**0.0790/0.0267 dark active**; inactive0.0579/0.0455 and0.0757/0.0152. Structure
+alone and chromatic photo are not interchangeable evidence about one tone curve.
+
+### 3. Chroma, censoring and the corrected M1 arithmetic
+
+A median channel at255 on either side is excluded from fitting; ANY such
+channel excludes the **whole cell** from full-RGB luminance, hue or retention
+inversion. Deleting the clipped component cannot reconstruct Y. Named circular
+censors, at both scales: light red/blue/magenta in both poses, dark active blue
+(**14 cells**). The canonical table separately names its clipped channels,
+including all six admitted27 mid-chroma cells; no clipped Y reaches the fit.
+
+Uncensored native implied chromaticity retention is **0.8638–0.9158 light
+active, 0.8786–0.9315 light inactive, 0.9636–1.0215 dark active,
+0.9501–1.0260 dark inactive**. Native hue differs by at most **0.85 degrees**
+on this uncensored population. Inverting the shader coefficient correctly,
+`q_out = q_base + (1-q_base)*r`, gives required operator ranges
+**0.819–0.882 / 0.812–0.887 / 0.961–1.025 / 0.941–1.031**. Above1 is an
+unreachable reading for this operator, not a value silently clamped into a fit.
+The conversion uses the current uncensored web q and shipped r to recover
+q_base; it is not a new-tone measurement.
+
+W31's secant is multiplicative, **R(r)=R0*(1+k*r)**. Recomputing k from its
+before/probe pair gives R at operator .9/.9/1/1 of **1.9848 / 1.76938 /
+2.31774545 / 3.5216**, correcting the memo's2.8/4.9. At each cell's converted
+r, the endpoint ranges are **1.855–1.957 / 1.647–1.752 / 2.240–2.368 /
+3.349–3.613**. All are extrapolations from the **old tone configuration**, not
+measurements or a joint prediction proven at Part A's candidate tone.
+
+Dark native chromatic luma exceeds interpolation of its native grey curve by
+about0.013–0.063 linear. Full retention at that luma misses dominant channels:
+the memo's linear-Y interpolation reproduces up to **27.9 codes** (inactive
+magenta); interpolation in the response's encoded abscissa gives up to26.4.
+Minor channels can overshoot, so “5–28 brighter” is not a statement about every
+RGB channel. `darkExcess` carries both interpolants beside the native observation.
+This is evidence against the tested luminance-only interpolants, not proof that
+no conceivable luminance-indexed function could overfit these finite samples.
+
+**Decision Log1 draft: Part B UNIDENTIFIED.** Retention alone fails the old-tone
+M1 diagnostic, some solids require r>1, and luma-preserving retention cannot
+supply the dark excess. None establishes a plate-mean term. No such operator is
+nominated, no joint new-tone prediction is claimed, and no Part B leaf enters
+G1 without a separately defined operator meeting solids AND photo at that tone.
+
+### 4. The receded formula, not its domain
+
+Both formulas are evaluated on the **same W28 circular silhouette**:
+`mean(encode(dot(linearRGB,W)))` versus `mean(dot(encodedRGB,W))`. They are
+identical on greys; the latter reads red **0.1274** and magenta **0.1330** low.
+On the uncensored receded light colours, old/new native-grey-curve luma errors
+are green **-0.0926/-0.0380**, yellow **-0.0249/-0.0089**, cyan
+**-0.0754/-0.0312**. Dark red **-0.1076/-0.0429**, magenta
+**-0.1250/-0.0555**: sum-linear-then-encode is closer, but does not close.
+
+**Decision Log2 draft:** keep W28's measured footprint locality (the source-mean
+hc-text0.710 versus0.548 discriminator is not undone). Nominate the per-pixel
+linear-luma-then-encode FORMULA on that domain for G1's independently checked
+structured regression, not a source-domain switch. The solids do not certify a
+new structured-footprint formula or explain the residual chromatic luma.
+
+### 5. L1 is frozen before the fit, and is not W34's deep median
+
+`bounds-declaration.md` was committed at `97238f01` before fitting/rendering.
+L1 is **140 canonical calibration/validation rows**, standard27 WebGPU,
+both schemes/scales, tints/composites included, no conditioning-predicate drop.
+There are **136 measured** and four missing material means: dark inactive
+dark-solid capsule-button/rrect-md at both scales. Missing is UNMEASURED, not a
+pass. Exact population, metric fields and generation are machine-readable.
+
+Estimator: absolute difference of the mean linear luminances on the fixed
+NATIVE silhouette bounded to the declared region. Bound **0.055**, growth
+**0.005** from pre-W36 W33: light active/receded **6e509c7f76cc/45acb6d916b9**,
+dark **eab099cc6698/4e68f81869f6**. Those are today's working rows; G1's split
+will put them at `results/superseded/6e509c7f76cc.json` and `eab099cc6698.json`.
+The committed non-holdout baseline pins them now, and the test reads those
+named files after the split. An already-superseded W32 baseline would measure
+a different wave's cumulative growth and is not silently substituted.
+
+Two current misses remain named, not floored: light1x/2x
+`impulse__capsule-button__inactive-tint-orange`, **0.066016126 / 0.066058940**.
+Growth applies to them too. Probes stay diagnostic, not quietly added to make
+“all interiors” sound broader: they already reach0.192. W34's separate
+per-channel deep-median tolerance is **max(1 code, observed median bar)** with
+population>=4; grey96 and continuous160 are untouched validation. Thick black
+has no measured anchor and its proposed shared level is extrapolation.
+
+**Decision Log4 draft:** adopt this population and estimator, unchanged bounds,
+named missing/missed rows and baseline; do not call it a universal level pass.
+The amendment beside the declared contract answers the MATERIAL-axis header:
+level is directly identifiable on a fixed native mask, not a fitted blur sigma;
+black28–49 and grey up to10 code misses are above the repeat bar, while0.055 is
+larger than a single code's linear quantisation even at white. Native comparison
+and baseline were fixed before the fit, so the future adoption is not self-referential.
+
+### 6. Identifiable parameters and the actual scratch trial
+
+The trial fits **three shared thin/thick ordinate shifts** at existing knots2–4
+per endpoint, least squares in linear light on calibration greys and admitted
+canonical neutral anchors. The Jacobian has rank3 at each solution. Knot1,
+abscissae, all thin-minus-thick differences and all other material leaves are
+frozen. This is a constrained hypothesis, not four independent thick ordinates:
+span44 carries only0.02398 thick weight; dark canonical light-solid/rrect-md is
+absent from the declared profile, and no canonical thick black exists.
+
+The corrected shifts (knots2/3/4) are light active
+**-0.00267039/-0.05746733/+0.01399653**, light inactive
+**-0.00054782/-0.02947207/+0.02139225**, dark active
+**+0.00308332/+0.02420343/+0.02350114**, dark inactive
+**+0.00641014/+0.00491686/+0.01776916**. An initial, unrendered trial selected
+scheme over the whole cell string, admitting light mid-dark-solid to dark;
+its invalid arithmetic is retained separately, the selector now uses PROFILE
+only, and a test catches that alias. Validation never became an objective term.
+
+Four X6 launches, **64 deterministic Apple/Metal-3 captures**:40 W34 greys and
+24 canonical structured cells. Only the existing response rows are tuned.
+Black cannot be rendered without the proposed leaf and remains the fallback.
+**24/32 non-black grey cells pass1 code**; eight failures are dark-active grey64
+-2, light-inactive grey96 -2, light-active white -4, light-inactive white -3,
+each at both scales. Eight black cells remain out. All inactive grey deep spreads
+are0. No thick-validation candidate claim is made.
+
+**The structured cost refuses the candidate.** Twelve of24 structured cells
+break level growth. Light photo/rrect-md grows **0.029367/0.029717** at1x
+active/inactive, **0.033706/0.029748** at2x, against0.005. Light active
+checkerboard grows0.053818/0.055054; its2x absolute miss0.055861 also breaks
+0.055. Dark active photo's level improves but its structure changes
+**+4.1296% / +3.1398%**, outside M2's2%. The eight rendered photo M1 ratios
+remain0.86346–1.10829, not a claim about the full M1 cohort. Text probe and
+light impulse meet the subset level stops. The trial disproves this shared-shift
+family, **not every possible uniform response**; a global impossibility claim
+would exceed the search performed. G1 needs a ruling, not a widened photo stop.
+
+### 7. Identity, exterior and the unperformed work
+
+Proposed flat gate **backdropToneBlackStrength=0**, gating flat
+**backdropToneBlackLevel**. At0 execute today's authority/response branch exactly;
+at1 use full authority and a segment from(0,blackLevel) to the first existing
+knot, then the old response. Shared across thickness is a named extrapolation.
+`identity-proof.ts`, extending rule2 only in memory and sweeping the gated
+level, preserves **b2b570e4adcea8fb / 874be66ea501621b** and all four27 digests
+**dcbccbd9feac9881 / f34dcc03e2774db3 / e59f9106bcd7c966 / 6b6237b7ae241638**.
+The recorded JSON is authoritative for these digests. G1 must append the
+literal identity in `w31-identity-table.test.ts`, the named gate-group
+`inertLawCase`, and a drawn identity/on-state case; no unimplemented shader
+identity is claimed by this arithmetic proof.
+
+Exterior check: **2,866,176 pixels** on24 cells, >=3 CSS px outside BOTH fixed
+native and declared silhouettes; **zero changed bytes**, including
+**1,052,658 native-and-backdrop-black pixels, zero candidate nonzero**.
+This is a subset witness for expected C1/X1 identity, not their regenerated full
+cuts. B1 leaves are unchanged. Tinted shade remains a current-matrix read and
+an unperformed candidate check; full predicate/per-cell/MISSED_27_ROWS and CSS
+coherence are not re-adopted on a refused subset trial. The same black gate and
+segment must be derived in CSS; re-read its chroma decline at the changed plate
+alpha with authored saturation1.8/1.4 held and L1/M2/coherence enforced.
+
+Opening isolation **17/17**, plus four scratch launches; every X6 preflight
+records RT0, IC0, slider0.5, Show Borders0, foreign process count0, idle at least
+31,895.513 seconds. One1x-light comparer returns1 on native grey255's zero-length
+curvature contour; the deterministic capture is retained, not retried. Scratch
+pixels live under `~/vitrea-w36/scratch/part-a-shared-shifts/`, not canonical.
+The unamplified native/shipped/candidate photo triptychs were inspected: the
+light candidate is darker without closing chroma; dark becomes brighter but
+remains markedly greyer than native. The contour gap persists outside this fit.
+
+### 8. What this gate does not claim
+
+No Part A closure, global impossibility result, Part B operator, material change,
+CSS measurement, thick-black observation, full-cohort M1/M2/C1/X1 adoption,
+tinted candidate test, holdout read or native capture. The pre-fit declarations
+and actual failed readings remain beside one another. The next decision is
+whether to narrow/re-form Part A under unchanged stops, not whether to quietly
+seal this candidate. Independent review and the parent's Decision Logs precede
+any G1 work.
+
+
+**Close checks:** `pnpm --filter @vitrea/calibration test` reports **46 files,
+673 passed, one skipped**; `freeze.py verify` reports **1,818 intact**. The new
+W36 suite contributes eight checks. No independent review was dispatched by
+this worker; the parent owns that next gate.

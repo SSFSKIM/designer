@@ -1,6 +1,6 @@
 /** W36 G0: proposed rule-2 append in memory, before any runtime leaf (§5.178, X13). */
 import { createHash } from "node:crypto";
-import { readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import {
   DEFAULT_MATERIAL_PROFILE, withMaterialOverrides, materialDigestInput,
@@ -9,6 +9,9 @@ import {
 } from "@vitrea/renderer-webgpu";
 
 const here = import.meta.dirname;
+for (const name of ["identity-proof.json", "resolved-materials.json"]) {
+  if (existsSync(resolve(here, name))) throw new Error(`Refuse to overwrite recorded ${name}`);
+}
 const read = (name: string) => JSON.parse(readFileSync(resolve(here, "../../profiles", `${name}.json`), "utf8"));
 const canonical = (v: unknown): unknown => Array.isArray(v) ? v.map(canonical)
   : v !== null && typeof v === "object" ? Object.fromEntries(Object.entries(v)
