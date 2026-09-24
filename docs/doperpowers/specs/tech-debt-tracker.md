@@ -4428,6 +4428,16 @@ documents `d5bdd6eac432` (light) / `431cabd391c4` (dark), the pixels the rows no
 `results/superseded/d5bdd6eac432.json` and `431cabd391c4.json` were measured off — moved to
 `web-captures-superseded/<sha>/` beside W32's pair. The sidecar now holds four generations.
 
+**Merge record 2026-09-24 (W36 G1's merge, `daae2cb4`).** Same rule, third time: the worktree's
+`packages/calibration/web-captures/` (the six macOS 27 profile directories, 786 rows read at the
+sealed documents — light active file `85ad7f7e3e0d`, light receded `30fbe05986ae`, and their dark
+pair) copied to the canonical path; the replaced W33 generation moved to
+`web-captures-superseded/6e509c7f76cc/` (the four light-keyed profile directories) and
+`web-captures-superseded/eab099cc6698/` (the two dark-keyed), named by the active document exactly
+as the retired matrix rows are in `results/superseded/`; the six frozen macOS 26.5 directories
+untouched; `check-capture-tree` on the canonical tree afterwards: 1,900 captures, 1,893 match,
+0 mismatch, 0 misfiled, 7 no-row.
+
 ---
 
 ## A retention conditioned on the SURFACE is the operator's next form, and the same defect already shipped once as a policy bug (W31 G4, 2026-09-21)
