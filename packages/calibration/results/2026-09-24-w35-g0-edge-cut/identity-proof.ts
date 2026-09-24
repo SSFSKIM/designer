@@ -1,6 +1,6 @@
 /** W35 G0a, before any shader code: extend rule 2 in memory, never the material (§5.177). */
 import { createHash } from "node:crypto";
-import { readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import {
   DEFAULT_MATERIAL_PROFILE, withMaterialOverrides, materialDigestInput,
@@ -8,6 +8,9 @@ import {
 } from "@vitrea/renderer-webgpu";
 
 const here = import.meta.dirname;
+if (existsSync(resolve(here, "identity-proof.json"))) {
+  throw new Error("Refuse to overwrite the recorded identity proof; replay in a fresh evidence copy");
+}
 const profiles = resolve(here, "../../profiles");
 const read = (name: string) => JSON.parse(readFileSync(resolve(profiles, `${name}.json`), "utf8"));
 const canonical = (v: unknown): unknown => Array.isArray(v) ? v.map(canonical)

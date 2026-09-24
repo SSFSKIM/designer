@@ -5996,3 +5996,70 @@ positive capture check on BOTH bundles. **Shape of the work:** a native wave tha
 bundles (a canonical recapture beside a probe bed) plans the switches into its runbook and its
 price; a test of whether a Developer ID signature changes the behaviour is a separate, small
 experiment nobody has run.
+
+---
+
+## W35 G0a: the body-boundary law is not yet transferable, and a positive radial ramp alone is insufficient (2026-09-24)
+
+Evidence: c9a §5.177 §§3–6; `results/2026-09-24-w35-g0-edge-cut/`.
+The native grey128 line is one bright row at1x and two at2x (+24/+30 and
++18,+31 / +22,+39 codes in light/dark), above a shallow rise. The frozen-domain
+existing-leaf candidates fail at25.50/33.75/36.00/46.57 codes; even straight-only
+maxima are5–9.85 against1. These are the best tested finite-grid nominees, not a
+proof against all legal parameters. Native whole nominal-body arc response differs
+strongly from the inherited diagonal lit law, and scalar affine added-white light
+cannot explain the chromatic validation response (dark cyan18/186/186→19/233/233).
+A positive second ramp cannot by itself remove the tested bright arc overshoots.
+
+The runtime forward model checks its own web pixels to<.88 code and synthetic
+pre-composition interventions recover, but the native pre-rim field/ramp ownership
+is not identified. Coefficient transfer is stopped; E1 is not adoptable and no G0b
+operator is selected. Closing work needs a bounded model declaration for radial,
+angular and chromatic boundary response, retaining the baseline/coverage uncertainty,
+then actual prototype discrimination within an explicitly authorised operator budget.
+Do not narrow the frozen arc domain after seeing these misses.
+
+## W35 G0a: the uniform body's level/chroma gap extends beyond the memo's selected examples (2026-09-24)
+
+c9a §5.177 §3; `level-table.json` reads every non-holdout circular solid. Web−native
+is+49 codes over light black and+28 over dark black at both scales. Active saturated
+channel misses reach+111 (dark yellow's blue); inactive reaches−144 (dark blue's
+blue). The2x dark-red deep median is242/50/50 against160/90/90, while the previously
+quoted239/51/51 is correctly reproduced at shell−12, a different estimand.
+
+No tone/chroma leaf moved. A separate level/chroma wave is Decision Log2's user
+choice. It should fit native level and colour controls across the full range rather
+than allowing a boundary amplitude to compensate through g*(L_web−L_native).
+
+## W35 G0a: the eroded M2 reading is complete for the current generation, not the old shadow before/after pair (2026-09-24)
+
+Follow-up to the W32 contour-ring hypothesis above; c9a §5.177 §7 and
+`m2-gated-attribution.json`. All26 M2 cells reproduce their un-eroded matrix values
+to<1e−12 and are re-read at1/2/3-device-pixel erosions. Dark photo/capsule active
+std-dev falls60.03%/48.43% after1 px at1x/2x,68.37%/58.00% after3 px. Some light
+cells rise. Erosion changes both population and mean: this is sensitivity, not an
+additive ring variance or proof that the outer shadow alone caused W32's miss.
+
+The historical hypothesis still needs the same erosion at BOTH named generations.
+Nor is erosion a prediction of the change from a correct future edge. Keep the2%
+stop and pre-W35 reference until a viable candidate gives its actual delta; DL3
+contains that unruled recommendation, not a mask change or waiver.
+
+## W35 G0a: canonical diagnostic availability and a CSS representation limit remain explicit (2026-09-24)
+
+c9a §5.177 §§4,8. `mid-light-solid__rrect-md__rest` is not a canonical scene;
+dark light-solid/mid-chroma rrect-md are absent from those profile memberships.
+Several admitted native probe solids have no canonical WebGPU capture. No other
+cell or superseded generation was substituted. Reproduce them only in a separately
+authorised diagnostic capture, never by silently expanding a canonical read.
+
+One CSS px inset atDPR2 has one output over its two full straight rows; native light
+grey128's213/226 imposes a6.5-code minimax lower bound and dark156/173 an8.5-code
+bound. That analytic limit is not a rendered CSS decline. A viable later model must
+derive, render and measure its CSS projection and pin any decline to adopted bytes.
+
+Source-prose follow-up for the boundary owner: the inherited inner-shadow comment in
+`renderer-webgpu/src/wgsl/optics.ts` says it was kept because nothing measured it wrong.
+That is historical default-material provenance, not a claim that W35 found macOS27's
+boundary correct. G0a is forbidden to edit src/ and leaves the comment untouched; an
+adopting source change must preserve the26.5 provenance while naming the27 qualification.

@@ -1,0 +1,138 @@
+$ tsx cli/compare.ts -- --set probe --scene grey-0__circular-120__rest,grey-32__circular-120__rest,grey-64__circular-120__rest,grey-96__circular-120__rest,grey-128__circular-120__rest,grey-160__circular-120__rest,grey-255__circular-120__rest,grey-128__circular-120__inactive --renderer webgpu --out-matrix /Users/new/vitrea-w35/scratch/existing-leaves/squared-band-apple-macos-27.0-2x-light-standard-glass0.5/matrix.json --write-partial --profile apple-macos-27.0-2x-light-standard-glass0.5 --material-profile /Users/new/vitrea-w35/scratch/existing-leaves/squared-band-apple-macos-27.0-2x-light-standard-glass0.5/candidate.json --receded-profile /Users/new/vitrea-w35/scratch/existing-leaves/squared-band-apple-macos-27.0-2x-light-standard-glass0.5/receded.json
+
+── web capture (apple-macos-27.0-2x-light-standard-glass0.5, 8 scene(s)) ─────────────────────────────
+scene server: http://localhost:5197
+engine: chromium 151.0.7922.34
+material profile: materialProfile=/Users/new/vitrea-w35/scratch/existing-leaves/squared-band-apple-macos-27.0-2x-light-standard-glass0.5/candidate.json sha256:13aa518ad098 sections=renderer
+receded profile:, recededProfile=/Users/new/vitrea-w35/scratch/existing-leaves/squared-band-apple-macos-27.0-2x-light-standard-glass0.5/receded.json sha256:5c15219385d9
+
+grey-96__circular-120__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w35/scratch/existing-leaves/squared-band-apple-macos-27.0-2x-light-standard-glass0.5/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/grey-96__circular-120__rest/
+
+grey-32__circular-120__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w35/scratch/existing-leaves/squared-band-apple-macos-27.0-2x-light-standard-glass0.5/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/grey-32__circular-120__rest/
+
+grey-128__circular-120__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w35/scratch/existing-leaves/squared-band-apple-macos-27.0-2x-light-standard-glass0.5/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/grey-128__circular-120__inactive/
+
+grey-255__circular-120__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w35/scratch/existing-leaves/squared-band-apple-macos-27.0-2x-light-standard-glass0.5/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/grey-255__circular-120__rest/
+
+grey-64__circular-120__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w35/scratch/existing-leaves/squared-band-apple-macos-27.0-2x-light-standard-glass0.5/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/grey-64__circular-120__rest/
+
+grey-160__circular-120__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w35/scratch/existing-leaves/squared-band-apple-macos-27.0-2x-light-standard-glass0.5/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/grey-160__circular-120__rest/
+
+grey-128__circular-120__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w35/scratch/existing-leaves/squared-band-apple-macos-27.0-2x-light-standard-glass0.5/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/grey-128__circular-120__rest/
+
+grey-0__circular-120__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        640x400
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w35/scratch/existing-leaves/squared-band-apple-macos-27.0-2x-light-standard-glass0.5/web-captures/apple-macos-27.0-2x-light-standard-glass0.5/grey-0__circular-120__rest/
+
+8 scene(s) captured; 0 fell back to the CSS tier; 0 carry problems.
+
+── measure (8 cell(s)) ─────────────────────────────
+matrix → /Users/new/vitrea-w35/scratch/existing-leaves/squared-band-apple-macos-27.0-2x-light-standard-glass0.5/matrix.json (8 cell(s) total)
+
+set         profile                        scene                                        IoU    cMean   SSIM    dE       lum slope N/W     interior mean N/W    interior sd N/W     rim peak N/W
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+probe       2x-light-standard-glass0.5    grey-96__circular-120__rest                   1.000    0.00   0.998   0.0022     —   /  —       0.4574/ 0.5059    0.0346/ 0.0357    0.0797/ 0.1341
+probe       2x-light-standard-glass0.5    grey-32__circular-120__rest                   1.000    0.00   0.999   0.0006     —   /  —       0.3020/ 0.3040    0.0309/ 0.0335    0.0740/ 0.1251
+probe       2x-light-standard-glass0.5    grey-128__circular-120__inactive              1.000    0.00   0.998   0.0012     —   /  —       0.5016/ 0.5264    0.0153/ 0.0093    0.0000/ 0.0000
+probe       2x-light-standard-glass0.5    grey-255__circular-120__rest                  0.893    1.87   0.991   0.0010     —   /  —       0.9576/ 0.9394    0.0136/ 0.0132    0.0164/ 0.0097
+probe       2x-light-standard-glass0.5    grey-64__circular-120__rest                   1.000    0.00   0.999   0.0016     —   /  —       0.3739/ 0.4042    0.0334/ 0.0343    0.0796/ 0.1263
+probe       2x-light-standard-glass0.5    grey-160__circular-120__rest                  1.000    0.01   0.997   0.0021     —   /  —       0.6442/ 0.7023    0.0366/ 0.0362    0.0949/ 0.1465
+probe       2x-light-standard-glass0.5    grey-128__circular-120__rest                  1.000    0.00   0.998   0.0024     —   /  —       0.5466/ 0.6058    0.0361/ 0.0355    0.0855/ 0.1362
+probe       2x-light-standard-glass0.5    grey-0__circular-120__rest                    1.000    0.00   0.994   0.0122     —   /  —       0.2360/ 0.4695    0.0291/ 0.0371    0.0723/ 0.1055
+
+2x-light-standard-glass0.5    probe       n= 8  IoU mean 0.9866 worst 0.8935   contour p95 mean 0.38 worst 3.00   SSIM mean 0.9968 worst 0.9911   dE mean 0.00292 worst 0.01221
+
+── the shadow axis: what each side does to the backdrop it does not cover ────────────
+profile                       scene                                        support  strength N/W     extent above/below/left/right N       W                 offset y N/W     blur sigma N/W
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2x-light-standard-glass0.5    grey-96__circular-120__rest                     1.00  0.2601/ 0.0100    2/ 16/  2/  2    0/ 17/  0/  0      7.0/   8.5     —   /  —   
+2x-light-standard-glass0.5    grey-32__circular-120__rest                     0.00    —   /   —       —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        —   /  —   
+2x-light-standard-glass0.5    grey-128__circular-120__inactive                1.00  0.3775/ 0.0000    2/  2/  2/  2    0/  0/  0/  0      0.0/  —        —   /  —   
+2x-light-standard-glass0.5    grey-255__circular-120__rest                    1.00  0.2057/ 0.0120    0/ 16/  2/  2    0/ 16/  0/  0      8.0/   8.0      7.4/  33.9
+2x-light-standard-glass0.5    grey-64__circular-120__rest                     1.00  0.1764/ 0.0140    2/ 13/  2/  2    0/ 16/  0/  0      5.5/   8.0      5.9/  32.0
+2x-light-standard-glass0.5    grey-160__circular-120__rest                    1.00  0.2741/ 0.0126    2/ 20/  2/  2    0/ 19/  0/  0      9.0/   9.5      5.2/  33.6
+2x-light-standard-glass0.5    grey-128__circular-120__rest                    1.00  0.2764/ 0.0154    2/ 18/  2/  2    0/ 19/  3/  3      8.0/   9.5     —   /  28.9
+2x-light-standard-glass0.5    grey-0__circular-120__rest                      0.00    —   /   —       —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        —   /  —   
+
+── what this run does and does not show ────────────
+All native fixtures used here carry the composited material (materialRendered: true).
+the shape axis is BOUNDED to the declared component region (margin 0 device px): within it, coverage, contour and corner profile are measured as before; outside it nothing is recovered, so a surface drawn LARGER than its declaration reads as a match. Area recovery is assumed, not measured — read silhouetteArea{Native,Web} against componentRegionArea.
+shadow axis NOT NORMALISED on 2 cell(s) across 2 scene(s): grey-32__circular-120__rest, grey-0__circular-120__rest. Those backdrops carry too little light for an occlusion ratio to exist; the absolute departure is still reported and every ratio is absent, not zero.
+caveat: W34 G2 projection: G1 omitted the caveats key; no fixture metadata or pixel changed. Native-only controls are excluded by G0 launcher.
+receded profile posed on the inactive scenes: /Users/new/vitrea-w35/scratch/existing-leaves/squared-band-apple-macos-27.0-2x-light-standard-glass0.5/receded.json
+material profile applied to the web side: /Users/new/vitrea-w35/scratch/existing-leaves/squared-band-apple-macos-27.0-2x-light-standard-glass0.5/candidate.json
+web accessibility for apple-macos-27.0-2x-light-standard-glass0.5 (native standard): browser preferences, no overrides
+
+── notes (26) ────────────
+  grey-96__circular-120__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  grey-96__circular-120__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  grey-96__circular-120__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19468 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  grey-32__circular-120__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  grey-32__circular-120__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  grey-32__circular-120__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19468 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  grey-32__circular-120__rest: shadow axis NOT NORMALISED: only 0.0% of the exterior has a backdrop above 0.05 linear luminance, so an occlusion ratio is not identifiable here — a shadow removes a fraction of the light behind it, and over this backdrop there is none to remove. The absolute departure (meanDeparture{Native,Web}) is still reported; every ratio-valued field is absent, not zero.
+  grey-128__circular-120__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  grey-128__circular-120__inactive: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  grey-128__circular-120__inactive: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19468 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  grey-255__circular-120__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  grey-255__circular-120__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  grey-255__circular-120__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 9884 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  grey-64__circular-120__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  grey-64__circular-120__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  grey-64__circular-120__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19468 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  grey-160__circular-120__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  grey-160__circular-120__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  grey-160__circular-120__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19460 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  grey-128__circular-120__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  grey-128__circular-120__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  grey-128__circular-120__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19468 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  grey-0__circular-120__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  grey-0__circular-120__rest: blur NOT MEASURED: the backdrop has no single resolvable step edge inside the silhouette on the x axis, so no edge-spread width is identifiable. Absent, not zero — read interiorStdDev{Native,Web} for the frosting comparison.
+  grey-0__circular-120__rest: luminance transfer NOT MEASURED: fitLuminanceTransfer: the independent variable does not vary over 19468 sample(s), so no slope is identifiable. A constant-luminance backdrop cannot measure a transfer function — use a ramp, photo or checkerboard scene.
+  grey-0__circular-120__rest: shadow axis NOT NORMALISED: only 0.0% of the exterior has a backdrop above 0.05 linear luminance, so an occlusion ratio is not identifiable here — a shadow removes a fraction of the light behind it, and over this backdrop there is none to remove. The absolute departure (meanDeparture{Native,Web}) is still reported; every ratio-valued field is absent, not zero.
