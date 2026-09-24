@@ -3155,6 +3155,9 @@ const CSS_COUNTERPART: Readonly<Record<keyof MaterialProfile, string>> = {
   backdropToneResponseThin: "resolvedBackdropToneResponse",
   backdropToneResponseThick: "resolvedBackdropToneResponse",
   backdropToneResponseStrength: "resolvedBackdropToneResponse",
+  backdropToneBlackStrength: "resolvedBackdropToneResponse",
+  backdropToneBlackThin: "resolvedBackdropToneResponse",
+  backdropToneBlackThick: "resolvedBackdropToneResponse",
   // The collapse's transmission, per scale.
   collapseTransmission: "adaptedSourceOptics",
   collapseTransmission2x: "adaptedSourceOptics",
@@ -3375,4 +3378,19 @@ describe("the mirror is EXHAUSTIVE over MaterialProfile (claims §5.164)", () =>
     expect(CSS_TIER_MAPPING.saturation.regular).toBe(1.8);
     expect(CSS_TIER_MAPPING.saturation.clear).toBe(1.4);
   });
+});
+
+it("W36's black branch derives the same target on both tiers, including its rejoin", () => {
+  for (const gate of [0, 0.5, 1]) {
+    const patch = { backdropToneBlackStrength: gate,
+      backdropToneBlackThin: 0.23, backdropToneBlackThick: 0.17 };
+    const profile = withMaterialOverrides(DEFAULT_MATERIAL_PROFILE, patch);
+    const response = resolvedBackdropToneResponse(patch);
+    for (const x of [0, 0.0005, 0.0015, 0.0029, 0.003, 0.003195, 0.004, 0.425, 1]) {
+      for (const thickness of [0, 0.09228515625, 0.5, 1]) {
+        expect(cssBackdropToneResponseLevel(x, thickness, response))
+          .toBeCloseTo(rendererBackdropToneResponse(x, thickness, profile), 12);
+      }
+    }
+  }
 });

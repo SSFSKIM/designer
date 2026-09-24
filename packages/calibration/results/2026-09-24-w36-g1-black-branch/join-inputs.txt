@@ -1,0 +1,147 @@
+{
+  "join": 0.003,
+  "minimum": 0.0031948897521942854,
+  "rows": [
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/impulse__capsule-button__inactive",
+      "node": "body",
+      "input": 0.0032840780913829803,
+      "kind": "packed silhouette",
+      "role": "validation"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/impulse__capsule-button__rest",
+      "node": "component",
+      "input": 0.00375,
+      "kind": "source encoded",
+      "role": "validation"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/impulse__rrect-ml__inactive",
+      "node": "body",
+      "input": 0.003422702429816127,
+      "kind": "packed silhouette",
+      "role": "probe"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/impulse__capsule-button__inactive",
+      "node": "body",
+      "input": 0.0032840780913829803,
+      "kind": "packed silhouette",
+      "role": "validation"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/impulse__capsule-button__inactive-tint-orange",
+      "node": "body",
+      "input": 0.0032840780913829803,
+      "kind": "packed silhouette",
+      "role": "calibration"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/impulse__capsule-button__rest",
+      "node": "component",
+      "input": 0.00375,
+      "kind": "source encoded",
+      "role": "validation"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/impulse__capsule-button__rest-tint-orange",
+      "node": "component",
+      "input": 0.00375,
+      "kind": "source encoded",
+      "role": "calibration"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/impulse__rrect-md__inactive",
+      "node": "body",
+      "input": 0.0031948897521942854,
+      "kind": "packed silhouette",
+      "role": "validation"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/impulse__rrect-md__rest",
+      "node": "component",
+      "input": 0.00375,
+      "kind": "source encoded",
+      "role": "validation"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/impulse__rrect-ml__inactive",
+      "node": "body",
+      "input": 0.003422702429816127,
+      "kind": "packed silhouette",
+      "role": "probe"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/impulse__capsule-button__inactive",
+      "node": "body",
+      "input": 0.0032874271273612976,
+      "kind": "packed silhouette",
+      "role": "validation"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/impulse__capsule-button__rest",
+      "node": "component",
+      "input": 0.0037310431985294137,
+      "kind": "source encoded",
+      "role": "validation"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/impulse__rrect-ml__inactive",
+      "node": "body",
+      "input": 0.003422454232349992,
+      "kind": "packed silhouette",
+      "role": "probe"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/impulse__capsule-button__inactive",
+      "node": "body",
+      "input": 0.0032874271273612976,
+      "kind": "packed silhouette",
+      "role": "validation"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/impulse__capsule-button__inactive-tint-orange",
+      "node": "body",
+      "input": 0.0032874271273612976,
+      "kind": "packed silhouette",
+      "role": "calibration"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/impulse__capsule-button__rest",
+      "node": "component",
+      "input": 0.0037310431985294137,
+      "kind": "source encoded",
+      "role": "validation"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/impulse__capsule-button__rest-tint-orange",
+      "node": "component",
+      "input": 0.0037310431985294137,
+      "kind": "source encoded",
+      "role": "calibration"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/impulse__rrect-md__inactive",
+      "node": "body",
+      "input": 0.0031965819653123617,
+      "kind": "packed silhouette",
+      "role": "validation"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/impulse__rrect-md__rest",
+      "node": "component",
+      "input": 0.0037310431985294137,
+      "kind": "source encoded",
+      "role": "validation"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/impulse__rrect-ml__inactive",
+      "node": "body",
+      "input": 0.003422454232349992,
+      "kind": "packed silhouette",
+      "role": "probe"
+    }
+  ],
+  "rationale": "Join 0.003, below the minimum packed impulse input by at least 0.00019; no Hermite knot or slope changes."
+}

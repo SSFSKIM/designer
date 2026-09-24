@@ -1910,6 +1910,17 @@ export interface MaterialProfile {
    * not an assumption.
    */
   readonly backdropToneResponseStrength: number;
+  /**
+   * W36's low-end branch (§5.179, Decision Log 5). At identity 0 the old solve
+   * executes exactly. Below encoded input 0.003, smoothstep weight from black
+   * blends both its response and authority to the old solve; at and above the
+   * join neither changes. This is not a Hermite knot and changes no slope.
+   * Thin/thick black ordinates are linear output levels, unread at gate 0.
+   * The thick ordinate is an explicit extrapolation until a thick black exists.
+   */
+  readonly backdropToneBlackStrength: number;
+  readonly backdropToneBlackThin: number;
+  readonly backdropToneBlackThick: number;
 
   /** The outer shadow (W8) — see `MaterialOuterShadow`. */
   readonly outerShadow: MaterialOuterShadow;
@@ -2899,6 +2910,9 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
   backdropToneResponseThin: [0.0126, 0.4561, 0.9713],
   backdropToneResponseThick: [0.4953, 0.5744, 0.9358],
   backdropToneResponseStrength: 1,
+  backdropToneBlackStrength: 0,
+  backdropToneBlackThin: 0,
+  backdropToneBlackThick: 0,
 
   /*
    * FITTED (recalibration cascade, 2026-08-31). W8's geometry SURVIVES the fit
@@ -3218,6 +3232,18 @@ export const MATERIAL_IDENTITY_TABLE: readonly MaterialIdentityEntry[] = [
         "`test:gpu` case that the on state draws differently from off, land with the leaf.",
     },
   },
+  {
+    wave: "W36",
+    gate: { backdropToneBlackStrength: 0 },
+    gated: ["backdropToneBlackThin", "backdropToneBlackThick"],
+    law: "Below x=0.003 blend response and authority toward the black endpoint by " +
+      "strength*(1-smoothstep(0,0.003,x)); elsewhere execute the old solve exactly.",
+    inertLawCase: 'packages/renderer-webgpu/test/w31-gate-groups.test.ts — ' +
+      '"gate-group 4 — black strength 0 gates both black ordinates"; drawn identity in ' +
+      'packages/renderer-webgpu/e2e/gpu/w36-black-branch.spec.ts',
+    whyGated: "The strength-0 branch never reads either ordinate, preserving the old solve.",
+    claims: "c9a §5.179; W36 Decision Log 5",
+  },
 ];
 
 /**
@@ -3416,6 +3442,9 @@ export interface MaterialProfilePatch {
   readonly backdropToneResponseThin?: BackdropToneKnotRow;
   readonly backdropToneResponseThick?: BackdropToneKnotRow;
   readonly backdropToneResponseStrength?: number;
+  readonly backdropToneBlackStrength?: number;
+  readonly backdropToneBlackThin?: number;
+  readonly backdropToneBlackThick?: number;
   readonly outerShadow?: Readonly<Partial<MaterialOuterShadow>>;
   readonly lightDirection?: readonly [number, number];
   readonly rimLitAxis?: readonly [number, number];
@@ -3666,6 +3695,9 @@ export function withMaterialOverrides(
     backdropToneResponseThick,
     backdropToneResponseStrength:
       patch.backdropToneResponseStrength ?? base.backdropToneResponseStrength,
+    backdropToneBlackStrength: patch.backdropToneBlackStrength ?? base.backdropToneBlackStrength,
+    backdropToneBlackThin: patch.backdropToneBlackThin ?? base.backdropToneBlackThin,
+    backdropToneBlackThick: patch.backdropToneBlackThick ?? base.backdropToneBlackThick,
     outerShadow: { ...base.outerShadow, ...patch.outerShadow },
     lightDirection: patch.lightDirection ?? base.lightDirection,
     rimLitAxis: patch.rimLitAxis ?? base.rimLitAxis,
@@ -4134,13 +4166,28 @@ export function backdropToneResponse(
   // blend. The rows chose the shape: see `MaterialProfile.sizeToneLevelFar`.
   // It is 0 at and below span 96 by the shape of its span curve, and 0 at every
   // span on the landed material.
-  return (
+  const response = (
     y0 * (1 + 2 * t) * (1 - t) * (1 - t) +
     s0 * h * t * (1 - t) * (1 - t) +
     y1 * t * t * (3 - 2 * t) +
     s1 * h * t * t * (t - 1)
     + levelFar
   );
+  const black = backdropToneBlackWeight(encodedInput, profile);
+  if (black === 0) return response;
+  const level = profile.backdropToneBlackThin +
+    (profile.backdropToneBlackThick - profile.backdropToneBlackThin) * f;
+  return response + (level - response) * black;
+}
+
+/** W36's compact support, below every admitted canonical impulse input (§5.179). */
+export const BACKDROP_TONE_BLACK_JOIN = 0.003;
+
+/** Gate zero and the identified domain take the old arithmetic without a blend. */
+export function backdropToneBlackWeight(encodedInput: number, profile: MaterialProfile): number {
+  if (profile.backdropToneBlackStrength <= 0 || encodedInput >= BACKDROP_TONE_BLACK_JOIN) return 0;
+  return Math.min(1, Math.max(0, profile.backdropToneBlackStrength)) *
+    (1 - smoothstep(0, BACKDROP_TONE_BLACK_JOIN, encodedInput));
 }
 
 /**
@@ -4156,7 +4203,9 @@ export function backdropToneSolveWeight(
   profile: MaterialProfile = DEFAULT_MATERIAL_PROFILE,
 ): number {
   const anchor = profile.backdropToneAnchorX[0];
-  return smoothstep(anchor * 0.5, anchor, encodedInput);
+  const authority = smoothstep(anchor * 0.5, anchor, encodedInput);
+  const black = backdropToneBlackWeight(encodedInput, profile);
+  return black === 0 ? authority : authority + (1 - authority) * black;
 }
 
 /**

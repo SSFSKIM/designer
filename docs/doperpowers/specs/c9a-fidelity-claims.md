@@ -37232,3 +37232,40 @@ any G1 work.
 673 passed, one skipped**; `freeze.py verify` reports **1,818 intact**. The new
 W36 suite contributes eight checks. No independent review was dispatched by
 this worker; the parent owns that next gate.
+
+## 5.179 W36 G1: the compact black branch, identity before price (2026-09-24)
+
+**In progress, unsealed.** Decision Log 5 as ruled; clauses 2 and 4–7, X1–X14.
+Evidence: `packages/calibration/results/2026-09-24-w36-g1-black-branch/`.
+The grey middle and Part B remain frozen. No document, matrix or holdout moves at identity.
+
+The live gate-group is `backdropToneBlackStrength: 0`, gating the linear black ordinates
+`backdropToneBlackThin` and `backdropToneBlackThick`. The join is **0.003 encoded input**,
+against a minimum admitted packed impulse input **0.0031948897521942854**. `inputs.py`
+reads the checked canonical reports through W35's role guard: the receded input is the
+packed silhouette reading, not the source mean beside it. No native capture is made.
+
+Below the join, `b = strength * (1 - smoothstep(0, 0.003, x))` blends the old response
+ordinate toward the thin/thick black ordinate and the old authority toward full authority.
+At gate 0 and at/above the join the old arithmetic executes without the blend. This is a
+compact-support branch, not an interpolant knot; no old Hermite slope changes. Existing
+no-tone, policy, alpha and collapse stand-downs remain outside the branch. Thick black
+is not independently identified; its equality to thin will be a declared extrapolation.
+
+The step-1 identity readings and subsequent price will be added beside this declaration.
+
+### 1. Identity, on-state and the first commit
+
+The real rule-2 code path preserves all six resolved digests:
+`b2b570e4adcea8fb`, `874be66ea501621b`, `dcbccbd9feac9881`,
+`f34dcc03e2774db3`, `e59f9106bcd7c966`, `6b6237b7ae241638`, sweeping both
+unread ordinates. Six scratch endpoint captures are byte-identical to the checked
+canonical PNGs, deterministic with repeat noise 0 on Apple/Metal-3. The unchanged
+golden suite passes 34/34, including isolation's unmoved pins; no regeneration.
+The rendered branch case passes on-state and gate-group identity plus no-tone,
+policy, alpha and full-collapse stand-downs. CSS's pre-leaf declaration bytes remain
+identical (10 checks including the new CSS solve). Renderer unit checks 17/17;
+identity/coherence/document calibration checks 85/85 before the added cross-tier
+branch sweep. Workspace build and corrected lint pass. The first lint attempt found
+an incomplete test-only optics fixture, corrected to use the full production fixture;
+no material value changed in that correction. Freeze: 1,818 intact.

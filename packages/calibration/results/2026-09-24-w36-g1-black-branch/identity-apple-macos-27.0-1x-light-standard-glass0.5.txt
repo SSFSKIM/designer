@@ -1,0 +1,57 @@
+$ tsx cli/compare.ts -- --renderer webgpu --set calibration,validation --profile apple-macos-27.0-1x-light-standard-glass0.5 --scene impulse__capsule-button__rest,impulse__capsule-button__inactive --material-profile /Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g1-black-branch/packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json --out-matrix /Users/new/vitrea-w36/scratch/black-identity/apple-macos-27.0-1x-light-standard-glass0.5/matrix.json --write-partial --receded-profile /Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g1-black-branch/packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json
+
+── web capture (apple-macos-27.0-1x-light-standard-glass0.5, 2 scene(s)) ─────────────────────────────
+scene server: http://localhost:5197
+engine: chromium 151.0.7922.34
+material profile: materialProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json sha256:6e509c7f76cc sections=renderer+cssTierMapping
+receded profile:, recededProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json sha256:45acb6d916b9
+
+impulse__capsule-button__rest
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w36/scratch/black-identity/apple-macos-27.0-1x-light-standard-glass0.5/web-captures/apple-macos-27.0-1x-light-standard-glass0.5/impulse__capsule-button__rest/
+
+impulse__capsule-button__inactive
+  tier          webgpu / gpu-texture
+  adapter       apple/metal-3
+  colour space  srgb
+  pixels        320x200
+  determinism   byte-identical over two loads
+  written       /Users/new/vitrea-w36/scratch/black-identity/apple-macos-27.0-1x-light-standard-glass0.5/web-captures/apple-macos-27.0-1x-light-standard-glass0.5/impulse__capsule-button__inactive/
+
+2 scene(s) captured; 0 fell back to the CSS tier; 0 carry problems.
+
+── measure (2 cell(s)) ─────────────────────────────
+matrix → /Users/new/vitrea-w36/scratch/black-identity/apple-macos-27.0-1x-light-standard-glass0.5/matrix.json (2 cell(s) total)
+
+set         profile                        scene                                        IoU    cMean   SSIM    dE       lum slope N/W     interior mean N/W    interior sd N/W     rim peak N/W
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+validation  1x-light-standard-glass0.5    impulse__capsule-button__rest                 0.999    0.01   0.998   0.0009    0.230/ 0.182    0.2359/ 0.2333    0.0316/ 0.0272    0.0213/ 0.0511
+validation  1x-light-standard-glass0.5    impulse__capsule-button__inactive             0.999    0.01   0.998   0.0014    0.049/ 0.123    0.2323/ 0.2509    0.0225/ 0.0181    0.0000/ 0.0027
+
+1x-light-standard-glass0.5    validation  n= 2  IoU mean 0.9992 worst 0.9992   contour p95 mean 0.00 worst 0.00   SSIM mean 0.9980 worst 0.9979   dE mean 0.00114 worst 0.00135
+
+── the shadow axis: what each side does to the backdrop it does not cover ────────────
+profile                       scene                                        support  strength N/W     extent above/below/left/right N       W                 offset y N/W     blur sigma N/W
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1x-light-standard-glass0.5    impulse__capsule-button__rest                   0.00    —   /   —       —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        —   /  —   
+1x-light-standard-glass0.5    impulse__capsule-button__inactive               0.00    —   /   —       —   /  —   /  —   /  —       —   /  —   /  —   /  —        —   /  —        —   /  —   
+
+── what this run does and does not show ────────────
+All native fixtures used here carry the composited material (materialRendered: true).
+the shape axis is BOUNDED to the declared component region (margin 0 device px): within it, coverage, contour and corner profile are measured as before; outside it nothing is recovered, so a surface drawn LARGER than its declaration reads as a match. Area recovery is assumed, not measured — read silhouetteArea{Native,Web} against componentRegionArea.
+shadow axis NOT NORMALISED on 2 cell(s) across 2 scene(s): impulse__capsule-button__rest, impulse__capsule-button__inactive. Those backdrops carry too little light for an occlusion ratio to exist; the absolute departure is still reported and every ratio is absent, not zero.
+caveat: Profiles not captured because the system is in accessibility mode 'standard' and these claim another: apple-macos-26.5-1x-light-reduced-transparency, apple-macos-26.5-1x-light-increased-contrast. macOS exposes reduce-transparency and increase-contrast as read-only environment values, so each such profile needs its own run with the corresponding System Settings toggle on (Accessibility > Display).
+caveat: Profiles not captured because this display renders at 2.0x and their keys state another scale: apple-macos-26.5-1x-dark-standard, apple-macos-26.5-1x-light-standard. A profile is only captured on a display whose backingScaleFactor matches its key — a mismatched run would file 640x400-pixel fixtures under a key claiming a different scale, with no trace in the bytes.
+receded profile posed on the inactive scenes: /Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g1-black-branch/packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json
+material profile applied to the web side: /Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g1-black-branch/packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json
+web accessibility for apple-macos-27.0-1x-light-standard-glass0.5 (native standard): browser preferences, no overrides
+
+── notes (4) ────────────
+  impulse__capsule-button__rest: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  impulse__capsule-button__rest: shadow axis NOT NORMALISED: only 0.4% of the exterior has a backdrop above 0.05 linear luminance, so an occlusion ratio is not identifiable here — a shadow removes a fraction of the light behind it, and over this backdrop there is none to remove. The absolute departure (meanDeparture{Native,Web}) is still reported; every ratio-valued field is absent, not zero.
+  impulse__capsule-button__inactive: ssimInterior ABSENT: no pixel of the reference silhouette is deeper than 24 CSS px from its contour, so this surface is all band.
+  impulse__capsule-button__inactive: shadow axis NOT NORMALISED: only 0.4% of the exterior has a backdrop above 0.05 linear luminance, so an occlusion ratio is not identifiable here — a shadow removes a fraction of the light behind it, and over this backdrop there is none to remove. The absolute departure (meanDeparture{Native,Web}) is still reported; every ratio-valued field is absent, not zero.

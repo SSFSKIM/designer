@@ -445,6 +445,10 @@ export interface BackdropToneResponseConstants {
   /** The law's per-profile authority, 0…1 — 0 on dark profiles, whose response
    * is unmeasured (the anchors are LIGHT-reference measurements). */
   readonly strength: number;
+  /** W36 compact-support black branch; absent on older caller-supplied curves is identity. */
+  readonly blackStrength?: number;
+  readonly blackThin?: number;
+  readonly blackThick?: number;
 }
 
 export const BACKDROP_TONE_RESPONSE: BackdropToneResponseConstants = {
@@ -514,6 +518,9 @@ export function resolvedBackdropToneResponse(
     thin,
     thick,
     strength: patch?.backdropToneResponseStrength ?? BACKDROP_TONE_RESPONSE.strength,
+    blackStrength: patch?.backdropToneBlackStrength ?? 0,
+    blackThin: patch?.backdropToneBlackThin ?? 0,
+    blackThick: patch?.backdropToneBlackThick ?? 0,
   };
 }
 
@@ -579,13 +586,25 @@ export function backdropToneResponseLevel(
   // 3 (b)), mirrored: an OFFSET on the settled level this curve returns, in its
   // own encoded units. Exactly 0 at and below span 96, and 0 at every span on
   // the landed material.
-  return (
+  const target = (
     y0 * (1 + 2 * t) * (1 - t) * (1 - t) +
     s0 * h * t * (1 - t) * (1 - t) +
     y1 * t * t * (3 - 2 * t) +
     s1 * h * t * t * (t - 1) +
     levelFar
   );
+  const weight = blackBranchWeight(encodedInput, response);
+  if (weight === 0) return target;
+  const thin = response.blackThin ?? 0;
+  const level = thin + ((response.blackThick ?? 0) - thin) * f;
+  return target + (level - target) * weight;
+}
+
+/** Same support and identity branch as the renderer; the middle stays frozen (§5.179). */
+function blackBranchWeight(x: number, response: BackdropToneResponseConstants): number {
+  if ((response.blackStrength ?? 0) <= 0 || x >= 0.003) return 0;
+  const t = clamp01(x / 0.003);
+  return clamp01(response.blackStrength ?? 0) * (1 - t * t * (3 - 2 * t));
 }
 
 /**
@@ -614,7 +633,9 @@ export function toneRespondedSourceOptics(
   const encodedInput = srgbEncode(clamp01(sample.luminance));
   const anchor = Math.max(response.anchorX[0], 1e-4);
   const authorityT = clamp01((encodedInput - anchor * 0.5) / (anchor * 0.5));
-  const authority = (authorityT * authorityT * (3 - 2 * authorityT)) * responseStrength;
+  let authority = (authorityT * authorityT * (3 - 2 * authorityT)) * responseStrength;
+  const black = blackBranchWeight(encodedInput, response);
+  if (black > 0) authority += (responseStrength - authority) * black;
   if (authority <= 0) return source;
   const target = backdropToneResponseLevel(encodedInput, thickness, response, levelFar);
   // The collapse's mean pull is toward L(the LINEAR mean colour), not toward

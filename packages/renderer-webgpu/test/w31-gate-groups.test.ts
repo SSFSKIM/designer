@@ -38,6 +38,7 @@ import { describe, expect, it } from "vitest";
 
 import {
   DEFAULT_MATERIAL_PROFILE,
+  backdropToneResponse, backdropToneSolveWeight, materialDigestInput,
   heavySecondTapSigmaAtScale,
   heavyTapSigmaAtScale,
   outerShadowReachPx,
@@ -257,5 +258,30 @@ describe("gate-group 3 — {sizeScatterScaleGain 0} gates sizeScatterScaleRef", 
     // makes the two documents' digests differ on this group.
     const opened = -2;
     expect(Math.min(1, Math.max(0, 0.4 + opened * (0.05 - 0.03)))).not.toBe(0.4);
+  });
+});
+
+
+describe("gate-group 4 — black strength 0 gates both black ordinates", () => {
+  it("drops and ignores both ordinates throughout the response while the gate is held", () => {
+    const old = DEFAULT_MATERIAL_PROFILE;
+    for (const thin of [0, 0.01, 0.2, 1]) {
+      for (const thick of [0, 0.1, 0.7, 1]) {
+        const off = withMaterialOverrides(old, {
+          backdropToneBlackStrength: 0, backdropToneBlackThin: thin, backdropToneBlackThick: thick,
+        });
+        expect(materialDigestInput(off)).toEqual(materialDigestInput(old));
+        for (const x of [0, 0.001, 0.0029, 0.003, 0.004, 0.5, 1]) {
+          expect(backdropToneSolveWeight(x, off)).toBe(backdropToneSolveWeight(x, old));
+          for (const thickness of [0, 0.1, 0.5, 1]) {
+            expect(backdropToneResponse(x, thickness, off))
+              .toBe(backdropToneResponse(x, thickness, old));
+          }
+        }
+      }
+    }
+    const on = withMaterialOverrides(old, { backdropToneBlackStrength: 1, backdropToneBlackThin: 0.2 });
+    expect(materialDigestInput(on)).not.toEqual(materialDigestInput(old));
+    expect(backdropToneResponse(0, 0, on)).not.toBe(backdropToneResponse(0, 0, old));
   });
 });
