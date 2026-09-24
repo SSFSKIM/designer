@@ -1,0 +1,39 @@
+...FF.
+======================================================================
+FAIL: test_shared_list_extends_without_repointing_history (__main__.SharedReceded.test_shared_list_extends_without_repointing_history)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g1-black-branch/packages/calibration/results/2026-09-20-w30-g1-split/shared-receded-selftest.py", line 72, in test_shared_list_extends_without_repointing_history
+    status,log,_=self.run_apply();self.assertEqual(status,0,log)
+                                  ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: 1 != 0 : current documents (2):
+  61bd9155ca69  packages/calibration/profiles/light-receded.json
+  61bd9155ca69  packages/calibration/profiles/light.json
+rows: 2 total, 1 retained, 1 moved
+  superseded/bbbbbbbbbbbb.json  1 rows
+          1  apple-macos-27.0-1x-light-standard-glass0.5
+index.json maps document cccccccccccc to aaaaaaaaaaaa.json; this run would point it at bbbbbbbbbbbb.json
+refusing; nothing written
+
+
+======================================================================
+FAIL: test_shared_receded_keeps_alias_and_raw_rows (__main__.SharedReceded.test_shared_receded_keeps_alias_and_raw_rows)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g1-black-branch/packages/calibration/results/2026-09-20-w30-g1-split/shared-receded-selftest.py", line 52, in test_shared_receded_keeps_alias_and_raw_rows
+    status,log,raw=self.run_apply();self.assertEqual(status,0,log)
+                                    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+AssertionError: 1 != 0 : current documents (2):
+  61bd9155ca69  packages/calibration/profiles/light-receded.json
+  61bd9155ca69  packages/calibration/profiles/light.json
+rows: 2 total, 1 retained, 1 moved
+  superseded/bbbbbbbbbbbb.json  1 rows
+          1  apple-macos-27.0-1x-light-standard-glass0.5
+index.json maps document cccccccccccc to aaaaaaaaaaaa.json; this run would point it at bbbbbbbbbbbb.json
+refusing; nothing written
+
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.017s
+
+FAILED (failures=2)
