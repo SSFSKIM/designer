@@ -1,0 +1,27 @@
+W35 G0a independent-review correction — c9a §5.177 §10 (2026-09-24)
+
+This addendum narrows the forward helper's claim beside the frozen declaration;
+bounds-declaration.txt and domain.json retain their original bytes and SHA pins.
+The closure domain, every bound, population, recorded measurement and verdict stay
+unchanged. The independent review accepted G0a as a qualified negative.
+
+The declaration's forward-model paragraph nominates sampled-texture A=1, and its
+closure admits only whole nominal-body pixels. The implemented forward helper now
+requires BOTH alpha=1 and coverage=1, rejecting any other scalar or array element.
+Its linear-space body/shadow/rim arithmetic is a claim only about that opaque,
+fully covered branch, not a model of translucent or partially covered output.
+
+The earlier general-alpha algebra and domain.json's coverage-diagnostic description
+do not establish a working fractional-output helper. The runtime encode_output
+encodes first, then premultiplies/composites in encoded space. Before this correction,
+white over black with zero shadow/rim and coverage0.5 returned187.51603067837462
+codes in the helper rather than the runtime's127.5. That input is now refused, not
+claimed corrected numerically. No fractional forward prediction is supplied here.
+
+All committed synthetic and shipped-web forward checks used alpha=coverage=1;
+their arithmetic and recorded results stand unchanged. New scalar/array refusal
+regressions fail before the guard and pass afterward; opaque white still produces
+255 codes, and the existing shadow-conditioning/recovery tests remain green.
+Partial native coverage remains diagnostic-only, with the same uncertainty and
+non-identification qualifications. This is not a closure-domain exclusion added
+after seeing a residual, nor a new material or prototype change.

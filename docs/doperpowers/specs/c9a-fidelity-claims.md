@@ -36623,3 +36623,349 @@ true, `repeatNoise` 0, zero foreign processes, 78 s idle), the side bundle refus
 seconds later under the same construction (`results/2026-09-24-w34-close/`). Two bundles with
 distinct identifiers and cdhashes never both held the grant on this machine; the key is not
 inferred. Nothing published moved in W34, so no release follows it.
+
+
+## 5.177 W35 G0a: the body-boundary cut and frozen declaration (2026-09-24)
+
+**Checkpoint: OPEN.** Clauses 1–5 and E1's proposed form, X1–X14; branch
+`w35-g0-edge-cut`, from `2203b6bb`. Evidence:
+`packages/calibration/results/2026-09-24-w35-g0-edge-cut/`. Nothing is shipped.
+
+### 1. Opening, access and the pre-candidate domain
+
+The opening isolation proof passes **17/17**, once, on Chromium's hardware path. Its first
+preflight refused before launching: nine foreign processes. The parent directed proceeding
+with the unrelated College Playwright session left alone, citing the existing foreign-session
+ruling; every launch records its census, settings and idle interval. A hash mismatch stops
+without retry; a non-deterministic candidate capture is retained and not used.
+`browser-runs.txt` retains both the refusal and admitted launch.
+
+The canonical generation checker ran in the MAIN checkout before any canonical web pixel:
+**1,893 matching, zero mismatch/misfiled/superseded/unreadable, seven no-row, 1,900 captures**.
+No-row is not a generation match claim for those seven captures. The canonical tree is read-only.
+
+W34 native payloads use the unchanged `Wave.reader` with calibration/validation only.
+`w35_readers.py`, a new sibling of `wave.py`, owns every web-pixel read and refuses W34 holdout
+ids and bare paths before opening payloads. Canonical fixtures cannot be assigned fake W34
+identities: the parent's explicit extension has its own canonical role guard, admitting
+calibration, validation and probe diagnostics (W25 DL3(e)), refusing holdout and recorded.
+Canonical web reads share that same guard. Negative tests exercise these boundaries.
+`mid-light-solid__rrect-md__rest` is not a canonical scene; no other scene substitutes for it.
+
+`domain.json` freezes the diagnostic/closure partition before any candidate residual:
+full shells from the half-span to +4 device px; deep median at d<=−6 CSS px with its
+unshrunk spread; closure on solid circular cells in −6<=d/scale<0 only where all four
+pixel corners lie inside the aligned convex body. Its exact-body area integral is one.
+Coverage pixels, mixed arcs, outside stroke, deeper trough, structured and continuous
+geometry are diagnostic-only with reasons. Straight and arc bins never pool; population
+floor4 and max(1 code, observed bar) remain fixed. The rule may leave part of the line
+diagnostic-only: that is an explicit coverage limit, not a later residual exclusion.
+
+The forward model is linear sRGB, native deep RGB supplied to the sampled-texture branch
+at alpha1; a nominated ramp precedes the multiplicative inner shadow; the line conditions
+on that shadowed material luminance, then adds light before encoding. Final native RGB is
+not claimed to expose that intermediate. Model identification, uncertainty, censoring,
+transfer and feasibility remain to be measured; this checkpoint makes no closure claim.
+
+### 2. G0a delivered as a qualified negative: the full cut and its bars
+
+**Completion: G0a DELIVERED FOR REVIEW, not a transferable-law or G0b declaration.** The
+existing-leaf experiment is complete; no tested candidate closes the frozen domain. The
+native-side pre-rim mapping is not identified. A second positive ramp is not, by itself, an
+explanation of the radial, angular and chromatic misses below. The parent's Decision Log 1
+therefore receives a stop/qualification, not an operator quietly promoted to the prototype.
+
+`profiles.json.gz` contains **336 non-holdout cells / 42,444 profile rows**, all channels,
+no-glass, native, WebGPU and native−web, whole-pixel and full diagnostic parts beside each
+other. `deep-bars.json.gz` contains **238,292 bin rows** across normal and long protocols;
+**2,352 normal observations** and **48 long observations**. The full normal archive is read
+before plurality; identical states deduplicate arithmetic only, not their run mapping.
+`test-replay.py` reproduces every deep shell of the maximum normal and long witnesses from
+lossless archived states while actively refusing the raw sitting root. The full producer
+`edge.py` is replayable without native capture. H is **22/44 device px** at 1x/2x for the
+44 CSS px geometries, **48/96** for the 96 CSS px high continuous validation geometry.
+
+The maximum normal bar stays **0.5 code**, 1x light active arcs. The deeper read adds a
+larger 2x dark normal maximum than the old six-shell cut: **0.2142857143**, G channel,
+`checkerboard__capsule-button__rest`, arc bin8 shell−4, population14 (RGB bars
+0.07142857 / 0.21428571 / 0.14285714). This does not rewrite W34's **0.0625** over its
+smaller window. Every observed bar remains below1. The population floor stays4; deep
+near-centre arc bins often have fewer pixels and remain unmeasured, not pooled into a pass.
+`bar-headlines.json` retains populations and deficiencies per endpoint/protocol/part.
+
+The baseline is the median at **d≤−6 CSS px**, with the trough inside that domain and its
+unshrunk min/max envelope beside it. The memo's d≤−6 DEVICE px median is retained separately.
+For grey128 both choices coincide; on 2x light grey255 the memo-domain RGB median is
+**253/252/253**, while the declared deeper domain is **253/253/253**. A G-only summary is
+not all three channels. Every channel at saturation is censored for inversion, not omitted
+from the forward encoded residual.
+
+### 3. The line, ramp, angular response and level are distinct observations
+
+The grey128 top-side readings reproduce the memo. Encoded sRGB codes; the last one CSS px
+is the diagnostic line partition, not a fitted `rimWidth`. Full per-level/channel results
+are in `line-ramp-level.json`, `line-headlines.json` and `line-level-table.csv`.
+
+| stratum, active | deep native/web | native last line row(s) | line excess over deep | last ramp shell / excess |
+| --- | --- | --- | --- | --- |
+| 1x light | 195 / 203 | 219 | +24 | −2: 199 / +4 |
+| 1x dark | 134 / 127 | 164 | +30 | −2: 141 / +7 |
+| 2x light | 195 / 203 | 213, 226 | +18, +31 | −3: 200 / +5 |
+| 2x dark | 134 / 127 | 156, 173 | +22, +39 | −3: 142 / +8 |
+
+Dark grey0 at2x reproduces **32 → 62 → 85**, +30/+53. The shallow rise is spread over
+roughly6 CSS px; the full cut also reads the light grey128 trough **192** at8–14 CSS px
+against deep195, not silently absorbed into a fitted ramp. The fixed decomposition extends
+the last two non-line shell means affinely through the line; it is a diagnostic accounting
+rule, not identification of two Apple layers. Width and amplitude are distinct: a squared
+`rw` sampled at pixel centres cannot be assigned the observed row width as its parameter.
+
+Grey128 inactive straights reproduce **188 everywhere inside** in light and **127** in
+dark at2x; the web medians are192/126. This does not say every arc point closes a flat
+native body: the frozen whole-pixel comparison later retains a **2-code 1x dark arc floor**.
+
+The angular read is not the old diagonal light unchanged. At2x, grey128 shell−1 **whole
+nominal body pixels** read native excess near horizontal normals **−2.5 light / −2 dark**,
+and at vertical normals **+20.5/+25 light, +27/+33.33 dark**. The near-45° arc bins carry
+much less light than the top/bottom straights. `angular-cut.json` includes normal bins and
+along-side thirds, not one contour average. Existing `rimLitExponent` changes the exponent
+of the shipped diagonal field, not its axis. These readings warrant revisiting that law;
+they do not prove a hidden native light direction or remove the alignment qualification.
+
+`structured-cut.json` keeps every admitted gradient and local-split cell diagnostic-only.
+For example 2x light small45° gradient, top shells−12/−6/−3, reads approximately
+**192.8 / 196.0 / 199.5**, against deep194; local-x64 reads **193.6 / 196.8 / 199.9**
+against194. Dark counterparts are **132.3 / 135.2 / 140.3** and **132.7 / 135.7 / 141.4**,
+against133. A similar shallow rise survives those structures, while spatial/channel
+variation differs. Its existence on constant backdrops excludes *vitrea's* constant-source
+lens/scatter displacement as the sole cause. A deep median does not identify the local
+structured boundary, so this is not a proof that Apple's ramp is structure-independent light.
+
+**Level is larger than the memo's selected headline.** `level-table.json` reads every solid
+per scheme/pose/scale: dark grey0 is +28 as before, but **light grey0 is +49** at both
+scales. Largest active circular-solid channel miss is **+111**, blue of 1x dark yellow
+(native173/173/11, web159/159/122); inactive reaches **−144**, blue of dark blue
+(native49/48/246, web49/49/102 at1x). For 2x dark red the declared deep medians are
+**242/50/50 vs160/90/90** (−82/+40/+40); at shell−12 the memo's **239/51/51** reproduces.
+Different spatial estimands are retained beside each other, not called inconsistent pixels.
+None of these level differences is fitted by this wave.
+
+### 4. W29 replay, not a preselected explanation
+
+`canonical.ts` calls the **actual** `rimIntensity`, with the actual native luminance-delta
+mask bounded to the declared region, linear-light ring means, deepest available ring as
+baseline and the outward-half doubling only when the peak is in the first ring. There
+are **388 canonical-plus-W34-grey metric cells**, with six empty native masks reported
+rather than a fabricated width. W34 greys at both schemes/scales use the same estimator.
+
+Light canonical dark-solid/rrect-md reproduces W29's **2.416109869 device px at1x**,
+peak ring1, and **1.662832816 device px =0.831416408 CSS px at2x**, peak ring2. Dark
+counterparts are **1.202058743 / 2.322975337 device px**. These are not the count of bright
+straight-edge rows: the native silhouette, arcs, nonlinear luminance, distance rings and
+first-ring doubling all participate. The old prose “about2.2 CSS px” is not a universal
+physical width, and these numbers do **not** establish “line plus ramp read as one rim”
+as the sole explanation.
+
+`canonical-solids.json` keeps physical inward straight-side profiles beside that estimator.
+The specified `mid-light-solid__rrect-md__rest` does not exist as a canonical scene; dark
+light-solid and dark mid-chroma/rrect-md are absent from those profiles' declared cells.
+The light mid-dark/mid-chroma and dark mid-dark **native probe** readings are admitted and
+labelled probe, but their canonical WebGPU captures are absent; native widths are still
+replayed rather than substituting another web generation. The summary's initial generic
+“no declared canonical scene” wording means “no declared profile/scene cell” on those dark
+rows, not that the global background or scene never exists.
+
+The memo's canonical centre-pixel numbers are corrected beside, not copied: at the two
+central columns of2x dark-solid/rrect-md, light shell−1/−2/−3/−6 is
+**185/169/155/150** (memo184/169/155/150), dark **106/85/66/60** (memo104/84/66/60).
+At1x light the last row is **177**, not176. `canonical-centre{,-left}.json` records the
+exact samples; `canonical-solids.json`'s full straight-span mean is a different estimand
+again (2x light last row181.1875). The small memo discrepancies are not replaced by a
+search for a column matching them.
+
+### 5. The forward check passes on web; native coefficient transfer does not
+
+`domain.json` declares the linear-sRGB counterfactual pre-rim field, with ramp before
+inner shadow and rim after it. `edge.forward` implements the sampled-texture composition,
+including alpha and coverage arguments; the uniform native nomination supplies opaque
+alpha1 and native deep RGB, not a claim to have observed Apple's layer. The current
+span44 shadow reach is **9.18125 CSS px**, depth.35 and alpha.05. The size-bias contribution
+keeps presence1 even over black on these cells.
+
+Without fitting web residuals, that model reconstructs shipped straight-solid shell means
+within **0.872732 / 0.847455 / 0.805655 / 0.867485 code** (1x light/dark,2x light/dark).
+This tests the runtime mapping on its own captures, not native latent-state recoverability.
+The synthetic nonzero gain(.23), pre-composition baseline change at fixed(.07,.23), and
+coefficient change at fixed baseline recover within **1.95e−16**; quantised prediction
+error is at most **0.582466 code**. The final-encoded +5-code subtraction control is
+separately labelled CONTROL ONLY; it cannot establish the needed discrimination.
+
+The native-only solve across calibration greys **and five colours** is retained in
+`native-law-fits.json`. It does not close. A separately labelled **grey-only diagnostic**
+nominates narrowed bands; it does not remove colours or validation cyan from the frozen
+domain. Under those nominees, cyan validation straight residual reaches **51.46/90.80/
+59.77/99.76 codes** in the four strata. The colour problem is visible without an optimizer:
+2x dark cyan's deep **18/186/186** becomes **19/233/233** at shell−1 — a +1/+47/+47
+encoded response, not equal added linear-white light. Native baseline uncertainty and the
+unknown ramp's contribution to the conditioning remain separate from the repeat bar.
+
+The runtime transfer is tabled separately, including **g·(L_web−L_native)**. For the
+grey-only signed-shadow nominees its amplitude ranges are −.001800..+.009557 light1x,
+−.027429..+.009086 dark1x, −.000673..+.003575 light2x and −.024790..+.008212 dark2x
+across the solid cells. No coefficient was solved on those web differences. This is an
+**effective response under a nominated forward field, not an identified transferable native
+law**. G0's coefficient-transfer stop therefore applies.
+
+### 6. Actual existing-leaf renders fail, with every run retained
+
+`candidate-plans.json` names the scratch documents, source/base selection, guarded explicit
+scene lists and both scratch outputs under `~/vitrea-w35/scratch/existing-leaves/`. Four
+profile launches per candidate, two candidates: **eight launches /64 captures**, including
+a nonzero-active, explicitly composed receded control in each. Every capture is deterministic
+and names **apple/metal-3**, WebGPU/gpu-texture. Two1x light comparer runs return1 because
+native grey255 has a zero-length contour for `contourCurvature`; their captures are retained
+and read by the frozen native-mask instrument. No render was retried.
+
+Including the opening proof there are **nine actual browser launches**, plus the one refused
+preflight. The proof records nine foreign processes; all eight candidate preflights record
+zero, without this worker closing the other session. Every admitted preflight has RT0,
+IC0, slider.5, Show Borders0 and at least **2,943.522 s** HID idle. No native capture.
+
+The finite native-only grid uses width.8..6.5 by.05, shadowAlpha {.05,0,−.05,−.1,−.2},
+least-squares amplitude coefficients and worst encoded calibration error for nomination.
+This is the best **tested** subset, not a proof of a global optimum over every legal leaf.
+The second candidate allows the inner shadow off or re-signed through its existing numeric
+leaf; it does not add a new shader operator or move lens/tone/chroma leaves.
+
+| stratum | best tested complete-domain MAE maximum | straight maximum | validation grey96 maximum | tolerance |
+| --- | ---: | ---: | ---: | ---: |
+| 1x light | 25.50 | 7.00 | 20.75 | 1 |
+| 1x dark | 33.75 | 5.00 | 25.75 | 1 |
+| 2x light | 36.00 | 9.848684 | 29.571429 | 1 |
+| 2x dark | 46.571429 | 6.00 | 36.142857 | 1 |
+
+`candidate-residuals.json.gz` carries every channel, shell, population and actual subset
+bar; deficient bins remain unmeasured. Arc bins are worst, not hidden by the straight
+improvement. The whole-pixel/path assumption and its uncertainty remain qualified exactly
+as frozen; the domain is not narrowed to get a pass. A ramp alone would need to add the
+shallow5–11-code rise but also somehow remove existing bright arc overshoots and change the
+chromatic line response, which is not an identified one-leaf radial addition.
+
+The native/shipped/candidate panels at1:1 pixels were inspected (`eye-*.png`): the light
+candidate acquires a conspicuous bright outline all around the capsule where native's
+sides remain dark and its top/bottom line is narrow; the dark candidate improves the
+straight line's visibility but retains a wrong arc/body relationship. No material is shipped.
+
+All **eight receded candidate captures are pixel-identical to the shipped receded captures**,
+changed pixels0, maximum delta0 (`receded-composition.json`). Existing regular/clear
+rimAlpha, rimLevelGain and shadowAlpha zeros, plus root collapsed-rim zeros, hold the tuned
+active widths/amplitudes inert. A genuinely independent new ramp leaf would still require
+explicit0 in **both** receded differences; the export test pins bytes, not physical flatness.
+
+### 7. M2's ring matters; it does not yet justify a mask or bound change
+
+`canonical-metrics.json` re-reads current WebGPU pixels on the actual native-derived mask,
+eroded by1/2/3 device px. `m2-gated-attribution.json` extracts all **26 M2 cells** and
+reproduces their un-eroded matrix values to **<1e−12**. For dark photo/capsule active:
+1x std-dev **.020524782 → .008204099 → .006657840 → .006491234**;2x
+**.016887410 → .008708309 → .007179368 → .007092297**. One-pixel erosion changes it
+**−60.03% / −48.43%**, three pixels **−68.37% / −58.00%**. Dark checkerboard/capsule
+one-pixel changes are about−20.57% / −14.78%; some light masks move the other way.
+
+This is strong **edge sensitivity**, not an additive variance decomposition: erosion
+changes the population and mean. It does not prove that the outer shadow alone caused
+W32's old miss (this request reads the current generation, not that before/after pair), nor
+predict the delta from an as-yet-unidentified correct W35 edge. The 2% stop stays intact.
+Decision Log 3 asks the user to defer a mask/re-pin ruling until a viable candidate gives
+its own measured delta; it does not waive the stop merely because a ring is influential.
+
+### 8. Frozen stops, the CSS limit, identity and the conditional E1
+
+`bounds-declaration.txt` inventories every unchanged stop, expected identities and unresolved
+expectations. It is plain text because this worker cannot create Markdown report files;
+`domain.json` is the machine declaration, frozen in **ae7492a8** before the first candidate
+render. Its SHA is **b03ea804892b390ed3a88533838cbad3e6b2f46178981551e92cb6d938773d00**.
+
+Closure≤max(1,bar), floor4; inactive contribution0; no level-absorbing fit; the existing
+per-cell tables (including their .11 edge-weighted bound); W20 contour≤1/IoU≥.99; M1
+median.8..1.2 and cell.6..1.4; M2±2% against the **pre-W35 generation**; X1 outside-black
+lit counts0; C1≤.0042 over the admitted exterior bands; B1 sigma±5%. No bound, floor,
+predicate or reference is edited. An operator confined strictly inside the body expects
+**zero change** to exterior C1/B1/X1 and field geometry, but an actual partially covered
+squared band has to prove that premise. Predicate churn, canonical per-cell metrics, M1
+and M2 have **no justified numeric post-fit expectation here**, because no candidate/model
+has been admitted. Supplying invented “expected passes” would hide the negative result;
+those missing predictions are an explicit blocker to an adoption declaration.
+
+CSS's one1-CSS-px inset gives two equal full straight rows atDPR2: native grey128's
+213/226 cannot both match one output (minimax **6.5 codes**); dark156/173 similarly
+has an **8.5-code** lower bound. This is an analytic representational limit, not a CSS
+render or a completed measured decline. A later viable model must derive and render its
+CSS projection, then carry or decline against the actual shipped document bytes.
+
+`identity-proof.ts` proves a hypothetical **flat** bodyBoundaryRamp:0 identity drop without
+editing material.ts: frozen **b2b570e4adcea8fb /874be66ea501621b** and macOS27
+**dcbccbd9feac9881 /e59f9106bcd7c966 /f34dcc03e2774db3 /6b6237b7ae241638** stay exact;
+a nonzero leaf changes the digest. Its future inertLawCase and literal default0 assertion
+are named as **not implemented**. This proves an identity route, not an optical operator.
+
+E1's proposed form is per-pose inner-edge RGB shape, WebGPU/macOS27 standard endpoints,
+re-derived from captures at the adopting bytes and the frozen witness masks/bars, with
+wave-local and canonical generation binding. Its MATERIAL-axis amendment must establish
+an isolated uniform-boundary estimand **and** a recoverable, discriminated pre-rim mapping.
+The latter is not established; E1 is therefore **not adoptable** from this gate. W34's
+spent holdout remains excluded; the canonical receipt is `show` only.
+
+### 9. Verification and what this gate does not claim
+
+Calibration: **665 passed,1 skipped,45 files**. New tests execute the role refusals,
+forward interventions, signed-error arithmetic, raw-root-denied archive replay, populations,
+bars, decomposition/declaration pins, receded identity and six-document identity route.
+Calibration ESLint and all four TypeScript checks pass. Frozen macOS26.5: **1,818 intact**.
+
+No src/, profiles/, fixtures/, canonical matrix or canonical scene changed. No native
+capture, runtime prototype, holdout read, successful closure, identified Apple internal
+state, globally optimal existing-leaf fit, CSS render/decline or post-fit canonical metric
+prediction is claimed. Canonical gaps and unavailable captures are listed rather than
+replaced by another generation. The useful next decision is whether the body-boundary
+wave's model/operator budget should expand to the measured angular/chromatic structure,
+or close at this finding; the parent reviews this declaration before any separate G0b
+permission. This worker stops at G0a.
+
+**Required-suite execution detail.** The full calibration suite's inherited W34 test invokes
+`~/vitrea-w34/side/harness self-check` when present; it is present here. That is a command-line
+decoding/arithmetic self-check with a temporary fixture root, not a native capture or a GUI
+app-bundle launch. No `open`, capture command, build, TCC change or grant operation was made.
+The statement “no native capture” must not be expanded to “no native executable was invoked”.
+
+### 10. G0a independent-review correction: the helper is opaque and fully covered only
+
+The independent review reproduced the declaration order, all64 candidate hashes, the four
+headline misses, synthetic test, W29 estimator, level readings, M2 erosion, receded controls
+and identity calculation, and accepted G0a as a qualified negative. Its one bounded finding
+was an overbroad forward-helper contract, not a change to those measurements.
+
+**Correction beside §5's composition sentence.** `edge.forward` previously accepted arbitrary
+`alpha` and `coverage`, but composed in linear light before encoding. Runtime `encode_output`
+in `renderer-webgpu/src/wgsl/prelude.ts` encodes first and premultiplies/composites in encoded
+space. White over black with zero shadow/rim and coverage0.5 therefore returned
+**187.51603067837462 codes** in the helper where the runtime gives **127.5**. The earlier
+sentence “including alpha and coverage arguments” did not establish fractional-output fidelity.
+
+The helper is now explicitly restricted to **alpha=coverage=1**, including every element of
+array arguments, and refuses other inputs. Its claim is the **opaque, full-coverage sampled-
+texture branch only**. The existing fully opaque arithmetic is unchanged; no fractional-output
+implementation or new capture is claimed. All committed forward checks used those unit inputs,
+so their results and the qualified-negative verdict stand.
+
+`review-composition-red.txt` records four failed scalar/array refusal regressions before the
+guard; `review-composition-green.txt` passes all five instrument tests afterward, including
+opaque white at255 and the prior conditioning/recovery cases. The counterexample is retained
+in `review-composition-before.txt`. The bounds-declaration's A=1 nomination and whole-pixel
+closure wording were checked: `bounds-declaration-addendum.txt` states this same full-coverage
+limit and qualifies the frozen domain's coverage-diagnostic prose. Neither original declaration
+nor its SHA pin, closure domain, bound, population or recorded number is rewritten.
+
+Correction verification: calibration **665 passed,1 skipped,45 files**; macOS26.5 freeze
+**1,818 intact** (`review-calibration-tests.txt`, `review-freeze.txt`). No browser run,
+native capture, shipped runtime/material change or evidence re-measurement was needed for this fix.

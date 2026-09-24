@@ -450,7 +450,7 @@ machine quiet for X6 but not untouched) → review → merge with the capture tr
 
 | child | status |
 | --- | --- |
-| G0 | CHARTERED |
+| G0 | G0a DELIVERED FOR REVIEW as a qualified negative (§5.177); no transferable law or G0b operator identified |
 | G1 | CHARTERED, opens after G0's merge and Decision Log 1 |
 | G2 | CHARTERED, opens after G1's merge |
 
@@ -468,15 +468,41 @@ native law's conditioning has a demonstrated mapping to the runtime's (else an e
 and no coefficient transfer); the leaves G1 would move. The parent rules whether G1 opens, and on
 what.
 
+**G0a draft, 2026-09-24 (§5.177; not ruled).** Do not open G1 or nominate a radial
+ramp prototype on this evidence alone. The frozen-domain existing-leaf candidates fail
+at25.50/33.75/36.00/46.57 codes (1x light/dark,2x light/dark), straight-only minima5–9.85;
+normal tolerance1. Native-only scalar affine white-light fits fail chromatic solids,
+while whole nominal-body arc bins show a markedly different angular response from the
+shipped diagonal law. The counterfactual forward model checks the web branch to<.88
+code but does not identify the native pre-rim field. A positive second ramp alone does
+not explain all three misses. Recommend a bounded re-declaration addressing angular and
+chromatic boundary structure, with the level wave kept separate, rather than spending
+G0b on an unselected one-leaf ramp. No claim that every possible existing-leaf setting or
+one-leaf function has been mathematically excluded. The parent decides the budget and
+whether a useful G0b prototype can be stated; this worker starts none.
+
 ### Decision Log 2 — the deep body's level (after G0; the user's)
 
 Open. G0 tables the level miss on greys and colour solids, both schemes; the user rules whether a
 level wave follows W35 and whether anything about it constrains this wave's fit.
 
+**G0a draft, 2026-09-24 (§5.177 §3; not ruled).** A separate level/chroma wave is
+warranted: light black +49 codes and dark black +28 at both scales; active solid channel
+misses reach111 and inactive144. These do not authorise compensating edge coefficients.
+The user decides whether that wave precedes any renewed boundary transfer; G0a recommends
+keeping native-only edge identification independent and forbidding tone compensation.
+
 ### Decision Log 3 — M2's mask if the ring is what it reads (after G0's eroded-mask test; the user's)
 
 Open. If the eroded-mask attribution shows M2 would stop a correct edge change, the re-pin or the
 mask change is put here with numbers before G1 opens.
+
+**G0a draft, 2026-09-24 (§5.177 §7; not ruled).** The26-cell current-generation
+1/2/3-device-pixel erosion reading is complete. One pixel changes dark photo/capsule
+std-dev by−60.03% at1x and−48.43% at2x. This is ring sensitivity, not a prediction of the
+change from a correct edge or proof about the W32 before/after pair. Retain the2% stop
+and pre-W35 reference; defer mask/re-pin choice until a viable candidate supplies its
+actual delta. The eroded statistic does not itself authorise a new bound or mask.
 
 ### Decision Log 4 — the E1 row's adopted form (after G1's read; the parent's)
 
@@ -487,6 +513,18 @@ Open.
 (none yet)
 
 ## Revision Notes
+
+- 2026-09-24 (G0a worker): the frozen pre-candidate domain committed in ae7492a8;
+  §5.177 delivers336-cell deep profiles/bars, actual W29 replay, native-only forward
+  diagnostics,26-cell M2 erosion attribution and eight candidate launches/64 deterministic
+  captures. No tested candidate closes; native transfer and a particular G0b operator are
+  not identified. Three Decision Log drafts are findings, not rulings. The parent directed
+  a separate canonical reader allowing calibration/validation/probe and refusing holdout/
+  recorded, and coexistence with the unrelated foreign Playwright session: the opening
+  proof passes17/17 with nine foreign processes recorded; all feasibility preflights later
+  read zero. No foreign session was closed. Missing canonical cells/captures and undefined
+  post-fit canonical expectations remain explicit. Bounds declaration is plain text under
+  the worker's no-Markdown-report constraint; its machine counterpart is domain.json.
 
 - 2026-09-24 (the parent, v3): the second round found the v2 folds sound in direction and two of them
   not yet executable: (1) native-only identification against the deep-body level still had no

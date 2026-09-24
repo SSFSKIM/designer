@@ -1,0 +1,37 @@
+.FFFF...
+======================================================================
+FAIL: test_forward_refuses_translucent_or_partial_coverage_inputs (__main__.Arithmetic.test_forward_refuses_translucent_or_partial_coverage_inputs) (options={'alpha': 0.5})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/Developer/GitHub/designer/.claude/worktrees/w35-g0-edge-cut/packages/calibration/results/2026-09-24-w35-g0-edge-cut/test-instrument.py", line 25, in test_forward_refuses_translucent_or_partial_coverage_inputs
+    with self.assertRaisesRegex(ValueError, 'opaque full-coverage'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_forward_refuses_translucent_or_partial_coverage_inputs (__main__.Arithmetic.test_forward_refuses_translucent_or_partial_coverage_inputs) (options={'coverage': 0.5})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/Developer/GitHub/designer/.claude/worktrees/w35-g0-edge-cut/packages/calibration/results/2026-09-24-w35-g0-edge-cut/test-instrument.py", line 25, in test_forward_refuses_translucent_or_partial_coverage_inputs
+    with self.assertRaisesRegex(ValueError, 'opaque full-coverage'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_forward_refuses_translucent_or_partial_coverage_inputs (__main__.Arithmetic.test_forward_refuses_translucent_or_partial_coverage_inputs) (options={'alpha': array([1. , 0.5])})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/Developer/GitHub/designer/.claude/worktrees/w35-g0-edge-cut/packages/calibration/results/2026-09-24-w35-g0-edge-cut/test-instrument.py", line 25, in test_forward_refuses_translucent_or_partial_coverage_inputs
+    with self.assertRaisesRegex(ValueError, 'opaque full-coverage'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_forward_refuses_translucent_or_partial_coverage_inputs (__main__.Arithmetic.test_forward_refuses_translucent_or_partial_coverage_inputs) (options={'coverage': array([1. , 0.5])})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/Developer/GitHub/designer/.claude/worktrees/w35-g0-edge-cut/packages/calibration/results/2026-09-24-w35-g0-edge-cut/test-instrument.py", line 25, in test_forward_refuses_translucent_or_partial_coverage_inputs
+    with self.assertRaisesRegex(ValueError, 'opaque full-coverage'):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.023s
+
+FAILED (failures=4)

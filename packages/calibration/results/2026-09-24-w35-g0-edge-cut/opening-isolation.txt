@@ -1,0 +1,22 @@
+
+Running 17 tests using 1 worker
+
+  ✓   1 [chromium-gpu] › e2e/golden/isolation.spec.ts:916:5 › @golden the goldens move only through the named profile seam › field-mask renders its pinned bytes from the named profile (520ms)
+  ✓   2 [chromium-gpu] › e2e/golden/isolation.spec.ts:916:5 › @golden the goldens move only through the named profile seam › refraction-checkerboard renders its pinned bytes from the named profile (281ms)
+  ✓   3 [chromium-gpu] › e2e/golden/isolation.spec.ts:916:5 › @golden the goldens move only through the named profile seam › body-ramp-1x renders its pinned bytes from the named profile (269ms)
+  ✓   4 [chromium-gpu] › e2e/golden/isolation.spec.ts:916:5 › @golden the goldens move only through the named profile seam › placed-checkerboard renders its pinned bytes from the named profile (240ms)
+  ✓   5 [chromium-gpu] › e2e/golden/isolation.spec.ts:916:5 › @golden the goldens move only through the named profile seam › lens-size-scaling renders its pinned bytes from the named profile (287ms)
+  ✓   6 [chromium-gpu] › e2e/golden/isolation.spec.ts:916:5 › @golden the goldens move only through the named profile seam › tint-adaptation-light renders its pinned bytes from the named profile (279ms)
+  ✓   7 [chromium-gpu] › e2e/golden/isolation.spec.ts:916:5 › @golden the goldens move only through the named profile seam › tint-adaptation-dark renders its pinned bytes from the named profile (303ms)
+  ✓   8 [chromium-gpu] › e2e/golden/isolation.spec.ts:916:5 › @golden the goldens move only through the named profile seam › rim-two-references renders its pinned bytes from the named profile (281ms)
+  ✓   9 [chromium-gpu] › e2e/golden/isolation.spec.ts:916:5 › @golden the goldens move only through the named profile seam › concentric-nesting renders its pinned bytes from the named profile (275ms)
+  ✓  10 [chromium-gpu] › e2e/golden/isolation.spec.ts:916:5 › @golden the goldens move only through the named profile seam › union-pair renders its pinned bytes from the named profile (284ms)
+  ✓  11 [chromium-gpu] › e2e/golden/isolation.spec.ts:916:5 › @golden the goldens move only through the named profile seam › collapsed-tone renders its pinned bytes from the named profile (312ms)
+  ✓  12 [chromium-gpu] › e2e/golden/isolation.spec.ts:916:5 › @golden the goldens move only through the named profile seam › collapsed-tone-textured renders its pinned bytes from the named profile (288ms)
+  ✓  13 [chromium-gpu] › e2e/golden/isolation.spec.ts:916:5 › @golden the goldens move only through the named profile seam › highlight-press-glow renders its pinned bytes from the named profile (260ms)
+  ✓  14 [chromium-gpu] › e2e/golden/isolation.spec.ts:936:3 › @golden the goldens move only through the named profile seam › the outer shadow is the whole of W8's delta — it draws, and only there (285ms)
+  ✓  15 [chromium-gpu] › e2e/golden/isolation.spec.ts:1029:3 › @golden the goldens move only through the named profile seam › the geometry change is confined to the scenes it can reach (1ms)
+  ✓  16 [chromium-gpu] › e2e/golden/isolation.spec.ts:1045:3 › @golden the goldens move only through the named profile seam › the 1x pin carries the depth ramp — its fail-before record (253ms)
+  ✓  17 [chromium-gpu] › e2e/golden/isolation.spec.ts:1077:3 › @golden the goldens move only through the named profile seam › and the tuned profile is not the old one — the proof is not vacuous (315ms)
+
+  17 passed (7.4s)
