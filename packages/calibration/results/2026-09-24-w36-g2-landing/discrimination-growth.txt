@@ -1,0 +1,26 @@
+
+ RUN  v4.1.11 /Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g2-landing/packages/calibration
+
+ ❯ test/adopted-thresholds.test.ts (101 tests | 1 failed | 100 skipped) 6ms
+     × L1: error growth is at most 0.005, including both existing absolute misses 5ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/adopted-thresholds.test.ts > W36 L1 — fixed-native-silhouette level and pre-fit growth (claims §5.180) > L1: error growth is at most 0.005, including both existing absolute misses
+AssertionError: apple-macos-27.0-1x-dark-standard-glass0.5/checkerboard__capsule-button__inactive: expected 0.006000000000000005 to be less than or equal to 0.005
+ ❯ test/adopted-thresholds.test.ts:4937:34
+    4935|         continue;
+    4936|       }
+    4937|       expect(e - before, key(c)).toBeLessThanOrEqual(0.005);
+       |                                  ^
+    4938|     }
+    4939|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 100 skipped (101)
+   Start at  22:02:08
+   Duration  430ms (transform 87ms, setup 0ms, import 343ms, tests 6ms, environment 0ms)
+
