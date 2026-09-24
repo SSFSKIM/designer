@@ -37532,3 +37532,259 @@ The old W29 tracker diagnosis of a black conversion-quantum overshoot is explici
 superseded beside its preserved reading. This closes that first-step monotonicity
 exception, not the W36 CSS boundary residual. Independent review, merge and release
 are the parent's next gates; no worker agent is dispatched and nothing is pushed.
+
+
+## 5.180 W36 G2: L1 adopted, the black landing and 0.24.0 prepared (2026-09-24)
+
+**Landing DELIVERED FOR REVIEW at 0.24.0 on `w36-g2-landing`, from main `fe3067a8`;
+unpublished. The full chain is recorded with one standing React timing red, not rerun.**
+Clause 8, Decision Logs 1/2/4/5 as ruled, X1–X14. Evidence:
+`packages/calibration/results/2026-09-24-w36-g2-landing/`. No material, profile,
+canonical matrix, golden or macOS 26.5-keyed path changes. No reseal, native capture
+or holdout read. The main checkout's current and superseded capture trees are
+read-only inputs, not regenerated here.
+
+### 1. L1 adopts the frozen declaration, including its misses
+
+Four owner cases in `adopted-thresholds.test.ts` adopt **L1** from G0 and Decision
+Log 4: absolute error of mean linear luminance over the fixed native silhouette
+**≤ 0.055**, growth **≤ 0.005** against W33. This is **not** the deep median at
+`d ≤ −6 CSS px`; W34's separate one-code fit-set tolerance is not a canonical row.
+
+The population is re-derived from `scenes.json` and the current matrix: **140**
+standard macOS 27 WebGPU calibration/validation rows, both schemes and scales,
+active and inactive, tints and composites included, no conditioning-predicate
+exclusion. **136 measured**, with four explicitly **UNMEASURED** dark inactive
+`dark-solid` capsule-button/rrect-md rows at 1x/2x. Two light inactive
+`impulse__capsule-button__inactive-tint-orange` rows remain absolute misses:
+**0.06601612591220249 / 0.06605893950809574**, not floors. The growth clause applies
+to these too. All 136 growth readings are **0**; no new absolute miss appears.
+
+`l1-cut.py/json/txt` regenerates the record at THIS gate. The owner test does not
+trust its verdict: it separately selects the population and reconstructs every
+native/web mean, error, growth, status and missed flag from `results/matrix.json`
+and the named superseded W33 files **`6e509c7f76cc.json` / `eab099cc6698.json`**,
+with receded hashes **`45acb6d916b9` / `4e68f81869f6`** checked beside their active
+hashes. Both current document hashes, unique membership and unchanged native
+means are asserted. The test also verifies the record's matrix hash. A stale cut
+fails; regenerating a cut after a regression does not remove the bound.
+
+The amendment beside the MATERIAL-axis header clears both grounds: the estimator
+is directly observable on a fixed native mask rather than an inferred blur; the
+identified black miss of 28–49 codes is resolvable, and 0.055 exceeds a single
+code's linear step even at white. G0's 120-cell deep-median repeat bar of zero is
+resolution evidence, not a substitution of that estimator for the canonical one.
+Native reference and W33 baseline were fixed before the fit.
+
+**Three real scratch discriminations, all RED, followed by the untouched inputs
+GREEN (4/4):** `discriminate.py` changes the dark 1x inactive checkerboard capsule's
+error from 0.0196132227 to **0.056**, regenerates its scratch cut, and the absolute
+owner fails; changes it to **0.0256132227** (growth **0.006**, still below 0.055),
+regenerates again, and the growth owner fails; falsely counts one missing dark
+inactive mean as measured (**137** instead of 136), and the population owner
+fails. Canonical matrix, documents and captures are never written. The logs retain
+actual assertion failures, not a script that merely reports it could mutate them.
+
+### 2. M2 stays at G1's reference, and the older drift is visible
+
+`confirm-evidence.py` re-derives all **26** M2 cells from the live matrix, W33's
+named superseded generation and W31's pre-fit generation; the resulting records
+are exactly G1's `m2-rebaseline.json`. This gate does not advance the reference
+again. Every W36 increment is **0%**; cumulative drift is **−2.774796% to +1.965563%**.
+The **2% per-wave** bound remains a regression stop, not a cumulative fidelity claim.
+
+| adopting wave | M2 passing | worst per-wave change | cumulative worst magnitude |
+| --- | --- | --- | --- |
+| W32, §5.169 | 26/26 | −1.477% | −2.774796% |
+| W33, §5.172–§5.173 | 26/26 | −0.039391% | −2.774796% |
+| W36, §5.179 confirmed here | 26/26 | 0% | −2.774796% |
+
+The same audit checks **125 protected source/profile/matrix/superseded/golden files**
+byte-identical to opening main, and the complete `PREDICATE_EXCLUDES` and
+`MISSED_27_ROWS` blocks unchanged. The chain's owner tests retain **67** exclusions
+and **8** named misses; L1's two absolute misses are a different, broader population
+and are not added to that old active-bed list.
+
+### 3. The release carries G1's exact seal
+
+| endpoint | resolved digest prefix | document SHA-256 first twelve |
+| --- | --- | --- |
+| light active | `be13dae45098fc89` | `85ad7f7e3e0d` |
+| dark active | `2a4323f33df8d799` | `0eac5b294cc2` |
+| light receded | `b0d0d8dacc6a03af` | `30fbe05986ae` |
+| dark receded | `7c454858a3cbad5b` | `5cec8c961201` |
+
+The four full document hashes equal G1's seal manifest. The frozen macOS 26.5
+pair remains **`b2b570e4adcea8fb` / `874be66ea501621b`**. The black gate-group is
+still identity 0 on those documents and the renderer default; no golden needs
+regeneration. No source in the sealed material path moves at this landing.
+
+`pnpm changeset version` consumed `quiet-black-endpoints.md`, generating **0.24.0**
+across core/web/React. No additional published source moved and no extra changeset
+was needed. The web CHANGELOG describes black closure, both poses, the four new
+fingerprints, unchanged 26.5, CSS +1/+2 residual, the declined receded formula and
+unclosed grey/chroma/rim. React records updated dependencies; core's version-only
+entry reflects the fixed group, not a new core feature. Generated prose is retained.
+
+The W33 rehearsal, using `pnpm publish --dry-run --no-git-checks` and `pnpm pack`,
+exits **0**, and `pack-check.py` independently opens all three tarballs, verifies
+0.24.0, LICENSE/NOTICE/README/dist and rewritten workspace dependencies:
+
+| package | bytes | internal dependency ranges | dist entries |
+| --- | ---: | --- | ---: |
+| `@vitreajs/vitrea` | 586,228 | none | 7 |
+| `@vitreajs/vitrea-web` | 569,814 | core `^0.24.0` | 3 |
+| `@vitreajs/vitrea-react` | 188,606 | core/web `^0.24.0` | 3 |
+
+React peers remain `react`/`react-dom >=19.0.0`. No `workspace:` range survives.
+This rehearsal does not exercise `changeset publish`, does not publish anything,
+and is not represented as `pnpm release` itself. Review, merge and the user's
+sanctioned `pnpm release`, then tag, remain outside this worker's authority.
+
+### 4. Sheets and eye, with the pre-seal black provenance explicit
+
+**24 triptychs**, all viewed: eight W34 black cells and sixteen canonical
+impulse/photo capsules, both schemes, poses and rasters. Native / previous /
+shipped-law, with separate absolute OKLab ×8 panels and the **137.097415/255**
+one-byte-above-black calibration printed beside every amplified panel. Guarded
+readers refuse holdout; canonical previous/current metadata must name the W33
+superseded/live matrix rows and both shipped document hashes are verified.
+
+W34 black is not a canonical sealed-generation scene. Its third panel is **G1's
+retained pre-seal price at the now-shipped law**, labelled exactly that, not a new
+capture relabelled as sealed. The reader proves old base plus active tune equals
+the live active patch and the explicit receded patch equals the live receded one;
+it verifies source-file hashes and deterministic Apple/Metal-3 metadata with zero
+repeat noise. This provenance distinction is carried in `sheet-readings.json`.
+
+The eye sees the overbright black body close in both schemes, with inactive's flat
+body particularly close. The active angular inner line and contour/coverage still
+differ; the web's broader rim response is not native's. Impulse remains unchanged
+(and visibly too bright on dark), while photo retains its weaker chroma and
+near-edge differences, especially dark/receded. The two web columns share those
+gaps. No new unexplained eye-only regression or eye stop occurred. `eye.txt` records
+all 24 inspected sheets rather than inferring a visual verdict from SSIM.
+
+### 5. Documentation sweep: the claims, not merely the paths
+
+| file | what it claimed before | disposition at this gate |
+| --- | --- | --- |
+| root `CLAUDE.md` material rows | M1/M2/C1/X1 were the adopted cuts; level had no owner row | L1, its fixed-native estimator, W33 growth reference, four unmeasured rows and two unfloored misses are explicit. W34's deep tolerance remains separate. |
+| root `CLAUDE.md` body/contour | Retention was neutral-inert, and W35's black/grey/chroma level was the next wave; edge would return after it | Black authority fallback and the three-leaf identity gate-group, support/join, six digest prefixes, CSS residual and declined receded formula added. The neutral-inert sentence now describes retention alone, not a promise that all neutral pixels still equal 0.20.0. W36 black closes; middle/chroma and W35's edge need their stated follow-up. |
+| root `CLAUDE.md` capture-tree and shadow paragraphs | A generation checker cannot detect a same-document recapture; superseded pixels must be retained. W33 lift is zero on27 but not26.5; receded shadow is absent; C1 bounds shape rather than fitted sigma | **Unchanged, checked:** all are still true for this landing. Main holds G1's generation and W33's retired pixels; no shadow leaf, law, digest rule or capture-tree convention is changed here. |
+| `packages/platform-web/README.md` | G1 already named the four black digests, sub0.003 branch and remaining thick/middle/chroma/rim gaps, beside prior release history | Names0.24.0 and L1's qualified population/bounds; adds CSS residual and receded-formula decline. Previous0.22/0.23 readings remain historical, not overwritten. |
+| `packages/react/README.md` | The selected handle and drawn-digest route were distinct; latest material release prose described0.21 chroma and0.22 shadow, with no0.24 black paragraph | Adds0.24 black scope, new four digests, thick extrapolation and CSS qualification; binding and activation semantics explicitly unchanged. |
+| three CHANGELOGs | Previous latest release0.23.0 | Generated0.24.0 entries checked against G1's actual scope; no manual rewrite of generated text. Core is version-only, React dependency-only, web carries the material change. |
+| coverage matrix |46/156,29.5%; fidelity can improve without adding a native behaviour/API | Re-scored beside W33: same tally and eight active-bed misses, with L1's separate two misses/four unmeasured rows distinguished. No shadow/content-aware/contour capability is promoted. |
+| tracker | G0's level contract was “still not adopted”; G1 left middle, chroma, thick/near-black, CSS and formula gaps plus a five-pixel holdout anomaly | Adoption closes the missing gate, not those gaps. G1 completed the broader price G0 left unperformed; the actual qualified readings are linked. The recurring Firefox morph-release red is appended without rerun or new causal claim. |
+| demo `law.ts` / `LawsStage.tsx` / shadow readout | Default selected material supplies the arithmetic; shadow endpoint is found by the group's drawn digest and `tuned` is read separately; receded patch composes over active | **Unchanged, checked:** no literal digest needs editing. The published response helper already includes W36's black branch. The inherited tone-stage prose and control lower endpoint are examined separately below; a correct helper does not make old explanatory text current. |
+
+The release checklist receives a prepared/unpublished row, not a checked publication
+box. The older releases' publish records and the still-open native manual-page
+conformance work are not recertified or rewritten here.
+
+### 6. The live demo exposes black, and the inherited prose is corrected
+
+The late `/laws/` sweep found a consumer gap before the eye capture: the page said
+“black to white” but its range began at **0.002 linear**, above W36's support. Its
+prose still described the old three anchors, including literal 0.110/0.271/0.951,
+and claimed the near-black collapse was unchanged byte for byte. The runtime
+helper was already correct; the control and explanation were not.
+
+The existing ground-control e2e case was extended to visit black. It fails BEFORE
+the repair with `fill(0): Malformed value` on `min="2"`, not a timing failure.
+`TONE_GROUND.min` becomes **0**; prose describes the selected four-anchor response,
+its separate black branch, the middle/chroma gaps and thick extrapolation. The
+new check sees **0.000 linear** and the **0.231** rounded target. **All ten `/laws/`
+cases pass** after the change, including the drawn-shadow endpoint pins. Demo
+build/lint and its **46 units** pass again; root eslint passes. The earlier full
+**61-case** demo suite is retained, not represented as having included this later
+control change. No published package source or sealed material changed, so the
+three already-verified release tarballs remain the release's bytes.
+
+`laws-reference.ts` resolves **all four sealed digests** through the page's real
+`endpointByDigest`, with receded composition checked, and its black response is
+**0.23074004852434915** for both page spans. The first CPU invocation lacked the
+app's aliases and refused to import; the corrected invocation uses the demo's
+own tsconfig. This is a consumer test, not a second implementation of the solve.
+
+The live demo on dedicated port **5197** draws **WebGPU / gpu-texture**, light
+active, hardware **Apple/Metal-3**, no fallback, with the readout naming the
+selected macOS27 material and no authoring findings. Two black-stage screenshots
+are **byte-identical**. The named label-free rectangle **[51,240,65,248]** reads
+**RGB132**, min=median=max. `demo-black-pair.png` puts its40px surface beside
+native and retained G1 harness44px black; the body grey agrees by eye, while the
+broader web boundary remains. Different widths, radii, spans and the demo label
+make it a juxtaposition, not a new geometry or thick-black fidelity measurement.
+The thin line at the crop's left is the page-stage border, not a material band.
+
+The installed CLI refused `run-code --filename` before executing any eye script
+or taking a screenshot; the record is retained. A separate X6-attested session
+used supported inline code and supplied the first actual eye pair. No failed
+image was retried to manufacture determinism. Both sessions closed; the owned
+Vite was stopped after inspection (exit143 from deliberate termination).
+
+### 7. The complete chain, with the standing React red disclosed
+
+W33's order is retained in `chain.sh`; every command's exit is in
+`chain-status.txt`. The script's own final exit0 is not an all-green verdict.
+`run-browser.py` uses W35/G1's four-fact X6 preflight, not W33's older three-field
+instrument. `browser-runs.txt` records **nine preflights**, all **RT0 / IC0 /
+slider0.5 / Show Borders0**, minimum HID-idle **43,325.054 seconds**, one suite
+or CLI capture session launched at a time. Seven censuses are **0**; the two eye
+attempts report **1**, PID85913, the owned Vite-launch shell whose command text
+contains the Chromium config. Those raw counts are retained rather than silently
+normalised. No foreign browser was closed; the eye's actual repeat is byte-exact.
+Suite configurations supply their engines; the inherited logger's `channel` field
+is the full-Chromium recipe, not a claim that React's Firefox/WebKit cases used it.
+
+| step | actual result |
+| --- | --- |
+| opening freeze, and chain open | **1,818 intact** each |
+| canonical main-tree checker | **1,900 captures /1,893 match /0 mismatch, misfiled, superseded or unreadable /7 no-row**; every live27 row has a capture at G1's new hashes |
+| recursive build | exit0, nine packages |
+| recursive lint | exit0, nine packages |
+| root eslint | exit0; final script/demo sweep also exit0 |
+| recursive units | **2,761 /196 files**, no skips: policy23, motion164, geometry170, renderer566, core302, platform634, React174, calibration682, demo46; X1 reads the canonical tree and L1's four new cases run |
+| renderer goldens | **34 passed**; **13 PNG files byte-identical** to opening main, isolation pins unchanged, no regeneration |
+| renderer GPU | **49 passed** |
+| platform-web Playwright | **410 passed**, Chromium/Firefox/WebKit and real-adapter GPU project |
+| React three-engine e2e | **173 passed /3 declared skips /1 failed**, first and only run; not rerun |
+| demo full suite, normal5177 | **61 passed**,9.8min; port free at launch, no isolated-suite fallback needed |
+| demo control repair | one expected RED before the fix; **10 `/laws/` passes** after it, plus demo build/lint and46 units |
+| gated counts | macOS27 **230/786**, frozen26.5 **229/1,107** |
+| owner sets | `PREDICATE_EXCLUDES` **67**, `MISSED_27_ROWS` **8**, unchanged and machine-equal |
+| chain close, and final freeze after eye | **1,818 intact** each |
+| publish rehearsal | exit0; three0.24.0 tarballs and `^0.24.0` ranges independently checked (§3) |
+
+The React failure is the standing **Firefox morph-release timing case**,
+`morph-materialize.spec.ts:205`: destination count **1** rather than0 five seconds
+after Escape. The identical case is recorded at W30/W31. Its first log and error
+context remain, no rerun or tolerance edit follows, and no causal fix is claimed.
+The three skips remain the unsupported Firefox forced-colours and WebKit
+increased-contrast/forced-colours cases. The landing is prepared with this red
+**disclosed**, not relabelled clean; publication authority remains the user's.
+
+`final-audit.json` rechecks the125 protected files, adds hashes for the13 golden
+PNGs, records all nine unit counts and X6 receipts, and checks no frozen-keyed
+path/profile/matrix changed. The final scope has only the adopted test, evidence,
+documentation/version records and the demo's control/prose/test correction. The authored
+`git diff --check` scope exits0; the full diff retains37 whitespace diagnostics
+in raw test/build/error logs and the changeset-generated web CHANGELOG.
+`whitespace-scope.json` records them; generated evidence is not hand-edited to
+manufacture an unqualified clean whitespace claim.
+
+### 8. What this gate does not claim
+
+No universal level pass, new deep-domain canonical row, identified middle/chroma
+operator, receded colour-formula adoption, measured thick-black law or native
+curve between black and the join. No closure of the active inner line/contour,
+CSS boundary/probe residuals, censored-colour law, accessibility level or frozen
+26.5 chroma gap. No cause assigned to G1's five-pixel CSS holdout anomaly; no
+holdout/native capture or reseal. No new read of the sealed configuration, no
+independent review by this worker, no merge, push, publication or tag.
+
+The next valuable step is the parent's independent review of this landing, then
+the user's release decision with the retained timing red visible. The edge and
+chroma investigations remain proposed follow-up charters, not work silently
+opened at the end of a release gate.

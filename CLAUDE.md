@@ -245,8 +245,9 @@ rather than by correction**: both endpoints of that mix carry the same linear lu
 on it in exact arithmetic and the renormalisation is an f32 guard; gamut is taken by scaling chroma
 toward the neutral at a held luma, never by clipping a channel. It sits before the tint composition,
 so an author's tint still displaces the result, and it is the identity wherever the backdrop is
-achromatic — which is why there is no `toneAdapt` gate and why a neutral backdrop draws
-bit-identically to 0.20.0. **It stands down entirely under an accessibility OCCLUSION lift**
+achromatic — which is why there is no `toneAdapt` gate. The retention itself leaves a neutral
+backdrop bit-identical to its pre-retention reading; W36's separate black-level branch below
+does change neutral black, so that is no longer a whole-material promise against 0.20.0. **It stands down entirely under an accessibility OCCLUSION lift**
 (`bodyChromaRetentionUnderPolicy`, an exhaustive switch on that axis, folded on the CPU at the
 uniform's pack site because the optics uniform carries no policy): Reduce Transparency raises the
 occlusion and stands it down, `forced-colors` draws no body at all, and **Increase Contrast alone

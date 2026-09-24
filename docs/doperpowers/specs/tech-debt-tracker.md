@@ -6217,3 +6217,29 @@ formula, CSS boundary and probe residuals, five-pixel holdout anomaly, and unmea
 thick/near-black intervals above all remain open. The edge returns only under a new
 charter with its colour-conditioned angular form and joint body/structure prediction
 declared first; W36 has not silently authorised it or another native capture.
+
+
+### W36 G2: the standing Firefox morph-release timing red recurred (2026-09-24)
+
+The first and only full React three-engine run at the 0.24.0 preparation reads
+**173 passed / 3 skipped / 1 failed**. The failure is the already-recorded W30/W31
+case: `morph-materialize.spec.ts` “the end that is absent is inert, and is released
+when it has gone”, Firefox, destination still mounted five seconds after Escape
+(line 205, expected count 0, received 1). No React source changes at this landing;
+no rerun, tolerance edit or release exception is manufactured. Log and retained
+error context: `results/2026-09-24-w36-g2-landing/chain-react-e2e.txt` and
+`react-first-failure-context.txt` (§5.180). It remains a disclosed driver-timing
+class, not a claim that this gate proved its underlying cause or fixed it.
+
+
+### W36 G2: `/laws/` black endpoint and stale tone prose closed by fix (2026-09-24)
+
+The page promised a black-to-white sweep while its slider started at0.002 linear,
+above W36's compact support; its literal anchors and “unchanged byte for byte”
+black-collapse sentence described the old26.5 curve. The lower stop is now0 and
+prose follows the selected macOS27 four-anchor response plus separate black branch,
+with grey/chroma and thick-black qualifications. The existing ground-control case
+fails on fill(0) before the fix; all10 laws cases pass after. The hardware live-eye
+stage repeats byte-identically and its named label-free rectangle readsRGB132.
+This is a consumer/control correction, not a material refit. Evidence §5.180's
+`demo-black-control-red.txt`, `demo-laws-green.txt`, `demo-black-reading.json`.
