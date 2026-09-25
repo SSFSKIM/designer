@@ -5980,6 +5980,17 @@ a release asset named by hash from the ledger — the requirement is that the ba
 what a reader can fetch by the name the ledger records, not that it sits in every clone. Nothing
 here is wrong; it is weight.
 
+**Measured beside, 2026-09-25 (the parent, after 0.24.0):** the pack is now 462.44 MiB, and the
+heaviest blobs in history are not the repeat archive but `packages/calibration/results/matrix.json`
+itself — every read that appends a generation commits a new 60–77 MB revision of the whole file
+(the eight largest blobs in the repository are all that path, 63.0–76.6 MB), which is what GitHub's
+GH001 warning on the W36 G2 push named. The repeat archive is 146 MB in the working tree. Any weight
+decision therefore has two parts, not one: the archives (LFS or an external store, as above) and the
+matrix's revision history (per-generation files, which `results/superseded/` already is for retired
+rows; compression the readers and the demo's build-time reduction would have to learn; or LFS with
+the demo build and every reader still able to read it). Not chartered; measured so the next fork
+can be ruled on numbers.
+
 ## W34 G2: comparer publication seams and missing curvature rows
 
 2026-09-24, §5.176; `results/2026-09-24-w34-g2-contour-identification/`.
