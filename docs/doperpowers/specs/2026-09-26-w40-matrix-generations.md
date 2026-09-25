@@ -198,6 +198,11 @@ matrix) → W39 G3 only after W40 G1.
 
 ## Revision Notes
 
+- 2026-09-26 (the user, routing): "prefer opus over sol" — from here, children, fix waves and
+  grounding run on the default `opus` worker or on `astra` at medium/high; `sol` is no longer
+  the default rung named in X9's carry-over. Reviews still route through the review-code
+  agents (`reviewer-high` for gate merges).
+
 - 2026-09-26 (G0's merge, the parent): merged `4658dfee` after an independent review (one P1:
   canonical paths classified by spelling, bypassed by a differently cased alias on this
   case-insensitive filesystem in the guard and both adapters; fixed by filesystem identity) and a

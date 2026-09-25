@@ -564,6 +564,11 @@ validation span or control pairing is dropped for time.
 
 ## Revision Notes
 
+- 2026-09-26 (the user, routing): "prefer opus over sol" — from here, children, fix waves and
+  grounding run on the default `opus` worker or on `astra` at medium/high; `sol` is no longer
+  the default rung named in X9's carry-over. Reviews still route through the review-code
+  agents (`reviewer-high` for gate merges).
+
 - 2026-09-26 (G0's merge, the parent): merged `ba38ebbf` after an independent review (3 P1 / 1
   P2, fixed on the branch: amplitude convergence, sentinel protocol, borrowed-control
   calibration, pass ordering) and a clean re-review; freeze 1,818; no capture tree moved (no
