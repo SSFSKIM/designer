@@ -5991,6 +5991,14 @@ rows; compression the readers and the demo's build-time reduction would have to 
 the demo build and every reader still able to read it). Not chartered; measured so the next fork
 can be ruled on numbers.
 
+**Ruled beside, 2026-09-26 (the user, W39 charter Decision Log 1):** the W39 repeat archive
+(estimated 200–350 MB) is a GitHub release asset named by its SHA-256, fetched and verified by
+the readers and kept out of ordinary Git, with a second owner-controlled copy on the capture
+machine; W34's committed archive stays where it is (no history rewrite). And the matrix's
+revision history gets its own small wave, W40, after W39 G0's merge and before W39's G3 landing:
+future generations as indexed per-generation files, frozen macOS 26.5 rows untouched and still
+addressable, no rewrite. Grounding for W40 requested 2026-09-26.
+
 ## W34 G2: comparer publication seams and missing curvature rows
 
 2026-09-24, §5.176; `results/2026-09-24-w34-g2-contour-identification/`.
