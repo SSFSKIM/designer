@@ -1,0 +1,162 @@
+W38 G0 pre-score declaration — c9a §5.183, charter clauses 1–6 and X18–X20
+
+Order and authority
+This text, search-grid.json, E2 declaration and current pre-W38 baseline are committed
+before C1 or C2 is scored. Reproduction of the previously scored grounding memo is
+not C1/C2 selection. No material, fixture, matrix, scene, source or capture changes.
+No browser, native or holdout read. W34 validation grey96/cyan/160x96 is never opened.
+Canonical non-holdout validation is part of E2, not identification.
+
+C1: exact held-top rotation, including the literal-axis correction ruled by the parent
+Axis [0,-1]. ONLY the regular variant's rimAlpha and rimLevelGain are multiplied by
+s = (.7071)^.85 = 0.7448326599749504 in each of four macOS27 documents; receded
+amplitudes remain zero. The charter's ideal unit-diagonal value 2^(-.85/2) equals
+0.7448387315613512. Their difference is -0.000006071586400757223. The shipped
+[-.7071,-.7071] uniform is NOT normalized (passes.ts 935–936). The parent ruled the
+literal ratio during G0, before scoring, to execute held top rather than a nominal
+unit vector. Both values remain recorded; this is not fitted on a pixel.
+At top/bottom, l_old=(sqrt(2)*.7071)^p and l_new=sqrt(2)^p, so s*l_new=l_old
+and rw*along*(s*a+s*g*L)*l_new = rw*along*(a+g*L)*l_old at T=0, both scales,
+bare or painted. Finite f32 arithmetic and encoded-byte identity require G1a.
+Widths, exponent .85, along .1, shadow, shared collapsed constants, clear, sqrt(2),
+squared profile and shader stay untouched. Receded axis follows its active base.
+The collapsed top contribution increases by (1/.7071)^.85 = 1.3425834469095799
+relative to literal old top (ideal 2^(.85/2)=1.3425725027802635), wherever T>0.
+T is backdrop adaptation, NOT tint. Tint only selects the collapsed constant.
+The shader's max(dot,1e-6) leaves a minute side term, not mathematical zero.
+
+C2: finite constrained search, no aggregate least squares
+Vertical axis fixed. Separate per-scheme coefficients, both scales jointly.
+search-grid.json gives every value: exponents .425/.85/1.7/3.4; five width pairs;
+a/g include the held-top C1 values; along 0/.1; shadow PRODUCT 0/.0175/.035/.07.
+The declared reviewer counterexample is included as a diagnostic extra point per
+scheme, never an adaptive enlargement. Shadow depth and alpha are inseparable in
+this opaque branch: fit their product only, depth can be .35 and alpha product/.35.
+No signed amplification: 0<=keep<=1. Lens reach and size law stay shipped.
+Fit population is the 28 active circular solid CALIBRATION cells per scheme.
+Native deep (own per-channel median d<=-6 CSS px) is the only conditioning input;
+web pixels are not opened by search. Channels >=254.5 on native deep OR any bin
+pixel are censored out of objective, not inverted, but remain in every veto table.
+Objective: MINIMAX of the four strata's maximum uncensored channel-bin MAEs,
+SUBJECT TO per-bin veto, stratum max/mean and horizontal bound below. Ties retain
+lexicographic grid enumeration. This is a finite-budget result, not a global
+impossibility proof. Noncircular and structured are diagnostic transfer, never fit
+targets; a chosen feasible point must pass them without reselection or is rejected.
+If no feasible point exists, selected=null, nomination=none; retain one FAILURE
+WITNESS minimizing maximum positive constraint excess, then minimax, purely to
+table the failure and transfer. Never call that witness a selected feasible fit.
+
+Dominance, in order, no exceptions
+(i) PER-CHANNEL-BIN VETO: on every admitted calibration bin, tinted and structured
+diagnostics included, mean(abs(predicted excess-native excess)) cannot exceed the
+shipped treatment's SAME per-pixel MAE by >1 code. A single veto disqualifies.
+(ii) For greys' straights, greys' arcs, solids' straights, solids' arcs and
+noncircular transfer separately per scheme, max AND mean of channel-bin MAEs
+cannot worsen by >0.5 code. Structured diagnostics are additionally separate.
+(iii) Horizontal-normal bins (normal bins 0 and 8, sides/arcs/shells retained)
+must be within 2 codes of Apple. (iv) Every within-veto trade is tabled, worst named.
+W35 domain: shells [-6,0) CSS px, device-pixel shells, 16 nearest-normal bins,
+all four corners in circular body, population>=4; exact full-coverage straights
+only on noncircular supplied paths. Absolute value BEFORE averaging. No pooling.
+No bound, tolerance, stratum or population changes to admit a candidate.
+Structured constant-deep forward readings are diagnostics, not an identification
+of the spatial body or a replacement for G1a's rendered per-bin veto.
+
+E2, R1 and pre-W38 generation
+E2's machine declaration and row baseline are siblings committed with this text.
+Estimator1 preserves W37 G0b: side/shell/RGB MAE of excess against own deep;
+centred single component, 1.6-radius straight exclusion, capsules top/bottom only,
+absent sides explicitly UNMEASURED; floor4, every required side/shell must meet
+coverage for a full row pass. Estimator2: three declared 44x44 circle members,
+scene placement, nearest-member ownership, per-member deep, 16 normal-angle bins,
+whole pixels, floor4 and coverage threshold declared in e2-declaration.json.
+Estimator3: the two glass-over-glass HOLDOUT scene IDs (six profile×scene rows
+by matrix metadata, correcting the charter's two-row shorthand) only at G1b's
+one holdout read,
+visible top layer supplied geometry and offset, same straight/arc cuts and own
+visible-layer deep. Mixed backend gpu-texture+css-backdrop named, not rejected as
+E1's pure backend; non-visible base pixels not substituted. No G0 payload read.
+E2 bound: no measured side/arc-shell-channel MAE worsens by >1 code versus baseline;
+14 untinted uniform E1 rows additionally require horizontal-side excess MAE<=2
+codes, no absent side converted to a pass. Missing captures/generation/coverage
+are UNMEASURED, never pass. Native PNG, both document hashes, matrix capturePath,
+renderer/backend, deterministic receipt must bind re-derivation.
+R1 future fixtures: platform-web e2e/fixtures/harness.ts and index.html, used by
+shared/proxies.spec.ts and gpu/webgpu-tier.spec.ts. Extend the existing proxy and WebGPU fixtures for both
+css-backdrop and none, sampled control, black/white/coloured backgrounds, clear,
+regular and Reduce Transparency. No existing native fixture is implied.
+Band mask is union over surfaces |d|<max(old,new rimWidthAtScale) with coverage
+clamp(.5-d*dpr,0,1)>0; own declared SDF and per-member normals, not image-selected.
+Outside band byte-identical. Inside: side (|nx|>=cos(pi/8)) luminance does not rise;
+top/bottom (|ny|>=cos(pi/8)) stays within1 code of pre-W38 under C1 at T=0;
+T>0 admits ONLY rw*along*collapsed*T*(l_new-l_old), including rimTintColour and
+encoded composition. C2 admits only its forward-predicted delta, within1 code.
+Geometry/coverage failures UNMEASURED. All masks and baseline PNGs must be frozen
+before G1a candidates render; G0 performs no render and does not assert R1 passed.
+pre-w38-baselines.json names matrix, documents, 13 PNG hashes, activation hashes
+and repaired E1 artifact. stop-baseline.json.gz keeps every non-holdout standard27
+row including probes. Canonical generation checker was run in MAIN before reads.
+
+Prospective stops and limits on prediction
+C1 and any selected C2 need actual per-cell tables, MISSED_27_ROWS and exact predicate
+rederivation at G1a; existing lists cannot be inherited as predicted passes.
+M1 .60–1.40: neutral ring changes numerator and denominator; M2 ±2% against this
+pre-W38 generation (W35 erosion sensitivity -60.028% light/-48.433% dark) unchanged.
+L1 .055/growth .005 against W33: re-aimed ring can lower or raise per-cell silhouette
+mean depending on sign of affine rim, collapsed fraction, colour and geometry.
+No nonidentity render-derived per-row value is identifiable from a native-deep
+boundary model. Post-fit metric values are UNIDENTIFIED and block adoption, not
+invented zero changes. Retain per-row prior numbers and this reason in stop price.
+If the archive rejects both candidates, actual no-change outcome is exactly every
+pre-W38 value, zero predicate/MISSED churn; no unperformed render is reported.
+C1 exterior shape<=.0042, X1 black floor=0 and B1 ±5% must be shown on captures:
+coverage allows rim changes up to half a device pixel outside contour, not farther;
+whole-pixel inner identification proves no fractional-coverage or grouped/stacked
+pixel identity. Actual outer-shadow leaves remain fixed. These are not predicted
+numerical passes from an interior-only model.
+Tier coherence must be repriced after CSS derivation. Thirteen renderer goldens
+should remain byte-identical because harness uses default26.5 material, not27
+documents; harness/source hashes and PNG hashes pinned, no golden run in G0.
+Window activation active AND receded digests change under a patch; receded zero
+amplitudes predict pixel identity, not document identity. FWHM is recorded beside
+W29 G3, not promised as a stop or inferred from rimWidth. No holdout read for price.
+
+CSS derivation plan
+Use the resolved variant's actual axis/exponent and multiply the BLENDED amplitude
+A*(1-T)+C*T by lit_top=(sqrt(2)*|axis.y|)^p before border alpha conversion (.64
+regular /1.95 clear). Shared C unchanged. At p=0 clear/strong border factor1.
+Frozen26.5 diagonal conversion remains exactly the existing1 branch; the literal
+GPU factor .999991848 and old CSS ideal normalization1 differ by 8.15ppm, recorded
+rather than silently changing frozen26.5. Under literal-ratio C1 the uncollapsed
+CSS top is old*.9999918484550502, not algebraically byte-identical; quantized-byte
+identity must be tested at G1a. No compensation to collapsed amplitudes.
+Full collapse bare .038*.64=.02432 -> .02432*2^(.85/2)=.03265136326761601;
+painted .52*.64=.3328 -> .44680812892527166. Partial collapse is affine in T.
+Pin T=0/.5/1 each crossed with tintK=0/1; clear and strong border separately;
+26.5 stays unchanged. Existing exact borderAlpha pins move only where projected
+lobe changes; propagation/policy pins stay. Re-derive interiorBandLight from
+same leaves (its angular integral already rotates). One-inset projection cannot
+match the two2x rows better than 6.5/8.5 light/dark codes at grey128; carry/decline
+is a G1a rendered decision, not a G0 render or a bound relaxation.
+
+Pre-freeze census refinements, ruled by parent during G0
+E2 includes 140 canonical probe-role diagnostics under W25 Decision Log3(e):
+212 non-holdout active rows total, not just72 calibration/validation rows.
+Estimator3 names all six profile×scene stacks across the two scene IDs; no payload
+read. Both scope corrections precede scoring. The superseded72-row baseline is
+kept beside rather than rewriting a recorded number.
+The active regular T>0 condition is sourceTone + .05*smoothstep(32,96,span)<.0001
+and positive policy strength. At span44 size term alone=.0046142578125, so collapse
+is impossible there or above. At span32 and below, near-black sourceTone<.0001
+can collapse; at small spans just above32 the same inequality decides. Policy
+fold divides the size bias by its thickness cap, preserving that geometric
+threshold; a zero cap/ambient-none switches adaptation off, not on. Strong border
+exponent0 cannot acquire rotational brightening. Missing source tone also turns
+adaptation off. The canonical census is computed separately, never from tintK.
+The existing renderer collapsed-tone / collapsed-tone-textured goldens use span44
+and hint .01 under DEFAULT26.5. Applying a27 document makes T=0 there; w36-black
+uses span44 too. The named platform-web R1 fixture geometry is also thick. Thus
+no named existing pixel fixture exercises27's rotated collapsed contribution.
+R1 freezes the comparison law but DOES NOT manufacture a new fixture in G0.
+If the census confirms no T>0 canonical cell, collapsed brightening remains
+UNMEASURED/unexercised by these gates, to the parent before opening G1a.

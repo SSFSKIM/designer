@@ -1,0 +1,421 @@
+{
+  "scope": "Calibration-only straight-row necessary bound, any neutral q and physical occlusion 0<=k<=1; not a bound allowing signed amplification k>1",
+  "worstBounds": [
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/green__circular-120__rest",
+      "shell": -1,
+      "bin": 12,
+      "nativeDeep": [
+        22.0,
+        193.0,
+        22.0
+      ],
+      "nativeTarget": [
+        27.0,
+        244.0,
+        27.0
+      ],
+      "minimaxLowerBoundCodes": 42.70729140059642
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/yellow__circular-120__rest",
+      "shell": -1,
+      "bin": 12,
+      "nativeDeep": [
+        173.0,
+        173.0,
+        11.0
+      ],
+      "nativeTarget": [
+        212.0,
+        212.0,
+        6.0
+      ],
+      "minimaxLowerBoundCodes": 35.453924647135146
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/green__circular-120__rest",
+      "shell": -1,
+      "bin": 12,
+      "nativeDeep": [
+        22.0,
+        193.0,
+        22.0
+      ],
+      "nativeTarget": [
+        26.0,
+        232.0,
+        26.0
+      ],
+      "minimaxLowerBoundCodes": 33.271491180461894
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/yellow__circular-120__rest",
+      "shell": -1,
+      "bin": 12,
+      "nativeDeep": [
+        173.0,
+        173.0,
+        11.0
+      ],
+      "nativeTarget": [
+        202.0,
+        202.0,
+        7.0
+      ],
+      "minimaxLowerBoundCodes": 26.704665108579114
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/green__circular-120__rest",
+      "shell": -2,
+      "bin": 12,
+      "nativeDeep": [
+        22.0,
+        193.0,
+        22.0
+      ],
+      "nativeTarget": [
+        25.0,
+        222.0,
+        25.0
+      ],
+      "minimaxLowerBoundCodes": 25.15788447180016
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/green__circular-120__rest",
+      "shell": -2,
+      "bin": 4,
+      "nativeDeep": [
+        22.0,
+        193.0,
+        22.0
+      ],
+      "nativeTarget": [
+        25.0,
+        221.0,
+        25.0
+      ],
+      "minimaxLowerBoundCodes": 24.315779474931432
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/yellow__circular-120__rest",
+      "shell": -1,
+      "bin": 12,
+      "nativeDeep": [
+        230.0,
+        230.0,
+        81.0
+      ],
+      "nativeTarget": [
+        255.0,
+        255.0,
+        71.0
+      ],
+      "minimaxLowerBoundCodes": 21.650037934115595
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/yellow__circular-120__rest",
+      "shell": -1,
+      "bin": 12,
+      "nativeDeep": [
+        230.0,
+        230.0,
+        81.0
+      ],
+      "nativeTarget": [
+        254.0,
+        254.0,
+        74.0
+      ],
+      "minimaxLowerBoundCodes": 20.175938976090286
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/yellow__circular-120__rest",
+      "shell": -2,
+      "bin": 4,
+      "nativeDeep": [
+        173.0,
+        173.0,
+        11.0
+      ],
+      "nativeTarget": [
+        194.0,
+        194.0,
+        8.0
+      ],
+      "minimaxLowerBoundCodes": 19.525036999128837
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/yellow__circular-120__rest",
+      "shell": -2,
+      "bin": 12,
+      "nativeDeep": [
+        173.0,
+        173.0,
+        11.0
+      ],
+      "nativeTarget": [
+        194.0,
+        194.0,
+        8.0
+      ],
+      "minimaxLowerBoundCodes": 19.525036999128837
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/yellow__circular-120__rest",
+      "shell": -2,
+      "bin": 12,
+      "nativeDeep": [
+        230.0,
+        230.0,
+        81.0
+      ],
+      "nativeTarget": [
+        248.0,
+        248.0,
+        76.0
+      ],
+      "minimaxLowerBoundCodes": 15.117871147057958
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/yellow__circular-120__rest",
+      "shell": -2,
+      "bin": 4,
+      "nativeDeep": [
+        230.0,
+        230.0,
+        81.0
+      ],
+      "nativeTarget": [
+        247.0,
+        247.0,
+        76.0
+      ],
+      "minimaxLowerBoundCodes": 14.349411000930747
+    }
+  ],
+  "channelComparisons": [
+    {
+      "scheme": "light",
+      "better": 4937,
+      "same": 5635,
+      "worse": 2394,
+      "total": 12966
+    },
+    {
+      "scheme": "dark",
+      "better": 2722,
+      "same": 8313,
+      "worse": 1985,
+      "total": 13020
+    }
+  ],
+  "grey128Best2xTopExcess": [
+    [
+      5.849330881766044,
+      5.849330881766044,
+      5.849330881766044
+    ],
+    [
+      18.30075174720666,
+      18.30075174720666,
+      18.30075174720666
+    ]
+  ],
+  "grey128TopDepthRangesCss": [
+    [
+      -0.78125,
+      -0.78125
+    ],
+    [
+      -0.28125,
+      -0.28125
+    ]
+  ],
+  "widthOneCentreWeights": [
+    0.0625,
+    0.5625
+  ],
+  "widthOneAreaMeanWeights": [
+    0.08333333333333333,
+    0.5833333333333334
+  ],
+  "binContrastBounds": [
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/yellow__circular-120__rest",
+      "shell": -1,
+      "bin": 12,
+      "nativeDeep": [
+        173.0,
+        173.0,
+        11.0
+      ],
+      "nativeTarget": [
+        212.0,
+        212.0,
+        6.0
+      ],
+      "minimaxLowerBoundCodes": 35.453924647135146,
+      "channels": [
+        0,
+        2
+      ],
+      "maximumPredictedEncodedContrast": 172.374475168998,
+      "binMAELowerBoundCodes": 16.812762415501
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/yellow__circular-120__rest",
+      "shell": -1,
+      "bin": 12,
+      "nativeDeep": [
+        173.0,
+        173.0,
+        11.0
+      ],
+      "nativeTarget": [
+        212.0,
+        212.0,
+        6.0
+      ],
+      "minimaxLowerBoundCodes": 35.453924647135146,
+      "channels": [
+        1,
+        2
+      ],
+      "maximumPredictedEncodedContrast": 172.374475168998,
+      "binMAELowerBoundCodes": 16.812762415501
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/green__circular-120__rest",
+      "shell": -1,
+      "bin": 12,
+      "nativeDeep": [
+        22.0,
+        193.0,
+        22.0
+      ],
+      "nativeTarget": [
+        27.0,
+        244.0,
+        27.0
+      ],
+      "minimaxLowerBoundCodes": 42.70729140059642,
+      "channels": [
+        1,
+        0
+      ],
+      "maximumPredictedEncodedContrast": 191.69646343581604,
+      "binMAELowerBoundCodes": 12.651768282091979
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/green__circular-120__rest",
+      "shell": -1,
+      "bin": 12,
+      "nativeDeep": [
+        22.0,
+        193.0,
+        22.0
+      ],
+      "nativeTarget": [
+        27.0,
+        244.0,
+        27.0
+      ],
+      "minimaxLowerBoundCodes": 42.70729140059642,
+      "channels": [
+        1,
+        2
+      ],
+      "maximumPredictedEncodedContrast": 191.69646343581604,
+      "binMAELowerBoundCodes": 12.651768282091979
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/yellow__circular-120__rest",
+      "shell": -1,
+      "bin": 12,
+      "nativeDeep": [
+        173.0,
+        173.0,
+        11.0
+      ],
+      "nativeTarget": [
+        202.0,
+        202.0,
+        7.0
+      ],
+      "minimaxLowerBoundCodes": 26.704665108579114,
+      "channels": [
+        0,
+        2
+      ],
+      "maximumPredictedEncodedContrast": 172.374475168998,
+      "binMAELowerBoundCodes": 11.312762415500998
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/yellow__circular-120__rest",
+      "shell": -1,
+      "bin": 12,
+      "nativeDeep": [
+        173.0,
+        173.0,
+        11.0
+      ],
+      "nativeTarget": [
+        202.0,
+        202.0,
+        7.0
+      ],
+      "minimaxLowerBoundCodes": 26.704665108579114,
+      "channels": [
+        1,
+        2
+      ],
+      "maximumPredictedEncodedContrast": 172.374475168998,
+      "binMAELowerBoundCodes": 11.312762415500998
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/green__circular-120__rest",
+      "shell": -1,
+      "bin": 12,
+      "nativeDeep": [
+        22.0,
+        193.0,
+        22.0
+      ],
+      "nativeTarget": [
+        26.0,
+        232.0,
+        26.0
+      ],
+      "minimaxLowerBoundCodes": 33.271491180461894,
+      "channels": [
+        1,
+        0
+      ],
+      "maximumPredictedEncodedContrast": 191.69646343581604,
+      "binMAELowerBoundCodes": 7.151768282091979
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/green__circular-120__rest",
+      "shell": -1,
+      "bin": 12,
+      "nativeDeep": [
+        22.0,
+        193.0,
+        22.0
+      ],
+      "nativeTarget": [
+        26.0,
+        232.0,
+        26.0
+      ],
+      "minimaxLowerBoundCodes": 33.271491180461894,
+      "channels": [
+        1,
+        2
+      ],
+      "maximumPredictedEncodedContrast": 191.69646343581604,
+      "binMAELowerBoundCodes": 7.151768282091979
+    }
+  ]
+}

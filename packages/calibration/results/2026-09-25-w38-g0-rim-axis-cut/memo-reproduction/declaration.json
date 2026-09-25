@@ -1,0 +1,88 @@
+{
+  "scope": "Native-only calibration active solids; fit circular-120 and circular-200, other calibration shapes transfer only. No validation payload reads. Opaque full coverage only.",
+  "axis": [
+    0,
+    -1
+  ],
+  "exponent": [
+    0.85,
+    2,
+    4
+  ],
+  "widthPairs": {
+    "light": [
+      [
+        1,
+        1
+      ],
+      [
+        1.5,
+        1.5
+      ],
+      [
+        2.2,
+        1.35
+      ],
+      [
+        6.5,
+        5.85
+      ]
+    ],
+    "dark": [
+      [
+        1,
+        1
+      ],
+      [
+        1.5,
+        1.5
+      ],
+      [
+        2.2,
+        1.35
+      ],
+      [
+        3,
+        2
+      ]
+    ]
+  },
+  "a": {
+    "light": [
+      0.04,
+      0.08,
+      0.115
+    ],
+    "dark": [
+      0.03,
+      0.055,
+      0.08
+    ]
+  },
+  "g": {
+    "light": [
+      -0.122,
+      0,
+      0.2
+    ],
+    "dark": [
+      0.2,
+      0.44,
+      0.6
+    ]
+  },
+  "along": [
+    0,
+    0.1
+  ],
+  "shadowDepth": [
+    0,
+    0.35
+  ],
+  "shadowAlpha": [
+    0.05,
+    0.1
+  ],
+  "objective": "mean squared encoded RGB error, equal bin/channel mass, >=4 whole pixels; includes clipped channels as forward outputs, not inversions",
+  "comparison": "per-bin max channel MAE; better/worse only beyond 0.5 code; old native-conditioned treatment, NOT actual shipped render"
+}
