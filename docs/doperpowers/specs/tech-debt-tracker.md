@@ -6309,3 +6309,38 @@ the remaining work:** the release checklist gains a row "CI green on main at the
 commit" (added beside, not retroactively ticked for 0.24.0), and the merge recipe in
 `CLAUDE.md`'s Release paragraph should say a merge is checked against its CI run, not only
 the local chain — a process rule, recorded here for the next release to execute.
+
+## Evidence replays assert bit-exact reproduction and CI runs on a different BLAS
+
+2026-09-26, `verify` at `3946576d`: the W37 records were produced on macOS
+(Accelerate), while ubuntu-latest recomputes them with Linux OpenBLAS. An
+x86_64 Python 3.12 Docker replay against the untouched records counted:
+
+- G0 `verify-scores.py`: 13,103 / 853,732 residual numeric leaves differ,
+  maximum absolute 1.208e-13 (maximum relative 1.655e-12); 11,013 / 403,918
+  transfer leaves differ, maximum absolute 4.974e-13 (relative 4.296e-10
+  near zero). No categorical or structural differences.
+- G0b `reproduce-g0.py --verify-native`: 252 / 87,497 numeric leaves differ,
+  maximum absolute 4.441e-16 and relative 3.177e-16; all populations,
+  categorical fields and worktree-independent provenance are identical.
+- G0b `verify-scores.py --verify`: 58,498 / 1,280,598 residual numeric leaves
+  differ, maximum absolute 2.984e-13 (relative 3.393e-11); 45,637 / 605,877
+  transfer leaves differ, maximum absolute 8.669e-13 (relative 7.747e-11).
+  No categorical or structural differences. Relative maxima on small
+  cancellation residuals require an absolute floor, not a relative-only test.
+
+The replay now requires exact floats on the recording Mac; on Linux it allows
+at most 1e-12 absolute OR relative float roundoff, with exact shape, keys,
+integer counts, selected coefficients' independent checks and verdicts on
+both platforms. This is a compatibility bound on reproducing *recorded*
+evidence, not a changed material/fidelity bound. The original records stay
+immutable; CI must still exercise the full replays.
+
+Separately, W38 E2's `sameBaseline: false` comes from the gitignored canonical
+web capture tree being absent on CI: Docker yields 212 / 212 absent captures,
+zero measured and 212 UNMEASURED rows, rather than changed pixels. The test
+now asserts that entire existing UNMEASURED path only if that tree is absent;
+with the capture tree present it still requires the exact baseline.
+W35's 238,292-bin population test exceeded Vitest's 5 s default on CI,
+although its isolated Mac run took 3.405 s (6.253 s under simultaneous
+Linux diagnostics); W40 G1 owns its explicit 30 s budget, not this fix.

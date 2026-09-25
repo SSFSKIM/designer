@@ -1,5 +1,10 @@
 """Replay encoded bins and refit each selected shape on guarded native pixels only."""
-import gzip,json
+import gzip,json,sys
+from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parent.parent))
+# The native Mac recording remains bit-exact; Linux BLAS roundoff is bounded
+# without relaxing bins, population or categorical verdicts.
+from replay_equality import same_evidence
 import numpy as np
 import identify,law
 HERE=law.HERE;edge=law.edge
@@ -27,6 +32,6 @@ for fit in json.loads((HERE/'fits.json').read_text()):
     error=float(np.max(abs(coefficients-fit['coefficients'])));assert error<1e-10
     assert cells==fit['fitCells'];assert rank==5
     checks.append(dict(space=fit['space'],scheme=fit['scheme'],nativeOnlyCoefficientDifference=error,rank=int(rank)))
-assert all_rows==stored,'recorded forward bins changed'
-assert all_transfer==transfers,'recorded transfer changed'
-print(json.dumps(dict(residualBins=len(stored),transferCells=len(transfers),exactReproduction=True,checks=checks),indent=2))
+assert same_evidence(all_rows,stored),'recorded forward bins changed'
+assert same_evidence(all_transfer,transfers),'recorded transfer changed'
+print(json.dumps(dict(residualBins=len(stored),transferCells=len(transfers),exactReproduction=sys.platform=='darwin',reproductionVerified=True,checks=checks),indent=2))
