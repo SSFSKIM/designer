@@ -263,3 +263,36 @@ pass71 tests in total (including the7 synthetic preflight tests); calibration li
 TypeScript checks pass; final freeze1,818 intact. `archive-exclusions-verify-final.txt` and
 `test-declaration-final.txt` name the final declaration. The native frame-recording path
 remains operationally unexercised and the TCC-level refusal rehearsal is still outstanding.
+
+## Corrected at the independent review
+
+The original logs and numerical readings above remain intact. This section records the
+review fixes beside them; `*-review.txt` files are the corrected verification outputs.
+
+**P1-2 — normal and long protocols are explicit, never guessed.** Every successful sitting
+admission now carries `protocol: normal|long` and the capture settings derived from the
+actual launch arguments. Normal means initial settle1.75s with no order seed; long means
+settle8s and seed3901. Both hold reset-interstitial6s, reset-carries-glass false and minimum
+idle60s. The manifest must match these settings before admission. The archive producer
+requires that admission, validates its settings echo and manifest hash, and checks that only
+sentinel passes are long. Missing protocol is a refusal, not a normal default. W34's seed3401
+is not a W39 sentinel signature. The integration test consumes admissions actually written
+by the sitting's `main`, including its complete 44-run synthetic sitting.
+
+**P1-3 — an opaque control carries its own reference and geometry.** A borrowed white-over-
+grey128 control must not be calibrated against its dependent colour scene's no-glass image.
+The producer now archives a separate `opaqueNoGlass` dependency, including its hash,
+attestation and source run. Its role cannot outrank its dependent. The reader uses the
+control's own attested component and this reference; the dependent colour is never used to
+calibrate it. All190 declared glass cells have this reference;126 colour scenes borrow one
+different from their own. The corrected integration test reads exterior alpha exactly0 at
+both scales and preserves the control's own measured bins/edges, even with a quarter-pixel
+difference between control and glass origins. Producer→archive→replay remains identical.
+
+**P2 — a started pass is not a completed pass.** Every run of every predecessor pass must
+have successful matching admission: two runs per preflight scale, seven per normal pass,
+three per long sentinel pass. Sentinels follow the bed's pass order. Within a pass, runN
+requires successful admissions for1..N−1. Quarantines never satisfy these checks. An existing
+unadmitted run directory still refuses: the operator must explicitly preserve or rename it
+before a deliberate continuation. The driver neither overwrites nor automatically retakes
+it, and no new root-lock mechanism was added.

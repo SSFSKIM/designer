@@ -38793,3 +38793,40 @@ than used to establish shift identification. This is the reason for superseding 
 The bed, split, side pin, archive exclusions and frozen evidence are not changed by this
 optimizer execution amendment. The corrected synthetic referee and its verdicts follow
 after execution; no native pixel or threshold tuning is authorised by this correction.
+
+**P1-2 corrected — long sentinels are not normal repeats.** The producer's old fallback knew
+W34 seed3401 but not W39 seed3901, while the sitting omitted an explicit protocol. It could
+therefore archive a long W39 sentinel as normal. The sitting now derives `protocol` and its
+settings echo from the real launch arguments, validates them against the manifest and writes
+both into `admission.json`. Normal is settle1.75/no seed, long is settle8/seed3901; both retain
+reset6, reset-carries-glass false and minimum-idle60. The producer requires the explicit arm,
+checks all five capture settings, the sentinel/non-sentinel pass identity and the actual
+manifest digest, and refuses missing or contradictory metadata. The integration test reads
+admissions written by the sitting's real `main` through the full44-run synthetic sitting;
+it does not manufacture the newly required field in an archive-only fixture. Changing a
+main-written sentinel manifest to3401 is refused. No W39 native archive exists to reclassify.
+
+**P1-3 corrected — the control's background is its own.** The original `analyse` calibrated
+borrowed white-over-grey128 controls against the dependent colour no-glass frame, creating a
+false exterior alpha (the review's red-bridge example read0.374989). The producer now carries
+`opaqueNoGlass` as a separately hashed, attested and replayable dependency, and the reader
+uses the opaque control's own supplied-path geometry and own background. The role-rank guard
+also covers this added dependency. Every one of the190 declared glass scenes has this
+reference;126 colour scenes use a reference different from their own no-glass frame. In the
+new1x/2x integration, exterior alpha is **exactly0**, background128 and fill255; measured bins
+and edge positions equal the control's own native-only reading, including a quarter-pixel
+control/glass origin difference. The old calibration is retained as a synthetic negative
+witness (absolute exterior alpha>0.3 and edge displacement>1 device px). The complete corrected
+state survives producer→archive→replay identically. Recorded archive exclusions remain
+byte-identical and their numerical re-verification passes under the amended declaration.
+
+**P2 corrected — completion, not directory presence, opens the next pass.** Every expected
+run of every predecessor must have successful matching admission:2 per preflight scale,
+7 per normal pass,3 per long sentinel; long passes follow the same sequence as the bed.
+Within a pass, runN requires1..N−1 admitted. A quarantine or an interrupted directory never
+counts. The tests cover an interrupted normal predecessor, a quarantine-only predecessor,
+a missing preflight run, an incomplete earlier sentinel and skipped within-pass runs. Existing
+run directories still refuse unchanged; explicit operator preservation/renaming precedes
+any deliberate continuation. An automatic quarantine-and-retake and root-lock expansion
+proposed during implementation was declined before landing, preserving the no-hidden-retry
+contract. `test-sitting-review.txt` records27 passing tests after that scope correction.
