@@ -38532,3 +38532,17 @@ explicit partial coverage, six declared-only stacks and fixture-free R1;
 do not adopt it or turn any UNMEASURED row into a pass on failed candidates.
 The next step is independent parent review and closing disposition, not a
 material patch, capture, release or implementation child.
+
+**Wave close, 2026-09-25 (the parent; W38 Decision Logs 1, 2 and 4, ruled).** W38 is CLOSED at
+G0's finding: C1, the shipped rim's axis turned vertical at held top amplitude (literal ratio
+0.7448326599749504), improves or holds every stratum's maximum and mean and is vetoed on 2,861
+channel-bins because the diagonal law's near-dark arc directions (bins 6 and 14) receive neutral
+light that lifts a saturated colour's weak channel after encoding (dark yellow's blue 25.868909 →
+72.645686); C2's constrained search has no feasible point among 3,201 per scheme. Nothing shipped
+moved; no capture, no browser run, no holdout read. The collapsed rim is unexercised by every
+gate (T = 0 on all 212 canonical active rows). With W37 this establishes that the next edge
+change needs colour-conditioned behaviour and a directional term identified on new native
+pixels — a colour-model bed varying channel mixtures at matched luminance with uncensored RGB,
+captured in one sitting with the edge's matched top/bottom controls, phase mechanism and second
+span — and that the finite grids do not prove every neutral-light setting fails the veto
+(Deferred at close 1–2).

@@ -347,7 +347,14 @@ subpixel-phase mechanism, a second calibration span) under X5. Two facts to keep
 shape is a ramp averaged over pixel areas (grey-128's 1x row 24 and 2x pair 18 / 31 reproduce from
 the integral before any fit), and the old rim's diagonal light at the horizontal arcs (+6.5 /
 +17.5 codes where Apple reads −2.5 / −2) is the largest single wrong contribution the shipped
-material makes at the edge (W37 Deferred at close 1–2). On the
+material makes at the edge (W37 Deferred at close 1–2). **W38 (§5.183) then tried the cheap route
+and closed at its finding:** turning that axis vertical at held top amplitude improves every
+stratum's aggregate and is vetoed per bin, because the diagonal law's two near-dark arc
+directions receive neutral light that lifts a saturated colour's weak channel by up to 47 codes,
+and a constrained refit of the existing leaves has no feasible point. The rim cannot be re-aimed
+without colour-conditioned behaviour; the archive's solids are censored and cannot identify it;
+the next step is a native colour-model bed at matched luminance, captured with the edge's
+directional controls (W38 Deferred at close 1). On the
 CSS tier the
 window-activation transition therefore fades the shadow OUT, which is what the reference does;
 on the WebGPU tier the posed profile is swapped the instant the resolved

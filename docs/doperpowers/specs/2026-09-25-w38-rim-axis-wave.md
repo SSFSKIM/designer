@@ -1,6 +1,16 @@
 # W38 — the rim-axis wave: the shipped rim's light turned vertical, as a bounded improvement (2026-09-25)
 
-**Status: G0 DELIVERED FOR REVIEW 2026-09-25, §5.183; recommends close at the finding. Dispatched under v4 (three adversarial rounds: two P1 + two P2, two P1, one P2, all folded; the third round found the rest closed; Revision Notes).** Chartered by the parent on the user's
+**CLOSED 2026-09-25 at the finding, at G0's merge (`700d51e6`).** The shipped rim's axis turned
+vertical at held top amplitude (C1) improves or holds every stratum's maximum and mean and is
+vetoed on 2,861 channel-bins — the old diagonal law left the southwest and northeast arc normals
+near dark, and neutral light there lifts a saturated colour's weak channel by up to 46.8 codes
+(dark yellow's blue, 25.87 → 72.65); the constrained refit (C2) has no feasible point among 3,201
+per scheme. Nothing shipped moved; no capture, no browser run, no holdout read; freeze 1,818.
+Together with W37 this establishes that no re-aiming or refit of the present neutral,
+even-in-normal rim earns a change under a per-bin regression rule, and that the next edge work
+needs colour-conditioned behaviour AND a directional term, identified on new native pixels
+(Deferred at close 1). Status history: chartered v1–v4 2026-09-25 (three adversarial rounds); G0
+merged `700d51e6`.** Chartered by the parent on the user's
 "W38 rim-axis refit (Recommended)" after W37 closed at its finding (main `b4715d78`), under the
 standing "rest on your judgement" and the routing of 2026-09-22 (X9). Grounded on a read-only memo
 (`/Users/new/.claude/jobs/17c7ce02/tmp/w38-grounding.md`, an `astra-high` product saved by the
@@ -265,14 +275,28 @@ strong border; the native experiment.
 
 | child | state |
 | --- | --- |
-| G0 | DELIVERED FOR REVIEW, §5.183 — C1 veto +46.776776 codes; C2 no feasible point in either declared grid; recommends close |
-| G1a | not dispatched |
-| G1b | not dispatched |
-| G2 | not dispatched |
+| G0 | DELIVERED FOR REVIEW, §5.183 — C1 veto +46.776776 codes; C2 no feasible point in either declared grid; recommends close. **MERGED 2026-09-25 as `700d51e6`** (§5.183; review reproduced all 17,431 C1 bins, the 6,402-trial reconstruction, E2's 212 rows and the census, merged as-is; freeze 1,818; no capture tree moved). |
+| G1a | not opened — the wave closed at the finding |
+| G1b | not opened — the wave closed at the finding |
+| G2 | not opened — no release from this wave |
 
 ## Decision Log
 
 ### Decision Log 1 — which candidate, or none (after G0 on the archive; final after G1a's render; the parent's)
+
+**RULED by the parent 2026-09-25 at G0's merge (`700d51e6`): NONE; close W38 at the finding.** C1
+fails the per-channel-bin veto on 2,861 admitted channel-bins while improving or holding every
+stratum's maximum and mean — the exact trap the veto was written for (the adversarial review's
+second P1): the shipped diagonal law's near-dark directions are the southwest and northeast
+normals (arc bins 6 and 14), and a vertical lobe fills them with neutral light, which on a
+saturated colour lifts the weak channel disproportionately after encoding (dark yellow 2x
+circular-120 arc 6 shell −1: native [173,173,11] → Apple [182.1,182.3,9.9]; old [174.8,174.8,35.7];
+C1 [186.4,186.4,82.5]). C2's constrained search — minimax under the rule — has zero feasible
+points among 3,201 per scheme; the retained witnesses are failures. What this rules and what it
+does not: these candidates do not earn a change; the finite grid does not prove that no
+neutral-light setting could ever pass the regression veto, and the 16.81-code chroma floor is an
+absolute fidelity limit of the neutral family, not a proof about the veto (§5.183 keeps the
+distinction). No G1a, no prototype, no partial adoption.
 
 Open. G0 drafts on the stratum tables; G1a finalises on the rendered stops.
 
@@ -286,6 +310,14 @@ point. Independent full-grid optical reconstruction reproduces all6,402 trials
 with zero numerical difference.
 
 ### Decision Log 2 — the collapsed and tinted rims under C1 (after G0; the parent's)
+
+**RULED by the parent 2026-09-25 at G0's merge: as G0 drafted — the shared collapsed constants
+unchanged, the collapsed brightening UNMEASURED.** Every one of the 212 canonical active rows
+resolves backdrop adaptation T = 0 (at span 44 the size bias 0.05·smoothstep(32, 96, 44) =
+0.0046 already exceeds the 0.0001 tone-high transition, and the span-32 probes' source tones sit
+above it too), so no canonical cell and no named pixel fixture exercises a collapsed rim under
+either candidate; "unmeasured", not "harmless by absence". No new fixture or variant leaf is
+authorised by this negative.
 
 Open. Default: the shared collapsed constants stay (clear identity), so the regular variant's
 collapsed contribution brightens at the top by 2^(exponent/2) under the rotation on every surface
@@ -311,6 +343,12 @@ in a future charter; this failed candidate does not implicitly authorise one.
 Open, carried from W35 Decision Log 3 and W37 Decision Log 3.
 
 ### Decision Log 4 — E2's frozen form (after G0; the parent's)
+
+**RULED by the parent 2026-09-25 at G0's merge: E2 retained as the frozen 212-row proposal, not
+adopted.** 136 rows covered / 76 UNMEASURED (7,728 measured / 1,488 absent bins); the 140
+probe-role rows admitted under W25 Decision Log 3(e); the six stacked profile×scene rows
+declared only; R1 for the fixture-less paths. No UNMEASURED row becomes a pass, and no failed
+candidate is read against it.
 
 Open.
 
@@ -359,14 +397,67 @@ Open.
 
 ## Outcomes & Retrospective
 
-(at close)
+**CLOSED at G0's finding**, against the eight Parent-Level Acceptance clauses:
+
+| clause | outcome and evidence |
+| --- | --- |
+| 1 — cut, rule, candidates, E2 declared first | Met. The memo reproduced (84 cells / 9,637 bins, zero difference; both grids; the floor); C1, C2, the per-bin veto, the stratum rule, E2's three estimators with coverage, R1 and the pre-W38 baselines committed and hashed before any score (`9f1fca9c`, SHA-256 4ceecfb9…). |
+| 2 — native-only identification, transfer tabled | Met for C2 (28 circular calibration cells per scheme; the transfer tabled: C1 light −7.52…+0.70 / dark −64.58…+10.06; C2 witnesses light −6.36…+0.73 / dark −50.86…+15.99). Nothing rendered: no candidate reached G1a. |
+| 3 — reach | Nothing moved. |
+| 4 — bounds, holdout | Met. No bound widened; E2 frozen, not adopted; no holdout read; the 610 baseline stop rows exact at the no-change outcome. |
+| 5 — every path rendered | Not reached (no candidate); the T = 0 census records that the collapsed path is unexercised by every gate. |
+| 6 — CSS priced before the seal | Plan only: the blended amplitude × top lobe, full-collapse bare 0.02432 → 0.03265, painted 0.3328 → 0.44681, an 8.15 ppm literal-versus-normalised difference; nothing rendered. |
+| 7 — seal, read, tree | Not reached. |
+| 8 — landing | Not reached; no release. |
+
+**Retrospective.** The wave's value is the veto. Every aggregate the parent first proposed as
+"dominance" improves under C1, and the adversarial review's insistence on a per-channel-bin
+regression rule is the only reason a 47-code whitening of a coloured edge did not ship as an
+improvement. The second lesson is about the shipped rim itself: its diagonal law is not merely
+mis-aimed, it is accidentally right on two arc directions of every saturated surface because it
+draws nothing there, so any re-aiming that adds light must be colour-conditioned first. The
+parent's recommendation of this wave to the user was oversold at the outset and corrected in
+the charter and to the user before dispatch.
 
 ## Deferred at close
 
-(at close)
+1. **A colour-model capture, joined with the edge experiment.** The archive's solids are
+   saturated and censored (red 255/133/133, blue 143/143/255, magenta 255/127/255 in light) and
+   cannot identify how Apple's material treats colour; the review's discriminating experiment is
+   a native bed that varies channel mixtures at MATCHED luminance with uncensored RGB, and tests
+   body and signed-edge predictions on held-out colours — captured in one sitting with W37's
+   Deferred 1 (matched top/bottom controls, a reachable subpixel-phase mechanism, a second
+   calibration span, a larger circular radius), under the user's X5 / TCC authority. A per-channel
+   tone response is a credible hypothesis for both W36's saturated-body misses and the line's
+   strong-channel lift, but not identified over a coupled colour transform or a separate
+   chromatic boundary operator; the bed is designed to separate them.
+2. **The neutral rim's remaining room.** The finite grids do not prove that no vertical
+   neutral-light setting passes the per-bin veto; a continuous constrained search on the same
+   declaration is a small, honest experiment if a later wave wants it, with the 16.81-code floor
+   marking what it can never reach.
+3. **The collapsed rim.** Unexercised by every gate (T = 0 on all 212 canonical rows); a fixture
+   that resolves T > 0 is needed before any change to the rim can be called priced there.
+4. **E2 and R1.** The 212-row edge regression row with its three estimators and the fixture-less
+   contract stand as proposals for the next rim or edge change; capsules and the grouped toolbar
+   are top/bottom or arc-only by declaration.
+5. **The literal axis.** `rimLitAxis` ships as [−0.7071, −0.7071], unnormalised (8.15 ppm from
+   unit); harmless, recorded.
+6. **Carried unchanged:** W37's Deferred 2–8 (the amplitude across the grey ladder, the
+   area-integrated `rw`, thickness and path, E1's capsule population, the transfer to vitrea's
+   body), W36 Deferred 1–4, W35's and W34's lists.
 
 ## Revision Notes
 
+- 2026-09-25 (the parent, G0's merge and the close): G0 merged to main as `700d51e6` with
+  `--no-ff` after an independent review that reproduced the declaration pins, all 17,431 C1 bin
+  records and the 2,861 vetoes, the 6,402-trial reconstruction with zero discrepancy, E2's 212
+  rows and the 14 E1 overlaps, the T = 0 census and the CSS numbers, and merged as-is;
+  `freeze.py verify` 1,818; no capture tree moved. Decision Logs 1, 2 and 4 ruled (above): none,
+  close at the finding. Two mid-gate parent rulings recorded: C1's factor as the exact literal
+  ratio (the shipped axis is unnormalised), and the inherited W37 test's validation-pixel replay
+  inside the required suite disclosed as a read by another gate's evidence test with no W38 fit
+  or selection consuming it (the brief's "never opened" was the parent's over-strict wording,
+  corrected beside). Status, Outcomes, Deferred at close written. G1a, G1b and G2 not opened.
 - 2026-09-25 (G0 delivery, §5.183): declaration9f1fca9c before scoring; exact
   literal C1 factor, probe-inclusive E2 and six-stack metadata clarification ruled
   by the parent before score. Memo/grid/limits reproduce; C1 trades coloured arcs

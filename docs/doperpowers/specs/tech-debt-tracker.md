@@ -6267,3 +6267,15 @@ never scored, an existing-leaf refit with the rim's axis rotated to vertical and
 on the four macOS 27 documents. The forward model for any thin feature should area-integrate its
 kernel over pixels (G0b's integrated ramp reproduces the line's rows before any fit); the runtime's
 `rw`, sampled per pixel, has not been checked against that integral.
+
+## W38 closed at the finding: the neutral rim cannot be re-aimed without a colour term; the collapsed rim is unexercised by every gate (2026-09-25)
+
+§5.183; `results/2026-09-25-w38-g0-rim-axis-cut/`. The per-channel-bin regression veto is what
+caught a 47-code whitening that every stratum aggregate called an improvement — keep it as the
+acceptance shape for any future rim or edge change (E2's 212-row proposal and R1 are in the
+charter). Two debts: (1) no canonical cell or named fixture resolves a collapsed rim (T = 0 on all
+212 active rows), so `rimCollapsed` / `rimCollapsedTinted` are unpriced by every gate — a fixture
+that resolves T > 0 is needed before any rim change is called priced there; (2) `rimLitAxis`
+ships as the literal [−0.7071, −0.7071], 8.15 ppm from unit — harmless, recorded. **Shape of the
+work:** the native colour-model bed of W38 Deferred at close 1, captured with the edge's
+directional controls in one sitting under X5.
