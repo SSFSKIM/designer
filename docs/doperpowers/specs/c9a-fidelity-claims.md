@@ -38779,3 +38779,17 @@ recorded `b0344704…` provenance. Protected tracked paths have no diff from G0'
 and test stdout is retained verbatim, including its emitted whitespace; no substantive source
 whitespace errors are present. The next gate is the parent's independent correctness review;
 the TCC-level rehearsal remains explicitly outstanding rather than relabelled as complete.
+
+### 10. Corrected at the independent review
+
+The review found three P1 defects and one P2 in the G0 instruments. The initial readings
+and logs above are retained; correction results below supersede their implementation
+claims, not their historical provenance. **P1-1**: the amplitude alternative compared an
+initial infinite RSS to itself and stopped after one gain update. Its convergence check
+now starts only with a finite previous RSS; relative-improvement tolerance **1e-10** and
+iteration cap **200 per candidate edge** are declared, with nonconvergence reported rather
+than used to establish shift identification. This is the reason for superseding declaration
+`6467da8560f0485c719eef76914b2728db1443d3f7c836fd9595ad51377432ba` with **`94cebb42735a22f345b0a877ca5137d3355e84e78d09b12c9fabf67f0ba3faae`**.
+The bed, split, side pin, archive exclusions and frozen evidence are not changed by this
+optimizer execution amendment. The corrected synthetic referee and its verdicts follow
+after execution; no native pixel or threshold tuning is authorised by this correction.

@@ -6,9 +6,14 @@ It declares the bed, not a measured W39 material. G1 must use the reviewed final
 ## Declaration and identities
 
 Final `bounds-declaration.txt` SHA-256:
-`6467da8560f0485c719eef76914b2728db1443d3f7c836fd9595ad51377432ba`.
+`94cebb42735a22f345b0a877ca5137d3355e84e78d09b12c9fabf67f0ba3faae`.
 
 Declaration history is retained, not rewritten as if only the final version existed:
+
+- **Corrected at the review (P1-1):** `6467da8560f0485c719eef76914b2728db1443d3f7c836fd9595ad51377432ba` is superseded
+  by the final hash above. The amplitude optimizer's tolerance `1e-10` and cap `200` are
+  now declared, with a finite-previous-RSS convergence guard. Earlier synthetic numbers
+  are retained as initial readings; corrected synthetic results are recorded below.
 
 - v1 `44d818b5d9df656e16c6801f66cb7faa60b41e19d472c06bb3fef44ea432fd18`,
   committed in `bf67d78d` before archive computations, used 36 preflight observations.

@@ -145,6 +145,16 @@ SHIFT model: one shared profile (step plus piecewise-linear knots spaced every
 translated by four fitted per-phase edge offsets. AMPLITUDE model: the same
 knot count/shared profile at ONE shared edge, with four phase gains multiplying
 (profile minus exterior level). Compare equally parameterised profiles.
+The amplitude alternative alternates its shared-profile solve and phase-gain
+updates to a relative RSS-improvement tolerance of1e-10, using
+RSS_previous-RSS_current <=1e-10*max(RSS_previous,1), with a cap of200 updates
+per candidate shared edge. The convergence comparison starts only after a
+finite previous RSS exists; infinity is never a converged first iterate.
+Report iterations and whether the cap prevented convergence. An unconverged
+selected amplitude alternative does not establish shift identification.
+These execution parameters are declared at review P1-1, not fitted to native
+pixels. Exact noiseless amplitude-model data must recover approximately zero
+RSS; otherwise the denominator in the model comparison is not a fair fit.
 All criteria hold: RSS_shift<=0.5*RSS_amplitude; fitted edges nondecreasing with
 requested phase within1/32 device px; shared-profile design matrix full rank,
 condition number reported (not identified if rank deficient). Leave one phase

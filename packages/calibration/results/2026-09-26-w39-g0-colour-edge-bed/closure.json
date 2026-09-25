@@ -1,6 +1,6 @@
 {
   "schema": "w39-closure-1",
-  "boundsDeclarationSha256": "6467da8560f0485c719eef76914b2728db1443d3f7c836fd9595ad51377432ba",
+  "boundsDeclarationSha256": "94cebb42735a22f345b0a877ca5137d3355e84e78d09b12c9fabf67f0ba3faae",
   "colour": {
     "admissibleSRGB": [
       40,
@@ -130,7 +130,9 @@
     "fullRank": true,
     "leaveOnePhaseOut": true,
     "phaseZeroDriftTolerance": 0.5,
-    "lopoQuantizationHalfCode": 0.5
+    "lopoQuantizationHalfCode": 0.5,
+    "amplitudeRelativeTolerance": 1e-10,
+    "amplitudeMaxIterations": 200
   },
   "dependencyRoleOrder": [
     "calibration",
