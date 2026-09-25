@@ -1,0 +1,48 @@
+EEEE
+======================================================================
+ERROR: test_compact_support_and_zero_coefficients (__main__.Forward.test_compact_support_and_zero_coefficients)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/Developer/GitHub/designer/.claude/worktrees/agent-w37-g0/packages/calibration/results/2026-09-25-w37-g0-edge-identification/test-instrument.py", line 24, in test_compact_support_and_zero_coefficients
+    out=law.forward(b,d,np.ones(4),self.shape,self.coeff,space)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/Developer/GitHub/designer/.claude/worktrees/agent-w37-g0/packages/calibration/results/2026-09-25-w37-g0-edge-identification/law.py", line 12, in forward
+    raise NotImplementedError('W37 opaque transform not implemented')
+NotImplementedError: W37 opaque transform not implemented
+
+======================================================================
+ERROR: test_encoded_hand_calculation (__main__.Forward.test_encoded_hand_calculation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/Developer/GitHub/designer/.claude/worktrees/agent-w37-g0/packages/calibration/results/2026-09-25-w37-g0-edge-identification/test-instrument.py", line 14, in test_encoded_hand_calculation
+    out=law.forward(body,np.array([-.5]),np.array([1.]),self.shape,self.coeff,'encoded')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/Developer/GitHub/designer/.claude/worktrees/agent-w37-g0/packages/calibration/results/2026-09-25-w37-g0-edge-identification/law.py", line 12, in forward
+    raise NotImplementedError('W37 opaque transform not implemented')
+NotImplementedError: W37 opaque transform not implemented
+
+======================================================================
+ERROR: test_precomposition_interventions (__main__.Forward.test_precomposition_interventions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/Developer/GitHub/designer/.claude/worktrees/agent-w37-g0/packages/calibration/results/2026-09-25-w37-g0-edge-identification/test-instrument.py", line 30, in test_precomposition_interventions
+    x=law.features(b,d,ny,self.shape,space)
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/Developer/GitHub/designer/.claude/worktrees/agent-w37-g0/packages/calibration/results/2026-09-25-w37-g0-edge-identification/law.py", line 10, in features
+    raise NotImplementedError('W37 transform not implemented')
+NotImplementedError: W37 transform not implemented
+
+======================================================================
+ERROR: test_refuses_fractional_composition (__main__.Forward.test_refuses_fractional_composition)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/Developer/GitHub/designer/.claude/worktrees/agent-w37-g0/packages/calibration/results/2026-09-25-w37-g0-edge-identification/test-instrument.py", line 20, in test_refuses_fractional_composition
+    law.forward(np.ones(3)*.2,np.array([-1.,-2.]),np.ones(2),self.shape,self.coeff,'linear',**{key:value})
+  File "/Users/new/Developer/GitHub/designer/.claude/worktrees/agent-w37-g0/packages/calibration/results/2026-09-25-w37-g0-edge-identification/law.py", line 12, in forward
+    raise NotImplementedError('W37 opaque transform not implemented')
+NotImplementedError: W37 opaque transform not implemented
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.016s
+
+FAILED (errors=4)

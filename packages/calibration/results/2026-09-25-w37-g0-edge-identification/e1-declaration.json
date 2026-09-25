@@ -1,0 +1,73 @@
+{
+  "schema": 1,
+  "claims": "c9a \u00a75.181; W37 DL4 draft, not ruled",
+  "cells": [
+    "apple-macos-27.0-1x-dark-standard-glass0.5/dark-solid__capsule-button__rest",
+    "apple-macos-27.0-1x-dark-standard-glass0.5/dark-solid__rrect-md__rest",
+    "apple-macos-27.0-1x-light-standard-glass0.5/dark-solid__capsule-button__rest",
+    "apple-macos-27.0-1x-light-standard-glass0.5/dark-solid__rrect-md__rest",
+    "apple-macos-27.0-1x-light-standard-glass0.5/light-solid__capsule-button__rest",
+    "apple-macos-27.0-1x-light-standard-glass0.5/light-solid__rrect-md__rest",
+    "apple-macos-27.0-1x-light-standard-glass0.5/light-solid__rrect-ml__rest",
+    "apple-macos-27.0-2x-dark-standard-glass0.5/dark-solid__capsule-button__rest",
+    "apple-macos-27.0-2x-dark-standard-glass0.5/dark-solid__rrect-md__rest",
+    "apple-macos-27.0-2x-light-standard-glass0.5/dark-solid__capsule-button__rest",
+    "apple-macos-27.0-2x-light-standard-glass0.5/dark-solid__rrect-md__rest",
+    "apple-macos-27.0-2x-light-standard-glass0.5/light-solid__capsule-button__rest",
+    "apple-macos-27.0-2x-light-standard-glass0.5/light-solid__rrect-md__rest",
+    "apple-macos-27.0-2x-light-standard-glass0.5/light-solid__rrect-ml__rest"
+  ],
+  "renderer": "webgpu",
+  "backend": "gpu-texture",
+  "sets": [
+    "calibration",
+    "validation"
+  ],
+  "pose": "active",
+  "schemes": [
+    "light",
+    "dark"
+  ],
+  "scales": [
+    1,
+    2
+  ],
+  "populationRule": "Standard macOS 27 current matrix rows intersected with five named untinted uniform scenes and declared profile membership; no predicate drop. Fourteen rows at declaration.",
+  "scenes": [
+    "light-solid__capsule-button__rest",
+    "dark-solid__capsule-button__rest",
+    "light-solid__rrect-md__rest",
+    "dark-solid__rrect-md__rest",
+    "light-solid__rrect-ml__rest"
+  ],
+  "shellsCss": [
+    -6,
+    0
+  ],
+  "deep": "per-channel median of the same image at centered supplied-shape signed distance d<=-6 CSS px",
+  "straightDomain": "Centred nominal supplied body. Pixel centres x+.5/y+.5; all four pixel corners inside. Top/bottom x excludes 1.6 radius from each corner; left/right y likewise; no arc pooling, empty straight interval UNMEASURED. Capsules use radius=min(size)/2. Shells [s,s+1) in device px. Native path/isoresponse uncertainty remains separate.",
+  "estimator": "For each side, shell and RGB channel, mean(abs((web pixel - web deep median) - (native pixel - native deep median))). Maximum across measured bins/channels; populations >=4. Native reference fixed by fixture PNG SHA; no image-dependent mask refit.",
+  "boundCodes": 1,
+  "minimumPixels": 4,
+  "reason": "max(1 code, normal repeated per-bin bar); all admitted W34 bars <=0.5 code. One-code allowance covers encoded quantisation, not path uncertainty; canonical repeat bar not newly measured.",
+  "noReach": "Native excess <=1 is NOT dropped: same bound tests no spurious light. Missing captures, deep or row population -> UNMEASURED, never pass. No inactive row is called passed E1; inactive byte identity is independent.",
+  "generationBinding": "At adoption read matrix-named capturePath and matching cell metadata, active+receded document hashes, renderer/backend and deterministic state; source receipt; fixed native PNG hashes. If tree absent report UNMEASURED. Recompute from images every adoption/test, never trust a stored verdict.",
+  "materialAxisAmendment": "Direct encoded RGB excess on a fixed uniform reference separates deep level additively and samples a known spatial boundary, not an inferred blur sigma or structured plate. Native-conditioned coefficient identification plus per-cell web-conditioning transfer stays separate: E1 is actual composite fidelity, not a test of Apple internal layers. One-code errors are resolvable versus observed <=0.5 repeat bar. Body-conditioned transfer can fail E1 with correct shader: record failure, do not refit on web or exempt it.",
+  "outOfPopulation": "Tints, structured beds, grouped/stacked, accessibility, 26.5, inactive, probes and holdout: no E1 claim; retain their existing independent stops. Continuous arcs lack nominal-whole identification and remain diagnostic.",
+  "nativeReferences": {
+    "apple-macos-27.0-1x-dark-standard-glass0.5/dark-solid__capsule-button__rest": "1f9df29dcea07cbb3d9849dbad4218ef3cbd229773a0b38f8aacffe8d38c7b30",
+    "apple-macos-27.0-1x-dark-standard-glass0.5/dark-solid__rrect-md__rest": "dc7cf831c08d0f3438df8973bfe9ba08bc75d7b0eb4446db59a22d5d4b8d6a30",
+    "apple-macos-27.0-1x-light-standard-glass0.5/dark-solid__capsule-button__rest": "c4733c8ef1cdde945c8f09b2874a4e696d2d006ff789635297ad03a438873d68",
+    "apple-macos-27.0-1x-light-standard-glass0.5/dark-solid__rrect-md__rest": "14d75c1bb7be770cc3b9c9a7183d5b62298504e81a3ce4b978122ff363bbc64f",
+    "apple-macos-27.0-1x-light-standard-glass0.5/light-solid__capsule-button__rest": "5ff997835abdb2bd92074f8d2c1573a8b67694779f793b2bbaf7a0a92e3579d1",
+    "apple-macos-27.0-1x-light-standard-glass0.5/light-solid__rrect-md__rest": "7213cf49701e44a36296134bfc956b3f1e5872ca19945482eeeb5358f3e25477",
+    "apple-macos-27.0-1x-light-standard-glass0.5/light-solid__rrect-ml__rest": "9e089f2b0fe8d97be2b35ac1bcb0e419072bb56325319e782fd8517144b738d4",
+    "apple-macos-27.0-2x-dark-standard-glass0.5/dark-solid__capsule-button__rest": "e93c83e72f65a058d6333404748e667816c8b974c4ed768aed2f6bacf3154e31",
+    "apple-macos-27.0-2x-dark-standard-glass0.5/dark-solid__rrect-md__rest": "3051c98a4996951e598614266f399db6ab08529597919b7718d72b361d272e87",
+    "apple-macos-27.0-2x-light-standard-glass0.5/dark-solid__capsule-button__rest": "91671b6ce0260488e99d4cabaa77abf723ab7dba717908522b8418aa50d8db84",
+    "apple-macos-27.0-2x-light-standard-glass0.5/dark-solid__rrect-md__rest": "dff9775e85840041c86efdf3ff4b71c9c766457721d9faa05502c7056b74cfb8",
+    "apple-macos-27.0-2x-light-standard-glass0.5/light-solid__capsule-button__rest": "905a593971c2464e1883eb6fc65d64a0316c1e60cdccc3d4d3aa5f813c53e344",
+    "apple-macos-27.0-2x-light-standard-glass0.5/light-solid__rrect-md__rest": "2f94e76883d04206699f0e38acd1c86c0ae44f8610090d05e7918435cf5c7a0c",
+    "apple-macos-27.0-2x-light-standard-glass0.5/light-solid__rrect-ml__rest": "5f70e5ef4adec47fb4be966804fe60eed1e22b7216adc1f16db7b22a77e38812"
+  }
+}

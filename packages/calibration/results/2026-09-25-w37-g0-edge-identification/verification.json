@@ -1,0 +1,25 @@
+{
+  "base": "7f254381a87d06ec4f255b50a7233f8ecb7d6ffa",
+  "dispatchSnapshot": "efe6066e",
+  "protectedTrackedPathsUnchanged": true,
+  "declarationPinsIntact": true,
+  "build": "pnpm install --silent && pnpm -r build: exit0 (initial setup)",
+  "calibration": {
+    "files": 48,
+    "passed": 692,
+    "skipped": 0,
+    "captures": "read-only main via VITREA_WEB_CAPTURES"
+  },
+  "lint": "eslint . exit0",
+  "typescript": [
+    "tsc --noEmit exit0",
+    "tsc --noEmit -p tsconfig.cli.json exit0",
+    "tsc --noEmit -p web/tsconfig.json exit0",
+    "tsc --noEmit -p scripts/tsconfig.json exit0"
+  ],
+  "freezeBefore": 1818,
+  "freezeAfter": 1818,
+  "browserRuns": 0,
+  "nativeCaptures": 0,
+  "holdoutPayloadReads": 0
+}

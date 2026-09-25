@@ -37788,3 +37788,247 @@ The next valuable step is the parent's independent review of this landing, then
 the user's release decision with the retained timing red visible. The edge and
 chroma investigations remain proposed follow-up charters, not work silently
 opened at the end of a release gate.
+
+
+## 5.181 W37 G0: native edge families discriminated, no family nominated (2026-09-25)
+
+**Checkpoint: DELIVERED FOR REVIEW, a qualified negative.** W37 clauses 1–4 and
+X1–X17; branch `w37-g0-edge-identification`. Dispatch snapshot: main `efe6066e`;
+actual setup parent: main `7f254381`, after a tracker-only advance. Evidence:
+`packages/calibration/results/2026-09-25-w37-g0-edge-identification/`.
+No material, profile, fixture, canonical matrix, scene or capture changes. The
+parent's Decision Logs 1, 2 and 4 remain drafts, not rulings. **G1a does not open
+on these coefficients.** New evidence prose is `.txt` under the worker's
+Markdown-report restriction; the existing ledger and charter are updated here.
+
+### 1. The memo is reproduced and the closure precedes every score
+
+`replay.py` opens only W35-guarded W34 calibration/validation payloads: **208
+solid cells, 168 calibration / 40 validation**, with every deep median, straight
+row and whole-pixel angular mean equal to W35 and the grounding memo, maximum
+numeric difference **0**. `diagnostics.py` exactly reproduces the memo's channel
+invariants, shoulder continuation, candidate maxima, repeat-bar reduction, M2
+erosion and retained W36 black readings. The latter are **eight preserved
+pre-seal price captures at the shipped law**, not new canonical captures:
+`provenance.json` proves base+tune and receded-patch equality to the current
+documents and deterministic Metal metadata. Uniform black remains native
+132/133 light and 32/20 dark, while its active line remains deficient.
+
+`line-tables.json`, `surface-transfer.json`, `css-bound.json` and the full
+`native-replay.json.gz` retain the grey ladder, all colours/channels, both
+scales, all straight sides, angular bins and the six-CSS-px shoulder. Circular
+inactive straights have maximum excess **0** throughout that shoulder; this
+does not erase W35's separate two-code inactive arc floor. The expanded 2x dark
+bar witness is replayed from all seven normal runs: **0.2142857143**, G, arc8,
+shell−4, population14. W34's **0.5** full-window maximum is unchanged. Actual
+uniform whole/straight bins are checked separately in `closure-bars.json.gz`:
+**22,255 bins over208 cells, admitted maximum0**, so their channel tolerances
+are all1. This is a narrower population, not a correction to either earlier bar.
+
+The declaration was committed in **`6f2e89ed` BEFORE the first family score**.
+`bounds-declaration.txt` SHA-256:
+**`270ba479c6599bea082696e111b1ba81d9f941d93cfb6343c29a387e3ca8328b`**.
+E1's complete machine declaration and the280-row canonical no-change baseline
+were committed with it and separately pinned. W35's `domain.json` is unchanged:
+deep per-channel median at d≤−6 CSS px; whole circular pixels with all four
+corners inside; shells −6≤d/scale<0; population≥4; arcs/straights, normal bins,
+shells and channels separate; absolute error BEFORE spatial reduction.
+Validation grey96/cyan/continuous160 never fit. Neither holdout is read.
+
+### 2. Two effective-composite families, both fail the declared tolerance
+
+The finite predeclared search uses a compact squared line/shoulder profile,
+vertical |ny|^p, independently affine luminance and chroma responses and a signed
+isotropic keep term. F1 works in linear light, F2 in encoded light; both pass
+through W35's `edge.forward` with the old operators OFF and alpha=coverage=1.
+The sibling `law.py` refuses fractional composition; it is not shader code.
+There are **540 shapes per family/scheme**, each with five least-squares colour
+coefficients, separately per scheme but jointly across1x/2x. All four chosen
+matrices have **rank5**. Each fit uses28 native circular calibration cells;
+native deep supplies the conditioning input, never a web body. Saturated
+channels do not enter the inversion but remain in forward closure residuals.
+
+| family / scheme | calibration maximum | circular validation maximum | calibration straight maximum | continuous160 validation straight maximum |
+| --- | ---: | ---: | ---: | ---: |
+| linear light | 10.428513 | 6.313231 | 10.428513 | 5.524386 |
+| linear dark | 20.882831 | 19.666667 | 19.684862 | 26.776469 |
+| encoded light | 8.626390 | 5.896421 | 8.626390 | 4.562483 |
+| encoded dark | 11.843356 | 7.955766 | 10.910036 | 22.053616 |
+
+Encoded sRGB codes; bound **1**, not widened. Continuous-path diagnostics are
+shown beside the circular closure, not pooled into it. Calibration has4322/
+4340 admitted bins in light/dark; validation620 each. Linear fails2589/2683
+calibration bins and382/370 validation; encoded2645/2526 and374/358.
+`residuals.json.gz` names every channel/bin; `failure-cells.json` every cell's
+maximum. Light calibration's worst is yellow1x top; dark's is magenta2x near
+the top arc. Validation's worst is grey96 light and cyan dark. Neither family's
+joint coefficients close greys while merely deferring chroma.
+
+Both linear nominees within their search have width1.6 CSS px, shoulder6,
+share.15 and exponent3. Encoded light uses width1.8, dark1.6, otherwise the same.
+`fits.json` retains all coefficients, ranks and fit-cell identities; `search.json.gz`
+retains all2160 hypotheses. **Nomination: none.** These are failed effective laws,
+not a global minimum over every colour/radial parameterisation or a proof that
+an angular/chromatic boundary operator cannot work.
+
+### 3. Body transfer is measured separately, not absorbed into the coefficients
+
+At fixed native-identified coefficients, edge-only
+`E(web deep) − E(native deep)` ranges over active pixels as follows:
+
+| family | light range | dark range |
+| --- | ---: | ---: |
+| linear | −3.810762…+16.824851 | −15.769234…+48.630010 |
+| encoded | −3.650884…+14.947356 | −7.882067…+35.822687 |
+
+`transfer.json.gz` tables416 family/cell records and their bins, with raw output
+transfer beside the excess transfer; `transfer-summary.json` keeps the slightly
+narrower admitted-bin-mean ranges. Only black substitutes W36's preserved price
+for W34's historical web deep. Non-black uniform inputs are unchanged by W36's
+compact branch; none is relabelled a fresh capture.
+
+`verify-scores.py` independently reconstructs selected-shape least squares from
+guarded native pixels, coefficients within **1.84e−13**, and exactly replays all
+**44,510 residual bins** and all transfer records. Synthetic pre-composition
+checks recover nonzero gains and changed coefficients at fixed baseline within
+1e−12 and detect a changed baseline at fixed coefficients in both spaces. The
+red-before-implementation and green logs remain. No forward-versus-shader or
+rendered improvement claim follows from that arithmetic proof.
+
+### 4. Path, span, old-rim ownership and author tint
+
+At grey128, circular120, circular200, continuous120 and radius12 rectangle have
+identical top rows at each scale: **24/30** light/dark at1x, **18,31 / 22,39** G
+at2x. Same-span straight response needs no path-specific amplitude. Span96's
+continuous160 changes dark deep134→121 and top excess30→**6** at1x,22/39→
+**7/22.846** at2x; light changes much less. Thickness factor **1, no free
+parameter**, was declared, not selected on that validation result. No second
+circular radius is admitted; curved-path and thickness dependence on arcs are
+not independently identified. This transfer miss is retained, not fitted away.
+
+`old-rim.json.gz` decomposes11,117 native-conditioned inherited-forward bins.
+Grey1282x horizontal arc shell−1 has native excess−2.5/−2 light/dark, but the
+old rim alone adds **6.547/17.510**, leaving total **+5.153/+16.522** after its
+shadow. On the top straight its rim adds7.062/23.265 against native total31/39.
+Another stacked light cannot remove the wrong horizontal light. A future
+replacement can reuse axis/exponent/width only with a coherent gated meaning
+(and account for the old √2 normalization); the XY along-side saddle is not
+this normal lobe. The old isotropic shadow is a coherent keep term, not a second
+lit band. No existing leaf is edited at this gate.
+
+The main canonical checker, before canonical reads, reports **1900 captures,
+1893 match, seven no-row, zero mismatch/misfiled/superseded/unreadable**.
+`placement.json` measures **20 native tinted/untinted pairs**; eight missing
+dark-profile pairs are UNMEASURED. Dark-solid orange at1x reads light deep
+**(212,120,0) → top(255,148,3)**, dark **(254,150,4) → (255,175,0)**. At2x the
+outer rows are **(255,157,4)/(255,182,0)**. The line brightens the painted body's
+channels rather than adding an untinted neutral blue lift. Recommendation:
+**effective runtime conditioning after author tint**, after black/body/retention.
+This does not identify Apple's hidden internal order or exclude a mathematically
+equivalent tint-aware precomposition. §5.102's26.5 values remain history; §5.103
+already rejected a strictly buried rim under opaque paint. Current27 readings
+are kept beside, not substituted into that earlier argument.
+
+### 5. Identity, actual policy stand-downs, and the backend declaration
+
+The in-memory gate-group proof preserves frozen26.5 **b2b570e4adcea8fb /
+874be66ea501621b** and current27 **be13dae45098fc89 / b0d0d8dacc6a03af /
+2a4323f33df8d799 / 7c454858a3cbad5b**, sweeping nine gated leaves at
+`bodyEdgeStrength:0`; nonzero changes each digest. The inputs are archived and
+the test executes the proof. This proves no rendered identity. G1's proposed
+`inertLawCase`, literal default0 assertion and explicit0 in **both receded
+differences** are named in `identity-proof.ts`, not implemented runtime claims.
+
+The source read corrects generic accessibility shorthand: **Reduce Transparency
+alone does not turn off today's ordinary rim**. Core raises frost/occlusion;
+`opticsUnderPolicy` retains that rim. **Increase Contrast** substitutes the strong
+border, fixing both widths, zeroing level gain, lit exponent and along-side
+slope; `collapsedRimUnderPolicy` substitutes the border too. Forced colours
+has glass:none. A future new operator follows these exact rim stand-downs:
+identity for strong-border/no-glass, no invented RT-only identity. The exhaustive
+CPU switch pattern of `bodyChromaRetentionUnderPolicy` is reusable, not its
+occlusion predicate. Accessibility boundary behaviour remains unmeasured.
+
+**Backend contract:** only `gpu-texture` has the identified composite.
+WebGPU `css-backdrop` and `none` preserve the old path exactly: the new operator
+is declined there, leaving the known directional/chromatic edge residual.
+Their nonunit layer alpha/RGB cannot take an unproved nonlinear composite law.
+G1a must add proxy-shaped e2e sampled/unsampled/none groups over differing
+black/white/coloured DOM backdrops, gate0/nonzero PNG and alpha comparisons and
+actual-backend assertions. No browser run or fractional-forward shortcut here.
+
+### 6. CSS plan, frozen E1 and the unperformed nonidentity price
+
+The same-leaf prospective CSS projection is a top/bottom inset pair replacing
+the old all-round bright inset. Evaluate the law at a shared neutral reference;
+positive encoded-excess integral divided by peak gives effective inset width,
+peak/headroom its screen alpha; the isotropic keep remains attenuation rather
+than another light. Linear first-order profile area is **0.753333 CSS px** for
+width1.6 and **0.81** for1.8 at shoulder6/share.15. This is a projection plan,
+not a render or nominated constants; CSS cannot observe filtered per-pixel RGB.
+
+For a single constant-output one-CSS-px inset, the DPR2 top-row minimax G-code
+bounds over grey0/32/64/96/128/160/255 are **8.5/8/7.5/7/6.5/6.5/0 light** and
+**11.5/10.5/9.5/9/8.5/8/7 dark**. All channels/colours/sides are tabled. These
+are not universal bounds for blurred/multiple-shadow approximations. No CSS
+carry/decline is measured, and no CSS source moves.
+
+**E1 is frozen, not adopted:** fourteen canonical uniform untinted active
+standard27 WebGPU/gpu-texture rows, exact native-reference PNG hashes; own-deep
+RGB median at d≤−6, whole straight pixels with1.6-radius corner exclusion,
+−6…0 shells; mean absolute excess error≤**1 code**, floor4, each side/shell/
+channel separately, no conditioning drop. No-reach bins stay; missing/deficient
+is UNMEASURED. The MATERIAL-axis amendment identifies a fixed uniform-boundary
+observation above the repeat bar, not a blur inverse. Body transfer cannot be
+used to exempt an actual E1 miss. Adoption must regenerate from matrix-named
+captures, matching metadata and both document hashes/source receipt; absence of
+the tree cannot pass. Current baseline: **14/14 miss, maximum29.359375**.
+
+No family survives, so the frozen **280 per-cell no-change rows** are the actual
+expected post-G0 values. Nonidentity M1/M2/L1/per-cell/predicate predictions remain
+**UNIDENTIFIED, a blocker to adoption**, not invented expected passes. A larger
+family needs a prospective price before rendering. M2 retains2% against current
+W36; L1 retains.055/.005 against its named W33 baseline, never rebaselined with
+M2. C1/X1/B1, coherence, predicate and named misses are unchanged. Interior support
+would not alone prove a changed stacked/grouped exterior. No such candidate proof
+is claimed. Width reconciliation and34 historical goldens are an audit, not a
+new browser run.
+
+### 7. Decision drafts and verification
+
+**DL1 — G0 draft, not ruled:** nominate **none**; do not open G1a on either failed
+coefficient set. A larger predeclared budget should separate line/shoulder colour
+responses and test nonlinear native-level/chroma dependence, with refined radial/
+angular search and fixed thickness. No promised closure; validation stays out of
+fit, and new circular-radius/phase/blind confirmation requires new native authority.
+
+**DL2 — G0 draft, not ruled:** replace, never stack, if a later law is admitted;
+recommend post-tint effective conditioning, not an Apple internal-layer claim.
+Keep declared thickness factor1/no slope and its dark span96 miss; same-span
+straight paths agree, continuous arcs remain unresolved. Preserve the old
+unsampled backends and actual strong-border/no-glass stand-downs.
+
+**DL4 — G0 draft, not ruled:** confirm or reject the fully frozen14-row E1
+proposal, one-code excess bound, floor4, no-reach retained and missing UNMEASURED,
+rederived at adopting bytes. Current14/14 misses prevent adoption or a pass claim;
+no tolerance or population is changed to admit a failed family.
+
+Initial verification: workspace install/build passed; calibration **48 files,
+690 passed/one skipped** (X1: no worktree capture tree). That specific pixel
+check then passed using the read-only main tree through `VITREA_WEB_CAPTURES`.
+ESLint and all four calibration TypeScript checks pass. The opening freeze is
+**1818**. W34's inherited unit invokes its existing command-line harness
+self-check, not a GUI app build/launch/capture/grant. Closing checks are appended
+below. No independent review was dispatched by this worker; the parent owns
+review and the three rulings before any next child.
+
+**Closing verification, beside the initial run:** with the matching-bin bar
+assertion included and `VITREA_WEB_CAPTURES` pointing read-only at main, the
+complete calibration suite passes **48 files / 692 tests, no skips**. ESLint
+and all four calibration TypeScript checks pass again. The closing freeze is
+**1818 intact**. No protected tracked path differs from actual setup parent
+`7f254381`; an initial audit against dispatch snapshot `efe6066e` saw only the
+inherited tracker-only advance in addition to G0's owned paths, not a change
+made by this gate. `derived.py --verify` also passes against the committed
+numerical grounding pins, without depending on the private memo files. The
+bounded next step is parent review and DL1, not an implicit third family or G1a.

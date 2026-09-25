@@ -1,0 +1,152 @@
+W37 G0 pre-score declaration — c9a §5.181, clauses 1–4, X1–X17
+
+This file and e1-declaration.json are frozen BEFORE the first family score. New
+prose is .txt because the worker may not create Markdown report files. Existing
+ledger/charter are updated in place. No shader, material, capture or seal is made.
+
+ESTIMAND AND ADMISSION
+
+W35 domain.json is inherited byte-for-byte: native per-channel deep median at
+signed d<=-6 CSS px; residual is mean absolute difference of predicted and native
+excess over that same deep, pixelwise BEFORE bin reduction. Whole pixels only,
+all four corners inside aligned convex circular stadium; -6<=d/scale<0; floor4;
+part (straight/arc), 16 normal bins, device shell and channel remain separate.
+Tolerance max(1 code, the matching normal-repeat bar); observed maximum .5.
+The 2x dark .2142857143 is W35's expanded-window maximum, not a correction to
+W34's smaller-window .0625. Alignment uncertainty is not folded into tolerance.
+Canonical E1 has its own explicitly frozen straight-only uniform population in
+e1-declaration.json; no claim that the continuous corners are exact circles.
+
+Only W35 guarded readers: W34 calibration/validation, canonical calibration,
+validation and probe diagnostics; W34's spent holdout and canonical holdout and
+recorded refused BEFORE payload opens. Validation grey96, cyan and continuous
+160x96 are never objectives. Structured backgrounds never fit. Inactive is an
+identity control, not a fit. Continuous120 and radius12 rectangle are path
+DIAGNOSTICS beside circular120/200 closure, not smuggled into circular masks.
+Discriminators named before fitting: dark cyan (validation), green, yellow, the
+uncensored weak channels, every grey, shoulder-extrapolated rows, rectangles,
+continuous120 vs circular120, then continuous160 validation (path AND span).
+
+FAMILIES AND FINITE SEARCH
+
+F1 linear and F2 encoded have the SAME explicit family in their own space:
+C is native deep /255 (decoded for F1), Y=dot(C,[.2126,.7152,.0722]), Z=C-Y.
+At inward CSS depth t=-d/scale, line=(max(1-t/w,0))^2, shoulder=(max(1-t/v,0))^2,
+f=[(1-q)*line+q*shoulder]*abs(ny)^p. Both supported only -6<=d/scale<0.
+C'=C+f*(a+g*Y+(c+h*Y)*Z)+k*shoulder*C.
+The isotropic k term is signed (the existing shadow's coherent role), not a
+second lit rim. No inherited diagonal white rim is added. At gate1 this would
+replace the complete old inner-shadow/rim treatment on gpu-texture; gate0
+executes the exact old path. Decode F2 output before using edge.forward with
+all old operators OFF, alpha=coverage=1, to perform the opaque encode/clamp.
+No fractional alpha is ever passed. This extension lives BESIDE edge.py.
+
+Native-only least squares in each family's own space, with each admitted bin
+and each uncensored channel carrying equal weight, pixels equal within a bin.
+Censored channels (native deep or target at255) are excluded from the solve,
+named per cell; forward residuals still include them. The measured bounded
+deep RGB is the conditioning COMPOSITE, not an inversion of a hidden pre-clip
+luminance. No full-RGB latent inversion is claimed for a censored cell.
+Fit separately per scheme, JOINTLY across 1x/2x (CSS-px geometry). Shape grid:
+w in .8..2.4 by .2 CSS px; v in {3,4.5,6}; q in {.05,.15,.3,.5};
+p in {1,2,3,4,6}. For each shape solve a,g,c,h,k. Rank is reported. Select
+minimum own-space weighted squared calibration residual; final ranking and
+closure are encoded per-bin residuals, not an objective fitted on validation.
+This finite grid is not a global-optimality/impossibility theorem. No third
+family unless a new pre-score addendum declares it first.
+
+Thickness response is NONE: factor1 at every span, no free slope. All uniform
+calibration surfaces cast44: amplitude and thickness slope are inseparable.
+The 160x96 transfer miss cannot choose a fitted thickness response. Existing
+sizeThickness could be a separately DECLARED future form; no silent best-of
+selection after reading validation. Existing rimLitAxis may carry vertical
+(0,1), exponent p, and rimWidth w with one meaning behind the gate. New leaves
+are gate bodyEdgeStrength=0; line/shoulder width, shoulder share, exponent,
+luma intercept/slope, chroma gain/slope, isotropic keep coefficient. Identity
+proof drops the complete group in memory, not the runtime table.
+
+Transfer per cell reports E(web deep)-E(native deep) at fixed identified
+coefficients (E is transformed output minus its own deep); raw output delta
+is retained beside it to prevent confusing baseline with edge. W36 retained
+black deep replaces only old pre-black web input after provenance is checked;
+other W34 web deep is historical but unchanged by W36's compact black branch.
+The synthetic check changes baseline BEFORE this transform at fixed nonzero
+gains and detects it; changes coefficients at fixed baseline and recovers them.
+No web input enters the solve. No tone, black, retention or size leaf can move.
+
+CANONICAL STOPS AND PROSPECTIVE VALUES
+
+canonical-stop-baseline.json.gz records all280 standard27 calibration/validation
+rows in both tiers before scoring, with their complete numeric fields and
+capturePath. For the only currently authorised outcome (NO MATERIAL CHANGE),
+these are exact expected post-gate values, not inferred passes. For a nonzero
+family there is no observed local body on structured pixels in this gate;
+post-fit numeric per-cell, M1/M2/L1 and predicate predictions are UNIDENTIFIED
+until a family survives and a prospective price is declared. That is a blocker
+to adoption, NOT permission to invent numbers or render first and declare later.
+A declined family leaves the identity baseline table as the actual expectation.
+
+Per-cell IoU/contour/SSIM/DeltaE and edgeWeightedMean owning tables are unchanged;
+MISSED_27_ROWS stays8 and PREDICATE_EXCLUDES67 for no adoption. Preserve existing
+named sets, not merely counts. Drawn conformance IoU>=.99, contour<=1 device px.
+M1 four medians [.8,1.2], cell [.6,1.4] with named existing misses. No-change
+medians 1.049010884/1.022976822 light active/receded and .996608334/1.005977999
+dark; exact source fields, not rounded prose, govern. A coloured line moves
+numerator AND denominator; do not promise zero when source pixels change.
+M2 |new/superseded-1|<=.02 on26 cells; W37 reference is CURRENT W36 generation,
+not W35 or a re-baselined candidate. No-change expected delta0. One-device-px
+erosion of dark photo capsule is -60.0283%/-48.4331%, not additive attribution.
+A nonzero candidate must supply measured delta BEFORE any user mask/re-pin ruling.
+L1 <=.055 and growth<=.005 against named W33 superseded6e509c7f76cc/eab099cc6698,
+receded45acb6d916b9/4e68f81869f6: never rebaseline with M2. No-change140 rows,
+136 measured, four dark-inactive dark-solid absent means; two light-inactive
+tinted impulse misses .06601612591220249/.06605893950809574; growth0. Growth
+applies to the misses too. Deep-median fit tolerance is a different estimand.
+C1<=.0042 (current max .0038247143), X1 black exterior counts0, B1 sigma within
+5% at96/128/160 unchanged. EXPECT delta0 only at identity. Interior support alone
+does NOT prove these for stacked/grouped sampling; G1 must show their pixels.
+Tier coherence [.8,1.25] and DeltaE<=.05 on existing predicate, UNMEASURED states
+retained. Predicate rederived, churn counted, no count predicted for nonidentity.
+All34 goldens byte-identical at gate0, no regeneration; no browser run in G0.
+Receded renders byte-identical, bodyEdgeStrength explicitly0 in BOTH receded
+differences. Accessibility follows the existing rim's actual policy gates.
+
+E1 FULL DECLARATION (e1-declaration.json IS THE MACHINE POPULATION)
+
+Fourteen current canonical uniform untinted active WebGPU/gpu-texture rows,
+standard27 light/dark 1x/2x, calibration/validation membership with no predicate
+drop. Five named solid/component scenes intersect profile membership; absent
+dark light-solid is not fabricated. Fixed native PNG hashes, nominal centred
+supplied shape, deep d<=-6, straight-side corner exclusion1.6 radii, whole pixels,
+all shells -6..0 CSS px per device row, side/channel separate, floor4. Residual
+mean(abs(web excess-native excess)), bound1 code in EVERY measured bin/channel.
+Reason: directly observed uniform boundary, quantisation allowance above .5
+repeat bar, not a latent blur inverse. This clears the MATERIAL-axis domain and
+resolvability objections for THIS population. Path uncertainty remains a limit.
+No-reach native bins stay: require no spurious light. Missing or deficient bins
+UNMEASURED, never pass. Inactive is separate byte identity; structured/tinted/
+composite/probe/holdout/a11y/26.5/continuous arcs are not E1 claims. Re-derive on
+matrix-named captures with metadata equality and BOTH document hashes/source
+receipt checked at adopting bytes, like X1; no tree means UNMEASURED. Stored
+passing cuts cannot substitute. A correct native-identified shader can fail E1
+through body-conditioning transfer; that is recorded, not exempted or refitted.
+This is a frozen proposal for DL4, NOT an adopted or passing row.
+
+BACKENDS, POLICY AND CSS
+
+Only gpu-texture at opaque full coverage is identified. Preserve the entire old
+path for WebGPU css-backdrop and none: decline new law there. They hold layer
+RGB/non-unit alpha, not the page composite; nonlinear projection is unproved.
+Residual: native vertical chromatic line remains unavailable on unsampled glass.
+G1a must add proxies.spec.ts-shaped e2e groups over differing black/white/colour
+DOM beds, sampled vs unsampled/none, gate0/nonzero, asserting backend readout,
+unchanged unsampled PNGs/alpha and no erroneous encoded nonlinear-layer effect.
+CSS projection: two top/bottom insets, shared widths/amplitudes at the same
+neutral reference body, no gradient facility. Cannot observe filtered pixel RGB.
+Two full rows from a single constant inset have minimax half their range:
+grey128 DPR2 6.5 light/8.5 dark codes. Other levels tabled from replay; these are
+analytic representation bounds, not rendered decline. G1a measures before DL5.
+
+No family is nominated by this declaration. If both fail straight-bin one-code
+closure, stop at DL1 with per-family residuals/transfer and larger-budget needs;
+no tolerance, population or declared thickness form changes after scoring.
