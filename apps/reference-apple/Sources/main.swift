@@ -273,6 +273,90 @@ func runSelfCheck() {
   } catch {
     check("W34 geometry/raster check threw", false, true, detail: error.localizedDescription)
   }
+  print("== self-check: W39 position, column and their attestation ==")
+  do {
+    func component(_ raw: String) throws -> ComponentSpec {
+      try JSONDecoder().decode(ComponentSpec.self, from: Data(raw.utf8))
+    }
+    // The loader's verdict on one component inside an otherwise empty 320×280
+    // spec: nil when it loads, the refusal text when it does not.
+    func refusal(_ raw: String) -> String? {
+      let spec = #"{"version":1,"canvas":{"width":320,"height":280},"#
+        + #""backgrounds":{},"components":{"c":\#(raw)},"scenes":[],"profiles":[],"#
+        + #""split":{"holdout":[],"validation":[],"calibration":[]}}"#
+      do {
+        try JSONDecoder().decode(SceneSpecFile.self, from: Data(spec.utf8)).validate()
+        return nil
+      } catch { return error.localizedDescription }
+    }
+    func refuses(_ label: String, _ raw: String, _ reason: String) {
+      let got = refusal(raw)
+      check(label, got?.contains(reason) == true, true, detail: got ?? "loaded")
+    }
+    let canvas = CGSize(width: 320, height: 280)
+    // A fractional size with its LEFT and TOP edges pinned at 100 and 118:
+    // position = edge + size/2. The attested origin must be the pinned edge
+    // exactly and the rect the fractional size exactly — no rounding anywhere.
+    let pinned = #"{"kind":"rrect","size":[120.25,44.375],"radius":22,"position":[160.125,140.1875]}"#
+    let paths = suppliedShapePaths(try component(pinned), canvas: canvas)
+    check("positioned origin is the pinned edge", paths.map(\.frameOrigin) == [[100, 118]], true,
+          detail: "\(paths.map(\.frameOrigin))")
+    check("fractional size survives attestation", paths[0].rect == [0, 0, 120.25, 44.375], true)
+    let centred = suppliedShapePaths(
+      try component(#"{"kind":"rrect","size":[120.25,44.375],"radius":22}"#), canvas: canvas)
+    check("placement does not change the supplied path", paths[0].elements == centred[0].elements, true)
+    let rect = CGRect(x: 0, y: 0, width: 120.25, height: 44.375)
+    check("rrect still resolves the continuous corner (X11)",
+          glassShape(try JSONDecoder().decode(ShapeSpec.self, from: Data(pinned.utf8)))
+            .path(in: rect).cgPath
+            == RoundedRectangle(cornerRadius: 22, style: .continuous).path(in: rect).cgPath, true)
+    check("a positioned shape loads", refusal(pinned) == nil, true, detail: refusal(pinned) ?? "loaded")
+    check("a position on the half-size margin loads",
+          refusal(#"{"kind":"capsule-circular","size":[120,44],"position":[60,22]}"#) == nil, true)
+    refuses("position beside offset is refused",
+            #"{"kind":"capsule-circular","size":[120,44],"position":[160,140],"offset":[0,1]}"#,
+            "mutually exclusive")
+    refuses("a position past the half-size margin is refused",
+            #"{"kind":"capsule-circular","size":[120,44],"position":[59.5,140]}"#, "outside")
+    refuses("a position below the canvas is refused",
+            #"{"kind":"capsule-circular","size":[120,44],"position":[160,258.5]}"#, "outside")
+    refuses("a position is two coordinates",
+            #"{"kind":"capsule-circular","size":[120,44],"position":[160]}"#, "two finite")
+    refuses("a position inside a group is refused",
+            #"{"kind":"group","spacing":8,"items":[{"kind":"capsule","size":[44,44],"position":[160,140]}]}"#,
+            "not honoured inside a group")
+
+    let member = #"{"kind":"capsule-circular","size":[120,44],"position":[160,70]}"#
+    let lower = #"{"kind":"capsule-circular","size":[120,44],"position":[160,210]}"#
+    let column = #"{"kind":"column","items":[\#(member),\#(lower)]}"#
+    check("a column loads", refusal(column) == nil, true, detail: refusal(column) ?? "loaded")
+    let columnPaths = suppliedShapePaths(try component(column), canvas: canvas)
+    check("a column attests each member at its own position",
+          columnPaths.map(\.frameOrigin) == [[100, 48], [100, 188]], true,
+          detail: "\(columnPaths.map(\.frameOrigin))")
+    let fills = #"{"kind":"column","items":["#
+      + #"{"kind":"capsule-circular","size":[120,44],"position":[160,70],"opaque":true,"fillSRGB":[0,0,0]},"#
+      + #"{"kind":"capsule-circular","size":[120,44],"position":[160,210],"opaque":true,"fillSRGB":[255,255,255]}]}"#
+    check("a two-fill opaque column loads", refusal(fills) == nil, true, detail: refusal(fills) ?? "loaded")
+    check("a two-fill column attests both paths opaque",
+          suppliedShapePaths(try component(fills), canvas: canvas).map(\.opaque) == [true, true], true)
+    check("frames that only share an edge do not overlap",
+          refusal(#"{"kind":"column","items":[\#(member),{"kind":"capsule-circular","size":[120,44],"position":[160,114]}]}"#)
+            == nil, true)
+    refuses("overlapping members are refused",
+            #"{"kind":"column","items":[\#(member),{"kind":"capsule-circular","size":[120,44],"position":[160,113.5]}]}"#,
+            "overlap")
+    refuses("a column has exactly two members",
+            #"{"kind":"column","items":[\#(member)]}"#, "exactly two")
+    refuses("every column member is positioned",
+            #"{"kind":"column","items":[\#(member),{"kind":"capsule-circular","size":[120,44]}]}"#,
+            "needs a position")
+    refuses("a column is not half glass and half fill",
+            #"{"kind":"column","items":[\#(member),{"kind":"capsule-circular","size":[120,44],"position":[160,210],"opaque":true,"fillSRGB":[0,0,0]}]}"#,
+            "two glass surfaces or two opaque fills")
+  } catch {
+    check("W39 position/column check threw", false, true, detail: error.localizedDescription)
+  }
   print("== self-check: Capture.cellMayBeWritten ==")
   for pose in [CapturePose.active, .inactive] {
     for key in [true, false] {
@@ -1248,6 +1332,9 @@ func runCapture(method: CaptureMethod, allowColourlessTints: Bool, options: Capt
   let window: NSWindow? = (method == .imageRenderer)
     ? nil
     : Capture.makeWindow(canvas: canvas, keyCapable: pose == .active)
+  // Read before the window is put on screen: this is the placement the harness
+  // asked for, and every cell's attestation compares its actual frame against it.
+  let requestedWindowFrame = window.map { WindowFrameAttestation.rect($0.frame) }
   if let w = window, pose == .active { Capture.present(w) }
   let backingScale = Double(window?.backingScaleFactor ?? CGFloat(scale))
   if method != .imageRenderer && backingScale != scale {
@@ -1935,6 +2022,16 @@ func runCapture(method: CaptureMethod, allowColourlessTints: Bool, options: Capt
         presentation: presentation,
         tint: attestation,
         suppliedPaths: suppliedShapePaths(component, canvas: canvas),
+        windowFrame: window.flatMap { w in requestedWindowFrame.map { requested in
+          WindowFrameAttestation(
+            coordinateSpace: "appkit-global-bottom-left",
+            requested: requested,
+            actual: WindowFrameAttestation.rect(w.frame),
+            windowServerBounds: WindowFrameAttestation.windowServerBounds(
+              CGWindowID(w.windowNumber)),
+            screenFrame: w.screen.map { WindowFrameAttestation.rect($0.frame) },
+            backingScaleFactor: Double(w.backingScaleFactor))
+        } },
         capturedAt: Environment.timestamp()))
 
       let d = deterministic.map { $0 ? " byte-stable" : " NOISY(\(noise ?? -1))" } ?? ""

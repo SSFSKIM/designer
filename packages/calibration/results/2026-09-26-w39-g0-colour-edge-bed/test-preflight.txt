@@ -1,0 +1,56 @@
+test_amplitude_change_is_not_a_phase (__main__.Branches.test_amplitude_change_is_not_a_phase) ... ok
+test_drift_is_unmeasured_not_unreachable (__main__.Branches.test_drift_is_unmeasured_not_unreachable) ... ok
+test_one_axis_admits_only_that_axis (__main__.Branches.test_one_axis_admits_only_that_axis) ... ok
+test_quantised_raster_is_unreachable (__main__.Branches.test_quantised_raster_is_unreachable) ... ok
+test_shift_admits_both_axes (__main__.Branches.test_shift_admits_both_axes) ... ok
+test_constants_equal_the_declaration (__main__.Constants.test_constants_equal_the_declaration) ... ok
+test_model_columns_are_the_readers_area_average (__main__.Constants.test_model_columns_are_the_readers_area_average) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 32.696s
+
+OK
+
+SYNTHETIC-BED RECORD (knots 1.0 device px; tolerance max(0.5,D_int_far) + 0.5|w_i|_1)
+shift: reachable=['x', 'y'] branch=both admitted=56
+  1x x: pass  opaqueStates=4 glassStates=4 D_int_far=0.00 ratio=0.00202 rank=21/21 cond=102 offsets=[0.0, 0.25, 0.5, 0.765]
+      LOPO held-out max|r| / max 0.5|w|_1 / max excess: zero:0.77/2.23/-0.03 1:0.82/1.08/-0.05 2:0.79/1.07/-0.24 3:0.75/3.35/-0.11
+  1x y: pass  opaqueStates=4 glassStates=4 D_int_far=0.00 ratio=0.00225 rank=21/21 cond=103 offsets=[0.0, 0.237, 0.49, 0.767]
+      LOPO held-out max|r| / max 0.5|w|_1 / max excess: zero:1.41/2.11/+0.02 1:0.78/1.07/-0.10 2:0.84/1.09/-0.25 3:0.80/3.52/-0.15
+  2x x: pass  opaqueStates=4 glassStates=4 D_int_far=0.00 ratio=0.00292 rank=39/39 cond=190 offsets=[0.0, 0.248, 0.491, 0.75]
+      LOPO held-out max|r| / max 0.5|w|_1 / max excess: zero:1.36/2.11/+0.07 1:0.85/1.07/+0.01 2:0.71/1.06/-0.28 3:0.71/3.35/-0.15
+  2x y: pass  opaqueStates=4 glassStates=4 D_int_far=0.00 ratio=0.00307 rank=39/39 cond=189 offsets=[0.0, 0.266, 0.502, 0.766]
+      LOPO held-out max|r| / max 0.5|w|_1 / max excess: zero:1.39/2.22/+0.04 1:0.83/1.08/-0.03 2:0.82/1.06/-0.23 3:0.73/3.39/-0.16
+amplitude: reachable=[] branch=neither admitted=0
+  1x x: fail  opaqueStates=4 glassStates=4 D_int_far=0.00 ratio=5.53 rank=21/21 cond=903 offsets=[0.0, 0.162, 0.161, 0.161]
+      LOPO held-out max|r| / max 0.5|w|_1 / max excess: zero:2.01/1.38/+0.89 1:2.51/0.80/+1.74 2:2.34/1.01/+1.53 3:4.39/0.85/+3.54
+  1x y: fail  opaqueStates=4 glassStates=4 D_int_far=0.00 ratio=5.3 rank=21/21 cond=896 offsets=[0.0, 0.158, 0.162, 0.166]
+      LOPO held-out max|r| / max 0.5|w|_1 / max excess: zero:1.95/1.41/+0.67 1:2.54/0.78/+1.78 2:2.09/1.04/+1.26 3:4.32/0.86/+3.46
+  2x x: fail  opaqueStates=4 glassStates=4 D_int_far=0.00 ratio=3.25 rank=39/39 cond=1.34e+03 offsets=[0.0, 0.156, 0.156, 0.151]
+      LOPO held-out max|r| / max 0.5|w|_1 / max excess: zero:3.88/1.30/+3.00 1:2.88/0.94/+2.06 2:2.50/1.09/+1.60 3:4.87/1.18/+4.05
+  2x y: fail  opaqueStates=4 glassStates=4 D_int_far=0.00 ratio=3.31 rank=39/39 cond=1.35e+03 offsets=[0.0, 0.156, 0.156, 0.146]
+      LOPO held-out max|r| / max 0.5|w|_1 / max excess: zero:3.41/1.39/+2.46 1:2.95/0.94/+2.15 2:2.48/1.07/+1.59 3:4.68/1.19/+3.86
+quantised: reachable=[] branch=neither admitted=0
+  1x x: fail  opaqueStates=2 glassStates=2 D_int_far=0.00 ratio=0.00217 rank=21/21 cond=105 offsets=[0.0, -0.016, 0.491, 0.493]
+      LOPO held-out max|r| / max 0.5|w|_1 / max excess: zero:6.03/1.11/+5.17 1:2.95/1.16/+2.22 2:0.61/1.21/-0.50 3:0.61/1.21/-0.50
+  1x y: fail  opaqueStates=2 glassStates=2 D_int_far=0.00 ratio=0.00199 rank=21/21 cond=105 offsets=[0.0, -0.011, 0.49, 0.492]
+      LOPO held-out max|r| / max 0.5|w|_1 / max excess: zero:5.96/1.10/+5.10 1:3.06/1.16/+2.33 2:0.66/1.21/-0.50 3:0.66/1.21/-0.50
+  2x x: fail  opaqueStates=2 glassStates=2 D_int_far=0.00 ratio=0.00295 rank=39/39 cond=167 offsets=[0.0, -0.004, 0.488, 0.489]
+      LOPO held-out max|r| / max 0.5|w|_1 / max excess: zero:4.28/1.18/+3.44 1:3.24/1.12/+2.12 2:0.59/1.22/-0.50 3:0.59/1.22/-0.50
+  2x y: fail  opaqueStates=2 glassStates=2 D_int_far=0.00 ratio=0.0032 rank=39/39 cond=167 offsets=[0.0, -0.009, 0.491, 0.494]
+      LOPO held-out max|r| / max 0.5|w|_1 / max excess: zero:4.20/1.18/+3.36 1:3.26/1.13/+2.13 2:0.61/1.22/-0.50 3:0.61/1.22/-0.50
+one-axis: reachable=['x'] branch=x-only admitted=32
+  1x x: pass  opaqueStates=4 glassStates=4 D_int_far=0.00 ratio=0.00202 rank=21/21 cond=102 offsets=[0.0, 0.25, 0.5, 0.765]
+      LOPO held-out max|r| / max 0.5|w|_1 / max excess: zero:0.77/2.23/-0.03 1:0.82/1.08/-0.05 2:0.79/1.07/-0.24 3:0.75/3.35/-0.11
+  1x y: fail  opaqueStates=2 glassStates=2 D_int_far=0.00 ratio=0.00199 rank=21/21 cond=105 offsets=[0.0, -0.011, 0.49, 0.492]
+      LOPO held-out max|r| / max 0.5|w|_1 / max excess: zero:5.96/1.10/+5.10 1:3.06/1.16/+2.33 2:0.66/1.21/-0.50 3:0.66/1.21/-0.50
+  2x x: pass  opaqueStates=4 glassStates=4 D_int_far=0.00 ratio=0.00292 rank=39/39 cond=190 offsets=[0.0, 0.248, 0.491, 0.75]
+      LOPO held-out max|r| / max 0.5|w|_1 / max excess: zero:1.36/2.11/+0.07 1:0.85/1.07/+0.01 2:0.71/1.06/-0.28 3:0.71/3.35/-0.15
+  2x y: fail  opaqueStates=2 glassStates=2 D_int_far=0.00 ratio=0.0032 rank=39/39 cond=167 offsets=[0.0, -0.009, 0.491, 0.494]
+      LOPO held-out max|r| / max 0.5|w|_1 / max excess: zero:4.20/1.18/+3.36 1:3.26/1.13/+2.13 2:0.61/1.22/-0.50 3:0.61/1.22/-0.50
+drift: reachable=[] branch=neither admitted=0
+  1x x: pass  opaqueStates=4 glassStates=4 D_int_far=0.00 ratio=0.00202 rank=21/21 cond=102 offsets=[0.0, 0.25, 0.5, 0.765]
+      LOPO held-out max|r| / max 0.5|w|_1 / max excess: zero:0.77/2.23/-0.03 1:0.82/1.08/-0.05 2:0.79/1.07/-0.24 3:0.75/3.35/-0.11
+  1x y: pass  opaqueStates=4 glassStates=4 D_int_far=0.00 ratio=0.00225 rank=21/21 cond=103 offsets=[0.0, 0.237, 0.49, 0.767]
+      LOPO held-out max|r| / max 0.5|w|_1 / max excess: zero:1.41/2.11/+0.02 1:0.78/1.07/-0.10 2:0.84/1.09/-0.25 3:0.80/3.52/-0.15
+  2x: end sentinel FAILED -> UNMEASURED-drift

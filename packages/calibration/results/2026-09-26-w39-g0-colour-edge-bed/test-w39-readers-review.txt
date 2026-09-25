@@ -1,0 +1,70 @@
+test_preflight_bands_are_phase_invariant_and_edges_attested (__main__.HarnessPaths.test_preflight_bands_are_phase_invariant_and_edges_attested) ... ok
+test_analyse_is_deterministic_on_read_only_frames_and_json_metadata (__main__.Synthetic.test_analyse_is_deterministic_on_read_only_frames_and_json_metadata) ... ok
+test_bins_are_exhaustive_and_absent_sides_explicit (__main__.Synthetic.test_bins_are_exhaustive_and_absent_sides_explicit) ... ok
+test_borrowed_control_is_read_on_its_own_geometry_and_reference (__main__.Synthetic.test_borrowed_control_is_read_on_its_own_geometry_and_reference) ... ok
+test_calibrate_opaque_uses_its_own_levels (__main__.Synthetic.test_calibrate_opaque_uses_its_own_levels) ... ok
+test_column_members_have_their_own_body_and_bins (__main__.Synthetic.test_column_members_have_their_own_body_and_bins) ... ok
+test_coverage_recovers_a_subpixel_edge_and_phase_states (__main__.Synthetic.test_coverage_recovers_a_subpixel_edge_and_phase_states) ... ok
+test_deep_and_population_are_unmeasured_not_dropped (__main__.Synthetic.test_deep_and_population_are_unmeasured_not_dropped) ... ok
+test_depth_labels_match_w37 (__main__.Synthetic.test_depth_labels_match_w37) ... ok
+test_empty_band_is_unmeasured (__main__.Synthetic.test_empty_band_is_unmeasured) ... ok
+test_fractional_origin_moves_pixels_into_the_boundary_stratum (__main__.Synthetic.test_fractional_origin_moves_pixels_into_the_boundary_stratum) ... ok
+test_path_solved_rrect_straights_and_apex (__main__.Synthetic.test_path_solved_rrect_straights_and_apex) ... ok
+test_ramp_reproduces_w37_consistency_check (__main__.Synthetic.test_ramp_reproduces_w37_consistency_check) ... ok
+test_shapes_refuse_disagreement (__main__.Synthetic.test_shapes_refuse_disagreement) ... ok
+test_top_bottom_pair_reads_a_signed_difference_at_equal_depth (__main__.Synthetic.test_top_bottom_pair_reads_a_signed_difference_at_equal_depth) ... ok
+test_grey128_top_rows (__main__.W34Archive.test_grey128_top_rows) ... ok
+test_grey255_witness_250_253 (__main__.W34Archive.test_grey255_witness_250_253) ... ok
+test_holdout_is_refused_before_any_payload (__main__.W34Archive.test_holdout_is_refused_before_any_payload) ... ok
+test_w37_record_matches (__main__.W34Archive.test_w37_record_matches) ... ok
+
+----------------------------------------------------------------------
+Ran 19 tests in 24.469s
+
+OK
+
+  grey-255 circular-200 light active 1x top/bottom by depth (CSS px):
+    13.50  top [250.0, 249.0, 250.0]  bottom [254.0, 253.0, 254.0]  n=156
+    12.50  top [249.0, 249.0, 249.0]  bottom [254.0, 253.0, 254.0]  n=156
+    11.50  top [249.0, 249.0, 249.0]  bottom [254.0, 253.0, 254.0]  n=156
+    10.50  top [249.0, 249.0, 249.0]  bottom [254.0, 253.0, 254.0]  n=156
+     9.50  top [249.0, 249.0, 249.0]  bottom [254.0, 253.0, 254.0]  n=156
+     8.50  top [249.0, 249.0, 249.0]  bottom [254.0, 253.0, 254.0]  n=156
+     7.50  top [249.0, 249.0, 249.0]  bottom [253.0, 253.0, 253.0]  n=156
+     6.50  top [250.0, 250.0, 250.0]  bottom [253.0, 253.0, 253.0]  n=156
+     5.50  top [250.0, 250.0, 250.0]  bottom [253.0, 253.0, 253.0]  n=156
+     4.50  top [251.0, 251.0, 251.0]  bottom [253.0, 253.0, 253.0]  n=156
+     3.50  top [251.0, 251.0, 251.0]  bottom [253.0, 252.0, 253.0]  n=156
+     2.50  top [253.0, 253.0, 253.0]  bottom [253.0, 253.0, 253.0]  n=156
+     1.50  top [253.0, 253.0, 253.0]  bottom [253.0, 253.0, 253.0]  n=156
+     0.50  top [255.0, 255.0, 255.0]  bottom [255.0, 255.0, 255.0]  n=156
+
+  grey-255 circular-200 light active 2x top/bottom by depth (CSS px):
+    13.75  top [250.0, 250.0, 250.0]  bottom [254.0, 253.0, 254.0]  n=312
+    13.25  top [250.0, 249.0, 250.0]  bottom [254.0, 253.0, 254.0]  n=312
+    12.75  top [249.0, 249.0, 249.0]  bottom [254.0, 253.0, 254.0]  n=312
+    12.25  top [249.0, 249.0, 249.0]  bottom [254.0, 253.0, 254.0]  n=312
+    11.75  top [249.0, 249.0, 249.0]  bottom [254.0, 253.0, 254.0]  n=312
+    11.25  top [249.0, 249.0, 249.0]  bottom [254.0, 253.0, 254.0]  n=312
+    10.75  top [249.0, 249.0, 249.0]  bottom [254.0, 253.0, 254.0]  n=312
+    10.25  top [249.0, 249.0, 249.0]  bottom [254.0, 253.0, 254.0]  n=312
+     9.75  top [249.0, 249.0, 249.0]  bottom [254.0, 253.0, 254.0]  n=312
+     9.25  top [249.0, 249.0, 249.0]  bottom [254.0, 253.0, 254.0]  n=312
+     8.75  top [249.0, 249.0, 249.0]  bottom [254.0, 253.0, 254.0]  n=312
+     8.25  top [249.0, 249.0, 249.0]  bottom [253.0, 253.0, 253.0]  n=312
+     7.75  top [249.0, 249.0, 249.0]  bottom [253.0, 253.0, 253.0]  n=312
+     7.25  top [249.0, 249.0, 249.0]  bottom [253.0, 253.0, 253.0]  n=312
+     6.75  top [250.0, 249.0, 250.0]  bottom [253.0, 253.0, 253.0]  n=312
+     6.25  top [250.0, 250.0, 250.0]  bottom [253.0, 253.0, 253.0]  n=312
+     5.75  top [250.0, 250.0, 250.0]  bottom [253.0, 253.0, 253.0]  n=312
+     5.25  top [250.0, 250.0, 250.0]  bottom [253.0, 253.0, 253.0]  n=312
+     4.75  top [251.0, 250.0, 251.0]  bottom [253.0, 253.0, 253.0]  n=312
+     4.25  top [251.0, 251.0, 251.0]  bottom [253.0, 253.0, 253.0]  n=312
+     3.75  top [251.0, 251.0, 251.0]  bottom [253.0, 253.0, 253.0]  n=312
+     3.25  top [252.0, 251.0, 252.0]  bottom [253.0, 252.0, 253.0]  n=312
+     2.75  top [252.0, 252.0, 252.0]  bottom [252.0, 252.0, 252.0]  n=312
+     2.25  top [253.0, 253.0, 253.0]  bottom [253.0, 253.0, 253.0]  n=312
+     1.75  top [253.0, 253.0, 253.0]  bottom [253.0, 253.0, 253.0]  n=312
+     1.25  top [253.0, 253.0, 253.0]  bottom [253.0, 253.0, 253.0]  n=312
+     0.75  top [255.0, 255.0, 255.0]  bottom [255.0, 255.0, 255.0]  n=312
+     0.25  top [255.0, 255.0, 255.0]  bottom [255.0, 255.0, 255.0]  n=312

@@ -1,0 +1,103 @@
+# W39 G0 review fix wave (P1-2 admission protocol, P2 pass/run order; no automatic retake, no root lock): python3.12 test-sitting.py
+# 2026-09-25T17:37:27Z; sitting.py sha256 8675983e87957a36e4e74677bb3cc4a36fb797a1b0d2dd7b6c1870cd456d6059; test-sitting.py sha256 6e2b4c5ad904b18984b4a15d1d080c3e1ee9560112c711be28a8b05da06d172f
+test_dry_and_implicit_root_refused (__main__.Driver.test_dry_and_implicit_root_refused) ... usage: test-sitting.py [-h] [--sentinel] [--rehearse-refusal]
+                       [--verdict VERDICT]
+                       {preflight,active,inactive} {1,2} [first] [last]
+test-sitting.py: error: DRY is W34's harness --dry-run, which never reaches ScreenCaptureKit. W39 has no dry run; a G0 rehearsal is --rehearse-refusal, a real launch expected to be refused.
+usage: test-sitting.py [-h] [--sentinel] [--rehearse-refusal]
+                       [--verdict VERDICT]
+                       {preflight,active,inactive} {1,2} [first] [last]
+test-sitting.py: error: VITREA_SITTING_DIR must name the sitting root explicitly (outside the repository)
+ok
+test_interrupted_predecessor_blocks_until_the_operator_preserves_it (__main__.Driver.test_interrupted_predecessor_blocks_until_the_operator_preserves_it) ... preflight-2x run 1: admitted cells=18
+preflight-2x run 2: admitted cells=2
+ok
+test_opening_refusal_names_every_gate_and_keeps_the_reads (__main__.Driver.test_opening_refusal_names_every_gate_and_keeps_the_reads) ... REFUSED; retained at <tmp>/root/rehearsal-active-1x/QUARANTINE-run-1-<ns>
+ok
+test_quarantined_predecessor_blocks_and_is_retaken (__main__.Driver.test_quarantined_predecessor_blocks_and_is_retaken) ... REFUSED; retained at <tmp>/root/preflight-1x/QUARANTINE-run-1-<ns>
+preflight-1x run 1: admitted cells=18
+preflight-1x run 2: admitted cells=2
+ok
+test_real_preflight_then_bed_needs_the_bound_verdict (__main__.Driver.test_real_preflight_then_bed_needs_the_bound_verdict) ... preflight-2x run 1: admitted cells=18
+preflight-2x run 2: admitted cells=2
+preflight-1x run 1: admitted cells=18
+preflight-1x run 2: admitted cells=2
+ok
+test_refusal_rehearsal_is_a_real_launch_and_admits_only_tcc (__main__.Driver.test_refusal_rehearsal_is_a_real_launch_and_admits_only_tcc) ... rehearsal-active-2x: refused by the TCC gate as expected; no manifest, no fixture
+ok
+test_rehearsal_outcomes_other_than_tcc_quarantine (__main__.Driver.test_rehearsal_outcomes_other_than_tcc_quarantine) ... REFUSED; retained at <tmp>/root-manifest/rehearsal-active-2x/QUARANTINE-run-1-<ns>
+REFUSED; retained at <tmp>/root-idle/rehearsal-active-2x/QUARANTINE-run-1-<ns>
+REFUSED; retained at <tmp>/root-prompt/rehearsal-active-2x/QUARANTINE-run-1-<ns>
+ok
+test_rehearsal_timeout_is_prompt_pending (__main__.Driver.test_rehearsal_timeout_is_prompt_pending) ... REFUSED; retained at <tmp>/root/rehearsal-preflight-2x/QUARANTINE-run-1-<ns>
+ok
+test_rehearsals_and_evidence_never_share_a_root (__main__.Driver.test_rehearsals_and_evidence_never_share_a_root) ... ok
+test_the_complete_sitting_admits_every_run_under_its_protocol (__main__.Driver.test_the_complete_sitting_admits_every_run_under_its_protocol) ... preflight-1x run 1: admitted cells=18
+preflight-1x run 2: admitted cells=2
+preflight-2x run 1: admitted cells=18
+preflight-2x run 2: admitted cells=2
+active-1x run 1: admitted cells=348
+active-1x run 2: admitted cells=222
+active-1x run 3: admitted cells=222
+active-1x run 4: admitted cells=222
+active-1x run 5: admitted cells=222
+active-1x run 6: admitted cells=222
+active-1x run 7: admitted cells=222
+active-2x run 1: admitted cells=348
+active-2x run 2: admitted cells=222
+active-2x run 3: admitted cells=222
+active-2x run 4: admitted cells=222
+active-2x run 5: admitted cells=222
+active-2x run 6: admitted cells=222
+active-2x run 7: admitted cells=222
+inactive-1x run 1: admitted cells=348
+inactive-1x run 2: admitted cells=222
+inactive-1x run 3: admitted cells=222
+inactive-1x run 4: admitted cells=222
+inactive-1x run 5: admitted cells=222
+inactive-1x run 6: admitted cells=222
+inactive-1x run 7: admitted cells=222
+inactive-2x run 1: admitted cells=348
+inactive-2x run 2: admitted cells=222
+inactive-2x run 3: admitted cells=222
+inactive-2x run 4: admitted cells=222
+inactive-2x run 5: admitted cells=222
+inactive-2x run 6: admitted cells=222
+inactive-2x run 7: admitted cells=222
+active-1x-sentinel run 1: admitted cells=4
+active-1x-sentinel run 2: admitted cells=4
+active-1x-sentinel run 3: admitted cells=4
+active-2x-sentinel run 1: admitted cells=4
+active-2x-sentinel run 2: admitted cells=4
+active-2x-sentinel run 3: admitted cells=4
+inactive-1x-sentinel run 1: admitted cells=4
+inactive-1x-sentinel run 2: admitted cells=4
+inactive-1x-sentinel run 3: admitted cells=4
+inactive-2x-sentinel run 1: admitted cells=4
+inactive-2x-sentinel run 2: admitted cells=4
+inactive-2x-sentinel run 3: admitted cells=4
+ok
+test_build_version_compares_without_surrounding_whitespace (__main__.Machine.test_build_version_compares_without_surrounding_whitespace) ... ok
+test_every_gate_refuses_and_names_all_failures (__main__.Machine.test_every_gate_refuses_and_names_all_failures) ... ok
+test_session_gates (__main__.Machine.test_session_gates) ... ok
+test_the_recorded_rehearsal_machine_reads_match_the_real_pin (__main__.Machine.test_the_recorded_rehearsal_machine_reads_match_the_real_pin)
+The four G0 rehearsal opening reads, against the committed pin: the side ... ok
+test_each_attestation_refuses (__main__.Manifest.test_each_attestation_refuses) ... ok
+test_end_repeat_is_the_zero_pair_and_run_one_carries_references (__main__.Manifest.test_end_repeat_is_the_zero_pair_and_run_one_carries_references) ... ok
+test_good_manifest_admits (__main__.Manifest.test_good_manifest_admits) ... ok
+test_inactive_manifest (__main__.Manifest.test_inactive_manifest) ... ok
+test_a_quarantine_alone_does_not_satisfy_a_run (__main__.Order.test_a_quarantine_alone_does_not_satisfy_a_run) ... ok
+test_a_started_later_pass_refuses_an_earlier_one (__main__.Order.test_a_started_later_pass_refuses_an_earlier_one) ... ok
+test_declared_order_and_run_counts (__main__.Order.test_declared_order_and_run_counts) ... ok
+test_every_run_of_every_prior_pass_must_be_admitted (__main__.Order.test_every_run_of_every_prior_pass_must_be_admitted) ... ok
+test_sentinel_passes_follow_the_bed_order (__main__.Order.test_sentinel_passes_follow_the_bed_order) ... ok
+test_skipped_and_interrupted_runs_block_their_successors (__main__.Order.test_skipped_and_interrupted_runs_block_their_successors) ... ok
+test_admission_names_the_protocol_and_checks_the_manifest (__main__.Protocol.test_admission_names_the_protocol_and_checks_the_manifest) ... ok
+test_protocol_is_derived_from_the_launch_by_exact_match (__main__.Protocol.test_protocol_is_derived_from_the_launch_by_exact_match) ... ok
+test_the_two_protocols_are_the_declared_settings (__main__.Protocol.test_the_two_protocols_are_the_declared_settings) ... ok
+
+----------------------------------------------------------------------
+Ran 27 tests in 12.159s
+
+OK
+exit=0

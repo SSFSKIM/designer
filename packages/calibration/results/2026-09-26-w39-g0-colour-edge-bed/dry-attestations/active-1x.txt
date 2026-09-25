@@ -1,0 +1,7 @@
+REFUSED; retained at /Users/new/vitrea-w39/rehearsal/rehearsal-active-1x/QUARANTINE-run-1-1790356088365711000
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w39/g0/packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/sitting.py", line 526, in <module>
+    main()
+  File "/Users/new/vitrea-w39/g0/packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/sitting.py", line 456, in main
+    raise ValueError(' | '.join(problems))
+ValueError: machine gate refused: display mode/identity mismatch for 1x (want mode 69): ['68'] ['7709FD0F-F423-4277-B0C8-7CA94F85723A']; side bundle identity changed (binary, cdhash or LC_BUILD_VERSION); a rebuild is a new pin and a new grant; 14 foreign capture process(es); X6 admits none | no launch: a permission prompt is on screen (['universalAccessAuthWarn|0']); answer nothing, and resolve it before any capture

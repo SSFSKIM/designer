@@ -1,0 +1,61 @@
+test_carried_control_reference_may_not_outrank_its_dependent (__main__.Archive.test_carried_control_reference_may_not_outrank_its_dependent) ... ok
+test_complete_role_separated_archive_with_dependency_closure (__main__.Archive.test_complete_role_separated_archive_with_dependency_closure) ... ok
+test_holdout_payload_is_behind_the_boundary (__main__.Archive.test_holdout_payload_is_behind_the_boundary) ... ok
+test_producer_refusals (__main__.Archive.test_producer_refusals) ... ok
+test_production_is_deterministic (__main__.Archive.test_production_is_deterministic) ... ok
+test_protocol_is_the_sittings_admission_checked_against_the_capture (__main__.Archive.test_protocol_is_the_sittings_admission_checked_against_the_capture) ... ok
+test_release_asset_round_trip_feeds_the_guarded_reader (__main__.Archive.test_release_asset_round_trip_feeds_the_guarded_reader) ... ok
+test_replay_from_archive_alone_with_raw_root_denied (__main__.Archive.test_replay_from_archive_alone_with_raw_root_denied) ... ok
+test_replay_refuses_an_altered_archive_and_a_different_instrument (__main__.Archive.test_replay_refuses_an_altered_archive_and_a_different_instrument) ... ok
+test_borrowed_grey_control_calibrates_on_its_own_reference_through_the_archive (__main__.RealReaderIntegration.test_borrowed_grey_control_calibrates_on_its_own_reference_through_the_archive) ... ok
+test_w34_calibration_cell_round_trips_through_the_archive (__main__.RealReaderIntegration.test_w34_calibration_cell_round_trips_through_the_archive) ... ok
+test_main_admitted_normal_and_sentinel_runs_load_with_their_arms (__main__.SittingMainAdmission.test_main_admitted_normal_and_sentinel_runs_load_with_their_arms) ... preflight-1x run 1: admitted cells=18
+preflight-1x run 2: admitted cells=2
+preflight-2x run 1: admitted cells=18
+preflight-2x run 2: admitted cells=2
+active-1x run 1: admitted cells=348
+active-1x run 2: admitted cells=222
+active-1x run 3: admitted cells=222
+active-1x run 4: admitted cells=222
+active-1x run 5: admitted cells=222
+active-1x run 6: admitted cells=222
+active-1x run 7: admitted cells=222
+active-2x run 1: admitted cells=348
+active-2x run 2: admitted cells=222
+active-2x run 3: admitted cells=222
+active-2x run 4: admitted cells=222
+active-2x run 5: admitted cells=222
+active-2x run 6: admitted cells=222
+active-2x run 7: admitted cells=222
+inactive-1x run 1: admitted cells=348
+inactive-1x run 2: admitted cells=222
+inactive-1x run 3: admitted cells=222
+inactive-1x run 4: admitted cells=222
+inactive-1x run 5: admitted cells=222
+inactive-1x run 6: admitted cells=222
+inactive-1x run 7: admitted cells=222
+inactive-2x run 1: admitted cells=348
+inactive-2x run 2: admitted cells=222
+inactive-2x run 3: admitted cells=222
+inactive-2x run 4: admitted cells=222
+inactive-2x run 5: admitted cells=222
+inactive-2x run 6: admitted cells=222
+inactive-2x run 7: admitted cells=222
+active-1x-sentinel run 1: admitted cells=4
+active-1x-sentinel run 2: admitted cells=4
+active-1x-sentinel run 3: admitted cells=4
+active-2x-sentinel run 1: admitted cells=4
+active-2x-sentinel run 2: admitted cells=4
+active-2x-sentinel run 3: admitted cells=4
+inactive-1x-sentinel run 1: admitted cells=4
+inactive-1x-sentinel run 2: admitted cells=4
+inactive-1x-sentinel run 3: admitted cells=4
+inactive-2x-sentinel run 1: admitted cells=4
+inactive-2x-sentinel run 2: admitted cells=4
+inactive-2x-sentinel run 3: admitted cells=4
+ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 10.064s
+
+OK

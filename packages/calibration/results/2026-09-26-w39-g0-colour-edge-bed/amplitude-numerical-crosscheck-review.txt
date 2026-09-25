@@ -1,0 +1,138 @@
+W39 G0 review: supplemental synthetic amplitude-fit diagnostics.
+These do not change the declared 200-update cap or the judge.
+The standalone variable-projection diagnostic additionally uses scipy; the production
+preflight and its test suite require only numpy/PIL. The historical scripts below retain
+the worktree path used by the run; change only E to replay from another checkout.
+Raw scripts and stdout follow verbatim, with their hashes.
+
+===== capcheck.py SHA256 5327d6bb28184bedd4b7676de921993098f677fd6818d5fbd9ad191b3999b14c =====
+"""Diagnostic only: does the 200-alternation cap change the amplitude fits on the synthetic beds?
+Re-runs each scenario's verdict with the cap raised and compares amplitude rss/edge/gains/criteria."""
+import importlib.util, sys, tempfile, time, json
+from pathlib import Path
+import numpy as np
+E=Path('/Users/new/vitrea-w39/g0/packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed')
+sys.path.insert(0,str(E))
+spec=importlib.util.spec_from_file_location('tp',E/'test-preflight.py'); T=importlib.util.module_from_spec(spec); spec.loader.exec_module(T)
+P=T.P
+cap=int(sys.argv[1])
+out={}
+for name in ('shift','amplitude','quantised','one-axis','drift'):
+    for c in (200,cap):
+        P.AMPLITUDE_ITERATIONS=c
+        t=time.time()
+        with tempfile.TemporaryDirectory() as tmp:
+            T.build_root(Path(tmp),name); v=P.verdict(Path(tmp))
+        for sc in ('1x','2x'):
+            for ax in ('x','y'):
+                a=v['scales'][sc]['axes'][ax]
+                if 'glassFar' not in a: continue
+                m=a['glassFar']['amplitude']
+                out.setdefault((name,sc,ax),{})[c]=(m['rss'],m['sharedEdge'],m['gains'],m['converged'],m['alternations'],m['searchEvaluationsUnconverged'],a['glassFar']['criteria']['a_rssRatio'],a['status'])
+        print(name,c,'%.1fs'%(time.time()-t),v['branch'],flush=True)
+for k,d in out.items():
+    a,b=d[200],d[cap]
+    print(k,'rss %.6g -> %.6g (rel %.2e)'%(a[0],b[0],(a[0]-b[0])/b[0]),'edge %.4f -> %.4f'%(a[1],b[1]),
+          'gainsΔ %.2e'%np.max(np.abs(np.subtract(a[2],b[2]))),'conv',a[3],b[3],'alt',a[4],b[4],'searchUnconv',a[5],b[5],'a',a[6],b[6],a[7],b[7])
+
+===== capcheck-20000.txt SHA256 300f0391dbf1da38dc2f30c6d6da534dd9ad98890f95def674ceb1643d696288 =====
+shift 200 11.5s both
+shift 20000 423.4s both
+amplitude 200 8.5s neither
+amplitude 20000 8.5s neither
+quantised 200 9.0s neither
+quantised 20000 53.6s neither
+one-axis 200 9.9s x-only
+one-axis 20000 253.4s x-only
+drift 200 4.2s neither
+drift 20000 112.1s neither
+('shift', '1x', 'x') rss 4177.15 -> 4177.15 (rel 0.00e+00) edge 219.0148 -> 219.0148 gainsΔ 0.00e+00 conv True True alt 61 61 searchUnconv 32 32 a True True pass pass
+('shift', '1x', 'y') rss 4076 -> 4076 (rel 0.00e+00) edge 161.0304 -> 161.0304 gainsΔ 0.00e+00 conv True True alt 73 73 searchUnconv 32 32 a True True pass pass
+('shift', '2x', 'x') rss 4844.05 -> 4844.05 (rel 0.00e+00) edge 440.9919 -> 440.9919 gainsΔ 0.00e+00 conv True True alt 67 67 searchUnconv 32 32 a True True pass pass
+('shift', '2x', 'y') rss 4793.82 -> 4793.82 (rel 0.00e+00) edge 324.9921 -> 324.9921 gainsΔ 0.00e+00 conv True True alt 66 66 searchUnconv 32 32 a True True pass pass
+('amplitude', '1x', 'x') rss 40.8438 -> 40.8438 (rel 0.00e+00) edge 220.9274 -> 220.9274 gainsΔ 0.00e+00 conv True True alt 51 51 searchUnconv 0 0 a False False fail fail
+('amplitude', '1x', 'y') rss 40.3238 -> 40.3238 (rel 0.00e+00) edge 161.9360 -> 161.9360 gainsΔ 0.00e+00 conv True True alt 53 53 searchUnconv 0 0 a False False fail fail
+('amplitude', '2x', 'x') rss 85.7657 -> 85.7657 (rel 0.00e+00) edge 439.4946 -> 439.4946 gainsΔ 0.00e+00 conv True True alt 51 51 searchUnconv 0 0 a False False fail fail
+('amplitude', '2x', 'y') rss 80.9578 -> 80.9578 (rel 0.00e+00) edge 324.9819 -> 324.9819 gainsΔ 0.00e+00 conv True True alt 47 47 searchUnconv 0 0 a False False fail fail
+('quantised', '1x', 'x') rss 3360.33 -> 3360.33 (rel 0.00e+00) edge 219.4995 -> 219.4995 gainsΔ 0.00e+00 conv True True alt 62 62 searchUnconv 13 12 a True True fail fail
+('quantised', '1x', 'y') rss 3301.11 -> 3301.11 (rel 0.00e+00) edge 161.9999 -> 161.9999 gainsΔ 0.00e+00 conv True True alt 109 109 searchUnconv 17 15 a True True fail fail
+('quantised', '2x', 'x') rss 3890.85 -> 3890.85 (rel 0.00e+00) edge 439.0607 -> 439.0607 gainsΔ 0.00e+00 conv True True alt 37 37 searchUnconv 0 0 a True True fail fail
+('quantised', '2x', 'y') rss 3896.64 -> 3896.64 (rel 0.00e+00) edge 323.6876 -> 323.6876 gainsΔ 0.00e+00 conv True True alt 51 51 searchUnconv 0 0 a True True fail fail
+('one-axis', '1x', 'x') rss 4177.15 -> 4177.15 (rel 0.00e+00) edge 219.0148 -> 219.0148 gainsΔ 0.00e+00 conv True True alt 61 61 searchUnconv 32 32 a True True pass pass
+('one-axis', '1x', 'y') rss 3301.11 -> 3301.11 (rel 0.00e+00) edge 161.9999 -> 161.9999 gainsΔ 0.00e+00 conv True True alt 109 109 searchUnconv 17 15 a True True fail fail
+('one-axis', '2x', 'x') rss 4844.05 -> 4844.05 (rel 0.00e+00) edge 440.9919 -> 440.9919 gainsΔ 0.00e+00 conv True True alt 67 67 searchUnconv 32 32 a True True pass pass
+('one-axis', '2x', 'y') rss 3896.64 -> 3896.64 (rel 0.00e+00) edge 323.6876 -> 323.6876 gainsΔ 0.00e+00 conv True True alt 51 51 searchUnconv 0 0 a True True fail fail
+('drift', '1x', 'x') rss 4177.15 -> 4177.15 (rel 0.00e+00) edge 219.0148 -> 219.0148 gainsΔ 0.00e+00 conv True True alt 61 61 searchUnconv 32 32 a True True pass pass
+('drift', '1x', 'y') rss 4076 -> 4076 (rel 0.00e+00) edge 161.0304 -> 161.0304 gainsΔ 0.00e+00 conv True True alt 73 73 searchUnconv 32 32 a True True pass pass
+python3.12 capcheck.py 20000  878.09s user 15.44s system 99% cpu 14:54.28 total
+
+===== varpro.py SHA256 0eb7cf83c43f17189342b9b63e02458126a4e4ae23cabcf9e5f9758f36ae9a67 =====
+"""Diagnostic only: the amplitude model's minimum over (edge, gains) by variable projection
+(scipy BFGS over the three free gains at each edge, the level and profile solved exactly),
+against preflight.fit_amplitude at the declared cap. Shift-branch and quantised data."""
+import importlib.util, sys, tempfile
+from pathlib import Path
+import numpy as np
+from scipy.optimize import minimize
+E=Path('/Users/new/vitrea-w39/g0/packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed')
+spec=importlib.util.spec_from_file_location('tp',E/'test-preflight.py'); T=importlib.util.module_from_spec(spec); spec.loader.exec_module(T)
+P=T.P
+captured=[]
+orig=P.fit_amplitude
+def spy(coords,Y,attested,inward,knots,**k):
+    r=orig(coords,Y,attested,inward,knots,**k); captured.append((coords,Y,attested,inward,knots,r)); return r
+P.fit_amplitude=spy
+for name in sys.argv[1:]:
+    captured.clear()
+    with tempfile.TemporaryDirectory() as tmp:
+        T.build_root(Path(tmp),name); P.verdict(Path(tmp))
+    for coords,Y,att,inward,knots,r in captured:
+        Ys=np.vstack(Y); n=len(Y)
+        def f(g,B):
+            gg=np.concatenate([[1.0],g])
+            A=np.vstack([np.column_stack([np.ones(len(coords)),gg[p]*B]) for p in range(n)])
+            return P.solve(A,Ys)[1]
+        best=None
+        for e in np.arange(att[0]-1,att[0]+1+1e-9,1/16):
+            B=P.basis(coords,e,-1 if inward<0 else 1,knots) if False else P.basis(coords,e,inward,knots)
+            vals=[]
+            for g0 in ([1,1,1],r['gains'][1:],[0.9,0.8,0.7],[1.1,1.2,1.3]):
+                m=minimize(f,np.asarray(g0,float),args=(B,),method='BFGS',options=dict(gtol=1e-10,maxiter=2000))
+                vals.append(m.fun)
+            v=min(vals)
+            if best is None or v<best[0]: best=(v,e)
+        print(name,'pathEdge0=%.3f'%att[0],'fit_amplitude rss=%.6g edge=%.4f conv=%s'%(r['rss'],r['edge'],r['converged']),
+              '| varpro grid-min rss=%.6g at edge %.4f'%best, '| rel gap %.2e'%((r['rss']-best[0])/best[0]),flush=True)
+
+===== varpro.txt SHA256 36987c215225d833d055ad75e202a1ce2cd3322ff19593780cf11065e63b7a22 =====
+shift pathEdge0=220.000 fit_amplitude rss=4177.15 edge=219.0148 conv=True | varpro grid-min rss=4177.15 at edge 220.3125 | rel gap 5.53e-11
+shift pathEdge0=162.000 fit_amplitude rss=4076 edge=161.0304 conv=True | varpro grid-min rss=4076 at edge 162.8125 | rel gap 6.25e-11
+shift pathEdge0=440.000 fit_amplitude rss=4844.05 edge=440.9919 conv=True | varpro grid-min rss=4844.05 at edge 439.7500 | rel gap 6.65e-11
+shift pathEdge0=324.000 fit_amplitude rss=4793.82 edge=324.9921 conv=True | varpro grid-min rss=4793.82 at edge 323.5625 | rel gap 7.67e-11
+quantised pathEdge0=220.000 fit_amplitude rss=3360.33 edge=219.4995 conv=True | varpro grid-min rss=3360.33 at edge 220.4375 | rel gap 3.36e-11
+quantised pathEdge0=162.000 fit_amplitude rss=3301.11 edge=161.9999 conv=True | varpro grid-min rss=3301.11 at edge 162.8125 | rel gap 3.14e-11
+quantised pathEdge0=440.000 fit_amplitude rss=3890.85 edge=439.0607 conv=True | varpro grid-min rss=3890.85 at edge 439.5625 | rel gap 3.82e-11
+quantised pathEdge0=324.000 fit_amplitude rss=3896.64 edge=323.6876 conv=True | varpro grid-min rss=3896.64 at edge 323.3125 | rel gap 3.82e-11
+amplitude pathEdge0=220.000 fit_amplitude rss=40.8438 edge=220.9274 conv=True | varpro grid-min rss=40.8438 at edge 219.2500 | rel gap 7.86e-11
+amplitude pathEdge0=162.000 fit_amplitude rss=40.3238 edge=161.9360 conv=True | varpro grid-min rss=40.3238 at edge 161.7500 | rel gap 1.21e-10
+amplitude pathEdge0=440.000 fit_amplitude rss=85.7657 edge=439.4946 conv=True | varpro grid-min rss=85.7657 at edge 439.6875 | rel gap 7.58e-11
+amplitude pathEdge0=324.000 fit_amplitude rss=80.9578 edge=324.9819 conv=True | varpro grid-min rss=80.9578 at edge 323.3750 | rel gap 9.41e-11
+python3.12 varpro.py shift quantised amplitude  97.73s user 11.58s system 99% cpu 1:49.84 total
+
+===== recov.py SHA256 7e9b8c68ee812e4cf0fb21393e59e036e378ce5ee1843b13459ea42e7c84751e =====
+import importlib.util, numpy as np
+E='/Users/new/vitrea-w39/g0/packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed'
+def load(n,f):
+    s=importlib.util.spec_from_file_location(n,E+'/'+f); m=importlib.util.module_from_spec(s); s.loader.exec_module(m); return m
+T=load('tp','test-preflight.py'); OLD=load('old','.old_preflight_scratch.py')
+t=T.AmplitudeFit()
+for scale in (1,2):
+    for inward in (-1,1):
+        coords,Y,att,knots,gains=t.bed(scale,inward)
+        new=T.P.fit_amplitude(coords,Y,att,inward,knots); old=OLD.fit_amplitude(coords,Y,att,inward,knots)
+        print(scale,inward,len(coords),'coords; knots',len(knots),'| fixed rss %.3g alt %d gains %s | HEAD rss %.6g gains %s'%(new['rss'],new['alternations'],np.round(new['gains'],6),old['rss'],np.round(old['gains'],4)))
+
+Historical-helper prerequisite: recov.py above used a temporary .old_preflight_scratch.py
+containing preflight.py from git1f504ff2. That temporary file was removed, not published.
+amplitude-model-recovery-review.txt repeats the exact four comparisons by executing that
+original git blob in memory beside AmplitudeFit.bed; it creates no temporary source file.

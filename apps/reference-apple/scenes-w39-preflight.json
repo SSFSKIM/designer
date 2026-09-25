@@ -1,0 +1,1061 @@
+{
+  "version": 1,
+  "canvas": {
+    "width": 320,
+    "height": 280
+  },
+  "backgrounds": {
+    "g128": {
+      "kind": "solid",
+      "srgb": [
+        128,
+        128,
+        128
+      ]
+    }
+  },
+  "components": {
+    "preflight-1x-zero": {
+      "kind": "rrect",
+      "size": [
+        120,
+        44
+      ],
+      "position": [
+        160.0,
+        140.0
+      ],
+      "radius": 22
+    },
+    "preflight-1x-zero-opaque": {
+      "kind": "rrect",
+      "size": [
+        120,
+        44
+      ],
+      "position": [
+        160.0,
+        140.0
+      ],
+      "radius": 22,
+      "opaque": true,
+      "fillSRGB": [
+        255,
+        255,
+        255
+      ]
+    },
+    "preflight-1x-x1": {
+      "kind": "rrect",
+      "size": [
+        120.25,
+        44
+      ],
+      "position": [
+        160.125,
+        140.0
+      ],
+      "radius": 22
+    },
+    "preflight-1x-x1-opaque": {
+      "kind": "rrect",
+      "size": [
+        120.25,
+        44
+      ],
+      "position": [
+        160.125,
+        140.0
+      ],
+      "radius": 22,
+      "opaque": true,
+      "fillSRGB": [
+        255,
+        255,
+        255
+      ]
+    },
+    "preflight-1x-x2": {
+      "kind": "rrect",
+      "size": [
+        120.5,
+        44
+      ],
+      "position": [
+        160.25,
+        140.0
+      ],
+      "radius": 22
+    },
+    "preflight-1x-x2-opaque": {
+      "kind": "rrect",
+      "size": [
+        120.5,
+        44
+      ],
+      "position": [
+        160.25,
+        140.0
+      ],
+      "radius": 22,
+      "opaque": true,
+      "fillSRGB": [
+        255,
+        255,
+        255
+      ]
+    },
+    "preflight-1x-x3": {
+      "kind": "rrect",
+      "size": [
+        120.75,
+        44
+      ],
+      "position": [
+        160.375,
+        140.0
+      ],
+      "radius": 22
+    },
+    "preflight-1x-x3-opaque": {
+      "kind": "rrect",
+      "size": [
+        120.75,
+        44
+      ],
+      "position": [
+        160.375,
+        140.0
+      ],
+      "radius": 22,
+      "opaque": true,
+      "fillSRGB": [
+        255,
+        255,
+        255
+      ]
+    },
+    "preflight-1x-y1": {
+      "kind": "rrect",
+      "size": [
+        120,
+        44.25
+      ],
+      "position": [
+        160.0,
+        140.125
+      ],
+      "radius": 22
+    },
+    "preflight-1x-y1-opaque": {
+      "kind": "rrect",
+      "size": [
+        120,
+        44.25
+      ],
+      "position": [
+        160.0,
+        140.125
+      ],
+      "radius": 22,
+      "opaque": true,
+      "fillSRGB": [
+        255,
+        255,
+        255
+      ]
+    },
+    "preflight-1x-y2": {
+      "kind": "rrect",
+      "size": [
+        120,
+        44.5
+      ],
+      "position": [
+        160.0,
+        140.25
+      ],
+      "radius": 22
+    },
+    "preflight-1x-y2-opaque": {
+      "kind": "rrect",
+      "size": [
+        120,
+        44.5
+      ],
+      "position": [
+        160.0,
+        140.25
+      ],
+      "radius": 22,
+      "opaque": true,
+      "fillSRGB": [
+        255,
+        255,
+        255
+      ]
+    },
+    "preflight-1x-y3": {
+      "kind": "rrect",
+      "size": [
+        120,
+        44.75
+      ],
+      "position": [
+        160.0,
+        140.375
+      ],
+      "radius": 22
+    },
+    "preflight-1x-y3-opaque": {
+      "kind": "rrect",
+      "size": [
+        120,
+        44.75
+      ],
+      "position": [
+        160.0,
+        140.375
+      ],
+      "radius": 22,
+      "opaque": true,
+      "fillSRGB": [
+        255,
+        255,
+        255
+      ]
+    },
+    "preflight-1x-x-integer": {
+      "kind": "rrect",
+      "size": [
+        121,
+        44
+      ],
+      "position": [
+        160.5,
+        140.0
+      ],
+      "radius": 22
+    },
+    "preflight-1x-x-integer-opaque": {
+      "kind": "rrect",
+      "size": [
+        121,
+        44
+      ],
+      "position": [
+        160.5,
+        140.0
+      ],
+      "radius": 22,
+      "opaque": true,
+      "fillSRGB": [
+        255,
+        255,
+        255
+      ]
+    },
+    "preflight-1x-y-integer": {
+      "kind": "rrect",
+      "size": [
+        120,
+        45
+      ],
+      "position": [
+        160.0,
+        140.5
+      ],
+      "radius": 22
+    },
+    "preflight-1x-y-integer-opaque": {
+      "kind": "rrect",
+      "size": [
+        120,
+        45
+      ],
+      "position": [
+        160.0,
+        140.5
+      ],
+      "radius": 22,
+      "opaque": true,
+      "fillSRGB": [
+        255,
+        255,
+        255
+      ]
+    },
+    "preflight-2x-zero": {
+      "kind": "rrect",
+      "size": [
+        120,
+        44
+      ],
+      "position": [
+        160.0,
+        140.0
+      ],
+      "radius": 22
+    },
+    "preflight-2x-zero-opaque": {
+      "kind": "rrect",
+      "size": [
+        120,
+        44
+      ],
+      "position": [
+        160.0,
+        140.0
+      ],
+      "radius": 22,
+      "opaque": true,
+      "fillSRGB": [
+        255,
+        255,
+        255
+      ]
+    },
+    "preflight-2x-x1": {
+      "kind": "rrect",
+      "size": [
+        120.125,
+        44
+      ],
+      "position": [
+        160.0625,
+        140.0
+      ],
+      "radius": 22
+    },
+    "preflight-2x-x1-opaque": {
+      "kind": "rrect",
+      "size": [
+        120.125,
+        44
+      ],
+      "position": [
+        160.0625,
+        140.0
+      ],
+      "radius": 22,
+      "opaque": true,
+      "fillSRGB": [
+        255,
+        255,
+        255
+      ]
+    },
+    "preflight-2x-x2": {
+      "kind": "rrect",
+      "size": [
+        120.25,
+        44
+      ],
+      "position": [
+        160.125,
+        140.0
+      ],
+      "radius": 22
+    },
+    "preflight-2x-x2-opaque": {
+      "kind": "rrect",
+      "size": [
+        120.25,
+        44
+      ],
+      "position": [
+        160.125,
+        140.0
+      ],
+      "radius": 22,
+      "opaque": true,
+      "fillSRGB": [
+        255,
+        255,
+        255
+      ]
+    },
+    "preflight-2x-x3": {
+      "kind": "rrect",
+      "size": [
+        120.375,
+        44
+      ],
+      "position": [
+        160.1875,
+        140.0
+      ],
+      "radius": 22
+    },
+    "preflight-2x-x3-opaque": {
+      "kind": "rrect",
+      "size": [
+        120.375,
+        44
+      ],
+      "position": [
+        160.1875,
+        140.0
+      ],
+      "radius": 22,
+      "opaque": true,
+      "fillSRGB": [
+        255,
+        255,
+        255
+      ]
+    },
+    "preflight-2x-y1": {
+      "kind": "rrect",
+      "size": [
+        120,
+        44.125
+      ],
+      "position": [
+        160.0,
+        140.0625
+      ],
+      "radius": 22
+    },
+    "preflight-2x-y1-opaque": {
+      "kind": "rrect",
+      "size": [
+        120,
+        44.125
+      ],
+      "position": [
+        160.0,
+        140.0625
+      ],
+      "radius": 22,
+      "opaque": true,
+      "fillSRGB": [
+        255,
+        255,
+        255
+      ]
+    },
+    "preflight-2x-y2": {
+      "kind": "rrect",
+      "size": [
+        120,
+        44.25
+      ],
+      "position": [
+        160.0,
+        140.125
+      ],
+      "radius": 22
+    },
+    "preflight-2x-y2-opaque": {
+      "kind": "rrect",
+      "size": [
+        120,
+        44.25
+      ],
+      "position": [
+        160.0,
+        140.125
+      ],
+      "radius": 22,
+      "opaque": true,
+      "fillSRGB": [
+        255,
+        255,
+        255
+      ]
+    },
+    "preflight-2x-y3": {
+      "kind": "rrect",
+      "size": [
+        120,
+        44.375
+      ],
+      "position": [
+        160.0,
+        140.1875
+      ],
+      "radius": 22
+    },
+    "preflight-2x-y3-opaque": {
+      "kind": "rrect",
+      "size": [
+        120,
+        44.375
+      ],
+      "position": [
+        160.0,
+        140.1875
+      ],
+      "radius": 22,
+      "opaque": true,
+      "fillSRGB": [
+        255,
+        255,
+        255
+      ]
+    },
+    "preflight-2x-x-integer": {
+      "kind": "rrect",
+      "size": [
+        121,
+        44
+      ],
+      "position": [
+        160.5,
+        140.0
+      ],
+      "radius": 22
+    },
+    "preflight-2x-x-integer-opaque": {
+      "kind": "rrect",
+      "size": [
+        121,
+        44
+      ],
+      "position": [
+        160.5,
+        140.0
+      ],
+      "radius": 22,
+      "opaque": true,
+      "fillSRGB": [
+        255,
+        255,
+        255
+      ]
+    },
+    "preflight-2x-y-integer": {
+      "kind": "rrect",
+      "size": [
+        120,
+        45
+      ],
+      "position": [
+        160.0,
+        140.5
+      ],
+      "radius": 22
+    },
+    "preflight-2x-y-integer-opaque": {
+      "kind": "rrect",
+      "size": [
+        120,
+        45
+      ],
+      "position": [
+        160.0,
+        140.5
+      ],
+      "radius": 22,
+      "opaque": true,
+      "fillSRGB": [
+        255,
+        255,
+        255
+      ]
+    }
+  },
+  "scenes": [
+    {
+      "id": "preflight-1x-zero__rest",
+      "background": "g128",
+      "component": "preflight-1x-zero",
+      "state": "rest",
+      "$class": "preflight",
+      "$scale": 1,
+      "$phaseAxis": "zero",
+      "$geometry": "zero",
+      "$pair": "preflight-1x-zero-opaque__rest"
+    },
+    {
+      "id": "preflight-1x-zero-opaque__rest",
+      "background": "g128",
+      "component": "preflight-1x-zero-opaque",
+      "state": "rest",
+      "$class": "preflight",
+      "$scale": 1,
+      "$phaseAxis": "zero",
+      "$geometry": "zero",
+      "$pair": "preflight-1x-zero__rest"
+    },
+    {
+      "id": "preflight-1x-x1__rest",
+      "background": "g128",
+      "component": "preflight-1x-x1",
+      "state": "rest",
+      "$class": "preflight",
+      "$scale": 1,
+      "$phaseAxis": "x",
+      "$geometry": "x1",
+      "$pair": "preflight-1x-x1-opaque__rest"
+    },
+    {
+      "id": "preflight-1x-x1-opaque__rest",
+      "background": "g128",
+      "component": "preflight-1x-x1-opaque",
+      "state": "rest",
+      "$class": "preflight",
+      "$scale": 1,
+      "$phaseAxis": "x",
+      "$geometry": "x1",
+      "$pair": "preflight-1x-x1__rest"
+    },
+    {
+      "id": "preflight-1x-x2__rest",
+      "background": "g128",
+      "component": "preflight-1x-x2",
+      "state": "rest",
+      "$class": "preflight",
+      "$scale": 1,
+      "$phaseAxis": "x",
+      "$geometry": "x2",
+      "$pair": "preflight-1x-x2-opaque__rest"
+    },
+    {
+      "id": "preflight-1x-x2-opaque__rest",
+      "background": "g128",
+      "component": "preflight-1x-x2-opaque",
+      "state": "rest",
+      "$class": "preflight",
+      "$scale": 1,
+      "$phaseAxis": "x",
+      "$geometry": "x2",
+      "$pair": "preflight-1x-x2__rest"
+    },
+    {
+      "id": "preflight-1x-x3__rest",
+      "background": "g128",
+      "component": "preflight-1x-x3",
+      "state": "rest",
+      "$class": "preflight",
+      "$scale": 1,
+      "$phaseAxis": "x",
+      "$geometry": "x3",
+      "$pair": "preflight-1x-x3-opaque__rest"
+    },
+    {
+      "id": "preflight-1x-x3-opaque__rest",
+      "background": "g128",
+      "component": "preflight-1x-x3-opaque",
+      "state": "rest",
+      "$class": "preflight",
+      "$scale": 1,
+      "$phaseAxis": "x",
+      "$geometry": "x3",
+      "$pair": "preflight-1x-x3__rest"
+    },
+    {
+      "id": "preflight-1x-y1__rest",
+      "background": "g128",
+      "component": "preflight-1x-y1",
+      "state": "rest",
+      "$class": "preflight",
+      "$scale": 1,
+      "$phaseAxis": "y",
+      "$geometry": "y1",
+      "$pair": "preflight-1x-y1-opaque__rest"
+    },
+    {
+      "id": "preflight-1x-y1-opaque__rest",
+      "background": "g128",
+      "component": "preflight-1x-y1-opaque",
+      "state": "rest",
+      "$class": "preflight",
+      "$scale": 1,
+      "$phaseAxis": "y",
+      "$geometry": "y1",
+      "$pair": "preflight-1x-y1__rest"
+    },
+    {
+      "id": "preflight-1x-y2__rest",
+      "background": "g128",
+      "component": "preflight-1x-y2",
+      "state": "rest",
+      "$class": "preflight",
+      "$scale": 1,
+      "$phaseAxis": "y",
+      "$geometry": "y2",
+      "$pair": "preflight-1x-y2-opaque__rest"
+    },
+    {
+      "id": "preflight-1x-y2-opaque__rest",
+      "background": "g128",
+      "component": "preflight-1x-y2-opaque",
+      "state": "rest",
+      "$class": "preflight",
+      "$scale": 1,
+      "$phaseAxis": "y",
+      "$geometry": "y2",
+      "$pair": "preflight-1x-y2__rest"
+    },
+    {
+      "id": "preflight-1x-y3__rest",
+      "background": "g128",
+      "component": "preflight-1x-y3",
+      "state": "rest",
+      "$class": "preflight",
+      "$scale": 1,
+      "$phaseAxis": "y",
+      "$geometry": "y3",
+      "$pair": "preflight-1x-y3-opaque__rest"
+    },
+    {
+      "id": "preflight-1x-y3-opaque__rest",
+      "background": "g128",
+      "component": "preflight-1x-y3-opaque",
+      "state": "rest",
+      "$class": "preflight",
+      "$scale": 1,
+      "$phaseAxis": "y",
+      "$geometry": "y3",
+      "$pair": "preflight-1x-y3__rest"
+    },
+    {
+      "id": "preflight-1x-x-integer__rest",
+      "background": "g128",
+      "component": "preflight-1x-x-integer",
+      "state": "rest",
+      "$class": "preflight",
+      "$scale": 1,
+      "$phaseAxis": "x",
+      "$geometry": "x-integer",
+      "$pair": "preflight-1x-x-integer-opaque__rest"
+    },
+    {
+      "id": "preflight-1x-x-integer-opaque__rest",
+      "background": "g128",
+      "component": "preflight-1x-x-integer-opaque",
+      "state": "rest",
+      "$class": "preflight",
+      "$scale": 1,
+      "$phaseAxis": "x",
+      "$geometry": "x-integer",
+      "$pair": "preflight-1x-x-integer__rest"
+    },
+    {
+      "id": "preflight-1x-y-integer__rest",
+      "background": "g128",
+      "component": "preflight-1x-y-integer",
+      "state": "rest",
+      "$class": "preflight",
+      "$scale": 1,
+      "$phaseAxis": "y",
+      "$geometry": "y-integer",
+      "$pair": "preflight-1x-y-integer-opaque__rest"
+    },
+    {
+      "id": "preflight-1x-y-integer-opaque__rest",
+      "background": "g128",
+      "component": "preflight-1x-y-integer-opaque",
+      "state": "rest",
+      "$class": "preflight",
+      "$scale": 1,
+      "$phaseAxis": "y",
+      "$geometry": "y-integer",
+      "$pair": "preflight-1x-y-integer__rest"
+    },
+    {
+      "id": "preflight-2x-zero__rest",
+      "background": "g128",
+      "component": "preflight-2x-zero",
+      "state": "rest",
+      "$class": "preflight",
+      "$scale": 2,
+      "$phaseAxis": "zero",
+      "$geometry": "zero",
+      "$pair": "preflight-2x-zero-opaque__rest"
+    },
+    {
+      "id": "preflight-2x-zero-opaque__rest",
+      "background": "g128",
+      "component": "preflight-2x-zero-opaque",
+      "state": "rest",
+      "$class": "preflight",
+      "$scale": 2,
+      "$phaseAxis": "zero",
+      "$geometry": "zero",
+      "$pair": "preflight-2x-zero__rest"
+    },
+    {
+      "id": "preflight-2x-x1__rest",
+      "background": "g128",
+      "component": "preflight-2x-x1",
+      "state": "rest",
+      "$class": "preflight",
+      "$scale": 2,
+      "$phaseAxis": "x",
+      "$geometry": "x1",
+      "$pair": "preflight-2x-x1-opaque__rest"
+    },
+    {
+      "id": "preflight-2x-x1-opaque__rest",
+      "background": "g128",
+      "component": "preflight-2x-x1-opaque",
+      "state": "rest",
+      "$class": "preflight",
+      "$scale": 2,
+      "$phaseAxis": "x",
+      "$geometry": "x1",
+      "$pair": "preflight-2x-x1__rest"
+    },
+    {
+      "id": "preflight-2x-x2__rest",
+      "background": "g128",
+      "component": "preflight-2x-x2",
+      "state": "rest",
+      "$class": "preflight",
+      "$scale": 2,
+      "$phaseAxis": "x",
+      "$geometry": "x2",
+      "$pair": "preflight-2x-x2-opaque__rest"
+    },
+    {
+      "id": "preflight-2x-x2-opaque__rest",
+      "background": "g128",
+      "component": "preflight-2x-x2-opaque",
+      "state": "rest",
+      "$class": "preflight",
+      "$scale": 2,
+      "$phaseAxis": "x",
+      "$geometry": "x2",
+      "$pair": "preflight-2x-x2__rest"
+    },
+    {
+      "id": "preflight-2x-x3__rest",
+      "background": "g128",
+      "component": "preflight-2x-x3",
+      "state": "rest",
+      "$class": "preflight",
+      "$scale": 2,
+      "$phaseAxis": "x",
+      "$geometry": "x3",
+      "$pair": "preflight-2x-x3-opaque__rest"
+    },
+    {
+      "id": "preflight-2x-x3-opaque__rest",
+      "background": "g128",
+      "component": "preflight-2x-x3-opaque",
+      "state": "rest",
+      "$class": "preflight",
+      "$scale": 2,
+      "$phaseAxis": "x",
+      "$geometry": "x3",
+      "$pair": "preflight-2x-x3__rest"
+    },
+    {
+      "id": "preflight-2x-y1__rest",
+      "background": "g128",
+      "component": "preflight-2x-y1",
+      "state": "rest",
+      "$class": "preflight",
+      "$scale": 2,
+      "$phaseAxis": "y",
+      "$geometry": "y1",
+      "$pair": "preflight-2x-y1-opaque__rest"
+    },
+    {
+      "id": "preflight-2x-y1-opaque__rest",
+      "background": "g128",
+      "component": "preflight-2x-y1-opaque",
+      "state": "rest",
+      "$class": "preflight",
+      "$scale": 2,
+      "$phaseAxis": "y",
+      "$geometry": "y1",
+      "$pair": "preflight-2x-y1__rest"
+    },
+    {
+      "id": "preflight-2x-y2__rest",
+      "background": "g128",
+      "component": "preflight-2x-y2",
+      "state": "rest",
+      "$class": "preflight",
+      "$scale": 2,
+      "$phaseAxis": "y",
+      "$geometry": "y2",
+      "$pair": "preflight-2x-y2-opaque__rest"
+    },
+    {
+      "id": "preflight-2x-y2-opaque__rest",
+      "background": "g128",
+      "component": "preflight-2x-y2-opaque",
+      "state": "rest",
+      "$class": "preflight",
+      "$scale": 2,
+      "$phaseAxis": "y",
+      "$geometry": "y2",
+      "$pair": "preflight-2x-y2__rest"
+    },
+    {
+      "id": "preflight-2x-y3__rest",
+      "background": "g128",
+      "component": "preflight-2x-y3",
+      "state": "rest",
+      "$class": "preflight",
+      "$scale": 2,
+      "$phaseAxis": "y",
+      "$geometry": "y3",
+      "$pair": "preflight-2x-y3-opaque__rest"
+    },
+    {
+      "id": "preflight-2x-y3-opaque__rest",
+      "background": "g128",
+      "component": "preflight-2x-y3-opaque",
+      "state": "rest",
+      "$class": "preflight",
+      "$scale": 2,
+      "$phaseAxis": "y",
+      "$geometry": "y3",
+      "$pair": "preflight-2x-y3__rest"
+    },
+    {
+      "id": "preflight-2x-x-integer__rest",
+      "background": "g128",
+      "component": "preflight-2x-x-integer",
+      "state": "rest",
+      "$class": "preflight",
+      "$scale": 2,
+      "$phaseAxis": "x",
+      "$geometry": "x-integer",
+      "$pair": "preflight-2x-x-integer-opaque__rest"
+    },
+    {
+      "id": "preflight-2x-x-integer-opaque__rest",
+      "background": "g128",
+      "component": "preflight-2x-x-integer-opaque",
+      "state": "rest",
+      "$class": "preflight",
+      "$scale": 2,
+      "$phaseAxis": "x",
+      "$geometry": "x-integer",
+      "$pair": "preflight-2x-x-integer__rest"
+    },
+    {
+      "id": "preflight-2x-y-integer__rest",
+      "background": "g128",
+      "component": "preflight-2x-y-integer",
+      "state": "rest",
+      "$class": "preflight",
+      "$scale": 2,
+      "$phaseAxis": "y",
+      "$geometry": "y-integer",
+      "$pair": "preflight-2x-y-integer-opaque__rest"
+    },
+    {
+      "id": "preflight-2x-y-integer-opaque__rest",
+      "background": "g128",
+      "component": "preflight-2x-y-integer-opaque",
+      "state": "rest",
+      "$class": "preflight",
+      "$scale": 2,
+      "$phaseAxis": "y",
+      "$geometry": "y-integer",
+      "$pair": "preflight-2x-y-integer__rest"
+    }
+  ],
+  "profiles": [
+    {
+      "key": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "colorScheme": "light",
+      "a11y": "standard",
+      "scenes": [
+        "preflight-1x-zero__rest",
+        "preflight-1x-zero-opaque__rest",
+        "preflight-1x-x1__rest",
+        "preflight-1x-x1-opaque__rest",
+        "preflight-1x-x2__rest",
+        "preflight-1x-x2-opaque__rest",
+        "preflight-1x-x3__rest",
+        "preflight-1x-x3-opaque__rest",
+        "preflight-1x-y1__rest",
+        "preflight-1x-y1-opaque__rest",
+        "preflight-1x-y2__rest",
+        "preflight-1x-y2-opaque__rest",
+        "preflight-1x-y3__rest",
+        "preflight-1x-y3-opaque__rest",
+        "preflight-1x-x-integer__rest",
+        "preflight-1x-x-integer-opaque__rest",
+        "preflight-1x-y-integer__rest",
+        "preflight-1x-y-integer-opaque__rest"
+      ]
+    },
+    {
+      "key": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "colorScheme": "light",
+      "a11y": "standard",
+      "scenes": [
+        "preflight-2x-zero__rest",
+        "preflight-2x-zero-opaque__rest",
+        "preflight-2x-x1__rest",
+        "preflight-2x-x1-opaque__rest",
+        "preflight-2x-x2__rest",
+        "preflight-2x-x2-opaque__rest",
+        "preflight-2x-x3__rest",
+        "preflight-2x-x3-opaque__rest",
+        "preflight-2x-y1__rest",
+        "preflight-2x-y1-opaque__rest",
+        "preflight-2x-y2__rest",
+        "preflight-2x-y2-opaque__rest",
+        "preflight-2x-y3__rest",
+        "preflight-2x-y3-opaque__rest",
+        "preflight-2x-x-integer__rest",
+        "preflight-2x-x-integer-opaque__rest",
+        "preflight-2x-y-integer__rest",
+        "preflight-2x-y-integer-opaque__rest"
+      ]
+    }
+  ],
+  "tints": {},
+  "split": {
+    "calibration": [],
+    "validation": [],
+    "holdout": [],
+    "probe": [
+      "preflight-1x-zero__rest",
+      "preflight-1x-zero-opaque__rest",
+      "preflight-1x-x1__rest",
+      "preflight-1x-x1-opaque__rest",
+      "preflight-1x-x2__rest",
+      "preflight-1x-x2-opaque__rest",
+      "preflight-1x-x3__rest",
+      "preflight-1x-x3-opaque__rest",
+      "preflight-1x-y1__rest",
+      "preflight-1x-y1-opaque__rest",
+      "preflight-1x-y2__rest",
+      "preflight-1x-y2-opaque__rest",
+      "preflight-1x-y3__rest",
+      "preflight-1x-y3-opaque__rest",
+      "preflight-1x-x-integer__rest",
+      "preflight-1x-x-integer-opaque__rest",
+      "preflight-1x-y-integer__rest",
+      "preflight-1x-y-integer-opaque__rest",
+      "preflight-2x-zero__rest",
+      "preflight-2x-zero-opaque__rest",
+      "preflight-2x-x1__rest",
+      "preflight-2x-x1-opaque__rest",
+      "preflight-2x-x2__rest",
+      "preflight-2x-x2-opaque__rest",
+      "preflight-2x-x3__rest",
+      "preflight-2x-x3-opaque__rest",
+      "preflight-2x-y1__rest",
+      "preflight-2x-y1-opaque__rest",
+      "preflight-2x-y2__rest",
+      "preflight-2x-y2-opaque__rest",
+      "preflight-2x-y3__rest",
+      "preflight-2x-y3-opaque__rest",
+      "preflight-2x-x-integer__rest",
+      "preflight-2x-x-integer-opaque__rest",
+      "preflight-2x-y-integer__rest",
+      "preflight-2x-y-integer-opaque__rest"
+    ]
+  },
+  "$comment": {
+    "purpose": "W39 probe-only preflight",
+    "phase": "Separate 1x/2x component and scene variants keep device-quarter increments divided by scale without adding a scale-keyed native size parser.",
+    "registration": "Colour cells borrow g128 centre circular-120 opaque registration; ordinary fill does not attest glass coverage.",
+    "bridge": "g128 centre, red and green circular-120 bridge W34 geometry/backdrop at a DIFFERENT 320x280 canvas, never identical captures.",
+    "reference": "Colour no-glass scenes run only in run1 of each normal pass; edge references run every normal run.",
+    "split": "Fixture roles probe only. Identification split.json is independent and receipt guarded."
+  }
+}

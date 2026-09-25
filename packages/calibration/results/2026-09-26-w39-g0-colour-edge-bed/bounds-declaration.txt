@@ -1,0 +1,194 @@
+W39 G0 PRE-CAPTURE DECLARATION — charter v2 clauses 1–10; c9a §5.184
+
+DOMAIN, SPLIT AND CENSORING
+Canvas 320x280 CSS px; 27.0 build26A428; standard policy, tint0.5; both schemes,
+poses and scales (eight strata). Seven normal runs, before plurality; three long
+sentinels on two ids per scheme/pass. All fixture roles are probe; split.json
+assigns whole scenes at both scales, including glass/control pairs, once only.
+61 fresh colour inputs have every sRGB byte in [40,150]. The 2 explicit BRIDGE
+anchors red192/32/32 and green32/192/32 are outside that box, never substitutes
+for the 61. Predicted native [8,247] is a design target, not a measured guarantee.
+Native channel >=250 or <=5 is censored, remains a scalar bound, and excludes
+its whole cell from full-RGB inversion. No replacement or recolouring follows a
+rail hit. A censored held-out cell is UNMEASURED, never a pass. W34 holdout and
+sealed bulk files are never opened. Validation archive diagnostics are labelled.
+Dependency roles may rank no higher than their dependent (calibration < validation
+< holdout). A held-out colour owns its holdout no-glass reference. Holdout may
+borrow shared calibration no-glass/grey128 centre opaque dependencies; the
+producer copies these pixels into the holdout role directory without opening
+that payload to calibration/validation. The declaration binds every borrow.
+
+BODY STATISTIC AND FORWARD FAMILIES
+E/D are IEC sRGB encode/decode, W=(.2126,.7152,.0722). Work in encoded output
+codes for closure. Per-run deep statistic: channel median at signed d<=-6 CSS
+px with >=4 pixels, then the median of seven run medians. Keep deep spatial
+min/max separately, never as repeat noise. Per-channel/bin bar is 0.5 + half
+the largest pairwise run-median separation, computed on all seven admitted runs
+before plurality. Losing states stay in the archive and are scored separately.
+F is piecewise-linear ENCODED neutral input/output through fixed input bytes
+40,56,72,88,104,128,150; seven output ordinates per scheme x pose, shared across
+scales. Fit these on neutral calibration only; outside their interval use the
+end-segment linear continuation and unit-cube clip, named extrapolation at the
+saturated bridge anchors. Do not use validation/holdout to extend F.
+H1 negative control: out_j=F(in_j); 7 neutral ordinates per scheme x pose,
+zero chromatic coefficients. Already excluded by archive; not newly identified.
+H2 exact shipped body: existing tone_response on E(group tone luminance), size
+law, toneAdapt and black branch, then linear-luma-preserving retention and
+f32 renormalisation and gamut_at_luma, before tint and boundary. With sampled
+linear b, solved a,n,t, adaptation k, presence m: a'=a+k(1-a),
+adapted=[n(1-k)a+t*k]/a'; c0=(1-a'm)b+a'm*adapted; Y=W.c0; Yb=W.b;
+c1=(1-r)c0+r*b*(Y/Yb), renormalise by Y/(W.c1), then compress chroma about
+Y*1 with largest u in [0,1] keeping Y*1+u*(c1-Y*1) inside the unit cube.
+Use the shader's zero/degenerate gates, not division by zero. Black strength
+blends target and authority below encoded .003 and rejoins before .00319488975.
+The chromaticity coefficient is q_base+(1-q_base)*r, NOT r. Tone changes Y;
+only retention preserves its incoming Y. Exact H2 has zero free parameters.
+H2': same algorithm; free bodyChromaRetention r in [0,1] and the four ordinates
+of backdropToneResponseThin in [0,1], per scheme x pose (5 total). Keep that
+endpoint's shipped backdropToneResponseThick row, four backdropToneAnchorX
+abscissae and every other leaf fixed. Keep the thin row monotone and retain the
+existing Hermite interpolation. Colour cells are span44, whose thick weight is
+small (approximately0.1 in W38); holding the thick contribution identifies the
+thin row rather than introducing independent, poorly identified thick knobs.
+Fit on span44 calibration colour/neutral cells only. Thick transfer on span64
+calibration controls and span96 validation controls is TESTED, not fitted, and
+reported beside survival: a span44 survivor's thick miss is a thick-row miss,
+not a false rejection of its colour law. The split is not changed by this fit
+restriction. Shared thin/thick ordinate shifts are declined because they move
+thick behaviour without identifying it. No colour survival waives G3 transfer.
+H3: z=D(F(in)); out=E(clamp(M*z,0,1)); fixed 3x3 M per scheme x pose,
+M*1=1; six independent real coefficients, third entry of each row derived.
+Seven neutral ordinates + six chromatic coefficients =13 per scheme x pose.
+Gamut is component-wise unit-cube clipping, not an after-the-fact gamut choice.
+H3': convert linear RGB to OKLab; tone on L via seven neutral-calibration knots
+at the L values of the same seven greys, and fixed real 2x2 A on (a,b), no
+translation; inverse OKLab then unit-cube clip then E. Seven tone ordinates +
+four chromatic coefficients =11 per scheme x pose; neutral remains neutral.
+H4: a surviving body law plus B(body,b,signed n,d,span), zero for d<=-6 CSS px.
+Concrete extra boundary form is L_w(-d)*max(0,-ny)^p *
+[u*(b_c-Yb)+v*(body_c-Ybody)] in encoded units, 2 coefficients per scheme/pose;
+w,p shared with the edge line below. This is a separate candidate, not an
+arbitrary per-colour lookup. Independent nonzero boundary evidence AND
+out-of-sample edge improvement are necessary; parameter count is not evidence.
+
+EDGE LAW, GEOMETRY AND POPULATIONS
+Use attested supplied frameOrigin and sizes, not assumed centred declarations;
+image y increases downward. Supplied paths are not raster-phase attestations.
+Circular stadium SDF radius=min(width,height)/2; radius22 continuous rrect uses
+its attested supplied path (flattening error <=1/1024 CSS px), not circular
+corners substituted silently. Each column member has its own path and body.
+Opaque coverage is calibrated separately on ordinary-fill paths; no transfer
+of opaque registration to glass is presumed, and per-run alignment is not fit
+to remove the variance being measured. Report supplied/raster distinction.
+Shells are one DEVICE pixel wide from -14*scale through +4*scale (CSS inward
+14, exterior4); paired top/bottom have equal depth. Top/bottom/left/right
+straights remain separate; arcs use W37 X13 nearest-normal 16 bins of 22.5deg.
+Minimum 4 pixels per channel/bin/shell/member; deficient/absent required bins
+are explicit UNMEASURED, never silently omitted as a pass. Deep >=4 too.
+Even line L_w(t)*abs(ny)^p plus signed line L_w(t)*max(0,-ny)^p,
+L_w(t)=max(1-t/w,0) for t>=0 else0. w in {.8,1,1.2,1.4,1.6,1.8,2,2.2,2.4}
+CSS px; p in {1,2,3,4,6}; both scales share a law. Each amplitude is
+R_c=a+g*Ybody+(c+h*Ybody)*(body_c-Ybody), four coefficients per lobe, 8 total
+per scheme/pose. Keep W37's even shoulder hats at t=0,2,6,12, zero at12 and
+outside, independent isotropic and abs(ny)^p response per free hat: six hats
+with four response coefficients each, 24 further scalars (32 with lines).
+The signed shoulder uses the same three hats times max(0,-ny)^p, twelve
+further scalars (44 total per scheme/pose). Every coefficient signed within
+[-4096,4096] normalized encoded units. Body means the frozen identified body
+response, never a free per-cell edge colour. Span multiplier fixed1; the
+44/64 calibration ladder tests this law, and 96 is read-only transfer, not
+an extra fitted span polynomial. No coefficient changes by position/gradient.
+Area-integrate basis over each device pixel with fixed 8x8 midpoint quadrature,
+then colour response, encoded clamp. Check16x16 sensitivity without refitting.
+Rank deficiency or an unidentifiable coefficient is reported, not regularised
+away without a new declaration. Effective signed-normal response is the claim;
+these symmetric paths cannot identify Apple's actual lighting coordinate frame.
+
+FIT, SURVIVAL, CLOSURE AND RESOLUTION
+Calibration only fit; validation is read-only transfer. Report least-squares
+and minimax, worst-channel and all-channel failures, rank and singular values.
+Equal mass per channel/bin, equal weight per cell; no pooling buys closure.
+Deep residual=abs(predicted-native seven-run median) per cell/channel.
+Edge residual=mean(abs(predicted-native RGB)) per channel/bin, absolute before
+spatial reduction; signed means diagnostic only. Every repeat state is scored
+against frozen predictions beside the median. The bar is never fit to residuals.
+SURVIVAL requires every required calibration AND validation channel/bin to meet
+max(1 code,bar) before freezing parameters/endpoints/forward outputs by artifact.
+Only survivors reach the once-only W39 receipt-bound holdout exposure. Closure
+requires the same test on all six held-out colours in ALL EIGHT strata and all
+wave holdout geometry pairs. Missing/censored required comparisons=UNMEASURED.
+Surviving predictions differing by less than max(3 codes,sum of applicable bars)
+at every admitted discriminator are insufficient resolution, not identification
+and not permission to widen tolerance. Failure or censoring never re-cuts split.
+
+PHASE PREFLIGHT: ONE ACTUATOR, TWO PREDECLARED BRANCHES
+40 light-active captures: 9 geometries x opaque/glass x 2 scales (36), plus
+phase-zero opaque/glass repeated at each scale's END (4), measuring temporal
+drift separately from actuator effects. Radius22
+rrect120x44; left/top fixed. Fractional width/height increments are device
+{0,.25,.5,.75}/scale CSS px; position=pinned edge+size/2. Shared zero, three
+width, three height, plus integer width121 and height45 controls at phase0.
+For EACH axis at BOTH scales: opaque near-edge profile byte-identical across
+four phases; far edge >=3 distinct coverage states. Glass near-edge shells
+both sides of boundary stay within max(0.5,D_int_near), where D_int_near is the
+aligned integer-size control's near-band difference; this bounds whole-pixel
+size sensitivity, not an invented repeat bar. The phase-zero end sentinel must
+match its opening coverage bytes and glass within0.5; otherwise the scale is
+UNMEASURED for drift, not unreachable by actuator and not admitted.
+Glass far edge has >=3 distinct states with pairwise differences greater than
+max(0.5,D_int_far), the aligned integer control's far-profile difference.
+States are counted greedily in requested phase order; a new state must differ
+from EVERY retained state beyond this bound. Integer far profiles are aligned
+by their whole-device shift (scale device px), retaining material differences.
+SHIFT model: one shared profile (step plus piecewise-linear knots spaced every
+1.0 DEVICE px over -14 CSS inward to +4 CSS outward), integrated over pixels,
+translated by four fitted per-phase edge offsets. AMPLITUDE model: the same
+knot count/shared profile at ONE shared edge, with four phase gains multiplying
+(profile minus exterior level). Compare equally parameterised profiles.
+The amplitude alternative alternates its shared-profile solve and phase-gain
+updates to a relative RSS-improvement tolerance of1e-10, using
+RSS_previous-RSS_current <=1e-10*max(RSS_previous,1), with a cap of200 updates
+per candidate shared edge. The convergence comparison starts only after a
+finite previous RSS exists; infinity is never a converged first iterate.
+Report iterations and whether the cap prevented convergence. An unconverged
+selected amplitude alternative does not establish shift identification.
+These execution parameters are declared at review P1-1, not fitted to native
+pixels. Exact noiseless amplitude-model data must recover approximately zero
+RSS; otherwise the denominator in the model comparison is not a fair fit.
+All criteria hold: RSS_shift<=0.5*RSS_amplitude; fitted edges nondecreasing with
+requested phase within1/32 device px; shared-profile design matrix full rank,
+condition number reported (not identified if rank deficient). Leave one phase
+out: fit shared profile and three edges on the other phases, then fit ONLY the
+held-out edge; every knot-sampled coordinate/channel residual must be <=
+max(0.5,D_int_far)+0.5*||w_i||_1, where w_i is the linear training-sample
+prediction operator for that held sample. Report the term per coordinate/channel;
+it is worst-case propagation of 8-bit rounding, not a tolerance fit to residuals.
+The half-device knot grid has an exact Nyquist null vector under unit-pixel area
+integration and is therefore declined before native capture; one-device spacing
+removes that structural null. No per-phase amplitude or held-out profile refit.
+Keep the literal area-integrated ramp fit beside as a diagnostic, not a veto.
+The end sentinel compares all four zero-shape side-profile raw opaque bands
+byte-for-byte and glass band-mean RGB at every coordinate/channel within0.5;
+whole-image difference is recorded only diagnostically. Drift makes both axes
+UNMEASURED at that scale and admits neither, not an unreachable-actuator claim.
+Retain every value, state, profile, rank, condition and failure. A permission
+prompt at the first ungranted SCK call is never approved; nobody clicks Allow.
+Reachable at both scales admits only that axis's declared seven-run phase cells
+(shared zero +3 sizes, each glass/opaque =8 when one axis,14 when both).
+Unreachable at either scale omits that axis verbatim; neither axis => zero
+phase cells. No window-origin/odd-canvas/transform fallback; no backdrop phase.
+
+STOPS AND EVIDENCE
+Stop/quarantine any incorrect OS/build, RT/IC/Show Borders !=0, tint !=0.5,
+foreign capture process, HID idle<60s/locked/unreadable, mode/identity mismatch,
+changed bundle hash/cdhash/LC_BUILD_VERSION, missing path/window requested and
+actual screen-frame attestation, pose/repeat/membership failure or opening/
+closing drift. No retries overwrite evidence. Pin side outside repo, ungranted
+in G0. Never touch/request/script a Screen Recording grant. Dry rehearsal must
+be TCC refusal with no manifest, not a successful --dry-run presentation.
+No canonical scene/fixture/matrix/material/golden/threshold moves; frozen count
+1818 at merge. No law ships without survival/closure and charter clause10.
+Archive complete role-separated lossless dependency closure before plurality,
+SHA256 inventory; holdout producer-created behind receipt boundary. Release
+asset one .tar.zst under2GiB named by full tarball SHA256; verify before extract;
+second owner-controlled copy. Nothing here claims a W39 pixel, bar or law.

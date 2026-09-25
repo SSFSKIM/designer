@@ -38546,3 +38546,347 @@ pixels — a colour-model bed varying channel mixtures at matched luminance with
 captured in one sitting with the edge's matched top/bottom controls, phase mechanism and second
 span — and that the finite grids do not prove every neutral-light setting fails the veto
 (Deferred at close 1–2).
+
+## 5.184 W39 G0: the colour-and-edge bed declared; the phase preflight and the archive home tooled; the side bundle pinned (2026-09-26)
+
+Declaration SHA-256: `44d818b5d9df656e16c6801f66cb7faa60b41e19d472c06bb3fef44ea432fd18` (`results/2026-09-26-w39-g0-colour-edge-bed/bounds-declaration.txt`), recorded before archive computations or rehearsals.
+
+G0 verification and operational findings follow below; no W39 pixel, bar or law is claimed.
+
+Preflight amendment before G0 merge: the declaration above (`44d818b5…`, commit `bf67d78d`) is v1, superseded by `b034470473e85e533bca8831946831b0e3dbf18d550699b61fd74235380e1683`. The parent ruled an integer-size near-band sensitivity bound `max(0.5, D_int_near)` and a phase-zero opaque/glass end sentinel at each scale. Thus the preflight is **40**, not 36 captures: 36 geometry observations plus four temporal-drift controls. No pixel or grant was used to choose this amendment. The final hash is the G1 capture contract.
+
+Second pre-capture clarification: interim `b034470473e85e533bca8831946831b0e3dbf18d550699b61fd74235380e1683` is superseded by `c47d8d6c8f92bc07e3c0327d517cee7664fe5610d4d1884c07c4b127356c10be`. A translated shared integrated profile is compared against an equal-knot-count amplitude model, with RSS ratio ≤0.5, edge monotonicity slack1/32 device px, full-rank/condition reporting and leave-one-phase-out transfer at `max(0.5,D_int_far)`. The literal ramp stays diagnostic so shoulder/shadow structure cannot create a false negative. Four-side drift and far-state quantisation rules are explicit; no native pixel informed the change.
+
+### 1. The bed and its scene-level boundary
+
+Evidence directory: `results/2026-09-26-w39-g0-colour-edge-bed/`. The reproducible
+`declare-bed.py` writes `apps/reference-apple/scenes-w39-colour-edge.json`,
+`scenes-w39-preflight.json`, `split.json`, `pins.json` and `semantic-twin-audit.json`.
+The main declaration has **388 scene IDs**, all fixture-role `probe`, split **316 calibration,
+36 validation, 36 holdout**. At each scheme × pose × scale it carries 40 edge cells, 63 colour
+cells (61 inside [40,150] plus the red/green saturated bridge exceptions), 63 no-glass colour
+references for run1 only, and 14 conditional phase cells. Separate scale-specific phase
+variants divide the requested device quarter by the capture scale; they do not multiply a
+CSS quarter into a half-device-pixel experiment at 2x. Every positioned member has an absolute
+centre and no offset. The separate preflight has nine geometries per scale, glass and opaque,
+with phase-zero repeats at each scale's end; none of these is identification evidence.
+
+The semantic audit reads declarations, never holdout pixels. It finds **no canonical holdout
+geometry/backdrop twin**. The W34 g128 centre, red and green circular-120 bridges have the same
+relative geometry and backdrop but a different canvas (320×280 rather than 320×200), so they
+are explicitly not identical captures. Glass/opaque pairs share the scene-level role at both
+scales. The W37 grey255/circular200 witness pair, g255 bottom pair, circular160×96 pair and six
+new held-out colours remain W39 holdout. The held-out colours' own no-glass references are
+holdout too; shared calibration no-glass/opaque registration dependencies may be borrowed only
+in the role-rank direction and copied into the dependent's role directory by the producer.
+
+The native harness adds `position`, two-member independent `column` and per-cell requested/
+actual window frames. It refuses offset plus position, nonfinite/out-of-canvas centres and
+overlapping columns. Each glass column member has its own glass effect, never a container or
+stack. Existing capsule and rrect resolution is unchanged: the exported W34 component paths
+reproduce byte-for-byte. W39's non-GUI exports check **69 positioned main shapes** (column
+members counted individually) and **36 preflight shapes**, all matching centres and fractional
+sizes exactly. Supplied paths remain an attestation of what SwiftUI received, not of raster
+coverage. The window-frame manifest path is compiled but **not exercised by a successful
+native capture in G0**.
+
+### 2. What the admitted archive excludes, and what it does not
+
+`archive-exclusions.json` reproduces memo A's **104 cells**, **88 calibration / 16 labelled
+validation**, seven runs each, every observed deep-median bar **0.5 code**. Grey208 and every
+W34 holdout-role payload stay unread. The native medians use the attested-origin geometry and
+match the earlier recorded-alignment reading, inputs and bars exactly. The recorded artifact
+names interim declaration `b0344704…`; it is not deleted or relabelled after the preflight-only
+amendment. `archive-exclusions-verify.txt` recomputes the same table under final `c47d8d6c…` and
+records both hashes.
+
+H1's light-active input32 channel reads **148 grey / 133 red / 143 blue / 96 green / 81 yellow /
+127 magenta**, at both scales. Red versus blue has matched G32 but differs by **10 codes**;
+dark-active differs by eight. Green's −52 and yellow's −67 are uncensored calibration
+counterexamples against the exact grey32 observation. The charter's “≥52” is a **light-active
+witness**, not a lower bound across every stratum: the largest uncensored calibration
+departures are 67 light active, 75 light inactive, 51 dark active and 36 dark inactive; dark
+inactive yellow B5 is censored. The common across-stratum lower bound is therefore36, not52.
+
+Shipped H2 fails on uncensored dark-active red at both scales: native **242/50/50**, historical
+shipped render **160/90/90**, render-minus-native **−82/+40/+40**. The historical rendered
+source is `results/2026-09-24-w35-g0-edge-cut/level-table.json`, SHA-256
+`26f4cddf077cb095578a0a506cfc78e3f620be3f362c5f830638579c9bda8b29`; this is not a fresh
+render. Green's luma excess over the neutral diagnostic interpolant is +0.06482068 dark active
+and +0.02917607 light active; that interpolant includes labelled validation grey96 and is not a
+fit or proof excluding every conceivable Y-indexed function. No censored channel is inverted.
+
+### 3. The extended reader reproduces the old witnesses before reading new pixels
+
+`w39_readers.py` takes each member's attested frame origin, uses the exact circular stadium or
+the supplied continuous path flattened at ≤1/1024 CSS px, and extends required shells to14 CSS
+px inward and4 outward. It keeps straights, arcs, members and channels separate; whole pixels
+belong to shells and straddling pixels to a diagnostic boundary stratum. Population below4 or
+an absent required bin is explicit UNMEASURED. Opaque coverage uses its own fill/exterior
+levels and never silently registers the glass path. Fractional edge movement can empty a
+whole-pixel shell; the phase test uses fixed-coordinate transects instead of equating shell
+indices across different phases.
+
+On W34 **calibration** grey255/circular200 light active, the reader reproduces **top250 /
+bottom253** at1x depth5.5 CSS px with156 pixels per side, and at2x depths5.75/5.25 with312 each.
+Deep body253; the signed depression persists in the extended table to14 CSS px. Grey128's top
+excess is **24 light / 30 dark at1x**, **18/31 light and22/39 dark at2x**, on the circular120,
+circular200, continuous capsule and radius12 rectangle controls; deep bodies195/134.
+The area-integrated ramp consistency values are24.171429 at1x and17.457143/30.885714 at2x.
+
+Citation correction beside the unchanged declaration: “W37 X13” in its arc-bin sentence is a
+mis-citation (X13 governs identity). The actual numerical authority is W37 `identify.py`'s
+**16 nearest-normal bins at22.5°**, which is what this reader implements and tests. No bin or
+number changes with that correction.
+
+### 4. The sitting and the archive home are tooled, not populated
+
+`pass-plan.json` names every cell per pass/run. Normal5,768 + run1 references504 + sentinels48 +
+preflight40 = **6,360** captures (16.995h at9.62s); one reachable axis adds448, both add784 to
+**7,144** (19.090h). The earlier6,356 count is retained as the charter-v2 plan before four
+temporal controls were added. Pass order is preflight1x/2x, active1x/2x, inactive1x/2x, with
+long sentinels separate. Seven repeats are state discovery, not a Gaussian precision promise.
+The preflight's shared-profile/amplitude comparison, RSS ratio≤0.5, monotonicity slack1/32
+device px, full-rank/condition report and held-phase prediction stand beside near/far control
+bounds and end-repeat drift refusal. No native reachability verdict has been measured.
+
+The sitting retains W34's strict OS/build, policy, display, side identity, independent HID-idle,
+foreign-process and opening/closing checks, adding frame attestation and preflight admission.
+Failed runs are quarantined without retry. `wave.py` independently guards the split, inventory
+generation and once-only exposure receipt. Its noncapturing web plan admits138 scene IDs and
+excludes214 with reasons:180 controls, six off-centre placements, four columns and24 fractional
+phase variants. These unsupported web placements remain native identification cells; extending
+`component-region.ts` for position/column is Deferred outside G0, not an implicit centred
+comparison.
+
+The archive producer keeps full lossless original-coordinate glass/no-glass/opaque frames,
+per-run metadata and losing states in role-separated payloads; missing later-run references
+retain their first-run provenance. An integration test sends a real W34 calibration cell
+through `analyse`, archive packing and guarded replay, identically. The release packer checks
+the inventory and writes one deterministic `.tar.zst` under2GiB, named by its full tarball
+SHA-256. The fetcher verifies that digest before safe extraction into an external cache and
+rechecks cached inventory contents. Local pack→verify→extract and corruption/refusal tests
+require no network. **No release asset is published and no W39 repeat archive exists in G0.**
+G1 records its tag/name/digest/bytes and replay command and keeps a second owner-controlled copy.
+
+### 5. The side pin and the non-capturing checks
+
+The one side build is outside the repository at `~/vitrea-w39/side/VitreaReference.app`,
+identifier `dev.vitrea.reference-apple.w39`, build-input revision
+`25b268eca454ff93244592eb1df16f1fbafc1622`. Binary SHA-256
+`02052b175dd14bfbe2713d8e566c9b650011000f8f72de87a965f070c38b6498`, cdhash
+`be258cbfc53e5cec6b49ecdec01f126872400b29`; LC_BUILD_VERSION reports macOS min26.0, SDK26.0,
+linker1267.0. `bundle-pin.json` also hashes every Swift input; all remained unchanged after
+the build. The pinned side's non-GUI self-check passes. The generated background tree stays
+outside the repository: **134 rasters** (67 at both scales) match every declared solid byte and
+gradient arithmetic pixel exactly. Generated rasters are not native evidence captures.
+
+The read-only system TCC database records the **original** identifier at auth_value2, W34 at0,
+and no W39 row. The user's TCC database was unreadable and is explicitly not verified. No G0
+command modifies, requests or scripts a Screen Recording grant. The parent observed a prompt
+labelled `VitreaReference` around02:00 KST, but its client is **unattributed**; G0's background
+and self-check paths call no ScreenCaptureKit and no capture launch had occurred. The parent
+reports its companion attempt was refused screenshot access to that TCC prompt, clicked
+nothing and changed nothing. User dismissal is **not yet attested; time pending the parent at
+merge**. Neither the label nor an absent row identifies the requesting executable.
+
+### 6. Rehearsal boundary and what remains unclaimed
+
+The machine carries an unrelated Playwright/Chrome session. G0 does not terminate it or waive
+exclusivity. Opening refusal attestations are therefore **not** evidence of ScreenCaptureKit's
+TCC refusal; that deeper rehearsal is outstanding. The parent may perform it before merge
+when the machine is genuinely exclusive; otherwise the first G1 runbook step repeats it while
+the side is still ungranted, before the user's grant switch. A first-call prompt is never
+answered Allow in a G0 rehearsal. Successful real capture's window frames, per-cell pose and
+repeat attestations remain untested operationally until then/G1, not inferred from compilation.
+
+Nothing here claims a W39 native pixel, a measured preflight phase, a W39 repeat bar, a surviving
+body/edge law or a material improvement. Canonical scenes, fixtures, matrix, six material
+documents, renderer goldens and adopted thresholds are unchanged: they still describe and gate
+the shipped pre-W39 material, not this experimental bed. The protected build/build-probe
+outputs were never rebuilt. W34's spent holdout and sealed bulk were never opened. The freeze
+verifier reads **1,818 entries intact**. Independent review remains the parent's gate.
+
+### 7. The synthetic referee corrects the preflight before capture
+
+The shared profile at half-device-pixel knot spacing has one exact Nyquist null vector
+under unit-pixel integration. It could never clear its declared full-rank rule. The parent
+therefore ruled **one-device-pixel knots**, and an exact held-phase byte-rounding propagation
+term: tolerance `max(0.5,D_int_far) + 0.5*||w_i||₁`, with the prediction-operator weight norm
+reported per sample. This is determined on synthetic inputs, not chosen from a native
+residual. Declaration `c47d8d6c8f92bc07e3c0327d517cee7664fe5610d4d1884c07c4b127356c10be` is retained as superseded; the final
+G1 contract is **`834f3cd29358a175f82f83c2e688e064552c9fb50e1956511a9e8f0b700d108a`**. `closure.json` and `pins.json`
+name it. The synthetic test evidence must show true shift accepted, amplitude-only rejected
+and snapped raster rejected; no W39 capture is used to choose any of those branches.
+
+Four actual opening attempts are retained under `dry-attestations/`, with machine and
+independent session reads: **14 foreign capture processes plus the pending permission prompt
+on all four**, and mode68 instead of69 on both1x attempts. No launch or manifest occurred.
+The first machine comparison also falsely reported identity drift because the pin retained
+vtool stdout's trailing newline and the recorder stripped it. A regression-tested whitespace
+normalisation fixes that comparison without changing the pin. `reevaluated-gates.json` reads
+the saved attestations and confirms all four identities match, retaining every real blocker
+and every original refusal verbatim. This is not a retry or a TCC-refusal rehearsal.
+
+### 8. H2′ identifies colour without inventing thick-row freedom
+
+Before capture, the parent narrowed H2′ from nine to **five parameters per endpoint**:
+retention plus four thin tone ordinates, thick ordinates/abscissae/every other leaf held
+shipped. The colour bed is span44, whose thick smoothstep weight is approximately0.1 in
+W38. Independent thick freedom would manufacture a rank deficiency rather than test
+colour evidence. H2′ fits only span44 calibration colours/neutrals; span64 calibration
+controls and span96 validation controls test transfer without moving the split. A colour
+survivor's thick miss is recorded as that row's miss beside survival, not attributed to its
+colour law, and no G3 transfer gate is waived. Shared thin/thick shifts are declined because
+they move an unidentified thick response. Superseded declaration `834f3cd29358a175f82f83c2e688e064552c9fb50e1956511a9e8f0b700d108a`
+is retained; the final declaration is **`6467da8560f0485c719eef76914b2728db1443d3f7c836fd9595ad51377432ba`**.
+
+Operational update after the recorded opening refusals: the parent reports the user
+dismissed the unattributed prompt with **Deny at2026-09-25T17:16Z (02:16 KST,2026-09-26)**
+and the window is gone. Its subsequent read-only system TCC query found no new row for any
+client in the previous30 minutes and still no W39 row; the user database remains unreadable.
+The requester may have exited before a stale prompt was answered, or the answer may be in
+that unreadable database; neither explanation is established. The historical refusal
+reads are preserved. Foreign capture-process exclusivity remains the rehearsal blocker;
+the display must be set/read at the matching scale at pass time. No new rehearsal ran.
+
+### 9. Verification and the synthetic branches
+
+The workspace `pnpm install --silent && pnpm -r build` completed before tests. The final
+calibration suite passes **54 files, 718 tests, one skipped**; it invokes all seven W39
+Python suites, **71 tests** in total (pass-spec4, wave11, archive8, release7, reader18,
+sitting16, preflight7). Calibration ESLint and all its TypeScript checks pass. The side
+binary's non-GUI self-check reports all rows hold. The final freeze read again reports
+**1,818 intact**. The shell wrapper around the successful final suite used zsh's read-only
+`status` variable and stopped before its chained freeze command; that wrapper defect was
+identified, not called a suite failure, and the freeze was then executed separately with
+its own successful log. No tests were retried to hide a failing measurement.
+
+The preflight's synthetic record in `test-preflight.txt` admits the true translated profile
+at both axes/scales: rank21/21 at1x and39/39 at2x, condition about102–190, RSS ratios
+0.00202–0.00307 and fitted offsets close to0/.25/.5/.75. Its largest held-phase excess above
+the propagated rounding term is0.07, within the independent0.5 floor. Amplitude-only
+changes are rejected (RSS ratios3.3–5.5 versus≤0.5, held-phase excess0.67–4.05); a snapped
+raster is rejected with only two distinct states and held-phase excess up to5.2. One-axis
+admission includes only that axis and its shared zero, eight scenes per pose/scale; end-repeat
+drift marks the scale UNMEASURED and admits neither axis. These are synthetic test outcomes,
+not observations of macOS's phase reachability.
+
+`test-declaration-final.txt` proves all five generated declarations reproduce byte-for-byte
+at the final pin, and that `pass-plan.json` reproduces identically. The final archive verification
+recomputes every recorded exclusion under declaration `6467da85…` while preserving the
+recorded `b0344704…` provenance. Protected tracked paths have no diff from G0's base. Compiler
+and test stdout is retained verbatim, including its emitted whitespace; no substantive source
+whitespace errors are present. The next gate is the parent's independent correctness review;
+the TCC-level rehearsal remains explicitly outstanding rather than relabelled as complete.
+
+### 10. Corrected at the independent review
+
+The review found three P1 defects and one P2 in the G0 instruments. The initial readings
+and logs above are retained; correction results below supersede their implementation
+claims, not their historical provenance. **P1-1**: the amplitude alternative compared an
+initial infinite RSS to itself and stopped after one gain update. Its convergence check
+now starts only with a finite previous RSS; relative-improvement tolerance **1e-10** and
+iteration cap **200 per candidate edge** are declared, with nonconvergence reported rather
+than used to establish shift identification. This is the reason for superseding declaration
+`6467da8560f0485c719eef76914b2728db1443d3f7c836fd9595ad51377432ba` with **`94cebb42735a22f345b0a877ca5137d3355e84e78d09b12c9fabf67f0ba3faae`**.
+The bed, split, side pin, archive exclusions and frozen evidence are not changed by this
+optimizer execution amendment. The corrected synthetic referee and its verdicts follow
+after execution; no native pixel or threshold tuning is authorised by this correction.
+
+**P1-2 corrected — long sentinels are not normal repeats.** The producer's old fallback knew
+W34 seed3401 but not W39 seed3901, while the sitting omitted an explicit protocol. It could
+therefore archive a long W39 sentinel as normal. The sitting now derives `protocol` and its
+settings echo from the real launch arguments, validates them against the manifest and writes
+both into `admission.json`. Normal is settle1.75/no seed, long is settle8/seed3901; both retain
+reset6, reset-carries-glass false and minimum-idle60. The producer requires the explicit arm,
+checks all five capture settings, the sentinel/non-sentinel pass identity and the actual
+manifest digest, and refuses missing or contradictory metadata. The integration test reads
+admissions written by the sitting's real `main` through the full44-run synthetic sitting;
+it does not manufacture the newly required field in an archive-only fixture. Changing a
+main-written sentinel manifest to3401 is refused. No W39 native archive exists to reclassify.
+
+**P1-3 corrected — the control's background is its own.** The original `analyse` calibrated
+borrowed white-over-grey128 controls against the dependent colour no-glass frame, creating a
+false exterior alpha (the review's red-bridge example read0.374989). The producer now carries
+`opaqueNoGlass` as a separately hashed, attested and replayable dependency, and the reader
+uses the opaque control's own supplied-path geometry and own background. The role-rank guard
+also covers this added dependency. Every one of the190 declared glass scenes has this
+reference;126 colour scenes use a reference different from their own no-glass frame. In the
+new1x/2x integration, exterior alpha is **exactly0**, background128 and fill255; measured bins
+and edge positions equal the control's own native-only reading, including a quarter-pixel
+control/glass origin difference. The old calibration is retained as a synthetic negative
+witness (absolute exterior alpha>0.3 and edge displacement>1 device px). The complete corrected
+state survives producer→archive→replay identically. Recorded archive exclusions remain
+byte-identical and their numerical re-verification passes under the amended declaration.
+
+**P2 corrected — completion, not directory presence, opens the next pass.** Every expected
+run of every predecessor must have successful matching admission:2 per preflight scale,
+7 per normal pass,3 per long sentinel; long passes follow the same sequence as the bed.
+Within a pass, runN requires1..N−1 admitted. A quarantine or an interrupted directory never
+counts. The tests cover an interrupted normal predecessor, a quarantine-only predecessor,
+a missing preflight run, an incomplete earlier sentinel and skipped within-pass runs. Existing
+run directories still refuse unchanged; explicit operator preservation/renaming precedes
+any deliberate continuation. An automatic quarantine-and-retake and root-lock expansion
+proposed during implementation was declined before landing, preserving the no-hidden-retry
+contract. `test-sitting-review.txt` records27 passing tests after that scope correction.
+
+**P1-1 corrected numerical results.** `test-preflight-review.txt` records9 passing tests,
+including exact amplitude-model recovery at1x/2x in both inward directions. Its noiseless RSS
+is **1.87e-10–2.40e-10**, versus1449–1790 from the old one-update fit on the same data. The
+chosen fits converge under the declared1e-10 tolerance and200-update cap; cap exhaustion is
+reported and cannot establish shift identification. The following table preserves the
+original ratios beside their corrected readings; in particular it supersedes §9's original
+0.00202–0.00307 shift range and approximate3.3–5.5 amplitude range without erasing them.
+
+| synthetic data | axis | original RSS ratio | corrected RSS ratio | corrected amplitude RSS |
+| --- | --- | --- | --- | --- |
+| shift | 1x x | 0.00202 | 0.00211 | 4177.15 |
+| shift | 1x y | 0.00225 | 0.00236 | 4076.00 |
+| shift | 2x x | 0.00292 | 0.00297 | 4844.05 |
+| shift | 2x y | 0.00307 | 0.00312 | 4793.82 |
+| amplitude only | 1x x | 5.53 | 5.95 | 40.8438 |
+| amplitude only | 1x y | 5.30 | 5.68 | 40.3238 |
+| amplitude only | 2x x | 3.25 | 3.49 | 85.7657 |
+| amplitude only | 2x y | 3.31 | 3.54 | 80.9578 |
+| snapped raster | 1x x | 0.00217 | 0.00232 | 3360.33 |
+| snapped raster | 1x y | 0.00199 | 0.00213 | 3301.11 |
+| snapped raster | 2x x | 0.00295 | 0.00301 | 3890.85 |
+| snapped raster | 2x y | 0.00320 | 0.00327 | 3896.64 |
+
+**No synthetic verdict flipped:** true shift admits both axes (56 scene IDs across poses and
+scale variants); amplitude-only and snapped raster admit neither; one-axis admits x only
+(32); end-repeat drift remains UNMEASURED at2x. Rank, condition, fitted SHIFT offsets, coverage
+states, integer-control differences and LOPO residuals/propagation terms are unchanged. The
+one-axis/drift cases reuse the corresponding rows above. No criterion was tuned to preserve
+a verdict. Runtime rose from about33s to53s, within the existing180s subprocess budget.
+
+The supplemental numerical check (`amplitude-numerical-crosscheck-review.txt`, historical
+scripts and stdout retained) raises the cap to20000 only diagnostically: chosen RSS, edge and
+gains are identical on every synthetic scenario. A separate variable-projection/BFGS solve
+matches all12 distinct fitted RSS values within approximately3e-11–1.2e-10 relative. This is
+not a claim that every searched candidate converged:32/55 off-solution search candidates in
+the shift cases remain unconverged even at that larger experimental cap, and the count is
+carried in the verdict. The selected fits converge; production stays at200, not20000.
+
+**A named limitation, not a physical fit:** the AMPLITUDE alternative's shared-edge coordinate
+is underidentified because different profile/edge parameterisations attain the same RSS.
+The negative alternative is conservative; its RSS is what the comparison uses. Its reported
+edge and gains are never claimed as physical native parameters. The parent ruled recording
+this limitation with no retune or judge change. No W39 pixel or native phase verdict has been
+introduced by these corrections.
+
+**Review verification complete.** Full calibration suite: **54 files,718 passed,1 skipped**.
+The seven direct Python suites pass **89 tests** (pass-spec4, wave11, archive12, release7,
+readers19, sitting27, preflight9). Calibration lint and TypeScript checks pass; the final
+review freeze again reads **1,818 intact**. `review-invariants.txt` proves byte identity to
+reviewed head1f504ff2 for both bed files, split, side pin, both supplied-path exports,
+background verification, pass plan and recorded archive exclusions; the original side binary
+and all Swift inputs still match their pin. The declaration amendment is94cebb42735a22f345b0a877ca5137d3355e84e78d09b12c9fabf67f0ba3faae,
+with the previous6467da85… retained above. `amplitude-model-recovery-review.txt` independently
+records the four exact old-versus-corrected comparisons by executing the original git blob
+in memory; no temporary source or native pixel is created. No synthetic verdict flipped.
+No native capture, permission action or canonical material/evidence change occurred in the
+fix wave. The real TCC-refusal rehearsal remains outstanding, and native frame recording
+remains operationally unexercised. These implementation corrections close the four verified
+review findings, not the operational rehearsal blocker.

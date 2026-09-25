@@ -1,0 +1,103 @@
+== self-check: W34 scene kinds decode from JSON ==
+  ok   circular capsule -> true, expected true
+  ok   empty control -> true, expected true
+  ok   opaque control -> true, expected true
+  ok   gradient -> true, expected true
+  ok   local contrast -> true, expected true
+== self-check: W34 supplied geometry and raster encoding ==
+  ok   fractional frame origin survives export -> true, expected true
+  ok   circular differs from default -> true, expected true
+  ok   default is continuous witness -> true, expected true
+  ok   empty exports no path -> true, expected true
+  ok   opaque uses the same supplied path -> true, expected true
+  ok   path points survive manifest encoding -> true, expected true
+  ok   gradient samples encoded pixel centres -> true, expected true
+  ok   split comparison is strict at centre -> true, expected true
+== self-check: W39 position, column and their attestation ==
+  ok   positioned origin is the pinned edge -> [[100.0, 118.0]]
+  ok   fractional size survives attestation -> true, expected true
+  ok   placement does not change the supplied path -> true, expected true
+  ok   rrect still resolves the continuous corner (X11) -> true, expected true
+  ok   a positioned shape loads -> loaded
+  ok   a position on the half-size margin loads -> true, expected true
+  ok   position beside offset is refused -> scenes.json is inconsistent:
+  - component 'c': position and offset are mutually exclusive
+  ok   a position past the half-size margin is refused -> scenes.json is inconsistent:
+  - component 'c': position [59.5, 140.0] puts the 120.0×44.0 shape outside the 320.0×280.0 canvas
+  ok   a position below the canvas is refused -> scenes.json is inconsistent:
+  - component 'c': position [160.0, 258.5] puts the 120.0×44.0 shape outside the 320.0×280.0 canvas
+  ok   a position is two coordinates -> scenes.json is inconsistent:
+  - component 'c': position must be two finite CSS coordinates
+  ok   a position inside a group is refused -> scenes.json is inconsistent:
+  - component 'c': position is not honoured inside a group
+  ok   a column loads -> loaded
+  ok   a column attests each member at its own position -> [[100.0, 48.0], [100.0, 188.0]]
+  ok   a two-fill opaque column loads -> loaded
+  ok   a two-fill column attests both paths opaque -> true, expected true
+  ok   frames that only share an edge do not overlap -> true, expected true
+  ok   overlapping members are refused -> scenes.json is inconsistent:
+  - component 'c': the column members' frames (100.0, 48.0, 120.0, 44.0) and (100.0, 91.5, 120.0, 44.0) overlap
+  ok   a column has exactly two members -> scenes.json is inconsistent:
+  - component 'c': a column has exactly two members, got 1
+  ok   every column member is positioned -> scenes.json is inconsistent:
+  - component 'c': every column member needs a position
+  ok   a column is not half glass and half fill -> scenes.json is inconsistent:
+  - component 'c': a column is two glass surfaces or two opaque fills
+== self-check: Capture.cellMayBeWritten ==
+  ok   active key=true active=true unlocked -> true, expected true
+  ok   active key=true active=true locked -> false, expected false
+  ok   active key=true active=true unreadable -> false, expected false
+  ok   active key=true active=false unlocked -> false, expected false
+  ok   active key=true active=false locked -> false, expected false
+  ok   active key=true active=false unreadable -> false, expected false
+  ok   active key=false active=true unlocked -> false, expected false
+  ok   active key=false active=true locked -> false, expected false
+  ok   active key=false active=true unreadable -> false, expected false
+  ok   active key=false active=false unlocked -> false, expected false
+  ok   active key=false active=false locked -> false, expected false
+  ok   active key=false active=false unreadable -> false, expected false
+  ok   inactive key=true active=true unlocked -> false, expected false
+  ok   inactive key=true active=true locked -> false, expected false
+  ok   inactive key=true active=true unreadable -> false, expected false
+  ok   inactive key=true active=false unlocked -> false, expected false
+  ok   inactive key=true active=false locked -> false, expected false
+  ok   inactive key=true active=false unreadable -> false, expected false
+  ok   inactive key=false active=true unlocked -> false, expected false
+  ok   inactive key=false active=true locked -> false, expected false
+  ok   inactive key=false active=true unreadable -> false, expected false
+  ok   inactive key=false active=false unlocked -> true, expected true
+  ok   inactive key=false active=false locked -> false, expected false
+  ok   inactive key=false active=false unreadable -> false, expected false
+
+== the rows the gates exist for ==
+  ok   inactive, key=false active=false, LOCKED (attests for the wrong reason) -> false, expected false
+  ok   inactive, key=false active=false, unlocked (the real recede) -> true, expected true
+  ok   neither pose: key=true active=false, unlocked -> false, expected false
+  ok   active, key=true active=true, unlocked -> true, expected true
+  ok   active on a LOCKED screen refuses too -> false, expected false
+
+== self-check: Capture.cellVerdict (what a run DOES about a refused cell) ==
+  ok   active unlocked dryRun=false -> write, expected write
+  ok   active unlocked dryRun=true -> write, expected write
+  ok   active locked dryRun=false -> refuse, expected refuse
+  ok   active locked dryRun=true -> rehearse, expected rehearse
+  ok   active unreadable dryRun=false -> refuse, expected refuse
+  ok   active unreadable dryRun=true -> rehearse, expected rehearse
+  ok   inactive unlocked dryRun=false -> write, expected write
+  ok   inactive unlocked dryRun=true -> write, expected write
+  ok   inactive locked dryRun=false -> refuse, expected refuse
+  ok   inactive locked dryRun=true -> rehearse, expected rehearse
+  ok   inactive unreadable dryRun=false -> refuse, expected refuse
+  ok   inactive unreadable dryRun=true -> rehearse, expected rehearse
+  ok   a LOCKED screen stops a real inactive pass -> true, expected true
+  ok   a LOCKED screen lets the REHEARSAL through, to be reported -> true, expected true
+  ok   a lost pose still stops a real pass -> true, expected true
+  ok   a lost pose is REPORTED, not refused, in a rehearsal -> true, expected true
+
+== self-check: Capture.cellRefusal names the CAUSE, not the symptom ==
+  ok   locked screen reports the lock, not a pose mismatch -> true, expected true
+  ok   unreadable session is its own cause, not 'unlocked' -> true, expected true
+  ok   a real pose mismatch on an unlocked screen reports the pose -> true, expected true
+  ok   nothing to report when the pose holds on an unlocked screen -> true, expected true
+
+all rows hold.

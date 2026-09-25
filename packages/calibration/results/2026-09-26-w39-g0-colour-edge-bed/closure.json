@@ -1,0 +1,143 @@
+{
+  "schema": "w39-closure-1",
+  "boundsDeclarationSha256": "94cebb42735a22f345b0a877ca5137d3355e84e78d09b12c9fabf67f0ba3faae",
+  "colour": {
+    "admissibleSRGB": [
+      40,
+      150
+    ],
+    "bridgeExceptions": [
+      "red",
+      "green"
+    ],
+    "censorAtOrBelow": 5,
+    "censorAtOrAbove": 250,
+    "fullRGB": "any censored channel excludes entire cell; heldout UNMEASURED"
+  },
+  "body": {
+    "deepCSS": -6,
+    "minimumPopulation": 4,
+    "repeatCount": 7,
+    "statistic": "per-channel deep median per run, then median of seven",
+    "bar": "0.5 + 0.5 * largest pairwise run-median separation",
+    "neutralInputKnots": [
+      40,
+      56,
+      72,
+      88,
+      104,
+      128,
+      150
+    ]
+  },
+  "families": {
+    "H1": {
+      "parametersPerEndpoint": 7,
+      "kind": "negative control"
+    },
+    "H2": {
+      "parametersPerEndpoint": 0,
+      "kind": "exact shipped body"
+    },
+    "H2prime": {
+      "parametersPerEndpoint": 5,
+      "free": [
+        "bodyChromaRetention",
+        "backdropToneResponseThin[0:4]"
+      ],
+      "thick": "held shipped; span64/96 transfer tested not fitted",
+      "fit": "span44 calibration colours and neutrals"
+    },
+    "H3": {
+      "parametersPerEndpoint": 13,
+      "chromaticParameters": 6,
+      "rowSums": 1,
+      "gamut": "unit-cube clip"
+    },
+    "H3prime": {
+      "parametersPerEndpoint": 11,
+      "chromaticParameters": 4,
+      "space": "OKLab"
+    },
+    "H4": {
+      "additionalParametersPerEndpoint": 2,
+      "deepDomainIdentity": true
+    }
+  },
+  "edge": {
+    "innerCSS": 14,
+    "outerCSS": 4,
+    "shellDevicePx": 1,
+    "angularBins": 16,
+    "angularStepDegrees": 22.5,
+    "minimumPopulation": 4,
+    "straightSides": [
+      "top",
+      "bottom",
+      "left",
+      "right"
+    ],
+    "parametersPerEndpoint": 44,
+    "widthGridCSS": [
+      0.8,
+      1,
+      1.2,
+      1.4,
+      1.6,
+      1.8,
+      2,
+      2.2,
+      2.4
+    ],
+    "exponents": [
+      1,
+      2,
+      3,
+      4,
+      6
+    ],
+    "quadrature": 8,
+    "sensitivityQuadrature": 16
+  },
+  "survival": {
+    "roles": [
+      "calibration",
+      "validation"
+    ],
+    "bound": "max(1,bar)",
+    "allRequiredChannelsAndBins": true
+  },
+  "holdout": {
+    "colours": 6,
+    "strata": 8,
+    "onceOnlyReceipt": true,
+    "censored": "UNMEASURED"
+  },
+  "resolution": {
+    "bound": "max(3,sum of bars)",
+    "belowEveryDiscriminator": "insufficient resolution"
+  },
+  "preflight": {
+    "geometryCaptures": 36,
+    "endSentinelCaptures": 4,
+    "totalCaptures": 40,
+    "minimumStates": 3,
+    "nearTolerance": "max(0.5,D_int_near)",
+    "farTolerance": "max(0.5,D_int_far)",
+    "shiftRSSRatio": 0.5,
+    "edgeMonotonicitySlackDevicePx": 0.03125,
+    "knotsDevicePx": 1.0,
+    "fullRank": true,
+    "leaveOnePhaseOut": true,
+    "phaseZeroDriftTolerance": 0.5,
+    "lopoQuantizationHalfCode": 0.5,
+    "amplitudeRelativeTolerance": 1e-10,
+    "amplitudeMaxIterations": 200
+  },
+  "dependencyRoleOrder": [
+    "calibration",
+    "validation",
+    "holdout"
+  ],
+  "noShippedChanges": true
+}
