@@ -1,6 +1,6 @@
 # W38 — the rim-axis wave: the shipped rim's light turned vertical, as a bounded improvement (2026-09-25)
 
-**Status: CHARTERED v3 2026-09-25 after two adversarial rounds (two P1 + two P2, then two P1, folded; Revision Notes); nothing dispatched.** Chartered by the parent on the user's
+**Status: G0 DISPATCHED 2026-09-25 under v4 (three adversarial rounds: two P1 + two P2, two P1, one P2, all folded; the third round found the rest closed; Revision Notes).** Chartered by the parent on the user's
 "W38 rim-axis refit (Recommended)" after W37 closed at its finding (main `b4715d78`), under the
 standing "rest on your judgement" and the routing of 2026-09-22 (X9). Grounded on a read-only memo
 (`/Users/new/.claude/jobs/17c7ce02/tmp/w38-grounding.md`, an `astra-high` product saved by the
@@ -52,9 +52,12 @@ under a rule declared before the first score — or close at the finding.
    profile-wide constants every variant consumes (`renderer.ts` ~1177–1202; `optics.ts` ~1572,
    ~1604, ~1636 multiply them by the variant's own angular factor), and the clear variant at
    exponent 0 has no rotation gain to compensate, so scaling them would dim clear's collapsed rim
-   to 0.7448 of today — instead the regular variant's collapsed and tinted rims BRIGHTEN at the top
-   by 2^(exponent/2) = 1.34 under the rotation, which G0 prices on the canonical tinted cells
-   against the per-bin veto (Decision Log 2); nothing else moves; and **C2, the
+   to 0.7448 of today — instead the regular variant's COLLAPSED contribution (mixed in by the
+   backdrop ADAPTATION `T`, `toneAdapt`, not by the author tint; the tint only selects
+   `rimCollapsedTinted` over `rimCollapsed`) brightens at the top by 2^(exponent/2) = 1.34 under
+   the rotation on every surface with `T > 0`, bare or painted, which G0 prices on the canonical
+   cells that resolve `T > 0` against the per-bin veto (Decision Log 2); nothing else moves; and
+   **C2, the
    rotation with a refit** of `rimLitExponent`, `rimWidth` / `rimWidth2x`, `rimAlpha`,
    `rimLevelGain`, `rimAlongSideSlope`, `shadowDepth` / `shadowAlpha` on the regular variant,
    selected by a declared constrained objective (minimax over the strata subject to the dominance
@@ -91,7 +94,9 @@ under a rule declared before the first score — or close at the finding.
    the unsampled `css-backdrop` / `none` WebGPU e2e fixtures and Reduce Transparency — get a
    separate regression contract **R1**, declared in G0: outside the rim band the render is
    byte-identical to the pre-W38 render; inside it the side band's luminance does not rise and the
-   top band stays within 1 code of before under C1 (within the law's own prediction under C2);
+   top band stays within 1 code of before under C1 on uncollapsed surfaces (within the declared
+   collapsed brightening where the fixture resolves `T > 0`; within the law's own prediction under
+   C2) — R1 never rejects the collapsed contribution the charter prices, and never admits more;
    exercised at G1a. Together E2 and R1 are the veto the omitted paths get, not the eye at G2; (d) every stop's expected value
    (clause 4); (e) the pre-W38 baselines named — the matrix generation, the goldens' hashes, the
    window-activation hashes, the E1 artifact.
@@ -133,20 +138,24 @@ under a rule declared before the first score — or close at the finding.
    absorb the body's miss (W37 clause 3); Increase Contrast's strong border and forced-colors are
    unchanged by construction and shown so.
 6. **The CSS tier derives from the same leaves and is priced before the seal.** The CSS inset's
-   alpha is converted from the BLENDED amplitude `A·(1−T) + C·T` (ordinary mixed with collapsed by
-   the tint, `platform-web/src/optics.ts` ~4432–4435, converted at ~4026–4033) with NO angular
-   factor, so C1's scaling of `A` alone would dim the CSS straight top on untinted surfaces and
-   dividing the conversion by the scale would not restore it on tinted ones. The derivation
+   alpha is converted from the BLENDED amplitude `A·(1−T) + C·T` — `T` the backdrop ADAPTATION
+   from tone, thickness and policy (`platform-web/src/optics.ts` ~4404–4406, mixed at ~4432–4435,
+   converted at ~4026–4033; the shader's `toneAdapt` at `optics.ts` ~1507 / ~1636, distinct from
+   `tintK` at ~1572 which only selects the collapsed amplitude) — with NO angular factor, so C1's
+   scaling of `A` alone would dim the CSS straight top on uncollapsed surfaces and dividing the
+   conversion by the scale would not restore it on collapsed ones. The derivation
    therefore FOLLOWS THE ROTATED LOBE as the WebGPU tier does: the blended amplitude is
    multiplied by the lobe's straight-normal value `lit_top = (√2·|axis·ŷ|)^exponent` evaluated
    from the resolved variant's ACTUAL axis and exponent — 1 for the frozen 26.5 diagonal, for the
    clear variant (exponent 0) and for the strong border (exponent zeroed), 2^(exponent/2) under the
-   rotation. Under C1 that leaves the untinted CSS inset byte-identical to today's and brightens
-   the collapsed contribution by the same 1.3426 the WebGPU tier applies (at full collapse the
-   shipped regular bare alpha 0.02432 → 0.03265, painted 0.3328 → 0.44681 — recorded as the
-   priced change, mirrored across tiers, not an identity); ordinary, partial-collapse,
-   full-collapse, clear and strong-border cases are pinned SEPARATELY in `tier-coherence.test.ts`
-   with the reason. The interior-light integral (which already suppresses the vertical runs
+   rotation. Under C1 that leaves the UNCOLLAPSED (`T = 0`) CSS inset byte-identical to today's,
+   bare or painted, and brightens the collapsed contribution by the same 1.3426 the WebGPU tier
+   applies on every surface with `T > 0` — bare included: at full collapse the shipped regular
+   BARE alpha moves 0.02432 → 0.03265 and the painted 0.3328 → 0.44681 — recorded as the priced
+   change, mirrored across tiers, not an identity; identity is never inferred from `tintK = 0`.
+   The cases pinned SEPARATELY in `tier-coherence.test.ts` with the reason are uncollapsed,
+   partial collapse and full collapse, each crossed with bare and painted, plus clear and the
+   strong border. The interior-light integral (which already suppresses the vertical runs
    under a vertical axis) is re-derived from the patched leaves; G1a renders the projection
    on the bed and the canonical non-holdout CSS cells and records the residual against the 6.5 /
    8.5 two-row bound; the parent rules carry or decline as Decision Log 5 BEFORE G1b seals.
@@ -218,9 +227,10 @@ single channel-bin worse than the shipped treatment by more than 1 code disquali
 then the stratum rule; no tolerance, bound, stratum or allowance is redefined to make one pass.
 **X19 — C1's amplitude scaling is exact and touches only the regular variant**: 2^(−exponent/2)
 at the shipped exponent on `rimAlpha` and `rimLevelGain`, so the ordinary rim's straight top and
-bottom are byte-identical to today on an untinted uniform backdrop on BOTH tiers, the clear
-variant is byte-identical everywhere, and the collapsed/tinted contribution brightens by the same
-factor on both tiers (priced, Decision Log 2); tests say so case by case. **X20 —
+bottom are byte-identical to today on an UNCOLLAPSED (`T = 0`) uniform backdrop on BOTH tiers,
+bare or painted, the clear variant is byte-identical everywhere, and the collapsed contribution
+brightens by the same factor on both tiers wherever `T > 0` (priced, Decision Log 2); tests say so
+case by case, and identity is never inferred from the absence of an author tint. **X20 —
 the collapsed constants are shared and do not move.**
 
 ## Ordering & Dependency Map
@@ -255,7 +265,7 @@ strong border; the native experiment.
 
 | child | state |
 | --- | --- |
-| G0 | not dispatched |
+| G0 | DISPATCHED 2026-09-25 (`astra-high`, brief `/Users/new/.claude/jobs/17c7ce02/tmp/w38-g0-brief.md`), §5.183 |
 | G1a | not dispatched |
 | G1b | not dispatched |
 | G2 | not dispatched |
@@ -269,8 +279,10 @@ Open. G0 drafts on the stratum tables; G1a finalises on the rendered stops.
 ### Decision Log 2 — the collapsed and tinted rims under C1 (after G0; the parent's)
 
 Open. Default: the shared collapsed constants stay (clear identity), so the regular variant's
-collapsed and tinted rims brighten at the top by 2^(exponent/2) under the rotation; G0 prices that
-on the canonical tinted cells (native fixtures present) against the per-bin veto. A
+collapsed contribution brightens at the top by 2^(exponent/2) under the rotation on every surface
+whose backdrop adaptation `T` is above 0, bare or painted; G0 prices that on the canonical cells
+that resolve `T > 0` (native fixtures present; the tinted cells among them) against the per-bin
+veto. A
 variant-specific collapsed amplitude would be a NEW leaf pair through the identity table and is
 not authorised by this charter.
 
@@ -305,6 +317,13 @@ Open.
 
 ## Revision Notes
 
+- 2026-09-25 (v4, the parent, after the third adversarial round's one P2 — the rest closed):
+  identity under C1 was conditioned on the absence of an author tint, but the collapse mix `T` is
+  the backdrop ADAPTATION (`toneAdapt`), not `tintK`, which only selects the collapsed amplitude;
+  a bare fully collapsed surface brightens too (the charter's own 0.02432 → 0.03265 example).
+  Clauses 1a, 1c (R1) and 6, X19 and Decision Log 2 now condition identity on `T = 0`, cross the
+  collapse cases with bare and painted, and have R1 admit exactly the priced collapsed
+  contribution. G0 dispatched.
 - 2026-09-25 (v3, the parent, after the second adversarial round's two P1s): **P1 folded** — the
   CSS conversion fix promised identity but the inset converts the BLENDED amplitude (ordinary
   mixed with collapsed by tint), so dividing by the scale would have restored the untinted top and
