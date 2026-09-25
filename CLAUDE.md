@@ -335,7 +335,19 @@ horizontal — not a white band along a diagonal axis, which is what vitrea's ri
 existing rim leaves cannot draw it (best 25–47 codes against one). It also read that the deep
 body's LEVEL misses by 28–49 codes on blacks and over 100 on saturated channels, which W36 then separated: the black fallback closes, while the middle and chroma remain
 named misses (§5.179–§5.180). The edge needs a re-charter with a colour-conditioned angular
-law declared first; that is not an implicit boundary fix in the black branch. On the
+law declared first; that is not an implicit boundary fix in the black branch. **W37 (§5.181–§5.182,
+2026-09-25) ran that re-charter on the archive and closed at the finding:** five declared families
+identified on Apple's pixels alone reach 8.13 codes at best on the greys' straight bins against
+one, every one trades bins against the shipped treatment, and the archive carries a
+coefficient-independent obstruction — at matched inward depth Apple's TOP edge reads 250 where its
+BOTTOM reads 253 on light grey-255, repeatable, persisting 7–14 CSS px inward — so no law even in
+the normal's vertical component (vitrea's rim included) can close. The next edge wave declares a
+directional term first and needs a native experiment (matched top/bottom controls, a reachable
+subpixel-phase mechanism, a second calibration span) under X5. Two facts to keep: the line's
+shape is a ramp averaged over pixel areas (grey-128's 1x row 24 and 2x pair 18 / 31 reproduce from
+the integral before any fit), and the old rim's diagonal light at the horizontal arcs (+6.5 /
++17.5 codes where Apple reads −2.5 / −2) is the largest single wrong contribution the shipped
+material makes at the edge (W37 Deferred at close 1–2). On the
 CSS tier the
 window-activation transition therefore fades the shadow OUT, which is what the reference does;
 on the WebGPU tier the posed profile is swapped the instant the resolved

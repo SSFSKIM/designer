@@ -6254,3 +6254,16 @@ fails on fill(0) before the fix; all10 laws cases pass after. The hardware live-
 stage repeats byte-identically and its named label-free rectangle readsRGB132.
 This is a consumer/control correction, not a material refit. Evidence §5.180's
 `demo-black-control-red.txt`, `demo-laws-green.txt`, `demo-black-reading.json`.
+
+## W37 closed at the finding: the edge needs a directional term and a native experiment (2026-09-25)
+
+§5.181–§5.182; `results/2026-09-25-w37-g0-edge-identification/`, `…-w37-g0b-edge-identification/`.
+Five declared families on native pixels reach 8.13 codes at best on the greys' straight bins;
+Apple's top and bottom edges differ (250 / 253 at matched depth) so no even-normal law closes.
+Nothing shipped moved. **Shape of the work:** the charter's Deferred at close — a signed-normal
+term declared first, a native experiment under X5 (matched top/bottom controls, a subpixel-phase
+mechanism proved reachable, a second calibration span, a larger circular radius), and, cheaper and
+never scored, an existing-leaf refit with the rim's axis rotated to vertical and its width narrowed
+on the four macOS 27 documents. The forward model for any thin feature should area-integrate its
+kernel over pixels (G0b's integrated ramp reproduces the line's rows before any fit); the runtime's
+`rw`, sampled per pixel, has not been checked against that integral.

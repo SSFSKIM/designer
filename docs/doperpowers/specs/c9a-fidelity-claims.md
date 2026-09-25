@@ -38249,3 +38249,18 @@ not another W37 family or prototype. The large saturated-body miss remains
 W36's problem, not an edge coefficient to fit away. The next authorised step
 is parent independent review and the closing ruling, not implementation or a
 release/version step.
+
+**Wave close, 2026-09-25 (the parent; W37 Decision Log 1, ruled twice).** The hard stop ruled at
+G0's merge fired: no declared family closes the calibration greys' straight bins at the tolerance
+(F3 8.126100 codes against one), every family trades bins against the old treatment, and the
+archive's matched top/bottom witness (250 against 253 at equal inward depth on light grey-255
+circular-200, both scales, seven repeats with zero variation) puts a 1.5-code floor under every
+law even in the normal's vertical component. W37 is CLOSED at the finding: no G0c, no prototype,
+no G1a, nothing shipped moved, no capture, no holdout read. Its Deferred list is headed by a
+directional (signed-normal) term and the native experiment that would separate it from
+registration, reconstruction and thickness — matched top/bottom controls, a reachable
+subpixel-phase mechanism, repeated captures, a second calibration span, a larger circular radius
+— under the user's X5 authority; then an existing-leaf refit with the rim's axis rotated to
+vertical, never scored; the line's amplitude across the grey ladder; the pixel-integrated ramp as
+the forward model for thin features; thickness; E1's capsule population; and the transfer to
+vitrea's own body, which W36's open grey and chroma misses gate.
