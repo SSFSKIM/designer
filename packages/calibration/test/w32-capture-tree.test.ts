@@ -1,6 +1,7 @@
-import { mkdirSync, mkdtempSync, symlinkSync, writeFileSync } from "node:fs";
+import { createHash } from "node:crypto";
+import { linkSync, mkdirSync, mkdtempSync, readFileSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { join, resolve } from "node:path";
+import { dirname, join, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import { checkCaptureTree, formatReport } from "../scripts/check-capture-tree";
 
@@ -22,6 +23,7 @@ const RECEDED = "bbbbbbbbbbbb";
 const PRIOR = "cccccccccccc";
 const PRIOR_RECEDED = "dddddddddddd";
 const UNRECORDED = "eeeeeeeeeeee";
+const OTHER_RECEDED = "ffffffffffff";
 
 const LIGHT = "apple-macos-27.0-1x-light-standard-glass0.5";
 /** Read at the 1x document, as every 2x profile is — which is what makes NB2's case real. */
@@ -205,7 +207,7 @@ describe("the capture tree against the working matrix (claims §5.167)", () => {
     // deliberately at another one — and a verdict line that hid it is the sentence somebody
     // quotes later as proof the tree was current.
     const verdict = formatReport(lenient, true);
-    expect(verdict).toContain("1 capture stands at a superseded generation the split has RECORDED");
+    expect(verdict).toContain("1 capture stands at a superseded generation the indexes have RECORDED");
     expect(verdict).toContain("--superseded-ok");
     expect(verdict).not.toContain("the same generation everywhere they meet");
     // And the line is unchanged where the flag is on with nothing to demote.
@@ -221,6 +223,136 @@ describe("the capture tree against the working matrix (claims §5.167)", () => {
     const partial = check(scratch([inactive], [half]), true);
     expect(partial.findings.map((f) => f.verdict)).toEqual(["mismatch"]);
     expect(partial.exitCode).toBe(1);
+  });
+
+  it("recognizes a retired indexed generation without relying on the historical archive", () => {
+    // Retirement leaves the old rows and their bytes in generations/, not superseded/.
+    // Build both files in disposable storage; neither the canonical index nor its rows move.
+    const previous: Cell = {
+      ...inactive,
+      documents: [[`${LIGHT}.json`, PRIOR], [`${LIGHT}-receded.json`, PRIOR_RECEDED]],
+    };
+    const paths = scratch([inactive], [previous]);
+    const results = dirname(paths.matrixPath);
+    const currentBytes = readFileSync(paths.matrixPath);
+    const previousBytes = readFileSync(scratch([previous], []).matrixPath);
+    writeFileSync(paths.matrixPath, JSON.stringify({ schemaVersion: 5, cells: [] }));
+    writeFileSync(paths.supersededIndexPath, JSON.stringify({ byDocumentSha256: {} }));
+    mkdirSync(join(results, "generations"));
+    const generation = (cell: Cell, bytes: Buffer, status: "current" | "retired") => {
+      const name = `${cell.documents[0]![1]}.json`;
+      writeFileSync(join(results, "generations", name), bytes);
+      return [name, {
+        activeDocumentSha256: cell.documents[0]![1],
+        documents: cell.documents.map(([file, sha256]) => ({
+          path: `packages/calibration/profiles/${file}`, sha256,
+        })),
+        rowCount: 1, rowsByProfileKey: { [LIGHT]: 1 },
+        bytes: bytes.length, sha256: createHash("sha256").update(bytes).digest("hex"), status,
+      }] as const;
+    };
+    const [currentName, currentEntry] = generation(inactive, currentBytes, "current");
+    const [retiredName, retiredEntry] = generation(previous, previousBytes, "retired");
+    writeFileSync(join(results, "generations", "index.json"), JSON.stringify({
+      schemaVersion: 1,
+      files: { [currentName]: currentEntry, [retiredName]: retiredEntry },
+      byDocumentSha256: {
+        [SHIPPED]: [currentName], [RECEDED]: [currentName],
+        [PRIOR]: [retiredName], [PRIOR_RECEDED]: [retiredName],
+      },
+      currentByProfile: { [LIGHT]: currentName },
+    }));
+
+    const strict = check(paths);
+    expect(strict.findings.map((f) => f.verdict)).toEqual(["superseded"]);
+    expect(strict.findings[0]?.row).toEqual([`${LIGHT}-receded.json ${RECEDED}`, `${LIGHT}.json ${SHIPPED}`]);
+    expect(strict.exitCode).toBe(1);
+    const lenient = check(paths, true);
+    expect(lenient.findings.map((f) => f.verdict)).toEqual(["superseded"]);
+    expect(lenient.exitCode).toBe(0);
+    expect(formatReport(lenient, true)).toContain("demoted to a warning");
+
+    // A mismatching capture naming only a CURRENT hash cannot borrow the retired
+    // classification. It still names no recorded retired generation.
+    writeFileSync(join(paths.tree, LIGHT, inactive.scene, "cell__webgpu.json"), JSON.stringify({
+      renderer: "webgpu", sceneId: inactive.scene,
+      capturePath: capturePath({ ...inactive, documents: [[`${LIGHT}.json`, SHIPPED]] }),
+    }));
+    const currentOnly = check(paths, true);
+    expect(currentOnly.findings.map((f) => f.verdict)).toEqual(["mismatch"]);
+    expect(currentOnly.exitCode).toBe(1);
+  });
+
+  it("requires the exact retired pair after a receded-only reseal at the same active hash", () => {
+    // An active hash has two owners after resealing only the receded document: A/R1
+    // is retired, A/R2 is current. Neither A alone nor A/R3 (assembled from two
+    // retired entries) was ever a generation, even though every hash is indexed.
+    const old = {
+      ...inactive,
+      documents: [[`${LIGHT}.json`, SHIPPED], [`${LIGHT}-receded.json`, PRIOR_RECEDED]] as const,
+    };
+    const unrelated: Cell = {
+      ...inactive,
+      documents: [[`${LIGHT}.json`, PRIOR], [`${LIGHT}-receded.json`, OTHER_RECEDED]],
+    };
+    const paths = scratch([inactive], [old]);
+    const results = dirname(paths.matrixPath);
+    const currentBytes = readFileSync(paths.matrixPath);
+    const oldBytes = readFileSync(scratch([old], []).matrixPath);
+    const unrelatedBytes = readFileSync(scratch([unrelated], []).matrixPath);
+    writeFileSync(paths.matrixPath, JSON.stringify({ schemaVersion: 5, cells: [] }));
+    writeFileSync(paths.supersededIndexPath, JSON.stringify({ byDocumentSha256: {} }));
+    mkdirSync(join(results, "generations"));
+    const indexed = (name: string, cell: Cell, bytes: Buffer, status: "current" | "retired") => {
+      writeFileSync(join(results, "generations", name), bytes);
+      return {
+        activeDocumentSha256: cell.documents[0]![1],
+        documents: cell.documents.map(([file, sha256]) => ({
+          path: `packages/calibration/profiles/${file}`, sha256,
+        })),
+        rowCount: 1, rowsByProfileKey: { [cell.profile]: 1 },
+        bytes: bytes.length, sha256: createHash("sha256").update(bytes).digest("hex"), status,
+      };
+    };
+    const currentName = `${SHIPPED}-${RECEDED}.json`;
+    const oldName = `${SHIPPED}.json`;
+    const otherName = `${PRIOR}.json`;
+    writeFileSync(join(results, "generations", "index.json"), JSON.stringify({
+      schemaVersion: 1,
+      files: {
+        [currentName]: indexed(currentName, inactive, currentBytes, "current"),
+        [oldName]: indexed(oldName, old, oldBytes, "retired"),
+        [otherName]: indexed(otherName, unrelated, unrelatedBytes, "retired"),
+      },
+      byDocumentSha256: {
+        [SHIPPED]: [currentName, oldName],
+        [RECEDED]: [currentName],
+        [PRIOR_RECEDED]: [oldName],
+        [PRIOR]: [otherName],
+        [OTHER_RECEDED]: [otherName],
+      },
+      currentByProfile: { [LIGHT]: currentName },
+    }));
+
+    const atCapture = (cell: Cell, verdict: "match" | "superseded" | "mismatch",
+      strictExit: number, lenientExit: number) => {
+      writeFileSync(join(paths.tree, LIGHT, inactive.scene, "cell__webgpu.json"), JSON.stringify({
+        renderer: "webgpu", sceneId: inactive.scene, capturePath: capturePath(cell),
+      }));
+      const strict = check(paths);
+      const lenient = check(paths, true);
+      expect(strict.findings.map((f) => f.verdict)).toEqual([verdict]);
+      expect(strict.exitCode).toBe(strictExit);
+      expect(lenient.findings.map((f) => f.verdict)).toEqual([verdict]);
+      expect(lenient.exitCode).toBe(lenientExit);
+    };
+    atCapture(old, "superseded", 1, 0);
+    atCapture(inactive, "match", 0, 0);
+    atCapture({ ...inactive, documents: [[`${LIGHT}.json`, SHIPPED]] }, "mismatch", 1, 1);
+    atCapture({
+      ...inactive,
+      documents: [[`${LIGHT}.json`, SHIPPED], [`${LIGHT}-receded.json`, OTHER_RECEDED]],
+    }, "mismatch", 1, 1);
   });
 
   it("exits 2 where only a FROZEN profile mismatches, and 1 as soon as a live one does", () => {
@@ -356,6 +488,45 @@ describe("the capture tree against the working matrix (claims §5.167)", () => {
     expect(dangling.findings.find((f) => f.verdict === "unreadable")?.note)
       .toContain("apple-macos-27.0-1x-dangling");
     expect(dangling.exitCode).toBe(1);
+  });
+
+  it("loads current macOS 27 rows through external symlink and hardlink matrix aliases", () => {
+    const source = resolve(PACKAGE_ROOT, "results/matrix.json");
+    const index = JSON.parse(readFileSync(resolve(PACKAGE_ROOT,
+      "results/generations/index.json"), "utf8"));
+    const generation = JSON.parse(readFileSync(resolve(PACKAGE_ROOT,
+      "results/generations", index.currentByProfile[LIGHT]), "utf8"));
+    const row = generation.cells.find((cell: { key: { profileKey: string; sceneId: string;
+      web: { renderer: string } } }) => cell.key.profileKey === LIGHT &&
+        cell.key.sceneId === "photo__rrect-md__rest" && cell.key.web.renderer === "webgpu");
+    expect(row).toBeDefined();
+    const activeHash = row.key.web.capturePath.match(/materialProfile=\S+ sha256:([0-9a-f]{12})/)?.[1];
+    expect(activeHash).toMatch(/^[0-9a-f]{12}$/);
+    const wrongHash = activeHash === "eeeeeeeeeeee" ? "ffffffffffff" : "eeeeeeeeeeee";
+    const root = mkdtempSync(join(tmpdir(), "w40-matrix-alias-"));
+    try {
+      const tree = join(root, "web-captures");
+      mkdirSync(join(tree, LIGHT, row.key.sceneId), { recursive: true });
+      writeFileSync(join(tree, LIGHT, row.key.sceneId, "cell__webgpu.json"), JSON.stringify({
+        sceneId: row.key.sceneId, renderer: "webgpu",
+        capturePath: row.key.web.capturePath.replace(`sha256:${activeHash}`, `sha256:${wrongHash}`),
+      }));
+      for (const [name, alias] of [["symlink", symlinkSync], ["hardlink", linkSync]] as const) {
+        const matrixPath = join(root, `${name}.json`);
+        alias(source, matrixPath);
+        const report = checkCaptureTree({ tree, matrixPath,
+          supersededIndexPath: resolve(PACKAGE_ROOT, "results/superseded/index.json"),
+          supersededOk: false });
+        expect(report.matrixGenerations.has(`${LIGHT}\0webgpu\0`), name).toBe(true);
+        expect(report.rowsWithoutCapture.get(`${LIGHT}\0webgpu\0`)?.length, name)
+          .toBeGreaterThan(0);
+        expect(report.findings.map((f) => f.verdict), name).toEqual(["mismatch"]);
+        expect(report.findings[0]?.row, name).toContain(`${LIGHT}.json ${activeHash}`);
+        expect(report.exitCode, name).toBe(1);
+      }
+    } finally {
+      rmSync(root, { recursive: true, force: true });
+    }
   });
 
   it("parses the committed matrix and superseded index, as the merge gate will", () => {

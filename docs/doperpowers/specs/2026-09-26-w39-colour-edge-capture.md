@@ -393,6 +393,7 @@ M1/M2/C1/X1/L1 re-read; goldens attributed; the four documents resealed; the can
 read once by artifact; the capture tree copied and the superseded one moved; the demo and README;
 the changeset (`@vitreajs/vitrea-web` minor); the release checklist; `pnpm release` is the
 user's hand.
+G3 stages its whole membership (calibration, validation, both tiers, and the holdout read after the seal) and publishes once at the seal merge.
 
 ## Cross-Child Contracts
 

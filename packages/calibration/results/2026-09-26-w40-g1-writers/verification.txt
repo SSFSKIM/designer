@@ -1,0 +1,9 @@
+Final source verified in disposable copy /private/tmp/w40-g1-verify.jxcZF2
+pnpm -r build && pnpm -r lint && pnpm -r test: exit 0
+207 test files passed; 2837 tests passed; 1 existing capture-dependent test skipped
+pnpm --filter demo build: exit 0
+Focused publisher suite: 15 passed
+W39 wave suite: 11 passed
+Freeze: 1818 intact, exit 0
+Canonical capture tree: 1893 matches, 7 no-row, zero mismatches, exit 0
+248 protected readings unchanged after all checks

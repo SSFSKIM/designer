@@ -1,10 +1,12 @@
 /**
- * G0 cannot publish canonical generations. Refuse their write targets before a
- * capture or measurement, including paths reached through existing symlinks.
+ * Measurement is scratch-only. The one sanctioned publication entry below
+ * preserves the same filesystem-identity boundary as the scratch refusal.
  */
-import { existsSync, readdirSync, realpathSync, statSync } from "node:fs";
+import { closeSync, existsSync, fsyncSync, lstatSync, mkdirSync, openSync, readdirSync, realpathSync, renameSync, rmdirSync, statSync, unlinkSync, writeFileSync } from "node:fs";
 import { dirname, extname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
+import { randomUUID } from "node:crypto";
+import { prepareGeneration } from "./generation-stage";
 
 const PACKAGE_ROOT = resolve(fileURLToPath(new URL(".", import.meta.url)), "..");
 const FROZEN_MATRIX = destinationPath(resolve(PACKAGE_ROOT, "results/matrix.json"));
@@ -60,7 +62,66 @@ export function assertScratchDestination(path: string): void {
       isCanonicalFileIdentity(absolute)) {
     throw new Error(
       `${absolute} is canonical, immutable matrix evidence; G1's publisher must publish ` +
-      "complete generations. G0 accepts only a separate scratch JSON destination.",
+      "complete generations. Measurement accepts only a separate scratch JSON destination.",
     );
   }
+}
+
+/**
+ * The only canonical writer. The index is the commit point: both complete files
+ * are fsynced before installation and the index moves last. A caught failure
+ * rolls back the unindexed generation. A process crash before the index rename
+ * can leave only a complete, unindexed orphan (never authoritative partial rows);
+ * its colliding name fails closed on retry and needs operator inspection.
+ */
+export function publishGeneration(stage: string): { file: string; sha256: string; bytes: number } {
+  const directory = resolve(PACKAGE_ROOT, "results/generations");
+  const index = join(directory, "index.json");
+  // Use the same identity predicates as scratch refusal, with a narrower grant:
+  // one fresh generation and this regular, unaliased index, never another inode.
+  if (destinationPath(directory) !== directory || !isCanonicalJson(index) ||
+      lstatSync(index).isSymbolicLink() || statSync(index).nlink !== 1 ||
+      sameFilesystemFile(index, FROZEN_MATRIX)) throw new Error("publisher: aliased canonical destination refused");
+  for (const dir of [GENERATIONS_DIR, SUPERSEDED_DIR]) {
+    if (!existsSync(dir)) continue;
+    for (const name of readdirSync(dir)) {
+      const path = join(dir, name);
+      if (path !== index && sameFilesystemFile(index, path)) throw new Error("publisher: index aliases immutable evidence");
+    }
+  }
+  const lock = join(directory, ".publish-lock");
+  mkdirSync(lock); // Serialises preflight and installation; a crash leaves an explicit stale lock.
+  const token = randomUUID();
+  const tempFile = join(directory, `.${token}.generation.tmp`);
+  const tempIndex = join(directory, `.${token}.index.tmp`);
+  let installed: string | undefined;
+  let committed = false;
+  try {
+    const prepared = prepareGeneration(stage, resolve(PACKAGE_ROOT, "results"));
+    const target = join(directory, prepared.filename);
+    if (!isCanonicalJson(target) || destinationPath(target) !== target || existsSync(target)) {
+      throw new Error("publisher: colliding or aliased target");
+    }
+    for (const [path, raw] of [[tempFile, prepared.raw], [tempIndex, prepared.index]] as const) {
+      const fd = openSync(path, "wx");
+      try { writeFileSync(fd, raw); fsyncSync(fd); } finally { closeSync(fd); }
+    }
+    renameSync(tempFile, target);
+    installed = target;
+    syncDirectory(directory);
+    renameSync(tempIndex, index);
+    committed = true;
+    syncDirectory(directory);
+    return { file: target, sha256: prepared.sha256, bytes: prepared.bytes };
+  } catch (error) {
+    if (installed && !committed) { unlinkSync(installed); syncDirectory(directory); }
+    throw error;
+  } finally {
+    for (const path of [tempFile, tempIndex]) if (existsSync(path)) unlinkSync(path);
+    rmdirSync(lock);
+  }
+}
+function syncDirectory(path: string) {
+  const fd = openSync(path, "r");
+  try { fsyncSync(fd); } finally { closeSync(fd); }
 }

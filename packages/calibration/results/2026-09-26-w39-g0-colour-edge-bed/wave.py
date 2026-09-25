@@ -44,6 +44,7 @@ SHAPES = ('capsule', 'capsule-circular', 'rrect')
 # Outputs a probe run may never reach: the canonical fixtures, matrix and capture
 # trees, and the homes of superseded generations (CLAUDE.md, W30 G1, W32 G0b).
 CANONICAL = ['apps/reference-apple/fixtures', 'packages/calibration/results/matrix.json',
+             'packages/calibration/results/generations',
              'packages/calibration/results/superseded', 'packages/calibration/web-captures',
              'packages/calibration/web-captures-superseded']
 
@@ -324,7 +325,18 @@ def refuse_canonical(*paths):
     canonical = [(ROOT / c).resolve() for c in CANONICAL]
     for path in paths:
         resolved = Path(path).resolve()
-        if any(resolved == c or c in resolved.parents or resolved in c.parents for c in canonical):
+        # Resolve names AND filesystem identity: case aliases, symlinked parents
+        # and hardlinked JSON must not turn canonical evidence into scratch.
+        ancestors = [resolved, *resolved.parents]
+        named = any(resolved == c or c in resolved.parents or resolved in c.parents for c in canonical)
+        directory_alias = any(c.exists() and a.exists() and a.samefile(c)
+                              for c in canonical for a in ancestors)
+        files = [c for c in canonical if c.is_file()]
+        for c in canonical:
+            if c.is_dir() and c.parent.name == 'results':
+                files.extend(c.glob('*.json'))
+        file_alias = resolved.is_file() and any(resolved.samefile(c) for c in files)
+        if named or directory_alias or file_alias:
             raise ValueError('wave launcher refuses canonical fixture or output paths: ' + str(path))
 
 

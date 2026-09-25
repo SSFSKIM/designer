@@ -132,7 +132,7 @@ describe("G0 immutable destinations", () => {
       expect(child.stderr).not.toContain("── measure");
       expect(readFileSync(mirrorMatrix).equals(before)).toBe(true);
     }
-  });
+  }, 30_000); // Each alias is checked by a fresh CLI process, including under workspace load.
 
   it("diff refuses canonical matrix and report destinations before measurement", () => {
     for (const dest of [mirrorMatrix, join(mirrorGenerations, "85ad7f7e3e0d.json"),

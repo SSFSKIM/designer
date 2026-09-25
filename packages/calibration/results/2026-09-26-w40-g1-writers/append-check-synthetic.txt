@@ -1,0 +1,16 @@
+unaltered append: PASS
+PASS frozen bytes unchanged; 1 prior generation(s) byte-identical; archive untouched (2 file(s))
+PASS 2 published row(s) exactly match raw stage byte slices by key: 222222222222.json
+frozen mutation: REFUSED
+previous generation mutation: REFUSED
+previous generation removal: REFUSED
+archive mutation: REFUSED
+archive addition: REFUSED
+archive removal: REFUSED
+JSON-equivalent reserialization: REFUSED
+missing staged row: REFUSED
+extra published row: REFUSED
+unindexed publication: REFUSED
+historical alias repoint: REFUSED
+historical index metadata rewrite: REFUSED
+snapshot overwrite: REFUSED

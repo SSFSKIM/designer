@@ -1,0 +1,151 @@
+
+ RUN  v4.1.11 /Users/new/vitrea-w40/g1/packages/calibration
+
+ ❯ test/generation-stage.test.ts (3 tests | 3 failed) 430ms
+   × declares all cells before runs and refuses incomplete publication and redeclaration 107ms
+   × publishes once, preserving row slices, and retires the previous selection without changing its bytes 86ms
+   × refuses altered documents and a colliding unindexed file without touching the index 88ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/generation-stage.test.ts > declares all cells before runs and refuses incomplete publication and redeclaration
+AssertionError:
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/w40-publisher-pcpPKJ/0/packages/calibration/cli/matrix.ts' imported from /private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/w40-publisher-pcpPKJ/0/packages/calibration/
+    at finalizeResolution (node:internal/modules/esm/resolve:271:11)
+    at moduleResolve (node:internal/modules/esm/resolve:865:10)
+    at defaultResolve (node:internal/modules/esm/resolve:992:11)
+    at nextResolve (node:internal/modules/esm/hooks:785:28)
+    at resolveBase (file:///Users/new/vitrea-w40/g1/node_modules/.pnpm/tsx@4.20.6/node_modules/tsx/dist/esm/index.mjs?1790363262056:2:3744)
+    at resolveDirectory (file:///Users/new/vitrea-w40/g1/node_modules/.pnpm/tsx@4.20.6/node_modules/tsx/dist/esm/index.mjs?1790363262056:2:4243)
+    at resolveTsPaths (file:///Users/new/vitrea-w40/g1/node_modules/.pnpm/tsx@4.20.6/node_modules/tsx/dist/esm/index.mjs?1790363262056:2:4984)
+    at resolve (file:///Users/new/vitrea-w40/g1/node_modules/.pnpm/tsx@4.20.6/node_modules/tsx/dist/esm/index.mjs?1790363262056:2:5361)
+    at nextResolve (node:internal/modules/esm/hooks:785:28)
+    at AsyncLoaderHooksOnLoaderHookWorker.resolve (node:internal/modules/esm/hooks:269:30) {
+  code: 'ERR_MODULE_NOT_FOUND',
+  url: 'file:///private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/w40-publisher-pcpPKJ/0/packages/calibration/cli/matrix.ts'
+}
+
+Node.js v24.18.0
+: expected 1 to be +0 // Object.is equality
+
+- Expected
++ Received
+
+- 0
++ 1
+
+ ❯ resolveBase ../../node_modules/.pnpm/tsx@4.20.6/node_modules/tsx/dist/esm/index.mjs?1790363262056:2:3744
+ ❯ resolveDirectory ../../node_modules/.pnpm/tsx@4.20.6/node_modules/tsx/dist/esm/index.mjs?1790363262056:2:4243
+ ❯ resolveTsPaths ../../node_modules/.pnpm/tsx@4.20.6/node_modules/tsx/dist/esm/index.mjs?1790363262056:2:4984
+ ❯ resolve ../../node_modules/.pnpm/tsx@4.20.6/node_modules/tsx/dist/esm/index.mjs?1790363262056:2:5361
+ ❯ declare test/generation-stage.test.ts:55:38
+     53|   const child = run(copy, ["stage", name, "--profile", profile, "--ren…
+     54|     "--set", "calibration,holdout", "--material-profile", "active.json…
+     55|   expect(child.status, child.stderr).toBe(0);
+       |                                      ^
+     56| }
+     57| function fill(copy: string, name = "stage", missing = false) {
+ ❯ test/generation-stage.test.ts:71:24
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  test/generation-stage.test.ts > publishes once, preserving row slices, and retires the previous selection without changing its bytes
+AssertionError:
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/w40-publisher-pcpPKJ/1/packages/calibration/cli/matrix.ts' imported from /private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/w40-publisher-pcpPKJ/1/packages/calibration/
+    at finalizeResolution (node:internal/modules/esm/resolve:271:11)
+    at moduleResolve (node:internal/modules/esm/resolve:865:10)
+    at defaultResolve (node:internal/modules/esm/resolve:992:11)
+    at nextResolve (node:internal/modules/esm/hooks:785:28)
+    at resolveBase (file:///Users/new/vitrea-w40/g1/node_modules/.pnpm/tsx@4.20.6/node_modules/tsx/dist/esm/index.mjs?1790363262148:2:3744)
+    at resolveDirectory (file:///Users/new/vitrea-w40/g1/node_modules/.pnpm/tsx@4.20.6/node_modules/tsx/dist/esm/index.mjs?1790363262148:2:4243)
+    at resolveTsPaths (file:///Users/new/vitrea-w40/g1/node_modules/.pnpm/tsx@4.20.6/node_modules/tsx/dist/esm/index.mjs?1790363262148:2:4984)
+    at resolve (file:///Users/new/vitrea-w40/g1/node_modules/.pnpm/tsx@4.20.6/node_modules/tsx/dist/esm/index.mjs?1790363262148:2:5361)
+    at nextResolve (node:internal/modules/esm/hooks:785:28)
+    at AsyncLoaderHooksOnLoaderHookWorker.resolve (node:internal/modules/esm/hooks:269:30) {
+  code: 'ERR_MODULE_NOT_FOUND',
+  url: 'file:///private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/w40-publisher-pcpPKJ/1/packages/calibration/cli/matrix.ts'
+}
+
+Node.js v24.18.0
+: expected 1 to be +0 // Object.is equality
+
+- Expected
++ Received
+
+- 0
++ 1
+
+ ❯ resolveBase ../../node_modules/.pnpm/tsx@4.20.6/node_modules/tsx/dist/esm/index.mjs?1790363262148:2:3744
+ ❯ resolveDirectory ../../node_modules/.pnpm/tsx@4.20.6/node_modules/tsx/dist/esm/index.mjs?1790363262148:2:4243
+ ❯ resolveTsPaths ../../node_modules/.pnpm/tsx@4.20.6/node_modules/tsx/dist/esm/index.mjs?1790363262148:2:4984
+ ❯ resolve ../../node_modules/.pnpm/tsx@4.20.6/node_modules/tsx/dist/esm/index.mjs?1790363262148:2:5361
+ ❯ declare test/generation-stage.test.ts:55:38
+     53|   const child = run(copy, ["stage", name, "--profile", profile, "--ren…
+     54|     "--set", "calibration,holdout", "--material-profile", "active.json…
+     55|   expect(child.status, child.stderr).toBe(0);
+       |                                      ^
+     56| }
+     57| function fill(copy: string, name = "stage", missing = false) {
+ ❯ test/generation-stage.test.ts:81:24
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  test/generation-stage.test.ts > refuses altered documents and a colliding unindexed file without touching the index
+AssertionError:
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/w40-publisher-pcpPKJ/2/packages/calibration/cli/matrix.ts' imported from /private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/w40-publisher-pcpPKJ/2/packages/calibration/
+    at finalizeResolution (node:internal/modules/esm/resolve:271:11)
+    at moduleResolve (node:internal/modules/esm/resolve:865:10)
+    at defaultResolve (node:internal/modules/esm/resolve:992:11)
+    at nextResolve (node:internal/modules/esm/hooks:785:28)
+    at resolveBase (file:///Users/new/vitrea-w40/g1/node_modules/.pnpm/tsx@4.20.6/node_modules/tsx/dist/esm/index.mjs?1790363262235:2:3744)
+    at resolveDirectory (file:///Users/new/vitrea-w40/g1/node_modules/.pnpm/tsx@4.20.6/node_modules/tsx/dist/esm/index.mjs?1790363262235:2:4243)
+    at resolveTsPaths (file:///Users/new/vitrea-w40/g1/node_modules/.pnpm/tsx@4.20.6/node_modules/tsx/dist/esm/index.mjs?1790363262235:2:4984)
+    at resolve (file:///Users/new/vitrea-w40/g1/node_modules/.pnpm/tsx@4.20.6/node_modules/tsx/dist/esm/index.mjs?1790363262235:2:5361)
+    at nextResolve (node:internal/modules/esm/hooks:785:28)
+    at AsyncLoaderHooksOnLoaderHookWorker.resolve (node:internal/modules/esm/hooks:269:30) {
+  code: 'ERR_MODULE_NOT_FOUND',
+  url: 'file:///private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/w40-publisher-pcpPKJ/2/packages/calibration/cli/matrix.ts'
+}
+
+Node.js v24.18.0
+: expected 1 to be +0 // Object.is equality
+
+- Expected
++ Received
+
+- 0
++ 1
+
+ ❯ resolveBase ../../node_modules/.pnpm/tsx@4.20.6/node_modules/tsx/dist/esm/index.mjs?1790363262235:2:3744
+ ❯ resolveDirectory ../../node_modules/.pnpm/tsx@4.20.6/node_modules/tsx/dist/esm/index.mjs?1790363262235:2:4243
+ ❯ resolveTsPaths ../../node_modules/.pnpm/tsx@4.20.6/node_modules/tsx/dist/esm/index.mjs?1790363262235:2:4984
+ ❯ resolve ../../node_modules/.pnpm/tsx@4.20.6/node_modules/tsx/dist/esm/index.mjs?1790363262235:2:5361
+ ❯ declare test/generation-stage.test.ts:55:38
+     53|   const child = run(copy, ["stage", name, "--profile", profile, "--ren…
+     54|     "--set", "calibration,holdout", "--material-profile", "active.json…
+     55|   expect(child.status, child.stderr).toBe(0);
+       |                                      ^
+     56| }
+     57| function fill(copy: string, name = "stage", missing = false) {
+ ❯ test/generation-stage.test.ts:98:24
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed (3)
+   Start at  04:07:41
+   Duration  671ms (transform 13ms, setup 0ms, import 169ms, tests 430ms, environment 0ms)
+
+undefined
+/Users/new/vitrea-w40/g1/packages/calibration:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/generation-stage.test.ts

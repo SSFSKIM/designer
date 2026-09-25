@@ -2,7 +2,7 @@
  * `compare` — the whole scene matrix, end to end: capture the web side, diff
  * every cell against its native fixture, write one result matrix.
  *
- *   # G0 requires a scratch destination until G1 adds canonical publication
+ *   # Exploration uses scratch; canonical reads declare a stage (see calibration README)
  *   pnpm --filter @vitrea/calibration run compare -- --out-matrix /tmp/vitrea-matrix.json
  *
  *   # one scene, reusing the same scratch matrix
@@ -17,8 +17,8 @@
  * a check on whether the output is evidence:
  *
  *   --write-partial          write a named scratch `--out-matrix` even though
- *                            cells failed. G0 refuses canonical destinations
- *                            until G1's publisher exists.
+ *                            cells failed. Canonical publication is a separate
+ *                            matrix publish <stage> invocation.
  *   --allow-material-free    measure fixtures marked `materialRendered: false`.
  *                            Every number over one of those is web-glass against
  *                            a bare background (Decision Log #26a).
@@ -73,13 +73,13 @@
  * overwrite light-standard — silently, and with plausible numbers, which is the
  * exact failure the scheme keying was introduced to prevent.
  *
- * ## Generation writes in G0
+ * ## Generation writes
  *
  * `results/matrix.json` now holds only the frozen macOS 26.5 rows; current
  * macOS 27 generations live under `results/generations/`. Neither path is a
- * writable output for this CLI until G1 supplies the publisher. Name a separate
- * scratch `--out-matrix` to measure; that file remains an ordinary schema-5
- * matrix. `VITREA_WEB_CAPTURES` independently selects scratch captures.
+ * writable output for a measurement command. Declare with `matrix stage`, measure
+ * with `--stage`, then `matrix publish` once complete. Separate scratch
+ * `--out-matrix` remains an ordinary schema-5 matrix. `VITREA_WEB_CAPTURES` independently selects scratch captures.
  */
 
 import { spawnSync } from "node:child_process";
@@ -101,6 +101,7 @@ import {
 } from "../src/index";
 import { backdropProbeRequested, probeCanonicalOutputRefusal } from "../src/backdrop-probe";
 import { assertScratchDestination } from "../src/matrix-write-guard";
+import { assertStageRun, stageMatrixPath, validateStageRows } from "../src/generation-stage";
 import {
   capturePoseRefusal,
   colourlessTintEvidence,
@@ -278,6 +279,7 @@ interface Options {
   readonly recededProfile: string | undefined;
   readonly webAccessibility: WebAccessibilityMode;
   readonly matrixPath: string;
+  readonly stage: string | undefined;
   /**
    * Compute ratio (iii) of the per-pixel chroma instrument (W31 G0, claims
    * §5.161): `--blurred-chroma-reference`. Off by default because recovering
@@ -378,7 +380,11 @@ function parseOptions(argv: readonly string[]): Options {
     materialProfile: materialProfile === undefined ? undefined : resolve(process.cwd(), materialProfile),
     recededProfile: recededProfile === undefined ? undefined : resolve(process.cwd(), recededProfile),
     webAccessibility,
-    matrixPath: resolve(PACKAGE_ROOT, flag("out-matrix") ?? "results/matrix.json"),
+    stage: flag("stage") === undefined ? undefined : resolve(flag("stage")!),
+    matrixPath: flag("stage") === undefined
+      ? resolve(PACKAGE_ROOT, flag("out-matrix") ?? "results/matrix.json")
+      : stageMatrixPath(flag("stage")!, flag("out-matrix") === undefined
+        ? undefined : resolve(PACKAGE_ROOT, flag("out-matrix")!)),
     silhouetteThreshold: Number(flag("silhouette-threshold") ?? `${DEFAULT_SILHOUETTE_THRESHOLD}`),
     silhouetteChromaThreshold: Number(
       flag("silhouette-chroma-threshold") ?? `${DEFAULT_SILHOUETTE_CHROMA_THRESHOLD}`,
@@ -638,9 +644,10 @@ class Absences {
 
 function main(): void {
   const options = parseOptions(process.argv.slice(2));
-  // G0 has no publisher: reject even a named or symlinked canonical destination
-  // before reading fixtures or launching a capture. G1 will replace this route.
+  // Measurement stays scratch-only. Publication is the separate guarded verb,
+  // so reject canonical destinations before reading fixtures or capturing.
   assertScratchDestination(options.matrixPath);
+  if (options.stage) assertStageRun(options.stage, options);
   const spec = readJson<SceneSpec>(SCENES);
   const manifest = readJson<Manifest>(resolve(FIXTURES, "manifest.json"));
   // The same file, projected onto the geometry the instrument bounds its search
@@ -855,6 +862,7 @@ function main(): void {
   // and only a whole run may replace it.
   const writeMatrix = shouldWriteMatrix(failures.length, options.writePartial);
   if (writeMatrix) {
+    if (options.stage) validateStageRows(options.stage, [...matrix.cells.values()]);
     mkdirSync(dirname(options.matrixPath), { recursive: true });
     writeFileSync(options.matrixPath, `${serializeResultMatrix(matrix, { pretty: true })}\n`);
     process.stderr.write(`matrix → ${options.matrixPath} (${matrix.cells.size} cell(s) total)\n`);

@@ -1,0 +1,39 @@
+
+ RUN  v4.1.11 /Users/new/vitrea-w40/g1/packages/calibration
+
+ ❯ test/generation-stage.test.ts (8 tests | 1 failed | 7 skipped) 221ms
+   × refuses canonical generation-index output in the W39 wave launcher itself 61ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/generation-stage.test.ts > refuses canonical generation-index output in the W39 wave launcher itself
+AssertionError: Traceback (most recent call last):
+  File "<string>", line 7, in <module>
+AssertionError: canonical index was admitted
+: expected 1 to be +0 // Object.is equality
+
+- Expected
++ Received
+
+- 0
++ 1
+
+ ❯ test/generation-stage.test.ts:186:38
+    184| else: raise AssertionError('canonical index was admitted')
+    185| `], { encoding: "utf8" });
+    186|   expect(child.status, child.stderr).toBe(0);
+       |                                      ^
+    187|   expect(child.stdout).toContain("refuses canonical");
+    188| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 7 skipped (8)
+   Start at  04:14:10
+   Duration  503ms (transform 17ms, setup 0ms, import 193ms, tests 221ms, environment 0ms)
+
+undefined
+/Users/new/vitrea-w40/g1/packages/calibration:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/generation-stage.test.ts -t 'W39 wave'

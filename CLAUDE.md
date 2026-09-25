@@ -61,13 +61,41 @@ Plugin: `node --test skills/designer/scripts/*.test.mjs` and `claude plugin vali
 Calibration (the fidelity harness, `packages/calibration`):
 
 ```bash
-pnpm --filter @vitrea/calibration run compare -- --scene photo__rrect-md__rest
-pnpm --filter @vitrea/calibration run compare -- --profile apple-macos-27.0-1x-light-standard-glass0.5 \
-  --material-profile profiles/apple-macos-27.0-1x-light-standard-glass0.5.json \
-  --receded-profile profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json \
-  --renderer webgpu --set calibration,validation --write-partial
-pnpm --filter @vitrea/calibration run compare -- --set holdout    # once per frozen configuration
+# Run from packages/calibration; declare the complete LIGHT generation before any read.
+# Use the newly sealed documents, never change them inside an existing stage.
+STAGE=/tmp/vitrea-light-seal
+PROFILES=apple-macos-27.0-1x-light-standard-glass0.5,apple-macos-27.0-2x-light-standard-glass0.5,apple-macos-27.0-1x-light-reduced-transparency-glass0.5,apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5
+ACTIVE=profiles/apple-macos-27.0-1x-light-standard-glass0.5.json
+RECEDED=profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json
+pnpm run matrix -- stage "$STAGE" --profile "$PROFILES" --renderer webgpu,css \
+  --set calibration,validation,holdout,recorded,probe \
+  --material-profile "$ACTIVE" --receded-profile "$RECEDED"
+# A single-scene diagnosis is scratch, not an attempted canonical publication.
+pnpm run compare -- --stage "$STAGE" --profile "$PROFILES" --scene photo__rrect-md__rest \
+  --material-profile "$ACTIVE" --receded-profile "$RECEDED"
+for tier in webgpu css; do
+  pnpm run compare -- --stage "$STAGE" --profile "$PROFILES" --renderer "$tier" \
+    --material-profile "$ACTIVE" --receded-profile "$RECEDED" \
+    --set calibration,validation,recorded,probe --write-partial
+done
+# After the configuration is frozen, read holdout once per tier into the SAME stage.
+for tier in webgpu css; do
+  pnpm run compare -- --stage "$STAGE" --profile "$PROFILES" --renderer "$tier" \
+    --material-profile "$ACTIVE" --receded-profile "$RECEDED" --set holdout
+done
+pnpm run matrix -- status "$STAGE"
+pnpm run matrix -- publish "$STAGE"   # one act, only after all declared cells are present
 ```
+
+Declare a separate dark stage with the two dark profiles and dark document pair. A stage
+contains one active/receded pair and the full profile membership of the generation it replaces.
+The declared sets above retain the current bed's recorded/probe rows as well as the gated sets;
+no wave-owned probe matrix or fixture override is admitted. An ordinary exploratory
+`--out-matrix /tmp/exploration.json` remains available outside this publication path.
+`--write-partial` writes successful rows only to scratch and still exits 1 on failures; repair
+and rerun there. `status` reports missing cells; `publish` refuses any hole, changed document,
+existing key, generation identity or filename collision. Never publish calibration/validation
+then append holdout: a published file accepts no later row, even under a new stage name.
 
 `--renderer` is one tier per run; `--set` defaults to `calibration,validation` and holdout membership
 is read from `apps/reference-apple/scenes.json`, never named in code. `--material-profile` also
@@ -76,8 +104,9 @@ own `profileKey`: the web page refuses a token the runtime ships no material for
 26.5 patch composed over the macOS 27 base is neither material. `--receded-profile` poses the run's
 `__inactive` scenes with a CANDIDATE document and pins the root active; omit it and the root poses
 itself and applies the receded endpoint of the document it selected. `--out-matrix` and the
-`VITREA_WEB_CAPTURES` env redirect output to scratch; the canonical `results/matrix.json` is
-committed evidence, and the canonical `web-captures/` beside it is gitignored — it lives on the
+`VITREA_WEB_CAPTURES` env redirect output to scratch; `--stage` selects that stage's
+`matrix.json` (an explicit `--out-matrix` must name that exact file). The canonical frozen
+file and indexed generations are committed evidence, and the canonical `web-captures/` beside it is gitignored — it lives on the
 capture machine and is what the sheets and the demo fixture are copied from.
 
 **And a capture tree is only that if somebody copies it there.** That last sentence was false from
@@ -119,12 +148,22 @@ generation across both indexes, refusing an ambiguous document alias. Its Python
 `results/2026-09-26-w40-g0-generations/matrix_store.py`. A streaming legacy-envelope digest keeps
 historical whole-matrix SHA witnesses checkable without regenerating a monolithic file.
 
-**Canonical publication is G1's, not implemented in G0.** `compare` refuses its default and any
-explicit authoritative destination; `diff --matrix` refuses the frozen file and generation
-files; the old splitter's `apply` refuses once `generations/index.json` exists. Each refusal
-names G1's publisher. Use an explicitly separate scratch `--out-matrix` (including for
-`--write-partial`); `VITREA_MATRIX_PATH` remains a single schema-5 JSON reader override.
-The old split `plan`/`apply` recipe belongs to pre-W40 revisions, not the new layout.
+**Canonical publication is `matrix publish <stage>` (W40 G1, §5.190).** It validates the complete
+declaration, writes a new immutable file and changes only the generation index's current
+selection/status, retaining every old alias owner. There is no `retire` verb: publishing retires
+the prior generation in the index without touching its file. `compare`'s default and explicit
+authoritative destinations, `diff --matrix`, and the old splitter's `apply` still refuse.
+`diff --stage <dir>` can contribute a measured cell under the same declaration checks.
+`VITREA_MATRIX_PATH` remains a single schema-5 JSON reader override, never a publication input.
+The old split `plan`/`apply` recipe belongs to pre-W40 revisions. The new byte witness is
+`results/2026-09-26-w40-g1-writers/append-check.py`.
+
+Publication fsyncs temporary files, installs the generation and renames the index last under
+an exclusive lock. A caught pre-commit failure removes the new unindexed file; prior evidence
+stays unchanged. A process crash can leave a complete unindexed orphan and a stale lock:
+inspect these before cleanup/retry, never append to or silently reseal the file. A failure after
+the index rename is a committed publication with a durability error, not permission to retry
+as a new generation. Copy and verify the capture tree at the seal merge as before.
 
 Never delete or regenerate the frozen file: the unchanged
 `results/2026-09-16-w29-freeze/freeze.py verify` checks 1,818 entries including its rows.

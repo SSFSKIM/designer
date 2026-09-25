@@ -1,0 +1,34 @@
+Disposable-copy canonical light declaration with capture-compatible paths; without capture or publication: exit 0
+{
+  "schemaVersion": 1,
+  "profiles": [
+    "apple-macos-27.0-1x-light-standard-glass0.5",
+    "apple-macos-27.0-2x-light-standard-glass0.5",
+    "apple-macos-27.0-1x-light-reduced-transparency-glass0.5",
+    "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5"
+  ],
+  "tiers": [
+    "webgpu",
+    "css"
+  ],
+  "sets": [
+    "calibration",
+    "validation",
+    "holdout",
+    "recorded",
+    "probe"
+  ],
+  "active": {
+    "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json",
+    "sha256": "85ad7f7e3e0d"
+  },
+  "receded": {
+    "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json",
+    "sha256": "30fbe05986ae"
+  }
+}
+{
+  "declared": 780,
+  "present": 0,
+  "missing": 780
+}

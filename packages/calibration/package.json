@@ -22,6 +22,7 @@
     "test": "vitest run",
     "diff": "tsx cli/diff.ts",
     "compare": "tsx cli/compare.ts",
+    "matrix": "tsx cli/matrix.ts",
     "tier-delta": "tsx cli/tier-delta.ts",
     "capture:web": "tsx scripts/capture-web.ts",
     "check-capture-tree": "tsx scripts/check-capture-tree.ts",
