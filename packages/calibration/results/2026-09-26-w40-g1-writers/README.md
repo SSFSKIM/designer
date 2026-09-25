@@ -102,3 +102,34 @@ not this indexed layout. The freeze verifier claims unchanged frozen evidence an
 creates no captures. G0's evidence remains its historical account of the then-closed writer.
 No browser, native capture, material fit, holdout measurement, golden, bound or floor moved.
 Independent review and merge belong to the parent.
+
+## Independent-review corrections (2026-09-26)
+
+The review of `92a6503b` reproduced two findings; these corrections are recorded beside the
+original evidence, without replacing any original result or pin.
+
+- **P1 — identical active/receded document identities.** A stage previously accepted the same
+  document in both roles, including separate paths with byte-identical contents. Publication
+  then created an index entry that the store refused to read. Membership now requires distinct
+  active/receded hashes, before stage creation and again when reading an edited declaration.
+  Regressions cover both argument forms and an edited stage after a valid prior publication;
+  refusal leaves the prior generation bytes and index unchanged and creates no invalid stage.
+- **P2 — external aliases of the frozen matrix.** The capture checker previously derived its
+  store directory from the supplied filename, so an external symlink/hardlink omitted current
+  macOS 27 generations. It now checks G0's `sameFilesystemFile` identity before choosing the
+  directory. Ordinary scratch matrices and direct disposable-store paths retain their behavior.
+  Tests cover both external aliases, retain current-generation rows and expose a deliberately
+  mismatching capture instead of downgrading it to no-row.
+
+Correction evidence: `review-build.txt`, `review-lint.txt`, `review-test.txt` run the calibration
+package in the disposable full repository copy; `review-append-check.txt` and
+`review-publisher-demo.txt` rerun the two Python demonstrations. `review-freeze.txt` reports
+1,818 intact entries. `review-capture-tree.txt` records the real canonical tree, and
+`review-capture-aliases.txt` repeats that read through external symlink and hardlink aliases of
+the disposable copy's frozen matrix: **both retain 1,893 matches, seven no-row, exit 0**.
+No real generation, frozen evidence, archive, capture or recorded document digest changed.
+
+Correction verification: calibration build and lint pass; 58 files, 760 tests pass, one existing
+capture-dependent skip. Both Python demonstrations pass; freeze 1,818; canonical tree and both
+external aliases retain 1,893 matches / seven no-row, exit 0; 248 protected readings remain
+unchanged.

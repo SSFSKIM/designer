@@ -88,6 +88,7 @@
  *   tree does not: a partial tree is the normal state of a machine that has run one gate.
  */
 import { loadCurrentRows } from "../src/matrix-store";
+import { sameFilesystemFile } from "../src/matrix-write-guard";
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { dirname, resolve, sep } from "node:path";
 
@@ -252,7 +253,8 @@ export function checkCaptureTree(options: {
     };
   }
 
-  const resultsDir = dirname(options.matrixPath);
+  const resultsDir = sameFilesystemFile(options.matrixPath, MATRIX)
+    ? dirname(MATRIX) : dirname(options.matrixPath);
   const matrix = { cells: loadCurrentRows({ resultsDir, matrixPath: options.matrixPath }) };
   const rows = new Map<string, Row>();
   const generations = new Map<string, string[][]>();

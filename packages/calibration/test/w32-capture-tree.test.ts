@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { mkdirSync, mkdtempSync, readFileSync, symlinkSync, writeFileSync } from "node:fs";
+import { linkSync, mkdirSync, mkdtempSync, readFileSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
@@ -488,6 +488,45 @@ describe("the capture tree against the working matrix (claims §5.167)", () => {
     expect(dangling.findings.find((f) => f.verdict === "unreadable")?.note)
       .toContain("apple-macos-27.0-1x-dangling");
     expect(dangling.exitCode).toBe(1);
+  });
+
+  it("loads current macOS 27 rows through external symlink and hardlink matrix aliases", () => {
+    const source = resolve(PACKAGE_ROOT, "results/matrix.json");
+    const index = JSON.parse(readFileSync(resolve(PACKAGE_ROOT,
+      "results/generations/index.json"), "utf8"));
+    const generation = JSON.parse(readFileSync(resolve(PACKAGE_ROOT,
+      "results/generations", index.currentByProfile[LIGHT]), "utf8"));
+    const row = generation.cells.find((cell: { key: { profileKey: string; sceneId: string;
+      web: { renderer: string } } }) => cell.key.profileKey === LIGHT &&
+        cell.key.sceneId === "photo__rrect-md__rest" && cell.key.web.renderer === "webgpu");
+    expect(row).toBeDefined();
+    const activeHash = row.key.web.capturePath.match(/materialProfile=\S+ sha256:([0-9a-f]{12})/)?.[1];
+    expect(activeHash).toMatch(/^[0-9a-f]{12}$/);
+    const wrongHash = activeHash === "eeeeeeeeeeee" ? "ffffffffffff" : "eeeeeeeeeeee";
+    const root = mkdtempSync(join(tmpdir(), "w40-matrix-alias-"));
+    try {
+      const tree = join(root, "web-captures");
+      mkdirSync(join(tree, LIGHT, row.key.sceneId), { recursive: true });
+      writeFileSync(join(tree, LIGHT, row.key.sceneId, "cell__webgpu.json"), JSON.stringify({
+        sceneId: row.key.sceneId, renderer: "webgpu",
+        capturePath: row.key.web.capturePath.replace(`sha256:${activeHash}`, `sha256:${wrongHash}`),
+      }));
+      for (const [name, alias] of [["symlink", symlinkSync], ["hardlink", linkSync]] as const) {
+        const matrixPath = join(root, `${name}.json`);
+        alias(source, matrixPath);
+        const report = checkCaptureTree({ tree, matrixPath,
+          supersededIndexPath: resolve(PACKAGE_ROOT, "results/superseded/index.json"),
+          supersededOk: false });
+        expect(report.matrixGenerations.has(`${LIGHT}\0webgpu\0`), name).toBe(true);
+        expect(report.rowsWithoutCapture.get(`${LIGHT}\0webgpu\0`)?.length, name)
+          .toBeGreaterThan(0);
+        expect(report.findings.map((f) => f.verdict), name).toEqual(["mismatch"]);
+        expect(report.findings[0]?.row, name).toContain(`${LIGHT}.json ${activeHash}`);
+        expect(report.exitCode, name).toBe(1);
+      }
+    } finally {
+      rmSync(root, { recursive: true, force: true });
+    }
   });
 
   it("parses the committed matrix and superseded index, as the merge gate will", () => {

@@ -39230,3 +39230,39 @@ No browser run, material change, fixture, golden, adopted bound, floor, native c
 new holdout reading or real publication was performed. No published generation or archive
 file was rewritten. Independent review and merge remain the parent's next gate; publishing
 the conditional W39 G3 read is later work under its own seal, not an implicit action here.
+
+### 6. Independent-review corrections, beside the original evidence (2026-09-26)
+
+The independent review of `92a6503b` returned “merge after fixes” with one P1 and one P2,
+both reproduced. No original reading, digest or verification result above is rewritten.
+
+**P1: equal document roles could publish an unreadable index.** The initial stage accepted
+the same file, or two byte-identical files, as active and receded. Its successful publication
+then left two occurrences of the active hash in the index entry, violating the reader's
+one-active-document rule. Membership now refuses equal role hashes before creating a stage
+and again when reading an edited declaration for publication. Tests cover both equal-input
+forms and a manipulated declaration following a valid synthetic publication; the failed
+operation preserves the existing generation's bytes and index and creates no invalid stage.
+This is a fail-closed boundary fix, not permission to repair an already published file.
+
+**P2: capture checking through an external alias lost current rows.** Deriving `resultsDir`
+from the requested filename made an external symlink/hardlink to the frozen matrix look like
+standalone scratch. The review reproduced 1,107 matches and 793 no-row captures instead of
+1,893 / seven, both reporting exit 0. The checker now applies G0's filesystem-identity
+predicate before selecting the canonical results directory, preserving normal scratch and
+disposable-store behavior. Regressions through both alias types retain macOS 27 rows and
+report a deliberately mismatching capture as mismatch/exit 1, not no-row/exit 0.
+
+The post-fix read of the real tree remains **1,893 matches, seven no-row, zero mismatches,
+exit 0**. Reads through symlink and hardlink aliases of the disposable copy's frozen file
+both reproduce **1,893 / seven, exit 0** (`review-capture-tree.txt`,
+`review-capture-aliases.txt`). The two Python demonstrations pass again
+(`review-append-check.txt`, `review-publisher-demo.txt`), and the unchanged freeze verifier
+still reports **1,818 intact entries** (`review-freeze.txt`). Calibration build/lint/test
+correction logs are separate `review-*.txt` files in the G1 evidence directory. No real
+publication, evidence rewrite, browser run, merge or push is part of these corrections.
+
+Correction verification: calibration build and lint pass; 58 files, 760 tests pass, one existing
+capture-dependent skip. Both Python demonstrations pass; freeze 1,818; canonical tree and both
+external aliases retain 1,893 matches / seven no-row, exit 0; 248 protected readings remain
+unchanged.

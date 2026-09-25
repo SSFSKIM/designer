@@ -30,6 +30,11 @@ function document(path: string): Document {
   return { path: shown.startsWith("..") ? absolute : shown,
     sha256: sha(readFileSync(absolute)).slice(0, 12) };
 }
+function distinctRoles(active: Document, receded?: Document): void {
+  if (receded && active.sha256 === receded.sha256) {
+    fail("active and receded document hashes must be distinct");
+  }
+}
 function unique(values: readonly string[], label: string) {
   if (!values.length || new Set(values).size !== values.length || values.some((s) => !s)) {
     fail(`declare nonempty unique ${label}`);
@@ -69,9 +74,12 @@ export function createStage(directory: string, options: {
   assertScratchDestination(join(path, "matrix.json"));
   if (existsSync(path)) fail("stage already exists; membership cannot be redeclared");
   const cells = declaredCells(options);
+  const active = document(options.active);
+  const receded = options.receded ? document(options.receded) : undefined;
+  distinctRoles(active, receded);
   const membership: Membership = { schemaVersion: 1, profiles: options.profiles,
-    tiers: options.tiers, sets: options.sets, active: document(options.active),
-    ...(options.receded ? { receded: document(options.receded) } : {}), cells };
+    tiers: options.tiers, sets: options.sets, active,
+    ...(receded ? { receded } : {}), cells };
   mkdirSync(path, { recursive: true });
   writeFileSync(join(path, "membership.json"), `${JSON.stringify(membership, null, 2)}\n`, { flag: "wx" });
   return membership;
@@ -81,6 +89,7 @@ export function readMembership(directory: string): Membership {
   assertScratchDestination(path);
   const m = json(path) as Membership;
   if (m.schemaVersion !== 1 || !Array.isArray(m.cells) || !m.cells.length) fail("invalid membership");
+  distinctRoles(m.active, m.receded);
   const expected = declaredCells(m);
   if (JSON.stringify(m.cells.map(memberKey).sort()) !== JSON.stringify(expected.map(memberKey).sort())) {
     fail("declared cells differ from canonical profile, tier and set membership");

@@ -125,6 +125,53 @@ it("uses an absolute capture label for a document outside the repository", () =>
   expect(status.status, status.stderr).toBe(0);
   expect(JSON.parse(status.stdout).present).toBe(1);
 });
+it("refuses equal active and receded document hashes before creating a stage", () => {
+  for (const receded of ["active.json", "identical.json"]) {
+    const copy = repo();
+    if (receded !== "active.json") cpSync(join(copy, "active.json"), join(copy, receded));
+    const index = readFileSync(join(copy, "results/generations/index.json"));
+    const matrix = readFileSync(join(copy, "results/matrix.json"));
+    const child = run(copy, ["stage", "stage", "--profile", profile, "--renderer", "webgpu",
+      "--set", "calibration", "--material-profile", "active.json", "--receded-profile", receded]);
+    expect(child.status).toBe(1);
+    expect(child.stderr).toMatch(/active and receded.*distinct/i);
+    expect(existsSync(join(copy, "stage"))).toBe(false);
+    expect(readFileSync(join(copy, "results/generations/index.json"))).toEqual(index);
+    expect(readFileSync(join(copy, "results/matrix.json"))).toEqual(matrix);
+    expect(readdirSync(join(copy, "results/generations"))).toEqual(["index.json"]);
+  }
+});
+it("refuses an edited membership with equal role hashes without altering prior evidence", () => {
+  const copy = repo(); declare(copy); const first = fill(copy);
+  const published = run(copy, ["publish", "stage"]);
+  expect(published.status, published.stderr).toBe(0);
+  const priorPath = join(copy, `results/generations/${first}.json`);
+  const prior = readFileSync(priorPath);
+  const index = readFileSync(join(copy, "results/generations/index.json"));
+
+  writeFileSync(join(copy, "active-next.json"), '{"candidate":2}\n');
+  const next = digest(readFileSync(join(copy, "active-next.json"))).slice(0, 12);
+  const declaration = run(copy, ["stage", "next", "--profile", profile,
+    "--renderer", "webgpu,css", "--set", "calibration,holdout",
+    "--material-profile", "active-next.json"]);
+  expect(declaration.status, declaration.stderr).toBe(0);
+  fill(copy, "next");
+  const rowsPath = join(copy, "next/matrix.json");
+  writeFileSync(rowsPath, readFileSync(rowsPath, "utf8").replaceAll(
+    `active.json sha256:${first}`, `active-next.json sha256:${next}`));
+  cpSync(join(copy, "active-next.json"), join(copy, "identical.json"));
+  const membershipPath = join(copy, "next/membership.json");
+  const membership = JSON.parse(readFileSync(membershipPath, "utf8"));
+  membership.receded = { path: "packages/calibration/identical.json", sha256: next };
+  writeFileSync(membershipPath, JSON.stringify(membership));
+
+  const child = run(copy, ["publish", "next"]);
+  expect(child.status).toBe(1);
+  expect(child.stderr).toMatch(/active and receded.*distinct/i);
+  expect(readFileSync(priorPath)).toEqual(prior);
+  expect(readFileSync(join(copy, "results/generations/index.json"))).toEqual(index);
+  expect(readdirSync(join(copy, "results/generations")).sort()).toEqual([`${first}.json`, "index.json"]);
+});
 it("declares all cells before runs and refuses incomplete publication and redeclaration", () => {
   const copy = repo(); declare(copy);
   expect(run(copy, ["stage", "stage", "--profile", profile]).status).toBe(1);

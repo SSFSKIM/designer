@@ -1,0 +1,77 @@
+$ tsx scripts/check-capture-tree.ts
+== the canonical capture tree against the working matrix (W32 G0b; claims §5.167) ==
+  tree              /Users/new/Developer/GitHub/designer/packages/calibration/web-captures
+  --superseded-ok   off
+
+  apple-macos-26.5-1x-dark-standard   [FROZEN — macOS 26.5, contract X1]
+    css     captures  110  match  110  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-26.5-1x-dark-standard.json 950ce1c3e917
+    webgpu  captures  110  match  109  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   1  rows-with-no-capture    0
+            matrix generation: apple-macos-26.5-1x-dark-standard.json 950ce1c3e917
+            no row for this capture: dark-solid__rrect-48__rest
+  apple-macos-26.5-1x-light-increased-contrast   [FROZEN — macOS 26.5, contract X1]
+    css     captures   28  match   27  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   1  rows-with-no-capture    0
+            matrix generation: apple-macos-26.5-1x-light-standard.json 6a9600720477
+            no row for this capture: hc-text__capsule-button__rest
+    webgpu  captures   28  match   28  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-26.5-1x-light-standard.json 6a9600720477
+  apple-macos-26.5-1x-light-reduced-transparency   [FROZEN — macOS 26.5, contract X1]
+    css     captures   26  match   26  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-26.5-1x-light-standard.json 6a9600720477
+    webgpu  captures   26  match   26  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-26.5-1x-light-standard.json 6a9600720477
+  apple-macos-26.5-1x-light-standard   [FROZEN — macOS 26.5, contract X1]
+    css     captures  142  match  141  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   1  rows-with-no-capture    0
+            matrix generation: apple-macos-26.5-1x-light-standard.json 6a9600720477
+            no row for this capture: checkerboard-64__rrect-sm__rest
+    webgpu  captures  142  match  140  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   2  rows-with-no-capture    0
+            matrix generation: apple-macos-26.5-1x-light-standard.json 6a9600720477
+            no row for this capture: checkerboard-64__rrect-sm__rest
+            no row for this capture: dark-solid__rrect-48__rest
+  apple-macos-26.5-2x-dark-standard   [FROZEN — macOS 26.5, contract X1]
+    css     captures  109  match  109  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-26.5-1x-dark-standard.json 950ce1c3e917
+    webgpu  captures  109  match  109  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-26.5-1x-dark-standard.json 950ce1c3e917
+  apple-macos-26.5-2x-light-standard   [FROZEN — macOS 26.5, contract X1]
+    css     captures  142  match  141  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   1  rows-with-no-capture    0
+            matrix generation: apple-macos-26.5-1x-light-standard.json 6a9600720477
+            no row for this capture: checkerboard-64__rrect-sm__rest
+    webgpu  captures  142  match  141  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   1  rows-with-no-capture    0
+            matrix generation: apple-macos-26.5-1x-light-standard.json 6a9600720477
+            no row for this capture: checkerboard-64__rrect-sm__rest
+  apple-macos-27.0-1x-dark-standard-glass0.5
+    css     captures   83  match   83  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-dark-standard-glass0.5-receded.json 5cec8c961201 + apple-macos-27.0-1x-dark-standard-glass0.5.json 0eac5b294cc2
+    webgpu  captures   83  match   83  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-dark-standard-glass0.5-receded.json 5cec8c961201 + apple-macos-27.0-1x-dark-standard-glass0.5.json 0eac5b294cc2
+  apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5
+    css     captures   18  match   18  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-light-standard-glass0.5-receded.json 30fbe05986ae + apple-macos-27.0-1x-light-standard-glass0.5.json 85ad7f7e3e0d
+    webgpu  captures   18  match   18  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-light-standard-glass0.5-receded.json 30fbe05986ae + apple-macos-27.0-1x-light-standard-glass0.5.json 85ad7f7e3e0d
+  apple-macos-27.0-1x-light-reduced-transparency-glass0.5
+    css     captures   16  match   16  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-light-standard-glass0.5-receded.json 30fbe05986ae + apple-macos-27.0-1x-light-standard-glass0.5.json 85ad7f7e3e0d
+    webgpu  captures   16  match   16  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-light-standard-glass0.5-receded.json 30fbe05986ae + apple-macos-27.0-1x-light-standard-glass0.5.json 85ad7f7e3e0d
+  apple-macos-27.0-1x-light-standard-glass0.5
+    css     captures  124  match  124  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-light-standard-glass0.5-receded.json 30fbe05986ae + apple-macos-27.0-1x-light-standard-glass0.5.json 85ad7f7e3e0d
+    webgpu  captures  124  match  124  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-light-standard-glass0.5-receded.json 30fbe05986ae + apple-macos-27.0-1x-light-standard-glass0.5.json 85ad7f7e3e0d
+  apple-macos-27.0-2x-dark-standard-glass0.5
+    css     captures   28  match   28  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-dark-standard-glass0.5-receded.json 5cec8c961201 + apple-macos-27.0-1x-dark-standard-glass0.5.json 0eac5b294cc2
+    webgpu  captures   83  match   83  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-dark-standard-glass0.5-receded.json 5cec8c961201 + apple-macos-27.0-1x-dark-standard-glass0.5.json 0eac5b294cc2
+  apple-macos-27.0-2x-light-standard-glass0.5
+    css     captures   69  match   69  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-light-standard-glass0.5-receded.json 30fbe05986ae + apple-macos-27.0-1x-light-standard-glass0.5.json 85ad7f7e3e0d
+    webgpu  captures  124  match  124  mismatch   0  misfiled   0  superseded   0  unreadable   0  no-row   0  rows-with-no-capture    0
+            matrix generation: apple-macos-27.0-1x-light-standard-glass0.5-receded.json 30fbe05986ae + apple-macos-27.0-1x-light-standard-glass0.5.json 85ad7f7e3e0d
+
+  totals   captures 1900  match 1893  mismatch 0  misfiled 0  superseded 0  unreadable 0  no-row 7
+  VERDICT  the tree and the working matrix name the same generation everywhere they meet.
+
+exit=0
