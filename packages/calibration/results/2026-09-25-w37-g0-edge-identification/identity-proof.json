@@ -1,0 +1,278 @@
+{
+  "declaration": {
+    "wave": "W37",
+    "gate": {
+      "bodyEdgeStrength": 0
+    },
+    "gated": [
+      "bodyEdgeLineWidth",
+      "bodyEdgeShoulderWidth",
+      "bodyEdgeShoulderShare",
+      "bodyEdgeExponent",
+      "bodyEdgeLumaIntercept",
+      "bodyEdgeLumaSlope",
+      "bodyEdgeChromaGain",
+      "bodyEdgeChromaSlope",
+      "bodyEdgeIsotropicKeep"
+    ],
+    "law": "At gate 0 execute the complete old boundary treatment. At gate 1 replace, not stack; only gpu-texture is identified. Neither tested family closes; no runtime nomination.",
+    "inertLawCase": "G1: renderer-webgpu/test/w37-body-edge.test.ts — zero gate preserves old boundary at every gated leaf; GPU/CSS drawn identity and unsampled-backend invariance",
+    "literalIdentity": "expect(DEFAULT_MATERIAL_PROFILE.bodyEdgeStrength).toBe(0); append to calibration/test/w31-identity-table.test.ts; explicit zero in both receded differences"
+  },
+  "rows": [
+    {
+      "name": "apple-macos-26.5-1x-light-standard",
+      "recorded": "b2b570e4adcea8fb",
+      "before": "b2b570e4adcea8fb",
+      "checks": [
+        {
+          "gatedSweepValue": -10,
+          "identity": "b2b570e4adcea8fb",
+          "nonzero": "2157a390e9561983"
+        },
+        {
+          "gatedSweepValue": 0,
+          "identity": "b2b570e4adcea8fb",
+          "nonzero": "67349e76490f8cb6"
+        },
+        {
+          "gatedSweepValue": 0.001,
+          "identity": "b2b570e4adcea8fb",
+          "nonzero": "ed3c75c98f65e125"
+        },
+        {
+          "gatedSweepValue": 0.1,
+          "identity": "b2b570e4adcea8fb",
+          "nonzero": "a246cf51abe46818"
+        },
+        {
+          "gatedSweepValue": 0.5,
+          "identity": "b2b570e4adcea8fb",
+          "nonzero": "8deac77a684a8434"
+        },
+        {
+          "gatedSweepValue": 1,
+          "identity": "b2b570e4adcea8fb",
+          "nonzero": "55e367b891af5f77"
+        },
+        {
+          "gatedSweepValue": 10,
+          "identity": "b2b570e4adcea8fb",
+          "nonzero": "9101ab8664a8c712"
+        }
+      ]
+    },
+    {
+      "name": "apple-macos-26.5-1x-dark-standard",
+      "recorded": "874be66ea501621b",
+      "before": "874be66ea501621b",
+      "checks": [
+        {
+          "gatedSweepValue": -10,
+          "identity": "874be66ea501621b",
+          "nonzero": "d56a9775fb580975"
+        },
+        {
+          "gatedSweepValue": 0,
+          "identity": "874be66ea501621b",
+          "nonzero": "1210953547ba7620"
+        },
+        {
+          "gatedSweepValue": 0.001,
+          "identity": "874be66ea501621b",
+          "nonzero": "67a6bf84ba158c44"
+        },
+        {
+          "gatedSweepValue": 0.1,
+          "identity": "874be66ea501621b",
+          "nonzero": "499bb9ca6d84152e"
+        },
+        {
+          "gatedSweepValue": 0.5,
+          "identity": "874be66ea501621b",
+          "nonzero": "7834abd5033aa76b"
+        },
+        {
+          "gatedSweepValue": 1,
+          "identity": "874be66ea501621b",
+          "nonzero": "78b22e25d4a6af62"
+        },
+        {
+          "gatedSweepValue": 10,
+          "identity": "874be66ea501621b",
+          "nonzero": "ca5dafd7fba9312b"
+        }
+      ]
+    },
+    {
+      "name": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "recorded": "be13dae45098fc89",
+      "before": "be13dae45098fc89",
+      "checks": [
+        {
+          "gatedSweepValue": -10,
+          "identity": "be13dae45098fc89",
+          "nonzero": "c2b02172ff2264a7"
+        },
+        {
+          "gatedSweepValue": 0,
+          "identity": "be13dae45098fc89",
+          "nonzero": "1fa2f3af7a5f8089"
+        },
+        {
+          "gatedSweepValue": 0.001,
+          "identity": "be13dae45098fc89",
+          "nonzero": "6443b259bee7a3d7"
+        },
+        {
+          "gatedSweepValue": 0.1,
+          "identity": "be13dae45098fc89",
+          "nonzero": "c7d3f4b70545f5ff"
+        },
+        {
+          "gatedSweepValue": 0.5,
+          "identity": "be13dae45098fc89",
+          "nonzero": "1035b179183c8797"
+        },
+        {
+          "gatedSweepValue": 1,
+          "identity": "be13dae45098fc89",
+          "nonzero": "fc1b34809c593292"
+        },
+        {
+          "gatedSweepValue": 10,
+          "identity": "be13dae45098fc89",
+          "nonzero": "fa2223f26a60f4b9"
+        }
+      ]
+    },
+    {
+      "name": "apple-macos-27.0-1x-light-standard-glass0.5-receded",
+      "recorded": "b0d0d8dacc6a03af",
+      "before": "b0d0d8dacc6a03af",
+      "checks": [
+        {
+          "gatedSweepValue": -10,
+          "identity": "b0d0d8dacc6a03af",
+          "nonzero": "d02c949b93e4e03a"
+        },
+        {
+          "gatedSweepValue": 0,
+          "identity": "b0d0d8dacc6a03af",
+          "nonzero": "eb437754358f2708"
+        },
+        {
+          "gatedSweepValue": 0.001,
+          "identity": "b0d0d8dacc6a03af",
+          "nonzero": "becfe176e71b1210"
+        },
+        {
+          "gatedSweepValue": 0.1,
+          "identity": "b0d0d8dacc6a03af",
+          "nonzero": "1c02c05a2d8efe1b"
+        },
+        {
+          "gatedSweepValue": 0.5,
+          "identity": "b0d0d8dacc6a03af",
+          "nonzero": "578b645ccb983467"
+        },
+        {
+          "gatedSweepValue": 1,
+          "identity": "b0d0d8dacc6a03af",
+          "nonzero": "75afabc2267e1653"
+        },
+        {
+          "gatedSweepValue": 10,
+          "identity": "b0d0d8dacc6a03af",
+          "nonzero": "cf23afa3fe9b793a"
+        }
+      ]
+    },
+    {
+      "name": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "recorded": "2a4323f33df8d799",
+      "before": "2a4323f33df8d799",
+      "checks": [
+        {
+          "gatedSweepValue": -10,
+          "identity": "2a4323f33df8d799",
+          "nonzero": "0661bac9b40f0641"
+        },
+        {
+          "gatedSweepValue": 0,
+          "identity": "2a4323f33df8d799",
+          "nonzero": "fe86c7cc9dbcd7a0"
+        },
+        {
+          "gatedSweepValue": 0.001,
+          "identity": "2a4323f33df8d799",
+          "nonzero": "4538bbf71e560d8d"
+        },
+        {
+          "gatedSweepValue": 0.1,
+          "identity": "2a4323f33df8d799",
+          "nonzero": "759c510801912d16"
+        },
+        {
+          "gatedSweepValue": 0.5,
+          "identity": "2a4323f33df8d799",
+          "nonzero": "4fa53b0d48edf697"
+        },
+        {
+          "gatedSweepValue": 1,
+          "identity": "2a4323f33df8d799",
+          "nonzero": "6c0dc2e5db9f52e8"
+        },
+        {
+          "gatedSweepValue": 10,
+          "identity": "2a4323f33df8d799",
+          "nonzero": "0c45c1e64d03b897"
+        }
+      ]
+    },
+    {
+      "name": "apple-macos-27.0-1x-dark-standard-glass0.5-receded",
+      "recorded": "7c454858a3cbad5b",
+      "before": "7c454858a3cbad5b",
+      "checks": [
+        {
+          "gatedSweepValue": -10,
+          "identity": "7c454858a3cbad5b",
+          "nonzero": "7c1cecac9632f278"
+        },
+        {
+          "gatedSweepValue": 0,
+          "identity": "7c454858a3cbad5b",
+          "nonzero": "d862469f64325c12"
+        },
+        {
+          "gatedSweepValue": 0.001,
+          "identity": "7c454858a3cbad5b",
+          "nonzero": "7dc83c39712eae4f"
+        },
+        {
+          "gatedSweepValue": 0.1,
+          "identity": "7c454858a3cbad5b",
+          "nonzero": "bb9c9ddd54c637f8"
+        },
+        {
+          "gatedSweepValue": 0.5,
+          "identity": "7c454858a3cbad5b",
+          "nonzero": "6d7a0556d0afa9d8"
+        },
+        {
+          "gatedSweepValue": 1,
+          "identity": "7c454858a3cbad5b",
+          "nonzero": "43d42697461bc54b"
+        },
+        {
+          "gatedSweepValue": 10,
+          "identity": "7c454858a3cbad5b",
+          "nonzero": "a5db2d92b2ca38ac"
+        }
+      ]
+    }
+  ],
+  "renderedNewLeafIdentity": false,
+  "qualification": "Digest route proved in memory; no optical branch or leaf exists. G1 must prove rendered identity."
+}

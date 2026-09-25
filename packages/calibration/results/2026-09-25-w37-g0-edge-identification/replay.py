@@ -38,5 +38,7 @@ for rec in profiles:
  res.append(row)
  print('replayed',cell,flush=True)
 output={'source':str(A),'guard':str(edge.G0/'wave.py'),'cells':len(res),'roles':dict(collections.Counter(r['role'] for r in res)),'maxDifferenceFromW35':maxdiff,'rows':res}
-edge.save(HERE/'native-replay.json.gz',output)
+if '--verify' in sys.argv:
+ assert output==json.loads(gzip.decompress((HERE/'native-replay.json.gz').read_bytes()))
+else:edge.save(HERE/'native-replay.json.gz',output)
 print('COMPLETE',output['cells'],output['roles'],'maxdiff',maxdiff)

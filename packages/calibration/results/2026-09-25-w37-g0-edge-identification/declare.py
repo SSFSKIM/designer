@@ -2,6 +2,8 @@
 from pathlib import Path
 import json,gzip,hashlib
 HERE=Path(__file__).resolve().parent; R=HERE.parents[3]; C=R/'packages/calibration'; E=C/'results/2026-09-25-w37-g0-edge-identification'
+for name in ['canonical-stop-baseline.json.gz','e1-declaration.json']:
+ if (E/name).exists():raise FileExistsError('refuse to rewrite declaration evidence')
 spec=json.loads((R/'apps/reference-apple/scenes.json').read_text()); cv=set(spec['split']['calibration']+spec['split']['validation']); matrix=json.loads((C/'results/matrix.json').read_text())
 rows=[r for r in matrix['cells'] if r['key']['profileKey'].startswith('apple-macos-27.0-') and 'standard' in r['key']['profileKey'] and r['key']['sceneId'] in cv]
 base={'sourceMatrixSha256':hashlib.sha256((C/'results/matrix.json').read_bytes()).hexdigest(),'meaning':'Expected post-gate values if no material is adopted: exactly the current values. A nonidentity operator needs a prospective price before rendering; neither interval nor baseline is a predicted pass.','rows':rows}

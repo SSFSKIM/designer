@@ -1,0 +1,10 @@
+{
+  "command": "git diff --cached --check",
+  "exitCode": 2,
+  "findings": [
+    "packages/calibration/results/2026-09-25-w37-g0-edge-identification/calibration-tests.txt:10: new blank line at EOF.",
+    "packages/calibration/results/2026-09-25-w37-g0-edge-identification/final-calibration-tests.txt:10: new blank line at EOF.",
+    "packages/calibration/results/2026-09-25-w37-g0-edge-identification/x1-main-tree.txt:9: new blank line at EOF."
+  ],
+  "meaning": "Three preserved raw test logs end with a blank line; no source/document whitespace finding. Raw logs are not edited to manufacture a clean evidence check."
+}
