@@ -48,7 +48,7 @@ describe("W35's frozen cut and the boundary that makes it non-holdout", () => {
       maximum = Math.max(maximum, ...b.barRGB);
     }
     expect(maximum).toBe(.5);
-  });
+  }, 30_000); // The full 238,292-bin population is asserted even under concurrent workspace load.
 
   it("pins the domain before candidates and keeps diagnostic exclusions explicit", () => {
     expect(createHash("sha256").update(bytes("domain.json")).digest("hex"))

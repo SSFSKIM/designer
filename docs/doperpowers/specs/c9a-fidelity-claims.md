@@ -39060,3 +39060,173 @@ All correction logs use separate `review-*` names beside the first verification.
 intact**. Demo tests pass **six files / 47 tests**, and its production build succeeds. The
 review correction changes no canonical JSON, profile, fixture, frozen pin or archive. These
 new totals are recorded beside, not substituted for, section 4's original verification.
+
+## 5.190 W40 G1: declared scratch membership, once-only publication and index retirement (2026-09-26)
+
+**A writer contract, not a new material reading.** Executes W40 clause 4's MARKED writer
+contract and clause 5's preservation discipline. Evidence and tool index:
+`packages/calibration/results/2026-09-26-w40-g1-writers/README.md`. The canonical frozen file,
+every published generation, the archive, freeze verifier/pin and all recorded numbers stay
+unchanged. No real generation was published or retired here; the publication proofs use
+copied-source disposable repositories. W30's append checker and W36's read-append witnesses
+remain historical tools, not silently converted implementations.
+
+### 1. A generation is declared before any measurement
+
+`matrix stage <dir> --profile <profiles> --renderer webgpu,css --set <sets>
+--material-profile <active> --receded-profile <receded>` creates a new scratch directory and
+`membership.json`. It names one document pair by path and twelve-hex content digest, the
+profiles, tiers and fixture sets, and every required fixture from the canonical scene split
+and fixture manifest. It refuses an existing stage, frozen profiles, unknown profiles/tiers,
+empty combinations and scenes outside the canonical split. The expanded fixture list is
+rechecked on read; a hand-trimmed list cannot turn a partial set into complete membership.
+
+`compare --stage <dir>` chooses `<dir>/matrix.json`, optionally also named explicitly with
+`--out-matrix`. It checks run membership and live document hashes before any capture and
+checks every output row before writing. Foreign fixture/scene overrides are refused on the
+staged compare route; W39's wave-owned identification matrices remain scratch, not canonical
+membership. `diff --stage <dir>` checks the same measured-row membership before its matrix
+write. Separate ordinary schema-5 scratch matrices remain available; default or explicitly
+named authoritative destinations are still refused by the write guard.
+
+`matrix status <dir>` reports declared/present/missing fixture counts. Completeness is every
+fixture in every declared profile × tier × set, not one successful row per set. In the
+no-capture declaration smoke test the full light recipe expands to **780 declared, zero
+present, 780 missing**. Holdout belongs in the initial declaration when the read includes it;
+it is measured once after the configuration is frozen, into the same stage. A partial run
+may retain successful scratch rows with `--write-partial` and still exits 1. Publication is
+separate from successful invocation and refuses holes. The generation may never be published
+before holdout and appended afterward.
+
+### 2. One sanctioned publisher, no mutable authoritative file
+
+`matrix publish <stage>` calls the write guard's single sanctioned entry,
+`publishGeneration`. Under an exclusive publication lock it verifies current-store
+consistency, reads every recorded generation including retired/archive history, and refuses:
+missing membership; foreign/duplicate fixture rows; changed declaration/row document hashes;
+an existing serialized key; an already-published active/receded identity even when an engine
+version makes all keys new; a colliding filename; alias path/role repointing; an indexed alias that would shadow a frozen document owner;
+and replacement of only some profiles of an existing generation. Reader scratch overrides never change the
+history it checks. Canonical index aliases/hardlinks and aliased publication directories are
+not alternate write routes.
+
+The new file is `generations/<active>.json`, or the compound `<active>-<receded>.json` when
+an already-recorded active document has a new receded partner. Rows are the stage's raw byte
+slices in serialized-key order inside the splitter's original envelope; measurements are
+not parsed and reserialized during publication. The index carries file SHA-256, bytes,
+row counts, documents, current selection and status. Shared document aliases enumerate all
+owners; primary historical owners are retained. The publisher prints filename, SHA-256 and
+bytes. It never updates an existing generation file.
+
+Publication writes and fsyncs complete temporary generation/index files, installs the new
+generation, syncs the directory, renames the index last (the commit point), then syncs the
+directory again. Tests inject both a **partial file write** and an **index-rename failure
+after generation installation**. Both leave authoritative bytes unchanged and remove the
+new temporary/unindexed output; a clean retry succeeds. A process crash is bounded rather
+than hidden: it can leave a complete unindexed orphan and stale lock, requiring inspection
+before cleanup, not automatic resealing. A failure after index rename is already committed
+with a durability error, not a license to retry as an append. This is not a cross-file
+filesystem transaction or an automatic recovery service.
+
+`append-check.py snapshot <results> <witness.json>` records the pre-read frozen file, every
+published file, index history/aliases and the complete archive. Its `verify <results>
+<witness.json> <stage/matrix.json> <published-filename>` proves prior bytes unchanged and
+new row slices exactly equal to the stage by serialized key. The committed synthetic
+demonstration passes the unaltered append and refuses **thirteen** mutations, including
+JSON-equivalent row reserialization. A separate real-CLI demonstration publishes four
+synthetic rows and passes the append witness, retaining even the original numeric spelling
+`1.000e-7`. The first synthetic output was 2,084 bytes and is retained in
+`publisher-demo-before-path-fix.txt`; its labels were package-relative. After matching the real
+capture convention (repository-relative inside the repository, absolute outside), the output
+is **2,168 bytes**, SHA-256
+`a748422d670c756ec561384a20f5ee7d6262b505f801eebd58c48fcda5233db8`
+(`publisher-append-demo.txt`). A real recorded-row regression with unchanged active/receded
+hashes, plus an external-document test, now exercises that convention. No real row or recorded
+digest moved in that correction. The old whole-envelope SHA witnesses remain checkable
+through G0's reader; no recorded digest is rewritten.
+
+### 3. Retirement is an index status; capture classification understands it
+
+Publishing changes the previous entry to `retired` and the new entry to `current` without
+touching the old file. There is no separate `retire` verb. The old splitter's `apply` remains
+refused; `results/superseded/` and its aliases are historical evidence, not a new destination.
+
+`check-capture-tree` now recognizes an exact retired **(active, receded-or-none)** pair from
+the generation index as superseded, beside its existing archive classification. A shared
+active hash does not make the current receded pair retired, and two independently recorded
+hashes do not make an unrecorded pair valid. Disposable tests retire a synthetic generation,
+exercise a receded-only reseal and check strict versus `--superseded-ok` exit behavior.
+The read-only check of the real canonical tree reports **1,893 matches, seven no-row captures,
+zero mismatches, exit 0**. No tree was copied or changed because this gate made no capture.
+
+### 4. The written commands now describe a runnable sequence
+
+The old `CLAUDE.md` recipes were:
+
+```bash
+pnpm --filter @vitrea/calibration run compare -- --scene photo__rrect-md__rest
+pnpm --filter @vitrea/calibration run compare -- --profile apple-macos-27.0-1x-light-standard-glass0.5 \
+  --material-profile profiles/apple-macos-27.0-1x-light-standard-glass0.5.json \
+  --receded-profile profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json \
+  --renderer webgpu --set calibration,validation --write-partial
+pnpm --filter @vitrea/calibration run compare -- --set holdout
+```
+
+Their replacements run from `packages/calibration`, with the full light profile list and
+newly sealed document pair assigned to `PROFILES`, `ACTIVE`, `RECEDED`, and a fresh `STAGE`:
+
+```bash
+pnpm run matrix -- stage "$STAGE" --profile "$PROFILES" --renderer webgpu,css \
+  --set calibration,validation,holdout,recorded,probe \
+  --material-profile "$ACTIVE" --receded-profile "$RECEDED"
+pnpm run compare -- --stage "$STAGE" --profile "$PROFILES" --scene photo__rrect-md__rest \
+  --material-profile "$ACTIVE" --receded-profile "$RECEDED"
+for tier in webgpu css; do
+  pnpm run compare -- --stage "$STAGE" --profile "$PROFILES" --renderer "$tier" \
+    --material-profile "$ACTIVE" --receded-profile "$RECEDED" \
+    --set calibration,validation,recorded,probe --write-partial
+done
+for tier in webgpu css; do
+  pnpm run compare -- --stage "$STAGE" --profile "$PROFILES" --renderer "$tier" \
+    --material-profile "$ACTIVE" --receded-profile "$RECEDED" --set holdout
+done
+pnpm run matrix -- status "$STAGE"
+pnpm run matrix -- publish "$STAGE"
+```
+
+Holdout is the second loop, once after the seal. Recorded/probe sets preserve those canonical
+bed readings, not a wave-local probe matrix. A dark generation has its own stage and two
+profiles. The new calibration README carries the same commands (there was no package README).
+Both explain partial failures, immutable identity refusal, the index commit point and crash
+inspection. The Generations paragraph now names the publisher, not the old split/apply route.
+W39 G3 adds the requested whole-membership, publish-once-at-seal sentence.
+
+The W39 launcher itself lacked `results/generations` in its refusal list, even though G0's
+compare guard blocked the eventual write. G1 adds that directory and identity-aware checking
+for its index/files, including symlink/case aliases and JSON hardlinks, and records the edit
+beside it in W39 G0's evidence README. Its **11-test wave suite passes** on the disposable copy;
+no W39 scenes, split, preflight, pin or recorded probe artifact changed.
+
+### 5. Verification and remaining scope
+
+The unchanged freeze verifier reports **1,818 intact entries, exit 0**. The protected-path
+witness hashes both this worktree and the original checkout, including the frozen matrix,
+generation index/files, archive, freeze implementation/pin and W39 recorded artifacts.
+Workspace build/lint/unit-test and demo build pass: **207 test files, 2,837 tests passed,
+1 existing capture-dependent skip** (`verification.txt`). Outputs are in the evidence directory; the
+workspace runs on a disposable full repository copy, with writer tests themselves using
+additional disposable source mirrors and before/after real-evidence hash assertions.
+
+The first full run reached two default five-second timeouts under concurrent load, not an
+assertion failure: G0's multi-process compare refusal test at 6.39 seconds and W35's
+238,292-bin population assertion at 5.13 seconds. Those two workload-heavy tests now carry
+explicit 30-second budgets, with every population, value and refusal assertion retained;
+`test-first-timeouts.txt` preserves the first run. A later final-source run reached W37's
+existing native-pixel reconstruction timeout at 66.3 seconds against 60; its budget is now
+120 seconds with all reproduction/rank/coefficient assertions unchanged, and
+`test-second-timeout.txt` preserves that run.
+
+No browser run, material change, fixture, golden, adopted bound, floor, native capture,
+new holdout reading or real publication was performed. No published generation or archive
+file was rewritten. Independent review and merge remain the parent's next gate; publishing
+the conditional W39 G3 read is later work under its own seal, not an implicit action here.

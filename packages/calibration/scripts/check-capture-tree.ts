@@ -22,8 +22,8 @@
  * capture was driven from and each document's twelve-hex content hash — the ACTIVE document
  * (`--material-profile`) and, on a cell posed inactive, the RECEDED document
  * (`--receded-profile`), which is a difference over the active document of its own scheme.
- * That set of (document, hash) pairs is what the split names a generation by
- * (`results/2026-09-20-w30-g1-split/split-generation.py`), and it is written into the
+ * That set of (document, hash) pairs is how both the historical split and the current
+ * indexed store identify a generation; it is written into the
  * capture's own `cell__<renderer>.json` as well as into the row. So the check is a file walk
  * and a string compare: for every capture in the tree, the documents it names against the
  * documents named by the row the working matrix holds for that profile, renderer and scene.
@@ -58,10 +58,11 @@
  *
  * - **absent tree** — exit 0 and one line. The tree is gitignored and lives on the capture
  *   machine; a checker that fails on every other machine is a checker somebody disables.
- * - **superseded** — a capture whose documents are not the row's, but whose every hash is in
- *   `results/superseded/index.json`. That is a tree deliberately left at a generation the
- *   split has already recorded — a gate mid-read, or a sheet of a superseded generation made
- *   on purpose. Stale by CHOICE, and nameable; `--superseded-ok` demotes it to a warning.
+ * - **superseded** — a capture whose documents are not the row's, but whose every hash
+ *   is in the historical `results/superseded/index.json`, or whose exact (active,
+ *   receded-or-none) pair is a retired entry in `results/generations/index.json`.
+ *   That is a tree deliberately left at a recorded generation — a gate mid-read, or a
+ *   sheet made on purpose. Stale by CHOICE, and nameable; `--superseded-ok` demotes it.
  *   Stale by ACCIDENT — a generation nothing recorded — is never anything but a failure, and
  *   the difference between the two is the whole reason the flag exists rather than a
  *   blanket tolerance.
@@ -88,7 +89,7 @@
  */
 import { loadCurrentRows } from "../src/matrix-store";
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
-import { resolve, sep } from "node:path";
+import { dirname, resolve, sep } from "node:path";
 
 const PACKAGE = resolve(import.meta.dirname, "..");
 const MATRIX = resolve(PACKAGE, "results", "matrix.json");
@@ -103,7 +104,7 @@ const FROZEN = /^apple-macos-26\.5-/;
  * nothing: the two clause names the capture driver writes, the document's repo-relative
  * path, and its twelve-hex content hash.
  */
-const CLAUSE = /(?:materialProfile|recededProfile)=(\S+) sha256:([0-9a-f]{12})/g;
+const CLAUSE = /(materialProfile|recededProfile)=(\S+) sha256:([0-9a-f]{12})/g;
 
 /**
  * The clauses that say which PROFILE a capture was taken at, beside the ones that say
@@ -131,8 +132,17 @@ function poseOf(capturePath: string): readonly string[] {
 /** Sorted `<file name> <hash>` pairs — a generation, in the form both sides are compared in. */
 function documentsOf(capturePath: string): readonly string[] {
   return [...capturePath.matchAll(CLAUSE)]
-    .map((match) => `${(match[1] ?? "").split("/").pop() ?? ""} ${match[2] ?? ""}`)
+    .map((match) => `${(match[2] ?? "").split("/").pop() ?? ""} ${match[3] ?? ""}`)
     .sort();
+}
+
+/** An indexed generation is the active hash and the receded hash, if any, in their roles. */
+function generationOf(capturePath: string): string | undefined {
+  const clauses = [...capturePath.matchAll(CLAUSE)];
+  const active = clauses.filter((match) => match[1] === "materialProfile");
+  const receded = clauses.filter((match) => match[1] === "recededProfile");
+  if (active.length !== 1 || receded.length > 1) return undefined;
+  return `${active[0]![3]}|${receded[0]?.[3] ?? ""}`;
 }
 
 interface Row {
@@ -242,7 +252,8 @@ export function checkCaptureTree(options: {
     };
   }
 
-  const matrix = { cells: loadCurrentRows({ matrixPath: options.matrixPath }) };
+  const resultsDir = dirname(options.matrixPath);
+  const matrix = { cells: loadCurrentRows({ resultsDir, matrixPath: options.matrixPath }) };
   const rows = new Map<string, Row>();
   const generations = new Map<string, string[][]>();
   for (const cell of matrix.cells) {
@@ -256,8 +267,9 @@ export function checkCaptureTree(options: {
     generations.set(cellKey(cell.key.profileKey, cell.key.web.renderer, ""), bucket);
   }
 
-  // Every document hash any superseded generation names — active and receded alike. The
-  // index is the lookup by construction; a file name is never parsed (the split's rule).
+  // Preserve the historical archive's alias rule. The new indexed store instead records
+  // whole (active, receded-or-none) identities: a hash can own both a current and a retired
+  // file, and individual hashes from different files do not make a recorded generation.
   const supersededHashes = new Set<string>(
     existsSync(options.supersededIndexPath)
       ? Object.keys((JSON.parse(readFileSync(options.supersededIndexPath, "utf8")) as {
@@ -265,6 +277,22 @@ export function checkCaptureTree(options: {
         }).byDocumentSha256 ?? {})
       : [],
   );
+  const retiredGenerations = new Set<string>();
+  const generationsIndexPath = resolve(resultsDir, "generations", "index.json");
+  if (existsSync(generationsIndexPath)) {
+    const index = JSON.parse(readFileSync(generationsIndexPath, "utf8")) as {
+      files: Record<string, {
+        status: "current" | "retired";
+        activeDocumentSha256: string;
+        documents: readonly { sha256: string }[];
+      }>;
+    };
+    for (const entry of Object.values(index.files)) {
+      if (entry.status !== "retired") continue;
+      const receded = entry.documents.find((doc) => doc.sha256 !== entry.activeDocumentSha256);
+      retiredGenerations.add(`${entry.activeDocumentSha256}|${receded?.sha256 ?? ""}`);
+    }
+  }
 
   const findings: Finding[] = [];
   const seen = new Set<string>();
@@ -342,10 +370,12 @@ export function checkCaptureTree(options: {
       findings.push({ ...capture, verdict: "match", capture: named, row: row.documents });
       continue;
     }
-    const everyHashRecorded = named.every((entry) => supersededHashes.has(entry.split(" ")[1] ?? ""));
+    const historicallyRecorded = named.every((entry) => supersededHashes.has(entry.split(" ")[1] ?? ""));
+    const indexedGeneration = generationOf(meta.capturePath ?? "");
     findings.push({
       ...capture,
-      verdict: everyHashRecorded ? "superseded" : "mismatch",
+      verdict: historicallyRecorded || (indexedGeneration !== undefined &&
+        retiredGenerations.has(indexedGeneration)) ? "superseded" : "mismatch",
       capture: named,
       row: row.documents,
     });
@@ -455,7 +485,7 @@ export function formatReport(report: Report, supersededOk: boolean): string {
   out.push(
     report.exitCode === 0 && demoted > 0
       ? `  VERDICT  ${demoted} capture${demoted === 1 ? "" : "s"} stand`
-        + `${demoted === 1 ? "s" : ""} at a superseded generation the split has RECORDED,`
+        + `${demoted === 1 ? "s" : ""} at a superseded generation the indexes have RECORDED,`
         + " demoted to a warning by --superseded-ok (exit 0). Every other capture names the"
         + " generation its row was read at."
       : report.exitCode === 0

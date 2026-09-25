@@ -340,3 +340,7 @@ implementation comparison, are in `amplitude-model-recovery-review.txt`.
 No native capture or grant operation was performed during the fix wave. The previously
 outstanding real TCC-refusal rehearsal and unexercised native frame-recording path remain
 outstanding, rather than being inferred from these passing synthetic tests.
+
+W40 G1 (§5.190): wave.py refusal list extended by W40 G1 to the generations directory;
+no probe evidence or pin changed. The directory, index and generation files are refused by
+filesystem identity as well as path, including symlink/case aliases and JSON hardlinks.

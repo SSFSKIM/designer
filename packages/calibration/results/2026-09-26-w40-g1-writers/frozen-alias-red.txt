@@ -1,0 +1,36 @@
+
+ RUN  v4.1.11 /Users/new/vitrea-w40/g1/packages/calibration
+
+ ❯ test/generation-stage.test.ts (13 tests | 1 failed | 12 skipped) 675ms
+   × does not let a new indexed alias shadow a frozen document's owner 513ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/generation-stage.test.ts > does not let a new indexed alias shadow a frozen document's owner
+AssertionError: expected '' to match /frozen document identity/
+
+- Expected:
+/frozen document identity/
+
++ Received:
+""
+
+ ❯ test/generation-stage.test.ts:249:50
+    247|   frozen.key.profileKey = "apple-macos-26.5-1x-light-standard";
+    248|   writeFileSync(join(copy, "results/matrix.json"), JSON.stringify({ sc…
+    249|   expect(run(copy, ["publish", "stage"]).stderr).toMatch(/frozen docum…
+       |                                                  ^
+    250| });
+    251|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 12 skipped (13)
+   Start at  04:26:41
+   Duration  1.11s (transform 34ms, setup 0ms, import 311ms, tests 675ms, environment 0ms)
+
+undefined
+/Users/new/vitrea-w40/g1/packages/calibration:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/generation-stage.test.ts -t 'shadow a frozen'

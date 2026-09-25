@@ -38,6 +38,7 @@ import {
 } from "../src/index";
 import { matrixSchemaRefusal } from "./gates";
 import { assertScratchDestination } from "../src/matrix-write-guard";
+import { stageMatrixPath, stageStatus, validateStageRows } from "../src/generation-stage";
 import { DEFAULT_SILHOUETTE_THRESHOLD, DEFAULT_SILHOUETTE_CHROMA_THRESHOLD, measureCell, type MeasureInput } from "./measure";
 import { declaredComponentOf, readSceneGeometry } from "./scene-geometry";
 
@@ -52,6 +53,7 @@ const REFERENCE = resolve(
 
 interface Args extends MeasureInput {
   readonly matrix?: string;
+  readonly stage?: string;
   readonly out?: string;
 }
 
@@ -124,7 +126,8 @@ function parseArgs(argv: readonly string[]): Args {
   // one this package leans on everywhere else (an absent axis means not measured,
   // never measured as zero), so the CLI honours it too.
   const backgroundPath = map.get("background");
-  const matrix = map.get("matrix");
+  const stage = map.get("stage");
+  const matrix = stage ? stageMatrixPath(stage, map.get("matrix")) : map.get("matrix");
   const out = map.get("out");
 
   return {
@@ -145,6 +148,7 @@ function parseArgs(argv: readonly string[]): Args {
     scale: profile.scale,
     ...(backgroundPath === undefined ? {} : { backgroundPath }),
     ...(matrix === undefined ? {} : { matrix }),
+    ...(stage === undefined ? {} : { stage }),
     ...(out === undefined ? {} : { out }),
     ...(blurRegion === undefined ? {} : { blurRegion }),
   };
@@ -153,11 +157,12 @@ function parseArgs(argv: readonly string[]): Args {
 function main(): void {
   const args = parseArgs(process.argv.slice(2));
 
-  // G0 has no canonical publisher. Refuse frozen and indexed generations before
+  // Publication is separate. Refuse frozen and indexed generations before
   // measuring, even when reached through an explicitly named symlink. An
   // omitted --matrix still prints a one-cell report without writing a matrix.
   if (args.matrix !== undefined) assertScratchDestination(args.matrix);
   if (args.out !== undefined) assertScratchDestination(args.out);
+  if (args.stage) stageStatus(args.stage);
 
   // A scratch matrix at another schema cannot be merged into; reject it before
   // measuring, just as compare rejects it before capturing.
@@ -187,6 +192,7 @@ function main(): void {
       ? deserializeResultMatrix(readFileSync(args.matrix, "utf8"))
       : createResultMatrix();
     const updated = upsertCellResult(existing, cell);
+    if (args.stage) validateStageRows(args.stage, [...updated.cells.values()]);
     mkdirSync(dirname(args.matrix), { recursive: true });
     writeFileSync(args.matrix, `${serializeResultMatrix(updated, { pretty: true })}\n`);
     process.stderr.write(`matrix → ${args.matrix}\n`);

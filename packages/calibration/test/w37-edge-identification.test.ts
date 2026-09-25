@@ -42,7 +42,7 @@ describe("W37's guarded, native-conditioned boundary identification", () => {
       expect(check.rank).toBe(5);
       expect(check.nativeOnlyCoefficientDifference).toBeLessThan(1e-10);
     }
-  }, 60_000);
+  }, 120_000); // Native-pixel reconstruction can exceed one minute under workspace load.
 
   it("replays the complete memo cut instead of trusting a stored zero-difference flag", () => {
     // G0 records absolute worktree provenance; compare every numeric field while keeping

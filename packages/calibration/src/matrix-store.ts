@@ -14,8 +14,8 @@ export interface MatrixStoreOptions {
   readonly resultsDir?: string;
   readonly matrixPath?: string;
 }
-interface Document { readonly path: string; readonly sha256: string }
-interface Entry {
+export interface Document { readonly path: string; readonly sha256: string }
+export interface Entry {
   readonly activeDocumentSha256: string;
   readonly documents: readonly Document[];
   readonly bytes: number;
@@ -24,7 +24,7 @@ interface Entry {
   readonly rowsByProfileKey: Readonly<Record<string, number>>;
   readonly status?: "current" | "retired";
 }
-interface Index {
+export interface Index {
   readonly schemaVersion?: number;
   readonly files: Readonly<Record<string, Entry>>;
   readonly byDocumentSha256: Readonly<Record<string, string | readonly string[]>>;
@@ -48,7 +48,7 @@ function sorted(rows: readonly CellResult[]): readonly CellResult[] {
 }
 
 /** A brace walk, derived from W30's splitter, preserves each row's original bytes. */
-function readRows(file: string, entry?: Entry): readonly CellResult[] {
+export function readRows(file: string, entry?: Entry): readonly CellResult[] {
   const raw = readFileSync(file);
   if (entry && (raw.length !== entry.bytes || sha(raw) !== entry.sha256)) {
     fail(`${file}: metadata bytes or SHA-256 mismatch`);
@@ -81,7 +81,7 @@ function readRows(file: string, entry?: Entry): readonly CellResult[] {
   if (entry) validateOwnership(file, rows, entry);
   return rows;
 }
-function documents(row: CellResult): { active: Document; receded?: Document } {
+export function documents(row: CellResult): { active: Document; receded?: Document } {
   const path = row.key.web.capturePath;
   const matches = [...path.matchAll(/(materialProfile|recededProfile)=(\S+) sha256:([0-9a-f]{12})(?![0-9a-f])/g)];
   const active = matches.filter((m) => m[1] === "materialProfile");
@@ -117,7 +117,7 @@ function validateOwnership(file: string, rows: readonly CellResult[], entry: Ent
   if (rows.length !== entry.rowCount || JSON.stringify(Object.entries(counts).sort()) !==
       JSON.stringify(Object.entries(entry.rowsByProfileKey).sort())) fail(`${file}: row metadata differs`);
 }
-function readIndex(results: string, directory: string): Index | undefined {
+export function readIndex(results: string, directory: string): Index | undefined {
   const file = join(results, directory, "index.json");
   if (!existsSync(file)) return undefined;
   const index = JSON.parse(readFileSync(file, "utf8")) as Index;
@@ -230,4 +230,16 @@ export function legacyEnvelopeDigest(rows: readonly CellResult[]): string {
   });
   hash.update("\n  ]\n}\n");
   return hash.digest("hex");
+}
+
+/** Preserve recorded row slices in the splitter's original, key-ordered envelope. */
+export function generationEnvelope(rows: readonly CellResult[]): Buffer {
+  const ordered = sorted(rows);
+  if (!ordered.length) return Buffer.from('{\n  "schemaVersion": 5,\n  "cells": []\n}\n');
+  return Buffer.concat([Buffer.from('{\n  "schemaVersion": 5,\n  "cells": [\n    '),
+    ...ordered.flatMap((row, i) => {
+      const raw = rawRows.get(row);
+      if (!raw) fail("generation envelope requires raw row bytes");
+      return i ? [Buffer.from(",\n    "), raw] : [raw];
+    }), Buffer.from("\n  ]\n}\n")]);
 }
