@@ -1,27 +1,16 @@
 /**
  * The calibration matrix, reduced at build time to the rows this page can show.
  *
- * `packages/calibration/results/matrix.json` is committed evidence and grows by
- * rule: a refit moves a material profile document's bytes, so the next canonical
- * run APPENDS a generation of rows beside the old ones rather than rewriting
- * them, and a wave that reads the pitch ladder as probe rows appends those too.
- * At 0.19.0 it was 55.8 MB; W30's read and split left it past 66. The page
- * imported the whole file through one JSON import to reach the few hundred rows
- * that carry a figure, and at that size the import crossed a hard conversion
- * limit in the test loader's Rust bridge — `test/calibration.test.ts` stopped
- * LOADING, before a case ran, while `pnpm --filter demo build` went on
- * succeeding because the bundler's loader is not the test runner's (claims
- * §5.159 §6b; charter W30 Decision Log 5 (c)).
- *
- * The fix is the one W30 G1's split already pointed at when it retired the
- * `capturedAt` tie-break and derived the shipped hashes at build time: the page
- * does not need the file, it needs the rows for the scenes it offers with the
- * fields it prints. This plugin performs that projection in Node, where reading
- * 66 MB is a `readFileSync`, and hands the page a module of a few hundred
- * kilobytes. **The page's figures do not depend on the file's size again** —
- * `test/matrix-reduction.test.ts` asserts every displayed figure against the
- * whole-file read, which is the assertion that makes this a projection rather
- * than a second source of truth.
+ * `packages/calibration/results/matrix.json` was one growing file through W39:
+ * new document bytes appended rows, and the splitter retired the old generation.
+ * The 69 MB import crossed the test loader's JSON conversion limit before a
+ * test ran (claims §5.159 §6b; charter W30 Decision Log 5 (c)). W40 keeps the
+ * frozen macOS 26.5 rows there and stores each current macOS 27 generation in
+ * an indexed file. `loadCurrentRows` assembles their key-sorted union in Node;
+ * this plugin projects only the rows and fields the page can show. The page
+ * never imports the large JSON envelope into the test loader. Its independent
+ * test reads the authoritative files directly and pins the projection against
+ * the exact pre-migration output (W40 G0, claims §5.189).
  *
  * Three filters, each of them a rule the page already had:
  *
@@ -31,13 +20,12 @@
  *    recovered-inactive ones and the pressed pair — and it imports nothing but
  *    that file, so the build can evaluate it directly and the two cannot
  *    disagree.
- *  - **The current generation**, by the same `capturePath` clause
+ *  - **A reading at the shipped documents**, by the same `capturePath` clause
  *    `calibration.ts` reads and `adopted-thresholds.test.ts` gates on: every
- *    document a row names must be on disk at the bytes the row records. A cell
- *    whose documents have moved and has not been re-read yet drops out and the
- *    page renders a labelled empty slot, which is what it already does for a
- *    scene with no cell — a stale figure presented as current is the one outcome
- *    worth avoiding.
+ *    document a row names must be on disk at the bytes the row records. The
+ *    store selects the current generation per profile; if its documents move
+ *    before the next capture, the page still drops its stale cells and renders
+ *    labelled empty slots rather than presenting stale figures as current.
  *  - **The fields `figuresOf` prints**, and the key fields the page prints
  *    beside them. Everything else in a cell — forty-odd metrics per axis, the
  *    native readings, the shadow and tier-coherence axes — belongs to the gate
@@ -48,16 +36,14 @@
  * filter above means the answer is currently always yes; it is the page's rule
  * and it stays the page's to apply.
  *
- * `MATRIX_CELL_COUNT` is the WHOLE file's row count, not the reduction's,
- * because the sentence it appears in is about the matrix and not about this
- * module.
+ * `MATRIX_CELL_COUNT` is the current union's row count (frozen plus indexed
+ * current generations), not the reduction's: the sentence it appears in is
+ * about the measured matrix, not just the rows this page displays.
  */
-
-import { readFileSync } from "node:fs";
-import { fileURLToPath } from "node:url";
 
 import type { Plugin } from "vite";
 
+import { loadCurrentRows } from "../../packages/calibration/src/matrix-store.ts";
 import { shippedDocumentHashes } from "./shipped-documents.ts";
 import { REFERENCE_SCENES } from "./src/site/scenes.ts";
 
@@ -65,10 +51,6 @@ const MODULE_ID = "virtual:vitrea-matrix-reduction";
 
 /** Vite's convention: a resolved virtual module id is prefixed with a NUL byte. */
 const RESOLVED_ID = `\0${MODULE_ID}`;
-
-const MATRIX = fileURLToPath(
-  new URL("../../packages/calibration/results/matrix.json", import.meta.url),
-);
 
 /**
  * The metrics `figuresOf` reads, per axis. Nothing else is projected.
@@ -204,10 +186,12 @@ export function reduceMatrix(): {
   readonly matrixCellCount: number;
 } {
   const hashes = shippedDocumentHashes();
-  const source = JSON.parse(readFileSync(MATRIX, "utf8")) as { cells: readonly SourceCell[] };
+  // CellResult's complete axis types lack an index signature; SourceCell is the
+  // narrower projection view over those same parsed rows.
+  const source = loadCurrentRows() as unknown as readonly SourceCell[];
   return {
-    cells: source.cells.filter((cell) => displayed(cell, hashes)).map(project),
-    matrixCellCount: source.cells.length,
+    cells: source.filter((cell) => displayed(cell, hashes)).map(project),
+    matrixCellCount: source.length,
   };
 }
 

@@ -1,4 +1,5 @@
 /** W38 E2's fixed-reference rendered-edge baseline, charter clause 1c. */
+import { loadGeneration, legacyEnvelopeDigest } from "../src/matrix-store";
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
@@ -59,10 +60,15 @@ describe("W38 E2 declaration and pre-change reference", () => {
     const decl = read("e2-declaration.json");
     const calibration = resolve(root, "../..");
     const repo = resolve(calibration, "../..");
-    const matrixBytes = readFileSync(resolve(calibration, "results/matrix.json"));
+    // Reconstruct the whole pre-W38 envelope from its named generations, including
+    // frozen 26.5 rows. Future current generations must not move this reference.
+    const matrix = { cells: [
+      ...loadGeneration("6a9600720477"), ...loadGeneration("950ce1c3e917"),
+      ...loadGeneration("85ad7f7e3e0d", "30fbe05986ae"),
+      ...loadGeneration("0eac5b294cc2", "5cec8c961201"),
+    ] };
     const hash = (bytes: Buffer) => createHash("sha256").update(bytes).digest("hex");
-    expect(hash(matrixBytes)).toBe(decl.preW38.matrixSha256);
-    const matrix = JSON.parse(matrixBytes.toString());
+    expect(legacyEnvelopeDigest(matrix.cells)).toBe(decl.preW38.matrixSha256);
     const cells = new Map<string, { key: { web: { capturePath: string } } }>(matrix.cells.map(
       (r: { key: { profileKey: string; sceneId: string; web: { renderer: string; capturePath: string } } }) =>
         [r.key.profileKey + "/" + r.key.sceneId + "/" + r.key.web.renderer, r]));
@@ -87,5 +93,5 @@ describe("W38 E2 declaration and pre-change reference", () => {
     expect(JSON.parse(result.stdout)).toMatchObject({ rejectsGenerationMismatch: true,
       rejectsMissingGroupMember: true, rejectsHoldout: true,
       shiftedGeometry: true, missingCaptureUnmeasured: true });
-  });
+  }, 60_000);
 });

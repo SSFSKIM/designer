@@ -86,6 +86,7 @@
  * - **a row with no capture** is reported and does not fail, for the same reason the absent
  *   tree does not: a partial tree is the normal state of a machine that has run one gate.
  */
+import { loadCurrentRows } from "../src/matrix-store";
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { resolve, sep } from "node:path";
 
@@ -137,14 +138,6 @@ function documentsOf(capturePath: string): readonly string[] {
 interface Row {
   readonly documents: readonly string[];
   readonly pose: readonly string[];
-}
-
-interface MatrixCell {
-  readonly key: {
-    readonly profileKey: string;
-    readonly sceneId: string;
-    readonly web: { readonly renderer: string; readonly capturePath: string };
-  };
 }
 
 interface CaptureMeta {
@@ -249,7 +242,7 @@ export function checkCaptureTree(options: {
     };
   }
 
-  const matrix = JSON.parse(readFileSync(options.matrixPath, "utf8")) as { cells: MatrixCell[] };
+  const matrix = { cells: loadCurrentRows({ matrixPath: options.matrixPath }) };
   const rows = new Map<string, Row>();
   const generations = new Map<string, string[][]>();
   for (const cell of matrix.cells) {

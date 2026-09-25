@@ -2,21 +2,23 @@
  * `compare` — the whole scene matrix, end to end: capture the web side, diff
  * every cell against its native fixture, write one result matrix.
  *
- *   # every calibration and validation cell of every captured profile
- *   pnpm --filter @vitrea/calibration run compare
+ *   # G0 requires a scratch destination until G1 adds canonical publication
+ *   pnpm --filter @vitrea/calibration run compare -- --out-matrix /tmp/vitrea-matrix.json
  *
- *   # one scene
- *   pnpm --filter @vitrea/calibration run compare -- --scene photo__rrect-md__rest
+ *   # one scene, reusing the same scratch matrix
+ *   pnpm --filter @vitrea/calibration run compare -- --scene photo__rrect-md__rest \
+ *     --out-matrix /tmp/vitrea-matrix.json
  *
- *   # the holdout cells, once, after tuning has frozen
- *   pnpm --filter @vitrea/calibration run compare -- --set holdout
+ *   # the holdout cells, once, after tuning has frozen, still in scratch
+ *   pnpm --filter @vitrea/calibration run compare -- --set holdout \
+ *     --out-matrix /tmp/vitrea-matrix.json
  *
  * Two escapes exist and both name what they switch off, because both switch off
  * a check on whether the output is evidence:
  *
- *   --write-partial          write `results/matrix.json` even though cells
- *                            failed. The file then mixes this run's cells with
- *                            an earlier run's; the default is to leave it alone.
+ *   --write-partial          write a named scratch `--out-matrix` even though
+ *                            cells failed. G0 refuses canonical destinations
+ *                            until G1's publisher exists.
  *   --allow-material-free    measure fixtures marked `materialRendered: false`.
  *                            Every number over one of those is web-glass against
  *                            a bare background (Decision Log #26a).
@@ -71,22 +73,13 @@
  * overwrite light-standard — silently, and with plausible numbers, which is the
  * exact failure the scheme keying was introduced to prevent.
  *
- * ## What a run appends, and where the generation it supersedes goes (W30 G1)
+ * ## Generation writes in G0
  *
- * A cell's key carries the `capturePath`, and the `capturePath` names the material
- * profile document and that document's twelve-hex content hash. So a run driven
- * from a re-sealed document does not overwrite the rows read at the old bytes —
- * their keys differ, and the upsert APPENDS a generation beside them. That is the
- * rule that a recorded number is never rewritten, and it is why this file grows.
- *
- * It is not where a superseded generation lives. Once the refit has landed,
- * `results/2026-09-20-w30-g1-split/split-generation.py` moves every row whose
- * documents are no longer on disk to `results/superseded/<document-sha>.json`,
- * byte for byte, with `results/superseded/README.md` naming each file by the
- * document, the claims section and the read. The invariant every reader may rely
- * on is then plain: **`results/matrix.json` holds one generation per profile**,
- * so "which generation ships" is a name rather than a timestamp or a computation.
- * `--out-matrix` and `VITREA_WEB_CAPTURES` scratch paths are outside all of this.
+ * `results/matrix.json` now holds only the frozen macOS 26.5 rows; current
+ * macOS 27 generations live under `results/generations/`. Neither path is a
+ * writable output for this CLI until G1 supplies the publisher. Name a separate
+ * scratch `--out-matrix` to measure; that file remains an ordinary schema-5
+ * matrix. `VITREA_WEB_CAPTURES` independently selects scratch captures.
  */
 
 import { spawnSync } from "node:child_process";
@@ -107,6 +100,7 @@ import {
   type SceneState,
 } from "../src/index";
 import { backdropProbeRequested, probeCanonicalOutputRefusal } from "../src/backdrop-probe";
+import { assertScratchDestination } from "../src/matrix-write-guard";
 import {
   capturePoseRefusal,
   colourlessTintEvidence,
@@ -644,6 +638,9 @@ class Absences {
 
 function main(): void {
   const options = parseOptions(process.argv.slice(2));
+  // G0 has no publisher: reject even a named or symlinked canonical destination
+  // before reading fixtures or launching a capture. G1 will replace this route.
+  assertScratchDestination(options.matrixPath);
   const spec = readJson<SceneSpec>(SCENES);
   const manifest = readJson<Manifest>(resolve(FIXTURES, "manifest.json"));
   // The same file, projected onto the geometry the instrument bounds its search
@@ -679,14 +676,9 @@ function main(): void {
   /*
    * Refuse an unwritable target BEFORE capturing anything.
    *
-   * The matrix is only deserialised after the capture step, so a target this
-   * build cannot merge into would otherwise cost a whole browser run before
-   * failing. The default target is not such a file and has not been since the
-   * post-W8 pass re-read the bed — what reaches this today is a NAMED one: a
-   * scratch matrix, a matrix restored from a branch, or a superseded
-   * generation. See `matrixSchemaRefusal`. (This paragraph described the
-   * schema-4/5 interregnum as the present until 2026-09-21, W31 G2, c9a
-   * §5.163 §5.)
+   * The canonical destination was refused above, before fixture I/O. Scratch
+   * matrices from older builds may still be unwritable, and checking their
+   * schema here avoids capturing before discovering that incompatibility.
    */
   if (existsSync(options.matrixPath)) {
     const existing: unknown = JSON.parse(readFileSync(options.matrixPath, "utf8"));

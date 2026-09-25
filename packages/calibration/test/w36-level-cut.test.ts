@@ -1,5 +1,6 @@
 /** W36 G0's populations and inversion boundaries, before any fit (§5.178). */
-import { existsSync, readFileSync } from "node:fs";
+import { loadGeneration } from "../src/matrix-store";
+import { readFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
@@ -81,9 +82,7 @@ describe("W36 frozen declaration and independent referees", () => {
     const root = resolve(here, "../../../..");
     for (const scheme of ["light", "dark"]) {
       const generation = d.baselineGeneration[scheme];
-      const superseded = resolve(here, "../..", generation.supersededFile);
-      const source = JSON.parse(readFileSync(existsSync(superseded)
-        ? superseded : resolve(here, "../matrix.json"), "utf8"));
+      const source = { cells: loadGeneration(generation.active, generation.receded) };
       const spec = JSON.parse(readFileSync(resolve(root, "apps/reference-apple/scenes.json"), "utf8"));
       const allowed = new Set([...spec.split.calibration, ...spec.split.validation]);
       const selected = source.cells.filter((c: { key: { profileKey: string; sceneId: string;

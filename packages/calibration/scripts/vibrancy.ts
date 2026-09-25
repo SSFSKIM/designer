@@ -25,6 +25,7 @@
  * `null` means the filter declares it and holds no value for it, which is a
  * different fact from the key being absent.
  */
+import { loadCurrentRows, loadGeneration, legacyEnvelopeDigest } from "../src/matrix-store";
 import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { dirname, join, relative, resolve } from "node:path";
@@ -165,7 +166,8 @@ const PROFILE_KEY = "apple-macos-26.5-1x-light-standard";
  * Every whole-file digest this reader has recorded for the canonical matrix, and
  * what moved the file between them — newest last, appended to, never rewritten.
  *
- * `provenance.matrixSha256` is a digest over the WHOLE of `results/matrix.json`,
+ * `provenance.matrixSha256` is a digest over the WHOLE current legacy envelope
+ * (the monolithic `results/matrix.json` until W40, the store union since),
  * so it moves whenever any row anywhere in the file does, including rows this
  * reader never looks at: the corpus above reads macOS 26.5 rows alone, and the
  * digest recorded beside a committed table has been superseded by every macOS 27
@@ -705,9 +707,9 @@ export interface Row extends Record<string, unknown> {
 export function read(dirs: readonly string[] = DUMP_DIRS,
   matrixProfileKey: string | null = PROFILE_KEY) {
   const specs = SPEC_FILES.map((path) => ({ path, spec: readJson<SceneSpec>(path) }));
-  const matrix = readJson<{ cells: MatrixCell[] }>("packages/calibration/results/matrix.json");
-  const cellsAt = matrixProfileKey == null ? []
-    : matrix.cells.filter((c) => c.key.profileKey === matrixProfileKey);
+  // This corpus reads the frozen 26.5 light generation, not whichever material is current.
+  const cellsAt: readonly MatrixCell[] = matrixProfileKey == null ? []
+    : loadGeneration("6a9600720477").filter((c) => c.key.profileKey === matrixProfileKey);
 
   const dumps = dirs.flatMap((dir) => readdirSync(join(ROOT, dir)).sort()
     .filter((f) => f.endsWith(".json") && f !== "scenes.json")
@@ -1086,7 +1088,7 @@ function main(argv: readonly string[]): void {
     provenance: {
       profile: DEFAULT_MATERIAL_PROFILE.backdropToneLow === 0.02 ? "shipped" : "patched",
       matrixProfileKey: corpus.matrixProfileKey,
-      matrixSha256: sha("packages/calibration/results/matrix.json"),
+      matrixSha256: legacyEnvelopeDigest(loadCurrentRows()),
       matrixSha256Lineage: MATRIX_SHA256_LINEAGE,
       dumpDirectories: corpus.dirs,
       dumpsRead: reading.dumps.length,

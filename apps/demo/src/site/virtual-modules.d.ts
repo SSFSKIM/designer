@@ -13,8 +13,8 @@ declare module "virtual:vitrea-shipped-documents" {
 /**
  * The calibration matrix, reduced to the rows this page can show and the fields it
  * prints. `../../matrix-reduction.ts` is the plugin that produces this one, and the
- * reason it exists is there: the whole file is 66 MB and the page needs a few
- * hundred rows of it.
+ * reason it exists is there: the current matrix spans a frozen file and indexed
+ * generation files, while the page needs only a few hundred projected rows.
  */
 declare module "virtual:vitrea-matrix-reduction" {
   interface Metric {
@@ -42,6 +42,6 @@ declare module "virtual:vitrea-matrix-reduction" {
     readonly perceptual?: Readonly<Record<string, Metric>>;
     readonly material?: Readonly<Record<string, Metric>>;
   }[];
-  /** The WHOLE matrix's row count — the sentence it appears in is about the file. */
+  /** The current union's row count, before filtering to displayable cells. */
   export const MATRIX_CELL_COUNT: number;
 }

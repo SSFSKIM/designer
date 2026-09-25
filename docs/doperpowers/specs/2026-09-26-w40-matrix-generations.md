@@ -1,6 +1,6 @@
 # W40 — the matrix's generations as files: a frozen-only `matrix.json` and indexed, immutable macOS 27 generation files, no history rewrite (2026-09-26)
 
-**Status: CHARTERED v2 (2026-09-26; one adversarial round folded, 1 P1 / 3 P2); G0 DISPATCHED.**
+**Status: CHARTERED v2 (2026-09-26; one adversarial round folded, 1 P1 / 3 P2); G0 IMPLEMENTED; independent review pending.**
 Chartered by the parent under the user's ruling of 2026-09-26 (W39 charter Decision Log 1): a
 small housekeeping wave after W39 G0's merge (`ba38ebbf`), to land before W39's conditional G3
 landing, moving FUTURE generations of `packages/calibration/results/matrix.json` to indexed
@@ -175,7 +175,7 @@ matrix) → W39 G3 only after W40 G1.
 
 | child | status |
 | --- | --- |
-| G0 | DISPATCHED 2026-09-26 (§5.189) |
+| G0 | IMPLEMENTED 2026-09-26 (§5.189); verified, independent review pending |
 | G1 | — |
 
 ## Surprises & Discoveries
@@ -183,7 +183,25 @@ matrix) → W39 G3 only after W40 G1.
 - The transient 99,988,190-byte hazard: the append-then-split order of today's read is what
   puts the next two-scheme read 11,810 bytes under GitHub's refusal.
 
+- G0's byte-slice proof reconstructs all 1,893 rows and the original whole-file SHA without
+  materializing a union. Frozen-only matrix bytes are 39,150,416; the light/dark generation
+  files are 19,788,488 / 10,630,441. The unchanged freeze verifier reads 1,818 (§5.189).
+- A red-state CLI test briefly mutated the worktree matrix, restored exactly from HEAD before
+  migration. The snapshot was independently checked against the original Git blob. Final CLI
+  integration tests use disposable copied-source repositories; the incident and SHAs are in
+  G0's evidence README. No frozen or measured row changed in the migrated layout.
+- The grounding memo's W34 `browser.py` example is wave-owned, not canonical. G0's README
+  records the corrected historical-reader inventory beside the memo, not by rewriting it.
+- G1's retirement integration must extend capture-tree's `superseded` classification to hashes
+  in retired `generations/` entries before introducing one. G0 retains archived classification
+  exactly and creates only current entries; the store itself resolves retired generations.
+
 ## Revision Notes
+
+- 2026-09-26 (G0): store, byte-preserving migration, readers and fail-closed write routes
+  implemented and verified on `w40-g0-generations`; 206 test files, 2,817 tests passed, one
+  existing capture-tree-dependent skip. Equality, freeze and canonical capture-tree check
+  pass. Independent review/merge remain the parent's; publication and retirement remain G1.
 
 - 2026-09-26 (v2, the parent): one adversarial round folded — P1 every canonical write route
   (compare's named destinations, `diff --matrix`, the old splitter) fails closed in G0, not only

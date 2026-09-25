@@ -11,7 +11,7 @@
  *     --profile apple-macos-26.5-1x-light-standard \
  *     --scene   checkerboard__capsule-button__rest \
  *     --web-cell web-captures/<scene>/cell__webgpu.json \
- *     --matrix  results/matrix.json
+ *     --matrix  /path/to/scratch-matrix.json
  *
  * The measurement itself lives in `measure.ts`, shared with `compare`, so the
  * single-pair and whole-matrix routes cannot drift into measuring two different
@@ -37,6 +37,7 @@ import {
   type FixtureSet,
 } from "../src/index";
 import { matrixSchemaRefusal } from "./gates";
+import { assertScratchDestination } from "../src/matrix-write-guard";
 import { DEFAULT_SILHOUETTE_THRESHOLD, DEFAULT_SILHOUETTE_CHROMA_THRESHOLD, measureCell, type MeasureInput } from "./measure";
 import { declaredComponentOf, readSceneGeometry } from "./scene-geometry";
 
@@ -152,13 +153,14 @@ function parseArgs(argv: readonly string[]): Args {
 function main(): void {
   const args = parseArgs(process.argv.slice(2));
 
-  // Checked before measuring, and for the reason `compare` checks before
-  // capturing: a matrix written under another schema can be neither read nor
-  // merged into. `results/matrix.json` is at the schema this build writes, so
-  // what reaches this is a named target — a scratch matrix, one restored from a
-  // branch, or a superseded generation. See `matrixSchemaRefusal`. (This
-  // comment said `results/matrix.json` was frozen "for the duration of the
-  // interregnum" until 2026-09-21, W31 G2, c9a §5.163 §5.)
+  // G0 has no canonical publisher. Refuse frozen and indexed generations before
+  // measuring, even when reached through an explicitly named symlink. An
+  // omitted --matrix still prints a one-cell report without writing a matrix.
+  if (args.matrix !== undefined) assertScratchDestination(args.matrix);
+  if (args.out !== undefined) assertScratchDestination(args.out);
+
+  // A scratch matrix at another schema cannot be merged into; reject it before
+  // measuring, just as compare rejects it before capturing.
   if (args.matrix !== undefined && existsSync(args.matrix)) {
     const onDisk: unknown = JSON.parse(readFileSync(args.matrix, "utf8"));
     const version = (onDisk as { schemaVersion?: unknown }).schemaVersion;

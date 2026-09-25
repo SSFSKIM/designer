@@ -48,11 +48,12 @@
  *
  * Nothing outside the temporary directory is written and no capture is taken.
  */
+import { loadCurrentRows, loadGeneration } from "../src/matrix-store";
 import { spawnSync } from "node:child_process";
-import { mkdtempSync, writeFileSync } from "node:fs";
+import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { describe, expect, it } from "vitest";
+import { afterAll, describe, expect, it } from "vitest";
 
 import { RESULT_MATRIX_SCHEMA_VERSION } from "../src/report";
 
@@ -63,7 +64,13 @@ const READER = resolve(
   "2026-09-21-w32-g0-exterior-cut",
   "exterior-cut.py",
 );
-const WORKING_MATRIX = resolve(PACKAGE_ROOT, "results", "matrix.json");
+const SCRATCH_DIRS: string[] = [];
+afterAll(() => {
+  for (const dir of SCRATCH_DIRS) rmSync(dir, { recursive: true, force: true });
+});
+
+// The historical Python referee reads an ordinary scratch projection, never the frozen-only file.
+const WORKING_MATRIX = scratchMatrix(loadCurrentRows());
 
 /**
  * The generation W31 G1 read, by name (2026-09-21, W32 G1; claims §5.168).
@@ -77,16 +84,16 @@ const WORKING_MATRIX = resolve(PACKAGE_ROOT, "results", "matrix.json");
  * the working file would have it compare two different materials and call the
  * difference a reader bug.
  *
- * So the case reads the SUPERSEDED file, which is where a recorded number's own
- * rows live, with `--at-documents any` because a superseded generation's
- * documents are by definition not the shipped ones. That is
+ * So the case resolves the SUPERSEDED generation through the store and exports
+ * its rows to a temporary JSON projection, with `--at-documents any` because a
+ * superseded generation's documents are by definition not the shipped ones. That is
  * `exterior-cut.py`'s own flag for exactly this and its docstring says so.
  * The `0-3` assertion below, which is about a generation having MOVED, keeps
  * reading the working file and now reads one generation further along.
  */
 const W31_G1_GENERATION = [
-  resolve(PACKAGE_ROOT, "results", "superseded", "49490eb9ff7a.json"),
-  resolve(PACKAGE_ROOT, "results", "superseded", "b5714a866288.json"),
+  scratchMatrix(loadGeneration("49490eb9ff7a", "14c6bacf2eda")),
+  scratchMatrix(loadGeneration("b5714a866288", "cc4ed1038996")),
 ] as const;
 
 function run(args: readonly string[], matrix = WORKING_MATRIX): {
@@ -94,6 +101,7 @@ function run(args: readonly string[], matrix = WORKING_MATRIX): {
   output: string;
 } {
   const scratch = mkdtempSync(join(tmpdir(), "w32-g0-"));
+  SCRATCH_DIRS.push(scratch);
   const result = spawnSync(
     "python3",
     [READER, "--matrix", matrix, "--out", scratch, ...args],
@@ -251,6 +259,7 @@ const cell = (fixtureSet: string, sceneId: string, clearanceCssPx: number) => ({
 
 function scratchMatrix(cells: readonly unknown[]): string {
   const scratch = mkdtempSync(join(tmpdir(), "w32-g0-matrix-"));
+  SCRATCH_DIRS.push(scratch);
   const matrix = join(scratch, "matrix.json");
   writeFileSync(
     matrix,
