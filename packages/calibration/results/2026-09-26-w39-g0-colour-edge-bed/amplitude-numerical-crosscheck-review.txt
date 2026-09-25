@@ -131,3 +131,8 @@ for scale in (1,2):
         coords,Y,att,knots,gains=t.bed(scale,inward)
         new=T.P.fit_amplitude(coords,Y,att,inward,knots); old=OLD.fit_amplitude(coords,Y,att,inward,knots)
         print(scale,inward,len(coords),'coords; knots',len(knots),'| fixed rss %.3g alt %d gains %s | HEAD rss %.6g gains %s'%(new['rss'],new['alternations'],np.round(new['gains'],6),old['rss'],np.round(old['gains'],4)))
+
+Historical-helper prerequisite: recov.py above used a temporary .old_preflight_scratch.py
+containing preflight.py from git1f504ff2. That temporary file was removed, not published.
+amplitude-model-recovery-review.txt repeats the exact four comparisons by executing that
+original git blob in memory beside AmplitudeFit.bed; it creates no temporary source file.

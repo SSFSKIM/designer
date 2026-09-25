@@ -296,3 +296,47 @@ requires successful admissions for1..N−1. Quarantines never satisfy these chec
 unadmitted run directory still refuses: the operator must explicitly preserve or rename it
 before a deliberate continuation. The driver neither overwrites nor automatically retakes
 it, and no new root-lock mechanism was added.
+
+**P1-1 — corrected numerical referee; no verdict flip.** The amplitude solver no longer
+stops after its first gain update because of an infinity comparison. It uses the declared
+relative tolerance1e-10 and cap200, reports convergence/iterations, and a nonconverged chosen
+amplitude fit cannot establish shift identification. `test-preflight-review.txt` has9 tests
+and preserves the new synthetic record beside the original7-test record. Noiseless data from
+the amplitude model now recovers RSS1.87e-10–2.40e-10 at both scales/directions, rather than
+1449–1790 on the old implementation.
+
+The corrected `RSS_shift / RSS_amplitude` values are below, with the original readings retained:
+
+| Synthetic data | 1x x (original → corrected) | 1x y | 2x x | 2x y |
+| --- | --- | --- | --- | --- |
+| True shift | 0.00202 → 0.00211 | 0.00225 → 0.00236 | 0.00292 → 0.00297 | 0.00307 → 0.00312 |
+| Amplitude only | 5.53 → 5.95 | 5.30 → 5.68 | 3.25 → 3.49 | 3.31 → 3.54 |
+| Snapped raster | 0.00217 → 0.00232 | 0.00199 → 0.00213 | 0.00295 → 0.00301 | 0.00320 → 0.00327 |
+
+True shift still admits both axes; amplitude-only and snapped raster admit neither; the
+one-axis case admits x only; the drift case remains UNMEASURED at2x. No threshold or verdict
+was tuned. Rank, condition, offsets, state counts, integer-control differences and LOPO
+readings are unchanged. Supplemental cap20000 and independent variable-projection checks
+are recorded with their historical scripts in `amplitude-numerical-crosscheck-review.txt`.
+They reproduce the selected minima; they are diagnostics, not an increased production cap.
+
+**Limitation of the negative alternative:** its shared-edge coordinate is underidentified:
+different shared profiles/edge coordinates can attain the same RSS. The comparison uses RSS,
+not a physical interpretation of its edge or gains; neither is claimed as a measured native
+parameter. Some nonselected search candidates remain unconverged even with the larger
+experimental cap (32/55 in the shift cases); the chosen fits converge and the search count is
+reported, not suppressed. This limitation does not change the judge or invite a retune.
+
+**Corrected verification:** the full calibration suite again passes54 files /718 tests,
+with1 skipped. The seven Python suites now pass **89 tests**: pass-spec4, wave11, archive12,
+release7, readers19, sitting27 and preflight9. Lint/TypeScript checks pass, and the final
+review freeze reads **1,818 intact**. `review-invariants.txt` proves that the two bed files,
+split, side pin, supplied paths, background verification, pass plan and recorded exclusions
+remain byte-identical to the independently reviewed head. The side binary and every Swift
+input still match the original pin. Only the numerical execution declaration and its pins
+were amended, with the old hash retained above. Exact recovery values, including the old
+implementation comparison, are in `amplitude-model-recovery-review.txt`.
+
+No native capture or grant operation was performed during the fix wave. The previously
+outstanding real TCC-refusal rehearsal and unexercised native frame-recording path remain
+outstanding, rather than being inferred from these passing synthetic tests.

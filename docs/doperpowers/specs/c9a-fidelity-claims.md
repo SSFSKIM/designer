@@ -38830,3 +38830,63 @@ run directories still refuse unchanged; explicit operator preservation/renaming 
 any deliberate continuation. An automatic quarantine-and-retake and root-lock expansion
 proposed during implementation was declined before landing, preserving the no-hidden-retry
 contract. `test-sitting-review.txt` records27 passing tests after that scope correction.
+
+**P1-1 corrected numerical results.** `test-preflight-review.txt` records9 passing tests,
+including exact amplitude-model recovery at1x/2x in both inward directions. Its noiseless RSS
+is **1.87e-10–2.40e-10**, versus1449–1790 from the old one-update fit on the same data. The
+chosen fits converge under the declared1e-10 tolerance and200-update cap; cap exhaustion is
+reported and cannot establish shift identification. The following table preserves the
+original ratios beside their corrected readings; in particular it supersedes §9's original
+0.00202–0.00307 shift range and approximate3.3–5.5 amplitude range without erasing them.
+
+| synthetic data | axis | original RSS ratio | corrected RSS ratio | corrected amplitude RSS |
+| --- | --- | --- | --- | --- |
+| shift | 1x x | 0.00202 | 0.00211 | 4177.15 |
+| shift | 1x y | 0.00225 | 0.00236 | 4076.00 |
+| shift | 2x x | 0.00292 | 0.00297 | 4844.05 |
+| shift | 2x y | 0.00307 | 0.00312 | 4793.82 |
+| amplitude only | 1x x | 5.53 | 5.95 | 40.8438 |
+| amplitude only | 1x y | 5.30 | 5.68 | 40.3238 |
+| amplitude only | 2x x | 3.25 | 3.49 | 85.7657 |
+| amplitude only | 2x y | 3.31 | 3.54 | 80.9578 |
+| snapped raster | 1x x | 0.00217 | 0.00232 | 3360.33 |
+| snapped raster | 1x y | 0.00199 | 0.00213 | 3301.11 |
+| snapped raster | 2x x | 0.00295 | 0.00301 | 3890.85 |
+| snapped raster | 2x y | 0.00320 | 0.00327 | 3896.64 |
+
+**No synthetic verdict flipped:** true shift admits both axes (56 scene IDs across poses and
+scale variants); amplitude-only and snapped raster admit neither; one-axis admits x only
+(32); end-repeat drift remains UNMEASURED at2x. Rank, condition, fitted SHIFT offsets, coverage
+states, integer-control differences and LOPO residuals/propagation terms are unchanged. The
+one-axis/drift cases reuse the corresponding rows above. No criterion was tuned to preserve
+a verdict. Runtime rose from about33s to53s, within the existing180s subprocess budget.
+
+The supplemental numerical check (`amplitude-numerical-crosscheck-review.txt`, historical
+scripts and stdout retained) raises the cap to20000 only diagnostically: chosen RSS, edge and
+gains are identical on every synthetic scenario. A separate variable-projection/BFGS solve
+matches all12 distinct fitted RSS values within approximately3e-11–1.2e-10 relative. This is
+not a claim that every searched candidate converged:32/55 off-solution search candidates in
+the shift cases remain unconverged even at that larger experimental cap, and the count is
+carried in the verdict. The selected fits converge; production stays at200, not20000.
+
+**A named limitation, not a physical fit:** the AMPLITUDE alternative's shared-edge coordinate
+is underidentified because different profile/edge parameterisations attain the same RSS.
+The negative alternative is conservative; its RSS is what the comparison uses. Its reported
+edge and gains are never claimed as physical native parameters. The parent ruled recording
+this limitation with no retune or judge change. No W39 pixel or native phase verdict has been
+introduced by these corrections.
+
+**Review verification complete.** Full calibration suite: **54 files,718 passed,1 skipped**.
+The seven direct Python suites pass **89 tests** (pass-spec4, wave11, archive12, release7,
+readers19, sitting27, preflight9). Calibration lint and TypeScript checks pass; the final
+review freeze again reads **1,818 intact**. `review-invariants.txt` proves byte identity to
+reviewed head1f504ff2 for both bed files, split, side pin, both supplied-path exports,
+background verification, pass plan and recorded archive exclusions; the original side binary
+and all Swift inputs still match their pin. The declaration amendment is94cebb42735a22f345b0a877ca5137d3355e84e78d09b12c9fabf67f0ba3faae,
+with the previous6467da85… retained above. `amplitude-model-recovery-review.txt` independently
+records the four exact old-versus-corrected comparisons by executing the original git blob
+in memory; no temporary source or native pixel is created. No synthetic verdict flipped.
+No native capture, permission action or canonical material/evidence change occurred in the
+fix wave. The real TCC-refusal rehearsal remains outstanding, and native frame recording
+remains operationally unexercised. These implementation corrections close the four verified
+review findings, not the operational rehearsal blocker.
