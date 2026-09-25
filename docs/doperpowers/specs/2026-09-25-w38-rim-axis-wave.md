@@ -1,6 +1,6 @@
 # W38 — the rim-axis wave: the shipped rim's light turned vertical, as a bounded improvement (2026-09-25)
 
-**Status: G0 DISPATCHED 2026-09-25 under v4 (three adversarial rounds: two P1 + two P2, two P1, one P2, all folded; the third round found the rest closed; Revision Notes).** Chartered by the parent on the user's
+**Status: G0 DELIVERED FOR REVIEW 2026-09-25, §5.183; recommends close at the finding. Dispatched under v4 (three adversarial rounds: two P1 + two P2, two P1, one P2, all folded; the third round found the rest closed; Revision Notes).** Chartered by the parent on the user's
 "W38 rim-axis refit (Recommended)" after W37 closed at its finding (main `b4715d78`), under the
 standing "rest on your judgement" and the routing of 2026-09-22 (X9). Grounded on a read-only memo
 (`/Users/new/.claude/jobs/17c7ce02/tmp/w38-grounding.md`, an `astra-high` product saved by the
@@ -265,7 +265,7 @@ strong border; the native experiment.
 
 | child | state |
 | --- | --- |
-| G0 | DISPATCHED 2026-09-25 (`astra-high`, brief `/Users/new/.claude/jobs/17c7ce02/tmp/w38-g0-brief.md`), §5.183 |
+| G0 | DELIVERED FOR REVIEW, §5.183 — C1 veto +46.776776 codes; C2 no feasible point in either declared grid; recommends close |
 | G1a | not dispatched |
 | G1b | not dispatched |
 | G2 | not dispatched |
@@ -275,6 +275,15 @@ strong border; the native experiment.
 ### Decision Log 1 — which candidate, or none (after G0 on the archive; final after G1a's render; the parent's)
 
 Open. G0 drafts on the stratum tables; G1a finalises on the rendered stops.
+
+**G0 draft, not ruled (2026-09-25, §5.183): close W38 at the finding.** C1's
+held-top rotation worsens dark-yellow arc6/shell−1 blue MAE25.868909→72.645686,
++46.776776 against1, despite better stratum max/mean. C2's3,201 declared points
+per scheme produce0 feasible points in each; its retained diagnostic witnesses
+are not selected fits. No G1a, no bound relaxation, no expanded search or web-body
+refit. This is a finite-budget negative, not a theorem against every existing-leaf
+point. Independent full-grid optical reconstruction reproduces all6,402 trials
+with zero numerical difference.
 
 ### Decision Log 2 — the collapsed and tinted rims under C1 (after G0; the parent's)
 
@@ -286,6 +295,17 @@ veto. A
 variant-specific collapsed amplitude would be a NEW leaf pair through the identity table and is
 not authorised by this charter.
 
+**G0 draft, not ruled (2026-09-25, §5.183): shared constants stay; collapsed
+brightening is UNMEASURED.** All212 admitted canonical active rows resolve T0,
+bare or painted. Their40 tinted rows'720 measured top/bottom bins inherit the
+literal held-top equality, not a collapsed-price measurement. Positive T requires
+sourceTone + .05*smoothstep(32,96,span)<.0001 and nonzero policy strength; span44+
+cannot reach it. Existing `collapsed-tone` goldens use span44/.01 under26.5 and
+would not exercise collapse under27. No current named pixel gate witnesses that
+changed contribution; no new fixture was built. Do not call its1.34258 factor
+safe because the bed cannot reach it. The parent owns any new coverage decision
+in a future charter; this failed candidate does not implicitly authorise one.
+
 ### Decision Log 3 — M2's mask or bound on the ring (after G1a's measured delta, before the seal; the user's)
 
 Open, carried from W35 Decision Log 3 and W37 Decision Log 3.
@@ -294,11 +314,41 @@ Open, carried from W35 Decision Log 3 and W37 Decision Log 3.
 
 Open.
 
+**G0 draft, not ruled (2026-09-25, §5.183): retain the frozen proposal, not an
+adopted row.** E2 covers212 non-holdout active rows including140 canonical probe
+diagnostics under W25 Decision Log3(e), not just72 calibration/validation rows.
+136 meet coverage,76 capsule rows remain UNMEASURED, with7,728 measured and1,488
+absent bins. Measured bins on incomplete rows still face the veto. All14 repaired
+E1 overlaps reproduce. The two stack scene IDs mean SIX profile×scene rows;
+estimator3 names all six for a single G1b read, none opened here. One-code rendered
+regression, uniform horizontal-side bound2, explicit missing/coverage treatment
+and the R1 law are frozen in9f1fca9c; no rendered pass is inferred.
+
 ### Decision Log 5 — the CSS projection: carry or decline (after G1a's measurement, before the seal; the parent's)
 
 Open.
 
 ## Surprises & Discoveries
+
+- **The literal diagonal is not unit length.** G0 found `[-.7071,-.7071]` passed
+  unnormalised to uniforms. Before scoring the parent ruled C1's exact held-top
+  scale .7071^.85=.7448326599749504, with the charter's ideal
+  2^(−.85/2)=.7448387315613512 recorded beside. The declaration uses the literal
+  ratio. CSS's old ideal normalisation differs by8.15ppm; no encoded-byte identity
+  is asserted without rendering. Clear/shared constants remain untouched.
+- **The collapsed price has no canonical27 witness.** Every admitted active row
+  resolves T0; the named existing pixel fixtures do too under27. DL2's1.34× change
+  is unmeasured, not accepted by a zero-population test (§5.183 §4).
+- **The row counts needed a metadata census.** “Every non-holdout active row”
+  includes140 probe diagnostics. The stack's two scene IDs expand to six
+  profile×scene rows, declared without any holdout-payload read.
+- **The required inherited suite reopens historical validation pixels.**
+  W37's test invokes its guarded score/replay verification, which reads its own
+  validation cut. The parent ruled that this historical-gate verification is not
+  a W38 identification input: W38 coefficients and selection consume calibration
+  only. The brief's stricter “never opened” wording is corrected beside, not
+  claimed retroactively true. A second unfiltered suite was stopped on discovery;
+  final W38-only tests and lint pass, with no further unfiltered replay.
 
 - **The rim's axis was a leaf all along.** `rimLitAxis` is a top-level profile leaf, patchable per
   document; no wave since W24 read it as one. (memo §1)
@@ -316,6 +366,17 @@ Open.
 (at close)
 
 ## Revision Notes
+
+- 2026-09-25 (G0 delivery, §5.183): declaration9f1fca9c before scoring; exact
+  literal C1 factor, probe-inclusive E2 and six-stack metadata clarification ruled
+  by the parent before score. Memo/grid/limits reproduce; C1 trades coloured arcs
+  beyond the per-bin veto and C2 has no feasible declared point. All current
+  canonical active T are0, so collapsed brightening remains unmeasured; DL1/2/4
+  above are G0 drafts, not rulings. The inherited-suite validation replay and
+  brief-wording correction are recorded explicitly; no W38 fit or selection
+  used validation, no holdout payload or new capture was read. No source,
+  document, matrix or fixture changed. M2's declaration label correction is
+  beside in§5.183: −60.028/−48.433 are dark1x/2x, not light/dark.
 
 - 2026-09-25 (v4, the parent, after the third adversarial round's one P2 — the rest closed):
   identity under C1 was conditioned on the absence of an author tint, but the collapse mix `T` is

@@ -1,0 +1,92 @@
+작업 트리 준비 중 (새 브랜치 'w38-g0-rim-axis-cut')
+Updating files:  30% (4037/13196)Updating files:  31% (4091/13196)Updating files:  32% (4223/13196)Updating files:  33% (4355/13196)Updating files:  34% (4487/13196)Updating files:  35% (4619/13196)Updating files:  36% (4751/13196)Updating files:  37% (4883/13196)Updating files:  38% (5015/13196)Updating files:  39% (5147/13196)Updating files:  40% (5279/13196)Updating files:  41% (5411/13196)Updating files:  42% (5543/13196)Updating files:  43% (5675/13196)Updating files:  44% (5807/13196)Updating files:  45% (5939/13196)Updating files:  46% (6071/13196)Updating files:  47% (6203/13196)Updating files:  48% (6335/13196)Updating files:  49% (6467/13196)Updating files:  49% (6479/13196)Updating files:  50% (6598/13196)Updating files:  51% (6730/13196)Updating files:  52% (6862/13196)Updating files:  53% (6994/13196)Updating files:  54% (7126/13196)Updating files:  55% (7258/13196)Updating files:  56% (7390/13196)Updating files:  57% (7522/13196)Updating files:  58% (7654/13196)Updating files:  59% (7786/13196)Updating files:  60% (7918/13196)Updating files:  61% (8050/13196)Updating files:  62% (8182/13196)Updating files:  63% (8314/13196)Updating files:  64% (8446/13196)Updating files:  65% (8578/13196)Updating files:  66% (8710/13196)Updating files:  67% (8842/13196)Updating files:  68% (8974/13196)Updating files:  69% (9106/13196)Updating files:  70% (9238/13196)Updating files:  71% (9370/13196)Updating files:  72% (9502/13196)Updating files:  73% (9634/13196)Updating files:  74% (9766/13196)Updating files:  75% (9897/13196)Updating files:  76% (10029/13196)Updating files:  77% (10161/13196)Updating files:  77% (10182/13196)Updating files:  78% (10293/13196)Updating files:  79% (10425/13196)Updating files:  80% (10557/13196)Updating files:  81% (10689/13196)Updating files:  82% (10821/13196)Updating files:  83% (10953/13196)Updating files:  84% (11085/13196)Updating files:  85% (11217/13196)Updating files:  86% (11349/13196)Updating files:  87% (11481/13196)Updating files:  88% (11613/13196)Updating files:  89% (11745/13196)Updating files:  90% (11877/13196)Updating files:  91% (12009/13196)Updating files:  92% (12141/13196)Updating files:  93% (12273/13196)Updating files:  93% (12394/13196)Updating files:  94% (12405/13196)Updating files:  95% (12537/13196)Updating files:  96% (12669/13196)Updating files:  97% (12801/13196)Updating files:  98% (12933/13196)Updating files:  99% (13065/13196)Updating files: 100% (13196/13196)Updating files: 100% (13196/13196), 완료.
+HEAD의 현재 위치는 008b0e4a입니다 W38: charter v4 — identity under C1 conditioned on backdrop adaptation T = 0, not on author tint; G0 dispatched (§5.183)
+Scope: 9 of 10 workspace projects
+packages/geometry build$ tsc -p tsconfig.build.json
+packages/motion build$ tsc -p tsconfig.build.json
+packages/policy build$ tsc -p tsconfig.build.json
+packages/policy build: Done
+packages/motion build: Done
+packages/geometry build: Done
+packages/renderer-webgpu build$ tsc -p tsconfig.build.json
+packages/renderer-webgpu build: Done
+packages/core build$ tsup
+packages/core build: CLI Building entry: src/index.ts
+packages/core build: CLI Using tsconfig: tsconfig.json
+packages/core build: CLI tsup v8.5.1
+packages/core build: CLI Using tsup config: /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-w38-g0/packages/core/tsup.config.ts
+packages/core build: CLI Target: es2022
+packages/core build: CLI Cleaning output folder
+packages/core build: ESM Build start
+packages/core build: DTS Build start
+packages/core build: ESM dist/index.js              42.69 KB
+packages/core build: ESM dist/chunk-IOTISK2R.js     19.40 KB
+packages/core build: ESM dist/dist-K743C2OC.js      364.78 KB
+packages/core build: ESM dist/chunk-IOTISK2R.js.map 102.61 KB
+packages/core build: ESM dist/index.js.map          171.36 KB
+packages/core build: ESM dist/dist-K743C2OC.js.map  951.94 KB
+packages/core build: ESM ⚡️ Build success in 239ms
+packages/core build: DTS ⚡️ Build success in 1247ms
+packages/core build: DTS dist/index.d.ts 257.20 KB
+packages/core build: Done
+packages/platform-web build$ tsup
+packages/platform-web build: CLI Building entry: src/index.ts
+packages/platform-web build: CLI Using tsconfig: tsconfig.json
+packages/platform-web build: CLI tsup v8.5.1
+packages/platform-web build: CLI Using tsup config: /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-w38-g0/packages/platform-web/tsup.config.ts
+packages/platform-web build: CLI Target: es2022
+packages/platform-web build: CLI Cleaning output folder
+packages/platform-web build: ESM Build start
+packages/platform-web build: DTS Build start
+packages/platform-web build: ESM dist/index.js     297.11 KB
+packages/platform-web build: ESM dist/index.js.map 1.15 MB
+packages/platform-web build: ESM ⚡️ Build success in 234ms
+packages/platform-web build: DTS ⚡️ Build success in 800ms
+packages/platform-web build: DTS dist/index.d.ts 380.16 KB
+packages/platform-web build: Done
+packages/react build$ tsup
+packages/calibration build$ tsc -p tsconfig.build.json
+packages/react build: CLI Building entry: src/index.ts
+packages/react build: CLI Using tsconfig: tsconfig.json
+packages/react build: CLI tsup v8.5.1
+packages/react build: CLI Using tsup config: /Users/new/Developer/GitHub/designer/.claude/worktrees/agent-w38-g0/packages/react/tsup.config.ts
+packages/react build: CLI Target: es2022
+packages/react build: CLI Cleaning output folder
+packages/react build: ESM Build start
+packages/react build: ESM dist/index.js     100.49 KB
+packages/react build: ESM dist/index.js.map 409.94 KB
+packages/react build: ESM ⚡️ Build success in 148ms
+packages/react build: DTS Build start
+packages/calibration build: Done
+packages/react build: DTS ⚡️ Build success in 1142ms
+packages/react build: DTS dist/index.d.ts 66.27 KB
+packages/react build: Done
+apps/demo build$ vite build
+apps/demo build: vite v8.2.2 building client environment for production...
+apps/demo build: transforming...
+apps/demo build: ✓ 1218 modules transformed.
+apps/demo build: rendering chunks...
+apps/demo build: computing gzip size...
+apps/demo build: dist/index.html                           1.15 kB │ gzip:   0.56 kB
+apps/demo build: dist/playground/index.html                1.16 kB │ gzip:   0.60 kB
+apps/demo build: dist/laws/index.html                      1.50 kB │ gzip:   0.73 kB
+apps/demo build: dist/assets/laws-_ZxSrlgO.css             0.96 kB │ gzip:   0.43 kB
+apps/demo build: dist/assets/playground-C6LzDn36.css       8.96 kB │ gzip:   2.59 kB
+apps/demo build: dist/assets/StageBackdrop-CuaKctqy.css   15.83 kB │ gzip:   3.92 kB
+apps/demo build: dist/assets/StageBackdrop-ByLlO5rV.js     4.20 kB │ gzip:   1.88 kB
+apps/demo build: dist/assets/concentric-lxgsKR3K.js        8.08 kB │ gzip:   3.40 kB
+apps/demo build: dist/assets/playground-Df-MhwM9.js       18.85 kB │ gzip:   5.92 kB
+apps/demo build: dist/assets/laws-CZNBkspo.js             34.03 kB │ gzip:  10.58 kB
+apps/demo build: dist/assets/ActionsMenu-Cakeg9GT.js     107.37 kB │ gzip:  34.98 kB
+apps/demo build: dist/assets/src-DBA1E35o.js             223.49 kB │ gzip:  73.14 kB
+apps/demo build: dist/assets/client-CZdxhj8l.js          364.29 kB │ gzip: 117.85 kB
+apps/demo build: dist/assets/index-B3BrBRxd.js           692.53 kB │ gzip:  73.42 kB
+apps/demo build: ✓ built in 455ms
+apps/demo build: [plugin builtin:vite-reporter] 
+apps/demo build: (!) Some chunks are larger than 500 kB after minification. Consider:
+apps/demo build: - Using dynamic import() to code-split the application
+apps/demo build: - Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+apps/demo build: - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+apps/demo build: Done
+
+[exited with code 0]
