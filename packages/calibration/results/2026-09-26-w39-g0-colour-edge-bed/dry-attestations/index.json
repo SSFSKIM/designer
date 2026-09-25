@@ -1,0 +1,57 @@
+{
+  "kind": "opening refusals, not TCC refusal evidence; also expose buildVersion trailing-newline comparison defect",
+  "passes": [
+    {
+      "passName": "active-1x",
+      "exitCode": 1,
+      "scratch": "/Users/new/vitrea-w39/rehearsal/rehearsal-active-1x/QUARANTINE-run-1-1790356088365711000",
+      "retained": [
+        "attest.open.json",
+        "session-before.json",
+        "refusal.txt",
+        "attest.read"
+      ],
+      "foreignProcessCount": 14,
+      "noManifest": true
+    },
+    {
+      "passName": "active-2x",
+      "exitCode": 1,
+      "scratch": "/Users/new/vitrea-w39/rehearsal/rehearsal-active-2x/QUARANTINE-run-1-1790356089102040000",
+      "retained": [
+        "attest.open.json",
+        "session-before.json",
+        "refusal.txt",
+        "attest.read"
+      ],
+      "foreignProcessCount": 14,
+      "noManifest": true
+    },
+    {
+      "passName": "inactive-1x",
+      "exitCode": 1,
+      "scratch": "/Users/new/vitrea-w39/rehearsal/rehearsal-inactive-1x/QUARANTINE-run-1-1790356089827766000",
+      "retained": [
+        "attest.open.json",
+        "session-before.json",
+        "refusal.txt",
+        "attest.read"
+      ],
+      "foreignProcessCount": 14,
+      "noManifest": true
+    },
+    {
+      "passName": "inactive-2x",
+      "exitCode": 1,
+      "scratch": "/Users/new/vitrea-w39/rehearsal/rehearsal-inactive-2x/QUARANTINE-run-1-1790356090560303000",
+      "retained": [
+        "attest.open.json",
+        "session-before.json",
+        "refusal.txt",
+        "attest.read"
+      ],
+      "foreignProcessCount": 14,
+      "noManifest": true
+    }
+  ]
+}

@@ -1,0 +1,10468 @@
+{
+ "access": {
+  "reader": "W34 wave.Reader (packages/calibration/results/2026-09-23-w34-g0-contour-bed/wave.py)",
+  "repeatInventorySha256": "e6e1626740c57a8805d705c9d1e227323c513534fbdc233b3ad51f8aa52bd95a",
+  "roles": [
+   "calibration",
+   "validation"
+  ],
+  "unread": "grey-208 (W34 identification holdout) in all eight strata; no holdout directory, sealed bulk file or holdout-role cell was opened"
+ },
+ "cells": [
+  {
+   "attestedOriginOutput": [
+    49.0,
+    48.0,
+    246.0
+   ],
+   "background": "blue",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/blue__circular-120__inactive",
+   "deepSpatialMaximum": [
+    49.0,
+    48.0,
+    246.0
+   ],
+   "deepSpatialMinimum": [
+    49.0,
+    48.0,
+    246.0
+   ],
+   "input": [
+    32,
+    32,
+    192
+   ],
+   "measuredInput": [
+    32.0,
+    32.0,
+    192.0
+   ],
+   "output": [
+    49.0,
+    48.0,
+    246.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     49.0,
+     48.0,
+     246.0
+    ],
+    [
+     49.0,
+     48.0,
+     246.0
+    ],
+    [
+     49.0,
+     48.0,
+     246.0
+    ],
+    [
+     49.0,
+     48.0,
+     246.0
+    ],
+    [
+     49.0,
+     48.0,
+     246.0
+    ],
+    [
+     49.0,
+     48.0,
+     246.0
+    ],
+    [
+     49.0,
+     48.0,
+     246.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "inactive",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    58.0,
+    58.0,
+    255.0
+   ],
+   "background": "blue",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/blue__circular-120__rest",
+   "deepSpatialMaximum": [
+    59.0,
+    59.0,
+    255.0
+   ],
+   "deepSpatialMinimum": [
+    57.0,
+    57.0,
+    251.0
+   ],
+   "input": [
+    32,
+    32,
+    192
+   ],
+   "measuredInput": [
+    32.0,
+    32.0,
+    192.0
+   ],
+   "output": [
+    58.0,
+    58.0,
+    255.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    true
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     58.0,
+     58.0,
+     255.0
+    ],
+    [
+     58.0,
+     58.0,
+     255.0
+    ],
+    [
+     58.0,
+     58.0,
+     255.0
+    ],
+    [
+     58.0,
+     58.0,
+     255.0
+    ],
+    [
+     58.0,
+     58.0,
+     255.0
+    ],
+    [
+     58.0,
+     58.0,
+     255.0
+    ],
+    [
+     58.0,
+     58.0,
+     255.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "active",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    12.0,
+    180.0,
+    180.0
+   ],
+   "background": "cyan",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/cyan__circular-120__inactive",
+   "deepSpatialMaximum": [
+    12.0,
+    180.0,
+    180.0
+   ],
+   "deepSpatialMinimum": [
+    12.0,
+    180.0,
+    180.0
+   ],
+   "input": [
+    32,
+    192,
+    192
+   ],
+   "measuredInput": [
+    32.0,
+    192.0,
+    192.0
+   ],
+   "output": [
+    12.0,
+    180.0,
+    180.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "validation",
+   "runMedians": [
+    [
+     12.0,
+     180.0,
+     180.0
+    ],
+    [
+     12.0,
+     180.0,
+     180.0
+    ],
+    [
+     12.0,
+     180.0,
+     180.0
+    ],
+    [
+     12.0,
+     180.0,
+     180.0
+    ],
+    [
+     12.0,
+     180.0,
+     180.0
+    ],
+    [
+     12.0,
+     180.0,
+     180.0
+    ],
+    [
+     12.0,
+     180.0,
+     180.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "inactive",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    18.0,
+    186.0,
+    186.0
+   ],
+   "background": "cyan",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/cyan__circular-120__rest",
+   "deepSpatialMaximum": [
+    18.0,
+    187.0,
+    187.0
+   ],
+   "deepSpatialMinimum": [
+    18.0,
+    183.0,
+    183.0
+   ],
+   "input": [
+    32,
+    192,
+    192
+   ],
+   "measuredInput": [
+    32.0,
+    192.0,
+    192.0
+   ],
+   "output": [
+    18.0,
+    186.0,
+    186.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "validation",
+   "runMedians": [
+    [
+     18.0,
+     186.0,
+     186.0
+    ],
+    [
+     18.0,
+     186.0,
+     186.0
+    ],
+    [
+     18.0,
+     186.0,
+     186.0
+    ],
+    [
+     18.0,
+     186.0,
+     186.0
+    ],
+    [
+     18.0,
+     186.0,
+     186.0
+    ],
+    [
+     18.0,
+     186.0,
+     186.0
+    ],
+    [
+     18.0,
+     186.0,
+     186.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "active",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    16.0,
+    187.0,
+    16.0
+   ],
+   "background": "green",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/green__circular-120__inactive",
+   "deepSpatialMaximum": [
+    16.0,
+    187.0,
+    16.0
+   ],
+   "deepSpatialMinimum": [
+    16.0,
+    187.0,
+    16.0
+   ],
+   "input": [
+    32,
+    192,
+    32
+   ],
+   "measuredInput": [
+    32.0,
+    192.0,
+    32.0
+   ],
+   "output": [
+    16.0,
+    187.0,
+    16.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     16.0,
+     187.0,
+     16.0
+    ],
+    [
+     16.0,
+     187.0,
+     16.0
+    ],
+    [
+     16.0,
+     187.0,
+     16.0
+    ],
+    [
+     16.0,
+     187.0,
+     16.0
+    ],
+    [
+     16.0,
+     187.0,
+     16.0
+    ],
+    [
+     16.0,
+     187.0,
+     16.0
+    ],
+    [
+     16.0,
+     187.0,
+     16.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "inactive",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    22.0,
+    193.0,
+    22.0
+   ],
+   "background": "green",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/green__circular-120__rest",
+   "deepSpatialMaximum": [
+    22.0,
+    194.0,
+    22.0
+   ],
+   "deepSpatialMinimum": [
+    22.0,
+    190.0,
+    22.0
+   ],
+   "input": [
+    32,
+    192,
+    32
+   ],
+   "measuredInput": [
+    32.0,
+    192.0,
+    32.0
+   ],
+   "output": [
+    22.0,
+    193.0,
+    22.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     22.0,
+     193.0,
+     22.0
+    ],
+    [
+     22.0,
+     193.0,
+     22.0
+    ],
+    [
+     22.0,
+     193.0,
+     22.0
+    ],
+    [
+     22.0,
+     193.0,
+     22.0
+    ],
+    [
+     22.0,
+     193.0,
+     22.0
+    ],
+    [
+     22.0,
+     193.0,
+     22.0
+    ],
+    [
+     22.0,
+     193.0,
+     22.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "active",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    20.0,
+    20.0,
+    20.0
+   ],
+   "background": "grey-0",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/grey-0__circular-120__inactive",
+   "deepSpatialMaximum": [
+    20.0,
+    20.0,
+    20.0
+   ],
+   "deepSpatialMinimum": [
+    20.0,
+    20.0,
+    20.0
+   ],
+   "input": [
+    0,
+    0,
+    0
+   ],
+   "measuredInput": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "output": [
+    20.0,
+    20.0,
+    20.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     20.0,
+     20.0,
+     20.0
+    ],
+    [
+     20.0,
+     20.0,
+     20.0
+    ],
+    [
+     20.0,
+     20.0,
+     20.0
+    ],
+    [
+     20.0,
+     20.0,
+     20.0
+    ],
+    [
+     20.0,
+     20.0,
+     20.0
+    ],
+    [
+     20.0,
+     20.0,
+     20.0
+    ],
+    [
+     20.0,
+     20.0,
+     20.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "inactive",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    32.0,
+    32.0,
+    32.0
+   ],
+   "background": "grey-0",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/grey-0__circular-120__rest",
+   "deepSpatialMaximum": [
+    33.0,
+    33.0,
+    33.0
+   ],
+   "deepSpatialMinimum": [
+    31.0,
+    31.0,
+    31.0
+   ],
+   "input": [
+    0,
+    0,
+    0
+   ],
+   "measuredInput": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "output": [
+    32.0,
+    32.0,
+    32.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     32.0,
+     32.0,
+     32.0
+    ],
+    [
+     32.0,
+     32.0,
+     32.0
+    ],
+    [
+     32.0,
+     32.0,
+     32.0
+    ],
+    [
+     32.0,
+     32.0,
+     32.0
+    ],
+    [
+     32.0,
+     32.0,
+     32.0
+    ],
+    [
+     32.0,
+     32.0,
+     32.0
+    ],
+    [
+     32.0,
+     32.0,
+     32.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "active",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    127.0,
+    127.0,
+    127.0
+   ],
+   "background": "grey-128",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/grey-128__circular-120__inactive",
+   "deepSpatialMaximum": [
+    127.0,
+    127.0,
+    127.0
+   ],
+   "deepSpatialMinimum": [
+    127.0,
+    127.0,
+    127.0
+   ],
+   "input": [
+    128,
+    128,
+    128
+   ],
+   "measuredInput": [
+    128.0,
+    128.0,
+    128.0
+   ],
+   "output": [
+    127.0,
+    127.0,
+    127.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     127.0,
+     127.0,
+     127.0
+    ],
+    [
+     127.0,
+     127.0,
+     127.0
+    ],
+    [
+     127.0,
+     127.0,
+     127.0
+    ],
+    [
+     127.0,
+     127.0,
+     127.0
+    ],
+    [
+     127.0,
+     127.0,
+     127.0
+    ],
+    [
+     127.0,
+     127.0,
+     127.0
+    ],
+    [
+     127.0,
+     127.0,
+     127.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "inactive",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    134.0,
+    134.0,
+    134.0
+   ],
+   "background": "grey-128",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/grey-128__circular-120__rest",
+   "deepSpatialMaximum": [
+    135.0,
+    135.0,
+    135.0
+   ],
+   "deepSpatialMinimum": [
+    132.0,
+    132.0,
+    132.0
+   ],
+   "input": [
+    128,
+    128,
+    128
+   ],
+   "measuredInput": [
+    128.0,
+    128.0,
+    128.0
+   ],
+   "output": [
+    134.0,
+    134.0,
+    134.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     134.0,
+     134.0,
+     134.0
+    ],
+    [
+     134.0,
+     134.0,
+     134.0
+    ],
+    [
+     134.0,
+     134.0,
+     134.0
+    ],
+    [
+     134.0,
+     134.0,
+     134.0
+    ],
+    [
+     134.0,
+     134.0,
+     134.0
+    ],
+    [
+     134.0,
+     134.0,
+     134.0
+    ],
+    [
+     134.0,
+     134.0,
+     134.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "active",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    146.0,
+    146.0,
+    146.0
+   ],
+   "background": "grey-160",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/grey-160__circular-120__inactive",
+   "deepSpatialMaximum": [
+    146.0,
+    146.0,
+    146.0
+   ],
+   "deepSpatialMinimum": [
+    146.0,
+    146.0,
+    146.0
+   ],
+   "input": [
+    160,
+    160,
+    160
+   ],
+   "measuredInput": [
+    160.0,
+    160.0,
+    160.0
+   ],
+   "output": [
+    146.0,
+    146.0,
+    146.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     146.0,
+     146.0,
+     146.0
+    ],
+    [
+     146.0,
+     146.0,
+     146.0
+    ],
+    [
+     146.0,
+     146.0,
+     146.0
+    ],
+    [
+     146.0,
+     146.0,
+     146.0
+    ],
+    [
+     146.0,
+     146.0,
+     146.0
+    ],
+    [
+     146.0,
+     146.0,
+     146.0
+    ],
+    [
+     146.0,
+     146.0,
+     146.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "inactive",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    151.0,
+    151.0,
+    151.0
+   ],
+   "background": "grey-160",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/grey-160__circular-120__rest",
+   "deepSpatialMaximum": [
+    153.0,
+    153.0,
+    153.0
+   ],
+   "deepSpatialMinimum": [
+    149.0,
+    149.0,
+    149.0
+   ],
+   "input": [
+    160,
+    160,
+    160
+   ],
+   "measuredInput": [
+    160.0,
+    160.0,
+    160.0
+   ],
+   "output": [
+    151.0,
+    151.0,
+    151.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     151.0,
+     151.0,
+     151.0
+    ],
+    [
+     151.0,
+     151.0,
+     151.0
+    ],
+    [
+     151.0,
+     151.0,
+     151.0
+    ],
+    [
+     151.0,
+     151.0,
+     151.0
+    ],
+    [
+     151.0,
+     151.0,
+     151.0
+    ],
+    [
+     151.0,
+     151.0,
+     151.0
+    ],
+    [
+     151.0,
+     151.0,
+     151.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "active",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    180.0,
+    180.0,
+    180.0
+   ],
+   "background": "grey-255",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/grey-255__circular-120__inactive",
+   "deepSpatialMaximum": [
+    180.0,
+    180.0,
+    180.0
+   ],
+   "deepSpatialMinimum": [
+    180.0,
+    180.0,
+    180.0
+   ],
+   "input": [
+    255,
+    255,
+    255
+   ],
+   "measuredInput": [
+    255.0,
+    255.0,
+    255.0
+   ],
+   "output": [
+    180.0,
+    180.0,
+    180.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     180.0,
+     180.0,
+     180.0
+    ],
+    [
+     180.0,
+     180.0,
+     180.0
+    ],
+    [
+     180.0,
+     180.0,
+     180.0
+    ],
+    [
+     180.0,
+     180.0,
+     180.0
+    ],
+    [
+     180.0,
+     180.0,
+     180.0
+    ],
+    [
+     180.0,
+     180.0,
+     180.0
+    ],
+    [
+     180.0,
+     180.0,
+     180.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "inactive",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    184.0,
+    184.0,
+    184.0
+   ],
+   "background": "grey-255",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/grey-255__circular-120__rest",
+   "deepSpatialMaximum": [
+    186.0,
+    186.0,
+    186.0
+   ],
+   "deepSpatialMinimum": [
+    181.0,
+    181.0,
+    181.0
+   ],
+   "input": [
+    255,
+    255,
+    255
+   ],
+   "measuredInput": [
+    255.0,
+    255.0,
+    255.0
+   ],
+   "output": [
+    184.0,
+    184.0,
+    184.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     184.0,
+     184.0,
+     184.0
+    ],
+    [
+     184.0,
+     184.0,
+     184.0
+    ],
+    [
+     184.0,
+     184.0,
+     184.0
+    ],
+    [
+     184.0,
+     184.0,
+     184.0
+    ],
+    [
+     184.0,
+     184.0,
+     184.0
+    ],
+    [
+     184.0,
+     184.0,
+     184.0
+    ],
+    [
+     184.0,
+     184.0,
+     184.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "active",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    52.0,
+    52.0,
+    52.0
+   ],
+   "background": "grey-32",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/grey-32__circular-120__inactive",
+   "deepSpatialMaximum": [
+    52.0,
+    52.0,
+    52.0
+   ],
+   "deepSpatialMinimum": [
+    52.0,
+    52.0,
+    52.0
+   ],
+   "input": [
+    32,
+    32,
+    32
+   ],
+   "measuredInput": [
+    32.0,
+    32.0,
+    32.0
+   ],
+   "output": [
+    52.0,
+    52.0,
+    52.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     52.0,
+     52.0,
+     52.0
+    ],
+    [
+     52.0,
+     52.0,
+     52.0
+    ],
+    [
+     52.0,
+     52.0,
+     52.0
+    ],
+    [
+     52.0,
+     52.0,
+     52.0
+    ],
+    [
+     52.0,
+     52.0,
+     52.0
+    ],
+    [
+     52.0,
+     52.0,
+     52.0
+    ],
+    [
+     52.0,
+     52.0,
+     52.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "inactive",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    62.0,
+    62.0,
+    62.0
+   ],
+   "background": "grey-32",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/grey-32__circular-120__rest",
+   "deepSpatialMaximum": [
+    63.0,
+    63.0,
+    63.0
+   ],
+   "deepSpatialMinimum": [
+    61.0,
+    61.0,
+    61.0
+   ],
+   "input": [
+    32,
+    32,
+    32
+   ],
+   "measuredInput": [
+    32.0,
+    32.0,
+    32.0
+   ],
+   "output": [
+    62.0,
+    62.0,
+    62.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     62.0,
+     62.0,
+     62.0
+    ],
+    [
+     62.0,
+     62.0,
+     62.0
+    ],
+    [
+     62.0,
+     62.0,
+     62.0
+    ],
+    [
+     62.0,
+     62.0,
+     62.0
+    ],
+    [
+     62.0,
+     62.0,
+     62.0
+    ],
+    [
+     62.0,
+     62.0,
+     62.0
+    ],
+    [
+     62.0,
+     62.0,
+     62.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "active",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    81.0,
+    80.0,
+    81.0
+   ],
+   "background": "grey-64",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/grey-64__circular-120__inactive",
+   "deepSpatialMaximum": [
+    81.0,
+    80.0,
+    81.0
+   ],
+   "deepSpatialMinimum": [
+    81.0,
+    80.0,
+    81.0
+   ],
+   "input": [
+    64,
+    64,
+    64
+   ],
+   "measuredInput": [
+    64.0,
+    64.0,
+    64.0
+   ],
+   "output": [
+    81.0,
+    80.0,
+    81.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     81.0,
+     80.0,
+     81.0
+    ],
+    [
+     81.0,
+     80.0,
+     81.0
+    ],
+    [
+     81.0,
+     80.0,
+     81.0
+    ],
+    [
+     81.0,
+     80.0,
+     81.0
+    ],
+    [
+     81.0,
+     80.0,
+     81.0
+    ],
+    [
+     81.0,
+     80.0,
+     81.0
+    ],
+    [
+     81.0,
+     80.0,
+     81.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "inactive",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    89.0,
+    89.0,
+    89.0
+   ],
+   "background": "grey-64",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/grey-64__circular-120__rest",
+   "deepSpatialMaximum": [
+    90.0,
+    90.0,
+    90.0
+   ],
+   "deepSpatialMinimum": [
+    88.0,
+    88.0,
+    88.0
+   ],
+   "input": [
+    64,
+    64,
+    64
+   ],
+   "measuredInput": [
+    64.0,
+    64.0,
+    64.0
+   ],
+   "output": [
+    89.0,
+    89.0,
+    89.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     89.0,
+     89.0,
+     89.0
+    ],
+    [
+     89.0,
+     89.0,
+     89.0
+    ],
+    [
+     89.0,
+     89.0,
+     89.0
+    ],
+    [
+     89.0,
+     89.0,
+     89.0
+    ],
+    [
+     89.0,
+     89.0,
+     89.0
+    ],
+    [
+     89.0,
+     89.0,
+     89.0
+    ],
+    [
+     89.0,
+     89.0,
+     89.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "active",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    106.0,
+    106.0,
+    106.0
+   ],
+   "background": "grey-96",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/grey-96__circular-120__inactive",
+   "deepSpatialMaximum": [
+    106.0,
+    106.0,
+    106.0
+   ],
+   "deepSpatialMinimum": [
+    106.0,
+    106.0,
+    106.0
+   ],
+   "input": [
+    96,
+    96,
+    96
+   ],
+   "measuredInput": [
+    96.0,
+    96.0,
+    96.0
+   ],
+   "output": [
+    106.0,
+    106.0,
+    106.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "validation",
+   "runMedians": [
+    [
+     106.0,
+     106.0,
+     106.0
+    ],
+    [
+     106.0,
+     106.0,
+     106.0
+    ],
+    [
+     106.0,
+     106.0,
+     106.0
+    ],
+    [
+     106.0,
+     106.0,
+     106.0
+    ],
+    [
+     106.0,
+     106.0,
+     106.0
+    ],
+    [
+     106.0,
+     106.0,
+     106.0
+    ],
+    [
+     106.0,
+     106.0,
+     106.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "inactive",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    113.0,
+    113.0,
+    113.0
+   ],
+   "background": "grey-96",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/grey-96__circular-120__rest",
+   "deepSpatialMaximum": [
+    114.0,
+    114.0,
+    114.0
+   ],
+   "deepSpatialMinimum": [
+    111.0,
+    111.0,
+    111.0
+   ],
+   "input": [
+    96,
+    96,
+    96
+   ],
+   "measuredInput": [
+    96.0,
+    96.0,
+    96.0
+   ],
+   "output": [
+    113.0,
+    113.0,
+    113.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "validation",
+   "runMedians": [
+    [
+     113.0,
+     113.0,
+     113.0
+    ],
+    [
+     113.0,
+     113.0,
+     113.0
+    ],
+    [
+     113.0,
+     113.0,
+     113.0
+    ],
+    [
+     113.0,
+     113.0,
+     113.0
+    ],
+    [
+     113.0,
+     113.0,
+     113.0
+    ],
+    [
+     113.0,
+     113.0,
+     113.0
+    ],
+    [
+     113.0,
+     113.0,
+     113.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "active",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    227.0,
+    38.0,
+    227.0
+   ],
+   "background": "magenta",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/magenta__circular-120__inactive",
+   "deepSpatialMaximum": [
+    227.0,
+    38.0,
+    227.0
+   ],
+   "deepSpatialMinimum": [
+    227.0,
+    38.0,
+    227.0
+   ],
+   "input": [
+    192,
+    32,
+    192
+   ],
+   "measuredInput": [
+    192.0,
+    32.0,
+    192.0
+   ],
+   "output": [
+    227.0,
+    38.0,
+    227.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     227.0,
+     38.0,
+     227.0
+    ],
+    [
+     227.0,
+     38.0,
+     227.0
+    ],
+    [
+     227.0,
+     38.0,
+     227.0
+    ],
+    [
+     227.0,
+     38.0,
+     227.0
+    ],
+    [
+     227.0,
+     38.0,
+     227.0
+    ],
+    [
+     227.0,
+     38.0,
+     227.0
+    ],
+    [
+     227.0,
+     38.0,
+     227.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "inactive",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    235.0,
+    46.0,
+    235.0
+   ],
+   "background": "magenta",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/magenta__circular-120__rest",
+   "deepSpatialMaximum": [
+    235.0,
+    46.0,
+    235.0
+   ],
+   "deepSpatialMinimum": [
+    231.0,
+    45.0,
+    231.0
+   ],
+   "input": [
+    192,
+    32,
+    192
+   ],
+   "measuredInput": [
+    192.0,
+    32.0,
+    192.0
+   ],
+   "output": [
+    235.0,
+    46.0,
+    235.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     235.0,
+     46.0,
+     235.0
+    ],
+    [
+     235.0,
+     46.0,
+     235.0
+    ],
+    [
+     235.0,
+     46.0,
+     235.0
+    ],
+    [
+     235.0,
+     46.0,
+     235.0
+    ],
+    [
+     235.0,
+     46.0,
+     235.0
+    ],
+    [
+     235.0,
+     46.0,
+     235.0
+    ],
+    [
+     235.0,
+     46.0,
+     235.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "active",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    234.0,
+    41.0,
+    41.0
+   ],
+   "background": "red",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/red__circular-120__inactive",
+   "deepSpatialMaximum": [
+    234.0,
+    41.0,
+    41.0
+   ],
+   "deepSpatialMinimum": [
+    234.0,
+    41.0,
+    41.0
+   ],
+   "input": [
+    192,
+    32,
+    32
+   ],
+   "measuredInput": [
+    192.0,
+    32.0,
+    32.0
+   ],
+   "output": [
+    234.0,
+    41.0,
+    41.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     234.0,
+     41.0,
+     41.0
+    ],
+    [
+     234.0,
+     41.0,
+     41.0
+    ],
+    [
+     234.0,
+     41.0,
+     41.0
+    ],
+    [
+     234.0,
+     41.0,
+     41.0
+    ],
+    [
+     234.0,
+     41.0,
+     41.0
+    ],
+    [
+     234.0,
+     41.0,
+     41.0
+    ],
+    [
+     234.0,
+     41.0,
+     41.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "inactive",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    242.0,
+    50.0,
+    50.0
+   ],
+   "background": "red",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/red__circular-120__rest",
+   "deepSpatialMaximum": [
+    242.0,
+    50.0,
+    50.0
+   ],
+   "deepSpatialMinimum": [
+    238.0,
+    49.0,
+    49.0
+   ],
+   "input": [
+    192,
+    32,
+    32
+   ],
+   "measuredInput": [
+    192.0,
+    32.0,
+    32.0
+   ],
+   "output": [
+    242.0,
+    50.0,
+    50.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     242.0,
+     50.0,
+     50.0
+    ],
+    [
+     242.0,
+     50.0,
+     50.0
+    ],
+    [
+     242.0,
+     50.0,
+     50.0
+    ],
+    [
+     242.0,
+     50.0,
+     50.0
+    ],
+    [
+     242.0,
+     50.0,
+     50.0
+    ],
+    [
+     242.0,
+     50.0,
+     50.0
+    ],
+    [
+     242.0,
+     50.0,
+     50.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "active",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    167.0,
+    167.0,
+    5.0
+   ],
+   "background": "yellow",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/yellow__circular-120__inactive",
+   "deepSpatialMaximum": [
+    167.0,
+    167.0,
+    5.0
+   ],
+   "deepSpatialMinimum": [
+    167.0,
+    167.0,
+    5.0
+   ],
+   "input": [
+    192,
+    192,
+    32
+   ],
+   "measuredInput": [
+    192.0,
+    192.0,
+    32.0
+   ],
+   "output": [
+    167.0,
+    167.0,
+    5.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    true
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     167.0,
+     167.0,
+     5.0
+    ],
+    [
+     167.0,
+     167.0,
+     5.0
+    ],
+    [
+     167.0,
+     167.0,
+     5.0
+    ],
+    [
+     167.0,
+     167.0,
+     5.0
+    ],
+    [
+     167.0,
+     167.0,
+     5.0
+    ],
+    [
+     167.0,
+     167.0,
+     5.0
+    ],
+    [
+     167.0,
+     167.0,
+     5.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "inactive",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    173.0,
+    173.0,
+    11.0
+   ],
+   "background": "yellow",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/yellow__circular-120__rest",
+   "deepSpatialMaximum": [
+    174.0,
+    174.0,
+    11.0
+   ],
+   "deepSpatialMinimum": [
+    170.0,
+    170.0,
+    11.0
+   ],
+   "input": [
+    192,
+    192,
+    32
+   ],
+   "measuredInput": [
+    192.0,
+    192.0,
+    32.0
+   ],
+   "output": [
+    173.0,
+    173.0,
+    11.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     173.0,
+     173.0,
+     11.0
+    ],
+    [
+     173.0,
+     173.0,
+     11.0
+    ],
+    [
+     173.0,
+     173.0,
+     11.0
+    ],
+    [
+     173.0,
+     173.0,
+     11.0
+    ],
+    [
+     173.0,
+     173.0,
+     11.0
+    ],
+    [
+     173.0,
+     173.0,
+     11.0
+    ],
+    [
+     173.0,
+     173.0,
+     11.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "active",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    141.0,
+    141.0,
+    255.0
+   ],
+   "background": "blue",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-light-standard-glass0.5/blue__circular-120__inactive",
+   "deepSpatialMaximum": [
+    141.0,
+    141.0,
+    255.0
+   ],
+   "deepSpatialMinimum": [
+    141.0,
+    141.0,
+    255.0
+   ],
+   "input": [
+    32,
+    32,
+    192
+   ],
+   "measuredInput": [
+    32.0,
+    32.0,
+    192.0
+   ],
+   "output": [
+    141.0,
+    141.0,
+    255.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    true
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     141.0,
+     141.0,
+     255.0
+    ],
+    [
+     141.0,
+     141.0,
+     255.0
+    ],
+    [
+     141.0,
+     141.0,
+     255.0
+    ],
+    [
+     141.0,
+     141.0,
+     255.0
+    ],
+    [
+     141.0,
+     141.0,
+     255.0
+    ],
+    [
+     141.0,
+     141.0,
+     255.0
+    ],
+    [
+     141.0,
+     141.0,
+     255.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "inactive",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    143.0,
+    143.0,
+    255.0
+   ],
+   "background": "blue",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-light-standard-glass0.5/blue__circular-120__rest",
+   "deepSpatialMaximum": [
+    143.0,
+    143.0,
+    255.0
+   ],
+   "deepSpatialMinimum": [
+    141.0,
+    141.0,
+    255.0
+   ],
+   "input": [
+    32,
+    32,
+    192
+   ],
+   "measuredInput": [
+    32.0,
+    32.0,
+    192.0
+   ],
+   "output": [
+    143.0,
+    143.0,
+    255.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    true
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     143.0,
+     143.0,
+     255.0
+    ],
+    [
+     143.0,
+     143.0,
+     255.0
+    ],
+    [
+     143.0,
+     143.0,
+     255.0
+    ],
+    [
+     143.0,
+     143.0,
+     255.0
+    ],
+    [
+     143.0,
+     143.0,
+     255.0
+    ],
+    [
+     143.0,
+     143.0,
+     255.0
+    ],
+    [
+     143.0,
+     143.0,
+     255.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "active",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    83.0,
+    233.0,
+    233.0
+   ],
+   "background": "cyan",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-light-standard-glass0.5/cyan__circular-120__inactive",
+   "deepSpatialMaximum": [
+    83.0,
+    233.0,
+    233.0
+   ],
+   "deepSpatialMinimum": [
+    83.0,
+    233.0,
+    233.0
+   ],
+   "input": [
+    32,
+    192,
+    192
+   ],
+   "measuredInput": [
+    32.0,
+    192.0,
+    192.0
+   ],
+   "output": [
+    83.0,
+    233.0,
+    233.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "validation",
+   "runMedians": [
+    [
+     83.0,
+     233.0,
+     233.0
+    ],
+    [
+     83.0,
+     233.0,
+     233.0
+    ],
+    [
+     83.0,
+     233.0,
+     233.0
+    ],
+    [
+     83.0,
+     233.0,
+     233.0
+    ],
+    [
+     83.0,
+     233.0,
+     233.0
+    ],
+    [
+     83.0,
+     233.0,
+     233.0
+    ],
+    [
+     83.0,
+     233.0,
+     233.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "inactive",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    91.0,
+    240.0,
+    240.0
+   ],
+   "background": "cyan",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-light-standard-glass0.5/cyan__circular-120__rest",
+   "deepSpatialMaximum": [
+    92.0,
+    241.0,
+    241.0
+   ],
+   "deepSpatialMinimum": [
+    90.0,
+    237.0,
+    237.0
+   ],
+   "input": [
+    32,
+    192,
+    192
+   ],
+   "measuredInput": [
+    32.0,
+    192.0,
+    192.0
+   ],
+   "output": [
+    91.0,
+    240.0,
+    240.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "validation",
+   "runMedians": [
+    [
+     91.0,
+     240.0,
+     240.0
+    ],
+    [
+     91.0,
+     240.0,
+     240.0
+    ],
+    [
+     91.0,
+     240.0,
+     240.0
+    ],
+    [
+     91.0,
+     240.0,
+     240.0
+    ],
+    [
+     91.0,
+     240.0,
+     240.0
+    ],
+    [
+     91.0,
+     240.0,
+     240.0
+    ],
+    [
+     91.0,
+     240.0,
+     240.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "active",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    89.0,
+    239.0,
+    89.0
+   ],
+   "background": "green",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-light-standard-glass0.5/green__circular-120__inactive",
+   "deepSpatialMaximum": [
+    89.0,
+    239.0,
+    89.0
+   ],
+   "deepSpatialMinimum": [
+    89.0,
+    239.0,
+    89.0
+   ],
+   "input": [
+    32,
+    192,
+    32
+   ],
+   "measuredInput": [
+    32.0,
+    192.0,
+    32.0
+   ],
+   "output": [
+    89.0,
+    239.0,
+    89.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     89.0,
+     239.0,
+     89.0
+    ],
+    [
+     89.0,
+     239.0,
+     89.0
+    ],
+    [
+     89.0,
+     239.0,
+     89.0
+    ],
+    [
+     89.0,
+     239.0,
+     89.0
+    ],
+    [
+     89.0,
+     239.0,
+     89.0
+    ],
+    [
+     89.0,
+     239.0,
+     89.0
+    ],
+    [
+     89.0,
+     239.0,
+     89.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "inactive",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    96.0,
+    246.0,
+    96.0
+   ],
+   "background": "green",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-light-standard-glass0.5/green__circular-120__rest",
+   "deepSpatialMaximum": [
+    97.0,
+    247.0,
+    97.0
+   ],
+   "deepSpatialMinimum": [
+    95.0,
+    242.0,
+    95.0
+   ],
+   "input": [
+    32,
+    192,
+    32
+   ],
+   "measuredInput": [
+    32.0,
+    192.0,
+    32.0
+   ],
+   "output": [
+    96.0,
+    246.0,
+    96.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     96.0,
+     246.0,
+     96.0
+    ],
+    [
+     96.0,
+     246.0,
+     96.0
+    ],
+    [
+     96.0,
+     246.0,
+     96.0
+    ],
+    [
+     96.0,
+     246.0,
+     96.0
+    ],
+    [
+     96.0,
+     246.0,
+     96.0
+    ],
+    [
+     96.0,
+     246.0,
+     96.0
+    ],
+    [
+     96.0,
+     246.0,
+     96.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "active",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    133.0,
+    133.0,
+    133.0
+   ],
+   "background": "grey-0",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-light-standard-glass0.5/grey-0__circular-120__inactive",
+   "deepSpatialMaximum": [
+    133.0,
+    133.0,
+    133.0
+   ],
+   "deepSpatialMinimum": [
+    133.0,
+    133.0,
+    133.0
+   ],
+   "input": [
+    0,
+    0,
+    0
+   ],
+   "measuredInput": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "output": [
+    133.0,
+    133.0,
+    133.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     133.0,
+     133.0,
+     133.0
+    ],
+    [
+     133.0,
+     133.0,
+     133.0
+    ],
+    [
+     133.0,
+     133.0,
+     133.0
+    ],
+    [
+     133.0,
+     133.0,
+     133.0
+    ],
+    [
+     133.0,
+     133.0,
+     133.0
+    ],
+    [
+     133.0,
+     133.0,
+     133.0
+    ],
+    [
+     133.0,
+     133.0,
+     133.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "inactive",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    132.0,
+    132.0,
+    132.0
+   ],
+   "background": "grey-0",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-light-standard-glass0.5/grey-0__circular-120__rest",
+   "deepSpatialMaximum": [
+    133.0,
+    133.0,
+    133.0
+   ],
+   "deepSpatialMinimum": [
+    130.0,
+    130.0,
+    130.0
+   ],
+   "input": [
+    0,
+    0,
+    0
+   ],
+   "measuredInput": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "output": [
+    132.0,
+    132.0,
+    132.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     132.0,
+     132.0,
+     132.0
+    ],
+    [
+     132.0,
+     132.0,
+     132.0
+    ],
+    [
+     132.0,
+     132.0,
+     132.0
+    ],
+    [
+     132.0,
+     132.0,
+     132.0
+    ],
+    [
+     132.0,
+     132.0,
+     132.0
+    ],
+    [
+     132.0,
+     132.0,
+     132.0
+    ],
+    [
+     132.0,
+     132.0,
+     132.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "active",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    188.0,
+    188.0,
+    188.0
+   ],
+   "background": "grey-128",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-light-standard-glass0.5/grey-128__circular-120__inactive",
+   "deepSpatialMaximum": [
+    188.0,
+    188.0,
+    188.0
+   ],
+   "deepSpatialMinimum": [
+    188.0,
+    188.0,
+    188.0
+   ],
+   "input": [
+    128,
+    128,
+    128
+   ],
+   "measuredInput": [
+    128.0,
+    128.0,
+    128.0
+   ],
+   "output": [
+    188.0,
+    188.0,
+    188.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     188.0,
+     188.0,
+     188.0
+    ],
+    [
+     188.0,
+     188.0,
+     188.0
+    ],
+    [
+     188.0,
+     188.0,
+     188.0
+    ],
+    [
+     188.0,
+     188.0,
+     188.0
+    ],
+    [
+     188.0,
+     188.0,
+     188.0
+    ],
+    [
+     188.0,
+     188.0,
+     188.0
+    ],
+    [
+     188.0,
+     188.0,
+     188.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "inactive",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    195.0,
+    195.0,
+    195.0
+   ],
+   "background": "grey-128",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-light-standard-glass0.5/grey-128__circular-120__rest",
+   "deepSpatialMaximum": [
+    195.0,
+    195.0,
+    195.0
+   ],
+   "deepSpatialMinimum": [
+    192.0,
+    192.0,
+    192.0
+   ],
+   "input": [
+    128,
+    128,
+    128
+   ],
+   "measuredInput": [
+    128.0,
+    128.0,
+    128.0
+   ],
+   "output": [
+    195.0,
+    195.0,
+    195.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     195.0,
+     195.0,
+     195.0
+    ],
+    [
+     195.0,
+     195.0,
+     195.0
+    ],
+    [
+     195.0,
+     195.0,
+     195.0
+    ],
+    [
+     195.0,
+     195.0,
+     195.0
+    ],
+    [
+     195.0,
+     195.0,
+     195.0
+    ],
+    [
+     195.0,
+     195.0,
+     195.0
+    ],
+    [
+     195.0,
+     195.0,
+     195.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "active",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    202.0,
+    202.0,
+    201.0
+   ],
+   "background": "grey-160",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-light-standard-glass0.5/grey-160__circular-120__inactive",
+   "deepSpatialMaximum": [
+    202.0,
+    202.0,
+    201.0
+   ],
+   "deepSpatialMinimum": [
+    202.0,
+    202.0,
+    201.0
+   ],
+   "input": [
+    160,
+    160,
+    160
+   ],
+   "measuredInput": [
+    160.0,
+    160.0,
+    160.0
+   ],
+   "output": [
+    202.0,
+    202.0,
+    201.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     202.0,
+     202.0,
+     201.0
+    ],
+    [
+     202.0,
+     202.0,
+     201.0
+    ],
+    [
+     202.0,
+     202.0,
+     201.0
+    ],
+    [
+     202.0,
+     202.0,
+     201.0
+    ],
+    [
+     202.0,
+     202.0,
+     201.0
+    ],
+    [
+     202.0,
+     202.0,
+     201.0
+    ],
+    [
+     202.0,
+     202.0,
+     201.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "inactive",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    210.0,
+    210.0,
+    210.0
+   ],
+   "background": "grey-160",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-light-standard-glass0.5/grey-160__circular-120__rest",
+   "deepSpatialMaximum": [
+    211.0,
+    211.0,
+    211.0
+   ],
+   "deepSpatialMinimum": [
+    206.0,
+    206.0,
+    206.0
+   ],
+   "input": [
+    160,
+    160,
+    160
+   ],
+   "measuredInput": [
+    160.0,
+    160.0,
+    160.0
+   ],
+   "output": [
+    210.0,
+    210.0,
+    210.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     210.0,
+     210.0,
+     210.0
+    ],
+    [
+     210.0,
+     210.0,
+     210.0
+    ],
+    [
+     210.0,
+     210.0,
+     210.0
+    ],
+    [
+     210.0,
+     210.0,
+     210.0
+    ],
+    [
+     210.0,
+     210.0,
+     210.0
+    ],
+    [
+     210.0,
+     210.0,
+     210.0
+    ],
+    [
+     210.0,
+     210.0,
+     210.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "active",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    240.0,
+    240.0,
+    240.0
+   ],
+   "background": "grey-255",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-light-standard-glass0.5/grey-255__circular-120__inactive",
+   "deepSpatialMaximum": [
+    240.0,
+    240.0,
+    240.0
+   ],
+   "deepSpatialMinimum": [
+    240.0,
+    240.0,
+    240.0
+   ],
+   "input": [
+    255,
+    255,
+    255
+   ],
+   "measuredInput": [
+    255.0,
+    255.0,
+    255.0
+   ],
+   "output": [
+    240.0,
+    240.0,
+    240.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     240.0,
+     240.0,
+     240.0
+    ],
+    [
+     240.0,
+     240.0,
+     240.0
+    ],
+    [
+     240.0,
+     240.0,
+     240.0
+    ],
+    [
+     240.0,
+     240.0,
+     240.0
+    ],
+    [
+     240.0,
+     240.0,
+     240.0
+    ],
+    [
+     240.0,
+     240.0,
+     240.0
+    ],
+    [
+     240.0,
+     240.0,
+     240.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "inactive",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    253.0,
+    253.0,
+    253.0
+   ],
+   "background": "grey-255",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-light-standard-glass0.5/grey-255__circular-120__rest",
+   "deepSpatialMaximum": [
+    254.0,
+    253.0,
+    254.0
+   ],
+   "deepSpatialMinimum": [
+    249.0,
+    249.0,
+    249.0
+   ],
+   "input": [
+    255,
+    255,
+    255
+   ],
+   "measuredInput": [
+    255.0,
+    255.0,
+    255.0
+   ],
+   "output": [
+    253.0,
+    253.0,
+    253.0
+   ],
+   "outputCensored": [
+    true,
+    true,
+    true
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     253.0,
+     253.0,
+     253.0
+    ],
+    [
+     253.0,
+     253.0,
+     253.0
+    ],
+    [
+     253.0,
+     253.0,
+     253.0
+    ],
+    [
+     253.0,
+     253.0,
+     253.0
+    ],
+    [
+     253.0,
+     253.0,
+     253.0
+    ],
+    [
+     253.0,
+     253.0,
+     253.0
+    ],
+    [
+     253.0,
+     253.0,
+     253.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "active",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    147.0,
+    147.0,
+    147.0
+   ],
+   "background": "grey-32",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-light-standard-glass0.5/grey-32__circular-120__inactive",
+   "deepSpatialMaximum": [
+    147.0,
+    147.0,
+    147.0
+   ],
+   "deepSpatialMinimum": [
+    147.0,
+    147.0,
+    147.0
+   ],
+   "input": [
+    32,
+    32,
+    32
+   ],
+   "measuredInput": [
+    32.0,
+    32.0,
+    32.0
+   ],
+   "output": [
+    147.0,
+    147.0,
+    147.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     147.0,
+     147.0,
+     147.0
+    ],
+    [
+     147.0,
+     147.0,
+     147.0
+    ],
+    [
+     147.0,
+     147.0,
+     147.0
+    ],
+    [
+     147.0,
+     147.0,
+     147.0
+    ],
+    [
+     147.0,
+     147.0,
+     147.0
+    ],
+    [
+     147.0,
+     147.0,
+     147.0
+    ],
+    [
+     147.0,
+     147.0,
+     147.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "inactive",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    148.0,
+    148.0,
+    148.0
+   ],
+   "background": "grey-32",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-light-standard-glass0.5/grey-32__circular-120__rest",
+   "deepSpatialMaximum": [
+    150.0,
+    150.0,
+    150.0
+   ],
+   "deepSpatialMinimum": [
+    146.0,
+    146.0,
+    146.0
+   ],
+   "input": [
+    32,
+    32,
+    32
+   ],
+   "measuredInput": [
+    32.0,
+    32.0,
+    32.0
+   ],
+   "output": [
+    148.0,
+    148.0,
+    148.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     148.0,
+     148.0,
+     148.0
+    ],
+    [
+     148.0,
+     148.0,
+     148.0
+    ],
+    [
+     148.0,
+     148.0,
+     148.0
+    ],
+    [
+     148.0,
+     148.0,
+     148.0
+    ],
+    [
+     148.0,
+     148.0,
+     148.0
+    ],
+    [
+     148.0,
+     148.0,
+     148.0
+    ],
+    [
+     148.0,
+     148.0,
+     148.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "active",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    161.0,
+    161.0,
+    161.0
+   ],
+   "background": "grey-64",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-light-standard-glass0.5/grey-64__circular-120__inactive",
+   "deepSpatialMaximum": [
+    161.0,
+    161.0,
+    161.0
+   ],
+   "deepSpatialMinimum": [
+    161.0,
+    161.0,
+    161.0
+   ],
+   "input": [
+    64,
+    64,
+    64
+   ],
+   "measuredInput": [
+    64.0,
+    64.0,
+    64.0
+   ],
+   "output": [
+    161.0,
+    161.0,
+    161.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     161.0,
+     161.0,
+     161.0
+    ],
+    [
+     161.0,
+     161.0,
+     161.0
+    ],
+    [
+     161.0,
+     161.0,
+     161.0
+    ],
+    [
+     161.0,
+     161.0,
+     161.0
+    ],
+    [
+     161.0,
+     161.0,
+     161.0
+    ],
+    [
+     161.0,
+     161.0,
+     161.0
+    ],
+    [
+     161.0,
+     161.0,
+     161.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "inactive",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    164.0,
+    164.0,
+    164.0
+   ],
+   "background": "grey-64",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-light-standard-glass0.5/grey-64__circular-120__rest",
+   "deepSpatialMaximum": [
+    164.0,
+    164.0,
+    164.0
+   ],
+   "deepSpatialMinimum": [
+    161.0,
+    161.0,
+    161.0
+   ],
+   "input": [
+    64,
+    64,
+    64
+   ],
+   "measuredInput": [
+    64.0,
+    64.0,
+    64.0
+   ],
+   "output": [
+    164.0,
+    164.0,
+    164.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     164.0,
+     164.0,
+     164.0
+    ],
+    [
+     164.0,
+     164.0,
+     164.0
+    ],
+    [
+     164.0,
+     164.0,
+     164.0
+    ],
+    [
+     164.0,
+     164.0,
+     164.0
+    ],
+    [
+     164.0,
+     164.0,
+     164.0
+    ],
+    [
+     164.0,
+     164.0,
+     164.0
+    ],
+    [
+     164.0,
+     164.0,
+     164.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "active",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    175.0,
+    175.0,
+    175.0
+   ],
+   "background": "grey-96",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-light-standard-glass0.5/grey-96__circular-120__inactive",
+   "deepSpatialMaximum": [
+    175.0,
+    175.0,
+    175.0
+   ],
+   "deepSpatialMinimum": [
+    175.0,
+    175.0,
+    175.0
+   ],
+   "input": [
+    96,
+    96,
+    96
+   ],
+   "measuredInput": [
+    96.0,
+    96.0,
+    96.0
+   ],
+   "output": [
+    175.0,
+    175.0,
+    175.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "validation",
+   "runMedians": [
+    [
+     175.0,
+     175.0,
+     175.0
+    ],
+    [
+     175.0,
+     175.0,
+     175.0
+    ],
+    [
+     175.0,
+     175.0,
+     175.0
+    ],
+    [
+     175.0,
+     175.0,
+     175.0
+    ],
+    [
+     175.0,
+     175.0,
+     175.0
+    ],
+    [
+     175.0,
+     175.0,
+     175.0
+    ],
+    [
+     175.0,
+     175.0,
+     175.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "inactive",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    179.0,
+    179.0,
+    179.0
+   ],
+   "background": "grey-96",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-light-standard-glass0.5/grey-96__circular-120__rest",
+   "deepSpatialMaximum": [
+    181.0,
+    181.0,
+    181.0
+   ],
+   "deepSpatialMinimum": [
+    177.0,
+    177.0,
+    177.0
+   ],
+   "input": [
+    96,
+    96,
+    96
+   ],
+   "measuredInput": [
+    96.0,
+    96.0,
+    96.0
+   ],
+   "output": [
+    179.0,
+    179.0,
+    179.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "validation",
+   "runMedians": [
+    [
+     179.0,
+     179.0,
+     179.0
+    ],
+    [
+     179.0,
+     179.0,
+     179.0
+    ],
+    [
+     179.0,
+     179.0,
+     179.0
+    ],
+    [
+     179.0,
+     179.0,
+     179.0
+    ],
+    [
+     179.0,
+     179.0,
+     179.0
+    ],
+    [
+     179.0,
+     179.0,
+     179.0
+    ],
+    [
+     179.0,
+     179.0,
+     179.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "active",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    255.0,
+    124.0,
+    255.0
+   ],
+   "background": "magenta",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-light-standard-glass0.5/magenta__circular-120__inactive",
+   "deepSpatialMaximum": [
+    255.0,
+    124.0,
+    255.0
+   ],
+   "deepSpatialMinimum": [
+    255.0,
+    124.0,
+    255.0
+   ],
+   "input": [
+    192,
+    32,
+    192
+   ],
+   "measuredInput": [
+    192.0,
+    32.0,
+    192.0
+   ],
+   "output": [
+    255.0,
+    124.0,
+    255.0
+   ],
+   "outputCensored": [
+    true,
+    false,
+    true
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     255.0,
+     124.0,
+     255.0
+    ],
+    [
+     255.0,
+     124.0,
+     255.0
+    ],
+    [
+     255.0,
+     124.0,
+     255.0
+    ],
+    [
+     255.0,
+     124.0,
+     255.0
+    ],
+    [
+     255.0,
+     124.0,
+     255.0
+    ],
+    [
+     255.0,
+     124.0,
+     255.0
+    ],
+    [
+     255.0,
+     124.0,
+     255.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "inactive",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    255.0,
+    127.0,
+    255.0
+   ],
+   "background": "magenta",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-light-standard-glass0.5/magenta__circular-120__rest",
+   "deepSpatialMaximum": [
+    255.0,
+    128.0,
+    255.0
+   ],
+   "deepSpatialMinimum": [
+    255.0,
+    125.0,
+    255.0
+   ],
+   "input": [
+    192,
+    32,
+    192
+   ],
+   "measuredInput": [
+    192.0,
+    32.0,
+    192.0
+   ],
+   "output": [
+    255.0,
+    127.0,
+    255.0
+   ],
+   "outputCensored": [
+    true,
+    false,
+    true
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     255.0,
+     127.0,
+     255.0
+    ],
+    [
+     255.0,
+     127.0,
+     255.0
+    ],
+    [
+     255.0,
+     127.0,
+     255.0
+    ],
+    [
+     255.0,
+     127.0,
+     255.0
+    ],
+    [
+     255.0,
+     127.0,
+     255.0
+    ],
+    [
+     255.0,
+     127.0,
+     255.0
+    ],
+    [
+     255.0,
+     127.0,
+     255.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "active",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    255.0,
+    129.0,
+    129.0
+   ],
+   "background": "red",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-light-standard-glass0.5/red__circular-120__inactive",
+   "deepSpatialMaximum": [
+    255.0,
+    129.0,
+    129.0
+   ],
+   "deepSpatialMinimum": [
+    255.0,
+    129.0,
+    129.0
+   ],
+   "input": [
+    192,
+    32,
+    32
+   ],
+   "measuredInput": [
+    192.0,
+    32.0,
+    32.0
+   ],
+   "output": [
+    255.0,
+    129.0,
+    129.0
+   ],
+   "outputCensored": [
+    true,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     255.0,
+     129.0,
+     129.0
+    ],
+    [
+     255.0,
+     129.0,
+     129.0
+    ],
+    [
+     255.0,
+     129.0,
+     129.0
+    ],
+    [
+     255.0,
+     129.0,
+     129.0
+    ],
+    [
+     255.0,
+     129.0,
+     129.0
+    ],
+    [
+     255.0,
+     129.0,
+     129.0
+    ],
+    [
+     255.0,
+     129.0,
+     129.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "inactive",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    255.0,
+    133.0,
+    133.0
+   ],
+   "background": "red",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-light-standard-glass0.5/red__circular-120__rest",
+   "deepSpatialMaximum": [
+    255.0,
+    133.0,
+    133.0
+   ],
+   "deepSpatialMinimum": [
+    255.0,
+    131.0,
+    130.0
+   ],
+   "input": [
+    192,
+    32,
+    32
+   ],
+   "measuredInput": [
+    192.0,
+    32.0,
+    32.0
+   ],
+   "output": [
+    255.0,
+    133.0,
+    133.0
+   ],
+   "outputCensored": [
+    true,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     255.0,
+     133.0,
+     133.0
+    ],
+    [
+     255.0,
+     133.0,
+     133.0
+    ],
+    [
+     255.0,
+     133.0,
+     133.0
+    ],
+    [
+     255.0,
+     133.0,
+     133.0
+    ],
+    [
+     255.0,
+     133.0,
+     133.0
+    ],
+    [
+     255.0,
+     133.0,
+     133.0
+    ],
+    [
+     255.0,
+     133.0,
+     133.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "active",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    221.0,
+    221.0,
+    72.0
+   ],
+   "background": "yellow",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-light-standard-glass0.5/yellow__circular-120__inactive",
+   "deepSpatialMaximum": [
+    221.0,
+    221.0,
+    72.0
+   ],
+   "deepSpatialMinimum": [
+    221.0,
+    221.0,
+    72.0
+   ],
+   "input": [
+    192,
+    192,
+    32
+   ],
+   "measuredInput": [
+    192.0,
+    192.0,
+    32.0
+   ],
+   "output": [
+    221.0,
+    221.0,
+    72.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     221.0,
+     221.0,
+     72.0
+    ],
+    [
+     221.0,
+     221.0,
+     72.0
+    ],
+    [
+     221.0,
+     221.0,
+     72.0
+    ],
+    [
+     221.0,
+     221.0,
+     72.0
+    ],
+    [
+     221.0,
+     221.0,
+     72.0
+    ],
+    [
+     221.0,
+     221.0,
+     72.0
+    ],
+    [
+     221.0,
+     221.0,
+     72.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "inactive",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    230.0,
+    230.0,
+    81.0
+   ],
+   "background": "yellow",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-1x-light-standard-glass0.5/yellow__circular-120__rest",
+   "deepSpatialMaximum": [
+    230.0,
+    230.0,
+    82.0
+   ],
+   "deepSpatialMinimum": [
+    226.0,
+    226.0,
+    80.0
+   ],
+   "input": [
+    192,
+    192,
+    32
+   ],
+   "measuredInput": [
+    192.0,
+    192.0,
+    32.0
+   ],
+   "output": [
+    230.0,
+    230.0,
+    81.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     230.0,
+     230.0,
+     81.0
+    ],
+    [
+     230.0,
+     230.0,
+     81.0
+    ],
+    [
+     230.0,
+     230.0,
+     81.0
+    ],
+    [
+     230.0,
+     230.0,
+     81.0
+    ],
+    [
+     230.0,
+     230.0,
+     81.0
+    ],
+    [
+     230.0,
+     230.0,
+     81.0
+    ],
+    [
+     230.0,
+     230.0,
+     81.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "active",
+    "1x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    49.0,
+    48.0,
+    246.0
+   ],
+   "background": "blue",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/blue__circular-120__inactive",
+   "deepSpatialMaximum": [
+    49.0,
+    48.0,
+    246.0
+   ],
+   "deepSpatialMinimum": [
+    49.0,
+    48.0,
+    246.0
+   ],
+   "input": [
+    32,
+    32,
+    192
+   ],
+   "measuredInput": [
+    32.0,
+    32.0,
+    192.0
+   ],
+   "output": [
+    49.0,
+    48.0,
+    246.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     49.0,
+     48.0,
+     246.0
+    ],
+    [
+     49.0,
+     48.0,
+     246.0
+    ],
+    [
+     49.0,
+     48.0,
+     246.0
+    ],
+    [
+     49.0,
+     48.0,
+     246.0
+    ],
+    [
+     49.0,
+     48.0,
+     246.0
+    ],
+    [
+     49.0,
+     48.0,
+     246.0
+    ],
+    [
+     49.0,
+     48.0,
+     246.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "inactive",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    58.0,
+    58.0,
+    255.0
+   ],
+   "background": "blue",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/blue__circular-120__rest",
+   "deepSpatialMaximum": [
+    59.0,
+    59.0,
+    255.0
+   ],
+   "deepSpatialMinimum": [
+    57.0,
+    57.0,
+    251.0
+   ],
+   "input": [
+    32,
+    32,
+    192
+   ],
+   "measuredInput": [
+    32.0,
+    32.0,
+    192.0
+   ],
+   "output": [
+    58.0,
+    58.0,
+    255.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    true
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     58.0,
+     58.0,
+     255.0
+    ],
+    [
+     58.0,
+     58.0,
+     255.0
+    ],
+    [
+     58.0,
+     58.0,
+     255.0
+    ],
+    [
+     58.0,
+     58.0,
+     255.0
+    ],
+    [
+     58.0,
+     58.0,
+     255.0
+    ],
+    [
+     58.0,
+     58.0,
+     255.0
+    ],
+    [
+     58.0,
+     58.0,
+     255.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "active",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    12.0,
+    180.0,
+    180.0
+   ],
+   "background": "cyan",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/cyan__circular-120__inactive",
+   "deepSpatialMaximum": [
+    12.0,
+    180.0,
+    180.0
+   ],
+   "deepSpatialMinimum": [
+    12.0,
+    180.0,
+    180.0
+   ],
+   "input": [
+    32,
+    192,
+    192
+   ],
+   "measuredInput": [
+    32.0,
+    192.0,
+    192.0
+   ],
+   "output": [
+    12.0,
+    180.0,
+    180.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "validation",
+   "runMedians": [
+    [
+     12.0,
+     180.0,
+     180.0
+    ],
+    [
+     12.0,
+     180.0,
+     180.0
+    ],
+    [
+     12.0,
+     180.0,
+     180.0
+    ],
+    [
+     12.0,
+     180.0,
+     180.0
+    ],
+    [
+     12.0,
+     180.0,
+     180.0
+    ],
+    [
+     12.0,
+     180.0,
+     180.0
+    ],
+    [
+     12.0,
+     180.0,
+     180.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "inactive",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    18.0,
+    186.0,
+    186.0
+   ],
+   "background": "cyan",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/cyan__circular-120__rest",
+   "deepSpatialMaximum": [
+    18.0,
+    187.0,
+    187.0
+   ],
+   "deepSpatialMinimum": [
+    18.0,
+    183.0,
+    183.0
+   ],
+   "input": [
+    32,
+    192,
+    192
+   ],
+   "measuredInput": [
+    32.0,
+    192.0,
+    192.0
+   ],
+   "output": [
+    18.0,
+    186.0,
+    186.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "validation",
+   "runMedians": [
+    [
+     18.0,
+     186.0,
+     186.0
+    ],
+    [
+     18.0,
+     186.0,
+     186.0
+    ],
+    [
+     18.0,
+     186.0,
+     186.0
+    ],
+    [
+     18.0,
+     186.0,
+     186.0
+    ],
+    [
+     18.0,
+     186.0,
+     186.0
+    ],
+    [
+     18.0,
+     186.0,
+     186.0
+    ],
+    [
+     18.0,
+     186.0,
+     186.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "active",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    16.0,
+    187.0,
+    16.0
+   ],
+   "background": "green",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/green__circular-120__inactive",
+   "deepSpatialMaximum": [
+    16.0,
+    187.0,
+    16.0
+   ],
+   "deepSpatialMinimum": [
+    16.0,
+    187.0,
+    16.0
+   ],
+   "input": [
+    32,
+    192,
+    32
+   ],
+   "measuredInput": [
+    32.0,
+    192.0,
+    32.0
+   ],
+   "output": [
+    16.0,
+    187.0,
+    16.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     16.0,
+     187.0,
+     16.0
+    ],
+    [
+     16.0,
+     187.0,
+     16.0
+    ],
+    [
+     16.0,
+     187.0,
+     16.0
+    ],
+    [
+     16.0,
+     187.0,
+     16.0
+    ],
+    [
+     16.0,
+     187.0,
+     16.0
+    ],
+    [
+     16.0,
+     187.0,
+     16.0
+    ],
+    [
+     16.0,
+     187.0,
+     16.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "inactive",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    22.0,
+    193.0,
+    22.0
+   ],
+   "background": "green",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/green__circular-120__rest",
+   "deepSpatialMaximum": [
+    22.0,
+    194.0,
+    22.0
+   ],
+   "deepSpatialMinimum": [
+    22.0,
+    190.0,
+    22.0
+   ],
+   "input": [
+    32,
+    192,
+    32
+   ],
+   "measuredInput": [
+    32.0,
+    192.0,
+    32.0
+   ],
+   "output": [
+    22.0,
+    193.0,
+    22.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     22.0,
+     193.0,
+     22.0
+    ],
+    [
+     22.0,
+     193.0,
+     22.0
+    ],
+    [
+     22.0,
+     193.0,
+     22.0
+    ],
+    [
+     22.0,
+     193.0,
+     22.0
+    ],
+    [
+     22.0,
+     193.0,
+     22.0
+    ],
+    [
+     22.0,
+     193.0,
+     22.0
+    ],
+    [
+     22.0,
+     193.0,
+     22.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "active",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    20.0,
+    20.0,
+    20.0
+   ],
+   "background": "grey-0",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/grey-0__circular-120__inactive",
+   "deepSpatialMaximum": [
+    20.0,
+    20.0,
+    20.0
+   ],
+   "deepSpatialMinimum": [
+    20.0,
+    20.0,
+    20.0
+   ],
+   "input": [
+    0,
+    0,
+    0
+   ],
+   "measuredInput": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "output": [
+    20.0,
+    20.0,
+    20.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     20.0,
+     20.0,
+     20.0
+    ],
+    [
+     20.0,
+     20.0,
+     20.0
+    ],
+    [
+     20.0,
+     20.0,
+     20.0
+    ],
+    [
+     20.0,
+     20.0,
+     20.0
+    ],
+    [
+     20.0,
+     20.0,
+     20.0
+    ],
+    [
+     20.0,
+     20.0,
+     20.0
+    ],
+    [
+     20.0,
+     20.0,
+     20.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "inactive",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    32.0,
+    32.0,
+    32.0
+   ],
+   "background": "grey-0",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/grey-0__circular-120__rest",
+   "deepSpatialMaximum": [
+    33.0,
+    33.0,
+    33.0
+   ],
+   "deepSpatialMinimum": [
+    31.0,
+    31.0,
+    31.0
+   ],
+   "input": [
+    0,
+    0,
+    0
+   ],
+   "measuredInput": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "output": [
+    32.0,
+    32.0,
+    32.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     32.0,
+     32.0,
+     32.0
+    ],
+    [
+     32.0,
+     32.0,
+     32.0
+    ],
+    [
+     32.0,
+     32.0,
+     32.0
+    ],
+    [
+     32.0,
+     32.0,
+     32.0
+    ],
+    [
+     32.0,
+     32.0,
+     32.0
+    ],
+    [
+     32.0,
+     32.0,
+     32.0
+    ],
+    [
+     32.0,
+     32.0,
+     32.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "active",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    127.0,
+    127.0,
+    127.0
+   ],
+   "background": "grey-128",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/grey-128__circular-120__inactive",
+   "deepSpatialMaximum": [
+    127.0,
+    127.0,
+    127.0
+   ],
+   "deepSpatialMinimum": [
+    127.0,
+    127.0,
+    127.0
+   ],
+   "input": [
+    128,
+    128,
+    128
+   ],
+   "measuredInput": [
+    128.0,
+    128.0,
+    128.0
+   ],
+   "output": [
+    127.0,
+    127.0,
+    127.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     127.0,
+     127.0,
+     127.0
+    ],
+    [
+     127.0,
+     127.0,
+     127.0
+    ],
+    [
+     127.0,
+     127.0,
+     127.0
+    ],
+    [
+     127.0,
+     127.0,
+     127.0
+    ],
+    [
+     127.0,
+     127.0,
+     127.0
+    ],
+    [
+     127.0,
+     127.0,
+     127.0
+    ],
+    [
+     127.0,
+     127.0,
+     127.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "inactive",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    134.0,
+    134.0,
+    134.0
+   ],
+   "background": "grey-128",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/grey-128__circular-120__rest",
+   "deepSpatialMaximum": [
+    135.0,
+    135.0,
+    135.0
+   ],
+   "deepSpatialMinimum": [
+    132.0,
+    132.0,
+    132.0
+   ],
+   "input": [
+    128,
+    128,
+    128
+   ],
+   "measuredInput": [
+    128.0,
+    128.0,
+    128.0
+   ],
+   "output": [
+    134.0,
+    134.0,
+    134.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     134.0,
+     134.0,
+     134.0
+    ],
+    [
+     134.0,
+     134.0,
+     134.0
+    ],
+    [
+     134.0,
+     134.0,
+     134.0
+    ],
+    [
+     134.0,
+     134.0,
+     134.0
+    ],
+    [
+     134.0,
+     134.0,
+     134.0
+    ],
+    [
+     134.0,
+     134.0,
+     134.0
+    ],
+    [
+     134.0,
+     134.0,
+     134.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "active",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    146.0,
+    146.0,
+    146.0
+   ],
+   "background": "grey-160",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/grey-160__circular-120__inactive",
+   "deepSpatialMaximum": [
+    146.0,
+    146.0,
+    146.0
+   ],
+   "deepSpatialMinimum": [
+    146.0,
+    146.0,
+    146.0
+   ],
+   "input": [
+    160,
+    160,
+    160
+   ],
+   "measuredInput": [
+    160.0,
+    160.0,
+    160.0
+   ],
+   "output": [
+    146.0,
+    146.0,
+    146.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     146.0,
+     146.0,
+     146.0
+    ],
+    [
+     146.0,
+     146.0,
+     146.0
+    ],
+    [
+     146.0,
+     146.0,
+     146.0
+    ],
+    [
+     146.0,
+     146.0,
+     146.0
+    ],
+    [
+     146.0,
+     146.0,
+     146.0
+    ],
+    [
+     146.0,
+     146.0,
+     146.0
+    ],
+    [
+     146.0,
+     146.0,
+     146.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "inactive",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    151.0,
+    151.0,
+    151.0
+   ],
+   "background": "grey-160",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/grey-160__circular-120__rest",
+   "deepSpatialMaximum": [
+    153.0,
+    153.0,
+    153.0
+   ],
+   "deepSpatialMinimum": [
+    149.0,
+    149.0,
+    149.0
+   ],
+   "input": [
+    160,
+    160,
+    160
+   ],
+   "measuredInput": [
+    160.0,
+    160.0,
+    160.0
+   ],
+   "output": [
+    151.0,
+    151.0,
+    151.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     151.0,
+     151.0,
+     151.0
+    ],
+    [
+     151.0,
+     151.0,
+     151.0
+    ],
+    [
+     151.0,
+     151.0,
+     151.0
+    ],
+    [
+     151.0,
+     151.0,
+     151.0
+    ],
+    [
+     151.0,
+     151.0,
+     151.0
+    ],
+    [
+     151.0,
+     151.0,
+     151.0
+    ],
+    [
+     151.0,
+     151.0,
+     151.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "active",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    180.0,
+    180.0,
+    180.0
+   ],
+   "background": "grey-255",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/grey-255__circular-120__inactive",
+   "deepSpatialMaximum": [
+    180.0,
+    180.0,
+    180.0
+   ],
+   "deepSpatialMinimum": [
+    180.0,
+    180.0,
+    180.0
+   ],
+   "input": [
+    255,
+    255,
+    255
+   ],
+   "measuredInput": [
+    255.0,
+    255.0,
+    255.0
+   ],
+   "output": [
+    180.0,
+    180.0,
+    180.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     180.0,
+     180.0,
+     180.0
+    ],
+    [
+     180.0,
+     180.0,
+     180.0
+    ],
+    [
+     180.0,
+     180.0,
+     180.0
+    ],
+    [
+     180.0,
+     180.0,
+     180.0
+    ],
+    [
+     180.0,
+     180.0,
+     180.0
+    ],
+    [
+     180.0,
+     180.0,
+     180.0
+    ],
+    [
+     180.0,
+     180.0,
+     180.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "inactive",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    184.0,
+    184.0,
+    184.0
+   ],
+   "background": "grey-255",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/grey-255__circular-120__rest",
+   "deepSpatialMaximum": [
+    186.0,
+    186.0,
+    186.0
+   ],
+   "deepSpatialMinimum": [
+    181.0,
+    181.0,
+    181.0
+   ],
+   "input": [
+    255,
+    255,
+    255
+   ],
+   "measuredInput": [
+    255.0,
+    255.0,
+    255.0
+   ],
+   "output": [
+    184.0,
+    184.0,
+    184.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     184.0,
+     184.0,
+     184.0
+    ],
+    [
+     184.0,
+     184.0,
+     184.0
+    ],
+    [
+     184.0,
+     184.0,
+     184.0
+    ],
+    [
+     184.0,
+     184.0,
+     184.0
+    ],
+    [
+     184.0,
+     184.0,
+     184.0
+    ],
+    [
+     184.0,
+     184.0,
+     184.0
+    ],
+    [
+     184.0,
+     184.0,
+     184.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "active",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    52.0,
+    52.0,
+    52.0
+   ],
+   "background": "grey-32",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/grey-32__circular-120__inactive",
+   "deepSpatialMaximum": [
+    52.0,
+    52.0,
+    52.0
+   ],
+   "deepSpatialMinimum": [
+    52.0,
+    52.0,
+    52.0
+   ],
+   "input": [
+    32,
+    32,
+    32
+   ],
+   "measuredInput": [
+    32.0,
+    32.0,
+    32.0
+   ],
+   "output": [
+    52.0,
+    52.0,
+    52.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     52.0,
+     52.0,
+     52.0
+    ],
+    [
+     52.0,
+     52.0,
+     52.0
+    ],
+    [
+     52.0,
+     52.0,
+     52.0
+    ],
+    [
+     52.0,
+     52.0,
+     52.0
+    ],
+    [
+     52.0,
+     52.0,
+     52.0
+    ],
+    [
+     52.0,
+     52.0,
+     52.0
+    ],
+    [
+     52.0,
+     52.0,
+     52.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "inactive",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    62.0,
+    62.0,
+    62.0
+   ],
+   "background": "grey-32",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/grey-32__circular-120__rest",
+   "deepSpatialMaximum": [
+    63.0,
+    63.0,
+    63.0
+   ],
+   "deepSpatialMinimum": [
+    61.0,
+    61.0,
+    61.0
+   ],
+   "input": [
+    32,
+    32,
+    32
+   ],
+   "measuredInput": [
+    32.0,
+    32.0,
+    32.0
+   ],
+   "output": [
+    62.0,
+    62.0,
+    62.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     62.0,
+     62.0,
+     62.0
+    ],
+    [
+     62.0,
+     62.0,
+     62.0
+    ],
+    [
+     62.0,
+     62.0,
+     62.0
+    ],
+    [
+     62.0,
+     62.0,
+     62.0
+    ],
+    [
+     62.0,
+     62.0,
+     62.0
+    ],
+    [
+     62.0,
+     62.0,
+     62.0
+    ],
+    [
+     62.0,
+     62.0,
+     62.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "active",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    81.0,
+    80.0,
+    81.0
+   ],
+   "background": "grey-64",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/grey-64__circular-120__inactive",
+   "deepSpatialMaximum": [
+    81.0,
+    80.0,
+    81.0
+   ],
+   "deepSpatialMinimum": [
+    81.0,
+    80.0,
+    81.0
+   ],
+   "input": [
+    64,
+    64,
+    64
+   ],
+   "measuredInput": [
+    64.0,
+    64.0,
+    64.0
+   ],
+   "output": [
+    81.0,
+    80.0,
+    81.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     81.0,
+     80.0,
+     81.0
+    ],
+    [
+     81.0,
+     80.0,
+     81.0
+    ],
+    [
+     81.0,
+     80.0,
+     81.0
+    ],
+    [
+     81.0,
+     80.0,
+     81.0
+    ],
+    [
+     81.0,
+     80.0,
+     81.0
+    ],
+    [
+     81.0,
+     80.0,
+     81.0
+    ],
+    [
+     81.0,
+     80.0,
+     81.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "inactive",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    89.0,
+    89.0,
+    89.0
+   ],
+   "background": "grey-64",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/grey-64__circular-120__rest",
+   "deepSpatialMaximum": [
+    90.0,
+    90.0,
+    90.0
+   ],
+   "deepSpatialMinimum": [
+    88.0,
+    88.0,
+    88.0
+   ],
+   "input": [
+    64,
+    64,
+    64
+   ],
+   "measuredInput": [
+    64.0,
+    64.0,
+    64.0
+   ],
+   "output": [
+    89.0,
+    89.0,
+    89.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     89.0,
+     89.0,
+     89.0
+    ],
+    [
+     89.0,
+     89.0,
+     89.0
+    ],
+    [
+     89.0,
+     89.0,
+     89.0
+    ],
+    [
+     89.0,
+     89.0,
+     89.0
+    ],
+    [
+     89.0,
+     89.0,
+     89.0
+    ],
+    [
+     89.0,
+     89.0,
+     89.0
+    ],
+    [
+     89.0,
+     89.0,
+     89.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "active",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    106.0,
+    106.0,
+    106.0
+   ],
+   "background": "grey-96",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/grey-96__circular-120__inactive",
+   "deepSpatialMaximum": [
+    106.0,
+    106.0,
+    106.0
+   ],
+   "deepSpatialMinimum": [
+    106.0,
+    106.0,
+    106.0
+   ],
+   "input": [
+    96,
+    96,
+    96
+   ],
+   "measuredInput": [
+    96.0,
+    96.0,
+    96.0
+   ],
+   "output": [
+    106.0,
+    106.0,
+    106.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "validation",
+   "runMedians": [
+    [
+     106.0,
+     106.0,
+     106.0
+    ],
+    [
+     106.0,
+     106.0,
+     106.0
+    ],
+    [
+     106.0,
+     106.0,
+     106.0
+    ],
+    [
+     106.0,
+     106.0,
+     106.0
+    ],
+    [
+     106.0,
+     106.0,
+     106.0
+    ],
+    [
+     106.0,
+     106.0,
+     106.0
+    ],
+    [
+     106.0,
+     106.0,
+     106.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "inactive",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    113.0,
+    113.0,
+    113.0
+   ],
+   "background": "grey-96",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/grey-96__circular-120__rest",
+   "deepSpatialMaximum": [
+    114.0,
+    114.0,
+    114.0
+   ],
+   "deepSpatialMinimum": [
+    111.0,
+    111.0,
+    111.0
+   ],
+   "input": [
+    96,
+    96,
+    96
+   ],
+   "measuredInput": [
+    96.0,
+    96.0,
+    96.0
+   ],
+   "output": [
+    113.0,
+    113.0,
+    113.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "validation",
+   "runMedians": [
+    [
+     113.0,
+     113.0,
+     113.0
+    ],
+    [
+     113.0,
+     113.0,
+     113.0
+    ],
+    [
+     113.0,
+     113.0,
+     113.0
+    ],
+    [
+     113.0,
+     113.0,
+     113.0
+    ],
+    [
+     113.0,
+     113.0,
+     113.0
+    ],
+    [
+     113.0,
+     113.0,
+     113.0
+    ],
+    [
+     113.0,
+     113.0,
+     113.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "active",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    227.0,
+    38.0,
+    227.0
+   ],
+   "background": "magenta",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/magenta__circular-120__inactive",
+   "deepSpatialMaximum": [
+    227.0,
+    38.0,
+    227.0
+   ],
+   "deepSpatialMinimum": [
+    227.0,
+    38.0,
+    227.0
+   ],
+   "input": [
+    192,
+    32,
+    192
+   ],
+   "measuredInput": [
+    192.0,
+    32.0,
+    192.0
+   ],
+   "output": [
+    227.0,
+    38.0,
+    227.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     227.0,
+     38.0,
+     227.0
+    ],
+    [
+     227.0,
+     38.0,
+     227.0
+    ],
+    [
+     227.0,
+     38.0,
+     227.0
+    ],
+    [
+     227.0,
+     38.0,
+     227.0
+    ],
+    [
+     227.0,
+     38.0,
+     227.0
+    ],
+    [
+     227.0,
+     38.0,
+     227.0
+    ],
+    [
+     227.0,
+     38.0,
+     227.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "inactive",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    235.0,
+    46.0,
+    235.0
+   ],
+   "background": "magenta",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/magenta__circular-120__rest",
+   "deepSpatialMaximum": [
+    235.0,
+    46.0,
+    235.0
+   ],
+   "deepSpatialMinimum": [
+    231.0,
+    45.0,
+    231.0
+   ],
+   "input": [
+    192,
+    32,
+    192
+   ],
+   "measuredInput": [
+    192.0,
+    32.0,
+    192.0
+   ],
+   "output": [
+    235.0,
+    46.0,
+    235.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     235.0,
+     46.0,
+     235.0
+    ],
+    [
+     235.0,
+     46.0,
+     235.0
+    ],
+    [
+     235.0,
+     46.0,
+     235.0
+    ],
+    [
+     235.0,
+     46.0,
+     235.0
+    ],
+    [
+     235.0,
+     46.0,
+     235.0
+    ],
+    [
+     235.0,
+     46.0,
+     235.0
+    ],
+    [
+     235.0,
+     46.0,
+     235.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "active",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    234.0,
+    41.0,
+    41.0
+   ],
+   "background": "red",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/red__circular-120__inactive",
+   "deepSpatialMaximum": [
+    234.0,
+    41.0,
+    41.0
+   ],
+   "deepSpatialMinimum": [
+    234.0,
+    41.0,
+    41.0
+   ],
+   "input": [
+    192,
+    32,
+    32
+   ],
+   "measuredInput": [
+    192.0,
+    32.0,
+    32.0
+   ],
+   "output": [
+    234.0,
+    41.0,
+    41.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     234.0,
+     41.0,
+     41.0
+    ],
+    [
+     234.0,
+     41.0,
+     41.0
+    ],
+    [
+     234.0,
+     41.0,
+     41.0
+    ],
+    [
+     234.0,
+     41.0,
+     41.0
+    ],
+    [
+     234.0,
+     41.0,
+     41.0
+    ],
+    [
+     234.0,
+     41.0,
+     41.0
+    ],
+    [
+     234.0,
+     41.0,
+     41.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "inactive",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    242.0,
+    50.0,
+    50.0
+   ],
+   "background": "red",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/red__circular-120__rest",
+   "deepSpatialMaximum": [
+    242.0,
+    51.0,
+    51.0
+   ],
+   "deepSpatialMinimum": [
+    238.0,
+    49.0,
+    49.0
+   ],
+   "input": [
+    192,
+    32,
+    32
+   ],
+   "measuredInput": [
+    192.0,
+    32.0,
+    32.0
+   ],
+   "output": [
+    242.0,
+    50.0,
+    50.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     242.0,
+     50.0,
+     50.0
+    ],
+    [
+     242.0,
+     50.0,
+     50.0
+    ],
+    [
+     242.0,
+     50.0,
+     50.0
+    ],
+    [
+     242.0,
+     50.0,
+     50.0
+    ],
+    [
+     242.0,
+     50.0,
+     50.0
+    ],
+    [
+     242.0,
+     50.0,
+     50.0
+    ],
+    [
+     242.0,
+     50.0,
+     50.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "active",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    167.0,
+    167.0,
+    5.0
+   ],
+   "background": "yellow",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/yellow__circular-120__inactive",
+   "deepSpatialMaximum": [
+    167.0,
+    167.0,
+    5.0
+   ],
+   "deepSpatialMinimum": [
+    167.0,
+    167.0,
+    5.0
+   ],
+   "input": [
+    192,
+    192,
+    32
+   ],
+   "measuredInput": [
+    192.0,
+    192.0,
+    32.0
+   ],
+   "output": [
+    167.0,
+    167.0,
+    5.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    true
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     167.0,
+     167.0,
+     5.0
+    ],
+    [
+     167.0,
+     167.0,
+     5.0
+    ],
+    [
+     167.0,
+     167.0,
+     5.0
+    ],
+    [
+     167.0,
+     167.0,
+     5.0
+    ],
+    [
+     167.0,
+     167.0,
+     5.0
+    ],
+    [
+     167.0,
+     167.0,
+     5.0
+    ],
+    [
+     167.0,
+     167.0,
+     5.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "inactive",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    173.0,
+    173.0,
+    11.0
+   ],
+   "background": "yellow",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/yellow__circular-120__rest",
+   "deepSpatialMaximum": [
+    174.0,
+    174.0,
+    11.0
+   ],
+   "deepSpatialMinimum": [
+    170.0,
+    170.0,
+    11.0
+   ],
+   "input": [
+    192,
+    192,
+    32
+   ],
+   "measuredInput": [
+    192.0,
+    192.0,
+    32.0
+   ],
+   "output": [
+    173.0,
+    173.0,
+    11.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     173.0,
+     173.0,
+     11.0
+    ],
+    [
+     173.0,
+     173.0,
+     11.0
+    ],
+    [
+     173.0,
+     173.0,
+     11.0
+    ],
+    [
+     173.0,
+     173.0,
+     11.0
+    ],
+    [
+     173.0,
+     173.0,
+     11.0
+    ],
+    [
+     173.0,
+     173.0,
+     11.0
+    ],
+    [
+     173.0,
+     173.0,
+     11.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "dark",
+    "active",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    141.0,
+    141.0,
+    255.0
+   ],
+   "background": "blue",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-light-standard-glass0.5/blue__circular-120__inactive",
+   "deepSpatialMaximum": [
+    141.0,
+    141.0,
+    255.0
+   ],
+   "deepSpatialMinimum": [
+    141.0,
+    141.0,
+    255.0
+   ],
+   "input": [
+    32,
+    32,
+    192
+   ],
+   "measuredInput": [
+    32.0,
+    32.0,
+    192.0
+   ],
+   "output": [
+    141.0,
+    141.0,
+    255.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    true
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     141.0,
+     141.0,
+     255.0
+    ],
+    [
+     141.0,
+     141.0,
+     255.0
+    ],
+    [
+     141.0,
+     141.0,
+     255.0
+    ],
+    [
+     141.0,
+     141.0,
+     255.0
+    ],
+    [
+     141.0,
+     141.0,
+     255.0
+    ],
+    [
+     141.0,
+     141.0,
+     255.0
+    ],
+    [
+     141.0,
+     141.0,
+     255.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "inactive",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    143.0,
+    143.0,
+    255.0
+   ],
+   "background": "blue",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-light-standard-glass0.5/blue__circular-120__rest",
+   "deepSpatialMaximum": [
+    143.0,
+    143.0,
+    255.0
+   ],
+   "deepSpatialMinimum": [
+    141.0,
+    141.0,
+    255.0
+   ],
+   "input": [
+    32,
+    32,
+    192
+   ],
+   "measuredInput": [
+    32.0,
+    32.0,
+    192.0
+   ],
+   "output": [
+    143.0,
+    143.0,
+    255.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    true
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     143.0,
+     143.0,
+     255.0
+    ],
+    [
+     143.0,
+     143.0,
+     255.0
+    ],
+    [
+     143.0,
+     143.0,
+     255.0
+    ],
+    [
+     143.0,
+     143.0,
+     255.0
+    ],
+    [
+     143.0,
+     143.0,
+     255.0
+    ],
+    [
+     143.0,
+     143.0,
+     255.0
+    ],
+    [
+     143.0,
+     143.0,
+     255.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "active",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    83.0,
+    233.0,
+    233.0
+   ],
+   "background": "cyan",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-light-standard-glass0.5/cyan__circular-120__inactive",
+   "deepSpatialMaximum": [
+    83.0,
+    233.0,
+    233.0
+   ],
+   "deepSpatialMinimum": [
+    83.0,
+    233.0,
+    233.0
+   ],
+   "input": [
+    32,
+    192,
+    192
+   ],
+   "measuredInput": [
+    32.0,
+    192.0,
+    192.0
+   ],
+   "output": [
+    83.0,
+    233.0,
+    233.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "validation",
+   "runMedians": [
+    [
+     83.0,
+     233.0,
+     233.0
+    ],
+    [
+     83.0,
+     233.0,
+     233.0
+    ],
+    [
+     83.0,
+     233.0,
+     233.0
+    ],
+    [
+     83.0,
+     233.0,
+     233.0
+    ],
+    [
+     83.0,
+     233.0,
+     233.0
+    ],
+    [
+     83.0,
+     233.0,
+     233.0
+    ],
+    [
+     83.0,
+     233.0,
+     233.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "inactive",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    91.0,
+    240.0,
+    240.0
+   ],
+   "background": "cyan",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-light-standard-glass0.5/cyan__circular-120__rest",
+   "deepSpatialMaximum": [
+    92.0,
+    241.0,
+    241.0
+   ],
+   "deepSpatialMinimum": [
+    90.0,
+    237.0,
+    237.0
+   ],
+   "input": [
+    32,
+    192,
+    192
+   ],
+   "measuredInput": [
+    32.0,
+    192.0,
+    192.0
+   ],
+   "output": [
+    91.0,
+    240.0,
+    240.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "validation",
+   "runMedians": [
+    [
+     91.0,
+     240.0,
+     240.0
+    ],
+    [
+     91.0,
+     240.0,
+     240.0
+    ],
+    [
+     91.0,
+     240.0,
+     240.0
+    ],
+    [
+     91.0,
+     240.0,
+     240.0
+    ],
+    [
+     91.0,
+     240.0,
+     240.0
+    ],
+    [
+     91.0,
+     240.0,
+     240.0
+    ],
+    [
+     91.0,
+     240.0,
+     240.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "active",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    89.0,
+    239.0,
+    89.0
+   ],
+   "background": "green",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-light-standard-glass0.5/green__circular-120__inactive",
+   "deepSpatialMaximum": [
+    89.0,
+    239.0,
+    89.0
+   ],
+   "deepSpatialMinimum": [
+    89.0,
+    239.0,
+    89.0
+   ],
+   "input": [
+    32,
+    192,
+    32
+   ],
+   "measuredInput": [
+    32.0,
+    192.0,
+    32.0
+   ],
+   "output": [
+    89.0,
+    239.0,
+    89.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     89.0,
+     239.0,
+     89.0
+    ],
+    [
+     89.0,
+     239.0,
+     89.0
+    ],
+    [
+     89.0,
+     239.0,
+     89.0
+    ],
+    [
+     89.0,
+     239.0,
+     89.0
+    ],
+    [
+     89.0,
+     239.0,
+     89.0
+    ],
+    [
+     89.0,
+     239.0,
+     89.0
+    ],
+    [
+     89.0,
+     239.0,
+     89.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "inactive",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    96.0,
+    246.0,
+    96.0
+   ],
+   "background": "green",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-light-standard-glass0.5/green__circular-120__rest",
+   "deepSpatialMaximum": [
+    97.0,
+    247.0,
+    97.0
+   ],
+   "deepSpatialMinimum": [
+    95.0,
+    242.0,
+    95.0
+   ],
+   "input": [
+    32,
+    192,
+    32
+   ],
+   "measuredInput": [
+    32.0,
+    192.0,
+    32.0
+   ],
+   "output": [
+    96.0,
+    246.0,
+    96.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     96.0,
+     246.0,
+     96.0
+    ],
+    [
+     96.0,
+     246.0,
+     96.0
+    ],
+    [
+     96.0,
+     246.0,
+     96.0
+    ],
+    [
+     96.0,
+     246.0,
+     96.0
+    ],
+    [
+     96.0,
+     246.0,
+     96.0
+    ],
+    [
+     96.0,
+     246.0,
+     96.0
+    ],
+    [
+     96.0,
+     246.0,
+     96.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "active",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    133.0,
+    133.0,
+    133.0
+   ],
+   "background": "grey-0",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-light-standard-glass0.5/grey-0__circular-120__inactive",
+   "deepSpatialMaximum": [
+    133.0,
+    133.0,
+    133.0
+   ],
+   "deepSpatialMinimum": [
+    133.0,
+    133.0,
+    133.0
+   ],
+   "input": [
+    0,
+    0,
+    0
+   ],
+   "measuredInput": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "output": [
+    133.0,
+    133.0,
+    133.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     133.0,
+     133.0,
+     133.0
+    ],
+    [
+     133.0,
+     133.0,
+     133.0
+    ],
+    [
+     133.0,
+     133.0,
+     133.0
+    ],
+    [
+     133.0,
+     133.0,
+     133.0
+    ],
+    [
+     133.0,
+     133.0,
+     133.0
+    ],
+    [
+     133.0,
+     133.0,
+     133.0
+    ],
+    [
+     133.0,
+     133.0,
+     133.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "inactive",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    132.0,
+    132.0,
+    132.0
+   ],
+   "background": "grey-0",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-light-standard-glass0.5/grey-0__circular-120__rest",
+   "deepSpatialMaximum": [
+    133.0,
+    133.0,
+    133.0
+   ],
+   "deepSpatialMinimum": [
+    130.0,
+    130.0,
+    130.0
+   ],
+   "input": [
+    0,
+    0,
+    0
+   ],
+   "measuredInput": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "output": [
+    132.0,
+    132.0,
+    132.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     132.0,
+     132.0,
+     132.0
+    ],
+    [
+     132.0,
+     132.0,
+     132.0
+    ],
+    [
+     132.0,
+     132.0,
+     132.0
+    ],
+    [
+     132.0,
+     132.0,
+     132.0
+    ],
+    [
+     132.0,
+     132.0,
+     132.0
+    ],
+    [
+     132.0,
+     132.0,
+     132.0
+    ],
+    [
+     132.0,
+     132.0,
+     132.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "active",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    188.0,
+    188.0,
+    188.0
+   ],
+   "background": "grey-128",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-light-standard-glass0.5/grey-128__circular-120__inactive",
+   "deepSpatialMaximum": [
+    188.0,
+    188.0,
+    188.0
+   ],
+   "deepSpatialMinimum": [
+    188.0,
+    188.0,
+    188.0
+   ],
+   "input": [
+    128,
+    128,
+    128
+   ],
+   "measuredInput": [
+    128.0,
+    128.0,
+    128.0
+   ],
+   "output": [
+    188.0,
+    188.0,
+    188.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     188.0,
+     188.0,
+     188.0
+    ],
+    [
+     188.0,
+     188.0,
+     188.0
+    ],
+    [
+     188.0,
+     188.0,
+     188.0
+    ],
+    [
+     188.0,
+     188.0,
+     188.0
+    ],
+    [
+     188.0,
+     188.0,
+     188.0
+    ],
+    [
+     188.0,
+     188.0,
+     188.0
+    ],
+    [
+     188.0,
+     188.0,
+     188.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "inactive",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    195.0,
+    195.0,
+    195.0
+   ],
+   "background": "grey-128",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-light-standard-glass0.5/grey-128__circular-120__rest",
+   "deepSpatialMaximum": [
+    195.0,
+    195.0,
+    195.0
+   ],
+   "deepSpatialMinimum": [
+    192.0,
+    192.0,
+    192.0
+   ],
+   "input": [
+    128,
+    128,
+    128
+   ],
+   "measuredInput": [
+    128.0,
+    128.0,
+    128.0
+   ],
+   "output": [
+    195.0,
+    195.0,
+    195.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     195.0,
+     195.0,
+     195.0
+    ],
+    [
+     195.0,
+     195.0,
+     195.0
+    ],
+    [
+     195.0,
+     195.0,
+     195.0
+    ],
+    [
+     195.0,
+     195.0,
+     195.0
+    ],
+    [
+     195.0,
+     195.0,
+     195.0
+    ],
+    [
+     195.0,
+     195.0,
+     195.0
+    ],
+    [
+     195.0,
+     195.0,
+     195.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "active",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    202.0,
+    202.0,
+    201.0
+   ],
+   "background": "grey-160",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-light-standard-glass0.5/grey-160__circular-120__inactive",
+   "deepSpatialMaximum": [
+    202.0,
+    202.0,
+    201.0
+   ],
+   "deepSpatialMinimum": [
+    202.0,
+    202.0,
+    201.0
+   ],
+   "input": [
+    160,
+    160,
+    160
+   ],
+   "measuredInput": [
+    160.0,
+    160.0,
+    160.0
+   ],
+   "output": [
+    202.0,
+    202.0,
+    201.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     202.0,
+     202.0,
+     201.0
+    ],
+    [
+     202.0,
+     202.0,
+     201.0
+    ],
+    [
+     202.0,
+     202.0,
+     201.0
+    ],
+    [
+     202.0,
+     202.0,
+     201.0
+    ],
+    [
+     202.0,
+     202.0,
+     201.0
+    ],
+    [
+     202.0,
+     202.0,
+     201.0
+    ],
+    [
+     202.0,
+     202.0,
+     201.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "inactive",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    210.0,
+    210.0,
+    210.0
+   ],
+   "background": "grey-160",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-light-standard-glass0.5/grey-160__circular-120__rest",
+   "deepSpatialMaximum": [
+    211.0,
+    211.0,
+    211.0
+   ],
+   "deepSpatialMinimum": [
+    206.0,
+    206.0,
+    206.0
+   ],
+   "input": [
+    160,
+    160,
+    160
+   ],
+   "measuredInput": [
+    160.0,
+    160.0,
+    160.0
+   ],
+   "output": [
+    210.0,
+    210.0,
+    210.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     210.0,
+     210.0,
+     210.0
+    ],
+    [
+     210.0,
+     210.0,
+     210.0
+    ],
+    [
+     210.0,
+     210.0,
+     210.0
+    ],
+    [
+     210.0,
+     210.0,
+     210.0
+    ],
+    [
+     210.0,
+     210.0,
+     210.0
+    ],
+    [
+     210.0,
+     210.0,
+     210.0
+    ],
+    [
+     210.0,
+     210.0,
+     210.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "active",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    240.0,
+    240.0,
+    240.0
+   ],
+   "background": "grey-255",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-light-standard-glass0.5/grey-255__circular-120__inactive",
+   "deepSpatialMaximum": [
+    240.0,
+    240.0,
+    240.0
+   ],
+   "deepSpatialMinimum": [
+    240.0,
+    240.0,
+    240.0
+   ],
+   "input": [
+    255,
+    255,
+    255
+   ],
+   "measuredInput": [
+    255.0,
+    255.0,
+    255.0
+   ],
+   "output": [
+    240.0,
+    240.0,
+    240.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     240.0,
+     240.0,
+     240.0
+    ],
+    [
+     240.0,
+     240.0,
+     240.0
+    ],
+    [
+     240.0,
+     240.0,
+     240.0
+    ],
+    [
+     240.0,
+     240.0,
+     240.0
+    ],
+    [
+     240.0,
+     240.0,
+     240.0
+    ],
+    [
+     240.0,
+     240.0,
+     240.0
+    ],
+    [
+     240.0,
+     240.0,
+     240.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "inactive",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    253.0,
+    253.0,
+    253.0
+   ],
+   "background": "grey-255",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-light-standard-glass0.5/grey-255__circular-120__rest",
+   "deepSpatialMaximum": [
+    254.0,
+    253.0,
+    254.0
+   ],
+   "deepSpatialMinimum": [
+    249.0,
+    249.0,
+    249.0
+   ],
+   "input": [
+    255,
+    255,
+    255
+   ],
+   "measuredInput": [
+    255.0,
+    255.0,
+    255.0
+   ],
+   "output": [
+    253.0,
+    253.0,
+    253.0
+   ],
+   "outputCensored": [
+    true,
+    true,
+    true
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     253.0,
+     253.0,
+     253.0
+    ],
+    [
+     253.0,
+     253.0,
+     253.0
+    ],
+    [
+     253.0,
+     253.0,
+     253.0
+    ],
+    [
+     253.0,
+     253.0,
+     253.0
+    ],
+    [
+     253.0,
+     253.0,
+     253.0
+    ],
+    [
+     253.0,
+     253.0,
+     253.0
+    ],
+    [
+     253.0,
+     253.0,
+     253.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "active",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    147.0,
+    147.0,
+    147.0
+   ],
+   "background": "grey-32",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-light-standard-glass0.5/grey-32__circular-120__inactive",
+   "deepSpatialMaximum": [
+    147.0,
+    147.0,
+    147.0
+   ],
+   "deepSpatialMinimum": [
+    147.0,
+    147.0,
+    147.0
+   ],
+   "input": [
+    32,
+    32,
+    32
+   ],
+   "measuredInput": [
+    32.0,
+    32.0,
+    32.0
+   ],
+   "output": [
+    147.0,
+    147.0,
+    147.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     147.0,
+     147.0,
+     147.0
+    ],
+    [
+     147.0,
+     147.0,
+     147.0
+    ],
+    [
+     147.0,
+     147.0,
+     147.0
+    ],
+    [
+     147.0,
+     147.0,
+     147.0
+    ],
+    [
+     147.0,
+     147.0,
+     147.0
+    ],
+    [
+     147.0,
+     147.0,
+     147.0
+    ],
+    [
+     147.0,
+     147.0,
+     147.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "inactive",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    148.0,
+    148.0,
+    148.0
+   ],
+   "background": "grey-32",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-light-standard-glass0.5/grey-32__circular-120__rest",
+   "deepSpatialMaximum": [
+    150.0,
+    150.0,
+    150.0
+   ],
+   "deepSpatialMinimum": [
+    146.0,
+    146.0,
+    146.0
+   ],
+   "input": [
+    32,
+    32,
+    32
+   ],
+   "measuredInput": [
+    32.0,
+    32.0,
+    32.0
+   ],
+   "output": [
+    148.0,
+    148.0,
+    148.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     148.0,
+     148.0,
+     148.0
+    ],
+    [
+     148.0,
+     148.0,
+     148.0
+    ],
+    [
+     148.0,
+     148.0,
+     148.0
+    ],
+    [
+     148.0,
+     148.0,
+     148.0
+    ],
+    [
+     148.0,
+     148.0,
+     148.0
+    ],
+    [
+     148.0,
+     148.0,
+     148.0
+    ],
+    [
+     148.0,
+     148.0,
+     148.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "active",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    161.0,
+    161.0,
+    161.0
+   ],
+   "background": "grey-64",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-light-standard-glass0.5/grey-64__circular-120__inactive",
+   "deepSpatialMaximum": [
+    161.0,
+    161.0,
+    161.0
+   ],
+   "deepSpatialMinimum": [
+    161.0,
+    161.0,
+    161.0
+   ],
+   "input": [
+    64,
+    64,
+    64
+   ],
+   "measuredInput": [
+    64.0,
+    64.0,
+    64.0
+   ],
+   "output": [
+    161.0,
+    161.0,
+    161.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     161.0,
+     161.0,
+     161.0
+    ],
+    [
+     161.0,
+     161.0,
+     161.0
+    ],
+    [
+     161.0,
+     161.0,
+     161.0
+    ],
+    [
+     161.0,
+     161.0,
+     161.0
+    ],
+    [
+     161.0,
+     161.0,
+     161.0
+    ],
+    [
+     161.0,
+     161.0,
+     161.0
+    ],
+    [
+     161.0,
+     161.0,
+     161.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "inactive",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    164.0,
+    164.0,
+    164.0
+   ],
+   "background": "grey-64",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-light-standard-glass0.5/grey-64__circular-120__rest",
+   "deepSpatialMaximum": [
+    164.0,
+    164.0,
+    164.0
+   ],
+   "deepSpatialMinimum": [
+    161.0,
+    161.0,
+    161.0
+   ],
+   "input": [
+    64,
+    64,
+    64
+   ],
+   "measuredInput": [
+    64.0,
+    64.0,
+    64.0
+   ],
+   "output": [
+    164.0,
+    164.0,
+    164.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     164.0,
+     164.0,
+     164.0
+    ],
+    [
+     164.0,
+     164.0,
+     164.0
+    ],
+    [
+     164.0,
+     164.0,
+     164.0
+    ],
+    [
+     164.0,
+     164.0,
+     164.0
+    ],
+    [
+     164.0,
+     164.0,
+     164.0
+    ],
+    [
+     164.0,
+     164.0,
+     164.0
+    ],
+    [
+     164.0,
+     164.0,
+     164.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "active",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    175.0,
+    175.0,
+    175.0
+   ],
+   "background": "grey-96",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-light-standard-glass0.5/grey-96__circular-120__inactive",
+   "deepSpatialMaximum": [
+    175.0,
+    175.0,
+    175.0
+   ],
+   "deepSpatialMinimum": [
+    175.0,
+    175.0,
+    175.0
+   ],
+   "input": [
+    96,
+    96,
+    96
+   ],
+   "measuredInput": [
+    96.0,
+    96.0,
+    96.0
+   ],
+   "output": [
+    175.0,
+    175.0,
+    175.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "validation",
+   "runMedians": [
+    [
+     175.0,
+     175.0,
+     175.0
+    ],
+    [
+     175.0,
+     175.0,
+     175.0
+    ],
+    [
+     175.0,
+     175.0,
+     175.0
+    ],
+    [
+     175.0,
+     175.0,
+     175.0
+    ],
+    [
+     175.0,
+     175.0,
+     175.0
+    ],
+    [
+     175.0,
+     175.0,
+     175.0
+    ],
+    [
+     175.0,
+     175.0,
+     175.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "inactive",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    179.0,
+    179.0,
+    179.0
+   ],
+   "background": "grey-96",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-light-standard-glass0.5/grey-96__circular-120__rest",
+   "deepSpatialMaximum": [
+    181.0,
+    181.0,
+    181.0
+   ],
+   "deepSpatialMinimum": [
+    177.0,
+    177.0,
+    177.0
+   ],
+   "input": [
+    96,
+    96,
+    96
+   ],
+   "measuredInput": [
+    96.0,
+    96.0,
+    96.0
+   ],
+   "output": [
+    179.0,
+    179.0,
+    179.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "validation",
+   "runMedians": [
+    [
+     179.0,
+     179.0,
+     179.0
+    ],
+    [
+     179.0,
+     179.0,
+     179.0
+    ],
+    [
+     179.0,
+     179.0,
+     179.0
+    ],
+    [
+     179.0,
+     179.0,
+     179.0
+    ],
+    [
+     179.0,
+     179.0,
+     179.0
+    ],
+    [
+     179.0,
+     179.0,
+     179.0
+    ],
+    [
+     179.0,
+     179.0,
+     179.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "active",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    255.0,
+    124.0,
+    255.0
+   ],
+   "background": "magenta",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-light-standard-glass0.5/magenta__circular-120__inactive",
+   "deepSpatialMaximum": [
+    255.0,
+    124.0,
+    255.0
+   ],
+   "deepSpatialMinimum": [
+    255.0,
+    124.0,
+    255.0
+   ],
+   "input": [
+    192,
+    32,
+    192
+   ],
+   "measuredInput": [
+    192.0,
+    32.0,
+    192.0
+   ],
+   "output": [
+    255.0,
+    124.0,
+    255.0
+   ],
+   "outputCensored": [
+    true,
+    false,
+    true
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     255.0,
+     124.0,
+     255.0
+    ],
+    [
+     255.0,
+     124.0,
+     255.0
+    ],
+    [
+     255.0,
+     124.0,
+     255.0
+    ],
+    [
+     255.0,
+     124.0,
+     255.0
+    ],
+    [
+     255.0,
+     124.0,
+     255.0
+    ],
+    [
+     255.0,
+     124.0,
+     255.0
+    ],
+    [
+     255.0,
+     124.0,
+     255.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "inactive",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    255.0,
+    127.0,
+    255.0
+   ],
+   "background": "magenta",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-light-standard-glass0.5/magenta__circular-120__rest",
+   "deepSpatialMaximum": [
+    255.0,
+    128.0,
+    255.0
+   ],
+   "deepSpatialMinimum": [
+    255.0,
+    125.0,
+    255.0
+   ],
+   "input": [
+    192,
+    32,
+    192
+   ],
+   "measuredInput": [
+    192.0,
+    32.0,
+    192.0
+   ],
+   "output": [
+    255.0,
+    127.0,
+    255.0
+   ],
+   "outputCensored": [
+    true,
+    false,
+    true
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     255.0,
+     127.0,
+     255.0
+    ],
+    [
+     255.0,
+     127.0,
+     255.0
+    ],
+    [
+     255.0,
+     127.0,
+     255.0
+    ],
+    [
+     255.0,
+     127.0,
+     255.0
+    ],
+    [
+     255.0,
+     127.0,
+     255.0
+    ],
+    [
+     255.0,
+     127.0,
+     255.0
+    ],
+    [
+     255.0,
+     127.0,
+     255.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "active",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    255.0,
+    129.0,
+    129.0
+   ],
+   "background": "red",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-light-standard-glass0.5/red__circular-120__inactive",
+   "deepSpatialMaximum": [
+    255.0,
+    129.0,
+    129.0
+   ],
+   "deepSpatialMinimum": [
+    255.0,
+    129.0,
+    129.0
+   ],
+   "input": [
+    192,
+    32,
+    32
+   ],
+   "measuredInput": [
+    192.0,
+    32.0,
+    32.0
+   ],
+   "output": [
+    255.0,
+    129.0,
+    129.0
+   ],
+   "outputCensored": [
+    true,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     255.0,
+     129.0,
+     129.0
+    ],
+    [
+     255.0,
+     129.0,
+     129.0
+    ],
+    [
+     255.0,
+     129.0,
+     129.0
+    ],
+    [
+     255.0,
+     129.0,
+     129.0
+    ],
+    [
+     255.0,
+     129.0,
+     129.0
+    ],
+    [
+     255.0,
+     129.0,
+     129.0
+    ],
+    [
+     255.0,
+     129.0,
+     129.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "inactive",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    255.0,
+    133.0,
+    133.0
+   ],
+   "background": "red",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-light-standard-glass0.5/red__circular-120__rest",
+   "deepSpatialMaximum": [
+    255.0,
+    133.0,
+    133.0
+   ],
+   "deepSpatialMinimum": [
+    255.0,
+    131.0,
+    130.0
+   ],
+   "input": [
+    192,
+    32,
+    32
+   ],
+   "measuredInput": [
+    192.0,
+    32.0,
+    32.0
+   ],
+   "output": [
+    255.0,
+    133.0,
+    133.0
+   ],
+   "outputCensored": [
+    true,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     255.0,
+     133.0,
+     133.0
+    ],
+    [
+     255.0,
+     133.0,
+     133.0
+    ],
+    [
+     255.0,
+     133.0,
+     133.0
+    ],
+    [
+     255.0,
+     133.0,
+     133.0
+    ],
+    [
+     255.0,
+     133.0,
+     133.0
+    ],
+    [
+     255.0,
+     133.0,
+     133.0
+    ],
+    [
+     255.0,
+     133.0,
+     133.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "active",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    221.0,
+    221.0,
+    72.0
+   ],
+   "background": "yellow",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-light-standard-glass0.5/yellow__circular-120__inactive",
+   "deepSpatialMaximum": [
+    221.0,
+    221.0,
+    72.0
+   ],
+   "deepSpatialMinimum": [
+    221.0,
+    221.0,
+    72.0
+   ],
+   "input": [
+    192,
+    192,
+    32
+   ],
+   "measuredInput": [
+    192.0,
+    192.0,
+    32.0
+   ],
+   "output": [
+    221.0,
+    221.0,
+    72.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     221.0,
+     221.0,
+     72.0
+    ],
+    [
+     221.0,
+     221.0,
+     72.0
+    ],
+    [
+     221.0,
+     221.0,
+     72.0
+    ],
+    [
+     221.0,
+     221.0,
+     72.0
+    ],
+    [
+     221.0,
+     221.0,
+     72.0
+    ],
+    [
+     221.0,
+     221.0,
+     72.0
+    ],
+    [
+     221.0,
+     221.0,
+     72.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "inactive",
+    "2x"
+   ]
+  },
+  {
+   "attestedOriginOutput": [
+    230.0,
+    230.0,
+    81.0
+   ],
+   "background": "yellow",
+   "bar": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "cell": "apple-macos-27.0-2x-light-standard-glass0.5/yellow__circular-120__rest",
+   "deepSpatialMaximum": [
+    230.0,
+    230.0,
+    82.0
+   ],
+   "deepSpatialMinimum": [
+    226.0,
+    226.0,
+    80.0
+   ],
+   "input": [
+    192,
+    192,
+    32
+   ],
+   "measuredInput": [
+    192.0,
+    192.0,
+    32.0
+   ],
+   "output": [
+    230.0,
+    230.0,
+    81.0
+   ],
+   "outputCensored": [
+    false,
+    false,
+    false
+   ],
+   "role": "calibration",
+   "runMedians": [
+    [
+     230.0,
+     230.0,
+     81.0
+    ],
+    [
+     230.0,
+     230.0,
+     81.0
+    ],
+    [
+     230.0,
+     230.0,
+     81.0
+    ],
+    [
+     230.0,
+     230.0,
+     81.0
+    ],
+    [
+     230.0,
+     230.0,
+     81.0
+    ],
+    [
+     230.0,
+     230.0,
+     81.0
+    ],
+    [
+     230.0,
+     230.0,
+     81.0
+    ]
+   ],
+   "runs": 7,
+   "stratum": [
+    "light",
+    "active",
+    "2x"
+   ]
+  }
+ ],
+ "clause": "charter v2 clause 3; c9a \u00a75.184",
+ "counts": {
+  "calibration": 88,
+  "cells": 104,
+  "maximumBar": 0.5,
+  "runsPerCell": 7,
+  "validation": 16
+ },
+ "declarationSha256": "b034470473e85e533bca8831946831b0e3dbf18d550699b61fd74235380e1683",
+ "departuresFromNeutralInterpolant": {
+  "apple-macos-27.0-1x-dark-standard-glass0.5/blue__circular-120__inactive": [
+   -3.0,
+   -4.0,
+   88.54736842105262
+  ],
+  "apple-macos-27.0-1x-dark-standard-glass0.5/blue__circular-120__rest": [
+   -4.0,
+   -4.0,
+   92.8842105263158
+  ],
+  "apple-macos-27.0-1x-dark-standard-glass0.5/cyan__circular-120__inactive": [
+   -40.0,
+   22.547368421052624,
+   22.547368421052624
+  ],
+  "apple-macos-27.0-1x-dark-standard-glass0.5/cyan__circular-120__rest": [
+   -44.0,
+   23.884210526315798,
+   23.884210526315798
+  ],
+  "apple-macos-27.0-1x-dark-standard-glass0.5/green__circular-120__inactive": [
+   -36.0,
+   29.547368421052624,
+   -36.0
+  ],
+  "apple-macos-27.0-1x-dark-standard-glass0.5/green__circular-120__rest": [
+   -40.0,
+   30.884210526315798,
+   -40.0
+  ],
+  "apple-macos-27.0-1x-dark-standard-glass0.5/magenta__circular-120__inactive": [
+   69.54736842105262,
+   -14.0,
+   69.54736842105262
+  ],
+  "apple-macos-27.0-1x-dark-standard-glass0.5/magenta__circular-120__rest": [
+   72.8842105263158,
+   -16.0,
+   72.8842105263158
+  ],
+  "apple-macos-27.0-1x-dark-standard-glass0.5/red__circular-120__inactive": [
+   76.54736842105262,
+   -11.0,
+   -11.0
+  ],
+  "apple-macos-27.0-1x-dark-standard-glass0.5/red__circular-120__rest": [
+   79.8842105263158,
+   -12.0,
+   -12.0
+  ],
+  "apple-macos-27.0-1x-dark-standard-glass0.5/yellow__circular-120__inactive": [
+   9.547368421052624,
+   9.547368421052624,
+   -47.0
+  ],
+  "apple-macos-27.0-1x-dark-standard-glass0.5/yellow__circular-120__rest": [
+   10.884210526315798,
+   10.884210526315798,
+   -51.0
+  ],
+  "apple-macos-27.0-1x-light-standard-glass0.5/blue__circular-120__inactive": [
+   -6.0,
+   -6.0,
+   40.19999999999999
+  ],
+  "apple-macos-27.0-1x-light-standard-glass0.5/blue__circular-120__rest": [
+   -5.0,
+   -5.0,
+   30.515789473684208
+  ],
+  "apple-macos-27.0-1x-light-standard-glass0.5/cyan__circular-120__inactive": [
+   -64.0,
+   18.19999999999999,
+   18.19999999999999
+  ],
+  "apple-macos-27.0-1x-light-standard-glass0.5/cyan__circular-120__rest": [
+   -57.0,
+   15.515789473684208,
+   15.515789473684208
+  ],
+  "apple-macos-27.0-1x-light-standard-glass0.5/green__circular-120__inactive": [
+   -58.0,
+   24.19999999999999,
+   -58.0
+  ],
+  "apple-macos-27.0-1x-light-standard-glass0.5/green__circular-120__rest": [
+   -52.0,
+   21.515789473684208,
+   -52.0
+  ],
+  "apple-macos-27.0-1x-light-standard-glass0.5/magenta__circular-120__inactive": [
+   40.19999999999999,
+   -23.0,
+   40.19999999999999
+  ],
+  "apple-macos-27.0-1x-light-standard-glass0.5/magenta__circular-120__rest": [
+   30.515789473684208,
+   -21.0,
+   30.515789473684208
+  ],
+  "apple-macos-27.0-1x-light-standard-glass0.5/red__circular-120__inactive": [
+   40.19999999999999,
+   -18.0,
+   -18.0
+  ],
+  "apple-macos-27.0-1x-light-standard-glass0.5/red__circular-120__rest": [
+   30.515789473684208,
+   -15.0,
+   -15.0
+  ],
+  "apple-macos-27.0-1x-light-standard-glass0.5/yellow__circular-120__inactive": [
+   6.199999999999989,
+   6.199999999999989,
+   -75.0
+  ],
+  "apple-macos-27.0-1x-light-standard-glass0.5/yellow__circular-120__rest": [
+   5.515789473684208,
+   5.515789473684208,
+   -67.0
+  ],
+  "apple-macos-27.0-2x-dark-standard-glass0.5/blue__circular-120__inactive": [
+   -3.0,
+   -4.0,
+   88.54736842105262
+  ],
+  "apple-macos-27.0-2x-dark-standard-glass0.5/blue__circular-120__rest": [
+   -4.0,
+   -4.0,
+   92.8842105263158
+  ],
+  "apple-macos-27.0-2x-dark-standard-glass0.5/cyan__circular-120__inactive": [
+   -40.0,
+   22.547368421052624,
+   22.547368421052624
+  ],
+  "apple-macos-27.0-2x-dark-standard-glass0.5/cyan__circular-120__rest": [
+   -44.0,
+   23.884210526315798,
+   23.884210526315798
+  ],
+  "apple-macos-27.0-2x-dark-standard-glass0.5/green__circular-120__inactive": [
+   -36.0,
+   29.547368421052624,
+   -36.0
+  ],
+  "apple-macos-27.0-2x-dark-standard-glass0.5/green__circular-120__rest": [
+   -40.0,
+   30.884210526315798,
+   -40.0
+  ],
+  "apple-macos-27.0-2x-dark-standard-glass0.5/magenta__circular-120__inactive": [
+   69.54736842105262,
+   -14.0,
+   69.54736842105262
+  ],
+  "apple-macos-27.0-2x-dark-standard-glass0.5/magenta__circular-120__rest": [
+   72.8842105263158,
+   -16.0,
+   72.8842105263158
+  ],
+  "apple-macos-27.0-2x-dark-standard-glass0.5/red__circular-120__inactive": [
+   76.54736842105262,
+   -11.0,
+   -11.0
+  ],
+  "apple-macos-27.0-2x-dark-standard-glass0.5/red__circular-120__rest": [
+   79.8842105263158,
+   -12.0,
+   -12.0
+  ],
+  "apple-macos-27.0-2x-dark-standard-glass0.5/yellow__circular-120__inactive": [
+   9.547368421052624,
+   9.547368421052624,
+   -47.0
+  ],
+  "apple-macos-27.0-2x-dark-standard-glass0.5/yellow__circular-120__rest": [
+   10.884210526315798,
+   10.884210526315798,
+   -51.0
+  ],
+  "apple-macos-27.0-2x-light-standard-glass0.5/blue__circular-120__inactive": [
+   -6.0,
+   -6.0,
+   40.19999999999999
+  ],
+  "apple-macos-27.0-2x-light-standard-glass0.5/blue__circular-120__rest": [
+   -5.0,
+   -5.0,
+   30.515789473684208
+  ],
+  "apple-macos-27.0-2x-light-standard-glass0.5/cyan__circular-120__inactive": [
+   -64.0,
+   18.19999999999999,
+   18.19999999999999
+  ],
+  "apple-macos-27.0-2x-light-standard-glass0.5/cyan__circular-120__rest": [
+   -57.0,
+   15.515789473684208,
+   15.515789473684208
+  ],
+  "apple-macos-27.0-2x-light-standard-glass0.5/green__circular-120__inactive": [
+   -58.0,
+   24.19999999999999,
+   -58.0
+  ],
+  "apple-macos-27.0-2x-light-standard-glass0.5/green__circular-120__rest": [
+   -52.0,
+   21.515789473684208,
+   -52.0
+  ],
+  "apple-macos-27.0-2x-light-standard-glass0.5/magenta__circular-120__inactive": [
+   40.19999999999999,
+   -23.0,
+   40.19999999999999
+  ],
+  "apple-macos-27.0-2x-light-standard-glass0.5/magenta__circular-120__rest": [
+   30.515789473684208,
+   -21.0,
+   30.515789473684208
+  ],
+  "apple-macos-27.0-2x-light-standard-glass0.5/red__circular-120__inactive": [
+   40.19999999999999,
+   -18.0,
+   -18.0
+  ],
+  "apple-macos-27.0-2x-light-standard-glass0.5/red__circular-120__rest": [
+   30.515789473684208,
+   -15.0,
+   -15.0
+  ],
+  "apple-macos-27.0-2x-light-standard-glass0.5/yellow__circular-120__inactive": [
+   6.199999999999989,
+   6.199999999999989,
+   -75.0
+  ],
+  "apple-macos-27.0-2x-light-standard-glass0.5/yellow__circular-120__rest": [
+   5.515789473684208,
+   5.515789473684208,
+   -67.0
+  ]
+ },
+ "geometry": "recorded alignment and attested origin alone agree to the code on all 104 cells",
+ "h1": {
+  "note": "departure = native low channel minus the same stratum grey-32 output; H1 predicts 0",
+  "smallestStratumWorstDepartureCodes": 36.0,
+  "strata": [
+   {
+    "grey32": 62.0,
+    "inputChannel32": [
+     {
+      "background": "red",
+      "censored": false,
+      "channel": "G",
+      "departureFromGrey32": -12.0,
+      "native": 50.0,
+      "role": "calibration"
+     },
+     {
+      "background": "red",
+      "censored": false,
+      "channel": "B",
+      "departureFromGrey32": -12.0,
+      "native": 50.0,
+      "role": "calibration"
+     },
+     {
+      "background": "blue",
+      "censored": false,
+      "channel": "R",
+      "departureFromGrey32": -4.0,
+      "native": 58.0,
+      "role": "calibration"
+     },
+     {
+      "background": "blue",
+      "censored": false,
+      "channel": "G",
+      "departureFromGrey32": -4.0,
+      "native": 58.0,
+      "role": "calibration"
+     },
+     {
+      "background": "green",
+      "censored": false,
+      "channel": "R",
+      "departureFromGrey32": -40.0,
+      "native": 22.0,
+      "role": "calibration"
+     },
+     {
+      "background": "green",
+      "censored": false,
+      "channel": "B",
+      "departureFromGrey32": -40.0,
+      "native": 22.0,
+      "role": "calibration"
+     },
+     {
+      "background": "yellow",
+      "censored": false,
+      "channel": "B",
+      "departureFromGrey32": -51.0,
+      "native": 11.0,
+      "role": "calibration"
+     },
+     {
+      "background": "magenta",
+      "censored": false,
+      "channel": "G",
+      "departureFromGrey32": -16.0,
+      "native": 46.0,
+      "role": "calibration"
+     },
+     {
+      "background": "cyan",
+      "censored": false,
+      "channel": "R",
+      "departureFromGrey32": -44.0,
+      "native": 18.0,
+      "role": "validation"
+     }
+    ],
+    "largestCalibrationDeparture": {
+     "background": "yellow",
+     "censored": false,
+     "channel": "B",
+     "departureFromGrey32": -51.0,
+     "native": 11.0,
+     "role": "calibration"
+    },
+    "redBlueRoles": [
+     "calibration",
+     "calibration"
+    ],
+    "redMinusBlueG": -8.0,
+    "stratum": "dark-active-1x"
+   },
+   {
+    "grey32": 62.0,
+    "inputChannel32": [
+     {
+      "background": "red",
+      "censored": false,
+      "channel": "G",
+      "departureFromGrey32": -12.0,
+      "native": 50.0,
+      "role": "calibration"
+     },
+     {
+      "background": "red",
+      "censored": false,
+      "channel": "B",
+      "departureFromGrey32": -12.0,
+      "native": 50.0,
+      "role": "calibration"
+     },
+     {
+      "background": "blue",
+      "censored": false,
+      "channel": "R",
+      "departureFromGrey32": -4.0,
+      "native": 58.0,
+      "role": "calibration"
+     },
+     {
+      "background": "blue",
+      "censored": false,
+      "channel": "G",
+      "departureFromGrey32": -4.0,
+      "native": 58.0,
+      "role": "calibration"
+     },
+     {
+      "background": "green",
+      "censored": false,
+      "channel": "R",
+      "departureFromGrey32": -40.0,
+      "native": 22.0,
+      "role": "calibration"
+     },
+     {
+      "background": "green",
+      "censored": false,
+      "channel": "B",
+      "departureFromGrey32": -40.0,
+      "native": 22.0,
+      "role": "calibration"
+     },
+     {
+      "background": "yellow",
+      "censored": false,
+      "channel": "B",
+      "departureFromGrey32": -51.0,
+      "native": 11.0,
+      "role": "calibration"
+     },
+     {
+      "background": "magenta",
+      "censored": false,
+      "channel": "G",
+      "departureFromGrey32": -16.0,
+      "native": 46.0,
+      "role": "calibration"
+     },
+     {
+      "background": "cyan",
+      "censored": false,
+      "channel": "R",
+      "departureFromGrey32": -44.0,
+      "native": 18.0,
+      "role": "validation"
+     }
+    ],
+    "largestCalibrationDeparture": {
+     "background": "yellow",
+     "censored": false,
+     "channel": "B",
+     "departureFromGrey32": -51.0,
+     "native": 11.0,
+     "role": "calibration"
+    },
+    "redBlueRoles": [
+     "calibration",
+     "calibration"
+    ],
+    "redMinusBlueG": -8.0,
+    "stratum": "dark-active-2x"
+   },
+   {
+    "grey32": 52.0,
+    "inputChannel32": [
+     {
+      "background": "red",
+      "censored": false,
+      "channel": "G",
+      "departureFromGrey32": -11.0,
+      "native": 41.0,
+      "role": "calibration"
+     },
+     {
+      "background": "red",
+      "censored": false,
+      "channel": "B",
+      "departureFromGrey32": -11.0,
+      "native": 41.0,
+      "role": "calibration"
+     },
+     {
+      "background": "blue",
+      "censored": false,
+      "channel": "R",
+      "departureFromGrey32": -3.0,
+      "native": 49.0,
+      "role": "calibration"
+     },
+     {
+      "background": "blue",
+      "censored": false,
+      "channel": "G",
+      "departureFromGrey32": -4.0,
+      "native": 48.0,
+      "role": "calibration"
+     },
+     {
+      "background": "green",
+      "censored": false,
+      "channel": "R",
+      "departureFromGrey32": -36.0,
+      "native": 16.0,
+      "role": "calibration"
+     },
+     {
+      "background": "green",
+      "censored": false,
+      "channel": "B",
+      "departureFromGrey32": -36.0,
+      "native": 16.0,
+      "role": "calibration"
+     },
+     {
+      "background": "yellow",
+      "censored": true,
+      "channel": "B",
+      "departureFromGrey32": -47.0,
+      "native": 5.0,
+      "role": "calibration"
+     },
+     {
+      "background": "magenta",
+      "censored": false,
+      "channel": "G",
+      "departureFromGrey32": -14.0,
+      "native": 38.0,
+      "role": "calibration"
+     },
+     {
+      "background": "cyan",
+      "censored": false,
+      "channel": "R",
+      "departureFromGrey32": -40.0,
+      "native": 12.0,
+      "role": "validation"
+     }
+    ],
+    "largestCalibrationDeparture": {
+     "background": "green",
+     "censored": false,
+     "channel": "R",
+     "departureFromGrey32": -36.0,
+     "native": 16.0,
+     "role": "calibration"
+    },
+    "redBlueRoles": [
+     "calibration",
+     "calibration"
+    ],
+    "redMinusBlueG": -7.0,
+    "stratum": "dark-inactive-1x"
+   },
+   {
+    "grey32": 52.0,
+    "inputChannel32": [
+     {
+      "background": "red",
+      "censored": false,
+      "channel": "G",
+      "departureFromGrey32": -11.0,
+      "native": 41.0,
+      "role": "calibration"
+     },
+     {
+      "background": "red",
+      "censored": false,
+      "channel": "B",
+      "departureFromGrey32": -11.0,
+      "native": 41.0,
+      "role": "calibration"
+     },
+     {
+      "background": "blue",
+      "censored": false,
+      "channel": "R",
+      "departureFromGrey32": -3.0,
+      "native": 49.0,
+      "role": "calibration"
+     },
+     {
+      "background": "blue",
+      "censored": false,
+      "channel": "G",
+      "departureFromGrey32": -4.0,
+      "native": 48.0,
+      "role": "calibration"
+     },
+     {
+      "background": "green",
+      "censored": false,
+      "channel": "R",
+      "departureFromGrey32": -36.0,
+      "native": 16.0,
+      "role": "calibration"
+     },
+     {
+      "background": "green",
+      "censored": false,
+      "channel": "B",
+      "departureFromGrey32": -36.0,
+      "native": 16.0,
+      "role": "calibration"
+     },
+     {
+      "background": "yellow",
+      "censored": true,
+      "channel": "B",
+      "departureFromGrey32": -47.0,
+      "native": 5.0,
+      "role": "calibration"
+     },
+     {
+      "background": "magenta",
+      "censored": false,
+      "channel": "G",
+      "departureFromGrey32": -14.0,
+      "native": 38.0,
+      "role": "calibration"
+     },
+     {
+      "background": "cyan",
+      "censored": false,
+      "channel": "R",
+      "departureFromGrey32": -40.0,
+      "native": 12.0,
+      "role": "validation"
+     }
+    ],
+    "largestCalibrationDeparture": {
+     "background": "green",
+     "censored": false,
+     "channel": "R",
+     "departureFromGrey32": -36.0,
+     "native": 16.0,
+     "role": "calibration"
+    },
+    "redBlueRoles": [
+     "calibration",
+     "calibration"
+    ],
+    "redMinusBlueG": -7.0,
+    "stratum": "dark-inactive-2x"
+   },
+   {
+    "grey32": 148.0,
+    "inputChannel32": [
+     {
+      "background": "red",
+      "censored": false,
+      "channel": "G",
+      "departureFromGrey32": -15.0,
+      "native": 133.0,
+      "role": "calibration"
+     },
+     {
+      "background": "red",
+      "censored": false,
+      "channel": "B",
+      "departureFromGrey32": -15.0,
+      "native": 133.0,
+      "role": "calibration"
+     },
+     {
+      "background": "blue",
+      "censored": false,
+      "channel": "R",
+      "departureFromGrey32": -5.0,
+      "native": 143.0,
+      "role": "calibration"
+     },
+     {
+      "background": "blue",
+      "censored": false,
+      "channel": "G",
+      "departureFromGrey32": -5.0,
+      "native": 143.0,
+      "role": "calibration"
+     },
+     {
+      "background": "green",
+      "censored": false,
+      "channel": "R",
+      "departureFromGrey32": -52.0,
+      "native": 96.0,
+      "role": "calibration"
+     },
+     {
+      "background": "green",
+      "censored": false,
+      "channel": "B",
+      "departureFromGrey32": -52.0,
+      "native": 96.0,
+      "role": "calibration"
+     },
+     {
+      "background": "yellow",
+      "censored": false,
+      "channel": "B",
+      "departureFromGrey32": -67.0,
+      "native": 81.0,
+      "role": "calibration"
+     },
+     {
+      "background": "magenta",
+      "censored": false,
+      "channel": "G",
+      "departureFromGrey32": -21.0,
+      "native": 127.0,
+      "role": "calibration"
+     },
+     {
+      "background": "cyan",
+      "censored": false,
+      "channel": "R",
+      "departureFromGrey32": -57.0,
+      "native": 91.0,
+      "role": "validation"
+     }
+    ],
+    "largestCalibrationDeparture": {
+     "background": "yellow",
+     "censored": false,
+     "channel": "B",
+     "departureFromGrey32": -67.0,
+     "native": 81.0,
+     "role": "calibration"
+    },
+    "redBlueRoles": [
+     "calibration",
+     "calibration"
+    ],
+    "redMinusBlueG": -10.0,
+    "stratum": "light-active-1x"
+   },
+   {
+    "grey32": 148.0,
+    "inputChannel32": [
+     {
+      "background": "red",
+      "censored": false,
+      "channel": "G",
+      "departureFromGrey32": -15.0,
+      "native": 133.0,
+      "role": "calibration"
+     },
+     {
+      "background": "red",
+      "censored": false,
+      "channel": "B",
+      "departureFromGrey32": -15.0,
+      "native": 133.0,
+      "role": "calibration"
+     },
+     {
+      "background": "blue",
+      "censored": false,
+      "channel": "R",
+      "departureFromGrey32": -5.0,
+      "native": 143.0,
+      "role": "calibration"
+     },
+     {
+      "background": "blue",
+      "censored": false,
+      "channel": "G",
+      "departureFromGrey32": -5.0,
+      "native": 143.0,
+      "role": "calibration"
+     },
+     {
+      "background": "green",
+      "censored": false,
+      "channel": "R",
+      "departureFromGrey32": -52.0,
+      "native": 96.0,
+      "role": "calibration"
+     },
+     {
+      "background": "green",
+      "censored": false,
+      "channel": "B",
+      "departureFromGrey32": -52.0,
+      "native": 96.0,
+      "role": "calibration"
+     },
+     {
+      "background": "yellow",
+      "censored": false,
+      "channel": "B",
+      "departureFromGrey32": -67.0,
+      "native": 81.0,
+      "role": "calibration"
+     },
+     {
+      "background": "magenta",
+      "censored": false,
+      "channel": "G",
+      "departureFromGrey32": -21.0,
+      "native": 127.0,
+      "role": "calibration"
+     },
+     {
+      "background": "cyan",
+      "censored": false,
+      "channel": "R",
+      "departureFromGrey32": -57.0,
+      "native": 91.0,
+      "role": "validation"
+     }
+    ],
+    "largestCalibrationDeparture": {
+     "background": "yellow",
+     "censored": false,
+     "channel": "B",
+     "departureFromGrey32": -67.0,
+     "native": 81.0,
+     "role": "calibration"
+    },
+    "redBlueRoles": [
+     "calibration",
+     "calibration"
+    ],
+    "redMinusBlueG": -10.0,
+    "stratum": "light-active-2x"
+   },
+   {
+    "grey32": 147.0,
+    "inputChannel32": [
+     {
+      "background": "red",
+      "censored": false,
+      "channel": "G",
+      "departureFromGrey32": -18.0,
+      "native": 129.0,
+      "role": "calibration"
+     },
+     {
+      "background": "red",
+      "censored": false,
+      "channel": "B",
+      "departureFromGrey32": -18.0,
+      "native": 129.0,
+      "role": "calibration"
+     },
+     {
+      "background": "blue",
+      "censored": false,
+      "channel": "R",
+      "departureFromGrey32": -6.0,
+      "native": 141.0,
+      "role": "calibration"
+     },
+     {
+      "background": "blue",
+      "censored": false,
+      "channel": "G",
+      "departureFromGrey32": -6.0,
+      "native": 141.0,
+      "role": "calibration"
+     },
+     {
+      "background": "green",
+      "censored": false,
+      "channel": "R",
+      "departureFromGrey32": -58.0,
+      "native": 89.0,
+      "role": "calibration"
+     },
+     {
+      "background": "green",
+      "censored": false,
+      "channel": "B",
+      "departureFromGrey32": -58.0,
+      "native": 89.0,
+      "role": "calibration"
+     },
+     {
+      "background": "yellow",
+      "censored": false,
+      "channel": "B",
+      "departureFromGrey32": -75.0,
+      "native": 72.0,
+      "role": "calibration"
+     },
+     {
+      "background": "magenta",
+      "censored": false,
+      "channel": "G",
+      "departureFromGrey32": -23.0,
+      "native": 124.0,
+      "role": "calibration"
+     },
+     {
+      "background": "cyan",
+      "censored": false,
+      "channel": "R",
+      "departureFromGrey32": -64.0,
+      "native": 83.0,
+      "role": "validation"
+     }
+    ],
+    "largestCalibrationDeparture": {
+     "background": "yellow",
+     "censored": false,
+     "channel": "B",
+     "departureFromGrey32": -75.0,
+     "native": 72.0,
+     "role": "calibration"
+    },
+    "redBlueRoles": [
+     "calibration",
+     "calibration"
+    ],
+    "redMinusBlueG": -12.0,
+    "stratum": "light-inactive-1x"
+   },
+   {
+    "grey32": 147.0,
+    "inputChannel32": [
+     {
+      "background": "red",
+      "censored": false,
+      "channel": "G",
+      "departureFromGrey32": -18.0,
+      "native": 129.0,
+      "role": "calibration"
+     },
+     {
+      "background": "red",
+      "censored": false,
+      "channel": "B",
+      "departureFromGrey32": -18.0,
+      "native": 129.0,
+      "role": "calibration"
+     },
+     {
+      "background": "blue",
+      "censored": false,
+      "channel": "R",
+      "departureFromGrey32": -6.0,
+      "native": 141.0,
+      "role": "calibration"
+     },
+     {
+      "background": "blue",
+      "censored": false,
+      "channel": "G",
+      "departureFromGrey32": -6.0,
+      "native": 141.0,
+      "role": "calibration"
+     },
+     {
+      "background": "green",
+      "censored": false,
+      "channel": "R",
+      "departureFromGrey32": -58.0,
+      "native": 89.0,
+      "role": "calibration"
+     },
+     {
+      "background": "green",
+      "censored": false,
+      "channel": "B",
+      "departureFromGrey32": -58.0,
+      "native": 89.0,
+      "role": "calibration"
+     },
+     {
+      "background": "yellow",
+      "censored": false,
+      "channel": "B",
+      "departureFromGrey32": -75.0,
+      "native": 72.0,
+      "role": "calibration"
+     },
+     {
+      "background": "magenta",
+      "censored": false,
+      "channel": "G",
+      "departureFromGrey32": -23.0,
+      "native": 124.0,
+      "role": "calibration"
+     },
+     {
+      "background": "cyan",
+      "censored": false,
+      "channel": "R",
+      "departureFromGrey32": -64.0,
+      "native": 83.0,
+      "role": "validation"
+     }
+    ],
+    "largestCalibrationDeparture": {
+     "background": "yellow",
+     "censored": false,
+     "channel": "B",
+     "departureFromGrey32": -75.0,
+     "native": 72.0,
+     "role": "calibration"
+    },
+    "redBlueRoles": [
+     "calibration",
+     "calibration"
+    ],
+    "redMinusBlueG": -12.0,
+    "stratum": "light-inactive-2x"
+   }
+  ],
+  "verdict": "REJECTED on unclipped calibration channels against the exact grey-32 observation"
+ },
+ "h2Shipped": {
+  "cells": [
+   {
+    "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/red__circular-120__rest",
+    "guardedNativeReadingAgrees": true,
+    "native": [
+     242.0,
+     50.0,
+     50.0
+    ],
+    "nativeUncensored": true,
+    "renderMinusNative": [
+     -82.0,
+     40.0,
+     40.0
+    ],
+    "role": "calibration",
+    "shippedRender": [
+     160.0,
+     90.0,
+     90.0
+    ]
+   },
+   {
+    "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/red__circular-120__rest",
+    "guardedNativeReadingAgrees": true,
+    "native": [
+     242.0,
+     50.0,
+     50.0
+    ],
+    "nativeUncensored": true,
+    "renderMinusNative": [
+     -82.0,
+     40.0,
+     40.0
+    ],
+    "role": "calibration",
+    "shippedRender": [
+     160.0,
+     90.0,
+     90.0
+    ]
+   }
+  ],
+  "note": "W35 calibration reading of the shipped render; W36 changed only the black branch and W37/W38 shipped no colour change, so the reading still applies; not a new render",
+  "source": "packages/calibration/results/2026-09-24-w35-g0-edge-cut/level-table.json",
+  "sourceSha256": "26f4cddf077cb095578a0a506cfc78e3f620be3f362c5f830638579c9bda8b29",
+  "verdict": "REJECTED as a body predictor on unclipped dark active red"
+ },
+ "lumaExcess": {
+  "dark-active-1x": {
+   "excess": 0.06482068406751296,
+   "inputY": 0.38110634456096465,
+   "interpolantRoles": "calibration greys + validation grey-96",
+   "neutralInterpolantY": 0.318863605443038,
+   "outputY": 0.38368428951055095
+  },
+  "light-active-1x": {
+   "excess": 0.029176072332533054,
+   "inputY": 0.38110634456096465,
+   "interpolantRoles": "calibration greys + validation grey-96",
+   "neutralInterpolantY": 0.6632525174546119,
+   "outputY": 0.6924285897871449
+  }
+ },
+ "memoReproduction": {
+  "cells": 104,
+  "note": "scratch grounding artefact outside the repository; the tables below stand alone",
+  "outputsBarsAndInputsIdentical": true,
+  "path": "/Users/new/vitrea-w39/grounding/colour/readings.json",
+  "sha256": "938e13d2964b99a57651d9a627f1d018b3be15b29f5b973cb41c2dd2f2ec77f4"
+ },
+ "neutralCurves": {
+  "dark-active-1x": {
+   "inputs": [
+    0,
+    32,
+    64,
+    96,
+    128,
+    160,
+    255
+   ],
+   "note": "grey-96 is validation (labelled); grey-208 UNREAD (W34 holdout)",
+   "outputs": [
+    32.0,
+    62.0,
+    89.0,
+    113.0,
+    134.0,
+    151.0,
+    184.0
+   ],
+   "roles": [
+    "calibration",
+    "calibration",
+    "calibration",
+    "validation",
+    "calibration",
+    "calibration",
+    "calibration"
+   ]
+  },
+  "dark-active-2x": {
+   "inputs": [
+    0,
+    32,
+    64,
+    96,
+    128,
+    160,
+    255
+   ],
+   "note": "grey-96 is validation (labelled); grey-208 UNREAD (W34 holdout)",
+   "outputs": [
+    32.0,
+    62.0,
+    89.0,
+    113.0,
+    134.0,
+    151.0,
+    184.0
+   ],
+   "roles": [
+    "calibration",
+    "calibration",
+    "calibration",
+    "validation",
+    "calibration",
+    "calibration",
+    "calibration"
+   ]
+  },
+  "dark-inactive-1x": {
+   "inputs": [
+    0,
+    32,
+    64,
+    96,
+    128,
+    160,
+    255
+   ],
+   "note": "grey-96 is validation (labelled); grey-208 UNREAD (W34 holdout)",
+   "outputs": [
+    20.0,
+    52.0,
+    81.0,
+    106.0,
+    127.0,
+    146.0,
+    180.0
+   ],
+   "roles": [
+    "calibration",
+    "calibration",
+    "calibration",
+    "validation",
+    "calibration",
+    "calibration",
+    "calibration"
+   ]
+  },
+  "dark-inactive-2x": {
+   "inputs": [
+    0,
+    32,
+    64,
+    96,
+    128,
+    160,
+    255
+   ],
+   "note": "grey-96 is validation (labelled); grey-208 UNREAD (W34 holdout)",
+   "outputs": [
+    20.0,
+    52.0,
+    81.0,
+    106.0,
+    127.0,
+    146.0,
+    180.0
+   ],
+   "roles": [
+    "calibration",
+    "calibration",
+    "calibration",
+    "validation",
+    "calibration",
+    "calibration",
+    "calibration"
+   ]
+  },
+  "light-active-1x": {
+   "inputs": [
+    0,
+    32,
+    64,
+    96,
+    128,
+    160,
+    255
+   ],
+   "note": "grey-96 is validation (labelled); grey-208 UNREAD (W34 holdout)",
+   "outputs": [
+    132.0,
+    148.0,
+    164.0,
+    179.0,
+    195.0,
+    210.0,
+    253.0
+   ],
+   "roles": [
+    "calibration",
+    "calibration",
+    "calibration",
+    "validation",
+    "calibration",
+    "calibration",
+    "calibration"
+   ]
+  },
+  "light-active-2x": {
+   "inputs": [
+    0,
+    32,
+    64,
+    96,
+    128,
+    160,
+    255
+   ],
+   "note": "grey-96 is validation (labelled); grey-208 UNREAD (W34 holdout)",
+   "outputs": [
+    132.0,
+    148.0,
+    164.0,
+    179.0,
+    195.0,
+    210.0,
+    253.0
+   ],
+   "roles": [
+    "calibration",
+    "calibration",
+    "calibration",
+    "validation",
+    "calibration",
+    "calibration",
+    "calibration"
+   ]
+  },
+  "light-inactive-1x": {
+   "inputs": [
+    0,
+    32,
+    64,
+    96,
+    128,
+    160,
+    255
+   ],
+   "note": "grey-96 is validation (labelled); grey-208 UNREAD (W34 holdout)",
+   "outputs": [
+    133.0,
+    147.0,
+    161.0,
+    175.0,
+    188.0,
+    202.0,
+    240.0
+   ],
+   "roles": [
+    "calibration",
+    "calibration",
+    "calibration",
+    "validation",
+    "calibration",
+    "calibration",
+    "calibration"
+   ]
+  },
+  "light-inactive-2x": {
+   "inputs": [
+    0,
+    32,
+    64,
+    96,
+    128,
+    160,
+    255
+   ],
+   "note": "grey-96 is validation (labelled); grey-208 UNREAD (W34 holdout)",
+   "outputs": [
+    133.0,
+    147.0,
+    161.0,
+    175.0,
+    188.0,
+    202.0,
+    240.0
+   ],
+   "roles": [
+    "calibration",
+    "calibration",
+    "calibration",
+    "validation",
+    "calibration",
+    "calibration",
+    "calibration"
+   ]
+  }
+ },
+ "statistic": "per run: channel median at d<=-6 CSS px (>=4 px) of the archived native crop; cell: median of seven run medians; bar: 0.5 + half the largest pairwise run-median separation"
+}

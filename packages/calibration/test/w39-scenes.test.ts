@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto";
+import { spawnSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
@@ -105,3 +106,16 @@ describe("W39 colour/edge capture declaration", () => {
     expect(sha(join(evidence, "bounds-declaration.txt"))).toBe(pins.boundsDeclarationSha256);
   });
 });
+
+const pythonAvailable = spawnSync("python3.12", ["-c", "import numpy, PIL"], {
+  encoding: "utf8",
+}).status === 0;
+for (const script of ["test-pass-spec.py", "test-wave.py", "test-archive.py",
+  "test-release-asset.py", "test-w39-readers.py", "test-sitting.py", "test-preflight.py"]) {
+  it.skipIf(!pythonAvailable)(`executes W39 boundary and numerical checks: ${script}`, () => {
+    const result = spawnSync("python3.12", [join(evidence, script)], {
+      encoding: "utf8", timeout: 180_000,
+    });
+    expect(result.status, result.stderr || result.stdout).toBe(0);
+  }, 190_000);
+}

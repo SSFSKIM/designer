@@ -44,11 +44,18 @@ blends target and authority below encoded .003 and rejoins before .00319488975.
 The chromaticity coefficient is q_base+(1-q_base)*r, NOT r. Tone changes Y;
 only retention preserves its incoming Y. Exact H2 has zero free parameters.
 H2': same algorithm; free bodyChromaRetention r in [0,1] and the four ordinates
-of each backdropToneResponseThin and backdropToneResponseThick, eight [0,1]
-ordinates, per scheme x pose (9 total). Keep that endpoint's shipped four
-backdropToneAnchorX abscissae and every other leaf fixed. Keep monotone ordinate
-rows and the existing Hermite interpolation. Thin/thick effects unresolved by
-the bed are rank deficiency, not licence to add a parameter. Fit body only.
+of backdropToneResponseThin in [0,1], per scheme x pose (5 total). Keep that
+endpoint's shipped backdropToneResponseThick row, four backdropToneAnchorX
+abscissae and every other leaf fixed. Keep the thin row monotone and retain the
+existing Hermite interpolation. Colour cells are span44, whose thick weight is
+small (approximately0.1 in W38); holding the thick contribution identifies the
+thin row rather than introducing independent, poorly identified thick knobs.
+Fit on span44 calibration colour/neutral cells only. Thick transfer on span64
+calibration controls and span96 validation controls is TESTED, not fitted, and
+reported beside survival: a span44 survivor's thick miss is a thick-row miss,
+not a false rejection of its colour law. The split is not changed by this fit
+restriction. Shared thin/thick ordinate shifts are declined because they move
+thick behaviour without identifying it. No colour survival waives G3 transfer.
 H3: z=D(F(in)); out=E(clamp(M*z,0,1)); fixed 3x3 M per scheme x pose,
 M*1=1; six independent real coefficients, third entry of each row derived.
 Seven neutral ordinates + six chromatic coefficients =13 per scheme x pose.
@@ -128,13 +135,34 @@ aligned integer-size control's near-band difference; this bounds whole-pixel
 size sensitivity, not an invented repeat bar. The phase-zero end sentinel must
 match its opening coverage bytes and glass within0.5; otherwise the scale is
 UNMEASURED for drift, not unreachable by actuator and not admitted.
-Glass far edge has >=3 distinct states with differences beyond the aligned
-integer-size control's far-edge difference, consistent with a subpixel shift
-of ONE area-integrated ramp rather than an amplitude change. Use translated
-far-edge coordinates for the integer control, retaining its material difference.
-Fit no amplitude per phase; a common ramp translated by requested phase must
-predict every far-edge sample within max(1,bar), and amplitude-only changes do
-not establish reachability. Retain every value/state/profile and failure.
+Glass far edge has >=3 distinct states with pairwise differences greater than
+max(0.5,D_int_far), the aligned integer control's far-profile difference.
+States are counted greedily in requested phase order; a new state must differ
+from EVERY retained state beyond this bound. Integer far profiles are aligned
+by their whole-device shift (scale device px), retaining material differences.
+SHIFT model: one shared profile (step plus piecewise-linear knots spaced every
+1.0 DEVICE px over -14 CSS inward to +4 CSS outward), integrated over pixels,
+translated by four fitted per-phase edge offsets. AMPLITUDE model: the same
+knot count/shared profile at ONE shared edge, with four phase gains multiplying
+(profile minus exterior level). Compare equally parameterised profiles.
+All criteria hold: RSS_shift<=0.5*RSS_amplitude; fitted edges nondecreasing with
+requested phase within1/32 device px; shared-profile design matrix full rank,
+condition number reported (not identified if rank deficient). Leave one phase
+out: fit shared profile and three edges on the other phases, then fit ONLY the
+held-out edge; every knot-sampled coordinate/channel residual must be <=
+max(0.5,D_int_far)+0.5*||w_i||_1, where w_i is the linear training-sample
+prediction operator for that held sample. Report the term per coordinate/channel;
+it is worst-case propagation of 8-bit rounding, not a tolerance fit to residuals.
+The half-device knot grid has an exact Nyquist null vector under unit-pixel area
+integration and is therefore declined before native capture; one-device spacing
+removes that structural null. No per-phase amplitude or held-out profile refit.
+Keep the literal area-integrated ramp fit beside as a diagnostic, not a veto.
+The end sentinel compares all four zero-shape side-profile raw opaque bands
+byte-for-byte and glass band-mean RGB at every coordinate/channel within0.5;
+whole-image difference is recorded only diagnostically. Drift makes both axes
+UNMEASURED at that scale and admits neither, not an unreachable-actuator claim.
+Retain every value, state, profile, rank, condition and failure. A permission
+prompt at the first ungranted SCK call is never approved; nobody clicks Allow.
 Reachable at both scales admits only that axis's declared seven-run phase cells
 (shared zero +3 sizes, each glass/opaque =8 when one axis,14 when both).
 Unreachable at either scale omits that axis verbatim; neither axis => zero
