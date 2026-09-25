@@ -1,0 +1,132 @@
+Scope: 9 of 10 workspace projects
+packages/geometry test$ vitest run
+packages/motion test$ vitest run
+packages/policy test$ vitest run
+packages/policy test:  RUN  v4.1.11 /Users/new/vitrea-w40/g0/packages/policy
+packages/motion test:  RUN  v4.1.11 /Users/new/vitrea-w40/g0/packages/motion
+packages/geometry test:  RUN  v4.1.11 /Users/new/vitrea-w40/g0/packages/geometry
+packages/policy test:  Test Files  2 passed (2)
+packages/policy test:       Tests  23 passed (23)
+packages/policy test:    Start at  03:34:36
+packages/policy test:    Duration  276ms (transform 61ms, setup 0ms, import 86ms, tests 9ms, environment 0ms)
+packages/policy test: Done
+packages/motion test:  Test Files  10 passed (10)
+packages/motion test:       Tests  164 passed (164)
+packages/motion test:    Start at  03:34:36
+packages/motion test:    Duration  711ms (transform 559ms, setup 0ms, import 897ms, tests 591ms, environment 0ms)
+packages/motion test: Done
+packages/geometry test: === the crossing: Apple's dump against the reference construction at the same reach ===
+packages/geometry test: 120x44    r*  14.3916  hausdorff  0.092982 px  = 0.00646086 r
+packages/geometry test: 64x30     r*   9.8125  hausdorff  0.063450 px  = 0.00646621 r
+packages/geometry test: 44x44     r*  14.3916  hausdorff  0.092982 px  = 0.00646086 r
+packages/geometry test: 160x96    r*  31.3999  hausdorff  0.202744 px  = 0.00645684 r
+packages/geometry test: 280x160   r*  52.3332  hausdorff  0.337875 px  = 0.00645622 r
+packages/geometry test: contour step per 0.002 px of r across the crossing: 0.092906 px at r 14.3936
+packages/geometry test: === the render path at 1x (device px) ===
+packages/geometry test: shape                  r/min   declared  render r  render reach  spec r   sat  gap→declared  gap render↔spec
+packages/geometry test: capsule-button         0.5000     22.00     22.00         22.00   22.00  YES        0.0000           0.0000
+packages/geometry test: toolbar-group item     0.5000     22.00     22.00         22.00   22.00  YES        0.0000           0.0000
+packages/geometry test: rrect-sm               0.2500      8.00      8.00         12.23    8.00   no        0.1104           0.0000
+packages/geometry test: rrect-md               0.2083     20.00     20.00         30.57   20.00   no        0.2760           0.0000
+packages/geometry test: rrect-ml               0.2109     27.00     27.00         41.27   27.00   no        0.3726           0.0000
+packages/geometry test: rrect-lg               0.2125     34.00     34.00         51.97   34.00   no        0.4691           0.0000
+packages/geometry test: glass-over-glass base  0.1846     24.00     24.00         36.69   24.00   no        0.3312           0.0000
+packages/geometry test: glass-over-glass over  0.2857     16.00     16.00         24.46   16.00   no        0.2208           0.0000
+packages/geometry test: === the render path at 2x (device px) ===
+packages/geometry test: shape                  r/min   declared  render r  render reach  spec r   sat  gap→declared  gap render↔spec
+packages/geometry test: capsule-button         0.5000     44.00     44.00         44.00   44.00  YES        0.0000           0.0000
+packages/geometry test: toolbar-group item     0.5000     44.00     44.00         44.00   44.00  YES        0.0000           0.0000
+packages/geometry test: rrect-sm               0.2500     16.00     16.00         24.46   16.00   no        0.2208           0.0000
+packages/geometry test: rrect-md               0.2083     40.00     40.00         61.15   40.00   no        0.5519           0.0000
+packages/geometry test: rrect-ml               0.2109     54.00     54.00         82.55   54.00   no        0.7451           0.0000
+packages/geometry test: rrect-lg               0.2125     68.00     68.00        103.95   68.00   no        0.9383           0.0000
+packages/geometry test: glass-over-glass base  0.1846     48.00     48.00         73.38   48.00   no        0.6623           0.0000
+packages/geometry test: glass-over-glass over  0.2857     32.00     32.00         48.92   32.00   no        0.4416           0.0000
+packages/geometry test: === DEFAULT_HOST_SHAPE radius 12, 200 x h ===
+packages/geometry test: h  24  drawn r  12.0000  s_eff 0.0000  radius lost 0.0000 CSS px
+packages/geometry test: h  32  drawn r  12.0000  s_eff 0.3333  radius lost 0.0000 CSS px
+packages/geometry test: h  36  drawn r  12.0000  s_eff 0.5000  radius lost 0.0000 CSS px
+packages/geometry test: h  40  drawn r  12.0000  s_eff 0.5287  radius lost 0.0000 CSS px
+packages/geometry test: h  48  drawn r  12.0000  s_eff 0.5287  radius lost 0.0000 CSS px
+packages/geometry test:  Test Files  14 passed (14)
+packages/geometry test:       Tests  170 passed (170)
+packages/geometry test:    Start at  03:34:36
+packages/geometry test:    Duration  11.12s (transform 1.10s, setup 0ms, import 9.64s, tests 13.67s, environment 1ms)
+packages/geometry test: Done
+packages/renderer-webgpu test$ vitest run
+packages/renderer-webgpu test:  RUN  v4.1.11 /Users/new/vitrea-w40/g0/packages/renderer-webgpu
+packages/renderer-webgpu test:  Test Files  35 passed (35)
+packages/renderer-webgpu test:       Tests  566 passed (566)
+packages/renderer-webgpu test:    Start at  03:34:48
+packages/renderer-webgpu test:    Duration  1.04s (transform 1.81s, setup 198ms, import 3.45s, tests 1.64s, environment 2ms)
+packages/renderer-webgpu test: Done
+packages/core test$ vitest run
+packages/core test:  RUN  v4.1.11 /Users/new/vitrea-w40/g0/packages/core
+packages/core test:  Test Files  16 passed (16)
+packages/core test:       Tests  302 passed (302)
+packages/core test:    Start at  03:34:49
+packages/core test:    Duration  2.29s (transform 1.31s, setup 0ms, import 1.74s, tests 3.17s, environment 1ms)
+packages/core test: Done
+packages/platform-web test$ vitest run
+packages/platform-web test:  RUN  v4.1.11 /Users/new/vitrea-w40/g0/packages/platform-web
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/platform-web test:  Test Files  47 passed (47)
+packages/platform-web test:       Tests  634 passed (634)
+packages/platform-web test:    Start at  03:34:51
+packages/platform-web test:    Duration  4.87s (transform 3.29s, setup 0ms, import 6.59s, tests 6.81s, environment 22.13s)
+packages/platform-web test: Done
+packages/calibration test$ vitest run
+packages/react test$ vitest run
+packages/calibration test:  RUN  v4.1.11 /Users/new/vitrea-w40/g0/packages/calibration
+packages/react test:  RUN  v4.1.11 /Users/new/vitrea-w40/g0/packages/react
+packages/react test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/react test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/react test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/react test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/react test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/react test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/react test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/react test: Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+packages/react test:  Test Files  19 passed (19)
+packages/react test:       Tests  174 passed (174)
+packages/react test:    Start at  03:34:56
+packages/react test:    Duration  6.54s (transform 7.23s, setup 2.99s, import 11.54s, tests 16.27s, environment 19.92s)
+packages/react test: Done
+packages/calibration test:  Test Files  57 passed (57)
+packages/calibration test:       Tests  737 passed | 1 skipped (738)
+packages/calibration test:    Start at  03:34:56
+packages/calibration test:    Duration  110.40s (transform 2.99s, setup 0ms, import 9.97s, tests 358.74s, environment 4ms)
+packages/calibration test: Done
+apps/demo test$ vitest run
+apps/demo test: (!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+apps/demo test:   - import "./report" without a file extension (../../packages/calibration/src/matrix-store.ts:10:57). Add the file extension
+apps/demo test:   - import "./errors" without a file extension (../../packages/calibration/src/report.ts:23:34). Add the file extension
+apps/demo test:   - import "./metrics/chroma" without a file extension (../../packages/calibration/src/report.ts:24:44). Add the file extension
+apps/demo test:   - import "./metrics/shape" without a file extension (../../packages/calibration/src/report.ts:25:67). Add the file extension
+apps/demo test:   - import "./metrics/material" without a file extension (../../packages/calibration/src/report.ts:33:8). Add the file extension
+apps/demo test:   - import "./metrics/motion" without a file extension (../../packages/calibration/src/report.ts:34:54). Add the file extension
+apps/demo test:   - import "./metrics/shadow" without a file extension (../../packages/calibration/src/report.ts:35:60). Add the file extension
+apps/demo test:   - import "./metrics/perceptual" without a file extension (../../packages/calibration/src/report.ts:41:8). Add the file extension
+apps/demo test:   - import "./profile" without a file extension (../../packages/calibration/src/report.ts:42:69). Add the file extension
+apps/demo test: Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+apps/demo test:  RUN  v4.1.11 /Users/new/vitrea-w40/g0/apps/demo
+apps/demo test:  Test Files  6 passed (6)
+apps/demo test:       Tests  47 passed (47)
+apps/demo test:    Start at  03:36:47
+apps/demo test:    Duration  2.01s (transform 2.03s, setup 0ms, import 3.13s, tests 1.12s, environment 0ms)
+apps/demo test: Done

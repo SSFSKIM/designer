@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 """Split the canonical matrix by generation — W30 G1, Decision Log 1 (d), contract X7.
 
+Historical replay only after W40 G0: `apply` refuses once `results/generations/index.json`
+exists, because the canonical matrix then holds only frozen rows and G1 owns publication
+and retirement of indexed immutable generations. `plan` remains a read-only diagnosis.
+
 A cell's key carries the material profile document its capture was driven from, and
 that document's twelve-hex content hash, inside its own `capturePath`. A refit moves
 the document's bytes, so the next run does not overwrite the rows read at the old
@@ -486,6 +490,10 @@ def main() -> int:
         return 2
     if mode == "readme":
         return write_readme()
+    if mode == "apply" and (RESULTS / "generations/index.json").exists():
+        print("G0 refuses the old splitter's apply: G1's publisher must publish "
+              "immutable generations and retire them through its index; nothing written")
+        return 1
     malformed = [h for h in override if not HASH_TOKEN.match(h)]
     if malformed:
         print(f"--current takes twelve-hex document hashes; got {malformed}")

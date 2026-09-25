@@ -195,8 +195,9 @@
  *      them. See claims §5.26 for the one mechanism behind all thirty-three.
  */
 
+import { loadCurrentRows, loadGeneration, legacyEnvelopeDigest } from "../src/matrix-store";
 import { createHash } from "node:crypto";
-import { existsSync, readFileSync, readdirSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, realpathSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 
@@ -2068,7 +2069,12 @@ const MATRIX_PATH = resolve(
   PACKAGE_ROOT,
   process.env["VITREA_MATRIX_PATH"] ?? resolve(PACKAGE_ROOT, "results", "matrix.json"),
 );
-const MATRIX_FILE = readJson<ResultMatrix>(MATRIX_PATH);
+// W40: canonical reads union frozen and current generations; scratch remains one file.
+const CURRENT_ROWS = loadCurrentRows({ matrixPath: MATRIX_PATH });
+const MATRIX_FILE: ResultMatrix = {
+  schemaVersion: RESULT_MATRIX_SCHEMA_VERSION,
+  cells: CURRENT_ROWS as unknown as readonly Cell[],
+};
 /**
  * The scene declaration, read here rather than inside one `describe`, because two
  * of the drops below are stated over it.
@@ -4140,10 +4146,8 @@ describe("W31 M1 / M2 — the body's chroma and the structure it is read over (c
 
     const reference = new Map<string, Cell>();
     for (const [scheme, generation] of Object.entries(CHROMA_CUT.referenceGeneration)) {
-      const file = readJson<ResultMatrix>(
-        resolve(PACKAGE_ROOT, "results", "superseded", generation.file),
-      );
-      for (const cell of file.cells) {
+      const rows = loadGeneration(generation.activeDocumentSha256) as unknown as readonly Cell[];
+      for (const cell of rows) {
         // Named, not inferred: a row in the file read at some other document
         // would be a different baseline wearing the same key.
         if (!cell.key.web.capturePath.includes(`sha256:${generation.activeDocumentSha256}`)) {
@@ -4854,7 +4858,7 @@ describe("W36 L1 — fixed-native-silhouette level and pre-fit growth (claims §
   const key = (c: Cell): string => `${c.key.profileKey}/${c.key.sceneId}`;
   const population = MATRIX_FILE.cells.filter(selected);
   const old = Object.values(BASELINE).flatMap(g =>
-    readJson<ResultMatrix>(resolve(PACKAGE_ROOT, g.supersededFile)).cells.filter(selected));
+    (loadGeneration(g.active, g.receded) as unknown as readonly Cell[]).filter(selected));
   const value = (c: Cell, metric: string): number | null => {
     const m = c.material?.[metric];
     return typeof m === "object" ? m.value : null;
@@ -4898,8 +4902,13 @@ describe("W36 L1 — fixed-native-silhouette level and pre-fit growth (claims §
   });
 
   it("re-derives every recorded mean, error and growth from the two generations", () => {
-    expect(CUT.matrixSha256).toBe(createHash("sha256")
-      .update(readFileSync(MATRIX_PATH)).digest("hex"));
+    // A scratch override keeps its original raw-file witness; only the canonical
+    // store replaces the old monolith with a byte-identical legacy envelope.
+    const canonical = realpathSync(MATRIX_PATH) === realpathSync(
+      resolve(PACKAGE_ROOT, "results", "matrix.json"),
+    );
+    expect(CUT.matrixSha256).toBe(canonical ? legacyEnvelopeDigest(CURRENT_ROWS)
+      : createHash("sha256").update(readFileSync(MATRIX_PATH)).digest("hex"));
     for (const c of population) {
       const baseline = old.find(b => key(b) === key(c));
       expect(baseline, key(c)).toBeDefined();

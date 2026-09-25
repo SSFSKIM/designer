@@ -178,6 +178,7 @@ import {
   withMaterialOverrides,
   type MaterialProfile,
 } from "@vitrea/renderer-webgpu";
+import { loadCurrentRows } from "../src/matrix-store";
 import { createHash } from "node:crypto";
 import { readFileSync, readdirSync } from "node:fs";
 import { resolve } from "node:path";
@@ -2945,20 +2946,8 @@ describe("the CSS tier's structure attenuation, measured (W30 G0 (d))", () => {
       ]),
   );
 
-  interface Row {
-    readonly key: { readonly profileKey: string; readonly sceneId: string;
-      readonly web: { readonly capturePath: string } };
-    readonly tier: string;
-    readonly state?: string;
-    readonly material?: Record<string, { readonly value: number } | string>;
-  }
-
   const measured = new Map<string, number>();
-  for (const cell of (
-    JSON.parse(
-      readFileSync(resolve(PACKAGE_ROOT, "results", "matrix.json"), "utf8"),
-    ) as { cells: readonly Row[] }
-  ).cells) {
+  for (const cell of loadCurrentRows()) {
     if (cell.key.sceneId !== "checkerboard__rrect-md__rest" || cell.state === "inactive") continue;
     const clause = CAPTURE.exec(cell.key.web.capturePath);
     if (clause === null || SHIPPED.get(clause[1] ?? "") !== clause[2]) continue;

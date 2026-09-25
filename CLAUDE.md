@@ -102,27 +102,35 @@ have not moved, so a re-capture at unmoved bytes is invisible to any string comp
 document exactly as the superseded matrix rows are, so the pixels a retired row was measured off
 stay findable by the same name the rows are.
 
-**Generations, and where the superseded ones live.** A cell's key includes every material profile
-document's twelve-hex content hash, so a refit that moves a document does not overwrite the rows
-read at the old one — the next run **appends** a generation beside them, because a recorded number
-is never rewritten. The working file holds **one generation per profile** and the superseded ones
-are moved, byte for byte, to `results/superseded/<active-document-sha>.json`, named by the ACTIVE
-document (a receded document is a difference over it and never names a file);
-`results/superseded/index.json` maps every document hash, active and receded, to the file holding
-its rows, and `README.md` there is generated from that index. The gate that moves them runs after
-the read that superseded them:
+**Generations, and where the superseded ones live (W40 G0, §5.189).** A cell's key includes
+every material profile document's twelve-hex content hash. A refit adds a generation; it never
+rewrites a recorded number. Through W39, `results/matrix.json` held one current generation per
+profile and the W30 splitter moved retired rows to `results/superseded/`. That archive and its
+index remain unchanged history, including aliases shared by more than one receded generation.
 
-```bash
-python3 results/2026-09-20-w30-g1-split/split-generation.py plan      # what would move, and where
-python3 results/2026-09-20-w30-g1-split/split-generation.py apply \
-  --evidence results/<this-gate>/ --claims "c9a §5.NNN" --read-claims "c9a §5.MMM"
-```
+Since W40 the same pathname holds **only the 1,107 frozen macOS 26.5 rows**, in their original
+order and bytes. The current macOS 27 rows live in immutable ordinary JSON files under
+`results/generations/`. Its `index.json` records file hashes, sizes, document pairs, row counts,
+current/retired status and the current selection per profile. A generation is the pair
+(active document hash, receded document hash or none): its filename is `<active>.json`, or
+`<active>-<receded>.json` for a receded-only reseal. Retired files stay there; no archive alias
+is repointed. `src/matrix-store.ts` loads the key-sorted current union, or an explicitly named
+generation across both indexes, refusing an ambiguous document alias. Its Python adapter is in
+`results/2026-09-26-w40-g0-generations/matrix_store.py`. A streaming legacy-envelope digest keeps
+historical whole-matrix SHA witnesses checkable without regenerating a monolithic file.
 
-Never delete the working file and never "reduce to the newest row per key": 1,107 of its rows are
-frozen macOS 26.5 evidence whose hashes `results/2026-09-16-w29-freeze/freeze.py verify` checks,
-and a row of a frozen profile selected to move is refused before a byte is written. The demo reads
-a build-time projection of the current generation (`apps/demo/matrix-reduction.ts`), not the file,
-so the page's figures do not depend on its size.
+**Canonical publication is G1's, not implemented in G0.** `compare` refuses its default and any
+explicit authoritative destination; `diff --matrix` refuses the frozen file and generation
+files; the old splitter's `apply` refuses once `generations/index.json` exists. Each refusal
+names G1's publisher. Use an explicitly separate scratch `--out-matrix` (including for
+`--write-partial`); `VITREA_MATRIX_PATH` remains a single schema-5 JSON reader override.
+The old split `plan`/`apply` recipe belongs to pre-W40 revisions, not the new layout.
+
+Never delete or regenerate the frozen file: the unchanged
+`results/2026-09-16-w29-freeze/freeze.py verify` checks 1,818 entries including its rows.
+The demo projects the current union at build time (`apps/demo/matrix-reduction.ts`); its figures
+and row count do not depend on the physical file layout. Capture trees still have to be copied
+and checked at a read's landing as described above; this layout migration changes no captures.
 
 Release: changesets under `.changeset/` (fidelity changes are `@vitreajs/vitrea-web` minors; the
 three published packages are a `fixed` group). `pnpm changeset version`, commit, then

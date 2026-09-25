@@ -1,23 +1,19 @@
 /**
- * The build-time reduction is a PROJECTION of the matrix, not a second source of
- * truth (W30 G3b; charter Decision Log 5 (c), claims §5.159b).
+ * The build-time reduction is a PROJECTION of the current matrix union, not a
+ * second source of truth (W30 G3b; charter Decision Log 5 (c), claims §5.159b;
+ * W40 G0, claims §5.189).
  *
- * `calibration.ts` used to import `packages/calibration/results/matrix.json`
- * whole. It no longer can — the file is past the size the test loader's JSON
- * bridge converts, and it will only grow — so `matrix-reduction.ts` projects it
- * at build time onto the rows this page can show and the fields it prints. That
- * is a correctness risk of a specific shape: a projection can silently drop a
- * row, keep a stale one, or print a figure that is not the one in the file, and
- * none of those would fail a type check or a render.
- *
- * So the whole file is read here, in Node, where reading 66 MB is a
- * `readFileSync` — and every figure the page can display is asserted against it.
- * The suite that could not load the matrix and the check that the matrix is
- * faithfully reduced are therefore not in tension: the loader was the bundler's
- * JSON import, and this is a file read.
+ * The frozen matrix and the index's current generation files are read here
+ * directly, without the production store or its key serializer. Their rows are
+ * independently key-sorted and checked against the reducer. The complete
+ * reduction is also pinned to `demo-before.json`, captured from the old
+ * 1,893-row monolith BEFORE migration, including the ordered projected cells
+ * and every figure. A loader that skips a file or changes the output's order
+ * cannot validate itself through the same mistaken read.
  */
 
 import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { describe, expect, it } from "vitest";
@@ -37,20 +33,56 @@ import {
   REPORTS_BY_SCENE,
 } from "../src/site/calibration";
 
-const MATRIX = fileURLToPath(
-  new URL("../../../packages/calibration/results/matrix.json", import.meta.url),
-);
+const RESULTS = fileURLToPath(new URL("../../../packages/calibration/results/", import.meta.url));
+const BEFORE = JSON.parse(readFileSync(
+  join(RESULTS, "2026-09-26-w40-g0-generations/demo-before.json"), "utf8",
+)) as {
+  readonly cells: readonly ReturnType<typeof project>[];
+  readonly matrixCellCount: number;
+};
+const INDEX = JSON.parse(readFileSync(join(RESULTS, "generations/index.json"), "utf8")) as {
+  readonly currentByProfile: Readonly<Record<string, string>>;
+};
 
-const FILE = JSON.parse(readFileSync(MATRIX, "utf8")) as { cells: readonly SourceCell[] };
+// This oracle reads the authoritative files directly. It neither calls the store nor
+// imports its key serializer, so a loader that loses or reorders a cell cannot bless itself.
+const escape = (field: string): string => field.replace(/%/g, "%25").replace(/\|/g, "%7C");
+const key = (cell: SourceCell): string => [
+  cell.key.profileKey,
+  cell.key.sceneId,
+  cell.key.web["engine"],
+  cell.key.web["engineVersion"],
+  cell.key.web["renderer"],
+  cell.key.web["samplingBackend"],
+  cell.key.web["gpuAdapter"],
+  cell.key.web["colorSpace"],
+  cell.key.web["capturePath"],
+].map((field) => escape(field ?? "")).join("|");
+const rowsIn = (path: string): readonly SourceCell[] =>
+  (JSON.parse(readFileSync(path, "utf8")) as { cells: readonly SourceCell[] }).cells;
+const FILE = {
+  cells: [
+    ...rowsIn(join(RESULTS, "matrix.json")),
+    ...[...new Set(Object.values(INDEX.currentByProfile))]
+      .flatMap((name) => rowsIn(join(RESULTS, "generations", name))),
+  ].sort((a, b) => key(a) < key(b) ? -1 : key(a) > key(b) ? 1 : 0),
+};
 
-/** A cell's identity in the file: the page has no other way to name one. */
+/** A cell's identity in the current union: the page has no other way to name one. */
 const identity = (cell: { readonly key: { readonly profileKey: string; readonly sceneId: string;
   readonly web: Record<string, string> }; readonly tier: string }): string =>
   [cell.key.profileKey, cell.key.sceneId, cell.tier, cell.key.web["capturePath"]].join("|");
 
-describe("the reduction against the whole file", () => {
+describe("the reduction against the independently read current union", () => {
   const hashes = shippedDocumentHashes();
   const kept = FILE.cells.filter((cell) => displayed(cell, hashes));
+
+  it("preserves the exact pre-migration projection, order, figures and row count", () => {
+    expect(BEFORE.matrixCellCount).toBe(1893);
+    expect(BEFORE.cells.length).toBe(411);
+    expect(FILE.cells.length).toBe(1893);
+    expect(reduceMatrix()).toEqual(BEFORE);
+  });
 
   it("keeps exactly the rows the page's two rules select", () => {
     const { cells } = reduceMatrix();
@@ -59,9 +91,8 @@ describe("the reduction against the whole file", () => {
   });
 
   it("drops nothing the page could have shown", () => {
-    // The complement, stated as a reason per dropped row rather than as a count:
-    // a row is dropped because its scene is not in the picker, or because a
-    // document it names is not on disk at the bytes it records. Any third reason
+    // A row drops because its scene is not in the picker, or because a
+    // document it names is no longer on disk at those bytes. A third reason
     // would be a defect in the projection.
     for (const cell of FILE.cells) {
       if (displayed(cell, hashes)) continue;
@@ -75,11 +106,11 @@ describe("the reduction against the whole file", () => {
     }
   });
 
-  it("carries every figure at the value the file records", () => {
+  it("carries every figure at the value the current rows record", () => {
     // The assertion the whole plugin exists to be held to. `project` is applied
-    // to the file's own cell and compared to what the page was built with, field
-    // for field, so a metric renamed, rounded or read off the wrong axis fails
-    // here rather than being published as a fidelity claim.
+    // to an independently loaded cell and compared to the page's reduction,
+    // field for field, so a metric renamed, rounded or read off the wrong axis
+    // fails here rather than being published as a fidelity claim.
     const { cells } = reduceMatrix();
     const byIdentity = new Map(cells.map((cell) => [identity(cell), cell]));
     expect(byIdentity.size).toBe(cells.length);
@@ -95,7 +126,7 @@ describe("the reduction against the whole file", () => {
     // type check, would not fail a render, and would simply never appear.
     //
     // Pinned functionally rather than by name: a synthetic cell carrying every
-    // metric any row in the file carries, on both sides of the projection. If
+    // metric any current row carries, on both sides of the projection. If
     // the projection drops one the page reads, the two figure lists differ.
     const maximal: Record<
       "shape" | "perceptual" | "material" | "shadow",
@@ -124,11 +155,11 @@ describe("the reduction against the whole file", () => {
     expect(projected).toEqual(whole);
   });
 
-  it("reports the file's own row count, not the reduction's", () => {
+  it("reports the current union’s row count, not the reduction’s", () => {
     expect(MEASURED_CELL_COUNT).toBe(FILE.cells.length);
   });
 
-  it("leaves the page with a figure for every scene the file measured and the picker offers", () => {
+  it("leaves a figure for every scene measured in the union and offered in the picker", () => {
     // The end-to-end statement: the reduction is upstream of `REPORTS_BY_SCENE`,
     // so this is what a reader would notice if a row went missing — a scene the
     // bed measured showing an empty slot.

@@ -1,28 +1,22 @@
 /**
  * The fidelity figures, read from the calibration matrix at build time.
  *
- * The page never states a number of its own. Every figure here comes out of
- * `packages/calibration/results/matrix.json` (X9's per-cell result matrix), keyed
- * by the cell that produced it, and a scene with no cell renders as a labelled
- * empty slot rather than as a borrowed number from a different cell. That is the
- * §Calibration claims rule made structural: "all fidelity claims cite the profile
- * and cell, never 'pixel-identical to Apple'."
+ * The page never states a number of its own. Every figure comes from the
+ * current calibration matrix: the frozen macOS 26.5 rows in `matrix.json` and
+ * the indexed current macOS 27 generations, keyed by the cell that produced
+ * it. A scene without a cell renders a labelled empty slot rather than a
+ * borrowed number. The §Calibration claims rule is structural: "all fidelity
+ * claims cite the profile and cell, never 'pixel-identical to Apple'."
  *
- * C9a's tuning run extends the same file. Nothing here needs to change when it
- * lands: more cells means more scenes with figures and fewer empty slots.
- *
- * **What it reads is a build-time REDUCTION of that file, not the file** (W30
- * G3b; charter Decision Log 5 (c), claims §5.159b). `matrix.json` is 66 MB and
- * grows by rule — a refit appends a generation of rows rather than rewriting
- * one, and W30's read appended the pitch ladder besides — and importing all of
- * it to reach the few hundred rows that carry a figure crossed a hard limit in
- * the test loader's JSON bridge (§5.159 §6b). `../../matrix-reduction.ts` does
- * the projection in Node, where reading 66 MB is a `readFileSync`, and the rules
- * it projects by are this module's own: the scenes the picker offers, the
- * generation at the documents on disk, and the fields `figuresOf` prints.
- * `test/matrix-reduction.test.ts` asserts every displayed figure against the
- * whole-file read, so the reduction is a projection and not a second source of
- * truth, and the page's figures no longer depend on the file's size.
+ * **What it reads is a build-time REDUCTION of that current union, not its
+ * files** (W30 G3b; charter Decision Log 5 (c), claims §5.159b; W40 G0,
+ * claims §5.189). The old 69 MB whole-file import crossed a hard limit in the
+ * test loader's JSON bridge (§5.159 §6b). `../../matrix-reduction.ts` reads
+ * the union in Node, where large file reads are safe, then projects the scenes
+ * the picker offers, the readings at shipped document bytes and the fields
+ * `figuresOf` prints. `test/matrix-reduction.test.ts` checks every displayed
+ * figure against an independent direct-file union and pins the complete
+ * projected output to the pre-migration baseline.
  */
 
 import { CELLS, MATRIX_CELL_COUNT } from "virtual:vitrea-matrix-reduction";
@@ -49,8 +43,8 @@ export interface CellReport {
   readonly capturedAt: string;
   /**
    * Was this reading taken at the material profile documents that are on disk? See
-   * `atAShippedDocument`: it is which GENERATION of the cell this row is, and
-   * `reportsFor` ranks a shipped reading ahead of a superseded one.
+   * `atAShippedDocument`: the index selects the current generation, while
+   * this bit checks whether its recorded document bytes are still shipped.
    */
   readonly atShippedDocument: boolean;
   readonly figures: readonly Figure[];
@@ -226,15 +220,15 @@ const PRIMARY_TIER = "texture";
  * Which generation of a cell this row is: was it read at the material profile
  * documents that are on disk?
  *
- * A cell's `capturePath` names every document the run was driven from — the active
- * one and, where the run posed its inactive scenes, the receded one — with twelve hex
- * characters of SHA-256 over the document's bytes. A refit moves those bytes, so the
- * next canonical run appends a second generation of rows beside the first instead of
- * rewriting it. A row is at the shipped material only when EVERY document it names is
- * still on disk at the bytes it records: a reading posed with a receded document
- * nobody ships is not a reading of the shipped material, whatever its active document
- * says, which is the same rule `results/2026-09-20-w30-g1-split/split-generation.py`
- * splits the file by and `adopted-thresholds.test.ts` gates on.
+ * A cell's `capturePath` names the active document and, for inactive scenes
+ * posed separately, the receded one, each with twelve hex characters of its
+ * bytes' SHA-256. A refit changes those bytes. The current union selects one
+ * indexed generation per macOS 27 profile (plus the frozen 26.5 rows); a new
+ * capture becomes a new immutable generation file, not rows appended to
+ * `matrix.json`. Selection alone does not promise the documents on disk still
+ * match: between a refit and its capture, this check keeps stale numbers off
+ * the page. A row is at the shipped material only when EVERY named document
+ * still has the bytes recorded in that row.
  */
 const DOCUMENT_CLAUSE = /(?:materialProfile|recededProfile)=(\S+) sha256:([0-9a-f]{12})/g;
 
@@ -272,28 +266,15 @@ export function primacy(report: CellReport, scheme: "light" | "dark"): number {
  * present a cell from the wrong scheme as this scheme's evidence — which is why
  * every report carries its own `profileKey` and the page prints it.
  *
- * **The generation is a term in the order, not a timestamp** (W30 G1, amended by
- * its review closure). A cell's key carries the material profile documents' own
- * hashes, so a refit appends a generation of rows beside the old one and never
- * rewrites it — which is the project's rule about recorded numbers, and why the
- * matrix grows at all. W29 G4 met that as two macOS 27 generations in one file and
- * broke the tie on `capturedAt`, newest first: a heuristic standing where a name
- * belonged, and the tracker's matrix-size entry said so.
- *
- * Two things replaced it and both are needed. Since W30 G1 the superseded
- * generation is moved out to
- * `packages/calibration/results/superseded/<document-sha>.json` as soon as the
- * refit that superseded it lands, so the rows this module imports are normally the
- * shipped bed already. And `primacy` ranks a row at the documents on disk ahead of
- * one that is not, so the page is right about which reading it is showing in the
- * interval a wave actually lives in — between the capture that appends a
- * generation and the split that retires the one it superseded — rather than
- * silently showing whichever of the two the file happened to list first. Which
- * documents ship is read from their bytes at build time, never transcribed.
- *
- * `capturedAt` is still carried on every report, and the page still prints it —
- * it is when the reading was taken. It is simply no longer asked to decide which
- * reading counts.
+ * **The generation is a term in the order, not a timestamp** (W30 G1,
+ * amended by its review closure). Before W40 the single matrix file could
+ * briefly hold the newly appended generation beside the old one pending the
+ * splitter; `capturedAt` was an unreliable way to choose which reading drew
+ * the shipped material. The current union now reads only the index's current
+ * generation per macOS 27 profile, but `primacy` still checks the named
+ * document bytes: a refit can change them before the next capture publishes.
+ * `capturedAt` is still printed as the measurement time, never used to decide
+ * which material's reading counts.
  */
 export function reportsFor(
   sceneId: string,
@@ -305,8 +286,8 @@ export function reportsFor(
 }
 
 /**
- * Every measured cell, keyed by scene, in the matrix's own order. Order is not a
- * claim here — `reportsFor` is where the primary cell is decided.
+ * Every displayable cell, keyed by scene, in the current union's key order.
+ * Order is not a claim here — `reportsFor` decides the primary cell.
  */
 export const REPORTS_BY_SCENE: ReadonlyMap<string, readonly CellReport[]> = (() => {
   const bySceneId = new Map<string, CellReport[]>();
@@ -333,13 +314,11 @@ export const REPORTS_BY_SCENE: ReadonlyMap<string, readonly CellReport[]> = (() 
 })();
 
 /**
- * How many cells the result matrix holds — the FILE's count, not the
- * reduction's.
+ * How many cells the current matrix union holds, not the reduction's count.
  *
- * The sentence this appears in is about the matrix: what has been measured and
- * kept, one generation per profile. The reduction below it is about what this
- * page could ever print, which is a different and smaller thing, and conflating
- * the two would make the page under-report the evidence it is built on.
+ * The union is the frozen macOS 26.5 rows plus one indexed current generation
+ * per macOS 27 profile. The reduction below it counts only what the page can
+ * print; conflating the two would under-report the evidence it is built on.
  */
 export const MEASURED_CELL_COUNT = MATRIX_CELL_COUNT;
 

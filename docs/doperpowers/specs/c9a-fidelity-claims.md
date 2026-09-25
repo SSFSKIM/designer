@@ -38890,3 +38890,173 @@ No native capture, permission action or canonical material/evidence change occur
 fix wave. The real TCC-refusal rehearsal remains outstanding, and native frame recording
 remains operationally unexercised. These implementation corrections close the four verified
 review findings, not the operational rehearsal blocker.
+
+## 5.189 W40 G0: the current matrix as a byte-identical union of frozen and indexed generation files (2026-09-26)
+
+**Storage, not another read.** Executes W40 charter clauses 1–5 for readers and migration,
+with G0's fail-closed writer boundary. Evidence and replay tools are under
+`packages/calibration/results/2026-09-26-w40-g0-generations/`; its README indexes the tools,
+maintained consumers, historical defaults and the test incident. No material, scene, fixture,
+capture, adopted bound, floor or recorded measurement moved. W39's wave-owned matrices never
+entered the canonical index. No Git history, attribute, archive alias or recorded digest was
+rewritten.
+
+### 1. Before, after, and equality by raw row bytes
+
+`snapshot.json` records the source's **1,893** ordered raw `{…}` byte spans with each serialized
+key and raw-slice hash, its per-profile document groups and its exact demo reduction. Source:
+**69,569,261 bytes**, SHA-256
+`7df96c9246bc9b964fd6e173e742f49dcf493ccb360f7df505a0157240eaf0de`.
+The serialized-key-order digest is
+`7944851842875aa8b700f6943bc45a179753d16d42a2dcaea0452d5d1faf53f0`.
+The demo snapshot contains the same 1,893-row source count and **411 ordered projected cells**,
+with their exact figures, not just an aggregate checksum.
+
+`migrate.py` derives W30's brace walk and envelope, never JSON-reserializing a row. It refuses
+a changed source, any unexpected document/count/size, any existing generation destination,
+and a second application. The authoritative files after migration, under calibration results:
+
+| file | rows | bytes | SHA-256 |
+| --- | ---: | ---: | --- |
+| `matrix.json` (frozen 26.5 only) | 1,107 | 39,150,416 | `a0b9720b079dc28980d097ddd47cd2d005e79dc011aa8c81f8bf887353d57843` |
+| `generations/85ad7f7e3e0d.json` (27 light) | 509 | 19,788,488 | `39ac0ba98ca200b10b194f6b45af54df8bf8b2dcbe6b98946a1c8b8aed58356e` |
+| `generations/0eac5b294cc2.json` (27 dark) | 277 | 10,630,441 | `f72429653e29fd760123a7273436aaaeebc332311c4a53c677b03c004468f979` |
+
+The light pair is active **85ad7f7e3e0d**, receded **30fbe05986ae**; dark is active
+**0eac5b294cc2**, receded **5cec8c961201**. `generations/index.json` records these pairs,
+document paths/digests, bytes/file hashes, profile row counts, current status and the current
+selection for all six macOS 27 profiles. The frozen file keeps its original row order.
+
+`equality.json` proves **1,893 raw slices identical**, zero altered/missing/extra keys and zero
+duplicate authoritative keys. All **786** macOS 27 rows reside only in the new files. The
+key-sorted union's original prefix, separators and suffix reproduce the source SHA above
+**bit-identically**, streamed without writing a monolith. The three envelopes add only 84
+logical bytes over the old single envelope. The unchanged W29 verifier reads **1,818 intact
+entries** against its unchanged `sha256.txt`. All **15** superseded files and their **26**
+primary document aliases remain untouched; `scope.txt` checks each file's indexed size/hash.
+
+### 2. One reader contract across the two layouts
+
+`src/matrix-store.ts` provides current union/profile selection, named generation lookup,
+opt-in recorded-history iteration and the legacy-envelope digest. The Python adapter mirrors
+that boundary. Loads check schema, metadata bytes/hash, active/receded clause completeness,
+row ownership/profile counts, duplicate keys, current selection and frozen separation.
+Generation identity is **(active, receded-or-none)**: document aliases enumerate all owners
+across current/retired and archived indexes, including historical `sharedReceded`. An active
+hash shared by `(A,R1)` and `(A,R2)` refuses unqualified lookup rather than choosing current.
+Explicit `null` (Python `None`) qualifies the no-receded member when `(A,none)` is retained
+beside a posed generation; omitting the qualifier remains an alias lookup. Frozen document
+hashes also resolve by name. Explicit scratch JSON and `VITREA_MATRIX_PATH`
+remain ordinary schema-5 matrices, not indexes.
+
+The maintained reader sweep is explicit:
+
+- `scripts/check-capture-tree.ts` reads the current union, retaining archive classification and
+  exit codes 0/1/2; its real-file and synthetic cases remain exercised.
+- `test/adopted-thresholds.test.ts` reads the union by default, scratch when named; M1/M2/C1/X1/L1
+  keep their populations and bounds. Named M2/L1 archive baselines resolve through the index.
+  L1's unchanged recorded matrix SHA is checked against the **current legacy envelope**;
+  scratch keeps raw-file hashing.
+- `test/tier-coherence.test.ts` reads the same twelve current macOS 27 readings through the store.
+- `test/w32-exterior-cut.test.ts` materializes a temporary schema-5 current union or qualified
+  historical generation for its Python referee; historical-generation flags remain intact.
+- `test/w36-level-cut.test.ts` resolves its declared baseline pair by name, whether current or
+  archived, without guessing a filename or falling back to an unrelated material.
+- `test/w38-e2.test.ts` and `results/2026-09-25-w38-g0-rim-axis-cut/e2.py` reconstruct the original
+  four named groups, frozen 26.5 included. Their whole-declaration witness still carries the
+  original pre-W38 whole-envelope SHA; nothing was re-pinned.
+- `scripts/vibrancy.ts` reads its named frozen light generation and retains the recorded
+  provenance SHA lineage; new provenance hashes the union's legacy envelope.
+- `apps/demo/matrix-reduction.ts` projects the union; its independent oracle reads the files
+  directly and its before/after assertion compares every figure, identity, order and count.
+  Site and virtual-module comments now describe the union. The site's unchanged "one generation
+  per profile" statement remains true of that union, not of one physical file.
+- Compare/diff refuse authoritative destinations before I/O; their reachable reads in G0 are
+  ordinary scratch matrices. There is no canonical write/read-modify-write bypass.
+
+The README inventories the historical W30–W38 scripts whose defaults still mean the monolith
+at their recorded revision, including before-split witnesses. Those scripts were not bulk
+edited. Correction beside the grounding memo: W34 `browser.py` reads its wave's own matrix,
+not the canonical path; it is excluded. W38 `e2.py` is the deliberate maintained exception.
+
+### 3. Closed writes, not a premature publisher
+
+Compare's default and explicit authoritative targets refuse; diff's `--matrix` and separate
+`--out` route refuse the frozen file, generation JSON and aliases. The old splitter's `apply`
+refuses once `generations/index.json` exists. Diagnostics identify **G1's publisher**. Separate
+scratch JSON remains writable, including partial output. CLI integration tests use disposable
+copied-source repositories and assert canonical bytes unchanged, not real evidence as a
+red-state target.
+
+An initial red-state diff test did briefly append one synthetic row before its guard existed.
+The worker restored the exact HEAD blob, checked the original SHA and clean path diff, and
+migration reverified the snapshot against those bytes before moving anything. The README
+records both SHAs and the exact restore command; the final equality and frozen proofs are
+independent of that restoration claim. The later requested redundant checkout was not run
+after migration began, because it would erase the migrated layout.
+
+**Not delivered here:** publication and index-status retirement are G1. Before its first retired
+generation, G1 also extends capture-tree's recorded-superseded classifier beyond the untouched
+archive index to retired `generations/` hashes; G0 has no retired file. Publication remains one
+act after the complete declared membership, including the frozen-configuration holdout read,
+not an append to an immutable published file. Independent review and merge remain the parent's.
+
+### 4. Verification at the migrated layout
+
+Final ordered `pnpm -r build && pnpm -r lint && pnpm -r test` passes in the fresh worktree:
+**206 test files, 2,817 tests passed, one skipped**. Calibration contributes **57 files,
+737 passed / one skipped**; the existing X1 pixel check is unmeasured without a local capture
+tree in this worktree, not silently counted as passing. Demo contributes **6 files / 47 tests**,
+and both its workspace build and separate production build pass. Python adapter tests verify
+the four named groups (437/670/277/509 rows), original envelope digest and synthetic ownership,
+reseal, ambiguous-alias, absent-file, altered-hash, duplicate and scratch boundaries.
+
+The first full run's W38 self-test exceeded its old implicit five-second timeout while
+streaming raw row envelopes; an explicit 60-second test timeout now contains that work, with
+its already-existing 180-second subprocess bound unchanged. The next run exposed an unrelated
+W35 assertion at 5.107 seconds against five during overlapping checks. That test and every
+criterion stayed unchanged; the final run without overlapping checks passes. Both earlier
+logs remain beside the passing one, rather than being hidden by the final result.
+
+`freeze.txt` records **1,818 intact**. `source-proof.txt` independently compares every snapshot
+span with the original `559bd1ca` Git blob. `equality.json` and `equality.txt` record the complete
+raw-row/legacy-envelope equality proof. `scratch-read.txt` records **100 passed / one existing
+X1 skip** against an ordinary pre-migration scratch JSON. `capture-tree.txt` checks the original
+checkout's canonical tree read-only: **exit 0**, **1,893 matches**, **seven no-row captures**,
+zero mismatch/misfiled/superseded/unreadable. The store's opt-in historical iteration also loads
+all **7,032** recorded rows (1,893 current plus 5,139 archived) under metadata/ownership checks.
+No browser suite or capture was run. Build warnings about chunk size and future native-config
+extension resolution are non-failing and recorded, not a fidelity verdict.
+
+### 5. Independent review correction — authoritative identity, not pathname spelling
+
+The review of `b648834b` returned **merge after fixes**, with one verified P1. The original
+G0 guard normalized symlinks but compared path spellings. On this case-insensitive filesystem,
+`realpathSync()` preserved an alias's casing: `results/MATRIX.JSON` and a case-aliased generation
+file named authoritative inodes yet passed the guard. The reviewer reproduced a successful
+`diff --matrix` append in a disposable copy. The TypeScript and Python readers likewise treated
+the frozen case alias as scratch, exposing only 1,107 rows instead of the union's 1,893.
+Section 4's first verification totals remain unchanged historical results; they did not test
+this boundary.
+
+The fix canonicalizes existing prefixes with Node's native realpath and compares existing
+files by **device/inode**, including frozen, generation, index and archived JSON. Hardlinks
+cannot bypass that check. Future JSON targets beneath a case-aliased authoritative directory
+are also refused. TypeScript's reader uses the same identity predicate; Python uses
+`os.path.samefile`. Neither adapter changes schema, rows, generation identity or envelope
+hashing. Absent generation/archive directories do not prevent importing the monolithic or
+scratch-only reader.
+
+New regressions failed before the correction and passed afterward. CLI attempts remain in
+disposable copied-source repositories; every real authoritative JSON SHA is checked unchanged.
+The cases cover matrix/generation/index/superseded case aliases, future destinations,
+symlinks/hardlinks, both readers' full-union selection and an old-layout import without indexed
+directories. `review-identity.txt` proves the alias branches are exercised on this machine.
+All correction logs use separate `review-*` names beside the first verification.
+
+**Correction verification:** calibration build and lint/typechecks pass; **57 files,
+740 tests passed / one existing X1 skip**. Python adapter parity passes with the original
+1,893-row legacy-envelope SHA unchanged; the unchanged freeze verifier again reads **1,818
+intact**. Demo tests pass **six files / 47 tests**, and its production build succeeds. The
+review correction changes no canonical JSON, profile, fixture, frozen pin or archive. These
+new totals are recorded beside, not substituted for, section 4's original verification.

@@ -20,6 +20,11 @@ from PIL import Image
 HERE = Path(__file__).resolve().parent
 CAL = HERE.parents[1]
 ROOT = CAL.parent.parent
+# W40: the fixed whole-matrix witness is reconstructed from named generations,
+# not the current generation or the now frozen-only matrix pathname.
+sys.path.insert(0, str(HERE.parent / '2026-09-26-w40-g0-generations'))
+from matrix_store import load_generation, legacy_envelope_digest
+
 G0B = HERE.parent / '2026-09-25-w37-g0b-edge-identification'
 sys.path.insert(0, str(G0B))
 import canonical as repaired
@@ -308,7 +313,7 @@ def declare(native,matrix):
               shellsCss=[-6,0],angleBins=16,boundRegressionCodes=1,
               uniformUntintedSideBoundCodes=2,
               preW38=dict(e1RepairedSha256=digest(source.read_bytes()),
-                matrixSha256=digest((CAL/'results/matrix.json').read_bytes()),
+                matrixSha256=legacy_envelope_digest(matrix['cells']),
                 documents={name:digest((ROOT/name).read_bytes()) for name in
                            sorted({name for r in refs for name in r['documents']})}),
               stackedHoldout=dict(estimator='visible upper layer boundary under single-component'
@@ -369,7 +374,11 @@ def main():
     args=parser.parse_args()
     mode=next(m for m in ('declare','build','verify','self-test') if getattr(args,m.replace('-','_')))
     native=CanonicalNativeReader()
-    matrix=json.loads((CAL/'results/matrix.json').read_text())
+    matrix=dict(cells=[
+        *load_generation('6a9600720477'), *load_generation('950ce1c3e917'),
+        *load_generation('85ad7f7e3e0d', '30fbe05986ae'),
+        *load_generation('0eac5b294cc2', '5cec8c961201'),
+    ])
     if mode=='declare':
         decl=declare(native,matrix);save_once('e2-declaration.json',decl)
         print(json.dumps(dict(cells=len(decl['cells']),holdoutPixelsOpened=0)))

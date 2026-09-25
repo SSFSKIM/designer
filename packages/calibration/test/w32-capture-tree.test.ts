@@ -104,7 +104,11 @@ function scratch(matrixCells: readonly Cell[], treeCells: readonly (Cell & { sce
       key: {
         profileKey: cell.profile,
         sceneId: cell.scene,
-        web: { renderer: cell.renderer, capturePath: capturePath(cell) },
+        web: {
+          engine: "chromium", engineVersion: "151.0.7922.34",
+          renderer: cell.renderer, samplingBackend: "gpu-texture",
+          gpuAdapter: "synthetic", colorSpace: "srgb", capturePath: capturePath(cell),
+        },
       },
     })),
   }));
