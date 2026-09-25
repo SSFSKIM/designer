@@ -1,6 +1,6 @@
 # W38 — the rim-axis wave: the shipped rim's light turned vertical, as a bounded improvement (2026-09-25)
 
-**Status: CHARTERED v2 2026-09-25 after one adversarial round (two P1, two P2 folded; Revision Notes); nothing dispatched.** Chartered by the parent on the user's
+**Status: CHARTERED v3 2026-09-25 after two adversarial rounds (two P1 + two P2, then two P1, folded; Revision Notes); nothing dispatched.** Chartered by the parent on the user's
 "W38 rim-axis refit (Recommended)" after W37 closed at its finding (main `b4715d78`), under the
 standing "rest on your judgement" and the routing of 2026-09-22 (X9). Grounded on a read-only memo
 (`/Users/new/.claude/jobs/17c7ce02/tmp/w38-grounding.md`, an `astra-high` product saved by the
@@ -71,14 +71,28 @@ under a rule declared before the first score — or close at the finding.
    the horizontal-normal bins' excess within 2 codes of Apple's; (iv) every trade within the veto
    tabled with the worst named. No tolerance, bound, stratum or allowance is redefined to admit a
    candidate; a candidate that fails (i) anywhere or (ii)–(iii) on any stratum is not nominated;
-   (c) **E2 frozen, as a rendered-edge regression row over EVERY canonical active row**: for each
-   non-holdout active macOS 27 WebGPU row — uniform, tinted, structured, grouped and stacked, with
-   the native fixture the row already has — the boundary band's per-side / per-shell / per-channel
-   MAE against native (W37's E1 estimator, capsules declared top/bottom only, absent sides
-   UNMEASURED) is not worse than the pre-W38 generation's capture by more than 1 code, and on the
-   14 untinted uniform rows the side straights' excess additionally lands within a declared bound;
-   re-derivable from matrix fields, the matrix-named captures at the adopting bytes and the named
-   superseded generation, as L1 is — this is the veto the omitted paths get, not the eye at G2; (d) every stop's expected value
+   (c) **E2 frozen, as a rendered-edge regression row over every canonical active row an
+   estimator can MEASURE, with the rest named**: three declared estimators, each with a minimum
+   measured-coverage requirement below which a row is UNMEASURED and never a pass — (1) W37's E1
+   estimator (one centred component, straight-side intervals, capsules top/bottom only, absent
+   sides UNMEASURED) on every non-holdout active macOS 27 WebGPU `gpu-texture` row with a single
+   component: uniform, tinted and structured; (2) a geometry-aware CURVED-boundary cut for the
+   grouped rows, whose members are three 44×44 circular capsules with no straight interval
+   (`scenes.json` ~323–331): per-member placement from the scene declaration, W35's whole-pixel
+   arc bins by normal angle, a per-member deep reference, the bins' ownership by member declared;
+   (3) for the two stacked `glass-over-glass` rows — both HOLDOUT, backend
+   `gpu-texture+css-backdrop` — the visible layer's boundary under estimator (1) or (2) as the
+   scene declares, applied ONLY at G1b's one holdout read as accept-or-stop, never in G1a. Bound
+   for all three: the per-side-or-arc / per-shell / per-channel MAE of the excess over the d ≤ −6
+   deep against native is not worse than the pre-W38 generation's capture by more than 1 code on
+   any measured bin; on the 14 untinted uniform rows the side straights' excess additionally lands
+   within a declared bound. Re-derivable from matrix fields, the matrix-named captures at the
+   adopting bytes and the named superseded generation, as L1 is. Paths with NO native fixture —
+   the unsampled `css-backdrop` / `none` WebGPU e2e fixtures and Reduce Transparency — get a
+   separate regression contract **R1**, declared in G0: outside the rim band the render is
+   byte-identical to the pre-W38 render; inside it the side band's luminance does not rise and the
+   top band stays within 1 code of before under C1 (within the law's own prediction under C2);
+   exercised at G1a. Together E2 and R1 are the veto the omitted paths get, not the eye at G2; (d) every stop's expected value
    (clause 4); (e) the pre-W38 baselines named — the matrix generation, the goldens' hashes, the
    window-activation hashes, the E1 artifact.
 2. **Native-only identification, transfer tabled, rendered check.** C2's coefficients are
@@ -112,19 +126,28 @@ under a rule declared before the first score — or close at the finding.
 5. **Every path an existing-leaf patch reaches is rendered.** Unlike W37's gated operator, a
    document patch reaches the collapsed and tinted rims, Reduce Transparency (which keeps the
    ordinary rim), the WebGPU `css-backdrop` and `none` backends and the grouped/stacked cells; G1a
-   renders each over differing backdrops and reads E2's rendered-edge veto on every canonical row
-   it has a native fixture for, and the per-bin veto on the bed's tinted and structured
-   diagnostics — a rendered regression is a rejection, not a residual to table, and no refit is
-   admitted to absorb the body's miss (W37 clause 3); Increase Contrast's strong border and
-   forced-colors are unchanged by construction and shown so.
+   renders each over differing backdrops and reads E2's rendered-edge veto on every non-holdout
+   canonical row its estimators measure (the stacks wait for G1b's holdout read), R1 on the paths
+   with no native fixture, and the per-bin veto on the bed's tinted and structured diagnostics — a
+   rendered regression is a rejection, not a residual to table, and no refit is admitted to
+   absorb the body's miss (W37 clause 3); Increase Contrast's strong border and forced-colors are
+   unchanged by construction and shown so.
 6. **The CSS tier derives from the same leaves and is priced before the seal.** The CSS inset's
-   alpha is converted from `rimAlpha` with NO angular factor (`platform-web/src/optics.ts`
-   ~4026–4033), so C1's 0.7448 amplitude scaling would dim the CSS straight top where the WebGPU
-   top is unchanged; the derivation therefore takes the lobe's top value, 2^(exponent/2) at the
-   straight normal, into the conversion so that C1's CSS inset is byte-identical to today's (a
-   test says so) and C2's follows its law — a `platform-web` source change with `tier-coherence.test.ts`'s
-   pins updated with the reason. The interior-light integral (which already suppresses the
-   vertical runs under a vertical axis) is re-derived from the patched leaves; G1a renders the projection
+   alpha is converted from the BLENDED amplitude `A·(1−T) + C·T` (ordinary mixed with collapsed by
+   the tint, `platform-web/src/optics.ts` ~4432–4435, converted at ~4026–4033) with NO angular
+   factor, so C1's scaling of `A` alone would dim the CSS straight top on untinted surfaces and
+   dividing the conversion by the scale would not restore it on tinted ones. The derivation
+   therefore FOLLOWS THE ROTATED LOBE as the WebGPU tier does: the blended amplitude is
+   multiplied by the lobe's straight-normal value `lit_top = (√2·|axis·ŷ|)^exponent` evaluated
+   from the resolved variant's ACTUAL axis and exponent — 1 for the frozen 26.5 diagonal, for the
+   clear variant (exponent 0) and for the strong border (exponent zeroed), 2^(exponent/2) under the
+   rotation. Under C1 that leaves the untinted CSS inset byte-identical to today's and brightens
+   the collapsed contribution by the same 1.3426 the WebGPU tier applies (at full collapse the
+   shipped regular bare alpha 0.02432 → 0.03265, painted 0.3328 → 0.44681 — recorded as the
+   priced change, mirrored across tiers, not an identity); ordinary, partial-collapse,
+   full-collapse, clear and strong-border cases are pinned SEPARATELY in `tier-coherence.test.ts`
+   with the reason. The interior-light integral (which already suppresses the vertical runs
+   under a vertical axis) is re-derived from the patched leaves; G1a renders the projection
    on the bed and the canonical non-holdout CSS cells and records the residual against the 6.5 /
    8.5 two-row bound; the parent rules carry or decline as Decision Log 5 BEFORE G1b seals.
 7. **Seal, read, tree** as W37 clause 7 (rule-2 seal, configuration 6, the read once, the split,
@@ -168,15 +191,18 @@ alone, or close). Stop: neither candidate dominates on the archive → the wave 
 Ledger **§5.184**; evidence `…/2026-09-25-w38-g1a-rim-axis-render/`. Owns the scratch documents and
 the CSS derivation's code. Renders C1 and C2 through the tune path on the bed's scenes and the
 canonical non-holdout cells (never holdout), reads every stop of clause 4 and every path of clause
-5, records the transfer and the rendered-versus-forward check, the CSS projection's residual, M2's
-delta with the eroded-mask attribution; the Decision Log 1 / 3 / 5 material. Nothing sealed.
+5 — E2's estimators (1) and (2) on the rows they measure, R1 on the paths without a fixture —
+records the transfer and the rendered-versus-forward check, the CSS projection's residual with the
+five pinned cases, M2's delta with the eroded-mask attribution; the Decision Log 1 / 3 / 5
+material. Nothing sealed.
 
 ### G1b: The seal, the read, the tree — one merge
 
 Ledger **§5.185**; evidence `…/2026-09-25-w38-g1b-rim-axis-seal/`. With the rulings fixed: the
 four documents patched and resealed, the generated profile, `PREDICATE_EXCLUDES` / `MISSED_27_ROWS`,
 `window-activation.spec.ts`'s hashes with the reason, `configuration.py record`, the read once
-including the holdout, the split, the tree. Accept or stop.
+including the holdout — E2's estimator (3) on the two stacked rows read there, once, as
+accept-or-stop — the split, the tree. Accept or stop.
 
 ### G2: The landing — E2 adopted, 0.25.0 prepared
 
@@ -192,8 +218,9 @@ single channel-bin worse than the shipped treatment by more than 1 code disquali
 then the stratum rule; no tolerance, bound, stratum or allowance is redefined to make one pass.
 **X19 — C1's amplitude scaling is exact and touches only the regular variant**: 2^(−exponent/2)
 at the shipped exponent on `rimAlpha` and `rimLevelGain`, so the ordinary rim's straight top and
-bottom are byte-identical to today on a uniform backdrop, the clear variant is byte-identical
-everywhere, and the CSS inset is byte-identical under clause 6's conversion; tests say so. **X20 —
+bottom are byte-identical to today on an untinted uniform backdrop on BOTH tiers, the clear
+variant is byte-identical everywhere, and the collapsed/tinted contribution brightens by the same
+factor on both tiers (priced, Decision Log 2); tests say so case by case. **X20 —
 the collapsed constants are shared and do not move.**
 
 ## Ordering & Dependency Map
@@ -215,6 +242,8 @@ changes a source or a document after G1b's holdout read.
 - **M2 on the ring.** Decision Log 3 with the measured delta.
 - **The CSS inset cannot follow the lobe.** Priced before the seal; carry or decline.
 - **A stop breaks only at the render.** Revert to C1 if it holds; else close.
+- **The stacks are holdout.** Their E2 reading exists once, at G1b; a failure there is a stop, not
+  a refit, and G1a cannot pre-price it beyond the grouped rows' curved-boundary reading.
 
 ## Deferred / Out of Scope
 
@@ -276,6 +305,20 @@ Open.
 
 ## Revision Notes
 
+- 2026-09-25 (v3, the parent, after the second adversarial round's two P1s): **P1 folded** — the
+  CSS conversion fix promised identity but the inset converts the BLENDED amplitude (ordinary
+  mixed with collapsed by tint), so dividing by the scale would have restored the untinted top and
+  brightened the collapsed one by 1/s; clause 6 now follows the rotated lobe on the CSS tier
+  exactly as the WebGPU tier does (`lit_top` from the resolved variant's actual axis and
+  exponent, 1 for the 26.5 diagonal, clear and strong border), identity on untinted surfaces, the
+  collapsed brightening mirrored and priced (0.02432 → 0.03265 bare, 0.3328 → 0.44681 painted at
+  full collapse), five cases pinned separately (clause 6, X19). **P1 folded** — E2 promised every
+  canonical row but its estimator measures one centred component with straight intervals: the
+  grouped toolbar's members are all-arc circles (every bin UNMEASURED) and both stacked rows are
+  holdout with a backend E1's check rejects; E2 now has three declared estimators with minimum
+  coverage (straight-interval rows; a curved-boundary per-member cut for the grouped rows; the
+  stacks' visible layer at G1b's one holdout read only, accept-or-stop), and the paths with no
+  native fixture get R1, a separate regression contract (clauses 1c, 5, G1a, G1b, Risks).
 - 2026-09-25 (v2, the parent, after the adversarial review's four findings): **P1 folded** — C1
   scaled the collapsed amplitudes, which are profile-wide constants every variant consumes, so it
   would have dimmed the clear variant's collapsed rim to 0.7448 while declaring clear untouched;
