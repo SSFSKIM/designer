@@ -1,6 +1,6 @@
 # W38 — the rim-axis wave: the shipped rim's light turned vertical, as a bounded improvement (2026-09-25)
 
-**Status: CHARTERED v1 2026-09-25; nothing dispatched.** Chartered by the parent on the user's
+**Status: CHARTERED v2 2026-09-25 after one adversarial round (two P1, two P2 folded; Revision Notes); nothing dispatched.** Chartered by the parent on the user's
 "W38 rim-axis refit (Recommended)" after W37 closed at its finding (main `b4715d78`), under the
 standing "rest on your judgement" and the routing of 2026-09-22 (X9). Grounded on a read-only memo
 (`/Users/new/.claude/jobs/17c7ce02/tmp/w38-grounding.md`, an `astra-high` product saved by the
@@ -19,10 +19,15 @@ on the four macOS 27 documents needs no new operator, no identity-table entry an
 change. That is the whole of what this wave may do. What it cannot do, established by the memo
 before any fit: (1) draw Apple's line's colour — a neutral-light rim over physical occlusion
 (0 ≤ k ≤ 1) has a proven floor of 16.81 codes on dark yellow's top row (the body's own strong
-channels lifted while the weak one falls needs a chromatic term); (2) land Apple's two 2x rows —
-the shader samples `rw` at pixel centres and squares it, so a width-1.5 rim predicts 5.85 / 18.30
-against 18 / 31 on grey-128, and an area-integrating change is a runtime change outside this
-wave; (3) improve everywhere by aggregate least squares — the memo's 864-point grid per scheme,
+channels lifted while the weak one falls needs a chromatic term); (2) be assumed to land Apple's
+two 2x rows — the shader samples `rw` at pixel centres and squares it, the memo's selected grid
+point predicts 5.85 / 18.30 against 18 / 31 on light grey-128, and an area-integrating change is a
+runtime change outside this wave; but this is an observed grid miss, not a form obstruction: the
+adversarial review evaluated the existing-leaf law in the forward model at a vertical axis,
+exponent 0.85, `rimWidth2x` 2.3245, `rimAlpha` 0.2157, gain and along-slope 0 and the shipped
+shadow, and it predicts exactly 18.000 / 31.000 on that cell, so joint two-scale feasibility is a
+question for the declared constrained search, not a settled limit; (3) improve everywhere by
+aggregate least squares — the memo's 864-point grid per scheme,
 selected on total encoded error, cut the light greys' maxima (25.6 → 16.6 straights, 19.8 → 12.8
 arcs) but made the light solids worse (23.6 → 37.0) and the dark grey straights worse (24.2 →
 28.8), with worst single-bin worsenings of +22 (dark yellow arc) and +17 (light green top), because
@@ -40,23 +45,40 @@ under a rule declared before the first score — or close at the finding.
    the chroma floor, the sampling numbers) into committed scripts through the guarded readers
    (calibration admitted; validation and W34's holdout refused), then DECLARES, committed and
    hashed before any score: (a) **two candidates** — **C1, the pure rotation at held top
-   amplitude**: axis (0, −1), every regular amplitude that the `lit` factor multiplies (`rimAlpha`,
-   `rimLevelGain`, `rimCollapsed`, `rimCollapsedTinted`) scaled by 2^(−exponent/2) so the straight
-   top and bottom draw exactly today's light, the sides draw none, and the diagonals change from
-   the old law's 1.34× / 0× pair to the new lobe's value; nothing else moves; and **C2, the
+   amplitude**: axis (0, −1), the REGULAR variant's `rimAlpha` and `rimLevelGain` scaled by
+   2^(−exponent/2) so the ordinary rim's straight top and bottom draw exactly today's light, the
+   sides draw none, and the diagonals change from the old law's 1.34× / 0× pair to the new lobe's
+   value; the collapsed amplitudes (`rimCollapsed`, `rimCollapsedTinted`) are NOT scaled — they are
+   profile-wide constants every variant consumes (`renderer.ts` ~1177–1202; `optics.ts` ~1572,
+   ~1604, ~1636 multiply them by the variant's own angular factor), and the clear variant at
+   exponent 0 has no rotation gain to compensate, so scaling them would dim clear's collapsed rim
+   to 0.7448 of today — instead the regular variant's collapsed and tinted rims BRIGHTEN at the top
+   by 2^(exponent/2) = 1.34 under the rotation, which G0 prices on the canonical tinted cells
+   against the per-bin veto (Decision Log 2); nothing else moves; and **C2, the
    rotation with a refit** of `rimLitExponent`, `rimWidth` / `rimWidth2x`, `rimAlpha`,
    `rimLevelGain`, `rimAlongSideSlope`, `shadowDepth` / `shadowAlpha` on the regular variant,
    selected by a declared constrained objective (minimax over the strata subject to the dominance
-   rule), not by aggregate least squares; (b) **the dominance rule**: per stratum — the greys'
-   straights, the greys' arcs, the solids' straights, the solids' arcs, the noncircular transfer
-   cells, each per scheme — the maximum AND the mean channel-bin MAE against the native excess
-   are not worse than the shipped treatment's by more than the bar (0.5 code), the
-   horizontal-normal bins' excess lands within 2 codes of Apple's, and every per-bin trade is
-   tabled with the worst named; a candidate that fails the rule on any stratum is not nominated;
-   (c) **E2 frozen**: on W37's 14 canonical rows (E1's population, capsules declared top/bottom
-   only), the side straights' excess MAE where measurable within a declared bound, and NO row's
-   top/bottom MAE worse than the pre-W38 generation by more than 0.5 code, re-derivable from
-   matrix fields and matrix-named captures at the adopting bytes; (d) every stop's expected value
+   rule), not by aggregate least squares; (b) **the dominance rule, per bin first**: (i) a
+   PER-CHANNEL-BIN VETO — no admitted channel-bin's MAE against the native excess is worse than
+   the shipped treatment's by more than the closure tolerance (1 code) on any cell of the archive's
+   calibration set, tinted and structured diagnostics included; a single veto disqualifies the
+   candidate, because a stratum's maximum and mean both improve while one coloured arc worsens by
+   22 codes (the memo's dark-yellow bin: 25.87 → 48.22 inside a stratum whose maximum fell 99.28 →
+   80.79 and mean 4.31 → 2.28) — an aggregate rule accepts exactly the defect this wave exists to
+   avoid; (ii) per stratum — the greys' straights, the greys' arcs, the solids' straights, the
+   solids' arcs, the noncircular transfer cells, each per scheme — the maximum AND the mean
+   channel-bin MAE not worse than the shipped treatment's by more than the bar (0.5 code); (iii)
+   the horizontal-normal bins' excess within 2 codes of Apple's; (iv) every trade within the veto
+   tabled with the worst named. No tolerance, bound, stratum or allowance is redefined to admit a
+   candidate; a candidate that fails (i) anywhere or (ii)–(iii) on any stratum is not nominated;
+   (c) **E2 frozen, as a rendered-edge regression row over EVERY canonical active row**: for each
+   non-holdout active macOS 27 WebGPU row — uniform, tinted, structured, grouped and stacked, with
+   the native fixture the row already has — the boundary band's per-side / per-shell / per-channel
+   MAE against native (W37's E1 estimator, capsules declared top/bottom only, absent sides
+   UNMEASURED) is not worse than the pre-W38 generation's capture by more than 1 code, and on the
+   14 untinted uniform rows the side straights' excess additionally lands within a declared bound;
+   re-derivable from matrix fields, the matrix-named captures at the adopting bytes and the named
+   superseded generation, as L1 is — this is the veto the omitted paths get, not the eye at G2; (d) every stop's expected value
    (clause 4); (e) the pre-W38 baselines named — the matrix generation, the goldens' hashes, the
    window-activation hashes, the E1 artifact.
 2. **Native-only identification, transfer tabled, rendered check.** C2's coefficients are
@@ -64,8 +86,12 @@ under a rule declared before the first score — or close at the finding.
    full — the rim's `g·L_shadowed` is body-conditioned); the transfer to the web body is tabled per
    cell; G1a renders C1 and C2 through the tune path on scratch documents and compares against the
    forward prediction; a refinement is admitted only under W37 clause 3's attribution rule.
-3. **The fit's reach.** The four macOS 27 documents' EXISTING leaves named in clause 1; the clear
-   variant (exponent 0, isotropic by construction) untouched; √2, the squared form and the shader
+3. **The fit's reach.** The four macOS 27 documents' EXISTING leaves named in clause 1 — the
+   regular variant's `rimAlpha`, `rimLevelGain`, `rimWidth` / `rimWidth2x`, `rimLitExponent`,
+   `rimAlongSideSlope`, `shadowDepth` / `shadowAlpha`, and the top-level `rimLitAxis`; the shared
+   collapsed constants and the clear variant's leaves untouched, which is what keeps clear
+   identical (its exponent 0 makes the axis inert there; a test renders it and says so); √2, the
+   squared form and the shader
    untouched; no signed shadow amplification (k ≤ 1 — the floor argument stands); the frozen 26.5
    documents' values unmoved; the receded documents' amplitudes stay 0 and their PIXELS
    byte-identical (a test says so) while their DIGESTS move because the axis and widths are in the
@@ -86,11 +112,19 @@ under a rule declared before the first score — or close at the finding.
 5. **Every path an existing-leaf patch reaches is rendered.** Unlike W37's gated operator, a
    document patch reaches the collapsed and tinted rims, Reduce Transparency (which keeps the
    ordinary rim), the WebGPU `css-backdrop` and `none` backends and the grouped/stacked cells; G1a
-   renders each over differing backdrops and reads its stop; Increase Contrast's strong border and
+   renders each over differing backdrops and reads E2's rendered-edge veto on every canonical row
+   it has a native fixture for, and the per-bin veto on the bed's tinted and structured
+   diagnostics — a rendered regression is a rejection, not a residual to table, and no refit is
+   admitted to absorb the body's miss (W37 clause 3); Increase Contrast's strong border and
    forced-colors are unchanged by construction and shown so.
-6. **The CSS tier derives from the same leaves and is priced before the seal.** The isotropic
-   constant-colour inset and the interior-light integral (which already suppresses the vertical
-   runs under a vertical axis) are re-derived from the patched leaves; G1a renders the projection
+6. **The CSS tier derives from the same leaves and is priced before the seal.** The CSS inset's
+   alpha is converted from `rimAlpha` with NO angular factor (`platform-web/src/optics.ts`
+   ~4026–4033), so C1's 0.7448 amplitude scaling would dim the CSS straight top where the WebGPU
+   top is unchanged; the derivation therefore takes the lobe's top value, 2^(exponent/2) at the
+   straight normal, into the conversion so that C1's CSS inset is byte-identical to today's (a
+   test says so) and C2's follows its law — a `platform-web` source change with `tier-coherence.test.ts`'s
+   pins updated with the reason. The interior-light integral (which already suppresses the
+   vertical runs under a vertical axis) is re-derived from the patched leaves; G1a renders the projection
    on the bed and the canonical non-holdout CSS cells and records the residual against the 6.5 /
    8.5 two-row bound; the parent rules carry or decline as Decision Log 5 BEFORE G1b seals.
 7. **Seal, read, tree** as W37 clause 7 (rule-2 seal, configuration 6, the read once, the split,
@@ -153,10 +187,14 @@ Ledger **§5.186**; evidence `…/2026-09-25-w38-g2-landing/`. Clause 8.
 W37's X1–X17 carry verbatim with these substitutions: X3's reach is clause 3 here; X13 has no new
 leaf (the identity table is untouched); X15 applies to C2's `g` and `a`; X16 reads "the receded
 pixels are identity, the receded digests move and are resealed"; X17 reads "every backend is
-rendered, none is inferred". **X18 — the dominance rule is the acceptance**: no candidate whose
-stratum table fails the rule is nominated, and no tolerance, bound or stratum is redefined to make
-one pass. **X19 — C1's amplitude scaling is exact**: 2^(−exponent/2) at the shipped exponent, so
-the straight top and bottom are byte-identical to today on a uniform backdrop; a test says so.
+rendered, none is inferred". **X18 — the dominance rule is the acceptance, per bin first**: a
+single channel-bin worse than the shipped treatment by more than 1 code disqualifies a candidate,
+then the stratum rule; no tolerance, bound, stratum or allowance is redefined to make one pass.
+**X19 — C1's amplitude scaling is exact and touches only the regular variant**: 2^(−exponent/2)
+at the shipped exponent on `rimAlpha` and `rimLevelGain`, so the ordinary rim's straight top and
+bottom are byte-identical to today on a uniform backdrop, the clear variant is byte-identical
+everywhere, and the CSS inset is byte-identical under clause 6's conversion; tests say so. **X20 —
+the collapsed constants are shared and do not move.**
 
 ## Ordering & Dependency Map
 
@@ -170,8 +208,10 @@ changes a source or a document after G1b's holdout read.
 - **C1 moves the diagonals the wrong way.** The old law lights the top-left/bottom-right diagonals
   at 1.34× and the others at 0; the new lobe gives both about 0.75× at held top amplitude. G0's
   per-bin table on the arcs says which way each moves; the dominance rule decides.
-- **The collapsed/tinted rims.** Scaled with C1; read on the canonical tinted cells before
-  anything renders.
+- **The collapsed/tinted rims brighten at the top by 1.34× under C1** because their shared
+  constants cannot be scaled without dimming clear; priced on the canonical tinted cells against
+  the per-bin veto before anything renders (Decision Log 2). If the tinted line whitens beyond the
+  veto, C1 fails on that evidence.
 - **M2 on the ring.** Decision Log 3 with the measured delta.
 - **The CSS inset cannot follow the lobe.** Priced before the seal; carry or decline.
 - **A stop breaks only at the render.** Revert to C1 if it holds; else close.
@@ -199,8 +239,11 @@ Open. G0 drafts on the stratum tables; G1a finalises on the rendered stops.
 
 ### Decision Log 2 — the collapsed and tinted rims under C1 (after G0; the parent's)
 
-Open. Default: scaled with the regular amplitudes so the tinted buttons' top line draws today's
-light; G0's tinted-cell reading decides.
+Open. Default: the shared collapsed constants stay (clear identity), so the regular variant's
+collapsed and tinted rims brighten at the top by 2^(exponent/2) under the rotation; G0 prices that
+on the canonical tinted cells (native fixtures present) against the per-bin veto. A
+variant-specific collapsed amplitude would be a NEW leaf pair through the identity table and is
+not authorised by this charter.
 
 ### Decision Log 3 — M2's mask or bound on the ring (after G1a's measured delta, before the seal; the user's)
 
@@ -233,5 +276,21 @@ Open.
 
 ## Revision Notes
 
+- 2026-09-25 (v2, the parent, after the adversarial review's four findings): **P1 folded** — C1
+  scaled the collapsed amplitudes, which are profile-wide constants every variant consumes, so it
+  would have dimmed the clear variant's collapsed rim to 0.7448 while declaring clear untouched;
+  C1 now scales only the regular `rimAlpha` / `rimLevelGain`, the collapsed constants stay (X20),
+  and the regular collapsed/tinted top's 1.34× brightening is priced against the veto (clause 1a,
+  3, Risks, Decision Log 2). **P1 folded** — the dominance rule was aggregate and would have
+  accepted the memo's +22-code dark-yellow worsening inside a stratum whose maximum and mean both
+  improved; a per-channel-bin veto at 1 code now comes first (clause 1b, X18). **P2 folded** — the
+  omitted paths had no edge gate; E2 is now a rendered-edge regression row over every canonical
+  active row with a native fixture, tinted and structured included, exercised at G1a as a veto
+  (clauses 1c, 5); and the CSS inset's alpha conversion, which has no angular factor, would have
+  dimmed the CSS top under C1 — clause 6 now takes the lobe's top value into the conversion so
+  C1's CSS is byte-identical. **P2 folded** — Purpose claimed the two 2x rows cannot be landed;
+  the reviewer's forward-model point (vertical axis, exponent 0.85, width2x 2.3245, alpha 0.2157)
+  predicts 18.000 / 31.000 exactly, so the claim is restated as an observed grid miss and left to
+  the constrained search.
 - 2026-09-25 (v1, the parent): chartered on the grounding memo; nothing dispatched; to
   `doperpowers:adversarial-reviewer` before G0 opens.
