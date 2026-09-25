@@ -1,6 +1,6 @@
 # W39 — the colour-and-edge capture: one native sitting that identifies Apple's colour response and the edge line's directional law (2026-09-26)
 
-**Status: CHARTERED v2 (2026-09-26; one adversarial round folded, 2 P1 / 2 P2); Decision Logs 1 and 5 ruled by the user; G0 DISPATCHED.**
+**Status: G0 MERGED `ba38ebbf` (2026-09-26, §5.184); G1 (the sitting) is next and needs the user's grant switch; the TCC-refusal rehearsal is G1's first step because the machine was not exclusive during G0.**
 Chartered by the parent on the user's "W39 colour-and-edge capture (Recommended)" after W38's
 close (main `e3ec337e`, 0.24.0 published), under the standing "rest on your judgement" and the
 routing the user set on 2026-09-22 (X9). This is the wave W37's Deferred at close 1 and W38's
@@ -467,7 +467,7 @@ lands before G3's landing.
 
 | child | status |
 | --- | --- |
-| G0 | DISPATCHED 2026-09-26 (§5.184) |
+| G0 | MERGED 2026-09-26 as `ba38ebbf` (§5.184): 388 ids, split 316/36/36, declaration final 94cebb42… with five superseded hashes retained, side pinned and ungranted, tooling tested (718 + 89), review 3 P1 / 1 P2 fixed, re-review clean. Outstanding: the TCC-refusal rehearsal (machine not exclusive: a foreign Chrome; a since-dismissed unattributed prompt). |
 | G1 | — |
 | G2 | — |
 | G3 | conditional |
@@ -493,7 +493,28 @@ a second owner-controlled copy on the capture machine outside the repository.
 
 ### Decision Log 3 — the phase mechanism: reachable or declared unreachable (in G1, by G0's rule; the parent's)
 
+G0's rule as executed (superseding clause 4's first wording where they differ; the declaration
+is the contract): 40 preflight captures (36 geometries plus the phase-0 pair repeated at the end
+of each scale as a repeat sentinel); near-edge tolerance max(0.5, D_int_near); far edge ≥ 3
+states beyond max(0.5, D_int_far); the shift test as one shared integrated profile with knots
+every 1.0 DEVICE px translated per phase against the same profile at one edge with per-phase
+gain, RSS_shift ≤ 0.5·RSS_amp with the amplitude fit converged (tolerance 1e-10, cap 200),
+monotone edges within 1/32 device px, full rank with the condition number, leave-one-phase-out
+at max(0.5, D_int_far) + 0.5·‖w_i‖₁. Proved on seven synthetic beds (true shift admits both
+axes; amplitude-only and a half-pixel-snapped raster admit none; one-axis admission; drift
+refused). The amplitude alternative's shared edge is underidentified and its edge/gains are
+never reported as physical; its RSS is the comparison.
+
 ### Decision Log 4 — the grant switch and its restoration (the user's hand; the parent plans and checks)
+
+G0 record: the side bundle `dev.vitrea.reference-apple.w39` is built at `~/vitrea-w39/side/`
+(binary 02052b17…, cdhash be258cbf…), NOT granted; the system TCC database reads the original
+allowed, `.w34` denied, `.w39` no row. An unattributed pending Screen Recording prompt naming
+"VitreaReference" was found on screen during G0 (not raised by G0's launches: `backgrounds` and
+`self-check` touch no ScreenCaptureKit path); the codex companion could not act (its screenshot
+of the prompt was denied); the user dismissed it with Deny at 2026-09-25T17:16Z; no system TCC
+row was written. The TCC-refusal rehearsal could not run because a foreign Chrome session (14
+capture processes) held the machine; it is G1's first step, before the grant switch.
 
 ### Decision Log 5 — the sitting's size (before G0's merge; the user's)
 
@@ -525,8 +546,31 @@ validation span or control pairing is dropped for time.
   held-out colours (0.755 max) while failing calibration (1.458): survival is now defined on
   calibration and validation first (clause 8).
 
+- **The preflight's terms needed three corrections before any pixel** (G0): the half-device-pixel
+  knot grid had an exact Nyquist null vector under unit-pixel area integration, so "full rank"
+  could never hold (knots moved to 1.0 device px); a held-out prediction from rounded samples
+  carries a computable worst-case rounding term 0.5·‖w_i‖₁ (1.07–3.52 codes on the synthetic
+  beds) that the plain max(0.5, D_int) tolerance ignored; and the amplitude alternative's fit
+  broke after one iteration (inf ≤ inf), inflating its residual — caught by the review, with
+  every verdict unchanged after convergence. All three are the parent's terms corrected by the
+  workers' synthetic tests, recorded with their numbers.
+- **H2′ as first declared was underidentified by construction**: freeing the four thick tone
+  ordinates on an all-span-44 colour bed would have been rejected for rank, not for colour; the
+  fitted variant frees retention plus the four thin ordinates and tests the thick row's transfer
+  on the span-64/96 cells instead.
+- **Operational**: an unattributed Screen Recording prompt on screen blocked every launch; the
+  companion's GUI hand cannot see a TCC prompt; a background Chrome counts as a foreign capture
+  process. None of it touched the evidence; all of it cost the rehearsal.
+
 ## Revision Notes
 
+- 2026-09-26 (G0's merge, the parent): merged `ba38ebbf` after an independent review (3 P1 / 1
+  P2, fixed on the branch: amplitude convergence, sentinel protocol, borrowed-control
+  calibration, pass ordering) and a clean re-review; freeze 1,818; no capture tree moved (no
+  read). Counts corrected at G0 and recorded here beside the charter's: preflight 36 → 40,
+  baseline 6,356 → 6,360, with both axes 7,140 → 7,144. Mid-gate parent rulings recorded in
+  Decision Logs 3 and 4 and Surprises. Worktree removed; the side bundle stays outside the
+  repository, ungranted.
 - 2026-09-26 (the user, Decision Logs 1 and 5): full bed; release asset by SHA-256; W40
   housekeeping chartered after G0, before G3's landing. G0 dispatched.
 - 2026-09-26 (v2, the parent): one adversarial round folded — P1 the conditional phase bed was
