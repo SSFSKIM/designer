@@ -28,6 +28,22 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
+      # The calibration package's evidence tests (W35 onward) shell out to
+      # `python3.12` scripts that import numpy and, for the sheet readers, PIL;
+      # the capture machine has both, the runner image has neither, and from
+      # 2026-09-24 (W35 G0a's merge) to 2026-09-26 every CI run was red on
+      # exactly that import while every merge verified green locally. The
+      # versioned interpreter name is what the tests call, so it is what is set
+      # up here, and the install step prints which interpreter it filled.
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: |
+          which -a python3.12
+          python3.12 -m pip install --quiet numpy pillow
+          python3.12 -c "import numpy, PIL; print('numpy', numpy.__version__, 'pillow', PIL.__version__)"
+
       - run: pnpm -r build
 
       - run: pnpm -r lint
