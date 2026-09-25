@@ -2,9 +2,9 @@
 import hashlib,io,json,gzip
 from pathlib import Path
 from PIL import Image
-import e2
 from model import HERE,CAL,ROOT,edge,np,material,params,SCALE
 from score import guard
+import e2
 
 def tone_of(raw):
     rgb=np.asarray(Image.open(io.BytesIO(raw)).convert('RGB'),float)/255
@@ -46,6 +46,6 @@ if __name__=='__main__':
     baseline=json.loads(gzip.decompress((HERE/'stop-baseline.json.gz').read_bytes()))
     for r in baseline['rows']:
         key=r['key'];cell=key['profileKey']+'/'+key['sceneId'];inactive=r.get('state')=='inactive'
-        tables.append(dict(cell=cell,renderer=key['web']['renderer'],capturePath=key['web']['capturePath'],C1='IDENTITY predicted for receded pixels; digests change' if inactive else 'UNIDENTIFIED actual-render stop values: requires G1a',C2='No nonidentity numerical stop prediction without selected feasible candidate and G1a',actualIfClose='All existing row numbers unchanged',M1='ring changes numerator and denominator',M2='2% against pre-W38; no mask change',L1='0.055 and growth0.005 vs W33; signed per-pixel change requires rendered spatial field',exterior='C1<=.0042 / X1=0 / B1 within5%; rim may touch fractional exterior up to .5 device pixel; not certified by inner cut')))
+        tables.append(dict(cell=cell,renderer=key['web']['renderer'],capturePath=key['web']['capturePath'],C1='IDENTITY predicted for receded pixels; digests change' if inactive else 'UNIDENTIFIED actual-render stop values: requires G1a',C2='No nonidentity numerical stop prediction without selected feasible candidate and G1a',actualIfClose='All existing row numbers unchanged',M1='ring changes numerator and denominator',M2='2% against pre-W38; no mask change',L1='0.055 and growth0.005 vs W33; signed per-pixel change requires rendered spatial field',exterior='C1<=.0042 / X1=0 / B1 within5%; rim may touch fractional exterior up to .5 device pixel; not certified by inner cut'))
     edge.save(HERE/'stop-price.json.gz',tables)
     print('T census',len(census),'positive',sum(r['positive'] for r in census),'tinted',len(tinted),'top bins',sum(len(r['bins']) for r in tinted))

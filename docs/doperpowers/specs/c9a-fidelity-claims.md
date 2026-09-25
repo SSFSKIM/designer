@@ -38264,3 +38264,271 @@ subpixel-phase mechanism, repeated captures, a second calibration span, a larger
 vertical, never scored; the line's amplitude across the grey ladder; the pixel-integrated ramp as
 the forward model for thin features; thickness; E1's capsule population; and the transfer to
 vitrea's own body, which W36's open grey and chroma misses gate.
+
+
+## 5.183 W38 G0: the held-top rotation trades coloured arcs; no candidate nominated (2026-09-25)
+
+**Checkpoint: DELIVERED FOR REVIEW. Recommend close W38 at the finding.**
+W38 clauses 1–6 and X18–X20; branch `w38-g0-rim-axis-cut`, parent `008b0e4a`.
+Evidence: `packages/calibration/results/2026-09-25-w38-g0-rim-axis-cut/`.
+C1 fails the per-channel-bin veto despite improving every aggregate stratum.
+C2's predeclared finite search has no feasible point in either scheme. G1a does
+not open on these results. No material, profile, scene, fixture, matrix or
+canonical capture changes; no browser/native capture or holdout-payload read.
+The validation wording qualification in §7 below is explicit, not hidden by
+calling the identification native-only. These are drafts, not the parent's
+closing rulings.
+
+### 1. The grounding reproduces; declaration and baselines precede scoring
+
+`memo-replay.py` reproduces **84 active calibration cells / 9,637 old-treatment
+bins with maximum difference 0** against W37's `old-rim.json.gz`. The entire
+864-point-per-scheme grounding grid, every stratum, and its limits JSON reproduce
+exactly, not merely their rounded summary. `memo-limits.py` gives dark yellow's
+outer-top channel-contrast floor **16.812762415501 codes**, with physical
+occlusion 0≤k≤1; its stronger constant-pixel bound is not substituted for the
+bin-MAE bound. Light grey128's selected-grid two rows remain **5.849 / 18.301**
+against 18/31. `preflight.py` reproduces the reviewer's existing-leaf point:
+vertical axis, exponent .85, width2x 2.3245354651, alpha .2157179550, gain/along0,
+shipped shadow → **18.0000000011 / 31.0000000017**. This refutes a universal
+sampling-form obstruction, not the failure of the declared constrained grid.
+
+Declaration commit **`9f1fca9c10b8955d66101b30d7bde9a0d998b7cf`** is an ancestor
+checked before score. `bounds-declaration.txt` SHA-256:
+**`4ceecfb9c8adb8193c02e36a5aaef70c04275a8678435c302dc4a1317f8be818`**.
+`declaration-pins.json` also binds the grid, all three E2 estimators, E2's
+pre-W38 pixel baseline, matrix/document/golden/activation/E1 hashes, and **610
+non-holdout standard27 stop rows** including probes. `declaration-receipt.json`
+names the commit. The matrix-named active document file hashes remain
+**85ad7f7e3e0d / 0eac5b294cc2** light/dark, receded **30fbe05986ae /
+5cec8c961201**; material digests remain **be13dae45098fc89 / 2a4323f33df8d799 /
+b0d0d8dacc6a03af / 7c454858a3cbad5b**. Both sorts of hash are named, not confused.
+
+### 2. Literal held-top C1 fails precisely where an aggregate would admit it
+
+The shipped GPU uniform is `[-.7071,-.7071]`, passed unnormalised at
+`passes.ts` 935–936. Before scoring the parent ruled the exact held-top ratio
+**.7071^.85 = .7448326599749504**, not the charter's ideal unit-diagonal
+**2^(−.85/2) = .7448387315613512**. Both remain in the declaration. With old
+lobe `(√2·.7071)^p` and new `√2^p`, scaling only the regular alpha and gain by
+that ratio makes their top/bottom product equal at T=0 at both scales. Shared
+collapsed constants and clear stay untouched; f32/encoded byte identity is a
+G1a check, not proved by real-number algebra. The shader's 1e−6 angular floor
+also means the side term is minute rather than mathematically zero.
+
+C1's **1,112 admitted bins / 2,861 channels** veto it over 140 calibration
+cells, including 56 structured diagnostics. The decisive *solid* witness is
+**dark yellow2x circular120, arc6, shell−1, B**: Apple's native excess is
+−1.142857; old predicted excess24.726052, C1 71.502829; MAE **25.868909 →
+72.645686**, worsening **46.776776 codes** against the one-code allowance.
+That stratum's maximum nevertheless improves99.277→93.260 and its mean
+4.305→3.467. This is why the per-bin veto precedes the aggregates.
+Light grey arcs also trade by as much as7.840916, dark grey arcs9.068840.
+The held-top solid straights reproduce exactly to arithmetic precision.
+
+Each entry below is maximum / mean **channel-bin MAE**, absolute error before
+spatial averaging, not absolute signed-mean error. C2 columns are explicitly
+failed witnesses, not selected fits. Noncircular transfer and structured
+constant-deep diagnostics are kept separate from circular identification.
+
+| scheme / stratum | old max / mean | C1 max / mean | C1 veto channels | C2 failure-witness max / mean | C2 veto channels |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| light greys-straight | 25.627 / 2.697 | 25.627 / 2.697 | 0 | 24.733 / 2.944 | 183 |
+| light greys-arc | 19.833 / 3.287 | 19.721 / 2.531 | 500 | 18.971 / 2.231 | 716 |
+| light solids-straight | 23.628 / 2.339 | 23.628 / 2.339 | 0 | 22.734 / 1.733 | 28 |
+| light solids-arc | 23.013 / 2.846 | 23.012 / 2.144 | 389 | 22.194 / 1.328 | 93 |
+| light noncircular-transfer | 25.318 / 2.796 | 25.318 / 2.181 | 16 | 24.216 / 2.257 | 146 |
+| light structured-diagnostic | 93.165 / 12.041 | 91.578 / 11.811 | 1148 | 92.807 / 11.892 | 1553 |
+| dark greys-straight | 24.173 / 4.295 | 24.173 / 4.295 | 0 | 19.746 / 3.929 | 57 |
+| dark greys-arc | 28.381 / 2.916 | 18.728 / 2.140 | 176 | 16.330 / 2.036 | 198 |
+| dark solids-straight | 99.602 / 4.501 | 99.602 / 4.501 | 0 | 77.123 / 3.770 | 20 |
+| dark solids-arc | 99.277 / 4.305 | 93.260 / 3.467 | 180 | 71.338 / 2.318 | 253 |
+| dark noncircular-transfer | 51.703 / 4.201 | 21.005 / 2.949 | 0 | 19.952 / 3.236 | 95 |
+| dark structured-diagnostic | 134.155 / 15.673 | 118.549 / 15.298 | 452 | 114.788 / 15.255 | 575 |
+
+`candidate-bins.json.gz` retains **34,862 total bin records** for both candidates,
+16,942 admitted per candidate, native/old/predicted excess, each residual,
+censoring, each channel's worsening and veto. C1's better/same/worse counts at
+±.5 code are **9,444 / 37,382 / 4,000**. `c1-angular-bins.json.gz` additionally
+retains every solid arc bin's raw old/new lobe and held-top effective factor,
+beside Apple's excess and the veto: the old diagonal's high/near-zero pair is
+not replaced by an aggregate angular average. Structured native-deep predictions
+are diagnostic counterfactuals, not an identification of their spatial body.
+
+### 3. C2 has no feasible point; no failed witness is relabelled a selection
+
+The grid freezes exponent .425/.85/1.7/3.4, five two-scale width pairs per scheme,
+alpha/gain grids including C1's literal values, along0/.1 and shadow
+**product**0/.0175/.035/.07, plus the declared reviewer point: **3,201 points per
+scheme**. Depth and alpha enter this opaque branch only as their product;
+no signed amplification is admitted. The minimax objective is over native
+circular calibration strata's maximum uncensored channel-bin MAEs, subject to
+the per-bin1-code veto, max/mean .5-code stratum limits and horizontal2-code
+bound. There are28 circular solid cells per scheme, both scales; native deep
+is the only conditioning input. Censored channels are excluded from objective
+but remain in forward vetoes. Neither web nor validation pixels enter selection.
+Noncircular and structured diagnostics never select a point or enlarge the grid.
+
+**Feasible points:0 / 0. Selected:null / null.** The archived failure witnesses
+minimise constraint violation, then minimax; they are not material nominations:
+
+- Light: exponent1.7, widths3 / 2.3245354651, alpha.08, gain−.09086958451694395,
+  along.1, shadow product0. Worst circular worsening4.296082, horizontal4.005247.
+- Dark: exponent3.4, widths2.2 / 1.35, alpha.04096579629862227, gain0,
+  along.1, shadow product0. Worst circular worsening11.538335, horizontal4.000001.
+
+The witnesses accumulate1,463 veto bins /3,917 channels after diagnostic transfer.
+`verify-scores.py` independently reconstructs the optical arithmetic and
+re-selects all **6,402** declared points: maximum numerical difference **0**,
+including feasible count, null selections and both witness indices2284/2444.
+The synthetic test recovers nonzero alpha/gain, recovers changed coefficients at
+fixed baseline and detects changed baseline at fixed coefficients; fractional
+composition is refused. This is a failed finite budget, **not** a proof that no
+possible existing-leaf parameter choice can dominate.
+
+### 4. Body transfer, canonical tint and the unexercised collapsed branch
+
+At fixed coefficients, `E(web deep)−E(native deep)` is tabled separately in
+280 candidate/cell records, without entering any solve. Pixel ranges over all
+140 calibration cells are **C1 −7.515862…+.704203 light /
+−64.577983…+10.059932 dark**; C2 failed witnesses **−6.358013…+.729533 light /
+−50.862083…+15.993764 dark**. The solid-only and admitted-bin-mean ranges are
+beside them. Inputs are the guarded historical W34 non-black bodies and W36's
+provenance-checked black-price bodies, not freshly rendered candidates or a
+claim that the present canonical tree contains W34 geometry.
+
+`collapse-census.json` reads admitted canonical source-background PNGs and
+applies the actual active source-tone/size branch: **all212 rows resolve T=0**.
+At span44 the size term alone is .0046142578125, above tone-high.0001;
+span32 probe backgrounds also stay above the transition. This applies bare or
+painted. `tinted-c1-top.json.gz` retains **40 tinted rows /720 measured top/bottom
+bins** against native references: the exact held-top law predicts zero change
+and no top veto at T=0. It is an analytic equality, not a new render or a claim
+that native painted RGB identifies the hidden untinted intermediate. It does
+not certify the tinted arcs. The failed archive candidate is not nominated on
+that partial reading, and no C2 candidate exists to price on canonical tints.
+
+The collapsed contribution would brighten by **1.3425834469095799** relative
+to the literal old GPU top (ideal1.3425725027802635), but that effect is
+**UNMEASURED on the canonical27 bed**. T>0 requires positive policy strength
+and `sourceTone + .05*smoothstep(32,96,span) < .0001`: near-black thin spans
+can reach it; policy preserves the geometric bias or switches adaptation off,
+not moves a thick surface into the band. Strong-border exponent0 is axis-inert.
+The existing `collapsed-tone`/`collapsed-tone-textured` renderer goldens use
+span44 and hint.01 under26.5; switching to27 makes T0. `w36-black` also has
+span44. No named existing pixel fixture exercises27's changed collapsed term.
+No new fixture was built. R1 freezes the correct delta rule but this coverage
+gap belongs to the parent before any implementation, not a synthetic pass.
+
+### 5. E2 is frozen over212 rows; stacks are six rows across two scene IDs
+
+The main-tree checker, before canonical reads, reports1,900 captures,
+1,893 matches and7 no-row, with no mismatch/misfiled/superseded/unreadable.
+The initial72-row calibration/validation cut is preserved beside the complete
+cut: **140 probe rows are also non-holdout canonical diagnostics**, admitted
+under W25 Decision Log3(e). E2 now has **212 rows:208 single /4 grouped**,
+58 calibration /14 validation /140 probe. **136 rows meet declared coverage;
+76 capsule rows are UNMEASURED** because left/right intervals are absent.
+There are **7,728 measured /1,488 absent bins**. Measured top/bottom bins on
+an UNMEASURED row are still compared; row status neither passes it nor erases
+its measured failures. All14 repaired E1 rows reproduce numeric bins exactly.
+
+Estimator1 is the repaired side/shell/RGB excess-MAE cut; supplied component
+offsets are respected. Estimator2 uses three individually placed44×44 circles,
+nearest-member ownership, per-member deep, whole pixels and16 normal bins.
+Every measured bin needs≥4 pixels, deep≥4; grouped rows require each member
+in≥8 sectors and≥4 CSS px of measured shells. Absent bins remain UNMEASURED.
+Estimator3 is declared only: the visible overlay's120×56 radius16 boundary,
+offset[0,−8], own visible-layer deep and mixed backend, applied at G1b once.
+The charter's “two stacked rows” means **two scene IDs**, but the matrix has
+**six profile×scene rows**, all named without opening a payload. The declaration
+also names all26 excluded active standard holdout rows; none is called passed.
+
+E2's regression bound is one code on **every measured channel-bin** versus
+pre-W38; the14 uniform rows additionally require horizontal-side excess MAE≤2.
+Native PNG hashes, both document hashes, capturePath and deterministic metadata
+bind re-derivation. Missing capture/deep/coverage is UNMEASURED; generation drift
+fails. This is a frozen **proposal**, not an adopted row or rendered candidate
+pass. No fixture-free R1 pixel comparison was run.
+
+### 6. CSS and stops are priced honestly, without inventing a render
+
+The proposed CSS conversion multiplies **blended** `A*(1−T)+C*T` by the
+resolved variant's top lobe before its .64 regular conversion; shared constants
+stay. At full collapse, bare **.02432→.03265136326761601**, painted
+**.3328→.44680812892527166**. `css-and-stop-notes.json` gives the T0/.5/1 ×
+bare/painted cases for both schemes; clear and strong-border exponent0 remain
+identity. The literal GPU correction exposes an8.15ppm difference from CSS's
+old ideal normalisation: at T0 its proposed top is old×.9999918484550502,
+not an algebraic byte-identity claim. Frozen26.5 stays on its existing branch.
+The interior-light integral already carries the rotated normals; alpha/gain
+propagation and collapsed-constant pins retain their meaning, while new resolved
+lobe conversion cases must be pinned if a future candidate ships. Two-row
+constant-inset lower bounds6.5/8.5 remain; no CSS carry/decline render occurred.
+
+`stop-baseline.json.gz` retains610 current per-cell rows and `stop-price.json.gz`
+labels prospective actual-render numbers **UNIDENTIFIED**, not zero or passes.
+There is no feasible candidate and no render, so a per-row M1/M2/L1 prediction
+from a constant-deep native model would be invented. The actual recommended
+no-change outcome keeps every row, MISSED_27_ROWS and predicate exact, churn0.
+M1 remains.60–1.40; M2±2% against pre-W38; L1.055/growth.005 against W33,
+never rebaselined with M2. **Correction beside the sealed declaration:** its
+“−60.028% light /−48.433% dark” label is wrong: these are BOTH dark photo capsule,
+**1x /2x**, exact−60.02832691048684 /−48.43312779842039. No value or bound changes.
+C1 exterior≤.0042, X1=0 and B1±5% cannot be inferred from inner support: the
+rim reaches fractional coverage up to half a device pixel outside; group/stack
+pixel identity requires renders. Thirteen golden hashes are frozen: their
+harness uses DEFAULT26.5, so document-only changes should not move them.
+The activation test's active and receded digest expectations would move, while
+zero receded amplitudes predict unchanged pixels. Historical native FWHM readings
+are retained beside; no post-fit FWHM or isolation run is claimed.
+
+### 7. Verification, read-boundary qualification and decision drafts
+
+Setup install/workspace build passed before scoring. W38-specific tests cover
+literal held-top/clear identity, native pre-composition recovery, per-bin veto
+inside improving aggregates, separate horizontal limits, censorship versus
+veto, no-feasible-selection handling, E2 omissions/ownership/generation and
+missing captures. Independent full-grid reconstruction gives zero discrepancy.
+Final targeted suite: **3 files /8 tests passed**; calibration ESLint and all
+four TypeScript checks passed. The completed helper full suite was **52 files,
+705 passed /1 skipped** (absent worktree X1 tree). A second full invocation was
+stopped during the read-boundary audit; it is not reported as green. The main
+capture-tree generation checker is green. The specific skipped X1 pixel test was
+then run alone against the read-only main tree and **passed** (218 non-holdout
+canonical cells); the other100 tests were filtered, not attempted. No further
+unfiltered suite was run. Frozen26.5 verifies **1,818 before and after**;
+`git diff --check` is clean. The scope audit lists only this evidence, W38 tests
+and the existing ledger/charter; protected inputs remain unchanged.
+
+**Surprise, ruled by parent:** the brief said W34 validation pixels “never
+opened,” but the required full suite contains `w37-edge-identification.test.ts`
+→ `verify-scores.py` and G0b `reproduce-g0.py --verify-native`, plus
+`w37-g0b-identification.test.ts` → its `verify-scores.py --verify`. Those inherited
+historical-gate verifications reopen W34 validation payloads through their old
+guards. No W38 coefficient, grid objective or selection consumed them; W38's
+reader filters calibration before every payload open, and W38's independent
+reconstruction does the same. The parent ruled this a historical-gate replay
+inside the required suite, not W38 identification, correcting the brief's
+stricter wording beside rather than claiming those process-tree reads did not
+occur. No previous evidence was changed; no holdout payload was opened.
+An earlier Python module-name collision attempted a W35 numerical replay from
+its recorded JSON, not pixels; its exclusive-write guard refused overwrite,
+and the W38 import order was corrected. No historical bytes changed.
+
+**DL1 — G0 draft, not ruled:** **close W38 at the finding**. C1 fails the
+per-bin veto on solid calibration, C2 has no feasible declared point; no G1a,
+no refit on web bodies, no relaxed bound or expanded search. The neutral chroma
+floor and signed/phase/thickness questions remain separate future work.
+
+**DL2 — G0 draft, not ruled:** shared collapsed constants and clear stay unchanged.
+Canonical27 has no T>0 witness; held-top tinted bins therefore do not price
+collapsed brightening. Record it UNMEASURED and unexercised by current named
+pixel gates, not safe by absence. No new fixture or variant leaf is authorised
+by this negative result.
+
+**DL4 — G0 draft, not ruled:** retain E2 as the frozen212-row proposal with
+explicit partial coverage, six declared-only stacks and fixture-free R1;
+do not adopt it or turn any UNMEASURED row into a pass on failed candidates.
+The next step is independent parent review and closing disposition, not a
+material patch, capture, release or implementation child.
