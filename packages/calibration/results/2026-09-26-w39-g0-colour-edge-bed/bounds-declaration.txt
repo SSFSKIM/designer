@@ -115,14 +115,19 @@ at every admitted discriminator are insufficient resolution, not identification
 and not permission to widen tolerance. Failure or censoring never re-cuts split.
 
 PHASE PREFLIGHT: ONE ACTUATOR, TWO PREDECLARED BRANCHES
-36 light-active captures: 9 geometries x opaque/glass x 2 scales. Radius22
+40 light-active captures: 9 geometries x opaque/glass x 2 scales (36), plus
+phase-zero opaque/glass repeated at each scale's END (4), measuring temporal
+drift separately from actuator effects. Radius22
 rrect120x44; left/top fixed. Fractional width/height increments are device
 {0,.25,.5,.75}/scale CSS px; position=pinned edge+size/2. Shared zero, three
 width, three height, plus integer width121 and height45 controls at phase0.
 For EACH axis at BOTH scales: opaque near-edge profile byte-identical across
 four phases; far edge >=3 distinct coverage states. Glass near-edge shells
-both sides of boundary stay within observed bar (unmeasured preflight repeat
-spread gets the declared quantisation floor0.5, never a fabricated repeat bar).
+both sides of boundary stay within max(0.5,D_int_near), where D_int_near is the
+aligned integer-size control's near-band difference; this bounds whole-pixel
+size sensitivity, not an invented repeat bar. The phase-zero end sentinel must
+match its opening coverage bytes and glass within0.5; otherwise the scale is
+UNMEASURED for drift, not unreachable by actuator and not admitted.
 Glass far edge has >=3 distinct states with differences beyond the aligned
 integer-size control's far-edge difference, consistent with a subpixel shift
 of ONE area-integrated ramp rather than an amplitude change. Use translated

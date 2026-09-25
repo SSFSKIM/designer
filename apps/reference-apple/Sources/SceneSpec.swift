@@ -87,6 +87,14 @@ struct ShapeSpec: Decodable {
   let size: [Double]
   let radius: Double?
   let offset: [Double]?
+  /// The shape's CENTRE in canvas CSS px, image-down (W39, X11). Mutually
+  /// exclusive with `offset`, and rendered as a LAYOUT placement
+  /// (`.position(x:y:)`) rather than a render-time translation: W34 measured that
+  /// `.offset` snaps a fractional translation to two states (§5.174), and a bed
+  /// that pins a near edge at a fractional coordinate (position = edge + size/2)
+  /// cannot be built on a displacement the window server rounds. Absent on every
+  /// scene that predates W39, whose placement is therefore unchanged.
+  let position: [Double]?
   /// An ordinary opaque fill, never a material. Keeping the control on the same
   /// shape spec guarantees it resolves the same supplied path as its glass twin.
   let opaque: Bool?
@@ -94,6 +102,24 @@ struct ShapeSpec: Decodable {
 
   var cgSize: CGSize { CGSize(width: size[0], height: size[1]) }
   var cgOffset: CGSize { CGSize(width: offset?[0] ?? 0, height: offset?[1] ?? 0) }
+  var cgPosition: CGPoint? { position.map { CGPoint(x: $0[0], y: $0[1]) } }
+
+  /// The frame this shape is placed at, in canvas CSS px, image-down — the one
+  /// computation both the view and the path attestation read, so the attested
+  /// `frameOrigin` cannot drift from the placement that was rendered. A
+  /// positioned shape's origin is its centre minus half its size, exactly, with
+  /// no rounding at any size; an unpositioned one is centred plus its offset, as
+  /// every scene before W39 always was.
+  func frame(in canvas: CGSize) -> CGRect {
+    let origin: CGPoint
+    if let p = cgPosition {
+      origin = CGPoint(x: p.x - size[0] / 2, y: p.y - size[1] / 2)
+    } else {
+      origin = CGPoint(x: (canvas.width - size[0]) / 2 + cgOffset.width,
+                       y: (canvas.height - size[1]) / 2 + cgOffset.height)
+    }
+    return CGRect(origin: origin, size: cgSize)
+  }
 }
 
 enum ComponentSpec {
@@ -101,6 +127,14 @@ enum ComponentSpec {
   case shape(ShapeSpec)
   case group(items: [ShapeSpec], spacing: Double)
   case stack(base: ShapeSpec, over: ShapeSpec)
+  /// W39's two INDEPENDENT surfaces in one window (X11): each member its own
+  /// `glassEffect` (or its own opaque fill), each placed by its own `position`,
+  /// in no `GlassEffectContainer` and not the `stack`, whose upper surface
+  /// samples the lower one. The column exists to test whether the body law is
+  /// constant against window height with two bodies that share nothing but the
+  /// window, so anything that could couple them — a container's merge, one
+  /// surface drawn over the other, overlapping frames — is refused at load.
+  case column(items: [ShapeSpec])
 }
 
 extension ComponentSpec: Decodable {
@@ -121,6 +155,8 @@ extension ComponentSpec: Decodable {
     case "stack":
       self = .stack(base: try c.decode(ShapeSpec.self, forKey: .base),
                     over: try c.decode(ShapeSpec.self, forKey: .over))
+    case "column":
+      self = .column(items: try c.decode([ShapeSpec].self, forKey: .items))
     default:
       throw DecodingError.dataCorruptedError(forKey: .kind, in: c,
         debugDescription: "unknown component kind '\(kind)'")
@@ -335,6 +371,7 @@ struct SceneSpecFile: Decodable {
       if let offset = s.offset, offset.count != 2 || !offset.allSatisfy({ $0.isFinite }) {
         problems.append("component '\(id)': offset must be two finite CSS lengths")
       }
+      problems += positionProblems(s, id)
       if s.opaque == true {
         guard let rgb = s.fillSRGB, rgb.count == 3,
               rgb.allSatisfy({ (0...255).contains($0) }) else {
@@ -354,11 +391,23 @@ struct SceneSpecFile: Decodable {
         if items.contains(where: { $0.opaque == true }) {
           problems.append("component '\(id)': opaque controls require a single shape")
         }
+        // A group is laid out by its container's HStack and a stack's base is
+        // centred, so a `position` on either would be decoded and then ignored —
+        // a declared placement that is not the rendered one. Refused instead.
+        if items.contains(where: { $0.position != nil }) {
+          problems.append("component '\(id)': position is not honoured inside a group")
+        }
       case .stack(let base, let over):
         validateShape(base, id); validateShape(over, id)
         if base.opaque == true || over.opaque == true {
           problems.append("component '\(id)': opaque controls require a single shape")
         }
+        if base.position != nil || over.position != nil {
+          problems.append("component '\(id)': position is not honoured inside a stack")
+        }
+      case .column(let items):
+        for shape in items { validateShape(shape, id) }
+        problems += columnProblems(items, id)
       }
     }
     for p in profiles {
@@ -372,6 +421,55 @@ struct SceneSpecFile: Decodable {
       throw NSError(domain: "vitrea.scenespec", code: 1,
                     userInfo: [NSLocalizedDescriptionKey: "scenes.json is inconsistent:\n  - " + problems.joined(separator: "\n  - ")])
     }
+  }
+
+  /// A `position` is two finite CSS coordinates, never beside an `offset`, and
+  /// far enough inside the canvas that the whole shape is: the centre lies within
+  /// the canvas shrunk by half the shape's size on each axis. The bound is on the
+  /// SHAPE's frame, not its outer shadow; what the exterior reader needs beyond
+  /// it is the declaration's margin to state, not this loader's.
+  func positionProblems(_ s: ShapeSpec, _ id: String) -> [String] {
+    guard let p = s.position else { return [] }
+    var problems: [String] = []
+    if s.offset != nil {
+      problems.append("component '\(id)': position and offset are mutually exclusive")
+    }
+    guard p.count == 2, p.allSatisfy({ $0.isFinite }) else {
+      return problems + ["component '\(id)': position must be two finite CSS coordinates"]
+    }
+    guard s.size.count == 2, s.size.allSatisfy({ $0.isFinite && $0 > 0 }) else { return problems }
+    let half = [s.size[0] / 2, s.size[1] / 2]
+    let extent = [canvas.width, canvas.height]
+    for axis in 0..<2 where p[axis] < half[axis] || p[axis] > extent[axis] - half[axis] {
+      problems.append("component '\(id)': position \(p) puts the \(s.size[0])×\(s.size[1]) " +
+                      "shape outside the \(canvas.width)×\(canvas.height) canvas")
+      break
+    }
+    return problems
+  }
+
+  /// A column is exactly two members, each placed by its own `position`, both
+  /// glass or both opaque (the two-fill control), whose frames do not overlap.
+  /// Frames that only share an edge do not overlap: the intersection must have
+  /// positive area on both axes to be refused.
+  func columnProblems(_ items: [ShapeSpec], _ id: String) -> [String] {
+    var problems: [String] = []
+    guard items.count == 2 else {
+      return ["component '\(id)': a column has exactly two members, got \(items.count)"]
+    }
+    if items.contains(where: { $0.position == nil }) {
+      problems.append("component '\(id)': every column member needs a position")
+    }
+    if (items[0].opaque == true) != (items[1].opaque == true) {
+      problems.append("component '\(id)': a column is two glass surfaces or two opaque fills")
+    }
+    guard problems.isEmpty,
+          items.allSatisfy({ $0.size.count == 2 && $0.position?.count == 2 }) else { return problems }
+    let a = items[0].frame(in: canvas.cgSize), b = items[1].frame(in: canvas.cgSize)
+    if a.minX < b.maxX && b.minX < a.maxX && a.minY < b.maxY && b.minY < a.maxY {
+      problems.append("component '\(id)': the column members' frames \(a) and \(b) overlap")
+    }
+    return problems
   }
 
   static func load(_ path: String) throws -> SceneSpecFile {

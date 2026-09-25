@@ -127,13 +127,35 @@ struct SceneView: View {
     }
   }
 
+  /// One positioned surface before its placement: an opaque fill of the
+  /// supplied shape, or `content` under the material in that shape. Returned
+  /// unplaced so the caller's `.position` comes after the material: a
+  /// `.position` applied before `glassEffect` would make the whole canvas the
+  /// material's bounds.
+  @ViewBuilder
+  private func positionedBody(_ s: ShapeSpec, content: some View) -> some View {
+    if s.opaque == true, let rgb = s.fillSRGB {
+      glassShape(s)
+        .fill(Color(.sRGB, red: Double(rgb[0]) / 255, green: Double(rgb[1]) / 255,
+                    blue: Double(rgb[2]) / 255, opacity: 1))
+        .frame(width: s.cgSize.width, height: s.cgSize.height)
+    } else {
+      content.glassEffect(material(), in: glassShape(s))
+    }
+  }
+
   @ViewBuilder
   private var componentBody: some View {
     switch component {
     case .none:
       EmptyView()
     case .shape(let s):
-      if s.opaque == true {
+      if let centre = s.cgPosition {
+        // W39: a LAYOUT placement. The body is built exactly as below and only
+        // the last modifier differs, so a positioned shape and a centred one are
+        // the same surface at a different place.
+        positionedBody(s, content: glassContent(s.cgSize)).position(centre)
+      } else if s.opaque == true {
         let rgb = s.fillSRGB!
         glassShape(s)
           .fill(Color(.sRGB, red: Double(rgb[0]) / 255, green: Double(rgb[1]) / 255,
@@ -145,6 +167,23 @@ struct SceneView: View {
           .glassEffect(material(), in: glassShape(s))
           .offset(x: s.cgOffset.width, y: s.cgOffset.height)
       }
+
+    case .column(let items):
+      // Two INDEPENDENT surfaces: siblings in a plain ZStack, each with its own
+      // `glassEffect` (or fill) and its own layout placement, in no
+      // `GlassEffectContainer`. A container would let the two bodies merge or
+      // share sampling, and the `stack` would draw one over the other; the
+      // column asks what one body does at two heights of one window, so neither
+      // is allowed to know about the other. Validation guarantees two members,
+      // each positioned, frames disjoint.
+      ZStack {
+        ForEach(Array(items.enumerated()), id: \.offset) { _, item in
+          positionedBody(item, content: Color.clear.frame(width: item.cgSize.width,
+                                                          height: item.cgSize.height))
+            .position(item.cgPosition!)
+        }
+      }
+      .frame(width: canvas.width, height: canvas.height)
 
     case .group(let items, let spacing):
       // One container for the whole row: this is the container-scoped sampling

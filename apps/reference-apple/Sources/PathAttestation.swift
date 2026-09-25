@@ -34,8 +34,10 @@ func suppliedShapePaths(_ component: ComponentSpec, canvas: CGSize) -> [Supplied
         [Double(e.points[$0].x), Double(e.points[$0].y)]
       }))
     }
-    let o = origin ?? CGPoint(x: (canvas.width - s.cgSize.width) / 2 + s.cgOffset.width,
-                               y: (canvas.height - s.cgSize.height) / 2 + s.cgOffset.height)
+    // `ShapeSpec.frame(in:)` is the placement the view renders: centred plus
+    // `offset`, or — for a W39 `position` — the centre minus half the size,
+    // unrounded, so a fractional size attests its fractional origin exactly.
+    let o = origin ?? s.frame(in: canvas).origin
     return .init(kind: s.kind, frameOrigin: [Double(o.x), Double(o.y)],
                  rect: [0, 0, s.size[0], s.size[1]], opaque: s.opaque == true, elements: elements)
   }
@@ -43,6 +45,7 @@ func suppliedShapePaths(_ component: ComponentSpec, canvas: CGSize) -> [Supplied
   case .none: return []
   case .shape(let s): return [entry(s)]
   case .stack(let base, let over): return [entry(base), entry(over)]
+  case .column(let items): return items.map { entry($0) }
   case .group(let items, let spacing):
     let width = items.reduce(0) { $0 + $1.cgSize.width } + Double(items.count - 1) * spacing
     var left = (canvas.width - width) / 2

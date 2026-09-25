@@ -1,0 +1,546 @@
+[
+  {
+    "id": "g128-ref",
+    "background": "g128",
+    "component": "none",
+    "position": null,
+    "phase": null,
+    "span": null,
+    "purpose": "colour-managed no-glass baseline",
+    "pairedWith": [
+      "g128-t-c44",
+      "g128-c-c44",
+      "g128-b-c44"
+    ]
+  },
+  {
+    "id": "g255-ref",
+    "background": "g255",
+    "component": "none",
+    "position": null,
+    "phase": null,
+    "span": null,
+    "purpose": "colour-managed no-glass baseline",
+    "pairedWith": [
+      "g255-t-c44",
+      "g255-c-c44",
+      "g255-b-c44"
+    ]
+  },
+  {
+    "id": "v90-ref",
+    "background": "v90",
+    "component": "none",
+    "position": null,
+    "phase": null,
+    "span": null,
+    "purpose": "colour-managed no-glass baseline",
+    "pairedWith": [
+      "v90-c-c44"
+    ]
+  },
+  {
+    "id": "v270-ref",
+    "background": "v270",
+    "component": "none",
+    "position": null,
+    "phase": null,
+    "span": null,
+    "purpose": "colour-managed no-glass baseline",
+    "pairedWith": [
+      "v270-c-c44"
+    ]
+  },
+  {
+    "id": "g128-t-c44",
+    "background": "g128",
+    "component": "capsule-circular 120x44",
+    "position": [
+      160,
+      70
+    ],
+    "phase": null,
+    "span": 44,
+    "purpose": "matched top/bottom by window height; native material",
+    "pairedWith": "g128-t-c44-opaque; g128-ref"
+  },
+  {
+    "id": "g128-t-c44-opaque",
+    "background": "g128",
+    "component": "capsule-circular 120x44 opaque",
+    "position": [
+      160,
+      70
+    ],
+    "phase": null,
+    "span": 44,
+    "purpose": "path registration/coverage",
+    "pairedWith": "g128-t-c44; g128-ref"
+  },
+  {
+    "id": "g128-c-c44",
+    "background": "g128",
+    "component": "capsule-circular 120x44",
+    "position": [
+      160,
+      140
+    ],
+    "phase": null,
+    "span": 44,
+    "purpose": "matched top/bottom by window height; native material",
+    "pairedWith": "g128-c-c44-opaque; g128-ref"
+  },
+  {
+    "id": "g128-c-c44-opaque",
+    "background": "g128",
+    "component": "capsule-circular 120x44 opaque",
+    "position": [
+      160,
+      140
+    ],
+    "phase": null,
+    "span": 44,
+    "purpose": "path registration/coverage",
+    "pairedWith": "g128-c-c44; g128-ref"
+  },
+  {
+    "id": "g128-b-c44",
+    "background": "g128",
+    "component": "capsule-circular 120x44",
+    "position": [
+      160,
+      210
+    ],
+    "phase": null,
+    "span": 44,
+    "purpose": "matched top/bottom by window height; native material",
+    "pairedWith": "g128-b-c44-opaque; g128-ref"
+  },
+  {
+    "id": "g128-b-c44-opaque",
+    "background": "g128",
+    "component": "capsule-circular 120x44 opaque",
+    "position": [
+      160,
+      210
+    ],
+    "phase": null,
+    "span": 44,
+    "purpose": "path registration/coverage",
+    "pairedWith": "g128-b-c44; g128-ref"
+  },
+  {
+    "id": "g255-t-c44",
+    "background": "g255",
+    "component": "capsule-circular 120x44",
+    "position": [
+      160,
+      70
+    ],
+    "phase": null,
+    "span": 44,
+    "purpose": "matched top/bottom by window height; native material",
+    "pairedWith": "g255-t-c44-opaque; g255-ref"
+  },
+  {
+    "id": "g255-t-c44-opaque",
+    "background": "g255",
+    "component": "capsule-circular 120x44 opaque",
+    "position": [
+      160,
+      70
+    ],
+    "phase": null,
+    "span": 44,
+    "purpose": "path registration/coverage",
+    "pairedWith": "g255-t-c44; g255-ref"
+  },
+  {
+    "id": "g255-c-c44",
+    "background": "g255",
+    "component": "capsule-circular 120x44",
+    "position": [
+      160,
+      140
+    ],
+    "phase": null,
+    "span": 44,
+    "purpose": "matched top/bottom by window height; native material",
+    "pairedWith": "g255-c-c44-opaque; g255-ref"
+  },
+  {
+    "id": "g255-c-c44-opaque",
+    "background": "g255",
+    "component": "capsule-circular 120x44 opaque",
+    "position": [
+      160,
+      140
+    ],
+    "phase": null,
+    "span": 44,
+    "purpose": "path registration/coverage",
+    "pairedWith": "g255-c-c44; g255-ref"
+  },
+  {
+    "id": "g255-b-c44",
+    "background": "g255",
+    "component": "capsule-circular 120x44",
+    "position": [
+      160,
+      210
+    ],
+    "phase": null,
+    "span": 44,
+    "purpose": "matched top/bottom by window height; native material",
+    "pairedWith": "g255-b-c44-opaque; g255-ref"
+  },
+  {
+    "id": "g255-b-c44-opaque",
+    "background": "g255",
+    "component": "capsule-circular 120x44 opaque",
+    "position": [
+      160,
+      210
+    ],
+    "phase": null,
+    "span": 44,
+    "purpose": "path registration/coverage",
+    "pairedWith": "g255-b-c44; g255-ref"
+  },
+  {
+    "id": "v90-c-c44",
+    "background": "v90",
+    "component": "capsule-circular 120x44",
+    "position": [
+      160,
+      140
+    ],
+    "phase": null,
+    "span": 44,
+    "purpose": "flip background vertical order at fixed local centre",
+    "pairedWith": "v90-c-c44-opaque; v90-ref"
+  },
+  {
+    "id": "v90-c-c44-opaque",
+    "background": "v90",
+    "component": "capsule-circular 120x44 opaque",
+    "position": [
+      160,
+      140
+    ],
+    "phase": null,
+    "span": 44,
+    "purpose": "path and gradient-flip coverage control",
+    "pairedWith": "v90-c-c44; v90-ref"
+  },
+  {
+    "id": "v270-c-c44",
+    "background": "v270",
+    "component": "capsule-circular 120x44",
+    "position": [
+      160,
+      140
+    ],
+    "phase": null,
+    "span": 44,
+    "purpose": "flip background vertical order at fixed local centre",
+    "pairedWith": "v270-c-c44-opaque; v270-ref"
+  },
+  {
+    "id": "v270-c-c44-opaque",
+    "background": "v270",
+    "component": "capsule-circular 120x44 opaque",
+    "position": [
+      160,
+      140
+    ],
+    "phase": null,
+    "span": 44,
+    "purpose": "path and gradient-flip coverage control",
+    "pairedWith": "v270-c-c44; v270-ref"
+  },
+  {
+    "id": "g128-c-rrect-120x44",
+    "background": "g128",
+    "component": "rrect 120x44 radius22",
+    "position": [
+      160,
+      140
+    ],
+    "phase": null,
+    "span": 44,
+    "purpose": "span ladder at held corner radius",
+    "pairedWith": "g128-c-rrect-120x44-opaque; g128-ref"
+  },
+  {
+    "id": "g128-c-rrect-120x44-opaque",
+    "background": "g128",
+    "component": "rrect 120x44 radius22 opaque",
+    "position": [
+      160,
+      140
+    ],
+    "phase": null,
+    "span": 44,
+    "purpose": "matched path coverage",
+    "pairedWith": "g128-c-rrect-120x44; g128-ref"
+  },
+  {
+    "id": "g128-c-rrect-120x64",
+    "background": "g128",
+    "component": "rrect 120x64 radius22",
+    "position": [
+      160,
+      140
+    ],
+    "phase": null,
+    "span": 64,
+    "purpose": "span ladder at held corner radius",
+    "pairedWith": "g128-c-rrect-120x64-opaque; g128-ref"
+  },
+  {
+    "id": "g128-c-rrect-120x64-opaque",
+    "background": "g128",
+    "component": "rrect 120x64 radius22 opaque",
+    "position": [
+      160,
+      140
+    ],
+    "phase": null,
+    "span": 64,
+    "purpose": "matched path coverage",
+    "pairedWith": "g128-c-rrect-120x64; g128-ref"
+  },
+  {
+    "id": "g128-c-rrect-120x96",
+    "background": "g128",
+    "component": "rrect 120x96 radius22",
+    "position": [
+      160,
+      140
+    ],
+    "phase": null,
+    "span": 96,
+    "purpose": "span ladder at held corner radius",
+    "pairedWith": "g128-c-rrect-120x96-opaque; g128-ref"
+  },
+  {
+    "id": "g128-c-rrect-120x96-opaque",
+    "background": "g128",
+    "component": "rrect 120x96 radius22 opaque",
+    "position": [
+      160,
+      140
+    ],
+    "phase": null,
+    "span": 96,
+    "purpose": "matched path coverage",
+    "pairedWith": "g128-c-rrect-120x96; g128-ref"
+  },
+  {
+    "id": "g128-c-capsule-circular-120x64",
+    "background": "g128",
+    "component": "capsule-circular 120x64",
+    "position": [
+      160,
+      140
+    ],
+    "phase": null,
+    "span": 64,
+    "purpose": "circular span/radius/path ladder",
+    "pairedWith": "g128-c-capsule-circular-120x64-opaque; g128-ref"
+  },
+  {
+    "id": "g128-c-capsule-circular-120x64-opaque",
+    "background": "g128",
+    "component": "capsule-circular 120x64 opaque",
+    "position": [
+      160,
+      140
+    ],
+    "phase": null,
+    "span": 64,
+    "purpose": "matched path coverage",
+    "pairedWith": "g128-c-capsule-circular-120x64; g128-ref"
+  },
+  {
+    "id": "g128-c-capsule-circular-120x96",
+    "background": "g128",
+    "component": "capsule-circular 120x96",
+    "position": [
+      160,
+      140
+    ],
+    "phase": null,
+    "span": 96,
+    "purpose": "circular span/radius/path ladder",
+    "pairedWith": "g128-c-capsule-circular-120x96-opaque; g128-ref"
+  },
+  {
+    "id": "g128-c-capsule-circular-120x96-opaque",
+    "background": "g128",
+    "component": "capsule-circular 120x96 opaque",
+    "position": [
+      160,
+      140
+    ],
+    "phase": null,
+    "span": 96,
+    "purpose": "matched path coverage",
+    "pairedWith": "g128-c-capsule-circular-120x96; g128-ref"
+  },
+  {
+    "id": "g128-c-capsule-circular-96x96",
+    "background": "g128",
+    "component": "capsule-circular 96x96",
+    "position": [
+      160,
+      140
+    ],
+    "phase": null,
+    "span": 96,
+    "purpose": "circular span/radius/path ladder",
+    "pairedWith": "g128-c-capsule-circular-96x96-opaque; g128-ref"
+  },
+  {
+    "id": "g128-c-capsule-circular-96x96-opaque",
+    "background": "g128",
+    "component": "capsule-circular 96x96 opaque",
+    "position": [
+      160,
+      140
+    ],
+    "phase": null,
+    "span": 96,
+    "purpose": "matched path coverage",
+    "pairedWith": "g128-c-capsule-circular-96x96; g128-ref"
+  },
+  {
+    "id": "g128-c-capsule-circular-160x96",
+    "background": "g128",
+    "component": "capsule-circular 160x96",
+    "position": [
+      160,
+      140
+    ],
+    "phase": null,
+    "span": 96,
+    "purpose": "circular span/radius/path ladder",
+    "pairedWith": "g128-c-capsule-circular-160x96-opaque; g128-ref"
+  },
+  {
+    "id": "g128-c-capsule-circular-160x96-opaque",
+    "background": "g128",
+    "component": "capsule-circular 160x96 opaque",
+    "position": [
+      160,
+      140
+    ],
+    "phase": null,
+    "span": 96,
+    "purpose": "matched path coverage",
+    "pairedWith": "g128-c-capsule-circular-160x96; g128-ref"
+  },
+  {
+    "id": "g255-c-circular-200x44",
+    "background": "g255",
+    "component": "capsule-circular 200x44",
+    "position": [
+      160,
+      140
+    ],
+    "phase": null,
+    "span": 44,
+    "purpose": "direct replication of W37 grey255 circular-200 matched-depth witness",
+    "pairedWith": "g255-c-circular-200x44-opaque; g255-ref"
+  },
+  {
+    "id": "g255-c-circular-200x44-opaque",
+    "background": "g255",
+    "component": "capsule-circular 200x44 opaque",
+    "position": [
+      160,
+      140
+    ],
+    "phase": null,
+    "span": 44,
+    "purpose": "W37 witness shape registration/coverage at matching backdrop",
+    "pairedWith": "g255-c-circular-200x44; g255-ref"
+  },
+  {
+    "id": "g128-column",
+    "background": "g128",
+    "component": "column two independent capsule-circular 120x44",
+    "position": [
+      [
+        160,
+        70
+      ],
+      [
+        160,
+        210
+      ]
+    ],
+    "phase": null,
+    "span": 44,
+    "purpose": "simultaneous upper/lower shapes in one window",
+    "pairedWith": "g128-column-opaque; g128-ref"
+  },
+  {
+    "id": "g128-column-opaque",
+    "background": "g128",
+    "component": "column two independent capsule-circular 120x44 opaque",
+    "position": [
+      [
+        160,
+        70
+      ],
+      [
+        160,
+        210
+      ]
+    ],
+    "phase": null,
+    "span": 44,
+    "purpose": "two-path control, not glass-over-glass",
+    "pairedWith": "g128-column; g128-ref"
+  },
+  {
+    "id": "v90-column",
+    "background": "v90",
+    "component": "column two independent capsule-circular 120x44",
+    "position": [
+      [
+        160,
+        70
+      ],
+      [
+        160,
+        210
+      ]
+    ],
+    "phase": null,
+    "span": 44,
+    "purpose": "simultaneous upper/lower shapes in one window",
+    "pairedWith": "v90-column-opaque; v90-ref"
+  },
+  {
+    "id": "v90-column-opaque",
+    "background": "v90",
+    "component": "column two independent capsule-circular 120x44 opaque",
+    "position": [
+      [
+        160,
+        70
+      ],
+      [
+        160,
+        210
+      ]
+    ],
+    "phase": null,
+    "span": 44,
+    "purpose": "two-path control, not glass-over-glass",
+    "pairedWith": "v90-column; v90-ref"
+  }
+]

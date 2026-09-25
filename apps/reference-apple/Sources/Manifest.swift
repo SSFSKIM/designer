@@ -166,7 +166,58 @@ struct FixtureEntry: Codable {
   /// frame origins. This does not attest the window server's raster alignment,
   /// transform or glass coverage; those require pixel measurements (§5.174).
   let suppliedPaths: [SuppliedShapePath]?
+  /// Where the capture window was on screen when this cell's bytes were taken,
+  /// beside where the harness asked for it (W39, charter clause 5). An
+  /// ATTESTATION, not an actuator: nothing moves the window to a declared place,
+  /// and a frame that differs from its request is recorded as itself for the
+  /// sitting to quarantine, never corrected. nil on the offscreen path, which has
+  /// no window, and on manifests from before the field.
+  let windowFrame: WindowFrameAttestation?
   let capturedAt: String
+}
+
+/// The capture window's frame in SCREEN coordinates, requested and actual.
+///
+/// A window's screen origin is part of what places a shape on the device-pixel
+/// grid — at 2x a half-point origin moves every edge by one device pixel — so a
+/// bed that reads edges at attested positions needs the window's own placement
+/// in the record rather than assumed. Rects are `[x, y, width, height]` in points.
+struct WindowFrameAttestation: Codable {
+  /// `appkit-global-bottom-left`: `NSWindow.frame`'s space — points, origin at
+  /// the bottom-left of the primary screen, y up. Named so no reader has to
+  /// guess which of the two macOS screen spaces a rect is in.
+  let coordinateSpace: String
+  /// The frame the harness set when it made the window — the canvas-sized
+  /// borderless content rect, centred by `NSWindow.center()` — read once, before
+  /// the window was put on screen. Every cell of a run shares it.
+  let requested: [Double]
+  /// `NSWindow.frame` read at the moment the cell was recorded: AppKit's account.
+  let actual: [Double]
+  /// The window server's account of the same window, `kCGWindowBounds` from
+  /// `CGWindowListCopyWindowInfo` — points, origin at the TOP-left of the primary
+  /// screen, y down. Recorded beside AppKit's because they are two witnesses to
+  /// one fact and can disagree; nil when the window server does not report it.
+  let windowServerBounds: [Double]?
+  /// The frame of the screen the window was on, in `coordinateSpace`, so the
+  /// window's origin can be taken relative to its display.
+  let screenFrame: [Double]?
+  /// The window's `backingScaleFactor` at the same moment.
+  let backingScaleFactor: Double
+
+  static func rect(_ r: CGRect) -> [Double] {
+    [Double(r.origin.x), Double(r.origin.y), Double(r.size.width), Double(r.size.height)]
+  }
+
+  /// `kCGWindowBounds` for one window. Bounds, unlike window names and
+  /// contents, are readable without the Screen Recording grant.
+  static func windowServerBounds(_ windowID: CGWindowID) -> [Double]? {
+    guard let info = CGWindowListCopyWindowInfo([.optionIncludingWindow], windowID)
+            as? [[String: Any]],
+          let bounds = info.first?[kCGWindowBounds as String] as? NSDictionary,
+          let rect = CGRect(dictionaryRepresentation: bounds as CFDictionary)
+    else { return nil }
+    return Self.rect(rect)
+  }
 }
 
 struct ProfileManifest: Codable {
