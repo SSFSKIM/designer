@@ -38546,3 +38546,9 @@ pixels — a colour-model bed varying channel mixtures at matched luminance with
 captured in one sitting with the edge's matched top/bottom controls, phase mechanism and second
 span — and that the finite grids do not prove every neutral-light setting fails the veto
 (Deferred at close 1–2).
+
+## 5.184 W39 G0: the colour-and-edge bed declared; the phase preflight and the archive home tooled; the side bundle pinned (2026-09-26)
+
+Declaration SHA-256: `44d818b5d9df656e16c6801f66cb7faa60b41e19d472c06bb3fef44ea432fd18` (`results/2026-09-26-w39-g0-colour-edge-bed/bounds-declaration.txt`), recorded before archive computations or rehearsals.
+
+G0 verification and operational findings follow below; no W39 pixel, bar or law is claimed.
