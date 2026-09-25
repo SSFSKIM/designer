@@ -1,0 +1,127 @@
+W37 G0b PRE-SCORE BUDGET — c9a §5.182, charter v3, Decision Logs 1/2/4 ruled
+
+This file precedes every new score. Its SHA-256 is pinned by a test and the
+commit containing it is an ancestor required by the scoring entry point.
+No material, browser, native capture or holdout read is authorised here.
+
+DOMAIN AND CONDITIONING
+Use G0 identify.inputs, which opens only W35-guarded calibration/validation
+native pixels and reports web baselines separately. Inversion uses active
+CIRCULAR calibration cells, both scales jointly, each scheme separately.
+All solid colours are fitted; grey96 and cyan and continuous160 remain
+validation, never fitted. Other admitted paths are straight diagnostics only.
+Native encoded deep b=median(native RGB at d<=-6 CSS px)/255 is the ONLY
+conditioning input. Y=dot(b,[.2126,.7152,.0722]), z=b-Y. Thickness factor is 1
+at every span, fixed, no fitted thickness/path response. No web pixel enters
+a solve or a shape selection. Body leaves cannot move.
+
+THREE FAMILIES, NO FOURTH
+F1: ramp line, affine level responses in ENCODED native deep, both schemes.
+F2: squared line, affine level responses in ENCODED native deep, both schemes.
+F3: ramp line, quadratic level responses in ENCODED native deep, both schemes.
+F3 may be scored ONLY if neither affine family closes all calibration grey
+straight bins at both scales. It is a second level form, not a validation-
+selected change. No linear-light family is added: G0 already discriminated it.
+
+RADIAL AND ANGULAR FUNCTIONS
+Inward distance t=-d in CSS px. Line L_w(t)=max(1-t/w,0)^q for t>=0, zero
+outside; q=1 in F1/F3, q=2 in F2. Width grid w={.8,1.0,1.2,1.4,1.6,1.8,
+2.0,2.2,2.4}. Vertical lobe A=abs(ny)^p; p={1,2,3,4,6}. A line has support w.
+The signed shoulder/tail is a continuous piecewise-linear spline on fixed
+knots t={0,2,6,12} CSS px, with free signed values at 0,2,6 and fixed value 0
+at 12; zero outside [0,12]. Let H0,H2,H6 be its cardinal hats. Unlike G0's
+shared nonnegative compact kernel, H6 can carry a depression throughout the
+5.3–5.8 px witness and continue smoothly below the six-px identification cut.
+The 8–14px trough motivates the support, but is NOT a new fit domain; beyond
+six px the tail is explicitly extrapolation, and beyond12 it is zero.
+Each H has independent isotropic and vertical amplitudes, allowing the
+shoulder's angular behaviour to differ from the sharp line's. The radial
+basis vector is [L*A,H0,H2,H6,H0*A,H2*A,H6*A]. No shared line/shoulder share,
+sign or colour gain is imposed. This is one line and one independently
+shaped signed shoulder with an isotropic and a vertical spline component.
+
+For EACH of these seven radial functions j:
+  affine response R_j,c = a_j + g_j*Y + (c_j + h_j*Y)*z_c;
+  quadratic response R_j,c = a_j + g_j*Y + u_j*Y^2
+                             + (c_j + h_j*Y + v_j*Y^2)*z_c.
+Thus line and shoulder each get independent luminance and chroma responses;
+F1/F2 have28 fitted scalars per scheme, F3 has42. The shoulder can rise then
+dip without forcing the line's colour response on it. All coefficients are
+signed real values in [-4096,4096] in normalized encoded units. An unconstrained
+least-squares solution outside that broad sanity range is REJECTED, not clipped
+or silently replaced by a bounded optimum. Rank-deficient matrices are rejected
+and tabled; in particular the ramp at w=2 duplicates H0 and is not identifiable.
+All coefficients0 are inert for any width/exponent. A hypothetical strength0
+would retain the entire old runtime path; this numerical model implements no gate.
+
+PIXEL MODEL — SAME AT BOTH SCALES AND IN EVERY BIN
+AREA-INTEGRATE each radial/angular basis over the device pixel with a fixed
+8x8 equal-area midpoint quadrature (not a centre-sampled kernel). For circular
+pixels evaluate the exact stadium local geometry: the arc radius is span/2,
+radial vector (radius+d)*normal plus the subpixel offset; its length gives d
+and its direction gives the normal. Straight pixels use their exact affine
+signed-distance plane. The G0 whole-pixel domain is retained; no partial pixel
+enters. Admitted noncircular diagnostic straights use the same affine plane.
+The centre's straight/arc classification is held within each pixel; tangent-
+transition pixels therefore carry a named approximation. This is NOT a new
+native path reconstruction. Average the BASIS first, then apply R to b and
+clip the encoded composite to[0,1]; edge.forward with old rim/shadow off owns
+the opaque encode/clamp via decode. This is explicitly a pixel-averaged-kernel
+operator, not a claim that averaging and clipping commute at censored pixels.
+The selected coefficients are additionally evaluated at16x16 to table quadrature
+sensitivity; never refit/reselect from that check. No integration choice changes.
+First test the model against the known grey128 straight row constraint before
+any candidate scores: light1x24 and light2x18/31 codes. A ramp w1.4, amplitude
+37.6 codes gives24.1714 at1x and17.4571/30.8857 at2x (all within1 code).
+Its1x integral is exactly the average of the2x pair. The G0 squared w1.6
+centre-sample pair ratio is(.85/1.35)^2=.396433..., versus observed18/31.
+This is a diagnostic consistency test, NOT an independent fit or family score.
+
+OBJECTIVE, WEIGHTS, RANK AND CLOSURE
+For each family/scheme and each of45 shapes, solve native-only least squares
+on unclipped encoded excess at each pixel/channel. A bin has total mass1 PER
+CHANNEL after removing censored observations (body or native>=254.5 codes);
+within the bin its retained pixels have equal mass. Thus population cannot
+make an arc bin outweigh a straight bin. Different bins/channels have equal
+mass; no grey-only or validation-selected weight. Report rank, all singular
+values, fit-cell names and observation count for EVERY matrix. Reject rank
+below column count. Select smallest weighted squared loss divided by total
+fitting mass among admitted shapes. Ties use declared width then exponent order.
+Per-channel-bin closure is mean(abs(predicted RGB-native RGB)) BEFORE reduction,
+including censored forward channels, on every G0 bin with>=4 pixels. Tolerance
+is max(1 code, its existing G0 closure bar); these bars were<=.5. Tabulate all
+bins, including below-floor diagnostic bins, native excess, prediction, signed
+and absolute residual, censoring and tolerance. Never pool straight and arc
+closure. Report greys' straight maximum, all calibration and all validation,
+with noncircular diagnostics explicitly distinguished. Inactive coefficients0.
+
+For every family compare native-conditioned predicted excess against G0's old
+rim FULL forward excess (rim plus shadow), per admissible active channel-bin.
+Use absolute signed-mean excess error for BOTH sides of this comparison because
+old-rim.json.gz stores bin means, not its per-pixel absolute error. This comparison
+is distinct from closure MAE. Better if error drops>.5 code, worse if it grows>.5,
+otherwise same. Preserve old rim-alone and full contribution beside the comparison;
+name worst worsenings. Table each role/geometry as well as the overall counts.
+
+Transfer is separately E(web deep)-E(native deep), same coefficients, per cell
+and bin and pixel range; E is output minus its own conditioning body. As in G0,
+this is boundary conditioning transfer, not raw output delta. Tail below-6 may
+move a rendered deep estimator; no rendered canonical deep invariance is inferred.
+Synthetic tests recover nonzero coefficients, distinguish a changed baseline at
+fixed coefficients and recover changed coefficients at fixed baseline, for EACH
+scored family. A sibling verifier independently reconstructs each selected-shape
+least squares by bin/channel; no stored coefficient is accepted as its input.
+
+E1 REPAIR AND DECISION
+E1's14 rows and one-code bound remain frozen as confirmed DL4. Repair only its
+reader: all four sides times all declared shells must appear, empty or below4
+as explicit UNMEASURED; any such bin prevents the cell being called measured.
+Reproduce G0's measured bin values beside, never rewrite its records.
+If any family closes calibration GREY STRAIGHTS at BOTH scales, price E1 through
+the native-reference forward model, M2's26-cell ring effect from W35 attribution,
+CSS analytic per-row bounds and the C1/X1/B1 interior-support argument (stacked/
+grouped pixels still require G1a). Supply DL1 per-stratum partial-adoption material.
+Otherwise the ruled HARD STOP fires: recommend CLOSE W37 AT THE FINDING, no G0c,
+no prototype, no shader, no fourth family. Show the best family's residual
+structure and any demonstrable form obstruction; name what future evidence would
+identify the missing behaviour, without authorising it. E1 is not widened.
