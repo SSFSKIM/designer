@@ -8,14 +8,25 @@ dependency a run did not capture itself (the colour `none` references exist in
 run 1 only; a sentinel run captures only its sentinel ids) is taken from the
 first run in that order that did capture it, and the source is recorded by hash.
 
+A run's protocol arm is the sitting's to name: `admission.json` must carry
+`protocol: normal | long`, and the producer checks it against the settings the
+sitting declares for that arm (`sitting.PROTOCOLS`), the admission's own
+`captureProtocol` echo and the harness manifest's `captureProtocol`, and that a
+long run is a sentinel pass. A missing, unknown or disagreeing arm is refused; no
+signature is inferred from the manifest (W34's seed-3401 test named W34's arm and
+would call every W39 sentinel normal).
+
 Every glass cell's state carries its own frame and the frames of the
-dependencies `split.json` names for it; every native-only cell is archived as
-itself. Output goes to a new directory outside the repository; stdout is the
+dependencies `split.json` names for it, plus its opaque control's OWN no-glass
+reference (`opaqueNoGlass`: the control's background and pose, which for a colour
+cell's borrowed grey control is not the colour reference); every native-only cell
+is archived as itself. Output goes to a new directory outside the repository; stdout is the
 inventory's path, digest and counts, never a statistic.
 """
 import argparse
 import functools
 import hashlib
+import importlib.util
 import json
 from pathlib import Path
 import sys
@@ -31,11 +42,32 @@ from wave import RANK, ROOT, default_wave, native_only  # noqa: E402
 def sha(p): return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 
 
-def protocol_of(admission, manifest):
-    if admission.get('protocol') in ('normal', 'long'): return admission['protocol']
-    protocol = manifest.get('captureProtocol') or {}
-    # W34's long-protocol signature, kept until the sitting names the arm itself.
-    return 'long' if protocol.get('initialSettleSeconds') == 8 and protocol.get('orderSeed') == 3401 else 'normal'
+@functools.cache
+def sitting_protocols():
+    """The arms' capture settings as the sitting declares them: one source, not a copy."""
+    spec = importlib.util.spec_from_file_location('w39_sitting_protocols', HERE / 'sitting.py')
+    module = importlib.util.module_from_spec(spec); spec.loader.exec_module(module)
+    return module.PROTOCOLS
+
+
+def protocol_of(admission, manifest, manifest_sha=None, protocols=None):
+    """The arm the sitting admitted this run under, checked against what the harness did."""
+    protocols = protocols if protocols is not None else sitting_protocols()
+    arm = admission.get('protocol')
+    if arm not in ('normal', 'long') or arm not in protocols:
+        raise ValueError(f'admission names no protocol arm (normal | long): {arm!r}')
+    declared = protocols[arm]
+    if admission.get('captureProtocol') != declared:
+        raise ValueError(f'admission captureProtocol disagrees with the sitting\'s {arm} settings')
+    captured = manifest.get('captureProtocol') or {}
+    seen = {k: captured.get(k) for k in declared}
+    if seen != declared:
+        raise ValueError(f'manifest captureProtocol {seen} is not the {arm} arm {declared}')
+    if (arm == 'long') != str(admission.get('pass', '')).endswith('-sentinel'):
+        raise ValueError('the long arm is exactly the sentinel passes')
+    if manifest_sha is not None and admission.get('manifestSha256') != manifest_sha:
+        raise ValueError('admission names a different manifest')
+    return arm
 
 
 def attestation(entry): return {k: v for k, v in entry.items() if k != 'file'}
@@ -56,14 +88,16 @@ def load_runs(roots):
         if admission.get('admitted') is not True or admission.get('dry') is True:
             raise ValueError('producer input is not an admitted capture run: ' + str(root))
         manifest = json.loads((root / 'manifest.json').read_text())
+        manifest_sha = sha(root / 'manifest.json')
+        protocol = protocol_of(admission, manifest, manifest_sha)
         entries = {}
         for profile in manifest['profiles']:
             for fixture in profile['fixtures']:
                 key = (profile['profileKey'], fixture['sceneId'])
                 if key in entries: raise ValueError('run captured one cell twice: ' + str(key))
                 entries[key] = fixture
-        runs.append(dict(root=root, admission=admission, manifest=manifest,
-                         manifestSha=sha(root / 'manifest.json'), entries=entries))
+        runs.append(dict(root=root, admission=admission, manifest=manifest, protocol=protocol,
+                         manifestSha=manifest_sha, entries=entries))
     if len({r['root'] for r in runs}) != len(runs): raise ValueError('a run root is named twice')
     return runs
 
@@ -106,7 +140,12 @@ def groups_from(runs, wave):
         # frame came from belong to the run row; the state holds only what an
         # estimator reads, so byte-stable repeats de-duplicate.
         attested, origins = dict(native=attestation(entry)), dict(native=str(run['root']))
-        if not payload['nativeOnly']: deps = wave.dependencies[sid]
+        if not payload['nativeOnly']:
+            deps = dict(wave.dependencies[sid])
+            # The control's coverage is calibrated on ITS background, never the
+            # dependent's: carry that reference as a dependency of its own.
+            reference = reference_of(wave, deps['opaque'])
+            if reference is not None: deps['opaqueNoGlass'] = reference
         elif declared['kind'] == 'none': deps = {}
         else:
             # An opaque control's coverage is calibrated against the no-glass
@@ -123,7 +162,7 @@ def groups_from(runs, wave):
         if sources: payload['dependencies'] = sources
         admission = {k: run['admission'][k] for k in ('pass', 'run', 'protocol') if k in run['admission']}
         return dict(cell=profile + '/' + sid, run=str(run['root']), admitted=True, admission=admission,
-                    protocol=protocol_of(run['admission'], run['manifest']), payload=payload, inputHashes=hashes,
+                    protocol=run['protocol'], payload=payload, inputHashes=hashes,
                     attestation=attested, sources=origins)
 
     cells = sorted({key for run in runs for key in run['entries']})

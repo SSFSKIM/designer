@@ -13,7 +13,9 @@ What changes, and why:
   split names for it (the no-glass reference and the opaque control), uint8
   RGB in original coordinates, crop [0, 0, w, h]. At 320x280 a full frame
   costs little, and a full frame is the only crop that is complete for an
-  estimator nobody has written yet. A held-out cell's borrowed calibration
+  estimator nobody has written yet. The control's own no-glass reference
+  (`opaqueNoGlass`) is a separate frame with its own hash, because a borrowed
+  control's background is not its dependent's. A held-out cell's borrowed calibration
   dependencies are copied into its own role directory, so reading one role
   never needs another.
 - No registration is fitted or stored: W39's reader takes positions from the
@@ -34,7 +36,7 @@ import json
 from pathlib import Path
 import numpy as np
 
-PIXELS = ('rgb', 'noGlass', 'opaque')
+PIXELS = ('rgb', 'noGlass', 'opaque', 'opaqueNoGlass')
 SCHEMA = 'w39-archive-1'
 
 

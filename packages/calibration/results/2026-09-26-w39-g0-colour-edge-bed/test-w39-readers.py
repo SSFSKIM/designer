@@ -206,21 +206,56 @@ class Synthetic(unittest.TestCase):
         opaque = area_image(shape, 1, (280, 320), 255., 128.)
         bg = np.full_like(rgb, 128)
         frozen = lambda a: np.frombuffer(a.tobytes(), np.uint8).reshape(a.shape)
-        payload = dict(rgb=rgb, noGlass=bg, opaque=opaque, component=comp, scale=1, scheme='light',
-                       pose='active', backgroundKind='solid', sceneId='x', unknownKey=1)
-        again = dict(payload, rgb=frozen(rgb), noGlass=frozen(bg), opaque=frozen(opaque),
-                     component=json.loads(json.dumps(comp)))
+        oc = single('capsule-circular', (120, 44), (100, 118), opaque=True, fillSRGB=[255, 255, 255])
+        payload = dict(rgb=rgb, noGlass=bg, opaque=opaque, opaqueNoGlass=bg, component=comp, scale=1,
+                       scheme='light', pose='active', backgroundKind='solid', sceneId='x', unknownKey=1,
+                       dependencies=dict(opaque=dict(sceneId='x-opaque', component=oc),
+                                         opaqueNoGlass=dict(sceneId='x-ref', component=dict(kind='none'))))
+        again = dict(payload, rgb=frozen(rgb), noGlass=frozen(bg), opaque=frozen(opaque), opaqueNoGlass=frozen(bg),
+                     component=json.loads(json.dumps(comp)), dependencies=json.loads(json.dumps(payload['dependencies'])))
         a, b = R.analyse(payload), R.analyse(again)
         self.assertEqual(json.dumps(a, sort_keys=True), json.dumps(b, sort_keys=True))
         self.assertEqual(a['members'][0]['deep']['medianRGB'], [190.] * 3)
-        self.assertEqual(a['members'][0]['coverage']['source'], 'paired opaque control')
+        self.assertEqual((a['members'][0]['coverage']['source'], a['members'][0]['coverage']['controlSceneId'],
+                          a['members'][0]['coverage']['controlReferenceSceneId']),
+                         ('opaque control', 'x-opaque', 'x-ref'))
         # A native-only opaque cell (noGlass, no opaque) and a none reference.
-        oc = single('capsule-circular', (120, 44), (100, 118), opaque=True, fillSRGB=[255, 255, 255])
         o = R.analyse(dict(rgb=opaque, noGlass=bg, opaque=None, component=oc, scale=1))
         self.assertEqual(o['members'][0]['coverage']['source'], 'cell')
         self.assertNotIn('deep', o['members'][0])
         n = R.analyse(dict(rgb=bg, component=dict(kind='none'), scale=1))
         self.assertEqual(n['reference']['medianRGB'], [128.] * 3)
+
+
+    def test_borrowed_control_is_read_on_its_own_geometry_and_reference(self):
+        # Review P1-3: a colour glass cell borrows a white-over-grey-128 control whose
+        # attested origin differs from the glass's. Its coverage must equal the
+        # control's own native-only reading, whatever the glass cell's background.
+        comp = single('capsule-circular', (120, 44), (100, 118))
+        oc = single('capsule-circular', (120, 44), (100.25, 118.5), opaque=True, fillSRGB=[255, 255, 255])
+        colour = np.broadcast_to(np.array([69, 61, 63], np.uint8), (280, 320, 3)).copy()
+        grey = np.full((280, 320, 3), 128, np.uint8)
+        rgb = area_image(R.shapes_of(comp)[0], 1, (280, 320), 190., np.array([69., 61., 63.]))
+        control = area_image(R.shapes_of(oc)[0], 1, (280, 320), 255., 128.)
+        own = R.analyse(dict(rgb=control, noGlass=grey, component=oc, scale=1))['members'][0]['coverage']
+        deps = dict(opaque=dict(sceneId='g-opaque', component=oc), opaqueNoGlass=dict(sceneId='g-ref'))
+        glass = R.analyse(dict(rgb=rgb, noGlass=colour, opaque=control, opaqueNoGlass=grey, component=comp,
+                               scale=1, dependencies=deps))['members'][0]['coverage']
+        for key in ('fillRGB', 'backgroundRGB', 'bins', 'edges', 'frameOriginCss'):
+            self.assertEqual(glass[key], own[key], key)
+        self.assertEqual(glass['backgroundRGB'], [128.] * 3)
+        outside = [b['alpha'] for b in glass['bins'] if b['part'] != 'boundary' and b['shell'] >= 0
+                   and b['alpha'] is not None]
+        self.assertTrue(outside and all(a == 0 for a in outside))
+        # No reference and no component: never the dependent's.
+        without = R.analyse(dict(rgb=rgb, noGlass=colour, opaque=control, component=comp, scale=1,
+                                 dependencies=dict(opaque=dict(sceneId='g-opaque', component=oc))))
+        self.assertEqual(without['members'][0]['coverage']['backgroundRGB'], [128.] * 3)
+        with self.assertRaisesRegex(ValueError, 'own component'):
+            R.analyse(dict(rgb=rgb, noGlass=colour, opaque=control, opaqueNoGlass=grey, component=comp, scale=1))
+        with self.assertRaisesRegex(ValueError, 'not opaque'):
+            R.analyse(dict(rgb=rgb, opaque=control, component=comp, scale=1,
+                           dependencies=dict(opaque=dict(component=comp))))
 
 
 class HarnessPaths(unittest.TestCase):

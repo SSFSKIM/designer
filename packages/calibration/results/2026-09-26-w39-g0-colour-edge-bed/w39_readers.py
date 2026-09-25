@@ -24,7 +24,12 @@ generalised, never edited in place:
   UNMEASURED with its reason, never dropped;
 - opaque coverage is calibrated separately, from the opaque control's own deep fill
   and its own exterior (or the no-glass reference): nothing about the ordinary
-  fill's registration is transferred to the glass path.
+  fill's registration is transferred to the glass path. The transfer is refused
+  in the other direction too: a glass cell's control is read on the CONTROL's
+  attested geometry against the CONTROL's own no-glass reference (`opaqueNoGlass`),
+  never the glass cell's. A colour cell borrows a white-over-grey-128 control, and
+  calibrating that against the colour background would put a nonzero alpha on
+  every exterior pixel and move the measured edge.
 
 Everything here takes arrays and attested metadata; payload access belongs to the
 guarded role readers (W34's `wave.Reader`, W39's wave reader). The one W34 adapter
@@ -504,19 +509,64 @@ def _json(value):
     return value
 
 
+def _control_shapes(payload):
+    """The glass cell's control's OWN attested surfaces; the dependent's are never lent."""
+    component = ((payload.get('dependencies') or {}).get('opaque') or {}).get('component')
+    if component is None:
+        raise ValueError('an opaque control needs its own component; the glass geometry is not transferred')
+    shapes = shapes_of(component)
+    if not shapes or not all(s.opaque for s in shapes): raise ValueError('the control component is not opaque')
+    return shapes
+
+
+def _control_coverage(control, shapes, geo, reference, scale, source):
+    """Per member: coverage of an ordinary fill on its own geometry against its own reference.
+
+    `reference` is the control's own background's no-glass frame, or None, in which
+    case its own exterior beyond 6 CSS px stands in (W34's paired controls).
+    """
+    geo = geo or geometry(control.shape[:2], shapes, scale)
+    out = []
+    for m, shape in enumerate(shapes):
+        bins, labels = edge_bins(geo, m)
+        cal = calibrate_opaque(control, geo, reference, m)
+        if cal['fillRGB'] is None:
+            out.append(dict(status='UNMEASURED', reason='opaque fill population below four')); continue
+        alpha = opaque_coverage(control, cal['background'], cal['fillRGB'])
+        cov = read_bins(np.repeat(alpha[..., None], 3, -1), bins, labels, None)
+        sides = {side: {k: v for k, v in coverage_profile(alpha, shape, scale, side).items() if k != 'raw'}
+                 for side in SIDES}
+        out.append(dict(status='measured', source=source, fillRGB=cal['fillRGB'],
+                        backgroundSource=cal['backgroundSource'],
+                        backgroundRGB=np.median(np.broadcast_to(cal['background'], control.shape)
+                                                .reshape(-1, 3), 0).tolist(),
+                        frameOriginCss=list(shape.frame_origin),
+                        bins=[dict(part=r['part'], side=r['side'], bin=r['bin'], shell=r['shell'],
+                                   pixels=r['pixels'], alpha=None if r['meanRGB'] is None else r['meanRGB'][0])
+                              for r in cov],
+                        edges=sides))
+    return out
+
+
 def analyse(payload):
     """Per-run statistics of one captured cell, JSON-able (the archive producer's call).
 
-    payload: rgb, noGlass, opaque (HxWx3 uint8 full frames; noGlass/opaque may be
-    None), component (declared, with the manifest's suppliedPaths merged), scale,
-    scheme, pose, backgroundKind. For an opaque cell `rgb` is itself the ordinary
-    fill and is read as coverage; for a glass cell `opaque` is its paired control.
+    payload: rgb, noGlass, opaque, opaqueNoGlass (HxWx3 uint8 full frames; all but
+    rgb may be None), component (declared, with the manifest's suppliedPaths
+    merged), scale, scheme, pose, backgroundKind, and for a glass cell with a
+    control `dependencies.opaque.component`, the control's own merged component.
+    For an opaque cell `rgb` is itself the ordinary fill and is read as coverage
+    against `noGlass`, its own background's reference. For a glass cell `opaque`
+    is its control, paired or borrowed, and is read on its own geometry against
+    `opaqueNoGlass`; `noGlass` belongs to the glass cell and never calibrates it.
     """
     rgb = np.asarray(payload['rgb']); scale = int(payload['scale']); comp = payload['component']
     if rgb.ndim != 3 or rgb.shape[2] != 3: raise ValueError('rgb must be HxWx3')
     no_glass = None if payload.get('noGlass') is None else np.asarray(payload['noGlass'])
     opaque = None if payload.get('opaque') is None else np.asarray(payload['opaque'])
-    for name, a in [('noGlass', no_glass), ('opaque', opaque)]:
+    opaque_ref = None if payload.get('opaqueNoGlass') is None else np.asarray(payload['opaqueNoGlass'])
+    if opaque_ref is not None and opaque is None: raise ValueError('opaqueNoGlass without its opaque control')
+    for name, a in [('noGlass', no_glass), ('opaque', opaque), ('opaqueNoGlass', opaque_ref)]:
         if a is not None and a.shape != rgb.shape: raise ValueError(name + ' frame differs from rgb')
     out = dict(schema='w39-readers/1', scale=scale, scheme=payload.get('scheme'), pose=payload.get('pose'),
                backgroundKind=payload.get('backgroundKind'), componentKind=comp['kind'],
@@ -535,6 +585,15 @@ def analyse(payload):
         return out
     geo = geometry(rgb.shape[:2], shapes, scale)
     cell_is_opaque = all(s.opaque for s in shapes)
+    if cell_is_opaque and opaque is not None: raise ValueError('an opaque cell carries no second control')
+    coverage = _control_coverage(rgb, shapes, geo, no_glass, scale, 'cell') if cell_is_opaque else \
+        None if opaque is None else _control_coverage(opaque, _control_shapes(payload), None, opaque_ref,
+                                                      scale, 'opaque control')
+    if coverage is not None and not cell_is_opaque:
+        deps = payload['dependencies']
+        for c in coverage:
+            c.update(controlSceneId=deps['opaque'].get('sceneId'),
+                     controlReferenceSceneId=(deps.get('opaqueNoGlass') or {}).get('sceneId'))
     out['shapes'] = [dict(kind=s.kind, sizeCss=list(s.size), frameOriginCss=list(s.frame_origin),
                           rectDevice=s.rect(scale).tolist(), opaque=s.opaque,
                           straightRuns={k: (None if v is None else list(v))
@@ -555,26 +614,9 @@ def analyse(payload):
                 row['noGlassDeep'] = deep_body(no_glass, geo, m)
             row['profiles'] = {side: {k: v for k, v in straight_profile(rgb, shape, scale, side).items()
                                       if k != 'raw'} for side in SIDES}
-        control = rgb if cell_is_opaque else opaque
-        if control is not None:
-            cal = calibrate_opaque(control, geo, no_glass, m)
-            if cal['fillRGB'] is None:
-                row['coverage'] = dict(status='UNMEASURED', reason='opaque fill population below four')
-            else:
-                alpha = opaque_coverage(control, cal['background'], cal['fillRGB'])
-                cov = read_bins(np.repeat(alpha[..., None], 3, -1), bins, labels, None)
-                sides = {}
-                for side in SIDES:
-                    sides[side] = {k: v for k, v in coverage_profile(alpha, shape, scale, side).items()
-                                   if k != 'raw'}
-                row['coverage'] = dict(status='measured', source='cell' if cell_is_opaque else 'paired opaque control',
-                                       fillRGB=cal['fillRGB'], backgroundSource=cal['backgroundSource'],
-                                       backgroundRGB=np.median(np.broadcast_to(cal['background'], control.shape)
-                                                               .reshape(-1, 3), 0).tolist(),
-                                       bins=[dict(part=r['part'], side=r['side'], bin=r['bin'], shell=r['shell'],
-                                                  pixels=r['pixels'], alpha=None if r['meanRGB'] is None else r['meanRGB'][0])
-                                             for r in cov],
-                                       edges=sides)
+        if coverage is not None:
+            row['coverage'] = coverage[m] if len(coverage) == len(shapes) else dict(
+                status='UNMEASURED', reason=f'opaque control has {len(coverage)} members, this cell {len(shapes)}')
         members.append(row)
     out['members'] = members
     required = [b for r in members for b in r.get('bins', []) if b['part'] != 'boundary']
@@ -607,7 +649,13 @@ def w34_payload(cell, wave=None):
     profile = cell.split('/')[0]
     # W34's crop carries its paired opaque control (fill 0 on grey-255, whatever the
     # glass cell's backdrop), so the control's own exterior calibrates it, not a no-glass.
+    # The crop records one supplied path, the glass's; W34's control was drawn at that
+    # same declared frame, so it is named here as the control's own component, with
+    # the fill marked opaque, rather than lent silently inside the reader.
+    control = None if p.get('opaque') is None else dict(component={
+        **p['component'], 'suppliedPaths': [{**q, 'opaque': True} for q in p['component']['suppliedPaths']]})
     return dict(rgb=native, noGlass=None, opaque=p.get('opaque'), component=p['component'], scale=p['scale'],
+                dependencies=None if control is None else dict(opaque=control),
                 scheme='dark' if '-dark-' in profile else 'light',
                 pose='active' if cell.endswith('__rest') else 'inactive',
                 backgroundKind=p['backgroundKind'], role=wave.roles[cell.split('/')[1]],
