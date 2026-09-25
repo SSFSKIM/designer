@@ -1,6 +1,6 @@
 # W40 — the matrix's generations as files: a frozen-only `matrix.json` and indexed, immutable macOS 27 generation files, no history rewrite (2026-09-26)
 
-**Status: CHARTERED v1 (2026-09-26); adversarial review pending; G0 not dispatched.**
+**Status: CHARTERED v2 (2026-09-26; one adversarial round folded, 1 P1 / 3 P2); G0 DISPATCHED.**
 Chartered by the parent under the user's ruling of 2026-09-26 (W39 charter Decision Log 1): a
 small housekeeping wave after W39 G0's merge (`ba38ebbf`), to land before W39's conditional G3
 landing, moving FUTURE generations of `packages/calibration/results/matrix.json` to indexed
@@ -32,19 +32,35 @@ nothing in Git history moves.
    `results/generations/index.json` mapping every active and receded hash to its file, naming
    the current generation per profile, and carrying document paths and digests, rowCount, bytes
    and file SHA-256. A resealed read adds new files and changes only the index's "current"
-   selection; the previous file stays in `generations/` as retired. `results/superseded/` (15
+   selection; the previous file stays in `generations/` as retired. **A generation's identity
+   is the pair (active, receded-or-none)**; a document-hash alias enumerates EVERY owner across
+   both indexes (the archive's `sharedReceded` owners included), `loadGeneration(active)` refuses
+   an ambiguous active hash unless the receded qualifier is supplied (after `(A,R1)` in `A.json`
+   and a receded-only reseal `(A,R2)` in `A-R2.json`, both own A), and selecting the CURRENT
+   generation is a separate explicit operation from resolving one. `results/superseded/` (15
    files, 26 aliases) is untouched and its historical aliases are never repointed.
 3. **The union is the matrix, row for row and byte for byte.** After migration, the key-sorted
    union of the frozen file and the current generation files equals the pre-migration matrix
    row-for-row (1,893 cells, the same serialized keys) and byte-for-byte per row; no key appears
-   in two authoritative files; the 786 macOS 27 rows appear only in the new files.
+   in two authoritative files; the 786 macOS 27 rows appear only in the new files. The proof is
+   the STRONGER one the review verified is available: the union of the raw `{…}` row slices in
+   key order, with the splitter's original prefix, separator and suffix, reconstructs the
+   pre-migration file bit-identically (SHA-256 7df96c9246bc9b964fd6e173e742f49dcf493ccb360f7df505a0157240eaf0de);
+   a JSON reserialisation is not that proof.
 4. **Every reader reads the union; every writer publishes a generation.** One loader
    (`packages/calibration/src/matrix-store.ts`: `loadCurrentRows`, `loadCurrentProfile`,
    `loadGeneration(active, receded?)`, opt-in `iterateRecordedRows`) with a Python adapter for
    the evidence readers; the 14 maintained readers/writers the memo tabled are ported: compare
    and diff (scratch `--out-matrix` / `VITREA_MATRIX_PATH` stay ordinary schema-5 JSON; the
    canonical route stages in scratch and publishes each COMPLETE generation once, refusing a
-   replaced row or a colliding file name; `--write-partial` belongs to scratch only), the
+   replaced row or a colliding file name; `--write-partial` belongs to scratch only — and
+   **invocation success is not publication**: a generation declares its membership (profiles,
+   tiers, sets) up front, every run of that membership — calibration and validation, both tiers,
+   and the one holdout read after the configuration is frozen — is staged into the same scratch
+   generation, and the generation is published canonically ONCE when the declared membership is
+   complete; a request to publish calibration/validation canonically and append the holdout to
+   that same generation later is refused, because an immutable file admits no later rows and a
+   reseal would misrepresent an unchanged configuration), the
    splitter's future retirement as an index status over immutable files, the freeze verifier
    pointed at the frozen file, `check-capture-tree` on the union with archived hashes still
    classified, the adopted-thresholds rows M1/M2/C1/X1/L1 and tier-coherence on the union, the
@@ -53,9 +69,14 @@ nothing in Git history moves.
 5. **Recorded digests are history, not pins to rewrite.** W36 L1's whole-matrix SHA-256, W38
    E2's pre-W38 whole-file SHA (`e2.py` and `w38-e2.test.ts`), `vibrancy.ts`'s provenance SHA,
    and every W30–W38 evidence script's recorded whole-file digest keep their recorded values as
-   historical identifiers; their freshness checks convert to the named document generations'
-   digests; no recorded number is rewritten and no historical script is bulk-edited — a
-   pre-W40 script replays against the Git revision it read.
+   historical identifiers, and they stay CHECKABLE by a **streaming legacy-envelope digest**:
+   the loader can hash the key-ordered raw row slices with the legacy prefix, separator and
+   suffix without writing a file, so W38 E2 checks its recorded pre-W38 SHA against the envelope
+   of its NAMED input generations (and `e2.py`'s whole-declaration reconstruction keeps that
+   SHA), and W36 L1's freshness check hashes the CURRENT union's envelope (so it still certifies
+   the live input, and a new cut re-pins a new envelope digest beside the old); raw-file hashing
+   is retained for scratch overrides. No recorded number is rewritten and no historical script is
+   bulk-edited — a pre-W40 script replays against the Git revision it read.
 6. **Nothing else moves.** No scene, fixture, profile document, golden, adopted bound, floor,
    capture tree or W39 artifact changes; W39's wave-owned probe matrices are never imported into
    the canonical index; no Git attribute (`-delta`, `merge=ours`) is set; no LFS.
@@ -99,9 +120,13 @@ fixture tests (both layouts, a repeated receded SHA, active-only and receded-onl
 missing file, an altered hash, a duplicate row, the scratch override), the byte-slice
 migration with its before/after equality proof, the ported readers and tests, the demo's
 reduction and oracle, the freeze at 1,818, the capture-tree check on the union (the canonical
-tree if present), `CLAUDE.md`'s "Generations" paragraph rewritten beside its history. Writers
-stay as they are in G0 except that the canonical `compare` default REFUSES to write the frozen
-file (fail closed; scratch still works). Independent review, then merge.
+tree if present), `CLAUDE.md`'s "Generations" paragraph rewritten beside its history. **Every
+canonical write route fails closed in G0**: `compare` (its default AND any explicitly named
+authoritative destination), `diff --matrix` pointed at the frozen file or at any generation
+file, and the old splitter's `apply` once the layout has moved, all REFUSE with a message naming
+G1's publisher; genuinely separate scratch JSON stays writable; tests cover the default, an
+explicitly named authoritative path and a scratch path for each CLI. The publication
+implementation is G1's. Independent review, then merge.
 
 ### G1: The writers and the retirement route — one merge
 
@@ -109,8 +134,10 @@ Branch `w40-g1-writers`; evidence `…/2026-09-26-w40-g1-writers/`; ledger **§5
 clause 4's writer contract for `compare` and `diff`, the splitter's index-status retirement
 over immutable files (the old `apply` refuses once the layout has moved), a new append-checker
 manifest for indexed reads (W30's and W36's byte witnesses retained as history), the
-calibration README and the W39 charter's G3 recipe note (G3's writer publishes a generation).
-Independent review, then merge.
+staging/publication invocations with their partial-failure behaviour written into `CLAUDE.md`'s
+actual commands (the single-scene default, `--write-partial`, the holdout read) and the
+calibration README, and the W39 charter's G3 recipe note (G3 stages its whole membership and
+publishes once at the seal). Independent review, then merge.
 
 ## Cross-Child Contracts
 
@@ -148,7 +175,7 @@ matrix) → W39 G3 only after W40 G1.
 
 | child | status |
 | --- | --- |
-| G0 | not dispatched |
+| G0 | DISPATCHED 2026-09-26 (§5.189) |
 | G1 | — |
 
 ## Surprises & Discoveries
@@ -158,4 +185,11 @@ matrix) → W39 G3 only after W40 G1.
 
 ## Revision Notes
 
+- 2026-09-26 (v2, the parent): one adversarial round folded — P1 every canonical write route
+  (compare's named destinations, `diff --matrix`, the old splitter) fails closed in G0, not only
+  compare's default; P2 the two digest pins are served by a streaming legacy-envelope digest the
+  review verified reconstructs the current file bit-identically, so neither recorded SHA changes
+  meaning; P2 generation identity is (active, receded-or-none) with every-owner aliases and
+  refused ambiguity; P2 publication is one act after the declared membership including the
+  holdout read is complete, never an append to a published generation. G0 dispatched.
 - 2026-09-26 (v1, the parent): chartered from the W40 memo; adversarial review requested.
