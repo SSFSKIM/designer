@@ -1,6 +1,6 @@
 # W40 — the matrix's generations as files: a frozen-only `matrix.json` and indexed, immutable macOS 27 generation files, no history rewrite (2026-09-26)
 
-**Status: CHARTERED v2 (2026-09-26; one adversarial round folded, 1 P1 / 3 P2); G0 IMPLEMENTED; independent review pending.**
+**Status: G0 MERGED `4658dfee` (2026-09-26, §5.189); G1 (the publisher and the retirement route) next.**
 Chartered by the parent under the user's ruling of 2026-09-26 (W39 charter Decision Log 1): a
 small housekeeping wave after W39 G0's merge (`ba38ebbf`), to land before W39's conditional G3
 landing, moving FUTURE generations of `packages/calibration/results/matrix.json` to indexed
@@ -175,7 +175,7 @@ matrix) → W39 G3 only after W40 G1.
 
 | child | status |
 | --- | --- |
-| G0 | IMPLEMENTED 2026-09-26 (§5.189); verified, independent review pending |
+| G0 | MERGED 2026-09-26 as `4658dfee` (§5.189): frozen-only matrix 39,150,416 B, generations 19,788,488 / 10,630,441 B, equality proof exact (envelope 7df96c92…), freeze 1,818, canonical capture tree 1,893 matches exit 0; review 1 P1 (case-alias identity bypass) fixed, re-review clean |
 | G1 | — |
 
 ## Surprises & Discoveries
@@ -197,6 +197,14 @@ matrix) → W39 G3 only after W40 G1.
   exactly and creates only current entries; the store itself resolves retired generations.
 
 ## Revision Notes
+
+- 2026-09-26 (G0's merge, the parent): merged `4658dfee` after an independent review (one P1:
+  canonical paths classified by spelling, bypassed by a differently cased alias on this
+  case-insensitive filesystem in the guard and both adapters; fixed by filesystem identity) and a
+  clean re-review; freeze 1,818; `check-capture-tree` on the canonical tree 1,893 matches / 7
+  no-row / exit 0; nothing recorded rewritten. The worker's Surprises entries (the proof without
+  a materialised union, the restored red-state incident, the memo's `browser.py` correction, the
+  G1 classifier follow-up) are kept as written. Worktree removed.
 
 - 2026-09-26 (G0): store, byte-preserving migration, readers and fail-closed write routes
   implemented and verified on `w40-g0-generations`; 206 test files, 2,817 tests passed, one
