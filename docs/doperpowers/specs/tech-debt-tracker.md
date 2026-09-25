@@ -6304,7 +6304,10 @@ first written: commit `721c5c66` carried this entry and the checklist row but it
 edit never landed (the patch script wrote the file back unchanged), and that commit's run
 failed on the same import; the workflow change is `3946576d`, which sets up Python 3.12,
 installs numpy and pillow into the interpreter the tests call, and prints which interpreter
-that is. **Shape of
+that is. **Green again at `ddfd6e45` (2026-09-25 20:10Z):** both jobs succeed (numpy 2.5.3,
+pillow 12.3.0 on the runner; calibration 58 files, 760 passed, 2 skipped) after the W40 G1
+timeout budgets and the `ci-linux-replays` merge (the entry "Evidence replays assert bit-exact
+reproduction and CI runs on a different BLAS" below has the measured drift). **Shape of
 the remaining work:** the release checklist gains a row "CI green on main at the release
 commit" (added beside, not retroactively ticked for 0.24.0), and the merge recipe in
 `CLAUDE.md`'s Release paragraph should say a merge is checked against its CI run, not only
