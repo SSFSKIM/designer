@@ -27,8 +27,10 @@ An axis is REACHABLE only when every criterion holds at BOTH scales:
           1.0 device px over the -14 CSS inward / +4 CSS outward window) integrated over
           each raster line, at four fitted per-phase edges (zero's edge is the gauge);
         AMPLITUDE: the same profile at ONE fitted shared edge, with four per-phase gains on
-          (profile - exterior level) (zero's gain is the gauge);
-      (a) RSS_shift <= 0.5 * RSS_amplitude; (b) fitted edges nondecreasing in requested
+          (profile - exterior level) (zero's gain is the gauge), its alternating fit run
+          until one alternation lowers the RSS by <= 1e-10 relative, at most 200;
+      (a) RSS_shift <= 0.5 * RSS_amplitude, and not established (false) when the amplitude
+      fit at its edge did not converge; (b) fitted edges nondecreasing in requested
       phase within 1/32 device px; (c) the shared-profile design matrix at the fitted edges
       has full column rank (condition number reported; rank deficient = NOT IDENTIFIED);
       (d) leave one phase out: refit the profile and the other edges on three phases, fit
@@ -84,7 +86,7 @@ DECLARATION_CONSTANTS = dict(
     knotsDevicePx=1.0, shiftRSSRatio=0.5, edgeMonotonicitySlackDevicePx=1 / 32,
     minimumStates=3, nearTolerance='max(0.5,D_int_near)', farTolerance='max(0.5,D_int_far)',
     phaseZeroDriftTolerance=0.5, fullRank=True, leaveOnePhaseOut=True,
-    lopoQuantizationHalfCode=0.5)
+    lopoQuantizationHalfCode=0.5, amplitudeRelativeTolerance=1e-10, amplitudeMaxIterations=200)
 FLOOR = 0.5                 # the quantisation floor: one run has no observed repeat spread
 KNOT = DECLARATION_CONSTANTS['knotsDevicePx']
 RATIO = DECLARATION_CONSTANTS['shiftRSSRatio']
@@ -92,6 +94,8 @@ SLACK = DECLARATION_CONSTANTS['edgeMonotonicitySlackDevicePx']
 STATES = DECLARATION_CONSTANTS['minimumStates']
 DRIFT = DECLARATION_CONSTANTS['phaseZeroDriftTolerance']
 HALF_CODE = DECLARATION_CONSTANTS['lopoQuantizationHalfCode']
+AMPLITUDE_TOLERANCE = DECLARATION_CONSTANTS['amplitudeRelativeTolerance']
+AMPLITUDE_ITERATIONS = DECLARATION_CONSTANTS['amplitudeMaxIterations']
 INNER_CSS, OUTER_CSS = 14, 4
 QUAD = 8                    # W37's midpoint quadrature per raster line
 AXES = dict(x=dict(near='left', far='right', dim=0), y=dict(near='top', far='bottom', dim=1))
@@ -229,43 +233,72 @@ def fit_shift(coords, Y, attested, inward, knots, gauge=0):
                 condition=float(np.linalg.cond(As)))
 
 
-def fit_amplitude(coords, Y, attested, inward, knots, iterations=200):
-    """One shared edge, per-phase gains on (profile - exterior level), zero's gain 1."""
+def fit_amplitude(coords, Y, attested, inward, knots, tolerance=None, iterations=None):
+    """One shared edge, per-phase gains on (profile - exterior level), zero's gain 1.
+
+    At each candidate edge the bilinear fit alternates two exact least-squares steps, the
+    shared level and profile at held gains and then each gain at the held profile, so the
+    RSS never rises. It stops when one full alternation lowers the RSS by at most
+    `tolerance` relative to the previous alternation's, the first comparison being the
+    second alternation against the first: the first has no predecessor, and an infinite
+    one would satisfy any relative test (inf - x <= tolerance * inf) and stop the fit
+    after a single gain update, far from the amplitude model's minimum. A fit that reaches
+    `iterations` alternations without meeting the tolerance is REPORTED as unconverged,
+    its RSS an upper bound on the model's minimum, never tightened by raising the cap."""
+    tolerance = AMPLITUDE_TOLERANCE if tolerance is None else tolerance
+    iterations = AMPLITUDE_ITERATIONS if iterations is None else iterations
     n = len(Y)
+    Ys = np.vstack(Y)
+
+    def design(B, g):
+        return np.vstack([np.column_stack([np.ones(len(coords)), g[p] * B]) for p in range(n)])
 
     def at_edge(e):
         B = basis(coords, e, inward, knots)
         g = np.ones(n)
-        prev = np.inf
-        for _ in range(iterations):
-            A = np.vstack([np.column_stack([np.ones(len(coords)), g[p] * B]) for p in range(n)])
-            theta, value, _ = solve(A, np.vstack(Y))
+        prev, change, converged, used = None, None, False, 0
+        for used in range(1, iterations + 1):
+            theta, value, _ = solve(design(B, g), Ys)
             F = B @ theta[1:]
             L = theta[0]
+            denom = float(np.sum(F * F))
             for p in range(1, n):
-                denom = float(np.sum(F * F))
                 g[p] = float(np.sum((Y[p] - L) * F) / denom) if denom > 0 else 1.0
-            if prev - value <= 1e-10 * max(prev, 1):
-                break
+            if prev is not None:
+                change = (prev - value) / max(prev, 1)
+                if change <= tolerance:
+                    converged = True
+                    break
             prev = value
-        A = np.vstack([np.column_stack([np.ones(len(coords)), g[p] * B]) for p in range(n)])
-        theta, value, _ = solve(A, np.vstack(Y))
-        return value, g
+        theta, value, _ = solve(design(B, g), Ys)
+        return dict(rss=value, gains=g, converged=converged, alternations=used,
+                    lastRelativeDecrease=change)
+
+    evaluations = []
+
+    def rss(e):
+        fit = at_edge(e)
+        evaluations.append(fit['converged'])
+        return fit['rss']
 
     grid = np.arange(attested[0] - 1, attested[0] + 1 + 1e-9, 1 / 16)
-    scores = [at_edge(e)[0] for e in grid]
+    scores = [rss(e) for e in grid]
     best = float(grid[int(np.argmin(scores))])
     a, b = best - 1 / 16, best + 1 / 16
     gold = (np.sqrt(5) - 1) / 2
     while b - a > 1 / 1024:
         c, d = b - gold * (b - a), a + gold * (b - a)
-        if at_edge(c)[0] <= at_edge(d)[0]:
+        if rss(c) <= rss(d):
             b = d
         else:
             a = c
     edge = (a + b) / 2
-    value, gains = at_edge(edge)
-    return dict(edge=edge, rss=value, gains=gains.tolist())
+    fit = at_edge(edge)
+    return dict(edge=edge, rss=fit['rss'], gains=fit['gains'].tolist(), converged=fit['converged'],
+                alternations=fit['alternations'], lastRelativeDecrease=fit['lastRelativeDecrease'],
+                relativeTolerance=tolerance, maxAlternations=iterations,
+                searchEvaluations=len(evaluations),
+                searchEvaluationsUnconverged=int(len(evaluations) - sum(evaluations)))
 
 
 def leave_one_out(coords, Y, attested, inward, knots, tolerance):
@@ -398,7 +431,9 @@ def score_axis(axis, cells, scale):
     monotone = bool(np.all(np.diff(edges) * direction >= -SLACK))
     identified = sh['rank'] == sh['columns']
     lopo = leave_one_out(fc, Y, attested, inward, knots, far_tol)
-    ratio_ok = sh['rss'] <= RATIO * am['rss']
+    # RSS_amplitude is the amplitude model's MINIMUM; an unconverged fit gives only an
+    # upper bound on it, which could flatter the shift model, so (a) is not established.
+    ratio_ok = am['converged'] and sh['rss'] <= RATIO * am['rss']
     out['glassFar'] = dict(
         D_int_far=d_far, tolerance=far_tol, distinctStates=n_states, stateOfPhase=labels,
         statesPass=n_states >= STATES,
@@ -406,7 +441,13 @@ def score_axis(axis, cells, scale):
                    fittedOffsets=[float(e - attested[0]) for e in sh['edges']], attestedEdges=attested,
                    rank=sh['rank'], columns=sh['columns'], conditionNumber=sh['condition'],
                    knots=len(knots), samples=len(fc) * 4),
-        amplitude=dict(rss=am['rss'], sharedEdge=am['edge'], gains=am['gains']),
+        amplitude=dict(rss=am['rss'], sharedEdge=am['edge'], gains=am['gains'],
+                       converged=am['converged'], alternations=am['alternations'],
+                       lastRelativeDecrease=am['lastRelativeDecrease'],
+                       relativeTolerance=am['relativeTolerance'],
+                       maxAlternations=am['maxAlternations'],
+                       searchEvaluations=am['searchEvaluations'],
+                       searchEvaluationsUnconverged=am['searchEvaluationsUnconverged']),
         rssRatio=(sh['rss'] / am['rss']) if am['rss'] > 0 else None,
         criteria=dict(a_rssRatio=bool(ratio_ok), b_monotone=monotone, c_identified=bool(identified),
                       d_leaveOneOut=all(r['passes'] for r in lopo)),
