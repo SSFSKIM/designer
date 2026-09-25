@@ -1,0 +1,44 @@
+{
+  "residualBins": 66765,
+  "transferCells": 624,
+  "exactReproduction": true,
+  "checks": [
+    {
+      "family": "F1",
+      "scheme": "light",
+      "rank": 28,
+      "coefficientMaxDifference": 6.386557949156213e-14
+    },
+    {
+      "family": "F1",
+      "scheme": "dark",
+      "rank": 28,
+      "coefficientMaxDifference": 3.4861002973229915e-14
+    },
+    {
+      "family": "F2",
+      "scheme": "light",
+      "rank": 28,
+      "coefficientMaxDifference": 1.9148571617222387e-13
+    },
+    {
+      "family": "F2",
+      "scheme": "dark",
+      "rank": 28,
+      "coefficientMaxDifference": 2.353672812205332e-13
+    },
+    {
+      "family": "F3",
+      "scheme": "light",
+      "rank": 42,
+      "coefficientMaxDifference": 2.551493738511823e-11
+    },
+    {
+      "family": "F3",
+      "scheme": "dark",
+      "rank": 42,
+      "coefficientMaxDifference": 2.847999613919683e-13
+    }
+  ],
+  "quadratureCheck": "8 to16 with fixed coefficients, no refit or reselection"
+}

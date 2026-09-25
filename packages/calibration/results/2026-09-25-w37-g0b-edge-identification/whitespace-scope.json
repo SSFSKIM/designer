@@ -1,0 +1,8 @@
+{
+  "reason": "Preserved raw command logs are evidence, not hand-formatted source. They are not rewritten to claim an unqualified whitespace pass.",
+  "exceptions": [
+    {"file": "calibration-tests.txt", "line": 10, "finding": "new blank line at EOF"},
+    {"file": "workspace-build.txt", "line": 82, "finding": "trailing whitespace from Vite reporter"}
+  ],
+  "sourceAndSpecDiffCheck": "passed; only these raw log lines fail the staged check"
+}

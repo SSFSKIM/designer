@@ -1,0 +1,14 @@
+...
+----------------------------------------------------------------------
+Ran 3 tests in 0.054s
+
+OK
+F1 light shape {'width': 1.2, 'exponent': 4} rank 28 MSE 1.983304856777093e-05
+F1 dark shape {'width': 1.2, 'exponent': 4} rank 28 MSE 2.6030313057858933e-05
+F1 grey closes False [('light', 'calibration', 'circular', 7.742870423400505), ('light', 'calibration', 'diagnostic', 4.849217188834643), ('light', 'calibration', 'grey-straight', 6.880492169135906), ('light', 'validation', 'circular', 5.093591036033843), ('light', 'validation', 'diagnostic', 3.9946383826329654), ('light', 'validation', 'grey-straight', 5.093591036033843), ('dark', 'calibration', 'circular', 10.404695802001799), ('dark', 'calibration', 'diagnostic', 7.347129411036576), ('dark', 'calibration', 'grey-straight', 9.074443245112061), ('dark', 'validation', 'circular', 6.4529566613746585), ('dark', 'validation', 'diagnostic', 19.91131021671214), ('dark', 'validation', 'grey-straight', 19.91131021671214)]
+F2 light shape {'width': 2.4, 'exponent': 4} rank 28 MSE 2.0418836426283883e-05
+F2 dark shape {'width': 2.4, 'exponent': 4} rank 28 MSE 2.671613502640449e-05
+F2 grey closes False [('light', 'calibration', 'circular', 7.90184760267094), ('light', 'calibration', 'diagnostic', 5.494530276884348), ('light', 'calibration', 'grey-straight', 6.8249949560863), ('light', 'validation', 'circular', 5.315727003734773), ('light', 'validation', 'diagnostic', 4.912836351952848), ('light', 'validation', 'grey-straight', 5.315727003734773), ('dark', 'calibration', 'circular', 10.985203651286767), ('dark', 'calibration', 'diagnostic', 9.124238559759915), ('dark', 'calibration', 'grey-straight', 8.706336785074354), ('dark', 'validation', 'circular', 7.253432956300237), ('dark', 'validation', 'diagnostic', 20.135255298850414), ('dark', 'validation', 'grey-straight', 20.135255298850414)]
+F3 light shape {'width': 1.2, 'exponent': 4} rank 42 MSE 1.7620607000352963e-05
+F3 dark shape {'width': 1.2, 'exponent': 4} rank 42 MSE 2.388981676657669e-05
+F3 grey closes False [('light', 'calibration', 'circular', 7.507326209471785), ('light', 'calibration', 'diagnostic', 4.230449281255858), ('light', 'calibration', 'grey-straight', 5.926099773647837), ('light', 'validation', 'circular', 3.8435175862586393), ('light', 'validation', 'diagnostic', 2.847934422424686), ('light', 'validation', 'grey-straight', 3.234164509448874), ('dark', 'calibration', 'circular', 8.506612617236359), ('dark', 'calibration', 'diagnostic', 6.239552255144187), ('dark', 'calibration', 'grey-straight', 8.126100006270692), ('dark', 'validation', 'circular', 7.993987203207188), ('dark', 'validation', 'diagnostic', 20.637788963814273), ('dark', 'validation', 'grey-straight', 20.637788963814273)]
