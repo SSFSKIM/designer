@@ -141,6 +141,11 @@ accessibility policy Playwright cannot record.
       route, that route's own `../assets/` reference, and a native fixture all
       resolve. 2.0 MB including `dist/fixtures/` (the native captures, whose
       public distribution the user approved — Decision Log #30(e)).
+- [ ] **CI green on main at the release commit** (added 2026-09-26, tracker "CI was red from W35
+  G0a's merge…"): the `ci` workflow's `verify` and `integration` jobs both succeeded on the
+  exact commit being released, read from `gh run list` and recorded in the release's chain
+  evidence; the local chain is not a substitute. 0.24.0 did not have this row and was published
+  on a red `verify` job (numpy missing on the runner); recorded, not retroactively ticked.
 - [x] **GitHub Pages workflow written** (`.github/workflows/pages.yml`): builds
       `apps/demo/dist` and deploys on push to `main`.
 

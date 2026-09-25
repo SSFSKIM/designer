@@ -6287,3 +6287,21 @@ that resolves T > 0 is needed before any rim change is called priced there; (2) 
 ships as the literal [−0.7071, −0.7071], 8.15 ppm from unit — harmless, recorded. **Shape of the
 work:** the native colour-model bed of W38 Deferred at close 1, captured with the edge's
 directional controls in one sitting under X5.
+
+## CI was red from W35 G0a's merge to W40 G0's merge, and the 0.24.0 release went out on it
+
+2026-09-26, the parent, found while checking the W40 G0 merge's runs. The `verify` job failed on
+every push from `ea990213` (W35 G0a's merge, 2026-09-24 02:49Z) through `559bd1ca`
+(2026-09-25 18:13Z): the W35–W38 evidence tests shell out to `python3.12` scripts that
+`import numpy`, the runner image has no numpy, and every one of those tests reported
+`ModuleNotFoundError` — eight failures in the two W37 suites and one in W38's declaration
+test at the last red run. Every merge in that window verified green LOCALLY (the capture
+machine's `python3.12` has numpy and PIL), the Pages workflow stayed green (it builds the demo
+only), and the 0.24.0 release (2026-09-24 23:56Z) was cut and published with CI red on main.
+The release checklist gates on the local chain and the Pages workflow, not on the CI
+workflow's status at the release commit. **Fixed** in the same commit as this entry: the
+`verify` job sets up Python 3.12 and installs numpy and pillow before the suites. **Shape of
+the remaining work:** the release checklist gains a row "CI green on main at the release
+commit" (added beside, not retroactively ticked for 0.24.0), and the merge recipe in
+`CLAUDE.md`'s Release paragraph should say a merge is checked against its CI run, not only
+the local chain — a process rule, recorded here for the next release to execute.
