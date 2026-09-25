@@ -156,7 +156,9 @@ def load_current_rows(matrix_path=None, results_dir=None):
     """Key-ordered current union; explicit paths and VITREA_MATRIX_PATH are scratch files."""
     override = matrix_path or os.environ.get("VITREA_MATRIX_PATH")
     directory = pathlib.Path(results_dir) if results_dir else RESULTS
-    if override and pathlib.Path(override).resolve() != (directory / "matrix.json").resolve():
+    if override and not (pathlib.Path(override).exists() and
+                         (directory / "matrix.json").exists() and
+                         os.path.samefile(override, directory / "matrix.json")):
         return _unique(_load_matrix(pathlib.Path(override))[0])
     return _current(directory)[0]
 

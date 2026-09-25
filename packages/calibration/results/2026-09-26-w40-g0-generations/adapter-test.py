@@ -5,6 +5,7 @@ from matrix_store import (load_current_rows, load_current_profile, load_generati
 from snapshot import digest
 import copy
 import json
+import os
 import pathlib
 import re
 import tempfile
@@ -54,7 +55,14 @@ def synthetic():
                  "currentByProfile": {original["key"]["profileKey"]: current_name}}
         (generations / "index.json").write_text(json.dumps(index))
         rows = load_current_rows(results_dir=root)
-        assert len(rows) == 2 and any(key(row) == key(resealed) for row in rows)
+        assert len(rows) == 2
+        matrix_alias = root / "MATRIX.JSON"
+        if matrix_alias.exists() and os.path.samefile(matrix_alias, root / "matrix.json"):
+            assert len(load_current_rows(matrix_path=matrix_alias, results_dir=root)) == 2
+        hardlink = root / "frozen-hardlink.json"
+        os.link(root / "matrix.json", hardlink)
+        assert len(load_current_rows(matrix_path=hardlink, results_dir=root)) == 2
+        assert any(key(row) == key(resealed) for row in rows)
         assert len(load_generation("85ad7f7e3e0d", old_receded, results_dir=root)) == 1
         assert len(load_generation("85ad7f7e3e0d", new_receded, results_dir=root)) == 1
         try:
@@ -135,6 +143,9 @@ def main():
     assert legacy_envelope_digest(grouped) == EXPECTED
     current = load_current_rows()
     assert len(current) == 1893
+    case_alias = pathlib.Path(__file__).resolve().parents[1] / "MATRIX.JSON"
+    if case_alias.exists() and os.path.samefile(case_alias, case_alias.parent / "matrix.json"):
+        assert len(load_current_rows(matrix_path=case_alias)) == 1893
     assert [key(row) for row in sorted(grouped, key=key)] == [key(row) for row in current]
     assert legacy_envelope_digest(current) == EXPECTED
     assert legacy_envelope_digest([]) == digest(b'{\n  "schemaVersion": 5,\n  "cells": []\n}\n')

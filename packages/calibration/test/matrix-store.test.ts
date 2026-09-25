@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { mkdtempSync, mkdirSync, writeFileSync, rmSync, symlinkSync } from "node:fs";
+import { existsSync, linkSync, mkdtempSync, mkdirSync, writeFileSync, rmSync, symlinkSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, expect, test } from "vitest";
@@ -143,4 +143,24 @@ test("an explicit symlink to the frozen authority still reads the current union"
   const f = fixture(); f.add(); const alias = join(f.dir, "alias.json");
   symlinkSync(join(f.dir, "matrix.json"), alias);
   expect(loadCurrentRows({ ...f.options, matrixPath: alias })).toHaveLength(2);
+});
+
+test("case aliases and a hardlink of the frozen authority still read the current union", () => {
+  const f = fixture(); f.add();
+  const hardlink = join(f.dir, "frozen-hardlink.json");
+  linkSync(join(f.dir, "matrix.json"), hardlink);
+  expect(loadCurrentRows({ ...f.options, matrixPath: hardlink })).toHaveLength(2);
+  const caseAlias = join(f.dir, "MATRIX.JSON");
+  if (existsSync(caseAlias)) {
+    expect(loadCurrentRows({ ...f.options, matrixPath: caseAlias })).toHaveLength(2);
+  }
+});
+
+test("a casing alias of the recorded frozen matrix reads all 1,893 current rows", () => {
+  const canonical = join(import.meta.dirname, "../results/matrix.json");
+  const caseAlias = join(import.meta.dirname, "../results/MATRIX.JSON");
+  if (existsSync(caseAlias)) {
+    expect(loadCurrentRows({ matrixPath: caseAlias })).toHaveLength(1893);
+    expect(loadCurrentRows({ matrixPath: canonical })).toHaveLength(1893);
+  }
 });

@@ -4,10 +4,11 @@
  * reserialising evidence. Scratch matrices retain the ordinary schema-5 boundary.
  */
 import { createHash } from "node:crypto";
-import { existsSync, readFileSync, realpathSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { serializeResultCellKey, type CellResult } from "./report";
+import { sameFilesystemFile } from "./matrix-write-guard";
 
 export interface MatrixStoreOptions {
   readonly resultsDir?: string;
@@ -155,7 +156,7 @@ export function loadCurrentRows(options: MatrixStoreOptions = {}): readonly Cell
   const results = resultsPath(options);
   const explicit = options.matrixPath ?? process.env["VITREA_MATRIX_PATH"];
   const matrix = join(results, "matrix.json");
-  if (explicit && (!existsSync(matrix) || realpathSync(resolve(explicit)) !== realpathSync(matrix))) {
+  if (explicit && !sameFilesystemFile(resolve(explicit), matrix)) {
     return readRows(resolve(explicit));
   }
   const rows = readRows(matrix);

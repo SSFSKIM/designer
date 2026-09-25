@@ -173,3 +173,38 @@ Final result: ordered workspace build, lint and tests **pass**: 206 files, 2,817
 one existing X1 skip (no local capture tree). Calibration: 57 files, 737 passed / one skipped;
 demo: six files, 47 passed. The separate demo production build passes. `freeze.txt` records
 1,818 intact and `capture-tree.txt` records exit 0 against the original canonical tree.
+
+## Independent review correction — P1 filesystem identity
+
+The review of `b648834b` found one blocking issue: on this case-insensitive filesystem,
+`realpathSync()` could preserve a caller's case. Spelling comparison therefore accepted
+`results/MATRIX.JSON` and a case-aliased generation destination even though each named the
+same authoritative inode. The reviewer reproduced a successful `diff --matrix` write in a
+disposable copy. Both reader adapters also misclassified a case-aliased frozen pathname as
+scratch, returning 1,107 rows instead of the 1,893-row union. The original verification
+counts above are retained as the results of that implementation, not rewritten as evidence
+that this alias boundary was already protected.
+
+The correction resolves actual filesystem casing with `realpathSync.native()` on the longest
+existing prefix, then compares device/inode for existing frozen, generation, index and archive
+files. This protects hardlinks as well as casing and symlinks, and still refuses future JSON
+files under a case-aliased authoritative directory. The TypeScript reader shares the same
+file-identity predicate; Python uses `os.path.samefile`. Missing generation/archive directories
+are allowed during module initialization, preserving monolithic and scratch-only layouts.
+
+Regressions exercise upper-cased matrix, generation, index and superseded destinations,
+future targets and hardlinks in disposable copied-source repositories. Every real canonical
+JSON file's SHA is checked unchanged. Both adapters prove that frozen aliases return the full
+union; an old-layout source mirror catches premature dependence on generation directories.
+`review-identity.txt` establishes that the four case-alias branches actually execute on this
+filesystem rather than silently taking the case-sensitive-platform fallback.
+
+Review verification logs are separate: `review-build.txt`, `review-lint.txt`, `review-test.txt`,
+`review-adapter-test.txt`, `review-freeze.txt`, `review-demo-test.txt`, and
+`review-demo-build.txt`. No original result, row, digest, freeze pin or archive was rewritten.
+
+Correction verification passes: calibration build and lint/typechecks; **57 calibration files,
+740 tests passed / one existing X1 skip**; Python adapter parity and original legacy-envelope
+SHA; unchanged freeze **1,818 intact**; demo **six files / 47 passed** and production build.
+No canonical JSON changed relative to the reviewed commit. These are the correction's results,
+not replacements for the original totals above.

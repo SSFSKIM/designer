@@ -39027,3 +39027,36 @@ zero mismatch/misfiled/superseded/unreadable. The store's opt-in historical iter
 all **7,032** recorded rows (1,893 current plus 5,139 archived) under metadata/ownership checks.
 No browser suite or capture was run. Build warnings about chunk size and future native-config
 extension resolution are non-failing and recorded, not a fidelity verdict.
+
+### 5. Independent review correction — authoritative identity, not pathname spelling
+
+The review of `b648834b` returned **merge after fixes**, with one verified P1. The original
+G0 guard normalized symlinks but compared path spellings. On this case-insensitive filesystem,
+`realpathSync()` preserved an alias's casing: `results/MATRIX.JSON` and a case-aliased generation
+file named authoritative inodes yet passed the guard. The reviewer reproduced a successful
+`diff --matrix` append in a disposable copy. The TypeScript and Python readers likewise treated
+the frozen case alias as scratch, exposing only 1,107 rows instead of the union's 1,893.
+Section 4's first verification totals remain unchanged historical results; they did not test
+this boundary.
+
+The fix canonicalizes existing prefixes with Node's native realpath and compares existing
+files by **device/inode**, including frozen, generation, index and archived JSON. Hardlinks
+cannot bypass that check. Future JSON targets beneath a case-aliased authoritative directory
+are also refused. TypeScript's reader uses the same identity predicate; Python uses
+`os.path.samefile`. Neither adapter changes schema, rows, generation identity or envelope
+hashing. Absent generation/archive directories do not prevent importing the monolithic or
+scratch-only reader.
+
+New regressions failed before the correction and passed afterward. CLI attempts remain in
+disposable copied-source repositories; every real authoritative JSON SHA is checked unchanged.
+The cases cover matrix/generation/index/superseded case aliases, future destinations,
+symlinks/hardlinks, both readers' full-union selection and an old-layout import without indexed
+directories. `review-identity.txt` proves the alias branches are exercised on this machine.
+All correction logs use separate `review-*` names beside the first verification.
+
+**Correction verification:** calibration build and lint/typechecks pass; **57 files,
+740 tests passed / one existing X1 skip**. Python adapter parity passes with the original
+1,893-row legacy-envelope SHA unchanged; the unchanged freeze verifier again reads **1,818
+intact**. Demo tests pass **six files / 47 tests**, and its production build succeeds. The
+review correction changes no canonical JSON, profile, fixture, frozen pin or archive. These
+new totals are recorded beside, not substituted for, section 4's original verification.
