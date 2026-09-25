@@ -74,10 +74,14 @@ ungranted side bundle's first SCK call: **nobody clicks Allow**.
 The parent observed a prompt naming `VitreaReference` around 02:00 KST on 2026-09-26. Its client
 is **unattributed**. G0's `backgrounds` and `self-check` paths do not invoke ScreenCaptureKit;
 no G0 capture launch had occurred when it was observed. The parent reports that the companion attempt was refused because screenshot access to
-the TCC prompt was denied; it clicked nothing and changed nothing. User dismissal is still
-pending; dismissal time: **not yet attested (parent fills at merge)**. This document does
-not attest a dismissal or its client. An absent TCC row alone does not identify the
-prompting executable.
+the TCC prompt was denied; it clicked nothing and changed nothing. The parent reports the user's hand dismissed it with Deny at **2026-09-25T17:16Z
+(02:16 KST, 2026-09-26)**, and the window is gone. The parent's read-only system TCC query
+found no new client row in the prior30 minutes and still no W39 row; the user database
+remains unreadable. Either the prompt was stale after its requester exited or the answer
+landed in that unreadable database; neither is established. No client attribution or
+permission change is inferred. The saved rehearsal reads predate this dismissal; foreign
+capture-process exclusivity is the remaining rehearsal blocker, with the matching display
+mode to be set/read for each pass.
 
 ## Pass plan and sitting
 
@@ -130,8 +134,8 @@ follows the harness README's remove-and-re-add recipe, because a recorded denial
 the prompt, and that is the planned path anyway. An opening refusal names every failing gate
 in one message, and its `attest.open.json` and `session-before.json` are always kept.
 
-The preflight is two sitting passes per scale. Run 1 captures the 18 geometries; run 2 is the
-phase-zero pair repeated at the END. Then one scoring step freezes the verdict:
+The preflight is two sitting passes per scale. Run 1 captures the nine geometries x
+glass/opaque (18 captures); run 2 is the phase-zero pair repeated at the END. Then one scoring step freezes the verdict:
 
 ```bash
 VITREA_SITTING_DIR="$HOME/vitrea-w39/run" python3.12 "$E/preflight.py" run 1   # mode 69
@@ -248,3 +252,9 @@ calibration suite and lint have their own logs. `freeze-verify.txt` must remain 
 Independent correctness review is the parent's next gate; these implementation checks do not
 replace it. No W39 native pixel, measured repeat bar, preflight reachability or closing law is
 claimed by G0.
+
+Final checks: calibration54 files /718 passed /1 skipped; the seven W39 Python suites
+pass71 tests in total (including the7 synthetic preflight tests); calibration lint and all
+TypeScript checks pass; final freeze1,818 intact. `archive-exclusions-verify-final.txt` and
+`test-declaration-final.txt` name the final declaration. The native frame-recording path
+remains operationally unexercised and the TCC-level refusal rehearsal is still outstanding.

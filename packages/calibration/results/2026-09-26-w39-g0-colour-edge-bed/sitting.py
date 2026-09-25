@@ -7,8 +7,9 @@ the pinned side bundle only, explicit roots outside the repository, the macOS
 refused, at least sixty seconds of independent HID idle, and a failed run
 QUARANTINED under a new name, never retried or overwritten. What W39 changes:
 
-- The passes and their order: preflight-1x/2x (light active; run 1 is the 18
-  preflight geometries, run 2 the phase-zero pair repeated at the pass's END),
+- The passes and their order: preflight-1x/2x (light active; run 1 is the nine
+  preflight geometries x glass/opaque, 18 captures; run 2 the phase-zero pair
+  repeated at the pass's END),
   then active-1x, active-2x, inactive-1x and inactive-2x (seven runs; run 1 also
   carries the colour no-glass references), then the long-protocol sentinels
   (three runs each). A pass refuses if a later pass has started or an earlier one

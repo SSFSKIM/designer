@@ -38738,5 +38738,44 @@ colour evidence. H2′ fits only span44 calibration colours/neutrals; span64 cal
 controls and span96 validation controls test transfer without moving the split. A colour
 survivor's thick miss is recorded as that row's miss beside survival, not attributed to its
 colour law, and no G3 transfer gate is waived. Shared thin/thick shifts are declined because
-they move an unidentifed thick response. Superseded declaration `834f3cd29358a175f82f83c2e688e064552c9fb50e1956511a9e8f0b700d108a`
+they move an unidentified thick response. Superseded declaration `834f3cd29358a175f82f83c2e688e064552c9fb50e1956511a9e8f0b700d108a`
 is retained; the final declaration is **`6467da8560f0485c719eef76914b2728db1443d3f7c836fd9595ad51377432ba`**.
+
+Operational update after the recorded opening refusals: the parent reports the user
+dismissed the unattributed prompt with **Deny at2026-09-25T17:16Z (02:16 KST,2026-09-26)**
+and the window is gone. Its subsequent read-only system TCC query found no new row for any
+client in the previous30 minutes and still no W39 row; the user database remains unreadable.
+The requester may have exited before a stale prompt was answered, or the answer may be in
+that unreadable database; neither explanation is established. The historical refusal
+reads are preserved. Foreign capture-process exclusivity remains the rehearsal blocker;
+the display must be set/read at the matching scale at pass time. No new rehearsal ran.
+
+### 9. Verification and the synthetic branches
+
+The workspace `pnpm install --silent && pnpm -r build` completed before tests. The final
+calibration suite passes **54 files, 718 tests, one skipped**; it invokes all seven W39
+Python suites, **71 tests** in total (pass-spec4, wave11, archive8, release7, reader18,
+sitting16, preflight7). Calibration ESLint and all its TypeScript checks pass. The side
+binary's non-GUI self-check reports all rows hold. The final freeze read again reports
+**1,818 intact**. The shell wrapper around the successful final suite used zsh's read-only
+`status` variable and stopped before its chained freeze command; that wrapper defect was
+identified, not called a suite failure, and the freeze was then executed separately with
+its own successful log. No tests were retried to hide a failing measurement.
+
+The preflight's synthetic record in `test-preflight.txt` admits the true translated profile
+at both axes/scales: rank21/21 at1x and39/39 at2x, condition about102–190, RSS ratios
+0.00202–0.00307 and fitted offsets close to0/.25/.5/.75. Its largest held-phase excess above
+the propagated rounding term is0.07, within the independent0.5 floor. Amplitude-only
+changes are rejected (RSS ratios3.3–5.5 versus≤0.5, held-phase excess0.67–4.05); a snapped
+raster is rejected with only two distinct states and held-phase excess up to5.2. One-axis
+admission includes only that axis and its shared zero, eight scenes per pose/scale; end-repeat
+drift marks the scale UNMEASURED and admits neither axis. These are synthetic test outcomes,
+not observations of macOS's phase reachability.
+
+`test-declaration-final.txt` proves all five generated declarations reproduce byte-for-byte
+at the final pin, and that `pass-plan.json` reproduces identically. The final archive verification
+recomputes every recorded exclusion under declaration `6467da85…` while preserving the
+recorded `b0344704…` provenance. Protected tracked paths have no diff from G0's base. Compiler
+and test stdout is retained verbatim, including its emitted whitespace; no substantive source
+whitespace errors are present. The next gate is the parent's independent correctness review;
+the TCC-level rehearsal remains explicitly outstanding rather than relabelled as complete.

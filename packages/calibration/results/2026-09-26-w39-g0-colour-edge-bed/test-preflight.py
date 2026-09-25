@@ -1,0 +1,270 @@
+#!/usr/bin/env python3.12
+"""W39 preflight scoring tests on SYNTHETIC PNGs, both branches (c9a §5.184; clause 4).
+
+No native pixel is read. Each scenario renders the nine preflight geometries x glass/opaque
+and the end repeat at both scales from an analytic radius-22 rounded rectangle, supersampled 4x4
+per device pixel: the opaque control as exact fill coverage over grey 128, the glass as
+a made-up profile of signed distance (an exterior shadow, a body, a one-CSS-px ramp line
+and a shoulder, slightly different per channel). The supplied paths are the harness's
+committed export for the preflight components, so the reader reads them exactly as it
+will read a real manifest. Scenarios:
+
+  shift      the raster follows the requested size          -> both axes reachable
+  quantised  the raster snaps each edge to 1/2 device px    -> both unreachable
+  amplitude  opaque follows, glass keeps the phase-zero edge
+             and changes its line amplitude with the phase  -> unreachable (the glass far test)
+  one-axis   x follows, y quantised                         -> x only
+  drift      the glass END repeat is one code brighter      -> UNMEASURED-drift, none admitted
+Run: python3.12 test-preflight.py
+"""
+import importlib.util
+import json
+import math
+from pathlib import Path
+import tempfile
+import unittest
+
+import numpy as np
+from PIL import Image
+
+HERE = Path(__file__).resolve().parent
+
+
+def load(name, file):
+    spec = importlib.util.spec_from_file_location(name, HERE / file)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+P = load('w39_preflight_under_test', 'preflight.py')
+T = load('w39_test_sitting_helpers', 'test-sitting.py')
+CANVAS = (320, 280)
+SS = 4
+
+
+def inward_distance(xs, ys, frame, scale):
+    """Signed distance, device px, positive inside, of an analytic radius-22 rrect."""
+    x0, y0, w, h = [v * scale for v in frame]
+    r = 22 * scale
+    cx, cy = x0 + w / 2, y0 + h / 2
+    qx = np.abs(xs - cx) - (w / 2 - r)
+    qy = np.abs(ys - cy) - (h / 2 - r)
+    outside = np.hypot(np.maximum(qx, 0), np.maximum(qy, 0)) + np.minimum(np.maximum(qx, qy), 0)
+    return r - outside
+
+
+def glass(t, scale, amplitude=24.0):
+    t_css = t / scale
+    ext = 128 - 14 * np.exp(np.minimum(t_css, 0) / 4)
+    body = 160 + amplitude * np.maximum(1 - t_css / 1.2, 0) + 6 * np.exp(-np.maximum(t_css, 0) / 3)
+    value = np.where(t >= 0, body, ext)
+    return value[..., None] * np.array([1.0, 0.985, 1.02])
+
+
+def render(frame, scale, opaque, amplitude=24.0, offset=0.0, quantise=True):
+    W, H = CANVAS[0] * scale, CANVAS[1] * scale
+    x0, y0, w, h = [v * scale for v in frame]
+    pad = 24 * scale
+    c0, c1 = max(0, math.floor(x0 - pad)), min(W, math.ceil(x0 + w + pad))
+    r0, r1 = max(0, math.floor(y0 - pad)), min(H, math.ceil(y0 + h + pad))
+    sub = (np.arange(SS) + .5) / SS
+    xs = (np.arange(c0, c1)[:, None] + sub[None, :]).ravel()
+    ys = (np.arange(r0, r1)[:, None] + sub[None, :]).ravel()
+    t = inward_distance(xs[None, :], ys[:, None], frame, scale)
+    if opaque:
+        value = (128 + (t >= 0) * 127.0)[..., None] * np.ones(3)
+        outside = np.full(3, 128.0)
+    else:
+        value = glass(t, scale, amplitude) + offset
+        outside = glass(np.array(-1e6), scale)[0] + offset
+    block = value.reshape(r1 - r0, SS, c1 - c0, SS, 3).mean((1, 3))
+    image = np.empty((H, W, 3))
+    image[:] = outside
+    image[r0:r1, c0:c1] = block
+    return np.clip(np.round(image), 0, 255).astype(np.uint8) if quantise else image
+
+
+def snapped(frame, scale):
+    """The window server rounding each edge DOWN to a half device pixel."""
+    x0, y0, w, h = frame
+    right = math.floor((x0 + w) * scale * 2) / 2 / scale
+    bottom = math.floor((y0 + h) * scale * 2) / 2 / scale
+    return (x0, y0, right - x0, bottom - y0)
+
+
+def scenario_frames(spec, scale, name):
+    """Per scene id: (frame to RENDER, glass amplitude)."""
+    out = {}
+    for scene in spec['scenes']:
+        comp = spec['components'][scene['component']]
+        w, h = comp['size']
+        frame = (comp['position'][0] - w / 2, comp['position'][1] - h / 2, w, h)
+        axis = scene['$phaseAxis']
+        geometry = scene['$geometry']
+        amplitude = 24.0
+        quantise = name == 'quantised' or (name == 'one-axis' and geometry.startswith('y'))
+        if quantise:
+            frame = snapped(frame, scale)
+        if name == 'amplitude' and not comp.get('opaque') and axis in ('x', 'y') \
+                and not geometry.endswith('integer'):
+            k = int(geometry[1])
+            frame = (frame[0], frame[1], 120.0, 44.0)
+            amplitude = 24.0 + 3 * k
+        out[scene['id']] = (frame, amplitude, bool(comp.get('opaque')))
+    return out
+
+
+def build_root(root, name):
+    """A sitting root as the sitting would leave it after both preflight passes."""
+    for scale in (1, 2):
+        passdir = root / f'preflight-{scale}x'
+        for run in (1, 2):
+            doc = T.load().pass_doc('preflight', scale, run, (), False)
+            (passdir / f'run-{run}').mkdir(parents=True)
+            (passdir / f'scenes-run-{run}.json').write_text(json.dumps(doc, indent=2) + '\n')
+            manifest = T.manifest(doc, 'active', scale, f'w39-preflight-{scale}x-{run}')
+            frames = scenario_frames(doc, scale, name)
+            for p in manifest['profiles']:
+                for f in p['fixtures']:
+                    frame, amplitude, opaque = frames[f['sceneId']]
+                    offset = 1.0 if (name == 'drift' and run == 2 and scale == 2) else 0.0
+                    path = passdir / f'run-{run}' / f['file']
+                    path.parent.mkdir(parents=True, exist_ok=True)
+                    Image.fromarray(render(frame, scale, opaque, amplitude, offset)).save(path)
+            (passdir / f'run-{run}/manifest.json').write_text(json.dumps(manifest))
+            (passdir / f'run-{run}/admission.json').write_text(json.dumps(dict(admitted=True)))
+
+
+VERDICTS = {}
+
+
+def verdict(name):
+    if name not in VERDICTS:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            build_root(root, name)
+            VERDICTS[name] = P.verdict(root)
+            json.loads((root / 'preflight-verdict.json').read_text())
+            try:
+                P.verdict(root)
+                raise AssertionError('a second verdict overwrote the frozen one')
+            except ValueError:
+                pass
+    return VERDICTS[name]
+
+
+class Constants(unittest.TestCase):
+    def test_constants_equal_the_declaration(self):
+        closure = json.loads((HERE / 'closure.json').read_text())['preflight']
+        self.assertEqual(P.DECLARATION_CONSTANTS, closure)
+        text = (HERE / 'bounds-declaration.txt').read_text()
+        flat = ' '.join(text.split())
+        for phrase in ['max(0.5,D_int_near)', 'max(0.5,D_int_far)+0.5*||w_i||_1',
+                       'RSS_shift<=0.5*RSS_amplitude', '1.0 DEVICE px', '1/32 device px', '>=3 distinct']:
+            self.assertIn(phrase, flat)
+
+    def test_model_columns_are_the_readers_area_average(self):
+        coords = np.arange(200, 240)
+        knots = np.arange(-10, 30.5, P.KNOT)
+        B = P.basis(coords, 219.625, -1, knots)
+        R = P.R
+        step = R.area_average(coords, 219.625, 2, lambda u: (u >= 0).astype(float), -1)
+        self.assertTrue(np.allclose(B[:, 0], step))
+        k = knots[25]
+        hat = R.area_average(coords, 219.625, 2, lambda u: np.clip(1 - np.abs(u * 2 - k) / P.KNOT, 0, None), -1)
+        self.assertTrue(np.allclose(B[:, 26], hat))
+
+
+class Branches(unittest.TestCase):
+    def test_shift_admits_both_axes(self):
+        v = verdict('shift')
+        self.assertEqual(v['reachableAxes'], ['x', 'y'], json.dumps(v['axes'], indent=1))
+        self.assertEqual(v['branch'], 'both')
+        self.assertEqual(len([s for s in v['admittedScenes'] if '-1x-' in s and s.endswith('__rest')]), 14)
+        for scale in ('1x', '2x'):
+            for axis in ('x', 'y'):
+                a = v['scales'][scale]['axes'][axis]
+                self.assertTrue(a['opaque']['nearByteIdentical'])
+                self.assertGreaterEqual(a['opaque']['farDistinctByteStates'], 3)
+                self.assertTrue(all(a['glassFar']['criteria'].values()), a['glassFar']['criteria'])
+                self.assertEqual(a['glassFar']['shift']['rank'], a['glassFar']['shift']['columns'])
+                for row in a['glassFar']['leaveOneOut']:
+                    self.assertEqual(len(row['propagatedRoundingPerSample']), row['sampledCoordinates'])
+                offsets = np.asarray(a['glassFar']['shift']['fittedOffsets'])
+                self.assertTrue(np.allclose(offsets, [0, .25, .5, .75], atol=1 / 16), offsets)
+
+    def test_quantised_raster_is_unreachable(self):
+        v = verdict('quantised')
+        self.assertEqual(v['reachableAxes'], [])
+        self.assertEqual(v['branch'], 'neither')
+        self.assertEqual(v['admittedScenes'], [])
+        for scale in ('1x', '2x'):
+            for axis in ('x', 'y'):
+                a = v['scales'][scale]['axes'][axis]
+                self.assertEqual(a['status'], 'fail')
+                self.assertLess(a['opaque']['farDistinctByteStates'], 3)
+                self.assertLess(a['glassFar']['distinctStates'], 3)
+                self.assertFalse(a['glassFar']['criteria']['d_leaveOneOut'])
+
+    def test_amplitude_change_is_not_a_phase(self):
+        v = verdict('amplitude')
+        self.assertEqual(v['reachableAxes'], [])
+        for scale in ('1x', '2x'):
+            for axis in ('x', 'y'):
+                a = v['scales'][scale]['axes'][axis]
+                self.assertTrue(a['opaque']['passes'])             # the fill path did move
+                c = a['glassFar']['criteria']
+                self.assertFalse(c['a_rssRatio'], c)
+                self.assertFalse(c['d_leaveOneOut'], c)
+                self.assertTrue(c['c_identified'], c)
+                self.assertEqual(a['status'], 'fail')
+
+    def test_one_axis_admits_only_that_axis(self):
+        v = verdict('one-axis')
+        self.assertEqual(v['reachableAxes'], ['x'])
+        self.assertEqual(v['branch'], 'x-only')
+        rest = [s for s in v['admittedScenes'] if '-2x-' in s and s.endswith('__rest')]
+        self.assertEqual(len(rest), 8)
+        self.assertFalse(any('-y' in s for s in v['admittedScenes']))
+
+    def test_drift_is_unmeasured_not_unreachable(self):
+        v = verdict('drift')
+        self.assertFalse(v['scales']['2x']['endSentinel']['passes'])
+        self.assertTrue(v['scales']['1x']['endSentinel']['passes'])
+        for axis in ('x', 'y'):
+            self.assertEqual(v['axes'][axis]['status'], 'UNMEASURED-drift')
+        self.assertEqual(v['reachableAxes'], [])
+
+
+def record():
+    """The synthetic beds' numbers, printed so the committed test output is their record."""
+    print('\nSYNTHETIC-BED RECORD (knots %.1f device px; tolerance max(0.5,D_int_far) + 0.5|w_i|_1)'
+          % P.KNOT)
+    for name in ('shift', 'amplitude', 'quantised', 'one-axis', 'drift'):
+        v = verdict(name)
+        print(f'{name}: reachable={v["reachableAxes"]} branch={v["branch"]} '
+              f'admitted={len(v["admittedScenes"])}')
+        for scale in ('1x', '2x'):
+            s = v['scales'][scale]
+            if not s['endSentinel']['passes']:
+                print(f'  {scale}: end sentinel FAILED -> UNMEASURED-drift')
+                continue
+            for axis in ('x', 'y'):
+                a = s['axes'][axis]
+                g = a['glassFar']
+                lopo = ' '.join(f'{r["heldOut"]}:{r["maxResidual"]:.2f}/{r["maxPropagatedRounding"]:.2f}'
+                                f'/{r["maxResidualBeyondPropagated"]:+.2f}' for r in g['leaveOneOut'])
+                print(f'  {scale} {axis}: {a["status"]:<5} opaqueStates={a["opaque"]["farDistinctByteStates"]} '
+                      f'glassStates={g["distinctStates"]} D_int_far={g["D_int_far"]:.2f} '
+                      f'ratio={g["rssRatio"]:.3g} rank={g["shift"]["rank"]}/{g["shift"]["columns"]} '
+                      f'cond={g["shift"]["conditionNumber"]:.3g} '
+                      f'offsets={[round(o, 3) for o in g["shift"]["fittedOffsets"]]}')
+                print(f'      LOPO held-out max|r| / max 0.5|w|_1 / max excess: {lopo}')
+
+
+if __name__ == '__main__':
+    result = unittest.main(verbosity=2, exit=False).result
+    if result.wasSuccessful():
+        record()
+    raise SystemExit(0 if result.wasSuccessful() else 1)
