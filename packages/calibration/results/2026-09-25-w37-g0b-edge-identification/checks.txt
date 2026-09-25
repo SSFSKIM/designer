@@ -1,0 +1,37 @@
+W37 G0b verification, c9a §5.182
+
+Setup: branch from main f6dabeca; pnpm install --silent && pnpm -r build passed
+before scoring. workspace-build.txt retains output (ordinary chunk-size warning).
+Declaration:89f45616 precedes scoring; SHA pinned by w37-g0b-declaration.test.ts.
+Freeze before and after:1818 entries intact (freeze-before.txt/freeze-after.txt).
+
+G0 replay and score reproduction: all numeric fields exact. Its replay command
+initially failed because it compared absolute source/guard worktree paths.
+g0-replay-reproduction.json records those strings separately; the new sibling
+verifier compares every other field. The inherited G0 test now uses the wrapper.
+G0 canonical E1 and placement also reproduce exactly, as do derived old-rim,
+bar, memo diagnostics and retained black provenance. No historical output edited.
+
+New Python instrument tests:3 passed. E1 missing-side/shell tests:2 passed.
+The retained red logs show the absent new law and the old reader's real omission.
+The score entry point reruns the integration/synthetic tests before scoring.
+Independent verifier:all66765 bins and624 transfer tables exactly reproduce;
+chosen coefficient errors<=2.56e-11. Quadrature sensitivity<=.064794 code.
+Symmetry witness:all45 shapes of each family, both scales; floor1.5 codes.
+
+Full pnpm --filter @vitrea/calibration test:50 files,700 passed, no skips.
+VITREA_WEB_CAPTURES pointed read-only to the main canonical tree for X1.
+ESLint passed. Initial tsc found one possibly-undefined indexed RGB access in
+the new test; the fixed three-channel guarantee is now asserted at that access.
+Final pnpm --filter @vitrea/calibration lint passed:ESLint and all four tsc
+projects. The correction is type-only; no score or runtime logic changed.
+
+No browser run, native capture, native GUI bundle build/launch/grant, holdout
+payload read, protected src/profile/fixture/matrix/scene/capture write, shader,
+prototype or release step. The inherited W34 unit CLI harness self-check is
+not a GUI capture run. Canonical web pixels were read only through the existing
+guards (and X1's established unit test). No capture tree needs to move at merge.
+
+scope-audit.json confirms no protected tracked path differs from f6dabeca and
+no G0/W35 evidence file differs. README.txt and §5.182 describe the hard stop.
+Parent owns independent correctness review and the closing ruling.

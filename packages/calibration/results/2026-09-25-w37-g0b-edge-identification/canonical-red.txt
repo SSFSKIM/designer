@@ -1,0 +1,21 @@
+FF
+======================================================================
+FAIL: test_all_shells_and_small_populations_remain (__main__.Canonical.test_all_shells_and_small_populations_remain)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/Developer/GitHub/designer/.claude/worktrees/agent-w37-g0b/packages/calibration/results/2026-09-25-w37-g0b-edge-identification/test-canonical.py", line 24, in test_all_shells_and_small_populations_remain
+    self.assertEqual(len(bins),48)
+AssertionError: 40 != 48
+
+======================================================================
+FAIL: test_capsule_absent_sides_are_explicit (__main__.Canonical.test_capsule_absent_sides_are_explicit)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/Developer/GitHub/designer/.claude/worktrees/agent-w37-g0b/packages/calibration/results/2026-09-25-w37-g0b-edge-identification/test-canonical.py", line 13, in test_capsule_absent_sides_are_explicit
+    self.assertEqual(len(bins),24)
+AssertionError: 12 != 24
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.002s
+
+FAILED (failures=2)

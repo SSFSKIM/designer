@@ -1,0 +1,31 @@
+{
+  "residualBins": 44510,
+  "transferCells": 416,
+  "exactReproduction": true,
+  "checks": [
+    {
+      "space": "linear",
+      "scheme": "light",
+      "nativeOnlyCoefficientDifference": 1.7119639039719914e-13,
+      "rank": 5
+    },
+    {
+      "space": "linear",
+      "scheme": "dark",
+      "nativeOnlyCoefficientDifference": 1.8340884366807586e-13,
+      "rank": 5
+    },
+    {
+      "space": "encoded",
+      "scheme": "light",
+      "nativeOnlyCoefficientDifference": 5.0182080713057076e-14,
+      "rank": 5
+    },
+    {
+      "space": "encoded",
+      "scheme": "dark",
+      "nativeOnlyCoefficientDifference": 9.703349235223868e-14,
+      "rank": 5
+    }
+  ]
+}

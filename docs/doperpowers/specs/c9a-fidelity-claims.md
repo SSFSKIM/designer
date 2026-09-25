@@ -38032,3 +38032,220 @@ inherited tracker-only advance in addition to G0's owned paths, not a change
 made by this gate. `derived.py --verify` also passes against the committed
 numerical grounding pins, without depending on the private memo files. The
 bounded next step is parent review and DL1, not an implicit third family or G1a.
+
+
+## 5.182 W37 G0b: the expanded edge budget fails; an even-normal obstruction closes the identification (2026-09-25)
+
+**Checkpoint: DELIVERED FOR REVIEW. Recommend close W37 at the finding.** The
+ruled hard stop in charter v3's G0b and Decision Log 1 fires: no declared family
+closes the calibration greys' straight bins at both scales. No G0c, prototype,
+shader or G1a follows. Branch `w37-g0b-edge-identification`, parent `f6dabeca`;
+evidence `packages/calibration/results/2026-09-25-w37-g0b-edge-identification/`.
+There is no material, profile, fixture, matrix, scene or capture change. This
+section records the worker's finding and draft closing disposition, not the
+parent's final ruling. Decision Logs 2 and 4 retain their ruled meaning.
+
+### 1. The larger budget was committed before scoring
+
+Declaration commit **`89f45616`**, `bounds-declaration.txt` SHA-256
+**`0ddc766612ab8f84143b7cef665e889c80437c423fc39e8253564d51b4f769bd`**,
+pinned by `w37-g0b-declaration.test.ts` before any new score. Three families,
+all encoded native-deep conditioned: **F1 ramp/affine**, **F2 squared/affine**,
+and **F3 ramp/quadratic**, the second level form opened only after both affine
+families failed the calibration grey straights. No fourth family was opened.
+
+The line has width **0.8…2.4 CSS px by 0.2** and an even vertical lobe with
+power **1/2/3/4/6**. Its signed, independently shaped shoulder has cardinal
+spline knots **0/2/6/12 CSS px**, three free signed ordinates, zero at 12,
+with separate isotropic and vertical components. Each radial component gets
+its own luminance and chroma polynomial: affine gives **28 coefficients** per
+scheme; quadratic **42**. A negative ordinate at 6 can represent the old
+near-cutoff depression without forcing the line's sign or colour response.
+The shoulder beyond the six-px identification cut is **extrapolation**, not
+an enlarged fit domain. Thickness is **1, fixed**; no path or thickness slope.
+
+Every device pixel area-integrates the radial/angular basis by **8×8 midpoint
+quadrature**, then applies the colour response and encoded clipping, through
+`edge.forward` with the old rim/shadow off. This is a pixel-averaged-kernel
+model, not a claim that clipping and averaging commute. The centre's arc/straight
+classification is held across its pixel: a named tangent-transition approximation.
+The same model applies at both scales and in all bins; no partial-coverage
+branch is admitted. The first numerical test checks the known grey-128
+straight rows: native **24 at 1x, 18/31 at 2x**; a declared width-1.4 ramp of
+amplitude 37.6 gives **24.171429, 17.457143/30.885714**, within one code and
+with the 1x integral exactly the 2x pair's mean. It is a consistency check,
+not a recovered native reconstruction filter.
+
+The objective is native-only weighted least squares, jointly over the two
+scales, separate per scheme: **28 active circular calibration cells** each,
+all colours jointly. Each bin/channel has mass one after censor exclusion,
+its retained pixels sharing that mass. Neither validation nor web pixels
+enter any solve or shape selection; censored channels remain in forward
+closure. All **270** matrices, ranks, singular values and objectives are
+recorded. Each F1/F3 scheme rejects five rank-deficient width-2 shapes because
+the line duplicates the first shoulder hat; F2 admits all 45. Selected ranks
+are **28/28/42**, with no coefficient reaching the declared ±4096 sanity
+range. Both schemes select power 4; widths **1.2/2.4/1.2** for F1/F2/F3.
+These are failed hypotheses, not proposed material constants.
+
+### 2. Every family fails the greys, not only chroma or transfer
+
+Maximum channel-bin **mean absolute** encoded error; tolerance one code:
+
+| family | calibration grey straights | all calibration | all validation |
+| --- | ---: | ---: | ---: |
+| F1 ramp / affine | 9.074443 | 10.404696 | 19.911310 |
+| F2 squared / affine | 8.706337 | 10.985204 | 20.135255 |
+| F3 ramp / quadratic | 8.126100 | 8.506613 | 20.637789 |
+
+“All” includes the separately labelled noncircular straight diagnostics.
+Circular validation alone is **6.452957 / 7.253433 / 7.993987**. The large
+full-validation residual is the span-96 transfer under the fixed thickness
+factor, not an opportunity to fit validation. The circular calibration /
+circular validation / calibration-grey-straight maxima per scheme are:
+
+| family | light | dark |
+| --- | --- | --- |
+| F1 | 7.742870 / 5.093591 / 6.880492 | 10.404696 / 6.452957 / 9.074443 |
+| F2 | 7.901848 / 5.315727 / 6.824995 | 10.985204 / 7.253433 / 8.706337 |
+| F3 | 7.507326 / 3.843518 / 5.926100 | 8.506613 / 7.993987 / 8.126100 |
+
+`residuals.json.gz` retains **66,765 bins**, including inactive and below-floor
+records, with native excess, prediction, signed and absolute residual,
+censoring and tolerance. `family-summary.json` and `failure-cells.json` retain
+the per-stratum and per-cell outcomes. The best aggregate calibration family,
+F3, underpredicts dark grey-64's **2x top outer row**: native excess **45**,
+predicted **36.873900**, every channel. Its worst light grey is grey-160's
+**1x top row**, native **23/21/21** against **17.073900** in each channel.
+The last CSS px across the grey ladder remains a large miss, not just the
+old shoulder cutoff. Neither grey-only nor solids-only adoption is nominated.
+
+### 3. A coefficient-independent obstruction survives the larger basis
+
+`form-obstruction.py` opens guarded native pixels and demonstrates a symmetry
+contradiction on **light grey-255 circular-200**, native deep **253/253/253**:
+
+| scale / shell | inward depth | pixels per side | bottom RGB | top RGB |
+| --- | ---: | ---: | --- | --- |
+| 1x / −6 | 5.5 CSS px | 156 | 253/253/253 | 250/250/250 |
+| 2x / −12 | 5.75 CSS px | 312 | 253/253/253 | 250/250/250 |
+| 2x / −11 | 5.25 CSS px | 312 | 253/253/253 | 250/250/250 |
+
+These are uncensored calibration straight pixels, identical native conditioning
+and depth, opposite unit vertical normals. Every declared basis is **even in
+normal-Y**. Reflection therefore preserves the integrated features and forces
+one prediction for the two sides, at any coefficients. A value cannot lie
+within one code of both 250 and 253: the triangle inequality gives a
+**1.5-code minimax floor**. The script verifies equal features for all 45
+shapes of all three families at all three witnesses. Clipping does not break
+the equality. This is stronger than a failed finite search, but bounded to
+the declared even-normal forms, not an impossibility theorem for every edge law.
+
+G0b's signed tail removes G0's forced cutoff-ratio obstruction; it cannot
+make an even shoulder distinguish top from bottom. A future identifying
+experiment would have to distinguish signed-normal response from alignment,
+path and phase effects on matched top/bottom controls, with genuinely
+independent x/y phases, repeats and 1x/2x agreement, and a newly declared split.
+Identifying thickness also needs a second calibration span rather than fitting
+the 160×96 validation cells. New native work requires new authority. None is
+run or implicitly chartered here; the **W37 hard stop remains final**.
+
+### 4. The old-rim comparison and body-conditioning transfer remain separate
+
+Per active admitted channel-bin, better/same/worse at **0.5 code**:
+
+| family | better | same | worse | total |
+| --- | ---: | ---: | ---: | ---: |
+| F1 | 20,489 | 8,902 | 3,033 | 32,424 |
+| F2 | 20,519 | 9,004 | 2,901 | 32,424 |
+| F3 | 20,650 | 8,927 | 2,847 | 32,424 |
+
+The comparison uses **absolute signed-mean excess error on both sides**, because
+G0's old-rim artifact contains bin means, not old per-pixel absolute errors.
+It must not be confused with the closure MAE. The comparator is the inherited
+**full rim-plus-shadow treatment**; the rim-alone contribution is kept beside.
+`old-rim-comparison.json.gz` retains every comparison; `old-rim-summary.json`
+partitions scheme/role/geometry and names worst worsenings. The all-role worst
+is dark red continuous-160 at 1x, bottom shell −2, worsening
+**10.806078 / 10.985825 / 11.033006**. Calibration worsts are
+**4.359058 / 4.363823** on light red rectangle-120 2x side shell −5 and
+**4.327718** for F3 on light magenta circular-120 2x horizontal arc shell −5.
+All families **trade bins**, so none meets Decision Log 1's adoption rule even
+apart from failed grey closure.
+
+At fixed native-identified coefficients, the separate boundary conditioning
+transfer `E(web deep) − E(native deep)` ranges over pixels:
+**F1 −7.447281…+33.741197**, **F2 −7.938211…+35.222517**,
+**F3 −8.163969…+29.217063 codes**. `transfer.json.gz` retains **624 family/cell
+tables**, each bin, and raw output delta beside boundary-only delta. Web inputs
+are G0's historical non-black W34 bodies and retained W36 black-price bodies,
+not new captures. Synthetic pre-composition tests for each family recover
+nonzero coefficients, recover changed coefficients at fixed baseline, and
+detect changed baseline at fixed coefficients; fractional alpha/coverage are
+refused. No body miss enters a fitted coefficient. A tail below −6 could also
+move a rendered deep estimator: no canonical deep-invariance claim is made.
+
+### 5. E1's reader is repaired, not its population or bound
+
+The sibling `canonical.py` emits **504** side/shell records across the frozen
+14-row population, including **108 explicit UNMEASURED** absent bins. **Eight
+rows are fully measured; six capsule rows have absent sides and are now
+UNMEASURED**, rather than G0's unconditional “measured”. Every one of G0's
+**396 existing numerical bins** and every maximum reproduces exactly;
+maximum **29.359375** remains. Thus all 14 rows contain measured failing bins,
+but only eight have complete side coverage. This is the correction beside
+§5.181's “14/14 miss”, not a rewrite of that recorded cut. Tests reproduce the
+old omission before implementing the new reader and cover empty shells and
+insufficient populations. Missing capture trees also return explicit records.
+E1 remains the ruled **proposal**, not adopted, at one code and the same 14
+rows; no side, shell, no-reach region or row is silently dropped.
+
+No family satisfies the prerequisite for G0b brief D. A **prospective nonidentity
+E1/M2/CSS price is therefore not triggered**, not invented or labelled passed.
+The actual no-change result keeps G0's 280-row stop snapshot exact. M2 stays
+±2% against current W36; L1 stays 0.055/0.005 against its named W33 baseline;
+C1/X1/B1 and the predicate remain unchanged. No new stacked/grouped exterior
+pixel proof is claimed merely from interior support. No CSS carry/decline,
+mask change, golden update, identity-table entry, source change or seal occurs.
+
+### 6. Reproduction, checks and the closing draft
+
+G0's **44,510 residual bins / 416 transfer tables** exactly reproduce, with
+coefficients within **1.84e−13**. Its 208-cell native replay, memo diagnostics,
+11,117 old-rim bins, black provenance, canonical E1 and tint-placement tables
+also reproduce. One environmental defect was exposed: G0's `replay.py --verify`
+compares absolute paths naming its old worktree. `reproduce-g0.py` preserves
+those recorded provenance strings and compares **every other field exactly**;
+`g0-replay-reproduction.json` records the path-only difference. The existing
+`w37-edge-identification.test.ts` calls this sibling wrapper. No G0/W35 script,
+recorded number or historical digest was edited.
+
+The new `verify-scores.py` independently reconstructs the basis and selected
+weighted least squares from raw guarded native pixels, maximum coefficient
+difference **2.56e−11**, then reproduces all 66,765 residual bins and 624 transfer
+tables exactly. Fixed-coefficient **16×16** quadrature changes any predicted
+bin mean by at most **0.064794 code**; it does not close the greys and is never
+used to refit or reselect. The declared integration test and all three synthetic
+pre-composition tests pass. New evidence prose uses `.txt` under the worker's
+report convention; no Markdown tool refusal occurred and these existing specs
+were edited directly.
+
+Workspace `pnpm install --silent && pnpm -r build` passed before scoring.
+Full calibration: **50 files / 700 tests passed, no skips**, with the read-only
+main capture tree supplied for X1. ESLint passed; an initial TypeScript check
+found an indexed-array optionality in the new test, corrected by asserting the
+established RGB index guarantee; **all four TypeScript checks then pass**.
+Frozen 26.5: **1,818 before and after**. Raw command logs and the scope audit
+are retained beside. No browser or native capture ran, no native GUI bundle
+was built/launched/granted, and no holdout payload was read. The inherited
+W34 unit harness self-check is not a GUI capture run.
+
+**Decision Log 1 — G0b draft, not ruled:** **close W37 at the finding**. Nominate
+none; do not open G1a or G0c. Grey closure fails at both scales, chroma remains
+open, and all families trade bins. No partial-adoption population exclusions
+are proposed; keep E1 and every existing stop unwidened. The signed-normal /
+phase evidence requirement belongs to a separately chartered future wave,
+not another W37 family or prototype. The large saturated-body miss remains
+W36's problem, not an edge coefficient to fit away. The next authorised step
+is parent independent review and the closing ruling, not implementation or a
+release/version step.

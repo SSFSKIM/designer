@@ -1,0 +1,5 @@
+$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.cli.json && tsc --noEmit -p web/tsconfig.json && tsc --noEmit -p scripts/tsconfig.json
+test/w37-g0b-identification.test.ts(94,44): error TS2532: Object is possibly 'undefined'.
+/Users/new/Developer/GitHub/designer/.claude/worktrees/agent-w37-g0b/packages/calibration:
+[ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL] @vitrea/calibration@0.0.0 lint: `eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.cli.json && tsc --noEmit -p web/tsconfig.json && tsc --noEmit -p scripts/tsconfig.json`
+Exit status 2

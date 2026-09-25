@@ -45,7 +45,10 @@ describe("W37's guarded, native-conditioned boundary identification", () => {
   }, 60_000);
 
   it("replays the complete memo cut instead of trusting a stored zero-difference flag", () => {
-    const result = python("replay.py", ["--verify"]);
+    // G0 records absolute worktree provenance; compare every numeric field while keeping
+    // those original paths as evidence rather than requiring this checkout to have its name.
+    const result = python("../2026-09-25-w37-g0b-edge-identification/reproduce-g0.py",
+      ["--verify-native"]);
     expect(result.status, result.stderr).toBe(0);
   }, 60_000);
 
