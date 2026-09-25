@@ -6299,8 +6299,12 @@ test at the last red run. Every merge in that window verified green LOCALLY (the
 machine's `python3.12` has numpy and PIL), the Pages workflow stayed green (it builds the demo
 only), and the 0.24.0 release (2026-09-24 23:56Z) was cut and published with CI red on main.
 The release checklist gates on the local chain and the Pages workflow, not on the CI
-workflow's status at the release commit. **Fixed** in the same commit as this entry: the
-`verify` job sets up Python 3.12 and installs numpy and pillow before the suites. **Shape of
+workflow's status at the release commit. **Fixed** — not in the same commit as this entry, as
+first written: commit `721c5c66` carried this entry and the checklist row but its workflow
+edit never landed (the patch script wrote the file back unchanged), and that commit's run
+failed on the same import; the workflow change is `3946576d`, which sets up Python 3.12,
+installs numpy and pillow into the interpreter the tests call, and prints which interpreter
+that is. **Shape of
 the remaining work:** the release checklist gains a row "CI green on main at the release
 commit" (added beside, not retroactively ticked for 0.24.0), and the merge recipe in
 `CLAUDE.md`'s Release paragraph should say a merge is checked against its CI run, not only
