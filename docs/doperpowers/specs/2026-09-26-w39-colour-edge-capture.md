@@ -1,6 +1,6 @@
 # W39 — the colour-and-edge capture: one native sitting that identifies Apple's colour response and the edge line's directional law (2026-09-26)
 
-**Status: CHARTERED v1 (2026-09-26); adversarial review pending; G0 not dispatched.**
+**Status: CHARTERED v2 (2026-09-26; one adversarial round folded, 2 P1 / 2 P2); Decision Logs 1 and 5 ruled by the user; G0 DISPATCHED.**
 Chartered by the parent on the user's "W39 colour-and-edge capture (Recommended)" after W38's
 close (main `e3ec337e`, 0.24.0 published), under the standing "rest on your judgement" and the
 routing the user set on 2026-09-22 (X9). This is the wave W37's Deferred at close 1 and W38's
@@ -86,16 +86,27 @@ ledger records, and every gap written down.
    82 codes on unclipped dark red) as evidence beside the declaration. The bed carries the W34
    red, green and grey-128 circular cells as BRIDGE cells that lay the new bar beside the old
    readings and serve as saturated anchors with their clipped channels censored.
-4. **The preflight precedes the bed and both branches are declared.** The sitting opens with a
-   paired opaque/glass preflight of the phase mechanism (fractional SIZE on a 120×44 rounded
-   rectangle of radius 22 with the near edge pinned by the new `position` field; four requested
-   DEVICE-pixel phases 0, ¼, ½, ¾ divided by the scale, in x and separately in y, at 1x and 2x;
-   28 captures). An axis is reachable when ≥ 3 distinct edge-row coverage states appear in the
-   opaque control AND ≥ 3 corresponding distinct native glass edge responses appear, at both
-   scales, with registration attested. Only a reachable axis's phase cells enter the bed; an
-   unreachable axis's cells are omitted verbatim and no phase is inferred from backdrop motion
-   (Decision Log 3, by rule). A second candidate (fractional window origin in points) runs only
-   if the first fails; the odd-canvas and transform candidates are not built.
+4. **The preflight precedes the bed, tests ONE actuator, and both branches are declared for
+   that actuator.** The sitting opens with a paired opaque/glass preflight of the phase mechanism
+   — fractional SIZE on a 120×44 rounded rectangle of radius 22 with the near edge pinned by the
+   new `position` field (position = pinned edge + size/2), four requested DEVICE-pixel phases 0,
+   ¼, ½, ¾ divided by the scale, in x (width) and separately in y (height), at 1x and 2x — plus an
+   INTEGER-size control per axis (width 121 / height 45 CSS px at device phase 0) that bounds
+   what a whole-pixel size change does to the material: 9 geometries × opaque/glass × 2 scales =
+   **36 captures**, light active. An axis is reachable when, at both scales: (i) the opaque
+   control's FAR edge row shows ≥ 3 distinct coverage states across the four phases while its
+   pinned NEAR edge row is byte-identical across them; (ii) the glass cell's near-edge profile
+   (W37's shells, both sides of the edge) is within the bar across the four phases, so the
+   material's response did not change with the size; (iii) the glass cell's far-edge profile
+   shows ≥ 3 distinct states whose differences exceed the integer-size control's far-edge
+   difference and are consistent with a subpixel shift of one ramp (W37's area-integrated model)
+   rather than an amplitude change. Three distinct glass RGB responses alone do not pass — they
+   can come from the size law. Only a reachable axis's phase cells, defined on exactly this
+   actuator, enter the bed; an unreachable axis's cells are omitted verbatim; no phase is
+   inferred from backdrop motion (Decision Log 3, by rule). No second actuator is built or run in
+   this sitting: the window-origin, odd-canvas and transform candidates are Deferred, because an
+   actuator that passed a preflight but has no declared seven-run bed would admit nothing, and
+   one that has a bed the preflight did not test would admit the wrong thing.
 5. **Every run is attested as W34's were, and a run that fails to attest is quarantined.** macOS
    27.0 build 26A428; `NSGlassTintAmount` 0.5; Reduce Transparency and Increase Contrast 0; Show
    Borders 0; display mode read before and after; the side bundle's cdhash and `LC_BUILD_VERSION`;
@@ -128,18 +139,27 @@ ledger records, and every gap written down.
    per cell (deep body) and per shell/bin (edge) against max(1 code, bar) with a declared
    minimum population; least-squares and minimax both reported; worst-channel and all-channel
    failures both reported; every repeat state scored against the frozen prediction beside the
-   median. Surviving laws that differ by less than max(3 codes, the sum of their bars) at every
-   admitted discriminator are "insufficient resolution", a finding, not a reason to fit more.
+   median. **A law SURVIVES only if it meets max(1 code, bar) on every required channel of every
+   calibration AND validation cell (body) and bin (edge) BEFORE the freeze**; a law that fails
+   there is recorded as failed and is not carried to the held-out read, and no candidate is
+   changed after any exposure. A survivor then CLOSES only if it also meets the same bound on
+   the six held-out colours in all eight strata and on the wave's holdout. Survivors that differ
+   by less than max(3 codes, the sum of their bars) at every admitted discriminator are
+   "insufficient resolution", a finding, not a reason to fit more — two laws that both pass a
+   one-code test differ by at most two codes on those observations, so this outcome is expected
+   whenever the bed cannot tell them apart, and it never widens a tolerance.
 9. **Nothing shipped moves until a law closes.** In G0–G2 no byte changes under `scenes.json`,
    `fixtures/`, `results/matrix.json`, the six material documents, the goldens or any adopted
    threshold; every W39 cell carries the single role `probe`; the wave's rows go to its own
    matrix under `fixtureSet: "probe"`; the freeze reads 1,818 at every merge.
-10. **If a leaf lands, the edge acceptance is W38's shape and the colour acceptance is the
-    held-out test.** Per-channel-bin veto at one code FIRST against the shipped treatment on the
-    calibration archive, then stratum max/mean ≤ +0.5 and sides within 2 codes; E2's 212-row
+10. **If a leaf lands, the edge acceptance is W38's shape and the colour acceptance is clause
+    8's whole chain.** Per-channel-bin veto at one code FIRST against the shipped treatment on
+    the calibration archive, then stratum max/mean ≤ +0.5 and sides within 2 codes; E2's 212-row
     rendered-edge regression row with its three estimators frozen against the pre-W39 capture
-    before any W39 scoring; R1 for the fixture-less paths; the body law's held-out colours in all
-    eight strata; M1/M2/C1/X1/L1 re-read; the canonical holdout once; the eye beside the metrics.
+    before any W39 scoring; R1 for the fixture-less paths; the body law closing on calibration,
+    validation AND the held-out colours in all eight strata (clause 8), and the RENDERED body
+    re-read against the same cells on the WebGPU tier; M1/M2/C1/X1/L1 re-read; the canonical
+    holdout once; the eye beside the metrics.
 
 ## Grounding Baseline (main at `e3ec337e`, W38 closed)
 
@@ -213,13 +233,14 @@ and both scales.
   (W34 proved every solid reference equals its raster at every byte at both scales): 63 per
   scheme per pass, raster-identity checks that confirm the input label, not bar inputs.
 - **Conditional phase cells, 14 per scheme** (7 glass + 7 opaque over grey-128: the shared zero,
-  x ¼ ½ ¾, y ¼ ½ ¾ as fractional width/height with the near edge pinned), admitted per axis by the
-  preflight; 8 if one axis passes; none if neither.
+  x ¼ ½ ¾, y ¼ ½ ¾ as fractional width/height with the near edge pinned — exactly the actuator
+  and geometry the preflight tests, nothing else), admitted per axis by the preflight; 8 if one
+  axis passes; none if neither. The bed carries no cell for any other actuator.
 - **Sentinels.** The long-protocol three-run sentinel kept on two ids per scheme (a grey circular
   and one colour cell) to detect order/settle drift.
 - **Sizing.** Full bed: (40 + 63) × 2 schemes × 2 scales × 2 poses × 7 runs = 5,768 captures;
-  references 63 × 2 × 4 = 504; sentinels 48; preflight 28 → 6,348 captures ≈ **16.9 h** of
-  capture wall at W34's rate, ≈ **19.0 h** if both phase axes pass (+784). Before machine changes
+  references 63 × 2 × 4 = 504; sentinels 48; preflight 36 → 6,356 captures ≈ **17.0 h** of
+  capture wall at W34's overall rate (9.62 s), ≈ **19.1 h** if both phase axes pass (+784). Before machine changes
   and the two grant switches. The trimmed alternative (colour at 2x only, a 13-colour subset at 1x
   because the archive's body medians are identical at both scales on 104/104 cells) is ≈ 12.7 /
   14.8 h; Decision Log 5 records the user's choice.
@@ -262,13 +283,19 @@ variance being measured.
 
 ### The split (MARKED)
 
-Whole glass/control pairs stay together. Calibration: 44 and 64 rrects, 44 circular at the three
-positions, the gradients, the column, 49 colours. Validation: 96 span (rrect and circular), one
-radius/length contrast (96×96 or 160×96), 6 colours. W39 holdout: one whole position × background
-pair not in calibration (grey-255 bottom), one circular geometry (the other of 96×96 / 160×96),
-the W37 witness's 2x arc bins, and the 6 held-out colours' edge shells; if G0's twin audit finds a
+Roles are SCENE-level, as W34's guarded reader enforces them (`wave.py` assigns one role per
+scene and returns that scene's whole admitted payload): a scene is wholly in one role at both
+scales, and whole glass/control pairs stay together. Calibration: 44 and 64 rrects, 44 circular
+at the three positions on grey-128 and at top and centre on grey-255, the gradients, the column,
+49 colours. Validation: 96 span (rrect and circular 120×96), 96×96, 6 colours. W39 holdout,
+whole pairs at both scales: the grey-255 BOTTOM position pair, the circular 160×96 pair, **the
+W37 witness pair (grey-255 circular 200×44 glass + opaque)** — so the directional law is
+identified on the 120-wide cells and refereed on the very cell W37 read — and the 6 held-out
+colours as whole cells (body and edge shells alike). No bin, region or scale of an admitted
+scene is ever "held out": opening a calibration PNG exposes all of it. If G0's twin audit finds a
 holdout member is needed to identify rather than referee, it moves to calibration BEFORE
-capture. The hashed `split.json` is enforced by the wave reader and launcher (W34's pattern).
+capture. The hashed `split.json` is enforced by the wave reader and launcher (W34's pattern),
+and the holdout's payload is producer-created and behind the procedural boundary from G1.
 
 ### Repeats and the bar
 
@@ -293,8 +320,8 @@ convenience only, never the record.
 `position` (absolute centre in canvas CSS px, Double) on a single shape and on each `column`
 member, replacing `offset` for W39 scenes (fractional size with a pinned near edge is position =
 edge + size/2, so no `anchor` field); the `column` kind (two independent glass surfaces, or two
-opaque fills, each with its own attested path); a `VITREA_WINDOW_ORIGIN` launcher seam for the
-second preflight candidate; the manifest's requested/actual window frame in screen coordinates.
+opaque fills, each with its own attested path); the manifest's requested/actual window frame in
+screen coordinates (an attestation, not an actuator).
 Existing `capsule` and `rrect` resolutions untouched; the canonical `scenes.json` untouched.
 
 ### The grant plan (Decision Log 4; the user's hand, `amigo` first)
@@ -319,8 +346,8 @@ Existing `capsule` and `rrect` resolutions untouched; the canonical `scenes.json
 ### G0: The bed, the harness, the bundle, the preflight and the archive tooling — declared and rehearsed, nothing captured into evidence
 
 Branch `w39-g0-colour-edge-bed`; evidence `packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/`;
-ledger **§5.184**. Delivers: (a) the harness additions with tests (`position`, `column`, the
-window-origin seam, the frame attestation; `SceneSpec.swift` refuses `offset` beside `position`);
+ledger **§5.184**. Delivers: (a) the harness additions with tests (`position`, `column`, the frame
+attestation; `SceneSpec.swift` refuses `offset` beside `position`);
 (b) `scenes-w39-colour-edge.json` with every cell above, the 320×280 canvas, single role `probe`,
 its backgrounds; the twin audit against `scenes.json` and W34's file; `split.json` hashed; (c) the
 declaration: forward families with parameter counts and spaces, the colour box and censor rule,
@@ -383,10 +410,12 @@ contract at G3). W38's **X18** carries (per-bin veto first). New:
   by construction; a native channel ≥ 250 or ≤ 5 is censored, excludes its cell from full-RGB
   inversion and stays a scalar bound; no colour is replaced after a rail hit; a censored held-out
   cell is UNMEASURED, never a pass.
-- **X22 — the preflight precedes the bed.** Its pass rule and both branches are in the
-  declaration; a phase cell enters the bed only for a reachable axis; an unreachable axis's
-  cells are omitted verbatim; no phase is inferred from backdrop motion; every preflight capture
-  and reading is kept.
+- **X22 — the preflight precedes the bed and the bed is the actuator's.** One actuator; its
+  pass rule (near edge invariant, far edge ≥ 3 states beyond the integer-size control, a shift
+  not an amplitude) and both branches are in the declaration; a phase cell enters the bed only
+  for a reachable axis and only on that actuator; an unreachable axis's cells are omitted
+  verbatim; no phase is inferred from backdrop motion; every preflight capture and reading is
+  kept.
 - **X23 — prediction before opening.** The six held-out colours and the wave's holdout are
   predicted, frozen by artifact and opened once on a receipt; validation is transfer only; the
   W34 holdout is never opened.
@@ -408,8 +437,9 @@ lands before G3's landing.
 
 - **The admissible box is a prediction.** A coupled transform can excurse between the sampled
   inputs; the censor rule keeps a rail hit honest and the bed is not re-chosen mid-sitting.
-- **The phase mechanism fails again.** The preflight costs 28 captures; the bed loses only the
-  phase cells; the second candidate is cheap; the negative is recorded.
+- **The phase mechanism fails again.** The preflight costs 36 captures; the bed loses only the
+  phase cells; no second actuator runs in this sitting; the negative is recorded with every
+  reading, and the other candidates stay Deferred with the reason.
 - **The grant evicts the original again.** Planned; both positive checks each way; the sitting
   never restores mid-way.
 - **The sitting is long.** 17–19 h contiguous, the machine untouched; the largest honest lever is
@@ -428,14 +458,16 @@ lands before G3's landing.
   path-local from screen-up lighting.
 - A saturation ladder above OKLab C 0.055 (risk cells that may clip on one channel).
 - Author tint over coloured backdrops; the accessibility beds; span 160.
-- The odd-canvas and transform phase candidates.
+- The window-origin, odd-canvas and transform phase candidates (each would need its own
+  declared bed and a preflight of its own; the window-origin one also needs per-cell window
+  repositioning, which the one-window-per-process harness does not do).
 - W37 Deferred 3–8, W36 Deferred 1–6 as they stand until G2 reads them.
 
 ## Tracking Map
 
 | child | status |
 | --- | --- |
-| G0 | not dispatched |
+| G0 | DISPATCHED 2026-09-26 (§5.184) |
 | G1 | — |
 | G2 | — |
 | G3 | conditional |
@@ -450,7 +482,12 @@ operational dependency on the asset's availability, mitigated by a second copy),
 archives only (path readers after hydration; CI/Pages hydration and quota), ordinary Git as W34.
 For the matrix: a separate housekeeping wave (W40) moving future generations to indexed
 per-generation files with no history rewrite (recommended), or keep the monolithic file.
-**Pending.**
+**RULED by the user, 2026-09-26: the W39 archive is a GitHub release asset named by SHA-256,
+fetched and verified by the readers, kept out of ordinary Git; and W40 is chartered as the
+matrix housekeeping wave after W39 G0's merge, to land before W39's G3 landing.** G0 therefore
+delivers the archive producer, the release-asset naming and the fetch-and-verify reader; G1
+publishes the asset and the ledger citation (tag, name, digest, bytes, replay command) and keeps
+a second owner-controlled copy on the capture machine outside the repository.
 
 ### Decision Log 2 — a law or the negative (after G2; the user's)
 
@@ -460,8 +497,10 @@ per-generation files with no history rewrite (recommended), or keep the monolith
 
 ### Decision Log 5 — the sitting's size (before G0's merge; the user's)
 
-Put to the user 2026-09-26: the full bed (colour at both scales; ≈ 16.9 / 19.0 h) or the trimmed
-bed (colour at 2x, a 13-colour 1x subset; ≈ 12.7 / 14.8 h). Recommended: full. **Pending.**
+Put to the user 2026-09-26: the full bed (colour at both scales; ≈ 17.0 / 19.1 h) or the trimmed
+bed (colour at 2x, a 13-colour 1x subset; ≈ 12.7 / 14.8 h). Recommended: full. **RULED by the
+user, 2026-09-26: the full bed, in one untouched sitting.** Seven runs; no scheme, pose, scale,
+validation span or control pairing is dropped for time.
 
 ### Decision Log 6 — bounds and floors if a leaf lands (in G3; the user's)
 
@@ -477,7 +516,26 @@ bed (colour at 2x, a 13-colour 1x subset; ≈ 12.7 / 14.8 h). Recommended: full.
 - **Two schemes cost one process** (writable `colorScheme`), which is why the bed's count is per
   scheme and the passes are four, not eight.
 
+- **The review's model arithmetic on the colour bed** (v1 round): H2* differs from H1 by up to
+  8.80 codes on the light-active factorial and 3.28 on dark-active; the declared OKLab candidate
+  fitted on calibration to an H2* world stays within 2.70 / 2.67 / 1.17 / 1.01 codes on all 61
+  colours (light active / light inactive / dark active / dark inactive) — so a one-code test
+  discriminates those instances and a three-code separation cannot be assumed, which is what
+  the "insufficient resolution" outcome is for. And a wrong fitted law can pass the six
+  held-out colours (0.755 max) while failing calibration (1.458): survival is now defined on
+  calibration and validation first (clause 8).
+
 ## Revision Notes
 
+- 2026-09-26 (the user, Decision Logs 1 and 5): full bed; release asset by SHA-256; W40
+  housekeeping chartered after G0, before G3's landing. G0 dispatched.
+- 2026-09-26 (v2, the parent): one adversarial round folded — P1 the conditional phase bed was
+  defined on the size actuator while a window-origin fallback could have been the one that
+  passed (fixed: one actuator, no fallback in this sitting, the others Deferred); P1 a bin-level
+  holdout (the witness's 2x arcs) cannot be guarded by a scene-level reader (fixed: the whole
+  witness pair is holdout at both scales; roles are scene-level); P2 three distinct glass
+  responses can come from the size law, not the phase (fixed: integer-size control, near-edge
+  invariance, a shift-not-amplitude rule; 36 captures); P2 survival was not defined on
+  calibration and validation (fixed: clause 8 and 10). Verdict's checks recorded in Surprises.
 - 2026-09-26 (v1, the parent): chartered from the two grounding memos; Decision Logs 1 and 5 put
   to the user; adversarial review requested.
