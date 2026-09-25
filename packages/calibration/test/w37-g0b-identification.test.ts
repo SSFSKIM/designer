@@ -50,7 +50,10 @@ describe("W37 G0b's declared numerical experiment", () => {
     const result = python("verify-scores.py", ["--verify"]);
     expect(result.status, result.stderr).toBe(0);
     const proof = JSON.parse(result.stdout);
-    expect(proof.exactReproduction).toBe(true);
+    // Exact means exact on the recording Mac; Linux passes only the measured
+    // roundoff bound with the complete structural and categorical comparison.
+    expect(proof.reproductionVerified).toBe(true);
+    expect(proof.exactReproduction).toBe(process.platform === "darwin");
     for (const check of proof.checks) expect(check.coefficientMaxDifference).toBeLessThan(1e-8);
   }, 180_000);
 

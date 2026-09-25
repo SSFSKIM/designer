@@ -22,6 +22,29 @@ interface Residual {
 }
 
 describe("W37's guarded, native-conditioned boundary identification", () => {
+  it("rejects structural drift and retains exact Mac evidence while bounding Linux roundoff", () => {
+    // Exercise the replay comparator itself: a skipped numeric table or a relaxed
+    // categorical verdict would otherwise turn a CI-only tolerance into a false proof.
+    const check = `import sys
+from unittest.mock import patch
+sys.path.insert(0, ${JSON.stringify(resolve(here, ".."))})
+from replay_equality import same_evidence
+expected = {'bins': [{'pixels': 4, 'fails': False, 'value': [0.25, 0.0]}]}
+rounded = {'bins': [{'pixels': 4, 'fails': False, 'value': [0.25 + 1e-14, 1e-14]}]}
+with patch('sys.platform', 'linux'):
+    assert same_evidence(rounded, expected)
+    assert not same_evidence({'bins': []}, expected)
+    assert not same_evidence({'bins': [{'pixels': 5, 'fails': False, 'value': [0.25, 0]}]}, expected)
+    assert not same_evidence({'bins': [{'pixels': 4, 'fails': True, 'value': [0.25, 0]}]}, expected)
+    assert not same_evidence({'bins': [{'pixels': 4, 'fails': False, 'value': [0.25 + 2e-12, 0]}]}, expected)
+with patch('sys.platform', 'darwin'):
+    assert not same_evidence(rounded, expected)
+    assert same_evidence(expected, expected)
+`;
+    const result = spawnSync("python3.12", ["-c", check], { encoding: "utf8" });
+    expect(result.status, result.stderr).toBe(0);
+  });
+
   it("refuses spent native, web, canonical holdout and recorded payloads before open", () => {
     const result = python("test-readers.py");
     expect(result.status, result.stderr).toBe(0);
@@ -36,7 +59,10 @@ describe("W37's guarded, native-conditioned boundary identification", () => {
     const result = python("verify-scores.py");
     expect(result.status, result.stderr).toBe(0);
     const proof = JSON.parse(result.stdout);
-    expect(proof.exactReproduction).toBe(true);
+    // Exact means exact on the recording Mac; Linux passes only the measured
+    // roundoff bound with the complete structural and categorical comparison.
+    expect(proof.reproductionVerified).toBe(true);
+    expect(proof.exactReproduction).toBe(process.platform === "darwin");
     expect(proof.checks).toHaveLength(4);
     for (const check of proof.checks) {
       expect(check.rank).toBe(5);

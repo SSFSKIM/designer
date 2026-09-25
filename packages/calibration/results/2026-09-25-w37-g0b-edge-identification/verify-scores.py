@@ -1,5 +1,14 @@
-"""Independent chosen-shape basis/LS reconstruction and exact table replay."""
+"""Independent chosen-shape basis/LS reconstruction and recorded table replay.
+
+The recording Mac remains exact; other BLAS implementations have bounded
+last-bit drift without changing the selected coefficients or verdicts.
+"""
 import gzip,json,sys
+from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parent.parent))
+# The native Mac recording remains bit-exact; Linux BLAS roundoff is bounded
+# without relaxing bins, population or categorical verdicts.
+from replay_equality import same_evidence
 import numpy as np
 import identify
 from common import HERE,edge
@@ -54,8 +63,8 @@ def main():
         quadrature.append(dict(family=fit['family'],scheme=fit['scheme'],
             maximumMeanDifference=max(abs(v) for v in worst['predictedMeanDeltaRGB']),worst=worst,
             closureAt16=identify.summary(r16)))
-    assert rr==stored;assert tt==transfers
-    result=dict(residualBins=len(rr),transferCells=len(tt),exactReproduction=True,checks=checks,
+    assert same_evidence(rr,stored);assert same_evidence(tt,transfers)
+    result=dict(residualBins=len(rr),transferCells=len(tt),exactReproduction=sys.platform=='darwin',reproductionVerified=True,checks=checks,
         quadratureCheck='8 to16 with fixed coefficients, no refit or reselection',quadrature=quadrature)
     if '--verify' not in sys.argv:edge.save(HERE/'verification.json',result)
     print(json.dumps({k:v for k,v in result.items() if k!='quadrature'},indent=2))
