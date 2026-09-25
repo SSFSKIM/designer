@@ -45,7 +45,18 @@ def machine(scale=2):
     return m
 
 
-def manifest(doc, pose, scale, label):
+# What the harness writes in captureProtocol (Manifest.swift / main.swift), stated here as
+# literals rather than read from sitting.py: a normal launch names no settle or seed, so
+# the harness records its default 1.75 s and omits orderSeed; the long one is 8 s / 3901.
+HARNESS_PROTOCOL = {
+    'normal': dict(initialSettleSeconds=1.75, resetInterstitialSeconds=6.0, resetCarriesGlass=False,
+                   minIdleSeconds=60.0),
+    'long': dict(initialSettleSeconds=8.0, orderSeed=3901, resetInterstitialSeconds=6.0,
+                 resetCarriesGlass=False, minIdleSeconds=60.0),
+}
+
+
+def manifest(doc, pose, scale, label, protocol='normal'):
     """A manifest the harness would publish for `doc`: every attestation holding."""
     canvas = doc['canvas']
     scenes = {s['id']: s for s in doc['scenes']}
@@ -66,7 +77,9 @@ def manifest(doc, pose, scale, label):
                 suppliedPaths=copy.deepcopy(paths)))
         profiles.append(dict(profileKey=p['key'], display=dict(requestedScale=scale, actualBackingScale=scale,
                              pixelSize=size, colorSpace='kCGColorSpaceSRGB'), fixtures=fixtures))
-    return dict(hardware=dict(osBuild='26A428'), captureProtocol=dict(runLabel=label), profiles=profiles)
+    return dict(hardware=dict(osBuild='26A428'), profiles=profiles,
+                captureProtocol=dict(runLabel=label, **HARNESS_PROTOCOL[protocol],
+                                     hidIdleSecondsAtStart=100.0, hidIdleSecondsAtEnd=100.0))
 
 
 STUB_LAUNCHER = r'''
@@ -131,6 +144,52 @@ class Stubs:
                         STUB_ARGV=str(self.tmp / 'argv.json'), STUB_CALLS=str(self.tmp / 'calls.jsonl'),
                         STUB_PROMPT=str(self.tmp / 'prompt'), STUB_MANIFEST=str(self.tmp / 'manifest.json'),
                         STUB_MODE='tcc')
+
+    def scale(self, scale):
+        (self.tmp / 'machine.json').write_text(json.dumps(machine(scale)))
+
+
+def take(S, stubs, kind, scale, run, sentinel=False, axes=(), mutate=None, **env):
+    """One real run through S.main with the stubs: the harness 'publishes' the manifest
+    it would write for the run's own declaration and protocol (`mutate` may spoil it)."""
+    name = S.pass_name(kind, scale, sentinel)
+    doc = S.pass_doc(kind, scale, run, axes, sentinel)
+    m = manifest(doc, 'active' if kind == 'preflight' else kind, scale, f'w39-{name}-{run}',
+                 'long' if sentinel else 'normal')
+    if mutate:
+        mutate(m)
+    stubs.scale(scale)
+    Path(stubs.env['STUB_MANIFEST']).write_text(json.dumps(m))
+    argv = [kind, str(scale), str(run), str(run)] + (['--sentinel'] if sentinel else [])
+    with mock.patch.dict(os.environ, {**stubs.env, 'STUB_MODE': 'manifest', **env}):
+        os.environ.pop('DRY', None)
+        S.main(argv)
+    return stubs.root / name / f'run-{run}'
+
+
+def write_verdict(S, root, axes=('x',)):
+    """A frozen preflight verdict bound to `root`'s four preflight manifests."""
+    inputs = {f'{s}x': {f'run{r}ManifestSha256': hashlib.sha256(
+        (root / f'preflight-{s}x/run-{r}/manifest.json').read_bytes()).hexdigest() for r in (1, 2)}
+        for s in (1, 2)}
+    verdict = dict(schema='w39-preflight-verdict-1', inputs=inputs, reachableAxes=list(axes),
+                   admittedScenes=sorted(S.phase_scenes(axes)))
+    (root / 'preflight-verdict.json').write_text(json.dumps(verdict))
+    return verdict
+
+
+def full_sitting(S, stubs, axes=('x',)):
+    """The whole declared sitting, run by run, in order: both preflight scales, the
+    verdict, the four bed passes and the four long sentinel passes."""
+    for scale in (1, 2):
+        for run in (1, 2):
+            take(S, stubs, 'preflight', scale, run)
+    write_verdict(S, stubs.root, axes)
+    for sentinel in (False, True):
+        for name in S.BED:
+            kind, scale = name.split('-')[0], int(name[-2])
+            for run in range(1, S.RUNS['sentinel' if sentinel else 'bed'] + 1):
+                take(S, stubs, kind, scale, run, sentinel, axes)
 
 
 class Machine(unittest.TestCase):
@@ -250,26 +309,148 @@ class Manifest(unittest.TestCase):
             self.S.validate_manifest(m, doc, 'inactive', 1, 'w39-inactive-1x-3')
 
 
-class Order(unittest.TestCase):
+def admit(S, root, name, n):
+    """An admitted run of pass `name` on disk, its admission built by the production
+    constructor from a launch of the pass's own protocol."""
+    run = root / name / f'run-{n}'
+    run.mkdir(parents=True)
+    protocol = S.protocol_of_pass(name)
+    argv = ['launcher', '--args', 'capture', *S.protocol_argv(protocol)]
+    m = dict(captureProtocol=dict(runLabel=f'w39-{name}-{n}', **HARNESS_PROTOCOL[protocol]))
+    (run / 'admission.json').write_text(json.dumps(S.run_admission(name, n, argv, m, 'f' * 64, 1, (), None)))
+
+
+class Protocol(unittest.TestCase):
     def setUp(self):
         self.S = load()
 
-    def test_declared_order(self):
-        with tempfile.TemporaryDirectory() as tmp:
-            root = Path(tmp)
-            self.S.check_order(root, 'preflight-2x')
-            with self.assertRaisesRegex(ValueError, 'earlier'):
-                self.S.check_order(root, 'active-1x')
-            for name in ('preflight-1x', 'preflight-2x'):
-                (root / name / 'run-1').mkdir(parents=True)
-            self.S.check_order(root, 'active-1x')
-            with self.assertRaisesRegex(ValueError, 'earlier'):
-                self.S.check_order(root, 'active-2x')
-            (root / 'active-2x' / 'QUARANTINE-run-1-1').mkdir(parents=True)
-            with self.assertRaisesRegex(ValueError, 'later'):
-                self.S.check_order(root, 'active-1x')
-            with self.assertRaisesRegex(ValueError, 'earlier'):
-                self.S.check_order(root, 'active-2x-sentinel')
+    def test_the_two_protocols_are_the_declared_settings(self):
+        self.assertEqual(self.S.PROTOCOLS['normal'], dict(HARNESS_PROTOCOL['normal'], orderSeed=None))
+        self.assertEqual(self.S.PROTOCOLS['long'], HARNESS_PROTOCOL['long'])
+        self.assertEqual(self.S.protocol_argv('normal'),
+                         ['--reset-interstitial', '6', '--min-idle-seconds', '60'])
+        self.assertEqual(self.S.protocol_argv('long'), ['--reset-interstitial', '6', '--min-idle-seconds',
+                                                        '60', '--initial-settle', '8', '--order-seed', '3901'])
+
+    def test_protocol_is_derived_from_the_launch_by_exact_match(self):
+        launch = lambda *flags: ['open', '-W', '--args', 'capture', '--scenes', 'a', *flags]
+        base = ['--reset-interstitial', '6', '--min-idle-seconds', '60']
+        self.assertEqual(self.S.launch_protocol(launch(*base)), 'normal')
+        self.assertEqual(self.S.launch_protocol(launch(*base, '--order-seed', '3901', '--initial-settle', '8')),
+                         'long')
+        for flags in [base + ['--initial-settle', '8'], base + ['--order-seed', '3901'],
+                      base + ['--initial-settle', '8', '--order-seed', '3401'], base[:2],
+                      base + ['--reset-glass'], base + ['--order-seed', '3901', '--order-seed', '3901']]:
+            with self.assertRaises(ValueError, msg=flags):
+                self.S.launch_protocol(launch(*flags))
+
+    def test_admission_names_the_protocol_and_checks_the_manifest(self):
+        argv = lambda p: ['--args', 'capture', *self.S.protocol_argv(p)]
+        m = lambda p: dict(captureProtocol=dict(runLabel='l', **HARNESS_PROTOCOL[p]))
+        a = self.S.run_admission('active-1x', 3, argv('normal'), m('normal'), 'e' * 64, 5, ('x',), 'v')
+        self.assertEqual((a['protocol'], a['pass'], a['run'], a['admitted'], a['dry']),
+                         ('normal', 'active-1x', 3, True, False))
+        self.assertEqual(a['captureProtocol']['initialSettleSeconds'], 1.75)
+        a = self.S.run_admission('inactive-2x-sentinel', 1, argv('long'), m('long'), 'e' * 64, 5, (), 'v')
+        self.assertEqual((a['protocol'], a['captureProtocol']['orderSeed']), ('long', 3901))
+        refusals = [
+            ('active-1x-sentinel', argv('normal'), m('normal'), 'pass is long'),
+            ('active-1x', argv('long'), m('long'), 'pass is normal'),
+            # A normal run is the harness defaults, not merely "not long".
+            ('active-1x', argv('normal'), dict(captureProtocol=dict(runLabel='l')), 'captureProtocol'),
+            ('active-1x', argv('normal'), {}, 'captureProtocol'),
+            ('active-1x', argv('normal'),
+             dict(captureProtocol=dict(HARNESS_PROTOCOL['normal'], orderSeed=7)), 'captureProtocol'),
+            ('active-1x', argv('normal'),
+             dict(captureProtocol=dict(HARNESS_PROTOCOL['normal'], initialSettleSeconds=2.0)), 'captureProtocol'),
+            ('active-1x-sentinel', argv('long'),
+             dict(captureProtocol=dict(HARNESS_PROTOCOL['long'], orderSeed=3401)), 'captureProtocol'),
+        ]
+        for name, launch, manifest_, pattern in refusals:
+            with self.subTest(name=name, pattern=pattern), self.assertRaisesRegex(ValueError, pattern):
+                self.S.run_admission(name, 1, launch, manifest_, 'e' * 64, 5, (), None)
+
+
+class Order(unittest.TestCase):
+    def setUp(self):
+        self.S = load()
+        self.tmp = tempfile.TemporaryDirectory()
+        self.root = Path(self.tmp.name)
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def complete(self, *names):
+        for name in names:
+            for n in range(1, self.S.runs_of(name) + 1):
+                admit(self.S, self.root, name, n)
+
+    def refused(self, name, run, pattern):
+        with self.assertRaisesRegex(ValueError, pattern):
+            self.S.check_order(self.root, name, run)
+
+    def test_declared_order_and_run_counts(self):
+        self.assertEqual([self.S.runs_of(n) for n in self.S.PASSES], [2, 2] + [7] * 4 + [3] * 4)
+        self.assertEqual(sorted(self.S.PASSES, key=self.S.rank), self.S.PASSES)
+        self.assertEqual(len({self.S.rank(n) for n in self.S.PASSES}), 9)   # only preflight peers
+        for scale in (1, 2):
+            self.S.check_order(self.root, f'preflight-{scale}x', 1)
+
+    def test_every_run_of_every_prior_pass_must_be_admitted(self):
+        admit(self.S, self.root, 'preflight-1x', 1)
+        admit(self.S, self.root, 'preflight-2x', 1)
+        admit(self.S, self.root, 'preflight-2x', 2)
+        self.refused('active-1x', 1, r"not admitted: \['preflight-1x run 2'\]")
+        admit(self.S, self.root, 'preflight-1x', 2)
+        self.S.check_order(self.root, 'active-1x', 1)
+        for n in range(1, 7):
+            admit(self.S, self.root, 'active-1x', n)
+        self.refused('active-2x', 1, r"\['active-1x run 7'\]")
+        self.refused('inactive-2x-sentinel', 1, 'active-1x run 7.*active-2x run 1')
+
+    def test_a_quarantine_alone_does_not_satisfy_a_run(self):
+        self.complete('preflight-1x', 'preflight-2x')
+        for n in range(1, 7):
+            admit(self.S, self.root, 'active-1x', n)
+        (self.root / 'active-1x' / 'QUARANTINE-run-7-1').mkdir()
+        (self.root / 'active-1x' / 'QUARANTINE-run-7-1' / 'refusal.txt').write_text('ValueError: x\n')
+        self.refused('active-2x', 1, r"\['active-1x run 7'\]")
+        # An admission that is not the pass's own protocol is not admitted either.
+        admit(self.S, self.root, 'active-1x', 7)
+        self.S.check_order(self.root, 'active-2x', 1)
+        self.complete('active-2x', 'inactive-1x', 'inactive-2x', 'active-1x-sentinel')
+        path = self.root / 'active-1x-sentinel' / 'run-3' / 'admission.json'
+        path.write_text(json.dumps(dict(json.loads(path.read_text()), protocol='normal')))
+        self.refused('active-2x-sentinel', 1, r"\['active-1x-sentinel run 3'\]")
+
+    def test_skipped_and_interrupted_runs_block_their_successors(self):
+        self.complete('preflight-1x', 'preflight-2x')
+        admit(self.S, self.root, 'active-1x', 1)
+        self.refused('active-1x', 3, r'earlier run\(s\) \[2\]')       # skipped
+        (self.root / 'active-1x' / 'run-2').mkdir()                      # interrupted
+        self.refused('active-1x', 3, r'\[2\]')
+        (self.root / 'active-1x' / 'run-2').rename(self.root / 'active-1x' / 'QUARANTINE-run-2-1')
+        self.refused('active-1x', 3, r'\[2\]')                           # quarantined
+        self.S.check_order(self.root, 'active-1x', 2)                    # still completable
+        admit(self.S, self.root, 'active-1x', 2)
+        self.S.check_order(self.root, 'active-1x', 3)
+
+    def test_sentinel_passes_follow_the_bed_order(self):
+        self.complete('preflight-1x', 'preflight-2x', *self.S.BED)
+        self.S.check_order(self.root, 'active-1x-sentinel', 1)
+        self.refused('active-2x-sentinel', 1, r"\['active-1x-sentinel run 1', 'active-1x-sentinel run 2', "
+                                              r"'active-1x-sentinel run 3'\]")
+        admit(self.S, self.root, 'active-1x-sentinel', 1)
+        admit(self.S, self.root, 'active-1x-sentinel', 2)
+        self.refused('active-2x-sentinel', 1, r"\['active-1x-sentinel run 3'\]")
+        admit(self.S, self.root, 'active-1x-sentinel', 3)
+        self.S.check_order(self.root, 'active-2x-sentinel', 1)
+
+    def test_a_started_later_pass_refuses_an_earlier_one(self):
+        self.complete('preflight-1x', 'preflight-2x')
+        (self.root / 'active-2x' / 'QUARANTINE-run-1-1').mkdir(parents=True)
+        self.refused('active-1x', 1, 'later')
+        self.refused('preflight-2x', 1, 'later')
 
 
 class Driver(unittest.TestCase):
@@ -385,6 +566,70 @@ class Driver(unittest.TestCase):
         (root / 'preflight-verdict.json').write_text(json.dumps(verdict) + ' ')
         with self.assertRaisesRegex(ValueError, 'changed'):
             self.S.load_verdict(root, root / 'preflight-verdict.json')
+
+    def test_interrupted_predecessor_blocks_until_the_operator_preserves_it(self):
+        run1 = self.stubs.root / 'preflight-2x' / 'run-1'
+        run1.mkdir(parents=True)
+        (run1 / 'attest.open.json').write_text('{"partial": true}')
+        with self.assertRaisesRegex(ValueError, r'run 2 refused: earlier run\(s\) \[1\]'):
+            take(self.S, self.stubs, 'preflight', 2, 2)
+        self.assertFalse((self.stubs.root / 'preflight-2x' / 'run-2').exists())
+        # No hidden retry: the driver refuses the run and leaves the directory as it was.
+        with self.assertRaisesRegex(ValueError, 'already exists'):
+            take(self.S, self.stubs, 'preflight', 2, 1)
+        self.assertEqual(sorted(p.name for p in run1.iterdir()), ['attest.open.json'])
+        self.assertEqual([p.name for p in (self.stubs.root / 'preflight-2x').iterdir() if p.is_dir()],
+                         ['run-1'])
+        # The operator preserves it under a quarantine name, then continues deliberately.
+        run1.rename(run1.with_name('QUARANTINE-run-1-interrupted'))
+        take(self.S, self.stubs, 'preflight', 2, 1)
+        self.assertEqual((run1.with_name('QUARANTINE-run-1-interrupted') / 'attest.open.json').read_text(),
+                         '{"partial": true}')
+        self.assertTrue(json.loads((run1 / 'admission.json').read_text())['admitted'])
+        take(self.S, self.stubs, 'preflight', 2, 2)
+        # An admitted run is kept, never retaken.
+        with self.assertRaisesRegex(ValueError, 'already exists'):
+            take(self.S, self.stubs, 'preflight', 2, 1)
+
+    def test_quarantined_predecessor_blocks_and_is_retaken(self):
+        # The harness recorded a settle the normal launch did not ask for.
+        spoil = lambda m: m['captureProtocol'].update(initialSettleSeconds=8.0)
+        with self.assertRaisesRegex(ValueError, 'captureProtocol'):
+            take(self.S, self.stubs, 'preflight', 1, 1, mutate=spoil)
+        passdir = self.stubs.root / 'preflight-1x'
+        q, = passdir.glob('QUARANTINE-run-1-*')
+        self.assertIn('captureProtocol', (q / 'refusal.txt').read_text())
+        self.assertTrue((q / 'attest.open.json').exists() and (q / 'attest.close.json').exists())
+        with self.assertRaisesRegex(ValueError, r'\[1\]'):
+            take(self.S, self.stubs, 'preflight', 1, 2)
+        take(self.S, self.stubs, 'preflight', 1, 1)
+        take(self.S, self.stubs, 'preflight', 1, 2)
+        self.assertEqual(len(list(passdir.glob('QUARANTINE-*'))), 1)
+
+    def test_the_complete_sitting_admits_every_run_under_its_protocol(self):
+        full_sitting(self.S, self.stubs)
+        root = self.stubs.root
+        for name in self.S.PASSES:
+            passdir = root / name
+            self.assertEqual(sorted(c.name for c in passdir.iterdir() if c.is_dir()),
+                             sorted(f'run-{n}' for n in range(1, self.S.runs_of(name) + 1)))
+            for n in range(1, self.S.runs_of(name) + 1):
+                a = json.loads((passdir / f'run-{n}' / 'admission.json').read_text())
+                protocol = 'long' if name.endswith('-sentinel') else 'normal'
+                self.assertEqual((a['schema'], a['admitted'], a['dry'], a['pass'], a['run'], a['protocol']),
+                                 ('w39-run-admission-1', True, False, name, n, protocol))
+                self.assertEqual(a['manifestSha256'], hashlib.sha256(
+                    (passdir / f'run-{n}' / 'manifest.json').read_bytes()).hexdigest())
+                argv = json.loads((passdir / f'run-{n}' / 'launch.json').read_text())['argv']
+                if protocol == 'long':
+                    self.assertEqual(argv[argv.index('--initial-settle') + 1], '8')
+                    self.assertEqual(argv[argv.index('--order-seed') + 1], '3901')
+                else:
+                    self.assertNotIn('--initial-settle', argv)
+                    self.assertNotIn('--order-seed', argv)
+        # Nothing follows the last sentinel, and nothing precedes it again.
+        with self.assertRaisesRegex(ValueError, 'later'):
+            take(self.S, self.stubs, 'inactive', 2, 1, axes=('x',))
 
 
 if __name__ == '__main__':

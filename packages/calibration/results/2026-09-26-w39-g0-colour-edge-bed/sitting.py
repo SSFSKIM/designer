@@ -12,9 +12,16 @@ QUARANTINED under a new name, never retried or overwritten. What W39 changes:
   repeated at the pass's END),
   then active-1x, active-2x, inactive-1x and inactive-2x (seven runs; run 1 also
   carries the colour no-glass references), then the long-protocol sentinels
-  (three runs each). A pass refuses if a later pass has started or an earlier one
-  has not, and no bed pass starts without the frozen preflight verdict, whose
-  admitted phase scenes it re-derives from pass-spec.py and must agree with.
+  (three runs each, in the bed's order). A pass refuses if a later pass has
+  started or if any earlier pass lacks one of its declared runs ADMITTED (a
+  quarantine or an interrupted run is not a run); within a pass run n needs runs
+  1..n-1 admitted. An interrupted run blocks its successor and is never retaken
+  over: the operator preserves it under a QUARANTINE- name, as W34's runbook did,
+  before deliberately taking the run again. No bed pass starts without the
+  frozen preflight verdict, whose admitted phase scenes it re-derives from
+  pass-spec.py and must agree with.
+- Every admission names its protocol, 'normal' or 'long', DERIVED from the launch
+  argv and checked against the manifest's captureProtocol (run_admission).
 - X6 holds strictly: a foreign capture process refuses every launch, including a
   rehearsal. W34 G0 carried a user exception for its no-pixel dry runs; W39 has no
   such exception, so there is no flag that relaxes the census.
@@ -56,12 +63,20 @@ SCREEN = '7709FD0F-F423-4277-B0C8-7CA94F85723A'
 MIN_IDLE_SECONDS = 60
 SRGB = 'kCGColorSpaceSRGB'
 FRAME_SPACE = 'appkit-global-bottom-left'
-RESET_INTERSTITIAL = '6'
-# The long protocol's settle and seed. 3901 is W39's own choice, not inherited: W34
-# used 3401, and nothing here depends on the two agreeing.
-SENTINEL_SETTLE, SENTINEL_SEED = '8', '3901'
+# The two capture protocols, as the harness records them in captureProtocol. 'normal'
+# is the harness's own defaults (main.swift: --initial-settle absent is 1.75 s,
+# --order-seed absent is the one stable order), so its launch names neither flag;
+# 'long' is the sentinel protocol. 3901 is W39's own seed, not inherited: W34 used
+# 3401, and nothing here depends on the two agreeing.
+PROTOCOLS = {
+    'normal': dict(initialSettleSeconds=1.75, orderSeed=None, resetInterstitialSeconds=6.0,
+                   resetCarriesGlass=False, minIdleSeconds=float(MIN_IDLE_SECONDS)),
+    'long': dict(initialSettleSeconds=8.0, orderSeed=3901, resetInterstitialSeconds=6.0,
+                 resetCarriesGlass=False, minIdleSeconds=float(MIN_IDLE_SECONDS)),
+}
 BED = ('active-1x', 'active-2x', 'inactive-1x', 'inactive-2x')
 RUNS = {'preflight': 2, 'bed': 7, 'sentinel': 3}
+PASSES = [f'preflight-{s}x' for s in (1, 2)] + list(BED) + [b + '-sentinel' for b in BED]
 # The harness's own words when SCShareableContent is refused (Capture.swift). The
 # localised system text beside them varies with the language; this line does not.
 TCC_GATE = 'This is the Screen Recording (TCC) gate'
@@ -156,11 +171,22 @@ def pass_name(kind, scale, sentinel):
 
 
 def rank(name):
+    """The two preflight scales are peers (either first); then the four bed passes and
+    the four sentinel passes, each in BED's order."""
     if name.startswith('preflight-'):
         return 0
     if name.endswith('-sentinel'):
-        return 5
+        return 1 + len(BED) + BED.index(name.removesuffix('-sentinel'))
     return 1 + BED.index(name)
+
+
+def runs_of(name):
+    return RUNS['preflight' if name.startswith('preflight-') else
+                'sentinel' if name.endswith('-sentinel') else 'bed']
+
+
+def protocol_of_pass(name):
+    return 'long' if name.endswith('-sentinel') else 'normal'
 
 
 def started(directory):
@@ -168,16 +194,33 @@ def started(directory):
                                       for c in directory.iterdir())
 
 
-def check_order(root, name):
-    """Declared order: preflight (either scale first), the four bed passes, sentinels."""
+def admitted(root, name, n):
+    """Run n of pass `name` completed and was admitted under the pass's protocol. A
+    quarantine never satisfies this: it lives under another name."""
+    path = root / name / f'run-{n}' / 'admission.json'
+    if not path.is_file():
+        return False
+    a = json.loads(path.read_text())
+    return (a.get('admitted') is True and a.get('pass') == name and a.get('run') == n
+            and a.get('protocol') == protocol_of_pass(name))
+
+
+def check_order(root, name, run):
+    """Declared order: every run of every earlier pass admitted, no later pass
+    started, and within the pass runs 1..run-1 admitted, in sequence."""
     mine = rank(name)
-    names = [f'preflight-{s}x' for s in (1, 2)] + list(BED) + [b + '-sentinel' for b in BED]
-    later = [n for n in names if rank(n) > mine and started(root / n)]
+    later = [p for p in PASSES if rank(p) > mine and started(root / p)]
     if later:
         raise ValueError(f'{name} refused: a later pass has already started ({later})')
-    missing = [n for n in names if rank(n) < mine and not started(root / n)]
+    missing = [f'{p} run {k}' for p in PASSES if rank(p) < mine
+               for k in range(1, runs_of(p) + 1) if not admitted(root, p, k)]
     if missing:
-        raise ValueError(f'{name} refused: an earlier pass has not started ({missing})')
+        raise ValueError(f'{name} refused: an earlier pass is not complete; not admitted: {missing}')
+    missing = [k for k in range(1, run) if not admitted(root, name, k)]
+    if missing:
+        raise ValueError(f'{name} run {run} refused: earlier run(s) {missing} of this pass are not '
+                         'admitted; a quarantined or interrupted run blocks its successors until it '
+                         'is preserved by the operator, taken again and admitted')
 
 
 def phase_scenes(axes):
@@ -310,6 +353,68 @@ def validate_manifest(m, doc, pose, scale, label):
                                      f'!= declared {origin}')
 
 
+def launch_settings(argv):
+    """The capture protocol a launch argv asks the harness for, read back the way
+    main.swift parses it: an absent --initial-settle is 1.75 s, an absent --order-seed
+    is no seed."""
+    args = argv[argv.index('--args') + 1:] if '--args' in argv else list(argv)
+
+    def value(flag):
+        if args.count(flag) > 1:
+            raise ValueError(f'{flag} is given twice in the launch')
+        return args[args.index(flag) + 1] if flag in args else None
+
+    settle, seed = value('--initial-settle'), value('--order-seed')
+    reset, idle = value('--reset-interstitial'), value('--min-idle-seconds')
+    return dict(initialSettleSeconds=1.75 if settle is None else float(settle),
+                orderSeed=None if seed is None else int(seed),
+                resetInterstitialSeconds=None if reset is None else float(reset),
+                resetCarriesGlass='--reset-glass' in args,
+                minIdleSeconds=None if idle is None else float(idle))
+
+
+def launch_protocol(argv):
+    """'normal' or 'long', by exact match of the launch's settings; nothing else."""
+    settings = launch_settings(argv)
+    found = [name for name, want in PROTOCOLS.items() if settings == want]
+    if len(found) != 1:
+        raise ValueError(f'the launch settings {settings} are neither declared protocol')
+    return found[0]
+
+
+def protocol_argv(protocol):
+    """The launch flags that ask the harness for `protocol`; the harness defaults are
+    not named, so a normal launch carries no settle or seed flag."""
+    p = PROTOCOLS[protocol]
+    out = ['--reset-interstitial', f'{p["resetInterstitialSeconds"]:g}',
+           '--min-idle-seconds', f'{p["minIdleSeconds"]:g}']
+    if p['initialSettleSeconds'] != PROTOCOLS['normal']['initialSettleSeconds']:
+        out += ['--initial-settle', f'{p["initialSettleSeconds"]:g}']
+    if p['orderSeed'] is not None:
+        out += ['--order-seed', str(p['orderSeed'])]
+    return out
+
+
+def run_admission(name, n, argv, manifest, manifest_sha, cells, axes, verdict_sha):
+    """The admission record of run n of pass `name`: the one constructor the sitting
+    writes admission.json with. The protocol is derived from the launch argv, must be
+    the pass's own (sentinel passes are long, every other pass normal) and must be
+    what the harness recorded in the manifest's captureProtocol - the normal
+    defaults included, so a normal run is never merely 'not long'."""
+    protocol = launch_protocol(argv)
+    if protocol != protocol_of_pass(name):
+        raise ValueError(f'{name} launched the {protocol} protocol; the pass is {protocol_of_pass(name)}')
+    settings = PROTOCOLS[protocol]
+    recorded = manifest.get('captureProtocol') or {}
+    got = {k: recorded.get(k) for k in settings}
+    if got != settings:
+        raise ValueError(f'manifest captureProtocol {got} is not the launched {protocol} protocol {settings}')
+    return dict(schema='w39-run-admission-1', admitted=True, dry=False, protocol=protocol,
+                captureProtocol=dict(settings), cells=cells, reachableAxes=list(axes),
+                preflightVerdictSha256=verdict_sha, manifestSha256=manifest_sha, run=n,
+                **{'pass': name})
+
+
 def classify_refusal(run, before, after, timed_out):
     """The rehearsal's outcome. Only 'refused-tcc' is the expected evidence."""
     out = (run / 'producer-capture.out').read_text() if (run / 'producer-capture.out').exists() else ''
@@ -401,14 +506,17 @@ def main(argv=None):
         if any(n.startswith('rehearsal-') for n in others):
             raise ValueError('an evidence root holds no rehearsal')
         name = base
-        check_order(root, name)
+        check_order(root, name, args.first)
         axes, verdict_sha = ((), None) if args.kind == 'preflight' else \
             load_verdict(root, (args.verdict or root / 'preflight-verdict.json').resolve())
     pose = 'active' if args.kind == 'preflight' else args.kind
     passdir = root / name
     passdir.mkdir(exist_ok=True)
 
+    protocol = 'long' if args.sentinel else 'normal'
     for n in range(args.first, last + 1):
+        if not rehearsal:
+            check_order(root, name, n)
         doc = pass_doc(args.kind, args.scale, n, axes, args.sentinel)
         spec = passdir / f'scenes-run-{n}.json'
         encoded = json.dumps(doc, indent=2) + '\n'
@@ -478,11 +586,8 @@ def main(argv=None):
                 command += ['--env', key + '=' + env[key]]
             command += ['--stdout', str(run / 'producer-capture.out'),
                         '--stderr', str(run / 'producer-capture.err'), str(app),
-                        '--args', 'capture', '--run-label', label,
-                        '--reset-interstitial', RESET_INTERSTITIAL,
-                        '--min-idle-seconds', str(MIN_IDLE_SECONDS), '--scenes', ','.join(ids)]
-            if args.sentinel:
-                command += ['--initial-settle', SENTINEL_SETTLE, '--order-seed', SENTINEL_SEED]
+                        '--args', 'capture', '--run-label', label, *protocol_argv(protocol),
+                        '--scenes', ','.join(ids)]
             if pose == 'inactive':
                 command += ['--inactive']
             (run / 'launch.json').write_text(json.dumps(dict(argv=command, rehearsal=rehearsal), indent=2) + '\n')
@@ -511,12 +616,13 @@ def main(argv=None):
             else:
                 if timed_out:
                     raise ValueError('unreachable: a real run has no timeout')
-                m = json.loads((run / 'manifest.json').read_text())
+                raw = (run / 'manifest.json').read_bytes()
+                m = json.loads(raw)
                 validate_manifest(m, doc, pose, args.scale, label)
                 cells = sum(len(p['scenes']) for p in doc['profiles'])
-                (run / 'admission.json').write_text(json.dumps(dict(
-                    admitted=True, cells=cells, passName=name, run=n,
-                    reachableAxes=list(axes), preflightVerdictSha256=verdict_sha)) + '\n')
+                admission = run_admission(name, n, command, m, hashlib.sha256(raw).hexdigest(), cells,
+                                          axes, verdict_sha)
+                (run / 'admission.json').write_text(json.dumps(admission, indent=2) + '\n')
                 print(f'{name} run {n}: admitted cells={cells}', flush=True)
         except BaseException as error:
             (run / 'refusal.txt').write_text(f'{type(error).__name__}: {error}\n')
