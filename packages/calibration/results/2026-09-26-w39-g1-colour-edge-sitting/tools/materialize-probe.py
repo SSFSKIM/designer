@@ -19,7 +19,11 @@ Two W39 differences, both explicit:
   (`fold_first_run`): where run 1 holds the published state, the cell is recorded as seven runs
   agreeing on it; where run 1 differs, the cell is kept only if runs 2-7 were unanimous (six
   against one, which no seven-run plurality could overturn) and the difference is recorded; any
-  other disagreement refuses, for a ruling, because a seventh vote could change it. The cells
+  other disagreement refuses, for a ruling, because a seventh vote could change it. A cell
+  materialize.ts cannot settle over runs 2-7 (a tie there, which a seventh vote breaks) is
+  given to materialize.ts's own `--omit` and published here at the plurality of all seven runs
+  (`publish_plurality`), exactly the state a seven-run materialize.ts would have published; a
+  cell with no strict plurality over all seven still refuses, for a ruling. The cells
   run 1 alone captured (the references) are then added from run 1's own bytes and manifest
   entry, marked `singleRun: true`; they are not a plurality and do not claim to be one, and the
   archive of record holds that one state. Every run, run 1 included, is in the archive and in
@@ -39,6 +43,7 @@ import importlib.util
 import json
 import os
 from pathlib import Path
+import re
 import shutil
 import subprocess
 import sys
@@ -87,19 +92,82 @@ def stage_stub(stage, first_manifest):
     (stage / 'backgrounds').mkdir(exist_ok=True)   # materialize.ts copies the rasters into it
 
 
-def materialize_pass(name, others, stage, scenes, logs):
+def materialize_pass(name, others, stage, scenes, logs, omit=(), suffix=''):
     """materialize.ts over `others` (runs 2..N, one declaration) into `stage`; its exit code.
 
     Labels are positional so a run directory's name never collides; the logs, which name state
-    frequencies, stay private.
+    frequencies, stay private. `omit` passes materialize.ts's own `--omit` for cells this tool
+    then publishes at their seven-run plurality (`resolve_pass`).
     """
     command = ['pnpm', '--dir', str(ROOT), '--filter', '@vitrea/calibration', '--fail-if-no-match',
                'exec', 'tsx', 'cli/materialize.ts', '--set', 'probe', '--frequency-settle', '--apply']
     for i, root in enumerate(others, 2): command += ['--run', f'run-{i}={Path(root).resolve()}']
+    for cell in omit:
+        command += ['--omit', f'{cell}=no plurality over runs 2..N; published by materialize-probe.py at '
+                              f'the plurality of all runs, run 1 included']
     env = {**os.environ, 'VITREA_SCENES': str(Path(scenes).resolve()), 'VITREA_FIXTURES': str(stage)}
-    (logs / f'{name}-command.json').write_text(json.dumps(command, indent=2) + '\n')
-    with (logs / f'{name}.txt').open('w') as f:
+    (logs / f'{name}{suffix}-command.json').write_text(json.dumps(command, indent=2) + '\n')
+    with (logs / f'{name}{suffix}.txt').open('w') as f:
         return subprocess.run(command, env=env, stdout=f, stderr=subprocess.STDOUT).returncode
+
+
+REFUSED = re.compile(r'^  (?:AMBIGUOUS|NO PLURALITY) (\S+)$', re.M)
+
+
+def refused_cells(log):
+    """The cells materialize.ts refused for want of a plurality, by name only (never the reason)."""
+    return sorted(set(REFUSED.findall(Path(log).read_text())))
+
+
+def publish_plurality(stage, roots, cells):
+    """Publish each of `cells` at the plurality of ALL runs (run 1 included), or refuse.
+
+    For a cell materialize.ts could not settle over runs 2..N — a tie there — run 1 is the
+    vote that decides, exactly as it would have inside a seven-run materialize.ts. The state
+    held by strictly more runs than any other is copied, bytes and manifest entry, from the
+    first run that holds it; no strict plurality refuses, for a ruling. The frequencies are
+    recorded on the entry (a holdout entry's public projection drops them).
+    """
+    manifest = json.loads((stage / 'manifest.json').read_text())
+    runs = [{(p['profileKey'], f['sceneId']): f for p in json.loads((r / 'manifest.json').read_text())['profiles']
+             for f in p['fixtures']} for r in roots]
+    published = []
+    for cell in cells:
+        key = tuple(cell.split('/', 1))
+        states = [digest(r / m[key]['file']) for r, m in zip(roots, runs)]
+        counts = {s: states.count(s) for s in states}
+        ranked = sorted(counts.values(), reverse=True)
+        if len(ranked) > 1 and ranked[0] == ranked[1]:
+            raise ValueError(f'{cell}: no strict plurality over all {len(roots)} runs; a ruling, not a publication')
+        winner = max(counts, key=counts.get)
+        at = states.index(winner)
+        entry = runs[at][key]
+        target = next(p for p in manifest['profiles'] if p['profileKey'] == key[0])
+        if any(f['sceneId'] == key[1] for f in target['fixtures']):
+            raise ValueError(f'{cell}: already published')
+        (stage / entry['file']).parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(roots[at] / entry['file'], stage / entry['file'])
+        target['fixtures'].append({**entry, 'fixtureSet': 'probe', 'runsVoting': len(roots),
+                                   'pluralityOfAllRuns': dict(runs=counts[winner], of=len(roots),
+                                                              observedStates=len(counts), fromRun=roots[at].name)})
+        target['fixtures'].sort(key=lambda f: f['sceneId'])
+        published.append(cell)
+    (stage / 'manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
+    return published
+
+
+def resolve_pass(name, roots, stage, scenes, logs):
+    """One pass: materialize.ts over runs 2..N; a plurality it cannot find there is decided over
+    all runs; run 1 folded in on the rest. Returns (ties published, fold records)."""
+    before = staged_cells(stage)
+    ties = []
+    if materialize_pass(name, roots[1:], stage, scenes, logs):
+        ties = refused_cells(logs / f'{name}.txt')
+        if not ties or materialize_pass(name, roots[1:], stage, scenes, logs, ties, '-with-omissions'):
+            return None
+        publish_plurality(stage, roots, ties)
+    shared = {c for c in staged_cells(stage) - before if '/'.join(c) not in ties}
+    return ties, fold_first_run(stage, roots[0], roots[1:], shared)
 
 
 def fold_first_run(stage, run1, others, cells):
@@ -243,15 +311,15 @@ def main(argv=None):
         stage = Path(tmp) / 'bed'; logs = Path(tmp) / 'producer-logs'
         stage.mkdir(); logs.mkdir()
         stage_stub(stage, json.loads((runs[PASSES[0]][1] / 'manifest.json').read_text()))
-        single, folded = [], []
+        single, folded, ties = [], [], []
         for name, roots in runs.items():
-            before = staged_cells(stage)
-            if materialize_pass(name, roots[1:], stage, wave.scenes_path, logs):
+            resolved = resolve_pass(name, roots, stage, wave.scenes_path, logs)
+            if resolved is None:
                 failed = out.with_name(out.name + '-FAILED') / 'holdout/producer-logs'
                 shutil.copytree(logs, failed)
                 raise SystemExit(f'{name}: materialise refused; diagnostics kept behind the holdout boundary '
                                  f'at {failed}')
-            folded += fold_first_run(stage, roots[0], roots[1:], staged_cells(stage) - before)
+            ties += resolved[0]; folded += resolved[1]
             single += add_first_run_only(stage, roots[0], roots[1],
                                          lambda sid: wave.component(sid)['kind'] == 'none')
         (logs / 'first-run-fold.json').write_text(json.dumps(folded, indent=2) + '\n')
@@ -260,7 +328,7 @@ def main(argv=None):
                            dict(scenesSha256=wave.scenes_sha, splitSha256=wave.split_sha), unadmitted)
         shutil.copytree(logs, out / 'holdout/producer-logs')
     print(json.dumps({**result, 'unadmittedPhaseScenes': len(unadmitted), 'singleRunReferences': len(single),
-                      'firstRunFolded': len(folded),
+                      'firstRunFolded': len(folded), 'decidedOverAllRuns': len(ties),
                       'firstRunDiffers': sum(f['verdict'] == 'differs' for f in folded)}, indent=2))
 
 

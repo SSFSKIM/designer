@@ -86,15 +86,35 @@ class Materialise(unittest.TestCase):
                 self.assertEqual(one['canvas'], two['canvas'])
                 for run in range(3, 8): self.assertEqual(P.derive(pose, scale, run, (), False), two)
 
-    def altered(self, root, tmp, sid):
-        """A copy of a run with one cell's PNG changed by one code at one pixel."""
-        copy_root = tmp / ('altered-' + root.name); shutil.copytree(root, copy_root)
+    def altered(self, root, tmp, sid, bit=1, tag='altered'):
+        """A copy of a run with one cell's PNG changed at one pixel (a sub-code, noise-level change)."""
+        copy_root = tmp / (tag + '-' + root.name); shutil.copytree(root, copy_root)
         entry = next(f for p in json.loads((root / 'manifest.json').read_text())['profiles']
                      for f in p['fixtures'] if f['sceneId'] == sid)
         image = np.asarray(Image.open(copy_root / entry['file']).convert('RGB')).copy()
-        image[0, 0, 0] ^= 1
+        image[0, 0, 0] ^= bit
         Image.fromarray(image).save(copy_root / entry['file'])
         return copy_root
+
+    def test_a_tie_over_runs_two_to_n_is_decided_by_all_runs(self):
+        with tempfile.TemporaryDirectory() as t:
+            tmp = Path(t); run1, run2 = roots(2); sid = 'preflight-2x-zero__rest'
+            odd2 = self.altered(run2, tmp, sid)
+            stage, logs = tmp / 'bed', tmp / 'logs'; stage.mkdir(); logs.mkdir()
+            M.stage_stub(stage, json.loads((run2 / 'manifest.json').read_text()))
+            ties, folded = M.resolve_pass('tie', [run1, run2, odd2], stage, run2.parent / 'scenes-run-2.json', logs)
+            cell = PROFILE.format(s=2) + '/' + sid
+            self.assertEqual(ties, [cell])                       # 1-1 over runs 2..N: materialize.ts refused
+            self.assertEqual([f['verdict'] for f in folded], ['agrees'])   # the opaque twin, unanimous
+            manifest = json.loads((stage / 'manifest.json').read_text())
+            entry = next(f for p in manifest['profiles'] for f in p['fixtures'] if f['sceneId'] == sid)
+            self.assertEqual(entry['pluralityOfAllRuns']['runs'], 2)
+            self.assertEqual(entry['pluralityOfAllRuns']['of'], 3)
+            self.assertEqual(M.digest(stage / entry['file']), M.digest(run2 / entry['file']))
+            self.assertEqual(len(M.staged_cells(stage)), 2)
+            odd1 = self.altered(run1, tmp, sid, bit=2, tag='other')
+            with self.assertRaisesRegex(ValueError, 'no strict plurality'):
+                M.publish_plurality(tmp / 'bed', [odd1, run2, odd2], [cell])
 
     def test_first_run_folds_as_the_further_vote(self):
         with tempfile.TemporaryDirectory() as t:
