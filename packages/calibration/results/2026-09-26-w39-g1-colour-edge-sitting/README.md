@@ -75,3 +75,56 @@ or reading the machine; nothing launched and no run was consumed.
 
 The rehearsal is complete: the ungranted side bundle is refused by the TCC gate in both poses
 at both scales, with the real run-1 argv.
+
+## Step 2 — the grant switch (the user's hand)
+
+"Ready for the grant switch" went to the parent at head `5e3a8064`, with the side app's path,
+its cdhash `be258cbfc53e5cec6b49ecdec01f126872400b29` and the Settings steps. The user made the
+switch and left the machine. The parent then read the system TCC rows (read-only, 03:05:26Z):
+`dev.vitrea.reference-apple.w39` auth **2**, `.w34` auth 0, and **no row at all** for the
+original `dev.vitrea.reference-apple`. Its Screen Recording row was removed, not merely turned
+off. Its separate Accessibility row (auth 2, 2026-08-28) is untouched. Nobody else touched the
+GUI.
+
+## Step 3 — positive checks after the switch (`grant/`)
+
+`grant/grant-check.py side|original <attempt>` is step 0's one-cell construction: the canonical
+27-only 2x light checkerboard capsule, at mode 68, with explicit scratch roots under
+`~/vitrea-w39/run/grant-checks/`. It applies the sitting's own machine and session gates and
+reads the TCC rows before and after each attempt. It classifies the outcome rather than asserting
+it. `grant/when-idle.sh` delays a launch until read-session reports ≥ 75 s of HID idle and no
+prompt window. The command's own gates still decide.
+
+| Attempt | Outcome | presentedActive | materialRendered / deterministic / repeatNoise | PNG vs. committed canonical fixture |
+| --- | --- | --- | --- | --- |
+| `side-positive-1` | captured-inactive | **false** | true / true / 0 | 22,457 px differ (max 100): the inactive pose |
+| `side-pose-check-2` | **captured-active** | true | true / true / 0 | **byte-identical**, SHA-256 `6c15311b…` |
+
+As in W34 (its Decision Log 4 and §5.174 §6), the side bundle's first launch after the grant
+was repeat-stable but **inactive**. That attempt is kept. The second of the three authorised
+pose checks attested active, and its PNG is byte-identical to the committed macOS 27 2x light
+fixture, as W34's side capture was. The third check was not needed.
+
+One observation is new. During `side-positive-1` a **`UserNotificationCenter` window at window
+level 8** (a system modal alert) appeared and took the front. It is the most likely reason that
+launch attested inactive, though the cause is not established. The window stays on screen. Its
+text cannot be read without granting this shell a capture or automation permission, which would
+itself prompt, so it was not read and nothing clicked it. `side-pose-check-2` activated past it
+and attested active with no new window. The sitting's gates list only `universalAccessAuthWarn`
+as a prompt owner, and this window is not treated as one. Every active capture still attests its
+own `presentedActive`, and `validate_manifest` refuses a run if any cell attests otherwise, so a
+stolen focus quarantines a run rather than passing silently. `grant/session-after-checks.json`
+records the window still present after the checks.
+
+**The original's check is the TCC read, not a launch (the parent's ruling).** With no TCC row,
+launching the original would raise a new permission prompt that nobody is present to dismiss, and
+that prompt would block every later launch. So the original was **not launched**. Its state is
+recorded by the read-only system TCC read (`grant/tcc-after-checks.json`): no
+`kTCCServiceScreenCapture` row for `dev.vitrea.reference-apple`, meaning not granted. At this
+moment the side holds the only vitrea Screen Recording grant. At wave close, restoring the
+original follows the harness README's add recipe, with a positive check of both bundles
+(Decision Log 4).
+
+Step 0's original capture, for the record, differs from the canonical fixture at 115 pixels by
+≤ 2 codes (`grant/side-canonical-comparison.json`). Step 0's admission required only its
+attestations, which all held. This is recorded as a reading, not a finding about either bundle.
