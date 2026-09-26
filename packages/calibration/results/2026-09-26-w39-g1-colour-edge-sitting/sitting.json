@@ -1,0 +1,71 @@
+{
+  "schema": "w39-sitting-1",
+  "admittedCaptures": 6360,
+  "firstCapture": "2026-09-26T03:09:53Z",
+  "lastCapture": "2026-09-26T21:50:42Z",
+  "passes": [
+    {
+      "passName": "preflight-1x",
+      "admittedRuns": 2,
+      "captures": 20,
+      "quarantined": []
+    },
+    {
+      "passName": "preflight-2x",
+      "admittedRuns": 2,
+      "captures": 20,
+      "quarantined": []
+    },
+    {
+      "passName": "active-1x",
+      "admittedRuns": 7,
+      "captures": 1568,
+      "quarantined": [
+        "QUARANTINE-run-1-1790395862598343000",
+        "QUARANTINE-run-7-1790411537373327000"
+      ]
+    },
+    {
+      "passName": "active-2x",
+      "admittedRuns": 7,
+      "captures": 1568,
+      "quarantined": []
+    },
+    {
+      "passName": "inactive-1x",
+      "admittedRuns": 7,
+      "captures": 1568,
+      "quarantined": []
+    },
+    {
+      "passName": "inactive-2x",
+      "admittedRuns": 7,
+      "captures": 1568,
+      "quarantined": []
+    },
+    {
+      "passName": "active-1x-sentinel",
+      "admittedRuns": 3,
+      "captures": 12,
+      "quarantined": []
+    },
+    {
+      "passName": "active-2x-sentinel",
+      "admittedRuns": 3,
+      "captures": 12,
+      "quarantined": []
+    },
+    {
+      "passName": "inactive-1x-sentinel",
+      "admittedRuns": 3,
+      "captures": 12,
+      "quarantined": []
+    },
+    {
+      "passName": "inactive-2x-sentinel",
+      "admittedRuns": 3,
+      "captures": 12,
+      "quarantined": []
+    }
+  ]
+}

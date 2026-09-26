@@ -69,7 +69,7 @@ def manifest(doc, pose, scale, label, protocol='normal'):
             component = scenes[sid]['component']
             paths = PATHS.get(component, BED_PATHS.get(component))
             fixtures.append(dict(sceneId=sid, file=f'{p["key"]}/{sid}.png', captureMethod='screencapturekit',
-                materialRendered=True, deterministic=True, width=size[0], height=size[1],
+                materialRendered=True, deterministic=True, width=size[0], height=size[1], hidIdleSeconds=100.0,
                 presentedActive=pose == 'active',
                 presentation=dict(observedPose=pose, isKeyWindow=pose == 'active', appIsActive=pose == 'active'),
                 windowFrame=dict(coordinateSpace='appkit-global-bottom-left', requested=list(frame),
@@ -291,6 +291,44 @@ class Manifest(unittest.TestCase):
         self.fails(lambda m: m['profiles'][0]['display'].update(actualBackingScale=1), 'scale')
         self.fails(lambda m: m['profiles'][0]['fixtures'].pop(), 'membership')
         self.fails(lambda m: m['captureProtocol'].update(runLabel='other'), 'label')
+
+    def test_every_capture_must_record_sixty_seconds_of_hid_idle(self):
+        # G1 gate correction (§5.185, G1 stop 1): the per-capture idle is an admission check.
+        f = lambda m: m['profiles'][0]['fixtures'][5]
+        self.fails(lambda m: f(m).update(hidIdleSeconds=3.1), 'per-capture HID idle')
+        self.fails(lambda m: f(m).update(hidIdleSeconds=59.999), 'per-capture HID idle')
+        self.fails(lambda m: f(m).pop('hidIdleSeconds'), 'per-capture HID idle')
+        self.fails(lambda m: f(m).update(hidIdleSeconds=None), 'per-capture HID idle')
+        m = copy.deepcopy(self.good)
+        f(m).update(hidIdleSeconds=60.0)
+        self.S.validate_manifest(m, self.doc, 'active', 2, self.label)
+
+    def test_foreign_census_names_every_browser_process(self):
+        # G1 gate correction (§5.185, G1 stop 1): a Google Chrome launched mid-run read 0.
+        spec = importlib.util.spec_from_file_location('w39_record_machine', HERE / 'record-machine.py')
+        R = importlib.util.module_from_spec(spec); spec.loader.exec_module(R)
+        foreign = [
+            '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+            '/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/'
+            '154.0.8037.57/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper --type=gpu-process',
+            '/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Helpers/'
+            'chrome_crashpad_handler --monitor-self-annotation=ptype=crashpad-handler',
+            '/Users/x/Library/Caches/ms-playwright/chromium-1200/chrome-mac/Chromium.app/Contents/MacOS/Chromium',
+            '/Users/x/Library/Caches/ms-playwright/chromium_headless_shell-1200/chrome-mac/headless_shell',
+            '/Users/x/Library/Caches/ms-playwright/chromium_headless_shell-1200/chrome-headless-shell-mac-arm64/'
+            'chrome-headless-shell --headless',
+            'node /x/node_modules/.bin/Playwright test',
+            'node /x/node_modules/playwright/cli.js run-server',
+            'Chrome Helper (Renderer)',
+            'tsx packages/calibration/cli/compare.ts --scene a',
+            '/Users/new/vitrea-w39/side/VitreaReference.app/Contents/MacOS/VitreaReference capture',
+        ]
+        for command in foreign:
+            self.assertTrue(R.is_foreign(command), command)
+        for command in ['/Applications/Docker.app/Contents/MacOS/Docker Desktop.app/Contents/Frameworks/'
+                        'Electron Framework.framework/Helpers/chrome_crashpad_handler --no-rate-limit',
+                        '/System/Library/CoreServices/Finder.app/Contents/MacOS/Finder', '/bin/zsh -l']:
+            self.assertFalse(R.is_foreign(command), command)
 
     def test_end_repeat_is_the_zero_pair_and_run_one_carries_references(self):
         repeat = self.S.pass_doc('preflight', 1, 2, (), False)

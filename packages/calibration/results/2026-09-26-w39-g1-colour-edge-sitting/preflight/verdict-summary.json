@@ -1,0 +1,217 @@
+{
+  "branch": "neither",
+  "reachableAxes": [],
+  "admittedScenes": 0,
+  "axes": {
+    "x": {
+      "status": "unreachable",
+      "perScale": {
+        "1x": "fail",
+        "2x": "fail"
+      }
+    },
+    "y": {
+      "status": "unreachable",
+      "perScale": {
+        "1x": "fail",
+        "2x": "fail"
+      }
+    }
+  },
+  "perScaleAxis": {
+    "1x": {
+      "endSentinelPasses": true,
+      "x": {
+        "opaqueNearByteIdentical": true,
+        "opaqueFarDistinctByteStates": 2,
+        "D_int_near": 0.0,
+        "glassNearMaxPairwise": 0.0,
+        "glassNearPasses": true,
+        "D_int_far": 0.0,
+        "glassFarDistinctStates": 2,
+        "stateOfPhase": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "rssShift": 683.482355507512,
+        "rssAmplitude": 50707.659950005334,
+        "rssRatio": 0.013478877869366955,
+        "amplitudeConverged": false,
+        "amplitudeAlternations": 200,
+        "fittedOffsetsDevicePx": [
+          0.0,
+          -0.06270555652338317,
+          0.9372944434766168,
+          0.9372944434766168
+        ],
+        "attestedEdges": [
+          220.0,
+          220.25,
+          220.5,
+          220.75
+        ],
+        "rank": 22,
+        "columns": 22,
+        "conditionNumber": 474212.76950444956,
+        "lopoMaxResidual": [
+          0.038809245066104836,
+          0.13576290569628213,
+          5.400124791776761e-13,
+          0.011697172791485855
+        ],
+        "criteria": {
+          "a_rssRatio": false,
+          "b_monotone": false,
+          "c_identified": true,
+          "d_leaveOneOut": true
+        }
+      },
+      "y": {
+        "opaqueNearByteIdentical": true,
+        "opaqueFarDistinctByteStates": 2,
+        "D_int_near": 0.0,
+        "glassNearMaxPairwise": 0.0,
+        "glassNearPasses": true,
+        "D_int_far": 0.0,
+        "glassFarDistinctStates": 2,
+        "stateOfPhase": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "rssShift": 267.97299290823184,
+        "rssAmplitude": 38506.57815359114,
+        "rssRatio": 0.006959148430155708,
+        "amplitudeConverged": false,
+        "amplitudeAlternations": 200,
+        "fittedOffsetsDevicePx": [
+          0.0,
+          -0.1875,
+          0.8125,
+          0.8125
+        ],
+        "attestedEdges": [
+          162.0,
+          162.25,
+          162.5,
+          162.75
+        ],
+        "rank": 22,
+        "columns": 22,
+        "conditionNumber": 855.6292751017243,
+        "lopoMaxResidual": [
+          0.02399526076840175,
+          2.8157442869579086,
+          2.8157442869579086,
+          2.8157442869579086
+        ],
+        "criteria": {
+          "a_rssRatio": false,
+          "b_monotone": false,
+          "c_identified": true,
+          "d_leaveOneOut": false
+        }
+      }
+    },
+    "2x": {
+      "endSentinelPasses": true,
+      "x": {
+        "opaqueNearByteIdentical": true,
+        "opaqueFarDistinctByteStates": 2,
+        "D_int_near": 0.0,
+        "glassNearMaxPairwise": 0.0,
+        "glassNearPasses": true,
+        "D_int_far": 0.0,
+        "glassFarDistinctStates": 2,
+        "stateOfPhase": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "rssShift": 1004.3183706576037,
+        "rssAmplitude": 56215.3450775572,
+        "rssRatio": 0.0178655555573305,
+        "amplitudeConverged": false,
+        "amplitudeAlternations": 200,
+        "fittedOffsetsDevicePx": [
+          0.0,
+          -0.09395555652338317,
+          0.921415361640527,
+          0.9216694434766168
+        ],
+        "attestedEdges": [
+          440.0,
+          440.25,
+          440.5,
+          440.75
+        ],
+        "rank": 40,
+        "columns": 40,
+        "conditionNumber": 4312.8588675836045,
+        "lopoMaxResidual": [
+          0.004451241691143082,
+          0.06653738549977106,
+          0.004103284620612158,
+          0.015271697613840729
+        ],
+        "criteria": {
+          "a_rssRatio": false,
+          "b_monotone": false,
+          "c_identified": true,
+          "d_leaveOneOut": true
+        }
+      },
+      "y": {
+        "opaqueNearByteIdentical": true,
+        "opaqueFarDistinctByteStates": 2,
+        "D_int_near": 0.0,
+        "glassNearMaxPairwise": 0.0,
+        "glassNearPasses": true,
+        "D_int_far": 0.0,
+        "glassFarDistinctStates": 2,
+        "stateOfPhase": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "rssShift": 442.13508587781877,
+        "rssAmplitude": 42659.05917653933,
+        "rssRatio": 0.01036438905152822,
+        "amplitudeConverged": false,
+        "amplitudeAlternations": 200,
+        "fittedOffsetsDevicePx": [
+          0.0,
+          -0.1875,
+          0.8125,
+          0.8125
+        ],
+        "attestedEdges": [
+          324.0,
+          324.25,
+          324.5,
+          324.75
+        ],
+        "rank": 40,
+        "columns": 40,
+        "conditionNumber": 1174.386006623505,
+        "lopoMaxResidual": [
+          0.002547699691120897,
+          3.782393423357945,
+          3.782393423357604,
+          3.782393423357604
+        ],
+        "criteria": {
+          "a_rssRatio": false,
+          "b_monotone": false,
+          "c_identified": true,
+          "d_leaveOneOut": false
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,166 @@
+[
+  {
+    "run": "QUARANTINE-run-1-1790395862598343000",
+    "admitted": false,
+    "manifestSha256": "abf6453fb16a8f39045d321a64d8d90058f7bc5e4114d742199da15b5f981902",
+    "fixtures": 332,
+    "firstCapture": "2026-09-26T03:18:20Z",
+    "lastCapture": "2026-09-26T04:11:01Z",
+    "captureProtocol": {
+      "hidIdleSecondsAtEnd": 1514.383208041,
+      "hidIdleSecondsAtStart": 753.616328375,
+      "initialSettleSeconds": 1.75,
+      "minIdleSeconds": 60,
+      "resetCarriesGlass": false,
+      "resetInterstitialSeconds": 6,
+      "runLabel": "w39-active-1x-1",
+      "userIsActiveAtStart": true
+    },
+    "refusal": "ValueError: pose attestation failed: factor-y0-c12-h0-colour__rest"
+  },
+  {
+    "run": "QUARANTINE-run-7-1790411537373327000",
+    "admitted": false,
+    "manifestSha256": "9a864f4a272c7b69837f0ff7ddf593e5d7c461b58fa41661b9a19b1f5616fb55",
+    "fixtures": 206,
+    "firstCapture": "2026-09-26T07:59:45Z",
+    "lastCapture": "2026-09-26T08:32:16Z",
+    "captureProtocol": {
+      "hidIdleSecondsAtEnd": 1292.307243625,
+      "hidIdleSecondsAtStart": 15228.676456333,
+      "initialSettleSeconds": 1.75,
+      "minIdleSeconds": 60,
+      "resetCarriesGlass": false,
+      "resetInterstitialSeconds": 6,
+      "runLabel": "w39-active-1x-7",
+      "userIsActiveAtStart": true
+    },
+    "refusal": "ValueError: pose attestation failed: factor-y1-c12-h60-colour__rest"
+  },
+  {
+    "run": "run-1",
+    "admitted": true,
+    "manifestSha256": "1ff314fb7568ba775ebd5829e46060f99e184aed6a372a269a88dedf0d649dde",
+    "fixtures": 332,
+    "firstCapture": "2026-09-26T04:23:15Z",
+    "lastCapture": "2026-09-26T05:15:51Z",
+    "captureProtocol": {
+      "hidIdleSecondsAtEnd": 5404.833848125,
+      "hidIdleSecondsAtStart": 2238.682493791,
+      "initialSettleSeconds": 1.75,
+      "minIdleSeconds": 60,
+      "resetCarriesGlass": false,
+      "resetInterstitialSeconds": 6,
+      "runLabel": "w39-active-1x-1",
+      "userIsActiveAtStart": true
+    }
+  },
+  {
+    "run": "run-2",
+    "admitted": true,
+    "manifestSha256": "028e3cb28c5869d87f73ef7cdaf754bae30a240abd606ab48cb03d5471290038",
+    "fixtures": 206,
+    "firstCapture": "2026-09-26T05:16:03Z",
+    "lastCapture": "2026-09-26T05:48:36Z",
+    "captureProtocol": {
+      "hidIdleSecondsAtEnd": 7370.096955916,
+      "hidIdleSecondsAtStart": 5407.42329375,
+      "initialSettleSeconds": 1.75,
+      "minIdleSeconds": 60,
+      "resetCarriesGlass": false,
+      "resetInterstitialSeconds": 6,
+      "runLabel": "w39-active-1x-2",
+      "userIsActiveAtStart": true
+    }
+  },
+  {
+    "run": "run-3",
+    "admitted": true,
+    "manifestSha256": "0ce1db2e0ccac8a29607ec79c221ba0865858b5b1d5590323774146dd2f2a6f3",
+    "fixtures": 206,
+    "firstCapture": "2026-09-26T05:48:48Z",
+    "lastCapture": "2026-09-26T06:21:21Z",
+    "captureProtocol": {
+      "hidIdleSecondsAtEnd": 9334.550702333,
+      "hidIdleSecondsAtStart": 7371.795121041,
+      "initialSettleSeconds": 1.75,
+      "minIdleSeconds": 60,
+      "resetCarriesGlass": false,
+      "resetInterstitialSeconds": 6,
+      "runLabel": "w39-active-1x-3",
+      "userIsActiveAtStart": true
+    }
+  },
+  {
+    "run": "run-4",
+    "admitted": true,
+    "manifestSha256": "4fecb64564aff28b5bcc81f5286c446e7f2ce6e95875ff19f5b4932c36970cc9",
+    "fixtures": 206,
+    "firstCapture": "2026-09-26T06:21:32Z",
+    "lastCapture": "2026-09-26T06:54:04Z",
+    "captureProtocol": {
+      "hidIdleSecondsAtEnd": 11297.573932208,
+      "hidIdleSecondsAtStart": 9336.3580075,
+      "initialSettleSeconds": 1.75,
+      "minIdleSeconds": 60,
+      "resetCarriesGlass": false,
+      "resetInterstitialSeconds": 6,
+      "runLabel": "w39-active-1x-4",
+      "userIsActiveAtStart": true
+    }
+  },
+  {
+    "run": "run-5",
+    "admitted": true,
+    "manifestSha256": "b3c49206447c9963ccda6a121f4db5279b074c726a4b420ee53a2f825a9a6743",
+    "fixtures": 206,
+    "firstCapture": "2026-09-26T06:54:16Z",
+    "lastCapture": "2026-09-26T07:26:48Z",
+    "captureProtocol": {
+      "hidIdleSecondsAtEnd": 13261.500951458,
+      "hidIdleSecondsAtStart": 11299.547355958,
+      "initialSettleSeconds": 1.75,
+      "minIdleSeconds": 60,
+      "resetCarriesGlass": false,
+      "resetInterstitialSeconds": 6,
+      "runLabel": "w39-active-1x-5",
+      "userIsActiveAtStart": true
+    }
+  },
+  {
+    "run": "run-6",
+    "admitted": true,
+    "manifestSha256": "8f8bfd40e582616a2ed15aafef07778b8c0e6c6d9413a187943a85ca60339f51",
+    "fixtures": 206,
+    "firstCapture": "2026-09-26T07:27:00Z",
+    "lastCapture": "2026-09-26T07:59:33Z",
+    "captureProtocol": {
+      "hidIdleSecondsAtEnd": 15226.9318945,
+      "hidIdleSecondsAtStart": 13263.490134875,
+      "initialSettleSeconds": 1.75,
+      "minIdleSeconds": 60,
+      "resetCarriesGlass": false,
+      "resetInterstitialSeconds": 6,
+      "runLabel": "w39-active-1x-6",
+      "userIsActiveAtStart": true
+    }
+  },
+  {
+    "run": "run-7",
+    "admitted": true,
+    "manifestSha256": "2ca522e2f55d716a1cce772b4a2987c1baf9af3f2a7c058beba55a313e31d8e7",
+    "fixtures": 206,
+    "firstCapture": "2026-09-26T08:35:20Z",
+    "lastCapture": "2026-09-26T09:07:51Z",
+    "captureProtocol": {
+      "hidIdleSecondsAtEnd": 3426.860261208,
+      "hidIdleSecondsAtStart": 1466.905806416,
+      "initialSettleSeconds": 1.75,
+      "minIdleSeconds": 60,
+      "resetCarriesGlass": false,
+      "resetInterstitialSeconds": 6,
+      "runLabel": "w39-active-1x-7",
+      "userIsActiveAtStart": true
+    }
+  }
+]

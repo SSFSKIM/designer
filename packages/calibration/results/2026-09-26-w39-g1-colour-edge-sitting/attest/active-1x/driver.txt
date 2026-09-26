@@ -1,0 +1,17 @@
+active-1x run 1: admitted cells=332
+active-1x run 2: admitted cells=206
+active-1x run 3: admitted cells=206
+active-1x run 4: admitted cells=206
+active-1x run 5: admitted cells=206
+active-1x run 6: admitted cells=206
+REFUSED; retained at /Users/new/vitrea-w39/run/active-1x/QUARANTINE-run-7-1790411537373327000
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w39/g1/packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/sitting.py", line 643, in <module>
+    main()
+  File "/Users/new/vitrea-w39/g1/packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/sitting.py", line 628, in main
+    validate_manifest(m, doc, pose, args.scale, label)
+  File "/Users/new/vitrea-w39/g1/packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/sitting.py", line 330, in validate_manifest
+    raise ValueError('pose attestation failed: ' + sid)
+ValueError: pose attestation failed: factor-y1-c12-h60-colour__rest
+--- continuation after stop 2 at 2026-09-26T08:35:00Z: fresh run 7 ---
+active-1x run 7: admitted cells=206

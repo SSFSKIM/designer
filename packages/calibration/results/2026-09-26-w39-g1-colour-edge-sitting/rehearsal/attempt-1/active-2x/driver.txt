@@ -1,0 +1,7 @@
+REFUSED; retained at /Users/new/vitrea-w39/run/rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w39/g1/packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/sitting.py", line 636, in <module>
+    main()
+  File "/Users/new/vitrea-w39/g1/packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/sitting.py", line 614, in main
+    raise ValueError(f'rehearsal outcome {verdict["outcome"]}, not the expected TCC refusal')
+ValueError: rehearsal outcome prompt-pending, not the expected TCC refusal

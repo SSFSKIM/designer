@@ -20,7 +20,11 @@ import sys
 MAIN = Path('/Users/new/Developer/GitHub/designer')
 SIDE = Path.home() / 'vitrea-w39/side/VitreaReference.app'
 DEV = Path('/Applications/Xcode.app/Contents/Developer')
-FOREIGN = r'Chromium|playwright|compare\.ts|capture-web|VitreaReference'
+# G1 gate correction (c9a §5.185, G1 stop 1): Google Chrome launched mid-run took the harness's
+# activation and read 0 here, because the census named only Chromium. It now also refuses, by
+# name, any Google Chrome, Chrome Helper, Playwright or headless-shell process — stricter only.
+FOREIGN = (r'Chromium|playwright|compare\.ts|capture-web|VitreaReference'
+           r'|Google Chrome|Chrome Helper|Playwright|headless[-_ ]shell')
 
 
 def read(*args):
@@ -39,7 +43,11 @@ def processes():
     while pid and pid not in ancestors:
         ancestors.add(pid)
         pid = parents.get(pid, 0)
-    return [line for line in rows if int(line[0]) not in ancestors and re.search(FOREIGN, line[2])]
+    return [line for line in rows if int(line[0]) not in ancestors and is_foreign(line[2])]
+
+
+def is_foreign(command):
+    return re.search(FOREIGN, command) is not None
 
 
 def bundle(app):

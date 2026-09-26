@@ -1,0 +1,14 @@
+$ python3.12 test-g1-tools.py  (at 2026-09-26T22:04:53Z; reads the admitted preflight runs under ~/vitrea-w39/run)
+test_a_three_code_run_separation_is_a_two_code_bar (__main__.Bars.test_a_three_code_run_separation_is_a_two_code_bar) ... ok
+test_holdout_is_refused_at_the_command (__main__.Bars.test_holdout_is_refused_at_the_command) ... usage: test-g1-tools.py [-h] [--protocol {normal,long}] [--roles ROLES]
+ok
+test_identical_runs_give_exactly_half_a_code (__main__.Bars.test_identical_runs_give_exactly_half_a_code) ... ok
+test_a_tie_over_runs_two_to_n_is_decided_by_all_runs (__main__.Materialise.test_a_tie_over_runs_two_to_n_is_decided_by_all_runs) ... ok
+test_declarations_agree_on_every_shared_cell (__main__.Materialise.test_declarations_agree_on_every_shared_cell) ... ok
+test_first_run_folds_as_the_further_vote (__main__.Materialise.test_first_run_folds_as_the_further_vote) ... ok
+test_order_resolves_the_common_cells_then_adds_run_one_alone (__main__.Materialise.test_order_resolves_the_common_cells_then_adds_run_one_alone) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 4.832s
+
+OK

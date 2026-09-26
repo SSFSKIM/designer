@@ -1,0 +1,19 @@
+{
+  "schema": "w39-run-admission-1",
+  "admitted": true,
+  "dry": false,
+  "protocol": "long",
+  "captureProtocol": {
+    "initialSettleSeconds": 8.0,
+    "orderSeed": 3901,
+    "resetInterstitialSeconds": 6.0,
+    "resetCarriesGlass": false,
+    "minIdleSeconds": 60.0
+  },
+  "cells": 4,
+  "reachableAxes": [],
+  "preflightVerdictSha256": "ffa409718aa39159f8b763728b9533d08c4b0fc4f8143a5b10c9871dfed4391b",
+  "manifestSha256": "6d29021e7ba208e5d2e7d36f70cd8b1c0c1066c1c556014d8e3bc61aedff9b92",
+  "run": 3,
+  "pass": "inactive-2x-sentinel"
+}

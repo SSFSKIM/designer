@@ -1,0 +1,28 @@
+{
+  "argv": [
+    "open",
+    "-W",
+    "--env",
+    "VITREA_SCENES=/Users/new/vitrea-w39/run/preflight-2x/scenes-run-1.json",
+    "--env",
+    "VITREA_FIXTURES=/Users/new/vitrea-w39/run/preflight-2x/run-1",
+    "--env",
+    "VITREA_SCALE=2",
+    "--stdout",
+    "/Users/new/vitrea-w39/run/preflight-2x/run-1/producer-capture.out",
+    "--stderr",
+    "/Users/new/vitrea-w39/run/preflight-2x/run-1/producer-capture.err",
+    "/Users/new/vitrea-w39/side/VitreaReference.app",
+    "--args",
+    "capture",
+    "--run-label",
+    "w39-preflight-2x-1",
+    "--reset-interstitial",
+    "6",
+    "--min-idle-seconds",
+    "60",
+    "--scenes",
+    "preflight-2x-x-integer-opaque__rest,preflight-2x-x-integer__rest,preflight-2x-x1-opaque__rest,preflight-2x-x1__rest,preflight-2x-x2-opaque__rest,preflight-2x-x2__rest,preflight-2x-x3-opaque__rest,preflight-2x-x3__rest,preflight-2x-y-integer-opaque__rest,preflight-2x-y-integer__rest,preflight-2x-y1-opaque__rest,preflight-2x-y1__rest,preflight-2x-y2-opaque__rest,preflight-2x-y2__rest,preflight-2x-y3-opaque__rest,preflight-2x-y3__rest,preflight-2x-zero-opaque__rest,preflight-2x-zero__rest"
+  ],
+  "rehearsal": false
+}

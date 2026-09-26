@@ -1,0 +1,229 @@
+# W39 G1 run-root relocation before refusal-rehearsal attempt 2 (a relocation, not a gate change)
+# sitting.py refuses an evidence root with a direct child named rehearsal-*; attempt 1's
+# rehearsal root and its driver-log directory are moved, byte for byte, under run/held/attempt-1/.
+at: 2026-09-26T02:37:32Z
+## before: find /Users/new/vitrea-w39/run -maxdepth 3 (sorted)
+/Users/new/vitrea-w39/run
+/Users/new/vitrea-w39/run/preconditions
+/Users/new/vitrea-w39/run/preconditions/original-positive-1
+/Users/new/vitrea-w39/run/preconditions/original-positive-1/admission.json
+/Users/new/vitrea-w39/run/preconditions/original-positive-1/apple-macos-27.0-2x-light-standard-glass0.5
+/Users/new/vitrea-w39/run/preconditions/original-positive-1/attest.close.json
+/Users/new/vitrea-w39/run/preconditions/original-positive-1/attest.open.json
+/Users/new/vitrea-w39/run/preconditions/original-positive-1/backgrounds
+/Users/new/vitrea-w39/run/preconditions/original-positive-1/backgrounds.log
+/Users/new/vitrea-w39/run/preconditions/original-positive-1/capture.err
+/Users/new/vitrea-w39/run/preconditions/original-positive-1/capture.out
+/Users/new/vitrea-w39/run/preconditions/original-positive-1/command.json
+/Users/new/vitrea-w39/run/preconditions/original-positive-1/manifest.json
+/Users/new/vitrea-w39/run/preconditions/original-positive-1/scenes.json
+/Users/new/vitrea-w39/run/preconditions/original-positive-1/session-after.json
+/Users/new/vitrea-w39/run/preconditions/original-positive-1/session-before.json
+/Users/new/vitrea-w39/run/rehearsal-g1
+/Users/new/vitrea-w39/run/rehearsal-g1/rehearsal-active-2x
+/Users/new/vitrea-w39/run/rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000
+/Users/new/vitrea-w39/run/rehearsal-g1/rehearsal-active-2x/scenes-run-1.json
+/Users/new/vitrea-w39/run/rehearsal-logs
+/Users/new/vitrea-w39/run/rehearsal-logs/active-2x-driver.txt
+/Users/new/vitrea-w39/run/setup
+/Users/new/vitrea-w39/run/setup/install-build.txt
+/Users/new/vitrea-w39/run/setup/machine.json
+/Users/new/vitrea-w39/run/setup/original-positive-driver.txt
+/Users/new/vitrea-w39/run/setup/original-positive.py
+/Users/new/vitrea-w39/run/setup/session.json
+## before: sha256 of every file under the two moved directories
+ebdff3c16468a738671f022e722d888fb348f1d9b651ccb50852e7094f5c0312  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/attest.close
+6db8d5f12155e9fdc4a492f307a742dd40a1c642b4441628d9b11ddc3bb00279  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/attest.close.json
+6211fcc4c3b6281fc9e8989ba8c02fd213a1755c2658802eb40f744044b42c6c  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/attest.open.json
+687f9dd731771326668ec343ffdf4fbc2d495f2e9b02602afc3d83b84d6cc71d  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/attest.read
+bb4a411f4d86881abc67de05fab76a60fd22fc1fed8b47110f2e96da8d2120a7  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y0-c12-h0@2x.png
+e79aeb68df4f43b1b886ede98491fe5890929847d78a7a3fd3572f04b6205dd7  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y0-c12-h120@2x.png
+bfd55dcba55ad8afeef34e2e231b328d9cbe59e734facfafaddd153c345db37e  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y0-c12-h180@2x.png
+32d22cef6179188a89e83fb05ec981a72226817e792280206156c909c44d9e72  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y0-c12-h240@2x.png
+b3c4589b235ef64ccf96cad84863c2e7cb7455af30e4b6f8aab5682d32a4d296  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y0-c12-h300@2x.png
+c33f0bb366387ffe6b1b8516cbb0cf832f3bf06b318733073b5854ba479176f5  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y0-c12-h60@2x.png
+f240bd212c295421c796ad4f42b161c131378e14fd60f8180cf0edc66bf45fcf  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y0-c24-h0@2x.png
+94886e85428bd9f0af4e2ee004da7c2488764e2321b1a19cd75d80953e3e6c2d  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y0-c24-h120@2x.png
+eb111f0e7fb19e4b0c992816081ccd988fdc8b6a88d9fcf6069a6e5674424c88  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y0-c24-h180@2x.png
+451ea7f7b7ce7ac2754c140e4b220bde6f8305e09eb6871347c2329053855da8  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y0-c24-h240@2x.png
+101859d4cb545c366cd4003e6f990d35a662afbd9d52f5dcf021d147be01b8b8  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y0-c24-h300@2x.png
+a74cb90b75c3887660f8926e6af8c1ab499def7c169ec550830f8aed79fe52cd  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y0-c24-h60@2x.png
+52cb05b116f1c5e5998bdfd42bdc93b183bdb72c67505b023c278910294e3ed6  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y1-c12-h0@2x.png
+c0c9f0cd923640562f5d66447e7829f61561b62f72893ebc3f8baa826ba9ea61  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y1-c12-h120@2x.png
+6b7342444abd702eeea0ded3817720960b4edf518e830efd6ed60537f5e5450c  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y1-c12-h180@2x.png
+bd796d69bcfabacf0ecf21a83de547fe62b490ceb61a4294c3f26f8779dfed61  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y1-c12-h240@2x.png
+d9905efa16440376bb62af8c342a8c7b06979073116e31101e54d3af2e730871  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y1-c12-h300@2x.png
+2d03099c37d47de45d30bee2584236caa4a2f21e4d5578b125cf83954136b31d  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y1-c12-h60@2x.png
+38124014d3ad48cb22f3a40a321560f5a001fdc143318df58d000084f741fb0c  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y1-c24-h0@2x.png
+6631206d6b87d6137dc479cfe467238bed2f81a1bdacff339aaf81f6687813c6  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y1-c24-h120@2x.png
+83bb0c9dfd1efc064cf329eefc3ee2f5a53b94209a46ab7e9f28fc5af5939c05  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y1-c24-h180@2x.png
+fe3b79beca37473749170cb59fdca013fd2987a923ae5f7cbba26605b31dfe51  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y1-c24-h240@2x.png
+0118925b9c03b1961cb6e72ec125b7856d57627770aec3a80bf613c49c7cebf2  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y1-c24-h300@2x.png
+f4ec9427dce7d7da6c98b93b78edc72e3dfc8e594cbed0bb399bee69193cddef  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y1-c24-h60@2x.png
+731cb100c3cc9ef887c108f50a4f0f196d1841341caf352881e45caf23cd0460  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y2-c12-h0@2x.png
+2de8506ed69c54d7ecb22e4670bb304049a5dcac85d13f6589d8a02dd2f99dba  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y2-c12-h120@2x.png
+d0cb7061390551ec09fc66712a5f8f837e8cdd0a1cfd7996cd17cad04c0ef031  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y2-c12-h180@2x.png
+f9c32e328fb205fb90e7c4118bc564d235430cb760cc3da4d754b051ae87857f  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y2-c12-h240@2x.png
+7541b53a94b77b7c5c91bb69dddbbd363498514b1e48612d2f636121edb2046f  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y2-c12-h300@2x.png
+55a9a4a01ebf9e4e8f3c17b5b7a69c6584020bc0ea0a528ba982e177a45aed75  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y2-c12-h60@2x.png
+8073962de2c8d921aed5b54ce0f991d5c812d5981e0072ad88324b5e45307ea3  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y2-c24-h0@2x.png
+30fb190cc710cecf8d0c7381c854411e197188a7ba99955cf6276363f23e90dc  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y2-c24-h120@2x.png
+5b8da7f5f4889dfbe81ebab3d0694a0b6bce3ea9cd183f899d54edb767f65d2e  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y2-c24-h180@2x.png
+f55b1625436cbcb8ce76e347e67006bfdd96899ee3aac317c1e5e4764fd33309  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y2-c24-h240@2x.png
+3b3a304ff6f750164dc8ef0df3257d21b2bda9e86f836d65b4c962d53829ac12  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y2-c24-h300@2x.png
+d575fd68b222a8626aa26ec15a5ace856f6a09049ae55fb813fedb57a9c29f18  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y2-c24-h60@2x.png
+17891bda76f91ea26d6960a9148ed98d74429ade2cf4ead74b4bfa149d2a982b  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/g128@2x.png
+cc702bbd40813e39622236e9447ee037020ec3ba328314150626dd689ff9643e  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/g255@2x.png
+7e2d237bb022a0811c9bd69dc1c57e9f114afad397eb0acf06b43e5c8a44fc1f  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/green@2x.png
+36688d2c2190264c31cae2b15f7ce23ef77e514807a3a9283018432a57e6cfee  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/held-y0.08-h150@2x.png
+97189fc7b075f4a222e27361f827af568fcc5997ba98e9af59ce1c9c7b42af07  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/held-y0.08-h270@2x.png
+818104e3d5f4f1284ba7e4aec27b9ba07e12f8f3dab04cfcd105093d580412f4  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/held-y0.08-h30@2x.png
+512d74af82e34d824776dbed8187f2ad049e61f449c23da25e6ce914611ea6fc  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/held-y0.145-h150@2x.png
+9cb13f595a48cd8a17f918f2195f6a2f4bbf20f9537c0b0dcee9850e26b04c67  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/held-y0.145-h270@2x.png
+03e94245d0e3f4b3c521908a753fc45c6aeb4350cfa87e3fc0563a4614fc924d  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/held-y0.145-h30@2x.png
+ccfdfb6b36bbf8addc9c07ba61dd6d7be444e20a3634dc096eb449c6f9e316b2  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/matched-channel-0@2x.png
+8ab200aed016c91c9bd68e58065a223d35d0136bd264a1c3ec9bdd8b740b4b33  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/matched-channel-1@2x.png
+69d33a316fcac768fe32183f6e393e106325de84fbea04eb0a9ebce73905d812  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/matched-channel-2@2x.png
+cfcae9ed1d095c32ffb83943cbce492fc883578c8a601c04223019c19234081a  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/matched-channel-3@2x.png
+cde93896d36bdd27d89b21802dcd9448cf9480cd68a78a57aef84e317f59e714  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/matched-channel-4@2x.png
+f780cdaa14edb38f8b158bc3a6ada5f4e9d495111a2af913fb234d073fd457bc  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/matched-channel-5@2x.png
+1af4edc4037ce531582e5b90ecc596426c0ed18fa7ac22a8a5431c4b7eb097e0  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/neutral-104@2x.png
+17891bda76f91ea26d6960a9148ed98d74429ade2cf4ead74b4bfa149d2a982b  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/neutral-128@2x.png
+4c1882d3559f0cff70aea423a2db3c987ab5d33d4daf18c52587db5ddacec043  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/neutral-150@2x.png
+5293e73cb94776a56cdbadf5a72b46010899e276645742dc429690a36efc645b  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/neutral-40@2x.png
+d1deb71d0e75a40df053f71c75526a1c6e512b859cb9376490524634c119261c  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/neutral-56@2x.png
+ea33fdfe85216a6ebf7c542e5199b64249d240434086edf8b027649369c46a54  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/neutral-72@2x.png
+9ce7e2a4c6a7892f368fb812f3d4c0570e21f5f90c4095bb24a6785c62d2244c  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/neutral-88@2x.png
+f40492a62513abab973788a78454548c7cb66398a6fbe9c554b64744a21a24cb  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/red@2x.png
+e4180a7c2df661a1fcad4eae67e3cecb500881c19ed982dc0dde9b4aaefa84ee  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/transfer-h150@2x.png
+d5f1b9cfb2fc95ecd5ac434e762de41c4b506ebe97185c53d94ddb283fe6442c  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/transfer-h210@2x.png
+d7fa2950852136dd299a540cccf8835e5026cd64a0d82f2cfb3c1eefab6053ab  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/transfer-h270@2x.png
+6f08be15706f3a6a070dfb5989d3b3543f2d09fda9da96dca25cd75d90b6546c  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/transfer-h30@2x.png
+ad240f5320f5e59be9d17c9ff5943f88683a9b6a92d8bf41670845b67a96d778  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/transfer-h330@2x.png
+786e4f34f16021f01aa85735ffbd17030835880d395eecef88f4f03ab407a5d2  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/transfer-h90@2x.png
+f7f2e8a513421b97e98a0521b1393e8c9ff47fff66b483a42759ee308ac90573  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/v270@2x.png
+ac6916b49853fdcda01639f1313e91cb4f80db8d89e27e2793a92c611e2f05df  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/v90@2x.png
+f6dcd377de89746fe8ae34c1b93441a0720cc3dd8792a2eeda990dc417c68e42  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/launch.json
+d7505f3588f10f48d169cca109a0afd589cb93acfb9d51d9f5f416de981de171  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/producer-backgrounds.out
+8162c64dd21c9109ef5943836146829b0b56a01a745fdf3b5c27ccb5f13e7d08  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/producer-capture.err
+18914c6c48f241c0d0fe68093b8575bc1c8e464b383adbc95710ceafb03d0550  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/producer-capture.out
+07f2033b39997ec5da7bc0237f662eb52111856e03a8da4af28da792824bb9d7  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/refusal.txt
+9c3323efb21d5eed4f0e796fddf0ae482d5b55133bfc10145f55ad75f23dcab7  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/rehearsal.json
+85ec20b30328d493ff6fdb1cd94764a7f0e17e2ba10031ccc19c5753cfefbba3  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/session-after.json
+bf47ebecf577902420f1b2cb1ebb22d8a988e7eb0f1812770dc75e9276b2ca68  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/session-before.json
+ebfbfd118b631afca06673d0591e9d606e1faab6959df48680e6ff110a1e3db1  rehearsal-g1/rehearsal-active-2x/scenes-run-1.json
+05bf211424dfd8e73f29438200e0f77262ec9e8049cd4a871102bf23dd137d90  rehearsal-logs/active-2x-driver.txt
+## commands
+mkdir -p /Users/new/vitrea-w39/run/held/attempt-1
+mv /Users/new/vitrea-w39/run/rehearsal-g1 /Users/new/vitrea-w39/run/held/attempt-1/rehearsal-g1
+mv /Users/new/vitrea-w39/run/rehearsal-logs /Users/new/vitrea-w39/run/held/attempt-1/rehearsal-logs
+## after: find /Users/new/vitrea-w39/run -maxdepth 3 (sorted)
+/Users/new/vitrea-w39/run
+/Users/new/vitrea-w39/run/held
+/Users/new/vitrea-w39/run/held/attempt-1
+/Users/new/vitrea-w39/run/held/attempt-1/rehearsal-g1
+/Users/new/vitrea-w39/run/held/attempt-1/rehearsal-logs
+/Users/new/vitrea-w39/run/preconditions
+/Users/new/vitrea-w39/run/preconditions/original-positive-1
+/Users/new/vitrea-w39/run/preconditions/original-positive-1/admission.json
+/Users/new/vitrea-w39/run/preconditions/original-positive-1/apple-macos-27.0-2x-light-standard-glass0.5
+/Users/new/vitrea-w39/run/preconditions/original-positive-1/attest.close.json
+/Users/new/vitrea-w39/run/preconditions/original-positive-1/attest.open.json
+/Users/new/vitrea-w39/run/preconditions/original-positive-1/backgrounds
+/Users/new/vitrea-w39/run/preconditions/original-positive-1/backgrounds.log
+/Users/new/vitrea-w39/run/preconditions/original-positive-1/capture.err
+/Users/new/vitrea-w39/run/preconditions/original-positive-1/capture.out
+/Users/new/vitrea-w39/run/preconditions/original-positive-1/command.json
+/Users/new/vitrea-w39/run/preconditions/original-positive-1/manifest.json
+/Users/new/vitrea-w39/run/preconditions/original-positive-1/scenes.json
+/Users/new/vitrea-w39/run/preconditions/original-positive-1/session-after.json
+/Users/new/vitrea-w39/run/preconditions/original-positive-1/session-before.json
+/Users/new/vitrea-w39/run/setup
+/Users/new/vitrea-w39/run/setup/install-build.txt
+/Users/new/vitrea-w39/run/setup/machine.json
+/Users/new/vitrea-w39/run/setup/original-positive-driver.txt
+/Users/new/vitrea-w39/run/setup/original-positive.py
+/Users/new/vitrea-w39/run/setup/session.json
+## after: sha256 of every file under the moved directories (paths relative to held/attempt-1)
+ebdff3c16468a738671f022e722d888fb348f1d9b651ccb50852e7094f5c0312  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/attest.close
+6db8d5f12155e9fdc4a492f307a742dd40a1c642b4441628d9b11ddc3bb00279  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/attest.close.json
+6211fcc4c3b6281fc9e8989ba8c02fd213a1755c2658802eb40f744044b42c6c  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/attest.open.json
+687f9dd731771326668ec343ffdf4fbc2d495f2e9b02602afc3d83b84d6cc71d  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/attest.read
+bb4a411f4d86881abc67de05fab76a60fd22fc1fed8b47110f2e96da8d2120a7  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y0-c12-h0@2x.png
+e79aeb68df4f43b1b886ede98491fe5890929847d78a7a3fd3572f04b6205dd7  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y0-c12-h120@2x.png
+bfd55dcba55ad8afeef34e2e231b328d9cbe59e734facfafaddd153c345db37e  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y0-c12-h180@2x.png
+32d22cef6179188a89e83fb05ec981a72226817e792280206156c909c44d9e72  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y0-c12-h240@2x.png
+b3c4589b235ef64ccf96cad84863c2e7cb7455af30e4b6f8aab5682d32a4d296  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y0-c12-h300@2x.png
+c33f0bb366387ffe6b1b8516cbb0cf832f3bf06b318733073b5854ba479176f5  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y0-c12-h60@2x.png
+f240bd212c295421c796ad4f42b161c131378e14fd60f8180cf0edc66bf45fcf  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y0-c24-h0@2x.png
+94886e85428bd9f0af4e2ee004da7c2488764e2321b1a19cd75d80953e3e6c2d  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y0-c24-h120@2x.png
+eb111f0e7fb19e4b0c992816081ccd988fdc8b6a88d9fcf6069a6e5674424c88  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y0-c24-h180@2x.png
+451ea7f7b7ce7ac2754c140e4b220bde6f8305e09eb6871347c2329053855da8  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y0-c24-h240@2x.png
+101859d4cb545c366cd4003e6f990d35a662afbd9d52f5dcf021d147be01b8b8  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y0-c24-h300@2x.png
+a74cb90b75c3887660f8926e6af8c1ab499def7c169ec550830f8aed79fe52cd  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y0-c24-h60@2x.png
+52cb05b116f1c5e5998bdfd42bdc93b183bdb72c67505b023c278910294e3ed6  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y1-c12-h0@2x.png
+c0c9f0cd923640562f5d66447e7829f61561b62f72893ebc3f8baa826ba9ea61  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y1-c12-h120@2x.png
+6b7342444abd702eeea0ded3817720960b4edf518e830efd6ed60537f5e5450c  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y1-c12-h180@2x.png
+bd796d69bcfabacf0ecf21a83de547fe62b490ceb61a4294c3f26f8779dfed61  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y1-c12-h240@2x.png
+d9905efa16440376bb62af8c342a8c7b06979073116e31101e54d3af2e730871  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y1-c12-h300@2x.png
+2d03099c37d47de45d30bee2584236caa4a2f21e4d5578b125cf83954136b31d  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y1-c12-h60@2x.png
+38124014d3ad48cb22f3a40a321560f5a001fdc143318df58d000084f741fb0c  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y1-c24-h0@2x.png
+6631206d6b87d6137dc479cfe467238bed2f81a1bdacff339aaf81f6687813c6  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y1-c24-h120@2x.png
+83bb0c9dfd1efc064cf329eefc3ee2f5a53b94209a46ab7e9f28fc5af5939c05  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y1-c24-h180@2x.png
+fe3b79beca37473749170cb59fdca013fd2987a923ae5f7cbba26605b31dfe51  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y1-c24-h240@2x.png
+0118925b9c03b1961cb6e72ec125b7856d57627770aec3a80bf613c49c7cebf2  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y1-c24-h300@2x.png
+f4ec9427dce7d7da6c98b93b78edc72e3dfc8e594cbed0bb399bee69193cddef  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y1-c24-h60@2x.png
+731cb100c3cc9ef887c108f50a4f0f196d1841341caf352881e45caf23cd0460  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y2-c12-h0@2x.png
+2de8506ed69c54d7ecb22e4670bb304049a5dcac85d13f6589d8a02dd2f99dba  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y2-c12-h120@2x.png
+d0cb7061390551ec09fc66712a5f8f837e8cdd0a1cfd7996cd17cad04c0ef031  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y2-c12-h180@2x.png
+f9c32e328fb205fb90e7c4118bc564d235430cb760cc3da4d754b051ae87857f  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y2-c12-h240@2x.png
+7541b53a94b77b7c5c91bb69dddbbd363498514b1e48612d2f636121edb2046f  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y2-c12-h300@2x.png
+55a9a4a01ebf9e4e8f3c17b5b7a69c6584020bc0ea0a528ba982e177a45aed75  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y2-c12-h60@2x.png
+8073962de2c8d921aed5b54ce0f991d5c812d5981e0072ad88324b5e45307ea3  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y2-c24-h0@2x.png
+30fb190cc710cecf8d0c7381c854411e197188a7ba99955cf6276363f23e90dc  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y2-c24-h120@2x.png
+5b8da7f5f4889dfbe81ebab3d0694a0b6bce3ea9cd183f899d54edb767f65d2e  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y2-c24-h180@2x.png
+f55b1625436cbcb8ce76e347e67006bfdd96899ee3aac317c1e5e4764fd33309  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y2-c24-h240@2x.png
+3b3a304ff6f750164dc8ef0df3257d21b2bda9e86f836d65b4c962d53829ac12  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y2-c24-h300@2x.png
+d575fd68b222a8626aa26ec15a5ace856f6a09049ae55fb813fedb57a9c29f18  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/factor-y2-c24-h60@2x.png
+17891bda76f91ea26d6960a9148ed98d74429ade2cf4ead74b4bfa149d2a982b  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/g128@2x.png
+cc702bbd40813e39622236e9447ee037020ec3ba328314150626dd689ff9643e  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/g255@2x.png
+7e2d237bb022a0811c9bd69dc1c57e9f114afad397eb0acf06b43e5c8a44fc1f  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/green@2x.png
+36688d2c2190264c31cae2b15f7ce23ef77e514807a3a9283018432a57e6cfee  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/held-y0.08-h150@2x.png
+97189fc7b075f4a222e27361f827af568fcc5997ba98e9af59ce1c9c7b42af07  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/held-y0.08-h270@2x.png
+818104e3d5f4f1284ba7e4aec27b9ba07e12f8f3dab04cfcd105093d580412f4  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/held-y0.08-h30@2x.png
+512d74af82e34d824776dbed8187f2ad049e61f449c23da25e6ce914611ea6fc  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/held-y0.145-h150@2x.png
+9cb13f595a48cd8a17f918f2195f6a2f4bbf20f9537c0b0dcee9850e26b04c67  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/held-y0.145-h270@2x.png
+03e94245d0e3f4b3c521908a753fc45c6aeb4350cfa87e3fc0563a4614fc924d  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/held-y0.145-h30@2x.png
+ccfdfb6b36bbf8addc9c07ba61dd6d7be444e20a3634dc096eb449c6f9e316b2  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/matched-channel-0@2x.png
+8ab200aed016c91c9bd68e58065a223d35d0136bd264a1c3ec9bdd8b740b4b33  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/matched-channel-1@2x.png
+69d33a316fcac768fe32183f6e393e106325de84fbea04eb0a9ebce73905d812  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/matched-channel-2@2x.png
+cfcae9ed1d095c32ffb83943cbce492fc883578c8a601c04223019c19234081a  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/matched-channel-3@2x.png
+cde93896d36bdd27d89b21802dcd9448cf9480cd68a78a57aef84e317f59e714  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/matched-channel-4@2x.png
+f780cdaa14edb38f8b158bc3a6ada5f4e9d495111a2af913fb234d073fd457bc  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/matched-channel-5@2x.png
+1af4edc4037ce531582e5b90ecc596426c0ed18fa7ac22a8a5431c4b7eb097e0  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/neutral-104@2x.png
+17891bda76f91ea26d6960a9148ed98d74429ade2cf4ead74b4bfa149d2a982b  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/neutral-128@2x.png
+4c1882d3559f0cff70aea423a2db3c987ab5d33d4daf18c52587db5ddacec043  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/neutral-150@2x.png
+5293e73cb94776a56cdbadf5a72b46010899e276645742dc429690a36efc645b  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/neutral-40@2x.png
+d1deb71d0e75a40df053f71c75526a1c6e512b859cb9376490524634c119261c  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/neutral-56@2x.png
+ea33fdfe85216a6ebf7c542e5199b64249d240434086edf8b027649369c46a54  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/neutral-72@2x.png
+9ce7e2a4c6a7892f368fb812f3d4c0570e21f5f90c4095bb24a6785c62d2244c  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/neutral-88@2x.png
+f40492a62513abab973788a78454548c7cb66398a6fbe9c554b64744a21a24cb  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/red@2x.png
+e4180a7c2df661a1fcad4eae67e3cecb500881c19ed982dc0dde9b4aaefa84ee  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/transfer-h150@2x.png
+d5f1b9cfb2fc95ecd5ac434e762de41c4b506ebe97185c53d94ddb283fe6442c  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/transfer-h210@2x.png
+d7fa2950852136dd299a540cccf8835e5026cd64a0d82f2cfb3c1eefab6053ab  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/transfer-h270@2x.png
+6f08be15706f3a6a070dfb5989d3b3543f2d09fda9da96dca25cd75d90b6546c  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/transfer-h30@2x.png
+ad240f5320f5e59be9d17c9ff5943f88683a9b6a92d8bf41670845b67a96d778  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/transfer-h330@2x.png
+786e4f34f16021f01aa85735ffbd17030835880d395eecef88f4f03ab407a5d2  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/transfer-h90@2x.png
+f7f2e8a513421b97e98a0521b1393e8c9ff47fff66b483a42759ee308ac90573  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/v270@2x.png
+ac6916b49853fdcda01639f1313e91cb4f80db8d89e27e2793a92c611e2f05df  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/backgrounds/v90@2x.png
+f6dcd377de89746fe8ae34c1b93441a0720cc3dd8792a2eeda990dc417c68e42  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/launch.json
+d7505f3588f10f48d169cca109a0afd589cb93acfb9d51d9f5f416de981de171  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/producer-backgrounds.out
+8162c64dd21c9109ef5943836146829b0b56a01a745fdf3b5c27ccb5f13e7d08  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/producer-capture.err
+18914c6c48f241c0d0fe68093b8575bc1c8e464b383adbc95710ceafb03d0550  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/producer-capture.out
+07f2033b39997ec5da7bc0237f662eb52111856e03a8da4af28da792824bb9d7  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/refusal.txt
+9c3323efb21d5eed4f0e796fddf0ae482d5b55133bfc10145f55ad75f23dcab7  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/rehearsal.json
+85ec20b30328d493ff6fdb1cd94764a7f0e17e2ba10031ccc19c5753cfefbba3  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/session-after.json
+bf47ebecf577902420f1b2cb1ebb22d8a988e7eb0f1812770dc75e9276b2ca68  rehearsal-g1/rehearsal-active-2x/QUARANTINE-run-1-1790367690162824000/session-before.json
+ebfbfd118b631afca06673d0591e9d606e1faab6959df48680e6ff110a1e3db1  rehearsal-g1/rehearsal-active-2x/scenes-run-1.json
+05bf211424dfd8e73f29438200e0f77262ec9e8049cd4a871102bf23dd137d90  rehearsal-logs/active-2x-driver.txt
+## identical: 81 files, every sha256 before == after (checked by script at relocation)

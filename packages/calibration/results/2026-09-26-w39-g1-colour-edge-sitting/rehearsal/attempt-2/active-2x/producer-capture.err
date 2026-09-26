@@ -1,0 +1,5 @@
+error: ScreenCaptureKit is unavailable: 사용자가 응용 프로그램, 윈도우, 디스플레이 캡처의 TCC를 거절함
+
+This is the Screen Recording (TCC) gate. Liquid Glass is composited by the
+window server, so no in-process path can observe it — see README.md
+§"The capture wall". Grant Screen Recording to this harness, then re-run.
