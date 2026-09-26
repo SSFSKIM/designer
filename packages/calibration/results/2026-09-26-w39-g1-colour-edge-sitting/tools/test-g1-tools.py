@@ -231,6 +231,13 @@ class Bars(unittest.TestCase):
                 self.assertEqual(len(deep['runMediansRGB']), 2)
                 self.assertTrue(all(lo <= hi for lo, hi in zip(deep['spatialMinimumRGB'], deep['spatialMaximumRGB'])))
                 self.assertEqual(B.cell_bars(reader, cell, 'long')['status'], 'insufficient admitted repeats')
+            # One admitted run of a glass cell is short of repeats; it is never a bar.
+            one = FakeWave(cells, {c.split('/', 1)[1]: 'calibration' for c in cells})
+            single = [g[:1] for g in [records(s) for s in (1, 2)]]
+            w39_archive.produce(single, one, Path(t) / 'single')
+            reader1 = Reader(one, Path(t) / 'single', ('calibration',), None)
+            for cell in cells:
+                self.assertEqual(B.cell_bars(reader1, cell, 'normal')['status'], 'insufficient admitted repeats')
             headline = B.headline([B.cell_bars(reader, c, 'normal') for c in cells])
             self.assertEqual({v['deep']['max'] for v in headline.values()}, {0.5})
 

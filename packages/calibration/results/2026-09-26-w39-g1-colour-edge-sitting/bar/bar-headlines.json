@@ -1,0 +1,299 @@
+{
+  "normal": {
+    "file": "bar.json.gz",
+    "jsonSha256": "b0692902484e428c97323dfe3e8cb5225dbfa2fa94f8f1b92d75f993d84d1e6a",
+    "gzipBytes": 1889643,
+    "generation": "58329732f947d42cd5e1518962016191faaa79d89b7089c6dadf5724dde35f61",
+    "rawRootForbidden": "/Users/new/vitrea-w39/run",
+    "cells": 1184,
+    "statuses": {
+      "measured": 576,
+      "native-only reference cell: no glass bins": 488,
+      "opaque control: coverage, not a repeat bar": 120
+    },
+    "runsPerMeasuredCell": {
+      "7": 576
+    },
+    "deep": {
+      "values": 1776,
+      "max": 0.5,
+      "median": 0.5,
+      "atFloor": 1776
+    },
+    "edge": {
+      "values": 815232,
+      "max": 0.6000000000000014,
+      "median": 0.5,
+      "atFloor": 815222,
+      "unmeasuredBins": 47936
+    },
+    "perStratum": {
+      "apple-macos-27.0-1x-dark-standard-glass0.5": {
+        "deep": {
+          "max": 0.5,
+          "median": 0.5,
+          "values": 444,
+          "atFloor": 444
+        },
+        "edge": {
+          "max": 0.5,
+          "median": 0.5,
+          "values": 121632,
+          "atFloor": 121632
+        }
+      },
+      "apple-macos-27.0-1x-light-standard-glass0.5": {
+        "deep": {
+          "max": 0.5,
+          "median": 0.5,
+          "values": 444,
+          "atFloor": 444
+        },
+        "edge": {
+          "max": 0.6000000000000014,
+          "median": 0.5,
+          "values": 121632,
+          "atFloor": 121622
+        }
+      },
+      "apple-macos-27.0-2x-dark-standard-glass0.5": {
+        "deep": {
+          "max": 0.5,
+          "median": 0.5,
+          "values": 444,
+          "atFloor": 444
+        },
+        "edge": {
+          "max": 0.5,
+          "median": 0.5,
+          "values": 285984,
+          "atFloor": 285984
+        }
+      },
+      "apple-macos-27.0-2x-light-standard-glass0.5": {
+        "deep": {
+          "max": 0.5,
+          "median": 0.5,
+          "values": 444,
+          "atFloor": 444
+        },
+        "edge": {
+          "max": 0.5,
+          "median": 0.5,
+          "values": 285984,
+          "atFloor": 285984
+        }
+      }
+    },
+    "binsAboveFloor": [
+      {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/transfer-h210-colour__rest",
+        "member": 0,
+        "part": "arc",
+        "side": null,
+        "bin": 0,
+        "shell": -2,
+        "pixels": 8,
+        "barRGB": [
+          0.5,
+          0.5625,
+          0.5
+        ]
+      },
+      {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/transfer-h210-colour__rest",
+        "member": 0,
+        "part": "arc",
+        "side": null,
+        "bin": 8,
+        "shell": -2,
+        "pixels": 8,
+        "barRGB": [
+          0.5,
+          0.5625,
+          0.5
+        ]
+      },
+      {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/transfer-h210-colour__rest",
+        "member": 0,
+        "part": "arc",
+        "side": null,
+        "bin": 0,
+        "shell": 0,
+        "pixels": 8,
+        "barRGB": [
+          0.5,
+          0.5,
+          0.5625
+        ]
+      },
+      {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/transfer-h210-colour__rest",
+        "member": 0,
+        "part": "arc",
+        "side": null,
+        "bin": 8,
+        "shell": 0,
+        "pixels": 8,
+        "barRGB": [
+          0.5,
+          0.5,
+          0.5625
+        ]
+      },
+      {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/transfer-h210-colour__rest",
+        "member": 0,
+        "part": "arc",
+        "side": null,
+        "bin": 0,
+        "shell": 1,
+        "pixels": 10,
+        "barRGB": [
+          0.6000000000000014,
+          0.6000000000000014,
+          0.6000000000000014
+        ]
+      },
+      {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/transfer-h210-colour__rest",
+        "member": 0,
+        "part": "arc",
+        "side": null,
+        "bin": 8,
+        "shell": 1,
+        "pixels": 10,
+        "barRGB": [
+          0.6000000000000014,
+          0.6000000000000014,
+          0.6000000000000014
+        ]
+      }
+    ],
+    "distinctStatesPerMeasuredCell": {
+      "1": 575,
+      "2": 1
+    }
+  },
+  "long": {
+    "file": "sentinel-bar.json.gz",
+    "jsonSha256": "417bb8fb1d28eda8571755c15df6a3c3b6258c1e8cbcb753243666e2ee2b0d9c",
+    "gzipBytes": 56868,
+    "generation": "58329732f947d42cd5e1518962016191faaa79d89b7089c6dadf5724dde35f61",
+    "rawRootForbidden": "/Users/new/vitrea-w39/run",
+    "cells": 1184,
+    "statuses": {
+      "insufficient admitted repeats": 1168,
+      "measured": 16
+    },
+    "runsPerMeasuredCell": {
+      "3": 16
+    },
+    "deep": {
+      "values": 48,
+      "max": 0.5,
+      "median": 0.5,
+      "atFloor": 48
+    },
+    "edge": {
+      "values": 21984,
+      "max": 0.5277777777777786,
+      "median": 0.5,
+      "atFloor": 21978,
+      "unmeasuredBins": 1312
+    },
+    "perStratum": {
+      "apple-macos-27.0-1x-dark-standard-glass0.5": {
+        "deep": {
+          "max": 0.5,
+          "median": 0.5,
+          "values": 12,
+          "atFloor": 12
+        },
+        "edge": {
+          "max": 0.5,
+          "median": 0.5,
+          "values": 3264,
+          "atFloor": 3264
+        }
+      },
+      "apple-macos-27.0-1x-light-standard-glass0.5": {
+        "deep": {
+          "max": 0.5,
+          "median": 0.5,
+          "values": 12,
+          "atFloor": 12
+        },
+        "edge": {
+          "max": 0.5,
+          "median": 0.5,
+          "values": 3264,
+          "atFloor": 3264
+        }
+      },
+      "apple-macos-27.0-2x-dark-standard-glass0.5": {
+        "deep": {
+          "max": 0.5,
+          "median": 0.5,
+          "values": 12,
+          "atFloor": 12
+        },
+        "edge": {
+          "max": 0.5,
+          "median": 0.5,
+          "values": 7728,
+          "atFloor": 7728
+        }
+      },
+      "apple-macos-27.0-2x-light-standard-glass0.5": {
+        "deep": {
+          "max": 0.5,
+          "median": 0.5,
+          "values": 12,
+          "atFloor": 12
+        },
+        "edge": {
+          "max": 0.5277777777777786,
+          "median": 0.5,
+          "values": 7728,
+          "atFloor": 7722
+        }
+      }
+    },
+    "binsAboveFloor": [
+      {
+        "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-c44__rest",
+        "member": 0,
+        "part": "arc",
+        "side": null,
+        "bin": 3,
+        "shell": 1,
+        "pixels": 18,
+        "barRGB": [
+          0.5277777777777786,
+          0.5277777777777786,
+          0.5277777777777786
+        ]
+      },
+      {
+        "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-c44__rest",
+        "member": 0,
+        "part": "arc",
+        "side": null,
+        "bin": 5,
+        "shell": 1,
+        "pixels": 18,
+        "barRGB": [
+          0.5277777777777786,
+          0.5277777777777786,
+          0.5277777777777786
+        ]
+      }
+    ],
+    "distinctStatesPerMeasuredCell": {
+      "1": 15,
+      "2": 1
+    }
+  }
+}

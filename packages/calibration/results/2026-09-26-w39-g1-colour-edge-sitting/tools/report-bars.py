@@ -41,14 +41,18 @@ def cell_bars(reader, cell, protocol):
     rows = [r for r in w39_archive.recorded_statistics(reader, cell)
             if r['admitted'] and r['protocol'] == protocol]
     out = dict(cell=cell, protocol=protocol, runs=len(rows), distinctStates=len({r['state'] for r in rows}))
-    if len(rows) < 2:
+    if not rows:
         return {**out, 'status': 'insufficient admitted repeats'}
+    # What a cell IS is decided before how often it was captured: a `none` reference that
+    # the declaration captures in run 1 only is a reference, not a glass cell short of runs.
     stats = [r['statistics'] for r in rows]
     if 'members' not in stats[0]:
         kind = 'reference' if 'reference' in stats[0] else 'other'
         return {**out, 'status': f'native-only {kind} cell: no glass bins'}
     if any(s.get('members') is None or all('deep' not in m for m in s['members']) for s in stats):
         return {**out, 'status': 'opaque control: coverage, not a repeat bar'}
+    if len(rows) < 2:
+        return {**out, 'status': 'insufficient admitted repeats'}
     members = []
     for m in range(len(stats[0]['members'])):
         runs = [s['members'][m] for s in stats]

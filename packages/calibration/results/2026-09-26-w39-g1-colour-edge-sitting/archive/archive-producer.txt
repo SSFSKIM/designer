@@ -1,0 +1,9 @@
+{
+  "admitted": true,
+  "inventory": "/Users/new/vitrea-w39/archive/inventory.json",
+  "inventorySha256": "58329732f947d42cd5e1518962016191faaa79d89b7089c6dadf5724dde35f61",
+  "declaredCells": 1440,
+  "archivedCells": 1328,
+  "uncaptured": 112
+}
+python3.12  "${args[@]}" --out /Users/new/vitrea-w39/archive  259.04s user 7.07s system 99% cpu 4:26.73 total
