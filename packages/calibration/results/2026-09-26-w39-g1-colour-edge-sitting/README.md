@@ -425,3 +425,17 @@ Probe inventory SHA-256 `b164a79f…797c`.
 placements, 4 columns, 24 fractional sizes), the counts G0 recorded. **Nothing was executed
 against vitrea.** `--execute` was not passed, and no browser, no compare and no web capture ran
 in G1.
+
+## Step 8 — ledger and close checks
+
+The ledger entry is **c9a §5.185**, at the end of `docs/doperpowers/specs/c9a-fidelity-claims.md`.
+Close checks:
+- freeze **1,818 intact** (`freeze-verify-close.txt`);
+- the seven W39 Python suites pass (`python-suites-close.txt`);
+- the calibration suite passes 58 files, 761 tests with one skip (`calibration-test-close.txt`);
+- calibration lint and every TypeScript check pass (`calibration-lint-close.txt`).
+
+The original bundle's grant is **not restored**; Decision Log 4 does that at wave close. The side
+bundle holds the machine's only vitrea Screen Recording grant. The raw run root, the archive
+directory, the release staging directory and the second copy all stay on the capture machine
+under `~/vitrea-w39/`.

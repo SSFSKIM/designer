@@ -39266,3 +39266,162 @@ Correction verification: calibration build and lint pass; 58 files, 760 tests pa
 capture-dependent skip. Both Python demonstrations pass; freeze 1,818; canonical tree and both
 external aliases retain 1,893 matches / seven no-row, exit 0; 248 protected readings remain
 unchanged.
+
+## 5.185 W39 G1: the colour-and-edge sitting — 6,360 captures at the bar, archived and published; no read against vitrea (2026-09-26/27)
+
+Evidence directory: `results/2026-09-26-w39-g1-colour-edge-sitting/`, whose `README.md` is the
+operational index. The raw runs stay on the capture machine under `~/vitrea-w39/run/` (X12). The
+repository holds the attestations, driver logs, admissions, the bar, the archive's inventory and
+release citation, and the materialised probe bed by role. **Worker record (X9):** the first G1
+worker ran on the frontier rung and was cut off by that rung's usage limit after refusal-rehearsal
+attempt 1. A second worker continued from the committed head in the same worktree and branch, and
+nothing was retaken over.
+
+### 1. Preconditions, the refusal rehearsal and the grant switch
+
+- **The original bundle.** Before any Settings change, the original granted bundle captured the
+  27-only 2x light checkerboard capsule with `materialRendered`, `presentedActive` and
+  `deterministic` all true and `repeatNoise` 0. Freeze stood at 1,818.
+- **Refusal rehearsal, attempt 1.** active-2x was **quarantined as `prompt-pending`**: the
+  ungranted side bundle's first ScreenCaptureKit call raised a Screen Recording prompt. Nobody
+  clicked Allow; the user answered Deny, and `.w39` then read auth 0.
+- **Refusal rehearsal, attempt 2.** Run on a fresh root after a recorded, hash-verified
+  relocation of attempt 1's directories out of the evidence root. All four passes — active-2x,
+  active-1x, inactive-1x and inactive-2x, at modes 68/69/69/68 — read **`refused-tcc`**: the
+  capture was attempted and the harness printed its TCC-gate sentence, with no manifest, PNG,
+  staging directory or new window. The TCC rows did not change.
+- **The grant switch (the user's hand).** Afterwards `.w39` read auth 2, and the original's
+  Screen Recording row was **removed**, not merely turned off.
+- **The side's positive checks.** The side's first launch captured with material and repeat
+  stability but attested **inactive**, as W34's did. The second of the three authorised pose
+  checks attested active, and its PNG is **byte-identical** to the committed macOS 27 2x
+  fixture (`6c15311b…`).
+- **The original was not launched afterwards** (the parent's ruling). With no row, a launch
+  would raise an unattended prompt. Its state is the read-only TCC read: no Screen Recording row
+  means not granted.
+- **The system alert.** A `UserNotificationCenter` modal that appeared during the side's first
+  launch was later identified by the parent as macOS's **Files and Folders** prompt for the
+  Claude Code binary ("wants to access files in your Documents folder"). It is not a capture
+  permission. The parent answered Don't Allow through System Events.
+
+### 2. The preflight: neither phase axis is reachable (Decision Log 3)
+
+40 captures were admitted: 18 + 2 at each scale, light active. `preflight-verdict.json` was
+written once (SHA-256 `ffa40971…4391b`). At both scales and on both axes, the four requested
+quarter-device-pixel phases collapse to **two byte states**, {0, ¼} and {½, ¾}, on the opaque
+control and on the glass alike. The fitted offsets are a whole-pixel step (−0.06 to −0.19, then
++0.81 to +0.94 device px), not a monotone ramp. Near-edge invariance is exact (D_int_near 0, max
+pair 0). The integer controls give D_int_far 0. The end sentinel is byte-identical at both
+scales. Every design is full rank (condition 856 to 4.74e5). The RSS ratio of shift to amplitude
+is 0.007–0.018, but the amplitude fit reached its 200-alternation cap unconverged, which the
+declaration reads as "not established". That is recorded as a **limitation beside the verdict
+and changes nothing**, because the state count and monotonicity refuse both axes on their own.
+**Branch `neither`; the admitted phase allowlist is empty.** This reproduces W34 §5.174 §7 on
+the size actuator. No fallback actuator was tried.
+
+### 3. The passes, the stops, and the gate corrections
+
+**6,360 admitted captures**, the declared baseline exactly:
+- the preflight, 40;
+- four bed passes of seven runs each, 1,568 per pass (run 1: 332 including the 126 colour
+  references; runs 2–7: 206);
+- four long-protocol sentinel passes of three runs each, 12 per pass (settle 8 s, seed 3901).
+
+The bed ran in declared order: active-1x (mode 69), active-2x (68), inactive-1x (69),
+inactive-2x (68), then the sentinels. There were **two quarantines, both in active-1x**, and each
+was followed by an explicit, recorded operator continuation:
+
+1. **Run 1, stop 1.** Google Chrome, launched unattended at 03:45:37Z, took the harness's
+   activation: 172 captures active, then all 160 inactive. HID input at about 03:45:46Z put six
+   captures under 60 s of idle. The census's name list did not include "Google Chrome".
+2. **Run 7, stop 2.** HID input at about 08:10:44Z (the user typing on this machine) put six
+   captures under 60 s of idle. From 08:28:40Z the Files and Folders alert took focus: 183
+   captures active, then all 23 inactive.
+
+After stop 1 the parent ruled **two stricter gate corrections**, added with tests
+(`test-sitting.py` 29/29):
+- the census now also refuses Google Chrome, Chrome Helper, Playwright and headless-shell
+  processes by name;
+- a run is refused if any capture records HID idle under 60 s, or none. That idle was
+  previously a launch gate only.
+
+Every admitted bed and sentinel run passed the corrected gates, and the four preflight runs
+re-validate under them. The closing machine read passes: mode 68, 0 foreign processes.
+
+### 4. The bar, before plurality
+
+Computed with `tools/report-bars.py` on the fetched archive, raw root denied, calibration and
+validation only. The formula is 0.5 + ½ × the largest pairwise run separation, per
+cell/member/bin/channel. A run contributes its deep per-channel median and each bin's mean.
+
+- **Normal protocol, seven runs, 576 measured glass cells:** **575 are byte-identical across all
+  seven runs.**
+  - **Deep bar: 0.5 in all 1,776 channel values** (max = median = 0.5 in every stratum).
+  - **Edge bar: max 0.6, median 0.5**, with 815,222 of 815,232 channel values at the floor. Per
+    stratum the edge max is 0.6 at 1x light and 0.5 at 1x dark, 2x light and 2x dark.
+  - The one two-state cell is `transfer-h210-colour` at 1x light (validation): runs 1, 3, 4 and 7
+    against 2, 5 and 6, a sub-code difference with bar 0.5625 on 8-pixel arc bins.
+  - 47,936 bins are UNMEASURED by population, identically in every run.
+- **Sentinels, three runs, 16 cells:** 15 byte-identical; deep 0.5; edge max 0.528.
+- The deep spatial min/max is recorded per cell, never as noise. **The holdout's bars are not
+  computed in G1**; its payload stays behind the procedural boundary.
+
+The seven-run bed is therefore essentially noise-free at this bar. The bar is the 0.5 floor
+almost everywhere, which is what the survival test's max(1 code, bar) will read.
+
+### 5. The archive of record (Decision Log 1)
+
+- **Produced before plurality** by `archive-producer.py`: 1,328 cells and 2,656 entries
+  (calibration 1,040, validation 144, holdout 144) from 40 manifests. The 112 uncaptured cells
+  are exactly the unadmitted phase variants. Inventory SHA-256 `58329732…35f61`.
+- **Published** as the GitHub release **`w39-archive`** on `SSFSKIM/designer` ("W39 repeat
+  archive", `--latest=false`, target `0cfbb325`). Asset
+  **`w39-archive-489db938a1e234a772ba7223d24fbaf76d137ef5d9e5b2421ed84a86894426b5.tar.zst`**,
+  SHA-256 **`489db938a1e234a772ba7223d24fbaf76d137ef5d9e5b2421ed84a86894426b5`**,
+  **13,658,148 bytes**. GitHub's own asset digest agrees. It is the repository's only release,
+  so GitHub lists it "Latest" regardless of the flag.
+- **Replay:**
+
+  ```bash
+  E=packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed
+  ROOT=$(python3.12 "$E/fetch-archive.py" --tag w39-archive \
+    --asset w39-archive-489db938a1e234a772ba7223d24fbaf76d137ef5d9e5b2421ed84a86894426b5.tar.zst \
+    --sha256 489db938a1e234a772ba7223d24fbaf76d137ef5d9e5b2421ed84a86894426b5)
+  python3.12 "$E/replay-archive.py" "$ROOT" --deny-raw-root ~/vitrea-w39
+  ```
+
+  Run from the main checkout with **all of `~/vitrea-w39` denied** (raw runs, worktree and
+  producer output), it recomputed **all 1,184 calibration and validation cells identically**.
+  The fetch round-trip verified the digest before extraction, and the extracted tree equals the
+  producer's output byte for byte.
+- **A second owner-controlled copy** sits at `~/vitrea-w39/archive-copy/`, verified through
+  `fetch-archive.py --source`.
+
+### 6. The probe bed and the G2 hand-off
+
+`tools/materialize-probe.py` wrote 1,328 cells by identification role; its tests, 7/7, ran on
+the admitted preflight captures before use.
+- **A finding.** The canonical `materialize.ts` refuses runs that read two declaration digests,
+  and every bed pass's run 1 reads its own, because run 1 alone carries the colour references.
+  The two declarations are identical on every shared cell. So `materialize.ts` resolves runs
+  2–7, and run 1 is folded in as the seventh vote. It agreed on **all 823** folded cells.
+- **One 3–3 tie** among runs 2–7 (the two-state cell above) was published at the **4–3
+  plurality of all seven runs**, through `materialize.ts`'s own `--omit`. No strict plurality
+  would still refuse.
+- **504 run-1-only references** were added from run 1 and marked `singleRun`.
+- The holdout's payload is sealed under `probe/holdout/`, and the guarded reader refuses it
+  without the receipt.
+- `wave.py plan --roles calibration,validation` selects **138 scenes and excludes 214**
+  (`wave-plan.json`, the G2 hand-off).
+
+### 7. What is not claimed
+
+No law, no fit and no model comparison. **Nothing was read against vitrea**: no browser, compare
+or web capture ran. W34's holdout was never opened, and the W39 holdout's payload was produced
+behind the procedural boundary and never analysed. No bar is claimed for the holdout. The phase
+axis is declared unreachable on the size actuator, not identified as absent under any other
+actuator.
+
+The original bundle's grant is **not restored**; under Decision Log 4 that happens at wave
+close, by the harness README's add recipe, with positive checks of both bundles. Freeze at close
+is **1,818 intact**, and the seven W39 Python suites pass.
