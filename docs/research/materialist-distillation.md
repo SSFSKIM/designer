@@ -42,7 +42,7 @@ stated from a rule this skill decided. Recorded 2026-09-26.
 | "The skeuomorphism of the early 2010s failed because it depicted"; linen, leather, bevels | this file's synthesis, with `ive-apple-cases.md`'s iOS 7 flattening case as context; not an Apple statement |
 | "This material depicts nothing. It behaves." The optical-versus-ornamental distinction | synthesis, drawn from the ledger: each behaviour named is a measured law (§1 above) |
 | "designing and making are inseparable" | Ive, `ive-interviews.md:94` |
-| No brushed metal, leather, bevel, faux grain; the content plane is real content | recommended to the user 2026-09-26, pending; the boundary is an **authoring choice** grounded in Ive's material honesty and the demo's "one texture at the root, never per component" (`demo` §3) |
+| No brushed metal, leather, bevel, faux grain; the content plane is real content | recommended 2026-09-26 and ruled by the user 2026-09-27; the boundary is an **authoring choice** grounded in Ive's material honesty and the demo's "one texture at the root, never per component" (`demo` §3) |
 | An instrument over a world; a heads-up display without the neon | synthesis |
 | Content full-bleed, edge to edge, carrying the colour; controls small and monochrome | memo, HIG Layout ("extend to the edges of the display"); WWDC25 323 (monochrome bars); WWDC25 219 ("imbue color ... in the content layer") |
 | Daylight is the distinctive register; dark is where glass is easy | the user's ruling, `demo` §0: "every verified competitor demo is dark, because dark is where glass is easy; the harder and unclaimed demonstration is daylight" |
@@ -161,7 +161,8 @@ stated from a rule this skill decided. Recorded 2026-09-26.
 Every item is Apple's, from `memo` §6 and §10: HIG Search fields, HIG Menus, HIG Tab bars, WWDC25
 356 (hard and soft scroll edges, window-corner concentricity), HIG Windows (leading toolbar items
 and window controls). Demoting them from law to reading is the authority decision recommended to the
-user on 2026-09-26 and recorded in the initiative spec's Decision Log, pending their answer.
+user on 2026-09-26, recorded in the initiative spec's Decision Log, and ruled as recommended on
+2026-09-27.
 
 ## §5 and §6: the home system and the derivation
 
@@ -184,7 +185,7 @@ tension recorded" is the designer skill's precedence rule, `material.md`, carrie
 | Second tint hue in a group; tint on a label; solid fill; hand-rolled blur | `react` (`tint-mixing`); memo, HIG Color; WWDC25 219; WWDC25 284 (glass "is distinct from other visual effects, like UIBlurEffect") |
 | Glass over a flat field | secondary, STRV and Six Colors; `demo` §0 |
 | Cross-fade, opacity fade-in, idle motion, colour-swap press | memo, WWDC25 219, 284; `react` (opacity creates a backdrop root); memo §7 inference |
-| Depicted material anywhere else | **authoring choice**, recommended to the user 2026-09-26, pending; grounded in Ive's honesty line and `demo` §3 |
+| Depicted material anywhere else | **authoring choice**, recommended 2026-09-26 and ruled by the user 2026-09-27; grounded in Ive's honesty line and `demo` §3 |
 | Dishonest declaration; pinned padding; fixed inset | `react`, `web`; memo, HIG Layout (safe areas) |
 | Prose on glass | `demo` §8 |
 

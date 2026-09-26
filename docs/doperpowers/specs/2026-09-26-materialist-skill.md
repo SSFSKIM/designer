@@ -1,6 +1,6 @@
 # The materialist: an independent Liquid Glass aesthetic guideline, shipped as a second skill
 
-Status: in progress, 2026-09-26. Parents: `2026-08-24-vitrea-liquid-glass-design.md` (the material
+Status: landed 2026-09-27 (commit 29c8a6d6 and its follow-up); the demo rebuild and the eval run are deferred. Parents: `2026-08-24-vitrea-liquid-glass-design.md` (the material
 and its runtime) and `2026-09-10-liquid-glass-into-the-skill.md` (the 2.3 draft on the
 `capsule-refinement` branch, never merged, whose research and rulings this initiative inherits).
 Sibling: `2026-07-27-persona-layer-design.md`, whose authoring contract for a distilled decision
@@ -79,8 +79,8 @@ and would need a rebuild, which is deferred.
 4. **The current API**, including what did not exist at 0.14.0: colour scheme, window activation,
    presence, the materialize morph, toolbar spacers, the macOS 27 material, hue retention.
 5. **Authority.** Apple's material physics and two-layer discipline are law; Apple's platform chrome
-   conventions are offered as a macOS reading (user decision, pending at the time of writing; the
-   recommended default is written in).
+   conventions are offered as a macOS reading (recommended 2026-09-26, ruled by the user as
+   recommended 2026-09-27).
 
 ### C. Integration
 
@@ -102,23 +102,22 @@ and would need a rebuild, which is deferred.
   Rationale: the user asked for independence from the designer skill and for something an agent
   using the library can reach; a skill is what Claude Code loads by description, and the designer
   skill can route to it. A standalone document alone would not be loaded; a persona would be
-  coupled. Recommended to the user 2026-09-26; proceeding on the recommendation pending their
-  answer.
-  Date/Author: 2026-09-26, Claude (recommendation), user (pending).
+  coupled. Recommended 2026-09-26; the user ruled as recommended 2026-09-27.
+  Date/Author: 2026-09-26, Claude (recommendation); 2026-09-27, the user.
 
 - Decision: material physics and the two-layer discipline are law; Apple's platform chrome
   conventions are a macOS reading offered as reference.
   Rationale: a web product is not a Mac app, and the goal is the material's aesthetic at full
-  potential rather than HIG compliance. Recommended to the user; proceeding on the recommendation
-  pending their answer.
-  Date/Author: 2026-09-26, Claude (recommendation), user (pending).
+  potential rather than HIG compliance. Recommended 2026-09-26; the user ruled as recommended
+  2026-09-27.
+  Date/Author: 2026-09-26, Claude (recommendation); 2026-09-27, the user.
 
 - Decision: skeuomorphism is optical only. The glass behaves like glass and depicts nothing; no
   surface fakes another material as decoration; the content plane is real content.
   Rationale: what makes the glass read as glass is that nothing else on the page is pretending;
-  the demo's own law and the Essentialist's material-honesty line agree. Recommended to the user;
-  proceeding pending their answer.
-  Date/Author: 2026-09-26, Claude (recommendation), user (pending).
+  the demo's own law and the Essentialist's material-honesty line agree. Recommended 2026-09-26;
+  the user ruled as recommended 2026-09-27.
+  Date/Author: 2026-09-26, Claude (recommendation); 2026-09-27, the user.
 
 - Decision: the user's 2026-09-10 curvature ruling carries forward as law: single-row floating
   housings and controls prefer capsules with related inner geometry and comfortable padding;
@@ -200,3 +199,6 @@ and would need a rebuild, which is deferred.
   document, the tint count in the examples, the case-study phrasing ("the user") removed from the
   runtime files, the record defined at first use, the mechanical subset's allowance for the native
   button reset, and check 20's no-capture case; the distillation rows that changed re-grounded.
+- 2026-09-27: the user ruled all three recommendations as recommended (second skill; chrome
+  conventions as a macOS reading; optical-only skeuomorphism) and asked for the push; the pending
+  markers here and in the distillation record closed.
