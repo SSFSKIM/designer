@@ -278,3 +278,34 @@ machine, and the pass order restarts with a **fresh active-1x run 1**. The quara
 own name, and active-2x, inactive-1x, inactive-2x and the sentinels follow in order. The session
 read at continuation is `stop-1/session-at-continuation.json`. The census, under the corrected
 gate, reads 0.
+
+### Stop 2 — active-1x run 7: HID input, then the system alert took focus (`stop-2/`)
+
+The restarted pass admitted **runs 1–6 of active-1x**: 332 + 5 × 206 captures at mode 69, every
+one under the corrected gates (`attest/active-1x/run-{1..6}/`). **Run 7** (206 captures,
+07:59:45Z–08:32:16Z) was **quarantined by its own pose gate**
+(`attest/active-1x/QUARANTINE-run-7-1790411537373327000/`; raw run under the same name).
+`stop-2/pose-and-idle-timeline.json` holds attestation metadata only. It shows two independent
+causes, either of which refuses the run under the corrected gates:
+
+1. **HID input at about 08:10:44Z.** Six captures, 08:10:51Z–08:11:39Z, record `hidIdleSeconds`
+   of 7.1–54.8. Their pose still attested active. The per-capture idle gate added after stop 1
+   refuses the run on these alone. Who or what produced the input is not known here.
+2. **The `UserNotificationCenter` modal alert returned at about 08:28:40Z and took focus.** It
+   is the same process and window level as the alert first seen during the side's first launch
+   after the grant, which was gone by 04:36Z. 183 captures up to 08:28:37Z attested active and
+   all 23 from 08:28:46Z inactive, with none out of place. No HID input accompanied it: idle
+   reads 1,073 s at 08:28:37Z. It is on screen and frontmost now (`stop-2/session-after-stop.json`,
+   `stop-2/lsappinfo-unc.txt`). Its text is still unread, because reading it needs a permission
+   this shell does not hold, and nothing has clicked it.
+
+The orchestrator stopped at the refusal and committed it (`5a54f2cb`). Nothing was retried. The
+opening and closing machine reads agree (mode 69, 0 foreign processes). This worker touched
+nothing on screen.
+
+**What the next continuation needs.** The alert is a system modal that appears unattended and
+takes the active pose from the harness. While it is on screen, every later active capture is at
+risk. A human has to read it and answer it: it may be a Screen Recording re-confirmation for the
+side app, or something unrelated. Nobody clicks Allow on a permission prompt without the user
+deciding. The continuation is then a fresh run 7 of active-1x, since the driver refuses to
+overwrite anything, followed by active-2x and the rest in order.
