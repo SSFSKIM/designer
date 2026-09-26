@@ -1,6 +1,6 @@
 # W39 — the colour-and-edge capture: one native sitting that identifies Apple's colour response and the edge line's directional law (2026-09-26)
 
-**Status: G0 MERGED `ba38ebbf` (2026-09-26, §5.184); G1 (the sitting) is next and needs the user's grant switch; the TCC-refusal rehearsal is G1's first step because the machine was not exclusive during G0.**
+**Status: G1 MERGED `f9b9d316` (2026-09-27, §5.185): 6,360 captures at the bar, archived as release `w39-archive`, replayed with the raw root denied, nothing read against vitrea; no phase cells (Decision Log 3: neither axis reachable). G2 (identification) is next. The original bundle's grant is restored at wave close (Decision Log 4).**
 Chartered by the parent on the user's "W39 colour-and-edge capture (Recommended)" after W38's
 close (main `e3ec337e`, 0.24.0 published), under the standing "rest on your judgement" and the
 routing the user set on 2026-09-22 (X9). This is the wave W37's Deferred at close 1 and W38's
@@ -469,7 +469,7 @@ lands before G3's landing.
 | child | status |
 | --- | --- |
 | G0 | MERGED 2026-09-26 as `ba38ebbf` (§5.184): 388 ids, split 316/36/36, declaration final 94cebb42… with five superseded hashes retained, side pinned and ungranted, tooling tested (718 + 89), review 3 P1 / 1 P2 fixed, re-review clean. Outstanding: the TCC-refusal rehearsal (machine not exclusive: a foreign Chrome; a since-dismissed unattributed prompt). |
-| G1 | — |
+| G1 | MERGED 2026-09-27 as `f9b9d316` (§5.185): 6,360 admitted captures (preflight 40; four bed passes × 7 runs × 1,568/7; four sentinel passes × 3 runs); two quarantines in active-1x (stops 1–2), two stricter gates added; bar 0.5 almost everywhere (575/576 glass cells byte-identical over seven runs); archive `w39-archive` asset 489db938…, 13,658,148 B, replayed identically; probe bed 1,328 cells by role, holdout sealed; `wave.py plan` 138/214. Review: reviewer-high, no material findings; it replayed all 1,184 cal/val cells from the fetched release with raw reads denied, reproduced both bar reports and every permitted probe image's plurality, and confirmed the live asset, the holdout's receipt refusal and an empty protected-path diff |
 | G2 | — |
 | G3 | conditional |
 
@@ -506,6 +506,20 @@ axes; amplitude-only and a half-pixel-snapped raster admit none; one-axis admiss
 refused). The amplitude alternative's shared edge is underidentified and its edge/gains are
 never reported as physical; its RSS is the comparison.
 
+**G1 verdict (the parent, at merge; `preflight/preflight-verdict.json`, SHA-256
+`ffa40971…4391b`, written once): branch `neither` — no phase axis is reachable on the size
+actuator at either scale.** The four requested quarter-device-pixel phases collapse to two byte
+states, {0, ¼} and {½, ¾}, on the opaque control and on the glass alike, at 1x and 2x on both
+axes; the fitted offsets are a whole-pixel step (−0.06…−0.19 then +0.81…+0.94 device px), so
+monotonicity fails everywhere; the near edge is exactly invariant (D_int_near 0, max pair 0);
+D_int_far 0; the end sentinels are byte-identical; every design is full rank (condition 856 to
+4.74e5). The amplitude fit reached its 200-alternation cap unconverged, which the declaration
+reads as "not established"; that is recorded beside the verdict as a limitation and changes
+nothing, because the state count and monotonicity refuse both axes on their own. The admitted
+phase allowlist is empty; the bed ran with no phase cells (the 112 uncaptured declared cells are
+exactly the phase variants); no fallback actuator was tried (clause 4). This reproduces W34
+§5.174 §7. A phase mechanism on a different actuator stays Deferred.
+
 ### Decision Log 4 — the grant switch and its restoration (the user's hand; the parent plans and checks)
 
 G0 record: the side bundle `dev.vitrea.reference-apple.w39` is built at `~/vitrea-w39/side/`
@@ -517,6 +531,22 @@ of the prompt was denied); the user dismissed it with Deny at 2026-09-25T17:16Z;
 row was written. The TCC-refusal rehearsal could not run because a foreign Chrome session (14
 capture processes) held the machine; it is G1's first step, before the grant switch.
 
+G1 record: the rehearsal ran before the switch (attempt 1 quarantined `prompt-pending` when the
+side's first ScreenCaptureKit call raised its Screen Recording prompt — the user answered Deny,
+`.w39` auth 0; attempt 2 `refused-tcc` on all four passes at the real run-1 argv). The user then
+made the switch by hand and left the machine. The system TCC database afterwards read `.w39`
+auth 2 and **no row at all for the original `dev.vitrea.reference-apple`** — its Screen
+Recording grant was removed, not turned off. The parent ruled that the original is NOT launched
+while it has no row (a launch raises an unattended prompt that blocks every later launch); its
+"not granted" state is the read-only TCC read. The side's first launch after the grant attested
+inactive, as W34's did; its second pose check attested active with a PNG byte-identical to the
+committed 2x fixture. **Restoration at wave close, the user's hand:** re-add the original bundle
+under Screen Recording by the harness README's add recipe, then a positive check of both
+bundles; the side stays granted only until then. A separate system alert seen twice during the
+sitting was macOS's Files-and-Folders prompt for the Claude Code binary (Documents access),
+not a capture permission; the parent answered Don't Allow through System Events with no
+keyboard or mouse input.
+
 ### Decision Log 5 — the sitting's size (before G0's merge; the user's)
 
 Put to the user 2026-09-26: the full bed (colour at both scales; ≈ 17.0 / 19.1 h) or the trimmed
@@ -525,6 +555,20 @@ user, 2026-09-26: the full bed, in one untouched sitting.** Seven runs; no schem
 validation span or control pairing is dropped for time.
 
 ### Decision Log 6 — bounds and floors if a leaf lands (in G3; the user's)
+
+### Decision Log 7 — which bytes the probe bed publishes when run 1 reads its own declaration (in G1; the parent's)
+
+The canonical `materialize.ts` refuses runs that read two declaration digests (rule 6 of its
+provenance), and every W39 bed pass's run 1 reads its own, because `pass-spec.derive` puts the
+colour references in run 1 alone. Ruled at G1's merge, accepting the worker's design call:
+`materialize.ts` is not edited; it resolves runs 2–7, and run 1 is folded in as the seventh vote
+on every shared cell — recorded as agreeing (it agreed on all 823), kept with the difference
+recorded only where runs 2–7 were unanimous, refused otherwise. A cell with no plurality among
+runs 2–7 goes to `materialize.ts` with its own `--omit` and is published at the plurality of all
+seven runs, marked `pluralityOfAllRuns` (one cell: `transfer-h210-colour` 1x light validation,
+4–3, a sub-code difference); no plurality over all seven still refuses. Run 1's reference-only
+cells are published from run 1 and marked `singleRun` (504). This governs only which image the
+probe bed carries; the archive and the bar use all seven runs. G2 reads the archive.
 
 ## Surprises & Discoveries
 
@@ -563,7 +607,36 @@ validation span or control pairing is dropped for time.
   companion's GUI hand cannot see a TCC prompt; a background Chrome counts as a foreign capture
   process. None of it touched the evidence; all of it cost the rehearsal.
 
+- **Two stops in one sitting, both from the machine and neither from the harness** (G1).
+  Stop 1: Google Chrome, launched unattended at 03:45:37Z with launchd as its parent, took the
+  harness's activation and every later capture of run 1 attested inactive; the census read 0
+  because its name list said "Chromium" and not "Google Chrome". Stop 2: HID input at
+  08:10:44Z, coinciding with the user's message to this session, put six captures under 60 s of
+  idle; then the Files-and-Folders alert took focus. Both runs were quarantined by their own
+  pose gate and kept under their names. Two stricter gates followed stop 1: the census refuses
+  browsers by name, and the per-capture `hidIdleSeconds` the harness already recorded became an
+  admission check (before it, only the launch was gated). The corrected gates re-validate every
+  earlier admitted run. Typing to the session from the capture machine is itself an input.
+- **The canonical materialiser refuses the W39 run design** (G1): `materialize.ts` refuses runs
+  reading two declaration digests, and a bed pass's run 1 reads its own by construction.
+  Resolved without editing the tool (Decision Log 7).
+- **The bar is the floor almost everywhere**: 575 of 576 normal-protocol glass cells are
+  byte-identical over seven runs; the deep bar is 0.5 in all 1,776 channel values, the edge bar
+  0.6 at most. The survival test's max(1 code, bar) will read one code nearly everywhere, so G2's
+  "insufficient resolution" outcome hinges on the models' separations, not on the noise.
+- **The original bundle's grant was removed, not turned off** at the switch (Decision Log 4).
+
 ## Revision Notes
+
+- 2026-09-27 (G1's merge, the parent): merged `f9b9d316` after an independent review
+  (reviewer-high, no material findings; it replayed all 1,184 cal/val cells from the fetched release with raw reads denied, reproduced both bar reports and every permitted probe image's plurality, and confirmed the live asset, the holdout's receipt refusal and an empty protected-path diff); freeze 1,818; no capture tree moved (no read against vitrea). Decision Log 3's
+  verdict, Decision Log 4's G1 record and Decision Log 7 recorded; four Surprises added. X9
+  record: the first G1 worker on the frontier rung was cut off by its usage limit after
+  rehearsal attempt 1 and a Claude default worker continued from the committed head in the same
+  worktree. Two parent interventions during the sitting are recorded in the evidence README
+  (quitting Chrome under the user's authorisation after stop 1; answering the Files-and-Folders
+  alert after stop 2). Worktree removed; the raw runs, the archive, the release staging and the
+  second copy stay under `~/vitrea-w39/`; the side bundle stays granted until wave close.
 
 - 2026-09-26 (the user, routing): "prefer opus over sol" — from here, children, fix waves and
   grounding run on the default `opus` worker or on `astra` at medium/high; `sol` is no longer
