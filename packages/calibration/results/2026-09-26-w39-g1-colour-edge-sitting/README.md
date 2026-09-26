@@ -209,3 +209,24 @@ harness records `hidIdleSeconds` on every fixture. But `validate_manifest` does 
 per-capture idle, so a run whose middle captures were taken under HID activity could be
 admitted if its pose attestations still held. Here the pose gate caught it. Whether per-capture
 idle should be a gate is logged for the parent, not changed mid-sitting.
+
+### G1 gate corrections after stop 1 (the parent's continuation; `gate-corrections/`)
+
+The parent ruled explicitly and recorded it. The parent quit Chrome under the user's standing
+authorisation: pid 317's parent was launchd, and no automation parent was found. The user was
+told to stay off the machine. The preflight verdict is accepted as Decision Log 3, with the
+amplitude fit's non-convergence at its 200 cap noted as a limitation that changes nothing. Two
+refusals were added, both stricter; nothing was loosened:
+
+1. **Foreign census by name** (`record-machine.py` `FOREIGN` / `is_foreign`). The census now
+   also refuses any Google Chrome, Chrome Helper, Playwright or headless-shell process, beside
+   its earlier criterion. The Docker Electron crash handler and ordinary processes are not
+   matched. The test takes its command lines from the stop-1 `ps` reading.
+2. **Per-capture HID idle is an admission check** (`sitting.py` `validate_manifest`). A run
+   whose manifest records any capture with `hidIdleSeconds` below 60, or with the field missing,
+   is refused, and so quarantined. Before this, the 60 s idle was a launch gate only.
+
+`test-sitting.py` now runs 29 tests and passes (`gate-corrections/test-sitting.txt`). The other
+six W39 Python suites pass unchanged. The four admitted preflight runs re-validate under the
+corrected gate, with minimum per-capture idle 257–640 s (`admitted-runs-recheck.json`). The
+census reads 0 with Chrome gone (`census-now.txt`).

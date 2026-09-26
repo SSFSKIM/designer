@@ -328,6 +328,13 @@ def validate_manifest(m, doc, pose, scale, label):
                 raise ValueError('fixture pixel size mismatch: ' + sid)
             if f.get('presentedActive') != (pose == 'active'):
                 raise ValueError('pose attestation failed: ' + sid)
+            # G1 gate correction (c9a §5.185, G1 stop 1): the launch gate reads HID idle once,
+            # but the harness records it on EVERY capture; a capture taken within sixty seconds
+            # of input was taken while somebody was at the machine, and its run is refused.
+            idle = f.get('hidIdleSeconds')
+            if not isinstance(idle, (int, float)) or idle < MIN_IDLE_SECONDS:
+                raise ValueError(f'per-capture HID idle failed: {sid} recorded {idle}; '
+                                 f'{MIN_IDLE_SECONDS}s required on every capture')
             if pose == 'inactive':
                 p = f.get('presentation') or {}
                 if p.get('observedPose') != 'inactive' or p.get('isKeyWindow') is not False \

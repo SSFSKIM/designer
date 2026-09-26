@@ -1,0 +1,29 @@
+{
+  "note": "the four admitted preflight runs re-validated by the corrected validate_manifest; all pass",
+  "runs": [
+    {
+      "run": "/Users/new/vitrea-w39/run/preflight-1x/run-1",
+      "revalidatedUnderCorrectedGate": true,
+      "captures": 18,
+      "minHidIdleSeconds": 257.018291791
+    },
+    {
+      "run": "/Users/new/vitrea-w39/run/preflight-1x/run-2",
+      "revalidatedUnderCorrectedGate": true,
+      "captures": 2,
+      "minHidIdleSeconds": 429.968610625
+    },
+    {
+      "run": "/Users/new/vitrea-w39/run/preflight-2x/run-1",
+      "revalidatedUnderCorrectedGate": true,
+      "captures": 18,
+      "minHidIdleSeconds": 466.3336575
+    },
+    {
+      "run": "/Users/new/vitrea-w39/run/preflight-2x/run-2",
+      "revalidatedUnderCorrectedGate": true,
+      "captures": 2,
+      "minHidIdleSeconds": 639.515262916
+    }
+  ]
+}
