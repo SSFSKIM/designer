@@ -1,0 +1,21 @@
+[
+  {
+    "run": "QUARANTINE-run-1-1790395862598343000",
+    "admitted": false,
+    "manifestSha256": "abf6453fb16a8f39045d321a64d8d90058f7bc5e4114d742199da15b5f981902",
+    "fixtures": 332,
+    "firstCapture": "2026-09-26T03:18:20Z",
+    "lastCapture": "2026-09-26T04:11:01Z",
+    "captureProtocol": {
+      "hidIdleSecondsAtEnd": 1514.383208041,
+      "hidIdleSecondsAtStart": 753.616328375,
+      "initialSettleSeconds": 1.75,
+      "minIdleSeconds": 60,
+      "resetCarriesGlass": false,
+      "resetInterstitialSeconds": 6,
+      "runLabel": "w39-active-1x-1",
+      "userIsActiveAtStart": true
+    },
+    "refusal": "ValueError: pose attestation failed: factor-y0-c12-h0-colour__rest"
+  }
+]

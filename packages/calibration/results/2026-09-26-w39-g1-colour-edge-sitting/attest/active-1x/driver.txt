@@ -1,0 +1,9 @@
+REFUSED; retained at /Users/new/vitrea-w39/run/active-1x/QUARANTINE-run-1-1790395862598343000
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w39/g1/packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/sitting.py", line 636, in <module>
+    main()
+  File "/Users/new/vitrea-w39/g1/packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/sitting.py", line 621, in main
+    validate_manifest(m, doc, pose, args.scale, label)
+  File "/Users/new/vitrea-w39/g1/packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/sitting.py", line 330, in validate_manifest
+    raise ValueError('pose attestation failed: ' + sid)
+ValueError: pose attestation failed: factor-y0-c12-h0-colour__rest
