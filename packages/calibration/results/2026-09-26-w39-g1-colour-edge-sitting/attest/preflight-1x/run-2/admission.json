@@ -1,0 +1,19 @@
+{
+  "schema": "w39-run-admission-1",
+  "admitted": true,
+  "dry": false,
+  "protocol": "normal",
+  "captureProtocol": {
+    "initialSettleSeconds": 1.75,
+    "orderSeed": null,
+    "resetInterstitialSeconds": 6.0,
+    "resetCarriesGlass": false,
+    "minIdleSeconds": 60.0
+  },
+  "cells": 2,
+  "reachableAxes": [],
+  "preflightVerdictSha256": null,
+  "manifestSha256": "fbad54d9baebc0b5fb59476dde76e8691c056a0b4cc23f9522a41ba4e1bbc868",
+  "run": 2,
+  "pass": "preflight-1x"
+}

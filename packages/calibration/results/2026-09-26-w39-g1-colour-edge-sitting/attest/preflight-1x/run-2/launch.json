@@ -1,0 +1,28 @@
+{
+  "argv": [
+    "open",
+    "-W",
+    "--env",
+    "VITREA_SCENES=/Users/new/vitrea-w39/run/preflight-1x/scenes-run-2.json",
+    "--env",
+    "VITREA_FIXTURES=/Users/new/vitrea-w39/run/preflight-1x/run-2",
+    "--env",
+    "VITREA_SCALE=1",
+    "--stdout",
+    "/Users/new/vitrea-w39/run/preflight-1x/run-2/producer-capture.out",
+    "--stderr",
+    "/Users/new/vitrea-w39/run/preflight-1x/run-2/producer-capture.err",
+    "/Users/new/vitrea-w39/side/VitreaReference.app",
+    "--args",
+    "capture",
+    "--run-label",
+    "w39-preflight-1x-2",
+    "--reset-interstitial",
+    "6",
+    "--min-idle-seconds",
+    "60",
+    "--scenes",
+    "preflight-1x-zero-opaque__rest,preflight-1x-zero__rest"
+  ],
+  "rehearsal": false
+}
