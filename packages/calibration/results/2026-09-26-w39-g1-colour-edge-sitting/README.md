@@ -309,3 +309,20 @@ risk. A human has to read it and answer it: it may be a Screen Recording re-conf
 side app, or something unrelated. Nobody clicks Allow on a permission prompt without the user
 deciding. The continuation is then a fresh run 7 of active-1x, since the driver refuses to
 overwrite anything, followed by active-2x and the rest in order.
+
+**Both alerts identified, and the continuation after stop 2** (the parent's explicit, recorded
+act). The `UserNotificationCenter` alert was a macOS **Files and Folders** prompt: "'2.1.283'
+wants to access files in your Documents folder", with Don't Allow / Allow. `2.1.283` is the
+Claude Code binary, so a process of this agent session touched `~/Documents`. It is **not** a
+capture permission and has nothing to do with either harness bundle. The alert seen during the
+side's first launch after the grant (step 3) was the same prompt. That is also the most likely
+reason the side attested inactive on that launch. The parent answered it **허용 안 함 (Don't
+Allow)** through System Events at about 2026-09-26 08:50Z, with no keyboard or mouse input (HID
+idle stayed above 20 min). The recorded denial stops it recurring for that binary. The HID input
+at 08:10:44Z coincides with the user sending a message to this session and is treated as the user
+typing on this machine; the user has been told to use the other machine. At continuation: Finder
+frontmost, no Chrome, no alert, census 0 (`stop-2/session-at-continuation.json`). The pass order
+continues with a **fresh active-1x run 7** (the quarantined run 7 keeps its name), then
+active-2x, inactive-1x, inactive-2x and the sentinels. `tools/sitting-orchestrate.sh` gained an
+optional first-run field for exactly this: the driver refuses to reuse an existing `run-N`, so a
+continuation names the run it starts at.

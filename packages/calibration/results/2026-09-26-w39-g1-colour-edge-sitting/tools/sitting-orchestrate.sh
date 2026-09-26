@@ -4,7 +4,8 @@
 # read back the pass's attested display mode, then wait for >= 75 s of HID idle. After each
 # pass: read the mode back, copy the attestations into the evidence and commit. ANY failure
 # (a mode that does not switch, a driver refusal or quarantine) stops the sitting here; the
-# driver never retries and neither does this script.
+# driver never retries and neither does this script. A continuation names its first run in the
+# optional fourth field (kind:scale:flag:first), because the driver refuses an existing run-N.
 set -uo pipefail
 E=/Users/new/vitrea-w39/g1/packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed
 G=/Users/new/vitrea-w39/g1
@@ -16,7 +17,7 @@ export VITREA_SITTING_DIR=/Users/new/vitrea-w39/run
 say() { echo "$(date -u +%Y-%m-%dT%H:%M:%SZ) $*" | tee -a "$ST"; }
 PASSES=${PASSES:-"active:1: active:2: inactive:1: inactive:2: active:1:--sentinel active:2:--sentinel inactive:1:--sentinel inactive:2:--sentinel"}
 for spec in $PASSES; do
-  IFS=: read -r kind scale flag <<<"$spec"
+  IFS=: read -r kind scale flag first <<<"$spec"
   name="$kind-${scale}x"; [ -n "$flag" ] && name="$name-sentinel"
   mode=$([ "$scale" = 1 ] && echo 69 || echo 68)
   /opt/homebrew/bin/displayplacer "id:$SCREEN mode:$mode"; sleep 5
@@ -24,7 +25,7 @@ for spec in $PASSES; do
   if ! grep -q "mode $mode:.*<-- current mode" "$L/$name-display-before.txt"; then
     say "STOP $name: display mode $mode did not take"; exit 2; fi
   say "START $name at mode $mode"
-  /Users/new/vitrea-w39/run/setup/when-idle.sh 75 bash "$E/run-sitting-w39.sh" "$kind" "$scale" $flag > "$L/$name-driver.txt" 2>&1
+  /Users/new/vitrea-w39/run/setup/when-idle.sh 75 bash "$E/run-sitting-w39.sh" "$kind" "$scale" ${first:+$first} $flag > "$L/$name-driver.txt" 2>&1
   rc=$?
   /opt/homebrew/bin/displayplacer list > "$L/$name-display-after.txt" 2>&1
   python3.12 /Users/new/vitrea-w39/run/setup/collect-pass.py "$name" >> "$ST" 2>&1
