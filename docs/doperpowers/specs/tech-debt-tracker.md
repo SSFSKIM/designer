@@ -6347,3 +6347,41 @@ with the capture tree present it still requires the exact baseline.
 W35's 238,292-bin population test exceeded Vitest's 5 s default on CI,
 although its isolated Mac run took 3.405 s (6.253 s under simultaneous
 Linux diagnostics); W40 G1 owns its explicit 30 s budget, not this fix.
+
+## The configuration most apps run is outside the matrix, and `core/README.md` describes three things the runtime does not do (2026-09-26)
+
+Found by a read-only maturity diagnosis (how close a new page or Electron app built on 0.24.0
+gets to native), not by a wave. Four findings, each verified in code at `6cc6b664`:
+
+- **No lens over DOM, though the readout says "approximate".** A WebGPU group over page content
+  resolves `samplingBackend: "css-backdrop"`, `refraction: "approximate"`
+  (`core/src/capability.ts:334-336`). With no texture bound the renderer passes no pyramid
+  (`renderer-webgpu/src/renderer.ts:1402-1410`), the optics pass takes its backdrop from
+  `dom_material_backdrop()` — a uniform tone colour or constant (`wgsl/optics.ts:602-605`) — and the
+  refracted sampling runs only under `ou.flags.x` (`optics.ts:1010`). Nothing is displaced. The
+  honesty core names a refraction mode that did not draw, and `core/README.md`'s tier table credits
+  the dom path with "rim lensing". Either the value should read `"none"` (and the table say so) or a
+  displacement over the proxy should exist.
+- **The built-in estimator does not exist.** `core/README.md` ("There is a built-in best-effort
+  estimator that reads known background colours and images where CORS permits") describes an
+  implementation; only the `BackdropEstimatorProvider` interface ships (`core/src/backdrop-hint.ts:33`)
+  and no package supplies one. An unhinted dom group draws the fixed regular material, which §5.129
+  priced at ΔE 0.545 on a dark capsule.
+- **The quality governor is not wired.** `core/README.md` ("Tiers degrade within themselves before
+  they switch") describes intra-tier degradation; `setGovernorPressure` is defined
+  (`core/src/scene.ts:410,841`) and nothing in platform-web or react calls it. The root's
+  `requestAnimationFrame` loop reschedules unconditionally (`platform-web/src/root.ts`, `loop`), so
+  the idle and battery cost of a resting page is unmeasured.
+- **The viewport mapping paragraph is stale.** `core/README.md` ("Where the texture is placed")
+  says the renderer maps a texture over the whole viewport; since §5.47 an element source is
+  measured and followed, and viewport cover is only the fallback for a source with no box
+  (`platform-web/src/renderer-bridge.ts:113-131`).
+
+**Why it matters beyond the docs.** Every WebGPU matrix row is `gpu-texture`; the dom path an app
+gets for glass over ordinary content (and `renderer: "css"`, the default in both `createGlassRoot`
+and `GlassRoot`) was last measured on 22 light 1x cells of the macOS 26.5 material (§5.129). The
+fidelity numbers therefore describe the best case, not the typical app. **Shape of the work:** fix
+the three README paragraphs and the `refraction` value now; then a measured dom-path row set on
+the macOS 27 bed, and a feasibility read of Chromium's HTML-in-Canvas
+(`copyElementImageToTexture`, origin trial) as the route to sampled glass over live DOM — Electron,
+which controls its own Chromium flags, is the first target where it could ship.
