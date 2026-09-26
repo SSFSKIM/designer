@@ -45,6 +45,14 @@ into the material's channels. It adds no material, no geometry and no motion —
 those all live below it, which is why a later Vue, Svelte or Web-Components
 adapter duplicates nothing but the lifecycle.
 
+**Designing with the material.** Which layer a thing belongs to, how a size
+family, curvature, colour and motion are decided, and how each decision maps onto
+these components is the *materialist* guideline in this repository,
+[`skills/materialist/SKILL.md`](https://github.com/SSFSKIM/designer/blob/main/skills/materialist/SKILL.md),
+with the measured optics in its `references/optics.md` and the cookbook in
+`references/vitrea.md`. It stands on its own, and it is also a skill the
+`designer` Claude Code plugin loads for an agent building with vitrea.
+
 ---
 
 ## Quickstart
@@ -100,6 +108,14 @@ size-gated: a 44 px control over a near-black backdrop disappears into it, while
 a large panel over the same backdrop keeps most of its own appearance. Measured
 against the reference rather than styled;
 `docs/doperpowers/specs/c9a-fidelity-claims.md` §5.8 has the numbers.
+
+That size-gated disappearance is the **macOS 26.5** material's law. The macOS 27
+material a root draws by default does not vanish anywhere on the bed: a small
+surface over near-black stays a visible plate, and small and large surfaces differ
+by a few hundredths at the dark anchor where the 26.5 pair differed by half the
+range (claims §5.153 §2). The hint still decides the ink and the body's tone
+response on both documents; what it no longer does on the default document is
+make a small control disappear.
 
 Where you register a **texture** backdrop, vitrea measures that source's average
 tone from the pixels you handed over and needs no hint for this. Where it has
@@ -411,16 +427,21 @@ texture and never supplying one is not a silent hole: the group reports
 `health: "demoted"` with `demotionReason: "no-texture-supplied"` and goes on
 drawing tint, rim and glow.
 
-**Where the texture is placed.** The renderer maps the source over the **whole
-viewport**, cover-fit — filling it, with the overflow cropped symmetrically, the
-same geometry as `object-fit: cover` on a `position: fixed; inset: 0` element.
-Not over the group, and not over the surface. So if your app also paints that
-image — the usual case, since the picture is on the page and the glass sits on it
-— the two mappings have to agree. An `<img>` sized to a region under a texture
-mapped to the viewport samples a different crop of the same file, and the
-mismatch shows up as the glass revealing the wrong part of the picture, which
-reads convincingly like a lensing artefact rather than a registration error.
-Paint your copy viewport-sized and `object-fit: cover`.
+**Where the texture is placed.** On the element's own box. An in-document
+`<img>`, `<canvas>` or `<video>` handed to `setBackdropTexture` is measured by the
+root every read phase, like a host, and the whole texture is fitted to that box —
+stretched, with no crop and no aspect preservation — so a viewport pixel inside
+the box lands on the texel under it (claims §5.47). The two mappings therefore
+agree only when the pixels the element shows are the pixels the texture holds at
+the box's aspect: a canvas the page paints at the box's own size is exact, while
+an `<img>` under `object-fit: cover` shows a crop and the glass reveals the file
+stretched, and the two disagree whenever the file's aspect differs from the
+box's, which reads convincingly like a lensing artefact rather than a
+registration error. A source with no box — an `ImageBitmap`, an `OffscreenCanvas`,
+an element kept out of the document — takes a `placement` of
+`{ kind: "element", element }` or `{ kind: "rect", rect }`; with neither, the
+pre-§5.47 rule applies, the texture covers the viewport cover-fit, and the root
+says so once in dev with `backdrop-texture-unplaced`.
 
 ### Seeing what actually resolved
 
@@ -833,8 +854,10 @@ there are two of them, and how to choose.
 Two properties the runtime does own outright, and which you should style around
 rather than on:
 
-- **`background`** on the host — the CSS tier writes the shorthand every frame,
-  so a `background-image` of yours is clobbered. Put it on a pseudo-element.
+- **`background`** on the host — the CSS tier writes `background-color: transparent` and
+  `background-image: none` inline whenever its declarations change, so a fill or a
+  `background-image` of yours is discarded there, and on the WebGPU tier the host sits above the
+  optics canvas so a fill paints over the glass. Put an image on a pseudo-element; colour with `tint`.
 - **`transform`** on the host, while a press or a morph is running.
 
 ### Who owns the label: `foreground`

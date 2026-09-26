@@ -20,6 +20,14 @@ somebody eyeballed.
 The label on every glass control stays real DOM. A `GlassButton` is a `<button>`:
 selectable, focusable, IME-capable, and announced by a screen reader as a button.
 
+**Designing with the material.** What the glass physically does, which layer a
+thing belongs to, how shape, colour and motion are decided, and how each of those
+decisions maps onto this API is the *materialist* guideline in this repository,
+[`skills/materialist/SKILL.md`](https://github.com/SSFSKIM/designer/blob/main/skills/materialist/SKILL.md),
+with the measured optics in its `references/optics.md` and the cookbook in
+`references/vitrea.md`. It stands on its own, and it is also a skill the
+`designer` Claude Code plugin loads for an agent building with vitrea.
+
 ---
 
 ## Install
@@ -243,7 +251,13 @@ mind: **texture + exact** measures the tone from the pixels you supplied,
 adapt at all — it will not guess a backdrop it has not been shown, on either tier.
 Nothing happens above roughly a fifth of the luminance range, so an ordinary page
 is untouched. Measured against the macOS 26.5 reference; the law and its numbers
-are in `docs/doperpowers/specs/c9a-fidelity-claims.md` §5.8.
+are in `docs/doperpowers/specs/c9a-fidelity-claims.md` §5.8. **The macOS 27
+material a root draws by default behaves differently at the dark end:** Apple's
+27 material does not disappear anywhere on the bed, so a small surface over
+near-black stays a visible plate, and small and large surfaces differ by a few
+hundredths at the dark anchor where the 26.5 pair differed by half the range
+(§5.153 §2). The backdrop reading still drives the body's tone response and the
+ink on both documents.
 
 ### Registering a texture backdrop
 
@@ -287,19 +301,25 @@ Declaring a texture and never supplying one is not a silent hole: the group
 resolves to `health: "demoted"` with `demotionReason: "no-texture-supplied"` and
 keeps drawing tint, rim and glow. The readout names the missing half.
 
-**Where the texture is placed.** The renderer maps the source over the **whole
-viewport**, cover-fit — it fills the viewport and the overflow is cropped
-symmetrically, the same geometry as `object-fit: cover` on a
-`position: fixed; inset: 0` element. Not over the group, and not over the
-surface.
+**Where the texture is placed.** On the source element's own box (claims §5.47).
+An in-document `<img>`, `<canvas>` or `<video>` is measured by the root every
+read phase, like a host, and the whole texture is fitted to that box — stretched,
+with no crop and no aspect preservation — so a viewport pixel inside the box
+lands on the texel under it. Not over the group, not over the surface, and not
+over the viewport.
 
 This matters whenever your app paints the same image itself, which is the usual
 case: the picture is on the page and the glass sits on top of it. The two
-mappings have to agree. An `<img>` sized to a region, under a texture mapped to
-the viewport, samples a different crop of the same file — and the mismatch
-appears as the glass showing the wrong part of the picture, which reads
-convincingly like a lensing artefact rather than a registration error. Paint your
-copy viewport-sized and `object-fit: cover`, or accept that the two will differ.
+mappings agree only when the pixels the element shows are the pixels the texture
+holds at the box's aspect. A canvas the page paints at the box's own size is
+exact; an `<img>` under `object-fit: cover` shows a crop while the glass reveals
+the file stretched, and the two disagree whenever the file's aspect differs from
+the box's — which reads convincingly like a lensing artefact rather than a
+registration error. A source with no box (an `ImageBitmap`, an `OffscreenCanvas`,
+an element kept out of the document) takes a `placement` of
+`{ kind: "element", element }` or `{ kind: "rect", rect }`; with neither, the
+pre-§5.47 rule applies, the texture covers the viewport cover-fit, and the root
+says so once in dev with `backdrop-texture-unplaced`.
 
 ### Tiers degrade within themselves before they switch
 

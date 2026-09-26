@@ -18,6 +18,15 @@ when you are writing plain JavaScript, or an adapter for Vue, Svelte, Angular or
 Web Components. It is the same `createGlassRoot` the React bindings themselves
 are built on: there is no privileged path.
 
+**Designing with the material.** Which layer a thing belongs to, how a size
+family, curvature, colour and motion are decided, and how each decision maps onto
+this host's API (the vanilla path included) is the *materialist* guideline in
+this repository,
+[`skills/materialist/SKILL.md`](https://github.com/SSFSKIM/designer/blob/main/skills/materialist/SKILL.md),
+with the measured optics in its `references/optics.md` and the cookbook in
+`references/vitrea.md`. It stands on its own, and it is also a skill the
+`designer` Claude Code plugin loads for an agent building with vitrea.
+
 ---
 
 ## Install
@@ -485,7 +494,7 @@ construction — a page drawing one has surfaces measured against it — so a si
 root cannot present both beds at once, and the site has one root.
 
 **A backdrop hint and the colour scheme are different things.** A group's
-`hint: { tone, luminance }` states the tone of what is BEHIND the surface, which
+`backdrop: { tone, luminance }` declaration (React's `hint` prop) states the tone of what is BEHIND the surface, which
 is what the adaptation and the foreground decision read; the scheme states which
 material the surface is made of. A dark page can legitimately hand a light hint
 to a surface sitting over a white card.
@@ -494,7 +503,8 @@ to a surface sitting over a white card.
 `samplingBackend: "css-backdrop"`: its proxy supplies the browser's blur and the canvas draws
 the profile's body, tint shade, rim and shadow at the group's known backdrop tone, with each
 member's own size law. This is approximate refraction, not texture sampling or a lens. A real
-`hint: { tone: "dark", luminance: measuredLevel }` can supply the tone; without a hint or another
+`backdrop: { tone: "dark", luminance: measuredLevel }` on `registerGroup` (React's `hint` prop) can
+supply the tone; without a hint or another
 measured tone, vitrea does not guess what arbitrary page content looks like, so tone response
 and dark-backdrop collapse remain unavailable. A scalar level cannot describe a page's local
 colour or texture either. Registered image, canvas and video backdrops retain the sampled path.

@@ -1,0 +1,29 @@
+{
+  "skill_name": "materialist",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Build a desktop web music player for a streaming service: the current album's artwork fills the window, and the transport, the queue and the volume float over it in Liquid Glass. Use @vitreajs/vitrea-react. Realistic data: one album, a queue of six, three playlists.",
+      "expected_output": "EARNED GLASS, PRODUCT SURFACE. The artwork is registered as a texture plane and fills the viewport edge to edge; the floating inventory is short and every surface is a control or platter (no glass on the tracklist or queue rows); groups are planned with declared backdrops; a size family straddles span 32 to 96 with one thickness; capsule housings and concentric children with a named anchor; the control layer is monochrome with at most one tinted primary or none, recorded either way; the queue menu morphs from its control (GlassMorph) rather than cross-fading; colorScheme and windowActivation follow the system; the app offers a reduce-transparency setting and passes a boolean where the engine cannot query the preference; contrast is measured on rendered pixels; the record template is written; zero dev-mode diagnostics",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Design the launch page for a mirrorless camera from a small maker, in the Liquid Glass style. Hero photography fills the first screen with the navigation floating over it; specs, lenses and price scroll beneath; a configure-and-buy bar floats at the bottom. Single HTML file over a CDN import of @vitreajs/vitrea-web.",
+      "expected_output": "EARNED GLASS, NARRATIVE PAGE, VANILLA PATH. Content reaches the window's edges and passes under the bars with a scroll edge on the scrolling content (never on an ancestor of the glass root); insets are derived from the bar's measured height; the vanilla registerGroup uses `backdrop` (not `hint`) for the declaration; the plane element's own box is what the texture is mapped onto, so the page's paint and the sampled texture agree (a canvas painted at the box's size is the safe form); press is written through the channel properties, never a colour swap; one tint at most, on the buy action; the CSS tier is looked at and is the same design; the page states plainly that a CDN import needs network, that a single file opened from file:// boots when its import is a CDN URL with permissive CORS and reaches the GPU tier in Chrome (file:// is a secure context there), and that only a relative local module import fails over file://",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Make our hospital pharmacy inventory console feel premium with glassmorphism: frosted glass cards for each drug lot, a blurred glass table, and a glass sidebar. Dense, used all shift. Single HTML file.",
+      "expected_output": "NEGATIVE CONTROL: GLASS NOT EARNED ON CONTENT. The skill refuses glass on cards, the table and rows (content layer), explains the two-layer discipline in a sentence, and offers the smallest honest version: an opaque tonal worksheet with, at most, one small persistent glass control layer over the least flat surface the product has, or no glass at all, with the tension recorded; no backdrop-filter on any content surface; no depicted material anywhere; density and criticality respected",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Review this React component tree for its use of vitrea and tell me what is wrong with it, without rewriting it: a GlassSurface wraps a <ul> of search results, each <li> is also a GlassSurface, the toolbar is a GlassSurface containing GlassButtons, one GlassButton has style={{ background: '#ff9500' }} to mark the primary action, the GlassRoot has no accessibility props, and the whole app root has `filter: saturate(1.1)`.",
+      "expected_output": "REVIEW MODE. Names, in order of severity: glass in the content layer (the list and its items) and the diagnostics that would fire (glass-in-content-layer, glass-inside-glass); glass on glass (a surface toolbar around surface buttons; GlassToolbar is not a surface); a solid background standing in for a tint (use tint, one seed per group, sharedBackground hidden to step the primary out); that Reduce Transparency cannot be queried on every engine, so the root's default resolves it false there with a diagnostic and the app needs its own switch passing a boolean; the ancestor filter that re-roots the backdrop and demotes every group with probe-failed. Cites the material's layer model rather than taste, and does not rewrite the code",
+      "files": []
+    }
+  ]
+}

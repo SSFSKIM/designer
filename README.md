@@ -40,6 +40,21 @@ It also activates when a brief names the lineage itself (Dieter Rams, Braun, Ive
 
 `skills/designer/personas/TEMPLATE.md` is the authoring contract for writing additional personas.
 
+### The Materialist skill
+
+Since 2.4.0 the plugin ships a second, independent skill, `skills/materialist/`, for designing with
+Liquid Glass and with vitrea, its web implementation (below). It loads whenever a brief names Liquid
+Glass, glassmorphism, glass or translucent floating controls, an Apple- or visionOS-like material, or
+the `@vitreajs/*` packages, with or without the designer skill. It is an aesthetic guideline written
+as a decision function and its laws rather than a style sheet: what the material physically is
+(a lens with thickness, a size law, a body that takes the backdrop's tone and hue, an exterior shadow
+graded by the caster, two poses, two schemes), the register it belongs to (refined futurism with
+optical rather than ornamental skeuomorphism; an instrument over a world; active curvature; physical
+motion; daylight as the distinctive case), the two-layer discipline, a ban list and twenty checks.
+Its references carry the measured optics with their ledger sections, a cookbook mapping each
+decision onto the current vitrea API, and six worked derivations. When both skills are loaded, the
+designer skill routes to it the moment a page's material model resolves to glass over planes.
+
 ### The sampler, stand-alone
 
 The one piece that is also useful on its own is the aesthetic-ingredient sampler. Run it directly when you want a draw without going through the full skill:
@@ -51,7 +66,7 @@ node skills/designer/scripts/sample-ingredients.mjs --seed 42  # deterministic d
 
 ## Repo map
 
-The plugin ships one skill. Everything Claude loads at runtime lives under `skills/designer/`; everything else in the repo is source material and project history that is **never loaded at runtime**.
+The plugin ships two skills. Everything Claude loads at runtime lives under `skills/designer/` and `skills/materialist/`; everything else in the repo is source material and project history that is **never loaded at runtime**.
 
 **Runtime — `skills/designer/`**
 
@@ -61,10 +76,15 @@ The plugin ships one skill. Everything Claude loads at runtime lives under `skil
 - `scripts/` — the ingredient sampler, its data library, and its tests
 - `examples/` — a one-brief-two-systems pair (`guidelines-frame.md`, `guidelines-meridian.md`) plus `reference-implementation/`, a runnable `DESIGN.md` + `index.html` demonstrating the law-to-code path end to end
 
+**Runtime — `skills/materialist/`**
+
+- `SKILL.md` — the Liquid Glass aesthetic as one voice: what the material is, the register, the decision function, the laws by area, the home system, derivation, the ban list, the twenty checks
+- `references/` — `optics.md` (the measured physical model, law by law with its ledger section), `vitrea.md` (the cookbook at the current API, React and vanilla, what the runtime does not catch, the CSS-only path), `examples.md` (six worked derivations and the record template)
+
 **Not runtime**
 
 - `Figma Design/` — the raw Figma Make interview corpus (four interview rounds plus supporting notes) this workflow was reconstructed from
-- `docs/research/` — design-engineering research, including the primary-source persona corpus and its law-by-law distillation record
+- `docs/research/` — design-engineering research, including the primary-source persona corpus and its law-by-law distillation record, the Liquid Glass design-language memo (34 sources), the prior-art report on the material's aesthetic and reception, and the materialist's own distillation record
 - `docs/doperpowers/` — this project's own specs and implementation plans
 - `evals/` — the eval suite used to measure the skill against unaided baselines
 - `packages/`, `apps/` — **vitrea**, the second artifact this repo ships (see below). Nothing here is loaded by the plugin
@@ -111,6 +131,10 @@ npm install @vitreajs/vitrea-web            # plain JS, or your own adapter
   [`docs/doperpowers/specs/c9a-fidelity-claims.md`](./docs/doperpowers/specs/c9a-fidelity-claims.md),
   including everything that could not be measured and why. Nothing anywhere in
   this project claims to be pixel-identical to Apple's material.
+- **Designing with the material** —
+  [`skills/materialist/SKILL.md`](./skills/materialist/SKILL.md), the aesthetic
+  guideline: what the glass physically does, the two-layer discipline, geometry,
+  colour, motion, and a cookbook mapping each decision onto this API.
 
 The workspace is a pnpm monorepo. Seven packages under `packages/` — `core`,
 `geometry`, `motion`, `platform-web`, `renderer-webgpu`, `react`, `calibration` —
@@ -151,7 +175,7 @@ Run the test suite with Node's built-in test runner:
 node --test skills/designer/scripts/*.test.mjs
 ```
 
-This covers the sampler's draw shape, its no-duplicates guarantee, seeded reproducibility, argument handling, and the integrity of the `ingredients.json` data library it draws from.
+This covers the sampler's draw shape, its no-duplicates guarantee, seeded reproducibility, argument handling, and the integrity of the `ingredients.json` data library it draws from. The materialist skill ships no scripts; `evals/materialist.json` holds its eval briefs.
 
 Validate the plugin and marketplace manifests:
 

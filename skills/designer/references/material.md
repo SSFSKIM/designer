@@ -1,6 +1,6 @@
 # Material model
 
-The material model is one of the stance axes: what a surface is made of, and how the interface shows that one thing sits over another. It is decided in the parse step alongside density, criticality, energy, type, color commitment, accent job, ground lightness and ground temperature — not in the craft pass. Read this file while placing the brief on the axes, and again before building if the answer was glass over planes. `references/effects-policy.md` still governs the craft pass: whether any given effect is earned, and the one-material-moment rule that limits how much of a page carries it. This file governs what the surfaces are.
+The material model is one of the stance axes: what a surface is made of, and how the interface shows that one thing sits over another. It is decided in the parse step alongside density, criticality, energy, type, color commitment, accent job, ground lightness and ground temperature — not in the craft pass. Read this file while placing the brief on the axes, and again before building if the answer was glass over planes. `references/effects-policy.md` still governs the craft pass: whether any given effect is earned, and the one-material-moment rule that limits how much of a page carries it. This file governs what the surfaces are. Once the answer is glass over planes, the **materialist** skill (`skills/materialist/SKILL.md`, a sibling skill that also loads on its own whenever a brief names Liquid Glass, glassmorphism or vitrea) governs the material and the floating layer: what the glass physically is, the register it belongs to, the composition procedure, geometry, colour and type on glass, motion, and the checks the page is held to. Read it before composing; what follows here is the designer-side summary and the shipping paths, and where the two differ the materialist is current.
 
 ## The axis
 
@@ -105,7 +105,7 @@ export function App() {
 }
 ```
 
-What v1 gives a designer to compose with: `GlassRoot`, `GlassGroup`, `GlassSurface`, `GlassMorph`, `GlassButton`, `GlassIconButton`, `GlassToolbar`, `GlassSegmentedControl`, `PlanePortal`. A surface has no intrinsic size — position and size are never props, and the runtime measures the box the layout produced. Defaults worth knowing while drawing: `GlassRoot renderer` defaults to `"css"`, `GlassSurface` to radius 12 and thickness 8, `GlassButton` to radius 14. The `clear` variant requires a dimming policy on its group. There is no menu component: a menu is a surface composed over an accessible menu primitive the app chooses, which is a design decision about which primitive, made before the material is applied.
+What v1 gives a designer to compose with: `GlassRoot`, `GlassGroup`, `GlassSurface`, `GlassMorph`, `GlassButton`, `GlassIconButton`, `GlassToolbar`, `GlassToolbarSpacer`, `GlassSegmentedControl`, `PlanePortal`. A surface has no intrinsic size — position and size are never props, and the runtime measures the box the layout produced. Defaults worth knowing while drawing: `GlassRoot renderer` defaults to `"css"`, `GlassSurface` to radius 12 and thickness 8, `GlassButton` to radius 14. The `clear` variant requires a dimming policy on its group. There is no menu component: a menu is a surface composed over an accessible menu primitive the app chooses, which is a design decision about which primitive, made before the material is applied.
 
 Any DOM without React, from `@vitreajs/vitrea-web`:
 
@@ -130,7 +130,7 @@ const handle = root.registerHost({
 
 **One API asymmetry, documented in no README.** React's `<GlassGroup hint={...}>` maps to a core descriptor field named `backdrop`. In plain JS the honest backdrop declaration is passed as `root.registerGroup({ id, backdrop: { tone, luminance } })`. Passing `hint:` there is silently ignored and the group resolves to `analysis: "none"` — no error, just a group that never learned what is behind it.
 
-**Single self-contained HTML file.** `<script type="module">import { createGlassRoot } from "https://esm.sh/@vitreajs/vitrea-web@0.6.0"</script>` works with no import map (verified 2026-09-05); esm.sh rewrites the one bare specifier and the dynamic WebGPU chunk import. unpkg serves the raw bare specifier and does need an import map. `navigator.gpu` is undefined outside a secure context, so a page opened from `file://` always gets the CSS tier with `demotionReason: "no-webgpu"` — serve over `http://localhost` or HTTPS to see the GPU tier. And a CDN import means the "self-contained" file needs network to run at all, which `DESIGN.md` must say plainly.
+**Single self-contained HTML file.** `<script type="module">import { createGlassRoot } from "https://esm.sh/@vitreajs/vitrea-web@0.24.0"</script>` works with no import map (0.24.0 is npm's latest and esm.sh answered 200 for it on 2026-09-26; `skills/materialist/references/vitrea.md` §10 keeps the current reading); esm.sh rewrites the one bare specifier and the dynamic WebGPU chunk import. unpkg serves the raw bare specifier and does need an import map. Such a file also boots from `file://`, because its import is a CDN URL and esm.sh answers with permissive CORS; only a relative local module import fails there. Chrome treats `file://` as a secure context, so `navigator.gpu` exists and the GPU tier is reachable from a file opened directly (tested 2026-09-26 in Chrome and Chromium; Firefox and Safari untested). Pass `renderer="css"` to look at the CSS tier deliberately; the URL scheme does not select a tier. And a CDN import means the "self-contained" file needs network to run at all, which `DESIGN.md` must say plainly.
 
 ### The fallback is the design, by construction
 
@@ -146,6 +146,9 @@ health:          "ok" | "demoted";
 demotionReason?: "no-webgpu" | "no-backdrop-filter" | "tainted-source" | "incompatible-texture"
                | "no-texture-supplied" | "device-lost" | "probe-failed" | "governor";
 cssBody?:        "two-layer" | "collapsed";
+cssTint?:        "linear" | "encoded";      // CSS tier only
+cssShadow?:      "layer" | "group" | "host"; // CSS tier only
+materialDocument?: { name, platform, profileKey, resolvedMaterialSha256, tuned }; // the endpoint that drew
 ```
 
 `configuredSource` survives demotion, every demotion names a reason, and choosing CSS is not a fault — a root that never asked for WebGPU resolves `activeRenderer: "css"`, `health: "ok"`. The CSS tier converts the same material profile the root carries rather than holding one of its own, so retuning the material moves both tiers together and the fallback cannot drift away from the design. `refraction: "none"` on the CSS tier is by contract: `backdrop-filter` blurs, it never bends. `cssBody` names which body the CSS tier drew: `two-layer` is the full material — a sharp `backdrop-filter` and a heavy one over it, mixed by the renderer's own depth ramp — and `collapsed` is the declared reduction taken when the CSS cost budget cannot afford two layers; it is absent on a WebGPU-tier group and before that group has resolved a frame. Read the state with `useGlassCapabilities(groupId)` or `root.capabilities(groupId)`, and in development keep diagnostics at zero — a page with warnings is not finished.
@@ -161,9 +164,9 @@ The runtime resolves user preferences itself, strictest wins (`packages/core/src
 | `prefers-contrast: more` | Stronger borders, near-monochrome foregrounds, reduced ambient tint. |
 | `forced-colors: active` | System colours, borders, no glass at all. |
 
-The first three are overridable per root (`<GlassRoot reducedTransparency increasedContrast="system">`); `forcedColors` has none. `prefers-reduced-transparency` is not Baseline, so where an engine cannot answer, `"system"` resolves false and the runtime emits a diagnostic — the explicit root override is load-bearing, not boilerplate.
+The first three are overridable per root (`reducedMotion`, `reducedTransparency`, `increasedContrast`, each `"system"` or a boolean, with `"system"` the default); `forcedColors` has none. `prefers-reduced-transparency` is not Baseline, so where an engine cannot answer, `"system"` resolves false and the runtime emits `reduced-transparency-undetectable`, asking for an explicit boolean — writing `"system"` changes nothing, and the preference is honoured on those engines only when the app offers it as a setting and passes the answer.
 
-The author's job is contrast. The runtime publishes `--vitrea-foreground` (with `--vitrea-tint`, `--vitrea-occlusion`, `--vitrea-border-color`, `--vitrea-blur`) on every host on both tiers, but it is a two-token ink pick, not a contrast calculation, and it promises no ratio. An app that needs a guaranteed ratio sets its own foreground on a child element — never on the host, whose `background` the CSS tier rewrites every frame — and measures on rendered pixels, because axe reports "incomplete" for text over a canvas backdrop (`apps/demo/e2e/contrast.spec.ts`).
+The author's job is contrast. The runtime publishes `--vitrea-foreground` (with `--vitrea-tint`, `--vitrea-occlusion`, `--vitrea-border-color`, `--vitrea-blur`) on every host on both tiers, but it is a two-token ink pick, not a contrast calculation, and it promises no ratio. An app that needs a guaranteed ratio sets its own foreground on a child element — never a `background` on the host, which the runtime owns: the CSS tier overwrites it inline with `transparent` and `none`, and on the WebGPU tier a fill paints over the glass as the opaque solid Apple names as breaking the material — and measures on rendered pixels, because axe reports "incomplete" for text over a canvas backdrop (`apps/demo/e2e/contrast.spec.ts`).
 
 ### Browser truth
 
@@ -171,7 +174,7 @@ The author's job is contrast. The runtime publishes `--vitrea-foreground` (with 
 | --- | --- | --- |
 | Chromium (Chrome, Edge) | Default-on 113 desktop, 121 Android | Yes — backdrop-proxy equivalence measured byte-exact |
 | Safari / WebKit | Default-on from Safari 26 | Yes, manually verified only |
-| Firefox / Gecko | Default-on 141 Windows, 145 ARM Mac; still flagged on Linux | Yes, manually verified |
+| Firefox / Gecko | Default-on 141 Windows, 145 ARM Mac; still flagged on Linux | Presumed, pending the manual gate: every automated capture path renders `backdrop-filter` as a no-op there, so the conformance table records it as unverified |
 
 No cross-engine pixel-fidelity claim exists, and none can be made: `backdrop-filter` is a complete no-op in every automatable capture path on Gecko and WebKit while rendering correctly live, so there is nothing to compare. Never write "pixel-identical to Apple" or claim cross-engine parity in a `DESIGN.md` or a hand-off note. What is true is narrower and enough: the material resolves per engine, and the runtime says which tier drew.
 
@@ -206,22 +209,24 @@ planes: base carries the transport bar and the volume capsule. The queue menu po
 groups: "transport" (backdrop: tone dark, luminance 0.18), "queue" (tone dark, 0.22).
   4rem apart — past the larger group's effective sampling padding, which the runtime
   derives from the resolved blur rather than from a fixed default.
-surfaces: transport bar radius 26, buttons radius 18, volume capsule; thickness 8 across
-  all three. One tint seed per group, unset by default.
-tier expectation: webgpu on Chromium over https, css elsewhere and always on file://.
+surfaces: transport bar a capsule, its buttons capsules concentric with it, volume capsule;
+  thickness 8 across all three. One tint seed per group, unset by default.
+tier expectation: webgpu on Chromium in a secure context (https, localhost, and a file opened
+  directly in Chrome), css elsewhere.
   The CSS tier is the same material without refraction, and it is a complete design.
-accessibility: reducedTransparency and increasedContrast set explicitly at the root
-  because prefers-reduced-transparency is not Baseline. forced-colors removes the glass.
+accessibility: a Reduce Transparency switch in the app passes a boolean to the root, because
+  prefers-reduced-transparency is not Baseline and "system" resolves false where an engine cannot
+  answer. forced-colors removes the glass.
 contrast: labels get their own foreground on a child element, measured on rendered pixels
   across three artwork phases at 4.5:1 for labels and 3:1 for plates.
 ```
 
 ## QA additions for glass
 
-Run these alongside `references/qa-protocol.md`, not instead of it:
+Run these alongside `references/qa-protocol.md`, not instead of it, and run the materialist's twenty checks (`skills/materialist/SKILL.md` §8) for the material and the floating layer:
 
 1. **Measure label contrast on rendered pixels**, across the backdrop's phases — 4.5:1 for labels, 3:1 for plates. An automated contrast checker reporting "incomplete" over a canvas is not a pass.
-2. **Force the CSS tier once** (`renderer="css"`, or open the page from `file://`) and confirm the page is still the design rather than a degraded copy of it.
+2. **Force the CSS tier once** (`renderer="css"`; the URL scheme does not select a tier, and a file opened directly in Chrome still gets the GPU tier) and confirm the page is still the design rather than a degraded copy of it.
 3. **Check `prefers-reduced-transparency` and `forced-colors` renders.** Under forced colors there is no glass at all; confirm what remains is a working interface.
 4. **Zero dev-mode diagnostics.** `glass-inside-glass`, `glass-in-content-layer`, overlap errors and tint warnings are all part of done.
 5. **No glass scrolled out from under itself** — scroll every scrollable region to both ends with the floating chrome in view.
