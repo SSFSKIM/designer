@@ -270,3 +270,11 @@ preflight runs:
   phase-zero glass runs, where every bar is exactly 0.5;
 - the same archive with one run lifted by three codes, where the deep bar is 2.0;
 - the holdout refusal.
+
+### Continuation after stop 1 (the operator's explicit, recorded act)
+
+The parent's message is the continuation: Chrome was quit by the parent, the user is off the
+machine, and the pass order restarts with a **fresh active-1x run 1**. The quarantine keeps its
+own name, and active-2x, inactive-1x, inactive-2x and the sentinels follow in order. The session
+read at continuation is `stop-1/session-at-continuation.json`. The census, under the corrected
+gate, reads 0.
