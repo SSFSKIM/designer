@@ -1,9 +1,15 @@
-REFUSED; retained at /Users/new/vitrea-w39/run/active-1x/QUARANTINE-run-1-1790395862598343000
+active-1x run 1: admitted cells=332
+active-1x run 2: admitted cells=206
+active-1x run 3: admitted cells=206
+active-1x run 4: admitted cells=206
+active-1x run 5: admitted cells=206
+active-1x run 6: admitted cells=206
+REFUSED; retained at /Users/new/vitrea-w39/run/active-1x/QUARANTINE-run-7-1790411537373327000
 Traceback (most recent call last):
-  File "/Users/new/vitrea-w39/g1/packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/sitting.py", line 636, in <module>
+  File "/Users/new/vitrea-w39/g1/packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/sitting.py", line 643, in <module>
     main()
-  File "/Users/new/vitrea-w39/g1/packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/sitting.py", line 621, in main
+  File "/Users/new/vitrea-w39/g1/packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/sitting.py", line 628, in main
     validate_manifest(m, doc, pose, args.scale, label)
   File "/Users/new/vitrea-w39/g1/packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/sitting.py", line 330, in validate_manifest
     raise ValueError('pose attestation failed: ' + sid)
-ValueError: pose attestation failed: factor-y0-c12-h0-colour__rest
+ValueError: pose attestation failed: factor-y1-c12-h60-colour__rest
