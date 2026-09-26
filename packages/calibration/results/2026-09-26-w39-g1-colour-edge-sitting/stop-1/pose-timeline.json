@@ -1,0 +1,46 @@
+{
+  "run": "/Users/new/vitrea-w39/run/active-1x/QUARANTINE-run-1-1790395862598343000",
+  "note": "capture attestation metadata only (time, presentedActive, hidIdleSeconds); no pixel statistic",
+  "captures": 332,
+  "presentedActiveTrue": 172,
+  "presentedActiveFalse": 160,
+  "firstCapture": "2026-09-26T03:18:20Z",
+  "lastCapture": "2026-09-26T04:11:01Z",
+  "lastActive": "2026-09-26T03:45:30Z",
+  "firstInactive": "2026-09-26T03:45:40Z",
+  "chromeLaunchedAt": "2026-09-26T03:45:37Z (ps lstart, pid 317)",
+  "inactiveBeforeChromeLaunch": 0,
+  "activeAfterChromeLaunch": 0,
+  "capturesWithHidIdleBelow60s": [
+    {
+      "capturedAt": "2026-09-26T03:45:49Z",
+      "hidIdleSeconds": 3.100325916,
+      "presentedActive": false
+    },
+    {
+      "capturedAt": "2026-09-26T03:45:59Z",
+      "hidIdleSeconds": 12.690905541,
+      "presentedActive": false
+    },
+    {
+      "capturedAt": "2026-09-26T03:46:08Z",
+      "hidIdleSeconds": 22.2877335,
+      "presentedActive": false
+    },
+    {
+      "capturedAt": "2026-09-26T03:46:18Z",
+      "hidIdleSeconds": 31.845357625,
+      "presentedActive": false
+    },
+    {
+      "capturedAt": "2026-09-26T03:46:28Z",
+      "hidIdleSeconds": 41.461160333,
+      "presentedActive": false
+    },
+    {
+      "capturedAt": "2026-09-26T03:46:37Z",
+      "hidIdleSeconds": 50.928093583,
+      "presentedActive": false
+    }
+  ]
+}

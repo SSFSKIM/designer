@@ -165,3 +165,47 @@ reached its 200-alternation cap without converging, and the declaration makes a 
 alternative "not established". That is recorded, not re-tuned, and it changes nothing: the
 state count and monotonicity already refuse both axes. No fallback actuator was tried (charter
 clause 4).
+
+## Step 5 — the passes (`attest/<pass>/`, `tools/sitting-orchestrate.sh`)
+
+`tools/sitting-orchestrate.sh` runs the passes in the declared order, one driver invocation
+(all runs) per pass. Before each pass it sets the pass's display mode, reads it back and waits
+for ≥ 75 s of HID idle. After each pass it reads the mode back, runs `tools/collect-pass.py`
+and commits. Any failure stops it, and it never retries. Its first stop is recorded below.
+
+### Stop 1 — Google Chrome launched during active-1x run 1 (`stop-1/`)
+
+active-1x run 1 (332 captures at mode 69, 03:18:20Z–04:11:01Z) was **quarantined by the
+driver**: `pose attestation failed` (`attest/active-1x/QUARANTINE-run-1-1790395862598343000/`;
+raw run at `~/vitrea-w39/run/active-1x/QUARANTINE-run-1-1790395862598343000`).
+`stop-1/pose-timeline.json` holds only attestation metadata: capture time, `presentedActive`,
+`hidIdleSeconds`, and no pixel statistic. It reads **172 captures active, all before
+03:45:30Z, and 160 inactive, all from 03:45:40Z on**, with none out of place on either side.
+Per `ps`, **Google Chrome** (`/Applications/Google Chrome.app`, pid 317) was **launched at
+03:45:37Z**, and it is the frontmost application from then until now
+(`stop-1/chrome-process.txt`, `stop-1/session-after-stop.json`).
+
+HID input happened at about 03:45:46Z. The capture at 03:45:49Z records `hidIdleSeconds` 3.1,
+and six captures carry idle under 60 s. The session has been idle since. By 04:36Z the
+`UserNotificationCenter` alert seen at the grant check is **no longer on screen**. Who launched
+Chrome, and how the alert was dismissed, is not known to this worker; nothing here launched,
+clicked or closed either. The driver's census regex (`Chromium|playwright|…`) does not match
+"Google Chrome", so the opening and closing reads count 0 foreign processes. The brief,
+however, counts a background Chrome as foreign (X6). Chrome is also what took the harness's
+activation, and so the active pose. The run is therefore quarantined for two reasons: its own
+pose gate, and a foreign process.
+
+Nothing was retried. `stop-1/stop-after-run1.sh` was armed to interrupt this worker's own
+driver at the run boundary, but it was not needed: the driver refused run 1 itself and exited,
+and the orchestrator committed the stop (`986aee2e`). No further run started. Chrome was not
+touched: this worker terminates no other session's process.
+
+**To continue**, two things are needed. First, Chrome quit by whoever owns it. Second, an
+explicit, recorded operator continuation: `active 1` again takes a fresh run 1, because the
+quarantine is already preserved under its own name and the driver refuses to overwrite anything.
+
+**A gap found in passing.** The sitting gates HID idle before each LAUNCH (≥ 60 s), and the
+harness records `hidIdleSeconds` on every fixture. But `validate_manifest` does not check the
+per-capture idle, so a run whose middle captures were taken under HID activity could be
+admitted if its pose attestations still held. Here the pose gate caught it. Whether per-capture
+idle should be a gate is logged for the parent, not changed mid-sitting.
