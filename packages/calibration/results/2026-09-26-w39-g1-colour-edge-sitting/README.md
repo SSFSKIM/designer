@@ -317,7 +317,8 @@ Claude Code binary, so a process of this agent session touched `~/Documents`. It
 capture permission and has nothing to do with either harness bundle. The alert seen during the
 side's first launch after the grant (step 3) was the same prompt. That is also the most likely
 reason the side attested inactive on that launch. The parent answered it **허용 안 함 (Don't
-Allow)** through System Events at about 2026-09-26 08:50Z, with no keyboard or mouse input (HID
+Allow)** through System Events. The parent's message gives the time as about 08:50Z, but this
+worker's session read at 08:34Z already showed the alert gone, so the answer came before 08:34Z. It was given with no keyboard or mouse input (HID
 idle stayed above 20 min). The recorded denial stops it recurring for that binary. The HID input
 at 08:10:44Z coincides with the user sending a message to this session and is treated as the user
 typing on this machine; the user has been told to use the other machine. At continuation: Finder
