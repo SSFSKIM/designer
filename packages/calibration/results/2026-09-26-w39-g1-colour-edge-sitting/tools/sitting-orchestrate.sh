@@ -25,7 +25,7 @@ for spec in $PASSES; do
   if ! grep -q "mode $mode:.*<-- current mode" "$L/$name-display-before.txt"; then
     say "STOP $name: display mode $mode did not take"; exit 2; fi
   say "START $name at mode $mode"
-  /Users/new/vitrea-w39/run/setup/when-idle.sh 75 bash "$E/run-sitting-w39.sh" "$kind" "$scale" ${first:+$first} $flag > "$L/$name-driver.txt" 2>&1
+  /Users/new/vitrea-w39/run/setup/when-idle.sh 75 bash "$E/run-sitting-w39.sh" "$kind" "$scale" ${first:+$first} $flag >> "$L/$name-driver.txt" 2>&1
   rc=$?
   /opt/homebrew/bin/displayplacer list > "$L/$name-display-after.txt" 2>&1
   python3.12 /Users/new/vitrea-w39/run/setup/collect-pass.py "$name" >> "$ST" 2>&1
