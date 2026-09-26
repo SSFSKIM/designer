@@ -128,3 +128,40 @@ original follows the harness README's add recipe, with a positive check of both 
 Step 0's original capture, for the record, differs from the canonical fixture at 115 pixels by
 ≤ 2 codes (`grant/side-canonical-comparison.json`). Step 0's admission required only its
 attestations, which all held. This is recorded as a reading, not a finding about either bundle.
+
+## Step 4 — the preflight and its verdict (`preflight/`, `attest/preflight-*`)
+
+Evidence root `~/vitrea-w39/run`. Its direct children are `grant-checks`, `held`, `logs`,
+`preconditions` and `setup`; none is a rehearsal. Commands:
+`VITREA_SITTING_DIR=~/vitrea-w39/run preflight.py run 1` at mode 69, then `run 2` at mode 68.
+Each pass is two sitting runs: run 1 is the nine geometries × glass/opaque, and run 2 is the
+phase-zero pair repeated at the pass's end. Every run was admitted: **40 captures**, 18 + 2 per
+scale, with no quarantine. `tools/collect-pass.py` copied each run's machine and session reads,
+`launch.json`, `admission.json`, the driver log and a distilled record (`runs.json`: manifest
+SHA-256, fixture count, capture times, protocol) into `attest/<pass>/`. Manifests, capture logs
+and PNGs stay producer-only under the run root. Then `preflight.py verdict --root ~/vitrea-w39/run`
+ran **once**. Its output is `preflight/preflight-verdict.json`, byte for byte (SHA-256
+`ffa40971…4391b`), with `verdict-summary.json` as a distillation.
+
+**Verdict: branch `neither`. Axes x and y are both `unreachable`, failing at 1x and 2x. The
+admitted phase allowlist is empty** (derive(reachable) − derive(none) = ∅). So the bed runs
+without phase variants, exactly as W34 §5.174 §7 found on its path.
+
+| Scale / axis | Opaque near identical | Opaque far states | Glass near (D_int_near; max pair) | Glass far states (phase → state) | RSS shift / amplitude (ratio; amp converged) | Fitted offsets (device px) | Rank; condition | LOPO |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 1x x | yes | **2** | 0; 0 | **2** (0,0,1,1) | 683.5 / 50,708 (0.0135; **no**, 200 alternations) | 0, −0.063, 0.937, 0.937 | 22/22; 4.74e5 | pass |
+| 1x y | yes | **2** | 0; 0 | **2** (0,0,1,1) | 268.0 / 38,507 (0.0070; no) | 0, −0.188, 0.813, 0.813 | 22/22; 856 | **fail** |
+| 2x x | yes | **2** | 0; 0 | **2** (0,0,1,1) | 1,004 / 56,215 (0.0179; no) | 0, −0.094, 0.921, 0.922 | 40/40; 4.31e3 | pass |
+| 2x y | yes | **2** | 0; 0 | **2** (0,0,1,1) | 442.1 / 42,659 (0.0104; no) | 0, −0.188, 0.813, 0.813 | 40/40; 1.17e3 | **fail** |
+
+The decisive reading is the state count. Requested quarter-device-pixel phases {0, ¼} and
+{½, ¾} collapse to **two byte states** on both the opaque control and the glass, at both scales
+and on both axes. The fitted offsets are a whole-pixel step (about −0.06…−0.19 and +0.81…+0.94),
+not a monotone quarter-pixel ramp, so criterion (b) fails everywhere. Near-edge invariance holds
+exactly: D_int_near = 0 and max pairwise 0. The integer size controls gave D_int_far = 0. The
+end sentinel is byte-identical at both scales, so there is no drift and the verdict is not
+UNMEASURED. Criterion (a) reads false even at ratios of 0.007–0.018, because the amplitude fit
+reached its 200-alternation cap without converging, and the declaration makes a non-converged
+alternative "not established". That is recorded, not re-tuned, and it changes nothing: the
+state count and monotonicity already refuse both axes. No fallback actuator was tried (charter
+clause 4).
