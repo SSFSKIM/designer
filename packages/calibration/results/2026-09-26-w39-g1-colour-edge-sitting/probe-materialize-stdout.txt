@@ -1,0 +1,16 @@
+{
+  "admitted": true,
+  "cells": 1328,
+  "perRole": {
+    "calibration": 1040,
+    "validation": 144,
+    "holdout": 144
+  },
+  "inventorySha256": "b164a79fc9de9b47fe9815c240eac8cb50fc359ab3ad51380f99f6da6fb3797c",
+  "unadmittedPhaseScenes": 56,
+  "singleRunReferences": 504,
+  "firstRunFolded": 823,
+  "decidedOverAllRuns": 1,
+  "firstRunDiffers": 0
+}
+python3.12  --root /Users/new/vitrea-w39/run --archive-inventory  --out   3.90s user 1.38s system 94% cpu 5.583 total

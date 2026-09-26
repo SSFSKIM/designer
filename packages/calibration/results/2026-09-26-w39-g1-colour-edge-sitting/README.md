@@ -327,3 +327,101 @@ continues with a **fresh active-1x run 7** (the quarantined run 7 keeps its name
 active-2x, inactive-1x, inactive-2x and the sentinels. `tools/sitting-orchestrate.sh` gained an
 optional first-run field for exactly this: the driver refuses to reuse an existing `run-N`, so a
 continuation names the run it starts at.
+
+## The sitting, complete (`sitting.json`, `attest/`)
+
+**6,360 admitted captures**, first 03:09:53Z and last 21:50:42Z on 2026-09-26. That is the
+declared baseline exactly:
+
+| Pass | Mode | Runs admitted | Captures | Quarantined |
+| --- | --- | --- | --- | --- |
+| preflight-1x / 2x | 69 / 68 | 2 / 2 | 20 / 20 | — |
+| active-1x | 69 | 7 | 1,568 | run 1 (stop 1), run 7 (stop 2) |
+| active-2x | 68 | 7 | 1,568 | — |
+| inactive-1x | 69 | 7 | 1,568 | — |
+| inactive-2x | 68 | 7 | 1,568 | — |
+| four sentinel passes (long protocol, settle 8 s, seed 3901) | 69/68/69/68 | 3 each | 12 each | — |
+
+Every admitted run passed the corrected gates: per-capture HID idle of at least 60 s, the
+by-name census, pose, window-frame and supplied-path attestations, and agreeing opening and
+closing reads. The closing machine read (`attest/machine-close.json`) passes the 2x gates, with
+mode 68 and 0 foreign processes.
+
+## Step 6 — the archive of record (`archive/`, `bar/`)
+
+- **Produced before plurality.** `archive-producer.py` ran over the 28 bed runs and then the 12
+  sentinel runs, in sitting order (`archive/archive-producer-args.txt`). It archived
+  **1,328 cells in 2,656 entries**: calibration 1,040, validation 144, holdout 144. It covers
+  40 source manifests, with losing states kept and every dependency frame included. Of the
+  1,440 declared cells, **112 are uncaptured, exactly the 56 phase-variant scenes × 2 profiles**
+  the verdict did not admit. Inventory SHA-256 `58329732…35f61` (`archive/inventory.json`).
+- **Published.** `release-asset.py` packed it to
+  `w39-archive-489db938a1e234a772ba7223d24fbaf76d137ef5d9e5b2421ed84a86894426b5.tar.zst`:
+  **13,658,148 bytes**, SHA-256 **`489db938a1e234a772ba7223d24fbaf76d137ef5d9e5b2421ed84a86894426b5`**.
+  It is published as GitHub release **`w39-archive`** ("W39 repeat archive") on
+  `SSFSKIM/designer`, created `--latest=false` and targeting `0cfbb325` (origin/main at
+  publication). GitHub's own asset digest agrees (`archive/release-view.json`). It is the
+  repository's only release, so GitHub lists it as "Latest" whatever the flag says; no npm
+  release line is displaced (`archive/release-list.txt`). The archive is **not** in Git.
+- **Round-tripped.** `fetch-archive.py --tag w39-archive --asset … --sha256 …` downloaded it into
+  `~/.cache/vitrea-archives/489db938…/`, verified the full digest before extraction, extracted it
+  and re-checked the tree against its inventory (`archive/fetch-verified.json`). The fetched tree
+  is byte-identical to the producer's output.
+- **Replayed with the whole W39 tree denied.** `replay-archive.py` ran from the main checkout,
+  whose instrument files are byte-identical to this branch's, with
+  `--deny-raw-root /Users/new/vitrea-w39`. That forbids the raw runs, this worktree and the
+  producer's output alike. It recomputed **all 1,184 calibration and validation cells:
+  identical** (`archive/replay-archive.json`).
+- **Second owner-controlled copy.** `~/vitrea-w39/archive-copy/`, verified and extracted through
+  `fetch-archive.py --source`; its tree is identical to the downloaded one
+  (`archive/second-copy.txt`).
+
+**The bar** (`tools/report-bars.py`, run on the fetched archive with the raw root denied;
+`bar/bar.json.gz` and `bar/sentinel-bar.json.gz` hold every cell, member, bin and channel;
+`bar/bar-headlines.json` has the headline, per-stratum max/median, and every bin above the
+floor):
+
+- **Normal protocol, seven runs:** 576 measured glass cells (calibration 504, validation 72).
+  **575 of them are byte-identical across all seven runs**; one has two states (below).
+  - **Deep bar: 0.5 in all 1,776 channel values, max = median = 0.5.**
+  - **Edge bar: max 0.6, median 0.5.** 815,222 of 815,232 channel values sit at the 0.5 floor.
+  - 47,936 bins are UNMEASURED by population, in every run alike.
+  - Per stratum (1x/2x × light/dark): deep max 0.5 everywhere; edge max 0.6 (1x light), 0.5
+    elsewhere.
+  - The other 608 cal/val cells carry no bar by construction: 488 native-only references (456
+    captured in run 1 only by declaration) and 120 opaque controls, read as coverage.
+- **Long protocol (the sentinels), three runs:** 16 measured cells, 15 byte-identical; deep 0.5
+  everywhere; edge max 0.528.
+- **The one two-state cell:** `apple-macos-27.0-1x-light-standard-glass0.5/transfer-h210-colour__rest`
+  (validation). Runs 1, 3, 4 and 7 hold one state and runs 2, 5 and 6 the other; the difference
+  is sub-code (bar 0.5625 on a few 8-pixel arc bins).
+- The spatial deep min/max is recorded per cell beside its bar, never as noise.
+- **The holdout's bars are not computed.** Its payload stays behind the procedural boundary for
+  G2's once-only exposure, which can derive them from the archive.
+
+## Step 7 — the materialised probe bed (`probe/`, `wave-plan.json`)
+
+`tools/materialize-probe.py --root ~/vitrea-w39/run --archive-inventory ~/vitrea-w39/archive/inventory.json`
+wrote **1,328 cells by identification role**: calibration 1,040, validation 144, holdout 144.
+Probe inventory SHA-256 `b164a79f…797c`.
+
+- 823 cells were resolved by `materialize.ts` over runs 2–7 with run 1 folded in; run 1 agreed
+  on **all 823** (0 differ).
+- 504 run-1-only colour references were added from run 1, marked `singleRun`.
+- **1 cell was decided over all seven runs.** The first attempt refused, which is what the tool
+  did before this change: `materialize.ts`, given runs 2–7, found no plurality on
+  `transfer-h210-colour` 1x light, a 3–3 tie within raster precision. Run 1, the seventh vote a
+  seven-run `materialize.ts` would have counted, breaks it 4–3. The tool now hands such a cell to
+  `materialize.ts`'s own `--omit` and publishes it at the plurality of all runs, recording
+  `pluralityOfAllRuns` on the entry. No strict plurality over all runs still refuses. This is
+  tested end to end (`tools/test-g1-tools.py`, 7/7). The refused attempt's logs are at
+  `~/vitrea-w39/probe-FAILED-attempt-1/`.
+- Holdout public manifest entries carry inventory and admission fields only. The full staged
+  manifest and the materialiser logs are under `probe/holdout/`, and the guarded reader refuses a
+  holdout read without the receipt (checked).
+
+`wave.py plan --roles calibration,validation` is committed as the G2 hand-off
+(`wave-plan.json`): **138 scenes selected, 214 excluded** (180 native-only controls, 6 off-centre
+placements, 4 columns, 24 fractional sizes), the counts G0 recorded. **Nothing was executed
+against vitrea.** `--execute` was not passed, and no browser, no compare and no web capture ran
+in G1.
