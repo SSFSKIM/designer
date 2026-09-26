@@ -48,3 +48,30 @@ the evidence root. They were MOVED, not deleted and not edited, to
 `~/vitrea-w39/run/held/attempt-1/{rehearsal-g1,rehearsal-logs}`. The file records the command,
 `find` listings before and after, and the SHA-256 of all 81 moved files before and after
 (identical). The gate itself is unchanged.
+
+### Attempt 2 (second worker): all four passes `refused-tcc`
+
+Fresh rehearsal root `~/vitrea-w39/run/held/attempt-2/rehearsal-g1`, driver logs beside it in
+`rehearsal-logs/`; `rehearsal/attempt-2/collect.sh` copied each run's attestations here (not its
+generated background PNGs) with a read-only TCC read taken right after. In order, each
+`VITREA_SITTING_DIR=… run-sitting-w39.sh <pose> <scale> --rehearse-refusal`, one commit each:
+
+| Pass | Mode (open/close) | Outcome | Capture attempted | TCC-gate sentence | Manifest / PNG / staging / new window |
+| --- | --- | --- | --- | --- | --- |
+| active-2x | 68 / 68 | refused-tcc | yes | yes | none |
+| active-1x | 69 / 69 | refused-tcc | yes | yes | none |
+| inactive-1x | 69 / 69 | refused-tcc | yes | yes | none |
+| inactive-2x | 68 / 68 | refused-tcc | yes | yes | none |
+
+Every opening read: 27.0 / 26A428, tint 0.5, RT/IC/Show Borders 0, the side pin (cdhash
+`be258cbf…`, binary `02052b17…`), zero foreign capture processes, no prompt on screen and
+≥ 60 s HID idle; every closing read agreed. The system TCC rows were unchanged across all four
+(`.w39` auth 0 at 20:21:29Z; the original auth 2): the recorded denial suppresses the prompt,
+as the harness README said it would. The display mode was switched between passes with
+`displayplacer "id:7709FD0F-… mode:69|68"` and read back by each run's own machine read.
+`argparse-usage-error-no-launch.txt` is a shell-quoting mistake of this worker's before the
+active-1x launch: `sitting.py` rejected the argument at parsing, before creating any directory
+or reading the machine; nothing launched and no run was consumed.
+
+The rehearsal is complete: the ungranted side bundle is refused by the TCC gate in both poses
+at both scales, with the real run-1 argv.
