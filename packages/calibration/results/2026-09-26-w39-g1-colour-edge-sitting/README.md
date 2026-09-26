@@ -230,3 +230,43 @@ refusals were added, both stricter; nothing was loosened:
 six W39 Python suites pass unchanged. The four admitted preflight runs re-validate under the
 corrected gate, with minimum per-capture idle 257–640 s (`admitted-runs-recheck.json`). The
 census reads 0 with Chrome gone (`census-now.txt`).
+
+### The step 6–7 producer tools, tested before the passes (`tools/`)
+
+- **`tools/report-bars.py`** computes the repeat bar per cell, member, bin and channel from the
+  archive of record, through the guarded reader. The formula is 0.5 + ½ × the largest pairwise
+  run separation. A run contributes the deep body's per-channel median and each measured bin's
+  mean. An UNMEASURED bin in any run makes that bin's bar UNMEASURED. The deep spatial min/max
+  is kept separately. The normal and long protocols are separate strata. Only calibration and
+  validation are read; asking for the holdout refuses at the command.
+- **`tools/materialize-probe.py`** builds the probe bed through the canonical
+  `cli/materialize.ts` and partitions it by identification role, with holdout public entries
+  stripped as in W34.
+
+**A finding from the test, before any use.** `materialize.ts` refuses runs that read two
+declaration digests (`run-provenance.ts` rule 6). A W39 bed pass's run 1 reads a different
+declaration from runs 2–7 by construction, because `pass-spec.derive` adds the colour
+references to run 1 alone. Handing it all seven runs would therefore have refused every pass
+at step 7. The two declarations are identical on every shared cell (scenes, components,
+backgrounds, canvas), and runs 3–7 equal run 2 exactly, as checked against pass-spec for all
+four passes. So the materialiser gives `materialize.ts` the six runs 2–7, which read one
+declaration. It then folds run 1 in as the seventh vote on each shared cell:
+- where run 1 holds the published state, the cell is recorded as agreeing;
+- where it differs, the cell is kept only if runs 2–7 were unanimous (six against one, which no
+  seven-run plurality could overturn), and the difference is recorded;
+- anything else refuses, for a ruling.
+
+Run 1's reference-only cells are then added from run 1, marked `singleRun`. The canonical
+`materialize.ts` is not edited. The archive and the bar use every run, run 1 included. This
+choice affects only which bytes the probe bed publishes, and it is recorded for the parent to
+overrule before step 7.
+
+`tools/test-g1-tools.py` passes all 6 tests (`tools/test-g1-tools.txt`) on the admitted
+preflight runs:
+- the materialiser end to end over each scale's runs, with fold agreement, a recorded
+  difference, a refused disagreement, run-1-only addition, partition, holdout stripping and the
+  declaration premise;
+- report-bars over a real archive written by `w39_archive.produce` from the byte-identical
+  phase-zero glass runs, where every bar is exactly 0.5;
+- the same archive with one run lifted by three codes, where the deep bar is 2.0;
+- the holdout refusal.
