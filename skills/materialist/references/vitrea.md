@@ -47,7 +47,12 @@ planes. Everything the page decides about the material as a whole is a root opti
   nested glass, content-layer hosts, same-plane overlap, tint mixing, variant mixing, non-uniform
   radii, hosts outside their plane, backdrop-root breaks. `onDiagnostic` (React) or
   `diagnosticSink` (vanilla) replaces the console; `useGlassDiagnostics` puts the findings on the
-  page. Zero diagnostics is a finish condition, not a nicety.
+  page. Zero diagnostics is a finish condition, not a nicety, with one page-scoped exception:
+  `quaternary-ink-on-thin-material` reports on every surface below span 64 whenever any stylesheet
+  in the document names `--vitrea-foreground-quaternary`, because the runtime sees that a rule names
+  the token and not where it lands. A quaternary separator on a thick platter is legitimate and
+  reports on the bar beside it; keep it, and name the finding in the record with where the token
+  lands.
 
 ```tsx
 import { GlassRoot } from "@vitreajs/vitrea-react";
@@ -97,10 +102,21 @@ choice is the largest single decision about how real the material can be.
   end. A false hint is a false fact either way, and the demo measured 1.6:1 to 3.0:1 label
   contrast from exactly that mismatch. A group with neither texture nor hint never adapts at all,
   on either tier, and the runtime will not guess.
-- **A texture group should still declare a hint.** On the WebGPU tier the pixels win and
-  `analysis` stays `exact`; on the CSS tier the same group has no pixels and resolves `analysis:
-  "none"` unless a hint is declared. The music-player demo measured both: the hint costs the
-  texture tier nothing and lifts the CSS tier to `hint` (its `DESIGN.md`, decision log).
+- **A hint is an override, on both tiers.** A declared level, a `luminance` or a `light` or `dark`
+  tone that maps to one, replaces the runtime's own reading in the body's tone and the ink, on the
+  WebGPU tier as on the CSS tier, one level for every surface in the group. `analysis: "exact"`
+  says where the lens's pixels come from, not which value drove the tone. So a hint describes the
+  plane as displayed under the group's actual boxes at every phase: through a dissolve the painted
+  mix and not its destination, after a crop or a layout change the new footprint, where content
+  scrolls under the composite of clear band, gradient and content, its ink and fills included and
+  not the paper's colour alone. Measure it from the painted composite on a cadence and on every
+  layout change; a constant measured once is false on a plane that changes.
+- **A texture group reads its own pixels without one.** Both tiers read the supplied source, a
+  canvas or video again on a cadence: in the active pose one tone for the group, the average of the
+  whole source, and in the receded pose each surface's own silhouette. Declare nothing where the
+  source's overall level is the level under the glass. Where it is not, a bright band under the bar
+  of a dark photograph, declare the measured composite under the group's footprint as above, knowing
+  it also replaces the receded pose's per-surface reading.
 - **The vanilla names invert.** In `root.registerGroup({ … })` the tone declaration is the field
   `backdrop` and the source is `backdropSourceId`; React's `hint` prop is the former and its
   `backdrop` prop the latter. Passing `hint:` to `registerGroup` is ignored and the group resolves
@@ -136,27 +152,44 @@ decides what reads as one body of material.
 ## 4. Surfaces: shape, size, thickness, variant
 
 `GlassSurface` is the material on one box. It has no intrinsic size and takes no position: it
-measures the box your CSS produced once per frame, so a surface with no styles is as tall as its
-content and nothing more. Give it a real box.
+measures the box your CSS produced, so a surface with no styles is as tall as its content and
+nothing more. Give it a real box.
+
+It re-measures a host only when something marks it dirty: its content box resizing, a scroll of an
+ancestor or the document, a viewport resize, late fonts, or the handle's `invalidateGeometry()`. A
+same-sized host moved by a sibling's layout, a `GlassToolbarSpacer` recomputed for a scheme or for
+Reduce Transparency, a gap derived from padding, keeps its cached box and draws off its element;
+so does a host whose border changes while its content box does not, as when the CSS tier writes a
+border the WebGPU tier does not. Give a sized host `box-sizing: border-box`, and after a layout
+change that moves hosts without resizing them call `invalidateGeometry()` on each handle.
+`GlassSurface` and `GlassButton` hand you the handle through `onHost`; `GlassSegmentedControl`
+does not.
 
 - **Shape is one of three families.** `radius` (default 12) is a fixed uniform radius; `capsule`
   derives the radius from the measured box, half the shorter side, which forces the corner to an
-  exact stadium. `profile` chooses the corner curve: `"continuous"` (the default, fit directly to
-  Apple's measured curve), `"circular"`, or a number on the Figma smoothing axis. The two named
-  profiles are separate fits, not two points on one axis, so a morph pair must share a reference:
-  author `profile={APPLE_LIKE_SMOOTHING}` at both ends of a `GlassMorph` to keep an Apple-like
-  corner on the interpolable axis. Radii are uniform in v1; four different values warn with
-  `non-uniform-radii`.
+  exact stadium. A fixed radius is clamped to half the shorter side, so one typed as a capsule stays
+  one while the box shrinks and stops being one once padding, a border or intrinsic sizing grows the
+  shorter side past twice the radius, leaving a flat run between the arcs. Declare `capsule` for a
+  housing that must stay one as it grows; a `GlassMorph`'s closed end takes only `radius`, so derive
+  it from the span its closed box measures. `profile` chooses the corner curve: `"continuous"` (the
+  default, fit directly to Apple's measured curve), `"circular"`, or a number on the Figma smoothing
+  axis. The two named profiles are separate fits, not two points on one axis, so a morph pair must
+  share a reference: author `profile={APPLE_LIKE_SMOOTHING}` at both ends of a `GlassMorph` to keep
+  an Apple-like corner on the interpolable axis. Radii are uniform in v1; four different values warn
+  with `non-uniform-radii`.
 - **Concentric shapes.** The vanilla path has a family for it: `shapeFamily:
   "concentric-rounded-rect"` with `concentricOf: { nodeId, inset }` draws a surface as a level set
   of a registered parent in the same group, inset by a fixed distance, so the two are one field
   rather than two shapes that happen to nest. `GlassSegmentedControl` resolves its indicator the
   same way, through geometry's `resolveConcentric` from the track's own shape, because plain
-  subtraction is exact only for circular corners and the default corner is Apple's continuous
-  curve. A page nesting an ordinary element inside a rounded glass surface has no resolver to
-  call and derives the child's radius by hand, parent radius minus the gap, reaching zero when the
-  gap exceeds the parent's radius; that is the circular-corner approximation, close enough for a
-  `border-radius` on a fill and exact when the parent's `profile` is `"circular"`.
+  subtraction is exact only for circular corners and the default corner is Apple's continuous curve.
+  The indicator is plain DOM, absolutely positioned against a track that does not position itself,
+  so give the track `position: relative`; its fill is `indicatorClassName`'s, so the visible
+  selection, under forced colours too, is the app's to draw. A page nesting an ordinary element
+  inside a rounded glass surface has no resolver to call and derives the child's radius by hand,
+  parent radius minus the gap, reaching zero when the gap exceeds the parent's radius; that is the
+  circular-corner approximation, close enough for a `border-radius` on a fill and exact when the
+  parent's `profile` is `"circular"`.
 - **Thickness is the lens's reference.** `thickness` defaults to 8 CSS px and the material's
   `lensThicknessReference` is 8, so `thickness` scales the reference's own height law rather than
   being a free number; the demo holds one thickness across a whole size family.
@@ -238,12 +271,44 @@ content and nothing more. Give it a real box.
   A materialise pair registers two nodes and reserves `` `${nodeId}-open` `` for the open one. Give
   the morph its own `groupId`, and keep the trigger inside the platter a plain button, since the
   platter is already the material.
-- **Press is light and compression at the pointer.** vitrea's controls wire it; a vanilla host
-  writes the channels itself on the host's inline style, 0..1, inside `root.subscribe`:
-  `GLASS_CHANNEL_PROPERTIES.press`, `.glow`, `.pressX`, `.pressY` (also `.lensStrength`, `.sweep`,
-  `.shimmer`, `.materialization`, `.state`). Never a colour swap. Apple scales the response by
-  input, more under direct touch and subdued under a pointer; the runtime's press response is the
-  same for both today, so a page has no knob for that and should not invent one.
+- **What a morph leaves to the app.** A matched-geometry morph measures its closed size once and its
+  open box when it opens: while open it follows neither its content nor a layout change, and while
+  closed it follows its anchor's position but not a new closed size, so reserve the widest closed
+  face from the first frame. `placement` places and avoids nothing; bounded growth, clearance from
+  neighbouring glass and scrolling inside the platter are the app's. So is the menu's lifecycle:
+  outside dismissal, Escape, a Tab out, focus returning to the trigger, and whether an action
+  navigates, leaving focus at its destination, or dismisses. Every host portals into its plane
+  inside the root's `container`, `document.body` unless the root names one, so place the container
+  where the controls belong in DOM and focus order. Toggling Reduce Motion mid-session collapses a
+  mounted matched-geometry morph to nothing until it remounts (tracked); meanwhile key the morph on
+  `useGlassAccessibility()?.reducedMotion`, and remount it closed: a morph mounted open measures the
+  open menu as its closed size and keeps it, so close it first, let the new one measure, then allow
+  reopening.
+- **Transient hosts.** A platter that emerges from a control is a `GlassMorph`. Any other transient
+  host either stays mounted and animates `present`, or mounts only while it has content, mounted
+  absent and then flipped present. Whenever it is registered its box is real-sized, never padding
+  around nothing under the span floor, and it keeps its last content through the exit. `visibility`
+  and `display` are not material states: a hidden host keeps its box and the WebGPU tier still draws
+  its glass, and a `display: none` host is a surface with no box.
+- **Press is light and compression at the pointer.** vitrea's controls wire it. A custom
+  `GlassSurface` is not interactive by default: a housing that is itself pressed, or that holds
+  plain links or buttons, opts in with `interactive`. A vanilla host writes the channels itself on
+  the host's inline style, 0..1, inside `root.subscribe`: `GLASS_CHANNEL_PROPERTIES.press`, `.glow`,
+  `.pressX`, `.pressY` (also `.lensStrength`, `.sweep`, `.shimmer`, `.materialization`, `.state`).
+  Never a colour swap. Apple scales the response by input, more under direct touch and subdued under
+  a pointer; the runtime's press response is the same for both today, so a page has no knob for that
+  and should not invent one.
+- **Press inside an open platter is the app's.** An open `GlassMorph` host is not interactive, and a
+  materialise destination never is, so the plain controls inside get no press from the runtime. The
+  runtime reads a host's channels off its inline style every frame whatever `interactive` says, so
+  the app presses the platter itself: on a press inside it, write `press`, `glow` and the press
+  point onto the platter's host (the morph passes its `className` there) from a `root.subscribe`
+  callback, stepping the springs and targets `useGlassMotionProfile()` returns so Reduce Motion
+  folds in. The root calls its listeners in subscription order and the morph writes its glow from
+  the React ticker's own listener, so the write wins only if it subscribes after that one: subscribe
+  when the press begins and leave when it settles. The WebGPU tier compresses the field and lights
+  it from the point; the CSS tier shows the glow alone, since its compression is the host's owned
+  transform. Otherwise those actions go without press; a colour swap is never the substitute.
 - **The character, in the shipped defaults.** Layout geometry springs at about 420 to 460 ms with
   damping 0.82 to 0.90, slightly underdamped because a trace of overshoot reads as material rather
   than tween. Press compression is faster and looser, 260 ms at damping 0.72, and its release
@@ -304,7 +369,7 @@ against 0.24.0, and each breaks the look:
    size, or size the image to its own aspect.
 3. A grid, grain or gradient laid over the backdrop in CSS: it is not behind the glass and is not
    refracted. Paint it into the plane.
-4. A surface with no box.
+4. A surface with no box, or one whose box is only its padding because it has no content.
 5. A size family entirely under span 32, or entirely over 96.
 6. A `background` on a glass host. The CSS tier overwrites it inline with `transparent` and `none`
    whenever its declarations change, so the fill is lost there; the WebGPU tier leaves the host

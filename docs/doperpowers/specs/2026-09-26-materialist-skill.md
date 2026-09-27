@@ -202,3 +202,10 @@ and would need a rebuild, which is deferred.
 - 2026-09-27: the user ruled all three recommendations as recommended (second skill; chrome
   conventions as a macOS reading; optical-only skeuomorphism) and asked for the push; the pending
   markers here and in the distillation record closed.
+- 2026-09-27 (1.0.1, plugin 2.4.1): corrected from the proof (`2026-09-27-materialist-proof.md`,
+  Surprises): three worked examples put content lists on glass against the layer law and are
+  rewritten opaque; the hint guidance inverted the runtime's precedence and now says a hint is an
+  override on both tiers that must describe the displayed composite under the actual boxes at every
+  phase; the geometry, morph, press, capsule, `interactive`, forced-colours, dark-scheme and
+  contrast-evidence contracts the six makers had to discover are stated. Provenance in
+  `docs/research/materialist-distillation.md`, "Corrected after the proof".

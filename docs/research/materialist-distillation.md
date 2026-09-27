@@ -286,3 +286,44 @@ Responsibility, Familiarity, Flexibility, Simplicity, Craft, Delight), which are
 philosophy rather than the material's; the contested floating inset chrome and self-minimising tab
 bars, which stay a macOS and iOS reading; Federighi's and Dye's interview lines, which the report
 could not fetch from source.
+
+## Corrected after the proof (2026-09-27, 1.0.1)
+
+Six fresh makers built the six briefs under the skill alone
+(`docs/doperpowers/specs/2026-09-27-materialist-proof.md`, A), and six source readings of those
+pages (`docs/research/data/2026-09-27-materialist-proof/review/<slug>.md`, each file's "What the
+skill did not carry") found the skill teaching against itself. Each change names the reading that
+motivated it and the source it was checked against before it was written; `review/x (n)` is item n
+of that list in that file.
+
+| Change | Where | Motivated by | Checked against |
+|---|---|---|---|
+| A platter holds choices and actions; a collection or table read in place is content even inside a dialog; floating is a placement, not a material. The queue, the alerts list, the vehicle's dossier and the forecast become opaque panels with their controls on glass | SKILL §3 step 1, check 1; `examples.md` music-player, transit-ops, park-trails, common ground, header | review/music-player (1), transit-ops (1), park-trails (3); transit-ops finding 2 | SKILL's own layer law (memo, HIG Materials); the 2.3 panel failed r1 on the same queue |
+| A declared level is an override on both tiers and describes the displayed composite under the group's actual boxes at every phase; a texture group reads its own pixels on both tiers, one whole-source tone in the active pose and each surface's silhouette in the receded one; `analysis` names the sampling path | SKILL live plane, check 19; `vitrea.md` §2; `optics.md` §4; `examples.md` every Groups paragraph, template | review/music-player (2), transit-ops (2), park-trails (1, 2), photo-review (3, 4), film-festival (1, 2), product-launch (1) | `platform-web/src/root.ts:2140–2222` (declared hint first, both tiers) and `2438–2452`; `renderer-webgpu/src/renderer.ts:1038–1059` (local tone suppressed under a hint); `root.ts:1384–1425`, `backdrop-tone.ts:147, 191–250` (a CSS-tier root reads the supplied texture, whole source, 250 ms for a canvas or video); `test/silhouette-root.test.ts` (12 pass); ledger "One local reference through the solve" (active documents `source`, receded `silhouette`); `core/src/capability.ts:339–340` |
+| A moved same-sized host keeps its cached box; the content box is what is observed; `invalidateGeometry()` through `onHost` is the route, absent on `GlassSegmentedControl` | `vitrea.md` §4 | review/transit-ops (3, 4), product-launch (2); the fix wave's content-box finding | `geometry-sync.ts:8–24, 164–185, 260`; `root.ts:3588–3589`; `react/src/surface.tsx:167–168`; `controls/button.tsx:60–74`; `controls/segmented-control.tsx:72–93, 262–273`; `css-tier.ts:1519, 1830` |
+| An open morph host is not interactive and the app presses it through its channels after the morph's own glow write; the closed size is measured once and the open box at opening; `placement` avoids nothing; lifecycle, `container` and focus order are the app's; transient hosts keep a real box; the Reduce Motion collapse and its interim | `vitrea.md` §6; `examples.md` photo-review, transit-ops, park-trails, film-festival | review/music-player (3, 4), photo-review (2, 3), transit-ops (5), park-trails (4, 5), film-festival (3, 5), product-launch (3) | `react/src/morph.tsx:247–253, 421–450, 470–501, 620–641, 1111–1142`; `interaction.ts:94–98, 177–185`; `platform-web/src/channels.ts:119–145`, `root.ts:2420` (channels read whatever `interactive` says); `react/src/root.tsx:154–155, 404–410`; the photo-review fix wave's `press.ts`, verified on both tiers; `tech-debt-tracker.md`, the two materialist-proof entries |
+| A capsule is half the measured span; a morph's closed end takes only `radius` | SKILL geometry, check 9; `vitrea.md` §4; `examples.md` photo-review | review/photo-review (5) | `geometry/src/corner.ts:40–42, 84–94`; `react/src/surface.tsx:341–357`; `morph.tsx:110–134` |
+| A custom `GlassSurface` is not interactive by default | `vitrea.md` §6 | review/product-launch (4) | `react/src/surface.tsx:199` |
+| A plane the page chooses is chosen or reframed for structure; content shown as it is may go flat in phases the record lists; the rest-state law is about reading content; the scroll edge is one of two compositions and a straddling surface describes the composite | SKILL live plane, layout, checks 6, 13; `examples.md` photo-review, film-festival, park-trails | review/photo-review (1, 6) and the session's ruling on its finding 1; park-trails (2); film-festival (2); product-launch finding 1 | **authoring choice**, on the session's ruling; HIG Materials for content under controls |
+| The resolved policy covers the material; authored marks are checked after forced-colour substitution; page motion follows Reduce Motion as it changes; the segmented indicator's selection and positioned track are the app's | SKILL accessibility, check 14; `vitrea.md` §4 | review/music-player (5), product-launch (5), film-festival (4); park-trails, transit-ops and product-launch check 14 | `controls/segmented-control.tsx:251–289` |
+| Contrast evidence is per label, phase, scheme and pose, and a miss is a failure | check 12; template | review/photo-review (7); film-festival check 12 | none needed: a recording rule |
+| `quaternary-ink-on-thin-material` is page-scoped | `vitrea.md` §1; check 19 | review/film-festival (6) | `platform-web/src/root.ts:1110–1133, 3074–3076`; `ink-stylesheet.ts:139–170` |
+| The dark scheme is a second material to design and measure; pinning the scheme is not the answer | SKILL poses and schemes | the eval, `docs/research/data/2026-09-27-materialist-proof/eval/results.md` "Reading", finding (2) | the same file: camera page 51/51 light and 36/51 dark, weather page 88/88 and 71/88 |
+
+An independent review of this correction found seven places where it contradicted itself or the
+runtime, and each was closed in the same version: a Reduce Motion remount must happen with the morph
+closed (`morph.tsx:421–430, 620–621`); the press write wins only when its listener subscribes after
+the React ticker's (`root.ts:3265–3281`, `react/src/root.tsx:385–390`, `press.ts:179–181`); a fixed
+radius is clamped, so a capsule fails by growth, not by any change (`corner.ts:90–94`); "floats" became
+"are glass", and the background prohibition and check 16 are scoped to glass hosts; step 2 and the
+flat-field ban carry the page-chosen versus shown-as-is distinction; film-festival's no-hint choice
+is conditional on the footprint comparison and its menu re-measures; the permit platter's boundary
+matches §3's.
+
+Not shipped from the readings: the fix wave's brief offered a second route for a texture group,
+declaring a hint only where the group resolves the CSS tier, on the premise that that tier has no
+pixels. It reads them (W7, `root.ts:1384–1425`), so the route was replaced by "declare nothing where
+the source's overall level holds". The audit's document scroll (park-trails (6)) and the stale
+Increase Contrast line in a demo record (park-trails (7)) belong to the instrument and the demo, not
+the skill. The four runtime gaps stay in `tech-debt-tracker.md`; the skill states the contract and
+the interim route for each.

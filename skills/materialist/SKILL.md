@@ -1,7 +1,7 @@
 ---
 name: materialist
 description: Invoke whenever a UI uses or asks for Liquid Glass, glassmorphism, glass or translucent floating controls, an Apple-, macOS- or visionOS-like material, or the vitrea library (@vitreajs/*), whether designing, building or reviewing such an interface. Not for developing the vitrea runtime, its renderer or its calibration harness themselves.
-version: 1.0.0
+version: 1.0.1
 ---
 
 # The Materialist
@@ -108,11 +108,15 @@ less like a page wearing it.
 
 At every choice, in order:
 
-1. **Control or content?** Only navigation, actions and transient platters float. A card, a row, a
-   list, a table, a hero, a panel of content is content and stays opaque, whatever a brief calls it.
+1. **Control or content?** Only navigation, actions and transient platters are glass. A card, a row,
+   a list, a table, a hero, a panel of content is content and stays opaque, whatever a brief calls it.
+   A platter holds choices and actions; a collection or table read in place is content even inside
+   a dialog. Floating is a placement, not a material: a content panel may float over the plane,
+   opaque, while the controls that act on it and the menus they open are glass.
 2. **What is under it, and does it have structure to bend?** Name the live plane. If nothing changes
-   beneath the controls, or the backdrop is a flat field, the material has no job here and the honest
-   answer is a different surface model.
+   beneath the controls, or a plane the page chose is a flat field there, the material has no job
+   and the honest answer is a different surface model; content shown as it is may go flat in some
+   phases without changing that answer (§4, the live plane).
 3. **Could a sheet of glass do this?** Bend, tone, shadow, glow, morph, recede: yes. A border, a fill,
    a fade, a colour swap on hover, a glow with no light source, a shadow with no caster: no.
 4. **Does it flow from where it was?** A menu emerges from its control, a sheet from its source, a
@@ -146,13 +150,19 @@ If the first five do not resolve it: fewer surfaces, larger, calmer.
 - The backdrop is designed, not inherited. The lens needs both spatial frequencies: something broad
   to bend and something fine to displace, and the fine part painted into the plane, because a grid,
   grain or gradient laid over the plane in CSS is not behind the glass and will not be refracted.
-- Where the plane is real content, a photograph, a map, footage, artwork, this is already satisfied;
-  check that each surface sits over the plane's varied region rather than its empty corner, and
-  check it at every phase the content passes through.
+- Where the plane is real content, a photograph, a map, footage, artwork, the page usually chooses
+  it: choose, crop or reframe it so every surface sits over its varied region rather than its empty
+  corner at every phase the content passes through. Content the page must show as it is, a
+  photographer's frame or a reader's document, may go locally flat in some phases. Keep the control
+  where the task needs it and let its edge and shadow carry it there; never alter the content or move
+  the controls per frame for the glass's sake, and record those phases.
 - Prefer a texture plane where the content is an image, a canvas or a video: that is the path where
-  the lens is real and the runtime reads the backdrop's pixels itself. On the DOM path the group's
-  declared tone and luminance is an assertion the runtime trusts, and a false one measurably breaks
-  label contrast; declare the honest value for the range and measure at its worst phase.
+  the lens is real and the runtime reads the backdrop's pixels itself. A declared tone and luminance
+  overrides that reading on either tier, and on the DOM path it is the only statement there is. The
+  runtime trusts it, and a false one measurably breaks label contrast, so it describes the plane as
+  displayed under the group's actual boxes at every phase, transitions and layout changes included;
+  a value measured once is false on a plane that changes. `references/vitrea.md` §2 says when a
+  texture group needs one.
 - Content reaches the window's edges and the controls float over it. A bar sitting beside its
   content in its own band of background is an ordinary page wearing the material, and the most
   visible way a glass page fails.
@@ -175,9 +185,10 @@ If the first five do not resolve it: fewer surfaces, larger, calmer.
 ### Geometry and the size family
 
 - Every rounded shape is one of three kinds: fixed, a constant radius; capsule, half the shorter
-  side; concentric, the container's radius minus the gap, so the two arcs share a centre and the
-  radius correctly falls toward zero as the element moves away from the corner. Pinched or flared
-  corners on a nested element are the failure signal, and no measurement is needed to see them.
+  side as the box measures it, which padding, borders and intrinsic sizing all move; concentric, the
+  container's radius minus the gap, so the two arcs share a centre and the radius correctly falls
+  toward zero as the element moves away from the corner. Pinched or flared corners on a nested
+  element are the failure signal, and no measurement is needed to see them.
 - Prefer capsules for single-row floating housings, search fields, segmented housings and standalone
   floating buttons; keep compact inner controls concentric with their housing; give multi-row
   platters, sidebars and sheets a generous rounded rectangle so the corners keep usable space.
@@ -253,6 +264,10 @@ If the first five do not resolve it: fewer surfaces, larger, calmer.
 - The receded pose is a state of the design: when the window loses focus the body darkens, the rim
   collapses, a tint keeps its shade and loses its chroma, and the exterior shadow stops. Leave the
   runtime following the window and look at the page unfocused. Never hand-animate a recede.
+- The dark scheme is a second material to design and measure, not a free variant. Over a bright
+  plane expect its ink to fall short of the floor, and decide up front between grading the plane for
+  that scheme and authoring the label ink on a child, then measure both schemes before calling the
+  page done. Pinning the scheme to dodge the failure is not an answer.
 - Two variants exist and are never mixed on one page: regular, which adapts to protect legibility and
   is the answer wherever a surface carries text; and clear, only over media-rich content whose
   content layer a dimming layer will not harm, with bold bright content on the glass, and then with
@@ -267,6 +282,11 @@ If the first five do not resolve it: fewer surfaces, larger, calmer.
   engine cannot answer it the runtime warns and resolves the preference false. A page honours it there
   by offering the setting itself and passing a boolean from it, or from a stored preference, so that
   zero diagnostics means the engine answered or the app did.
+- The runtime's resolved policy covers the material, not what the page authored. Look at every
+  authored fill, track, switch and selection marker, a segmented control's indicator included, after
+  forced-colour substitution: a border or mark in system colours survives, a gradient or a
+  translucent fill does not. Motion the page owns follows Reduce Motion as it changes, not as it read
+  at mount.
 - The CSS tier is the same material without refraction, and it is a complete design. Compose so that
   hierarchy is carried by layout, grouping and type; then removing the material removes an effect and
   never the structure. Look at the CSS tier once, on purpose.
@@ -279,12 +299,18 @@ If the first five do not resolve it: fewer surfaces, larger, calmer.
 - Content clears the floating bars by an inset derived from the bar's measured size and recomputed
   when it changes, never a constant typed once; at rest, first paint, the top of a scroll, content
   does not sit under a glass control at all, and the intersection happens only while scrolling.
+  Content here is what the reader reads; the live plane is what the controls float over by design.
 - Where content scrolls under a floating control the transition is a scroll edge, a gradient mask on
   the scrolling content's own edge, one per scrolling view, never a darkening scrim under the bar and
   never present where nothing floats. Put it on the scroll container, never on an ancestor of the
   glass root: a mask, filter, opacity or clip on an ancestor re-roots the backdrop and demotes the
   material.
-- No bar, sheet or popover takes a custom background, border or darkening layer of its own.
+- Decide which composition the scroll edge makes: a band of the plane kept clear under the bar by
+  masking the content before it arrives, or the content itself becoming the bar's backdrop as it
+  passes under. Either way a surface straddling the clear band, the gradient and the content has the
+  visible composite behind it, and its declared backdrop says so.
+- No glass bar, sheet or popover takes a custom background, border or darkening layer of its own;
+  an opaque content panel that floats is content and keeps its own fill.
 
 ### The macOS reading
 
@@ -361,7 +387,8 @@ scheme and whether the one tint is spent.
 - No two variants on one page; no clear glass over bright content without its dimming layer.
 - No second tint hue in a group; no tint on a label; no solid fill standing in for a tint; no
   hand-rolled blur standing in for the material.
-- No glass over a flat, uniform field.
+- No glass over a flat, uniform field the page chose; content shown as it is that goes flat in some
+  phases is recorded, not a ban.
 - No cross-fade between glass surfaces, no fade-in by opacity, no idle motion, no colour-swap press
   state.
 - No depicted material anywhere else on the page: no brushed metal, leather, bevel, faux grain or
@@ -391,37 +418,44 @@ this material whatever else it does; a `[layout]` or `[legibility]` check can oc
 a web context, and the record says which and why rather than passing it silently.
 
 1. `[layer]` Every glass surface is navigation, an action or a transient platter; no content surface
-   uses glass.
+   uses glass, and no platter holds a collection read in place.
 2. `[layer]` No glass is drawn on glass; anything on glass is a fill, transparency or vibrancy.
 3. `[layer]` The floating inventory is short and each entry is load-bearing.
 4. `[material]` One variant across the page; clear only over media with its dimming layer.
 5. `[material]` At most one tinted control per view, the primary action or a status, tinted on its
    background; no solid fill and no hand-rolled blur anywhere in its place.
 6. `[material]` No glass over a flat, uniform field; every surface sits over structure at every phase
-   of its plane.
+   of a plane the page chose, and where content shown as it is goes flat the record lists the phases.
 7. `[material]` No depicted material anywhere else on the page.
 8. `[geometry]` Every rounded shape is fixed, capsule or concentric; nested radii derive from their
    container and no corner reads pinched or flared; the concentric anchor is named.
-9. `[geometry]` Single-row floating housings and buttons are capsules; inner controls are concentric
-   with their housing; platters keep a generous rounded rectangle.
+9. `[geometry]` Single-row floating housings and buttons are capsules, radius half the span the box
+   measures; inner controls are concentric with their housing; platters keep a generous rounded
+   rectangle.
 10. `[geometry]` The size family straddles 32 to 96 with one radius per span and one thickness.
 11. `[grouping]` Related items share one group, unrelated ones do not, at most three groups per bar,
     no text button beside an icon button in one group, groups spaced past the runtime's padding.
 12. `[legibility]` Label contrast measured on rendered pixels across the plane's phases: 4.5:1 for
-    labels, 3:1 for large text and plates, both schemes.
-13. `[legibility]` At rest, content does not sit under a glass control; a scroll edge sits wherever
-    content passes under one and nowhere else.
+    labels, 3:1 for large text and plates, both schemes. The record keeps every reading, per label
+    and icon, per scheme, at rest, scrolled and in the receded pose; one under the floor is a
+    recorded failure, never a pass with a residual.
+13. `[legibility]` At rest, reading content does not sit under a glass control; a scroll edge sits
+    wherever content passes under one and nowhere else.
 14. `[legibility]` The page works with transparency reduced, contrast increased, motion reduced and
-    under forced colours, and the receded pose is a designed state.
+    under forced colours, judged on its authored marks after substitution rather than on the resolved
+    policy; page-owned motion follows Reduce Motion as it changes; the receded pose is a designed
+    state.
 15. `[layout]` Content reaches the window's edges and clears the floating bars by a measured inset;
     the plane is viewport-fixed and never scrolls its glass out from under itself.
-16. `[layout]` No bar, sheet or popover carries a custom background, border or scrim.
+16. `[layout]` No glass bar, sheet or popover carries a custom background, border or scrim.
 17. `[motion]` Glass materialises and morphs; menus and sheets emerge from their control; press is
     glow and flex at the pointer; nothing moves at idle.
 18. `[colour]` The control layer is monochrome by default; saturated colour is the plane's; no label
     colour approaches the content behind it.
-19. `[honesty]` The declared backdrop matches the plane at its lightest and darkest; the runtime's
-    resolved state is read, not assumed; dev-mode diagnostics are zero.
+19. `[honesty]` Every declared backdrop describes the displayed composite under its group's actual
+    boxes at every phase, transitions and layout changes included; the runtime's resolved state is
+    read, not assumed; dev-mode diagnostics are zero (`references/vitrea.md` §1 names the one
+    page-scoped exception).
 20. `[eye]` The page's capture sits beside a native capture of the nearest Apple surface, and the
     difference the eye sees that the checks did not is written down. Where no native capture is
     available, the record names the nearest Apple surface and says that no comparison was made.
@@ -432,7 +466,7 @@ a web context, and the record says which and why rather than passing it silently
 |---|---|
 | `references/optics.md` | the measured physical model: the lens, the size law, the body's two components, tone and hue, the rim, the exterior shadow, poses, schemes, variants, tint, ink, accessibility states, motion character, the two tiers and the named gaps |
 | `references/vitrea.md` | the cookbook: each decision above mapped to the 0.24.0 API on the React and vanilla paths, what the runtime does not catch, the CSS-only path, single-file and CDN status |
-| `references/examples.md` | six worked derivations from built pages, what they have in common, and the record template a project writes down |
+| `references/examples.md` | six worked derivations, what they have in common, and the record template a project writes down |
 
 ## 10. Provenance
 

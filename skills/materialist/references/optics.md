@@ -90,7 +90,8 @@ its backdrop rather than a vanishing one, and Apple's "small elements flip betwe
 with their backdrop, large ones do not" describes the macOS 26.5 material, not the default one. The
 body still has to be told what it sits over: on the DOM path the group's declared tone and luminance
 is what it adapts to, and a false declaration measurably breaks label contrast. On the texture path
-the runtime reads the pixels itself.
+the runtime reads the pixels itself, unless a declaration overrides them, which it does on either
+tier (`references/vitrea.md` §2).
 
 ## 5. The body carries the backdrop's hue, on the WebGPU tier
 
