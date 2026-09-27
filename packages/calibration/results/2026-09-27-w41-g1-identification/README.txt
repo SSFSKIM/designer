@@ -111,3 +111,22 @@ nonuniform sampled input. A worsening beyond the declared veto fails the leaf.
 The heldout set has no structured backdrop, so its closure scope is unchanged.
 Deferred: a structured spatial holdout and independently varied means/frequencies
 are needed before the uniform numerical domain can become a spatial claim.
+
+Rendered structured-domain clarification
+parent-ruling-rendered-structured.json makes the rendered deep absolute bound
+uniform-only too: structured deep max(1,bar) is diagnostic/notclaimed, but the
+worsening veto includes EVERY admitted bin/channel/repeat AND deep body there.
+A >1code deep worsening on a gradient rejects the candidate. Claimed uniform
+renders need both absolute survival and veto. This leaves600rendered memberships,
+536pre-veto cells and64blindheldout cells unchanged; shader still handles all
+sampled backdrops. Freeze separates renderedDeepDomain from shader enable-domain.
+
+CSS second route approved for measurement only
+parent-ruling-css-second-route.json adds contrast(c) THEN brightness(b) beside
+saturate+plate, c=g/b,b=g+2k,k=F(L)-gL in normalized encoded units. No fitted
+parameter; k<0 or b<=0 is a declared domain exclusion. Chromium primitive/order/
+colour-space proof precedes matched-cell measurement at both scales. This is NOT
+adoption: current CSS sharp/heavy layers and unconditional RGBA contrast floor
+still govern, including silent filter-noop fallback. A transparent projection
+prototype does not prove that contract or the full runtime tier. No CSS source
+changed; decision waits for browser residuals and DecisionLog4.

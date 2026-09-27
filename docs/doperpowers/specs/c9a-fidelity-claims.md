@@ -40481,3 +40481,38 @@ structured backdrop, so this ruling changes no held-out membership or closure to
 **Deferred:** a spatial holdout, with independently varied group mean and backdrop frequency,
 is what would extend the uniform numerical domain into an identified spatial claim. Neither
 the diagnostic S0 reading nor the absence of a held-out gradient supplies that evidence.
+
+**Rendered-domain clarification (parent ruling, retained in
+`parent-ruling-rendered-structured.json`):** the absolute rendered deep max(1,bar)
+is diagnostic on structured backdrops too, reported as **“not claimed (structured
+backdrop)”**. The numerical claim and the absolute rendered deep claim are uniform-only;
+the shader enable-domain is not. W38's worsening veto remains binding on **every admitted
+bin, channel and repeat**, explicitly including the structured cells' deep body. A deep
+residual worsened by more than one code on a gradient rejects the candidate. Claimed
+uniform rendered cells must pass both the absolute bound and the veto. All **600 rendered
+memberships /536 pre-veto calibration-validation cells /64 blind held-out cells** remain;
+`renderedDeepDomain: 'uniform-backdrop'` records applicability without dropping rows.
+
+### 7. CSS: a second algebraic route to measure, not a premature carry
+
+The parent approved a second measured projection beside the brief's saturate+plate mirror,
+retained in `parent-ruling-css-second-route.json`. For a uniform backdrop and the frozen
+E3 tuple, in normalized encoded units,
+
+`y = clip(g·x + k)`, `k = F(L) − gL`, `b = g + 2k`, `c = g/b`.
+
+Where **k≥0 and b>0**, applying **contrast(c) then brightness(b)** reproduces this affine
+map algebraically. The contrast step compresses into gamut before brightness, so the
+saturation-before-plate clipping of the earlier mirror is not inherited automatically.
+The excluded k<0 or b≤0 range must be reported, not assigned a fabricated filter. No new
+parameter is fitted. Chromium's actual order and encoded-space behavior must first be
+proved on a synthetic page, then both projections measured on the same uniform cells at
+both scales; no browser result is claimed here.
+
+Reading `optics.ts` and `css-tier.ts` reveals a separate **carry constraint**: the real tier
+has sharp and heavy blur layers plus an RGBA overlay that supplies a contrast floor even
+when backdrop-filter silently no-ops. Color applied before the second blur also has a
+measured boundary residual. A transparent one-filter prototype can demonstrate uniform
+algebra, but does not yet satisfy that fallback-floor/two-blur contract. Both measured
+residuals and this limitation belong to Decision Log4. **No CSS production source changes
+in G1**, and neither an exact formula nor a future prototype pass is an adoption decision.
