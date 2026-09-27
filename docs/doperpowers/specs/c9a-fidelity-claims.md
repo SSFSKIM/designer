@@ -41029,3 +41029,73 @@ to ignore the photo trade: **G2's M1/M2/L1 referees on the canonical bed remain 
 for any landing.** The affine CSS prototype establishes scoped reach, not production parity.
 Native holdout, G2 adoption, canonical publication and release are still pending; the eye
 read does not stand in for any of them.
+
+### 21. The exposure guards and reusable body inputs are ready; no exposure has run
+
+After the capture, scoring and sheet source barriers cleared, **`a47bf1ca` / `16977f4b`**
+landed the reviewed X6 launch guards. The runner now records a fresh pre-begin observation
+and checks each intended candidate/profile browser launch, sharing one cumulative 60-minute
+waiting budget across the exposure. Capture time is excluded; observations are durable,
+30 seconds apart while waiting, and the frozen snapshot is reverified before launch.
+Observation errors, changed snapshots and expiry fail closed. This is an execution guard,
+not a new scientific admission or permission to repeat a begun exposure.
+
+The source bridge in **`4e3ac173` / `5d7c37ee`** preserves the old source witnesses rather
+than resealing them. It checks all 4,212 frozen capture files and 600 domain records, and
+reproduces all 648 public numerical predictions byte-for-byte. Among the 191 capture-source
+witnesses and each 28-source numerical/rendered witness, only `exposure/runner.py` changes:
+SHA-256 **02ed44215ca4f273eb698ab9f514173f2c6cbfb89d09b6a12c837ffee9b4aa96** becomes
+**5ae591ad6ea2098613e75dfb6377875314fcc2280d7526bf80e139f206436c08**. The pre-existing
+assessment, aggregation, membership and scoring functions remain unchanged. The historical
+capture verifier intentionally still pins the old runner; its refusal at the new revision
+would not authorize overwriting that seal. The final execution manifest must name the new
+runner separately and retain this bridge. No native payload or browser was opened by it.
+
+The CSS counterpart table's stale wording is corrected in **`5d492c15`**: the measured
+prototypes in §18 are no longer called unmeasured, while the production counterpart remains
+`none:`. This test-comment change is outside the runtime/capture source inventories; it
+claims neither a shipped CSS mirror nor parity. Its 65 tests and independent review pass.
+
+**`4b9c384b` / `40f436b7`** prepare the reusable BODY-E3 candidate inputs under
+`exposure/assembly/body-e3-2/`. There are 600 exact `{png, projection}` rendered records,
+450 endpoint-identity records including 48 blind WEB identities, and ordinary-JSON survival
+maps with 576 numerical, 536 rendered and 536 veto admissions. The four enabled structured
+light-inactive rendered diagnostics are not misclassified as identity cells. Full raw and
+admission reports remain unchanged, hash-bound instruments; cell-addressed pointers retain
+the detail removed only from the duplicated compact view. This is not a replacement of raw
+evidence by a pass flag.
+
+The reducer streams one cell at a time. It preserves all 1,112 raw-versus-compact assessments
+and the existing coverage: numerical 136 measured plus 2 censored constraints, 438 unclaimed;
+rendered 128 measured plus 2 censored constraints, 406 unclaimed. Independent review checks
+all 5,777 input hashes, all four retained reports, all 1,112 cells, 1,128 deep members and
+7,896 repeat rows, with no remaining finding. The actual reduction takes **200.39 seconds**
+and peaks at **283,246,592 bytes RSS**. The roughly 15 MB survival file avoids duplicating
+2.45 GB of detail without deleting it. Fourteen assembly and six bridge tests pass; the
+reviewed parser bounds malformed-input buffering and binds the historical bridge before
+import, rather than trusting whatever artifacts happen to occupy those paths now.
+
+The first reduction refused publication because a concurrent stroke commit moved HEAD;
+its log remains and no output directory was created. The unchanged reducer then ran under
+a coordinated commit hold, naming source revision **`2b4b4563`**. Its survival SHA-256 is
+**09dd28ca1d52914c001598becc1ee3711580a560471205d705796abde7f77c0d**. Neither attempt opened
+a native payload, launched a browser, froze the final wave or wrote a receipt. These inputs
+contribute one candidate to the eventual complete configuration; **all remaining stroke
+verdicts still precede the one shared exposure**.
+
+### 22. Current E3 checks pass; the absent canonical tree is explicitly UNMEASURED
+
+`close-checks/current-e3-1/` records the current E3-only frontier, not final wave closure.
+The complete calibration suite passes **60 files, 768 tests, one skip**, in 358.82 seconds;
+ESLint and all four TypeScript projects pass separately. The skipped adopted X1 assertion
+reports **“UNMEASURED X1: canonical capture tree absent; no pixel assertion passed.”** The
+worktree has no canonical `web-captures` tree and no `VITREA_WEB_CAPTURES` override. The W34
+side harness exists and is not the skip cause. Commit `d43954e1`'s mistaken skip attribution
+is corrected additively in **`6482f939`**, retaining both the valid test logs and the reporting
+error; no test result or scientific reading is rewritten.
+
+The frozen 1,818-entry verification passes, and the protected-path diff against `3d13f039`
+is empty for native fixtures, shipped profiles, matrices/generations/archives, adopted
+thresholds and goldens. The G0 declaration tree remains unchanged. If a later stroke leaf
+changes runtime behavior, its affected checks must run before closure; this checkpoint is
+not an exemption. The native exposure receipt remains absent.

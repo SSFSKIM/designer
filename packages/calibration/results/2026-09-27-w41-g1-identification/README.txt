@@ -287,3 +287,26 @@ intochromavariation; nativeargumentmaybesmoother(largerblur/groupmean), theS1que
 No test/fitnow. WaveDeferred+interimDecisionLog2materialnamesnextspatialbed and
 load-bearingG2M1/M2/L1canonicalreferees. RetainLI E3foroneexposure, notwholematerial
 closure. Nativeholdoutstillsealed; remainingstrokefits/pre-exposurechainpending.
+
+Exposure guard bridge and BODY-E3 assembly complete (claims 5.192 sections 21–22)
+The reviewed runner now has per-launch X6 and one cumulative 60-minute wait budget.
+Transition evidence 4e3ac173/5d7c37ee preserves the old source pins and 4,212 capture
+files: only runner 02ed4421… -> 5ae591ad… changes; all 648 public predictions and
+600 domain records still agree. This is not permission to reseal historical captures.
+CSS counterpart wording 5d492c15 now records the measured prototypes, not adoption.
+
+Reviewed assembly 4b9c384b/40f436b7 is in exposure/assembly/body-e3-2/: 600 rendered,
+450 endpoint identities (48 blind WEB), 576 numerical/536 rendered/536 veto admissions.
+All 1,112 compact/raw assessments agree; full reports remain hash-bound instruments.
+Independent review verified 5,777 input hashes, 1,128 deep members and 7,896 repeat rows.
+Coverage stays 136 measured+2 censored numerical, 128+2 rendered; unclaimed scores stay.
+The unchanged retry took 200.39s and 270MiB peak RSS after the first attempt correctly
+refused concurrent HEAD movement. No native read/browser/final freeze/receipt occurred.
+The one exposure still waits for every remaining stroke verdict; these reusable inputs
+are not a body-only final configuration.
+
+Current E3 calibration checks: 60 files, 768 passed, one skipped; lint and four TS
+projects pass. The skip is UNMEASURED X1 because this worktree's canonical capture tree
+is absent, NOT a missing W34 harness. 6482f939 corrects d43954e1's mistaken attribution
+without rewriting its logs. Freeze 1,818 passes; protected evidence and G0 are unchanged.
+Affected checks must repeat if a later stroke leaf changes runtime behavior.
