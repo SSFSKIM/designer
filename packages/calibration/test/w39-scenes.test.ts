@@ -113,9 +113,11 @@ const pythonAvailable = spawnSync("python3.12", ["-c", "import numpy, PIL"], {
 for (const script of ["test-pass-spec.py", "test-wave.py", "test-archive.py",
   "test-release-asset.py", "test-w39-readers.py", "test-sitting.py", "test-preflight.py"]) {
   it.skipIf(!pythonAvailable)(`executes W39 boundary and numerical checks: ${script}`, () => {
+    // test-preflight.py and test-w39-readers.py took 76.5 s and 56.4 s at green run 36281094139;
+    // both budgets are four times the slower, and the child's stays inside the test's.
     const result = spawnSync("python3.12", [join(evidence, script)], {
-      encoding: "utf8", timeout: 180_000,
+      encoding: "utf8", timeout: 310_000,
     });
     expect(result.status, result.stderr || result.stdout).toBe(0);
-  }, 190_000);
+  }, 320_000);
 }

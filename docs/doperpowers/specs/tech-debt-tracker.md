@@ -6313,6 +6313,28 @@ commit" (added beside, not retroactively ticked for 0.24.0), and the merge recip
 `CLAUDE.md`'s Release paragraph should say a merge is checked against its CI run, not only
 the local chain — a process rule, recorded here for the next release to execute.
 
+## CI went red three more times on 60 s budgets for the W37 replays, not on their substance
+
+2026-09-27, found while checking main's `verify` runs. The job failed at `6cc6b664` (run
+36184184327), `0cfbb325` (36237207201) and `8169209d` (36275920337) and passed at `ddfd6e45`
+and `efac802f` (36281094139), with no change to the tests or the evidence between them. Every
+failure was `Test timed out in 60000ms` on a full native-pixel replay: W37 G0's "replays the
+complete memo cut instead of trusting a stored zero-difference flag" at all three, and W37
+G0b's "proves the obstruction from guarded native pixels, not from fitted residuals" at the
+last two. No assertion failed. Both tests carried an explicit `60_000` that the green run's
+34.8 s and 49.3 s left too little room for: the two W37 files took 87 s and 137 s at the green
+run and 124–157 s and 155–194 s at the red ones, the same work on a slower runner. **Fixed**
+by explicit budgets of at least four times each test's green-run duration, and never below
+180 s for the two that failed, on every calibration test that took over 20 s in that run —
+the two above, W37 G0's and G0b's score reconstructions (47.3 s, 84.1 s), W38 E2's
+generation self-test (22.3 s; its 22.2 s baseline replay already had 180 s) and W39's `test-w39-readers.py` and `test-preflight.py` script
+runs (56.4 s, 76.5 s; the child's own `spawnSync` limit moved with them, because it would
+otherwise kill the script first). Every assertion is unchanged. **Honest residual:** the
+`verify` job's wall time depends on the runner — the calibration suite alone took 195 s green
+and 243–270 s red — so a budget is a margin on a measured duration, not a guarantee; a
+further slowdown past four times would need these replays sharded or cached, not a larger
+number.
+
 ## Evidence replays assert bit-exact reproduction and CI runs on a different BLAS
 
 2026-09-26, `verify` at `3946576d`: the W37 records were produced on macOS

@@ -68,7 +68,9 @@ with patch('sys.platform', 'darwin'):
       expect(check.rank).toBe(5);
       expect(check.nativeOnlyCoefficientDifference).toBeLessThan(1e-10);
     }
-  }, 120_000); // Native-pixel reconstruction can exceed one minute under workspace load.
+    // A full native-pixel replay whose runtime follows the runner: 47.3 s at green run 36281094139,
+    // budgeted at four times that rather than at the minute it once overran under workspace load.
+  }, 200_000);
 
   it("replays the complete memo cut instead of trusting a stored zero-difference flag", () => {
     // G0 records absolute worktree provenance; compare every numeric field while keeping
@@ -76,7 +78,9 @@ with patch('sys.platform', 'darwin'):
     const result = python("../2026-09-25-w37-g0b-edge-identification/reproduce-g0.py",
       ["--verify-native"]);
     expect(result.status, result.stderr).toBe(0);
-  }, 60_000);
+    // A full replay that took 34.8 s at green run 36281094139 and timed out at 60 s on a slower
+    // runner at 6cc6b664, 0cfbb325 and 8169209d with no assertion failing, so it gets 180 s.
+  }, 180_000);
 
   it("pins the pre-score declaration, E1 population and unchanged-stop snapshot", () => {
     const pins: Record<string, string> = {

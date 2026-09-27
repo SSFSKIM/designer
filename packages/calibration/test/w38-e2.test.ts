@@ -106,5 +106,7 @@ describe("W38 E2 declaration and pre-change reference", () => {
     expect(JSON.parse(result.stdout)).toMatchObject({ rejectsGenerationMismatch: true,
       rejectsMissingGroupMember: true, rejectsHoldout: true,
       shiftedGeometry: true, missingCaptureUnmeasured: true });
-  }, 60_000);
+    // The self-test replays E2 in full, 22.3 s at green run 36281094139; four times that keeps
+    // runner-speed variance from reading as a failure, as it did for the W37 replays.
+  }, 90_000);
 });
