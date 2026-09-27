@@ -1,0 +1,890 @@
+/*
+ * Daybreak — the page's own stylesheet.
+ *
+ * What is NOT here is the point of half of it: no rule names a registered host's background,
+ * border, box-shadow, backdrop-filter or transform. The hosts (`.glass`) are positioned and sized
+ * inline and the runtime owns their material. Ink is set on children, from the runtime's label
+ * tokens, with the page's own ink as the fallback for a tier that publishes nothing yet. Tertiary
+ * appears only on hairlines; quaternary is never named.
+ */
+
+:root {
+  color-scheme: light dark;
+  /* What shows for the instant before the photograph paints: the valley's own haze. */
+  --ground: #c7ccc6;
+  --ink: rgb(0 0 0 / 0.85);
+  --ink-2: rgb(0 0 0 / 0.62);
+  --hairline: rgb(0 0 0 / 0.2);
+  /* Lighter child fills lift what can be pressed or is selected; one level, never stacked. */
+  --lift: rgb(255 255 255 / 0.2);
+  --lift-strong: rgb(255 255 255 / 0.36);
+  /* The strength of the authored secondary ink, as a share of the runtime's primary. */
+  --secondary-share: 84%;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, "Segoe UI", Roboto,
+    "Helvetica Neue", sans-serif;
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ground: #10140f;
+    --ink: rgb(255 255 255 / 0.8);
+    --ink-2: rgb(255 255 255 / 0.58);
+    --hairline: rgb(255 255 255 / 0.2);
+    /* Over the dark body a lift brightens what the white ink sits on, so it stays small. */
+    --lift: rgb(255 255 255 / 0.07);
+    --lift-strong: rgb(255 255 255 / 0.13);
+  }
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--ground);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* The environment: viewport-fixed, full-bleed, painted at the viewport's own size. */
+.environment {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  display: block;
+}
+
+p,
+h2,
+h3 {
+  margin: 0;
+}
+
+/* --- Shared type on glass --------------------------------------------------------------- */
+
+/*
+ * The secondary ink is AUTHORED, on each host's children, as a fixed share of the runtime's own
+ * primary: it keeps the pole the runtime picked (and its transit between poles) and guarantees a
+ * ratio the published secondary did not. The runtime solves its secondary against the surface it
+ * models from the declared level; on these drawn bodies that token read 4.30–4.49:1 (part two).
+ * Declared on the host's direct children so `--vitrea-foreground` resolves against that host.
+ */
+.glass > * {
+  --ink-2: color-mix(in srgb, var(--vitrea-foreground, var(--ink)) var(--secondary-share), transparent);
+}
+
+.window-title {
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 700;
+  letter-spacing: 0.005em;
+  color: var(--vitrea-foreground, var(--ink));
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin: 18px 12px 6px;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.section-count {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+/* --- Now: the glance ---------------------------------------------------------------------- */
+
+.now-inner {
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 22px 26px 20px;
+  box-sizing: border-box;
+  color: var(--vitrea-foreground, var(--ink));
+}
+
+.now-clock {
+  font-size: min(80px, 29cqi);
+  line-height: 0.95;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.now-period {
+  margin-left: 0.12em;
+  font-size: 0.26em;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.now-date {
+  margin-top: 10px;
+  font-size: 17px;
+  line-height: 22px;
+  font-weight: 600;
+  letter-spacing: 0.005em;
+}
+
+.now-weather {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.now-glyph {
+  flex: none;
+}
+
+.now-temperature {
+  font-size: 44px;
+  line-height: 1;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.now-conditions {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+@container (inline-size < 250px) {
+  .now-weather {
+    gap: 8px;
+  }
+
+  .now-temperature {
+    font-size: 36px;
+  }
+
+  .forecast-high {
+    font-size: 14px;
+  }
+}
+
+.now-condition {
+  font-size: 15px;
+  line-height: 19px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.now-range {
+  font-size: 13px;
+  line-height: 17px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--ink-2);
+}
+
+.forecast {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  margin: auto 0 0;
+  padding: 14px 0 0;
+  list-style: none;
+  border-top: 1px solid var(--vitrea-foreground-tertiary, var(--hairline));
+}
+
+.forecast-day {
+  display: grid;
+  justify-items: center;
+  gap: 5px;
+}
+
+.forecast-name {
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--ink-2);
+}
+
+.forecast-high {
+  font-size: 16px;
+  line-height: 18px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.forecast-low {
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-2);
+}
+
+/* --- Places ------------------------------------------------------------------------------- */
+
+.places-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.places-inner .window-title {
+  margin: 0 4px 14px;
+}
+
+.places-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 1fr;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.place {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  height: 100%;
+  /* Concentric with the window corner: 32 − the window's 20 px inset. */
+  border-radius: 12px;
+  background: var(--lift);
+  color: var(--vitrea-foreground, var(--ink));
+  text-decoration: none;
+  outline-offset: 2px;
+}
+
+.place:hover,
+.place[data-match] {
+  background: var(--lift-strong);
+}
+
+.place[data-match] {
+  outline: 2px solid currentColor;
+  outline-offset: -2px;
+}
+
+.place:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+.place-mark {
+  font-size: 24px;
+  line-height: 28px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.place-name {
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+/* --- Today -------------------------------------------------------------------------------- */
+
+.today-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.today-head {
+  flex: none;
+  padding: 20px 24px 10px;
+  color: var(--vitrea-foreground, var(--ink));
+}
+
+.today-headline {
+  display: grid;
+  gap: 2px;
+  margin-top: 10px;
+}
+
+.today-when {
+  font-size: 13px;
+  line-height: 17px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--ink-2);
+}
+
+.today-what {
+  font-size: 22px;
+  line-height: 27px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.today-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0 16px 16px;
+  /* Its bottom corners are the window's: 32 − the scroller's 0 inset there. */
+  border-radius: 0 0 32px 32px;
+  scrollbar-width: none;
+  color: var(--vitrea-foreground, var(--ink));
+  outline: none;
+}
+
+/* The scroll edges, on the scroller only, and only where content continues past an edge. */
+.today-scroll[data-edge-top] {
+  mask-image: linear-gradient(to bottom, transparent 0, #000 28px);
+}
+
+.today-scroll[data-edge-bottom] {
+  mask-image: linear-gradient(to top, transparent 0, #000 36px);
+}
+
+.today-scroll[data-edge-top][data-edge-bottom] {
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    #000 28px,
+    #000 calc(100% - 36px),
+    transparent 100%
+  );
+}
+
+.today-section:first-child .section-title {
+  margin-top: 8px;
+}
+
+.agenda,
+.tasks {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.agenda-event {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  column-gap: 12px;
+  padding: 8px 12px;
+  /* Concentric: 32 − the scroller's 16 px inset. */
+  border-radius: 16px;
+}
+
+.agenda-time {
+  display: grid;
+  align-content: start;
+  font-size: 13px;
+  line-height: 19px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.01em;
+}
+
+.agenda-end,
+.agenda-where {
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.agenda-body {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+}
+
+.agenda-title {
+  font-size: 15px;
+  line-height: 19px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.agenda-where {
+  font-size: 13px;
+  line-height: 17px;
+  letter-spacing: 0.01em;
+}
+
+.agenda-event[data-state="past"] {
+  color: var(--ink-2);
+}
+
+.agenda-event[data-state="now"] {
+  background: var(--lift-strong);
+}
+
+.agenda-event[data-state="now"] .agenda-title {
+  font-weight: 700;
+}
+
+/* On a lifted fill every line takes the primary ink: the fill has spent the secondary's margin. */
+.agenda-event[data-state="now"] .agenda-end,
+.agenda-event[data-state="now"] .agenda-where {
+  color: var(--vitrea-foreground, var(--ink));
+}
+
+.task-label {
+  position: relative;
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  gap: 12px;
+  padding: 8px 12px;
+  border-radius: 16px;
+  cursor: pointer;
+}
+
+.task-label:hover {
+  background: var(--lift);
+}
+
+.task-check {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.task-mark {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  margin-top: 0;
+  box-sizing: border-box;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+}
+
+.task-mark svg {
+  visibility: hidden;
+}
+
+.task-check:checked + .task-mark {
+  background: currentColor;
+}
+
+.task-check:checked + .task-mark svg {
+  visibility: visible;
+  color: Canvas;
+}
+
+.task-check:focus-visible + .task-mark {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+.task-text {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+}
+
+.task-title {
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.task-note {
+  font-size: 13px;
+  line-height: 17px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--ink-2);
+}
+
+.task[data-done] .task-title {
+  text-decoration: line-through;
+  text-decoration-thickness: 1.5px;
+  color: var(--ink-2);
+}
+
+/* --- Search ------------------------------------------------------------------------------- */
+
+.search-inner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 100%;
+  padding: 0 20px 0 22px;
+  box-sizing: border-box;
+}
+
+.search-glyph,
+.search-target {
+  flex: none;
+  color: var(--vitrea-foreground, var(--ink));
+}
+
+.search-field {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  appearance: none;
+  outline: none;
+  font: inherit;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--vitrea-foreground, var(--ink));
+  caret-color: currentColor;
+}
+
+/* Concentric with the capsule: 28 − 6. Drawn by the child, never the host. */
+[data-navigation="keys"] .search-inner:has(.search-field:focus) {
+  outline: 2px solid var(--vitrea-foreground, var(--ink));
+  outline-offset: -6px;
+  border-radius: 22px;
+}
+
+.search-field::placeholder {
+  color: var(--ink-2);
+  opacity: 1;
+}
+
+.search-field::-webkit-search-cancel-button,
+.search-field::-webkit-search-decoration {
+  appearance: none;
+}
+
+.search-target {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.search-target:empty {
+  display: none;
+}
+
+/* --- Photograph ornament and platter ---------------------------------------------------- */
+
+/*
+ * The closed face is one fixed width, the widest label's: a closed morph follows its anchor but
+ * never a new closed size, so a phase whose maker has a longer name must not outgrow it.
+ */
+.photograph-trigger {
+  all: unset;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: 248px;
+  height: 48px;
+  padding: 0 14px 0 20px;
+  white-space: nowrap;
+  cursor: pointer;
+  color: var(--vitrea-foreground, var(--ink));
+}
+
+.photograph-trigger:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: -6px;
+  /* Concentric with the capsule: 24 − 6. */
+  border-radius: 18px;
+}
+
+.photograph-phase {
+  font-size: 15px;
+  line-height: 18px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.photograph-chevron {
+  margin-left: auto;
+}
+
+.photograph-trigger[data-compact] {
+  width: 120px;
+}
+
+/* The compact face names the phase; the maker stays in the platter's credit and in speech. */
+.photograph-trigger[data-compact] .photograph-maker {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.photograph-maker {
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--ink-2);
+}
+
+/*
+ * The platter opens downward into open environment, never over the module above it; on a
+ * viewport too short for all of it, it scrolls inside itself rather than run off the edge.
+ */
+.platter {
+  display: grid;
+  gap: 4px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  width: 320px;
+  padding: 12px 12px 10px;
+  box-sizing: border-box;
+  color: var(--vitrea-foreground, var(--ink));
+}
+
+.platter-title {
+  margin: 0 8px 2px;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.photo-options {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin-bottom: 2px;
+}
+
+.photo-option {
+  all: unset;
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  padding: 4px 4px 5px;
+  /* The platter is 24; its content is inset 12. */
+  border-radius: 12px;
+  cursor: pointer;
+  color: inherit;
+}
+
+.photo-option:hover {
+  background: var(--lift);
+}
+
+.photo-option[aria-checked="true"] {
+  background: var(--lift-strong);
+}
+
+.photo-option:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 0;
+}
+
+.photo-thumb {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  /* Opaque imagery in a concentric frame: 12 − the option's 4 px inset. */
+  border-radius: 8px;
+}
+
+.photo-label {
+  font-size: 12px;
+  line-height: 15px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.setting {
+  all: unset;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 34px;
+  padding: 0 8px 0 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  color: inherit;
+}
+
+.setting:hover {
+  background: var(--lift);
+}
+
+.setting:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 0;
+}
+
+.setting-label {
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.switch {
+  position: relative;
+  flex: none;
+  width: 34px;
+  height: 20px;
+  box-sizing: border-box;
+  border: 1.5px solid currentColor;
+  border-radius: 10px;
+}
+
+.switch-knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: currentColor;
+  transition: translate 180ms cubic-bezier(0.3, 0.7, 0.2, 1);
+}
+
+.setting[aria-checked="true"] .switch {
+  background: currentColor;
+}
+
+.setting[aria-checked="true"] .switch-knob {
+  translate: 14px 0;
+  background: Canvas;
+}
+
+.credit {
+  margin: 2px 10px 0;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--ink-2);
+}
+
+.credit a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .switch-knob {
+    transition: none;
+  }
+}
+
+/* --- Forced colours: no glass; every state is a mark that survives substitution --------- */
+
+/*
+ * The CSS tier gives each forced-colours panel a CanvasText border on the host; the WebGPU tier
+ * paints the Canvas panel and no border (part two). There, each host's one full-size child draws
+ * the frame instead, so a white panel over a white cloud still has an edge. Never on the host.
+ */
+@media (forced-colors: active) {
+  [data-glass-tier="webgpu"] :is(.now-inner, .places-inner, .today-inner, .search-inner, .photograph-trigger, .platter) {
+    outline: 2px solid CanvasText;
+    outline-offset: -2px;
+  }
+
+  [data-glass-tier="webgpu"] :is(.now-inner, .places-inner, .today-inner) {
+    border-radius: 32px;
+  }
+
+  [data-glass-tier="webgpu"] :is(.search-inner, .photograph-trigger, .platter) {
+    border-radius: 28px;
+  }
+
+  [data-glass-tier="webgpu"] .photograph-trigger {
+    border-radius: 24px;
+  }
+
+  [data-glass-tier="webgpu"] .platter {
+    border-radius: 24px;
+  }
+}
+
+@media (forced-colors: active) {
+  .place,
+  .agenda-event[data-state="now"],
+  .photo-option[aria-checked="true"] {
+    outline: 1px solid CanvasText;
+    outline-offset: -1px;
+  }
+
+  .place[data-match] {
+    outline: 3px solid Highlight;
+    outline-offset: -3px;
+  }
+
+  .agenda-event[data-state="now"] {
+    outline-width: 2px;
+    outline-offset: -2px;
+  }
+
+  .photo-option[aria-checked="true"] {
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
+  }
+
+  .task-mark,
+  .switch,
+  .switch-knob {
+    forced-color-adjust: none;
+    border-color: CanvasText;
+  }
+
+  .switch-knob {
+    background: CanvasText;
+  }
+
+  .task-check:checked + .task-mark,
+  .setting[aria-checked="true"] .switch {
+    background: Highlight;
+    border-color: Highlight;
+  }
+
+  .task-check:checked + .task-mark svg {
+    color: HighlightText;
+  }
+
+  .setting[aria-checked="true"] .switch-knob {
+    background: HighlightText;
+  }
+}
