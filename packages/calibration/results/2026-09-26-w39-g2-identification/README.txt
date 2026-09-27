@@ -252,3 +252,31 @@ obstruction' and separating uniform and gradient witnesses. The grid fits one
 shared-scale law per scheme/pose:45 choices x4 endpoints, reported in8 strata.
 A numerical optimizer's stationary result will not be called a global proof;
 the support argument supplies that survival rejection independently.
+
+EDGE NUMERICAL EXECUTION CORRECTION, BEFORE THE NEXT FIT
+
+The first inactive grids completed all45 points with both solvers converged.
+The active L-BFGS-B LS runs reached their1000-iteration cap at every completed
+point (edge/{light-active,dark-active}/interrupted.json records how far); the
+minimax runs converged, but this is not a reason to call LS complete. Those
+processes were stopped and every completed trial retained. The design's small
+singular directions, not a new scientific tolerance, motivate the numerical
+change: edge/fit-grid-gn.py solves the current clipped linear region's normal
+equations and backtracks monotonically, with the same44 free coefficients,
+box, objective, inputs, grid and fit/validation split. No ridge or penalty is
+added and no deficient column is removed. The old runner remains unchanged.
+
+The corrected real-runner synthetic recovery is green. A separate direct test
+starts the ACTUAL solver at zero, rather than its already-exact linear solve:
+one iteration on unclipped synthetic data (coefficient error8.07e-13), six on
+2,386 clipped synthetic observations (1.26e-14), both converged with encoded
+MSE below1e-25. A first synthetic test failed only because macOS put its temp
+cache under /var/folders rather than /tmp; the corrected test seals its cache
+through the same utility as native inputs instead of bypassing that boundary.
+The failed log is retained. All four endpoints will use the same corrected
+solver beside the original results, not overwrite them.
+
+The independent reviewer-medium of body-correction returned 'correct; no
+material findings'. It ran all13 tests and the complete read-only replay under
+the pinned runtime, reproducing the canonical JSON hash. The initial numerical
+review's actionable finding is closed; local-vs-global qualifications remain.

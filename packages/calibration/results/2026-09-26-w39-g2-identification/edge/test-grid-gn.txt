@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w39/g2/packages/calibration/results/2026-09-26-w39-g2-identification/edge/fit-grid-gn.py", line 38, in <module>
+    if not str(cache).startswith('/private/tmp/w39-edge-synthetic-') and not str(cache).startswith('/tmp/w39-edge-synthetic-'):raise ValueError('native cache must be sealed')
+                                                                                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: native cache must be sealed
+
+
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w39/g2/packages/calibration/results/2026-09-26-w39-g2-identification/edge/test-grid-gn.py", line 28, in <module>
+    print(result.stdout);print(result.stderr,file=sys.stderr);assert result.returncode==0
+                                                                     ^^^^^^^^^^^^^^^^^^^^
+AssertionError
