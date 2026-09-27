@@ -1,0 +1,438 @@
+{
+  "schema": "w41-closure-1",
+  "boundsDeclarationSha256": "850747c1f03781a6efe9b433bd4ce3bd6cf72b63c9befd8d5d98de9eadf7f759",
+  "supersededDeclarationHashes": [
+    "99e460d5cf83da086fb27dbd132058fe81c31767462917623ce9883c74c9c05c"
+  ],
+  "charterRevision": "9e0ec5af6b6167e6e5463d9f10537e99bd88e10b",
+  "endpoints": [
+    "light-active",
+    "light-inactive",
+    "dark-active",
+    "dark-inactive"
+  ],
+  "scales": [
+    1,
+    2
+  ],
+  "g0Roles": [
+    "calibration"
+  ],
+  "body": {
+    "deepCSS": 6,
+    "minimumPopulation": 4,
+    "repeatCount": 7,
+    "statistic": "median of seven per-run channel deep medians",
+    "bar": "0.5 + 0.5 * ptp(run statistics)",
+    "neutralKnots": [
+      40,
+      56,
+      72,
+      88,
+      104,
+      128,
+      150
+    ],
+    "neutralOrdinates": {
+      "light-active": [
+        152,
+        160,
+        168,
+        176,
+        183,
+        195,
+        205
+      ],
+      "light-inactive": [
+        150,
+        157,
+        164,
+        171,
+        178,
+        188,
+        197
+      ],
+      "dark-active": [
+        69,
+        83,
+        96,
+        108,
+        119,
+        134,
+        146
+      ],
+      "dark-inactive": [
+        60,
+        74,
+        87,
+        100,
+        111,
+        127,
+        140
+      ]
+    },
+    "neutralInterpolation": "encoded linear; end-segment continuation then clip"
+  },
+  "families": {
+    "B0": {
+      "name": "H3",
+      "chromaticParametersPerEndpoint": 6,
+      "fit": false,
+      "space": "decoded F then matrix",
+      "status": "historical baseline"
+    },
+    "B1": {
+      "name": "E3",
+      "chromaticParametersPerEndpoint": 3,
+      "nodes": [
+        63,
+        93,
+        118
+      ],
+      "bounds": [
+        0,
+        3
+      ],
+      "space": "encoded luma/chroma",
+      "interpolation": "linear; held outside",
+      "solver": "certified LP"
+    },
+    "B2": {
+      "name": "EH6",
+      "chromaticParametersPerEndpoint": 6,
+      "nodes": [
+        0,
+        60,
+        120,
+        180,
+        240,
+        300
+      ],
+      "bounds": [
+        0,
+        3
+      ],
+      "space": "encoded luma/chroma; OKLab input hue",
+      "interpolation": "periodic linear",
+      "solver": "certified LP"
+    },
+    "B3": {
+      "name": "O12",
+      "chromaticParametersPerEndpoint": 12,
+      "nodeCubes": [
+        0.05,
+        0.11,
+        0.18
+      ],
+      "bounds": [
+        -8,
+        8
+      ],
+      "space": "OKLab",
+      "interpolation": "linear; held matrix outside; neutral tone end segment",
+      "solver": "local multistart"
+    },
+    "S0": {
+      "parameters": 0,
+      "expression": "B(x)",
+      "landable": false
+    },
+    "S1": {
+      "parameters": 4,
+      "mBounds": [
+        0,
+        1
+      ],
+      "expression": "B(m*x+(1-m)*referenceFrameMean)",
+      "landable": false
+    },
+    "S2": {
+      "parameters": 6,
+      "mBounds": [
+        0,
+        1
+      ],
+      "activeAmplitudeBounds": [
+        -255,
+        255
+      ],
+      "inactiveAmplitude": 0,
+      "expression": "clip(S1+a*(y-yc)/height)",
+      "landable": false
+    },
+    "G": {
+      "parameters": 7,
+      "widthBounds": [
+        0,
+        2
+      ],
+      "widthUnit": "device px",
+      "betaBounds": [
+        0,
+        1
+      ],
+      "activeGammaConstraint": "abs(gamma)<=1-beta",
+      "inactiveGamma": 0,
+      "normalisation": "maximum over all unit normals"
+    },
+    "G-css": {
+      "parameters": 7,
+      "widthBounds": [
+        0,
+        2
+      ],
+      "widthUnit": "CSS px",
+      "otherwise": "G"
+    },
+    "G-curvature": {
+      "parameters": 8,
+      "rhoBoundsCSS": [
+        -22,
+        22
+      ],
+      "arcCoverage": "clip(A*(1+rho/R),0,1)",
+      "R": "nominal circle radius or rrect declared 22 CSS px",
+      "straight": "A",
+      "calibrationCircleRadiiCSS": [
+        22,
+        32
+      ],
+      "rrectNominalRadiusCSS": 22,
+      "localDifferentialCurvature": false
+    },
+    "M0": {
+      "parameters": 8,
+      "perEndpoint": 2,
+      "tBounds": [
+        0,
+        3
+      ],
+      "kBounds": [
+        -255,
+        255
+      ],
+      "space": "encoded",
+      "expression": "clip(t*b+k)",
+      "combinedWithG": 15
+    },
+    "M1": {
+      "parameters": 32,
+      "perEndpoint": 8,
+      "nodes": [
+        40,
+        56,
+        72,
+        88,
+        104,
+        128,
+        150,
+        255
+      ],
+      "ordinateBounds": [
+        0,
+        255
+      ],
+      "monotone": true,
+      "space": "encoded",
+      "interpolation": "linear; end segment continued then clip",
+      "combinedWithG": 39
+    },
+    "M2": {
+      "parameters": 36,
+      "extraDarkParameters": 4,
+      "kappaBounds": [
+        0,
+        16
+      ],
+      "Y0Bounds": [
+        0,
+        1
+      ],
+      "space": "M1 plus linear-light contextual correction",
+      "gamut": "held-luma chroma compression",
+      "combinedWithG": 43
+    }
+  },
+  "strip": {
+    "scenes": [
+      "v90-c-c44__rest",
+      "v270-c-c44__rest",
+      "v90-c-c44__inactive",
+      "v270-c-c44__inactive"
+    ],
+    "widthCSS": 48,
+    "minimumInwardCSS": 6,
+    "arcs": false,
+    "referenceDomainCodes": [
+      121,
+      135
+    ],
+    "rowStatistic": "per-run row median, then seven-run median",
+    "diagnostic": "row mean reproduces memo",
+    "mean": "complete no-glass frame",
+    "scales": [
+      1,
+      2
+    ],
+    "postReadMaskChanges": false
+  },
+  "stroke": {
+    "outerCSS": 4,
+    "shellRange": "range(0,4*scale)",
+    "minimumPopulation": 4,
+    "angularBins": 16,
+    "straightSides": [
+      "top",
+      "bottom",
+      "left",
+      "right"
+    ],
+    "interiorWitnessShells": [
+      -1,
+      -2,
+      -3
+    ],
+    "boundary": "diagnostic only",
+    "quadrature": 16,
+    "sensitivityQuadrature": 32,
+    "referenceInterpolation": "pixel-centred bilinear; edge held",
+    "compositeSpace": "encoded",
+    "support": "outside supplied path only",
+    "order": [
+      "inactive",
+      "active with shipped shadow held"
+    ]
+  },
+  "shadowControls": {
+    "outer": "all required bins beyond band with zero inactive departure; shells 2..4*scale-1 and zero straight shell1 remain controls",
+    "additional": {
+      "scheme": "dark",
+      "pose": "active",
+      "part": "straight",
+      "side": "top",
+      "backgrounds": [
+        "g128",
+        "g255"
+      ]
+    },
+    "lightActiveTop": "stroke bin, NOT shadow-only",
+    "claim": "conditional on held model, not native shadow identification"
+  },
+  "censor": {
+    "low": 5,
+    "high": 250,
+    "constraint": "one-sided rail; uncensored channels retained; bridges retained",
+    "statuses": [
+      "measured",
+      "censored-bound-satisfied",
+      "UNMEASURED"
+    ],
+    "failedRail": "UNMEASURED with binding boundFailure",
+    "heldout": "any censored channel makes cell UNMEASURED for held-out coverage",
+    "w39FitPopulation": {
+      "cells": 404,
+      "channels": 1212
+    },
+    "w41FitPopulation": {
+      "cells": 408,
+      "uncensoredChannels": 1220,
+      "railBounds": 4
+    }
+  },
+  "scoring": {
+    "bound": "max(1,bar)",
+    "edge": "mean absolute pixel error per channel/bin; absolute before spatial reduction",
+    "deep": "absolute median error",
+    "repeats": "all seven",
+    "mass": "equal cell, equal channel/bin within cell",
+    "report": [
+      "least-squares",
+      "minimax",
+      "worst-channel",
+      "all-channel",
+      "rank",
+      "singular values",
+      "convergence"
+    ]
+  },
+  "optimisation": {
+    "seed": 4100,
+    "starts": 16,
+    "baseline": "identity/zero",
+    "ls": {
+      "max_nfev": 3000,
+      "ftol": 1e-10,
+      "xtol": 1e-10,
+      "gtol": 1e-10
+    },
+    "minimax": {
+      "method": "SLSQP epigraph",
+      "maxiter": 3000,
+      "ftol": 1e-10
+    },
+    "nonlinearClaim": "LOCAL",
+    "lpGapCodes": 1e-05
+  },
+  "survival": {
+    "roles": [
+      "calibration",
+      "validation"
+    ],
+    "everyRequiredComparison": true,
+    "bound": "max(1,bar)",
+    "aggregation": "every admitted comparison measured within bound or censored-bound-satisfied; any measured miss or rail violation binds",
+    "populationDeficient": "UNMEASURED, excluded and counted"
+  },
+  "resolution": {
+    "bound": "max(3,sum of bars)",
+    "belowEveryDiscriminator": "insufficient resolution",
+    "spatial": "calibration finding only; no holdout referee"
+  },
+  "receipt": {
+    "log": "packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/wave-identification-receipt.jsonl",
+    "oneExposure": true,
+    "failedAttemptSpends": true,
+    "bind": [
+      "scenes",
+      "split",
+      "inventory",
+      "declaration",
+      "closure",
+      "instrument and runner sources",
+      "numerical candidates and frozen predictions",
+      "renderer revision and source hashes",
+      "renderer configuration",
+      "frozen rendered predictions"
+    ],
+    "capture": "web-plannable held-out cells inside receipt; verify against frozen rendered predictions",
+    "nativeOnly": [
+      "grey255 bottom pair"
+    ],
+    "both": [
+      "circular160x96 pair",
+      "witness200x44 pair",
+      "six held-out colours"
+    ],
+    "g0DryRun": "calibration stand-in, scratch receipt, synthetic capture backend, no browser",
+    "blindRenderedPredictions": "before exposure from public backdrop/geometry and committed generated rasters, never native fixture/archive pixels; inside receipt recapture and require byte/projection equality before native scoring",
+    "numericalMembership": "archive-admitted glass cells intersecting unchanged declared roles; unadmitted phase variants excluded by inventory metadata"
+  },
+  "noShippedChanges": true,
+  "executionRecords": {
+    "body-instrument/execution-parameters.json": "a3947184dbd81edd6597517ec03cee736ecbf622b1cbf22a9fe5f3a3ecee4521",
+    "instrument/stroke-execution-parameters.json": "df9f807eb3c25334aede388ce22ff6f6f92106400b2d419c743c2f20441d22af"
+  },
+  "closure": {
+    "aggregation": "every measured held-out cell passes",
+    "censoredHeldout": "UNMEASURED; neither pass nor coverage",
+    "report": "measured/total held-out coverage fraction; bound satisfaction separate from measured maxima"
+  },
+  "sheetsG0": {
+    "allowedPixels": "canonical calibration/validation only",
+    "closedPixels": [
+      "canonical holdout",
+      "all W39"
+    ],
+    "browser": false
+  }
+}

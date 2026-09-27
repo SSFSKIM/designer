@@ -1,0 +1,29 @@
+test_censors_are_hard_and_uncensored_channels_remain (test_body.BodyProofs.test_censors_are_hard_and_uncensored_channels_remain) ... ok
+test_e3_planted_gains_and_global_zero (test_body.BodyProofs.test_e3_planted_gains_and_global_zero) ... FAIL
+test_eh6_planted_gains_and_periodic_hue (test_body.BodyProofs.test_eh6_planted_gains_and_periodic_hue) ... ok
+test_neutral_continuation_bounds_and_reject_nonfinite (test_body.BodyProofs.test_neutral_continuation_bounds_and_reject_nonfinite) ... ok
+test_o12_planted_recovery_local_rank_and_all_starts (test_body.BodyProofs.test_o12_planted_recovery_local_rank_and_all_starts) ... ok
+test_wrong_family_fails_one_code_with_independent_certificate (test_body.BodyProofs.test_wrong_family_fails_one_code_with_independent_certificate) ... ok
+test_all_censored_local_has_no_measured_rank_or_accuracy (test_boundaries.BoundaryProofs.test_all_censored_local_has_no_measured_rank_or_accuracy) ... ok
+test_both_rails_remain_hard_at_large_epsilon (test_boundaries.BoundaryProofs.test_both_rails_remain_hard_at_large_epsilon) ... ok
+test_gain_box_limits_are_certified_not_silently_relaxed (test_boundaries.BoundaryProofs.test_gain_box_limits_are_certified_not_silently_relaxed) ... ok
+test_local_censor_feasibility_not_reconstructed_rgb (test_boundaries.BoundaryProofs.test_local_censor_feasibility_not_reconstructed_rgb) ... ok
+test_per_channel_bar_and_gain_boundary_recovery (test_boundaries.BoundaryProofs.test_per_channel_bar_and_gain_boundary_recovery) ... ok
+test_six_dimensional_farkas_and_changed_system_refusal (test_boundaries.BoundaryProofs.test_six_dimensional_farkas_and_changed_system_refusal) ... ok
+test_deterministic_100_noisy_cases (test_noisy.NoisyProofs.test_deterministic_100_noisy_cases) ... NOISY_SWEEP {"cases": 100, "certifiedInfeasible": 95, "certifiedMinimax": 100, "forwardFeasible": 5, "minimaxUncertified": 0, "stalls": 0, "survivalUncertified": 0}
+ok
+test_noisy_observation_recovers_tiny_bound_weight (test_noisy.NoisyProofs.test_noisy_observation_recovers_tiny_bound_weight) ... ok
+test_recovery_exhaustion_is_explicit_not_a_negative (test_noisy.NoisyProofs.test_recovery_exhaustion_is_explicit_not_a_negative) ... ok
+
+======================================================================
+FAIL: test_e3_planted_gains_and_global_zero (test_body.BodyProofs.test_e3_planted_gains_and_global_zero)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g0/packages/calibration/results/2026-09-27-w41-g0-declaration/body-instrument/test_body.py", line 49, in test_e3_planted_gains_and_global_zero
+    self.assertLess(fit['upperCodes'], 1e-7)
+AssertionError: 6.403628717066567e-06 not less than 1e-07
+
+----------------------------------------------------------------------
+Ran 15 tests in 59.982s
+
+FAILED (failures=1)

@@ -1,0 +1,38 @@
+test_censors_are_hard_and_uncensored_channels_remain (__main__.BodyProofs.test_censors_are_hard_and_uncensored_channels_remain) ... ok
+test_e3_planted_gains_and_global_zero (__main__.BodyProofs.test_e3_planted_gains_and_global_zero) ... FAIL
+test_eh6_planted_gains_and_periodic_hue (__main__.BodyProofs.test_eh6_planted_gains_and_periodic_hue) ... ok
+test_neutral_continuation_bounds_and_reject_nonfinite (__main__.BodyProofs.test_neutral_continuation_bounds_and_reject_nonfinite) ... ok
+test_o12_planted_recovery_local_rank_and_all_starts (__main__.BodyProofs.test_o12_planted_recovery_local_rank_and_all_starts) ... ok
+test_wrong_family_fails_one_code_with_independent_certificate (__main__.BodyProofs.test_wrong_family_fails_one_code_with_independent_certificate) ... ok
+
+======================================================================
+FAIL: test_e3_planted_gains_and_global_zero (__main__.BodyProofs.test_e3_planted_gains_and_global_zero)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g0/packages/calibration/results/2026-09-27-w41-g0-declaration/body-instrument/test_body.py", line 42, in test_e3_planted_gains_and_global_zero
+    np.testing.assert_allclose(b.forward('E3', x, NEUTRAL, q), y, atol=1e-12)
+  File "/private/tmp/w39-g2-wgpu/lib/python3.12/site-packages/numpy/testing/_private/utils.py", line 1780, in assert_allclose
+    assert_array_compare(compare, actual, desired, err_msg=str(err_msg),
+  File "/private/tmp/w39-g2-wgpu/lib/python3.12/site-packages/numpy/testing/_private/utils.py", line 988, in assert_array_compare
+    raise AssertionError(msg)
+AssertionError: 
+Not equal to tolerance rtol=1e-07, atol=1e-12
+
+Mismatched elements: 3 / 126 (2.38%)
+Mismatch at indices:
+ [5, 0]: 88.02367741876043 (ACTUAL), 89.89929614787802 (DESIRED)
+ [5, 1]: 59.25005662487153 (ACTUAL), 61.12567535398912 (DESIRED)
+ [5, 2]: 83.58596888567624 (ACTUAL), 85.46158761479381 (DESIRED)
+Max absolute difference among violations: 1.87561873
+Max relative difference among violations: 0.03068463
+ ACTUAL: array([[ 85.748054,  90.408914,  78.899799],
+       [ 95.775616,  95.113233,  84.90824 ],
+       [ 89.246996,  88.73635 ,  83.686781],...
+ DESIRED: array([[ 85.748054,  90.408914,  78.899799],
+       [ 95.775616,  95.113233,  84.90824 ],
+       [ 89.246996,  88.73635 ,  83.686781],...
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.192s
+
+FAILED (failures=1)

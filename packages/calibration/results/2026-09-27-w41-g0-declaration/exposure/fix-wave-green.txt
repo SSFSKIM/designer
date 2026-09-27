@@ -1,0 +1,29 @@
+test_added_renderer_source_refused_before_begin (test_runner.ExposureTests.test_added_renderer_source_refused_before_begin) ... ok
+test_backend_failure_spends_scratch_and_retry_never_captures (test_runner.ExposureTests.test_backend_failure_spends_scratch_and_retry_never_captures) ... ok
+test_candidate_mapping_mutation_cannot_erase_required_scores (test_runner.ExposureTests.test_candidate_mapping_mutation_cannot_erase_required_scores) ... ok
+test_capture_and_callback_expected_hash_mutation_cannot_complete (test_runner.ExposureTests.test_capture_and_callback_expected_hash_mutation_cannot_complete) ... ok
+test_capture_and_score_are_inside_authorization_and_receipt_binds_renderer (test_runner.ExposureTests.test_capture_and_score_are_inside_authorization_and_receipt_binds_renderer) ... ok
+test_capture_backend_cannot_rewrite_manifest_hash (test_runner.ExposureTests.test_capture_backend_cannot_rewrite_manifest_hash) ... ok
+test_capture_mapping_mutation_cannot_replace_scored_image (test_runner.ExposureTests.test_capture_mapping_mutation_cannot_replace_scored_image) ... ok
+test_censored_holdout_summary_is_excluded_and_coverage_reported (test_runner.ExposureTests.test_censored_holdout_summary_is_excluded_and_coverage_reported) ... ok
+test_censoring_cannot_hide_an_uncensored_or_rail_failure (test_runner.ExposureTests.test_censoring_cannot_hide_an_uncensored_or_rail_failure) ... ok
+test_changed_render_refuses_even_if_projection_would_hide_it (test_runner.ExposureTests.test_changed_render_refuses_even_if_projection_would_hide_it) ... ok
+test_freeze_rejects_missing_predictions_and_nonfinite_payload (test_runner.ExposureTests.test_freeze_rejects_missing_predictions_and_nonfinite_payload) ... ok
+test_freeze_verification_failure_preserves_returned_score (test_runner.ExposureTests.test_freeze_verification_failure_preserves_returned_score) ... ok
+test_full_failed_score_is_fsynced_before_aggregation (test_runner.ExposureTests.test_full_failed_score_is_fsynced_before_aggregation) ... ok
+test_missing_native_score_is_not_closure (test_runner.ExposureTests.test_missing_native_score_is_not_closure) ... ok
+test_mutation_during_scoring_cannot_change_successful_capture (test_runner.ExposureTests.test_mutation_during_scoring_cannot_change_successful_capture) ... ok
+test_process_kill_after_score_persistence_retains_authoritative_report (test_runner.ExposureTests.test_process_kill_after_score_persistence_retains_authoritative_report) ... ok
+test_projection_mismatch_spends_attempt (test_runner.ExposureTests.test_projection_mismatch_spends_attempt) ... ok
+test_real_backend_launches_web_only_driver_inside_receipt (test_runner.ExposureTests.test_real_backend_launches_web_only_driver_inside_receipt) ... ok
+test_scorer_exception_has_failed_verdict_without_invented_scores (test_runner.ExposureTests.test_scorer_exception_has_failed_verdict_without_invented_scores) ... ok
+test_source_config_and_prediction_mutations_refused_before_begin (test_runner.ExposureTests.test_source_config_and_prediction_mutations_refused_before_begin) ... ok
+test_synthetic_mode_cannot_open_production_log (test_runner.ExposureTests.test_synthetic_mode_cannot_open_production_log) ... ok
+test_unmeasured_or_failed_score_never_closes (test_runner.ExposureTests.test_unmeasured_or_failed_score_never_closes) ... ok
+test_wrong_numerical_prediction_fails_even_with_matching_render (test_runner.ExposureTests.test_wrong_numerical_prediction_fails_even_with_matching_render) ... ok
+test_wrong_or_missing_capture_cells_spend_attempt (test_runner.ExposureTests.test_wrong_or_missing_capture_cells_spend_attempt) ... ok
+
+----------------------------------------------------------------------
+Ran 24 tests in 15.837s
+
+OK

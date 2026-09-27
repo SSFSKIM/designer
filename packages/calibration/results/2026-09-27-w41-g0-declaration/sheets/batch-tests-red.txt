@@ -1,0 +1,21 @@
+✖ G0 batch renders canonical cal/val only, never holdout, probe, or W39 pixels (5.728458ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 212.63575
+
+✖ failing tests:
+
+test at results/2026-09-27-w41-g0-declaration/sheets/render-calval.test.ts:1:314
+✖ G0 batch renders canonical cal/val only, never holdout, probe, or W39 pixels (5.728458ms)
+  Error: canonical calibration/validation batch not implemented
+      at renderCalval (/Users/new/vitrea-w41/g0/packages/calibration/results/2026-09-27-w41-g0-declaration/sheets/render-calval.ts:2:9)
+      at TestContext.<anonymous> (/Users/new/vitrea-w41/g0/packages/calibration/results/2026-09-27-w41-g0-declaration/sheets/render-calval.test.ts:38:26)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+      at Test.start (node:internal/test_runner/test:1191:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17)

@@ -1,0 +1,67 @@
+{
+  "schema": "w41-exposure-proof-index-1",
+  "snapshots": [
+    {
+      "path": "synthetic-check.json",
+      "sha256": "b0844e73c7cd8ecce9397daf74eec4b8169674c787478dcb8ccd83e4702d473c",
+      "bytes": 1414,
+      "provenance": {
+        "commit": "17e2fccc888a0ae5f6252d3cac73705a4245d86b",
+        "path": "packages/calibration/results/2026-09-27-w41-g0-declaration/exposure/synthetic-check.json",
+        "preservation": "byte-for-byte Git object snapshot"
+      }
+    },
+    {
+      "path": "synthetic-check.durability.json",
+      "sha256": "32c1fa98a82e07c5d31f848a1dde0286eec05a84e046d40ae2470a2a43b6c5fb",
+      "bytes": 2097,
+      "provenance": {
+        "commit": "33a8954fc157925e3de7918ce7567fee5941ef85",
+        "path": "packages/calibration/results/2026-09-27-w41-g0-declaration/exposure/synthetic-check.json",
+        "preservation": "byte-for-byte Git object snapshot"
+      }
+    },
+    {
+      "path": "synthetic-check.admission-runtime.json",
+      "sha256": "b4f99e1ee6ade96dd660a6b238864a5deb62470c0b06471940267ba24458614f",
+      "provenance": {
+        "baseCommit": "d420bdf7e1bcb18a24c63d35fd7fc1bee2d5d211",
+        "implementationHashes": {
+          "runner.py": "1913e0f5a88f89efc8e18b5134567af0f5e9b12a611370e7e31ea9281b9475bb",
+          "test_runner.py": "0012c6debaa6a14fe68acf68fa396dfeb399540a1b73099ca62d2b401321c855",
+          "manifest.schema.json": "a2763d4d828475bb9b0baf6407f73920c063b0d0f254070ab71b3299389b5fe2"
+        },
+        "command": "python3.12 -m unittest discover -s packages/calibration/results/2026-09-27-w41-g0-declaration/exposure -p test_runner.py -v",
+        "note": "Second fix-wave worktree proof; source/test/schema identified by hashes, not inferred from base commit."
+      }
+    }
+  ],
+  "transcripts": [
+    {
+      "path": "fix-wave-red.txt",
+      "sha256": "24580f987c63a0ca69391a598df67b5e71dbacccb349506c2d758bbf6f2cbdbd",
+      "meaning": "Durability wave RED"
+    },
+    {
+      "path": "fix-wave-green.txt",
+      "sha256": "90f9ee7a2647511597d92f058dd2b5ab98967a9530ca62dc4c0405b98ac6ab2e",
+      "meaning": "Durability wave GREEN"
+    },
+    {
+      "path": "admission-runtime-setup-red.txt",
+      "sha256": "b6414c04f81e3bbd4d3d273db2c8b090b2271218dbd9d277cd4a4e00162803bc",
+      "meaning": "Second wave initial fixture setup failure, not behavioral RED"
+    },
+    {
+      "path": "admission-runtime-red.txt",
+      "sha256": "2e6597e60e40c6476817150e1028d1a703fb67c71a7702d30e149809d8b977e6",
+      "meaning": "Second wave behavioral RED"
+    },
+    {
+      "path": "admission-runtime-green.txt",
+      "sha256": "ed6be0fec3d9372dd845f785234ebae9569bc43eb544fb01e049f3f13aef6825",
+      "meaning": "Second wave GREEN"
+    }
+  ],
+  "history": "The 33a8954f commit replaced the original synthetic-check.json. This index records its explicit restoration from 17e2fccc, retains the replacement verbatim under the durability name, and adds the admission/runtime proof without rewriting either historical snapshot."
+}

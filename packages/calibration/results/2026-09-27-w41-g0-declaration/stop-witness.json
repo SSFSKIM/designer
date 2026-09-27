@@ -1,0 +1,123 @@
+{
+  "source": "readings/stroke/shadow-reading.json",
+  "selection": {
+    "part": "straight",
+    "bin": 12,
+    "shell": 0
+  },
+  "note": "Copied existing exploratory reading, not a new native fit, reader replay or WGSL proof. Native and shadow are signed G departures from no-glass in encoded codes.",
+  "rows": [
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/g128-c-c44__rest",
+      "scheme": "dark",
+      "scale": 1,
+      "bg": "g128",
+      "part": "straight",
+      "bin": 12,
+      "shell": 0,
+      "native": 0.0,
+      "shadow": -0.008251063931515683,
+      "residual": 0.008251063931515683,
+      "sigma": 2.7219999999999995,
+      "alpha": 0.009065342667103682
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/g255-c-c44__rest",
+      "scheme": "dark",
+      "scale": 1,
+      "bg": "g255",
+      "part": "straight",
+      "bin": 12,
+      "shell": 0,
+      "native": 0.0,
+      "shadow": -0.01905435657363449,
+      "residual": 0.01905435657363449,
+      "sigma": 2.7219999999999995,
+      "alpha": 0.010508442449425726
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g128-c-c44__rest",
+      "scheme": "light",
+      "scale": 1,
+      "bg": "g128",
+      "part": "straight",
+      "bin": 12,
+      "shell": 0,
+      "native": -20.0,
+      "shadow": -8.627288557588467e-05,
+      "residual": -19.999913727114425,
+      "sigma": 2.127200000000001,
+      "alpha": 0.010874748132457923
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g255-c-c44__rest",
+      "scheme": "light",
+      "scale": 1,
+      "bg": "g255",
+      "part": "straight",
+      "bin": 12,
+      "shell": 0,
+      "native": -20.0,
+      "shadow": -0.00016078217910797256,
+      "residual": -19.99983921782089,
+      "sigma": 2.127200000000001,
+      "alpha": 0.010173082878316753
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/g128-c-c44__rest",
+      "scheme": "dark",
+      "scale": 2,
+      "bg": "g128",
+      "part": "straight",
+      "bin": 12,
+      "shell": 0,
+      "native": 0.0,
+      "shadow": -0.010673754022677909,
+      "residual": 0.010673754022677909,
+      "sigma": 2.7219999999999995,
+      "alpha": 0.009065342667103682
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/g255-c-c44__rest",
+      "scheme": "dark",
+      "scale": 2,
+      "bg": "g255",
+      "part": "straight",
+      "bin": 12,
+      "shell": 0,
+      "native": 0.0,
+      "shadow": -0.024649126078218394,
+      "residual": 0.024649126078218394,
+      "sigma": 2.7219999999999995,
+      "alpha": 0.010508442449425726
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-c44__rest",
+      "scheme": "light",
+      "scale": 2,
+      "bg": "g128",
+      "part": "straight",
+      "bin": 12,
+      "shell": 0,
+      "native": -20.0,
+      "shadow": -0.0001462730300330069,
+      "residual": -19.999853726969967,
+      "sigma": 2.127200000000001,
+      "alpha": 0.010874748132457923
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g255-c-c44__rest",
+      "scheme": "light",
+      "scale": 2,
+      "bg": "g255",
+      "part": "straight",
+      "bin": 12,
+      "shell": 0,
+      "native": -20.0,
+      "shadow": -0.00027260125074576874,
+      "residual": -19.999727398749254,
+      "sigma": 2.127200000000001,
+      "alpha": 0.010173082878316753
+    }
+  ]
+}

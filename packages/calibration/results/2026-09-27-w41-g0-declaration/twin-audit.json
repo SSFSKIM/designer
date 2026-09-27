@@ -1,0 +1,5634 @@
+{
+  "schema": "w41-twin-audit-1",
+  "nativePayloadsOpened": 0,
+  "nativeFits": 0,
+  "sourceSha256": {
+    "readings/body/h3.json": "2ba36af139a0d696ae716384d2ebf1d734507f912cc4f7d694e4e246ea3bb705",
+    "readings/body/exploratory.json": "bec54cffe755f5f88cdbf5ac3b9fcf7064ffff4eeb95b164ac8dbc85ad82ef4b",
+    "readings/body/readings.json": "b68f0d426ceccaf00718bd11493a7426b4ada719f6256abdb9e6278970ef8fb6"
+  },
+  "body": [
+    {
+      "pair": [
+        "B0",
+        "B1"
+      ],
+      "commonCells": 404,
+      "thresholdCodes": 3,
+      "separatorCells": 162,
+      "bridgeOnly": false,
+      "maximum": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/green-colour__rest",
+        "channel": "B",
+        "separationCodes": 21.149239779157888,
+        "predictions": [
+          42.13885003870187,
+          20.98961025954398
+        ],
+        "bridge": true
+      },
+      "ordinaryMaximum": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-2-colour__rest",
+        "channel": "R",
+        "separationCodes": 20.322433259299743,
+        "predictions": [
+          66.86114996129814,
+          87.18358322059788
+        ],
+        "bridge": false
+      },
+      "witnesses": [
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h120-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.357251047962393,
+          "predictions": [
+            90.82987720171931,
+            87.47262615375692
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h180-colour__inactive",
+          "channel": "R",
+          "separationCodes": 4.217377321527152,
+          "predictions": [
+            67.14542722198242,
+            71.36280454350957
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h180-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.5731144661264267,
+          "predictions": [
+            76.81491678817568,
+            80.3880312543021
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h240-colour__inactive",
+          "channel": "R",
+          "separationCodes": 4.869934599612904,
+          "predictions": [
+            68.82298246190739,
+            73.69291706152029
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h240-colour__rest",
+          "channel": "R",
+          "separationCodes": 7.154153164919364,
+          "predictions": [
+            75.5573885585027,
+            82.71154172342206
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h300-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.679172219147844,
+          "predictions": [
+            86.22318429271428,
+            89.90235651186212
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h60-colour__inactive",
+          "channel": "R",
+          "separationCodes": 3.6328523557430543,
+          "predictions": [
+            89.31468862874534,
+            85.68183627300229
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h60-colour__rest",
+          "channel": "R",
+          "separationCodes": 5.294862435909806,
+          "predictions": [
+            99.95821927659028,
+            94.66335684068048
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h0-colour__inactive",
+          "channel": "R",
+          "separationCodes": 4.670258463013326,
+          "predictions": [
+            98.78391604867994,
+            94.11365758566662
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h0-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.718005974395311,
+          "predictions": [
+            106.78693267948054,
+            103.06892670508523
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h120-colour__inactive",
+          "channel": "B",
+          "separationCodes": 3.5374014095172726,
+          "predictions": [
+            68.86267019084079,
+            65.32526878132352
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h120-colour__rest",
+          "channel": "R",
+          "separationCodes": 6.634282788559133,
+          "predictions": [
+            92.89200042731103,
+            86.2577176387519
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h180-colour__inactive",
+          "channel": "R",
+          "separationCodes": 11.684227925023905,
+          "predictions": [
+            51.353881161995204,
+            63.03810908701911
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h180-colour__rest",
+          "channel": "R",
+          "separationCodes": 9.679721174279585,
+          "predictions": [
+            62.40884133432464,
+            72.08856250860423
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h240-colour__inactive",
+          "channel": "R",
+          "separationCodes": 13.398354186746978,
+          "predictions": [
+            53.18885660359131,
+            66.58721079033829
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h240-colour__rest",
+          "channel": "R",
+          "separationCodes": 19.15490929611333,
+          "predictions": [
+            56.47212162937045,
+            75.62703092548378
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h300-colour__inactive",
+          "channel": "B",
+          "separationCodes": 3.9139686386863417,
+          "predictions": [
+            90.05454326885446,
+            93.9685119075408
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h300-colour__rest",
+          "channel": "R",
+          "separationCodes": 6.907182408409241,
+          "predictions": [
+            85.31883644777072,
+            92.22601885617996
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h60-colour__inactive",
+          "channel": "R",
+          "separationCodes": 6.497882187929804,
+          "predictions": [
+            98.17405473393438,
+            91.67617254600458
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h60-colour__rest",
+          "channel": "R",
+          "separationCodes": 9.42087488363029,
+          "predictions": [
+            110.06008856499125,
+            100.63921368136096
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c12-h120-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.130754180420567,
+          "predictions": [
+            113.3375865993176,
+            110.20683241889704
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c12-h240-colour__inactive",
+          "channel": "R",
+          "separationCodes": 3.4786506895847538,
+          "predictions": [
+            92.76915343581311,
+            96.24780412539786
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c12-h240-colour__rest",
+          "channel": "R",
+          "separationCodes": 5.298365381270884,
+          "predictions": [
+            99.0294463596298,
+            104.32781174090069
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c12-h300-colour__inactive",
+          "channel": "B",
+          "separationCodes": 3.3383960284013767,
+          "predictions": [
+            108.56346548704032,
+            111.9018615154417
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c12-h300-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.843104934577454,
+          "predictions": [
+            108.7887105885711,
+            112.63181552314856
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c12-h60-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.915957819766362,
+          "predictions": [
+            122.45972539385811,
+            118.54376757409175
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h120-colour__inactive",
+          "channel": "B",
+          "separationCodes": 5.095187074362158,
+          "predictions": [
+            92.78007996427728,
+            87.68489288991512
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h120-colour__rest",
+          "channel": "R",
+          "separationCodes": 6.795554160828033,
+          "predictions": [
+            115.80836283464528,
+            109.01280867381725
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h180-colour__inactive",
+          "channel": "R",
+          "separationCodes": 8.296856219841345,
+          "predictions": [
+            77.17340188210346,
+            85.47025810194481
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h180-colour__rest",
+          "channel": "R",
+          "separationCodes": 5.728776872495203,
+          "predictions": [
+            87.94037513987546,
+            93.66915201237066
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h240-colour__inactive",
+          "channel": "R",
+          "separationCodes": 9.728994791060913,
+          "predictions": [
+            79.32996202978556,
+            89.05895682084648
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h240-colour__rest",
+          "channel": "R",
+          "separationCodes": 13.269211260190204,
+          "predictions": [
+            83.94926117787998,
+            97.21847243807018
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h300-colour__inactive",
+          "channel": "B",
+          "separationCodes": 6.171003843434306,
+          "predictions": [
+            112.90283861577616,
+            119.07384245921047
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h300-colour__rest",
+          "channel": "R",
+          "separationCodes": 6.8923494895496304,
+          "predictions": [
+            108.05619654527761,
+            114.94854603482725
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h60-colour__inactive",
+          "channel": "B",
+          "separationCodes": 5.233875251799915,
+          "predictions": [
+            92.96503121045244,
+            87.73115595865252
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h60-colour__rest",
+          "channel": "R",
+          "separationCodes": 7.37913820400091,
+          "predictions": [
+            131.98528348022066,
+            124.60614527621975
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c12-h120-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.0453640631167787,
+          "predictions": [
+            128.73966728936867,
+            125.69430322625189
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c12-h240-colour__inactive",
+          "channel": "R",
+          "separationCodes": 3.59545480442371,
+          "predictions": [
+            110.3203430329062,
+            113.9157978373299
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c12-h240-colour__rest",
+          "channel": "R",
+          "separationCodes": 4.616142027154638,
+          "predictions": [
+            116.7349466019474,
+            121.35108862910204
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c12-h60-colour__inactive",
+          "channel": "R",
+          "separationCodes": 3.0830221983281803,
+          "predictions": [
+            130.1767349489663,
+            127.09371275063812
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c12-h60-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.825466916609173,
+          "predictions": [
+            138.34661747758835,
+            134.52115056097918
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h120-colour__inactive",
+          "channel": "B",
+          "separationCodes": 5.0107078885742595,
+          "predictions": [
+            110.33082562186638,
+            105.32011773329212
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h120-colour__rest",
+          "channel": "R",
+          "separationCodes": 6.148137100470876,
+          "predictions": [
+            130.76719505020773,
+            124.61905794973686
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h180-colour__inactive",
+          "channel": "R",
+          "separationCodes": 6.4743325273750685,
+          "predictions": [
+            96.81888253447433,
+            103.2932150618494
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h180-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.7765265132946126,
+          "predictions": [
+            106.99723187174585,
+            110.77375838504047
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h240-colour__inactive",
+          "channel": "R",
+          "separationCodes": 8.561887149842704,
+          "predictions": [
+            97.92312845515744,
+            106.48501560500014
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h240-colour__rest",
+          "channel": "R",
+          "separationCodes": 10.798740622238157,
+          "predictions": [
+            103.15278609486386,
+            113.95152671710201
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h300-colour__inactive",
+          "channel": "B",
+          "separationCodes": 5.365632873173666,
+          "predictions": [
+            129.35519062592994,
+            134.7208234991036
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h300-colour__rest",
+          "channel": "R",
+          "separationCodes": 6.602901295538658,
+          "predictions": [
+            123.66058617035728,
+            130.26348746589593
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h60-colour__inactive",
+          "channel": "R",
+          "separationCodes": 5.187002522727653,
+          "predictions": [
+            137.76147897985533,
+            132.57447645712767
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h60-colour__rest",
+          "channel": "R",
+          "separationCodes": 6.803980877585985,
+          "predictions": [
+            146.7986472553711,
+            139.9946663777851
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/green-colour__inactive",
+          "channel": "B",
+          "separationCodes": 18.89638598566922,
+          "predictions": [
+            33.47086244279689,
+            14.574476457127673
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/green-colour__rest",
+          "channel": "B",
+          "separationCodes": 21.149239779157888,
+          "predictions": [
+            42.13885003870187,
+            20.98961025954398
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-0-colour__inactive",
+          "channel": "B",
+          "separationCodes": 9.469607855916465,
+          "predictions": [
+            109.41841581865596,
+            118.88802367457242
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-0-colour__rest",
+          "channel": "R",
+          "separationCodes": 10.2015155741679,
+          "predictions": [
+            105.30008613964841,
+            115.50160171381631
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-1-colour__inactive",
+          "channel": "B",
+          "separationCodes": 9.21085354998553,
+          "predictions": [
+            83.7853300071132,
+            74.57447645712767
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-1-colour__rest",
+          "channel": "R",
+          "separationCodes": 12.578723402059424,
+          "predictions": [
+            119.12701134984836,
+            106.54828794778894
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-2-colour__inactive",
+          "channel": "R",
+          "separationCodes": 17.36970728056739,
+          "predictions": [
+            61.52913755720311,
+            78.8988448377705
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-2-colour__rest",
+          "channel": "R",
+          "separationCodes": 20.322433259299743,
+          "predictions": [
+            66.86114996129814,
+            87.18358322059788
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-3-colour__inactive",
+          "channel": "B",
+          "separationCodes": 7.4576487132256375,
+          "predictions": [
+            84.31556916051645,
+            76.85792044729081
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-3-colour__rest",
+          "channel": "R",
+          "separationCodes": 10.749733122996773,
+          "predictions": [
+            131.73058107026077,
+            120.980847947264
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-4-colour__inactive",
+          "channel": "R",
+          "separationCodes": 16.145239972740683,
+          "predictions": [
+            59.52913797461258,
+            75.67437794735326
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-4-colour__rest",
+          "channel": "R",
+          "separationCodes": 8.89719756113955,
+          "predictions": [
+            75.08936497673686,
+            83.98656253787641
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-5-colour__inactive",
+          "channel": "B",
+          "separationCodes": 4.129807878818198,
+          "predictions": [
+            102.2238775374545,
+            106.3536854162727
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-5-colour__rest",
+          "channel": "B",
+          "separationCodes": 4.5332392532787935,
+          "predictions": [
+            110.35195770942755,
+            114.88519696270635
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/red-colour__inactive",
+          "channel": "R",
+          "separationCodes": 16.04533889992456,
+          "predictions": [
+            216.52913755720311,
+            232.57447645712767
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/red-colour__rest",
+          "channel": "R",
+          "separationCodes": 19.128460298245784,
+          "predictions": [
+            221.86114996129814,
+            240.98961025954392
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c24-h240-colour__inactive",
+          "channel": "G",
+          "separationCodes": 3.0040854474341927,
+          "predictions": [
+            182.9504642972263,
+            185.95454974466048
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/green-colour__inactive",
+          "channel": "G",
+          "separationCodes": 3.48267757441306,
+          "predictions": [
+            234.81460773944838,
+            238.29728531386144
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/green-colour__rest",
+          "channel": "B",
+          "separationCodes": 4.537375073245883,
+          "predictions": [
+            92.0809173583983,
+            96.61829243164418
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-0-colour__inactive",
+          "channel": "R",
+          "separationCodes": 3.849510823211176,
+          "predictions": [
+            174.88942984563613,
+            178.7389406688473
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-0-colour__rest",
+          "channel": "B",
+          "separationCodes": 4.537375073245869,
+          "predictions": [
+            188.08091735839832,
+            192.6182924316442
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-1-colour__inactive",
+          "channel": "R",
+          "separationCodes": 3.210899042831727,
+          "predictions": [
+            172.11811592088299,
+            168.90721687805126
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-1-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.9427897376525323,
+          "predictions": [
+            177.91906248542045,
+            173.97627274776792
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-2-colour__inactive",
+          "channel": "G",
+          "separationCodes": 3.6334181800804686,
+          "predictions": [
+            170.0616748944375,
+            173.69509307451796
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-2-colour__rest",
+          "channel": "G",
+          "separationCodes": 3.1224105657018413,
+          "predictions": [
+            175.4597040497381,
+            178.58211461543993
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-3-colour__inactive",
+          "channel": "G",
+          "separationCodes": 3.7386975621037664,
+          "predictions": [
+            175.25912814839958,
+            171.52043058629582
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-3-colour__rest",
+          "channel": "G",
+          "separationCodes": 3.3301825781204855,
+          "predictions": [
+            179.85748563772543,
+            176.52730305960495
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-4-colour__inactive",
+          "channel": "B",
+          "separationCodes": 3.8212264902946913,
+          "predictions": [
+            174.1819762421593,
+            170.3607497518646
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-5-colour__inactive",
+          "channel": "B",
+          "separationCodes": 4.2321987326102715,
+          "predictions": [
+            173.81461400072916,
+            178.04681273333944
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-5-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.8987514199648956,
+          "predictions": [
+            188.08091735839832,
+            191.97966877836322
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c12-h120-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.357251047962393,
+          "predictions": [
+            90.82987720171931,
+            87.47262615375692
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c12-h180-colour__inactive",
+          "channel": "R",
+          "separationCodes": 4.217377321527152,
+          "predictions": [
+            67.14542722198242,
+            71.36280454350957
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c12-h180-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.5731144661264267,
+          "predictions": [
+            76.81491678817568,
+            80.3880312543021
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c12-h240-colour__inactive",
+          "channel": "R",
+          "separationCodes": 4.869934599612904,
+          "predictions": [
+            68.82298246190739,
+            73.69291706152029
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c12-h240-colour__rest",
+          "channel": "R",
+          "separationCodes": 7.154153164919364,
+          "predictions": [
+            75.5573885585027,
+            82.71154172342206
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c12-h300-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.679172219147844,
+          "predictions": [
+            86.22318429271428,
+            89.90235651186212
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c12-h60-colour__inactive",
+          "channel": "R",
+          "separationCodes": 3.6328523557430543,
+          "predictions": [
+            89.31468862874534,
+            85.68183627300229
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c12-h60-colour__rest",
+          "channel": "R",
+          "separationCodes": 5.294862435909806,
+          "predictions": [
+            99.95821927659028,
+            94.66335684068048
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h0-colour__inactive",
+          "channel": "R",
+          "separationCodes": 4.670258463013326,
+          "predictions": [
+            98.78391604867994,
+            94.11365758566662
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h0-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.718005974395311,
+          "predictions": [
+            106.78693267948054,
+            103.06892670508523
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h120-colour__inactive",
+          "channel": "B",
+          "separationCodes": 3.5374014095172726,
+          "predictions": [
+            68.86267019084079,
+            65.32526878132352
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h120-colour__rest",
+          "channel": "R",
+          "separationCodes": 6.634282788559133,
+          "predictions": [
+            92.89200042731103,
+            86.2577176387519
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h180-colour__inactive",
+          "channel": "R",
+          "separationCodes": 11.684227925023905,
+          "predictions": [
+            51.353881161995204,
+            63.03810908701911
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h180-colour__rest",
+          "channel": "R",
+          "separationCodes": 9.679721174279585,
+          "predictions": [
+            62.40884133432464,
+            72.08856250860423
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h240-colour__inactive",
+          "channel": "R",
+          "separationCodes": 13.398354186746978,
+          "predictions": [
+            53.18885660359131,
+            66.58721079033829
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h240-colour__rest",
+          "channel": "R",
+          "separationCodes": 19.15490929611333,
+          "predictions": [
+            56.47212162937045,
+            75.62703092548378
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h300-colour__inactive",
+          "channel": "B",
+          "separationCodes": 3.9139686386863417,
+          "predictions": [
+            90.05454326885446,
+            93.9685119075408
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h300-colour__rest",
+          "channel": "R",
+          "separationCodes": 6.907182408409241,
+          "predictions": [
+            85.31883644777072,
+            92.22601885617996
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h60-colour__inactive",
+          "channel": "R",
+          "separationCodes": 6.497882187929804,
+          "predictions": [
+            98.17405473393438,
+            91.67617254600458
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h60-colour__rest",
+          "channel": "R",
+          "separationCodes": 9.42087488363029,
+          "predictions": [
+            110.06008856499125,
+            100.63921368136096
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c12-h120-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.130754180420567,
+          "predictions": [
+            113.3375865993176,
+            110.20683241889704
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c12-h240-colour__inactive",
+          "channel": "R",
+          "separationCodes": 3.4786506895847538,
+          "predictions": [
+            92.76915343581311,
+            96.24780412539786
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c12-h240-colour__rest",
+          "channel": "R",
+          "separationCodes": 5.298365381270884,
+          "predictions": [
+            99.0294463596298,
+            104.32781174090069
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c12-h300-colour__inactive",
+          "channel": "B",
+          "separationCodes": 3.3383960284013767,
+          "predictions": [
+            108.56346548704032,
+            111.9018615154417
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c12-h300-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.843104934577454,
+          "predictions": [
+            108.7887105885711,
+            112.63181552314856
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c12-h60-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.915957819766362,
+          "predictions": [
+            122.45972539385811,
+            118.54376757409175
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h120-colour__inactive",
+          "channel": "B",
+          "separationCodes": 5.095187074362158,
+          "predictions": [
+            92.78007996427728,
+            87.68489288991512
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h120-colour__rest",
+          "channel": "R",
+          "separationCodes": 6.795554160828033,
+          "predictions": [
+            115.80836283464528,
+            109.01280867381725
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h180-colour__inactive",
+          "channel": "R",
+          "separationCodes": 8.296856219841345,
+          "predictions": [
+            77.17340188210346,
+            85.47025810194481
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h180-colour__rest",
+          "channel": "R",
+          "separationCodes": 5.728776872495203,
+          "predictions": [
+            87.94037513987546,
+            93.66915201237066
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h240-colour__inactive",
+          "channel": "R",
+          "separationCodes": 9.728994791060913,
+          "predictions": [
+            79.32996202978556,
+            89.05895682084648
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h240-colour__rest",
+          "channel": "R",
+          "separationCodes": 13.269211260190204,
+          "predictions": [
+            83.94926117787998,
+            97.21847243807018
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h300-colour__inactive",
+          "channel": "B",
+          "separationCodes": 6.171003843434306,
+          "predictions": [
+            112.90283861577616,
+            119.07384245921047
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h300-colour__rest",
+          "channel": "R",
+          "separationCodes": 6.8923494895496304,
+          "predictions": [
+            108.05619654527761,
+            114.94854603482725
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h60-colour__inactive",
+          "channel": "B",
+          "separationCodes": 5.233875251799915,
+          "predictions": [
+            92.96503121045244,
+            87.73115595865252
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h60-colour__rest",
+          "channel": "R",
+          "separationCodes": 7.37913820400091,
+          "predictions": [
+            131.98528348022066,
+            124.60614527621975
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c12-h120-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.0453640631167787,
+          "predictions": [
+            128.73966728936867,
+            125.69430322625189
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c12-h240-colour__inactive",
+          "channel": "R",
+          "separationCodes": 3.59545480442371,
+          "predictions": [
+            110.3203430329062,
+            113.9157978373299
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c12-h240-colour__rest",
+          "channel": "R",
+          "separationCodes": 4.616142027154638,
+          "predictions": [
+            116.7349466019474,
+            121.35108862910204
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c12-h60-colour__inactive",
+          "channel": "R",
+          "separationCodes": 3.0830221983281803,
+          "predictions": [
+            130.1767349489663,
+            127.09371275063812
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c12-h60-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.825466916609173,
+          "predictions": [
+            138.34661747758835,
+            134.52115056097918
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h120-colour__inactive",
+          "channel": "B",
+          "separationCodes": 5.0107078885742595,
+          "predictions": [
+            110.33082562186638,
+            105.32011773329212
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h120-colour__rest",
+          "channel": "R",
+          "separationCodes": 6.148137100470876,
+          "predictions": [
+            130.76719505020773,
+            124.61905794973686
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h180-colour__inactive",
+          "channel": "R",
+          "separationCodes": 6.4743325273750685,
+          "predictions": [
+            96.81888253447433,
+            103.2932150618494
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h180-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.7765265132946126,
+          "predictions": [
+            106.99723187174585,
+            110.77375838504047
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h240-colour__inactive",
+          "channel": "R",
+          "separationCodes": 8.561887149842704,
+          "predictions": [
+            97.92312845515744,
+            106.48501560500014
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h240-colour__rest",
+          "channel": "R",
+          "separationCodes": 10.798740622238157,
+          "predictions": [
+            103.15278609486386,
+            113.95152671710201
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h300-colour__inactive",
+          "channel": "B",
+          "separationCodes": 5.365632873173666,
+          "predictions": [
+            129.35519062592994,
+            134.7208234991036
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h300-colour__rest",
+          "channel": "R",
+          "separationCodes": 6.602901295538658,
+          "predictions": [
+            123.66058617035728,
+            130.26348746589593
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h60-colour__inactive",
+          "channel": "R",
+          "separationCodes": 5.187002522727653,
+          "predictions": [
+            137.76147897985533,
+            132.57447645712767
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h60-colour__rest",
+          "channel": "R",
+          "separationCodes": 6.803980877585985,
+          "predictions": [
+            146.7986472553711,
+            139.9946663777851
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/green-colour__inactive",
+          "channel": "B",
+          "separationCodes": 18.89638598566922,
+          "predictions": [
+            33.47086244279689,
+            14.574476457127673
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/green-colour__rest",
+          "channel": "B",
+          "separationCodes": 21.149239779157888,
+          "predictions": [
+            42.13885003870187,
+            20.98961025954398
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-0-colour__inactive",
+          "channel": "B",
+          "separationCodes": 9.469607855916465,
+          "predictions": [
+            109.41841581865596,
+            118.88802367457242
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-0-colour__rest",
+          "channel": "R",
+          "separationCodes": 10.2015155741679,
+          "predictions": [
+            105.30008613964841,
+            115.50160171381631
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-1-colour__inactive",
+          "channel": "B",
+          "separationCodes": 9.21085354998553,
+          "predictions": [
+            83.7853300071132,
+            74.57447645712767
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-1-colour__rest",
+          "channel": "R",
+          "separationCodes": 12.578723402059424,
+          "predictions": [
+            119.12701134984836,
+            106.54828794778894
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-2-colour__inactive",
+          "channel": "R",
+          "separationCodes": 17.36970728056739,
+          "predictions": [
+            61.52913755720311,
+            78.8988448377705
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-2-colour__rest",
+          "channel": "R",
+          "separationCodes": 20.322433259299743,
+          "predictions": [
+            66.86114996129814,
+            87.18358322059788
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-3-colour__inactive",
+          "channel": "B",
+          "separationCodes": 7.4576487132256375,
+          "predictions": [
+            84.31556916051645,
+            76.85792044729081
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-3-colour__rest",
+          "channel": "R",
+          "separationCodes": 10.749733122996773,
+          "predictions": [
+            131.73058107026077,
+            120.980847947264
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-4-colour__inactive",
+          "channel": "R",
+          "separationCodes": 16.145239972740683,
+          "predictions": [
+            59.52913797461258,
+            75.67437794735326
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-4-colour__rest",
+          "channel": "R",
+          "separationCodes": 8.89719756113955,
+          "predictions": [
+            75.08936497673686,
+            83.98656253787641
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-5-colour__inactive",
+          "channel": "B",
+          "separationCodes": 4.129807878818198,
+          "predictions": [
+            102.2238775374545,
+            106.3536854162727
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-5-colour__rest",
+          "channel": "B",
+          "separationCodes": 4.5332392532787935,
+          "predictions": [
+            110.35195770942755,
+            114.88519696270635
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/red-colour__inactive",
+          "channel": "R",
+          "separationCodes": 16.04533889992456,
+          "predictions": [
+            216.52913755720311,
+            232.57447645712767
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/red-colour__rest",
+          "channel": "R",
+          "separationCodes": 19.128460298245784,
+          "predictions": [
+            221.86114996129814,
+            240.98961025954392
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y2-c24-h240-colour__inactive",
+          "channel": "G",
+          "separationCodes": 3.0040854474341927,
+          "predictions": [
+            182.9504642972263,
+            185.95454974466048
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/green-colour__inactive",
+          "channel": "G",
+          "separationCodes": 3.48267757441306,
+          "predictions": [
+            234.81460773944838,
+            238.29728531386144
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/green-colour__rest",
+          "channel": "B",
+          "separationCodes": 4.537375073245883,
+          "predictions": [
+            92.0809173583983,
+            96.61829243164418
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-0-colour__inactive",
+          "channel": "R",
+          "separationCodes": 3.849510823211176,
+          "predictions": [
+            174.88942984563613,
+            178.7389406688473
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-0-colour__rest",
+          "channel": "B",
+          "separationCodes": 4.537375073245869,
+          "predictions": [
+            188.08091735839832,
+            192.6182924316442
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-1-colour__inactive",
+          "channel": "R",
+          "separationCodes": 3.210899042831727,
+          "predictions": [
+            172.11811592088299,
+            168.90721687805126
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-1-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.9427897376525323,
+          "predictions": [
+            177.91906248542045,
+            173.97627274776792
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-2-colour__inactive",
+          "channel": "G",
+          "separationCodes": 3.6334181800804686,
+          "predictions": [
+            170.0616748944375,
+            173.69509307451796
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-2-colour__rest",
+          "channel": "G",
+          "separationCodes": 3.1224105657018413,
+          "predictions": [
+            175.4597040497381,
+            178.58211461543993
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-3-colour__inactive",
+          "channel": "G",
+          "separationCodes": 3.7386975621037664,
+          "predictions": [
+            175.25912814839958,
+            171.52043058629582
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-3-colour__rest",
+          "channel": "G",
+          "separationCodes": 3.3301825781204855,
+          "predictions": [
+            179.85748563772543,
+            176.52730305960495
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-4-colour__inactive",
+          "channel": "B",
+          "separationCodes": 3.8212264902946913,
+          "predictions": [
+            174.1819762421593,
+            170.3607497518646
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-5-colour__inactive",
+          "channel": "B",
+          "separationCodes": 4.2321987326102715,
+          "predictions": [
+            173.81461400072916,
+            178.04681273333944
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-5-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.8987514199648956,
+          "predictions": [
+            188.08091735839832,
+            191.97966877836322
+          ],
+          "bridge": false
+        }
+      ],
+      "verdict": "separates these exploratory instances",
+      "limitation": "No survival implied; B0 excluded whole censored cells; O12 was an unbounded local LS exploratory candidate, not the declared bounded G1 fit."
+    },
+    {
+      "pair": [
+        "B0",
+        "B2"
+      ],
+      "commonCells": 404,
+      "thresholdCodes": 3,
+      "separatorCells": 162,
+      "bridgeOnly": false,
+      "maximum": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/green-colour__rest",
+        "channel": "B",
+        "separationCodes": 22.532827488776896,
+        "predictions": [
+          42.13885003870187,
+          19.606022549924973
+        ],
+        "bridge": true
+      },
+      "ordinaryMaximum": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-2-colour__rest",
+        "channel": "R",
+        "separationCodes": 22.53282748877689,
+        "predictions": [
+          66.86114996129814,
+          89.39397745007503
+        ],
+        "bridge": false
+      },
+      "witnesses": [
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h120-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.246540713993113,
+          "predictions": [
+            90.82987720171931,
+            87.5833364877262
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h180-colour__inactive",
+          "channel": "R",
+          "separationCodes": 5.010928443061417,
+          "predictions": [
+            67.14542722198242,
+            72.15635566504383
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h180-colour__rest",
+          "channel": "R",
+          "separationCodes": 4.251733399649069,
+          "predictions": [
+            76.81491678817568,
+            81.06665018782475
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h240-colour__inactive",
+          "channel": "R",
+          "separationCodes": 5.3284208572169405,
+          "predictions": [
+            68.82298246190739,
+            74.15140331912433
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h240-colour__rest",
+          "channel": "R",
+          "separationCodes": 7.772476010486585,
+          "predictions": [
+            75.5573885585027,
+            83.32986456898928
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h300-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.8076042894426507,
+          "predictions": [
+            86.22318429271428,
+            90.03078858215693
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h60-colour__inactive",
+          "channel": "R",
+          "separationCodes": 3.7446932619115643,
+          "predictions": [
+            89.31468862874534,
+            85.56999536683378
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h60-colour__rest",
+          "channel": "R",
+          "separationCodes": 4.849356495173964,
+          "predictions": [
+            99.95821927659028,
+            95.10886278141632
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h0-colour__inactive",
+          "channel": "R",
+          "separationCodes": 4.497744644861456,
+          "predictions": [
+            98.78391604867994,
+            94.28617140381849
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h0-colour__rest",
+          "channel": "R",
+          "separationCodes": 4.865478918174659,
+          "predictions": [
+            106.78693267948054,
+            101.92145376130588
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h120-colour__rest",
+          "channel": "R",
+          "separationCodes": 6.412746259878659,
+          "predictions": [
+            92.89200042731103,
+            86.47925416743237
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h180-colour__inactive",
+          "channel": "R",
+          "separationCodes": 13.275153654274604,
+          "predictions": [
+            51.353881161995204,
+            64.62903481626981
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h180-colour__rest",
+          "channel": "R",
+          "separationCodes": 11.031002346296297,
+          "predictions": [
+            62.40884133432464,
+            73.43984368062094
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h240-colour__inactive",
+          "channel": "R",
+          "separationCodes": 14.388590077462545,
+          "predictions": [
+            53.18885660359131,
+            67.57744668105386
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h240-colour__rest",
+          "channel": "R",
+          "separationCodes": 20.568284114387353,
+          "predictions": [
+            56.47212162937045,
+            77.0404057437578
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h300-colour__rest",
+          "channel": "R",
+          "separationCodes": 7.256967249861319,
+          "predictions": [
+            85.31883644777072,
+            92.57580369763204
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h60-colour__inactive",
+          "channel": "R",
+          "separationCodes": 6.713966922024497,
+          "predictions": [
+            98.17405473393438,
+            91.46008781190989
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h60-colour__rest",
+          "channel": "R",
+          "separationCodes": 8.51359330475799,
+          "predictions": [
+            110.06008856499125,
+            101.54649526023326
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c12-h120-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.0134833131787815,
+          "predictions": [
+            113.3375865993176,
+            110.32410328613882
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c12-h180-colour__inactive",
+          "channel": "R",
+          "separationCodes": 3.3898542527955016,
+          "predictions": [
+            92.52296237035236,
+            95.91281662314786
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c12-h240-colour__inactive",
+          "channel": "R",
+          "separationCodes": 4.113241944669014,
+          "predictions": [
+            92.76915343581311,
+            96.88239538048212
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c12-h240-colour__rest",
+          "channel": "R",
+          "separationCodes": 6.12831633229483,
+          "predictions": [
+            99.0294463596298,
+            105.15776269192463
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c12-h300-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.949408198834078,
+          "predictions": [
+            108.7887105885711,
+            112.73811878740518
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c12-h60-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.432284119963228,
+          "predictions": [
+            122.45972539385811,
+            119.02744127389488
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h120-colour__inactive",
+          "channel": "B",
+          "separationCodes": 3.4343007642916064,
+          "predictions": [
+            92.78007996427728,
+            89.34577919998567
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h120-colour__rest",
+          "channel": "R",
+          "separationCodes": 6.571414791021851,
+          "predictions": [
+            115.80836283464528,
+            109.23694804362343
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h180-colour__inactive",
+          "channel": "R",
+          "separationCodes": 10.219539115909654,
+          "predictions": [
+            77.17340188210346,
+            87.39294099801312
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h180-colour__rest",
+          "channel": "R",
+          "separationCodes": 7.267320779030243,
+          "predictions": [
+            87.94037513987546,
+            95.2076959189057
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h240-colour__inactive",
+          "channel": "R",
+          "separationCodes": 10.995505538362664,
+          "predictions": [
+            79.32996202978556,
+            90.32546756814823
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h240-colour__rest",
+          "channel": "R",
+          "separationCodes": 14.931637384353678,
+          "predictions": [
+            83.94926117787998,
+            98.88089856223365
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h300-colour__inactive",
+          "channel": "B",
+          "separationCodes": 4.92701658885791,
+          "predictions": [
+            112.90283861577616,
+            117.82985520463407
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h300-colour__rest",
+          "channel": "B",
+          "separationCodes": 7.456586195536687,
+          "predictions": [
+            120.93739125453834,
+            128.39397745007503
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h60-colour__inactive",
+          "channel": "R",
+          "separationCodes": 4.8159713512172715,
+          "predictions": [
+            121.13951402635563,
+            116.32354267513836
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h60-colour__rest",
+          "channel": "B",
+          "separationCodes": 6.523120954304304,
+          "predictions": [
+            101.3932421585581,
+            94.87012120425379
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c12-h120-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.06151543974498,
+          "predictions": [
+            128.73966728936867,
+            125.67815184962369
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c12-h240-colour__inactive",
+          "channel": "R",
+          "separationCodes": 3.4607000887471457,
+          "predictions": [
+            110.3203430329062,
+            113.78104312165334
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c12-h240-colour__rest",
+          "channel": "R",
+          "separationCodes": 4.7430069988696175,
+          "predictions": [
+            116.7349466019474,
+            121.47795360081702
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c12-h300-colour__rest",
+          "channel": "B",
+          "separationCodes": 3.8510220223470526,
+          "predictions": [
+            131.80569066154814,
+            135.6567126838952
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c12-h60-colour__inactive",
+          "channel": "B",
+          "separationCodes": 3.0355239552133924,
+          "predictions": [
+            115.46643463267809,
+            112.4309106774647
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c12-h60-colour__rest",
+          "channel": "B",
+          "separationCodes": 3.8346550559713535,
+          "predictions": [
+            123.14781738276018,
+            119.31316232678883
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h120-colour__inactive",
+          "channel": "B",
+          "separationCodes": 5.041486826516561,
+          "predictions": [
+            110.33082562186638,
+            105.28933879534982
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h120-colour__rest",
+          "channel": "R",
+          "separationCodes": 6.172602396772007,
+          "predictions": [
+            130.76719505020773,
+            124.59459265343573
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h180-colour__inactive",
+          "channel": "R",
+          "separationCodes": 6.520750834059754,
+          "predictions": [
+            96.81888253447433,
+            103.33963336853408
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h180-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.5778371948968726,
+          "predictions": [
+            106.99723187174585,
+            110.57506906664273
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h240-colour__inactive",
+          "channel": "R",
+          "separationCodes": 8.304670495204434,
+          "predictions": [
+            97.92312845515744,
+            106.22779895036187
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h240-colour__rest",
+          "channel": "R",
+          "separationCodes": 11.077505889346412,
+          "predictions": [
+            103.15278609486386,
+            114.23029198421027
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h300-colour__inactive",
+          "channel": "B",
+          "separationCodes": 5.765324600267377,
+          "predictions": [
+            129.35519062592994,
+            135.1205152261973
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h300-colour__rest",
+          "channel": "B",
+          "separationCodes": 9.059321723224286,
+          "predictions": [
+            136.3004004556961,
+            145.35972217892038
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h60-colour__inactive",
+          "channel": "B",
+          "separationCodes": 6.226095527451008,
+          "predictions": [
+            110.54874458611664,
+            104.32264905866563
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h60-colour__rest",
+          "channel": "B",
+          "separationCodes": 8.155282416646813,
+          "predictions": [
+            118.48935351766569,
+            110.33407110101888
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/green-colour__inactive",
+          "channel": "B",
+          "separationCodes": 19.148213384131232,
+          "predictions": [
+            33.47086244279689,
+            14.322649058665661
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/green-colour__rest",
+          "channel": "B",
+          "separationCodes": 22.532827488776896,
+          "predictions": [
+            42.13885003870187,
+            19.606022549924973
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-0-colour__inactive",
+          "channel": "B",
+          "separationCodes": 7.904233240009674,
+          "predictions": [
+            109.41841581865596,
+            117.32264905866563
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-0-colour__rest",
+          "channel": "B",
+          "separationCodes": 11.426220049034711,
+          "predictions": [
+            117.6237703546138,
+            129.0499904036485
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-1-colour__inactive",
+          "channel": "B",
+          "separationCodes": 6.274602857372102,
+          "predictions": [
+            83.7853300071132,
+            77.5107271497411
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-1-colour__rest",
+          "channel": "R",
+          "separationCodes": 12.023626283525473,
+          "predictions": [
+            119.12701134984836,
+            107.10338506632289
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-2-colour__inactive",
+          "channel": "R",
+          "separationCodes": 19.14821338413126,
+          "predictions": [
+            61.52913755720311,
+            80.67735094133437
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-2-colour__rest",
+          "channel": "R",
+          "separationCodes": 22.53282748877689,
+          "predictions": [
+            66.86114996129814,
+            89.39397745007503
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-3-colour__inactive",
+          "channel": "R",
+          "separationCodes": 6.471801421689662,
+          "predictions": [
+            118.90159171433382,
+            112.42979029264416
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-3-colour__rest",
+          "channel": "R",
+          "separationCodes": 10.67843390874937,
+          "predictions": [
+            131.73058107026077,
+            121.0521471615114
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-4-colour__inactive",
+          "channel": "R",
+          "separationCodes": 19.148212966721786,
+          "predictions": [
+            59.52913797461258,
+            78.67735094133437
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-4-colour__rest",
+          "channel": "R",
+          "separationCodes": 11.304612473338167,
+          "predictions": [
+            75.08936497673686,
+            86.39397745007503
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-5-colour__inactive",
+          "channel": "B",
+          "separationCodes": 3.806813681994427,
+          "predictions": [
+            102.2238775374545,
+            106.03069121944893
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-5-colour__rest",
+          "channel": "B",
+          "separationCodes": 4.224241557876439,
+          "predictions": [
+            110.35195770942755,
+            114.57619926730399
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/red-colour__inactive",
+          "channel": "R",
+          "separationCodes": 15.79351150146249,
+          "predictions": [
+            216.52913755720311,
+            232.3226490586656
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/red-colour__rest",
+          "channel": "R",
+          "separationCodes": 17.744872588626833,
+          "predictions": [
+            221.86114996129814,
+            239.60602254992497
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y1-c24-h240-colour__inactive",
+          "channel": "G",
+          "separationCodes": 3.007087272244661,
+          "predictions": [
+            172.2584972604602,
+            175.26558453270485
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c24-h240-colour__inactive",
+          "channel": "G",
+          "separationCodes": 3.07803032139293,
+          "predictions": [
+            182.9504642972263,
+            186.02849461861922
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/green-colour__inactive",
+          "channel": "G",
+          "separationCodes": 3.4827707296254005,
+          "predictions": [
+            234.81460773944838,
+            238.29737846907378
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/green-colour__rest",
+          "channel": "G",
+          "separationCodes": 4.301327494517125,
+          "predictions": [
+            242.0809173583983,
+            246.38224485291542
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-0-colour__inactive",
+          "channel": "R",
+          "separationCodes": 3.849376089034763,
+          "predictions": [
+            174.88942984563613,
+            178.7388059346709
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-0-colour__rest",
+          "channel": "B",
+          "separationCodes": 4.03632019301989,
+          "predictions": [
+            188.08091735839832,
+            192.1172375514182
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-1-colour__inactive",
+          "channel": "R",
+          "separationCodes": 3.218633736091192,
+          "predictions": [
+            172.11811592088299,
+            168.8994821847918
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-1-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.935993285644855,
+          "predictions": [
+            177.91906248542045,
+            173.9830691997756
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-2-colour__inactive",
+          "channel": "G",
+          "separationCodes": 3.6572256395567138,
+          "predictions": [
+            170.0616748944375,
+            173.7189005339942
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-2-colour__rest",
+          "channel": "G",
+          "separationCodes": 3.1268705898162352,
+          "predictions": [
+            175.4597040497381,
+            178.58657463955433
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-3-colour__inactive",
+          "channel": "G",
+          "separationCodes": 3.718258788509729,
+          "predictions": [
+            175.25912814839958,
+            171.54086935988985
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-3-colour__rest",
+          "channel": "G",
+          "separationCodes": 3.329052980007873,
+          "predictions": [
+            179.85748563772543,
+            176.52843265771756
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-4-colour__inactive",
+          "channel": "B",
+          "separationCodes": 3.6705022739234607,
+          "predictions": [
+            174.1819762421593,
+            170.51147396823583
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-5-colour__inactive",
+          "channel": "B",
+          "separationCodes": 4.540990894103828,
+          "predictions": [
+            173.81461400072916,
+            178.355604894833
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-5-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.5162208988190002,
+          "predictions": [
+            188.08091735839832,
+            191.59713825721732
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c12-h120-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.246540713993113,
+          "predictions": [
+            90.82987720171931,
+            87.5833364877262
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c12-h180-colour__inactive",
+          "channel": "R",
+          "separationCodes": 5.010928443061417,
+          "predictions": [
+            67.14542722198242,
+            72.15635566504383
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c12-h180-colour__rest",
+          "channel": "R",
+          "separationCodes": 4.251733399649069,
+          "predictions": [
+            76.81491678817568,
+            81.06665018782475
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c12-h240-colour__inactive",
+          "channel": "R",
+          "separationCodes": 5.3284208572169405,
+          "predictions": [
+            68.82298246190739,
+            74.15140331912433
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c12-h240-colour__rest",
+          "channel": "R",
+          "separationCodes": 7.772476010486585,
+          "predictions": [
+            75.5573885585027,
+            83.32986456898928
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c12-h300-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.8076042894426507,
+          "predictions": [
+            86.22318429271428,
+            90.03078858215693
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c12-h60-colour__inactive",
+          "channel": "R",
+          "separationCodes": 3.7446932619115643,
+          "predictions": [
+            89.31468862874534,
+            85.56999536683378
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c12-h60-colour__rest",
+          "channel": "R",
+          "separationCodes": 4.849356495173964,
+          "predictions": [
+            99.95821927659028,
+            95.10886278141632
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h0-colour__inactive",
+          "channel": "R",
+          "separationCodes": 4.497744644861456,
+          "predictions": [
+            98.78391604867994,
+            94.28617140381849
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h0-colour__rest",
+          "channel": "R",
+          "separationCodes": 4.865478918174659,
+          "predictions": [
+            106.78693267948054,
+            101.92145376130588
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h120-colour__rest",
+          "channel": "R",
+          "separationCodes": 6.412746259878659,
+          "predictions": [
+            92.89200042731103,
+            86.47925416743237
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h180-colour__inactive",
+          "channel": "R",
+          "separationCodes": 13.275153654274604,
+          "predictions": [
+            51.353881161995204,
+            64.62903481626981
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h180-colour__rest",
+          "channel": "R",
+          "separationCodes": 11.031002346296297,
+          "predictions": [
+            62.40884133432464,
+            73.43984368062094
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h240-colour__inactive",
+          "channel": "R",
+          "separationCodes": 14.388590077462545,
+          "predictions": [
+            53.18885660359131,
+            67.57744668105386
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h240-colour__rest",
+          "channel": "R",
+          "separationCodes": 20.568284114387353,
+          "predictions": [
+            56.47212162937045,
+            77.0404057437578
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h300-colour__rest",
+          "channel": "R",
+          "separationCodes": 7.256967249861319,
+          "predictions": [
+            85.31883644777072,
+            92.57580369763204
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h60-colour__inactive",
+          "channel": "R",
+          "separationCodes": 6.713966922024497,
+          "predictions": [
+            98.17405473393438,
+            91.46008781190989
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h60-colour__rest",
+          "channel": "R",
+          "separationCodes": 8.51359330475799,
+          "predictions": [
+            110.06008856499125,
+            101.54649526023326
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c12-h120-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.0134833131787815,
+          "predictions": [
+            113.3375865993176,
+            110.32410328613882
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c12-h180-colour__inactive",
+          "channel": "R",
+          "separationCodes": 3.3898542527955016,
+          "predictions": [
+            92.52296237035236,
+            95.91281662314786
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c12-h240-colour__inactive",
+          "channel": "R",
+          "separationCodes": 4.113241944669014,
+          "predictions": [
+            92.76915343581311,
+            96.88239538048212
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c12-h240-colour__rest",
+          "channel": "R",
+          "separationCodes": 6.12831633229483,
+          "predictions": [
+            99.0294463596298,
+            105.15776269192463
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c12-h300-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.949408198834078,
+          "predictions": [
+            108.7887105885711,
+            112.73811878740518
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c12-h60-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.432284119963228,
+          "predictions": [
+            122.45972539385811,
+            119.02744127389488
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h120-colour__inactive",
+          "channel": "B",
+          "separationCodes": 3.4343007642916064,
+          "predictions": [
+            92.78007996427728,
+            89.34577919998567
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h120-colour__rest",
+          "channel": "R",
+          "separationCodes": 6.571414791021851,
+          "predictions": [
+            115.80836283464528,
+            109.23694804362343
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h180-colour__inactive",
+          "channel": "R",
+          "separationCodes": 10.219539115909654,
+          "predictions": [
+            77.17340188210346,
+            87.39294099801312
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h180-colour__rest",
+          "channel": "R",
+          "separationCodes": 7.267320779030243,
+          "predictions": [
+            87.94037513987546,
+            95.2076959189057
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h240-colour__inactive",
+          "channel": "R",
+          "separationCodes": 10.995505538362664,
+          "predictions": [
+            79.32996202978556,
+            90.32546756814823
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h240-colour__rest",
+          "channel": "R",
+          "separationCodes": 14.931637384353678,
+          "predictions": [
+            83.94926117787998,
+            98.88089856223365
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h300-colour__inactive",
+          "channel": "B",
+          "separationCodes": 4.92701658885791,
+          "predictions": [
+            112.90283861577616,
+            117.82985520463407
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h300-colour__rest",
+          "channel": "B",
+          "separationCodes": 7.456586195536687,
+          "predictions": [
+            120.93739125453834,
+            128.39397745007503
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h60-colour__inactive",
+          "channel": "R",
+          "separationCodes": 4.8159713512172715,
+          "predictions": [
+            121.13951402635563,
+            116.32354267513836
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h60-colour__rest",
+          "channel": "B",
+          "separationCodes": 6.523120954304304,
+          "predictions": [
+            101.3932421585581,
+            94.87012120425379
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c12-h120-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.06151543974498,
+          "predictions": [
+            128.73966728936867,
+            125.67815184962369
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c12-h240-colour__inactive",
+          "channel": "R",
+          "separationCodes": 3.4607000887471457,
+          "predictions": [
+            110.3203430329062,
+            113.78104312165334
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c12-h240-colour__rest",
+          "channel": "R",
+          "separationCodes": 4.7430069988696175,
+          "predictions": [
+            116.7349466019474,
+            121.47795360081702
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c12-h300-colour__rest",
+          "channel": "B",
+          "separationCodes": 3.8510220223470526,
+          "predictions": [
+            131.80569066154814,
+            135.6567126838952
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c12-h60-colour__inactive",
+          "channel": "B",
+          "separationCodes": 3.0355239552133924,
+          "predictions": [
+            115.46643463267809,
+            112.4309106774647
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c12-h60-colour__rest",
+          "channel": "B",
+          "separationCodes": 3.8346550559713535,
+          "predictions": [
+            123.14781738276018,
+            119.31316232678883
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h120-colour__inactive",
+          "channel": "B",
+          "separationCodes": 5.041486826516561,
+          "predictions": [
+            110.33082562186638,
+            105.28933879534982
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h120-colour__rest",
+          "channel": "R",
+          "separationCodes": 6.172602396772007,
+          "predictions": [
+            130.76719505020773,
+            124.59459265343573
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h180-colour__inactive",
+          "channel": "R",
+          "separationCodes": 6.520750834059754,
+          "predictions": [
+            96.81888253447433,
+            103.33963336853408
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h180-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.5778371948968726,
+          "predictions": [
+            106.99723187174585,
+            110.57506906664273
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h240-colour__inactive",
+          "channel": "R",
+          "separationCodes": 8.304670495204434,
+          "predictions": [
+            97.92312845515744,
+            106.22779895036187
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h240-colour__rest",
+          "channel": "R",
+          "separationCodes": 11.077505889346412,
+          "predictions": [
+            103.15278609486386,
+            114.23029198421027
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h300-colour__inactive",
+          "channel": "B",
+          "separationCodes": 5.765324600267377,
+          "predictions": [
+            129.35519062592994,
+            135.1205152261973
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h300-colour__rest",
+          "channel": "B",
+          "separationCodes": 9.059321723224286,
+          "predictions": [
+            136.3004004556961,
+            145.35972217892038
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h60-colour__inactive",
+          "channel": "B",
+          "separationCodes": 6.226095527451008,
+          "predictions": [
+            110.54874458611664,
+            104.32264905866563
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h60-colour__rest",
+          "channel": "B",
+          "separationCodes": 8.155282416646813,
+          "predictions": [
+            118.48935351766569,
+            110.33407110101888
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/green-colour__inactive",
+          "channel": "B",
+          "separationCodes": 19.148213384131232,
+          "predictions": [
+            33.47086244279689,
+            14.322649058665661
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/green-colour__rest",
+          "channel": "B",
+          "separationCodes": 22.532827488776896,
+          "predictions": [
+            42.13885003870187,
+            19.606022549924973
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-0-colour__inactive",
+          "channel": "B",
+          "separationCodes": 7.904233240009674,
+          "predictions": [
+            109.41841581865596,
+            117.32264905866563
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-0-colour__rest",
+          "channel": "B",
+          "separationCodes": 11.426220049034711,
+          "predictions": [
+            117.6237703546138,
+            129.0499904036485
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-1-colour__inactive",
+          "channel": "B",
+          "separationCodes": 6.274602857372102,
+          "predictions": [
+            83.7853300071132,
+            77.5107271497411
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-1-colour__rest",
+          "channel": "R",
+          "separationCodes": 12.023626283525473,
+          "predictions": [
+            119.12701134984836,
+            107.10338506632289
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-2-colour__inactive",
+          "channel": "R",
+          "separationCodes": 19.14821338413126,
+          "predictions": [
+            61.52913755720311,
+            80.67735094133437
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-2-colour__rest",
+          "channel": "R",
+          "separationCodes": 22.53282748877689,
+          "predictions": [
+            66.86114996129814,
+            89.39397745007503
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-3-colour__inactive",
+          "channel": "R",
+          "separationCodes": 6.471801421689662,
+          "predictions": [
+            118.90159171433382,
+            112.42979029264416
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-3-colour__rest",
+          "channel": "R",
+          "separationCodes": 10.67843390874937,
+          "predictions": [
+            131.73058107026077,
+            121.0521471615114
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-4-colour__inactive",
+          "channel": "R",
+          "separationCodes": 19.148212966721786,
+          "predictions": [
+            59.52913797461258,
+            78.67735094133437
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-4-colour__rest",
+          "channel": "R",
+          "separationCodes": 11.304612473338167,
+          "predictions": [
+            75.08936497673686,
+            86.39397745007503
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-5-colour__inactive",
+          "channel": "B",
+          "separationCodes": 3.806813681994427,
+          "predictions": [
+            102.2238775374545,
+            106.03069121944893
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-5-colour__rest",
+          "channel": "B",
+          "separationCodes": 4.224241557876439,
+          "predictions": [
+            110.35195770942755,
+            114.57619926730399
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/red-colour__inactive",
+          "channel": "R",
+          "separationCodes": 15.79351150146249,
+          "predictions": [
+            216.52913755720311,
+            232.3226490586656
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/red-colour__rest",
+          "channel": "R",
+          "separationCodes": 17.744872588626833,
+          "predictions": [
+            221.86114996129814,
+            239.60602254992497
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y1-c24-h240-colour__inactive",
+          "channel": "G",
+          "separationCodes": 3.007087272244661,
+          "predictions": [
+            172.2584972604602,
+            175.26558453270485
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y2-c24-h240-colour__inactive",
+          "channel": "G",
+          "separationCodes": 3.07803032139293,
+          "predictions": [
+            182.9504642972263,
+            186.02849461861922
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/green-colour__inactive",
+          "channel": "G",
+          "separationCodes": 3.4827707296254005,
+          "predictions": [
+            234.81460773944838,
+            238.29737846907378
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/green-colour__rest",
+          "channel": "G",
+          "separationCodes": 4.301327494517125,
+          "predictions": [
+            242.0809173583983,
+            246.38224485291542
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-0-colour__inactive",
+          "channel": "R",
+          "separationCodes": 3.849376089034763,
+          "predictions": [
+            174.88942984563613,
+            178.7388059346709
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-0-colour__rest",
+          "channel": "B",
+          "separationCodes": 4.03632019301989,
+          "predictions": [
+            188.08091735839832,
+            192.1172375514182
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-1-colour__inactive",
+          "channel": "R",
+          "separationCodes": 3.218633736091192,
+          "predictions": [
+            172.11811592088299,
+            168.8994821847918
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-1-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.935993285644855,
+          "predictions": [
+            177.91906248542045,
+            173.9830691997756
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-2-colour__inactive",
+          "channel": "G",
+          "separationCodes": 3.6572256395567138,
+          "predictions": [
+            170.0616748944375,
+            173.7189005339942
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-2-colour__rest",
+          "channel": "G",
+          "separationCodes": 3.1268705898162352,
+          "predictions": [
+            175.4597040497381,
+            178.58657463955433
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-3-colour__inactive",
+          "channel": "G",
+          "separationCodes": 3.718258788509729,
+          "predictions": [
+            175.25912814839958,
+            171.54086935988985
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-3-colour__rest",
+          "channel": "G",
+          "separationCodes": 3.329052980007873,
+          "predictions": [
+            179.85748563772543,
+            176.52843265771756
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-4-colour__inactive",
+          "channel": "B",
+          "separationCodes": 3.6705022739234607,
+          "predictions": [
+            174.1819762421593,
+            170.51147396823583
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-5-colour__inactive",
+          "channel": "B",
+          "separationCodes": 4.540990894103828,
+          "predictions": [
+            173.81461400072916,
+            178.355604894833
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-5-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.5162208988190002,
+          "predictions": [
+            188.08091735839832,
+            191.59713825721732
+          ],
+          "bridge": false
+        }
+      ],
+      "verdict": "separates these exploratory instances",
+      "limitation": "No survival implied; B0 excluded whole censored cells; O12 was an unbounded local LS exploratory candidate, not the declared bounded G1 fit."
+    },
+    {
+      "pair": [
+        "B0",
+        "B3"
+      ],
+      "commonCells": 404,
+      "thresholdCodes": 3,
+      "separatorCells": 180,
+      "bridgeOnly": false,
+      "maximum": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/green-colour__inactive",
+        "channel": "B",
+        "separationCodes": 33.47086244279689,
+        "predictions": [
+          33.47086244279689,
+          0.0
+        ],
+        "bridge": true
+      },
+      "ordinaryMaximum": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-2-colour__rest",
+        "channel": "R",
+        "separationCodes": 20.87272627759593,
+        "predictions": [
+          66.86114996129814,
+          87.73387623889407
+        ],
+        "bridge": false
+      },
+      "witnesses": [
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h120-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.262321425852676,
+          "predictions": [
+            90.82987720171931,
+            87.56755577586664
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h180-colour__inactive",
+          "channel": "R",
+          "separationCodes": 3.993303387168652,
+          "predictions": [
+            67.14542722198242,
+            71.13873060915107
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h180-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.4597726758291856,
+          "predictions": [
+            76.81491678817568,
+            80.27468946400487
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h240-colour__inactive",
+          "channel": "R",
+          "separationCodes": 4.671409558329302,
+          "predictions": [
+            68.82298246190739,
+            73.49439202023669
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h240-colour__rest",
+          "channel": "R",
+          "separationCodes": 6.964580385213026,
+          "predictions": [
+            75.5573885585027,
+            82.52196894371572
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h300-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.598795685869291,
+          "predictions": [
+            86.22318429271428,
+            89.82197997858357
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h60-colour__inactive",
+          "channel": "R",
+          "separationCodes": 3.4779827342485135,
+          "predictions": [
+            89.31468862874534,
+            85.83670589449683
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h60-colour__rest",
+          "channel": "R",
+          "separationCodes": 5.11222243853679,
+          "predictions": [
+            99.95821927659028,
+            94.8459968380535
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h0-colour__inactive",
+          "channel": "R",
+          "separationCodes": 4.579900118965341,
+          "predictions": [
+            98.78391604867994,
+            94.2040159297146
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h0-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.6150906431231817,
+          "predictions": [
+            106.78693267948054,
+            103.17184203635736
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h120-colour__inactive",
+          "channel": "B",
+          "separationCodes": 4.0047345688138165,
+          "predictions": [
+            68.86267019084079,
+            64.85793562202697
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h120-colour__rest",
+          "channel": "R",
+          "separationCodes": 6.505410007376554,
+          "predictions": [
+            92.89200042731103,
+            86.38659041993448
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h180-colour__inactive",
+          "channel": "R",
+          "separationCodes": 11.07226888007348,
+          "predictions": [
+            51.353881161995204,
+            62.426150042068684
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h180-colour__rest",
+          "channel": "R",
+          "separationCodes": 9.416064841492705,
+          "predictions": [
+            62.40884133432464,
+            71.82490617581735
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h240-colour__inactive",
+          "channel": "R",
+          "separationCodes": 12.842371619939094,
+          "predictions": [
+            53.18885660359131,
+            66.0312282235304
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h240-colour__rest",
+          "channel": "R",
+          "separationCodes": 18.6779218528835,
+          "predictions": [
+            56.47212162937045,
+            75.15004348225395
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h300-colour__inactive",
+          "channel": "B",
+          "separationCodes": 4.218357646033226,
+          "predictions": [
+            90.05454326885446,
+            94.27290091488769
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h300-colour__rest",
+          "channel": "R",
+          "separationCodes": 6.701226074351368,
+          "predictions": [
+            85.31883644777072,
+            92.02006252212209
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h60-colour__inactive",
+          "channel": "R",
+          "separationCodes": 6.309638129348784,
+          "predictions": [
+            98.17405473393438,
+            91.8644166045856
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h60-colour__rest",
+          "channel": "R",
+          "separationCodes": 9.155965378822387,
+          "predictions": [
+            110.06008856499125,
+            100.90412318616886
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c12-h120-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.0582600242660902,
+          "predictions": [
+            113.3375865993176,
+            110.27932657505151
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c12-h180-colour__inactive",
+          "channel": "R",
+          "separationCodes": 3.3086607973745004,
+          "predictions": [
+            92.52296237035236,
+            95.83162316772686
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c12-h240-colour__inactive",
+          "channel": "R",
+          "separationCodes": 4.243496831617733,
+          "predictions": [
+            92.76915343581311,
+            97.01265026743084
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c12-h240-colour__rest",
+          "channel": "R",
+          "separationCodes": 5.670230900596238,
+          "predictions": [
+            99.0294463596298,
+            104.69967726022604
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c12-h300-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.7739808202714613,
+          "predictions": [
+            108.7887105885711,
+            112.56269140884257
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c12-h60-colour__inactive",
+          "channel": "R",
+          "separationCodes": 3.1986307640877243,
+          "predictions": [
+            113.01022806149655,
+            109.81159729740882
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c12-h60-colour__rest",
+          "channel": "R",
+          "separationCodes": 4.335518186965572,
+          "predictions": [
+            122.45972539385811,
+            118.12420720689254
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h0-colour__inactive",
+          "channel": "R",
+          "separationCodes": 3.4655427996242025,
+          "predictions": [
+            120.85221215234031,
+            117.38666935271611
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h120-colour__inactive",
+          "channel": "B",
+          "separationCodes": 4.319970950880901,
+          "predictions": [
+            92.78007996427728,
+            88.46010901339638
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h120-colour__rest",
+          "channel": "R",
+          "separationCodes": 6.700635529522273,
+          "predictions": [
+            115.80836283464528,
+            109.107727305123
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h180-colour__inactive",
+          "channel": "R",
+          "separationCodes": 9.901454493159122,
+          "predictions": [
+            77.17340188210346,
+            87.07485637526258
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h180-colour__rest",
+          "channel": "R",
+          "separationCodes": 6.520107968827546,
+          "predictions": [
+            87.94037513987546,
+            94.460483108703
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h240-colour__inactive",
+          "channel": "R",
+          "separationCodes": 11.184942475075118,
+          "predictions": [
+            79.32996202978556,
+            90.51490450486068
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h240-colour__rest",
+          "channel": "R",
+          "separationCodes": 13.92910653190809,
+          "predictions": [
+            83.94926117787998,
+            97.87836770978807
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h300-colour__inactive",
+          "channel": "B",
+          "separationCodes": 5.2388001550007885,
+          "predictions": [
+            112.90283861577616,
+            118.14163877077695
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h300-colour__rest",
+          "channel": "R",
+          "separationCodes": 6.633815718749986,
+          "predictions": [
+            108.05619654527761,
+            114.6900122640276
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h60-colour__inactive",
+          "channel": "R",
+          "separationCodes": 6.004018886336041,
+          "predictions": [
+            121.13951402635563,
+            115.13549514001959
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h60-colour__rest",
+          "channel": "R",
+          "separationCodes": 8.257028034972194,
+          "predictions": [
+            131.98528348022066,
+            123.72825544524846
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c12-h240-colour__inactive",
+          "channel": "R",
+          "separationCodes": 4.409815512087192,
+          "predictions": [
+            110.3203430329062,
+            114.73015854499339
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c12-h240-colour__rest",
+          "channel": "R",
+          "separationCodes": 4.649491179326716,
+          "predictions": [
+            116.7349466019474,
+            121.38443778127412
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c12-h60-colour__inactive",
+          "channel": "R",
+          "separationCodes": 3.899678892238825,
+          "predictions": [
+            130.1767349489663,
+            126.27705605672747
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c12-h60-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.934579430158294,
+          "predictions": [
+            138.34661747758835,
+            134.41203804743006
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h120-colour__inactive",
+          "channel": "B",
+          "separationCodes": 5.811967103795212,
+          "predictions": [
+            110.33082562186638,
+            104.51885851807117
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h120-colour__rest",
+          "channel": "R",
+          "separationCodes": 5.33551402143938,
+          "predictions": [
+            130.76719505020773,
+            125.43168102876835
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h180-colour__inactive",
+          "channel": "R",
+          "separationCodes": 6.140913633130438,
+          "predictions": [
+            96.81888253447433,
+            102.95979616760476
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h180-colour__rest",
+          "channel": "R",
+          "separationCodes": 4.6070516980746845,
+          "predictions": [
+            106.99723187174585,
+            111.60428356982054
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h240-colour__inactive",
+          "channel": "R",
+          "separationCodes": 10.198952971072273,
+          "predictions": [
+            97.92312845515744,
+            108.12208142622971
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h240-colour__rest",
+          "channel": "R",
+          "separationCodes": 10.796263592909426,
+          "predictions": [
+            103.15278609486386,
+            113.94904968777328
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h300-colour__inactive",
+          "channel": "B",
+          "separationCodes": 5.914049521014789,
+          "predictions": [
+            129.35519062592994,
+            135.26924014694472
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h300-colour__rest",
+          "channel": "R",
+          "separationCodes": 5.71825984010934,
+          "predictions": [
+            123.66058617035728,
+            129.37884601046662
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h60-colour__inactive",
+          "channel": "R",
+          "separationCodes": 6.906326644805375,
+          "predictions": [
+            137.76147897985533,
+            130.85515233504995
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h60-colour__rest",
+          "channel": "R",
+          "separationCodes": 7.011727303845333,
+          "predictions": [
+            146.7986472553711,
+            139.78691995152576
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/green-colour__inactive",
+          "channel": "B",
+          "separationCodes": 33.47086244279689,
+          "predictions": [
+            33.47086244279689,
+            0.0
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/green-colour__rest",
+          "channel": "B",
+          "separationCodes": 20.43231769382716,
+          "predictions": [
+            42.13885003870187,
+            21.70653234487471
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-0-colour__inactive",
+          "channel": "B",
+          "separationCodes": 8.743622807904813,
+          "predictions": [
+            109.41841581865596,
+            118.16203862656077
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-0-colour__rest",
+          "channel": "B",
+          "separationCodes": 9.333690770743331,
+          "predictions": [
+            117.6237703546138,
+            126.95746112535713
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-1-colour__inactive",
+          "channel": "B",
+          "separationCodes": 8.295325161350576,
+          "predictions": [
+            83.7853300071132,
+            75.49000484576263
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-1-colour__rest",
+          "channel": "R",
+          "separationCodes": 12.332172365289026,
+          "predictions": [
+            119.12701134984836,
+            106.79483898455933
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-2-colour__inactive",
+          "channel": "R",
+          "separationCodes": 18.732244676594938,
+          "predictions": [
+            61.52913755720311,
+            80.26138223379805
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-2-colour__rest",
+          "channel": "R",
+          "separationCodes": 20.87272627759593,
+          "predictions": [
+            66.86114996129814,
+            87.73387623889407
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-3-colour__inactive",
+          "channel": "R",
+          "separationCodes": 7.14201724962453,
+          "predictions": [
+            118.90159171433382,
+            111.75957446470929
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-3-colour__rest",
+          "channel": "R",
+          "separationCodes": 11.469399067657875,
+          "predictions": [
+            131.73058107026077,
+            120.2611820026029
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-4-colour__inactive",
+          "channel": "R",
+          "separationCodes": 18.431387225220462,
+          "predictions": [
+            59.52913797461258,
+            77.96052519983304
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-4-colour__rest",
+          "channel": "R",
+          "separationCodes": 9.968285949848607,
+          "predictions": [
+            75.08936497673686,
+            85.05765092658547
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-5-colour__inactive",
+          "channel": "R",
+          "separationCodes": 4.113057818941442,
+          "predictions": [
+            120.68350639387282,
+            116.57044857493138
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-5-colour__rest",
+          "channel": "B",
+          "separationCodes": 4.2292316945425625,
+          "predictions": [
+            110.35195770942755,
+            114.58118940397011
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/red-colour__inactive",
+          "channel": "G",
+          "separationCodes": 22.000470880652642,
+          "predictions": [
+            52.99999999999999,
+            30.99952911934735
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/red-colour__rest",
+          "channel": "G",
+          "separationCodes": 21.876016227459353,
+          "predictions": [
+            61.99999999999999,
+            40.12398377254064
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y0-c24-h240-colour__inactive",
+          "channel": "G",
+          "separationCodes": 3.026902249706012,
+          "predictions": [
+            159.12152832882853,
+            162.14843057853454
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y1-c24-h240-colour__inactive",
+          "channel": "G",
+          "separationCodes": 3.1961609731031615,
+          "predictions": [
+            172.2584972604602,
+            175.45465823356335
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y1-c24-h60-colour__inactive",
+          "channel": "G",
+          "separationCodes": 3.18225561568309,
+          "predictions": [
+            174.2126571765981,
+            171.030401560915
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y1-c24-h60-colour__rest",
+          "channel": "G",
+          "separationCodes": 3.021589916088999,
+          "predictions": [
+            178.95265529440982,
+            175.93106537832082
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c24-h0-colour__inactive",
+          "channel": "B",
+          "separationCodes": 3.3052482285289386,
+          "predictions": [
+            181.88294274921248,
+            185.1881909777414
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c24-h180-colour__inactive",
+          "channel": "B",
+          "separationCodes": 3.685389235287147,
+          "predictions": [
+            185.67789087814984,
+            181.9925016428627
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c24-h240-colour__inactive",
+          "channel": "G",
+          "separationCodes": 3.3006173323397547,
+          "predictions": [
+            182.9504642972263,
+            186.25108162956604
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c24-h60-colour__inactive",
+          "channel": "G",
+          "separationCodes": 3.2434037438820837,
+          "predictions": [
+            184.3974561702082,
+            181.1540524263261
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/green-colour__inactive",
+          "channel": "B",
+          "separationCodes": 4.191055138880756,
+          "predictions": [
+            84.81460773944839,
+            89.00566287832915
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/green-colour__rest",
+          "channel": "R",
+          "separationCodes": 4.10007417063855,
+          "predictions": [
+            92.08091735839832,
+            96.18099152903687
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-0-colour__inactive",
+          "channel": "B",
+          "separationCodes": 3.5847115672080747,
+          "predictions": [
+            184.81460773944838,
+            188.39931930665645
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-0-colour__rest",
+          "channel": "B",
+          "separationCodes": 4.440211653385745,
+          "predictions": [
+            188.08091735839832,
+            192.52112901178407
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-1-colour__inactive",
+          "channel": "R",
+          "separationCodes": 3.418304617155684,
+          "predictions": [
+            172.11811592088299,
+            168.6998113037273
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-1-colour__rest",
+          "channel": "R",
+          "separationCodes": 4.238862290292076,
+          "predictions": [
+            177.91906248542045,
+            173.68020019512838
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-2-colour__inactive",
+          "channel": "G",
+          "separationCodes": 3.9283502608765843,
+          "predictions": [
+            170.0616748944375,
+            173.99002515531407
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-2-colour__rest",
+          "channel": "G",
+          "separationCodes": 3.5486261632824494,
+          "predictions": [
+            175.4597040497381,
+            179.00833021302054
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-3-colour__inactive",
+          "channel": "G",
+          "separationCodes": 3.756168192875265,
+          "predictions": [
+            175.25912814839958,
+            171.50295995552432
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-3-colour__rest",
+          "channel": "G",
+          "separationCodes": 3.452130687348671,
+          "predictions": [
+            179.85748563772543,
+            176.40535495037676
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-4-colour__inactive",
+          "channel": "B",
+          "separationCodes": 4.490452903473511,
+          "predictions": [
+            174.1819762421593,
+            169.69152333868578
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-4-colour__rest",
+          "channel": "B",
+          "separationCodes": 3.238900072457028,
+          "predictions": [
+            177.91906248542045,
+            174.68016241296343
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-5-colour__inactive",
+          "channel": "B",
+          "separationCodes": 4.003118449737116,
+          "predictions": [
+            173.81461400072916,
+            177.81773245046628
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-5-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.96444985173531,
+          "predictions": [
+            188.08091735839832,
+            192.04536721013363
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c12-h120-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.262321425852676,
+          "predictions": [
+            90.82987720171931,
+            87.56755577586664
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c12-h180-colour__inactive",
+          "channel": "R",
+          "separationCodes": 3.993303387168652,
+          "predictions": [
+            67.14542722198242,
+            71.13873060915107
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c12-h180-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.4597726758291856,
+          "predictions": [
+            76.81491678817568,
+            80.27468946400487
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c12-h240-colour__inactive",
+          "channel": "R",
+          "separationCodes": 4.671409558329302,
+          "predictions": [
+            68.82298246190739,
+            73.49439202023669
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c12-h240-colour__rest",
+          "channel": "R",
+          "separationCodes": 6.964580385213026,
+          "predictions": [
+            75.5573885585027,
+            82.52196894371572
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c12-h300-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.598795685869291,
+          "predictions": [
+            86.22318429271428,
+            89.82197997858357
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c12-h60-colour__inactive",
+          "channel": "R",
+          "separationCodes": 3.4779827342485135,
+          "predictions": [
+            89.31468862874534,
+            85.83670589449683
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c12-h60-colour__rest",
+          "channel": "R",
+          "separationCodes": 5.11222243853679,
+          "predictions": [
+            99.95821927659028,
+            94.8459968380535
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h0-colour__inactive",
+          "channel": "R",
+          "separationCodes": 4.579900118965341,
+          "predictions": [
+            98.78391604867994,
+            94.2040159297146
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h0-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.6150906431231817,
+          "predictions": [
+            106.78693267948054,
+            103.17184203635736
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h120-colour__inactive",
+          "channel": "B",
+          "separationCodes": 4.0047345688138165,
+          "predictions": [
+            68.86267019084079,
+            64.85793562202697
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h120-colour__rest",
+          "channel": "R",
+          "separationCodes": 6.505410007376554,
+          "predictions": [
+            92.89200042731103,
+            86.38659041993448
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h180-colour__inactive",
+          "channel": "R",
+          "separationCodes": 11.07226888007348,
+          "predictions": [
+            51.353881161995204,
+            62.426150042068684
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h180-colour__rest",
+          "channel": "R",
+          "separationCodes": 9.416064841492705,
+          "predictions": [
+            62.40884133432464,
+            71.82490617581735
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h240-colour__inactive",
+          "channel": "R",
+          "separationCodes": 12.842371619939094,
+          "predictions": [
+            53.18885660359131,
+            66.0312282235304
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h240-colour__rest",
+          "channel": "R",
+          "separationCodes": 18.6779218528835,
+          "predictions": [
+            56.47212162937045,
+            75.15004348225395
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h300-colour__inactive",
+          "channel": "B",
+          "separationCodes": 4.218357646033226,
+          "predictions": [
+            90.05454326885446,
+            94.27290091488769
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h300-colour__rest",
+          "channel": "R",
+          "separationCodes": 6.701226074351368,
+          "predictions": [
+            85.31883644777072,
+            92.02006252212209
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h60-colour__inactive",
+          "channel": "R",
+          "separationCodes": 6.309638129348784,
+          "predictions": [
+            98.17405473393438,
+            91.8644166045856
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h60-colour__rest",
+          "channel": "R",
+          "separationCodes": 9.155965378822387,
+          "predictions": [
+            110.06008856499125,
+            100.90412318616886
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c12-h120-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.0582600242660902,
+          "predictions": [
+            113.3375865993176,
+            110.27932657505151
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c12-h180-colour__inactive",
+          "channel": "R",
+          "separationCodes": 3.3086607973745004,
+          "predictions": [
+            92.52296237035236,
+            95.83162316772686
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c12-h240-colour__inactive",
+          "channel": "R",
+          "separationCodes": 4.243496831617733,
+          "predictions": [
+            92.76915343581311,
+            97.01265026743084
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c12-h240-colour__rest",
+          "channel": "R",
+          "separationCodes": 5.670230900596238,
+          "predictions": [
+            99.0294463596298,
+            104.69967726022604
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c12-h300-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.7739808202714613,
+          "predictions": [
+            108.7887105885711,
+            112.56269140884257
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c12-h60-colour__inactive",
+          "channel": "R",
+          "separationCodes": 3.1986307640877243,
+          "predictions": [
+            113.01022806149655,
+            109.81159729740882
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c12-h60-colour__rest",
+          "channel": "R",
+          "separationCodes": 4.335518186965572,
+          "predictions": [
+            122.45972539385811,
+            118.12420720689254
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h0-colour__inactive",
+          "channel": "R",
+          "separationCodes": 3.4655427996242025,
+          "predictions": [
+            120.85221215234031,
+            117.38666935271611
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h120-colour__inactive",
+          "channel": "B",
+          "separationCodes": 4.319970950880901,
+          "predictions": [
+            92.78007996427728,
+            88.46010901339638
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h120-colour__rest",
+          "channel": "R",
+          "separationCodes": 6.700635529522273,
+          "predictions": [
+            115.80836283464528,
+            109.107727305123
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h180-colour__inactive",
+          "channel": "R",
+          "separationCodes": 9.901454493159122,
+          "predictions": [
+            77.17340188210346,
+            87.07485637526258
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h180-colour__rest",
+          "channel": "R",
+          "separationCodes": 6.520107968827546,
+          "predictions": [
+            87.94037513987546,
+            94.460483108703
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h240-colour__inactive",
+          "channel": "R",
+          "separationCodes": 11.184942475075118,
+          "predictions": [
+            79.32996202978556,
+            90.51490450486068
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h240-colour__rest",
+          "channel": "R",
+          "separationCodes": 13.92910653190809,
+          "predictions": [
+            83.94926117787998,
+            97.87836770978807
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h300-colour__inactive",
+          "channel": "B",
+          "separationCodes": 5.2388001550007885,
+          "predictions": [
+            112.90283861577616,
+            118.14163877077695
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h300-colour__rest",
+          "channel": "R",
+          "separationCodes": 6.633815718749986,
+          "predictions": [
+            108.05619654527761,
+            114.6900122640276
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h60-colour__inactive",
+          "channel": "R",
+          "separationCodes": 6.004018886336041,
+          "predictions": [
+            121.13951402635563,
+            115.13549514001959
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h60-colour__rest",
+          "channel": "R",
+          "separationCodes": 8.257028034972194,
+          "predictions": [
+            131.98528348022066,
+            123.72825544524846
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c12-h240-colour__inactive",
+          "channel": "R",
+          "separationCodes": 4.409815512087192,
+          "predictions": [
+            110.3203430329062,
+            114.73015854499339
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c12-h240-colour__rest",
+          "channel": "R",
+          "separationCodes": 4.649491179326716,
+          "predictions": [
+            116.7349466019474,
+            121.38443778127412
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c12-h60-colour__inactive",
+          "channel": "R",
+          "separationCodes": 3.899678892238825,
+          "predictions": [
+            130.1767349489663,
+            126.27705605672747
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c12-h60-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.934579430158294,
+          "predictions": [
+            138.34661747758835,
+            134.41203804743006
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h120-colour__inactive",
+          "channel": "B",
+          "separationCodes": 5.811967103795212,
+          "predictions": [
+            110.33082562186638,
+            104.51885851807117
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h120-colour__rest",
+          "channel": "R",
+          "separationCodes": 5.33551402143938,
+          "predictions": [
+            130.76719505020773,
+            125.43168102876835
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h180-colour__inactive",
+          "channel": "R",
+          "separationCodes": 6.140913633130438,
+          "predictions": [
+            96.81888253447433,
+            102.95979616760476
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h180-colour__rest",
+          "channel": "R",
+          "separationCodes": 4.6070516980746845,
+          "predictions": [
+            106.99723187174585,
+            111.60428356982054
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h240-colour__inactive",
+          "channel": "R",
+          "separationCodes": 10.198952971072273,
+          "predictions": [
+            97.92312845515744,
+            108.12208142622971
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h240-colour__rest",
+          "channel": "R",
+          "separationCodes": 10.796263592909426,
+          "predictions": [
+            103.15278609486386,
+            113.94904968777328
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h300-colour__inactive",
+          "channel": "B",
+          "separationCodes": 5.914049521014789,
+          "predictions": [
+            129.35519062592994,
+            135.26924014694472
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h300-colour__rest",
+          "channel": "R",
+          "separationCodes": 5.71825984010934,
+          "predictions": [
+            123.66058617035728,
+            129.37884601046662
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h60-colour__inactive",
+          "channel": "R",
+          "separationCodes": 6.906326644805375,
+          "predictions": [
+            137.76147897985533,
+            130.85515233504995
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h60-colour__rest",
+          "channel": "R",
+          "separationCodes": 7.011727303845333,
+          "predictions": [
+            146.7986472553711,
+            139.78691995152576
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/green-colour__inactive",
+          "channel": "B",
+          "separationCodes": 33.47086244279689,
+          "predictions": [
+            33.47086244279689,
+            0.0
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/green-colour__rest",
+          "channel": "B",
+          "separationCodes": 20.43231769382716,
+          "predictions": [
+            42.13885003870187,
+            21.70653234487471
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-0-colour__inactive",
+          "channel": "B",
+          "separationCodes": 8.743622807904813,
+          "predictions": [
+            109.41841581865596,
+            118.16203862656077
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-0-colour__rest",
+          "channel": "B",
+          "separationCodes": 9.333690770743331,
+          "predictions": [
+            117.6237703546138,
+            126.95746112535713
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-1-colour__inactive",
+          "channel": "B",
+          "separationCodes": 8.295325161350576,
+          "predictions": [
+            83.7853300071132,
+            75.49000484576263
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-1-colour__rest",
+          "channel": "R",
+          "separationCodes": 12.332172365289026,
+          "predictions": [
+            119.12701134984836,
+            106.79483898455933
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-2-colour__inactive",
+          "channel": "R",
+          "separationCodes": 18.732244676594938,
+          "predictions": [
+            61.52913755720311,
+            80.26138223379805
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-2-colour__rest",
+          "channel": "R",
+          "separationCodes": 20.87272627759593,
+          "predictions": [
+            66.86114996129814,
+            87.73387623889407
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-3-colour__inactive",
+          "channel": "R",
+          "separationCodes": 7.14201724962453,
+          "predictions": [
+            118.90159171433382,
+            111.75957446470929
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-3-colour__rest",
+          "channel": "R",
+          "separationCodes": 11.469399067657875,
+          "predictions": [
+            131.73058107026077,
+            120.2611820026029
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-4-colour__inactive",
+          "channel": "R",
+          "separationCodes": 18.431387225220462,
+          "predictions": [
+            59.52913797461258,
+            77.96052519983304
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-4-colour__rest",
+          "channel": "R",
+          "separationCodes": 9.968285949848607,
+          "predictions": [
+            75.08936497673686,
+            85.05765092658547
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-5-colour__inactive",
+          "channel": "R",
+          "separationCodes": 4.113057818941442,
+          "predictions": [
+            120.68350639387282,
+            116.57044857493138
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-5-colour__rest",
+          "channel": "B",
+          "separationCodes": 4.2292316945425625,
+          "predictions": [
+            110.35195770942755,
+            114.58118940397011
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/red-colour__inactive",
+          "channel": "G",
+          "separationCodes": 22.000470880652642,
+          "predictions": [
+            52.99999999999999,
+            30.99952911934735
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/red-colour__rest",
+          "channel": "G",
+          "separationCodes": 21.876016227459353,
+          "predictions": [
+            61.99999999999999,
+            40.12398377254064
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y0-c24-h240-colour__inactive",
+          "channel": "G",
+          "separationCodes": 3.026902249706012,
+          "predictions": [
+            159.12152832882853,
+            162.14843057853454
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y1-c24-h240-colour__inactive",
+          "channel": "G",
+          "separationCodes": 3.1961609731031615,
+          "predictions": [
+            172.2584972604602,
+            175.45465823356335
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y1-c24-h60-colour__inactive",
+          "channel": "G",
+          "separationCodes": 3.18225561568309,
+          "predictions": [
+            174.2126571765981,
+            171.030401560915
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y1-c24-h60-colour__rest",
+          "channel": "G",
+          "separationCodes": 3.021589916088999,
+          "predictions": [
+            178.95265529440982,
+            175.93106537832082
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y2-c24-h0-colour__inactive",
+          "channel": "B",
+          "separationCodes": 3.3052482285289386,
+          "predictions": [
+            181.88294274921248,
+            185.1881909777414
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y2-c24-h180-colour__inactive",
+          "channel": "B",
+          "separationCodes": 3.685389235287147,
+          "predictions": [
+            185.67789087814984,
+            181.9925016428627
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y2-c24-h240-colour__inactive",
+          "channel": "G",
+          "separationCodes": 3.3006173323397547,
+          "predictions": [
+            182.9504642972263,
+            186.25108162956604
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y2-c24-h60-colour__inactive",
+          "channel": "G",
+          "separationCodes": 3.2434037438820837,
+          "predictions": [
+            184.3974561702082,
+            181.1540524263261
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/green-colour__inactive",
+          "channel": "B",
+          "separationCodes": 4.191055138880756,
+          "predictions": [
+            84.81460773944839,
+            89.00566287832915
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/green-colour__rest",
+          "channel": "R",
+          "separationCodes": 4.10007417063855,
+          "predictions": [
+            92.08091735839832,
+            96.18099152903687
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-0-colour__inactive",
+          "channel": "B",
+          "separationCodes": 3.5847115672080747,
+          "predictions": [
+            184.81460773944838,
+            188.39931930665645
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-0-colour__rest",
+          "channel": "B",
+          "separationCodes": 4.440211653385745,
+          "predictions": [
+            188.08091735839832,
+            192.52112901178407
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-1-colour__inactive",
+          "channel": "R",
+          "separationCodes": 3.418304617155684,
+          "predictions": [
+            172.11811592088299,
+            168.6998113037273
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-1-colour__rest",
+          "channel": "R",
+          "separationCodes": 4.238862290292076,
+          "predictions": [
+            177.91906248542045,
+            173.68020019512838
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-2-colour__inactive",
+          "channel": "G",
+          "separationCodes": 3.9283502608765843,
+          "predictions": [
+            170.0616748944375,
+            173.99002515531407
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-2-colour__rest",
+          "channel": "G",
+          "separationCodes": 3.5486261632824494,
+          "predictions": [
+            175.4597040497381,
+            179.00833021302054
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-3-colour__inactive",
+          "channel": "G",
+          "separationCodes": 3.756168192875265,
+          "predictions": [
+            175.25912814839958,
+            171.50295995552432
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-3-colour__rest",
+          "channel": "G",
+          "separationCodes": 3.452130687348671,
+          "predictions": [
+            179.85748563772543,
+            176.40535495037676
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-4-colour__inactive",
+          "channel": "B",
+          "separationCodes": 4.490452903473511,
+          "predictions": [
+            174.1819762421593,
+            169.69152333868578
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-4-colour__rest",
+          "channel": "B",
+          "separationCodes": 3.238900072457028,
+          "predictions": [
+            177.91906248542045,
+            174.68016241296343
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-5-colour__inactive",
+          "channel": "B",
+          "separationCodes": 4.003118449737116,
+          "predictions": [
+            173.81461400072916,
+            177.81773245046628
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-5-colour__rest",
+          "channel": "R",
+          "separationCodes": 3.96444985173531,
+          "predictions": [
+            188.08091735839832,
+            192.04536721013363
+          ],
+          "bridge": false
+        }
+      ],
+      "verdict": "separates these exploratory instances",
+      "limitation": "No survival implied; B0 excluded whole censored cells; O12 was an unbounded local LS exploratory candidate, not the declared bounded G1 fit."
+    },
+    {
+      "pair": [
+        "B1",
+        "B2"
+      ],
+      "commonCells": 408,
+      "thresholdCodes": 3,
+      "separatorCells": 4,
+      "bridgeOnly": false,
+      "maximum": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h300-colour__rest",
+        "channel": "B",
+        "separationCodes": 3.22505881078294,
+        "predictions": [
+          142.13466336813744,
+          145.35972217892038
+        ],
+        "bridge": false
+      },
+      "ordinaryMaximum": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h300-colour__rest",
+        "channel": "B",
+        "separationCodes": 3.22505881078294,
+        "predictions": [
+          142.13466336813744,
+          145.35972217892038
+        ],
+        "bridge": false
+      },
+      "witnesses": [
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h300-colour__rest",
+          "channel": "B",
+          "separationCodes": 3.22505881078294,
+          "predictions": [
+            142.13466336813744,
+            145.35972217892038
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-4-colour__inactive",
+          "channel": "R",
+          "separationCodes": 3.0029729939811034,
+          "predictions": [
+            75.67437794735326,
+            78.67735094133437
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h300-colour__rest",
+          "channel": "B",
+          "separationCodes": 3.22505881078294,
+          "predictions": [
+            142.13466336813744,
+            145.35972217892038
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-4-colour__inactive",
+          "channel": "R",
+          "separationCodes": 3.0029729939811034,
+          "predictions": [
+            75.67437794735326,
+            78.67735094133437
+          ],
+          "bridge": false
+        }
+      ],
+      "verdict": "separates these exploratory instances",
+      "limitation": "No survival implied; B0 excluded whole censored cells; O12 was an unbounded local LS exploratory candidate, not the declared bounded G1 fit."
+    },
+    {
+      "pair": [
+        "B1",
+        "B3"
+      ],
+      "commonCells": 408,
+      "thresholdCodes": 3,
+      "separatorCells": 8,
+      "bridgeOnly": true,
+      "maximum": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/red-colour__inactive",
+        "channel": "R",
+        "separationCodes": 28.22817020928497,
+        "predictions": [
+          232.57447645712767,
+          204.3463062478427
+        ],
+        "bridge": true
+      },
+      "ordinaryMaximum": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-4-colour__inactive",
+        "channel": "R",
+        "separationCodes": 2.286147252479779,
+        "predictions": [
+          75.67437794735326,
+          77.96052519983304
+        ],
+        "bridge": false
+      },
+      "witnesses": [
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/green-colour__inactive",
+          "channel": "R",
+          "separationCodes": 14.574476457127673,
+          "predictions": [
+            14.574476457127673,
+            0.0
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/green-colour__rest",
+          "channel": "G",
+          "separationCodes": 10.397046227246506,
+          "predictions": [
+            193.0592522090325,
+            182.662205981786
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/red-colour__inactive",
+          "channel": "R",
+          "separationCodes": 28.22817020928497,
+          "predictions": [
+            232.57447645712767,
+            204.3463062478427
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/red-colour__rest",
+          "channel": "R",
+          "separationCodes": 25.20624449900356,
+          "predictions": [
+            240.98961025954392,
+            215.78336576054036
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/green-colour__inactive",
+          "channel": "R",
+          "separationCodes": 14.574476457127673,
+          "predictions": [
+            14.574476457127673,
+            0.0
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/green-colour__rest",
+          "channel": "G",
+          "separationCodes": 10.397046227246506,
+          "predictions": [
+            193.0592522090325,
+            182.662205981786
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/red-colour__inactive",
+          "channel": "R",
+          "separationCodes": 28.22817020928497,
+          "predictions": [
+            232.57447645712767,
+            204.3463062478427
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/red-colour__rest",
+          "channel": "R",
+          "separationCodes": 25.20624449900356,
+          "predictions": [
+            240.98961025954392,
+            215.78336576054036
+          ],
+          "bridge": true
+        }
+      ],
+      "verdict": "separates these exploratory instances",
+      "limitation": "No survival implied; B0 excluded whole censored cells; O12 was an unbounded local LS exploratory candidate, not the declared bounded G1 fit."
+    },
+    {
+      "pair": [
+        "B2",
+        "B3"
+      ],
+      "commonCells": 408,
+      "thresholdCodes": 3,
+      "separatorCells": 12,
+      "bridgeOnly": false,
+      "maximum": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/red-colour__inactive",
+        "channel": "R",
+        "separationCodes": 27.9763428108229,
+        "predictions": [
+          232.3226490586656,
+          204.3463062478427
+        ],
+        "bridge": true
+      },
+      "ordinaryMaximum": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h300-colour__rest",
+        "channel": "B",
+        "separationCodes": 4.461175918812984,
+        "predictions": [
+          145.35972217892038,
+          140.8985462601074
+        ],
+        "bridge": false
+      },
+      "witnesses": [
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h300-colour__rest",
+          "channel": "B",
+          "separationCodes": 4.461175918812984,
+          "predictions": [
+            145.35972217892038,
+            140.8985462601074
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h60-colour__rest",
+          "channel": "B",
+          "separationCodes": 3.323026855121597,
+          "predictions": [
+            110.33407110101888,
+            113.65709795614048
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/green-colour__inactive",
+          "channel": "R",
+          "separationCodes": 14.322649058665661,
+          "predictions": [
+            14.322649058665661,
+            0.0
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/green-colour__rest",
+          "channel": "G",
+          "separationCodes": 10.948005091479587,
+          "predictions": [
+            193.6102110732656,
+            182.662205981786
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/red-colour__inactive",
+          "channel": "R",
+          "separationCodes": 27.9763428108229,
+          "predictions": [
+            232.3226490586656,
+            204.3463062478427
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/red-colour__rest",
+          "channel": "R",
+          "separationCodes": 23.82265678938461,
+          "predictions": [
+            239.60602254992497,
+            215.78336576054036
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h300-colour__rest",
+          "channel": "B",
+          "separationCodes": 4.461175918812984,
+          "predictions": [
+            145.35972217892038,
+            140.8985462601074
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h60-colour__rest",
+          "channel": "B",
+          "separationCodes": 3.323026855121597,
+          "predictions": [
+            110.33407110101888,
+            113.65709795614048
+          ],
+          "bridge": false
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/green-colour__inactive",
+          "channel": "R",
+          "separationCodes": 14.322649058665661,
+          "predictions": [
+            14.322649058665661,
+            0.0
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/green-colour__rest",
+          "channel": "G",
+          "separationCodes": 10.948005091479587,
+          "predictions": [
+            193.6102110732656,
+            182.662205981786
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/red-colour__inactive",
+          "channel": "R",
+          "separationCodes": 27.9763428108229,
+          "predictions": [
+            232.3226490586656,
+            204.3463062478427
+          ],
+          "bridge": true
+        },
+        {
+          "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/red-colour__rest",
+          "channel": "R",
+          "separationCodes": 23.82265678938461,
+          "predictions": [
+            239.60602254992497,
+            215.78336576054036
+          ],
+          "bridge": true
+        }
+      ],
+      "verdict": "separates these exploratory instances",
+      "limitation": "No survival implied; B0 excluded whole censored cells; O12 was an unbounded local LS exploratory candidate, not the declared bounded G1 fit."
+    }
+  ],
+  "populations": {
+    "cells": 408,
+    "uncensoredChannels": 1220,
+    "railBounds": 4,
+    "w39WholeCellFit": 404
+  },
+  "spatial": [
+    {
+      "pair": [
+        "S0",
+        "S1"
+      ],
+      "verdict": "insufficient resolution for prior inactive instances",
+      "maximumSeparationCodes": {
+        "light-inactive": 1.15,
+        "dark-inactive": 2.03
+      },
+      "source": "charter v2.1 Design spatial discriminators; prior reviewer reading, not recomputed fit",
+      "oneCode": "separation exceeds one code, but does not reach the three-code identification rule"
+    },
+    {
+      "pair": [
+        "S1",
+        "S2"
+      ],
+      "verdict": "admitted active reflected-row observational discriminator, not a fitted S2 success",
+      "cellPair": [
+        "v90-c-c44__rest",
+        "v270-c-c44__rest"
+      ],
+      "scheme": "light",
+      "depthCSS": 14.5,
+      "scales": [
+        1,
+        2
+      ],
+      "differenceCodes": 3,
+      "limitation": "signed interior term versus long boundary tail unresolved"
+    },
+    {
+      "pair": [
+        "S0",
+        "S2"
+      ],
+      "verdict": "same reflected-row observational discriminator; no frozen S2 prediction in copied readings",
+      "differenceCodes": 3,
+      "limitation": "No new fit in G0; family survival and exact prediction separation await G1"
+    }
+  ],
+  "stroke": [
+    {
+      "pair": [
+        "M0",
+        "M1"
+      ],
+      "verdict": "neutral-knot affine LS miss, not certified minimax",
+      "lightInactiveTopCodes": 4.271,
+      "darkInactiveTopCodes": 6.397,
+      "source": "memo B section3"
+    },
+    {
+      "pair": [
+        "M0",
+        "M2"
+      ],
+      "verdict": "same neutral-knot witness; M2 contextual correction is zero on neutrals",
+      "source": "memo B sections3/5"
+    },
+    {
+      "pair": [
+        "M1",
+        "M2"
+      ],
+      "verdict": "bridge-only observed contextual discriminator, not a fitted M2 success",
+      "cells": [
+        "red-colour__inactive",
+        "green-colour__inactive"
+      ],
+      "scheme": "dark",
+      "inputWeakCode": 32,
+      "topOutputs": [
+        21,
+        14
+      ],
+      "differenceCodes": 7
+    },
+    {
+      "pair": [
+        "G",
+        "G-css"
+      ],
+      "verdict": "scale-dependent support discriminator",
+      "scales": [
+        1,
+        2
+      ],
+      "alignedStraight": "shell0 footprint at both scales; inactive shell1 zero",
+      "arc": "2x oblique shell1 occupied; also some 1x shell1 arcs occupied",
+      "source": "memo B section1"
+    },
+    {
+      "pair": [
+        "G",
+        "G-curvature"
+      ],
+      "verdict": "admitted 2x shape contrast; curvature-only attribution not established",
+      "scenePair": [
+        "g128-c-c44__rest",
+        "g128-c-rrect-120x44__rest"
+      ],
+      "scheme": "light",
+      "scale": 2,
+      "arcBin": 0,
+      "departuresCodes": [
+        -47.5,
+        -38.75
+      ],
+      "populations": [
+        14,
+        4
+      ],
+      "oneXrrect": {
+        "population": 2,
+        "status": "UNMEASURED"
+      },
+      "limitation": "path family and angular sample positions change with nominal curvature"
+    },
+    {
+      "pair": [
+        "G-css",
+        "G-curvature"
+      ],
+      "verdict": "width-unit discriminator still present; no frozen crossed-family predictions",
+      "limitation": "do not mistake an observed shape contrast for a universal family separation"
+    }
+  ],
+  "spatialLimit": "No structured holdout; no spatial leaf. Blend and wide blur remain confounded; boundary-tail alternative remains.",
+  "unfitFamilies": "Stroke families have not been fitted in the grounding readings. Their audit nominates observational discriminators, never manufactures predictions or a survival verdict."
+}

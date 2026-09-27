@@ -1,0 +1,57 @@
+{
+  "schema": "w41-stroke-execution-1",
+  "seed": 4100,
+  "starts": 16,
+  "baseline": "width 1; beta .4; eta 0; M0 identity or M1 identity knots; M2 correction0; rho0",
+  "otherStarts": "15 uniform over the full bounded optimization coordinate box",
+  "gammaMap": "gamma=(1-beta)*eta, eta in [-1,1]; inactive gamma0",
+  "monotoneMap": "sort eight [0,255] optimization coordinates, keeping all eight",
+  "leastSquares": {
+    "method": "scipy least_squares",
+    "max_nfev": 3000,
+    "ftol": 1e-10,
+    "xtol": 1e-10,
+    "gtol": 1e-10
+  },
+  "hardRails": {
+    "method": "LS seed then SLSQP constrained LS",
+    "maxiter": 3000,
+    "ftol": 1e-10,
+    "forwardDeficitRequired": 0
+  },
+  "minimax": {
+    "method": "independent-original-start SLSQP epigraph of bin/channel mean absolute pixel error",
+    "maxiter": 3000,
+    "ftol": 1e-10,
+    "epigraphGuardCodes": 1e-08,
+    "refinement": "each LS result seeds a second SLSQP epigraph solve at the same maxiter/ftol; retain raw and refined results; choose only forward-feasible converged candidates",
+    "solvesPerStart": 2,
+    "zeroFloorBracket": "a forward-feasible upper <=1e-8 codes may be selected with the exact objective floor0; optimizerSuccess/converged remain unchanged, never relabelled; report bracket separately"
+  },
+  "rank": "finite difference of raw uncensored predictions; all singular values; width quadrature plateaus not regularized",
+  "mass": "equal cell, equal measured bin/channel group within cell, equal uncensored pixel within group; rail constraints hard",
+  "authority": "LOCAL; optimizer failure or rail/epigraph failure is not a family negative",
+  "scope": "array API only; caller admits calibration roles/populations and holds shadow; no archive reader",
+  "amendment": "P2 width-plateau repair, synthetic only and before any native fit: retain the original 16 results; add bounded alternating derivative-free width/coefficient search. The fixed 16x16 forward quadrature, parameter domains, equal mass and exact rails are unchanged.",
+  "supersedesSha256": "d419a4b3452f4d4c457136a19d57fe54032955d1c648f1439c84e7786998ab57",
+  "widthSearch": {
+    "method": "conditional width sweep then local refinement, alternating with fixed-width coefficient solves for LS and minimax separately",
+    "bounds": [
+      0,
+      2
+    ],
+    "coarsePoints": 65,
+    "refinementLevels": 4,
+    "refinementPoints": 9,
+    "refinementDivisor": 4,
+    "maximumEvaluationsPerSweep": 102,
+    "maxAlternationsPerObjectivePerStart": 8,
+    "improvementRequired": 1e-12,
+    "objectiveFloorStop": 1e-20,
+    "selection": "include incumbent; ascending grid, strict improvement only; reject widths violating any hard rail; refine +/- preceding spacing about the best width, clipped to declared bounds",
+    "coefficientBudget": "same 3000 max_nfev/maxiter and 1e-10 tolerances as original solves; freeze width by eliminating it from solver coordinates",
+    "minimaxSeed": "best valid original/LS-seeded minimax and a new epigraph solve from width-aware LS, retaining both; alternate from the better valid candidate",
+    "termination": "objective at floor, no admissible width improvement, coefficient rejection, or eight-round budget; report reason, sweeps and every coefficient optimizer result",
+    "authority": "LOCAL coordinate search; neither grid nor coefficient stationarity is a global certificate; narrow basins, coupled width/colour barriers and infeasible crossings can be missed; converged still means numerical coefficient optimizer plus forward feasibility/epigraph, not width identification"
+  }
+}

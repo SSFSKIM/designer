@@ -1,0 +1,5 @@
+results/2026-09-27-w41-g0-declaration/sheets/sheets.test.ts(35,52): error TS2345: Argument of type '{ width: number; height: number; data: Uint8Array<ArrayBuffer>; }' is not assignable to parameter of type 'PNG'.
+  Type '{ width: number; height: number; data: Uint8Array<ArrayBuffer>; }' is missing the following properties from type 'PNG': gamma, adjustGamma, bitblt, on, and 74 more.
+results/2026-09-27-w41-g0-declaration/sheets/sheets.ts(119,48): error TS2345: Argument of type 'CalibrationImage' is not assignable to parameter of type 'PNG'.
+  Type 'CalibrationImage' is missing the following properties from type 'PNG': gamma, adjustGamma, bitblt, on, and 74 more.
+exit=2

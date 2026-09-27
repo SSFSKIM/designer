@@ -1,0 +1,82 @@
+{
+  "schema": "w41-body-execution-1",
+  "scope": "synthetic G0; one endpoint per call; pooled scales",
+  "inputUnits": "encoded sRGB 0..255",
+  "neutralSource": "seven caller-supplied fixed ordinates",
+  "linear": {
+    "families": [
+      "E3",
+      "EH6"
+    ],
+    "gainBounds": [
+      0,
+      3
+    ],
+    "survival": "LP at per-channel max(1,bar)",
+    "phaseI": "HiGHS: minimum common nonnegative slack on explicit Aq<=b including gain bounds",
+    "primalFeasibilityTolerance": 1e-09,
+    "dualFeasibilityTolerance": 1e-09,
+    "certificate": "exact rational basic dual on float64 Aq<=b; dimension independent; weights sum one",
+    "certificateBinding": "indices into caller-regenerated constraints; no embedded unbound system",
+    "maxBisectionIterations": 101,
+    "maxGapCodes": 1e-05,
+    "initialUpper": "255-code relaxed measured constraints, never relaxed rails; original forward checked",
+    "zeroProbe": true,
+    "railRoundoffGuardCodes": 1e-08,
+    "railRoundoffGuard": "candidate only; never used to certify lower; original forward rails still checked exactly"
+  },
+  "local": {
+    "families": [
+      "E3",
+      "EH6",
+      "O12"
+    ],
+    "seed": 4100,
+    "starts": 16,
+    "baseline": "E3/EH6 ones; O12 identity at each of three nodes",
+    "otherStarts": "15 NumPy default_rng(seed) uniform in full declared parameter box",
+    "leastSquares": {
+      "method": "scipy least_squares",
+      "max_nfev": 3000,
+      "ftol": 1e-10,
+      "xtol": 1e-10,
+      "gtol": 1e-10,
+      "mass": "equal cell mass, then equal uncensored-channel mass within each cell; rails hard, not residuals",
+      "rails": "unconstrained bounded least_squares seeds SLSQP constrained LS",
+      "constrainedMethod": "SLSQP",
+      "constrainedMaxiter": 3000,
+      "constrainedFtol": 1e-10
+    },
+    "minimax": {
+      "method": "SLSQP epigraph",
+      "maxiter": 3000,
+      "ftol": 1e-10,
+      "initialization": "each original start, independently of least-squares",
+      "epigraphCheckToleranceCodes": 1e-08,
+      "objective": "maximum unweighted uncensored code error; equal mass leaves infinity norm unchanged"
+    },
+    "bounds": {
+      "E3": [
+        0,
+        3
+      ],
+      "EH6": [
+        0,
+        3
+      ],
+      "O12": [
+        -8,
+        8
+      ]
+    },
+    "rejection": "optimizer failure, coefficient bounds failure, any positive forward rail deficit, or epigraph gap >1e-8",
+    "rank": "finite-difference raw uncensored predicted channels, scipy approx_derivative with parameter bounds",
+    "authority": "LOCAL candidates only; E3/EH6 global survival and negatives require certified LP"
+  },
+  "limits": [
+    "No native fit or archive payload read in G0",
+    "No caller role, scale, population, repeat or freeze enforcement in this array module",
+    "Censored-bound-satisfied is not RGB accuracy or heldout coverage",
+    "No exact transcendental interval claim"
+  ]
+}

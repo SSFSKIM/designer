@@ -1,0 +1,63 @@
+{
+  "schema": "w41-exposure-synthetic-proof-1",
+  "scope": "synthetic calibration stand-ins; no native payloads or browser",
+  "tests": 16,
+  "red": "freeze raised NotImplementedError in 10 initial tests; added regressions observed failing before fixes",
+  "calibrationCells": [
+    "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive",
+    "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__rest"
+  ],
+  "candidates": 1,
+  "numericalCells": 2,
+  "renderedCells": 2,
+  "pngSize": [
+    2,
+    2
+  ],
+  "pngPixelsPerCell": 4,
+  "observationsRGB": [
+    80,
+    90,
+    100
+  ],
+  "worstNumericalResidualCodes": 0,
+  "worstRenderedResidualCodes": 0,
+  "events": [
+    "begin",
+    "complete"
+  ],
+  "coverage": {
+    "standin": {
+      "numerical": {
+        "measured": 2,
+        "censored": 0,
+        "total": 2,
+        "fraction": 1.0
+      },
+      "rendered": {
+        "measured": 2,
+        "censored": 0,
+        "total": 2,
+        "fraction": 1.0
+      }
+    }
+  },
+  "wrongNumericalPredictionCodes": [
+    82,
+    90,
+    100
+  ],
+  "wrongPredictionResidualCodes": 2,
+  "wrongPredictionBoundCodes": 1,
+  "censorCoverageTest": {
+    "measured": 1,
+    "censored": 1,
+    "total": 2,
+    "fraction": 0.5
+  },
+  "productionReceiptOpened": false,
+  "nativePayloadsRead": 0,
+  "browserLaunches": 0,
+  "metadataHoldoutCells": 72,
+  "metadataWebHoldoutCells": 64
+}

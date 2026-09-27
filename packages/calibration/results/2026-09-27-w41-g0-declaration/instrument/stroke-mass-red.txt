@@ -1,0 +1,14 @@
+E
+======================================================================
+ERROR: test_equal_cell_mass_with_partial_censoring (__main__.MassTests.test_equal_cell_mass_with_partial_censoring)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g0/packages/calibration/results/2026-09-27-w41-g0-declaration/instrument/test-stroke-mass.py", line 9, in test_equal_cell_mass_with_partial_censoring
+    target,mass,groups=f.objective_layout([a,b])
+                       ^^^^^^^^^^^^^^^^^^
+AttributeError: module 'stroke_fit' has no attribute 'objective_layout'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)
