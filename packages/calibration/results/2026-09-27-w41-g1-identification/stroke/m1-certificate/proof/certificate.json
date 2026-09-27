@@ -1,0 +1,5883 @@
+{
+  "schema": "w41-m1-matched-channel-necessary-certificate-1",
+  "declarationSha256": "850747c1f03781a6efe9b433bd4ce3bd6cf72b63c9befd8d5d98de9eadf7f759",
+  "sourceManifestSha256": "1addc84c95bb111be48b6059ed26962ef6f2c8352606b814072da394db2e8e53",
+  "inputManifestSha256": "6419b1ea6774d7843ea03400cfe7d4a7e4497c57c41649c6e967a8e04b0f38de",
+  "nativeRoles": [
+    "calibration"
+  ],
+  "cellsRead": 8,
+  "fitsRun": 0,
+  "existingFitsStopped": false,
+  "theorem": "For each paired pixel M1 predicts the same B channel for all bounded ordinates, width, beta and rho: identical q,d,nx squared,arc,scale,radius; gamma=0; shadow=reference; identical uniform local B=32. Arbitrary common per-pixel predictions relax every declared geometry rival. Triangle gives MAE_left+MAE_right >= mean(abs(native_left-native_right)); Jensen also gives >= abs(mean(native_left)-mean(native_right)). Exact rational bars and fully uncensored populations below prove infeasibility when either bound exceeds their sum.",
+  "scope": [
+    "M1/device-width/dark-inactive",
+    "M1/CSS-width/dark-inactive",
+    "M1/nominal-curvature/dark-inactive"
+  ],
+  "endpoints": {
+    "light-inactive": "not-rejected-by-this-pair; no survival claim",
+    "dark-inactive": "rejected-by-necessary-cut"
+  },
+  "exclusions": [
+    "M2 contextual correction depends on full RGB luminance and gamut; equality does not apply.",
+    "Active endpoints were not read; no extrapolation from inactive.",
+    "No claim about remaining light M1 bins or whole-endpoint survival.",
+    "No optimizer output, candidate fit, validation transfer or holdout result."
+  ],
+  "sensitivity": "Both 16x16 and fixed-coefficient 32x32 preserve exact paired-channel identity.",
+  "pairs": [
+    {
+      "endpoint": "light-inactive",
+      "scale": 1,
+      "channel": "B",
+      "inputCode": 32,
+      "pixels": 76,
+      "identicalFullSubpixelGeometryAndReference": true,
+      "exact": {
+        "bar": [
+          "1/2",
+          "1/2"
+        ],
+        "allowedMAE": [
+          "1",
+          "1"
+        ],
+        "allSevenAndMedianReject": false,
+        "rejects": false,
+        "states": [
+          {
+            "state": "pixelwise-median",
+            "leftMean": "21",
+            "rightMean": "21",
+            "absoluteMeanDifference": "0",
+            "meanAbsolutePairedDifference": "0",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "-2",
+            "pairwiseTriangleExcess": "-2",
+            "necessaryWorstMAELowerBound": "0",
+            "rejects": false
+          },
+          {
+            "state": "repeat-1",
+            "leftMean": "21",
+            "rightMean": "21",
+            "absoluteMeanDifference": "0",
+            "meanAbsolutePairedDifference": "0",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "-2",
+            "pairwiseTriangleExcess": "-2",
+            "necessaryWorstMAELowerBound": "0",
+            "rejects": false
+          },
+          {
+            "state": "repeat-2",
+            "leftMean": "21",
+            "rightMean": "21",
+            "absoluteMeanDifference": "0",
+            "meanAbsolutePairedDifference": "0",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "-2",
+            "pairwiseTriangleExcess": "-2",
+            "necessaryWorstMAELowerBound": "0",
+            "rejects": false
+          },
+          {
+            "state": "repeat-3",
+            "leftMean": "21",
+            "rightMean": "21",
+            "absoluteMeanDifference": "0",
+            "meanAbsolutePairedDifference": "0",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "-2",
+            "pairwiseTriangleExcess": "-2",
+            "necessaryWorstMAELowerBound": "0",
+            "rejects": false
+          },
+          {
+            "state": "repeat-4",
+            "leftMean": "21",
+            "rightMean": "21",
+            "absoluteMeanDifference": "0",
+            "meanAbsolutePairedDifference": "0",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "-2",
+            "pairwiseTriangleExcess": "-2",
+            "necessaryWorstMAELowerBound": "0",
+            "rejects": false
+          },
+          {
+            "state": "repeat-5",
+            "leftMean": "21",
+            "rightMean": "21",
+            "absoluteMeanDifference": "0",
+            "meanAbsolutePairedDifference": "0",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "-2",
+            "pairwiseTriangleExcess": "-2",
+            "necessaryWorstMAELowerBound": "0",
+            "rejects": false
+          },
+          {
+            "state": "repeat-6",
+            "leftMean": "21",
+            "rightMean": "21",
+            "absoluteMeanDifference": "0",
+            "meanAbsolutePairedDifference": "0",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "-2",
+            "pairwiseTriangleExcess": "-2",
+            "necessaryWorstMAELowerBound": "0",
+            "rejects": false
+          },
+          {
+            "state": "repeat-7",
+            "leftMean": "21",
+            "rightMean": "21",
+            "absoluteMeanDifference": "0",
+            "meanAbsolutePairedDifference": "0",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "-2",
+            "pairwiseTriangleExcess": "-2",
+            "necessaryWorstMAELowerBound": "0",
+            "rejects": false
+          }
+        ]
+      },
+      "unchangedForwardChecks": [
+        {
+          "order": 16,
+          "cases": 8,
+          "maximumM1ChannelDifference": 0.0,
+          "M2NonFitContextualCounterexampleDifference": null
+        },
+        {
+          "order": 32,
+          "cases": 8,
+          "maximumM1ChannelDifference": 0.0,
+          "M2NonFitContextualCounterexampleDifference": null
+        }
+      ]
+    },
+    {
+      "endpoint": "light-inactive",
+      "scale": 2,
+      "channel": "B",
+      "inputCode": 32,
+      "pixels": 152,
+      "identicalFullSubpixelGeometryAndReference": true,
+      "exact": {
+        "bar": [
+          "1/2",
+          "1/2"
+        ],
+        "allowedMAE": [
+          "1",
+          "1"
+        ],
+        "allSevenAndMedianReject": false,
+        "rejects": false,
+        "states": [
+          {
+            "state": "pixelwise-median",
+            "leftMean": "21",
+            "rightMean": "21",
+            "absoluteMeanDifference": "0",
+            "meanAbsolutePairedDifference": "0",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "-2",
+            "pairwiseTriangleExcess": "-2",
+            "necessaryWorstMAELowerBound": "0",
+            "rejects": false
+          },
+          {
+            "state": "repeat-1",
+            "leftMean": "21",
+            "rightMean": "21",
+            "absoluteMeanDifference": "0",
+            "meanAbsolutePairedDifference": "0",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "-2",
+            "pairwiseTriangleExcess": "-2",
+            "necessaryWorstMAELowerBound": "0",
+            "rejects": false
+          },
+          {
+            "state": "repeat-2",
+            "leftMean": "21",
+            "rightMean": "21",
+            "absoluteMeanDifference": "0",
+            "meanAbsolutePairedDifference": "0",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "-2",
+            "pairwiseTriangleExcess": "-2",
+            "necessaryWorstMAELowerBound": "0",
+            "rejects": false
+          },
+          {
+            "state": "repeat-3",
+            "leftMean": "21",
+            "rightMean": "21",
+            "absoluteMeanDifference": "0",
+            "meanAbsolutePairedDifference": "0",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "-2",
+            "pairwiseTriangleExcess": "-2",
+            "necessaryWorstMAELowerBound": "0",
+            "rejects": false
+          },
+          {
+            "state": "repeat-4",
+            "leftMean": "21",
+            "rightMean": "21",
+            "absoluteMeanDifference": "0",
+            "meanAbsolutePairedDifference": "0",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "-2",
+            "pairwiseTriangleExcess": "-2",
+            "necessaryWorstMAELowerBound": "0",
+            "rejects": false
+          },
+          {
+            "state": "repeat-5",
+            "leftMean": "21",
+            "rightMean": "21",
+            "absoluteMeanDifference": "0",
+            "meanAbsolutePairedDifference": "0",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "-2",
+            "pairwiseTriangleExcess": "-2",
+            "necessaryWorstMAELowerBound": "0",
+            "rejects": false
+          },
+          {
+            "state": "repeat-6",
+            "leftMean": "21",
+            "rightMean": "21",
+            "absoluteMeanDifference": "0",
+            "meanAbsolutePairedDifference": "0",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "-2",
+            "pairwiseTriangleExcess": "-2",
+            "necessaryWorstMAELowerBound": "0",
+            "rejects": false
+          },
+          {
+            "state": "repeat-7",
+            "leftMean": "21",
+            "rightMean": "21",
+            "absoluteMeanDifference": "0",
+            "meanAbsolutePairedDifference": "0",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "-2",
+            "pairwiseTriangleExcess": "-2",
+            "necessaryWorstMAELowerBound": "0",
+            "rejects": false
+          }
+        ]
+      },
+      "unchangedForwardChecks": [
+        {
+          "order": 16,
+          "cases": 8,
+          "maximumM1ChannelDifference": 0.0,
+          "M2NonFitContextualCounterexampleDifference": null
+        },
+        {
+          "order": 32,
+          "cases": 8,
+          "maximumM1ChannelDifference": 0.0,
+          "M2NonFitContextualCounterexampleDifference": null
+        }
+      ]
+    },
+    {
+      "endpoint": "dark-inactive",
+      "scale": 1,
+      "channel": "B",
+      "inputCode": 32,
+      "pixels": 76,
+      "identicalFullSubpixelGeometryAndReference": true,
+      "exact": {
+        "bar": [
+          "1/2",
+          "1/2"
+        ],
+        "allowedMAE": [
+          "1",
+          "1"
+        ],
+        "allSevenAndMedianReject": true,
+        "rejects": true,
+        "states": [
+          {
+            "state": "pixelwise-median",
+            "leftMean": "21",
+            "rightMean": "14",
+            "absoluteMeanDifference": "7",
+            "meanAbsolutePairedDifference": "7",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "5",
+            "pairwiseTriangleExcess": "5",
+            "necessaryWorstMAELowerBound": "7/2",
+            "rejects": true
+          },
+          {
+            "state": "repeat-1",
+            "leftMean": "21",
+            "rightMean": "14",
+            "absoluteMeanDifference": "7",
+            "meanAbsolutePairedDifference": "7",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "5",
+            "pairwiseTriangleExcess": "5",
+            "necessaryWorstMAELowerBound": "7/2",
+            "rejects": true
+          },
+          {
+            "state": "repeat-2",
+            "leftMean": "21",
+            "rightMean": "14",
+            "absoluteMeanDifference": "7",
+            "meanAbsolutePairedDifference": "7",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "5",
+            "pairwiseTriangleExcess": "5",
+            "necessaryWorstMAELowerBound": "7/2",
+            "rejects": true
+          },
+          {
+            "state": "repeat-3",
+            "leftMean": "21",
+            "rightMean": "14",
+            "absoluteMeanDifference": "7",
+            "meanAbsolutePairedDifference": "7",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "5",
+            "pairwiseTriangleExcess": "5",
+            "necessaryWorstMAELowerBound": "7/2",
+            "rejects": true
+          },
+          {
+            "state": "repeat-4",
+            "leftMean": "21",
+            "rightMean": "14",
+            "absoluteMeanDifference": "7",
+            "meanAbsolutePairedDifference": "7",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "5",
+            "pairwiseTriangleExcess": "5",
+            "necessaryWorstMAELowerBound": "7/2",
+            "rejects": true
+          },
+          {
+            "state": "repeat-5",
+            "leftMean": "21",
+            "rightMean": "14",
+            "absoluteMeanDifference": "7",
+            "meanAbsolutePairedDifference": "7",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "5",
+            "pairwiseTriangleExcess": "5",
+            "necessaryWorstMAELowerBound": "7/2",
+            "rejects": true
+          },
+          {
+            "state": "repeat-6",
+            "leftMean": "21",
+            "rightMean": "14",
+            "absoluteMeanDifference": "7",
+            "meanAbsolutePairedDifference": "7",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "5",
+            "pairwiseTriangleExcess": "5",
+            "necessaryWorstMAELowerBound": "7/2",
+            "rejects": true
+          },
+          {
+            "state": "repeat-7",
+            "leftMean": "21",
+            "rightMean": "14",
+            "absoluteMeanDifference": "7",
+            "meanAbsolutePairedDifference": "7",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "5",
+            "pairwiseTriangleExcess": "5",
+            "necessaryWorstMAELowerBound": "7/2",
+            "rejects": true
+          }
+        ]
+      },
+      "unchangedForwardChecks": [
+        {
+          "order": 16,
+          "cases": 8,
+          "maximumM1ChannelDifference": 0.0,
+          "M2NonFitContextualCounterexampleDifference": 2.166713799093568
+        },
+        {
+          "order": 32,
+          "cases": 8,
+          "maximumM1ChannelDifference": 0.0,
+          "M2NonFitContextualCounterexampleDifference": 2.166713799094154
+        }
+      ]
+    },
+    {
+      "endpoint": "dark-inactive",
+      "scale": 2,
+      "channel": "B",
+      "inputCode": 32,
+      "pixels": 152,
+      "identicalFullSubpixelGeometryAndReference": true,
+      "exact": {
+        "bar": [
+          "1/2",
+          "1/2"
+        ],
+        "allowedMAE": [
+          "1",
+          "1"
+        ],
+        "allSevenAndMedianReject": true,
+        "rejects": true,
+        "states": [
+          {
+            "state": "pixelwise-median",
+            "leftMean": "21",
+            "rightMean": "14",
+            "absoluteMeanDifference": "7",
+            "meanAbsolutePairedDifference": "7",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "5",
+            "pairwiseTriangleExcess": "5",
+            "necessaryWorstMAELowerBound": "7/2",
+            "rejects": true
+          },
+          {
+            "state": "repeat-1",
+            "leftMean": "21",
+            "rightMean": "14",
+            "absoluteMeanDifference": "7",
+            "meanAbsolutePairedDifference": "7",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "5",
+            "pairwiseTriangleExcess": "5",
+            "necessaryWorstMAELowerBound": "7/2",
+            "rejects": true
+          },
+          {
+            "state": "repeat-2",
+            "leftMean": "21",
+            "rightMean": "14",
+            "absoluteMeanDifference": "7",
+            "meanAbsolutePairedDifference": "7",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "5",
+            "pairwiseTriangleExcess": "5",
+            "necessaryWorstMAELowerBound": "7/2",
+            "rejects": true
+          },
+          {
+            "state": "repeat-3",
+            "leftMean": "21",
+            "rightMean": "14",
+            "absoluteMeanDifference": "7",
+            "meanAbsolutePairedDifference": "7",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "5",
+            "pairwiseTriangleExcess": "5",
+            "necessaryWorstMAELowerBound": "7/2",
+            "rejects": true
+          },
+          {
+            "state": "repeat-4",
+            "leftMean": "21",
+            "rightMean": "14",
+            "absoluteMeanDifference": "7",
+            "meanAbsolutePairedDifference": "7",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "5",
+            "pairwiseTriangleExcess": "5",
+            "necessaryWorstMAELowerBound": "7/2",
+            "rejects": true
+          },
+          {
+            "state": "repeat-5",
+            "leftMean": "21",
+            "rightMean": "14",
+            "absoluteMeanDifference": "7",
+            "meanAbsolutePairedDifference": "7",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "5",
+            "pairwiseTriangleExcess": "5",
+            "necessaryWorstMAELowerBound": "7/2",
+            "rejects": true
+          },
+          {
+            "state": "repeat-6",
+            "leftMean": "21",
+            "rightMean": "14",
+            "absoluteMeanDifference": "7",
+            "meanAbsolutePairedDifference": "7",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "5",
+            "pairwiseTriangleExcess": "5",
+            "necessaryWorstMAELowerBound": "7/2",
+            "rejects": true
+          },
+          {
+            "state": "repeat-7",
+            "leftMean": "21",
+            "rightMean": "14",
+            "absoluteMeanDifference": "7",
+            "meanAbsolutePairedDifference": "7",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "5",
+            "pairwiseTriangleExcess": "5",
+            "necessaryWorstMAELowerBound": "7/2",
+            "rejects": true
+          }
+        ]
+      },
+      "unchangedForwardChecks": [
+        {
+          "order": 16,
+          "cases": 8,
+          "maximumM1ChannelDifference": 0.0,
+          "M2NonFitContextualCounterexampleDifference": 2.166713799093568
+        },
+        {
+          "order": 32,
+          "cases": 8,
+          "maximumM1ChannelDifference": 0.0,
+          "M2NonFitContextualCounterexampleDifference": 2.166713799094154
+        }
+      ]
+    }
+  ],
+  "cells": [
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/red-colour__inactive",
+      "role": "calibration",
+      "scheme": "light",
+      "scale": 1,
+      "colour": "red",
+      "file": "light-1x-red.crop",
+      "sha256": "ed3d700a92d122e343a0911992594e22e35ea83c446690d5528d715eab95f570",
+      "bytes": 6651,
+      "component": {
+        "kind": "capsule-circular",
+        "position": [
+          160,
+          140
+        ],
+        "size": [
+          120,
+          44
+        ],
+        "suppliedPaths": [
+          {
+            "elements": [
+              {
+                "points": [
+                  [
+                    120.00000000000001,
+                    22
+                  ]
+                ],
+                "type": 0
+              },
+              {
+                "points": [
+                  [
+                    120.00000000000003,
+                    22.00000000000002
+                  ]
+                ],
+                "type": 1
+              },
+              {
+                "points": [
+                  [
+                    120.00000000000001,
+                    34.150264496277465
+                  ],
+                  [
+                    110.15026449627749,
+                    44
+                  ],
+                  [
+                    98.00000000000003,
+                    44
+                  ]
+                ],
+                "type": 3
+              },
+              {
+                "points": [
+                  [
+                    22,
+                    44.00000000000001
+                  ]
+                ],
+                "type": 1
+              },
+              {
+                "points": [
+                  [
+                    9.8497355044,
+                    44.00000000000001
+                  ],
+                  [
+                    7.439891261665134e-16,
+                    34.15026449560001
+                  ],
+                  [
+                    0,
+                    22.00000000000001
+                  ]
+                ],
+                "type": 3
+              },
+              {
+                "points": [
+                  [
+                    0,
+                    22
+                  ]
+                ],
+                "type": 1
+              },
+              {
+                "points": [
+                  [
+                    1.4879782523330268e-15,
+                    9.8497355044
+                  ],
+                  [
+                    9.849735504400005,
+                    3.3970030560176617e-15
+                  ],
+                  [
+                    22.000000000000004,
+                    4.884981308350689e-15
+                  ]
+                ],
+                "type": 3
+              },
+              {
+                "points": [
+                  [
+                    98.00000000000001,
+                    0
+                  ]
+                ],
+                "type": 1
+              },
+              {
+                "points": [
+                  [
+                    110.15026449560001,
+                    7.439891261665134e-16
+                  ],
+                  [
+                    120.00000000000001,
+                    9.8497355044
+                  ],
+                  [
+                    120.00000000000001,
+                    22
+                  ]
+                ],
+                "type": 3
+              },
+              {
+                "points": [],
+                "type": 4
+              }
+            ],
+            "frameOrigin": [
+              100,
+              118
+            ],
+            "kind": "capsule-circular",
+            "opaque": false,
+            "rect": [
+              0,
+              0,
+              120,
+              44
+            ]
+          }
+        ]
+      },
+      "bin": {
+        "member": 0,
+        "part": "straight",
+        "shell": 0,
+        "depthCss": -0.5,
+        "pixels": 76,
+        "admissible": true,
+        "side": "top",
+        "bin": 12,
+        "status": "measured"
+      },
+      "frameShape": [
+        280,
+        320,
+        3
+      ],
+      "runIds": [
+        "/Users/new/vitrea-w39/run/inactive-1x/run-1",
+        "/Users/new/vitrea-w39/run/inactive-1x/run-2",
+        "/Users/new/vitrea-w39/run/inactive-1x/run-3",
+        "/Users/new/vitrea-w39/run/inactive-1x/run-4",
+        "/Users/new/vitrea-w39/run/inactive-1x/run-5",
+        "/Users/new/vitrea-w39/run/inactive-1x/run-6",
+        "/Users/new/vitrea-w39/run/inactive-1x/run-7"
+      ],
+      "stateMembership": [
+        "59722031da1264c5c854505ff9b22e03c66536bc3fecf854040de9cbf4e8223e",
+        "59722031da1264c5c854505ff9b22e03c66536bc3fecf854040de9cbf4e8223e",
+        "59722031da1264c5c854505ff9b22e03c66536bc3fecf854040de9cbf4e8223e",
+        "59722031da1264c5c854505ff9b22e03c66536bc3fecf854040de9cbf4e8223e",
+        "59722031da1264c5c854505ff9b22e03c66536bc3fecf854040de9cbf4e8223e",
+        "59722031da1264c5c854505ff9b22e03c66536bc3fecf854040de9cbf4e8223e",
+        "59722031da1264c5c854505ff9b22e03c66536bc3fecf854040de9cbf4e8223e"
+      ],
+      "uniqueStates": 1,
+      "wholeFrameReferenceRGB": [
+        192,
+        32,
+        32
+      ],
+      "nativeMeanRGBSevenRuns": [
+        [
+          156.0,
+          21.0,
+          21.0
+        ],
+        [
+          156.0,
+          21.0,
+          21.0
+        ],
+        [
+          156.0,
+          21.0,
+          21.0
+        ],
+        [
+          156.0,
+          21.0,
+          21.0
+        ],
+        [
+          156.0,
+          21.0,
+          21.0
+        ],
+        [
+          156.0,
+          21.0,
+          21.0
+        ],
+        [
+          156.0,
+          21.0,
+          21.0
+        ]
+      ],
+      "scoreBinAtArbitraryCommon17point5": {
+        "pixels": 76,
+        "barRGB": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "median": {
+          "status": [
+            "measured",
+            "measured",
+            "measured"
+          ],
+          "errorCodes": [
+            138.5,
+            3.5,
+            3.5
+          ],
+          "failed": [
+            true,
+            true,
+            true
+          ],
+          "boundFailure": [
+            false,
+            false,
+            false
+          ],
+          "railPixels": [
+            0,
+            0,
+            0
+          ],
+          "uncensoredPixels": [
+            76,
+            76,
+            76
+          ]
+        },
+        "runs": [
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              138.5,
+              3.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              76,
+              76,
+              76
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              138.5,
+              3.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              76,
+              76,
+              76
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              138.5,
+              3.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              76,
+              76,
+              76
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              138.5,
+              3.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              76,
+              76,
+              76
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              138.5,
+              3.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              76,
+              76,
+              76
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              138.5,
+              3.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              76,
+              76,
+              76
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              138.5,
+              3.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              76,
+              76,
+              76
+            ]
+          }
+        ],
+        "survives": false,
+        "heldoutCoverage": true,
+        "worstChannelFailure": true,
+        "allChannelFailure": true
+      },
+      "inactiveGamma": 0,
+      "shadowAlphaExactlyZeroBothOrders": true,
+      "allSevenReferencesExactlyEqual": true,
+      "allSevenSuppliedComponentsExactlyEqual": true
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/green-colour__inactive",
+      "role": "calibration",
+      "scheme": "light",
+      "scale": 1,
+      "colour": "green",
+      "file": "light-1x-green.crop",
+      "sha256": "7d9927861d4e2a7d13ea79ae472af5c4affe194903d761026d9ec306480af77e",
+      "bytes": 6688,
+      "component": {
+        "kind": "capsule-circular",
+        "position": [
+          160,
+          140
+        ],
+        "size": [
+          120,
+          44
+        ],
+        "suppliedPaths": [
+          {
+            "elements": [
+              {
+                "points": [
+                  [
+                    120.00000000000001,
+                    22
+                  ]
+                ],
+                "type": 0
+              },
+              {
+                "points": [
+                  [
+                    120.00000000000003,
+                    22.00000000000002
+                  ]
+                ],
+                "type": 1
+              },
+              {
+                "points": [
+                  [
+                    120.00000000000001,
+                    34.150264496277465
+                  ],
+                  [
+                    110.15026449627749,
+                    44
+                  ],
+                  [
+                    98.00000000000003,
+                    44
+                  ]
+                ],
+                "type": 3
+              },
+              {
+                "points": [
+                  [
+                    22,
+                    44.00000000000001
+                  ]
+                ],
+                "type": 1
+              },
+              {
+                "points": [
+                  [
+                    9.8497355044,
+                    44.00000000000001
+                  ],
+                  [
+                    7.439891261665134e-16,
+                    34.15026449560001
+                  ],
+                  [
+                    0,
+                    22.00000000000001
+                  ]
+                ],
+                "type": 3
+              },
+              {
+                "points": [
+                  [
+                    0,
+                    22
+                  ]
+                ],
+                "type": 1
+              },
+              {
+                "points": [
+                  [
+                    1.4879782523330268e-15,
+                    9.8497355044
+                  ],
+                  [
+                    9.849735504400005,
+                    3.3970030560176617e-15
+                  ],
+                  [
+                    22.000000000000004,
+                    4.884981308350689e-15
+                  ]
+                ],
+                "type": 3
+              },
+              {
+                "points": [
+                  [
+                    98.00000000000001,
+                    0
+                  ]
+                ],
+                "type": 1
+              },
+              {
+                "points": [
+                  [
+                    110.15026449560001,
+                    7.439891261665134e-16
+                  ],
+                  [
+                    120.00000000000001,
+                    9.8497355044
+                  ],
+                  [
+                    120.00000000000001,
+                    22
+                  ]
+                ],
+                "type": 3
+              },
+              {
+                "points": [],
+                "type": 4
+              }
+            ],
+            "frameOrigin": [
+              100,
+              118
+            ],
+            "kind": "capsule-circular",
+            "opaque": false,
+            "rect": [
+              0,
+              0,
+              120,
+              44
+            ]
+          }
+        ]
+      },
+      "bin": {
+        "member": 0,
+        "part": "straight",
+        "shell": 0,
+        "depthCss": -0.5,
+        "pixels": 76,
+        "admissible": true,
+        "side": "top",
+        "bin": 12,
+        "status": "measured"
+      },
+      "frameShape": [
+        280,
+        320,
+        3
+      ],
+      "runIds": [
+        "/Users/new/vitrea-w39/run/inactive-1x/run-1",
+        "/Users/new/vitrea-w39/run/inactive-1x/run-2",
+        "/Users/new/vitrea-w39/run/inactive-1x/run-3",
+        "/Users/new/vitrea-w39/run/inactive-1x/run-4",
+        "/Users/new/vitrea-w39/run/inactive-1x/run-5",
+        "/Users/new/vitrea-w39/run/inactive-1x/run-6",
+        "/Users/new/vitrea-w39/run/inactive-1x/run-7"
+      ],
+      "stateMembership": [
+        "40b80dd47cf0e65c041ebace9f4d5e321c1f4eef04becdd2808d70c274bf3c66",
+        "40b80dd47cf0e65c041ebace9f4d5e321c1f4eef04becdd2808d70c274bf3c66",
+        "40b80dd47cf0e65c041ebace9f4d5e321c1f4eef04becdd2808d70c274bf3c66",
+        "40b80dd47cf0e65c041ebace9f4d5e321c1f4eef04becdd2808d70c274bf3c66",
+        "40b80dd47cf0e65c041ebace9f4d5e321c1f4eef04becdd2808d70c274bf3c66",
+        "40b80dd47cf0e65c041ebace9f4d5e321c1f4eef04becdd2808d70c274bf3c66",
+        "40b80dd47cf0e65c041ebace9f4d5e321c1f4eef04becdd2808d70c274bf3c66"
+      ],
+      "uniqueStates": 1,
+      "wholeFrameReferenceRGB": [
+        32,
+        192,
+        32
+      ],
+      "nativeMeanRGBSevenRuns": [
+        [
+          21.0,
+          156.0,
+          21.0
+        ],
+        [
+          21.0,
+          156.0,
+          21.0
+        ],
+        [
+          21.0,
+          156.0,
+          21.0
+        ],
+        [
+          21.0,
+          156.0,
+          21.0
+        ],
+        [
+          21.0,
+          156.0,
+          21.0
+        ],
+        [
+          21.0,
+          156.0,
+          21.0
+        ],
+        [
+          21.0,
+          156.0,
+          21.0
+        ]
+      ],
+      "scoreBinAtArbitraryCommon17point5": {
+        "pixels": 76,
+        "barRGB": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "median": {
+          "status": [
+            "measured",
+            "measured",
+            "measured"
+          ],
+          "errorCodes": [
+            3.5,
+            138.5,
+            3.5
+          ],
+          "failed": [
+            true,
+            true,
+            true
+          ],
+          "boundFailure": [
+            false,
+            false,
+            false
+          ],
+          "railPixels": [
+            0,
+            0,
+            0
+          ],
+          "uncensoredPixels": [
+            76,
+            76,
+            76
+          ]
+        },
+        "runs": [
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              3.5,
+              138.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              76,
+              76,
+              76
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              3.5,
+              138.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              76,
+              76,
+              76
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              3.5,
+              138.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              76,
+              76,
+              76
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              3.5,
+              138.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              76,
+              76,
+              76
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              3.5,
+              138.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              76,
+              76,
+              76
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              3.5,
+              138.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              76,
+              76,
+              76
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              3.5,
+              138.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              76,
+              76,
+              76
+            ]
+          }
+        ],
+        "survives": false,
+        "heldoutCoverage": true,
+        "worstChannelFailure": true,
+        "allChannelFailure": true
+      },
+      "inactiveGamma": 0,
+      "shadowAlphaExactlyZeroBothOrders": true,
+      "allSevenReferencesExactlyEqual": true,
+      "allSevenSuppliedComponentsExactlyEqual": true
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/red-colour__inactive",
+      "role": "calibration",
+      "scheme": "light",
+      "scale": 2,
+      "colour": "red",
+      "file": "light-2x-red.crop",
+      "sha256": "337e2677d7b904f8e40764308dd2f4c423dc035ef33088ffaf7afb19ad8bbaca",
+      "bytes": 12133,
+      "component": {
+        "kind": "capsule-circular",
+        "position": [
+          160,
+          140
+        ],
+        "size": [
+          120,
+          44
+        ],
+        "suppliedPaths": [
+          {
+            "elements": [
+              {
+                "points": [
+                  [
+                    120.00000000000001,
+                    22
+                  ]
+                ],
+                "type": 0
+              },
+              {
+                "points": [
+                  [
+                    120.00000000000003,
+                    22.00000000000002
+                  ]
+                ],
+                "type": 1
+              },
+              {
+                "points": [
+                  [
+                    120.00000000000001,
+                    34.150264496277465
+                  ],
+                  [
+                    110.15026449627749,
+                    44
+                  ],
+                  [
+                    98.00000000000003,
+                    44
+                  ]
+                ],
+                "type": 3
+              },
+              {
+                "points": [
+                  [
+                    22,
+                    44.00000000000001
+                  ]
+                ],
+                "type": 1
+              },
+              {
+                "points": [
+                  [
+                    9.8497355044,
+                    44.00000000000001
+                  ],
+                  [
+                    7.439891261665134e-16,
+                    34.15026449560001
+                  ],
+                  [
+                    0,
+                    22.00000000000001
+                  ]
+                ],
+                "type": 3
+              },
+              {
+                "points": [
+                  [
+                    0,
+                    22
+                  ]
+                ],
+                "type": 1
+              },
+              {
+                "points": [
+                  [
+                    1.4879782523330268e-15,
+                    9.8497355044
+                  ],
+                  [
+                    9.849735504400005,
+                    3.3970030560176617e-15
+                  ],
+                  [
+                    22.000000000000004,
+                    4.884981308350689e-15
+                  ]
+                ],
+                "type": 3
+              },
+              {
+                "points": [
+                  [
+                    98.00000000000001,
+                    0
+                  ]
+                ],
+                "type": 1
+              },
+              {
+                "points": [
+                  [
+                    110.15026449560001,
+                    7.439891261665134e-16
+                  ],
+                  [
+                    120.00000000000001,
+                    9.8497355044
+                  ],
+                  [
+                    120.00000000000001,
+                    22
+                  ]
+                ],
+                "type": 3
+              },
+              {
+                "points": [],
+                "type": 4
+              }
+            ],
+            "frameOrigin": [
+              100,
+              118
+            ],
+            "kind": "capsule-circular",
+            "opaque": false,
+            "rect": [
+              0,
+              0,
+              120,
+              44
+            ]
+          }
+        ]
+      },
+      "bin": {
+        "member": 0,
+        "part": "straight",
+        "shell": 0,
+        "depthCss": -0.25,
+        "pixels": 152,
+        "admissible": true,
+        "side": "top",
+        "bin": 12,
+        "status": "measured"
+      },
+      "frameShape": [
+        560,
+        640,
+        3
+      ],
+      "runIds": [
+        "/Users/new/vitrea-w39/run/inactive-2x/run-1",
+        "/Users/new/vitrea-w39/run/inactive-2x/run-2",
+        "/Users/new/vitrea-w39/run/inactive-2x/run-3",
+        "/Users/new/vitrea-w39/run/inactive-2x/run-4",
+        "/Users/new/vitrea-w39/run/inactive-2x/run-5",
+        "/Users/new/vitrea-w39/run/inactive-2x/run-6",
+        "/Users/new/vitrea-w39/run/inactive-2x/run-7"
+      ],
+      "stateMembership": [
+        "d4154ffbd6c2f65c9658f2dd28d6bdac3cbe995d4a05f58a9a297405050a2544",
+        "d4154ffbd6c2f65c9658f2dd28d6bdac3cbe995d4a05f58a9a297405050a2544",
+        "d4154ffbd6c2f65c9658f2dd28d6bdac3cbe995d4a05f58a9a297405050a2544",
+        "d4154ffbd6c2f65c9658f2dd28d6bdac3cbe995d4a05f58a9a297405050a2544",
+        "d4154ffbd6c2f65c9658f2dd28d6bdac3cbe995d4a05f58a9a297405050a2544",
+        "d4154ffbd6c2f65c9658f2dd28d6bdac3cbe995d4a05f58a9a297405050a2544",
+        "d4154ffbd6c2f65c9658f2dd28d6bdac3cbe995d4a05f58a9a297405050a2544"
+      ],
+      "uniqueStates": 1,
+      "wholeFrameReferenceRGB": [
+        192,
+        32,
+        32
+      ],
+      "nativeMeanRGBSevenRuns": [
+        [
+          156.0,
+          21.0,
+          21.0
+        ],
+        [
+          156.0,
+          21.0,
+          21.0
+        ],
+        [
+          156.0,
+          21.0,
+          21.0
+        ],
+        [
+          156.0,
+          21.0,
+          21.0
+        ],
+        [
+          156.0,
+          21.0,
+          21.0
+        ],
+        [
+          156.0,
+          21.0,
+          21.0
+        ],
+        [
+          156.0,
+          21.0,
+          21.0
+        ]
+      ],
+      "scoreBinAtArbitraryCommon17point5": {
+        "pixels": 152,
+        "barRGB": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "median": {
+          "status": [
+            "measured",
+            "measured",
+            "measured"
+          ],
+          "errorCodes": [
+            138.5,
+            3.5,
+            3.5
+          ],
+          "failed": [
+            true,
+            true,
+            true
+          ],
+          "boundFailure": [
+            false,
+            false,
+            false
+          ],
+          "railPixels": [
+            0,
+            0,
+            0
+          ],
+          "uncensoredPixels": [
+            152,
+            152,
+            152
+          ]
+        },
+        "runs": [
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              138.5,
+              3.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              152,
+              152,
+              152
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              138.5,
+              3.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              152,
+              152,
+              152
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              138.5,
+              3.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              152,
+              152,
+              152
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              138.5,
+              3.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              152,
+              152,
+              152
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              138.5,
+              3.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              152,
+              152,
+              152
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              138.5,
+              3.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              152,
+              152,
+              152
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              138.5,
+              3.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              152,
+              152,
+              152
+            ]
+          }
+        ],
+        "survives": false,
+        "heldoutCoverage": true,
+        "worstChannelFailure": true,
+        "allChannelFailure": true
+      },
+      "inactiveGamma": 0,
+      "shadowAlphaExactlyZeroBothOrders": true,
+      "allSevenReferencesExactlyEqual": true,
+      "allSevenSuppliedComponentsExactlyEqual": true
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/green-colour__inactive",
+      "role": "calibration",
+      "scheme": "light",
+      "scale": 2,
+      "colour": "green",
+      "file": "light-2x-green.crop",
+      "sha256": "9359350f661d366d58190df5d7d0fd8346b1dabebfec39344f90522230b86832",
+      "bytes": 12207,
+      "component": {
+        "kind": "capsule-circular",
+        "position": [
+          160,
+          140
+        ],
+        "size": [
+          120,
+          44
+        ],
+        "suppliedPaths": [
+          {
+            "elements": [
+              {
+                "points": [
+                  [
+                    120.00000000000001,
+                    22
+                  ]
+                ],
+                "type": 0
+              },
+              {
+                "points": [
+                  [
+                    120.00000000000003,
+                    22.00000000000002
+                  ]
+                ],
+                "type": 1
+              },
+              {
+                "points": [
+                  [
+                    120.00000000000001,
+                    34.150264496277465
+                  ],
+                  [
+                    110.15026449627749,
+                    44
+                  ],
+                  [
+                    98.00000000000003,
+                    44
+                  ]
+                ],
+                "type": 3
+              },
+              {
+                "points": [
+                  [
+                    22,
+                    44.00000000000001
+                  ]
+                ],
+                "type": 1
+              },
+              {
+                "points": [
+                  [
+                    9.8497355044,
+                    44.00000000000001
+                  ],
+                  [
+                    7.439891261665134e-16,
+                    34.15026449560001
+                  ],
+                  [
+                    0,
+                    22.00000000000001
+                  ]
+                ],
+                "type": 3
+              },
+              {
+                "points": [
+                  [
+                    0,
+                    22
+                  ]
+                ],
+                "type": 1
+              },
+              {
+                "points": [
+                  [
+                    1.4879782523330268e-15,
+                    9.8497355044
+                  ],
+                  [
+                    9.849735504400005,
+                    3.3970030560176617e-15
+                  ],
+                  [
+                    22.000000000000004,
+                    4.884981308350689e-15
+                  ]
+                ],
+                "type": 3
+              },
+              {
+                "points": [
+                  [
+                    98.00000000000001,
+                    0
+                  ]
+                ],
+                "type": 1
+              },
+              {
+                "points": [
+                  [
+                    110.15026449560001,
+                    7.439891261665134e-16
+                  ],
+                  [
+                    120.00000000000001,
+                    9.8497355044
+                  ],
+                  [
+                    120.00000000000001,
+                    22
+                  ]
+                ],
+                "type": 3
+              },
+              {
+                "points": [],
+                "type": 4
+              }
+            ],
+            "frameOrigin": [
+              100,
+              118
+            ],
+            "kind": "capsule-circular",
+            "opaque": false,
+            "rect": [
+              0,
+              0,
+              120,
+              44
+            ]
+          }
+        ]
+      },
+      "bin": {
+        "member": 0,
+        "part": "straight",
+        "shell": 0,
+        "depthCss": -0.25,
+        "pixels": 152,
+        "admissible": true,
+        "side": "top",
+        "bin": 12,
+        "status": "measured"
+      },
+      "frameShape": [
+        560,
+        640,
+        3
+      ],
+      "runIds": [
+        "/Users/new/vitrea-w39/run/inactive-2x/run-1",
+        "/Users/new/vitrea-w39/run/inactive-2x/run-2",
+        "/Users/new/vitrea-w39/run/inactive-2x/run-3",
+        "/Users/new/vitrea-w39/run/inactive-2x/run-4",
+        "/Users/new/vitrea-w39/run/inactive-2x/run-5",
+        "/Users/new/vitrea-w39/run/inactive-2x/run-6",
+        "/Users/new/vitrea-w39/run/inactive-2x/run-7"
+      ],
+      "stateMembership": [
+        "4a4216fdc0d3fd77fb2aed2d25c723dbcabc96120ef49e4f4b2b5598cd22fac3",
+        "4a4216fdc0d3fd77fb2aed2d25c723dbcabc96120ef49e4f4b2b5598cd22fac3",
+        "4a4216fdc0d3fd77fb2aed2d25c723dbcabc96120ef49e4f4b2b5598cd22fac3",
+        "4a4216fdc0d3fd77fb2aed2d25c723dbcabc96120ef49e4f4b2b5598cd22fac3",
+        "4a4216fdc0d3fd77fb2aed2d25c723dbcabc96120ef49e4f4b2b5598cd22fac3",
+        "4a4216fdc0d3fd77fb2aed2d25c723dbcabc96120ef49e4f4b2b5598cd22fac3",
+        "4a4216fdc0d3fd77fb2aed2d25c723dbcabc96120ef49e4f4b2b5598cd22fac3"
+      ],
+      "uniqueStates": 1,
+      "wholeFrameReferenceRGB": [
+        32,
+        192,
+        32
+      ],
+      "nativeMeanRGBSevenRuns": [
+        [
+          21.0,
+          156.0,
+          21.0
+        ],
+        [
+          21.0,
+          156.0,
+          21.0
+        ],
+        [
+          21.0,
+          156.0,
+          21.0
+        ],
+        [
+          21.0,
+          156.0,
+          21.0
+        ],
+        [
+          21.0,
+          156.0,
+          21.0
+        ],
+        [
+          21.0,
+          156.0,
+          21.0
+        ],
+        [
+          21.0,
+          156.0,
+          21.0
+        ]
+      ],
+      "scoreBinAtArbitraryCommon17point5": {
+        "pixels": 152,
+        "barRGB": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "median": {
+          "status": [
+            "measured",
+            "measured",
+            "measured"
+          ],
+          "errorCodes": [
+            3.5,
+            138.5,
+            3.5
+          ],
+          "failed": [
+            true,
+            true,
+            true
+          ],
+          "boundFailure": [
+            false,
+            false,
+            false
+          ],
+          "railPixels": [
+            0,
+            0,
+            0
+          ],
+          "uncensoredPixels": [
+            152,
+            152,
+            152
+          ]
+        },
+        "runs": [
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              3.5,
+              138.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              152,
+              152,
+              152
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              3.5,
+              138.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              152,
+              152,
+              152
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              3.5,
+              138.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              152,
+              152,
+              152
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              3.5,
+              138.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              152,
+              152,
+              152
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              3.5,
+              138.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              152,
+              152,
+              152
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              3.5,
+              138.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              152,
+              152,
+              152
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              3.5,
+              138.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              152,
+              152,
+              152
+            ]
+          }
+        ],
+        "survives": false,
+        "heldoutCoverage": true,
+        "worstChannelFailure": true,
+        "allChannelFailure": true
+      },
+      "inactiveGamma": 0,
+      "shadowAlphaExactlyZeroBothOrders": true,
+      "allSevenReferencesExactlyEqual": true,
+      "allSevenSuppliedComponentsExactlyEqual": true
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/red-colour__inactive",
+      "role": "calibration",
+      "scheme": "dark",
+      "scale": 1,
+      "colour": "red",
+      "file": "dark-1x-red.crop",
+      "sha256": "61f263215ee591fe78a5ccbe259d9eea71e28b044d532c81b505225a2a32dc26",
+      "bytes": 6626,
+      "component": {
+        "kind": "capsule-circular",
+        "position": [
+          160,
+          140
+        ],
+        "size": [
+          120,
+          44
+        ],
+        "suppliedPaths": [
+          {
+            "elements": [
+              {
+                "points": [
+                  [
+                    120.00000000000001,
+                    22
+                  ]
+                ],
+                "type": 0
+              },
+              {
+                "points": [
+                  [
+                    120.00000000000003,
+                    22.00000000000002
+                  ]
+                ],
+                "type": 1
+              },
+              {
+                "points": [
+                  [
+                    120.00000000000001,
+                    34.150264496277465
+                  ],
+                  [
+                    110.15026449627749,
+                    44
+                  ],
+                  [
+                    98.00000000000003,
+                    44
+                  ]
+                ],
+                "type": 3
+              },
+              {
+                "points": [
+                  [
+                    22,
+                    44.00000000000001
+                  ]
+                ],
+                "type": 1
+              },
+              {
+                "points": [
+                  [
+                    9.8497355044,
+                    44.00000000000001
+                  ],
+                  [
+                    7.439891261665134e-16,
+                    34.15026449560001
+                  ],
+                  [
+                    0,
+                    22.00000000000001
+                  ]
+                ],
+                "type": 3
+              },
+              {
+                "points": [
+                  [
+                    0,
+                    22
+                  ]
+                ],
+                "type": 1
+              },
+              {
+                "points": [
+                  [
+                    1.4879782523330268e-15,
+                    9.8497355044
+                  ],
+                  [
+                    9.849735504400005,
+                    3.3970030560176617e-15
+                  ],
+                  [
+                    22.000000000000004,
+                    4.884981308350689e-15
+                  ]
+                ],
+                "type": 3
+              },
+              {
+                "points": [
+                  [
+                    98.00000000000001,
+                    0
+                  ]
+                ],
+                "type": 1
+              },
+              {
+                "points": [
+                  [
+                    110.15026449560001,
+                    7.439891261665134e-16
+                  ],
+                  [
+                    120.00000000000001,
+                    9.8497355044
+                  ],
+                  [
+                    120.00000000000001,
+                    22
+                  ]
+                ],
+                "type": 3
+              },
+              {
+                "points": [],
+                "type": 4
+              }
+            ],
+            "frameOrigin": [
+              100,
+              118
+            ],
+            "kind": "capsule-circular",
+            "opaque": false,
+            "rect": [
+              0,
+              0,
+              120,
+              44
+            ]
+          }
+        ]
+      },
+      "bin": {
+        "member": 0,
+        "part": "straight",
+        "shell": 0,
+        "depthCss": -0.5,
+        "pixels": 76,
+        "admissible": true,
+        "side": "top",
+        "bin": 12,
+        "status": "measured"
+      },
+      "frameShape": [
+        280,
+        320,
+        3
+      ],
+      "runIds": [
+        "/Users/new/vitrea-w39/run/inactive-1x/run-1",
+        "/Users/new/vitrea-w39/run/inactive-1x/run-2",
+        "/Users/new/vitrea-w39/run/inactive-1x/run-3",
+        "/Users/new/vitrea-w39/run/inactive-1x/run-4",
+        "/Users/new/vitrea-w39/run/inactive-1x/run-5",
+        "/Users/new/vitrea-w39/run/inactive-1x/run-6",
+        "/Users/new/vitrea-w39/run/inactive-1x/run-7"
+      ],
+      "stateMembership": [
+        "b779a0a078b15d475d99c78861a5ba079470784aca429af9da6e2b00c0fd7641",
+        "b779a0a078b15d475d99c78861a5ba079470784aca429af9da6e2b00c0fd7641",
+        "b779a0a078b15d475d99c78861a5ba079470784aca429af9da6e2b00c0fd7641",
+        "b779a0a078b15d475d99c78861a5ba079470784aca429af9da6e2b00c0fd7641",
+        "b779a0a078b15d475d99c78861a5ba079470784aca429af9da6e2b00c0fd7641",
+        "b779a0a078b15d475d99c78861a5ba079470784aca429af9da6e2b00c0fd7641",
+        "b779a0a078b15d475d99c78861a5ba079470784aca429af9da6e2b00c0fd7641"
+      ],
+      "uniqueStates": 1,
+      "wholeFrameReferenceRGB": [
+        192,
+        32,
+        32
+      ],
+      "nativeMeanRGBSevenRuns": [
+        [
+          156.0,
+          21.0,
+          21.0
+        ],
+        [
+          156.0,
+          21.0,
+          21.0
+        ],
+        [
+          156.0,
+          21.0,
+          21.0
+        ],
+        [
+          156.0,
+          21.0,
+          21.0
+        ],
+        [
+          156.0,
+          21.0,
+          21.0
+        ],
+        [
+          156.0,
+          21.0,
+          21.0
+        ],
+        [
+          156.0,
+          21.0,
+          21.0
+        ]
+      ],
+      "scoreBinAtArbitraryCommon17point5": {
+        "pixels": 76,
+        "barRGB": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "median": {
+          "status": [
+            "measured",
+            "measured",
+            "measured"
+          ],
+          "errorCodes": [
+            138.5,
+            3.5,
+            3.5
+          ],
+          "failed": [
+            true,
+            true,
+            true
+          ],
+          "boundFailure": [
+            false,
+            false,
+            false
+          ],
+          "railPixels": [
+            0,
+            0,
+            0
+          ],
+          "uncensoredPixels": [
+            76,
+            76,
+            76
+          ]
+        },
+        "runs": [
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              138.5,
+              3.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              76,
+              76,
+              76
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              138.5,
+              3.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              76,
+              76,
+              76
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              138.5,
+              3.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              76,
+              76,
+              76
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              138.5,
+              3.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              76,
+              76,
+              76
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              138.5,
+              3.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              76,
+              76,
+              76
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              138.5,
+              3.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              76,
+              76,
+              76
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              138.5,
+              3.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              76,
+              76,
+              76
+            ]
+          }
+        ],
+        "survives": false,
+        "heldoutCoverage": true,
+        "worstChannelFailure": true,
+        "allChannelFailure": true
+      },
+      "inactiveGamma": 0,
+      "shadowAlphaExactlyZeroBothOrders": true,
+      "allSevenReferencesExactlyEqual": true,
+      "allSevenSuppliedComponentsExactlyEqual": true
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/green-colour__inactive",
+      "role": "calibration",
+      "scheme": "dark",
+      "scale": 1,
+      "colour": "green",
+      "file": "dark-1x-green.crop",
+      "sha256": "5f6387ea7ca560fc1e113a21671fe276933556d47fbda4fe6e219a0affa08a26",
+      "bytes": 6659,
+      "component": {
+        "kind": "capsule-circular",
+        "position": [
+          160,
+          140
+        ],
+        "size": [
+          120,
+          44
+        ],
+        "suppliedPaths": [
+          {
+            "elements": [
+              {
+                "points": [
+                  [
+                    120.00000000000001,
+                    22
+                  ]
+                ],
+                "type": 0
+              },
+              {
+                "points": [
+                  [
+                    120.00000000000003,
+                    22.00000000000002
+                  ]
+                ],
+                "type": 1
+              },
+              {
+                "points": [
+                  [
+                    120.00000000000001,
+                    34.150264496277465
+                  ],
+                  [
+                    110.15026449627749,
+                    44
+                  ],
+                  [
+                    98.00000000000003,
+                    44
+                  ]
+                ],
+                "type": 3
+              },
+              {
+                "points": [
+                  [
+                    22,
+                    44.00000000000001
+                  ]
+                ],
+                "type": 1
+              },
+              {
+                "points": [
+                  [
+                    9.8497355044,
+                    44.00000000000001
+                  ],
+                  [
+                    7.439891261665134e-16,
+                    34.15026449560001
+                  ],
+                  [
+                    0,
+                    22.00000000000001
+                  ]
+                ],
+                "type": 3
+              },
+              {
+                "points": [
+                  [
+                    0,
+                    22
+                  ]
+                ],
+                "type": 1
+              },
+              {
+                "points": [
+                  [
+                    1.4879782523330268e-15,
+                    9.8497355044
+                  ],
+                  [
+                    9.849735504400005,
+                    3.3970030560176617e-15
+                  ],
+                  [
+                    22.000000000000004,
+                    4.884981308350689e-15
+                  ]
+                ],
+                "type": 3
+              },
+              {
+                "points": [
+                  [
+                    98.00000000000001,
+                    0
+                  ]
+                ],
+                "type": 1
+              },
+              {
+                "points": [
+                  [
+                    110.15026449560001,
+                    7.439891261665134e-16
+                  ],
+                  [
+                    120.00000000000001,
+                    9.8497355044
+                  ],
+                  [
+                    120.00000000000001,
+                    22
+                  ]
+                ],
+                "type": 3
+              },
+              {
+                "points": [],
+                "type": 4
+              }
+            ],
+            "frameOrigin": [
+              100,
+              118
+            ],
+            "kind": "capsule-circular",
+            "opaque": false,
+            "rect": [
+              0,
+              0,
+              120,
+              44
+            ]
+          }
+        ]
+      },
+      "bin": {
+        "member": 0,
+        "part": "straight",
+        "shell": 0,
+        "depthCss": -0.5,
+        "pixels": 76,
+        "admissible": true,
+        "side": "top",
+        "bin": 12,
+        "status": "measured"
+      },
+      "frameShape": [
+        280,
+        320,
+        3
+      ],
+      "runIds": [
+        "/Users/new/vitrea-w39/run/inactive-1x/run-1",
+        "/Users/new/vitrea-w39/run/inactive-1x/run-2",
+        "/Users/new/vitrea-w39/run/inactive-1x/run-3",
+        "/Users/new/vitrea-w39/run/inactive-1x/run-4",
+        "/Users/new/vitrea-w39/run/inactive-1x/run-5",
+        "/Users/new/vitrea-w39/run/inactive-1x/run-6",
+        "/Users/new/vitrea-w39/run/inactive-1x/run-7"
+      ],
+      "stateMembership": [
+        "6ded7f06e97fba7263acc8fbc14fd5008b9b963c47de5efd9cc863602d13aec8",
+        "6ded7f06e97fba7263acc8fbc14fd5008b9b963c47de5efd9cc863602d13aec8",
+        "6ded7f06e97fba7263acc8fbc14fd5008b9b963c47de5efd9cc863602d13aec8",
+        "6ded7f06e97fba7263acc8fbc14fd5008b9b963c47de5efd9cc863602d13aec8",
+        "6ded7f06e97fba7263acc8fbc14fd5008b9b963c47de5efd9cc863602d13aec8",
+        "6ded7f06e97fba7263acc8fbc14fd5008b9b963c47de5efd9cc863602d13aec8",
+        "6ded7f06e97fba7263acc8fbc14fd5008b9b963c47de5efd9cc863602d13aec8"
+      ],
+      "uniqueStates": 1,
+      "wholeFrameReferenceRGB": [
+        32,
+        192,
+        32
+      ],
+      "nativeMeanRGBSevenRuns": [
+        [
+          14.0,
+          153.0,
+          14.0
+        ],
+        [
+          14.0,
+          153.0,
+          14.0
+        ],
+        [
+          14.0,
+          153.0,
+          14.0
+        ],
+        [
+          14.0,
+          153.0,
+          14.0
+        ],
+        [
+          14.0,
+          153.0,
+          14.0
+        ],
+        [
+          14.0,
+          153.0,
+          14.0
+        ],
+        [
+          14.0,
+          153.0,
+          14.0
+        ]
+      ],
+      "scoreBinAtArbitraryCommon17point5": {
+        "pixels": 76,
+        "barRGB": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "median": {
+          "status": [
+            "measured",
+            "measured",
+            "measured"
+          ],
+          "errorCodes": [
+            3.5,
+            135.5,
+            3.5
+          ],
+          "failed": [
+            true,
+            true,
+            true
+          ],
+          "boundFailure": [
+            false,
+            false,
+            false
+          ],
+          "railPixels": [
+            0,
+            0,
+            0
+          ],
+          "uncensoredPixels": [
+            76,
+            76,
+            76
+          ]
+        },
+        "runs": [
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              3.5,
+              135.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              76,
+              76,
+              76
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              3.5,
+              135.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              76,
+              76,
+              76
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              3.5,
+              135.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              76,
+              76,
+              76
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              3.5,
+              135.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              76,
+              76,
+              76
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              3.5,
+              135.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              76,
+              76,
+              76
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              3.5,
+              135.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              76,
+              76,
+              76
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              3.5,
+              135.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              76,
+              76,
+              76
+            ]
+          }
+        ],
+        "survives": false,
+        "heldoutCoverage": true,
+        "worstChannelFailure": true,
+        "allChannelFailure": true
+      },
+      "inactiveGamma": 0,
+      "shadowAlphaExactlyZeroBothOrders": true,
+      "allSevenReferencesExactlyEqual": true,
+      "allSevenSuppliedComponentsExactlyEqual": true
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/red-colour__inactive",
+      "role": "calibration",
+      "scheme": "dark",
+      "scale": 2,
+      "colour": "red",
+      "file": "dark-2x-red.crop",
+      "sha256": "d9b720c59973178d6fa50ada5254ac18d4d6e1c74a8b1ed16eb8864b80b1d291",
+      "bytes": 12049,
+      "component": {
+        "kind": "capsule-circular",
+        "position": [
+          160,
+          140
+        ],
+        "size": [
+          120,
+          44
+        ],
+        "suppliedPaths": [
+          {
+            "elements": [
+              {
+                "points": [
+                  [
+                    120.00000000000001,
+                    22
+                  ]
+                ],
+                "type": 0
+              },
+              {
+                "points": [
+                  [
+                    120.00000000000003,
+                    22.00000000000002
+                  ]
+                ],
+                "type": 1
+              },
+              {
+                "points": [
+                  [
+                    120.00000000000001,
+                    34.150264496277465
+                  ],
+                  [
+                    110.15026449627749,
+                    44
+                  ],
+                  [
+                    98.00000000000003,
+                    44
+                  ]
+                ],
+                "type": 3
+              },
+              {
+                "points": [
+                  [
+                    22,
+                    44.00000000000001
+                  ]
+                ],
+                "type": 1
+              },
+              {
+                "points": [
+                  [
+                    9.8497355044,
+                    44.00000000000001
+                  ],
+                  [
+                    7.439891261665134e-16,
+                    34.15026449560001
+                  ],
+                  [
+                    0,
+                    22.00000000000001
+                  ]
+                ],
+                "type": 3
+              },
+              {
+                "points": [
+                  [
+                    0,
+                    22
+                  ]
+                ],
+                "type": 1
+              },
+              {
+                "points": [
+                  [
+                    1.4879782523330268e-15,
+                    9.8497355044
+                  ],
+                  [
+                    9.849735504400005,
+                    3.3970030560176617e-15
+                  ],
+                  [
+                    22.000000000000004,
+                    4.884981308350689e-15
+                  ]
+                ],
+                "type": 3
+              },
+              {
+                "points": [
+                  [
+                    98.00000000000001,
+                    0
+                  ]
+                ],
+                "type": 1
+              },
+              {
+                "points": [
+                  [
+                    110.15026449560001,
+                    7.439891261665134e-16
+                  ],
+                  [
+                    120.00000000000001,
+                    9.8497355044
+                  ],
+                  [
+                    120.00000000000001,
+                    22
+                  ]
+                ],
+                "type": 3
+              },
+              {
+                "points": [],
+                "type": 4
+              }
+            ],
+            "frameOrigin": [
+              100,
+              118
+            ],
+            "kind": "capsule-circular",
+            "opaque": false,
+            "rect": [
+              0,
+              0,
+              120,
+              44
+            ]
+          }
+        ]
+      },
+      "bin": {
+        "member": 0,
+        "part": "straight",
+        "shell": 0,
+        "depthCss": -0.25,
+        "pixels": 152,
+        "admissible": true,
+        "side": "top",
+        "bin": 12,
+        "status": "measured"
+      },
+      "frameShape": [
+        560,
+        640,
+        3
+      ],
+      "runIds": [
+        "/Users/new/vitrea-w39/run/inactive-2x/run-1",
+        "/Users/new/vitrea-w39/run/inactive-2x/run-2",
+        "/Users/new/vitrea-w39/run/inactive-2x/run-3",
+        "/Users/new/vitrea-w39/run/inactive-2x/run-4",
+        "/Users/new/vitrea-w39/run/inactive-2x/run-5",
+        "/Users/new/vitrea-w39/run/inactive-2x/run-6",
+        "/Users/new/vitrea-w39/run/inactive-2x/run-7"
+      ],
+      "stateMembership": [
+        "1a3872f0e788cf919cecbe1bfa4322bde567d59b7cec7c0d66e7f1cbf3ceb1ec",
+        "1a3872f0e788cf919cecbe1bfa4322bde567d59b7cec7c0d66e7f1cbf3ceb1ec",
+        "1a3872f0e788cf919cecbe1bfa4322bde567d59b7cec7c0d66e7f1cbf3ceb1ec",
+        "1a3872f0e788cf919cecbe1bfa4322bde567d59b7cec7c0d66e7f1cbf3ceb1ec",
+        "1a3872f0e788cf919cecbe1bfa4322bde567d59b7cec7c0d66e7f1cbf3ceb1ec",
+        "1a3872f0e788cf919cecbe1bfa4322bde567d59b7cec7c0d66e7f1cbf3ceb1ec",
+        "1a3872f0e788cf919cecbe1bfa4322bde567d59b7cec7c0d66e7f1cbf3ceb1ec"
+      ],
+      "uniqueStates": 1,
+      "wholeFrameReferenceRGB": [
+        192,
+        32,
+        32
+      ],
+      "nativeMeanRGBSevenRuns": [
+        [
+          156.0,
+          21.0,
+          21.0
+        ],
+        [
+          156.0,
+          21.0,
+          21.0
+        ],
+        [
+          156.0,
+          21.0,
+          21.0
+        ],
+        [
+          156.0,
+          21.0,
+          21.0
+        ],
+        [
+          156.0,
+          21.0,
+          21.0
+        ],
+        [
+          156.0,
+          21.0,
+          21.0
+        ],
+        [
+          156.0,
+          21.0,
+          21.0
+        ]
+      ],
+      "scoreBinAtArbitraryCommon17point5": {
+        "pixels": 152,
+        "barRGB": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "median": {
+          "status": [
+            "measured",
+            "measured",
+            "measured"
+          ],
+          "errorCodes": [
+            138.5,
+            3.5,
+            3.5
+          ],
+          "failed": [
+            true,
+            true,
+            true
+          ],
+          "boundFailure": [
+            false,
+            false,
+            false
+          ],
+          "railPixels": [
+            0,
+            0,
+            0
+          ],
+          "uncensoredPixels": [
+            152,
+            152,
+            152
+          ]
+        },
+        "runs": [
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              138.5,
+              3.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              152,
+              152,
+              152
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              138.5,
+              3.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              152,
+              152,
+              152
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              138.5,
+              3.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              152,
+              152,
+              152
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              138.5,
+              3.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              152,
+              152,
+              152
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              138.5,
+              3.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              152,
+              152,
+              152
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              138.5,
+              3.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              152,
+              152,
+              152
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              138.5,
+              3.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              152,
+              152,
+              152
+            ]
+          }
+        ],
+        "survives": false,
+        "heldoutCoverage": true,
+        "worstChannelFailure": true,
+        "allChannelFailure": true
+      },
+      "inactiveGamma": 0,
+      "shadowAlphaExactlyZeroBothOrders": true,
+      "allSevenReferencesExactlyEqual": true,
+      "allSevenSuppliedComponentsExactlyEqual": true
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/green-colour__inactive",
+      "role": "calibration",
+      "scheme": "dark",
+      "scale": 2,
+      "colour": "green",
+      "file": "dark-2x-green.crop",
+      "sha256": "0dfaba1c58b002fb8ea8020c739364ea652ddbbd732a9ad7e7442299223cf59f",
+      "bytes": 12058,
+      "component": {
+        "kind": "capsule-circular",
+        "position": [
+          160,
+          140
+        ],
+        "size": [
+          120,
+          44
+        ],
+        "suppliedPaths": [
+          {
+            "elements": [
+              {
+                "points": [
+                  [
+                    120.00000000000001,
+                    22
+                  ]
+                ],
+                "type": 0
+              },
+              {
+                "points": [
+                  [
+                    120.00000000000003,
+                    22.00000000000002
+                  ]
+                ],
+                "type": 1
+              },
+              {
+                "points": [
+                  [
+                    120.00000000000001,
+                    34.150264496277465
+                  ],
+                  [
+                    110.15026449627749,
+                    44
+                  ],
+                  [
+                    98.00000000000003,
+                    44
+                  ]
+                ],
+                "type": 3
+              },
+              {
+                "points": [
+                  [
+                    22,
+                    44.00000000000001
+                  ]
+                ],
+                "type": 1
+              },
+              {
+                "points": [
+                  [
+                    9.8497355044,
+                    44.00000000000001
+                  ],
+                  [
+                    7.439891261665134e-16,
+                    34.15026449560001
+                  ],
+                  [
+                    0,
+                    22.00000000000001
+                  ]
+                ],
+                "type": 3
+              },
+              {
+                "points": [
+                  [
+                    0,
+                    22
+                  ]
+                ],
+                "type": 1
+              },
+              {
+                "points": [
+                  [
+                    1.4879782523330268e-15,
+                    9.8497355044
+                  ],
+                  [
+                    9.849735504400005,
+                    3.3970030560176617e-15
+                  ],
+                  [
+                    22.000000000000004,
+                    4.884981308350689e-15
+                  ]
+                ],
+                "type": 3
+              },
+              {
+                "points": [
+                  [
+                    98.00000000000001,
+                    0
+                  ]
+                ],
+                "type": 1
+              },
+              {
+                "points": [
+                  [
+                    110.15026449560001,
+                    7.439891261665134e-16
+                  ],
+                  [
+                    120.00000000000001,
+                    9.8497355044
+                  ],
+                  [
+                    120.00000000000001,
+                    22
+                  ]
+                ],
+                "type": 3
+              },
+              {
+                "points": [],
+                "type": 4
+              }
+            ],
+            "frameOrigin": [
+              100,
+              118
+            ],
+            "kind": "capsule-circular",
+            "opaque": false,
+            "rect": [
+              0,
+              0,
+              120,
+              44
+            ]
+          }
+        ]
+      },
+      "bin": {
+        "member": 0,
+        "part": "straight",
+        "shell": 0,
+        "depthCss": -0.25,
+        "pixels": 152,
+        "admissible": true,
+        "side": "top",
+        "bin": 12,
+        "status": "measured"
+      },
+      "frameShape": [
+        560,
+        640,
+        3
+      ],
+      "runIds": [
+        "/Users/new/vitrea-w39/run/inactive-2x/run-1",
+        "/Users/new/vitrea-w39/run/inactive-2x/run-2",
+        "/Users/new/vitrea-w39/run/inactive-2x/run-3",
+        "/Users/new/vitrea-w39/run/inactive-2x/run-4",
+        "/Users/new/vitrea-w39/run/inactive-2x/run-5",
+        "/Users/new/vitrea-w39/run/inactive-2x/run-6",
+        "/Users/new/vitrea-w39/run/inactive-2x/run-7"
+      ],
+      "stateMembership": [
+        "880378d8680f73ac07e8adb58bad9fe46fb05def16b1427a3fc36c83db9d6838",
+        "880378d8680f73ac07e8adb58bad9fe46fb05def16b1427a3fc36c83db9d6838",
+        "880378d8680f73ac07e8adb58bad9fe46fb05def16b1427a3fc36c83db9d6838",
+        "880378d8680f73ac07e8adb58bad9fe46fb05def16b1427a3fc36c83db9d6838",
+        "880378d8680f73ac07e8adb58bad9fe46fb05def16b1427a3fc36c83db9d6838",
+        "880378d8680f73ac07e8adb58bad9fe46fb05def16b1427a3fc36c83db9d6838",
+        "880378d8680f73ac07e8adb58bad9fe46fb05def16b1427a3fc36c83db9d6838"
+      ],
+      "uniqueStates": 1,
+      "wholeFrameReferenceRGB": [
+        32,
+        192,
+        32
+      ],
+      "nativeMeanRGBSevenRuns": [
+        [
+          14.0,
+          153.0,
+          14.0
+        ],
+        [
+          14.0,
+          153.0,
+          14.0
+        ],
+        [
+          14.0,
+          153.0,
+          14.0
+        ],
+        [
+          14.0,
+          153.0,
+          14.0
+        ],
+        [
+          14.0,
+          153.0,
+          14.0
+        ],
+        [
+          14.0,
+          153.0,
+          14.0
+        ],
+        [
+          14.0,
+          153.0,
+          14.0
+        ]
+      ],
+      "scoreBinAtArbitraryCommon17point5": {
+        "pixels": 152,
+        "barRGB": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "median": {
+          "status": [
+            "measured",
+            "measured",
+            "measured"
+          ],
+          "errorCodes": [
+            3.5,
+            135.5,
+            3.5
+          ],
+          "failed": [
+            true,
+            true,
+            true
+          ],
+          "boundFailure": [
+            false,
+            false,
+            false
+          ],
+          "railPixels": [
+            0,
+            0,
+            0
+          ],
+          "uncensoredPixels": [
+            152,
+            152,
+            152
+          ]
+        },
+        "runs": [
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              3.5,
+              135.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              152,
+              152,
+              152
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              3.5,
+              135.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              152,
+              152,
+              152
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              3.5,
+              135.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              152,
+              152,
+              152
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              3.5,
+              135.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              152,
+              152,
+              152
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              3.5,
+              135.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              152,
+              152,
+              152
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              3.5,
+              135.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              152,
+              152,
+              152
+            ]
+          },
+          {
+            "status": [
+              "measured",
+              "measured",
+              "measured"
+            ],
+            "errorCodes": [
+              3.5,
+              135.5,
+              3.5
+            ],
+            "failed": [
+              true,
+              true,
+              true
+            ],
+            "boundFailure": [
+              false,
+              false,
+              false
+            ],
+            "railPixels": [
+              0,
+              0,
+              0
+            ],
+            "uncensoredPixels": [
+              152,
+              152,
+              152
+            ]
+          }
+        ],
+        "survives": false,
+        "heldoutCoverage": true,
+        "worstChannelFailure": true,
+        "allChannelFailure": true
+      },
+      "inactiveGamma": 0,
+      "shadowAlphaExactlyZeroBothOrders": true,
+      "allSevenReferencesExactlyEqual": true,
+      "allSevenSuppliedComponentsExactlyEqual": true
+    }
+  ],
+  "arrays": {
+    "dark_1x_green_16_arc": {
+      "shape": [
+        76,
+        256
+      ],
+      "dtype": "|b1",
+      "sha256": "c597b1b463b7cec49548fac00d7588c9652bb67cc2b1b0c88676bf8f1558571e"
+    },
+    "dark_1x_green_16_d": {
+      "shape": [
+        76,
+        256
+      ],
+      "dtype": "<f8",
+      "sha256": "ce47cb1ae60f13ed7c57ea12808c7c2d40e33b3f5ba1b068a6d34f248cbb623f"
+    },
+    "dark_1x_green_16_nx": {
+      "shape": [
+        76,
+        256
+      ],
+      "dtype": "<f8",
+      "sha256": "3dab64c44b02db8e901834707efa648ea879f8043c10dd10f1807631c71cffa3"
+    },
+    "dark_1x_green_16_nxSquared": {
+      "shape": [
+        76,
+        256
+      ],
+      "dtype": "<f8",
+      "sha256": "bea46ecdb78d8820477eb558d9a28b7752fd6d1fe8c6246e187c3da419531f68"
+    },
+    "dark_1x_green_16_ny": {
+      "shape": [
+        76,
+        256
+      ],
+      "dtype": "<f8",
+      "sha256": "bf7d2cb3f6232d02dcb3bab1a1e398c60c059dc5aa06f4d5c0b5614e2dea38e5"
+    },
+    "dark_1x_green_16_q": {
+      "shape": [
+        76,
+        256,
+        2
+      ],
+      "dtype": "<f8",
+      "sha256": "b271e497c28d66ebe99396234e476ef5cc4da242b61defd520284eab921e15d4"
+    },
+    "dark_1x_green_16_referenceRGBSubpixels": {
+      "shape": [
+        76,
+        256,
+        3
+      ],
+      "dtype": "<f8",
+      "sha256": "ed1efa2bb67a86e6f5f49ff5808b16dbbde99f7b778f981493cb20c83d6a8a65"
+    },
+    "dark_1x_green_16_shadowAlpha": {
+      "shape": [
+        76,
+        256
+      ],
+      "dtype": "<f8",
+      "sha256": "bea46ecdb78d8820477eb558d9a28b7752fd6d1fe8c6246e187c3da419531f68"
+    },
+    "dark_1x_green_32_arc": {
+      "shape": [
+        76,
+        1024
+      ],
+      "dtype": "|b1",
+      "sha256": "114a7d83274be10327604ee62ec78adf151dd24db77969982a0472911d70b068"
+    },
+    "dark_1x_green_32_d": {
+      "shape": [
+        76,
+        1024
+      ],
+      "dtype": "<f8",
+      "sha256": "c582cdc086691999f11aedca64b4593978924936042f2f57cc1f57f56303e860"
+    },
+    "dark_1x_green_32_nx": {
+      "shape": [
+        76,
+        1024
+      ],
+      "dtype": "<f8",
+      "sha256": "b32cdd4b6b535e6ed6e6d8935bd7abbb033459cb6599cbee60c585f169d3de88"
+    },
+    "dark_1x_green_32_nxSquared": {
+      "shape": [
+        76,
+        1024
+      ],
+      "dtype": "<f8",
+      "sha256": "6e97549523a55674ddcbc797eacf862d60ecf51eff7248014c1e612940053ece"
+    },
+    "dark_1x_green_32_ny": {
+      "shape": [
+        76,
+        1024
+      ],
+      "dtype": "<f8",
+      "sha256": "93744877b0b66b5e087ef1ca5fa6bc4bb32c1afdf6492c2b73f02c604fa03125"
+    },
+    "dark_1x_green_32_q": {
+      "shape": [
+        76,
+        1024,
+        2
+      ],
+      "dtype": "<f8",
+      "sha256": "51659f2ae4310c5e974d0371e4b64888a1ee5ef1548b812e4a8c2cffeb3e797a"
+    },
+    "dark_1x_green_32_referenceRGBSubpixels": {
+      "shape": [
+        76,
+        1024,
+        3
+      ],
+      "dtype": "<f8",
+      "sha256": "7ee048e745613531b33e2ce383997ef9dc88b998e38f6bfbab03bf01d9a9f8dd"
+    },
+    "dark_1x_green_32_shadowAlpha": {
+      "shape": [
+        76,
+        1024
+      ],
+      "dtype": "<f8",
+      "sha256": "6e97549523a55674ddcbc797eacf862d60ecf51eff7248014c1e612940053ece"
+    },
+    "dark_1x_green_nativeRGBSevenRuns": {
+      "shape": [
+        7,
+        76,
+        3
+      ],
+      "dtype": "|u1",
+      "sha256": "a5dd9e66d5f6863b229862034397a25242d074c222dc90d02eb10b37454f8d6a"
+    },
+    "dark_1x_green_referenceRGBSevenRuns": {
+      "shape": [
+        7,
+        76,
+        3
+      ],
+      "dtype": "|u1",
+      "sha256": "e35e827d9e3ad3969f96de0a5fbc44b982adcd705f009860e815a250f42c2866"
+    },
+    "dark_1x_green_xy": {
+      "shape": [
+        76,
+        2
+      ],
+      "dtype": "<i8",
+      "sha256": "85d3ebccee61875770c8dd2061f5438305dcb0c48ac6aa104bd6d0b7a73c6418"
+    },
+    "dark_1x_red_16_arc": {
+      "shape": [
+        76,
+        256
+      ],
+      "dtype": "|b1",
+      "sha256": "c597b1b463b7cec49548fac00d7588c9652bb67cc2b1b0c88676bf8f1558571e"
+    },
+    "dark_1x_red_16_d": {
+      "shape": [
+        76,
+        256
+      ],
+      "dtype": "<f8",
+      "sha256": "ce47cb1ae60f13ed7c57ea12808c7c2d40e33b3f5ba1b068a6d34f248cbb623f"
+    },
+    "dark_1x_red_16_nx": {
+      "shape": [
+        76,
+        256
+      ],
+      "dtype": "<f8",
+      "sha256": "3dab64c44b02db8e901834707efa648ea879f8043c10dd10f1807631c71cffa3"
+    },
+    "dark_1x_red_16_nxSquared": {
+      "shape": [
+        76,
+        256
+      ],
+      "dtype": "<f8",
+      "sha256": "bea46ecdb78d8820477eb558d9a28b7752fd6d1fe8c6246e187c3da419531f68"
+    },
+    "dark_1x_red_16_ny": {
+      "shape": [
+        76,
+        256
+      ],
+      "dtype": "<f8",
+      "sha256": "bf7d2cb3f6232d02dcb3bab1a1e398c60c059dc5aa06f4d5c0b5614e2dea38e5"
+    },
+    "dark_1x_red_16_q": {
+      "shape": [
+        76,
+        256,
+        2
+      ],
+      "dtype": "<f8",
+      "sha256": "b271e497c28d66ebe99396234e476ef5cc4da242b61defd520284eab921e15d4"
+    },
+    "dark_1x_red_16_referenceRGBSubpixels": {
+      "shape": [
+        76,
+        256,
+        3
+      ],
+      "dtype": "<f8",
+      "sha256": "ffdc007521d01cf43467c26230ad542614a4277c1ae1efc6ff6f7321a9f0c02c"
+    },
+    "dark_1x_red_16_shadowAlpha": {
+      "shape": [
+        76,
+        256
+      ],
+      "dtype": "<f8",
+      "sha256": "bea46ecdb78d8820477eb558d9a28b7752fd6d1fe8c6246e187c3da419531f68"
+    },
+    "dark_1x_red_32_arc": {
+      "shape": [
+        76,
+        1024
+      ],
+      "dtype": "|b1",
+      "sha256": "114a7d83274be10327604ee62ec78adf151dd24db77969982a0472911d70b068"
+    },
+    "dark_1x_red_32_d": {
+      "shape": [
+        76,
+        1024
+      ],
+      "dtype": "<f8",
+      "sha256": "c582cdc086691999f11aedca64b4593978924936042f2f57cc1f57f56303e860"
+    },
+    "dark_1x_red_32_nx": {
+      "shape": [
+        76,
+        1024
+      ],
+      "dtype": "<f8",
+      "sha256": "b32cdd4b6b535e6ed6e6d8935bd7abbb033459cb6599cbee60c585f169d3de88"
+    },
+    "dark_1x_red_32_nxSquared": {
+      "shape": [
+        76,
+        1024
+      ],
+      "dtype": "<f8",
+      "sha256": "6e97549523a55674ddcbc797eacf862d60ecf51eff7248014c1e612940053ece"
+    },
+    "dark_1x_red_32_ny": {
+      "shape": [
+        76,
+        1024
+      ],
+      "dtype": "<f8",
+      "sha256": "93744877b0b66b5e087ef1ca5fa6bc4bb32c1afdf6492c2b73f02c604fa03125"
+    },
+    "dark_1x_red_32_q": {
+      "shape": [
+        76,
+        1024,
+        2
+      ],
+      "dtype": "<f8",
+      "sha256": "51659f2ae4310c5e974d0371e4b64888a1ee5ef1548b812e4a8c2cffeb3e797a"
+    },
+    "dark_1x_red_32_referenceRGBSubpixels": {
+      "shape": [
+        76,
+        1024,
+        3
+      ],
+      "dtype": "<f8",
+      "sha256": "c524d26eb41c38ae8f0ae56aac19db65795c127eb737882329015fa9bcac1633"
+    },
+    "dark_1x_red_32_shadowAlpha": {
+      "shape": [
+        76,
+        1024
+      ],
+      "dtype": "<f8",
+      "sha256": "6e97549523a55674ddcbc797eacf862d60ecf51eff7248014c1e612940053ece"
+    },
+    "dark_1x_red_nativeRGBSevenRuns": {
+      "shape": [
+        7,
+        76,
+        3
+      ],
+      "dtype": "|u1",
+      "sha256": "881a758c9545e4b90c5c66f0fb8287e6f5cd0bf8154206c3cb15330f8ae8a214"
+    },
+    "dark_1x_red_referenceRGBSevenRuns": {
+      "shape": [
+        7,
+        76,
+        3
+      ],
+      "dtype": "|u1",
+      "sha256": "ad600ac2160368cbac6b182afb9201b67650484a6e97f6d5f246b1335fd66a84"
+    },
+    "dark_1x_red_xy": {
+      "shape": [
+        76,
+        2
+      ],
+      "dtype": "<i8",
+      "sha256": "85d3ebccee61875770c8dd2061f5438305dcb0c48ac6aa104bd6d0b7a73c6418"
+    },
+    "dark_2x_green_16_arc": {
+      "shape": [
+        152,
+        256
+      ],
+      "dtype": "|b1",
+      "sha256": "027973d089e9ed6de4388fc918085e2ab276e4503b484a34e40e378d2d68c3d6"
+    },
+    "dark_2x_green_16_d": {
+      "shape": [
+        152,
+        256
+      ],
+      "dtype": "<f8",
+      "sha256": "7de879542932ffb069450701911e095630c1aed566d7cac703f326cbfb39df19"
+    },
+    "dark_2x_green_16_nx": {
+      "shape": [
+        152,
+        256
+      ],
+      "dtype": "<f8",
+      "sha256": "dbe4fdec7986f59e63c3bd2bacfe16a5341e977792b27ddc490b8d39078c4dd5"
+    },
+    "dark_2x_green_16_nxSquared": {
+      "shape": [
+        152,
+        256
+      ],
+      "dtype": "<f8",
+      "sha256": "f4bc1e5e95f61af52ffe72c0566e9050f194905d04490007de194223803f8bb3"
+    },
+    "dark_2x_green_16_ny": {
+      "shape": [
+        152,
+        256
+      ],
+      "dtype": "<f8",
+      "sha256": "ea323241035db83ccb2906b373bd4ce44a0301fed6fe344bf01563dc127bc437"
+    },
+    "dark_2x_green_16_q": {
+      "shape": [
+        152,
+        256,
+        2
+      ],
+      "dtype": "<f8",
+      "sha256": "9684236ac5ba33740433b1312eae8178be30a93edf1189baf93eb74b2f7e6cb0"
+    },
+    "dark_2x_green_16_referenceRGBSubpixels": {
+      "shape": [
+        152,
+        256,
+        3
+      ],
+      "dtype": "<f8",
+      "sha256": "74514d813188f0186ea74cc3e33dc4faeccc53650324a0d356431b7fe44d1248"
+    },
+    "dark_2x_green_16_shadowAlpha": {
+      "shape": [
+        152,
+        256
+      ],
+      "dtype": "<f8",
+      "sha256": "f4bc1e5e95f61af52ffe72c0566e9050f194905d04490007de194223803f8bb3"
+    },
+    "dark_2x_green_32_arc": {
+      "shape": [
+        152,
+        1024
+      ],
+      "dtype": "|b1",
+      "sha256": "bea46ecdb78d8820477eb558d9a28b7752fd6d1fe8c6246e187c3da419531f68"
+    },
+    "dark_2x_green_32_d": {
+      "shape": [
+        152,
+        1024
+      ],
+      "dtype": "<f8",
+      "sha256": "c63cc15cf3612b27b6a8466348ad642bdac04edcee1175b37475c33c284ee0ca"
+    },
+    "dark_2x_green_32_nx": {
+      "shape": [
+        152,
+        1024
+      ],
+      "dtype": "<f8",
+      "sha256": "1bb4a16ce492ff61c6e1f047c55d2dab301482a0e537a89bb3c232872e5b194c"
+    },
+    "dark_2x_green_32_nxSquared": {
+      "shape": [
+        152,
+        1024
+      ],
+      "dtype": "<f8",
+      "sha256": "8edd38b3743743b5cb68580d9f504081ba9bffd976b053871c60d2994d2ceb10"
+    },
+    "dark_2x_green_32_ny": {
+      "shape": [
+        152,
+        1024
+      ],
+      "dtype": "<f8",
+      "sha256": "d89aca6dbfc48bd4c96c09895ff68d9e900f31d53139b1b4f02261a48bcf3db2"
+    },
+    "dark_2x_green_32_q": {
+      "shape": [
+        152,
+        1024,
+        2
+      ],
+      "dtype": "<f8",
+      "sha256": "e5e38d88201b44d6d600fad5f328e9e4187848e44c864c7d3dcbd2212bf4d927"
+    },
+    "dark_2x_green_32_referenceRGBSubpixels": {
+      "shape": [
+        152,
+        1024,
+        3
+      ],
+      "dtype": "<f8",
+      "sha256": "d534850b82d522e432d8e87051f622e9ba48fcc06a4fc1a0bbe6735f9af3f2c2"
+    },
+    "dark_2x_green_32_shadowAlpha": {
+      "shape": [
+        152,
+        1024
+      ],
+      "dtype": "<f8",
+      "sha256": "8edd38b3743743b5cb68580d9f504081ba9bffd976b053871c60d2994d2ceb10"
+    },
+    "dark_2x_green_nativeRGBSevenRuns": {
+      "shape": [
+        7,
+        152,
+        3
+      ],
+      "dtype": "|u1",
+      "sha256": "a1f5be3491b17b6b5e0f7ca213753b8472b68b0d65e0aeb6fb558b5b90a585b3"
+    },
+    "dark_2x_green_referenceRGBSevenRuns": {
+      "shape": [
+        7,
+        152,
+        3
+      ],
+      "dtype": "|u1",
+      "sha256": "99be373916a9e4401567507d1f5b8846de5559dac739451aaa4a171dc52d9b19"
+    },
+    "dark_2x_green_xy": {
+      "shape": [
+        152,
+        2
+      ],
+      "dtype": "<i8",
+      "sha256": "5bbbde7fd9f18541453c6e40c387e4ebe739f4bbc9b15ebb1cba7c12f65ceecf"
+    },
+    "dark_2x_red_16_arc": {
+      "shape": [
+        152,
+        256
+      ],
+      "dtype": "|b1",
+      "sha256": "027973d089e9ed6de4388fc918085e2ab276e4503b484a34e40e378d2d68c3d6"
+    },
+    "dark_2x_red_16_d": {
+      "shape": [
+        152,
+        256
+      ],
+      "dtype": "<f8",
+      "sha256": "7de879542932ffb069450701911e095630c1aed566d7cac703f326cbfb39df19"
+    },
+    "dark_2x_red_16_nx": {
+      "shape": [
+        152,
+        256
+      ],
+      "dtype": "<f8",
+      "sha256": "dbe4fdec7986f59e63c3bd2bacfe16a5341e977792b27ddc490b8d39078c4dd5"
+    },
+    "dark_2x_red_16_nxSquared": {
+      "shape": [
+        152,
+        256
+      ],
+      "dtype": "<f8",
+      "sha256": "f4bc1e5e95f61af52ffe72c0566e9050f194905d04490007de194223803f8bb3"
+    },
+    "dark_2x_red_16_ny": {
+      "shape": [
+        152,
+        256
+      ],
+      "dtype": "<f8",
+      "sha256": "ea323241035db83ccb2906b373bd4ce44a0301fed6fe344bf01563dc127bc437"
+    },
+    "dark_2x_red_16_q": {
+      "shape": [
+        152,
+        256,
+        2
+      ],
+      "dtype": "<f8",
+      "sha256": "9684236ac5ba33740433b1312eae8178be30a93edf1189baf93eb74b2f7e6cb0"
+    },
+    "dark_2x_red_16_referenceRGBSubpixels": {
+      "shape": [
+        152,
+        256,
+        3
+      ],
+      "dtype": "<f8",
+      "sha256": "e49a001ebbf9322d4edbd3be831db434df16a092e96be13cda9e328e243d2273"
+    },
+    "dark_2x_red_16_shadowAlpha": {
+      "shape": [
+        152,
+        256
+      ],
+      "dtype": "<f8",
+      "sha256": "f4bc1e5e95f61af52ffe72c0566e9050f194905d04490007de194223803f8bb3"
+    },
+    "dark_2x_red_32_arc": {
+      "shape": [
+        152,
+        1024
+      ],
+      "dtype": "|b1",
+      "sha256": "bea46ecdb78d8820477eb558d9a28b7752fd6d1fe8c6246e187c3da419531f68"
+    },
+    "dark_2x_red_32_d": {
+      "shape": [
+        152,
+        1024
+      ],
+      "dtype": "<f8",
+      "sha256": "c63cc15cf3612b27b6a8466348ad642bdac04edcee1175b37475c33c284ee0ca"
+    },
+    "dark_2x_red_32_nx": {
+      "shape": [
+        152,
+        1024
+      ],
+      "dtype": "<f8",
+      "sha256": "1bb4a16ce492ff61c6e1f047c55d2dab301482a0e537a89bb3c232872e5b194c"
+    },
+    "dark_2x_red_32_nxSquared": {
+      "shape": [
+        152,
+        1024
+      ],
+      "dtype": "<f8",
+      "sha256": "8edd38b3743743b5cb68580d9f504081ba9bffd976b053871c60d2994d2ceb10"
+    },
+    "dark_2x_red_32_ny": {
+      "shape": [
+        152,
+        1024
+      ],
+      "dtype": "<f8",
+      "sha256": "d89aca6dbfc48bd4c96c09895ff68d9e900f31d53139b1b4f02261a48bcf3db2"
+    },
+    "dark_2x_red_32_q": {
+      "shape": [
+        152,
+        1024,
+        2
+      ],
+      "dtype": "<f8",
+      "sha256": "e5e38d88201b44d6d600fad5f328e9e4187848e44c864c7d3dcbd2212bf4d927"
+    },
+    "dark_2x_red_32_referenceRGBSubpixels": {
+      "shape": [
+        152,
+        1024,
+        3
+      ],
+      "dtype": "<f8",
+      "sha256": "e14220d00c6e49d21055335504d586fa4c1d88a059964f34b7069452a69674db"
+    },
+    "dark_2x_red_32_shadowAlpha": {
+      "shape": [
+        152,
+        1024
+      ],
+      "dtype": "<f8",
+      "sha256": "8edd38b3743743b5cb68580d9f504081ba9bffd976b053871c60d2994d2ceb10"
+    },
+    "dark_2x_red_nativeRGBSevenRuns": {
+      "shape": [
+        7,
+        152,
+        3
+      ],
+      "dtype": "|u1",
+      "sha256": "707042e4acc2a851d80ba3a12fdf4c829bfb96636eb88c402e15b17360c88c76"
+    },
+    "dark_2x_red_referenceRGBSevenRuns": {
+      "shape": [
+        7,
+        152,
+        3
+      ],
+      "dtype": "|u1",
+      "sha256": "7c879280d2aba7259ee0395247a0c9c203b83a945d4a9c711de582ac02dd8d1e"
+    },
+    "dark_2x_red_xy": {
+      "shape": [
+        152,
+        2
+      ],
+      "dtype": "<i8",
+      "sha256": "5bbbde7fd9f18541453c6e40c387e4ebe739f4bbc9b15ebb1cba7c12f65ceecf"
+    },
+    "light_1x_green_16_arc": {
+      "shape": [
+        76,
+        256
+      ],
+      "dtype": "|b1",
+      "sha256": "c597b1b463b7cec49548fac00d7588c9652bb67cc2b1b0c88676bf8f1558571e"
+    },
+    "light_1x_green_16_d": {
+      "shape": [
+        76,
+        256
+      ],
+      "dtype": "<f8",
+      "sha256": "ce47cb1ae60f13ed7c57ea12808c7c2d40e33b3f5ba1b068a6d34f248cbb623f"
+    },
+    "light_1x_green_16_nx": {
+      "shape": [
+        76,
+        256
+      ],
+      "dtype": "<f8",
+      "sha256": "3dab64c44b02db8e901834707efa648ea879f8043c10dd10f1807631c71cffa3"
+    },
+    "light_1x_green_16_nxSquared": {
+      "shape": [
+        76,
+        256
+      ],
+      "dtype": "<f8",
+      "sha256": "bea46ecdb78d8820477eb558d9a28b7752fd6d1fe8c6246e187c3da419531f68"
+    },
+    "light_1x_green_16_ny": {
+      "shape": [
+        76,
+        256
+      ],
+      "dtype": "<f8",
+      "sha256": "bf7d2cb3f6232d02dcb3bab1a1e398c60c059dc5aa06f4d5c0b5614e2dea38e5"
+    },
+    "light_1x_green_16_q": {
+      "shape": [
+        76,
+        256,
+        2
+      ],
+      "dtype": "<f8",
+      "sha256": "b271e497c28d66ebe99396234e476ef5cc4da242b61defd520284eab921e15d4"
+    },
+    "light_1x_green_16_referenceRGBSubpixels": {
+      "shape": [
+        76,
+        256,
+        3
+      ],
+      "dtype": "<f8",
+      "sha256": "ed1efa2bb67a86e6f5f49ff5808b16dbbde99f7b778f981493cb20c83d6a8a65"
+    },
+    "light_1x_green_16_shadowAlpha": {
+      "shape": [
+        76,
+        256
+      ],
+      "dtype": "<f8",
+      "sha256": "bea46ecdb78d8820477eb558d9a28b7752fd6d1fe8c6246e187c3da419531f68"
+    },
+    "light_1x_green_32_arc": {
+      "shape": [
+        76,
+        1024
+      ],
+      "dtype": "|b1",
+      "sha256": "114a7d83274be10327604ee62ec78adf151dd24db77969982a0472911d70b068"
+    },
+    "light_1x_green_32_d": {
+      "shape": [
+        76,
+        1024
+      ],
+      "dtype": "<f8",
+      "sha256": "c582cdc086691999f11aedca64b4593978924936042f2f57cc1f57f56303e860"
+    },
+    "light_1x_green_32_nx": {
+      "shape": [
+        76,
+        1024
+      ],
+      "dtype": "<f8",
+      "sha256": "b32cdd4b6b535e6ed6e6d8935bd7abbb033459cb6599cbee60c585f169d3de88"
+    },
+    "light_1x_green_32_nxSquared": {
+      "shape": [
+        76,
+        1024
+      ],
+      "dtype": "<f8",
+      "sha256": "6e97549523a55674ddcbc797eacf862d60ecf51eff7248014c1e612940053ece"
+    },
+    "light_1x_green_32_ny": {
+      "shape": [
+        76,
+        1024
+      ],
+      "dtype": "<f8",
+      "sha256": "93744877b0b66b5e087ef1ca5fa6bc4bb32c1afdf6492c2b73f02c604fa03125"
+    },
+    "light_1x_green_32_q": {
+      "shape": [
+        76,
+        1024,
+        2
+      ],
+      "dtype": "<f8",
+      "sha256": "51659f2ae4310c5e974d0371e4b64888a1ee5ef1548b812e4a8c2cffeb3e797a"
+    },
+    "light_1x_green_32_referenceRGBSubpixels": {
+      "shape": [
+        76,
+        1024,
+        3
+      ],
+      "dtype": "<f8",
+      "sha256": "7ee048e745613531b33e2ce383997ef9dc88b998e38f6bfbab03bf01d9a9f8dd"
+    },
+    "light_1x_green_32_shadowAlpha": {
+      "shape": [
+        76,
+        1024
+      ],
+      "dtype": "<f8",
+      "sha256": "6e97549523a55674ddcbc797eacf862d60ecf51eff7248014c1e612940053ece"
+    },
+    "light_1x_green_nativeRGBSevenRuns": {
+      "shape": [
+        7,
+        76,
+        3
+      ],
+      "dtype": "|u1",
+      "sha256": "ab43649ab1d92c0b43ac5be7a96fb13ad214397e0d79f33b742f7ac43a73ca5f"
+    },
+    "light_1x_green_referenceRGBSevenRuns": {
+      "shape": [
+        7,
+        76,
+        3
+      ],
+      "dtype": "|u1",
+      "sha256": "e35e827d9e3ad3969f96de0a5fbc44b982adcd705f009860e815a250f42c2866"
+    },
+    "light_1x_green_xy": {
+      "shape": [
+        76,
+        2
+      ],
+      "dtype": "<i8",
+      "sha256": "85d3ebccee61875770c8dd2061f5438305dcb0c48ac6aa104bd6d0b7a73c6418"
+    },
+    "light_1x_red_16_arc": {
+      "shape": [
+        76,
+        256
+      ],
+      "dtype": "|b1",
+      "sha256": "c597b1b463b7cec49548fac00d7588c9652bb67cc2b1b0c88676bf8f1558571e"
+    },
+    "light_1x_red_16_d": {
+      "shape": [
+        76,
+        256
+      ],
+      "dtype": "<f8",
+      "sha256": "ce47cb1ae60f13ed7c57ea12808c7c2d40e33b3f5ba1b068a6d34f248cbb623f"
+    },
+    "light_1x_red_16_nx": {
+      "shape": [
+        76,
+        256
+      ],
+      "dtype": "<f8",
+      "sha256": "3dab64c44b02db8e901834707efa648ea879f8043c10dd10f1807631c71cffa3"
+    },
+    "light_1x_red_16_nxSquared": {
+      "shape": [
+        76,
+        256
+      ],
+      "dtype": "<f8",
+      "sha256": "bea46ecdb78d8820477eb558d9a28b7752fd6d1fe8c6246e187c3da419531f68"
+    },
+    "light_1x_red_16_ny": {
+      "shape": [
+        76,
+        256
+      ],
+      "dtype": "<f8",
+      "sha256": "bf7d2cb3f6232d02dcb3bab1a1e398c60c059dc5aa06f4d5c0b5614e2dea38e5"
+    },
+    "light_1x_red_16_q": {
+      "shape": [
+        76,
+        256,
+        2
+      ],
+      "dtype": "<f8",
+      "sha256": "b271e497c28d66ebe99396234e476ef5cc4da242b61defd520284eab921e15d4"
+    },
+    "light_1x_red_16_referenceRGBSubpixels": {
+      "shape": [
+        76,
+        256,
+        3
+      ],
+      "dtype": "<f8",
+      "sha256": "ffdc007521d01cf43467c26230ad542614a4277c1ae1efc6ff6f7321a9f0c02c"
+    },
+    "light_1x_red_16_shadowAlpha": {
+      "shape": [
+        76,
+        256
+      ],
+      "dtype": "<f8",
+      "sha256": "bea46ecdb78d8820477eb558d9a28b7752fd6d1fe8c6246e187c3da419531f68"
+    },
+    "light_1x_red_32_arc": {
+      "shape": [
+        76,
+        1024
+      ],
+      "dtype": "|b1",
+      "sha256": "114a7d83274be10327604ee62ec78adf151dd24db77969982a0472911d70b068"
+    },
+    "light_1x_red_32_d": {
+      "shape": [
+        76,
+        1024
+      ],
+      "dtype": "<f8",
+      "sha256": "c582cdc086691999f11aedca64b4593978924936042f2f57cc1f57f56303e860"
+    },
+    "light_1x_red_32_nx": {
+      "shape": [
+        76,
+        1024
+      ],
+      "dtype": "<f8",
+      "sha256": "b32cdd4b6b535e6ed6e6d8935bd7abbb033459cb6599cbee60c585f169d3de88"
+    },
+    "light_1x_red_32_nxSquared": {
+      "shape": [
+        76,
+        1024
+      ],
+      "dtype": "<f8",
+      "sha256": "6e97549523a55674ddcbc797eacf862d60ecf51eff7248014c1e612940053ece"
+    },
+    "light_1x_red_32_ny": {
+      "shape": [
+        76,
+        1024
+      ],
+      "dtype": "<f8",
+      "sha256": "93744877b0b66b5e087ef1ca5fa6bc4bb32c1afdf6492c2b73f02c604fa03125"
+    },
+    "light_1x_red_32_q": {
+      "shape": [
+        76,
+        1024,
+        2
+      ],
+      "dtype": "<f8",
+      "sha256": "51659f2ae4310c5e974d0371e4b64888a1ee5ef1548b812e4a8c2cffeb3e797a"
+    },
+    "light_1x_red_32_referenceRGBSubpixels": {
+      "shape": [
+        76,
+        1024,
+        3
+      ],
+      "dtype": "<f8",
+      "sha256": "c524d26eb41c38ae8f0ae56aac19db65795c127eb737882329015fa9bcac1633"
+    },
+    "light_1x_red_32_shadowAlpha": {
+      "shape": [
+        76,
+        1024
+      ],
+      "dtype": "<f8",
+      "sha256": "6e97549523a55674ddcbc797eacf862d60ecf51eff7248014c1e612940053ece"
+    },
+    "light_1x_red_nativeRGBSevenRuns": {
+      "shape": [
+        7,
+        76,
+        3
+      ],
+      "dtype": "|u1",
+      "sha256": "881a758c9545e4b90c5c66f0fb8287e6f5cd0bf8154206c3cb15330f8ae8a214"
+    },
+    "light_1x_red_referenceRGBSevenRuns": {
+      "shape": [
+        7,
+        76,
+        3
+      ],
+      "dtype": "|u1",
+      "sha256": "ad600ac2160368cbac6b182afb9201b67650484a6e97f6d5f246b1335fd66a84"
+    },
+    "light_1x_red_xy": {
+      "shape": [
+        76,
+        2
+      ],
+      "dtype": "<i8",
+      "sha256": "85d3ebccee61875770c8dd2061f5438305dcb0c48ac6aa104bd6d0b7a73c6418"
+    },
+    "light_2x_green_16_arc": {
+      "shape": [
+        152,
+        256
+      ],
+      "dtype": "|b1",
+      "sha256": "027973d089e9ed6de4388fc918085e2ab276e4503b484a34e40e378d2d68c3d6"
+    },
+    "light_2x_green_16_d": {
+      "shape": [
+        152,
+        256
+      ],
+      "dtype": "<f8",
+      "sha256": "7de879542932ffb069450701911e095630c1aed566d7cac703f326cbfb39df19"
+    },
+    "light_2x_green_16_nx": {
+      "shape": [
+        152,
+        256
+      ],
+      "dtype": "<f8",
+      "sha256": "dbe4fdec7986f59e63c3bd2bacfe16a5341e977792b27ddc490b8d39078c4dd5"
+    },
+    "light_2x_green_16_nxSquared": {
+      "shape": [
+        152,
+        256
+      ],
+      "dtype": "<f8",
+      "sha256": "f4bc1e5e95f61af52ffe72c0566e9050f194905d04490007de194223803f8bb3"
+    },
+    "light_2x_green_16_ny": {
+      "shape": [
+        152,
+        256
+      ],
+      "dtype": "<f8",
+      "sha256": "ea323241035db83ccb2906b373bd4ce44a0301fed6fe344bf01563dc127bc437"
+    },
+    "light_2x_green_16_q": {
+      "shape": [
+        152,
+        256,
+        2
+      ],
+      "dtype": "<f8",
+      "sha256": "9684236ac5ba33740433b1312eae8178be30a93edf1189baf93eb74b2f7e6cb0"
+    },
+    "light_2x_green_16_referenceRGBSubpixels": {
+      "shape": [
+        152,
+        256,
+        3
+      ],
+      "dtype": "<f8",
+      "sha256": "74514d813188f0186ea74cc3e33dc4faeccc53650324a0d356431b7fe44d1248"
+    },
+    "light_2x_green_16_shadowAlpha": {
+      "shape": [
+        152,
+        256
+      ],
+      "dtype": "<f8",
+      "sha256": "f4bc1e5e95f61af52ffe72c0566e9050f194905d04490007de194223803f8bb3"
+    },
+    "light_2x_green_32_arc": {
+      "shape": [
+        152,
+        1024
+      ],
+      "dtype": "|b1",
+      "sha256": "bea46ecdb78d8820477eb558d9a28b7752fd6d1fe8c6246e187c3da419531f68"
+    },
+    "light_2x_green_32_d": {
+      "shape": [
+        152,
+        1024
+      ],
+      "dtype": "<f8",
+      "sha256": "c63cc15cf3612b27b6a8466348ad642bdac04edcee1175b37475c33c284ee0ca"
+    },
+    "light_2x_green_32_nx": {
+      "shape": [
+        152,
+        1024
+      ],
+      "dtype": "<f8",
+      "sha256": "1bb4a16ce492ff61c6e1f047c55d2dab301482a0e537a89bb3c232872e5b194c"
+    },
+    "light_2x_green_32_nxSquared": {
+      "shape": [
+        152,
+        1024
+      ],
+      "dtype": "<f8",
+      "sha256": "8edd38b3743743b5cb68580d9f504081ba9bffd976b053871c60d2994d2ceb10"
+    },
+    "light_2x_green_32_ny": {
+      "shape": [
+        152,
+        1024
+      ],
+      "dtype": "<f8",
+      "sha256": "d89aca6dbfc48bd4c96c09895ff68d9e900f31d53139b1b4f02261a48bcf3db2"
+    },
+    "light_2x_green_32_q": {
+      "shape": [
+        152,
+        1024,
+        2
+      ],
+      "dtype": "<f8",
+      "sha256": "e5e38d88201b44d6d600fad5f328e9e4187848e44c864c7d3dcbd2212bf4d927"
+    },
+    "light_2x_green_32_referenceRGBSubpixels": {
+      "shape": [
+        152,
+        1024,
+        3
+      ],
+      "dtype": "<f8",
+      "sha256": "d534850b82d522e432d8e87051f622e9ba48fcc06a4fc1a0bbe6735f9af3f2c2"
+    },
+    "light_2x_green_32_shadowAlpha": {
+      "shape": [
+        152,
+        1024
+      ],
+      "dtype": "<f8",
+      "sha256": "8edd38b3743743b5cb68580d9f504081ba9bffd976b053871c60d2994d2ceb10"
+    },
+    "light_2x_green_nativeRGBSevenRuns": {
+      "shape": [
+        7,
+        152,
+        3
+      ],
+      "dtype": "|u1",
+      "sha256": "3c7662dd1c5a3a1c703b7470e5dd1a3ea8f5b410004b67b718f81e910c6adb05"
+    },
+    "light_2x_green_referenceRGBSevenRuns": {
+      "shape": [
+        7,
+        152,
+        3
+      ],
+      "dtype": "|u1",
+      "sha256": "99be373916a9e4401567507d1f5b8846de5559dac739451aaa4a171dc52d9b19"
+    },
+    "light_2x_green_xy": {
+      "shape": [
+        152,
+        2
+      ],
+      "dtype": "<i8",
+      "sha256": "5bbbde7fd9f18541453c6e40c387e4ebe739f4bbc9b15ebb1cba7c12f65ceecf"
+    },
+    "light_2x_red_16_arc": {
+      "shape": [
+        152,
+        256
+      ],
+      "dtype": "|b1",
+      "sha256": "027973d089e9ed6de4388fc918085e2ab276e4503b484a34e40e378d2d68c3d6"
+    },
+    "light_2x_red_16_d": {
+      "shape": [
+        152,
+        256
+      ],
+      "dtype": "<f8",
+      "sha256": "7de879542932ffb069450701911e095630c1aed566d7cac703f326cbfb39df19"
+    },
+    "light_2x_red_16_nx": {
+      "shape": [
+        152,
+        256
+      ],
+      "dtype": "<f8",
+      "sha256": "dbe4fdec7986f59e63c3bd2bacfe16a5341e977792b27ddc490b8d39078c4dd5"
+    },
+    "light_2x_red_16_nxSquared": {
+      "shape": [
+        152,
+        256
+      ],
+      "dtype": "<f8",
+      "sha256": "f4bc1e5e95f61af52ffe72c0566e9050f194905d04490007de194223803f8bb3"
+    },
+    "light_2x_red_16_ny": {
+      "shape": [
+        152,
+        256
+      ],
+      "dtype": "<f8",
+      "sha256": "ea323241035db83ccb2906b373bd4ce44a0301fed6fe344bf01563dc127bc437"
+    },
+    "light_2x_red_16_q": {
+      "shape": [
+        152,
+        256,
+        2
+      ],
+      "dtype": "<f8",
+      "sha256": "9684236ac5ba33740433b1312eae8178be30a93edf1189baf93eb74b2f7e6cb0"
+    },
+    "light_2x_red_16_referenceRGBSubpixels": {
+      "shape": [
+        152,
+        256,
+        3
+      ],
+      "dtype": "<f8",
+      "sha256": "e49a001ebbf9322d4edbd3be831db434df16a092e96be13cda9e328e243d2273"
+    },
+    "light_2x_red_16_shadowAlpha": {
+      "shape": [
+        152,
+        256
+      ],
+      "dtype": "<f8",
+      "sha256": "f4bc1e5e95f61af52ffe72c0566e9050f194905d04490007de194223803f8bb3"
+    },
+    "light_2x_red_32_arc": {
+      "shape": [
+        152,
+        1024
+      ],
+      "dtype": "|b1",
+      "sha256": "bea46ecdb78d8820477eb558d9a28b7752fd6d1fe8c6246e187c3da419531f68"
+    },
+    "light_2x_red_32_d": {
+      "shape": [
+        152,
+        1024
+      ],
+      "dtype": "<f8",
+      "sha256": "c63cc15cf3612b27b6a8466348ad642bdac04edcee1175b37475c33c284ee0ca"
+    },
+    "light_2x_red_32_nx": {
+      "shape": [
+        152,
+        1024
+      ],
+      "dtype": "<f8",
+      "sha256": "1bb4a16ce492ff61c6e1f047c55d2dab301482a0e537a89bb3c232872e5b194c"
+    },
+    "light_2x_red_32_nxSquared": {
+      "shape": [
+        152,
+        1024
+      ],
+      "dtype": "<f8",
+      "sha256": "8edd38b3743743b5cb68580d9f504081ba9bffd976b053871c60d2994d2ceb10"
+    },
+    "light_2x_red_32_ny": {
+      "shape": [
+        152,
+        1024
+      ],
+      "dtype": "<f8",
+      "sha256": "d89aca6dbfc48bd4c96c09895ff68d9e900f31d53139b1b4f02261a48bcf3db2"
+    },
+    "light_2x_red_32_q": {
+      "shape": [
+        152,
+        1024,
+        2
+      ],
+      "dtype": "<f8",
+      "sha256": "e5e38d88201b44d6d600fad5f328e9e4187848e44c864c7d3dcbd2212bf4d927"
+    },
+    "light_2x_red_32_referenceRGBSubpixels": {
+      "shape": [
+        152,
+        1024,
+        3
+      ],
+      "dtype": "<f8",
+      "sha256": "e14220d00c6e49d21055335504d586fa4c1d88a059964f34b7069452a69674db"
+    },
+    "light_2x_red_32_shadowAlpha": {
+      "shape": [
+        152,
+        1024
+      ],
+      "dtype": "<f8",
+      "sha256": "8edd38b3743743b5cb68580d9f504081ba9bffd976b053871c60d2994d2ceb10"
+    },
+    "light_2x_red_nativeRGBSevenRuns": {
+      "shape": [
+        7,
+        152,
+        3
+      ],
+      "dtype": "|u1",
+      "sha256": "707042e4acc2a851d80ba3a12fdf4c829bfb96636eb88c402e15b17360c88c76"
+    },
+    "light_2x_red_referenceRGBSevenRuns": {
+      "shape": [
+        7,
+        152,
+        3
+      ],
+      "dtype": "|u1",
+      "sha256": "7c879280d2aba7259ee0395247a0c9c203b83a945d4a9c711de582ac02dd8d1e"
+    },
+    "light_2x_red_xy": {
+      "shape": [
+        152,
+        2
+      ],
+      "dtype": "<i8",
+      "sha256": "5bbbde7fd9f18541453c6e40c387e4ebe739f4bbc9b15ebb1cba7c12f65ceecf"
+    }
+  }
+}

@@ -1,0 +1,468 @@
+{
+  "endpoints": {
+    "light-inactive": "not-rejected-by-this-pair; no survival claim",
+    "dark-inactive": "rejected-by-necessary-cut"
+  },
+  "pairs": [
+    {
+      "endpoint": "light-inactive",
+      "scale": 1,
+      "pixels": 76,
+      "exact": {
+        "bar": [
+          "1/2",
+          "1/2"
+        ],
+        "allowedMAE": [
+          "1",
+          "1"
+        ],
+        "allSevenAndMedianReject": false,
+        "rejects": false,
+        "states": [
+          {
+            "state": "pixelwise-median",
+            "leftMean": "21",
+            "rightMean": "21",
+            "absoluteMeanDifference": "0",
+            "meanAbsolutePairedDifference": "0",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "-2",
+            "pairwiseTriangleExcess": "-2",
+            "necessaryWorstMAELowerBound": "0",
+            "rejects": false
+          },
+          {
+            "state": "repeat-1",
+            "leftMean": "21",
+            "rightMean": "21",
+            "absoluteMeanDifference": "0",
+            "meanAbsolutePairedDifference": "0",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "-2",
+            "pairwiseTriangleExcess": "-2",
+            "necessaryWorstMAELowerBound": "0",
+            "rejects": false
+          },
+          {
+            "state": "repeat-2",
+            "leftMean": "21",
+            "rightMean": "21",
+            "absoluteMeanDifference": "0",
+            "meanAbsolutePairedDifference": "0",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "-2",
+            "pairwiseTriangleExcess": "-2",
+            "necessaryWorstMAELowerBound": "0",
+            "rejects": false
+          },
+          {
+            "state": "repeat-3",
+            "leftMean": "21",
+            "rightMean": "21",
+            "absoluteMeanDifference": "0",
+            "meanAbsolutePairedDifference": "0",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "-2",
+            "pairwiseTriangleExcess": "-2",
+            "necessaryWorstMAELowerBound": "0",
+            "rejects": false
+          },
+          {
+            "state": "repeat-4",
+            "leftMean": "21",
+            "rightMean": "21",
+            "absoluteMeanDifference": "0",
+            "meanAbsolutePairedDifference": "0",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "-2",
+            "pairwiseTriangleExcess": "-2",
+            "necessaryWorstMAELowerBound": "0",
+            "rejects": false
+          },
+          {
+            "state": "repeat-5",
+            "leftMean": "21",
+            "rightMean": "21",
+            "absoluteMeanDifference": "0",
+            "meanAbsolutePairedDifference": "0",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "-2",
+            "pairwiseTriangleExcess": "-2",
+            "necessaryWorstMAELowerBound": "0",
+            "rejects": false
+          },
+          {
+            "state": "repeat-6",
+            "leftMean": "21",
+            "rightMean": "21",
+            "absoluteMeanDifference": "0",
+            "meanAbsolutePairedDifference": "0",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "-2",
+            "pairwiseTriangleExcess": "-2",
+            "necessaryWorstMAELowerBound": "0",
+            "rejects": false
+          },
+          {
+            "state": "repeat-7",
+            "leftMean": "21",
+            "rightMean": "21",
+            "absoluteMeanDifference": "0",
+            "meanAbsolutePairedDifference": "0",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "-2",
+            "pairwiseTriangleExcess": "-2",
+            "necessaryWorstMAELowerBound": "0",
+            "rejects": false
+          }
+        ]
+      }
+    },
+    {
+      "endpoint": "light-inactive",
+      "scale": 2,
+      "pixels": 152,
+      "exact": {
+        "bar": [
+          "1/2",
+          "1/2"
+        ],
+        "allowedMAE": [
+          "1",
+          "1"
+        ],
+        "allSevenAndMedianReject": false,
+        "rejects": false,
+        "states": [
+          {
+            "state": "pixelwise-median",
+            "leftMean": "21",
+            "rightMean": "21",
+            "absoluteMeanDifference": "0",
+            "meanAbsolutePairedDifference": "0",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "-2",
+            "pairwiseTriangleExcess": "-2",
+            "necessaryWorstMAELowerBound": "0",
+            "rejects": false
+          },
+          {
+            "state": "repeat-1",
+            "leftMean": "21",
+            "rightMean": "21",
+            "absoluteMeanDifference": "0",
+            "meanAbsolutePairedDifference": "0",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "-2",
+            "pairwiseTriangleExcess": "-2",
+            "necessaryWorstMAELowerBound": "0",
+            "rejects": false
+          },
+          {
+            "state": "repeat-2",
+            "leftMean": "21",
+            "rightMean": "21",
+            "absoluteMeanDifference": "0",
+            "meanAbsolutePairedDifference": "0",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "-2",
+            "pairwiseTriangleExcess": "-2",
+            "necessaryWorstMAELowerBound": "0",
+            "rejects": false
+          },
+          {
+            "state": "repeat-3",
+            "leftMean": "21",
+            "rightMean": "21",
+            "absoluteMeanDifference": "0",
+            "meanAbsolutePairedDifference": "0",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "-2",
+            "pairwiseTriangleExcess": "-2",
+            "necessaryWorstMAELowerBound": "0",
+            "rejects": false
+          },
+          {
+            "state": "repeat-4",
+            "leftMean": "21",
+            "rightMean": "21",
+            "absoluteMeanDifference": "0",
+            "meanAbsolutePairedDifference": "0",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "-2",
+            "pairwiseTriangleExcess": "-2",
+            "necessaryWorstMAELowerBound": "0",
+            "rejects": false
+          },
+          {
+            "state": "repeat-5",
+            "leftMean": "21",
+            "rightMean": "21",
+            "absoluteMeanDifference": "0",
+            "meanAbsolutePairedDifference": "0",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "-2",
+            "pairwiseTriangleExcess": "-2",
+            "necessaryWorstMAELowerBound": "0",
+            "rejects": false
+          },
+          {
+            "state": "repeat-6",
+            "leftMean": "21",
+            "rightMean": "21",
+            "absoluteMeanDifference": "0",
+            "meanAbsolutePairedDifference": "0",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "-2",
+            "pairwiseTriangleExcess": "-2",
+            "necessaryWorstMAELowerBound": "0",
+            "rejects": false
+          },
+          {
+            "state": "repeat-7",
+            "leftMean": "21",
+            "rightMean": "21",
+            "absoluteMeanDifference": "0",
+            "meanAbsolutePairedDifference": "0",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "-2",
+            "pairwiseTriangleExcess": "-2",
+            "necessaryWorstMAELowerBound": "0",
+            "rejects": false
+          }
+        ]
+      }
+    },
+    {
+      "endpoint": "dark-inactive",
+      "scale": 1,
+      "pixels": 76,
+      "exact": {
+        "bar": [
+          "1/2",
+          "1/2"
+        ],
+        "allowedMAE": [
+          "1",
+          "1"
+        ],
+        "allSevenAndMedianReject": true,
+        "rejects": true,
+        "states": [
+          {
+            "state": "pixelwise-median",
+            "leftMean": "21",
+            "rightMean": "14",
+            "absoluteMeanDifference": "7",
+            "meanAbsolutePairedDifference": "7",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "5",
+            "pairwiseTriangleExcess": "5",
+            "necessaryWorstMAELowerBound": "7/2",
+            "rejects": true
+          },
+          {
+            "state": "repeat-1",
+            "leftMean": "21",
+            "rightMean": "14",
+            "absoluteMeanDifference": "7",
+            "meanAbsolutePairedDifference": "7",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "5",
+            "pairwiseTriangleExcess": "5",
+            "necessaryWorstMAELowerBound": "7/2",
+            "rejects": true
+          },
+          {
+            "state": "repeat-2",
+            "leftMean": "21",
+            "rightMean": "14",
+            "absoluteMeanDifference": "7",
+            "meanAbsolutePairedDifference": "7",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "5",
+            "pairwiseTriangleExcess": "5",
+            "necessaryWorstMAELowerBound": "7/2",
+            "rejects": true
+          },
+          {
+            "state": "repeat-3",
+            "leftMean": "21",
+            "rightMean": "14",
+            "absoluteMeanDifference": "7",
+            "meanAbsolutePairedDifference": "7",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "5",
+            "pairwiseTriangleExcess": "5",
+            "necessaryWorstMAELowerBound": "7/2",
+            "rejects": true
+          },
+          {
+            "state": "repeat-4",
+            "leftMean": "21",
+            "rightMean": "14",
+            "absoluteMeanDifference": "7",
+            "meanAbsolutePairedDifference": "7",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "5",
+            "pairwiseTriangleExcess": "5",
+            "necessaryWorstMAELowerBound": "7/2",
+            "rejects": true
+          },
+          {
+            "state": "repeat-5",
+            "leftMean": "21",
+            "rightMean": "14",
+            "absoluteMeanDifference": "7",
+            "meanAbsolutePairedDifference": "7",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "5",
+            "pairwiseTriangleExcess": "5",
+            "necessaryWorstMAELowerBound": "7/2",
+            "rejects": true
+          },
+          {
+            "state": "repeat-6",
+            "leftMean": "21",
+            "rightMean": "14",
+            "absoluteMeanDifference": "7",
+            "meanAbsolutePairedDifference": "7",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "5",
+            "pairwiseTriangleExcess": "5",
+            "necessaryWorstMAELowerBound": "7/2",
+            "rejects": true
+          },
+          {
+            "state": "repeat-7",
+            "leftMean": "21",
+            "rightMean": "14",
+            "absoluteMeanDifference": "7",
+            "meanAbsolutePairedDifference": "7",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "5",
+            "pairwiseTriangleExcess": "5",
+            "necessaryWorstMAELowerBound": "7/2",
+            "rejects": true
+          }
+        ]
+      }
+    },
+    {
+      "endpoint": "dark-inactive",
+      "scale": 2,
+      "pixels": 152,
+      "exact": {
+        "bar": [
+          "1/2",
+          "1/2"
+        ],
+        "allowedMAE": [
+          "1",
+          "1"
+        ],
+        "allSevenAndMedianReject": true,
+        "rejects": true,
+        "states": [
+          {
+            "state": "pixelwise-median",
+            "leftMean": "21",
+            "rightMean": "14",
+            "absoluteMeanDifference": "7",
+            "meanAbsolutePairedDifference": "7",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "5",
+            "pairwiseTriangleExcess": "5",
+            "necessaryWorstMAELowerBound": "7/2",
+            "rejects": true
+          },
+          {
+            "state": "repeat-1",
+            "leftMean": "21",
+            "rightMean": "14",
+            "absoluteMeanDifference": "7",
+            "meanAbsolutePairedDifference": "7",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "5",
+            "pairwiseTriangleExcess": "5",
+            "necessaryWorstMAELowerBound": "7/2",
+            "rejects": true
+          },
+          {
+            "state": "repeat-2",
+            "leftMean": "21",
+            "rightMean": "14",
+            "absoluteMeanDifference": "7",
+            "meanAbsolutePairedDifference": "7",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "5",
+            "pairwiseTriangleExcess": "5",
+            "necessaryWorstMAELowerBound": "7/2",
+            "rejects": true
+          },
+          {
+            "state": "repeat-3",
+            "leftMean": "21",
+            "rightMean": "14",
+            "absoluteMeanDifference": "7",
+            "meanAbsolutePairedDifference": "7",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "5",
+            "pairwiseTriangleExcess": "5",
+            "necessaryWorstMAELowerBound": "7/2",
+            "rejects": true
+          },
+          {
+            "state": "repeat-4",
+            "leftMean": "21",
+            "rightMean": "14",
+            "absoluteMeanDifference": "7",
+            "meanAbsolutePairedDifference": "7",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "5",
+            "pairwiseTriangleExcess": "5",
+            "necessaryWorstMAELowerBound": "7/2",
+            "rejects": true
+          },
+          {
+            "state": "repeat-5",
+            "leftMean": "21",
+            "rightMean": "14",
+            "absoluteMeanDifference": "7",
+            "meanAbsolutePairedDifference": "7",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "5",
+            "pairwiseTriangleExcess": "5",
+            "necessaryWorstMAELowerBound": "7/2",
+            "rejects": true
+          },
+          {
+            "state": "repeat-6",
+            "leftMean": "21",
+            "rightMean": "14",
+            "absoluteMeanDifference": "7",
+            "meanAbsolutePairedDifference": "7",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "5",
+            "pairwiseTriangleExcess": "5",
+            "necessaryWorstMAELowerBound": "7/2",
+            "rejects": true
+          },
+          {
+            "state": "repeat-7",
+            "leftMean": "21",
+            "rightMean": "14",
+            "absoluteMeanDifference": "7",
+            "meanAbsolutePairedDifference": "7",
+            "sumAllowedMAE": "2",
+            "jensenExcess": "5",
+            "pairwiseTriangleExcess": "5",
+            "necessaryWorstMAELowerBound": "7/2",
+            "rejects": true
+          }
+        ]
+      }
+    }
+  ]
+}
