@@ -1,0 +1,78 @@
+{
+  "mode": "unwrapped",
+  "rawResultBitsSha256": "0f1a469843c7261cdeb57d959c24127728a4dc991253bdca289dfc9c22dcf2e1",
+  "trace": {
+    "sha256": "8c7c52f1a55ea94ea7632932a47c09135f45eb60dcdc44c9bd7deb603caacf6a",
+    "events": 3058,
+    "counts": {
+      "solver-input": 5,
+      "callback-input": 1524,
+      "callback-output": 1524,
+      "solver-output": 5
+    }
+  },
+  "cache": {
+    "enabled": false,
+    "hits": 0,
+    "misses": 0,
+    "maxEntriesPerCallback": 0,
+    "maxActiveCaches": 0,
+    "cachePayloadUpperBoundBytes": 0,
+    "memoryQualification": "key and result payloads; excludes Python object overhead, uncached evaluation temporaries and the returned array copy",
+    "solvers": [
+      {
+        "kind": "least_squares",
+        "fixedWidth": false,
+        "epigraph": false,
+        "caches": []
+      },
+      {
+        "kind": "minimize",
+        "fixedWidth": false,
+        "epigraph": false,
+        "caches": []
+      },
+      {
+        "kind": "minimize",
+        "fixedWidth": false,
+        "epigraph": true,
+        "caches": []
+      },
+      {
+        "kind": "minimize",
+        "fixedWidth": false,
+        "epigraph": true,
+        "caches": []
+      },
+      {
+        "kind": "minimize",
+        "fixedWidth": true,
+        "epigraph": true,
+        "caches": []
+      }
+    ]
+  },
+  "seconds": 0.18638745904900134,
+  "peakRSSBytes": 77938688,
+  "peakRSSUnit": "bytes on macOS; whole process observed high-water, not a future bound",
+  "environment": {
+    "python": "3.12.3",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "platform": "macOS-27.0-arm64-arm-64bit",
+    "threads": {
+      "OPENBLAS_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": null,
+      "VECLIB_MAXIMUM_THREADS": null
+    }
+  },
+  "sourceSha256": {
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/proof.py": "db880447f485fe88ad7ff01caae9857a378f6b147bae5c774ed9bac79627cd93",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/fixtures.py": "e500464fc13449881e24b4e5805461699ffa0899351020366b9b62d9278ccd66",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/solver_memo.py": "b0e9f572d6bb51513c54a6128981adb52384c39113a574baeda05a229d5de50b",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/start_partition.py": "4d966f03905693f8090685d0bab7b90a951ea3689ead16678f494592a20f37b9",
+    "/Users/new/vitrea-w41/pre-w41-proof/packages/calibration/results/2026-09-27-w41-g0-declaration/instrument/stroke_fit.py": "07ac045ccabcd5c8348de50b5c9de13668558c44833c2b0d1ba756298e1da887",
+    "/Users/new/vitrea-w41/pre-w41-proof/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/replay.py": "d5df491dc468d6cc5844d4f6d7bbf0d17d752bc1c0851c013178091e8ba58810",
+    "/Users/new/vitrea-w41/pre-w41-proof/packages/calibration/results/2026-09-27-w41-g0-declaration/instrument/instrument.py": "41f796109a19e3834f2d738ee122f394d2e142d79ba29db3fe5ecc4ddb179950"
+  }
+}

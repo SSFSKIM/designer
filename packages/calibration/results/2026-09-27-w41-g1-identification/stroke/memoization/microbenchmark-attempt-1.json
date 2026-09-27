@@ -1,0 +1,49 @@
+{
+  "schema": "w41-callback-memo-microbenchmark-1",
+  "nativePayloadReads": 0,
+  "optimizerRuns": 0,
+  "pixels": 64,
+  "quadraturePerPixel": 256,
+  "family": "M1",
+  "endpoint": 1,
+  "python": "3.12.3",
+  "numpy": "2.5.3",
+  "scipy": "1.18.1",
+  "rows": [
+    {
+      "evaluator": "sealed",
+      "callsPerTrial": 40,
+      "trials": 6,
+      "unwrappedMedianSeconds": 0.06360212503932416,
+      "wrappedMedianSeconds": 0.01863752049393952,
+      "speedup": 3.4125851161374214,
+      "bitIdentical": true,
+      "resultSha256": "9bab372b413a3b3ad6cf41bd908bcb2dad45e0b4ca517d411ef50cbbed9efce6",
+      "cache": {
+        "hits": 28,
+        "misses": 12,
+        "maxEntries": 2,
+        "peakPayloadBytes": 3248
+      },
+      "allTrialCacheStatsEqual": true
+    },
+    {
+      "evaluator": "held-compact",
+      "callsPerTrial": 40,
+      "trials": 6,
+      "unwrappedMedianSeconds": 0.0015434579690918326,
+      "wrappedMedianSeconds": 0.0010503334924578667,
+      "speedup": 1.4694932420749662,
+      "bitIdentical": true,
+      "resultSha256": "ebffab1c099ecd8e89b31e2de4a8d6107eb82e37d5ae3290aa783a764b37e60f",
+      "cache": {
+        "hits": 28,
+        "misses": 12,
+        "maxEntries": 2,
+        "peakPayloadBytes": 3248
+      },
+      "allTrialCacheStatsEqual": true
+    }
+  ],
+  "qualification": "Synthetic callback cost only; no end-to-end native speedup is established. Both evaluators are compared to themselves, not each other."
+}

@@ -1,0 +1,413 @@
+{
+  "classification": "LOCAL; bounded width/coefficient alternation; quadrature plateaus and gauge/rank loss retained",
+  "family": "M0",
+  "parameters": 15,
+  "cssWidth": false,
+  "curvature": false,
+  "starts": [
+    {
+      "startIndex": 0,
+      "initial": [
+        1.0,
+        0.4,
+        0.4,
+        0.4,
+        0.4,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      "leastSquares": {
+        "coefficients": [
+          1.0,
+          0.4,
+          0.4,
+          0.4,
+          0.4,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.9999999999205232,
+          -4.5089202122355836e-15,
+          1.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        "parameterFeasible": true,
+        "maximumCodes": 1.4301775763669866e-08,
+        "weightedSquaredError": 6.574027980315198e-17,
+        "railDeficitCodes": 0.0,
+        "rank": 3,
+        "singularValues": [
+          249.90306782512,
+          0.6725668995351803,
+          6.6565240471101545e-09,
+          9.524692331037404e-15,
+          1.1296927902656036e-16,
+          1.9742682304271633e-27
+        ],
+        "optimizerSuccess": true,
+        "message": "Optimization terminated successfully",
+        "evaluations": 27,
+        "iterations": 1,
+        "epigraphGapCodes": null,
+        "converged": true,
+        "zeroFloorBracketCodes": null
+      },
+      "minimax": {
+        "coefficients": [
+          1.0,
+          0.4,
+          0.4,
+          0.4,
+          0.4,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          1.0,
+          -4.076067694520195e-20,
+          1.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        "parameterFeasible": true,
+        "maximumCodes": 0.0,
+        "weightedSquaredError": 0.0,
+        "railDeficitCodes": 0.0,
+        "rank": 2,
+        "singularValues": [
+          249.90306781018472,
+          0.6725668866826225,
+          1.1266980240737732e-14,
+          2.1251241853619702e-17,
+          1.1294808555915171e-30,
+          8.778465633359442e-35
+        ],
+        "optimizerSuccess": true,
+        "message": "Optimization terminated successfully",
+        "evaluations": 34,
+        "iterations": 2,
+        "epigraphGapCodes": 0.0,
+        "converged": true,
+        "zeroFloorBracketCodes": [
+          0.0,
+          0.0
+        ]
+      },
+      "rawStartMinimax": {
+        "coefficients": [
+          1.0,
+          0.4,
+          0.4,
+          0.4,
+          0.4,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          1.0,
+          -4.076067694520195e-20,
+          1.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        "parameterFeasible": true,
+        "maximumCodes": 0.0,
+        "weightedSquaredError": 0.0,
+        "railDeficitCodes": 0.0,
+        "rank": 2,
+        "singularValues": [
+          249.90306781018472,
+          0.6725668866826225,
+          1.1266980240737732e-14,
+          2.1251241853619702e-17,
+          1.1294808555915171e-30,
+          8.778465633359442e-35
+        ],
+        "optimizerSuccess": true,
+        "message": "Optimization terminated successfully",
+        "evaluations": 34,
+        "iterations": 2,
+        "epigraphGapCodes": 0.0,
+        "converged": true,
+        "zeroFloorBracketCodes": [
+          0.0,
+          0.0
+        ]
+      },
+      "lsSeededMinimax": {
+        "coefficients": [
+          1.0,
+          0.4,
+          0.4,
+          0.4,
+          0.4,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.9999999998401891,
+          2.749016273144183e-13,
+          1.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        "parameterFeasible": true,
+        "maximumCodes": 2.875810878322227e-08,
+        "weightedSquaredError": 2.658120803959455e-16,
+        "railDeficitCodes": 0.0,
+        "rank": 3,
+        "singularValues": [
+          249.90306783901235,
+          0.6725669129822198,
+          2.6522501224739193e-09,
+          1.6744893542449324e-14,
+          8.74442079512855e-17,
+          4.602015261231101e-26
+        ],
+        "optimizerSuccess": false,
+        "message": "Positive directional derivative for linesearch",
+        "evaluations": 358,
+        "iterations": 18,
+        "epigraphGapCodes": 2.875810878322227e-08,
+        "converged": false,
+        "zeroFloorBracketCodes": null
+      },
+      "originalLeastSquares": {
+        "coefficients": [
+          1.0,
+          0.4,
+          0.4,
+          0.4,
+          0.4,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.9999999999205232,
+          -4.5089202122355836e-15,
+          1.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        "parameterFeasible": true,
+        "maximumCodes": 1.4301775763669866e-08,
+        "weightedSquaredError": 6.574027980315198e-17,
+        "railDeficitCodes": 0.0,
+        "rank": 3,
+        "singularValues": [
+          249.90306782512,
+          0.6725668995351803,
+          6.6565240471101545e-09,
+          9.524692331037404e-15,
+          1.1296927902656036e-16,
+          1.9742682304271633e-27
+        ],
+        "optimizerSuccess": true,
+        "message": "Optimization terminated successfully",
+        "evaluations": 27,
+        "iterations": 1,
+        "epigraphGapCodes": null,
+        "converged": true,
+        "zeroFloorBracketCodes": null
+      },
+      "originalMinimax": {
+        "coefficients": [
+          1.0,
+          0.4,
+          0.4,
+          0.4,
+          0.4,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          1.0,
+          -4.076067694520195e-20,
+          1.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        "parameterFeasible": true,
+        "maximumCodes": 0.0,
+        "weightedSquaredError": 0.0,
+        "railDeficitCodes": 0.0,
+        "rank": 2,
+        "singularValues": [
+          249.90306781018472,
+          0.6725668866826225,
+          1.1266980240737732e-14,
+          2.1251241853619702e-17,
+          1.1294808555915171e-30,
+          8.778465633359442e-35
+        ],
+        "optimizerSuccess": true,
+        "message": "Optimization terminated successfully",
+        "evaluations": 34,
+        "iterations": 2,
+        "epigraphGapCodes": 0.0,
+        "converged": true,
+        "zeroFloorBracketCodes": [
+          0.0,
+          0.0
+        ]
+      },
+      "widthLsSeededMinimax": {
+        "coefficients": [
+          1.0,
+          0.4,
+          0.4,
+          0.4,
+          0.4,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.9999999998401892,
+          2.7477640103974423e-13,
+          1.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        "parameterFeasible": true,
+        "maximumCodes": 2.8757710879290244e-08,
+        "weightedSquaredError": 2.658081692286262e-16,
+        "railDeficitCodes": 0.0,
+        "rank": 3,
+        "singularValues": [
+          249.90306784122856,
+          0.672566911513657,
+          1.939213138352676e-09,
+          1.1298409773236178e-14,
+          1.6347982267273582e-16,
+          8.958430724138787e-31
+        ],
+        "optimizerSuccess": false,
+        "message": "Positive directional derivative for linesearch",
+        "evaluations": 318,
+        "iterations": 17,
+        "epigraphGapCodes": 2.8757710879290244e-08,
+        "converged": false,
+        "zeroFloorBracketCodes": null
+      },
+      "widthSearch": {
+        "leastSquares": {
+          "termination": "no admissible width improvement",
+          "rounds": [
+            {
+              "sweep": {
+                "evaluations": 102,
+                "width": 1.0,
+                "objective": 6.574027980315198e-17
+              },
+              "coefficientSolve": null
+            }
+          ]
+        },
+        "minimax": {
+          "termination": "objective floor",
+          "rounds": []
+        }
+      }
+    }
+  ],
+  "leastSquares": {
+    "startIndex": 0,
+    "coefficients": [
+      1.0,
+      0.4,
+      0.4,
+      0.4,
+      0.4,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      0.9999999999205232,
+      -4.5089202122355836e-15,
+      1.0,
+      0.0,
+      1.0,
+      0.0
+    ],
+    "parameterFeasible": true,
+    "maximumCodes": 1.4301775763669866e-08,
+    "weightedSquaredError": 6.574027980315198e-17,
+    "railDeficitCodes": 0.0,
+    "rank": 3,
+    "singularValues": [
+      249.90306782512,
+      0.6725668995351803,
+      6.6565240471101545e-09,
+      9.524692331037404e-15,
+      1.1296927902656036e-16,
+      1.9742682304271633e-27
+    ],
+    "optimizerSuccess": true,
+    "message": "Optimization terminated successfully",
+    "evaluations": 27,
+    "iterations": 1,
+    "epigraphGapCodes": null,
+    "converged": true,
+    "zeroFloorBracketCodes": null
+  },
+  "minimax": {
+    "startIndex": 0,
+    "coefficients": [
+      1.0,
+      0.4,
+      0.4,
+      0.4,
+      0.4,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      1.0,
+      -4.076067694520195e-20,
+      1.0,
+      0.0,
+      1.0,
+      0.0
+    ],
+    "parameterFeasible": true,
+    "maximumCodes": 0.0,
+    "weightedSquaredError": 0.0,
+    "railDeficitCodes": 0.0,
+    "rank": 2,
+    "singularValues": [
+      249.90306781018472,
+      0.6725668866826225,
+      1.1266980240737732e-14,
+      2.1251241853619702e-17,
+      1.1294808555915171e-30,
+      8.778465633359442e-35
+    ],
+    "optimizerSuccess": true,
+    "message": "Optimization terminated successfully",
+    "evaluations": 34,
+    "iterations": 2,
+    "epigraphGapCodes": 0.0,
+    "converged": true,
+    "zeroFloorBracketCodes": [
+      0.0,
+      0.0
+    ]
+  }
+}

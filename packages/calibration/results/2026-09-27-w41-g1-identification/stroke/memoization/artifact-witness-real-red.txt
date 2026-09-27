@@ -1,0 +1,125 @@
+FFFFFFFFFFFFFFF...
+======================================================================
+FAIL: test_comparison_rejects_tampering_and_deletion_of_each_required_artifact (test_proof.ProofTests.test_comparison_rejects_tampering_and_deletion_of_each_required_artifact) (mode='unwrapped', name='trace.jsonl.gz', action='tamper')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/test_proof.py", line 67, in test_comparison_rejects_tampering_and_deletion_of_each_required_artifact
+    with self.assertRaisesRegex(ValueError, 'artifact'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_comparison_rejects_tampering_and_deletion_of_each_required_artifact (test_proof.ProofTests.test_comparison_rejects_tampering_and_deletion_of_each_required_artifact) (mode='unwrapped', name='trace.jsonl.gz', action='delete')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/test_proof.py", line 67, in test_comparison_rejects_tampering_and_deletion_of_each_required_artifact
+    with self.assertRaisesRegex(ValueError, 'artifact'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_comparison_rejects_tampering_and_deletion_of_each_required_artifact (test_proof.ProofTests.test_comparison_rejects_tampering_and_deletion_of_each_required_artifact) (mode='unwrapped', name='raw-result.json', action='tamper')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/test_proof.py", line 67, in test_comparison_rejects_tampering_and_deletion_of_each_required_artifact
+    with self.assertRaisesRegex(ValueError, 'artifact'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_comparison_rejects_tampering_and_deletion_of_each_required_artifact (test_proof.ProofTests.test_comparison_rejects_tampering_and_deletion_of_each_required_artifact) (mode='unwrapped', name='raw-result.json', action='delete')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/test_proof.py", line 67, in test_comparison_rejects_tampering_and_deletion_of_each_required_artifact
+    with self.assertRaisesRegex(ValueError, 'artifact'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_comparison_rejects_tampering_and_deletion_of_each_required_artifact (test_proof.ProofTests.test_comparison_rejects_tampering_and_deletion_of_each_required_artifact) (mode='unwrapped', name='replay.json', action='tamper')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/test_proof.py", line 67, in test_comparison_rejects_tampering_and_deletion_of_each_required_artifact
+    with self.assertRaisesRegex(ValueError, 'artifact'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_comparison_rejects_tampering_and_deletion_of_each_required_artifact (test_proof.ProofTests.test_comparison_rejects_tampering_and_deletion_of_each_required_artifact) (mode='unwrapped', name='replay.json', action='delete')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/test_proof.py", line 67, in test_comparison_rejects_tampering_and_deletion_of_each_required_artifact
+    with self.assertRaisesRegex(ValueError, 'artifact'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_comparison_rejects_tampering_and_deletion_of_each_required_artifact (test_proof.ProofTests.test_comparison_rejects_tampering_and_deletion_of_each_required_artifact) (mode='wrapped', name='trace.jsonl.gz', action='tamper')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/test_proof.py", line 67, in test_comparison_rejects_tampering_and_deletion_of_each_required_artifact
+    with self.assertRaisesRegex(ValueError, 'artifact'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_comparison_rejects_tampering_and_deletion_of_each_required_artifact (test_proof.ProofTests.test_comparison_rejects_tampering_and_deletion_of_each_required_artifact) (mode='wrapped', name='trace.jsonl.gz', action='delete')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/test_proof.py", line 67, in test_comparison_rejects_tampering_and_deletion_of_each_required_artifact
+    with self.assertRaisesRegex(ValueError, 'artifact'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_comparison_rejects_tampering_and_deletion_of_each_required_artifact (test_proof.ProofTests.test_comparison_rejects_tampering_and_deletion_of_each_required_artifact) (mode='wrapped', name='raw-result.json', action='tamper')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/test_proof.py", line 67, in test_comparison_rejects_tampering_and_deletion_of_each_required_artifact
+    with self.assertRaisesRegex(ValueError, 'artifact'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_comparison_rejects_tampering_and_deletion_of_each_required_artifact (test_proof.ProofTests.test_comparison_rejects_tampering_and_deletion_of_each_required_artifact) (mode='wrapped', name='raw-result.json', action='delete')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/test_proof.py", line 67, in test_comparison_rejects_tampering_and_deletion_of_each_required_artifact
+    with self.assertRaisesRegex(ValueError, 'artifact'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_comparison_rejects_tampering_and_deletion_of_each_required_artifact (test_proof.ProofTests.test_comparison_rejects_tampering_and_deletion_of_each_required_artifact) (mode='wrapped', name='replay.json', action='tamper')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/test_proof.py", line 67, in test_comparison_rejects_tampering_and_deletion_of_each_required_artifact
+    with self.assertRaisesRegex(ValueError, 'artifact'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_comparison_rejects_tampering_and_deletion_of_each_required_artifact (test_proof.ProofTests.test_comparison_rejects_tampering_and_deletion_of_each_required_artifact) (mode='wrapped', name='replay.json', action='delete')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/test_proof.py", line 67, in test_comparison_rejects_tampering_and_deletion_of_each_required_artifact
+    with self.assertRaisesRegex(ValueError, 'artifact'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_comparison_requires_all_artifact_pins_not_an_optional_subset (test_proof.ProofTests.test_comparison_requires_all_artifact_pins_not_an_optional_subset) (omitted='trace.jsonl.gz')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/test_proof.py", line 80, in test_comparison_requires_all_artifact_pins_not_an_optional_subset
+    with self.assertRaisesRegex(ValueError, 'required artifact'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_comparison_requires_all_artifact_pins_not_an_optional_subset (test_proof.ProofTests.test_comparison_requires_all_artifact_pins_not_an_optional_subset) (omitted='raw-result.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/test_proof.py", line 80, in test_comparison_requires_all_artifact_pins_not_an_optional_subset
+    with self.assertRaisesRegex(ValueError, 'required artifact'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_comparison_requires_all_artifact_pins_not_an_optional_subset (test_proof.ProofTests.test_comparison_requires_all_artifact_pins_not_an_optional_subset) (omitted='replay.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/test_proof.py", line 80, in test_comparison_requires_all_artifact_pins_not_an_optional_subset
+    with self.assertRaisesRegex(ValueError, 'required artifact'):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.052s
+
+FAILED (failures=15)

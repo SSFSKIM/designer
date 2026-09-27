@@ -1,0 +1,29 @@
+..E.....
+======================================================================
+ERROR: test_effective_coordinates_match_real_forward_for_every_family_and_rival (test_memoization.KeyTests.test_effective_coordinates_match_real_forward_for_every_family_and_rival)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/test_memoization.py", line 32, in test_effective_coordinates_match_real_forward_for_every_family_and_rival
+    self.assertEqual(fingerprint(cached(moved)),
+                                 ^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/solver_memo.py", line 126, in __call__
+    value = self.callback(vector, *args, **kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/test_memoization.py", line 17, in <lambda>
+    lambda v: f.predict(v, obs[0], family, css, curvature), key)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/pre-w41-proof/packages/calibration/results/2026-09-27-w41-g0-declaration/instrument/stroke_fit.py", line 72, in predict
+    return m.composite(observation['g'],observation['backdrop'],observation['shadow'],w,b,g,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/pre-w41-proof/packages/calibration/results/2026-09-27-w41-g0-declaration/instrument/instrument.py", line 102, in composite
+    return ((1-c)*shadow+c*material(b,family,q,dark)).mean(axis=1)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/pre-w41-proof/packages/calibration/results/2026-09-27-w41-g0-declaration/instrument/instrument.py", line 89, in material
+    if len(q)!=n or np.any(q[:8]<0) or np.any(q[:8]>255) or np.any(np.diff(q[:8])<0):raise ValueError('M1 monotone ordinate bounds')
+                                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: M1 monotone ordinate bounds
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.421s
+
+FAILED (errors=1)

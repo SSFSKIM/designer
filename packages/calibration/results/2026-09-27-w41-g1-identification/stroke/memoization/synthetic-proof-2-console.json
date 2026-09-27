@@ -1,0 +1,125 @@
+{
+  "schema": "w41-memoization-synthetic-proof-1",
+  "nativePayloadReads": 0,
+  "pixels": 4,
+  "endpoint": 1,
+  "originalStartIndices": [
+    0
+  ],
+  "partitionProvenance": {
+    "originalStartIndices": [
+      0
+    ],
+    "originalSeed": 4100,
+    "originalSourceSha256": "86ef98f0d153d2694a397acfb242dff11753972b8fd744edc1fe2ae4778d6670",
+    "transformedSourceSha256": "d13f9589a7fef13b314763e2f4e987df2f131b09f26989fbefc288ef6cea7cc8",
+    "transform": "skip unassigned original indices at outer-loop entry only",
+    "budgetsChanged": false,
+    "parameterizationChanged": false
+  },
+  "resultBitIdentical": true,
+  "solverArgumentsBudgetsAndCallbackTraceIdentical": true,
+  "trace": {
+    "sha256": "8c7c52f1a55ea94ea7632932a47c09135f45eb60dcdc44c9bd7deb603caacf6a",
+    "events": 3058,
+    "counts": {
+      "solver-input": 5,
+      "callback-input": 1524,
+      "callback-output": 1524,
+      "solver-output": 5
+    }
+  },
+  "rawResultBitsSha256": "0f1a469843c7261cdeb57d959c24127728a4dc991253bdca289dfc9c22dcf2e1",
+  "cache": {
+    "enabled": true,
+    "hits": 354,
+    "misses": 460,
+    "maxEntriesPerCallback": 2,
+    "maxActiveCaches": 2,
+    "cachePayloadUpperBoundBytes": 288,
+    "memoryQualification": "key and result payloads; excludes Python object overhead, uncached evaluation temporaries and the returned array copy",
+    "solvers": [
+      {
+        "kind": "least_squares",
+        "fixedWidth": false,
+        "epigraph": false,
+        "caches": [
+          {
+            "hits": 10,
+            "misses": 6,
+            "maxEntries": 2,
+            "peakPayloadBytes": 176
+          }
+        ]
+      },
+      {
+        "kind": "minimize",
+        "fixedWidth": false,
+        "epigraph": false,
+        "caches": [
+          {
+            "hits": 10,
+            "misses": 17,
+            "maxEntries": 2,
+            "peakPayloadBytes": 96
+          },
+          {
+            "hits": 12,
+            "misses": 17,
+            "maxEntries": 2,
+            "peakPayloadBytes": 176
+          }
+        ]
+      },
+      {
+        "kind": "minimize",
+        "fixedWidth": false,
+        "epigraph": true,
+        "caches": [
+          {
+            "hits": 23,
+            "misses": 14,
+            "maxEntries": 2,
+            "peakPayloadBytes": 288
+          }
+        ]
+      },
+      {
+        "kind": "minimize",
+        "fixedWidth": false,
+        "epigraph": true,
+        "caches": [
+          {
+            "hits": 155,
+            "misses": 218,
+            "maxEntries": 2,
+            "peakPayloadBytes": 288
+          }
+        ]
+      },
+      {
+        "kind": "minimize",
+        "fixedWidth": true,
+        "epigraph": true,
+        "caches": [
+          {
+            "hits": 144,
+            "misses": 188,
+            "maxEntries": 2,
+            "peakPayloadBytes": 288
+          }
+        ]
+      }
+    ]
+  },
+  "sourceSha256": {
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/proof.py": "db880447f485fe88ad7ff01caae9857a378f6b147bae5c774ed9bac79627cd93",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/fixtures.py": "e500464fc13449881e24b4e5805461699ffa0899351020366b9b62d9278ccd66",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/solver_memo.py": "b0e9f572d6bb51513c54a6128981adb52384c39113a574baeda05a229d5de50b",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/start_partition.py": "4d966f03905693f8090685d0bab7b90a951ea3689ead16678f494592a20f37b9",
+    "/Users/new/vitrea-w41/pre-w41-proof/packages/calibration/results/2026-09-27-w41-g0-declaration/instrument/stroke_fit.py": "07ac045ccabcd5c8348de50b5c9de13668558c44833c2b0d1ba756298e1da887",
+    "/Users/new/vitrea-w41/pre-w41-proof/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/replay.py": "d5df491dc468d6cc5844d4f6d7bbf0d17d752bc1c0851c013178091e8ba58810",
+    "/Users/new/vitrea-w41/pre-w41-proof/packages/calibration/results/2026-09-27-w41-g0-declaration/instrument/instrument.py": "41f796109a19e3834f2d738ee122f394d2e142d79ba29db3fe5ecc4ddb179950"
+  },
+  "qualification": "Small synthetic planted solution, not native optimizer verification."
+}
