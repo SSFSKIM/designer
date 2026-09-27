@@ -347,7 +347,16 @@ opening; the archive complete and cited; one canvas, attested positions). W34's 
 carry where they concern the archive, the split and the ledger; **X5 is not invoked** (no native
 capture). W37's **X15–X17** and W38's **X18** carry. X9's routing carries the 2026-09-26 note
 (workers on `opus` or `astra` medium/high; reviews through the review-code agents,
-`reviewer-high` at gate merges). New:
+`reviewer-high` at gate merges). That is the historical routing note; the following update
+supersedes its model choice for new dispatches.
+
+**X9 update, 2026-09-28 (user direction relayed by the coordinator):** every new sub-worker
+uses the default `opus` model, with no `subagent_type` or with `general-purpose`, never
+`astra`. Pass this routing rule to workers that themselves dispatch workers. Already-running
+`astra` workers finish their current assignment. Independent review is still required; this
+changes routing, not the scientific declaration, budgets or review obligations.
+
+New contracts:
 
 - **X26 — one exposure for the wave, scoring the renderer too.** The W39 holdout opens at most
   once, for W41, on one receipt binding every W41 candidate — numerical AND rendered (the
@@ -505,6 +514,16 @@ Deferred.
   0.715 against 0.147 (light), 3 codes at 14.5 CSS px inward between reflected rows.
 
 ## Revision Notes
+
+- 2026-09-28 (G1 operational steering, user direction relayed by the coordinator): X9 now
+  routes every new sub-worker to default `opus`; already-running `astra` assignments finish.
+  The user chose to free memory and retain the full sealed fitting budgets. The coordinator
+  reports stopping `jellyfin` and `n5replay-pg-1`; quitting Docker Desktop and closing idle
+  sessions remain actions the user will take, not completed actions asserted by this wave.
+  No additional process shutdown is delegated here. The existing measured adaptive admission
+  gate determines concurrency as headroom recovers; no seed, population, solver budget or
+  scientific bound changes. The routing and full-budget instruction were passed to the
+  active stroke lead for propagation to its future sub-workers.
 
 - 2026-09-27 (G0's merge, the parent): merged `cd55870d` after an independent gate review (reviewer-high, no material findings; 114 synthetic tests, the 100 noisy LP cases, the width recoveries, 3,600 shadow cases, the guarded replay and all 41 exposure tests rerun; every pin matches; no protected file changed);
   freeze 1,818; no capture tree moved; nothing fitted to native pixels. G0's stops produced v2.1–v2.3;
