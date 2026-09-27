@@ -1,0 +1,25 @@
+{
+  "startedUTC": "2026-09-27T08:27:53.635425+00:00",
+  "signal": "steps-2-3-complete",
+  "family": "M0",
+  "geometry": "device",
+  "mode": "joint",
+  "declarationSha256": "850747c1f03781a6efe9b433bd4ce3bd6cf72b63c9befd8d5d98de9eadf7f759",
+  "sourceFiles": {
+    "packages/calibration/results/2026-09-27-w41-g1-identification/stroke/execute.py": "5120b589748ffac41175ef38e4360c0269a5e35575e1e39a90db11e66261f525",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/stroke/replay.py": "d5df491dc468d6cc5844d4f6d7bbf0d17d752bc1c0851c013178091e8ba58810",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scoring.py": "eba0d465dfdbd083134d1d685117e7b7aad21066f377b89bee25e6ec15e12128",
+    "packages/calibration/results/2026-09-27-w41-g0-declaration/instrument/stroke_fit.py": "07ac045ccabcd5c8348de50b5c9de13668558c44833c2b0d1ba756298e1da887",
+    "packages/calibration/results/2026-09-27-w41-g0-declaration/instrument/instrument.py": "41f796109a19e3834f2d738ee122f394d2e142d79ba29db3fe5ecc4ddb179950",
+    "packages/calibration/results/2026-09-27-w41-g0-declaration/instrument/shadow.py": "aff196a4923b77489a2425b3ea1214bf28e55b0b0cc9540c058692bb195d377a",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/stroke/diagnostics.py": "e60e5eee1366757c1c8c5a26e233972694126e65969c1e79dd2b2fc213919b9b"
+  },
+  "classification": "LOCAL; unchanged sealed domains, starts and budgets",
+  "roles": [
+    "calibration",
+    "validation"
+  ],
+  "holdout": false,
+  "browser": false,
+  "nativeCapture": false
+}
