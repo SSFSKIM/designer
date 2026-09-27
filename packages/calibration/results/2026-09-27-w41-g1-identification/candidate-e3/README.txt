@@ -18,6 +18,15 @@ the body's deep statistic, not the unchanged rim or other boundary contributions
 The enabled shader may draw on structured inputs, but this archive has no
 structured holdout and establishes no spatial law.
 
+Presence correction (2026-09-27): the phrase "enabling ... full presence" above
+conflates the identified claim domain with the shader's enable conditions. Full
+presence is the IDENTIFIED domain, not an enable gate. The shader is enabled under
+nominal material policy, regular glass and actual texture sampling when the
+operator gate is positive and presence is positive. Intermediate presence uses
+the explicitly unmeasured interpolation; only presence zero skips exactly. This
+clarifies the parent-approved behavior without changing code, coefficients,
+recorded hashes, measurements or the full-presence claim.
+
 The coordinator's 2026-09-27 clarification is preserved verbatim in
 parent-ruling-rendered-structured.json. Numerical structured deep scores use S0:
 apply E3 per pixel to each guarded local noGlass reference, THEN take the declared
