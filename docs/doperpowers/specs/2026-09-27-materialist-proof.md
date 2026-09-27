@@ -269,6 +269,16 @@ parallel; the user's time is the eye reading, about thirty minutes.
   already; the records would hand a maker a finished derivation of its own brief.
   Date/Author: 2026-09-27, Claude.
 
+- Decision: The eval's React cells are Vite projects installing the PUBLISHED `@vitreajs/vitrea-react@0.24.0`
+  from npm, and its vanilla cells import `@vitreajs/vitrea-web@0.24.0` from esm.sh; the demos run on
+  the workspace source.
+  Rationale: the two together cover both things a reader can pick up, the npm artefact and the
+  repository; a Vite cell keeps JSX and the same tooling in both arms, and a single-file cell is
+  what those briefs ask for. Both arms get identical mechanics text and identical tool access (the
+  imagery search script is a tool, not a skill; the package READMEs are the library's own
+  documentation), so the arms differ in the skill alone.
+  Date/Author: 2026-09-27, Claude.
+
 - Decision: The same four rater identities as the 2.3 panel, the maker's model among them.
   Rationale: comparability with the available-panel figures. The same-model bias (an opus rater on
   opus-built pages) is the same bias the 2.3 panel carried and is recorded, not corrected.
