@@ -152,3 +152,47 @@ committed1818-entry frozen hash witness and cross-checks all125original native
 fixture hashes against G0metadata without reopening those native fixtures.
 Actual continuation still requires this declaration and every pin to be committed,
 then the unchanged canonical driver verifier and recovery verifier to pass.
+
+Completed standing sheets — recovered without changing scientific scope
+Recovery b5054fca passed both the unchanged original seal verifier and the new
+recovery guard, then completed with exit0. Final874memberships:866RENDERED
+(330canonicalcal/val,536W39cal/val) and8explicitUNMEASURED. All866have actual
+Native/Shipped/Candidate columns,866HTML and866PNG files; every output hash was
+verified. The original125HTML/124PNG remain byte-identical (all249witnesses pass).
+Only one pending PNG plus741newHTML/PNG were produced.125native provenance records
+are explicitly recovered/notnewreads; the remaining741native reads comprise205
+canonicalcal/val fixtures and536guardedW39cells. Every W39 row preserves actual
+normalrepeat ordinal0 of7 and the complete run protocol/state/hash provenance.
+No native holdout, probe, browser or matrix operation occurred in the sheet run.
+
+The primary complete inventory is retained at:
+/Users/new/vitrea-w41/g1-captures/sheets/run-1/inventory-recovered.json
+SHA256 f52dbcb03a9b164fbafb916a400c14e79c8d8405d1ae4a6b83a487e62064f44e
+83,939,696bytes. render-inventory.json.gz is its exact lossless3,068,451-byte archive,
+SHA25694be7f7023736712219e4d0c6a5fa3c789ee72c43f5a5c97056d9c0452b8aa02;
+decompression was checked against the primary byte hash, not re-serialized JSON.
+completion-audit.json records counts, preservation and source distinctions.
+verify-completed-recovery.txt records the final original/recovery guard pass;
+my source-pin hold was released only after these source-bound reads/checks ended.
+The runtime may move subsequently; none of these historical seals is repointed.
+
+examples/ carries all9predeclared PNGs and their standalone HTML companions,
+byte-identical to primaryscratch; selection.json binds paths and full hashes.
+All9were opened directly after export, with no browser or native reread. Layout,
+labels, aligned panels and the numerical grayscale legend remain intact. Canonical
+titles explicitly say diagnostic candidate WEB for EYE, not a canonical read/G2.
+
+Visual gaps, not a new numerical verdict (visual-inspection.json)
+The selected light-inactive uniform body improves visibly in the interior; its
+bright difference outline persists because native's dark contour is still absent
+from the web rendering. The light-active identity case retains interior/edge
+residuals. Dark uniform native material carries more olive hue than the greyer
+web body in both poses; the contour/boundary treatment remains different. The
+selected gradient's broad residual bands darken with the candidate, but its outline
+remains and this one view does not pass the all-cell structured veto. Both photo
+scales retain structured interior and perimeter differences: the1x candidate
+reduces the prominent bright right-side residual, yet mottling remains, and the2x
+residual is redistributed rather than eliminated. The dark and frozen26.5identity
+controls retain native body/edge or chroma differences. These9examples do not
+replace866-cell coverage or claim that every sheet was visually inspected; no
+fit, threshold, material adoption, survival or G2 acceptance is inferred from them.

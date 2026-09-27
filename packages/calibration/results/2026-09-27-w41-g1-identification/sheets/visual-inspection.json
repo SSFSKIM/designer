@@ -1,0 +1,43 @@
+{
+  "inspectedAt": "2026-09-27T12:30:19.956130+00:00",
+  "basis": "Direct inspection of all nine declared exported PNGs, not new native/capture reads or numerical survival scoring",
+  "layout": "Native/Shipped/Candidate columns are present and aligned; delta panels and numeric grayscale legend are legible. Canonical PNG titles explicitly identify diagnostic WEB for EYE, not a canonical read or G2 material.",
+  "observations": [
+    {
+      "examples": [
+        1,
+        2
+      ],
+      "finding": "On the selected light inactive uniform colour, the candidate interior difference field is visibly darker than shipped, while a bright perimeter remains. Native has a dark outline that the web panels do not reproduce. The light active identity example retains interior and edge residuals."
+    },
+    {
+      "examples": [
+        3,
+        4
+      ],
+      "finding": "Both dark uniform examples retain a hue mismatch: native carries more of the olive backdrop hue, while shipped and candidate look greyer. The native dark contour and active boundary treatment remain different from both web panels."
+    },
+    {
+      "examples": [
+        5
+      ],
+      "finding": "The selected light inactive gradient has darker broad interior residual bands in the candidate difference panel, but its bright outline remains. One selected image does not establish structured-domain survival or the per-bin veto."
+    },
+    {
+      "examples": [
+        6,
+        7
+      ],
+      "finding": "The inactive photo comparisons retain structured interior and boundary discrepancies at both scales. In the 1x example the candidate reduces the large bright right-side residual seen in shipped, but mottled interior residuals remain; the 2x example also redistributes rather than eliminates the interior residual."
+    },
+    {
+      "examples": [
+        8,
+        9
+      ],
+      "finding": "The identity controls retain their visible native gaps: the dark capsule has a subtler native body/boundary variation than the flatter web body, and the frozen26.5 photo web body looks less chromatic than native. Shipped and candidate look alike in these controls."
+    }
+  ],
+  "limits": "These are nine predeclared visual examples from866rendered comparisons, not a claim that every cell was visually inspected, no new metric/fit/bound, and no G2 acceptance. All gaps remain visible future work; complete inventory preserves every admitted cell.",
+  "inventoryArchiveRoundTripVerified": true
+}
