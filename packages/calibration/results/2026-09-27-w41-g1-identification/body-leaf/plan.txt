@@ -1,0 +1,227 @@
+W41 G1 E3 leaf preparation — clause 11 and c9a §5.192
+PREPARATION ONLY. No runtime, profile, document selection or browser change.
+
+Decision boundary
+The coordinator's partial-endpoint ruling carries B1/E3 LIGHT-INACTIVE only.
+Its three fitted gains are the frozen global-minimax upper witness, not a new
+fit: [0.929205829365914, 0.9597570955316058, 0.9383102545096953].
+Neutral ordinates are [150,157,164,171,178,188,197], measured and fixed before
+fitting. EH6 remains an unresolved equivalent endpoint, not a second leaf here.
+Complete four-endpoint families still fail; that does not veto this claim scope.
+The complete-uniform supplement covers 138 light-inactive cells / 140 members;
+E3/EH6 differ by at most 1.1902015706554323 codes on 418 measured channels.
+
+NO implementation application is authorized by these artifacts. The existing
+baseline worker is pinning PRE-W41 runtime bytes while waiting on X6. Wait for
+the coordinator's explicit baseline-freeze/runtime-edit signal, then compare
+source-pins.json to the intended baseline before touching any runtime source.
+No numerical declaration or G0 evidence changes. No gradient/spatial coefficient,
+new blur, sampling coordinate, stroke, rim, shadow, lens or silhouette change.
+
+Proposed interface and storage
+See interface-proposal.ts (not runtime-imported):
+  bodyE3Strength: number in [0,1], default 0;
+  bodyE3Gains: readonly tuple3, each finite in [0,3], default [1,1,1];
+  bodyE3Neutral: readonly tuple7, finite codes in [0,255], default input knots.
+The gate's default 0 is its identity forever. The backing tuples have no
+independent material identity: both disappear from the digest WITH the gate.
+Tuple defaults merely give a finite, interpretable inert backing state.
+
+Ordered implementation once authorized
+1. packages/renderer-webgpu/src/material.ts
+   Add the three fields to MaterialProfile and optional counterparts to
+   MaterialProfilePatch. Merge whole tuples atomically, not per-index patches.
+   Validate supplied scalar/tuple fields at the patch boundary: finite numbers,
+   exact arity 3/7, stated ranges; reject null, sparse arrays, strings and NaN.
+   Do not impose an undeclared monotonicity fit or modify existing operators.
+   Use one small validation implementation, shared with the calibration JSON
+   loader through the private renderer export, rather than two range contracts.
+   A public-web path must NOT acquire a static renderer import to validate it.
+   Append one MATERIAL_IDENTITY_TABLE gate-group:
+     gate {bodyE3Strength:0}; gated [bodyE3Gains,bodyE3Neutral].
+   Keep rule version 2 and every earlier table entry/prefix unchanged.
+   The inertLawCase must name the actual CPU/gate-group and drawn identity tests.
+
+2. packages/renderer-webgpu/src/passes.ts
+   Extend OpticsPassArgs with the same three shapes. Change optics uniformSlot
+   float count 140 -> 152 (560 -> 608 bytes). Append three E3-owned vec4s:
+     140 strength, 141..143 gains;
+     144..147 neutral ordinates 0..3;
+     148..150 neutral ordinates 4..6, 151 zero padding.
+   Every old word 0..139 and every existing binding remains at the same offset.
+   Never repurpose toneBlack/bodyChroma/scatter padding. Buffer alignment is
+   still supplied by createUniformSlot; inspect its actual padded byte size in
+   the fake-GPU test rather than assuming it equals the logical 608 bytes.
+
+3. packages/renderer-webgpu/src/renderer.ts
+   Pass tuples from the resolved, already-posed material. Never choose scheme or
+   activation again in the shader, and never hardcode light-receded coefficients
+   in the callsite. Pack effective strength according to the parent ruling below.
+   The profile selection/digest remains the actual endpoint that drew; policy
+   stand-down is an execution fold, not a new material document or claimed fit.
+
+4. packages/renderer-webgpu/src/wgsl/optics.ts
+   Append the three vec4 fields. operator-proposal.wgsl gives the mathematical
+   helper; its callsite is deliberately commented pending policy/presence ruling.
+   x is encoded RGB in CODE units, L=dot(x,[.2126,.7152,.0722]), v=x-L.
+   F is linear through seven fixed input knots, first/last segment continuation,
+   then clipped to [0,255]. g is linear at [63,93,118], held outside.
+   Result is channelwise clip(F(L)+g(L)*v,0,255); achromatic chroma is explicitly 0.
+   Convert sampled straight linear backdrop to encoded, evaluate E3, decode its
+   result, then return to the existing linear downstream composition. It is not
+   OKLab, linear-luma weighting, the old tone spline or old chroma retention.
+   Insert AFTER body_chroma_retention and BEFORE the DOM-layer solve/author tint.
+   At strength 1, E3 replaces the old untinted body; do not apply the old tone or
+   retention a second time to the replacement. Author tint/rim then read this
+   replaced body normally. At strength 0, an explicit branch does no E3 math and
+   never reads either tuple into the pixel expression; old arithmetic stays exact.
+   Keep fragment coverage, alpha and the outside early-return unchanged.
+   Update the shader header's present-tense claim that every optical calculation
+   is linear and encoded only once: E3 has a deliberate internal encoded-domain
+   excursion, while the output remains one encoded-premultiplied composition.
+   The prelude's Rec.709 LINEAR luminance helper must not be reused for encoded L.
+
+5. packages/calibration/scripts/material-profile-file.ts
+   Admit the three new names in MATERIAL_PATCH_KEYS and use the same field
+   validator. Receded documents still cannot contain cssTierMapping. Test the
+   JSON boundary with both valid tuples and malformed scalar/tuple inputs.
+   Private renderer index exports type/helper plumbing where required; the web
+   renderer-bridge derives RendererMaterialProfile from setMaterialProfile, so
+   the public document and React shapes propagate without parallel new types.
+   Core's semantic MaterialProfile is unrelated and must not gain these fields.
+
+Identity proof, not merely a matching digest
+At gate 0 the new WGSL branch is not entered; changing gains or neutral tuples
+cannot alter colour, alpha, tint, rim, lens, shadow, coverage or output. Every
+existing uniform field and pipeline input is unchanged. materialDigestInput
+therefore removes strength AND both complete tuple values as one group. Test
+this by sweeping both tuples over nondefault valid values under strength 0,
+checking digest input and CPU/shader outputs; strength 1 must discriminate.
+This is a proof obligation until implementation/tests run, not a claimed result.
+All six shipped profile document hashes/digests must stay byte-for-byte/pin-equal.
+The four candidate endpoints have gates [0,1,0,0] in light-active/light-receded/
+dark-active/dark-receded order; only one claimed endpoint may change pixels.
+The coordinator's claim-aware runner still scores every endpoint and verifies
+unclaimed endpoints against the frozen baseline; do not narrow its pixel set.
+
+Scratch document recipe AFTER runtime-edit authorization
+Create a new isolated directory under G1/body-leaf/, never profiles/ or any
+canonical matrix/generation destination. Byte-copy active light, active dark
+and receded dark documents. Clone the EXISTING FULL light-receded document and
+retain every original patch leaf; add the three E3 fields to its patch and
+append candidate provenance beside historical comments. An E3-only patch over
+active is WRONG: it would drop the existing receded material, shadow, tint,
+black-branch and other differences. Resolve the active light patch over
+DEFAULT_MATERIAL_PROFILE, then this complete receded difference over that
+resolved active. Recompute only the new scratch receded resolved digest with
+materialDigestInput, recursively sorted-key JSON (array order retained), SHA256
+first16hex, and rule2. Record the distinct whole scratch file SHA first12hex for
+capture provenance plus full SHA256 for evidence. Keep appliesOver selection
+consistent with the actual active scratch copy and existing loader semantics.
+Use the algorithm in results/2026-09-21-w31-g3-chroma-fit/seal.ts as reference,
+NEVER execute that historical writer (it overwrites canonical documents).
+Do not regenerate platform-web/src/macos27-profile.ts or select any candidate
+in a root/capture page until separately authorized after the baseline freeze.
+
+Behavior questions sent to the coordinator; unresolved in this prep
+A. Recommended effective-strength gate: texture sampled, regular variant, fully
+   nominal MATERIAL policy only. RT lifts occlusion, which replacement would
+   otherwise undo. IC-only leaves occlusion nominal but reduces ambient tint
+   and changes border/foreground; an occlusion-only gate does not preserve that
+   policy. Forced colors draws no glass. Reduced Motion alone changes no material
+   axes and must not be incorrectly disabled. Clear material was not fitted.
+   Confirm this scoped gate or explicitly define another policy/variant scope.
+B. Recommended sample: use existing post-refraction blurred/scatter `backdrop`,
+   not a group mean, silhouette tone, raw unblurred source, or DOM fabricated gray.
+   Gate off on unsampled css-backdrop/none and domMaterial paths; their reach is
+   a separate CSS projection, not E3 claimed on an unobserved color.
+C. Recommended presence extension: at gate1 use
+   mix(backdrop, decode(E3(encode(backdrop))), mat) in LINEAR light, then unchanged
+   author tint/rim; skip at mat0. At mat1 it is exactly the declared E3 placement.
+   Fractional gate linearly blends this with old colour. This preserves the
+   disappearance API, but is an extension, not a native-identified dynamic law.
+D. Input domain: this selected light document has sizeHeavySecondShare=0 and
+   kScatter clamped to [0,1], so its current sampled mix is convex. A signed
+   unsharp/HDR/custom material could feed E3 outside its declared encoded cube.
+   This prep does not silently add an input-clamp law or a new compatibility
+   fallback for such a future composition. Resolve that scope before promising
+   E3 for arbitrary tuned source pipelines; the measured scratch candidate does
+   not enable the signed tap.
+
+CSS mirror route (step9, not now)
+Use the same profile fields, never the old BODY_CHROMA_RETENTION=0 decline as
+proof about E3. CSS filter functions operate in sRGB; saturate uses weights
+(.213,.715,.072), NOT the E3 (.2126,.7152,.0722). A uniform fixed-L projection can
+use saturate(s) plus a neutral rgba plate: pre-clamp coefficient g=(1-alpha)*s.
+With E3 W and CSS Ws, a particular uniform x needs offset F(W.x)-g*(W.x);
+the CSS affine offset is (1-alpha-g)*(Ws.x)+alpha*n. Choose a realizable n/alpha
+and derive s; verify the actual CSS matrix and intermediate clipping, not only
+this affine algebra. The brightening white-plate choice is
+ alpha=[F(L)-g*L-(1-g)*Ls]/(255-Ls), s=g/(1-alpha), where Ls=Ws.x;
+use an explicitly derived darkening projection rather than dividing by zero or
+assuming white can darken. These formulas are not an adopted CSS mapping.
+Saturation before the plate can clip bridge channels; a filter cannot make its
+coefficients depend on EACH pixel's encoded L on a photograph. Group hints/
+means are not an E3 local input substitute. Measure uniform cells and structured
+residuals in Chromium only after authorized capture; if no CSS derivation meets
+the bound, retain and quantify the decline under Decision Log4. Do not add S1/S2
+or fit new CSS family parameters to disguise that limitation.
+The runtime has one document-wide CSS mapping selected in root.ts, not a separate
+receded mapping; readRecededProfileFile forbids a receded cssTierMapping. Route
+pose-specific projected optics from the actual posed material fields, or leave
+CSS unchanged and record its projection residual; do not globally change active
+CSS to approximate a light-receded-only candidate.
+Primary reference checked during prep: https://www.w3.org/TR/filter-effects-1/
+sections FilterProperty, funcdef-filter-saturate, feColorMatrixElement and
+FilterPrimitivesOverviewIntro (sRGB, saturate matrix, chained/clamped primitives).
+No live browser or CSS measurement was performed.
+
+Targeted verification inventory AFTER runtime editing is authorized
+- New renderer test w41-body-e3.test.ts: exact node/continuation/held-gain cases,
+  achromatic input, saturated bridges, output rail clipping, tuple/scalar rejection,
+  CPU versus body41 on SYNTHETIC vectors, no optimizer or native payload read.
+- New fake-GPU uniform test: all 12 new words, logical count152, correct neutral
+  order, zero pad, old0..139 byte equality, endpoint/policy/variant folding.
+- Existing renderer test w31-gate-groups.test.ts: new gate-group inert sweep.
+- New real-adapter compute/GPU test: WGSL arithmetic versus CPU at knots,
+  rail crossings and declared extremes; gate0 bit identity, gate1 distinction.
+  Drawn gate0 identity still needs the frozen baseline, not a CPU-only claim.
+- calibration/test/w31-identity-table.test.ts: append literal identity0 to
+  IDENTITIES; preserve pinned original table prefix/SHA and digest rule2.
+- calibration/test/w30-operator-identity.test.ts: append three new OPERATOR_LEAVES
+  paths for historical resolved-material comparison; tuples count as whole leaves.
+- calibration/test/tuned-profiles.test.ts, macos26-document-selection.test.ts,
+  digest-supersessions.test.ts and macos27-profile-export.test.ts: all shipped
+  profile digests, selection, historical witnesses and generated bytes unchanged.
+- calibration/test/capture-integrity.test.ts: accepted E3 scratch fields,
+  malformed tuples/refused receded CSS mapping, correct 12hex versus16hex digests.
+- calibration/test/tier-coherence.test.ts: all three new CSS_COUNTERPART entries
+  classified honestly; retain old four-endpoint chroma-decline pins unchanged.
+- Renderer patterns to reuse: unsampled-material.test.ts, heavy-width.test.ts,
+  materialization.test.ts, frame-composition.test.ts, w31-body-chroma.test.ts and
+  w36-black-branch.test.ts. Add behavior tests, not assertions of copied constants.
+- Policy tests cover nominal, RT, IC-only, coupled, forced colors, reduced-motion
+  only, clear variant, unknown/unsampled backdrop and materialization0/1/interior.
+- Before render: scoped builds/typecheck, renderer+calibration+web unit tests,
+  unchanged protected paths and freeze1818. All future browser runs require X6.
+- Step6 renderer/numerical transfer, complete composite per-bin veto, all-endpoint
+  byte identity, and any exposure/freeze are coordinator-owned gates, not waived
+  by this plan or by numerical endpoint survival.
+
+Prep checks actually performed are recorded beside this file. Nothing in the
+verification inventory above is represented as already passing for a new leaf.
+
+Coordinator addendum received after the preparation above
+The parent accepts A/B/C: nominal material policy + regular + actual sampled
+texture; presence interpolation as proposed, mat0 exact skip. Implement only in
+an isolated /Users/new/vitrea-w41/e3-implementation worktree on branch
+w41-g1-e3-implementation. Primary G1 runtime stays pinned for baseline/64 blind
+baseline freezes; no browser or candidate rendering in either tree yet. The
+operator doccomment must say presence1 REPLACES prior tone-solve, retention and
+black-branch output. Table pre-G2 continuation input0=132.5 beside W36 receded
+light native133, plus input32/192 beside the bridges. Enable only full existing
+light-receded SCRATCH patch plus E3 fields, keep other endpoints identity and
+record the claimed policy/variant/sampling domain in scratch config. Existing
+purity/policy tests stay untouched. Independent reviewer-high and any fix worker
+precede handoff; integration remains the coordinator's act after freezes.
+This addendum authorizes no primary G1 runtime edit and no capture.
