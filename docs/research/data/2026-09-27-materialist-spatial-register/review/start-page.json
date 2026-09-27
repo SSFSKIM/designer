@@ -1,0 +1,9 @@
+{
+  "slug": "start-page",
+  "r23": 1,
+  "r23Strict": 0,
+  "evidence": "Independent pre-fix source reading, 2026-09-27. (a) Photograph is one matched-geometry GlassMorph in its own overlay group (apps/demo/src/gallery/start-page/photograph-ornament.tsx:122-145), not an opacity transition. (b) Search uses GlassSurface interactive (search-ornament.tsx:83-90); the closed Photograph host uses the morph's interactive={!open} (packages/react/src/morph.tsx:636-641). Both reach useGlassInteraction, which writes GLASS_CHANNEL_PROPERTIES.press/glow/lensStrength/pressX/pressY and the owned compression transform (packages/react/src/interaction.ts:220-230). No colour-swap press is authored. The open platter's ordinary radio/switch items have hover/selected fills and no separate press, so the scoped criterion holds and the strict criterion does not. (c) No glass host transitions opacity, background or filter; the sole authored transition is translate on the switch-knob child (start-page.css:771-809), removed by the live Reduce Motion media query. These r23 results are not a full-page pass: a separate check-14 failure was reproduced when Reduce Motion changes while the platter is open, resetting its host to a zero box; see start-page-live/checks.json. A small check-9 CSS capsule geometry mismatch is recorded there too.",
+  "spanExceptions": [],
+  "environmentStatic": false,
+  "register": "spatial"
+}

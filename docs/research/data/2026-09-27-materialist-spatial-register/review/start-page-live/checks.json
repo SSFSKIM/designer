@@ -1,0 +1,113 @@
+{
+  "url": "http://localhost:5187/gallery/start-page/?at=15:10",
+  "browser": {
+    "engine": "Chromium",
+    "channel": "chromium",
+    "executablePath": "/Users/new/Library/Caches/ms-playwright/chromium-1243/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
+    "viewport": [
+      1440,
+      900
+    ],
+    "devicePixelRatio": 1
+  },
+  "reduceMotionWhileOpen": {
+    "check": 14,
+    "tag": "legibility",
+    "severity": "fails the check",
+    "owner": "runtime",
+    "steps": [
+      "Load with forcedColors none and reducedMotion no-preference.",
+      "Click .photograph-trigger and wait for the open width to approach 320.",
+      "Change reducedMotion to reduce without changing open.",
+      "Wait for the resolved policy and subsequent frames."
+    ],
+    "before": {
+      "x": 61,
+      "y": 617.984375,
+      "width": 320.046875,
+      "height": 226.109375
+    },
+    "after": {
+      "x": 0,
+      "y": 0,
+      "width": 0,
+      "height": 0
+    },
+    "focusedElement": "button.photo-option[role=radio][data-phase=day]",
+    "state": {
+      "reducedMotion": true,
+      "forcedColors": false,
+      "activeRenderer": "webgpu",
+      "samplingBackend": "gpu-texture",
+      "refraction": "true",
+      "analysis": "exact",
+      "health": "ok"
+    },
+    "source": [
+      "packages/react/src/morph.tsx:315-326",
+      "packages/react/src/morph.tsx:443-450",
+      "packages/react/src/morph.tsx:492-500"
+    ],
+    "capture": "reduced-motion-open.png",
+    "control": "With Reduce Motion already on at mount, the platter opens to 320 x approximately 226 and Escape closes it and returns focus. The child switch transition becomes 0s under the live preference."
+  },
+  "cssCapsule": {
+    "check": 9,
+    "tag": "geometry",
+    "severity": "partial",
+    "owner": "page/runtime sizing boundary",
+    "rect": [
+      61,
+      562,
+      250,
+      50
+    ],
+    "boxSizing": "content-box",
+    "borderWidth": "1px",
+    "radius": 24,
+    "expectedCapsuleRadius": 25,
+    "source": "apps/demo/src/gallery/start-page/photograph-ornament.tsx:134",
+    "note": "The WebGPU closed box is 248 x 48 at radius 24. The CSS host adds a border outside the fixed content box; no authored box-sizing reset applies to the morph host. Tiny, non-blocking geometry debt."
+  },
+  "forcedColoursOpen": {
+    "passedVisualInspection": true,
+    "capture": "forced-open.png",
+    "details": "Canvas panels and child-drawn frames, selected photograph outline, on/off switch marks, current-event outline, real text and credit links remain visible. Initial Reduce Motion at mount also tested."
+  },
+  "cssTwoLayer": {
+    "viewport": [
+      1024,
+      768
+    ],
+    "devicePixelRatio": 1,
+    "hostArea": 390950,
+    "cssBody": "two-layer",
+    "groups": [
+      "now",
+      "places",
+      "today",
+      "search",
+      "photograph"
+    ],
+    "capture": "css-two-layer.png",
+    "details": "Content and hierarchy remain. DESIGN.md reports 387670 for its earlier read; the current reading differs without crossing the budget."
+  },
+  "cssCollapsed": {
+    "viewport": [
+      1440,
+      900
+    ],
+    "devicePixelRatio": 1,
+    "hostArea": 569364,
+    "cssBody": "collapsed",
+    "details": "Matches DESIGN.md design-size area and the supplied audit."
+  },
+  "evidenceScope": {
+    "suppliedAudit": "../audit/start-page.json",
+    "lineReadings": 3061,
+    "lineReadingsPassing": 3061,
+    "hostLuminanceReadings": 160,
+    "deadBandHosts": 0,
+    "note": "The supplied independent audit is not the maker-claimed 14128-reading full factorial matrix. Its CSS, receded and reduced-transparency captures are light-scheme subsets; its four phases are captured in both schemes on WebGPU. It does not independently reproduce the whole maker matrix or archive every successful line/icon reading."
+  }
+}
