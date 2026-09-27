@@ -14,6 +14,7 @@ import os
 from pathlib import Path
 import re
 import subprocess
+import time
 
 from PIL import Image
 
@@ -599,6 +600,14 @@ class CaptureRequest:
     candidate: str
     cells: tuple
     output: Path
+    verify_snapshot: object = None
+    wait_budget: object = None
+
+
+@dataclass
+class X6WaitBudget:
+    """Shared across every candidate/profile; browser and scoring time never enter it."""
+    used_seconds: float = 0.0
 
 
 @dataclass(frozen=True)
@@ -618,31 +627,82 @@ def observe_x6():
     return x6.observe()
 
 
-def prelaunch_x6(request, profile):
-    """Durably retain each attempt before launch; refusal inside a receipt spends it."""
-    request.authorization.check(request.wave)
+def x6_record(root, manifest, candidate, profile, error_path):
+    """Read one observation; exceptions retain unknown facts, never synthetic failures."""
     source_hashes = {}
     for name, executed in zip(X6_SOURCES, (x6.__file__, x6.machine.__file__), strict=True):
-        expected = request.manifest['files'].get(name)
-        if not expected or sha(request.root / name) != expected or sha(executed) != expected:
+        expected = manifest['files'].get(name)
+        if not expected or sha(root / name) != expected or sha(executed) != expected:
             raise ValueError('X6 observer source is not bound to the freeze: ' + name)
         source_hashes[name] = expected
-    path = request.output / ('x6-' + profile + '.json')
-    record = dict(candidate=request.candidate, profile=profile, sources=source_hashes,
+    record = dict(candidate=candidate, profile=profile, sources=source_hashes,
                   observation=None, verdict=None)
     try:
         record['observation'] = observe_x6()
-        # Never trust a cached or caller-supplied pass field over the four raw facts.
         record['verdict'] = x6.verdict(record['observation'])
     except Exception as error:
         record.update(status='observation-error', error=dict(
             type=type(error).__name__, message=str(error)))
-        persist(path, record)
+        persist(error_path, record)
         raise
+    return record
+
+
+def prebegin_x6(root, manifest, output):
+    """A fresh PASS is required before begin; no waiting or receipt exists here."""
+    path = output / 'x6-prebegin.json'
+    record = x6_record(root, manifest, None, None, path)
     record['status'] = 'passed' if record['verdict']['passes'] else 'refused'
-    persist(path, record)  # Exclusive file + file and parent fsync BEFORE every subprocess.
+    persist(path, record)
     if not record['verdict']['passes']:
-        raise PermissionError('X6 refused before browser launch: ' + profile)
+        raise PermissionError('X6 pre-begin gate refused; receipt not begun')
+
+
+def prelaunch_x6(request, profile):
+    """Wait on machine facts only, sharing one cumulative hour inside this receipt."""
+    request.authorization.check(request.wave)
+    if request.wait_budget is None or request.verify_snapshot is None:
+        raise ValueError('X6 launch requires shared waiting budget and frozen snapshot verifier')
+    started = time.monotonic()
+    already_used = request.wait_budget.used_seconds
+    summary = request.output / ('x6-' + profile + '.json')
+    attempt = 0
+    try:
+        while True:
+            request.authorization.check(request.wave)
+            attempt += 1
+            path = request.output / f'x6-{profile}-observation-{attempt:04d}.json'
+            record = x6_record(request.root, request.manifest, request.candidate, profile, path)
+            elapsed = already_used + time.monotonic() - started
+            record.update(observationNumber=attempt, cumulativeWaitSeconds=elapsed,
+                          waitBudgetSeconds=3600)
+            if record['verdict']['passes'] and elapsed <= 3600:
+                try:
+                    # The waiting interval may have outlived the original preflight.
+                    # Revalidate the full snapshot before any browser process can start.
+                    request.verify_snapshot()
+                except Exception as error:
+                    record.update(status='snapshot-error', error=dict(
+                        type=type(error).__name__, message=str(error)))
+                    persist(path, record)
+                    persist(summary, record)
+                    raise
+                elapsed = already_used + time.monotonic() - started
+                record['cumulativeWaitSeconds'] = elapsed
+                if elapsed <= 3600:
+                    record['status'] = 'passed'
+                    persist(path, record)
+                    persist(summary, record)
+                    return
+            record['status'] = 'deadline-exceeded' if elapsed >= 3600 else 'waiting'
+            persist(path, record)  # Every observation is durable before sleep or launch.
+            if elapsed >= 3600:
+                persist(summary, record)
+                raise PermissionError('X6 cumulative waiting budget exhausted before browser launch')
+            time.sleep(min(30, 3600 - elapsed))
+    finally:
+        # Account only time inside guards; captures between them are explicitly excluded.
+        request.wait_budget.used_seconds = already_used + time.monotonic() - started
 
 
 def capture_web(request):
@@ -741,10 +801,16 @@ def _run(root, wave, manifest_path, log, output, capture, project, score, mode):
                 or verify(root, wave, manifest_path, mode) != manifest):
             raise ValueError('frozen manifest mutated during exposure')
 
+    wait_budget = X6WaitBudget()
+    if mode == 'production':
+        output.mkdir(parents=True, exist_ok=False)
+        prebegin_x6(root, manifest, output)
+
     # No closure assertion or capture occurs before begin. Failure after this
     # point spends W39's complete exposure, even if no native pixel was reached.
     with boundary.Receipt(log, configuration).expose() as authorization:
-        output.mkdir(parents=True, exist_ok=False)
+        if mode != 'production':
+            output.mkdir(parents=True, exist_ok=False)
         result = dict(mode=mode, numericalCells=len(numerical), renderedCells=len(rendered),
                       candidates=len(candidates), manifestSha256=manifest_sha, captures={},
                       claimScopes=manifest['claimScopes'], identityEquality=manifest['identityEquality'])
@@ -760,7 +826,8 @@ def _run(root, wave, manifest_path, log, output, capture, project, score, mode):
                 # Dataclass freezing alone does not protect nested dicts. Callbacks
                 # get detached snapshots; no callback owns the comparison state.
                 request = CaptureRequest(wave, authorization, root, deepcopy(manifest),
-                                         candidate['id'], tuple(rendered), destination)
+                                         candidate['id'], tuple(rendered), destination,
+                                         verify_snapshot, wait_budget)
                 captured = capture(request)
                 verify_runtime_artifacts(root, manifest['runtimeArtifacts'],
                                          required=mode == 'production')

@@ -1,0 +1,16 @@
+test_each_profile_gets_fresh_durable_observation_before_launch (test_x6.X6Tests.test_each_profile_gets_fresh_durable_observation_before_launch) ... ok
+test_bad_second_profile_spends_and_never_launches_or_retries (test_x6.X6Tests.test_bad_second_profile_spends_and_never_launches_or_retries) ... ok
+test_observer_error_records_unknown_facts_and_spends (test_x6.X6Tests.test_observer_error_records_unknown_facts_and_spends) ... ok
+test_each_raw_fact_can_refuse_even_with_stale_pass_verdict (test_x6.X6Tests.test_each_raw_fact_can_refuse_even_with_stale_pass_verdict) ... ok
+test_record_failure_prevents_launch (test_x6.X6Tests.test_record_failure_prevents_launch) ... ok
+test_required_observer_and_dependency_cannot_be_omitted (test_x6.X6FreezeTests.test_required_observer_and_dependency_cannot_be_omitted) ... ok
+test_observer_inputs_are_committed_and_verified_before_begin (test_x6.X6FreezeTests.test_observer_inputs_are_committed_and_verified_before_begin) ... ok
+test_failed_facts_wait_then_capture_once_with_all_observations_durable (test_x6_wait.WaitTests.test_failed_facts_wait_then_capture_once_with_all_observations_durable) ... ok
+test_budget_is_shared_between_profiles_and_excludes_capture_time (test_x6_wait.WaitTests.test_budget_is_shared_between_profiles_and_excludes_capture_time) ... ok
+test_snapshot_mutation_while_waiting_blocks_launch (test_x6_wait.WaitTests.test_snapshot_mutation_while_waiting_blocks_launch) ... ok
+test_prebegin_bad_facts_never_open_receipt_or_wait (test_x6_wait.WaitTests.test_prebegin_bad_facts_never_open_receipt_or_wait) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 39.602s
+
+OK

@@ -1,0 +1,26 @@
+{
+  "baseCommit": "2d94ccaabee6f73017e7d5df16617f748702930a",
+  "policy": "ONE cumulative3600s X6guard budget shared across all candidates/profiles;30s polling; capturetimeexcluded; freshprebeginPASSrequired; errors/snapshotmutation failclosed",
+  "primaryApplication": "NOT applied; requires explicitRUNNEREDITGO after capture/offlinescore sourcepinbarrier",
+  "checks": {
+    "syntheticTests": 76,
+    "targetedTestsIndependentlyRun": 11,
+    "freezeEntries": 1818,
+    "independentReview": "correct/no material findings"
+  },
+  "files": {
+    "runner.py": "5ae591ad6ea2098613e75dfb6377875314fcc2280d7526bf80e139f206436c08",
+    "test_domain.py": "6479c3e7f1a3ff9666c451b6ad836557e614e5ba70199e9b84b18462277f93c6",
+    "test_runner.py": "755c4e3ca29a70ba92b6ed1943011d93f579d7bcb600300e9129a7a0015479b1",
+    "test_x6.py": "ef27d0c320e33d78b1643384db022bb0a39b15df606c825b9e5368b3673c424f",
+    "test_x6_wait.py": "0468f053f38e354b1c100344b16330a4c67293c59900efb04a19a0804bcc2919",
+    "x6-wait-addendum.txt": "2b44a5a2c8e4d178a7920d13d414951628d81886b10d1357d5e81411b617ec01",
+    "x6-wait-attempt-1.txt": "426ccad161f33a4a9de80a3fbab39a321319b81daa1027635a4320bd3df52f8e",
+    "x6-wait-freeze-1818.txt": "3aec6515e6820c89fcede255fa700ec9e3e538e9e790eb5af1a2f352010adc36",
+    "x6-wait-full-green.txt": "3133b967b3095c94f749803d673d1f2b78b06762253351296dfcd22e5806a05d",
+    "x6-wait-red.txt": "d6f9783a92a069469eee15983f7838db31727503205d31f84c1d376f8dfdaa5e",
+    "x6-wait-review.json": "e16c8dac2f53701a1ba38d7c22c7c9b05e5ffbfc128f7e1f9afd65fcee038cdc"
+  },
+  "previousEvidence": "Original65test and fail-fast72test indexes remain historical, not rewritten. This index names current implementation hashes.",
+  "authority": "Synthetic fakeclock/facts/processes only. No real OSobservation/browser/nativepayload/productionreceipt."
+}

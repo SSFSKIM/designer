@@ -430,7 +430,8 @@ class ExposureTests(unittest.TestCase):
                       candidate='standin')
         with runner.boundary.Receipt(self.log, config).expose() as token:
             request = runner.CaptureRequest(self.wave, token, self.root, self.manifest,
-                                            'standin', tuple(self.cells), self.output)
+                                            'standin', tuple(self.cells), self.output,
+                                            lambda: None, runner.X6WaitBudget())
             with patch.object(runner.subprocess, 'run', side_effect=launch), \
                     patch.object(runner, 'observe_x6', side_effect=__import__('test_x6').reading):
                 paths = runner.capture_web(request)

@@ -63,43 +63,32 @@ class X6Tests(harness.ExposureTests):
                 (directory/f'{prefix}__webgpu.json').write_text(json.dumps(row[key]))
 
     def invoke(self,observations):
-        iterator=iter(observations)
-        def observe():
-            self.order.append('observe')
-            value=next(iterator)
-            if isinstance(value,Exception):raise value
-            return deepcopy(value)
-        real_fsync=os.fsync
-        def fsync(fd):
-            real_fsync(fd);self.synced.add(os.fstat(fd).st_ino)
-        def capture(request):
-            # Only process and OS-observation boundaries are replaced.
-            with patch.object(runner,'observe_x6',side_effect=observe,create=True), \
-                    patch.object(runner.subprocess,'run',side_effect=self.launch):
-                return runner.capture_web(request)
-        with patch.object(runner.os,'fsync',side_effect=fsync):
-            return self.run_exposure(capture=capture)
+        # Fake time is shared with the bounded-wait regressions; never sleep in tests.
+        from test_x6_wait import WaitTests
+        return WaitTests.invoke(self,observations)
 
     def test_each_profile_gets_fresh_durable_observation_before_launch(self):
         result=self.invoke([reading(),reading()])
         self.assertEqual(result['status'],'complete')
         self.assertEqual(self.order,['observe','launch:'+self.cells[0].split('/')[0],
                                     'observe','launch:'+self.cells[1].split('/')[0]])
-        self.assertEqual(len(list((self.output/'standin').glob('x6-*.json'))),2)
+        self.assertEqual(len([p for p in (self.output/'standin').glob('x6-*.json') if '-observation-' not in p.name]),2)
 
     def test_bad_second_profile_spends_and_never_launches_or_retries(self):
         bad=reading();bad['settings']['increaseContrast']['stdout']='1'
         with self.assertRaisesRegex(PermissionError,'X6'):
             self.invoke([reading(),bad])
-        self.assertEqual(self.order,['observe','launch:'+self.cells[0].split('/')[0],'observe'])
+        self.assertEqual(self.order[:2],['observe','launch:'+self.cells[0].split('/')[0]])
+        self.assertEqual(self.order[2:],['observe']*121)
+        self.assertEqual(sum(self.sleeps),3600)
         self.assertEqual(self.events(),['begin','failed'])
-        self.assertEqual(runner.load(self.output/'standin'/f'x6-{self.cells[1].split("/")[0]}.json')['status'],'refused')
+        self.assertEqual(runner.load(self.output/'standin'/f'x6-{self.cells[1].split("/")[0]}.json')['status'],'deadline-exceeded')
         with self.assertRaisesRegex(PermissionError,'spent'):self.invoke([reading()])
 
     def test_observer_error_records_unknown_facts_and_spends(self):
         with self.assertRaisesRegex(RuntimeError,'synthetic observation failed'):
             self.invoke([RuntimeError('synthetic observation failed')])
-        gate=runner.load(self.output/'standin'/f'x6-{self.cells[0].split("/")[0]}.json')
+        gate=runner.load(self.output/'standin'/f'x6-{self.cells[0].split("/")[0]}-observation-0001.json')
         self.assertEqual(gate['status'],'observation-error')
         self.assertIsNone(gate['observation']);self.assertIsNone(gate['verdict'])
         self.assertEqual(gate['error']['type'],'RuntimeError')
@@ -120,7 +109,8 @@ class X6Tests(harness.ExposureTests):
                 self.log=Path(self.tmp.name)/f'{name}-receipt.jsonl'
                 self.output=Path(self.tmp.name)/f'{name}-output';self.order=[]
                 with self.assertRaisesRegex(PermissionError,'X6'):self.invoke([bad])
-                self.assertEqual(self.order,['observe'])
+                self.assertEqual(self.order,['observe']*121)
+                self.assertEqual(sum(self.sleeps),3600)
                 self.assertEqual(self.events(),['begin','failed'])
 
     def test_record_failure_prevents_launch(self):

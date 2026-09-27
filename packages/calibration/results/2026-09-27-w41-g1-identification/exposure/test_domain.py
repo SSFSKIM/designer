@@ -274,7 +274,7 @@ class AssociationTests(harness.ProductionScopeTests):
                 destination = output/str(attempt)
                 destination.mkdir(parents=True)
                 request = runner.CaptureRequest(self.wave,token,self.root,self.manifest,
-                    'standin',heldout,destination)
+                    'standin',heldout,destination,lambda: None,runner.X6WaitBudget())
                 return runner.capture_web(request)
             with patch.object(runner.subprocess,'run',side_effect=launch), \
                     patch.object(runner,'observe_x6',side_effect=__import__('test_x6').reading):
