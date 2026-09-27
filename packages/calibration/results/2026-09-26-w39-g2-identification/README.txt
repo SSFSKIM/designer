@@ -76,3 +76,83 @@ therefore identical, RSS0 and maximum residual0, each of rank7. Every bar is
 ranges, bars and residuals per cell/channel. End-segment continuation, then
 unit-cube clipping, is the declared extrapolation for bridge inputs32/192;
 those anchors do not extend F or enter its fit. Freeze again reads1,818.
+
+STEP 3: BODY CANDIDATES, FIRST READING (REVIEW CORRECTION PENDING)
+
+body/identification-attempt-1.json.gz preserves 496 archive-derived cells:
+408 calibration and48 validation colour cells (bridges included), plus16
+calibration/24 validation thick-transfer cells. There are20 endpoint/family
+fits and4,960 method/cell predictions. Both methods fail all eight strata for
+all five body candidates. Every deep repeat equals its cell's median, so each
+of the seven repeat residuals and verdicts is identical, not merely pooled.
+Four cells are censored: red R255, light active/inactive at both scales.
+They are excluded as whole cells from RGB inversion and retain one-sided rail
+bounds plus residuals on their uncensored channels. No fresh colour is censored.
+
+body/survival-table.txt names each worst channel and cell, with LS and minimax
+candidate maxima; both scales were tested separately and agree numerically.
+body/evidence-complete.json has80 strata/method rows: failing cells/channels,
+all-three-channel failures, the largest minimum-channel error and the largest
+RGB-mean error with their cells, censor counts and repeat-versus-median checks.
+Every individual channel/cell failure is retained in the compressed reading.
+The native channel residual and a censored channel's one-sided threshold bound
+are distinguished from the raw absolute diagnostic. No censored RGB is inverted.
+
+The same artifact includes720 signed diagnostic rows: every family/method x
+scheme/pose x factorial Y-level/hue. With e = predicted minus native encoded
+RGB codes and W=(.2126,.7152,.0722), Y=W.e, e_parallel=W*(W.e)/(W.W), and
+ e_perpendicular=e-e_parallel. This is a Euclidean decomposition in encoded
+units, not physical linear-light luminance. Means pool the two declared chroma
+levels and both scales with equal cell mass; no refitting is involved. Both
+signed RGB vectors are retained, not reduced to a magnitude that loses hue.
+
+H2prime's span64/96 transfer is tested but never fitted or used as a false
+colour-law rejection. Maximum LS / minimax candidate errors in codes:
+ light active 7.655332 /7.655332; light inactive 2.794304 /3.068620;
+ dark active 7.906548 /5.839655; dark inactive 4.858210 /1.660608.
+Each endpoint has ten thick cells, five geometries at both scales. These
+are thick-row misses beside the independently failed span44 colour tests.
+
+INDEPENDENT REVIEW, VERIFIED FINDING
+
+reviewer-high reviewed committed instrument/neutral head f8d94e95 and the
+stable first body reading. It confirmed the source identities, calibration-only
+fit selection, censorship, repeats and all80 failed survival summaries without
+opening native payloads. It found a P2 numerical defect: SLSQP can declare
+convergence on a clipped zero-gradient plateau. Dark-active H3 reports22 codes,
+where an independently feasible matrix achieves20.13886272348057 on the same
+102 calibration fit cells. This witness was verified locally. The first
+reading's 'minimax' rows are therefore LOCAL optimizer candidates, not certified
+minimax optima. A correction goes beside these artifacts; no recorded number
+or candidate is rewritten. The lower witness still fails one-code survival.
+The shader proof remains instrument/shader-proof-attempt-2.json:432 cases on
+Apple M2 Pro Metal, maximum0.0000592938 codes, no browser/capture/fallback.
+
+PARENT RULINGS
+
+The worker initially stopped before step4 because none of the body candidates
+survived and the declaration calls the edge input 'the frozen identified body
+response'. body/summary.json preserves that provisional stop. The independent
+review agreed that the original wording does not itself authorize substitution.
+The parent then explicitly directed continuation under W37 X15–X17 and the
+charter's anticipated edge-without-body outcome. This is a separately recorded
+parent interpretation, not a user ruling or a claim that the original wording
+already established it. No G0 declaration, hash, split, bound or family changes.
+
+Parent's reasoning, verbatim:
+"any surviving body law would have predicted that deep within max(1 code, bar)
+on every calibration and validation cell, so the measured deep is what a
+survivor would have supplied to within one code; it has zero free parameters;
+it is a measured input, not a free per-cell edge colour, which is what the
+declaration's prohibition guards against."
+
+Under that instruction, body in the edge response is each cell's own native
+seven-run deep median per channel, computed through the same guarded archive
+statistic. Every other edge term, width/exponent grid, quadrature, population,
+coefficient bound, fit/transfer split and survival tolerance remains unchanged.
+Any surviving edge law is an EFFECTIVE law on native pixels; transfer to
+vitrea's rendered body must be tabled, not assumed. H4 is NOT APPLICABLE because
+there is no surviving body law, not a failed H4 fit. If only edge survives, the
+held-out colours' body outcome is 'no candidate', not UNMEASURED or passed;
+their edge shells and the three geometry pairs remain the receipt's referee.
+No exposure has occurred. Step4 continues after the body numerical correction.

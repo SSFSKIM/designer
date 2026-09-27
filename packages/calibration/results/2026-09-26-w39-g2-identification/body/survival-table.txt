@@ -1,0 +1,23 @@
+Both scales separately tested and numerically identical. Deep medians, d<=-6 CSS px.
+Family endpoint status maximum-LS maximum-minimax worst-minimax-channel/cell.
+All tolerances are one code.
+H1       light-active    FAILED  52.000000  52.000000 R green-colour__rest
+H1       light-inactive  FAILED  57.500000  57.500000 R green-colour__inactive
+H1       dark-active     FAILED  73.090909  73.090909 R red-colour__rest
+H1       dark-inactive   FAILED  69.181818  69.181818 R red-colour__inactive
+H2       light-active    FAILED  72.907106  72.907106 R green-colour__rest
+H2       light-inactive  FAILED  48.955523  48.955523 R green-colour__inactive
+H2       dark-active     FAILED  93.570343  93.570343 R green-colour__rest
+H2       dark-inactive   FAILED 125.296714 125.296714 R red-colour__inactive
+H2prime  light-active    FAILED  19.728313  13.986418 G red-colour__rest
+H2prime  light-inactive  FAILED  20.392451  11.259861 G red-colour__inactive
+H2prime  dark-active     FAILED  19.037219   8.356576 G green-colour__rest
+H2prime  dark-inactive   FAILED  67.321310  27.692316 G green-colour__inactive
+H3       light-active    FAILED  24.389038  24.807891 B red-colour__rest
+H3       light-inactive  FAILED  25.432268  49.436636 B red-colour__inactive
+H3       dark-active     FAILED  28.393664  22.000000 R red-colour__rest
+H3       dark-inactive   FAILED  28.339090  17.470862 R matched-channel-2-colour__inactive
+H3prime  light-active    FAILED   3.163684   7.635001 B red-colour__rest
+H3prime  light-inactive  FAILED   3.159096   2.658572 B green-colour__inactive
+H3prime  dark-active     FAILED  26.143317  22.000000 G red-colour__rest
+H3prime  dark-inactive   FAILED  29.484592  25.283014 B red-colour__inactive
