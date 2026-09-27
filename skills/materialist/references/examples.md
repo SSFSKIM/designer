@@ -1,4 +1,4 @@
-# Worked examples: six glass pages, derived
+# Worked examples: eight glass pages, derived
 
 Six pages were built on the material in September 2026, three product surfaces and three narrative
 pages, each from a brief that named a live plane. Their code sits on the `capsule-refinement` branch
@@ -16,6 +16,14 @@ on 2026-09-10 after looking at them: single-row floating housings and controls p
 inner geometry related to the housing and comfortable end padding; multi-row platters keep generous
 rounded rectangles. Music-player and park-trails were named the most convincing pages. It is a taste
 decision recorded as one, not a rule attributed to Apple.
+
+Two more pages were built on 27 September 2026 in the **spatial register**, each under the skill
+alone on the workspace source at 0.24.0, with its record beside it
+(`apps/demo/src/gallery/<slug>/DESIGN.md`), read by an independent reviewer and then put through one
+fix wave. Their sections walk that register's decisions instead: the register and why, the
+environment and how it was graded, the windows and ornaments with the gaps they are owed, geometry,
+fills and ink, motion, the fallbacks as measured, and what the record leaves open. Both follow the
+curvature ruling: capsule ornaments, generous fixed corners on windows and platters.
 
 ## music-player: a desktop player, the album's artwork filling the window
 
@@ -343,12 +351,135 @@ bar; the fade mid-scroll is lost and written down rather than passed.
 **The ruling.** The wordmark, section navigation and configure bar joined the existing reserve capsule
 with related inner radii; the lens platter kept its 26 geometry.
 
-## What the six have in common
+## exhibition: a museum's viewing room, its label set into the painting
 
-All six are the **instrument register**: their world is artwork, a map, a photograph or a document,
-and glass holds the controls that act on it, not its sustained reading surface. Two spatial-register
-derivations will be added when their pages land: `exhibition` (a window and attached ornaments)
-and `start-page` (glance modules in an environment); neither is claimed here as built or verified.
+**Register.** Spatial, named before the first host: the visitor reads a gallery label beside the
+work it describes, one of step 0's named cases, and acts on the painting with nothing. The
+instrument reading was weighed and refused: it puts the label on the plane, and a label printed
+over a Van Gogh is either illegible or an opaque panel hiding the work.
+
+**Environment.** One work at a time, cover-fit into one viewport-fixed canvas that is the texture
+source. A painting is content shown as it is, so the page grades only under the glass: a wash
+painted inside each host's rounded box, strongest behind the text and weakest at the edge so the
+rim keeps paint to bend. The first build's one fixed strength failed both ways once the drawn
+bodies were measured: light bodies at 0.79 to 0.97, the painting lost under a label card, dark
+ornaments over Avercamp's ice at 0.43 to 0.45, inside the dead band. It became a solve that reads
+the painting under each footprint and paints just enough wash to reach a per-scheme target,
+floored so text sits on calmer ground than the rim and capped so the field never goes flat. Each
+group declares tone and luminance measured under its own box with the runtime's statistic, every
+dissolve frame and on every layout, scheme or policy change. Monet's fog stays soft, recorded.
+
+**Windows and ornaments.** One window holds one task, reading the exhibition, in two views: the
+Label (title, maker, the whole work in an opaque frame, the essay, the data) and the Rooms, a
+collection read in place and so window content; the page has no platter. The window takes the
+left edge because every work's subject sits right of centre; its host never moves, and a child
+scroller at the window's radius fades its inner edges only where content continues. Two ornaments
+hang below it on the overlay plane in their own groups, the way between rooms and the audio
+guide's transport, together exactly the window's width. On the texture path they sample the
+environment, so each pair is spaced by `ceil(max(24, samplingPaddingFor(...)))`, never pinned:
+64 px under the window at 1440 wide, 24 between the ornaments, 77 and 49 under Reduce Transparency.
+
+**Geometry.** Thickness 8 on two spans: the window at 461, fixed 32; the ornaments at 52, capsules
+at 26 with buttons at 26 minus 4. The window corner anchors the rest: the data section's darker
+fill inset 14 takes 18, and the room rows moved out to that inset while building so a selected row
+and the data fill share one radius.
+
+**Fills and ink.** Fills follow the drawn body, not the declared tone, which describes the
+backdrop: light-scheme backdrops at 0.41 to 0.49 declare a dark tone under bodies drawn at 0.66
+and above, so a fill keyed on it would have stacked light on light. Keyed on the scheme, a darker
+fill separates on either body and a selection is lighter only on the dark one. The runtime solves
+its secondary to 4.5 against its model of the surface; on rendered pixels 115 of its 237 lines
+read lower, 4.19 at worst. The page dropped it: every readable line is primary, hierarchy is size,
+weight and case, as on a printed label, and the narrowest of 3,756 readings, 4.93 on the dark
+lifted room row, is kept and watched. The review held medium-or-heavier against a 400 display
+italic; it is 700, because the serif stack draws no 500 italic to ask for.
+
+**Motion.** Nothing morphs or materialises after mount; press is the runtime's. The page owns one
+motion, a canvas dissolve of about 0.7 s between works stepped from the root's frame subscription,
+a cut under Reduce Motion. The independent reading found the flip the maker never tried: the
+preference turning on mid-dissolve met a same-work early return, and the mix ran 23 more frames.
+The fix wave cancels the dissolve there, commits the work, paints once and re-measures the hints.
+
+**The fallbacks.** The CSS body follows the summed present-host area: two-layer at DPR 1 (0.355 M
+device px), the painting's structure kept through the frost; collapsed at DPR 2 (1.42 M), flatter
+and warmer. Both were looked at and read per line. Under forced colours every authored mark
+becomes a system colour, borders on the fills, the whole-work outline in Highlight, the sentence
+being spoken an underline where a fill would vanish, and the scroller's fade comes off.
+
+**What it leaves open.** The ornament row hangs 64 px below the window, attached by alignment where
+a visionOS ornament overlaps its window's edge, because on the texture path it may not and a
+pinned padding would stop following the blur. At thickness 8 and span 461 the lens is a narrow band
+at the edge and the body reads as frost, not a thick lens; over a bright painting in the dark
+scheme it is a smoked slab. Every law the window draws is extrapolated past the bed's span 160, and
+no native capture of a visionOS window with ornaments exists to compare it with.
+
+## start-page: Daybreak, a browser start page set into the day's valley
+
+**Register.** Spatial: a start surface is step 0's first named case, and nothing acts on the
+photograph. Six tiles for the brief's six things is the field the register refuses, so they became
+three task units: time and weather one glance, agenda and tasks one working surface, search and
+places one act, which is why the search hangs from Places and narrows it as the person types. A
+clock straight on the photograph was refused: it has no measured floor across four phases.
+
+**Environment.** One valley at dawn, day, dusk and night, the phase following the clock, in one
+viewport-fixed texture canvas. Before any page code the maker probed the material over a uniform
+canvas at 21 levels, both schemes, poses and tiers. The light body never fell below 0.518, so the
+light scheme shows the photographs nearly as shot. The dark body enters the dead band over a
+backdrop of 0.35 and saturates at 0.478 over white, so the dark scheme gets its own evening print,
+a luma curve that keeps the hue (a per-channel one greyed the dusk sky), graded until the backdrop
+under every footprint stays at or under 0.28. Pinning the scheme was refused: it is the person's
+setting, the phase is the time of day. A wallpaper the product owns is environment, not a work
+shown as it is, so the whole plane is graded. Each hint is per footprint, because the day's
+average of 0.493 describes no surface: the search stands over cloud at 0.835.
+
+**Windows and ornaments.** Three columns with the valley around them: a sky band holding only the
+search, 64 px between columns, a foreground band where the farmhouse or the road stays in view. Now
+is a glance module, figures and short labels; building took out its one-line outlook, prose in a
+module. Places is a window of plain links, Today of the agenda and real checkboxes. The search is
+an ornament above Places, centred and no wider. A second ornament below Now is the closed end of a
+matched-geometry morph whose open end is the photograph platter, and the platter opens down into
+open photograph: over a window, on the texture path, it would sample the environment instead.
+
+**Geometry.** Thickness 8, the home default: the windows are reading surfaces, not lenses to show
+off. Module and windows at spans 320 to 496, fixed 32; ornaments capsules at 28 and 24; the platter
+fixed 24. Inside, everything derives from the window corner: tiles at the 20 px inset take 12,
+agenda rows at 16 take 16, the Today scroller's bottom corners the window's own 32.
+
+**Fills and ink.** Lighter child fills mark what can be pressed, is current or is selected, one
+level, never stacked. The runtime's secondary read 4.30 to 4.49 on these bodies in both schemes, so
+descriptions take an authored ink, the runtime's primary at 84 %, which keeps the pole the runtime
+picked through scheme and pose and holds the ratio. A 20 % white lift put the event in progress at
+4.32 in the dark scheme; the dark lifts are now 7 and 13 %, and a line on one is primary. None of
+13,656 gated readings is under its floor, the tightest the placeholder over the dark dawn ridge at
+4.81; lines in the Today scroller's faded edge bands are measured, not gated.
+
+**Motion.** The platter morphs from its ornament and nothing else moves; the clock and a phase
+change are content, repainted at once. A closed morph never follows a new closed size, so the
+closed face is fixed at the widest photographer's name, and the compact face below 1200 px is a
+second morph by key, forced closed across the switch. The independent reading found the flip
+neither maker tried: Reduce Motion turning on with the platter open collapsed its host to 0 × 0,
+focus on an invisible radio, the runtime reporting healthy. The cause is the runtime's, tracked,
+and no reason to trade the morph for a page animation: until the runtime reseeds its drivers, the
+cookbook keys the morph on the preference and remounts it closed.
+
+**The fallbacks.** With 44 % of the viewport glass, the CSS body is collapsed at the design size
+even at DPR 1 (569,364 device px) and two-layer only at 1024 × 768; both were looked at. On the
+WebGPU tier forced colours drew each host as a Canvas panel without the border the CSS tier
+writes, so a white panel over a white cloud lost its edge; each host's full-size child draws a
+CanvasText frame, keyed on the tier the runtime reports. Forced colours also dropped the derived
+padding to zero and the runtime reported the overlap against its advisory 24, so the gap is now
+the largest of the advisory, current and nominal paddings: a preference opens it, never closes it.
+
+**What it leaves open.** The nearest Apple surfaces are macOS 27 widgets over a dynamic desktop
+picture and Safari's Start Page; no native capture was made. By eye, vitrea's rim lights each large
+window's top-left as a diagonal sheen where Apple's edge is a thin line bright at vertical normals,
+and a 600 px window's shadow is the size law far past the bed. On the CSS tier the closed morph's
+content-box host grows to 250 × 50 at radius 24, not quite a capsule (tracked).
+
+## What the eight have in common
+
+The first six are the **instrument register**: their world is artwork, a map, a photograph or a
+document, and glass holds the controls that act on it, not its sustained reading surface.
 
 - The plane is never a wash behind a shell. It is the product: artwork, a city, a frame, a still, a
   mountain, the object being configured. Every page put structure under the glass on purpose and
@@ -376,6 +507,36 @@ and `start-page` (glance modules in an environment); neither is claimed here as 
 - Every page found a defect by looking: at the CSS tier, at rendered contrast, at a hidden host, at a
   slab where the material should be. The runtime catches nesting, overlap, tint mixing and padding; it
   does not catch a flat backdrop, a CSS overlay, an unsettled measurement or an assumed ratio.
+
+The last two are the **spatial register**: their world is an environment the product owns, a
+painting or a valley, and glass is the surface their content sits on. They hold what the six hold
+about groups, geometry and honesty, and share five things of their own.
+
+- Step 0 was decided from what the person does, not from the brief's nouns, and the brief's list
+  was then folded into task units: a label and its rooms into one window with two views, six
+  start-page functions into one module and two windows. A collection read in place is window
+  content, never a platter; the one platter holds choices and opens into open environment.
+- The material was measured before the grade was trusted: one page probed the body's response on a
+  uniform canvas before any code, the other watched a fixed wash fail both ways and made it a solve.
+  Source average, per-footprint hint and drawn level stay three quantities, and the hint moves
+  whenever the paint or a footprint does. What may be graded follows from what the world is: a work
+  shown as it is is washed only under the glass, a wallpaper the product owns is graded per scheme.
+  The dark scheme over a bright backdrop is the hard case both times.
+- The runtime's secondary token read 4.19 to 4.49 on window-scale bodies on both pages, because it
+  is solved against a modelled surface a few codes off the drawn one. Neither kept it for reading:
+  one moved hierarchy into type with the primary throughout, the other authored the primary at 84 %.
+  A lifted fill under ink on the dark body spent the margin on both. Measure the ladder per line;
+  in this band its promise does not hold, and the gap is tracked.
+- The gap an ornament owes its window is derived and never pinned, 64 px at these spans, so an
+  ornament attaches by alignment, width and centring rather than by the overlap visionOS draws: the
+  register's visible concession to this material's group model. The gap keeps a floor, core's
+  advisory 24 on both pages and the nominal policy's padding on the start page, so forced colours,
+  whose padding falls to zero, cannot close a layout that Reduce Transparency opened.
+- The fallbacks were read as drawn. The CSS body follows the root's summed glass area times dpr²,
+  so a quarter of the viewport in glass is two-layer at 1x and collapsed at 2x, while four tenths
+  collapses at 1x. And each page's one check-14 failure sat in the same state, Reduce Motion
+  flipping in the middle of motion: an emulation at load passes it, a flip mid-dissolve or with the
+  platter open does not.
 
 ## Record template
 

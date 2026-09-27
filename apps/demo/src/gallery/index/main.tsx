@@ -6,9 +6,10 @@
  * It belongs to the site, so it is written in the site's tokens and components and under
  * its law (`apps/demo/DESIGN.md`). It is content rather than a control layer, so it
  * carries no glass and no depicted material: the demos are where the material is. Each
- * Finished entries' plane and floating lines are read from their design records
- * (`src/gallery/<slug>/DESIGN.md`); unfinished entries say so until their makers
- * replace the placeholders with the plane and kinds of floating surface.
+ * entry's plane and floating lines are read from its page's design record
+ * (`src/gallery/<slug>/DESIGN.md`): the plane and the kinds of floating surface, never
+ * counts. A spatial entry labels the two lines Environment and Windows, that register's
+ * own words for them.
  *
  * The colour scheme is not set here. The site's tokens switch on one attribute, and the
  * page's head mirrors `prefers-color-scheme` onto it before the first paint.
@@ -128,8 +129,12 @@ const DEMOS: readonly Demo[] = [
       "and the work’s data sit on glass set into the painting; the audio guide’s transport " +
       "and the way between works hang at that window’s edge. Eight public-domain works, " +
       "credited by title, maker, date and collection.",
-    plane: "The painting plane is being built.",
-    floating: "The glass surfaces are being built.",
+    plane:
+      "The work on view, painted cover-fit into one viewport-fixed canvas, washed only " +
+      "beneath the glass and dissolving from work to work.",
+    floating:
+      "A label window holding the essay, the work’s data and the rooms, and below its " +
+      "edge the ornaments for moving between rooms and for the audio guide.",
   },
   {
     slug: "start-page",
@@ -140,8 +145,13 @@ const DEMOS: readonly Demo[] = [
       "weather, agenda, tasks and places sit on glass over it, glanceable from across the " +
       "room and workable up close; a search field leads. A full day’s agenda, seven tasks, " +
       "twelve places and a five-day forecast.",
-    plane: "The day’s photographic plane is being built.",
-    floating: "The glass surfaces are being built.",
+    plane:
+      "The day’s photograph of one valley, at dawn, day, dusk or night by the clock, in " +
+      "one viewport-fixed canvas graded for each colour scheme.",
+    floating:
+      "A glance module for the time and weather, windows for places and for the day’s " +
+      "agenda and tasks, a search ornament above the places, and a photograph ornament " +
+      "that morphs into a platter.",
   },
 ];
 
@@ -168,11 +178,11 @@ function Entry(props: { readonly demo: Demo; readonly index: number }): ReactNod
           </dd>
         </div>
         <div className="readout__row">
-          <dt>Plane</dt>
+          <dt>{demo.register === "spatial" ? "Environment" : "Plane"}</dt>
           <dd>{demo.plane}</dd>
         </div>
         <div className="readout__row">
-          <dt>Floating</dt>
+          <dt>{demo.register === "spatial" ? "Windows" : "Floating"}</dt>
           <dd>{demo.floating}</dd>
         </div>
       </dl>
@@ -187,9 +197,9 @@ function Gallery(): ReactNode {
         <p className="wordmark">vitrea</p>
         <h1 className="display">The materialist gallery</h1>
         <p className="lead">
-          Eight Liquid Glass pages on vitrea 0.24.0 in two registers: six finished
-          instrument pages set glass controls over live content, while two spatial pages
-          are being built to make glass the surface itself. Each follows the{" "}
+          Eight Liquid Glass pages on vitrea 0.24.0 in two registers: six instrument pages
+          set glass controls over live content, and two spatial pages make glass the
+          surface itself. Each follows the{" "}
           <a href={SKILL}>materialist skill</a>. The{" "}
           <a href={SPEC}>instrument proof</a> and{" "}
           <a href={`${REPOSITORY}/blob/main/docs/doperpowers/specs/2026-09-27-materialist-spatial-register.md`}>

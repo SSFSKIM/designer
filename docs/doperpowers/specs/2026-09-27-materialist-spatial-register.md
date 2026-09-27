@@ -492,7 +492,7 @@ and one line on Harvestar if they want a page shaped toward it.
 
 - Observation: On the texture path the derived gap between an ornament and its window is 49 to 77
   CSS px at these spans, so an ornament reads as attached by alignment rather than by the overlap
-  visionOS draws; both records name it as a tension. It follows from condition 4's sampling honesty
+  visionOS draws; the exhibition's record names it as a tension. It follows from condition 4's sampling honesty
   and is a limit of composing the macOS material's group model spatially, not a page defect.
   Evidence: `apps/demo/src/gallery/exhibition/DESIGN.md`, part two ("Ornament gap").
 

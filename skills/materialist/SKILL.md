@@ -543,7 +543,7 @@ not this register; other misses remain recorded failures, never passes with resi
 |---|---|
 | `references/optics.md` | the measured physical model: the lens, the size law, the body's two components, tone and hue, the rim, the exterior shadow, poses, schemes, variants, tint, ink, accessibility states, motion character, the two tiers, window-scale extrapolation, the ink dead band and named gaps |
 | `references/vitrea.md` | the cookbook: each decision above mapped to the 0.24.0 API on the React and vanilla paths, windows, modules and ornaments on both paths; what the runtime does not catch; CSS-only and CDN status |
-| `references/examples.md` | six instrument derivations, spatial derivations as their pages land, and the register-aware record template |
+| `references/examples.md` | six instrument derivations, two spatial derivations, what the eight have in common, and the register-aware record template |
 
 ## 10. Provenance
 

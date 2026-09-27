@@ -6566,7 +6566,7 @@ the eval's lodge cells; confirmed by the independent source readings (`review/{e
   the generated host as `GlassSurface`'s cookbook already asks of authored hosts.
 - **Under forced colours on the WebGPU tier a window has no border of its own.** The CSS tier hands
   a forced-colours surface a `CanvasText` border; on the WebGPU tier the body stands down and the
-  host draws nothing, so a window-sized panel loses its edge and both makers drew a frame on a child
+  host draws nothing, so a window-sized panel loses its edge and the start-page maker drew a frame on a child
   element, keyed to the tier actually drawn. **Shape of the work:** draw the forced-colours border
   on the host on both tiers, so the fallback is one design.
 

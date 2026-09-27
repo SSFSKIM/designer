@@ -49,20 +49,28 @@ the `@vitreajs/*` packages, with or without the designer skill. It is an aesthet
 as a decision function and its laws rather than a style sheet: what the material physically is
 (a lens with thickness, a size law, a body that takes the backdrop's tone and hue, an exterior shadow
 graded by the caster, two poses, two schemes), the register it belongs to (refined futurism with
-optical rather than ornamental skeuomorphism; an instrument over a world; active curvature; physical
-motion; daylight as the distinctive case), the two-layer discipline, a ban list and twenty checks.
+optical rather than ornamental skeuomorphism; two registers, an instrument over a world and glass as
+the surface set into an environment; active curvature; physical motion; daylight as the distinctive
+case), the two-layer discipline and the spatial register's conditions, a ban list and 28 checks.
 Its references carry the measured optics with their ledger sections, a cookbook mapping each
-decision onto the current vitrea API, and six worked derivations. When both skills are loaded, the
+decision onto the current vitrea API, and eight worked derivations. When both skills are loaded, the
 designer skill routes to it the moment a page's material model resolves to glass over planes.
 
-The skill has been judged on pages, not only on its prose: six demos built under it alone by fresh
+The skill has been judged on pages, not only on its prose: eight demos built under it alone by fresh
 agents, on the workspace source at 0.24.0, live on the demo site's gallery
 (`https://ssfskim.github.io/designer/gallery/`, source under `apps/demo/src/gallery/<slug>/` with
-each page's design record beside it), each audited mechanically and read against the skill's own
-checks; and an eval of the skill against an unaided agent on six briefs. The spec is
-`docs/doperpowers/specs/2026-09-27-materialist-proof.md`; the evidence is under
-`docs/research/data/2026-09-27-materialist-proof/`. Version 1.0.1 of the skill is what that proof
-corrected.
+each page's design record beside it), in two registers. Six are the instrument register, glass
+controls over live content; two are the spatial register, where glass windows are the interface and
+the world is their environment: a museum's viewing room with its label set into the painting, and a
+browser start page around the day's photograph. Each was audited mechanically and read against the
+skill's own checks, and each register was evaluated against an unaided agent: the first on six
+briefs, the second on a held-out brief that does not name the register, beside a matched control
+the skill must keep in the instrument register. The specs are
+`docs/doperpowers/specs/2026-09-27-materialist-proof.md` and, for the second register,
+`docs/doperpowers/specs/2026-09-27-materialist-spatial-register.md`; the evidence is under
+`docs/research/data/2026-09-27-materialist-proof/` and
+`docs/research/data/2026-09-27-materialist-spatial-register/`. Version 1.0.1 of the skill is what
+the proof corrected; 1.1.0 added the spatial register.
 
 ### The sampler, stand-alone
 
@@ -87,7 +95,7 @@ The plugin ships two skills. Everything Claude loads at runtime lives under `ski
 
 **Runtime — `skills/materialist/`**
 
-- `SKILL.md` — the Liquid Glass aesthetic as one voice: what the material is, the register, the decision function, the laws by area, the home system, derivation, the ban list, the twenty checks
+- `SKILL.md` — the Liquid Glass aesthetic as one voice: what the material is, the register, the decision function, the laws by area, the home system, derivation, the ban list, the 28 checks
 - `references/` — `optics.md` (the measured physical model, law by law with its ledger section), `vitrea.md` (the cookbook at the current API, React and vanilla, what the runtime does not catch, the CSS-only path), `examples.md` (six worked derivations and the record template)
 
 **Not runtime**
