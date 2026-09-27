@@ -1,0 +1,21 @@
+{
+  "slug": "exhibition",
+  "register": "spatial",
+  "environmentStatic": false,
+  "r23": 1,
+  "r23Strict": 1,
+  "evidence": "Independent source review, 2026-09-27. (a) No menu, transient platter or sheet is offered: the Rooms collection replaces content inside the existing window (Exhibition.tsx:280-324, 354-360), not a newly appearing glass surface; no opacity arrival or glass cross-fade exists. (b) Both interactive glass hosts are ornament housings with GlassSurface interactive (Exhibition.tsx:326-335, 384-393). React surface.tsx:359-367 delegates to useGlassInteraction; interaction.ts:222-235 writes the press/glow/lens and pointer channels and the runtime-owned compression transform. The reading window is not interactive; its ordinary content controls use role-bearing fills, as the spatial contract requires. No authored colour-swap press exists. (c) exhibition.css contains no transition or animation declaration, and no host transitions opacity, background or filter. Strict is also 1: there is no open morph platter whose plain items lack their host press, so the scoped exception is not needed. The separate check-14 live Reduce Motion defect does not change these three r23 criteria: an already-running environment dissolve continues after the preference changes (EnvironmentCanvas.tsx:90-105, 120-138). Paths are relative to /Users/new/Developer/GitHub/designer/apps/demo/src/gallery/exhibition except runtime files, which are under /Users/new/Developer/GitHub/designer/packages/react/src.",
+  "spanExceptions": [],
+  "verifiedFindings": {
+    "failsCheck": [
+      1
+    ],
+    "partial": [
+      2
+    ],
+    "note": [
+      3
+    ]
+  },
+  "auditReading": "audit/exhibition.json: all 1,261 reported glyph-suppressed line readings pass; 123 host-level readings, no inside dead-band flags; no diagnostics or banSubset/banSubsetSpatial findings. The legacy gateMechanical false is caused by DOM-composite light contrast, not the spatial rendered-pixel gate. GPU first-viewport glass coverage is 0.273 light / 0.2729 dark. Captured CSS groups all report two-layer; an independent live DPR-2 read additionally verified collapsed for all three at 1,417,744 device pixels."
+}
