@@ -1,0 +1,14 @@
+{
+  "reviewer": "doperpowers:reviewer-high",
+  "verdict": "incorrect",
+  "finding": {
+    "priority": "P1",
+    "location": "scheduler.py:_admission historical_peaks",
+    "issue": "RSShighwater observedinrefusedadmissionandsecondprefitchecknotpersisted; laterlowerRSS canunderreserve against knownhigherpeak",
+    "reproduction": "Parentpeak1GiB,two livefitsobserved4GiBduringrefusal; later1GiBeach/6GiBavailable incorrectlyadmits with1GiBprospective instead of4GiBknownpeak and10GiBremainingreservation"
+  },
+  "action": "Verifiedandseparatefixwavedispatched; schedulerNOTused",
+  "additionalValidation": "Kernelpressurelevel1equivalence torequestedmemory_pressure gate remains tovalidate",
+  "nativeReads": false,
+  "fits": false
+}

@@ -1,0 +1,46 @@
+{
+  "decisions": {
+    "light-inactive": {
+      "M0": "REJECTED_CSS_WIDTH_BY_NECESSARY_CUT",
+      "M1": "REJECTED_CSS_WIDTH_BY_NECESSARY_CUT",
+      "M2": "REJECTED_CSS_WIDTH_BY_NECESSARY_CUT"
+    },
+    "dark-inactive": {
+      "M0": "REJECTED_CSS_WIDTH_BY_NECESSARY_CUT",
+      "M1": "REJECTED_CSS_WIDTH_BY_NECESSARY_CUT",
+      "M2": "REJECTED_CSS_WIDTH_BY_NECESSARY_CUT"
+    }
+  },
+  "outcomes": {
+    "light-inactive": {
+      "status": "CERTIFIED_INFEASIBLE_RELAXATION",
+      "states": 99,
+      "feasible": [],
+      "individuallyDecidingInputLevels": [
+        "40",
+        "56",
+        "72",
+        "88",
+        "104",
+        "128",
+        "150",
+        "255"
+      ]
+    },
+    "dark-inactive": {
+      "status": "CERTIFIED_INFEASIBLE_RELAXATION",
+      "states": 99,
+      "feasible": [],
+      "individuallyDecidingInputLevels": [
+        "40",
+        "56",
+        "72",
+        "88",
+        "104",
+        "128",
+        "150",
+        "255"
+      ]
+    }
+  }
+}
