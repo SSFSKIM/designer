@@ -1,0 +1,60 @@
+{
+  "cells": 648,
+  "dispositions": {
+    "claimed uniform body": 156,
+    "not claimed (identity)": 486,
+    "not claimed (structured backdrop)": 6
+  },
+  "fitsPerformed": 0,
+  "holdoutOpened": false,
+  "limitations": [
+    "Structured public raster local law is diagnostic only.",
+    "Shipped H2 describes uniform deep body, not boundary contributions.",
+    "No rendered PNG, calval survival or exposure result inferred."
+  ],
+  "nativePayloadReads": 0,
+  "roles": {
+    "calibration": 504,
+    "holdout": 72,
+    "validation": 72
+  },
+  "runtime": {
+    "numpy": "2.3.5",
+    "pillow": "12.3.0",
+    "python": [
+      3,
+      12
+    ]
+  },
+  "schema": "w41-e3-public-predictions-1",
+  "sources": {
+    "apps/reference-apple/scenes-w39-colour-edge.json": "9ed048b599e104bc1d0f135165fc8b95e7b63781bbc77da800c181e44750fff7",
+    "packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/replay-archive.py": "f06df8c8292ddce1262c4ca3160958a6238d2bb468877e0f2f509dcae3241ecb",
+    "packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/split.json": "5cc9a20ef5c4d54661da4d6267bc161c6295fde5bb9e07a57ffae9a07f0e2bd5",
+    "packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/supplied-paths.json": "76da544cd0cae9e296d731458ed6f048728d9d519bf6fdf62de048bd3afbbdaf",
+    "packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/w39_archive.py": "19532c253a32620c9284c5bf959fe54f9463ba0961b7f9515ddcdb3b8a7aeec5",
+    "packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/w39_readers.py": "21bfdc695a759133f7dba0a2dd3b6c79a63b43251f29abd05d282398c4fda952",
+    "packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/wave.py": "d2a827f67b8048abaa98df2ae42e6491478b7a5bd77c6b572d7875ddde673f10",
+    "packages/calibration/results/2026-09-26-w39-g2-identification/instrument/body.py": "6b15fea4459402dbc5affc0642767c93abb2ced4b69cfea6683048688c45c842",
+    "packages/calibration/results/2026-09-26-w39-g2-identification/instrument/resolved-materials.json": "214eb600c5fe88f8690efc742b729587c93dae3b8837e993df69bfea03447d73",
+    "packages/calibration/results/2026-09-26-w39-g2-identification/instrument/resolved-materials.provenance.json": "b33bb11304053bee65a9c8dd52d1f16f2821572a34fb56f0b3a44a3810f1b52d",
+    "packages/calibration/results/2026-09-27-w41-g0-declaration/bounds-declaration.txt": "850747c1f03781a6efe9b433bd4ce3bd6cf72b63c9befd8d5d98de9eadf7f759",
+    "packages/calibration/results/2026-09-27-w41-g0-declaration/instrument/instrument.py": "41f796109a19e3834f2d738ee122f394d2e142d79ba29db3fe5ecc4ddb179950",
+    "packages/calibration/results/2026-09-27-w41-g0-declaration/instrument/rendered.py": "71dd709b3b2a8b99f6284fce37a9376bf122b6d9f1bf03c0fcac9d445e4ea117",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/baseline/baseline.py": "0e8bc6c74f2c3e1a9a8f80648e9adac7f85bc2d634b1de91862ec5bb5de1ad86",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/body/report-1/spatial-selection.json": "08147cdef79c1793524c7c6508b709addcceb6d3d0f03dd0baa1739ecb53471a",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-e3/parent-ruling-rendered-structured.json": "9c6aedf2d7dd906f14db681f2379e79fa3f0b57c7c2dcfa25ae015a61553f23c",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-e3/prepare.py": "578609ca4a4ed433310c9a2c3c51baeabc2a72b3e5db655df0e0e9940dfe6960",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-e3/runtime.json": "12e1546db717801d19781fc1027b616bd087b7f57958f199bb29ffa767c514f9",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-e3/scorer.py": "4d7a1defaf9fad35a09ddd059eba1b0a8ee9c735418b5fb195745e8226d747ba",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/exposure/body-e3-claim-scope.json": "d4c3f57075d7c3af18a3c6efae527693006e4e6933f2689e635580dde4dfdaa4",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/exposure/manifest.schema.json": "8bad49fec2c85382fce097c766a05c76cf2bb439d210b20bb713453084d2bab2",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py": "02ed44215ca4f273eb698ab9f514173f2c6cbfb89d09b6a12c837ffee9b4aa96",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/parent-ruling-css-second-route.json": "6e98def59df7b0d8bff21206b1eb56f081e8f33bd3ec625095928c8c35698915",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/parent-ruling-partial-endpoint.json": "01c40caaec464c76ec3a2b18b3742fdba7720099c26de3b70f4a83043d20c490",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/parent-ruling-rendered-structured.json": "6f9900f7e6335c56a66c429731f13caf5b780f8f78ee59c777465668a6519663",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/parent-ruling-renderer-domain.json": "bffe2ac6056a6489d64cc9c3b68bf5d827e8332ebb737035eddad63313b894fa",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/parent-ruling-structured-domain.json": "c767203c4887532dcb02c5a6dbe78b83bd4585966237c8ae92da4d3fed04fbc7",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/x6/observe.py": "f7247a8f8f477af780cd212e7f9d9c08592f80e03dd1e7b254a4b21d88b0f173"
+  }
+}

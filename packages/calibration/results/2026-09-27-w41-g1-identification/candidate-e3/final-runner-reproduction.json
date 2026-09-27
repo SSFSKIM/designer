@@ -1,0 +1,43 @@
+{
+  "schema": "w41-e3-final-runner-reproduction-1",
+  "runnerCommit": "9b6d1bf7d34410927cb75556e0317569dd98c339",
+  "runnerSha256": "02ed44215ca4f273eb698ab9f514173f2c6cbfb89d09b6a12c837ffee9b4aa96",
+  "reason": "The runner worker finalized capture-domain validation while initial preparation ran. Historical source hashes and readings are retained unchanged; this additive replay binds its committed final source.",
+  "comparisons": {
+    "public-1/numerical.json": {
+      "reproduction": "public-2/numerical.json",
+      "byteIdentical": true,
+      "sha256": "ba018dfd1277ca5f112bc68ac702f0beb5fdf1ae13109643fe63ad86dfcba76c"
+    },
+    "public-1/parameters.json": {
+      "reproduction": "public-2/parameters.json",
+      "byteIdentical": true,
+      "sha256": "0b1a53ae88280353680e79625d3ab86b9abf165b3d1489d222b17aeca50d2b73"
+    },
+    "calval-1/scores.json.gz": {
+      "reproduction": "calval-2/scores.json.gz",
+      "byteIdentical": true,
+      "sha256": "c6d2da66125c81912fb31ca3eaf319ab9a4bf3fa76d3774fbfa298fa574ece3a"
+    },
+    "calval-1/numerical-admission.json.gz": {
+      "reproduction": "calval-2/numerical-admission.json.gz",
+      "byteIdentical": true,
+      "sha256": "2fea6690c967a3e76e24c92d8017b47908c7810828a3b7d3dece4f7b47a4de91"
+    }
+  },
+  "allCurrentSourceHashesMatch": true,
+  "publicPredictionCells": 648,
+  "guardedNumericalCalvalCells": 576,
+  "claimedUniformFailures": 0,
+  "nativeHoldoutOpened": false,
+  "browsersLaunched": 0,
+  "exposureAttempted": false,
+  "currentArtifacts": [
+    "public-2/numerical.json",
+    "public-2/parameters.json",
+    "public-2/provenance.json",
+    "calval-2/scores.json.gz",
+    "calval-2/numerical-admission.json.gz",
+    "calval-2/summary.json"
+  ]
+}

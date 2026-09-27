@@ -203,3 +203,17 @@ render-calval already call the SAME numerical()/rendered_score() core used by
 score(request); the former constructs only calibration/validation Readers and
 the latter reads only existing candidate/baseline PNGs. A failed rendered veto or
 identity-byte check still blocks the candidate; a schema check is not a render.
+
+Final runner source replay
+--------------------------
+The runner worker finalized capture-domain validation while the first numerical
+preparation ran. public-1/calval-1 retain that historical source witness unchanged.
+After the runner's final commit 9b6d1bf7d34410927cb75556e0317569dd98c339, this worker
+reproduced the preparation additively as public-2/calval-2. Use these SECOND paths
+for the eventual freeze. Their public predictions, parameters, complete raw calval
+scores and complete admission payload are BYTE IDENTICAL to the first reading;
+final-runner-reproduction.json pins all four hashes and the final runner bytes.
+Every source hash in the second provenance matches the current committed source.
+The repeat read was calibration/validation only, through guarded Readers; holdout
+remained closed. No coefficient, numerical result, rendered artifact, survival or
+exposure was changed or invented by this provenance repair.
