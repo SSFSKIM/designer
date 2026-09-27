@@ -313,6 +313,31 @@ parallel; the user's time is the eye reading, about thirty minutes.
   Evidence: `docs/research/data/2026-09-10-liquid-glass-demos/recovery-2026-09-27.md`; the 2.3
   spec's Outcomes, 2026-09-27.
 
+- Observation: Four of the first four source readings found the skill's own worked examples
+  contradicting its layer law. `examples.md` teaches a glass queue sidebar with queue rows
+  (music-player, lines 27–30), a glass alerts sidebar with alert rows (transit-ops, 77–80) and a
+  weather platter the maker read as licence for a forecast table (park-trails), while `SKILL.md`
+  §3 step 1 says a list or panel of content stays opaque whatever a brief calls it. Every maker saw
+  the tension and followed the example; the skill-aided eval cell for the music player did too.
+  The 2.3 panel failed r1 on the same queue. This is the initiative's central finding so far: the
+  law is right, the examples are wrong, and a worked example outranks a law in practice.
+  Evidence: `docs/research/data/2026-09-27-materialist-proof/review/{music-player,transit-ops,park-trails}.md`.
+
+- Observation: `vitrea.md` §2 says a declared hint costs the texture tier nothing because "the
+  pixels win". The runtime gives a declared luminance precedence on both tiers
+  (`platform-web/src/root.ts:2211–2222`) and suppresses its measured local tone under a hint
+  (`renderer-webgpu/src/renderer.ts:1038–1059`), which is what `CLAUDE.md` has said all along. Four
+  makers declared hints on texture groups on the cookbook's word; one (product-launch) found the
+  truth itself and declared hints only on the CSS tier. `analysis: exact` reports where pixels come
+  from, not which value drives the tone.
+  Evidence: the four review records; `apps/demo/src/gallery/product-launch/DESIGN.md`.
+
+- Observation: The audit scrolls the document (`glass-audit.mjs:1070–1076`), so a page whose
+  content scrolls in a fixed inner element (park-trails, product-launch, the skill-aided
+  architecture cell) yields no second or third screen and its rendered-pixel contrast covers the
+  first viewport and the open menu only. The rule reading for those pages stands on fewer
+  captures; recorded, not corrected mid-run.
+
 - Decision (from the observation): This initiative's panel captures are committed evidence, not a
   gitignored copy. They are too large for the repository, so the capture set the raters read is
   archived as a GitHub release asset at landing, the way W39 archived its sitting, and the hashes

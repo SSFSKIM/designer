@@ -6407,3 +6407,41 @@ the three README paragraphs and the `refraction` value now; then a measured dom-
 the macOS 27 bed, and a feasibility read of Chromium's HTML-in-Canvas
 (`copyElementImageToTexture`, origin trial) as the route to sampled glass over live DOM — Electron,
 which controls its own Chromium flags, is the first target where it could ship.
+
+## Four runtime gaps six fresh makers hit building the gallery demos on 0.24.0 (materialist proof, 2026-09-27)
+
+Found by the six demo builds and their source reviews under
+`docs/doperpowers/specs/2026-09-27-materialist-proof.md` (G1, reading 3), each verified in code by
+an independent reviewer with the lines below. None is a fidelity defect; each is a seam a page has
+to work around today and that the materialist skill's cookbook did not name.
+
+- **A moved host keeps its cached scene box.** The platform re-reads only dirty hosts
+  (`platform-web/src/geometry-sync.ts:8-24`), a ResizeObserver dirties border-box changes
+  (`164-173`) and a document scroll dirties everything (`181-185`), but a layout change that moves a
+  same-sized host (a `GlassToolbar` spacer recomputed for scheme or Reduce Transparency,
+  `react/src/controls/toolbar.tsx:509-627, 211-224`; a gap derived from sampling padding) dirties
+  nothing, and `root.ts:1727-1749` deliberately avoids dirtying for style mutations. transit-ops
+  measured its platter drawing 36 px off its box and its top bar overrunning the window with no
+  diagnostic, because the overlap check read the stale rects; park-trails saw labels slide out of
+  their glass under Reduce Transparency. Both makers fixed gaps at the worst case; transit-ops also
+  dispatches a synthetic document scroll. The remedy is to invalidate member geometry when toolbar
+  layout changes, including the morph's position-only realignment (`react/src/morph.tsx:477-485`
+  writes geometry rather than invalidating; the handle's method is `root.ts:3588-3589`).
+- **`GlassSegmentedControl` exposes no `onHost`** (`react/src/controls/segmented-control.tsx:72-93`,
+  `262-273` keeps only `handle.host`) while `GlassSurface` does (`react/src/surface.tsx:167-168`),
+  so a page cannot invalidate a segmented control's geometry through the supported seam.
+- **A matched-geometry morph captures its closed size once** (`react/src/morph.tsx:421-430` stops
+  measuring once pinned; the footprint reuses `closedSize` at `620-621`). A closed label that
+  changes width after the first pin draws a stale footprint; park-trails stacks every possible face
+  in one grid cell to reserve the widest, product-launch reserves the lens slot from the first
+  frame. The cookbook should name the contract or the runtime refresh the footprint when settled
+  closed content changes size.
+- **An open morph host is non-interactive, and nothing carries press to its children.**
+  `GlassMorph` sets `interactive={!open}` (`react/src/morph.tsx:636-641`), so the plain controls a
+  platter is supposed to hold (`vitrea.md` §6 asks for plain buttons inside a morph) get no glow or
+  compression on press; music-player and photo-review each filled the gap, one with a colour swap
+  the law bans, one with nothing. A supported recipe (or API) for routing an inner action's press to
+  the owning host's channels without nesting glass is the missing piece.
+
+Recorded here rather than chartered: each is bounded, none blocks a page, and the wave that owns
+`react` motion and toolbar layout should take them together.

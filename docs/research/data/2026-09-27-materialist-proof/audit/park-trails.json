@@ -1,0 +1,3675 @@
+{
+ "slug": "park-trails",
+ "url": "http://localhost:5177/gallery/park-trails/",
+ "auditedAt": "2026-09-27T02:49:25.952Z",
+ "viewport": {
+  "width": 1440,
+  "height": 900
+ },
+ "rootFound": true,
+ "readyState": "settled",
+ "adapter": {
+  "available": true,
+  "vendor": "apple",
+  "architecture": "metal-3",
+  "device": "",
+  "description": "",
+  "isFallbackAdapter": false
+ },
+ "api": {
+  "missing": []
+ },
+ "errors": [],
+ "schemes": {
+  "light": {
+   "scheme": "light",
+   "readyState": "settled",
+   "adapter": {
+    "available": true,
+    "vendor": "apple",
+    "architecture": "metal-3",
+    "device": "",
+    "description": "",
+    "isFallbackAdapter": false
+   },
+   "errors": [],
+   "consoleErrors": [],
+   "failedRequests": [],
+   "badResponses": [],
+   "scrolledOnLoad": 0,
+   "docHeight": 900,
+   "words": 1257,
+   "title": "Park trails — a Liquid Glass demo on vitrea",
+   "placeholder": false,
+   "captureWidth": 1440,
+   "overflowCapture": false,
+   "overflowAtLoad": false,
+   "contrast": {
+    "method": "dom-composite",
+    "checked": 256,
+    "pass": 251,
+    "unknown": 0,
+    "rate": 0.98,
+    "onGlass": 5,
+    "onGlassPass": 0,
+    "fails": [
+     {
+      "text": "Permits",
+      "ratio": 2.35,
+      "size": 15,
+      "onGlass": true
+     },
+     {
+      "text": "Cascade Pass",
+      "ratio": 2.35,
+      "size": 15,
+      "onGlass": true
+     },
+     {
+      "text": "7.4 mi · ↑ 1,800 ft",
+      "ratio": 2.35,
+      "size": 15,
+      "onGlass": true
+     },
+     {
+      "text": "41°",
+      "ratio": 2.35,
+      "size": 15,
+      "onGlass": true
+     },
+     {
+      "text": "Showers, clearing",
+      "ratio": 2.35,
+      "size": 15,
+      "onGlass": true
+     }
+    ]
+   },
+   "glassContrast": {
+    "method": "rendered-pixels",
+    "pairs": 57,
+    "pass": 57,
+    "minRatio": 8.77,
+    "byPhase": {
+     "fv": {
+      "pairs": 8,
+      "pass": 8
+     },
+     "menu": {
+      "pairs": 49,
+      "pass": 49
+     }
+    },
+    "fails": [],
+    "sample": [
+     {
+      "phase": "fv",
+      "text": "Permits",
+      "nodeId": "vitrea-node_r_a_",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 8.97,
+      "worstRatio": 8.83,
+      "pass": true,
+      "ink": [
+       26,
+       30,
+       31
+      ],
+      "ground": [
+       168,
+       193,
+       204
+      ],
+      "pixels": 1026,
+      "groundPixels": 541
+     },
+     {
+      "phase": "fv",
+      "text": "Cascade Pass",
+      "nodeId": "vitrea-node_r_5_",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 10.68,
+      "worstRatio": 10.58,
+      "pass": true,
+      "ink": [
+       29,
+       32,
+       36
+      ],
+      "ground": [
+       187,
+       212,
+       238
+      ],
+      "pixels": 1900,
+      "groundPixels": 1008
+     },
+     {
+      "phase": "fv",
+      "text": "7.4 mi",
+      "nodeId": "vitrea-node_r_5_",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 10.74,
+      "worstRatio": 10.63,
+      "pass": true,
+      "ink": [
+       29,
+       33,
+       36
+      ],
+      "ground": [
+       189,
+       213,
+       233
+      ],
+      "pixels": 817,
+      "groundPixels": 520
+     },
+     {
+      "phase": "fv",
+      "text": "· ↑",
+      "nodeId": "vitrea-node_r_5_",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 10.57,
+      "worstRatio": 10.45,
+      "pass": true,
+      "ink": [
+       28,
+       32,
+       36
+      ],
+      "ground": [
+       186,
+       211,
+       233
+      ],
+      "pixels": 532,
+      "groundPixels": 436
+     },
+     {
+      "phase": "fv",
+      "text": "1,800 ft",
+      "nodeId": "vitrea-node_r_5_",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 10.23,
+      "worstRatio": 10.16,
+      "pass": true,
+      "ink": [
+       28,
+       32,
+       36
+      ],
+      "ground": [
+       180,
+       207,
+       235
+      ],
+      "pixels": 1064,
+      "groundPixels": 615
+     },
+     {
+      "phase": "fv",
+      "text": "41",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 9.82,
+      "worstRatio": 9.7,
+      "pass": true,
+      "ink": [
+       27,
+       31,
+       35
+      ],
+      "ground": [
+       175,
+       202,
+       232
+      ],
+      "pixels": 342,
+      "groundPixels": 188
+     },
+     {
+      "phase": "fv",
+      "text": "°",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 9.98,
+      "worstRatio": 9.95,
+      "pass": true,
+      "ink": [
+       27,
+       31,
+       35
+      ],
+      "ground": [
+       178,
+       204,
+       230
+      ],
+      "pixels": 152,
+      "groundPixels": 107
+     },
+     {
+      "phase": "fv",
+      "text": "Showers, clearing",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 9.79,
+      "worstRatio": 9.67,
+      "pass": true,
+      "ink": [
+       27,
+       31,
+       35
+      ],
+      "ground": [
+       174,
+       202,
+       230
+      ],
+      "pixels": 2299,
+      "groundPixels": 1274
+     },
+     {
+      "phase": "menu",
+      "text": "Permits",
+      "nodeId": "vitrea-node_r_a_",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 8.77,
+      "worstRatio": 8.66,
+      "pass": true,
+      "ink": [
+       26,
+       29,
+       31
+      ],
+      "ground": [
+       167,
+       190,
+       202
+      ],
+      "pixels": 1026,
+      "groundPixels": 541
+     },
+     {
+      "phase": "menu",
+      "text": "Cascade Pass",
+      "nodeId": "vitrea-node_r_5_",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 10.68,
+      "worstRatio": 10.58,
+      "pass": true,
+      "ink": [
+       29,
+       32,
+       36
+      ],
+      "ground": [
+       187,
+       212,
+       238
+      ],
+      "pixels": 1900,
+      "groundPixels": 1008
+     },
+     {
+      "phase": "menu",
+      "text": "7.4 mi",
+      "nodeId": "vitrea-node_r_5_",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 10.74,
+      "worstRatio": 10.63,
+      "pass": true,
+      "ink": [
+       29,
+       33,
+       36
+      ],
+      "ground": [
+       189,
+       213,
+       233
+      ],
+      "pixels": 817,
+      "groundPixels": 520
+     },
+     {
+      "phase": "menu",
+      "text": "· ↑",
+      "nodeId": "vitrea-node_r_5_",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 10.57,
+      "worstRatio": 10.45,
+      "pass": true,
+      "ink": [
+       28,
+       32,
+       36
+      ],
+      "ground": [
+       186,
+       211,
+       233
+      ],
+      "pixels": 532,
+      "groundPixels": 436
+     },
+     {
+      "phase": "menu",
+      "text": "1,800 ft",
+      "nodeId": "vitrea-node_r_5_",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 10.23,
+      "worstRatio": 10.16,
+      "pass": true,
+      "ink": [
+       28,
+       32,
+       36
+      ],
+      "ground": [
+       180,
+       207,
+       235
+      ],
+      "pixels": 1064,
+      "groundPixels": 615
+     },
+     {
+      "phase": "menu",
+      "text": "Cascade Pass",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 10.18,
+      "worstRatio": 10.05,
+      "pass": true,
+      "ink": [
+       27,
+       32,
+       35
+      ],
+      "ground": [
+       175,
+       208,
+       229
+      ],
+      "pixels": 1919,
+      "groundPixels": 1027
+     },
+     {
+      "phase": "menu",
+      "text": "Day",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 12,
+      "bold": false,
+      "large": false,
+      "ratio": 10.26,
+      "worstRatio": 10.25,
+      "pass": true,
+      "ink": [
+       27,
+       32,
+       35
+      ],
+      "ground": [
+       177,
+       209,
+       227
+      ],
+      "pixels": 368,
+      "groundPixels": 368
+     },
+     {
+      "phase": "menu",
+      "text": "Trailhead",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 12,
+      "bold": false,
+      "large": false,
+      "ratio": 9.92,
+      "worstRatio": 9.72,
+      "pass": true,
+      "ink": [
+       27,
+       31,
+       33
+      ],
+      "ground": [
+       176,
+       205,
+       217
+      ],
+      "pixels": 944,
+      "groundPixels": 456
+     },
+     {
+      "phase": "menu",
+      "text": "3,600 ft",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 12,
+      "bold": false,
+      "large": false,
+      "ratio": 9.81,
+      "worstRatio": 9.69,
+      "pass": true,
+      "ink": [
+       27,
+       31,
+       32
+      ],
+      "ground": [
+       179,
+       203,
+       212
+      ],
+      "pixels": 800,
+      "groundPixels": 403
+     },
+     {
+      "phase": "menu",
+      "text": "High point",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 12,
+      "bold": false,
+      "large": false,
+      "ratio": 9.41,
+      "worstRatio": 9.29,
+      "pass": true,
+      "ink": [
+       27,
+       30,
+       32
+      ],
+      "ground": [
+       174,
+       198,
+       210
+      ],
+      "pixels": 1040,
+      "groundPixels": 486
+     },
+     {
+      "phase": "menu",
+      "text": "5,400 ft",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 12,
+      "bold": false,
+      "large": false,
+      "ratio": 9.83,
+      "worstRatio": 9.47,
+      "pass": true,
+      "ink": [
+       28,
+       31,
+       32
+      ],
+      "ground": [
+       185,
+       202,
+       211
+      ],
+      "pixels": 784,
+      "groundPixels": 391
+     },
+     {
+      "phase": "menu",
+      "text": "Today",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 10.32,
+      "worstRatio": 10.28,
+      "pass": true,
+      "ink": [
+       28,
+       32,
+       34
+      ],
+      "ground": [
+       184,
+       209,
+       221
+      ],
+      "pixels": 738,
+      "groundPixels": 367
+     },
+     {
+      "phase": "menu",
+      "text": "47",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 9.61,
+      "worstRatio": 9.59,
+      "pass": true,
+      "ink": [
+       27,
+       31,
+       32
+      ],
+      "ground": [
+       175,
+       201,
+       210
+      ],
+      "pixels": 342,
+      "groundPixels": 204
+     },
+     {
+      "phase": "menu",
+      "text": "° /",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 9.53,
+      "worstRatio": 9.53,
+      "pass": true,
+      "ink": [
+       27,
+       31,
+       32
+      ],
+      "ground": [
+       174,
+       200,
+       210
+      ],
+      "pixels": 342,
+      "groundPixels": 269
+     },
+     {
+      "phase": "menu",
+      "text": "34",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 9.59,
+      "worstRatio": 9.52,
+      "pass": true,
+      "ink": [
+       27,
+       31,
+       32
+      ],
+      "ground": [
+       174,
+       201,
+       210
+      ],
+      "pixels": 324,
+      "groundPixels": 167
+     },
+     {
+      "phase": "menu",
+      "text": "°",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 9.56,
+      "worstRatio": 9.53,
+      "pass": true,
+      "ink": [
+       27,
+       31,
+       32
+      ],
+      "ground": [
+       176,
+       200,
+       210
+      ],
+      "pixels": 144,
+      "groundPixels": 111
+     },
+     {
+      "phase": "menu",
+      "text": "Showers, clearing",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 9.55,
+      "worstRatio": 9.46,
+      "pass": true,
+      "ink": [
+       27,
+       31,
+       32
+      ],
+      "ground": [
+       176,
+       200,
+       209
+      ],
+      "pixels": 1853,
+      "groundPixels": 1000
+     },
+     {
+      "phase": "menu",
+      "text": "41",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 9.21,
+      "worstRatio": 9.18,
+      "pass": true,
+      "ink": [
+       26,
+       30,
+       32
+      ],
+      "ground": [
+       170,
+       196,
+       208
+      ],
+      "pixels": 324,
+      "groundPixels": 206
+     },
+     {
+      "phase": "menu",
+      "text": "° /",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 9.2,
+      "worstRatio": 9.17,
+      "pass": true,
+      "ink": [
+       26,
+       30,
+       32
+      ],
+      "ground": [
+       169,
+       196,
+       208
+      ],
+      "pixels": 342,
+      "groundPixels": 265
+     },
+     {
+      "phase": "menu",
+      "text": "28",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 9.31,
+      "worstRatio": 9.19,
+      "pass": true,
+      "ink": [
+       26,
+       30,
+       32
+      ],
+      "ground": [
+       172,
+       197,
+       209
+      ],
+      "pixels": 342,
+      "groundPixels": 175
+     },
+     {
+      "phase": "menu",
+      "text": "°",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 9.42,
+      "worstRatio": 9.32,
+      "pass": true,
+      "ink": [
+       27,
+       30,
+       32
+      ],
+      "ground": [
+       175,
+       198,
+       209
+      ],
+      "pixels": 126,
+      "groundPixels": 97
+     },
+     {
+      "phase": "menu",
+      "text": "Showers, clearing",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 9.2,
+      "worstRatio": 9.09,
+      "pass": true,
+      "ink": [
+       26,
+       30,
+       32
+      ],
+      "ground": [
+       169,
+       196,
+       208
+      ],
+      "pixels": 1836,
+      "groundPixels": 967
+     },
+     {
+      "phase": "menu",
+      "text": "Sunday",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 10.72,
+      "worstRatio": 10.56,
+      "pass": true,
+      "ink": [
+       30,
+       33,
+       33
+      ],
+      "ground": [
+       194,
+       213,
+       218
+      ],
+      "pixels": 918,
+      "groundPixels": 442
+     },
+     {
+      "phase": "menu",
+      "text": "53",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 10.27,
+      "worstRatio": 9.99,
+      "pass": true,
+      "ink": [
+       28,
+       32,
+       33
+      ],
+      "ground": [
+       184,
+       209,
+       214
+      ],
+      "pixels": 342,
+      "groundPixels": 177
+     },
+     {
+      "phase": "menu",
+      "text": "° /",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 10.36,
+      "worstRatio": 10.05,
+      "pass": true,
+      "ink": [
+       28,
+       32,
+       33
+      ],
+      "ground": [
+       185,
+       210,
+       215
+      ],
+      "pixels": 342,
+      "groundPixels": 269
+     },
+     {
+      "phase": "menu",
+      "text": "32",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 10.28,
+      "worstRatio": 10.01,
+      "pass": true,
+      "ink": [
+       28,
+       32,
+       33
+      ],
+      "ground": [
+       184,
+       209,
+       215
+      ],
+      "pixels": 324,
+      "groundPixels": 168
+     },
+     {
+      "phase": "menu",
+      "text": "°",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 10.62,
+      "worstRatio": 10.02,
+      "pass": true,
+      "ink": [
+       29,
+       33,
+       33
+      ],
+      "ground": [
+       188,
+       213,
+       218
+      ],
+      "pixels": 144,
+      "groundPixels": 108
+     },
+     {
+      "phase": "menu",
+      "text": "Sunny",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 11.27,
+      "worstRatio": 10.96,
+      "pass": true,
+      "ink": [
+       30,
+       34,
+       34
+      ],
+      "ground": [
+       193,
+       221,
+       225
+      ],
+      "pixels": 663,
+      "groundPixels": 350
+     },
+     {
+      "phase": "menu",
+      "text": "47",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 9.59,
+      "worstRatio": 9.39,
+      "pass": true,
+      "ink": [
+       26,
+       31,
+       32
+      ],
+      "ground": [
+       170,
+       202,
+       209
+      ],
+      "pixels": 324,
+      "groundPixels": 190
+     },
+     {
+      "phase": "menu",
+      "text": "° /",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 9.5,
+      "worstRatio": 9.26,
+      "pass": true,
+      "ink": [
+       26,
+       31,
+       32
+      ],
+      "ground": [
+       168,
+       201,
+       210
+      ],
+      "pixels": 342,
+      "groundPixels": 266
+     },
+     {
+      "phase": "menu",
+      "text": "26",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 9.39,
+      "worstRatio": 9.28,
+      "pass": true,
+      "ink": [
+       26,
+       30,
+       32
+      ],
+      "ground": [
+       169,
+       199,
+       210
+      ],
+      "pixels": 342,
+      "groundPixels": 177
+     },
+     {
+      "phase": "menu",
+      "text": "°",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 9.66,
+      "worstRatio": 9.3,
+      "pass": true,
+      "ink": [
+       27,
+       31,
+       32
+      ],
+      "ground": [
+       174,
+       202,
+       211
+      ],
+      "pixels": 126,
+      "groundPixels": 97
+     }
+    ]
+   },
+   "rootFound": true,
+   "api": {
+    "missing": []
+   },
+   "colorScheme": "light",
+   "schemeFollowed": true,
+   "windowActivation": "active",
+   "material": {
+    "name": "apple-macos-27.0-glass0.5",
+    "platform": "macOS 27.0",
+    "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+    "resolvedMaterialSha256": "be13dae45098fc89",
+    "tuned": false
+   },
+   "webgpu": {
+    "available": true,
+    "ownership": "vitrea",
+    "deviceHealth": "ok",
+    "unavailableReason": null,
+    "hasDevice": true
+   },
+   "platformProbe": {
+    "engine": {
+     "family": "chromium",
+     "version": 151
+    },
+    "reach": "verified"
+   },
+   "accessibility": {
+    "reducedTransparency": false,
+    "reducedMotion": false,
+    "increasedContrast": false,
+    "forcedColors": false,
+    "material": {
+     "glass": "material",
+     "colorSource": "material",
+     "frost": "nominal",
+     "refraction": "nominal",
+     "occlusion": "nominal",
+     "border": "nominal",
+     "ambientTint": "nominal",
+     "foreground": "adaptive"
+    },
+    "motion": {
+     "overshoot": "elastic",
+     "deformation": "nominal",
+     "shimmer": "travel",
+     "morph": "elastic",
+     "crossfade": "never",
+     "positionalContinuity": true
+    }
+   },
+   "surfaces": [
+    {
+     "nodeId": "vitrea-node_r_a_",
+     "groupId": "permits",
+     "plane": "base",
+     "selector": "div#pt-planner > button[data-vitrea-node=\"vitrea-node_r_a_\"].pt-control",
+     "tag": "button",
+     "role": null,
+     "rect": [
+      786.8,
+      20,
+      87.1,
+      48
+     ],
+     "span": 48,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "capsule",
+     "radii": [
+      24,
+      24,
+      24,
+      24
+     ],
+     "smoothing": 0.52866495,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "24px",
+     "label": "Permit steps for Cascade Pass"
+    },
+    {
+     "nodeId": "vitrea-node_r_5_",
+     "groupId": "route",
+     "plane": "base",
+     "selector": "body > div:nth-of-type(1) > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div[data-vitrea-node=\"vitrea-node_r_5_\"].pt-platter",
+     "tag": "div",
+     "role": null,
+     "rect": [
+      86.4,
+      20,
+      370,
+      48
+     ],
+     "span": 48,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "fixed-rounded-rect",
+     "radii": [
+      24,
+      24,
+      24,
+      24
+     ],
+     "smoothing": 0.66,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "0px",
+     "label": "Route"
+    },
+    {
+     "nodeId": "vitrea-node_r_8_",
+     "groupId": "weather",
+     "plane": "base",
+     "selector": "body > div:nth-of-type(1) > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(3) > div[data-vitrea-node=\"vitrea-node_r_8_\"].pt-platter",
+     "tag": "div",
+     "role": null,
+     "rect": [
+      504.5,
+      20,
+      234,
+      48
+     ],
+     "span": 48,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "fixed-rounded-rect",
+     "radii": [
+      24,
+      24,
+      24,
+      24
+     ],
+     "smoothing": 0.66,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "0px",
+     "label": "Weather"
+    }
+   ],
+   "surfacesInFrame": 3,
+   "planes": [
+    {
+     "plane": "base",
+     "nodes": 3
+    },
+    {
+     "plane": "overlay",
+     "nodes": 0
+    }
+   ],
+   "groups": [
+    {
+     "id": "permits",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.77,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "route",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.77,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "weather",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.77,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    }
+   ],
+   "diagnostics": [],
+   "derivedFindings": [],
+   "menu": "captured",
+   "menuSurfaces": [
+    {
+     "nodeId": "vitrea-node_r_a_",
+     "groupId": "permits",
+     "plane": "base",
+     "selector": "div#pt-planner > button[data-vitrea-node=\"vitrea-node_r_a_\"].pt-control",
+     "tag": "button",
+     "role": null,
+     "rect": [
+      786.8,
+      20,
+      87.1,
+      48
+     ],
+     "span": 48,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "capsule",
+     "radii": [
+      24,
+      24,
+      24,
+      24
+     ],
+     "smoothing": 0.52866495,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "24px",
+     "label": "Permit steps for Cascade Pass"
+    },
+    {
+     "nodeId": "vitrea-node_r_5_",
+     "groupId": "route",
+     "plane": "base",
+     "selector": "body > div:nth-of-type(1) > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div[data-vitrea-node=\"vitrea-node_r_5_\"].pt-platter",
+     "tag": "div",
+     "role": null,
+     "rect": [
+      86.4,
+      20,
+      370,
+      48
+     ],
+     "span": 48,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "fixed-rounded-rect",
+     "radii": [
+      24,
+      24,
+      24,
+      24
+     ],
+     "smoothing": 0.66,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "0px",
+     "label": "Route"
+    },
+    {
+     "nodeId": "vitrea-node_r_8_",
+     "groupId": "weather",
+     "plane": "overlay",
+     "selector": "body > div:nth-of-type(1) > div[data-vitrea-root] > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div > div[data-vitrea-node=\"vitrea-node_r_8_\"].pt-platter",
+     "tag": "div",
+     "role": null,
+     "rect": [
+      504.5,
+      78,
+      356,
+      284
+     ],
+     "span": 284,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "fixed-rounded-rect",
+     "radii": [
+      27.925883569473182,
+      27.925883569473182,
+      27.925883569473182,
+      27.925883569473182
+     ],
+     "smoothing": 0.66,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "0px",
+     "label": "Weather"
+    }
+   ],
+   "menuGroups": [
+    {
+     "id": "permits",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.77,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "route",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.77,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "weather",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 20.38,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    }
+   ],
+   "menuDiagnostics": [],
+   "ban": {
+    "rest": {
+     "findings": [],
+     "unmeasured": [],
+     "hostsRead": 3,
+     "cssTierHosts": 0
+    },
+    "menu": {
+     "findings": [],
+     "unmeasured": [],
+     "hostsRead": 3,
+     "cssTierHosts": 0
+    }
+   }
+  },
+  "dark": {
+   "scheme": "dark",
+   "readyState": "settled",
+   "adapter": {
+    "available": true,
+    "vendor": "apple",
+    "architecture": "metal-3",
+    "device": "",
+    "description": "",
+    "isFallbackAdapter": false
+   },
+   "errors": [],
+   "consoleErrors": [],
+   "failedRequests": [],
+   "badResponses": [],
+   "scrolledOnLoad": 0,
+   "docHeight": 900,
+   "words": 1257,
+   "title": "Park trails — a Liquid Glass demo on vitrea",
+   "placeholder": false,
+   "captureWidth": 1440,
+   "overflowCapture": false,
+   "overflowAtLoad": false,
+   "contrast": {
+    "method": "dom-composite",
+    "checked": 256,
+    "pass": 256,
+    "unknown": 0,
+    "rate": 1,
+    "onGlass": 5,
+    "onGlassPass": 5,
+    "fails": []
+   },
+   "glassContrast": {
+    "method": "rendered-pixels",
+    "pairs": 57,
+    "pass": 57,
+    "minRatio": 4.77,
+    "byPhase": {
+     "fv": {
+      "pairs": 8,
+      "pass": 8
+     },
+     "menu": {
+      "pairs": 49,
+      "pass": 49
+     }
+    },
+    "fails": [],
+    "sample": [
+     {
+      "phase": "fv",
+      "text": "Permits",
+      "nodeId": "vitrea-node_r_a_",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 6.91,
+      "worstRatio": 6.9,
+      "pass": true,
+      "ink": [
+       217,
+       219,
+       220
+      ],
+      "ground": [
+       61,
+       70,
+       78
+      ],
+      "pixels": 1026,
+      "groundPixels": 555
+     },
+     {
+      "phase": "fv",
+      "text": "Cascade Pass",
+      "nodeId": "vitrea-node_r_5_",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 5.42,
+      "worstRatio": 5.42,
+      "pass": true,
+      "ink": [
+       220,
+       222,
+       225
+      ],
+      "ground": [
+       78,
+       87,
+       102
+      ],
+      "pixels": 1900,
+      "groundPixels": 1026
+     },
+     {
+      "phase": "fv",
+      "text": "7.4 mi",
+      "nodeId": "vitrea-node_r_5_",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 5.43,
+      "worstRatio": 5.36,
+      "pass": true,
+      "ink": [
+       220,
+       222,
+       225
+      ],
+      "ground": [
+       78,
+       87,
+       100
+      ],
+      "pixels": 817,
+      "groundPixels": 534
+     },
+     {
+      "phase": "fv",
+      "text": "· ↑",
+      "nodeId": "vitrea-node_r_5_",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 5.44,
+      "worstRatio": 5.43,
+      "pass": true,
+      "ink": [
+       220,
+       222,
+       225
+      ],
+      "ground": [
+       77,
+       87,
+       100
+      ],
+      "pixels": 532,
+      "groundPixels": 442
+     },
+     {
+      "phase": "fv",
+      "text": "1,800 ft",
+      "nodeId": "vitrea-node_r_5_",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 5.44,
+      "worstRatio": 5.43,
+      "pass": true,
+      "ink": [
+       220,
+       222,
+       225
+      ],
+      "ground": [
+       76,
+       87,
+       103
+      ],
+      "pixels": 1064,
+      "groundPixels": 618
+     },
+     {
+      "phase": "fv",
+      "text": "41",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 6.31,
+      "worstRatio": 6.23,
+      "pass": true,
+      "ink": [
+       218,
+       220,
+       223
+      ],
+      "ground": [
+       66,
+       76,
+       92
+      ],
+      "pixels": 342,
+      "groundPixels": 202
+     },
+     {
+      "phase": "fv",
+      "text": "°",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 6.24,
+      "worstRatio": 6.22,
+      "pass": true,
+      "ink": [
+       218,
+       220,
+       223
+      ],
+      "ground": [
+       67,
+       77,
+       91
+      ],
+      "pixels": 152,
+      "groundPixels": 108
+     },
+     {
+      "phase": "fv",
+      "text": "Showers, clearing",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 6.32,
+      "worstRatio": 6.24,
+      "pass": true,
+      "ink": [
+       218,
+       220,
+       223
+      ],
+      "ground": [
+       66,
+       76,
+       91
+      ],
+      "pixels": 2299,
+      "groundPixels": 1281
+     },
+     {
+      "phase": "menu",
+      "text": "Permits",
+      "nodeId": "vitrea-node_r_a_",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 7,
+      "worstRatio": 6.98,
+      "pass": true,
+      "ink": [
+       217,
+       219,
+       220
+      ],
+      "ground": [
+       60,
+       69,
+       77
+      ],
+      "pixels": 1026,
+      "groundPixels": 560
+     },
+     {
+      "phase": "menu",
+      "text": "Cascade Pass",
+      "nodeId": "vitrea-node_r_5_",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 5.42,
+      "worstRatio": 5.42,
+      "pass": true,
+      "ink": [
+       220,
+       222,
+       225
+      ],
+      "ground": [
+       78,
+       87,
+       102
+      ],
+      "pixels": 1900,
+      "groundPixels": 1026
+     },
+     {
+      "phase": "menu",
+      "text": "7.4 mi",
+      "nodeId": "vitrea-node_r_5_",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 5.43,
+      "worstRatio": 5.36,
+      "pass": true,
+      "ink": [
+       220,
+       222,
+       225
+      ],
+      "ground": [
+       78,
+       87,
+       100
+      ],
+      "pixels": 817,
+      "groundPixels": 534
+     },
+     {
+      "phase": "menu",
+      "text": "· ↑",
+      "nodeId": "vitrea-node_r_5_",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 5.44,
+      "worstRatio": 5.43,
+      "pass": true,
+      "ink": [
+       220,
+       222,
+       225
+      ],
+      "ground": [
+       77,
+       87,
+       100
+      ],
+      "pixels": 532,
+      "groundPixels": 442
+     },
+     {
+      "phase": "menu",
+      "text": "1,800 ft",
+      "nodeId": "vitrea-node_r_5_",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 5.44,
+      "worstRatio": 5.43,
+      "pass": true,
+      "ink": [
+       220,
+       222,
+       225
+      ],
+      "ground": [
+       76,
+       87,
+       103
+      ],
+      "pixels": 1064,
+      "groundPixels": 618
+     },
+     {
+      "phase": "menu",
+      "text": "Cascade Pass",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 5.57,
+      "worstRatio": 5.56,
+      "pass": true,
+      "ink": [
+       221,
+       222,
+       222
+      ],
+      "ground": [
+       81,
+       85,
+       88
+      ],
+      "pixels": 1818,
+      "groundPixels": 930
+     },
+     {
+      "phase": "menu",
+      "text": "Day",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 12,
+      "bold": false,
+      "large": false,
+      "ratio": 5.57,
+      "worstRatio": 5.57,
+      "pass": true,
+      "ink": [
+       221,
+       222,
+       222
+      ],
+      "ground": [
+       81,
+       85,
+       88
+      ],
+      "pixels": 368,
+      "groundPixels": 368
+     },
+     {
+      "phase": "menu",
+      "text": "Trailhead",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 12,
+      "bold": false,
+      "large": false,
+      "ratio": 5.63,
+      "worstRatio": 5.57,
+      "pass": true,
+      "ink": [
+       221,
+       221,
+       222
+      ],
+      "ground": [
+       81,
+       84,
+       87
+      ],
+      "pixels": 885,
+      "groundPixels": 397
+     },
+     {
+      "phase": "menu",
+      "text": "3,600 ft",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 12,
+      "bold": false,
+      "large": false,
+      "ratio": 5.64,
+      "worstRatio": 5.64,
+      "pass": true,
+      "ink": [
+       221,
+       221,
+       222
+      ],
+      "ground": [
+       81,
+       84,
+       86
+      ],
+      "pixels": 750,
+      "groundPixels": 360
+     },
+     {
+      "phase": "menu",
+      "text": "High point",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 12,
+      "bold": false,
+      "large": false,
+      "ratio": 5.64,
+      "worstRatio": 5.64,
+      "pass": true,
+      "ink": [
+       221,
+       221,
+       222
+      ],
+      "ground": [
+       81,
+       84,
+       86
+      ],
+      "pixels": 975,
+      "groundPixels": 436
+     },
+     {
+      "phase": "menu",
+      "text": "5,400 ft",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 12,
+      "bold": false,
+      "large": false,
+      "ratio": 5.62,
+      "worstRatio": 5.62,
+      "pass": true,
+      "ink": [
+       221,
+       221,
+       222
+      ],
+      "ground": [
+       82,
+       84,
+       86
+      ],
+      "pixels": 735,
+      "groundPixels": 342
+     },
+     {
+      "phase": "menu",
+      "text": "Today",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 5.56,
+      "worstRatio": 5.55,
+      "pass": true,
+      "ink": [
+       221,
+       222,
+       222
+      ],
+      "ground": [
+       82,
+       85,
+       87
+      ],
+      "pixels": 697,
+      "groundPixels": 328
+     },
+     {
+      "phase": "menu",
+      "text": "47",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 5.64,
+      "worstRatio": 5.64,
+      "pass": true,
+      "ink": [
+       221,
+       221,
+       222
+      ],
+      "ground": [
+       81,
+       84,
+       86
+      ],
+      "pixels": 323,
+      "groundPixels": 186
+     },
+     {
+      "phase": "menu",
+      "text": "° /",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 5.64,
+      "worstRatio": 5.64,
+      "pass": true,
+      "ink": [
+       221,
+       221,
+       222
+      ],
+      "ground": [
+       81,
+       84,
+       86
+      ],
+      "pixels": 323,
+      "groundPixels": 251
+     },
+     {
+      "phase": "menu",
+      "text": "34",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 5.64,
+      "worstRatio": 5.64,
+      "pass": true,
+      "ink": [
+       221,
+       221,
+       222
+      ],
+      "ground": [
+       81,
+       84,
+       86
+      ],
+      "pixels": 306,
+      "groundPixels": 149
+     },
+     {
+      "phase": "menu",
+      "text": "°",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 5.64,
+      "worstRatio": 5.64,
+      "pass": true,
+      "ink": [
+       221,
+       221,
+       222
+      ],
+      "ground": [
+       81,
+       84,
+       86
+      ],
+      "pixels": 136,
+      "groundPixels": 103
+     },
+     {
+      "phase": "menu",
+      "text": "Showers, clearing",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 5.64,
+      "worstRatio": 5.62,
+      "pass": true,
+      "ink": [
+       221,
+       221,
+       222
+      ],
+      "ground": [
+       81,
+       84,
+       86
+      ],
+      "pixels": 1744,
+      "groundPixels": 911
+     },
+     {
+      "phase": "menu",
+      "text": "41",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 5.71,
+      "worstRatio": 5.71,
+      "pass": true,
+      "ink": [
+       221,
+       221,
+       222
+      ],
+      "ground": [
+       80,
+       83,
+       86
+      ],
+      "pixels": 306,
+      "groundPixels": 188
+     },
+     {
+      "phase": "menu",
+      "text": "° /",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 5.71,
+      "worstRatio": 5.71,
+      "pass": true,
+      "ink": [
+       221,
+       221,
+       222
+      ],
+      "ground": [
+       80,
+       83,
+       86
+      ],
+      "pixels": 323,
+      "groundPixels": 248
+     },
+     {
+      "phase": "menu",
+      "text": "28",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 5.71,
+      "worstRatio": 5.63,
+      "pass": true,
+      "ink": [
+       221,
+       221,
+       222
+      ],
+      "ground": [
+       80,
+       83,
+       86
+      ],
+      "pixels": 323,
+      "groundPixels": 158
+     },
+     {
+      "phase": "menu",
+      "text": "°",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 5.64,
+      "worstRatio": 5.64,
+      "pass": true,
+      "ink": [
+       221,
+       221,
+       222
+      ],
+      "ground": [
+       81,
+       84,
+       86
+      ],
+      "pixels": 119,
+      "groundPixels": 90
+     },
+     {
+      "phase": "menu",
+      "text": "Showers, clearing",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 5.71,
+      "worstRatio": 5.63,
+      "pass": true,
+      "ink": [
+       221,
+       221,
+       222
+      ],
+      "ground": [
+       80,
+       83,
+       86
+      ],
+      "pixels": 1728,
+      "groundPixels": 862
+     },
+     {
+      "phase": "menu",
+      "text": "Sunday",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 5.55,
+      "worstRatio": 5.48,
+      "pass": true,
+      "ink": [
+       221,
+       222,
+       222
+      ],
+      "ground": [
+       83,
+       85,
+       87
+      ],
+      "pixels": 867,
+      "groundPixels": 397
+     },
+     {
+      "phase": "menu",
+      "text": "53",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 5.56,
+      "worstRatio": 5.5,
+      "pass": true,
+      "ink": [
+       221,
+       222,
+       222
+      ],
+      "ground": [
+       82,
+       85,
+       87
+      ],
+      "pixels": 323,
+      "groundPixels": 161
+     },
+     {
+      "phase": "menu",
+      "text": "° /",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 5.56,
+      "worstRatio": 5.47,
+      "pass": true,
+      "ink": [
+       221,
+       222,
+       222
+      ],
+      "ground": [
+       82,
+       85,
+       87
+      ],
+      "pixels": 323,
+      "groundPixels": 251
+     },
+     {
+      "phase": "menu",
+      "text": "32",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 5.36,
+      "worstRatio": 5.01,
+      "pass": true,
+      "ink": [
+       221,
+       222,
+       222
+      ],
+      "ground": [
+       84,
+       88,
+       89
+      ],
+      "pixels": 306,
+      "groundPixels": 153
+     },
+     {
+      "phase": "menu",
+      "text": "°",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 4.77,
+      "worstRatio": 4.49,
+      "pass": true,
+      "ink": [
+       223,
+       224,
+       224
+      ],
+      "ground": [
+       94,
+       96,
+       98
+      ],
+      "pixels": 136,
+      "groundPixels": 103
+     },
+     {
+      "phase": "menu",
+      "text": "Sunny",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 5.49,
+      "worstRatio": 5.42,
+      "pass": true,
+      "ink": [
+       221,
+       222,
+       222
+      ],
+      "ground": [
+       83,
+       86,
+       88
+      ],
+      "pixels": 624,
+      "groundPixels": 314
+     },
+     {
+      "phase": "menu",
+      "text": "47",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 5.65,
+      "worstRatio": 5.59,
+      "pass": true,
+      "ink": [
+       221,
+       221,
+       222
+      ],
+      "ground": [
+       80,
+       84,
+       86
+      ],
+      "pixels": 306,
+      "groundPixels": 172
+     },
+     {
+      "phase": "menu",
+      "text": "° /",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 5.65,
+      "worstRatio": 5.65,
+      "pass": true,
+      "ink": [
+       221,
+       221,
+       222
+      ],
+      "ground": [
+       80,
+       84,
+       86
+      ],
+      "pixels": 323,
+      "groundPixels": 248
+     },
+     {
+      "phase": "menu",
+      "text": "26",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 5.65,
+      "worstRatio": 5.64,
+      "pass": true,
+      "ink": [
+       221,
+       221,
+       222
+      ],
+      "ground": [
+       80,
+       84,
+       86
+      ],
+      "pixels": 323,
+      "groundPixels": 159
+     },
+     {
+      "phase": "menu",
+      "text": "°",
+      "nodeId": "vitrea-node_r_8_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 5.64,
+      "worstRatio": 5.64,
+      "pass": true,
+      "ink": [
+       221,
+       221,
+       222
+      ],
+      "ground": [
+       81,
+       84,
+       86
+      ],
+      "pixels": 119,
+      "groundPixels": 90
+     }
+    ]
+   },
+   "rootFound": true,
+   "api": {
+    "missing": []
+   },
+   "colorScheme": "dark",
+   "schemeFollowed": true,
+   "windowActivation": "active",
+   "material": {
+    "name": "apple-macos-27.0-glass0.5",
+    "platform": "macOS 27.0",
+    "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+    "resolvedMaterialSha256": "2a4323f33df8d799",
+    "tuned": false
+   },
+   "webgpu": {
+    "available": true,
+    "ownership": "vitrea",
+    "deviceHealth": "ok",
+    "unavailableReason": null,
+    "hasDevice": true
+   },
+   "platformProbe": {
+    "engine": {
+     "family": "chromium",
+     "version": 151
+    },
+    "reach": "verified"
+   },
+   "accessibility": {
+    "reducedTransparency": false,
+    "reducedMotion": false,
+    "increasedContrast": false,
+    "forcedColors": false,
+    "material": {
+     "glass": "material",
+     "colorSource": "material",
+     "frost": "nominal",
+     "refraction": "nominal",
+     "occlusion": "nominal",
+     "border": "nominal",
+     "ambientTint": "nominal",
+     "foreground": "adaptive"
+    },
+    "motion": {
+     "overshoot": "elastic",
+     "deformation": "nominal",
+     "shimmer": "travel",
+     "morph": "elastic",
+     "crossfade": "never",
+     "positionalContinuity": true
+    }
+   },
+   "surfaces": [
+    {
+     "nodeId": "vitrea-node_r_a_",
+     "groupId": "permits",
+     "plane": "base",
+     "selector": "div#pt-planner > button[data-vitrea-node=\"vitrea-node_r_a_\"].pt-control",
+     "tag": "button",
+     "role": null,
+     "rect": [
+      786.8,
+      20,
+      87.1,
+      48
+     ],
+     "span": 48,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "capsule",
+     "radii": [
+      24,
+      24,
+      24,
+      24
+     ],
+     "smoothing": 0.52866495,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "24px",
+     "label": "Permit steps for Cascade Pass"
+    },
+    {
+     "nodeId": "vitrea-node_r_5_",
+     "groupId": "route",
+     "plane": "base",
+     "selector": "body > div:nth-of-type(1) > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div[data-vitrea-node=\"vitrea-node_r_5_\"].pt-platter",
+     "tag": "div",
+     "role": null,
+     "rect": [
+      86.4,
+      20,
+      370,
+      48
+     ],
+     "span": 48,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "fixed-rounded-rect",
+     "radii": [
+      24,
+      24,
+      24,
+      24
+     ],
+     "smoothing": 0.66,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "0px",
+     "label": "Route"
+    },
+    {
+     "nodeId": "vitrea-node_r_8_",
+     "groupId": "weather",
+     "plane": "base",
+     "selector": "body > div:nth-of-type(1) > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(3) > div[data-vitrea-node=\"vitrea-node_r_8_\"].pt-platter",
+     "tag": "div",
+     "role": null,
+     "rect": [
+      504.5,
+      20,
+      234,
+      48
+     ],
+     "span": 48,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "fixed-rounded-rect",
+     "radii": [
+      24,
+      24,
+      24,
+      24
+     ],
+     "smoothing": 0.66,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "0px",
+     "label": "Weather"
+    }
+   ],
+   "surfacesInFrame": 3,
+   "planes": [
+    {
+     "plane": "base",
+     "nodes": 3
+    },
+    {
+     "plane": "overlay",
+     "nodes": 0
+    }
+   ],
+   "groups": [
+    {
+     "id": "permits",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "resolvedMaterialSha256": "2a4323f33df8d799",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 8.83,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "route",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "resolvedMaterialSha256": "2a4323f33df8d799",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 8.85,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "weather",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "resolvedMaterialSha256": "2a4323f33df8d799",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 8.84,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    }
+   ],
+   "diagnostics": [],
+   "derivedFindings": [],
+   "menu": "captured",
+   "menuSurfaces": [
+    {
+     "nodeId": "vitrea-node_r_a_",
+     "groupId": "permits",
+     "plane": "base",
+     "selector": "div#pt-planner > button[data-vitrea-node=\"vitrea-node_r_a_\"].pt-control",
+     "tag": "button",
+     "role": null,
+     "rect": [
+      786.8,
+      20,
+      87.1,
+      48
+     ],
+     "span": 48,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "capsule",
+     "radii": [
+      24,
+      24,
+      24,
+      24
+     ],
+     "smoothing": 0.52866495,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "24px",
+     "label": "Permit steps for Cascade Pass"
+    },
+    {
+     "nodeId": "vitrea-node_r_5_",
+     "groupId": "route",
+     "plane": "base",
+     "selector": "body > div:nth-of-type(1) > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div[data-vitrea-node=\"vitrea-node_r_5_\"].pt-platter",
+     "tag": "div",
+     "role": null,
+     "rect": [
+      86.4,
+      20,
+      370,
+      48
+     ],
+     "span": 48,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "fixed-rounded-rect",
+     "radii": [
+      24,
+      24,
+      24,
+      24
+     ],
+     "smoothing": 0.66,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "0px",
+     "label": "Route"
+    },
+    {
+     "nodeId": "vitrea-node_r_8_",
+     "groupId": "weather",
+     "plane": "overlay",
+     "selector": "body > div:nth-of-type(1) > div[data-vitrea-root] > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div > div[data-vitrea-node=\"vitrea-node_r_8_\"].pt-platter",
+     "tag": "div",
+     "role": null,
+     "rect": [
+      504.5,
+      78,
+      356,
+      284
+     ],
+     "span": 284,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "fixed-rounded-rect",
+     "radii": [
+      27.947270957357972,
+      27.947270957357972,
+      27.947270957357972,
+      27.947270957357972
+     ],
+     "smoothing": 0.66,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "0px",
+     "label": "Weather"
+    }
+   ],
+   "menuGroups": [
+    {
+     "id": "permits",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "resolvedMaterialSha256": "2a4323f33df8d799",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 8.83,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "route",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "resolvedMaterialSha256": "2a4323f33df8d799",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 8.85,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "weather",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "resolvedMaterialSha256": "2a4323f33df8d799",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 20.38,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    }
+   ],
+   "menuDiagnostics": [],
+   "ban": {
+    "rest": {
+     "findings": [],
+     "unmeasured": [],
+     "hostsRead": 3,
+     "cssTierHosts": 0
+    },
+    "menu": {
+     "findings": [],
+     "unmeasured": [],
+     "hostsRead": 3,
+     "cssTierHosts": 0
+    }
+   }
+  }
+ },
+ "surfaces": [
+  {
+   "nodeId": "vitrea-node_r_a_",
+   "groupId": "permits",
+   "plane": "base",
+   "selector": "div#pt-planner > button[data-vitrea-node=\"vitrea-node_r_a_\"].pt-control",
+   "tag": "button",
+   "role": null,
+   "rect": [
+    786.8,
+    20,
+    87.1,
+    48
+   ],
+   "span": 48,
+   "boundsFrom": "renderInput",
+   "shapeFamily": "capsule",
+   "radii": [
+    24,
+    24,
+    24,
+    24
+   ],
+   "smoothing": 0.52866495,
+   "thickness": 8,
+   "variant": "regular",
+   "tinted": false,
+   "cssRadius": "24px",
+   "label": "Permit steps for Cascade Pass"
+  },
+  {
+   "nodeId": "vitrea-node_r_5_",
+   "groupId": "route",
+   "plane": "base",
+   "selector": "body > div:nth-of-type(1) > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div[data-vitrea-node=\"vitrea-node_r_5_\"].pt-platter",
+   "tag": "div",
+   "role": null,
+   "rect": [
+    86.4,
+    20,
+    370,
+    48
+   ],
+   "span": 48,
+   "boundsFrom": "renderInput",
+   "shapeFamily": "fixed-rounded-rect",
+   "radii": [
+    24,
+    24,
+    24,
+    24
+   ],
+   "smoothing": 0.66,
+   "thickness": 8,
+   "variant": "regular",
+   "tinted": false,
+   "cssRadius": "0px",
+   "label": "Route"
+  },
+  {
+   "nodeId": "vitrea-node_r_8_",
+   "groupId": "weather",
+   "plane": "base",
+   "selector": "body > div:nth-of-type(1) > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(3) > div[data-vitrea-node=\"vitrea-node_r_8_\"].pt-platter",
+   "tag": "div",
+   "role": null,
+   "rect": [
+    504.5,
+    20,
+    234,
+    48
+   ],
+   "span": 48,
+   "boundsFrom": "renderInput",
+   "shapeFamily": "fixed-rounded-rect",
+   "radii": [
+    24,
+    24,
+    24,
+    24
+   ],
+   "smoothing": 0.66,
+   "thickness": 8,
+   "variant": "regular",
+   "tinted": false,
+   "cssRadius": "0px",
+   "label": "Weather"
+  }
+ ],
+ "planes": [
+  {
+   "plane": "base",
+   "nodes": 3
+  },
+  {
+   "plane": "overlay",
+   "nodes": 0
+  }
+ ],
+ "diagnostics": [],
+ "unknownDiagnosticCodes": [],
+ "named": {
+  "nestedGlass": false,
+  "samePlaneOverlap": false,
+  "contentLayerHost": false,
+  "demotedBackdropRoot": false,
+  "hostOutsidePlane": false,
+  "nonUniformRadii": false,
+  "tintUnparseable": false,
+  "tintMixing": false,
+  "variantMixing": false
+ },
+ "banSubset": {
+  "findings": [],
+  "counts": {},
+  "unmeasured": []
+ },
+ "reduced": {
+  "method": "page-switch",
+  "applied": true,
+  "readyState": "settled",
+  "rootFound": true,
+  "errors": [],
+  "consoleErrors": [],
+  "policyBefore": {
+   "reducedTransparency": false,
+   "reducedMotion": false,
+   "increasedContrast": false,
+   "forcedColors": false,
+   "material": {
+    "glass": "material",
+    "colorSource": "material",
+    "frost": "nominal",
+    "refraction": "nominal",
+    "occlusion": "nominal",
+    "border": "nominal",
+    "ambientTint": "nominal",
+    "foreground": "adaptive"
+   },
+   "motion": {
+    "overshoot": "elastic",
+    "deformation": "nominal",
+    "shimmer": "travel",
+    "morph": "elastic",
+    "crossfade": "never",
+    "positionalContinuity": true
+   }
+  },
+  "policyAfter": {
+   "reducedTransparency": true,
+   "reducedMotion": false,
+   "increasedContrast": false,
+   "forcedColors": false,
+   "material": {
+    "glass": "material",
+    "colorSource": "material",
+    "frost": "increased",
+    "refraction": "reduced",
+    "occlusion": "increased",
+    "border": "nominal",
+    "ambientTint": "nominal",
+    "foreground": "adaptive"
+   },
+   "motion": {
+    "overshoot": "elastic",
+    "deformation": "nominal",
+    "shimmer": "travel",
+    "morph": "elastic",
+    "crossfade": "never",
+    "positionalContinuity": true
+   }
+  },
+  "policyChanged": true,
+  "policyAsAsked": true,
+  "groups": [
+   {
+    "id": "permits",
+    "moved": true,
+    "before": {
+     "id": "permits",
+     "renderer": "webgpu",
+     "refraction": "true",
+     "cssBody": null,
+     "cssTint": null,
+     "blurRadius": 7.773,
+     "nodes": [
+      {
+       "nodeId": "vitrea-node_r_a_",
+       "blurRadius": 2.75,
+       "tintAlpha": 0.668,
+       "borderAlpha": 0.034,
+       "refraction": "true"
+      }
+     ]
+    },
+    "after": {
+     "id": "permits",
+     "renderer": "webgpu",
+     "refraction": "true",
+     "cssBody": null,
+     "cssTint": null,
+     "blurRadius": 13.4,
+     "nodes": [
+      {
+       "nodeId": "vitrea-node_r_a_",
+       "blurRadius": 4.813,
+       "tintAlpha": 0.929,
+       "borderAlpha": 0.005,
+       "refraction": "approximate"
+      }
+     ]
+    }
+   },
+   {
+    "id": "route",
+    "moved": true,
+    "before": {
+     "id": "route",
+     "renderer": "webgpu",
+     "refraction": "true",
+     "cssBody": null,
+     "cssTint": null,
+     "blurRadius": 7.773,
+     "nodes": [
+      {
+       "nodeId": "vitrea-node_r_5_",
+       "blurRadius": 2.75,
+       "tintAlpha": 0.692,
+       "borderAlpha": 0.026,
+       "refraction": "true"
+      }
+     ]
+    },
+    "after": {
+     "id": "route",
+     "renderer": "webgpu",
+     "refraction": "true",
+     "cssBody": null,
+     "cssTint": null,
+     "blurRadius": 13.4,
+     "nodes": [
+      {
+       "nodeId": "vitrea-node_r_5_",
+       "blurRadius": 4.813,
+       "tintAlpha": 0.929,
+       "borderAlpha": 0.004,
+       "refraction": "approximate"
+      }
+     ]
+    }
+   },
+   {
+    "id": "weather",
+    "moved": true,
+    "before": {
+     "id": "weather",
+     "renderer": "webgpu",
+     "refraction": "true",
+     "cssBody": null,
+     "cssTint": null,
+     "blurRadius": 7.773,
+     "nodes": [
+      {
+       "nodeId": "vitrea-node_r_8_",
+       "blurRadius": 2.75,
+       "tintAlpha": 0.676,
+       "borderAlpha": 0.029,
+       "refraction": "true"
+      }
+     ]
+    },
+    "after": {
+     "id": "weather",
+     "renderer": "webgpu",
+     "refraction": "true",
+     "cssBody": null,
+     "cssTint": null,
+     "blurRadius": 13.4,
+     "nodes": [
+      {
+       "nodeId": "vitrea-node_r_8_",
+       "blurRadius": 4.813,
+       "tintAlpha": 0.929,
+       "borderAlpha": 0.004,
+       "refraction": "approximate"
+      }
+     ]
+    }
+   }
+  ],
+  "materialMoved": true,
+  "captured": true
+ },
+ "emulation": {
+  "increasedContrast": {
+   "status": "ran",
+   "query": "(prefers-contrast: more)",
+   "readyState": "settled",
+   "rootFound": true,
+   "errors": [],
+   "consoleErrors": [],
+   "accessibility": {
+    "reducedTransparency": false,
+    "reducedMotion": false,
+    "increasedContrast": true,
+    "forcedColors": false,
+    "material": {
+     "glass": "material",
+     "colorSource": "material",
+     "frost": "nominal",
+     "refraction": "nominal",
+     "occlusion": "nominal",
+     "border": "strong",
+     "ambientTint": "reduced",
+     "foreground": "near-monochrome"
+    },
+    "motion": {
+     "overshoot": "elastic",
+     "deformation": "nominal",
+     "shimmer": "travel",
+     "morph": "elastic",
+     "crossfade": "never",
+     "positionalContinuity": true
+    }
+   },
+   "policyAsAsked": true,
+   "groups": [
+    {
+     "id": "permits",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.77,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "route",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.77,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "weather",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.77,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    }
+   ],
+   "diagnostics": []
+  },
+  "reducedMotion": {
+   "status": "ran",
+   "query": "(prefers-reduced-motion: reduce)",
+   "readyState": "settled",
+   "rootFound": true,
+   "errors": [],
+   "consoleErrors": [],
+   "accessibility": {
+    "reducedTransparency": false,
+    "reducedMotion": true,
+    "increasedContrast": false,
+    "forcedColors": false,
+    "material": {
+     "glass": "material",
+     "colorSource": "material",
+     "frost": "nominal",
+     "refraction": "nominal",
+     "occlusion": "nominal",
+     "border": "nominal",
+     "ambientTint": "nominal",
+     "foreground": "adaptive"
+    },
+    "motion": {
+     "overshoot": "none",
+     "deformation": "none",
+     "shimmer": "none",
+     "morph": "non-elastic",
+     "crossfade": "large-plane-shifts",
+     "positionalContinuity": true
+    }
+   },
+   "policyAsAsked": true,
+   "groups": [
+    {
+     "id": "permits",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.77,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "route",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.77,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "weather",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.77,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    }
+   ],
+   "diagnostics": []
+  },
+  "forcedColors": {
+   "status": "ran",
+   "query": "(forced-colors: active)",
+   "readyState": "settled",
+   "rootFound": true,
+   "errors": [],
+   "consoleErrors": [],
+   "accessibility": {
+    "reducedTransparency": false,
+    "reducedMotion": false,
+    "increasedContrast": false,
+    "forcedColors": true,
+    "material": {
+     "glass": "none",
+     "colorSource": "system",
+     "frost": "none",
+     "refraction": "none",
+     "occlusion": "opaque",
+     "border": "strong",
+     "ambientTint": "none",
+     "foreground": "near-monochrome"
+    },
+    "motion": {
+     "overshoot": "elastic",
+     "deformation": "nominal",
+     "shimmer": "travel",
+     "morph": "elastic",
+     "crossfade": "never",
+     "positionalContinuity": true
+    }
+   },
+   "policyAsAsked": true,
+   "groups": [
+    {
+     "id": "permits",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 0,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "route",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 0,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "weather",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 0,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    }
+   ],
+   "diagnostics": [],
+   "forced": {
+    "policyGlass": "none",
+    "runtimeGlassSurfaces": 0,
+    "backdropFilterElements": [],
+    "backdropFilterCount": 0,
+    "glassDrawn": 0,
+    "runtimeRead": true,
+    "hosts": [
+     {
+      "nodeId": "vitrea-node_r_a_",
+      "selector": "div#pt-planner > button[data-vitrea-node=\"vitrea-node_r_a_\"].pt-control",
+      "backdropFilter": "none",
+      "backgroundColor": "rgba(255, 255, 255, 0)",
+      "backgroundImage": "none",
+      "borderColor": "rgb(0, 0, 0)",
+      "forcedColorAdjust": "auto"
+     },
+     {
+      "nodeId": "vitrea-node_r_5_",
+      "selector": "body > div:nth-of-type(1) > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div[data-vitrea-node=\"vitrea-node_r_5_\"].pt-platter",
+      "backdropFilter": "none",
+      "backgroundColor": "rgba(255, 255, 255, 0)",
+      "backgroundImage": "none",
+      "borderColor": "rgb(0, 0, 0)",
+      "forcedColorAdjust": "auto"
+     },
+     {
+      "nodeId": "vitrea-node_r_8_",
+      "selector": "body > div:nth-of-type(1) > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(3) > div[data-vitrea-node=\"vitrea-node_r_8_\"].pt-platter",
+      "backdropFilter": "none",
+      "backgroundColor": "rgba(255, 255, 255, 0)",
+      "backgroundImage": "none",
+      "borderColor": "rgb(0, 0, 0)",
+      "forcedColorAdjust": "auto"
+     }
+    ]
+   },
+   "glassDrawn": 0
+  }
+ },
+ "captures": [
+  "shot-fv-light.png",
+  "shot-full-light.png",
+  "shot-menu-light.png",
+  "shot-fv-dark.png",
+  "shot-full-dark.png",
+  "shot-menu-dark.png",
+  "shot-reduced.png",
+  "shot-contrast.png",
+  "shot-forced.png"
+ ],
+ "captureSha256": {
+  "shot-fv-light.png": "32dcc3a9ef9a1f517838a549db97b2cabe2320755aab68dd7c9d0ea681b098ce",
+  "shot-full-light.png": "32dcc3a9ef9a1f517838a549db97b2cabe2320755aab68dd7c9d0ea681b098ce",
+  "shot-menu-light.png": "54346914d241c741461b85c08bd98e47cbbc8e02d57be723e67640a59300e640",
+  "shot-fv-dark.png": "f5656fb82604b0bbc3bfb2fbba1205ce8929f1298c70fcb4c224d2a324befa7c",
+  "shot-full-dark.png": "f5656fb82604b0bbc3bfb2fbba1205ce8929f1298c70fcb4c224d2a324befa7c",
+  "shot-menu-dark.png": "154eb91f4ad47a288b6c6abfc12d888982478241d565c4ed86e2252097d08959",
+  "shot-reduced.png": "1d79a047ee39c843fa7de74ea174e8fdb3a7b7ddecdbda611869a47821534bc8",
+  "shot-contrast.png": "c86ac14c7055021347369bcaf37d27f2a44a57f8df456a9fb44a438f841ae057",
+  "shot-forced.png": "1909d4b6d229d5ec5fe41ded6da9e87b224a2824e3132c9dcbe2e8f5cd5c0e50"
+ },
+ "gateMechanical": true,
+ "tool": {
+  "playwright": {
+   "module": "@playwright/test",
+   "version": "1.62.1"
+  },
+  "chromium": "151.0.7922.34",
+  "gpuArgs": [
+   "--enable-unsafe-webgpu",
+   "--enable-features=Vulkan,WebGPU"
+  ]
+ }
+}

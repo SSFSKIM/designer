@@ -1,0 +1,80 @@
+{
+  "brief": 4,
+  "grader": "astra-high",
+  "gradedAt": "2026-09-27T02:59:16.715006Z",
+  "A": {
+    "c1": {
+      "verdict": "holds",
+      "evidence": "A lines 16\u201329 identifies results as content and correctly says a default div wrapper escapes glass-in-content-layer; lines 40\u201349 and 89\u201397 name glass-inside-glass, same-plane-overlap, and the li/listitem warning. Verified against packages/platform-web/src/layer-model.ts:78\u2013115,135\u2013181 and packages/core/src/scene.ts:1010\u20131058; the codes, severities, role condition and same-plane geometric mechanism are correct, but its per-pair diagnostic-count guarantee is overstated (see falseClaims)."
+    },
+    "c2": {
+      "verdict": "holds",
+      "evidence": "A lines 40\u201349 names nested toolbar/button surfaces; lines 101\u2013120 says \u201cGlassToolbar is deliberately not a glass surface\u201d and describes a plain role=toolbar container with grouping and roving focus. This matches packages/react/src/controls/toolbar.tsx and the GlassSurface implementation of GlassButton in packages/react/src/controls/button.tsx:120\u2013145."
+    },
+    "c3": {
+      "verdict": "holds",
+      "evidence": "A lines 127\u2013160 distinguishes the opaque background from the material, prescribes \u201ctint=\"#ff9500\"\u201d, and explicitly states \u201cA group can carry only one tint seed.\u201d Mechanism verified: packages/platform-web/src/css-tier.ts:1796\u20131809 clears the host fill, while packages/core/src/material.ts:179\u2013214 explains one GPU seed, permits untinted companions and reports tint-mixing for distinct declarations."
+    },
+    "c4": {
+      "verdict": "holds",
+      "evidence": "A lines 204\u2013221 says the unsupported query resolves system to false, names reduced-transparency-undetectable, and prescribes an app-owned \u201creduce transparency\u201d toggle supplying an explicit boolean. Correct per packages/platform-web/src/media-policy.ts:63\u201373 and packages/core/src/accessibility.ts:290\u2013296,310\u2013325; it correctly preserves system defaults for the other preferences."
+    },
+    "c5": {
+      "verdict": "holds",
+      "evidence": "A lines 168\u2013202 identifies filter as a Backdrop Root trigger and the ancestor-chain case as CSS demotion with probe-failed; it correctly distinguishes the default body-mounted planes from a filtered React mount sibling. Verified against packages/platform-web/src/probe/backdrop-root.ts and packages/core/src/capability.ts:240\u2013265. This satisfies the described DOM-backed tree; \u201cevery WebGPU group\u201d is too broad for texture-backed configurations (see falseClaims)."
+    },
+    "c6": {
+      "verdict": "holds",
+      "evidence": "A lines 3\u201312 explicitly prioritizes structural failures and says the findings are ordered by importance; sections 1\u20135 ground their priority in control/content separation, nested material, the paint sandwich, list semantics and focus, rather than taste. This is a defensible severity ordering for the default-mount interpretation, where the filter does not necessarily demote the groups."
+    },
+    "c7": {
+      "verdict": "holds",
+      "evidence": "A lines 10\u201312 says \u201cI have not rewritten your code\u201d; the answer remains review prose and corrective directions, with isolated prop examples but no replacement component tree."
+    }
+  },
+  "B": {
+    "c1": {
+      "verdict": "holds",
+      "evidence": "B lines 12\u201330 identifies the results as content and correctly distinguishes a default div wrapper from asChild on ul; lines 39\u201350 name glass-inside-glass, same-plane-overlap and the li/listitem glass-in-content-layer warning. Verified against packages/platform-web/src/layer-model.ts:78\u2013115,135\u2013181 and packages/core/src/scene.ts:1010\u20131058; the mechanisms and severities are correct, though the once-per-row count is not guaranteed (see falseClaims)."
+    },
+    "c2": {
+      "verdict": "holds",
+      "evidence": "B lines 62\u201377 says each GlassButton is already a host, calls the surrounding surface nesting, and identifies GlassToolbar as plain DOM with \u201cNo chrome of its own.\u201d Grouping, partitions and roving-focus behavior match packages/react/src/controls/toolbar.tsx; button registration matches packages/react/src/controls/button.tsx:120\u2013145."
+    },
+    "c3": {
+      "verdict": "partial",
+      "evidence": "B lines 79\u2013106 correctly distinguishes a solid fill from a tint, prescribes \u201ctint=\"#ff9500\"\u201d, calls tint a seed, and permits one tinted member among untinted members. It never states the one-seed-per-group constraint or explains that a second distinct tint requires a separate group; sharedBackground=\"hidden\" is suggested only for visual separation. packages/core/src/material.ts:179\u2013214 confirms the missing constraint, including the GPU/CSS mismatch and tint-mixing diagnostic."
+    },
+    "c4": {
+      "verdict": "holds",
+      "evidence": "B lines 139\u2013149 identifies unsupported prefers-reduced-transparency, false system resolution, reduced-transparency-undetectable, and \u201can in-app setting whose boolean is passed as reducedTransparency.\u201d This matches packages/platform-web/src/media-policy.ts:63\u201373 and packages/core/src/accessibility.ts:290\u2013296,310\u2013325."
+    },
+    "c5": {
+      "verdict": "holds",
+      "evidence": "B lines 112\u2013137 correctly scopes filter demotion to the actual ancestor chain, names backdrop-root-broken and probe-failed, and says every WebGPU-requesting DOM-sampling group drops to CSS. The default-body portal distinction, DOM-source restriction, and html audit exclusion match packages/platform-web/src/probe/backdrop-root.ts, packages/platform-web/src/root.ts:1620\u20131626, and packages/core/src/capability.ts:240\u2013265; this is more precise than the criterion\u2019s unqualified \u201cevery group.\u201d"
+    },
+    "c6": {
+      "verdict": "holds",
+      "evidence": "B lines 6\u201310 prioritizes structural material-placement errors and calls omitted accessibility props mostly correct; sections 1\u20133 lead with the controls/content layer model, nesting and semantic/focus consequences before fill/filter/default-policy issues. The ordering is severity-based rather than aesthetic, and its default-mount filter interpretation makes that ordering defensible."
+    },
+    "c7": {
+      "verdict": "holds",
+      "evidence": "B is a findings-only review with directional recommendations and small inline prop examples; it never supplies a rewritten component or replacement tree."
+    }
+  },
+  "falseClaims": {
+    "A": [
+      "A lines 31\u201332: \u201cEvery result row is a registered host that is measured every frame\u201d is false. packages/platform-web/src/geometry-sync.ts:1\u201313,278\u2013306 measures only dirty hosts and performs no host measurements at steady state. The adjacent claim that rows remount when the query changes is also not guaranteed by vitrea; React identity/keys and actual membership changes determine remounting.",
+      "A lines 42\u201349 guarantees two errors \u201cfor each nested pair.\u201d The diagnostic categories are right, but the structural count is not: packages/platform-web/src/layer-model.ts:135\u2013169 returns the first nesting found and emits one glass-inside-glass report per registration. Registering an outer host after several children need not report every outer/child pair. same-plane-overlap separately checks measured visible intersections, not an unconditional registration-time pair count.",
+      "A lines 188\u2013190: \u201cevery WebGPU group demotes\u201d under an ancestor filter overgeneralizes the source types. packages/core/src/capability.ts:247\u2013262 considers probe-failed only in the non-texture branch, and only when backdropFilter is available. Texture-backed WebGPU groups are not demoted for this DOM-proxy failure.",
+      "A lines 234\u2013236: \u201cWith no hint on the group, vitrea does not adapt the material or ink\u201d is not a general runtime rule. packages/platform-web/src/root.ts:2135\u20132223 prioritizes an author hint, then supplied texture pixels, then a known underlying glass surface for eligible DOM-backed groups. No hint alone does not establish dom + none.",
+      "A lines 111\u2013112 says toolbar gaps derive from the material \u201cactually drawing.\u201d packages/react/src/controls/toolbar.tsx:493\u2013541 derives a conservative structural gap from the selected document\u2019s active endpoint, resolved scheme/policy and toolbar bounds; it explicitly excludes window pose. It is not a measurement of the currently drawn receded/tuned endpoint."
+    ],
+    "B": [
+      "B lines 41\u201344 and 65\u201366 guarantees glass-inside-glass for every row/button. packages/platform-web/src/layer-model.ts:135\u2013169 finds only the first nesting and reports once per registration, so an outer host registered after multiple children need not yield one structural report per child. The named diagnostic mechanisms remain correct; the count is not guaranteed.",
+      "B lines 73\u201375 says the partition gap derives from blur the runtime \u201cactually drew.\u201d packages/react/src/controls/toolbar.tsx:493\u2013541 uses a conservative bound from the selected active endpoint with resolved scheme/policy and explicitly ignores window pose; it does not read the actual drawn endpoint or its final tuned blur.",
+      "B lines 162\u2013164: \u201cA group that samples the DOM and has no hint never adapts to its backdrop, on either tier\u201d is too absolute. packages/platform-web/src/root.ts:2160\u20132223 has the stackedTone path: an eligible css-backdrop group can derive tone from a known already-painted underlying glass surface without an author hint. Ordinary unhinted DOM over an unmeasured page is indeed unadapted."
+    ]
+  },
+  "notes": "Blind grading used only criteria key 4, the two supplied grading/4 answer files, and permitted runtime source. Repository-relative citations above are rooted at /Users/new/Developer/GitHub/designer; answer citations refer to figma-design-workspace/materialist-proof/grading/4/A-review.md and B-review.md. Tallies: A 7 holds / 0 partial / 0 fails; B 6 holds / 1 partial / 0 fails. Criterion scores measure the requested findings, not a blanket certification of every additional assertion; incidental overclaims are separately recorded. Both answers correctly resist assuming that a filtered React mount node is necessarily an ancestor of body-mounted glass planes. Their c1 scores credit correct diagnostic identification and conditions, without accepting their guaranteed report counts. B lines 56\u201357 describes one sampling proxy as sitting inside another: if intended as DOM nesting, that is incorrect (backdrop-proxy.ts:305\u2013315 installs sibling proxies in each plane); if intended as spatial overlap, its double-filter conclusion is correct (backdrop-proxy.ts:284\u2013294 and planes.ts:20\u201324). No false-claim penalty is assigned for that ambiguous wording. B also assumes a group exists because one is required; the description does not establish that, so this should have remained a check rather than a deduction. No execution or visual experiment was performed; runtime verification was source-based."
+}

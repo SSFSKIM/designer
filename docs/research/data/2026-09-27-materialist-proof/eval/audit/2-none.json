@@ -1,0 +1,4157 @@
+{
+ "slug": "2-none",
+ "url": "http://localhost:5202/index.html",
+ "auditedAt": "2026-09-27T02:42:29.971Z",
+ "viewport": {
+  "width": 1440,
+  "height": 900
+ },
+ "rootFound": true,
+ "readyState": "settled",
+ "adapter": {
+  "available": true,
+  "vendor": "apple",
+  "architecture": "metal-3",
+  "device": "",
+  "description": "",
+  "isFallbackAdapter": false
+ },
+ "api": {
+  "missing": []
+ },
+ "errors": [],
+ "schemes": {
+  "light": {
+   "scheme": "light",
+   "readyState": "settled",
+   "adapter": {
+    "available": true,
+    "vendor": "apple",
+    "architecture": "metal-3",
+    "device": "",
+    "description": "",
+    "isFallbackAdapter": false
+   },
+   "errors": [],
+   "consoleErrors": [],
+   "failedRequests": [],
+   "badResponses": [],
+   "scrolledOnLoad": 0,
+   "docHeight": 8016,
+   "words": 1181,
+   "title": "Lysverk 68 — a full-frame camera made for the half-light",
+   "placeholder": false,
+   "captureWidth": 1440,
+   "overflowCapture": false,
+   "overflowAtLoad": false,
+   "contrast": {
+    "method": "dom-composite",
+    "checked": 238,
+    "pass": 234,
+    "unknown": 20,
+    "rate": 0.983,
+    "onGlass": 12,
+    "onGlassPass": 12,
+    "fails": [
+     {
+      "text": "Lysverk 68 · Full-frame mirrorless",
+      "ratio": 4.26,
+      "size": 13,
+      "onGlass": false
+     },
+     {
+      "text": "From $2,890·Ships March 2027",
+      "ratio": 4.26,
+      "size": 17,
+      "onGlass": false
+     },
+     {
+      "text": "Reine, Lofoten, at blue hourChristoph St",
+      "ratio": 2.74,
+      "size": 12,
+      "onGlass": false
+     },
+     {
+      "text": "CC BY-SA 2.0",
+      "ratio": 2.74,
+      "size": 12,
+      "onGlass": false
+     }
+    ]
+   },
+   "glassContrast": {
+    "method": "rendered-pixels",
+    "pairs": 66,
+    "pass": 54,
+    "minRatio": 3.69,
+    "byPhase": {
+     "fv": {
+      "pairs": 12,
+      "pass": 11
+     },
+     "tile-2": {
+      "pairs": 12,
+      "pass": 11
+     },
+     "tile-3": {
+      "pairs": 12,
+      "pass": 11
+     },
+     "menu": {
+      "pairs": 30,
+      "pass": 21
+     }
+    },
+    "fails": [
+     {
+      "phase": "fv",
+      "text": "Basalt · with 35 mm f/1.8",
+      "nodeId": "vitrea-node-2",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 4.43,
+      "worstRatio": 4.31,
+      "pass": false,
+      "ink": [
+       60,
+       74,
+       89
+      ],
+      "ground": [
+       150,
+       184,
+       223
+      ],
+      "pixels": 2533,
+      "groundPixels": 1766
+     },
+     {
+      "phase": "tile-2",
+      "text": "Basalt · with 35 mm f/1.8",
+      "nodeId": "vitrea-node-15",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 4.49,
+      "worstRatio": 2.61,
+      "pass": false,
+      "ink": [
+       115,
+       116,
+       117
+      ],
+      "ground": [
+       248,
+       250,
+       253
+      ],
+      "pixels": 2533,
+      "groundPixels": 2095
+     },
+     {
+      "phase": "tile-3",
+      "text": "Basalt · with 35 mm f/1.8",
+      "nodeId": "vitrea-node-15",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 4.41,
+      "worstRatio": 2.4,
+      "pass": false,
+      "ink": [
+       112,
+       112,
+       112
+      ],
+      "ground": [
+       241,
+       241,
+       242
+      ],
+      "pixels": 2533,
+      "groundPixels": 2138
+     },
+     {
+      "phase": "menu",
+      "text": "Basalt · with 35 mm f/1.8",
+      "nodeId": "vitrea-node-23",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 4.34,
+      "worstRatio": 4.24,
+      "pass": false,
+      "ink": [
+       58,
+       72,
+       87
+      ],
+      "ground": [
+       146,
+       180,
+       218
+      ],
+      "pixels": 2533,
+      "groundPixels": 1749
+     },
+     {
+      "phase": "menu",
+      "text": "Finish",
+      "nodeId": "vitrea-node-26",
+      "size": 12,
+      "bold": false,
+      "large": false,
+      "ratio": 4.22,
+      "worstRatio": 4.07,
+      "pass": false,
+      "ink": [
+       94,
+       76,
+       67
+      ],
+      "ground": [
+       220,
+       179,
+       158
+      ],
+      "pixels": 768,
+      "groundPixels": 479
+     },
+     {
+      "phase": "menu",
+      "text": "Black anodised aluminium",
+      "nodeId": "vitrea-node-26",
+      "size": 12.5,
+      "bold": false,
+      "large": false,
+      "ratio": 3.69,
+      "worstRatio": 2.27,
+      "pass": false,
+      "ink": [
+       77,
+       66,
+       61
+      ],
+      "ground": [
+       180,
+       154,
+       143
+      ],
+      "pixels": 2432,
+      "groundPixels": 1873
+     },
+     {
+      "phase": "menu",
+      "text": "Grey bead-blasted aluminium",
+      "nodeId": "vitrea-node-26",
+      "size": 12.5,
+      "bold": false,
+      "large": false,
+      "ratio": 4.48,
+      "worstRatio": 2.46,
+      "pass": false,
+      "ink": [
+       99,
+       84,
+       69
+      ],
+      "ground": [
+       233,
+       197,
+       162
+      ],
+      "pixels": 2720,
+      "groundPixels": 2115
+     },
+     {
+      "phase": "menu",
+      "text": "Kit",
+      "nodeId": "vitrea-node-26",
+      "size": 12,
+      "bold": false,
+      "large": false,
+      "ratio": 4.27,
+      "worstRatio": 4.26,
+      "pass": false,
+      "ink": [
+       90,
+       79,
+       82
+      ],
+      "ground": [
+       211,
+       184,
+       191
+      ],
+      "pixels": 384,
+      "groundPixels": 255
+     },
+     {
+      "phase": "menu",
+      "text": "Battery, charger cable, strap",
+      "nodeId": "vitrea-node-26",
+      "size": 12.5,
+      "bold": false,
+      "large": false,
+      "ratio": 4.34,
+      "worstRatio": 2.42,
+      "pass": false,
+      "ink": [
+       95,
+       80,
+       72
+      ],
+      "ground": [
+       222,
+       188,
+       168
+      ],
+      "pixels": 2672,
+      "groundPixels": 2167
+     },
+     {
+      "phase": "menu",
+      "text": "Save $240 on the lens",
+      "nodeId": "vitrea-node-26",
+      "size": 12.5,
+      "bold": false,
+      "large": false,
+      "ratio": 3.75,
+      "worstRatio": 2.34,
+      "pass": false,
+      "ink": [
+       76,
+       67,
+       64
+      ],
+      "ground": [
+       178,
+       158,
+       150
+      ],
+      "pixels": 2112,
+      "groundPixels": 1668
+     },
+     {
+      "phase": "menu",
+      "text": "f/2.8 pancake, f/1.4 normal",
+      "nodeId": "vitrea-node-26",
+      "size": 12.5,
+      "bold": false,
+      "large": false,
+      "ratio": 3.78,
+      "worstRatio": 2.46,
+      "pass": false,
+      "ink": [
+       70,
+       70,
+       72
+      ],
+      "ground": [
+       164,
+       163,
+       168
+      ],
+      "pixels": 2496,
+      "groundPixels": 1887
+     },
+     {
+      "phase": "menu",
+      "text": "We'll write within a day to take the ref",
+      "nodeId": "vitrea-node-26",
+      "size": 12.5,
+      "bold": false,
+      "large": false,
+      "ratio": 4.26,
+      "worstRatio": 2.42,
+      "pass": false,
+      "ink": [
+       66,
+       83,
+       99
+      ],
+      "ground": [
+       155,
+       194,
+       233
+      ],
+      "pixels": 11152,
+      "groundPixels": 9171
+     }
+    ],
+    "sample": [
+     {
+      "phase": "fv",
+      "text": "LYSVERK",
+      "nodeId": "vitrea-node-1",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 10.12,
+      "worstRatio": 10.12,
+      "pass": true,
+      "ink": [
+       23,
+       32,
+       39
+      ],
+      "ground": [
+       151,
+       209,
+       255
+      ],
+      "pixels": 1368,
+      "groundPixels": 713
+     },
+     {
+      "phase": "fv",
+      "text": "Camera",
+      "nodeId": "vitrea-node-1",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 10.19,
+      "worstRatio": 10.11,
+      "pass": true,
+      "ink": [
+       23,
+       32,
+       39
+      ],
+      "ground": [
+       151,
+       210,
+       255
+      ],
+      "pixels": 936,
+      "groundPixels": 481
+     },
+     {
+      "phase": "fv",
+      "text": "Design",
+      "nodeId": "vitrea-node-1",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 10.25,
+      "worstRatio": 10.17,
+      "pass": true,
+      "ink": [
+       23,
+       32,
+       39
+      ],
+      "ground": [
+       151,
+       211,
+       255
+      ],
+      "pixels": 846,
+      "groundPixels": 408
+     },
+     {
+      "phase": "fv",
+      "text": "Specs",
+      "nodeId": "vitrea-node-1",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 10.25,
+      "worstRatio": 10.25,
+      "pass": true,
+      "ink": [
+       23,
+       32,
+       39
+      ],
+      "ground": [
+       151,
+       211,
+       255
+      ],
+      "pixels": 738,
+      "groundPixels": 345
+     },
+     {
+      "phase": "fv",
+      "text": "Lenses",
+      "nodeId": "vitrea-node-1",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 10.32,
+      "worstRatio": 10.24,
+      "pass": true,
+      "ink": [
+       23,
+       32,
+       39
+      ],
+      "ground": [
+       151,
+       212,
+       255
+      ],
+      "pixels": 864,
+      "groundPixels": 450
+     },
+     {
+      "phase": "fv",
+      "text": "Workshop",
+      "nodeId": "vitrea-node-1",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 10.19,
+      "worstRatio": 10.11,
+      "pass": true,
+      "ink": [
+       23,
+       32,
+       39
+      ],
+      "ground": [
+       151,
+       210,
+       255
+      ],
+      "pixels": 1206,
+      "groundPixels": 585
+     },
+     {
+      "phase": "fv",
+      "text": "Price",
+      "nodeId": "vitrea-node-1",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 10.06,
+      "worstRatio": 10.06,
+      "pass": true,
+      "ink": [
+       23,
+       32,
+       39
+      ],
+      "ground": [
+       151,
+       208,
+       255
+      ],
+      "pixels": 630,
+      "groundPixels": 319
+     },
+     {
+      "phase": "fv",
+      "text": "Lysverk 68",
+      "nodeId": "vitrea-node-2",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 9.16,
+      "worstRatio": 8.98,
+      "pass": true,
+      "ink": [
+       11,
+       22,
+       40
+      ],
+      "ground": [
+       150,
+       188,
+       229
+      ],
+      "pixels": 1501,
+      "groundPixels": 757
+     },
+     {
+      "phase": "fv",
+      "text": "Basalt · with 35 mm f/1.8",
+      "nodeId": "vitrea-node-2",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 4.43,
+      "worstRatio": 4.31,
+      "pass": false,
+      "ink": [
+       60,
+       74,
+       89
+      ],
+      "ground": [
+       150,
+       184,
+       223
+      ],
+      "pixels": 2533,
+      "groundPixels": 1766
+     },
+     {
+      "phase": "fv",
+      "text": "$3,440",
+      "nodeId": "vitrea-node-2",
+      "size": 17,
+      "bold": false,
+      "large": false,
+      "ratio": 8.67,
+      "worstRatio": 8.5,
+      "pass": true,
+      "ink": [
+       11,
+       22,
+       40
+      ],
+      "ground": [
+       150,
+       182,
+       223
+      ],
+      "pixels": 1239,
+      "groundPixels": 617
+     },
+     {
+      "phase": "fv",
+      "text": "Reserve",
+      "nodeId": "vitrea-node-3",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 5.83,
+      "worstRatio": 5.83,
+      "pass": true,
+      "ink": [
+       11,
+       22,
+       40
+      ],
+      "ground": [
+       206,
+       128,
+       50
+      ],
+      "pixels": 1116,
+      "groundPixels": 473
+     },
+     {
+      "phase": "fv",
+      "text": "$200 deposit",
+      "nodeId": "vitrea-node-3",
+      "size": 12,
+      "bold": false,
+      "large": false,
+      "ratio": 5.83,
+      "worstRatio": 5.83,
+      "pass": true,
+      "ink": [
+       11,
+       22,
+       40
+      ],
+      "ground": [
+       206,
+       128,
+       50
+      ],
+      "pixels": 1170,
+      "groundPixels": 506
+     },
+     {
+      "phase": "tile-2",
+      "text": "LYSVERK",
+      "nodeId": "vitrea-node-19",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 14.34,
+      "worstRatio": 14.34,
+      "pass": true,
+      "ink": [
+       38,
+       38,
+       39
+      ],
+      "ground": [
+       247,
+       249,
+       252
+      ],
+      "pixels": 1368,
+      "groundPixels": 713
+     },
+     {
+      "phase": "tile-2",
+      "text": "Camera",
+      "nodeId": "vitrea-node-19",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 11.44,
+      "worstRatio": 11.44,
+      "pass": true,
+      "ink": [
+       33,
+       33,
+       34
+      ],
+      "ground": [
+       216,
+       218,
+       220
+      ],
+      "pixels": 936,
+      "groundPixels": 481
+     },
+     {
+      "phase": "tile-2",
+      "text": "Design",
+      "nodeId": "vitrea-node-19",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 14.34,
+      "worstRatio": 14.34,
+      "pass": true,
+      "ink": [
+       38,
+       38,
+       39
+      ],
+      "ground": [
+       247,
+       249,
+       252
+      ],
+      "pixels": 846,
+      "groundPixels": 408
+     },
+     {
+      "phase": "tile-2",
+      "text": "Specs",
+      "nodeId": "vitrea-node-19",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 14.34,
+      "worstRatio": 14.34,
+      "pass": true,
+      "ink": [
+       38,
+       38,
+       39
+      ],
+      "ground": [
+       247,
+       249,
+       252
+      ],
+      "pixels": 738,
+      "groundPixels": 345
+     },
+     {
+      "phase": "tile-2",
+      "text": "Lenses",
+      "nodeId": "vitrea-node-19",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 14.34,
+      "worstRatio": 14.34,
+      "pass": true,
+      "ink": [
+       38,
+       38,
+       39
+      ],
+      "ground": [
+       247,
+       249,
+       252
+      ],
+      "pixels": 864,
+      "groundPixels": 450
+     },
+     {
+      "phase": "tile-2",
+      "text": "Workshop",
+      "nodeId": "vitrea-node-19",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 14.34,
+      "worstRatio": 14.34,
+      "pass": true,
+      "ink": [
+       38,
+       38,
+       39
+      ],
+      "ground": [
+       247,
+       249,
+       252
+      ],
+      "pixels": 1206,
+      "groundPixels": 585
+     },
+     {
+      "phase": "tile-2",
+      "text": "Price",
+      "nodeId": "vitrea-node-19",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 14.34,
+      "worstRatio": 14.34,
+      "pass": true,
+      "ink": [
+       38,
+       38,
+       39
+      ],
+      "ground": [
+       247,
+       249,
+       252
+      ],
+      "pixels": 630,
+      "groundPixels": 319
+     },
+     {
+      "phase": "tile-2",
+      "text": "Lysverk 68",
+      "nodeId": "vitrea-node-15",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 17.32,
+      "worstRatio": 17.32,
+      "pass": true,
+      "ink": [
+       11,
+       22,
+       40
+      ],
+      "ground": [
+       248,
+       250,
+       253
+      ],
+      "pixels": 1501,
+      "groundPixels": 758
+     },
+     {
+      "phase": "tile-2",
+      "text": "Basalt · with 35 mm f/1.8",
+      "nodeId": "vitrea-node-15",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 4.49,
+      "worstRatio": 2.61,
+      "pass": false,
+      "ink": [
+       115,
+       116,
+       117
+      ],
+      "ground": [
+       248,
+       250,
+       253
+      ],
+      "pixels": 2533,
+      "groundPixels": 2095
+     },
+     {
+      "phase": "tile-2",
+      "text": "$3,440",
+      "nodeId": "vitrea-node-15",
+      "size": 17,
+      "bold": false,
+      "large": false,
+      "ratio": 16.14,
+      "worstRatio": 15.1,
+      "pass": true,
+      "ink": [
+       11,
+       22,
+       40
+      ],
+      "ground": [
+       239,
+       242,
+       247
+      ],
+      "pixels": 1239,
+      "groundPixels": 619
+     },
+     {
+      "phase": "tile-2",
+      "text": "Reserve",
+      "nodeId": "vitrea-node-16",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 7.29,
+      "worstRatio": 7.29,
+      "pass": true,
+      "ink": [
+       11,
+       22,
+       40
+      ],
+      "ground": [
+       231,
+       144,
+       58
+      ],
+      "pixels": 1116,
+      "groundPixels": 473
+     },
+     {
+      "phase": "tile-2",
+      "text": "$200 deposit",
+      "nodeId": "vitrea-node-16",
+      "size": 12,
+      "bold": false,
+      "large": false,
+      "ratio": 7.29,
+      "worstRatio": 7.29,
+      "pass": true,
+      "ink": [
+       11,
+       22,
+       40
+      ],
+      "ground": [
+       231,
+       144,
+       58
+      ],
+      "pixels": 1170,
+      "groundPixels": 506
+     },
+     {
+      "phase": "tile-3",
+      "text": "LYSVERK",
+      "nodeId": "vitrea-node-19",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 14.34,
+      "worstRatio": 14.34,
+      "pass": true,
+      "ink": [
+       38,
+       38,
+       39
+      ],
+      "ground": [
+       247,
+       249,
+       252
+      ],
+      "pixels": 1368,
+      "groundPixels": 713
+     },
+     {
+      "phase": "tile-3",
+      "text": "Camera",
+      "nodeId": "vitrea-node-19",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 14.34,
+      "worstRatio": 14.34,
+      "pass": true,
+      "ink": [
+       38,
+       38,
+       39
+      ],
+      "ground": [
+       247,
+       249,
+       252
+      ],
+      "pixels": 936,
+      "groundPixels": 481
+     },
+     {
+      "phase": "tile-3",
+      "text": "Design",
+      "nodeId": "vitrea-node-19",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 11.44,
+      "worstRatio": 11.44,
+      "pass": true,
+      "ink": [
+       33,
+       33,
+       34
+      ],
+      "ground": [
+       216,
+       218,
+       220
+      ],
+      "pixels": 846,
+      "groundPixels": 408
+     },
+     {
+      "phase": "tile-3",
+      "text": "Specs",
+      "nodeId": "vitrea-node-19",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 14.34,
+      "worstRatio": 14.34,
+      "pass": true,
+      "ink": [
+       38,
+       38,
+       39
+      ],
+      "ground": [
+       247,
+       249,
+       252
+      ],
+      "pixels": 738,
+      "groundPixels": 345
+     },
+     {
+      "phase": "tile-3",
+      "text": "Lenses",
+      "nodeId": "vitrea-node-19",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 14.34,
+      "worstRatio": 14.34,
+      "pass": true,
+      "ink": [
+       38,
+       38,
+       39
+      ],
+      "ground": [
+       247,
+       249,
+       252
+      ],
+      "pixels": 864,
+      "groundPixels": 450
+     },
+     {
+      "phase": "tile-3",
+      "text": "Workshop",
+      "nodeId": "vitrea-node-19",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 14.34,
+      "worstRatio": 14.34,
+      "pass": true,
+      "ink": [
+       38,
+       38,
+       39
+      ],
+      "ground": [
+       247,
+       249,
+       252
+      ],
+      "pixels": 1206,
+      "groundPixels": 585
+     },
+     {
+      "phase": "tile-3",
+      "text": "Price",
+      "nodeId": "vitrea-node-19",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 14.34,
+      "worstRatio": 14.34,
+      "pass": true,
+      "ink": [
+       38,
+       38,
+       39
+      ],
+      "ground": [
+       247,
+       249,
+       252
+      ],
+      "pixels": 630,
+      "groundPixels": 319
+     },
+     {
+      "phase": "tile-3",
+      "text": "Lysverk 68",
+      "nodeId": "vitrea-node-15",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 17.32,
+      "worstRatio": 16.94,
+      "pass": true,
+      "ink": [
+       11,
+       22,
+       40
+      ],
+      "ground": [
+       248,
+       250,
+       253
+      ],
+      "pixels": 1501,
+      "groundPixels": 757
+     },
+     {
+      "phase": "tile-3",
+      "text": "Basalt · with 35 mm f/1.8",
+      "nodeId": "vitrea-node-15",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 4.41,
+      "worstRatio": 2.4,
+      "pass": false,
+      "ink": [
+       112,
+       112,
+       112
+      ],
+      "ground": [
+       241,
+       241,
+       242
+      ],
+      "pixels": 2533,
+      "groundPixels": 2138
+     },
+     {
+      "phase": "tile-3",
+      "text": "$3,440",
+      "nodeId": "vitrea-node-15",
+      "size": 17,
+      "bold": false,
+      "large": false,
+      "ratio": 17.32,
+      "worstRatio": 16.87,
+      "pass": true,
+      "ink": [
+       11,
+       22,
+       40
+      ],
+      "ground": [
+       248,
+       250,
+       253
+      ],
+      "pixels": 1239,
+      "groundPixels": 617
+     },
+     {
+      "phase": "tile-3",
+      "text": "Reserve",
+      "nodeId": "vitrea-node-16",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 7.29,
+      "worstRatio": 7.29,
+      "pass": true,
+      "ink": [
+       11,
+       22,
+       40
+      ],
+      "ground": [
+       231,
+       144,
+       58
+      ],
+      "pixels": 1116,
+      "groundPixels": 473
+     },
+     {
+      "phase": "tile-3",
+      "text": "$200 deposit",
+      "nodeId": "vitrea-node-16",
+      "size": 12,
+      "bold": false,
+      "large": false,
+      "ratio": 7.29,
+      "worstRatio": 7.29,
+      "pass": true,
+      "ink": [
+       11,
+       22,
+       40
+      ],
+      "ground": [
+       231,
+       144,
+       58
+      ],
+      "pixels": 1170,
+      "groundPixels": 506
+     },
+     {
+      "phase": "menu",
+      "text": "LYSVERK",
+      "nodeId": "vitrea-node-25",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 10.12,
+      "worstRatio": 10.12,
+      "pass": true,
+      "ink": [
+       23,
+       32,
+       39
+      ],
+      "ground": [
+       151,
+       209,
+       255
+      ],
+      "pixels": 1368,
+      "groundPixels": 713
+     },
+     {
+      "phase": "menu",
+      "text": "Camera",
+      "nodeId": "vitrea-node-25",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 10.19,
+      "worstRatio": 10.11,
+      "pass": true,
+      "ink": [
+       23,
+       32,
+       39
+      ],
+      "ground": [
+       151,
+       210,
+       255
+      ],
+      "pixels": 936,
+      "groundPixels": 481
+     },
+     {
+      "phase": "menu",
+      "text": "Design",
+      "nodeId": "vitrea-node-25",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 10.25,
+      "worstRatio": 10.17,
+      "pass": true,
+      "ink": [
+       23,
+       32,
+       39
+      ],
+      "ground": [
+       151,
+       211,
+       255
+      ],
+      "pixels": 846,
+      "groundPixels": 408
+     },
+     {
+      "phase": "menu",
+      "text": "Specs",
+      "nodeId": "vitrea-node-25",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 10.25,
+      "worstRatio": 10.25,
+      "pass": true,
+      "ink": [
+       23,
+       32,
+       39
+      ],
+      "ground": [
+       151,
+       211,
+       255
+      ],
+      "pixels": 738,
+      "groundPixels": 345
+     }
+    ]
+   },
+   "rootFound": true,
+   "api": {
+    "missing": []
+   },
+   "colorScheme": "light",
+   "schemeFollowed": true,
+   "windowActivation": "active",
+   "material": {
+    "name": "apple-macos-27.0-glass0.5",
+    "platform": "macOS 27.0",
+    "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+    "resolvedMaterialSha256": "be13dae45098fc89",
+    "tuned": false
+   },
+   "webgpu": {
+    "available": true,
+    "ownership": "vitrea",
+    "deviceHealth": "ok",
+    "unavailableReason": null,
+    "hasDevice": true
+   },
+   "platformProbe": {
+    "engine": {
+     "family": "chromium",
+     "version": 151
+    },
+    "reach": "verified"
+   },
+   "accessibility": {
+    "reducedTransparency": false,
+    "reducedMotion": false,
+    "increasedContrast": false,
+    "forcedColors": false,
+    "material": {
+     "glass": "material",
+     "colorSource": "material",
+     "frost": "nominal",
+     "refraction": "nominal",
+     "occlusion": "nominal",
+     "border": "nominal",
+     "ambientTint": "nominal",
+     "foreground": "adaptive"
+    },
+    "motion": {
+     "overshoot": "elastic",
+     "deformation": "nominal",
+     "shimmer": "travel",
+     "morph": "elastic",
+     "crossfade": "never",
+     "positionalContinuity": true
+    }
+   },
+   "surfaces": [
+    {
+     "nodeId": "vitrea-node-13",
+     "groupId": "nav-8",
+     "plane": "base",
+     "selector": "div#glass-root > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > nav[data-vitrea-node=\"vitrea-node-13\"].g-nav",
+     "tag": "nav",
+     "role": null,
+     "rect": [
+      405.5,
+      20,
+      629.1,
+      52
+     ],
+     "span": 52,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "fixed-rounded-rect",
+     "radii": [
+      26,
+      26,
+      26,
+      26
+     ],
+     "smoothing": 0,
+     "thickness": 10,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "26px",
+     "label": "Primary"
+    },
+    {
+     "nodeId": "vitrea-node-11",
+     "groupId": "bar-7",
+     "plane": "base",
+     "selector": "div#glass-root > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div.buybar > button[data-vitrea-node=\"vitrea-node-11\"].g-config:nth-of-type(1)",
+     "tag": "button",
+     "role": null,
+     "rect": [
+      410,
+      816,
+      440,
+      60
+     ],
+     "span": 60,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "fixed-rounded-rect",
+     "radii": [
+      30,
+      30,
+      30,
+      30
+     ],
+     "smoothing": 0,
+     "thickness": 12,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "30px",
+     "label": "Lysverk 68, Basalt, with 35 mm f/1.8, $3"
+    },
+    {
+     "nodeId": "vitrea-node-12",
+     "groupId": "bar-7",
+     "plane": "base",
+     "selector": "div#glass-root > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div.buybar > button[data-vitrea-node=\"vitrea-node-12\"].g-reserve:nth-of-type(2)",
+     "tag": "button",
+     "role": null,
+     "rect": [
+      860,
+      816,
+      170,
+      60
+     ],
+     "span": 60,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "fixed-rounded-rect",
+     "radii": [
+      30,
+      30,
+      30,
+      30
+     ],
+     "smoothing": 0,
+     "thickness": 12,
+     "variant": "regular",
+     "tinted": true,
+     "cssRadius": "30px",
+     "label": "Reserve\n      $200 deposit"
+    }
+   ],
+   "surfacesInFrame": 3,
+   "planes": [
+    {
+     "plane": "base",
+     "nodes": 3
+    },
+    {
+     "plane": "overlay",
+     "nodes": 0
+    }
+   ],
+   "groups": [
+    {
+     "id": "nav-8",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.89,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "bar-7",
+     "members": 2,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 8.18,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    }
+   ],
+   "diagnostics": [],
+   "derivedFindings": [],
+   "menu": "captured",
+   "menuSurfaces": [
+    {
+     "nodeId": "vitrea-node-25",
+     "groupId": "nav-17",
+     "plane": "base",
+     "selector": "div#glass-root > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > nav[data-vitrea-node=\"vitrea-node-25\"].g-nav",
+     "tag": "nav",
+     "role": null,
+     "rect": [
+      405.5,
+      20,
+      629.1,
+      52
+     ],
+     "span": 52,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "fixed-rounded-rect",
+     "radii": [
+      26,
+      26,
+      26,
+      26
+     ],
+     "smoothing": 0,
+     "thickness": 10,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "26px",
+     "label": "Primary"
+    },
+    {
+     "nodeId": "vitrea-node-23",
+     "groupId": "bar-16",
+     "plane": "base",
+     "selector": "div#glass-root > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div.buybar > button[data-vitrea-node=\"vitrea-node-23\"].g-config:nth-of-type(1)",
+     "tag": "button",
+     "role": null,
+     "rect": [
+      410,
+      816,
+      440,
+      60
+     ],
+     "span": 60,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "fixed-rounded-rect",
+     "radii": [
+      30,
+      30,
+      30,
+      30
+     ],
+     "smoothing": 0,
+     "thickness": 12,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "30px",
+     "label": "Lysverk 68, Basalt, with 35 mm f/1.8, $3"
+    },
+    {
+     "nodeId": "vitrea-node-24",
+     "groupId": "bar-16",
+     "plane": "base",
+     "selector": "div#glass-root > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div.buybar > button[data-vitrea-node=\"vitrea-node-24\"].g-reserve:nth-of-type(2)",
+     "tag": "button",
+     "role": null,
+     "rect": [
+      860,
+      816,
+      170,
+      60
+     ],
+     "span": 60,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "fixed-rounded-rect",
+     "radii": [
+      30,
+      30,
+      30,
+      30
+     ],
+     "smoothing": 0,
+     "thickness": 12,
+     "variant": "regular",
+     "tinted": true,
+     "cssRadius": "30px",
+     "label": "Reserve\n      $200 deposit"
+    },
+    {
+     "nodeId": "vitrea-node-26",
+     "groupId": "panel-18",
+     "plane": "overlay",
+     "selector": "div#configurator",
+     "tag": "div",
+     "role": "dialog",
+     "rect": [
+      410,
+      386.3,
+      620,
+      417.8
+     ],
+     "span": 417.8,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "fixed-rounded-rect",
+     "radii": [
+      28,
+      28,
+      28,
+      28
+     ],
+     "smoothing": 0,
+     "thickness": 16,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "28px",
+     "label": "Configure your 68\n        \n      \n      "
+    }
+   ],
+   "menuGroups": [
+    {
+     "id": "nav-17",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.89,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "bar-16",
+     "members": 2,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 8.18,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "panel-18",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 20.89,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    }
+   ],
+   "menuDiagnostics": [],
+   "ban": {
+    "rest": {
+     "findings": [],
+     "unmeasured": [],
+     "hostsRead": 3,
+     "cssTierHosts": 0
+    },
+    "menu": {
+     "findings": [],
+     "unmeasured": [],
+     "hostsRead": 4,
+     "cssTierHosts": 0
+    }
+   }
+  },
+  "dark": {
+   "scheme": "dark",
+   "readyState": "settled",
+   "adapter": {
+    "available": true,
+    "vendor": "apple",
+    "architecture": "metal-3",
+    "device": "",
+    "description": "",
+    "isFallbackAdapter": false
+   },
+   "errors": [],
+   "consoleErrors": [],
+   "failedRequests": [],
+   "badResponses": [],
+   "scrolledOnLoad": 0,
+   "docHeight": 8016,
+   "words": 1181,
+   "title": "Lysverk 68 — a full-frame camera made for the half-light",
+   "placeholder": false,
+   "captureWidth": 1440,
+   "overflowCapture": false,
+   "overflowAtLoad": false,
+   "contrast": {
+    "method": "dom-composite",
+    "checked": 238,
+    "pass": 234,
+    "unknown": 20,
+    "rate": 0.983,
+    "onGlass": 12,
+    "onGlassPass": 12,
+    "fails": [
+     {
+      "text": "Lysverk 68 · Full-frame mirrorless",
+      "ratio": 4.26,
+      "size": 13,
+      "onGlass": false
+     },
+     {
+      "text": "From $2,890·Ships March 2027",
+      "ratio": 4.26,
+      "size": 17,
+      "onGlass": false
+     },
+     {
+      "text": "Reine, Lofoten, at blue hourChristoph St",
+      "ratio": 2.74,
+      "size": 12,
+      "onGlass": false
+     },
+     {
+      "text": "CC BY-SA 2.0",
+      "ratio": 2.74,
+      "size": 12,
+      "onGlass": false
+     }
+    ]
+   },
+   "glassContrast": {
+    "method": "rendered-pixels",
+    "pairs": 66,
+    "pass": 54,
+    "minRatio": 3.69,
+    "byPhase": {
+     "fv": {
+      "pairs": 12,
+      "pass": 11
+     },
+     "tile-2": {
+      "pairs": 12,
+      "pass": 11
+     },
+     "tile-3": {
+      "pairs": 12,
+      "pass": 11
+     },
+     "menu": {
+      "pairs": 30,
+      "pass": 21
+     }
+    },
+    "fails": [
+     {
+      "phase": "fv",
+      "text": "Basalt · with 35 mm f/1.8",
+      "nodeId": "vitrea-node-2",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 4.43,
+      "worstRatio": 4.31,
+      "pass": false,
+      "ink": [
+       60,
+       74,
+       89
+      ],
+      "ground": [
+       150,
+       184,
+       223
+      ],
+      "pixels": 2533,
+      "groundPixels": 1766
+     },
+     {
+      "phase": "tile-2",
+      "text": "Basalt · with 35 mm f/1.8",
+      "nodeId": "vitrea-node-17",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 4.49,
+      "worstRatio": 2.61,
+      "pass": false,
+      "ink": [
+       115,
+       116,
+       117
+      ],
+      "ground": [
+       248,
+       250,
+       253
+      ],
+      "pixels": 2533,
+      "groundPixels": 2095
+     },
+     {
+      "phase": "tile-3",
+      "text": "Basalt · with 35 mm f/1.8",
+      "nodeId": "vitrea-node-17",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 4.41,
+      "worstRatio": 2.4,
+      "pass": false,
+      "ink": [
+       112,
+       112,
+       112
+      ],
+      "ground": [
+       241,
+       241,
+       242
+      ],
+      "pixels": 2533,
+      "groundPixels": 2138
+     },
+     {
+      "phase": "menu",
+      "text": "Basalt · with 35 mm f/1.8",
+      "nodeId": "vitrea-node-25",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 4.34,
+      "worstRatio": 4.24,
+      "pass": false,
+      "ink": [
+       58,
+       72,
+       87
+      ],
+      "ground": [
+       146,
+       180,
+       218
+      ],
+      "pixels": 2533,
+      "groundPixels": 1749
+     },
+     {
+      "phase": "menu",
+      "text": "Finish",
+      "nodeId": "vitrea-node-28",
+      "size": 12,
+      "bold": false,
+      "large": false,
+      "ratio": 4.22,
+      "worstRatio": 4.07,
+      "pass": false,
+      "ink": [
+       94,
+       76,
+       67
+      ],
+      "ground": [
+       220,
+       179,
+       158
+      ],
+      "pixels": 768,
+      "groundPixels": 479
+     },
+     {
+      "phase": "menu",
+      "text": "Black anodised aluminium",
+      "nodeId": "vitrea-node-28",
+      "size": 12.5,
+      "bold": false,
+      "large": false,
+      "ratio": 3.69,
+      "worstRatio": 2.27,
+      "pass": false,
+      "ink": [
+       77,
+       66,
+       61
+      ],
+      "ground": [
+       180,
+       154,
+       143
+      ],
+      "pixels": 2432,
+      "groundPixels": 1873
+     },
+     {
+      "phase": "menu",
+      "text": "Grey bead-blasted aluminium",
+      "nodeId": "vitrea-node-28",
+      "size": 12.5,
+      "bold": false,
+      "large": false,
+      "ratio": 4.48,
+      "worstRatio": 2.46,
+      "pass": false,
+      "ink": [
+       99,
+       84,
+       69
+      ],
+      "ground": [
+       233,
+       197,
+       162
+      ],
+      "pixels": 2720,
+      "groundPixels": 2115
+     },
+     {
+      "phase": "menu",
+      "text": "Kit",
+      "nodeId": "vitrea-node-28",
+      "size": 12,
+      "bold": false,
+      "large": false,
+      "ratio": 4.27,
+      "worstRatio": 4.26,
+      "pass": false,
+      "ink": [
+       90,
+       79,
+       82
+      ],
+      "ground": [
+       211,
+       184,
+       191
+      ],
+      "pixels": 384,
+      "groundPixels": 255
+     },
+     {
+      "phase": "menu",
+      "text": "Battery, charger cable, strap",
+      "nodeId": "vitrea-node-28",
+      "size": 12.5,
+      "bold": false,
+      "large": false,
+      "ratio": 4.34,
+      "worstRatio": 2.42,
+      "pass": false,
+      "ink": [
+       95,
+       80,
+       72
+      ],
+      "ground": [
+       222,
+       188,
+       168
+      ],
+      "pixels": 2672,
+      "groundPixels": 2167
+     },
+     {
+      "phase": "menu",
+      "text": "Save $240 on the lens",
+      "nodeId": "vitrea-node-28",
+      "size": 12.5,
+      "bold": false,
+      "large": false,
+      "ratio": 3.75,
+      "worstRatio": 2.34,
+      "pass": false,
+      "ink": [
+       76,
+       67,
+       64
+      ],
+      "ground": [
+       178,
+       158,
+       150
+      ],
+      "pixels": 2112,
+      "groundPixels": 1668
+     },
+     {
+      "phase": "menu",
+      "text": "f/2.8 pancake, f/1.4 normal",
+      "nodeId": "vitrea-node-28",
+      "size": 12.5,
+      "bold": false,
+      "large": false,
+      "ratio": 3.78,
+      "worstRatio": 2.46,
+      "pass": false,
+      "ink": [
+       70,
+       70,
+       72
+      ],
+      "ground": [
+       164,
+       163,
+       168
+      ],
+      "pixels": 2496,
+      "groundPixels": 1887
+     },
+     {
+      "phase": "menu",
+      "text": "We'll write within a day to take the ref",
+      "nodeId": "vitrea-node-28",
+      "size": 12.5,
+      "bold": false,
+      "large": false,
+      "ratio": 4.26,
+      "worstRatio": 2.42,
+      "pass": false,
+      "ink": [
+       66,
+       83,
+       99
+      ],
+      "ground": [
+       155,
+       194,
+       233
+      ],
+      "pixels": 11152,
+      "groundPixels": 9171
+     }
+    ],
+    "sample": [
+     {
+      "phase": "fv",
+      "text": "LYSVERK",
+      "nodeId": "vitrea-node-1",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 10.12,
+      "worstRatio": 10.12,
+      "pass": true,
+      "ink": [
+       23,
+       32,
+       39
+      ],
+      "ground": [
+       151,
+       209,
+       255
+      ],
+      "pixels": 1368,
+      "groundPixels": 713
+     },
+     {
+      "phase": "fv",
+      "text": "Camera",
+      "nodeId": "vitrea-node-1",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 10.19,
+      "worstRatio": 10.11,
+      "pass": true,
+      "ink": [
+       23,
+       32,
+       39
+      ],
+      "ground": [
+       151,
+       210,
+       255
+      ],
+      "pixels": 936,
+      "groundPixels": 481
+     },
+     {
+      "phase": "fv",
+      "text": "Design",
+      "nodeId": "vitrea-node-1",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 10.25,
+      "worstRatio": 10.17,
+      "pass": true,
+      "ink": [
+       23,
+       32,
+       39
+      ],
+      "ground": [
+       151,
+       211,
+       255
+      ],
+      "pixels": 846,
+      "groundPixels": 408
+     },
+     {
+      "phase": "fv",
+      "text": "Specs",
+      "nodeId": "vitrea-node-1",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 10.25,
+      "worstRatio": 10.25,
+      "pass": true,
+      "ink": [
+       23,
+       32,
+       39
+      ],
+      "ground": [
+       151,
+       211,
+       255
+      ],
+      "pixels": 738,
+      "groundPixels": 345
+     },
+     {
+      "phase": "fv",
+      "text": "Lenses",
+      "nodeId": "vitrea-node-1",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 10.32,
+      "worstRatio": 10.24,
+      "pass": true,
+      "ink": [
+       23,
+       32,
+       39
+      ],
+      "ground": [
+       151,
+       212,
+       255
+      ],
+      "pixels": 864,
+      "groundPixels": 450
+     },
+     {
+      "phase": "fv",
+      "text": "Workshop",
+      "nodeId": "vitrea-node-1",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 10.19,
+      "worstRatio": 10.11,
+      "pass": true,
+      "ink": [
+       23,
+       32,
+       39
+      ],
+      "ground": [
+       151,
+       210,
+       255
+      ],
+      "pixels": 1206,
+      "groundPixels": 585
+     },
+     {
+      "phase": "fv",
+      "text": "Price",
+      "nodeId": "vitrea-node-1",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 10.06,
+      "worstRatio": 10.06,
+      "pass": true,
+      "ink": [
+       23,
+       32,
+       39
+      ],
+      "ground": [
+       151,
+       208,
+       255
+      ],
+      "pixels": 630,
+      "groundPixels": 319
+     },
+     {
+      "phase": "fv",
+      "text": "Lysverk 68",
+      "nodeId": "vitrea-node-2",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 9.16,
+      "worstRatio": 8.98,
+      "pass": true,
+      "ink": [
+       11,
+       22,
+       40
+      ],
+      "ground": [
+       150,
+       188,
+       229
+      ],
+      "pixels": 1501,
+      "groundPixels": 757
+     },
+     {
+      "phase": "fv",
+      "text": "Basalt · with 35 mm f/1.8",
+      "nodeId": "vitrea-node-2",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 4.43,
+      "worstRatio": 4.31,
+      "pass": false,
+      "ink": [
+       60,
+       74,
+       89
+      ],
+      "ground": [
+       150,
+       184,
+       223
+      ],
+      "pixels": 2533,
+      "groundPixels": 1766
+     },
+     {
+      "phase": "fv",
+      "text": "$3,440",
+      "nodeId": "vitrea-node-2",
+      "size": 17,
+      "bold": false,
+      "large": false,
+      "ratio": 8.67,
+      "worstRatio": 8.5,
+      "pass": true,
+      "ink": [
+       11,
+       22,
+       40
+      ],
+      "ground": [
+       150,
+       182,
+       223
+      ],
+      "pixels": 1239,
+      "groundPixels": 617
+     },
+     {
+      "phase": "fv",
+      "text": "Reserve",
+      "nodeId": "vitrea-node-3",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 5.83,
+      "worstRatio": 5.83,
+      "pass": true,
+      "ink": [
+       11,
+       22,
+       40
+      ],
+      "ground": [
+       206,
+       128,
+       50
+      ],
+      "pixels": 1116,
+      "groundPixels": 473
+     },
+     {
+      "phase": "fv",
+      "text": "$200 deposit",
+      "nodeId": "vitrea-node-3",
+      "size": 12,
+      "bold": false,
+      "large": false,
+      "ratio": 5.83,
+      "worstRatio": 5.83,
+      "pass": true,
+      "ink": [
+       11,
+       22,
+       40
+      ],
+      "ground": [
+       206,
+       128,
+       50
+      ],
+      "pixels": 1170,
+      "groundPixels": 506
+     },
+     {
+      "phase": "tile-2",
+      "text": "LYSVERK",
+      "nodeId": "vitrea-node-21",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 14.34,
+      "worstRatio": 14.34,
+      "pass": true,
+      "ink": [
+       38,
+       38,
+       39
+      ],
+      "ground": [
+       247,
+       249,
+       252
+      ],
+      "pixels": 1368,
+      "groundPixels": 713
+     },
+     {
+      "phase": "tile-2",
+      "text": "Camera",
+      "nodeId": "vitrea-node-21",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 11.44,
+      "worstRatio": 11.44,
+      "pass": true,
+      "ink": [
+       33,
+       33,
+       34
+      ],
+      "ground": [
+       216,
+       218,
+       220
+      ],
+      "pixels": 936,
+      "groundPixels": 481
+     },
+     {
+      "phase": "tile-2",
+      "text": "Design",
+      "nodeId": "vitrea-node-21",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 14.34,
+      "worstRatio": 14.34,
+      "pass": true,
+      "ink": [
+       38,
+       38,
+       39
+      ],
+      "ground": [
+       247,
+       249,
+       252
+      ],
+      "pixels": 846,
+      "groundPixels": 408
+     },
+     {
+      "phase": "tile-2",
+      "text": "Specs",
+      "nodeId": "vitrea-node-21",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 14.34,
+      "worstRatio": 14.34,
+      "pass": true,
+      "ink": [
+       38,
+       38,
+       39
+      ],
+      "ground": [
+       247,
+       249,
+       252
+      ],
+      "pixels": 738,
+      "groundPixels": 345
+     },
+     {
+      "phase": "tile-2",
+      "text": "Lenses",
+      "nodeId": "vitrea-node-21",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 14.34,
+      "worstRatio": 14.34,
+      "pass": true,
+      "ink": [
+       38,
+       38,
+       39
+      ],
+      "ground": [
+       247,
+       249,
+       252
+      ],
+      "pixels": 864,
+      "groundPixels": 450
+     },
+     {
+      "phase": "tile-2",
+      "text": "Workshop",
+      "nodeId": "vitrea-node-21",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 14.34,
+      "worstRatio": 14.34,
+      "pass": true,
+      "ink": [
+       38,
+       38,
+       39
+      ],
+      "ground": [
+       247,
+       249,
+       252
+      ],
+      "pixels": 1206,
+      "groundPixels": 585
+     },
+     {
+      "phase": "tile-2",
+      "text": "Price",
+      "nodeId": "vitrea-node-21",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 14.34,
+      "worstRatio": 14.34,
+      "pass": true,
+      "ink": [
+       38,
+       38,
+       39
+      ],
+      "ground": [
+       247,
+       249,
+       252
+      ],
+      "pixels": 630,
+      "groundPixels": 319
+     },
+     {
+      "phase": "tile-2",
+      "text": "Lysverk 68",
+      "nodeId": "vitrea-node-17",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 17.32,
+      "worstRatio": 17.32,
+      "pass": true,
+      "ink": [
+       11,
+       22,
+       40
+      ],
+      "ground": [
+       248,
+       250,
+       253
+      ],
+      "pixels": 1501,
+      "groundPixels": 758
+     },
+     {
+      "phase": "tile-2",
+      "text": "Basalt · with 35 mm f/1.8",
+      "nodeId": "vitrea-node-17",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 4.49,
+      "worstRatio": 2.61,
+      "pass": false,
+      "ink": [
+       115,
+       116,
+       117
+      ],
+      "ground": [
+       248,
+       250,
+       253
+      ],
+      "pixels": 2533,
+      "groundPixels": 2095
+     },
+     {
+      "phase": "tile-2",
+      "text": "$3,440",
+      "nodeId": "vitrea-node-17",
+      "size": 17,
+      "bold": false,
+      "large": false,
+      "ratio": 16.14,
+      "worstRatio": 15.1,
+      "pass": true,
+      "ink": [
+       11,
+       22,
+       40
+      ],
+      "ground": [
+       239,
+       242,
+       247
+      ],
+      "pixels": 1239,
+      "groundPixels": 619
+     },
+     {
+      "phase": "tile-2",
+      "text": "Reserve",
+      "nodeId": "vitrea-node-18",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 7.29,
+      "worstRatio": 7.29,
+      "pass": true,
+      "ink": [
+       11,
+       22,
+       40
+      ],
+      "ground": [
+       231,
+       144,
+       58
+      ],
+      "pixels": 1116,
+      "groundPixels": 473
+     },
+     {
+      "phase": "tile-2",
+      "text": "$200 deposit",
+      "nodeId": "vitrea-node-18",
+      "size": 12,
+      "bold": false,
+      "large": false,
+      "ratio": 7.29,
+      "worstRatio": 7.29,
+      "pass": true,
+      "ink": [
+       11,
+       22,
+       40
+      ],
+      "ground": [
+       231,
+       144,
+       58
+      ],
+      "pixels": 1170,
+      "groundPixels": 506
+     },
+     {
+      "phase": "tile-3",
+      "text": "LYSVERK",
+      "nodeId": "vitrea-node-21",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 14.34,
+      "worstRatio": 14.34,
+      "pass": true,
+      "ink": [
+       38,
+       38,
+       39
+      ],
+      "ground": [
+       247,
+       249,
+       252
+      ],
+      "pixels": 1368,
+      "groundPixels": 713
+     },
+     {
+      "phase": "tile-3",
+      "text": "Camera",
+      "nodeId": "vitrea-node-21",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 14.34,
+      "worstRatio": 14.34,
+      "pass": true,
+      "ink": [
+       38,
+       38,
+       39
+      ],
+      "ground": [
+       247,
+       249,
+       252
+      ],
+      "pixels": 936,
+      "groundPixels": 481
+     },
+     {
+      "phase": "tile-3",
+      "text": "Design",
+      "nodeId": "vitrea-node-21",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 11.44,
+      "worstRatio": 11.44,
+      "pass": true,
+      "ink": [
+       33,
+       33,
+       34
+      ],
+      "ground": [
+       216,
+       218,
+       220
+      ],
+      "pixels": 846,
+      "groundPixels": 408
+     },
+     {
+      "phase": "tile-3",
+      "text": "Specs",
+      "nodeId": "vitrea-node-21",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 14.34,
+      "worstRatio": 14.34,
+      "pass": true,
+      "ink": [
+       38,
+       38,
+       39
+      ],
+      "ground": [
+       247,
+       249,
+       252
+      ],
+      "pixels": 738,
+      "groundPixels": 345
+     },
+     {
+      "phase": "tile-3",
+      "text": "Lenses",
+      "nodeId": "vitrea-node-21",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 14.34,
+      "worstRatio": 14.34,
+      "pass": true,
+      "ink": [
+       38,
+       38,
+       39
+      ],
+      "ground": [
+       247,
+       249,
+       252
+      ],
+      "pixels": 864,
+      "groundPixels": 450
+     },
+     {
+      "phase": "tile-3",
+      "text": "Workshop",
+      "nodeId": "vitrea-node-21",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 14.34,
+      "worstRatio": 14.34,
+      "pass": true,
+      "ink": [
+       38,
+       38,
+       39
+      ],
+      "ground": [
+       247,
+       249,
+       252
+      ],
+      "pixels": 1206,
+      "groundPixels": 585
+     },
+     {
+      "phase": "tile-3",
+      "text": "Price",
+      "nodeId": "vitrea-node-21",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 14.34,
+      "worstRatio": 14.34,
+      "pass": true,
+      "ink": [
+       38,
+       38,
+       39
+      ],
+      "ground": [
+       247,
+       249,
+       252
+      ],
+      "pixels": 630,
+      "groundPixels": 319
+     },
+     {
+      "phase": "tile-3",
+      "text": "Lysverk 68",
+      "nodeId": "vitrea-node-17",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 17.32,
+      "worstRatio": 16.94,
+      "pass": true,
+      "ink": [
+       11,
+       22,
+       40
+      ],
+      "ground": [
+       248,
+       250,
+       253
+      ],
+      "pixels": 1501,
+      "groundPixels": 757
+     },
+     {
+      "phase": "tile-3",
+      "text": "Basalt · with 35 mm f/1.8",
+      "nodeId": "vitrea-node-17",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 4.41,
+      "worstRatio": 2.4,
+      "pass": false,
+      "ink": [
+       112,
+       112,
+       112
+      ],
+      "ground": [
+       241,
+       241,
+       242
+      ],
+      "pixels": 2533,
+      "groundPixels": 2138
+     },
+     {
+      "phase": "tile-3",
+      "text": "$3,440",
+      "nodeId": "vitrea-node-17",
+      "size": 17,
+      "bold": false,
+      "large": false,
+      "ratio": 17.32,
+      "worstRatio": 16.87,
+      "pass": true,
+      "ink": [
+       11,
+       22,
+       40
+      ],
+      "ground": [
+       248,
+       250,
+       253
+      ],
+      "pixels": 1239,
+      "groundPixels": 617
+     },
+     {
+      "phase": "tile-3",
+      "text": "Reserve",
+      "nodeId": "vitrea-node-18",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 7.29,
+      "worstRatio": 7.29,
+      "pass": true,
+      "ink": [
+       11,
+       22,
+       40
+      ],
+      "ground": [
+       231,
+       144,
+       58
+      ],
+      "pixels": 1116,
+      "groundPixels": 473
+     },
+     {
+      "phase": "tile-3",
+      "text": "$200 deposit",
+      "nodeId": "vitrea-node-18",
+      "size": 12,
+      "bold": false,
+      "large": false,
+      "ratio": 7.29,
+      "worstRatio": 7.29,
+      "pass": true,
+      "ink": [
+       11,
+       22,
+       40
+      ],
+      "ground": [
+       231,
+       144,
+       58
+      ],
+      "pixels": 1170,
+      "groundPixels": 506
+     },
+     {
+      "phase": "menu",
+      "text": "LYSVERK",
+      "nodeId": "vitrea-node-27",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 10.12,
+      "worstRatio": 10.12,
+      "pass": true,
+      "ink": [
+       23,
+       32,
+       39
+      ],
+      "ground": [
+       151,
+       209,
+       255
+      ],
+      "pixels": 1368,
+      "groundPixels": 713
+     },
+     {
+      "phase": "menu",
+      "text": "Camera",
+      "nodeId": "vitrea-node-27",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 10.19,
+      "worstRatio": 10.11,
+      "pass": true,
+      "ink": [
+       23,
+       32,
+       39
+      ],
+      "ground": [
+       151,
+       210,
+       255
+      ],
+      "pixels": 936,
+      "groundPixels": 481
+     },
+     {
+      "phase": "menu",
+      "text": "Design",
+      "nodeId": "vitrea-node-27",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 10.25,
+      "worstRatio": 10.17,
+      "pass": true,
+      "ink": [
+       23,
+       32,
+       39
+      ],
+      "ground": [
+       151,
+       211,
+       255
+      ],
+      "pixels": 846,
+      "groundPixels": 408
+     },
+     {
+      "phase": "menu",
+      "text": "Specs",
+      "nodeId": "vitrea-node-27",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 10.25,
+      "worstRatio": 10.25,
+      "pass": true,
+      "ink": [
+       23,
+       32,
+       39
+      ],
+      "ground": [
+       151,
+       211,
+       255
+      ],
+      "pixels": 738,
+      "groundPixels": 345
+     }
+    ]
+   },
+   "rootFound": true,
+   "api": {
+    "missing": []
+   },
+   "colorScheme": "light",
+   "schemeFollowed": false,
+   "windowActivation": "active",
+   "material": {
+    "name": "apple-macos-27.0-glass0.5",
+    "platform": "macOS 27.0",
+    "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+    "resolvedMaterialSha256": "be13dae45098fc89",
+    "tuned": false
+   },
+   "webgpu": {
+    "available": true,
+    "ownership": "vitrea",
+    "deviceHealth": "ok",
+    "unavailableReason": null,
+    "hasDevice": true
+   },
+   "platformProbe": {
+    "engine": {
+     "family": "chromium",
+     "version": 151
+    },
+    "reach": "verified"
+   },
+   "accessibility": {
+    "reducedTransparency": false,
+    "reducedMotion": false,
+    "increasedContrast": false,
+    "forcedColors": false,
+    "material": {
+     "glass": "material",
+     "colorSource": "material",
+     "frost": "nominal",
+     "refraction": "nominal",
+     "occlusion": "nominal",
+     "border": "nominal",
+     "ambientTint": "nominal",
+     "foreground": "adaptive"
+    },
+    "motion": {
+     "overshoot": "elastic",
+     "deformation": "nominal",
+     "shimmer": "travel",
+     "morph": "elastic",
+     "crossfade": "never",
+     "positionalContinuity": true
+    }
+   },
+   "surfaces": [
+    {
+     "nodeId": "vitrea-node-13",
+     "groupId": "nav-8",
+     "plane": "base",
+     "selector": "div#glass-root > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > nav[data-vitrea-node=\"vitrea-node-13\"].g-nav",
+     "tag": "nav",
+     "role": null,
+     "rect": [
+      405.5,
+      20,
+      629.1,
+      52
+     ],
+     "span": 52,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "fixed-rounded-rect",
+     "radii": [
+      26,
+      26,
+      26,
+      26
+     ],
+     "smoothing": 0,
+     "thickness": 10,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "26px",
+     "label": "Primary"
+    },
+    {
+     "nodeId": "vitrea-node-11",
+     "groupId": "bar-7",
+     "plane": "base",
+     "selector": "div#glass-root > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div.buybar > button[data-vitrea-node=\"vitrea-node-11\"].g-config:nth-of-type(1)",
+     "tag": "button",
+     "role": null,
+     "rect": [
+      410,
+      816,
+      440,
+      60
+     ],
+     "span": 60,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "fixed-rounded-rect",
+     "radii": [
+      30,
+      30,
+      30,
+      30
+     ],
+     "smoothing": 0,
+     "thickness": 12,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "30px",
+     "label": "Lysverk 68, Basalt, with 35 mm f/1.8, $3"
+    },
+    {
+     "nodeId": "vitrea-node-12",
+     "groupId": "bar-7",
+     "plane": "base",
+     "selector": "div#glass-root > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div.buybar > button[data-vitrea-node=\"vitrea-node-12\"].g-reserve:nth-of-type(2)",
+     "tag": "button",
+     "role": null,
+     "rect": [
+      860,
+      816,
+      170,
+      60
+     ],
+     "span": 60,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "fixed-rounded-rect",
+     "radii": [
+      30,
+      30,
+      30,
+      30
+     ],
+     "smoothing": 0,
+     "thickness": 12,
+     "variant": "regular",
+     "tinted": true,
+     "cssRadius": "30px",
+     "label": "Reserve\n      $200 deposit"
+    }
+   ],
+   "surfacesInFrame": 3,
+   "planes": [
+    {
+     "plane": "base",
+     "nodes": 3
+    },
+    {
+     "plane": "overlay",
+     "nodes": 0
+    }
+   ],
+   "groups": [
+    {
+     "id": "nav-8",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.89,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "bar-7",
+     "members": 2,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 8.18,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    }
+   ],
+   "diagnostics": [],
+   "derivedFindings": [],
+   "menu": "captured",
+   "menuSurfaces": [
+    {
+     "nodeId": "vitrea-node-27",
+     "groupId": "nav-18",
+     "plane": "base",
+     "selector": "div#glass-root > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > nav[data-vitrea-node=\"vitrea-node-27\"].g-nav",
+     "tag": "nav",
+     "role": null,
+     "rect": [
+      405.5,
+      20,
+      629.1,
+      52
+     ],
+     "span": 52,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "fixed-rounded-rect",
+     "radii": [
+      26,
+      26,
+      26,
+      26
+     ],
+     "smoothing": 0,
+     "thickness": 10,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "26px",
+     "label": "Primary"
+    },
+    {
+     "nodeId": "vitrea-node-25",
+     "groupId": "bar-17",
+     "plane": "base",
+     "selector": "div#glass-root > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div.buybar > button[data-vitrea-node=\"vitrea-node-25\"].g-config:nth-of-type(1)",
+     "tag": "button",
+     "role": null,
+     "rect": [
+      410,
+      816,
+      440,
+      60
+     ],
+     "span": 60,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "fixed-rounded-rect",
+     "radii": [
+      30,
+      30,
+      30,
+      30
+     ],
+     "smoothing": 0,
+     "thickness": 12,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "30px",
+     "label": "Lysverk 68, Basalt, with 35 mm f/1.8, $3"
+    },
+    {
+     "nodeId": "vitrea-node-26",
+     "groupId": "bar-17",
+     "plane": "base",
+     "selector": "div#glass-root > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div.buybar > button[data-vitrea-node=\"vitrea-node-26\"].g-reserve:nth-of-type(2)",
+     "tag": "button",
+     "role": null,
+     "rect": [
+      860,
+      816,
+      170,
+      60
+     ],
+     "span": 60,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "fixed-rounded-rect",
+     "radii": [
+      30,
+      30,
+      30,
+      30
+     ],
+     "smoothing": 0,
+     "thickness": 12,
+     "variant": "regular",
+     "tinted": true,
+     "cssRadius": "30px",
+     "label": "Reserve\n      $200 deposit"
+    },
+    {
+     "nodeId": "vitrea-node-28",
+     "groupId": "panel-19",
+     "plane": "overlay",
+     "selector": "div#configurator",
+     "tag": "div",
+     "role": "dialog",
+     "rect": [
+      410,
+      386.3,
+      620,
+      417.8
+     ],
+     "span": 417.8,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "fixed-rounded-rect",
+     "radii": [
+      28,
+      28,
+      28,
+      28
+     ],
+     "smoothing": 0,
+     "thickness": 16,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "28px",
+     "label": "Configure your 68\n        \n      \n      "
+    }
+   ],
+   "menuGroups": [
+    {
+     "id": "nav-18",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.89,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "bar-17",
+     "members": 2,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 8.18,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "panel-19",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 20.89,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    }
+   ],
+   "menuDiagnostics": [],
+   "ban": {
+    "rest": {
+     "findings": [],
+     "unmeasured": [],
+     "hostsRead": 3,
+     "cssTierHosts": 0
+    },
+    "menu": {
+     "findings": [],
+     "unmeasured": [],
+     "hostsRead": 4,
+     "cssTierHosts": 0
+    }
+   }
+  }
+ },
+ "surfaces": [
+  {
+   "nodeId": "vitrea-node-13",
+   "groupId": "nav-8",
+   "plane": "base",
+   "selector": "div#glass-root > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > nav[data-vitrea-node=\"vitrea-node-13\"].g-nav",
+   "tag": "nav",
+   "role": null,
+   "rect": [
+    405.5,
+    20,
+    629.1,
+    52
+   ],
+   "span": 52,
+   "boundsFrom": "renderInput",
+   "shapeFamily": "fixed-rounded-rect",
+   "radii": [
+    26,
+    26,
+    26,
+    26
+   ],
+   "smoothing": 0,
+   "thickness": 10,
+   "variant": "regular",
+   "tinted": false,
+   "cssRadius": "26px",
+   "label": "Primary"
+  },
+  {
+   "nodeId": "vitrea-node-11",
+   "groupId": "bar-7",
+   "plane": "base",
+   "selector": "div#glass-root > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div.buybar > button[data-vitrea-node=\"vitrea-node-11\"].g-config:nth-of-type(1)",
+   "tag": "button",
+   "role": null,
+   "rect": [
+    410,
+    816,
+    440,
+    60
+   ],
+   "span": 60,
+   "boundsFrom": "renderInput",
+   "shapeFamily": "fixed-rounded-rect",
+   "radii": [
+    30,
+    30,
+    30,
+    30
+   ],
+   "smoothing": 0,
+   "thickness": 12,
+   "variant": "regular",
+   "tinted": false,
+   "cssRadius": "30px",
+   "label": "Lysverk 68, Basalt, with 35 mm f/1.8, $3"
+  },
+  {
+   "nodeId": "vitrea-node-12",
+   "groupId": "bar-7",
+   "plane": "base",
+   "selector": "div#glass-root > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div.buybar > button[data-vitrea-node=\"vitrea-node-12\"].g-reserve:nth-of-type(2)",
+   "tag": "button",
+   "role": null,
+   "rect": [
+    860,
+    816,
+    170,
+    60
+   ],
+   "span": 60,
+   "boundsFrom": "renderInput",
+   "shapeFamily": "fixed-rounded-rect",
+   "radii": [
+    30,
+    30,
+    30,
+    30
+   ],
+   "smoothing": 0,
+   "thickness": 12,
+   "variant": "regular",
+   "tinted": true,
+   "cssRadius": "30px",
+   "label": "Reserve\n      $200 deposit"
+  }
+ ],
+ "planes": [
+  {
+   "plane": "base",
+   "nodes": 3
+  },
+  {
+   "plane": "overlay",
+   "nodes": 0
+  }
+ ],
+ "diagnostics": [],
+ "unknownDiagnosticCodes": [],
+ "named": {
+  "nestedGlass": false,
+  "samePlaneOverlap": false,
+  "contentLayerHost": false,
+  "demotedBackdropRoot": false,
+  "hostOutsidePlane": false,
+  "nonUniformRadii": false,
+  "tintUnparseable": false,
+  "tintMixing": false,
+  "variantMixing": false
+ },
+ "banSubset": {
+  "findings": [],
+  "counts": {},
+  "unmeasured": []
+ },
+ "reduced": {
+  "method": "page-switch",
+  "applied": true,
+  "readyState": "settled",
+  "rootFound": true,
+  "errors": [],
+  "consoleErrors": [],
+  "policyBefore": {
+   "reducedTransparency": false,
+   "reducedMotion": false,
+   "increasedContrast": false,
+   "forcedColors": false,
+   "material": {
+    "glass": "material",
+    "colorSource": "material",
+    "frost": "nominal",
+    "refraction": "nominal",
+    "occlusion": "nominal",
+    "border": "nominal",
+    "ambientTint": "nominal",
+    "foreground": "adaptive"
+   },
+   "motion": {
+    "overshoot": "elastic",
+    "deformation": "nominal",
+    "shimmer": "travel",
+    "morph": "elastic",
+    "crossfade": "never",
+    "positionalContinuity": true
+   }
+  },
+  "policyAfter": {
+   "reducedTransparency": true,
+   "reducedMotion": false,
+   "increasedContrast": false,
+   "forcedColors": false,
+   "material": {
+    "glass": "material",
+    "colorSource": "material",
+    "frost": "increased",
+    "refraction": "reduced",
+    "occlusion": "increased",
+    "border": "nominal",
+    "ambientTint": "nominal",
+    "foreground": "adaptive"
+   },
+   "motion": {
+    "overshoot": "elastic",
+    "deformation": "nominal",
+    "shimmer": "travel",
+    "morph": "elastic",
+    "crossfade": "never",
+    "positionalContinuity": true
+   }
+  },
+  "policyChanged": true,
+  "policyAsAsked": true,
+  "groups": [
+   {
+    "id": "nav-1",
+    "moved": true,
+    "before": {
+     "id": "nav-1",
+     "renderer": "webgpu",
+     "refraction": "approximate",
+     "cssBody": null,
+     "cssTint": null,
+     "blurRadius": 7.887,
+     "nodes": [
+      {
+       "nodeId": "vitrea-node-1",
+       "blurRadius": 2.75,
+       "tintAlpha": 0.684,
+       "borderAlpha": 0.028,
+       "refraction": "approximate"
+      }
+     ]
+    },
+    "after": {
+     "id": "nav-1",
+     "renderer": "webgpu",
+     "refraction": "approximate",
+     "cssBody": null,
+     "cssTint": null,
+     "blurRadius": 13.49,
+     "nodes": [
+      {
+       "nodeId": "vitrea-node-1",
+       "blurRadius": 4.813,
+       "tintAlpha": 0.929,
+       "borderAlpha": 0.004,
+       "refraction": "approximate"
+      }
+     ]
+    }
+   },
+   {
+    "id": "bar-2",
+    "moved": true,
+    "before": {
+     "id": "bar-2",
+     "renderer": "webgpu",
+     "refraction": "approximate",
+     "cssBody": null,
+     "cssTint": null,
+     "blurRadius": 8.183,
+     "nodes": [
+      {
+       "nodeId": "vitrea-node-2",
+       "blurRadius": 2.75,
+       "tintAlpha": 0.673,
+       "borderAlpha": 0.036,
+       "refraction": "approximate"
+      },
+      {
+       "nodeId": "vitrea-node-3",
+       "blurRadius": 2.75,
+       "tintAlpha": 1,
+       "borderAlpha": 0.036,
+       "refraction": "approximate"
+      }
+     ]
+    },
+    "after": {
+     "id": "bar-2",
+     "renderer": "webgpu",
+     "refraction": "approximate",
+     "cssBody": null,
+     "cssTint": null,
+     "blurRadius": 13.723,
+     "nodes": [
+      {
+       "nodeId": "vitrea-node-2",
+       "blurRadius": 4.813,
+       "tintAlpha": 0.929,
+       "borderAlpha": 0.005,
+       "refraction": "approximate"
+      },
+      {
+       "nodeId": "vitrea-node-3",
+       "blurRadius": 4.813,
+       "tintAlpha": 1,
+       "borderAlpha": 0.005,
+       "refraction": "approximate"
+      }
+     ]
+    }
+   }
+  ],
+  "materialMoved": true,
+  "captured": true
+ },
+ "emulation": {
+  "increasedContrast": {
+   "status": "ran",
+   "query": "(prefers-contrast: more)",
+   "readyState": "settled",
+   "rootFound": true,
+   "errors": [],
+   "consoleErrors": [],
+   "accessibility": {
+    "reducedTransparency": false,
+    "reducedMotion": false,
+    "increasedContrast": true,
+    "forcedColors": false,
+    "material": {
+     "glass": "material",
+     "colorSource": "material",
+     "frost": "nominal",
+     "refraction": "nominal",
+     "occlusion": "nominal",
+     "border": "strong",
+     "ambientTint": "reduced",
+     "foreground": "near-monochrome"
+    },
+    "motion": {
+     "overshoot": "elastic",
+     "deformation": "nominal",
+     "shimmer": "travel",
+     "morph": "elastic",
+     "crossfade": "never",
+     "positionalContinuity": true
+    }
+   },
+   "policyAsAsked": true,
+   "groups": [
+    {
+     "id": "nav-1",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.89,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "bar-2",
+     "members": 2,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 8.18,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    }
+   ],
+   "diagnostics": []
+  },
+  "reducedMotion": {
+   "status": "ran",
+   "query": "(prefers-reduced-motion: reduce)",
+   "readyState": "settled",
+   "rootFound": true,
+   "errors": [],
+   "consoleErrors": [],
+   "accessibility": {
+    "reducedTransparency": false,
+    "reducedMotion": true,
+    "increasedContrast": false,
+    "forcedColors": false,
+    "material": {
+     "glass": "material",
+     "colorSource": "material",
+     "frost": "nominal",
+     "refraction": "nominal",
+     "occlusion": "nominal",
+     "border": "nominal",
+     "ambientTint": "nominal",
+     "foreground": "adaptive"
+    },
+    "motion": {
+     "overshoot": "none",
+     "deformation": "none",
+     "shimmer": "none",
+     "morph": "non-elastic",
+     "crossfade": "large-plane-shifts",
+     "positionalContinuity": true
+    }
+   },
+   "policyAsAsked": true,
+   "groups": [
+    {
+     "id": "nav-1",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.89,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "bar-2",
+     "members": 2,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 8.18,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    }
+   ],
+   "diagnostics": []
+  },
+  "forcedColors": {
+   "status": "ran",
+   "query": "(forced-colors: active)",
+   "readyState": "settled",
+   "rootFound": true,
+   "errors": [],
+   "consoleErrors": [],
+   "accessibility": {
+    "reducedTransparency": false,
+    "reducedMotion": false,
+    "increasedContrast": false,
+    "forcedColors": true,
+    "material": {
+     "glass": "none",
+     "colorSource": "system",
+     "frost": "none",
+     "refraction": "none",
+     "occlusion": "opaque",
+     "border": "strong",
+     "ambientTint": "none",
+     "foreground": "near-monochrome"
+    },
+    "motion": {
+     "overshoot": "elastic",
+     "deformation": "nominal",
+     "shimmer": "travel",
+     "morph": "elastic",
+     "crossfade": "never",
+     "positionalContinuity": true
+    }
+   },
+   "policyAsAsked": true,
+   "groups": [
+    {
+     "id": "nav-1",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 0,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "bar-2",
+     "members": 2,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 0,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    }
+   ],
+   "diagnostics": [],
+   "forced": {
+    "policyGlass": "none",
+    "runtimeGlassSurfaces": 0,
+    "backdropFilterElements": [
+     {
+      "selector": "div#glass-root > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"backdrop-proxy\"]:nth-of-type(1) > div:nth-of-type(1)",
+      "where": "runtime-proxy",
+      "value": "blur(0px) saturate(1)"
+     },
+     {
+      "selector": "div#glass-root > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"backdrop-proxy\"]:nth-of-type(1) > div:nth-of-type(2)",
+      "where": "runtime-proxy",
+      "value": "blur(0px) saturate(1)"
+     }
+    ],
+    "backdropFilterCount": 2,
+    "glassDrawn": 0,
+    "runtimeRead": true,
+    "hosts": [
+     {
+      "nodeId": "vitrea-node-1",
+      "selector": "div#glass-root > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > nav[data-vitrea-node=\"vitrea-node-1\"].g-nav",
+      "backdropFilter": "none",
+      "backgroundColor": "rgba(255, 255, 255, 0)",
+      "backgroundImage": "none",
+      "borderColor": "rgb(0, 0, 0)",
+      "forcedColorAdjust": "auto"
+     },
+     {
+      "nodeId": "vitrea-node-2",
+      "selector": "div#glass-root > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div.buybar > button[data-vitrea-node=\"vitrea-node-2\"].g-config:nth-of-type(1)",
+      "backdropFilter": "none",
+      "backgroundColor": "rgba(255, 255, 255, 0)",
+      "backgroundImage": "none",
+      "borderColor": "rgb(0, 0, 0)",
+      "forcedColorAdjust": "auto"
+     },
+     {
+      "nodeId": "vitrea-node-3",
+      "selector": "div#glass-root > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div.buybar > button[data-vitrea-node=\"vitrea-node-3\"].g-reserve:nth-of-type(2)",
+      "backdropFilter": "none",
+      "backgroundColor": "rgba(255, 255, 255, 0)",
+      "backgroundImage": "none",
+      "borderColor": "rgb(0, 0, 0)",
+      "forcedColorAdjust": "auto"
+     }
+    ]
+   },
+   "glassDrawn": 0
+  }
+ },
+ "captures": [
+  "shot-fv-light.png",
+  "shot-full-light.png",
+  "tile-2-light.png",
+  "tile-3-light.png",
+  "shot-menu-light.png",
+  "shot-fv-dark.png",
+  "shot-full-dark.png",
+  "tile-2-dark.png",
+  "tile-3-dark.png",
+  "shot-menu-dark.png",
+  "shot-reduced.png",
+  "shot-contrast.png",
+  "shot-forced.png"
+ ],
+ "captureSha256": {
+  "shot-fv-light.png": "84f9db667ef445782f6f3c77332bff1b3d29d03a83d5b155bc861180ce9997ee",
+  "shot-full-light.png": "97e2818c78b2d4a3b8398b5f4f575a20716e6391742815608aeb814b50a1230e",
+  "tile-2-light.png": "f66609cf5c8d6fff767b23dba7deda4c029521606b61260db26f47fa94f49ab0",
+  "tile-3-light.png": "478a0a62669e93289ff547fbb9c250ad255294a497fa9d7bf06e62b3c978ed9b",
+  "shot-menu-light.png": "9c6cd63b3843f1732b39021d4c4119a3f6acb74c88546f628ffd9b48b27d2c06",
+  "shot-fv-dark.png": "84f9db667ef445782f6f3c77332bff1b3d29d03a83d5b155bc861180ce9997ee",
+  "shot-full-dark.png": "97e2818c78b2d4a3b8398b5f4f575a20716e6391742815608aeb814b50a1230e",
+  "tile-2-dark.png": "f66609cf5c8d6fff767b23dba7deda4c029521606b61260db26f47fa94f49ab0",
+  "tile-3-dark.png": "047ac1238a6186700007a77d3712c221bfb7a138dc34b81c14bc516671158099",
+  "shot-menu-dark.png": "9c6cd63b3843f1732b39021d4c4119a3f6acb74c88546f628ffd9b48b27d2c06",
+  "shot-reduced.png": "6d4ab89390d3d896889e79503572a1889ab0d91ba9e42aa10a89bf1093d9238e",
+  "shot-contrast.png": "910fb5ffed83e06cda7003ed8f7cfcedad61c307bc83b57439ed380deb8e4f7e",
+  "shot-forced.png": "86dfe5cdb247883c18d80009bc23b59b748d6cf83683e7c1d9116b5cb7e986aa"
+ },
+ "gateMechanical": true,
+ "tool": {
+  "playwright": {
+   "module": "@playwright/test",
+   "version": "1.62.1"
+  },
+  "chromium": "151.0.7922.34",
+  "gpuArgs": [
+   "--enable-unsafe-webgpu",
+   "--enable-features=Vulkan,WebGPU"
+  ]
+ }
+}

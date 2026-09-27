@@ -1,0 +1,1861 @@
+{
+ "slug": "3-materialist",
+ "url": "http://localhost:5213/index.html",
+ "auditedAt": "2026-09-27T03:02:12.356Z",
+ "viewport": {
+  "width": 1440,
+  "height": 900
+ },
+ "rootFound": true,
+ "readyState": "settled",
+ "adapter": {
+  "available": true,
+  "vendor": "apple",
+  "architecture": "metal-3",
+  "device": "",
+  "description": "",
+  "isFallbackAdapter": false
+ },
+ "api": {
+  "missing": []
+ },
+ "errors": [],
+ "schemes": {
+  "light": {
+   "scheme": "light",
+   "readyState": "settled",
+   "adapter": {
+    "available": true,
+    "vendor": "apple",
+    "architecture": "metal-3",
+    "device": "",
+    "description": "",
+    "isFallbackAdapter": false
+   },
+   "errors": [],
+   "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (File not found)"
+   ],
+   "failedRequests": [],
+   "badResponses": [],
+   "scrolledOnLoad": 0,
+   "docHeight": 900,
+   "words": 3065,
+   "title": "Stockroom · Lot ledger · St. Brendan's Inpatient Pharmacy",
+   "placeholder": false,
+   "captureWidth": 1440,
+   "overflowCapture": false,
+   "overflowAtLoad": false,
+   "contrast": {
+    "method": "dom-composite",
+    "checked": 357,
+    "pass": 354,
+    "unknown": 0,
+    "rate": 0.992,
+    "onGlass": 1,
+    "onGlassPass": 1,
+    "fails": [
+     {
+      "text": "165",
+      "ratio": 3.8,
+      "size": 12,
+      "onGlass": false
+     },
+     {
+      "text": "2–8 °C",
+      "ratio": 4.44,
+      "size": 10.5,
+      "onGlass": false
+     },
+     {
+      "text": "Work queues",
+      "ratio": 4.44,
+      "size": 11,
+      "onGlass": false
+     }
+    ]
+   },
+   "glassContrast": {
+    "method": "rendered-pixels",
+    "pairs": 5,
+    "pass": 5,
+    "minRatio": 12.27,
+    "byPhase": {
+     "fv": {
+      "pairs": 5,
+      "pass": 5
+     }
+    },
+    "fails": [],
+    "sample": [
+     {
+      "phase": "fv",
+      "text": "All lots",
+      "nodeId": "bar-scope",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 12.27,
+      "worstRatio": 12.18,
+      "pass": true,
+      "ink": [
+       35,
+       35,
+       35
+      ],
+      "ground": [
+       226,
+       227,
+       228
+      ],
+      "pixels": 748,
+      "groundPixels": 368
+     },
+     {
+      "phase": "fv",
+      "text": "Next 90 days",
+      "nodeId": "bar-scope",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 14.54,
+      "worstRatio": 14.54,
+      "pass": true,
+      "ink": [
+       38,
+       38,
+       39
+      ],
+      "ground": [
+       250,
+       251,
+       252
+      ],
+      "pixels": 1377,
+      "groundPixels": 735
+     },
+     {
+      "phase": "fv",
+      "text": "Quarantined",
+      "nodeId": "bar-scope",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 14.54,
+      "worstRatio": 14.41,
+      "pass": true,
+      "ink": [
+       38,
+       38,
+       39
+      ],
+      "ground": [
+       250,
+       251,
+       252
+      ],
+      "pixels": 1292,
+      "groundPixels": 704
+     },
+     {
+      "phase": "fv",
+      "text": "Receive",
+      "nodeId": "bar-act",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 14.54,
+      "worstRatio": 14.54,
+      "pass": true,
+      "ink": [
+       38,
+       38,
+       39
+      ],
+      "ground": [
+       250,
+       251,
+       252
+      ],
+      "pixels": 850,
+      "groundPixels": 412
+     },
+     {
+      "phase": "fv",
+      "text": "/",
+      "nodeId": "bar-find",
+      "size": 11,
+      "bold": false,
+      "large": false,
+      "ratio": 12.46,
+      "worstRatio": 12.46,
+      "pass": true,
+      "ink": [
+       35,
+       35,
+       35
+      ],
+      "ground": [
+       228,
+       229,
+       231
+      ],
+      "pixels": 98,
+      "groundPixels": 57
+     }
+    ]
+   },
+   "rootFound": true,
+   "api": {
+    "missing": []
+   },
+   "colorScheme": "light",
+   "schemeFollowed": true,
+   "windowActivation": "active",
+   "material": {
+    "name": "apple-macos-27.0-glass0.5",
+    "platform": "macOS 27.0",
+    "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+    "resolvedMaterialSha256": "be13dae45098fc89",
+    "tuned": false
+   },
+   "webgpu": {
+    "available": true,
+    "ownership": "vitrea",
+    "deviceHealth": "ok",
+    "unavailableReason": null,
+    "hasDevice": true
+   },
+   "platformProbe": {
+    "engine": {
+     "family": "chromium",
+     "version": 151
+    },
+    "reach": "verified"
+   },
+   "accessibility": {
+    "reducedTransparency": false,
+    "reducedMotion": false,
+    "increasedContrast": false,
+    "forcedColors": false,
+    "material": {
+     "glass": "material",
+     "colorSource": "material",
+     "frost": "nominal",
+     "refraction": "nominal",
+     "occlusion": "nominal",
+     "border": "nominal",
+     "ambientTint": "nominal",
+     "foreground": "adaptive"
+    },
+    "motion": {
+     "overshoot": "elastic",
+     "deformation": "nominal",
+     "shimmer": "travel",
+     "morph": "elastic",
+     "crossfade": "never",
+     "positionalContinuity": true
+    }
+   },
+   "surfaces": [
+    {
+     "nodeId": "bar-scope",
+     "groupId": "scope",
+     "plane": "base",
+     "selector": "div#g-scope",
+     "tag": "div",
+     "role": null,
+     "rect": [
+      228,
+      12,
+      303,
+      40
+     ],
+     "span": 40,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "capsule",
+     "radii": [
+      20,
+      20,
+      20,
+      20
+     ],
+     "smoothing": 0,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "0px",
+     "label": "All lots\n      Next 90 days\n      Quaran"
+    },
+    {
+     "nodeId": "bar-act",
+     "groupId": "act",
+     "plane": "base",
+     "selector": "div#g-act",
+     "tag": "div",
+     "role": null,
+     "rect": [
+      726.1,
+      12,
+      89.9,
+      40
+     ],
+     "span": 40,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "capsule",
+     "radii": [
+      20,
+      20,
+      20,
+      20
+     ],
+     "smoothing": 0,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "0px",
+     "label": "Receive"
+    },
+    {
+     "nodeId": "bar-find",
+     "groupId": "find",
+     "plane": "base",
+     "selector": "div#g-find",
+     "tag": "div",
+     "role": "search",
+     "rect": [
+      872,
+      12,
+      220,
+      40
+     ],
+     "span": 40,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "capsule",
+     "radii": [
+      20,
+      20,
+      20,
+      20
+     ],
+     "smoothing": 0,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "0px",
+     "label": "/"
+    }
+   ],
+   "surfacesInFrame": 3,
+   "planes": [
+    {
+     "plane": "base",
+     "nodes": 3
+    },
+    {
+     "plane": "overlay",
+     "nodes": 0
+    }
+   ],
+   "groups": [
+    {
+     "id": "scope",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.62,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "act",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.62,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "find",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.62,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "menu",
+     "members": 0,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.56,
+     "backdropToneHint": true,
+     "probe": null,
+     "diagnostics": []
+    }
+   ],
+   "diagnostics": [],
+   "derivedFindings": [],
+   "menu": "not-offered",
+   "menuSurfaces": null,
+   "menuGroups": null,
+   "menuDiagnostics": null,
+   "ban": {
+    "rest": {
+     "findings": [],
+     "unmeasured": [],
+     "hostsRead": 3,
+     "cssTierHosts": 0
+    },
+    "menu": null
+   }
+  },
+  "dark": {
+   "scheme": "dark",
+   "readyState": "settled",
+   "adapter": {
+    "available": true,
+    "vendor": "apple",
+    "architecture": "metal-3",
+    "device": "",
+    "description": "",
+    "isFallbackAdapter": false
+   },
+   "errors": [],
+   "consoleErrors": [],
+   "failedRequests": [],
+   "badResponses": [],
+   "scrolledOnLoad": 0,
+   "docHeight": 900,
+   "words": 3065,
+   "title": "Stockroom · Lot ledger · St. Brendan's Inpatient Pharmacy",
+   "placeholder": false,
+   "captureWidth": 1440,
+   "overflowCapture": false,
+   "overflowAtLoad": false,
+   "contrast": {
+    "method": "dom-composite",
+    "checked": 357,
+    "pass": 353,
+    "unknown": 0,
+    "rate": 0.989,
+    "onGlass": 1,
+    "onGlassPass": 1,
+    "fails": [
+     {
+      "text": "Recalled",
+      "ratio": 1.12,
+      "size": 11.5,
+      "onGlass": false
+     },
+     {
+      "text": "Recalled",
+      "ratio": 1.93,
+      "size": 11.5,
+      "onGlass": false
+     },
+     {
+      "text": "Quarantined",
+      "ratio": 1.6,
+      "size": 11.5,
+      "onGlass": false
+     },
+     {
+      "text": "Quarantined",
+      "ratio": 1.6,
+      "size": 11.5,
+      "onGlass": false
+     }
+    ]
+   },
+   "glassContrast": {
+    "method": "rendered-pixels",
+    "pairs": 5,
+    "pass": 5,
+    "minRatio": 6.34,
+    "byPhase": {
+     "fv": {
+      "pairs": 5,
+      "pass": 5
+     }
+    },
+    "fails": [],
+    "sample": [
+     {
+      "phase": "fv",
+      "text": "All lots",
+      "nodeId": "bar-scope",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 6.34,
+      "worstRatio": 6.27,
+      "pass": true,
+      "ink": [
+       220,
+       220,
+       220
+      ],
+      "ground": [
+       75,
+       75,
+       76
+      ],
+      "pixels": 748,
+      "groundPixels": 368
+     },
+     {
+      "phase": "fv",
+      "text": "Next 90 days",
+      "nodeId": "bar-scope",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 8.11,
+      "worstRatio": 8.11,
+      "pass": true,
+      "ink": [
+       216,
+       216,
+       216
+      ],
+      "ground": [
+       57,
+       57,
+       58
+      ],
+      "pixels": 1377,
+      "groundPixels": 746
+     },
+     {
+      "phase": "fv",
+      "text": "Quarantined",
+      "nodeId": "bar-scope",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 8.11,
+      "worstRatio": 8.11,
+      "pass": true,
+      "ink": [
+       216,
+       216,
+       216
+      ],
+      "ground": [
+       57,
+       57,
+       58
+      ],
+      "pixels": 1292,
+      "groundPixels": 714
+     },
+     {
+      "phase": "fv",
+      "text": "Receive",
+      "nodeId": "bar-act",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 8.11,
+      "worstRatio": 8.11,
+      "pass": true,
+      "ink": [
+       216,
+       216,
+       216
+      ],
+      "ground": [
+       57,
+       57,
+       58
+      ],
+      "pixels": 850,
+      "groundPixels": 413
+     },
+     {
+      "phase": "fv",
+      "text": "/",
+      "nodeId": "bar-find",
+      "size": 11,
+      "bold": false,
+      "large": false,
+      "ratio": 6.79,
+      "worstRatio": 6.79,
+      "pass": true,
+      "ink": [
+       219,
+       219,
+       219
+      ],
+      "ground": [
+       70,
+       70,
+       71
+      ],
+      "pixels": 98,
+      "groundPixels": 57
+     }
+    ]
+   },
+   "rootFound": true,
+   "api": {
+    "missing": []
+   },
+   "colorScheme": "dark",
+   "schemeFollowed": true,
+   "windowActivation": "active",
+   "material": {
+    "name": "apple-macos-27.0-glass0.5",
+    "platform": "macOS 27.0",
+    "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+    "resolvedMaterialSha256": "2a4323f33df8d799",
+    "tuned": false
+   },
+   "webgpu": {
+    "available": true,
+    "ownership": "vitrea",
+    "deviceHealth": "ok",
+    "unavailableReason": null,
+    "hasDevice": true
+   },
+   "platformProbe": {
+    "engine": {
+     "family": "chromium",
+     "version": 151
+    },
+    "reach": "verified"
+   },
+   "accessibility": {
+    "reducedTransparency": false,
+    "reducedMotion": false,
+    "increasedContrast": false,
+    "forcedColors": false,
+    "material": {
+     "glass": "material",
+     "colorSource": "material",
+     "frost": "nominal",
+     "refraction": "nominal",
+     "occlusion": "nominal",
+     "border": "nominal",
+     "ambientTint": "nominal",
+     "foreground": "adaptive"
+    },
+    "motion": {
+     "overshoot": "elastic",
+     "deformation": "nominal",
+     "shimmer": "travel",
+     "morph": "elastic",
+     "crossfade": "never",
+     "positionalContinuity": true
+    }
+   },
+   "surfaces": [
+    {
+     "nodeId": "bar-scope",
+     "groupId": "scope",
+     "plane": "base",
+     "selector": "div#g-scope",
+     "tag": "div",
+     "role": null,
+     "rect": [
+      228,
+      12,
+      303,
+      40
+     ],
+     "span": 40,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "capsule",
+     "radii": [
+      20,
+      20,
+      20,
+      20
+     ],
+     "smoothing": 0,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "0px",
+     "label": "All lots\n      Next 90 days\n      Quaran"
+    },
+    {
+     "nodeId": "bar-act",
+     "groupId": "act",
+     "plane": "base",
+     "selector": "div#g-act",
+     "tag": "div",
+     "role": null,
+     "rect": [
+      726.1,
+      12,
+      89.9,
+      40
+     ],
+     "span": 40,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "capsule",
+     "radii": [
+      20,
+      20,
+      20,
+      20
+     ],
+     "smoothing": 0,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "0px",
+     "label": "Receive"
+    },
+    {
+     "nodeId": "bar-find",
+     "groupId": "find",
+     "plane": "base",
+     "selector": "div#g-find",
+     "tag": "div",
+     "role": "search",
+     "rect": [
+      872,
+      12,
+      220,
+      40
+     ],
+     "span": 40,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "capsule",
+     "radii": [
+      20,
+      20,
+      20,
+      20
+     ],
+     "smoothing": 0,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "0px",
+     "label": "/"
+    }
+   ],
+   "surfacesInFrame": 3,
+   "planes": [
+    {
+     "plane": "base",
+     "nodes": 3
+    },
+    {
+     "plane": "overlay",
+     "nodes": 0
+    }
+   ],
+   "groups": [
+    {
+     "id": "scope",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "resolvedMaterialSha256": "2a4323f33df8d799",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 8.43,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "act",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "resolvedMaterialSha256": "2a4323f33df8d799",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 8.42,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "find",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "resolvedMaterialSha256": "2a4323f33df8d799",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 8.43,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "menu",
+     "members": 0,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "resolvedMaterialSha256": "2a4323f33df8d799",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 8.14,
+     "backdropToneHint": true,
+     "probe": null,
+     "diagnostics": []
+    }
+   ],
+   "diagnostics": [],
+   "derivedFindings": [],
+   "menu": "not-offered",
+   "menuSurfaces": null,
+   "menuGroups": null,
+   "menuDiagnostics": null,
+   "ban": {
+    "rest": {
+     "findings": [],
+     "unmeasured": [],
+     "hostsRead": 3,
+     "cssTierHosts": 0
+    },
+    "menu": null
+   }
+  }
+ },
+ "surfaces": [
+  {
+   "nodeId": "bar-scope",
+   "groupId": "scope",
+   "plane": "base",
+   "selector": "div#g-scope",
+   "tag": "div",
+   "role": null,
+   "rect": [
+    228,
+    12,
+    303,
+    40
+   ],
+   "span": 40,
+   "boundsFrom": "renderInput",
+   "shapeFamily": "capsule",
+   "radii": [
+    20,
+    20,
+    20,
+    20
+   ],
+   "smoothing": 0,
+   "thickness": 8,
+   "variant": "regular",
+   "tinted": false,
+   "cssRadius": "0px",
+   "label": "All lots\n      Next 90 days\n      Quaran"
+  },
+  {
+   "nodeId": "bar-act",
+   "groupId": "act",
+   "plane": "base",
+   "selector": "div#g-act",
+   "tag": "div",
+   "role": null,
+   "rect": [
+    726.1,
+    12,
+    89.9,
+    40
+   ],
+   "span": 40,
+   "boundsFrom": "renderInput",
+   "shapeFamily": "capsule",
+   "radii": [
+    20,
+    20,
+    20,
+    20
+   ],
+   "smoothing": 0,
+   "thickness": 8,
+   "variant": "regular",
+   "tinted": false,
+   "cssRadius": "0px",
+   "label": "Receive"
+  },
+  {
+   "nodeId": "bar-find",
+   "groupId": "find",
+   "plane": "base",
+   "selector": "div#g-find",
+   "tag": "div",
+   "role": "search",
+   "rect": [
+    872,
+    12,
+    220,
+    40
+   ],
+   "span": 40,
+   "boundsFrom": "renderInput",
+   "shapeFamily": "capsule",
+   "radii": [
+    20,
+    20,
+    20,
+    20
+   ],
+   "smoothing": 0,
+   "thickness": 8,
+   "variant": "regular",
+   "tinted": false,
+   "cssRadius": "0px",
+   "label": "/"
+  }
+ ],
+ "planes": [
+  {
+   "plane": "base",
+   "nodes": 3
+  },
+  {
+   "plane": "overlay",
+   "nodes": 0
+  }
+ ],
+ "diagnostics": [],
+ "unknownDiagnosticCodes": [],
+ "named": {
+  "nestedGlass": false,
+  "samePlaneOverlap": false,
+  "contentLayerHost": false,
+  "demotedBackdropRoot": false,
+  "hostOutsidePlane": false,
+  "nonUniformRadii": false,
+  "tintUnparseable": false,
+  "tintMixing": false,
+  "variantMixing": false
+ },
+ "banSubset": {
+  "findings": [],
+  "counts": {},
+  "unmeasured": []
+ },
+ "reduced": {
+  "method": "page-switch",
+  "applied": true,
+  "readyState": "settled",
+  "rootFound": true,
+  "errors": [],
+  "consoleErrors": [],
+  "policyBefore": {
+   "reducedTransparency": false,
+   "reducedMotion": false,
+   "increasedContrast": false,
+   "forcedColors": false,
+   "material": {
+    "glass": "material",
+    "colorSource": "material",
+    "frost": "nominal",
+    "refraction": "nominal",
+    "occlusion": "nominal",
+    "border": "nominal",
+    "ambientTint": "nominal",
+    "foreground": "adaptive"
+   },
+   "motion": {
+    "overshoot": "elastic",
+    "deformation": "nominal",
+    "shimmer": "travel",
+    "morph": "elastic",
+    "crossfade": "never",
+    "positionalContinuity": true
+   }
+  },
+  "policyAfter": {
+   "reducedTransparency": true,
+   "reducedMotion": false,
+   "increasedContrast": false,
+   "forcedColors": false,
+   "material": {
+    "glass": "material",
+    "colorSource": "material",
+    "frost": "increased",
+    "refraction": "reduced",
+    "occlusion": "increased",
+    "border": "nominal",
+    "ambientTint": "nominal",
+    "foreground": "adaptive"
+   },
+   "motion": {
+    "overshoot": "elastic",
+    "deformation": "nominal",
+    "shimmer": "travel",
+    "morph": "elastic",
+    "crossfade": "never",
+    "positionalContinuity": true
+   }
+  },
+  "policyChanged": true,
+  "policyAsAsked": true,
+  "groups": [
+   {
+    "id": "scope",
+    "moved": true,
+    "before": {
+     "id": "scope",
+     "renderer": "webgpu",
+     "refraction": "approximate",
+     "cssBody": null,
+     "cssTint": null,
+     "blurRadius": 7.616,
+     "nodes": [
+      {
+       "nodeId": "bar-scope",
+       "blurRadius": 2.75,
+       "tintAlpha": 0.666,
+       "borderAlpha": 0,
+       "refraction": "approximate"
+      }
+     ]
+    },
+    "after": {
+     "id": "scope",
+     "renderer": "webgpu",
+     "refraction": "approximate",
+     "cssBody": null,
+     "cssTint": null,
+     "blurRadius": 13.277,
+     "nodes": [
+      {
+       "nodeId": "bar-scope",
+       "blurRadius": 4.813,
+       "tintAlpha": 0.929,
+       "borderAlpha": 0,
+       "refraction": "approximate"
+      }
+     ]
+    }
+   },
+   {
+    "id": "act",
+    "moved": true,
+    "before": {
+     "id": "act",
+     "renderer": "webgpu",
+     "refraction": "approximate",
+     "cssBody": null,
+     "cssTint": null,
+     "blurRadius": 7.616,
+     "nodes": [
+      {
+       "nodeId": "bar-act",
+       "blurRadius": 2.75,
+       "tintAlpha": 0.666,
+       "borderAlpha": 0,
+       "refraction": "approximate"
+      }
+     ]
+    },
+    "after": {
+     "id": "act",
+     "renderer": "webgpu",
+     "refraction": "approximate",
+     "cssBody": null,
+     "cssTint": null,
+     "blurRadius": 13.277,
+     "nodes": [
+      {
+       "nodeId": "bar-act",
+       "blurRadius": 4.813,
+       "tintAlpha": 0.929,
+       "borderAlpha": 0,
+       "refraction": "approximate"
+      }
+     ]
+    }
+   },
+   {
+    "id": "find",
+    "moved": true,
+    "before": {
+     "id": "find",
+     "renderer": "webgpu",
+     "refraction": "approximate",
+     "cssBody": null,
+     "cssTint": null,
+     "blurRadius": 7.616,
+     "nodes": [
+      {
+       "nodeId": "bar-find",
+       "blurRadius": 2.75,
+       "tintAlpha": 0.666,
+       "borderAlpha": 0,
+       "refraction": "approximate"
+      }
+     ]
+    },
+    "after": {
+     "id": "find",
+     "renderer": "webgpu",
+     "refraction": "approximate",
+     "cssBody": null,
+     "cssTint": null,
+     "blurRadius": 13.277,
+     "nodes": [
+      {
+       "nodeId": "bar-find",
+       "blurRadius": 4.813,
+       "tintAlpha": 0.929,
+       "borderAlpha": 0,
+       "refraction": "approximate"
+      }
+     ]
+    }
+   },
+   {
+    "id": "menu",
+    "moved": true,
+    "before": {
+     "id": "menu",
+     "renderer": "webgpu",
+     "refraction": "approximate",
+     "cssBody": null,
+     "cssTint": null,
+     "blurRadius": 7.563,
+     "nodes": []
+    },
+    "after": {
+     "id": "menu",
+     "renderer": "webgpu",
+     "refraction": "approximate",
+     "cssBody": null,
+     "cssTint": null,
+     "blurRadius": 13.234,
+     "nodes": []
+    }
+   }
+  ],
+  "materialMoved": true,
+  "captured": true
+ },
+ "emulation": {
+  "increasedContrast": {
+   "status": "ran",
+   "query": "(prefers-contrast: more)",
+   "readyState": "settled",
+   "rootFound": true,
+   "errors": [],
+   "consoleErrors": [],
+   "accessibility": {
+    "reducedTransparency": false,
+    "reducedMotion": false,
+    "increasedContrast": true,
+    "forcedColors": false,
+    "material": {
+     "glass": "material",
+     "colorSource": "material",
+     "frost": "nominal",
+     "refraction": "nominal",
+     "occlusion": "nominal",
+     "border": "strong",
+     "ambientTint": "reduced",
+     "foreground": "near-monochrome"
+    },
+    "motion": {
+     "overshoot": "elastic",
+     "deformation": "nominal",
+     "shimmer": "travel",
+     "morph": "elastic",
+     "crossfade": "never",
+     "positionalContinuity": true
+    }
+   },
+   "policyAsAsked": true,
+   "groups": [
+    {
+     "id": "scope",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.62,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "act",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.62,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "find",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.62,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "menu",
+     "members": 0,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.56,
+     "backdropToneHint": true,
+     "probe": null,
+     "diagnostics": []
+    }
+   ],
+   "diagnostics": []
+  },
+  "reducedMotion": {
+   "status": "ran",
+   "query": "(prefers-reduced-motion: reduce)",
+   "readyState": "settled",
+   "rootFound": true,
+   "errors": [],
+   "consoleErrors": [],
+   "accessibility": {
+    "reducedTransparency": false,
+    "reducedMotion": true,
+    "increasedContrast": false,
+    "forcedColors": false,
+    "material": {
+     "glass": "material",
+     "colorSource": "material",
+     "frost": "nominal",
+     "refraction": "nominal",
+     "occlusion": "nominal",
+     "border": "nominal",
+     "ambientTint": "nominal",
+     "foreground": "adaptive"
+    },
+    "motion": {
+     "overshoot": "none",
+     "deformation": "none",
+     "shimmer": "none",
+     "morph": "non-elastic",
+     "crossfade": "large-plane-shifts",
+     "positionalContinuity": true
+    }
+   },
+   "policyAsAsked": true,
+   "groups": [
+    {
+     "id": "scope",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.62,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "act",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.62,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "find",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.62,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "menu",
+     "members": 0,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.56,
+     "backdropToneHint": true,
+     "probe": null,
+     "diagnostics": []
+    }
+   ],
+   "diagnostics": []
+  },
+  "forcedColors": {
+   "status": "ran",
+   "query": "(forced-colors: active)",
+   "readyState": "settled",
+   "rootFound": true,
+   "errors": [],
+   "consoleErrors": [],
+   "accessibility": {
+    "reducedTransparency": false,
+    "reducedMotion": false,
+    "increasedContrast": false,
+    "forcedColors": true,
+    "material": {
+     "glass": "none",
+     "colorSource": "system",
+     "frost": "none",
+     "refraction": "none",
+     "occlusion": "opaque",
+     "border": "strong",
+     "ambientTint": "none",
+     "foreground": "near-monochrome"
+    },
+    "motion": {
+     "overshoot": "elastic",
+     "deformation": "nominal",
+     "shimmer": "travel",
+     "morph": "elastic",
+     "crossfade": "never",
+     "positionalContinuity": true
+    }
+   },
+   "policyAsAsked": true,
+   "groups": [
+    {
+     "id": "scope",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 0,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "act",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 0,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "find",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 0,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "menu",
+     "members": 0,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 0,
+     "backdropToneHint": true,
+     "probe": null,
+     "diagnostics": []
+    }
+   ],
+   "diagnostics": [],
+   "forced": {
+    "policyGlass": "none",
+    "runtimeGlassSurfaces": 0,
+    "backdropFilterElements": [
+     {
+      "selector": "div#glass-mount > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"backdrop-proxy\"]:nth-of-type(1) > div:nth-of-type(1)",
+      "where": "runtime-proxy",
+      "value": "blur(0px) saturate(1)"
+     },
+     {
+      "selector": "div#glass-mount > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"backdrop-proxy\"]:nth-of-type(1) > div:nth-of-type(2)",
+      "where": "runtime-proxy",
+      "value": "blur(0px) saturate(1)"
+     },
+     {
+      "selector": "div#glass-mount > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"backdrop-proxy\"]:nth-of-type(1) > div:nth-of-type(3)",
+      "where": "runtime-proxy",
+      "value": "blur(0px) saturate(1)"
+     }
+    ],
+    "backdropFilterCount": 3,
+    "glassDrawn": 0,
+    "runtimeRead": true,
+    "hosts": [
+     {
+      "nodeId": "bar-scope",
+      "selector": "div#g-scope",
+      "backdropFilter": "none",
+      "backgroundColor": "rgba(255, 255, 255, 0)",
+      "backgroundImage": "none",
+      "borderColor": "rgb(0, 0, 0)",
+      "forcedColorAdjust": "auto"
+     },
+     {
+      "nodeId": "bar-act",
+      "selector": "div#g-act",
+      "backdropFilter": "none",
+      "backgroundColor": "rgba(255, 255, 255, 0)",
+      "backgroundImage": "none",
+      "borderColor": "rgb(0, 0, 0)",
+      "forcedColorAdjust": "auto"
+     },
+     {
+      "nodeId": "bar-find",
+      "selector": "div#g-find",
+      "backdropFilter": "none",
+      "backgroundColor": "rgba(255, 255, 255, 0)",
+      "backgroundImage": "none",
+      "borderColor": "rgb(0, 0, 0)",
+      "forcedColorAdjust": "auto"
+     }
+    ]
+   },
+   "glassDrawn": 0
+  }
+ },
+ "captures": [
+  "shot-fv-light.png",
+  "shot-full-light.png",
+  "shot-fv-dark.png",
+  "shot-full-dark.png",
+  "shot-reduced.png",
+  "shot-contrast.png",
+  "shot-forced.png"
+ ],
+ "captureSha256": {
+  "shot-fv-light.png": "72eb90a7561331d7c18f619480d00deb1f8315a15f5fc2d82efb9b9ac777f936",
+  "shot-full-light.png": "72eb90a7561331d7c18f619480d00deb1f8315a15f5fc2d82efb9b9ac777f936",
+  "shot-fv-dark.png": "e6db587a785fe4a559377d3f78d1a99700e52a5655db8b669f119254bef81881",
+  "shot-full-dark.png": "e6db587a785fe4a559377d3f78d1a99700e52a5655db8b669f119254bef81881",
+  "shot-reduced.png": "25f74ca4dcf4dfdaf21285e2306fdcf056fa08b8cb6c9af215727bedca63e50d",
+  "shot-contrast.png": "ba8f61ea3746885173bf6a62781a5787a628601844b114d14c89bb247a0e8944",
+  "shot-forced.png": "60f5546dbcb0092c0670f7f7ae877c009344aea56ade3f6ba0ea28131320b844"
+ },
+ "gateMechanical": true,
+ "tool": {
+  "playwright": {
+   "module": "@playwright/test",
+   "version": "1.62.1"
+  },
+  "chromium": "151.0.7922.34",
+  "gpuArgs": [
+   "--enable-unsafe-webgpu",
+   "--enable-features=Vulkan,WebGPU"
+  ]
+ }
+}
