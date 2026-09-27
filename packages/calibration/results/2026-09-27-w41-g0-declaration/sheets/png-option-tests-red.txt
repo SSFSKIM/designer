@@ -1,0 +1,28 @@
+✖ G0 batch renders canonical cal/val only, never holdout, probe, or W39 pixels (12.928375ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 225.385125
+
+✖ failing tests:
+
+test at results/2026-09-27-w41-g0-declaration/sheets/render-calval.test.ts:1:314
+✖ G0 batch renders canonical cal/val only, never holdout, probe, or W39 pixels (12.928375ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  2 !== 4
+  
+      at TestContext.<anonymous> (/Users/new/vitrea-w41/g0/packages/calibration/results/2026-09-27-w41-g0-declaration/sheets/render-calval.test.ts:50:12)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 2,
+    expected: 4,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

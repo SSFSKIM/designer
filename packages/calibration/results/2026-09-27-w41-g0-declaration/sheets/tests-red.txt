@@ -1,0 +1,92 @@
+✖ inventory distinguishes absent PNG/metadata and never decodes present pixels (2.408416ms)
+✖ receded stale, missing, extra, malformed and wrong-cell metadata all refuse (4.892833ms)
+✖ enumeration folds tier rows but retains CSS-only cells and W39 membership (1.6075ms)
+✖ OKLab delta is zero for equality, amplified and saturated at eight, not RGB distance (0.087667ms)
+✖ sheet output has labeled triptych, delta beneath, and an empty candidate (2.474958ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 0
+ℹ fail 5
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 326.206
+
+✖ failing tests:
+
+test at results/2026-09-27-w41-g0-declaration/sheets/sheets.test.ts:1:1898
+✖ inventory distinguishes absent PNG/metadata and never decodes present pixels (2.408416ms)
+  Error: inventory not implemented
+      at inspectCell (/Users/new/vitrea-w41/g0/packages/calibration/results/2026-09-27-w41-g0-declaration/sheets/sheets.ts:3:59)
+      at TestContext.<anonymous> (/Users/new/vitrea-w41/g0/packages/calibration/results/2026-09-27-w41-g0-declaration/sheets/sheets.test.ts:40:18)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+      at Test.start (node:internal/test_runner/test:1191:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17)
+
+test at results/2026-09-27-w41-g0-declaration/sheets/sheets.test.ts:1:2320
+✖ receded stale, missing, extra, malformed and wrong-cell metadata all refuse (4.892833ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /provenance|document/. Input:
+  
+  'Error: inventory not implemented'
+  
+      at TestContext.<anonymous> (/Users/new/vitrea-w41/g0/packages/calibration/results/2026-09-27-w41-g0-declaration/sheets/sheets.test.ts:57:14)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:911:18)
+      at Test.postRun (node:internal/test_runner/test:1465:19)
+      at Test.run (node:internal/test_runner/test:1390:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: Error: inventory not implemented
+        at inspectCell (/Users/new/vitrea-w41/g0/packages/calibration/results/2026-09-27-w41-g0-declaration/sheets/sheets.ts:3:59)
+        at <anonymous> (/Users/new/vitrea-w41/g0/packages/calibration/results/2026-09-27-w41-g0-declaration/sheets/sheets.test.ts:57:27)
+        at getActual (node:assert:611:5)
+        at strict.throws (node:assert:759:24)
+        at TestContext.<anonymous> (/Users/new/vitrea-w41/g0/packages/calibration/results/2026-09-27-w41-g0-declaration/sheets/sheets.test.ts:57:14)
+        at Test.runInAsyncScope (node:async_hooks:227:14)
+        at Test.run (node:internal/test_runner/test:1325:25)
+        at Test.processPendingSubtests (node:internal/test_runner/test:911:18)
+        at Test.postRun (node:internal/test_runner/test:1465:19)
+        at Test.run (node:internal/test_runner/test:1390:12),
+    expected: /provenance|document/,
+    operator: 'throws',
+    diff: 'simple'
+  }
+
+test at results/2026-09-27-w41-g0-declaration/sheets/sheets.test.ts:1:3121
+✖ enumeration folds tier rows but retains CSS-only cells and W39 membership (1.6075ms)
+  Error: enumeration not implemented
+      at enumerateCells (/Users/new/vitrea-w41/g0/packages/calibration/results/2026-09-27-w41-g0-declaration/sheets/sheets.ts:2:64)
+      at TestContext.<anonymous> (/Users/new/vitrea-w41/g0/packages/calibration/results/2026-09-27-w41-g0-declaration/sheets/sheets.test.ts:74:19)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:911:18)
+      at Test.postRun (node:internal/test_runner/test:1465:19)
+      at Test.run (node:internal/test_runner/test:1390:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+
+test at results/2026-09-27-w41-g0-declaration/sheets/sheets.test.ts:1:3823
+✖ OKLab delta is zero for equality, amplified and saturated at eight, not RGB distance (0.087667ms)
+  Error: difference not implemented
+      at differencePanel (/Users/new/vitrea-w41/g0/packages/calibration/results/2026-09-27-w41-g0-declaration/sheets/sheets.ts:4:63)
+      at TestContext.<anonymous> (/Users/new/vitrea-w41/g0/packages/calibration/results/2026-09-27-w41-g0-declaration/sheets/sheets.test.ts:83:24)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:911:18)
+      at Test.postRun (node:internal/test_runner/test:1465:19)
+      at Test.run (node:internal/test_runner/test:1390:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
+
+test at results/2026-09-27-w41-g0-declaration/sheets/sheets.test.ts:1:4272
+✖ sheet output has labeled triptych, delta beneath, and an empty candidate (2.474958ms)
+  Error: sheet not implemented
+      at renderCell (/Users/new/vitrea-w41/g0/packages/calibration/results/2026-09-27-w41-g0-declaration/sheets/sheets.ts:5:76)
+      at TestContext.<anonymous> (/Users/new/vitrea-w41/g0/packages/calibration/results/2026-09-27-w41-g0-declaration/sheets/sheets.test.ts:95:24)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:911:18)
+      at Test.postRun (node:internal/test_runner/test:1465:19)
+      at Test.run (node:internal/test_runner/test:1390:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7)
