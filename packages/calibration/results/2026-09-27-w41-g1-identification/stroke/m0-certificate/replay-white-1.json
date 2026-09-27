@@ -1,0 +1,40 @@
+{
+  "savedReplay": true,
+  "archivePayloadReads": 0,
+  "LPCalls": 0,
+  "sourceHashesVerified": 23,
+  "bundlesVerified": 16,
+  "geometryRecomputed": true,
+  "perPixelEvidenceRecomputed": true,
+  "endpoints": {
+    "light-inactive": {
+      "exactRegimes": 45,
+      "totalRegimes": 45,
+      "rejectedM0": true,
+      "geometryRivals": [
+        "device",
+        "css",
+        "curvature"
+      ],
+      "weightedRhsRange": [
+        -42.0,
+        -0.2777777777777778
+      ]
+    },
+    "dark-inactive": {
+      "exactRegimes": 45,
+      "totalRegimes": 45,
+      "rejectedM0": true,
+      "geometryRivals": [
+        "device",
+        "css",
+        "curvature"
+      ],
+      "weightedRhsRange": [
+        -85.0,
+        -4.423462148401636
+      ]
+    }
+  },
+  "manifestSha256": "cf536394ad212b87469b97e4b11ca34f0b5be1fe2d13bfdd3becb322d5d3b686"
+}

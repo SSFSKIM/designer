@@ -1,0 +1,25 @@
+{
+  "schema": "w41-m0-certificate-worker-seal-1",
+  "python": "3.12.3 (v3.12.3:f6650f9ad7, Apr  9 2024, 08:18:47) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "executable": "/private/tmp/w39-g2-wgpu/bin/python",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "numpy": "2.5.3",
+  "scipy": "1.18.1",
+  "hashes": {
+    "certificate.py": "0afceebf7d04cb6dbb98331197edae8f9d5463160e20f5e25fc97574b8d46058",
+    "run.py": "752246375e44a046ebf5404d96e7411bfae508d0ba8f2226516d65459a1b8b19",
+    "test_certificate.py": "54e3efa713e8d3ba7473029ab91148e2c8904c284a6c1baf3ef36a2c7c2cb145",
+    "manifest.json": "e2fa64c527140cb4878e0bda7ab53e02ea062a532bd8b86eae590bb309347f88",
+    "white-extension/manifest.json": "cf536394ad212b87469b97e4b11ca34f0b5be1fe2d13bfdd3becb322d5d3b686",
+    "replay-1.json": "f8beaf77c224d5b2f21a1dca54a68988bcee076a9c9e105f269c3b3592a3939c",
+    "replay-white-1.json": "ce67f887e88a4c2441b1cfc35d416f27f71220392347c4d7f9c8fe1ff2fe035f",
+    "test-saved-green.txt": "01b1b54637bb2acb1594da698882b5aa2aa6642cceb212bb1544a28953287ab3"
+  },
+  "independentReview": "Requested from caller; not represented as completed by this worker",
+  "nativeReads": "16 inactive 1x calibration crops total; all seven normal repeats; no validation or holdout",
+  "sourceProofRevision": "d35b4cbf43f1fcdda55063b3b8e0fa178d720a78",
+  "interpretation": "Exact dual RHS negativity proves infeasibility at sealed one-code Jensen necessary intervals; dual RHS is NOT an error-code minimax lower bracket.",
+  "stopAuthority": "Caller only; this worker stopped no fits, changed no budgets, and committed nothing.",
+  "replayCommand": "PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 /private/tmp/w39-g2-wgpu/bin/python /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m0-certificate/run.py replay --white-extension",
+  "testCommand": "PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 /private/tmp/w39-g2-wgpu/bin/python /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m0-certificate/test_certificate.py"
+}
