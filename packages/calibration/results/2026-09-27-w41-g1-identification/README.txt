@@ -130,3 +130,38 @@ adoption: current CSS sharp/heavy layers and unconditional RGBA contrast floor
 still govern, including silent filter-noop fallback. A transparent projection
 prototype does not prove that contract or the full runtime tier. No CSS source
 changed; decision waits for browser residuals and DecisionLog4.
+
+Claim-aware instrument and preflight complete; no exposure yet
+exposure/runner.py schema2, committed9b6d1bf7, passed65synthetic tests and reviewed
+bounded fixes for actual report.page shape/provenance/emptyactivepatch semantics.
+It binds all648numerical/600rendered predictions,72/64heldout rawscores,450identity
+baseline comparisons (including48blindheldout), explicitscope/domain and fullveto.
+G0's177files and declaration850747c1 remain byte-identical. This body adapter does
+not yet carry a future surviving stroke composite; allwave candidates finish
+before onefreeze/exposure, never E3first then anotherreceipt.
+
+candidate-e3/public-2 and calval-2 are the current additive generation at6b0109cc,
+reproduced byte-identically after finalrunner9b6d1bf7. Public predictions include
+all648admittedcells including unopened72heldout. Guarded calval576cells/592members:
+138claimeduniformcells/140members meet constraints (136measured,2censoredsatisfied),
+worst0.832355; sixstructured/eightmembers diagnosticS0 worst0.909091;432identity
+cells/444members retain shippedH2 misses up to125.296714 without E3pass/failclaims.
+No renderedscoring/survival/productionmanifest exists yet.
+
+preflight/preflight.py (89fd6f77) checks committed manifest-pinned bytes BEFORE
+importing the runner, then live Python3.12/NumPy2.3.5/Pillow12.3.0, then complete
+read-only runner.verify. It never imports scorer or opensreceipt/native. Eight
+scratchtests and independent review pass. Include preflight Pythonfiles and
+runtime.json in finalfreeze; run it immediately before actualexposure with the
+finalcommittedmanifest and retain exclusive dated output. No actualpre-exposure
+success is claimed now, because the manifest/pixels do not yet exist.
+
+Isolated E3 implementation ready for integration only after both shipped freezes
+Branchw41-g1-e3-implementation, cleanHEAD64dbad42 at
+/Users/new/vitrea-w41/e3-implementation; implementation775a1f26 then reviewevidence
+64dbad42 (base466d36c3). Independenthighreview174targetedtests/11files, nofinding.
+Renderer651/core302/web634 tests,calibration141targeted, lint/types/buildgreen;
+4144realMetal COMPUTE cases(max8.26e-5code),1776exactidentity cases. Compute is
+NOT browserdrawnidentity. PrimaryG1 runtime stayspre-W41; nointegration/candidate
+render/exposure. MaterialPolicyView excludesmotion, so reducedmotion alone does
+not disable E3. Actualdrawnidentity/veto and CSSmeasurements remain mandatory.

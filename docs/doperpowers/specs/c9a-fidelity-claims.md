@@ -40516,3 +40516,59 @@ measured boundary residual. A transparent one-filter prototype can demonstrate u
 algebra, but does not yet satisfy that fallback-floor/two-blur contract. Both measured
 residuals and this limitation belong to Decision Log4. **No CSS production source changes
 in G1**, and neither an exact formula nor a future prototype pass is an adoption decision.
+
+### 8. The scoped exposure instrument and the actual numerical candidate payloads
+
+The additive G1 runner **`9b6d1bf7`**, schema2, preserves all648/600 predictions and72/64
+held-out raw scores while binding the parent's endpoint/domain rulings. It proves endpoint
+identity against committed baseline PNG/projection payloads for **450 cells**, including
+**48 blind held-out** web cells. Actual producer report nesting, profile/scale/scheme/document
+provenance, root-active receding and empty-active-patch semantics were independently reviewed
+and corrected in bounded waves; **65 synthetic tests** pass. The single inherited receipt,
+durable scores-before-verdict, runtime/source hashes and fresh-to-frozen recapture equality
+remain. All **177 G0 files** remain byte-identical. This is instrument proof, not real-browser
+integration or an exposure. A surviving stroke may need a same-wave adapter before the shared
+freeze; E3 cannot spend the receipt early and leave other candidates for another attempt.
+
+`candidate-e3/public-2/` carries **648** public-metadata numerical predictions, including all
+**72 unopened held-out** cells (18 in the light-inactive claim), without native held-out input.
+The final-runner reproduction at **`6b0109cc`** retains the earlier artifacts and proves their
+prediction/parameter/raw-score/admission bytes unchanged. Guarded calibration/validation
+scoring covers **576 cells /592 members**, all seven normal repeats. The **138 claimed uniform
+cells /140 members** meet constraints: **136 measured cells and two censored-satisfied**, worst
+uncensored **0.8323554077 code**. Six structured cells/eight members retain S0 diagnostics,
+worst **0.9090909091**, not admission. **432 identity cells /444 members** retain raw shipped-H2
+misses up to **125.2967141814** without being called E3 passes or failures. Twenty-five synthetic
+scorer tests and independent high review pass after bounded evidence-binding/diagnostic-label
+fixes. Real rendered scores, composite survival and production freeze remain absent.
+
+The external dry preflight **`89fd6f77`** is mandatory immediately before eventual exposure:
+first compare every manifest-pinned file to committed bytes/frozen hashes, including the
+preflight itself, runtime, runner and boundary; then compare live **Python3.12 /NumPy2.3.5 /
+Pillow12.3.0**; then call the inspected read-only runner verification. It imports no scorer and
+opens no receipt or native Reader. Eight scratch tests and independent review pass. Its
+Python files and runtime.json must be in the freeze. A missing final manifest is a refusal,
+not a preliminary success; the real dated preflight output belongs immediately before the
+exposure evidence, because a runtime failure first found inside receipt would spend the wave.
+
+### 9. The E3 operator is implemented separately; drawn survival is still outstanding
+
+To preserve a genuine pre-W41 baseline source inventory, the implementation lives on
+**`w41-g1-e3-implementation`** at **`64dbad42`**, worktree
+`/Users/new/vitrea-w41/e3-implementation`, not integrated into the primary capture branch.
+Implementation **`775a1f26`** and its review-evidence successor may be cherry-picked only after
+the536 calibration/validation and64 blind shipped web baseline freezes. One strength-zero
+rule2 gate-group carries F7/g3; uniform lanes140–151 and the before-tint replacement implement
+the ruled domain without changing CSS, other leaves or shipped documents. Motion alone does
+not gate E3: MaterialPolicyView carries optical accessibility axes, not the motion axis.
+
+The isolated branch passes **651 renderer /302 core /634 web** tests,141 targeted calibration
+tests, lint/TypeScript and the workspace build. Actual-Metal **synthetic compute** checks
+**4,144 cases**, including **1,776 exact gate0/unsampled/presence0 identities**, with maximum
+encoded discrepancy **0.0000825898 code**. This proves arithmetic, **not drawn fidelity or
+browser identity**. Independent reviewer-high runs174 targeted tests in11files and finds no
+material issue. Scratch light-receded document digest **7b3d327de9cc81c2**, file SHA
+**d34ebe3a73f281e542734737db6bbb92dbe4b432368307de067200eb31d571bd**, preserves the full old
+patch and adds only E3; the other three candidate documents are byte copies. Actual rendered
+survival, all-bin veto, unclaimed byte identity, CSS measurements and the single exposure
+remain required. No numerical fit, unit suite or compute proof substitutes for them.
