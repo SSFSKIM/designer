@@ -1,6 +1,6 @@
 # W39 — the colour-and-edge capture: one native sitting that identifies Apple's colour response and the edge line's directional law (2026-09-26)
 
-**Status: G2 MERGED `2899071e` (2026-09-27, §5.186): no identified survivor in either family; the holdout never opened. Decision Log 2 RULED the negative (the user, on the parent's recommendation): no law ships, G3 does not open, the holdout stays sealed for a later declaration on this archive. Wave close pending: the original bundle's Screen Recording grant restored by the user's hand and both bundles checked (Decision Log 4).**
+**Status: CLOSED 2026-09-27. G0 `ba38ebbf` (§5.184), G1 `f9b9d316` (§5.185), G2 `2899071e` (§5.186); Decision Log 2 ruled the negative: no law ships, G3 never opened, the W39 holdout stays sealed for a later declaration on the release archive `w39-archive`. Decision Log 4 executed: the original bundle's Screen Recording grant restored by the user's hand and its capture byte-identical to the canonical fixture; the sitting bundle retired with no row. Named misses in Deferred at close.**
 Chartered by the parent on the user's "W39 colour-and-edge capture (Recommended)" after W38's
 close (main `e3ec337e`, 0.24.0 published), under the standing "rest on your judgement" and the
 routing the user set on 2026-09-22 (X9). This is the wave W37's Deferred at close 1 and W38's
@@ -573,6 +573,15 @@ sitting was macOS's Files-and-Folders prompt for the Claude Code binary (Documen
 not a capture permission; the parent answered Don't Allow through System Events with no
 keyboard or mouse input.
 
+**Executed at wave close (2026-09-27; `…w39-g1-colour-edge-sitting/wave-close/`).** The user's first
+switch did not land (the original read auth 0, `.w39` still 2, `.w34` touched: three entries with
+one display name); the user then removed every VitreaReference entry and re-added the original
+alone, enabled. The system TCC database reads `dev.vitrea.reference-apple` auth 2 and no other
+harness row. The original's positive check (after a first attempt refused for a user-launched
+Chrome) captured the canonical 2x light cell `captured-active`, deterministic, repeat noise 0,
+**byte-identical to the committed fixture (`6c15311b…`)**. The sitting bundle `.w39` has no row:
+retired, never to be launched again without re-adding. Decision Log 4 is closed.
+
 ### Decision Log 5 — the sitting's size (before G0's merge; the user's)
 
 Put to the user 2026-09-26: the full bed (colour at both scales; ≈ 17.0 / 19.1 h) or the trimmed
@@ -697,6 +706,12 @@ diagnostic) stood unchanged throughout.
   Farkas certificates brackets it at 20.139. The legacy value stays beside the certified one.
 
 ## Revision Notes
+
+- 2026-09-27 (wave close, the parent): Decision Log 4 executed by the user's hand and checked;
+  W39 CLOSED with no material change shipped. Its deliverables that outlive it: the 6,360-capture
+  release archive with its sealed holdout, the harness's `position`/`column`/window-frame
+  attestation, the certified-negative instrument (LP with rational Farkas certificates), the
+  exterior ring table, and the five Deferred-at-close items. CLAUDE.md carries the W39 paragraph.
 
 - 2026-09-27 (G2's merge, the parent): merged `2899071e` after an independent gate review
   (reviewer-high, no material findings; it reproduced all 56 neutral and 496 body observations, 21,312 support records, 6,720 ring records and 61,544 exterior observations through guarded reads, the pinned body-correction hash and all 660,672 corrected edge records, passed 18 targeted tests and checked the 180 grid trials, the sensitivity, the provenance pins and the ledger tables; no exposure receipt exists); freeze 1,818; no capture tree moved (nothing read against vitrea). Decision Log 2

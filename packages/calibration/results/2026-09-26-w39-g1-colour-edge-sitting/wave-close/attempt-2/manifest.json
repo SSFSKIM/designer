@@ -1,0 +1,86 @@
+{
+  "backgrounds" : {
+    "checkerboard@2x" : "backgrounds/checkerboard@2x.png"
+  },
+  "captureProtocol" : {
+    "hidIdleSecondsAtEnd" : 86.877381875,
+    "hidIdleSecondsAtStart" : 77.197886625,
+    "minIdleSeconds" : 60,
+    "resetCarriesGlass" : false,
+    "resetInterstitialSeconds" : 6,
+    "runLabel" : "w39-g1-wave-close-2",
+    "userIsActiveAtStart" : true
+  },
+  "caveats" : [
+    "Narrowed by --scenes to 1 cells over 1 profile(s). This bundle is therefore NOT a whole profile: it describes exactly the cells named, which is why it is written into a fresh fixture root — publication is by whole profile directory, so a merge into an existing bundle would delete everything it omits."
+  ],
+  "generatedAt" : "2026-09-27T05:14:09Z",
+  "hardware" : {
+    "cpu" : "Apple M2 Pro",
+    "model" : "Mac14,12",
+    "osBuild" : "26A428",
+    "osVersion" : "Version 27.0 (Build 26A428)",
+    "sdk" : "unknown",
+    "xcodeVersion" : "unknown"
+  },
+  "profiles" : [
+    {
+      "a11yMode" : "standard",
+      "colorScheme" : "light",
+      "display" : {
+        "actualBackingScale" : 2,
+        "colorSpace" : "kCGColorSpaceSRGB",
+        "displayColorProfile" : "가상 16:9",
+        "displayName" : "가상 16:9",
+        "pixelSize" : [
+          640,
+          400
+        ],
+        "requestedScale" : 2
+      },
+      "fixtures" : [
+        {
+          "captureMethod" : "screencapturekit",
+          "capturedAt" : "2026-09-27T05:14:09Z",
+          "chromaShift" : 0.0879,
+          "deltaFromBackground" : 8.894395833333334,
+          "deterministic" : true,
+          "file" : "apple-macos-27.0-2x-light-standard-glass0.5/checkerboard__capsule-button__rest.png",
+          "fixtureSet" : "calibration",
+          "height" : 400,
+          "hidIdleSeconds" : 86.867478708,
+          "identicalToBackground" : false,
+          "materialRendered" : true,
+          "orderIndex" : 0,
+          "presentedActive" : true,
+          "repeatNoise" : 0,
+          "sceneId" : "checkerboard__capsule-button__rest",
+          "settleIterations" : 1,
+          "settleSeconds" : 3.067210078239441,
+          "width" : 640
+        }
+      ],
+      "profileKey" : "apple-macos-27.0-2x-light-standard-glass0.5"
+    }
+  ],
+  "sceneSpecVersion" : 7,
+  "schemaVersion" : 3,
+  "split" : {
+    "calibration" : [
+      "checkerboard__capsule-button__rest"
+    ],
+    "holdout" : [
+
+    ],
+    "note" : "Holdout scene ids are declared here, as data. Tuning code must read the 'calibration' list; it must never name a holdout scene. A 'recorded' scene is captured and committed and read by nothing: no fit, no self-check, no bound and no claim may cite it. A 'probe' scene is the other way round: fits and claims read it, and no adopted bound, regression floor or conditioning exclusion is stated over it, so the frozen bed's gate does not move with it.",
+    "probe" : [
+
+    ],
+    "recorded" : [
+
+    ],
+    "validation" : [
+
+    ]
+  }
+}

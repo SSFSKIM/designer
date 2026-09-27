@@ -439,3 +439,7 @@ The original bundle's grant is **not restored**; Decision Log 4 does that at wav
 bundle holds the machine's only vitrea Screen Recording grant. The raw run root, the archive
 directory, the release staging directory and the second copy all stay on the capture machine
 under `~/vitrea-w39/`.
+
+## Wave close (2026-09-27)
+
+The original bundle's grant was restored and checked at wave close; see `wave-close/README.md`.
