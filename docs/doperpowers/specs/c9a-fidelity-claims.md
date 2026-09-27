@@ -40726,3 +40726,59 @@ validates all four actual producer batches, and checks the committed payloads ag
 scratch originals and projections. The checkpoint explicitly remains536 of600; its complete
 calval membership permits the unchanged scorer to run offline while blind web captures wait.
 Scoring was dispatched only after that commit; no score is inferred here.
+
+### 14. Inactive M0 is certified impossible; M1 dark-inactive has a matched-channel obstruction
+
+The necessary cuts authorized in §13 now have independently reviewed determinations. M0's
+initial seven-neutral-level screen rejected dark-inactive in36/36 ordered clipping regimes
+but left three light-inactive regimes feasible; that original nondetermination remains.
+The additive grey255 control completes eight matched neutral levels, each with76 top-shell0
+pixels and seven normal repeats. The relaxation replaces the geometric coverage by a free
+`c∈[0,1]`, with `u=c·t`, `v=c·k` and the declared bounds. Jensen's inequality makes its
+bin-mean constraints necessary for the sealed absolute-before-bin criterion; it is not a
+replacement scorer. Every ordered low/middle/high clipping regime is enumerated, including
+boundary cases, and **45/45 exact rational Farkas certificates at EACH inactive endpoint**
+prove infeasibility at the unchanged bound. Because coverage was relaxed rather than fitted,
+the result rejects M0 under all three geometry rivals, without claiming an optimizer minimum.
+
+`stroke/m0-certificate/white-extension/certificates.json` SHA-256
+**dbccefb87e02e7c80965100d8ef712d81000d72c1ef4d2b6f6d92d2a432dc9f5** is committed in
+**`0da706b1`** with saved observations and the retained partial fits. Independent reviewer-high
+reconstructs all90 rational certificates with both native access and LP calls blocked, checks
+23 proof-source hashes,16 saved bundles, all9 tests and8 seal hashes, and finds no material
+issue. Geometry and per-pixel evidence are recomputed, not taken on the certificate's word.
+Only after this review did the three remaining M0 fit processes stop; their outputs remain
+partial local results, while rejection is attributed to the separate exact certificate.
+
+For **M1 dark-inactive**, the red/green bridge pair has identical exterior pixel geometry,
+quadrature and encoded blue reference32 under a provenance-verified zero shadow. M1 must
+therefore predict the same blue output on both, under any declared geometry rival. Apple
+instead reads **21 versus14**, on all76/152 pixels at1x/2x and every one of the seven repeats.
+Each allowed mean absolute error is1, so their intervals cannot meet: the best possible
+worst MAE is **7/2=3.5 codes**. The repeat bars remain separately applied and no censored
+channel supplies the contradiction. Light-inactive reads21 versus21 and is **not rejected**;
+M2's declared dark correction is outside this equality proof.
+
+`stroke/m1-certificate/proof/certificate.json` SHA-256
+**d7f98d9635f90533dbf3f1b439fc4cafc8ffcde4a126c47b50b16557cbfd5600**, committed **`54e21884`**,
+was independently reviewed through the parent: saved-only replay, nine tests with external
+pixel roots denied,16 historical dependency snapshots matching `d35b4cbf`, and no material
+finding. The parent relayed permission to stop only M1 dark-inactive's budget. A duplicate
+review dispatch was stopped before proof inspection and produced no correctness conclusion.
+
+With BOTH reviews complete, the parent ruled the same explicit endpoint-authority deviation
+as §11: **M1 now fits light-inactive observations alone**, retaining dark-inactive and active
+vector slots as unobserved dummies, the original16 seed4100 vectors, full sealed budgets and
+all three geometry rivals. A certified-rejected endpoint cannot remain in the shared
+objective and pull width/ρ for the surviving endpoint. **M2 still fits both inactive endpoints
+jointly.** No M1/M2 start had run before this ruling; no result was relabelled. Commit
+**`829806d5`** binds the independently reviewed scope wrapper, committed receipt/certificate
+preflight and freeze1,818 before the three fresh partitions launch. Their survival and
+validation transfer remain pending. The declaration is unchanged.
+
+A further parent-approved neutral-bin separability screen is a necessary-cut diagnostic only:
+on matched neutral backdrops, mean departures factor into bin coverage times an intrinsic
+colour departure; M2's neutral identity is stated by the declaration. Exact signed interval
+constraints use `max(1,bar)`, not a sum of allowances. The initial1x screen is nondetermining;
+a bounded same-eight-level2x screen is being checked separately, without pooling or fitting.
+No new rejection or budget action is inferred from that pending screen.

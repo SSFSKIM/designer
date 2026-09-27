@@ -214,3 +214,18 @@ Primaryrunner cannotmoveuntilcandidate/CSS/canonicalcapturesANDoffline scoresrel
 SHAa642015018c1660bf1678c24671ae7c9c886d470f2f5eaf811fe8281c43da362.
 All4producer batches/currentseal/source/rawprojection verified;464cal+72val.
 Offlineguarded render-calval dispatchedaftercommit, noverdictclaimedhere.
+
+Reviewed inactive stroke determinations (claims5.192 section14)
+M0 bothinactive endpoints rejected by45/45 exactrational clippingregime certificates
+EACH on8matchedneutrallevels (90total); initial7level lightnondetermination retained.
+FinalcertSHA dbccefb87e02e7c80965100d8ef712d81000d72c1ef4d2b6f6d92d2a432dc9f5,
+commit0da706b1; saved-only independenthighreview/replay/9tests clean. All3geometry
+rivals covered byfreecoverage relaxation. Onlyafterreview3M0jobsstopped; partial
+solveroutputsretained andnotcalledminima. M1DI exactsamechannel21vs14 vsallowed1
+impliesworstMAElowerbound3.5; samegeometry/B32/zero-shadow,76/152pixels,7runs.
+CertSHA d7f98d9635f90533dbf3f1b439fc4cafc8ffcde4a126c47b50b16557cbfd5600,
+commit54e21884; parentreviewcorrect/9tests/replayclean. LI21vs21notrejected,M2outside.
+Parentconditionalruling thenexecuted: M1LIonly, DI+activeunobserveddummies retained;
+M2bothinactivejoint. Original16seed4100vectors/fullbudgets/3rivals/max3parallelstarts.
+Reviewedwrapper+committedreceipt preflight829806d5; freshpartitionsrunning, nofinal
+M1LI/M2survival yet. Neutralratio screen pending2x, initial1xnondetermining, nostop.
