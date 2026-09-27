@@ -3,6 +3,7 @@
 The guarded reader is the only payload accessor. All of ~/vitrea-w39 is denied.
 Validation/holdout is refused even if the caller names a different fixture root.
 """
+import argparse
 import gzip
 import hashlib
 import json
@@ -13,7 +14,10 @@ import instrument as m
 
 sys.path.insert(0,str(m.G2))
 import native
-root=Path((m.E/'archive-root.txt').read_text().strip())
+ap=argparse.ArgumentParser(description=__doc__)
+ap.add_argument('archive',nargs='?',type=Path,help='verified fetched archive root; default recorded local cache')
+args=ap.parse_args()
+root=args.archive or Path((m.E/'archive-root.txt').read_text().strip())
 w,r=native.guarded(root,('calibration',))
 pins=json.loads((m.E/'pins.json').read_text())
 assert r.generation==pins['archive']['inventorySha256']
