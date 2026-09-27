@@ -1,0 +1,276 @@
+--- proof.py@db880447f485fe88ad7ff01caae9857a378f6b147bae5c774ed9bac79627cd93
++++ proof.py@b42e03a5c46b5b977df4aee3eebf0e6628c799aa098ba1d50c3e58244667bca4
+@@ -6,10 +6,14 @@
+ process. It is one mode per process, never an additional candidate or new start.
+ """
+ import argparse
++import ast
++import copy
++import difflib
+ import gzip
+ import hashlib
+ import json
+ import os
++from numbers import Real
+ from pathlib import Path
+ import platform
+ import resource
+@@ -76,6 +80,78 @@
+ def identical(left, right, label):
+     if fingerprint(left) != fingerprint(right):
+         raise AssertionError(label+' differs at exact typed/bit witness')
++
++
++# Only these declared result coordinates/measurements cross the JSON numeric
++# boundary. Counts, statuses, strings, undeclared keys and all trace data retain
++# the original typed fingerprint. In particular bool is never a numeric value.
++REPORT_NAMES = ('leastSquares', 'minimax', 'rawStartMinimax', 'lsSeededMinimax',
++                'originalLeastSquares', 'originalMinimax', 'widthLsSeededMinimax')
++REPORT_NUMBERS = ('maximumCodes', 'weightedSquaredError', 'railDeficitCodes',
++                  'epigraphGapCodes')
++REPORT_VECTORS = ('coefficients', 'singularValues', 'zeroFloorBracketCodes')
++
++
++def result_boundary_fingerprint(value):
++    """Compare declared JSON result numbers by float64 bits, including signed zero."""
++    result = copy.deepcopy(value)
++
++    def number(value):
++        if isinstance(value, (bool, np.bool_)) or not isinstance(value, Real):
++            raise TypeError('declared result number must be a real numeric scalar')
++        converted = float(value)
++        if not np.isfinite(converted):
++            raise ValueError('declared result number must be finite')
++        return converted
++
++    def vector(values):
++        if not isinstance(values, list):
++            raise TypeError('declared result vector must be a list')
++        return [number(v) for v in values]
++
++    def report(row):
++        if row is None:
++            return
++        for name in REPORT_NUMBERS:
++            if name in row and not (name == 'epigraphGapCodes' and row[name] is None):
++                row[name] = number(row[name])
++        for name in REPORT_VECTORS:
++            if name in row and not (name == 'zeroFloorBracketCodes' and row[name] is None):
++                row[name] = vector(row[name])
++
++    for name in ('leastSquares', 'minimax'):
++        if name in result:
++            report(result[name])
++    for start in result.get('starts', []):
++        if 'initial' in start:
++            start['initial'] = vector(start['initial'])
++        for name in REPORT_NAMES:
++            if name in start:
++                report(start[name])
++        for name in ('leastSquares', 'minimax'):
++            for step in start.get('widthSearch', {}).get(name, {}).get('rounds', []):
++                report(step['coefficientSolve'])
++                step['sweep']['width'] = number(step['sweep']['width'])
++                if step['sweep']['objective'] is not None:
++                    step['sweep']['objective'] = number(step['sweep']['objective'])
++    return fingerprint(result)
++
++
++def identical_result_boundary(left, right, label):
++    if result_boundary_fingerprint(left) != result_boundary_fingerprint(right):
++        raise AssertionError(label+' differs at the schema-declared float64-bit JSON boundary')
++
++
++def baseline_witnesses(result, completed):
++    metadata = {'partitionProvenance', 'seconds', 'fittedEndpoints', 'dummyEndpoints', 'authority'}
++    if set(completed)-set(result) != metadata or set(result)-set(completed):
++        raise ValueError('completed artifact schema differs from unchanged raw result')
++    identical_result_boundary(result, {k: completed[k] for k in result}, 'completed native raw result')
++    reconstructed = dict(result, **{k: completed[k] for k in metadata if k != 'seconds'})
++    identical_result_boundary(reconstructed, {k: v for k, v in completed.items() if k != 'seconds'},
++                              'entire completed artifact except external elapsed time')
++    return dict(jsonBoundaryResultBitsSha256=result_boundary_fingerprint(result),
++                completedExceptSecondsBitsSha256=result_boundary_fingerprint(reconstructed))
+ 
+ 
+ def synthetic(path):
+@@ -150,17 +226,10 @@
+     admission('before-fit')
+     with r.compact_forward():
+         result, record = replay_once(fit, obs, 'M1', enabled=mode == 'wrapped', output=out)
+-    metadata = {'partitionProvenance', 'seconds', 'fittedEndpoints', 'dummyEndpoints', 'authority'}
+-    if set(completed)-set(result) != metadata or set(result)-set(completed):
+-        raise ValueError('completed artifact schema differs from unchanged raw result')
+-    identical(result, {k: completed[k] for k in result}, 'completed native raw result')
+-    # Preserve all original metadata; exclude ONLY its external elapsed time.
+-    reconstructed = dict(result, **{k: completed[k] for k in metadata if k != 'seconds'})
+-    identical(reconstructed, {k: v for k, v in completed.items() if k != 'seconds'},
+-              'entire completed artifact except external elapsed time')
++    witnesses = baseline_witnesses(result, completed)
+     proof = dict(schema='w41-memoization-native-one-mode-1', mode=mode, verified=True,
+         completedArtifact=str(COMPLETED), completedSha256=hashlib.sha256(completed_raw).hexdigest(),
+-        completedExceptSecondsBitsSha256=fingerprint(reconstructed),
++        **witnesses,
+         partitionProvenance=provenance, nativeScope='calibration only; device M1 original start 0',
+         classification='verification replay, not a new candidate', rawResultBitsSha256=fingerprint(result),
+         trace=record['trace'], sourceSha256=record['sourceSha256'], environment=record['environment'],
+@@ -169,7 +238,128 @@
+     return proof
+ 
+ 
+-def compare_native(unwrapped, wrapped, path):
++def pinned_json(reference):
++    if sha(reference['path']) != reference['sha256']:
++        raise ValueError('referenced proof bytes changed: '+reference['path'])
++    return json.loads(Path(reference['path']).read_text())
++
++
++def driver_amendment_data(old_commit):
++    """Pin a driver-only amendment, proving the actual execution blocks unchanged."""
++    driver = Path(__file__).resolve()
++    root = Path(subprocess.check_output(['git', '-C', str(HERE), 'rev-parse',
++                                        '--show-toplevel'], text=True).strip())
++    old = subprocess.check_output(['git', '-C', str(root), 'show',
++                                   old_commit+':'+str(driver.relative_to(root))], text=True)
++    new = driver.read_text()
++
++    def blocks(source):
++        functions = {node.name: node for node in ast.parse(source).body
++                     if isinstance(node, ast.FunctionDef)}
++        replay = ast.get_source_segment(source, functions['replay_once'])
++        native = functions['native_once']
++        solves = [node for node in native.body if isinstance(node, ast.With)
++                  and ast.unparse(node.items[0].context_expr) == 'r.compact_forward()']
++        if len(solves) != 1:
++            raise ValueError('native execution prefix is not uniquely identified')
++        prefix = ''.join(source.splitlines(keepends=True)[native.lineno-1:solves[0].end_lineno])
++        return dict(replay_once=hashlib.sha256(replay.encode()).hexdigest(),
++                    native_onceThroughSolve=hashlib.sha256(prefix.encode()).hexdigest())
++
++    unchanged = blocks(old)
++    identical(unchanged, blocks(new), 'proof-driver execution blocks')
++    old_sha, new_sha = [hashlib.sha256(text.encode()).hexdigest() for text in (old, new)]
++    diff = ''.join(difflib.unified_diff(old.splitlines(keepends=True), new.splitlines(keepends=True),
++        fromfile='proof.py@'+old_sha, tofile='proof.py@'+new_sha)).encode()
++    return dict(schema='w41-proof-driver-comparison-amendment-1', sourcePath=str(driver),
++        oldDriverCommit=old_commit, oldSourceSha256=old_sha, newSourceSha256=new_sha,
++        unchangedExecutionBlocks=unchanged,
++        scope='Schema-declared float64-bit JSON boundary and additive saved-proof comparison; '
++              'typed live-result witnesses, solver callbacks and execution are unchanged'), diff
++
++
++def compatible_sources(left, right, amendment=None):
++    if left == right:
++        return
++    driver = str(Path(__file__).resolve())
++    if set(left) != set(right) or driver not in left:
++        raise AssertionError('execution source membership changed')
++    identical({k: v for k, v in left.items() if k != driver},
++              {k: v for k, v in right.items() if k != driver}, 'scientific and solver-wrapper sources')
++    if amendment is None:
++        raise AssertionError('proof-driver mismatch requires a pinned compatibility amendment')
++    record = pinned_json(amendment)
++    expected, diff = driver_amendment_data(record['oldDriverCommit'])
++    identical({k: record[k] for k in expected}, expected, 'proof-driver compatibility amendment')
++    if (left[driver], right[driver]) != (record['oldSourceSha256'], record['newSourceSha256']):
++        raise AssertionError('proof-driver hashes do not match the admitted old/new pair')
++    if sha(record['diff']['path']) != record['diff']['sha256'] \
++            or hashlib.sha256(diff).hexdigest() != record['diff']['sha256']:
++        raise ValueError('proof-driver compatibility diff bytes changed')
++
++
++def verify_saved_trace(path, expected):
++    digest = hashlib.sha256()
++    events, counts = 0, {}
++    with gzip.open(path, 'rb') as stream:
++        for line in stream:
++            digest.update(line)
++            event = json.loads(line)['event']
++            events += 1
++            counts[event] = counts.get(event, 0)+1
++    actual = dict(sha256=digest.hexdigest(), events=events, counts=counts)
++    identical(actual, expected, 'saved ordered trace and callback counts')
++
++
++def reuse_native(saved, path, terminal, driver_amendment):
++    """Solve reused, comparison rerun. Read saved evidence only; never run a fitter.
++
++    Keep the failed execution terminal and all old artifacts unchanged. The new
++    receipt points to their own artifact directory and preserves the recorded
++    typed in-memory result witness separately from the JSON-boundary witness.
++    """
++    saved = Path(saved).resolve()
++    failure = pinned_json(terminal)
++    if failure.get('kind') != 'STROKE_VERIFICATION_TERMINAL' \
++            or failure.get('mode') != 'unwrapped' \
++            or failure.get('status') != 'failed-after-solver-start' \
++            or failure.get('solverStarted') is not True or failure.get('error') != dict(
++                type='AssertionError', message='completed native raw result differs at exact typed/bit witness'):
++        raise ValueError('expected the retained unwrapped serialization-comparison failure')
++    record = json.loads((saved/'replay.json').read_text())
++    if record['mode'] != 'unwrapped':
++        raise ValueError('reuse is restricted to the completed unwrapped solve')
++    compatible_sources(record['sourceSha256'], sources(), driver_amendment)
++    verify_saved_trace(saved/'trace.jsonl.gz', record['trace'])
++    result = json.loads((saved/'raw-result.json').read_text())
++    completed = json.loads(COMPLETED.read_text())
++    if (result['family'], result['cssWidth'], result['curvature'],
++            [row['startIndex'] for row in result['starts']]) != ('M1', False, False, [0]):
++        raise ValueError('expected completed device M1 original start zero')
++    _, provenance = start_partition.partition(f.fit_local, [0])
++    identical(provenance, completed['partitionProvenance'], 'original start provenance')
++    identical(json.loads((saved/'calibration-admission.json').read_text()),
++              json.loads((COMPLETED.parent/'calibration-admission.json').read_text()),
++              'saved preparation membership')
++    witnesses = baseline_witnesses(result, completed)
++    out = destination(path)
++    receipt = dict(schema='w41-memoization-native-one-mode-1', mode='unwrapped', verified=True,
++        completedArtifact=str(COMPLETED), completedSha256=sha(COMPLETED), **witnesses,
++        partitionProvenance=provenance, nativeScope='calibration only; device M1 original start 0',
++        classification='verification replay, not a new candidate',
++        rawResultBitsSha256=record['rawResultBitsSha256'], trace=record['trace'],
++        sourceSha256=record['sourceSha256'], environment=record['environment'],
++        artifactDirectory=str(saved), artifacts={name: sha(saved/name) for name in NATIVE_ARTIFACTS},
++        comparisonRerun=dict(action='solve reused, comparison rerun', optimizerRuns=0,
++            nativeArchiveReads=0, priorFailure=terminal, driverCompatibility=driver_amendment,
++            comparatorSourceSha256=sha(__file__),
++            originalInMemoryResultBitsSha256=record['rawResultBitsSha256'],
++            jsonBoundaryResultBitsSha256=witnesses['jsonBoundaryResultBitsSha256']))
++    write(out/'completed-start-proof.json', receipt)
++    return receipt
++
++
++def compare_native(unwrapped, wrapped, path, driver_amendment=None):
+     """Verify persisted proof artifacts; no archive, optimizer or admission needed."""
+     left_path = Path(unwrapped)/'completed-start-proof.json'
+     right_path = Path(wrapped)/'completed-start-proof.json'
+@@ -185,7 +375,7 @@
+         if not isinstance(pins, dict) or set(pins) != set(NATIVE_ARTIFACTS):
+             raise ValueError('required artifact pins are missing or unexpected')
+         for name in NATIVE_ARTIFACTS:
+-            artifact = manifest.parent/name
++            artifact = Path(receipt.get('artifactDirectory', manifest.parent))/name
+             try:
+                 actual = sha(artifact)
+             except OSError as error:
+@@ -194,13 +384,18 @@
+                 raise ValueError('artifact bytes changed: '+str(artifact))
+     for field in ('schema', 'completedArtifact', 'completedSha256',
+                   'completedExceptSecondsBitsSha256', 'partitionProvenance', 'nativeScope',
+-                  'classification', 'rawResultBitsSha256', 'trace', 'sourceSha256', 'environment'):
++                  'classification', 'rawResultBitsSha256', 'jsonBoundaryResultBitsSha256',
++                  'trace', 'environment'):
+         identical(left[field], right[field], field)
++    compatible_sources(left['sourceSha256'], right['sourceSha256'], driver_amendment)
+     receipt = dict(schema='w41-memoization-native-bit-identity-1', verified=True,
+         unwrapped=dict(path=str(left_path.resolve()), sha256=sha(left_path)),
+         wrapped=dict(path=str(right_path.resolve()), sha256=sha(right_path)),
+         completedSha256=left['completedSha256'], trace=left['trace'],
+-        rawResultBitsSha256=left['rawResultBitsSha256'], sourceSha256=left['sourceSha256'],
++        rawResultBitsSha256=left['rawResultBitsSha256'],
++        jsonBoundaryResultBitsSha256=left['jsonBoundaryResultBitsSha256'],
++        executionSourceSha256=dict(unwrapped=left['sourceSha256'], wrapped=right['sourceSha256']),
++        driverCompatibility=driver_amendment,
+         adoption='Not automatic: independent review and new-scheduler run-record citation required.')
+     output = Path(path).resolve()
+     if HERE not in output.parents:

@@ -22,6 +22,7 @@ def proof_pair(root):
         partitionProvenance={'originalStartIndices': [0]}, nativeScope='synthetic test',
         classification='verification replay, not a new candidate',
         rawResultBitsSha256=proof.fingerprint(raw),
+        jsonBoundaryResultBitsSha256=proof.result_boundary_fingerprint(raw),
         trace={'sha256': hashlib.sha256(trace).hexdigest(), 'events': 1},
         sourceSha256={'wrapper': 'e'*64}, environment={'python': 'synthetic'})
     directories = []
