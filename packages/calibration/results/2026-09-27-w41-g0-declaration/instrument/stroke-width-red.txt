@@ -1,0 +1,23 @@
+{"scale": 1, "cssWidth": false, "plantedWidth": 1.75, "seconds": 0.8160324579803273, "leastSquares": {"maximumCodes": 6.386694400655273, "optimizerSuccess": true, "converged": true, "zeroFloorBracketCodes": null, "width": 1.9357912973238367}, "minimax": {"maximumCodes": 6.193548387102311, "optimizerSuccess": true, "converged": true, "zeroFloorBracketCodes": null, "width": 1.9357912973238367}}
+F{"scale": 2, "cssWidth": true, "plantedWidth": 0.71875, "seconds": 0.6667658330406994, "leastSquares": {"maximumCodes": 7.105427357601002e-15, "optimizerSuccess": true, "converged": true, "zeroFloorBracketCodes": null, "width": 0.7099840968407984}, "minimax": {"maximumCodes": 7.105427357601002e-15, "optimizerSuccess": true, "converged": true, "zeroFloorBracketCodes": [0.0, 7.105427357601002e-15], "width": 0.7099840968407984}}
+F
+======================================================================
+FAIL: test_two_shell_off_seed_recovery (__main__.WidthTests.test_two_shell_off_seed_recovery) (scale=1, cssWidth=False, width=1.75)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g0/packages/calibration/results/2026-09-27-w41-g0-declaration/instrument/test-stroke-width.py", line 35, in test_two_shell_off_seed_recovery
+    self.assertLess(result[key]['maximumCodes'],1e-6)
+AssertionError: 6.386694400655273 not less than 1e-06
+
+======================================================================
+FAIL: test_two_shell_off_seed_recovery (__main__.WidthTests.test_two_shell_off_seed_recovery) (scale=2, cssWidth=True, width=0.71875)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g0/packages/calibration/results/2026-09-27-w41-g0-declaration/instrument/test-stroke-width.py", line 37, in test_two_shell_off_seed_recovery
+    self.assertTrue(any(r['leastSquares']['coefficients'][0]!=r['initial'][0]
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 1 test in 1.484s
+
+FAILED (failures=2)

@@ -1,0 +1,41 @@
+{"scale": 1, "cssWidth": false, "plantedWidth": 1.75, "seconds": 0.7918146670563146, "leastSquares": {"maximumCodes": 6.386694400655273, "optimizerSuccess": true, "converged": true, "zeroFloorBracketCodes": null, "width": 1.9357912973238367}, "minimax": {"maximumCodes": 6.193548387102311, "optimizerSuccess": true, "converged": true, "zeroFloorBracketCodes": null, "width": 1.9357912973238367}}
+F{"scale": 2, "cssWidth": true, "plantedWidth": 0.84375, "seconds": 0.8187100420473143, "leastSquares": {"maximumCodes": 9.600000866910705, "optimizerSuccess": true, "converged": true, "zeroFloorBracketCodes": null, "width": 0.7642525025862419}, "minimax": {"maximumCodes": 8.000000000001322, "optimizerSuccess": true, "converged": true, "zeroFloorBracketCodes": null, "width": 0.7642525025862419}}
+FEE
+======================================================================
+ERROR: test_width_search_keeps_hard_rails_and_boundaries (__main__.WidthTests.test_width_search_keeps_hard_rails_and_boundaries)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g0/packages/calibration/results/2026-09-27-w41-g0-declaration/instrument/test-stroke-width.py", line 53, in test_width_search_keeps_hard_rails_and_boundaries
+    result,_=f.search_width(q,lambda v:(v[0]-optimum)**2,lambda v:True)
+             ^^^^^^^^^^^^^^
+AttributeError: module 'stroke_fit' has no attribute 'search_width'
+
+======================================================================
+ERROR: test_width_sweep_refines_beyond_grid_without_moving_other_coefficients (__main__.WidthTests.test_width_sweep_refines_beyond_grid_without_moving_other_coefficients)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g0/packages/calibration/results/2026-09-27-w41-g0-declaration/instrument/test-stroke-width.py", line 44, in test_width_sweep_refines_beyond_grid_without_moving_other_coefficients
+    result,trace=f.search_width(q,objective,lambda v:True)
+                 ^^^^^^^^^^^^^^
+AttributeError: module 'stroke_fit' has no attribute 'search_width'
+
+======================================================================
+FAIL: test_two_shell_off_seed_recovery (__main__.WidthTests.test_two_shell_off_seed_recovery) (scale=1, cssWidth=False, width=1.75)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g0/packages/calibration/results/2026-09-27-w41-g0-declaration/instrument/test-stroke-width.py", line 35, in test_two_shell_off_seed_recovery
+    self.assertLess(result[key]['maximumCodes'],1e-6)
+AssertionError: 6.386694400655273 not less than 1e-06
+
+======================================================================
+FAIL: test_two_shell_off_seed_recovery (__main__.WidthTests.test_two_shell_off_seed_recovery) (scale=2, cssWidth=True, width=0.84375)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g0/packages/calibration/results/2026-09-27-w41-g0-declaration/instrument/test-stroke-width.py", line 35, in test_two_shell_off_seed_recovery
+    self.assertLess(result[key]['maximumCodes'],1e-6)
+AssertionError: 9.600000866910705 not less than 1e-06
+
+----------------------------------------------------------------------
+Ran 3 tests in 1.613s
+
+FAILED (failures=2, errors=2)
