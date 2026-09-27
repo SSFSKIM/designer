@@ -353,7 +353,9 @@ parallel; the user's time is the eye reading, about thirty minutes.
 - Decision (from the observation): This initiative's panel captures are committed evidence, not a
   gitignored copy. They are too large for the repository, so the capture set the raters read is
   archived as a GitHub release asset at landing, the way W39 archived its sitting, and the hashes
-  beside the rules files name it.
+  beside the rules files name it. Done 2026-09-27: release `materialist-proof-2026-09-27`,
+  `materialist-proof-panel-captures-2026-09-27.tgz` (58 captures, 81 MB, SHA-256 in
+  `panel-captures.sha256`; every capture's own SHA-256 in `panel-captures.json`).
   Date/Author: 2026-09-27, Claude.
 
 ## Deferred
