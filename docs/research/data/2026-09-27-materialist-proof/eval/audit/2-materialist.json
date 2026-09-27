@@ -1,0 +1,4935 @@
+{
+ "slug": "2-materialist",
+ "url": "http://localhost:5212/index.html",
+ "auditedAt": "2026-09-27T03:20:08.504Z",
+ "viewport": {
+  "width": 1440,
+  "height": 900
+ },
+ "rootFound": true,
+ "readyState": "settled",
+ "adapter": {
+  "available": true,
+  "vendor": "apple",
+  "architecture": "metal-3",
+  "device": "",
+  "description": "",
+  "isFallbackAdapter": false
+ },
+ "api": {
+  "missing": []
+ },
+ "errors": [],
+ "schemes": {
+  "light": {
+   "scheme": "light",
+   "readyState": "settled",
+   "adapter": {
+    "available": true,
+    "vendor": "apple",
+    "architecture": "metal-3",
+    "device": "",
+    "description": "",
+    "isFallbackAdapter": false
+   },
+   "errors": [],
+   "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (File not found)"
+   ],
+   "failedRequests": [],
+   "badResponses": [],
+   "scrolledOnLoad": 0,
+   "docHeight": 6613,
+   "words": 1068,
+   "title": "Kide: a full-frame camera from Halla, made in Oulu",
+   "placeholder": false,
+   "captureWidth": 1440,
+   "overflowCapture": false,
+   "overflowAtLoad": false,
+   "contrast": {
+    "method": "dom-composite",
+    "checked": 203,
+    "pass": 191,
+    "unknown": 0,
+    "rate": 0.941,
+    "onGlass": 11,
+    "onGlassPass": 0,
+    "fails": [
+     {
+      "text": "HALLA",
+      "ratio": 3.04,
+      "size": 16,
+      "onGlass": true
+     },
+     {
+      "text": "Kide",
+      "ratio": 3.04,
+      "size": 15,
+      "onGlass": true
+     },
+     {
+      "text": "Specifications",
+      "ratio": 3.04,
+      "size": 15,
+      "onGlass": true
+     },
+     {
+      "text": "Lenses",
+      "ratio": 3.04,
+      "size": 15,
+      "onGlass": true
+     },
+     {
+      "text": "Price",
+      "ratio": 3.04,
+      "size": 15,
+      "onGlass": true
+     },
+     {
+      "text": "Kuura",
+      "ratio": 3.04,
+      "size": 15.5,
+      "onGlass": true
+     },
+     {
+      "text": "Kaamos",
+      "ratio": 3.04,
+      "size": 15.5,
+      "onGlass": true
+     },
+     {
+      "text": "Lens",
+      "ratio": 3.04,
+      "size": 16,
+      "onGlass": true
+     },
+     {
+      "text": "40 mm f/2.4",
+      "ratio": 3.04,
+      "size": 16,
+      "onGlass": true
+     },
+     {
+      "text": "Order",
+      "ratio": 3.04,
+      "size": 16,
+      "onGlass": true
+     },
+     {
+      "text": "€2,890",
+      "ratio": 3.04,
+      "size": 16,
+      "onGlass": true
+     },
+     {
+      "text": "Holds a place in batch 03 with a €300 de",
+      "ratio": 2.81,
+      "size": 16,
+      "onGlass": false
+     }
+    ]
+   },
+   "glassContrast": {
+    "method": "rendered-pixels",
+    "pairs": 51,
+    "pass": 51,
+    "minRatio": 5.99,
+    "byPhase": {
+     "fv": {
+      "pairs": 11,
+      "pass": 11
+     },
+     "tile-2": {
+      "pairs": 11,
+      "pass": 11
+     },
+     "tile-3": {
+      "pairs": 11,
+      "pass": 11
+     },
+     "menu": {
+      "pairs": 18,
+      "pass": 18
+     }
+    },
+    "fails": [],
+    "sample": [
+     {
+      "phase": "fv",
+      "text": "HALLA",
+      "nodeId": "home",
+      "size": 16,
+      "bold": true,
+      "large": false,
+      "ratio": 11.36,
+      "worstRatio": 10.31,
+      "pass": true,
+      "ink": [
+       33,
+       33,
+       34
+      ],
+      "ground": [
+       214,
+       217,
+       223
+      ],
+      "pixels": 1320,
+      "groundPixels": 770
+     },
+     {
+      "phase": "fv",
+      "text": "Kide",
+      "nodeId": "sections",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 10.2,
+      "worstRatio": 9.58,
+      "pass": true,
+      "ink": [
+       29,
+       31,
+       35
+      ],
+      "ground": [
+       190,
+       205,
+       226
+      ],
+      "pixels": 660,
+      "groundPixels": 350
+     },
+     {
+      "phase": "fv",
+      "text": "Specifications",
+      "nodeId": "sections",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 10.62,
+      "worstRatio": 10.09,
+      "pass": true,
+      "ink": [
+       30,
+       32,
+       36
+      ],
+      "ground": [
+       197,
+       209,
+       233
+      ],
+      "pixels": 2040,
+      "groundPixels": 1069
+     },
+     {
+      "phase": "fv",
+      "text": "Lenses",
+      "nodeId": "sections",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 10.15,
+      "worstRatio": 10.13,
+      "pass": true,
+      "ink": [
+       26,
+       31,
+       39
+      ],
+      "ground": [
+       172,
+       205,
+       255
+      ],
+      "pixels": 1020,
+      "groundPixels": 577
+     },
+     {
+      "phase": "fv",
+      "text": "Price",
+      "nodeId": "sections",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 10.71,
+      "worstRatio": 10.08,
+      "pass": true,
+      "ink": [
+       31,
+       32,
+       35
+      ],
+      "ground": [
+       200,
+       210,
+       230
+      ],
+      "pixels": 740,
+      "groundPixels": 408
+     },
+     {
+      "phase": "fv",
+      "text": "Kuura",
+      "nodeId": "finish",
+      "size": 15.5,
+      "bold": false,
+      "large": false,
+      "ratio": 9.64,
+      "worstRatio": 9.26,
+      "pass": true,
+      "ink": [
+       29,
+       30,
+       33
+      ],
+      "ground": [
+       187,
+       198,
+       214
+      ],
+      "pixels": 900,
+      "groundPixels": 503
+     },
+     {
+      "phase": "fv",
+      "text": "Kaamos",
+      "nodeId": "finish",
+      "size": 15.5,
+      "bold": false,
+      "large": false,
+      "ratio": 11.26,
+      "worstRatio": 10.55,
+      "pass": true,
+      "ink": [
+       31,
+       33,
+       36
+      ],
+      "ground": [
+       204,
+       217,
+       234
+      ],
+      "pixels": 1220,
+      "groundPixels": 666
+     },
+     {
+      "phase": "fv",
+      "text": "Lens",
+      "nodeId": "kit",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 12.98,
+      "worstRatio": 12.2,
+      "pass": true,
+      "ink": [
+       36,
+       36,
+       36
+      ],
+      "ground": [
+       233,
+       235,
+       234
+      ],
+      "pixels": 700,
+      "groundPixels": 389
+     },
+     {
+      "phase": "fv",
+      "text": "40 mm f/2.4",
+      "nodeId": "kit",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 12.33,
+      "worstRatio": 11.12,
+      "pass": true,
+      "ink": [
+       35,
+       35,
+       34
+      ],
+      "ground": [
+       230,
+       227,
+       224
+      ],
+      "pixels": 1860,
+      "groundPixels": 997
+     },
+     {
+      "phase": "fv",
+      "text": "Order",
+      "nodeId": "order",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 6.07,
+      "worstRatio": 6.04,
+      "pass": true,
+      "ink": [
+       35,
+       19,
+       7
+      ],
+      "ground": [
+       228,
+       121,
+       43
+      ],
+      "pixels": 880,
+      "groundPixels": 476
+     },
+     {
+      "phase": "fv",
+      "text": "€2,890",
+      "nodeId": "order",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 5.99,
+      "worstRatio": 5.86,
+      "pass": true,
+      "ink": [
+       35,
+       18,
+       6
+      ],
+      "ground": [
+       226,
+       120,
+       42
+      ],
+      "pixels": 1120,
+      "groundPixels": 501
+     },
+     {
+      "phase": "tile-2",
+      "text": "HALLA",
+      "nodeId": "home",
+      "size": 16,
+      "bold": true,
+      "large": false,
+      "ratio": 11.36,
+      "worstRatio": 10.31,
+      "pass": true,
+      "ink": [
+       33,
+       33,
+       34
+      ],
+      "ground": [
+       214,
+       217,
+       223
+      ],
+      "pixels": 1320,
+      "groundPixels": 770
+     },
+     {
+      "phase": "tile-2",
+      "text": "Kide",
+      "nodeId": "sections",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 8.63,
+      "worstRatio": 8.07,
+      "pass": true,
+      "ink": [
+       26,
+       28,
+       31
+      ],
+      "ground": [
+       172,
+       186,
+       205
+      ],
+      "pixels": 660,
+      "groundPixels": 350
+     },
+     {
+      "phase": "tile-2",
+      "text": "Specifications",
+      "nodeId": "sections",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 10.62,
+      "worstRatio": 10.09,
+      "pass": true,
+      "ink": [
+       30,
+       32,
+       36
+      ],
+      "ground": [
+       197,
+       209,
+       233
+      ],
+      "pixels": 2040,
+      "groundPixels": 1069
+     },
+     {
+      "phase": "tile-2",
+      "text": "Lenses",
+      "nodeId": "sections",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 10.15,
+      "worstRatio": 10.13,
+      "pass": true,
+      "ink": [
+       26,
+       31,
+       39
+      ],
+      "ground": [
+       172,
+       205,
+       255
+      ],
+      "pixels": 1020,
+      "groundPixels": 577
+     },
+     {
+      "phase": "tile-2",
+      "text": "Price",
+      "nodeId": "sections",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 10.71,
+      "worstRatio": 10.08,
+      "pass": true,
+      "ink": [
+       31,
+       32,
+       35
+      ],
+      "ground": [
+       200,
+       210,
+       230
+      ],
+      "pixels": 740,
+      "groundPixels": 408
+     },
+     {
+      "phase": "tile-2",
+      "text": "Kuura",
+      "nodeId": "finish",
+      "size": 15.5,
+      "bold": false,
+      "large": false,
+      "ratio": 9.64,
+      "worstRatio": 9.26,
+      "pass": true,
+      "ink": [
+       29,
+       30,
+       33
+      ],
+      "ground": [
+       187,
+       198,
+       214
+      ],
+      "pixels": 900,
+      "groundPixels": 503
+     },
+     {
+      "phase": "tile-2",
+      "text": "Kaamos",
+      "nodeId": "finish",
+      "size": 15.5,
+      "bold": false,
+      "large": false,
+      "ratio": 11.26,
+      "worstRatio": 10.55,
+      "pass": true,
+      "ink": [
+       31,
+       33,
+       36
+      ],
+      "ground": [
+       204,
+       217,
+       234
+      ],
+      "pixels": 1220,
+      "groundPixels": 666
+     },
+     {
+      "phase": "tile-2",
+      "text": "Lens",
+      "nodeId": "kit",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 12.98,
+      "worstRatio": 12.2,
+      "pass": true,
+      "ink": [
+       36,
+       36,
+       36
+      ],
+      "ground": [
+       233,
+       235,
+       234
+      ],
+      "pixels": 700,
+      "groundPixels": 389
+     },
+     {
+      "phase": "tile-2",
+      "text": "40 mm f/2.4",
+      "nodeId": "kit",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 12.33,
+      "worstRatio": 11.12,
+      "pass": true,
+      "ink": [
+       35,
+       35,
+       34
+      ],
+      "ground": [
+       230,
+       227,
+       224
+      ],
+      "pixels": 1860,
+      "groundPixels": 997
+     },
+     {
+      "phase": "tile-2",
+      "text": "Order",
+      "nodeId": "order",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 6.07,
+      "worstRatio": 6.04,
+      "pass": true,
+      "ink": [
+       35,
+       19,
+       7
+      ],
+      "ground": [
+       228,
+       121,
+       43
+      ],
+      "pixels": 880,
+      "groundPixels": 476
+     },
+     {
+      "phase": "tile-2",
+      "text": "€2,890",
+      "nodeId": "order",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 5.99,
+      "worstRatio": 5.86,
+      "pass": true,
+      "ink": [
+       35,
+       18,
+       6
+      ],
+      "ground": [
+       226,
+       120,
+       42
+      ],
+      "pixels": 1120,
+      "groundPixels": 501
+     },
+     {
+      "phase": "tile-3",
+      "text": "HALLA",
+      "nodeId": "home",
+      "size": 16,
+      "bold": true,
+      "large": false,
+      "ratio": 11.36,
+      "worstRatio": 10.31,
+      "pass": true,
+      "ink": [
+       33,
+       33,
+       34
+      ],
+      "ground": [
+       214,
+       217,
+       223
+      ],
+      "pixels": 1320,
+      "groundPixels": 770
+     },
+     {
+      "phase": "tile-3",
+      "text": "Kide",
+      "nodeId": "sections",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 8.63,
+      "worstRatio": 8.07,
+      "pass": true,
+      "ink": [
+       26,
+       28,
+       31
+      ],
+      "ground": [
+       172,
+       186,
+       205
+      ],
+      "pixels": 660,
+      "groundPixels": 350
+     },
+     {
+      "phase": "tile-3",
+      "text": "Specifications",
+      "nodeId": "sections",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 10.62,
+      "worstRatio": 10.09,
+      "pass": true,
+      "ink": [
+       30,
+       32,
+       36
+      ],
+      "ground": [
+       197,
+       209,
+       233
+      ],
+      "pixels": 2040,
+      "groundPixels": 1069
+     },
+     {
+      "phase": "tile-3",
+      "text": "Lenses",
+      "nodeId": "sections",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 10.15,
+      "worstRatio": 10.13,
+      "pass": true,
+      "ink": [
+       26,
+       31,
+       39
+      ],
+      "ground": [
+       172,
+       205,
+       255
+      ],
+      "pixels": 1020,
+      "groundPixels": 577
+     },
+     {
+      "phase": "tile-3",
+      "text": "Price",
+      "nodeId": "sections",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 10.71,
+      "worstRatio": 10.08,
+      "pass": true,
+      "ink": [
+       31,
+       32,
+       35
+      ],
+      "ground": [
+       200,
+       210,
+       230
+      ],
+      "pixels": 740,
+      "groundPixels": 408
+     },
+     {
+      "phase": "tile-3",
+      "text": "Kuura",
+      "nodeId": "finish",
+      "size": 15.5,
+      "bold": false,
+      "large": false,
+      "ratio": 9.64,
+      "worstRatio": 9.26,
+      "pass": true,
+      "ink": [
+       29,
+       30,
+       33
+      ],
+      "ground": [
+       187,
+       198,
+       214
+      ],
+      "pixels": 900,
+      "groundPixels": 503
+     },
+     {
+      "phase": "tile-3",
+      "text": "Kaamos",
+      "nodeId": "finish",
+      "size": 15.5,
+      "bold": false,
+      "large": false,
+      "ratio": 11.26,
+      "worstRatio": 10.55,
+      "pass": true,
+      "ink": [
+       31,
+       33,
+       36
+      ],
+      "ground": [
+       204,
+       217,
+       234
+      ],
+      "pixels": 1220,
+      "groundPixels": 666
+     },
+     {
+      "phase": "tile-3",
+      "text": "Lens",
+      "nodeId": "kit",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 12.98,
+      "worstRatio": 12.2,
+      "pass": true,
+      "ink": [
+       36,
+       36,
+       36
+      ],
+      "ground": [
+       233,
+       235,
+       234
+      ],
+      "pixels": 700,
+      "groundPixels": 389
+     },
+     {
+      "phase": "tile-3",
+      "text": "40 mm f/2.4",
+      "nodeId": "kit",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 12.33,
+      "worstRatio": 11.12,
+      "pass": true,
+      "ink": [
+       35,
+       35,
+       34
+      ],
+      "ground": [
+       230,
+       227,
+       224
+      ],
+      "pixels": 1860,
+      "groundPixels": 997
+     },
+     {
+      "phase": "tile-3",
+      "text": "Order",
+      "nodeId": "order",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 6.07,
+      "worstRatio": 6.04,
+      "pass": true,
+      "ink": [
+       35,
+       19,
+       7
+      ],
+      "ground": [
+       228,
+       121,
+       43
+      ],
+      "pixels": 880,
+      "groundPixels": 476
+     },
+     {
+      "phase": "tile-3",
+      "text": "€2,890",
+      "nodeId": "order",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 5.99,
+      "worstRatio": 5.86,
+      "pass": true,
+      "ink": [
+       35,
+       18,
+       6
+      ],
+      "ground": [
+       226,
+       120,
+       42
+      ],
+      "pixels": 1120,
+      "groundPixels": 501
+     },
+     {
+      "phase": "menu",
+      "text": "HALLA",
+      "nodeId": "home",
+      "size": 16,
+      "bold": true,
+      "large": false,
+      "ratio": 11.36,
+      "worstRatio": 10.31,
+      "pass": true,
+      "ink": [
+       33,
+       33,
+       34
+      ],
+      "ground": [
+       214,
+       217,
+       223
+      ],
+      "pixels": 1320,
+      "groundPixels": 770
+     },
+     {
+      "phase": "menu",
+      "text": "Kide",
+      "nodeId": "sections",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 10.2,
+      "worstRatio": 9.58,
+      "pass": true,
+      "ink": [
+       29,
+       31,
+       35
+      ],
+      "ground": [
+       190,
+       205,
+       226
+      ],
+      "pixels": 660,
+      "groundPixels": 350
+     },
+     {
+      "phase": "menu",
+      "text": "Specifications",
+      "nodeId": "sections",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 10.62,
+      "worstRatio": 10.09,
+      "pass": true,
+      "ink": [
+       30,
+       32,
+       36
+      ],
+      "ground": [
+       197,
+       209,
+       233
+      ],
+      "pixels": 2040,
+      "groundPixels": 1069
+     },
+     {
+      "phase": "menu",
+      "text": "Lenses",
+      "nodeId": "sections",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 10.15,
+      "worstRatio": 10.13,
+      "pass": true,
+      "ink": [
+       26,
+       31,
+       39
+      ],
+      "ground": [
+       172,
+       205,
+       255
+      ],
+      "pixels": 1020,
+      "groundPixels": 577
+     },
+     {
+      "phase": "menu",
+      "text": "Price",
+      "nodeId": "sections",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 10.71,
+      "worstRatio": 10.08,
+      "pass": true,
+      "ink": [
+       31,
+       32,
+       35
+      ],
+      "ground": [
+       200,
+       210,
+       230
+      ],
+      "pixels": 740,
+      "groundPixels": 408
+     },
+     {
+      "phase": "menu",
+      "text": "Kuura",
+      "nodeId": "finish",
+      "size": 15.5,
+      "bold": false,
+      "large": false,
+      "ratio": 9.64,
+      "worstRatio": 9.26,
+      "pass": true,
+      "ink": [
+       29,
+       30,
+       33
+      ],
+      "ground": [
+       187,
+       198,
+       214
+      ],
+      "pixels": 900,
+      "groundPixels": 503
+     },
+     {
+      "phase": "menu",
+      "text": "Kaamos",
+      "nodeId": "finish",
+      "size": 15.5,
+      "bold": false,
+      "large": false,
+      "ratio": 11.26,
+      "worstRatio": 10.55,
+      "pass": true,
+      "ink": [
+       31,
+       33,
+       36
+      ],
+      "ground": [
+       204,
+       217,
+       234
+      ],
+      "pixels": 1220,
+      "groundPixels": 666
+     }
+    ]
+   },
+   "rootFound": true,
+   "api": {
+    "missing": []
+   },
+   "colorScheme": "light",
+   "schemeFollowed": true,
+   "windowActivation": "active",
+   "material": {
+    "name": "apple-macos-27.0-glass0.5",
+    "platform": "macOS 27.0",
+    "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+    "resolvedMaterialSha256": "be13dae45098fc89",
+    "tuned": false
+   },
+   "webgpu": {
+    "available": true,
+    "ownership": "vitrea",
+    "deviceHealth": "ok",
+    "unavailableReason": null,
+    "hasDevice": true
+   },
+   "platformProbe": {
+    "engine": {
+     "family": "chromium",
+     "version": 151
+    },
+    "reach": "verified"
+   },
+   "accessibility": {
+    "reducedTransparency": false,
+    "reducedMotion": false,
+    "increasedContrast": false,
+    "forcedColors": false,
+    "material": {
+     "glass": "material",
+     "colorSource": "material",
+     "frost": "nominal",
+     "refraction": "nominal",
+     "occlusion": "nominal",
+     "border": "nominal",
+     "ambientTint": "nominal",
+     "foreground": "adaptive"
+    },
+    "motion": {
+     "overshoot": "elastic",
+     "deformation": "nominal",
+     "shimmer": "travel",
+     "morph": "elastic",
+     "crossfade": "never",
+     "positionalContinuity": true
+    }
+   },
+   "surfaces": [
+    {
+     "nodeId": "home",
+     "groupId": "nav-home",
+     "plane": "base",
+     "selector": "a#home",
+     "tag": "a",
+     "role": null,
+     "rect": [
+      24,
+      20,
+      130.6,
+      44
+     ],
+     "span": 44,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "capsule",
+     "radii": [
+      22,
+      22,
+      22,
+      22
+     ],
+     "smoothing": 0,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "22px",
+     "label": "Halla, back to the top"
+    },
+    {
+     "nodeId": "sections",
+     "groupId": "nav-sections",
+     "plane": "base",
+     "selector": "div#sections",
+     "tag": "div",
+     "role": null,
+     "rect": [
+      1060.3,
+      20,
+      355.7,
+      44
+     ],
+     "span": 44,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "capsule",
+     "radii": [
+      22,
+      22,
+      22,
+      22
+     ],
+     "smoothing": 0,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "22px",
+     "label": "Kide\n    Specifications\n    Lenses\n    P"
+    },
+    {
+     "nodeId": "finish",
+     "groupId": "finish",
+     "plane": "base",
+     "selector": "div#finish",
+     "tag": "div",
+     "role": "radiogroup",
+     "rect": [
+      386.8,
+      820,
+      231.4,
+      56
+     ],
+     "span": 56,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "capsule",
+     "radii": [
+      28,
+      28,
+      28,
+      28
+     ],
+     "smoothing": 0,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "28px",
+     "label": "Finish"
+    },
+    {
+     "nodeId": "kit",
+     "groupId": "kits",
+     "plane": "base",
+     "selector": "div#kit",
+     "tag": "div",
+     "role": null,
+     "rect": [
+      645.3,
+      820,
+      202,
+      56
+     ],
+     "span": 56,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "fixed-rounded-rect",
+     "radii": [
+      28,
+      28,
+      28,
+      28
+     ],
+     "smoothing": 0,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "28px",
+     "label": "Lens 40 mm f/2.4\n        \n      \n      \n"
+    },
+    {
+     "nodeId": "order",
+     "groupId": "order",
+     "plane": "base",
+     "selector": "button#order",
+     "tag": "button",
+     "role": null,
+     "rect": [
+      874.2,
+      820,
+      178.9,
+      56
+     ],
+     "span": 56,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "capsule",
+     "radii": [
+      28,
+      28,
+      28,
+      28
+     ],
+     "smoothing": 0,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": true,
+     "cssRadius": "28px",
+     "label": "Order€2,890"
+    }
+   ],
+   "surfacesInFrame": 5,
+   "planes": [
+    {
+     "plane": "base",
+     "nodes": 5
+    },
+    {
+     "plane": "overlay",
+     "nodes": 0
+    }
+   ],
+   "groups": [
+    {
+     "id": "nav-home",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.68,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "nav-sections",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.68,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "finish",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 8.02,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "kits",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 8.02,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "order",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 8.02,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    }
+   ],
+   "diagnostics": [],
+   "derivedFindings": [],
+   "menu": "captured",
+   "menuSurfaces": [
+    {
+     "nodeId": "home",
+     "groupId": "nav-home",
+     "plane": "base",
+     "selector": "a#home",
+     "tag": "a",
+     "role": null,
+     "rect": [
+      24,
+      20,
+      130.6,
+      44
+     ],
+     "span": 44,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "capsule",
+     "radii": [
+      22,
+      22,
+      22,
+      22
+     ],
+     "smoothing": 0,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "22px",
+     "label": "Halla, back to the top"
+    },
+    {
+     "nodeId": "sections",
+     "groupId": "nav-sections",
+     "plane": "base",
+     "selector": "div#sections",
+     "tag": "div",
+     "role": null,
+     "rect": [
+      1060.3,
+      20,
+      355.7,
+      44
+     ],
+     "span": 44,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "capsule",
+     "radii": [
+      22,
+      22,
+      22,
+      22
+     ],
+     "smoothing": 0,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "22px",
+     "label": "Kide\n    Specifications\n    Lenses\n    P"
+    },
+    {
+     "nodeId": "finish",
+     "groupId": "finish",
+     "plane": "base",
+     "selector": "div#finish",
+     "tag": "div",
+     "role": "radiogroup",
+     "rect": [
+      386.8,
+      820,
+      231.4,
+      56
+     ],
+     "span": 56,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "capsule",
+     "radii": [
+      28,
+      28,
+      28,
+      28
+     ],
+     "smoothing": 0,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "28px",
+     "label": "Finish"
+    },
+    {
+     "nodeId": "order",
+     "groupId": "order",
+     "plane": "base",
+     "selector": "button#order",
+     "tag": "button",
+     "role": null,
+     "rect": [
+      874.2,
+      820,
+      178.9,
+      56
+     ],
+     "span": 56,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "capsule",
+     "radii": [
+      28,
+      28,
+      28,
+      28
+     ],
+     "smoothing": 0,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": true,
+     "cssRadius": "28px",
+     "label": "Order€2,890"
+    },
+    {
+     "nodeId": "kit",
+     "groupId": "kits",
+     "plane": "overlay",
+     "selector": "div#kit",
+     "tag": "div",
+     "role": null,
+     "rect": [
+      598.3,
+      518,
+      296,
+      242
+     ],
+     "span": 242,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "fixed-rounded-rect",
+     "radii": [
+      28,
+      28,
+      28,
+      28
+     ],
+     "smoothing": 0,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "28px",
+     "label": "Lens 40 mm f/2.4\n        \n      \n      \n"
+    }
+   ],
+   "menuGroups": [
+    {
+     "id": "nav-home",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.68,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "nav-sections",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.68,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "finish",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 8.02,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "order",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 8.02,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "kits",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 20,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    }
+   ],
+   "menuDiagnostics": [],
+   "ban": {
+    "rest": {
+     "findings": [],
+     "unmeasured": [
+      "opacity keyframes: 1 cross-origin sheet(s) unreadable"
+     ],
+     "hostsRead": 5,
+     "cssTierHosts": 0
+    },
+    "menu": {
+     "findings": [],
+     "unmeasured": [
+      "opacity keyframes: 1 cross-origin sheet(s) unreadable"
+     ],
+     "hostsRead": 5,
+     "cssTierHosts": 0
+    }
+   }
+  },
+  "dark": {
+   "scheme": "dark",
+   "readyState": "settled",
+   "adapter": {
+    "available": true,
+    "vendor": "apple",
+    "architecture": "metal-3",
+    "device": "",
+    "description": "",
+    "isFallbackAdapter": false
+   },
+   "errors": [],
+   "consoleErrors": [],
+   "failedRequests": [],
+   "badResponses": [],
+   "scrolledOnLoad": 0,
+   "docHeight": 6613,
+   "words": 1068,
+   "title": "Kide: a full-frame camera from Halla, made in Oulu",
+   "placeholder": false,
+   "captureWidth": 1440,
+   "overflowCapture": false,
+   "overflowAtLoad": false,
+   "contrast": {
+    "method": "dom-composite",
+    "checked": 203,
+    "pass": 192,
+    "unknown": 0,
+    "rate": 0.946,
+    "onGlass": 11,
+    "onGlassPass": 0,
+    "fails": [
+     {
+      "text": "HALLA",
+      "ratio": 3.04,
+      "size": 16,
+      "onGlass": true
+     },
+     {
+      "text": "Kide",
+      "ratio": 3.04,
+      "size": 15,
+      "onGlass": true
+     },
+     {
+      "text": "Specifications",
+      "ratio": 3.04,
+      "size": 15,
+      "onGlass": true
+     },
+     {
+      "text": "Lenses",
+      "ratio": 3.04,
+      "size": 15,
+      "onGlass": true
+     },
+     {
+      "text": "Price",
+      "ratio": 3.04,
+      "size": 15,
+      "onGlass": true
+     },
+     {
+      "text": "Kuura",
+      "ratio": 3.04,
+      "size": 15.5,
+      "onGlass": true
+     },
+     {
+      "text": "Kaamos",
+      "ratio": 3.04,
+      "size": 15.5,
+      "onGlass": true
+     },
+     {
+      "text": "Lens",
+      "ratio": 3.04,
+      "size": 16,
+      "onGlass": true
+     },
+     {
+      "text": "40 mm f/2.4",
+      "ratio": 3.04,
+      "size": 16,
+      "onGlass": true
+     },
+     {
+      "text": "Order",
+      "ratio": 3.04,
+      "size": 16,
+      "onGlass": true
+     },
+     {
+      "text": "€2,890",
+      "ratio": 3.04,
+      "size": 16,
+      "onGlass": true
+     }
+    ]
+   },
+   "glassContrast": {
+    "method": "rendered-pixels",
+    "pairs": 51,
+    "pass": 36,
+    "minRatio": 3.55,
+    "byPhase": {
+     "fv": {
+      "pairs": 11,
+      "pass": 10
+     },
+     "tile-2": {
+      "pairs": 11,
+      "pass": 9
+     },
+     "tile-3": {
+      "pairs": 11,
+      "pass": 9
+     },
+     "menu": {
+      "pairs": 18,
+      "pass": 8
+     }
+    },
+    "fails": [
+     {
+      "phase": "fv",
+      "text": "Kuura",
+      "nodeId": "finish",
+      "size": 15.5,
+      "bold": false,
+      "large": false,
+      "ratio": 4.37,
+      "worstRatio": 4.29,
+      "pass": false,
+      "ink": [
+       18,
+       19,
+       20
+      ],
+      "ground": [
+       117,
+       123,
+       133
+      ],
+      "pixels": 900,
+      "groundPixels": 503
+     },
+     {
+      "phase": "tile-2",
+      "text": "Kide",
+      "nodeId": "sections",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 4.13,
+      "worstRatio": 4.01,
+      "pass": false,
+      "ink": [
+       17,
+       18,
+       20
+      ],
+      "ground": [
+       111,
+       119,
+       130
+      ],
+      "pixels": 660,
+      "groundPixels": 343
+     },
+     {
+      "phase": "tile-2",
+      "text": "Kuura",
+      "nodeId": "finish",
+      "size": 15.5,
+      "bold": false,
+      "large": false,
+      "ratio": 4.37,
+      "worstRatio": 4.29,
+      "pass": false,
+      "ink": [
+       18,
+       19,
+       20
+      ],
+      "ground": [
+       117,
+       123,
+       133
+      ],
+      "pixels": 900,
+      "groundPixels": 503
+     },
+     {
+      "phase": "tile-3",
+      "text": "Kide",
+      "nodeId": "sections",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 4.13,
+      "worstRatio": 4.01,
+      "pass": false,
+      "ink": [
+       17,
+       18,
+       20
+      ],
+      "ground": [
+       111,
+       119,
+       130
+      ],
+      "pixels": 660,
+      "groundPixels": 343
+     },
+     {
+      "phase": "tile-3",
+      "text": "Kuura",
+      "nodeId": "finish",
+      "size": 15.5,
+      "bold": false,
+      "large": false,
+      "ratio": 4.37,
+      "worstRatio": 4.29,
+      "pass": false,
+      "ink": [
+       18,
+       19,
+       20
+      ],
+      "ground": [
+       117,
+       123,
+       133
+      ],
+      "pixels": 900,
+      "groundPixels": 503
+     },
+     {
+      "phase": "menu",
+      "text": "Kuura",
+      "nodeId": "finish",
+      "size": 15.5,
+      "bold": false,
+      "large": false,
+      "ratio": 4.37,
+      "worstRatio": 4.29,
+      "pass": false,
+      "ink": [
+       18,
+       19,
+       20
+      ],
+      "ground": [
+       117,
+       123,
+       133
+      ],
+      "pixels": 900,
+      "groundPixels": 503
+     },
+     {
+      "phase": "menu",
+      "text": "In the box with the body",
+      "nodeId": "kit",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 3.93,
+      "worstRatio": 3.8,
+      "pass": false,
+      "ink": [
+       17,
+       18,
+       19
+      ],
+      "ground": [
+       109,
+       115,
+       122
+      ],
+      "pixels": 2400,
+      "groundPixels": 1310
+     },
+     {
+      "phase": "menu",
+      "text": "Body only",
+      "nodeId": "kit",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 3.95,
+      "worstRatio": 3.93,
+      "pass": false,
+      "ink": [
+       17,
+       18,
+       19
+      ],
+      "ground": [
+       112,
+       115,
+       121
+      ],
+      "pixels": 1500,
+      "groundPixels": 833
+     },
+     {
+      "phase": "menu",
+      "text": "€2,490",
+      "nodeId": "kit",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 3.91,
+      "worstRatio": 3.85,
+      "pass": false,
+      "ink": [
+       16,
+       18,
+       19
+      ],
+      "ground": [
+       107,
+       115,
+       123
+      ],
+      "pixels": 1080,
+      "groundPixels": 513
+     },
+     {
+      "phase": "menu",
+      "text": "28 mm f/2",
+      "nodeId": "kit",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 4.05,
+      "worstRatio": 4,
+      "pass": false,
+      "ink": [
+       17,
+       18,
+       19
+      ],
+      "ground": [
+       114,
+       117,
+       121
+      ],
+      "pixels": 1500,
+      "groundPixels": 840
+     },
+     {
+      "phase": "menu",
+      "text": "€3,190",
+      "nodeId": "kit",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 3.99,
+      "worstRatio": 3.93,
+      "pass": false,
+      "ink": [
+       17,
+       18,
+       19
+      ],
+      "ground": [
+       111,
+       116,
+       122
+      ],
+      "pixels": 1000,
+      "groundPixels": 462
+     },
+     {
+      "phase": "menu",
+      "text": "40 mm f/2.4",
+      "nodeId": "kit",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 3.6,
+      "worstRatio": 3.55,
+      "pass": false,
+      "ink": [
+       16,
+       17,
+       17
+      ],
+      "ground": [
+       106,
+       108,
+       110
+      ],
+      "pixels": 1800,
+      "groundPixels": 1059
+     }
+    ],
+    "sample": [
+     {
+      "phase": "fv",
+      "text": "HALLA",
+      "nodeId": "home",
+      "size": 16,
+      "bold": true,
+      "large": false,
+      "ratio": 5.46,
+      "worstRatio": 5.21,
+      "pass": true,
+      "ink": [
+       21,
+       22,
+       22
+      ],
+      "ground": [
+       139,
+       141,
+       144
+      ],
+      "pixels": 1320,
+      "groundPixels": 770
+     },
+     {
+      "phase": "fv",
+      "text": "Kide",
+      "nodeId": "sections",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 4.82,
+      "worstRatio": 4.67,
+      "pass": true,
+      "ink": [
+       19,
+       20,
+       22
+      ],
+      "ground": [
+       123,
+       131,
+       143
+      ],
+      "pixels": 660,
+      "groundPixels": 343
+     },
+     {
+      "phase": "fv",
+      "text": "Specifications",
+      "nodeId": "sections",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 4.9,
+      "worstRatio": 4.78,
+      "pass": true,
+      "ink": [
+       19,
+       20,
+       22
+      ],
+      "ground": [
+       125,
+       132,
+       146
+      ],
+      "pixels": 2040,
+      "groundPixels": 1066
+     },
+     {
+      "phase": "fv",
+      "text": "Lenses",
+      "nodeId": "sections",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 4.77,
+      "worstRatio": 4.77,
+      "pass": true,
+      "ink": [
+       17,
+       20,
+       25
+      ],
+      "ground": [
+       108,
+       131,
+       165
+      ],
+      "pixels": 1020,
+      "groundPixels": 577
+     },
+     {
+      "phase": "fv",
+      "text": "Price",
+      "nodeId": "sections",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 4.9,
+      "worstRatio": 4.79,
+      "pass": true,
+      "ink": [
+       19,
+       20,
+       22
+      ],
+      "ground": [
+       126,
+       132,
+       144
+      ],
+      "pixels": 740,
+      "groundPixels": 408
+     },
+     {
+      "phase": "fv",
+      "text": "Kuura",
+      "nodeId": "finish",
+      "size": 15.5,
+      "bold": false,
+      "large": false,
+      "ratio": 4.37,
+      "worstRatio": 4.29,
+      "pass": false,
+      "ink": [
+       18,
+       19,
+       20
+      ],
+      "ground": [
+       117,
+       123,
+       133
+      ],
+      "pixels": 900,
+      "groundPixels": 503
+     },
+     {
+      "phase": "fv",
+      "text": "Kaamos",
+      "nodeId": "finish",
+      "size": 15.5,
+      "bold": false,
+      "large": false,
+      "ratio": 5.12,
+      "worstRatio": 4.97,
+      "pass": true,
+      "ink": [
+       20,
+       21,
+       22
+      ],
+      "ground": [
+       129,
+       136,
+       146
+      ],
+      "pixels": 1220,
+      "groundPixels": 666
+     },
+     {
+      "phase": "fv",
+      "text": "Lens",
+      "nodeId": "kit",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 6.13,
+      "worstRatio": 5.98,
+      "pass": true,
+      "ink": [
+       23,
+       23,
+       23
+      ],
+      "ground": [
+       151,
+       151,
+       151
+      ],
+      "pixels": 700,
+      "groundPixels": 388
+     },
+     {
+      "phase": "fv",
+      "text": "40 mm f/2.4",
+      "nodeId": "kit",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 5.99,
+      "worstRatio": 5.78,
+      "pass": true,
+      "ink": [
+       23,
+       23,
+       23
+      ],
+      "ground": [
+       149,
+       149,
+       148
+      ],
+      "pixels": 1860,
+      "groundPixels": 991
+     },
+     {
+      "phase": "fv",
+      "text": "Order",
+      "nodeId": "order",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 6.56,
+      "worstRatio": 6.56,
+      "pass": true,
+      "ink": [
+       36,
+       19,
+       7
+      ],
+      "ground": [
+       238,
+       127,
+       45
+      ],
+      "pixels": 880,
+      "groundPixels": 476
+     },
+     {
+      "phase": "fv",
+      "text": "€2,890",
+      "nodeId": "order",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 6.56,
+      "worstRatio": 6.56,
+      "pass": true,
+      "ink": [
+       36,
+       19,
+       7
+      ],
+      "ground": [
+       238,
+       127,
+       45
+      ],
+      "pixels": 1120,
+      "groundPixels": 501
+     },
+     {
+      "phase": "tile-2",
+      "text": "HALLA",
+      "nodeId": "home",
+      "size": 16,
+      "bold": true,
+      "large": false,
+      "ratio": 5.46,
+      "worstRatio": 5.21,
+      "pass": true,
+      "ink": [
+       21,
+       22,
+       22
+      ],
+      "ground": [
+       139,
+       141,
+       144
+      ],
+      "pixels": 1320,
+      "groundPixels": 770
+     },
+     {
+      "phase": "tile-2",
+      "text": "Kide",
+      "nodeId": "sections",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 4.13,
+      "worstRatio": 4.01,
+      "pass": false,
+      "ink": [
+       17,
+       18,
+       20
+      ],
+      "ground": [
+       111,
+       119,
+       130
+      ],
+      "pixels": 660,
+      "groundPixels": 343
+     },
+     {
+      "phase": "tile-2",
+      "text": "Specifications",
+      "nodeId": "sections",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 4.9,
+      "worstRatio": 4.78,
+      "pass": true,
+      "ink": [
+       19,
+       20,
+       22
+      ],
+      "ground": [
+       125,
+       132,
+       146
+      ],
+      "pixels": 2040,
+      "groundPixels": 1066
+     },
+     {
+      "phase": "tile-2",
+      "text": "Lenses",
+      "nodeId": "sections",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 4.77,
+      "worstRatio": 4.77,
+      "pass": true,
+      "ink": [
+       17,
+       20,
+       25
+      ],
+      "ground": [
+       108,
+       131,
+       165
+      ],
+      "pixels": 1020,
+      "groundPixels": 577
+     },
+     {
+      "phase": "tile-2",
+      "text": "Price",
+      "nodeId": "sections",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 4.9,
+      "worstRatio": 4.79,
+      "pass": true,
+      "ink": [
+       19,
+       20,
+       22
+      ],
+      "ground": [
+       126,
+       132,
+       144
+      ],
+      "pixels": 740,
+      "groundPixels": 408
+     },
+     {
+      "phase": "tile-2",
+      "text": "Kuura",
+      "nodeId": "finish",
+      "size": 15.5,
+      "bold": false,
+      "large": false,
+      "ratio": 4.37,
+      "worstRatio": 4.29,
+      "pass": false,
+      "ink": [
+       18,
+       19,
+       20
+      ],
+      "ground": [
+       117,
+       123,
+       133
+      ],
+      "pixels": 900,
+      "groundPixels": 503
+     },
+     {
+      "phase": "tile-2",
+      "text": "Kaamos",
+      "nodeId": "finish",
+      "size": 15.5,
+      "bold": false,
+      "large": false,
+      "ratio": 5.12,
+      "worstRatio": 4.97,
+      "pass": true,
+      "ink": [
+       20,
+       21,
+       22
+      ],
+      "ground": [
+       129,
+       136,
+       146
+      ],
+      "pixels": 1220,
+      "groundPixels": 666
+     },
+     {
+      "phase": "tile-2",
+      "text": "Lens",
+      "nodeId": "kit",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 6.13,
+      "worstRatio": 5.98,
+      "pass": true,
+      "ink": [
+       23,
+       23,
+       23
+      ],
+      "ground": [
+       151,
+       151,
+       151
+      ],
+      "pixels": 700,
+      "groundPixels": 388
+     },
+     {
+      "phase": "tile-2",
+      "text": "40 mm f/2.4",
+      "nodeId": "kit",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 5.99,
+      "worstRatio": 5.78,
+      "pass": true,
+      "ink": [
+       23,
+       23,
+       23
+      ],
+      "ground": [
+       149,
+       149,
+       148
+      ],
+      "pixels": 1860,
+      "groundPixels": 991
+     },
+     {
+      "phase": "tile-2",
+      "text": "Order",
+      "nodeId": "order",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 6.56,
+      "worstRatio": 6.56,
+      "pass": true,
+      "ink": [
+       36,
+       19,
+       7
+      ],
+      "ground": [
+       238,
+       127,
+       45
+      ],
+      "pixels": 880,
+      "groundPixels": 476
+     },
+     {
+      "phase": "tile-2",
+      "text": "€2,890",
+      "nodeId": "order",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 6.56,
+      "worstRatio": 6.56,
+      "pass": true,
+      "ink": [
+       36,
+       19,
+       7
+      ],
+      "ground": [
+       238,
+       127,
+       45
+      ],
+      "pixels": 1120,
+      "groundPixels": 501
+     },
+     {
+      "phase": "tile-3",
+      "text": "HALLA",
+      "nodeId": "home",
+      "size": 16,
+      "bold": true,
+      "large": false,
+      "ratio": 5.46,
+      "worstRatio": 5.21,
+      "pass": true,
+      "ink": [
+       21,
+       22,
+       22
+      ],
+      "ground": [
+       139,
+       141,
+       144
+      ],
+      "pixels": 1320,
+      "groundPixels": 770
+     },
+     {
+      "phase": "tile-3",
+      "text": "Kide",
+      "nodeId": "sections",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 4.13,
+      "worstRatio": 4.01,
+      "pass": false,
+      "ink": [
+       17,
+       18,
+       20
+      ],
+      "ground": [
+       111,
+       119,
+       130
+      ],
+      "pixels": 660,
+      "groundPixels": 343
+     },
+     {
+      "phase": "tile-3",
+      "text": "Specifications",
+      "nodeId": "sections",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 4.9,
+      "worstRatio": 4.78,
+      "pass": true,
+      "ink": [
+       19,
+       20,
+       22
+      ],
+      "ground": [
+       125,
+       132,
+       146
+      ],
+      "pixels": 2040,
+      "groundPixels": 1066
+     },
+     {
+      "phase": "tile-3",
+      "text": "Lenses",
+      "nodeId": "sections",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 4.77,
+      "worstRatio": 4.77,
+      "pass": true,
+      "ink": [
+       17,
+       20,
+       25
+      ],
+      "ground": [
+       108,
+       131,
+       165
+      ],
+      "pixels": 1020,
+      "groundPixels": 577
+     },
+     {
+      "phase": "tile-3",
+      "text": "Price",
+      "nodeId": "sections",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 4.9,
+      "worstRatio": 4.79,
+      "pass": true,
+      "ink": [
+       19,
+       20,
+       22
+      ],
+      "ground": [
+       126,
+       132,
+       144
+      ],
+      "pixels": 740,
+      "groundPixels": 408
+     },
+     {
+      "phase": "tile-3",
+      "text": "Kuura",
+      "nodeId": "finish",
+      "size": 15.5,
+      "bold": false,
+      "large": false,
+      "ratio": 4.37,
+      "worstRatio": 4.29,
+      "pass": false,
+      "ink": [
+       18,
+       19,
+       20
+      ],
+      "ground": [
+       117,
+       123,
+       133
+      ],
+      "pixels": 900,
+      "groundPixels": 503
+     },
+     {
+      "phase": "tile-3",
+      "text": "Kaamos",
+      "nodeId": "finish",
+      "size": 15.5,
+      "bold": false,
+      "large": false,
+      "ratio": 5.12,
+      "worstRatio": 4.97,
+      "pass": true,
+      "ink": [
+       20,
+       21,
+       22
+      ],
+      "ground": [
+       129,
+       136,
+       146
+      ],
+      "pixels": 1220,
+      "groundPixels": 666
+     },
+     {
+      "phase": "tile-3",
+      "text": "Lens",
+      "nodeId": "kit",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 6.13,
+      "worstRatio": 5.98,
+      "pass": true,
+      "ink": [
+       23,
+       23,
+       23
+      ],
+      "ground": [
+       151,
+       151,
+       151
+      ],
+      "pixels": 700,
+      "groundPixels": 388
+     },
+     {
+      "phase": "tile-3",
+      "text": "40 mm f/2.4",
+      "nodeId": "kit",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 5.99,
+      "worstRatio": 5.78,
+      "pass": true,
+      "ink": [
+       23,
+       23,
+       23
+      ],
+      "ground": [
+       149,
+       149,
+       148
+      ],
+      "pixels": 1860,
+      "groundPixels": 991
+     },
+     {
+      "phase": "tile-3",
+      "text": "Order",
+      "nodeId": "order",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 6.56,
+      "worstRatio": 6.56,
+      "pass": true,
+      "ink": [
+       36,
+       19,
+       7
+      ],
+      "ground": [
+       238,
+       127,
+       45
+      ],
+      "pixels": 880,
+      "groundPixels": 476
+     },
+     {
+      "phase": "tile-3",
+      "text": "€2,890",
+      "nodeId": "order",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 6.56,
+      "worstRatio": 6.56,
+      "pass": true,
+      "ink": [
+       36,
+       19,
+       7
+      ],
+      "ground": [
+       238,
+       127,
+       45
+      ],
+      "pixels": 1120,
+      "groundPixels": 501
+     },
+     {
+      "phase": "menu",
+      "text": "HALLA",
+      "nodeId": "home",
+      "size": 16,
+      "bold": true,
+      "large": false,
+      "ratio": 5.46,
+      "worstRatio": 5.21,
+      "pass": true,
+      "ink": [
+       21,
+       22,
+       22
+      ],
+      "ground": [
+       139,
+       141,
+       144
+      ],
+      "pixels": 1320,
+      "groundPixels": 770
+     },
+     {
+      "phase": "menu",
+      "text": "Kide",
+      "nodeId": "sections",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 4.82,
+      "worstRatio": 4.67,
+      "pass": true,
+      "ink": [
+       19,
+       20,
+       22
+      ],
+      "ground": [
+       123,
+       131,
+       143
+      ],
+      "pixels": 660,
+      "groundPixels": 343
+     },
+     {
+      "phase": "menu",
+      "text": "Specifications",
+      "nodeId": "sections",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 4.9,
+      "worstRatio": 4.78,
+      "pass": true,
+      "ink": [
+       19,
+       20,
+       22
+      ],
+      "ground": [
+       125,
+       132,
+       146
+      ],
+      "pixels": 2040,
+      "groundPixels": 1066
+     },
+     {
+      "phase": "menu",
+      "text": "Lenses",
+      "nodeId": "sections",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 4.77,
+      "worstRatio": 4.77,
+      "pass": true,
+      "ink": [
+       17,
+       20,
+       25
+      ],
+      "ground": [
+       108,
+       131,
+       165
+      ],
+      "pixels": 1020,
+      "groundPixels": 577
+     },
+     {
+      "phase": "menu",
+      "text": "Price",
+      "nodeId": "sections",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 4.9,
+      "worstRatio": 4.79,
+      "pass": true,
+      "ink": [
+       19,
+       20,
+       22
+      ],
+      "ground": [
+       126,
+       132,
+       144
+      ],
+      "pixels": 740,
+      "groundPixels": 408
+     },
+     {
+      "phase": "menu",
+      "text": "Kuura",
+      "nodeId": "finish",
+      "size": 15.5,
+      "bold": false,
+      "large": false,
+      "ratio": 4.37,
+      "worstRatio": 4.29,
+      "pass": false,
+      "ink": [
+       18,
+       19,
+       20
+      ],
+      "ground": [
+       117,
+       123,
+       133
+      ],
+      "pixels": 900,
+      "groundPixels": 503
+     },
+     {
+      "phase": "menu",
+      "text": "Kaamos",
+      "nodeId": "finish",
+      "size": 15.5,
+      "bold": false,
+      "large": false,
+      "ratio": 5.12,
+      "worstRatio": 4.97,
+      "pass": true,
+      "ink": [
+       20,
+       21,
+       22
+      ],
+      "ground": [
+       129,
+       136,
+       146
+      ],
+      "pixels": 1220,
+      "groundPixels": 666
+     }
+    ]
+   },
+   "rootFound": true,
+   "api": {
+    "missing": []
+   },
+   "colorScheme": "dark",
+   "schemeFollowed": true,
+   "windowActivation": "active",
+   "material": {
+    "name": "apple-macos-27.0-glass0.5",
+    "platform": "macOS 27.0",
+    "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+    "resolvedMaterialSha256": "2a4323f33df8d799",
+    "tuned": false
+   },
+   "webgpu": {
+    "available": true,
+    "ownership": "vitrea",
+    "deviceHealth": "ok",
+    "unavailableReason": null,
+    "hasDevice": true
+   },
+   "platformProbe": {
+    "engine": {
+     "family": "chromium",
+     "version": 151
+    },
+    "reach": "verified"
+   },
+   "accessibility": {
+    "reducedTransparency": false,
+    "reducedMotion": false,
+    "increasedContrast": false,
+    "forcedColors": false,
+    "material": {
+     "glass": "material",
+     "colorSource": "material",
+     "frost": "nominal",
+     "refraction": "nominal",
+     "occlusion": "nominal",
+     "border": "nominal",
+     "ambientTint": "nominal",
+     "foreground": "adaptive"
+    },
+    "motion": {
+     "overshoot": "elastic",
+     "deformation": "nominal",
+     "shimmer": "travel",
+     "morph": "elastic",
+     "crossfade": "never",
+     "positionalContinuity": true
+    }
+   },
+   "surfaces": [
+    {
+     "nodeId": "home",
+     "groupId": "nav-home",
+     "plane": "base",
+     "selector": "a#home",
+     "tag": "a",
+     "role": null,
+     "rect": [
+      24,
+      20,
+      130.6,
+      44
+     ],
+     "span": 44,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "capsule",
+     "radii": [
+      22,
+      22,
+      22,
+      22
+     ],
+     "smoothing": 0,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "22px",
+     "label": "Halla, back to the top"
+    },
+    {
+     "nodeId": "sections",
+     "groupId": "nav-sections",
+     "plane": "base",
+     "selector": "div#sections",
+     "tag": "div",
+     "role": null,
+     "rect": [
+      1060.3,
+      20,
+      355.7,
+      44
+     ],
+     "span": 44,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "capsule",
+     "radii": [
+      22,
+      22,
+      22,
+      22
+     ],
+     "smoothing": 0,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "22px",
+     "label": "Kide\n    Specifications\n    Lenses\n    P"
+    },
+    {
+     "nodeId": "finish",
+     "groupId": "finish",
+     "plane": "base",
+     "selector": "div#finish",
+     "tag": "div",
+     "role": "radiogroup",
+     "rect": [
+      386.8,
+      820,
+      231.4,
+      56
+     ],
+     "span": 56,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "capsule",
+     "radii": [
+      28,
+      28,
+      28,
+      28
+     ],
+     "smoothing": 0,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "28px",
+     "label": "Finish"
+    },
+    {
+     "nodeId": "kit",
+     "groupId": "kits",
+     "plane": "base",
+     "selector": "div#kit",
+     "tag": "div",
+     "role": null,
+     "rect": [
+      645.3,
+      820,
+      202,
+      56
+     ],
+     "span": 56,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "fixed-rounded-rect",
+     "radii": [
+      28,
+      28,
+      28,
+      28
+     ],
+     "smoothing": 0,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "28px",
+     "label": "Lens 40 mm f/2.4\n        \n      \n      \n"
+    },
+    {
+     "nodeId": "order",
+     "groupId": "order",
+     "plane": "base",
+     "selector": "button#order",
+     "tag": "button",
+     "role": null,
+     "rect": [
+      874.2,
+      820,
+      178.9,
+      56
+     ],
+     "span": 56,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "capsule",
+     "radii": [
+      28,
+      28,
+      28,
+      28
+     ],
+     "smoothing": 0,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": true,
+     "cssRadius": "28px",
+     "label": "Order€2,890"
+    }
+   ],
+   "surfacesInFrame": 5,
+   "planes": [
+    {
+     "plane": "base",
+     "nodes": 5
+    },
+    {
+     "plane": "overlay",
+     "nodes": 0
+    }
+   ],
+   "groups": [
+    {
+     "id": "nav-home",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "resolvedMaterialSha256": "2a4323f33df8d799",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 8.61,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "nav-sections",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "resolvedMaterialSha256": "2a4323f33df8d799",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 8.61,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "finish",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "resolvedMaterialSha256": "2a4323f33df8d799",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 9.41,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "kits",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "resolvedMaterialSha256": "2a4323f33df8d799",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 9.41,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "order",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "resolvedMaterialSha256": "2a4323f33df8d799",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 9.41,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    }
+   ],
+   "diagnostics": [],
+   "derivedFindings": [],
+   "menu": "captured",
+   "menuSurfaces": [
+    {
+     "nodeId": "home",
+     "groupId": "nav-home",
+     "plane": "base",
+     "selector": "a#home",
+     "tag": "a",
+     "role": null,
+     "rect": [
+      24,
+      20,
+      130.6,
+      44
+     ],
+     "span": 44,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "capsule",
+     "radii": [
+      22,
+      22,
+      22,
+      22
+     ],
+     "smoothing": 0,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "22px",
+     "label": "Halla, back to the top"
+    },
+    {
+     "nodeId": "sections",
+     "groupId": "nav-sections",
+     "plane": "base",
+     "selector": "div#sections",
+     "tag": "div",
+     "role": null,
+     "rect": [
+      1060.3,
+      20,
+      355.7,
+      44
+     ],
+     "span": 44,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "capsule",
+     "radii": [
+      22,
+      22,
+      22,
+      22
+     ],
+     "smoothing": 0,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "22px",
+     "label": "Kide\n    Specifications\n    Lenses\n    P"
+    },
+    {
+     "nodeId": "finish",
+     "groupId": "finish",
+     "plane": "base",
+     "selector": "div#finish",
+     "tag": "div",
+     "role": "radiogroup",
+     "rect": [
+      386.8,
+      820,
+      231.4,
+      56
+     ],
+     "span": 56,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "capsule",
+     "radii": [
+      28,
+      28,
+      28,
+      28
+     ],
+     "smoothing": 0,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "28px",
+     "label": "Finish"
+    },
+    {
+     "nodeId": "order",
+     "groupId": "order",
+     "plane": "base",
+     "selector": "button#order",
+     "tag": "button",
+     "role": null,
+     "rect": [
+      874.2,
+      820,
+      178.9,
+      56
+     ],
+     "span": 56,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "capsule",
+     "radii": [
+      28,
+      28,
+      28,
+      28
+     ],
+     "smoothing": 0,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": true,
+     "cssRadius": "28px",
+     "label": "Order€2,890"
+    },
+    {
+     "nodeId": "kit",
+     "groupId": "kits",
+     "plane": "overlay",
+     "selector": "div#kit",
+     "tag": "div",
+     "role": null,
+     "rect": [
+      598.3,
+      518,
+      296,
+      242
+     ],
+     "span": 242,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "fixed-rounded-rect",
+     "radii": [
+      28,
+      28,
+      28,
+      28
+     ],
+     "smoothing": 0,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "28px",
+     "label": "Lens 40 mm f/2.4\n        \n      \n      \n"
+    }
+   ],
+   "menuGroups": [
+    {
+     "id": "nav-home",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "resolvedMaterialSha256": "2a4323f33df8d799",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 8.61,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "nav-sections",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "resolvedMaterialSha256": "2a4323f33df8d799",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 8.61,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "finish",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "resolvedMaterialSha256": "2a4323f33df8d799",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 9.41,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "order",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "resolvedMaterialSha256": "2a4323f33df8d799",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 9.41,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "kits",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "resolvedMaterialSha256": "2a4323f33df8d799",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 20.01,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    }
+   ],
+   "menuDiagnostics": [],
+   "ban": {
+    "rest": {
+     "findings": [],
+     "unmeasured": [
+      "opacity keyframes: 1 cross-origin sheet(s) unreadable"
+     ],
+     "hostsRead": 5,
+     "cssTierHosts": 0
+    },
+    "menu": {
+     "findings": [],
+     "unmeasured": [
+      "opacity keyframes: 1 cross-origin sheet(s) unreadable"
+     ],
+     "hostsRead": 5,
+     "cssTierHosts": 0
+    }
+   }
+  }
+ },
+ "surfaces": [
+  {
+   "nodeId": "home",
+   "groupId": "nav-home",
+   "plane": "base",
+   "selector": "a#home",
+   "tag": "a",
+   "role": null,
+   "rect": [
+    24,
+    20,
+    130.6,
+    44
+   ],
+   "span": 44,
+   "boundsFrom": "renderInput",
+   "shapeFamily": "capsule",
+   "radii": [
+    22,
+    22,
+    22,
+    22
+   ],
+   "smoothing": 0,
+   "thickness": 8,
+   "variant": "regular",
+   "tinted": false,
+   "cssRadius": "22px",
+   "label": "Halla, back to the top"
+  },
+  {
+   "nodeId": "sections",
+   "groupId": "nav-sections",
+   "plane": "base",
+   "selector": "div#sections",
+   "tag": "div",
+   "role": null,
+   "rect": [
+    1060.3,
+    20,
+    355.7,
+    44
+   ],
+   "span": 44,
+   "boundsFrom": "renderInput",
+   "shapeFamily": "capsule",
+   "radii": [
+    22,
+    22,
+    22,
+    22
+   ],
+   "smoothing": 0,
+   "thickness": 8,
+   "variant": "regular",
+   "tinted": false,
+   "cssRadius": "22px",
+   "label": "Kide\n    Specifications\n    Lenses\n    P"
+  },
+  {
+   "nodeId": "finish",
+   "groupId": "finish",
+   "plane": "base",
+   "selector": "div#finish",
+   "tag": "div",
+   "role": "radiogroup",
+   "rect": [
+    386.8,
+    820,
+    231.4,
+    56
+   ],
+   "span": 56,
+   "boundsFrom": "renderInput",
+   "shapeFamily": "capsule",
+   "radii": [
+    28,
+    28,
+    28,
+    28
+   ],
+   "smoothing": 0,
+   "thickness": 8,
+   "variant": "regular",
+   "tinted": false,
+   "cssRadius": "28px",
+   "label": "Finish"
+  },
+  {
+   "nodeId": "kit",
+   "groupId": "kits",
+   "plane": "base",
+   "selector": "div#kit",
+   "tag": "div",
+   "role": null,
+   "rect": [
+    645.3,
+    820,
+    202,
+    56
+   ],
+   "span": 56,
+   "boundsFrom": "renderInput",
+   "shapeFamily": "fixed-rounded-rect",
+   "radii": [
+    28,
+    28,
+    28,
+    28
+   ],
+   "smoothing": 0,
+   "thickness": 8,
+   "variant": "regular",
+   "tinted": false,
+   "cssRadius": "28px",
+   "label": "Lens 40 mm f/2.4\n        \n      \n      \n"
+  },
+  {
+   "nodeId": "order",
+   "groupId": "order",
+   "plane": "base",
+   "selector": "button#order",
+   "tag": "button",
+   "role": null,
+   "rect": [
+    874.2,
+    820,
+    178.9,
+    56
+   ],
+   "span": 56,
+   "boundsFrom": "renderInput",
+   "shapeFamily": "capsule",
+   "radii": [
+    28,
+    28,
+    28,
+    28
+   ],
+   "smoothing": 0,
+   "thickness": 8,
+   "variant": "regular",
+   "tinted": true,
+   "cssRadius": "28px",
+   "label": "Order€2,890"
+  }
+ ],
+ "planes": [
+  {
+   "plane": "base",
+   "nodes": 5
+  },
+  {
+   "plane": "overlay",
+   "nodes": 0
+  }
+ ],
+ "diagnostics": [],
+ "unknownDiagnosticCodes": [],
+ "named": {
+  "nestedGlass": false,
+  "samePlaneOverlap": false,
+  "contentLayerHost": false,
+  "demotedBackdropRoot": false,
+  "hostOutsidePlane": false,
+  "nonUniformRadii": false,
+  "tintUnparseable": false,
+  "tintMixing": false,
+  "variantMixing": false
+ },
+ "banSubset": {
+  "findings": [],
+  "counts": {},
+  "unmeasured": [
+   "opacity keyframes: 1 cross-origin sheet(s) unreadable"
+  ]
+ },
+ "reduced": {
+  "method": "page-switch",
+  "applied": true,
+  "readyState": "settled",
+  "rootFound": true,
+  "errors": [],
+  "consoleErrors": [],
+  "policyBefore": {
+   "reducedTransparency": false,
+   "reducedMotion": false,
+   "increasedContrast": false,
+   "forcedColors": false,
+   "material": {
+    "glass": "material",
+    "colorSource": "material",
+    "frost": "nominal",
+    "refraction": "nominal",
+    "occlusion": "nominal",
+    "border": "nominal",
+    "ambientTint": "nominal",
+    "foreground": "adaptive"
+   },
+   "motion": {
+    "overshoot": "elastic",
+    "deformation": "nominal",
+    "shimmer": "travel",
+    "morph": "elastic",
+    "crossfade": "never",
+    "positionalContinuity": true
+   }
+  },
+  "policyAfter": {
+   "reducedTransparency": true,
+   "reducedMotion": false,
+   "increasedContrast": false,
+   "forcedColors": false,
+   "material": {
+    "glass": "material",
+    "colorSource": "material",
+    "frost": "increased",
+    "refraction": "reduced",
+    "occlusion": "increased",
+    "border": "nominal",
+    "ambientTint": "nominal",
+    "foreground": "adaptive"
+   },
+   "motion": {
+    "overshoot": "elastic",
+    "deformation": "nominal",
+    "shimmer": "travel",
+    "morph": "elastic",
+    "crossfade": "never",
+    "positionalContinuity": true
+   }
+  },
+  "policyChanged": true,
+  "policyAsAsked": true,
+  "groups": [
+   {
+    "id": "nav-home",
+    "moved": true,
+    "before": {
+     "id": "nav-home",
+     "renderer": "webgpu",
+     "refraction": "true",
+     "cssBody": null,
+     "cssTint": null,
+     "blurRadius": 7.682,
+     "nodes": [
+      {
+       "nodeId": "home",
+       "blurRadius": 2.75,
+       "tintAlpha": 0.71,
+       "borderAlpha": 0.022,
+       "refraction": "true"
+      }
+     ]
+    },
+    "after": {
+     "id": "nav-home",
+     "renderer": "webgpu",
+     "refraction": "true",
+     "cssBody": null,
+     "cssTint": null,
+     "blurRadius": 13.329,
+     "nodes": [
+      {
+       "nodeId": "home",
+       "blurRadius": 4.813,
+       "tintAlpha": 0.929,
+       "borderAlpha": 0.003,
+       "refraction": "approximate"
+      }
+     ]
+    }
+   },
+   {
+    "id": "nav-sections",
+    "moved": true,
+    "before": {
+     "id": "nav-sections",
+     "renderer": "webgpu",
+     "refraction": "true",
+     "cssBody": null,
+     "cssTint": null,
+     "blurRadius": 7.682,
+     "nodes": [
+      {
+       "nodeId": "sections",
+       "blurRadius": 2.75,
+       "tintAlpha": 0.694,
+       "borderAlpha": 0.025,
+       "refraction": "true"
+      }
+     ]
+    },
+    "after": {
+     "id": "nav-sections",
+     "renderer": "webgpu",
+     "refraction": "true",
+     "cssBody": null,
+     "cssTint": null,
+     "blurRadius": 13.329,
+     "nodes": [
+      {
+       "nodeId": "sections",
+       "blurRadius": 4.813,
+       "tintAlpha": 0.929,
+       "borderAlpha": 0.004,
+       "refraction": "approximate"
+      }
+     ]
+    }
+   },
+   {
+    "id": "finish",
+    "moved": true,
+    "before": {
+     "id": "finish",
+     "renderer": "webgpu",
+     "refraction": "true",
+     "cssBody": null,
+     "cssTint": null,
+     "blurRadius": 8.024,
+     "nodes": [
+      {
+       "nodeId": "finish",
+       "blurRadius": 2.75,
+       "tintAlpha": 0.711,
+       "borderAlpha": 0.022,
+       "refraction": "true"
+      }
+     ]
+    },
+    "after": {
+     "id": "finish",
+     "renderer": "webgpu",
+     "refraction": "true",
+     "cssBody": null,
+     "cssTint": null,
+     "blurRadius": 13.598,
+     "nodes": [
+      {
+       "nodeId": "finish",
+       "blurRadius": 4.813,
+       "tintAlpha": 0.929,
+       "borderAlpha": 0.003,
+       "refraction": "approximate"
+      }
+     ]
+    }
+   },
+   {
+    "id": "kits",
+    "moved": true,
+    "before": {
+     "id": "kits",
+     "renderer": "webgpu",
+     "refraction": "approximate",
+     "cssBody": null,
+     "cssTint": null,
+     "blurRadius": 8.024,
+     "nodes": [
+      {
+       "nodeId": "kit",
+       "blurRadius": 2.75,
+       "tintAlpha": 0.737,
+       "borderAlpha": 0.014,
+       "refraction": "approximate"
+      }
+     ]
+    },
+    "after": {
+     "id": "kits",
+     "renderer": "webgpu",
+     "refraction": "approximate",
+     "cssBody": null,
+     "cssTint": null,
+     "blurRadius": 13.598,
+     "nodes": [
+      {
+       "nodeId": "kit",
+       "blurRadius": 4.813,
+       "tintAlpha": 0.929,
+       "borderAlpha": 0.001,
+       "refraction": "approximate"
+      }
+     ]
+    }
+   },
+   {
+    "id": "order",
+    "moved": true,
+    "before": {
+     "id": "order",
+     "renderer": "webgpu",
+     "refraction": "true",
+     "cssBody": null,
+     "cssTint": null,
+     "blurRadius": 8.024,
+     "nodes": [
+      {
+       "nodeId": "order",
+       "blurRadius": 2.75,
+       "tintAlpha": 1,
+       "borderAlpha": 0.015,
+       "refraction": "true"
+      }
+     ]
+    },
+    "after": {
+     "id": "order",
+     "renderer": "webgpu",
+     "refraction": "true",
+     "cssBody": null,
+     "cssTint": null,
+     "blurRadius": 13.598,
+     "nodes": [
+      {
+       "nodeId": "order",
+       "blurRadius": 4.813,
+       "tintAlpha": 1,
+       "borderAlpha": 0.001,
+       "refraction": "approximate"
+      }
+     ]
+    }
+   }
+  ],
+  "materialMoved": true,
+  "captured": true
+ },
+ "emulation": {
+  "increasedContrast": {
+   "status": "ran",
+   "query": "(prefers-contrast: more)",
+   "readyState": "settled",
+   "rootFound": true,
+   "errors": [],
+   "consoleErrors": [],
+   "accessibility": {
+    "reducedTransparency": false,
+    "reducedMotion": false,
+    "increasedContrast": true,
+    "forcedColors": false,
+    "material": {
+     "glass": "material",
+     "colorSource": "material",
+     "frost": "nominal",
+     "refraction": "nominal",
+     "occlusion": "nominal",
+     "border": "strong",
+     "ambientTint": "reduced",
+     "foreground": "near-monochrome"
+    },
+    "motion": {
+     "overshoot": "elastic",
+     "deformation": "nominal",
+     "shimmer": "travel",
+     "morph": "elastic",
+     "crossfade": "never",
+     "positionalContinuity": true
+    }
+   },
+   "policyAsAsked": true,
+   "groups": [
+    {
+     "id": "nav-home",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.68,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "nav-sections",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.68,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "finish",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 8.02,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "kits",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 8.02,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "order",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 8.02,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    }
+   ],
+   "diagnostics": []
+  },
+  "reducedMotion": {
+   "status": "ran",
+   "query": "(prefers-reduced-motion: reduce)",
+   "readyState": "settled",
+   "rootFound": true,
+   "errors": [],
+   "consoleErrors": [],
+   "accessibility": {
+    "reducedTransparency": false,
+    "reducedMotion": true,
+    "increasedContrast": false,
+    "forcedColors": false,
+    "material": {
+     "glass": "material",
+     "colorSource": "material",
+     "frost": "nominal",
+     "refraction": "nominal",
+     "occlusion": "nominal",
+     "border": "nominal",
+     "ambientTint": "nominal",
+     "foreground": "adaptive"
+    },
+    "motion": {
+     "overshoot": "none",
+     "deformation": "none",
+     "shimmer": "none",
+     "morph": "non-elastic",
+     "crossfade": "large-plane-shifts",
+     "positionalContinuity": true
+    }
+   },
+   "policyAsAsked": true,
+   "groups": [
+    {
+     "id": "nav-home",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.68,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "nav-sections",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.68,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "finish",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 8.02,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "kits",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 8.02,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "order",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 8.02,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    }
+   ],
+   "diagnostics": []
+  },
+  "forcedColors": {
+   "status": "ran",
+   "query": "(forced-colors: active)",
+   "readyState": "settled",
+   "rootFound": true,
+   "errors": [],
+   "consoleErrors": [],
+   "accessibility": {
+    "reducedTransparency": false,
+    "reducedMotion": false,
+    "increasedContrast": false,
+    "forcedColors": true,
+    "material": {
+     "glass": "none",
+     "colorSource": "system",
+     "frost": "none",
+     "refraction": "none",
+     "occlusion": "opaque",
+     "border": "strong",
+     "ambientTint": "none",
+     "foreground": "near-monochrome"
+    },
+    "motion": {
+     "overshoot": "elastic",
+     "deformation": "nominal",
+     "shimmer": "travel",
+     "morph": "elastic",
+     "crossfade": "never",
+     "positionalContinuity": true
+    }
+   },
+   "policyAsAsked": true,
+   "groups": [
+    {
+     "id": "nav-home",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 0,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "nav-sections",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 0,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "finish",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 0,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "kits",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "css-backdrop",
+     "configuredSource": "dom",
+     "analysis": "hint",
+     "refraction": "approximate",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 0,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "order",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 0,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    }
+   ],
+   "diagnostics": [],
+   "forced": {
+    "policyGlass": "none",
+    "runtimeGlassSurfaces": 0,
+    "backdropFilterElements": [
+     {
+      "selector": "div#glass > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"backdrop-proxy\"]:nth-of-type(1) > div",
+      "where": "runtime-proxy",
+      "value": "blur(0px) saturate(1)"
+     }
+    ],
+    "backdropFilterCount": 1,
+    "glassDrawn": 0,
+    "runtimeRead": true,
+    "hosts": [
+     {
+      "nodeId": "home",
+      "selector": "a#home",
+      "backdropFilter": "none",
+      "backgroundColor": "rgba(255, 255, 255, 0)",
+      "backgroundImage": "none",
+      "borderColor": "rgb(0, 0, 0)",
+      "forcedColorAdjust": "auto"
+     },
+     {
+      "nodeId": "sections",
+      "selector": "div#sections",
+      "backdropFilter": "none",
+      "backgroundColor": "rgba(255, 255, 255, 0)",
+      "backgroundImage": "none",
+      "borderColor": "rgb(0, 0, 0)",
+      "forcedColorAdjust": "auto"
+     },
+     {
+      "nodeId": "finish",
+      "selector": "div#finish",
+      "backdropFilter": "none",
+      "backgroundColor": "rgba(255, 255, 255, 0)",
+      "backgroundImage": "none",
+      "borderColor": "rgb(0, 0, 0)",
+      "forcedColorAdjust": "auto"
+     },
+     {
+      "nodeId": "kit",
+      "selector": "div#kit",
+      "backdropFilter": "none",
+      "backgroundColor": "rgba(255, 255, 255, 0)",
+      "backgroundImage": "none",
+      "borderColor": "rgb(0, 0, 0)",
+      "forcedColorAdjust": "auto"
+     },
+     {
+      "nodeId": "order",
+      "selector": "button#order",
+      "backdropFilter": "none",
+      "backgroundColor": "rgba(255, 255, 255, 0)",
+      "backgroundImage": "none",
+      "borderColor": "rgb(0, 0, 0)",
+      "forcedColorAdjust": "auto"
+     }
+    ]
+   },
+   "glassDrawn": 0
+  }
+ },
+ "captures": [
+  "shot-fv-light.png",
+  "shot-full-light.png",
+  "tile-2-light.png",
+  "tile-3-light.png",
+  "shot-menu-light.png",
+  "shot-fv-dark.png",
+  "shot-full-dark.png",
+  "tile-2-dark.png",
+  "tile-3-dark.png",
+  "shot-menu-dark.png",
+  "shot-reduced.png",
+  "shot-contrast.png",
+  "shot-forced.png"
+ ],
+ "captureSha256": {
+  "shot-fv-light.png": "eed02a1807e3f32639fa97befcbb159c918bdc2c6fe7007ececcb100e30675f3",
+  "shot-full-light.png": "670ebded7accc5b9b858be74fae9678c28dc038980edcfc28e7feefa0a559911",
+  "tile-2-light.png": "39d8a96f42a3c036be3a4c7f65ab5c719b24fd3f6d201c7afc65123fa9f96c61",
+  "tile-3-light.png": "cc4cfa9c50e2b6d5b5da007388f095dcfa7e2235b0495074b9b647403054134c",
+  "shot-menu-light.png": "bf52490c0ee0a2d606139b8456b32bf9aacde2e96926f08c90a7438dd485aa8b",
+  "shot-fv-dark.png": "76b54fc0ee3e1fc8b93441b91eb5a02b4ad17873154d93dfd34f6a55ae25fc20",
+  "shot-full-dark.png": "871ee51bde03c1a8ffa640be3fa07bc6541181871e00eab2a82ea76927fb0ae7",
+  "tile-2-dark.png": "05943cfde155cad866afd6b9b27d68cfadf8722f63ef43a3b9b8587b4feb4f54",
+  "tile-3-dark.png": "ef19b9a2b69931eb8cbd45b9457339299309e344d1792344e7758816fca8121e",
+  "shot-menu-dark.png": "1be3d50653342809c8c5f40581f9c3feb3c238f9d2062055b062f5f175123023",
+  "shot-reduced.png": "aa3cb1b4cd9e7573b51bdedf6baf6860d67168db6dc37c5ebe285e78b69a95e0",
+  "shot-contrast.png": "d5671576a516f6fd47f4dd9af1dcc27a0585944f311ab41c613c6c23a263786d",
+  "shot-forced.png": "82fdcd0b937908e95d9e4b7b60b7ded1fc7448fed7b086ba2772ff527af029fe"
+ },
+ "gateMechanical": true,
+ "tool": {
+  "playwright": {
+   "module": "@playwright/test",
+   "version": "1.62.1"
+  },
+  "chromium": "151.0.7922.34",
+  "gpuArgs": [
+   "--enable-unsafe-webgpu",
+   "--enable-features=Vulkan,WebGPU"
+  ]
+ }
+}

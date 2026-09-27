@@ -1,0 +1,112 @@
+{
+  "brief": 6,
+  "grader": "astra-high",
+  "gradedAt": "2026-09-27T03:08:45.951458Z",
+  "A": {
+    "c1": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/6/A/DESIGN.md:20-21; index.html:29-39,118-123: The record explicitly starts with an opaque limewash sheet and type/grid hierarchy before adding glass only to controls; the implemented content plane is light and opaque."
+    },
+    "c2": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/6/A/index.html:72-90,118-123,1013-1014: The full-bleed photograph and edge-to-edge sheet sit below fixed controls; the scroll-edge mask is on #scroller, a sibling of the mounted glass root, not its ancestor."
+    },
+    "c3": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/6/A/index.html:85-90,862-873: measureEdge reads the section capsule bottom, derives --edge, observes bar resizing, and feeds the scroll mask and scroll-padding inset."
+    },
+    "c4": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/6/A/index.html:949-965,1006-1010: registerGroup uses backdrop with measured photographic luminances 0.29/0.21/0.09, with measurement regions and percentiles recorded; the platter uses a disclosed range approximation."
+    },
+    "c5": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/6/A/index.html:754-780,999-1004: The photograph is painted into a visible canvas at its own measured dimensions; its bitmap uses element placement on that same canvas, the source-box equivalent of correct img placement."
+    },
+    "c6": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/6/A/index.html:1016-1025; DESIGN.md:73-77: All three navigation/enquiry housings are span-44 capsules with radius 22; none is tinted, and the decision to withhold tint is explicit."
+    },
+    "c7": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/6/A/index.html:1016-1025,1144-1147: Only the wordmark, section navigation, enquiry button and transient enquiry platter are registered; the projects, practice and people remain opaque content."
+    },
+    "c8": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/6/A/index.html:1030-1057,1088-1111: Pointer and keyboard press drive GLASS_CHANNEL_PROPERTIES.press/glow/lensStrength/pressX/pressY, with compression via the owned transform."
+    },
+    "c9": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/6/A/DESIGN.md:100-102,122-123,138-139; index.html:982: The record explicitly reports CSS-tier viewing and measured rest/menu contrast for the same design; ?tier=css selects the runtime tier without changing page composition."
+    },
+    "c10": {
+      "verdict": "partial",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/6/A/index.html:12-13,721-724; DESIGN.md:100-102: The CDN/network dependency and opaque offline fallback are stated, but neither file explains actual file:// behaviour; localhost/secure-context discussion is not a file:// disclosure."
+    },
+    "c11": {
+      "verdict": "partial",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/6/A/index.html:2-14: The header summarizes the composition and links to the full external DESIGN.md record, but does not write the record template itself in the HTML header."
+    },
+    "c12": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/6/A-audit.json: diagnostics=[], unknownDiagnosticCodes=[], and both schemes have diagnostics=[] and menuDiagnostics=[]; /Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/6/A/index.html:985 explicitly enables devMode."
+    }
+  },
+  "B": {
+    "c1": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/6/B/index.html:14-30,35-40,57-67,185-200,943-954: The structure establishes a light opaque paper/type/grid content plane and confines glass to floating navigation/enquiry/menu; this supplies structural evidence despite the absent design record."
+    },
+    "c2": {
+      "verdict": "partial",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/6/B/index.html:33,61-67,153-160,785-823: The full-bleed hero and document content pass beneath fixed controls, but there is no scroll-edge treatment on the scrolling content; section observers only retarget backdrop state."
+    },
+    "c3": {
+      "verdict": "fails",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/6/B/index.html:33,64,107,789-817: Insets are authored constants (96px scroll padding, a 52px menu offset, and CONTROLS top 20/bottom 72); they are not derived from a measured bar height."
+    },
+    "c4": {
+      "verdict": "partial",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/6/B/index.html:875-889,902-931,940-941,970: The correct backdrop field receives photograph-measured luminance through updateGlassGroup at runtime, but registerGroup itself declares only a source, and the pure-texture branch clears the tone declaration."
+    },
+    "c5": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/6/B/index.html:850-868: supplyHero reproduces the img cover crop and object-position, then places its bitmap on heroImg itself rather than the viewport."
+    },
+    "c6": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/6/B/index.html:943-950: Navigation and enquiry are radius-26, span-52 capsules; a source comment explicitly identifies enquiry as the one coloured control and only it receives tint."
+    },
+    "c7": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/6/B/index.html:750,943-954: The complete host-registration inventory is navigation, enquiry and the transient menu; project filters/grid, practice text and people are ordinary content."
+    },
+    "c8": {
+      "verdict": "fails",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/6/B/index.html:956-959: Press only updates the enquiry host interaction state; no glass channel properties are authored for press/glow/lens or pointer coordinates."
+    },
+    "c9": {
+      "verdict": "fails",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/6/B/index.html:831-835,136-146: The page requests WebGPU and provides a handwritten pre-runtime frosted fallback, but supplies no evidence that the runtime CSS tier was inspected or verified as the same design."
+    },
+    "c10": {
+      "verdict": "fails",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/6/B/index.html:828,985-988: There is a CDN import and a catch-path warning, but no statement explaining the CDN network requirement or file:// behaviour."
+    },
+    "c11": {
+      "verdict": "fails",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/6/B/index.html:1-13: The file starts directly with HTML metadata and styles and contains no header design-record template; no companion record is present."
+    },
+    "c12": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/6/B-audit.json: diagnostics=[], unknownDiagnosticCodes=[], and both schemes have diagnostics=[] and menuDiagnostics=[]; /Users/new/Developer/GitHub/designer/packages/platform-web/src/root.ts:889 defaults devMode to true."
+    }
+  },
+  "falseClaims": {
+    "A": [
+      "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/6/A/index.html:949-953 claims the declared luminances are the CSS tier's only knowledge and that on the GPU texture path \"the pixels win\". This is false: author luminance takes precedence on both tiers; the GPU silhouette reduction is used only when declaredLuminance is absent (/Users/new/Developer/GitHub/designer/packages/platform-web/src/root.ts:2360-2385), and CSS can also derive tone from a supplied texture (/Users/new/Developer/GitHub/designer/packages/platform-web/src/backdrop-tone.ts:13-22)."
+    ],
+    "B": []
+  },
+  "notes": "Graded blind from the supplied HTML, A design record, both mechanical audits, and permitted runtime source; no new browser session was run. c1 accepts the brief's structural-evidence allowance rather than demanding unverifiable build chronology. c5 accepts A's visible-canvas/source-box implementation as equivalent to correct img-box mapping. A's docHeight=900 reflects its inner scroller: the supplied audit measures first view and menu, not scrolled content; A's scrolled/CSS claims are record evidence, not independently reproduced here. Both audits report zero diagnostics. Rendered-pixel contrast passes 16/16 pairs per scheme for A; B passes 38/44, with six menu secondary-label failures at approximately 4.34-4.35:1. These contrast findings are noted without introducing an additional grading criterion. Neither cell falsely asserts that a texture maps to the viewport or uses an ignored hint field in registerGroup."
+}

@@ -6445,3 +6445,17 @@ to work around today and that the materialist skill's cookbook did not name.
 
 Recorded here rather than chartered: each is bounded, none blocks a page, and the wave that owns
 `react` motion and toolbar layout should take them together.
+
+## `GlassMorph` collapses to 0×0 when Reduce Motion toggles mid-session, and the segmented control has no positioned track (materialist proof, 2026-09-27)
+
+Found by the film-festival maker and confirmed in source by its reviewer. `react/src/root.tsx:408-410`
+swaps the motion profile when the preference changes; `react/src/morph.tsx:315-326` then creates new
+x/y/width/height drivers at zero, the `placed`/`wasOpen` guard at `440-450` skips re-placement
+because `open` did not change, and the frame subscription at `487-500` writes the zero geometry.
+The morph draws nothing and cannot be reopened until remounted, in both toggle directions. The
+page's workaround is `key={motionKey}`. The fix is the package's: seed replacement drivers at the
+current geometry and target. Beside it, `react/src/controls/segmented-control.tsx:251-274`
+positions its indicator absolutely and supplies no positioned containing block, so a page that
+does not add `position: relative` sees the indicator land beside a neighbour; the component should
+establish its own track or the cookbook should say so. Verified in source, not by a fresh live
+reproduction.

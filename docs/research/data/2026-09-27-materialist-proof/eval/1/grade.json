@@ -1,0 +1,110 @@
+{
+  "brief": 1,
+  "grader": "astra-high",
+  "gradedAt": "2026-09-27T03:09:32.263654Z",
+  "A": {
+    "c1": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/1/A/src/Plane.tsx:77-106: Cover-fit artwork is painted at viewport dimensions and registered with setBackdropTexture as an image placed on the canvas; src/styles.css:27-32 fixes that canvas edge to edge."
+    },
+    "c2": {
+      "verdict": "fails",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/1/A/src/Controls.tsx:375-407: The queue GlassSurface encloses the six-track ol and its rows; calling those rows buttons does not make this content list an action platter, despite the short five-surface inventory."
+    },
+    "c3": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/1/A/DESIGN.md:59-78: Five named groups have planned texture sampling and measured luminance hints; src/Controls.tsx:41-50 defines the declarations and A-audit.json schemes.light.groups confirms gpu-texture for all five."
+    },
+    "c4": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/1/A-audit.json schemes.light.surfaces: spans 44, 46, 56 and 344 all use thickness 8; A/src/Controls.tsx:313-316 also holds thickness 8 at both morph endpoints, giving thin/mid and beyond-96 family members."
+    },
+    "c5": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/1/A/DESIGN.md:86-91: Names the viewport-edge anchor and derives concentric children; src/styles.css:166-197 implements a 56px capsule with 6px inset and 44px/r22 children, and :265-280 implements the 44px volume housing with 32px/r16 child."
+    },
+    "c6": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/1/A/DESIGN.md:92-94: Explicitly records no tint or accent; src/Controls.tsx uses no tint and src/styles.css:176-214 uses inherited monochrome ink and a state dot rather than hue."
+    },
+    "c7": {
+      "verdict": "partial",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/1/A/src/Controls.tsx:307-366: The Add to Playlist action menu genuinely uses GlassMorph, but the queue at :371-409 is permanently mounted and has no originating control or morph/present transition."
+    },
+    "c8": {
+      "verdict": "partial",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/1/A/src/main.tsx:63-70: windowActivation is auto, but colorScheme is fixed light; A-audit.json schemes.dark.schemeFollowed is false."
+    },
+    "c9": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/1/A/src/main.tsx:24-51,70,122-128: A visible Reduce transparency checkbox supplies the boolean stored/system value to GlassRoot; A-audit.json reduced.policyAsAsked and reduced.policyChanged are true."
+    },
+    "c10": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/1/A/DESIGN.md:176-191: Records rendered-background pixel measurements with p05/min ratios, including scrubber 5.9:1 and queue titles 11.1:1; qa/audit.mjs:64-105 captures the glass with labels hidden and computes pixel contrast."
+    },
+    "c11": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/1/A/DESIGN.md:22-139: A written Record covers plane, inventory, groups, family, anchor, tint, scheme/pose, motion, tiers, accessibility and contrast."
+    },
+    "c12": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/1/A-audit.json: diagnostics and unknownDiagnosticCodes are empty, and both schemes have empty diagnostics and menuDiagnostics; the isolated light-scheme 404 console error is not a vitrea dev-mode diagnostic."
+    }
+  },
+  "B": {
+    "c1": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/1/B/src/App.jsx:58-65,174-209: The full-window painted artwork canvas becomes an ImageBitmap registered with element placement; src/styles.css:49-54 fixes the canvas at 100vw by 100vh, edge to edge."
+    },
+    "c2": {
+      "verdict": "fails",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/1/B/src/App.jsx:497-602: A registered queue GlassSurface encloses the upcoming-track ol at :559-580; it is glass on queue content regardless of the aside host role, in an eight-surface inventory that also includes a full-height sidebar."
+    },
+    "c3": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/1/B/src/App.jsx:18-30,438,497,615,689,731: Named groups share the explicitly declared album-art texture; album-actions is declared at :22, and B-audit.json schemes.light.groups confirms all six groups sample gpu-texture."
+    },
+    "c4": {
+      "verdict": "partial",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/1/B-audit.json schemes.light.surfaces: spans 34/40/42/72/240/340 cover small and beyond-96 sizes, but thickness varies 8/10/14/18 rather than one thickness; B/src/App.jsx:295-296 additionally changes morph thickness from 10 to 16."
+    },
+    "c5": {
+      "verdict": "partial",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/1/B/src/App.jsx:615-616,689-690: Transport and volume use capsule housings with circular controls, but no named anchor or concentric family derivation is recorded in the supplied cell."
+    },
+    "c6": {
+      "verdict": "fails",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/1/B/src/styles.css:291,463,487,640,737: Accent-colored navigation and now-playing indicators, an orange autoplay switch, and a coral favorite control make the control layer non-monochrome; there is no recorded none/one-primary tint decision."
+    },
+    "c7": {
+      "verdict": "partial",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/1/B/src/App.jsx:280-307: Add to Playlist uses GlassMorph, but the queue at :490-604 is always mounted and does not emerge from a queue control through morph or present."
+    },
+    "c8": {
+      "verdict": "partial",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/1/B/src/App.jsx:35: colorScheme is fixed dark and B-audit.json schemes.light.schemeFollowed is false; omitted windowActivation inherits auto from packages/react/src/root.tsx:204."
+    },
+    "c9": {
+      "verdict": "fails",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/1/B/src/App.jsx:32-36,68-76: The normal root receives the string system and there is no user-facing Reduce transparency setting; only the audit-only window.__glassDemo setter supplies a boolean, so reduced.policyAsAsked does not establish an app setting."
+    },
+    "c10": {
+      "verdict": "fails",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/1/B/: no author-supplied rendered-pixel measurement or QA/contrast record exists in the supplied files; B-audit.json supplies independent grader measurements (light 48/143 and dark 49/143 passing pairs), not a measurement recorded by this cell."
+    },
+    "c11": {
+      "verdict": "fails",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/1/B/: no design/record file exists, and src/App.jsx comments describe implementation sections rather than a written record template."
+    },
+    "c12": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/1/B-audit.json: diagnostics and unknownDiagnosticCodes are empty, and both schemes have empty diagnostics and menuDiagnostics."
+    }
+  },
+  "falseClaims": {
+    "A": [],
+    "B": []
+  },
+  "notes": "Graded blind from the supplied source, records and mechanical audits; no additional browser session was run. For c2, a queue list inside a glass host is content on glass even when each row is clickable. For c4, a family spanning the size-law region and extending beyond 96 counts; exact 32px and 96px endpoint controls are not required. For c7, both cells receive partial credit for a real control-to-action-menu morph, not full credit: neither implements the specifically requested queue transition. For c10, the required recorded measurement must belong to the authored cell; the independently supplied audit is corroboration, not a substitute for that authoring step. A hardcodes light and B hardcodes dark, so neither audit emulation actually exercises both material schemes. No demonstrably false runtime claim was found. A explicitly acknowledges its queue-content and fixed-scheme exceptions; those explanations do not waive the criteria. No inference was made about authorship, and no restricted files were read."
+}

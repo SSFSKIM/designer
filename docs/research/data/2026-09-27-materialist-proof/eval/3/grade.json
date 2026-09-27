@@ -1,0 +1,64 @@
+{
+  "brief": 3,
+  "grader": "astra-high",
+  "gradedAt": "2026-09-27T03:07:37.179736Z",
+  "A": {
+    "c1": {
+      "verdict": "fails",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/3/A/NOTES.md:3–8, 12–14: Explicitly keeps frosted lot cards and table frame/header; index.html:104–106, 183–198, 290–292 applies blur to the content layer rather than refusing it."
+    },
+    "c2": {
+      "verdict": "fails",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/3/A/NOTES.md:3–8: Explains a more-data/less-transparency continuum, not an opaque-content versus glass-controls separation; both layers remain glass."
+    },
+    "c3": {
+      "verdict": "partial",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/3/A/NOTES.md:18–22: Offers a solid-surfaces switch and acknowledges all-shift fatigue (index.html:68–76), but the delivered default remains a many-panel glass console rather than the smallest opaque worksheet with one small control layer."
+    },
+    "c4": {
+      "verdict": "fails",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/3/A/index.html:104–106, 196–198, 290–292, 383: The glass table wrapper uses blur(28px), table headers blur(16px), and lot cards blur(14px); these are content surfaces."
+    },
+    "c5": {
+      "verdict": "fails",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/3/A/index.html:91–106, 290–292: Author-painted gradient/noise backdrop, translucent frosted panels, inset white highlights and drop shadows depict glass throughout; A-audit.json rootFound=false confirms this is not runtime-owned material."
+    },
+    "c6": {
+      "verdict": "partial",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/3/A/index.html:195–205, 242, 779–797: 31px rows, textual alerts, recall triage and a detailed inspector respect density and pharmacy work, but low-emphasis status ink (.okst) measures 2.75:1 in A-audit.json schemes.light.contrast and the whole worksheet remains visually frosted; inspected at 1440×900."
+    }
+  },
+  "B": {
+    "c1": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/3/B/NOTES.md:16–29: Explicitly refuses glass on cards, table and sidebar; index.html:250–285, 324–350 implements opaque worksheet/inspector/cards, while B-audit.json surfaces lists only the three command-bar hosts."
+    },
+    "c2": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/3/B/NOTES.md:18–25: Explains that readable data stays opaque and that glass separates controls from content."
+    },
+    "c3": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/3/B/index.html:7–31: Records the conflict with the brief and selects one persistent command-bar layer over an opaque tonal ledger; its three small hosts share that layer, and the Transfer platter is transient, not a second persistent layer."
+    },
+    "c4": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/3/B/index.html:200–202, 247–285, 324–350: No author backdrop-filter declaration occurs anywhere in the file; worksheet, rows, sidebar and cards use opaque backing, while runtime sampling is confined to registered control hosts."
+    },
+    "c5": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/3/B/index.html:373–375, 434–436, 1265–1288: Glass is runtime-owned rather than simulated by authored blur/highlight material; content borders and flat tonal bands are not depicted material, and the offline toolbar is opaque."
+    },
+    "c6": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/3/B/index.html:110, 260–285, 817–818, 927–970: 30px rows show about 26 lots at 1440×900, with lot/NDC/expiry/quantity/location/status columns, urgent-first sorting and an opaque recall inspector; B-audit.json glassContrast passes all five sampled labels in each scheme and forcedColors.forced.glassDrawn=0."
+    }
+  },
+  "falseClaims": {
+    "A": [],
+    "B": [
+      "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/3/B/NOTES.md:36–38: The promise that first-expiry-first lot cards have “Pull first” marked is not consistently true: index.html:932–941 gives any status badge precedence over that marker. In the default Heparin inspector, earliest usable lot GK7664 is marked only “Short-dated”, not “Pull first”."
+    ]
+  },
+  "notes": "Blind evaluation used only the permitted criteria file, cell sources/notes, mechanical audits and local Chromium views at 1440×900. No identity inference was attempted. “No depicted material” distinguishes author-painted glass imitation from runtime-owned material; ordinary flat fills, borders and data shading do not fail it. A receives partial c3 credit for its optional opaque mode, not for its default glass treatment. B’s three persistent hosts constitute one small command-bar layer. c6 judges the density and clinical information hierarchy of an illustrative UI, not production clinical certification or a complete accessibility pass: B still has small DOM-composite contrast flags and the first-pick labeling caveat above. The audits’ content contrast is DOM-composite, not rendered-pixel evidence; extremely low recalled/quarantined badge ratios were not treated as decisive because live dark rendering showed readable badges. A’s rootFound=false means its empty runtime diagnostics and zero glass-pixel pairs do not certify its authored glass. No unsupported runtime claim was established. B’s historical multi-state QA measurements were not independently reproduced in full."
+}

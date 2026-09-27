@@ -291,6 +291,18 @@ parallel; the user's time is the eye reading, about thirty minutes.
   (c) is the honesty core's own rule, a missing read is not a zero.
   Date/Author: 2026-09-27, Claude, on the porter's report.
 
+- Decision: r23's criterion (b), "press is written through the channel properties, never a colour
+  swap", governs HOW press is written wherever a glass host is interactive; a plain item inside an
+  OPEN platter that carries a hover or focus fill and no press of its own does not fail it. Made at
+  the first post-fix verification (music-player), before any panel capture and before r23 was
+  assigned on any demo; applied to all six; the strict reading is recorded beside it in every
+  `review/<slug>.json` as `r23Strict` so the effect is visible per demo.
+  Rationale: the runtime disables an open morph host's interaction (`react/src/morph.tsx:636–641`,
+  tracked), so under the strict reading every demo with a morph platter fails r23 for a runtime
+  limitation rather than for anything the page or the skill did; and Apple's own glass menus give
+  their items a highlight fill, not a per-item glass press, so the scoped reading is the material's.
+  Date/Author: 2026-09-27, Claude.
+
 - Decision: The same four rater identities as the 2.3 panel, the maker's model among them.
   Rationale: comparability with the available-panel figures. The same-model bias (an opus rater on
   opus-built pages) is the same bias the 2.3 panel carried and is recorded, not corrected.

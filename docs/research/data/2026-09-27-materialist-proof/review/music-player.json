@@ -1,0 +1,9 @@
+{
+  "slug": "music-player",
+  "r23": 1,
+  "r23Strict": 0,
+  "evidence": "Post-fix source (reviewer-medium, 2026-09-27): (a) the playlist menu arrives through GlassMorph (Queue.tsx:120-143), no opacity transition; (b) every interactive glass host carries the runtime's press through the channel properties (Controls.tsx:39-42) and no colour-swap press remains anywhere; plain items inside the OPEN menu have hover and focus fills and no press of their own, because the runtime disables an open morph host's interaction (react/src/morph.tsx:636-641, tracked). Under the strict reading of criterion (b) that absence fails; under the scoped reading (spec Decision Log, 2026-09-27: (b) governs how press is written where a glass host is interactive, and plain items inside an open platter carry fills as Apple's own menu items do) it holds. (c) no glass host transitions opacity, background or filter (music-player.css:499-507 are child plates).",
+  "spanExceptions": [],
+  "verifiedFindings": {"fixed": [1, 2, 3, 5, 6], "boundedByRuntime": [4]},
+  "postFixAudit": "audit/music-player.json (20/20 glass pairs both schemes, min 6.36 light / 4.74 dark, zero diagnostics, zero ban findings)"
+}

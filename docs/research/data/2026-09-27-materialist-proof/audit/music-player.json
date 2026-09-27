@@ -1,7 +1,7 @@
 {
  "slug": "music-player",
  "url": "http://localhost:5177/gallery/music-player/",
- "auditedAt": "2026-09-27T02:38:41.605Z",
+ "auditedAt": "2026-09-27T03:15:53.064Z",
  "viewport": {
   "width": 1440,
   "height": 900
@@ -50,23 +50,23 @@
     "pass": 55,
     "unknown": 0,
     "rate": 1,
-    "onGlass": 23,
-    "onGlassPass": 23,
+    "onGlass": 3,
+    "onGlassPass": 3,
     "fails": []
    },
    "glassContrast": {
     "method": "rendered-pixels",
-    "pairs": 82,
-    "pass": 82,
-    "minRatio": 6.33,
+    "pairs": 20,
+    "pass": 20,
+    "minRatio": 6.36,
     "byPhase": {
      "fv": {
-      "pairs": 36,
-      "pass": 36
+      "pairs": 4,
+      "pass": 4
      },
      "menu": {
-      "pairs": 46,
-      "pass": 46
+      "pairs": 16,
+      "pass": 16
      }
     },
     "fails": [],
@@ -142,749 +142,13 @@
      },
      {
       "phase": "fv",
-      "text": "Playing Next",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 15,
-      "bold": false,
-      "large": false,
-      "ratio": 12.37,
-      "worstRatio": 12.12,
-      "pass": true,
-      "ink": [
-       34,
-       35,
-       36
-      ],
-      "ground": [
-       219,
-       230,
-       233
-      ],
-      "pixels": 1602,
-      "groundPixels": 728
-     },
-     {
-      "phase": "fv",
-      "text": "6 songs, 28 min",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 13,
-      "bold": false,
-      "large": false,
-      "ratio": 6.95,
-      "worstRatio": 6.63,
-      "pass": true,
-      "ink": [
-       69,
-       73,
-       74
-      ],
-      "ground": [
-       215,
-       227,
-       230
-      ],
-      "pixels": 1568,
-      "groundPixels": 949
-     },
-     {
-      "phase": "fv",
-      "text": "Meltwater",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 14.5,
-      "bold": false,
-      "large": false,
-      "ratio": 13.13,
-      "worstRatio": 12.75,
-      "pass": true,
-      "ink": [
-       35,
-       36,
-       37
-      ],
-      "ground": [
-       228,
-       238,
-       240
-      ],
-      "pixels": 1260,
-      "groundPixels": 572
-     },
-     {
-      "phase": "fv",
-      "text": "3:54",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 13,
-      "bold": false,
-      "large": false,
-      "ratio": 7.01,
-      "worstRatio": 6.88,
-      "pass": true,
-      "ink": [
-       70,
-       74,
-       75
-      ],
-      "ground": [
-       217,
-       229,
-       232
-      ],
-      "pixels": 493,
-      "groundPixels": 300
-     },
-     {
-      "phase": "fv",
-      "text": "Kasper Lind",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 7.29,
-      "worstRatio": 6.97,
-      "pass": true,
-      "ink": [
-       74,
-       77,
-       77
-      ],
-      "ground": [
-       229,
-       238,
-       241
-      ],
-      "pixels": 1120,
-      "groundPixels": 737
-     },
-     {
-      "phase": "fv",
-      "text": "·",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 7.14,
-      "worstRatio": 7.06,
-      "pass": true,
-      "ink": [
-       72,
-       75,
-       76
-      ],
-      "ground": [
-       223,
-       233,
-       236
-      ],
-      "pixels": 176,
-      "groundPixels": 167
-     },
-     {
-      "phase": "fv",
-      "text": "Added by you",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 6.8,
-      "worstRatio": 6.6,
-      "pass": true,
-      "ink": [
-       68,
-       71,
-       73
-      ],
-      "ground": [
-       211,
-       222,
-       226
-      ],
-      "pixels": 1296,
-      "groundPixels": 801
-     },
-     {
-      "phase": "fv",
-      "text": "Pressure Ridge",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 14.5,
-      "bold": false,
-      "large": false,
-      "ratio": 12.95,
-      "worstRatio": 12.23,
-      "pass": true,
-      "ink": [
-       35,
-       36,
-       37
-      ],
-      "ground": [
-       226,
-       236,
-       239
-      ],
-      "pixels": 1890,
-      "groundPixels": 921
-     },
-     {
-      "phase": "fv",
-      "text": "5:21",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 13,
-      "bold": false,
-      "large": false,
-      "ratio": 7.25,
-      "worstRatio": 7.13,
-      "pass": true,
-      "ink": [
-       73,
-       76,
-       77
-      ],
-      "ground": [
-       227,
-       237,
-       239
-      ],
-      "pixels": 493,
-      "groundPixels": 351
-     },
-     {
-      "phase": "fv",
-      "text": "Signe Halvorsen",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 7.26,
-      "worstRatio": 6.91,
-      "pass": true,
-      "ink": [
-       73,
-       76,
-       77
-      ],
-      "ground": [
-       228,
-       237,
-       240
-      ],
-      "pixels": 1520,
-      "groundPixels": 989
-     },
-     {
-      "phase": "fv",
-      "text": "·",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 7.1,
-      "worstRatio": 7.03,
-      "pass": true,
-      "ink": [
-       71,
-       75,
-       76
-      ],
-      "ground": [
-       221,
-       232,
-       235
-      ],
-      "pixels": 192,
-      "groundPixels": 176
-     },
-     {
-      "phase": "fv",
-      "text": "Pressure Ridge",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 6.96,
-      "worstRatio": 6.68,
-      "pass": true,
-      "ink": [
-       69,
-       73,
-       74
-      ],
-      "ground": [
-       216,
-       227,
-       231
-      ],
-      "pixels": 1424,
-      "groundPixels": 855
-     },
-     {
-      "phase": "fv",
-      "text": "Singing Ice",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 14.5,
-      "bold": false,
-      "large": false,
-      "ratio": 13.15,
-      "worstRatio": 13.01,
-      "pass": true,
-      "ink": [
-       35,
-       36,
-       37
-      ],
-      "ground": [
-       229,
-       238,
-       241
-      ],
-      "pixels": 1368,
-      "groundPixels": 618
-     },
-     {
-      "phase": "fv",
-      "text": "3:36",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 13,
-      "bold": false,
-      "large": false,
-      "ratio": 6.98,
-      "worstRatio": 6.91,
-      "pass": true,
-      "ink": [
-       69,
-       73,
-       75
-      ],
-      "ground": [
-       216,
-       228,
-       232
-      ],
-      "pixels": 493,
-      "groundPixels": 290
-     },
-     {
-      "phase": "fv",
-      "text": "Signe Halvorsen",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 7.29,
-      "worstRatio": 6.63,
-      "pass": true,
-      "ink": [
-       74,
-       77,
-       77
-      ],
-      "ground": [
-       229,
-       238,
-       241
-      ],
-      "pixels": 1520,
-      "groundPixels": 979
-     },
-     {
-      "phase": "fv",
-      "text": "·",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 6.95,
-      "worstRatio": 6.82,
-      "pass": true,
-      "ink": [
-       69,
-       73,
-       74
-      ],
-      "ground": [
-       215,
-       227,
-       230
-      ],
-      "pixels": 192,
-      "groundPixels": 176
-     },
-     {
-      "phase": "fv",
-      "text": "Pressure Ridge",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 6.83,
-      "worstRatio": 6.63,
-      "pass": true,
-      "ink": [
-       68,
-       72,
-       73
-      ],
-      "ground": [
-       212,
-       223,
-       226
-      ],
-      "pixels": 1424,
-      "groundPixels": 855
-     },
-     {
-      "phase": "fv",
-      "text": "Candle Ice",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 14.5,
-      "bold": false,
-      "large": false,
-      "ratio": 12.86,
-      "worstRatio": 12.25,
-      "pass": true,
-      "ink": [
-       34,
-       36,
-       36
-      ],
-      "ground": [
-       225,
-       235,
-       238
-      ],
-      "pixels": 1314,
-      "groundPixels": 662
-     },
-     {
-      "phase": "fv",
-      "text": "4:14",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 13,
-      "bold": false,
-      "large": false,
-      "ratio": 6.89,
-      "worstRatio": 6.82,
-      "pass": true,
-      "ink": [
-       68,
-       72,
-       74
-      ],
-      "ground": [
-       213,
-       225,
-       229
-      ],
-      "pixels": 493,
-      "groundPixels": 330
-     },
-     {
-      "phase": "fv",
-      "text": "Signe Halvorsen",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 7.01,
-      "worstRatio": 6.77,
-      "pass": true,
-      "ink": [
-       70,
-       74,
-       75
-      ],
-      "ground": [
-       217,
-       229,
-       232
-      ],
-      "pixels": 1520,
-      "groundPixels": 989
-     },
-     {
-      "phase": "fv",
-      "text": "·",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 6.99,
-      "worstRatio": 6.84,
-      "pass": true,
-      "ink": [
-       70,
-       73,
-       74
-      ],
-      "ground": [
-       218,
-       228,
-       231
-      ],
-      "pixels": 192,
-      "groundPixels": 176
-     },
-     {
-      "phase": "fv",
-      "text": "Pressure Ridge",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 6.7,
-      "worstRatio": 6.57,
-      "pass": true,
-      "ink": [
-       67,
-       70,
-       71
-      ],
-      "ground": [
-       207,
-       219,
-       222
-      ],
-      "pixels": 1424,
-      "groundPixels": 858
-     },
-     {
-      "phase": "fv",
-      "text": "The Long Crack",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 14.5,
-      "bold": false,
-      "large": false,
-      "ratio": 12.12,
-      "worstRatio": 11.4,
-      "pass": true,
-      "ink": [
-       33,
-       35,
-       35
-      ],
-      "ground": [
-       217,
-       227,
-       230
-      ],
-      "pixels": 1944,
-      "groundPixels": 1024
-     },
-     {
-      "phase": "fv",
-      "text": "6:02",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 13,
-      "bold": false,
-      "large": false,
-      "ratio": 6.92,
-      "worstRatio": 6.79,
-      "pass": true,
-      "ink": [
-       69,
-       73,
-       74
-      ],
-      "ground": [
-       214,
-       226,
-       230
-      ],
-      "pixels": 493,
-      "groundPixels": 284
-     },
-     {
-      "phase": "fv",
-      "text": "Signe Halvorsen",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 6.74,
-      "worstRatio": 6.6,
-      "pass": true,
-      "ink": [
-       67,
-       71,
-       72
-      ],
-      "ground": [
-       209,
-       220,
-       223
-      ],
-      "pixels": 1520,
-      "groundPixels": 980
-     },
-     {
-      "phase": "fv",
-      "text": "·",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 6.91,
-      "worstRatio": 6.74,
-      "pass": true,
-      "ink": [
-       69,
-       72,
-       73
-      ],
-      "ground": [
-       216,
-       225,
-       228
-      ],
-      "pixels": 192,
-      "groundPixels": 176
-     },
-     {
-      "phase": "fv",
-      "text": "Pressure Ridge",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 6.8,
-      "worstRatio": 6.67,
-      "pass": true,
-      "ink": [
-       68,
-       71,
-       72
-      ],
-      "ground": [
-       211,
-       222,
-       225
-      ],
-      "pixels": 1424,
-      "groundPixels": 859
-     },
-     {
-      "phase": "fv",
-      "text": "Breakup",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 14.5,
-      "bold": false,
-      "large": false,
-      "ratio": 11.65,
-      "worstRatio": 11.42,
-      "pass": true,
-      "ink": [
-       32,
-       34,
-       34
-      ],
-      "ground": [
-       211,
-       222,
-       225
-      ],
-      "pixels": 1044,
-      "groundPixels": 501
-     },
-     {
-      "phase": "fv",
-      "text": "5:09",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 13,
-      "bold": false,
-      "large": false,
-      "ratio": 6.94,
-      "worstRatio": 6.83,
-      "pass": true,
-      "ink": [
-       69,
-       73,
-       74
-      ],
-      "ground": [
-       214,
-       227,
-       230
-      ],
-      "pixels": 493,
-      "groundPixels": 284
-     },
-     {
-      "phase": "fv",
-      "text": "Signe Halvorsen",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 6.74,
-      "worstRatio": 6.48,
-      "pass": true,
-      "ink": [
-       67,
-       71,
-       72
-      ],
-      "ground": [
-       209,
-       220,
-       223
-      ],
-      "pixels": 1520,
-      "groundPixels": 989
-     },
-     {
-      "phase": "fv",
-      "text": "·",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 6.68,
-      "worstRatio": 6.61,
-      "pass": true,
-      "ink": [
-       67,
-       70,
-       71
-      ],
-      "ground": [
-       207,
-       218,
-       221
-      ],
-      "pixels": 192,
-      "groundPixels": 176
-     },
-     {
-      "phase": "fv",
-      "text": "Pressure Ridge",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 6.7,
-      "worstRatio": 6.57,
-      "pass": true,
-      "ink": [
-       67,
-       70,
-       72
-      ],
-      "ground": [
-       207,
-       219,
-       223
-      ],
-      "pixels": 1424,
-      "groundPixels": 855
-     },
-     {
-      "phase": "fv",
       "text": "Save Queue",
-      "nodeId": "vitrea-node_r_9_",
+      "nodeId": "vitrea-node_r_7_",
       "size": 14,
       "bold": false,
       "large": false,
-      "ratio": 11.72,
-      "worstRatio": 11.37,
+      "ratio": 11.81,
+      "worstRatio": 11.57,
       "pass": true,
       "ink": [
        32,
@@ -892,9 +156,9 @@
        35
       ],
       "ground": [
-       211,
-       223,
-       227
+       212,
+       224,
+       228
       ],
       "pixels": 1360,
       "groundPixels": 635
@@ -970,13 +234,151 @@
      },
      {
       "phase": "menu",
-      "text": "Playing Next",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 15,
+      "text": "Add",
+      "nodeId": "vitrea-node_r_7_",
+      "size": 12,
       "bold": false,
       "large": false,
-      "ratio": 12.37,
-      "worstRatio": 12.12,
+      "ratio": 6.88,
+      "worstRatio": 6.75,
+      "pass": true,
+      "ink": [
+       68,
+       72,
+       73
+      ],
+      "ground": [
+       212,
+       225,
+       228
+      ],
+      "pixels": 405,
+      "groundPixels": 200
+     },
+     {
+      "phase": "menu",
+      "text": "6 songs",
+      "nodeId": "vitrea-node_r_7_",
+      "size": 12,
+      "bold": false,
+      "large": false,
+      "ratio": 6.82,
+      "worstRatio": 6.71,
+      "pass": true,
+      "ink": [
+       68,
+       72,
+       73
+      ],
+      "ground": [
+       210,
+       223,
+       227
+      ],
+      "pixels": 720,
+      "groundPixels": 342
+     },
+     {
+      "phase": "menu",
+      "text": "to",
+      "nodeId": "vitrea-node_r_7_",
+      "size": 12,
+      "bold": false,
+      "large": false,
+      "ratio": 6.86,
+      "worstRatio": 6.78,
+      "pass": true,
+      "ink": [
+       68,
+       72,
+       73
+      ],
+      "ground": [
+       212,
+       224,
+       228
+      ],
+      "pixels": 240,
+      "groundPixels": 137
+     },
+     {
+      "phase": "menu",
+      "text": "Late Desk",
+      "nodeId": "vitrea-node_r_7_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 10.32,
+      "worstRatio": 10.19,
+      "pass": true,
+      "ink": [
+       30,
+       32,
+       32
+      ],
+      "ground": [
+       196,
+       207,
+       210
+      ],
+      "pixels": 1188,
+      "groundPixels": 612
+     },
+     {
+      "phase": "menu",
+      "text": "48",
+      "nodeId": "vitrea-node_r_7_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 6.36,
+      "worstRatio": 6.36,
+      "pass": true,
+      "ink": [
+       63,
+       67,
+       68
+      ],
+      "ground": [
+       197,
+       208,
+       212
+      ],
+      "pixels": 289,
+      "groundPixels": 161
+     },
+     {
+      "phase": "menu",
+      "text": "songs",
+      "nodeId": "vitrea-node_r_7_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 6.36,
+      "worstRatio": 6.3,
+      "pass": true,
+      "ink": [
+       63,
+       67,
+       68
+      ],
+      "ground": [
+       197,
+       208,
+       211
+      ],
+      "pixels": 680,
+      "groundPixels": 414
+     },
+     {
+      "phase": "menu",
+      "text": "Cold Mornings",
+      "nodeId": "vitrea-node_r_7_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 12.45,
+      "worstRatio": 12.22,
       "pass": true,
       "ink": [
        34,
@@ -985,11 +387,149 @@
       ],
       "ground": [
        219,
-       230,
-       233
+       231,
+       234
       ],
-      "pixels": 1602,
-      "groundPixels": 728
+      "pixels": 1746,
+      "groundPixels": 879
+     },
+     {
+      "phase": "menu",
+      "text": "23",
+      "nodeId": "vitrea-node_r_7_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 7,
+      "worstRatio": 6.89,
+      "pass": true,
+      "ink": [
+       69,
+       74,
+       75
+      ],
+      "ground": [
+       216,
+       229,
+       232
+      ],
+      "pixels": 289,
+      "groundPixels": 158
+     },
+     {
+      "phase": "menu",
+      "text": "songs",
+      "nodeId": "vitrea-node_r_7_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 6.91,
+      "worstRatio": 6.84,
+      "pass": true,
+      "ink": [
+       68,
+       73,
+       74
+      ],
+      "ground": [
+       213,
+       226,
+       230
+      ],
+      "pixels": 680,
+      "groundPixels": 414
+     },
+     {
+      "phase": "menu",
+      "text": "Long Drive North",
+      "nodeId": "vitrea-node_r_7_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 12.65,
+      "worstRatio": 12.51,
+      "pass": true,
+      "ink": [
+       34,
+       36,
+       36
+      ],
+      "ground": [
+       222,
+       233,
+       236
+      ],
+      "pixels": 2034,
+      "groundPixels": 1094
+     },
+     {
+      "phase": "menu",
+      "text": "61",
+      "nodeId": "vitrea-node_r_7_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 7.13,
+      "worstRatio": 6.99,
+      "pass": true,
+      "ink": [
+       71,
+       75,
+       76
+      ],
+      "ground": [
+       222,
+       233,
+       236
+      ],
+      "pixels": 289,
+      "groundPixels": 196
+     },
+     {
+      "phase": "menu",
+      "text": "songs",
+      "nodeId": "vitrea-node_r_7_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 7.07,
+      "worstRatio": 6.94,
+      "pass": true,
+      "ink": [
+       70,
+       74,
+       75
+      ],
+      "ground": [
+       219,
+       231,
+       234
+      ],
+      "pixels": 680,
+      "groundPixels": 414
+     },
+     {
+      "phase": "menu",
+      "text": "New Playlist from Queue",
+      "nodeId": "vitrea-node_r_7_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 12.45,
+      "worstRatio": 11.89,
+      "pass": true,
+      "ink": [
+       34,
+       35,
+       36
+      ],
+      "ground": [
+       219,
+       231,
+       234
+      ],
+      "pixels": 2916,
+      "groundPixels": 1507
      }
     ]
    },
@@ -1105,44 +645,15 @@
      "label": "Volume"
     },
     {
-     "nodeId": "vitrea-node_r_5_",
-     "groupId": "queue",
-     "plane": "base",
-     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > section.mp-side:nth-of-type(2) > div[data-vitrea-node=\"vitrea-node_r_5_\"].mp-queue:nth-of-type(1)",
-     "tag": "div",
-     "role": null,
-     "rect": [
-      1070,
-      24,
-      346,
-      378
-     ],
-     "span": 346,
-     "boundsFrom": "renderInput",
-     "shapeFamily": "fixed-rounded-rect",
-     "radii": [
-      24,
-      24,
-      24,
-      24
-     ],
-     "smoothing": 0.52866495,
-     "thickness": 8,
-     "variant": "regular",
-     "tinted": false,
-     "cssRadius": "0px",
-     "label": "Playing Next6 songs, 28 minMeltwater3:54"
-    },
-    {
-     "nodeId": "vitrea-node_r_9_",
+     "nodeId": "vitrea-node_r_7_",
      "groupId": "queue-menu",
      "plane": "base",
-     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div[data-vitrea-node=\"vitrea-node_r_9_\"].mp-morph",
+     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div[data-vitrea-node=\"vitrea-node_r_7_\"].mp-morph",
      "tag": "div",
      "role": null,
      "rect": [
       1259,
-      464,
+      424,
       159,
       46
      ],
@@ -1163,11 +674,11 @@
      "label": "Save Queue"
     }
    ],
-   "surfacesInFrame": 4,
+   "surfacesInFrame": 3,
    "planes": [
     {
      "plane": "base",
-     "nodes": 4
+     "nodes": 3
     },
     {
      "plane": "overlay",
@@ -1230,38 +741,6 @@
      "abscissae": null,
      "variant": "regular",
      "blurRadius": 7.72,
-     "backdropToneHint": true,
-     "probe": {
-      "verdict": "pass",
-      "breaks": 0,
-      "reach": "verified",
-      "engineDefects": []
-     },
-     "diagnostics": []
-    },
-    {
-     "id": "queue",
-     "members": 1,
-     "renderer": "webgpu",
-     "sampling": "gpu-texture",
-     "configuredSource": "texture",
-     "analysis": "exact",
-     "refraction": "true",
-     "health": "ok",
-     "demotionReason": null,
-     "cssBody": null,
-     "cssTint": null,
-     "cssShadow": null,
-     "materialDocument": {
-      "name": "apple-macos-27.0-glass0.5",
-      "platform": "macOS 27.0",
-      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
-      "resolvedMaterialSha256": "be13dae45098fc89",
-      "tuned": false
-     },
-     "abscissae": null,
-     "variant": "regular",
-     "blurRadius": 20.55,
      "backdropToneHint": true,
      "probe": {
       "verdict": "pass",
@@ -1367,44 +846,15 @@
      "label": "Volume"
     },
     {
-     "nodeId": "vitrea-node_r_5_",
-     "groupId": "queue",
-     "plane": "base",
-     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div > section.mp-side:nth-of-type(2) > div[data-vitrea-node=\"vitrea-node_r_5_\"].mp-queue:nth-of-type(1)",
-     "tag": "div",
-     "role": null,
-     "rect": [
-      1070,
-      24,
-      346,
-      378
-     ],
-     "span": 346,
-     "boundsFrom": "renderInput",
-     "shapeFamily": "fixed-rounded-rect",
-     "radii": [
-      24,
-      24,
-      24,
-      24
-     ],
-     "smoothing": 0.52866495,
-     "thickness": 8,
-     "variant": "regular",
-     "tinted": false,
-     "cssRadius": "0px",
-     "label": "Playing Next6 songs, 28 minMeltwater3:54"
-    },
-    {
-     "nodeId": "vitrea-node_r_9_",
+     "nodeId": "vitrea-node_r_7_",
      "groupId": "queue-menu",
      "plane": "overlay",
-     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div > div[data-vitrea-node=\"vitrea-node_r_9_\"].mp-morph",
+     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div > div[data-vitrea-node=\"vitrea-node_r_7_\"].mp-morph",
      "tag": "div",
      "role": null,
      "rect": [
       1144,
-      514,
+      476,
       272,
       199
      ],
@@ -1412,10 +862,10 @@
      "boundsFrom": "renderInput",
      "shapeFamily": "fixed-rounded-rect",
      "radii": [
-      23.888170569107967,
-      23.888170569107967,
-      23.888170569107967,
-      23.888170569107967
+      23.806836640024375,
+      23.806836640024375,
+      23.806836640024375,
+      23.806836640024375
      ],
      "smoothing": 0.52866495,
      "thickness": 8,
@@ -1491,38 +941,6 @@
      "diagnostics": []
     },
     {
-     "id": "queue",
-     "members": 1,
-     "renderer": "webgpu",
-     "sampling": "gpu-texture",
-     "configuredSource": "texture",
-     "analysis": "exact",
-     "refraction": "true",
-     "health": "ok",
-     "demotionReason": null,
-     "cssBody": null,
-     "cssTint": null,
-     "cssShadow": null,
-     "materialDocument": {
-      "name": "apple-macos-27.0-glass0.5",
-      "platform": "macOS 27.0",
-      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
-      "resolvedMaterialSha256": "be13dae45098fc89",
-      "tuned": false
-     },
-     "abscissae": null,
-     "variant": "regular",
-     "blurRadius": 20.55,
-     "backdropToneHint": true,
-     "probe": {
-      "verdict": "pass",
-      "breaks": 0,
-      "reach": "verified",
-      "engineDefects": []
-     },
-     "diagnostics": []
-    },
-    {
      "id": "queue-menu",
      "members": 1,
      "renderer": "webgpu",
@@ -1560,13 +978,13 @@
     "rest": {
      "findings": [],
      "unmeasured": [],
-     "hostsRead": 4,
+     "hostsRead": 3,
      "cssTierHosts": 0
     },
     "menu": {
      "findings": [],
      "unmeasured": [],
-     "hostsRead": 4,
+     "hostsRead": 3,
      "cssTierHosts": 0
     }
    }
@@ -1600,23 +1018,23 @@
     "pass": 55,
     "unknown": 0,
     "rate": 1,
-    "onGlass": 23,
-    "onGlassPass": 23,
+    "onGlass": 3,
+    "onGlassPass": 3,
     "fails": []
    },
    "glassContrast": {
     "method": "rendered-pixels",
-    "pairs": 82,
-    "pass": 82,
+    "pairs": 20,
+    "pass": 20,
     "minRatio": 4.74,
     "byPhase": {
      "fv": {
-      "pairs": 36,
-      "pass": 36
+      "pairs": 4,
+      "pass": 4
      },
      "menu": {
-      "pairs": 46,
-      "pass": 46
+      "pairs": 16,
+      "pass": 16
      }
     },
     "fails": [],
@@ -1692,744 +1110,8 @@
      },
      {
       "phase": "fv",
-      "text": "Playing Next",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 15,
-      "bold": false,
-      "large": false,
-      "ratio": 5.96,
-      "worstRatio": 5.89,
-      "pass": true,
-      "ink": [
-       220,
-       221,
-       222
-      ],
-      "ground": [
-       76,
-       80,
-       85
-      ],
-      "pixels": 1602,
-      "groundPixels": 732
-     },
-     {
-      "phase": "fv",
-      "text": "6 songs, 28 min",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 13,
-      "bold": false,
-      "large": false,
-      "ratio": 5.74,
-      "worstRatio": 5.66,
-      "pass": true,
-      "ink": [
-       215,
-       217,
-       218
-      ],
-      "ground": [
-       75,
-       80,
-       85
-      ],
-      "pixels": 1568,
-      "groundPixels": 873
-     },
-     {
-      "phase": "fv",
-      "text": "Meltwater",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 14.5,
-      "bold": false,
-      "large": false,
-      "ratio": 5.88,
-      "worstRatio": 5.88,
-      "pass": true,
-      "ink": [
-       220,
-       221,
-       222
-      ],
-      "ground": [
-       77,
-       81,
-       85
-      ],
-      "pixels": 1260,
-      "groundPixels": 581
-     },
-     {
-      "phase": "fv",
-      "text": "3:54",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 13,
-      "bold": false,
-      "large": false,
-      "ratio": 5.74,
-      "worstRatio": 5.72,
-      "pass": true,
-      "ink": [
-       215,
-       217,
-       218
-      ],
-      "ground": [
-       75,
-       80,
-       85
-      ],
-      "pixels": 493,
-      "groundPixels": 276
-     },
-     {
-      "phase": "fv",
-      "text": "Kasper Lind",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 5.65,
-      "worstRatio": 5.65,
-      "pass": true,
-      "ink": [
-       216,
-       217,
-       218
-      ],
-      "ground": [
-       77,
-       81,
-       85
-      ],
-      "pixels": 1120,
-      "groundPixels": 678
-     },
-     {
-      "phase": "fv",
-      "text": "·",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 5.67,
-      "worstRatio": 5.67,
-      "pass": true,
-      "ink": [
-       216,
-       217,
-       218
-      ],
-      "ground": [
-       76,
-       81,
-       85
-      ],
-      "pixels": 176,
-      "groundPixels": 167
-     },
-     {
-      "phase": "fv",
-      "text": "Added by you",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 5.74,
-      "worstRatio": 5.72,
-      "pass": true,
-      "ink": [
-       215,
-       217,
-       217
-      ],
-      "ground": [
-       75,
-       80,
-       84
-      ],
-      "pixels": 1296,
-      "groundPixels": 741
-     },
-     {
-      "phase": "fv",
-      "text": "Pressure Ridge",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 14.5,
-      "bold": false,
-      "large": false,
-      "ratio": 5.9,
-      "worstRatio": 5.88,
-      "pass": true,
-      "ink": [
-       220,
-       221,
-       222
-      ],
-      "ground": [
-       76,
-       81,
-       85
-      ],
-      "pixels": 1890,
-      "groundPixels": 933
-     },
-     {
-      "phase": "fv",
-      "text": "5:21",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 13,
-      "bold": false,
-      "large": false,
-      "ratio": 5.65,
-      "worstRatio": 5.65,
-      "pass": true,
-      "ink": [
-       216,
-       217,
-       218
-      ],
-      "ground": [
-       77,
-       81,
-       85
-      ],
-      "pixels": 493,
-      "groundPixels": 327
-     },
-     {
-      "phase": "fv",
-      "text": "Signe Halvorsen",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 5.65,
-      "worstRatio": 5.65,
-      "pass": true,
-      "ink": [
-       216,
-       217,
-       218
-      ],
-      "ground": [
-       77,
-       81,
-       85
-      ],
-      "pixels": 1520,
-      "groundPixels": 874
-     },
-     {
-      "phase": "fv",
-      "text": "·",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 5.72,
-      "worstRatio": 5.66,
-      "pass": true,
-      "ink": [
-       216,
-       217,
-       218
-      ],
-      "ground": [
-       76,
-       80,
-       85
-      ],
-      "pixels": 192,
-      "groundPixels": 175
-     },
-     {
-      "phase": "fv",
-      "text": "Pressure Ridge",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 5.74,
-      "worstRatio": 5.72,
-      "pass": true,
-      "ink": [
-       215,
-       217,
-       218
-      ],
-      "ground": [
-       75,
-       80,
-       85
-      ],
-      "pixels": 1424,
-      "groundPixels": 789
-     },
-     {
-      "phase": "fv",
-      "text": "Singing Ice",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 14.5,
-      "bold": false,
-      "large": false,
-      "ratio": 5.88,
-      "worstRatio": 5.88,
-      "pass": true,
-      "ink": [
-       220,
-       221,
-       222
-      ],
-      "ground": [
-       77,
-       81,
-       85
-      ],
-      "pixels": 1368,
-      "groundPixels": 631
-     },
-     {
-      "phase": "fv",
-      "text": "3:36",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 13,
-      "bold": false,
-      "large": false,
-      "ratio": 5.74,
-      "worstRatio": 5.74,
-      "pass": true,
-      "ink": [
-       215,
-       217,
-       218
-      ],
-      "ground": [
-       75,
-       80,
-       85
-      ],
-      "pixels": 493,
-      "groundPixels": 264
-     },
-     {
-      "phase": "fv",
-      "text": "Signe Halvorsen",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 5.65,
-      "worstRatio": 5.65,
-      "pass": true,
-      "ink": [
-       216,
-       217,
-       218
-      ],
-      "ground": [
-       77,
-       81,
-       85
-      ],
-      "pixels": 1520,
-      "groundPixels": 874
-     },
-     {
-      "phase": "fv",
-      "text": "·",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 5.74,
-      "worstRatio": 5.74,
-      "pass": true,
-      "ink": [
-       215,
-       217,
-       217
-      ],
-      "ground": [
-       75,
-       80,
-       84
-      ],
-      "pixels": 192,
-      "groundPixels": 175
-     },
-     {
-      "phase": "fv",
-      "text": "Pressure Ridge",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 5.74,
-      "worstRatio": 5.74,
-      "pass": true,
-      "ink": [
-       215,
-       217,
-       217
-      ],
-      "ground": [
-       75,
-       80,
-       84
-      ],
-      "pixels": 1424,
-      "groundPixels": 789
-     },
-     {
-      "phase": "fv",
-      "text": "Candle Ice",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 14.5,
-      "bold": false,
-      "large": false,
-      "ratio": 5.9,
-      "worstRatio": 5.88,
-      "pass": true,
-      "ink": [
-       220,
-       221,
-       222
-      ],
-      "ground": [
-       76,
-       81,
-       85
-      ],
-      "pixels": 1314,
-      "groundPixels": 670
-     },
-     {
-      "phase": "fv",
-      "text": "4:14",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 13,
-      "bold": false,
-      "large": false,
-      "ratio": 5.74,
-      "worstRatio": 5.74,
-      "pass": true,
-      "ink": [
-       215,
-       217,
-       218
-      ],
-      "ground": [
-       75,
-       80,
-       85
-      ],
-      "pixels": 493,
-      "groundPixels": 320
-     },
-     {
-      "phase": "fv",
-      "text": "Signe Halvorsen",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 5.72,
-      "worstRatio": 5.66,
-      "pass": true,
-      "ink": [
-       216,
-       217,
-       218
-      ],
-      "ground": [
-       76,
-       80,
-       85
-      ],
-      "pixels": 1520,
-      "groundPixels": 865
-     },
-     {
-      "phase": "fv",
-      "text": "·",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 5.73,
-      "worstRatio": 5.72,
-      "pass": true,
-      "ink": [
-       216,
-       217,
-       217
-      ],
-      "ground": [
-       76,
-       80,
-       84
-      ],
-      "pixels": 192,
-      "groundPixels": 175
-     },
-     {
-      "phase": "fv",
-      "text": "Pressure Ridge",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 5.76,
-      "worstRatio": 5.74,
-      "pass": true,
-      "ink": [
-       215,
-       217,
-       217
-      ],
-      "ground": [
-       74,
-       80,
-       84
-      ],
-      "pixels": 1424,
-      "groundPixels": 789
-     },
-     {
-      "phase": "fv",
-      "text": "The Long Crack",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 14.5,
-      "bold": false,
-      "large": false,
-      "ratio": 5.98,
-      "worstRatio": 5.89,
-      "pass": true,
-      "ink": [
-       220,
-       221,
-       221
-      ],
-      "ground": [
-       75,
-       80,
-       84
-      ],
-      "pixels": 1944,
-      "groundPixels": 1036
-     },
-     {
-      "phase": "fv",
-      "text": "6:02",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 13,
-      "bold": false,
-      "large": false,
-      "ratio": 5.74,
-      "worstRatio": 5.74,
-      "pass": true,
-      "ink": [
-       215,
-       217,
-       218
-      ],
-      "ground": [
-       75,
-       80,
-       85
-      ],
-      "pixels": 493,
-      "groundPixels": 266
-     },
-     {
-      "phase": "fv",
-      "text": "Signe Halvorsen",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 5.74,
-      "worstRatio": 5.73,
-      "pass": true,
-      "ink": [
-       215,
-       217,
-       217
-      ],
-      "ground": [
-       75,
-       80,
-       84
-      ],
-      "pixels": 1520,
-      "groundPixels": 871
-     },
-     {
-      "phase": "fv",
-      "text": "·",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 5.74,
-      "worstRatio": 5.73,
-      "pass": true,
-      "ink": [
-       215,
-       217,
-       217
-      ],
-      "ground": [
-       75,
-       80,
-       84
-      ],
-      "pixels": 192,
-      "groundPixels": 175
-     },
-     {
-      "phase": "fv",
-      "text": "Pressure Ridge",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 5.74,
-      "worstRatio": 5.74,
-      "pass": true,
-      "ink": [
-       215,
-       217,
-       217
-      ],
-      "ground": [
-       75,
-       80,
-       84
-      ],
-      "pixels": 1424,
-      "groundPixels": 789
-     },
-     {
-      "phase": "fv",
-      "text": "Breakup",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 14.5,
-      "bold": false,
-      "large": false,
-      "ratio": 5.98,
-      "worstRatio": 5.98,
-      "pass": true,
-      "ink": [
-       220,
-       221,
-       221
-      ],
-      "ground": [
-       75,
-       80,
-       84
-      ],
-      "pixels": 1044,
-      "groundPixels": 504
-     },
-     {
-      "phase": "fv",
-      "text": "5:09",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 13,
-      "bold": false,
-      "large": false,
-      "ratio": 5.74,
-      "worstRatio": 5.74,
-      "pass": true,
-      "ink": [
-       215,
-       217,
-       218
-      ],
-      "ground": [
-       75,
-       80,
-       85
-      ],
-      "pixels": 493,
-      "groundPixels": 259
-     },
-     {
-      "phase": "fv",
-      "text": "Signe Halvorsen",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 5.74,
-      "worstRatio": 5.74,
-      "pass": true,
-      "ink": [
-       215,
-       217,
-       217
-      ],
-      "ground": [
-       75,
-       80,
-       84
-      ],
-      "pixels": 1520,
-      "groundPixels": 868
-     },
-     {
-      "phase": "fv",
-      "text": "·",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 5.82,
-      "worstRatio": 5.8,
-      "pass": true,
-      "ink": [
-       215,
-       216,
-       217
-      ],
-      "ground": [
-       74,
-       79,
-       84
-      ],
-      "pixels": 192,
-      "groundPixels": 175
-     },
-     {
-      "phase": "fv",
-      "text": "Pressure Ridge",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 5.76,
-      "worstRatio": 5.74,
-      "pass": true,
-      "ink": [
-       215,
-       217,
-       217
-      ],
-      "ground": [
-       74,
-       80,
-       84
-      ],
-      "pixels": 1424,
-      "groundPixels": 790
-     },
-     {
-      "phase": "fv",
       "text": "Save Queue",
-      "nodeId": "vitrea-node_r_9_",
+      "nodeId": "vitrea-node_r_7_",
       "size": 14,
       "bold": false,
       "large": false,
@@ -2520,9 +1202,285 @@
      },
      {
       "phase": "menu",
-      "text": "Playing Next",
-      "nodeId": "vitrea-node_r_5_",
-      "size": 15,
+      "text": "Add",
+      "nodeId": "vitrea-node_r_7_",
+      "size": 12,
+      "bold": false,
+      "large": false,
+      "ratio": 5.74,
+      "worstRatio": 5.74,
+      "pass": true,
+      "ink": [
+       215,
+       217,
+       217
+      ],
+      "ground": [
+       75,
+       80,
+       84
+      ],
+      "pixels": 405,
+      "groundPixels": 194
+     },
+     {
+      "phase": "menu",
+      "text": "6 songs",
+      "nodeId": "vitrea-node_r_7_",
+      "size": 12,
+      "bold": false,
+      "large": false,
+      "ratio": 5.74,
+      "worstRatio": 5.74,
+      "pass": true,
+      "ink": [
+       215,
+       217,
+       217
+      ],
+      "ground": [
+       75,
+       80,
+       84
+      ],
+      "pixels": 720,
+      "groundPixels": 330
+     },
+     {
+      "phase": "menu",
+      "text": "to",
+      "nodeId": "vitrea-node_r_7_",
+      "size": 12,
+      "bold": false,
+      "large": false,
+      "ratio": 5.74,
+      "worstRatio": 5.74,
+      "pass": true,
+      "ink": [
+       215,
+       217,
+       217
+      ],
+      "ground": [
+       75,
+       80,
+       84
+      ],
+      "pixels": 240,
+      "groundPixels": 131
+     },
+     {
+      "phase": "menu",
+      "text": "Late Desk",
+      "nodeId": "vitrea-node_r_7_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 4.92,
+      "worstRatio": 4.92,
+      "pass": true,
+      "ink": [
+       223,
+       223,
+       224
+      ],
+      "ground": [
+       90,
+       94,
+       99
+      ],
+      "pixels": 1188,
+      "groundPixels": 627
+     },
+     {
+      "phase": "menu",
+      "text": "48",
+      "nodeId": "vitrea-node_r_7_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 4.74,
+      "worstRatio": 4.74,
+      "pass": true,
+      "ink": [
+       219,
+       220,
+       221
+      ],
+      "ground": [
+       90,
+       94,
+       99
+      ],
+      "pixels": 289,
+      "groundPixels": 150
+     },
+     {
+      "phase": "menu",
+      "text": "songs",
+      "nodeId": "vitrea-node_r_7_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 4.74,
+      "worstRatio": 4.74,
+      "pass": true,
+      "ink": [
+       219,
+       220,
+       221
+      ],
+      "ground": [
+       90,
+       94,
+       99
+      ],
+      "pixels": 680,
+      "groundPixels": 401
+     },
+     {
+      "phase": "menu",
+      "text": "Cold Mornings",
+      "nodeId": "vitrea-node_r_7_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 5.97,
+      "worstRatio": 5.68,
+      "pass": true,
+      "ink": [
+       220,
+       221,
+       222
+      ],
+      "ground": [
+       75,
+       80,
+       85
+      ],
+      "pixels": 1746,
+      "groundPixels": 888
+     },
+     {
+      "phase": "menu",
+      "text": "23",
+      "nodeId": "vitrea-node_r_7_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 5.74,
+      "worstRatio": 5.72,
+      "pass": true,
+      "ink": [
+       215,
+       217,
+       218
+      ],
+      "ground": [
+       75,
+       80,
+       85
+      ],
+      "pixels": 289,
+      "groundPixels": 154
+     },
+     {
+      "phase": "menu",
+      "text": "songs",
+      "nodeId": "vitrea-node_r_7_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 5.74,
+      "worstRatio": 5.74,
+      "pass": true,
+      "ink": [
+       215,
+       217,
+       218
+      ],
+      "ground": [
+       75,
+       80,
+       85
+      ],
+      "pixels": 680,
+      "groundPixels": 401
+     },
+     {
+      "phase": "menu",
+      "text": "Long Drive North",
+      "nodeId": "vitrea-node_r_7_",
+      "size": 14,
+      "bold": false,
+      "large": false,
+      "ratio": 5.9,
+      "worstRatio": 5.61,
+      "pass": true,
+      "ink": [
+       220,
+       221,
+       222
+      ],
+      "ground": [
+       76,
+       81,
+       85
+      ],
+      "pixels": 2034,
+      "groundPixels": 1116
+     },
+     {
+      "phase": "menu",
+      "text": "61",
+      "nodeId": "vitrea-node_r_7_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 5.72,
+      "worstRatio": 5.66,
+      "pass": true,
+      "ink": [
+       216,
+       217,
+       218
+      ],
+      "ground": [
+       76,
+       80,
+       85
+      ],
+      "pixels": 289,
+      "groundPixels": 192
+     },
+     {
+      "phase": "menu",
+      "text": "songs",
+      "nodeId": "vitrea-node_r_7_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 5.72,
+      "worstRatio": 5.72,
+      "pass": true,
+      "ink": [
+       216,
+       217,
+       218
+      ],
+      "ground": [
+       76,
+       80,
+       85
+      ],
+      "pixels": 680,
+      "groundPixels": 401
+     },
+     {
+      "phase": "menu",
+      "text": "New Playlist from Queue",
+      "nodeId": "vitrea-node_r_7_",
+      "size": 14,
       "bold": false,
       "large": false,
       "ratio": 5.96,
@@ -2538,8 +1496,8 @@
        80,
        85
       ],
-      "pixels": 1602,
-      "groundPixels": 732
+      "pixels": 2916,
+      "groundPixels": 1538
      }
     ]
    },
@@ -2655,44 +1613,15 @@
      "label": "Volume"
     },
     {
-     "nodeId": "vitrea-node_r_5_",
-     "groupId": "queue",
-     "plane": "base",
-     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > section.mp-side:nth-of-type(2) > div[data-vitrea-node=\"vitrea-node_r_5_\"].mp-queue:nth-of-type(1)",
-     "tag": "div",
-     "role": null,
-     "rect": [
-      1070,
-      24,
-      346,
-      378
-     ],
-     "span": 346,
-     "boundsFrom": "renderInput",
-     "shapeFamily": "fixed-rounded-rect",
-     "radii": [
-      24,
-      24,
-      24,
-      24
-     ],
-     "smoothing": 0.52866495,
-     "thickness": 8,
-     "variant": "regular",
-     "tinted": false,
-     "cssRadius": "0px",
-     "label": "Playing Next6 songs, 28 minMeltwater3:54"
-    },
-    {
-     "nodeId": "vitrea-node_r_9_",
+     "nodeId": "vitrea-node_r_7_",
      "groupId": "queue-menu",
      "plane": "base",
-     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div[data-vitrea-node=\"vitrea-node_r_9_\"].mp-morph",
+     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div[data-vitrea-node=\"vitrea-node_r_7_\"].mp-morph",
      "tag": "div",
      "role": null,
      "rect": [
       1259,
-      464,
+      426,
       159,
       46
      ],
@@ -2713,11 +1642,11 @@
      "label": "Save Queue"
     }
    ],
-   "surfacesInFrame": 4,
+   "surfacesInFrame": 3,
    "planes": [
     {
      "plane": "base",
-     "nodes": 4
+     "nodes": 3
     },
     {
      "plane": "overlay",
@@ -2780,38 +1709,6 @@
      "abscissae": null,
      "variant": "regular",
      "blurRadius": 8.72,
-     "backdropToneHint": true,
-     "probe": {
-      "verdict": "pass",
-      "breaks": 0,
-      "reach": "verified",
-      "engineDefects": []
-     },
-     "diagnostics": []
-    },
-    {
-     "id": "queue",
-     "members": 1,
-     "renderer": "webgpu",
-     "sampling": "gpu-texture",
-     "configuredSource": "texture",
-     "analysis": "exact",
-     "refraction": "true",
-     "health": "ok",
-     "demotionReason": null,
-     "cssBody": null,
-     "cssTint": null,
-     "cssShadow": null,
-     "materialDocument": {
-      "name": "apple-macos-27.0-glass0.5",
-      "platform": "macOS 27.0",
-      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
-      "resolvedMaterialSha256": "2a4323f33df8d799",
-      "tuned": false
-     },
-     "abscissae": null,
-     "variant": "regular",
-     "blurRadius": 20.55,
      "backdropToneHint": true,
      "probe": {
       "verdict": "pass",
@@ -2917,44 +1814,15 @@
      "label": "Volume"
     },
     {
-     "nodeId": "vitrea-node_r_5_",
-     "groupId": "queue",
-     "plane": "base",
-     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div > section.mp-side:nth-of-type(2) > div[data-vitrea-node=\"vitrea-node_r_5_\"].mp-queue:nth-of-type(1)",
-     "tag": "div",
-     "role": null,
-     "rect": [
-      1070,
-      24,
-      346,
-      378
-     ],
-     "span": 346,
-     "boundsFrom": "renderInput",
-     "shapeFamily": "fixed-rounded-rect",
-     "radii": [
-      24,
-      24,
-      24,
-      24
-     ],
-     "smoothing": 0.52866495,
-     "thickness": 8,
-     "variant": "regular",
-     "tinted": false,
-     "cssRadius": "0px",
-     "label": "Playing Next6 songs, 28 minMeltwater3:54"
-    },
-    {
-     "nodeId": "vitrea-node_r_9_",
+     "nodeId": "vitrea-node_r_7_",
      "groupId": "queue-menu",
      "plane": "overlay",
-     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div > div[data-vitrea-node=\"vitrea-node_r_9_\"].mp-morph",
+     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div > div[data-vitrea-node=\"vitrea-node_r_7_\"].mp-morph",
      "tag": "div",
      "role": null,
      "rect": [
       1144,
-      514,
+      478,
       272,
       199
      ],
@@ -2962,10 +1830,10 @@
      "boundsFrom": "renderInput",
      "shapeFamily": "fixed-rounded-rect",
      "radii": [
-      23.80711970905097,
-      23.80711970905097,
-      23.80711970905097,
-      23.80711970905097
+      23.982841837175734,
+      23.982841837175734,
+      23.982841837175734,
+      23.982841837175734
      ],
      "smoothing": 0.52866495,
      "thickness": 8,
@@ -3041,38 +1909,6 @@
      "diagnostics": []
     },
     {
-     "id": "queue",
-     "members": 1,
-     "renderer": "webgpu",
-     "sampling": "gpu-texture",
-     "configuredSource": "texture",
-     "analysis": "exact",
-     "refraction": "true",
-     "health": "ok",
-     "demotionReason": null,
-     "cssBody": null,
-     "cssTint": null,
-     "cssShadow": null,
-     "materialDocument": {
-      "name": "apple-macos-27.0-glass0.5",
-      "platform": "macOS 27.0",
-      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
-      "resolvedMaterialSha256": "2a4323f33df8d799",
-      "tuned": false
-     },
-     "abscissae": null,
-     "variant": "regular",
-     "blurRadius": 20.55,
-     "backdropToneHint": true,
-     "probe": {
-      "verdict": "pass",
-      "breaks": 0,
-      "reach": "verified",
-      "engineDefects": []
-     },
-     "diagnostics": []
-    },
-    {
      "id": "queue-menu",
      "members": 1,
      "renderer": "webgpu",
@@ -3110,13 +1946,13 @@
     "rest": {
      "findings": [],
      "unmeasured": [],
-     "hostsRead": 4,
+     "hostsRead": 3,
      "cssTierHosts": 0
     },
     "menu": {
      "findings": [],
      "unmeasured": [],
-     "hostsRead": 4,
+     "hostsRead": 3,
      "cssTierHosts": 0
     }
    }
@@ -3182,44 +2018,15 @@
    "label": "Volume"
   },
   {
-   "nodeId": "vitrea-node_r_5_",
-   "groupId": "queue",
-   "plane": "base",
-   "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > section.mp-side:nth-of-type(2) > div[data-vitrea-node=\"vitrea-node_r_5_\"].mp-queue:nth-of-type(1)",
-   "tag": "div",
-   "role": null,
-   "rect": [
-    1070,
-    24,
-    346,
-    378
-   ],
-   "span": 346,
-   "boundsFrom": "renderInput",
-   "shapeFamily": "fixed-rounded-rect",
-   "radii": [
-    24,
-    24,
-    24,
-    24
-   ],
-   "smoothing": 0.52866495,
-   "thickness": 8,
-   "variant": "regular",
-   "tinted": false,
-   "cssRadius": "0px",
-   "label": "Playing Next6 songs, 28 minMeltwater3:54"
-  },
-  {
-   "nodeId": "vitrea-node_r_9_",
+   "nodeId": "vitrea-node_r_7_",
    "groupId": "queue-menu",
    "plane": "base",
-   "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div[data-vitrea-node=\"vitrea-node_r_9_\"].mp-morph",
+   "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div[data-vitrea-node=\"vitrea-node_r_7_\"].mp-morph",
    "tag": "div",
    "role": null,
    "rect": [
     1259,
-    464,
+    424,
     159,
     46
    ],
@@ -3243,7 +2050,7 @@
  "planes": [
   {
    "plane": "base",
-   "nodes": 4
+   "nodes": 3
   },
   {
    "plane": "overlay",
@@ -3403,44 +2210,6 @@
     }
    },
    {
-    "id": "queue",
-    "moved": true,
-    "before": {
-     "id": "queue",
-     "renderer": "webgpu",
-     "refraction": "true",
-     "cssBody": null,
-     "cssTint": null,
-     "blurRadius": 20.546,
-     "nodes": [
-      {
-       "nodeId": "vitrea-node_r_5_",
-       "blurRadius": 2.75,
-       "tintAlpha": 0.746,
-       "borderAlpha": 0.015,
-       "refraction": "true"
-      }
-     ]
-    },
-    "after": {
-     "id": "queue",
-     "renderer": "webgpu",
-     "refraction": "true",
-     "cssBody": null,
-     "cssTint": null,
-     "blurRadius": 23.459,
-     "nodes": [
-      {
-       "nodeId": "vitrea-node_r_5_",
-       "blurRadius": 4.813,
-       "tintAlpha": 0.93,
-       "borderAlpha": 0.002,
-       "refraction": "approximate"
-      }
-     ]
-    }
-   },
-   {
     "id": "queue-menu",
     "moved": true,
     "before": {
@@ -3452,10 +2221,10 @@
      "blurRadius": 7.725,
      "nodes": [
       {
-       "nodeId": "vitrea-node_r_9_",
+       "nodeId": "vitrea-node_r_7_",
        "blurRadius": 2.75,
-       "tintAlpha": 0.731,
-       "borderAlpha": 0.015,
+       "tintAlpha": 0.728,
+       "borderAlpha": 0.016,
        "refraction": "true"
       }
      ]
@@ -3469,7 +2238,7 @@
      "blurRadius": 13.362,
      "nodes": [
       {
-       "nodeId": "vitrea-node_r_9_",
+       "nodeId": "vitrea-node_r_7_",
        "blurRadius": 4.813,
        "tintAlpha": 0.929,
        "borderAlpha": 0.001,
@@ -3571,38 +2340,6 @@
      "abscissae": null,
      "variant": "regular",
      "blurRadius": 7.77,
-     "backdropToneHint": true,
-     "probe": {
-      "verdict": "pass",
-      "breaks": 0,
-      "reach": "verified",
-      "engineDefects": []
-     },
-     "diagnostics": []
-    },
-    {
-     "id": "queue",
-     "members": 1,
-     "renderer": "webgpu",
-     "sampling": "gpu-texture",
-     "configuredSource": "texture",
-     "analysis": "exact",
-     "refraction": "true",
-     "health": "ok",
-     "demotionReason": null,
-     "cssBody": null,
-     "cssTint": null,
-     "cssShadow": null,
-     "materialDocument": {
-      "name": "apple-macos-27.0-glass0.5",
-      "platform": "macOS 27.0",
-      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
-      "resolvedMaterialSha256": "be13dae45098fc89",
-      "tuned": false
-     },
-     "abscissae": null,
-     "variant": "regular",
-     "blurRadius": 20.55,
      "backdropToneHint": true,
      "probe": {
       "verdict": "pass",
@@ -3745,38 +2482,6 @@
      "diagnostics": []
     },
     {
-     "id": "queue",
-     "members": 1,
-     "renderer": "webgpu",
-     "sampling": "gpu-texture",
-     "configuredSource": "texture",
-     "analysis": "exact",
-     "refraction": "true",
-     "health": "ok",
-     "demotionReason": null,
-     "cssBody": null,
-     "cssTint": null,
-     "cssShadow": null,
-     "materialDocument": {
-      "name": "apple-macos-27.0-glass0.5",
-      "platform": "macOS 27.0",
-      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
-      "resolvedMaterialSha256": "be13dae45098fc89",
-      "tuned": false
-     },
-     "abscissae": null,
-     "variant": "regular",
-     "blurRadius": 20.55,
-     "backdropToneHint": true,
-     "probe": {
-      "verdict": "pass",
-      "breaks": 0,
-      "reach": "verified",
-      "engineDefects": []
-     },
-     "diagnostics": []
-    },
-    {
      "id": "queue-menu",
      "members": 1,
      "renderer": "webgpu",
@@ -3909,38 +2614,6 @@
      "diagnostics": []
     },
     {
-     "id": "queue",
-     "members": 1,
-     "renderer": "webgpu",
-     "sampling": "gpu-texture",
-     "configuredSource": "texture",
-     "analysis": "exact",
-     "refraction": "true",
-     "health": "ok",
-     "demotionReason": null,
-     "cssBody": null,
-     "cssTint": null,
-     "cssShadow": null,
-     "materialDocument": {
-      "name": "apple-macos-27.0-glass0.5",
-      "platform": "macOS 27.0",
-      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
-      "resolvedMaterialSha256": "be13dae45098fc89",
-      "tuned": false
-     },
-     "abscissae": null,
-     "variant": "regular",
-     "blurRadius": 0,
-     "backdropToneHint": true,
-     "probe": {
-      "verdict": "pass",
-      "breaks": 0,
-      "reach": "verified",
-      "engineDefects": []
-     },
-     "diagnostics": []
-    },
-    {
      "id": "queue-menu",
      "members": 1,
      "renderer": "webgpu",
@@ -4001,17 +2674,8 @@
       "forcedColorAdjust": "auto"
      },
      {
-      "nodeId": "vitrea-node_r_5_",
-      "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > section.mp-side:nth-of-type(2) > div[data-vitrea-node=\"vitrea-node_r_5_\"].mp-queue:nth-of-type(1)",
-      "backdropFilter": "none",
-      "backgroundColor": "rgba(255, 255, 255, 0)",
-      "backgroundImage": "none",
-      "borderColor": "rgb(0, 0, 0)",
-      "forcedColorAdjust": "auto"
-     },
-     {
-      "nodeId": "vitrea-node_r_9_",
-      "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div[data-vitrea-node=\"vitrea-node_r_9_\"].mp-morph",
+      "nodeId": "vitrea-node_r_7_",
+      "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div[data-vitrea-node=\"vitrea-node_r_7_\"].mp-morph",
       "backdropFilter": "none",
       "backgroundColor": "rgba(255, 255, 255, 0)",
       "backgroundImage": "none",
@@ -4035,15 +2699,15 @@
   "shot-forced.png"
  ],
  "captureSha256": {
-  "shot-fv-light.png": "03b0f527c31d4b4691471acb192cec4e0809f577e6d01f866dd745e856b43514",
-  "shot-full-light.png": "03b0f527c31d4b4691471acb192cec4e0809f577e6d01f866dd745e856b43514",
-  "shot-menu-light.png": "caa44400ca3c6da35efb8030329d4cb8471c80e0cfdc04f0a18a98e029546ff6",
-  "shot-fv-dark.png": "ab204210e401ac48d2efce03394e3595c0e6bb669bb9b5f47ddb612a55edaccb",
-  "shot-full-dark.png": "ab204210e401ac48d2efce03394e3595c0e6bb669bb9b5f47ddb612a55edaccb",
-  "shot-menu-dark.png": "11e88c7e08a645927fa0e3bae20cdb15b47215d7d67ddf656ccea0cec4c85615",
-  "shot-reduced.png": "f76721b864148d1b7af7d18cf2bd1c30728934e61c99ec3f93ceb6edb0793a6a",
-  "shot-contrast.png": "0cfd7c19e04cd0c978e87323031ae625c952bb9935d0fd662e2b79584bedfbd9",
-  "shot-forced.png": "3926b0674f884ce267af3e89814a3950923fd237fd2c1d46361c59d499ae412a"
+  "shot-fv-light.png": "c6cc7ff427f0c4ad71e9c95fa19c527433a6b41bb348ce104918a3db5e942054",
+  "shot-full-light.png": "c6cc7ff427f0c4ad71e9c95fa19c527433a6b41bb348ce104918a3db5e942054",
+  "shot-menu-light.png": "0f85ecc7c636a478526215c93afc9a3be6de6fd73edf5c281a24d99633deebfc",
+  "shot-fv-dark.png": "e746bd48ad5d6258a6866a5e492b304dc005af66b30d6d314a232ebd0390aad7",
+  "shot-full-dark.png": "e746bd48ad5d6258a6866a5e492b304dc005af66b30d6d314a232ebd0390aad7",
+  "shot-menu-dark.png": "ad541d672e81c3777cf5fdb086068001c36c629d79fc7bb23029b4a62bc27c84",
+  "shot-reduced.png": "e1bc7d1ecf777ef65deee17610f27563163b369f1590d79e75c019b3439d26be",
+  "shot-contrast.png": "86560d2328657fd72d65eb45e0721155738680a3075083fb919d527e5f79b50c",
+  "shot-forced.png": "6689f040b576d5c7a3dbc8f8d14ba89dd4092c3681df80708f7193e7e1bfdfb7"
  },
  "gateMechanical": true,
  "tool": {
