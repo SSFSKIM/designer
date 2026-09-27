@@ -176,3 +176,30 @@ The complete numerical admission payload is stored losslessly as gzip rather tha
 395,302 lines of duplicated raw-score JSON. calval-1/admission-storage.json pins
 both original and stored SHA-256/byte counts; decompression reproduces the exact
 prepare.py output. This changes storage only, not any number or admission.
+
+Package-only preflight command (before ANY eventual production receipt)
+----------------------------------------------------------------------
+python3.12 - <<'PY'
+import sys, json, numpy, PIL
+from pathlib import Path
+path = Path('/Users/new/vitrea-w41/g1/packages/calibration/results/'
+            '2026-09-27-w41-g1-identification/candidate-e3/runtime.json')
+observed = {'python': list(sys.version_info[:2]), 'numpy': numpy.__version__,
+            'pillow': PIL.__version__}
+expected = json.loads(path.read_text())
+print({'observed': observed, 'expected': expected, 'matches': observed == expected})
+sys.exit(0 if observed == expected else 1)
+PY
+
+This exact package-only probe passed in this preparation. It neither imports the
+scorer nor constructs a native Reader, calls a browser, or opens a receipt.
+
+Once real rendered calval scores exist, a coordinator can pass the full stored
+numerical and rendered raw maps to G1 runner.aggregate with the claimScope and
+complete admitted calval memberships. This pure validation uses the same score
+schemas, censor rules, claim wrapping and per-cell veto checks as exposure,
+without any receipt or authorization token. prepare.py's numerical-calval and
+render-calval already call the SAME numerical()/rendered_score() core used by
+score(request); the former constructs only calibration/validation Readers and
+the latter reads only existing candidate/baseline PNGs. A failed rendered veto or
+identity-byte check still blocks the candidate; a schema check is not a render.
