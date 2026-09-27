@@ -40262,3 +40262,44 @@ native fit, native/web capture, browser suite, matrix publication operation, mat
 release or push occurred. W39’s production receipt remains absent and its holdout sealed.
 No new capture tree exists to copy or supersede. G1 is the next authorized child after the
 parent’s gate merge, not work silently begun by this declaration gate.
+
+## 5.192 W41 G1: identification checkpoint — X6 refusal and a recorded ordering deviation (2026-09-27)
+
+**In progress, not a survival or closure claim.** Evidence is
+`results/2026-09-27-w41-g1-identification/`. The preparation checkpoint `44589189`
+records the fresh worktree from main `3d13f039`, successful install and recursive build,
+the unchanged **1,818-entry** freeze, the verified W39 release cache, and the public
+calibration/validation web plan. That plan was not executed by its metadata command.
+
+### 1. Parent rulings before fitting: the baseline is blocked, not silently substituted
+
+The first X6 reading at **2026-09-27T07:59:59.817968Z** found Reduce Transparency **0**,
+Increase Contrast **0**, `NSGlassTintAmount` **0.5**, and HID idle **956.893493833 s**.
+It also found **48 foreign browser/capture processes**, so the baseline browser did not
+launch. `x6-initial-refusal.json` retains their executable names and PIDs, including the
+user's Chrome **6993** and the other session's testing browsers. No process was terminated.
+A bounded wait may observe a quiet window; it cannot waive these four facts.
+
+The sealed declaration **850747c1f03781a6efe9b433bd4ce3bd6cf72b63c9befd8d5d98de9eadf7f759**
+literally orders the rendered baseline before uniform body, spatial and stroke identification.
+The parent ruled at charter v2.4, main **`ba02f1a5`**:
+
+> the numerical steps (uniform body, spatial finding, stroke receded then active) may run
+> before the baseline capture, because they read Apple's pixels and the baseline reads
+> vitrea's, so its timing cannot influence them; the baseline MUST be captured and frozen
+> before any candidate operator is rendered (steps 5–6), which is what the order protects.
+
+That charter commit also directed an ordering amendment to the declaration. The worker
+refused the edit under the dispatch's immutability rule; the parent then expressly withdrew
+it in the dispatch conversation: **“do not amend it. Keep 850747c1… byte-for-byte as the sealed
+declaration”**, **“Record the deviation instead”**, and **“Proceed with steps 2–4 now under
+that recorded deviation.”** The evidence README records both directions rather than pretending
+the first never existed. This is a parent-directed **execution-order deviation**, not literal
+baseline-first execution and not an amended numerical declaration. All families, parameter
+bounds, optimizer budgets, roles, required populations, tolerances and exposure rules remain.
+
+At preparation, baseline freeze timestamp/hash: **not yet captured**. First candidate-render
+timestamp/hash: **not run**. Those witnesses must be placed side by side when they exist;
+a candidate render before the baseline freeze is still forbidden. The parent's quiet-window
+request and this ordering ruling authorize no holdout read, native capture or canonical
+publication. Subsequent sections will record measured findings only after they exist.
