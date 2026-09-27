@@ -40968,3 +40968,64 @@ the nine examples do not replace it. CPU/Pillow-only rendering now carries both 
 candidate columns, with W39 native pixels through the guarded calval reader. Its inventory,
 representative exports and visual findings remain pending at this checkpoint. No eye verdict
 is inferred from the passed numerical bounds.
+
+### 20. The full eye sheets are complete; the photo's spatial trade is explicitly deferred
+
+Step10 completes in **`64419bc3`**:874 inventory records, **866 rendered Native/Shipped/Candidate
+sheets** (330 canonical /536 W39) and8 explicit UNMEASURED memberships. Every admitted sheet
+has its actual candidate column;866 HTML and866 PNG hashes are verified. The full83,939,696-
+byte inventory has SHA-256 **f52dbcb03a9b164fbafb916a400c14e79c8d8405d1ae4a6b83a487e62064f44e**,
+losslessly stored as3,068,451 gzip bytes with SHA-256
+**94be7f7023736712219e4d0c6a5fa3c789ee72c43f5a5c97056d9c0452b8aa02**. Nine predeclared PNG/HTML
+examples are committed, and all536 W39 native panels select actual normal-repeat ordinal0
+with the complete seven-run protocol provenance; none is a synthetic median image.
+
+The first export run genuinely stalled after124 PNGs/125 HTMLs. Stack/FD evidence shows
+Python waiting for stdin EOF and Node's synchronous process runner waiting on its pipe,
+not expensive native reading or PNG computation. All249 existing files were hashed and
+preserved before stopping only that job. The additive recovery in **`b5054fca`** uses regular
+file descriptors, bounded child execution and per-cell checkpoints through unchanged G0
+rendering/export and native-reader code. Independent review closed a provenance gap by
+checking embedded Shipped display pixels against the current web capture and labelling
+recovered/current-byte provenance separately. A metadata-only preparation also refused an
+old authority pathname before any pixel read; only the new wrapper was corrected to the
+actual sealed authority-v2. Fourteen tests, strict TypeScript and the unchanged original
+seal plus the new44-pin recovery declaration pass before continuation. The pending125th
+PNG and741 remaining admitted cells are produced without regenerating any completed PNG or
+rereading native inputs for the125 preserved HTMLs. Every preserved hash still matches.
+
+The G1 owner **directly inspected all nine static sheets**, recorded separately in
+`sheets/owner-eye-reading.json`; the sheet worker's own reading is also retained. The
+light-inactive uniform example02 visibly improves body hue/level and nearly removes the
+amplified interior difference, while Apple's dark contour remains absent. Gradient example05
+reduces interior difference bands without closing the contour or identifying a spatial law.
+The active/dark controls and frozen26.5 example remain visually unchanged, with their existing
+chroma, rim, contour and body-structure gaps. Visual identity here is an observation; the
+machine byte identities are independently established in §15, not inferred by looking.
+
+**Photo-body texture is a named trade, not silently accepted.**
+[Sheet06](../../../packages/calibration/results/2026-09-27-w41-g1-identification/sheets/examples/06__canonical__apple-macos-27.0-1x-light-standard-glass0.5__photo__rrect-md__inactive.png)
+shows the1x light-inactive candidate removing the shipped body's broad hue/level band,
+especially across the green/yellow region, but introducing a mottled pattern at the backdrop's
+texture period that the smoother native body does not show. On sheet07's2x small photo, some
+local amplified residual patches are brighter than shipped: this is **not** a blanket photo
+improvement. The parent independently viewed02/06/07 and concurred in retaining E3 for the one
+exposure within its uniform-body claim, not in declaring a whole-material closure.
+
+**Mechanism hypothesis, not tested now:** `body_e3_codes` computes encoded luma per pixel and
+interpolates `g(L)` at63/93/118 on the existing post-refraction/blur backdrop. Local luma
+variation can therefore become chroma variation through the gain, whereas Apple's smoother
+body reads as if the law's argument were smoother—a larger blur scale or group-level luma.
+That is precisely the S1 blend-versus-blur question left as a finding under Decision Log6,
+not evidence identifying Apple's internal algorithm. The wave's Deferred list now names
+this exhibit and the next identifying spatial bed: independently varied group means and
+backdrop frequencies, with structured holdout declared before fitting. No new fit or test
+of that hypothesis is performed in G1.
+
+**Decision Log2 material:** retain light-inactive E3 for the one exposure once the remaining
+stroke verdicts are settled; retain the spatial finding and the proven stroke negatives
+without converting local searches into certificates. Uniform-body success is not permission
+to ignore the photo trade: **G2's M1/M2/L1 referees on the canonical bed remain load-bearing
+for any landing.** The affine CSS prototype establishes scoped reach, not production parity.
+Native holdout, G2 adoption, canonical publication and release are still pending; the eye
+read does not stand in for any of them.

@@ -271,3 +271,19 @@ No matrix/nativeglass/holdout/probe operations. Browserreleased11:08:46.880178Z,
 clean0foreign. W39derived536sheetmap43780f63 SHAa61b2be5cb95bdbdae35993f897ad6a043ce47a1ed980db7fe32c9c333e3e36b.
 Nineexamples+realrepeat0predeclared52b998c2; full866admitted+8UNMEASURED sheets
 renderingCPU/Pillowonly. Eyeverdictstillpending; do notinferitfrompassingmetrics.
+
+Step10 eyesheets COMPLETE64419bc3 (claims5.192 section20)
+874records=866renderedNative/Shipped/actualCandidate+8UNMEASURED;866HTML+866PNG,
+allhashesverified. Inventory83939696bytes SHAf52dbcb03a9b164fbafb916a400c14e79c8d8405d1ae4a6b83a487e62064f44e,
+losslessgzip3068451bytes SHA94be7f7023736712219e4d0c6a5fa3c789ee72c43f5a5c97056d9c0452b8aa02.
+EOFpipehang after124PNGs/125HTML preserved249files; reviewedadditivefileFDrecovery
+b5054fca resumedmissingonly,14tests/strictTS/originalseal+44pinsverified; preserved
+hashesidentical, no completednative rereads. All9declaredexamples actuallyviewed
+byowner (owner-eye-reading.json); worker'sindependentvisualnotesalso retained.
+LIuniformbodyimprovesvisibly, darkcontourstillmissing. Photo06removesbroadhue/level
+bandbutintroducesmottlingatbackdroptextureperiod; photo07hasbrighterlocalresidual
+patchesthanshipped. Hypothesisonly: per-pixelg(L) onblurredbackdropturnslocalLvariation
+intochromavariation; nativeargumentmaybesmoother(largerblur/groupmean), theS1question.
+No test/fitnow. WaveDeferred+interimDecisionLog2materialnamesnextspatialbed and
+load-bearingG2M1/M2/L1canonicalreferees. RetainLI E3foroneexposure, notwholematerial
+closure. Nativeholdoutstillsealed; remainingstrokefits/pre-exposurechainpending.

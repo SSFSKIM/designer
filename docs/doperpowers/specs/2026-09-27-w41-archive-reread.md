@@ -419,6 +419,20 @@ needed: the publisher, the generation store and the release-asset readers exist.
   calibration varies the group mean and the backdrop frequency, with the strip pinned before
   capture.
 
+
+- **Photo-body texture under the local E3 argument (G1 eye finding, §5.192.20).**
+  [Sheet06](../../../packages/calibration/results/2026-09-27-w41-g1-identification/sheets/examples/06__canonical__apple-macos-27.0-1x-light-standard-glass0.5__photo__rrect-md__inactive.png)
+  shows the light-inactive candidate removing the shipped body's broad hue/level band but
+  introducing mottling at the backdrop's texture period that the smoother native body does
+  not show; sheet07's2x small photo also has local residual patches brighter than shipped.
+  **Hypothesis only, not tested here:** per-pixel `g(L)` on vitrea's blurred backdrop turns
+  local luma variation into chroma variation, while the native body behaves as if the law's
+  argument were smoother (a larger blur scale or group-level luma). This is the S1 blend
+  question left as a finding under Decision Log6, not a newly identified Apple mechanism.
+  The next spatial wave needs independently varied group means/frequencies and structured
+  holdout. G2's M1/M2/L1 referees on the canonical bed remain load-bearing for any landing;
+  uniform-body survival is not permission to accept the photographic residual silently.
+
 ## Tracking Map
 
 | child | status |
@@ -440,6 +454,28 @@ the held-out cells at one code, G2 ships it through the identity table, the CSS 
 the canonical holdout once, the eye sheets and a release.
 
 ### Decision Log 2 — a law or the negative, per question (after G1; the user's)
+
+
+**G1 interim material, not a user ruling (§5.192.20; native holdout still sealed).**
+
+- **Body:** retain light-inactive E3 for the one exposure after all stroke candidates are
+  determined; its numerical and actual rendered uniform calval constraints and full
+  worsening veto pass. EH6 is not resolved from it at three codes; use the simpler E3.
+  This is not whole-material closure: the photo-body texture trade below and G2's canonical
+  M1/M2/L1 referees remain load-bearing before any landing.
+- **Spatial:** keep S0–S2 as a finding, with no leaf. Sheet06's new mottling and sheet07's
+  mixed local residuals give the next spatial wave a concrete question: does a smoother
+  argument for `g(L)`—a broader blur or group-level luma—remove texture-period chroma
+  modulation without losing the uniform-body gain? That mechanism is a hypothesis, not
+  tested now; the next declaration needs a structured held-out referee.
+- **Stroke:** accept the reviewed held-shadow, M0, M1 dark-inactive and CSS-width exclusions,
+  but do not call the remaining device-width/curvature local searches final negatives.
+  Their sealed starts and validation transfers are still running or pending, and all
+  survivors must share the same native exposure receipt.
+- **CSS reach:** the contrast-then-brightness standalone uniform-body projection meets the
+  measured bound; the saturate/plate route fails green by26 codes. Carry only that measured
+  affine feasibility to Decision Log4, not a production-parity claim: the fallback floor,
+  blur, geometry, policy/presence and tint contracts are unvalidated.
 
 ### Decision Log 3 — bounds and floors if a leaf lands (in G2; the user's)
 

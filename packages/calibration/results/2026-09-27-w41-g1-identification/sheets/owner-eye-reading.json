@@ -1,0 +1,65 @@
+{
+  "schema": "w41-g1-owner-eye-reading-1",
+  "recordedAt": "2026-09-27T12:33:27.572008+00:00",
+  "method": "Direct visual inspection of the nine predeclared static PNG sheets through image display; no new native read, browser capture, metric computation or fit.",
+  "recommendation": "Retain light-inactive E3 for the single exposure within its uniform-body claim; do not infer whole-material or structured-backdrop closure.",
+  "readings": [
+    {
+      "path": "sheets/examples/01__w39__apple-macos-27.0-1x-light-standard-glass0.5__factor-y1-c24-h120-colour__rest.png",
+      "sha256": "5f464c0b197aec8dc9753ed49a5256242915b9b924a897dc69f1119e3de84440",
+      "observation": "Light-active control: Candidate looks unchanged from Shipped; the native body hue/level, inner-edge treatment and dark contour remain different."
+    },
+    {
+      "path": "sheets/examples/02__w39__apple-macos-27.0-1x-light-standard-glass0.5__factor-y1-c24-h120-colour__inactive.png",
+      "sha256": "9f3d3aaa264f8dacdb8b062c133e8009f1f7f60925825b71a66ba6b99b7587de",
+      "observation": "Claimed light-inactive uniform body: Candidate visibly approaches native hue/level and the amplified interior difference nearly disappears. The native dark perimeter is still missing; the remaining bright difference outline is not a body closure."
+    },
+    {
+      "path": "sheets/examples/03__w39__apple-macos-27.0-1x-dark-standard-glass0.5__factor-y1-c24-h120-colour__rest.png",
+      "sha256": "c5d9fdd70beff1dd2fd43c41601c5e007d2ba5e7b62722bdac6103265b99e078",
+      "observation": "Dark-active control: Candidate looks unchanged from Shipped; the grey web body does not carry the native olive hue, and perimeter/rim differences remain."
+    },
+    {
+      "path": "sheets/examples/04__w39__apple-macos-27.0-1x-dark-standard-glass0.5__factor-y1-c24-h120-colour__inactive.png",
+      "sha256": "2dae75369ac7439aa5d729b01b0dd459151fca7da0ed0265cfbc15f45a4b7a8e",
+      "observation": "Dark-inactive control: Candidate looks unchanged from Shipped. The native dark contour and hue/level are still visibly different."
+    },
+    {
+      "path": "sheets/examples/05__w39__apple-macos-27.0-1x-light-standard-glass0.5__v90-c-c44__inactive.png",
+      "sha256": "473127fe3f3c95df9da1232ab22465c59a28c2394cd75fcf2fb210ec1ca679be",
+      "observation": "Light-inactive gradient diagnostic: Candidate reduces interior difference bands, but the native contour and structured residuals remain. This does not establish a spatial law."
+    },
+    {
+      "path": "sheets/examples/06__canonical__apple-macos-27.0-1x-light-standard-glass0.5__photo__rrect-md__inactive.png",
+      "sha256": "b78fc387d868bac814b9f762996ea8ef96d17acdfdac2b6208aad1931cb39b7f",
+      "observation": "Canonical 1x light-inactive photo diagnostic: broad colour/level matching improves, notably the right green/yellow region. Candidate still carries mottled structure against the smoother native body; perimeter differences remain."
+    },
+    {
+      "path": "sheets/examples/07__canonical__apple-macos-27.0-2x-light-standard-glass0.5__photo__rrect-sm__inactive.png",
+      "sha256": "4b10985b2dcac3c1642f830429c8f1ce178b74d68be9cea9fa55405a8c9c217c",
+      "observation": "Canonical 2x small photo diagnostic: changes are mixed locally. Some amplified difference patches appear brighter than Shipped, while colour placement changes. This is not a blanket photographic improvement or a G2 metric verdict."
+    },
+    {
+      "path": "sheets/examples/08__canonical__apple-macos-27.0-1x-dark-standard-glass0.5__dark-solid__capsule-button__rest.png",
+      "sha256": "87aed12fabc030ab82ec0542ada613b3ff872a28aa8c0ff8f1ec3fc56f1d8956",
+      "observation": "Canonical dark-active control: Candidate looks unchanged from Shipped; the native inner edge and the web perimeter/shadow treatment remain different."
+    },
+    {
+      "path": "sheets/examples/09__canonical__apple-macos-26.5-1x-light-standard__photo__rrect-md__rest.png",
+      "sha256": "46f544cbb59af9cce83479f045ab90ebeceda2736879db73e6641e1f858f83d9",
+      "observation": "Frozen macOS26.5 photo control: Candidate looks unchanged from Shipped. Existing muted chroma, structured interior and perimeter/shadow differences from native remain."
+    }
+  ],
+  "limitations": [
+    "Nine predeclared examples supplement the complete866-sheet inventory; not a per-pixel review of every cell.",
+    "No G2 M1/M2/L1, canonical holdout or production-CSS adoption claim.",
+    "Identity language here is visual; machine byte identities are separately established by capture/scoring evidence."
+  ],
+  "spatialMechanismHypothesis": {
+    "status": "hypothesis only; not tested or fitted in this gate",
+    "exhibit": "sheets/examples/06__canonical__apple-macos-27.0-1x-light-standard-glass0.5__photo__rrect-md__inactive.png",
+    "observation": "On the1x photo, E3 removes the broad shipped hue/level band but introduces visible mottling at the backdrop texture period; native is smoother. On the2x small photo, some local amplified residual patches are brighter than shipped.",
+    "mechanism": "The existing E3 shader evaluates L and interpolated g(L) per pixel on vitrea\u2019s blurred backdrop. A hypothesis is that local luma variation is amplified into chroma variation, whereas the native body behaves as if the law argument were smoother: a larger blur scale or group-level luma. This is the S1 blend versus blur question, not an identification of Apple\u2019s implementation.",
+    "followUp": "A separately declared spatial bed must vary group mean and backdrop frequency and carry structured holdout. G2\u2019s canonical M1/M2/L1 referees remain load-bearing before any landing."
+  }
+}
