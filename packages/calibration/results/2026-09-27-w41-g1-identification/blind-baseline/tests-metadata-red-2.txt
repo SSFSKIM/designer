@@ -1,0 +1,13 @@
+...F.
+======================================================================
+FAIL: test_seal_binds_metadata_and_rechecks_live_bytes (__main__.BlindTests.test_seal_binds_metadata_and_rechecks_live_bytes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/blind-baseline/test-blind.py", line 68, in test_seal_binds_metadata_and_rechecks_live_bytes
+    self.assertEqual(sealed['inputs'].get(str(path.relative_to(root))),record[key])
+AssertionError: None != 'ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356'
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.050s
+
+FAILED (failures=1)
