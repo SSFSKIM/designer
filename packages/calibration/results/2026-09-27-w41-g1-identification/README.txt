@@ -229,3 +229,26 @@ Parentconditionalruling thenexecuted: M1LIonly, DI+activeunobserveddummies retai
 M2bothinactivejoint. Original16seed4100vectors/fullbudgets/3rivals/max3parallelstarts.
 Reviewedwrapper+committedreceipt preflight829806d5; freshpartitionsrunning, nofinal
 M1LI/M2survival yet. Neutralratio screen pending2x, initial1xnondetermining, nostop.
+
+Complete600 web evidence and reviewed E3 calval survival (claims5.192 section15)
+Frozen10:47:44.843878Z, commita0d33bbd, SHAef6483f61264a33e20d7a3f23a64646ad29704d886b09b3655d92f584bbeb491.
+All4212files/600domainrecords and450unclaimedPNG+projectionidentities(incl48blind)
+verified. Publicblind64WEB only; nativeholdoutreads0. This isnotexposuremanifest.
+Calvalscoring46f5c167 independentlyreplayedclean: numerical138claimeduniform
+(136measured+2censoredconstraints) worst.832355; rendered130(128+2),worst1.0.
+Fourrenderedstructuredcells diagnosticdeepmax0, notspatialclaim.402identityPNGsexact.
+All246632admittedvetobins pass over5919168median/repeatchannel comparisons;
+43344populationdeficientexcluded. Worseningdeep0/interior1/exterior0; exact1 at
+LI2xv270-c-c44__inactive topstraight shell-1 bin12R, admittednot>1failure.
+Absoluteedgegapstill55.5/52codes1x/2x and48validation; unclaimeddeepworst125darkredR.
+Fullraw/reduction/24strata/independentproof undercandidate-e3/rendered-calval-1/.
+Oneexposurewaitsallstrokeverdicts/certificates; calvalsurvivalisnotholdoutclosure.
+
+CSSenvironmentdeviation (claims5.192 section16)
+UnpinnedCLI0.1.21 firstopenrefusedmissingChromium1246 afterfreshX6. Suggested
+install-browser command unexpectedlyopeneddefaultsessionbeforeargumenterror;
+closedatonce, butthatunintendedlaunchhadNOseparatefreshX6. Logs/hashespreserved,
+noexperimentalPNG/proof/nativepayloadrequested; zeroCSSPNGsthen. Parentruled
+recorddeviationandcontinuefirstempiricalproof withcachedCLI0.1.19/fullChromium1243,
+freshX6 andversion/hashrecord, unchangedpublic3. Install/downloadauthorization
+withdrawn; noinstall/download inwave. No retroactivegateorfailedpixelproofretry.

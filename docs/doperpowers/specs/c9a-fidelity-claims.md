@@ -40782,3 +40782,83 @@ colour departure; M2's neutral identity is stated by the declaration. Exact sign
 constraints use `max(1,bar)`, not a sum of allowances. The initial1x screen is nondetermining;
 a bounded same-eight-level2x screen is being checked separately, without pooling or fitting.
 No new rejection or budget action is inferred from that pending screen.
+
+### 15. The light-inactive E3 candidate survives the actual calval render and complete veto
+
+The complete600 web predictions are frozen at **10:47:44.843878Z**, committed **`a0d33bbd`**.
+`candidate-capture/attempt-1/frozen.json` SHA-256
+**ef6483f61264a33e20d7a3f23a64646ad29704d886b09b3655d92f584bbeb491** binds4,212 files;
+`rendered.json` is **949d13c955e1b6345fd7fb4e8da0ebd433ad7be10baea8c0ec66156550d13934**.
+The independent completion audit verifies all600 actual producer/domain records and primary
+scratch captures against their snapshots, all eight completed batches, and **450 unclaimed
+PNG AND projection identities**, including48 blind web identities. The earlier536 checkpoint
+is unchanged. All64 held-out WEB predictions use public geometry/backdrops only: native
+held-out payload reads remain **zero**. This is a web-prediction freeze, not the final exposure
+manifest or a closure claim.
+
+The unchanged guarded scorer's536-cell calval read, committed **`46f5c167`**, has no claimed
+deep failure, veto failure or identity-byte failure. Its complete576 numerical /536 rendered
+raw memberships also pass the unchanged runner's claim-aware aggregate, without a receipt.
+
+| claimed light-inactive domain | cells | measured | censored constraints satisfied | worst deep error |
+| --- | ---: | ---: | ---: | ---: |
+| numerical uniform calval | 138 | 136 | 2 | 0.832355 code |
+| actual rendered uniform calval | 130 | 128 | 2 | 1.000000 code |
+| actual rendered structured calval, diagnostic only | 4 | not a uniform claim | not folded into closure | 0 code |
+
+The130 uniform rendered cells retain both scales and both roles separately; each stratum's
+maximum is1 code. The two censored cells meet constraints, never count as measured accuracy.
+The402 other-endpoint calval PNGs are byte-identical to shipped. Numerical structured and
+identity cells remain unclaimed, as do rendered structured and identity cells; a passing
+aggregate does not convert them into E3 passes.
+
+The W38 worsening veto passes **246,632 admitted bins**:536 deep,190,376 interior and55,720
+exterior, across **5,919,168 median/repeat/channel comparisons**. The43,344 population-deficient
+bins (34,744 interior /8,600 exterior) remain explicit exclusions. Worsening maxima are
+**0 deep /1 interior /0 exterior codes**. The exact boundary case is light-inactive2x,
+`v270-c-c44__inactive`, top straight, shell−1, bin12, R: worsening **exactly1**, not a rounded
+smaller value, and the rule rejects only worsening>1. All16 claimed hard-rail comparisons
+pass. Seven normal repeats remain seven even where their pixel hashes coincide.
+
+Independent reviewer-high streams the retained raw records and reproduces all24 strata,
+536 memberships, repeats, deep bars, rails, pass flags, PNG hashes and28 source witnesses,
+with no material finding and no new native read. The full score gzip is retained; the
+2,455,641,994-byte duplicate-detail admission JSON is losslessly compressed with original
+and compressed hashes plus round-trip verification. The original scorer summary, complete
+raw scores and exact per-stratum worst witnesses live under `candidate-e3/rendered-calval-1/`.
+The observed directory-creation-to-last-output interval is **28m41.466s**; final CPU time was
+not instrumented and is not invented.
+
+**Survival is not an edge repair.** The candidate's light-inactive absolute edge residual
+still reaches **55.5 codes** at1x `g255-c-c44__inactive`, arc bin0/shell0/R, **52** at2x, and
+**48** on validation's grey128 continuous rectangle side. These absolute edge scores are
+diagnostic for this body-only candidate; their worsening veto remains binding. The382 raw
+deep misses at unclaimed endpoints remain, worst **125 codes** on dark-inactive red/R,
+unchanged from shipped. Structured deep error0 on four cells establishes no spatial law;
+the missing structured holdout and the wider body/edge gaps remain future work.
+
+No exposure runs yet. The one receipt must bind every surviving wave candidate, so it waits
+until every remaining stroke model-endpoint has a fit/transfer verdict or a reviewed
+certificate. CSS reach and the actual canonical/W39 eye sheets also remain required. The
+reviewed E3 calval result is a candidate for that single exposure, not permission to spend a
+body-only receipt and forfeit a later stroke survivor's held-out test.
+
+### 16. CSS tooling recovery is recorded before any empirical proof
+
+The first intended CSS browser open passed fresh X6 but failed because an unpinned CLI
+wrapper resolved0.1.21, which expected absent Chromium1246. No proof, screenshot or native
+payload was requested. During environment diagnosis, the suggested command
+`playwright-cli install-browser chromium` unexpectedly opened a default Chrome session
+before rejecting its argument. The worker closed that exact session immediately. This
+unintended launch **had no separate fresh four-facts gate**; the record does not retrofit one.
+Original command/version/time/open/error/close logs and their hashes remain in
+`css-projection/cli/unexpected-launch-deviation.json`; the CSS scratch tree had zero PNGs.
+
+The parent ruled this an **environment-control deviation**, not a contaminated measurement
+or a failed pixel proof: no experimental pixels existed. The install-if-needed authorization
+was withdrawn entirely—**no browser installation/download in this wave**. Recovery uses the
+pinned, already-cached CLI0.1.19 with installed **full Chromium1243**, unchanged public-3 inputs,
+recorded tool/browser hashes and versions, and a fresh X6 check before each intended launch.
+Its empirical1x/2x proof will therefore be the first proof attempt; a failed proof will still
+stop measurement without a retry or waiver. The declaration and the candidate's source-pinned
+renderer are unchanged. CSS capture/reach is pending at this checkpoint.
