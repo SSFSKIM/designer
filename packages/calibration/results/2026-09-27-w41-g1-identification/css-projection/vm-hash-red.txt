@@ -1,0 +1,18 @@
+F
+======================================================================
+FAIL: test_generated_proof_hashes_text_in_browser_not_restricted_cli_vm (test_preparation.Preparation.test_generated_proof_hashes_text_in_browser_not_restricted_cli_vm)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/css-projection/test_preparation.py", line 51, in test_generated_proof_hashes_text_in_browser_not_restricted_cli_vm
+    self.assertEqual(run.returncode,0,run.stderr)
+AssertionError: 1 != 0 : ReferenceError: TextEncoder is not defined
+    at hashText (evalmachine.<anonymous>:8:37)
+    at evalmachine.<anonymous>:21:32
+    at async /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/css-projection/proof-vm-test.cjs:27:15
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.540s
+
+FAILED (failures=1)
+Prepared 130 public uniform calval cells; no browser/native reads

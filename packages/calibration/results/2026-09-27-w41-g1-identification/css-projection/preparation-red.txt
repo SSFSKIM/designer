@@ -1,0 +1,18 @@
+E
+======================================================================
+ERROR: test_preparation (unittest.loader._FailedTest.test_preparation)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_preparation
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/unittest/loader.py", line 137, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/css-projection/test_preparation.py", line 6, in <module>
+    import prepare as p
+ModuleNotFoundError: No module named 'prepare'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)

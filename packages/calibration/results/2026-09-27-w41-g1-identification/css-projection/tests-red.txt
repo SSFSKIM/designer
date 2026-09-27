@@ -1,0 +1,18 @@
+E
+======================================================================
+ERROR: test_projection (unittest.loader._FailedTest.test_projection)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_projection
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/unittest/loader.py", line 137, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/css-projection/test_projection.py", line 4, in <module>
+    import projection as p
+ModuleNotFoundError: No module named 'projection'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)

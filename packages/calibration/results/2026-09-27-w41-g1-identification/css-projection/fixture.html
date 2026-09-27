@@ -1,0 +1,58 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>W41 BODY-only CSS prototype — not the production tier</title>
+<style>
+  html,body { margin:0; width:320px; height:280px; overflow:hidden; }
+  #surface { position:absolute; }
+  .layer { position:absolute; inset:0; border-radius:inherit; pointer-events:none; }
+</style>
+<script>
+  const ready = Promise.all([
+    fetch('cells.json').then(r=>r.json()), fetch('proof-rows.json').then(r=>r.json())
+  ]);
+  const settle = () => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+  window.showCell = async (cell,route) => {
+    const [cells] = await ready;
+    const data = cells[cell];
+    if (!data || !['plate','affine'].includes(route)) throw new Error('Outside public scope');
+    document.body.replaceChildren();
+    document.body.style.background = `rgb(${data.rgb.join(',')})`;
+    const host = document.createElement('div'); host.id='surface';
+    Object.assign(host.style, {left:data.origin[0]+'px',top:data.origin[1]+'px',
+      width:data.size[0]+'px',height:data.size[1]+'px',borderRadius:data.radius+'px'});
+    const layer = document.createElement('div');layer.className='layer';
+    const filter = route==='affine'
+      ? `contrast(${data.affine.contrast}) brightness(${data.affine.brightness})`
+      : `saturate(${data.plate.saturation})`;
+    layer.style.backdropFilter=filter;host.append(layer);
+    if (route==='plate') {
+      const plate=document.createElement('div');plate.className='layer';
+      plate.style.background=`rgba(${data.plate.n},${data.plate.n},${data.plate.n},${data.plate.alpha})`;host.append(plate);
+    }
+    document.body.append(host);await settle();
+    window.observed={cell,route,dpr:devicePixelRatio,filter:getComputedStyle(layer).backdropFilter,
+      radius:getComputedStyle(host).borderRadius,bodyOnly:true,productionTier:false};
+  };
+  window.showProof = async () => {
+    const [,rows] = await ready;
+    document.body.replaceChildren();document.body.style.background='white';
+    for (const [i,row] of rows.entries()) {
+      const tile=document.createElement('div');
+      Object.assign(tile.style,{position:'absolute',left:64*(i%5)+'px',top:56*Math.floor(i/5)+'px',
+        width:'64px',height:'56px',background:`rgb(${row.rgb.join(',')})`});
+      const layer=document.createElement('div');layer.className='layer';
+      if (row.property==='filter') {
+        layer.style.background=`rgb(${row.rgb.join(',')})`;
+        layer.style.filter=row.filter;
+      } else layer.style.backdropFilter=row.filter;
+      tile.append(layer);
+      if (row.plateAlpha) {
+        const plate=document.createElement('div');plate.className='layer';
+        plate.style.background=`rgba(${row.plateRGB},${row.plateRGB},${row.plateRGB},${row.plateAlpha})`;
+        tile.append(plate);
+      }
+      document.body.append(tile);
+    }
+    await settle();
+  };
+</script>

@@ -1,0 +1,24 @@
+{
+  "browser": {
+    "browserName": "chromium",
+    "contextOptions": {
+      "colorScheme": "light",
+      "deviceScaleFactor": 2,
+      "reducedMotion": "reduce",
+      "viewport": {
+        "height": 280,
+        "width": 320
+      }
+    },
+    "isolated": true,
+    "launchOptions": {
+      "args": [
+        "--force-color-profile=srgb"
+      ],
+      "channel": "chromium",
+      "headless": true
+    }
+  },
+  "outputDir": "/Users/new/vitrea-w41/g1-captures/css-projection/cli",
+  "outputMode": "stdout"
+}

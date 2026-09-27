@@ -1,0 +1,5909 @@
+{
+  "adoption": false,
+  "archiveInventorySha256": "58329732f947d42cd5e1518962016191faaa79d89b7089c6dadf5724dde35f61",
+  "artifacts": {
+    "capture-1x.js": "d9e80af6031b52f12738cb00cedf2d151754ce6becd498e0070864e6021dbcf8",
+    "capture-2x.js": "23d1ca7482f05f0b791b75076300b54f67ba2b46f6e8ad1c6f745b38ad231ed3",
+    "cells.json": "1469bc2d3ea971a3a32b6dfb012de3eb281da82468ac430db8d2b182af6938f4",
+    "fixture.html": "5ec3041462fb9093d8ae4c005591d5e8f3db8f7bfdce40ae6ce62f623ab8f7f6",
+    "playwright-1x.json": "73f6332ab33c7b60c24002afdcad6628d2940f3bc1dae0aa8caa7432316f2dfb",
+    "playwright-2x.json": "6ee9637ed2e5dde323cdc346e698c556280f84de468f06e4171ce24d8c46e29e",
+    "proof-1x.js": "92acdf4c5013a201fb7a7840daf7627dcb7adebadfcad725a081c54a92112916",
+    "proof-2x.js": "d3ad43f171f04feeed7499b343fa478f1c1b46272cfb7fa275c20922b7d68b61",
+    "proof-rows.json": "6f0a5e8df10770e80700402f8e45f6ce864d258f4923387baaf620159376b276"
+  },
+  "browsersLaunched": 0,
+  "cells": {
+    "apple-macos-27.0-1x-light-standard-glass0.5/factor-y0-c12-h0-colour__inactive": {
+      "F": 0.6274304901960784,
+      "L": 0.24645176470588234,
+      "affine": {
+        "brightness": 1.726057976913626,
+        "contrast": 0.5383398714262381
+      },
+      "e3RGB": [
+        165.71385103858134,
+        158.280204403654,
+        160.13861606238584
+      ],
+      "g": 0.929205829365914,
+      "k": 0.39842607377385597,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.5055797461213564,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          74.4099742868831,
+          59.374897190806244,
+          63.13366646482546
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8793846370096103,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        69,
+        61,
+        63
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/factor-y0-c12-h120-colour__inactive": {
+      "F": 0.6278151470588235,
+      "L": 0.24733098039215684,
+      "affine": {
+        "brightness": 1.7252290608557241,
+        "contrast": 0.538639491829209
+      },
+      "e3RGB": [
+        159.09909420595048,
+        160.9576472152071,
+        154.4527116828089
+      ],
+      "g": 0.9292765046283107,
+      "k": 0.3979762781137067,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.5055132558330979,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          61.05917590475049,
+          64.81772561549725,
+          51.66280162788357
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8792748553733845,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        62,
+        64,
+        57
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/factor-y0-c12-h180-colour__inactive": {
+      "F": 0.6275969117647059,
+      "L": 0.2468321568627451,
+      "affine": {
+        "brightness": 1.7256838948316768,
+        "contrast": 0.538456569102158
+      },
+      "e3RGB": [
+        153.58647979137598,
+        161.94933225566916,
+        160.09092059693737
+      ],
+      "g": 0.929205829365914,
+      "k": 0.3982390327328814,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.5055509981890869,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          49.898708228037194,
+          66.8121865314909,
+          63.053635797390086
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.879275367050413,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        56,
+        65,
+        63
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/factor-y0-c12-h240-colour__inactive": {
+      "F": 0.6278425980392157,
+      "L": 0.2473937254901961,
+      "affine": {
+        "brightness": 1.7251755796633612,
+        "contrast": 0.538665634728187
+      },
+      "e3RGB": [
+        155.37403690181176,
+        160.94979369363332,
+        165.596257686818
+      ],
+      "g": 0.9292927986369324,
+      "k": 0.3979413905132144,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.5055085048245418,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          53.53144948750399,
+          64.8071879910412,
+          74.20363674398885
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8792897505895336,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        58,
+        64,
+        69
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/factor-y0-c12-h300-colour__inactive": {
+      "F": 0.6275770098039216,
+      "L": 0.24678666666666665,
+      "affine": {
+        "brightness": 1.7257286304208586,
+        "contrast": 0.5384426108404459
+      },
+      "e3RGB": [
+        161.0258302139239,
+        159.16741855519209,
+        165.6718593607535
+      ],
+      "g": 0.929205829365914,
+      "k": 0.3982614005274723,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.5055544376147373,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          64.9408386302936,
+          61.18226175124015,
+          74.33728082792722
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8792884395267244,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        64,
+        62,
+        69
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/factor-y0-c12-h60-colour__inactive": {
+      "F": 0.6275495588235294,
+      "L": 0.24672392156862746,
+      "affine": {
+        "brightness": 1.7257903346817982,
+        "contrast": 0.5384233592531049
+      },
+      "e3RGB": [
+        164.7505208246574,
+        159.17528584846193,
+        154.52925670163236
+      ],
+      "g": 0.929205829365914,
+      "k": 0.39829225265794216,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.505559180968465,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          72.46863547157582,
+          61.192796662159274,
+          51.79626432097883
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8793064682360905,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        68,
+        62,
+        57
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/factor-y0-c24-h0-colour__inactive": {
+      "F": 0.6271649019607843,
+      "L": 0.24584470588235294,
+      "affine": {
+        "brightness": 1.7266549656382209,
+        "contrast": 0.538153741110896
+      },
+      "e3RGB": [
+        171.36520207716268,
+        156.49790880730805,
+        160.2147321247717
+      ],
+      "g": 0.929205829365914,
+      "k": 0.39872456813615337,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.5056255641944032,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          85.82209167561,
+          55.74915061499882,
+          63.267385880151615
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8795588162881995,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        75,
+        59,
+        63
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/factor-y0-c24-h120-colour__inactive": {
+      "F": 0.6279342156862745,
+      "L": 0.24760313725490196,
+      "affine": {
+        "brightness": 1.7249970565833865,
+        "contrast": 0.5387529076318645
+      },
+      "e3RGB": [
+        158.13553725164974,
+        161.85292597121256,
+        148.84206545274267
+      ],
+      "g": 0.9293471798907073,
+      "k": 0.39782493834633964,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.505492642597878,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          59.11821359946146,
+          66.63557135747743,
+          40.32481920442147
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.879339439503998,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        61,
+        65,
+        51
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/factor-y0-c24-h180-colour__inactive": {
+      "F": 0.6274977450980391,
+      "L": 0.24660549019607844,
+      "affine": {
+        "brightness": 1.7259068014743226,
+        "contrast": 0.5383870256332253
+      },
+      "e3RGB": [
+        147.11045958275187,
+        163.83616451133832,
+        160.11934119387467
+      ],
+      "g": 0.929205829365914,
+      "k": 0.3983504860542043,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.5055681318955877,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          36.7965126772271,
+          70.62464150053826,
+          63.10727953980245
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8793404901839534,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        49,
+        67,
+        63
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/factor-y0-c24-h240-colour__inactive": {
+      "F": 0.627624362745098,
+      "L": 0.2468949019607843,
+      "affine": {
+        "brightness": 1.725622190570737,
+        "contrast": 0.5384758230644832
+      },
+      "e3RGB": [
+        149.86178918064246,
+        161.94146496239932,
+        171.23352325605848
+      ],
+      "g": 0.929205829365914,
+      "k": 0.3982081806024114,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.5055462534719004,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          42.37125293804132,
+          66.80159827686543,
+          85.59417161442246
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8792573337557017,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        52,
+        65,
+        75
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/factor-y0-c24-h300-colour__inactive": {
+      "F": 0.6278226960784313,
+      "L": 0.24734823529411765,
+      "affine": {
+        "brightness": 1.725214353935494,
+        "contrast": 0.5386466808375671
+      },
+      "e3RGB": [
+        162.81404951971356,
+        158.16764459231015,
+        171.1775783890397
+      ],
+      "g": 0.9292809854806816,
+      "k": 0.39796668422740616,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.5055119493847113,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          68.5736494921717,
+          59.177254732739364,
+          85.48716005914989
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8792789518864663,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        66,
+        61,
+        75
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/factor-y0-c24-h60-colour__inactive": {
+      "F": 0.6274030392156863,
+      "L": 0.24638901960784312,
+      "affine": {
+        "brightness": 1.726119681174566,
+        "contrast": 0.5383206271847969
+      },
+      "e3RGB": [
+        169.43854164931486,
+        158.28807169692388,
+        148.99601340326475
+      ],
+      "g": 0.929205829365914,
+      "k": 0.398456925904326,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.5055844852599876,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          81.93824855027353,
+          59.38541673176878,
+          40.59139021634813
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8794026515420643,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        73,
+        61,
+        51
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/factor-y1-c12-h0-colour__inactive": {
+      "F": 0.6792658333333333,
+      "L": 0.36493254901960787,
+      "affine": {
+        "brightness": 1.6177821609090979,
+        "contrast": 0.5932241890316458
+      },
+      "e3RGB": [
+        179.87526897894298,
+        171.23790138502653,
+        173.15731640589684
+      ],
+      "g": 0.9597075104351631,
+      "k": 0.3290373252369674,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.4949604704641532,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          106.24691917157432,
+          89.14455967536897,
+          92.94508400785904
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.9002621662450383,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        100,
+        91,
+        93
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/factor-y1-c12-h120-colour__inactive": {
+      "F": 0.6792857352941176,
+      "L": 0.3649780392156863,
+      "affine": {
+        "brightness": 1.6177319629676896,
+        "contrast": 0.5932364452640148
+      },
+      "e3RGB": [
+        172.19156193029747,
+        174.11095704849933,
+        167.3930741347928
+      ],
+      "g": 0.959697559100929,
+      "k": 0.32901720193338035,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.4949556322276333,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          91.03676004374168,
+          94.83720856011239,
+          81.535638752815
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.9002242581853388,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        92,
+        94,
+        87
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/factor-y1-c12-h180-colour__inactive": {
+      "F": 0.6790675,
+      "L": 0.3644792156862745,
+      "affine": {
+        "brightness": 1.6182531145966303,
+        "contrast": 0.5930458126537742
+      },
+      "e3RGB": [
+        166.49979542391378,
+        175.13707952474294,
+        173.21768305789197
+      ],
+      "g": 0.9596982334254599,
+      "k": 0.3292774405855852,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.4950086481489938,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          79.75195032611954,
+          96.8557761028776,
+          93.05492593026469
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.9004250863064511,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        86,
+        95,
+        93
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/factor-y1-c12-h240-colour__inactive": {
+      "F": 0.678948431372549,
+      "L": 0.3642070588235294,
+      "affine": {
+        "brightness": 1.6185181598590122,
+        "contrast": 0.5929050300224347
+      },
+      "e3RGB": [
+        167.49614927641997,
+        174.21354218356143,
+        179.0116799743767
+      ],
+      "g": 0.9596275581630633,
+      "k": 0.32944530084797435,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.4950375384266181,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          81.71558847449681,
+          95.01834544817586,
+          104.52031471508947
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.900393853382721,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        87,
+        94,
+        99
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/factor-y1-c12-h300-colour__inactive": {
+      "F": 0.6791714705882353,
+      "L": 0.36471686274509807,
+      "affine": {
+        "brightness": 1.618020193036117,
+        "contrast": 0.5931660789007148
+      },
+      "e3RGB": [
+        174.14579238034366,
+        172.22628299337285,
+        179.9043205412561
+      ],
+      "g": 0.9597546934854113,
+      "k": 0.3291327497753529,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.49498340094767074,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          94.89864099337693,
+          91.09775723911456,
+          106.30129225616398
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.9004418771311766,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        94,
+        92,
+        100
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/factor-y1-c12-h60-colour__inactive": {
+      "F": 0.6793849019607844,
+      "L": 0.36520470588235293,
+      "affine": {
+        "brightness": 1.6174818657322465,
+        "contrast": 0.5932975165505465
+      },
+      "e3RGB": [
+        178.87897062173357,
+        172.16143480370215,
+        167.36319493367975
+      ],
+      "g": 0.9596479740044863,
+      "k": 0.3289169458638801,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.49493151412714187,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          104.28230743051377,
+          90.9820600265955,
+          81.48188330951103
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.9000353434168933,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        99,
+        92,
+        87
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/factor-y1-c24-h0-colour__inactive": {
+      "F": 0.6791241176470588,
+      "L": 0.3646086274509804,
+      "affine": {
+        "brightness": 1.6181270574380928,
+        "contrast": 0.5931127814757279
+      },
+      "e3RGB": [
+        185.67696526726465,
+        169.36152399035453,
+        174.16018318944575
+      ],
+      "g": 0.9597318398182422,
+      "k": 0.3291976088099254,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.4949949020150001,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          117.72282710718859,
+          85.4153487430895,
+          94.91754826194219
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.900439903770534,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        106,
+        89,
+        94
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/factor-y1-c24-h120-colour__inactive": {
+      "F": 0.679280931372549,
+      "L": 0.3649670588235293,
+      "affine": {
+        "brightness": 1.6177440795463793,
+        "contrast": 0.5932334868542535
+      },
+      "e3RGB": [
+        171.23332156029338,
+        175.07212140488187,
+        160.676621987675
+      ],
+      "g": 0.9596999611471234,
+      "k": 0.32902205919962796,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.4949568001412927,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          89.13831731105878,
+          96.73925094537452,
+          68.23574981669049
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.9002334085789345,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        91,
+        95,
+        80
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/factor-y1-c24-h180-colour__inactive": {
+      "F": 0.6786035784313725,
+      "L": 0.3634188235294118,
+      "affine": {
+        "brightness": 1.6192853640442304,
+        "contrast": 0.5924977066942394
+      },
+      "e3RGB": [
+        158.9674521139916,
+        177.1964865429069,
+        173.35879508418788
+      ],
+      "g": 0.9594228646797531,
+      "k": 0.3299312496822386,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.49512107261708066,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          64.7970587027444,
+          100.90281285534287,
+          93.30160145479582
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.9003028501367627,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        78,
+        97,
+        93
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/factor-y1-c24-h240-colour__inactive": {
+      "F": 0.6787301960784313,
+      "L": 0.3637082352941176,
+      "affine": {
+        "brightness": 1.619003749128636,
+        "contrast": 0.5926471889338936
+      },
+      "e3RGB": [
+        161.80632004695588,
+        175.23929233807917,
+        184.83427254602438
+      ],
+      "g": 0.9594980207945207,
+      "k": 0.3297528641670576,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.4950904258990819,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          70.43185183843832,
+          97.03656084013058,
+          116.03992441276787
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.9003363572637315,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        81,
+        95,
+        105
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/factor-y1-c24-h300-colour__inactive": {
+      "F": 0.6794171568627451,
+      "L": 0.36527843137254895,
+      "affine": {
+        "brightness": 1.6174005289160647,
+        "contrast": 0.5933173810838034
+      },
+      "e3RGB": [
+        175.99016428842702,
+        171.19200505852686,
+        185.5864827482274
+      ],
+      "g": 0.9596318459800379,
+      "k": 0.3288843414680133,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.49492366577285707,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          98.56942544742334,
+          89.06955601235622,
+          117.56916431755764
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8999738870134277,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        96,
+        91,
+        106
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/factor-y1-c24-h60-colour__inactive": {
+      "F": 0.6791145098039215,
+      "L": 0.3645866666666666,
+      "affine": {
+        "brightness": 1.6181484501814705,
+        "contrast": 0.5931014158852942
+      },
+      "e3RGB": [
+        183.7603631806297,
+        171.28392340073177,
+        160.7269358946643
+      ],
+      "g": 0.9597261369152246,
+      "k": 0.3292111566331229,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.4949972350867491,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          113.92552135915294,
+          89.21983527832303,
+          68.31502397915928
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.9004373908330696,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        104,
+        91,
+        80
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c12-h0-colour__inactive": {
+      "F": 0.7198408496732026,
+      "L": 0.4601670588235294,
+      "affine": {
+        "brightness": 1.514477942552217,
+        "contrast": 0.6199325815594283
+      },
+      "e3RGB": [
+        190.74875212380465,
+        181.36000991739257,
+        184.17663257931622
+      ],
+      "g": 0.9388742206412075,
+      "k": 0.28780186095550475,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.4810262046694669,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          131.1928326328711,
+          113.10185715224516,
+          118.52914979643295
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.809097548062597,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        125,
+        115,
+        118
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c12-h120-colour__inactive": {
+      "F": 0.7205630718954248,
+      "L": 0.46190039215686274,
+      "affine": {
+        "brightness": 1.5126387298017938,
+        "contrast": 0.6204356810399231
+      },
+      "e3RGB": [
+        182.06874508407142,
+        184.88423020554723,
+        177.3762698816117
+      ],
+      "g": 0.9384950404919401,
+      "k": 0.28707184465492686,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.48069665163919884,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          114.55911352619626,
+          119.98077146536224,
+          105.52301696091959
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8072193130553305,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        116,
+        119,
+        111
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c12-h180-colour__inactive": {
+      "F": 0.7203552287581699,
+      "L": 0.461401568627451,
+      "affine": {
+        "brightness": 1.5131677541837028,
+        "contrast": 0.6202908827682502
+      },
+      "e3RGB": [
+        176.5033158230886,
+        185.88935744327915,
+        183.07354495722197
+      ],
+      "g": 0.9386041620190595,
+      "k": 0.2872817960823217,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.4807917087148003,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          103.81740228637128,
+          121.89500577948432,
+          116.47172473155041
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8077603493113072,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        110,
+        120,
+        117
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c12-h240-colour__inactive": {
+      "F": 0.7207071895424836,
+      "L": 0.4622462745098039,
+      "affine": {
+        "brightness": 1.5122720341201172,
+        "contrast": 0.6205360906398125
+      },
+      "e3RGB": [
+        178.2691840217443,
+        184.838119654002,
+        189.5302165341861
+      ],
+      "g": 0.9384193760368148,
+      "k": 0.2869263290416512,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.48063063588648586,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          107.2646330532497,
+          119.91254046971794,
+          128.94676005290953
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8068439166383183,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        112,
+        119,
+        124
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c12-h300-colour__inactive": {
+      "F": 0.7208016339869281,
+      "L": 0.4624729411764706,
+      "affine": {
+        "brightness": 1.5120317846595408,
+        "contrast": 0.6206018950531927
+      },
+      "e3RGB": [
+        184.8079093210983,
+        182.93116973921755,
+        189.49975827580016
+      ],
+      "g": 0.9383697909403721,
+      "k": 0.2868309968595844,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.48058732778188756,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          119.86305964603916,
+          116.24986404596596,
+          128.89604864622214
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.806597800036597,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        119,
+        117,
+        124
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c12-h60-colour__inactive": {
+      "F": 0.719836274509804,
+      "L": 0.4601560784313726,
+      "affine": {
+        "brightness": 1.5144896020535574,
+        "contrast": 0.6199293949686688
+      },
+      "e3RGB": [
+        189.81135608242263,
+        182.30034310092344,
+        177.60595998748644
+      ],
+      "g": 0.9388766226874019,
+      "k": 0.2878064896830777,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.4810282855901707,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          129.3854323692262,
+          114.9125569254447,
+          105.86700977308128
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.80910943047269,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        124,
+        116,
+        111
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c24-h0-colour__inactive": {
+      "F": 0.7195879084967319,
+      "L": 0.45955999999999997,
+      "affine": {
+        "brightness": 1.5151227047290723,
+        "contrast": 0.6197564174505089
+      },
+      "e3RGB": [
+        196.46466942113955,
+        179.56254307048488,
+        184.25757816788897
+      ],
+      "g": 0.9390070194808151,
+      "k": 0.2880578426241286,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.48114112296782613,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          142.1794661543128,
+          109.60389098571724,
+          118.65266186588269
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8097541760330882,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        131,
+        113,
+        118
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c24-h120-colour__inactive": {
+      "F": 0.7205584967320261,
+      "L": 0.4618894117647058,
+      "affine": {
+        "brightness": 1.512650372648947,
+        "contrast": 0.6204324935276627
+      },
+      "e3RGB": [
+        181.13170448101408,
+        185.82419169370476,
+        170.8082326130946
+      ],
+      "g": 0.9384974425381345,
+      "k": 0.28707646505540635,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.4806987459875342,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          112.75347549490237,
+          121.78963163054311,
+          92.87393199649274
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8072312271281479,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        115,
+        120,
+        104
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c24-h180-colour__inactive": {
+      "F": 0.7199133986928105,
+      "L": 0.4603411764705882,
+      "affine": {
+        "brightness": 1.5142930702744395,
+        "contrast": 0.6199831125697516
+      },
+      "e3RGB": [
+        169.13204511817645,
+        187.9087677392075,
+        183.2145870839497
+      ],
+      "g": 0.9388361310515525,
+      "k": 0.28772846961144344,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.4809931958947678,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          89.55897803774226,
+          125.737160043279,
+          116.6926145418948
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8089091002768374,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        102,
+        122,
+        117
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c24-h240-colour__inactive": {
+      "F": 0.7201519607843136,
+      "L": 0.46091372549019605,
+      "affine": {
+        "brightness": 1.513685343967924,
+        "contrast": 0.6201492834959208
+      },
+      "e3RGB": [
+        171.8738865221607,
+        185.95454974466043,
+        195.3416585596603
+      ],
+      "g": 0.9387108814999846,
+      "k": 0.2874872312339698,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.48088450318985637,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          94.87617933671065,
+          122.00051546041048,
+          140.08340620954368
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8082890749133227,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        105,
+        120,
+        130
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c24-h300-colour__inactive": {
+      "F": 0.7196375816993464,
+      "L": 0.4596792156862745,
+      "affine": {
+        "brightness": 1.5149960593214202,
+        "contrast": 0.6197910115638916
+      },
+      "e3RGB": [
+        186.11964051256507,
+        181.42473581195443,
+        196.44843085390855
+      ],
+      "g": 0.9389809401221325,
+      "k": 0.28800755959964386,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.4811185754093309,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          122.25318713740111,
+          113.20506076765425,
+          142.15906515084424
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8096252739493768,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        120,
+        115,
+        131
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c24-h60-colour__inactive": {
+      "F": 0.7195787581699347,
+      "L": 0.4595380392156862,
+      "affine": {
+        "brightness": 1.5151460355027213,
+        "contrast": 0.6197500449266216
+      },
+      "e3RGB": [
+        194.58963726195674,
+        181.4434717319319,
+        171.11434167262667
+      ],
+      "g": 0.939011823573204,
+      "k": 0.28806710596475865,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.48114527538049046,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          138.5634772185643,
+          113.22658635828488,
+          93.31902925377959
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8097779185913885,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        129,
+        115,
+        104
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/g128-c-c44__inactive": {
+      "F": 0.7372549019607844,
+      "L": 0.5019607843137255,
+      "affine": {
+        "brightness": 1.470830155864668,
+        "contrast": 0.6379460271251264
+      },
+      "e3RGB": [
+        188.0,
+        188.0,
+        188.0
+      ],
+      "g": 0.9383102545096953,
+      "k": 0.2662599506774863,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.47244094488188987,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          128.0,
+          128.0,
+          128.0
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.7785880943691241,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        128,
+        128,
+        128
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/g128-c-capsule-circular-120x64__inactive": {
+      "F": 0.7372549019607844,
+      "L": 0.5019607843137255,
+      "affine": {
+        "brightness": 1.470830155864668,
+        "contrast": 0.6379460271251264
+      },
+      "e3RGB": [
+        188.0,
+        188.0,
+        188.0
+      ],
+      "g": 0.9383102545096953,
+      "k": 0.2662599506774863,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        108.0
+      ],
+      "plate": {
+        "alpha": 0.47244094488188987,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          128.0,
+          128.0,
+          128.0
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.7785880943691241,
+        "side": "white"
+      },
+      "radius": 32.0,
+      "rgb": [
+        128,
+        128,
+        128
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        64.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/g128-c-capsule-circular-120x96__inactive": {
+      "F": 0.7372549019607844,
+      "L": 0.5019607843137255,
+      "affine": {
+        "brightness": 1.470830155864668,
+        "contrast": 0.6379460271251264
+      },
+      "e3RGB": [
+        188.0,
+        188.0,
+        188.0
+      ],
+      "g": 0.9383102545096953,
+      "k": 0.2662599506774863,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        92.0
+      ],
+      "plate": {
+        "alpha": 0.47244094488188987,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          128.0,
+          128.0,
+          128.0
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.7785880943691241,
+        "side": "white"
+      },
+      "radius": 48.0,
+      "rgb": [
+        128,
+        128,
+        128
+      ],
+      "role": "validation",
+      "scale": 1,
+      "size": [
+        120.0,
+        96.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/g128-c-capsule-circular-96x96__inactive": {
+      "F": 0.7372549019607844,
+      "L": 0.5019607843137255,
+      "affine": {
+        "brightness": 1.470830155864668,
+        "contrast": 0.6379460271251264
+      },
+      "e3RGB": [
+        188.0,
+        188.0,
+        188.0
+      ],
+      "g": 0.9383102545096953,
+      "k": 0.2662599506774863,
+      "kind": "capsule-circular",
+      "origin": [
+        112.0,
+        92.0
+      ],
+      "plate": {
+        "alpha": 0.47244094488188987,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          128.0,
+          128.0,
+          128.0
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.7785880943691241,
+        "side": "white"
+      },
+      "radius": 48.0,
+      "rgb": [
+        128,
+        128,
+        128
+      ],
+      "role": "validation",
+      "scale": 1,
+      "size": [
+        96.0,
+        96.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/g128-c-rrect-120x44__inactive": {
+      "F": 0.7372549019607844,
+      "L": 0.5019607843137255,
+      "affine": {
+        "brightness": 1.470830155864668,
+        "contrast": 0.6379460271251264
+      },
+      "e3RGB": [
+        188.0,
+        188.0,
+        188.0
+      ],
+      "g": 0.9383102545096953,
+      "k": 0.2662599506774863,
+      "kind": "rrect",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.47244094488188987,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          128.0,
+          128.0,
+          128.0
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.7785880943691241,
+        "side": "white"
+      },
+      "radius": 22,
+      "rgb": [
+        128,
+        128,
+        128
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/g128-c-rrect-120x64__inactive": {
+      "F": 0.7372549019607844,
+      "L": 0.5019607843137255,
+      "affine": {
+        "brightness": 1.470830155864668,
+        "contrast": 0.6379460271251264
+      },
+      "e3RGB": [
+        188.0,
+        188.0,
+        188.0
+      ],
+      "g": 0.9383102545096953,
+      "k": 0.2662599506774863,
+      "kind": "rrect",
+      "origin": [
+        100.0,
+        108.0
+      ],
+      "plate": {
+        "alpha": 0.47244094488188987,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          128.0,
+          128.0,
+          128.0
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.7785880943691241,
+        "side": "white"
+      },
+      "radius": 22,
+      "rgb": [
+        128,
+        128,
+        128
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        64.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/g128-c-rrect-120x96__inactive": {
+      "F": 0.7372549019607844,
+      "L": 0.5019607843137255,
+      "affine": {
+        "brightness": 1.470830155864668,
+        "contrast": 0.6379460271251264
+      },
+      "e3RGB": [
+        188.0,
+        188.0,
+        188.0
+      ],
+      "g": 0.9383102545096953,
+      "k": 0.2662599506774863,
+      "kind": "rrect",
+      "origin": [
+        100.0,
+        92.0
+      ],
+      "plate": {
+        "alpha": 0.47244094488188987,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          128.0,
+          128.0,
+          128.0
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.7785880943691241,
+        "side": "white"
+      },
+      "radius": 22,
+      "rgb": [
+        128,
+        128,
+        128
+      ],
+      "role": "validation",
+      "scale": 1,
+      "size": [
+        120.0,
+        96.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/g255-c-c44__inactive": {
+      "F": 0.9409982174688056,
+      "L": 0.9999999999999999,
+      "affine": {
+        "brightness": 0.9436861804279162,
+        "contrast": 0.9943032694239697
+      },
+      "e3RGB": [
+        239.95454545454547,
+        239.95454545454547,
+        239.95454545454547
+      ],
+      "g": 0.9383102545096953,
+      "k": 0.002687962959110446,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.059001782531194265,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          255.0,
+          255.0,
+          255.0
+        ],
+        "n": 0.0,
+        "plate": 0.0,
+        "saturation": 0.9971434983518451,
+        "side": "black"
+      },
+      "radius": 22.0,
+      "rgb": [
+        255,
+        255,
+        255
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/green-colour__inactive": {
+      "F": 0.7668249554367201,
+      "L": 0.574243137254902,
+      "affine": {
+        "brightness": 1.3943237168469498,
+        "contrast": 0.6729500783588052
+      },
+      "e3RGB": [
+        88.16764459231018,
+        238.2972853138614,
+        88.16764459231018
+      ],
+      "g": 0.9383102545096953,
+      "k": 0.22800673116862724,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.4523281596452328,
+        "intermediateClips": true,
+        "intermediateRGB": [
+          -49.59819674200417,
+          224.52515534471496,
+          -49.59819674200417
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.7132709505419945,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        32,
+        192,
+        32
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-0-colour__inactive": {
+      "F": 0.6507171568627451,
+      "L": 0.299678431372549,
+      "affine": {
+        "brightness": 1.6791888657398677,
+        "contrast": 0.5615034803907247
+      },
+      "e3RGB": [
+        178.73894066884733,
+        159.88153282192152,
+        188.16764459231018
+      ],
+      "g": 0.9428703923462891,
+      "k": 0.36815923669678935,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.5012536257853535,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          102.09272784333476,
+          64.28311393562525,
+          120.99753479718947
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8904806953854747,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        90,
+        70,
+        100
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-1-colour__inactive": {
+      "F": 0.6838127450980392,
+      "L": 0.3753254901960784,
+      "affine": {
+        "brightness": 1.6063607128804351,
+        "contrast": 0.5960267616326946
+      },
+      "e3RGB": [
+        168.9072168780513,
+        178.4815566151724,
+        149.75853740380902
+      ],
+      "g": 0.9574339737121125,
+      "k": 0.3244633695841614,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.49383679029706457,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          84.90923873348147,
+          103.82475758903055,
+          47.07820102238328
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8915518855549094,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        90,
+        100,
+        70
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-2-colour__inactive": {
+      "F": 0.6679632352941176,
+      "L": 0.33909803921568626,
+      "affine": {
+        "brightness": 1.6426400740931428,
+        "contrast": 0.5802288147566704
+      },
+      "e3RGB": [
+        154.63295100926047,
+        173.69509307451796,
+        183.22616410714667
+      ],
+      "g": 0.9531071032628736,
+      "k": 0.34476648541513455,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.4976005755651812,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          55.23356510239737,
+          93.17577032427177,
+          112.14687293520896
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8971102610937198,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        70,
+        90,
+        100
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-3-colour__inactive": {
+      "F": 0.6751897058823529,
+      "L": 0.3556156862745098,
+      "affine": {
+        "brightness": 1.6268454852942427,
+        "contrast": 0.5884987294041483
+      },
+      "e3RGB": [
+        181.09439559662118,
+        171.52043058629582,
+        152.37250056564508
+      ],
+      "g": 0.9573965010325367,
+      "k": 0.334724492130853,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.49593699412115533,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          108.37303033679743,
+          89.37944243475937,
+          51.39226663068324
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8993587902038067,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        100,
+        90,
+        70
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-4-colour__inactive": {
+      "F": 0.6789950980392158,
+      "L": 0.3643137254901961,
+      "affine": {
+        "brightness": 1.6184142896159148,
+        "contrast": 0.5929601982230813
+      },
+      "e3RGB": [
+        151.16764459231024,
+        179.95730233164184,
+        170.36074975186463
+      ],
+      "g": 0.9596552579777202,
+      "k": 0.3293795158190973,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.4950262183837138,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          49.38970423256218,
+          106.401887414001,
+          87.3978263535214
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.9004061060479613,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        70,
+        100,
+        90
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-5-colour__inactive": {
+      "F": 0.6531259803921569,
+      "L": 0.3051843137254902,
+      "affine": {
+        "brightness": 1.6741809405368318,
+        "contrast": 0.5640371173381358
+      },
+      "e3RGB": [
+        187.48981464936787,
+        159.16080890128256,
+        178.04681273333944
+      ],
+      "g": 0.9443001916028435,
+      "k": 0.3649403744669942,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.5007682951607987,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          119.76470696052463,
+          63.01950133058603,
+          100.84963841721179
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8915068543312876,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        100,
+        70,
+        90
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/neutral-104-colour__inactive": {
+      "F": 0.6980392156862745,
+      "L": 0.4078431372549019,
+      "affine": {
+        "brightness": 1.571235540461382,
+        "contrast": 0.6048236951176081
+      },
+      "e3RGB": [
+        178.0,
+        178.0,
+        178.0
+      ],
+      "g": 0.9503204854819652,
+      "k": 0.31045752748970834,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.49006622516556286,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          104.0,
+          104.0,
+          104.0
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.863615497503594,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        104,
+        104,
+        104
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/neutral-128-colour__inactive": {
+      "F": 0.7372549019607844,
+      "L": 0.5019607843137255,
+      "affine": {
+        "brightness": 1.470830155864668,
+        "contrast": 0.6379460271251264
+      },
+      "e3RGB": [
+        188.0,
+        188.0,
+        188.0
+      ],
+      "g": 0.9383102545096953,
+      "k": 0.2662599506774863,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.47244094488188987,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          128.0,
+          128.0,
+          128.0
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.7785880943691241,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        128,
+        128,
+        128
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/neutral-150-colour__inactive": {
+      "F": 0.7725490196078432,
+      "L": 0.5882352941176471,
+      "affine": {
+        "brightness": 1.3795138766551518,
+        "contrast": 0.6801745675692483
+      },
+      "e3RGB": [
+        197.0,
+        197.0,
+        197.0
+      ],
+      "g": 0.9383102545096953,
+      "k": 0.22060181107272825,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.4476190476190477,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          150.0,
+          150.0,
+          150.0
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.6986651159227244,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        150,
+        150,
+        150
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/neutral-40-colour__inactive": {
+      "F": 0.5882352941176471,
+      "L": 0.15686274509803919,
+      "affine": {
+        "brightness": 1.8141608632903332,
+        "contrast": 0.5121959403757717
+      },
+      "e3RGB": [
+        150.0,
+        150.0,
+        150.0
+      ],
+      "g": 0.929205829365914,
+      "k": 0.4424775169622096,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.5116279069767442,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          40.00000000000001,
+          40.00000000000001,
+          40.00000000000001
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.9026595553683001,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        40,
+        40,
+        40
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/neutral-56-colour__inactive": {
+      "F": 0.615686274509804,
+      "L": 0.21960784313725487,
+      "affine": {
+        "brightness": 1.752456602350297,
+        "contrast": 0.5302304365881101
+      },
+      "e3RGB": [
+        157.0,
+        157.0,
+        157.0
+      ],
+      "g": 0.929205829365914,
+      "k": 0.4116253864921915,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.5075376884422111,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          56.0,
+          56.0,
+          56.0
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.886856735140989,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        56,
+        56,
+        56
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/neutral-72-colour__inactive": {
+      "F": 0.6431372549019608,
+      "L": 0.28235294117647064,
+      "affine": {
+        "brightness": 1.6947419773448393,
+        "contrast": 0.55369561960445
+      },
+      "e3RGB": [
+        164.0,
+        164.0,
+        164.0
+      ],
+      "g": 0.9383712092156216,
+      "k": 0.37818538406460883,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.5027322404371586,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          72.0,
+          72.0,
+          72.0
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8870541899610855,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        72,
+        72,
+        72
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/neutral-88-colour__inactive": {
+      "F": 0.6705882352941176,
+      "L": 0.34509803921568627,
+      "affine": {
+        "brightness": 1.636935498859406,
+        "contrast": 0.5832027092713924
+      },
+      "e3RGB": [
+        171.0,
+        171.0,
+        171.0
+      ],
+      "g": 0.9546652178373238,
+      "k": 0.34113514051104116,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.497005988023952,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          88.00000000000001,
+          88.00000000000001,
+          88.00000000000001
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8979653735575364,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        88,
+        88,
+        88
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/red-colour__inactive": {
+      "F": 0.6328705882352942,
+      "L": 0.25888627450980395,
+      "affine": {
+        "brightness": 1.7153108583408088,
+        "contrast": 0.5435033804268463
+      },
+      "e3RGB": [
+        255.0,
+        129.66965706430258,
+        129.66965706430258
+      ],
+      "g": 0.9322772499911048,
+      "k": 0.3915168041748519,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.5046247301358846,
+        "intermediateClips": true,
+        "intermediateRGB": [
+          303.0566083621441,
+          1.9427476732697766,
+          1.9427476732697766
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8819616293054646,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        192,
+        32,
+        32
+      ],
+      "role": "calibration",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/transfer-h150-colour__inactive": {
+      "F": 0.6795513235294117,
+      "L": 0.36558509803921574,
+      "affine": {
+        "brightness": 1.6170622534099213,
+        "contrast": 0.593400011804044
+      },
+      "e3RGB": [
+        166.35349975892015,
+        175.94914736153333,
+        167.31306451918147
+      ],
+      "g": 0.9595647602613213,
+      "k": 0.32874874657430003,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.4948910003844826,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          79.5022351494781,
+          98.49941716349348,
+          81.40195335087964
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.899718201401539,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        86,
+        96,
+        87
+      ],
+      "role": "validation",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/transfer-h210-colour__inactive": {
+      "F": 0.6794549019607843,
+      "L": 0.3653647058823529,
+      "affine": {
+        "brightness": 1.6173053535748565,
+        "contrast": 0.5933406271356433
+      },
+      "e3RGB": [
+        162.544042320217,
+        175.97862393885615,
+        177.89784988437603
+      ],
+      "g": 0.9596129727599386,
+      "k": 0.32884619040745894,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.494914479213011,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          71.95529428161595,
+          98.55392177286991,
+          102.35372570019193
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8999019636609988,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        82,
+        96,
+        98
+      ],
+      "role": "validation",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/transfer-h270-colour__inactive": {
+      "F": 0.6790702450980393,
+      "L": 0.3644854901960784,
+      "affine": {
+        "brightness": 1.6182470031356782,
+        "contrast": 0.593049059239233
+      },
+      "e3RGB": [
+        169.37804818098556,
+        173.21684763229084,
+        183.77354612338038
+      ],
+      "g": 0.9596998628263221,
+      "k": 0.32927357015467806,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.49500798179890687,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          85.45232232737985,
+          93.05402554831402,
+          113.95870940588294
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.9004258052335383,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        89,
+        93,
+        104
+      ],
+      "role": "validation",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/transfer-h30-colour__inactive": {
+      "F": 0.678878431372549,
+      "L": 0.3640470588235294,
+      "affine": {
+        "brightness": 1.6186739430638062,
+        "contrast": 0.5928222991128067
+      },
+      "e3RGB": [
+        183.83065654226996,
+        170.3964524240949,
+        168.47728040721273
+      ],
+      "g": 0.9595860084410779,
+      "k": 0.32954396731136415,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.49505451137092393,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          114.04999073448371,
+          87.44473448266757,
+          83.64398358955097
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.900375446558297,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        104,
+        90,
+        88
+      ],
+      "role": "validation",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/transfer-h330-colour__inactive": {
+      "F": 0.6787820098039216,
+      "L": 0.3638266666666667,
+      "affine": {
+        "brightness": 1.6188884832502342,
+        "contrast": 0.5927083833528504
+      },
+      "e3RGB": [
+        180.02124028167052,
+        170.42595252431258,
+        179.0617115059347
+      ],
+      "g": 0.9595287757357942,
+      "k": 0.32967985375722,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.49507787679026927,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          106.50232797024718,
+          87.49882759604726,
+          104.6019779328272
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.900350037419993,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        100,
+        90,
+        99
+      ],
+      "role": "validation",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5/transfer-h90-colour__inactive": {
+      "F": 0.6792630882352941,
+      "L": 0.36492627450980386,
+      "affine": {
+        "brightness": 1.6177890849051897,
+        "contrast": 0.5932224985244181
+      },
+      "e3RGB": [
+        176.9969873929055,
+        173.15815186077356,
+        162.6013541474107
+      ],
+      "g": 0.9597088830329886,
+      "k": 0.3290401009361005,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.49496113775272665,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          100.54705353549332,
+          92.94598395631228,
+          72.04304261356444
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.9002673947952606,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        97,
+        93,
+        82
+      ],
+      "role": "validation",
+      "scale": 1,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/factor-y0-c12-h0-colour__inactive": {
+      "F": 0.6274304901960784,
+      "L": 0.24645176470588234,
+      "affine": {
+        "brightness": 1.726057976913626,
+        "contrast": 0.5383398714262381
+      },
+      "e3RGB": [
+        165.71385103858134,
+        158.280204403654,
+        160.13861606238584
+      ],
+      "g": 0.929205829365914,
+      "k": 0.39842607377385597,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.5055797461213564,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          74.4099742868831,
+          59.374897190806244,
+          63.13366646482546
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8793846370096103,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        69,
+        61,
+        63
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/factor-y0-c12-h120-colour__inactive": {
+      "F": 0.6278151470588235,
+      "L": 0.24733098039215684,
+      "affine": {
+        "brightness": 1.7252290608557241,
+        "contrast": 0.538639491829209
+      },
+      "e3RGB": [
+        159.09909420595048,
+        160.9576472152071,
+        154.4527116828089
+      ],
+      "g": 0.9292765046283107,
+      "k": 0.3979762781137067,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.5055132558330979,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          61.05917590475049,
+          64.81772561549725,
+          51.66280162788357
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8792748553733845,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        62,
+        64,
+        57
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/factor-y0-c12-h180-colour__inactive": {
+      "F": 0.6275969117647059,
+      "L": 0.2468321568627451,
+      "affine": {
+        "brightness": 1.7256838948316768,
+        "contrast": 0.538456569102158
+      },
+      "e3RGB": [
+        153.58647979137598,
+        161.94933225566916,
+        160.09092059693737
+      ],
+      "g": 0.929205829365914,
+      "k": 0.3982390327328814,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.5055509981890869,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          49.898708228037194,
+          66.8121865314909,
+          63.053635797390086
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.879275367050413,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        56,
+        65,
+        63
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/factor-y0-c12-h240-colour__inactive": {
+      "F": 0.6278425980392157,
+      "L": 0.2473937254901961,
+      "affine": {
+        "brightness": 1.7251755796633612,
+        "contrast": 0.538665634728187
+      },
+      "e3RGB": [
+        155.37403690181176,
+        160.94979369363332,
+        165.596257686818
+      ],
+      "g": 0.9292927986369324,
+      "k": 0.3979413905132144,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.5055085048245418,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          53.53144948750399,
+          64.8071879910412,
+          74.20363674398885
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8792897505895336,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        58,
+        64,
+        69
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/factor-y0-c12-h300-colour__inactive": {
+      "F": 0.6275770098039216,
+      "L": 0.24678666666666665,
+      "affine": {
+        "brightness": 1.7257286304208586,
+        "contrast": 0.5384426108404459
+      },
+      "e3RGB": [
+        161.0258302139239,
+        159.16741855519209,
+        165.6718593607535
+      ],
+      "g": 0.929205829365914,
+      "k": 0.3982614005274723,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.5055544376147373,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          64.9408386302936,
+          61.18226175124015,
+          74.33728082792722
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8792884395267244,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        64,
+        62,
+        69
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/factor-y0-c12-h60-colour__inactive": {
+      "F": 0.6275495588235294,
+      "L": 0.24672392156862746,
+      "affine": {
+        "brightness": 1.7257903346817982,
+        "contrast": 0.5384233592531049
+      },
+      "e3RGB": [
+        164.7505208246574,
+        159.17528584846193,
+        154.52925670163236
+      ],
+      "g": 0.929205829365914,
+      "k": 0.39829225265794216,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.505559180968465,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          72.46863547157582,
+          61.192796662159274,
+          51.79626432097883
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8793064682360905,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        68,
+        62,
+        57
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/factor-y0-c24-h0-colour__inactive": {
+      "F": 0.6271649019607843,
+      "L": 0.24584470588235294,
+      "affine": {
+        "brightness": 1.7266549656382209,
+        "contrast": 0.538153741110896
+      },
+      "e3RGB": [
+        171.36520207716268,
+        156.49790880730805,
+        160.2147321247717
+      ],
+      "g": 0.929205829365914,
+      "k": 0.39872456813615337,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.5056255641944032,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          85.82209167561,
+          55.74915061499882,
+          63.267385880151615
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8795588162881995,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        75,
+        59,
+        63
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/factor-y0-c24-h120-colour__inactive": {
+      "F": 0.6279342156862745,
+      "L": 0.24760313725490196,
+      "affine": {
+        "brightness": 1.7249970565833865,
+        "contrast": 0.5387529076318645
+      },
+      "e3RGB": [
+        158.13553725164974,
+        161.85292597121256,
+        148.84206545274267
+      ],
+      "g": 0.9293471798907073,
+      "k": 0.39782493834633964,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.505492642597878,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          59.11821359946146,
+          66.63557135747743,
+          40.32481920442147
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.879339439503998,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        61,
+        65,
+        51
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/factor-y0-c24-h180-colour__inactive": {
+      "F": 0.6274977450980391,
+      "L": 0.24660549019607844,
+      "affine": {
+        "brightness": 1.7259068014743226,
+        "contrast": 0.5383870256332253
+      },
+      "e3RGB": [
+        147.11045958275187,
+        163.83616451133832,
+        160.11934119387467
+      ],
+      "g": 0.929205829365914,
+      "k": 0.3983504860542043,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.5055681318955877,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          36.7965126772271,
+          70.62464150053826,
+          63.10727953980245
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8793404901839534,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        49,
+        67,
+        63
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/factor-y0-c24-h240-colour__inactive": {
+      "F": 0.627624362745098,
+      "L": 0.2468949019607843,
+      "affine": {
+        "brightness": 1.725622190570737,
+        "contrast": 0.5384758230644832
+      },
+      "e3RGB": [
+        149.86178918064246,
+        161.94146496239932,
+        171.23352325605848
+      ],
+      "g": 0.929205829365914,
+      "k": 0.3982081806024114,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.5055462534719004,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          42.37125293804132,
+          66.80159827686543,
+          85.59417161442246
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8792573337557017,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        52,
+        65,
+        75
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/factor-y0-c24-h300-colour__inactive": {
+      "F": 0.6278226960784313,
+      "L": 0.24734823529411765,
+      "affine": {
+        "brightness": 1.725214353935494,
+        "contrast": 0.5386466808375671
+      },
+      "e3RGB": [
+        162.81404951971356,
+        158.16764459231015,
+        171.1775783890397
+      ],
+      "g": 0.9292809854806816,
+      "k": 0.39796668422740616,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.5055119493847113,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          68.5736494921717,
+          59.177254732739364,
+          85.48716005914989
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8792789518864663,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        66,
+        61,
+        75
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/factor-y0-c24-h60-colour__inactive": {
+      "F": 0.6274030392156863,
+      "L": 0.24638901960784312,
+      "affine": {
+        "brightness": 1.726119681174566,
+        "contrast": 0.5383206271847969
+      },
+      "e3RGB": [
+        169.43854164931486,
+        158.28807169692388,
+        148.99601340326475
+      ],
+      "g": 0.929205829365914,
+      "k": 0.398456925904326,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.5055844852599876,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          81.93824855027353,
+          59.38541673176878,
+          40.59139021634813
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8794026515420643,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        73,
+        61,
+        51
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/factor-y1-c12-h0-colour__inactive": {
+      "F": 0.6792658333333333,
+      "L": 0.36493254901960787,
+      "affine": {
+        "brightness": 1.6177821609090979,
+        "contrast": 0.5932241890316458
+      },
+      "e3RGB": [
+        179.87526897894298,
+        171.23790138502653,
+        173.15731640589684
+      ],
+      "g": 0.9597075104351631,
+      "k": 0.3290373252369674,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.4949604704641532,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          106.24691917157432,
+          89.14455967536897,
+          92.94508400785904
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.9002621662450383,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        100,
+        91,
+        93
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/factor-y1-c12-h120-colour__inactive": {
+      "F": 0.6792857352941176,
+      "L": 0.3649780392156863,
+      "affine": {
+        "brightness": 1.6177319629676896,
+        "contrast": 0.5932364452640148
+      },
+      "e3RGB": [
+        172.19156193029747,
+        174.11095704849933,
+        167.3930741347928
+      ],
+      "g": 0.959697559100929,
+      "k": 0.32901720193338035,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.4949556322276333,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          91.03676004374168,
+          94.83720856011239,
+          81.535638752815
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.9002242581853388,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        92,
+        94,
+        87
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/factor-y1-c12-h180-colour__inactive": {
+      "F": 0.6790675,
+      "L": 0.3644792156862745,
+      "affine": {
+        "brightness": 1.6182531145966303,
+        "contrast": 0.5930458126537742
+      },
+      "e3RGB": [
+        166.49979542391378,
+        175.13707952474294,
+        173.21768305789197
+      ],
+      "g": 0.9596982334254599,
+      "k": 0.3292774405855852,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.4950086481489938,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          79.75195032611954,
+          96.8557761028776,
+          93.05492593026469
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.9004250863064511,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        86,
+        95,
+        93
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/factor-y1-c12-h240-colour__inactive": {
+      "F": 0.678948431372549,
+      "L": 0.3642070588235294,
+      "affine": {
+        "brightness": 1.6185181598590122,
+        "contrast": 0.5929050300224347
+      },
+      "e3RGB": [
+        167.49614927641997,
+        174.21354218356143,
+        179.0116799743767
+      ],
+      "g": 0.9596275581630633,
+      "k": 0.32944530084797435,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.4950375384266181,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          81.71558847449681,
+          95.01834544817586,
+          104.52031471508947
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.900393853382721,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        87,
+        94,
+        99
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/factor-y1-c12-h300-colour__inactive": {
+      "F": 0.6791714705882353,
+      "L": 0.36471686274509807,
+      "affine": {
+        "brightness": 1.618020193036117,
+        "contrast": 0.5931660789007148
+      },
+      "e3RGB": [
+        174.14579238034366,
+        172.22628299337285,
+        179.9043205412561
+      ],
+      "g": 0.9597546934854113,
+      "k": 0.3291327497753529,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.49498340094767074,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          94.89864099337693,
+          91.09775723911456,
+          106.30129225616398
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.9004418771311766,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        94,
+        92,
+        100
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/factor-y1-c12-h60-colour__inactive": {
+      "F": 0.6793849019607844,
+      "L": 0.36520470588235293,
+      "affine": {
+        "brightness": 1.6174818657322465,
+        "contrast": 0.5932975165505465
+      },
+      "e3RGB": [
+        178.87897062173357,
+        172.16143480370215,
+        167.36319493367975
+      ],
+      "g": 0.9596479740044863,
+      "k": 0.3289169458638801,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.49493151412714187,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          104.28230743051377,
+          90.9820600265955,
+          81.48188330951103
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.9000353434168933,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        99,
+        92,
+        87
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/factor-y1-c24-h0-colour__inactive": {
+      "F": 0.6791241176470588,
+      "L": 0.3646086274509804,
+      "affine": {
+        "brightness": 1.6181270574380928,
+        "contrast": 0.5931127814757279
+      },
+      "e3RGB": [
+        185.67696526726465,
+        169.36152399035453,
+        174.16018318944575
+      ],
+      "g": 0.9597318398182422,
+      "k": 0.3291976088099254,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.4949949020150001,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          117.72282710718859,
+          85.4153487430895,
+          94.91754826194219
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.900439903770534,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        106,
+        89,
+        94
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/factor-y1-c24-h120-colour__inactive": {
+      "F": 0.679280931372549,
+      "L": 0.3649670588235293,
+      "affine": {
+        "brightness": 1.6177440795463793,
+        "contrast": 0.5932334868542535
+      },
+      "e3RGB": [
+        171.23332156029338,
+        175.07212140488187,
+        160.676621987675
+      ],
+      "g": 0.9596999611471234,
+      "k": 0.32902205919962796,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.4949568001412927,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          89.13831731105878,
+          96.73925094537452,
+          68.23574981669049
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.9002334085789345,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        91,
+        95,
+        80
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/factor-y1-c24-h180-colour__inactive": {
+      "F": 0.6786035784313725,
+      "L": 0.3634188235294118,
+      "affine": {
+        "brightness": 1.6192853640442304,
+        "contrast": 0.5924977066942394
+      },
+      "e3RGB": [
+        158.9674521139916,
+        177.1964865429069,
+        173.35879508418788
+      ],
+      "g": 0.9594228646797531,
+      "k": 0.3299312496822386,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.49512107261708066,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          64.7970587027444,
+          100.90281285534287,
+          93.30160145479582
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.9003028501367627,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        78,
+        97,
+        93
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/factor-y1-c24-h240-colour__inactive": {
+      "F": 0.6787301960784313,
+      "L": 0.3637082352941176,
+      "affine": {
+        "brightness": 1.619003749128636,
+        "contrast": 0.5926471889338936
+      },
+      "e3RGB": [
+        161.80632004695588,
+        175.23929233807917,
+        184.83427254602438
+      ],
+      "g": 0.9594980207945207,
+      "k": 0.3297528641670576,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.4950904258990819,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          70.43185183843832,
+          97.03656084013058,
+          116.03992441276787
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.9003363572637315,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        81,
+        95,
+        105
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/factor-y1-c24-h300-colour__inactive": {
+      "F": 0.6794171568627451,
+      "L": 0.36527843137254895,
+      "affine": {
+        "brightness": 1.6174005289160647,
+        "contrast": 0.5933173810838034
+      },
+      "e3RGB": [
+        175.99016428842702,
+        171.19200505852686,
+        185.5864827482274
+      ],
+      "g": 0.9596318459800379,
+      "k": 0.3288843414680133,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.49492366577285707,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          98.56942544742334,
+          89.06955601235622,
+          117.56916431755764
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8999738870134277,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        96,
+        91,
+        106
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/factor-y1-c24-h60-colour__inactive": {
+      "F": 0.6791145098039215,
+      "L": 0.3645866666666666,
+      "affine": {
+        "brightness": 1.6181484501814705,
+        "contrast": 0.5931014158852942
+      },
+      "e3RGB": [
+        183.7603631806297,
+        171.28392340073177,
+        160.7269358946643
+      ],
+      "g": 0.9597261369152246,
+      "k": 0.3292111566331229,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.4949972350867491,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          113.92552135915294,
+          89.21983527832303,
+          68.31502397915928
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.9004373908330696,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        104,
+        91,
+        80
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/factor-y2-c12-h0-colour__inactive": {
+      "F": 0.7198408496732026,
+      "L": 0.4601670588235294,
+      "affine": {
+        "brightness": 1.514477942552217,
+        "contrast": 0.6199325815594283
+      },
+      "e3RGB": [
+        190.74875212380465,
+        181.36000991739257,
+        184.17663257931622
+      ],
+      "g": 0.9388742206412075,
+      "k": 0.28780186095550475,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.4810262046694669,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          131.1928326328711,
+          113.10185715224516,
+          118.52914979643295
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.809097548062597,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        125,
+        115,
+        118
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/factor-y2-c12-h120-colour__inactive": {
+      "F": 0.7205630718954248,
+      "L": 0.46190039215686274,
+      "affine": {
+        "brightness": 1.5126387298017938,
+        "contrast": 0.6204356810399231
+      },
+      "e3RGB": [
+        182.06874508407142,
+        184.88423020554723,
+        177.3762698816117
+      ],
+      "g": 0.9384950404919401,
+      "k": 0.28707184465492686,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.48069665163919884,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          114.55911352619626,
+          119.98077146536224,
+          105.52301696091959
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8072193130553305,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        116,
+        119,
+        111
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/factor-y2-c12-h180-colour__inactive": {
+      "F": 0.7203552287581699,
+      "L": 0.461401568627451,
+      "affine": {
+        "brightness": 1.5131677541837028,
+        "contrast": 0.6202908827682502
+      },
+      "e3RGB": [
+        176.5033158230886,
+        185.88935744327915,
+        183.07354495722197
+      ],
+      "g": 0.9386041620190595,
+      "k": 0.2872817960823217,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.4807917087148003,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          103.81740228637128,
+          121.89500577948432,
+          116.47172473155041
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8077603493113072,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        110,
+        120,
+        117
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/factor-y2-c12-h240-colour__inactive": {
+      "F": 0.7207071895424836,
+      "L": 0.4622462745098039,
+      "affine": {
+        "brightness": 1.5122720341201172,
+        "contrast": 0.6205360906398125
+      },
+      "e3RGB": [
+        178.2691840217443,
+        184.838119654002,
+        189.5302165341861
+      ],
+      "g": 0.9384193760368148,
+      "k": 0.2869263290416512,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.48063063588648586,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          107.2646330532497,
+          119.91254046971794,
+          128.94676005290953
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8068439166383183,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        112,
+        119,
+        124
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/factor-y2-c12-h300-colour__inactive": {
+      "F": 0.7208016339869281,
+      "L": 0.4624729411764706,
+      "affine": {
+        "brightness": 1.5120317846595408,
+        "contrast": 0.6206018950531927
+      },
+      "e3RGB": [
+        184.8079093210983,
+        182.93116973921755,
+        189.49975827580016
+      ],
+      "g": 0.9383697909403721,
+      "k": 0.2868309968595844,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.48058732778188756,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          119.86305964603916,
+          116.24986404596596,
+          128.89604864622214
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.806597800036597,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        119,
+        117,
+        124
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/factor-y2-c12-h60-colour__inactive": {
+      "F": 0.719836274509804,
+      "L": 0.4601560784313726,
+      "affine": {
+        "brightness": 1.5144896020535574,
+        "contrast": 0.6199293949686688
+      },
+      "e3RGB": [
+        189.81135608242263,
+        182.30034310092344,
+        177.60595998748644
+      ],
+      "g": 0.9388766226874019,
+      "k": 0.2878064896830777,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.4810282855901707,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          129.3854323692262,
+          114.9125569254447,
+          105.86700977308128
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.80910943047269,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        124,
+        116,
+        111
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/factor-y2-c24-h0-colour__inactive": {
+      "F": 0.7195879084967319,
+      "L": 0.45955999999999997,
+      "affine": {
+        "brightness": 1.5151227047290723,
+        "contrast": 0.6197564174505089
+      },
+      "e3RGB": [
+        196.46466942113955,
+        179.56254307048488,
+        184.25757816788897
+      ],
+      "g": 0.9390070194808151,
+      "k": 0.2880578426241286,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.48114112296782613,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          142.1794661543128,
+          109.60389098571724,
+          118.65266186588269
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8097541760330882,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        131,
+        113,
+        118
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/factor-y2-c24-h120-colour__inactive": {
+      "F": 0.7205584967320261,
+      "L": 0.4618894117647058,
+      "affine": {
+        "brightness": 1.512650372648947,
+        "contrast": 0.6204324935276627
+      },
+      "e3RGB": [
+        181.13170448101408,
+        185.82419169370476,
+        170.8082326130946
+      ],
+      "g": 0.9384974425381345,
+      "k": 0.28707646505540635,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.4806987459875342,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          112.75347549490237,
+          121.78963163054311,
+          92.87393199649274
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8072312271281479,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        115,
+        120,
+        104
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/factor-y2-c24-h180-colour__inactive": {
+      "F": 0.7199133986928105,
+      "L": 0.4603411764705882,
+      "affine": {
+        "brightness": 1.5142930702744395,
+        "contrast": 0.6199831125697516
+      },
+      "e3RGB": [
+        169.13204511817645,
+        187.9087677392075,
+        183.2145870839497
+      ],
+      "g": 0.9388361310515525,
+      "k": 0.28772846961144344,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.4809931958947678,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          89.55897803774226,
+          125.737160043279,
+          116.6926145418948
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8089091002768374,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        102,
+        122,
+        117
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/factor-y2-c24-h240-colour__inactive": {
+      "F": 0.7201519607843136,
+      "L": 0.46091372549019605,
+      "affine": {
+        "brightness": 1.513685343967924,
+        "contrast": 0.6201492834959208
+      },
+      "e3RGB": [
+        171.8738865221607,
+        185.95454974466043,
+        195.3416585596603
+      ],
+      "g": 0.9387108814999846,
+      "k": 0.2874872312339698,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.48088450318985637,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          94.87617933671065,
+          122.00051546041048,
+          140.08340620954368
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8082890749133227,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        105,
+        120,
+        130
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/factor-y2-c24-h300-colour__inactive": {
+      "F": 0.7196375816993464,
+      "L": 0.4596792156862745,
+      "affine": {
+        "brightness": 1.5149960593214202,
+        "contrast": 0.6197910115638916
+      },
+      "e3RGB": [
+        186.11964051256507,
+        181.42473581195443,
+        196.44843085390855
+      ],
+      "g": 0.9389809401221325,
+      "k": 0.28800755959964386,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.4811185754093309,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          122.25318713740111,
+          113.20506076765425,
+          142.15906515084424
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8096252739493768,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        120,
+        115,
+        131
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/factor-y2-c24-h60-colour__inactive": {
+      "F": 0.7195787581699347,
+      "L": 0.4595380392156862,
+      "affine": {
+        "brightness": 1.5151460355027213,
+        "contrast": 0.6197500449266216
+      },
+      "e3RGB": [
+        194.58963726195674,
+        181.4434717319319,
+        171.11434167262667
+      ],
+      "g": 0.939011823573204,
+      "k": 0.28806710596475865,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.48114527538049046,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          138.5634772185643,
+          113.22658635828488,
+          93.31902925377959
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8097779185913885,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        129,
+        115,
+        104
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-c44__inactive": {
+      "F": 0.7372549019607844,
+      "L": 0.5019607843137255,
+      "affine": {
+        "brightness": 1.470830155864668,
+        "contrast": 0.6379460271251264
+      },
+      "e3RGB": [
+        188.0,
+        188.0,
+        188.0
+      ],
+      "g": 0.9383102545096953,
+      "k": 0.2662599506774863,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.47244094488188987,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          128.0,
+          128.0,
+          128.0
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.7785880943691241,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        128,
+        128,
+        128
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-120x64__inactive": {
+      "F": 0.7372549019607844,
+      "L": 0.5019607843137255,
+      "affine": {
+        "brightness": 1.470830155864668,
+        "contrast": 0.6379460271251264
+      },
+      "e3RGB": [
+        188.0,
+        188.0,
+        188.0
+      ],
+      "g": 0.9383102545096953,
+      "k": 0.2662599506774863,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        108.0
+      ],
+      "plate": {
+        "alpha": 0.47244094488188987,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          128.0,
+          128.0,
+          128.0
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.7785880943691241,
+        "side": "white"
+      },
+      "radius": 32.0,
+      "rgb": [
+        128,
+        128,
+        128
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        64.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-120x96__inactive": {
+      "F": 0.7372549019607844,
+      "L": 0.5019607843137255,
+      "affine": {
+        "brightness": 1.470830155864668,
+        "contrast": 0.6379460271251264
+      },
+      "e3RGB": [
+        188.0,
+        188.0,
+        188.0
+      ],
+      "g": 0.9383102545096953,
+      "k": 0.2662599506774863,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        92.0
+      ],
+      "plate": {
+        "alpha": 0.47244094488188987,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          128.0,
+          128.0,
+          128.0
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.7785880943691241,
+        "side": "white"
+      },
+      "radius": 48.0,
+      "rgb": [
+        128,
+        128,
+        128
+      ],
+      "role": "validation",
+      "scale": 2,
+      "size": [
+        120.0,
+        96.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-96x96__inactive": {
+      "F": 0.7372549019607844,
+      "L": 0.5019607843137255,
+      "affine": {
+        "brightness": 1.470830155864668,
+        "contrast": 0.6379460271251264
+      },
+      "e3RGB": [
+        188.0,
+        188.0,
+        188.0
+      ],
+      "g": 0.9383102545096953,
+      "k": 0.2662599506774863,
+      "kind": "capsule-circular",
+      "origin": [
+        112.0,
+        92.0
+      ],
+      "plate": {
+        "alpha": 0.47244094488188987,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          128.0,
+          128.0,
+          128.0
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.7785880943691241,
+        "side": "white"
+      },
+      "radius": 48.0,
+      "rgb": [
+        128,
+        128,
+        128
+      ],
+      "role": "validation",
+      "scale": 2,
+      "size": [
+        96.0,
+        96.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-rrect-120x44__inactive": {
+      "F": 0.7372549019607844,
+      "L": 0.5019607843137255,
+      "affine": {
+        "brightness": 1.470830155864668,
+        "contrast": 0.6379460271251264
+      },
+      "e3RGB": [
+        188.0,
+        188.0,
+        188.0
+      ],
+      "g": 0.9383102545096953,
+      "k": 0.2662599506774863,
+      "kind": "rrect",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.47244094488188987,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          128.0,
+          128.0,
+          128.0
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.7785880943691241,
+        "side": "white"
+      },
+      "radius": 22,
+      "rgb": [
+        128,
+        128,
+        128
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-rrect-120x64__inactive": {
+      "F": 0.7372549019607844,
+      "L": 0.5019607843137255,
+      "affine": {
+        "brightness": 1.470830155864668,
+        "contrast": 0.6379460271251264
+      },
+      "e3RGB": [
+        188.0,
+        188.0,
+        188.0
+      ],
+      "g": 0.9383102545096953,
+      "k": 0.2662599506774863,
+      "kind": "rrect",
+      "origin": [
+        100.0,
+        108.0
+      ],
+      "plate": {
+        "alpha": 0.47244094488188987,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          128.0,
+          128.0,
+          128.0
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.7785880943691241,
+        "side": "white"
+      },
+      "radius": 22,
+      "rgb": [
+        128,
+        128,
+        128
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        64.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-rrect-120x96__inactive": {
+      "F": 0.7372549019607844,
+      "L": 0.5019607843137255,
+      "affine": {
+        "brightness": 1.470830155864668,
+        "contrast": 0.6379460271251264
+      },
+      "e3RGB": [
+        188.0,
+        188.0,
+        188.0
+      ],
+      "g": 0.9383102545096953,
+      "k": 0.2662599506774863,
+      "kind": "rrect",
+      "origin": [
+        100.0,
+        92.0
+      ],
+      "plate": {
+        "alpha": 0.47244094488188987,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          128.0,
+          128.0,
+          128.0
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.7785880943691241,
+        "side": "white"
+      },
+      "radius": 22,
+      "rgb": [
+        128,
+        128,
+        128
+      ],
+      "role": "validation",
+      "scale": 2,
+      "size": [
+        120.0,
+        96.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/g255-c-c44__inactive": {
+      "F": 0.9409982174688056,
+      "L": 0.9999999999999999,
+      "affine": {
+        "brightness": 0.9436861804279162,
+        "contrast": 0.9943032694239697
+      },
+      "e3RGB": [
+        239.95454545454547,
+        239.95454545454547,
+        239.95454545454547
+      ],
+      "g": 0.9383102545096953,
+      "k": 0.002687962959110446,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.059001782531194265,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          255.0,
+          255.0,
+          255.0
+        ],
+        "n": 0.0,
+        "plate": 0.0,
+        "saturation": 0.9971434983518451,
+        "side": "black"
+      },
+      "radius": 22.0,
+      "rgb": [
+        255,
+        255,
+        255
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/green-colour__inactive": {
+      "F": 0.7668249554367201,
+      "L": 0.574243137254902,
+      "affine": {
+        "brightness": 1.3943237168469498,
+        "contrast": 0.6729500783588052
+      },
+      "e3RGB": [
+        88.16764459231018,
+        238.2972853138614,
+        88.16764459231018
+      ],
+      "g": 0.9383102545096953,
+      "k": 0.22800673116862724,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.4523281596452328,
+        "intermediateClips": true,
+        "intermediateRGB": [
+          -49.59819674200417,
+          224.52515534471496,
+          -49.59819674200417
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.7132709505419945,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        32,
+        192,
+        32
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-0-colour__inactive": {
+      "F": 0.6507171568627451,
+      "L": 0.299678431372549,
+      "affine": {
+        "brightness": 1.6791888657398677,
+        "contrast": 0.5615034803907247
+      },
+      "e3RGB": [
+        178.73894066884733,
+        159.88153282192152,
+        188.16764459231018
+      ],
+      "g": 0.9428703923462891,
+      "k": 0.36815923669678935,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.5012536257853535,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          102.09272784333476,
+          64.28311393562525,
+          120.99753479718947
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8904806953854747,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        90,
+        70,
+        100
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-1-colour__inactive": {
+      "F": 0.6838127450980392,
+      "L": 0.3753254901960784,
+      "affine": {
+        "brightness": 1.6063607128804351,
+        "contrast": 0.5960267616326946
+      },
+      "e3RGB": [
+        168.9072168780513,
+        178.4815566151724,
+        149.75853740380902
+      ],
+      "g": 0.9574339737121125,
+      "k": 0.3244633695841614,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.49383679029706457,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          84.90923873348147,
+          103.82475758903055,
+          47.07820102238328
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8915518855549094,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        90,
+        100,
+        70
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-2-colour__inactive": {
+      "F": 0.6679632352941176,
+      "L": 0.33909803921568626,
+      "affine": {
+        "brightness": 1.6426400740931428,
+        "contrast": 0.5802288147566704
+      },
+      "e3RGB": [
+        154.63295100926047,
+        173.69509307451796,
+        183.22616410714667
+      ],
+      "g": 0.9531071032628736,
+      "k": 0.34476648541513455,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.4976005755651812,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          55.23356510239737,
+          93.17577032427177,
+          112.14687293520896
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8971102610937198,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        70,
+        90,
+        100
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-3-colour__inactive": {
+      "F": 0.6751897058823529,
+      "L": 0.3556156862745098,
+      "affine": {
+        "brightness": 1.6268454852942427,
+        "contrast": 0.5884987294041483
+      },
+      "e3RGB": [
+        181.09439559662118,
+        171.52043058629582,
+        152.37250056564508
+      ],
+      "g": 0.9573965010325367,
+      "k": 0.334724492130853,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.49593699412115533,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          108.37303033679743,
+          89.37944243475937,
+          51.39226663068324
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8993587902038067,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        100,
+        90,
+        70
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-4-colour__inactive": {
+      "F": 0.6789950980392158,
+      "L": 0.3643137254901961,
+      "affine": {
+        "brightness": 1.6184142896159148,
+        "contrast": 0.5929601982230813
+      },
+      "e3RGB": [
+        151.16764459231024,
+        179.95730233164184,
+        170.36074975186463
+      ],
+      "g": 0.9596552579777202,
+      "k": 0.3293795158190973,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.4950262183837138,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          49.38970423256218,
+          106.401887414001,
+          87.3978263535214
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.9004061060479613,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        70,
+        100,
+        90
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-5-colour__inactive": {
+      "F": 0.6531259803921569,
+      "L": 0.3051843137254902,
+      "affine": {
+        "brightness": 1.6741809405368318,
+        "contrast": 0.5640371173381358
+      },
+      "e3RGB": [
+        187.48981464936787,
+        159.16080890128256,
+        178.04681273333944
+      ],
+      "g": 0.9443001916028435,
+      "k": 0.3649403744669942,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.5007682951607987,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          119.76470696052463,
+          63.01950133058603,
+          100.84963841721179
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8915068543312876,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        100,
+        70,
+        90
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/neutral-104-colour__inactive": {
+      "F": 0.6980392156862745,
+      "L": 0.4078431372549019,
+      "affine": {
+        "brightness": 1.571235540461382,
+        "contrast": 0.6048236951176081
+      },
+      "e3RGB": [
+        178.0,
+        178.0,
+        178.0
+      ],
+      "g": 0.9503204854819652,
+      "k": 0.31045752748970834,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.49006622516556286,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          104.0,
+          104.0,
+          104.0
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.863615497503594,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        104,
+        104,
+        104
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/neutral-128-colour__inactive": {
+      "F": 0.7372549019607844,
+      "L": 0.5019607843137255,
+      "affine": {
+        "brightness": 1.470830155864668,
+        "contrast": 0.6379460271251264
+      },
+      "e3RGB": [
+        188.0,
+        188.0,
+        188.0
+      ],
+      "g": 0.9383102545096953,
+      "k": 0.2662599506774863,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.47244094488188987,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          128.0,
+          128.0,
+          128.0
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.7785880943691241,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        128,
+        128,
+        128
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/neutral-150-colour__inactive": {
+      "F": 0.7725490196078432,
+      "L": 0.5882352941176471,
+      "affine": {
+        "brightness": 1.3795138766551518,
+        "contrast": 0.6801745675692483
+      },
+      "e3RGB": [
+        197.0,
+        197.0,
+        197.0
+      ],
+      "g": 0.9383102545096953,
+      "k": 0.22060181107272825,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.4476190476190477,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          150.0,
+          150.0,
+          150.0
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.6986651159227244,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        150,
+        150,
+        150
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/neutral-40-colour__inactive": {
+      "F": 0.5882352941176471,
+      "L": 0.15686274509803919,
+      "affine": {
+        "brightness": 1.8141608632903332,
+        "contrast": 0.5121959403757717
+      },
+      "e3RGB": [
+        150.0,
+        150.0,
+        150.0
+      ],
+      "g": 0.929205829365914,
+      "k": 0.4424775169622096,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.5116279069767442,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          40.00000000000001,
+          40.00000000000001,
+          40.00000000000001
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.9026595553683001,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        40,
+        40,
+        40
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/neutral-56-colour__inactive": {
+      "F": 0.615686274509804,
+      "L": 0.21960784313725487,
+      "affine": {
+        "brightness": 1.752456602350297,
+        "contrast": 0.5302304365881101
+      },
+      "e3RGB": [
+        157.0,
+        157.0,
+        157.0
+      ],
+      "g": 0.929205829365914,
+      "k": 0.4116253864921915,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.5075376884422111,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          56.0,
+          56.0,
+          56.0
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.886856735140989,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        56,
+        56,
+        56
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/neutral-72-colour__inactive": {
+      "F": 0.6431372549019608,
+      "L": 0.28235294117647064,
+      "affine": {
+        "brightness": 1.6947419773448393,
+        "contrast": 0.55369561960445
+      },
+      "e3RGB": [
+        164.0,
+        164.0,
+        164.0
+      ],
+      "g": 0.9383712092156216,
+      "k": 0.37818538406460883,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.5027322404371586,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          72.0,
+          72.0,
+          72.0
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8870541899610855,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        72,
+        72,
+        72
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/neutral-88-colour__inactive": {
+      "F": 0.6705882352941176,
+      "L": 0.34509803921568627,
+      "affine": {
+        "brightness": 1.636935498859406,
+        "contrast": 0.5832027092713924
+      },
+      "e3RGB": [
+        171.0,
+        171.0,
+        171.0
+      ],
+      "g": 0.9546652178373238,
+      "k": 0.34113514051104116,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.497005988023952,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          88.00000000000001,
+          88.00000000000001,
+          88.00000000000001
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8979653735575364,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        88,
+        88,
+        88
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/red-colour__inactive": {
+      "F": 0.6328705882352942,
+      "L": 0.25888627450980395,
+      "affine": {
+        "brightness": 1.7153108583408088,
+        "contrast": 0.5435033804268463
+      },
+      "e3RGB": [
+        255.0,
+        129.66965706430258,
+        129.66965706430258
+      ],
+      "g": 0.9322772499911048,
+      "k": 0.3915168041748519,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.5046247301358846,
+        "intermediateClips": true,
+        "intermediateRGB": [
+          303.0566083621441,
+          1.9427476732697766,
+          1.9427476732697766
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8819616293054646,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        192,
+        32,
+        32
+      ],
+      "role": "calibration",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/transfer-h150-colour__inactive": {
+      "F": 0.6795513235294117,
+      "L": 0.36558509803921574,
+      "affine": {
+        "brightness": 1.6170622534099213,
+        "contrast": 0.593400011804044
+      },
+      "e3RGB": [
+        166.35349975892015,
+        175.94914736153333,
+        167.31306451918147
+      ],
+      "g": 0.9595647602613213,
+      "k": 0.32874874657430003,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.4948910003844826,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          79.5022351494781,
+          98.49941716349348,
+          81.40195335087964
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.899718201401539,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        86,
+        96,
+        87
+      ],
+      "role": "validation",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/transfer-h210-colour__inactive": {
+      "F": 0.6794549019607843,
+      "L": 0.3653647058823529,
+      "affine": {
+        "brightness": 1.6173053535748565,
+        "contrast": 0.5933406271356433
+      },
+      "e3RGB": [
+        162.544042320217,
+        175.97862393885615,
+        177.89784988437603
+      ],
+      "g": 0.9596129727599386,
+      "k": 0.32884619040745894,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.494914479213011,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          71.95529428161595,
+          98.55392177286991,
+          102.35372570019193
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.8999019636609988,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        82,
+        96,
+        98
+      ],
+      "role": "validation",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/transfer-h270-colour__inactive": {
+      "F": 0.6790702450980393,
+      "L": 0.3644854901960784,
+      "affine": {
+        "brightness": 1.6182470031356782,
+        "contrast": 0.593049059239233
+      },
+      "e3RGB": [
+        169.37804818098556,
+        173.21684763229084,
+        183.77354612338038
+      ],
+      "g": 0.9596998628263221,
+      "k": 0.32927357015467806,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.49500798179890687,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          85.45232232737985,
+          93.05402554831402,
+          113.95870940588294
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.9004258052335383,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        89,
+        93,
+        104
+      ],
+      "role": "validation",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/transfer-h30-colour__inactive": {
+      "F": 0.678878431372549,
+      "L": 0.3640470588235294,
+      "affine": {
+        "brightness": 1.6186739430638062,
+        "contrast": 0.5928222991128067
+      },
+      "e3RGB": [
+        183.83065654226996,
+        170.3964524240949,
+        168.47728040721273
+      ],
+      "g": 0.9595860084410779,
+      "k": 0.32954396731136415,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.49505451137092393,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          114.04999073448371,
+          87.44473448266757,
+          83.64398358955097
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.900375446558297,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        104,
+        90,
+        88
+      ],
+      "role": "validation",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/transfer-h330-colour__inactive": {
+      "F": 0.6787820098039216,
+      "L": 0.3638266666666667,
+      "affine": {
+        "brightness": 1.6188884832502342,
+        "contrast": 0.5927083833528504
+      },
+      "e3RGB": [
+        180.02124028167052,
+        170.42595252431258,
+        179.0617115059347
+      ],
+      "g": 0.9595287757357942,
+      "k": 0.32967985375722,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.49507787679026927,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          106.50232797024718,
+          87.49882759604726,
+          104.6019779328272
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.900350037419993,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        100,
+        90,
+        99
+      ],
+      "role": "validation",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    },
+    "apple-macos-27.0-2x-light-standard-glass0.5/transfer-h90-colour__inactive": {
+      "F": 0.6792630882352941,
+      "L": 0.36492627450980386,
+      "affine": {
+        "brightness": 1.6177890849051897,
+        "contrast": 0.5932224985244181
+      },
+      "e3RGB": [
+        176.9969873929055,
+        173.15815186077356,
+        162.6013541474107
+      ],
+      "g": 0.9597088830329886,
+      "k": 0.3290401009361005,
+      "kind": "capsule-circular",
+      "origin": [
+        100.0,
+        118.0
+      ],
+      "plate": {
+        "alpha": 0.49496113775272665,
+        "intermediateClips": false,
+        "intermediateRGB": [
+          100.54705353549332,
+          92.94598395631228,
+          72.04304261356444
+        ],
+        "n": 255.0,
+        "plate": 1.0,
+        "saturation": 1.9002673947952606,
+        "side": "white"
+      },
+      "radius": 22.0,
+      "rgb": [
+        97,
+        93,
+        82
+      ],
+      "role": "validation",
+      "scale": 2,
+      "size": [
+        120.0,
+        44.0
+      ]
+    }
+  },
+  "geometryResidual": "CSS border-radius silhouette differs from supplied native path; native paths only define measurement masks. Deep body only, not boundary or geometry parity.",
+  "holdoutOpened": false,
+  "nativePayloadReads": 0,
+  "parameterOrigin": "unchanged light-inactive tuple; zero fitted coefficients",
+  "plateRule": "minimum alpha: white if F>L, black if F<L, alpha0 if equal; s=g/(1-alpha)",
+  "preparationId": "ae6933a0-db6c-447b-9496-73b0ace7ac90",
+  "productionParity": false,
+  "roles": {
+    "calibration": 112,
+    "validation": 18
+  },
+  "schema": "w41-css-body-preparation-1",
+  "sources": {
+    "apps/reference-apple/scenes-w39-colour-edge.json": "9ed048b599e104bc1d0f135165fc8b95e7b63781bbc77da800c181e44750fff7",
+    "packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/replay-archive.py": "f06df8c8292ddce1262c4ca3160958a6238d2bb468877e0f2f509dcae3241ecb",
+    "packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/split.json": "5cc9a20ef5c4d54661da4d6267bc161c6295fde5bb9e07a57ffae9a07f0e2bd5",
+    "packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/supplied-paths.json": "76da544cd0cae9e296d731458ed6f048728d9d519bf6fdf62de048bd3afbbdaf",
+    "packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/w39_archive.py": "19532c253a32620c9284c5bf959fe54f9463ba0961b7f9515ddcdb3b8a7aeec5",
+    "packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/w39_readers.py": "21bfdc695a759133f7dba0a2dd3b6c79a63b43251f29abd05d282398c4fda952",
+    "packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/wave.py": "d2a827f67b8048abaa98df2ae42e6491478b7a5bd77c6b572d7875ddde673f10",
+    "packages/calibration/results/2026-09-26-w39-g2-identification/instrument/body.py": "6b15fea4459402dbc5affc0642767c93abb2ced4b69cfea6683048688c45c842",
+    "packages/calibration/results/2026-09-27-w41-g0-declaration/bounds-declaration.txt": "850747c1f03781a6efe9b433bd4ce3bd6cf72b63c9befd8d5d98de9eadf7f759",
+    "packages/calibration/results/2026-09-27-w41-g0-declaration/instrument/instrument.py": "41f796109a19e3834f2d738ee122f394d2e142d79ba29db3fe5ecc4ddb179950",
+    "packages/calibration/results/2026-09-27-w41-g0-declaration/instrument/rendered.py": "71dd709b3b2a8b99f6284fce37a9376bf122b6d9f1bf03c0fcac9d445e4ea117",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/baseline/baseline.py": "0e8bc6c74f2c3e1a9a8f80648e9adac7f85bc2d634b1de91862ec5bb5de1ad86",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/body/report-1/spatial-selection.json": "08147cdef79c1793524c7c6508b709addcceb6d3d0f03dd0baa1739ecb53471a",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-e3/runtime.json": "12e1546db717801d19781fc1027b616bd087b7f57958f199bb29ffa767c514f9",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-e3/scorer.py": "4d7a1defaf9fad35a09ddd059eba1b0a8ee9c735418b5fb195745e8226d747ba",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/css-projection/fixture.html": "5ec3041462fb9093d8ae4c005591d5e8f3db8f7bfdce40ae6ce62f623ab8f7f6",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/css-projection/parent-relay.json": "0bd97e05bfa920740b8630a1c15515513bb1b3d08aa76c48ed6053ccad8072c6",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/css-projection/prepare.py": "6e40c2d2bc87489b64ba44e15f58917397fc0d258dccc9d3389eba3155c987c2",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/css-projection/projection.py": "ce54d6fc1ff6f8c8b861e331bf6be271e4dcd5753f9041f5a7f57af5fe3a7fd3",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/css-projection/x6_once.py": "b813f8c3ecbd50eb43b21b192f49c89cdd3e1f652617fd07fe86072128736c97",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py": "02ed44215ca4f273eb698ab9f514173f2c6cbfb89d09b6a12c837ffee9b4aa96",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/parent-ruling-css-second-route.json": "6e98def59df7b0d8bff21206b1eb56f081e8f33bd3ec625095928c8c35698915",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/x6/observe.py": "f7247a8f8f477af780cd212e7f9d9c08592f80e03dd1e7b254a4b21d88b0f173",
+    "packages/calibration/src/component-region.ts": "ca76a1cf84aefc18ac3929700c194c907c0260b0109a37d17873804175c29784",
+    "packages/calibration/test/tier-coherence.test.ts": "c155b293cc2829b7beb2e04cc8cd9690d103799b087a953b9cda026be6577512",
+    "packages/platform-web/src/css-tier.ts": "4e116807a590f6ff7df5099ae5ee0cd3b42a2529d601adbdcd95118c2082679a",
+    "packages/platform-web/src/optics.ts": "d64fd46b03a140a58f8284f68cc09775d939a4026092f725b63f709967d17ecb"
+  }
+}

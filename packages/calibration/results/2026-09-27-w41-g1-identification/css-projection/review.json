@@ -1,0 +1,36 @@
+{
+  "reviewer": "independent doperpowers:reviewer-medium",
+  "scope": "Uncommitted css-projection preparation; no browser or native payload reads",
+  "initialVerdict": "incorrect: two evidence-gate gaps before browser measurement",
+  "findings": [
+    {
+      "priority": "P2",
+      "finding": "Fixed-path PNGs could be rebound to a new preparation without a producing-run record.",
+      "verified": true,
+      "resolution": "fixed in bounded worker wave; independent closure review found no material findings"
+    },
+    {
+      "priority": "P2",
+      "finding": "Primary-colour saturation witnesses were invariant under saturation/clipping and could not prove the saturation route.",
+      "verified": true,
+      "resolution": "fixed in bounded worker wave; independent closure review found no material findings"
+    },
+    {
+      "priority": "P1",
+      "finding": "Installed CLI run-code VM has no TextEncoder global; generated Node-side hashText would fail before capture.",
+      "verified": true,
+      "resolution": "fixed: text encoding and digest execute inside page.evaluate; actual Node VM test failed ReferenceError before fix, then passed. vm-hash-red.txt and vm-hash-green.txt."
+    }
+  ],
+  "otherReviewConclusions": "Affine algebra/intermediate clamp argument, metadata geometry, full Chromium config and inherited guarded calval Reader were consistent with bounded BODY-only scope.",
+  "browserResult": "UNMEASURED",
+  "closureVerdict": "preparation ready: initial findings independently closed; supplemental CLI VM blocker fixed by bounded worker and verified with actual restricted-VM red/green test",
+  "closureChecks": [
+    "19 offline tests passed under python3.12 -B after final VM fix",
+    "Producing-run records and screenshot hashes checked before any native Reader",
+    "Chromatic saturation and post-filter neutral plates reject ignored/linear-light saturation",
+    "BODY-only projection label no longer claims production shadow"
+  ],
+  "sourcePinUpdate": "public-1 source pin predates owner E3 integration; public-2 preserves integrated contract preparation; public-3 adds VM helper fix at same130cells/tuple. All earlier generations preserved, never rendered.",
+  "cliOutputCheck": "Cached CLI0.1.19/0.1.21 preserves full run-code JSON results to stdout; outputMaxSize is file eviction, not text truncation."
+}
