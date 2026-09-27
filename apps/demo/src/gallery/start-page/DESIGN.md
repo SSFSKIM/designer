@@ -173,7 +173,9 @@ one and later ones in every capture. Without `?at` the page reads the real time.
   both over the 400,000 budget; 489,931 at 1280 × 720 1x, also collapsed — and **two-layer** only
   at 1024 × 768 1x (387,670). Both forms were looked at: the collapsed body is a flatter, even
   frost; the two-layer body keeps a little more of the valley's structure behind the type. The
-  hierarchy is carried by layout and type in both and nothing reads differently.
+  hierarchy is carried by layout and type in both and nothing reads differently. These areas are
+  the maker's reads; the review's and the fix wave's later reads stand beside them in "The fix
+  wave after the independent review" below, with the statistic defined.
 - The headless shell (no adapter) resolves the WebGPU request to the CSS tier and reports the
   environment finding `webgpu-unavailable`, which is the honesty core working.
 - Material: the default macOS 27 document; `windowActivation` auto. The receded pose was captured
@@ -217,6 +219,27 @@ re-measured on every phase change, scheme change, resize and layout change, and 
 Photograph group on every frame its morph moves.
 
 ### Contrast — every rendered line and mark on glass
+
+**Whose run this is.** The matrix and the table below are the maker's own run, not the independent
+audit's. A Playwright script (`measure.mjs`, in the maker's scratch directory `/tmp/sp/`) drove
+full Chromium on the GPU against the dev server at 1440 × 900, device scale 1, with the clock pinned
+by `?at=15:10` (`&tier=css` for the CSS tier); it set the scheme on the browser context, Reduce
+Transparency through the page's `__glassDemo.setReducedTransparency`, the phase through
+`__glassDemo.setPhase`, the pose through `root.setWindowActivation`, and the five states by
+scrolling the Today scroller, typing "gi" and `__glassDemo.openMenu()`. Its output, `final4.json`,
+holds the 14,128 line-and-mark readings counted below and 1,600 body-level readings (SHA-256
+`05b61fdbab24e882348c385e034bab6ba27ca285b2875c87dc065d02d68ba34d`). That file was scratch,
+outside the repository; the session copied it and its script into the initiative's evidence at
+`docs/research/data/2026-09-27-materialist-spatial-register/review/start-page-maker-contrast/`
+(`final4.json`, same SHA-256, and `measure.mjs`) at the fix wave's landing. The independent audit
+(`docs/research/data/2026-09-27-materialist-spatial-register/audit/start-page.json`, audited
+2026-09-27 08:07 UTC) is a separate and narrower read: 3,061 line readings, all 3,061 passing,
+worst 5.16:1. It covers the first viewport, the Today scroller's positions and the open menu in
+both schemes, the four phases in both schemes, and light-scheme subsets for the CSS tier, the
+receded pose and reduced transparency. It ran without the clock pin, so its captures read
+17:06–17:07 and its agenda is a different current-event state from this run's. It finds no
+failure in what it covers; it does not reproduce this matrix, and neither set of numbers
+replaces the other.
 
 Method as part one: surface = the pixels of each line's own box with all text, glyphs and marks
 hidden; ink = the line's computed colour composited over them; the gate is the worst of the 10th,
@@ -262,7 +285,9 @@ colours (system colours; looked at), and the platter thumbnails, which are image
    the same way: cumulus (day), banded cloud (dusk) and the star field (night) behind the search.
    Built sizes at 1440 × 900: Now 320 × 332, Places 496 × 404, Today 376 × 600, Search 440 × 56,
    Photograph 248 × 48 closed and 320 × 226 open; one gap of 64 px (72 light / 77 dark with
-   transparency reduced). The search ornament also names the place Return will go to (`↵ GitHub`).
+   transparency reduced). (Beside these, from the fix wave below: the Photograph host's closed box
+   is 248 × 48 on the WebGPU tier and was 250 × 50 on the CSS tier, radius 24 on both, until the
+   fix wave sized it as a border box; it now reads 248 × 48 on both tiers. The gap reads 63 px.) The search ornament also names the place Return will go to (`↵ GitHub`).
 1. **The secondary ink is authored.** The runtime's `--vitrea-foreground-secondary` read
    **4.30–4.49:1** on these drawn bodies in both schemes (it is solved against the surface the
    runtime models from the declared level; the drawn body differed by a few hundredths). Every
@@ -311,6 +336,10 @@ colours (system colours; looked at), and the platter thumbnails, which are image
   wrote the host's new `left`/`top` and the glass stayed at the old box. The morph exposes no host
   handle, so the page marks that one host dirty by dispatching a `scroll` event at it — the
   geometry sync's own "this host moved" signal — whenever its rect changes.
+- **`GlassMorph` collapses to 0 × 0 when Reduce Motion changes while it is mounted** (found by
+  the independent review on this page; tracked as "`GlassMorph` collapses to 0×0 when Reduce Motion
+  toggles mid-session" in `docs/doperpowers/specs/tech-debt-tracker.md`). The page's workaround is
+  in the fix wave below.
 - **`GlassMorph` passes no `data-*` attribute to its host**, so the audit contract's
   `data-glass-role` (`ornament` closed, `platter` open) is written onto the host after each frame.
 
@@ -332,3 +361,88 @@ colours (system colours; looked at), and the platter thumbnails, which are image
   comparison was made. Seen by eye without one: vitrea's rim lights the top-left of each large
   window as a diagonal sheen, where Apple's edge is a thin line bright at vertical normals;
   and a 600 px window's shadow is the size law extrapolated far past the bed.
+
+### The fix wave after the independent review
+
+2026-09-27. The review, which read the page before this wave, is
+`docs/research/data/2026-09-27-materialist-spatial-register/review/start-page.md`. It fixed two
+findings and recorded two notes; nothing the review listed as holding was touched. Every reading
+below is full Chromium (`channel: "chromium"`) on the Apple GPU against the dev server at
+1440 × 900, device scale 1, `?at=15:10`, unless stated.
+
+- **A live Reduce Motion change no longer loses the Photograph platter** (finding 1, check 14).
+  Before this wave, opening the platter and then changing the preference moved the morph's host
+  from about (61, 618, 320, 226) to (0, 0, 0, 0) with focus left on the vanished photograph radio.
+  The cause is the runtime's, named under "Gaps found in the runtime" above, and what the page does
+  is **a workaround for that seam, not its fix**, following the cookbook's recipe: the morph's key
+  now carries the resolved `useGlassAccessibility()?.reducedMotion` beside the compact/full face,
+  so a change of preference remounts it with the new motion profile instead of leaving a mounted
+  morph to rebuild its springs at zero (`photograph-ornament.tsx`). A morph mounted open would
+  measure the platter as its closed size, so the app closes the platter in the same render in
+  which the key changes, and records the key it was opened under, so it stays closed if the change
+  reverses (`app.tsx`). Focus that the remount drops, from the platter or from a trigger still
+  closing, returns to the new trigger once the new morph has measured and placed its closed face;
+  until then its trigger sits in an unplaced host and cannot be pressed, which is what keeps a
+  reopen from reaching a morph that has not measured. Focus held outside the morph is not moved.
+  No opacity transition was added. The platter closing on a preference change is the workaround's
+  cost: the runtime fix (reseed the geometry at its current value and target) would keep it open,
+  and until that lands the review's check 14 stays recorded against the runtime.
+  Read live on both tiers, a flip each way with the platter open and settled: the host goes from
+  the open box (61, 618, 320 × 226) through the new morph's unplaced box for two frames (0 × 0 at
+  the origin, then 0 × 0 on WebGPU and 2 × 2 on CSS, the border's floor, at its footprint) to the
+  closed capsule at (61, 562, 248 × 48), where it stays for the rest of the 90-frame trace; it is
+  never left at 0 × 0. Focus lands on the trigger, the group reports `health ok`, the Enter key on
+  the focused trigger reopens the platter to 320 × 226 with the selected photograph focused, and
+  Escape closes it back to 248 × 48 with focus on the trigger, under both preferences. Also read,
+  on WebGPU: a flip five frames into an opening and three frames into a close by Escape both settle closed
+  at 248 × 48 with focus on the trigger; a flip while the search field holds focus leaves it
+  there; and crossing into the compact width with the platter open and back again leaves it
+  closed at 248 × 48 (before this wave the face key alone kept the platter's open state, so by the
+  code's reading the crossing back would have remounted the morph open; that was not reproduced).
+  Both diagnostic channels stay empty and no
+  page error is raised.
+- **The closed Photograph ornament is an exact capsule on both tiers** (finding 2, check 9). The
+  morph writes its host's box from its springs, and the CSS tier gives every host a 1 px border
+  that is layout; the generated host was a content box, so the CSS tier drew 250 × 50 at radius
+  24. The class the morph passes to its host now sets `box-sizing: border-box`
+  (`start-page.css`), as `boxStyle` does for the other four hosts. Read after the change, closed:
+  WebGPU 248 × 48, border 0, registered radii 24; CSS 248 × 48, border 1 px, radius 24 registered
+  and computed; CSS under forced colours 248 × 48 with its 2 px CanvasText border; WebGPU under
+  forced colours 248 × 48. Open, 320 × 226 on both tiers. The cost is inside the host on the CSS
+  tier: the content box is inset by the border, so the fixed 248 × 48 trigger sits 1 px right and
+  down and its last 2 px, padding, are clipped (4 px under forced colours' 2 px border), and the
+  platter's right and bottom padding show 10 and 8 px of their 12 and 10. Looked at, closed and
+  open, on both tiers and under forced colours: no label, mark or link is cut.
+- **The contrast record names its run** (finding 3, checks 12 and 23). "Whose run this is" at the
+  head of the contrast section identifies the maker's matrix and the independent audit as two
+  reads; no number in either was changed and no ink was changed.
+- **Later layout readings, beside the earlier ones** (finding 4, checks 19 and 28). Two statistics,
+  kept apart:
+  - *Present-host device pixels*: the sum over every registered host (`[data-vitrea-node]`) of its
+    border box's width × height × dpr², read on `?tier=css` at `?at=15:10`; this is the maker's
+    statistic, and the CSS root compares its own sum with the 400,000 budget. `cssBody` is the
+    runtime's report for all five groups.
+
+    | viewport | maker (part two) | review, before this wave | this wave, after the border box | `cssBody` |
+    |---|---|---|---|---|
+    | 1440 × 900 @1 | 569,364 | 569,364 | 568,768 | collapsed |
+    | 1440 × 900 @2 | 2,277,456 | — | 2,275,072 | collapsed |
+    | 1280 × 720 @1 | 489,931 | — | 489,335 | collapsed |
+    | 1024 × 768 @1 | 387,670 | 390,950 | 390,610 | two-layer |
+    | 1024 × 768 @2 | — | — | 1,562,440 | collapsed |
+
+    This wave's reductions are exactly the Photograph host's lost border: 596 device px at
+    248 × 48 (2,384 at 2x), 340 at the compact 120 × 48. The review's 390,950 is what the current
+    layout gives at a 63 px gap with the host at 122 × 50; at 64 px the same arithmetic gives
+    389,740, so the gap alone does not account for the maker's 387,670, whose layout state was not
+    reconstructed. No viewport changes side of the budget.
+  - *The window gap*: the distance between neighbouring hosts' border boxes at 1440 × 900 (Now to
+    Places, Places to Today, the search to Places, Now to the Photograph ornament). Part one
+    recorded a derivation of 63.2 px laid out as 64, and part two a gap of 64 px; read now, all
+    four gaps are **63 px** in both schemes on both tiers. The page's own derivation, evaluated in
+    the page, gives a widest single-member padding of 62.44 px (the Today window, nominal policy,
+    either scheme), whose ceiling is 63; why it moved from 63.2 was not traced in this wave.
+
+Commands after the last change: `pnpm --filter demo lint` exit 0 (eslint and both `tsc`
+projects); `pnpm --filter demo build` exit 0 (the existing chunk-size warning only);
+`pnpm --filter demo test:e2e e2e/gallery.spec.ts` 16 passed, the start page's two among them.

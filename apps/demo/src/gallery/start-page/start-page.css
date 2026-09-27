@@ -599,6 +599,16 @@ h3 {
 /* --- Photograph ornament and platter ---------------------------------------------------- */
 
 /*
+ * The morph's one host. The morph writes its box from the springs, and the CSS tier gives every
+ * host a 1 px border that is layout: sized as a border box, the box the morph writes is the outer
+ * one, so the closed face is the 248 × 48 capsule its radius halves on both tiers, as the other
+ * hosts are through `boxStyle`. Sizing only; the host's material is the runtime's.
+ */
+.photograph-morph {
+  box-sizing: border-box;
+}
+
+/*
  * The closed face is one fixed width, the widest label's: a closed morph follows its anchor but
  * never a new closed size, so a phase whose maker has a longer name must not outgrow it.
  */

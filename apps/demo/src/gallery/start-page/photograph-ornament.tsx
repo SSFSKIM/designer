@@ -35,6 +35,8 @@ export function PhotographOrnament(props: {
   readonly box: Box;
   /** The Now column is narrower than the full face: the ornament shows the phase alone. */
   readonly compact: boolean;
+  /** The morph's identity: a new key remounts it, closed (the face, and Reduce Motion; app.tsx). */
+  readonly morphKey: string;
   /** The height the platter may take below its ornament before the viewport's edge. */
   readonly room: number;
   readonly hint: BackdropHint | undefined;
@@ -93,6 +95,32 @@ export function PhotographOrnament(props: {
     }
   }, [open]);
 
+  /*
+   * A remount (a new `morphKey`) drops whatever focus was inside the old host: the open platter's
+   * radio, or the trigger while it was still closing. Focus inside the morph is followed through
+   * React's tree, which the portal does not break; a blur to nowhere (the window losing focus, or
+   * the element's removal) leaves the record as it was. Once the new morph has measured and placed
+   * its closed face, focus that was dropped returns to its trigger. Not before: a morph that opens
+   * before it has measured takes the platter as its closed size, and until then the trigger sits
+   * in an unplaced host that cannot be pressed.
+   */
+  const focusWithin = useRef(false);
+  const mountedKey = useRef(props.morphKey);
+  useEffect(() => {
+    if (root === null || mountedKey.current === props.morphKey) return;
+    mountedKey.current = props.morphKey;
+    if (!focusWithin.current) return;
+    let done = false;
+    const unsubscribe = root.subscribe(() => {
+      const host = document.querySelector(`.${PHOTOGRAPH_HOST_CLASS}`);
+      if (done || host === null || host.getBoundingClientRect().height < 4) return;
+      done = true;
+      const active = document.activeElement;
+      if (active === null || active === document.body) trigger.current?.focus({ preventScroll: true });
+    });
+    return unsubscribe;
+  }, [root, props.morphKey]);
+
   const close = (focusTrigger: boolean): void => {
     returnFocus.current = focusTrigger;
     onOpenChange(false);
@@ -120,13 +148,23 @@ export function PhotographOrnament(props: {
 
   return (
     <GlassGroup id="photograph" backdrop={ENVIRONMENT_BACKDROP} hint={hint}>
-      <div className="photograph-anchor" style={{ position: "fixed", left: box.x, top: box.y }}>
+      <div
+        className="photograph-anchor"
+        style={{ position: "fixed", left: box.x, top: box.y }}
+        onFocus={() => {
+          focusWithin.current = true;
+        }}
+        onBlur={(event) => {
+          if (event.relatedTarget !== null) focusWithin.current = false;
+        }}
+      >
         {/*
-          A closed morph never follows a new closed size, so the two faces are two morphs: the
-          key remounts it when the layout crosses between them (the app closes it first).
+          A closed morph never follows a new closed size, so the two faces are two morphs; and a
+          mounted morph collapses when Reduce Motion changes (a tracked runtime seam), so the
+          preference is in the key too. The app closes the platter before either remount.
         */}
         <GlassMorph
-          key={props.compact ? "compact" : "full"}
+          key={props.morphKey}
           open={open}
           groupId="photograph"
           plane="overlay"

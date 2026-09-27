@@ -194,13 +194,19 @@ export function App(props: {
     return text === "" ? undefined : PLACES.find((place) => place.name.toLowerCase().startsWith(text));
   }, [query]);
   /*
-   * The platter is open only in the layout it was opened in: when the Now column crosses into or
-   * out of its compact width the ornament remounts with its other face, and a morph must never
-   * mount open (it would take the open platter as its closed size).
+   * The platter is open only on the morph it was opened on. The ornament remounts its morph when
+   * the Now column crosses into or out of its compact width (the other face) and when Reduce
+   * Motion changes. The second is a workaround for a tracked runtime seam: a mounted morph whose
+   * motion profile changes rebuilds its geometry springs at zero and collapses to 0 × 0. A morph
+   * must never mount open (it would take the open platter as its closed size), so a change of key
+   * closes the platter before the new morph mounts, and it stays closed if the change reverses.
    */
-  const [menu, setMenu] = useState({ open: false, compact: layout.compact });
-  const open = menu.open && menu.compact === layout.compact;
-  const setOpen = useCallback((value: boolean) => setMenu({ open: value, compact: layout.compact }), [layout.compact]);
+  const reducedMotion = accessibility?.reducedMotion === true;
+  const morphKey = `${layout.compact ? "compact" : "full"}/${reducedMotion ? "reduced-motion" : "motion"}`;
+  const [menu, setMenu] = useState({ open: false, key: morphKey });
+  if (menu.key !== morphKey) setMenu({ open: false, key: morphKey });
+  const open = menu.open && menu.key === morphKey;
+  const setOpen = useCallback((value: boolean) => setMenu({ open: value, key: morphKey }), [morphKey]);
 
   // --- The environment -------------------------------------------------------------------
 
@@ -366,6 +372,7 @@ export function App(props: {
       <PhotographOrnament
         box={layout.photograph}
         compact={layout.compact}
+        morphKey={morphKey}
         room={Math.max(120, viewport.height - (layout.photograph.y + layout.photograph.height + 8) - 12)}
         hint={hints.photograph}
         photo={photo}
