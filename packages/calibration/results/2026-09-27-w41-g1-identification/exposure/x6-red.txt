@@ -1,0 +1,175 @@
+test_each_profile_gets_fresh_durable_observation_before_launch (test_x6.X6Tests.test_each_profile_gets_fresh_durable_observation_before_launch) ... FAIL
+test_bad_second_profile_spends_and_never_launches_or_retries (test_x6.X6Tests.test_bad_second_profile_spends_and_never_launches_or_retries) ... FAIL
+test_observer_error_records_unknown_facts_and_spends (test_x6.X6Tests.test_observer_error_records_unknown_facts_and_spends) ... FAIL
+test_record_failure_prevents_launch (test_x6.X6Tests.test_record_failure_prevents_launch) ... FAIL
+test_required_observer_and_dependency_cannot_be_omitted (test_x6.X6FreezeTests.test_required_observer_and_dependency_cannot_be_omitted) ... 
+  test_required_observer_and_dependency_cannot_be_omitted (test_x6.X6FreezeTests.test_required_observer_and_dependency_cannot_be_omitted) (name='packages/calibration/results/2026-09-27-w41-g1-identification/x6/observe.py') ... FAIL
+  test_required_observer_and_dependency_cannot_be_omitted (test_x6.X6FreezeTests.test_required_observer_and_dependency_cannot_be_omitted) (name='packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/record-machine.py') ... FAIL
+test_observer_inputs_are_committed_and_verified_before_begin (test_x6.X6FreezeTests.test_observer_inputs_are_committed_and_verified_before_begin) ... ok
+
+======================================================================
+FAIL: test_each_profile_gets_fresh_durable_observation_before_launch (test_x6.X6Tests.test_each_profile_gets_fresh_durable_observation_before_launch)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_x6.py", line 84, in test_each_profile_gets_fresh_durable_observation_before_launch
+    result=self.invoke([reading(),reading()])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_x6.py", line 81, in invoke
+    return self.run_exposure(capture=capture)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 129, in run_exposure
+    return runner.run_synthetic(self.root, self.wave, self.root / 'frozen.json',
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 792, in run_synthetic
+    return _run(root, wave, manifest_path, log, output, capture, project, score, 'synthetic')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 721, in _run
+    captured = capture(request)
+               ^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_x6.py", line 79, in capture
+    return runner.capture_web(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 634, in capture_web
+    subprocess.run(command, env=env, check=True)
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/unittest/mock.py", line 1134, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/unittest/mock.py", line 1138, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/unittest/mock.py", line 1199, in _execute_mock_call
+    result = effect(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_x6.py", line 52, in launch
+    self.assertTrue(gate.exists(),'durable X6 evidence must precede subprocess')
+AssertionError: False is not true : durable X6 evidence must precede subprocess
+
+======================================================================
+FAIL: test_bad_second_profile_spends_and_never_launches_or_retries (test_x6.X6Tests.test_bad_second_profile_spends_and_never_launches_or_retries)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_x6.py", line 93, in test_bad_second_profile_spends_and_never_launches_or_retries
+    self.invoke([reading(),bad])
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_x6.py", line 81, in invoke
+    return self.run_exposure(capture=capture)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 129, in run_exposure
+    return runner.run_synthetic(self.root, self.wave, self.root / 'frozen.json',
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 792, in run_synthetic
+    return _run(root, wave, manifest_path, log, output, capture, project, score, 'synthetic')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 721, in _run
+    captured = capture(request)
+               ^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_x6.py", line 79, in capture
+    return runner.capture_web(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 634, in capture_web
+    subprocess.run(command, env=env, check=True)
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/unittest/mock.py", line 1134, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/unittest/mock.py", line 1138, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/unittest/mock.py", line 1199, in _execute_mock_call
+    result = effect(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_x6.py", line 52, in launch
+    self.assertTrue(gate.exists(),'durable X6 evidence must precede subprocess')
+AssertionError: False is not true : durable X6 evidence must precede subprocess
+
+======================================================================
+FAIL: test_observer_error_records_unknown_facts_and_spends (test_x6.X6Tests.test_observer_error_records_unknown_facts_and_spends)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_x6.py", line 101, in test_observer_error_records_unknown_facts_and_spends
+    self.invoke([RuntimeError('synthetic observation failed')])
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_x6.py", line 81, in invoke
+    return self.run_exposure(capture=capture)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 129, in run_exposure
+    return runner.run_synthetic(self.root, self.wave, self.root / 'frozen.json',
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 792, in run_synthetic
+    return _run(root, wave, manifest_path, log, output, capture, project, score, 'synthetic')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 721, in _run
+    captured = capture(request)
+               ^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_x6.py", line 79, in capture
+    return runner.capture_web(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 634, in capture_web
+    subprocess.run(command, env=env, check=True)
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/unittest/mock.py", line 1134, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/unittest/mock.py", line 1138, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/unittest/mock.py", line 1199, in _execute_mock_call
+    result = effect(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_x6.py", line 52, in launch
+    self.assertTrue(gate.exists(),'durable X6 evidence must precede subprocess')
+AssertionError: False is not true : durable X6 evidence must precede subprocess
+
+======================================================================
+FAIL: test_record_failure_prevents_launch (test_x6.X6Tests.test_record_failure_prevents_launch)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_x6.py", line 114, in test_record_failure_prevents_launch
+    with self.assertRaisesRegex(OSError,'fsync failed'):self.invoke([reading()])
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_x6.py", line 81, in invoke
+    return self.run_exposure(capture=capture)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 129, in run_exposure
+    return runner.run_synthetic(self.root, self.wave, self.root / 'frozen.json',
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 792, in run_synthetic
+    return _run(root, wave, manifest_path, log, output, capture, project, score, 'synthetic')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 721, in _run
+    captured = capture(request)
+               ^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_x6.py", line 79, in capture
+    return runner.capture_web(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 634, in capture_web
+    subprocess.run(command, env=env, check=True)
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/unittest/mock.py", line 1134, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/unittest/mock.py", line 1138, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/unittest/mock.py", line 1199, in _execute_mock_call
+    result = effect(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_x6.py", line 52, in launch
+    self.assertTrue(gate.exists(),'durable X6 evidence must precede subprocess')
+AssertionError: False is not true : durable X6 evidence must precede subprocess
+
+======================================================================
+FAIL: test_required_observer_and_dependency_cannot_be_omitted (test_x6.X6FreezeTests.test_required_observer_and_dependency_cannot_be_omitted) (name='packages/calibration/results/2026-09-27-w41-g1-identification/x6/observe.py')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_x6.py", line 129, in test_required_observer_and_dependency_cannot_be_omitted
+    with self.subTest(name=name),self.assertRaisesRegex(ValueError,'X6'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_required_observer_and_dependency_cannot_be_omitted (test_x6.X6FreezeTests.test_required_observer_and_dependency_cannot_be_omitted) (name='packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/record-machine.py')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/exposure-x6/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_x6.py", line 129, in test_required_observer_and_dependency_cannot_be_omitted
+    with self.subTest(name=name),self.assertRaisesRegex(ValueError,'X6'):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 6 tests in 16.202s
+
+FAILED (failures=6)

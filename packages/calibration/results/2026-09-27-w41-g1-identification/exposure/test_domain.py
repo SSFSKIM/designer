@@ -267,17 +267,25 @@ class AssociationTests(harness.ProductionScopeTests):
             generation=self.manifest['generation'],instrument='synthetic',closure='synthetic',
             candidate='synthetic')
         with runner.boundary.Receipt(self.root/'synthetic-receipt.jsonl',configuration).expose() as token:
-            request = runner.CaptureRequest(self.wave,token,self.root,self.manifest,
-                'standin',heldout,output)
-            with patch.object(runner.subprocess,'run',side_effect=launch):
-                self.assertEqual(set(runner.capture_web(request)),set(heldout))
+            attempt = 0
+            def capture():
+                nonlocal attempt
+                attempt += 1
+                destination = output/str(attempt)
+                destination.mkdir(parents=True)
+                request = runner.CaptureRequest(self.wave,token,self.root,self.manifest,
+                    'standin',heldout,destination)
+                return runner.capture_web(request)
+            with patch.object(runner.subprocess,'run',side_effect=launch), \
+                    patch.object(runner,'observe_x6',side_effect=__import__('test_x6').reading):
+                self.assertEqual(set(capture()),set(heldout))
                 cell = heldout[0]
                 for name, changed in substitutions(original[cell]):
                     current[cell] = changed
                     with self.subTest(mutation=name), self.assertRaisesRegex(ValueError,'domain'):
-                        runner.capture_web(request)
+                        capture()
                 current[cell] = original[cell]
-                self.assertEqual(set(runner.capture_web(request)),set(heldout))
+                self.assertEqual(set(capture()),set(heldout))
 
 
 def load_tests(loader, standard_tests, pattern):

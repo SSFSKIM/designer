@@ -1,0 +1,57 @@
+W41 G1 exposure — fresh X6 gate at every browser launch
+====================================================
+
+Additive correction to the instrument committed at9b6d1bf7, under the standing
+G1 brief/X6 pre-browser requirement and claims§5.192. That checkpoint preserved
+the inherited browser backend but did not run X6 itself. A whole-exposure external
+preflight was not equivalent to a fresh observation before each profile process.
+The old65-test evidence/index describes the previous instrument bytes; it is not
+rewritten or represented as proof of this corrected version.
+
+capture_web now obtains a new observation immediately before every candidate/
+profile subprocess, after command construction. It uses the fixed committed
+G1/x6/observe.py observer and W39/record-machine.py dependency. Production freeze
+requires both sources explicitly; the existing complete Python source inventory
+hashes them, and prelaunch compares the actual imported source files and frozen
+repository copies to those hashes. Module loading reads code only; neither
+observer's command-line main function runs during import or verification.
+
+The observer reads RT/IC=0, NSGlassTintAmount=0.5, zero foreign capture processes,
+and HID idle>=60seconds. The runner recomputes the verdict from the returned raw
+facts rather than trusting a stored passes flag. No browser process starts until
+request.output/x6-<profile>.json is exclusively written, file-fsynced and parent-
+directory-fsynced. The record identifies candidate/profile and source hashes and
+retains the complete observation and computed verdict. The output directory is
+already owned by the active receipt; no evidence is written into the source tree.
+
+A failed fact is retained as refused, then raises. An observer exception retains
+its raw exception type/message with observation:null and verdict:null when no
+observation was returned; unknown facts are not replaced with fabricated failure
+measurements. If a returned observation cannot be evaluated, the raw returned
+value is retained and verdict remains null. Failure to persist prevents launch.
+Any such failure inside capture_web occurs after begin and spends the exposure
+under the inherited receipt semantics. There is no sleep, wait, retry or alternate
+receipt. Prior passing facts are never reused for another profile or candidate.
+
+External preflight remains useful to avoid spending the exposure on predictable
+conditions, but never substitutes for these per-process checks. In particular,
+previous browser processes must have exited and the machine must meet X6 again
+before the next profile can launch. A failing check does not authorize waiting
+inside the begun receipt and trying again.
+
+Proof uses synthetic observations, process mocks, and temporary Git repositories
+only. Tests exercise two-profile observe/persist/launch ordering, both fsyncs
+before launch, refusal on the second profile with only the first launched, spent
+receipt/no retry, every individual bad fact despite a stale true verdict, missing
+process census, observer exceptions with unknown facts, persistence failure, and
+observer/dependency freeze binding. Existing producer-contract tests now supply
+synthetic passing X6 facts; no real machine observation or browser was run.
+
+Prepared in isolated worktree /Users/new/vitrea-w41/exposure-x6 while primary G1
+measurements still pin runner02ed44215ca4f273eb698ab9f514173f2c6cbfb89d09b6a12c837ffee9b4aa96.
+Primary application is forbidden until the coordinator's explicit RUNNEREDITGO,
+after candidate, CSS and canonical captures AND their source-bound offline scores
+are recorded. The eventual final exposure freeze binds the new runner; historical
+measurements retain their old source witnesses, with additive reproduction or
+provenance evidence where needed. This guard changes no numerical/rendered
+membership, claim scope, censor rule, baseline identity or scientific veto.

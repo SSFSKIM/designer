@@ -29,6 +29,8 @@ class ExposureTests(unittest.TestCase):
         git(self.root, 'config', 'user.email', 'test@example.invalid')
         git(self.root, 'config', 'user.name', 'Synthetic test')
         git(self.root, 'config', 'gc.auto', '0')
+        for name in runner.X6_SOURCES:
+            self.put(name, (runner.ROOT/name).read_text())
         real = runner.boundary.default_wave()  # Metadata only; never constructs a Reader.
         self.put('scenes.json', real.spec)
         self.put('split.json', real.split)
@@ -429,7 +431,8 @@ class ExposureTests(unittest.TestCase):
         with runner.boundary.Receipt(self.log, config).expose() as token:
             request = runner.CaptureRequest(self.wave, token, self.root, self.manifest,
                                             'standin', tuple(self.cells), self.output)
-            with patch.object(runner.subprocess, 'run', side_effect=launch):
+            with patch.object(runner.subprocess, 'run', side_effect=launch), \
+                    patch.object(runner, 'observe_x6', side_effect=__import__('test_x6').reading):
                 paths = runner.capture_web(request)
         self.assertEqual(set(paths), set(self.cells))
         self.assertEqual(len(invocations), 1)
@@ -569,6 +572,8 @@ class ProductionScopeTests(unittest.TestCase):
         git(self.root, 'config', 'user.email', 'test@example.invalid')
         git(self.root, 'config', 'user.name', 'Synthetic test')
         git(self.root, 'config', 'gc.auto', '0')
+        for name in runner.X6_SOURCES:
+            self.put(name, (runner.ROOT/name).read_text())
         real = runner.boundary.default_wave()
         for name, value in [('scenes.json', real.spec), ('split.json', real.split)]:
             self.put(name, value)

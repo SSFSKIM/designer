@@ -23,6 +23,12 @@ spec = importlib.util.spec_from_file_location('w41_inherited_wave', BOUNDARY_PAT
 boundary = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(boundary)
 ROOT = boundary.ROOT
+X6_SOURCES = (
+    'packages/calibration/results/2026-09-27-w41-g1-identification/x6/observe.py',
+    'packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/record-machine.py')
+x6_spec = importlib.util.spec_from_file_location('w41_exposure_x6', ROOT / X6_SOURCES[0])
+x6 = importlib.util.module_from_spec(x6_spec)
+x6_spec.loader.exec_module(x6)  # Code only. No observation, wait loop or machine access at import.
 PRODUCTION_LOG = BOUNDARY_PATH.parent / 'wave-identification-receipt.jsonl'
 INVENTORY_SHA = '58329732f947d42cd5e1518962016191faaa79d89b7089c6dadf5724dde35f61'
 INVENTORY_PATH = ('packages/calibration/results/'
@@ -428,6 +434,10 @@ def freeze(root, wave, candidates, *, config, scorer, declaration, closure,
     files = set(source_list) | {config, scorer, declaration, closure, schema_path} | set(instruments)
     files.update(str(p.resolve().relative_to(root)) for p in (wave.scenes_path, wave.split_path))
     if not dry:
+        for name in X6_SOURCES:
+            if not local(root, name).is_file() or name not in source_list:
+                raise ValueError('required X6 observer source missing: ' + name)
+        files.update(X6_SOURCES)
         files.add(INVENTORY_PATH)
         g0 = HERE.parents[1] / '2026-09-27-w41-g0-declaration'
         if (local(root, declaration) != g0 / 'bounds-declaration.txt'
@@ -603,6 +613,38 @@ class ScoreRequest:
     captures: dict
 
 
+def observe_x6():
+    """One fresh observation; never call the observer's bounded-wait CLI here."""
+    return x6.observe()
+
+
+def prelaunch_x6(request, profile):
+    """Durably retain each attempt before launch; refusal inside a receipt spends it."""
+    request.authorization.check(request.wave)
+    source_hashes = {}
+    for name, executed in zip(X6_SOURCES, (x6.__file__, x6.machine.__file__), strict=True):
+        expected = request.manifest['files'].get(name)
+        if not expected or sha(request.root / name) != expected or sha(executed) != expected:
+            raise ValueError('X6 observer source is not bound to the freeze: ' + name)
+        source_hashes[name] = expected
+    path = request.output / ('x6-' + profile + '.json')
+    record = dict(candidate=request.candidate, profile=profile, sources=source_hashes,
+                  observation=None, verdict=None)
+    try:
+        record['observation'] = observe_x6()
+        # Never trust a cached or caller-supplied pass field over the four raw facts.
+        record['verdict'] = x6.verdict(record['observation'])
+    except Exception as error:
+        record.update(status='observation-error', error=dict(
+            type=type(error).__name__, message=str(error)))
+        persist(path, record)
+        raise
+    record['status'] = 'passed' if record['verdict']['passes'] else 'refused'
+    persist(path, record)  # Exclusive file + file and parent fsync BEFORE every subprocess.
+    if not record['verdict']['passes']:
+        raise PermissionError('X6 refused before browser launch: ' + profile)
+
+
 def capture_web(request):
     """Real web-only backend. No compare/matrix CLI, native Reader or harness bundle.
 
@@ -631,6 +673,7 @@ def capture_web(request):
                    definitions[profile]['colorScheme'], '--scale', str(scale), '--out', str(destination),
                    '--material-profile', str(request.root / documents['material']),
                    '--receded-profile', str(request.root / documents['receded'])]
+        prelaunch_x6(request, profile)
         subprocess.run(command, env=env, check=True)
         request.authorization.check(request.wave)
         for sid in ids:

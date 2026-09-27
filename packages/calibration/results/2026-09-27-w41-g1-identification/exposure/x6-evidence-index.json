@@ -1,0 +1,29 @@
+{
+  "baseCommit": "9b6d1bf7d34410927cb75556e0317569dd98c339",
+  "preparedWorktree": "/Users/new/vitrea-w41/exposure-x6",
+  "primaryApplication": "NOT applied; requires explicit coordinator RUNNEREDITGO after source-bound capture and offline scoring complete.",
+  "priorPrimaryRunnerSha256": "02ed44215ca4f273eb698ab9f514173f2c6cbfb89d09b6a12c837ffee9b4aa96",
+  "checks": {
+    "syntheticTests": 72,
+    "newTests": 7,
+    "freezeEntries": 1818,
+    "independentReview": "correct/no material findings"
+  },
+  "files": {
+    "runner.py": "f048a2549b4987c6d1907a86f6f584a746c64838daf9d283ab8b5543ed03fd9c",
+    "test_runner.py": "a960dc54c5301f0b70c943948ebb7532d677810a1afa73bded1205b30c894fb9",
+    "test_domain.py": "b2286028e9d432bdb6e5a334d50e7691717fbfa6d04a87f7823fe01b2bd81bc3",
+    "test_x6.py": "5335d9af4172d301747851e9780b5b6a60572539658c687490c53c32b6774bac",
+    "x6-addendum.txt": "7a1a4f7118b2e7166b6e4e5db0119a0a288614d42a4b7667155a91e0f1aba9d1",
+    "x6-red.txt": "bf98670c6ef1c86d3887aec4fc611a5dcc394bbb9d1fb35fad92ec8b9ab6df4b",
+    "x6-green-1.txt": "2e671affb4cf31cefee9082d7377c28e2db73444ed1bab6b5998bf1f2e576ea7",
+    "x6-full-green.txt": "83a501ed5a782d07a5e7db88af81889a4aa4193b6ab29d471c201a40e6cd1ec9",
+    "x6-freeze-1818.txt": "3aec6515e6820c89fcede255fa700ec9e3e538e9e790eb5af1a2f352010adc36",
+    "x6-review.json": "9f93d93c700c0c581d00410b0123dbad387af8b5ac7347bcc1c549f7f6860357"
+  },
+  "observerSources": {
+    "packages/calibration/results/2026-09-27-w41-g1-identification/x6/observe.py": "f7247a8f8f477af780cd212e7f9d9c08592f80e03dd1e7b254a4b21d88b0f173",
+    "packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/record-machine.py": "29d785ae6d50b6eb1857dfdf710466ebd3cd31ff4bc23d122cf1aa04e6c27291"
+  },
+  "authority": "No actual OS observation, browser, native archive payload or production receipt. Prior65-test evidence-index.json remains historical and is not rewritten."
+}
