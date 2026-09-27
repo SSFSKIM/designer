@@ -90,3 +90,23 @@ canonicalCandidate input here. This adapter requires its diagnostic label and
 carries that label into the HTML/PNG title and candidate inventory metadata:
 "diagnostic candidate WEB for EYE; not a canonical read or G2 material".
 The canonical holdout remains excluded. G0 styles/difference encoding stay intact.
+
+W39 candidate metadata conversion (after the original candidate freeze is committed):
+  python3.12 results/2026-09-27-w41-g1-identification/sheets/manifest.py attempt-1 \
+    results/2026-09-27-w41-g1-identification/sheets/candidate-calval-freeze.json
+Run from packages/calibration. The converter reads only committed JSON and candidate
+material documents, never any PNG. It binds the original frozen-envelope, raw
+inventory and seal hashes, selects precisely baseline preparation's536calval cells,
+retains each primaryCapture under attempt/calval/profile/scene, verifies every
+selected payload hash belongs to the frozen envelope and keeps actual candidate
+scratch document paths. Blind entries are not converted or dereferenced. Commit
+the new derived manifest before passing its full hash to adapter.ts. This does
+not modify the candidate capture driver, its frozen files or any candidate pixels.
+Focused converter review confirmed schema compatibility and no pixel opens. Its
+small scope-binding/test gaps were closed by a separate fix wave: preparation's
+committed hash must equal the original candidate seal's input pin. A temporary
+Git repository tests the complete536-cell derivation, changed scope/documents,
+broken frozen/raw/seal links, count/uniqueness, selected blind-phase refusal and
+confined no-overwrite output. The new scope regression failed before the fix;
+manifest-review-fixed.txt records9/9passing, freeze-manifest.txt1818intact.
+No conversion of the actual candidate attempt has run yet.

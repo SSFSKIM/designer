@@ -82,3 +82,10 @@ unchanged-G0/new TypeScript suite passes15tests, Python4, strict TypeScript clea
 freeze1818 intact. Actual hardware capture behavior is still unverified.
 The coordinator's direct/no-matrix clarification is preserved verbatim in
 parent-ruling-direct-capture.json; commands-preview.json is explicitly unexecuted.
+
+Input assembly completed after preparation commit4bc3487e; seal/snapshots committed
+3783a37a. attempt-1/seal.json SHA256:
+d0b24a2e2e5deb1faf01e8313a1b8b528870481259c59c9c0f26d8cb513de24e.
+Read-only verify passed (verify-attempt-1.txt). Assembly hashed committed shared
+background assets, not native glass fixture PNGs. No browser launch or diagnostic
+capture has occurred. The owner's browser handoff and fresh X6 checks remain due.
