@@ -110,3 +110,45 @@ broken frozen/raw/seal links, count/uniqueness, selected blind-phase refusal and
 confined no-overwrite output. The new scope regression failed before the fix;
 manifest-review-fixed.txt records9/9passing, freeze-manifest.txt1818intact.
 No conversion of the actual candidate attempt has run yet.
+
+First actual offline run: transport stall, outputs preserved
+After canonical freeze65bd9fbe, the original adapter rendered125canonical HTML
+files and124PNGexports in approximately30seconds, then stalled on the125th PNG.
+The bounded health snapshot at11:48:15Z found no progress for36m39s, both the Node
+parent and Python exporter at0%CPU, and no native.py process: W39 reading had not
+begun. Python's stack was blocked in stdin readall; Node's was blocked in
+SyncProcessRunner/uv_run/kevent. This establishes a synchronous-pipe EOF wait,
+not expensive archive reading or Pillow image computation; the underlying
+Node/libuv failure was not separately isolated. Stack, descriptor and health
+records are retained. partial-output-preservation.json binds all249files.
+
+The owner authorized a bounded additive recovery (recovery-ruling.json). Only our
+own background task was stopped, via TaskStop; no known process remained, and all
+249file hashes still matched (stalled-job-stop.json). No finished image was
+regenerated, native input reopened or pinned source edited during diagnosis.
+Recovery must bind new reviewed/committed runner bytes to the original inputs,
+freezes, selection and preservation witness. It will use regular-file exporter
+stdin/stdout, preserve124PNGs/125HTML, export thepending125PNG and render only
+remaining741admittedcells. The125completed native records will be explicitly
+recovered from saved HTML and the committed G0fixture inventory, not claimed as
+new native reads. All536W39 native reads still go through the unchanged guard.
+
+Recovery preparation and review closure
+The additive recovery runner now uses file descriptors, bounded120-second child
+timeouts and immutable per-cell checkpoints before export.14synthetic tests and
+strict TypeScript pass. Independent review caught unbound recovered shipped-file
+provenance: a same-document recapture could differ from the saved HTML. The fix
+compares every embedded Shipped panel RGBA byte with the claimed current capture,
+and explicitly distinguishes display/current hashes from the unknown original
+encoded-file hash. Narrow independent re-review closed the finding.
+Metadata-only preparation then safely refused a stale authority.json pathname;
+the new wrapper now binds the actual frozen authority-v2.json, not a fallback.
+Its digest and linkage were independently confirmed against committed metadata.
+The failed preparation log remains. No pinned original source or seal moved.
+
+recovery-declaration.json SHA2565abe634b794d41b95455cacdb58fcdbff302acbf0d3493a8e3dd1a2d9ca65d5c
+binds44source/input pins, the125/124preserved prefix and full866+8scope. It pins the
+committed1818-entry frozen hash witness and cross-checks all125original native
+fixture hashes against G0metadata without reopening those native fixtures.
+Actual continuation still requires this declaration and every pin to be committed,
+then the unchanged canonical driver verifier and recovery verifier to pass.
