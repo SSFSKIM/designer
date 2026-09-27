@@ -51,3 +51,28 @@ FINDINGS FOR THE PARENT
 No native fitting data or holdout payload has been opened at this checkpoint.
 The H4/edge and width2 degeneracies above must stay named if those fits open.
 No material, matrix, generation, fixture, scene, golden or threshold changed.
+
+STEP 2: NEUTRAL CURVES, FROZEN BEFORE CHROMATIC FITTING
+
+The fetched release archive was verified by fetch-archive.py. Its inventory is
+58329732f947d42cd5e1518962016191faaa79d89b7089c6dadf5724dde35f61.
+read-neutral.py reads56 neutral calibration cells (seven knots x four endpoints
+x two scales) through wave.Reader with the whole /Users/new/vitrea-w39 tree
+denied after code/declarations are loaded. It re-derives each state's deep
+median from the lossless archive frames at attested geometry and checks it
+against the recorded statistic. No validation or holdout payload enters this
+step, and the probe convenience images are not used.
+
+Output codes at input40 /56 /72 /88 /104 /128 /150:
+ endpoint         40   56   72   88  104  128  150
+ light active    152  160  168  176  183  195  205
+ light inactive  150  157  164  171  178  188  197
+ dark active      69   83   96  108  119  134  146
+ dark inactive    60   74   87  100  111  127  140
+
+Both scales and every RGB channel agree at every knot. LS and minimax are
+therefore identical, RSS0 and maximum residual0, each of rank7. Every bar is
+0.5. neutral/curves.json records all seven runs, states, populations, spatial
+ranges, bars and residuals per cell/channel. End-segment continuation, then
+unit-cube clipping, is the declared extrapolation for bridge inputs32/192;
+those anchors do not extend F or enter its fit. Freeze again reads1,818.
