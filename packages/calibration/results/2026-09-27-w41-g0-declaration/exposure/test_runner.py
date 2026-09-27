@@ -1,5 +1,7 @@
 """Synthetic calibration stand-ins only: no native inventory or capture is opened."""
 import json
+import os
+import signal
 from pathlib import Path
 import subprocess
 import tempfile
@@ -59,6 +61,7 @@ class ExposureTests(unittest.TestCase):
         self.commit()
         self.log = Path(self.tmp.name) / 'scratch-receipt.jsonl'
         self.output = Path(self.tmp.name) / 'capture'
+        self.score_report = self.log.with_name(self.log.stem + '-scores.json')
         self.calls = []
 
     def put(self, name, value):
@@ -241,6 +244,149 @@ class ExposureTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'capture mutated'):
             self.run_exposure(score=mutate)
         self.assertEqual(self.events(), ['begin', 'failed'])
+
+    def assert_failed_evidence(self, reason, scores=None):
+        result = runner.load(self.output / 'result.json')
+        self.assertEqual(result['status'], 'failed')
+        self.assertIn(reason, result['error']['message'])
+        self.assertEqual(result['manifestSha256'], runner.sha(self.root / 'frozen.json'))
+        self.assertEqual(self.events(), ['begin', 'failed'])
+        if scores is None:
+            self.assertNotIn('scores', result)
+            self.assertFalse(self.score_report.exists())
+        else:
+            self.assertEqual(result['scores'], scores)
+            report = runner.load(self.score_report)
+            self.assertEqual(report['scores'], scores)
+            self.assertEqual(report['manifestSha256'], result['manifestSha256'])
+            self.assertEqual(set(report['captures']['standin']), set(self.cells))
+        with self.assertRaises(PermissionError):
+            self.run_exposure()
+        return result
+
+    def test_full_failed_score_is_fsynced_before_aggregation(self):
+        returned = {}
+        synced = set()
+        original_fsync, original_coverage = os.fsync, runner.coverage
+        def fsync(fd):
+            original_fsync(fd)
+            synced.add(os.fstat(fd).st_ino)
+        def coverage(actual, expected, label):
+            if label == 'native candidate scores':
+                report = self.score_report
+                self.assertEqual(runner.load(report)['scores'], returned)
+                self.assertIn(report.stat().st_ino, synced)
+            return original_coverage(actual, expected, label)
+        def fail(request):
+            returned.update(self.score(request))
+            returned['standin']['rendered'][self.cells[0]].update(
+                passes=False, worstResidualCodes=3,
+                bins=[{'population': 3, 'status': 'UNMEASURED',
+                       'repeats': [81, 82, 83, 84, 85, 86, 87]}])
+            return returned
+        with patch.object(runner.os, 'fsync', side_effect=fsync), \
+                patch.object(runner, 'coverage', side_effect=coverage):
+            with self.assertRaisesRegex(ValueError, 'closure failed'):
+                self.run_exposure(score=fail)
+        self.assert_failed_evidence('closure failed', returned)
+
+    def test_process_kill_after_score_persistence_retains_authoritative_report(self):
+        original_coverage = runner.coverage
+        def kill_before_verdict(actual, expected, label):
+            if label == 'native candidate scores':
+                os.kill(os.getpid(), signal.SIGKILL)
+            return original_coverage(actual, expected, label)
+        pid = os.fork()
+        if pid == 0:
+            try:
+                with patch.object(runner, 'coverage', side_effect=kill_before_verdict):
+                    self.run_exposure()
+            finally:
+                os._exit(1)
+        _, status = os.waitpid(pid, 0)
+        self.assertTrue(os.WIFSIGNALED(status))
+        self.assertEqual(os.WTERMSIG(status), signal.SIGKILL)
+        report = runner.load(self.score_report)
+        self.assertEqual(report['status'], 'scored')
+        self.assertEqual(report['manifestSha256'], runner.sha(self.root / 'frozen.json'))
+        self.assertEqual(set(report['scores']['standin']['rendered']), set(self.cells))
+        for cell in self.cells:
+            self.assertEqual(report['scores']['standin']['rendered'][cell],
+                             {'status': 'measured', 'passes': True, 'worstResidualCodes': 0})
+            capture = report['captures']['standin'][cell]
+            self.assertEqual(capture['sha256'], runner.sha(capture['path']))
+        self.assertEqual(self.events(), ['begin'])
+        self.assertFalse((self.output / 'result.json').exists())
+        with self.assertRaises(PermissionError):
+            self.run_exposure()
+
+    def test_freeze_verification_failure_preserves_returned_score(self):
+        returned = {}
+        def mutate(request):
+            returned.update(self.score(request))
+            self.put('parameters.json', {'gain': 2})
+            return returned
+        with self.assertRaises(ValueError):
+            self.run_exposure(score=mutate)
+        self.assert_failed_evidence('parameters.json', returned)
+
+    def test_scorer_exception_has_failed_verdict_without_invented_scores(self):
+        def fail(request):
+            raise RuntimeError('synthetic scorer interrupted')
+        with self.assertRaisesRegex(RuntimeError, 'scorer interrupted'):
+            self.run_exposure(score=fail)
+        result = self.assert_failed_evidence('scorer interrupted')
+        self.assertEqual(result['error']['type'], 'RuntimeError')
+        self.assertEqual(set(result['captures']['standin']), set(self.cells))
+
+    def test_capture_and_callback_expected_hash_mutation_cannot_complete(self):
+        returned = {}
+        def mutate(request):
+            returned.update(self.score(request))
+            cell = self.cells[0]
+            path = request.captures['standin'][cell]
+            Image.new('RGB', (2, 2), (80, 90, 101)).save(path)
+            artifact = runner.load(request.root / request.candidates['standin']['rendered'])
+            request.manifest['files'][artifact['cells'][cell]['png']] = runner.sha(path)
+            return returned
+        with self.assertRaisesRegex(ValueError, 'mutated'):
+            self.run_exposure(score=mutate)
+        self.assert_failed_evidence('mutated', returned)
+
+    def test_candidate_mapping_mutation_cannot_erase_required_scores(self):
+        def mutate(request):
+            request.candidates.clear()
+            return {}
+        with self.assertRaisesRegex(ValueError, 'mutated'):
+            self.run_exposure(score=mutate)
+        self.assert_failed_evidence('mutated', {})
+
+    def test_capture_mapping_mutation_cannot_replace_scored_image(self):
+        returned = {}
+        def mutate(request):
+            returned.update(self.score(request))
+            path = request.captures['standin'][self.cells[0]]
+            Image.new('RGB', (2, 2), (80, 90, 101)).save(path)
+            request.captures['standin'][self.cells[0]] = self.root / '0.png'
+            return returned
+        with self.assertRaisesRegex(ValueError, 'mutated'):
+            self.run_exposure(score=mutate)
+        result = self.assert_failed_evidence('mutated', returned)
+        path = Path(result['captures']['standin'][self.cells[0]]['path'])
+        self.assertTrue(path.is_relative_to(self.output.resolve()))
+
+    def test_capture_backend_cannot_rewrite_manifest_hash(self):
+        def mutate(request):
+            paths = self.capture(request)
+            path = paths[self.cells[0]]
+            with Image.open(path) as image:
+                image.putpixel((1, 1), (80, 90, 101))
+                image.save(path)
+            request.manifest['files']['0.png'] = runner.sha(path)
+            return paths
+        with self.assertRaisesRegex(ValueError, 'mutated'):
+            self.run_exposure(capture=mutate)
+        self.assert_failed_evidence('mutated')
 
     def test_real_backend_launches_web_only_driver_inside_receipt(self):
         profiles = {cell.split('/', 1)[0]: {'material': 'parameters.json',

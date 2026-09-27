@@ -5,6 +5,7 @@ log argument, retry, alternate archive, or synthetic production backend. Native
 scoring is supplied by a committed module; only that module receives a live token.
 Importing this file reads code only, never the receipt or native archive.
 """
+from copy import deepcopy
 from dataclasses import dataclass
 import hashlib
 import importlib.util
@@ -329,101 +330,137 @@ def scratch_path(path):
     return path
 
 
+def persist(path, value):
+    """Install one runner-owned evidence file durably; never overwrite an earlier reading."""
+    payload = stable(value) + '\n'
+    with path.open('x') as stream:
+        stream.write(payload)
+        stream.flush()
+        os.fsync(stream.fileno())
+    directory = os.open(path.parent, os.O_RDONLY)
+    try:
+        os.fsync(directory)
+    finally:
+        os.close(directory)
+
+
 def _run(root, wave, manifest_path, log, output, capture, project, score, mode):
     root = Path(root).resolve()
     manifest = verify(root, wave, manifest_path, mode)
+    manifest_sha = sha(manifest_path)
     output = scratch_path(output)
-    if output.exists():
-        raise ValueError('capture destination already exists; no reuse or retry')
+    score_report = Path(log).with_name(Path(log).stem + '-scores.json')
+    if output.exists() or score_report.exists():
+        raise ValueError('capture destination or score record already exists; no reuse or retry')
     numerical = (manifest['numericalCells'] if mode == 'synthetic' else
                  cells_for(wave, ('holdout',)))
     rendered = (manifest['renderedCells'] if mode == 'synthetic' else
                 cells_for(wave, ('holdout',), True))
+    candidates = {c['id']: c for c in manifest['candidates']}
     configuration = dict(scenes=manifest['scenes'], split=manifest['split'],
                          generation=manifest['generation'], instrument=manifest['boundarySha256'],
                          closure=manifest['files'][manifest['closure']],
                          candidate=manifest['candidates'], frozenFiles=manifest['files'],
-                         manifestSha256=sha(manifest_path), mode=mode,
+                         manifestSha256=manifest_sha, mode=mode,
                          renderer=dict(revision=manifest['revision'],
                                        sources={p: manifest['files'][p] for p in manifest['sourceFiles']},
                                        configuration=manifest['files'][manifest['config']]))
+
+    def verify_snapshot():
+        if (sha(manifest_path) != manifest_sha
+                or verify(root, wave, manifest_path, mode) != manifest):
+            raise ValueError('frozen manifest mutated during exposure')
+
     # No closure assertion or capture occurs before begin. Failure after this
     # point spends W39's complete exposure, even if no native pixel was reached.
     with boundary.Receipt(log, configuration).expose() as authorization:
         output.mkdir(parents=True, exist_ok=False)
-        authorization.check(wave)
-        if mode == 'production':
-            planned = wave.launch_scenes(('holdout',), authorization)
-            coverage({c.split('/', 1)[1] for c in rendered}, planned, 'authorized web plan')
-        captures = {}
-        for candidate in manifest['candidates']:
-            destination = output / candidate['id']
-            destination.mkdir()
-            request = CaptureRequest(wave, authorization, root, manifest, candidate['id'],
-                                     tuple(rendered), destination)
-            captured = capture(request)
-            coverage(captured, rendered, 'captured cells')
-            frozen = load(root / candidate['rendered'])['cells']
-            verified = {}
-            for cell, path in captured.items():
-                path = Path(path).resolve()
-                if destination not in path.parents or not path.is_file():
-                    raise ValueError('capture backend returned a missing or reused artifact')
-                png(path, None if mode == 'synthetic' else dimension(wave, cell))
-                if sha(path) != manifest['files'][frozen[cell]['png']]:
-                    raise ValueError('capture changed a frozen rendered prediction')
-                projection = project(cell, path)
-                if stable(projection) != stable(load(root / frozen[cell]['projection'])):
-                    raise ValueError('capture changed a frozen rendered prediction projection')
-                verified[cell] = path
-            captures[candidate['id']] = verified
-        verify(root, wave, manifest_path, mode)
-        request = ScoreRequest(wave, authorization, root, manifest,
-                               {c['id']: c for c in manifest['candidates']}, tuple(numerical),
-                               tuple(rendered), captures)
-        scores = score(request)
-        stable(scores)
-        coverage(scores, request.candidates, 'native candidate scores')
-        measured_coverage = {}
-        for candidate, values in scores.items():
-            measured_coverage[candidate] = {}
-            coverage(values, ('numerical', 'rendered'), 'native score kinds')
-            for kind, expected in [('numerical', numerical), ('rendered', rendered)]:
-                coverage(values[kind], expected, kind + ' native scores')
-                measured, censored = 0, 0
-                for cell, result in values[kind].items():
-                    if result.get('status') == 'measured' and result.get('passes') is True:
-                        measured += 1
-                    elif (result.get('status') == 'UNMEASURED'
-                          and result.get('reason') == 'censored'
-                          and 'passes' in result and result['passes'] is None
-                          and result.get('constraintsPass') is True):
-                        # X31 v2.2: censoring is neither a pass nor coverage.
-                        # The scorer must still enforce every uncensored and
-                        # rail constraint; censoring cannot hide a binding miss.
-                        censored += 1
-                    else:
-                        raise ValueError('closure failed or UNMEASURED: ' + candidate + '/' + kind + '/' + cell)
-                measured_coverage[candidate][kind] = dict(
-                    measured=measured, censored=censored, total=len(expected),
-                    fraction=measured / len(expected))
-        verify(root, wave, manifest_path, mode)
-        for candidate in manifest['candidates']:
-            frozen = load(root / candidate['rendered'])['cells']
-            for cell, path in captures[candidate['id']].items():
-                if sha(path) != manifest['files'][frozen[cell]['png']]:
-                    raise ValueError('capture mutated during scoring')
-        result = dict(status='complete', mode=mode, numericalCells=len(numerical),
-                      renderedCells=len(rendered), candidates=len(captures), scores=scores,
-                      coverage=measured_coverage,
-                      manifestSha256=sha(manifest_path),
-                      captures={key: {cell: dict(path=str(path), sha256=sha(path))
-                                      for cell, path in value.items()} for key, value in captures.items()})
-        # Persist measured results before the Receipt can append complete.
-        with (output / 'result.json').open('x') as stream:
-            stream.write(stable(result) + '\n')
-            stream.flush()
-            os.fsync(stream.fileno())
+        result = dict(mode=mode, numericalCells=len(numerical), renderedCells=len(rendered),
+                      candidates=len(candidates), manifestSha256=manifest_sha, captures={})
+        try:
+            authorization.check(wave)
+            if mode == 'production':
+                planned = wave.launch_scenes(('holdout',), authorization)
+                coverage({c.split('/', 1)[1] for c in rendered}, planned, 'authorized web plan')
+            captures = {}
+            for candidate in manifest['candidates']:
+                destination = output / candidate['id']
+                destination.mkdir()
+                # Dataclass freezing alone does not protect nested dicts. Callbacks
+                # get detached snapshots; no callback owns the comparison state.
+                request = CaptureRequest(wave, authorization, root, deepcopy(manifest),
+                                         candidate['id'], tuple(rendered), destination)
+                captured = capture(request)
+                if request.manifest != manifest:
+                    raise ValueError('capture callback mutated its manifest')
+                coverage(captured, rendered, 'captured cells')
+                frozen = load(root / candidate['rendered'])['cells']
+                verified = {}
+                records = result['captures'][candidate['id']] = {}
+                for cell, path in captured.items():
+                    path = Path(path).resolve()
+                    if destination not in path.parents or not path.is_file():
+                        raise ValueError('capture backend returned a missing or reused artifact')
+                    digest = sha(path)
+                    records[cell] = dict(path=str(path), sha256=digest)
+                    png(path, None if mode == 'synthetic' else dimension(wave, cell))
+                    if digest != manifest['files'][frozen[cell]['png']]:
+                        raise ValueError('capture changed a frozen rendered prediction')
+                    projection = project(cell, path)
+                    if stable(projection) != stable(load(root / frozen[cell]['projection'])):
+                        raise ValueError('capture changed a frozen rendered prediction projection')
+                    verified[cell] = path
+                captures[candidate['id']] = verified
+            verify_snapshot()
+            request = ScoreRequest(wave, authorization, root, deepcopy(manifest),
+                                   deepcopy(candidates), tuple(numerical), tuple(rendered),
+                                   deepcopy(captures))
+            # Preserve the complete returned JSON before any verdict, including
+            # callback/freeze checks. This receipt-adjacent record is authoritative
+            # even if a later check fails or the process dies before result.json.
+            scores = json.loads(stable(score(request)))
+            result['scores'] = scores
+            persist(score_report, dict(result, status='scored'))
+            result['scoreReport'] = dict(path=str(score_report), sha256=sha(score_report))
+            if (request.manifest != manifest or request.candidates != candidates
+                    or request.captures != captures):
+                raise ValueError('score callback mutated its input snapshots')
+            verify_snapshot()
+            for candidate, paths in captures.items():
+                for cell, path in paths.items():
+                    if sha(path) != result['captures'][candidate][cell]['sha256']:
+                        raise ValueError('capture mutated during scoring')
+            coverage(scores, candidates, 'native candidate scores')
+            measured_coverage = {}
+            for candidate, values in scores.items():
+                measured_coverage[candidate] = {}
+                coverage(values, ('numerical', 'rendered'), 'native score kinds')
+                for kind, expected in [('numerical', numerical), ('rendered', rendered)]:
+                    coverage(values[kind], expected, kind + ' native scores')
+                    measured, censored = 0, 0
+                    for cell, cell_score in values[kind].items():
+                        if cell_score.get('status') == 'measured' and cell_score.get('passes') is True:
+                            measured += 1
+                        elif (cell_score.get('status') == 'UNMEASURED'
+                              and cell_score.get('reason') == 'censored'
+                              and 'passes' in cell_score and cell_score['passes'] is None
+                              and cell_score.get('constraintsPass') is True):
+                            # X31 v2.2: censoring is neither a pass nor coverage.
+                            # The scorer must still enforce every uncensored and
+                            # rail constraint; censoring cannot hide a binding miss.
+                            censored += 1
+                        else:
+                            raise ValueError('closure failed or UNMEASURED: ' + candidate + '/' + kind + '/' + cell)
+                    measured_coverage[candidate][kind] = dict(
+                        measured=measured, censored=censored, total=len(expected),
+                        fraction=measured / len(expected))
+            result.update(status='complete', coverage=measured_coverage)
+        except BaseException as error:
+            result.update(status='failed', error=dict(type=type(error).__name__, message=str(error)))
+            persist(output / 'result.json', result)
+            raise
+        # Persist the verdict before the Receipt can append complete.
+        persist(output / 'result.json', result)
     return result
 
 

@@ -21,7 +21,14 @@ The synthetic receipt does not authorize the W39 inventory generation.
 
 Tests were run RED with `freeze` unimplemented, then GREEN. Additional RED/GREEN
 checks caught a scratch token inadvertently authorizing the native generation
-and a captured image changed during scoring. See `synthetic-check.json` for the
+and a captured image changed during scoring. The bounded fix wave adds eight
+regressions: a failed score is fsynced before aggregation, a freeze failure retains
+that score, a scorer exception records failure without invented scores, callback
+manifest/candidate/capture-map mutation cannot rewrite the trusted comparisons,
+and a child killed with SIGKILL between score persistence and verdict leaves its
+scores beside the spent scratch receipt. `fix-wave-red.txt` records 24 tests with
+four failures and four missing-evidence errors before the fixes;
+`fix-wave-green.txt` records all 24 passing. See `synthetic-check.json` for the
 recorded dry-run numbers. One separate test exercises the real subprocess
 backend's command construction and output/provenance parsing using a substituted
 process; **it does not launch Chromium**. No native payload, archive Reader,
@@ -132,7 +139,10 @@ payloads. It may use pinned scene metadata and other declared instrument inputs.
 
 `ScoreRequest` provides `wave`, `authorization`, `root`, `manifest`,
 `candidates` (ID → artifact specification), `numerical_cells`, `rendered_cells`,
-and `captures` (candidate ID → cell → **fresh capture path**). The scorer must
+and `captures` (candidate ID → cell → **fresh capture path**). Nested manifest,
+candidate and capture mappings are detached deep copies, not the runner's trusted
+comparison state. A callback must not mutate them; the runner refuses observed
+mutations. Capture backends likewise receive a detached manifest. The scorer must
 construct archive Readers using this token, verify their inventory generation,
 and use the guarded archive accessors for every native pixel/reference/repeat.
 It must score the fresh web images, not just the frozen numerical projections.
@@ -182,12 +192,37 @@ there is no retry of a failed attempt.
 
 Every returned cell must be present under the fresh output directory, have the
 **identical PNG bytes** to its frozen web prediction and reproduce its projection
-exactly. Then the native scorer runs. Frozen inputs are reverified after capture
-and after scoring, and the fresh PNGs are rehashed after scoring. Results are
-written and fsynced to `result.json` before W39 can append `complete`.
+exactly. Then the native scorer runs. Frozen inputs and the original manifest
+identity are reverified after capture and after scoring, and the fresh PNGs are
+rehashed against independently held capture-time hashes after scoring.
+
+Immediately when `score` returns valid JSON, the runner writes the **full returned
+report** (all bins/channels/repeats, not just passing summaries) to the runner-owned
+`<receipt-stem>-scores.json` in the receipt's own directory. For production this is
+`wave-identification-receipt-scores.json` beside the inherited W39 receipt. It is
+created exclusively, never overwritten; both file and parent directory are fsynced
+**before** callback mutation checks, frozen-input checks, or score aggregation.
+Its `status: "scored"` records a returned observation, not an accepted verdict. It
+binds the original manifest SHA-256 and fresh capture paths with hashes observed
+before scoring. If an image is subsequently changed, that original hash remains
+the witness; the verdict refuses completion rather than relabeling the new image
+as the scored capture.
+
+`result.json` in the output directory is the separate verdict, also written and
+fsynced before W39 appends `complete` or a caught failure appends `failed`. A
+successful verdict retains the scores, coverage and capture inventory. A failed
+verdict retains the full returned scores when available, original manifest
+identity, capture inventory and the exception type/reason. Both reference the
+authoritative score record by path and SHA-256 when it was persisted. A scorer
+exception records failure without a `scores` field: no return means no invented
+reading. The authoritative report survives aggregation or freeze failure and even
+a process killed before the verdict can be written. Scores are the authoritative
+record of that exposure, **never re-scored by a second exposure**.
 
 A failure after `begin` appends `failed` and consumes the entire exposure. An
-interruption follows inherited W39 lock/spent semantics. Preflight mutation,
+uncatchable interruption can leave the durable score record without a verdict or
+terminal receipt event; it still follows inherited W39 lock/spent semantics and
+permits no retry. Preflight mutation,
 missing candidate payload or incomplete frozen coverage refuses before `begin`.
 Once spent, a changed candidate cannot obtain another attempt. No path here
 changes the inherited W39 source, declaration, split or protected evidence.
