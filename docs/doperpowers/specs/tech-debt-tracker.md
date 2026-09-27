@@ -6574,3 +6574,17 @@ Recurrences of tracked seams, for the count: a same-sized host moved by a neighb
 its cached box (the eval's unaided cell pinned a spacer; start-page dispatches a synthetic `scroll`
 at the morph host when its rounded rect changes); and `GlassMorph` collapses to 0 × 0 when Reduce
 Motion flips while it is open (start-page review, finding 1; the cookbook's remount recipe applied).
+
+## A morph's glass lands a frame after its slot moves, so a moving neighbour trips `same-plane-overlap` (Relue workspace, 2026-09-27)
+
+Found twice building on `@vitreajs/vitrea-react` 0.24.0, on real hardware (WebGPU): once on the
+public chapter page while a bar reflowed as a label changed width, and once in the workspace
+while a pane divider dragged a bar whose last capsule is a `GlassMorph` (the speed menu). The
+morph's glass is placed one frame after its slot's DOM box moves, so for that frame it still
+occupies the old box while a neighbouring capsule has already slid into it, and the runtime
+reports `same-plane-overlap` for a layout that never overlaps. The app now avoids it by
+reserving the morph's box and putting the morph last in the bar so nothing beside it moves.
+**Shape of the work:** read the morph's slot in the same batched read as the other hosts of the
+frame (or suppress the overlap check for surfaces whose geometry is one frame stale), and a
+browser test that moves a flex row containing a morph beside a surface by `left` per frame and
+asserts zero overlap diagnostics.
