@@ -6588,3 +6588,28 @@ reserving the morph's box and putting the morph last in the bar so nothing besid
 frame (or suppress the overlap check for surfaces whose geometry is one frame stale), and a
 browser test that moves a flex row containing a morph beside a surface by `left` per frame and
 asserts zero overlap diagnostics.
+
+## Under forced colours the WebGPU tier draws a dark body instead of system colours, and opening a morph drops the focus it held (Relue, 2026-09-27)
+
+Both found on `@vitreajs/vitrea-react` 0.24.0 in Chromium with a light forced-colours theme
+(emulated `forcedColors: 'active'`) over a canvas texture backdrop, on real hardware.
+
+- **Forced colours.** On the CSS tier a capsule gets a `Canvas` background and a system-colour
+  border, which is right. On the WebGPU tier the host stays transparent and the optics canvas
+  still draws a flat dark body (about 68,68,68) under it; the label's colour is forced to
+  `CanvasText` (black), so an icon on that body nearly vanishes and text survives only because
+  Chromium paints its own white backplate behind text runs (evidence: the app's
+  `/tmp/relue-fixwave/crop-fc-watch.png`, a Watch capsule's black play triangle on grey). This
+  sits beside the existing entry about the highlight canvas's glow under forced colours and the
+  CLAUDE.md claim that forced colours draw no body: on this path a body is drawn. The app now
+  gives every host `Canvas`/`CanvasText`/`ButtonBorder` under `forced-colors: active` itself.
+  **Shape of the fix:** under forced colours, stand the WebGPU tier down to the CSS tier's
+  system-colour treatment for every group (no optics or highlight pass), and a browser test on
+  the texture path that reads the host's rendered pixels under emulated forced colours.
+- **A morph drops focus when it opens.** Opening a `GlassMorph` re-parents its content node into
+  its plane layer, and the move blurs whatever inside it held focus, so focus lands on `body`.
+  An app that focuses a menu row on open has to re-take focus after the move (the app retries per
+  frame while focus sits on `body`, and once more on `onMorphEnd`). **Shape of the fix:** keep
+  the node's identity across the open (portal once, as `PlanePortal` does), or restore
+  `document.activeElement` after the move when it was inside the moved subtree, with a test that
+  focuses a child on open and asserts it still holds focus after the morph ends.
