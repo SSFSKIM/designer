@@ -3,6 +3,7 @@ import json
 import hashlib
 import numpy as np
 from pathlib import Path
+from types import SimpleNamespace
 import sys
 import tempfile
 import unittest
@@ -67,6 +68,112 @@ class CompleteTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, 'broken seal'):
                     complete.main()
             self.assertFalse(output.exists())
+
+    def test_m1_requires_all_original32_before_validation_or_any_native_read(self):
+        with tempfile.TemporaryDirectory(dir=complete.runner.PRIMARY, prefix='synthetic-complete-') as root:
+            root = Path(root); partition = root/'partition'; partition.mkdir(); output = root/'output'
+            for geometry in ('device', 'curvature'):
+                for index in range(16):
+                    if geometry == 'curvature' and index == 15:
+                        continue
+                    (partition/f'{geometry}-M1-start-{index:02d}.json').write_text(
+                        json.dumps(result('M1', geometry, index)))
+            with patch.object(sys, 'argv', ['complete', '--family', 'M1', '--partition',
+                                           str(partition), '--out', str(output)]), \
+                    patch.object(complete.scope, 'verify_authority', return_value={'synthetic': True}), \
+                    patch.object(complete.r, 'Preparation', side_effect=AssertionError('native forbidden')), \
+                    patch.object(complete.runner, 'load_inactive', side_effect=AssertionError('native forbidden')):
+                with self.assertRaisesRegex(ValueError, 'complete unique original16start'):
+                    complete.main()
+            self.assertFalse(output.exists())
+
+    def test_m1_freezes_only_its32_selections_before_native(self):
+        with tempfile.TemporaryDirectory(dir=complete.runner.PRIMARY, prefix='synthetic-complete-') as root:
+            root = Path(root); partition = root/'partition'; partition.mkdir(); output = root/'output'
+            for geometry in ('device', 'curvature'):
+                for index in range(16):
+                    (partition/f'{geometry}-M1-start-{index:02d}.json').write_text(
+                        json.dumps(result('M1', geometry, index)))
+            # M2 need not finish, and even a completed M2 result is outside this freeze.
+            (partition/'device-M2-start-00.json').write_text(json.dumps(result('M2', 'device', 0)))
+            def before_native(*args):
+                pinned = json.loads((output/'frozen-optimizer-inputs.json').read_text())
+                self.assertEqual(len(pinned), 32)
+                self.assertTrue(all('M1' in Path(path).name for path in pinned))
+                self.assertEqual(len(list(output.glob('*-optimizer.json'))), 2)
+                selected = json.loads((output/'frozen-selected-predictions.json').read_text())
+                self.assertEqual(set(selected), {'device-M1', 'curvature-M1'})
+                self.assertEqual(selected['device-M1']['leastSquares']['startIndex'], 0)
+                self.assertEqual(json.loads((output/'selected-family-scope.json').read_text())
+                    ['interpretedEndpoints'], ['light-inactive'])
+                self.assertFalse((output/'device-M2-optimizer.json').exists())
+                raise RuntimeError('synthetic stops before native')
+            with patch.object(sys, 'argv', ['complete', '--family', 'M1', '--partition',
+                                           str(partition), '--out', str(output)]), \
+                    patch.object(complete.scope, 'verify_authority', return_value={'synthetic': True}), \
+                    patch.object(complete.r, 'Preparation', return_value=object()), \
+                    patch.object(complete, 'load_light_inactive', side_effect=before_native):
+                with self.assertRaisesRegex(RuntimeError, 'synthetic stops before native'):
+                    complete.main()
+
+    def test_all_unconverged_m1_freezes_same_forward_fallback_and_original_identity(self):
+        with tempfile.TemporaryDirectory(dir=complete.runner.PRIMARY, prefix='synthetic-complete-') as root:
+            root = Path(root); partition = root/'partition'; partition.mkdir(); output = root/'output'
+            for geometry in ('device', 'curvature'):
+                for index in range(16):
+                    item = result('M1', geometry, index)
+                    for objective in ('leastSquares', 'minimax'):
+                        row = item['starts'][0][objective]
+                        row['converged'] = False
+                        row['weightedSquaredError'] = float((index-7)**2+1)
+                        row['maximumCodes'] = float(16-index)
+                        row['coefficients'][7] = 40 + index/1000
+                    (partition/f'{geometry}-M1-start-{index:02d}.json').write_text(json.dumps(item))
+            def before_native(*args):
+                frozen = json.loads((output/'frozen-selected-predictions.json').read_text())
+                for name in ('device-M1', 'curvature-M1'):
+                    for objective, index in (('leastSquares', 7), ('minimax', 15)):
+                        prediction = frozen[name][objective]
+                        optimizer = json.loads((output/(name+'-optimizer.json')).read_text())
+                        selected, status = complete.execute.select_prediction(optimizer, objective)
+                        self.assertEqual(prediction['startIndex'], index)
+                        self.assertEqual(prediction['coefficients'], selected['coefficients'])
+                        self.assertEqual(prediction['coefficients'][7], 40 + index/1000)
+                        self.assertEqual(prediction['status'], status)
+                        self.assertIn('unconverged', prediction['status'])
+                self.assertEqual(len(json.loads((output/'frozen-optimizer-inputs.json').read_text())), 32)
+                raise RuntimeError('controlled native boundary')
+            with patch.object(sys, 'argv', ['complete', '--family', 'M1', '--partition',
+                                           str(partition), '--out', str(output)]), \
+                    patch.object(complete.scope, 'verify_authority', return_value={'synthetic': True}), \
+                    patch.object(complete.r, 'Preparation', return_value=object()), \
+                    patch.object(complete, 'load_light_inactive', side_effect=before_native):
+                with self.assertRaisesRegex(RuntimeError, 'controlled native boundary'):
+                    complete.main()
+
+    def test_light_inactive_reader_filters_public_metadata_before_payload_read(self):
+        cells = {'light-inactive': 'apple-macos-27.0-1x-light-standard-glass0.5/li__inactive',
+                 'dark-inactive': 'apple-macos-27.0-1x-dark-standard-glass0.5/di__inactive',
+                 'light-active': 'apple-macos-27.0-1x-light-standard-glass0.5/la__rest'}
+        profiles = [dict(key='apple-macos-27.0-1x-'+scheme+'-standard-glass0.5',
+                         colorScheme=scheme) for scheme in ('light', 'dark')]
+        scenes = {cell.split('/')[1]: dict(state='inactive' if 'inactive' in name else 'rest',
+                                          background='g128') for name, cell in cells.items()}
+        wave = SimpleNamespace(spec={'profiles': profiles}, scenes=scenes,
+                               component=lambda sid: sid)
+        read = []
+        reader = SimpleNamespace(allowed=set(scenes), entries={(cell, 'crop'): {'admitted': True}
+            for cell in cells.values()}, read=lambda cell, kind: read.append(cell) or b'synthetic')
+        archive = SimpleNamespace(unbundle=lambda raw: ([dict(admitted=True, protocol='normal',
+            state='s')]*7, {'s': b'synthetic'}), unpack=lambda raw: dict(scheme='light', pose='inactive'))
+        native = SimpleNamespace(wave=SimpleNamespace(native_only=lambda component: False),
+                                 archive=archive)
+        preparation = SimpleNamespace(prepare=lambda cell, role, payloads, states, background:
+            dict(cell=cell, endpoint=1, role=role, stateMembership=states))
+        with patch.object(complete.r, 'guarded_reader', return_value=(native, wave, reader)):
+            observations = complete.load_light_inactive(preparation, 'validation')
+        self.assertEqual(read, [cells['light-inactive']])
+        self.assertEqual([v['cell'] for v in observations], read)
 
     def test_paired_m1_result_refused_before_reader_or_output_creation(self):
         with tempfile.TemporaryDirectory(dir=complete.runner.PRIMARY, prefix='synthetic-complete-') as root:
@@ -176,6 +283,10 @@ class CompleteTests(unittest.TestCase):
             'light-inactive', 'minimax', {'M1-device': 'unconverged forward diagnostic; no survival claim'})
         self.assertEqual(next(v for v in diagnostic if v['models'] == ['M1-device', 'M2-curvature'])
                          ['status'], 'AVAILABLE: unconverged forward diagnostic; no survival claim')
+        unfrozen = complete.separation_availability({'M1-device'}, 'light-inactive',
+                                                     'leastSquares', unfrozen=('M2',))
+        self.assertIn('M2 UNAVAILABLE/unfrozen', next(v for v in unfrozen
+            if v['models'] == ['M1-device', 'M2-curvature'])['status'])
 
 
 if __name__ == '__main__':

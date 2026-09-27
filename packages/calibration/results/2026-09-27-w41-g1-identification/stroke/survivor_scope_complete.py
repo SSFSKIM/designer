@@ -48,7 +48,7 @@ def interior_support_rows(observations):
             for o in observations for part in o['parts'] for row in part['interior']]
 
 
-def separation_availability(available, endpoint, objective, statuses=None):
+def separation_availability(available, endpoint, objective, statuses=None, unfrozen=()):
     """Only an actually frozen local candidate supplies predictions; certificates do not."""
     names = [f'{family}-{geometry}' for family in ('M0', 'M1', 'M2')
              for geometry in ('device', 'css', 'curvature')]
@@ -68,6 +68,10 @@ def separation_availability(available, endpoint, objective, statuses=None):
             reason = 'certified geometry; unfitted'
         elif missing:
             reason = 'unfitted; no prediction available'
+        not_frozen = sorted({name.split('-', 1)[0] for name in missing
+                             if name.split('-', 1)[0] in unfrozen})
+        if not_frozen:
+            reason += '; ' + ', '.join(not_frozen) + ' UNAVAILABLE/unfrozen; no prediction available'
         status = 'UNAVAILABLE: '+reason if reason else \
             'AVAILABLE: unconverged forward diagnostic; no survival claim' if \
             any((statuses or {}).get(name, '').startswith('unconverged') for name in (left, right)) \
@@ -125,9 +129,10 @@ def separation_report(observations, selected, objective, emit):
                 qualification='available local instances only; no global family theorem')
 
 
-def collect_inputs(partitions):
+def collect_inputs(partitions, family_scope=None):
     merged, source_files = {}, {}
-    records = {(family, geometry): [] for family in ('M1', 'M2')
+    families = (family_scope,) if family_scope else ('M1', 'M2')
+    records = {(family, geometry): [] for family in families
                for geometry in ('device', 'curvature')}
     seeds = {}
     for family, geometry in records:
@@ -190,9 +195,54 @@ def collect_inputs(partitions):
     return merged, source_files
 
 
+
+def frozen_prediction(result, objective):
+    row, status = execute.select_prediction(result, objective)
+    # The exact forward fallback returns the inner objective, not its owning start.
+    # Locate that same object rather than recomputing the winner or tie rule.
+    start_index = row.get('startIndex')
+    if start_index is None:
+        start_index = next(start['startIndex'] for start in result['starts']
+                           if start[objective] is row)
+    return dict(startIndex=start_index, coefficients=row['coefficients'], status=status)
+
+
+def load_light_inactive(preparation, role):
+    """Admit only pinned light/inactive scene-profile pairs before any payload read."""
+    if role not in ('calibration', 'validation'):
+        raise PermissionError('light-inactive transfer admits calibration/validation only')
+    native, wave, reader = r.guarded_reader((role,))
+    schemes = {profile['key']: profile['colorScheme'] for profile in wave.spec['profiles']}
+    observations = []
+    for (cell, kind), entry in sorted(reader.entries.items()):
+        profile, sid = cell.split('/', 1)
+        if kind != 'crop' or sid not in reader.allowed or not entry['admitted']:
+            continue
+        scene = wave.scenes[sid]
+        if (scene['state'] == 'inactive') != sid.endswith('__inactive'):
+            raise ValueError('scene state disagrees with inactive cell identity')
+        if schemes[profile] != 'light' or scene['state'] != 'inactive' \
+                or native.wave.native_only(wave.component(sid)):
+            continue
+        runs, states = native.archive.unbundle(reader.read(cell, 'crop'))
+        runs = [v for v in runs if v['admitted'] and v['protocol'] == 'normal']
+        if len(runs) != 7:
+            raise ValueError('expected all seven normal admitted repeats: '+cell)
+        payloads = {state: native.archive.unpack(states[state]) for state in {v['state'] for v in runs}}
+        if any(p['scheme'] != 'light' or p['pose'] != 'inactive' for p in payloads.values()):
+            raise ValueError('payload disagrees with admitted public light-inactive identity')
+        observation = preparation.prepare(cell, role, [payloads[v['state']] for v in runs],
+            [v['state'] for v in runs], scene['background'])
+        if observation['endpoint'] != 1:
+            raise ValueError('prepared endpoint disagrees with admitted light-inactive scope')
+        observations.append(observation)
+    return observations
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument('--partition', action='append', help='override default partition/result directories')
+    ap.add_argument('--family', choices=['M1'], help='freeze and transfer the light-inactive M1 family only')
     ap.add_argument('--out', required=True)
     args = ap.parse_args()
     output = Path(args.out).resolve()
@@ -215,7 +265,7 @@ def main():
     partitions = [Path(p).resolve() for p in args.partition] if args.partition else defaults
     if len(set(partitions)) != len(partitions):
         raise ValueError('duplicate partition directory')
-    merged, source_files = collect_inputs(partitions)
+    merged, source_files = collect_inputs(partitions, args.family)
     output.mkdir(exist_ok=False)
     execute.json_write(output/'frozen-optimizer-inputs.json', source_files)
     execute.json_write(output/'certificate-authority.json', authority)
@@ -224,9 +274,19 @@ def main():
         raise ValueError('frozen optimizer input changed before native boundary')
     for name, result in merged.items():
         execute.json_write(output/(name+'-optimizer.json'), result)
+    if args.family:
+        execute.json_write(output/'selected-family-scope.json', dict(
+            family=args.family, interpretedEndpoints=['light-inactive'],
+            frozenOriginalStarts=32, certifiedEndpoints=['dark-inactive', 'light-active', 'dark-active'],
+            otherFamily='UNAVAILABLE/unfrozen; no M2 optimizer or prediction read'))
+        execute.json_write(output/'frozen-selected-predictions.json', {
+            name: {objective: frozen_prediction(result, objective)
+                   for objective in ('leastSquares', 'minimax')}
+            for name, result in merged.items()})
     preparation = r.Preparation()
-    calibration = runner.load_inactive(preparation, 'calibration')
-    validation = runner.load_inactive(preparation, 'validation')
+    loader = load_light_inactive if args.family else runner.load_inactive
+    calibration = loader(preparation, 'calibration')
+    validation = loader(preparation, 'validation')
     all_observations = calibration+validation
     execute.json_write(output/'admission.json', [dict(cell=o['cell'], role=o['role'],
         scale=o['scale'], stateMembership=o['stateMembership']) for o in all_observations])
@@ -282,16 +342,20 @@ def main():
             statuses[label] = status
         available = {endpoint: separation_availability(
             {name for name, (_, family, _) in selected.items()
-             if family == 'M2' or endpoint == 'light-inactive'}, endpoint, objective, statuses)
+             if family == 'M2' or endpoint == 'light-inactive'}, endpoint, objective, statuses,
+            ('M2',) if args.family else ())
             for endpoint in ('light-inactive', 'dark-inactive', 'light-active', 'dark-active')}
         execute.json_write(output/f'{objective}-separation-availability.json', available)
         summary = execute.gzip_rows(output/f'{objective}-separations.jsonl.gz',
             lambda emit: separation_report(all_observations, selected, objective, emit))
         execute.json_write(output/f'{objective}-separations-summary.json', summary)
-    execute.json_write(output/'complete.json', dict(
+    completion = dict(
         candidates={name: {objective: v['endpointSurvival'] for objective, v in rows.items()}
                     for name, rows in all_candidates.items()}, holdoutRead=False,
-        authority='surviving model-endpoint scope; certified endpoints never fitted or interpreted'))
+        authority='surviving model-endpoint scope; certified endpoints never fitted or interpreted')
+    if args.family:
+        completion['selectedFamily'] = args.family
+    execute.json_write(output/'complete.json', completion)
 
 
 if __name__ == '__main__':

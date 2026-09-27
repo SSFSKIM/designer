@@ -1,0 +1,19 @@
+{
+  "kind": "M2_CURVATURE_QUEUE_PAUSE",
+  "recordedUTC": "2026-09-27T17:21:11.773701+00:00",
+  "coordinatorDirection": "M1 device and curvature and M1 cal/validation verdict precede further M2; M2 device precedes curvature afterward",
+  "schedulerLock": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/.lock",
+  "driverPid": 72841,
+  "driverCommand": "/Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python -B -X pycache_prefix=/tmp/vitrea-M2-curvature-driver-bRYrlO89 /tmp/vitrea-M2-curvature-batch-driver.py",
+  "driverMode": "waiting-driver-killed-no-child-no-claim",
+  "childrenAtPause": [],
+  "schedulerCurvatureArtifacts": {
+    "claims": [],
+    "started": [],
+    "results": [],
+    "deferrals": [],
+    "failures": []
+  },
+  "didNotSignalChild": true,
+  "resumeRequiresExplicitRelease": true
+}

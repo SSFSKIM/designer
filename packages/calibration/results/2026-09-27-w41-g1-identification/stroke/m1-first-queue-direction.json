@@ -1,0 +1,30 @@
+{
+  "kind": "STROKE_M1_FIRST_QUEUE_DIRECTION",
+  "recordedUTC": "2026-09-27T17:22:11.331356+00:00",
+  "authority": "Coordinator task direction; no seed, budget, domain, bound or permission change.",
+  "receivedDirection": "Run every remaining M1 start (device, then curvature) before any further M2 start, so the M1 light-inactive verdict settles first; M2 device and curvature follow. Report M1 verdict when its32 starts and calibration/validation read are complete.",
+  "order": [
+    "M1 device remaining",
+    "M1 curvature all",
+    "freeze M1 device+curvature32 starts and read-only light-inactive calibration/validation",
+    "M2 device remaining",
+    "M2 curvature all"
+  ],
+  "alreadyStarted": "Any already-started solver finishes unchanged; only waiting admission drivers may stop.",
+  "pauseReports": {
+    "M2-device": {
+      "utc": "2026-09-27T17:20:47Z",
+      "pid": 59223,
+      "state": "Resource-waiting driver, no child or new claim/start; terminated under allocation lock.",
+      "record": "execution-batches/M2-device/events.jsonl"
+    },
+    "M2-curvature": {
+      "utc": "2026-09-27T17:21:11Z",
+      "pid": 72841,
+      "state": "Resource-waiting driver, no child/claim/start/result; stopped under allocation lock.",
+      "record": "execution-batches/M2-curvature/queue-pause-1.json"
+    }
+  },
+  "transferScope": "M1 requires only its complete32 frozen starts; light-inactive payloads only. M2 coefficients and queued starts remain calibration-only, unchanged and unavailable for a verdict.",
+  "reporting": "No per-start owner/coordinator messages; M1 verdict reported after complete budget and transfer."
+}
