@@ -292,6 +292,21 @@ parallel; the user's time is the eye reading, about thirty minutes.
   Evidence: `ls figma-design-workspace/glass-panel-baseline` → no such directory, 2026-09-27;
   `f13ab38c:docs/research/data/2026-09-10-liquid-glass-demos/baseline-captures.json`.
 
+- Observation: The 2.3 panel closed as unmeasurable (D, step 4): 0 of 30 regenerated captures match
+  their frozen SHA-256 although every mechanical read equals the baseline audit, and sixteen of them
+  are byte-stable across three runs and two Chromium builds and still miss. The rendering moved with
+  the machine (macOS 26.5 at baseline, 27.0 since 2026-09-18), on top of the animated pages' own
+  variation. An arithmetic bound stands whatever the missing rater would have said: a tie fails, so
+  a fourth answer can only lower a held count, and the highest three-rater count is 21 of 25.
+  Evidence: `docs/research/data/2026-09-10-liquid-glass-demos/recovery-2026-09-27.md`; the 2.3
+  spec's Outcomes, 2026-09-27.
+
+- Decision (from the observation): This initiative's panel captures are committed evidence, not a
+  gitignored copy. They are too large for the repository, so the capture set the raters read is
+  archived as a GitHub release asset at landing, the way W39 archived its sitting, and the hashes
+  beside the rules files name it.
+  Date/Author: 2026-09-27, Claude.
+
 ## Deferred
 
 - The user's eye reading (B, reading 4), when the six are up.

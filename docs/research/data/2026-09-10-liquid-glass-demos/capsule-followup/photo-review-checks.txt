@@ -1,0 +1,10 @@
+Live verification via playwright-cli, Chrome, http://localhost:8801/apps/demos/photo-review/.
+1440x900: visually inspected capsule compare control and verdict bar; larger adjustment platter unchanged.
+Clicked Split, Before, Edit and asserted aria-pressed true after each. Rated 4 with aria-pressed assertion.
+Clicked Pick (capture shows Picked and count increments); opened Exposure adjustment platter and captured it.
+800x900: captured controls docking into the filmstrip band and verdict remaining on the photograph.
+The docked open adjustment panel has crowded/overlapping text at 800px; its unchanged panel layout is outside
+this curvature-only follow-up. Do not describe the narrow adjustment state as polished.
+Forced CSS route ?renderer=css loaded and captured. Runtime evidence saved in runtime.txt.
+Console: no errors; one Canvas2D willReadFrequently performance advisory.
+New evidence only; existing demo PNGs/audit.json untouched. git diff --check passed.

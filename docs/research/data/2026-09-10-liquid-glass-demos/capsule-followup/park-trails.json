@@ -1,0 +1,230 @@
+{
+ "dir": "park-trails",
+ "url": "http://127.0.0.1:8808/figma-design-workspace/capsule-postreview-audit/park-trails/index.html",
+ "auditedAt": "2026-09-09T20:57:42.843Z",
+ "rootFound": true,
+ "readyState": "settled",
+ "errors": [],
+ "consoleErrors": [],
+ "failedRequests": 0,
+ "captureWidth": 1440,
+ "overflowCapture": false,
+ "overflowAtLoad": false,
+ "scrolledOnLoad": 0,
+ "docHeight": 4078,
+ "words": 1089,
+ "title": "Trails \u00b7 North Cascades National Park",
+ "placeholder": false,
+ "contrast": {
+  "checked": 28,
+  "pass": 28,
+  "unknown": 222,
+  "rate": 1,
+  "onGlass": 12,
+  "onGlassPass": 12,
+  "fails": []
+ },
+ "surfaces": 2,
+ "surfacesInFrame": 2,
+ "planes": [
+  {
+   "plane": "base",
+   "nodes": 2
+  },
+  {
+   "plane": "overlay",
+   "nodes": 0
+  }
+ ],
+ "colorScheme": "light",
+ "webgpu": {
+  "available": true,
+  "ownership": "vitrea",
+  "deviceHealth": "ok",
+  "reason": null,
+  "hasDevice": true
+ },
+ "groups": [
+  {
+   "id": "bar",
+   "members": 1,
+   "renderer": "webgpu",
+   "sampling": "css-backdrop",
+   "analysis": "hint",
+   "refraction": "approximate",
+   "health": "ok",
+   "demotionReason": null,
+   "cssBody": null,
+   "cssTint": null,
+   "cssShadow": null,
+   "diagnostics": []
+  },
+  {
+   "id": "action",
+   "members": 1,
+   "renderer": "webgpu",
+   "sampling": "css-backdrop",
+   "analysis": "hint",
+   "refraction": "approximate",
+   "health": "ok",
+   "demotionReason": null,
+   "cssBody": null,
+   "cssTint": null,
+   "cssShadow": null,
+   "diagnostics": []
+  },
+  {
+   "id": "permit",
+   "members": 0,
+   "renderer": "webgpu",
+   "sampling": "css-backdrop",
+   "analysis": "hint",
+   "refraction": "approximate",
+   "health": "ok",
+   "demotionReason": null,
+   "cssBody": null,
+   "cssTint": null,
+   "cssShadow": null,
+   "diagnostics": []
+  }
+ ],
+ "diagnostics": [],
+ "named": {
+  "nestedGlass": false,
+  "samePlaneOverlap": false,
+  "contentLayerHost": false,
+  "demotedBackdropRoot": false,
+  "hostOutsidePlane": false,
+  "nonUniformRadii": false,
+  "tintUnparseable": false
+ },
+ "derivedFindings": [],
+ "menu": "captured",
+ "menuSurfaces": 3,
+ "menuGroups": [
+  {
+   "id": "bar",
+   "members": 1,
+   "renderer": "webgpu",
+   "sampling": "css-backdrop",
+   "health": "ok"
+  },
+  {
+   "id": "action",
+   "members": 1,
+   "renderer": "webgpu",
+   "sampling": "css-backdrop",
+   "health": "ok"
+  },
+  {
+   "id": "permit",
+   "members": 1,
+   "renderer": "webgpu",
+   "sampling": "css-backdrop",
+   "health": "ok"
+  }
+ ],
+ "menuDiagnostics": [],
+ "reduced": {
+  "rootFound": true,
+  "errors": [],
+  "reducedMotionEmulated": true,
+  "overrideHonoured": true,
+  "materialMoved": true,
+  "material": {
+   "glass": "material",
+   "colorSource": "material",
+   "frost": "increased",
+   "refraction": "reduced",
+   "occlusion": "increased",
+   "border": "nominal",
+   "ambientTint": "nominal",
+   "foreground": "adaptive"
+  },
+  "motion": {
+   "overshoot": "none",
+   "deformation": "none",
+   "shimmer": "none",
+   "morph": "non-elastic",
+   "crossfade": "large-plane-shifts",
+   "positionalContinuity": true
+  },
+  "groups": [
+   {
+    "id": "bar",
+    "renderer": "webgpu",
+    "refraction": "approximate",
+    "cssBody": null
+   },
+   {
+    "id": "action",
+    "renderer": "webgpu",
+    "refraction": "approximate",
+    "cssBody": null
+   }
+  ],
+  "reducedTransparencyUndetectable": false,
+  "ok": true
+ },
+ "captures": [
+  "shot-fv.png",
+  "shot-full.png",
+  "tile-2.png",
+  "tile-3.png",
+  "shot-menu.png",
+  "shot-reduced.png"
+ ],
+ "surfaceDetail": [
+  {
+   "nodeId": "vitrea-node-1",
+   "groupId": "bar",
+   "plane": "base",
+   "tag": "div",
+   "role": "group",
+   "rect": [
+    40,
+    24,
+    861,
+    80
+   ],
+   "span": 80,
+   "shapeFamily": "capsule",
+   "radii": [
+    40,
+    40,
+    40,
+    40
+   ],
+   "smoothing": 0,
+   "thickness": 8,
+   "cssRadius": "0px",
+   "label": "Trip planner"
+  },
+  {
+   "nodeId": "vitrea-node-2",
+   "groupId": "action",
+   "plane": "base",
+   "tag": "button",
+   "role": null,
+   "rect": [
+    1210,
+    40,
+    190,
+    48
+   ],
+   "span": 48,
+   "shapeFamily": "capsule",
+   "radii": [
+    24,
+    24,
+    24,
+    24
+   ],
+   "smoothing": 0,
+   "thickness": 8,
+   "cssRadius": "0px",
+   "label": "Check permit"
+  }
+ ],
+ "gateMechanical": true
+}

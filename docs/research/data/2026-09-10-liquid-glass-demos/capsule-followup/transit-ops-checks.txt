@@ -1,0 +1,9 @@
+Live Chromium via playwright-cli, server localhost:8802, session transitfilm-only.
+1440x900 desktop and 390x844 mobile screenshots captured and visually inspected.
+Route switch click sets aria-checked=true; second click restores it.
+Search input accepts 4427 and clears successfully.
+At 390x844 document horizontal overflow is false.
+Top route/state/search hosts use capsule geometry; segments use radius 17 with 5px inset.
+View stack, alert sidebar and vehicle platter retain established geometry.
+Initial console error was favicon.ico 404, not application script failure.
+No baseline PNG/audit files written by this task. No build/library/API changes.

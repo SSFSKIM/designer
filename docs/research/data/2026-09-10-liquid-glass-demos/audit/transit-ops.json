@@ -1,0 +1,415 @@
+{
+ "dir": "transit-ops",
+ "url": "http://127.0.0.1:8798/apps/demos/transit-ops/index.html",
+ "auditedAt": "2026-09-09T20:10:15.075Z",
+ "rootFound": true,
+ "readyState": "settled",
+ "errors": [],
+ "consoleErrors": [],
+ "failedRequests": 0,
+ "captureWidth": 1440,
+ "overflowCapture": false,
+ "overflowAtLoad": false,
+ "scrolledOnLoad": 0,
+ "docHeight": 900,
+ "words": 931,
+ "title": "Network control — Ashport Transit Authority",
+ "placeholder": false,
+ "contrast": {
+  "checked": 107,
+  "pass": 107,
+  "unknown": 0,
+  "rate": 1,
+  "onGlass": 62,
+  "onGlassPass": 62,
+  "fails": []
+ },
+ "surfaces": 6,
+ "surfacesInFrame": 6,
+ "planes": [
+  {
+   "plane": "base",
+   "nodes": 5
+  },
+  {
+   "plane": "overlay",
+   "nodes": 1
+  }
+ ],
+ "colorScheme": "light",
+ "webgpu": {
+  "available": true,
+  "ownership": "vitrea",
+  "deviceHealth": "ok",
+  "reason": null,
+  "hasDevice": true
+ },
+ "groups": [
+  {
+   "id": "routes",
+   "members": 1,
+   "renderer": "webgpu",
+   "sampling": "gpu-texture",
+   "analysis": "exact",
+   "refraction": "true",
+   "health": "ok",
+   "demotionReason": null,
+   "cssBody": null,
+   "cssTint": null,
+   "cssShadow": null,
+   "diagnostics": []
+  },
+  {
+   "id": "state",
+   "members": 1,
+   "renderer": "webgpu",
+   "sampling": "gpu-texture",
+   "analysis": "exact",
+   "refraction": "true",
+   "health": "ok",
+   "demotionReason": null,
+   "cssBody": null,
+   "cssTint": null,
+   "cssShadow": null,
+   "diagnostics": []
+  },
+  {
+   "id": "find",
+   "members": 1,
+   "renderer": "webgpu",
+   "sampling": "gpu-texture",
+   "analysis": "exact",
+   "refraction": "true",
+   "health": "ok",
+   "demotionReason": null,
+   "cssBody": null,
+   "cssTint": null,
+   "cssShadow": null,
+   "diagnostics": []
+  },
+  {
+   "id": "view",
+   "members": 1,
+   "renderer": "webgpu",
+   "sampling": "gpu-texture",
+   "analysis": "exact",
+   "refraction": "true",
+   "health": "ok",
+   "demotionReason": null,
+   "cssBody": null,
+   "cssTint": null,
+   "cssShadow": null,
+   "diagnostics": []
+  },
+  {
+   "id": "alerts",
+   "members": 1,
+   "renderer": "webgpu",
+   "sampling": "gpu-texture",
+   "analysis": "exact",
+   "refraction": "true",
+   "health": "ok",
+   "demotionReason": null,
+   "cssBody": null,
+   "cssTint": null,
+   "cssShadow": null,
+   "diagnostics": []
+  },
+  {
+   "id": "platter",
+   "members": 1,
+   "renderer": "webgpu",
+   "sampling": "gpu-texture",
+   "analysis": "exact",
+   "refraction": "true",
+   "health": "ok",
+   "demotionReason": null,
+   "cssBody": null,
+   "cssTint": null,
+   "cssShadow": null,
+   "diagnostics": []
+  }
+ ],
+ "diagnostics": [],
+ "named": {
+  "nestedGlass": false,
+  "samePlaneOverlap": false,
+  "contentLayerHost": false,
+  "demotedBackdropRoot": false,
+  "hostOutsidePlane": false,
+  "nonUniformRadii": false,
+  "tintUnparseable": false
+ },
+ "derivedFindings": [],
+ "menu": "captured",
+ "menuSurfaces": 6,
+ "menuGroups": [
+  {
+   "id": "routes",
+   "members": 1,
+   "renderer": "webgpu",
+   "sampling": "gpu-texture",
+   "health": "ok"
+  },
+  {
+   "id": "state",
+   "members": 1,
+   "renderer": "webgpu",
+   "sampling": "gpu-texture",
+   "health": "ok"
+  },
+  {
+   "id": "find",
+   "members": 1,
+   "renderer": "webgpu",
+   "sampling": "gpu-texture",
+   "health": "ok"
+  },
+  {
+   "id": "view",
+   "members": 1,
+   "renderer": "webgpu",
+   "sampling": "gpu-texture",
+   "health": "ok"
+  },
+  {
+   "id": "alerts",
+   "members": 1,
+   "renderer": "webgpu",
+   "sampling": "gpu-texture",
+   "health": "ok"
+  },
+  {
+   "id": "platter",
+   "members": 1,
+   "renderer": "webgpu",
+   "sampling": "gpu-texture",
+   "health": "ok"
+  }
+ ],
+ "menuDiagnostics": [],
+ "reduced": {
+  "rootFound": true,
+  "errors": [],
+  "reducedMotionEmulated": true,
+  "overrideHonoured": true,
+  "materialMoved": true,
+  "material": {
+   "glass": "material",
+   "colorSource": "material",
+   "frost": "increased",
+   "refraction": "reduced",
+   "occlusion": "increased",
+   "border": "nominal",
+   "ambientTint": "nominal",
+   "foreground": "adaptive"
+  },
+  "motion": {
+   "overshoot": "none",
+   "deformation": "none",
+   "shimmer": "none",
+   "morph": "non-elastic",
+   "crossfade": "large-plane-shifts",
+   "positionalContinuity": true
+  },
+  "groups": [
+   {
+    "id": "routes",
+    "renderer": "webgpu",
+    "refraction": "true",
+    "cssBody": null
+   },
+   {
+    "id": "state",
+    "renderer": "webgpu",
+    "refraction": "true",
+    "cssBody": null
+   },
+   {
+    "id": "find",
+    "renderer": "webgpu",
+    "refraction": "true",
+    "cssBody": null
+   },
+   {
+    "id": "view",
+    "renderer": "webgpu",
+    "refraction": "true",
+    "cssBody": null
+   },
+   {
+    "id": "alerts",
+    "renderer": "webgpu",
+    "refraction": "true",
+    "cssBody": null
+   },
+   {
+    "id": "platter",
+    "renderer": "webgpu",
+    "refraction": "true",
+    "cssBody": null
+   }
+  ],
+  "reducedTransparencyUndetectable": false,
+  "ok": true
+ },
+ "captures": [
+  "shot-fv.png",
+  "shot-full.png",
+  "shot-menu.png",
+  "shot-reduced.png"
+ ],
+ "surfaceDetail": [
+  {
+   "nodeId": "vitrea-node-1",
+   "groupId": "routes",
+   "plane": "base",
+   "tag": "div",
+   "role": "group",
+   "rect": [
+    20,
+    20,
+    332,
+    44
+   ],
+   "span": 44,
+   "shapeFamily": "fixed-rounded-rect",
+   "radii": [
+    14,
+    14,
+    14,
+    14
+   ],
+   "smoothing": 0,
+   "thickness": 8,
+   "cssRadius": "0px",
+   "label": "Filter by route"
+  },
+  {
+   "nodeId": "vitrea-node-2",
+   "groupId": "state",
+   "plane": "base",
+   "tag": "div",
+   "role": "group",
+   "rect": [
+    400,
+    20,
+    340,
+    44
+   ],
+   "span": 44,
+   "shapeFamily": "fixed-rounded-rect",
+   "radii": [
+    14,
+    14,
+    14,
+    14
+   ],
+   "smoothing": 0,
+   "thickness": 8,
+   "cssRadius": "0px",
+   "label": "Filter by service state"
+  },
+  {
+   "nodeId": "vitrea-node-3",
+   "groupId": "find",
+   "plane": "base",
+   "tag": "div",
+   "role": "search",
+   "rect": [
+    788,
+    20,
+    200,
+    44
+   ],
+   "span": 44,
+   "shapeFamily": "fixed-rounded-rect",
+   "radii": [
+    14,
+    14,
+    14,
+    14
+   ],
+   "smoothing": 0,
+   "thickness": 8,
+   "cssRadius": "0px",
+   "label": "Find a vehicle, block or stop\n   \n   40"
+  },
+  {
+   "nodeId": "vitrea-node-4",
+   "groupId": "view",
+   "plane": "base",
+   "tag": "div",
+   "role": "group",
+   "rect": [
+    20,
+    680,
+    44,
+    140
+   ],
+   "span": 44,
+   "shapeFamily": "fixed-rounded-rect",
+   "radii": [
+    14,
+    14,
+    14,
+    14
+   ],
+   "smoothing": 0,
+   "thickness": 8,
+   "cssRadius": "0px",
+   "label": "Map view"
+  },
+  {
+   "nodeId": "vitrea-node-5",
+   "groupId": "alerts",
+   "plane": "base",
+   "tag": "aside",
+   "role": null,
+   "rect": [
+    1084,
+    20,
+    336,
+    860
+   ],
+   "span": 336,
+   "shapeFamily": "fixed-rounded-rect",
+   "radii": [
+    26,
+    26,
+    26,
+    26
+   ],
+   "smoothing": 0,
+   "thickness": 8,
+   "cssRadius": "0px",
+   "label": "Active alerts"
+  },
+  {
+   "nodeId": "vitrea-node-6",
+   "groupId": "platter",
+   "plane": "overlay",
+   "tag": "div",
+   "role": "group",
+   "rect": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "span": 0,
+   "shapeFamily": "fixed-rounded-rect",
+   "radii": [
+    18,
+    18,
+    18,
+    18
+   ],
+   "smoothing": 0,
+   "thickness": 8,
+   "cssRadius": "0px",
+   "label": "Selected vehicle"
+  }
+ ],
+ "gateMechanical": true
+}

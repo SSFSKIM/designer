@@ -1,0 +1,8 @@
+Live verification via playwright-cli, Chromium, repository server localhost:8803.
+1440x900 and 390x844 captures visually inspected. Desktop planner is a capsule; phone remains a two-row platter.
+Runtime scene confirms one planner node: desktop 80px high/radii 40/capsule; mobile 106px high/radii 22/fixed-rounded-rect; return to desktop restores capsule.
+Route changed to Cascade Pass and party to four. Permit opened, Escape closed; phone inline permit opened. No document horizontal overflow at either tested width.
+Initial desktop platform diagnostics empty. Initial console error only missing favicon.
+Repeated phone/desktop cycles expose PRE-EXISTING CTA handle bug: applyWidth releases original ctaHost after re-registration discarded replacement handle, yielding Unknown glass node. Coordinator authorized the bounded handle correction; ctaHost now retains the replacement. After reload, two full 1440→390→1440 round trips produced zero page errors. Action node counts were 0/1/0/1 and planner remained exactly one node, radius 22 platter on phone and radius 40 capsule on desktop. Permit opened successfully after both cycles and Escape closed. This lifecycle fix is recorded separately in DESIGN.md.
+Frozen baseline PNGs/audit.json not written. Coordinator confirms existing tile-2/tile-3 modifications predate this assignment.
+No full repository suite or new contrast audit run; material and text unchanged. git diff --check passed.

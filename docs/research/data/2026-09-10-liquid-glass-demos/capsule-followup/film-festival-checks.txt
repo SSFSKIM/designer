@@ -1,0 +1,14 @@
+Live Chromium via playwright-cli, server localhost:8802, session transitfilm-only.
+Final captures: desktop.png 1440x900, mobile.png 390x844, menu.png desktop venue menu.
+Day button sets aria-pressed=true. Venue menu opens; Escape dismisses after its animation
+and restores focus to venuebtn. At 1440 and 390 document horizontal overflow is false.
+Day segment radius is 15px on mobile (36px track minus 3px inset); desktop is 16px.
+Masthead/day/venue are capsules; Book remains capsule and sole tint; multirow menu unchanged.
+Existing end padding retained to avoid increasing the bar footprint.
+Known baseline diagnostics reproduced by intercepting HTML with HEAD's original file:
+same-plane-overlap during mobile-to-desktop host re-registration; group-proxy-overlap
+between masthead/filters and filters/book during narrow resize. Baseline HTML and baseline-mobile.png
+are scratch-only comparison evidence. These diagnostics were not silently treated as clean QA.
+At 1081px the established full desktop bar exceeds the viewport before its 1080px collapse;
+geometry-only changes preserve its original footprint and do not address that layout debt.
+No baseline PNG/audit files written by this task. No build/library/API changes.

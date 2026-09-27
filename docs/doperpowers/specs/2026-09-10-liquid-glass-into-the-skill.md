@@ -181,7 +181,9 @@ repository root. The builder receives the brief verbatim plus the serving mechan
   `baseline-captures.json` identifies exactly which images the panel received. These images are
   preserved locally at `figma-design-workspace/glass-panel-baseline/<slug>/`; fresh captures are
   not guaranteed byte-identical on animated pages. Legacy tile PNGs already tracked in demo
-  directories remain baseline evidence. Other captures are gitignored.
+  directories remain baseline evidence. Other captures are gitignored. (2026-09-27: the
+  `glass-panel-baseline/` copies no longer exist and could not be regenerated; only the six tracked
+  tiles survive. `recovery-2026-09-27.md` in the data directory records the attempt.)
 - Capsule-refinement captures and interaction notes live separately under
   `figma-design-workspace/capsule-followup/`; the final mechanical audit uses isolated copies in
   `figma-design-workspace/capsule-final-audit/` rather than overwriting baseline images or JSON.
@@ -352,6 +354,32 @@ CronCreate while rate-limited, so no job is queued. `resume-panel.md` records th
 frozen inputs and requested time. Remaining panel work is separate from the completed capsule pass.
 The next bounded continuation is to finish that original panel and report it, not another rebuild.
 
+**2026-09-27: the panel closes as unmeasurable.** The frozen captures the three completed raters
+read were preserved only under `figma-design-workspace/glass-panel-baseline/`, which no longer
+exists. A bounded recovery rebuilt the workspace at `23ea4415` and re-ran that revision's own
+`glass-audit.mjs` three times, the last on the revision's pinned Playwright and its Chromium: **0 of
+the 30** frozen captures match their recorded SHA-256 (`baseline-captures.json` lists 30, not 36;
+three pages are one screen tall and have no tiles). Every mechanical read equals the baseline audit,
+but the pixels do not. Sixteen captures are byte-stable across today's runs and still miss, so the
+rendering itself has moved since 2026-09-10 (the machine went from macOS 26.5 to 27.0 on
+2026-09-18), on top of the animated pages' run-to-run variation. The six baseline tiles tracked in
+git survive and match, but they are not the instrument the raters used. The `claude-opus` rater
+therefore never runs, and the pre-registered four-rater panel is unmeasurable: there is no final
+per-demo verdict, no four-rater α and no complete d1 mean, and there will be none on these inputs.
+The three-rater figures in `results.md` stand as provisional and are not a verdict: held 16, 17, 18,
+21, 20 and 18 of 25 for music-player, transit-ops, photo-review, film-festival, park-trails and
+product-launch, and a d1 mean of 4.89. The six `claude-sonnet` files were validated complete, and no
+answer was rewritten. Evidence: `docs/research/data/2026-09-10-liquid-glass-demos/`, now on `main`,
+and `recovery-2026-09-27.md` in it.
+
+One bound holds whatever the missing rater would have said. It is arithmetic, not a verdict. A tie
+is a failure, so with a fourth answer a rule holds only when three of four said yes, and no demo's
+held count can rise above its three-rater count. The highest of those is film-festival's 21, so no
+completion of this panel on these captures could have met the pre-registered acceptance (all six at
+22 or more with no `[layer]` or `[material]` failure). Four demos also carry a fatal-tag rule that at
+most one of three raters held, which no fourth answer can reverse: music-player (r1, r2),
+transit-ops (r1), park-trails (r6) and product-launch (r16).
+
 ## Revision Notes
 
 - 2026-09-10: created from the user's direction ("six demos on vitrea, so the skill masters the
@@ -372,3 +400,8 @@ The next bounded continuation is to finish that original panel and report it, no
 - 2026-09-10 (review fixes): corrected the planner/transport boundary layouts and responsive view
   shape; 123 layout states pass. The QA glossary reconciles outer capsule housings with compact
   inner controls, without changing the frozen panel's numbered rules.
+- 2026-09-27 (panel close): ported the panel's data directory to `main` from `f13ab38c`, recorded
+  the recovery attempt at `23ea4415` (0 of 30 captures match), and closed the four-rater panel as
+  unmeasurable in Outcomes, with the arithmetic bound on the acceptance line beside it. The Files
+  entry now notes that the local baseline copies are gone. No raw panel answer or recorded number
+  was changed.

@@ -1,0 +1,307 @@
+{
+ "dir": "film-festival",
+ "url": "http://127.0.0.1:8808/figma-design-workspace/capsule-final-audit/film-festival/index.html",
+ "auditedAt": "2026-09-09T20:35:21.752Z",
+ "rootFound": true,
+ "readyState": "settled",
+ "errors": [],
+ "consoleErrors": [],
+ "failedRequests": 0,
+ "captureWidth": 1440,
+ "overflowCapture": false,
+ "overflowAtLoad": false,
+ "scrolledOnLoad": 0,
+ "docHeight": 8124,
+ "words": 1698,
+ "title": "HALFLIGHT 2026 \u2014 the programme \u2014 Dundee's film festival",
+ "placeholder": false,
+ "contrast": {
+  "checked": 335,
+  "pass": 335,
+  "unknown": 0,
+  "rate": 1,
+  "onGlass": 11,
+  "onGlassPass": 11,
+  "fails": []
+ },
+ "surfaces": 4,
+ "surfacesInFrame": 4,
+ "planes": [
+  {
+   "plane": "base",
+   "nodes": 4
+  },
+  {
+   "plane": "overlay",
+   "nodes": 0
+  }
+ ],
+ "colorScheme": "light",
+ "webgpu": {
+  "available": true,
+  "ownership": "vitrea",
+  "deviceHealth": "ok",
+  "reason": null,
+  "hasDevice": true
+ },
+ "groups": [
+  {
+   "id": "masthead",
+   "members": 1,
+   "renderer": "webgpu",
+   "sampling": "gpu-texture",
+   "analysis": "exact",
+   "refraction": "true",
+   "health": "ok",
+   "demotionReason": null,
+   "cssBody": null,
+   "cssTint": null,
+   "cssShadow": null,
+   "diagnostics": []
+  },
+  {
+   "id": "filters",
+   "members": 2,
+   "renderer": "webgpu",
+   "sampling": "gpu-texture",
+   "analysis": "exact",
+   "refraction": "true",
+   "health": "ok",
+   "demotionReason": null,
+   "cssBody": null,
+   "cssTint": null,
+   "cssShadow": null,
+   "diagnostics": []
+  },
+  {
+   "id": "book",
+   "members": 1,
+   "renderer": "webgpu",
+   "sampling": "gpu-texture",
+   "analysis": "exact",
+   "refraction": "true",
+   "health": "ok",
+   "demotionReason": null,
+   "cssBody": null,
+   "cssTint": null,
+   "cssShadow": null,
+   "diagnostics": []
+  },
+  {
+   "id": "venuemenu",
+   "members": 0,
+   "renderer": "webgpu",
+   "sampling": "css-backdrop",
+   "analysis": "hint",
+   "refraction": "approximate",
+   "health": "ok",
+   "demotionReason": null,
+   "cssBody": null,
+   "cssTint": null,
+   "cssShadow": null,
+   "diagnostics": []
+  }
+ ],
+ "diagnostics": [],
+ "named": {
+  "nestedGlass": false,
+  "samePlaneOverlap": false,
+  "contentLayerHost": false,
+  "demotedBackdropRoot": false,
+  "hostOutsidePlane": false,
+  "nonUniformRadii": false,
+  "tintUnparseable": false
+ },
+ "derivedFindings": [],
+ "menu": "captured",
+ "menuSurfaces": 5,
+ "menuGroups": [
+  {
+   "id": "masthead",
+   "members": 1,
+   "renderer": "webgpu",
+   "sampling": "gpu-texture",
+   "health": "ok"
+  },
+  {
+   "id": "filters",
+   "members": 2,
+   "renderer": "webgpu",
+   "sampling": "gpu-texture",
+   "health": "ok"
+  },
+  {
+   "id": "book",
+   "members": 1,
+   "renderer": "webgpu",
+   "sampling": "gpu-texture",
+   "health": "ok"
+  },
+  {
+   "id": "venuemenu",
+   "members": 1,
+   "renderer": "webgpu",
+   "sampling": "css-backdrop",
+   "health": "ok"
+  }
+ ],
+ "menuDiagnostics": [],
+ "reduced": {
+  "rootFound": true,
+  "errors": [],
+  "reducedMotionEmulated": true,
+  "overrideHonoured": true,
+  "materialMoved": true,
+  "material": {
+   "glass": "material",
+   "colorSource": "material",
+   "frost": "increased",
+   "refraction": "reduced",
+   "occlusion": "increased",
+   "border": "nominal",
+   "ambientTint": "nominal",
+   "foreground": "adaptive"
+  },
+  "motion": {
+   "overshoot": "none",
+   "deformation": "none",
+   "shimmer": "none",
+   "morph": "non-elastic",
+   "crossfade": "large-plane-shifts",
+   "positionalContinuity": true
+  },
+  "groups": [
+   {
+    "id": "masthead",
+    "renderer": "webgpu",
+    "refraction": "true",
+    "cssBody": null
+   },
+   {
+    "id": "filters",
+    "renderer": "webgpu",
+    "refraction": "true",
+    "cssBody": null
+   },
+   {
+    "id": "book",
+    "renderer": "webgpu",
+    "refraction": "true",
+    "cssBody": null
+   }
+  ],
+  "reducedTransparencyUndetectable": false,
+  "ok": true
+ },
+ "captures": [
+  "shot-fv.png",
+  "shot-full.png",
+  "tile-2.png",
+  "tile-3.png",
+  "shot-menu.png",
+  "shot-reduced.png"
+ ],
+ "surfaceDetail": [
+  {
+   "nodeId": "vitrea-node-1",
+   "groupId": "masthead",
+   "plane": "base",
+   "tag": "nav",
+   "role": "navigation",
+   "rect": [
+    80,
+    24,
+    449,
+    68
+   ],
+   "span": 68,
+   "shapeFamily": "capsule",
+   "radii": [
+    34,
+    34,
+    34,
+    34
+   ],
+   "smoothing": 0,
+   "thickness": 10,
+   "cssRadius": "0px",
+   "label": "Halflight"
+  },
+  {
+   "nodeId": "vitrea-node-2",
+   "groupId": "filters",
+   "plane": "base",
+   "tag": "span",
+   "role": "group",
+   "rect": [
+    694,
+    38,
+    240,
+    40
+   ],
+   "span": 40,
+   "shapeFamily": "capsule",
+   "radii": [
+    20,
+    20,
+    20,
+    20
+   ],
+   "smoothing": 0,
+   "thickness": 10,
+   "cssRadius": "0px",
+   "label": "Festival day"
+  },
+  {
+   "nodeId": "vitrea-node-3",
+   "groupId": "filters",
+   "plane": "base",
+   "tag": "button",
+   "role": null,
+   "rect": [
+    962,
+    38,
+    111,
+    40
+   ],
+   "span": 40,
+   "shapeFamily": "capsule",
+   "radii": [
+    20,
+    20,
+    20,
+    20
+   ],
+   "smoothing": 0,
+   "thickness": 10,
+   "cssRadius": "0px",
+   "label": "All venues"
+  },
+  {
+   "nodeId": "vitrea-node-4",
+   "groupId": "book",
+   "plane": "base",
+   "tag": "a",
+   "role": null,
+   "rect": [
+    1238,
+    38,
+    122,
+    40
+   ],
+   "span": 40,
+   "shapeFamily": "capsule",
+   "radii": [
+    20,
+    20,
+    20,
+    20
+   ],
+   "smoothing": 0,
+   "thickness": 10,
+   "cssRadius": "0px",
+   "label": "Book tickets"
+  }
+ ],
+ "gateMechanical": true
+}

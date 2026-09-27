@@ -1,0 +1,9 @@
+Live verification via playwright-cli, Chrome, http://localhost:8801/apps/demos/music-player/.
+1440x900: visually inspected transport's full capsule ends and volume capsule; queue unchanged.
+800x900: captured responsive collapse, with volume removed and queue moved into content.
+Playback clicked twice; asserted aria-label changes on toggle. Mute exercised by pointer and keyboard Enter.
+Playlist menu opened, captured, closed with Escape; settled desktop recaptured.
+Runtime diagnostics reported [] (runtime.txt). Console's sole error was /favicon.ico 404.
+The ?renderer=css query is NOT supported by this demo; query-check-webgpu.png is not CSS evidence.
+Explicit radii were necessary: shapeFamily alone initially left GPU corners insufficiently rounded.
+New evidence only; existing demo PNGs/audit.json untouched. git diff --check passed.
