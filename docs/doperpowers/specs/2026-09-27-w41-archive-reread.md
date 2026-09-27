@@ -1,6 +1,6 @@
 # W41 — the archive re-read: the body as luma and chroma, its locality, and the exterior stroke, identified on the W39 archive and landed if they close (2026-09-27)
 
-**Status: v1 DRAFT (the parent, from grounding memos A and B); adversarial review requested; Decision Log 1 to the user before G0.**
+**Status: v1 DRAFT (the parent, from grounding memos A and B); adversarial review in progress; Decision Log 1 RULED (land in this wave).**
 
 ## Purpose
 
@@ -344,6 +344,10 @@ needed: the publisher, the generation store and the release-asset readers exist.
 The parent recommends landing in this wave: a survivor at one code on calibration, validation
 and the held-out cells is exactly the shipping criterion, and G2's chain is W38/W39's as
 written. Identification-only would end at Decision Log 2 with the leaves chartered separately.
+
+**Ruled 2026-09-27 (the user): land in this wave.** If a law survives calibration, validation and
+the held-out cells at one code, G2 ships it through the identity table, the CSS carry-or-decline,
+the canonical holdout once, the eye sheets and a release.
 
 ### Decision Log 2 — a law or the negative, per question (after G1; the user's)
 
