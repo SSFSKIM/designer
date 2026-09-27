@@ -1,0 +1,29 @@
+test_all_facts_required (test_observe.GateTests.test_all_facts_required) ... ERROR
+test_foreign_or_recent_input_refuses (test_observe.GateTests.test_foreign_or_recent_input_refuses) ... ERROR
+
+======================================================================
+ERROR: test_all_facts_required (test_observe.GateTests.test_all_facts_required)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/x6/test_observe.py", line 14, in test_all_facts_required
+    self.assertTrue(verdict(self.good)['passes'])
+                    ^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/x6/observe.py", line 2, in verdict
+    raise NotImplementedError('X6 four-fact conjunction')
+NotImplementedError: X6 four-fact conjunction
+
+======================================================================
+ERROR: test_foreign_or_recent_input_refuses (test_observe.GateTests.test_foreign_or_recent_input_refuses)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/x6/test_observe.py", line 28, in test_foreign_or_recent_input_refuses
+    self.assertFalse(verdict(row)['passes'])
+                     ^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/x6/observe.py", line 2, in verdict
+    raise NotImplementedError('X6 four-fact conjunction')
+NotImplementedError: X6 four-fact conjunction
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.000s
+
+FAILED (errors=2)

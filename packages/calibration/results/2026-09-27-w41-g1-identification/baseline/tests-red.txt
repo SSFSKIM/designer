@@ -1,0 +1,57 @@
+test_only_admitted_calval_not_holdout_or_missing_phase (test_baseline.BaselineTests.test_only_admitted_calval_not_holdout_or_missing_phase) ... ERROR
+test_projection_reads_deep_whole_exterior_and_interior (test_baseline.BaselineTests.test_projection_reads_deep_whole_exterior_and_interior) ... ERROR
+test_srgb_solid_and_pixel_centred_gradient (test_baseline.BaselineTests.test_srgb_solid_and_pixel_centred_gradient) ... ERROR
+test_transparent_projection_refuses (test_baseline.BaselineTests.test_transparent_projection_refuses) ... ERROR
+
+======================================================================
+ERROR: test_only_admitted_calval_not_holdout_or_missing_phase (test_baseline.BaselineTests.test_only_admitted_calval_not_holdout_or_missing_phase)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/baseline/test_baseline.py", line 24, in test_only_admitted_calval_not_holdout_or_missing_phase
+    cells, excluded = baseline.scope()
+                      ^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/baseline/baseline.py", line 2, in scope
+    def scope(): raise NotImplementedError('admitted calibration/validation intersection')
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: admitted calibration/validation intersection
+
+======================================================================
+ERROR: test_projection_reads_deep_whole_exterior_and_interior (test_baseline.BaselineTests.test_projection_reads_deep_whole_exterior_and_interior)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/baseline/test_baseline.py", line 36, in test_projection_reads_deep_whole_exterior_and_interior
+    cells, _ = baseline.scope()
+               ^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/baseline/baseline.py", line 2, in scope
+    def scope(): raise NotImplementedError('admitted calibration/validation intersection')
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: admitted calibration/validation intersection
+
+======================================================================
+ERROR: test_srgb_solid_and_pixel_centred_gradient (test_baseline.BaselineTests.test_srgb_solid_and_pixel_centred_gradient)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/baseline/test_baseline.py", line 12, in test_srgb_solid_and_pixel_centred_gradient
+    solid = baseline.raster({'kind': 'solid', 'srgb': [32, 192, 32]}, 1, (4, 2))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/baseline/baseline.py", line 1, in raster
+    def raster(*args): raise NotImplementedError('public sRGB raster generation')
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: public sRGB raster generation
+
+======================================================================
+ERROR: test_transparent_projection_refuses (test_baseline.BaselineTests.test_transparent_projection_refuses)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/baseline/test_baseline.py", line 52, in test_transparent_projection_refuses
+    cells, _ = baseline.scope()
+               ^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/baseline/baseline.py", line 2, in scope
+    def scope(): raise NotImplementedError('admitted calibration/validation intersection')
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: admitted calibration/validation intersection
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.029s
+
+FAILED (errors=4)

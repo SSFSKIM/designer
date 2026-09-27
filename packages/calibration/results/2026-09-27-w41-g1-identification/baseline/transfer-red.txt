@@ -1,0 +1,45 @@
+test_only_admitted_calval_not_holdout_or_missing_phase (test_baseline.BaselineTests.test_only_admitted_calval_not_holdout_or_missing_phase) ... ok
+test_projection_reads_deep_whole_exterior_and_interior (test_baseline.BaselineTests.test_projection_reads_deep_whole_exterior_and_interior) ... ok
+test_srgb_solid_and_pixel_centred_gradient (test_baseline.BaselineTests.test_srgb_solid_and_pixel_centred_gradient) ... ok
+test_transfer_keeps_complete_composite_errors_in_all_seven_repeats (test_baseline.BaselineTests.test_transfer_keeps_complete_composite_errors_in_all_seven_repeats) ... ERROR
+test_transparent_projection_refuses (test_baseline.BaselineTests.test_transparent_projection_refuses) ... ok
+test_x6_refusal_does_not_launch_backend (test_baseline.BaselineTests.test_x6_refusal_does_not_launch_backend) ... ERROR
+
+======================================================================
+ERROR: test_transfer_keeps_complete_composite_errors_in_all_seven_repeats (test_baseline.BaselineTests.test_transfer_keeps_complete_composite_errors_in_all_seven_repeats)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/baseline/test_baseline.py", line 65, in test_transfer_keeps_complete_composite_errors_in_all_seven_repeats
+    result = baseline.transfer_projection(cell, image, [payload] * 7)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/baseline/baseline.py", line 120, in transfer_projection
+    def transfer_projection(*args): raise NotImplementedError('native transfer in same bins')
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: native transfer in same bins
+
+======================================================================
+ERROR: test_x6_refusal_does_not_launch_backend (test_baseline.BaselineTests.test_x6_refusal_does_not_launch_backend)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/baseline/test_baseline.py", line 87, in test_x6_refusal_does_not_launch_backend
+    with self.assertRaises(PermissionError): baseline.capture()
+                                             ^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/baseline/baseline.py", line 182, in capture
+    verify_preparation(record)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/baseline/baseline.py", line 176, in verify_preparation
+    cells, _ = scope()
+               ^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/baseline/baseline.py", line 77, in scope
+    admitted, _ = runner.admitted_scope(ROOT, wave)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g0-declaration/exposure/runner.py", line 120, in admitted_scope
+    if committed(root, INVENTORY_PATH) != INVENTORY_SHA:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g0-declaration/exposure/runner.py", line 72, in committed
+    raise ValueError('uncommitted frozen input: ' + name)
+ValueError: uncommitted frozen input: packages/calibration/results/2026-09-26-w39-g1-colour-edge-sitting/archive/inventory.json
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.409s
+
+FAILED (errors=2)

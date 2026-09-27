@@ -1,0 +1,27 @@
+test_only_admitted_calval_not_holdout_or_missing_phase (test_baseline.BaselineTests.test_only_admitted_calval_not_holdout_or_missing_phase) ... ok
+test_projection_reads_deep_whole_exterior_and_interior (test_baseline.BaselineTests.test_projection_reads_deep_whole_exterior_and_interior) ... FAIL
+test_srgb_solid_and_pixel_centred_gradient (test_baseline.BaselineTests.test_srgb_solid_and_pixel_centred_gradient) ... ok
+test_transparent_projection_refuses (test_baseline.BaselineTests.test_transparent_projection_refuses) ... ok
+
+======================================================================
+FAIL: test_projection_reads_deep_whole_exterior_and_interior (test_baseline.BaselineTests.test_projection_reads_deep_whole_exterior_and_interior)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/baseline/test_baseline.py", line 41, in test_projection_reads_deep_whole_exterior_and_interior
+    self.assertEqual({b['shell'] for b in bins if b['part'] != 'boundary'},
+AssertionError: Items in the first set but not the second:
+-14
+-13
+-12
+-11
+-10
+-9
+-8
+-7
+-6
+-5
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.187s
+
+FAILED (failures=1)
