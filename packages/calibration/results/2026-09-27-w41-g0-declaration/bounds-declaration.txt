@@ -1,0 +1,230 @@
+W41 G0 DECLARATION — charter v2.1 clauses 1–11, X26–X32; c9a §5.191
+
+AUTHORITY AND ORDER
+This is a pre-fit declaration, not a fitted candidate. Native evidence is only
+W39's fetched release archive, inventory 58329732f947d42cd5e1518962016191faaa79d89b7089c6dadf5724dde35f61.
+W39 scenes and scene-level split are pinned without recutting. G0 opens only
+calibration through wave.Reader with the whole ~/vitrea-w39 raw tree denied.
+G0 fits synthetic observations only; native replays reproduce copied readings.
+G1 order: frozen pre-W41 rendered composite baseline; uniform body; spatial
+finding; stroke receded first; active beneath held shadow; scratch renderer;
+calibration/validation survival and per-bin veto; freeze; one receipt/exposure.
+Decision Log 6: S0/S1/S2 produce a bounded calibration finding, NEVER a W41 leaf.
+No structured backdrop is held out. W34's holdout remains spent and unread.
+
+BODY STATISTICS AND COLOUR CONVENTIONS
+Inputs/outputs are encoded sRGB codes unless a space is named. W=(.2126,.7152,.0722).
+D/E are IEC sRGB decode/encode. Per-run deep statistic is the channel median at
+supplied signed d <= -6 CSS px, population >=4, then the median over all seven
+normal admitted runs. Keep each run and each state, spatial min/max separately.
+Bar per channel/bin is 0.5 + half the run-to-run range; it is never fitted.
+Endpoints mean scheme x pose (four); scales share coefficients but never scores.
+F has seven fixed measured ordinates at input 40,56,72,88,104,128,150, from memo A:
+light active 152,160,168,176,183,195,205; inactive 150,157,164,171,178,188,197;
+dark active 69,83,96,108,119,134,146; inactive 60,74,87,100,111,127,140.
+F interpolates linearly in encoded input, end-segment continues outside and
+clips to [0,255]. These are seven measured values per endpoint, not chromatic
+free coefficients. They will be verified from calibration before G1 fitting.
+
+BODY FAMILIES
+B0 H3: W39 negative baseline only, no refit. D(F(x)) followed by row-sum-one
+3x3 matrix, then unit-cube clip/E; six chromatic coefficients per endpoint.
+W39 certified brackets and whole-cell censor population are reported beside
+W41's per-channel constraints; no W41 certification of B0 is claimed.
+B1 E3: L=W.x, v=x-L*1; y=clip(F(L)*1+g(L)*v,0,255).
+Three g ordinates at L=63,93,118 per endpoint, each [0,3], linear interpolation,
+held endpoints outside. Three chromatic parameters plus seven measured F values.
+B2 EH6: same decomposition; g is periodic linear interpolation on input OKLab
+hue at 0,60,120,180,240,300 degrees (6 gains [0,3] per endpoint). Input hue comes
+from OKLab(D(x/255)); zero chroma has zero contribution, regardless of its hue.
+Six chromatic parameters plus seven measured F values. B1/B2 are linear before
+output clipping after fixed F; encoded interval feasibility gets a rational
+Farkas lower certificate and a forward-checked upper bracket, gap <=1e-5 code.
+The certificate proves the float64 inequality system exactly, not formal IEC
+transcendental interval arithmetic. Failure to certify is not a global negative.
+B3 O12: OKLab(D(x/255)); tone L through neutral-input/output OKLab L knots,
+piecewise linear with end-segment continuation, tone L clipped to [0,1]. A 2x2
+map on (a,b) interpolates linearly at input L=cbrt(.05),cbrt(.11),cbrt(.18),
+held outside. Each of 12 coefficients per endpoint is [-8,8]. Inverse OKLab,
+linear unit-cube clip, then E. No translation. Twelve chromatic parameters plus
+seven measured F values. Bounded deterministic multistart is LOCAL, not certified.
+
+SPATIAL FAMILIES AND PINNED STRIP
+Only v90-c-c44 and v270-c-c44, both poses/schemes/scales; 120x44 circular supplied
+path. Pixel centres in the central 48 CSS px (|x-xc|<=24) and >=6 CSS px inward
+from top/bottom; arcs excluded, no per-run registration. Rows are separate device
+rows at both scales. Per run, channel MEDIAN over the 48*scale pixels in each
+row, for native and its local no-glass reference; then seven-run median. Report
+row means beside only to reproduce memo A, whose statistic was a row MEAN.
+The declared local reference domain is 121..135 encoded codes inclusive. No
+extension of mask, depth, width or reference domain follows a native reading.
+Cell mean xbar is the channel mean of the complete no-glass reference frame.
+S0: B(x(p)), no additional parameter. S1: B(m*x(p)+(1-m)*xbar), m in [0,1]
+per endpoint (4 total). S2: S1 + a*(y-yc)/h, channel-shared encoded-code amplitude
+a in [-255,255] on each active endpoint only (2 more, 6 total); inactive a=0;
+output clipped to [0,255]. The spatial term is positional, not a lighting-frame
+identification. S1's blend and a wide blur are not separated at one mean and
+amplitude. A long boundary tail is an alternative to S2 even on this pinned strip.
+S0/S1 prediction separations in the prior reading, 1.15 light inactive and 2.03
+dark inactive, are below max(3,sum of bars): insufficient resolution for these
+instances, not a new fit or proof that the null survives one code. S1/S2 rests
+on active reflected equal-input differences (3 codes at depth14.5, both scales).
+No spatial family has held-out coverage and none may CLOSE or land here.
+
+STROKE POPULATIONS, PATH AND COMPOSITE
+Inherit w39_readers.py geometry and nearest-normal 16 bins, attested origins,
+exact circular stadiums and flattened supplied continuous paths <=1/1024 CSS px.
+At both scales require EVERY exterior shell 0..4*scale-1, population >=4,
+straights/arcs separate, every channel/member/cell/scale/pose separate. A missing
+or deficient bin is explicit UNMEASURED. Straddling rows are diagnostic only.
+Interior device shells -1,-2,-3 witness exactly zero stroke contribution,
+not a demand that the unmodelled bright inner line equal a constant deep body.
+Calibration population: inherited 44/64 geometry ladder, grey128/255 controls,
+gradients and 51 colour centre cells, never the validation 96-span for fitting.
+Inherited interior reader rows deeper than shell -3 are diagnostic for this
+exterior stroke; no relabelling of the bright inner line as exterior paint.
+O(p)=(1-c(p))*Bshadow(p)+c(p)*S(b(p)) outside supplied path only. Bshadow is the
+held shipped active outer-shadow composite over the unshadowed reference;
+inactive Bshadow=b. Evaluate b and nonlinear S at EACH subpixel before averaging
+the pixel, and pixels before reducing a bin. Use bilinear reconstruction of the
+no-glass device-pixel samples (pixel-centred, edge held) for b(p). No sampling
+or refitting opaque coverage as glass registration. Quadrature is 16x16 midpoint
+samples per device pixel, with fixed-coefficient 32x32 sensitivity reported.
+
+GEOMETRY G AND RIVALS
+One shared width w in [0,2] DEVICE px, support 0<d_device<w. Four beta in [0,1]
+and two active gamma with |gamma|<=1-beta; inactive gamma=0. A(n) is
+[1+beta*(nx^2-1)+gamma*ny] divided by its maximum over all unit normals.
+The maximum is analytic; reject a zero denominator. This enforces A in [0,1].
+Total G=7 parameters; max-normal normalisation fixes gauge by convention, never
+physical opacity. CSS-width rival has the SAME seven parameters and bounds,
+but w is CSS px and device reach=w*scale. It is a separate model, not a fit switch.
+Curvature rival adds one shared rho in [-22,22] CSS px: coverage
+clip(A(n)*(1+rho/R),0,1), R=min(size)/2 for a circle and the declared corner radius22
+for rrect arc samples; A(n) unchanged on straights. Total G=8. This is an inverse
+NOMINAL-radius rival, not a claim to identify a universal differential-curvature
+law on a continuous rrect. Gauge/rank confounding is reported, not regularised.
+
+STROKE MATERIAL FAMILIES
+M0: clip(t*b_j+k,0,255), t in [0,3], k in [-255,255] codes, two per endpoint,
+8 total; G+M0=15 (16 with curvature). Encoded source-over composite.
+M1: monotone eight ordinates in [0,255] per endpoint at encoded inputs
+40,56,72,88,104,128,150,255; encoded piecewise-linear interpolation; end-segment
+continuation below40 and above255, output clipped. 32 total; G+M1=39 (40 with
+curvature). Black/near-black continuation is declared, not identified.
+M2: M1 then dark-only correction D(S_j)-kappa*max(0,Y-Y0)*(Y-D(b_j)), Y=W.D(b),
+kappa in [0,16], Y0 in [0,1] per dark pose (4 added); total43 (44 with curvature).
+Encode with held-luma chroma compression into gamut (not per-channel clipping):
+keep correction's luma, contract chroma toward its neutral just enough for [0,1].
+M1's neutral is unchanged. If numerical roundoff puts luma outside [0,1], refuse.
+The separate linear-space M1 rival is NOT declared: the twin audit records the
+memo's affine linear-space reading but does not introduce another post-read fit.
+First fit inactive (gamma0, shadow0), then active with the active document's
+sigma law, spread, offset, six anchors and occlusion falloff held. No shadow
+parameter fitted to stroke. Support failures reported separately from material
+and angular residuals. No width/coefficient changes after exposure.
+
+SHADOW-ONLY CONTROLS (CHARTER v2.1 CORRECTION)
+Every exterior bin beyond the band at both scales: the shells that read exactly
+zero in the inactive pose, where only the shadow can act when active. The
+geometry/support test must preserve those zeros; a wider rival cannot rename
+them away. Use all required outer-shell bins, including 2..4*scale-1; shell1
+straight zero observations are controls too, while occupied shell1 arcs are
+stroke tests. Additionally dark-active top straight is the stratum-specific
+observed zero on grey128/255. Light-active top is a stroke bin (-20), NOT a
+shadow control. Small signed active residuals are conditional on this held
+shadow model and never independently identified stroke coefficients. Hidden
+stroke/bright cancellation at the dark-active top remains unidentifiable.
+
+DISCRIMINATORS: INSTANCES, NOT UNIVERSAL FAMILY SEPARATION
+B1/B2: dark-active factor-y2-c24-h300 B, 3.225 codes; dark-inactive
+matched-channel-4 R,3.003. B1/B3: dark red bridge R,25.206/28.228 active/inactive;
+ordinary cells <=1.401/2.286, so bridge-only. B0 pairs and B2/B3 are audited
+from preserved exploratory predictions, not refitted. Constant-gain diagnostic
+versus B1: bridge-only >=3 (6.837/6.983), ordinary <=1.619; not a fourth family.
+S0/S1 and S1/S2 as above; S0/S2 and all missing comparisons explicitly report
+whether the preserved predictions supply an admitted >=3-code instance.
+M0/M1: neutral knots, >=4-code LS residual reading (not minimax theorem).
+M1/M2: dark-inactive red/green weak input32 ->21/14 at top; a 7-code observation,
+not yet a fitted M2 victory. G/device versus CSS width: aligned 2x shell1 zero,
+oblique arcs occupied. Curvature rival: 2x grey128 active arc0 circle -47.5 versus
+rrect -38.75, n14/4; 1x rrect n2 is UNMEASURED. Path and angular sampling also
+change, so this is not curvature-only identification. Crossed G/M families
+must report predicted separations when available, never manufacture them from
+unfitted families. No admitted separator => not established.
+
+CENSORING, SURVIVAL AND EXPOSURE
+Native <=5 / >=250 is a one-sided rail constraint, never reconstructed RGB.
+Retain uncensored channels and both bridges in every fit and survival test.
+Censored satisfaction uses <=5 or >=250 exactly, not native 0/255; report its
+bound deficit separately. Status is measured (uncensored, population admitted),
+censored-bound-satisfied (rail reached, NOT one-code accuracy/heldout coverage),
+or UNMEASURED. A failed rail bound is UNMEASURED with a binding bound failure;
+an uncensored failure remains binding beside any censored channel. A censored
+held-out CELL is UNMEASURED for held-out coverage (W39 X21). Missing/low-population
+required bins are UNMEASURED, never silently a pass. White exterior control
+channels can satisfy only their rail bound, never score as measured zero-error.
+Compare W39 whole-cell H3 inclusion (404/408 calibration cells; 1212 uncensored
+channels) beside W41 (408 cells; 1220 uncensored channels plus 4 rail bounds).
+These counts are to be verified: per-channel retention changes the population,
+not the historical baseline. No inversion of censored channels.
+Per channel/bin residual is absolute BEFORE spatial reduction; mean absolute
+pixel error, not absolute signed bin mean. Keep each repeat versus frozen pixel
+prediction; deep statistic uses absolute differences of medians. Equal cell
+mass and equal admitted channel/bin mass within cell in both LS and minimax;
+worst-channel/all-channel counts, rank/singular values and convergence beside.
+Numerical multistart: deterministic seed4100, identity/zero baseline plus15
+bounded starts, LS max_nfev3000 (ftol/xtol/gtol1e-10), SLSQP epigraph minimax
+maxiter3000/ftol1e-10; nonconvergence reported, never a certified family negative.
+
+W39 CLAUSE 8 VERBATIM (X29/X31 status distinctions above apply)
+8. **Identification precedes fitting and the split precedes identification; a bin mean is not
+   a closure.** G2 fits on calibration, checks validation as read-only transfer, freezes every
+   parameter, endpoint and forward output by artifact, THEN opens the six held-out colours and
+   the wave's holdout once on a receipt. The closure test is the absolute per-channel residual
+   per cell (deep body) and per shell/bin (edge) against max(1 code, bar) with a declared
+   minimum population; least-squares and minimax both reported; worst-channel and all-channel
+   failures both reported; every repeat state scored against the frozen prediction beside the
+   median. **A law SURVIVES only if it meets max(1 code, bar) on every required channel of every
+   calibration AND validation cell (body) and bin (edge) BEFORE the freeze**; a law that fails
+   there is recorded as failed and is not carried to the held-out read, and no candidate is
+   changed after any exposure. A survivor then CLOSES only if it also meets the same bound on
+   the six held-out colours in all eight strata and on the wave's holdout. Survivors that differ
+   by less than max(3 codes, the sum of their bars) at every admitted discriminator are
+   "insufficient resolution", a finding, not a reason to fit more — two laws that both pass a
+   one-code test differ by at most two codes on those observations, so this outcome is expected
+   whenever the bed cannot tell them apart, and it never widens a tolerance.
+
+SINGLE EXPOSURE X26 — NUMERICAL AND RENDERED CANDIDATES
+Use the existing W39 G0 wave-identification-receipt.jsonl path, never a W41
+replacement log. One begun attempt consumes the entire archive exposure, even
+on failure. Freeze committed inputs: W39 scenes/split/inventory; this declaration
+and closure; all instrument/runner sources; numerical candidates and predictions;
+renderer source revision, source hashes, runtime configuration, and frozen
+rendered calibration/validation/held-out predictions, all before native holdout.
+Every cell identity and pixel-artifact hash is explicit; hashes without payload
+verification do not satisfy freezing. No uncommitted configuration is exposed.
+The receipt runner captures the web-plannable held-out cells INSIDE the active
+receipt and scores those new renders with the native reader against the frozen
+rendered predictions and Apple's once-opened pixels. It must check completeness
+and byte/projection agreement before claiming closure. Native-only grey255 bottom
+pair tests numerical candidates only. Circular160x96, witness200x44 and six
+colours test both. Missing render is UNMEASURED, never a numerical-only closure.
+G0 dry-run uses calibration stand-ins and a scratch receipt, with a synthetic
+capture backend (NO browser/capture); the production receipt cannot be spent by
+that mode. Tests prove failure spends a scratch receipt, retries refuse, and
+source/config/prediction mutations refuse before begin. No fake capture is
+accepted by the production runner. Any post-freeze rendered prediction change
+stops landing; no candidate change inherits the archive's only exposure.
+
+STOPS
+Changed protected evidence, split, archive identity, declaration or material
+provenance; any forbidden role/raw read; missing repeat, reference, population
+or candidate payload; failed certificate; nonfinite predictions; moved frozen
+renderer; attempted second exposure: refuse and report, never silent repair.
+A question the charter cannot execute is a stop for the parent, not an amended
+family, tolerance, strip or archive. Nonlinear failure is a local candidate
+failure, absent coverage is UNMEASURED, sub-resolution survivors are insufficient
+resolution; these are different outcomes. Nothing shipped moves in G0/G1.
+No native capture, web capture or browser suite in G0. Canonical matrices and
+generations are never CLI targets; later sheet code uses matrix-store read APIs.
