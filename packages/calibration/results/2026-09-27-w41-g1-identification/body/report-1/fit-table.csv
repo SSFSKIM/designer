@@ -1,0 +1,13 @@
+family,endpoint,calibrationLSMaximumCodes,calibrationMinimaxLowerCodes,calibrationMinimaxUpperCodes,authority,rank,columns,leastSquaresConvergedStarts,minimaxConvergedStarts,starts,status
+E3,dark-active,1.087556738904837,1.010382031794074,1.0103897404560342,certified bracket,3,3,16,15,16,certified calibration rejection
+EH6,dark-active,2.9096093948436703,2.3939683177757947,2.3939774500750275,certified bracket,6,6,16,15,16,certified calibration rejection
+O12,dark-active,26.216800338215762,,22.0,LOCAL,12,12,16,16,16,LOCAL candidate fails; no global nonlinear negative
+E3,dark-inactive,1.5379425309424448,1.4255181049315657,1.4255235428723267,certified bracket,3,3,16,15,16,certified calibration rejection
+EH6,dark-inactive,2.126602377887238,1.6773445427483464,1.6773509413343959,certified bracket,6,6,16,16,16,certified calibration rejection
+O12,dark-inactive,29.653547323551976,,25.28301434477872,LOCAL,12,12,16,16,16,LOCAL candidate fails; no global nonlinear negative
+E3,light-active,0.7089208284257609,0.6182829972503993,0.6182924316441927,certified bracket,3,3,16,16,16,colour endpoint survives; thick transfer fails
+EH6,light-active,0.6812947124848847,0.6151581014325305,0.6151674881434701,certified bracket,6,6,16,16,16,colour endpoint survives; thick transfer fails
+O12,light-active,1.4514010509129491,,1.3358381387002396,LOCAL,12,12,16,9,16,LOCAL candidate fails; no global nonlinear negative
+E3,light-inactive,0.9252340218768609,0.8323490573220221,0.8323554076898176,certified bracket,3,3,16,15,16,endpoint survives both colour and thick transfer
+EH6,light-inactive,0.9633174562053455,0.8325829902558499,0.8325893424084256,certified bracket,6,6,16,16,16,endpoint survives both colour and thick transfer
+O12,light-inactive,2.671198319309269,,2.3272152388766756,LOCAL,12,12,16,10,16,LOCAL candidate fails; no global nonlinear negative

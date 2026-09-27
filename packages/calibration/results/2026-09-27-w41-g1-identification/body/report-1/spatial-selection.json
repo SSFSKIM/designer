@@ -1,0 +1,158 @@
+{
+  "schema": "w41-step2-spatial-selection-1",
+  "completeFamilySurvives": false,
+  "selectedFamily": "E3",
+  "selection": "diagnostic B1 by G1 step3 rule",
+  "declarationSha256": "850747c1f03781a6efe9b433bd4ce3bd6cf72b63c9befd8d5d98de9eadf7f759",
+  "endpoints": {
+    "light-active": {
+      "family": "E3",
+      "coefficients": [
+        0.953047529687212,
+        0.946839919336861,
+        0.943761135432624
+      ],
+      "neutral": [
+        152,
+        160,
+        168,
+        176,
+        183,
+        195,
+        205
+      ],
+      "status": "colour endpoint survives; thick transfer fails",
+      "colourSurvives": true,
+      "fullEndpointSurvives": false,
+      "purpose": "DIAGNOSTIC B1, not a surviving four-endpoint body",
+      "source": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/body/attempt-1/light-active-E3-fit.json",
+      "sourceSha256": "a66a709adc3a85176a4ab7a7a02a8d8f02445ad9281fcccafb8f9cb7c7e192cc"
+    },
+    "light-inactive": {
+      "family": "E3",
+      "coefficients": [
+        0.929205829365914,
+        0.9597570955316058,
+        0.9383102545096953
+      ],
+      "neutral": [
+        150,
+        157,
+        164,
+        171,
+        178,
+        188,
+        197
+      ],
+      "status": "endpoint survives both colour and thick transfer",
+      "colourSurvives": true,
+      "fullEndpointSurvives": true,
+      "purpose": "DIAGNOSTIC B1, not a surviving four-endpoint body",
+      "source": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/body/attempt-1/light-inactive-E3-fit.json",
+      "sourceSha256": "fef8045e611ade02184e091350cd89ebcb32a6eff86d82bea39f2aefa7100fd6"
+    },
+    "dark-active": {
+      "family": "E3",
+      "coefficients": [
+        1.1887451017973973,
+        1.1957520666860317,
+        1.0754352621843033
+      ],
+      "neutral": [
+        69,
+        83,
+        96,
+        108,
+        119,
+        134,
+        146
+      ],
+      "status": "certified calibration rejection",
+      "colourSurvives": false,
+      "fullEndpointSurvives": false,
+      "purpose": "DIAGNOSTIC B1, not a surviving four-endpoint body",
+      "source": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/body/attempt-1/dark-active-E3-fit.json",
+      "sourceSha256": "8d23ff0bb08a5458d45fbf2217e35d298955d487435dfc4e72728bf1ef422430"
+    },
+    "dark-inactive": {
+      "family": "E3",
+      "coefficients": [
+        1.1923789226024093,
+        1.2094180220044135,
+        1.0776457626058156
+      ],
+      "neutral": [
+        60,
+        74,
+        87,
+        100,
+        111,
+        127,
+        140
+      ],
+      "status": "certified calibration rejection",
+      "colourSurvives": false,
+      "fullEndpointSurvives": false,
+      "purpose": "DIAGNOSTIC B1, not a surviving four-endpoint body",
+      "source": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/body/attempt-1/dark-inactive-E3-fit.json",
+      "sourceSha256": "2024f3a4baa070288145ab1095d29fd7495510e81c07a7b40ed717aae1fd2b2e"
+    }
+  },
+  "resolution": [
+    {
+      "scope": "colour",
+      "endpoint": "light-active",
+      "families": [
+        "E3",
+        "EH6"
+      ],
+      "comparisons": 340,
+      "admittedSeparators": [],
+      "maximum": {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-0-colour__rest",
+        "channel": "B",
+        "separationCodes": 0.5010548802260075,
+        "thresholdCodes": 3.0
+      },
+      "verdict": "insufficient resolution",
+      "rule": "max(3 codes,sum of per-channel bars); fixed minimax instances, not universal family separation"
+    },
+    {
+      "scope": "colour",
+      "endpoint": "light-inactive",
+      "families": [
+        "E3",
+        "EH6"
+      ],
+      "comparisons": 340,
+      "admittedSeparators": [],
+      "maximum": {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-4-colour__inactive",
+        "channel": "R",
+        "separationCodes": 1.1902015706554323,
+        "thresholdCodes": 3.0
+      },
+      "verdict": "insufficient resolution",
+      "rule": "max(3 codes,sum of per-channel bars); fixed minimax instances, not universal family separation"
+    },
+    {
+      "scope": "colour-and-thick-transfer",
+      "endpoint": "light-inactive",
+      "families": [
+        "E3",
+        "EH6"
+      ],
+      "comparisons": 370,
+      "admittedSeparators": [],
+      "maximum": {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-4-colour__inactive",
+        "channel": "R",
+        "separationCodes": 1.1902015706554323,
+        "thresholdCodes": 3.0
+      },
+      "verdict": "insufficient resolution",
+      "rule": "max(3 codes,sum of per-channel bars); fixed minimax instances, not universal family separation"
+    }
+  ],
+  "holdoutOpened": false
+}

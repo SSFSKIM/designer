@@ -1,0 +1,18 @@
+{
+  "reviewer": "doperpowers:reviewer-medium",
+  "verdict": "correct",
+  "materialFindings": [],
+  "scope": ["replay.py", "attempt-1/", "report.py", "report-1/"],
+  "verified": [
+    "source, manifest and fit-freeze hashes",
+    "public split membership and calibration-before-validation boundary",
+    "all eight linear certificate/bracket checks",
+    "384 recorded local-candidate forward scores",
+    "all 3472 per-cell scores and aggregate strata",
+    "all three resolution comparisons",
+    "diagnostic E3 coefficients bound to recorded fits"
+  ],
+  "nativePayloadReads": false,
+  "holdoutOpened": false,
+  "optimizersRerun": false
+}
