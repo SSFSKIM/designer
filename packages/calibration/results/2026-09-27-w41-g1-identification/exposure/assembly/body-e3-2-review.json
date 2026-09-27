@@ -1,0 +1,38 @@
+{
+  "reviewer": "doperpowers:reviewer-high",
+  "verdict": "correct",
+  "findings": [],
+  "artifact": "body-e3-2",
+  "checks": {
+    "renderedExactTwoKeyRecords": 600,
+    "identityRecords": 450,
+    "blindIdentities": 48,
+    "survivalMemberships": {
+      "numerical": 576,
+      "rendered": 536,
+      "veto": 536
+    },
+    "inputHashes": 5777,
+    "rawAdmissionReportsStreamed": 4,
+    "admittedDeepMembers": 1128,
+    "repeatRows": 7896,
+    "numericalCoverage": {
+      "measured": 136,
+      "censored": 2,
+      "unclaimed": 438
+    },
+    "renderedCoverage": {
+      "measured": 128,
+      "censored": 2,
+      "unclaimed": 406
+    }
+  },
+  "method": "Independent all-input hash/history/helper/source check; streamed every raw/admission cell, verified admission equality, pointer/content hashes, compact contents, deep/repeat/censor/diagnostic/unclaimed semantics, veto flags and current-runner assessment equivalence.",
+  "seconds": 201.48,
+  "nativePayloadReads": 0,
+  "browsersLaunched": 0,
+  "scorerScoreCalled": false,
+  "assemblerCalled": false,
+  "manifestFreezeAttempted": false,
+  "receiptAttempted": false
+}
