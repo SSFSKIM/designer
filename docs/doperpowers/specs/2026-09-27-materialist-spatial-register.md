@@ -251,9 +251,15 @@ conditions, not a third page; the other three go to the tracker or the instrumen
 bounded demonstration that the conditions can be met; whether the skill TEACHES and CHOOSES the
 register is the eval's claim (D), not the pages'.
 
-**Comparability.** Same rater identities, same capture set per page, same seeded order, same
-blind yes/no instruction, same analyzer. The rulebook differs by design and the difference is
-named per rule by the `r` numbers.
+**Comparability.** Same rater identities, same seeded order, same blind yes/no instruction, same
+analyzer. Three departures from the 2.3 protocol, each forced by the rulebook and decided at the
+port (Decision Log): the capture set is the six's plus the register's states (each inner
+scroller's middle and bottom, every environment phase, the CSS tier's first viewport and menu, the
+forced-colours capture); the raters receive the page's record, because four rules ask for recorded
+values, with the rule that the record is evidence only for what it records; and a rater who cannot
+see a rule answers 0 with evidence beginning "unread:", which the analyzer counts as UNREAD when a
+majority say so, excluded from the count and blocking the verdict, rather than as a failure. The
+rulebook differs by design and the difference is named per rule by the `r` numbers.
 
 ### C. The two pages (G3)
 
@@ -428,6 +434,16 @@ and one line on Harvestar if they want a page shaped toward it.
   instrument-register control is added (D). Nothing was dismissed: each finding named a way the
   proof could pass an unreadable window or fail a page that followed the conditions.
   Date/Author: 2026-09-27, Claude, on the reviewer's report.
+
+- Decision: Four calls made at the instrument's port, accepted with one change. (a) Spatial raters
+  read the record beside the captures; (b) the spatial capture set adds the scroller, phase, CSS
+  and forced-colours states; (c) a rater's "unread:" answer is UNREAD and blocks, not a failure
+  (the porter had counted it as a 0; changed on the honesty core's own rule, a missing read is not
+  a zero); (d) a page whose environment has one state declares `environmentStatic: true` in its
+  source review JSON and the phases clause stands down for it.
+  Rationale: (a) and (b) are what the rulebook's own text requires; (c) keeps a capture-set gap
+  from reading as the page's fault; (d) is what C asks of a page "whose environment has states".
+  Date/Author: 2026-09-27, Claude, on the porter's report.
 
 - Decision: Skill 1.1.0, plugin 2.5.0.
   Rationale: a second register is a feature of the skill, not a correction.
