@@ -1,0 +1,50 @@
+test_batches_preserve_all_cells_calval_before_blind (test_driver.DriverTests.test_batches_preserve_all_cells_calval_before_blind) ... ok
+test_full_verification_precedes_fresh_x6_and_controlled_argv (test_driver.DriverTests.test_full_verification_precedes_fresh_x6_and_controlled_argv) ... FAIL
+test_identity_checks_every_unclaimed_png_and_projection (test_driver.DriverTests.test_identity_checks_every_unclaimed_png_and_projection) ... ok
+test_pins_reject_changed_file_and_added_runtime_source (test_driver.DriverTests.test_pins_reject_changed_file_and_added_runtime_source) ... ok
+test_real_import_frontier_includes_unregistered_boundary_not_scorer (test_driver.DriverTests.test_real_import_frontier_includes_unregistered_boundary_not_scorer) ... ERROR
+test_snapshots_are_content_addressed_and_collision_refuses (test_driver.DriverTests.test_snapshots_are_content_addressed_and_collision_refuses) ... ok
+test_source_frontier_tracks_imports_not_unrelated_instruments (test_driver.DriverTests.test_source_frontier_tracks_imports_not_unrelated_instruments) ... ERROR
+test_x6_refusal_is_resumable_but_launched_failure_never_reexecutes (test_driver.DriverTests.test_x6_refusal_is_resumable_but_launched_failure_never_reexecutes) ... ok
+
+======================================================================
+ERROR: test_real_import_frontier_includes_unregistered_boundary_not_scorer (test_driver.DriverTests.test_real_import_frontier_includes_unregistered_boundary_not_scorer)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/candidate-capture/test_driver.py", line 81, in test_real_import_frontier_includes_unregistered_boundary_not_scorer
+    sources = d.source_inventory(d.ROOT)
+              ^^^^^^^^^^^^^^^^^^
+AttributeError: module 'candidate_driver' has no attribute 'source_inventory'
+
+======================================================================
+ERROR: test_source_frontier_tracks_imports_not_unrelated_instruments (test_driver.DriverTests.test_source_frontier_tracks_imports_not_unrelated_instruments)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/candidate-capture/test_driver.py", line 58, in test_source_frontier_tracks_imports_not_unrelated_instruments
+    sources = d.source_inventory(root, namespace)
+              ^^^^^^^^^^^^^^^^^^
+AttributeError: module 'candidate_driver' has no attribute 'source_inventory'
+
+======================================================================
+FAIL: test_full_verification_precedes_fresh_x6_and_controlled_argv (test_driver.DriverTests.test_full_verification_precedes_fresh_x6_and_controlled_argv)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/candidate-capture/test_driver.py", line 105, in test_full_verification_precedes_fresh_x6_and_controlled_argv
+    self.assertEqual(order.read_text().splitlines(), ['verify', 'x6', 'launch'])
+AssertionError: Lists differ: ['x6', 'verify', 'launch'] != ['verify', 'x6', 'launch']
+
+First differing element 0:
+'x6'
+'verify'
+
+- ['x6', 'verify', 'launch']
+?  ------
+
++ ['verify', 'x6', 'launch']
+?            ++++++
+
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.101s
+
+FAILED (failures=1, errors=2)
