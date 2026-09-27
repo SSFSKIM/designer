@@ -1,0 +1,35 @@
+{
+  "kind": "STROKE_SYNTHETIC_LOG_RETENTION_DEVIATION",
+  "scope": "Uncommitted preparation-only scheduler v3 test console outputs; no native evidence, scientific declaration, v1/v2 logs or fit/proof result changed.",
+  "worker": "aa1f4c92af55a00d9",
+  "reported": "Two new v3 test log paths were overwritten during preparation iterations before final freeze. Earlier reported hashes no longer name retained local files.",
+  "lostEpochs": {
+    "scheduler/policy-v3-green.txt": [
+      {
+        "reportedShaPrefix": "1b764755",
+        "tests": 55,
+        "sourceShaPrefix": "aa383a85"
+      },
+      {
+        "reportedShaPrefix": "76c8c4e0",
+        "tests": 55,
+        "sourceShaPrefix": "abd88ec0"
+      },
+      {
+        "reportedShaPrefix": "0553583298",
+        "tests": 56,
+        "sourceShaPrefix": "b793f4dc"
+      }
+    ],
+    "scheduler/freshest-red.txt": [
+      {
+        "sha256": "71af555aec7d7a8c5e12b0027e24605bf761e7ed0acd12064b64cfb4305cf894"
+      }
+    ]
+  },
+  "retainedFinal": {
+    "scheduler/policy-v3-green.txt": "4de16bd0abc5248cd132a521db6d1275c8d0edf99dfbf54c4d21874da108de76",
+    "scheduler/freshest-red.txt": "bf74f1fcaca0c716ab1b4d9568f4e61d43e9ff36fc551124f05a2f0638a9e27d"
+  },
+  "response": "No old log reconstructed or old hash relabelled. Final source is frozen for independent review; all subsequent output uses a fresh filename. Earlier test counts are worker reports, not retained byte witnesses."
+}

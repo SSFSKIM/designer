@@ -1,0 +1,83 @@
+W41 stroke scheduler adaptive resource policy (v3): additive source epoch
+
+Direction: ../scheduler-memory-parent-direction-v3.json (STROKE_ADAPTIVE_MEMORY_DIRECTION),
+  sha256 77cadc2730c1fd41e909fb329bf3b6dbb0bae49907fc6b8b6ca7983745f13e1f
+scheduler.py (v1) and scheduler_v2.py (v2, d5785897...) are unchanged and imported.
+scheduler_v3.py is a library (no CLI). The existing v2 `watch` and `import-pressure`
+commands supply pressure history; they write the same ROOT/pressure/ records this
+gate reads. Operational policy only: no family, bound, budget, seed or population
+changes; nothing running is ever killed, retried or reconfigured.
+
+Receipt
+  A v2 LAUNCH with receiptVersion 3 and adaptiveMemoryPolicy: REF to the direction.
+  StoreV3 refuses any other receiptVersion; StoreV2 refuses receiptVersion 3, so a
+  v3 receipt is never admitted under v2 numbers and vice versa. The direction must be
+  kind STROKE_ADAPTIVE_MEMORY_DIRECTION and state exactly the numbers enforced here
+  (normal {pressureLevels [1], spacedNormalReadings 5, intervalSeconds 30, floorBytes
+  1 GiB, maxConcurrency 3}; degraded {pressureLevels [1, 2], floorBytes 0,
+  maxConcurrency 1, diskFreeMinimumBytes 20 GiB}; counter "free + max(inactive,
+  purgeable)"); a different or changed direction fails closed. maxConcurrency <= 3
+  and <= the CAPTURE RELEASE ceiling, as in v2.
+
+Bookkeeping (v2's, copied verbatim up to the gate)
+  Live old and claimed fits, the monotonic RSS high-water (every valid reading,
+  refusals included), live-resident credit (reservation minus RSS, own RSS at the
+  pre-fit check), the pressure log entry for this admission's reading (unreadable
+  logged as such, then fail closed), exclusive claims, NO-FIT deferrals, solver
+  markers and exact-once results.
+
+Gate (every admission, claim-time and pre-fit, proofs and fits alike)
+  counter = (free + max(inactive, purgeable)) * page size: a reclaimable-headroom
+  heuristic, not a free-memory guarantee (v2's MEMORY_METRIC_V2 reading).
+  Pressure level used by both gates: the FRESHEST row in ROOT/pressure/ (by
+  sampledUTC, then id) after this admission logs its own sample. A shared watcher
+  can publish between the sample and the history read; a newer CRITICAL or
+  unreadable row therefore wins over this admission's older sample. The real sample
+  stays in `memory`, the row used in `freshestPressure`; nothing is normalized.
+  Normal is evaluated first: freshest pressure 1, a PROVEN trailing run of five
+  consecutive NORMAL readings, each >= 30 s after the previous counted one
+  (spaced_normal_run: any non-NORMAL or unreadable reading resets it; duplicates
+  inside 30 s add nothing; an empty or short history counts only what exists, so
+  a fresh root starts degraded), and counter - reservations >= 1 GiB. v2's
+  pressure_state, which starts open with no history, is recorded as history only. If all hold: admit iff live fits + this one <= cap (<= 3).
+  Otherwise degraded: admit iff freshest pressure is 1 or 2 (never 4 or unreadable),
+  counter >= reservations (no floor), minimum free disk >= 20 GiB, and this is the
+  only live fit (live old + live claimed + this one == 1).
+  The mode is decided afresh at each admission, so it reverses in both directions.
+  Degraded's cap of one is admission-only: running fits are never stopped.
+  Disk is read at every admission and recorded in both modes; it gates only the
+  degraded mode, where an unreadable disk fails closed (an error, not a deferral).
+  Disk = min free bytes of the scheduler root's volume and /System/Volumes/VM.
+  Swap (sysctl vm.swapusage) is recorded as evidence only.
+
+Decision fields (immutable admissions/ record; Deferred.decision on refusal)
+  sampledUTC, policyVersion 3, resourcePolicy "stroke-adaptive-v3",
+  adaptiveMemoryPolicy (REF), resourceMode ("normal" | "degraded"; named apart from
+  the verification adapter's own `mode`), normalGate
+  {pressureNormal, fiveSpacedNormal, floorClears}, policyCounter, counterEpoch,
+  memory (with its sampledUTC and page counts), pressureState (v2 view), spacedNormalRun, freshestPressure {id,
+  sampledUTC, pressureLevel, source}, disk {freeBytes,
+  volumes, sampledUTC, source} or {error, sampledUTC}, diskFreeBytes (min free
+  bytes, or null when unreadable), diskFloorBytes, swap,
+  swapExpectation, processes, effectiveConcurrency, maxConcurrency,
+  modeConcurrencyLimit, reservedBytes, ownRSSBytes, observedPeakBytes,
+  prospectivePeakBytes, peakEvidence, requiredAvailableBytes,
+  headroomAfterReservationBytes, admitted. A pre-fit refusal is v1's NO-FIT deferral.
+
+Library API
+  StoreV3(root, *, disk=None, swap=swap_usage): disk() -> {'freeBytes': int, ...}
+  (default: disk_free of the root and VM volumes); swap() -> evidence dict. No clock
+  parameter: times are the readings' own sampledUTC values and wall-clock now().
+  claim / check_before_fit default memory to v2's mac_memory_v2; a bare
+  admission(...) call must pass it (the caller holds store.locked()). Results
+  published by StoreV3.finish carry policyVersion 3, resourcePolicy, admissionMode
+  (the pre-fit record's resourceMode), policyCounter, counterEpoch and policySourceSha256 for
+  scheduler_v2.py and scheduler_v3.py. v1.run(StoreV3(...), launch_ref) works as for v2.
+  scheduler_v3 imports `scheduler` and `scheduler_v2` by module name; a private loader
+  must register its v1 and v2 objects under those names first. `claim_name` is bound
+  into scheduler_v3's own namespace (used as in v2 at the own-claim skip and owner
+  label), so a private owner seam wraps scheduler_v3.claim_name.
+
+Synthetic verification (never writes bytecode)
+  python -B -X pycache_prefix=<new empty dir> -m unittest discover \
+    -s /absolute/path/to/stroke/scheduler -p 'test_scheduler*.py'

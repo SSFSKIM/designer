@@ -1,0 +1,16 @@
+F
+======================================================================
+FAIL: test_newer_logged_reading_overrides_this_admissions_older_sample (test_scheduler_v3.AdaptivePolicyTests.test_newer_logged_reading_overrides_this_admissions_older_sample)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/v3red.EyfU/test_scheduler_v3.py", line 177, in test_newer_logged_reading_overrides_this_admissions_older_sample
+    refusal = self.refused(task, pid=201 + index, memory=memory)
+  File "/private/tmp/v3red.EyfU/test_scheduler_v3.py", line 78, in refused
+    with self.assertRaises(scheduler.Deferred) as refusal:
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+AssertionError: Deferred not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.011s
+
+FAILED (failures=1)

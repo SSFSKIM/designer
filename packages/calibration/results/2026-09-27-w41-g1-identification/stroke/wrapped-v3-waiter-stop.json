@@ -1,0 +1,11 @@
+{
+  "kind": "STROKE_RESOURCE_WAITER_STOP",
+  "utc": "2026-09-27T13:10:32.386043+00:00",
+  "task": "bzlfmb4ks",
+  "pids": [
+    92346
+  ],
+  "wrappedLeaseAbsent": true,
+  "allocationLockHeld": true,
+  "reason": "Parent superseding degraded resource policy; stop prior admission waiter before new policy can race. No proof/fit had acquired a lease; no native solver stopped."
+}

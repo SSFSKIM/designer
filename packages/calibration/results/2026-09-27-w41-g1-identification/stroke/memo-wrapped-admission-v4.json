@@ -1,0 +1,100 @@
+{
+  "kind": "STROKE_VERIFICATION_ADMIT",
+  "schedulerRoot": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1",
+  "heldRevision": "d35b4cbf43f1fcdda55063b3b8e0fa178d720a78",
+  "roster": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-roster.json",
+    "sha256": "ae5bb5418fcb27e50c7f584765196b78e2e1bd6a2e7c70c4cc825c2d8655bd9b"
+  },
+  "captureRelease": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/capturesrelease.json",
+    "sha256": "b77df35006fc32571e3171a5f375aad844300a5ef9adb09c34fd71fb51275e77"
+  },
+  "peakEvidence": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-peak-evidence-2.json",
+    "sha256": "4285ea327f011ad8b530e22be8e65e3f8c51ebb242a5afdb7b5206d9bc09452d"
+  },
+  "reservationBytes": 3635642368,
+  "oldWorkerReservationBytes": 3635642368,
+  "maxConcurrency": 3,
+  "mode": "wrapped",
+  "out": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/native-wrapped-1",
+  "completedArtifact": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/survivor-scope-partition-0/device-M1-start-00.json",
+    "sha256": "e361f0a5e6b7e8ca3b9982b21426bac0fb1ca0a5f50b6887eb6d802129dd1187"
+  },
+  "sourceSha256": {
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/verification-slot/verification_slot.py": "e212dddeff1e22b28e89b859a72d1b07fa6cca2166d8d1849949b9ef91126646",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler.py": "b2b103bcd1fbb77507d97b1e612fae0d802a17b816c3d80ecb8288b00664712c",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/proof.py": "b42e03a5c46b5b977df4aee3eebf0e6628c799aa098ba1d50c3e58244667bca4",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/solver_memo.py": "b0e9f572d6bb51513c54a6128981adb52384c39113a574baeda05a229d5de50b",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/fixtures.py": "e500464fc13449881e24b4e5805461699ffa0899351020366b9b62d9278ccd66",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/start_partition.py": "4d966f03905693f8090685d0bab7b90a951ea3689ead16678f494592a20f37b9",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/survivor_scope_runner.py": "cace8f6f124d8009a84ddb124b7e96818e7f2ba2a65177f8e49dc5461408e65f",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/inactive_runner.py": "f38a12ddc73eca8f4cfdc7d22ff7d2e912060e9fb69bde4eab17aa3a1d2ca42b",
+    "/Users/new/vitrea-w41/pre-w41-proof/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/replay.py": "d5df491dc468d6cc5844d4f6d7bbf0d17d752bc1c0851c013178091e8ba58810",
+    "/Users/new/vitrea-w41/pre-w41-proof/packages/calibration/results/2026-09-27-w41-g0-declaration/instrument/stroke_fit.py": "07ac045ccabcd5c8348de50b5c9de13668558c44833c2b0d1ba756298e1da887",
+    "/Users/new/vitrea-w41/pre-w41-proof/packages/calibration/results/2026-09-27-w41-g0-declaration/instrument/instrument.py": "41f796109a19e3834f2d738ee122f394d2e142d79ba29db3fe5ecc4ddb179950",
+    "/Users/new/vitrea-w41/pre-w41-proof/packages/calibration/results/2026-09-27-w41-g0-declaration/instrument/shadow.py": "aff196a4923b77489a2425b3ea1214bf28e55b0b0cc9540c058692bb195d377a",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/manual-proof-policy-v2.py": "a6eb3d02e4166a4fcae7902f2c0948309ce55dd27e53e11a31275e07702339ee"
+  },
+  "predecessor": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/verification/unwrapped/terminal.json",
+    "sha256": "5520e9729111411a1f14f6e2805753bee199a4a3325826a6718fc729c56ee90b"
+  },
+  "memoryPolicy": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-memory-parent-direction-v2.json",
+    "sha256": "8b5c81d8bb8ca08a07d85f57eb77d309ad91da1dfcf267fbbcdd92312bfc32f2"
+  },
+  "comparisonRecovery": {
+    "direction": {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memo-comparison-recovery-direction.json",
+      "sha256": "353d56780822037a7f30326ca779bb7835d386b2b1becb4a81d1c2f41be75252"
+    },
+    "proof": {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/native-unwrapped-comparison-1/completed-start-proof.json",
+      "sha256": "121dab5d32777caebf5090cb58777c717d40ba9893fd4a4e2a72795b873896c0"
+    }
+  },
+  "receiptVersion": 3,
+  "resourceSourceSha256": {
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/verification-slot/verification_policy_v2.py": "6cbf66a25444d8449ee1492769159cbab68a2f44d00d79ee188ed17bdeb48e84",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler_v2.py": "d5785897b480a176545295cbe25144817b41c314fe9cbe683699bb4d46aa4678",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler_v3.py": "2bbbd2454e2392056412251852a15acba9641c29009fd2705fc186b647b9021b",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/verification-slot/verification_policy_v3.py": "54208ba5a530942e6d8ea518f9a857983190d25f2fb2d2efc0365260a7c745e8"
+  },
+  "memoryCounterDirection": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-memory-counter-clarification.json",
+    "sha256": "a11daa8ccc67c6979739a77153fafeac43db063be1375eab3f32486f8f0eca31"
+  },
+  "pressureSnapshot": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/manual-pressure-completed-snapshot.jsonl",
+    "sha256": "5f193bd315dae8238197582a34513dcc8f8b6a7878b555618fa19cf824c0de0a"
+  },
+  "pressureImport": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/pressure-import.json",
+    "sha256": "db73d5683b9dfeb788d309d99ff31110d291f6fc343eea0d3984d5e8f2eb1268"
+  },
+  "pressureWatcher": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-pressure-watcher-1.json",
+    "sha256": "b68d2a97d8db86273dd35b97eb5a79ae2703cd013385bcd3a0070a9b41d5fe6a"
+  },
+  "resourceAuthorization": "Confirmed parent task direction: reversible adaptive normal/degraded gate; wrapped proof first. Older unwrapped solve is reused, not rerun. No permission/configuration/scientific-rule changes.",
+  "classification": "Verification only; no candidate optimizer start or memoization adoption.",
+  "operationalImportPolicy": {
+    "dontWriteBytecode": true,
+    "pycachePrefix": "/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/vitrea-wrapped-adaptive-g_s5gyw0",
+    "initiallyEmpty": true,
+    "scope": "One fresh invocation; -B plus a new empty -X pycache_prefix prevents reading held-tree caches and writing any cache.",
+    "cacheInspection": {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/proof-bytecode-equivalence-1.json",
+      "sha256": "8cf9e162ac27224afc87a9495021b565e4fa999a6d64e8ebaedb9c2fffe392dc"
+    },
+    "parentTaskDirection": "Prefer -B plus new empty per-invocation pycache_prefix; do not delete caches or rerun completed science."
+  },
+  "adaptiveMemoryPolicy": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-memory-parent-direction-v3.json",
+    "sha256": "77cadc2730c1fd41e909fb329bf3b6dbb0bae49907fc6b8b6ca7983745f13e1f"
+  },
+  "expectedPaging": "Degraded mode may swap; retain full lease/terminal wall time and pressure history. Never kill a running proof to change resource modes."
+}
