@@ -1,0 +1,38 @@
+{
+  "diagnosis_utc": "2026-09-27T12:39Z-12:45Z",
+  "background_task": "bv4765li8",
+  "verdict": "no_stall_run_completed_successfully",
+  "test_exit_code": 0,
+  "test_result": "60 test files passed (60); 768 tests passed | 1 skipped (769)",
+  "test_start_utc": "2026-09-27T12:39:05Z",
+  "test_end_utc": "2026-09-27T12:45:04Z",
+  "test_duration_s": 358.82,
+  "duration_breakdown": {
+    "transform_ms": 929,
+    "setup_ms": 0,
+    "import_s": 5.70,
+    "tests_s": 348.72,
+    "environment_ms": 3
+  },
+  "observed_process_churn": [
+    { "utc": "~12:43", "note": "user-observed fork pid 71220, ~56s old, ~0% cpu" },
+    { "utc": "12:44:14", "pid": 68511, "role": "vitest main", "cpu_pct": 0.1, "etime": "05:09" },
+    { "utc": "12:44:14", "pid": 76019, "role": "fork worker", "cpu_pct": 80.0, "etime": "00:26" },
+    { "utc": "12:44:32", "pid": 77472, "role": "fork worker", "cpu_pct": 0.5, "etime": "00:02" },
+    { "utc": "~12:44:5x", "pid": 78893, "role": "fork worker", "note": "sampled 1s/1ms; process exited before symbolicated frames were captured, consistent with short per-file lifetime, not a hang" },
+    { "utc": "12:45:26-12:45:48", "note": "no forks.js child present under vitest main; main process (68511) itself exited by 12:45:48, i.e. the whole run had already finished" }
+  ],
+  "root_cause_of_apparent_stall": "Vitest's default 'forks' pool with isolate:true (project's vitest.config.ts sets no pool/poolOptions override, so defaults apply) spawns a fresh OS process per test FILE for module isolation, even with --maxWorkers=1. A point-in-time ps snapshot mid-run can land on a fork that just spawned (near-0% CPU, small etime) purely because that file's fork is between exec and doing CPU work, or between test files while the previous fork tears down and the next one boots (node --require suppress-warnings.cjs startup, ESM conditions resolution). This is normal per-file recycling, not a hung worker IPC/module-startup path. 60 files over 348.72s test time is ~5.8s/file average, consistent with the 2s-56s range of fork lifetimes observed.",
+  "supporting_evidence": {
+    "lsof_on_live_fork_78893": "Only cwd/txt/dyld mappings, 4 unix-domain sockets (vitest RPC/IPC), 2 kqueues, one pipe pair, /dev/null, and directory FDs from readdir-style test collection (/, counted twice) -- no FD blocked on a stalled read, no dangling network socket, no lock file wait.",
+    "stack_sample_78893": "sample(1) ran for 1s at 1ms rate but returned an EMPTY call graph (0 recursive frames) -- the fork had already exited before/while sample was symbolicating, corroborating a lifetime well under 1s-few-seconds for that particular file rather than a stuck worker.",
+    "log_growth": "close-checks/current-e3-1/calibration-test.txt grew from 7 lines (RUN banner only, observed at 12:44) to 15 lines (final summary + test-exit=0) by 12:45:48, i.e. collection/execution completed normally between checks."
+  },
+  "lint_and_typecheck": {
+    "note": "Run separately (per pre-existing close-checks/current-e3-1/orchestration-note.txt) because the outer shell's `exit` after the test brace prevents the chained `&&` lint clause from firing -- this matches the user's own stated expectation.",
+    "command": "eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.cli.json && tsc --noEmit -p web/tsconfig.json && tsc --noEmit -p scripts/tsconfig.json",
+    "exit_code": 0,
+    "ran_utc": "2026-09-27T12:44:40Z-12:44:47Z"
+  },
+  "smallest_technical_recovery": "None required. The run already reached a clean, complete, passing result (exit 0) before this diagnosis finished; no kill/restart/config edit was needed or performed. If per-file fork churn should stop being mistaken for a stall in future point-in-time checks, the low-cost future option (not applied here, a config decision) is `poolOptions.forks.singleFork: true` in vitest.config.ts to keep one long-lived worker process across all files -- purely a legibility improvement, not a correctness fix, since nothing was actually broken."
+}
