@@ -40657,3 +40657,72 @@ relabelled. Review checks all144 original family/rival start vectors and budgets
 three fresh partitions launch at **`5e32e7bf`**, at most three concurrent starts. Inactive
 survival, validation transfer and sensitivity remain pending, not inferred from the passing
 outer-support controls.
+
+### 12. The shipped transfer is complete; candidate calval captures precede a peer-browser pause
+
+The additive baseline transfer is now complete (`c2a075d2`, verified `07fbf6c1`), rather
+than pending as §10's checkpoint says. `baseline/transfer-v2-summary.json` SHA-256
+**25d2bc89ee9e9e18cb6f32c46e2f0ce5ae93a6bd3ed67d4cb6d92f15c0627dc4** binds inventory
+**5fdb12ad85dd3c7b036214a49f0235a3ae09ac12776bd6c8ec6d7ccdce7fffc9**: all536 cells,
+464 calibration /72 validation, 3,752 normal run entries, 536 deep members, 64,320 exterior
+bins, 225,120 interior bins and768 strip rows. Forty-eight long sentinels on16 cells are
+counted separately, not scored. Shared pixel hashes do not erase independent normal runs.
+The original24 partial readings, source epoch and failure remain unchanged beside this
+complete result. No native holdout was read.
+
+`integration/order-witness-first-render.json` (`19281815`) records the first actual candidate
+process at **09:40:11.770276Z**, after both shipped freezes. All four calibration/validation
+batches subsequently completed, 134 cells per profile, with fresh passing X6 checks before
+each launch. At09:44:03Z an idle reading of4.764s refused the next unlaunched profile; it
+was resumed only after a fresh passing check. At10:02:51Z all536 calval captures were complete,
+but the first blind web profile was refused for eight foreign browser processes despite
+RT0/IC0/tint0.5 and idle1,132.744s. These were another session's `baseline.mjs` browser, not
+failed candidate renders. No process was killed to satisfy X6.
+
+A new readiness observation passed at10:06:54Z, but the parent then reserved the browser for
+that peer's user-requested30–40 minute continuation. The pending candidate launcher was
+stopped while re-verifying the completed536 cells; a subsequent check found no blind
+`started.json` and no driver process. The unlaunched frontier is therefore retained, not
+recaptured. A bounded60-minute,30-second observation log records the peer window without
+launching between its processes; the parent will relay the ownership release, followed by a
+fresh X6 gate. CPU-only fits, proofs and a committed536-only scoring checkpoint can continue.
+This checkpoint is **not** the600-cell freeze, rendered survival, or the single exposure.
+
+### 13. Exposure waiting policy and additional necessary cuts are explicit parent steering
+
+The parent authorized additional M0/M1 necessary-bound cuts beside the continuing inactive
+fits. Each must be a proven relaxation of the sealed criterion, preserving the declared
+bound, bins, absolute-before-bin aggregation, censor rule and gauge. M0 must enumerate the
+ordered neutral-input clipping regimes in `(c,u=c·t,v=c·k)` with `t≥0` and carry an exact
+rational infeasibility certificate for every regime before rejection. M1 may use matched
+channel equality only after saved pixel/bin/coverage/reference equality and the repeat bar
+are verified. Independent replay uses the unchanged loader, as for the active cut. Only a
+certified model-endpoint determination may stop that endpoint's budget; M2 and uncertified
+endpoints continue. This authorizes proof work, **not a result**, and does not amend the
+immutable declaration or relabel partial fits.
+
+The exposure runner's missing per-profile fresh X6 gate was corrected and independently
+reviewed in an isolated branch (`2d94ccaa`,72 synthetic tests); it has **not** been applied to
+the source-pinned measurements. The parent's subsequent steering changes that isolated
+fail-fast behavior: inside the one begun exposure, bad measured facts wait at30-second
+intervals with one **cumulative60-minute waiting budget for the whole exposure**, capture
+time excluded. Every observation is durable, and the frozen snapshot is reverified before
+launch. Deadline expiry spends the attempt; observer errors and snapshot mutation fail
+closed rather than masquerading as measured facts. The fresh pre-begin gate must pass on
+its own. No capture or native read occurs during a wait, no begun attempt is retried, and
+X26 is not narrowed. Revised implementation and review remain pending at this checkpoint.
+
+Application remains behind completion of candidate, CSS and canonical diagnostic captures
+**and their source-bound offline scoring**. The final freeze will bind the revised runner,
+external preflight and scorer. Before begin, the parent will obtain the user's explicit
+untouched-Mac confirmation against a duration estimate; no such confirmation or exposure
+is claimed here. These are parent task directions, not user Decision Log2 conclusions.
+
+The CPU-only capture checkpoint is committed as **`9e328b6d`**:
+`candidate-capture/calval-checkpoint-1/rendered.json`, SHA-256
+**a642015018c1660bf1678c24671ae7c9c886d470f2f5eaf811fe8281c43da362**. Its536 cells are
+464 calibration /72 validation. The unchanged driver verifies the seal before/after,
+validates all four actual producer batches, and checks the committed payloads against their
+scratch originals and projections. The checkpoint explicitly remains536 of600; its complete
+calval membership permits the unchanged scorer to run offline while blind web captures wait.
+Scoring was dispatched only after that commit; no score is inferred here.

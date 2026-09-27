@@ -185,3 +185,32 @@ Baseline native-transfer attempt stoppedafter24cells because admittedlongsentine
 records were counted alongside7normalruns. Frozenwebpixels are unaffected.
 Additive transfer-v2 retains the failedpartial and filters normalprotocol only;
 repeatedidenticalstatehashes remain valid independentnormalrepeatentries.
+
+Transfer completion and candidate scheduling checkpoint (2026-09-27 10:08Z)
+Baseline transfer-v2 is complete536cells/3752normalruns, not pending as above:
+summary SHA25d2bc89ee9e9e18cb6f32c46e2f0ce5ae93a6bd3ed67d4cb6d92f15c0627dc4,
+inventory SHA5fdb12ad85dd3c7b036214a49f0235a3ae09ac12776bd6c8ec6d7ccdce7fffc9,
+commitsc2a075d2/07fbf6c1. The originalpartial/failure and48separate longsentinels
+remain; all536deep/64320exterior/225120interior/768strip counts verified.
+Firstcandidate browser09:40:11.770276Z is witnessed at19281815 afterbothfreezes.
+All536candidatecalval cells completed; blind64WEB stillunlaunched. FreshX6 refused
+idle4.764s at09:44:03Z, then8foreignbrowserprocesses at10:02:51Z. Resume2 passed
+readiness10:06:54Z, but was stopped duringcompleted-cell verification whenparent
+reservedbrowser forpeer's30-40mincontinuation; no blindstartedmarker existedafter.
+Bounded60min30s observation nowrecordspeerwindow, noauto-launch inbetweenprocesses.
+CPUfits/cuts and536-only committedscoringcheckpoint continue. No full600freeze,
+renderedverdict, nativeholdout orreceipt is implied by this capturecheckpoint.
+
+Parent permits necessary M0/M1 relaxationproofs beside fullbudgetinactivefits:
+exactrational certificateeachorderedclippingregime forM0; verifiedmatchedchannel
+conditions/repeatbar forM1; unchanged-loaderindependentreplay; onlycertifiedendpoint
+budgetstops. No such verdict yet. M2/uncertifiedendpoints continue. Declarationfixed.
+ExposureX6fix2d94ccaa remainsisolated. Newsteering: oneCUMULATIVE60minwaitingbudget
+perbegunexposure,30sobservations,capturetimeexcluded, allobservationsdurable,
+frozensnapshotreverified; errors/mutations failclosed. Prebeginfreshgate mustpass;
+parentwillobtainhumanuntouched-Macconfirmationbeforereceipt. Revisedfix/reviewpending.
+Primaryrunner cannotmoveuntilcandidate/CSS/canonicalcapturesANDoffline scoresrelease.
+536-only checkpoint committed9e328b6d, mapcandidate-capture/calval-checkpoint-1/rendered.json
+SHAa642015018c1660bf1678c24671ae7c9c886d470f2f5eaf811fe8281c43da362.
+All4producer batches/currentseal/source/rawprojection verified;464cal+72val.
+Offlineguarded render-calval dispatchedaftercommit, noverdictclaimedhere.
