@@ -2,6 +2,7 @@
 import datetime
 import importlib.util
 import json
+import os
 from pathlib import Path
 import re
 import sys
@@ -14,6 +15,28 @@ machine = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(machine)
 
 
+def process_census():
+    # W39's process classification and ancestor exclusion, but never discard a failed ps read.
+    output = machine.read('ps', '-axo', 'pid=,ppid=,command=')
+    rows = [line.strip().split(None, 2) for line in output['stdout'].splitlines()]
+    try:
+        usable = (output['exitCode'] == 0 and bool(rows) and
+                  all(len(row) == 3 and int(row[0]) > 0 and int(row[1]) >= 0 for row in rows))
+        parents = {int(pid): int(ppid) for pid, ppid, _ in rows} if usable else {}
+        usable = usable and os.getpid() in parents
+    except ValueError:
+        usable = False
+        parents = {}
+    ancestors = set()
+    pid = os.getpid()
+    while pid and pid not in ancestors:
+        ancestors.add(pid)
+        pid = parents.get(pid, 0)
+    return {**output, 'usable': usable,
+            'foreignProcesses': ([row for row in rows if int(row[0]) not in ancestors
+                                  and machine.is_foreign(row[2])] if usable else [])}
+
+
 def verdict(record):
     settings = record['settings']
     facts = {key: settings[key]['exitCode'] == 0 and settings[key]['stdout'] == value
@@ -22,7 +45,8 @@ def verdict(record):
     idle = record['idle']
     match = re.search(r'"HIDIdleTime"\s*=\s*(\d+)', idle['stdout'])
     seconds = int(match[1]) / 1e9 if match and idle['exitCode'] == 0 else None
-    facts['foreignProcessCountZero'] = len(record['foreignProcesses']) == 0
+    facts['foreignProcessCountZero'] = (record['processCensus']['usable'] and
+                                        len(record['foreignProcesses']) == 0)
     facts['idleAtLeast60Seconds'] = seconds is not None and seconds >= 60
     return {'passes': all(facts.values()), 'facts': facts, 'idleSeconds': seconds,
             'refusals': [key for key, passes in facts.items() if not passes]}
@@ -32,8 +56,10 @@ def observe():
     settings = {key: machine.read('defaults', 'read', domain, key) for domain, key in [
         ('com.apple.universalaccess', 'reduceTransparency'),
         ('com.apple.universalaccess', 'increaseContrast'), ('-g', 'NSGlassTintAmount')]}
+    census = process_census()
     record = {'recordedAt': datetime.datetime.now(datetime.timezone.utc).isoformat(),
-              'settings': settings, 'foreignProcesses': machine.processes(),
+              'settings': settings, 'processCensus': census,
+              'foreignProcesses': census['foreignProcesses'],
               'idle': machine.read('ioreg', '-c', 'IOHIDSystem', '-d', '4')}
     record['foreignProcessCount'] = len(record['foreignProcesses'])
     record['verdict'] = verdict(record)

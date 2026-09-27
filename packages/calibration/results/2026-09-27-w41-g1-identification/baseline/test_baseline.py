@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
 import numpy as np
 from PIL import Image
 import baseline
@@ -89,20 +90,119 @@ class BaselineTests(unittest.TestCase):
                 self.assertEqual(result['pixelsPerRow'], 48 * scale)
                 self.assertNotIn('bar', result)
 
+    def test_authority_rejects_changed_public_manifest_geometry_and_g1_code(self):
+        # Each changed file could redirect a later projection without moving any PNG digest.
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            here = root / 'baseline'
+            here.mkdir()
+            x6dir = root / 'x6'
+            x6dir.mkdir()
+            w39 = root / 'w39'
+            w39.mkdir()
+            record = {'backdrops': 'baseline/generated-backdrops'}
+            inputs = [here / 'preparation.json', here / 'generated-backdrops/manifest.json',
+                      w39 / 'supplied-paths.json', here / 'baseline.py', x6dir / 'observe.py']
+            for path in inputs:
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text('original')
+            with patch.object(baseline, 'ROOT', root), patch.object(baseline, 'HERE', here), \
+                 patch.object(baseline, 'W39', w39), \
+                 patch.object(baseline.runner, 'committed') as committed:
+                baseline.seal_authority(record)
+                sealed_hash = baseline.sha(here / 'authority.json')
+                def committed_input(repo, name):
+                    if name == 'baseline/authority.json' and baseline.sha(repo / name) != sealed_hash:
+                        raise ValueError('uncommitted frozen input')
+                    return baseline.sha(repo / name)
+                committed.side_effect = committed_input
+                baseline.verify_authority(record)
+                for path in inputs:
+                    path.write_text('changed')
+                    with self.assertRaisesRegex(ValueError, 'authority'):
+                        baseline.verify_authority(record)
+                    path.write_text('original')
+                with (here / 'authority.json').open('a') as stream: stream.write(' ')
+                with self.assertRaisesRegex(ValueError, 'authority'):
+                    baseline.verify_authority(record)
+                (here / 'authority.json').unlink()
+                with self.assertRaisesRegex(ValueError, 'authority'):
+                    baseline.verify_authority(record)
+
+    def test_frozen_projections_are_verified_before_native_transfer(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            here = root / 'baseline'
+            here.mkdir()
+            cell = 'profile/scene'
+            projection = here / 'projections/profile/scene.json'
+            projection.parent.mkdir(parents=True)
+            projection.write_text('{"cell": "profile/scene"}')
+            png = root / 'scene__webgpu.png'
+            png.write_bytes(b'frame')
+            descriptor = root / 'cell__webgpu.json'
+            descriptor.write_text('{}')
+            report = root / 'report__webgpu.json'
+            report.write_text('{}')
+            record = {'cells': [cell]}
+            (here / 'preparation.json').write_text(json.dumps(record))
+            capture = {'png': str(png), 'pngSha256': baseline.sha(png),
+                       'cellSha256': baseline.sha(descriptor),
+                       'reportSha256': baseline.sha(report),
+                       'projection': str(projection.relative_to(root)),
+                       'projectionSha256': baseline.sha(projection)}
+            frozen = {'preparationSha256': baseline.sha(here / 'preparation.json'),
+                      'captures': {cell: capture}}
+            (here / 'frozen-baseline.json').write_text(json.dumps(frozen))
+            frozen_hash = baseline.sha(here / 'frozen-baseline.json')
+            def committed_freeze(repo, name):
+                if baseline.sha(repo / name) != frozen_hash:
+                    raise ValueError('uncommitted freeze')
+                return frozen_hash
+            with patch.object(baseline, 'ROOT', root), patch.object(baseline, 'HERE', here), \
+                 patch.object(baseline.runner, 'committed', side_effect=committed_freeze):
+                baseline.verify_frozen(record, frozen)
+                projection.write_text('{"cell": "different"}')
+                with self.assertRaisesRegex(ValueError, 'projection'):
+                    baseline.verify_frozen(record, frozen)
+                with patch.object(baseline, 'verify_preparation'), \
+                     patch.object(baseline, 'verify_authority'), \
+                     patch.object(baseline, 'load_module', side_effect=AssertionError('archive accessed')):
+                    with self.assertRaisesRegex(ValueError, 'projection'):
+                        baseline.transfer()
+                projection.write_text('{"cell": "profile/scene"}')
+                with (here / 'frozen-baseline.json').open('a') as stream: stream.write(' ')
+                with self.assertRaisesRegex(ValueError, 'frozen baseline'):
+                    baseline.verify_frozen(record, frozen)
+
     def test_x6_refusal_does_not_launch_backend(self):
         from unittest.mock import patch
         with tempfile.TemporaryDirectory() as tmp:
             target = Path(tmp) / 'baseline'
             target.mkdir()
+            (target.parent / 'x6').mkdir()
             record = baseline.load(baseline.HERE / 'preparation.json')
             (target / 'preparation.json').write_text(json.dumps(record))
             refused = {'verdict': {'passes': False}}
             with patch.object(baseline, 'HERE', target), \
                  patch.object(baseline, 'CAPTURES', target / 'captures'), \
                  patch.object(baseline.x6, 'observe', return_value=refused), \
+                 patch.object(baseline, 'verify_authority'), \
                  patch.object(baseline.subprocess, 'run', wraps=baseline.subprocess.run) as run:
                 with self.assertRaises(PermissionError): baseline.capture()
                 self.assertFalse(any(call.args[0][0] == 'pnpm' for call in run.call_args_list))
+                self.assertFalse((target / 'captures').exists())
+                self.assertEqual(len(list((target.parent / 'x6').glob('prelaunch-*.json'))), 1)
+                # A fresh prelaunch gate may proceed; a prior refusal must not reserve the capture root.
+                original_run = run._mock_wraps
+                def launch_probe(command, **kwargs):
+                    if command[0] == 'pnpm': raise RuntimeError('backend invoked')
+                    return original_run(command, **kwargs)
+                with patch.object(baseline.x6, 'observe', return_value={'verdict': {'passes': True}}), \
+                     patch.object(baseline.subprocess, 'run', side_effect=launch_probe):
+                    with self.assertRaisesRegex(RuntimeError, 'backend invoked'):
+                        baseline.capture()
+                self.assertEqual(len(list((target.parent / 'x6').glob('prelaunch-*.json'))), 2)
 
 
 if __name__ == '__main__': unittest.main()

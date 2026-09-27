@@ -14,6 +14,7 @@ from pathlib import Path
 import re
 import subprocess
 import sys
+import uuid
 
 import numpy as np
 from PIL import Image
@@ -151,9 +152,9 @@ def transfer_projection(cell, png, payloads):
 def transfer():
     frozen = load(HERE / 'frozen-baseline.json')
     record = load(HERE / 'preparation.json')
-    if sha(HERE / 'preparation.json') != frozen['preparationSha256']:
-        raise ValueError('baseline preparation changed after freeze')
-    if set(frozen['captures']) != set(record['cells']): raise ValueError('incomplete baseline freeze')
+    verify_preparation(record)
+    verify_authority(record)
+    verify_frozen(record, frozen)
     archive = load_module('baseline_archive', W39 / 'w39_archive.py')
     reader = wave.reader(Path((G0 / 'archive-root.txt').read_text().strip()),
                          roles=('calibration', 'validation'))
@@ -245,12 +246,68 @@ def verify_preparation(record):
     if cells != record['cells']: raise ValueError('baseline membership changed')
 
 
+def authority_inputs(record):
+    return [HERE / 'preparation.json', ROOT / record['backdrops'] / 'manifest.json',
+            W39 / 'supplied-paths.json', HERE / 'baseline.py', HERE.parent / 'x6/observe.py']
+
+
+def seal_authority(record):
+    # Seal after committing this projection and X6 guard; do not rewrite preparation evidence.
+    for path in authority_inputs(record)[-2:]:
+        runner.committed(ROOT, str(path.relative_to(ROOT)))
+    save(HERE / 'authority.json', {'schema': 1, 'sealedAt': stamp(),
+         'preparationSha256': sha(HERE / 'preparation.json'),
+         'inputs': {str(path.relative_to(ROOT)): sha(path) for path in authority_inputs(record)}})
+
+
+def verify_authority(record):
+    path = HERE / 'authority.json'
+    if not path.is_file(): raise ValueError('authority seal missing')
+    try:
+        runner.committed(ROOT, str(path.relative_to(ROOT)))
+    except ValueError as error:
+        raise ValueError('authority seal is not committed unchanged') from error
+    authority = load(path)
+    expected = {str(p.relative_to(ROOT)): p for p in authority_inputs(record)}
+    if (authority['schema'] != 1 or authority['preparationSha256'] != sha(HERE / 'preparation.json')
+            or set(authority['inputs']) != set(expected)):
+        raise ValueError('authority inventory or preparation changed')
+    for name, source in expected.items():
+        if sha(source) != authority['inputs'][name]:
+            raise ValueError('authority input changed: ' + name)
+
+
+def verify_frozen(record, frozen):
+    try:
+        runner.committed(ROOT, str((HERE / 'frozen-baseline.json').relative_to(ROOT)))
+    except ValueError as error:
+        raise ValueError('frozen baseline is not committed unchanged') from error
+    if sha(HERE / 'preparation.json') != frozen['preparationSha256']:
+        raise ValueError('baseline preparation changed after freeze')
+    if set(frozen['captures']) != set(record['cells']):
+        raise ValueError('incomplete baseline freeze')
+    for cell, capture in frozen['captures'].items():
+        profile, sid = cell.split('/', 1)
+        expected = HERE / 'projections' / profile / (sid + '.json')
+        if capture['projection'] != str(expected.relative_to(ROOT)) or \
+                sha(expected) != capture['projectionSha256']:
+            raise ValueError('frozen projection changed: ' + cell)
+        png = Path(capture['png'])
+        if sha(png) != capture['pngSha256']:
+            raise ValueError('baseline pixel bytes changed: ' + cell)
+        for name, digest in [('cell__webgpu.json', capture['cellSha256']),
+                             ('report__webgpu.json', capture['reportSha256'])]:
+            if sha(png.parent / name) != digest:
+                raise ValueError('frozen capture descriptor changed: ' + cell)
+
+
 def capture():
     record = load(HERE / 'preparation.json')
     verify_preparation(record)
+    verify_authority(record)
     # One fresh X6 check immediately before each backend process; no bypass token.
     # The backend starts exactly one full Chromium process per invocation.
-    CAPTURES.mkdir(parents=True, exist_ok=False)
+    if CAPTURES.exists(): raise FileExistsError('baseline capture root already reserved')
     started = stamp()
     captures = {}
     env = {k: v for k, v in os.environ.items() if not k.startswith('VITREA_')}
@@ -268,8 +325,10 @@ def capture():
                    '--material-profile', str(ROOT / documents['material']),
                    '--receded-profile', str(ROOT / documents['receded'])]
         check = x6.observe()
-        save(HERE.parent / 'x6' / f'prelaunch-{profile}.json', check)
+        save(HERE.parent / 'x6' / f'prelaunch-{profile}-{uuid.uuid4().hex}.json', check)
         if not check['verdict']['passes']: raise PermissionError('X6 refused; no browser launched')
+        if not CAPTURES.exists():
+            CAPTURES.mkdir(parents=True, exist_ok=False)
         save(HERE / f'command-{profile}.json', {'at': stamp(), 'argv': command,
                                               'VITREA': {k: v for k, v in env.items() if k.startswith('VITREA_')}})
         with (HERE / f'capture-{profile}.txt').open('x') as log:
@@ -306,9 +365,14 @@ def capture():
 
 def main():
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument('operation', choices=['prepare', 'capture', 'transfer'])
+    p.add_argument('operation', choices=['prepare', 'seal-authority', 'capture', 'transfer'])
     args = p.parse_args()
-    {'prepare': prepare, 'capture': capture, 'transfer': transfer}[args.operation]()
+    if args.operation == 'seal-authority':
+        record = load(HERE / 'preparation.json')
+        verify_preparation(record)
+        seal_authority(record)
+    else:
+        {'prepare': prepare, 'capture': capture, 'transfer': transfer}[args.operation]()
 
 
 if __name__ == '__main__': main()
