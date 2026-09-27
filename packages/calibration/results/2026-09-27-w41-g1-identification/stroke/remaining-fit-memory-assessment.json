@@ -1,0 +1,45 @@
+{
+  "kind": "STROKE_REMAINING_FIT_MEMORY_ASSESSMENT",
+  "source": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/survivor-scope-partition-0/calibration-admission.json",
+    "sha256": "706b8aa08d603eff5ed411d65500216df25fcf016fd19b51b8b7008a03a060cb"
+  },
+  "models": [
+    {
+      "family": "M1",
+      "geometry": "device",
+      "pixels": 377348,
+      "residualCoordinates": 1132044,
+      "parameters": 39,
+      "oneDenseFloat64JacobianBytes": 353197728
+    },
+    {
+      "family": "M1",
+      "geometry": "curvature",
+      "pixels": 377348,
+      "residualCoordinates": 1132044,
+      "parameters": 40,
+      "oneDenseFloat64JacobianBytes": 362254080
+    },
+    {
+      "family": "M2",
+      "geometry": "device",
+      "pixels": 754696,
+      "residualCoordinates": 2264088,
+      "parameters": 43,
+      "oneDenseFloat64JacobianBytes": 778846272
+    },
+    {
+      "family": "M2",
+      "geometry": "curvature",
+      "pixels": 754696,
+      "residualCoordinates": 2264088,
+      "parameters": 44,
+      "oneDenseFloat64JacobianBytes": 796958976
+    }
+  ],
+  "observedCompletedM1DeviceProofPeakBytes": 3635642368,
+  "qualification": "Jacobian sizes are dimensional arithmetic, not process peak bounds; solver temporaries and native libraries add memory. Memoization does not remove dummy solver dimensions or change these matrices.",
+  "executionPlan": "After wrapped proof passes, run one original M2/device start alone to measure the unobserved larger scope before admitting more starts. Continue using parent revised measured-peak gate and at most three fits; no permission to treat cap as promised concurrency.",
+  "scientificScheduleChanged": false
+}

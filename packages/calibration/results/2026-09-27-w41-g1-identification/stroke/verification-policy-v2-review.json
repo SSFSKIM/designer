@@ -1,0 +1,13 @@
+{
+  "kind": "STROKE_VERIFICATION_POLICY_COMPOSITION_REVIEW",
+  "source": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/verification-slot/verification_policy_v2.py",
+    "sha256": "6cbf66a25444d8449ee1492769159cbab68a2f44d00d79ee188ed17bdeb48e84"
+  },
+  "reviewer": "a23b6dd5dfbadda00",
+  "initialFinding": "P2: concurrent unlocked watcher can publish after validation clock but before pressure collection, causing false future-date rejection.",
+  "fix": "Collect rows before sampling clock for history/freshness/window checks. Genuine future readings remain refused.",
+  "closure": "Timestamp race closed;53 synthetic verification tests pass under -B and fresh pycache_prefix. No additional broad driver review.",
+  "nativeRead": false,
+  "optimizerRun": false
+}

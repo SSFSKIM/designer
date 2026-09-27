@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/manual-proof-policy-v2.py", line 111, in <module>
+    v.main()
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/verification-slot/verification_slot.py", line 256, in main
+    terminal = run(s.Store(args.root), {'path': args.receipt, 'sha256': args.sha256},
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/verification-slot/verification_slot.py", line 180, in run
+    proof_body(mode, out, admit)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/verification-slot/verification_slot.py", line 254, in native_body
+    return proof.native_once(mode, out, admit)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/proof.py", line 156, in native_once
+    identical(result, {k: completed[k] for k in result}, 'completed native raw result')
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/proof.py", line 78, in identical
+    raise AssertionError(label+' differs at exact typed/bit witness')
+AssertionError: completed native raw result differs at exact typed/bit witness
