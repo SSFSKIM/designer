@@ -252,3 +252,22 @@ noexperimentalPNG/proof/nativepayloadrequested; zeroCSSPNGsthen. Parentruled
 recorddeviationandcontinuefirstempiricalproof withcachedCLI0.1.19/fullChromium1243,
 freshX6 andversion/hashrecord, unchangedpublic3. Install/downloadauthorization
 withdrawn; noinstall/download inwave. No retroactivegateorfailedpixelproofretry.
+
+CSS-width geometry exclusion and CSS-tier measurement are different results
+Claims5.192 sections17–18: strokeCSSwidthrival rejectedall99states atbothinactive
+endpoints/allM0-M2, cert72ab4a2b… at93c49abf. Tinyunbounded-z alias retained; sealed
+A/materialrange decides. Device/curvatureuntouched. Neutralratioscreen08c47b15 is
+NOT_DETERMINING bothscales, norejection/survival/budgetchange.
+CSS-tier112dbc63 completesguarded130uniformLIcellmeasurement/260routecaptures:
+affinecontrast→brightness128uncensoredpass+2redconstraints,worstnative1/E3.499795;
+saturate+plate126pass+2greenfail+2redconstraints,worstnative26/E326.832355codes.
+Both20probeproofsmax.55code, realChromium153.0.8010.12/full1243/CLI0.1.19;
+independentreplayclean, full116048143JSONbyteslosslesslyretained. Production
+fallbackfloor/twoblur/geometry/rim-shadow/policy/presence/tint notproved/adopted.
+
+Canonicaldiagnostic330capturescomplete65bd9fbe,12freshX6passes/0refusals/0failures;
+frozenSHAc7feb13235bcca869fca1821d840e35de999c29ea3aad860cf7f81e6ad49a4bc.
+No matrix/nativeglass/holdout/probe operations. Browserreleased11:08:46.880178Z,
+clean0foreign. W39derived536sheetmap43780f63 SHAa61b2be5cb95bdbdae35993f897ad6a043ce47a1ed980db7fe32c9c333e3e36b.
+Nineexamples+realrepeat0predeclared52b998c2; full866admitted+8UNMEASURED sheets
+renderingCPU/Pillowonly. Eyeverdictstillpending; do notinferitfrompassingmetrics.

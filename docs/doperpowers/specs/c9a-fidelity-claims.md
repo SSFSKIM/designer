@@ -40862,3 +40862,109 @@ recorded tool/browser hashes and versions, and a fresh X6 check before each inte
 Its empirical1x/2x proof will therefore be the first proof attempt; a failed proof will still
 stop measurement without a retry or waiver. The declaration and the candidate's source-pinned
 renderer are unchanged. CSS capture/reach is pending at this checkpoint.
+
+### 17. The declared CSS-width stroke rival is rejected; neutral-bin separability is nondetermining
+
+This is a **stroke geometry-rival result**, not a statement about the platform's CSS tier.
+The saved matched straight bins execute the charter's declared1x/2x occupancy discriminator:
+for a shared CSS width `w`, their departures are `f(w)·z`, `f(2w)·z` and `f(2w−1)·z` for
+1x shell0,2x shell0 and2x shell1. Here `f` is the exact sealed16-sample occupancy, and
+`z=A(top)·(S(b)−b)`. Actual normals, distances, references, sample grids and the scale law
+are verified from saved observations; mean intervals are only a necessary Jensen relaxation
+of the unchanged absolute-before-bin criterion.
+
+The arbitrary-real-`z` relaxation is **nondetermining**, and its alias is retained:
+`w∈(1/32,3/64]` produces occupancies1/16,1/16,0. Such a tiny width can imitate equal first-shell
+contrasts if the intrinsic departure is allowed to become unphysical. The separate bounded
+extension retains an existing sealed constraint, not a new fit restriction: `A∈[0,1]` and
+material output in0…255 imply **`−b≤z≤255−b`**. All **99 width states**—50 boundary points and49
+open intervals over[0,2]—are then exactly infeasible at **both inactive endpoints for M0/M1/M2**.
+No width, material parameter, tolerance, support or gauge changed. On the independent grey128
+dark witness, Apple reads96 on both first shells and128 on2x shell1, every pixel/repeat;
+the deciding pixels are uncensored and their allowance remains1 code.
+
+`stroke/css-width-certificate/bounded/certificate.json`, SHA-256
+**72ab4a2bfc68d0d5e2864cc2f7a49ec05d64aba6f123811818194d0f5610b28d**, is committed in
+**`93c49abf`** beside the original unbounded certificate. Independent reviewer-high verifies
+enumeration completeness, strict support, the common-product relaxation, signed exact
+intervals, censoring and the deciding range constraint;13 tests, both saved replays and an
+independent four-bundle grey128 replay pass. No native holdout or new fit supplies this proof.
+Only the CSS-width rival's remaining budgets are determined; device-width and nominal
+curvature remain untouched. Together with §14's material exclusions, the outstanding fits
+are M1 light-inactive and joint M2 inactive under device-width/curvature,64 original starts
+before subtracting completed ones. Partial local results are still not final negatives.
+
+The separate neutral-bin coverage-ratio screen finishes **NOT DETERMINING**, committed
+**`08c47b15`**: zero contradictions among4,032 directed bin pairs per endpoint at1x (64 admitted
+bins), and20,592 per endpoint at2x (144 bins), with scales kept separate. Exact sign/zero-
+denominator handling, censor and population relaxations,16 saved bundles per scale and24
+source witnesses replay with archive/Reader/optimizers blocked;17 tests and independent high
+review pass. It certifies no survivor, rejects no endpoint and changes no budget. The bounded
+screen ends there rather than searching indefinitely for a favorable witness.
+
+### 18. CSS has a measured affine body projection, not an adopted runtime counterpart
+
+Step9's browser/native measurement is complete in **`112dbc63`**. Both20-probe pages pass
+before the matched-cell captures, maximum **0.55 code at each DPR**, establishing the actual
+filter order and encoded-colour behavior on installed full Chromium **153.0.8010.12**,
+revision1243, pinned cached CLI0.1.19. All four intended measurement sessions have fresh
+passing X6 records with zero foreign processes. The environment-control deviation in §16
+remains recorded; a later shell cleanup error after the successful1x proof required an
+immediate separate close, not a recapture. Original logs are not prettified or replaced.
+
+The frozen E3 tuple supplies both routes with no fit. The130 uniform light-inactive calval
+cells are112 calibration /18 validation,65 at each scale;260 route-cell screenshots are
+bound to their producing runs, scripts, public configuration and exact browser/tool bytes.
+
+| standalone BODY projection | uncensored passes | uncensored failures | censored constraints met | worst native | worst frozen-E3 difference |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| contrast then brightness | 128 | 0 | 2 | 1.000000 | 0.499795 |
+| saturate then minimum-alpha neutral plate | 126 | 2 | 2 | 26.000000 | 26.832355 |
+
+Each scale has half those counts. The plate's two failures are green at1x and2x: nativeR89
+versus webR115. Its own algebra is realized within **0.931423 code**, so the26-code miss is
+not a failure to draw the declared CSS prototype. The affine route's own-algebra maximum is
+**0.499795 code**. The two red cells meet one-sided constraints but provide neither measured
+accuracy nor held-out coverage. Every median and all seven normal-repeat readings are retained.
+
+Independent result verification re-derives membership,260 screenshot hashes/body values,
+40 proof rows,37 original/copied log pairs, and **1,040 median/repeat comparisons per route**,
+including bars and rails, with no material finding. `css-projection/calval-1/scores.json.gz`
+is lossless over all **116,048,143 original JSON bytes**, decoded SHA-256
+**481cf7ae7be27a00f8248371b7bd3d68f6f6bea0e1a9a6e5515b1b9d04f0682f**; no raw field was
+trimmed. Primaries and original logs remain under `/Users/new/vitrea-w41/g1-captures/css-projection/`.
+
+**Recommendation for Decision Log4:** take the measured affine route to G2's production
+integration check; decline the saturate/plate route on its green residual. Neither is an
+adopted CSS counterpart yet. The prototypes omit the unconditional RGBA legibility floor
+when filters silently do nothing, sharp/heavy blur and spatial sharing, border stacking,
+rim/shadow and native supplied-path geometry. Nonuniform backdrops, policy, intermediate
+presence and author tint remain unvalidated; placement before L2 has boundary residuals.
+No platform CSS source or shipped document moved. The mirror table's historical step9-pending
+wording must be corrected to this scoped measurement after the remaining source-pin barrier
+clears, rather than preserved as an assertion that no CSS projection has been measured.
+
+### 19. The canonical diagnostic captures are complete; the eye read is next
+
+The browser sequence ends with **330 canonical calibration/validation diagnostic cells in
+12 profiles**, each with a fresh X6 pass, no refusal and no capture failure. The direct-capture
+path writes no matrix row, opens no native glass payload or canonical holdout, and includes
+no probe. Commit **`65bd9fbe`** freezes
+`canonical-diagnostic/attempt-1/frozen.json`, SHA-256
+**c7feb13235bcca869fca1821d840e35de999c29ea3aad860cf7f81e6ad49a4bc**. Its release census at
+**11:08:46.880178Z** is usable with zero foreign browser processes. Peers may resume; no further
+browser is needed for the current candidate's sheet export.
+
+The existing26.5 active-document/runtime-inactive semantics and27 active/receded document
+pairs are retained; only27 light-receded selects scratch E3. These are **candidate web pixels
+for the eye, not a canonical read, material seal or G2 referee**. The536 W39 candidate sheet
+map is separately derived and committed as **`43780f63`**, SHA-256
+**a61b2be5cb95bdbdae35993f897ad6a043ce47a1ed980db7fe32c9c333e3e36b**.
+
+Before actual native-sheet pixels were opened, **`52b998c2`** declares nine representative
+identities and normal-repeat ordinal0, choosing a real captured run rather than a median
+image. The full scope remains866 admitted sheets plus8 explicit UNMEASURED memberships;
+the nine examples do not replace it. CPU/Pillow-only rendering now carries both actual
+candidate columns, with W39 native pixels through the guarded calval reader. Its inventory,
+representative exports and visual findings remain pending at this checkpoint. No eye verdict
+is inferred from the passed numerical bounds.
