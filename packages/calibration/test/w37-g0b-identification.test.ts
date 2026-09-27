@@ -55,7 +55,9 @@ describe("W37 G0b's declared numerical experiment", () => {
     expect(proof.reproductionVerified).toBe(true);
     expect(proof.exactReproduction).toBe(process.platform === "darwin");
     for (const check of proof.checks) expect(check.coefficientMaxDifference).toBeLessThan(1e-8);
-  }, 180_000);
+    // A full native-pixel replay whose runtime follows the runner: 84.1 s at green run
+    // 36281094139, so four times that rather than a budget the next slow runner overruns.
+  }, 340_000);
 
   it("proves the obstruction from guarded native pixels, not from fitted residuals", () => {
     const result = python("form-obstruction.py", ["--verify"]);
@@ -65,7 +67,9 @@ describe("W37 G0b's declared numerical experiment", () => {
       for (const floor of witness.minimaxLowerBoundCodes) expect(floor).toBeGreaterThan(1);
       for (const check of witness.checks) expect(check.maximumFeatureDifference).toBeLessThan(1e-14);
     }
-  }, 60_000);
+    // A full replay that took 49.3 s at green run 36281094139 and timed out at 60 s on a slower
+    // runner at 0cfbb325 and 8169209d with no assertion failing, so four times that.
+  }, 200_000);
 
   it("keeps validation out of fitting and rejects rank-deficient shapes", () => {
     const split = read("../2026-09-23-w34-g0-contour-bed/split.json");
