@@ -1,0 +1,27 @@
+{
+  "scope": "all admitted calibration/validation uniform glass members",
+  "endpoint": "light-inactive",
+  "families": [
+    "E3",
+    "EH6"
+  ],
+  "method": "globalMinimax",
+  "cells": 138,
+  "members": 140,
+  "measuredComparisons": 418,
+  "maximum": {
+    "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-4-colour__inactive",
+    "member": 0,
+    "channel": "R",
+    "separationCodes": 1.1902015706554323,
+    "thresholdCodes": 3.0
+  },
+  "admittedSeparators": [],
+  "verdict": "insufficient resolution",
+  "scopeQualification": "Fixed surviving endpoint instances, not complete four-endpoint survivors or universal family separation",
+  "sources": {
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/body/uniform-resolution.py": "f239b2abaefe49bebdf796e82f6b37c3341b124368c40c86c933dc9041e96749",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/body/uniform-transfer-1/scores.json.gz": "d5af5ccbbfcbbaf46873abb06065bdac719a3f2e5ccca1a1a19c0b1d4eb96c9d",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/body/uniform-transfer-1/summary.json": "64dfdced7f668298e8794dcdd8ef2acfb8b706625b150b99307aa1abe89b6d6b"
+  }
+}
