@@ -55,6 +55,15 @@ Its references carry the measured optics with their ledger sections, a cookbook 
 decision onto the current vitrea API, and six worked derivations. When both skills are loaded, the
 designer skill routes to it the moment a page's material model resolves to glass over planes.
 
+The skill has been judged on pages, not only on its prose: six demos built under it alone by fresh
+agents, on the workspace source at 0.24.0, live on the demo site's gallery
+(`https://ssfskim.github.io/designer/gallery/`, source under `apps/demo/src/gallery/<slug>/` with
+each page's design record beside it), each audited mechanically and read against the skill's own
+checks; and an eval of the skill against an unaided agent on six briefs. The spec is
+`docs/doperpowers/specs/2026-09-27-materialist-proof.md`; the evidence is under
+`docs/research/data/2026-09-27-materialist-proof/`. Version 1.0.1 of the skill is what that proof
+corrected.
+
 ### The sampler, stand-alone
 
 The one piece that is also useful on its own is the aesthetic-ingredient sampler. Run it directly when you want a draw without going through the full skill:

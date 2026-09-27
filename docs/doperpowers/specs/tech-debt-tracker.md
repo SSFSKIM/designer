@@ -6468,3 +6468,12 @@ to the host, and when the WebGPU tier takes over and removes it the cached span 
 bordered value (54 × 142 where the box is 52 × 140), so a capsule declared at half its span is no
 longer one. `box-sizing: border-box` on the host avoids it; the runtime should observe the
 border box, which is the box it registers.
+
+## The highlight canvas still draws a glow under forced colours (materialist proof, 2026-09-27)
+
+Found by the product-launch fix worker while giving the lens menu's focused row a forced-colours
+treatment: with `forced-colors: active` the runtime draws no body (the audit reads zero glass) but
+the highlight canvas still paints the focus glow on the focused row of an open platter, so a
+runtime-owned light appears on a page whose authored colours the OS has replaced. The material's
+own stand-down under forced colours should include the highlight pass. Seen in Chromium at
+1440 × 900; not yet reproduced in isolation.

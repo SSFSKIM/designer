@@ -1,0 +1,942 @@
+/*
+ * Alder One. Two layers and nothing between them: the content (a fixed photographic plane, and a
+ * scrolling column of printed sheets with windows onto it) and the floating controls, which are
+ * vitrea's and carry no background, border, shadow or blur of their own.
+ *
+ * Tokens follow prefers-color-scheme because the root does (`colorScheme="auto"`): the light sheet
+ * is the pale satin of the top plate in open shade, the dark sheet the brown-black between the
+ * deck boards. One ink, one secondary ink, one hairline; no accent. Colour is the photographs'.
+ */
+
+:root {
+  color-scheme: light dark;
+  --ground: #f1ede7;
+  --card: #e7e2da;
+  --ink: #1c1917;
+  --ink-2: #57514a;
+  --rule: rgb(28 25 23 / 0.16);
+  --sans: system-ui, -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --gutter: max(48px, calc((100vw - 1184px) / 2));
+  --head: 232px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ground: #1a1613;
+    --card: #231e1a;
+    --ink: #efe9e1;
+    --ink-2: #aba297;
+    --rule: rgb(239 233 225 / 0.15);
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --ink-2: #3d3833;
+    --rule: rgb(28 25 23 / 0.42);
+  }
+}
+
+@media (prefers-contrast: more) and (prefers-color-scheme: dark) {
+  :root {
+    --ink-2: #cfc7bc;
+    --rule: rgb(239 233 225 / 0.42);
+  }
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--ground);
+}
+
+body {
+  font: 17px/1.55 var(--sans);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+#root {
+  height: 100%;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ─── The plane and the column ──────────────────────────────────────────────────────────────── */
+
+.plane {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/*
+ * The scroll edge: one mask on the scroll container, two edges, their stops written every frame
+ * from the floating hosts' measured boxes (Page.tsx). Fully clear across the bars' footprint so the
+ * bars stand on the plane the texture holds; an eased fade below the top bar and above the bottom
+ * one, so the sheet reads as passing under the glass rather than being cut by it. The column is a
+ * sibling of the glass root, so the mask re-roots nothing the glass samples.
+ */
+.scroller {
+  --edge-top: 84px;
+  --edge-bottom: 110px;
+  --inset-bottom: 110px;
+  --fade: 52px;
+  position: fixed;
+  inset: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: none;
+  outline: none;
+  scroll-behavior: smooth;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent var(--edge-top),
+    rgb(0 0 0 / 0.18) calc(var(--edge-top) + var(--fade) * 0.3),
+    rgb(0 0 0 / 0.62) calc(var(--edge-top) + var(--fade) * 0.62),
+    #000 calc(var(--edge-top) + var(--fade)),
+    #000 calc(100% - var(--edge-bottom) - var(--fade)),
+    rgb(0 0 0 / 0.62) calc(100% - var(--edge-bottom) - var(--fade) * 0.62),
+    rgb(0 0 0 / 0.18) calc(100% - var(--edge-bottom) - var(--fade) * 0.3),
+    transparent calc(100% - var(--edge-bottom))
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent var(--edge-top),
+    rgb(0 0 0 / 0.18) calc(var(--edge-top) + var(--fade) * 0.3),
+    rgb(0 0 0 / 0.62) calc(var(--edge-top) + var(--fade) * 0.62),
+    #000 calc(var(--edge-top) + var(--fade)),
+    #000 calc(100% - var(--edge-bottom) - var(--fade)),
+    rgb(0 0 0 / 0.62) calc(100% - var(--edge-bottom) - var(--fade) * 0.62),
+    rgb(0 0 0 / 0.18) calc(100% - var(--edge-bottom) - var(--fade) * 0.3),
+    transparent calc(100% - var(--edge-bottom))
+  );
+}
+
+.alder[data-motion="reduced"] .scroller {
+  scroll-behavior: auto;
+}
+
+.window {
+  height: 100svh;
+  min-height: 560px;
+}
+
+.window--hero {
+  height: 100svh;
+  min-height: 600px;
+}
+
+#price {
+  scroll-margin-top: calc(var(--edge-top) + var(--fade) - 40px);
+}
+
+/* ─── Sheets ────────────────────────────────────────────────────────────────────────────────── */
+
+.sheet {
+  background: var(--ground);
+  color: var(--ink);
+  padding: 36px var(--gutter) 136px;
+}
+
+.sheet--intro {
+  padding-bottom: 128px;
+}
+
+.sheet--last {
+  padding-top: 112px;
+  padding-bottom: calc(var(--inset-bottom) + var(--fade) + 40px);
+}
+
+.sheet a {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.sheet :focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.caption {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0 0 88px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--rule);
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--ink-2);
+}
+
+.caption__credit {
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+.eyebrow,
+.kicker,
+.terms h3,
+.colophon h3,
+.facts dt {
+  margin: 0;
+  font-size: 12.5px;
+  font-weight: 620;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  grid-template-areas:
+    "eyebrow eyebrow"
+    "title lede"
+    "title facts";
+  column-gap: 64px;
+  align-items: end;
+}
+
+.intro .eyebrow {
+  grid-area: eyebrow;
+  margin-bottom: 28px;
+}
+
+.intro h1 {
+  grid-area: title;
+  margin: 0;
+  font-size: clamp(72px, 10vw, 150px);
+  line-height: 0.86;
+  font-weight: 660;
+  letter-spacing: -0.052em;
+  align-self: end;
+}
+
+.lede {
+  grid-area: lede;
+  margin: 0 0 36px;
+  font-size: 23px;
+  line-height: 1.42;
+  letter-spacing: -0.012em;
+  max-width: 26em;
+}
+
+.facts {
+  grid-area: facts;
+  display: flex;
+  gap: 40px;
+  margin: 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--rule);
+}
+
+.facts dd {
+  margin: 6px 0 0;
+  font-size: 17px;
+  font-weight: 560;
+  font-variant-numeric: tabular-nums;
+}
+
+.head {
+  display: grid;
+  grid-template-columns: var(--head) minmax(0, 1fr);
+  column-gap: 32px;
+  align-items: baseline;
+  margin-bottom: 36px;
+}
+
+.head h2 {
+  margin: 0;
+  max-width: 15em;
+  font-size: clamp(40px, 4.2vw, 58px);
+  line-height: 1.02;
+  font-weight: 650;
+  letter-spacing: -0.034em;
+  text-wrap: balance;
+}
+
+.head h2:focus {
+  outline: none;
+}
+
+.prose {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 30em);
+  gap: 40px;
+  margin-left: calc(var(--head) + 32px);
+}
+
+.prose p {
+  margin: 0;
+  font-size: 17.5px;
+  line-height: 1.6;
+}
+
+.figures {
+  list-style: none;
+  margin: 88px 0 72px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: 32px;
+}
+
+.figures li {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 20px;
+  border-top: 2px solid var(--ink);
+}
+
+.figures__value {
+  font-size: clamp(40px, 3.8vw, 56px);
+  line-height: 1;
+  font-weight: 620;
+  letter-spacing: -0.035em;
+  font-variant-numeric: tabular-nums;
+}
+
+.figures__label {
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--ink-2);
+  max-width: 15em;
+}
+
+.specs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 48px;
+  margin: 0;
+}
+
+.specs__row {
+  display: grid;
+  grid-template-columns: 140px minmax(0, 1fr);
+  gap: 16px;
+  padding: 14px 0;
+  border-top: 1px solid var(--rule);
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.specs dt {
+  color: var(--ink-2);
+}
+
+.specs dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+/* The comparison cards: content, so tonal fills with a fixed radius; the photograph inside is
+   concentric with the card (20 - 12 = 8). */
+.choices {
+  min-width: 0;
+  margin: 72px 0 0;
+  padding: 0;
+  border: 0;
+  display: grid;
+  gap: 20px;
+}
+
+.choices--three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.choices--two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-bottom: 72px;
+}
+
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px 12px 24px;
+  border-radius: 20px;
+  background: var(--card);
+  outline: 2px solid transparent;
+  outline-offset: -2px;
+  cursor: pointer;
+}
+
+.card[data-selected] {
+  outline-color: var(--ink);
+}
+
+.card:has(input:focus-visible) {
+  outline: 3px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.choices--two .card__image {
+  aspect-ratio: 2 / 1;
+}
+
+.card__image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.card__head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 8px;
+}
+
+.card input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--ink);
+}
+
+.card input:focus-visible {
+  outline: none;
+}
+
+.card__name {
+  font-size: 20px;
+  font-weight: 630;
+  letter-spacing: -0.018em;
+}
+
+.card__character {
+  padding: 0 8px 0 36px;
+  font-size: 15px;
+  color: var(--ink-2);
+}
+
+.card__text {
+  padding: 4px 8px 0;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.card .specs {
+  grid-template-columns: minmax(0, 1fr);
+  padding: 6px 8px 0;
+}
+
+.card .specs__row {
+  grid-template-columns: 104px minmax(0, 1fr);
+  padding: 9px 0;
+  font-size: 14px;
+}
+
+.card__price {
+  margin-top: auto;
+  padding: 10px 8px 0;
+  font-size: 20px;
+  font-weight: 620;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Price */
+.summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
+  gap: 56px;
+  align-items: end;
+  margin: 8px 0 88px calc(var(--head) + 32px);
+}
+
+.summary__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 17px;
+  font-variant-numeric: tabular-nums;
+}
+
+.summary__table th {
+  text-align: left;
+  font-weight: 450;
+}
+
+.summary__table td {
+  text-align: right;
+}
+
+.summary__table th,
+.summary__table td {
+  padding: 15px 0;
+  border-top: 1px solid var(--rule);
+}
+
+.summary__table tfoot th,
+.summary__table tfoot td {
+  border-top: 2px solid var(--ink);
+  font-size: 22px;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+}
+
+.summary__note {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ink-2);
+  max-width: 24em;
+}
+
+.terms,
+.colophon {
+  display: grid;
+  gap: 40px;
+  margin-left: calc(var(--head) + 32px);
+}
+
+.terms {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding-top: 24px;
+  border-top: 1px solid var(--rule);
+}
+
+.terms h3,
+.colophon h3 {
+  margin-bottom: 12px;
+}
+
+.terms p,
+.terms ul,
+.colophon p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.terms ul,
+.credits {
+  padding: 0;
+  list-style: none;
+}
+
+.terms li + li {
+  margin-top: 4px;
+}
+
+.colophon {
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  margin-top: 96px;
+  padding-top: 24px;
+  border-top: 1px solid var(--rule);
+}
+
+.credits {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.credits li + li {
+  margin-top: 6px;
+}
+
+.credits span {
+  color: var(--ink-2);
+}
+
+.switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 16px 0 20px;
+  font-size: 15px;
+  font-weight: 560;
+  cursor: pointer;
+}
+
+.switch input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--ink);
+}
+
+.colophon__small {
+  color: var(--ink-2);
+  font-size: 13.5px !important;
+}
+
+/* ─── The floating layer ────────────────────────────────────────────────────────────────────── */
+
+/*
+ * The ink. The runtime decides which pole a surface's labels take (dark or light, against the
+ * material it is actually drawing) and publishes it as --vitrea-foreground at Apple's label alpha,
+ * about 0.81 white or 0.85 black. That alpha measured 3.2 to 4.6:1 on this page's darker bodies, so
+ * the labels here take the runtime's pole at full strength: the pick stays the runtime's, the ratio
+ * is guaranteed by the page, which is the route the skill gives for a guaranteed ratio. Where an
+ * engine has no relative colour syntax the declaration is invalid at computed-value time and the
+ * label inherits the host's own ink.
+ */
+
+/* Layout wrappers in the plane's host layer: position only. Nothing here paints. */
+.bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  font-family: var(--sans);
+  color-scheme: light dark;
+}
+
+.bar--top {
+  top: 20px;
+}
+
+.bar--bottom {
+  bottom: 22px;
+}
+
+.corner {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  pointer-events: none;
+  font-family: var(--sans);
+  color-scheme: light dark;
+}
+
+.bar [data-vitrea-surface],
+.corner [data-vitrea-surface],
+.lens {
+  pointer-events: auto;
+}
+
+/* Span 44: the navigation capsule. Links are pills concentric with it (22 - 6 = 16). */
+.nav {
+  box-sizing: border-box;
+  height: 44px;
+  padding: 0 6px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 14px;
+  letter-spacing: -0.006em;
+}
+
+.nav a {
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 16px;
+  color: rgb(from var(--vitrea-foreground) r g b / 1);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nav__brand {
+  padding: 0 12px 0 14px;
+  font-size: 15px;
+  font-weight: 680;
+  letter-spacing: -0.02em;
+}
+
+.nav__rule {
+  width: 1px;
+  height: 16px;
+  margin: 0 5px;
+  background: rgb(from var(--vitrea-foreground) r g b / 0.3);
+}
+
+.nav__link {
+  padding: 0 13px;
+  font-weight: 520;
+}
+
+/*
+ * Selection fills come from the OPPOSITE pole of the ink: a highlight under dark labels, a well
+ * under light ones. A fill of the ink's own pole lightens the ground under a light label (and
+ * darkens it under a dark one), which measured 3.9 to 4.2:1 on the CSS tier's dark bodies; the
+ * counter-pole fill can only add contrast.
+ */
+.nav__link[aria-current="true"] {
+  background: rgb(from var(--vitrea-foreground) calc(255 - r) calc(255 - g) calc(255 - b) / 0.34);
+}
+
+.nav a:focus-visible,
+.finish__segment:focus-visible,
+.lens__trigger:focus-visible {
+  outline: 2px solid rgb(from var(--vitrea-foreground) r g b / 1);
+  outline-offset: -3px;
+}
+
+/* Span 44: the display toggle, a capsule (a circle). A native button reset to the user agent's
+   transparent face is the one background declaration a host may carry. */
+.toggle {
+  box-sizing: border-box;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  border: 0;
+  appearance: none;
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
+}
+
+.toggle svg {
+  color: rgb(from var(--vitrea-foreground) r g b / 1);
+}
+
+.toggle:focus-visible,
+.order:focus-visible {
+  outline: 2px solid rgb(from var(--vitrea-foreground) r g b / 1);
+  outline-offset: 3px;
+}
+
+/* Span 56: finish, lens, order. The finish indicator is resolved concentric by the runtime. */
+.finish {
+  position: relative;
+  display: flex;
+  height: 56px;
+}
+
+.finish__segment {
+  position: relative;
+  height: 56px;
+  margin: 0;
+  padding: 0 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  border: 0;
+  border-radius: 23px;
+  appearance: none;
+  background: transparent;
+  color: rgb(from var(--vitrea-foreground) r g b / 1);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 520;
+  cursor: pointer;
+}
+
+.finish__segment:first-of-type {
+  padding-left: 22px;
+}
+
+.finish__segment:last-of-type {
+  padding-right: 22px;
+}
+
+.finish__indicator {
+  background: rgb(from var(--vitrea-foreground) calc(255 - r) calc(255 - g) calc(255 - b) / 0.34);
+}
+
+.swatch {
+  box-sizing: border-box;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid rgb(from var(--vitrea-foreground) r g b / 0.5);
+}
+
+.lens__trigger {
+  height: 56px;
+  margin: 0;
+  padding: 0 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 28px;
+  appearance: none;
+  background: transparent;
+  color: rgb(from var(--vitrea-foreground) r g b / 1);
+  font: inherit;
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 520;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.lens__chevron {
+  margin-top: 1px;
+}
+
+.order {
+  box-sizing: border-box;
+  height: 56px;
+  padding: 0 26px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  border: 0;
+  appearance: none;
+  background: transparent;
+  font: inherit;
+  font-size: 15px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.order__verb {
+  font-weight: 680;
+  letter-spacing: -0.01em;
+}
+
+.order__price {
+  font-weight: 520;
+  font-variant-numeric: tabular-nums;
+}
+
+.order__verb,
+.order__price {
+  color: rgb(from var(--vitrea-foreground) r g b / 1);
+}
+
+/* The platter (span ~160): rows concentric with its 28 radius at an 8 px inset (28 - 8 = 20). */
+.platter {
+  box-sizing: border-box;
+  min-width: 296px;
+  margin: 0;
+  padding: 8px;
+  list-style: none;
+  outline: none;
+  color: rgb(from var(--vitrea-foreground) r g b / 1);
+  font-family: var(--sans);
+  font-size: 15px;
+}
+
+.platter__row {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  height: 48px;
+  padding: 0 18px 0 14px;
+  border-radius: 20px;
+  outline: none;
+  cursor: pointer;
+}
+
+.platter__row[data-focused] {
+  background: rgb(from var(--vitrea-foreground) calc(255 - r) calc(255 - g) calc(255 - b) / 0.34);
+}
+
+.platter__check {
+  display: grid;
+  place-items: center;
+}
+
+.platter__name {
+  font-weight: 560;
+  white-space: nowrap;
+}
+
+.platter__price {
+  font-variant-numeric: tabular-nums;
+}
+
+/*
+ * Forced colours. The runtime removes the glass and the palette erases every authored fill, which
+ * takes the finish indicator with it: both finishes would read unselected. So the selected radio
+ * itself carries the system's selection pair, shaped to its housing (radius 28 at inset 0, the
+ * capsule's own end), and its swatch fills the way a checked radio's dot does. The mark is on the
+ * radio, a child; the glass host is left to the runtime. The focus ring stays an outline, a
+ * separate channel, in the colour that reads on whichever ground it sits.
+ *
+ * A selection pair also needs `forced-color-adjust: none`: otherwise the engine draws its Canvas
+ * backplate behind the HighlightText label and the word becomes a solid block. Every colour under
+ * it is still a system colour, so the reader's palette is what shows.
+ */
+@media (forced-colors: active) {
+  .card[data-selected] {
+    outline-color: Highlight;
+  }
+
+  .nav__link[aria-current="true"] {
+    outline: 1px solid CanvasText;
+  }
+
+  .platter__row[data-focused] {
+    forced-color-adjust: none;
+    background: Highlight;
+    color: HighlightText;
+  }
+
+  .finish__segment[aria-checked="true"] {
+    forced-color-adjust: none;
+    border-radius: 28px;
+    background: Highlight;
+    color: HighlightText;
+  }
+
+  .finish__segment:focus-visible {
+    outline-color: CanvasText;
+  }
+
+  .finish__segment[aria-checked="true"]:focus-visible {
+    outline-color: HighlightText;
+  }
+
+  /* Over the inline swatch colour, which the palette would otherwise force to Canvas. */
+  .finish__segment[aria-checked="true"] .swatch {
+    border-color: HighlightText;
+    background: HighlightText !important;
+  }
+}
+
+/* The lens slot: the ghost replica holds the trigger's footprint from the first render, and the
+   morph's spacer overlays it in the same cell. */
+.lens-slot {
+  display: grid;
+}
+
+.lens-slot > * {
+  grid-area: 1 / 1;
+}
+
+.lens__ghost {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.lens__faces {
+  display: grid;
+  justify-items: center;
+}
+
+.lens__face {
+  grid-area: 1 / 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  visibility: hidden;
+}
+
+.lens__face[data-current] {
+  visibility: visible;
+}

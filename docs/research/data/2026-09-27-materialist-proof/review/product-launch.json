@@ -1,0 +1,9 @@
+{
+  "slug": "product-launch",
+  "r23": 1,
+  "r23Strict": 0,
+  "evidence": "Post-fix source (reviewer-medium, 2026-09-27): (a) the lens platter arrives through GlassMorph (LensMenu.tsx:233-246), no opacity transition; (b) every interactive glass host carries the runtime's press through the channel properties (interaction.ts:222-230), the navigation now opted in (Chrome.tsx:156), and no colour-swap press exists; the OPEN platter's rows have no press of their own (LensMenu.tsx:72-86) because the runtime disables an open morph host's interaction (tracked): strict reading fails, scoped reading (spec Decision Log, 2026-09-27) holds; (c) no glass host transitions opacity, background or filter (styles.css:845-847 are row focus fills).",
+  "spanExceptions": [],
+  "verifiedFindings": {"fixed": [1, 2, 3, 4, 5, 6]},
+  "postFixAudit": "audit/product-launch.json (25/25 glass pairs both schemes, min 11.21 light / 6.67 dark, zero diagnostics, zero ban findings; five surfaces, smallest span 44)"
+}
