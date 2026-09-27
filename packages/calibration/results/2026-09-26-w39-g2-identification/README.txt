@@ -219,3 +219,36 @@ a mismatch refuses. Output is write-once. Reporting parity's first failure was
 one-ulp mean-reduction arithmetic, retained beside a12-decimal-place comparison;
 no scientific tolerance moved. Independent numerical review follows this
 checkpoint, before any final closure claim.
+
+STEP 4 PRE-FIT INSTRUMENT AND CERTIFIED SUPPORT OBSTRUCTION
+
+edge/prepare.py derived576 glass cells/592 member observations and18 attested
+geometries from the fetched archive only, through the guard. Every bin mean
+reproduces the archived statistic. The disposable91MiB cache under /tmp is
+sealed per file before fitting (edge/cache-seal.json); fits verify its seal.
+An initial archive-path typo refused at inventory open and read no pixel; its
+empty output and error remain as attempt1. Attempt2 uses the verified identity.
+The geometry basis uses exact circular SDFs and the existing <=1/1024-CSS
+supplied-path flattening for continuous rectangles, evaluating every8x8 node;
+no opaque registration is transferred to glass. The real grid runner's synthetic
+44-coefficient recovery is green before native fitting: LS coefficient error
+1.41073e-12; minimax1.06100e-12; both converge (edge/test-grid-attempt-1.txt).
+
+edge/support.json.gz records21,312 required bins entirely deeper than12 CSS px,
+proved from centre depth plus the half-pixel diagonal and the signed distance's
+1-Lipschitz property. All line widths end by2.4; all shoulder hats end at12.
+Every one of the44 coefficients therefore has exactly zero reach on these
+pixels, at every declared width/exponent and at both8x8 and16x16 quadratures.
+The synthetic sweep proves this even at coefficients +/-4096.
+
+Under the ruled constant-deep body, calibration lower bounds at1x/2x are:
+ light active5/5; light inactive2/2; dark active4/4.25; dark inactive3/3 codes,
+against1. Every stratum is rejected for every coefficient, not just a searched
+fit. The largest witnesses are gradient cells, so this is a rejection UNDER
+THE RULED CONDITIONER, not yet an attribution of every residual to Apple's edge.
+The parent ruled retaining this certified verdict with no exposure, while still
+running the declared LS/minimax grid 'for the record beside the certified
+obstruction' and separating uniform and gradient witnesses. The grid fits one
+shared-scale law per scheme/pose:45 choices x4 endpoints, reported in8 strata.
+A numerical optimizer's stationary result will not be called a global proof;
+the support argument supplies that survival rejection independently.
