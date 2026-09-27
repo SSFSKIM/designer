@@ -1,0 +1,11 @@
+usage: replay_support_controls.py [-h] --out OUT
+
+Replay the support certificate after scratch leaves move working source bytes.
+Use a fresh output directory. The immutable pre-leaf worktree supplies the
+unchanged sealed material loader and all its epoch-pinned sources; only this
+additive control orchestration is read from the current worktree. No native
+fit.
+
+options:
+  -h, --help  show this help message and exit
+  --out OUT
