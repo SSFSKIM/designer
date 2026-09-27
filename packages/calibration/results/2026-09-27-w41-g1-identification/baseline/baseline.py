@@ -231,6 +231,10 @@ def prepare():
 
 
 def verify_preparation(record):
+    for path, field in [(wave.scenes_path, 'scenesSha256'),
+                        (wave.split_path, 'splitSha256')]:
+        if sha(path) != record[field]:
+            raise ValueError('live scene/split metadata changed: ' + field)
     if set(runner.sources(ROOT)) != set(record['sources']):
         raise ValueError('source inventory changed since pre-W41 baseline preparation')
     for name, digest in {**record['sources'], **record['documents']}.items():
@@ -246,22 +250,27 @@ def verify_preparation(record):
     if cells != record['cells']: raise ValueError('baseline membership changed')
 
 
+def authority_path():
+    return HERE / 'authority-v2.json'
+
+
 def authority_inputs(record):
     return [HERE / 'preparation.json', ROOT / record['backdrops'] / 'manifest.json',
-            W39 / 'supplied-paths.json', HERE / 'baseline.py', HERE.parent / 'x6/observe.py']
+            W39 / 'supplied-paths.json', wave.scenes_path, wave.split_path,
+            HERE / 'baseline.py', HERE.parent / 'x6/observe.py']
 
 
 def seal_authority(record):
     # Seal after committing this projection and X6 guard; do not rewrite preparation evidence.
     for path in authority_inputs(record)[-2:]:
         runner.committed(ROOT, str(path.relative_to(ROOT)))
-    save(HERE / 'authority.json', {'schema': 1, 'sealedAt': stamp(),
+    save(authority_path(), {'schema': 1, 'sealedAt': stamp(),
          'preparationSha256': sha(HERE / 'preparation.json'),
          'inputs': {str(path.relative_to(ROOT)): sha(path) for path in authority_inputs(record)}})
 
 
 def verify_authority(record):
-    path = HERE / 'authority.json'
+    path = authority_path()
     if not path.is_file(): raise ValueError('authority seal missing')
     try:
         runner.committed(ROOT, str(path.relative_to(ROOT)))
@@ -279,7 +288,7 @@ def verify_authority(record):
 
 def verify_capture_authority(record, digest):
     verify_authority(record)
-    if sha(HERE / 'authority.json') != digest:
+    if sha(authority_path()) != digest:
         raise ValueError('authority changed during baseline capture')
 
 
@@ -290,7 +299,7 @@ def verify_frozen(record, frozen):
         raise ValueError('frozen baseline is not committed unchanged') from error
     if sha(HERE / 'preparation.json') != frozen['preparationSha256']:
         raise ValueError('baseline preparation changed after freeze')
-    if sha(HERE / 'authority.json') != frozen['authoritySha256']:
+    if sha(authority_path()) != frozen['authoritySha256']:
         raise ValueError('baseline authority changed after freeze')
     if set(frozen['captures']) != set(record['cells']):
         raise ValueError('incomplete baseline freeze')
@@ -313,7 +322,7 @@ def capture():
     record = load(HERE / 'preparation.json')
     verify_preparation(record)
     verify_authority(record)
-    authority_sha = sha(HERE / 'authority.json')
+    authority_sha = sha(authority_path())
     # One fresh X6 check immediately before each backend process; no bypass token.
     # The backend starts exactly one full Chromium process per invocation.
     if CAPTURES.exists(): raise FileExistsError('baseline capture root already reserved')

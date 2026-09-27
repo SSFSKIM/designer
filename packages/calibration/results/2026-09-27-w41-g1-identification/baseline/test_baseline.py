@@ -90,6 +90,24 @@ class BaselineTests(unittest.TestCase):
                 self.assertEqual(result['pixelsPerRow'], 48 * scale)
                 self.assertNotIn('bar', result)
 
+    def test_preparation_rechecks_live_public_scene_and_split_metadata(self):
+        record = baseline.load(baseline.HERE / 'preparation.json')
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            scenes, split = root / 'scenes.json', root / 'split.json'
+            scenes.write_bytes(b'public scenes')
+            split.write_bytes(b'public split')
+            scratch = {**record, 'scenesSha256': baseline.sha(scenes),
+                       'splitSha256': baseline.sha(split)}
+            with patch.object(baseline.wave, 'scenes_path', scenes), \
+                 patch.object(baseline.wave, 'split_path', split):
+                baseline.verify_preparation(scratch)
+                for path in (scenes, split):
+                    path.write_bytes(b'changed public metadata')
+                    with self.assertRaisesRegex(ValueError, 'scene|split'):
+                        baseline.verify_preparation(scratch)
+                    path.write_bytes(b'public scenes' if path == scenes else b'public split')
+
     def test_authority_rejects_changed_public_manifest_geometry_and_g1_code(self):
         # Each changed file could redirect a later projection without moving any PNG digest.
         with tempfile.TemporaryDirectory() as tmp:
@@ -100,19 +118,25 @@ class BaselineTests(unittest.TestCase):
             x6dir.mkdir()
             w39 = root / 'w39'
             w39.mkdir()
+            scenes = root / 'scenes.json'
+            split = root / 'split.json'
             record = {'backdrops': 'baseline/generated-backdrops'}
             inputs = [here / 'preparation.json', here / 'generated-backdrops/manifest.json',
-                      w39 / 'supplied-paths.json', here / 'baseline.py', x6dir / 'observe.py']
+                      w39 / 'supplied-paths.json', scenes, split,
+                      here / 'baseline.py', x6dir / 'observe.py']
             for path in inputs:
                 path.parent.mkdir(parents=True, exist_ok=True)
                 path.write_text('original')
             with patch.object(baseline, 'ROOT', root), patch.object(baseline, 'HERE', here), \
                  patch.object(baseline, 'W39', w39), \
+                 patch.object(baseline.wave, 'scenes_path', scenes), \
+                 patch.object(baseline.wave, 'split_path', split), \
                  patch.object(baseline.runner, 'committed') as committed:
+                self.assertEqual(baseline.authority_path(), here / 'authority-v2.json')
                 baseline.seal_authority(record)
-                sealed_hash = baseline.sha(here / 'authority.json')
+                sealed_hash = baseline.sha(baseline.authority_path())
                 def committed_input(repo, name):
-                    if name == 'baseline/authority.json' and baseline.sha(repo / name) != sealed_hash:
+                    if name == 'baseline/authority-v2.json' and baseline.sha(repo / name) != sealed_hash:
                         raise ValueError('uncommitted frozen input')
                     return baseline.sha(repo / name)
                 committed.side_effect = committed_input
@@ -122,10 +146,10 @@ class BaselineTests(unittest.TestCase):
                     with self.assertRaisesRegex(ValueError, 'authority'):
                         baseline.verify_authority(record)
                     path.write_text('original')
-                with (here / 'authority.json').open('a') as stream: stream.write(' ')
+                with (here / 'authority-v2.json').open('a') as stream: stream.write(' ')
                 with self.assertRaisesRegex(ValueError, 'authority'):
                     baseline.verify_authority(record)
-                (here / 'authority.json').unlink()
+                (here / 'authority-v2.json').unlink()
                 with self.assertRaisesRegex(ValueError, 'authority'):
                     baseline.verify_authority(record)
 
@@ -151,9 +175,9 @@ class BaselineTests(unittest.TestCase):
                        'reportSha256': baseline.sha(report),
                        'projection': str(projection.relative_to(root)),
                        'projectionSha256': baseline.sha(projection)}
-            (here / 'authority.json').write_text('{"schema": 1}')
+            (here / 'authority-v2.json').write_text('{"schema": 1}')
             frozen = {'preparationSha256': baseline.sha(here / 'preparation.json'),
-                      'authoritySha256': baseline.sha(here / 'authority.json'),
+                      'authoritySha256': baseline.sha(here / 'authority-v2.json'),
                       'captures': {cell: capture}}
             (here / 'frozen-baseline.json').write_text(json.dumps(frozen))
             frozen_hash = baseline.sha(here / 'frozen-baseline.json')
@@ -173,10 +197,10 @@ class BaselineTests(unittest.TestCase):
                     with self.assertRaisesRegex(ValueError, 'projection'):
                         baseline.transfer()
                 projection.write_text('{"cell": "profile/scene"}')
-                (here / 'authority.json').write_text('{"schema": 2}')
+                (here / 'authority-v2.json').write_text('{"schema": 2}')
                 with self.assertRaisesRegex(ValueError, 'authority'):
                     baseline.verify_frozen(record, frozen)
-                (here / 'authority.json').write_text('{"schema": 1}')
+                (here / 'authority-v2.json').write_text('{"schema": 1}')
                 with (here / 'frozen-baseline.json').open('a') as stream: stream.write(' ')
                 with self.assertRaisesRegex(ValueError, 'frozen baseline'):
                     baseline.verify_frozen(record, frozen)
@@ -193,7 +217,7 @@ class BaselineTests(unittest.TestCase):
                 here.mkdir()
                 (root / 'x6').mkdir()
                 (here / 'preparation.json').write_text(json.dumps(record))
-                (here / 'authority.json').write_text('{"schema": 1}')
+                (here / 'authority-v2.json').write_text('{"schema": 1}')
                 captures = root / 'captures'
                 changed = [False]
                 calls = [0]
@@ -240,7 +264,7 @@ class BaselineTests(unittest.TestCase):
                 if change_point == 'none':
                     frozen = json.loads((here / 'frozen-baseline.json').read_text())
                     self.assertEqual(frozen['authoritySha256'],
-                                     baseline.sha(here / 'authority.json'))
+                                     baseline.sha(here / 'authority-v2.json'))
                 else:
                     self.assertFalse((here / 'frozen-baseline.json').exists())
 
@@ -252,7 +276,7 @@ class BaselineTests(unittest.TestCase):
             (target.parent / 'x6').mkdir()
             record = baseline.load(baseline.HERE / 'preparation.json')
             (target / 'preparation.json').write_text(json.dumps(record))
-            (target / 'authority.json').write_text('{"schema": 1}')
+            (target / 'authority-v2.json').write_text('{"schema": 1}')
             refused = {'verdict': {'passes': False}}
             with patch.object(baseline, 'HERE', target), \
                  patch.object(baseline, 'CAPTURES', target / 'captures'), \
