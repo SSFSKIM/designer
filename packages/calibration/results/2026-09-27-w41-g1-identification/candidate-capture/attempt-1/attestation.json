@@ -1,0 +1,49 @@
+{
+  "basis": "source-derived",
+  "effectivePresenceBasis": "The static host registration, published channel, bridge, instance lane, field fold and optics read form the full chain. Every member has materialization1; the field interpolates ones, independently of coverage. No scene retargets presence.",
+  "limitations": "Regular variant and presence1 are source-derived, NOT report-observed GPU values. Actual policy, sampling, renderer and root-active candidate pose are report-observed. Intermediate presence is unmeasured; native survival is not established here.",
+  "presence": 1,
+  "sourceChain": [
+    {
+      "claim": "Registers every host variant regular without present override, publishes no materialization animation; reports actual policy and group sampling, with explicit candidate root-active pose.",
+      "path": "packages/calibration/web/scene.ts",
+      "sha256": "3b28392a7d716dbeec15d2501af383a6405fcb028bd0a918bbd3b99db7aa7e69"
+    },
+    {
+      "claim": "registerHost seeds presence and presencePublished to 1 unless present false, writes the materialization property; frame publishes that driver and forwards readHostChannels to nodes.",
+      "path": "packages/platform-web/src/root.ts",
+      "sha256": "bc28f70b65dc0f62b98c05a5f9ba6c935c567baeb3e253f71fabdb1cfc91261a"
+    },
+    {
+      "claim": "readHostChannels reads and clamps the materialization property; the idle fallback is 1.",
+      "path": "packages/platform-web/src/channels.ts",
+      "sha256": "d9bcbc7a73a025a29bda637a70f6862852926dc87f275bcf72c2abed284593d3"
+    },
+    {
+      "claim": "toSurfaceInput forwards node.channels to renderer surfaces without replacing materialization.",
+      "path": "packages/platform-web/src/renderer-bridge.ts",
+      "sha256": "044e4af5690eec6740604776b6af734306dbb94151fb0c1abde4c178837a6ad4"
+    },
+    {
+      "claim": "resolveSurfaces bounds materialization, and packInstances writes it at instance lane17.",
+      "path": "packages/renderer-webgpu/src/instances.ts",
+      "sha256": "474733181df23d8a421def4c8c3c3efa31a429f00e0d5498319aea34568fb3d2"
+    },
+    {
+      "claim": "WGSL_INSTANCE_STRUCT.mat is at byte offset68 (CPU lane17); eval_instance copies s.mat into m.mat. The union interpolates member mat, all 1 here, and writes acc.mat to the presence target. Empty-field presence is also 1.",
+      "path": "packages/renderer-webgpu/src/wgsl/field.ts",
+      "sha256": "2c18f5eb405db0795460ed872ce8dfd6ff2ea4cc9baf69b55ffa5f3d834a9a1c"
+    },
+    {
+      "claim": "Samples the presence target as mat and uses it for E3 replacement interpolation; at mat1 the replacement is the identified full-presence law.",
+      "path": "packages/renderer-webgpu/src/wgsl/optics.ts",
+      "sha256": "67bcfd1e96a5cdc2dfbaee5c459ce4ff32c5cd8f5623a5b8a19bb2109ece9078"
+    },
+    {
+      "claim": "Packs effective E3 strength conditioned on regular variant, nominal material policy and actual backdrop texture. Those actual policy/sampling axes are separately report-validated.",
+      "path": "packages/renderer-webgpu/src/renderer.ts",
+      "sha256": "5bae9bb5d60f9fceb0ba454a72865ab95193e71a72f976f61d50d28f5675552e"
+    }
+  ],
+  "variant": "regular"
+}
