@@ -470,6 +470,14 @@ Deferred.
 
 ## Revision Notes
 
+- 2026-09-27 (v2.4, the parent, on G1's stop): the declaration fixes G1's order with the pre-W41
+  rendered baseline first, and X6 refused the capture (the user's Chrome and another session's
+  Playwright browsers on the machine). Ruled: the numerical steps (uniform body, spatial finding,
+  stroke receded then active) may run before the baseline capture, because they read Apple's pixels
+  and the baseline reads vitrea's, so its timing cannot influence them; the baseline MUST be captured
+  and frozen before any candidate operator is rendered (steps 5–6), which is what the order protects.
+  The worker records this as an ordering amendment in the declaration with the superseded hash
+  850747c1… kept beside the new one and no other byte changed, and the README and §5.192 say why.
 - 2026-09-27 (G0's merge, the parent): merged `cd55870d` after an independent gate review (reviewer-high, no material findings; 114 synthetic tests, the 100 noisy LP cases, the width recoveries, 3,600 shadow cases, the guarded replay and all 41 exposure tests rerun; every pin matches; no protected file changed);
   freeze 1,818; no capture tree moved; nothing fitted to native pixels. G0's stops produced v2.1–v2.3;
   its instrument reviews produced two P2 fix waves (exact-support recovery; width-aware stroke search),
