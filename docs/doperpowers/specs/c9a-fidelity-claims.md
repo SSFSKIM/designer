@@ -40311,3 +40311,82 @@ amended (its worker's standing instruction, kept): 850747c1… stays byte-for-by
 the executed order is recorded as a deviation under the parent's ruling in the README
 and §5.192”**. The prior wording survives in git history. The worker retains both
 citations here; the sealed declaration was never edited.
+
+### 2. Uniform body: certified dark failures, light-colour survival, thick transfer separate
+
+Step2 is committed at `d64e5220`; `body/replay.py` reads only the fetched archive
+through the guarded reader, fits calibration only, and writes/hashes every fit before
+constructing the validation reader. The **408-cell** fit has **1,220 uncensored channels
+plus four hard rail constraints**; the historical H3 population remains **404 cells /
+1,212 channels**, not retrospectively changed. Both scales and every one of seven repeats
+are scored separately. The sealed neutral knots reproduce exactly.
+
+| endpoint | E3 LS / certified minimax upper | EH6 LS / certified minimax upper | O12 LS / local minimax |
+| --- | ---: | ---: | ---: |
+| light active | 0.708921 / 0.618292 | 0.681295 / 0.615167 | 1.451401 / 1.335838 |
+| light inactive | 0.925234 / 0.832355 | 0.963317 / 0.832589 | 2.671198 / 2.327215 |
+| dark active | 1.087557 / 1.010390 | 2.909609 / 2.393977 | 26.216800 / 22.000000 |
+| dark inactive | 1.537943 / 1.425524 | 2.126602 / 1.677351 | 29.653547 / 25.283014 |
+
+All eight linear brackets have width below **1e−5 code** and independently verified rational
+lower certificates. Dark E3 and EH6 are certified infeasible at the survival bound; O12's
+four failures are **local candidate failures**, not global exclusions. Selected ranks are
+3/6/12; all starts, convergence results and singular values remain. B0/H3 is reported at
+its historical upper brackets **3.919083 /4.185392 /20.138850 /17.470862**, without refitting
+or claiming a W41 certificate.
+
+E3/EH6 pass light colour calibration and validation, but light-active span96 transfer
+misses by **3 codes**, all three validation geometry rows at each scale. Dark span96
+transfer misses by **13 codes**, separately from the chromatic rejection. Light-inactive
+passes the initial colour/thick transfer table. E3/EH6 light-colour separations are
+**0.501055 active /1.190202 inactive**, below three: insufficient resolution of those
+instances, not licence to choose a uniquely identified hue/level law. No complete
+four-endpoint body family survives. An additive census of the remaining uniform controls
+and placements is pending; it cannot change the frozen coefficients or erase these rows.
+
+`body/report-1/survival-table.csv` retains every role/scale/population, worst cell/channel,
+rail count and repeat result. For example, E3's dark-active calibration worst is
+`factor-y2-c24-h60-colour__rest` **B**, while its dark-inactive worst is the corresponding
+inactive cell **R**. The initial report's generic light-active failure label is qualified
+additively by `endpoint-verdicts.json`: a **transfer failure**, not certified calibration
+infeasibility. Independent review replayed 24 certificate/forward checks and all **3,472
+candidate-cell /24,304 repeat-cell** scores with no material finding; 15 sealed synthetic
+tests and the 1,818-entry freeze pass.
+
+### 3. Spatial finding: the active residual remains and the bed still cannot referee a leaf
+
+Because no complete body family survived, the spatial read uses **diagnostic B1/E3**, not
+a nominated material. The original reader stopped before fitting on the archive's `rest`
+versus declaration's `active` pose vocabulary; its source and failure transcript remain.
+The additive `read-spatial-v2.py` supplies an explicit checked translation, with two
+regressions; `spatial/attempt-2/` is the successful reading. No mask, reference domain,
+body coefficient, parameter bound or optimizer budget changed.
+
+The fixed 16 calibration gradient cells supply **768 separate device rows**, each over
+48·scale pixels, with all seven repeats. The maxima below are minimax-instance errors in
+encoded codes over every admitted row/channel/repeat; both scales have the same verdict.
+LS results, parameters, ranks and all local starts remain beside them.
+
+| endpoint | S0 local | S1 blend | S2 blend + signed active position |
+| --- | ---: | ---: | ---: |
+| light active | 4.181818 | 3.800000 | 2.221383 |
+| light inactive | 1.916667 | 1.009174 | 1.009174 |
+| dark active | 3.272727 | 3.069272 | 2.007615 |
+| dark inactive | 2.666667 | 1.000000 | 1.000000 |
+
+Only dark-inactive S1/S2 meet every per-row calibration bound. Light-inactive **1.009174
+remains a miss**, not a rounded one-code pass. S0 is a fixed null; the fitted negatives
+are local, not certified family theorems. Equal-input reflected native rows differ by up
+to **4 codes light active /3 dark active** over the whole ≥6px strip, at both scales;
+inactive differences remain ≤1. These observations are not fitted-family separations:
+the largest fitted pair separation is **2.299977** (light-active S1/S2), below three.
+Inactive S0/S1 separations **1.150612 /2.034187** are also below resolution, even though
+the null itself fails. All 12 instance comparisons retain that distinction.
+
+One mean and amplitude still confound the blend with a wide blur. The active signed term
+is positional, not an identified lighting frame; a long boundary tail remains an alternative
+reading. No structured backdrop is held out, so **zero spatial held-out coverage** means
+**no spatial closure or leaf**, as Decision Log6 ruled. The next identifying bed needs
+varying group means/frequencies and structured held-out backdrops. Independent review
+reconstructed all **96** saved score records, **12** resolution comparisons and **8**
+reflected pairs, plus provenance hashes, without re-opening native payloads: no finding.

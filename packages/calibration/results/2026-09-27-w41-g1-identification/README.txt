@@ -38,3 +38,22 @@ It replaces ba02f1a5's declaration-amendment direction with preserving the seale
 850747c1 declaration and recording the execution-order deviation. The earlier
 wording remains in git history. This corrects the charter instruction, not the
 sealed declaration or any measured value.
+
+Step2 — body, committed d64e5220
+E3/EH6 calibration minima are certified; O12 is LOCAL. No complete four-endpoint
+family survives. Light-active colour survives but span96 transfer fails by3;
+light-inactive passes the initially tabled transfer and E3/EH6 remain insufficient
+resolution. An additive all-uniform-control transfer census is being completed,
+without changing any fit or existing report. Dark E3 minima1.010390/1.425524
+already reject calibration; EH6 dark2.393977/1.677351; O12 all four fail locally.
+body/report-1/ has tables and body/attempt-1/ all coefficients/certificates/repeats.
+
+Step3 — spatial, completed as a DIAGNOSTIC on B1
+spatial/README.txt gives replay, two-stage integration correction and limitations.
+S2 minima2.221383 /1.009174 /2.007615 /1.000000 in light-active/light-inactive/
+dark-active/dark-inactive order. Only dark-inactive blend cases pass the fixed
+per-row calibration bound; no spatial holdout exists and no spatial leaf lands.
+All fitted pair separations are below3; reflected native differences are up to
+4 light-active /3 dark-active at both scales. Blend versus blur and the signed
+term versus a boundary tail remain unidentifiable. Independent saved-evidence
+review checked all96 score records,12 resolution comparisons and8 reflections.

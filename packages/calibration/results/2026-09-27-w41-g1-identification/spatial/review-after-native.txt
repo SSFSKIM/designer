@@ -1,0 +1,11 @@
+Independent reviewer-medium, saved-evidence replay, 2026-09-27
+Verdict: correct; no actionable findings.
+Additive read-spatial-v2.py maps archive rest -> active, rejects unknown poses;
+both regression tests pass. Independently reconstructed saved predictions,
+96 score records (median/all-repeat errors, bars, counts, survival, objectives),
+12 resolution records,8 reflected comparisons and every provenance source hash.
+Maximum pair separation2.2999773328296556; reflected active maxima4 light /3 dark
+at both scales. Only dark-inactive S1/S2 pass all per-row calibration bounds.
+These are calibration-instance passes, never spatial closure or complete-body
+survival. B1 remains diagnostic; fitted spatial cases remain LOCAL.
+No raw/archive read, optimizer rerun or write by reviewer.

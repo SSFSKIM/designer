@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/spatial/test-native-pose.py", line 8, in <module>
+    reader=importlib.util.module_from_spec(s);s.loader.exec_module(reader)
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap_external>", line 991, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1128, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1186, in get_data
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/spatial/read-spatial-v2.py'

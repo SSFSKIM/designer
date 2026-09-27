@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/spatial/read-spatial.py", line 105, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/spatial/read-spatial.py", line 63, in main
+    if len(cells)!=4:raise ValueError('two directions at both scales required')
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: two directions at both scales required
