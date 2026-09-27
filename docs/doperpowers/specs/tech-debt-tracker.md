@@ -6459,3 +6459,12 @@ positions its indicator absolutely and supplies no positioned containing block, 
 does not add `position: relative` sees the indicator land beside a neighbour; the component should
 establish its own track or the cookbook should say so. Verified in source, not by a fresh live
 reproduction.
+
+## The geometry observer watches the content box, so a host whose border changes keeps a stale span (materialist proof, 2026-09-27)
+
+Found by the photo-review fix worker. `platform-web/src/geometry-sync.ts:260,317` observe the
+content box rather than the border box. The page starts on the CSS tier, which adds a 1 px border
+to the host, and when the WebGPU tier takes over and removes it the cached span stays at the
+bordered value (54 × 142 where the box is 52 × 140), so a capsule declared at half its span is no
+longer one. `box-sizing: border-box` on the host avoids it; the runtime should observe the
+border box, which is the box it registers.

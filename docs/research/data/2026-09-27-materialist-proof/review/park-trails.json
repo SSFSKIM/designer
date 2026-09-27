@@ -1,0 +1,9 @@
+{
+  "slug": "park-trails",
+  "r23": 1,
+  "r23Strict": 0,
+  "evidence": "Post-fix source (reviewer-medium, 2026-09-27): (a) the sole platter is a GlassMorph (Planner.tsx:211-218), no opacity transition; (b) every interactive glass host carries the runtime's press through the channel properties (interaction.ts:222-230) and no colour-swap press exists; plain rows inside the OPEN route menu have no press of their own because the runtime disables an open morph host's interaction (morph.tsx:636-641, tracked): strict reading fails, scoped reading (spec Decision Log, 2026-09-27) holds; (c) no glass host transitions opacity, background or filter (styles.css:393-405 belong to the paper switch).",
+  "spanExceptions": [],
+  "verifiedFindings": {"fixed": [1, 2, 3, 4, 5]},
+  "postFixAudit": "audit/park-trails.json (68/68 glass pairs both schemes, min 8.7 light / 4.59 dark, zero diagnostics, zero ban findings)"
+}

@@ -1,0 +1,909 @@
+/*
+ * Park trails. Two surface models and nothing else (DESIGN.md): glass for the planner, which
+ * the runtime draws and this sheet never styles beyond layout and ink, and printed paper for
+ * everything that is read. The paper is a cool near-white with the lake's cyan in it by day and
+ * a deep slate-teal by night; the one accent is lupine violet.
+ */
+
+:root {
+  color-scheme: light dark;
+  --pt-ui: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  --pt-serif: ui-serif, "New York", "Iowan Old Style", Charter, Georgia, serif;
+  --pt-margin: clamp(24px, 6vw, 88px);
+
+  --pt-paper: oklch(0.978 0.006 190);
+  --pt-ink: oklch(0.25 0.02 215);
+  --pt-ink-2: oklch(0.44 0.018 215);
+  --pt-rule: oklch(0.87 0.01 205);
+  --pt-rule-strong: oklch(0.3 0.02 215);
+  --pt-accent: oklch(0.49 0.15 298);
+  --pt-accent-wash: oklch(0.49 0.15 298 / 0.07);
+  --pt-open: oklch(0.56 0.12 152);
+  --pt-caution: oklch(0.63 0.14 72);
+  --pt-closed: oklch(0.55 0.19 27);
+  /* Shown for the instant before the photograph decodes: its own mean, not a colour of ours. */
+  --pt-plane-mean: oklch(0.42 0.04 185);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --pt-paper: oklch(0.205 0.014 215);
+    --pt-ink: oklch(0.95 0.008 195);
+    --pt-ink-2: oklch(0.77 0.012 200);
+    --pt-rule: oklch(0.34 0.014 215);
+    --pt-rule-strong: oklch(0.86 0.01 200);
+    --pt-accent: oklch(0.78 0.11 298);
+    --pt-accent-wash: oklch(0.78 0.11 298 / 0.1);
+    --pt-open: oklch(0.74 0.13 152);
+    --pt-caution: oklch(0.82 0.13 82);
+    --pt-closed: oklch(0.7 0.16 27);
+  }
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--pt-plane-mean);
+}
+
+body {
+  font-family: var(--pt-ui);
+  -webkit-font-smoothing: antialiased;
+}
+
+.pt-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ── The plane ─────────────────────────────────────────────────────────── */
+
+.pt-plane {
+  position: fixed;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/*
+ * The sheet's scroller, and the scroll edge on its own box. The stops come from the planner's
+ * measured box (App.tsx, scrollEdgeFor); the fallbacks are what they measure at 1440 × 900.
+ * Transparent across the band, so the only thing under the planner at any scroll position is
+ * the photograph; opaque one capsule height lower.
+ */
+.pt-scroller {
+  position: fixed;
+  inset: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scroll-padding-top: calc(var(--pt-fade-end, 132px) + 24px);
+  mask-image: linear-gradient(
+    to bottom,
+    transparent var(--pt-fade-start, 84px),
+    #000 var(--pt-fade-end, 132px)
+  );
+}
+
+/* The view: how much of the park the window shows before the sheet begins. */
+.pt-view {
+  height: 58vh;
+  min-height: 360px;
+}
+
+/* ── The planner (glass: layout and ink only) ──────────────────────────── */
+
+.pt-banner {
+  position: absolute;
+  top: 20px;
+  left: var(--pt-margin);
+  font-family: var(--pt-ui);
+}
+
+.pt-planner {
+  display: flex;
+  align-items: center;
+}
+
+/* One capsule height: at least the largest sampling padding any scheme or preference derives. */
+.pt-planner__gap {
+  width: 48px;
+}
+
+.pt-control {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 48px;
+  padding: 0 18px 0 16px;
+  margin: 0;
+  border: 0;
+  border-radius: 24px;
+  /* The user agent's own button face, reset: the one background a host may carry. */
+  background: transparent;
+  appearance: none;
+  font: 500 15px/1 var(--pt-ui);
+  letter-spacing: -0.005em;
+  color: var(--vitrea-foreground, var(--pt-ink));
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.pt-control:focus-visible {
+  outline: 2px solid var(--vitrea-foreground, var(--pt-ink));
+  outline-offset: 3px;
+}
+
+/* A capsule's slot: its widest face, in flow from the first layout; the morph's own footprint
+   spacer grows into the same grid cell without moving anything beside it. */
+.pt-slot {
+  display: inline-grid;
+}
+
+.pt-slot > * {
+  grid-area: 1 / 1;
+}
+
+/* Hidden to the last descendant: the current face inside a sizer would otherwise show through. */
+.pt-slot__sizer,
+.pt-slot__sizer .pt-stack__item[data-current] {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.pt-stack {
+  display: inline-grid;
+  flex: 1 1 auto;
+}
+
+.pt-stack__item {
+  display: inline-flex;
+  grid-area: 1 / 1;
+  gap: 8px;
+  align-items: baseline;
+  visibility: hidden;
+}
+
+.pt-stack__item[data-current] {
+  visibility: visible;
+}
+
+.pt-control__strong {
+  font-weight: 600;
+}
+
+.pt-control__quiet {
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+
+.pt-glyph {
+  flex: none;
+  width: 18px;
+  height: 18px;
+}
+
+.pt-glyph--chevron {
+  width: 14px;
+  height: 14px;
+  margin-left: -2px;
+}
+
+/*
+ * The route menu's platter. The host is GlassMorph's; this styles only its box model and ink. Border-box,
+ * as a native button host already is: the CSS tier gives every host a 1 px rim border, and on a
+ * content-box host that border grows the capsule two pixels past the footprint it was measured
+ * at, which on the first frames (before the GPU tier takes over) is enough to put two groups'
+ * proxies inside each other's padding.
+ */
+.pt-platter {
+  box-sizing: border-box;
+  color: var(--vitrea-foreground, var(--pt-ink));
+  font-family: var(--pt-ui);
+}
+
+.pt-menu {
+  box-sizing: border-box;
+  width: 416px;
+  max-height: calc(100vh - 120px);
+  margin: 0;
+  padding: 8px;
+  overflow-y: auto;
+  list-style: none;
+  outline: none;
+}
+
+.pt-menu__section + .pt-menu__section {
+  margin-top: 6px;
+}
+
+.pt-menu__heading {
+  display: block;
+  padding: 8px 12px 4px 34px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.pt-menu__group {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Rows inset 8 inside a 28 radius platter: 28 − 8 = 20, a capsule on a 40 px row. */
+.pt-option {
+  display: grid;
+  grid-template-columns: 18px 1fr;
+  align-items: center;
+  gap: 4px;
+  min-height: 40px;
+  padding: 0 14px 0 8px;
+  border-radius: 20px;
+  cursor: pointer;
+  outline: none;
+}
+
+.pt-option[data-focused] {
+  background: color-mix(in srgb, currentColor 12%, transparent);
+}
+
+.pt-option__check {
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.pt-option__text {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.pt-option__name {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.pt-option__meta {
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* ── The sheet (printed) ───────────────────────────────────────────────── */
+
+.pt-sheet {
+  position: relative;
+  padding: 56px var(--pt-margin) 48px;
+  background: var(--pt-paper);
+  color: var(--pt-ink);
+  color-scheme: light dark;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.pt-sheet :focus-visible {
+  outline: 2px solid var(--pt-accent);
+  outline-offset: 2px;
+}
+
+.pt-sheet section:focus,
+.pt-forecast:focus {
+  outline: none;
+}
+
+.pt-masthead {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 400px);
+  gap: 72px;
+  align-items: start;
+}
+
+.pt-eyebrow {
+  margin: 0 0 14px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pt-ink-2);
+}
+
+.pt-title {
+  margin: 0;
+  font-family: var(--pt-serif);
+  font-size: clamp(44px, 5vw, 68px);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.015em;
+}
+
+.pt-lede {
+  max-width: 60ch;
+  margin: 20px 0 0;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.pt-meta {
+  margin: 12px 0 0;
+  font-size: 14px;
+  color: var(--pt-ink-2);
+}
+
+.pt-toolrow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 32px;
+  margin-top: 28px;
+  padding-top: 14px;
+  border-top: 1px solid var(--pt-rule);
+}
+
+.pt-contents {
+  display: flex;
+  gap: 28px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.pt-contents a,
+.pt-footer a {
+  color: inherit;
+  text-decoration-color: var(--pt-accent);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 4px;
+}
+
+.pt-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.pt-switch input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+}
+
+.pt-switch__track {
+  position: relative;
+  width: 34px;
+  height: 20px;
+  border-radius: 10px;
+  background: var(--pt-rule);
+  box-shadow: inset 0 0 0 1px var(--pt-ink-2);
+  transition: background-color 160ms ease;
+}
+
+.pt-switch__track::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 14px;
+  height: 14px;
+  border-radius: 7px;
+  background: var(--pt-ink);
+  transition: transform 160ms ease;
+}
+
+.pt-switch input:checked + .pt-switch__track {
+  background: var(--pt-accent);
+  box-shadow: none;
+}
+
+.pt-switch input:checked + .pt-switch__track::after {
+  background: var(--pt-paper);
+  transform: translateX(14px);
+}
+
+.pt-switch input:focus-visible + .pt-switch__track {
+  outline: 2px solid var(--pt-accent);
+  outline-offset: 2px;
+}
+
+.pt-planned {
+  padding-top: 14px;
+  border-top: 3px solid var(--pt-accent);
+}
+
+.pt-planned__label {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pt-accent);
+}
+
+.pt-planned__name {
+  margin: 6px 0 0;
+  font-family: var(--pt-serif);
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.pt-planned__status {
+  margin: 10px 0 0;
+  font-size: 15px;
+}
+
+.pt-planned__status > span:not(.pt-status) {
+  font-weight: 600;
+}
+
+.pt-facts {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  justify-content: space-between;
+  gap: 8px 16px;
+  margin: 18px 0 0;
+  padding: 12px 0;
+  border-block: 1px solid var(--pt-rule);
+}
+
+.pt-facts dt {
+  font-size: 12px;
+  color: var(--pt-ink-2);
+}
+
+.pt-facts dd {
+  margin: 2px 0 0;
+  font-size: 17px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.pt-facts__unit {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--pt-ink-2);
+}
+
+.pt-planned__trailhead {
+  margin: 10px 0 0;
+  font-size: 14px;
+  color: var(--pt-ink-2);
+}
+
+.pt-status {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  margin-right: 7px;
+  vertical-align: 0.05em;
+  background: var(--pt-open);
+  border-radius: 50%;
+}
+
+.pt-status[data-status="caution"] {
+  width: 11px;
+  height: 10px;
+  border-radius: 0;
+  background: var(--pt-caution);
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.pt-status[data-status="closed"] {
+  border-radius: 1px;
+  background: var(--pt-closed);
+}
+
+.pt-section {
+  padding-top: 80px;
+}
+
+.pt-section__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: end;
+  gap: 32px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--pt-rule-strong);
+}
+
+.pt-h2 {
+  margin: 0;
+  font-family: var(--pt-serif);
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+.pt-section__note {
+  max-width: 56ch;
+  margin: 0;
+  justify-self: end;
+  font-size: 14px;
+  color: var(--pt-ink-2);
+}
+
+.pt-h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 650;
+}
+
+.pt-num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* The trail list */
+
+.pt-trails,
+.pt-forecast {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+
+.pt-trails thead th,
+.pt-forecast thead th {
+  padding: 16px 12px 8px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-align: left;
+  text-transform: uppercase;
+  color: var(--pt-ink-2);
+  border-bottom: 1px solid var(--pt-rule);
+}
+
+.pt-trails thead th.pt-num,
+.pt-forecast thead th.pt-num {
+  text-align: right;
+}
+
+.pt-trails td,
+.pt-trails tbody th {
+  padding: 14px 12px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--pt-rule);
+}
+
+.pt-trails td.pt-num {
+  text-align: right;
+}
+
+.pt-trails__corridor th {
+  padding: 36px 12px 10px;
+  font-family: var(--pt-serif);
+  font-size: 21px;
+  font-weight: 600;
+  border-bottom: 1px solid var(--pt-rule-strong);
+}
+
+.pt-trails__access {
+  margin-left: 14px;
+  font-family: var(--pt-ui);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--pt-ink-2);
+}
+
+.pt-trails tr[data-selected] > * {
+  background: var(--pt-accent-wash);
+}
+
+.pt-trails tr[data-selected] > th {
+  box-shadow: inset 3px 0 0 var(--pt-accent);
+}
+
+.pt-trails__name {
+  width: 23%;
+}
+
+.pt-trails__name button {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: 600 17px/1.3 var(--pt-ui);
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.pt-trails__name button:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--pt-accent);
+  text-underline-offset: 4px;
+}
+
+.pt-trails__name button[aria-pressed="true"] {
+  color: var(--pt-accent);
+}
+
+.pt-trails__trailhead,
+.pt-trails__time,
+.pt-trails__pass {
+  display: block;
+  margin-top: 3px;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--pt-ink-2);
+}
+
+.pt-trails__shape {
+  font-size: 13px;
+  color: var(--pt-ink-2);
+}
+
+.pt-trails__condition {
+  width: 34%;
+}
+
+.pt-trails__status {
+  display: block;
+  font-weight: 600;
+}
+
+.pt-trails__note {
+  display: block;
+  margin-top: 3px;
+  font-size: 14px;
+  color: var(--pt-ink-2);
+}
+
+/* Conditions */
+
+.pt-bulletin {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 40px;
+  margin-top: 28px;
+}
+
+.pt-bulletin__list {
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pt-bulletin__list li {
+  padding: 14px 0;
+  border-top: 1px solid var(--pt-rule);
+}
+
+.pt-bulletin__list li[data-bears] {
+  padding-left: 14px;
+  box-shadow: inset 3px 0 0 var(--pt-accent);
+}
+
+.pt-bulletin__list p {
+  margin: 0;
+  font-size: 15px;
+}
+
+.pt-bulletin__list .pt-bulletin__date {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  margin-bottom: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--pt-ink-2);
+}
+
+.pt-bulletin__flag {
+  color: var(--pt-accent);
+}
+
+.pt-forecast__title {
+  margin-top: 48px;
+}
+
+.pt-forecast {
+  margin-top: 8px;
+}
+
+.pt-forecast td,
+.pt-forecast tbody th {
+  padding: 14px 12px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--pt-rule);
+}
+
+.pt-forecast td.pt-num {
+  text-align: right;
+}
+
+.pt-forecast__ft,
+.pt-forecast__date {
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--pt-ink-2);
+}
+
+/* The planned route's columns, marked the way its row in the trail list is. */
+.pt-forecast thead .pt-forecast__groups th {
+  padding-top: 0;
+  padding-bottom: 6px;
+  border-bottom: 0;
+}
+
+.pt-forecast thead .pt-forecast__groups td {
+  border-bottom: 0;
+}
+
+.pt-forecast .pt-forecast__route {
+  color: var(--pt-accent);
+  box-shadow: inset 0 3px 0 var(--pt-accent);
+  padding-top: 12px;
+}
+
+.pt-forecast [data-route] {
+  background: var(--pt-accent-wash);
+}
+
+.pt-forecast__cell {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  font-weight: 600;
+}
+
+.pt-forecast__word {
+  display: block;
+  margin-top: 2px;
+  font-size: 13px;
+  color: var(--pt-ink-2);
+}
+
+/* Permit steps */
+
+.pt-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 32px;
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pt-steps li {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 4px;
+  padding-top: 14px;
+  border-top: 1px solid var(--pt-rule);
+}
+
+.pt-steps li[data-applies] {
+  border-top: 3px solid var(--pt-ink);
+  padding-top: 12px;
+}
+
+.pt-steps__number {
+  font-family: var(--pt-serif);
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--pt-ink-2);
+}
+
+.pt-steps li[data-applies] .pt-steps__number {
+  color: var(--pt-accent);
+}
+
+.pt-steps p {
+  margin: 6px 0 0;
+  font-size: 15px;
+}
+
+.pt-steps li:not([data-applies]) {
+  color: var(--pt-ink-2);
+}
+
+.pt-steps__skip {
+  font-weight: 400;
+}
+
+.pt-permits__where {
+  margin: 32px 0 0;
+  font-size: 14px;
+  color: var(--pt-ink-2);
+}
+
+/* Footer */
+
+.pt-footer {
+  margin-top: 96px;
+  padding-top: 18px;
+  border-top: 1px solid var(--pt-rule);
+  font-size: 13px;
+  color: var(--pt-ink-2);
+}
+
+.pt-footer p {
+  max-width: 88ch;
+  margin: 0 0 8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pt-switch__track,
+  .pt-switch__track::after {
+    transition: none;
+  }
+}
+
+/*
+ * Forced colours: the runtime removes the glass and the system repaints the paper. What this
+ * sheet draws with backgrounds and shadows would go with it, so each is redrawn in system
+ * colours: the switch's track and thumb (and its state, by position and fill), the status marks
+ * (the word beside each is always printed, the shape still tells them apart), and the bars that
+ * mark the planned route.
+ */
+@media (forced-colors: active) {
+  .pt-switch__track,
+  .pt-switch__track::after,
+  .pt-status {
+    forced-color-adjust: none;
+  }
+
+  .pt-switch__track {
+    box-sizing: border-box;
+    border: 1px solid CanvasText;
+    background: Canvas;
+    box-shadow: none;
+  }
+
+  .pt-switch__track::after {
+    top: 2px;
+    left: 2px;
+    background: CanvasText;
+  }
+
+  .pt-switch input:checked + .pt-switch__track {
+    border-color: Highlight;
+    background: Highlight;
+  }
+
+  .pt-switch input:checked + .pt-switch__track::after {
+    background: HighlightText;
+  }
+
+  .pt-switch input:focus-visible + .pt-switch__track {
+    outline-color: CanvasText;
+  }
+
+  .pt-status {
+    background: CanvasText;
+  }
+
+  .pt-trails tr[data-selected] > th,
+  .pt-bulletin__list li[data-bears] {
+    border-left: 3px solid Highlight;
+  }
+
+  .pt-forecast .pt-forecast__route {
+    border-top: 3px solid Highlight;
+  }
+}
