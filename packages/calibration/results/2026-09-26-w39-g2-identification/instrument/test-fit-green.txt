@@ -1,0 +1,24 @@
+E.
+======================================================================
+ERROR: test_bounds_and_rank_are_reported (__main__.FitTests.test_bounds_and_rank_are_reported)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w39/g2/packages/calibration/results/2026-09-26-w39-g2-identification/instrument/test-fit.py", line 14, in test_bounds_and_rank_are_reported
+    fit=fitting.fit(lambda q:np.array([[q[0]+q[1]]]),np.array([[3.]]),[.2,.2],bounds=[(0,1)]*2)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w39/g2/packages/calibration/results/2026-09-26-w39-g2-identification/instrument/fitting.py", line 35, in fit
+    return dict(leastSquares=report(ls,ls.x),minimax=report(mm,mm.x[:-1]))
+                             ^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w39/g2/packages/calibration/results/2026-09-26-w39-g2-identification/instrument/fitting.py", line 30, in report
+    s=np.linalg.svd(j,compute_uv=False)
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/Library/Python/3.12/lib/python/site-packages/numpy/linalg/_linalg.py", line 1848, in svd
+    _assert_stacked_2d(a)
+  File "/Users/new/Library/Python/3.12/lib/python/site-packages/numpy/linalg/_linalg.py", line 253, in _assert_stacked_2d
+    raise LinAlgError('%d-dimensional array given. Array must be '
+numpy.linalg.LinAlgError: 1-dimensional array given. Array must be at least two-dimensional
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.013s
+
+FAILED (errors=1)

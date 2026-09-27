@@ -1,0 +1,2162 @@
+{
+  "schema": "w39-g2-outcome-1",
+  "declarationSha256": "94cebb42735a22f345b0a877ca5137d3355e84e78d09b12c9fabf67f0ba3faae",
+  "archiveSha256": "489db938a1e234a772ba7223d24fbaf76d137ef5d9e5b2421ed84a86894426b5",
+  "inventorySha256": "58329732f947d42cd5e1518962016191faaa79d89b7089c6dadf5724dde35f61",
+  "inputs": {
+    "body-correction/correction-attempt-1.json.gz": "1bd605bacd8e1fdadb475d20b4e470f06a695500db49bc58fe426f26c8ab733d",
+    "edge-correction/attempt-2/summary.json": "11a86387722c7e14c445fc9224db98d05d739ed8420d0c5d6f0876221484c45e"
+  },
+  "bodySurvival": [
+    {
+      "allChannelFailedCells": 13,
+      "allChannelsMaximumMinimum": {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/green-colour__rest",
+        "minimumChannelCodes": 21.909090909090878,
+        "residualRGB": [
+          51.99999999999997,
+          21.909090909090878,
+          51.99999999999997
+        ]
+      },
+      "cells": 57,
+      "censoredCells": 1,
+      "endpoint": "light-active",
+      "failedCells": 50,
+      "failedChannels": 100,
+      "family": "H1",
+      "maximumCodes": 51.99999999999997,
+      "maximumRGBMean": {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/green-colour__rest",
+        "meanCodes": 41.96969696969694,
+        "residualRGB": [
+          51.99999999999997,
+          21.909090909090878,
+          51.99999999999997
+        ]
+      },
+      "method": "minimax",
+      "population": "colour",
+      "repeatVsMedianMaximumDifference": 0.0,
+      "scale": 1,
+      "status": "failed",
+      "worstCell": "apple-macos-27.0-1x-light-standard-glass0.5/green-colour__rest",
+      "worstChannel": 0,
+      "worstRole": "calibration"
+    },
+    {
+      "allChannelFailedCells": 13,
+      "allChannelsMaximumMinimum": {
+        "cell": "apple-macos-27.0-2x-light-standard-glass0.5/green-colour__rest",
+        "minimumChannelCodes": 21.909090909090878,
+        "residualRGB": [
+          51.99999999999997,
+          21.909090909090878,
+          51.99999999999997
+        ]
+      },
+      "cells": 57,
+      "censoredCells": 1,
+      "endpoint": "light-active",
+      "failedCells": 50,
+      "failedChannels": 100,
+      "family": "H1",
+      "maximumCodes": 51.99999999999997,
+      "maximumRGBMean": {
+        "cell": "apple-macos-27.0-2x-light-standard-glass0.5/green-colour__rest",
+        "meanCodes": 41.96969696969694,
+        "residualRGB": [
+          51.99999999999997,
+          21.909090909090878,
+          51.99999999999997
+        ]
+      },
+      "method": "minimax",
+      "population": "colour",
+      "repeatVsMedianMaximumDifference": 0.0,
+      "scale": 2,
+      "status": "failed",
+      "worstCell": "apple-macos-27.0-2x-light-standard-glass0.5/green-colour__rest",
+      "worstChannel": 0,
+      "worstRole": "calibration"
+    },
+    {
+      "allChannelFailedCells": 14,
+      "allChannelsMaximumMinimum": {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/green-colour__inactive",
+        "minimumChannelCodes": 24.81818181818184,
+        "residualRGB": [
+          57.5,
+          24.81818181818184,
+          57.5
+        ]
+      },
+      "cells": 57,
+      "censoredCells": 1,
+      "endpoint": "light-inactive",
+      "failedCells": 50,
+      "failedChannels": 105,
+      "family": "H1",
+      "maximumCodes": 57.5,
+      "maximumRGBMean": {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/green-colour__inactive",
+        "meanCodes": 46.606060606060616,
+        "residualRGB": [
+          57.5,
+          24.81818181818184,
+          57.5
+        ]
+      },
+      "method": "minimax",
+      "population": "colour",
+      "repeatVsMedianMaximumDifference": 0.0,
+      "scale": 1,
+      "status": "failed",
+      "worstCell": "apple-macos-27.0-1x-light-standard-glass0.5/green-colour__inactive",
+      "worstChannel": 0,
+      "worstRole": "calibration"
+    },
+    {
+      "allChannelFailedCells": 14,
+      "allChannelsMaximumMinimum": {
+        "cell": "apple-macos-27.0-2x-light-standard-glass0.5/green-colour__inactive",
+        "minimumChannelCodes": 24.81818181818184,
+        "residualRGB": [
+          57.5,
+          24.81818181818184,
+          57.5
+        ]
+      },
+      "cells": 57,
+      "censoredCells": 1,
+      "endpoint": "light-inactive",
+      "failedCells": 50,
+      "failedChannels": 105,
+      "family": "H1",
+      "maximumCodes": 57.5,
+      "maximumRGBMean": {
+        "cell": "apple-macos-27.0-2x-light-standard-glass0.5/green-colour__inactive",
+        "meanCodes": 46.606060606060616,
+        "residualRGB": [
+          57.5,
+          24.81818181818184,
+          57.5
+        ]
+      },
+      "method": "minimax",
+      "population": "colour",
+      "repeatVsMedianMaximumDifference": 0.0,
+      "scale": 2,
+      "status": "failed",
+      "worstCell": "apple-macos-27.0-2x-light-standard-glass0.5/green-colour__inactive",
+      "worstChannel": 0,
+      "worstRole": "calibration"
+    },
+    {
+      "allChannelFailedCells": 12,
+      "allChannelsMaximumMinimum": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/green-colour__rest",
+        "minimumChannelCodes": 24.090909090909122,
+        "residualRGB": [
+          39.99999999999999,
+          24.090909090909122,
+          39.99999999999999
+        ]
+      },
+      "cells": 57,
+      "censoredCells": 0,
+      "endpoint": "dark-active",
+      "failedCells": 50,
+      "failedChannels": 101,
+      "family": "H1",
+      "maximumCodes": 73.09090909090912,
+      "maximumRGBMean": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/green-colour__rest",
+        "meanCodes": 34.69696969696971,
+        "residualRGB": [
+          39.99999999999999,
+          24.090909090909122,
+          39.99999999999999
+        ]
+      },
+      "method": "minimax",
+      "population": "colour",
+      "repeatVsMedianMaximumDifference": 0.0,
+      "scale": 1,
+      "status": "failed",
+      "worstCell": "apple-macos-27.0-1x-dark-standard-glass0.5/red-colour__rest",
+      "worstChannel": 0,
+      "worstRole": "calibration"
+    },
+    {
+      "allChannelFailedCells": 12,
+      "allChannelsMaximumMinimum": {
+        "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/green-colour__rest",
+        "minimumChannelCodes": 24.090909090909122,
+        "residualRGB": [
+          39.99999999999999,
+          24.090909090909122,
+          39.99999999999999
+        ]
+      },
+      "cells": 57,
+      "censoredCells": 0,
+      "endpoint": "dark-active",
+      "failedCells": 50,
+      "failedChannels": 101,
+      "family": "H1",
+      "maximumCodes": 73.09090909090912,
+      "maximumRGBMean": {
+        "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/green-colour__rest",
+        "meanCodes": 34.69696969696971,
+        "residualRGB": [
+          39.99999999999999,
+          24.090909090909122,
+          39.99999999999999
+        ]
+      },
+      "method": "minimax",
+      "population": "colour",
+      "repeatVsMedianMaximumDifference": 0.0,
+      "scale": 2,
+      "status": "failed",
+      "worstCell": "apple-macos-27.0-2x-dark-standard-glass0.5/red-colour__rest",
+      "worstChannel": 0,
+      "worstRole": "calibration"
+    },
+    {
+      "allChannelFailedCells": 17,
+      "allChannelsMaximumMinimum": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/green-colour__inactive",
+        "minimumChannelCodes": 22.18181818181816,
+        "residualRGB": [
+          36.99999999999999,
+          22.18181818181816,
+          36.99999999999999
+        ]
+      },
+      "cells": 57,
+      "censoredCells": 0,
+      "endpoint": "dark-inactive",
+      "failedCells": 50,
+      "failedChannels": 108,
+      "family": "H1",
+      "maximumCodes": 69.18181818181816,
+      "maximumRGBMean": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/green-colour__inactive",
+        "meanCodes": 32.06060606060605,
+        "residualRGB": [
+          36.99999999999999,
+          22.18181818181816,
+          36.99999999999999
+        ]
+      },
+      "method": "minimax",
+      "population": "colour",
+      "repeatVsMedianMaximumDifference": 0.0,
+      "scale": 1,
+      "status": "failed",
+      "worstCell": "apple-macos-27.0-1x-dark-standard-glass0.5/red-colour__inactive",
+      "worstChannel": 0,
+      "worstRole": "calibration"
+    },
+    {
+      "allChannelFailedCells": 17,
+      "allChannelsMaximumMinimum": {
+        "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/green-colour__inactive",
+        "minimumChannelCodes": 22.18181818181816,
+        "residualRGB": [
+          36.99999999999999,
+          22.18181818181816,
+          36.99999999999999
+        ]
+      },
+      "cells": 57,
+      "censoredCells": 0,
+      "endpoint": "dark-inactive",
+      "failedCells": 50,
+      "failedChannels": 108,
+      "family": "H1",
+      "maximumCodes": 69.18181818181816,
+      "maximumRGBMean": {
+        "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/green-colour__inactive",
+        "meanCodes": 32.06060606060605,
+        "residualRGB": [
+          36.99999999999999,
+          22.18181818181816,
+          36.99999999999999
+        ]
+      },
+      "method": "minimax",
+      "population": "colour",
+      "repeatVsMedianMaximumDifference": 0.0,
+      "scale": 2,
+      "status": "failed",
+      "worstCell": "apple-macos-27.0-2x-dark-standard-glass0.5/red-colour__inactive",
+      "worstChannel": 0,
+      "worstRole": "calibration"
+    },
+    {
+      "allChannelFailedCells": 56,
+      "allChannelsMaximumMinimum": {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/green-colour__rest",
+        "minimumChannelCodes": 10.140038877439252,
+        "residualRGB": [
+          72.90710645955261,
+          10.140038877439252,
+          72.90710645955261
+        ]
+      },
+      "cells": 57,
+      "censoredCells": 1,
+      "endpoint": "light-active",
+      "failedCells": 57,
+      "failedChannels": 170,
+      "family": "H2",
+      "maximumCodes": 72.90710645955261,
+      "maximumRGBMean": {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/green-colour__rest",
+        "meanCodes": 51.98475059884816,
+        "residualRGB": [
+          72.90710645955261,
+          10.140038877439252,
+          72.90710645955261
+        ]
+      },
+      "method": "minimax",
+      "population": "colour",
+      "repeatVsMedianMaximumDifference": 0.0,
+      "scale": 1,
+      "status": "failed",
+      "worstCell": "apple-macos-27.0-1x-light-standard-glass0.5/green-colour__rest",
+      "worstChannel": 0,
+      "worstRole": "calibration"
+    },
+    {
+      "allChannelFailedCells": 56,
+      "allChannelsMaximumMinimum": {
+        "cell": "apple-macos-27.0-2x-light-standard-glass0.5/green-colour__rest",
+        "minimumChannelCodes": 10.140038877439252,
+        "residualRGB": [
+          72.90710645955261,
+          10.140038877439252,
+          72.90710645955261
+        ]
+      },
+      "cells": 57,
+      "censoredCells": 1,
+      "endpoint": "light-active",
+      "failedCells": 57,
+      "failedChannels": 170,
+      "family": "H2",
+      "maximumCodes": 72.90710645955261,
+      "maximumRGBMean": {
+        "cell": "apple-macos-27.0-2x-light-standard-glass0.5/green-colour__rest",
+        "meanCodes": 51.98475059884816,
+        "residualRGB": [
+          72.90710645955261,
+          10.140038877439252,
+          72.90710645955261
+        ]
+      },
+      "method": "minimax",
+      "population": "colour",
+      "repeatVsMedianMaximumDifference": 0.0,
+      "scale": 2,
+      "status": "failed",
+      "worstCell": "apple-macos-27.0-2x-light-standard-glass0.5/green-colour__rest",
+      "worstChannel": 0,
+      "worstRole": "calibration"
+    },
+    {
+      "allChannelFailedCells": 54,
+      "allChannelsMaximumMinimum": {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/green-colour__inactive",
+        "minimumChannelCodes": 20.661109503400212,
+        "residualRGB": [
+          48.95552324299925,
+          20.661109503400212,
+          48.95552324299925
+        ]
+      },
+      "cells": 57,
+      "censoredCells": 1,
+      "endpoint": "light-inactive",
+      "failedCells": 57,
+      "failedChannels": 168,
+      "family": "H2",
+      "maximumCodes": 48.95552324299925,
+      "maximumRGBMean": {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/green-colour__inactive",
+        "meanCodes": 39.524051996466234,
+        "residualRGB": [
+          48.95552324299925,
+          20.661109503400212,
+          48.95552324299925
+        ]
+      },
+      "method": "minimax",
+      "population": "colour",
+      "repeatVsMedianMaximumDifference": 0.0,
+      "scale": 1,
+      "status": "failed",
+      "worstCell": "apple-macos-27.0-1x-light-standard-glass0.5/green-colour__inactive",
+      "worstChannel": 0,
+      "worstRole": "calibration"
+    },
+    {
+      "allChannelFailedCells": 54,
+      "allChannelsMaximumMinimum": {
+        "cell": "apple-macos-27.0-2x-light-standard-glass0.5/green-colour__inactive",
+        "minimumChannelCodes": 20.661109503400212,
+        "residualRGB": [
+          48.95552324299925,
+          20.661109503400212,
+          48.95552324299925
+        ]
+      },
+      "cells": 57,
+      "censoredCells": 1,
+      "endpoint": "light-inactive",
+      "failedCells": 57,
+      "failedChannels": 168,
+      "family": "H2",
+      "maximumCodes": 48.95552324299925,
+      "maximumRGBMean": {
+        "cell": "apple-macos-27.0-2x-light-standard-glass0.5/green-colour__inactive",
+        "meanCodes": 39.524051996466234,
+        "residualRGB": [
+          48.95552324299925,
+          20.661109503400212,
+          48.95552324299925
+        ]
+      },
+      "method": "minimax",
+      "population": "colour",
+      "repeatVsMedianMaximumDifference": 0.0,
+      "scale": 2,
+      "status": "failed",
+      "worstCell": "apple-macos-27.0-2x-light-standard-glass0.5/green-colour__inactive",
+      "worstChannel": 0,
+      "worstRole": "calibration"
+    },
+    {
+      "allChannelFailedCells": 48,
+      "allChannelsMaximumMinimum": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/red-colour__rest",
+        "minimumChannelCodes": 39.68360437284882,
+        "residualRGB": [
+          82.09701853534324,
+          39.68360437284882,
+          39.68360437284882
+        ]
+      },
+      "cells": 57,
+      "censoredCells": 0,
+      "endpoint": "dark-active",
+      "failedCells": 57,
+      "failedChannels": 161,
+      "family": "H2",
+      "maximumCodes": 93.57034342089797,
+      "maximumRGBMean": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/green-colour__rest",
+        "meanCodes": 74.24680559258839,
+        "residualRGB": [
+          93.57034342089797,
+          35.599729935969236,
+          93.57034342089797
+        ]
+      },
+      "method": "minimax",
+      "population": "colour",
+      "repeatVsMedianMaximumDifference": 0.0,
+      "scale": 1,
+      "status": "failed",
+      "worstCell": "apple-macos-27.0-1x-dark-standard-glass0.5/green-colour__rest",
+      "worstChannel": 0,
+      "worstRole": "calibration"
+    },
+    {
+      "allChannelFailedCells": 48,
+      "allChannelsMaximumMinimum": {
+        "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/red-colour__rest",
+        "minimumChannelCodes": 39.68360437284882,
+        "residualRGB": [
+          82.09701853534324,
+          39.68360437284882,
+          39.68360437284882
+        ]
+      },
+      "cells": 57,
+      "censoredCells": 0,
+      "endpoint": "dark-active",
+      "failedCells": 57,
+      "failedChannels": 161,
+      "family": "H2",
+      "maximumCodes": 93.57034342089797,
+      "maximumRGBMean": {
+        "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/green-colour__rest",
+        "meanCodes": 74.24680559258839,
+        "residualRGB": [
+          93.57034342089797,
+          35.599729935969236,
+          93.57034342089797
+        ]
+      },
+      "method": "minimax",
+      "population": "colour",
+      "repeatVsMedianMaximumDifference": 0.0,
+      "scale": 2,
+      "status": "failed",
+      "worstCell": "apple-macos-27.0-2x-dark-standard-glass0.5/green-colour__rest",
+      "worstChannel": 0,
+      "worstRole": "calibration"
+    },
+    {
+      "allChannelFailedCells": 38,
+      "allChannelsMaximumMinimum": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/green-colour__inactive",
+        "minimumChannelCodes": 44.80260536387155,
+        "residualRGB": [
+          100.56937457324952,
+          44.80260536387155,
+          100.56937457324952
+        ]
+      },
+      "cells": 57,
+      "censoredCells": 0,
+      "endpoint": "dark-inactive",
+      "failedCells": 56,
+      "failedChannels": 150,
+      "family": "H2",
+      "maximumCodes": 125.29671418140109,
+      "maximumRGBMean": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/green-colour__inactive",
+        "meanCodes": 81.98045150345686,
+        "residualRGB": [
+          100.56937457324952,
+          44.80260536387155,
+          100.56937457324952
+        ]
+      },
+      "method": "minimax",
+      "population": "colour",
+      "repeatVsMedianMaximumDifference": 0.0,
+      "scale": 1,
+      "status": "failed",
+      "worstCell": "apple-macos-27.0-1x-dark-standard-glass0.5/red-colour__inactive",
+      "worstChannel": 0,
+      "worstRole": "calibration"
+    },
+    {
+      "allChannelFailedCells": 38,
+      "allChannelsMaximumMinimum": {
+        "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/green-colour__inactive",
+        "minimumChannelCodes": 44.80260536387155,
+        "residualRGB": [
+          100.56937457324952,
+          44.80260536387155,
+          100.56937457324952
+        ]
+      },
+      "cells": 57,
+      "censoredCells": 0,
+      "endpoint": "dark-inactive",
+      "failedCells": 56,
+      "failedChannels": 150,
+      "family": "H2",
+      "maximumCodes": 125.29671418140109,
+      "maximumRGBMean": {
+        "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/green-colour__inactive",
+        "meanCodes": 81.98045150345686,
+        "residualRGB": [
+          100.56937457324952,
+          44.80260536387155,
+          100.56937457324952
+        ]
+      },
+      "method": "minimax",
+      "population": "colour",
+      "repeatVsMedianMaximumDifference": 0.0,
+      "scale": 2,
+      "status": "failed",
+      "worstCell": "apple-macos-27.0-2x-dark-standard-glass0.5/red-colour__inactive",
+      "worstChannel": 0,
+      "worstRole": "calibration"
+    },
+    {
+      "allChannelFailedCells": 43,
+      "allChannelsMaximumMinimum": {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/green-colour__rest",
+        "minimumChannelCodes": 10.686423742498874,
+        "residualRGB": [
+          10.686423742498917,
+          10.686423742498874,
+          10.686423742498917
+        ]
+      },
+      "cells": 57,
+      "censoredCells": 1,
+      "endpoint": "light-active",
+      "failedCells": 56,
+      "failedChannels": 154,
+      "family": "H2prime",
+      "maximumCodes": 13.986417678613918,
+      "maximumRGBMean": {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/green-colour__rest",
+        "meanCodes": 10.686423742498903,
+        "residualRGB": [
+          10.686423742498917,
+          10.686423742498874,
+          10.686423742498917
+        ]
+      },
+      "method": "multistartMinimaxCandidate",
+      "population": "colour",
+      "repeatVsMedianMaximumDifference": 0.0,
+      "scale": 1,
+      "status": "failed",
+      "worstCell": "apple-macos-27.0-1x-light-standard-glass0.5/red-colour__rest",
+      "worstChannel": 1,
+      "worstRole": "calibration"
+    },
+    {
+      "allChannelFailedCells": 43,
+      "allChannelsMaximumMinimum": {
+        "cell": "apple-macos-27.0-2x-light-standard-glass0.5/green-colour__rest",
+        "minimumChannelCodes": 10.686423742498874,
+        "residualRGB": [
+          10.686423742498917,
+          10.686423742498874,
+          10.686423742498917
+        ]
+      },
+      "cells": 57,
+      "censoredCells": 1,
+      "endpoint": "light-active",
+      "failedCells": 56,
+      "failedChannels": 154,
+      "family": "H2prime",
+      "maximumCodes": 13.986417678613918,
+      "maximumRGBMean": {
+        "cell": "apple-macos-27.0-2x-light-standard-glass0.5/green-colour__rest",
+        "meanCodes": 10.686423742498903,
+        "residualRGB": [
+          10.686423742498917,
+          10.686423742498874,
+          10.686423742498917
+        ]
+      },
+      "method": "multistartMinimaxCandidate",
+      "population": "colour",
+      "repeatVsMedianMaximumDifference": 0.0,
+      "scale": 2,
+      "status": "failed",
+      "worstCell": "apple-macos-27.0-2x-light-standard-glass0.5/red-colour__rest",
+      "worstChannel": 1,
+      "worstRole": "calibration"
+    },
+    {
+      "allChannelFailedCells": 20,
+      "allChannelsMaximumMinimum": {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/green-colour__inactive",
+        "minimumChannelCodes": 10.708132257800543,
+        "residualRGB": [
+          10.708132257800557,
+          10.708132257800543,
+          10.708132257800557
+        ]
+      },
+      "cells": 57,
+      "censoredCells": 1,
+      "endpoint": "light-inactive",
+      "failedCells": 55,
+      "failedChannels": 127,
+      "family": "H2prime",
+      "maximumCodes": 11.259861151223205,
+      "maximumRGBMean": {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/green-colour__inactive",
+        "meanCodes": 10.708132257800552,
+        "residualRGB": [
+          10.708132257800557,
+          10.708132257800543,
+          10.708132257800557
+        ]
+      },
+      "method": "multistartMinimaxCandidate",
+      "population": "colour",
+      "repeatVsMedianMaximumDifference": 0.0,
+      "scale": 1,
+      "status": "failed",
+      "worstCell": "apple-macos-27.0-1x-light-standard-glass0.5/red-colour__inactive",
+      "worstChannel": 1,
+      "worstRole": "calibration"
+    },
+    {
+      "allChannelFailedCells": 20,
+      "allChannelsMaximumMinimum": {
+        "cell": "apple-macos-27.0-2x-light-standard-glass0.5/green-colour__inactive",
+        "minimumChannelCodes": 10.708132257800543,
+        "residualRGB": [
+          10.708132257800557,
+          10.708132257800543,
+          10.708132257800557
+        ]
+      },
+      "cells": 57,
+      "censoredCells": 1,
+      "endpoint": "light-inactive",
+      "failedCells": 55,
+      "failedChannels": 127,
+      "family": "H2prime",
+      "maximumCodes": 11.259861151223205,
+      "maximumRGBMean": {
+        "cell": "apple-macos-27.0-2x-light-standard-glass0.5/green-colour__inactive",
+        "meanCodes": 10.708132257800552,
+        "residualRGB": [
+          10.708132257800557,
+          10.708132257800543,
+          10.708132257800557
+        ]
+      },
+      "method": "multistartMinimaxCandidate",
+      "population": "colour",
+      "repeatVsMedianMaximumDifference": 0.0,
+      "scale": 2,
+      "status": "failed",
+      "worstCell": "apple-macos-27.0-2x-light-standard-glass0.5/red-colour__inactive",
+      "worstChannel": 1,
+      "worstRole": "calibration"
+    },
+    {
+      "allChannelFailedCells": 45,
+      "allChannelsMaximumMinimum": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/green-colour__rest",
+        "minimumChannelCodes": 8.356576076175372,
+        "residualRGB": [
+          8.356576076175376,
+          8.356576076175372,
+          8.356576076175376
+        ]
+      },
+      "cells": 57,
+      "censoredCells": 0,
+      "endpoint": "dark-active",
+      "failedCells": 51,
+      "failedChannels": 143,
+      "family": "H2prime",
+      "maximumCodes": 8.356576076175376,
+      "maximumRGBMean": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/green-colour__rest",
+        "meanCodes": 8.356576076175374,
+        "residualRGB": [
+          8.356576076175376,
+          8.356576076175372,
+          8.356576076175376
+        ]
+      },
+      "method": "multistartMinimaxCandidate",
+      "population": "colour",
+      "repeatVsMedianMaximumDifference": 0.0,
+      "scale": 1,
+      "status": "failed",
+      "worstCell": "apple-macos-27.0-1x-dark-standard-glass0.5/green-colour__rest",
+      "worstChannel": 0,
+      "worstRole": "calibration"
+    },
+    {
+      "allChannelFailedCells": 45,
+      "allChannelsMaximumMinimum": {
+        "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/green-colour__rest",
+        "minimumChannelCodes": 8.356576076175372,
+        "residualRGB": [
+          8.356576076175376,
+          8.356576076175372,
+          8.356576076175376
+        ]
+      },
+      "cells": 57,
+      "censoredCells": 0,
+      "endpoint": "dark-active",
+      "failedCells": 51,
+      "failedChannels": 143,
+      "family": "H2prime",
+      "maximumCodes": 8.356576076175376,
+      "maximumRGBMean": {
+        "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/green-colour__rest",
+        "meanCodes": 8.356576076175374,
+        "residualRGB": [
+          8.356576076175376,
+          8.356576076175372,
+          8.356576076175376
+        ]
+      },
+      "method": "multistartMinimaxCandidate",
+      "population": "colour",
+      "repeatVsMedianMaximumDifference": 0.0,
+      "scale": 2,
+      "status": "failed",
+      "worstCell": "apple-macos-27.0-2x-dark-standard-glass0.5/green-colour__rest",
+      "worstChannel": 0,
+      "worstRole": "calibration"
+    },
+    {
+      "allChannelFailedCells": 57,
+      "allChannelsMaximumMinimum": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/neutral-72-colour__inactive",
+        "minimumChannelCodes": 24.263028111554902,
+        "residualRGB": [
+          24.263028111554902,
+          24.263028111554902,
+          24.263028111554902
+        ]
+      },
+      "cells": 57,
+      "censoredCells": 0,
+      "endpoint": "dark-inactive",
+      "failedCells": 57,
+      "failedChannels": 171,
+      "family": "H2prime",
+      "maximumCodes": 27.692316291422443,
+      "maximumRGBMean": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h300-colour__inactive",
+        "meanCodes": 25.33792791848333,
+        "residualRGB": [
+          24.971947331885218,
+          23.34952013214233,
+          27.692316291422443
+        ]
+      },
+      "method": "multistartMinimaxCandidate",
+      "population": "colour",
+      "repeatVsMedianMaximumDifference": 0.0,
+      "scale": 1,
+      "status": "failed",
+      "worstCell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h300-colour__inactive",
+      "worstChannel": 2,
+      "worstRole": "calibration"
+    },
+    {
+      "allChannelFailedCells": 57,
+      "allChannelsMaximumMinimum": {
+        "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/neutral-72-colour__inactive",
+        "minimumChannelCodes": 24.263028111554902,
+        "residualRGB": [
+          24.263028111554902,
+          24.263028111554902,
+          24.263028111554902
+        ]
+      },
+      "cells": 57,
+      "censoredCells": 0,
+      "endpoint": "dark-inactive",
+      "failedCells": 57,
+      "failedChannels": 171,
+      "family": "H2prime",
+      "maximumCodes": 27.692316291422443,
+      "maximumRGBMean": {
+        "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h300-colour__inactive",
+        "meanCodes": 25.33792791848333,
+        "residualRGB": [
+          24.971947331885218,
+          23.34952013214233,
+          27.692316291422443
+        ]
+      },
+      "method": "multistartMinimaxCandidate",
+      "population": "colour",
+      "repeatVsMedianMaximumDifference": 0.0,
+      "scale": 2,
+      "status": "failed",
+      "worstCell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h300-colour__inactive",
+      "worstChannel": 2,
+      "worstRole": "calibration"
+    },
+    {
+      "allChannelFailedCells": 8,
+      "allChannelsMaximumMinimum": {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/green-colour__rest",
+        "minimumChannelCodes": 3.9190826416016904,
+        "residualRGB": [
+          3.9190826416016904,
+          3.9190826416017046,
+          3.9190826416017046
+        ]
+      },
+      "cells": 57,
+      "censoredCells": 1,
+      "endpoint": "light-active",
+      "failedCells": 46,
+      "failedChannels": 81,
+      "family": "H3",
+      "maximumCodes": 22.188795202563085,
+      "maximumRGBMean": {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/red-colour__rest",
+        "meanCodes": 12.39626506752102,
+        "residualRGB": [
+          0.0,
+          14.999999999999972,
+          22.188795202563085
+        ]
+      },
+      "method": "globalMinimax",
+      "population": "colour",
+      "repeatVsMedianMaximumDifference": 0.0,
+      "scale": 1,
+      "status": "failed",
+      "worstCell": "apple-macos-27.0-1x-light-standard-glass0.5/red-colour__rest",
+      "worstChannel": 2,
+      "worstRole": "calibration"
+    },
+    {
+      "allChannelFailedCells": 8,
+      "allChannelsMaximumMinimum": {
+        "cell": "apple-macos-27.0-2x-light-standard-glass0.5/green-colour__rest",
+        "minimumChannelCodes": 3.9190826416016904,
+        "residualRGB": [
+          3.9190826416016904,
+          3.9190826416017046,
+          3.9190826416017046
+        ]
+      },
+      "cells": 57,
+      "censoredCells": 1,
+      "endpoint": "light-active",
+      "failedCells": 46,
+      "failedChannels": 81,
+      "family": "H3",
+      "maximumCodes": 22.188795202563085,
+      "maximumRGBMean": {
+        "cell": "apple-macos-27.0-2x-light-standard-glass0.5/red-colour__rest",
+        "meanCodes": 12.39626506752102,
+        "residualRGB": [
+          0.0,
+          14.999999999999972,
+          22.188795202563085
+        ]
+      },
+      "method": "globalMinimax",
+      "population": "colour",
+      "repeatVsMedianMaximumDifference": 0.0,
+      "scale": 2,
+      "status": "failed",
+      "worstCell": "apple-macos-27.0-2x-light-standard-glass0.5/red-colour__rest",
+      "worstChannel": 2,
+      "worstRole": "calibration"
+    },
+    {
+      "allChannelFailedCells": 8,
+      "allChannelsMaximumMinimum": {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/green-colour__inactive",
+        "minimumChannelCodes": 4.185392260551595,
+        "residualRGB": [
+          4.185392260551652,
+          4.185392260551623,
+          4.185392260551595
+        ]
+      },
+      "cells": 57,
+      "censoredCells": 1,
+      "endpoint": "light-inactive",
+      "failedCells": 44,
+      "failedChannels": 86,
+      "family": "H3",
+      "maximumCodes": 49.436494758303795,
+      "maximumRGBMean": {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/red-colour__inactive",
+        "meanCodes": 22.312164919434597,
+        "residualRGB": [
+          0.0,
+          17.5,
+          49.436494758303795
+        ]
+      },
+      "method": "globalMinimax",
+      "population": "colour",
+      "repeatVsMedianMaximumDifference": 0.0,
+      "scale": 1,
+      "status": "failed",
+      "worstCell": "apple-macos-27.0-1x-light-standard-glass0.5/red-colour__inactive",
+      "worstChannel": 2,
+      "worstRole": "calibration"
+    },
+    {
+      "allChannelFailedCells": 8,
+      "allChannelsMaximumMinimum": {
+        "cell": "apple-macos-27.0-2x-light-standard-glass0.5/green-colour__inactive",
+        "minimumChannelCodes": 4.185392260551595,
+        "residualRGB": [
+          4.185392260551652,
+          4.185392260551623,
+          4.185392260551595
+        ]
+      },
+      "cells": 57,
+      "censoredCells": 1,
+      "endpoint": "light-inactive",
+      "failedCells": 44,
+      "failedChannels": 86,
+      "family": "H3",
+      "maximumCodes": 49.436494758303795,
+      "maximumRGBMean": {
+        "cell": "apple-macos-27.0-2x-light-standard-glass0.5/red-colour__inactive",
+        "meanCodes": 22.312164919434597,
+        "residualRGB": [
+          0.0,
+          17.5,
+          49.436494758303795
+        ]
+      },
+      "method": "globalMinimax",
+      "population": "colour",
+      "repeatVsMedianMaximumDifference": 0.0,
+      "scale": 2,
+      "status": "failed",
+      "worstCell": "apple-macos-27.0-2x-light-standard-glass0.5/red-colour__inactive",
+      "worstChannel": 2,
+      "worstRole": "calibration"
+    },
+    {
+      "allChannelFailedCells": 14,
+      "allChannelsMaximumMinimum": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/green-colour__rest",
+        "minimumChannelCodes": 20.13774560391478,
+        "residualRGB": [
+          20.13774560391478,
+          20.13885003870186,
+          20.138850038701868
+        ]
+      },
+      "cells": 57,
+      "censoredCells": 0,
+      "endpoint": "dark-active",
+      "failedCells": 48,
+      "failedChannels": 104,
+      "family": "H3",
+      "maximumCodes": 20.138850038701868,
+      "maximumRGBMean": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/green-colour__rest",
+        "meanCodes": 20.138481893772838,
+        "residualRGB": [
+          20.13774560391478,
+          20.13885003870186,
+          20.138850038701868
+        ]
+      },
+      "method": "globalMinimax",
+      "population": "colour",
+      "repeatVsMedianMaximumDifference": 0.0,
+      "scale": 1,
+      "status": "failed",
+      "worstCell": "apple-macos-27.0-1x-dark-standard-glass0.5/green-colour__rest",
+      "worstChannel": 2,
+      "worstRole": "calibration"
+    },
+    {
+      "allChannelFailedCells": 14,
+      "allChannelsMaximumMinimum": {
+        "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/green-colour__rest",
+        "minimumChannelCodes": 20.13774560391478,
+        "residualRGB": [
+          20.13774560391478,
+          20.13885003870186,
+          20.138850038701868
+        ]
+      },
+      "cells": 57,
+      "censoredCells": 0,
+      "endpoint": "dark-active",
+      "failedCells": 48,
+      "failedChannels": 104,
+      "family": "H3",
+      "maximumCodes": 20.138850038701868,
+      "maximumRGBMean": {
+        "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/green-colour__rest",
+        "meanCodes": 20.138481893772838,
+        "residualRGB": [
+          20.13774560391478,
+          20.13885003870186,
+          20.138850038701868
+        ]
+      },
+      "method": "globalMinimax",
+      "population": "colour",
+      "repeatVsMedianMaximumDifference": 0.0,
+      "scale": 2,
+      "status": "failed",
+      "worstCell": "apple-macos-27.0-2x-dark-standard-glass0.5/green-colour__rest",
+      "worstChannel": 2,
+      "worstRole": "calibration"
+    },
+    {
+      "allChannelFailedCells": 15,
+      "allChannelsMaximumMinimum": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/green-colour__inactive",
+        "minimumChannelCodes": 16.0,
+        "residualRGB": [
+          16.0,
+          17.470862442796886,
+          17.470862442796893
+        ]
+      },
+      "cells": 57,
+      "censoredCells": 0,
+      "endpoint": "dark-inactive",
+      "failedCells": 50,
+      "failedChannels": 106,
+      "family": "H3",
+      "maximumCodes": 17.470862442796893,
+      "maximumRGBMean": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/green-colour__inactive",
+        "meanCodes": 16.980574961864594,
+        "residualRGB": [
+          16.0,
+          17.470862442796886,
+          17.470862442796893
+        ]
+      },
+      "method": "globalMinimax",
+      "population": "colour",
+      "repeatVsMedianMaximumDifference": 0.0,
+      "scale": 1,
+      "status": "failed",
+      "worstCell": "apple-macos-27.0-1x-dark-standard-glass0.5/green-colour__inactive",
+      "worstChannel": 2,
+      "worstRole": "calibration"
+    },
+    {
+      "allChannelFailedCells": 15,
+      "allChannelsMaximumMinimum": {
+        "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/green-colour__inactive",
+        "minimumChannelCodes": 16.0,
+        "residualRGB": [
+          16.0,
+          17.470862442796886,
+          17.470862442796893
+        ]
+      },
+      "cells": 57,
+      "censoredCells": 0,
+      "endpoint": "dark-inactive",
+      "failedCells": 50,
+      "failedChannels": 106,
+      "family": "H3",
+      "maximumCodes": 17.470862442796893,
+      "maximumRGBMean": {
+        "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/green-colour__inactive",
+        "meanCodes": 16.980574961864594,
+        "residualRGB": [
+          16.0,
+          17.470862442796886,
+          17.470862442796893
+        ]
+      },
+      "method": "globalMinimax",
+      "population": "colour",
+      "repeatVsMedianMaximumDifference": 0.0,
+      "scale": 2,
+      "status": "failed",
+      "worstCell": "apple-macos-27.0-2x-dark-standard-glass0.5/green-colour__inactive",
+      "worstChannel": 2,
+      "worstRole": "calibration"
+    },
+    {
+      "allChannelFailedCells": 3,
+      "allChannelsMaximumMinimum": {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-0-colour__rest",
+        "minimumChannelCodes": 2.3988363835835855,
+        "residualRGB": [
+          2.662445972923024,
+          2.3988363835835855,
+          2.7088966075208987
+        ]
+      },
+      "cells": 57,
+      "censoredCells": 1,
+      "endpoint": "light-active",
+      "failedCells": 28,
+      "failedChannels": 48,
+      "family": "H3prime",
+      "maximumCodes": 7.635000555958101,
+      "maximumRGBMean": {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/red-colour__rest",
+        "meanCodes": 2.7574380183080884,
+        "residualRGB": [
+          0.0,
+          0.6373134989661651,
+          7.635000555958101
+        ]
+      },
+      "method": "multistartMinimaxCandidate",
+      "population": "colour",
+      "repeatVsMedianMaximumDifference": 0.0,
+      "scale": 1,
+      "status": "failed",
+      "worstCell": "apple-macos-27.0-1x-light-standard-glass0.5/red-colour__rest",
+      "worstChannel": 2,
+      "worstRole": "calibration"
+    },
+    {
+      "allChannelFailedCells": 3,
+      "allChannelsMaximumMinimum": {
+        "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-0-colour__rest",
+        "minimumChannelCodes": 2.3988363835835855,
+        "residualRGB": [
+          2.662445972923024,
+          2.3988363835835855,
+          2.7088966075208987
+        ]
+      },
+      "cells": 57,
+      "censoredCells": 1,
+      "endpoint": "light-active",
+      "failedCells": 28,
+      "failedChannels": 48,
+      "family": "H3prime",
+      "maximumCodes": 7.635000555958101,
+      "maximumRGBMean": {
+        "cell": "apple-macos-27.0-2x-light-standard-glass0.5/red-colour__rest",
+        "meanCodes": 2.7574380183080884,
+        "residualRGB": [
+          0.0,
+          0.6373134989661651,
+          7.635000555958101
+        ]
+      },
+      "method": "multistartMinimaxCandidate",
+      "population": "colour",
+      "repeatVsMedianMaximumDifference": 0.0,
+      "scale": 2,
+      "status": "failed",
+      "worstCell": "apple-macos-27.0-2x-light-standard-glass0.5/red-colour__rest",
+      "worstChannel": 2,
+      "worstRole": "calibration"
+    },
+    {
+      "allChannelFailedCells": 4,
+      "allChannelsMaximumMinimum": {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-5-colour__inactive",
+        "minimumChannelCodes": 1.5960261108939164,
+        "residualRGB": [
+          1.7993038050083499,
+          2.6585721282233408,
+          1.5960261108939164
+        ]
+      },
+      "cells": 57,
+      "censoredCells": 1,
+      "endpoint": "light-inactive",
+      "failedCells": 23,
+      "failedChannels": 38,
+      "family": "H3prime",
+      "maximumCodes": 2.6585721282234687,
+      "maximumRGBMean": {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/green-colour__inactive",
+        "meanCodes": 2.1645474923719568,
+        "residualRGB": [
+          1.176498220669032,
+          2.658572128223369,
+          2.6585721282234687
+        ]
+      },
+      "method": "multistartMinimaxCandidate",
+      "population": "colour",
+      "repeatVsMedianMaximumDifference": 0.0,
+      "scale": 1,
+      "status": "failed",
+      "worstCell": "apple-macos-27.0-1x-light-standard-glass0.5/green-colour__inactive",
+      "worstChannel": 2,
+      "worstRole": "calibration"
+    },
+    {
+      "allChannelFailedCells": 4,
+      "allChannelsMaximumMinimum": {
+        "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-5-colour__inactive",
+        "minimumChannelCodes": 1.5960261108939164,
+        "residualRGB": [
+          1.7993038050083499,
+          2.6585721282233408,
+          1.5960261108939164
+        ]
+      },
+      "cells": 57,
+      "censoredCells": 1,
+      "endpoint": "light-inactive",
+      "failedCells": 23,
+      "failedChannels": 38,
+      "family": "H3prime",
+      "maximumCodes": 2.6585721282234687,
+      "maximumRGBMean": {
+        "cell": "apple-macos-27.0-2x-light-standard-glass0.5/green-colour__inactive",
+        "meanCodes": 2.1645474923719568,
+        "residualRGB": [
+          1.176498220669032,
+          2.658572128223369,
+          2.6585721282234687
+        ]
+      },
+      "method": "multistartMinimaxCandidate",
+      "population": "colour",
+      "repeatVsMedianMaximumDifference": 0.0,
+      "scale": 2,
+      "status": "failed",
+      "worstCell": "apple-macos-27.0-2x-light-standard-glass0.5/green-colour__inactive",
+      "worstChannel": 2,
+      "worstRole": "calibration"
+    },
+    {
+      "allChannelFailedCells": 3,
+      "allChannelsMaximumMinimum": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/red-colour__rest",
+        "minimumChannelCodes": 21.704661724447305,
+        "residualRGB": [
+          21.704661724447305,
+          21.704661724447494,
+          21.70466172444741
+        ]
+      },
+      "cells": 57,
+      "censoredCells": 0,
+      "endpoint": "dark-active",
+      "failedCells": 26,
+      "failedChannels": 43,
+      "family": "H3prime",
+      "maximumCodes": 21.704661724447494,
+      "maximumRGBMean": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/red-colour__rest",
+        "meanCodes": 21.7046617244474,
+        "residualRGB": [
+          21.704661724447305,
+          21.704661724447494,
+          21.70466172444741
+        ]
+      },
+      "method": "multistartMinimaxCandidate",
+      "population": "colour",
+      "repeatVsMedianMaximumDifference": 0.0,
+      "scale": 1,
+      "status": "failed",
+      "worstCell": "apple-macos-27.0-1x-dark-standard-glass0.5/red-colour__rest",
+      "worstChannel": 1,
+      "worstRole": "calibration"
+    },
+    {
+      "allChannelFailedCells": 3,
+      "allChannelsMaximumMinimum": {
+        "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/red-colour__rest",
+        "minimumChannelCodes": 21.704661724447305,
+        "residualRGB": [
+          21.704661724447305,
+          21.704661724447494,
+          21.70466172444741
+        ]
+      },
+      "cells": 57,
+      "censoredCells": 0,
+      "endpoint": "dark-active",
+      "failedCells": 26,
+      "failedChannels": 43,
+      "family": "H3prime",
+      "maximumCodes": 21.704661724447494,
+      "maximumRGBMean": {
+        "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/red-colour__rest",
+        "meanCodes": 21.7046617244474,
+        "residualRGB": [
+          21.704661724447305,
+          21.704661724447494,
+          21.70466172444741
+        ]
+      },
+      "method": "multistartMinimaxCandidate",
+      "population": "colour",
+      "repeatVsMedianMaximumDifference": 0.0,
+      "scale": 2,
+      "status": "failed",
+      "worstCell": "apple-macos-27.0-2x-dark-standard-glass0.5/red-colour__rest",
+      "worstChannel": 1,
+      "worstRole": "calibration"
+    },
+    {
+      "allChannelFailedCells": 3,
+      "allChannelsMaximumMinimum": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/red-colour__inactive",
+        "minimumChannelCodes": 25.283014344777754,
+        "residualRGB": [
+          25.283014344777825,
+          25.283014344777953,
+          25.283014344777754
+        ]
+      },
+      "cells": 57,
+      "censoredCells": 0,
+      "endpoint": "dark-inactive",
+      "failedCells": 30,
+      "failedChannels": 41,
+      "family": "H3prime",
+      "maximumCodes": 25.283014344777953,
+      "maximumRGBMean": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/red-colour__inactive",
+        "meanCodes": 25.283014344777843,
+        "residualRGB": [
+          25.283014344777825,
+          25.283014344777953,
+          25.283014344777754
+        ]
+      },
+      "method": "multistartMinimaxCandidate",
+      "population": "colour",
+      "repeatVsMedianMaximumDifference": 0.0,
+      "scale": 1,
+      "status": "failed",
+      "worstCell": "apple-macos-27.0-1x-dark-standard-glass0.5/red-colour__inactive",
+      "worstChannel": 1,
+      "worstRole": "calibration"
+    },
+    {
+      "allChannelFailedCells": 3,
+      "allChannelsMaximumMinimum": {
+        "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/red-colour__inactive",
+        "minimumChannelCodes": 25.283014344777754,
+        "residualRGB": [
+          25.283014344777825,
+          25.283014344777953,
+          25.283014344777754
+        ]
+      },
+      "cells": 57,
+      "censoredCells": 0,
+      "endpoint": "dark-inactive",
+      "failedCells": 30,
+      "failedChannels": 41,
+      "family": "H3prime",
+      "maximumCodes": 25.283014344777953,
+      "maximumRGBMean": {
+        "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/red-colour__inactive",
+        "meanCodes": 25.283014344777843,
+        "residualRGB": [
+          25.283014344777825,
+          25.283014344777953,
+          25.283014344777754
+        ]
+      },
+      "method": "multistartMinimaxCandidate",
+      "population": "colour",
+      "repeatVsMedianMaximumDifference": 0.0,
+      "scale": 2,
+      "status": "failed",
+      "worstCell": "apple-macos-27.0-2x-dark-standard-glass0.5/red-colour__inactive",
+      "worstChannel": 1,
+      "worstRole": "calibration"
+    }
+  ],
+  "edgeSurvival": [
+    {
+      "endpoint": "light-active",
+      "scale": 1,
+      "method": "leastSquares",
+      "status": "failed",
+      "worst": {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g128-c-rrect-120x96__rest",
+        "member": 0,
+        "part": "straight",
+        "side": "left",
+        "bin": 8,
+        "shell": 0,
+        "sourceKind": "uniform",
+        "measuredResidualRGB": [
+          65.89285714285714,
+          65.89285714285714,
+          65.89285714285714
+        ],
+        "channelStatus": [
+          "measured",
+          "measured",
+          "measured"
+        ],
+        "channel": 0,
+        "codes": 65.89285714285714,
+        "toleranceCodes": 1.0
+      },
+      "failingBins": 6924,
+      "failingChannels": 17715
+    },
+    {
+      "endpoint": "light-active",
+      "scale": 1,
+      "method": "minimax",
+      "status": "failed",
+      "worst": {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g128-c-rrect-120x96__rest",
+        "member": 0,
+        "part": "straight",
+        "side": "left",
+        "bin": 8,
+        "shell": 0,
+        "sourceKind": "uniform",
+        "measuredResidualRGB": [
+          65.89285714285714,
+          65.89285714285714,
+          65.89285714285714
+        ],
+        "channelStatus": [
+          "measured",
+          "measured",
+          "measured"
+        ],
+        "channel": 0,
+        "codes": 65.89285714285714,
+        "toleranceCodes": 1.0
+      },
+      "failingBins": 7370,
+      "failingChannels": 19069
+    },
+    {
+      "endpoint": "light-active",
+      "scale": 2,
+      "method": "leastSquares",
+      "status": "failed",
+      "worst": {
+        "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-rrect-120x96__rest",
+        "member": 0,
+        "part": "straight",
+        "side": "left",
+        "bin": 8,
+        "shell": 0,
+        "sourceKind": "uniform",
+        "measuredResidualRGB": [
+          65.89655172413794,
+          65.89655172413794,
+          65.89655172413794
+        ],
+        "channelStatus": [
+          "measured",
+          "measured",
+          "measured"
+        ],
+        "channel": 0,
+        "codes": 65.89655172413794,
+        "toleranceCodes": 1.0
+      },
+      "failingBins": 16296,
+      "failingChannels": 41607
+    },
+    {
+      "endpoint": "light-active",
+      "scale": 2,
+      "method": "minimax",
+      "status": "failed",
+      "worst": {
+        "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-rrect-120x96__rest",
+        "member": 0,
+        "part": "straight",
+        "side": "left",
+        "bin": 8,
+        "shell": 0,
+        "sourceKind": "uniform",
+        "measuredResidualRGB": [
+          65.89655172413794,
+          65.89655172413794,
+          65.89655172413794
+        ],
+        "channelStatus": [
+          "measured",
+          "measured",
+          "measured"
+        ],
+        "channel": 0,
+        "codes": 65.89655172413794,
+        "toleranceCodes": 1.0
+      },
+      "failingBins": 18003,
+      "failingChannels": 46098
+    },
+    {
+      "endpoint": "light-inactive",
+      "scale": 1,
+      "method": "leastSquares",
+      "status": "failed",
+      "worst": {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g255-c-c44__inactive",
+        "member": 0,
+        "part": "arc",
+        "side": null,
+        "bin": 0,
+        "shell": 0,
+        "sourceKind": "uniform",
+        "measuredResidualRGB": [
+          55.5,
+          55.5,
+          55.5
+        ],
+        "channelStatus": [
+          "measured",
+          "measured",
+          "measured"
+        ],
+        "channel": 0,
+        "codes": 55.5,
+        "toleranceCodes": 1.0
+      },
+      "failingBins": 2063,
+      "failingChannels": 6090
+    },
+    {
+      "endpoint": "light-inactive",
+      "scale": 1,
+      "method": "minimax",
+      "status": "failed",
+      "worst": {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g255-c-c44__inactive",
+        "member": 0,
+        "part": "arc",
+        "side": null,
+        "bin": 0,
+        "shell": 0,
+        "sourceKind": "uniform",
+        "measuredResidualRGB": [
+          55.5,
+          55.5,
+          55.5
+        ],
+        "channelStatus": [
+          "measured",
+          "measured",
+          "measured"
+        ],
+        "channel": 0,
+        "codes": 55.5,
+        "toleranceCodes": 1.0
+      },
+      "failingBins": 2063,
+      "failingChannels": 6090
+    },
+    {
+      "endpoint": "light-inactive",
+      "scale": 2,
+      "method": "leastSquares",
+      "status": "failed",
+      "worst": {
+        "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g255-c-c44__inactive",
+        "member": 0,
+        "part": "arc",
+        "side": null,
+        "bin": 0,
+        "shell": 0,
+        "sourceKind": "uniform",
+        "measuredResidualRGB": [
+          52.0,
+          51.857142857142854,
+          52.0
+        ],
+        "channelStatus": [
+          "measured",
+          "measured",
+          "measured"
+        ],
+        "channel": 0,
+        "codes": 52.0,
+        "toleranceCodes": 1.0
+      },
+      "failingBins": 3300,
+      "failingChannels": 9810
+    },
+    {
+      "endpoint": "light-inactive",
+      "scale": 2,
+      "method": "minimax",
+      "status": "failed",
+      "worst": {
+        "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g255-c-c44__inactive",
+        "member": 0,
+        "part": "arc",
+        "side": null,
+        "bin": 0,
+        "shell": 0,
+        "sourceKind": "uniform",
+        "measuredResidualRGB": [
+          52.0,
+          51.857142857142854,
+          52.0
+        ],
+        "channelStatus": [
+          "measured",
+          "measured",
+          "measured"
+        ],
+        "channel": 0,
+        "codes": 52.0,
+        "toleranceCodes": 1.0
+      },
+      "failingBins": 3300,
+      "failingChannels": 9810
+    },
+    {
+      "endpoint": "dark-active",
+      "scale": 1,
+      "method": "leastSquares",
+      "status": "failed",
+      "worst": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/g255-c-c44__rest",
+        "member": 0,
+        "part": "arc",
+        "side": null,
+        "bin": 0,
+        "shell": 0,
+        "sourceKind": "uniform",
+        "measuredResidualRGB": [
+          113.125,
+          113.125,
+          113.125
+        ],
+        "channelStatus": [
+          "measured",
+          "measured",
+          "measured"
+        ],
+        "channel": 0,
+        "codes": 113.125,
+        "toleranceCodes": 1.0
+      },
+      "failingBins": 5969,
+      "failingChannels": 14437
+    },
+    {
+      "endpoint": "dark-active",
+      "scale": 1,
+      "method": "minimax",
+      "status": "failed",
+      "worst": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/g255-c-c44__rest",
+        "member": 0,
+        "part": "arc",
+        "side": null,
+        "bin": 0,
+        "shell": 0,
+        "sourceKind": "uniform",
+        "measuredResidualRGB": [
+          113.125,
+          113.125,
+          113.125
+        ],
+        "channelStatus": [
+          "measured",
+          "measured",
+          "measured"
+        ],
+        "channel": 0,
+        "codes": 113.125,
+        "toleranceCodes": 1.0
+      },
+      "failingBins": 7106,
+      "failingChannels": 17426
+    },
+    {
+      "endpoint": "dark-active",
+      "scale": 2,
+      "method": "leastSquares",
+      "status": "failed",
+      "worst": {
+        "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/g255-c-c44__rest",
+        "member": 0,
+        "part": "arc",
+        "side": null,
+        "bin": 0,
+        "shell": 0,
+        "sourceKind": "uniform",
+        "measuredResidualRGB": [
+          105.14285714285714,
+          105.14285714285714,
+          105.14285714285714
+        ],
+        "channelStatus": [
+          "measured",
+          "measured",
+          "measured"
+        ],
+        "channel": 0,
+        "codes": 105.14285714285714,
+        "toleranceCodes": 1.0
+      },
+      "failingBins": 14174,
+      "failingChannels": 34295
+    },
+    {
+      "endpoint": "dark-active",
+      "scale": 2,
+      "method": "minimax",
+      "status": "failed",
+      "worst": {
+        "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/g255-c-c44__rest",
+        "member": 0,
+        "part": "arc",
+        "side": null,
+        "bin": 0,
+        "shell": 0,
+        "sourceKind": "uniform",
+        "measuredResidualRGB": [
+          105.14285714285714,
+          105.14285714285714,
+          105.14285714285714
+        ],
+        "channelStatus": [
+          "measured",
+          "measured",
+          "measured"
+        ],
+        "channel": 0,
+        "codes": 105.14285714285714,
+        "toleranceCodes": 1.0
+      },
+      "failingBins": 16386,
+      "failingChannels": 40164
+    },
+    {
+      "endpoint": "dark-inactive",
+      "scale": 1,
+      "method": "leastSquares",
+      "status": "failed",
+      "worst": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/g255-c-c44__inactive",
+        "member": 0,
+        "part": "arc",
+        "side": null,
+        "bin": 0,
+        "shell": 0,
+        "sourceKind": "uniform",
+        "measuredResidualRGB": [
+          109.5,
+          109.5,
+          109.5
+        ],
+        "channelStatus": [
+          "measured",
+          "measured",
+          "measured"
+        ],
+        "channel": 0,
+        "codes": 109.5,
+        "toleranceCodes": 1.0
+      },
+      "failingBins": 2259,
+      "failingChannels": 6721
+    },
+    {
+      "endpoint": "dark-inactive",
+      "scale": 1,
+      "method": "minimax",
+      "status": "failed",
+      "worst": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/g255-c-c44__inactive",
+        "member": 0,
+        "part": "arc",
+        "side": null,
+        "bin": 0,
+        "shell": 0,
+        "sourceKind": "uniform",
+        "measuredResidualRGB": [
+          109.5,
+          109.5,
+          109.5
+        ],
+        "channelStatus": [
+          "measured",
+          "measured",
+          "measured"
+        ],
+        "channel": 0,
+        "codes": 109.5,
+        "toleranceCodes": 1.0
+      },
+      "failingBins": 2259,
+      "failingChannels": 6721
+    },
+    {
+      "endpoint": "dark-inactive",
+      "scale": 2,
+      "method": "leastSquares",
+      "status": "failed",
+      "worst": {
+        "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/g255-c-c44__inactive",
+        "member": 0,
+        "part": "arc",
+        "side": null,
+        "bin": 0,
+        "shell": 0,
+        "sourceKind": "uniform",
+        "measuredResidualRGB": [
+          102.42857142857143,
+          102.57142857142857,
+          102.42857142857143
+        ],
+        "channelStatus": [
+          "measured",
+          "measured",
+          "measured"
+        ],
+        "channel": 1,
+        "codes": 102.57142857142857,
+        "toleranceCodes": 1.0
+      },
+      "failingBins": 3893,
+      "failingChannels": 11527
+    },
+    {
+      "endpoint": "dark-inactive",
+      "scale": 2,
+      "method": "minimax",
+      "status": "failed",
+      "worst": {
+        "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/g255-c-c44__inactive",
+        "member": 0,
+        "part": "arc",
+        "side": null,
+        "bin": 0,
+        "shell": 0,
+        "sourceKind": "uniform",
+        "measuredResidualRGB": [
+          102.42857142857143,
+          102.57142857142857,
+          102.42857142857143
+        ],
+        "channelStatus": [
+          "measured",
+          "measured",
+          "measured"
+        ],
+        "channel": 1,
+        "codes": 102.57142857142857,
+        "toleranceCodes": 1.0
+      },
+      "failingBins": 3893,
+      "failingChannels": 11527
+    }
+  ],
+  "supportCertificate": [
+    {
+      "endpoint": "light-active",
+      "scale": 1,
+      "allSevenRunsAndMedianFail": true,
+      "worst": {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/v90-c-c44__rest",
+        "member": 0,
+        "part": "straight",
+        "side": "top",
+        "bin": 12,
+        "shell": -14,
+        "sourceKind": "gradient",
+        "measuredResidualRGB": [
+          5.0,
+          5.0,
+          5.0
+        ],
+        "channelStatus": [
+          "measured",
+          "measured",
+          "measured"
+        ],
+        "channel": 0,
+        "codes": 5.0,
+        "toleranceCodes": 1.0
+      }
+    },
+    {
+      "endpoint": "light-active",
+      "scale": 2,
+      "allSevenRunsAndMedianFail": true,
+      "worst": {
+        "cell": "apple-macos-27.0-2x-light-standard-glass0.5/v90-c-c44__rest",
+        "member": 0,
+        "part": "straight",
+        "side": "top",
+        "bin": 12,
+        "shell": -27,
+        "sourceKind": "gradient",
+        "measuredResidualRGB": [
+          5.0,
+          5.0,
+          5.0
+        ],
+        "channelStatus": [
+          "measured",
+          "measured",
+          "measured"
+        ],
+        "channel": 0,
+        "codes": 5.0,
+        "toleranceCodes": 1.0
+      }
+    },
+    {
+      "endpoint": "light-inactive",
+      "scale": 1,
+      "allSevenRunsAndMedianFail": true,
+      "worst": {
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/v90-c-c44__inactive",
+        "member": 0,
+        "part": "straight",
+        "side": "bottom",
+        "bin": 4,
+        "shell": -14,
+        "sourceKind": "gradient",
+        "measuredResidualRGB": [
+          2.0,
+          1.0,
+          1.0
+        ],
+        "channelStatus": [
+          "measured",
+          "measured",
+          "measured"
+        ],
+        "channel": 0,
+        "codes": 2.0,
+        "toleranceCodes": 1.0
+      }
+    },
+    {
+      "endpoint": "light-inactive",
+      "scale": 2,
+      "allSevenRunsAndMedianFail": true,
+      "worst": {
+        "cell": "apple-macos-27.0-2x-light-standard-glass0.5/v270-c-c44__inactive",
+        "member": 0,
+        "part": "straight",
+        "side": "top",
+        "bin": 12,
+        "shell": -27,
+        "sourceKind": "gradient",
+        "measuredResidualRGB": [
+          2.0,
+          1.0,
+          1.0
+        ],
+        "channelStatus": [
+          "measured",
+          "measured",
+          "measured"
+        ],
+        "channel": 0,
+        "codes": 2.0,
+        "toleranceCodes": 1.0
+      }
+    },
+    {
+      "endpoint": "dark-active",
+      "scale": 1,
+      "allSevenRunsAndMedianFail": true,
+      "worst": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/v90-c-c44__rest",
+        "member": 0,
+        "part": "straight",
+        "side": "top",
+        "bin": 12,
+        "shell": -14,
+        "sourceKind": "gradient",
+        "measuredResidualRGB": [
+          4.0,
+          4.0,
+          4.0
+        ],
+        "channelStatus": [
+          "measured",
+          "measured",
+          "measured"
+        ],
+        "channel": 0,
+        "codes": 4.0,
+        "toleranceCodes": 1.0
+      }
+    },
+    {
+      "endpoint": "dark-active",
+      "scale": 2,
+      "allSevenRunsAndMedianFail": true,
+      "worst": {
+        "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/v90-c-c44__rest",
+        "member": 0,
+        "part": "arc",
+        "side": null,
+        "bin": 12,
+        "shell": -26,
+        "sourceKind": "gradient",
+        "measuredResidualRGB": [
+          4.25,
+          4.25,
+          4.25
+        ],
+        "channelStatus": [
+          "measured",
+          "measured",
+          "measured"
+        ],
+        "channel": 0,
+        "codes": 4.25,
+        "toleranceCodes": 1.0
+      }
+    },
+    {
+      "endpoint": "dark-inactive",
+      "scale": 1,
+      "allSevenRunsAndMedianFail": true,
+      "worst": {
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/v90-column__inactive",
+        "member": 0,
+        "part": "straight",
+        "side": "top",
+        "bin": 12,
+        "shell": -14,
+        "sourceKind": "gradient",
+        "measuredResidualRGB": [
+          3.0,
+          2.5,
+          2.5
+        ],
+        "channelStatus": [
+          "measured",
+          "measured",
+          "measured"
+        ],
+        "channel": 0,
+        "codes": 3.0,
+        "toleranceCodes": 1.0
+      }
+    },
+    {
+      "endpoint": "dark-inactive",
+      "scale": 2,
+      "allSevenRunsAndMedianFail": true,
+      "worst": {
+        "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/v90-column__inactive",
+        "member": 0,
+        "part": "straight",
+        "side": "top",
+        "bin": 12,
+        "shell": -28,
+        "sourceKind": "gradient",
+        "measuredResidualRGB": [
+          3.0,
+          3.0,
+          3.0
+        ],
+        "channelStatus": [
+          "measured",
+          "measured",
+          "measured"
+        ],
+        "channel": 0,
+        "codes": 3.0,
+        "toleranceCodes": 1.0
+      }
+    }
+  ],
+  "H4": "not applicable: no surviving body law identified",
+  "nonlinearQualification": "H2prime/H3prime candidate failures, not certified global exclusions",
+  "survivingCandidates": [],
+  "freezeForExposure": null,
+  "exposureRan": false,
+  "holdout": "analytically sealed; no receipt spent",
+  "resolution": "not evaluated: no surviving predictions; not an insufficient-resolution finding",
+  "transferRange": null,
+  "cssReach": "not entered: no survivor",
+  "decisionLog2": "recommendation only; user rules"
+}

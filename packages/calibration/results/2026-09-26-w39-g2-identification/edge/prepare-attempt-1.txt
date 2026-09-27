@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w39/g2/packages/calibration/results/2026-09-26-w39-g2-identification/edge/prepare.py", line 21, in <module>
+  File "/Users/new/vitrea-w39/g2/packages/calibration/results/2026-09-26-w39-g2-identification/native.py", line 22, in guarded
+  File "/Users/new/vitrea-w39/g2/packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/wave.py", line 202, in reader
+    # maybe fix alignment
+   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w39/g2/packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/wave.py", line 210, in __init__
+    while self.size_read < self.chunksize:
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py", line 1019, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/new/.cache/vitrea-archives/489db938a1e234a772ba7223d24fbaf76d1375d9e5b2421ed84a86894426b5/extracted/archive/inventory.json'

@@ -1,0 +1,13 @@
+F...
+======================================================================
+FAIL: test_matrix_preserves_neutral_and_couples_channels (__main__.BodyTests.test_matrix_preserves_neutral_and_couples_channels)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w39/g2/packages/calibration/results/2026-09-26-w39-g2-identification/instrument/test-body.py", line 17, in test_matrix_preserves_neutral_and_couples_channels
+    self.assertGreater(abs(y[1,0]-y[2,0])*255,1)
+AssertionError: np.float64(0.0) not greater than 1
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.062s
+
+FAILED (failures=1)

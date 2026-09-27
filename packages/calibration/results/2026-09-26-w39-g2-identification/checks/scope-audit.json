@@ -1,0 +1,47 @@
+{
+  "base": "8169209d",
+  "allowed": [
+    "packages/calibration/results/2026-09-26-w39-g2-identification/",
+    "docs/doperpowers/specs/c9a-fidelity-claims.md"
+  ],
+  "unexpectedPaths": [],
+  "changedFiles": 431,
+  "freezeChecks": [
+    {
+      "path": "instrument/freeze-provenance.txt",
+      "result": "26.5 freeze intact: 1818 entries"
+    },
+    {
+      "path": "instrument/freeze-verify.txt",
+      "result": "26.5 freeze intact: 1818 entries"
+    },
+    {
+      "path": "checks/freeze-edge-complete.txt",
+      "result": "26.5 freeze intact: 1818 entries"
+    },
+    {
+      "path": "setup/freeze-verify.txt",
+      "result": "26.5 freeze intact: 1818 entries"
+    },
+    {
+      "path": "body/freeze-verify-first.txt",
+      "result": "26.5 freeze intact: 1818 entries"
+    },
+    {
+      "path": "body/freeze-verify-correction.txt",
+      "result": "26.5 freeze intact: 1818 entries"
+    },
+    {
+      "path": "edge/freeze-before-fit.txt",
+      "result": "26.5 freeze intact: 1818 entries"
+    },
+    {
+      "path": "edge/freeze-before-gn.txt",
+      "result": "26.5 freeze intact: 1818 entries"
+    },
+    {
+      "path": "neutral/freeze-verify.txt",
+      "result": "26.5 freeze intact: 1818 entries"
+    }
+  ]
+}
