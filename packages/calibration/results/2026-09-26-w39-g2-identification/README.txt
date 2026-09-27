@@ -160,10 +160,10 @@ No exposure has occurred. Step4 continues after the body numerical correction.
 Parent rulings — 2026-09-27 (verbatim, before their dependent corrections/fits)
 
 Conditioner ruling:
-"In R_c = a + g·Ybody + (c + h·Ybody)·(body_c − Ybody), \"body\" is the cell's own native seven-run deep median per channel from the archive, exactly the deep statistic the declaration already defines. Reasoning to record verbatim in the README under a \"Parent rulings\" heading and in §5.186: any surviving body law would have predicted that deep within max(1 code, bar) on every calibration and validation cell, so the measured deep is what a survivor would have supplied to within one code; it has zero free parameters; it is a measured input, not a free per-cell edge colour, which is what the declaration's prohibition guards against. Every other term of the edge declaration (both lobes, the width grid, the exponents, the hats, the 8×8 quadrature and 16×16 sensitivity, populations, bounds, calibration-only fit, validation as transfer, the survival rule at max(1, bar)) is unchanged. State explicitly that any surviving edge law is an EFFECTIVE law identified on native pixels and that its transfer to vitrea's rendered body is tabled in step 9, not assumed."
+"In R_c = a + g·Ybody + (c + h·Ybody)·(body_c − Ybody), "body" is the cell's own native seven-run deep median per channel from the archive, exactly the deep statistic the declaration already defines. Reasoning to record verbatim in the README under a "Parent rulings" heading and in §5.186: any surviving body law would have predicted that deep within max(1 code, bar) on every calibration and validation cell, so the measured deep is what a survivor would have supplied to within one code; it has zero free parameters; it is a measured input, not a free per-cell edge colour, which is what the declaration's prohibition guards against. Every other term of the edge declaration (both lobes, the width grid, the exponents, the hats, the 8×8 quadrature and 16×16 sensitivity, populations, bounds, calibration-only fit, validation as transfer, the survival rule at max(1, bar)) is unchanged. State explicitly that any surviving edge law is an EFFECTIVE law identified on native pixels and that its transfer to vitrea's rendered body is tabled in step 9, not assumed."
 
 H2prime inputs/minimum ruling:
-"For your record: your fix worker asked me directly about H2′'s inputs, and I ruled that the resolved shipped materials (a committed, digest-pinned `instrument/resolved-materials.json` derived from the four profile documents and DEFAULT_MATERIAL_PROFILE) are an admitted second input for H2′, with the body artifact recording that file's SHA-256 so the replay verifies both, and that H2′ must be fitted to a certified minimum like the other families rather than relabelled from uncertified local candidates. Both rulings (this one and the conditioner) go verbatim under a \"Parent rulings\" heading in the README. Continue as instructed; hand back when the whole gate is done."
+"For your record: your fix worker asked me directly about H2′'s inputs, and I ruled that the resolved shipped materials (a committed, digest-pinned `instrument/resolved-materials.json` derived from the four profile documents and DEFAULT_MATERIAL_PROFILE) are an admitted second input for H2′, with the body artifact recording that file's SHA-256 so the replay verifies both, and that H2′ must be fitted to a certified minimum like the other families rather than relabelled from uncertified local candidates. Both rulings (this one and the conditioner) go verbatim under a "Parent rulings" heading in the README. Continue as instructed; hand back when the whole gate is done."
 
 The original body artifact predates the additive material provenance sidecar;
 H2prime's corrected replay has two committed inputs, the body artifact and the
@@ -280,3 +280,85 @@ The independent reviewer-medium of body-correction returned 'correct; no
 material findings'. It ran all13 tests and the complete read-only replay under
 the pinned runtime, reproducing the canonical JSON hash. The initial numerical
 review's actionable finding is closed; local-vs-global qualifications remain.
+
+STEP 4 COMPLETE: THE GRID, THE ATTRIBUTIONS AND FIXED-COEFFICIENT SENSITIVITY
+
+All180 corrected grid points (45 x four shared-scale endpoints) converge under
+both LS and numerical minimax; endpoint wall times77–99s. Selected LS shapes
+are light-active width1.2/p3, dark-active1.2/p4, both inactive2.4/p1. Weighted
+encoded MSE is25.427273 /20.244102 /22.518308 /29.600458 respectively.
+Width2 has rank36; every other choice rank44. The lost eight dimensions are
+line/first-hat aliases, not hidden regularization. All coefficients and trial
+metadata are in edge/*-gn/; selected-method bins retain absolute-before-reduction
+errors and each repeat. The numerical minimax is dominated by required exterior
+bins:57.5 light-active,55.5 light-inactive,113.125 dark-active,109.5 dark-inactive
+calibration codes. Its width0.8/p1 choice is a tie-order representative, not an
+identified width. These stationary fits are reported beside the independent
+all-coefficient support rejection, not promoted to global optimizer proofs.
+
+edge/sensitivity.json.gz contains639,360 fixed-coefficient8x8/16x16 comparisons.
+Maximum predicted pixel/bin change0.108522 code, dark-active LS; other active
+methods0.048137–0.075460; inactive methods all below0.000198. No refit/reselection.
+The support witnesses stay zero-basis at both quadratures.
+
+Uniform versus gradient attribution is in edge/diagnostic.json.gz and ledger
+§5.186 section7. Grey-control uniform calibration tails are4/4 light-active and
+2/2 dark-active, zero in both inactive endpoints; active solid validation is3/3
+light and2/2 dark. The corrected support census additionally finds3/4 dark-active
+among ALL uniform colours (not only grey controls). Gradient failures partly
+belong to the constant-deep conditioner: a central encoded secant explains2.667
+of the light-active5-code witness,2.190/2.667 of dark-active4/4.25,0.667 of light-
+inactiveR2, and2 of dark-inactive3. Assumptions and remainders stay diagnostic.
+
+The exterior is a separate finding, measured without fitting. edge/ring.json.gz
+has6,720 records (5,528 with population>=4), every arc normal/straight side and
+shell0/1 at1x or0..3 at2x, over the declared grey/gradient circular120x44 and
+radius22-rrect ladder. Every repeat bar is0.5. Detailed RGB signed means and
+seven runs remain; missing/underpopulated bins are explicit. Grey128 circular
+readings are invariant across the three window heights (maximum difference0).
+At the right apex on grey255, inactive shell0 darkening is55.5/52 light and
+109.5/102.571 dark,1x/2x. The ordinary opaque control has exactly0 coverage there;
+its apex offset is only-0.049020/-0.025490 device px and its extra exterior filled
+length0. Glass-specific dark drawing, not shared path registration, explains
+the observation. Unmixing body/background gives alpha3.7 light and1.46 dark,
+which cannot be area coverage: physical extra width is UNIDENTIFIABLE. The
+algebraic right-apex lengths4.133/4.233 light and1.620/1.667 dark remain labelled
+as algebraic, not physical. The ring is angular/backdrop/scheme conditioned;
+dark active's top straight is exactly0 while its horizontal arcs exceed100 codes
+on grey255. The inactive2x shells2/3 are exactly0, consistent with W32's outside-
+two-device-pixel reading. Vitrea's receded shadow is zero and has no corresponding
+exterior contour term. No declared G2 family has exterior support.
+
+The parent initially proposed treating shell0 as the diagnostic boundary, then
+checked the code and withdrew that instruction: shell0 arc/straight bins are
+REQUIRED, whereas only part='boundary', shell=null straddling rows are diagnostic.
+The required set never changed. Interior-only fit numbers in the ledger are
+explicit diagnostics, never another survival definition.
+
+ADDITIVE EDGE REPORTING CORRECTION
+
+reviewer-high reproduced21,312 support residuals after checking all611 sealed
+cache files and found no verdict-breaking defect, but identified a P2 censor
+classification omission. A geometry-measured white255 channel had been shown as
+a measured zero-error pass. The worker independently verified that defect and
+also found cached geometry's member0 label copied onto a column's second member;
+numeric fits used the right bodies, but labels aliased. A separate fix wave
+changes neither fits, coefficients, populations, tolerances nor any old artifact.
+
+edge-correction/attempt-2 is authoritative:660,672 JSONL bin records,960 summary
+strata, median plus all7 runs. Geometry status is separate from each channel's
+censor/population status; censored observations remain interval-bound diagnostics
+and cannot pass as measured. An UNMEASURED R does not erase a measured G failure
+(the real grey255 top-tail G249 error4 is tested). Actual column member IDs are
+restored from ordered cache blocks; legacy labels remain visible. Per selected
+method there are319,680 bins:267,708 fully measured,1,520 partly measured and
+50,452 unmeasured. Censor/absence counts are separately tabled and can overlap.
+All8 calibration strata still have uncensored support failures on every run.
+
+All16 correction tests pass (checks/edge-report-tests.txt); full no-write replay
+completed with every JSONL record and summary exactly matching. It uses only
+NumPy, verifies all611 cache files and15 source artifacts, and runs no optimizer
+or native/archive reader. The interrupted partial attempt1 is retained byte-for-
+byte outside the worktree at /Users/new/vitrea-w39/g2-incomplete-edge-report-attempt-1;
+edge-correction/incomplete-attempt-1-preservation.json pins it. Attempt2 is complete.
+Independent correction re-review follows this checkpoint.
