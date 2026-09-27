@@ -1,0 +1,291 @@
+{
+  "bootstrapSha256": "752246375e44a046ebf5404d96e7411bfae508d0ba8f2226516d65459a1b8b19",
+  "savedManifestSha256": "cf536394ad212b87469b97e4b11ca34f0b5be1fe2d13bfdd3becb322d5d3b686",
+  "proofRevision": "d35b4cbf43f1fcdda55063b3b8e0fa178d720a78",
+  "declarationSha256": "850747c1f03781a6efe9b433bd4ce3bd6cf72b63c9befd8d5d98de9eadf7f759",
+  "sourceHashes": {
+    "apps/reference-apple/scenes-w39-colour-edge.json": "9ed048b599e104bc1d0f135165fc8b95e7b63781bbc77da800c181e44750fff7",
+    "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5-receded.json": "5cec8c9612012a8988e37ee51a80bcc8de35b306f6f8464d596dfdbbdbcef0d2",
+    "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5.json": "0eac5b294cc235e2ba03841472211e63f85d36258a20951bef6f974931cda445",
+    "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json": "30fbe05986aea1c3f84f1055825b3bba65ef8d7cc3a9d1a44934b6eae56705bd",
+    "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json": "85ad7f7e3e0d6cb61de88c43bb2e48d78c1fa6779dbb85c627a3676d7fa04936",
+    "packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/pins.json": "acd3dc7a6d180eccbd4606ba8463f4979325f18bde8c2b0a3a4b53f016879010",
+    "packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/split.json": "5cc9a20ef5c4d54661da4d6267bc161c6295fde5bb9e07a57ffae9a07f0e2bd5",
+    "packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/supplied-paths.json": "76da544cd0cae9e296d731458ed6f048728d9d519bf6fdf62de048bd3afbbdaf",
+    "packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/w39_archive.py": "19532c253a32620c9284c5bf959fe54f9463ba0961b7f9515ddcdb3b8a7aeec5",
+    "packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/w39_readers.py": "21bfdc695a759133f7dba0a2dd3b6c79a63b43251f29abd05d282398c4fda952",
+    "packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/wave.py": "d2a827f67b8048abaa98df2ae42e6491478b7a5bd77c6b572d7875ddde673f10",
+    "packages/calibration/results/2026-09-26-w39-g2-identification/instrument/body.py": "6b15fea4459402dbc5affc0642767c93abb2ced4b69cfea6683048688c45c842",
+    "packages/calibration/results/2026-09-26-w39-g2-identification/instrument/resolved-materials.json": "214eb600c5fe88f8690efc742b729587c93dae3b8837e993df69bfea03447d73",
+    "packages/calibration/results/2026-09-26-w39-g2-identification/instrument/resolved-materials.provenance.json": "b33bb11304053bee65a9c8dd52d1f16f2821572a34fb56f0b3a44a3810f1b52d",
+    "packages/calibration/results/2026-09-26-w39-g2-identification/native.py": "8677d46c9ae23d5c14d9dea8da4bac4da3e98833ac92a4fb6555aa6f89c6c074",
+    "packages/calibration/results/2026-09-27-w41-g0-declaration/bounds-declaration.txt": "850747c1f03781a6efe9b433bd4ce3bd6cf72b63c9befd8d5d98de9eadf7f759",
+    "packages/calibration/results/2026-09-27-w41-g0-declaration/closure.json": "016d93ea9dce679ea3a7f2baa09683769a5da3f33da7883cefba15649c803412",
+    "packages/calibration/results/2026-09-27-w41-g0-declaration/instrument/instrument.py": "41f796109a19e3834f2d738ee122f394d2e142d79ba29db3fe5ecc4ddb179950",
+    "packages/calibration/results/2026-09-27-w41-g0-declaration/instrument/shadow.py": "aff196a4923b77489a2425b3ea1214bf28e55b0b0cc9540c058692bb195d377a",
+    "packages/calibration/results/2026-09-27-w41-g0-declaration/pins.json": "a99f312d0083f57d0f88389ba19b35e1f16bef02750eb028217e6baba6a617ee",
+    "packages/renderer-webgpu/src/color.ts": "741ff49285659b10ffa15f079c23045114d9e1d392e5d8c19cace21a9118dc7a",
+    "packages/renderer-webgpu/src/material.ts": "64168ea938cdb57462151c174d6a39b3ef2c6fe0e92d4a3c1d9cf2f77bd2c22d",
+    "packages/renderer-webgpu/src/wgsl/optics.ts": "ef762dd1348a7c8e89615ad024b19b2f815d317d723007ba0d80accc97d387a1",
+    "packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/replay-archive.py": "f06df8c8292ddce1262c4ca3160958a6238d2bb468877e0f2f509dcae3241ecb"
+  },
+  "rawAndFetchedArchiveRootsDenied": true,
+  "sealedM2NeutralIdentity": "M1's neutral is unchanged. If numerical roundoff puts luma outside [0,1], refuse.",
+  "schema": "w41-neutral-ratio-necessary-certificate-1",
+  "nativeArchiveReads": 0,
+  "savedBundles": 16,
+  "roles": [
+    "calibration"
+  ],
+  "requiredBinMinimum": 4,
+  "artifactHashes": {
+    "observations.json.gz": "3118d04a63abebd83dc31d75ada4ff671bddb2365a79272340cab654c3ac4971",
+    "geometry.npz": "31aeff954973d0044ac32a9cf302e728cc3ba8586b8226d0afa6ca80a251c2bb",
+    "population.json": "91f6d88229d3a094a51a488ae48ea6cd807a967ebd35445a92f9215c9f6006c4",
+    "screens.json.gz": "db48c95228bfbb2c165e9364ba1db8fbe558de8957c557ce5cc96b8f160d6a0d",
+    "outcomes.json": "dfc39b80cc1a41e647df533069fc09dcbd3ff68871bbfe5c23340a7cf32a9c40"
+  },
+  "records": [
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/g255-c-c44__inactive",
+      "endpoint": "dark-inactive",
+      "b": 255,
+      "role": "calibration",
+      "file": "saved/dark-inactive-255.bundle",
+      "sha256": "69cfd97858098098735cdaf3cec676e7f74b50a21e05a1822302235737a737a8",
+      "archiveEntry": {
+        "admitted": true,
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/g255-c-c44__inactive",
+        "kind": "crop",
+        "path": "calibration/096d934f757e592b2b296902f17d793522b361259ea7b74756d0e2b12e4027cd.crop.bin.gz",
+        "sha256": "69cfd97858098098735cdaf3cec676e7f74b50a21e05a1822302235737a737a8"
+      }
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/neutral-104-colour__inactive",
+      "endpoint": "dark-inactive",
+      "b": 104,
+      "role": "calibration",
+      "file": "../saved/dark-inactive-104.bundle",
+      "sha256": "4ecfc23247f906c56494c0f19d17069498fce2f20b6539f19da56ac464962b8e",
+      "archiveEntry": {
+        "admitted": true,
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/neutral-104-colour__inactive",
+        "kind": "crop",
+        "path": "calibration/e171ea28f2ce632e830db9b8ee188b3e6e40181e916c3bba60a6cdcc4797be71.crop.bin.gz",
+        "sha256": "4ecfc23247f906c56494c0f19d17069498fce2f20b6539f19da56ac464962b8e"
+      }
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/neutral-128-colour__inactive",
+      "endpoint": "dark-inactive",
+      "b": 128,
+      "role": "calibration",
+      "file": "../saved/dark-inactive-128.bundle",
+      "sha256": "7cf3ae59d30953ecae58fc0f921530012e95b62e2a927c0ef47b37d70968e15c",
+      "archiveEntry": {
+        "admitted": true,
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/neutral-128-colour__inactive",
+        "kind": "crop",
+        "path": "calibration/734f05c7f079fce3aec554cd9a2e8d95edaf87ebbe2adf5e2f2c1cd1a6f2146c.crop.bin.gz",
+        "sha256": "7cf3ae59d30953ecae58fc0f921530012e95b62e2a927c0ef47b37d70968e15c"
+      }
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/neutral-150-colour__inactive",
+      "endpoint": "dark-inactive",
+      "b": 150,
+      "role": "calibration",
+      "file": "../saved/dark-inactive-150.bundle",
+      "sha256": "0c6718f1662c04e00e0abe6f41a6576a16fe9235ba8f9ae41c41916c5fe0a757",
+      "archiveEntry": {
+        "admitted": true,
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/neutral-150-colour__inactive",
+        "kind": "crop",
+        "path": "calibration/7c5aaf22899a996fa42270ee9db59af1630c36d45b37ed0408930f2c13c3ce62.crop.bin.gz",
+        "sha256": "0c6718f1662c04e00e0abe6f41a6576a16fe9235ba8f9ae41c41916c5fe0a757"
+      }
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/neutral-40-colour__inactive",
+      "endpoint": "dark-inactive",
+      "b": 40,
+      "role": "calibration",
+      "file": "../saved/dark-inactive-40.bundle",
+      "sha256": "e02694e741965b19df22054a3aa11a608592683eb9b8c82ee8dc3aab81f92898",
+      "archiveEntry": {
+        "admitted": true,
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/neutral-40-colour__inactive",
+        "kind": "crop",
+        "path": "calibration/676fedb660c9e8ee99a430646ebd948e61cb95a0fb92a665c90aa437943c89d5.crop.bin.gz",
+        "sha256": "e02694e741965b19df22054a3aa11a608592683eb9b8c82ee8dc3aab81f92898"
+      }
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/neutral-56-colour__inactive",
+      "endpoint": "dark-inactive",
+      "b": 56,
+      "role": "calibration",
+      "file": "../saved/dark-inactive-56.bundle",
+      "sha256": "326ebd5883b848935382247f796d9faeae2c62b71aef0bade15e10cf3c7f35f3",
+      "archiveEntry": {
+        "admitted": true,
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/neutral-56-colour__inactive",
+        "kind": "crop",
+        "path": "calibration/f49fc04a9077a4033c37303ccb8fdec2b15a4d147ef3f75ff4e7381699f52dc0.crop.bin.gz",
+        "sha256": "326ebd5883b848935382247f796d9faeae2c62b71aef0bade15e10cf3c7f35f3"
+      }
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/neutral-72-colour__inactive",
+      "endpoint": "dark-inactive",
+      "b": 72,
+      "role": "calibration",
+      "file": "../saved/dark-inactive-72.bundle",
+      "sha256": "88f6fa70927e4320106697baf97ae06dc1b06121d3d8a3de0f952562106fa12a",
+      "archiveEntry": {
+        "admitted": true,
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/neutral-72-colour__inactive",
+        "kind": "crop",
+        "path": "calibration/73b03eca45fa25243118601da4e547fb82ef2d710a3ca1f5bb790b285db366b2.crop.bin.gz",
+        "sha256": "88f6fa70927e4320106697baf97ae06dc1b06121d3d8a3de0f952562106fa12a"
+      }
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/neutral-88-colour__inactive",
+      "endpoint": "dark-inactive",
+      "b": 88,
+      "role": "calibration",
+      "file": "../saved/dark-inactive-88.bundle",
+      "sha256": "6e6feb0d917c37135b50f252f51ebf8a44016b65efb5d6edd3e64d5fb4404a18",
+      "archiveEntry": {
+        "admitted": true,
+        "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/neutral-88-colour__inactive",
+        "kind": "crop",
+        "path": "calibration/ba74be5e8f24d36512fb4c93102420540c911708a407bc79d45ad47e317104c5.crop.bin.gz",
+        "sha256": "6e6feb0d917c37135b50f252f51ebf8a44016b65efb5d6edd3e64d5fb4404a18"
+      }
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g255-c-c44__inactive",
+      "endpoint": "light-inactive",
+      "b": 255,
+      "role": "calibration",
+      "file": "saved/light-inactive-255.bundle",
+      "sha256": "076fe87e3bcfbbd100648c8411a2e44eba53ee5db3f4d9e6cc30fead8524a26b",
+      "archiveEntry": {
+        "admitted": true,
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g255-c-c44__inactive",
+        "kind": "crop",
+        "path": "calibration/9f67b16d6af7dae557bfa688831820544c692b34de334c51d477a2e68305af8c.crop.bin.gz",
+        "sha256": "076fe87e3bcfbbd100648c8411a2e44eba53ee5db3f4d9e6cc30fead8524a26b"
+      }
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/neutral-104-colour__inactive",
+      "endpoint": "light-inactive",
+      "b": 104,
+      "role": "calibration",
+      "file": "../saved/light-inactive-104.bundle",
+      "sha256": "ece9221f6400ba96efbb4308cce8a6c73ce8cd1fcb2fc40fdeebe721e5aa5b65",
+      "archiveEntry": {
+        "admitted": true,
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/neutral-104-colour__inactive",
+        "kind": "crop",
+        "path": "calibration/ccce007d35e874e456bcd8b44afc76ed9f935d182833f854f263915914a44b42.crop.bin.gz",
+        "sha256": "ece9221f6400ba96efbb4308cce8a6c73ce8cd1fcb2fc40fdeebe721e5aa5b65"
+      }
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/neutral-128-colour__inactive",
+      "endpoint": "light-inactive",
+      "b": 128,
+      "role": "calibration",
+      "file": "../saved/light-inactive-128.bundle",
+      "sha256": "2674e95a0e08510aec5b263225205a62ae763d6435e7e34d45205f1e8f71186d",
+      "archiveEntry": {
+        "admitted": true,
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/neutral-128-colour__inactive",
+        "kind": "crop",
+        "path": "calibration/fa6045be16118c99c0648bce8645a7081af3b73f38eca50af31e89b4aa0a1d38.crop.bin.gz",
+        "sha256": "2674e95a0e08510aec5b263225205a62ae763d6435e7e34d45205f1e8f71186d"
+      }
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/neutral-150-colour__inactive",
+      "endpoint": "light-inactive",
+      "b": 150,
+      "role": "calibration",
+      "file": "../saved/light-inactive-150.bundle",
+      "sha256": "674880673625ede4c691d0509e8399cdd2b4737ce6d73e0c2dec7165aa2594dd",
+      "archiveEntry": {
+        "admitted": true,
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/neutral-150-colour__inactive",
+        "kind": "crop",
+        "path": "calibration/1988efcb8d5e71b6bfe0cc1208cd1b4500419f80b87cd08609c7fe8fcafdd767.crop.bin.gz",
+        "sha256": "674880673625ede4c691d0509e8399cdd2b4737ce6d73e0c2dec7165aa2594dd"
+      }
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/neutral-40-colour__inactive",
+      "endpoint": "light-inactive",
+      "b": 40,
+      "role": "calibration",
+      "file": "../saved/light-inactive-40.bundle",
+      "sha256": "edb1ba80ec6f83ce190975ce5fb3896c6dc8599e7e11efed438cca519c8a94d3",
+      "archiveEntry": {
+        "admitted": true,
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/neutral-40-colour__inactive",
+        "kind": "crop",
+        "path": "calibration/a9189cdbdf070f1e0a5d8a1a3216dd64f9b3f5cd1f7be5a5b0d43c9262b9204a.crop.bin.gz",
+        "sha256": "edb1ba80ec6f83ce190975ce5fb3896c6dc8599e7e11efed438cca519c8a94d3"
+      }
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/neutral-56-colour__inactive",
+      "endpoint": "light-inactive",
+      "b": 56,
+      "role": "calibration",
+      "file": "../saved/light-inactive-56.bundle",
+      "sha256": "f378bf1e11e8e9f43935e7cb4e4583923af374a1b63532df51332f4421818640",
+      "archiveEntry": {
+        "admitted": true,
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/neutral-56-colour__inactive",
+        "kind": "crop",
+        "path": "calibration/3fde8d2208011afde85dbe6b8d76b71aa48849b298dad50475829f0ff36d75c7.crop.bin.gz",
+        "sha256": "f378bf1e11e8e9f43935e7cb4e4583923af374a1b63532df51332f4421818640"
+      }
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/neutral-72-colour__inactive",
+      "endpoint": "light-inactive",
+      "b": 72,
+      "role": "calibration",
+      "file": "../saved/light-inactive-72.bundle",
+      "sha256": "aa18d839eec093afef3c32c2dd4e1aedc85e44c56cbf4c425e563a1c20cd9aa0",
+      "archiveEntry": {
+        "admitted": true,
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/neutral-72-colour__inactive",
+        "kind": "crop",
+        "path": "calibration/f15ab1bfdbcda9e1e2c5a5488db25b3a43ed78a3e04304e4cc929b27fe0dbe2d.crop.bin.gz",
+        "sha256": "aa18d839eec093afef3c32c2dd4e1aedc85e44c56cbf4c425e563a1c20cd9aa0"
+      }
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/neutral-88-colour__inactive",
+      "endpoint": "light-inactive",
+      "b": 88,
+      "role": "calibration",
+      "file": "../saved/light-inactive-88.bundle",
+      "sha256": "b6abc290679eda3eac83df31a9846edcc85d4a5907f283009c43b4d78b53ddd6",
+      "archiveEntry": {
+        "admitted": true,
+        "cell": "apple-macos-27.0-1x-light-standard-glass0.5/neutral-88-colour__inactive",
+        "kind": "crop",
+        "path": "calibration/a446a48e1e1294c237778fe8ae05f57bb65c6c17abe9074ca420821c02376eea.crop.bin.gz",
+        "sha256": "b6abc290679eda3eac83df31a9846edcc85d4a5907f283009c43b4d78b53ddd6"
+      }
+    }
+  ],
+  "proof": "For either M1 or M2, arbitrary scalar neutral material S(b) gives mean(O_i)-b =c_i*(S(b)-b). Identical supplied path/bin/subpixel geometry and per-input uniform references make c_i fixed across levels. Each declared rival has nonnegative c_i. Jensen gives the recorded necessary mean-departure intervals at max(1,bar), never 1+bar. A denominator interval excluding zero rules out c_B=0. Thus r=c_A/c_B>=0 must belong to every admitted per-level ratio interval. Their exact empty intersection rejects only this model-endpoint. Censored channels and zero-containing denominators are omitted, relaxing rather than strengthening the cut. No monotonicity or material bounds are imposed, and no geometry/gauge coefficient is inferred or fitted."
+}
