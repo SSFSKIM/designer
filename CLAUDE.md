@@ -401,7 +401,21 @@ directions receive neutral light that lifts a saturated colour's weak channel by
 and a constrained refit of the existing leaves has no feasible point. The rim cannot be re-aimed
 without colour-conditioned behaviour; the archive's solids are censored and cannot identify it;
 the next step is a native colour-model bed at matched luminance, captured with the edge's
-directional controls (W38 Deferred at close 1). On the
+directional controls (W38 Deferred at close 1). **W39 (§5.184–§5.186,
+2026-09-26/27) ran that bed and closed at the negative:** one 17-hour sitting of 6,360 captures
+(61 colours inside an admissible box at matched luminance, an edge bed with positions, gradients,
+ladders and independent column members, seven runs each, both schemes, poses and scales), archived
+as GitHub release `w39-archive` by SHA-256 and replayed with the raw root denied; the repeat bar
+is the 0.5-code floor almost everywhere. No declared body law survives one code: the best 3×3
+matrix over a neutral curve is certified globally at 3.9 / 4.2 codes on the light scheme and
+20.1 / 17.5 on the dark one, and the shipped shader's own refit fails as a local candidate. The
+declared edge family is rejected before any coefficient: its support ends at 12 CSS px inward and
+Apple's active body differs from its own deep by 2–5 codes beyond that (W37's obstruction again).
+And Apple draws a **dark contour outside its path**, within one or two device pixels, darker than
+both backdrop and body (inactive on white 199.5 light / 145.5 dark against 255 and bodies 240 /
+180), strongly angular and backdrop-conditioned, which vitrea does not draw in either pose. The
+phase mechanism is unreachable on the size actuator as it was on W34's. The W39 holdout was never
+opened and serves the next declaration on the same archive (W39 Deferred at close 1–5). On the
 CSS tier the
 window-activation transition therefore fades the shadow OUT, which is what the reference does;
 on the WebGPU tier the posed profile is swapped the instant the resolved
