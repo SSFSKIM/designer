@@ -1,0 +1,27 @@
+EE
+======================================================================
+ERROR: test_noisy_observation_recovers_tiny_bound_weight (test_noisy.NoisyProofs.test_noisy_observation_recovers_tiny_bound_weight) (family='E3')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g0/packages/calibration/results/2026-09-27-w41-g0-declaration/body-instrument/test_noisy.py", line 20, in test_noisy_observation_recovers_tiny_bound_weight
+    fit = b.solve_linear(family, X, NEUTRAL, TARGET)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g0/packages/calibration/results/2026-09-27-w41-g0-declaration/body-instrument/body41.py", line 263, in solve_linear
+    raise RuntimeError('Forward upper stalled; no certified family negative')
+RuntimeError: Forward upper stalled; no certified family negative
+
+======================================================================
+ERROR: test_noisy_observation_recovers_tiny_bound_weight (test_noisy.NoisyProofs.test_noisy_observation_recovers_tiny_bound_weight) (family='EH6')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g0/packages/calibration/results/2026-09-27-w41-g0-declaration/body-instrument/test_noisy.py", line 20, in test_noisy_observation_recovers_tiny_bound_weight
+    fit = b.solve_linear(family, X, NEUTRAL, TARGET)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g0/packages/calibration/results/2026-09-27-w41-g0-declaration/body-instrument/body41.py", line 263, in solve_linear
+    raise RuntimeError('Forward upper stalled; no certified family negative')
+RuntimeError: Forward upper stalled; no certified family negative
+
+----------------------------------------------------------------------
+Ran 1 test in 0.015s
+
+FAILED (errors=2)

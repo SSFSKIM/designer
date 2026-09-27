@@ -8,6 +8,7 @@ Nonlinear fits are explicitly LOCAL and retain all sixteen deterministic starts.
 """
 import importlib.util
 from fractions import Fraction as F
+from itertools import combinations
 from pathlib import Path
 import numpy as np
 from scipy.optimize import least_squares, linprog, minimize
@@ -21,6 +22,9 @@ colour = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(colour)
 KNOTS = np.array([40, 56, 72, 88, 104, 128, 150.])
 SIZES = {'E3': 3, 'EH6': 6, 'O12': 12}
+MAX_DUAL_RECOVERY_ATTEMPTS = 2048
+DUAL_EXTRA_OBSERVATIONS = 8
+LP_MAXITER = 10000
 
 
 def _rgb(x):
@@ -182,35 +186,110 @@ def verify_certificate(cert, a, rhs):
         return False
 
 
+def _recover_certificate(a, rhs, labels, fit):
+    """Recover an exact dual; floating supports only order the bounded search.
+
+    Near-dependent observation rows can cancel in HiGHS but not in rational
+    arithmetic on their float64 coefficients. A coefficient-bound row with an
+    arbitrarily small positive weight can complete the exact cancellation.
+    Keep every positive floating weight, then augment/replace support from
+    both observation and bound rows. No weight cutoff governs exact recovery.
+    """
+    p = a.shape[1]
+    support = tuple(int(i) for i in np.flatnonzero(-fit.ineqlin.marginals > 0))
+    if not support:
+        return None, 0
+    seen = set()
+    attempts = 0
+
+    def check(indices):
+        nonlocal attempts
+        indices = tuple(sorted(indices))
+        if not indices or len(indices) > p+1 or indices in seen:
+            return None
+        seen.add(indices); attempts += 1
+        weights = _rational_weights(a[list(indices)])
+        if weights is None:
+            return None
+        cert = dict(indices=list(indices), weights=[str(w) for w in weights],
+                    constraints=[labels[i] for i in indices])
+        return cert if verify_certificate(cert, a, rhs) else None
+
+    # The original basic support gets one exact attempt outside the recovery
+    # budget. Zero recovery budget still allows already valid basic proofs.
+    cert = check(support)
+    if cert is not None:
+        return cert, 0
+    attempts = 0
+    bounds = [i for i, label in enumerate(labels) if label[0] == 'gain' and i not in support]
+    slack = rhs-a @ fit.x[:p]
+    observations = [i for i in np.argsort(slack, kind='stable')
+                    if labels[i][0] != 'gain' and i not in support][:DUAL_EXTRA_OBSERVATIONS]
+    extra = bounds + [int(i) for i in observations]
+    # Retain as much of the floating support as possible first. This tries all
+    # one-row augmentations before replacements; later candidates can replace
+    # observation rows as well as insert gain bounds. Never exceed p+1 rows.
+    for retained in range(min(len(support), p+1), -1, -1):
+        for added in range(0, p+2-retained):
+            for base in combinations(support, retained):
+                for extension in combinations(extra, added):
+                    if attempts >= MAX_DUAL_RECOVERY_ATTEMPTS:
+                        return None, attempts
+                    cert = check(base+extension)
+                    if cert is not None:
+                        return cert, attempts
+    return None, attempts
+
+
 def _feasibility(a, rhs, labels):
     p = a.shape[1]
     fit = linprog(np.r_[np.zeros(p), 1.],
                   A_ub=np.column_stack((a, -np.ones(len(rhs)))), b_ub=rhs,
                   bounds=[(None,None)]*p+[(0,None)], method='highs',
                   options={'primal_feasibility_tolerance': 1e-9,
-                           'dual_feasibility_tolerance': 1e-9})
+                           'dual_feasibility_tolerance': 1e-9, 'maxiter': LP_MAXITER})
     if not fit.success:
-        raise RuntimeError('LP phase I failed: '+fit.message)
-    support = np.flatnonzero(-fit.ineqlin.marginals > 1e-12)
-    if 0 < len(support) <= p+1:
-        weights = _rational_weights(a[support])
-        if weights is not None:
-            cert = dict(indices=support.tolist(), weights=[str(w) for w in weights],
-                        constraints=[labels[i] for i in support])
-            if verify_certificate(cert, a, rhs):
-                return None, cert
+        return None, None, dict(reason='LP phase I failed: '+fit.message,
+                               floatingBracket=dict(lower=None, upper=None, certified=False,
+                                                    quantity='common phase-I row slack'))
     # This is just a proposed upper: the caller MUST check the original forward.
     q = np.clip(fit.x[:p], 0, 3)
+    info = dict(phaseISlack=float(fit.fun), recoveryAttempts=0,
+                floatingBracket=dict(lower=float(fit.fun),
+                    upper=max(float(fit.fun), float(np.max(a @ q-rhs, initial=0))),
+                    certified=False, quantity='common phase-I row slack; mixed gain/code units'))
+    # No dual search is needed for an exactly feasible floating candidate.
+    # The original forward remains the authority for every public positive.
+    if np.any(a @ q > rhs):
+        cert, attempts = _recover_certificate(a, rhs, labels, fit)
+        info['recoveryAttempts'] = attempts
+        if cert is not None:
+            return q, cert, info
     # Move away from floating rail equality if needed. No certificate is taken
     # from this tightened system, and the original constraints remain authority.
     rails = np.array([str(label[-1]).endswith('-rail') for label in labels])
     if np.any((a @ q > rhs) & rails):
         guarded = linprog(np.zeros(p), A_ub=a, b_ub=rhs-rails*1e-8,
                           bounds=[(0,3)]*p, method='highs',
-                          options={'primal_feasibility_tolerance': 1e-9})
+                          options={'primal_feasibility_tolerance': 1e-9,
+                                   'maxiter': LP_MAXITER})
         if guarded.success:
             q = np.clip(guarded.x, 0, 3)
-    return q, None
+    return q, None, info
+
+
+def _uncertified(reason, info, lo=None, hi=None, probe=None, q=None, lower_cert=None):
+    """An exhausted numerical search is neither survival nor a family negative."""
+    result = dict(status='uncertified', converged=False, reason=reason, phaseI=info,
+                  floatingBracket=info['floatingBracket'])
+    if lo is not None:
+        # Keep the proven bracket separate from the unverified floating lower.
+        result.update(lowerCodes=lo, upperCodes=hi, lowerCertificate=lower_cert,
+                      coefficients=q.tolist(),
+                      floatingBracket=dict(lower=max(lo, probe if probe is not None and
+                          info.get('phaseISlack', 0) > 0 else lo), upper=hi,
+                          certified=False, quantity='encoded minimax codes'))
+    return result
 
 
 def _rail_deficit(prediction, target):
@@ -228,22 +307,29 @@ def solve_linear(family, x, neutral, target, gap_codes=1e-5):
 
     No approximate dual, LP flag or nonlinear failure becomes a negative.
     Every positive lower endpoint carries a replayable rational certificate.
+    Exhaustion returns uncertified, with the proven endpoints retained beside
+    a separately labelled floating diagnostic bracket; it is not a verdict.
     """
     x, neutral = _inputs(family, x, neutral); target = _target(x, target)
     if not np.isfinite(gap_codes) or not 0 < gap_codes <= 1e-5:
         raise ValueError('Gap must be positive and <=1e-5 code')
     a, rhs, labels = constraints(family, x, neutral, target, 255.)
-    q, cert = _feasibility(a, rhs, labels)
+    q, cert, info = _feasibility(a, rhs, labels)
     if cert is not None:
         return dict(status='certified-hard-rail-infeasible', epsilonCodes=255.,
                     lowerCertificate=cert, converged=True)
+    if q is None:
+        return _uncertified('No phase-I candidate for hard-rail upper', info)
     prediction = forward(family, x, neutral, q)
     if np.any(_rail_deficit(prediction, target) > 0):
-        raise RuntimeError('No forward-feasible hard-rail upper; not a certified negative')
+        return _uncertified('No forward-feasible hard-rail upper', info)
     hi = _maximum(prediction, target); lo = 0.; lower_cert = None
     zero_a, zero_rhs, zero_labels = constraints(family, x, neutral, target, 0.)
-    exact_q, exact_cert = _feasibility(zero_a, zero_rhs, zero_labels)
-    if exact_cert is None:
+    exact_q, _, _ = _feasibility(zero_a, zero_rhs, zero_labels)
+    # A zero probe may be exactly infeasible by a few ulps while its floating
+    # candidate gives an excellent forward upper. Keep that independently of
+    # the dual: an exact lower at zero does not refute a tiny positive upper.
+    if exact_q is not None:
         exact_prediction = forward(family, x, neutral, exact_q)
         exact_error = _maximum(exact_prediction, target)
         if not np.any(_rail_deficit(exact_prediction, target) > 0) and exact_error < hi:
@@ -253,17 +339,20 @@ def solve_linear(family, x, neutral, target, gap_codes=1e-5):
             break
         middle = (hi+lo)/2
         a, rhs, labels = constraints(family, x, neutral, target, middle)
-        candidate, cert = _feasibility(a, rhs, labels)
+        candidate, cert, info = _feasibility(a, rhs, labels)
         if cert is not None:
             lo = middle; lower_cert = cert
         else:
+            if candidate is None:
+                return _uncertified('No phase-I candidate', info, lo, hi, middle, q, lower_cert)
             prediction = forward(family, x, neutral, candidate)
             achieved = _maximum(prediction, target)
             if np.any(_rail_deficit(prediction, target) > 0) or achieved >= hi:
-                raise RuntimeError('Forward upper stalled; no certified family negative')
+                return _uncertified('Exact dual recovery exhausted; forward upper stalled',
+                                    info, lo, hi, middle, q, lower_cert)
             hi = achieved; q = candidate
     else:
-        raise RuntimeError('Certified bracket did not close')
+        return _uncertified('Bisection budget exhausted', info, lo, hi, q=q, lower_cert=lower_cert)
     return dict(coefficients=q.tolist(), lowerCodes=lo, upperCodes=hi,
                 bracketWidthCodes=hi-lo, lowerCertificate=lower_cert,
                 certificateScope='exact rational float64 inequalities; forward-checked upper',
@@ -271,16 +360,18 @@ def solve_linear(family, x, neutral, target, gap_codes=1e-5):
 
 
 def survival_linear(family, x, neutral, target, bar):
-    """Test per-channel max(1,bar), not a global relaxation of hard rails."""
+    """Test max(1,bar) with hard rails; uncertified is neither pass nor fail."""
     x, neutral = _inputs(family, x, neutral); target = _target(x, target)
     bound = np.maximum(1, _tolerances(bar, target.shape))
     a, rhs, labels = constraints(family, x, neutral, target, bound)
-    q, cert = _feasibility(a, rhs, labels)
+    q, cert, info = _feasibility(a, rhs, labels)
     if cert is not None:
         return dict(status='certified-infeasible', certificate=cert)
+    if q is None:
+        return _uncertified('No phase-I survival candidate', info)
     report = score(forward(family, x, neutral, q), target, bar)
     if report['uncensoredFailures'] or report['railFailures']:
-        raise RuntimeError('Survival forward check failed; no certified verdict')
+        return _uncertified('Exact dual recovery exhausted; survival forward check failed', info)
     return dict(status='forward-feasible', coefficients=q.tolist(), score=report)
 
 

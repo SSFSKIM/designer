@@ -1,5 +1,5 @@
 {
-  "schema": "w41-body-execution-2",
+  "schema": "w41-body-execution-1",
   "scope": "synthetic G0; one endpoint per call; pooled scales",
   "inputUnits": "encoded sRGB 0..255",
   "neutralSource": "seven caller-supplied fixed ordinates",
@@ -21,22 +21,9 @@
     "maxBisectionIterations": 101,
     "maxGapCodes": 1e-05,
     "initialUpper": "255-code relaxed measured constraints, never relaxed rails; original forward checked",
-    "zeroProbe": "retain and forward-check the floating candidate even when an exact zero-epsilon infeasibility certificate exists; the positive upper is independent",
+    "zeroProbe": true,
     "railRoundoffGuardCodes": 1e-08,
-    "railRoundoffGuard": "candidate only; never used to certify lower; original forward rails still checked exactly",
-    "maxHighsIterations": 10000,
-    "certificateRecovery": {
-      "directSupport": "all strictly positive floating dual weights; no small-weight cutoff",
-      "maxAdditionalExactAttempts": 2048,
-      "extraObservationRows": 8,
-      "candidatePool": "floating support, all coefficient-bound rows, then eight other observations by ascending phase-I slack (stable row order ties)",
-      "searchOrder": "retain support count descending; added row count ascending through p+1 total; combinations in pool order; skip previously attempted supports",
-      "arithmetic": "same exact Fraction elimination and verifier for every candidate; retain arbitrarily small nonnegative rational weights",
-      "authority": "exact nonnegative normalized cancellation and strictly negative rational RHS, bound to caller-regenerated rows",
-      "exhaustion": "uncertified and converged=false with floatingBracket; never a passing or infeasible verdict",
-      "floatingBracket": "minimax codes when a forward upper exists; otherwise phase-I common row slack (mixed gain/code units); diagnostic only, null endpoints if LP failed",
-      "emptyFloatingSupport": "no support search; retain forward candidate or return uncertified if its check fails"
-    }
+    "railRoundoffGuard": "candidate only; never used to certify lower; original forward rails still checked exactly"
   },
   "local": {
     "families": [
@@ -91,31 +78,5 @@
     "No caller role, scale, population, repeat or freeze enforcement in this array module",
     "Censored-bound-satisfied is not RGB accuracy or heldout coverage",
     "No exact transcendental interval claim"
-  ],
-  "previousExecutionParameters": {
-    "path": "execution-parameters.v1.json",
-    "sha256": "3abb176acb8a7a909e163243ddec214faa2f096c402ef0833996af1637d93cdc",
-    "scope": "Original synthetic-results.json and pre-fix logs remain immutable; not results of this revision"
-  },
-  "regression": {
-    "scope": "synthetic only",
-    "noisySeed": 4101,
-    "noisyCases": 100,
-    "casesPerFamily": 50,
-    "cellCounts": "1 + caseIndex % 8",
-    "inputUniformCodes": [
-      45,
-      145
-    ],
-    "gainUniform": [
-      0.4,
-      1.6
-    ],
-    "noise": "independent normal(mean=0, sigma=2 codes)",
-    "targetClipCodes": [
-      6,
-      249
-    ],
-    "report": "zero stalls required; explicit minimax/survival uncertified counts printed separately"
-  }
+  ]
 }
