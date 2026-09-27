@@ -1,6 +1,6 @@
 # W39 — the colour-and-edge capture: one native sitting that identifies Apple's colour response and the edge line's directional law (2026-09-26)
 
-**Status: G1 MERGED `f9b9d316` (2026-09-27, §5.185): 6,360 captures at the bar, archived as release `w39-archive`, replayed with the raw root denied, nothing read against vitrea; no phase cells (Decision Log 3: neither axis reachable). G2 (identification) is next. The original bundle's grant is restored at wave close (Decision Log 4).**
+**Status: G2 MERGED `2899071e` (2026-09-27, §5.186): no identified survivor in either family; the holdout never opened. Decision Log 2 RULED the negative (the user, on the parent's recommendation): no law ships, G3 does not open, the holdout stays sealed for a later declaration on this archive. Wave close pending: the original bundle's Screen Recording grant restored by the user's hand and both bundles checked (Decision Log 4).**
 Chartered by the parent on the user's "W39 colour-and-edge capture (Recommended)" after W38's
 close (main `e3ec337e`, 0.24.0 published), under the standing "rest on your judgement" and the
 routing the user set on 2026-09-22 (X9). This is the wave W37's Deferred at close 1 and W38's
@@ -464,13 +464,36 @@ lands before G3's landing.
   repositioning, which the one-window-per-process harness does not do).
 - W37 Deferred 3–8, W36 Deferred 1–6 as they stand until G2 reads them.
 
+**Deferred at close (G2, 2026-09-27; the shape of the next charter, each declared before any fit):**
+
+1. **A spatial body on non-uniform backdrops.** A constant deep is the wrong stand-in on a gradient;
+   part of the inactive edge rejection is attributable to it (quantified as an estimate in §5.186 §7).
+   The next body law is a function of the local sampled backdrop, read per pixel or per shell, and the
+   edge conditioner follows it.
+2. **The dark scheme's body.** H3's certified 20.1 / 17.5-code miss on dark active / inactive against
+   3.9 / 4.2 on light says the dark material is not a fixed 3×3 over a neutral curve; the signed
+   residual table (luminance-direction versus chromatic, by level and hue) is the input. A
+   scheme-conditioned operator, not a scheme-conditioned coefficient set, is the candidate class.
+3. **The active interior tail beyond 12 CSS px.** W37's obstruction reproduced (grey-255 centre top
+   250/249/250 against deep 253, zero in the inactive pose): a body that is not constant inside the
+   shape in the active pose, or an edge term with support past 12 CSS px, declared with its populations.
+4. **The dark exterior contour.** An angular, backdrop- and scheme-conditioned dark term in the first
+   one or two device pixels outside the path (largest at horizontal normals; dark active's top straight
+   exactly 0), present in both poses, symmetric top/bottom when inactive, invariant to window height;
+   its width is UNIDENTIFIABLE under constant-body coverage (alpha 3.7 / 1.46), so the candidate is a
+   stroke with its own material, not overdraw of the body. vitrea draws nothing outside the path when
+   unfocused; the receded documents' shadow anchors are 0.
+5. **The archive is the next charter's bed.** W39's release archive and its never-opened holdout (six
+   colours, three geometry pairs) serve a new declaration on the same 6,360 captures without another
+   sitting; a phase mechanism still needs a different actuator (Decision Log 3).
+
 ## Tracking Map
 
 | child | status |
 | --- | --- |
 | G0 | MERGED 2026-09-26 as `ba38ebbf` (§5.184): 388 ids, split 316/36/36, declaration final 94cebb42… with five superseded hashes retained, side pinned and ungranted, tooling tested (718 + 89), review 3 P1 / 1 P2 fixed, re-review clean. Outstanding: the TCC-refusal rehearsal (machine not exclusive: a foreign Chrome; a since-dismissed unattributed prompt). |
 | G1 | MERGED 2026-09-27 as `f9b9d316` (§5.185): 6,360 admitted captures (preflight 40; four bed passes × 7 runs × 1,568/7; four sentinel passes × 3 runs); two quarantines in active-1x (stops 1–2), two stricter gates added; bar 0.5 almost everywhere (575/576 glass cells byte-identical over seven runs); archive `w39-archive` asset 489db938…, 13,658,148 B, replayed identically; probe bed 1,328 cells by role, holdout sealed; `wave.py plan` 138/214. Review: reviewer-high, no material findings; it replayed all 1,184 cal/val cells from the fetched release with raw reads denied, reproduced both bar reports and every permitted probe image's plurality, and confirmed the live asset, the holdout's receipt refusal and an empty protected-path diff |
-| G2 | — |
+| G2 | MERGED 2026-09-27 as `2899071e` (§5.186): body — every family fails at both scales, H3 certified globally at 3.919 / 4.185 / 20.139 / 17.471 codes (light active / light inactive / dark active / dark inactive), H2′ and H3′ local candidates at 14.0 / 11.3 / 8.4 / 27.7 and 7.6 / 2.7 / 21.7 / 25.3; edge — rejected coefficient-independently (support ends at 12 CSS px; lower bounds 5 / 2 / 4 / 3 codes at 1x), all 180 grid points converged and fail; a dark exterior contour outside the path found and tabled (6,720 records, no fit); no exposure, no receipt; two additive corrections with clean reviews. Review: reviewer-high, no material findings; it reproduced all 56 neutral and 496 body observations, 21,312 support records, 6,720 ring records and 61,544 exterior observations through guarded reads, the pinned body-correction hash and all 660,672 corrected edge records, passed 18 targeted tests and checked the 180 grid trials, the sensitivity, the provenance pins and the ledger tables; no exposure receipt exists |
 | G3 | conditional |
 
 ## Decision Log
@@ -491,6 +514,9 @@ publishes the asset and the ledger citation (tag, name, digest, bytes, replay co
 a second owner-controlled copy on the capture machine outside the repository.
 
 ### Decision Log 2 — a law or the negative (after G2; the user's)
+
+**Ruled 2026-09-27 (the user): The negative, on the parent's recommendation. No law ships and G3 does not open. H3's certified negative (3.919 / 4.185 / 20.139 / 17.471 codes), the edge family's coefficient-independent rejection under Decision Log 8's conditioner, and H2′/H3′'s local-candidate failures stay distinct in the record. The W39 holdout, never opened, stays sealed for a later declaration on this same archive; the dark exterior contour, the dark-scheme body and the spatial body on gradients are the named misses (Deferred at close).**
+
 
 ### Decision Log 3 — the phase mechanism: reachable or declared unreachable (in G1, by G0's rule; the parent's)
 
@@ -570,6 +596,25 @@ seven runs, marked `pluralityOfAllRuns` (one cell: `transfer-h210-colour` 1x lig
 cells are published from run 1 and marked `singleRun` (504). This governs only which image the
 probe bed carries; the archive and the bar use all seven runs. G2 reads the archive.
 
+### Decision Log 8 — the edge amplitudes' conditioner when no body law survives (in G2; the parent's)
+
+The declaration conditions the edge amplitudes on "the frozen identified body response". No body
+family survived, and the worker stopped rather than nominate a failed law or fit per-cell
+colours. Ruled: under the carried W37 contracts X15–X17 (native-identified coefficients, the
+excess as the estimand, the native deep as the conditioning input, the transfer to vitrea's body
+tabled) and this charter's Risks clause that anticipates the edge closing without the body, the
+conditioner is each member's native seven-run deep median per channel, the declared deep
+statistic itself: a survivor would have predicted it within max(1 code, bar) on every calibration
+and validation cell, it has zero free parameters, and it is a measured input, not the free
+per-cell edge colour the prohibition guards against. Nothing else in the edge declaration moved.
+A surviving edge law would have been an effective native-pixel law. A second ruling in the same
+gate admitted the resolved shipped materials, digest-pinned in a committed sidecar, as H2′'s
+second input, with H2′ then fitted to a certified candidate rather than relabelled from
+uncertified local minima. Both rulings are recorded verbatim in G2's README. The parent also
+withdrew, after reading `edge_bins`, a mistaken instruction to exclude shell 0 from survival:
+the reader's required set (whole pixels inside, fully-outside pixels outside, straddling rows
+diagnostic) stood unchanged throughout.
+
 ## Surprises & Discoveries
 
 - **The archive already answers the per-channel question**, and in the negative, on unclipped
@@ -626,7 +671,40 @@ probe bed carries; the archive and the bar use all seven runs. G2 reads the arch
   "insufficient resolution" outcome hinges on the models' separations, not on the noise.
 - **The original bundle's grant was removed, not turned off** at the switch (Decision Log 4).
 
+- **No declared body law survives, and the dark scheme is the large miss** (G2, §5.186). H3's
+  certified global minimax is 3.9 / 4.2 codes on the light scheme and 20.1 / 17.5 on the dark
+  one; the shipped shader's own refit (H2′) and the OKLab variant fail as local candidates. The
+  residual is tabled signed, split into a luminance-direction and a chromatic component by
+  factorial level and hue, for the next charter.
+- **The declared edge family is dead before any coefficient**: its support ends at 12 CSS px
+  inward and Apple's pixels beyond that differ from the deep by 2–5 codes. On uniform backdrops
+  that is W37's obstruction again in the active pose (grey-255 centre top 250/249/250 against
+  deep 253) and zero in the inactive pose; on gradient backdrops part of it is the scalar-deep
+  conditioner's, quantified as an estimate. A body that is constant inside the shape is the
+  wrong stand-in on a gradient, and the next declaration needs a spatial body there.
+- **Apple draws a dark contour OUTSIDE its path.** In the first one or two device pixels past
+  the supplied path, inactive glass on white reads 199.5 (light) / 145.5 (dark) against a
+  backdrop of 255 and bodies of 240 / 180; the opaque control on the same path has zero exterior
+  coverage. It is strongly angular (largest at horizontal normals; dark active's top straight is
+  exactly 0 while its horizontal arcs exceed 100 codes), backdrop- and scheme-conditioned,
+  symmetric top/bottom when inactive, and identical at the three window heights. A
+  constant-body coverage model implies alpha 3.7 / 1.46, so the width is UNIDENTIFIABLE: it is
+  a darker boundary material, not overdraw. W32 read the inactive exterior from 2 device px out
+  and found the backdrop; this sits inside that boundary. vitrea draws nothing outside the path
+  when unfocused; no declared family had an exterior term.
+- **A clipped optimizer's plateau is not a family theorem** (G2): the first H3 fit reported 22
+  codes dark-active from an SLSQP local minimum; the certified LP solver with exact rational
+  Farkas certificates brackets it at 20.139. The legacy value stays beside the certified one.
+
 ## Revision Notes
+
+- 2026-09-27 (G2's merge, the parent): merged `2899071e` after an independent gate review
+  (reviewer-high, no material findings; it reproduced all 56 neutral and 496 body observations, 21,312 support records, 6,720 ring records and 61,544 exterior observations through guarded reads, the pinned body-correction hash and all 660,672 corrected edge records, passed 18 targeted tests and checked the 180 grid trials, the sensitivity, the provenance pins and the ledger tables; no exposure receipt exists); freeze 1,818; no capture tree moved (nothing read against vitrea). Decision Log 2
+  ruled by the user; Decision Log 8 and five Surprises recorded. X9 record: G2 ran on an `astra`
+  high worker, which dispatched two additive correction workers and their `reviewer-medium`
+  reviews itself; the evidence index is `README.txt` (the worker's choice, kept). G3 does not
+  open. Wave close follows: the original bundle's Screen Recording grant restored by the user's
+  hand and both bundles' positive checks (Decision Log 4); the side bundle then loses its grant.
 
 - 2026-09-27 (G1's merge, the parent): merged `f9b9d316` after an independent review
   (reviewer-high, no material findings; it replayed all 1,184 cal/val cells from the fetched release with raw reads denied, reproduced both bar reports and every permitted probe image's plurality, and confirmed the live asset, the holdout's receipt refusal and an empty protected-path diff); freeze 1,818; no capture tree moved (no read against vitrea). Decision Log 3's
