@@ -1,0 +1,25 @@
+test_scope_is_explicit_committed_and_schema_bound (test_claims.PartialScopeTests.test_scope_is_explicit_committed_and_schema_bound) ... ok
+test_no_selective_cells_scales_empty_duplicate_or_unknown_endpoints (test_claims.PartialScopeTests.test_no_selective_cells_scales_empty_duplicate_or_unknown_endpoints) ... ok
+test_unclaimed_misses_retained_but_never_passes_or_candidate_failures (test_claims.PartialScopeTests.test_unclaimed_misses_retained_but_never_passes_or_candidate_failures) ... ok
+test_claimed_failure_still_spends_and_preserves_all_scores (test_claims.PartialScopeTests.test_claimed_failure_still_spends_and_preserves_all_scores) ... ok
+test_claimed_censor_constraint_failure_cannot_hide_behind_scope (test_claims.PartialScopeTests.test_claimed_censor_constraint_failure_cannot_hide_behind_scope) ... ok
+test_identity_baseline_payload_and_projection_must_equal_candidate (test_claims.PartialScopeTests.test_identity_baseline_payload_and_projection_must_equal_candidate) ... ok
+test_unclaimed_calibration_cannot_be_labeled_true_or_skip_veto (test_claims.PartialScopeTests.test_unclaimed_calibration_cannot_be_labeled_true_or_skip_veto) ... ok
+test_unclaimed_heldout_veto_is_independent_of_fidelity_claim (test_claims.PartialScopeTests.test_unclaimed_heldout_veto_is_independent_of_fidelity_claim) ... FAIL
+test_added_g1_import_source_refuses_before_begin (test_claims.PartialScopeTests.test_added_g1_import_source_refuses_before_begin) ... ok
+test_changed_schema_refuses_before_begin (test_claims.PartialScopeTests.test_changed_schema_refuses_before_begin) ... ok
+test_unclaimed_scores_still_require_complete_valid_measurements (test_claims.PartialScopeTests.test_unclaimed_scores_still_require_complete_valid_measurements) ... ok
+test_partial_claim_retains_every_cell_and_freezes_blind_heldout_identity (test_claims.FullMembershipClaimsTests.test_partial_claim_retains_every_cell_and_freezes_blind_heldout_identity) ... ok
+
+======================================================================
+FAIL: test_unclaimed_heldout_veto_is_independent_of_fidelity_claim (test_claims.PartialScopeTests.test_unclaimed_heldout_veto_is_independent_of_fidelity_claim)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_claims.py", line 136, in test_unclaimed_heldout_veto_is_independent_of_fidelity_claim
+    with self.assertRaisesRegex(ValueError, 'per-bin veto'):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 12 tests in 10.263s
+
+FAILED (failures=1)

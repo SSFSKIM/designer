@@ -1,0 +1,125 @@
+{
+  "kind": "public metadata reading only; no native payload or exposure",
+  "scenesSha256": "9ed048b599e104bc1d0f135165fc8b95e7b63781bbc77da800c181e44750fff7",
+  "splitSha256": "5cc9a20ef5c4d54661da4d6267bc161c6295fde5bb9e07a57ffae9a07f0e2bd5",
+  "inventorySha256": "58329732f947d42cd5e1518962016191faaa79d89b7089c6dadf5724dde35f61",
+  "claimScope": {
+    "endpoints": [
+      {
+        "colorScheme": "light",
+        "activation": "inactive"
+      }
+    ],
+    "numericalDomain": "uniform-backdrop",
+    "domain": {
+      "policy": "nominal",
+      "variant": "regular",
+      "samplingBackend": "gpu-texture",
+      "presence": {
+        "identified": 1,
+        "intermediate": "unmeasured-linear-interpolation",
+        "zero": "exact-skip"
+      }
+    },
+    "renderedDeepDomain": "uniform-backdrop"
+  },
+  "membership": {
+    "numerical": {
+      "total": 648,
+      "counts": [
+        {
+          "role": "calibration",
+          "assessment": "claimed",
+          "cells": 120
+        },
+        {
+          "role": "calibration",
+          "assessment": "not claimed (identity)",
+          "cells": 378
+        },
+        {
+          "role": "calibration",
+          "assessment": "not claimed (structured backdrop)",
+          "cells": 6
+        },
+        {
+          "role": "holdout",
+          "assessment": "claimed",
+          "cells": 18
+        },
+        {
+          "role": "holdout",
+          "assessment": "not claimed (identity)",
+          "cells": 54
+        },
+        {
+          "role": "validation",
+          "assessment": "claimed",
+          "cells": 18
+        },
+        {
+          "role": "validation",
+          "assessment": "not claimed (identity)",
+          "cells": 54
+        }
+      ]
+    },
+    "rendered": {
+      "total": 600,
+      "counts": [
+        {
+          "role": "calibration",
+          "assessment": "claimed",
+          "cells": 112
+        },
+        {
+          "role": "calibration",
+          "assessment": "not claimed (identity)",
+          "cells": 348
+        },
+        {
+          "role": "calibration",
+          "assessment": "not claimed (structured backdrop)",
+          "cells": 4
+        },
+        {
+          "role": "holdout",
+          "assessment": "claimed",
+          "cells": 16
+        },
+        {
+          "role": "holdout",
+          "assessment": "not claimed (identity)",
+          "cells": 48
+        },
+        {
+          "role": "validation",
+          "assessment": "claimed",
+          "cells": 18
+        },
+        {
+          "role": "validation",
+          "assessment": "not claimed (identity)",
+          "cells": 54
+        }
+      ]
+    }
+  },
+  "structuredBackdropMembership": {
+    "numerical": {
+      "total": 24,
+      "perEndpoint": 6,
+      "claimedLightInactive": 6,
+      "otherEndpoints": 18
+    },
+    "rendered": {
+      "total": 16,
+      "perEndpoint": 4,
+      "claimedLightInactive": 4,
+      "otherEndpoints": 12
+    }
+  },
+  "ruling": "rendered-domain-ruling.txt",
+  "identityBaselineCells": 450,
+  "identityBaselineNote": "Endpoint identity only. The four claimed-endpoint structured rendered cells have diagnostic deep closure but enabled operator and binding veto, not baseline equality."
+}

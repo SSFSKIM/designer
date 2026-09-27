@@ -1,0 +1,43 @@
+test_scope_is_explicit_committed_and_schema_bound (test_claims.PartialScopeTests.test_scope_is_explicit_committed_and_schema_bound) ... ok
+test_no_selective_cells_scales_empty_duplicate_or_unknown_endpoints (test_claims.PartialScopeTests.test_no_selective_cells_scales_empty_duplicate_or_unknown_endpoints) ... ok
+test_unclaimed_misses_retained_but_never_passes_or_candidate_failures (test_claims.PartialScopeTests.test_unclaimed_misses_retained_but_never_passes_or_candidate_failures) ... ok
+test_claimed_failure_still_spends_and_preserves_all_scores (test_claims.PartialScopeTests.test_claimed_failure_still_spends_and_preserves_all_scores) ... ok
+test_claimed_censor_constraint_failure_cannot_hide_behind_scope (test_claims.PartialScopeTests.test_claimed_censor_constraint_failure_cannot_hide_behind_scope) ... ok
+test_identity_baseline_payload_and_projection_must_equal_candidate (test_claims.PartialScopeTests.test_identity_baseline_payload_and_projection_must_equal_candidate) ... ok
+test_unclaimed_calibration_cannot_be_labeled_true_or_skip_veto (test_claims.PartialScopeTests.test_unclaimed_calibration_cannot_be_labeled_true_or_skip_veto) ... ok
+test_unclaimed_heldout_veto_is_independent_of_fidelity_claim (test_claims.PartialScopeTests.test_unclaimed_heldout_veto_is_independent_of_fidelity_claim) ... ok
+test_added_g1_import_source_refuses_before_begin (test_claims.PartialScopeTests.test_added_g1_import_source_refuses_before_begin) ... ok
+test_changed_schema_refuses_before_begin (test_claims.PartialScopeTests.test_changed_schema_refuses_before_begin) ... ok
+test_unclaimed_scores_still_require_complete_valid_measurements (test_claims.PartialScopeTests.test_unclaimed_scores_still_require_complete_valid_measurements) ... ok
+test_rendered_deep_domain_is_explicit_and_separate (test_claims.FullMembershipClaimsTests.test_rendered_deep_domain_is_explicit_and_separate) ... FAIL
+test_structured_rendered_deep_is_diagnostic_but_veto_and_pixels_remain_bound (test_claims.FullMembershipClaimsTests.test_structured_rendered_deep_is_diagnostic_but_veto_and_pixels_remain_bound) ... ERROR
+test_numerical_uniform_domain_is_explicit_not_assumed (test_claims.FullMembershipClaimsTests.test_numerical_uniform_domain_is_explicit_not_assumed) ... ok
+test_structured_numerical_diagnostic_is_not_admission_or_shader_disable (test_claims.FullMembershipClaimsTests.test_structured_numerical_diagnostic_is_not_admission_or_shader_disable) ... ok
+test_partial_claim_retains_every_cell_and_freezes_blind_heldout_identity (test_claims.FullMembershipClaimsTests.test_partial_claim_retains_every_cell_and_freezes_blind_heldout_identity) ... ok
+
+======================================================================
+ERROR: test_structured_rendered_deep_is_diagnostic_but_veto_and_pixels_remain_bound (test_claims.FullMembershipClaimsTests.test_structured_rendered_deep_is_diagnostic_but_veto_and_pixels_remain_bound)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_claims.py", line 189, in test_structured_rendered_deep_is_diagnostic_but_veto_and_pixels_remain_bound
+    manifest=self.freeze()
+             ^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_runner.py", line 657, in freeze
+    return runner.freeze(self.root, self.wave, self.candidates, config='config.json',
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 494, in freeze
+    raise ValueError('candidate did not survive before freeze')
+ValueError: candidate did not survive before freeze
+
+======================================================================
+FAIL: test_rendered_deep_domain_is_explicit_and_separate (test_claims.FullMembershipClaimsTests.test_rendered_deep_domain_is_explicit_and_separate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_claims.py", line 175, in test_rendered_deep_domain_is_explicit_and_separate
+    with self.assertRaisesRegex(ValueError,'renderedDeepDomain'):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 16 tests in 19.670s
+
+FAILED (failures=1, errors=1)

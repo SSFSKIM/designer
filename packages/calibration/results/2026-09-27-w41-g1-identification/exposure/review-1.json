@@ -1,0 +1,22 @@
+{
+  "reviewer": "doperpowers:reviewer-high",
+  "checkpoint": "58-test endpoint/domain implementation plus targeted uniform numerical-domain addition",
+  "verdict": "incorrect",
+  "findings": [
+    {
+      "priority": "P1",
+      "location": "runner.py validate_domain",
+      "finding": "Producer wraps scene/domain observations under report.page, not report root. Flattened synthetic fixtures masked rejection of genuine frozen/fresh report wrapper.",
+      "verifiedAgainst": "packages/calibration/scripts/capture-web.ts:763-790",
+      "disposition": "actionable; delegated bounded fix wave"
+    },
+    {
+      "priority": "P2",
+      "location": "runner.py freeze_domain",
+      "finding": "Frozen capture-domain records not bound to profile scale/scheme/pose and candidate material/receded document hashes. Same-scene record substitution could pass the full648/600 freeze.",
+      "disposition": "actionable; delegated bounded fix wave"
+    }
+  ],
+  "uniformDomainFollowup": "Reviewer independently examined and passed three targeted synthetic tests: structured S0 diagnostics remain, rendered full scope remains, complete648/600 membership and72/64 heldout scoring remain.",
+  "authority": "No native archive payload, production receipt or browser opened. Synthetic scratch tests only."
+}

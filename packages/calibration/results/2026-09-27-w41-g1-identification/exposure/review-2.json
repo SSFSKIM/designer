@@ -1,0 +1,17 @@
+{
+  "reviewer": "doperpowers:reviewer-high",
+  "checkpoint": "64-test producer/profile association fix plus explicit rendered-deep uniform domain",
+  "originalFindings": "P1 report wrapper and P2 profile/document association closed",
+  "renderedDomain": "Matched supplied ruling; structured rendered deep absolute scores diagnostic, every rendered veto binding, S0 numerical-only, identity equality450 cells including48heldout. Five targeted association/scope tests passed.",
+  "verdict": "incorrect",
+  "findings": [
+    {
+      "priority": "P2",
+      "location": "runner.py expected page.materialProfile",
+      "finding": "The actual producer omits injection of an empty active patch, yielding page.materialProfile:null. Validator expected{} for a valid empty-patch document. Inactive scenes still merge candidate receded patch into an object.",
+      "verifiedAgainst": "packages/calibration/scripts/capture-web.ts:855-856",
+      "disposition": "Narrow producer-contract fix delegated to the same bounded worker; current nonempty active patches unaffected."
+    }
+  ],
+  "limits": "Synthetic tests and source contract inspection, not real browser compatibility. G0 unchanged. No W39 native payload, production receipt or browser."
+}

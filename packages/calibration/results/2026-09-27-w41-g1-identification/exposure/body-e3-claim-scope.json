@@ -1,0 +1,20 @@
+{
+  "endpoints": [
+    {
+      "colorScheme": "light",
+      "activation": "inactive"
+    }
+  ],
+  "numericalDomain": "uniform-backdrop",
+  "domain": {
+    "policy": "nominal",
+    "variant": "regular",
+    "samplingBackend": "gpu-texture",
+    "presence": {
+      "identified": 1,
+      "intermediate": "unmeasured-linear-interpolation",
+      "zero": "exact-skip"
+    }
+  },
+  "renderedDeepDomain": "uniform-backdrop"
+}

@@ -1,0 +1,26 @@
+test_empty_active_patch_is_omitted_but_candidate_recede_still_draws (test_domain.DomainTests.test_empty_active_patch_is_omitted_but_candidate_recede_still_draws) ... 
+  test_empty_active_patch_is_omitted_but_candidate_recede_still_draws (test_domain.DomainTests.test_empty_active_patch_is_omitted_but_candidate_recede_still_draws) (pose='rest') ... ERROR
+  test_empty_active_patch_is_omitted_but_candidate_recede_still_draws (test_domain.DomainTests.test_empty_active_patch_is_omitted_but_candidate_recede_still_draws) (pose='rest', mutation='empty-object') ... FAIL
+
+======================================================================
+ERROR: test_empty_active_patch_is_omitted_but_candidate_recede_still_draws (test_domain.DomainTests.test_empty_active_patch_is_omitted_but_candidate_recede_still_draws) (pose='rest')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 178, in test_empty_active_patch_is_omitted_but_candidate_recede_still_draws
+    runner.validate_domain(self.wave,cell,record['descriptor'],record['report'],documents)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py", line 302, in validate_domain
+    raise ValueError('capture domain actual candidate pose/material mismatch: ' + identity)
+ValueError: capture domain actual candidate pose/material mismatch: apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__rest
+
+======================================================================
+FAIL: test_empty_active_patch_is_omitted_but_candidate_recede_still_draws (test_domain.DomainTests.test_empty_active_patch_is_omitted_but_candidate_recede_still_draws) (pose='rest', mutation='empty-object')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 186, in test_empty_active_patch_is_omitted_but_candidate_recede_still_draws
+    with self.subTest(pose=pose,mutation=mutation),self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.275s
+
+FAILED (failures=1, errors=1)

@@ -1,0 +1,518 @@
+test_claim_domain_is_mandatory_not_an_implicit_default (test_domain.DomainTests.test_claim_domain_is_mandatory_not_an_implicit_default) ... ok
+test_actual_domain_failure_on_unclaimed_endpoint_refuses_freeze (test_domain.DomainTests.test_actual_domain_failure_on_unclaimed_endpoint_refuses_freeze) ... ok
+test_missing_or_unbound_source_chain_is_not_presence_proof (test_domain.DomainTests.test_missing_or_unbound_source_chain_is_not_presence_proof) ... ok
+test_missing_frozen_capture_domain_record_cannot_reduce_membership (test_domain.DomainTests.test_missing_frozen_capture_domain_record_cannot_reduce_membership) ... ok
+test_fresh_capture_policy_and_backend_are_checked (test_domain.DomainTests.test_fresh_capture_policy_and_backend_are_checked) ... ok
+test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) ... 
+  test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-160x96__inactive', mutation='descriptor size') ... FAIL
+  test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-160x96__inactive', mutation='page size') ... FAIL
+  test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-160x96__inactive', mutation='canvas') ... FAIL
+  test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-160x96__inactive', mutation='requested scale') ... FAIL
+  test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-160x96__inactive', mutation='actual scale') ... FAIL
+  test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-160x96__inactive', mutation='driver scheme') ... FAIL
+  test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-160x96__inactive', mutation='actual scheme') ... FAIL
+  test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-160x96__inactive', mutation='actual activation') ... FAIL
+  test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-160x96__inactive', mutation='material hash') ... FAIL
+  test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-160x96__inactive', mutation='receded hash') ... FAIL
+  test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-160x96__inactive', mutation='material patch') ... FAIL
+  test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-160x96__inactive', mutation='receded patch') ... FAIL
+  test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-160x96__inactive', mutation='posed patch') ... FAIL
+  test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-160x96__inactive', mutation='candidate pose') ... FAIL
+  test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-160x96__inactive', mutation='runtime recede') ... FAIL
+  test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-160x96__inactive', mutation='fallback') ... FAIL
+  test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-160x96__inactive', mutation='driver problems') ... FAIL
+  test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-160x96__inactive', mutation='page problems') ... FAIL
+  test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__rest', mutation='descriptor size') ... FAIL
+  test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__rest', mutation='page size') ... FAIL
+  test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__rest', mutation='canvas') ... FAIL
+  test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__rest', mutation='requested scale') ... FAIL
+  test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__rest', mutation='actual scale') ... FAIL
+  test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__rest', mutation='driver scheme') ... FAIL
+  test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__rest', mutation='actual scheme') ... FAIL
+  test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__rest', mutation='actual activation') ... FAIL
+  test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__rest', mutation='material hash') ... FAIL
+  test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__rest', mutation='receded hash') ... FAIL
+  test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__rest', mutation='material patch') ... FAIL
+  test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__rest', mutation='receded patch') ... FAIL
+  test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__rest', mutation='posed patch') ... FAIL
+  test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__rest', mutation='candidate pose') ... FAIL
+  test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__rest', mutation='runtime recede') ... FAIL
+  test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__rest', mutation='fallback') ... FAIL
+  test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__rest', mutation='driver problems') ... FAIL
+  test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__rest', mutation='page problems') ... FAIL
+test_fresh64_use_the_same_profile_and_document_validation (test_domain.AssociationTests.test_fresh64_use_the_same_profile_and_document_validation) ... 
+  test_fresh64_use_the_same_profile_and_document_validation (test_domain.AssociationTests.test_fresh64_use_the_same_profile_and_document_validation) (mutation='descriptor size') ... FAIL
+  test_fresh64_use_the_same_profile_and_document_validation (test_domain.AssociationTests.test_fresh64_use_the_same_profile_and_document_validation) (mutation='page size') ... FAIL
+  test_fresh64_use_the_same_profile_and_document_validation (test_domain.AssociationTests.test_fresh64_use_the_same_profile_and_document_validation) (mutation='canvas') ... FAIL
+  test_fresh64_use_the_same_profile_and_document_validation (test_domain.AssociationTests.test_fresh64_use_the_same_profile_and_document_validation) (mutation='requested scale') ... FAIL
+  test_fresh64_use_the_same_profile_and_document_validation (test_domain.AssociationTests.test_fresh64_use_the_same_profile_and_document_validation) (mutation='actual scale') ... FAIL
+  test_fresh64_use_the_same_profile_and_document_validation (test_domain.AssociationTests.test_fresh64_use_the_same_profile_and_document_validation) (mutation='driver scheme') ... FAIL
+  test_fresh64_use_the_same_profile_and_document_validation (test_domain.AssociationTests.test_fresh64_use_the_same_profile_and_document_validation) (mutation='actual scheme') ... FAIL
+  test_fresh64_use_the_same_profile_and_document_validation (test_domain.AssociationTests.test_fresh64_use_the_same_profile_and_document_validation) (mutation='actual activation') ... FAIL
+  test_fresh64_use_the_same_profile_and_document_validation (test_domain.AssociationTests.test_fresh64_use_the_same_profile_and_document_validation) (mutation='material hash') ... FAIL
+  test_fresh64_use_the_same_profile_and_document_validation (test_domain.AssociationTests.test_fresh64_use_the_same_profile_and_document_validation) (mutation='receded hash') ... FAIL
+  test_fresh64_use_the_same_profile_and_document_validation (test_domain.AssociationTests.test_fresh64_use_the_same_profile_and_document_validation) (mutation='material patch') ... FAIL
+  test_fresh64_use_the_same_profile_and_document_validation (test_domain.AssociationTests.test_fresh64_use_the_same_profile_and_document_validation) (mutation='receded patch') ... FAIL
+  test_fresh64_use_the_same_profile_and_document_validation (test_domain.AssociationTests.test_fresh64_use_the_same_profile_and_document_validation) (mutation='posed patch') ... FAIL
+  test_fresh64_use_the_same_profile_and_document_validation (test_domain.AssociationTests.test_fresh64_use_the_same_profile_and_document_validation) (mutation='candidate pose') ... FAIL
+  test_fresh64_use_the_same_profile_and_document_validation (test_domain.AssociationTests.test_fresh64_use_the_same_profile_and_document_validation) (mutation='runtime recede') ... FAIL
+  test_fresh64_use_the_same_profile_and_document_validation (test_domain.AssociationTests.test_fresh64_use_the_same_profile_and_document_validation) (mutation='fallback') ... FAIL
+  test_fresh64_use_the_same_profile_and_document_validation (test_domain.AssociationTests.test_fresh64_use_the_same_profile_and_document_validation) (mutation='driver problems') ... FAIL
+  test_fresh64_use_the_same_profile_and_document_validation (test_domain.AssociationTests.test_fresh64_use_the_same_profile_and_document_validation) (mutation='page problems') ... FAIL
+
+======================================================================
+FAIL: test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-160x96__inactive', mutation='descriptor size')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 201, in test_full_membership_binds_producer_facts_before_any_exposure
+    with self.subTest(cell=cell, mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-160x96__inactive', mutation='page size')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 201, in test_full_membership_binds_producer_facts_before_any_exposure
+    with self.subTest(cell=cell, mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-160x96__inactive', mutation='canvas')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 201, in test_full_membership_binds_producer_facts_before_any_exposure
+    with self.subTest(cell=cell, mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-160x96__inactive', mutation='requested scale')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 201, in test_full_membership_binds_producer_facts_before_any_exposure
+    with self.subTest(cell=cell, mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-160x96__inactive', mutation='actual scale')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 201, in test_full_membership_binds_producer_facts_before_any_exposure
+    with self.subTest(cell=cell, mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-160x96__inactive', mutation='driver scheme')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 201, in test_full_membership_binds_producer_facts_before_any_exposure
+    with self.subTest(cell=cell, mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-160x96__inactive', mutation='actual scheme')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 201, in test_full_membership_binds_producer_facts_before_any_exposure
+    with self.subTest(cell=cell, mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-160x96__inactive', mutation='actual activation')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 201, in test_full_membership_binds_producer_facts_before_any_exposure
+    with self.subTest(cell=cell, mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-160x96__inactive', mutation='material hash')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 201, in test_full_membership_binds_producer_facts_before_any_exposure
+    with self.subTest(cell=cell, mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-160x96__inactive', mutation='receded hash')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 201, in test_full_membership_binds_producer_facts_before_any_exposure
+    with self.subTest(cell=cell, mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-160x96__inactive', mutation='material patch')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 201, in test_full_membership_binds_producer_facts_before_any_exposure
+    with self.subTest(cell=cell, mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-160x96__inactive', mutation='receded patch')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 201, in test_full_membership_binds_producer_facts_before_any_exposure
+    with self.subTest(cell=cell, mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-160x96__inactive', mutation='posed patch')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 201, in test_full_membership_binds_producer_facts_before_any_exposure
+    with self.subTest(cell=cell, mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-160x96__inactive', mutation='candidate pose')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 201, in test_full_membership_binds_producer_facts_before_any_exposure
+    with self.subTest(cell=cell, mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-160x96__inactive', mutation='runtime recede')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 201, in test_full_membership_binds_producer_facts_before_any_exposure
+    with self.subTest(cell=cell, mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-160x96__inactive', mutation='fallback')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 201, in test_full_membership_binds_producer_facts_before_any_exposure
+    with self.subTest(cell=cell, mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-160x96__inactive', mutation='driver problems')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 201, in test_full_membership_binds_producer_facts_before_any_exposure
+    with self.subTest(cell=cell, mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-160x96__inactive', mutation='page problems')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 201, in test_full_membership_binds_producer_facts_before_any_exposure
+    with self.subTest(cell=cell, mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__rest', mutation='descriptor size')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 201, in test_full_membership_binds_producer_facts_before_any_exposure
+    with self.subTest(cell=cell, mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__rest', mutation='page size')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 201, in test_full_membership_binds_producer_facts_before_any_exposure
+    with self.subTest(cell=cell, mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__rest', mutation='canvas')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 201, in test_full_membership_binds_producer_facts_before_any_exposure
+    with self.subTest(cell=cell, mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__rest', mutation='requested scale')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 201, in test_full_membership_binds_producer_facts_before_any_exposure
+    with self.subTest(cell=cell, mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__rest', mutation='actual scale')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 201, in test_full_membership_binds_producer_facts_before_any_exposure
+    with self.subTest(cell=cell, mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__rest', mutation='driver scheme')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 201, in test_full_membership_binds_producer_facts_before_any_exposure
+    with self.subTest(cell=cell, mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__rest', mutation='actual scheme')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 201, in test_full_membership_binds_producer_facts_before_any_exposure
+    with self.subTest(cell=cell, mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__rest', mutation='actual activation')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 201, in test_full_membership_binds_producer_facts_before_any_exposure
+    with self.subTest(cell=cell, mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__rest', mutation='material hash')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 201, in test_full_membership_binds_producer_facts_before_any_exposure
+    with self.subTest(cell=cell, mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__rest', mutation='receded hash')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 201, in test_full_membership_binds_producer_facts_before_any_exposure
+    with self.subTest(cell=cell, mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__rest', mutation='material patch')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 201, in test_full_membership_binds_producer_facts_before_any_exposure
+    with self.subTest(cell=cell, mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__rest', mutation='receded patch')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 201, in test_full_membership_binds_producer_facts_before_any_exposure
+    with self.subTest(cell=cell, mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__rest', mutation='posed patch')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 201, in test_full_membership_binds_producer_facts_before_any_exposure
+    with self.subTest(cell=cell, mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__rest', mutation='candidate pose')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 201, in test_full_membership_binds_producer_facts_before_any_exposure
+    with self.subTest(cell=cell, mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__rest', mutation='runtime recede')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 201, in test_full_membership_binds_producer_facts_before_any_exposure
+    with self.subTest(cell=cell, mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__rest', mutation='fallback')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 201, in test_full_membership_binds_producer_facts_before_any_exposure
+    with self.subTest(cell=cell, mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__rest', mutation='driver problems')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 201, in test_full_membership_binds_producer_facts_before_any_exposure
+    with self.subTest(cell=cell, mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_full_membership_binds_producer_facts_before_any_exposure (test_domain.AssociationTests.test_full_membership_binds_producer_facts_before_any_exposure) (cell='apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__rest', mutation='page problems')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 201, in test_full_membership_binds_producer_facts_before_any_exposure
+    with self.subTest(cell=cell, mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_fresh64_use_the_same_profile_and_document_validation (test_domain.AssociationTests.test_fresh64_use_the_same_profile_and_document_validation) (mutation='descriptor size')
+----------------------------------------------------------------------
+ValueError: capture descriptor does not attest the requested WebGPU cell
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 239, in test_fresh64_use_the_same_profile_and_document_validation
+    with self.subTest(mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: "domain" does not match "capture descriptor does not attest the requested WebGPU cell"
+
+======================================================================
+FAIL: test_fresh64_use_the_same_profile_and_document_validation (test_domain.AssociationTests.test_fresh64_use_the_same_profile_and_document_validation) (mutation='page size')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 239, in test_fresh64_use_the_same_profile_and_document_validation
+    with self.subTest(mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_fresh64_use_the_same_profile_and_document_validation (test_domain.AssociationTests.test_fresh64_use_the_same_profile_and_document_validation) (mutation='canvas')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 239, in test_fresh64_use_the_same_profile_and_document_validation
+    with self.subTest(mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_fresh64_use_the_same_profile_and_document_validation (test_domain.AssociationTests.test_fresh64_use_the_same_profile_and_document_validation) (mutation='requested scale')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 239, in test_fresh64_use_the_same_profile_and_document_validation
+    with self.subTest(mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_fresh64_use_the_same_profile_and_document_validation (test_domain.AssociationTests.test_fresh64_use_the_same_profile_and_document_validation) (mutation='actual scale')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 239, in test_fresh64_use_the_same_profile_and_document_validation
+    with self.subTest(mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_fresh64_use_the_same_profile_and_document_validation (test_domain.AssociationTests.test_fresh64_use_the_same_profile_and_document_validation) (mutation='driver scheme')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 239, in test_fresh64_use_the_same_profile_and_document_validation
+    with self.subTest(mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_fresh64_use_the_same_profile_and_document_validation (test_domain.AssociationTests.test_fresh64_use_the_same_profile_and_document_validation) (mutation='actual scheme')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 239, in test_fresh64_use_the_same_profile_and_document_validation
+    with self.subTest(mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_fresh64_use_the_same_profile_and_document_validation (test_domain.AssociationTests.test_fresh64_use_the_same_profile_and_document_validation) (mutation='actual activation')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 239, in test_fresh64_use_the_same_profile_and_document_validation
+    with self.subTest(mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_fresh64_use_the_same_profile_and_document_validation (test_domain.AssociationTests.test_fresh64_use_the_same_profile_and_document_validation) (mutation='material hash')
+----------------------------------------------------------------------
+ValueError: capture drew a different material document
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 239, in test_fresh64_use_the_same_profile_and_document_validation
+    with self.subTest(mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: "domain" does not match "capture drew a different material document"
+
+======================================================================
+FAIL: test_fresh64_use_the_same_profile_and_document_validation (test_domain.AssociationTests.test_fresh64_use_the_same_profile_and_document_validation) (mutation='receded hash')
+----------------------------------------------------------------------
+ValueError: capture drew a different material document
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 239, in test_fresh64_use_the_same_profile_and_document_validation
+    with self.subTest(mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: "domain" does not match "capture drew a different material document"
+
+======================================================================
+FAIL: test_fresh64_use_the_same_profile_and_document_validation (test_domain.AssociationTests.test_fresh64_use_the_same_profile_and_document_validation) (mutation='material patch')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 239, in test_fresh64_use_the_same_profile_and_document_validation
+    with self.subTest(mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_fresh64_use_the_same_profile_and_document_validation (test_domain.AssociationTests.test_fresh64_use_the_same_profile_and_document_validation) (mutation='receded patch')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 239, in test_fresh64_use_the_same_profile_and_document_validation
+    with self.subTest(mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_fresh64_use_the_same_profile_and_document_validation (test_domain.AssociationTests.test_fresh64_use_the_same_profile_and_document_validation) (mutation='posed patch')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 239, in test_fresh64_use_the_same_profile_and_document_validation
+    with self.subTest(mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_fresh64_use_the_same_profile_and_document_validation (test_domain.AssociationTests.test_fresh64_use_the_same_profile_and_document_validation) (mutation='candidate pose')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 239, in test_fresh64_use_the_same_profile_and_document_validation
+    with self.subTest(mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_fresh64_use_the_same_profile_and_document_validation (test_domain.AssociationTests.test_fresh64_use_the_same_profile_and_document_validation) (mutation='runtime recede')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 239, in test_fresh64_use_the_same_profile_and_document_validation
+    with self.subTest(mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_fresh64_use_the_same_profile_and_document_validation (test_domain.AssociationTests.test_fresh64_use_the_same_profile_and_document_validation) (mutation='fallback')
+----------------------------------------------------------------------
+ValueError: capture descriptor does not attest the requested WebGPU cell
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 239, in test_fresh64_use_the_same_profile_and_document_validation
+    with self.subTest(mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: "domain" does not match "capture descriptor does not attest the requested WebGPU cell"
+
+======================================================================
+FAIL: test_fresh64_use_the_same_profile_and_document_validation (test_domain.AssociationTests.test_fresh64_use_the_same_profile_and_document_validation) (mutation='driver problems')
+----------------------------------------------------------------------
+ValueError: capture descriptor does not attest the requested WebGPU cell
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 239, in test_fresh64_use_the_same_profile_and_document_validation
+    with self.subTest(mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: "domain" does not match "capture descriptor does not attest the requested WebGPU cell"
+
+======================================================================
+FAIL: test_fresh64_use_the_same_profile_and_document_validation (test_domain.AssociationTests.test_fresh64_use_the_same_profile_and_document_validation) (mutation='page problems')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/test_domain.py", line 239, in test_fresh64_use_the_same_profile_and_document_validation
+    with self.subTest(mutation=name), self.assertRaisesRegex(ValueError,'domain'):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 7 tests in 51.634s
+
+FAILED (failures=54)
