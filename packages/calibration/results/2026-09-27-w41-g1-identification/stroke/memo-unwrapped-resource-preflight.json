@@ -1,0 +1,17 @@
+{
+  "sampledUTC": "2026-09-27T11:49:00.779617+00:00",
+  "kind": "PLANNING_ONLY_NOT_ADMISSION",
+  "memory": {
+    "availableBytes": 5525749760,
+    "pressureLevel": 1,
+    "pageSizeBytes": 16384,
+    "freePages": 17131,
+    "inactivePages": 320134,
+    "metric": "macOS (vm_stat Pages free + Pages inactive) * page size; reclaimable-headroom estimate",
+    "sampledUTC": "2026-09-27T11:49:00.779365+00:00"
+  },
+  "oldOwnersStillLive": [],
+  "measuredFitPeakBytes": 3078144000,
+  "minimumRequiredWhenNoOtherFit": 6299369472,
+  "qualification": "Actual adapter will repeat admission under allocationlock beforepreparationandbeforefit; this snapshot grants no slot."
+}

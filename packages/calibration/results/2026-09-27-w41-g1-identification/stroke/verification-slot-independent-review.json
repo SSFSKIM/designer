@@ -1,0 +1,13 @@
+{
+  "reviewer": "doperpowers:reviewer-high",
+  "verdict": "correct; no material findings",
+  "testedSha256": {
+    "verification_slot.py": "3766cedcc1a1d02c0693179c3a5f0e1d10ac17a2b722fc4aa3318228a1d7c42c",
+    "test_verification_slot.py": "3e14a86e01e535556fdc933a930169ded3cb11d292aaa0367a134c78f7e1d917",
+    "README.md": "8a4844ca05dce487a5f11a73f8297c5deac817dfa17db81e0da6920b7647cea3"
+  },
+  "checks": "21synthetictests; candidateidentitypreserved,exclusiveallocationlockentiremode,samememorypolicybothgates,pinnedreceipt/source/output/predecessorchain,truthfulboundary/failureandmonotonicRSSrecords",
+  "scope": "Adapterandresourceintegrationonly; memoizationproofscience separatelyownedbycoordinator",
+  "nativeReads": false,
+  "fits": false
+}

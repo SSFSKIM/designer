@@ -1,0 +1,41 @@
+{
+  "kind": "STROKE_VERIFICATION_ADMIT",
+  "schedulerRoot": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1",
+  "heldRevision": "d35b4cbf43f1fcdda55063b3b8e0fa178d720a78",
+  "roster": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-roster.json",
+    "sha256": "ae5bb5418fcb27e50c7f584765196b78e2e1bd6a2e7c70c4cc825c2d8655bd9b"
+  },
+  "captureRelease": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/capturesrelease.json",
+    "sha256": "b77df35006fc32571e3171a5f375aad844300a5ef9adb09c34fd71fb51275e77"
+  },
+  "peakEvidence": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/rss-observation-1/scheduler-peak-evidence.json",
+    "sha256": "064fa8d6e0380acc9aee5eecdfd37dfb9a237a8132a65ae62c2b0ee7af307400"
+  },
+  "reservationBytes": 3078144000,
+  "oldWorkerReservationBytes": 3078144000,
+  "maxConcurrency": 6,
+  "mode": "unwrapped",
+  "out": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/native-unwrapped-1",
+  "completedArtifact": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/survivor-scope-partition-0/device-M1-start-00.json",
+    "sha256": "e361f0a5e6b7e8ca3b9982b21426bac0fb1ca0a5f50b6887eb6d802129dd1187"
+  },
+  "sourceSha256": {
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/verification-slot/verification_slot.py": "3766cedcc1a1d02c0693179c3a5f0e1d10ac17a2b722fc4aa3318228a1d7c42c",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler.py": "b2b103bcd1fbb77507d97b1e612fae0d802a17b816c3d80ecb8288b00664712c",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/proof.py": "db880447f485fe88ad7ff01caae9857a378f6b147bae5c774ed9bac79627cd93",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/solver_memo.py": "b0e9f572d6bb51513c54a6128981adb52384c39113a574baeda05a229d5de50b",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/fixtures.py": "e500464fc13449881e24b4e5805461699ffa0899351020366b9b62d9278ccd66",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/start_partition.py": "4d966f03905693f8090685d0bab7b90a951ea3689ead16678f494592a20f37b9",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/survivor_scope_runner.py": "cace8f6f124d8009a84ddb124b7e96818e7f2ba2a65177f8e49dc5461408e65f",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/inactive_runner.py": "f38a12ddc73eca8f4cfdc7d22ff7d2e912060e9fb69bde4eab17aa3a1d2ca42b",
+    "/Users/new/vitrea-w41/pre-w41-proof/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/replay.py": "d5df491dc468d6cc5844d4f6d7bbf0d17d752bc1c0851c013178091e8ba58810",
+    "/Users/new/vitrea-w41/pre-w41-proof/packages/calibration/results/2026-09-27-w41-g0-declaration/instrument/stroke_fit.py": "07ac045ccabcd5c8348de50b5c9de13668558c44833c2b0d1ba756298e1da887",
+    "/Users/new/vitrea-w41/pre-w41-proof/packages/calibration/results/2026-09-27-w41-g0-declaration/instrument/instrument.py": "41f796109a19e3834f2d738ee122f394d2e142d79ba29db3fe5ecc4ddb179950",
+    "/Users/new/vitrea-w41/pre-w41-proof/packages/calibration/results/2026-09-27-w41-g0-declaration/instrument/shadow.py": "aff196a4923b77489a2425b3ea1214bf28e55b0b0cc9540c058692bb195d377a"
+  },
+  "predecessor": null
+}

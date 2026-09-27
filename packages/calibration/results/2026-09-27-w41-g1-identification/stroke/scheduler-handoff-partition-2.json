@@ -1,0 +1,229 @@
+{
+  "kind": "STROKE_HANDOFF",
+  "rosterSha256": "ae5bb5418fcb27e50c7f584765196b78e2e1bd6a2e7c70c4cc825c2d8655bd9b",
+  "partition": 2,
+  "oldPid": 80167,
+  "oldTaskId": "bgql4ygg9",
+  "stoppedUTC": "2026-09-27T11:36:18.861605+00:00",
+  "boundaryTask": [
+    "M1",
+    "device",
+    8
+  ],
+  "captureRelease": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/capturesrelease.json",
+    "sha256": "b77df35006fc32571e3171a5f375aad844300a5ef9adb09c34fd71fb51275e77"
+  },
+  "direction": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-parent-direction.json",
+    "sha256": "de266dcdd088ceba1f8cb34eb46335452de5228920858e7690c6f6b8092a56a8"
+  },
+  "completed": [
+    {
+      "task": [
+        "M1",
+        "device",
+        2
+      ],
+      "artifact": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/survivor-scope-partition-2/device-M1-start-02.json",
+        "sha256": "779c65ee3169fe429b3a83d5931db51df2ff04497f5fb426fd94175ee351a569"
+      }
+    },
+    {
+      "task": [
+        "M1",
+        "device",
+        5
+      ],
+      "artifact": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/survivor-scope-partition-2/device-M1-start-05.json",
+        "sha256": "e17426844700f6371ba3c6c8e3593cabd2428000bd602151ccb8ffec967a2ae5"
+      }
+    },
+    {
+      "task": [
+        "M1",
+        "device",
+        8
+      ],
+      "artifact": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/survivor-scope-partition-2/device-M1-start-08.json",
+        "sha256": "46c9873c0052c3c852ad6384b7132d040013a8b52255dd2d945ece46ad84803a"
+      }
+    }
+  ],
+  "aborted": [
+    {
+      "task": [
+        "M1",
+        "device",
+        11
+      ],
+      "label": "aborted",
+      "neverScored": true,
+      "evidence": [
+        {
+          "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/survivor-scope-partition-2/handover-stop.json",
+          "sha256": "be1efebd2a2e1bb8e3313f718b0564d46718e8914e4112edc464dec9c0c24200"
+        },
+        {
+          "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/survivor-scope-partition-2/handover-stdout.txt",
+          "sha256": "5b80bcc4c975b94d42bcd4055cab86fd4da52ecf8d1496b8a44e01000ba21735"
+        }
+      ]
+    }
+  ],
+  "excluded": [
+    {
+      "task": [
+        "M1",
+        "css",
+        2
+      ],
+      "certificate": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/css-width-certificate/bounded/certificate.json",
+        "sha256": "72ab4a2bfc68d0d5e2864cc2f7a49ec05d64aba6f123811818194d0f5610b28d"
+      },
+      "review": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/css-width-independent-review.json",
+        "sha256": "b5946367637c76d501c6e288617380fa19047a6b3a140ae097f2a8bd53d7c174"
+      }
+    },
+    {
+      "task": [
+        "M1",
+        "css",
+        5
+      ],
+      "certificate": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/css-width-certificate/bounded/certificate.json",
+        "sha256": "72ab4a2bfc68d0d5e2864cc2f7a49ec05d64aba6f123811818194d0f5610b28d"
+      },
+      "review": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/css-width-independent-review.json",
+        "sha256": "b5946367637c76d501c6e288617380fa19047a6b3a140ae097f2a8bd53d7c174"
+      }
+    },
+    {
+      "task": [
+        "M1",
+        "css",
+        8
+      ],
+      "certificate": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/css-width-certificate/bounded/certificate.json",
+        "sha256": "72ab4a2bfc68d0d5e2864cc2f7a49ec05d64aba6f123811818194d0f5610b28d"
+      },
+      "review": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/css-width-independent-review.json",
+        "sha256": "b5946367637c76d501c6e288617380fa19047a6b3a140ae097f2a8bd53d7c174"
+      }
+    },
+    {
+      "task": [
+        "M1",
+        "css",
+        11
+      ],
+      "certificate": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/css-width-certificate/bounded/certificate.json",
+        "sha256": "72ab4a2bfc68d0d5e2864cc2f7a49ec05d64aba6f123811818194d0f5610b28d"
+      },
+      "review": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/css-width-independent-review.json",
+        "sha256": "b5946367637c76d501c6e288617380fa19047a6b3a140ae097f2a8bd53d7c174"
+      }
+    },
+    {
+      "task": [
+        "M1",
+        "css",
+        14
+      ],
+      "certificate": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/css-width-certificate/bounded/certificate.json",
+        "sha256": "72ab4a2bfc68d0d5e2864cc2f7a49ec05d64aba6f123811818194d0f5610b28d"
+      },
+      "review": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/css-width-independent-review.json",
+        "sha256": "b5946367637c76d501c6e288617380fa19047a6b3a140ae097f2a8bd53d7c174"
+      }
+    },
+    {
+      "task": [
+        "M2",
+        "css",
+        2
+      ],
+      "certificate": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/css-width-certificate/bounded/certificate.json",
+        "sha256": "72ab4a2bfc68d0d5e2864cc2f7a49ec05d64aba6f123811818194d0f5610b28d"
+      },
+      "review": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/css-width-independent-review.json",
+        "sha256": "b5946367637c76d501c6e288617380fa19047a6b3a140ae097f2a8bd53d7c174"
+      }
+    },
+    {
+      "task": [
+        "M2",
+        "css",
+        5
+      ],
+      "certificate": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/css-width-certificate/bounded/certificate.json",
+        "sha256": "72ab4a2bfc68d0d5e2864cc2f7a49ec05d64aba6f123811818194d0f5610b28d"
+      },
+      "review": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/css-width-independent-review.json",
+        "sha256": "b5946367637c76d501c6e288617380fa19047a6b3a140ae097f2a8bd53d7c174"
+      }
+    },
+    {
+      "task": [
+        "M2",
+        "css",
+        8
+      ],
+      "certificate": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/css-width-certificate/bounded/certificate.json",
+        "sha256": "72ab4a2bfc68d0d5e2864cc2f7a49ec05d64aba6f123811818194d0f5610b28d"
+      },
+      "review": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/css-width-independent-review.json",
+        "sha256": "b5946367637c76d501c6e288617380fa19047a6b3a140ae097f2a8bd53d7c174"
+      }
+    },
+    {
+      "task": [
+        "M2",
+        "css",
+        11
+      ],
+      "certificate": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/css-width-certificate/bounded/certificate.json",
+        "sha256": "72ab4a2bfc68d0d5e2864cc2f7a49ec05d64aba6f123811818194d0f5610b28d"
+      },
+      "review": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/css-width-independent-review.json",
+        "sha256": "b5946367637c76d501c6e288617380fa19047a6b3a140ae097f2a8bd53d7c174"
+      }
+    },
+    {
+      "task": [
+        "M2",
+        "css",
+        14
+      ],
+      "certificate": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/css-width-certificate/bounded/certificate.json",
+        "sha256": "72ab4a2bfc68d0d5e2864cc2f7a49ec05d64aba6f123811818194d0f5610b28d"
+      },
+      "review": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/css-width-independent-review.json",
+        "sha256": "b5946367637c76d501c6e288617380fa19047a6b3a140ae097f2a8bd53d7c174"
+      }
+    }
+  ]
+}
