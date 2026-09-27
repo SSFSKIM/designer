@@ -81,3 +81,12 @@ The initial red logs record absent modules, not a behavioral regression witness;
 the forged-role red/green check is the behavioral review-closure witness.
 Independent narrow closure review confirmed the fix with no material findings,
 rerunning the two adapter and three Python synthetic tests without real pixels.
+
+Additional step10 authorization is prepared separately in ../canonical-diagnostic/:
+330cal/val WebGPU diagnostic candidate captures, direct capture only, scratch,
+no matrix/native read, each launch X6-checked after the owner's browser handoff.
+No such capture is claimed yet. Its committed frozen.json is the optional
+canonicalCandidate input here. This adapter requires its diagnostic label and
+carries that label into the HTML/PNG title and candidate inventory metadata:
+"diagnostic candidate WEB for EYE; not a canonical read or G2 material".
+The canonical holdout remains excluded. G0 styles/difference encoding stay intact.

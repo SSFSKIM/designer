@@ -15,7 +15,7 @@ const sha = (b: Uint8Array | string) => createHash('sha256').update(b).digest('h
 const load = (p: string) => JSON.parse(readFileSync(p, 'utf8'));
 const id = (c: Pick<Cell, 'profileKey' | 'sceneId'>) => `${c.profileKey}/${c.sceneId}`;
 interface Capture { png: string; pngSha256: string; cellSha256: string; reportSha256: string }
-interface Frozen { captures: Record<string, Capture> }
+interface Frozen { captures: Record<string, Capture>; label?: string }
 interface Pin { path: string; sha256: string }
 interface Candidate { captureRoot: string; documents: Record<string, Document[]>; freeze: Pin }
 export interface Options {
@@ -86,6 +86,12 @@ function bindCapture(cell: Cell, root: string, frozen: Frozen) {
   return entry;
 }
 
+const DIAGNOSTIC = 'diagnostic candidate WEB for EYE; not a canonical read or G2 material';
+export function diagnosticSheet(html: string): string {
+  // The unchanged PNG exporter carries h1, not surrounding prose.
+  return html.replace('<h1>', `<h1>${DIAGNOSTIC} / `);
+}
+
 export async function render(options: Options) {
   const metadata = plan();
   const output = resolve(options.outputRoot);
@@ -103,6 +109,9 @@ export async function render(options: Options) {
   }
   const next = options.candidate ? committed(options.candidate.freeze) : undefined;
   const canonicalNext = options.canonicalCandidate ? committed(options.canonicalCandidate.freeze) : undefined;
+  if (canonicalNext && canonicalNext.label !== DIAGNOSTIC) {
+    throw new Error('canonical candidate freeze must identify diagnostic WEB for EYE');
+  }
   for (const candidate of [options.candidate, options.canonicalCandidate]) {
     if (candidate && [options.baselineRoot, options.canonicalRoot].some(root =>
       beneath(root, candidate.captureRoot) || beneath(candidate.captureRoot, root))) {
@@ -121,7 +130,7 @@ export async function render(options: Options) {
     if (candidate && frozenNext) bindCapture(cell, candidate.captureRoot, frozenNext);
     if (candidate && !candidate.documents[cell.profileKey]) throw new Error('missing candidate document pair');
     let native: Record<string, unknown> | undefined;
-    const html = await renderAdmitted(cell, { repositoryRoot: ROOT, captureRoot,
+    const rendered = await renderAdmitted(cell, { repositoryRoot: ROOT, captureRoot,
       ...(candidate ? { candidate: { captureRoot: candidate.captureRoot,
         documents: candidate.documents[cell.profileKey]! } } : {}),
       readNative: async () => {
@@ -139,6 +148,7 @@ export async function render(options: Options) {
         native = result.provenance;
         return bytes;
       } });
+    const html = canonical && candidate ? diagnosticSheet(rendered!) : rendered;
     const filename = `${cell.bed}__${encodeURIComponent(cell.profileKey)}__${encodeURIComponent(cell.sceneId)}`;
     writeFileSync(join(output, `${filename}.html`), html!, { flag: 'wx' });
     const png = execFileSync('python3.12', [join(G0, 'export-png.py')],
@@ -147,7 +157,7 @@ export async function render(options: Options) {
     const inspected = inspectCell(cell, ROOT, captureRoot);
     records.push({ ...cell, status: inspected.status === 'MATCH' ? 'RENDERED' : 'UNMEASURED',
       native, shipped, shippedPngSha256: inspected.status === 'MATCH' ? sha(readFileSync(inspected.pngPath)) : null,
-      candidate: candidate ? { documents: candidate.documents[cell.profileKey],
+      candidate: candidate ? { ...(canonical ? { label: DIAGNOSTIC } : {}), documents: candidate.documents[cell.profileKey],
         capture: frozenNext!.captures[id(cell)] } : 'EMPTY — no candidate capture supplied',
       html: `${filename}.html`, htmlSha256: sha(html!), png: `${filename}.png`, pngSha256: sha(png) });
   }

@@ -3,7 +3,7 @@ import { test } from 'node:test';
 import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { renderAdmitted } from './adapter';
+import { renderAdmitted, diagnosticSheet } from './adapter';
 
 test('forged W39 holdout and unadmitted cells cannot invoke native callback', async () => {
   const root = mkdtempSync(join(tmpdir(), 'g1-sheet-'));
@@ -60,4 +60,13 @@ test('actual sheet adapter retains honest absent candidate and rejects stale pro
     await assert.rejects(renderAdmitted(cell, options), /shipped bytes/);
     assert.equal(reads, 1);
   } finally { rmSync(root, { recursive: true }); }
+});
+
+
+test('diagnostic labeling preserves embedded comparison pixels and does not add candidate data', () => {
+  const original = '<h1>canonical test</h1><table><img src="data:image/png;base64,abcd"></table>';
+  const labeled = diagnosticSheet(original);
+  assert.match(labeled, /diagnostic candidate WEB for EYE/);
+  assert.match(labeled, /not a canonical read or G2 material/);
+  assert.equal(labeled.slice(labeled.indexOf('<table>')), original.slice(original.indexOf('<table>')));
 });

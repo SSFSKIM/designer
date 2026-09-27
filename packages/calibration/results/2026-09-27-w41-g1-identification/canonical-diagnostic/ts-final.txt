@@ -1,0 +1,23 @@
+✔ G0 batch renders canonical cal/val only, never holdout, probe, or W39 pixels (828.354417ms)
+✔ inventory distinguishes absent PNG/metadata and never decodes present pixels (31.296334ms)
+✔ receded stale, missing, extra, malformed and wrong-cell metadata all refuse (17.822416ms)
+✔ enumeration folds tier rows but retains CSS-only cells and W39 membership (5.839583ms)
+✔ a same-scene capture copied across profiles with shared documents is refused by pose (8.477916ms)
+✔ missing pose in capture or matrix row is never an agreement (14.382792ms)
+✔ profile pose disagreements refuse ambiguous W39 inheritance (4.389375ms)
+✔ OKLab delta is zero for equality, amplified and saturated at eight, not RGB distance (0.348334ms)
+✔ sheet output has labeled triptych, delta beneath, and an empty candidate (16.443917ms)
+✔ canonical holdout candidate refuses before all pixels even if caller mislabels its role (12.8415ms)
+✔ canonical candidate requires the exact logged documents AND renderer-source configuration (667.213708ms)
+✔ canonical diagnostic admits cal/val only and changes only macOS27 light receded clauses (2307.028375ms)
+✔ forged W39 holdout and unadmitted cells cannot invoke native callback (200.38075ms)
+✔ actual sheet adapter retains honest absent candidate and rejects stale provenance before native (20.668667ms)
+✔ diagnostic labeling preserves embedded comparison pixels and does not add candidate data (0.345ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3035.189541
