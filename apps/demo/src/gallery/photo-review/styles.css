@@ -1,0 +1,744 @@
+/*
+ * Photo review. Every neutral is r = g = b in both schemes: a hue anywhere in the chrome biases
+ * how the frame's white balance is judged, which is the judgement this tool exists to make.
+ * The glass hosts carry no background, border, shadow or blur of their own; everything on them
+ * is a fill in the runtime's published ink (`--vitrea-foreground`).
+ */
+
+:root {
+  color-scheme: light dark;
+  /* A print on a light mat. */
+  --ground: #d9d9d9;
+  --band: #cdcdcd;
+  --rule: #b4b4b4;
+  --ink: #141414;
+  --ink-2: #4a4a4a;
+  --hist-well: rgba(0, 0, 0, 0.06);
+  --hist-fill: rgba(20, 20, 20, 0.62);
+  --ui: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ground: #1c1c1c;
+    --band: #141414;
+    --rule: #303030;
+    --ink: #ececec;
+    --ink-2: #a3a3a3;
+    --hist-well: rgba(255, 255, 255, 0.05);
+    --hist-fill: rgba(236, 236, 236, 0.6);
+  }
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--ground);
+  color: var(--ink);
+  font: 13px/1.4 var(--ui);
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root,
+.app {
+  height: 100%;
+}
+
+.app {
+  min-width: 1100px;
+  min-height: 680px;
+}
+
+h1,
+h2,
+p,
+dl,
+dd,
+ul,
+ol {
+  margin: 0;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.mono {
+  font-family: var(--mono);
+  font-size: 12px;
+}
+
+.quiet {
+  color: var(--ink-2);
+}
+
+.small {
+  font-size: 11.5px;
+}
+
+kbd {
+  display: inline-block;
+  min-width: 18px;
+  padding: 0 4px;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  font: 500 11px/17px var(--mono);
+  text-align: center;
+  box-sizing: border-box;
+}
+
+/* ---- the live plane --------------------------------------------------------------------- */
+
+.stage {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+}
+
+.stage-canvas {
+  display: block;
+}
+
+.stage-canvas.cropping {
+  cursor: move;
+}
+
+/* ---- the opaque columns, printed on the ground ------------------------------------------ */
+
+.col {
+  position: fixed;
+  box-sizing: border-box;
+  padding: 0 20px 0 24px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.col-trail {
+  padding: 0 24px 0 20px;
+}
+
+.col h1 {
+  font-size: 15px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+.col h2 {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  margin-bottom: 7px;
+}
+
+.shoot p {
+  margin-top: 2px;
+}
+
+.tally,
+.adjust {
+  display: grid;
+  gap: 3px;
+}
+
+.tally div,
+.adjust div,
+.keys div {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.tally dd {
+  font-weight: 600;
+}
+
+.tally + p {
+  margin-top: 8px;
+}
+
+.keys {
+  display: grid;
+  gap: 5px;
+  font-size: 12px;
+}
+
+.keys div {
+  justify-content: flex-start;
+  align-items: baseline;
+}
+
+.keys dt {
+  flex: 0 0 46px;
+  display: flex;
+  gap: 2px;
+}
+
+.keys dd {
+  color: var(--ink-2);
+}
+
+.switch {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 2px 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.switch-track {
+  flex: none;
+  width: 30px;
+  height: 18px;
+  border-radius: 9px;
+  background: var(--rule);
+  position: relative;
+}
+
+.switch-knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 7px;
+  background: var(--ground);
+  transition: transform 160ms ease;
+}
+
+.switch[aria-checked="true"] .switch-track {
+  background: var(--ink);
+}
+
+.switch[aria-checked="true"] .switch-knob {
+  transform: translateX(12px);
+}
+
+.histogram {
+  display: block;
+  width: 100%;
+  height: 64px;
+  border-radius: 4px;
+}
+
+.histogram + p {
+  margin-top: 5px;
+}
+
+.col-trail .mono + .mono {
+  margin-top: 2px;
+}
+
+.credits ul {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 1px;
+  margin-bottom: 8px;
+}
+
+.credits a {
+  color: var(--ink-2);
+  text-decoration: none;
+}
+
+.credits a:hover {
+  text-decoration: underline;
+}
+
+.credits li[aria-current="true"] a {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.credits li[aria-current="true"]::after {
+  content: " \00b7  this frame";
+  color: var(--ink-2);
+  font-size: 11.5px;
+}
+
+/* ---- the filmstrip band ------------------------------------------------------------------ */
+
+.band {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 120px;
+  box-sizing: border-box;
+  background: var(--band);
+  border-top: 1px solid var(--rule);
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+}
+
+.strip {
+  list-style: none;
+  display: flex;
+  gap: 10px;
+  padding: 12px 24px 8px;
+  width: max-content;
+}
+
+.strip li.burst-start {
+  margin-left: 14px;
+}
+
+.thumb {
+  display: grid;
+  gap: 5px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  scroll-margin-inline: 120px;
+}
+
+.thumb canvas {
+  display: block;
+  width: 96px;
+  height: 64px;
+  outline-offset: 2px;
+}
+
+.thumb[aria-current="true"] canvas {
+  outline: 2px solid var(--ink);
+}
+
+.thumb[data-flag="reject"] canvas {
+  opacity: 0.38;
+}
+
+.thumb:focus-visible {
+  outline: none;
+}
+
+.thumb:focus-visible canvas {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
+}
+
+.thumb-meta {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  height: 14px;
+  font-size: 11px;
+  color: var(--ink-2);
+}
+
+.thumb[aria-current="true"] .thumb-meta {
+  color: var(--ink);
+}
+
+.thumb-meta > svg {
+  width: 12px;
+  height: 12px;
+}
+
+.mini-stars {
+  display: flex;
+}
+
+/* ---- the floating layer: fills and ink on glass ------------------------------------------ */
+
+/*
+ * The label ink: the runtime's own pole (black or white, picked against the material it is
+ * drawing), at full strength. The published primary carries the vibrancy ladder's alpha (0.85
+ * black, 0.8 white), and over the dark material's mid-grey band that alpha costs the ratio:
+ * measured 3.25:1 on the compare toggle over frame 7. At full strength a two-pole pick cannot
+ * fall below 4.58:1 wherever the runtime picks the nearer pole. Declared on the hosts, where
+ * the token is published, so it resolves against each surface's own pick.
+ */
+.tools-host,
+.compare,
+.verdict {
+  --label: rgb(from var(--vitrea-foreground, var(--ink)) r g b / 1);
+  /*
+   * Every fill that sits under text is the ink's opposite pole, never a tint of the ink. A tint
+   * of the ink lowers its own label's contrast (measured 3.9:1 on the compare toggle's selected
+   * segment, 3.3:1 on the dark platter's chips); the opposite pole raises it, which is the
+   * skill's "authored colour on a child" moving a surface out of the band where neither ink
+   * carries text. On light glass these read as Apple's brighter wells and selected segments.
+   */
+  --well: rgb(from var(--vitrea-foreground, var(--ink)) calc(255 - r) calc(255 - g) calc(255 - b) / 0.22);
+  --well-strong: rgb(from var(--vitrea-foreground, var(--ink)) calc(255 - r) calc(255 - g) calc(255 - b) / 0.36);
+  --selected: rgb(from var(--vitrea-foreground, var(--ink)) calc(255 - r) calc(255 - g) calc(255 - b) / 0.62);
+}
+
+.palette-anchor {
+  position: fixed;
+}
+
+/*
+ * The morph's host, sized as a border box. The morph writes the host's width and height from its
+ * content's size, and the CSS tier writes a 1 px transparent border on every host as layout; as a
+ * content box the palette measured 54 x 142 there and was not the 52 capsule its r26 declares.
+ * As a border box the host is 52 x 140 closed and 340 x 244 open on both tiers, and the content,
+ * 2 px larger than the padding box where that border exists, is centred so it overhangs the
+ * border evenly: the tools sit 6 px inside the outer edge on both tiers, concentric at r20.
+ *
+ * In flight, right-aligned content keeps the tool column where the palette was while the platter
+ * grows leftward from it, and top-aligned keeps the tools at the palette's own height. On the CSS
+ * tier that alignment is 1 px inside the centred one, so the column steps 1 px as a flight starts
+ * and ends there; on the WebGPU tier there is no border and the two alignments are the same box.
+ */
+.tools-host {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--label);
+}
+
+.tools-host[data-vitrea-morphing] {
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+.palette,
+.platter {
+  display: flex;
+  box-sizing: border-box;
+}
+
+.tool-column {
+  flex: none;
+  width: 52px;
+  box-sizing: border-box;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tool,
+.vbtn,
+.star,
+.chip,
+.opt,
+.compare-seg {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--label);
+  cursor: pointer;
+}
+
+/* Inner radius 20 = the housing's 26 minus the 6 px inset. */
+.tool,
+.vbtn {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+
+.tool:hover,
+.vbtn:hover {
+  background: color-mix(in srgb, var(--vitrea-foreground, var(--ink)) 9%, transparent);
+}
+
+.tool[aria-pressed="true"] {
+  background: var(--selected);
+}
+
+.tool:focus-visible,
+.vbtn:focus-visible,
+.star:focus-visible,
+.chip:focus-visible,
+.opt:focus-visible,
+.compare-seg:focus-visible {
+  outline: 2px solid var(--vitrea-foreground, var(--ink));
+  outline-offset: -2px;
+}
+
+.panel {
+  flex: none;
+  width: 288px;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 16px 12px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  color: var(--label);
+}
+
+.figure {
+  font: 500 12px var(--mono);
+}
+
+.slider {
+  display: grid;
+  gap: 4px;
+  padding: 8px 10px 6px;
+  border-radius: 10px;
+  background: var(--well);
+}
+
+.slider-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.range {
+  --track: color-mix(in srgb, var(--vitrea-foreground, var(--ink)) 22%, transparent);
+  --fill: var(--vitrea-foreground, var(--ink));
+  --bar: linear-gradient(to right, var(--track) 0 var(--from), var(--fill) var(--from) var(--to), var(--track) var(--to) 100%);
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  height: 18px;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+/* The only chroma on the glass: where the hue is the value being set. */
+.range-temperature {
+  --bar: linear-gradient(to right, #4f7fe8, #bcbcbc 48%, #f0a23a);
+}
+
+.range-tint {
+  --bar: linear-gradient(to right, #3fae5e, #bcbcbc 50%, #c95ac3);
+}
+
+.range::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--bar);
+}
+
+.range::-moz-range-track {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--bar);
+}
+
+.range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  margin-top: -6px;
+  border-radius: 50%;
+  border: 0;
+  background: var(--vitrea-foreground, var(--ink));
+}
+
+.range::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 0;
+  background: var(--vitrea-foreground, var(--ink));
+}
+
+.range:focus-visible {
+  outline: none;
+}
+
+.range:focus-visible::-webkit-slider-thumb {
+  outline: 2px solid var(--vitrea-foreground, var(--ink));
+  outline-offset: 2px;
+}
+
+.range:focus-visible::-moz-range-thumb {
+  outline: 2px solid var(--vitrea-foreground, var(--ink));
+  outline-offset: 2px;
+}
+
+/* Fills at the platter's inset: radius 10 = 26 minus 16. */
+.chip-row {
+  display: flex;
+  gap: 6px;
+}
+
+.chip {
+  height: 28px;
+  padding: 0 12px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 500;
+  background: var(--well);
+}
+
+.chip-row .chip {
+  flex: 1;
+  padding: 0;
+  font-family: var(--mono);
+}
+
+.chip:hover {
+  background: var(--well-strong);
+}
+
+.panel-foot {
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+/* A fill track at radius 10, its segments inset 2 at radius 8. */
+.options {
+  display: flex;
+  padding: 2px;
+  border-radius: 10px;
+  background: var(--well);
+}
+
+.opt {
+  flex: 1;
+  height: 26px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.opt[aria-checked="true"] {
+  font-weight: 650;
+  background: var(--selected);
+}
+
+.compare {
+  position: absolute;
+  display: flex;
+  box-sizing: border-box;
+  padding: 3px;
+}
+
+.compare-seg {
+  position: relative;
+  flex: 1;
+  height: 34px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.compare-seg[aria-checked="true"] {
+  font-weight: 650;
+}
+
+/* The two segments together are one well inside the track, concentric at 17 = 20 minus 3. */
+.compare > .compare-seg {
+  background: var(--well);
+}
+
+.compare > .compare-seg:nth-child(2) {
+  border-radius: 17px 0 0 17px;
+}
+
+.compare > .compare-seg:last-child {
+  border-radius: 0 17px 17px 0;
+}
+
+.compare-ind {
+  background: var(--selected);
+}
+
+.verdict {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 6px;
+  gap: 6px;
+  color: var(--label);
+}
+
+.vsep {
+  width: 1px;
+  height: 22px;
+  background: var(--vitrea-foreground-tertiary, var(--rule));
+}
+
+.stars {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.star {
+  width: 32px;
+  height: 40px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+}
+
+.star:hover {
+  background: color-mix(in srgb, var(--vitrea-foreground, var(--ink)) 9%, transparent);
+}
+
+/* Forced colours remove the glass; the controls keep their state in the system's palette. */
+@media (forced-colors: active) {
+  .tool[aria-pressed="true"],
+  .opt[aria-checked="true"],
+  .compare-seg[aria-checked="true"],
+  .vbtn[aria-pressed="true"] {
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
+  }
+
+  .range::-webkit-slider-runnable-track,
+  .range-temperature::-webkit-slider-runnable-track,
+  .range-tint::-webkit-slider-runnable-track {
+    background: CanvasText;
+  }
+
+  .thumb[aria-current="true"] canvas {
+    outline-color: Highlight;
+  }
+
+  .switch-track {
+    forced-color-adjust: none;
+    box-sizing: border-box;
+    background: Canvas;
+    border: 1px solid CanvasText;
+  }
+
+  .switch-knob {
+    forced-color-adjust: none;
+    top: 1px;
+    left: 1px;
+    background: CanvasText;
+  }
+
+  .switch[aria-checked="true"] .switch-track {
+    background: Highlight;
+    border-color: Highlight;
+  }
+
+  .switch[aria-checked="true"] .switch-knob {
+    background: HighlightText;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .switch-knob {
+    transition: none;
+  }
+}

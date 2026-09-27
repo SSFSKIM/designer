@@ -1,0 +1,9 @@
+{
+  "slug": "photo-review",
+  "r23": 1,
+  "r23Strict": 1,
+  "evidence": "Post-fix source (reviewer-medium, 2026-09-27): (a) the platter arrives through GlassMorph (Controls.tsx:88-132), no opacity transition; (b) press is written through the runtime's channel properties on every interactive host AND on the open platter, whose plain controls drive --vitrea-press, --vitrea-glow and the contact point from a frame callback (press.ts:37-40, 124-125, 179-186; the constants match interaction.ts:222-230); no colour-swap press exists; (c) no glass host transitions opacity, background or filter (styles.css:224 is a content transform).",
+  "spanExceptions": [],
+  "verifiedFindings": {"fixed": [2, 3, 4], "recordedAsRuled": [1]},
+  "postFixAudit": "audit/photo-review.json (14/14 glass pairs both schemes, min 11.17 light / 8.08 dark, zero diagnostics, zero ban findings; tools 52 r26, compare 40 r20, verdict 52 capsule)"
+}
