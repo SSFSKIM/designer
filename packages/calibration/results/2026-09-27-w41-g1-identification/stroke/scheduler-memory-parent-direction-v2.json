@@ -1,0 +1,8 @@
+{
+  "source": "Exact superseding parent memory ruling relayed by G1owner a08bf7ec9936c8644",
+  "recordedUTC": "2026-09-27T12:01:51.372506+00:00",
+  "revision": 2,
+  "supersedes": "scheduler-memory-parent-direction.json",
+  "verbatim": "admit when the kernel pressure level is NORMAL (sysctl 1) AND free + inactive + purgeable pages, after reserving the observed peak minus live fit RSS, stay at or above 1 GiB; at most three concurrent fits; the scheduler re-reads pressure every 30 s and stops admitting (never kills) at WARNING or above, resuming admissions only after five consecutive NORMAL readings. Unreadable values still fail closed. Apply it to the proof slots and to fit starts alike; log each admission's readings as before. Until this lands, do not leave the machine idle: if the scheduler change needs a review, admit the first proof slot manually under the new numbers with the readings recorded, then bring the scheduler up.",
+  "scope": "Operational resource policy only; numericalfamilies,accuracybounds,budgets,seeds,populations unchanged. Oldpolicy/refusals preserved."
+}

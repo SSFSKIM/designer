@@ -35,10 +35,54 @@ The parent receipt is JSON with these fields:
 ```
 
 All referenced files must exist at their pinned bytes. Wrapped additionally
-requires a verified unwrapped terminal, unchanged referenced lease/admission,
+normally requires a verified unwrapped terminal, unchanged referenced lease/admission,
 identical source pins, completed artifact and roster, and the persisted proof's
 full artifact set at its declared hashes. A proof from another root, a failed
-proof, or a bare unwrapped result is not a predecessor.
+proof without the narrowly scoped recovery below, or a bare unwrapped result is not a predecessor.
+
+## Saved-comparison recovery predecessor
+
+A wrapped admission may additionally contain `comparisonRecovery` with two
+hash-pinned references, `direction` and `proof`. The ordinary `predecessor` still
+names the **original failed unwrapped terminal**, never a fabricated successful
+view. The parent-authored direction must have these fields:
+
+```text
+kind: "STROKE_VERIFICATION_COMPARISON_RECOVERY"
+schedulerRoot: the same canonical root
+failedTerminal: the exact predecessor {path, sha256}
+recoveredProof: the exact comparisonRecovery.proof {path, sha256}
+sourceTransitions: {
+  absolute-source-path: {oldSha256: old-execution-hash, newSha256: current-hash}
+}
+```
+
+This route admits only a terminal with `failed-after-solver-start`, both admission
+stages, `solverStarted: true`, and the retained `AssertionError` for the completed
+native raw result's exact typed/bit comparison. The terminal, original lease and
+admission must agree on root, mode, PID, held revision, roster and completed
+artifact. Generic solver failures and unstarted work are not recoverable here.
+
+The separate proof is the helper's `w41-memoization-native-one-mode-1` saved-comparison
+receipt. Its `artifactDirectory` must be the old admission's output; all three saved
+artifact hashes are checked there. Its `comparisonRerun` must report zero optimizer
+runs and native archive reads, cite the exact failed terminal, and identify the
+current comparator plus its hash-pinned driver compatibility amendment and diff.
+The recovered proof must retain the saved replay's original execution sources,
+typed live-result witness, trace and environment; its JSON-boundary witness is
+separate. Numerical/trace re-verification belongs to the reviewed helper, not a
+second comparator implementation in this resource adapter.
+
+Source membership cannot change. The direction's transitions must enumerate
+**exactly** the changed hashes, restricted to `memoization/proof.py` and this
+`verification_slot.py` validator. The comparator's old/new pair must also match
+its compatibility amendment. Every fitting, wrapper, fixture, partition,
+scheduler and other source remains identical. This is not authority for a memory
+policy or driver change; such work needs its own admission design.
+
+No terminal, lease, old source map or saved solve is rewritten. The comparison
+recovery itself does not launch a proof; only a separately admitted wrapped CLI
+invocation can proceed. A recovery field is refused on an unwrapped invocation.
 
 The allocation flock is held from receipt validation through the proof and
 terminal publication. Both verification modes and scheduler claims/handovers use

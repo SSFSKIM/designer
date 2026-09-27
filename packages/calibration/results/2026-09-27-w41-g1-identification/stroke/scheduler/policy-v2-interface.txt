@@ -1,0 +1,103 @@
+W41 stroke scheduler memory policy v2: additive source epoch
+
+Ruling: ../scheduler-memory-parent-direction-v2.json (revision 2), sha256
+  8b5c81d8bb8ca08a07d85f57eb77d309ad91da1dfcf267fbbcdd92312bfc32f2
+Counter correction: ../scheduler-memory-counter-clarification.json, sha256
+  a11daa8ccc67c6979739a77153fafeac43db063be1375eab3f32486f8f0eca31
+The correction applies to this unexecuted scheduler_v2 and future admissions only.
+The running manual first proof (../manual-proof-policy-v2.py) and its recorded
+gates used the superseded inactive + purgeable SUM; they are not rewritten, and
+receiptVersion 2 does not imply that they used the max counter. Every v2 decision
+and result names its counter (policyCounter, counterEpoch). policy-v2-green.txt is
+the unreviewed sum-counter epoch's test output, kept as history;
+policy-v2-max-green.txt is this epoch's.
+It supersedes the 3 GiB / free+inactive rule for NEW receipts only. scheduler.py,
+test_scheduler.py and interface.txt stay byte-for-byte the reviewed v1 (scheduler.py
+b2b103bcd1fbb77507d97b1e612fae0d802a17b816c3d80ecb8288b00664712c), which proof
+receipts pin. v1 receipts, refusals, deferrals and results keep their v1 meaning;
+nothing is rewritten. Operational resource policy only: no family, bound, budget,
+seed or population changes.
+
+Source
+  scheduler_v2.py imports the unchanged scheduler.py (same directory, so the STROKE
+  root and the sealed-fit path are unchanged) and subclasses its Store. Only the
+  admission gate differs. Claims, handoffs, the RSS high-water, NO-FIT deferrals,
+  the solver-start marker, exact-once results and run() are v1's code. Results
+  published through v2 additionally carry policyVersion 2 and the sha256 of
+  scheduler_v2.py (policySourceSha256); v1's run() still pins scheduler.py.
+
+Commands (fit environment's Python with -B)
+  python -B scheduler_v2.py init|transfer|run --root ROOT --receipt R --sha256 SHA
+  python -B scheduler_v2.py watch --root ROOT --readings N
+  python -B scheduler_v2.py import-pressure --root ROOT --receipt SNAPSHOT --sha256 SHA
+init/transfer/run are v1's commands with the v2 gate. A v2 root and a v1 root are
+the same layout; use ONE policy's CLI for new candidate claims on a root.
+
+LAUNCH (v2)
+  The v1 LAUNCH fields plus receiptVersion: 2. StoreV2 refuses a receipt without
+  it (and any other version); the v1 CLI must not be given v2 receipts, because
+  v1 cannot read the field and would apply v1. maxConcurrency must be <= 3 and
+  <= the CAPTURE RELEASE ceiling; a receipt asking for more is refused.
+
+Gate (every admission: claim-time and pre-fit, proofs and candidate fits alike)
+  Metric: (vm_stat Pages free + max(Pages inactive, Pages purgeable)) * parsed
+    page size: a reclaimable-headroom heuristic, not a free-memory guarantee.
+    Each reading records all three page counts, countedPages, counter and
+    counterEpoch. vm_stat's purgeable count is a separate counter, not a disjoint
+    queue, so the max credits overlapping pages once. Compressed and speculative
+    pages get no credit.
+  Reservations are v1's: for each live old or claimed fit, max(0, max(its
+    reservation, largest observed peak) - its RSS), plus the new fit's peak minus
+    its own resident RSS at the pre-fit check. The observed peak is v1's
+    monotonic high-water (receipt peak, results, claims, every RSS observation).
+  Admit iff the fresh sysctl reading is 1 (NORMAL), the pressure log is not
+    stopped, effectiveConcurrency (live old + live claimed + this one) <= the
+    receipt's cap (<= 3), and available - reservations >= 1 GiB.
+  Every decision is an immutable admissions/ record with policyVersion 2, the
+    memory reading and the pressure state. A pre-fit refusal is v1's NO-FIT
+    deferral. Nothing running is interrupted, killed or reconfigured.
+
+Pressure log and resumption
+  ROOT/pressure/<id>.json: kind STROKE_PRESSURE_READING, sampledUTC, pressureLevel
+    (integer, or null when unreadable), error, source (watch or admission), pid.
+  Each admission logs its own reading, including an unreadable one, before it
+  decides. Publication is a uniquely named no-overwrite file and takes NO lock:
+  a watcher never waits behind the allocation lock, which a verification proof
+  holds for its whole run, and cannot deadlock with it.
+  State over all readings in time order: any level other than 1, or unreadable,
+  stops admissions. Admissions resume only after five consecutive NORMAL readings,
+  each counted only if at least 30 s after the previous counted one. Several
+  workers reading inside one 30 s interval therefore count once. A non-NORMAL
+  reading resets the count.
+  watch takes N (1..2880) readings of kern.memorystatus_vm_pressure_level, 30 s
+  apart, and prints each reading with the resulting state. It never admits,
+  launches, stops or retries anything, and holds no lock. It is an explicit
+  foreground driver; nothing starts it automatically. The ruling's 30 s re-read
+  holds only while a parent runs it. Without it, admissions still take their own
+  fresh reading, but resumption after a stop needs spaced readings from somewhere.
+  Readings recorded outside ROOT/pressure/ (for example a manual JSONL log) are
+  not read by the gate until imported.
+
+Manual pressure history bridge (parent-endorsed)
+  import-pressure takes ONE completed, hash-pinned snapshot of the manual proof's
+  JSONL log (a copy made after that proof ends, never the live file). Every row
+  must be complete (final newline), a JSON object with a timezone-qualified
+  sampledUTC, an integer or null pressureLevel, a boolean periodic and a string
+  rawSysctl; the whole snapshot is validated before anything is written, and any
+  hash change or malformed row fails closed. Each row becomes
+  ROOT/pressure/import-<first 16 hex of snapshot sha>-<line>.json with its
+  ORIGINAL sampledUTC and pressureLevel, source manual-import, and the snapshot
+  reference, line, periodic flag and raw sysctl text. No reading is resampled and
+  no NORMAL reading is added. ROOT/pressure-import.json names the one imported
+  snapshot: the same bytes again only verify the existing records (idempotent,
+  no overwrite; a changed record fails closed); a different snapshot is refused.
+  Imported readings enter the same state machine, so a manual WARNING stays in
+  force until five NORMAL readings >= 30 s apart; duplicates cannot accelerate.
+  Like watch, the import takes no allocation lock.
+
+Pressure predicate provenance: unchanged from interface.txt (sysctl == 1 is
+memory_pressure's own "normal"; G1owner-accepted proof and raw query evidence).
+
+Synthetic verification
+  python -B -m unittest discover -s /absolute/path/to/stroke/scheduler -p 'test_scheduler*.py'
+  test_scheduler_v2.py uses fake memory, pressure and process readings only.

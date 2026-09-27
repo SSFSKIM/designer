@@ -1,0 +1,30 @@
+......................................E.......
+======================================================================
+ERROR: test_peak_evidence_pins_are_checked_and_tampering_fails_closed (test_scheduler_v2.PolicyV2Tests.test_peak_evidence_pins_are_checked_and_tampering_fails_closed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/test_scheduler_v2.py", line 108, in test_peak_evidence_pins_are_checked_and_tampering_fails_closed
+    self.claim(launch)
+    ~~~~~~~~~~^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/test_scheduler_v2.py", line 66, in claim
+    return self.store.claim(launch or self.launch(), pid=pid, alive=self.live.__contains__,
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                            memory=memory or (lambda: dict(self.memory)))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler_v2.py", line 107, in claim
+    return super().claim(reference, pid=pid, alive=alive, memory=memory, rss=rss)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler.py", line 409, in claim
+    decision = self.admission(launch, pid, alive, memory, rss)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler.py", line 278, in admission
+    return self._admission(launch, pid, alive, memory, rss, own_claim=own_claim)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler_v2.py", line 225, in _admission
+    pinned(evidence)
+    ^^^^^^
+NameError: name 'pinned' is not defined
+
+----------------------------------------------------------------------
+Ran 46 tests in 0.452s
+
+FAILED (errors=1)

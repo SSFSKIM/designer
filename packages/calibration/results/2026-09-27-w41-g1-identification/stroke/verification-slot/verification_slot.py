@@ -16,7 +16,8 @@ import resource
 import subprocess
 import sys
 
-HERE = Path(__file__).resolve().parent
+ADAPTER = Path(__file__).resolve()
+HERE = ADAPTER.parent
 STROKE = HERE.parent
 MEMO = STROKE/'memoization'
 COMPLETED = STROKE/'survivor-scope-partition-0/device-M1-start-00.json'
@@ -57,7 +58,7 @@ def reference(path):
 def required_sources():
     instrument = s.PROOF/'packages/calibration/results/2026-09-27-w41-g0-declaration/instrument'
     held_stroke = s.PROOF/STROKE.relative_to(STROKE.parents[4])
-    return [Path(__file__).resolve(), Path(s.__file__).resolve(),
+    return [ADAPTER, Path(s.__file__).resolve(),
             *(MEMO/name for name in ('proof.py', 'solver_memo.py', 'fixtures.py')),
             *(STROKE/name for name in ('start_partition.py', 'survivor_scope_runner.py',
                                       'inactive_runner.py')),
@@ -65,7 +66,7 @@ def required_sources():
             *(instrument/name for name in ('stroke_fit.py', 'instrument.py', 'shadow.py'))]
 
 
-def check_proof(proof_ref, receipt):
+def check_proof(proof_ref, receipt, *, artifact_directory=None):
     proof = s.record(proof_ref)
     if proof.get('schema') != 'w41-memoization-native-one-mode-1' \
             or proof.get('verified') is not True or proof.get('mode') != receipt['mode'] \
@@ -75,10 +76,78 @@ def check_proof(proof_ref, receipt):
         raise ValueError('completed-start proof does not verify this mode and artifact')
     if set(proof.get('artifacts', {})) != set(ARTIFACTS):
         raise ValueError('proof must pin the complete artifact set')
+    directory = artifact_directory or Path(proof_ref['path']).parent
     for name in ARTIFACTS:
-        s.pinned({'path': str(Path(proof_ref['path']).parent/name),
+        s.pinned({'path': str(directory/name),
                   'sha256': proof['artifacts'][name]})
     return proof
+
+
+
+def check_recovery(store, receipt, previous, prior):
+    """Accept a separately authorized comparison, never a rewritten failed solve.
+
+    The helper's reviewed comparator owns numerical/trace verification. This
+    boundary binds its immutable recovery to the original resource owner, saved
+    solve and exact source transition permitted by the parent's new direction.
+    """
+    recovery = receipt['comparisonRecovery']
+    direction = s.record(recovery['direction'])
+    failure = receipt['predecessor']
+    expected_error = dict(type='AssertionError',
+        message='completed native raw result differs at exact typed/bit witness')
+    if previous['status'] != 'failed-after-solver-start' or previous.get('proof') is not None \
+            or previous.get('error') != expected_error \
+            or previous.get('admissionStages') != ['before-preparation', 'before-fit']:
+        raise ValueError('only the completed serialization-comparison failure is recoverable')
+    if direction.get('kind') != 'STROKE_VERIFICATION_COMPARISON_RECOVERY' \
+            or direction.get('schedulerRoot') != str(store.root) \
+            or direction.get('failedTerminal') != failure \
+            or direction.get('recoveredProof') != recovery['proof']:
+        raise ValueError('parent recovery direction must bind this failed terminal and recovered proof')
+    old, new = prior['sourceSha256'], receipt['sourceSha256']
+    driver = str(MEMO/'proof.py')
+    if set(old) != set(new):
+        raise ValueError('recovery cannot change source membership')
+    transitions = {key: dict(oldSha256=old[key], newSha256=value)
+                   for key, value in new.items() if old[key] != value}
+    if driver not in transitions or not set(transitions) <= {driver, str(ADAPTER)} \
+            or direction.get('sourceTransitions') != transitions:
+        raise ValueError('recovery requires explicit comparator/validator-only source transitions')
+    saved = Path(prior['out'])
+    proof_path = Path(recovery['proof']['path'])
+    if proof_path.resolve() != proof_path or MEMO not in proof_path.parents \
+            or proof_path.name != 'completed-start-proof.json' or proof_path.parent == saved:
+        raise ValueError('recovery proof must be separate immutable evidence beneath memoization')
+    proof = check_proof(recovery['proof'], prior, artifact_directory=saved)
+    rerun = proof['comparisonRerun']
+    if proof.get('artifactDirectory') != str(saved) \
+            or rerun.get('action') != 'solve reused, comparison rerun' \
+            or type(rerun.get('optimizerRuns')) is not int or rerun['optimizerRuns'] != 0 \
+            or type(rerun.get('nativeArchiveReads')) is not int or rerun['nativeArchiveReads'] != 0 \
+            or rerun.get('priorFailure') != failure \
+            or rerun.get('comparatorSourceSha256') != new[driver]:
+        raise ValueError('recovery must reuse this saved solve without fitting or archive reads')
+    amendment = s.record(rerun['driverCompatibility'])
+    if amendment.get('schema') != 'w41-proof-driver-comparison-amendment-1' \
+            or amendment.get('sourcePath') != driver \
+            or amendment.get('oldSourceSha256') != old[driver] \
+            or amendment.get('newSourceSha256') != new[driver] \
+            or set(amendment.get('unchangedExecutionBlocks', {})) != {
+                'replay_once', 'native_onceThroughSolve'}:
+        raise ValueError('comparator amendment must name the exact old/new execution source pair')
+    s.pinned(amendment['diff'])
+    replay = s.record({'path': str(saved/'replay.json'), 'sha256': proof['artifacts']['replay.json']})
+    sources = replay['sourceSha256']
+    if replay.get('mode') != 'unwrapped' or sources.get(driver) != old[driver] \
+            or any(old.get(key) != value for key, value in sources.items()) \
+            or proof.get('sourceSha256') != sources \
+            or any(proof.get(key) != replay[key] for key in (
+                'rawResultBitsSha256', 'trace', 'environment')) \
+            or rerun.get('originalInMemoryResultBitsSha256') != replay['rawResultBitsSha256'] \
+            or not proof.get('jsonBoundaryResultBitsSha256') \
+            or rerun.get('jsonBoundaryResultBitsSha256') != proof['jsonBoundaryResultBitsSha256']:
+        raise ValueError('recovery changed the saved execution source or live-result/trace witness')
 
 
 def validate(store, admission_ref):
@@ -107,7 +176,7 @@ def validate(store, admission_ref):
     s.record(receipt['peakEvidence'])
     predecessor = receipt['predecessor']
     if mode == 'unwrapped':
-        if predecessor is not None:
+        if predecessor is not None or 'comparisonRecovery' in receipt:
             raise ValueError('unwrapped verification cannot have a predecessor')
     else:
         if not isinstance(predecessor, dict) or predecessor.get('path') != str(
@@ -115,15 +184,28 @@ def validate(store, admission_ref):
             raise ValueError('wrapped verification requires this root successful unwrapped predecessor')
         previous = s.record(predecessor)
         if previous.get('kind') != 'STROKE_VERIFICATION_TERMINAL' \
-                or previous.get('status') != 'verified' or previous.get('mode') != 'unwrapped' \
+                or previous.get('mode') != 'unwrapped' \
                 or previous.get('solverStarted') is not True:
             raise ValueError('unwrapped predecessor is not successful')
+        if previous['lease']['path'] != str(store.root/'verification/unwrapped/lease.json'):
+            raise ValueError('unwrapped lease is not from this resource root')
         prior_lease = s.record(previous['lease'])
+        if prior_lease.get('kind') != 'STROKE_VERIFICATION_LEASE' \
+                or prior_lease.get('mode') != 'unwrapped' \
+                or prior_lease.get('pid') != previous['pid'] \
+                or prior_lease.get('allocationLock') != str(store.root/'.lock'):
+            raise ValueError('unwrapped resource owner identity changed')
         prior = s.record(prior_lease['receipt'])
         if prior['mode'] != 'unwrapped' or prior['completedArtifact'] != receipt['completedArtifact'] \
-                or prior['sourceSha256'] != receipt['sourceSha256'] \
+                or prior['schedulerRoot'] != str(store.root) \
+                or prior['heldRevision'] != receipt['heldRevision'] \
                 or prior['roster'] != receipt['roster']:
             raise ValueError('unwrapped predecessor verified a different source/artifact/roster')
+        if 'comparisonRecovery' in receipt:
+            check_recovery(store, receipt, previous, prior)
+            return receipt
+        if previous.get('status') != 'verified' or prior['sourceSha256'] != receipt['sourceSha256']:
+            raise ValueError('unwrapped predecessor is not successful at this source epoch')
         if previous['proof']['path'] != str(Path(prior['out'])/'completed-start-proof.json'):
             raise ValueError('unwrapped proof is not its admitted output')
         check_proof(previous['proof'], prior)

@@ -1,0 +1,27 @@
+{
+  "kind": "STROKE_VERIFICATION_TERMINAL",
+  "mode": "unwrapped",
+  "pid": 36271,
+  "lease": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/verification/unwrapped/lease.json",
+    "sha256": "e6a98fddcb4bd00465c6d64a01127c1d9af16734d4a27f94d8bcc279e9a77ebe"
+  },
+  "endedUTC": "2026-09-27T12:13:39.992097+00:00",
+  "status": "failed-after-solver-start",
+  "solverStarted": true,
+  "admissionStages": [
+    "before-preparation",
+    "before-fit"
+  ],
+  "peakRSSBytes": 3635642368,
+  "peakRSSPlatform": "Darwin",
+  "peakRSSUnit": "bytes",
+  "rssObservation": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/admissions/rss-verification-unwrapped.json",
+    "sha256": "69da90f2737c43c1a43855ce9431f3622bbee069e343560499b9c1c5b14c9497"
+  },
+  "error": {
+    "type": "AssertionError",
+    "message": "completed native raw result differs at exact typed/bit witness"
+  }
+}

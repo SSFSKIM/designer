@@ -1,0 +1,36 @@
+{
+  "kind": "STROKE_RESOURCE_RECOVERY_VERIFICATION",
+  "policy": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler_v2.py",
+    "sha256": "d5785897b480a176545295cbe25144817b41c314fe9cbe683699bb4d46aa4678"
+  },
+  "priorPolicyReview": {
+    "reviewer": "a5e330dd4c9af9a9e",
+    "verdict": "correct; no material findings",
+    "tests": 45,
+    "sourceSha256": "bd18bc26db62b72e50f2fcaf95f73c64e880317b14ab88c820806e0c05638a33"
+  },
+  "verifiedFix": "Only unqualified pinned(evidence) changed to v1.pinned(evidence); exact pre-fix source hash reproduced.",
+  "fixTests": 46,
+  "red": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/evidence-pin-red.txt",
+    "sha256": "780f7dbae67e39dc80f4e02b421d0d7b5028309d065ef527a6d210b12efb6f0b"
+  },
+  "green": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/evidence-pin-green.txt",
+    "sha256": "efed5bda96a5e48e9428ac65111969f29ef6d77d3d21655201dee17df27a0d81"
+  },
+  "adapter": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/verification-slot/verification_slot.py",
+    "sha256": "e212dddeff1e22b28e89b859a72d1b07fa6cca2166d8d1849949b9ef91126646"
+  },
+  "adapterReview": {
+    "reviewer": "a23b6dd5dfbadda00",
+    "verdict": "correct; no material findings",
+    "tests": 34
+  },
+  "unchangedScheduler": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler.py",
+    "sha256": "b2b103bcd1fbb77507d97b1e612fae0d802a17b816c3d80ecb8288b00664712c"
+  }
+}

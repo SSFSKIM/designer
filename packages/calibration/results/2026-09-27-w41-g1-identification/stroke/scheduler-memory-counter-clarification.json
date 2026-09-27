@@ -1,0 +1,5 @@
+{
+  "source": "Exact parent counter correction relayed by G1owner a08bf7ec9936c8644",
+  "verbatim": "use free + max(inactive, purgeable) so overlapping pages are not credited twice, floor 1 GiB after reservation, pressure gate unchanged; label it a reclaimable-headroom heuristic, not a free-memory guarantee.",
+  "scope": "Futureadmissions andunexecutedv2scheduler only. Runningmanualproofsum-policy receipts/sourceepoch remain unchanged; no retrospective rewrite or killing of running proof. Cap3/30s/5NORMAL/failclosed unchanged."
+}
