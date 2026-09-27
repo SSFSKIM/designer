@@ -1,0 +1,21 @@
+test_candidate (unittest.loader._FailedTest.test_candidate) ... ERROR
+
+======================================================================
+ERROR: test_candidate (unittest.loader._FailedTest.test_candidate)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_candidate
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/unittest/loader.py", line 394, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/unittest/loader.py", line 337, in _get_module_from_name
+    __import__(name)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/candidate-e3/test_candidate.py", line 13, in <module>
+    import scorer as s
+ModuleNotFoundError: No module named 'scorer'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)
