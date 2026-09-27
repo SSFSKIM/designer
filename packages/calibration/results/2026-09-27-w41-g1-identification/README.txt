@@ -98,3 +98,16 @@ input192 ->214.181818. Full red bridge192/32/32 predicts255/129.669657/129.66965
 channelwise F on a coloured bridge: E3 uses encoded luma and radial chroma gain.
 e3-continuation-predictions.json binds these predictions to the frozen body fit;
 G2's canonical X1/L1 remain referees, not implicitly passed by this extrapolation.
+
+Parent ruling: numerical uniform domain, structured rendered veto retained
+parent-ruling-structured-domain.json records the scope boundary. E3's numerical
+body claim is uniform backdrops (metadata solid), not a spatial law: all24
+structured cal/validation cells stay in the report, and the six at the claimed
+lightinactive endpoint say not claimed(structured backdrop). Their S0 diagnostic
+applies E3 per local reference pixel before the declared deep median; it is not
+numerical admission or a hidden failure. Rendered structured cells remain full
+members of the check and W38 per-bin veto; the physical leaf is NOT disabled on
+nonuniform sampled input. A worsening beyond the declared veto fails the leaf.
+The heldout set has no structured backdrop, so its closure scope is unchanged.
+Deferred: a structured spatial holdout and independently varied means/frequencies
+are needed before the uniform numerical domain can become a spatial claim.

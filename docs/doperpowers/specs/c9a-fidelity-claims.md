@@ -40459,3 +40459,25 @@ The bridge uses F of **encoded luma** plus radial chroma, not F applied separate
 and192 channels. Canonical X1 and L1 still referee the resulting material at G2; the132.5
 prediction does not inherit W36's exact-black closure. Implementation is isolated from the
 primary capture worktree so both baseline freezes genuinely name the pre-W41 renderer.
+
+### 6. Numerical uniform domain versus the binding rendered structured check
+
+A final metric-applicability ruling is preserved in `parent-ruling-structured-domain.json`.
+The body families were declared on uniform input x; their **numerical claim domain is
+uniform backdrops**, derived from public background metadata, not a chosen cell allowlist.
+The **24 structured-gradient calibration/validation cells** remain in full membership.
+The six at the claimed light-inactive endpoint are **“not claimed (structured backdrop)”**
+numerically, retaining an S0 diagnostic deep score: apply E3 per local reference pixel,
+then take the declared deep median. That diagnostic is neither admission nor failure of
+the uniform-body candidate. It cannot be replaced by a fabricated `true` survival flag.
+
+This numerical domain is **not a shader enable condition**. The leaf will operate on every
+sampled backdrop in its enabled renderer domain, so structured web cells remain full members
+of the rendered check, and the W38 per-channel-bin veto is binding on them. A gradient bin
+worsened beyond the declared veto rejects the candidate; a mean improvement cannot hide it.
+Canonical photo cells at G2 still face M1, M2 and L1. The held-out archive contains no
+structured backdrop, so this ruling changes no held-out membership or closure tolerance.
+
+**Deferred:** a spatial holdout, with independently varied group mean and backdrop frequency,
+is what would extend the uniform numerical domain into an identified spatial claim. Neither
+the diagnostic S0 reading nor the absence of a held-out gradient supplies that evidence.
