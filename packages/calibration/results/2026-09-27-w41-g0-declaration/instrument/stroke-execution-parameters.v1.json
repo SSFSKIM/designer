@@ -1,0 +1,16 @@
+{
+  "schema": "w41-stroke-execution-1",
+  "seed": 4100,
+  "starts": 16,
+  "baseline": "width 1; beta .4; eta 0; M0 identity or M1 identity knots; M2 correction0; rho0",
+  "otherStarts": "15 uniform over the full bounded optimization coordinate box",
+  "gammaMap": "gamma=(1-beta)*eta, eta in [-1,1]; inactive gamma0",
+  "monotoneMap": "sort eight [0,255] optimization coordinates, keeping all eight",
+  "leastSquares": { "method": "scipy least_squares", "max_nfev": 3000, "ftol": 1e-10, "xtol": 1e-10, "gtol": 1e-10 },
+  "hardRails": { "method": "LS seed then SLSQP constrained LS", "maxiter": 3000, "ftol": 1e-10, "forwardDeficitRequired": 0 },
+  "minimax": { "method": "independent-original-start SLSQP epigraph of bin/channel mean absolute pixel error", "maxiter": 3000, "ftol": 1e-10, "epigraphGuardCodes": 1e-8 },
+  "rank": "finite difference of raw uncensored predictions; all singular values; width quadrature plateaus not regularized",
+  "mass": "equal cell, equal bin and channel within cell, equal uncensored pixel within bin/channel",
+  "authority": "LOCAL; optimizer failure or rail/epigraph failure is not a family negative",
+  "scope": "array API only; caller admits calibration roles/populations and holds shadow; no archive reader"
+}
