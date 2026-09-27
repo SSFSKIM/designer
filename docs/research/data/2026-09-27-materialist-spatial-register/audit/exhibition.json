@@ -1,0 +1,6792 @@
+{
+ "slug": "exhibition",
+ "url": "http://localhost:5187/gallery/exhibition/",
+ "auditedAt": "2026-09-27T08:01:26.106Z",
+ "viewport": {
+  "width": 1440,
+  "height": 900
+ },
+ "rootFound": true,
+ "readyState": "settled",
+ "adapter": {
+  "available": true,
+  "vendor": "apple",
+  "architecture": "metal-3",
+  "device": "",
+  "description": "",
+  "isFallbackAdapter": false
+ },
+ "api": {
+  "missing": []
+ },
+ "errors": [],
+ "schemes": {
+  "light": {
+   "scheme": "light",
+   "readyState": "settled",
+   "adapter": {
+    "available": true,
+    "vendor": "apple",
+    "architecture": "metal-3",
+    "device": "",
+    "description": "",
+    "isFallbackAdapter": false
+   },
+   "errors": [],
+   "consoleErrors": [],
+   "failedRequests": [],
+   "badResponses": [],
+   "scrolledOnLoad": 0,
+   "docHeight": 900,
+   "words": 200,
+   "title": "Exhibition · Weather in Painting — a Liquid Glass demo on vitrea",
+   "placeholder": false,
+   "captureWidth": 1440,
+   "overflowCapture": false,
+   "overflowAtLoad": false,
+   "contrast": {
+    "method": "dom-composite",
+    "checked": 32,
+    "pass": 0,
+    "unknown": 0,
+    "rate": 0,
+    "onGlass": 32,
+    "onGlassPass": 0,
+    "fails": [
+     {
+      "text": "Weather in Painting",
+      "ratio": 1.06,
+      "size": 12.5,
+      "onGlass": true
+     },
+     {
+      "text": "Room 1 of 8",
+      "ratio": 1.06,
+      "size": 12.5,
+      "onGlass": true
+     },
+     {
+      "text": "Frost",
+      "ratio": 1.06,
+      "size": 52,
+      "onGlass": true
+     },
+     {
+      "text": "Winter Landscape with Ice Skaters",
+      "ratio": 1.06,
+      "size": 23,
+      "onGlass": true
+     },
+     {
+      "text": "Hendrick Avercamp",
+      "ratio": 1.06,
+      "size": 15,
+      "onGlass": true
+     },
+     {
+      "text": "Dutch, 1585–1634 · c. 1608",
+      "ratio": 1.06,
+      "size": 15,
+      "onGlass": true
+     },
+     {
+      "text": "The whole work. The outline marks the pa",
+      "ratio": 1.06,
+      "size": 12.5,
+      "onGlass": true
+     },
+     {
+      "text": "Avercamp made his name painting winter, ",
+      "ratio": 1.06,
+      "size": 16,
+      "onGlass": true
+     },
+     {
+      "text": "Here a whole village has moved onto the ",
+      "ratio": 1.06,
+      "size": 16,
+      "onGlass": true
+     },
+     {
+      "text": "Look at how the air is built.",
+      "ratio": 1.06,
+      "size": 16,
+      "onGlass": true
+     },
+     {
+      "text": "The figures in front are sharp and full ",
+      "ratio": 1.06,
+      "size": 16,
+      "onGlass": true
+     },
+     {
+      "text": "That haze is the weather: cold, damp air",
+      "ratio": 1.06,
+      "size": 16,
+      "onGlass": true
+     }
+    ]
+   },
+   "glassContrast": {
+    "method": "rendered-pixels",
+    "pairs": 23,
+    "pass": 23,
+    "minRatio": 9.85,
+    "byPhase": {
+     "fv": {
+      "pairs": 23,
+      "pass": 23
+     }
+    },
+    "fails": [],
+    "sample": [
+     {
+      "phase": "fv",
+      "text": "Weather in Painting",
+      "nodeId": "vitrea-node_r_1_",
+      "size": 12.5,
+      "bold": true,
+      "large": false,
+      "ratio": 12.69,
+      "worstRatio": 12.35,
+      "pass": true,
+      "ink": [
+       36,
+       35,
+       33
+      ],
+      "ground": [
+       237,
+       231,
+       217
+      ],
+      "pixels": 2535,
+      "groundPixels": 1239
+     },
+     {
+      "phase": "fv",
+      "text": "Room",
+      "nodeId": "vitrea-node_r_1_",
+      "size": 12.5,
+      "bold": false,
+      "large": false,
+      "ratio": 13.71,
+      "worstRatio": 13.59,
+      "pass": true,
+      "ink": [
+       38,
+       37,
+       35
+      ],
+      "ground": [
+       248,
+       242,
+       227
+      ],
+      "pixels": 630,
+      "groundPixels": 335
+     },
+     {
+      "phase": "fv",
+      "text": "1",
+      "nodeId": "vitrea-node_r_1_",
+      "size": 12.5,
+      "bold": false,
+      "large": false,
+      "ratio": 13.79,
+      "worstRatio": 13.79,
+      "pass": true,
+      "ink": [
+       38,
+       37,
+       35
+      ],
+      "ground": [
+       248,
+       243,
+       228
+      ],
+      "pixels": 150,
+      "groundPixels": 109
+     },
+     {
+      "phase": "fv",
+      "text": "of",
+      "nodeId": "vitrea-node_r_1_",
+      "size": 12.5,
+      "bold": false,
+      "large": false,
+      "ratio": 13.79,
+      "worstRatio": 13.78,
+      "pass": true,
+      "ink": [
+       38,
+       37,
+       35
+      ],
+      "ground": [
+       248,
+       243,
+       229
+      ],
+      "pixels": 345,
+      "groundPixels": 224
+     },
+     {
+      "phase": "fv",
+      "text": "8",
+      "nodeId": "vitrea-node_r_1_",
+      "size": 12.5,
+      "bold": false,
+      "large": false,
+      "ratio": 13.8,
+      "worstRatio": 13.79,
+      "pass": true,
+      "ink": [
+       38,
+       37,
+       35
+      ],
+      "ground": [
+       248,
+       243,
+       230
+      ],
+      "pixels": 135,
+      "groundPixels": 51
+     },
+     {
+      "phase": "fv",
+      "text": "Frost",
+      "nodeId": "vitrea-node_r_1_",
+      "size": 52,
+      "bold": false,
+      "large": true,
+      "ratio": 12.44,
+      "worstRatio": 12.1,
+      "pass": true,
+      "ink": [
+       36,
+       35,
+       32
+      ],
+      "ground": [
+       236,
+       228,
+       212
+      ],
+      "pixels": 7313,
+      "groundPixels": 5720
+     },
+     {
+      "phase": "fv",
+      "text": "Winter Landscape with Ice Skaters",
+      "nodeId": "vitrea-node_r_1_",
+      "size": 23,
+      "bold": true,
+      "large": true,
+      "ratio": 12.94,
+      "worstRatio": 11.78,
+      "pass": true,
+      "ink": [
+       37,
+       36,
+       33
+      ],
+      "ground": [
+       243,
+       233,
+       217
+      ],
+      "pixels": 12320,
+      "groundPixels": 8349
+     },
+     {
+      "phase": "fv",
+      "text": "Hendrick Avercamp",
+      "nodeId": "vitrea-node_r_1_",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 12.47,
+      "worstRatio": 11.98,
+      "pass": true,
+      "ink": [
+       37,
+       35,
+       32
+      ],
+      "ground": [
+       239,
+       228,
+       207
+      ],
+      "pixels": 2736,
+      "groundPixels": 1421
+     },
+     {
+      "phase": "fv",
+      "text": "Dutch, 1585–1634",
+      "nodeId": "vitrea-node_r_1_",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 12.45,
+      "worstRatio": 12.19,
+      "pass": true,
+      "ink": [
+       36,
+       35,
+       32
+      ],
+      "ground": [
+       238,
+       228,
+       207
+      ],
+      "pixels": 2489,
+      "groundPixels": 1395
+     },
+     {
+      "phase": "fv",
+      "text": "·",
+      "nodeId": "vitrea-node_r_1_",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 12.66,
+      "worstRatio": 12.54,
+      "pass": true,
+      "ink": [
+       37,
+       35,
+       32
+      ],
+      "ground": [
+       241,
+       230,
+       210
+      ],
+      "pixels": 266,
+      "groundPixels": 242
+     },
+     {
+      "phase": "fv",
+      "text": "c. 1608",
+      "nodeId": "vitrea-node_r_1_",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 12.77,
+      "worstRatio": 12.64,
+      "pass": true,
+      "ink": [
+       37,
+       35,
+       33
+      ],
+      "ground": [
+       242,
+       231,
+       213
+      ],
+      "pixels": 1026,
+      "groundPixels": 573
+     },
+     {
+      "phase": "fv",
+      "text": "The whole work. The outline marks the pa",
+      "nodeId": "vitrea-node_r_1_",
+      "size": 12.5,
+      "bold": false,
+      "large": false,
+      "ratio": 11.15,
+      "worstRatio": 10.16,
+      "pass": true,
+      "ink": [
+       33,
+       33,
+       31
+      ],
+      "ground": [
+       217,
+       215,
+       201
+      ],
+      "pixels": 5440,
+      "groundPixels": 3030
+     },
+     {
+      "phase": "fv",
+      "text": "Avercamp made his name painting winter, ",
+      "nodeId": "vitrea-node_r_1_",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 11.38,
+      "worstRatio": 10.54,
+      "pass": true,
+      "ink": [
+       35,
+       33,
+       30
+      ],
+      "ground": [
+       226,
+       216,
+       199
+      ],
+      "pixels": 16796,
+      "groundPixels": 8878
+     },
+     {
+      "phase": "fv",
+      "text": "Here a whole village has moved onto the ",
+      "nodeId": "vitrea-node_r_1_",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 11.15,
+      "worstRatio": 10.5,
+      "pass": true,
+      "ink": [
+       35,
+       32,
+       30
+      ],
+      "ground": [
+       228,
+       212,
+       195
+      ],
+      "pixels": 18753,
+      "groundPixels": 10108
+     },
+     {
+      "phase": "fv",
+      "text": "Look at how the air is built.",
+      "nodeId": "vitrea-node_r_1_",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 10.77,
+      "worstRatio": 10.1,
+      "pass": true,
+      "ink": [
+       34,
+       32,
+       30
+      ],
+      "ground": [
+       219,
+       209,
+       194
+      ],
+      "pixels": 3819,
+      "groundPixels": 2106
+     },
+     {
+      "phase": "fv",
+      "text": "The figures in front are sharp and full ",
+      "nodeId": "vitrea-node_r_1_",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 10.58,
+      "worstRatio": 10.23,
+      "pass": true,
+      "ink": [
+       34,
+       32,
+       29
+      ],
+      "ground": [
+       219,
+       206,
+       192
+      ],
+      "pixels": 19722,
+      "groundPixels": 10874
+     },
+     {
+      "phase": "fv",
+      "text": "That haze is the weather: cold, damp air",
+      "nodeId": "vitrea-node_r_1_",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 10.4,
+      "worstRatio": 5.45,
+      "pass": true,
+      "ink": [
+       32,
+       32,
+       29
+      ],
+      "ground": [
+       210,
+       206,
+       192
+      ],
+      "pixels": 10108,
+      "groundPixels": 7614
+     },
+     {
+      "phase": "fv",
+      "text": "Avercamp signed the picture on the wall ",
+      "nodeId": "vitrea-node_r_1_",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 9.85,
+      "worstRatio": 5.11,
+      "pass": true,
+      "ink": [
+       32,
+       30,
+       26
+      ],
+      "ground": [
+       210,
+       199,
+       168
+      ],
+      "pixels": 17670,
+      "groundPixels": 13150
+     },
+     {
+      "phase": "fv",
+      "text": "1",
+      "nodeId": "vitrea-node_r_3_",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 12.47,
+      "worstRatio": 11.56,
+      "pass": true,
+      "ink": [
+       36,
+       35,
+       32
+      ],
+      "ground": [
+       238,
+       228,
+       211
+      ],
+      "pixels": 209,
+      "groundPixels": 148
+     },
+     {
+      "phase": "fv",
+      "text": "/",
+      "nodeId": "vitrea-node_r_3_",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 12.8,
+      "worstRatio": 12.35,
+      "pass": true,
+      "ink": [
+       37,
+       35,
+       33
+      ],
+      "ground": [
+       240,
+       232,
+       215
+      ],
+      "pixels": 266,
+      "groundPixels": 211
+     },
+     {
+      "phase": "fv",
+      "text": "8",
+      "nodeId": "vitrea-node_r_3_",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 12.9,
+      "worstRatio": 12.67,
+      "pass": true,
+      "ink": [
+       37,
+       36,
+       33
+      ],
+      "ground": [
+       241,
+       233,
+       217
+      ],
+      "pixels": 209,
+      "groundPixels": 105
+     },
+     {
+      "phase": "fv",
+      "text": "Audio guide",
+      "nodeId": "vitrea-node_r_5_",
+      "size": 13.5,
+      "bold": false,
+      "large": false,
+      "ratio": 13.14,
+      "worstRatio": 12.6,
+      "pass": true,
+      "ink": [
+       37,
+       36,
+       34
+      ],
+      "ground": [
+       242,
+       236,
+       220
+      ],
+      "pixels": 1360,
+      "groundPixels": 661
+     },
+     {
+      "phase": "fv",
+      "text": "About 0:51",
+      "nodeId": "vitrea-node_r_5_",
+      "size": 12.5,
+      "bold": false,
+      "large": false,
+      "ratio": 13.26,
+      "worstRatio": 12.93,
+      "pass": true,
+      "ink": [
+       37,
+       36,
+       34
+      ],
+      "ground": [
+       244,
+       237,
+       221
+      ],
+      "pixels": 1088,
+      "groundPixels": 575
+     }
+    ]
+   },
+   "rootFound": true,
+   "api": {
+    "missing": []
+   },
+   "colorScheme": "light",
+   "schemeFollowed": true,
+   "windowActivation": "active",
+   "material": {
+    "name": "apple-macos-27.0-glass0.5",
+    "platform": "macOS 27.0",
+    "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+    "resolvedMaterialSha256": "be13dae45098fc89",
+    "tuned": false
+   },
+   "webgpu": {
+    "available": true,
+    "ownership": "vitrea",
+    "deviceHealth": "ok",
+    "unavailableReason": null,
+    "hasDevice": true
+   },
+   "platformProbe": {
+    "engine": {
+     "family": "chromium",
+     "version": 151
+    },
+    "reach": "verified"
+   },
+   "accessibility": {
+    "reducedTransparency": false,
+    "reducedMotion": false,
+    "increasedContrast": false,
+    "forcedColors": false,
+    "material": {
+     "glass": "material",
+     "colorSource": "material",
+     "frost": "nominal",
+     "refraction": "nominal",
+     "occlusion": "nominal",
+     "border": "nominal",
+     "ambientTint": "nominal",
+     "foreground": "adaptive"
+    },
+    "motion": {
+     "overshoot": "elastic",
+     "deformation": "nominal",
+     "shimmer": "travel",
+     "morph": "elastic",
+     "crossfade": "never",
+     "positionalContinuity": true
+    }
+   },
+   "surfaces": [
+    {
+     "nodeId": "vitrea-node_r_1_",
+     "groupId": "label-window",
+     "plane": "base",
+     "selector": "section#exh-window",
+     "tag": "section",
+     "role": null,
+     "rect": [
+      32,
+      32,
+      461,
+      720
+     ],
+     "span": 461,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "fixed-rounded-rect",
+     "radii": [
+      32,
+      32,
+      32,
+      32
+     ],
+     "smoothing": 0.52866495,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "0px",
+     "label": "Gallery label"
+    },
+    {
+     "nodeId": "vitrea-node_r_3_",
+     "groupId": "rooms-ornament",
+     "plane": "overlay",
+     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > nav[data-vitrea-node=\"vitrea-node_r_3_\"].exh-ornament.exh-ornament--rooms",
+     "tag": "nav",
+     "role": null,
+     "rect": [
+      32,
+      816,
+      176,
+      52
+     ],
+     "span": 52,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "capsule",
+     "radii": [
+      26,
+      26,
+      26,
+      26
+     ],
+     "smoothing": 0.52866495,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "0px",
+     "label": "Rooms"
+    },
+    {
+     "nodeId": "vitrea-node_r_5_",
+     "groupId": "guide-ornament",
+     "plane": "overlay",
+     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div[data-vitrea-node=\"vitrea-node_r_5_\"].exh-ornament.exh-ornament--guide",
+     "tag": "div",
+     "role": "group",
+     "rect": [
+      232,
+      816,
+      261,
+      52
+     ],
+     "span": 52,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "capsule",
+     "radii": [
+      26,
+      26,
+      26,
+      26
+     ],
+     "smoothing": 0.52866495,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "0px",
+     "label": "Audio guide"
+    }
+   ],
+   "surfacesInFrame": 3,
+   "planes": [
+    {
+     "plane": "base",
+     "nodes": 1
+    },
+    {
+     "plane": "overlay",
+     "nodes": 2
+    }
+   ],
+   "groups": [
+    {
+     "id": "label-window",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 21,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "rooms-ornament",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.89,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "guide-ornament",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.89,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    }
+   ],
+   "diagnostics": [],
+   "derivedFindings": [],
+   "menu": "not-offered",
+   "menuSurfaces": null,
+   "menuGroups": null,
+   "menuDiagnostics": null,
+   "ban": {
+    "rest": {
+     "findings": [],
+     "unmeasured": [],
+     "hostsRead": 3,
+     "cssTierHosts": 0
+    },
+    "menu": null
+   },
+   "hostText": [
+    {
+     "nodeId": "vitrea-node_r_1_",
+     "role": "window",
+     "groupId": "label-window",
+     "selector": "section#exh-window",
+     "span": 461,
+     "hasText": true,
+     "runs": 17,
+     "text": "Weather in Painting Room 1 of 8 Frost Winter Landscape with "
+    },
+    {
+     "nodeId": "vitrea-node_r_3_",
+     "role": "ornament",
+     "groupId": "rooms-ornament",
+     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > nav[data-vitrea-node=\"vitrea-node_r_3_\"].exh-ornament.exh-ornament--rooms",
+     "span": 52,
+     "hasText": false,
+     "runs": 0,
+     "text": ""
+    },
+    {
+     "nodeId": "vitrea-node_r_5_",
+     "role": "ornament",
+     "groupId": "guide-ornament",
+     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div[data-vitrea-node=\"vitrea-node_r_5_\"].exh-ornament.exh-ornament--guide",
+     "span": 52,
+     "hasText": true,
+     "runs": 2,
+     "text": "Audio guide About 0:51"
+    }
+   ],
+   "menuHostText": null,
+   "glassCoverage": {
+    "fraction": 0.273,
+    "cellPx": 4,
+    "cells": 81000,
+    "covered": 22117,
+    "hosts": 3
+   },
+   "hostLuminance": {
+    "measure": "mean encoded Rec. 709 luma of the glyph-suppressed capture, 0..1 (the runtime's encodedLuminance, packages/platform-web/src/backdrop-tone.ts)",
+    "band": [
+     0.39,
+     0.49
+    ],
+    "ringPx": 24,
+    "reads": [
+     {
+      "state": "fv",
+      "nodeId": "vitrea-node_r_1_",
+      "groupId": "label-window",
+      "role": "window",
+      "label": "Gallery label",
+      "rect": [
+       32,
+       32,
+       461,
+       720
+      ],
+      "inside": {
+       "mean": 0.8257,
+       "pixels": 331920,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.5651,
+       "pixels": 58992,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "fv",
+      "nodeId": "vitrea-node_r_3_",
+      "groupId": "rooms-ornament",
+      "role": "ornament",
+      "label": "Rooms",
+      "rect": [
+       32,
+       816,
+       176,
+       52
+      ],
+      "inside": {
+       "mean": 0.8703,
+       "pixels": 9152,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.5409,
+       "pixels": 13248,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "fv",
+      "nodeId": "vitrea-node_r_5_",
+      "groupId": "guide-ornament",
+      "role": "ornament",
+      "label": "Audio guide",
+      "rect": [
+       232,
+       816,
+       261,
+       52
+      ],
+      "inside": {
+       "mean": 0.8854,
+       "pixels": 13572,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.582,
+       "pixels": 17328,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "scroller-1-top",
+      "nodeId": "vitrea-node_r_1_",
+      "groupId": "label-window",
+      "role": "window",
+      "label": "Gallery label",
+      "rect": [
+       32,
+       32,
+       461,
+       720
+      ],
+      "inside": {
+       "mean": 0.8257,
+       "pixels": 331920,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.5651,
+       "pixels": 58992,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "scroller-1-top",
+      "nodeId": "vitrea-node_r_3_",
+      "groupId": "rooms-ornament",
+      "role": "ornament",
+      "label": "Rooms",
+      "rect": [
+       32,
+       816,
+       176,
+       52
+      ],
+      "inside": {
+       "mean": 0.8703,
+       "pixels": 9152,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.5409,
+       "pixels": 13248,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "scroller-1-top",
+      "nodeId": "vitrea-node_r_5_",
+      "groupId": "guide-ornament",
+      "role": "ornament",
+      "label": "Audio guide",
+      "rect": [
+       232,
+       816,
+       261,
+       52
+      ],
+      "inside": {
+       "mean": 0.8854,
+       "pixels": 13572,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.582,
+       "pixels": 17328,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "scroller-1-middle",
+      "nodeId": "vitrea-node_r_1_",
+      "groupId": "label-window",
+      "role": "window",
+      "label": "Gallery label",
+      "rect": [
+       32,
+       32,
+       461,
+       720
+      ],
+      "inside": {
+       "mean": 0.8205,
+       "pixels": 331920,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.5651,
+       "pixels": 58992,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "scroller-1-middle",
+      "nodeId": "vitrea-node_r_3_",
+      "groupId": "rooms-ornament",
+      "role": "ornament",
+      "label": "Rooms",
+      "rect": [
+       32,
+       816,
+       176,
+       52
+      ],
+      "inside": {
+       "mean": 0.8703,
+       "pixels": 9152,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.5409,
+       "pixels": 13248,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "scroller-1-middle",
+      "nodeId": "vitrea-node_r_5_",
+      "groupId": "guide-ornament",
+      "role": "ornament",
+      "label": "Audio guide",
+      "rect": [
+       232,
+       816,
+       261,
+       52
+      ],
+      "inside": {
+       "mean": 0.8854,
+       "pixels": 13572,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.582,
+       "pixels": 17328,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "scroller-1-bottom",
+      "nodeId": "vitrea-node_r_1_",
+      "groupId": "label-window",
+      "role": "window",
+      "label": "Gallery label",
+      "rect": [
+       32,
+       32,
+       461,
+       720
+      ],
+      "inside": {
+       "mean": 0.8455,
+       "pixels": 331920,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.5651,
+       "pixels": 58992,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "scroller-1-bottom",
+      "nodeId": "vitrea-node_r_3_",
+      "groupId": "rooms-ornament",
+      "role": "ornament",
+      "label": "Rooms",
+      "rect": [
+       32,
+       816,
+       176,
+       52
+      ],
+      "inside": {
+       "mean": 0.8703,
+       "pixels": 9152,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.5409,
+       "pixels": 13248,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "scroller-1-bottom",
+      "nodeId": "vitrea-node_r_5_",
+      "groupId": "guide-ornament",
+      "role": "ornament",
+      "label": "Audio guide",
+      "rect": [
+       232,
+       816,
+       261,
+       52
+      ],
+      "inside": {
+       "mean": 0.8854,
+       "pixels": 13572,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.582,
+       "pixels": 17328,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     }
+    ]
+   },
+   "lineContrast": {
+    "method": "per-line, glyphs suppressed",
+    "states": [
+     "fv",
+     "scroller-1-top",
+     "scroller-1-middle",
+     "scroller-1-bottom"
+    ],
+    "lines": 134,
+    "pass": 134,
+    "minRatio": 9.21,
+    "worst": {
+     "state": "scroller-1-middle",
+     "nodeId": "vitrea-node_r_1_",
+     "line": 0,
+     "box": [
+      61,
+      664.4,
+      48.3,
+      13
+     ],
+     "size": 11.5,
+     "bold": false,
+     "large": false,
+     "floor": 4.5,
+     "ink": [
+      31,
+      29,
+      28
+     ],
+     "inkAlpha": 0.847,
+     "ground": [
+      199,
+      191,
+      180
+     ],
+     "ratio": 9.21,
+     "worstRatio": 9.04,
+     "pass": true,
+     "pixels": 686
+    },
+    "byState": {
+     "fv": {
+      "lines": 30,
+      "pass": 30,
+      "minRatio": 10.36
+     },
+     "scroller-1-top": {
+      "lines": 30,
+      "pass": 30,
+      "minRatio": 10.36
+     },
+     "scroller-1-middle": {
+      "lines": 33,
+      "pass": 33,
+      "minRatio": 9.21
+     },
+     "scroller-1-bottom": {
+      "lines": 41,
+      "pass": 41,
+      "minRatio": 9.4
+     }
+    },
+    "fails": []
+   },
+   "scrollers": {
+    "found": 1,
+    "cap": 8,
+    "list": [
+     {
+      "index": 1,
+      "selector": "section#exh-window > div.exh-scroll",
+      "hostNodeId": "vitrea-node_r_1_",
+      "rect": [
+       32,
+       32,
+       461,
+       720
+      ],
+      "scrollHeight": 1272,
+      "clientHeight": 720,
+      "scrollTop": 0,
+      "positions": [
+       {
+        "pos": "top",
+        "scrollTop": 0,
+        "capture": "scroller-1-top-light.png"
+       },
+       {
+        "pos": "middle",
+        "scrollTop": 276,
+        "capture": "scroller-1-middle-light.png"
+       },
+       {
+        "pos": "bottom",
+        "scrollTop": 552,
+        "capture": "scroller-1-bottom-light.png"
+       }
+      ]
+     }
+    ]
+   },
+   "phasesHook": true,
+   "phases": {
+    "ids": [
+     "frost",
+     "cloud",
+     "clearing",
+     "thunder",
+     "rain",
+     "wind",
+     "gale",
+     "fog"
+    ],
+    "total": 8,
+    "cap": 16,
+    "shown": [
+     {
+      "index": 1,
+      "id": "frost",
+      "status": "captured",
+      "capture": "phase-1-light.png"
+     },
+     {
+      "index": 2,
+      "id": "cloud",
+      "status": "captured",
+      "capture": "phase-2-light.png"
+     },
+     {
+      "index": 3,
+      "id": "clearing",
+      "status": "captured",
+      "capture": "phase-3-light.png"
+     },
+     {
+      "index": 4,
+      "id": "thunder",
+      "status": "captured",
+      "capture": "phase-4-light.png"
+     },
+     {
+      "index": 5,
+      "id": "rain",
+      "status": "captured",
+      "capture": "phase-5-light.png"
+     },
+     {
+      "index": 6,
+      "id": "wind",
+      "status": "captured",
+      "capture": "phase-6-light.png"
+     },
+     {
+      "index": 7,
+      "id": "gale",
+      "status": "captured",
+      "capture": "phase-7-light.png"
+     },
+     {
+      "index": 8,
+      "id": "fog",
+      "status": "captured",
+      "capture": "phase-8-light.png"
+     }
+    ],
+    "readyState": "settled",
+    "errors": [],
+    "consoleErrors": [],
+    "lineContrast": {
+     "method": "per-line, glyphs suppressed",
+     "states": [
+      "phase-1",
+      "phase-2",
+      "phase-3",
+      "phase-4",
+      "phase-5",
+      "phase-6",
+      "phase-7",
+      "phase-8"
+     ],
+     "lines": 232,
+     "pass": 232,
+     "minRatio": 9.63,
+     "worst": {
+      "state": "phase-3",
+      "nodeId": "vitrea-node_r_5_",
+      "line": 0,
+      "box": [
+       290,
+       843.3,
+       67.3,
+       15
+      ],
+      "size": 12.5,
+      "bold": false,
+      "large": false,
+      "floor": 4.5,
+      "ink": [
+       31,
+       30,
+       28
+      ],
+      "inkAlpha": 0.847,
+      "ground": [
+       205,
+       196,
+       184
+      ],
+      "ratio": 9.63,
+      "worstRatio": 9.42,
+      "pass": true,
+      "pixels": 1088
+     },
+     "byState": {
+      "phase-1": {
+       "lines": 30,
+       "pass": 30,
+       "minRatio": 10.36
+      },
+      "phase-2": {
+       "lines": 27,
+       "pass": 27,
+       "minRatio": 9.94
+      },
+      "phase-3": {
+       "lines": 30,
+       "pass": 30,
+       "minRatio": 9.63
+      },
+      "phase-4": {
+       "lines": 27,
+       "pass": 27,
+       "minRatio": 9.76
+      },
+      "phase-5": {
+       "lines": 29,
+       "pass": 29,
+       "minRatio": 10.41
+      },
+      "phase-6": {
+       "lines": 29,
+       "pass": 29,
+       "minRatio": 10.39
+      },
+      "phase-7": {
+       "lines": 30,
+       "pass": 30,
+       "minRatio": 9.65
+      },
+      "phase-8": {
+       "lines": 30,
+       "pass": 30,
+       "minRatio": 10.03
+      }
+     },
+     "fails": []
+    },
+    "hostLuminance": {
+     "measure": "mean encoded Rec. 709 luma of the glyph-suppressed capture, 0..1 (the runtime's encodedLuminance, packages/platform-web/src/backdrop-tone.ts)",
+     "band": [
+      0.39,
+      0.49
+     ],
+     "ringPx": 24,
+     "reads": [
+      {
+       "state": "phase-1",
+       "nodeId": "vitrea-node_r_1_",
+       "groupId": "label-window",
+       "role": "window",
+       "label": "Gallery label",
+       "rect": [
+        32,
+        32,
+        461,
+        720
+       ],
+       "inside": {
+        "mean": 0.8257,
+        "pixels": 331920,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.5651,
+        "pixels": 58992,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-1",
+       "nodeId": "vitrea-node_r_3_",
+       "groupId": "rooms-ornament",
+       "role": "ornament",
+       "label": "Rooms",
+       "rect": [
+        32,
+        816,
+        176,
+        52
+       ],
+       "inside": {
+        "mean": 0.8703,
+        "pixels": 9152,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.5409,
+        "pixels": 13248,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-1",
+       "nodeId": "vitrea-node_r_5_",
+       "groupId": "guide-ornament",
+       "role": "ornament",
+       "label": "Audio guide",
+       "rect": [
+        232,
+        816,
+        261,
+        52
+       ],
+       "inside": {
+        "mean": 0.8854,
+        "pixels": 13572,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.582,
+        "pixels": 17328,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-2",
+       "nodeId": "vitrea-node_r_1_",
+       "groupId": "label-window",
+       "role": "window",
+       "label": "Gallery label",
+       "rect": [
+        32,
+        32,
+        461,
+        720
+       ],
+       "inside": {
+        "mean": 0.7789,
+        "pixels": 331920,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.4307,
+        "pixels": 58992,
+        "inDeadBand": true
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-2",
+       "nodeId": "vitrea-node_r_3_",
+       "groupId": "rooms-ornament",
+       "role": "ornament",
+       "label": "Rooms",
+       "rect": [
+        32,
+        816,
+        176,
+        52
+       ],
+       "inside": {
+        "mean": 0.7676,
+        "pixels": 9152,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.4028,
+        "pixels": 13248,
+        "inDeadBand": true
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-2",
+       "nodeId": "vitrea-node_r_5_",
+       "groupId": "guide-ornament",
+       "role": "ornament",
+       "label": "Audio guide",
+       "rect": [
+        232,
+        816,
+        261,
+        52
+       ],
+       "inside": {
+        "mean": 0.7686,
+        "pixels": 13572,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.3253,
+        "pixels": 17328,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-3",
+       "nodeId": "vitrea-node_r_1_",
+       "groupId": "label-window",
+       "role": "window",
+       "label": "Gallery label",
+       "rect": [
+        32,
+        32,
+        461,
+        720
+       ],
+       "inside": {
+        "mean": 0.7441,
+        "pixels": 331920,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.2635,
+        "pixels": 58992,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-3",
+       "nodeId": "vitrea-node_r_3_",
+       "groupId": "rooms-ornament",
+       "role": "ornament",
+       "label": "Rooms",
+       "rect": [
+        32,
+        816,
+        176,
+        52
+       ],
+       "inside": {
+        "mean": 0.7355,
+        "pixels": 9152,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.152,
+        "pixels": 13248,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-3",
+       "nodeId": "vitrea-node_r_5_",
+       "groupId": "guide-ornament",
+       "role": "ornament",
+       "label": "Audio guide",
+       "rect": [
+        232,
+        816,
+        261,
+        52
+       ],
+       "inside": {
+        "mean": 0.7539,
+        "pixels": 13572,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1985,
+        "pixels": 17328,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-4",
+       "nodeId": "vitrea-node_r_1_",
+       "groupId": "label-window",
+       "role": "window",
+       "label": "Gallery label",
+       "rect": [
+        32,
+        32,
+        461,
+        720
+       ],
+       "inside": {
+        "mean": 0.7189,
+        "pixels": 331920,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.2055,
+        "pixels": 58992,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-4",
+       "nodeId": "vitrea-node_r_3_",
+       "groupId": "rooms-ornament",
+       "role": "ornament",
+       "label": "Rooms",
+       "rect": [
+        32,
+        816,
+        176,
+        52
+       ],
+       "inside": {
+        "mean": 0.8102,
+        "pixels": 9152,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.5617,
+        "pixels": 13248,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-4",
+       "nodeId": "vitrea-node_r_5_",
+       "groupId": "guide-ornament",
+       "role": "ornament",
+       "label": "Audio guide",
+       "rect": [
+        232,
+        816,
+        261,
+        52
+       ],
+       "inside": {
+        "mean": 0.8382,
+        "pixels": 13572,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.5354,
+        "pixels": 17328,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-5",
+       "nodeId": "vitrea-node_r_1_",
+       "groupId": "label-window",
+       "role": "window",
+       "label": "Gallery label",
+       "rect": [
+        32,
+        32,
+        461,
+        720
+       ],
+       "inside": {
+        "mean": 0.82,
+        "pixels": 331920,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.5119,
+        "pixels": 58992,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-5",
+       "nodeId": "vitrea-node_r_3_",
+       "groupId": "rooms-ornament",
+       "role": "ornament",
+       "label": "Rooms",
+       "rect": [
+        32,
+        816,
+        176,
+        52
+       ],
+       "inside": {
+        "mean": 0.8046,
+        "pixels": 9152,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.5022,
+        "pixels": 13248,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-5",
+       "nodeId": "vitrea-node_r_5_",
+       "groupId": "guide-ornament",
+       "role": "ornament",
+       "label": "Audio guide",
+       "rect": [
+        232,
+        816,
+        261,
+        52
+       ],
+       "inside": {
+        "mean": 0.8495,
+        "pixels": 13572,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.5935,
+        "pixels": 17328,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-6",
+       "nodeId": "vitrea-node_r_1_",
+       "groupId": "label-window",
+       "role": "window",
+       "label": "Gallery label",
+       "rect": [
+        32,
+        32,
+        461,
+        720
+       ],
+       "inside": {
+        "mean": 0.8074,
+        "pixels": 331920,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.5143,
+        "pixels": 58992,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-6",
+       "nodeId": "vitrea-node_r_3_",
+       "groupId": "rooms-ornament",
+       "role": "ornament",
+       "label": "Rooms",
+       "rect": [
+        32,
+        816,
+        176,
+        52
+       ],
+       "inside": {
+        "mean": 0.8151,
+        "pixels": 9152,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.5065,
+        "pixels": 13248,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-6",
+       "nodeId": "vitrea-node_r_5_",
+       "groupId": "guide-ornament",
+       "role": "ornament",
+       "label": "Audio guide",
+       "rect": [
+        232,
+        816,
+        261,
+        52
+       ],
+       "inside": {
+        "mean": 0.8069,
+        "pixels": 13572,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.4776,
+        "pixels": 17328,
+        "inDeadBand": true
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-7",
+       "nodeId": "vitrea-node_r_1_",
+       "groupId": "label-window",
+       "role": "window",
+       "label": "Gallery label",
+       "rect": [
+        32,
+        32,
+        461,
+        720
+       ],
+       "inside": {
+        "mean": 0.8127,
+        "pixels": 331920,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.4204,
+        "pixels": 58992,
+        "inDeadBand": true
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-7",
+       "nodeId": "vitrea-node_r_3_",
+       "groupId": "rooms-ornament",
+       "role": "ornament",
+       "label": "Rooms",
+       "rect": [
+        32,
+        816,
+        176,
+        52
+       ],
+       "inside": {
+        "mean": 0.7419,
+        "pixels": 9152,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1831,
+        "pixels": 13248,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-7",
+       "nodeId": "vitrea-node_r_5_",
+       "groupId": "guide-ornament",
+       "role": "ornament",
+       "label": "Audio guide",
+       "rect": [
+        232,
+        816,
+        261,
+        52
+       ],
+       "inside": {
+        "mean": 0.7495,
+        "pixels": 13572,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1646,
+        "pixels": 17328,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-8",
+       "nodeId": "vitrea-node_r_1_",
+       "groupId": "label-window",
+       "role": "window",
+       "label": "Gallery label",
+       "rect": [
+        32,
+        32,
+        461,
+        720
+       ],
+       "inside": {
+        "mean": 0.7752,
+        "pixels": 331920,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.4698,
+        "pixels": 58992,
+        "inDeadBand": true
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-8",
+       "nodeId": "vitrea-node_r_3_",
+       "groupId": "rooms-ornament",
+       "role": "ornament",
+       "label": "Rooms",
+       "rect": [
+        32,
+        816,
+        176,
+        52
+       ],
+       "inside": {
+        "mean": 0.7852,
+        "pixels": 9152,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.4685,
+        "pixels": 13248,
+        "inDeadBand": true
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-8",
+       "nodeId": "vitrea-node_r_5_",
+       "groupId": "guide-ornament",
+       "role": "ornament",
+       "label": "Audio guide",
+       "rect": [
+        232,
+        816,
+        261,
+        52
+       ],
+       "inside": {
+        "mean": 0.7738,
+        "pixels": 13572,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.4302,
+        "pixels": 17328,
+        "inDeadBand": true
+       },
+       "inDeadBand": false
+      }
+     ]
+    }
+   }
+  },
+  "dark": {
+   "scheme": "dark",
+   "readyState": "settled",
+   "adapter": {
+    "available": true,
+    "vendor": "apple",
+    "architecture": "metal-3",
+    "device": "",
+    "description": "",
+    "isFallbackAdapter": false
+   },
+   "errors": [],
+   "consoleErrors": [],
+   "failedRequests": [],
+   "badResponses": [],
+   "scrolledOnLoad": 0,
+   "docHeight": 900,
+   "words": 200,
+   "title": "Exhibition · Weather in Painting — a Liquid Glass demo on vitrea",
+   "placeholder": false,
+   "captureWidth": 1440,
+   "overflowCapture": false,
+   "overflowAtLoad": false,
+   "contrast": {
+    "method": "dom-composite",
+    "checked": 32,
+    "pass": 32,
+    "unknown": 0,
+    "rate": 1,
+    "onGlass": 32,
+    "onGlassPass": 32,
+    "fails": []
+   },
+   "glassContrast": {
+    "method": "rendered-pixels",
+    "pairs": 23,
+    "pass": 23,
+    "minRatio": 5.46,
+    "byPhase": {
+     "fv": {
+      "pairs": 23,
+      "pass": 23
+     }
+    },
+    "fails": [],
+    "sample": [
+     {
+      "phase": "fv",
+      "text": "Weather in Painting",
+      "nodeId": "vitrea-node_r_1_",
+      "size": 12.5,
+      "bold": true,
+      "large": false,
+      "ratio": 6.61,
+      "worstRatio": 6.49,
+      "pass": true,
+      "ink": [
+       219,
+       219,
+       219
+      ],
+      "ground": [
+       73,
+       72,
+       69
+      ],
+      "pixels": 2535,
+      "groundPixels": 1245
+     },
+     {
+      "phase": "fv",
+      "text": "Room",
+      "nodeId": "vitrea-node_r_1_",
+      "size": 12.5,
+      "bold": false,
+      "large": false,
+      "ratio": 6.45,
+      "worstRatio": 6.35,
+      "pass": true,
+      "ink": [
+       220,
+       220,
+       219
+      ],
+      "ground": [
+       74,
+       74,
+       72
+      ],
+      "pixels": 630,
+      "groundPixels": 341
+     },
+     {
+      "phase": "fv",
+      "text": "1",
+      "nodeId": "vitrea-node_r_1_",
+      "size": 12.5,
+      "bold": false,
+      "large": false,
+      "ratio": 6.52,
+      "worstRatio": 6.34,
+      "pass": true,
+      "ink": [
+       220,
+       219,
+       219
+      ],
+      "ground": [
+       74,
+       73,
+       71
+      ],
+      "pixels": 150,
+      "groundPixels": 111
+     },
+     {
+      "phase": "fv",
+      "text": "of",
+      "nodeId": "vitrea-node_r_1_",
+      "size": 12.5,
+      "bold": false,
+      "large": false,
+      "ratio": 6.45,
+      "worstRatio": 6.32,
+      "pass": true,
+      "ink": [
+       220,
+       220,
+       219
+      ],
+      "ground": [
+       74,
+       74,
+       72
+      ],
+      "pixels": 345,
+      "groundPixels": 225
+     },
+     {
+      "phase": "fv",
+      "text": "8",
+      "nodeId": "vitrea-node_r_1_",
+      "size": 12.5,
+      "bold": false,
+      "large": false,
+      "ratio": 6.28,
+      "worstRatio": 6.08,
+      "pass": true,
+      "ink": [
+       220,
+       220,
+       219
+      ],
+      "ground": [
+       76,
+       76,
+       73
+      ],
+      "pixels": 135,
+      "groundPixels": 54
+     },
+     {
+      "phase": "fv",
+      "text": "Frost",
+      "nodeId": "vitrea-node_r_1_",
+      "size": 52,
+      "bold": false,
+      "large": true,
+      "ratio": 6.7,
+      "worstRatio": 6.61,
+      "pass": true,
+      "ink": [
+       219,
+       219,
+       219
+      ],
+      "ground": [
+       72,
+       71,
+       69
+      ],
+      "pixels": 7313,
+      "groundPixels": 5730
+     },
+     {
+      "phase": "fv",
+      "text": "Winter Landscape with Ice Skaters",
+      "nodeId": "vitrea-node_r_1_",
+      "size": 23,
+      "bold": true,
+      "large": true,
+      "ratio": 6.61,
+      "worstRatio": 6.61,
+      "pass": true,
+      "ink": [
+       219,
+       219,
+       219
+      ],
+      "ground": [
+       73,
+       72,
+       69
+      ],
+      "pixels": 12320,
+      "groundPixels": 8388
+     },
+     {
+      "phase": "fv",
+      "text": "Hendrick Avercamp",
+      "nodeId": "vitrea-node_r_1_",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 6.69,
+      "worstRatio": 6.69,
+      "pass": true,
+      "ink": [
+       219,
+       219,
+       218
+      ],
+      "ground": [
+       73,
+       71,
+       68
+      ],
+      "pixels": 2736,
+      "groundPixels": 1432
+     },
+     {
+      "phase": "fv",
+      "text": "Dutch, 1585–1634",
+      "nodeId": "vitrea-node_r_1_",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 6.69,
+      "worstRatio": 6.69,
+      "pass": true,
+      "ink": [
+       219,
+       219,
+       218
+      ],
+      "ground": [
+       73,
+       71,
+       68
+      ],
+      "pixels": 2489,
+      "groundPixels": 1408
+     },
+     {
+      "phase": "fv",
+      "text": "·",
+      "nodeId": "vitrea-node_r_1_",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 6.69,
+      "worstRatio": 6.69,
+      "pass": true,
+      "ink": [
+       219,
+       219,
+       218
+      ],
+      "ground": [
+       73,
+       71,
+       68
+      ],
+      "pixels": 266,
+      "groundPixels": 242
+     },
+     {
+      "phase": "fv",
+      "text": "c. 1608",
+      "nodeId": "vitrea-node_r_1_",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 6.68,
+      "worstRatio": 6.68,
+      "pass": true,
+      "ink": [
+       219,
+       219,
+       219
+      ],
+      "ground": [
+       73,
+       71,
+       69
+      ],
+      "pixels": 1026,
+      "groundPixels": 586
+     },
+     {
+      "phase": "fv",
+      "text": "The whole work. The outline marks the pa",
+      "nodeId": "vitrea-node_r_1_",
+      "size": 12.5,
+      "bold": false,
+      "large": false,
+      "ratio": 6.74,
+      "worstRatio": 6.72,
+      "pass": true,
+      "ink": [
+       219,
+       219,
+       219
+      ],
+      "ground": [
+       70,
+       71,
+       69
+      ],
+      "pixels": 5440,
+      "groundPixels": 3068
+     },
+     {
+      "phase": "fv",
+      "text": "Avercamp made his name painting winter, ",
+      "nodeId": "vitrea-node_r_1_",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 6.71,
+      "worstRatio": 6.71,
+      "pass": true,
+      "ink": [
+       219,
+       219,
+       218
+      ],
+      "ground": [
+       72,
+       71,
+       68
+      ],
+      "pixels": 16796,
+      "groundPixels": 8929
+     },
+     {
+      "phase": "fv",
+      "text": "Here a whole village has moved onto the ",
+      "nodeId": "vitrea-node_r_1_",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 6.78,
+      "worstRatio": 6.76,
+      "pass": true,
+      "ink": [
+       219,
+       219,
+       218
+      ],
+      "ground": [
+       72,
+       70,
+       67
+      ],
+      "pixels": 18753,
+      "groundPixels": 10191
+     },
+     {
+      "phase": "fv",
+      "text": "Look at how the air is built.",
+      "nodeId": "vitrea-node_r_1_",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 6.78,
+      "worstRatio": 6.76,
+      "pass": true,
+      "ink": [
+       219,
+       219,
+       218
+      ],
+      "ground": [
+       72,
+       70,
+       67
+      ],
+      "pixels": 3819,
+      "groundPixels": 2132
+     },
+     {
+      "phase": "fv",
+      "text": "The figures in front are sharp and full ",
+      "nodeId": "vitrea-node_r_1_",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 6.78,
+      "worstRatio": 6.76,
+      "pass": true,
+      "ink": [
+       219,
+       219,
+       218
+      ],
+      "ground": [
+       72,
+       70,
+       67
+      ],
+      "pixels": 19722,
+      "groundPixels": 11033
+     },
+     {
+      "phase": "fv",
+      "text": "That haze is the weather: cold, damp air",
+      "nodeId": "vitrea-node_r_1_",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 6.71,
+      "worstRatio": 3.46,
+      "pass": true,
+      "ink": [
+       219,
+       219,
+       218
+      ],
+      "ground": [
+       72,
+       71,
+       67
+      ],
+      "pixels": 10108,
+      "groundPixels": 9010
+     },
+     {
+      "phase": "fv",
+      "text": "Avercamp signed the picture on the wall ",
+      "nodeId": "vitrea-node_r_1_",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 5.46,
+      "worstRatio": 1.88,
+      "pass": true,
+      "ink": [
+       222,
+       222,
+       221
+      ],
+      "ground": [
+       87,
+       86,
+       81
+      ],
+      "pixels": 17670,
+      "groundPixels": 13271
+     },
+     {
+      "phase": "fv",
+      "text": "1",
+      "nodeId": "vitrea-node_r_3_",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 5.61,
+      "worstRatio": 5.58,
+      "pass": true,
+      "ink": [
+       222,
+       221,
+       221
+      ],
+      "ground": [
+       85,
+       84,
+       80
+      ],
+      "pixels": 209,
+      "groundPixels": 148
+     },
+     {
+      "phase": "fv",
+      "text": "/",
+      "nodeId": "vitrea-node_r_3_",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 5.6,
+      "worstRatio": 5.58,
+      "pass": true,
+      "ink": [
+       222,
+       221,
+       221
+      ],
+      "ground": [
+       85,
+       84,
+       81
+      ],
+      "pixels": 266,
+      "groundPixels": 213
+     },
+     {
+      "phase": "fv",
+      "text": "8",
+      "nodeId": "vitrea-node_r_3_",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 5.6,
+      "worstRatio": 5.52,
+      "pass": true,
+      "ink": [
+       222,
+       221,
+       221
+      ],
+      "ground": [
+       85,
+       84,
+       81
+      ],
+      "pixels": 209,
+      "groundPixels": 106
+     },
+     {
+      "phase": "fv",
+      "text": "Audio guide",
+      "nodeId": "vitrea-node_r_5_",
+      "size": 13.5,
+      "bold": false,
+      "large": false,
+      "ratio": 5.54,
+      "worstRatio": 5.44,
+      "pass": true,
+      "ink": [
+       222,
+       222,
+       221
+      ],
+      "ground": [
+       85,
+       85,
+       82
+      ],
+      "pixels": 1360,
+      "groundPixels": 665
+     },
+     {
+      "phase": "fv",
+      "text": "About 0:51",
+      "nodeId": "vitrea-node_r_5_",
+      "size": 12.5,
+      "bold": false,
+      "large": false,
+      "ratio": 5.51,
+      "worstRatio": 5.43,
+      "pass": true,
+      "ink": [
+       222,
+       222,
+       221
+      ],
+      "ground": [
+       87,
+       85,
+       82
+      ],
+      "pixels": 1088,
+      "groundPixels": 588
+     }
+    ]
+   },
+   "rootFound": true,
+   "api": {
+    "missing": []
+   },
+   "colorScheme": "dark",
+   "schemeFollowed": true,
+   "windowActivation": "active",
+   "material": {
+    "name": "apple-macos-27.0-glass0.5",
+    "platform": "macOS 27.0",
+    "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+    "resolvedMaterialSha256": "2a4323f33df8d799",
+    "tuned": false
+   },
+   "webgpu": {
+    "available": true,
+    "ownership": "vitrea",
+    "deviceHealth": "ok",
+    "unavailableReason": null,
+    "hasDevice": true
+   },
+   "platformProbe": {
+    "engine": {
+     "family": "chromium",
+     "version": 151
+    },
+    "reach": "verified"
+   },
+   "accessibility": {
+    "reducedTransparency": false,
+    "reducedMotion": false,
+    "increasedContrast": false,
+    "forcedColors": false,
+    "material": {
+     "glass": "material",
+     "colorSource": "material",
+     "frost": "nominal",
+     "refraction": "nominal",
+     "occlusion": "nominal",
+     "border": "nominal",
+     "ambientTint": "nominal",
+     "foreground": "adaptive"
+    },
+    "motion": {
+     "overshoot": "elastic",
+     "deformation": "nominal",
+     "shimmer": "travel",
+     "morph": "elastic",
+     "crossfade": "never",
+     "positionalContinuity": true
+    }
+   },
+   "surfaces": [
+    {
+     "nodeId": "vitrea-node_r_1_",
+     "groupId": "label-window",
+     "plane": "base",
+     "selector": "section#exh-window",
+     "tag": "section",
+     "role": null,
+     "rect": [
+      32,
+      32,
+      461,
+      720
+     ],
+     "span": 461,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "fixed-rounded-rect",
+     "radii": [
+      32,
+      32,
+      32,
+      32
+     ],
+     "smoothing": 0.52866495,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "0px",
+     "label": "Gallery label"
+    },
+    {
+     "nodeId": "vitrea-node_r_3_",
+     "groupId": "rooms-ornament",
+     "plane": "overlay",
+     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > nav[data-vitrea-node=\"vitrea-node_r_3_\"].exh-ornament.exh-ornament--rooms",
+     "tag": "nav",
+     "role": null,
+     "rect": [
+      32,
+      816,
+      176,
+      52
+     ],
+     "span": 52,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "capsule",
+     "radii": [
+      26,
+      26,
+      26,
+      26
+     ],
+     "smoothing": 0.52866495,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "0px",
+     "label": "Rooms"
+    },
+    {
+     "nodeId": "vitrea-node_r_5_",
+     "groupId": "guide-ornament",
+     "plane": "overlay",
+     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div[data-vitrea-node=\"vitrea-node_r_5_\"].exh-ornament.exh-ornament--guide",
+     "tag": "div",
+     "role": "group",
+     "rect": [
+      236,
+      816,
+      257,
+      52
+     ],
+     "span": 52,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "capsule",
+     "radii": [
+      26,
+      26,
+      26,
+      26
+     ],
+     "smoothing": 0.52866495,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "0px",
+     "label": "Audio guide"
+    }
+   ],
+   "surfacesInFrame": 3,
+   "planes": [
+    {
+     "plane": "base",
+     "nodes": 1
+    },
+    {
+     "plane": "overlay",
+     "nodes": 2
+    }
+   ],
+   "groups": [
+    {
+     "id": "label-window",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "resolvedMaterialSha256": "2a4323f33df8d799",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 21,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "rooms-ornament",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "resolvedMaterialSha256": "2a4323f33df8d799",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 9.11,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "guide-ornament",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "resolvedMaterialSha256": "2a4323f33df8d799",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 9.12,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    }
+   ],
+   "diagnostics": [],
+   "derivedFindings": [],
+   "menu": "not-offered",
+   "menuSurfaces": null,
+   "menuGroups": null,
+   "menuDiagnostics": null,
+   "ban": {
+    "rest": {
+     "findings": [],
+     "unmeasured": [],
+     "hostsRead": 3,
+     "cssTierHosts": 0
+    },
+    "menu": null
+   },
+   "hostText": [
+    {
+     "nodeId": "vitrea-node_r_1_",
+     "role": "window",
+     "groupId": "label-window",
+     "selector": "section#exh-window",
+     "span": 461,
+     "hasText": true,
+     "runs": 17,
+     "text": "Weather in Painting Room 1 of 8 Frost Winter Landscape with "
+    },
+    {
+     "nodeId": "vitrea-node_r_3_",
+     "role": "ornament",
+     "groupId": "rooms-ornament",
+     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > nav[data-vitrea-node=\"vitrea-node_r_3_\"].exh-ornament.exh-ornament--rooms",
+     "span": 52,
+     "hasText": false,
+     "runs": 0,
+     "text": ""
+    },
+    {
+     "nodeId": "vitrea-node_r_5_",
+     "role": "ornament",
+     "groupId": "guide-ornament",
+     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div[data-vitrea-node=\"vitrea-node_r_5_\"].exh-ornament.exh-ornament--guide",
+     "span": 52,
+     "hasText": true,
+     "runs": 2,
+     "text": "Audio guide About 0:51"
+    }
+   ],
+   "menuHostText": null,
+   "glassCoverage": {
+    "fraction": 0.2729,
+    "cellPx": 4,
+    "cells": 81000,
+    "covered": 22104,
+    "hosts": 3
+   },
+   "hostLuminance": {
+    "measure": "mean encoded Rec. 709 luma of the glyph-suppressed capture, 0..1 (the runtime's encodedLuminance, packages/platform-web/src/backdrop-tone.ts)",
+    "band": [
+     0.39,
+     0.49
+    ],
+    "ringPx": 24,
+    "reads": [
+     {
+      "state": "fv",
+      "nodeId": "vitrea-node_r_1_",
+      "groupId": "label-window",
+      "role": "window",
+      "label": "Gallery label",
+      "rect": [
+       32,
+       32,
+       461,
+       720
+      ],
+      "inside": {
+       "mean": 0.3306,
+       "pixels": 331920,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.5533,
+       "pixels": 58992,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "fv",
+      "nodeId": "vitrea-node_r_3_",
+      "groupId": "rooms-ornament",
+      "role": "ornament",
+      "label": "Rooms",
+      "rect": [
+       32,
+       816,
+       176,
+       52
+      ],
+      "inside": {
+       "mean": 0.3509,
+       "pixels": 9152,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.5389,
+       "pixels": 13248,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "fv",
+      "nodeId": "vitrea-node_r_5_",
+      "groupId": "guide-ornament",
+      "role": "ornament",
+      "label": "Audio guide",
+      "rect": [
+       236,
+       816,
+       257,
+       52
+      ],
+      "inside": {
+       "mean": 0.3446,
+       "pixels": 13364,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.5789,
+       "pixels": 17136,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "scroller-1-top",
+      "nodeId": "vitrea-node_r_1_",
+      "groupId": "label-window",
+      "role": "window",
+      "label": "Gallery label",
+      "rect": [
+       32,
+       32,
+       461,
+       720
+      ],
+      "inside": {
+       "mean": 0.3306,
+       "pixels": 331920,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.5533,
+       "pixels": 58992,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "scroller-1-top",
+      "nodeId": "vitrea-node_r_3_",
+      "groupId": "rooms-ornament",
+      "role": "ornament",
+      "label": "Rooms",
+      "rect": [
+       32,
+       816,
+       176,
+       52
+      ],
+      "inside": {
+       "mean": 0.3509,
+       "pixels": 9152,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.5389,
+       "pixels": 13248,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "scroller-1-top",
+      "nodeId": "vitrea-node_r_5_",
+      "groupId": "guide-ornament",
+      "role": "ornament",
+      "label": "Audio guide",
+      "rect": [
+       236,
+       816,
+       257,
+       52
+      ],
+      "inside": {
+       "mean": 0.3446,
+       "pixels": 13364,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.5789,
+       "pixels": 17136,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "scroller-1-middle",
+      "nodeId": "vitrea-node_r_1_",
+      "groupId": "label-window",
+      "role": "window",
+      "label": "Gallery label",
+      "rect": [
+       32,
+       32,
+       461,
+       720
+      ],
+      "inside": {
+       "mean": 0.2969,
+       "pixels": 331920,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.5533,
+       "pixels": 58992,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "scroller-1-middle",
+      "nodeId": "vitrea-node_r_3_",
+      "groupId": "rooms-ornament",
+      "role": "ornament",
+      "label": "Rooms",
+      "rect": [
+       32,
+       816,
+       176,
+       52
+      ],
+      "inside": {
+       "mean": 0.3509,
+       "pixels": 9152,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.5389,
+       "pixels": 13248,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "scroller-1-middle",
+      "nodeId": "vitrea-node_r_5_",
+      "groupId": "guide-ornament",
+      "role": "ornament",
+      "label": "Audio guide",
+      "rect": [
+       236,
+       816,
+       257,
+       52
+      ],
+      "inside": {
+       "mean": 0.3446,
+       "pixels": 13364,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.5789,
+       "pixels": 17136,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "scroller-1-bottom",
+      "nodeId": "vitrea-node_r_1_",
+      "groupId": "label-window",
+      "role": "window",
+      "label": "Gallery label",
+      "rect": [
+       32,
+       32,
+       461,
+       720
+      ],
+      "inside": {
+       "mean": 0.2562,
+       "pixels": 331920,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.5533,
+       "pixels": 58992,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "scroller-1-bottom",
+      "nodeId": "vitrea-node_r_3_",
+      "groupId": "rooms-ornament",
+      "role": "ornament",
+      "label": "Rooms",
+      "rect": [
+       32,
+       816,
+       176,
+       52
+      ],
+      "inside": {
+       "mean": 0.3509,
+       "pixels": 9152,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.5389,
+       "pixels": 13248,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "scroller-1-bottom",
+      "nodeId": "vitrea-node_r_5_",
+      "groupId": "guide-ornament",
+      "role": "ornament",
+      "label": "Audio guide",
+      "rect": [
+       236,
+       816,
+       257,
+       52
+      ],
+      "inside": {
+       "mean": 0.3446,
+       "pixels": 13364,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.5789,
+       "pixels": 17136,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     }
+    ]
+   },
+   "lineContrast": {
+    "method": "per-line, glyphs suppressed",
+    "states": [
+     "fv",
+     "scroller-1-top",
+     "scroller-1-middle",
+     "scroller-1-bottom"
+    ],
+    "lines": 134,
+    "pass": 134,
+    "minRatio": 5.5,
+    "worst": {
+     "state": "fv",
+     "nodeId": "vitrea-node_r_5_",
+     "line": 0,
+     "box": [
+      294,
+      843.3,
+      67.3,
+      15
+     ],
+     "size": 12.5,
+     "bold": false,
+     "large": false,
+     "floor": 4.5,
+     "ink": [
+      222,
+      222,
+      221
+     ],
+     "inkAlpha": 0.804,
+     "ground": [
+      87,
+      85,
+      82
+     ],
+     "ratio": 5.5,
+     "worstRatio": 5.43,
+     "pass": true,
+     "pixels": 1088
+    },
+    "byState": {
+     "fv": {
+      "lines": 30,
+      "pass": 30,
+      "minRatio": 5.5
+     },
+     "scroller-1-top": {
+      "lines": 30,
+      "pass": 30,
+      "minRatio": 5.5
+     },
+     "scroller-1-middle": {
+      "lines": 33,
+      "pass": 33,
+      "minRatio": 5.5
+     },
+     "scroller-1-bottom": {
+      "lines": 41,
+      "pass": 41,
+      "minRatio": 5.5
+     }
+    },
+    "fails": []
+   },
+   "scrollers": {
+    "found": 1,
+    "cap": 8,
+    "list": [
+     {
+      "index": 1,
+      "selector": "section#exh-window > div.exh-scroll",
+      "hostNodeId": "vitrea-node_r_1_",
+      "rect": [
+       32,
+       32,
+       461,
+       720
+      ],
+      "scrollHeight": 1272,
+      "clientHeight": 720,
+      "scrollTop": 0,
+      "positions": [
+       {
+        "pos": "top",
+        "scrollTop": 0,
+        "capture": "scroller-1-top-dark.png"
+       },
+       {
+        "pos": "middle",
+        "scrollTop": 276,
+        "capture": "scroller-1-middle-dark.png"
+       },
+       {
+        "pos": "bottom",
+        "scrollTop": 552,
+        "capture": "scroller-1-bottom-dark.png"
+       }
+      ]
+     }
+    ]
+   },
+   "phasesHook": true,
+   "phases": {
+    "ids": [
+     "frost",
+     "cloud",
+     "clearing",
+     "thunder",
+     "rain",
+     "wind",
+     "gale",
+     "fog"
+    ],
+    "total": 8,
+    "cap": 16,
+    "shown": [
+     {
+      "index": 1,
+      "id": "frost",
+      "status": "captured",
+      "capture": "phase-1-dark.png"
+     },
+     {
+      "index": 2,
+      "id": "cloud",
+      "status": "captured",
+      "capture": "phase-2-dark.png"
+     },
+     {
+      "index": 3,
+      "id": "clearing",
+      "status": "captured",
+      "capture": "phase-3-dark.png"
+     },
+     {
+      "index": 4,
+      "id": "thunder",
+      "status": "captured",
+      "capture": "phase-4-dark.png"
+     },
+     {
+      "index": 5,
+      "id": "rain",
+      "status": "captured",
+      "capture": "phase-5-dark.png"
+     },
+     {
+      "index": 6,
+      "id": "wind",
+      "status": "captured",
+      "capture": "phase-6-dark.png"
+     },
+     {
+      "index": 7,
+      "id": "gale",
+      "status": "captured",
+      "capture": "phase-7-dark.png"
+     },
+     {
+      "index": 8,
+      "id": "fog",
+      "status": "captured",
+      "capture": "phase-8-dark.png"
+     }
+    ],
+    "readyState": "settled",
+    "errors": [],
+    "consoleErrors": [],
+    "lineContrast": {
+     "method": "per-line, glyphs suppressed",
+     "states": [
+      "phase-1",
+      "phase-2",
+      "phase-3",
+      "phase-4",
+      "phase-5",
+      "phase-6",
+      "phase-7",
+      "phase-8"
+     ],
+     "lines": 232,
+     "pass": 232,
+     "minRatio": 5.5,
+     "worst": {
+      "state": "phase-1",
+      "nodeId": "vitrea-node_r_5_",
+      "line": 0,
+      "box": [
+       294,
+       843.3,
+       67.3,
+       15
+      ],
+      "size": 12.5,
+      "bold": false,
+      "large": false,
+      "floor": 4.5,
+      "ink": [
+       222,
+       222,
+       221
+      ],
+      "inkAlpha": 0.804,
+      "ground": [
+       87,
+       85,
+       82
+      ],
+      "ratio": 5.5,
+      "worstRatio": 5.43,
+      "pass": true,
+      "pixels": 1088
+     },
+     "byState": {
+      "phase-1": {
+       "lines": 30,
+       "pass": 30,
+       "minRatio": 5.5
+      },
+      "phase-2": {
+       "lines": 27,
+       "pass": 27,
+       "minRatio": 6.57
+      },
+      "phase-3": {
+       "lines": 30,
+       "pass": 30,
+       "minRatio": 7.2
+      },
+      "phase-4": {
+       "lines": 27,
+       "pass": 27,
+       "minRatio": 6.25
+      },
+      "phase-5": {
+       "lines": 29,
+       "pass": 29,
+       "minRatio": 6.04
+      },
+      "phase-6": {
+       "lines": 29,
+       "pass": 29,
+       "minRatio": 6.36
+      },
+      "phase-7": {
+       "lines": 30,
+       "pass": 30,
+       "minRatio": 6.72
+      },
+      "phase-8": {
+       "lines": 30,
+       "pass": 30,
+       "minRatio": 6.56
+      }
+     },
+     "fails": []
+    },
+    "hostLuminance": {
+     "measure": "mean encoded Rec. 709 luma of the glyph-suppressed capture, 0..1 (the runtime's encodedLuminance, packages/platform-web/src/backdrop-tone.ts)",
+     "band": [
+      0.39,
+      0.49
+     ],
+     "ringPx": 24,
+     "reads": [
+      {
+       "state": "phase-1",
+       "nodeId": "vitrea-node_r_1_",
+       "groupId": "label-window",
+       "role": "window",
+       "label": "Gallery label",
+       "rect": [
+        32,
+        32,
+        461,
+        720
+       ],
+       "inside": {
+        "mean": 0.3306,
+        "pixels": 331920,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.5533,
+        "pixels": 58992,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-1",
+       "nodeId": "vitrea-node_r_3_",
+       "groupId": "rooms-ornament",
+       "role": "ornament",
+       "label": "Rooms",
+       "rect": [
+        32,
+        816,
+        176,
+        52
+       ],
+       "inside": {
+        "mean": 0.3509,
+        "pixels": 9152,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.5389,
+        "pixels": 13248,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-1",
+       "nodeId": "vitrea-node_r_5_",
+       "groupId": "guide-ornament",
+       "role": "ornament",
+       "label": "Audio guide",
+       "rect": [
+        236,
+        816,
+        257,
+        52
+       ],
+       "inside": {
+        "mean": 0.3446,
+        "pixels": 13364,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.5789,
+        "pixels": 17136,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-2",
+       "nodeId": "vitrea-node_r_1_",
+       "groupId": "label-window",
+       "role": "window",
+       "label": "Gallery label",
+       "rect": [
+        32,
+        32,
+        461,
+        720
+       ],
+       "inside": {
+        "mean": 0.2851,
+        "pixels": 331920,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.4215,
+        "pixels": 58992,
+        "inDeadBand": true
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-2",
+       "nodeId": "vitrea-node_r_3_",
+       "groupId": "rooms-ornament",
+       "role": "ornament",
+       "label": "Rooms",
+       "rect": [
+        32,
+        816,
+        176,
+        52
+       ],
+       "inside": {
+        "mean": 0.2871,
+        "pixels": 9152,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.4009,
+        "pixels": 13248,
+        "inDeadBand": true
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-2",
+       "nodeId": "vitrea-node_r_5_",
+       "groupId": "guide-ornament",
+       "role": "ornament",
+       "label": "Audio guide",
+       "rect": [
+        236,
+        816,
+        257,
+        52
+       ],
+       "inside": {
+        "mean": 0.2737,
+        "pixels": 13364,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.3232,
+        "pixels": 17136,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-3",
+       "nodeId": "vitrea-node_r_1_",
+       "groupId": "label-window",
+       "role": "window",
+       "label": "Gallery label",
+       "rect": [
+        32,
+        32,
+        461,
+        720
+       ],
+       "inside": {
+        "mean": 0.2677,
+        "pixels": 331920,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.258,
+        "pixels": 58992,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-3",
+       "nodeId": "vitrea-node_r_3_",
+       "groupId": "rooms-ornament",
+       "role": "ornament",
+       "label": "Rooms",
+       "rect": [
+        32,
+        816,
+        176,
+        52
+       ],
+       "inside": {
+        "mean": 0.2279,
+        "pixels": 9152,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1517,
+        "pixels": 13248,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-3",
+       "nodeId": "vitrea-node_r_5_",
+       "groupId": "guide-ornament",
+       "role": "ornament",
+       "label": "Audio guide",
+       "rect": [
+        236,
+        816,
+        257,
+        52
+       ],
+       "inside": {
+        "mean": 0.2478,
+        "pixels": 13364,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1989,
+        "pixels": 17136,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-4",
+       "nodeId": "vitrea-node_r_1_",
+       "groupId": "label-window",
+       "role": "window",
+       "label": "Gallery label",
+       "rect": [
+        32,
+        32,
+        461,
+        720
+       ],
+       "inside": {
+        "mean": 0.2485,
+        "pixels": 331920,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.2008,
+        "pixels": 58992,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-4",
+       "nodeId": "vitrea-node_r_3_",
+       "groupId": "rooms-ornament",
+       "role": "ornament",
+       "label": "Rooms",
+       "rect": [
+        32,
+        816,
+        176,
+        52
+       ],
+       "inside": {
+        "mean": 0.3226,
+        "pixels": 9152,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.5594,
+        "pixels": 13248,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-4",
+       "nodeId": "vitrea-node_r_5_",
+       "groupId": "guide-ornament",
+       "role": "ornament",
+       "label": "Audio guide",
+       "rect": [
+        236,
+        816,
+        257,
+        52
+       ],
+       "inside": {
+        "mean": 0.3112,
+        "pixels": 13364,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.5335,
+        "pixels": 17136,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-5",
+       "nodeId": "vitrea-node_r_1_",
+       "groupId": "label-window",
+       "role": "window",
+       "label": "Gallery label",
+       "rect": [
+        32,
+        32,
+        461,
+        720
+       ],
+       "inside": {
+        "mean": 0.3017,
+        "pixels": 331920,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.5011,
+        "pixels": 58992,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-5",
+       "nodeId": "vitrea-node_r_3_",
+       "groupId": "rooms-ornament",
+       "role": "ornament",
+       "label": "Rooms",
+       "rect": [
+        32,
+        816,
+        176,
+        52
+       ],
+       "inside": {
+        "mean": 0.3081,
+        "pixels": 9152,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.5004,
+        "pixels": 13248,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-5",
+       "nodeId": "vitrea-node_r_5_",
+       "groupId": "guide-ornament",
+       "role": "ornament",
+       "label": "Audio guide",
+       "rect": [
+        236,
+        816,
+        257,
+        52
+       ],
+       "inside": {
+        "mean": 0.3264,
+        "pixels": 13364,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.5916,
+        "pixels": 17136,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-6",
+       "nodeId": "vitrea-node_r_1_",
+       "groupId": "label-window",
+       "role": "window",
+       "label": "Gallery label",
+       "rect": [
+        32,
+        32,
+        461,
+        720
+       ],
+       "inside": {
+        "mean": 0.3046,
+        "pixels": 331920,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.5035,
+        "pixels": 58992,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-6",
+       "nodeId": "vitrea-node_r_3_",
+       "groupId": "rooms-ornament",
+       "role": "ornament",
+       "label": "Rooms",
+       "rect": [
+        32,
+        816,
+        176,
+        52
+       ],
+       "inside": {
+        "mean": 0.3125,
+        "pixels": 9152,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.5046,
+        "pixels": 13248,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-6",
+       "nodeId": "vitrea-node_r_5_",
+       "groupId": "guide-ornament",
+       "role": "ornament",
+       "label": "Audio guide",
+       "rect": [
+        236,
+        816,
+        257,
+        52
+       ],
+       "inside": {
+        "mean": 0.3024,
+        "pixels": 13364,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.4751,
+        "pixels": 17136,
+        "inDeadBand": true
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-7",
+       "nodeId": "vitrea-node_r_1_",
+       "groupId": "label-window",
+       "role": "window",
+       "label": "Gallery label",
+       "rect": [
+        32,
+        32,
+        461,
+        720
+       ],
+       "inside": {
+        "mean": 0.3003,
+        "pixels": 331920,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.4116,
+        "pixels": 58992,
+        "inDeadBand": true
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-7",
+       "nodeId": "vitrea-node_r_3_",
+       "groupId": "rooms-ornament",
+       "role": "ornament",
+       "label": "Rooms",
+       "rect": [
+        32,
+        816,
+        176,
+        52
+       ],
+       "inside": {
+        "mean": 0.2393,
+        "pixels": 9152,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1826,
+        "pixels": 13248,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-7",
+       "nodeId": "vitrea-node_r_5_",
+       "groupId": "guide-ornament",
+       "role": "ornament",
+       "label": "Audio guide",
+       "rect": [
+        236,
+        816,
+        257,
+        52
+       ],
+       "inside": {
+        "mean": 0.2298,
+        "pixels": 13364,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1646,
+        "pixels": 17136,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-8",
+       "nodeId": "vitrea-node_r_1_",
+       "groupId": "label-window",
+       "role": "window",
+       "label": "Gallery label",
+       "rect": [
+        32,
+        32,
+        461,
+        720
+       ],
+       "inside": {
+        "mean": 0.3007,
+        "pixels": 331920,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.4599,
+        "pixels": 58992,
+        "inDeadBand": true
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-8",
+       "nodeId": "vitrea-node_r_3_",
+       "groupId": "rooms-ornament",
+       "role": "ornament",
+       "label": "Rooms",
+       "rect": [
+        32,
+        816,
+        176,
+        52
+       ],
+       "inside": {
+        "mean": 0.3027,
+        "pixels": 9152,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.4667,
+        "pixels": 13248,
+        "inDeadBand": true
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-8",
+       "nodeId": "vitrea-node_r_5_",
+       "groupId": "guide-ornament",
+       "role": "ornament",
+       "label": "Audio guide",
+       "rect": [
+        236,
+        816,
+        257,
+        52
+       ],
+       "inside": {
+        "mean": 0.2869,
+        "pixels": 13364,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.4281,
+        "pixels": 17136,
+        "inDeadBand": true
+       },
+       "inDeadBand": false
+      }
+     ]
+    }
+   }
+  }
+ },
+ "surfaces": [
+  {
+   "nodeId": "vitrea-node_r_1_",
+   "groupId": "label-window",
+   "plane": "base",
+   "selector": "section#exh-window",
+   "tag": "section",
+   "role": null,
+   "rect": [
+    32,
+    32,
+    461,
+    720
+   ],
+   "span": 461,
+   "boundsFrom": "renderInput",
+   "shapeFamily": "fixed-rounded-rect",
+   "radii": [
+    32,
+    32,
+    32,
+    32
+   ],
+   "smoothing": 0.52866495,
+   "thickness": 8,
+   "variant": "regular",
+   "tinted": false,
+   "cssRadius": "0px",
+   "label": "Gallery label"
+  },
+  {
+   "nodeId": "vitrea-node_r_3_",
+   "groupId": "rooms-ornament",
+   "plane": "overlay",
+   "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > nav[data-vitrea-node=\"vitrea-node_r_3_\"].exh-ornament.exh-ornament--rooms",
+   "tag": "nav",
+   "role": null,
+   "rect": [
+    32,
+    816,
+    176,
+    52
+   ],
+   "span": 52,
+   "boundsFrom": "renderInput",
+   "shapeFamily": "capsule",
+   "radii": [
+    26,
+    26,
+    26,
+    26
+   ],
+   "smoothing": 0.52866495,
+   "thickness": 8,
+   "variant": "regular",
+   "tinted": false,
+   "cssRadius": "0px",
+   "label": "Rooms"
+  },
+  {
+   "nodeId": "vitrea-node_r_5_",
+   "groupId": "guide-ornament",
+   "plane": "overlay",
+   "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div[data-vitrea-node=\"vitrea-node_r_5_\"].exh-ornament.exh-ornament--guide",
+   "tag": "div",
+   "role": "group",
+   "rect": [
+    232,
+    816,
+    261,
+    52
+   ],
+   "span": 52,
+   "boundsFrom": "renderInput",
+   "shapeFamily": "capsule",
+   "radii": [
+    26,
+    26,
+    26,
+    26
+   ],
+   "smoothing": 0.52866495,
+   "thickness": 8,
+   "variant": "regular",
+   "tinted": false,
+   "cssRadius": "0px",
+   "label": "Audio guide"
+  }
+ ],
+ "planes": [
+  {
+   "plane": "base",
+   "nodes": 1
+  },
+  {
+   "plane": "overlay",
+   "nodes": 2
+  }
+ ],
+ "diagnostics": [],
+ "unknownDiagnosticCodes": [],
+ "named": {
+  "nestedGlass": false,
+  "samePlaneOverlap": false,
+  "contentLayerHost": false,
+  "demotedBackdropRoot": false,
+  "hostOutsidePlane": false,
+  "nonUniformRadii": false,
+  "tintUnparseable": false,
+  "tintMixing": false,
+  "variantMixing": false
+ },
+ "banSubset": {
+  "findings": [],
+  "counts": {},
+  "unmeasured": []
+ },
+ "reduced": {
+  "method": "page-switch",
+  "applied": true,
+  "readyState": "settled",
+  "rootFound": true,
+  "errors": [],
+  "consoleErrors": [],
+  "policyBefore": {
+   "reducedTransparency": false,
+   "reducedMotion": false,
+   "increasedContrast": false,
+   "forcedColors": false,
+   "material": {
+    "glass": "material",
+    "colorSource": "material",
+    "frost": "nominal",
+    "refraction": "nominal",
+    "occlusion": "nominal",
+    "border": "nominal",
+    "ambientTint": "nominal",
+    "foreground": "adaptive"
+   },
+   "motion": {
+    "overshoot": "elastic",
+    "deformation": "nominal",
+    "shimmer": "travel",
+    "morph": "elastic",
+    "crossfade": "never",
+    "positionalContinuity": true
+   }
+  },
+  "policyAfter": {
+   "reducedTransparency": true,
+   "reducedMotion": false,
+   "increasedContrast": false,
+   "forcedColors": false,
+   "material": {
+    "glass": "material",
+    "colorSource": "material",
+    "frost": "increased",
+    "refraction": "reduced",
+    "occlusion": "increased",
+    "border": "nominal",
+    "ambientTint": "nominal",
+    "foreground": "adaptive"
+   },
+   "motion": {
+    "overshoot": "elastic",
+    "deformation": "nominal",
+    "shimmer": "travel",
+    "morph": "elastic",
+    "crossfade": "never",
+    "positionalContinuity": true
+   }
+  },
+  "policyChanged": true,
+  "policyAsAsked": true,
+  "groups": [
+   {
+    "id": "label-window",
+    "moved": true,
+    "before": {
+     "id": "label-window",
+     "renderer": "webgpu",
+     "refraction": "true",
+     "cssBody": null,
+     "cssTint": null,
+     "blurRadius": 21.003,
+     "nodes": [
+      {
+       "nodeId": "vitrea-node_r_1_",
+       "blurRadius": 2.75,
+       "tintAlpha": 0.733,
+       "borderAlpha": 0.019,
+       "refraction": "true"
+      }
+     ]
+    },
+    "after": {
+     "id": "label-window",
+     "renderer": "webgpu",
+     "refraction": "true",
+     "cssBody": null,
+     "cssTint": null,
+     "blurRadius": 23.816,
+     "nodes": [
+      {
+       "nodeId": "vitrea-node_r_1_",
+       "blurRadius": 4.813,
+       "tintAlpha": 0.93,
+       "borderAlpha": 0.002,
+       "refraction": "approximate"
+      }
+     ]
+    }
+   },
+   {
+    "id": "rooms-ornament",
+    "moved": true,
+    "before": {
+     "id": "rooms-ornament",
+     "renderer": "webgpu",
+     "refraction": "true",
+     "cssBody": null,
+     "cssTint": null,
+     "blurRadius": 7.887,
+     "nodes": [
+      {
+       "nodeId": "vitrea-node_r_3_",
+       "blurRadius": 2.75,
+       "tintAlpha": 0.731,
+       "borderAlpha": 0.015,
+       "refraction": "true"
+      }
+     ]
+    },
+    "after": {
+     "id": "rooms-ornament",
+     "renderer": "webgpu",
+     "refraction": "true",
+     "cssBody": null,
+     "cssTint": null,
+     "blurRadius": 13.49,
+     "nodes": [
+      {
+       "nodeId": "vitrea-node_r_3_",
+       "blurRadius": 4.813,
+       "tintAlpha": 0.929,
+       "borderAlpha": 0.001,
+       "refraction": "approximate"
+      }
+     ]
+    }
+   },
+   {
+    "id": "guide-ornament",
+    "moved": true,
+    "before": {
+     "id": "guide-ornament",
+     "renderer": "webgpu",
+     "refraction": "true",
+     "cssBody": null,
+     "cssTint": null,
+     "blurRadius": 7.887,
+     "nodes": [
+      {
+       "nodeId": "vitrea-node_r_5_",
+       "blurRadius": 2.75,
+       "tintAlpha": 0.737,
+       "borderAlpha": 0.013,
+       "refraction": "true"
+      }
+     ]
+    },
+    "after": {
+     "id": "guide-ornament",
+     "renderer": "webgpu",
+     "refraction": "true",
+     "cssBody": null,
+     "cssTint": null,
+     "blurRadius": 13.49,
+     "nodes": [
+      {
+       "nodeId": "vitrea-node_r_5_",
+       "blurRadius": 4.813,
+       "tintAlpha": 0.929,
+       "borderAlpha": 0.001,
+       "refraction": "approximate"
+      }
+     ]
+    }
+   }
+  ],
+  "materialMoved": true,
+  "captured": true,
+  "lineContrast": {
+   "method": "per-line, glyphs suppressed",
+   "states": [
+    "reduced"
+   ],
+   "lines": 30,
+   "pass": 30,
+   "minRatio": 13.53,
+   "worst": {
+    "state": "reduced",
+    "nodeId": "vitrea-node_r_1_",
+    "line": 1,
+    "box": [
+     60,
+     739.6,
+     230.4,
+     4.4
+    ],
+    "size": 16,
+    "bold": false,
+    "large": false,
+    "floor": 4.5,
+    "ink": [
+     37,
+     37,
+     37
+    ],
+    "inkAlpha": 0.847,
+    "ground": [
+     241,
+     240,
+     240
+    ],
+    "ratio": 13.53,
+    "worstRatio": 13.49,
+    "pass": true,
+    "pixels": 1155
+   },
+   "byState": {
+    "reduced": {
+     "lines": 30,
+     "pass": 30,
+     "minRatio": 13.53
+    }
+   },
+   "fails": []
+  },
+  "hostLuminance": {
+   "measure": "mean encoded Rec. 709 luma of the glyph-suppressed capture, 0..1 (the runtime's encodedLuminance, packages/platform-web/src/backdrop-tone.ts)",
+   "band": [
+    0.39,
+    0.49
+   ],
+   "ringPx": 24,
+   "reads": [
+    {
+     "state": "reduced",
+     "nodeId": "vitrea-node_r_1_",
+     "groupId": "label-window",
+     "role": "window",
+     "label": "Gallery label",
+     "rect": [
+      32,
+      32,
+      461,
+      712
+     ],
+     "inside": {
+      "mean": 0.9056,
+      "pixels": 328232,
+      "inDeadBand": false
+     },
+     "ring": {
+      "mean": 0.582,
+      "pixels": 58608,
+      "inDeadBand": false
+     },
+     "inDeadBand": false
+    },
+    {
+     "state": "reduced",
+     "nodeId": "vitrea-node_r_3_",
+     "groupId": "rooms-ornament",
+     "role": "ornament",
+     "label": "Rooms",
+     "rect": [
+      32,
+      816,
+      176,
+      52
+     ],
+     "inside": {
+      "mean": 0.9437,
+      "pixels": 9152,
+      "inDeadBand": false
+     },
+     "ring": {
+      "mean": 0.5434,
+      "pixels": 13248,
+      "inDeadBand": false
+     },
+     "inDeadBand": false
+    },
+    {
+     "state": "reduced",
+     "nodeId": "vitrea-node_r_5_",
+     "groupId": "guide-ornament",
+     "role": "ornament",
+     "label": "Audio guide",
+     "rect": [
+      249,
+      816,
+      244,
+      52
+     ],
+     "inside": {
+      "mean": 0.9461,
+      "pixels": 12688,
+      "inDeadBand": false
+     },
+     "ring": {
+      "mean": 0.5855,
+      "pixels": 16512,
+      "inDeadBand": false
+     },
+     "inDeadBand": false
+    }
+   ]
+  }
+ },
+ "emulation": {
+  "increasedContrast": {
+   "status": "ran",
+   "query": "(prefers-contrast: more)",
+   "readyState": "settled",
+   "rootFound": true,
+   "errors": [],
+   "consoleErrors": [],
+   "accessibility": {
+    "reducedTransparency": false,
+    "reducedMotion": false,
+    "increasedContrast": true,
+    "forcedColors": false,
+    "material": {
+     "glass": "material",
+     "colorSource": "material",
+     "frost": "nominal",
+     "refraction": "nominal",
+     "occlusion": "nominal",
+     "border": "strong",
+     "ambientTint": "reduced",
+     "foreground": "near-monochrome"
+    },
+    "motion": {
+     "overshoot": "elastic",
+     "deformation": "nominal",
+     "shimmer": "travel",
+     "morph": "elastic",
+     "crossfade": "never",
+     "positionalContinuity": true
+    }
+   },
+   "policyAsAsked": true,
+   "groups": [
+    {
+     "id": "label-window",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 21,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "rooms-ornament",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.89,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "guide-ornament",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.89,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    }
+   ],
+   "diagnostics": []
+  },
+  "reducedMotion": {
+   "status": "ran",
+   "query": "(prefers-reduced-motion: reduce)",
+   "readyState": "settled",
+   "rootFound": true,
+   "errors": [],
+   "consoleErrors": [],
+   "accessibility": {
+    "reducedTransparency": false,
+    "reducedMotion": true,
+    "increasedContrast": false,
+    "forcedColors": false,
+    "material": {
+     "glass": "material",
+     "colorSource": "material",
+     "frost": "nominal",
+     "refraction": "nominal",
+     "occlusion": "nominal",
+     "border": "nominal",
+     "ambientTint": "nominal",
+     "foreground": "adaptive"
+    },
+    "motion": {
+     "overshoot": "none",
+     "deformation": "none",
+     "shimmer": "none",
+     "morph": "non-elastic",
+     "crossfade": "large-plane-shifts",
+     "positionalContinuity": true
+    }
+   },
+   "policyAsAsked": true,
+   "groups": [
+    {
+     "id": "label-window",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 21,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "rooms-ornament",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.89,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "guide-ornament",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.89,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    }
+   ],
+   "diagnostics": []
+  },
+  "forcedColors": {
+   "status": "ran",
+   "query": "(forced-colors: active)",
+   "readyState": "settled",
+   "rootFound": true,
+   "errors": [],
+   "consoleErrors": [],
+   "accessibility": {
+    "reducedTransparency": false,
+    "reducedMotion": false,
+    "increasedContrast": false,
+    "forcedColors": true,
+    "material": {
+     "glass": "none",
+     "colorSource": "system",
+     "frost": "none",
+     "refraction": "none",
+     "occlusion": "opaque",
+     "border": "strong",
+     "ambientTint": "none",
+     "foreground": "near-monochrome"
+    },
+    "motion": {
+     "overshoot": "elastic",
+     "deformation": "nominal",
+     "shimmer": "travel",
+     "morph": "elastic",
+     "crossfade": "never",
+     "positionalContinuity": true
+    }
+   },
+   "policyAsAsked": true,
+   "groups": [
+    {
+     "id": "label-window",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 0,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "rooms-ornament",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 0,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "guide-ornament",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 0,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    }
+   ],
+   "diagnostics": [],
+   "forced": {
+    "policyGlass": "none",
+    "runtimeGlassSurfaces": 0,
+    "backdropFilterElements": [],
+    "backdropFilterCount": 0,
+    "glassDrawn": 0,
+    "runtimeRead": true,
+    "hosts": [
+     {
+      "nodeId": "vitrea-node_r_1_",
+      "selector": "section#exh-window",
+      "backdropFilter": "none",
+      "backgroundColor": "rgba(255, 255, 255, 0)",
+      "backgroundImage": "none",
+      "borderColor": "rgb(0, 0, 0)",
+      "forcedColorAdjust": "auto"
+     },
+     {
+      "nodeId": "vitrea-node_r_3_",
+      "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > nav[data-vitrea-node=\"vitrea-node_r_3_\"].exh-ornament.exh-ornament--rooms",
+      "backdropFilter": "none",
+      "backgroundColor": "rgba(255, 255, 255, 0)",
+      "backgroundImage": "none",
+      "borderColor": "rgb(0, 0, 0)",
+      "forcedColorAdjust": "auto"
+     },
+     {
+      "nodeId": "vitrea-node_r_5_",
+      "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div[data-vitrea-node=\"vitrea-node_r_5_\"].exh-ornament.exh-ornament--guide",
+      "backdropFilter": "none",
+      "backgroundColor": "rgba(255, 255, 255, 0)",
+      "backgroundImage": "none",
+      "borderColor": "rgb(0, 0, 0)",
+      "forcedColorAdjust": "auto"
+     }
+    ]
+   },
+   "glassDrawn": 0
+  }
+ },
+ "captures": [
+  "shot-fv-light.png",
+  "shot-full-light.png",
+  "shot-fv-dark.png",
+  "shot-full-dark.png",
+  "shot-reduced.png",
+  "shot-contrast.png",
+  "shot-forced.png"
+ ],
+ "captureSha256": {
+  "shot-fv-light.png": "83fada5ddc9e5dbec95c1a281c4d0629418922f343cc664e969556e1cac6cc2f",
+  "shot-full-light.png": "83fada5ddc9e5dbec95c1a281c4d0629418922f343cc664e969556e1cac6cc2f",
+  "shot-fv-dark.png": "a85e5cdf42e5018b67cdf011072b8a10250f6db75df916a4a404eb10da891c31",
+  "shot-full-dark.png": "a85e5cdf42e5018b67cdf011072b8a10250f6db75df916a4a404eb10da891c31",
+  "shot-reduced.png": "8bf6d98b9c751c02d22aa1d2926e8f04cd3a72a2195e6210f8873ec471c8e586",
+  "shot-contrast.png": "ed059d592773051a355481af959db3272b93167e7c1c1f11410b259771f7648e",
+  "shot-forced.png": "e784658b85c561649c8ba67fdfe97fbb38dc7b5aa0ffbea51ace0a136e6c6380"
+ },
+ "banSubsetSpatial": {
+  "findings": [],
+  "counts": {}
+ },
+ "phasesHook": true,
+ "cssTier": {
+  "status": "ran",
+  "url": "http://localhost:5187/gallery/exhibition/?tier=css",
+  "readyState": "settled",
+  "errors": [],
+  "consoleErrors": [],
+  "groups": [
+   {
+    "id": "label-window",
+    "members": 1,
+    "renderer": "css",
+    "cssBody": "two-layer",
+    "cssTint": "linear",
+    "health": "ok",
+    "demotionReason": null
+   },
+   {
+    "id": "rooms-ornament",
+    "members": 1,
+    "renderer": "css",
+    "cssBody": "two-layer",
+    "cssTint": "linear",
+    "health": "ok",
+    "demotionReason": null
+   },
+   {
+    "id": "guide-ornament",
+    "members": 1,
+    "renderer": "css",
+    "cssBody": "two-layer",
+    "cssTint": "linear",
+    "health": "ok",
+    "demotionReason": null
+   }
+  ],
+  "menu": "not-offered",
+  "menuGroups": null,
+  "scrollers": {
+   "found": 1,
+   "cap": 8,
+   "list": [
+    {
+     "index": 1,
+     "selector": "section#exh-window > div.exh-scroll:nth-of-type(1)",
+     "hostNodeId": "vitrea-node_r_1_",
+     "rect": [
+      33,
+      33,
+      459,
+      718
+     ],
+     "scrollHeight": 1272,
+     "clientHeight": 718,
+     "scrollTop": 0,
+     "positions": [
+      {
+       "pos": "top",
+       "scrollTop": 0,
+       "capture": "css-scroller-1-top.png"
+      },
+      {
+       "pos": "middle",
+       "scrollTop": 277,
+       "capture": "css-scroller-1-middle.png"
+      },
+      {
+       "pos": "bottom",
+       "scrollTop": 554,
+       "capture": "css-scroller-1-bottom.png"
+      }
+     ]
+    }
+   ]
+  },
+  "lineContrast": {
+   "method": "per-line, glyphs suppressed",
+   "states": [
+    "fv",
+    "scroller-1-top",
+    "scroller-1-middle",
+    "scroller-1-bottom"
+   ],
+   "lines": 133,
+   "pass": 133,
+   "minRatio": 9.3,
+   "worst": {
+    "state": "scroller-1-middle",
+    "nodeId": "vitrea-node_r_1_",
+    "line": 0,
+    "box": [
+     62,
+     664.4,
+     48.3,
+     13
+    ],
+    "size": 11.5,
+    "bold": false,
+    "large": false,
+    "floor": 4.5,
+    "ink": [
+     30,
+     29,
+     29
+    ],
+    "inkAlpha": 0.847,
+    "ground": [
+     196,
+     192,
+     187
+    ],
+    "ratio": 9.3,
+    "worstRatio": 9.19,
+    "pass": true,
+    "pixels": 686
+   },
+   "byState": {
+    "fv": {
+     "lines": 30,
+     "pass": 30,
+     "minRatio": 10.28
+    },
+    "scroller-1-top": {
+     "lines": 30,
+     "pass": 30,
+     "minRatio": 10.28
+    },
+    "scroller-1-middle": {
+     "lines": 33,
+     "pass": 33,
+     "minRatio": 9.3
+    },
+    "scroller-1-bottom": {
+     "lines": 40,
+     "pass": 40,
+     "minRatio": 9.42
+    }
+   },
+   "fails": []
+  },
+  "hostLuminance": {
+   "measure": "mean encoded Rec. 709 luma of the glyph-suppressed capture, 0..1 (the runtime's encodedLuminance, packages/platform-web/src/backdrop-tone.ts)",
+   "band": [
+    0.39,
+    0.49
+   ],
+   "ringPx": 24,
+   "reads": [
+    {
+     "state": "fv",
+     "nodeId": "vitrea-node_r_1_",
+     "groupId": "label-window",
+     "role": "window",
+     "label": "Gallery label",
+     "rect": [
+      32,
+      32,
+      461,
+      720
+     ],
+     "inside": {
+      "mean": 0.8252,
+      "pixels": 331920,
+      "inDeadBand": false
+     },
+     "ring": {
+      "mean": 0.5673,
+      "pixels": 58992,
+      "inDeadBand": false
+     },
+     "inDeadBand": false
+    },
+    {
+     "state": "fv",
+     "nodeId": "vitrea-node_r_3_",
+     "groupId": "rooms-ornament",
+     "role": "ornament",
+     "label": "Rooms",
+     "rect": [
+      32,
+      816,
+      176,
+      52
+     ],
+     "inside": {
+      "mean": 0.8664,
+      "pixels": 9152,
+      "inDeadBand": false
+     },
+     "ring": {
+      "mean": 0.5408,
+      "pixels": 13248,
+      "inDeadBand": false
+     },
+     "inDeadBand": false
+    },
+    {
+     "state": "fv",
+     "nodeId": "vitrea-node_r_5_",
+     "groupId": "guide-ornament",
+     "role": "ornament",
+     "label": "Audio guide",
+     "rect": [
+      232,
+      816,
+      261,
+      52
+     ],
+     "inside": {
+      "mean": 0.8791,
+      "pixels": 13572,
+      "inDeadBand": false
+     },
+     "ring": {
+      "mean": 0.5818,
+      "pixels": 17328,
+      "inDeadBand": false
+     },
+     "inDeadBand": false
+    },
+    {
+     "state": "scroller-1-top",
+     "nodeId": "vitrea-node_r_1_",
+     "groupId": "label-window",
+     "role": "window",
+     "label": "Gallery label",
+     "rect": [
+      32,
+      32,
+      461,
+      720
+     ],
+     "inside": {
+      "mean": 0.8252,
+      "pixels": 331920,
+      "inDeadBand": false
+     },
+     "ring": {
+      "mean": 0.5673,
+      "pixels": 58992,
+      "inDeadBand": false
+     },
+     "inDeadBand": false
+    },
+    {
+     "state": "scroller-1-top",
+     "nodeId": "vitrea-node_r_3_",
+     "groupId": "rooms-ornament",
+     "role": "ornament",
+     "label": "Rooms",
+     "rect": [
+      32,
+      816,
+      176,
+      52
+     ],
+     "inside": {
+      "mean": 0.8664,
+      "pixels": 9152,
+      "inDeadBand": false
+     },
+     "ring": {
+      "mean": 0.5408,
+      "pixels": 13248,
+      "inDeadBand": false
+     },
+     "inDeadBand": false
+    },
+    {
+     "state": "scroller-1-top",
+     "nodeId": "vitrea-node_r_5_",
+     "groupId": "guide-ornament",
+     "role": "ornament",
+     "label": "Audio guide",
+     "rect": [
+      232,
+      816,
+      261,
+      52
+     ],
+     "inside": {
+      "mean": 0.8791,
+      "pixels": 13572,
+      "inDeadBand": false
+     },
+     "ring": {
+      "mean": 0.5818,
+      "pixels": 17328,
+      "inDeadBand": false
+     },
+     "inDeadBand": false
+    },
+    {
+     "state": "scroller-1-middle",
+     "nodeId": "vitrea-node_r_1_",
+     "groupId": "label-window",
+     "role": "window",
+     "label": "Gallery label",
+     "rect": [
+      32,
+      32,
+      461,
+      720
+     ],
+     "inside": {
+      "mean": 0.8203,
+      "pixels": 331920,
+      "inDeadBand": false
+     },
+     "ring": {
+      "mean": 0.5673,
+      "pixels": 58992,
+      "inDeadBand": false
+     },
+     "inDeadBand": false
+    },
+    {
+     "state": "scroller-1-middle",
+     "nodeId": "vitrea-node_r_3_",
+     "groupId": "rooms-ornament",
+     "role": "ornament",
+     "label": "Rooms",
+     "rect": [
+      32,
+      816,
+      176,
+      52
+     ],
+     "inside": {
+      "mean": 0.8664,
+      "pixels": 9152,
+      "inDeadBand": false
+     },
+     "ring": {
+      "mean": 0.5408,
+      "pixels": 13248,
+      "inDeadBand": false
+     },
+     "inDeadBand": false
+    },
+    {
+     "state": "scroller-1-middle",
+     "nodeId": "vitrea-node_r_5_",
+     "groupId": "guide-ornament",
+     "role": "ornament",
+     "label": "Audio guide",
+     "rect": [
+      232,
+      816,
+      261,
+      52
+     ],
+     "inside": {
+      "mean": 0.8791,
+      "pixels": 13572,
+      "inDeadBand": false
+     },
+     "ring": {
+      "mean": 0.5818,
+      "pixels": 17328,
+      "inDeadBand": false
+     },
+     "inDeadBand": false
+    },
+    {
+     "state": "scroller-1-bottom",
+     "nodeId": "vitrea-node_r_1_",
+     "groupId": "label-window",
+     "role": "window",
+     "label": "Gallery label",
+     "rect": [
+      32,
+      32,
+      461,
+      720
+     ],
+     "inside": {
+      "mean": 0.845,
+      "pixels": 331920,
+      "inDeadBand": false
+     },
+     "ring": {
+      "mean": 0.5673,
+      "pixels": 58992,
+      "inDeadBand": false
+     },
+     "inDeadBand": false
+    },
+    {
+     "state": "scroller-1-bottom",
+     "nodeId": "vitrea-node_r_3_",
+     "groupId": "rooms-ornament",
+     "role": "ornament",
+     "label": "Rooms",
+     "rect": [
+      32,
+      816,
+      176,
+      52
+     ],
+     "inside": {
+      "mean": 0.8664,
+      "pixels": 9152,
+      "inDeadBand": false
+     },
+     "ring": {
+      "mean": 0.5408,
+      "pixels": 13248,
+      "inDeadBand": false
+     },
+     "inDeadBand": false
+    },
+    {
+     "state": "scroller-1-bottom",
+     "nodeId": "vitrea-node_r_5_",
+     "groupId": "guide-ornament",
+     "role": "ornament",
+     "label": "Audio guide",
+     "rect": [
+      232,
+      816,
+      261,
+      52
+     ],
+     "inside": {
+      "mean": 0.8791,
+      "pixels": 13572,
+      "inDeadBand": false
+     },
+     "ring": {
+      "mean": 0.5818,
+      "pixels": 17328,
+      "inDeadBand": false
+     },
+     "inDeadBand": false
+    }
+   ]
+  },
+  "phases": {
+   "ids": [
+    "frost",
+    "cloud",
+    "clearing",
+    "thunder",
+    "rain",
+    "wind",
+    "gale",
+    "fog"
+   ],
+   "total": 8,
+   "cap": 16,
+   "shown": [
+    {
+     "index": 1,
+     "id": "frost",
+     "status": "captured",
+     "capture": "css-phase-1.png"
+    },
+    {
+     "index": 2,
+     "id": "cloud",
+     "status": "captured",
+     "capture": "css-phase-2.png"
+    },
+    {
+     "index": 3,
+     "id": "clearing",
+     "status": "captured",
+     "capture": "css-phase-3.png"
+    },
+    {
+     "index": 4,
+     "id": "thunder",
+     "status": "captured",
+     "capture": "css-phase-4.png"
+    },
+    {
+     "index": 5,
+     "id": "rain",
+     "status": "captured",
+     "capture": "css-phase-5.png"
+    },
+    {
+     "index": 6,
+     "id": "wind",
+     "status": "captured",
+     "capture": "css-phase-6.png"
+    },
+    {
+     "index": 7,
+     "id": "gale",
+     "status": "captured",
+     "capture": "css-phase-7.png"
+    },
+    {
+     "index": 8,
+     "id": "fog",
+     "status": "captured",
+     "capture": "css-phase-8.png"
+    }
+   ],
+   "readyState": "settled",
+   "errors": [],
+   "consoleErrors": [],
+   "lineContrast": {
+    "method": "per-line, glyphs suppressed",
+    "states": [
+     "phase-1",
+     "phase-2",
+     "phase-3",
+     "phase-4",
+     "phase-5",
+     "phase-6",
+     "phase-7",
+     "phase-8"
+    ],
+    "lines": 232,
+    "pass": 232,
+    "minRatio": 9.61,
+    "worst": {
+     "state": "phase-4",
+     "nodeId": "vitrea-node_r_1_",
+     "line": 0,
+     "box": [
+      455.2,
+      63,
+      8.8,
+      15
+     ],
+     "size": 12.5,
+     "bold": false,
+     "large": false,
+     "floor": 4.5,
+     "ink": [
+      30,
+      30,
+      30
+     ],
+     "inkAlpha": 0.847,
+     "ground": [
+      198,
+      196,
+      195
+     ],
+     "ratio": 9.61,
+     "worstRatio": 9.56,
+     "pass": true,
+     "pixels": 135
+    },
+    "byState": {
+     "phase-1": {
+      "lines": 30,
+      "pass": 30,
+      "minRatio": 10.28
+     },
+     "phase-2": {
+      "lines": 27,
+      "pass": 27,
+      "minRatio": 9.94
+     },
+     "phase-3": {
+      "lines": 30,
+      "pass": 30,
+      "minRatio": 9.62
+     },
+     "phase-4": {
+      "lines": 27,
+      "pass": 27,
+      "minRatio": 9.61
+     },
+     "phase-5": {
+      "lines": 29,
+      "pass": 29,
+      "minRatio": 10.47
+     },
+     "phase-6": {
+      "lines": 29,
+      "pass": 29,
+      "minRatio": 10.47
+     },
+     "phase-7": {
+      "lines": 30,
+      "pass": 30,
+      "minRatio": 9.61
+     },
+     "phase-8": {
+      "lines": 30,
+      "pass": 30,
+      "minRatio": 10.05
+     }
+    },
+    "fails": []
+   },
+   "hostLuminance": {
+    "measure": "mean encoded Rec. 709 luma of the glyph-suppressed capture, 0..1 (the runtime's encodedLuminance, packages/platform-web/src/backdrop-tone.ts)",
+    "band": [
+     0.39,
+     0.49
+    ],
+    "ringPx": 24,
+    "reads": [
+     {
+      "state": "phase-1",
+      "nodeId": "vitrea-node_r_1_",
+      "groupId": "label-window",
+      "role": "window",
+      "label": "Gallery label",
+      "rect": [
+       32,
+       32,
+       461,
+       720
+      ],
+      "inside": {
+       "mean": 0.8252,
+       "pixels": 331920,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.5673,
+       "pixels": 58992,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "phase-1",
+      "nodeId": "vitrea-node_r_3_",
+      "groupId": "rooms-ornament",
+      "role": "ornament",
+      "label": "Rooms",
+      "rect": [
+       32,
+       816,
+       176,
+       52
+      ],
+      "inside": {
+       "mean": 0.8664,
+       "pixels": 9152,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.5408,
+       "pixels": 13248,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "phase-1",
+      "nodeId": "vitrea-node_r_5_",
+      "groupId": "guide-ornament",
+      "role": "ornament",
+      "label": "Audio guide",
+      "rect": [
+       232,
+       816,
+       261,
+       52
+      ],
+      "inside": {
+       "mean": 0.8791,
+       "pixels": 13572,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.5818,
+       "pixels": 17328,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "phase-2",
+      "nodeId": "vitrea-node_r_1_",
+      "groupId": "label-window",
+      "role": "window",
+      "label": "Gallery label",
+      "rect": [
+       32,
+       32,
+       461,
+       720
+      ],
+      "inside": {
+       "mean": 0.7774,
+       "pixels": 331920,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.4322,
+       "pixels": 58992,
+       "inDeadBand": true
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "phase-2",
+      "nodeId": "vitrea-node_r_3_",
+      "groupId": "rooms-ornament",
+      "role": "ornament",
+      "label": "Rooms",
+      "rect": [
+       32,
+       816,
+       176,
+       52
+      ],
+      "inside": {
+       "mean": 0.7634,
+       "pixels": 9152,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.4035,
+       "pixels": 13248,
+       "inDeadBand": true
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "phase-2",
+      "nodeId": "vitrea-node_r_5_",
+      "groupId": "guide-ornament",
+      "role": "ornament",
+      "label": "Audio guide",
+      "rect": [
+       232,
+       816,
+       261,
+       52
+      ],
+      "inside": {
+       "mean": 0.7623,
+       "pixels": 13572,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.3256,
+       "pixels": 17328,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "phase-3",
+      "nodeId": "vitrea-node_r_1_",
+      "groupId": "label-window",
+      "role": "window",
+      "label": "Gallery label",
+      "rect": [
+       32,
+       32,
+       461,
+       720
+      ],
+      "inside": {
+       "mean": 0.7424,
+       "pixels": 331920,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.2644,
+       "pixels": 58992,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "phase-3",
+      "nodeId": "vitrea-node_r_3_",
+      "groupId": "rooms-ornament",
+      "role": "ornament",
+      "label": "Rooms",
+      "rect": [
+       32,
+       816,
+       176,
+       52
+      ],
+      "inside": {
+       "mean": 0.7224,
+       "pixels": 9152,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1522,
+       "pixels": 13248,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "phase-3",
+      "nodeId": "vitrea-node_r_5_",
+      "groupId": "guide-ornament",
+      "role": "ornament",
+      "label": "Audio guide",
+      "rect": [
+       232,
+       816,
+       261,
+       52
+      ],
+      "inside": {
+       "mean": 0.7407,
+       "pixels": 13572,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1987,
+       "pixels": 17328,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "phase-4",
+      "nodeId": "vitrea-node_r_1_",
+      "groupId": "label-window",
+      "role": "window",
+      "label": "Gallery label",
+      "rect": [
+       32,
+       32,
+       461,
+       720
+      ],
+      "inside": {
+       "mean": 0.7174,
+       "pixels": 331920,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.2059,
+       "pixels": 58992,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "phase-4",
+      "nodeId": "vitrea-node_r_3_",
+      "groupId": "rooms-ornament",
+      "role": "ornament",
+      "label": "Rooms",
+      "rect": [
+       32,
+       816,
+       176,
+       52
+      ],
+      "inside": {
+       "mean": 0.8098,
+       "pixels": 9152,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.5623,
+       "pixels": 13248,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "phase-4",
+      "nodeId": "vitrea-node_r_5_",
+      "groupId": "guide-ornament",
+      "role": "ornament",
+      "label": "Audio guide",
+      "rect": [
+       232,
+       816,
+       261,
+       52
+      ],
+      "inside": {
+       "mean": 0.8298,
+       "pixels": 13572,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.5358,
+       "pixels": 17328,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "phase-5",
+      "nodeId": "vitrea-node_r_1_",
+      "groupId": "label-window",
+      "role": "window",
+      "label": "Gallery label",
+      "rect": [
+       32,
+       32,
+       461,
+       720
+      ],
+      "inside": {
+       "mean": 0.819,
+       "pixels": 331920,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.5139,
+       "pixels": 58992,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "phase-5",
+      "nodeId": "vitrea-node_r_3_",
+      "groupId": "rooms-ornament",
+      "role": "ornament",
+      "label": "Rooms",
+      "rect": [
+       32,
+       816,
+       176,
+       52
+      ],
+      "inside": {
+       "mean": 0.7986,
+       "pixels": 9152,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.5024,
+       "pixels": 13248,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "phase-5",
+      "nodeId": "vitrea-node_r_5_",
+      "groupId": "guide-ornament",
+      "role": "ornament",
+      "label": "Audio guide",
+      "rect": [
+       232,
+       816,
+       261,
+       52
+      ],
+      "inside": {
+       "mean": 0.8458,
+       "pixels": 13572,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.5934,
+       "pixels": 17328,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "phase-6",
+      "nodeId": "vitrea-node_r_1_",
+      "groupId": "label-window",
+      "role": "window",
+      "label": "Gallery label",
+      "rect": [
+       32,
+       32,
+       461,
+       720
+      ],
+      "inside": {
+       "mean": 0.8064,
+       "pixels": 331920,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.5162,
+       "pixels": 58992,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "phase-6",
+      "nodeId": "vitrea-node_r_3_",
+      "groupId": "rooms-ornament",
+      "role": "ornament",
+      "label": "Rooms",
+      "rect": [
+       32,
+       816,
+       176,
+       52
+      ],
+      "inside": {
+       "mean": 0.8108,
+       "pixels": 9152,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.5068,
+       "pixels": 13248,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "phase-6",
+      "nodeId": "vitrea-node_r_5_",
+      "groupId": "guide-ornament",
+      "role": "ornament",
+      "label": "Audio guide",
+      "rect": [
+       232,
+       816,
+       261,
+       52
+      ],
+      "inside": {
+       "mean": 0.8034,
+       "pixels": 13572,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.4778,
+       "pixels": 17328,
+       "inDeadBand": true
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "phase-7",
+      "nodeId": "vitrea-node_r_1_",
+      "groupId": "label-window",
+      "role": "window",
+      "label": "Gallery label",
+      "rect": [
+       32,
+       32,
+       461,
+       720
+      ],
+      "inside": {
+       "mean": 0.8117,
+       "pixels": 331920,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.4215,
+       "pixels": 58992,
+       "inDeadBand": true
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "phase-7",
+      "nodeId": "vitrea-node_r_3_",
+      "groupId": "rooms-ornament",
+      "role": "ornament",
+      "label": "Rooms",
+      "rect": [
+       32,
+       816,
+       176,
+       52
+      ],
+      "inside": {
+       "mean": 0.7281,
+       "pixels": 9152,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1834,
+       "pixels": 13248,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "phase-7",
+      "nodeId": "vitrea-node_r_5_",
+      "groupId": "guide-ornament",
+      "role": "ornament",
+      "label": "Audio guide",
+      "rect": [
+       232,
+       816,
+       261,
+       52
+      ],
+      "inside": {
+       "mean": 0.7366,
+       "pixels": 13572,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1648,
+       "pixels": 17328,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "phase-8",
+      "nodeId": "vitrea-node_r_1_",
+      "groupId": "label-window",
+      "role": "window",
+      "label": "Gallery label",
+      "rect": [
+       32,
+       32,
+       461,
+       720
+      ],
+      "inside": {
+       "mean": 0.7744,
+       "pixels": 331920,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.4718,
+       "pixels": 58992,
+       "inDeadBand": true
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "phase-8",
+      "nodeId": "vitrea-node_r_3_",
+      "groupId": "rooms-ornament",
+      "role": "ornament",
+      "label": "Rooms",
+      "rect": [
+       32,
+       816,
+       176,
+       52
+      ],
+      "inside": {
+       "mean": 0.7803,
+       "pixels": 9152,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.4691,
+       "pixels": 13248,
+       "inDeadBand": true
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "phase-8",
+      "nodeId": "vitrea-node_r_5_",
+      "groupId": "guide-ornament",
+      "role": "ornament",
+      "label": "Audio guide",
+      "rect": [
+       232,
+       816,
+       261,
+       52
+      ],
+      "inside": {
+       "mean": 0.7701,
+       "pixels": 13572,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.4306,
+       "pixels": 17328,
+       "inDeadBand": true
+      },
+      "inDeadBand": false
+     }
+    ]
+   }
+  }
+ },
+ "receded": {
+  "status": "ran",
+  "readyState": "settled",
+  "errors": [],
+  "consoleErrors": [],
+  "windowActivation": "inactive",
+  "scrollers": {
+   "found": 1,
+   "cap": 8,
+   "list": [
+    {
+     "index": 1,
+     "selector": "section#exh-window > div.exh-scroll",
+     "hostNodeId": "vitrea-node_r_1_",
+     "rect": [
+      32,
+      32,
+      461,
+      720
+     ],
+     "scrollHeight": 1272,
+     "clientHeight": 720,
+     "scrollTop": 0,
+     "positions": [
+      {
+       "pos": "top",
+       "scrollTop": 0,
+       "capture": "receded-scroller-1-top.png"
+      },
+      {
+       "pos": "middle",
+       "scrollTop": 276,
+       "capture": "receded-scroller-1-middle.png"
+      },
+      {
+       "pos": "bottom",
+       "scrollTop": 552,
+       "capture": "receded-scroller-1-bottom.png"
+      }
+     ]
+    }
+   ]
+  },
+  "lineContrast": {
+   "method": "per-line, glyphs suppressed",
+   "states": [
+    "fv",
+    "scroller-1-top",
+    "scroller-1-middle",
+    "scroller-1-bottom"
+   ],
+   "lines": 134,
+   "pass": 134,
+   "minRatio": 7.75,
+   "worst": {
+    "state": "scroller-1-middle",
+    "nodeId": "vitrea-node_r_1_",
+    "line": 0,
+    "box": [
+     61,
+     664.4,
+     48.3,
+     13
+    ],
+    "size": 11.5,
+    "bold": false,
+    "large": false,
+    "floor": 4.5,
+    "ink": [
+     28,
+     26,
+     25
+    ],
+    "inkAlpha": 0.847,
+    "ground": [
+     182,
+     172,
+     160
+    ],
+    "ratio": 7.75,
+    "worstRatio": 7.55,
+    "pass": true,
+    "pixels": 686
+   },
+   "byState": {
+    "fv": {
+     "lines": 30,
+     "pass": 30,
+     "minRatio": 8.8
+    },
+    "scroller-1-top": {
+     "lines": 30,
+     "pass": 30,
+     "minRatio": 8.8
+    },
+    "scroller-1-middle": {
+     "lines": 33,
+     "pass": 33,
+     "minRatio": 7.75
+    },
+    "scroller-1-bottom": {
+     "lines": 41,
+     "pass": 41,
+     "minRatio": 7.98
+    }
+   },
+   "fails": []
+  },
+  "hostLuminance": {
+   "measure": "mean encoded Rec. 709 luma of the glyph-suppressed capture, 0..1 (the runtime's encodedLuminance, packages/platform-web/src/backdrop-tone.ts)",
+   "band": [
+    0.39,
+    0.49
+   ],
+   "ringPx": 24,
+   "reads": [
+    {
+     "state": "fv",
+     "nodeId": "vitrea-node_r_1_",
+     "groupId": "label-window",
+     "role": "window",
+     "label": "Gallery label",
+     "rect": [
+      32,
+      32,
+      461,
+      720
+     ],
+     "inside": {
+      "mean": 0.7779,
+      "pixels": 331920,
+      "inDeadBand": false
+     },
+     "ring": {
+      "mean": 0.5926,
+      "pixels": 58992,
+      "inDeadBand": false
+     },
+     "inDeadBand": false
+    },
+    {
+     "state": "fv",
+     "nodeId": "vitrea-node_r_3_",
+     "groupId": "rooms-ornament",
+     "role": "ornament",
+     "label": "Rooms",
+     "rect": [
+      32,
+      816,
+      176,
+      52
+     ],
+     "inside": {
+      "mean": 0.8252,
+      "pixels": 9152,
+      "inDeadBand": false
+     },
+     "ring": {
+      "mean": 0.5475,
+      "pixels": 13248,
+      "inDeadBand": false
+     },
+     "inDeadBand": false
+    },
+    {
+     "state": "fv",
+     "nodeId": "vitrea-node_r_5_",
+     "groupId": "guide-ornament",
+     "role": "ornament",
+     "label": "Audio guide",
+     "rect": [
+      232,
+      816,
+      261,
+      52
+     ],
+     "inside": {
+      "mean": 0.8404,
+      "pixels": 13572,
+      "inDeadBand": false
+     },
+     "ring": {
+      "mean": 0.5901,
+      "pixels": 17328,
+      "inDeadBand": false
+     },
+     "inDeadBand": false
+    },
+    {
+     "state": "scroller-1-top",
+     "nodeId": "vitrea-node_r_1_",
+     "groupId": "label-window",
+     "role": "window",
+     "label": "Gallery label",
+     "rect": [
+      32,
+      32,
+      461,
+      720
+     ],
+     "inside": {
+      "mean": 0.7779,
+      "pixels": 331920,
+      "inDeadBand": false
+     },
+     "ring": {
+      "mean": 0.5926,
+      "pixels": 58992,
+      "inDeadBand": false
+     },
+     "inDeadBand": false
+    },
+    {
+     "state": "scroller-1-top",
+     "nodeId": "vitrea-node_r_3_",
+     "groupId": "rooms-ornament",
+     "role": "ornament",
+     "label": "Rooms",
+     "rect": [
+      32,
+      816,
+      176,
+      52
+     ],
+     "inside": {
+      "mean": 0.8252,
+      "pixels": 9152,
+      "inDeadBand": false
+     },
+     "ring": {
+      "mean": 0.5475,
+      "pixels": 13248,
+      "inDeadBand": false
+     },
+     "inDeadBand": false
+    },
+    {
+     "state": "scroller-1-top",
+     "nodeId": "vitrea-node_r_5_",
+     "groupId": "guide-ornament",
+     "role": "ornament",
+     "label": "Audio guide",
+     "rect": [
+      232,
+      816,
+      261,
+      52
+     ],
+     "inside": {
+      "mean": 0.8404,
+      "pixels": 13572,
+      "inDeadBand": false
+     },
+     "ring": {
+      "mean": 0.5901,
+      "pixels": 17328,
+      "inDeadBand": false
+     },
+     "inDeadBand": false
+    },
+    {
+     "state": "scroller-1-middle",
+     "nodeId": "vitrea-node_r_1_",
+     "groupId": "label-window",
+     "role": "window",
+     "label": "Gallery label",
+     "rect": [
+      32,
+      32,
+      461,
+      720
+     ],
+     "inside": {
+      "mean": 0.7692,
+      "pixels": 331920,
+      "inDeadBand": false
+     },
+     "ring": {
+      "mean": 0.5926,
+      "pixels": 58992,
+      "inDeadBand": false
+     },
+     "inDeadBand": false
+    },
+    {
+     "state": "scroller-1-middle",
+     "nodeId": "vitrea-node_r_3_",
+     "groupId": "rooms-ornament",
+     "role": "ornament",
+     "label": "Rooms",
+     "rect": [
+      32,
+      816,
+      176,
+      52
+     ],
+     "inside": {
+      "mean": 0.8252,
+      "pixels": 9152,
+      "inDeadBand": false
+     },
+     "ring": {
+      "mean": 0.5475,
+      "pixels": 13248,
+      "inDeadBand": false
+     },
+     "inDeadBand": false
+    },
+    {
+     "state": "scroller-1-middle",
+     "nodeId": "vitrea-node_r_5_",
+     "groupId": "guide-ornament",
+     "role": "ornament",
+     "label": "Audio guide",
+     "rect": [
+      232,
+      816,
+      261,
+      52
+     ],
+     "inside": {
+      "mean": 0.8404,
+      "pixels": 13572,
+      "inDeadBand": false
+     },
+     "ring": {
+      "mean": 0.5901,
+      "pixels": 17328,
+      "inDeadBand": false
+     },
+     "inDeadBand": false
+    },
+    {
+     "state": "scroller-1-bottom",
+     "nodeId": "vitrea-node_r_1_",
+     "groupId": "label-window",
+     "role": "window",
+     "label": "Gallery label",
+     "rect": [
+      32,
+      32,
+      461,
+      720
+     ],
+     "inside": {
+      "mean": 0.7906,
+      "pixels": 331920,
+      "inDeadBand": false
+     },
+     "ring": {
+      "mean": 0.5926,
+      "pixels": 58992,
+      "inDeadBand": false
+     },
+     "inDeadBand": false
+    },
+    {
+     "state": "scroller-1-bottom",
+     "nodeId": "vitrea-node_r_3_",
+     "groupId": "rooms-ornament",
+     "role": "ornament",
+     "label": "Rooms",
+     "rect": [
+      32,
+      816,
+      176,
+      52
+     ],
+     "inside": {
+      "mean": 0.8252,
+      "pixels": 9152,
+      "inDeadBand": false
+     },
+     "ring": {
+      "mean": 0.5475,
+      "pixels": 13248,
+      "inDeadBand": false
+     },
+     "inDeadBand": false
+    },
+    {
+     "state": "scroller-1-bottom",
+     "nodeId": "vitrea-node_r_5_",
+     "groupId": "guide-ornament",
+     "role": "ornament",
+     "label": "Audio guide",
+     "rect": [
+      232,
+      816,
+      261,
+      52
+     ],
+     "inside": {
+      "mean": 0.8404,
+      "pixels": 13572,
+      "inDeadBand": false
+     },
+     "ring": {
+      "mean": 0.5901,
+      "pixels": 17328,
+      "inDeadBand": false
+     },
+     "inDeadBand": false
+    }
+   ]
+  }
+ },
+ "extraCaptures": [
+  "css-fv-ground.png",
+  "css-fv.png",
+  "css-phase-1-ground.png",
+  "css-phase-1.png",
+  "css-phase-2-ground.png",
+  "css-phase-2.png",
+  "css-phase-3-ground.png",
+  "css-phase-3.png",
+  "css-phase-4-ground.png",
+  "css-phase-4.png",
+  "css-phase-5-ground.png",
+  "css-phase-5.png",
+  "css-phase-6-ground.png",
+  "css-phase-6.png",
+  "css-phase-7-ground.png",
+  "css-phase-7.png",
+  "css-phase-8-ground.png",
+  "css-phase-8.png",
+  "css-scroller-1-bottom-ground.png",
+  "css-scroller-1-bottom.png",
+  "css-scroller-1-middle-ground.png",
+  "css-scroller-1-middle.png",
+  "css-scroller-1-top-ground.png",
+  "css-scroller-1-top.png",
+  "phase-1-dark-ground.png",
+  "phase-1-dark.png",
+  "phase-1-light-ground.png",
+  "phase-1-light.png",
+  "phase-2-dark-ground.png",
+  "phase-2-dark.png",
+  "phase-2-light-ground.png",
+  "phase-2-light.png",
+  "phase-3-dark-ground.png",
+  "phase-3-dark.png",
+  "phase-3-light-ground.png",
+  "phase-3-light.png",
+  "phase-4-dark-ground.png",
+  "phase-4-dark.png",
+  "phase-4-light-ground.png",
+  "phase-4-light.png",
+  "phase-5-dark-ground.png",
+  "phase-5-dark.png",
+  "phase-5-light-ground.png",
+  "phase-5-light.png",
+  "phase-6-dark-ground.png",
+  "phase-6-dark.png",
+  "phase-6-light-ground.png",
+  "phase-6-light.png",
+  "phase-7-dark-ground.png",
+  "phase-7-dark.png",
+  "phase-7-light-ground.png",
+  "phase-7-light.png",
+  "phase-8-dark-ground.png",
+  "phase-8-dark.png",
+  "phase-8-light-ground.png",
+  "phase-8-light.png",
+  "receded-fv-ground.png",
+  "receded-fv.png",
+  "receded-scroller-1-bottom-ground.png",
+  "receded-scroller-1-bottom.png",
+  "receded-scroller-1-middle-ground.png",
+  "receded-scroller-1-middle.png",
+  "receded-scroller-1-top-ground.png",
+  "receded-scroller-1-top.png",
+  "scroller-1-bottom-dark-ground.png",
+  "scroller-1-bottom-dark.png",
+  "scroller-1-bottom-light-ground.png",
+  "scroller-1-bottom-light.png",
+  "scroller-1-middle-dark-ground.png",
+  "scroller-1-middle-dark.png",
+  "scroller-1-middle-light-ground.png",
+  "scroller-1-middle-light.png",
+  "scroller-1-top-dark-ground.png",
+  "scroller-1-top-dark.png",
+  "scroller-1-top-light-ground.png",
+  "scroller-1-top-light.png",
+  "shot-fv-dark-ground.png",
+  "shot-fv-light-ground.png",
+  "shot-reduced-ground.png"
+ ],
+ "extraCaptureSha256": {
+  "css-fv-ground.png": "afb5a71da091d6553df3693e2802cf3ebb69cac695aeb3837bba4c514677b8a6",
+  "css-fv.png": "26015c958a64100681b569e3b3353a6bc30571af321cd98a8642bb814e1563f8",
+  "css-phase-1-ground.png": "afb5a71da091d6553df3693e2802cf3ebb69cac695aeb3837bba4c514677b8a6",
+  "css-phase-1.png": "26015c958a64100681b569e3b3353a6bc30571af321cd98a8642bb814e1563f8",
+  "css-phase-2-ground.png": "26d1b84f08820d565d9de3eb906ad8ab4664a1f877b97d6c9c49dadce6a50d1a",
+  "css-phase-2.png": "2755c3b99043b956c088a159e9bfb16040dcc3a57688e53cf893c38cd73b4a3c",
+  "css-phase-3-ground.png": "2ce8887d98681477707b8fd1ee0ed4eaa7d32a11f3aba484442ddf18a172a1a3",
+  "css-phase-3.png": "3c7e8a44798f085190ed054872f55250cfc222c2440620e15990141bdcd79f8a",
+  "css-phase-4-ground.png": "729f2d856fd81ccd6ec876d039ec28c4bc400a5fc0b938db2e34d1bd8fb66bcc",
+  "css-phase-4.png": "6955f76b9038704a7dfc0eca5a344b7bf3746be922124dcab19c351aa9edc908",
+  "css-phase-5-ground.png": "2b90d3de78e6faca1bbaa40853cfbdf5d2d043ce60b7e02419e39de332926892",
+  "css-phase-5.png": "34ce7272f8cf558da1f209e66af25908229936ea304cb1b0b00fe89bcdb850ca",
+  "css-phase-6-ground.png": "015d841d382d9a3c43c85c231ee3e979aff5ffc84703fcb1afb581e3e07f7dcc",
+  "css-phase-6.png": "17e0649f44734c236a39d388674b0b5ceffb8ac4a6a45cdd45723f5aa094a5d3",
+  "css-phase-7-ground.png": "b86c612c7cf08b982ace94407f0675981384a73e3ecd567cc51f8591cfdb81c6",
+  "css-phase-7.png": "53c3f4c725ea8f109cc09d6ab7626cd34060445361a979c31ed737ff82cb30e1",
+  "css-phase-8-ground.png": "a4fb6d9cb00785199a562ea3fc4e77b788c4cf62e90f241a3208bdd3f01b2a48",
+  "css-phase-8.png": "98563a861bebe50a30aca4726d054172818393bc18cedd90c2bed0a75ec703d3",
+  "css-scroller-1-bottom-ground.png": "eab214ee18f590cb6688b2c1ffe495c11df6330a55d0a5594371328d4f7b3bec",
+  "css-scroller-1-bottom.png": "063ad3dd3f885e0eae7477384fd197034e75fe343b3555c9d41acb69a94bf881",
+  "css-scroller-1-middle-ground.png": "ab7b5b24b65d0d6ecb8efaeb104dae55634be30f16047707a9b42ee683afe447",
+  "css-scroller-1-middle.png": "cd8aa1e481daa7fd2c0c4df37b26a751941012af35d77582997fb6fcc0202bf4",
+  "css-scroller-1-top-ground.png": "afb5a71da091d6553df3693e2802cf3ebb69cac695aeb3837bba4c514677b8a6",
+  "css-scroller-1-top.png": "26015c958a64100681b569e3b3353a6bc30571af321cd98a8642bb814e1563f8",
+  "phase-1-dark-ground.png": "575245cd028a39d073581c98f750cb147079d283fd68c5bc5c03015d6e8a1470",
+  "phase-1-dark.png": "a85e5cdf42e5018b67cdf011072b8a10250f6db75df916a4a404eb10da891c31",
+  "phase-1-light-ground.png": "e142eea81e5824ea5fd54d391fc1bec8299c9deacaca54e23b406b502c42fabc",
+  "phase-1-light.png": "83fada5ddc9e5dbec95c1a281c4d0629418922f343cc664e969556e1cac6cc2f",
+  "phase-2-dark-ground.png": "8880677840667987d83e3dab1a447143b26c7adca569d5db30e6b1abb15f40fa",
+  "phase-2-dark.png": "6b9994f6c29e303ff93aa9c831f02b7006802ac1aa441910a9ff57c570b3ff7b",
+  "phase-2-light-ground.png": "6d9dd601c75c8554d4397b9214cd866d52f216c6ba5db9ed732f5005fda6f205",
+  "phase-2-light.png": "8a9ef1cc2555de2e7b9e3a43ac8877497c80682691373042ad00dd846876d3d9",
+  "phase-3-dark-ground.png": "3552f131d1cdb69fc3a0e00f2a0b5ccb308e56ac479bebdf855a257c45c28628",
+  "phase-3-dark.png": "8c2a8a5d4b6599fc944d72c1202871ebbd4fc0ab2f7dbae653e1e34da132ee6d",
+  "phase-3-light-ground.png": "923bd7ee0f1dd51e240c3874dfea2190662ed112db0e758f470a5784ded376a6",
+  "phase-3-light.png": "ca214fe75b43f681698c0f5a2616c3c9cb3d1e3c31a17f1b157384ee28f8869f",
+  "phase-4-dark-ground.png": "206eb8999542d0df4237f965738ed2d36378a3eb540b68f7e9c839cf5a7f835e",
+  "phase-4-dark.png": "dbb00f3b7f1d97b886eeba15bdd25cd85800109e889660c47b4fc75de053d07c",
+  "phase-4-light-ground.png": "2917b12da0af3800402e9dadc0c08c564a5e01d7b5154cd5558c625138d79386",
+  "phase-4-light.png": "4ac6bcf66d39eede56fdca7bd27b59893d4073dc388c317ae43d4e38d00d87b6",
+  "phase-5-dark-ground.png": "15dc7c85b7dc1f055792c8e2b4914c88f307776162c96650568b148524fb456c",
+  "phase-5-dark.png": "1c34087ad9c72cf4252ccd9081fe490f225cc1407f384951de36bc17b2ffc4aa",
+  "phase-5-light-ground.png": "b97a92a927b9525d4773427043a986ebdd6c8b7561a9cb246cb8a1fe4c983e3e",
+  "phase-5-light.png": "079f0efb6e90729307bb483fdbdfdb07763990c82230d6133b8db42301b34ef7",
+  "phase-6-dark-ground.png": "acca2ae90cc0530e818f683900cf4fc0e5656ebb1a706b497c4441f30cecef57",
+  "phase-6-dark.png": "88e8ed41b71b91850d0141ccd18c1ca5fd3147b883b3e4bce17999106ab682a2",
+  "phase-6-light-ground.png": "afb2032507453df8a72ef5cfa9386eedff75352e00bf586664a0a55363a3cde9",
+  "phase-6-light.png": "124076ecb49eccda0ba5794971edcfbdc54ac513c774c153a71e58abfe3499f5",
+  "phase-7-dark-ground.png": "ccf2b6fc843f14b3818461cc18026250b1a0d7bde9720a13e200b3e191d65d70",
+  "phase-7-dark.png": "7da3ebbe6b33361ad56a64645a9dcf6fbbe2557125b9bce81f803f55102934e0",
+  "phase-7-light-ground.png": "ccc4c473911c3e49862bfc90cebe9857e3fd6de7afb36a3d37c89f8382c0f888",
+  "phase-7-light.png": "af295505d84ffa446add78b5dd5dd8e42e72f9db0e42dd4433c07d8d2fe49ad8",
+  "phase-8-dark-ground.png": "b0f87fd01a0e53dbb3467889a05c6f885834604dc52a75c9314e036b91493894",
+  "phase-8-dark.png": "6794fff14e7dd53f962cfa307a803f7ace8cc101019f463282a7a5019f0736fe",
+  "phase-8-light-ground.png": "e10f787a456485e6ee71cd7bef1bea149c3d0f23367ad9d9087523ca122f2d9c",
+  "phase-8-light.png": "fe3aea7c91e9300647a88448268305a26bb7733a4d22bfd937cdeeafc043088a",
+  "receded-fv-ground.png": "9242b080154031a73fbdc045eeed788ce4436f56d22e0ecb3a89adee30a8ff57",
+  "receded-fv.png": "c47e1a703b4a4859a91aaee2b8f7256604bc727bace0ada29df27201a5b27604",
+  "receded-scroller-1-bottom-ground.png": "d1905f9d6e9983338654cbb4052a57aa4bb41e69758d42caf00a1b6d3ce9de5f",
+  "receded-scroller-1-bottom.png": "20ac6c8544f8473e9fdeb98a812f1abbf99641ff487449e1dde74c8236b3061a",
+  "receded-scroller-1-middle-ground.png": "5eff64693828fb5bdf9051eaabce4d630b405ba9101e87a4a008e264f162f6b1",
+  "receded-scroller-1-middle.png": "aa8082145d6fbbd1d19d90c40e5381179f8b9eaaeccca09d681c5cd8f39f2498",
+  "receded-scroller-1-top-ground.png": "9242b080154031a73fbdc045eeed788ce4436f56d22e0ecb3a89adee30a8ff57",
+  "receded-scroller-1-top.png": "c47e1a703b4a4859a91aaee2b8f7256604bc727bace0ada29df27201a5b27604",
+  "scroller-1-bottom-dark-ground.png": "e3679022a7cfe23de3ec8973593e1b20bc9f3166a15c3c6b819a78023da25e51",
+  "scroller-1-bottom-dark.png": "a8f78dcbf6835cf8fff5fb2856594fc75994a9e92720e0efc26e8fb5c8199d68",
+  "scroller-1-bottom-light-ground.png": "15997216eec1b6719e9023894e31aae7821f7257e1fbdeb0db0f2e18a312d9fd",
+  "scroller-1-bottom-light.png": "357be9682f5ce592703d475d8a3ccbc503507e201398846f16abdaaa65d04333",
+  "scroller-1-middle-dark-ground.png": "ccc2c98f09876d738fbb980ce75f82892d4f34de178e38dae1971da09c619881",
+  "scroller-1-middle-dark.png": "cc3f20c5414d33e53c34bfc70e785c1b7144a7d7a92fe9057b5005f5d62c45b2",
+  "scroller-1-middle-light-ground.png": "3156b97025a802345c456a0147c50e851212b72a75ab420480a38abd6f446204",
+  "scroller-1-middle-light.png": "6f661379f1b2494b75bd0bf13dfb6b1d6f5fa9e177dd92922311cf8278a4dd54",
+  "scroller-1-top-dark-ground.png": "575245cd028a39d073581c98f750cb147079d283fd68c5bc5c03015d6e8a1470",
+  "scroller-1-top-dark.png": "a85e5cdf42e5018b67cdf011072b8a10250f6db75df916a4a404eb10da891c31",
+  "scroller-1-top-light-ground.png": "e142eea81e5824ea5fd54d391fc1bec8299c9deacaca54e23b406b502c42fabc",
+  "scroller-1-top-light.png": "83fada5ddc9e5dbec95c1a281c4d0629418922f343cc664e969556e1cac6cc2f",
+  "shot-fv-dark-ground.png": "575245cd028a39d073581c98f750cb147079d283fd68c5bc5c03015d6e8a1470",
+  "shot-fv-light-ground.png": "e142eea81e5824ea5fd54d391fc1bec8299c9deacaca54e23b406b502c42fabc",
+  "shot-reduced-ground.png": "69a0d4ef99874a95a2f23936a13893312cfd2a4adacf897358548eeaf90f526f"
+ },
+ "gateMechanical": false,
+ "tool": {
+  "playwright": {
+   "module": "@playwright/test",
+   "version": "1.62.1"
+  },
+  "chromium": "151.0.7922.34",
+  "gpuArgs": [
+   "--enable-unsafe-webgpu",
+   "--enable-features=Vulkan,WebGPU"
+  ]
+ }
+}
