@@ -122,6 +122,15 @@ export default defineConfig({
         index: resolve(here, "index.html"),
         playground: resolve(here, "playground/index.html"),
         laws: resolve(here, "laws/index.html"),
+        // The gallery: six Liquid Glass demos built under the materialist skill
+        // (docs/doperpowers/specs/2026-09-27-materialist-proof.md, A), each its own page.
+        gallery: resolve(here, "gallery/index.html"),
+        "gallery-music-player": resolve(here, "gallery/music-player/index.html"),
+        "gallery-transit-ops": resolve(here, "gallery/transit-ops/index.html"),
+        "gallery-photo-review": resolve(here, "gallery/photo-review/index.html"),
+        "gallery-film-festival": resolve(here, "gallery/film-festival/index.html"),
+        "gallery-park-trails": resolve(here, "gallery/park-trails/index.html"),
+        "gallery-product-launch": resolve(here, "gallery/product-launch/index.html"),
       },
     },
   },

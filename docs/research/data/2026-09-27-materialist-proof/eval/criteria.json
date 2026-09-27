@@ -1,0 +1,74 @@
+{
+  "_about": "Each brief's expected_output from evals/materialist.json split into criteria a grader answers holds/fails per arm. Written 2026-09-27 before any eval build ran (spec 2026-09-27-materialist-proof.md, C).",
+  "1": [
+    "c1 The artwork is a registered texture plane filling the viewport edge to edge",
+    "c2 The floating inventory is short; every glass surface is a control or platter; no glass on the tracklist or queue rows",
+    "c3 Groups are planned and each declares its backdrop (texture or measured hint)",
+    "c4 A size family straddles span 32 to 96 with one thickness",
+    "c5 Capsule housings with concentric children and a named anchor",
+    "c6 The control layer is monochrome with at most one tinted primary, recorded either way",
+    "c7 The queue menu morphs from its control (GlassMorph or present), not a cross-fade",
+    "c8 colorScheme and windowActivation follow the system",
+    "c9 The app offers a reduce-transparency setting and passes a boolean",
+    "c10 Contrast is measured on rendered pixels (a measurement is recorded, not asserted)",
+    "c11 The record template is written",
+    "c12 Zero dev-mode diagnostics on the built page"
+  ],
+  "2": [
+    "c1 Content reaches the window's edges and passes under the bars with a scroll edge on the scrolling content, never on an ancestor of the glass root",
+    "c2 Insets are derived from the bar's measured height",
+    "c3 registerGroup uses `backdrop` (not `hint`) for the declaration",
+    "c4 The plane element's own box is what the texture is mapped onto; page paint and sampled texture agree",
+    "c5 Press is written through the channel properties, never a colour swap",
+    "c6 At most one tint, on the buy action",
+    "c7 The CSS tier is looked at and is the same design",
+    "c8 The page states that a CDN import needs network",
+    "c9 The page states that file:// boots on Chrome with a CDN URL and only a relative local module import fails",
+    "c10 Zero dev-mode diagnostics on the built page"
+  ],
+  "3": [
+    "c1 Glass is refused on cards, the table and rows (content layer)",
+    "c2 The two-layer discipline is explained in a sentence",
+    "c3 The smallest honest version is offered: an opaque tonal worksheet with at most one small persistent glass control layer, or no glass, with the tension recorded",
+    "c4 No backdrop-filter on any content surface",
+    "c5 No depicted material anywhere",
+    "c6 Density and criticality are respected in the built page"
+  ],
+  "4": [
+    "c1 Names glass in the content layer (the list and its items) and the diagnostics that would fire",
+    "c2 Names glass on glass (a surface toolbar around surface buttons; GlassToolbar is not a surface)",
+    "c3 Names the solid background standing in for a tint and prescribes tint with one seed per group",
+    "c4 Names that Reduce Transparency cannot be queried on every engine and that the app needs its own switch passing a boolean",
+    "c5 Names the ancestor filter that re-roots the backdrop and demotes every group with probe-failed",
+    "c6 Orders findings by severity and cites the layer model rather than taste",
+    "c7 Does not rewrite the code"
+  ],
+  "5": [
+    "c1 The animating composite is a canvas registered as the texture plane and re-imported per frame",
+    "c2 The floating inventory is short; no glass on the outlook or the warnings",
+    "c3 The layer control is a segmented control concentric inside a capsule housing with the anchor named",
+    "c4 A size family straddles 32 to 96 with one thickness",
+    "c5 The declared backdrop is measured at the composite's lightest and darkest phase",
+    "c6 The control layer is monochrome; the warning hue lives in the content layer; no tint on a data-dependent status (or one on the primary, recorded)",
+    "c7 The station platter arrives by GlassMorph or present, never a cross-fade",
+    "c8 colorScheme and windowActivation follow the system",
+    "c9 A reduce-transparency setting passes a boolean",
+    "c10 Contrast is measured on rendered pixels in both schemes",
+    "c11 Zero dev-mode diagnostics",
+    "c12 The record template is written"
+  ],
+  "6": [
+    "c1 A light plane is tried first and the page is designed opaque before the glass finds the controls (visible in the record)",
+    "c2 Content reaches the edges and passes under the bar with a scroll edge on the scrolling content, never on an ancestor of the root",
+    "c3 Insets derived from the bar's measured height",
+    "c4 registerGroup declares `backdrop` (not `hint`) with a luminance measured off the photograph",
+    "c5 The texture is mapped onto the <img>'s own box, not the viewport",
+    "c6 Nav and enquiry are capsule housings; the enquiry is the one tinted control or none, recorded",
+    "c7 No glass on the project grid, the practice text or the people",
+    "c8 Press through the channel properties",
+    "c9 The CSS tier looked at and the same design",
+    "c10 The page states the CDN network need and the file:// truth",
+    "c11 The record template is written in the file's header",
+    "c12 Zero dev-mode diagnostics"
+  ]
+}
