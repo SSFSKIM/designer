@@ -1,6 +1,8 @@
 # The materialist, proven on pages: six demos on 0.24.0, the eval, and the 2.3 panel's close
 
-Status: chartered 2026-09-27; G0 scaffold landing, G1 makers dispatched. Parents:
+Status: landed 2026-09-27. Six demos built, read, fixed and verified, live at
+`https://ssfskim.github.io/designer/gallery/`; the panel read; the eval graded; the skill corrected to
+1.0.1 (plugin 2.4.1); the 2.3 panel closed. Purpose partly met: see Outcomes. Parents:
 `2026-09-26-materialist-skill.md` (the skill; its Deferred list is this initiative's three items)
 and `2026-09-10-liquid-glass-into-the-skill.md` (the 2.3 demos, their six briefs, the audit and the
 pre-registered four-rater panel, all of which live only on the unmerged `capsule-refinement`
@@ -360,11 +362,83 @@ parallel; the user's time is the eye reading, about thirty minutes.
 
 ## Deferred
 
-- The user's eye reading (B, reading 4), when the six are up.
+- The user's eye reading (B, reading 4): the six are up.
+- A second wave on the five rules the panel failed across demos, r12 (a text button beside an icon
+  button in one group), r15 (the scroll edge), r17 (content under a control at rest), r21 (safe-area
+  insets and the background extension) and r22 (a custom ground under a bar), with the instrument
+  first extended to scroll a page's inner scroller (park-trails, product-launch and the skill-aided
+  architecture cell yield no scrolled screen today, so r15 and r17 were read on the first viewport
+  alone). One fix wave was pre-registered here and spent.
 - Publishing the demos as single files over the CDN import as well, so a reader can lift one.
+- The runtime seams the makers hit, in the tracker: stale geometry on moved hosts and the content-box
+  observer, the morph's closed size and its Reduce Motion collapse, press on an open morph's
+  children, `GlassSegmentedControl` without `onHost` or a positioned track, the highlight glow under
+  forced colours.
+
+## Outcomes & Retrospective
+
+**The demos.** Six pages built by fresh opus makers under the materialist alone, on the workspace
+source at 0.24.0 through `@vitreajs/vitrea-react`, live under `/gallery/<slug>/` with the index at
+`/gallery/`. Every one audited mechanically at the finish: zero diagnostics on both channels, zero
+ban-subset findings, every rendered-pixel glass text pair passing in both schemes at the captured
+states (music-player 20/20, transit-ops 31/31, photo-review 14/14, film-festival 52/52, park-trails
+68/68, product-launch 25/25), reduced transparency moving the material through the page's own
+switch, zero glass under forced colours, all groups on the WebGPU tier over texture with exact
+analysis where the page had a texture. `pnpm --filter demo lint` and `build` pass; the gallery's
+Playwright spec passes twelve of twelve.
+
+**The source reading and the fix waves.** Six independent `astra-high` readings against the
+skill's own twenty checks found, before the fix waves, three `[layer]` failures (music-player's
+queue, transit-ops' alerts sidebar and vehicle dossier, park-trails' forecast platter), one
+`[material]` judgment (photo-review's flat phases, ruled bounded by design intent and recorded as a
+measured table), honesty failures on every demo's declared hints, colour-swap presses, forced-colour
+losses on authored controls and accessibility gaps. One fix wave per demo, verified by a second
+reader, closed every finding but the runtime-bounded ones (press on an open morph's plain children,
+now a verified recipe on photo-review and transit-ops) and one recorded residual (film-festival's
+hint reads the morph's endpoint through its spring). Film-festival's honest hints exposed three
+narrow dark-scheme contrast misses (4.36 to 4.43) that the false hints had hidden; its record
+states them as failures.
+
+**The panel (reading 2).** Four raters, the 2.3 identities, on 58 captures archived as release
+`materialist-proof-2026-09-27`. Assigned counts of 25 (panel majority on 22 rules; r18, r19, r23
+assigned): music-player 22, transit-ops 18, photo-review 20, film-festival 21, park-trails 23,
+product-launch 23; panel-only counts 20, 16, 18, 18, 21, 21. **Three of six pass the 2.3 line**
+(music-player, park-trails, product-launch). **No demo fails a `[layer]` or `[material]` rule**:
+r1 to r7 and r16 hold by majority on all six, so the stop condition is not met, and this is the
+change against 2.3, whose available panel carried fatal failures on four of six (music-player r1
+and r2, transit-ops r1, park-trails r6, product-launch r16) and no held count above 21. The misses
+cluster on five rules: r21 (0 of 6; safe-area insets and the background extension, which a desktop
+web page has no primitive for), r15 (1 of 6; the scroll edge, read on first-viewport captures where
+the instrument did not scroll an inner scroller), r12 (3 of 6; a text button beside an icon button
+in one group), r17 (3 of 6) and r22 (3 of 6). The 2.3 spec predicted the first two as "the finer
+rules that can be lost to a desktop web context". Agreement per rule is constant at 1 on fourteen
+rules and low on the judgment rules (r1 −0.05, r6 0.00, r9 −0.05), on six units; the reading is
+the majority, not the α.
+
+**The eval (C).** Five of six briefs meet the pre-registered line; the skill-aided arm holds more
+criteria than the unaided arm on every built brief and names all five faults on the review brief;
+the miss (brief 1 at 75%) traces to the skill's own music-player example teaching a glass queue.
+`eval/results.md`.
+
+**The skill.** The proof's central finding is about the skill, not the pages: three of its six
+worked examples contradicted its layer law and every maker followed the example; its cookbook
+inverted the runtime's hint precedence and four makers declared hints on its word. Version 1.0.1
+(plugin 2.4.1) corrects both and states the runtime contracts the makers had to discover; an
+independent review of the diff found seven items, all closed.
+
+**The 2.3 panel (D).** Closed as unmeasurable; its evidence is on `main`; an arithmetic bound shows
+no completion could have met its acceptance.
+
+**Purpose.** Partly met. The skill produces pages that hold the material's layer and material laws
+on every brief its examples derive, which 2.3's did not; it does not yet carry three of six pages
+past the 2.3 line, and the rules it misses are the layout and grouping rules of Apple's chrome
+read on a desktop web page. The user's eye (reading 4) is not in this record.
 
 ## Revision Notes
 
 - 2026-09-27: chartered from the user's ruling on the 2.4.0 spec's three deferred items; nine
   decisions recorded; the recovery path for the 2.3 panel written after the captures were found
   missing.
+- 2026-09-27 (landing): six demos verified and live; the panel read (three of six pass, no fatal
+  failure); the eval graded (five of six); the skill corrected to 1.0.1; Outcomes and the second
+  Deferred wave written; the capture set archived as a release asset.
