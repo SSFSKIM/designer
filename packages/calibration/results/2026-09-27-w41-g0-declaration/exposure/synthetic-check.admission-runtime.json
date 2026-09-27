@@ -1,0 +1,149 @@
+{
+  "schema": "w41-exposure-admission-runtime-proof-1",
+  "scope": "Synthetic pixels and committed inventory metadata only; production freeze branch exercised in temporary repositories; no production execution.",
+  "command": "python3.12 -m unittest discover -s packages/calibration/results/2026-09-27-w41-g0-declaration/exposure -p test_runner.py -v",
+  "tests": 41,
+  "previousTestsPreserved": 24,
+  "newTests": 17,
+  "red": {
+    "tests": 41,
+    "failures": 20,
+    "errors": 2,
+    "includesSubtests": true,
+    "record": "admission-runtime-red.txt"
+  },
+  "green": {
+    "tests": 41,
+    "failures": 0,
+    "errors": 0,
+    "record": "admission-runtime-green.txt"
+  },
+  "setupCorrection": {
+    "record": "admission-runtime-setup-red.txt",
+    "note": "Initial test setup used unresolved macOS temporary directory and root fixture path. Corrected before behavioral RED; not counted as missing-behavior proof."
+  },
+  "inventory": {
+    "path": "packages/calibration/results/2026-09-26-w39-g1-colour-edge-sitting/archive/inventory.json",
+    "sha256": "58329732f947d42cd5e1518962016191faaa79d89b7089c6dadf5724dde35f61",
+    "read": "entries[].cell metadata only; no referenced payload followed"
+  },
+  "scenesSha256": "9ed048b599e104bc1d0f135165fc8b95e7b63781bbc77da800c181e44750fff7",
+  "splitSha256": "5cc9a20ef5c4d54661da4d6267bc161c6295fde5bb9e07a57ffae9a07f0e2bd5",
+  "counts": {
+    "numerical": {
+      "declared": 704,
+      "admitted": 648,
+      "calibrationValidation": 576,
+      "holdout": 72,
+      "excluded": 56
+    },
+    "rendered": {
+      "declared": 608,
+      "admitted": 600,
+      "calibrationValidation": 536,
+      "holdout": 64,
+      "excluded": 8
+    }
+  },
+  "excludedCells": {
+    "numerical": {
+      "apple-macos-27.0-1x-dark-standard-glass0.5/phase-1x-x1__inactive": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-1x-dark-standard-glass0.5/phase-1x-x1__rest": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-1x-dark-standard-glass0.5/phase-1x-x2__inactive": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-1x-dark-standard-glass0.5/phase-1x-x2__rest": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-1x-dark-standard-glass0.5/phase-1x-x3__inactive": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-1x-dark-standard-glass0.5/phase-1x-x3__rest": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-1x-dark-standard-glass0.5/phase-1x-y1__inactive": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-1x-dark-standard-glass0.5/phase-1x-y1__rest": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-1x-dark-standard-glass0.5/phase-1x-y2__inactive": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-1x-dark-standard-glass0.5/phase-1x-y2__rest": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-1x-dark-standard-glass0.5/phase-1x-y3__inactive": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-1x-dark-standard-glass0.5/phase-1x-y3__rest": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-1x-dark-standard-glass0.5/phase-1x-zero__inactive": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-1x-dark-standard-glass0.5/phase-1x-zero__rest": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-1x-light-standard-glass0.5/phase-1x-x1__inactive": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-1x-light-standard-glass0.5/phase-1x-x1__rest": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-1x-light-standard-glass0.5/phase-1x-x2__inactive": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-1x-light-standard-glass0.5/phase-1x-x2__rest": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-1x-light-standard-glass0.5/phase-1x-x3__inactive": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-1x-light-standard-glass0.5/phase-1x-x3__rest": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-1x-light-standard-glass0.5/phase-1x-y1__inactive": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-1x-light-standard-glass0.5/phase-1x-y1__rest": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-1x-light-standard-glass0.5/phase-1x-y2__inactive": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-1x-light-standard-glass0.5/phase-1x-y2__rest": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-1x-light-standard-glass0.5/phase-1x-y3__inactive": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-1x-light-standard-glass0.5/phase-1x-y3__rest": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-1x-light-standard-glass0.5/phase-1x-zero__inactive": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-1x-light-standard-glass0.5/phase-1x-zero__rest": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-2x-dark-standard-glass0.5/phase-2x-x1__inactive": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-2x-dark-standard-glass0.5/phase-2x-x1__rest": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-2x-dark-standard-glass0.5/phase-2x-x2__inactive": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-2x-dark-standard-glass0.5/phase-2x-x2__rest": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-2x-dark-standard-glass0.5/phase-2x-x3__inactive": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-2x-dark-standard-glass0.5/phase-2x-x3__rest": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-2x-dark-standard-glass0.5/phase-2x-y1__inactive": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-2x-dark-standard-glass0.5/phase-2x-y1__rest": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-2x-dark-standard-glass0.5/phase-2x-y2__inactive": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-2x-dark-standard-glass0.5/phase-2x-y2__rest": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-2x-dark-standard-glass0.5/phase-2x-y3__inactive": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-2x-dark-standard-glass0.5/phase-2x-y3__rest": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-2x-dark-standard-glass0.5/phase-2x-zero__inactive": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-2x-dark-standard-glass0.5/phase-2x-zero__rest": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-2x-light-standard-glass0.5/phase-2x-x1__inactive": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-2x-light-standard-glass0.5/phase-2x-x1__rest": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-2x-light-standard-glass0.5/phase-2x-x2__inactive": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-2x-light-standard-glass0.5/phase-2x-x2__rest": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-2x-light-standard-glass0.5/phase-2x-x3__inactive": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-2x-light-standard-glass0.5/phase-2x-x3__rest": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-2x-light-standard-glass0.5/phase-2x-y1__inactive": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-2x-light-standard-glass0.5/phase-2x-y1__rest": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-2x-light-standard-glass0.5/phase-2x-y2__inactive": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-2x-light-standard-glass0.5/phase-2x-y2__rest": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-2x-light-standard-glass0.5/phase-2x-y3__inactive": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-2x-light-standard-glass0.5/phase-2x-y3__rest": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-2x-light-standard-glass0.5/phase-2x-zero__inactive": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-2x-light-standard-glass0.5/phase-2x-zero__rest": "not admitted by fixed archive inventory"
+    },
+    "rendered": {
+      "apple-macos-27.0-1x-dark-standard-glass0.5/phase-1x-zero__inactive": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-1x-dark-standard-glass0.5/phase-1x-zero__rest": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-1x-light-standard-glass0.5/phase-1x-zero__inactive": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-1x-light-standard-glass0.5/phase-1x-zero__rest": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-2x-dark-standard-glass0.5/phase-2x-zero__inactive": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-2x-dark-standard-glass0.5/phase-2x-zero__rest": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-2x-light-standard-glass0.5/phase-2x-zero__inactive": "not admitted by fixed archive inventory",
+      "apple-macos-27.0-2x-light-standard-glass0.5/phase-2x-zero__rest": "not admitted by fixed archive inventory"
+    }
+  },
+  "runtimeArtifacts": {
+    "actualModules": "Complete policy/dist .js/.mjs/.cjs inventory including index.js",
+    "binding": "Actual bytes compared to committed evidence snapshots; mapping in manifest and receipt, snapshot hashes in files",
+    "checks": [
+      "freeze",
+      "before begin",
+      "after capture",
+      "after projection",
+      "after score persistence"
+    ],
+    "regressions": [
+      "missing mapping",
+      "missing build",
+      "extra module",
+      "deleted module",
+      "stale bytes",
+      "uncommitted snapshot",
+      "capture/project/score callback mutation"
+    ],
+    "derivationFromSourceAttested": false
+  },
+  "implementation": {
+    "runner.py": "1913e0f5a88f89efc8e18b5134567af0f5e9b12a611370e7e31ea9281b9475bb",
+    "test_runner.py": "0012c6debaa6a14fe68acf68fa396dfeb399540a1b73099ca62d2b401321c855",
+    "manifest.schema.json": "a2763d4d828475bb9b0baf6407f73920c063b0d0f254070ab71b3299389b5fe2"
+  },
+  "nativePayloadsRead": 0,
+  "archiveReadersConstructed": 0,
+  "productionReceiptOpened": false,
+  "browserLaunches": 0,
+  "actualCaptureIntegrationTested": false
+}

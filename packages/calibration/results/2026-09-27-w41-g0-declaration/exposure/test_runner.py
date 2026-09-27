@@ -1,4 +1,4 @@
-"""Synthetic calibration stand-ins only: no native inventory or capture is opened."""
+"""Synthetic pixels and committed inventory metadata only; no native payload is opened."""
 import json
 import os
 import signal
@@ -447,6 +447,291 @@ class ExposureTests(unittest.TestCase):
                               config='config.json', scorer='scorer.py',
                               declaration='declaration.txt', closure='closure.json',
                               dry_cells=self.cells)
+
+
+    def freeze_runtime(self):
+        self.put('packages/policy/dist/index.js', 'export const policy = 1;')
+        self.put('packages/policy/dist/nested/rule.js', 'export const rule = 2;')
+        mapping = {}
+        for name in ('index.js', 'nested/rule.js'):
+            actual = 'packages/policy/dist/' + name
+            snapshot = 'packages/calibration/results/synthetic-runtime/' + name
+            self.put(snapshot, (self.root / actual).read_text())
+            mapping[actual] = snapshot
+        self.put('config.json', {'profiles': {}, 'runtimeArtifacts': mapping})
+        self.commit()
+        self.manifest = runner.freeze(self.root, self.wave, self.candidates,
+                                      config='config.json', scorer='scorer.py',
+                                      declaration='declaration.txt', closure='closure.json',
+                                      dry_cells=self.cells)
+        self.put('frozen.json', self.manifest)
+        self.commit()
+        return mapping
+
+    def test_compiled_policy_bytes_are_bound_separately_from_sources(self):
+        mapping = self.freeze_runtime()
+        self.assertEqual(self.manifest['runtimeArtifacts'], mapping)
+        for actual, snapshot in mapping.items():
+            self.assertEqual(self.manifest['files'][snapshot], runner.sha(self.root / actual))
+            self.assertNotIn(actual, self.manifest['sourceFiles'])
+        self.run_exposure()
+        renderer = json.loads(self.log.read_text().splitlines()[0])['configuration']['renderer']
+        self.assertEqual(renderer['runtimeArtifacts'], mapping)
+
+    def test_changed_compiled_policy_refused_before_begin(self):
+        self.freeze_runtime()
+        self.put('packages/policy/dist/index.js', 'export const policy = 999;')
+        with self.assertRaisesRegex(ValueError, 'runtime artifact'):
+            self.run_exposure()
+        self.assertFalse(self.log.exists())
+        self.assertFalse(self.calls)
+
+    def test_added_compiled_policy_module_refused_before_begin(self):
+        self.freeze_runtime()
+        self.put('packages/policy/dist/extra.js', 'export const extra = 1;')
+        with self.assertRaisesRegex(ValueError, 'runtime artifact'):
+            self.run_exposure()
+        self.assertFalse(self.log.exists())
+        self.assertFalse(self.calls)
+
+    def test_deleted_compiled_policy_module_refused_before_begin(self):
+        self.freeze_runtime()
+        (self.root / 'packages/policy/dist/nested/rule.js').unlink()
+        with self.assertRaisesRegex(ValueError, 'runtime artifact'):
+            self.run_exposure()
+        self.assertFalse(self.log.exists())
+
+    def test_uncommitted_runtime_snapshot_refused(self):
+        mapping = self.freeze_runtime()
+        actual, snapshot = next(iter(mapping.items()))
+        self.put(actual, 'export const changed = 2;')
+        self.put(snapshot, 'export const changed = 2;')
+        with self.assertRaisesRegex(ValueError, 'uncommitted frozen input'):
+            self.run_exposure()
+        self.assertFalse(self.log.exists())
+
+    def test_policy_mutated_in_capture_refused_before_projection(self):
+        self.freeze_runtime()
+        def mutate(request):
+            paths = self.capture(request)
+            self.put('packages/policy/dist/index.js', 'export const policy = 99;')
+            return paths
+        with patch.object(self, 'project', side_effect=AssertionError('projection must not run')):
+            with self.assertRaisesRegex(ValueError, 'runtime artifact'):
+                self.run_exposure(capture=mutate)
+        self.assert_failed_evidence('runtime artifact')
+
+    def test_policy_mutated_in_projection_refused_before_scoring(self):
+        self.freeze_runtime()
+        def mutate(cell, path):
+            self.put('packages/policy/dist/index.js', 'export const policy = 99;')
+            return {'rgb': [80, 90, 100]}
+        with patch.object(self, 'project', side_effect=mutate), \
+                patch.object(self, 'score', side_effect=AssertionError('score must not run')):
+            with self.assertRaisesRegex(ValueError, 'runtime artifact'):
+                self.run_exposure()
+        self.assert_failed_evidence('runtime artifact')
+
+    def test_policy_mutated_in_score_preserves_returned_evidence(self):
+        self.freeze_runtime()
+        returned = {}
+        def mutate(request):
+            returned.update(self.score(request))
+            self.put('packages/policy/dist/index.js', 'export const policy = 99;')
+            return returned
+        with self.assertRaisesRegex(ValueError, 'runtime artifact'):
+            self.run_exposure(score=mutate)
+        self.assert_failed_evidence('runtime artifact', returned)
+
+
+class ProductionScopeTests(unittest.TestCase):
+    """Exercise freeze's production branch in scratch with real admission metadata.
+
+    Only the location guards move. All cells, split, inventory bytes, coverage and
+    commit checks run unchanged. PNGs/backdrops are generated solid stand-ins;
+    no production exposure, receipt, archive Reader or referenced payload is used.
+    """
+    put = ExposureTests.put
+    commit = ExposureTests.commit
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory(prefix='w41-production-scope-test-')
+        self.addCleanup(self.tmp.cleanup)
+        self.root = Path(self.tmp.name).resolve()
+        git(self.root, 'init', '-q')
+        git(self.root, 'config', 'user.email', 'test@example.invalid')
+        git(self.root, 'config', 'user.name', 'Synthetic test')
+        real = runner.boundary.default_wave()
+        for name, value in [('scenes.json', real.spec), ('split.json', real.split)]:
+            self.put(name, value)
+        self.put('pins.json', {'scenesSha256': runner.sha(self.root / 'scenes.json'),
+                              'splitSha256': runner.sha(self.root / 'split.json')})
+        self.wave = runner.boundary.Wave(self.root / 'scenes.json', self.root / 'split.json',
+                                        self.root / 'pins.json')
+        self.inventory = ('packages/calibration/results/'
+                          '2026-09-26-w39-g1-colour-edge-sitting/archive/inventory.json')
+        data = (runner.ROOT / self.inventory).read_bytes()
+        self.assertEqual(runner.sha(runner.ROOT / self.inventory), runner.INVENTORY_SHA)
+        # Read only entries[].cell; no path in this document is followed.
+        admitted = {entry['cell'] for entry in json.loads(data)['entries']}
+        self.put(self.inventory, data.decode())
+        self.numerical = sorted(set(runner.cells_for(self.wave, runner.boundary.ROLES)) & admitted)
+        self.rendered = sorted(set(runner.cells_for(self.wave, runner.boundary.ROLES, True)) & admitted)
+        self.expected = {'numerical': self.numerical, 'rendered': self.rendered}
+        self.put('parameters.json', {'gain': 1})
+        self.put('predictions.json', {'cells': {c: [80, 90, 100] for c in self.numerical}})
+        images, backgrounds = {}, {}
+        for scale in (1, 2):
+            size = (self.wave.spec['canvas']['width'] * scale,
+                    self.wave.spec['canvas']['height'] * scale)
+            Image.new('RGB', size, (80, 90, 100)).save(self.root / f'{scale}x.png')
+        self.put('projection.json', {'synthetic': True})
+        for cell in self.rendered:
+            scale = 2 if '-2x-' in cell else 1
+            images[cell] = {'png': f'{scale}x.png', 'projection': 'projection.json'}
+            background = self.wave.scenes[cell.split('/', 1)[1]]['background']
+            backgrounds[f'{background}@{scale}x'] = f'{scale}x.png'
+        self.put('backdrops/manifest.json', {'backgrounds': backgrounds})
+        for scale in (1, 2):
+            (self.root / f'backdrops/{scale}x.png').write_bytes(
+                (self.root / f'{scale}x.png').read_bytes())
+        self.put('rendered.json', {'cells': images})
+        self.put('survival.json', {kind: {c: True for c in cells
+                 if self.wave.roles[c.split('/', 1)[1]] != 'holdout'}
+                 for kind, cells in self.expected.items()})
+        self.put('scorer.py', '# synthetic; never imported in production scope tests')
+        self.here = self.root / 'packages/calibration/results/2026-09-27-w41-g0-declaration/exposure'
+        self.declaration = str((self.here.parent / 'bounds-declaration.txt').relative_to(self.root))
+        self.closure = str((self.here.parent / 'closure.json').relative_to(self.root))
+        self.put(self.declaration, 'synthetic declaration, not evidence')
+        self.put(self.closure, {'boundsDeclarationSha256': runner.sha(self.root / self.declaration)})
+        boundary_path = self.root / runner.BOUNDARY_PATH.relative_to(runner.ROOT)
+        for path in (runner.BOUNDARY_PATH, runner.BOUNDARY_PATH.parent / 'w39_readers.py',
+                     runner.BOUNDARY_PATH.parent / 'w39_archive.py',
+                     runner.BOUNDARY_PATH.parent / 'pins.json', Path(runner.__file__)):
+            self.put(str(path.relative_to(runner.ROOT)), path.read_text())
+        self.mapping = {'packages/policy/dist/index.js':
+                        'packages/calibration/results/synthetic-runtime/index.js'}
+        for name in (*self.mapping, *self.mapping.values()):
+            self.put(name, 'export const policy = 1;')
+        self.config = {'fixtures': 'backdrops', 'runtimeArtifacts': self.mapping, 'candidates': {
+            'standin': {'profiles': {c.split('/', 1)[0]: {'material': 'parameters.json',
+                'receded': 'parameters.json'} for c in self.rendered}}}}
+        self.put('config.json', self.config)
+        self.candidates = [{'id': 'standin', 'parameters': 'parameters.json',
+                            'predictions': 'predictions.json', 'rendered': 'rendered.json',
+                            'survival': 'survival.json'}]
+        for name, value in [('ROOT', self.root), ('HERE', self.here),
+                            ('BOUNDARY_PATH', boundary_path),
+                            ('__file__', str(self.here / 'runner.py'))]:
+            patcher = patch.object(runner, name, value)
+            patcher.start()
+            self.addCleanup(patcher.stop)
+        self.commit()
+
+    def freeze(self):
+        return runner.freeze(self.root, self.wave, self.candidates, config='config.json',
+                             scorer='scorer.py', declaration=self.declaration, closure=self.closure)
+
+    def test_production_scope_intersects_fixed_inventory_without_recutting_split(self):
+        manifest = self.freeze()
+        self.assertEqual(manifest['mode'], 'production')
+        self.assertEqual(manifest['inventory'], self.inventory)
+        self.assertEqual(manifest['files'][self.inventory], runner.INVENTORY_SHA)
+        self.assertEqual(manifest['numericalCells'], self.numerical)
+        self.assertEqual(manifest['renderedCells'], self.rendered)
+        self.assertEqual((len(self.numerical), len(self.rendered)), (648, 600))
+        for kind, cells in self.expected.items():
+            holdout = [c for c in cells if self.wave.roles[c.split('/', 1)[1]] == 'holdout']
+            self.assertEqual(len(holdout), 72 if kind == 'numerical' else 64)
+            self.assertEqual(len(cells) - len(holdout), 576 if kind == 'numerical' else 536)
+            declared = runner.cells_for(self.wave, runner.boundary.ROLES, kind == 'rendered')
+            excluded = manifest['excludedCells'][kind]
+            self.assertEqual(set(excluded), set(declared) - set(cells))
+            self.assertEqual(len(excluded), 56 if kind == 'numerical' else 8)
+            self.assertEqual(set(excluded.values()), {'not admitted by fixed archive inventory'})
+            self.assertTrue(all(self.wave.roles[c.split('/', 1)[1]] == 'calibration'
+                                for c in excluded))
+        self.assertEqual(manifest['split'], self.wave.split_sha)
+        self.assertEqual(manifest['runtimeArtifacts'], self.mapping)
+        self.put('frozen.json', manifest)
+        self.commit()
+        self.assertEqual(runner.verify(self.root, self.wave, self.root / 'frozen.json',
+                                       'production'), manifest)
+
+    def test_missing_inventory_refuses_production_freeze(self):
+        (self.root / self.inventory).unlink()
+        with self.assertRaisesRegex(ValueError, 'inventory'):
+            self.freeze()
+
+    def test_committed_inventory_tampering_cannot_redefine_admission(self):
+        value = runner.load(self.root / self.inventory)
+        value['entries'] = value['entries'][1:]
+        self.put(self.inventory, value)
+        self.commit()
+        with self.assertRaisesRegex(ValueError, 'inventory'):
+            self.freeze()
+
+    def test_production_rejects_admitted_prediction_or_survival_omissions(self):
+        # Each branch must reach its own membership check, not fail on an earlier
+        # missing generated artifact or on the old 704-cell declared scope.
+        for name, kind in [('predictions.json', 'numerical'), ('rendered.json', 'rendered'),
+                           ('survival.json', 'numerical'), ('survival.json', 'rendered')]:
+            original = (self.root / name).read_text()
+            data = json.loads(original)
+            values = data[kind] if name == 'survival.json' else data['cells']
+            removed = next(iter(values))
+            del values[removed]
+            self.put(name, data)
+            self.commit()
+            with self.subTest(name=name, kind=kind):
+                with self.assertRaisesRegex(ValueError, kind + ' .*coverage mismatch') as error:
+                    self.freeze()
+                self.assertIn(removed, str(error.exception))
+                self.assertNotIn('extra=[\'', str(error.exception))
+            self.put(name, original)
+            self.commit()
+
+    def test_unadmitted_phase_probe_cannot_enter_predictions_or_survival(self):
+        for name, kind in [('predictions.json', 'numerical'), ('rendered.json', 'rendered'),
+                           ('survival.json', 'numerical'), ('survival.json', 'rendered')]:
+            original = (self.root / name).read_text()
+            data = json.loads(original)
+            values = data[kind] if name == 'survival.json' else data['cells']
+            extra = sorted(set(runner.cells_for(self.wave, runner.boundary.ROLES,
+                                                kind == 'rendered')) - set(self.expected[kind]))[0]
+            values[extra] = next(iter(values.values()))
+            self.put(name, data)
+            self.commit()
+            with self.subTest(name=name, kind=kind):
+                with self.assertRaisesRegex(ValueError, kind + ' .*coverage mismatch') as error:
+                    self.freeze()
+                self.assertIn(extra, str(error.exception))
+                self.assertIn('missing=[]', str(error.exception))
+            self.put(name, original)
+            self.commit()
+
+    def test_source_only_production_freeze_cannot_omit_runtime_mapping(self):
+        del self.config['runtimeArtifacts']
+        self.put('config.json', self.config)
+        self.commit()
+        with self.assertRaisesRegex(ValueError, 'runtime artifact'):
+            self.freeze()
+
+    def test_missing_policy_build_refuses_production_freeze(self):
+        (self.root / 'packages/policy/dist/index.js').unlink()
+        with self.assertRaisesRegex(ValueError, 'runtime artifact'):
+            self.freeze()
+
+    def test_incomplete_policy_module_inventory_refuses_production_freeze(self):
+        self.put('packages/policy/dist/extra.js', 'export const extra = 1;')
+        with self.assertRaisesRegex(ValueError, 'runtime artifact'):
+            self.freeze()
+
+    def test_stale_policy_build_refuses_production_freeze(self):
+        self.put('packages/policy/dist/index.js', 'export const policy = 0;')
+        with self.assertRaisesRegex(ValueError, 'runtime artifact'):
+            self.freeze()
 
 
 if __name__ == '__main__':

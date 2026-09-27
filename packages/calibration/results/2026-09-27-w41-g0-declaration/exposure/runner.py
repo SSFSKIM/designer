@@ -25,7 +25,10 @@ spec.loader.exec_module(boundary)
 ROOT = boundary.ROOT
 PRODUCTION_LOG = BOUNDARY_PATH.parent / 'wave-identification-receipt.jsonl'
 INVENTORY_SHA = '58329732f947d42cd5e1518962016191faaa79d89b7089c6dadf5724dde35f61'
-# Source aliases in calibration/web/vite.config.ts draw these trees, not dist.
+INVENTORY_PATH = ('packages/calibration/results/'
+                  '2026-09-26-w39-g1-colour-edge-sitting/archive/inventory.json')
+POLICY_DIST = 'packages/policy/dist'
+# Most runtime packages are source-aliased; policy executes dist and is bound separately.
 SOURCE_ROOTS = tuple('packages/' + p + '/src' for p in
                      ('core', 'platform-web', 'renderer-webgpu', 'policy', 'geometry', 'motion')) + (
     'packages/calibration/web', 'packages/calibration/scripts', 'packages/calibration/src')
@@ -105,6 +108,51 @@ def cells_for(wave, roles, web=False):
     return sorted(c for c in wave.cells if c.split('/', 1)[1] in ids)
 
 
+def admitted_scope(root, wave):
+    """Use the fixed committed inventory's cell metadata, never its payload paths.
+
+    Declared but uncaptured phase probes cannot veto a survivor. This intersection
+    changes admission only; it neither recuts the split nor narrows standing sheets.
+    """
+    path = local(root, INVENTORY_PATH)
+    if not path.is_file():
+        raise ValueError('fixed archive inventory is missing')
+    if committed(root, INVENTORY_PATH) != INVENTORY_SHA:
+        raise ValueError('fixed archive inventory hash mismatch')
+    admitted = {entry['cell'] for entry in load(path)['entries']}
+    included, excluded = {}, {}
+    for kind in ('numerical', 'rendered'):
+        declared = set(cells_for(wave, boundary.ROLES, kind == 'rendered'))
+        included[kind] = sorted(declared & admitted)
+        excluded[kind] = {cell: 'not admitted by fixed archive inventory'
+                          for cell in sorted(declared - admitted)}
+    return included, excluded
+
+
+def verify_runtime_artifacts(root, mapping, *, required):
+    """Bind executed policy modules, not a claim that a lockfile attests a build.
+
+    The complete generated JS inventory must match explicit committed evidence
+    snapshots byte-for-byte. Empty synthetic configurations need no workspace build.
+    """
+    if not isinstance(mapping, dict):
+        raise ValueError('runtime artifact mapping must be an object')
+    if not required and not mapping:
+        return
+    modules = sorted(str(path.relative_to(root)) for path in (root / POLICY_DIST).rglob('*')
+                     if path.is_file() and path.suffix in ('.js', '.mjs', '.cjs'))
+    if POLICY_DIST + '/index.js' not in modules:
+        raise ValueError('runtime artifact policy entry point is missing')
+    coverage(mapping, modules, 'runtime artifact inventory')
+    for actual, snapshot in mapping.items():
+        if (not isinstance(snapshot, str)
+                or not snapshot.startswith('packages/calibration/results/')):
+            raise ValueError('runtime artifact snapshot must be committed evidence')
+        expected = committed(root, snapshot)
+        if sha(local(root, actual)) != expected:
+            raise ValueError('runtime artifact differs from committed snapshot: ' + actual)
+
+
 def dimension(wave, cell):
     profile = cell.split('/', 1)[0]
     match = re.search(r'-(1|2)x-', profile)
@@ -125,19 +173,23 @@ def png(path, expected=None):
 
 def freeze(root, wave, candidates, *, config, scorer, declaration, closure,
            instruments=(), dry_cells=None):
-    """Return a manifest to write and commit BEFORE exposure. All inputs already committed.
+    """Return a manifest to commit BEFORE exposure; build bytes need committed snapshots.
 
-    Production covers all glass cells numerically and all web-plannable glass
-    cells in rendered predictions, across calibration, validation AND holdout.
+    Production covers declared AND archive-admitted glass cells numerically and
+    their web-plannable subset, across calibration, validation AND holdout.
     A scratch manifest instead covers an explicit nonempty calibration subset.
     """
     root = Path(root).resolve()
     dry = dry_cells is not None
     if not dry and root != ROOT:
         raise ValueError('production freeze belongs to the inherited W39 repository')
-    numerical = sorted(set(dry_cells)) if dry else cells_for(wave, boundary.ROLES)
-    rendered = (sorted(set(numerical) & set(cells_for(wave, ('calibration',), True))) if dry
-                else cells_for(wave, boundary.ROLES, True))
+    excluded = {'numerical': {}, 'rendered': {}}
+    if dry:
+        numerical = sorted(set(dry_cells))
+        rendered = sorted(set(numerical) & set(cells_for(wave, ('calibration',), True)))
+    else:
+        included, excluded = admitted_scope(root, wave)
+        numerical, rendered = included['numerical'], included['rendered']
     if not numerical or (dry and not set(numerical) <= set(cells_for(wave, ('calibration',)))):
         raise ValueError('synthetic stand-ins must be nonempty calibration glass cells')
     if not rendered:
@@ -151,6 +203,7 @@ def freeze(root, wave, candidates, *, config, scorer, declaration, closure,
     files = set(source_list) | {config, scorer, declaration, closure} | set(instruments)
     files.update(str(p.resolve().relative_to(root)) for p in (wave.scenes_path, wave.split_path))
     if not dry:
+        files.add(INVENTORY_PATH)
         if (local(root, declaration) != HERE.parent / 'bounds-declaration.txt'
                 or local(root, closure) != HERE.parent / 'closure.json'):
             raise ValueError('production must bind the unchanged W41 G0 declaration')
@@ -160,6 +213,9 @@ def freeze(root, wave, candidates, *, config, scorer, declaration, closure,
         if sha(local(root, declaration)) != load(local(root, closure))['boundsDeclarationSha256']:
             raise ValueError('declaration/closure hash disagreement')
     runtime = load(local(root, config))
+    runtime_artifacts = runtime.get('runtimeArtifacts', {})
+    verify_runtime_artifacts(root, runtime_artifacts, required=not dry)
+    files.update(runtime_artifacts.values())
     if not dry:
         coverage(runtime['candidates'], [c['id'] for c in candidates], 'renderer candidates')
         for candidate in candidates:
@@ -213,6 +269,8 @@ def freeze(root, wave, candidates, *, config, scorer, declaration, closure,
                 scenes=wave.scenes_sha, split=wave.split_sha,
                 generation=[hashlib.sha256(b'W41 synthetic calibration only').hexdigest()
                             if dry else INVENTORY_SHA],
+                inventory=None if dry else INVENTORY_PATH, excludedCells=excluded,
+                runtimeArtifacts=runtime_artifacts,
                 numericalCells=numerical, renderedCells=rendered,
                 sourceFiles=source_list, files=hashes, candidates=candidates,
                 config=config, scorer=scorer, declaration=declaration, closure=closure,
@@ -274,7 +332,8 @@ class ScoreRequest:
 def capture_web(request):
     """Real web-only backend. No compare/matrix CLI, native Reader or harness bundle.
 
-    Uses the existing source-aliased Chromium driver once per candidate/profile.
+    Uses the existing Chromium driver with source aliases and the bound policy build.
+    It captures once per candidate/profile.
     Its two independent page loads are a single capture's determinism measurement,
     not a retry of the archive exposure. Any process/cell failure propagates.
     """
@@ -352,10 +411,10 @@ def _run(root, wave, manifest_path, log, output, capture, project, score, mode):
     score_report = Path(log).with_name(Path(log).stem + '-scores.json')
     if output.exists() or score_report.exists():
         raise ValueError('capture destination or score record already exists; no reuse or retry')
-    numerical = (manifest['numericalCells'] if mode == 'synthetic' else
-                 cells_for(wave, ('holdout',)))
-    rendered = (manifest['renderedCells'] if mode == 'synthetic' else
-                cells_for(wave, ('holdout',), True))
+    numerical = [c for c in manifest['numericalCells']
+                 if mode == 'synthetic' or wave.roles[c.split('/', 1)[1]] == 'holdout']
+    rendered = [c for c in manifest['renderedCells']
+                if mode == 'synthetic' or wave.roles[c.split('/', 1)[1]] == 'holdout']
     candidates = {c['id']: c for c in manifest['candidates']}
     configuration = dict(scenes=manifest['scenes'], split=manifest['split'],
                          generation=manifest['generation'], instrument=manifest['boundarySha256'],
@@ -363,6 +422,7 @@ def _run(root, wave, manifest_path, log, output, capture, project, score, mode):
                          candidate=manifest['candidates'], frozenFiles=manifest['files'],
                          manifestSha256=manifest_sha, mode=mode,
                          renderer=dict(revision=manifest['revision'],
+                                       runtimeArtifacts=manifest['runtimeArtifacts'],
                                        sources={p: manifest['files'][p] for p in manifest['sourceFiles']},
                                        configuration=manifest['files'][manifest['config']]))
 
@@ -391,6 +451,8 @@ def _run(root, wave, manifest_path, log, output, capture, project, score, mode):
                 request = CaptureRequest(wave, authorization, root, deepcopy(manifest),
                                          candidate['id'], tuple(rendered), destination)
                 captured = capture(request)
+                verify_runtime_artifacts(root, manifest['runtimeArtifacts'],
+                                         required=mode == 'production')
                 if request.manifest != manifest:
                     raise ValueError('capture callback mutated its manifest')
                 coverage(captured, rendered, 'captured cells')
@@ -407,6 +469,8 @@ def _run(root, wave, manifest_path, log, output, capture, project, score, mode):
                     if digest != manifest['files'][frozen[cell]['png']]:
                         raise ValueError('capture changed a frozen rendered prediction')
                     projection = project(cell, path)
+                    verify_runtime_artifacts(root, manifest['runtimeArtifacts'],
+                                             required=mode == 'production')
                     if stable(projection) != stable(load(root / frozen[cell]['projection'])):
                         raise ValueError('capture changed a frozen rendered prediction projection')
                     verified[cell] = path

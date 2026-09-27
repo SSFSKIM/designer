@@ -1,6 +1,6 @@
 # W41 renderer-bound single exposure
 
-Clauses 2/11, X26, X31 v2.2, claims §5.191. `runner.py` extends the inherited W39
+Clauses 2/11 (charter v2.3), X26, X31 v2.2, claims §5.191. `runner.py` extends the inherited W39
 `wave.py` boundary without modifying it. This directory contains an instrument,
 not a candidate, exposure, browser measurement or native reading.
 
@@ -13,8 +13,8 @@ python3.12 -m unittest discover \
 ```
 
 Python 3.12 and Pillow suffice. The tests create temporary Git repositories,
-copy **metadata only** from the W39 Wave, freeze committed synthetic predictions,
-write 2×2 synthetic RGB images through an injected backend, and measure both
+copy **metadata only** from the W39 Wave and fixed committed archive inventory,
+freeze committed synthetic predictions, write 2×2 synthetic RGB images through an injected backend, and measure both
 numerical predictions and those new images against independent `[80,90,100]`
 observations. Their receipts are temporary scratch files, not the W39 log.
 The synthetic receipt does not authorize the W39 inventory generation.
@@ -28,9 +28,34 @@ manifest/candidate/capture-map mutation cannot rewrite the trusted comparisons,
 and a child killed with SIGKILL between score persistence and verdict leaves its
 scores beside the spent scratch receipt. `fix-wave-red.txt` records 24 tests with
 four failures and four missing-evidence errors before the fixes;
-`fix-wave-green.txt` records all 24 passing. See `synthetic-check.json` for the
-recorded dry-run numbers. One separate test exercises the real subprocess
-backend's command construction and output/provenance parsing using a substituted
+`fix-wave-green.txt` records all 24 passing. The second fix wave adds 17 tests:
+production freeze uses the real inventory metadata with synthetic predictions,
+refuses omitted/admission-tampered cells, and checks compiled policy bytes and
+module inventory before begin and after callbacks. `admission-runtime-red.txt`
+records 41 tests with 20 failures and two errors (including subtests);
+`admission-runtime-green.txt` records all 41 passing. The earlier setup-only
+failure is retained separately as `admission-runtime-setup-red.txt`, not counted
+as the behavior RED. The production-branch tests relocate only path guards into
+a temporary repository; they do not call production execution. Their solid PNGs
+are generated at the metadata dimensions, not native or browser observations.
+
+### Proof chronology
+
+These three snapshots are additive evidence, not a rolling test-count file:
+
+1. [`synthetic-check.json`](synthetic-check.json): original 16-test reading,
+   restored byte-for-byte from `17e2fccc888a0ae5f6252d3cac73705a4245d86b`.
+2. [`synthetic-check.durability.json`](synthetic-check.durability.json): verbatim
+   24-test snapshot from `33a8954fc157925e3de7918ce7567fee5941ef85`. That commit
+   had overwritten the original pathname; this correction preserves both
+   observations explicitly. Neither historical snapshot is to be overwritten.
+3. [`synthetic-check.admission-runtime.json`](synthetic-check.admission-runtime.json):
+   this 41-test proof, inventory admission counts and implementation hashes.
+
+[`evidence-index.json`](evidence-index.json) records full hashes and provenance
+for the three snapshots and their RED/GREEN transcripts.
+
+One separate test exercises the real subprocess backend's command construction and output/provenance parsing using a substituted
 process; **it does not launch Chromium**. No native payload, archive Reader,
 native bundle, matrix CLI, browser or actual web capture was used in G0.
 
@@ -42,8 +67,11 @@ run accidentally. Production cannot take a log path or an injected backend.
 the evidence repository; it does not open or inspect the production receipt.
 
 1. Commit the renderer, its numerical candidates, its configuration, its scorer
-   and every prediction payload. A candidate is an implemented surviving
-   **composite** (body/stroke operators and their held surroundings), not a
+   and every prediction payload. Build `@vitrea/policy`, copy every generated JS
+   module under `packages/policy/dist/` into committed evidence snapshots, and
+   declare their `runtimeArtifacts` mapping as described below. Source-only
+   freezes and missing/stale compiled artifacts are refused. A candidate is an
+   implemented surviving **composite** (body/stroke operators and their held surroundings), not a
    numerical-only family that would evade the rendered referee. Different
    composites have different candidate IDs and document pairs. Spatial findings
    and failed families are frozen as supplementary artifacts, not carried as
@@ -79,19 +107,26 @@ The files have these contracts:
 
 - `parameters.json`: nonempty JSON holding **every frozen numerical coefficient**.
 - `numerical-predictions.json`: `{"cells":{"profile/scene":<prediction>,...}}`.
-  Supply every glass cell across calibration, validation and holdout, including
-  the native-only cells. The numerical instrument owns each prediction's inner
-  shape; it must not be empty or contain NaN/Infinity. A prediction is a forward
+  Supply every **declared AND archive-admitted glass** cell across calibration,
+  validation and holdout, including glass placements the web runtime cannot pose.
+  No-glass references and opaque controls are not prediction cells. The numerical
+  instrument owns each prediction's inner shape; it must not be empty or contain NaN/Infinity. A prediction is a forward
   output, not a path or digest substituting for its payload.
 - `rendered-predictions.json`: `{"cells":{"profile/scene":{"png":"path.png",
-  "projection":"path.json"},...}}`. Supply every **web-plannable** glass cell
-  across all three roles. Each PNG is decoded and dimension-checked. Each
+  "projection":"path.json"},...}}`. Supply every **web-plannable, admitted**
+  glass cell across all three roles. Each PNG is decoded and dimension-checked. Each
   projection is finite JSON from the same `project` routine used during exposure.
-  Frozen held-out **web** predictions contain no native measurement; native
-  holdout remains unopened. No missing PNG can be replaced by a numerical output.
+  Under clause 11 / charter v2.3, held-out **web** predictions are produced
+  **blind before exposure**, solely from public declared backdrop and geometry
+  through the committed generated-backdrop bundle: never from a native fixture
+  or archive payload. Freeze hashes those predictions while native holdout stays
+  unopened. The receipt recaptures and requires byte/projection equality **before
+  native held-out scoring**; mismatch or nondeterminism fails and spends the
+  exposure. “Inside the receipt” governs every Apple held-out pixel read, not the
+  blind web renders. No missing PNG can be replaced by a numerical output.
 - `survival.json`: `{"numerical":{"profile/scene":true,...},
   "rendered":{"profile/scene":true,...}}`. These are the scorer's admission
-  summaries for every calibration/validation cell in the respective scope;
+  summaries for every **admitted** calibration/validation cell in the respective scope;
   A `true` means every admitted constraint is met: measured channels satisfy
   max(1,bar), rail channels satisfy their hard one-sided bounds, and deficient
   bins are excluded and counted under X31 v2.2. `false`, missing, extra or holdout
@@ -99,7 +134,9 @@ The files have these contracts:
   survival/veto reports in `instruments` too: the booleans are admission, **not a
   substitute for the charter's per-channel/bin, seven-repeat proof**.
 - The configuration is
-  `{"fixtures":"path/to/generated-web-backdrops","candidates":{
+  `{"fixtures":"path/to/generated-web-backdrops","runtimeArtifacts":{
+  "packages/policy/dist/index.js":"packages/calibration/results/.../policy/index.js"},
+  "candidates":{
   "composite-e3-m1":{"profiles":{"profile-key":{"material":"active.json",
   "receded":"receded.json"}}}}}`. Every candidate needs all rendered profiles.
   Both material document bytes are frozen. These are scratch candidate documents,
@@ -109,19 +146,52 @@ The files have these contracts:
   `@2x`). Every required background PNG is frozen, decoded and dimension-checked.
   G1 supplies these non-captured sRGB rasters; this runner never runs the native
   harness to create them or mounts a native capture tree.
+- `runtimeArtifacts` in the configuration maps each actual repo-relative policy
+  JS module path to its committed evidence snapshot path. Include **every** `.js`,
+  `.mjs` or `.cjs` module recursively under `packages/policy/dist/`, including
+  `index.js`; the one-entry example above suffices only for a one-module build.
+  Snapshots must live under `packages/calibration/results/`. Freeze checks their
+  committed bytes against the actual build, hashes the snapshots into `files`,
+  and copies the mapping into the manifest and receipt renderer record. This
+  separately identifies what executed; it does not claim the build was derived
+  from the frozen source or that a lockfile attests generated workspace output.
+  A synthetic subset may omit the mapping; if supplied, it receives the same
+  inventory and byte checks. Production may never omit it.
 - `scorer.py`: the committed scoring module described below. `instruments` lists
   any other imported code, numerical inputs, resolved-material sidecars, spatial
   findings, veto reports and configuration that determine predictions or scores.
 
-`files` in the manifest maps **every input path to its full SHA-256**. In
-addition, the runner automatically freezes the source-aliased runtime packages,
+`files` in the manifest maps **every committed input path to its full SHA-256**;
+actual generated modules are identified separately by `runtimeArtifacts`. In
+addition, the runner automatically freezes runtime package sources (including
+policy source even though Vite executes its compiled build),
 calibration web/scripts/src, package manifests, workspace/lock files, and all
 Python sources in the W39 G0/G2 and W41 G0 instrument trees. Added or deleted
 source files are changes too. `revision` names the source commit;
 `boundarySha256` and `runnerSha256` name the executing Python boundary;
 `scenes`, `split`, `generation`, `sourceFiles`, `numericalCells` and
 `renderedCells` pin the membership and source inventories. The sole production
-`generation` is W39's inventory SHA `58329732…35f61`.
+`generation` is W39's inventory SHA
+`58329732f947d42cd5e1518962016191faaa79d89b7089c6dadf5724dde35f61`.
+
+Production always binds the committed metadata file
+`packages/calibration/results/2026-09-26-w39-g1-colour-edge-sitting/archive/inventory.json`
+as `inventory` and in `files`, checking its exact fixed SHA before reading
+`entries[].cell`. No referenced payload is opened by freeze. Both prediction
+membership and survival membership derive from declared glass **intersected with
+that admission**, not from every declared phase probe:
+
+| Scope | Declared | Admitted | Calibration/validation | Holdout | Excluded |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Numerical | 704 | 648 | 576 | 72 | 56 |
+| Rendered | 608 | 600 | 536 | 64 | 8 |
+
+`excludedCells.numerical` and `.rendered` explicitly map each omitted cell to
+`not admitted by fixed archive inventory`; all of these are calibration phase
+probes. The split is unchanged; standing sheets deliberately retain the broader
+declared scope. Exposure selects holdout from the admitted manifest lists.
+Synthetic subset manifests have `inventory: null` and empty exclusion maps;
+they do not acquire the fixed archive's production authority.
 
 ## Scorer interface and authority
 
@@ -194,7 +264,11 @@ Every returned cell must be present under the fresh output directory, have the
 **identical PNG bytes** to its frozen web prediction and reproduce its projection
 exactly. Then the native scorer runs. Frozen inputs and the original manifest
 identity are reverified after capture and after scoring, and the fresh PNGs are
-rehashed against independently held capture-time hashes after scoring.
+rehashed against independently held capture-time hashes after scoring. Actual
+policy build bytes and module inventory are verified before `begin`, immediately
+after every capture/project callback, and after scoring (after the score has been
+durably retained). An added module, removed module or stale build refuses the
+attempt, even if every frozen prediction PNG would otherwise match.
 
 Immediately when `score` returns valid JSON, the runner writes the **full returned
 report** (all bins/channels/repeats, not just passing summaries) to the runner-owned
@@ -233,7 +307,9 @@ changes the inherited W39 source, declaration, split or protected evidence.
   Committed scorer code is trusted to implement the declared statistics, use
   guarded Readers and list transitive inputs. The runner checks its outputs and
   authority lifecycle; it is not a Python sandbox or a second numerical solver.
-- A source/lock freeze does not attest installed dependency bytes or the GPU/OS.
+- The explicit policy snapshot binding attests those executed workspace bytes,
+  not their derivation from source. A source/lock freeze does not attest other
+  installed dependency bytes or the GPU/OS.
   G1 must install from the frozen lock and use its attested capture environment.
   Exact output/projection comparison prevents a changed rendered prediction
   from inheriting closure; nondeterministic rendering spends the attempt.
