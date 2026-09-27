@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """The verdict on the six materialist demos (spec: docs/doperpowers/specs/2026-09-27-materialist-
-proof.md, "B. The instrument": the four readings and the pass line).
+proof.md, "B. The instrument": the four readings and the pass line), and with `--rules spatial` on
+the spatial-register pages (2026-09-27-materialist-spatial-register.md, "B. The rulebook and the
+instrument"; the last paragraph below).
 
-    python3 glass-rules-analyze.py [--out results.md]
+    python3 glass-rules-analyze.py [--rules instrument|spatial] [--out results.md]
 
 Reads, under the initiative's data directory (GLASS_DATA overrides it, as in `glass-rules.py`):
 
@@ -38,6 +40,26 @@ The instrument is read while it is still being collected, so every table says wh
 majority over two raters is not the majority the pass line means, and no demo gets a final verdict
 until the four named raters have answered it. Standard library only; the statistics come from the
 settling instrument's `reliability.py` rather than from a second implementation of them.
+
+With `--rules spatial` the same readings run on the spatial rulebook (`glass-rules.py --rules
+spatial`), its data directory and its pages, and everything above holds but the rulebook and the
+line. Each rule prints with what it is to the six's: `= rN` repeats instrument rule rN verbatim,
+`~ rN` adapts it, `new` is the register's own. The three assigned readings follow whichever item
+repeats r18, r19 or r23; r18's is the audit's per-line contrast on the glyph-suppressed captures
+(`lineContrast`), the worst line gating, over every state the audit read. The pass line: every
+rule tagged `[environment]`, `[layer]` or `[material]` holds; at least 88 % of the rulebook holds
+(the 2.3 line's 22 of 25 as a proportion, rounded up); zero diagnostics; zero findings in
+`banSubset` and `banSubsetSpatial` together; every text line on glass passes its floor in every
+state read; and no clause reads UNREAD. A rule on which most raters answered 0 with evidence
+beginning "unread:" (the rater prompt's third value, inside the 0/1 answer) reads UNREAD: it is
+neither held nor failed, its missing state is printed, and it blocks the verdict. A read the page
+did not make possible — a CSS tier its
+`?tier=css` switch never reached, phases it never exposed (unless the source review declares the
+environment static, `"environmentStatic": true`), a receded pose that never resolved — prints
+UNREAD and blocks the verdict rather than shrinking what was tested. Per page the report also
+prints the glass coverage, each host's drawn level and environment ring against the dead band in
+every state, and each group's CSS body on the CSS tier. A rating file recording another rulebook
+(`"rules_set"`) is not read.
 """
 import os, sys, json, argparse, importlib.util
 
@@ -58,16 +80,26 @@ gr = _load("glass_rules", os.path.join(HERE, "glass-rules.py"))   # the items, t
 
 _parser = argparse.ArgumentParser(description=__doc__,
                                   formatter_class=argparse.RawDescriptionHelpFormatter)
-_parser.add_argument("--out", default=os.path.join(gr.DATA, "results.md"))
-outp = _parser.parse_args().out
+_parser.add_argument("--rules", choices=gr.RULE_SET_NAMES, default="instrument",
+                     help="the rulebook: instrument (the six demos) or spatial (the "
+                          "spatial-register pages)")
+_parser.add_argument("--out", default=None,
+                     help="where results.md goes; default the rulebook's data directory")
+_args = _parser.parse_args()
+gr.select(_args.rules)
+outp = _args.out or os.path.join(gr.DATA, "results.md")
+SPATIAL = gr.RULES_SET == "spatial"
 
 RULE_KEYS = [k for k, *_ in gr.RULES]
 RULE_TAG = {k: t for k, t, _, _ in gr.RULES}
 FATAL = set(gr.FATAL_TAGS)
 FATAL_KEYS = [k for k in RULE_KEYS if RULE_TAG[k] in FATAL]
-ASSIGNED = list(gr.ASSIGNED)            # r18, r19, r23
+ASSIGNED = list(gr.ASSIGNED)            # r18, r19, r23, or the spatial items that repeat them
 PANEL_KEYS = [k for k in RULE_KEYS if k not in ASSIGNED]
-HOLD_FLOOR = 22                          # of 25, the 2.3 line
+N_RULES = len(RULE_KEYS)
+# The 2.3 line is 22 of 25; the spatial rulebook carries it as that proportion, 88 %, rounded up in
+# integers, since a float product can land a hair above a whole number and move the floor by one.
+HOLD_FLOOR = -(-88 * N_RULES // 100)
 RULES_DIR = os.path.join(gr.DATA, "rules")
 AUDITS_DIR = os.path.join(gr.DATA, "audit")
 REVIEWS_DIR = os.path.join(gr.DATA, "review")
@@ -97,10 +129,14 @@ def _json(path):
         return {"error": f"unreadable {os.path.basename(path)}: {e}"}
 
 
+SKIPPED = []                            # rating files that recorded another rulebook
+
+
 def load_ratings():
     """Every rater's files, keyed rater → slug → {"rules", "evidence"}, with the demo order each
     file recorded. A missing rule is simply absent rather than guessed, so a half-collected panel
-    reads as far as it goes."""
+    reads as far as it goes. A file that records a different rulebook than the one being read is
+    passed over and listed, whatever its keys."""
     ratings, orders = {}, {}
     if not os.path.isdir(RULES_DIR):
         return ratings, orders
@@ -112,6 +148,9 @@ def load_ratings():
             if not f.endswith(".json"):
                 continue
             rec = _json(os.path.join(rd, f)) or {}
+            if rec.get("rules_set") not in (None, gr.RULES_SET):
+                SKIPPED.append(f"{rater}/{f} ({rec.get('rules_set')})")
+                continue
             slug = rec.get("slug") or f[:-5]
             rules = {k: _int(v) for k, v in (rec.get("rules") or {}).items() if k in RULE_KEYS}
             ratings.setdefault(rater, {})[slug] = {
@@ -228,13 +267,15 @@ def assigned_r19(a):
     return held, ev
 
 
-def assigned_r23(slug):
+def assigned_r23(slug, key="r23"):
+    """(held, evidence) from the source review's `r23`, or, on the spatial rulebook, the key of the
+    item that repeats it where the reviewer wrote that instead."""
     r = reviews.get(slug)
     if r is None:
         return None, "no source review"
     if r.get("error"):
         return None, r["error"]
-    v = _int(r.get("r23"))
+    v = _int(r.get("r23", r.get(key)))
     return (None if v not in (0, 1) else bool(v)), str(r.get("evidence") or "")[:300]
 
 
@@ -246,18 +287,165 @@ def all_observed(checks):
 
 
 def assigned(slug):
+    """The assigned readings keyed by the rulebook's own keys: r18, r19 and r23 on the six's, the
+    items that repeat them on the spatial one, where r18 is read per line."""
     a = audits.get(slug)
-    return {"r18": assigned_r18(a), "r19": assigned_r19(a), "r23": assigned_r23(slug)}
+    out = {}
+    for k in ASSIGNED:
+        rn = gr.SAME_AS.get(k, k)
+        out[k] = ((line_reading(a) if SPATIAL else assigned_r18(a)) if rn == "r18" else
+                  assigned_r19(a) if rn == "r19" else assigned_r23(slug, k))
+    return out
+
+
+# ---------- the spatial register's reads ----------
+
+def line_reads(a):
+    """Every per-line contrast reading the audit holds, as (where, summary), in pass order: the
+    two scheme passes and their phases, the reduced capture, the CSS tier and its phases, the
+    receded pose."""
+    sch = a.get("schemes") or {}
+    places = []
+    for s in ("light", "dark"):
+        places.append((s, (sch.get(s) or {}).get("lineContrast")))
+        places.append((f"{s} phases", ((sch.get(s) or {}).get("phases") or {}).get("lineContrast")))
+    css = a.get("cssTier") or {}
+    places += [("reduced", (a.get("reduced") or {}).get("lineContrast")),
+               ("css", css.get("lineContrast")),
+               ("css phases", (css.get("phases") or {}).get("lineContrast")),
+               ("receded", (a.get("receded") or {}).get("lineContrast"))]
+    return [(w, x) for w, x in places if x]
+
+
+def line_reading(a):
+    """(held, evidence) for text on glass read per line box: held when every line in every state
+    read passes its floor, the worst line gating; unread without both schemes' readings."""
+    if a is None or a.get("error"):
+        return None, "no audit" if a is None else str(a["error"])
+    sch = a.get("schemes") or {}
+    missing = [s for s in ("light", "dark") if not (sch.get(s) or {}).get("lineContrast")]
+    if missing:
+        return None, "no per-line reading in the " + " or ".join(missing) + " scheme pass"
+    reads = line_reads(a)
+    parts = []
+    for where, x in reads:
+        w = x.get("worst")
+        parts.append(f"{where} {x['pass']}/{x['lines']}"
+                     + (f", worst {w['ratio']} against {w['floor']}" if w else ""))
+    lines = sum(x["lines"] for _, x in reads)
+    if lines == 0:
+        parts.append("vacuous: no text on glass was on screen to read")
+    return all(x["pass"] == x["lines"] for _, x in reads), "; ".join(parts)
+
+
+def failing_lines(a):
+    """Every failing line the audit kept, with where it was read."""
+    return [(w, f) for w, x in line_reads(a or {}) for f in x.get("fails") or []]
+
+
+def spatial_ban(a):
+    """The audit's `banSubsetSpatial` findings; None where the audit predates the spatial reads."""
+    b = a.get("banSubsetSpatial")
+    return None if b is None else (b.get("findings") or [])
+
+
+def phase_read(slug, a):
+    """(met, note) for the environment's phases: read where the page offered them and every one
+    was shown; met without them only where the source review declares the environment static."""
+    sch = a.get("schemes") or {}
+    if "phasesHook" not in a:
+        return None, "UNREAD: the audit predates the phase pass"
+    if not a.get("phasesHook"):
+        if (reviews.get(slug) or {}).get("environmentStatic") is True:
+            return True, "no phases offered; the source review declares one environment state"
+        return None, ("UNREAD: the page exposes no window.__glassDemo.phases() and setPhase(id), "
+                      "and no source review declares its environment static")
+    notes, ok = [], True
+    for s in ("light", "dark"):
+        p = (sch.get(s) or {}).get("phases") or {}
+        if not p.get("ids"):
+            return None, f"UNREAD: the {s} phase pass read no phases ({p.get('error', 'no ids')})"
+        shown = p.get("shown") or []
+        bad = [x for x in shown if x.get("status") != "captured"]
+        if bad:
+            ok = False
+        notes.append(f"{s} {len(shown) - len(bad)} of {len(p['ids'])} captured"
+                     + (f" of {p['total']} offered" if p.get("total", 0) > len(p["ids"]) else "")
+                     + (f"; {bad[0]['status']}" if bad else ""))
+    return (True if ok else None), ("" if ok else "UNREAD: ") + "; ".join(notes)
+
+
+def css_read(a):
+    """(met, note) for the CSS tier: read when the page's ?tier=css switch put every group on it."""
+    c = a.get("cssTier")
+    if c is None:
+        return None, "UNREAD: the audit predates the CSS-tier pass"
+    groups = ", ".join(f"{g['id']} {g.get('renderer')}/{g.get('cssBody')}"
+                       for g in c.get("groups") or [])
+    if c.get("status") == "ran":
+        return True, "groups " + (groups or "none")
+    if c.get("status") == "not-honoured":
+        return None, "UNREAD: ?tier=css not honoured (" + (groups or "no groups") + ")"
+    return None, f"UNREAD: CSS-tier pass {c.get('status')}"
+
+
+def receded_read(a):
+    """(met, note) for the receded pose: read when the root resolved `inactive`."""
+    r = a.get("receded")
+    if r is None:
+        return None, "UNREAD: the audit predates the receded pass"
+    if r.get("status") == "ran" and r.get("windowActivation") == "inactive":
+        x = r.get("lineContrast") or {}
+        return True, f"windowActivation inactive; lines {x.get('pass')}/{x.get('lines')}"
+    return None, (f"UNREAD: receded pass {r.get('status')}, windowActivation "
+                  f"{r.get('windowActivation')}")
+
+
+def host_levels(a):
+    """Every host-level read the audit holds, as (where, read), `where` naming pass and state."""
+    sch = a.get("schemes") or {}
+    places = []
+    for s in ("light", "dark"):
+        places.append((s, (sch.get(s) or {}).get("hostLuminance")))
+        places.append((s, ((sch.get(s) or {}).get("phases") or {}).get("hostLuminance")))
+    css = a.get("cssTier") or {}
+    places += [("reduced", (a.get("reduced") or {}).get("hostLuminance")),
+               ("css", css.get("hostLuminance")),
+               ("css", (css.get("phases") or {}).get("hostLuminance")),
+               ("receded", (a.get("receded") or {}).get("hostLuminance"))]
+    return [(w if w == "reduced" else f"{w}/{r['state']}", r)
+            for w, h in places if h for r in h.get("reads") or []]
+
+
+def unread_votes(slug, key):
+    """The raters that answered a rule 0 and began its evidence "unread:": the rater prompt's third
+    value, kept inside the 0/1 answer so the answers stay comparable with the six's."""
+    return [r for r, v in votes(slug, key) if v == 0
+            and ratings[r][slug]["evidence"].get(key, "").strip().lower().startswith("unread:")]
+
+
+def panel_unread(slug, key):
+    """On the spatial rulebook, whether the panel reads a rule UNREAD: strictly more than half the
+    raters that answered it said the state it needs was neither captured nor recorded. A tie is
+    not a majority, and the rule is then read as held or failed like any other."""
+    if not SPATIAL:
+        return False
+    vs = votes(slug, key)
+    return bool(vs) and len(unread_votes(slug, key)) * 2 > len(vs)
 
 
 def readings(slug):
     """Both counts. The panel-only reading takes the majority on all 25; the assigned reading takes
-    it on the 22 capture-visible rules and the assigned readings on r18, r19 and r23."""
+    it on the 22 capture-visible rules and the assigned readings on r18, r19 and r23. On the
+    spatial rulebook a capture-visible rule the panel reads UNREAD is neither held nor failed in
+    the assigned count: it is unread, as a missing assigned reading is, and blocks the verdict."""
     maj = {k: majority(slug, k) for k in RULE_KEYS}
     asg = assigned(slug)
-    used = {k: (maj[k][0] if k in PANEL_KEYS else asg[k][0]) for k in RULE_KEYS}
+    panel_unread_keys = [k for k in RULE_KEYS if panel_unread(slug, k)]
+    used = {k: ((None if k in panel_unread_keys else maj[k][0]) if k in PANEL_KEYS
+                else asg[k][0]) for k in RULE_KEYS}
     return {
-        "majority": maj, "assigned": asg, "used": used,
+        "majority": maj, "assigned": asg, "used": used, "panelUnread": panel_unread_keys,
         "panelHeld": [k for k in RULE_KEYS if maj[k][0] is True],
         "held": [k for k in RULE_KEYS if used[k] is True],
         "failed": [k for k in RULE_KEYS if used[k] is False],
@@ -290,15 +478,19 @@ def verdict(slug):
     unread_asg = [k for k in ASSIGNED if d["used"][k] is None]
     clauses = [
         ("four-rater panel complete", True if complete else None,
-         "all 25 rules answered" if complete else "missing/partial: " + ", ".join(missing)),
+         f"all {N_RULES} rules answered" if complete else "missing/partial: " + ", ".join(missing)),
         ("assigned readings present", True if not unread_asg else None,
-         "r18, r19, r23 read" if not unread_asg else "unread: " + ", ".join(unread_asg)),
-        ("at least 22 of 25 held (assigned count)",
+         f"{', '.join(ASSIGNED)} read" if not unread_asg else "unread: " + ", ".join(unread_asg)),
+        (f"at least {HOLD_FLOOR} of {N_RULES} held (assigned count)",
          len(d["held"]) >= HOLD_FLOOR if complete and not unread_asg else None,
-         f"{len(d['held'])} of 25 held" + ("" if complete and not unread_asg else " (provisional)")),
-        ("no [layer] or [material] rule fails", not d["fatalFailed"] if complete else None,
-         ", ".join(d["fatalFailed"]) or "none failed in available answers"),
+         f"{len(d['held'])} of {N_RULES} held"
+         + ("" if complete and not unread_asg else " (provisional)")),
     ]
+    if SPATIAL:
+        return spatial_verdict(slug, d, a, clauses, complete)
+    clauses.append(
+        ("no [layer] or [material] rule fails", not d["fatalFailed"] if complete else None,
+         ", ".join(d["fatalFailed"]) or "none failed in available answers"))
     if a is None or a.get("error"):
         note = "no audit" if a is None else str(a["error"])
         clauses += [("zero diagnostics, either channel", None, note),
@@ -329,6 +521,70 @@ def verdict(slug):
             "readable": all(c[1] is not None for c in clauses)}
 
 
+def spatial_verdict(slug, d, a, clauses, complete):
+    """The spatial pass line on the assigned count. Every fatal-tag rule must hold, not merely not
+    fail; the text clause gates on the worst line in every state read; and a read the page did not
+    make possible is UNREAD, which blocks the verdict as a missing panel answer does."""
+    # The count: an UNREAD rule is out of both the held and the failed tally, so the floor is met
+    # once the held rules reach it and missed once the failed ones put it out of reach; between
+    # the two it waits on the unread rules.
+    held, lost = len(d["held"]), len(d["failed"])
+    unread_asg = [k for k in ASSIGNED if d["used"][k] is None]
+    clauses[2] = (clauses[2][0],
+                  (True if held >= HOLD_FLOOR else False if lost > N_RULES - HOLD_FLOOR else None)
+                  if complete and not unread_asg else None,
+                  f"{held} of {N_RULES} held, {lost} failed"
+                  + (f", {len(d['unread'])} unread" if d["unread"] else "")
+                  + ("" if complete and not unread_asg else " (provisional)"))
+    pu = d["panelUnread"]
+    clauses.append(("no rule reads UNREAD on the panel",
+                    True if complete and not pu else None,
+                    ("UNREAD: " + ", ".join(pu) if pu else "none")
+                    + ("" if complete else " (provisional)")))
+    fatal_used = [d["used"][k] for k in FATAL_KEYS]
+    failed = [k for k in FATAL_KEYS if d["used"][k] is False]
+    unread = [k for k in FATAL_KEYS if d["used"][k] is None]
+    note = "; ".join(([f"failed: {', '.join(failed)}"] if failed else [])
+                     + ([f"unread or unanswered: {', '.join(unread)}"] if unread else []))
+    clauses.append((f"every {either(gr.FATAL_TAGS)} rule holds",
+                    all_observed(fatal_used) if complete else None,
+                    (note or f"all {len(FATAL_KEYS)} held")
+                    + ("" if complete else " (provisional)")))
+    if a is None or a.get("error"):
+        note = "no audit" if a is None else str(a["error"])
+        for name in ("zero diagnostics, either channel", "zero ban-subset findings, both lists",
+                     "every text line on glass passes, every state", "the CSS tier read",
+                     "the environment's phases read", "the receded pose read"):
+            clauses.append((name, None, note))
+    else:
+        diags = a.get("diagnostics")
+        kept, excused = ban_findings(slug)
+        extra = spatial_ban(a)
+        held, ev = line_reading(a)
+        fails = failing_lines(a)
+        clauses += [
+            ("zero diagnostics, either channel",
+             (len(diags) == 0) if a.get("rootFound") is True and isinstance(diags, list) else None,
+             ("root not reachable (window.__vitrea unset), diagnostics unread"
+              if not a.get("rootFound") else
+              ", ".join(sorted({f"{x['origin']}:{x['code']}" for x in diags})) or "none")),
+            ("zero ban-subset findings, both lists",
+             None if extra is None else len(kept) + len(extra) == 0,
+             "UNREAD: the audit predates banSubsetSpatial" if extra is None else
+             (", ".join(sorted({f"{f['kind']}:{f.get('property')}" for f in kept + extra}))
+              or "none")
+             + (f"; {len(excused)} span(s) excused by the review" if excused else "")),
+            ("every text line on glass passes, every state", held,
+             (f"{len(fails)} failing line(s); " if fails else "") + ev),
+            ("the CSS tier read", *css_read(a)),
+            ("the environment's phases read", *phase_read(slug, a)),
+            ("the receded pose read", *receded_read(a)),
+        ]
+    return {"clauses": clauses, "pass": all(c[1] is True for c in clauses),
+            "readable": all(c[1] is not None for c in clauses),
+            "failed": any(c[1] is False for c in clauses)}
+
+
 def alpha_for(key):
     """Krippendorff's α for one rule across the panel, the demos as the units, nominal. Returns the
     α, the number of units it was pairable on, and the values the panel used — a rule every rater
@@ -342,6 +598,117 @@ def alpha_for(key):
     a = rel.krippendorff_alpha(units, "nominal") if units else None
     used = sorted({v for u in units.values() for v in u.values()})
     return a, len(units), used
+
+
+def label(k):
+    """A rule's key; on the spatial rulebook with what it is to the six's rulebook."""
+    if not SPATIAL:
+        return k
+    m = gr.MARKERS.get(k)
+    return f"{k} ({m[0]} {m[1]})" if m else f"{k} (new)"
+
+
+def _and(xs):
+    """"a", "a and b", "a, b and c"."""
+    xs = list(xs)
+    return xs[0] if len(xs) == 1 else ", ".join(xs[:-1]) + " and " + xs[-1]
+
+
+def either(tags):
+    """"[a] or [b]", "[a], [b] or [c]"."""
+    t = [f"[{x}]" for x in tags]
+    return t[0] if len(t) == 1 else ", ".join(t[:-1]) + " or " + t[-1]
+
+
+def spatial_mechanical(s, a):
+    """The spatial reads under a page's mechanical read: its own ban findings, the glass coverage,
+    the CSS tier's bodies, the receded pose, the phases, the per-line contrast per pass with every
+    failing line, and each host's drawn level and environment ring against the dead band in every
+    state, named by the states it fell in."""
+    extra, sch = spatial_ban(a), a.get("schemes") or {}
+    if extra is None:
+        P("Spatial reads: **none** — this audit predates them.\n")
+        return
+    P(f"Spatial ban findings (`banSubsetSpatial`): {len(extra)}.\n")
+    for f in extra[:20]:
+        P(f"- `{f['kind']}` {f.get('property')} `{md(str(f.get('value')))}`"
+          + (f" ({f['role']})" if f.get("role") else "") + f" on `{md(f.get('selector') or '')}`, "
+          f"text “{md(f.get('text') or '')}”, seen {', '.join(f.get('seen', []))}")
+    if extra:
+        P("")
+    cov = [(x, (sch.get(x) or {}).get("glassCoverage")) for x in ("light", "dark")]
+    P("Glass coverage of the first viewport: "
+      + ", ".join(f"{x} {c['fraction']:.3f} ({c['hosts']} host(s))" if c else f"{x} unread"
+                  for x, c in cov) + ".\n")
+    c = a.get("cssTier") or {}
+    body = lambda gs: ", ".join(f"`{g['id']}` {g.get('renderer')}/{g.get('cssBody')}"
+                                for g in gs or [])
+    P(f"CSS tier (`?tier=css`): {c.get('status', 'unread')}"
+      + (f"; groups {body(c.get('groups'))}" if c.get("groups") else "")
+      + (f"; with the menu open {body(c.get('menuGroups'))}" if c.get("menuGroups") else "") + ".")
+    r = a.get("receded") or {}
+    P(f"Receded pose: {r.get('status', 'unread')}, windowActivation {r.get('windowActivation')}.")
+    ph = [(x, (sch.get(x) or {}).get("phases")) for x in ("light", "dark")]
+    P("Phases: " + ("none offered (`phases: null`)" if not a.get("phasesHook") else
+                    "; ".join(f"{x} " + (", ".join(str(i) for i in p["ids"]) if p and p.get("ids")
+                                         else f"unread ({(p or {}).get('error')})")
+                              for x, p in ph)) + ".\n")
+    reads = line_reads(a)
+    if reads:
+        P("Text on glass per line box, glyphs suppressed (the worst line by its floor):\n")
+        P("| pass | lines passing | worst line | states |\n|---|---|---|---|")
+        for where, x in reads:
+            w = x.get("worst")
+            P(f"| {where} | {x['pass']}/{x['lines']} | "
+              + (f"{w['ratio']} against {w['floor']} ({w['state']}, {w['nodeId']})" if w else "—")
+              + f" | {', '.join(x.get('states') or [])} |")
+        P("")
+    # One entry per failing line of text, however many states it failed in: the same label on the
+    # same surface usually fails for one reason, and the states it failed in are the evidence.
+    grouped = {}
+    for where, f in failing_lines(a):
+        g = grouped.setdefault((f["nodeId"], f.get("text") or "", f["line"]), [])
+        g.append((where, f))
+    for (node, text, _), hits in list(grouped.items())[:40]:
+        where, w = min(hits, key=lambda h: h[1]["ratio"] / h[1]["floor"])
+        P(f"- failing line on {node}: “{md(text)}”, worst {w['ratio']} against {w['floor']} "
+          f"({where} `{w['state']}`, box {w['box']}, ink {w['ink']} alpha {w.get('inkAlpha')} on "
+          f"ground {w['ground']}); failed in {len(hits)} state(s): "
+          + ", ".join(f"{x} `{f['state']}`" for x, f in hits))
+    if len(grouped) > 40:
+        P(f"- and {len(grouped) - 40} more failing line(s), each in the audit's `lineContrast.fails`")
+    if grouped:
+        P("")
+    hosts = {}
+    for where, x in host_levels(a):
+        h = hosts.setdefault(x["nodeId"], {"role": x.get("role"), "label": x.get("label"),
+                                           "in": [], "ring": [], "inBand": [], "ringBand": [],
+                                           "states": 0})
+        h["states"] += 1
+        if x["inside"]["mean"] is not None:
+            h["in"].append(x["inside"]["mean"])
+        if x["ring"]["mean"] is not None:
+            h["ring"].append(x["ring"]["mean"])
+        if x["inside"]["inDeadBand"]:
+            h["inBand"].append(where)
+        if x["ring"]["inDeadBand"]:
+            h["ringBand"].append(where)
+    if hosts:
+        band = ((sch.get("light") or {}).get("hostLuminance") or {}).get("band") or [0.39, 0.49]
+        P(f"Each host's drawn level (inside its box) and the environment in a ring beside it, mean "
+          f"encoded luminance over every state read, and the states in which each fell in the "
+          f"dead band ({band[0]}–{band[1]}):\n")
+        P("| host | role | inside | inside in the band | ring | ring in the band |"
+          "\n|---|---|---|---|---|---|")
+        span = lambda v: "—" if not v else (f"{min(v):.3f}" if min(v) == max(v)
+                                            else f"{min(v):.3f}–{max(v):.3f}")
+        states = lambda hit, n: ("none" if not hit else f"every state read ({n})" if len(hit) == n
+                                 else ", ".join(hit))
+        for nid, h in hosts.items():
+            P(f"| {nid} “{md(h['label'] or '')}” | {h['role'] or '—'} | {span(h['in'])} | "
+              f"{states(h['inBand'], h['states'])} | {span(h['ring'])} | "
+              f"{states(h['ringBand'], h['states'])} |")
+        P("")
 
 
 def fmt(v, spec="{:.2f}"):
@@ -360,18 +727,36 @@ def md(s):
 
 out = []
 P = out.append
-P("# Materialist demos — the panel, the audit and the verdict\n")
-P("The pre-registered panel is " + ", ".join(EXPECTED_RATERS) + ". Missing or partial members "
-  "keep every verdict provisional. Two counts of 25 print for every demo: the **panel-only** count "
-  "(the 2.3 panel's pre-registered reading, comparable with its figures) and the **assigned** count "
-  "(the panel on the 22 capture-visible rules, and r18, r19 and r23 from the audit and the source "
-  "review, as the spec declared before any capture existed). The pass line uses the assigned count.\n")
+if SPATIAL:
+    P("# Materialist spatial-register pages — the panel, the audit and the verdict\n")
+    P("The pre-registered panel is " + ", ".join(EXPECTED_RATERS) + ". Missing or partial members "
+      f"keep every verdict provisional. The rulebook is the spatial register's, {N_RULES} rules "
+      f"keyed s1 to s{N_RULES}, each printed with what it is to the six's rulebook: `= rN` repeats "
+      "instrument rule rN verbatim, `~ rN` adapts it, `new` is the register's own. Two counts of "
+      f"{N_RULES} print for every page: the **panel-only** count and the **assigned** count (the "
+      f"panel on the {len(PANEL_KEYS)} capture-visible rules, and "
+      + (", ".join(label(k) for k in ASSIGNED) or "no rule") + " from the audit and the source "
+      "review, as the spec declared before any capture existed). The pass line uses the assigned "
+      f"count: every {either(gr.FATAL_TAGS)} rule holding, at least {HOLD_FLOOR} of {N_RULES} "
+      "(88 %), zero diagnostics, zero findings on both ban lists, every text line on glass passing "
+      "in every state read, and no clause UNREAD.\n")
+else:
+    P("# Materialist demos — the panel, the audit and the verdict\n")
+    P("The pre-registered panel is " + ", ".join(EXPECTED_RATERS) + ". Missing or partial members "
+      "keep every verdict provisional. Two counts of 25 print for every demo: the **panel-only** "
+      "count (the 2.3 panel's pre-registered reading, comparable with its figures) and the "
+      "**assigned** count (the panel on the 22 capture-visible rules, and r18, r19 and r23 from the "
+      "audit and the source review, as the spec declared before any capture existed). The pass "
+      "line uses the assigned count.\n")
 P(f"Raters: {len(RATERS)}" + (f" ({', '.join(RATERS)})" if RATERS else "") + ". "
   f"Demos with a rule file: {sum(1 for s in COVERED if raters_of(s))} of {len(gr.SLUGS)}. "
   f"Audits: {len(audits)} of {len(gr.SLUGS)}. Source reviews: {len(reviews)} of {len(gr.SLUGS)}. "
   f"Rules: {len(RULE_KEYS)}, of which {len(FATAL_KEYS)} are tagged "
-  f"{' or '.join('[' + t + ']' for t in gr.FATAL_TAGS)} and fatal to the verdict. Rules digest "
-  f"`{gr.RULES_SHA256[:16]}…` (the 2.3 panel's).\n")
+  f"{either(gr.FATAL_TAGS)} and fatal to the verdict. Rules digest "
+  f"`{gr.PINNED[:16]}…` ("
+  + ("the spatial rulebook's pin" if SPATIAL else "the 2.3 panel's") + ").\n")
+if SKIPPED:
+    P("Not read, for recording another rulebook: " + ", ".join(f"`{x}`" for x in SKIPPED) + ".\n")
 if not RATERS:
     P(f"No rater files under `{RULES_DIR}`. The panel tables below are empty; run "
       "`glass-rules.py prompt <rater>` and collect the panel first.\n")
@@ -410,7 +795,7 @@ if not COVERED:
     P("Nothing to read yet.\n")
 else:
     P("Per rule and demo: the panel majority as `held (yes/n)`, a tie a failure, `—` unanswered; on "
-      "r18, r19 and r23 the assigned reading follows after `→`, and that is the answer the "
+      f"{_and(ASSIGNED)} the assigned reading follows after `→`, and that is the answer the "
       "assigned count uses.\n")
     P("| rule | tag | " + " | ".join(f"`{s}`" for s in COVERED) + " |")
     P("|---|---|" + "---|" * len(COVERED))
@@ -419,12 +804,14 @@ else:
         for s in COVERED:
             held, yes, n = majority(s, k)
             c = "—" if held is None else f"{1 if held else 0} ({yes}/{n})"
+            if panel_unread(s, k):
+                c = f"UNREAD ({len(unread_votes(s, k))}/{n} unread)"
             if k in ASSIGNED:
                 c += " → " + cell(assigned(s)[k][0])
             cells.append(c)
-        P(f"| {k} | {RULE_TAG[k]} | " + " | ".join(cells) + " |")
+        P(f"| {label(k)} | {RULE_TAG[k]} | " + " | ".join(cells) + " |")
     P("")
-    P("| demo | panel-only (of 25) | assigned (of 25) | unread in the assigned count |"
+    P(f"| demo | panel-only (of {N_RULES}) | assigned (of {N_RULES}) | unread in the assigned count |"
       "\n|---|---|---|---|")
     for s in COVERED:
         d = readings(s)
@@ -437,7 +824,7 @@ for s in COVERED:
     P(f"### `{s}`\n")
     if d["raters"]:
         P(f"Raters: {len(d['raters'])} ({', '.join(d['raters'])}). Panel-only: "
-          f"**{len(d['panelHeld'])} of 25**. Assigned: **{len(d['held'])} of 25**"
+          f"**{len(d['panelHeld'])} of {N_RULES}**. Assigned: **{len(d['held'])} of {N_RULES}**"
           + (" (provisional; panel incomplete)" if panel_missing(s) else "")
           + (f"; unread: {', '.join(d['unread'])}" if d["unread"] else "")
           + (". Fatal-tag failures: **" + ", ".join(d["fatalFailed"]) + "**."
@@ -450,19 +837,39 @@ for s in COVERED:
     for k in ASSIGNED:
         held, ev = d["assigned"][k]
         m_held, yes, n = d["majority"][k]
-        P(f"| {k} | {cell(held)} | {'—' if m_held is None else f'{cell(m_held)} ({yes}/{n})'} | "
-          f"{md(ev) or '—'} |")
+        P(f"| {label(k)} | {cell(held)} | "
+          f"{'—' if m_held is None else f'{cell(m_held)} ({yes}/{n})'} | {md(ev) or '—'} |")
     P("")
     failed_panel = [k for k in d["failed"] if k in PANEL_KEYS]
     if failed_panel:
         P("Capture-visible rules that failed:\n")
-        P("| rule | tag | yes/n | a rater that said no | its evidence |\n|---|---|---|---|---|")
+        if SPATIAL:
+            P("| rule | tag | yes/n | no-votes marked unread | a rater that said no | its evidence |"
+              "\n|---|---|---|---|---|---|")
+        else:
+            P("| rule | tag | yes/n | a rater that said no | its evidence |\n|---|---|---|---|---|")
         for k in failed_panel:
             no = [r for r, val in votes(s, k) if val == 0]
             ev = next((ratings[r][s]["evidence"].get(k) for r in no
                        if ratings[r][s]["evidence"].get(k)), "")
             _, yes, n = d["majority"][k]
-            P(f"| {k} | {RULE_TAG[k]} | {yes}/{n} | {no[0] if no else '—'} | {md(ev) or '—'} |")
+            if SPATIAL:
+                # The rater prompt asks a no that stands on a state nobody captured to say so.
+                unread = len(unread_votes(s, k))
+                P(f"| {label(k)} | {RULE_TAG[k]} | {yes}/{n} | {unread} | {no[0] if no else '—'} | "
+                  f"{md(ev) or '—'} |")
+            else:
+                P(f"| {k} | {RULE_TAG[k]} | {yes}/{n} | {no[0] if no else '—'} | {md(ev) or '—'} |")
+        P("")
+    if SPATIAL and d["panelUnread"]:
+        P("Rules the panel read UNREAD — most raters said the state the rule needs was neither "
+          "captured nor recorded; each blocks the verdict until that state is read:\n")
+        P("| rule | tag | unread/n | what the raters said was missing |\n|---|---|---|---|")
+        for k in d["panelUnread"]:
+            said = [f"{r}: {ratings[r][s]['evidence'][k].strip()[len('unread:'):].strip()}"
+                    for r in unread_votes(s, k)]
+            P(f"| {label(k)} | {RULE_TAG[k]} | {len(unread_votes(s, k))}/{len(votes(s, k))} | "
+              f"{md('; '.join(said)) or '—'} |")
         P("")
     if a is None:
         P(f"Mechanical read: **no audit** at `{os.path.join(AUDITS_DIR, s + '.json')}`.\n")
@@ -492,15 +899,25 @@ for s in COVERED:
               f"{md(x['message'])[:160]}")
         if a.get("diagnostics"):
             P("")
+        if SPATIAL:
+            spatial_mechanical(s, a)
     P("Verdict, clause by clause:\n")
     P("| clause | met | on |\n|---|---|---|")
+    pending = "UNREAD" if SPATIAL else "not yet readable"
     for name, ok, note in v["clauses"]:
-        P(f"| {name} | {'yes' if ok else ('no' if ok is False else 'not yet readable')} | {md(note)} |")
+        P(f"| {name} | {'yes' if ok else ('no' if ok is False else pending)} | {md(note)} |")
     P("")
-    P(f"**{s}: " + ("PASSES" if v["pass"] else
-                    ("FAILS" if v["readable"] else
-                     "no final verdict — incomplete evidence; provisional reading above"))
-      + "**\n")
+    if SPATIAL:
+        unread = [name for name, ok, _ in v["clauses"] if ok is None]
+        P(f"**{s}: " + ("PASSES" if v["pass"] else
+                        "FAILS" + (f" (and UNREAD: {', '.join(unread)})" if unread else "")
+                        if v["failed"] else
+                        f"BLOCKED — UNREAD: {', '.join(unread)}") + "**\n")
+    else:
+        P(f"**{s}: " + ("PASSES" if v["pass"] else
+                        ("FAILS" if v["readable"] else
+                         "no final verdict — incomplete evidence; provisional reading above"))
+          + "**\n")
 
 # ---------- agreement ----------
 
@@ -519,17 +936,41 @@ else:
         a, n, used = alpha_for(k)
         note = ("no pairable answer" if a is None else
                 f"constant at {used[0]}" if len(used) == 1 else "")
-        P(f"| {k} | {RULE_TAG[k]} | {fmt(a)} | {n} | {', '.join(str(u) for u in used) or '—'} | "
-          f"{note} |")
+        P(f"| {label(k)} | {RULE_TAG[k]} | {fmt(a)} | {n} | "
+          f"{', '.join(str(u) for u in used) or '—'} | {note} |")
     P("")
 
 # ---------- the line ----------
 
 passing = [s for s in gr.SLUGS if s in COVERED and verdict(s)["pass"]]
+not_read = [s for s in gr.SLUGS if s not in COVERED]
 fatal = [s for s in gr.SLUGS if s in COVERED and readings(s)["fatalFailed"]
          and not panel_missing(s)]
 unreadable = [s for s in gr.SLUGS if s not in COVERED or not verdict(s)["readable"]]
 P("## The line\n")
+if SPATIAL:
+    failing = [s for s in gr.SLUGS if s in COVERED and verdict(s)["failed"]]
+    blocked = [s for s in gr.SLUGS if s in COVERED and not verdict(s)["failed"]
+               and not verdict(s)["pass"]]
+    P(f"**{len(passing)} of {len(gr.SLUGS)} pages pass**"
+      + (f" ({', '.join('`' + s + '`' for s in passing)})" if passing else "")
+      + (f"; {len(failing)} fail ({', '.join(failing)})" if failing else "")
+      + (f"; {len(blocked)} blocked by an UNREAD clause or an incomplete panel "
+         f"({', '.join(blocked)})" if blocked else "")
+      + (f"; {len(not_read)} not read at all" if not_read else "") + ". "
+      + (f"**Stop and diagnose**: {len(fatal)} page(s) fail an {either(gr.FATAL_TAGS)} rule "
+         f"({', '.join(fatal)}). Classify each failure by cause before anything is rewritten — the "
+         "rule's text, a runtime seam, the instrument or the maker; only the first is the "
+         "register's, and then the next step is a rewrite of its conditions, not a third page."
+         if fatal else
+         f"No page fails an {either(gr.FATAL_TAGS)} rule on a complete panel.")
+      + " Two pages are a bounded demonstration that the conditions can be met; whether the skill "
+      "teaches and chooses the register is the eval's claim. The user's eye is not in this report.")
+    res = "\n".join(out)
+    os.makedirs(os.path.dirname(os.path.abspath(outp)), exist_ok=True)
+    open(outp, "w", encoding="utf-8").write(res + "\n")
+    print(res)
+    sys.exit(0)
 P(f"**{len(passing)} of {len(gr.SLUGS)} demos pass**"
   + (f" ({', '.join('`' + s + '`' for s in passing)})" if passing else "")
   + (f"; no verdict yet on {len(unreadable)} for want of data." if unreadable else ".")
