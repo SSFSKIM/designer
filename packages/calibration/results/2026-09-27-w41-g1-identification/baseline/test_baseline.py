@@ -151,7 +151,9 @@ class BaselineTests(unittest.TestCase):
                        'reportSha256': baseline.sha(report),
                        'projection': str(projection.relative_to(root)),
                        'projectionSha256': baseline.sha(projection)}
+            (here / 'authority.json').write_text('{"schema": 1}')
             frozen = {'preparationSha256': baseline.sha(here / 'preparation.json'),
+                      'authoritySha256': baseline.sha(here / 'authority.json'),
                       'captures': {cell: capture}}
             (here / 'frozen-baseline.json').write_text(json.dumps(frozen))
             frozen_hash = baseline.sha(here / 'frozen-baseline.json')
@@ -171,9 +173,76 @@ class BaselineTests(unittest.TestCase):
                     with self.assertRaisesRegex(ValueError, 'projection'):
                         baseline.transfer()
                 projection.write_text('{"cell": "profile/scene"}')
+                (here / 'authority.json').write_text('{"schema": 2}')
+                with self.assertRaisesRegex(ValueError, 'authority'):
+                    baseline.verify_frozen(record, frozen)
+                (here / 'authority.json').write_text('{"schema": 1}')
                 with (here / 'frozen-baseline.json').open('a') as stream: stream.write(' ')
                 with self.assertRaisesRegex(ValueError, 'frozen baseline'):
                     baseline.verify_frozen(record, frozen)
+
+    def test_authority_rechecked_before_backend_after_backend_and_after_projection(self):
+        original = baseline.load(baseline.HERE / 'preparation.json')
+        profile, sid = original['cells'][0].split('/', 1)
+        record = {**original, 'cells': [profile + '/' + sid],
+                  'profiles': {profile: original['profiles'][profile]}}
+        for change_point in ('prelaunch', 'backend', 'projection', 'none'):
+            with self.subTest(change_point=change_point), tempfile.TemporaryDirectory() as tmp:
+                root = Path(tmp)
+                here = root / 'baseline'
+                here.mkdir()
+                (root / 'x6').mkdir()
+                (here / 'preparation.json').write_text(json.dumps(record))
+                (here / 'authority.json').write_text('{"schema": 1}')
+                captures = root / 'captures'
+                changed = [False]
+                calls = [0]
+                def verify(_record):
+                    calls[0] += 1
+                    if changed[0]: raise ValueError('authority changed')
+                    if change_point == 'prelaunch' and calls[0] == 2:
+                        changed[0] = True
+                        raise ValueError('authority changed')
+                def backend(_command, **_kwargs):
+                    if change_point == 'backend':
+                        changed[0] = True
+                    else:
+                        directory = captures / profile / sid
+                        directory.mkdir(parents=True)
+                        (directory / 'cell__webgpu.json').write_text(json.dumps({
+                            'sceneId': sid, 'renderer': 'webgpu', 'engine': 'chromium',
+                            'colorSpace': 'srgb', 'pixelSize': list(baseline.runner.dimension(
+                                baseline.wave, profile + '/' + sid)),
+                            'deterministic': True, 'repeatNoise': 0}))
+                        (directory / 'report__webgpu.json').write_text(json.dumps({
+                            'fallback': None, 'problems': [],
+                            'materialProfile': {'sha256': record['documents'][
+                                record['profiles'][profile]['material']][:12]},
+                            'recededProfile': {'sha256': record['documents'][
+                                record['profiles'][profile]['receded']][:12]}}))
+                        (directory / (sid + '__webgpu.png')).write_bytes(b'synthetic web')
+                def project(_identity, _png):
+                    if change_point == 'projection': changed[0] = True
+                    return {'cell': profile + '/' + sid}
+                with patch.object(baseline, 'ROOT', root), \
+                     patch.object(baseline, 'HERE', here), \
+                     patch.object(baseline, 'CAPTURES', captures), \
+                     patch.object(baseline, 'verify_preparation'), \
+                     patch.object(baseline, 'verify_authority', side_effect=verify), \
+                     patch.object(baseline.x6, 'observe', return_value={'verdict': {'passes': True}}), \
+                     patch.object(baseline.subprocess, 'run', side_effect=backend), \
+                     patch.object(baseline, 'project', side_effect=project):
+                    if change_point == 'none':
+                        baseline.capture()
+                    else:
+                        with self.assertRaisesRegex(ValueError, 'authority changed'):
+                            baseline.capture()
+                if change_point == 'none':
+                    frozen = json.loads((here / 'frozen-baseline.json').read_text())
+                    self.assertEqual(frozen['authoritySha256'],
+                                     baseline.sha(here / 'authority.json'))
+                else:
+                    self.assertFalse((here / 'frozen-baseline.json').exists())
 
     def test_x6_refusal_does_not_launch_backend(self):
         from unittest.mock import patch
@@ -183,6 +252,7 @@ class BaselineTests(unittest.TestCase):
             (target.parent / 'x6').mkdir()
             record = baseline.load(baseline.HERE / 'preparation.json')
             (target / 'preparation.json').write_text(json.dumps(record))
+            (target / 'authority.json').write_text('{"schema": 1}')
             refused = {'verdict': {'passes': False}}
             with patch.object(baseline, 'HERE', target), \
                  patch.object(baseline, 'CAPTURES', target / 'captures'), \

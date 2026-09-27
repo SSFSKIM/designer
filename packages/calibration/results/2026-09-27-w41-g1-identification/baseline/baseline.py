@@ -277,6 +277,12 @@ def verify_authority(record):
             raise ValueError('authority input changed: ' + name)
 
 
+def verify_capture_authority(record, digest):
+    verify_authority(record)
+    if sha(HERE / 'authority.json') != digest:
+        raise ValueError('authority changed during baseline capture')
+
+
 def verify_frozen(record, frozen):
     try:
         runner.committed(ROOT, str((HERE / 'frozen-baseline.json').relative_to(ROOT)))
@@ -284,6 +290,8 @@ def verify_frozen(record, frozen):
         raise ValueError('frozen baseline is not committed unchanged') from error
     if sha(HERE / 'preparation.json') != frozen['preparationSha256']:
         raise ValueError('baseline preparation changed after freeze')
+    if sha(HERE / 'authority.json') != frozen['authoritySha256']:
+        raise ValueError('baseline authority changed after freeze')
     if set(frozen['captures']) != set(record['cells']):
         raise ValueError('incomplete baseline freeze')
     for cell, capture in frozen['captures'].items():
@@ -305,6 +313,7 @@ def capture():
     record = load(HERE / 'preparation.json')
     verify_preparation(record)
     verify_authority(record)
+    authority_sha = sha(HERE / 'authority.json')
     # One fresh X6 check immediately before each backend process; no bypass token.
     # The backend starts exactly one full Chromium process per invocation.
     if CAPTURES.exists(): raise FileExistsError('baseline capture root already reserved')
@@ -316,6 +325,7 @@ def capture():
                VITREA_WEB_CAPTURES=str(CAPTURES), VITREA_ALLOW_FALLBACK_ADAPTER='0')
     for profile, documents in sorted(record['profiles'].items()):
         verify_preparation(record)
+        verify_capture_authority(record, authority_sha)
         definition = next(p for p in wave.spec['profiles'] if p['key'] == profile)
         scale = int(re.search(r'-(1|2)x-', profile)[1])
         ids = [c.split('/', 1)[1] for c in record['cells'] if c.startswith(profile + '/')]
@@ -327,6 +337,7 @@ def capture():
         check = x6.observe()
         save(HERE.parent / 'x6' / f'prelaunch-{profile}-{uuid.uuid4().hex}.json', check)
         if not check['verdict']['passes']: raise PermissionError('X6 refused; no browser launched')
+        verify_capture_authority(record, authority_sha)
         if not CAPTURES.exists():
             CAPTURES.mkdir(parents=True, exist_ok=False)
         save(HERE / f'command-{profile}.json', {'at': stamp(), 'argv': command,
@@ -334,6 +345,7 @@ def capture():
         with (HERE / f'capture-{profile}.txt').open('x') as log:
             subprocess.run(command, env=env, check=True, stdout=log, stderr=subprocess.STDOUT)
         verify_preparation(record)
+        verify_capture_authority(record, authority_sha)
         for sid in ids:
             directory = CAPTURES / profile / sid
             identity = profile + '/' + sid
@@ -350,16 +362,19 @@ def capture():
             path = directory / (sid + '__webgpu.png')
             projection = HERE / 'projections' / profile / (sid + '.json')
             save(projection, project(identity, path))
+            verify_capture_authority(record, authority_sha)
             captures[identity] = {'png': str(path), 'pngSha256': sha(path),
                                  'cellSha256': sha(directory / 'cell__webgpu.json'),
                                  'reportSha256': sha(directory / 'report__webgpu.json'),
                                  'projection': str(projection.relative_to(ROOT)),
                                  'projectionSha256': sha(projection)}
     verify_preparation(record)
+    verify_capture_authority(record, authority_sha)
     if set(captures) != set(record['cells']): raise ValueError('incomplete baseline')
     save(HERE / 'frozen-baseline.json', {'startedAt': started, 'frozenAt': stamp(),
          'sourceRevision': record['sourceRevision'], 'preparationSha256': sha(HERE / 'preparation.json'),
-         'captures': captures, 'candidateOperators': 'none', 'candidateRenders': 'none'})
+         'authoritySha256': authority_sha, 'captures': captures,
+         'candidateOperators': 'none', 'candidateRenders': 'none'})
     print('FROZEN', len(captures), sha(HERE / 'frozen-baseline.json'))
 
 
