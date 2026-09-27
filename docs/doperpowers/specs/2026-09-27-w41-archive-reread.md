@@ -1,6 +1,6 @@
 # W41 — the archive re-read: the body as luma and chroma, its locality, and the exterior stroke, identified on the W39 archive and landed if they close (2026-09-27)
 
-**Status: v2 approved by a second adversarial round (no material findings); Decision Log 1 RULED (land in this wave); G0 DISPATCHED 2026-09-27.**
+**Status: G0 MERGED `cd55870d` (2026-09-27, §5.191): declaration 850747c1…, instrument proved on synthetic data, the single-exposure runner and the standing eye sheets landed; nothing fitted to native pixels. G1 (identification, the scratch leaves, the rendered check, the single exposure) is next.**
 
 ## Purpose
 
@@ -423,7 +423,7 @@ needed: the publisher, the generation store and the release-asset readers exist.
 
 | child | status |
 | --- | --- |
-| G0 | — |
+| G0 | MERGED 2026-09-27 as `cd55870d` (§5.191): declaration 850747c1… (superseded 99e460d5… kept); execution parameters body a3947184… / stroke df9f807e…; twin audit (B1/B3 bridge-only; S0/S1 below resolution); synthetic proofs (E3/EH6 4.3e-14 / 4.0e-13; certified LP 100/100 noisy; O12 local; band integrator; width-aware stroke search; strip reader; shadow vs WGSL on Metal 2.8e-5 code over 3,240 cases); exposure runner 41 tests; sheets 1,003 canonical MATCH, 330 rendered; two instrument P2s fixed in bounded waves with clean re-reviews. Review: reviewer-high, no material findings; 114 synthetic tests, the 100 noisy LP cases, the width recoveries, 3,600 shadow cases, the guarded replay and all 41 exposure tests rerun; every pin matches; no protected file changed |
 | G1 | — |
 | G2 | conditional |
 
@@ -469,6 +469,12 @@ Deferred.
   0.715 against 0.147 (light), 3 codes at 14.5 CSS px inward between reflected rows.
 
 ## Revision Notes
+
+- 2026-09-27 (G0's merge, the parent): merged `cd55870d` after an independent gate review (reviewer-high, no material findings; 114 synthetic tests, the 100 noisy LP cases, the width recoveries, 3,600 shadow cases, the guarded replay and all 41 exposure tests rerun; every pin matches; no protected file changed);
+  freeze 1,818; no capture tree moved; nothing fitted to native pixels. G0's stops produced v2.1–v2.3;
+  its instrument reviews produced two P2 fix waves (exact-support recovery; width-aware stroke search),
+  each re-reviewed clean. X9: G0 ran on an `astra` high worker with its own sub-workers for the body
+  instrument, the exposure runner and the sheets, and `reviewer-high` on each. Worktree removed.
 
 - 2026-09-27 (v2.3, the parent, on the exposure runner's question): clause 11's "capturing their
   web side inside the receipt" could be read as forbidding a blind pre-exposure web render of the
