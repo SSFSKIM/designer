@@ -1,0 +1,19 @@
+......F......
+======================================================================
+FAIL: test_all_channel_and_repeat_reports_match_recorded_evidence (test_reporting.ReportingTests.test_all_channel_and_repeat_reports_match_recorded_evidence)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w39/g2/packages/calibration/results/2026-09-26-w39-g2-identification/body-correction/test_reporting.py", line 45, in test_all_channel_and_repeat_reports_match_recorded_evidence
+    self.assertEqual(actual[field], old[field], (key(actual), field))
+AssertionError: {'cel[93 chars]696971, 'residualRGB': [39.99999999999999, 24.[31 chars]999]} != {'cel[93 chars]69697, 'residualRGB': [39.99999999999999, 24.0[30 chars]999]}
+  {'cell': 'apple-macos-27.0-1x-dark-standard-glass0.5/green-colour__rest',
+-  'meanCodes': 34.69696969696971,
+?                               -
+
++  'meanCodes': 34.6969696969697,
+   'residualRGB': [39.99999999999999, 24.090909090909122, 39.99999999999999]} : (('H1', 'dark-active', 1, 'leastSquares'), 'maximumRGBMean')
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.473s
+
+FAILED (failures=1)

@@ -175,3 +175,47 @@ source revision8169209d, whose named source files still match byte-for-byte.
 No previous artifact is rewritten. The numerical correction records its Python
 interpreter and package versions and refuses replay under different versions;
 SciPy is a fitting-tool dependency, never a required dependency of pnpm -r test.
+
+STEP 3 CORRECTION: CERTIFIED H3 BRACKETS BESIDE LOCAL NONLINEAR CANDIDATES
+
+body-correction/correction-attempt-1.json.gz is an additive correction, never
+a rewrite of the first reading. Its H3 tolerance test is linear feasibility
+after decoding each encoded per-channel tolerance interval, retaining the
+unit-cube clip's open rail constraints. Exact rational Farkas lower witnesses
+certify infeasibility of the float64-decoded inequalities; the upper endpoints
+are checked through the original forward. These are numerical IEC-arithmetic
+certificates, not formal transcendental interval arithmetic. Calibration-only
+minimax brackets in encoded codes (width at most0.00001):
+ endpoint         lower             upper
+ light active      3.9190764427       3.9190826416
+ light inactive    4.1853854060       4.1853922606
+ dark active      20.1388413256      20.1388500387
+ dark inactive    17.4708541957      17.4708624428
+The dark-active bracket corrects the first reading's22-code local plateau.
+Every lower endpoint exceeds the one-code survival bound. H3's coefficients
+may be nonunique; neither a secondary fit nor rank repair was introduced.
+
+H2prime and H3prime retain an explicitly different epistemic status:116
+deterministic multistart runs (15/14 per endpoint) all converge, but their best
+nonlinear candidates are LOCAL, not globally certified. H3prime dark-active
+improves22 to21.7046617244 calibration codes. The other nonlinear calibration
+objectives agree to rounding. All corrected candidates fail; this is not a
+mathematical exclusion of every H2prime or H3prime coefficient vector. The
+parent's request for a certified H2prime minimum is therefore not established,
+and remains a named limitation rather than a certified negative by wording.
+
+The correction retains original LS fits/scores and legacy local minima, then
+adds corrected fits,6,448 colour/thick method/cell score records,208 survival/
+transfer summaries and936 signed factorial diagnostic rows. All24 corrected
+family/endpoint/scale colour summaries fail. Per-channel/seven-repeat errors,
+worst-channel/all-channel witnesses and censored counts remain explicit.
+
+13 tests pass (body-correction/test-all-attempt-2.txt). Full replay reruns all
+LPs and116 nonlinear starts and reproduces canonical JSON SHA-256
+2b9278962de9c3a35ccddea5fb0254e54befb3c8f5639f11a66f7ad01322eea1
+(body-correction/replay-verify-attempt-1.txt). Replay pins its code and both
+input files, the material sidecar, CPython3.12.3, NumPy2.5.3 and SciPy1.18.1;
+a mismatch refuses. Output is write-once. Reporting parity's first failure was
+one-ulp mean-reduction arithmetic, retained beside a12-decimal-place comparison;
+no scientific tolerance moved. Independent numerical review follows this
+checkpoint, before any final closure claim.
