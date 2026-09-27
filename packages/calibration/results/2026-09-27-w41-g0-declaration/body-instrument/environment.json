@@ -1,0 +1,36 @@
+{
+  "schema": "w41-body-environment-1",
+  "python": "3.12.3 (v3.12.3:f6650f9ad7, Apr  9 2024, 08:18:47) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "executable": "/private/tmp/w39-g2-wgpu/bin/python",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "numpy": "2.5.3",
+  "scipy": "1.18.1",
+  "scipyPath": "/private/tmp/w39-g2-wgpu/lib/python3.12/site-packages/scipy/__init__.py",
+  "venv": "/tmp/w39-g2-wgpu",
+  "existingExternalVenv": true,
+  "packagesInstalled": false,
+  "environment": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "dependencies": [
+    "cffi==2.1.1",
+    "numpy==2.5.3",
+    "pycparser==3.0",
+    "rendercanvas==2.7.2",
+    "rubicon-objc==0.5.6",
+    "scipy==1.18.1",
+    "wgpu==0.32.0"
+  ],
+  "sourceInputs": {
+    "2026-09-27-w41-g0-declaration/bounds-declaration.txt": "99e460d5cf83da086fb27dbd132058fe81c31767462917623ce9883c74c9c05c",
+    "2026-09-27-w41-g0-declaration/closure.json": "378505239a8ce34df7ca32976a76b667a1a1179f033d635ddb1ccdbb434261a6",
+    "2026-09-26-w39-g2-identification/instrument/body.py": "6b15fea4459402dbc5affc0642767c93abb2ced4b69cfea6683048688c45c842",
+    "2026-09-26-w39-g2-identification/body-correction/solver.py": "a3114cc41d9c0d046d270e68b27bce18a0b5157149cd0360eb6777c48e786b48"
+  },
+  "notes": [
+    "test-red.txt is the observed missing-module failure before implementation",
+    "test-attempt-1.txt preserves initial failure: independent E3 test oracle incorrectly held neutral endpoints; fixed to declared end-segment continuation, no implementation or declaration change",
+    "synthetic-results.json was produced by the first six-test green run; added boundary tests do not overwrite it"
+  ]
+}
