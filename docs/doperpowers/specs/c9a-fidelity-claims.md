@@ -40604,3 +40604,56 @@ not a capture failure or changed repeat bar. The partial reports remain. An addi
 reader filters `protocol == 'normal'`, keeps all seven run entries even when pixel states
 are deduplicated, and retains excluded sentinel counts. The frozen536 web PNGs and their
 pre-W41 authority are unaffected; corrected transfer results will be a separate artifact.
+
+### 11. The active stroke is rejected beyond every rival's support; inactive fits remain live
+
+The required shadow-only cut, reviewed and committed **`39af4831`**, admits a bin only when
+**every 16×16 subpixel of every member pixel** is at device distance ≥2·scale. That lies
+beyond the maximal support of both declared width units (device≤2px and CSS≤2CSSpx), so
+coverage is exactly zero for every M0/M1/M2, β/γ and nominal-curvature coefficient. The
+prediction there is the held pre-W41 shadow, independent of every stroke coefficient.
+Residuals remain absolute **before** spatial aggregation, with all seven normal repeats
+and one-sided rails retained.
+
+| endpoint | failed / required control bins1x | failed / required2x | worst1x /2x, codes |
+| --- | ---: | ---: | ---: |
+| light active | 12 /1550 | 32 /3640 | 1.700192 /1.729163 |
+| dark active | 22 /1550 | 60 /3640 | 2.083171 /2.107321 |
+| light inactive | 0 /1550 | 0 /3640 | 0.125 /0.125 |
+| dark inactive | 0 /1550 | 0 /3640 | 0.125 /0.125 |
+
+The four decisive witnesses are grey128, circular120×64, bottom straight, shell2 at1x /
+shell4 at2x, with56/112 pixels and minimum quadrature distances **2.03125 /4.03125 devicepx**.
+Apple reads127 on every run/channel. The held shadow predicts **125.299808 /125.270837 light**
+and **124.916829 /124.892679 dark**, so all seven repeats and all RGB channels miss the one-code
+bound. A separate dense proof executes the **unchanged sealed loader and shadow.at** in
+`/Users/new/vitrea-w41/pre-w41-proof` at **`d35b4cbf43f1fcdda55063b3b8e0fa178d720a78`**;
+its sources/documents match the original pins and it agrees with the compact forward within
+4e−13 code. This avoids silently treating the newly integrated E3 source as the old shadow's
+historical provenance. `stroke/support-controls-attempt-1/` retains all20,760 control rows
+and the dense witnesses;32 column checks reproduce the full shifted-union shadow exactly.
+Independent reviewer-high verifies the cut/proof/chronology with no material finding.
+
+**The coefficient-independent rejection is per ACTIVE endpoint**, not a rejection of the
+inactive endpoints or of a hypothetical refitted shadow. The shadow was declared held, so
+the miss cannot be absorbed by an exterior stroke with no support there. Dark-active top
+straight is separately conditional against G's freeγ, **not** part of this certificate:
+its40/80 control bins pass, worst **0.331567 /0.359802**. Every gap remains named.
+
+Under the parent's ruling, the active joint multistart stopped **after** the dense certificate
+was written. Partial61–112-code maxima and solver checkpoints remain labelled partial, not
+final minima. The remaining budget was not consumed because the required control determined
+the active verdict, not because a tolerance or optimizer cap was reduced.
+
+The parent then explicitly promoted a **fresh inactive-only run** to endpoint-candidate
+survival authority, recorded as a deviation from the declaration's joint-fit authority,
+without editing declaration850747c1. The same sealed fitter, bounds, domains and budgets
+operate on light/dark inactive observations only, sharing width/ρ across those endpoints.
+Active vector slots remain internally as unobserved dummy dimensions because removing them
+would change the sealed parameterization/start box; no active observation enters and no
+active coefficient is interpreted. Original seed4100 vectors are preserved by index. The
+previously proposed inactive-only diagnostic **had not run**, so no diagnostic result is
+relabelled. Review checks all144 original family/rival start vectors and budgets before the
+three fresh partitions launch at **`5e32e7bf`**, at most three concurrent starts. Inactive
+survival, validation transfer and sensitivity remain pending, not inferred from the passing
+outer-support controls.
