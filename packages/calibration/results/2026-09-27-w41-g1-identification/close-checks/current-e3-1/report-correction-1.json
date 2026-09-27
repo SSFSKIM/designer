@@ -1,0 +1,8 @@
+{
+  "schema": "w41-close-check-report-correction-1",
+  "correctsCommit": "d43954e1",
+  "incorrectClaim": "The single skipped test was the historical W34 side-binary check because the binary was absent.",
+  "correctClaim": "The W34 binary exists. The absent worktree canonical capture tree triggers the explicit UNMEASURED X1 pixel re-derivation skip. No X1 pixel assertion is claimed passed.",
+  "cause": "A reporting script asserted the guessed skip cause before writing summary.json and failed. The following shell command was not chained with &&, so the valid test/lint/freeze logs were committed with an incorrect explanatory body. No test result or protected evidence was changed.",
+  "recording": "Original commit and logs are retained; this additive correction and summary state the actual conditions."
+}
