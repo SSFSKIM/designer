@@ -40303,3 +40303,11 @@ timestamp/hash: **not run**. Those witnesses must be placed side by side when th
 a candidate render before the baseline freeze is still forbidden. The parent's quiet-window
 request and this ordering ruling authorize no holdout read, native capture or canonical
 publication. Subsequent sections will record measured findings only after they exist.
+
+**Ruling-source correction, before spatial fitting:** main commit **`ce56b105`**,
+“W41 charter v2.4 (corrected)”, records the parent's later direction in the charter
+itself. It supersedes `ba02f1a5`'s amendment sentence with: **“The declaration is NOT
+amended (its worker's standing instruction, kept): 850747c1… stays byte-for-byte, and
+the executed order is recorded as a deviation under the parent's ruling in the README
+and §5.192”**. The prior wording survives in git history. The worker retains both
+citations here; the sealed declaration was never edited.

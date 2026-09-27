@@ -31,3 +31,10 @@ The parent requested a bounded three-hour X6 wait, 30-second observations.
 Baseline freeze: NOT YET CAPTURED. First candidate render: NOT RUN.
 Their timestamps and hashes must be recorded together before a candidate render
 can be admitted. No identity-gated leaf may be rendered before the baseline.
+
+Parent ruling source correction
+The parent subsequently committed ce56b105 on main, “W41 charter v2.4 (corrected)”.
+It replaces ba02f1a5's declaration-amendment direction with preserving the sealed
+850747c1 declaration and recording the execution-order deviation. The earlier
+wording remains in git history. This corrects the charter instruction, not the
+sealed declaration or any measured value.
