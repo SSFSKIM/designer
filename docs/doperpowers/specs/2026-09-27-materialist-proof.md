@@ -213,7 +213,7 @@ parallel; the user's time is the eye reading, about thirty minutes.
 - `docs/research/scripts/glass-audit.mjs`, `glass-rules.py`, `glass-rules-analyze.py`,
   `settling/reliability.py` (ported).
 - `docs/research/data/2026-09-27-materialist-proof/`: `audit/<slug>.json` and the capture hashes,
-  `rules/<rater>/<slug>.json`, `review/<slug>.md`, `results.md`; `eval/criteria.json`,
+  `rules/<rater>/<slug>.json`, `review/<slug>.{md,json}`, `results.md`; `eval/criteria.json`,
   `eval/<id>/<arm>/audit.json`, `eval/<id>/grade.json`, `eval/results.md`.
 - `docs/research/data/2026-09-10-liquid-glass-demos/` (ported from `f13ab38c`, completed or closed).
 - `evals/materialist.json` (ids 5 and 6).
@@ -278,6 +278,18 @@ parallel; the user's time is the eye reading, about thirty minutes.
   imagery search script is a tool, not a skill; the package READMEs are the library's own
   documentation), so the arms differ in the skill alone.
   Date/Author: 2026-09-27, Claude.
+
+- Decision: Three calls made at the port (G2), accepted. (a) r18 is read from a sample of every
+  glass text run against the CAPTURED pixels behind it, in both schemes, across the first viewport,
+  the tiles and the open menu; the 2.3 DOM sample, which measures a label on WebGPU-tier glass
+  against the page ground behind the canvas rather than the glass, is printed beside it. (b) The
+  source reviewer writes `review/<slug>.json` (`r23`, `evidence`, optional `spanExceptions`) for the
+  analyzer beside its `review/<slug>.md` for people. (c) A page that breaks the audit contract (no
+  `__vitrea`, no reduced-transparency switch) reads as UNREAD on the clauses that need the runtime,
+  not as failed, and gets no verdict until it exposes the handle.
+  Rationale: (a) is what "measured on rendered pixels" means; (b) keeps one machine-readable shape;
+  (c) is the honesty core's own rule, a missing read is not a zero.
+  Date/Author: 2026-09-27, Claude, on the porter's report.
 
 - Decision: The same four rater identities as the 2.3 panel, the maker's model among them.
   Rationale: comparability with the available-panel figures. The same-model bias (an opus rater on
