@@ -459,6 +459,19 @@ identified and reported on calibration with their residuals and the resolution v
 edge conditioner in this wave stays the measured deep median (W39 Decision Log 8); the leaf is
 Deferred.
 
+### Decision Log 7 — a candidate may claim a subset of the four endpoints (in G1, by rule; the parent's)
+
+Ruled on G1's question after the body fits: the light-inactive body (E3, with EH6 its
+within-resolution equivalent) meets every required uniform calibration and validation member and
+channel at both scales while the other three endpoints fail. A leaf lands per document, so a
+candidate carries an explicit CLAIM SCOPE — the endpoints where its operator is enabled, at
+identity elsewhere so no other document's rendering or digest moves. The runner scores the
+complete admitted membership; closure is tested on the claimed strata's held-out cells; unclaimed
+strata are reported "not claimed (identity)" with their scores, neither failures nor passes; at
+identity the render must read byte-identical to the baseline, and that equality is a test. The
+more parsimonious survivor (E3, three parameters) is the leaf candidate; the equivalence is
+Decision Log 2 material.
+
 ## Surprises & Discoveries
 
 - **H3's dark miss was the bridges' extrapolation, not hue dependence** (memo A): 20.1 / 17.5
@@ -470,6 +483,8 @@ Deferred.
 
 ## Revision Notes
 
+- 2026-09-27 (Decision Log 7, the parent, in G1): partial-endpoint adoption with a claim scope;
+  light-inactive E3 carried to the scratch leaf, the other endpoints at identity.
 - 2026-09-27 (v2.4, the parent, on G1's stop): the declaration fixes G1's order with the pre-W41
   rendered baseline first, and X6 refused the capture (the user's Chrome and another session's
   Playwright browsers on the machine). Ruled: the numerical steps (uniform body, spatial finding,
