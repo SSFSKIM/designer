@@ -1,0 +1,100 @@
+{
+  "status": "pre-G2 prediction; not a canonical reading or exposure freeze",
+  "recordedAt": "2026-09-27T08:36:14.458496+00:00",
+  "endpoint": "light-inactive",
+  "family": "E3",
+  "neutral": [
+    150,
+    157,
+    164,
+    171,
+    178,
+    188,
+    197
+  ],
+  "coefficients": [
+    0.929205829365914,
+    0.9597570955316058,
+    0.9383102545096953
+  ],
+  "selectionSha256": "08147cdef79c1793524c7c6508b709addcceb6d3d0f03dd0baa1739ecb53471a",
+  "rows": [
+    {
+      "inputRGB": [
+        0,
+        0,
+        0
+      ],
+      "predictedRGB": [
+        132.49999999999997,
+        132.49999999999997,
+        132.49999999999997
+      ]
+    },
+    {
+      "inputRGB": [
+        32,
+        32,
+        32
+      ],
+      "predictedRGB": [
+        146.5,
+        146.5,
+        146.5
+      ]
+    },
+    {
+      "inputRGB": [
+        192,
+        192,
+        192
+      ],
+      "predictedRGB": [
+        214.1818181818182,
+        214.1818181818182,
+        214.1818181818182
+      ]
+    },
+    {
+      "inputRGB": [
+        192,
+        32,
+        32
+      ],
+      "predictedRGB": [
+        255.0,
+        129.66965706430258,
+        129.66965706430258
+      ]
+    },
+    {
+      "inputRGB": [
+        32,
+        192,
+        32
+      ],
+      "predictedRGB": [
+        88.16764459231018,
+        238.29728531386144,
+        88.16764459231018
+      ]
+    }
+  ],
+  "historicalNativeComparison": {
+    "black": 133,
+    "source": "W36 claims5.179\u20135.180; quoted published reading, not reread",
+    "redBridge": [
+      255,
+      129,
+      129
+    ],
+    "greenBridge": [
+      89,
+      239,
+      89
+    ],
+    "bridgeSource": "W41 sealed declaration grounding; calibration replay verified knots/bridges",
+    "censor": "red R>=250 is one-sided, not exact255 accuracy"
+  },
+  "noNativePayloadRead": true
+}

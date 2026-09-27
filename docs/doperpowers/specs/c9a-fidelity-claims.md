@@ -40390,3 +40390,72 @@ reading. No structured backdrop is held out, so **zero spatial held-out coverage
 varying group means/frequencies and structured held-out backdrops. Independent review
 reconstructed all **96** saved score records, **12** resolution comparisons and **8**
 reflected pairs, plus provenance hashes, without re-opening native payloads: no finding.
+
+### 4. Complete uniform transfer and the parent's endpoint-scoped nomination
+
+The owner's coverage check found that the initial body wrapper inherited a narrower
+colour/thick selection and omitted other admitted uniform controls, placements and column
+members. The bounded additive correction **`2e4e0a9`** reads **56 additional calibration
+cells /64 members**, leaving every coefficient and the 408-cell fitting population unchanged.
+`body/uniform-transfer-1/census.json` accounts for all **1,440 public identities**, their roles,
+admission and exclusions. The complete uniform union is **552 cells /560 glass members**;
+validation coverage had already been complete. Independent review reproduces all **3,920
+median /27,440 repeat** scores, 168 strata and unchanged fit hashes; five synthetic coverage,
+member and rail tests pass.
+
+The omitted grey255 controls expose another gap: E3/EH6's declared neutral continuation
+misses by **19.272727 dark active /22.045455 dark inactive**, both scales; O12's local
+candidates read **17.672672 /20.591927** there. These are not the earlier chromatic rejection
+renamed. Light-inactive E3/EH6 still pass **complete uniform transfer**, with maximum mutual
+separation **1.190202** against three over **138 cells /140 members /418 measured channels**.
+
+**The parent ruled partial-endpoint adoption**, preserved in
+`parent-ruling-partial-endpoint.json`: carry **E3 on the light receded endpoint only**, choosing
+three gains rather than EH6's six while retaining their insufficient-resolution finding for
+Decision Log2. The no-complete-four-endpoint-family finding stands; it does not discard a
+surviving endpoint. Only the light receded scratch document enables the operator; the other
+three stay at the identity. The rendered check and per-bin veto still cover every web-plannable
+cell, with **byte equality to the pre-W41 baseline** required on unclaimed endpoints.
+
+The receipt still binds and scores the complete **72 numerical /64 rendered** held-out
+membership. Closure is assessed on the claimed light-inactive stratum at both scales;
+unclaimed rows keep their actual scores and are labelled **“not claimed (identity)”**, counted
+as neither passes nor candidate failures. A separately versioned G1 runner/schema binds scope,
+domain and baseline payloads; G0's runner, schema and declaration remain unchanged. The blind
+shipped web baseline also needs all64 public held-out web cells for identity witnesses, without
+opening one Apple held-out pixel. **No candidate render or exposure has occurred at this ruling.**
+
+### 5. The candidate's domain and pre-G2 continuation, declared before implementation
+
+`parent-ruling-renderer-domain.json` preserves the next parent ruling. E3's enabled domain is
+**nominal accessibility policy, regular variant, actual sampled texture**. Its effective strength
+is zero under RT/IC/forced-colors, for clear material, and for fabricated DOM/none backdrops.
+It uses the existing post-refraction/blur sampled backdrop in encoded space; no spatial gain,
+blur or group/local coefficient is fitted or added. A single identity gate-group contains
+strength (identity zero), F's seven ordinates and g's three. Only the light receded scratch
+document enables it, with frozen26.5 and the other three macOS27 digests required unchanged.
+
+At presence one, **E3 REPLACES the tone solve, chroma retention and black-branch output** at
+that endpoint; it is not another retention mixed onto them. The result goes through the
+unchanged author tint and rim. At intermediate presence, the bounded extension is the
+linear-light mix `mix(backdrop, decode(E3(encode(backdrop))), presence)`, explicitly **unmeasured
+interpolation**; at zero presence the branch is skipped exactly. Other policy/presence behavior
+and existing purity/policy tests remain untouched. Domain and endpoint scope belong together
+in the freeze manifest. CSS must be derived and measured or explicitly declined with its
+residual at step9; no parity claim follows from the numerical E3 fit.
+
+The replacement therefore also takes over the old black branch when enabled. These are
+**predictions before G2**, bound in `e3-continuation-predictions.json`, not new canonical reads:
+
+| input | light-receded E3 prediction, encoded codes | comparison |
+| --- | ---: | --- |
+| neutral0 | 132.5 | W36's published native receded-light black133; not reread here |
+| neutral32 | 146.5 | declared first-segment continuation; not a fitted neutral knot |
+| neutral192 | 214.181818 | declared last-segment continuation; not a fitted neutral knot |
+| red bridge192/32/32 | 255 /129.669657 /129.669657 | native255/129/129; R is a one-sided rail, not exact255 accuracy |
+| green bridge32/192/32 | 88.167645 /238.297285 /88.167645 | native89/239/89 |
+
+The bridge uses F of **encoded luma** plus radial chroma, not F applied separately to its32
+and192 channels. Canonical X1 and L1 still referee the resulting material at G2; the132.5
+prediction does not inherit W36's exact-black closure. Implementation is isolated from the
+primary capture worktree so both baseline freezes genuinely name the pre-W41 renderer.

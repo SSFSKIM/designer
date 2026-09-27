@@ -57,3 +57,44 @@ All fitted pair separations are below3; reflected native differences are up to
 4 light-active /3 dark-active at both scales. Blend versus blur and the signed
 term versus a boundary tail remain unidentifiable. Independent saved-evidence
 review checked all96 score records,12 resolution comparisons and8 reflections.
+
+Complete uniform-control transfer, additive correction (2e4e0a9)
+The initial colour/thick wrapper omitted56 uniform calibration cells /64 members.
+body/uniform-transfer-1/ closes that coverage without refitting:552 uniform cells /
+560 members total, full1440-identity census, all3920median /27440repeat scores.
+Additional dark grey255 neutral-continuation misses are19.272727 active /22.045455
+inactive for E3/EH6; O12 local17.672672 /20.591927. Existing fit bytes remain.
+Light-inactive E3/EH6 still pass full uniform transfer; separation1.190202<3 over
+138cells/140members/418measured channels. Independent review and5tests pass.
+
+Parent ruling: endpoint survivor is a candidate, not discarded for other failures
+parent-ruling-partial-endpoint.json preserves the ruling. Carry E3 LIGHT-INACTIVE
+only (3gains versus EH6's6); keep EH6 as a below-resolution equivalent survivor.
+No complete four-endpoint family survives, but that does not veto this endpoint
+candidate. Other3macOS27 endpoints stay zero-gated, byte-identical to baseline.
+The single receipt still binds/scorers all72numerical/64rendered heldout cells;
+closure denominator is claimed lightinactive only, unclaimed rows retain scores
+and say not claimed(identity), never pass. No exposure or candidate render yet.
+An additive G1 runner/schema implements this claim contract; G0 remains untouched.
+
+Parent ruling: candidate domain and replacement semantics
+parent-ruling-renderer-domain.json preserves all conditions. E3 is enabled only
+for nominal policy, regular material and actual sampled texture; effective0 for
+RT/IC/forced-colors, clear, fabricatedDOM/none. Input is the existing refracted/
+blurred sampled backdrop. At presence1 it REPLACES the tone solve, retention and
+black-branch output; tint and rim stay downstream unchanged. Intermediate presence
+uses linear mix with the backdrop and is unmeasured interpolation; presence0 skips
+exactly. One gate-group contains strength(identity0),7neutral ordinates and3gains.
+These enable conditions belong beside endpoint claim scope in the frozen manifest.
+No new spatial coefficient is introduced. CSS mirror/residual awaits step9.
+Implementation is isolated in a separate worktree; primary source must stay
+pre-W41 until536calval and64blind-WEB baseline witnesses have frozen.
+
+Pre-G2 continuation predictions, not new native readings
+E3 neutral input0 ->132.5 versus W36 recededlight native133; input32 ->146.5;
+input192 ->214.181818. Full red bridge192/32/32 predicts255/129.669657/129.669657
+(native255/129/129, redR one-sided censored); green32/192/32 predicts
+88.167645/238.297285/88.167645 (native89/239/89). Scalar F continuation is not
+channelwise F on a coloured bridge: E3 uses encoded luma and radial chroma gain.
+e3-continuation-predictions.json binds these predictions to the frozen body fit;
+G2's canonical X1/L1 remain referees, not implicitly passed by this extrapolation.
