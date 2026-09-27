@@ -1,6 +1,6 @@
 # W41 — the archive re-read: the body as luma and chroma, its locality, and the exterior stroke, identified on the W39 archive and landed if they close (2026-09-27)
 
-**Status: v2 (the parent; one adversarial round folded: 3 P1 / 2 P2); Decision Log 1 RULED (land in this wave); second adversarial round on the re-cut G1/G2 before G0 dispatches.**
+**Status: v2 approved by a second adversarial round (no material findings); Decision Log 1 RULED (land in this wave); G0 DISPATCHED 2026-09-27.**
 
 ## Purpose
 
@@ -455,6 +455,9 @@ Deferred.
 
 ## Revision Notes
 
+- 2026-09-27 (G0 dispatch, the parent): the second adversarial round on the re-cut returned no
+  material findings and approved the charter for G0, noting that the exposure runner G0 builds
+  needs its own independent review. G0 dispatched on an `astra` high worker (X9).
 - 2026-09-27 (v2, the parent): one adversarial round folded — P1 the spatial families had no
   held-out referee and an overstated discriminator (fixed: a finding, no leaf, the strip pinned,
   Decision Log 6); P1 the stroke's required set dropped the occupied 1x shell-1 arcs and the
