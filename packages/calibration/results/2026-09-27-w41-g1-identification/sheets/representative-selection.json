@@ -1,0 +1,62 @@
+{
+  "declaredAt": "2026-09-27T11:00:35.644949+00:00",
+  "nativeRepeatOrdinal": 0,
+  "nativeRule": "First of seven admitted normal runs sorted lexically by run name; actual frame, never median",
+  "selectionBasis": "Declared from metadata before actual sheet/native pixel reads",
+  "cells": [
+    {
+      "bed": "w39",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "sceneId": "factor-y1-c24-h120-colour__rest",
+      "reason": "One uniform colour, both schemes and poses, including changed and identity endpoints"
+    },
+    {
+      "bed": "w39",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "sceneId": "factor-y1-c24-h120-colour__inactive",
+      "reason": "One uniform colour, both schemes and poses, including changed and identity endpoints"
+    },
+    {
+      "bed": "w39",
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "sceneId": "factor-y1-c24-h120-colour__rest",
+      "reason": "One uniform colour, both schemes and poses, including changed and identity endpoints"
+    },
+    {
+      "bed": "w39",
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "sceneId": "factor-y1-c24-h120-colour__inactive",
+      "reason": "One uniform colour, both schemes and poses, including changed and identity endpoints"
+    },
+    {
+      "bed": "w39",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "sceneId": "v90-c-c44__inactive",
+      "reason": "Structured light-inactive diagnostic/veto domain"
+    },
+    {
+      "bed": "canonical",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "sceneId": "photo__rrect-md__inactive",
+      "reason": "Changed endpoint on structured canonical photo"
+    },
+    {
+      "bed": "canonical",
+      "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "sceneId": "photo__rrect-sm__inactive",
+      "reason": "Changed endpoint at2x and smaller span"
+    },
+    {
+      "bed": "canonical",
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "sceneId": "dark-solid__capsule-button__rest",
+      "reason": "Identity endpoint on dark native reference"
+    },
+    {
+      "bed": "canonical",
+      "profileKey": "apple-macos-26.5-1x-light-standard",
+      "sceneId": "photo__rrect-md__rest",
+      "reason": "Frozen26.5 selection, identity diagnostic control"
+    }
+  ]
+}
