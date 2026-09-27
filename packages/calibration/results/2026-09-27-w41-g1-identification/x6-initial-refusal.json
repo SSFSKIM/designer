@@ -1,0 +1,288 @@
+{
+  "at": "2026-09-27T07:59:59.817968+00:00",
+  "settings": {
+    "reduceTransparency": {
+      "command": [
+        "defaults",
+        "read",
+        "com.apple.universalaccess",
+        "reduceTransparency"
+      ],
+      "exitCode": 0,
+      "stdout": "0",
+      "stderr": ""
+    },
+    "increaseContrast": {
+      "command": [
+        "defaults",
+        "read",
+        "com.apple.universalaccess",
+        "increaseContrast"
+      ],
+      "exitCode": 0,
+      "stdout": "0",
+      "stderr": ""
+    },
+    "NSGlassTintAmount": {
+      "command": [
+        "defaults",
+        "read",
+        "-g",
+        "NSGlassTintAmount"
+      ],
+      "exitCode": 0,
+      "stdout": "0.5",
+      "stderr": ""
+    }
+  },
+  "foreign": [
+    [
+      "3562",
+      "6993",
+      "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.57/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)"
+    ],
+    [
+      "6993",
+      "1",
+      "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+    ],
+    [
+      "7035",
+      "1",
+      "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.57/Helpers/chrome_crashpad_handler"
+    ],
+    [
+      "7043",
+      "6993",
+      "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.57/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper"
+    ],
+    [
+      "7044",
+      "6993",
+      "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.57/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper"
+    ],
+    [
+      "7045",
+      "6993",
+      "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.57/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper"
+    ],
+    [
+      "7217",
+      "6993",
+      "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.57/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)"
+    ],
+    [
+      "7220",
+      "6993",
+      "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.57/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)"
+    ],
+    [
+      "7221",
+      "6993",
+      "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.57/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)"
+    ],
+    [
+      "7222",
+      "6993",
+      "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.57/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)"
+    ],
+    [
+      "7226",
+      "6993",
+      "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.57/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)"
+    ],
+    [
+      "7227",
+      "6993",
+      "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.57/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)"
+    ],
+    [
+      "7405",
+      "6993",
+      "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.57/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)"
+    ],
+    [
+      "10444",
+      "6993",
+      "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.57/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)"
+    ],
+    [
+      "16509",
+      "6993",
+      "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.57/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper"
+    ],
+    [
+      "16510",
+      "6993",
+      "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.57/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper"
+    ],
+    [
+      "16536",
+      "6993",
+      "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.57/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)"
+    ],
+    [
+      "43018",
+      "6993",
+      "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.57/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)"
+    ],
+    [
+      "48603",
+      "6993",
+      "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.57/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)"
+    ],
+    [
+      "48838",
+      "48837",
+      "/Users/new/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing"
+    ],
+    [
+      "48843",
+      "1",
+      "/Users/new/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/151.0.7922.34/Helpers/chrome_crashpad_handler"
+    ],
+    [
+      "48845",
+      "1",
+      "/Users/new/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/151.0.7922.34/Helpers/chrome_crashpad_handler"
+    ],
+    [
+      "48847",
+      "48838",
+      "/Users/new/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/151.0.7922.34/Helpers/Google Chrome for Testing Helper (GPU).app/Contents/MacOS/Google Chrome for Testing Helper (GPU)"
+    ],
+    [
+      "48848",
+      "48838",
+      "/Users/new/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/151.0.7922.34/Helpers/Google Chrome for Testing Helper.app/Contents/MacOS/Google Chrome for Testing Helper"
+    ],
+    [
+      "48849",
+      "48838",
+      "/Users/new/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/151.0.7922.34/Helpers/Google Chrome for Testing Helper.app/Contents/MacOS/Google Chrome for Testing Helper"
+    ],
+    [
+      "52984",
+      "52975",
+      "/Users/new/Library/Caches/ms-playwright/chromium-1243/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing"
+    ],
+    [
+      "52992",
+      "1",
+      "/Users/new/Library/Caches/ms-playwright/chromium-1243/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/153.0.8010.12/Helpers/chrome_crashpad_handler"
+    ],
+    [
+      "52994",
+      "1",
+      "/Users/new/Library/Caches/ms-playwright/chromium-1243/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/153.0.8010.12/Helpers/chrome_crashpad_handler"
+    ],
+    [
+      "53036",
+      "52984",
+      "/Users/new/Library/Caches/ms-playwright/chromium-1243/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/153.0.8010.12/Helpers/Google Chrome for Testing Helper (GPU).app/Contents/MacOS/Google Chrome for Testing Helper (GPU)"
+    ],
+    [
+      "53037",
+      "52984",
+      "/Users/new/Library/Caches/ms-playwright/chromium-1243/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/153.0.8010.12/Helpers/Google Chrome for Testing Helper.app/Contents/MacOS/Google Chrome for Testing Helper"
+    ],
+    [
+      "53041",
+      "52984",
+      "/Users/new/Library/Caches/ms-playwright/chromium-1243/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/153.0.8010.12/Helpers/Google Chrome for Testing Helper.app/Contents/MacOS/Google Chrome for Testing Helper"
+    ],
+    [
+      "53063",
+      "52984",
+      "/Users/new/Library/Caches/ms-playwright/chromium-1243/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/153.0.8010.12/Helpers/Google Chrome for Testing Helper.app/Contents/MacOS/Google Chrome for Testing Helper"
+    ],
+    [
+      "53420",
+      "53386",
+      "/Users/new/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing"
+    ],
+    [
+      "53460",
+      "1",
+      "/Users/new/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/151.0.7922.34/Helpers/chrome_crashpad_handler"
+    ],
+    [
+      "53464",
+      "1",
+      "/Users/new/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/151.0.7922.34/Helpers/chrome_crashpad_handler"
+    ],
+    [
+      "53473",
+      "53420",
+      "/Users/new/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/151.0.7922.34/Helpers/Google Chrome for Testing Helper (GPU).app/Contents/MacOS/Google Chrome for Testing Helper (GPU)"
+    ],
+    [
+      "53474",
+      "53420",
+      "/Users/new/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/151.0.7922.34/Helpers/Google Chrome for Testing Helper.app/Contents/MacOS/Google Chrome for Testing Helper"
+    ],
+    [
+      "53475",
+      "53420",
+      "/Users/new/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/151.0.7922.34/Helpers/Google Chrome for Testing Helper.app/Contents/MacOS/Google Chrome for Testing Helper"
+    ],
+    [
+      "53487",
+      "48838",
+      "/Users/new/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/151.0.7922.34/Helpers/Google Chrome for Testing Helper (Renderer).app/Contents/MacOS/Google Chrome for Testing Helper (Renderer)"
+    ],
+    [
+      "53488",
+      "48838",
+      "/Users/new/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/151.0.7922.34/Helpers/Google Chrome for Testing Helper (Renderer).app/Contents/MacOS/Google Chrome for Testing Helper (Renderer)"
+    ],
+    [
+      "53995",
+      "53420",
+      "/Users/new/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/151.0.7922.34/Helpers/Google Chrome for Testing Helper (Renderer).app/Contents/MacOS/Google Chrome for Testing Helper (Renderer)"
+    ],
+    [
+      "53996",
+      "53420",
+      "/Users/new/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/151.0.7922.34/Helpers/Google Chrome for Testing Helper (Renderer).app/Contents/MacOS/Google Chrome for Testing Helper (Renderer)"
+    ],
+    [
+      "54001",
+      "52984",
+      "/Users/new/Library/Caches/ms-playwright/chromium-1243/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/153.0.8010.12/Helpers/Google Chrome for Testing Helper (Renderer).app/Contents/MacOS/Google Chrome for Testing Helper (Renderer)"
+    ],
+    [
+      "54002",
+      "52984",
+      "/Users/new/Library/Caches/ms-playwright/chromium-1243/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/153.0.8010.12/Helpers/Google Chrome for Testing Helper (Renderer).app/Contents/MacOS/Google Chrome for Testing Helper (Renderer)"
+    ],
+    [
+      "54003",
+      "52984",
+      "/Users/new/Library/Caches/ms-playwright/chromium-1243/chrome-mac-arm64/Google Chrome for Testing.app/Contents/Frameworks/Google Chrome for Testing Framework.framework/Versions/153.0.8010.12/Helpers/Google Chrome for Testing Helper (Renderer).app/Contents/MacOS/Google Chrome for Testing Helper (Renderer)"
+    ],
+    [
+      "93092",
+      "1",
+      "/Users/new/Applications/Chrome Apps.localized/YouTube.app/Contents/MacOS/app_mode_loader"
+    ],
+    [
+      "93104",
+      "1",
+      "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.57/Helpers/chrome_crashpad_handler"
+    ],
+    [
+      "95173",
+      "6993",
+      "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.57/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)"
+    ]
+  ],
+  "idleSeconds": 956.893493833,
+  "schema": "w41-x6-1",
+  "foreignProcessCount": 48,
+  "rawCensusSha256": "04a0be26a7f2db9d437276a075b1501b934bc59f23f914c297b98be757bb18f6",
+  "rawCensusPath": "/Users/new/.claude/projects/-Users-new-Developer-GitHub-designer/17c7ce02-f9b0-4ed9-b7de-20ee8bbe3a81/tool-results/b4j1twwg6.txt",
+  "browserLaunched": false,
+  "status": "REFUSED",
+  "reason": "X6 requires zero foreign capture/browser processes"
+}
