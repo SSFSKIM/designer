@@ -1,0 +1,246 @@
+W41 grounding memo A — body locality and the dark scheme
+2026-09-27. Recommendation: start from an encoded-luma/chroma decomposition, not another
+constant matrix after channelwise tone. Do NOT equate the large dark H3 error with a
+native hue rotation. The bridges strongly distort that minimax compromise. The gradient
+read, independently, refuses both F(local backdrop) and F(local backdrop)+one offset.
+No coefficients below are proposed for shipment; all fits are exploratory READINGS.
+
+PROVENANCE / CONVENTIONS
+Repository: /Users/new/Developer/GitHub/designer (read-only throughout).
+Archive: /Users/new/.cache/vitrea-archives/489db938a1e234a772ba7223d24fbaf76d137ef5d9e5b2421ed84a86894426b5/extracted
+Asset SHA256: 489db938a1e234a772ba7223d24fbaf76d137ef5d9e5b2421ed84a86894426b5.
+Reader: W39 G0 wave.Reader, roles=('calibration',), via G2 native.guarded; raw-root audit
+ban armed. Read 408 uniform colour cells (51 colours x two schemes x two poses x two
+scales), plus 16 circular-120x44 gradient cells. No validation/holdout payload opened;
+no canonical matrix/generation operation; no raw W39 tree; no repository writes.
+Every uniform deep median was recomputed from crop pixels at d <= -6 CSS px and checked
+against guarded stored statistics. Seven admitted normal runs/cell, not a plurality pick.
+All 408 uniform medians agree across 1x/2x; all their channel bars are 0.5 codes.
+The 16 gradient row-mean bars are also 0.5. Bar = 0.5 + half run-to-run range; resolution=1.
+A=rest/active, I=inactive. IDs below append '-colour__rest' or '-colour__inactive' unless
+already full; profiles are apple-macos-27.0-{1x,2x}-{light,dark}-standard-glass0.5.
+RGB and residuals are encoded codes; e=prediction-native. eY=W.e, W=(.2126,.7152,.0722),
+and eC=norm(e-W*eY/(W.W)); this is the ledger's encoded diagnostic, NOT physical luma.
+All uniform tables use the seven-run median (identical at both scales); the bar is 0.5.
+
+1. WHAT KIND OF MISS IS DARK?
+Recomputed global H3 minimax with the original uncensored-cell inclusion and frozen F:
+                       light A    light I    dark A    dark I
+H3 max, codes            3.919      4.185     20.139    17.471
+H3 without BOTH bridges  1.164      1.528      2.896     3.070
+The second row is a population ablation, NOT permission to drop the bridges. It exposes
+how much of the apparent factorial hue pattern is a global compromise with 32/192 inputs.
+
+Selected dark H3 witnesses (Y0=.05, Y2=.18; C12=.012, C24=.024):
+pose cell                  input RGB    native RGB       e RGB                 eY     eC
+A y0-c12-h240              58,64,69      82,90,96       -6.44,-.75,-2.16       -2.06   6.26
+A y0-c24-h240              52,65,75      75,91,103     -18.53,-1.19,-4.21      -5.09  17.78
+A y2-c24-h240             105,120,130   113,130,141     -9.85,-1.38,-5.49      -3.47  10.37
+A y0-c24-h60               73,61,51     101,86,74        9.06,1.54,3.98         3.31   8.99
+I y0-c12-h240              58,64,69      74,81,87       -5.18,-.80,-2.21       -1.83   5.13
+I y0-c24-h240              52,65,75      66,82,94      -12.81,-1.30,-4.11      -3.95  12.45
+I y2-c24-h240             105,120,130   107,123,134     -9.08,-1.81,-5.45      -3.62   9.59
+I y0-c24-h60               73,61,51      92,77,65        6.17,1.62,4.09         2.77   6.62
+These are full IDs 'factor-'+the displayed cell. Dark's biggest factorial deficit is
+red at h240, especially low Y/high C; h60/120 generally overpredict R/B. h180 underpredicts
+R; h300 underpredicts B. It is predominantly chromatic, with an accompanying signed
+level error, not an achromatic level shift. Both poses have this structure; I is not A
+minus a constant. E.g. Y0/h300 eR averaged over C is -5.23 A versus -1.50 I.
+
+Mean absolute H3 channel error over all 18 factorial hues/levels, split by C:
+                     C12: R,G,B               C24: R,G,B
+light A              .64,.85,.72              1.21,1.68,1.03
+light I              .61,.93,.80              1.28,1.83,1.63
+dark A               3.25,.59,1.81             7.17,1.04,3.48
+dark I               2.29,.69,1.95             5.35,1.14,3.38
+Light's residual is smaller but NOT a scaled dark residual: at Y0/h240 its C-averaged
+eRGB is (-1.35,-1.46,-.01) A / (-1.05,-2.14,.48) I, versus dark
+(-12.49,-.97,-3.18) A / (-8.99,-1.05,-3.16) I. Green dominates light; red dominates dark.
+
+The native direction itself is much simpler than H3's residual direction. Define encoded
+chroma v=x-(W.x)*1. The observed radial gain (v_in.v_out)/(v_in.v_in), over six C24 hues:
+                       Y=.05          Y=.11          Y=.18
+light A                .928-.957      .916-.958      .920-.960
+light I                .928-.957      .932-1.000     .920-.960
+dark A                1.165-1.227    1.117-1.167     1.101-1.126
+dark I                1.187-1.227    1.125-1.199     1.080-1.150
+Native encoded chroma-direction angular departures are <=3.02 degrees on these C24
+cells, whereas H3-versus-native reaches 22.58 degrees dark A and 14.71 dark I. These are
+encoded-vector angles, not OKLCh hue angles; quantisation of short vectors matters.
+Position: dark carries level-dependent chroma expansion, with less expansion at higher
+level. There is no evidence here that it needs a large hue-rotation operator.
+
+2. OPERATOR FAMILIES / WHAT DISCRIMINATES THEM
+Use the SAME seven measured neutral knots (input 40,56,72,88,104,128,150):
+F light A =152,160,168,176,183,195,205; light I=150,157,164,171,178,188,197;
+F dark A=69,83,96,108,119,134,146; dark I=60,74,87,100,111,127,140.
+F is piecewise-linear encoded interpolation, fixed before chroma fits. These are seven
+measured ordinates per endpoint, additional to each family's chromatic parameter count.
+I propose THREE uniform families, in order of merit, not three promised solutions:
+E3: encoded RGB; L=W.x, v=x-L*1; y=F(L)*1+g(L)*v, then unit-cube clip.
+    3 gain ordinates/endpoint, linear between encoded L=63,93,118 codes and held outside.
+    Adds scalar-tone-before-chroma decomposition to H3, plus level-dependent radial gain;
+    unlike H3, the neutral curve is NOT applied separately to R,G,B.
+EH6: same encoded decomposition, g(h) instead of g(L), 6 periodic hue ordinates/endpoint
+    at OKLab input hues 0,60,...300. At neutral the chroma vector is zero.
+    Direct competing explanation: hue-dependent rather than level-dependent chroma gain.
+O12: H3prime's OKLab L tone, with its 2x2 (a,b) matrix interpolated across THREE input L
+    nodes cbrt(.05,.11,.18): 12 coefficients/endpoint, rather than H3prime's 4.
+    Tests level-dependent anisotropy/rotation in that working space, not just scalar gain.
+
+Exploratory native-only calibration residual maxima; no validation/holdout transfer:
+                         light A   light I    dark A    dark I
+E3 encoded minimax          .618      .832      1.010     1.426
+EH6 encoded minimax         .615      .833      2.394     1.677
+O12 least-squares candidate 1.451     2.671     26.217    29.654
+E3/EH6 gains constrained [0,3]; censored channels impose one-sided 5/250 bounds.
+O12 is one converged local LS reading, NOT a certified family lower bound. E3's dark I
+worst ordinary cell is factor-y2-c24-h60: native (134,118,106), prediction
+(132.574,117.427,105.526). Neither dark endpoint has established one-code closure.
+These modest fits size the effect only; do not reuse their coefficients as G1's answer.
+
+>=3-code discrimination of THESE fitted readings (not universal separation of families):
+E3 vs EH6, dark A factor-y2-c24-h300: blue 142.13 vs145.36 (3.225).
+E3 vs EH6, dark I matched-channel-4: red 75.67 vs78.68 (3.003).
+E3 vs O12, dark A red bridge: red240.99 vs215.78 (25.206);
+                         dark I red bridge: red232.57 vs204.35 (28.228).
+But E3/O12 differ by <=1.401 A /2.286 I on EVERY ordinary colour: their >=3 discriminator
+is bridge-only in these trials. Declare that dependence, not a broad OKLab rejection.
+
+Do not add a fourth family merely called 'H2 re-derived per scheme': it ALREADY is
+scheme/pose-specific, with distinct retention and tone rows. Own calibration H2 maxima
+are 72.907/48.956/93.570/125.297; a fresh five-parameter H2prime local minimax attempt
+(retention+four thin ordinates) gives 10.686/10.708/8.357/27.692, in A/I scheme order above.
+For dark matched-channel-0, H2prime vs E3 differs by7.928 A /27.804 I in blue. A spatial
+blend alone cannot fix that uniform failure: on solids local=group. A two-stage free tone
+is also not identified as TWO operators by one input/output curve; without a restricted
+composition it only adds a factorisation ambiguity. Retention-only cannot change luma.
+
+3. LOCALITY: THE GRADIENT DOES NOT FOLLOW F, NOR F PLUS ONE CONSTANT
+Cells v90-c-c44__{rest,inactive}, v270-c-c44__{rest,inactive}; circular120x44, both scales.
+Read central 48-CSS-px-wide straight strip (14 px trimmed beyond each arc join), row
+means at >=6 CSS px inward. x comes from that row of its own archived no-glass reference,
+not the declared 64->192 endpoints. Observed local reference range=121..135 codes, narrower
+than the roughly20 codes across the FULL shape. Each row is a seven-run median; bar0.5.
+Fit F from the uniform knots above; compare F(x) with observed RGB. '+offset' below means
+one least-squares scalar offset for that cell, shared across RGB. Max error, codes:
+endpoint  scale   v90: local / +offset      v270: local / +offset
+light A    1          3.500 /2.480               3.727 /2.749
+light A    2          3.500 /2.536               4.182 /3.197
+light I    1          1.917 /1.455               1.917 /1.507
+light I    2          1.917 /1.465               1.917 /1.507
+dark A     1          2.875 /2.095               3.273 /2.544
+dark A     2          2.875 /2.119               3.273 /2.507
+dark I     1          2.667 /2.422               2.667 /2.527
+dark I     2          2.667 /2.429               2.667 /2.502
+This is not just the first edge shells: keeping >=14 CSS px inward still leaves maxima
+2.364..2.818 light A,1.250..1.667 light I,1.636..2.182 dark A,1.333..1.667 dark I.
+Example light A/1x, reflected equal-depth/local-input rows: v90 y=+7.5 CSS px, input131,
+native(197,196,196); v270 y=-7.5, SAME input131, native(194,194,194). Depth14.5; bar0.5.
+The active light difference remains3 at2x. The equivalent maximum dark active reflected
+mismatch is2 at depth>=14,3 at depth>=6; inactive reflected differences stay<=1.
+Observed output-versus-reference regression slopes over >=6 strip:
+               v90 1x/2x       v270 1x/2x
+light A        .715/.713       .147/.143
+light I        .250/.252       .252/.254
+dark A         .724/.728       .320/.321
+dark I         .352/.362       .367/.361
+Uniform F slopes around128 are .500/.455 light A, .417/.409 light I,
+.625/.545 dark A, .667/.591 dark I (left/right segment). Neither constant offset nor
+one universal local neutral slope explains both active orientations.
+
+Conclusion: a spatial body/edge conditioner must retain local backdrop AND directional/
+position dependence or boundary-tail uncertainty. Subtracting one deep RGB triple would
+misassign several body codes to the edge. Conversely, this is NOT proof of a group term:
+both gradients have the same mean/distribution, so group-mean dependence is not varied.
+Their common-mean mirror difference cannot be fixed by a term depending only on that mean.
+No-glass is the external unblurred reference, not a measurement of Apple's internal blurred
+sample. Kernel, lens, boundary tails and material response are not separately identified.
+The shipped group solve is inadequate as a complete explanation; replacing its argument
+with per-pixel luminance is ALSO not established by this experiment.
+
+4. BRIDGES / CENSORING
+Seven-run deep RGB (both scales, bar0.5); input red=(192,32,32), green=(32,192,32):
+             light A       light I       dark A        dark I
+red          255,133,133   255,129,129    242,50,50     234,41,41
+green         96,246,96     89,239,89      22,193,22     16,187,16
+Only the LIGHT red R channel is censored (>=250); its G/B remain informative in forward
+scoring. Green is NOT censored even at246; neither dark bridge clips by the declared
+<=5/>=250 rule. Thus5/6 bridge-channel values per light endpoint and6/6 per dark are exact;
+the remaining light-red channel contributes only the lower bound250, never a reconstructed255.
+The original H3 fit excludes the entire light red cell; the E3/EH6 trials instead retain
+its two uncensored constraints and score the rail one-sided. Keep those populations distinct.
+Without bridges, H3's green prediction is (0,234.76,0) light A versus(96,246,96), and its
+dark red prediction is(194.39,59.30,50.70) versus(242,50,50): extrapolation is load-bearing.
+H3's F sees channel inputs32 and192 beyond its40..150 knots. E3's scalar axis sees only
+66.016 for red and146.432 for green, BOTH inside the neutral interval. Do not mistake a
+failure of channelwise extrapolation for measured hue dependence.
+Constant encoded gain trial max=7.847 dark A /8.408 dark I, yet ordinary-colour errors
+only1.373/1.558. E3-vs-constant differs<=1.387/1.619 on ordinary colours but6.837/6.983
+on a bridge. Bridges are also the only >=3 discriminator for E3 versus the O12 trial.
+The archive therefore supports testing level dependence, not claiming its entire high-C law.
+
+5. WHAT THIS ARCHIVE DOES NOT IDENTIFY
+- Hue interpolation between the six factorial directions; matched-channel cells add some
+  directions, not a dense hue sweep. No arbitrary hue harmonics are licensed by six anchors.
+- A C response above.024: two remote red/green bridges do not form a chroma sweep or fix
+  high-C behaviour in other hues. C12/C24 quantisation alone permits degree-scale angles.
+- Full neutral behaviour below40/above150, nor the black branch below encoded.003.
+  Scalar bridge lumas within the interval do not identify those extrapolations.
+- An arbitrary group-level term: one gradient amplitude/mean, no textured, frequency,
+  nonlinear-gradient or chromatic-gradient controls in this read. Blur/response factorisation
+  and a group-mean coefficient remain unresolved; two-stage tone is similarly nonunique.
+- General span/shape, other accessibility modes, dynamics or stacking. This memo reads
+  only the span44 colour/gradient cells; validation span96 and all holdout remain unopened.
+- Separation of directional deep-body variation from long boundary influence: even the
+  >=14 strip shows active directional differences. No 'edge-free' baseline is certified.
+
+6. TRANSFER / WEBGPU / CSS
+Relevant source paths (all beneath the repository root given above):
+packages/renderer-webgpu/src/material.ts (bodyChromaRetention, backdropToneResponseThin/
+Thick/Strength, backdropToneBlack*, backdropToneAbscissa, collapseTransmission,
+MATERIAL_IDENTITY_TABLE); packages/renderer-webgpu/src/wgsl/optics.ts (tone solve1167-1214,
+local collapse target1245-1247, composite1271 onward); packages/platform-web/src/optics.ts
+(BODY_CHROMA_RETENTION=0 and decline rationale958-1020); platform-web/src/css-tier.ts
+(the blur+saturate filter at1999 and its encoded-space caveat).
+Retention exists, but is linear-light/luma-preserving; neither encoded E3/EH6 nor OKLab O12
+exists. The black branch exists and is scheme-specific already; do not refit it on this bed.
+collapseTransmission already mixes GROUP colour with LOCAL blurred colour, but explicitly
+leaves the tone response's ARGUMENT group-level. It is not a local neutral curve leaf.
+For each new family add one zero-strength identity-gated operator block in material.ts,
+its declared leaves in the append-only identity table, and the corresponding WGSL/packing
+path before author tint, preserving policy/presence and frozen26.5 at the identity gate.
+E3: encoded scalar neutral/chroma block,3 gains+neutral curve; EH6: periodic hue-gain block,
+6 gains+neutral curve; O12: OKLab level-conditioned matrix block,12 entries+neutral curve.
+These are semantic operator sketches, not approved leaf names or parameter values.
+
+CSS estimates are algebraic projections, NOT browser measurements or shipped CSS scores:
+E3/EH6 on a known uniform backdrop can choose saturate s and neutral rgba(alpha,n) so
+(1-alpha)*s=g and (1-alpha)*L+alpha*n=F(L), PROVIDED the intermediate saturate does not clip.
+On ordinary calibration colours the direct E3 mirror adds zero algebraic error: native
+maxima remain .618/.832/1.010/1.426. But LIGHT green does clip before the plate: choosing
+minimal white-plate alpha gives CSS(133.72,245.89,133.72) A against native(96,246,96),
+and CSS(115.31,238.30,115.31) I against(89,239,89):37.718/26.314-code weak-channel misses.
+That is a specified direct projection, NOT a lower bound over every possible filter chain.
+Do not reintroduce W31's declined saturation mirror while ignoring this clipping.
+EH6 additionally cannot vary its hue gain pixelwise across a multicolour backdrop using
+one uniform filter/plate. Even its uniform native trial retains .615/.833/2.394/1.677.
+O12 cannot be exactly expressed by saturate plus one plate: an arbitrary L-dependent 2x2
+OKLab map is not one encoded RGB saturation matrix. Its trial already misses26.217/29.654
+on dark bridges before CSS approximation; a native CSS residual is UNMEASURED, not invented.
+A shared neutral affine CSS body fitted optimistically across BOTH gradient directions and
+scales still has minimax residual2.333 light A / .625 light I /2.214 dark A / .773 dark I.
+This allows free scalar slope/intercept with valid neutral plate bounds; it does not simulate
+blur/lens/boundary operators. Active directional residual cannot be hidden in 'CSS equivalent'.
+Spatial E3 needs per-pixel F and gain; CPU group-level CSS selection cannot supply those on
+a nonuniform backdrop. Any derivative-at-group projection must remain an explicit residual.
+
+REPRODUCIBILITY / HANDOFF
+All scratch is /Users/new/vitrea-w41/grounding/body/:
+read.py -> readings.json,h3.json; ablate.py -> ablations.json; explore.py -> exploratory.json;
+h2.py -> h2-calibration.json; css.py -> css-gradient-projection.json.
+Python3.12 -B throughout; no repository bytecode writes. read.py is the only archive reader,
+and explicitly guards calibration before every payload open. Other scripts read its scratch.
+Next charter decision: declare E3 and an explicit spatial/directional conditioner as hypotheses;
+retain bridges, freeze any extension outside the measured domain, and keep validation/holdout
+unopened until the charter has settled families, stops and transfer order.
