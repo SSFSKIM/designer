@@ -40572,3 +40572,35 @@ material issue. Scratch light-receded document digest **7b3d327de9cc81c2**, file
 patch and adds only E3; the other three candidate documents are byte copies. Actual rendered
 survival, all-bin veto, unclaimed byte identity, CSS measurements and the single exposure
 remain required. No numerical fit, unit suite or compute proof substitutes for them.
+
+### 10. The shipped rendered baselines are frozen before candidate implementation
+
+The bounded X6 observer found a quiet window after **141 observations**:140 refusals and
+one pass, retained losslessly with full census and hashes. It did not close another session's
+browser or waive a setting. The actual baseline processes each performed their own fresh
+check. The resulting order witness is `integration/order-witness-before-render.json`:
+
+| artifact | membership | frozen UTC | SHA-256 |
+| --- | ---: | --- | --- |
+| shipped calibration/validation baseline, `0421fdd6` | 536 | 2026-09-27 09:26:46.190966 | c921d671819fb6c07269b74e3470ee53fed37319f7ba2da1ff58094b343f8bd8 |
+| blind shipped web held-out baseline, `8f09b2c3` | 64 | 2026-09-27 09:29:56.538721 | 5df39d23a6052ecf5afe2a0a13ef6d0cc7dcb4f31ae7bac6a5150753bd953ca5 |
+
+Each has four fresh X6 passes, real Chromium/WebGPU, no fallback, and deterministic captures.
+The immutable preparation records source **`014e4104`**; the worker's early `44589189` progress
+shorthand was corrected beside the record, not substituted into it. Runtime bytes are the same
+pre-W41 source. Primary captures remain under `/Users/new/vitrea-w41/g1-captures/`; committed
+PNG/projection payloads preserve their bytes. The blind64 uses only public backdrops/geometry:
+**zero Apple held-out payload reads**, no receipt, no closure.
+
+Only then were reviewed E3 commits integrated as **`5e994fc7` /`6b953172`**, with workspace
+build and freeze1,818 passing. `446c5217` commits the full600 shipped veto map and ordering
+witness, with **first candidate render still absent** at that checkpoint. Its actual timestamp
+and hashes will be appended beside these witnesses; implementation alone is not rendered
+survival. No canonical capture tree, matrix or generation was touched.
+
+The first offline baseline-native transfer stopped after24 cells because it counted admitted
+long-sentinel entries beside the seven normal runs. That is a reader-integration failure,
+not a capture failure or changed repeat bar. The partial reports remain. An additive transfer
+reader filters `protocol == 'normal'`, keeps all seven run entries even when pixel states
+are deduplicated, and retains excluded sentinel counts. The frozen536 web PNGs and their
+pre-W41 authority are unaffected; corrected transfer results will be a separate artifact.

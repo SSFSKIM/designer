@@ -165,3 +165,23 @@ Renderer651/core302/web634 tests,calibration141targeted, lint/types/buildgreen;
 NOT browserdrawnidentity. PrimaryG1 runtime stayspre-W41; nointegration/candidate
 render/exposure. MaterialPolicyView excludesmotion, so reducedmotion alone does
 not disable E3. Actualdrawnidentity/veto and CSSmeasurements remain mandatory.
+
+Both pre-W41 rendered baselines are frozen before the first candidate render
+536calval freeze0421fdd6:09:26:46.190966Z,
+SHAc921d671819fb6c07269b74e3470ee53fed37319f7ba2da1ff58094b343f8bd8.
+64BLIND WEB freeze8f09b2c3:09:29:56.538721Z,
+SHA5df39d23a6052ecf5afe2a0a13ef6d0cc7dcb4f31ae7bac6a5150753bd953ca5.
+Four freshX6passes each, actualWebGPU/no fallback/deterministic, primarypixels
+under /Users/new/vitrea-w41/g1-captures/. CommittedPNG/projections preservebytes.
+Nativeheldoutpayloadreads0; blindweb is not the archiveexposure. Source revision
+is014e4104 as the immutable preparation records; early worker44589189 shorthand
+was corrected beside it (runtimebytesunchanged), not written into recordeddata.
+
+ReviewedE3 integration then landed5e994fc7+6b953172, rebuiltgreen; full600shipped
+veto map assembled and committed446c5217 with the explicit orderwitness.
+Firstcandidate render still notrun at this checkpoint. Future actualtimestamp
+belongs beside these freezehashes before a rendered-survival claim is made.
+Baseline native-transfer attempt stoppedafter24cells because admittedlongsentinel
+records were counted alongside7normalruns. Frozenwebpixels are unaffected.
+Additive transfer-v2 retains the failedpartial and filters normalprotocol only;
+repeatedidenticalstatehashes remain valid independentnormalrepeatentries.
