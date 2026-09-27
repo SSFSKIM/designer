@@ -441,11 +441,18 @@ def readings(slug):
     the assigned count: it is unread, as a missing assigned reading is, and blocks the verdict."""
     maj = {k: majority(slug, k) for k in RULE_KEYS}
     asg = assigned(slug)
-    panel_unread_keys = [k for k in RULE_KEYS if panel_unread(slug, k)]
+    # Only a rule the PANEL answers can be read UNREAD by the panel. On an assigned rule (s18, s19,
+    # s21) the audit or the source review is the answer the spec declared before any capture
+    # existed, and the panel's answer prints beside it for comparison, so a rater majority saying
+    # "unread:" there names a capture the panel lacked, not a read the verdict lacks; it is listed
+    # under the assigned table, and it does not block.
+    panel_unread_keys = [k for k in PANEL_KEYS if panel_unread(slug, k)]
+    panel_unread_assigned = [k for k in ASSIGNED if panel_unread(slug, k)]
     used = {k: ((None if k in panel_unread_keys else maj[k][0]) if k in PANEL_KEYS
                 else asg[k][0]) for k in RULE_KEYS}
     return {
         "majority": maj, "assigned": asg, "used": used, "panelUnread": panel_unread_keys,
+        "panelUnreadAssigned": panel_unread_assigned,
         "panelHeld": [k for k in RULE_KEYS if maj[k][0] is True],
         "held": [k for k in RULE_KEYS if used[k] is True],
         "failed": [k for k in RULE_KEYS if used[k] is False],
@@ -871,6 +878,12 @@ for s in COVERED:
             P(f"| {label(k)} | {RULE_TAG[k]} | {len(unread_votes(s, k))}/{len(votes(s, k))} | "
               f"{md('; '.join(said)) or '—'} |")
         P("")
+    if SPATIAL and d.get("panelUnreadAssigned"):
+        P("On an assigned rule a rater majority said \"unread:\" — the audit or the source review is the "
+          "answer there and the panel's answer prints beside it, so this names a capture the panel "
+          "lacked and does not block: "
+          + ", ".join(f"{label(k)} ({len(unread_votes(s, k))}/{len(votes(s, k))} unread)"
+                      for k in d["panelUnreadAssigned"]) + ".\n")
     if a is None:
         P(f"Mechanical read: **no audit** at `{os.path.join(AUDITS_DIR, s + '.json')}`.\n")
     elif a.get("error"):
