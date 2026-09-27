@@ -445,6 +445,15 @@ and one line on Harvestar if they want a page shaped toward it.
   from reading as the page's fault; (d) is what C asks of a page "whose environment has states".
   Date/Author: 2026-09-27, Claude, on the porter's report.
 
+- Decision: The start page's answer to the tracked morph collapse under a live Reduce Motion flip is
+  the cookbook's recipe, remount closed with focus on the trigger, although the independent reader
+  asked that a page workaround not force a close.
+  Rationale: this initiative changes no runtime (Decision Log above); the only page-level state that
+  is never 0 × 0 is a morph that mounts closed, and a forced close with focus returned is a
+  recoverable state where an invisible open platter holding focus is not. Check 14 stays recorded
+  against the runtime in the page's record until the runtime fix lands.
+  Date/Author: 2026-09-27, Claude, on the fix worker's question.
+
 - Decision: Skill 1.1.0, plugin 2.5.0.
   Rationale: a second register is a feature of the skill, not a correction.
   Date/Author: 2026-09-27, Claude.

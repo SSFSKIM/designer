@@ -460,7 +460,8 @@ second morph by key, forced closed across the switch. The independent reading fo
 neither maker tried: Reduce Motion turning on with the platter open collapsed its host to 0 × 0,
 focus on an invisible radio, the runtime reporting healthy. The cause is the runtime's, tracked,
 and no reason to trade the morph for a page animation: until the runtime reseeds its drivers, the
-cookbook keys the morph on the preference and remounts it closed.
+page does what the cookbook says, keys the morph on the preference and remounts it closed with
+focus back on its trigger, which its fix wave applied and verified live on both tiers.
 
 **The fallbacks.** With 44 % of the viewport glass, the CSS body is collapsed at the design size
 even at DPR 1 (569,364 device px) and two-layer only at 1024 × 768; both were looked at. On the
