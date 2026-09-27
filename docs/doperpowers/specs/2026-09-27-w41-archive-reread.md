@@ -155,8 +155,13 @@ Three questions, each with the grounding reading that shapes its families:
     bound there. The receipt then binds the renderer's source revision, its configuration and its
     frozen rendered predictions beside the numerical candidate's, and the ONE exposure's runner
     scores both on the held-out cells: the numerical candidate on all of them, the rendered one on
-    the web-plannable ones, capturing their web side inside the receipt. A law CLOSES only if both
-    meet the bound. Any later change that moves a rendered prediction stops the landing rather
+    the web-plannable ones. **The rendered held-out predictions are produced BEFORE the exposure**,
+    blind, from the public declaration alone (the scene's declared backdrop and geometry through a
+    committed generated-backdrop bundle, never a native fixture or archive payload), and frozen by
+    hash; inside the receipt the runner recaptures them and requires byte/projection equality
+    before any native held-out pixel is scored, so the web render is deterministic and the
+    prediction preceded the evidence. "Inside the receipt" governs every read of Apple's held-out
+    pixels, not the blind web render. A law CLOSES only if both meet the bound. Any later change that moves a rendered prediction stops the landing rather
     than inheriting the closure; a candidate whose operator fails is removed from the code before
     G1's merge, with its diff and renders kept as evidence.
 
@@ -465,6 +470,11 @@ Deferred.
 
 ## Revision Notes
 
+- 2026-09-27 (v2.3, the parent, on the exposure runner's question): clause 11's "capturing their
+  web side inside the receipt" could be read as forbidding a blind pre-exposure web render of the
+  held-out cells, which the same clause's freeze requires. Ruled: rendered held-out predictions are
+  produced blind from the public declaration before the exposure and frozen; the receipt recaptures
+  and requires equality before scoring; "inside the receipt" governs reads of Apple's pixels only.
 - 2026-09-27 (v2.2, the parent, on G0's question): X31's "only `measured` counts toward
   survival" could be read as forbidding any survivor with a censored required channel, which
   would kill every light body candidate on the red bridge's R and every stroke on a white exterior
