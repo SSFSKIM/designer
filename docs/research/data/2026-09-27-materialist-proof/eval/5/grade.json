@@ -1,0 +1,118 @@
+{
+  "brief": 5,
+  "grader": "astra-high",
+  "gradedAt": "2026-09-27T03:27:29.138896Z",
+  "A": {
+    "c1": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/5/A/src/Plane.tsx:39\u201358 repaints the canvas on each loop-frame change and registers it as composite; src/App.tsx:110\u2013120 advances the loop on the glass ticker; packages/platform-web/src/renderer-bridge.ts:575\u2013584 imports canvas providers as live."
+    },
+    "c2": {
+      "verdict": "partial",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/5/A/src/Floating.tsx:104\u2013184,205\u2013259 keeps a short inventory and its search list is transient station-selection choices, but the station glass is an information card (observations, four metrics, rain chart and warning text), not just choices/actions; src/Sheet.tsx:175\u2013180 and the outlook are non-glass."
+    },
+    "c3": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/5/A/src/Floating.tsx:361\u2013372 uses GlassSegmentedControl with r28 and inset4 in a 56px-high housing (src/styles.css:302); DESIGN.md:48\u201354 names the viewport-edge anchor and internal concentricity; the runtime resolves the indicator concentrically."
+    },
+    "c4": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/5/A/DESIGN.md:48\u201354 declares spans 44/56/340 across the 32\u201396 size-law range, all thickness8 including both morph endpoints; A-audit.json surfaces confirms spans44,56,340 and thickness8 throughout."
+    },
+    "c5": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/5/A/scripts/qa.mjs:266\u2013307 samples painted canvas pixels under the floating boxes across all19 frames in both schemes and reports min/max; DESIGN.md:143\u2013150 records light/dark phase ranges and src/hints.ts declares the measured means."
+    },
+    "c6": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/5/A/DESIGN.md:55\u201358 records no tint; A-audit.json surfaces all have tinted:false; src/Floating.tsx:252\u2013254 and src/styles.css:235\u2013236 keep platter warnings monochrome, with warning violet on the canvas and opaque sheet instead."
+    },
+    "c7": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/5/A/src/Floating.tsx:205\u2013215 drives the station GlassSurface with present; src/App.tsx:57,146\u2013149 and the platter visibility wiring close/reopen it without cross-fading its host."
+    },
+    "c8": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/5/A/src/App.tsx:22\u201328 explicitly sets colorScheme='auto' and windowActivation='auto'; A-audit.json schemes.light.schemeFollowed and schemes.dark.schemeFollowed are true."
+    },
+    "c9": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/5/A/src/hooks.ts:46\u201364 implements a stored boolean app setting initialized from the system; src/App.tsx:20\u201328 passes the boolean; A-audit.json reduced.policyAsAsked=true and reduced.policyChanged=true."
+    },
+    "c10": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/5/A/scripts/qa.mjs:168\u2013263 measures screenshot backgrounds and composited label ink across five loop frames in both schemes plus open-search endpoints; DESIGN.md:152\u2013170 records results and a CSS residual, although the supplied audit finds additional dark failures (reported separately)."
+    },
+    "c11": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/5/A-audit.json diagnostics=[], schemes.light/dark.diagnostics=[] and menuDiagnostics=[], with errors=[]; this is the observed Chromium audit, not proof for every engine."
+    },
+    "c12": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/5/A/DESIGN.md:14\u2013101 writes the record covering plane, inventory, groups, family/anchor, tint, scheme/pose, motion, scroll, tier, accessibility and contrast, followed by tensions and measurements."
+    }
+  },
+  "B": {
+    "c1": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/5/B/src/components/MapHero.jsx:81\u2013106 registers the composite canvas and repaints it from useGlassTicker; src/App.jsx:104\u2013135 gives all groups that texture; packages/platform-web/src/renderer-bridge.ts:575\u2013584 marks canvas imports live for frame refresh."
+    },
+    "c2": {
+      "verdict": "partial",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/5/B/src/components/Sheet.jsx:235\u2013253 keeps the seven-day outlook/full warnings off glass, and SearchField.jsx:119\u2013166 is a transient selection list, but StationPlatter.jsx:84\u2013171 puts an extensive information card, rain chart, colored alerts and six-hour forecast on persistent glass, with an extra glass warning pill in SearchField.jsx:107\u2013117."
+    },
+    "c3": {
+      "verdict": "partial",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/5/B/src/components/LoopControl.jsx:25\u201353,145\u2013148 implements segmented radio choices; src/styles.css:676\u2013686 has concentric r12/r9 at inset3, but neither that rounded track nor the 102px-tall r26 glass housing is a capsule, and no anchor is named."
+    },
+    "c4": {
+      "verdict": "partial",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/5/B-audit.json surfaces spans48/102.1/348/380 span the size-law range, but thickness is12 for search/warning/options,14 for loop/results,20 for the station: not one material thickness."
+    },
+    "c5": {
+      "verdict": "fails",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/5/B/src/App.jsx:104\u2013135 declares texture backdrops without measured hints or lightest/darkest phase ranges; the supplied B project has no backdrop-measurement script or measurement record (automatic GPU sampling alone does not document the requested extrema)."
+    },
+    "c6": {
+      "verdict": "fails",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/5/B/src/components/SearchField.jsx:107\u2013117 tints the data-dependent warning-count GlassButton amber; StationPlatter.jsx:111\u2013122 also puts warning hues on glass, contrary to a monochrome control layer; no recorded primary-action exception exists."
+    },
+    "c7": {
+      "verdict": "fails",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/5/B/src/components/StationPlatter.jsx:78\u201384 renders a persistent GlassSurface without GlassMorph or changing present; src/App.jsx:24,113\u2013121 only swaps the selected data, so there is no required materialized arrival (nor a cross-fade)."
+    },
+    "c8": {
+      "verdict": "partial",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/5/B/src/App.jsx:145\u2013148 pins colorScheme='dark', while omitted windowActivation defaults to auto (packages/react/src/root.tsx:204); B-audit.json schemes.light.schemeFollowed=false, dark=true."
+    },
+    "c9": {
+      "verdict": "partial",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/5/B/src/App.jsx:37\u201345,144\u2013148 exposes a test hook capable of passing a boolean, and B-audit.json reduced.policyAsAsked=true, but the normal root starts at string 'system' and no user-facing Reduce Transparency setting is provided."
+    },
+    "c10": {
+      "verdict": "fails",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/5/B/ has no rendered-pixel contrast measurement script or record; the supplied external B-audit.json measures both emulated schemes but both actually render dark, with only12/197 pairs passing in each, so it is not evidence of author verification in two actual schemes."
+    },
+    "c11": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/5/B-audit.json diagnostics=[], schemes.light/dark.diagnostics=[] and menuDiagnostics=[], with errors=[]; no diagnostic is invented merely because reducedTransparency starts at system."
+    },
+    "c12": {
+      "verdict": "fails",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/5/B/ contains application source and scripts/build-terrain.mjs but no design record or equivalent filled record template."
+    }
+  },
+  "falseClaims": {
+    "A": [
+      "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/5/A/src/hints.ts:4\u20139 and DESIGN.md:42\u201343 frame the declarations as CSS-tier hints with GPU reading its own pixels regardless. They are not CSS-only: /Users/new/Developer/GitHub/designer/packages/platform-web/src/root.ts:2152\u20132159,2304\u20132310 sets author-hint tone precedence and backdropToneHint, renderer-bridge.ts:328\u2013337 forwards it to GPU, and root.ts:2439\u20132452 forwards hint luminance to both tiers' foreground resolution. The audit's WebGPU groups report backdropToneHint:true even while analysis='exact'; that label does not mean the hint is ignored."
+    ],
+    "B": [
+      "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/5/B/src/components/MapHero.jsx:81\u201382 implies resized canvases must be re-supplied because provider extents are read at construction. Construction does read an extent, but /Users/new/Developer/GitHub/designer/packages/platform-web/src/renderer-bridge.ts:597\u2013610 refreshes source extents before frame acquisition; resize re-registration is not required by that runtime."
+    ]
+  },
+  "contrast": {
+    "A": "A-audit.json schemes.*.glassContrast (rendered-pixels): light88/88 passing, minimum10.30:1; first-view45/45 and menu43/43. Dark71/88 passing, minimum3.91:1; first-view29/45 and menu42/43. Root follows both schemes (light=true, dark=true). Dark failures concentrate in the station reading (e.g. Wind4.46:1, falling fast4.31:1); the audit is a moment on an animated backdrop, not a full-loop worst-case. DESIGN.md reports better multi-frame readings, so its blanket sampled WebGPU-pass claim is not confirmed by this independent sample.",
+    "B": "B-audit.json schemes.*.glassContrast (rendered-pixels): emulated light12/197 passing, minimum2.11:1; first-view6/93 and menu6/104. Emulated dark12/197 passing, minimum2.12:1; first-view6/93 and menu6/104. Actual root is dark in both: scheme-following light=false, dark=true. These are two emulation samples of the pinned dark design, not validation of a real light scheme. Failures are widespread in both phases, rather than one isolated animation-frame miss."
+  },
+  "notes": "Blind source-and-supplied-audit grading; no agent identity inferred and no forbidden directories or assignment file read. Criterion text was read from the permitted criteria.json key5. No additional live render was run. c2 treats transient search choices as permitted, but neither station information card becomes choices/actions merely because it is called a platter (A can be dismissed; B remains mounted). Partial scores credit satisfied subclauses rather than overlooking the unmet ones. c10 grades evidence of measurement, not universal contrast success; independent audit outcomes are retained separately. A phase-range measurements cover the composite under declared boxes, not every possible layer/viewport. Zero diagnostics is bounded to the supplied audit. No source changes or commits were made."
+}

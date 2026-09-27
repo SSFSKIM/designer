@@ -1,0 +1,102 @@
+{
+  "brief": 2,
+  "grader": "astra-high",
+  "gradedAt": "2026-09-27T03:26:39.746359Z",
+  "A": {
+    "c1": {
+      "verdict": "partial",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/2/A/index.html:54–64,256–275 gives a full-bleed hero and floating bars with content beneath; no scroll-edge mask/fade is implemented, and scrolled text visibly passes behind the nav without one."
+    },
+    "c2": {
+      "verdict": "fails",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/2/A/index.html:37,67,239,258–280 hard-codes scroll-padding-top:104px, hero offsets, footer padding and bar dimensions; no measured bar height feeds content insets."
+    },
+    "c3": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/2/A/index.html:1098–1100,1127 uses backdrop:hintFor(...) for DOM tone declarations and backdropSourceId for the hero texture; no ignored hint field."
+    },
+    "c4": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/2/A/index.html:1057–1070 cover-crops the photo into a bitmap sized to the hero box and explicitly places that texture on the same hero element; the image fills that box at lines 61–64 rather than assuming viewport mapping."
+    },
+    "c5": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/2/A/index.html:1151–1155,1160–1167,1181–1184 routes pointer/keyboard press on Configure and Reserve into CH.press/pressX/pressY and CH.glow, not a press-time colour swap."
+    },
+    "c6": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/2/A/index.html:1106–1109,1128–1130 registers only Reserve with tint:#e8913a; nav, Configure and the open platter are untinted, consistent with the audit surface inventory."
+    },
+    "c7": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/2/A/index.html:969 implements ?css; inspected at 1440×900 in Chromium alongside the default page: the full-bleed photograph, navigation, bottom controls, scrolling content and configurator retain the same design on the runtime CSS tier."
+    },
+    "c8": {
+      "verdict": "partial",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/2/A/index.html:370–371 acknowledges no network as a no-runtime case, and line 959 imports the CDN URL, but the page never explicitly states the CDN import requires network access."
+    },
+    "c9": {
+      "verdict": "fails",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/2/A/index.html:952–963 has a CDN import and load-failure fallback but no statement anywhere about Chrome file:// booting or the different failure of relative local module imports."
+    },
+    "c10": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/2/A-audit.json: diagnostics=[], errors=[], unknownDiagnosticCodes=[]; both schemes also have empty diagnostics and menuDiagnostics."
+    }
+  },
+  "B": {
+    "c1": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/2/B/index.html:183–188,478–480,544,1021–1029 uses an edge-to-edge fixed photo canvas and a scroll-positioned mask on main, a sibling of #glass; inspected scrolling content fades at the bars without masking the glass root."
+    },
+    "c2": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/2/B/index.html:1012–1018 measures nav/bar bounding boxes into --nav-clear/--bar-clear, consumed by hero padding (192), anchor offsets (209), footer padding (325) and the scroll edge (1026)."
+    },
+    "c3": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/2/B/index.html:1535–1538 registers every group with backdrop:hints.get(id), plus backdropSourceId for texture groups; line 1080 updates that same backdrop field."
+    },
+    "c4": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/2/B/index.html:957–988 paints the visible canvas at its own measured dimensions; lines 1486–1489 create its ImageBitmap and place it on planeCanvas itself, keeping page paint and sampled texture aligned."
+    },
+    "c5": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/2/B/index.html:1114–1133,1140–1161 writes press/glow/lens and pointer coordinates through P channel properties, bound to V.GLASS_CHANNEL_PROPERTIES at 1510; no press-time colour swap."
+    },
+    "c6": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/2/B/index.html:1542–1546 gives only Order tint:#EE7F2D; the other four registered hosts are untinted, consistent with the audit surface inventory."
+    },
+    "c7": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/2/B/index.html:66–68,81–86 records CSS checks and ?tier=css; independently inspected Chromium at 1440×900 on both tiers, including scrolled content and the open kit platter, with the same layout, controls and scroll edge."
+    },
+    "c8": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/2/B/index.html:69–70 explicitly states that network is needed because the runtime and fonts come from CDNs, and describes the no-runtime fallback."
+    },
+    "c9": {
+      "verdict": "partial",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/2/B/index.html:66–68 correctly includes file:// in Chromium with a CDN import among secure contexts where WebGPU can run, but never states that a relative local module import fails over file://."
+    },
+    "c10": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/2/B-audit.json: diagnostics=[], errors=[], unknownDiagnosticCodes=[], and empty menuDiagnostics in both schemes; live ?tier=css also reported __glassDiagnostics=[]."
+    }
+  },
+  "falseClaims": {
+    "A": [
+      "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/2/A/index.html:999–1000 says a group backdrop is fixed at registration and a change requires re-registration; this is false for the exposed scene API: /Users/new/Developer/GitHub/designer/packages/core/src/scene.ts:739–744 implements updateGlassGroup(id, patch), which can change backdrop without recreating the group."
+    ],
+    "B": [
+      "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/2/B/index.html:1043–1045 says texture pixels win over the declaration on WebGPU; the page supplies author backdrop hints, and /Users/new/Developer/GitHub/designer/packages/platform-web/src/root.ts:2152–2162,2211–2222 instead gives the declared luminance precedence over sampled texture tone (also marking backdropToneHint at 2304). The texture still supplies sampled imagery, but does not override that author tone declaration."
+    ]
+  },
+  "contrast": {
+    "A": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/2/A-audit.json schemes.*.glassContrast and schemes.*.schemeFollowed — light: 54/66 rendered-pixel pairs pass, minimum ratio 3.69:1; phases: fv 11/12, tile-2 11/12, tile-3 11/12, menu 21/30; root colorScheme=light, schemeFollowed=true; dark: 54/66 rendered-pixel pairs pass, minimum ratio 3.69:1; phases: fv 11/12, tile-2 11/12, tile-3 11/12, menu 21/30; root colorScheme=light, schemeFollowed=false.",
+    "B": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-proof/grading/2/B-audit.json schemes.*.glassContrast and schemes.*.schemeFollowed — light: 51/51 rendered-pixel pairs pass, minimum ratio 5.99:1; phases: fv 11/11, tile-2 11/11, tile-3 11/11, menu 18/18; root colorScheme=light, schemeFollowed=true; dark: 36/51 rendered-pixel pairs pass, minimum ratio 3.55:1; phases: fv 10/11, tile-2 9/11, tile-3 9/11, menu 8/18; root colorScheme=dark, schemeFollowed=true."
+  },
+  "notes": "Blind grading used only the permitted cells, their supplied mechanical audits, criteria key 2, and permitted runtime source; no assignment or prohibited evaluation/source directories were read. Criteria are assessed literally, with partial for an implemented or stated subset. c7 includes this grader's direct visual CSS-tier inspection; a retrospective author QA record was not required. A has no recorded author CSS inspection, whereas B does. Contrast is reported separately from the ten criteria using schemes.*.glassContrast (rendered-pixels), not the audit's DOM-composite contrast. B's header claims a dark minimum of 4.68 (lines 89–92), but the supplied audit measures 3.55 with 15/51 pairs failing; its recorded QA is not proof of current dark contrast. A remains pinned to light under dark emulation. A local-server favicon 404 during live browsing was not a vitrea diagnostic and does not contradict the supplied page audits. File:// truth was graded as a documentation requirement, not inferred from whether the CDN implementation could boot. Both pages retain a single tinted glass action; opaque/content colour is not counted as another glass tint."
+}
