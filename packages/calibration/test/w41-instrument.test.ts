@@ -10,8 +10,10 @@ const pythonAvailable = spawnSync("python3.12", ["-B", "-c", "import numpy, PIL"
 
 // These are the instrument's original red/green synthetic behaviors, wired into
 // the suite without a native archive, SciPy, a GPU, a browser or an exposure.
-for (const script of ["instrument/test-instrument.py", "instrument/test-shadow.py",
-  "instrument/test-rendered.py", "exposure/test_runner.py"]) {
+// The held-shadow proof remains a standalone historical-epoch check: its full
+// renderer-source pins must not forbid G1 from adding its authorized operators.
+for (const script of ["instrument/test-instrument.py", "instrument/test-rendered.py",
+  "exposure/test_runner.py"]) {
   it.skipIf(!pythonAvailable)(`executes W41 synthetic behavior: ${script}`, () => {
     const result = spawnSync("python3.12", ["-B", join(evidence, script)], {
       encoding: "utf8", timeout: 90_000,

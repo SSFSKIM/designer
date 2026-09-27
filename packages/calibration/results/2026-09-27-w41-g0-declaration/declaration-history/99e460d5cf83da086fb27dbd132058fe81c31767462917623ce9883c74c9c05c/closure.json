@@ -1,10 +1,8 @@
 {
   "schema": "w41-closure-1",
-  "boundsDeclarationSha256": "850747c1f03781a6efe9b433bd4ce3bd6cf72b63c9befd8d5d98de9eadf7f759",
-  "supersededDeclarationHashes": [
-    "99e460d5cf83da086fb27dbd132058fe81c31767462917623ce9883c74c9c05c"
-  ],
-  "charterRevision": "9e0ec5af6b6167e6e5463d9f10537e99bd88e10b",
+  "boundsDeclarationSha256": "99e460d5cf83da086fb27dbd132058fe81c31767462917623ce9883c74c9c05c",
+  "supersededDeclarationHashes": [],
+  "charterRevision": "9762ef9c",
   "endpoints": [
     "light-active",
     "light-inactive",
@@ -192,13 +190,7 @@
       ],
       "arcCoverage": "clip(A*(1+rho/R),0,1)",
       "R": "nominal circle radius or rrect declared 22 CSS px",
-      "straight": "A",
-      "calibrationCircleRadiiCSS": [
-        22,
-        32
-      ],
-      "rrectNominalRadiusCSS": 22,
-      "localDifferentialCurvature": false
+      "straight": "A"
     },
     "M0": {
       "parameters": 8,
@@ -379,9 +371,7 @@
       "validation"
     ],
     "everyRequiredComparison": true,
-    "bound": "max(1,bar)",
-    "aggregation": "every admitted comparison measured within bound or censored-bound-satisfied; any measured miss or rail violation binds",
-    "populationDeficient": "UNMEASURED, excluded and counted"
+    "bound": "max(1,bar)"
   },
   "resolution": {
     "bound": "max(3,sum of bars)",
@@ -413,26 +403,7 @@
       "witness200x44 pair",
       "six held-out colours"
     ],
-    "g0DryRun": "calibration stand-in, scratch receipt, synthetic capture backend, no browser",
-    "blindRenderedPredictions": "before exposure from public backdrop/geometry and committed generated rasters, never native fixture/archive pixels; inside receipt recapture and require byte/projection equality before native scoring",
-    "numericalMembership": "archive-admitted glass cells intersecting unchanged declared roles; unadmitted phase variants excluded by inventory metadata"
+    "g0DryRun": "calibration stand-in, scratch receipt, synthetic capture backend, no browser"
   },
-  "noShippedChanges": true,
-  "executionRecords": {
-    "body-instrument/execution-parameters.json": "a3947184dbd81edd6597517ec03cee736ecbf622b1cbf22a9fe5f3a3ecee4521",
-    "instrument/stroke-execution-parameters.json": "df9f807eb3c25334aede388ce22ff6f6f92106400b2d419c743c2f20441d22af"
-  },
-  "closure": {
-    "aggregation": "every measured held-out cell passes",
-    "censoredHeldout": "UNMEASURED; neither pass nor coverage",
-    "report": "measured/total held-out coverage fraction; bound satisfaction separate from measured maxima"
-  },
-  "sheetsG0": {
-    "allowedPixels": "canonical calibration/validation only",
-    "closedPixels": [
-      "canonical holdout",
-      "all W39"
-    ],
-    "browser": false
-  }
+  "noShippedChanges": true
 }
