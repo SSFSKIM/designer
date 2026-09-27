@@ -5,8 +5,9 @@
  * cross-dissolves over `DISSOLVE_MS`, stepped from the root's own frame loop (`root.subscribe`,
  * so there is no second rAF loop beside the runtime's), and every frame of it re-measures what
  * was painted under each group, so each declared backdrop describes the painted mix and not its
- * destination. Reduce Motion, read live from the resolved policy, makes the dissolve a cut; so
- * does `setPhase`, which must show a work within two frames.
+ * destination. Reduce Motion, read live from the resolved policy, makes the dissolve a cut (and
+ * turning it on mid-dissolve cuts the running one to its destination at once); so does
+ * `setPhase`, which must show a work within two frames.
  */
 
 import { useGlassRoot } from "@vitreajs/vitrea-react";
@@ -86,12 +87,25 @@ export function EnvironmentCanvas(props: EnvironmentProps): ReactNode {
     return () => root.setBackdropTexture(TEXTURE_ID, undefined);
   }, [root]);
 
-  // A change of work.
+  // A change of work, or Reduce Motion turning on while one is dissolving.
   useLayoutEffect(() => {
     const painter = painterRef.current;
     const current = dissolve.current;
     const showing = current.to ?? current.from;
-    if (painter === null || work.id === showing.id) return;
+    if (painter === null) return;
+    if (work.id === showing.id) {
+      // The selected work is already where the running dissolve is going, so only the preference
+      // changed. Under Reduce Motion that dissolve becomes the cut it would have been: stopped at
+      // once, committed to the selected work, painted and re-measured once. (A dissolve still
+      // waiting on its image has `showing` behind `work` and takes the cut path below.)
+      if (reducedMotion && stopDissolve.current !== undefined) {
+        stopDissolve.current();
+        stopDissolve.current = undefined;
+        dissolve.current = { from: work, to: undefined, mix: 0 };
+        paint.current();
+      }
+      return;
+    }
     stopDissolve.current?.();
     stopDissolve.current = undefined;
     navigation.current += 1;

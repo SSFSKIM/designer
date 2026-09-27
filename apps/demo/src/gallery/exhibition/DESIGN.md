@@ -298,6 +298,49 @@ reads as a smoked slab, which is the measured dark material over white (its resp
 dark grey) plus the grade, and is the evening room part one asked for, but it hides more of the
 painting than the light scheme does; and the 64 px ornament gap above.
 
-**Commands** (after the last change). `pnpm --filter demo lint`: exit 0 (eslint, tsc, tsc over
-the e2e project). `pnpm --filter demo build`: exit 0. `pnpm --filter demo test:e2e
+**The fix wave after the independent review** (2026-09-27; the review, which read the page
+before this wave, is `docs/research/data/2026-09-27-materialist-spatial-register/review/
+exhibition.md`). It fixed two findings; the third was a note on the evidence and changed nothing.
+
+- *Reduce Motion turned on during a dissolve now stops it* (finding 1). The page cut every
+  dissolve that started under Reduce Motion, but a preference that turned on while one was running
+  met the change-of-work effect's same-work early return and left the old subscription stepping
+  the mix to its end: read live before the fix, the canvas mean kept moving for 23 frames (0.4998
+  to 0.4205 over about 325 ms) after the media query reported Reduce Motion. The effect now handles
+  that case before returning: it cancels the dissolve's subscription, commits the selected work,
+  paints once and re-measures the hints (`EnvironmentCanvas.tsx`). Read again with
+  `emulateMedia({ reducedMotion: "reduce" })` during a dissolve started with the arrow key
+  (`setPhase` is itself a cut and starts none): the frame in which the query first reports the
+  preference still carries one dissolve step, the next frame carries the destination at exactly
+  its settled cut value, and nothing moves after it (light `frost` to `cloud`, flipped at 250 ms:
+  0.5233, then 0.4205; dark, the same: 0.4218, then 0.3343; light `thunder` to `rain`, flipped at
+  120 ms: 0.3463, then 0.4691). The window's declared luminance lands on its recorded value (0.236,
+  0.034, 0.328). A later dissolve with the preference off still completes to the cut value, and both
+  diagnostic channels stay empty with no console error.
+- *The display italic is bold* (finding 2). The room's weather and the Rooms subtitle were set
+  italic 400, the one role outside the medium-or-heavier rule. They are now italic 700 at the same
+  52 and 34 px. 700 rather than 500 because no face in the serif stack draws a 500 or 600 italic:
+  Iowan Old Style's italics are 400, 700 and 900 (read from the rendered face and its advance, a
+  500 rendered the 400 face at the same width), and Palatino's and Georgia's are 400 and 700, so a
+  500 would have changed the declaration and not the page. Looked at in both schemes over `frost`
+  and `thunder`, in both views: the weather word is now the label's heaviest line with the bold
+  title second under it, and the subtitle still sets on one line. Rendered contrast of these lines,
+  with the method of `CONTRAST.md`, at all eight phases, both schemes, active and receded, both
+  views (64 readings, every one 700 italic, large-text floor 3): worst p10 6.61 (dark, active,
+  `frost`, the Rooms subtitle); light scheme worst 9.86 active and 8.53 receded (`cloud`). The
+  same pass read every other line at the scroller's top, 1,440 readings with none under its floor,
+  worst 4.96 on the dark scheme's current-room row, the line this record already watches. The
+  weather rows in `CONTRAST.md` and the tables above were read at 400 and stay as recorded; the 700
+  readings are these.
+
+**Type as built.** Part one's contrast paragraph planned medium to bold weights with slightly
+opened tracking. Weights: 500 for reading and supporting lines (essay, bio, caption, data values,
+credits, notes, the guide's time), 600 to 650 for names, terms and controls, 700 for the kickers,
+the title and the display italic; nothing lighter. Tracking: opened on the small uppercase kickers
+and terms (0.04 to 0.1 em) and slightly on most reading lines (0.003 to 0.01 em), left at 0 on the
+credits, the rooms rows' titles and makers, the setting and the guide's time, and closed very
+slightly on the display italic (−0.005 em, about a quarter pixel at 52 px).
+
+**Commands** (after the last change, the fix wave's). `pnpm --filter demo lint`: exit 0 (eslint,
+tsc, tsc over the e2e project). `pnpm --filter demo build`: exit 0. `pnpm --filter demo test:e2e
 e2e/gallery.spec.ts`: 16 passed, the exhibition's light and dark cases among them.

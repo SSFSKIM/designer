@@ -158,9 +158,13 @@ body {
   color: var(--vitrea-foreground, var(--exh-ink));
 }
 
+/* The room's weather and the Rooms subtitle: display italic at 700, window text being medium or
+   heavier. 700 rather than 500 because no face in the serif stack draws a 500 or 600 italic
+   (Iowan Old Style's are 400, 700 and 900; Palatino's and Georgia's 400 and 700), so a 500
+   would resolve to the same 400 face on screen. */
 .exh-weather {
   margin: 0;
-  font: italic 400 52px/1 var(--exh-serif);
+  font: italic 700 52px/1 var(--exh-serif);
   letter-spacing: -0.005em;
 }
 
