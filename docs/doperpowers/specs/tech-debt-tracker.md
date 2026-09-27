@@ -6477,3 +6477,35 @@ the highlight canvas still paints the focus glow on the focused row of an open p
 runtime-owned light appears on a page whose authored colours the OS has replaced. The material's
 own stand-down under forced colours should include the highlight pass. Seen in Chromium at
 1440 × 900; not yet reproduced in isolation.
+
+## Found building a Next.js site on 0.24.0: GlassRoot cannot server-render, and body chroma retention blocks over sparse coloured lines on black (2026-09-27)
+
+Found while redesigning an App Router site (Relue, Next.js 16) on `@vitreajs/vitrea-react` 0.24.0
+from npm, on real hardware (Chromium 152-class, apple/metal-3). Neither is covered by any suite:
+the demo is a Vite SPA and the bed has no chromatic sparse-line backdrop.
+
+- **`GlassRoot` throws during server rendering.** `root.tsx` builds the ticker in a `useMemo`
+  (`createGlassTicker()`), and `ticker.ts` reads the global `window` at construction
+  (`options.window ?? window`), so any SSR framework fails the whole route with
+  `ReferenceError: window is not defined`. Every glass component also throws outside a root, so
+  an app cannot render its page on the server and let the root arrive later without remounting
+  the subtree under it. The app's workaround is a mount gate that renders the page without a root
+  on the server and wraps it one commit later (one remount of the page at hydration). **Shape of
+  the fix:** construct the ticker lazily (in an effect, or guard `typeof window` and start on
+  mount), let glass components render nothing, rather than throw, while the root has not been
+  built, and add a `renderToString(<GlassRoot>…</GlassRoot>)` smoke test. The React README's
+  texture paragraph ("maps the source over the whole viewport") carries the same staleness the
+  2026-09-26 core README entry names.
+- **Body chroma retention paints sharp-edged patches over sparse chromatic lines on black.**
+  Dark scheme, active pose, WebGPU texture path (a canvas source): a 48 px capsule over a black
+  field ruled by 1 px `rgb(41 171 202 / 0.36)` lines every 37 CSS px draws a body that alternates
+  teal and neutral grey in grid-spaced, hard-edged blocks (visible at 1x and 2x; the neutral
+  blocks read 53,53,53 against a 45,55,57 body). With the grid removed the body is a uniform
+  53,53,53; with `bodyChromaRetention: 0` tuned in, the blocks vanish with the grid present.
+  The retention's law rescales the blurred backdrop by `Y / Y_backdrop`, which is ill-conditioned
+  where `Y_backdrop` is near zero, and the edges are too sharp for a filtered pyramid read, so
+  the suspect is a near-black guard or an unfiltered level on that path. The bed cannot see it:
+  its only sparse-on-black scene (impulse) is achromatic, where the retention is the identity.
+  **Shape of the work:** a unit or golden with a chromatic line grid on black in the dark pose;
+  smooth the retention's chroma source over sparse structure and fade it toward the identity as
+  `Y_backdrop` approaches black, then re-read M1 on the bed to show nothing else moved.
