@@ -52,7 +52,9 @@ function compose(name, size) {
   return PNG.sync.write(png, { colorType: 2, inputHasAlpha: true, deflateLevel: 9, filterType: -1 });
 }
 
-for (const name of ["light-day", "dark-night", "dark-night-platter"]) {
+// Names from argv (the second run passes its three), else the first run's three.
+const NAMES = process.argv.length > 2 ? process.argv.slice(2) : ["light-day", "dark-night", "dark-night-platter"];
+for (const name of NAMES) {
   let size = "wide", buf = compose(name, size);
   if (buf.length > LIMIT) { size = "narrow"; buf = compose(name, size); }
   writeFileSync(`${OUT}/${name}.png`, buf);

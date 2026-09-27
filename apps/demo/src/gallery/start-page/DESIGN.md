@@ -493,10 +493,12 @@ open and focus stays on the switch. With no parameter the page is the one the pa
   to the variant's base σ, and clear's base is 4 against regular's 1.25. A clear-mode layout
   keeping the law would need gaps near 200 px, which three columns at 1440 do not have. The
   runtime raised no finding (its overlap check reads the advisory padding; part two, item 4).
-- Two page tokens follow the ink instead of the scheme (`start-page.css`, written only under
-  `[data-glass="clear"]`). The lifts take the small values that hold under light ink (7 % / 13 %
-  white). A glyph or knob drawn on an ink-filled mark (a checked task, a switch that is on) takes
-  the ink's opposite instead of `Canvas`. See the confound below.
+- One page rule follows the ink instead of the scheme (`start-page.css`, written only under
+  `[data-glass="clear"]`): a glyph or knob drawn on an ink-filled mark (a checked task, a switch
+  that is on) takes the ink's opposite instead of `Canvas`. The lifts are the scheme's own. The
+  first version also held them at the dark scheme's 7 % / 13 % white in both schemes, as a guard
+  against a pole flip; the flip did not happen (below), the guard read as a confound in the light
+  pair, and the second run removed it.
 
 **Dimming strength: black 0.30 in both schemes**, the `Glass.clear` API example's figure, below
 the HIG's 35 % for bright content. The rule was to start at 0.30 and raise it until every gated
@@ -513,7 +515,9 @@ percentile, 4.5:1 for text, 3:1 for large text, icons and marks. Matrix: WebGPU 
 night × at rest (every line) and with the platter open (the platter's lines). Active pose,
 transparency nominal, 1440 × 900 at device scale 1, `?at=15:10`. One reading was added to the
 maker's set: the knob of a switch that is on, against its ink-filled track. The regular page was
-read in the same run as a reference; its platter now has the new row.
+read in the same run as a reference; its platter now has the new row. The four clear rows were
+re-measured in a second run after the lifts were returned to the scheme's own (below); every
+figure in them is unchanged, so the table stands for both runs.
 
 | tier · scheme | glass | gated (text · large · marks) | below floor | text, worst (where) | large, worst | marks, worst | median text | platter, worst |
 |---|---|---|---|---|---|---|---|---|
@@ -558,7 +562,7 @@ dimming: { scrim: 0.3, direction: "darken" } }` and back to no material. The can
 byte-identical to a fresh `?glass=clear` load in that state, and after the second press
 byte-identical to the default page's.
 
-**What the eye sees that the numbers do not** (the three comparison images, WebGPU tier, 1440 ×
+**What the eye sees that the numbers do not** (the five comparison images, WebGPU tier, 1440 ×
 900 at device scale 2, regular left, clear right):
 - **Clear reads as the more frosted material, not the clearer one.** The larger group σ
   flattens the body. In the light scheme regular's windows carry the day's sky blue at their tops
@@ -572,10 +576,18 @@ byte-identical to the default page's.
 - In the dark pairs the two halves are close: clear's bodies are a little darker and flatter, and
   its edges carry a crisper light hairline (clear's rim and specular are the unfitted nominal
   ones). Neither body shows the star field.
-- **A confound of the page's own making, in the light scheme.** The smaller lifts were written
-  for a pole flip that did not happen, and they make the Places tiles and the lifted current
-  event much quieter than regular's. That difference in the light pair is this page's token,
-  not the material.
+- **A confound of the page's own making, removed.** In the first light pair the smaller lifts,
+  written for a pole flip that did not happen, drew the Places tiles and the lifted current event
+  much quieter than regular's. The second run returned the lifts to the scheme's own and
+  re-captured the pair; the tiles and the event now match regular's, and what remains in the
+  light pair is the variant and its dimming.
+- **The cell the user looked at: dark scheme, the Day photograph chosen in the platter, 02:45**
+  (`dark-day.png`, `dark-day-platter.png`). The evening-print grade takes the valley down to a
+  painted level of 0.017–0.023 under the windows in regular and 0.010–0.012 in clear (the search
+  0.045 / 0.023), and the two halves are as close as the night pairs: clear's bodies a little
+  darker and flatter, its edge hairline a little crisper, the halo faint against the dark field.
+  Neither half shows more of the valley than the other. On this page, in the dark scheme, clear
+  at black 0.30 is not the more transparent glass to the eye.
 
 **What the default state changed.** Only the platter, by the requested switch. At rest the
 default page is byte-for-byte what the panel read, against two baseline runs taken before any
@@ -584,7 +596,8 @@ every group's hint, material and resolved state, and every host's box are identi
 the second baseline, screenshot pixels are identical or within one code value, only inside the
 Photograph ornament's box, where the two unchanged baseline runs also differ from each other by
 one code. The first baseline differs from both at two further pixels of one cell (CSS, light,
-dawn; two codes). Open, the platter gains
+dawn; two codes). In the second run the regular light Day capture at device scale 2 was
+byte-identical to the first run's, so the lift change reached clear mode only. Open, the platter gains
 one row (+38 px): 320 × 248 (dawn, night) and 320 × 264 (day, dusk, whose credit wraps), from 210
 and 226. Only the Photograph group's hint moves with it. At 1440 × 900 it ends 34 / 18 px above
 the bottom edge. With transparency reduced it now scrolls inside itself: by 0 (light, dawn), 12
@@ -594,12 +607,23 @@ That is the switch's cost to the regular page.
 **Not measured.** The receded pose, Reduce Transparency and Increase Contrast in clear mode,
 forced colours in clear mode, the Today scroller's positions and a typed query, other viewports,
 and device scale 2 for contrast (the images are 2x; the readings 1x). The CSS tier was measured,
-not captured for the eye.
+not captured for the eye. Both runs read the open-platter cells about 1 s after opening. A later
+probe (`recapture-settle.mjs`) found the morph host 0.016 CSS px short of its resting box at
+1.1 s and at rest from 1.5 s, with no transform and no running animation, and the chosen
+thumbnail's focus ring settling by 2.5 s (5 codes at 1.5 s, 1 at 2.0 s, inside its 63 px box).
+That is why the two runs' sixteen platter cells differ by up to 208 codes on one row of the
+platter's content (`recapture-pxdiff.txt`) while their host boxes, hints and readings agree.
+The comparison captures were taken at about 1.5 s: at rest, the ring within 5 codes of settled.
+Between the runs the dark rest cells are byte-identical in six of eight (the WebGPU dusk and
+night cells differ by one code in 409 and 132 pixels) and the light rest cells differ only
+inside the hosts, by up to 25 codes, where the lifts changed.
 
 **Deferred.**
-1. Return the light scheme's lifts to the scheme's own in clear mode (the pole did not flip at
-   0.30; keep the ink-opposite glyph rule), then re-measure and re-capture `light-day.png`. This
-   needs a browser session.
+1. Closed in the second run (20:13–20:16, once the calibration capture released the machine):
+   the light scheme's lifts returned to the scheme's own in clear mode, the ink-opposite glyph
+   rule kept, the clear matrix re-measured with every table figure unchanged and no reading below
+   its floor (surfaces on lifted fills moved by up to 0.083 encoded), and `light-day.png`
+   re-captured. The same run captured the user's cell, `dark-day.png` and `dark-day-platter.png`.
 2. For the runtime tracker: clear's base σ 4, fed through the size law, makes clear the blurrier
    variant at window span (group padding 3.2× regular's), the opposite of the variant's stated
    character; and the overlap check does not see a padding the layout's gap no longer clears.
@@ -609,15 +633,22 @@ not captured for the eye.
    page reads both; cosmetic.
 
 **Evidence**, in `docs/research/data/2026-09-27-materialist-spatial-register/comparison/`:
-`light-day.png`, `dark-night.png` (`?at=02:45`), `dark-night-platter.png`, each 2886 × 940 with
-halves at 1440 wide, area-averaged from the 2x captures. SHA-256 `764f6f87…dd805`,
-`a54cb6fe…122c7` and `35af8f84…2f99`. `measurement/` holds the scripts that ran (`lib.mjs`,
+five images, each 2886 × 940 with halves at 1440 wide, area-averaged from the 2x captures:
+`light-day.png` (second run, SHA-256 `5eff47e6…0f707`; the first run's, `764f6f87…dd805`, is
+the file at commit `6a26bd2f`), `dark-night.png` (`?at=02:45`; `a54cb6fe…122c7`),
+`dark-night-platter.png` (`35af8f84…2f99`), `dark-day.png` (`d3bc8ad3…84899`) and
+`dark-day-platter.png` (`2d8e4b7f…cadaa`). `measurement/` holds the scripts that ran and their
+output; they name their scratch paths under `/tmp/sp-clear/`. First run: `lib.mjs`,
 `baseline.mjs`, `sweep.mjs`, `apply-constant.mjs`, `final.mjs`, `analyse.mjs`, `compose.mjs`,
-`pxdiff.mjs`; they name their scratch paths under `/tmp/sp-clear/`) and their output:
-`baseline-a.json` / `baseline-b.json` (the default page before any edit), `sweep.json` (SHA-256
-`d3965554…d9eb3`) and `final.json` (SHA-256 `bb0fe415…8b1b78`, every reading above). All browser
-work was one contiguous run, 19:20:50–19:24:53, sweep through e2e. Nothing was re-read in a
-browser after it: the only edits since are two code comments and this record.
+`pxdiff.mjs`; `baseline-a.json` / `baseline-b.json` (the default page before any edit),
+`sweep.json` (SHA-256 `d3965554…d9eb3`) and `final.json` (SHA-256 `bb0fe415…8b1b78`, every
+first-run reading above); one contiguous browser run, 19:20:50–19:24:53, sweep through e2e.
+Second run, after the lift change: `recapture.mjs` with `recapture.json` (SHA-256
+`b9b526ef…61fdf`) and `recapture.txt`; `recapture-analyse.mjs` / `.txt`;
+`recapture-canvas-diff.mjs`, `recapture-pxdiff.mjs`, `recapture-shift.mjs` and
+`recapture-pxdiff.txt`; the settle probes `recapture-settle.mjs`, `recapture-settle2.mjs` with
+`recapture-settle.txt`; `compose.mjs` now takes the pair names on its command line. Browser
+work: 20:13–20:16 for the run, about 20:22 for the two probes.
 
 Commands after the last code change: `pnpm --filter demo lint` exit 0; `pnpm --filter demo
 build` exit 0 (the existing chunk-size warning only); `pnpm --filter demo test:e2e

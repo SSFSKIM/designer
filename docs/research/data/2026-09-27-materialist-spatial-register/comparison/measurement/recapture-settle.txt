@@ -1,0 +1,37 @@
+# Console output of recapture-settle.mjs and recapture-settle2.mjs (dark scheme, Day photograph
+# chosen, ?at=15:10, WebGPU tier, 1440 x 900 at 1x), run 2026-09-27 ~20:22 after the second run.
+# settle.mjs: the morph host's box (unrounded), its inner platter, three row tops, the environment
+# canvas digest, a 360 x 300 clip's digest at the platter, and running animations, at ms after openMenu().
+regular   333 rect 61,613.047,309.563,232.688 tf none | inner 61,613.047,320,264.438 none | rows [[647.047,66.438],[647.047,66.438],[647.047,66.438]] | canvas 42668eebe112 shot 7eff60ba5793d5fd anims 0
+regular   493 rect 61,618.531,320.406,265.234 tf none | inner 61,618.531,320,264.438 none | rows [[652.531,66.438],[652.531,66.438],[652.531,66.438]] | canvas 42668eebe112 shot cdb6d225eaab2757 anims 0
+regular   772 rect 61,617.984,320.016,264.047 tf none | inner 61,617.984,320,264.438 none | rows [[651.984,66.438],[651.984,66.438],[651.984,66.438]] | canvas 42668eebe112 shot 3912da585229578d anims 0
+regular  1099 rect 61,618,319.984,263.984 tf none | inner 61,618,320,264.438 none | rows [[652,66.438],[652,66.438],[652,66.438]] | canvas 42668eebe112 shot 2fe4125ecf58020f anims 0
+regular  1479 rect 61,618,320,264 tf none | inner 61,618,320,264.438 none | rows [[652,66.438],[652,66.438],[652,66.438]] | canvas 42668eebe112 shot 2c3c3c55f2a58e7d anims 0
+regular  2052 rect 61,618,320,264 tf none | inner 61,618,320,264.438 none | rows [[652,66.438],[652,66.438],[652,66.438]] | canvas 42668eebe112 shot 8520b5383c49f4dd anims 0
+regular  3099 rect 61,618,320,264 tf none | inner 61,618,320,264.438 none | rows [[652,66.438],[652,66.438],[652,66.438]] | canvas 42668eebe112 shot 3629d1ae839a4049 anims 0
+regular  4564 rect 61,618,320,264 tf none | inner 61,618,320,264.438 none | rows [[652,66.438],[652,66.438],[652,66.438]] | canvas 42668eebe112 shot 3629d1ae839a4049 anims 0
+clear   470 rect 61,616.141,314.469,247.438 tf none | inner 61,616.141,320,264.438 none | rows [[650.141,66.438],[650.141,66.438],[650.141,66.438]] | canvas 13d4e34e60d4 shot 6643e1bd22167e25 anims 0
+clear   571 rect 61,618.297,320.406,265.234 tf none | inner 61,618.297,320,264.438 none | rows [[652.297,66.438],[652.297,66.438],[652.297,66.438]] | canvas 07440ab972f2 shot 13d1cea8f40cb8b8 anims 0
+clear   756 rect 61,617.984,320.016,264.078 tf none | inner 61,617.984,320,264.438 none | rows [[651.984,66.438],[651.984,66.438],[651.984,66.438]] | canvas e44eadbe8d52 shot 0a5be02d8ff10c1b anims 0
+clear  1071 rect 61,618,319.984,263.984 tf none | inner 61,618,320,264.438 none | rows [[652,66.438],[652,66.438],[652,66.438]] | canvas e44eadbe8d52 shot 3a1139664ca96ef7 anims 0
+clear  1474 rect 61,618,320,264 tf none | inner 61,618,320,264.438 none | rows [[652,66.438],[652,66.438],[652,66.438]] | canvas e44eadbe8d52 shot d8b3b3a3e114efca anims 0
+clear  2057 rect 61,618,320,264 tf none | inner 61,618,320,264.438 none | rows [[652,66.438],[652,66.438],[652,66.438]] | canvas e44eadbe8d52 shot 47708899ede849b9 anims 0
+clear  3076 rect 61,618,320,264 tf none | inner 61,618,320,264.438 none | rows [[652,66.438],[652,66.438],[652,66.438]] | canvas e44eadbe8d52 shot d983f59066ec4f57 anims 0
+clear  4570 rect 61,618,320,264 tf none | inner 61,618,320,264.438 none | rows [[652,66.438],[652,66.438],[652,66.438]] | canvas e44eadbe8d52 shot d983f59066ec4f57 anims 0
+# settle2.mjs: each full screenshot against the 6 s one: differing pixels, of them inside the host's
+# box, the largest code difference and its bounding box; the host box, the group's hint, the focused
+# element and whether it is :focus-visible, and the photograph node's resolved tint alpha.
+regular  1512 vs last: px 3053 inPlatter 3053 max 5 bbox 189,718,252,781 | rect 61,618,320,264 hint 0.026 focus Day true | node {"w":null,"opacity":null,"tintAlpha":0.9197753322069158}
+regular  2009 vs last: px 840 inPlatter 840 max 1 bbox 204,733,237,766 | rect 61,618,320,264 hint 0.026 focus Day true | node {"w":null,"opacity":null,"tintAlpha":0.9197753322069158}
+regular  2512 vs last: px 0 inPlatter 0 max 0 bbox - | rect 61,618,320,264 hint 0.026 focus Day true | node {"w":null,"opacity":null,"tintAlpha":0.9197753322069158}
+regular  3020 vs last: px 0 inPlatter 0 max 0 bbox - | rect 61,618,320,264 hint 0.026 focus Day true | node {"w":null,"opacity":null,"tintAlpha":0.9197753322069158}
+regular  3516 vs last: px 0 inPlatter 0 max 0 bbox - | rect 61,618,320,264 hint 0.026 focus Day true | node {"w":null,"opacity":null,"tintAlpha":0.9197753322069158}
+regular  4515 vs last: px 0 inPlatter 0 max 0 bbox - | rect 61,618,320,264 hint 0.026 focus Day true | node {"w":null,"opacity":null,"tintAlpha":0.9197753322069158}
+regular  6027 vs last: px 0 inPlatter 0 max 0 bbox - | rect 61,618,320,264 hint 0.026 focus Day true | node {"w":null,"opacity":null,"tintAlpha":0.9197753322069158}
+clear  1516 vs last: px 2986 inPlatter 2986 max 5 bbox 190,719,251,780 | rect 61,618,320,264 hint 0.014 focus Day true | node {"w":null,"opacity":null,"tintAlpha":0.2753204356685281}
+clear  2020 vs last: px 678 inPlatter 678 max 1 bbox 205,734,236,765 | rect 61,618,320,264 hint 0.014 focus Day true | node {"w":null,"opacity":null,"tintAlpha":0.2753204356685281}
+clear  2532 vs last: px 0 inPlatter 0 max 0 bbox - | rect 61,618,320,264 hint 0.014 focus Day true | node {"w":null,"opacity":null,"tintAlpha":0.2753204356685281}
+clear  3034 vs last: px 0 inPlatter 0 max 0 bbox - | rect 61,618,320,264 hint 0.014 focus Day true | node {"w":null,"opacity":null,"tintAlpha":0.2753204356685281}
+clear  3507 vs last: px 0 inPlatter 0 max 0 bbox - | rect 61,618,320,264 hint 0.014 focus Day true | node {"w":null,"opacity":null,"tintAlpha":0.2753204356685281}
+clear  4526 vs last: px 0 inPlatter 0 max 0 bbox - | rect 61,618,320,264 hint 0.014 focus Day true | node {"w":null,"opacity":null,"tintAlpha":0.2753204356685281}
+clear  6021 vs last: px 0 inPlatter 0 max 0 bbox - | rect 61,618,320,264 hint 0.014 focus Day true | node {"w":null,"opacity":null,"tintAlpha":0.2753204356685281}

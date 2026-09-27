@@ -553,12 +553,13 @@ and one line on Harvestar if they want a page shaped toward it.
   light bodies; `GlassMorph` without host attributes and with a content-box host; no forced-colours
   border on the WebGPU tier; and the recurrences of the moved-host cache and the morph's Reduce
   Motion collapse.
-- The clear-variant comparison's two open items: reverting the smaller lifts the comparison mode
-  authored (a confound the worker named: the Places tiles and the current event read quieter than
-  regular's in `light-day.png`) and re-capturing that image; and the cell the user actually looked
-  at, dark scheme with the Day photograph, which the three comparison captures do not include
-  (light Day, dark Night, dark Night with the platter open). Both need a browser session and wait on
-  the calibration capture holding the machine (2026-09-27 evening).
+- Closed the same night, once the calibration capture released the machine: the clear-variant
+  comparison's two open items. The smaller lifts the comparison mode authored (a confound the
+  worker named: the Places tiles and the current event read quieter than regular's in
+  `light-day.png`) were returned to the scheme's own and the image re-captured, with the clear
+  matrix re-measured unchanged; and the cell the user actually looked at, dark scheme with the
+  Day photograph chosen, was captured at rest and with the platter open (`dark-day.png`,
+  `dark-day-platter.png`). DESIGN.md part two; Revision Notes.
 - The eye reading: the two pages beside the nearest Apple surfaces (a visionOS window with bottom
   ornaments; the iOS Lock Screen or Notification Center), theirs to give.
 
@@ -642,3 +643,12 @@ the skill adds the conditions and keeps the choice. The user's eye is not in thi
   `clear` triples the derived sampling padding and nothing warns when a gap stops clearing it
   (tracker). The panel's evidence is unaffected: the switch lives in the platter, so only the open
   platter's box moved.
+- 2026-09-27 (night): the comparison's two open items closed in a second browser run after the
+  W41 capture released the machine. The clear-mode lift override removed from `start-page.css`
+  (the lifts are the scheme's own; the ink-opposite glyph rule stays), the 32 clear cells
+  re-measured with every table figure unchanged and no reading below floor, `light-day.png`
+  re-captured, and `dark-day.png` / `dark-day-platter.png` added for the user's cell. Found on
+  the way and recorded in DESIGN.md: the open platter's host is 0.016 CSS px short of rest at
+  1.1 s and at rest from 1.5 s, and the chosen thumbnail's focus ring settles by 2.5 s, which is
+  the whole run-to-run difference in the platter cells; both runs' platter readings were taken
+  at about 1 s and agree.
