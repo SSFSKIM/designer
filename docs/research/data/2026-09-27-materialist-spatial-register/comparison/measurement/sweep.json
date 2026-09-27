@@ -1,0 +1,42 @@
+{
+ "steps": [
+  {
+   "scheme": "light",
+   "strength": 0.3,
+   "gated": 482,
+   "failing": 0,
+   "worst": {
+    "text": "Search or type an address",
+    "host": "Search the web or go to a place",
+    "phase": "night",
+    "state": "rest",
+    "ratio": 4.85,
+    "floor": 4.5
+   },
+   "fails": [],
+   "diags": [],
+   "errors": []
+  },
+  {
+   "scheme": "dark",
+   "strength": 0.3,
+   "gated": 482,
+   "failing": 0,
+   "worst": {
+    "text": "Search or type an address",
+    "host": "Search the web or go to a place",
+    "phase": "dawn",
+    "state": "rest",
+    "ratio": 5.55,
+    "floor": 4.5
+   },
+   "fails": [],
+   "diags": [],
+   "errors": []
+  }
+ ],
+ "chosen": {
+  "light": 0.3,
+  "dark": 0.3
+ }
+}

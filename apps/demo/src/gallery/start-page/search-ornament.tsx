@@ -16,7 +16,7 @@ import { useEffect, useRef, type FormEvent, type ReactNode } from "react";
 import type { Place } from "./data";
 import type { Box } from "./environment";
 import { ReturnGlyph, SearchGlyph } from "./icons";
-import { ENVIRONMENT_BACKDROP, THICKNESS, boxStyle } from "./shared";
+import { ENVIRONMENT_BACKDROP, THICKNESS, boxStyle, type GroupMaterial } from "./shared";
 
 function destination(query: string, match: Place | undefined): string | undefined {
   const text = query.trim();
@@ -30,12 +30,13 @@ function destination(query: string, match: Place | undefined): string | undefine
 export function SearchOrnament(props: {
   readonly box: Box;
   readonly hint: BackdropHint | undefined;
+  readonly material: GroupMaterial;
   readonly query: string;
   readonly match: Place | undefined;
   readonly onQuery: (query: string) => void;
   readonly onHost: (handle: GlassHostHandle | null) => void;
 }): ReactNode {
-  const { box, hint, query, match, onQuery, onHost } = props;
+  const { box, hint, material, query, match, onQuery, onHost } = props;
   const input = useRef<HTMLInputElement>(null);
 
   /*
@@ -79,7 +80,7 @@ export function SearchOrnament(props: {
   };
 
   return (
-    <GlassGroup id="search" backdrop={ENVIRONMENT_BACKDROP} hint={hint}>
+    <GlassGroup id="search" backdrop={ENVIRONMENT_BACKDROP} hint={hint} {...material}>
       <GlassSurface
         asChild
         plane="overlay"

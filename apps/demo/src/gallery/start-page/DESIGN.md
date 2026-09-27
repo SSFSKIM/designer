@@ -313,7 +313,9 @@ colours (system colours; looked at), and the platter thumbnails, which are image
    below its ornament. At 249 px it first scrolled by 17 px under Reduce Transparency — the one
    setting that lives inside it; at 226 px it now ends 56 px above the bottom edge at 1440 × 900,
    38 px (light) and 28 px (dark) with transparency reduced. It never flips upward over the
-   module.
+   module. (Read later, beside these: the clear-variant comparison's switch added a row, and the
+   platter is now 248 / 264 px and scrolls by 6–22 px under Reduce Transparency; see
+   "Clear-variant comparison" below.)
 7. The module lost its one-sentence outlook (prose in a glance module) and gained a line of
    height in the narrow layout; the clock scales with the module (container units); the page
    keeps British English's 24-hour clock whatever the browser's locale; the Today window opens
@@ -446,3 +448,177 @@ below is full Chromium (`channel: "chromium"`) on the Apple GPU against the dev 
 Commands after the last change: `pnpm --filter demo lint` exit 0 (eslint and both `tsc`
 projects); `pnpm --filter demo build` exit 0 (the existing chunk-size warning only);
 `pnpm --filter demo test:e2e e2e/gallery.spec.ts` 16 passed, the start page's two among them.
+
+### Clear-variant comparison (post-panel, uncalibrated)
+
+2026-09-27, after the panel. **This mode is not the register's recommendation.** SKILL.md §4,
+spatial condition 8: windows and modules that carry text use regular; clear is for media being
+watched, whose dimming does not harm it, with bold bright foregrounds. Daybreak's windows are
+reading surfaces, so part one's "No clear variant anywhere" is still the design, and the page
+still opens in it. The mode exists so the two variants can be seen side by side over the same
+environment. **Clear is uncalibrated:** no bed scene declares it; its optics are the renderer's
+nominal constants (base blur σ 4 against regular's refitted 1.25, nominal tint alpha 0.1, rim and
+specular unfitted; `references/optics.md` §10), and the macOS 27 documents patch only the regular
+variant. **Its dimming is the page's:** a clear group's `dimming` policy paints nothing on either
+tier, so the black under the glass below is this page's choice, not vitrea's and not Apple's.
+
+**Reaching it.** `?glass=clear`, which composes with `?tier=css` and `?at=HH:MM`; or the platter's
+new switch "Clear glass (uncalibrated)", under Reduce transparency. The switch rewrites the
+parameter (`history.replaceState`) and re-renders the five groups in place: the platter stays
+open and focus stays on the switch. With no parameter the page is the one the panel read.
+
+**What the mode changes.**
+- Every group takes `variant="clear"` and a dimming policy `{ ...DEFAULT_CLEAR_DIMMING, scrim }`
+  whose scrim is the strength actually painted (0.30) rather than the constant's advisory 0.28.
+  The policy is metadata nothing draws, so it states the page's number. The five groups switch
+  together through one value (`groupMaterial`, `shared.ts`); the regular page passes neither prop.
+- The environment painter composites black at that strength into the canvas under each
+  registered host's footprint: the three windows (radius 32), the search capsule (28) and the
+  Photograph host at its current box (24). It is full to the edge and fades by a smoothstep to
+  nothing 16 CSS px past it, so the rim bends a gradient and the photograph's structure rather
+  than a step (`createDimmer`, `environment.ts`). The dimmer keeps a copy of the graded paint, so
+  a footprint that moves restores exactly what it leaves; it recomputes only the rectangles of
+  footprints that moved, so the Photograph host's dimming follows the morph frame by frame, with
+  the ImageBitmap taken once the changes stop (250 ms). Every hint is measured from the composite.
+- **The scheme grades are unchanged, the dark "evening print" included.** The dimming does not
+  make the grade redundant. It covers the footprints only, while the grade is the dark scheme's
+  whole environment; the dark scheme already passed at the first strength tried, so a lighter
+  grade had nothing to buy; and with the environment outside the glass identical in both modes,
+  the side-by-side shows the variant and its dimming and nothing else. Reducing the grade in
+  clear mode would need its own sweep, which was not run.
+- **Layout unchanged**, and one of the page's laws does not hold here. The gap (63 px) is
+  derived from the regular variant's sampling padding. The clear groups resolve paddings of
+  196–200 px (windows), 77–90 px (search), 75–85 px closed and 194 px open (Photograph),
+  about 3.2 times regular's 61–62 / 24–28 / 23–27 / 60–61. The group σ is the size law applied
+  to the variant's base σ, and clear's base is 4 against regular's 1.25. A clear-mode layout
+  keeping the law would need gaps near 200 px, which three columns at 1440 do not have. The
+  runtime raised no finding (its overlap check reads the advisory padding; part two, item 4).
+- Two page tokens follow the ink instead of the scheme (`start-page.css`, written only under
+  `[data-glass="clear"]`). The lifts take the small values that hold under light ink (7 % / 13 %
+  white). A glyph or knob drawn on an ink-filled mark (a checked task, a switch that is on) takes
+  the ink's opposite instead of `Canvas`. See the confound below.
+
+**Dimming strength: black 0.30 in both schemes**, the `Glass.clear` API example's figure, below
+the HIG's 35 % for bright content. The rule was to start at 0.30 and raise it until every gated
+line and mark passed, per scheme, on the WebGPU tier over the four phases at rest and with the
+platter open. Both passed at the first step (light 482 gated readings, worst 4.85:1; dark 482,
+worst 5.55:1), so it was not raised. The sweep set the strength through the capture aid
+`__glassDemo.setDimming`. Everything below reads the shipped constant, and every group reported
+scrim 0.3.
+
+**Contrast.** Method as "Contrast — every rendered line and mark on glass" above: lines from the DOM
+per rendered line, glyphs and marks hidden for the surface, worst of the 10th, 50th and 90th
+percentile, 4.5:1 for text, 3:1 for large text, icons and marks. Matrix: WebGPU (full Chromium,
+`channel: "chromium"`, the record's launch) and `?tier=css` × light and dark × dawn, day, dusk,
+night × at rest (every line) and with the platter open (the platter's lines). Active pose,
+transparency nominal, 1440 × 900 at device scale 1, `?at=15:10`. One reading was added to the
+maker's set: the knob of a switch that is on, against its ink-filled track. The regular page was
+read in the same run as a reference; its platter now has the new row.
+
+| tier · scheme | glass | gated (text · large · marks) | below floor | text, worst (where) | large, worst | marks, worst | median text | platter, worst |
+|---|---|---|---|---|---|---|---|---|
+| WebGPU · light | clear | 482 (346 · 72 · 64) | 0 | 4.85 — “Search or type an address”, Search, night | 6.59 | 6.23 | 6.66 | 5.19 |
+| WebGPU · light | regular | 478 (346 · 72 · 60) | 0 | 5.29 — the same line, night | 7.37 | 6.94 | 7.55 | 5.72 |
+| WebGPU · dark | clear | 482 (346 · 72 · 64) | 0 | 5.55 — the same line, dawn | 6.49 | 7.00 | 6.63 | 5.77 |
+| WebGPU · dark | regular | 478 (346 · 72 · 60) | 0 | 4.81 — the same line, dawn | 5.68 | 6.05 | 6.36 | 5.36 |
+| CSS · light | clear | 482 (346 · 72 · 64) | 0 | 4.85 — the same line, night | 6.49 | 6.23 | 6.60 | 5.25 |
+| CSS · light | regular | 478 (346 · 72 · 60) | 0 | 5.28 — the same line, night | 7.40 | 6.97 | 7.51 | 5.73 |
+| CSS · dark | clear | 482 (346 · 72 · 64) | 0 | 5.60 — “16:30”, Today, dawn | 6.50 | 7.43 | 6.64 | 5.74 |
+| CSS · dark | regular | 478 (346 · 72 · 60) | 0 | 4.82 — the search placeholder, dawn | 5.73 | 6.06 | 6.33 | 5.36 |
+
+**No reading is below its floor, in either mode, on either tier**, so no failing line is listed.
+Each tier and scheme also has 20 readings inside the Today scroller's masked edges, measured and
+not gated, as above. The four extra clear readings are the "Clear glass" switch's knob, on in
+that mode. The new switch's label reads 7.47–7.92:1 on the regular page; with its knob, in
+clear, 6.98–8.37:1.
+The regular dark worst, 4.81 / 4.82, is the record's own worst line above, read again. The shape:
+clear takes margin from the light scheme (median 7.55 → 6.66, worst 5.29 → 4.85) and gives it to
+the dark (worst 4.81 → 5.55). The black under each footprint halves every declared level (linear
+luminance × 0.45–0.60; e.g. the search over day's cumulus 0.664 → 0.302). That lowers the surface
+under dark ink and lowers it further under light ink. **No surface changed ink pole:** dark ink
+(black, 0.85) in the light scheme and light ink (white, 0.80) in the dark, on every host, both
+tiers, all four phases, in both modes. The resolved tint alpha shows why: clear's adapted body
+keeps 0.54–0.72 in the light scheme (regular 0.66–0.74) and drops to 0.23–0.30 in the dark
+(regular 0.91–0.93), so the light clear body stays light.
+
+**What the runtime reports** (both tiers, every cell). Every node resolved `clear / constrained /
+dimming 0.3`; core refused none. The WebGPU tier drew `webgpu / gpu-texture` for all five groups and
+the CSS tier `css / css-backdrop`, `cssBody` collapsed, in both modes. **Diagnostics: zero in both
+channels, in both modes**: 32 regular and 32 clear matrix cells, the sweep's 16 captures, the
+toggle's three states and the six comparison captures; no page error and no console error. Each
+group's declared hint against the painted canvas under its own host, by the runtime's statistic:
+largest difference 0.0006 (clear) / 0.0005 (regular) over 160 readings each. Through the morph, read
+every frame for 50 frames each way, the Photograph group's hint followed its dimmed footprint to
+0.0016 closing and 0.0033 opening (no frame over 0.005). A canvas pixel just inside the open
+platter's bottom edge read (53, 45, 35) regular, (37, 31, 24) clear and (53, 45, 35) again: a factor
+of 0.70, the 30 % black. The switch, pressed with the platter open on the dark scheme: the URL went
+`?at=15:10` → `?at=15%3A10&glass=clear` → `?at=15%3A10`. Focus stayed on the switch,
+`aria-checked="true"`, the platter stayed open. All five groups went to `{ variant: "clear",
+dimming: { scrim: 0.3, direction: "darken" } }` and back to no material. The canvas was
+byte-identical to a fresh `?glass=clear` load in that state, and after the second press
+byte-identical to the default page's.
+
+**What the eye sees that the numbers do not** (the three comparison images, WebGPU tier, 1440 ×
+900 at device scale 2, regular left, clear right):
+- **Clear reads as the more frosted material, not the clearer one.** The larger group σ
+  flattens the body. In the light scheme regular's windows carry the day's sky blue at their tops
+  and the field's beige below; clear's are a nearly uniform warm grey, with less of the photograph
+  in them than regular. "Persistently more transparent" is not what this runtime's clear draws
+  at window span.
+- **The dimming shows as a dark halo.** The 16 px feather is a soft dark band hugging each
+  surface's outside edge. On day's bright sky it reads as a heavy close shadow or an outline
+  around every window, the search and the ornament, and it is the most visible difference
+  in the light pair. At night it is faint.
+- In the dark pairs the two halves are close: clear's bodies are a little darker and flatter, and
+  its edges carry a crisper light hairline (clear's rim and specular are the unfitted nominal
+  ones). Neither body shows the star field.
+- **A confound of the page's own making, in the light scheme.** The smaller lifts were written
+  for a pole flip that did not happen, and they make the Places tiles and the lifted current
+  event much quieter than regular's. That difference in the light pair is this page's token,
+  not the material.
+
+**What the default state changed.** Only the platter, by the requested switch. At rest the
+default page is byte-for-byte what the panel read, against two baseline runs taken before any
+edit. In all 16 rest cells (two tiers × two schemes × four phases) the painted canvas's SHA-256,
+every group's hint, material and resolved state, and every host's box are identical. Against
+the second baseline, screenshot pixels are identical or within one code value, only inside the
+Photograph ornament's box, where the two unchanged baseline runs also differ from each other by
+one code. The first baseline differs from both at two further pixels of one cell (CSS, light,
+dawn; two codes). Open, the platter gains
+one row (+38 px): 320 × 248 (dawn, night) and 320 × 264 (day, dusk, whose credit wraps), from 210
+and 226. Only the Photograph group's hint moves with it. At 1440 × 900 it ends 34 / 18 px above
+the bottom edge. With transparency reduced it now scrolls inside itself: by 0 (light, dawn), 12
+(light, day), 6 (dark, dawn) and 22 px (dark, day). Item 6 above had tightened it so it did not.
+That is the switch's cost to the regular page.
+
+**Not measured.** The receded pose, Reduce Transparency and Increase Contrast in clear mode,
+forced colours in clear mode, the Today scroller's positions and a typed query, other viewports,
+and device scale 2 for contrast (the images are 2x; the readings 1x). The CSS tier was measured,
+not captured for the eye.
+
+**Deferred.**
+1. Return the light scheme's lifts to the scheme's own in clear mode (the pole did not flip at
+   0.30; keep the ink-opposite glyph rule), then re-measure and re-capture `light-day.png`. This
+   needs a browser session.
+2. For the runtime tracker: clear's base σ 4, fed through the size law, makes clear the blurrier
+   variant at window span (group padding 3.2× regular's), the opposite of the variant's stated
+   character; and the overlap check does not see a padding the layout's gap no longer clears.
+   Both wait on a calibration scene for clear.
+3. Whether Apple's dimming reads as the same halo is unknown: no native capture was made.
+4. The switch's URL rewrite re-serialises the other parameters (`15:10` becomes `15%3A10`). The
+   page reads both; cosmetic.
+
+**Evidence**, in `docs/research/data/2026-09-27-materialist-spatial-register/comparison/`:
+`light-day.png`, `dark-night.png` (`?at=02:45`), `dark-night-platter.png`, each 2886 × 940 with
+halves at 1440 wide, area-averaged from the 2x captures. SHA-256 `764f6f87…dd805`,
+`a54cb6fe…122c7` and `35af8f84…2f99`. `measurement/` holds the scripts that ran (`lib.mjs`,
+`baseline.mjs`, `sweep.mjs`, `apply-constant.mjs`, `final.mjs`, `analyse.mjs`, `compose.mjs`,
+`pxdiff.mjs`; they name their scratch paths under `/tmp/sp-clear/`) and their output:
+`baseline-a.json` / `baseline-b.json` (the default page before any edit), `sweep.json` (SHA-256
+`d3965554…d9eb3`) and `final.json` (SHA-256 `bb0fe415…8b1b78`, every reading above). All browser
+work was one contiguous run, 19:20:50–19:24:53, sweep through e2e. Nothing was re-read in a
+browser after it: the only edits since are two code comments and this record.
+
+Commands after the last code change: `pnpm --filter demo lint` exit 0; `pnpm --filter demo
+build` exit 0 (the existing chunk-size warning only); `pnpm --filter demo test:e2e
+e2e/gallery.spec.ts` 16 passed, inside the run.

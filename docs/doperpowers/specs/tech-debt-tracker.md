@@ -6613,3 +6613,15 @@ Both found on `@vitreajs/vitrea-react` 0.24.0 in Chromium with a light forced-co
   the node's identity across the open (portal once, as `PlanePortal` does), or restore
   `document.activeElement` after the move when it was inside the moved subtree, with a test that
   focuses a child on open and asserts it still holds focus after the morph ends.
+
+## The clear variant triples a group's sampling padding and no warning names the gap it now needs (2026-09-27)
+
+Found building the start page's clear-variant comparison (`2026-09-27-materialist-spatial-register.md`,
+Revision Notes). `clear`'s base blur is σ 4 against the macOS 27 regular body's 1.25, so the
+runtime's derived `samplingPadding` (three σ of the blur it draws) goes from about 61 px to about
+196 px on a window-sized group. The page's 63 px window gap, derived for regular, no longer clears
+the padding in clear mode, the overlay ornaments sit inside the windows' padded boxes, and the
+runtime raises no `proxy-overlap-after-enforcement`, so a page switching variants at runtime has no
+signal that its layout stopped following the blur. **Shape of the work:** re-check proxy overlap
+when a group's variant changes, and let `samplingPaddingFor` take the variant so a layout can derive
+its gap for the material it will draw.

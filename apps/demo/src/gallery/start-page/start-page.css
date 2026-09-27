@@ -820,6 +820,34 @@ h3 {
   }
 }
 
+/* --- Clear-variant comparison (post-panel; DESIGN.md part two) --------------------------- */
+
+/*
+ * Under clear glass the runtime picks each surface's ink from its own adapted level over the
+ * dimmed environment, not from the colour scheme, so these were written to follow the ink: the
+ * lifts keep the small values that hold under light ink whichever scheme is on, and a glyph or
+ * knob on an ink-filled mark takes the ink's opposite rather than Canvas (white on white if a
+ * light-scheme surface went light-inked). Measured at the landed dimming, no surface changed
+ * pole — dark ink in the light scheme, light in the dark, every host, both tiers, four phases —
+ * so in the light scheme the lifts are a guard that did not fire, and they draw the Places tiles
+ * and the current event quieter than regular's: a confound in the comparison, recorded in
+ * DESIGN.md part two. Written only in that mode (app.tsx); forced colours keep system colours.
+ */
+[data-glass="clear"] {
+  --lift: rgb(255 255 255 / 0.07);
+  --lift-strong: rgb(255 255 255 / 0.13);
+}
+
+@media (forced-colors: none) {
+  [data-glass="clear"] .task-check:checked + .task-mark svg {
+    color: rgb(from var(--vitrea-foreground, var(--ink)) calc(255 - r) calc(255 - g) calc(255 - b));
+  }
+
+  [data-glass="clear"] .setting[aria-checked="true"] .switch-knob {
+    background: rgb(from var(--vitrea-foreground, var(--ink)) calc(255 - r) calc(255 - g) calc(255 - b));
+  }
+}
+
 /* --- Forced colours: no glass; every state is a mark that survives substitution --------- */
 
 /*

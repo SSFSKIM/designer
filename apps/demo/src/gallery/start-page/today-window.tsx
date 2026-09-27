@@ -19,7 +19,14 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNo
 import { AGENDA, TASKS, minutesOf, type AgendaEvent, type Task } from "./data";
 import type { Box } from "./environment";
 import { CheckGlyph } from "./icons";
-import { ENVIRONMENT_BACKDROP, LOCALE, THICKNESS, WINDOW_RADIUS, boxStyle } from "./shared";
+import {
+  ENVIRONMENT_BACKDROP,
+  LOCALE,
+  THICKNESS,
+  WINDOW_RADIUS,
+  boxStyle,
+  type GroupMaterial,
+} from "./shared";
 
 const timeFormat = new Intl.DateTimeFormat(LOCALE, { hour: "numeric", minute: "2-digit" });
 
@@ -73,9 +80,10 @@ export function TodayWindow(props: {
   readonly now: Date;
   readonly box: Box;
   readonly hint: BackdropHint | undefined;
+  readonly material: GroupMaterial;
   readonly onHost: (handle: GlassHostHandle | null) => void;
 }): ReactNode {
-  const { now, box, hint, onHost } = props;
+  const { now, box, hint, material, onHost } = props;
   const states = eventStates(now);
   const minute = now.getHours() * 60 + now.getMinutes();
   const current = AGENDA.findIndex((_, index) => states[index] === "now");
@@ -152,7 +160,7 @@ export function TodayWindow(props: {
     );
 
   return (
-    <GlassGroup id="today" backdrop={ENVIRONMENT_BACKDROP} hint={hint}>
+    <GlassGroup id="today" backdrop={ENVIRONMENT_BACKDROP} hint={hint} {...material}>
       <GlassSurface asChild radius={WINDOW_RADIUS} thickness={THICKNESS} foreground="vibrant" onHost={onHost}>
         <section aria-labelledby="today-title" data-glass-role="window" className="glass window today" style={boxStyle(box)}>
           <div className="today-inner">

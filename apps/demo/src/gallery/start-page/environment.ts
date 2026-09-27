@@ -113,6 +113,151 @@ export function paintPhotograph(
   return { data: pixels.data, width, height, scale };
 }
 
+/** A registered host's footprint as the glass draws it: its box and its own corner radius. */
+export interface HostShape {
+  readonly box: Box;
+  readonly radius: number;
+}
+
+/**
+ * The clear variant's dimming layer (`DESIGN.md` part two, "Clear-variant comparison"). Neither
+ * tier draws the scrim a clear group's `dimming` policy names, so the page paints it here, into
+ * the one plane the glass samples: black at `strength` under every host's footprint, full to the
+ * edge and fading to nothing `feather` CSS px past it, so the rim bends a gradient and the
+ * photograph's own structure rather than a hard step. Uncalibrated: no bed scene declares clear.
+ */
+export interface Dimming {
+  readonly strength: number;
+  readonly feather: number;
+}
+
+export interface Dimmer {
+  /**
+   * Composite the layer for these shapes into the canvas and return what is now painted. Only
+   * the rectangles of shapes that moved since the last call are recomputed, so a morph's host
+   * can be followed frame by frame; the returned pixels are the ones put, so a footprint
+   * measured from them describes the composite the glass samples.
+   */
+  apply(
+    shapes: readonly HostShape[],
+    dimming: Dimming,
+    viewport: { readonly width: number; readonly height: number },
+  ): Painted;
+}
+
+interface DeviceRect {
+  readonly x0: number;
+  readonly y0: number;
+  readonly x1: number;
+  readonly y1: number;
+}
+
+/** Signed distance from a point to a rounded box, CSS px; negative inside. */
+function roundedBoxDistance(px: number, py: number, shape: HostShape): number {
+  const { box } = shape;
+  const hw = box.width / 2;
+  const hh = box.height / 2;
+  const r = Math.max(0, Math.min(shape.radius, hw, hh));
+  const qx = Math.abs(px - (box.x + hw)) - (hw - r);
+  const qy = Math.abs(py - (box.y + hh)) - (hh - r);
+  const ox = Math.max(qx, 0);
+  const oy = Math.max(qy, 0);
+  return Math.sqrt(ox * ox + oy * oy) + Math.min(Math.max(qx, qy), 0) - r;
+}
+
+/**
+ * A dimmer over one paint of the photograph. It keeps the graded paint untouched and writes the
+ * composite into its own copy, so moving a footprint restores what it leaves exactly.
+ */
+export function createDimmer(canvas: HTMLCanvasElement, base: Painted): Dimmer {
+  const context = canvas.getContext("2d", { willReadFrequently: true });
+  if (context === null) throw new Error("Daybreak needs a 2D canvas to paint its environment.");
+  const composite = new ImageData(new Uint8ClampedArray(base.data), base.width, base.height);
+  const out = composite.data;
+  let applied: { rects: DeviceRect[]; keys: string[]; dimming: string } | undefined;
+
+  return {
+    apply(shapes, dimming, viewport) {
+      // CSS px of the CURRENT viewport onto this paint, as `measureFootprint` maps them.
+      const sx = base.width / viewport.width;
+      const sy = base.height / viewport.height;
+      const reach = Math.max(0, dimming.feather);
+      const rects = shapes.map(
+        ({ box }): DeviceRect => ({
+          x0: Math.max(0, Math.floor((box.x - reach) * sx)),
+          y0: Math.max(0, Math.floor((box.y - reach) * sy)),
+          x1: Math.min(base.width, Math.ceil((box.x + box.width + reach) * sx)),
+          y1: Math.min(base.height, Math.ceil((box.y + box.height + reach) * sy)),
+        }),
+      );
+      const keys = shapes.map(({ box, radius }) =>
+        [box.x, box.y, box.width, box.height, radius, viewport.width, viewport.height].join(","),
+      );
+      const dimmingKey = `${String(dimming.strength)}|${String(reach)}`;
+
+      const dirty: DeviceRect[] = [];
+      const previous = applied;
+      if (previous === undefined || previous.dimming !== dimmingKey || previous.keys.length !== keys.length) {
+        dirty.push(...rects, ...(previous?.rects ?? []));
+      } else {
+        keys.forEach((key, index) => {
+          const now = rects[index];
+          const was = previous.rects[index];
+          if (key === previous.keys[index] || now === undefined || was === undefined) return;
+          dirty.push({
+            x0: Math.min(now.x0, was.x0),
+            y0: Math.min(now.y0, was.y0),
+            x1: Math.max(now.x1, was.x1),
+            y1: Math.max(now.y1, was.y1),
+          });
+        });
+      }
+
+      for (const rect of dirty) {
+        if (rect.x1 <= rect.x0 || rect.y1 <= rect.y0) continue;
+        // The shapes whose feathered rectangle reaches into this one; nothing else can dim it.
+        const near = shapes.filter((_, index) => {
+          const other = rects[index];
+          return (
+            other !== undefined &&
+            other.x0 < rect.x1 &&
+            other.x1 > rect.x0 &&
+            other.y0 < rect.y1 &&
+            other.y1 > rect.y0
+          );
+        });
+        for (let y = rect.y0; y < rect.y1; y += 1) {
+          const cy = (y + 0.5) / sy;
+          let i = (y * base.width + rect.x0) * 4;
+          for (let x = rect.x0; x < rect.x1; x += 1, i += 4) {
+            const cx = (x + 0.5) / sx;
+            let cover = 0;
+            for (const shape of near) {
+              const distance = roundedBoxDistance(cx, cy, shape);
+              if (distance <= 0) {
+                cover = 1;
+                break;
+              }
+              if (distance < reach) {
+                const t = distance / reach;
+                cover = Math.max(cover, 1 - t * t * (3 - 2 * t));
+              }
+            }
+            const keep = 1 - dimming.strength * cover;
+            out[i] = (base.data[i] as number) * keep;
+            out[i + 1] = (base.data[i + 1] as number) * keep;
+            out[i + 2] = (base.data[i + 2] as number) * keep;
+          }
+        }
+        context.putImageData(composite, 0, 0, rect.x0, rect.y0, rect.x1 - rect.x0, rect.y1 - rect.y0);
+      }
+
+      applied = { rects, keys, dimming: dimmingKey };
+      return { data: out, width: base.width, height: base.height, scale: base.scale };
+    },
+  };
+}
+
 function decode(encoded: number): number {
   return encoded <= 0.04045 ? encoded / 12.92 : Math.pow((encoded + 0.055) / 1.055, 2.4);
 }

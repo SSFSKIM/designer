@@ -14,17 +14,18 @@ import type { ReactNode } from "react";
 
 import { PLACES, type Place } from "./data";
 import type { Box } from "./environment";
-import { ENVIRONMENT_BACKDROP, THICKNESS, WINDOW_RADIUS, boxStyle } from "./shared";
+import { ENVIRONMENT_BACKDROP, THICKNESS, WINDOW_RADIUS, boxStyle, type GroupMaterial } from "./shared";
 
 export function PlacesWindow(props: {
   readonly box: Box;
   readonly hint: BackdropHint | undefined;
+  readonly material: GroupMaterial;
   readonly match: Place | undefined;
   readonly onHost: (handle: GlassHostHandle | null) => void;
 }): ReactNode {
-  const { box, hint, match, onHost } = props;
+  const { box, hint, material, match, onHost } = props;
   return (
-    <GlassGroup id="places" backdrop={ENVIRONMENT_BACKDROP} hint={hint}>
+    <GlassGroup id="places" backdrop={ENVIRONMENT_BACKDROP} hint={hint} {...material}>
       <GlassSurface asChild radius={WINDOW_RADIUS} thickness={THICKNESS} foreground="vibrant" onHost={onHost}>
         <section aria-labelledby="places-title" data-glass-role="window" className="glass window places" style={boxStyle(box)}>
           <div className="places-inner">

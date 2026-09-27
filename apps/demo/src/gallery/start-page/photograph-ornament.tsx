@@ -10,7 +10,8 @@
  *
  * The platter holds the environment's choices and the page's own Reduce Transparency setting,
  * which the root receives as a boolean, so an engine that cannot answer the media query still
- * gets the person's answer. Its lifecycle is the app's, as the runtime leaves it: Escape, a
+ * gets the person's answer. Below it, the post-panel comparison switch: the whole page in the
+ * clear variant, uncalibrated, with the page's own dimming (`DESIGN.md` part two). Its lifecycle is the app's, as the runtime leaves it: Escape, a
  * press outside or a Tab out closes it and focus returns to the ornament.
  */
 
@@ -26,7 +27,7 @@ import { useEffect, useRef, type KeyboardEvent, type ReactNode } from "react";
 import { PHOTOGRAPHS, type PhaseId, type Photograph } from "./data";
 import type { Box } from "./environment";
 import { ChevronGlyph } from "./icons";
-import { ENVIRONMENT_BACKDROP, PLATTER_RADIUS, THICKNESS } from "./shared";
+import { ENVIRONMENT_BACKDROP, PLATTER_RADIUS, THICKNESS, type GroupMaterial } from "./shared";
 
 /** The class the morph passes to its one host; the audit contract's role is written on it. */
 export const PHOTOGRAPH_HOST_CLASS = "photograph-morph";
@@ -40,17 +41,21 @@ export function PhotographOrnament(props: {
   /** The height the platter may take below its ornament before the viewport's edge. */
   readonly room: number;
   readonly hint: BackdropHint | undefined;
+  readonly material: GroupMaterial;
   readonly photo: Photograph;
   readonly follow: boolean;
   readonly reducedTransparency: boolean;
+  /** The comparison mode: every group on the page in the clear variant (app.tsx). */
+  readonly clearGlass: boolean;
   readonly open: boolean;
   readonly onOpenChange: (open: boolean) => void;
   readonly onChoose: (id: PhaseId) => void;
   readonly onFollow: (follow: boolean) => void;
   readonly onReducedTransparency: (value: boolean) => void;
+  readonly onClearGlass: (value: boolean) => void;
   readonly onMorphEnd: () => void;
 }): ReactNode {
-  const { box, hint, photo, follow, reducedTransparency, open, onOpenChange } = props;
+  const { box, hint, material, photo, follow, reducedTransparency, open, onOpenChange } = props;
   const { root } = useGlassRootHandle();
   const trigger = useRef<HTMLButtonElement>(null);
   const platter = useRef<HTMLDivElement>(null);
@@ -147,7 +152,7 @@ export function PhotographOrnament(props: {
   };
 
   return (
-    <GlassGroup id="photograph" backdrop={ENVIRONMENT_BACKDROP} hint={hint}>
+    <GlassGroup id="photograph" backdrop={ENVIRONMENT_BACKDROP} hint={hint} {...material}>
       <div
         className="photograph-anchor"
         style={{ position: "fixed", left: box.x, top: box.y }}
@@ -236,6 +241,18 @@ export function PhotographOrnament(props: {
                   onClick={() => props.onReducedTransparency(!reducedTransparency)}
                 >
                   <span className="setting-label">Reduce transparency</span>
+                  <span className="switch" aria-hidden="true">
+                    <span className="switch-knob" />
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  role="switch"
+                  aria-checked={props.clearGlass}
+                  className="setting"
+                  onClick={() => props.onClearGlass(!props.clearGlass)}
+                >
+                  <span className="setting-label">Clear glass (uncalibrated)</span>
                   <span className="switch" aria-hidden="true">
                     <span className="switch-knob" />
                   </span>

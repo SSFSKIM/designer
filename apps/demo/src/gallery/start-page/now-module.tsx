@@ -21,7 +21,14 @@ import {
 } from "./data";
 import type { Box } from "./environment";
 import { WeatherGlyph } from "./icons";
-import { ENVIRONMENT_BACKDROP, LOCALE, THICKNESS, WINDOW_RADIUS, boxStyle } from "./shared";
+import {
+  ENVIRONMENT_BACKDROP,
+  LOCALE,
+  THICKNESS,
+  WINDOW_RADIUS,
+  boxStyle,
+  type GroupMaterial,
+} from "./shared";
 
 const timeFormat = new Intl.DateTimeFormat(LOCALE, { hour: "numeric", minute: "2-digit" });
 const dateFormat = new Intl.DateTimeFormat(LOCALE, { weekday: "long", day: "numeric", month: "long" });
@@ -32,9 +39,10 @@ export function NowModule(props: {
   readonly now: Date;
   readonly box: Box;
   readonly hint: BackdropHint | undefined;
+  readonly material: GroupMaterial;
   readonly onHost: (handle: GlassHostHandle | null) => void;
 }): ReactNode {
-  const { now, box, hint, onHost } = props;
+  const { now, box, hint, material, onHost } = props;
   const parts = timeFormat.formatToParts(now);
   const clock = parts
     .filter((part) => part.type !== "dayPeriod")
@@ -46,7 +54,7 @@ export function NowModule(props: {
   const night = now.getHours() >= 20 || now.getHours() < 6;
 
   return (
-    <GlassGroup id="now" backdrop={ENVIRONMENT_BACKDROP} hint={hint}>
+    <GlassGroup id="now" backdrop={ENVIRONMENT_BACKDROP} hint={hint} {...material}>
       <GlassSurface asChild radius={WINDOW_RADIUS} thickness={THICKNESS} foreground="vibrant" onHost={onHost}>
         <section aria-label="Now" data-glass-role="module" className="glass module now" style={boxStyle(box)}>
           <div className="now-inner">

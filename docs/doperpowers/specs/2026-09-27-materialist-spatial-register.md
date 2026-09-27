@@ -553,6 +553,12 @@ and one line on Harvestar if they want a page shaped toward it.
   light bodies; `GlassMorph` without host attributes and with a content-box host; no forced-colours
   border on the WebGPU tier; and the recurrences of the moved-host cache and the morph's Reduce
   Motion collapse.
+- The clear-variant comparison's two open items: reverting the smaller lifts the comparison mode
+  authored (a confound the worker named: the Places tiles and the current event read quieter than
+  regular's in `light-day.png`) and re-capturing that image; and the cell the user actually looked
+  at, dark scheme with the Day photograph, which the three comparison captures do not include
+  (light Day, dark Night, dark Night with the platter open). Both need a browser session and wait on
+  the calibration capture holding the machine (2026-09-27 evening).
 - The eye reading: the two pages beside the nearest Apple surfaces (a visionOS window with bottom
   ornaments; the iOS Lock Screen or Notification Center), theirs to give.
 
@@ -627,3 +633,12 @@ the skill adds the conditions and keeps the choice. The user's eye is not in thi
   pinned; both pages built, read, fixed, re-audited and read by the panel (both pass); the eval
   graded (both lines met); the capture set archived; Outcomes written; three Deferred items added
   (s13 on the exhibition, the s20 rule text, the runtime seams).
+- 2026-09-27 (evening): on the user's question whether the pages could be more transparent, a
+  comparison mode added to the start page (`?glass=clear`, and a switch in the Photograph platter),
+  every group on `clear` with a black 0.30 dimming painted under each host's footprint into the
+  environment canvas, per-line contrast passing in both schemes on both tiers (worst 4.85 light,
+  5.55 dark), zero diagnostics, the default state unchanged closed; three side-by-side captures in
+  `comparison/`; recorded as uncalibrated and not the register's recommendation. Found on the way:
+  `clear` triples the derived sampling padding and nothing warns when a gap stops clearing it
+  (tracker). The panel's evidence is unaffected: the switch lives in the platter, so only the open
+  platter's box moved.

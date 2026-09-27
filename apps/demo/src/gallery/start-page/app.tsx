@@ -5,6 +5,10 @@
  * over: each group's hint, measured from the painted environment under that group's own box
  * whenever the environment or the layout moves. Everything the runtime can read for itself it
  * is left to read.
+ *
+ * It also owns the post-panel comparison mode, `?glass=clear`: every group in the clear variant
+ * over the same environment with the page's own dimming painted under each host. The default
+ * (no parameter) is the page the panel read, and takes none of that mode's code.
  */
 
 import { NOMINAL_ACCESSIBILITY_POLICY } from "@vitreajs/vitrea";
@@ -36,11 +40,14 @@ import {
   type Photograph,
 } from "./data";
 import {
+  createDimmer,
   hintFrom,
   loadPhotograph,
   measureFootprint,
   paintPhotograph,
   type Box,
+  type Dimmer,
+  type HostShape,
   type Painted,
 } from "./environment";
 import { computeLayout, derivedGap } from "./layout";
@@ -48,7 +55,15 @@ import { NowModule } from "./now-module";
 import { PHOTOGRAPH_HOST_CLASS, PhotographOrnament } from "./photograph-ornament";
 import { PlacesWindow } from "./places-window";
 import { SearchOrnament } from "./search-ornament";
-import { ENVIRONMENT_ID } from "./shared";
+import {
+  CLEAR_DIMMING,
+  CLEAR_DIMMING_FEATHER,
+  ENVIRONMENT_ID,
+  PLATTER_RADIUS,
+  WINDOW_RADIUS,
+  groupMaterial,
+  type GlassMode,
+} from "./shared";
 import { TodayWindow } from "./today-window";
 
 type GroupId = "now" | "places" | "today" | "search" | "photograph";
@@ -72,6 +87,18 @@ function storePhaseMode(mode: PhaseMode): void {
   } catch {
     // The choice holds for this visit.
   }
+}
+
+/** The comparison mode is the URL's, so a link names it and composes with `?tier` and `?at`. */
+function readGlassMode(): GlassMode {
+  return new URLSearchParams(location.search).get("glass") === "clear" ? "clear" : "regular";
+}
+
+function writeGlassMode(mode: GlassMode): void {
+  const url = new URL(location.href);
+  if (mode === "clear") url.searchParams.set("glass", "clear");
+  else url.searchParams.delete("glass");
+  history.replaceState(history.state, "", url);
 }
 
 /**
@@ -134,13 +161,16 @@ function useViewport(): { width: number; height: number } {
  * new photograph on the very next frame; an ImageBitmap of the same pixels replaces it as soon as
  * it decodes, because a canvas source is re-imported on every frame that samples it and this one
  * only changes when the phase, the scheme or the window's size does.
+ *
+ * `defer` is the clear mode's: its dimming follows the Photograph host through a morph, a change
+ * every frame, so the canvas is re-supplied each time (supplying is what marks the source dirty)
+ * and the bitmap is taken once the changes stop, rather than a full-canvas copy per frame.
  */
-function createSupplier(root: GlassRoot, canvas: HTMLCanvasElement): () => void {
+function createSupplier(root: GlassRoot, canvas: HTMLCanvasElement): (defer?: boolean) => void {
   let token = 0;
   let current: ImageBitmap | undefined;
-  return () => {
-    root.setBackdropTexture(ENVIRONMENT_ID, { kind: "canvas", canvas });
-    const mine = ++token;
+  let timer = 0;
+  const takeBitmap = (mine: number): void => {
     void createImageBitmap(canvas).then((bitmap) => {
       if (mine !== token) {
         bitmap.close();
@@ -157,6 +187,13 @@ function createSupplier(root: GlassRoot, canvas: HTMLCanvasElement): () => void 
       if (previous !== undefined) window.setTimeout(() => previous.close(), 1000);
     });
   };
+  return (defer = false) => {
+    root.setBackdropTexture(ENVIRONMENT_ID, { kind: "canvas", canvas });
+    const mine = ++token;
+    window.clearTimeout(timer);
+    if (defer) timer = window.setTimeout(() => takeBitmap(mine), 250);
+    else takeBitmap(mine);
+  };
 }
 
 interface Demo {
@@ -164,6 +201,10 @@ interface Demo {
   setReducedTransparency: (value: boolean) => void;
   phases: () => PhaseId[];
   setPhase: (id: string) => void;
+  /** The comparison mode, as the platter's switch sets it (URL included). */
+  setGlass: (mode: GlassMode) => void;
+  /** A capture aid for re-measuring the clear mode's dimming; `undefined` restores the page's. */
+  setDimming: (strength: number | undefined) => void;
 }
 
 export function App(props: {
@@ -178,6 +219,15 @@ export function App(props: {
   const viewport = useViewport();
 
   const [mode, setMode] = useState<PhaseMode>(readPhaseMode);
+  const [glass, setGlass] = useState<GlassMode>(readGlassMode);
+  const changeGlass = useCallback((next: GlassMode) => {
+    writeGlassMode(next);
+    setGlass(next);
+  }, []);
+  const [dimmingOverride, setDimmingOverride] = useState<number | undefined>(undefined);
+  const strength = dimmingOverride ?? CLEAR_DIMMING[scheme];
+  // Every group is told the same thing: the whole page switches, never one group.
+  const material = useMemo(() => groupMaterial(glass, strength), [glass, strength]);
   const phase: PhaseId = mode === "follow" ? phaseAt(now) : mode;
   const photo = photographFor(phase);
 
@@ -211,9 +261,21 @@ export function App(props: {
   // --- The environment -------------------------------------------------------------------
 
   const canvas = useRef<HTMLCanvasElement>(null);
-  const supply = useRef<(() => void) | null>(null);
+  const supply = useRef<((defer?: boolean) => void) | null>(null);
   const paintedKey = useRef("");
   const [painted, setPainted] = useState<Painted | null>(null);
+  /*
+   * Clear mode only. The dimmer holds the graded paint and writes the dimmed composite over it;
+   * the refs let a paint that resolves later dim for the hosts and the strength as they are then.
+   */
+  const dimmer = useRef<Dimmer | null>(null);
+  const shapes = useRef<readonly HostShape[]>([]);
+  const strengthNow = useRef(strength);
+  strengthNow.current = strength;
+  const viewportNow = useRef(viewport);
+  viewportNow.current = viewport;
+  const glassNow = useRef(glass);
+  glassNow.current = glass;
   const [decoded, setDecoded] = useState(0);
 
   useEffect(() => {
@@ -230,15 +292,32 @@ export function App(props: {
   }, [root]);
 
   const paint = useCallback(
-    (target: Photograph, targetScheme: "light" | "dark", size: { width: number; height: number }): void => {
+    (
+      target: Photograph,
+      targetScheme: "light" | "dark",
+      size: { width: number; height: number },
+      targetGlass: GlassMode,
+    ): void => {
       const element = canvas.current;
       if (element === null || supply.current === null) return;
       void loadPhotograph(target.url).then((image) => {
         const scale = Math.min(2, window.devicePixelRatio || 1);
-        const key = `${target.id}|${targetScheme}|${String(size.width)}x${String(size.height)}@${String(scale)}`;
+        const key = `${target.id}|${targetScheme}|${String(size.width)}x${String(size.height)}@${String(scale)}|${targetGlass}`;
         if (key === paintedKey.current || supply.current === null) return;
         paintedKey.current = key;
         const result = paintPhotograph(element, image, target, targetScheme, size, scale);
+        if (targetGlass === "clear") {
+          dimmer.current = createDimmer(element, result);
+          const composite = dimmer.current.apply(
+            shapes.current,
+            { strength: strengthNow.current, feather: CLEAR_DIMMING_FEATHER },
+            viewportNow.current,
+          );
+          supply.current();
+          setPainted(composite);
+          return;
+        }
+        dimmer.current = null;
         supply.current();
         setPainted(result);
       });
@@ -246,11 +325,12 @@ export function App(props: {
     [],
   );
 
-  // Repaint when the photograph or the scheme changes at once; after a resize, once it settles.
+  // Repaint when the photograph, the scheme or the mode changes at once; after a resize, once
+  // it settles.
   const settledViewport = useSettled(viewport, 120);
   useEffect(() => {
-    if (root !== null) paint(photo, scheme, settledViewport);
-  }, [root, paint, photo, scheme, settledViewport, decoded]);
+    if (root !== null) paint(photo, scheme, settledViewport, glass);
+  }, [root, paint, photo, scheme, settledViewport, decoded, glass]);
 
   // --- The declarations ------------------------------------------------------------------
 
@@ -286,6 +366,34 @@ export function App(props: {
     return root.subscribe(read);
   }, [root, open, morphing, layout]);
 
+  const photographFootprint = useMemo(
+    (): Box => photographBox ?? { ...layout.photograph, width: 240 },
+    [photographBox, layout],
+  );
+
+  /*
+   * Clear mode: the dimming follows every host's footprint — the three windows, the search, and
+   * the Photograph host through its morph — and each hint below is then measured from the
+   * dimmed composite, which is what the glass samples.
+   */
+  const hostShapes = useMemo(
+    (): readonly HostShape[] => [
+      { box: layout.now, radius: WINDOW_RADIUS },
+      { box: layout.places, radius: WINDOW_RADIUS },
+      { box: layout.today, radius: WINDOW_RADIUS },
+      { box: layout.search, radius: layout.search.height / 2 },
+      { box: photographFootprint, radius: PLATTER_RADIUS },
+    ],
+    [layout, photographFootprint],
+  );
+  shapes.current = hostShapes;
+  useLayoutEffect(() => {
+    if (glass !== "clear" || dimmer.current === null || supply.current === null) return;
+    const composite = dimmer.current.apply(hostShapes, { strength, feather: CLEAR_DIMMING_FEATHER }, viewport);
+    supply.current(true);
+    setPainted(composite);
+  }, [glass, hostShapes, strength, viewport]);
+
   const hints = useMemo((): Partial<Record<GroupId, BackdropHint | undefined>> => {
     if (painted === null) return {};
     const measure = (box: Box | null): BackdropHint | undefined => {
@@ -298,9 +406,9 @@ export function App(props: {
       places: measure(layout.places),
       today: measure(layout.today),
       search: measure(layout.search),
-      photograph: measure(photographBox ?? { ...layout.photograph, width: 240 }),
+      photograph: measure(photographFootprint),
     };
-  }, [painted, layout, photographBox, viewport]);
+  }, [painted, layout, photographFootprint, viewport]);
 
   // --- Hosts that move without resizing are re-measured -------------------------------------
 
@@ -323,6 +431,16 @@ export function App(props: {
     if (drawn === undefined) return;
     document.documentElement.dataset.glassTier = drawn;
   }, [drawn]);
+
+  // The page's own tokens that the scheme decides under regular glass follow the ink under
+  // clear glass (`start-page.css`); written only in that mode.
+  useLayoutEffect(() => {
+    if (glass !== "clear") return;
+    document.documentElement.dataset.glass = "clear";
+    return () => {
+      delete document.documentElement.dataset.glass;
+    };
+  }, [glass]);
 
   // --- The audit contract ------------------------------------------------------------------
 
@@ -347,23 +465,34 @@ export function App(props: {
       setPhase: (id) => {
         if (!(PHASE_IDS as readonly string[]).includes(id)) throw new Error(`Unknown phase ${id}.`);
         flushSync(() => setMode(id as PhaseId));
-        paint(photographFor(id as PhaseId), window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light", {
-          width: window.innerWidth,
-          height: window.innerHeight,
-        });
+        paint(
+          photographFor(id as PhaseId),
+          window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light",
+          { width: window.innerWidth, height: window.innerHeight },
+          glassNow.current,
+        );
       },
+      setGlass: (next) => changeGlass(next),
+      setDimming: (value) => setDimmingOverride(value),
     };
-  }, [root, onReducedTransparency, paint, setOpen]);
+  }, [root, onReducedTransparency, paint, setOpen, changeGlass]);
 
   return (
     <>
       <canvas ref={canvas} className="environment" aria-hidden="true" />
-      <NowModule now={now} box={layout.now} hint={hints.now} onHost={onHost.now} />
-      <PlacesWindow box={layout.places} hint={hints.places} match={match} onHost={onHost.places} />
-      <TodayWindow now={now} box={layout.today} hint={hints.today} onHost={onHost.today} />
+      <NowModule now={now} box={layout.now} hint={hints.now} material={material} onHost={onHost.now} />
+      <PlacesWindow
+        box={layout.places}
+        hint={hints.places}
+        material={material}
+        match={match}
+        onHost={onHost.places}
+      />
+      <TodayWindow now={now} box={layout.today} hint={hints.today} material={material} onHost={onHost.today} />
       <SearchOrnament
         box={layout.search}
         hint={hints.search}
+        material={material}
         query={query}
         match={match}
         onQuery={setQuery}
@@ -375,9 +504,11 @@ export function App(props: {
         morphKey={morphKey}
         room={Math.max(120, viewport.height - (layout.photograph.y + layout.photograph.height + 8) - 12)}
         hint={hints.photograph}
+        material={material}
         photo={photo}
         follow={mode === "follow"}
         reducedTransparency={reducedTransparency}
+        clearGlass={glass === "clear"}
         open={open}
         onOpenChange={(value) => {
           setMorphing(true);
@@ -386,6 +517,7 @@ export function App(props: {
         onChoose={choose}
         onFollow={follow}
         onReducedTransparency={onReducedTransparency}
+        onClearGlass={(value) => changeGlass(value ? "clear" : "regular")}
         onMorphEnd={() => setMorphing(false)}
       />
     </>
