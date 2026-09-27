@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 // The mechanical audit for the materialist demos
-// (docs/doperpowers/specs/2026-09-27-materialist-proof.md, "B. The instrument", reading 1).
+// (docs/doperpowers/specs/2026-09-27-materialist-proof.md, "B. The instrument", reading 1), and
+// for the spatial-register pages (2026-09-27-materialist-spatial-register.md, "B. The rulebook
+// and the instrument"), which it reads with the same seven passes and the further ones below.
 //
 //   node docs/research/scripts/glass-audit.mjs <url> [<url>…] --out <dir> [--slug <a,b,…>]
 //                                              [--audit-dir <dir>]
@@ -16,7 +18,8 @@
 // to stdout.
 //
 // Per page, the run is seven fresh browser contexts, so a preference one pass sets (a page that
-// persists its reduced-transparency switch, say) cannot leak into the next:
+// persists its reduced-transparency switch, say) cannot leak into the next, and after them the
+// spatial register's passes, described in their own section below:
 //
 //  - **Two scheme passes**, under `emulateMedia({ colorScheme })` light and then dark. The spec's
 //    audit contract has the page's tokens follow `prefers-color-scheme` and the root on
@@ -41,6 +44,44 @@
 //    it is the one asked for; increased contrast captures `shot-contrast.png`, and forced colours
 //    captures `shot-forced.png` and counts the glass still drawn, which must be zero.
 //
+// ## The spatial register's reads
+//
+// Added for the spatial-register pages, whose content sits on a few large windows set into an
+// environment, and read on every page. The instrument analysis reads none of it, so the six keep
+// the readings they were given; every key below is new beside the old ones.
+//
+//  - **Every captured state is read twice.** Beside each viewport capture of a state (the first
+//    viewport, the tiles, the menu, the reduced capture and every state below) the audit takes a
+//    twin with every glyph made transparent (`<capture>-ground.png`), so the pixels behind a line
+//    box are the material alone. From the twin: `lineContrast`, text on glass per LINE BOX, each
+//    line's computed ink against the mean ground under that line, the worst line by its floor
+//    and every failing line kept with its text, box, ink, ground and ratio; and `hostLuminance`,
+//    each visible host's drawn level (the mean encoded luminance inside its box) beside a 24 px
+//    ring of the environment outside it, each flagged when inside the published-ink dead band.
+//    The pooled `glassContrast` is taken on the capture itself exactly as before.
+//  - **`hostText`** per registered host at rest and with the menu open: whether it carries
+//    rendered text, its span from the inventory, and its declared `data-glass-role`. From it,
+//    `banSubsetSpatial`: `text-bearing-span-under-96` on a `window` or `module` host, and
+//    `unroled-host` on a text-bearing host with no role or one outside the five. Kept out of
+//    `banSubset` because a labelled 44 px capsule is the instrument register's control.
+//  - **`glassCoverage`** per scheme: the share of the first viewport the union of the hosts'
+//    boxes covers, rasterised on a 4 px grid.
+//  - **Inner scrollers** (`scrollers`): every scrollable box inside a registered host, the host
+//    included, captured at its top, middle and bottom in each scheme pass (`scroller-<n>-<pos>-
+//    <scheme>.png`), the document's own scroll untouched; a window's content scrolls inside it
+//    and gives the document walk no second screen.
+//  - **Phases**: where the page offers `window.__glassDemo.phases()` (an array of ids) and
+//    `setPhase(id)`, a fresh context per scheme captures the first viewport in every phase
+//    (`phase-<i>-<scheme>.png`), so an environment with states is read on each; without the hook
+//    `phases` is null.
+//  - **The CSS tier** (`cssTier`): a pass with `?tier=css` on the URL, light scheme, reading each
+//    group's renderer and `cssBody`, then the first viewport, the scrollers, the menu and (in its
+//    own context) the phases; a page whose groups do not resolve `css` reads `not-honoured`.
+//  - **The receded pose** (`receded`): light scheme, the root pinned `inactive` through
+//    `setWindowActivation`, the first viewport and the scrollers captured and read.
+//
+// Their captures are hashed under `extraCaptureSha256`, apart from the seven passes' own.
+//
 // ## Two page conventions
 //
 // vitrea puts nothing on `window`: a page holds its `GlassRoot` and the runtime leaves no global
@@ -54,6 +95,11 @@
 //     openMenu,                   // optional: open the menu or platter, one capture per scheme
 //     setReducedTransparency,     // the page's own switch, for the reduced pass
 //   };
+//
+// The spatial-register pages add three more to the contract (the spatial-register spec, C): a
+// root mounted with `renderer="css"` when the URL carries `?tier=css`, a `data-glass-role` on every
+// registered host, and, where the environment has states, `phases()` and `setPhase(id)` on
+// `window.__glassDemo`.
 //
 // A page that assigns neither is still audited — captures, errors, overflow, both contrast
 // samples, the DOM-derived inventory and the CSS half of the ban subset are page-level reads — and
@@ -394,6 +440,18 @@ function pageLib() {
     };
   }
 
+  /** A PNG capture's pixels, decoded once through a canvas: the path every pixel read shares. */
+  async function decodeCapture(b64) {
+    const img = new Image();
+    img.src = "data:image/png;base64," + b64;
+    await img.decode();
+    const W = img.naturalWidth, H = img.naturalHeight;
+    const canvas = document.createElement("canvas"); canvas.width = W; canvas.height = H;
+    const ctx = canvas.getContext("2d", { willReadFrequently: true });
+    ctx.drawImage(img, 0, 0);
+    return { px: ctx.getImageData(0, 0, W, H).data, W, H, scale: W / window.innerWidth };
+  }
+
   /**
    * Text on glass against the pixels actually behind it, from a capture of the current viewport
    * (the caller hands in the PNG it just took, so the page has not moved in between).
@@ -406,15 +464,7 @@ function pageLib() {
    * ink on a 1x stem, which would under-read every small label.
    */
   async function sampleGlassText(b64, phase) {
-    const img = new Image();
-    img.src = "data:image/png;base64," + b64;
-    await img.decode();
-    const W = img.naturalWidth, H = img.naturalHeight;
-    const canvas = document.createElement("canvas"); canvas.width = W; canvas.height = H;
-    const ctx = canvas.getContext("2d", { willReadFrequently: true });
-    ctx.drawImage(img, 0, 0);
-    const px = ctx.getImageData(0, 0, W, H).data;
-    const scale = W / window.innerWidth;
+    const { px, W, H, scale } = await decodeCapture(b64);
     const pairs = [];
     for (const host of document.querySelectorAll("[data-vitrea-node]")) {
       const walker = document.createTreeWalker(host, NodeFilter.SHOW_TEXT);
@@ -490,6 +540,340 @@ function pageLib() {
       }
     }
     return pairs;
+  }
+
+  /* ---- the spatial register's reads ---- */
+
+  const UNRENDERED = new Set(["SCRIPT", "STYLE", "NOSCRIPT", "TEMPLATE", "TITLE", "DESC"]);
+  // Encoded channel to linear light, tabulated: the reads below run it over every pixel of a
+  // window-sized box, and the table is the same function `srgb` computes.
+  const LINEAR = Float64Array.from({ length: 256 }, (_, v) => srgb(v));
+  const lumAt = (px, i) => 0.2126 * LINEAR[px[i]] + 0.7152 * LINEAR[px[i + 1]]
+    + 0.0722 * LINEAR[px[i + 2]];
+  /** The runtime's encoded luminance: Rec. 709 luma over encoded channels (backdrop-tone.ts). */
+  const lumaAt = (px, i) => (0.2126 * px[i] + 0.7152 * px[i + 1] + 0.0722 * px[i + 2]) / 255;
+
+  /** Whether a box is the containing block of a fixed-position descendant. */
+  const holdsFixed = (cs) => cs.transform !== "none" || cs.perspective !== "none"
+    || cs.filter !== "none" || (!!cs.backdropFilter && cs.backdropFilter !== "none")
+    || /paint|layout|strict|content/.test(cs.contain)
+    || /transform|perspective|filter/.test(cs.willChange);
+  const lengthIn = (v, size) => (String(v).endsWith("%") ? (parseFloat(v) / 100) * size
+    : parseFloat(v) || 0);
+
+  /**
+   * The part of the viewport an element's content can be painted in, in CSS px: the intersection
+   * of every clip on the way up — an `overflow` other than visible (the padding box, per axis), an
+   * `inset()` clip-path, the legacy `clip` rect — following only the boxes that contain it once
+   * one on the way is positioned out of flow. With `self` false it starts above the element, which
+   * is the clip on the element's own box rather than on its content. Null when nothing can be
+   * painted. A line box outside this region is laid out and never drawn: text scrolled out of a
+   * window's inner scroller still reports viewport coordinates, over pixels that are not its
+   * ground, and an icon button's visually hidden label sits in a one-pixel clip. The pooled sample
+   * above predates this and does not use it, so that its readings stay comparable with the six.
+   */
+  function drawableRegion(el, self = true) {
+    let x0 = -Infinity, y0 = -Infinity, x1 = Infinity, y1 = Infinity;
+    let escape = null, n = el;
+    if (!self) {
+      const p = getComputedStyle(el).position;
+      escape = p === "absolute" || p === "fixed" ? p : null;
+      n = el.parentElement;
+    }
+    for (; n && n !== document.body && n !== document.documentElement; n = n.parentElement) {
+      const cs = getComputedStyle(n);
+      const contains = escape === null
+        || (escape === "absolute" && (cs.position !== "static" || holdsFixed(cs)))
+        || (escape === "fixed" && holdsFixed(cs));
+      if (!contains) continue;
+      const b = n.getBoundingClientRect();
+      if (cs.display !== "inline" && cs.display !== "contents") {
+        if (cs.overflowX !== "visible") {
+          const l = b.left + n.clientLeft;
+          x0 = Math.max(x0, l); x1 = Math.min(x1, l + n.clientWidth);
+        }
+        if (cs.overflowY !== "visible") {
+          const t = b.top + n.clientTop;
+          y0 = Math.max(y0, t); y1 = Math.min(y1, t + n.clientHeight);
+        }
+      }
+      const inset = /^inset\(([^)]*)\)$/.exec(cs.clipPath);
+      if (inset) {
+        const v = inset[1].split(/\s+round\s+/)[0].trim().split(/\s+/);
+        const [t, r, bo, l] = [v[0], v[1] ?? v[0], v[2] ?? v[0], v[3] ?? v[1] ?? v[0]];
+        x0 = Math.max(x0, b.left + lengthIn(l, b.width));
+        x1 = Math.min(x1, b.right - lengthIn(r, b.width));
+        y0 = Math.max(y0, b.top + lengthIn(t, b.height));
+        y1 = Math.min(y1, b.bottom - lengthIn(bo, b.height));
+      }
+      if ((cs.position === "absolute" || cs.position === "fixed") && /^rect\(/.test(cs.clip)) {
+        const v = cs.clip.slice(5, -1).split(/[\s,]+/).filter(Boolean);
+        const at = (s, auto) => (s === "auto" ? auto : parseFloat(s));
+        x0 = Math.max(x0, b.left + at(v[3], 0)); x1 = Math.min(x1, b.left + at(v[1], b.width));
+        y0 = Math.max(y0, b.top + at(v[0], 0)); y1 = Math.min(y1, b.top + at(v[2], b.height));
+      }
+      if (x1 - x0 <= 0 || y1 - y0 <= 0) return null;
+      escape = cs.position === "absolute" || cs.position === "fixed" ? cs.position : null;
+    }
+    return { x0, y0, x1, y1 };
+  }
+
+  /** The product of the opacities an element is drawn under: an ink's alpha is taken by it. */
+  function opacityChain(el) {
+    let o = 1;
+    for (let n = el; n && n.nodeType === 1; n = n.parentElement) {
+      o *= parseFloat(getComputedStyle(n).opacity);
+    }
+    return o;
+  }
+
+  /** Whether any line box of a text node has room to be painted inside its clip. */
+  function drawnText(t, el) {
+    const region = drawableRegion(el);
+    if (!region) return false;
+    const range = document.createRange(); range.selectNodeContents(t);
+    return [...range.getClientRects()].some((r) =>
+      Math.min(r.right, region.x1) - Math.max(r.left, region.x0) >= 2
+      && Math.min(r.bottom, region.y1) - Math.max(r.top, region.y0) >= 2);
+  }
+
+  /**
+   * Per registered host: whether it carries rendered text — a non-empty text node in an element
+   * that is displayed, visible, not `aria-hidden` and not clipped away — and the role the page
+   * declares for it in `data-glass-role`. An icon button whose name is an `aria-label`, or whose
+   * glyph is `aria-hidden`, carries none; a visually hidden label is clipped away and carries none.
+   */
+  function readHostText() {
+    return [...document.querySelectorAll("[data-vitrea-node]")].map((host) => {
+      const runs = [];
+      const walker = document.createTreeWalker(host, NodeFilter.SHOW_TEXT);
+      let t;
+      while ((t = walker.nextNode())) {
+        const text = t.textContent.trim(), el = t.parentElement;
+        if (!text || !el || UNRENDERED.has(el.tagName.toUpperCase()) || !visible(el)
+          || el.closest('[aria-hidden="true"]') || !drawnText(t, el)) continue;
+        runs.push(text);
+      }
+      return {
+        nodeId: host.getAttribute("data-vitrea-node"), role: host.getAttribute("data-glass-role"),
+        hasText: runs.length > 0, runs: runs.length,
+        text: runs.join(" ").replace(/\s+/g, " ").slice(0, 60),
+      };
+    });
+  }
+
+  /** The characters of a text node whose own boxes sit on one of its line boxes. */
+  function lineText(t, r) {
+    const range = document.createRange(), text = t.textContent;
+    let s = "";
+    for (let i = 0; i < text.length; i++) {
+      range.setStart(t, i); range.setEnd(t, i + 1);
+      const b = range.getBoundingClientRect(), cy = b.top + b.height / 2;
+      if (b.width + b.height > 0 && cy >= r.top && cy <= r.bottom && b.right > r.left
+        && b.left < r.right) s += text[i];
+      else if (s && /\s/.test(text[i])) s += " ";
+    }
+    return s.replace(/\s+/g, " ").trim().slice(0, 80);
+  }
+
+  /**
+   * Text on glass per line box, against the material alone. The capture handed in was taken with
+   * every glyph made transparent, so the pixels inside a line box are the ground the line is
+   * drawn on and nothing of the ink; the ground is their per-channel mean, and the ink is the
+   * line's computed fill with its alpha taken by the opacities above it. Each line box is its own
+   * pair, clipped to what can be painted (`drawableRegion`), so a paragraph over a changing ground
+   * is read where each of its lines sits rather than pooled; the decile of the ground nearest the
+   * ink is kept beside the mean as the worst the line meets. Every failing line keeps its text.
+   */
+  function lineContrast({ px, W, H, scale }, state) {
+    const lines = [];
+    for (const host of document.querySelectorAll("[data-vitrea-node]")) {
+      const nodeId = host.getAttribute("data-vitrea-node");
+      const walker = document.createTreeWalker(host, NodeFilter.SHOW_TEXT);
+      let t;
+      while ((t = walker.nextNode())) {
+        const el = t.parentElement;
+        if (!t.textContent.trim() || !el || UNRENDERED.has(el.tagName.toUpperCase())
+          || !visible(el)) continue;
+        const region = drawableRegion(el);
+        if (!region) continue;
+        const cs = getComputedStyle(el);
+        const fill = parseColor(cs.webkitTextFillColor) ?? parseColor(cs.color);
+        if (!fill) continue;
+        const ink = { ...fill, a: fill.a * opacityChain(el) };
+        const { size, bold, large } = largeText(cs);
+        const floor = large ? 3 : 4.5;
+        const range = document.createRange(); range.selectNodeContents(t);
+        [...range.getClientRects()].forEach((r, index) => {
+          const box = {
+            x0: Math.max(r.left, region.x0, 0), y0: Math.max(r.top, region.y0, 0),
+            x1: Math.min(r.right, region.x1, window.innerWidth),
+            y1: Math.min(r.bottom, region.y1, window.innerHeight),
+          };
+          const d = {
+            x0: Math.floor(box.x0 * scale), y0: Math.floor(box.y0 * scale),
+            x1: Math.min(W, Math.ceil(box.x1 * scale)), y1: Math.min(H, Math.ceil(box.y1 * scale)),
+          };
+          if (d.x1 - d.x0 < 2 || d.y1 - d.y0 < 4) return;
+          let sr = 0, sg = 0, sb = 0;
+          const ls = [];
+          for (let y = d.y0; y < d.y1; y++) {
+            for (let x = d.x0; x < d.x1; x++) {
+              const i = (y * W + x) * 4;
+              sr += px[i]; sg += px[i + 1]; sb += px[i + 2];
+              ls.push(lumAt(px, i));
+            }
+          }
+          const count = ls.length;
+          const g = { r: sr / count, g: sg / count, b: sb / count, a: 1 };
+          const inkC = ink.a < 1 ? over(ink, g) : ink;
+          const inkL = lum(inkC), gL = lum(g);
+          ls.sort((a, b) => a - b);
+          const worstL = ls[Math.floor(ls.length * (inkL < gL ? 0.1 : 0.9))];
+          const value = ratio(inkL, gL);
+          const line = {
+            state, nodeId, line: index,
+            box: [round(box.x0, 1), round(box.y0, 1), round(box.x1 - box.x0, 1),
+              round(box.y1 - box.y0, 1)],
+            size, bold, large, floor,
+            ink: [Math.round(inkC.r), Math.round(inkC.g), Math.round(inkC.b)], inkAlpha: round(ink.a),
+            ground: [Math.round(g.r), Math.round(g.g), Math.round(g.b)],
+            ratio: +value.toFixed(2), worstRatio: +ratio(inkL, worstL).toFixed(2),
+            pass: value >= floor, pixels: count,
+          };
+          if (!line.pass) line.text = lineText(t, r);
+          lines.push(line);
+        });
+      }
+    }
+    return lines;
+  }
+
+  /**
+   * Each visible registered host's drawn level beside the environment's, and the share of the
+   * viewport glass covers, from a glyph-suppressed capture. A host's box is clipped to what can be
+   * painted of it; `inside` is the mean encoded luminance of the captured pixels in that box — the
+   * surface the ink sits on, text removed — and `ring` the same over a band `ringPx` wide outside
+   * it, less any other host's box: the environment beside the window, its shadow included. Each
+   * is flagged when its mean falls in the published-ink dead band. The box is the element's, not
+   * its rounded shape, so the corners outside the arc read into `inside`. Coverage is the union of
+   * the clipped boxes rasterised on a `cellPx` grid by cell centre, over the viewport's area.
+   */
+  function hostPixels({ px, W, H, scale }, state, { deadBand, ringPx, cellPx }) {
+    const vw = window.innerWidth, vh = window.innerHeight;
+    const hosts = [];
+    for (const el of document.querySelectorAll("[data-vitrea-node]")) {
+      if (!visible(el)) continue;
+      const region = drawableRegion(el, false);
+      if (!region) continue;
+      const b = el.getBoundingClientRect();
+      const box = {
+        x0: Math.max(b.left, region.x0, 0), y0: Math.max(b.top, region.y0, 0),
+        x1: Math.min(b.right, region.x1, vw), y1: Math.min(b.bottom, region.y1, vh),
+      };
+      if (box.x1 - box.x0 >= 1 && box.y1 - box.y0 >= 1) hosts.push({ el, box });
+    }
+    const dev = (r, pad = 0) => ({
+      x0: Math.max(0, Math.floor((r.x0 - pad) * scale)),
+      y0: Math.max(0, Math.floor((r.y0 - pad) * scale)),
+      x1: Math.min(W, Math.ceil((r.x1 + pad) * scale)),
+      y1: Math.min(H, Math.ceil((r.y1 + pad) * scale)),
+    });
+    const boxes = hosts.map((h) => dev(h.box));
+    const inside = (x, y, r) => x >= r.x0 && x < r.x1 && y >= r.y0 && y < r.y1;
+    const read = (sum, n) => {
+      const mean = n > 0 ? round(sum / n, 4) : null;
+      return { mean, pixels: n,
+        inDeadBand: mean !== null && mean >= deadBand[0] && mean <= deadBand[1] };
+    };
+    const reads = hosts.map(({ el, box }, k) => {
+      const own = boxes[k], outer = dev(box, ringPx);
+      let sIn = 0, nIn = 0, sRing = 0, nRing = 0;
+      for (let y = outer.y0; y < outer.y1; y++) {
+        for (let x = outer.x0; x < outer.x1; x++) {
+          const i = (y * W + x) * 4;
+          if (inside(x, y, own)) { sIn += lumaAt(px, i); nIn++; }
+          else if (!boxes.some((o, j) => j !== k && inside(x, y, o))) {
+            sRing += lumaAt(px, i); nRing++;
+          }
+        }
+      }
+      const inner = read(sIn, nIn);
+      return {
+        state, nodeId: el.getAttribute("data-vitrea-node"),
+        groupId: el.getAttribute("data-vitrea-group"), role: el.getAttribute("data-glass-role"),
+        label: (el.getAttribute("aria-label") ?? el.textContent ?? "").trim()
+          .replace(/\s+/g, " ").slice(0, 40),
+        rect: [round(box.x0, 1), round(box.y0, 1), round(box.x1 - box.x0, 1),
+          round(box.y1 - box.y0, 1)],
+        inside: inner, ring: read(sRing, nRing), inDeadBand: inner.inDeadBand,
+      };
+    });
+    const cols = Math.ceil(vw / cellPx), rows = Math.ceil(vh / cellPx);
+    let covered = 0;
+    for (let r = 0; r < rows; r++) {
+      const cy = (r + 0.5) * cellPx;
+      for (let c = 0; c < cols; c++) {
+        const cx = (c + 0.5) * cellPx;
+        if (hosts.some(({ box }) => cx >= box.x0 && cx < box.x1 && cy >= box.y0 && cy < box.y1)) {
+          covered++;
+        }
+      }
+    }
+    return {
+      coverage: { fraction: round(covered / (cols * rows), 4), cellPx, cells: cols * rows, covered,
+        hosts: hosts.length },
+      reads,
+    };
+  }
+
+  /** The two reads a glyph-suppressed capture carries, taken on one decode of it. */
+  async function readGround(b64, state, params) {
+    const cap = await decodeCapture(b64);
+    return { lines: lineContrast(cap, state), hosts: hostPixels(cap, state, params) };
+  }
+
+  /**
+   * The scrollable boxes inside registered hosts, each host itself included, in document order:
+   * vertical `overflow` auto or scroll with more content than room. Held here between calls so
+   * the driver can scroll each by its index without marking the DOM, which is the runtime's.
+   */
+  let scrollers = [];
+  function scanScrollers(cap) {
+    const found = [], seen = new Set();
+    for (const host of document.querySelectorAll("[data-vitrea-node]")) {
+      for (const el of [host, ...host.querySelectorAll("*")]) {
+        if (seen.has(el)) continue;
+        seen.add(el);
+        const cs = getComputedStyle(el);
+        if ((cs.overflowY === "auto" || cs.overflowY === "scroll")
+          && el.scrollHeight > el.clientHeight + 1 && visible(el)) found.push(el);
+      }
+    }
+    scrollers = found.slice(0, cap);
+    return {
+      found: found.length,
+      scrollers: scrollers.map((el, i) => {
+        const b = el.getBoundingClientRect();
+        return {
+          index: i + 1, selector: selectorPath(el),
+          hostNodeId: el.closest("[data-vitrea-node]")?.getAttribute("data-vitrea-node") ?? null,
+          rect: [round(b.x, 1), round(b.y, 1), round(b.width, 1), round(b.height, 1)],
+          scrollHeight: el.scrollHeight, clientHeight: el.clientHeight, scrollTop: el.scrollTop,
+        };
+      }),
+    };
+  }
+
+  /** One scroller to its top, middle or bottom, or to a given offset; the offset it reached. */
+  function scrollScroller(index, pos) {
+    const el = scrollers[index - 1];
+    if (!el) return null;
+    const max = el.scrollHeight - el.clientHeight;
+    const top = typeof pos === "number" ? pos
+      : pos === "top" ? 0 : pos === "bottom" ? max : Math.round(max / 2);
+    el.scrollTo({ top, behavior: "instant" });
+    return el.scrollTop;
   }
 
   const ROOT_API = ["capabilities", "probeReport", "diagnostics", "scene", "accessibility",
@@ -947,6 +1331,7 @@ function pageLib() {
 
   return {
     extractContrast, sampleGlassText, readGlass, readMaterial, readBan, readForced, adapterInfo,
+    readHostText, readGround, scanScrollers, scrollScroller,
   };
 }
 
@@ -959,6 +1344,12 @@ const CAPTURE_NAMES = [
     `tile-3-${s}.png`, `shot-menu-${s}.png`]),
   "shot-reduced.png", "shot-contrast.png", "shot-forced.png",
 ];
+/**
+ * The spatial passes' captures, named apart from the seven passes' own so that `captures` and
+ * `captureSha256` keep meaning what they did: each state's glyph-suppressed twin, the inner
+ * scrollers, the phases, the CSS tier and the receded pose. Hashed under `extraCaptureSha256`.
+ */
+const EXTRA_CAPTURE = /^(?:scroller-.+|phase-.+|css-.+|receded-.+|.+-ground)\.png$/;
 
 /**
  * A fresh context and page under the given media emulation, loaded and settled. The settle is the
@@ -996,6 +1387,182 @@ async function openPage(browser, url, media) {
 
 /** An expression calling one library function; Playwright awaits a returned promise. */
 const lib = (name) => `window.__glassAuditLib.${name}()`;
+
+/**
+ * The spatial reads' parameters, recorded beside every read they shape: the published-ink dead
+ * band (an encoded surface level of roughly 0.39 to 0.49, where neither the primary nor the
+ * secondary ink carries body text; skills/materialist/references/vitrea.md §5), the width of the
+ * environment ring read outside each host, and the coverage grid's cell.
+ */
+const SPATIAL_READ = { deadBand: [0.39, 0.49], ringPx: 24, cellPx: 4 };
+const LUMINANCE_MEASURE = "mean encoded Rec. 709 luma of the glyph-suppressed capture, 0..1 "
+  + "(the runtime's encodedLuminance, packages/platform-web/src/backdrop-tone.ts)";
+/** How many inner scrollers and environment phases a pass reads; the counts found are recorded. */
+const SCROLLER_CAP = 8, PHASE_CAP = 16;
+const SCROLL_POSITIONS = ["top", "middle", "bottom"];
+const HOST_ROLES = ["window", "module", "ornament", "platter", "control"];
+
+/**
+ * The rule that takes every glyph off the page for a state's twin capture, so the pixels behind
+ * a line box are the material and nothing of the ink. Transitions go with it, or a page whose
+ * labels ease their colour would be caught mid-fade. Anything painted in `currentColor` goes too
+ * (a border, an icon's fill), which is not ground either; a fill an author wrote in
+ * `currentColor` would, and is the one thing this twin misreads. One rule per selector, because a
+ * selector list with one unsupported member is dropped whole.
+ */
+const SUPPRESS_ID = "__glass-audit-suppress";
+const SUPPRESS_CSS = [
+  "*, *::before, *::after { color: transparent !important; "
+    + "-webkit-text-fill-color: transparent !important; text-shadow: none !important; "
+    + "text-decoration-color: transparent !important; caret-color: transparent !important; "
+    + "transition: none !important; }",
+  "*::marker { color: transparent !important; }",
+  "*::placeholder { color: transparent !important; "
+    + "-webkit-text-fill-color: transparent !important; }",
+  "*::selection { background: transparent !important; color: transparent !important; }",
+].join("\n");
+
+const frames = (page) => page.evaluate(() =>
+  new Promise((done) => requestAnimationFrame(() => requestAnimationFrame(done))));
+
+/** The viewport with its glyphs suppressed, written beside the state's capture; the PNG. */
+async function suppressedShot(page, file) {
+  await page.evaluate(([id, css]) => {
+    const s = document.createElement("style");
+    s.id = id; s.textContent = css;
+    (document.head ?? document.documentElement).append(s);
+  }, [SUPPRESS_ID, SUPPRESS_CSS]);
+  await frames(page);
+  await page.waitForTimeout(150);
+  const buf = await page.screenshot({ path: file, fullPage: false });
+  await page.evaluate((id) => document.getElementById(id)?.remove(), SUPPRESS_ID);
+  await frames(page);
+  // A label that eases its colour fades back in once the rule is gone; the next state waits it out.
+  await page.waitForTimeout(250);
+  return buf;
+}
+
+/**
+ * One captured state, read three ways. The capture itself (`file`), and where `pooled` is set the
+ * 2.3 pooled sample on it, taken exactly as `shootAndSample` always took it — first, on the
+ * fresh capture — so the six stay comparable. Then its twin with the glyphs suppressed
+ * (`<file>-ground.png`), which the per-line contrast and each host's drawn level are read from.
+ */
+async function captureState(page, dir, file, state, pooled) {
+  const at = path.join(dir, file);
+  const pairs = pooled ? await shootAndSample(page, at, state) : null;
+  if (!pooled) await page.screenshot({ path: at, fullPage: false });
+  const ground = file.replace(/\.png$/, "-ground.png");
+  const buf = await suppressedShot(page, path.join(dir, ground));
+  const read = await page.evaluate(([b64, s, p]) => window.__glassAuditLib.readGround(b64, s, p),
+    [buf.toString("base64"), state, SPATIAL_READ]);
+  return { state, capture: file, ground, pairs, lines: read.lines, hosts: read.hosts };
+}
+
+/** The per-line reading of a set of states: counts, the worst line by its floor, every miss. */
+function lineSummary(states) {
+  const lines = states.flatMap((s) => s.lines);
+  const byState = {};
+  for (const l of lines) {
+    const b = (byState[l.state] ??= { lines: 0, pass: 0, minRatio: null });
+    b.lines++; if (l.pass) b.pass++;
+    b.minRatio = b.minRatio === null ? l.ratio : Math.min(b.minRatio, l.ratio);
+  }
+  const worst = lines.reduce((w, l) => (w === null || l.ratio / l.floor < w.ratio / w.floor
+    ? l : w), null);
+  return {
+    method: "per-line, glyphs suppressed", states: states.map((s) => s.state),
+    lines: lines.length, pass: lines.filter((l) => l.pass).length,
+    minRatio: lines.length ? Math.min(...lines.map((l) => l.ratio)) : null,
+    worst, byState, fails: lines.filter((l) => !l.pass),
+  };
+}
+
+/** Every host's drawn level and its environment ring over a set of states. */
+function luminanceSummary(states) {
+  return {
+    measure: LUMINANCE_MEASURE, band: SPATIAL_READ.deadBand, ringPx: SPATIAL_READ.ringPx,
+    reads: states.flatMap((s) => s.hosts.reads),
+  };
+}
+
+/**
+ * Every inner scroller at its top, middle and bottom, each a state read as the others are, then
+ * put back where it was. The document's own scroll is not touched: a window whose content scrolls
+ * inside it yields no second screen to the document walk, which is why these exist.
+ */
+async function scrollerStates(page, dir, name) {
+  const scan = await page.evaluate((cap) => window.__glassAuditLib.scanScrollers(cap), SCROLLER_CAP);
+  const states = [], list = [];
+  for (const s of scan.scrollers) {
+    const positions = [];
+    for (const pos of SCROLL_POSITIONS) {
+      const scrollTop = await page.evaluate(([i, p]) =>
+        window.__glassAuditLib.scrollScroller(i, p), [s.index, pos]);
+      await page.waitForTimeout(450);
+      const file = name(s.index, pos);
+      states.push(await captureState(page, dir, file, `scroller-${s.index}-${pos}`, false));
+      positions.push({ pos, scrollTop, capture: file });
+    }
+    await page.evaluate(([i, top]) => window.__glassAuditLib.scrollScroller(i, top),
+      [s.index, s.scrollTop]);
+    list.push({ ...s, positions });
+  }
+  if (scan.scrollers.length > 0) await page.waitForTimeout(300);
+  return { found: scan.found, cap: SCROLLER_CAP, list, states };
+}
+
+/** Whether the page offers its environment's phases: `phases()` and `setPhase(id)` both. */
+const hasPhaseHook = (page) => page.evaluate(() =>
+  typeof window.__glassDemo?.phases === "function"
+  && typeof window.__glassDemo?.setPhase === "function");
+
+/**
+ * The environment's phases, where the page offers them, in a fresh context of their own so that
+ * the menu and scroller states of the other passes stay in the phase the page loads in: the ids
+ * `phases()` returns, each shown through `setPhase(id)` and captured as the first viewport, once
+ * its images have decoded and the runtime has had time to take the new texture.
+ */
+async function phasePass(browser, url, dir, scheme, name) {
+  const { context, page, log, readyState } = await openPage(browser, url, { colorScheme: scheme });
+  try {
+    const found = await page.evaluate(async (cap) => {
+      const d = window.__glassDemo;
+      if (typeof d?.phases !== "function" || typeof d?.setPhase !== "function") return null;
+      try {
+        const ids = await d.phases();
+        if (!Array.isArray(ids)) return { error: "phases() did not return an array" };
+        return { ids: ids.slice(0, cap).map((x) => (typeof x === "number" ? x : String(x))),
+          total: ids.length };
+      } catch (e) { return { error: "phases() threw: " + String(e.message).slice(0, 160) }; }
+    }, PHASE_CAP);
+    if (!found || found.error) {
+      return { ids: null, error: found?.error ?? "no phase hook", errors: log.errors };
+    }
+    const states = [], shown = [];
+    for (const [i, id] of found.ids.entries()) {
+      const status = await page.evaluate(async (x) => {
+        try { await window.__glassDemo.setPhase(x); }
+        catch (e) { return "setPhase threw: " + String(e.message).slice(0, 160); }
+        await Promise.all([...document.images].filter((im) => !im.complete)
+          .map((im) => im.decode().catch(() => {})));
+        return "shown";
+      }, id);
+      if (status !== "shown") { shown.push({ index: i + 1, id, status }); continue; }
+      await page.waitForTimeout(1200);
+      const file = name(i + 1);
+      states.push(await captureState(page, dir, file, `phase-${i + 1}`, false));
+      shown.push({ index: i + 1, id, status: "captured", capture: file });
+    }
+    return {
+      ids: found.ids, total: found.total, cap: PHASE_CAP, shown, readyState,
+      errors: log.errors, consoleErrors: log.consoleErrors.slice(0, 10),
+      lineContrast: lineSummary(states), hostLuminance: luminanceSummary(states),
+    };
+  } finally {
+    await context.close();
+  }
+}
 
 async function shootAndSample(page, file, phase) {
   const buf = await page.screenshot({ path: file, fullPage: false });
@@ -1045,7 +1612,8 @@ async function schemePass(browser, url, dir, scheme) {
       const y = window.scrollY; window.scrollTo(0, 0); return y;
     });
     await page.waitForTimeout(300);
-    const pairs = await shootAndSample(page, at(`shot-fv-${scheme}.png`), "fv");
+    const fv = await captureState(page, dir, `shot-fv-${scheme}.png`, "fv", true);
+    const pairs = fv.pairs, states = [fv];
     await page.evaluate(async () => {
       await new Promise((res) => {
         let y = 0;
@@ -1061,34 +1629,41 @@ async function schemePass(browser, url, dir, scheme) {
     await page.waitForTimeout(400);
     const measured = await page.evaluate(lib("extractContrast"));
     const glass = await page.evaluate(lib("readGlass"));
+    const hostText = await page.evaluate(lib("readHostText"));
     await page.screenshot({ path: at(`shot-full-${scheme}.png`), fullPage: true });
     // The tiles are VIEWPORT captures with the window scrolled, not clips of the stitched page: a
     // glass page is a fixed plane with floating bars over a scrolling sheet, and each tile is the
     // screen as the reader meets it, the bars over whatever has passed beneath them.
     for (const n of [2, 3]) {
-      const y = (n - 1) * VIEWPORT.height, tile = at(`tile-${n}-${scheme}.png`);
+      const y = (n - 1) * VIEWPORT.height;
       if (measured.docHeight > y + 100) {
         await page.evaluate((top) => window.scrollTo(0, top), y);
         await page.waitForTimeout(500);
-        pairs.push(...await shootAndSample(page, tile, `tile-${n}`));
+        const tile = await captureState(page, dir, `tile-${n}-${scheme}.png`, `tile-${n}`, true);
+        pairs.push(...tile.pairs); states.push(tile);
       }
     }
     await page.evaluate(() => window.scrollTo(0, 0));
     await page.waitForTimeout(400);
     const banRest = await page.evaluate(lib("readBan"));
+    const scroll = await scrollerStates(page, dir, (n, pos) => `scroller-${n}-${pos}-${scheme}.png`);
+    states.push(...scroll.states);
+    const phasesHook = await hasPhaseHook(page);
 
     // The transient platter, where the page offers a way to open one: the one state the resting
     // captures cannot show, and a second group on the overlay plane that resolves its own tier.
-    let menu = "not-offered", menuGlass = null, banMenu = null;
+    let menu = "not-offered", menuGlass = null, banMenu = null, menuText = null;
     const hasMenu = await page.evaluate(() => typeof window.__glassDemo?.openMenu === "function");
     if (hasMenu) {
       try {
         await page.evaluate(async () => { await window.__glassDemo.openMenu(); });
         await page.waitForTimeout(700);
-        pairs.push(...await shootAndSample(page, at(`shot-menu-${scheme}.png`), "menu"));
+        const open = await captureState(page, dir, `shot-menu-${scheme}.png`, "menu", true);
+        pairs.push(...open.pairs); states.push(open);
         menu = "captured";
         menuGlass = await page.evaluate(lib("readGlass"));
         banMenu = await page.evaluate(lib("readBan"));
+        menuText = await page.evaluate(lib("readHostText"));
       } catch (e) { menu = "openMenu threw: " + String(e.message).slice(0, 160); }
     }
 
@@ -1123,10 +1698,30 @@ async function schemePass(browser, url, dir, scheme) {
           && p.subjects.join() === d.subjects.join()))
         : null,
       ban: { rest: banRest, menu: banMenu },
+      // The spatial register's reads, beside the inventory; the instrument analysis reads none.
+      hostText: withSpans(hostText, glass.surfaces),
+      menuHostText: menuText ? withSpans(menuText, menuGlass.surfaces) : null,
+      glassCoverage: fv.hosts.coverage,
+      hostLuminance: luminanceSummary(states),
+      lineContrast: lineSummary(states),
+      scrollers: { found: scroll.found, cap: scroll.cap, list: scroll.list },
+      phasesHook,
+      phases: null,
     };
   } finally {
     await context.close();
   }
+}
+
+/** Each host's text read joined to the inventory's span for it, which is the size law's input. */
+function withSpans(texts, surfaces) {
+  return texts.map((t) => {
+    const s = (surfaces ?? []).find((x) => x.nodeId === t.nodeId);
+    return {
+      nodeId: t.nodeId, role: t.role, groupId: s?.groupId ?? null, selector: s?.selector ?? null,
+      span: s?.span ?? null, hasText: t.hasText, runs: t.runs, text: t.text,
+    };
+  });
 }
 
 /**
@@ -1137,7 +1732,6 @@ async function schemePass(browser, url, dir, scheme) {
  * occlusion knob — border alpha, effective refraction) differ from before.
  */
 async function reducedPass(browser, url, dir) {
-  const file = path.join(dir, "shot-reduced.png");
   const { context, page, log, readyState } = await openPage(browser, url, { colorScheme: "light" });
   try {
     const before = await page.evaluate(lib("readMaterial"));
@@ -1158,7 +1752,7 @@ async function reducedPass(browser, url, dir) {
     // The override lands on the next frame and the CSS tier transitions into it.
     await page.waitForTimeout(1200);
     const after = await page.evaluate(lib("readMaterial"));
-    if (applied) await page.screenshot({ path: file, fullPage: false });
+    const shot = applied ? await captureState(page, dir, "shot-reduced.png", "reduced", false) : null;
     const a = after.accessibility, m = a?.material;
     const key = (g) => JSON.stringify([g.refraction, g.cssBody, g.cssTint, g.blurRadius,
       g.nodes.map((n) => [n.blurRadius, n.tintAlpha, n.borderAlpha, n.refraction]).sort()]);
@@ -1180,6 +1774,8 @@ async function reducedPass(browser, url, dir) {
       materialMoved: groups.length > 0 && groups.every((g) => g.moved !== null)
         ? groups.every((g) => g.moved) : null,
       captured: applied,
+      lineContrast: shot ? lineSummary([shot]) : null,
+      hostLuminance: shot ? luminanceSummary([shot]) : null,
     };
   } finally {
     await context.close();
@@ -1233,6 +1829,91 @@ async function emulationPass(browser, url, dir, kind) {
   }
 }
 
+/**
+ * The CSS tier: the page loaded with `?tier=css`, which a spatial-register page answers by mounting
+ * its root with `renderer="css"` (the spatial-register spec, C), light scheme. Each group's resolved
+ * renderer and CSS body (`two-layer` or `collapsed` — a window-sized surface exceeds the tier's
+ * area budget and collapses) is read; a page whose groups do not all resolve `css` has not honoured
+ * the switch and the pass stops there as `not-honoured`, which the spatial analysis reads as
+ * UNREAD. Otherwise the first viewport, the inner scrollers and the open menu are captured and
+ * read as in the scheme passes; the phases get their own context (`cssPhases`).
+ */
+async function cssTierPass(browser, url, dir) {
+  const u = new URL(url);
+  u.searchParams.set("tier", "css");
+  const { context, page, log, readyState } =
+    await openPage(browser, u.href, { colorScheme: "light" });
+  const tierGroups = (glass) => glass.groups.map((g) => ({
+    id: g.id, members: g.members, renderer: g.state?.activeRenderer ?? null,
+    cssBody: g.state?.cssBody ?? null, cssTint: g.state?.cssTint ?? null,
+    health: g.state?.health ?? null, demotionReason: g.state?.demotionReason ?? null,
+  }));
+  try {
+    const glass = await page.evaluate(lib("readGlass"));
+    const base = { url: u.href, readyState, errors: log.errors,
+      consoleErrors: log.consoleErrors.slice(0, 10) };
+    if (!glass.rootFound) return { status: "no-root", ...base };
+    const groups = tierGroups(glass);
+    if (groups.length === 0 || !groups.every((g) => g.renderer === "css")) {
+      return { status: "not-honoured", ...base, groups };
+    }
+    const states = [await captureState(page, dir, "css-fv.png", "fv", false)];
+    const scroll = await scrollerStates(page, dir, (n, pos) => `css-scroller-${n}-${pos}.png`);
+    states.push(...scroll.states);
+    let menu = "not-offered", menuGroups = null;
+    if (await page.evaluate(() => typeof window.__glassDemo?.openMenu === "function")) {
+      try {
+        await page.evaluate(async () => { await window.__glassDemo.openMenu(); });
+        await page.waitForTimeout(700);
+        states.push(await captureState(page, dir, "css-menu.png", "menu", false));
+        menu = "captured";
+        menuGroups = tierGroups(await page.evaluate(lib("readGlass")));
+      } catch (e) { menu = "openMenu threw: " + String(e.message).slice(0, 160); }
+    }
+    return {
+      status: "ran", ...base, errors: log.errors, groups, menu, menuGroups,
+      scrollers: { found: scroll.found, cap: scroll.cap, list: scroll.list },
+      lineContrast: lineSummary(states), hostLuminance: luminanceSummary(states),
+      phases: null,
+    };
+  } finally {
+    await context.close();
+  }
+}
+
+/**
+ * The receded pose, light scheme: the window pinned inactive through the runtime's own
+ * `setWindowActivation("inactive")` (packages/platform-web/src/root.ts), which is what an
+ * unfocused window draws, then the first viewport and the inner scrollers captured and read. The
+ * pose the root resolved is recorded; one that is not `inactive` is not the receded read.
+ */
+async function recededPass(browser, url, dir) {
+  const { context, page, log, readyState } = await openPage(browser, url, { colorScheme: "light" });
+  try {
+    const set = await page.evaluate(() => {
+      const root = window.__vitrea;
+      if (typeof root?.setWindowActivation !== "function") return "no-root";
+      try { root.setWindowActivation("inactive"); return "set"; }
+      catch (e) { return "threw: " + String(e.message).slice(0, 160); }
+    });
+    const base = { readyState, errors: log.errors, consoleErrors: log.consoleErrors.slice(0, 10) };
+    if (set !== "set") return { status: set, ...base };
+    // The CSS tier eases into the posed profile; the WebGPU tier swaps it on the next frame.
+    await page.waitForTimeout(1200);
+    const windowActivation = await page.evaluate(() => window.__vitrea.windowActivation ?? null);
+    const states = [await captureState(page, dir, "receded-fv.png", "fv", false)];
+    const scroll = await scrollerStates(page, dir, (n, pos) => `receded-scroller-${n}-${pos}.png`);
+    states.push(...scroll.states);
+    return {
+      status: "ran", ...base, errors: log.errors, windowActivation,
+      scrollers: { found: scroll.found, cap: scroll.cap, list: scroll.list },
+      lineContrast: lineSummary(states), hostLuminance: luminanceSummary(states),
+    };
+  } finally {
+    await context.close();
+  }
+}
+
 /* ------------------------------------------------------------------ one page */
 
 /** Findings from several reads, merged on what they are about, with where each was seen. */
@@ -1251,6 +1932,9 @@ function mergeFindings(reads) {
 async function auditOne(browser, url, slug, dir) {
   fs.mkdirSync(dir, { recursive: true });
   for (const f of CAPTURE_NAMES) fs.rmSync(path.join(dir, f), { force: true });
+  for (const f of fs.readdirSync(dir)) {
+    if (EXTRA_CAPTURE.test(f)) fs.rmSync(path.join(dir, f), { force: true });
+  }
   const schemes = {};
   for (const scheme of SCHEMES) schemes[scheme] = await schemePass(browser, url, dir, scheme);
   const reduced = await reducedPass(browser, url, dir);
@@ -1258,6 +1942,20 @@ async function auditOne(browser, url, slug, dir) {
   for (const kind of Object.keys(EMULATIONS)) {
     emulation[kind] = await emulationPass(browser, url, dir, kind);
   }
+  // The spatial register's passes, after the seven, so those run exactly as they always have.
+  const phasesHook = SCHEMES.some((s) => schemes[s].phasesHook);
+  if (phasesHook) {
+    for (const s of SCHEMES) {
+      schemes[s].phases = await phasePass(browser, url, dir, s, (i) => `phase-${i}-${s}.png`);
+    }
+  }
+  const cssTier = await cssTierPass(browser, url, dir);
+  if (phasesHook && cssTier.status === "ran") {
+    const u = new URL(url);
+    u.searchParams.set("tier", "css");
+    cssTier.phases = await phasePass(browser, u.href, dir, "light", (i) => `css-phase-${i}.png`);
+  }
+  const receded = await recededPass(browser, url, dir);
 
   const light = schemes.light;
   const rootFound = SCHEMES.every((s) => schemes[s].rootFound);
@@ -1297,8 +1995,38 @@ async function auditOne(browser, url, slug, dir) {
   const unmeasured = [...new Set(SCHEMES.flatMap((s) =>
     [schemes[s].ban.rest?.unmeasured ?? [], schemes[s].ban.menu?.unmeasured ?? []].flat()))];
 
+  // The spatial register's ban findings, kept apart from `banSubset` because the instrument
+  // register's labelled 44 px capsules are right there and wrong here: the spatial analysis counts
+  // both, the instrument analysis only the first. A text-bearing window or module under span 96
+  // is out of the size law's saturated regime; a text-bearing host with no role, or one outside
+  // the five, cannot be held to the rule a role would put it under.
+  const spatialReads = [];
+  for (const s of SCHEMES) {
+    for (const [state, list] of [["rest", schemes[s].hostText], ["menu", schemes[s].menuHostText]]) {
+      const hits = [];
+      for (const h of (list ?? []).filter((x) => x.hasText)) {
+        const base = { selector: h.selector, nodeId: h.nodeId, groupId: h.groupId, text: h.text };
+        if (!HOST_ROLES.includes(h.role)) {
+          hits.push({ kind: "unroled-host", ...base, property: "data-glass-role", value: h.role,
+            note: `a text-bearing host whose data-glass-role is none of ${HOST_ROLES.join(", ")}` });
+        } else if ((h.role === "window" || h.role === "module") && typeof h.span === "number"
+          && h.span < 96) {
+          hits.push({ kind: "text-bearing-span-under-96", ...base, property: "span",
+            value: h.span, role: h.role,
+            note: "a text-bearing window or module under span 96, below the size law's "
+              + "saturated occlusion (references/optics.md §2)" });
+        }
+      }
+      if (hits.length > 0) spatialReads.push([`${s}/${state}`, hits]);
+    }
+  }
+  const spatialFindings = mergeFindings(spatialReads);
+
   const captures = CAPTURE_NAMES.filter((f) => fs.existsSync(path.join(dir, f)));
   const captureSha256 = Object.fromEntries(captures.map((f) =>
+    [f, crypto.createHash("sha256").update(fs.readFileSync(path.join(dir, f))).digest("hex")]));
+  const extraCaptures = fs.readdirSync(dir).filter((f) => EXTRA_CAPTURE.test(f)).sort();
+  const extraCaptureSha256 = Object.fromEntries(extraCaptures.map((f) =>
     [f, crypto.createHash("sha256").update(fs.readFileSync(path.join(dir, f))).digest("hex")]));
 
   const passErrors = [...SCHEMES.flatMap((s) => schemes[s].errors), ...reduced.errors,
@@ -1325,6 +2053,15 @@ async function auditOne(browser, url, slug, dir) {
     emulation,
     captures,
     captureSha256,
+    banSubsetSpatial: {
+      findings: spatialFindings,
+      counts: spatialFindings.reduce((acc, f) => ({ ...acc, [f.kind]: (acc[f.kind] ?? 0) + 1 }), {}),
+    },
+    phasesHook,
+    cssTier,
+    receded,
+    extraCaptures,
+    extraCaptureSha256,
     // The 2.3 audit's page-level gate, kept for comparability: no page error in any pass, no
     // overflow, no placeholder copy, and the DOM contrast sample at 0.9 or better in both schemes.
     // It is not the pass line, which `glass-rules-analyze.py` applies to the readings.

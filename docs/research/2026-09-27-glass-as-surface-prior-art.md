@@ -665,3 +665,168 @@ material, rather than maximum transparency.
     (§§1, 3, 5). The precedent for a primary glass surface is strongest when its content, backing,
     foreground treatment and environmental behavior are taken together, not when only its sheen
     is borrowed.
+
+## Rules a spatial-register page can be checked against
+
+Each rule is a yes/no reading of the supplied captures and record, with missing state evidence unread rather than passed.
+
+| replaced instrument rule | spatial replacement items |
+|---|---|
+| r1 — glass only on controls, never content | 2, 25 — content windows/modules, fills inside |
+| r3 — small control-only inventory | 2 — one to three task windows/modules |
+| r17 — reading content never under glass at rest | 24, 26 — supported reading ink, ornaments outside |
+| r20 — content to screen edges, bars above it | 1, 4 — full-bleed environment around windows/modules |
+| r21 — safe-area insets and background extension | 16, 26 — inner scroller and attached, separated ornament |
+
+1. `[environment]` The product's full-bleed environment is graded so every window or module's drawn
+   body is outside the published-ink dead band and each text line passes its contrast floor in every
+   recorded phase and scheme, with source statistics, declared tone and rendered levels
+   distinguished in the record. ([HIG
+   Materials](https://developer.apple.com/design/human-interface-guidelines/materials), [NN/g,
+   Glassmorphism](https://www.nngroup.com/articles/glassmorphism/), spatial memo §§2.1, 6.1;
+   `vibrancy.ts`, `vitrea.md` §2)
+
+2. `[layer]` One to three windows or modules are present at rest, each a named unit of the task
+   rather than a decorative glass tile. ([WWDC23
+   10072](https://developer.apple.com/videos/play/wwdc2023/10072/), [HIG
+   Windows](https://developer.apple.com/design/human-interface-guidelines/windows); the count
+   ceiling is this register's authoring choice)
+
+3. `[material]` Every window or module has a shorter span of at least 96 CSS px and the family
+   shares one recorded thickness from 8 to 14, while ornament labels are judged by rendered contrast
+   rather than that span floor. (`references/optics.md` §2, `material.ts` sizeSpanMax; the thickness
+   range is an authoring choice grounded in the runtime's surface and morph defaults)
+
+4. `[environment]` The environment is viewport-fixed and remains visible around every window or
+   module at rest. ([WWDC23 10072](https://developer.apple.com/videos/play/wwdc2023/10072/), [HIG
+   Windows](https://developer.apple.com/design/human-interface-guidelines/windows); spatial memo
+   §2.7)
+
+5. `[material]` (= r4) Exactly one variant is in use — regular or clear — across the whole page.
+   ([WWDC25 219](https://developer.apple.com/videos/play/wwdc2025/219/))
+
+6. `[material]` (= r5) Clear glass appears only over media-rich content, and only with a dimming layer
+   (≈35% black over bright content).
+   ([HIG Materials](https://developer.apple.com/design/human-interface-guidelines/materials),
+   [WWDC25 219](https://developer.apple.com/videos/play/wwdc2025/219/); spatial memo §4.1 distinguishes this inherited shorthand from the HIG's dark 35% and the API example's black 30%)
+
+7. `[material]` (= r6) At most one control per view carries a tint, and it is the primary action; the tint
+   is on the background, not the label.
+   ([HIG Color](https://developer.apple.com/design/human-interface-guidelines/color),
+   [WWDC25 219](https://developer.apple.com/videos/play/wwdc2025/219/))
+
+8. `[material]` (= r7) No glass surface uses an opaque solid fill or a hand-rolled blur in place of the
+   material. ([WWDC25 219](https://developer.apple.com/videos/play/wwdc2025/219/),
+   [WWDC25 284](https://developer.apple.com/videos/play/wwdc2025/284/))
+
+9. `[geometry]` (= r8) Every rounded shape is one of three kinds: fixed radius, capsule (radius = height/2),
+   or concentric (radius = parent radius − gap).
+   ([WWDC25 356](https://developer.apple.com/videos/play/wwdc2025/356/))
+
+10. `[geometry]` (= r9) Any element nested inside a rounded container has a radius derived from that
+   container, so the two arcs share a centre and no corner reads as pinched or flared.
+   ([ConcentricRectangle](https://developer.apple.com/documentation/swiftui/concentricrectangle),
+   [WWDC25 356](https://developer.apple.com/videos/play/wwdc2025/356/))
+
+11. `[geometry]` (= r10) Bordered buttons in the floating layer are capsules; small, dense desktop controls
+    are rounded rectangles. ([WWDC25 323](https://developer.apple.com/videos/play/wwdc2025/323/),
+    [WWDC25 356](https://developer.apple.com/videos/play/wwdc2025/356/))
+
+12. `[grouping]` (= r11) Related bar items share one glass background; unrelated ones sit in separate groups,
+    and there are at most three groups per bar.
+    ([HIG Toolbars](https://developer.apple.com/design/human-interface-guidelines/toolbars))
+
+13. `[grouping]` (= r12) No text button shares a glass background with an icon button.
+    ([HIG Toolbars](https://developer.apple.com/design/human-interface-guidelines/toolbars),
+    [WWDC25 356](https://developer.apple.com/videos/play/wwdc2025/356/))
+
+14. `[grouping]` (= r13) The material is applied to the control itself, not to its inner views.
+    ([WWDC25 356](https://developer.apple.com/videos/play/wwdc2025/356/))
+
+15. `[grouping]` (= r14) Glass elements that sit near each other belong to one container and read as one
+    material, with spacing chosen so they merge or stay separate on purpose.
+    ([Applying Liquid Glass to custom views](https://developer.apple.com/documentation/swiftui/applying-liquid-glass-to-custom-views),
+    [WWDC25 323](https://developer.apple.com/videos/play/wwdc2025/323/))
+
+16. `[layout]` (~ r15) Scrolling content is clipped by a child scroller inside its window or module
+   with one scroll-edge treatment at its inner edges, while the glass host and its ornaments stay
+   still. ([HIG Scroll
+   views](https://developer.apple.com/design/human-interface-guidelines/scroll-views), [HIG
+   Ornaments](https://developer.apple.com/design/human-interface-guidelines/ornaments); spatial memo
+   §2.7)
+
+17. `[material]` (= r16) No glass sits over a flat, uniform background where it would render as an invisible
+    outline — glass needs varied content behind it to read as glass. (*secondary*:
+    [STRV](https://www.strv.com/blog/how-to-apply-liquid-glass-to-your-app),
+    [Six Colors](https://sixcolors.com/post/2025/09/macos-26-tahoe-review-power-under-glass/))
+
+18. `[legibility]` (= r18) Text on glass meets 4.5:1 up to 17 pt and 3:1 at 18 pt or bold, in both light and
+    dark. ([HIG Accessibility](https://developer.apple.com/design/human-interface-guidelines/accessibility))
+
+19. `[legibility]` (= r19) The page still works with reduced transparency, increased contrast and reduced
+    motion switched on. ([WWDC25 219](https://developer.apple.com/videos/play/wwdc2025/219/),
+    [Adopting Liquid Glass](https://developer.apple.com/documentation/technologyoverviews/adopting-liquid-glass))
+
+20. `[layout]` (~ r22) No glass host carries a custom background, border or scrim, and the only
+   added dimming is painted into the plane beneath clear media glass or a modal task. ([Adopting
+   Liquid
+   Glass](https://developer.apple.com/documentation/technologyoverviews/adopting-liquid-glass),
+   [WWDC25 356](https://developer.apple.com/videos/play/wwdc2025/356/); spatial memo §§4.1–4.2)
+
+21. `[motion]` (= r23) Glass materialises and morphs rather than cross-fading; menus and sheets emerge from
+    the control that opened them; press feedback is a glow and slight flex at the pointer, not a
+    colour swap. ([WWDC25 219](https://developer.apple.com/videos/play/wwdc2025/219/),
+    [WWDC25 323](https://developer.apple.com/videos/play/wwdc2025/323/))
+
+22. `[colour]` (= r24) Bar and control content is monochrome by default; saturated colour lives in the
+    content layer. ([WWDC25 323](https://developer.apple.com/videos/play/wwdc2025/323/),
+    [WWDC25 219](https://developer.apple.com/videos/play/wwdc2025/219/))
+
+23. `[colour]` (= r25) No control label uses a colour close to the content passing behind it.
+    ([HIG Toolbars](https://developer.apple.com/design/human-interface-guidelines/toolbars),
+    [HIG Color](https://developer.apple.com/design/human-interface-guidelines/color))
+
+24. `[legibility]` Window and module reading text uses primary or secondary ink on children at
+   medium or heavier weight with every rendered body line measured at 4.5:1 and the worst line
+   gating, while module foregrounds remain bright glance content rather than prose and tertiary or
+   quaternary ink carries only decoration. ([WWDC23
+   10076](https://developer.apple.com/videos/play/wwdc2023/10076/), [HIG
+   Typography](https://developer.apple.com/design/human-interface-guidelines/typography), [WWDC25
+   255](https://developer.apple.com/videos/play/wwdc2025/255/); spatial memo §§2.4–2.5, 3)
+
+25. `[layer]` Internal hierarchy uses dark fills for separation or inputs and light fills for
+   interactive or selected elements, with no nested glass hosts and no light-on-light stacks.
+   ([WWDC23 10076](https://developer.apple.com/videos/play/wwdc2023/10076/), [HIG
+   Materials](https://developer.apple.com/design/human-interface-guidelines/materials); spatial memo
+   §2.3)
+
+26. `[layer]` Ornaments are separate overlay-plane groups attached to a named window or module, no
+   wider than it, outside its edge by the recorded runtime-derived gap on the texture path, with
+   controls plain on their housing and no same-plane window overlap. ([HIG
+   Ornaments](https://developer.apple.com/design/human-interface-guidelines/ornaments); spatial memo
+   §2.7; `group.tsx`, `layer-model.ts`, `samplingPaddingFor`)
+
+27. `[geometry]` Images and video on a window use opaque concentric frames, and any full-colour
+   image in a glance module is media smaller than its module. ([HIG
+   Widgets](https://developer.apple.com/design/human-interface-guidelines/widgets), [WWDC23
+   10076](https://developer.apple.com/videos/play/wwdc2023/10076/); spatial memo §§2.2, 5.3;
+   concentric framing is the register's geometry translation)
+
+28. `[colour]` Accents on glass occupy bold text, an entire button or a role-bearing child fill, not
+   lightweight type or a thin mark. ([HIG
+   Color](https://developer.apple.com/design/human-interface-guidelines/color), [WWDC23
+   10076](https://developer.apple.com/videos/play/wwdc2023/10076/); spatial memo §2.6)
+
+29. `[colour]` Windows and modules are untinted, with identity carried by the environment and
+   imagery rather than opaque brand-coloured window fills. ([WWDC24
+   10086](https://developer.apple.com/videos/play/wwdc2024/10086/), [HIG
+   Color](https://developer.apple.com/design/human-interface-guidelines/color); spatial memo §§2.2,
+   2.6; untinted windows are this register's composition choice)
+
+30. `[material]` The record and captures show the CSS body actually resolved at the recorded DPR and
+   present-host area, both body forms and the forced-colours Canvas panel preserving readable
+   content and authored marks, with window-scale extrapolation and any clear optics or dimming
+   stated as uncalibrated rather than visionOS fidelity. (Spatial memo §§1, 2.8, 8.9–8.10;
+   `css-tier.ts` CSS_TIER_TWO_LAYER_AREA_BUDGET_DEVICE_PX, `css-tier-layers.ts`, `root.ts`;
+   `references/optics.md`, The material at window scale)
+

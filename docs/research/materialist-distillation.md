@@ -327,3 +327,32 @@ the source's overall level holds". The audit's document scroll (park-trails (6))
 Increase Contrast line in a demo record (park-trails (7)) belong to the instrument and the demo, not
 the skill. The four runtime gaps stay in `tech-debt-tracker.md`; the skill states the contract and
 the interim route for each.
+
+## The spatial register (1.1.0)
+
+`spatial memo` means `docs/research/2026-09-27-glass-as-surface-prior-art.md`; the ten laws below
+are Design A of `2026-09-27-materialist-spatial-register.md`, with its reviewed scope corrections.
+Numerical composition bounds are **authoring choices** grounded in the stated runtime or Apple
+precedent, not thresholds measured on Apple's windows. The earlier tables describe the instrument
+register wherever the second register now supplies a different composition.
+
+| Law | Source | Grounding |
+|---|---|---|
+| Choose instrument when the content is the world; spatial when the surfaces are the interface and the world is their environment | spatial memo §§1, 2.1–2.2, 8.10 | HIG Materials separates Liquid Glass controls from visionOS glass windows; the choosing step and instrument default are authoring choices, not a platform-detection rule |
+| Design and grade the environment for the drawn body and every text line; keep source average, tone input and surface level apart | spatial memo §§2.1, 6.1, 8.1–8.2; `vibrancy.ts`, `vitrea.md` §2 | visionOS limits background information; NN/g identifies locally variable contrast; vitrea's dead band is a surface-level consequence of its ink, not a raw-backdrop range; a texture group's active tone is source-wide unless overridden truthfully |
+| One to three windows/modules, content-sized, span ≥96, one thickness 8–14, fixed concentric window corner and environment visible around each | spatial memo §§2.7, 8.4; `material.ts` size law; React morph defaults | Apple prefers one smaller window and minimised empty areas; count ceiling and thickness range are authoring choices, 96 is the shipped law's saturation point, not a measured text minimum; ornament labels are judged by contrast |
+| Primary/secondary reading ink on children, medium body/bold titles, per-line contrast; window content distinct from bright glance content | spatial memo §§2.2, 2.4–2.5, 3, 5.3, 8.3–8.6 | semantic vibrancy, heavier weights/tracking and scale testing; widgets' bright foreground; tertiary/quaternary only for rules and decoration here; 11 CSS px is the skill's web floor, not HIG Widgets' literal 11 points; dedicated prose window is an authoring choice |
+| Dark separating/input fills, light interactive/selected fills, no light-on-light or nested hosts; ornaments outside texture windows | spatial memo §§2.3, 2.7, 8.5; `layer-model.ts`, `group.tsx` | materials with roles and attached ornaments; CSS child fills translate those roles without nested material; texture groups sample the source, not base-plane glass, while DOM overlays can sample the composite |
+| Untinted windows/modules, colour in the environment and imagery, accents in bold text/whole buttons/fills, one tinted ornament control | spatial memo §§2.2, 2.6, 5.3, 8.7 | HIG Color asks for sparing, bold/large colour; Red Bull TV preserves identity through imagery; untinted windows and one-control budget are the skill's composition choice, not a prohibition on coloured media |
+| Material shadow is the only elevation; no same-plane window overlap; transient sheets morph from controls | spatial memo §§2.1, 2.6; instrument memo §7; runtime overlap check | shadows establish scale/position, windows are not emissive lamps; σ extrapolates at window span but amplitude holds the span-160 anchor |
+| Child scroller carries inner clip and scroll edges, host and ornament stay still | spatial memo §2.7; instrument memo HIG Scroll views; backdrop-root contract | ornaments remain attached through scrolling; the web window-edge mask is an authoring translation, not a second glass layer |
+| Regular reading surfaces; clear under the three media conditions with page-painted dimming; never mixed | spatial memo §§4.1, 8.8; `core/src/material.ts`, both renderer source trees | HIG dark 35% differs from API black 30%; resolved dimming and constrained adaptation have no renderer consumer; clear constants and dimming remain uncalibrated |
+| Material yields to modality/accessibility; record actual CSS body, not an assumed collapse | spatial memo §§2.8, 4.2–4.3, 8.9; `css-tier.ts`, `css-tier-layers.ts`, `root.ts` | Apple darkens passthrough and modal tasks, permits opaque accessibility; CSS budget sums present-host area × dpr² against 400,000, both body forms are designed states |
+| No added motion: materialise/morph windows, press ornaments, no idle animation | spatial memo §2.7; instrument memo §7 | attached ornaments and the existing response-only motion discipline; a live environment is content changing |
+| Dynamic Island and glass clock are boundaries, not permission for thin reading surfaces | spatial memo §§5.2, 5.4, 8.10 | the Island is explicitly opaque; numerals are display type, not a paragraph precedent |
+| Window-scale composition is Apple-shaped, not measured visionOS fidelity | spatial memo §§1, 2.1, 3; `scenes.json` rrect-lg; `material.ts` scatter fit | bed ends at span 160; scatter top 256 was fitted with the largest scene held out; no visionOS capture or fitted material exists here |
+
+The spatial rulebook carries seventeen instrument rules verbatim, adapts r15 and r22 because their
+old scope forbids inner-window scroll edges and modal dimming, and maps the five replaced rules
+before the numbered list. Its inherited r5's “35% black” is retained for comparability but its
+citation points to §4.1's precise attribution; the runtime skill uses dark 35% / black 30%.
