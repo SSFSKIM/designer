@@ -1,0 +1,98 @@
+{
+  "schema": "w41-stroke-synthetic-resource-1",
+  "nativePayloadReads": 0,
+  "syntheticCells": 504,
+  "pixelsPerCell": 4676,
+  "totalPixels": 2356704,
+  "setupSeconds": 23.89028504199814,
+  "peakRSSBytes": 959332352,
+  "python": "3.12.3 (v3.12.3:f6650f9ad7, Apr  9 2024, 08:18:47) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "numpy": "2.5.3",
+  "scipy": "1.18.1",
+  "naiveAllCellArraysBytes": 53695143936,
+  "largestRawJacobianBytes": 2488679424,
+  "rows": [
+    {
+      "family": "M0",
+      "cssWidth": false,
+      "curvature": false,
+      "fullForwardColdSeconds": 0.10358083399478346,
+      "materialPerturbationSeconds": 0.04703869430037836,
+      "worst3000ForwardSecondsAtThisCost": 310.7425019843504,
+      "optimizerFiniteDifferencesAndConstraintsNotIncluded": true
+    },
+    {
+      "family": "M0",
+      "cssWidth": true,
+      "curvature": false,
+      "fullForwardColdSeconds": 0.0960052500013262,
+      "materialPerturbationSeconds": 0.04287725000176579,
+      "worst3000ForwardSecondsAtThisCost": 288.0157500039786,
+      "optimizerFiniteDifferencesAndConstraintsNotIncluded": true
+    },
+    {
+      "family": "M0",
+      "cssWidth": false,
+      "curvature": true,
+      "fullForwardColdSeconds": 0.12298941693734378,
+      "materialPerturbationSeconds": 0.04023630532901734,
+      "worst3000ForwardSecondsAtThisCost": 368.96825081203133,
+      "optimizerFiniteDifferencesAndConstraintsNotIncluded": true
+    },
+    {
+      "family": "M1",
+      "cssWidth": false,
+      "curvature": false,
+      "fullForwardColdSeconds": 0.10585899988655001,
+      "materialPerturbationSeconds": 0.04679530567955226,
+      "worst3000ForwardSecondsAtThisCost": 317.57699965965,
+      "optimizerFiniteDifferencesAndConstraintsNotIncluded": true
+    },
+    {
+      "family": "M1",
+      "cssWidth": true,
+      "curvature": false,
+      "fullForwardColdSeconds": 0.1202052499866113,
+      "materialPerturbationSeconds": 0.04630541669515272,
+      "worst3000ForwardSecondsAtThisCost": 360.6157499598339,
+      "optimizerFiniteDifferencesAndConstraintsNotIncluded": true
+    },
+    {
+      "family": "M1",
+      "cssWidth": false,
+      "curvature": true,
+      "fullForwardColdSeconds": 0.09982020896859467,
+      "materialPerturbationSeconds": 0.04708793064734588,
+      "worst3000ForwardSecondsAtThisCost": 299.460626905784,
+      "optimizerFiniteDifferencesAndConstraintsNotIncluded": true
+    },
+    {
+      "family": "M2",
+      "cssWidth": false,
+      "curvature": false,
+      "fullForwardColdSeconds": 0.11099374992772937,
+      "materialPerturbationSeconds": 0.05503004168470701,
+      "worst3000ForwardSecondsAtThisCost": 332.9812497831881,
+      "optimizerFiniteDifferencesAndConstraintsNotIncluded": true
+    },
+    {
+      "family": "M2",
+      "cssWidth": true,
+      "curvature": false,
+      "fullForwardColdSeconds": 0.1288597920211032,
+      "materialPerturbationSeconds": 0.056162111344747245,
+      "worst3000ForwardSecondsAtThisCost": 386.5793760633096,
+      "optimizerFiniteDifferencesAndConstraintsNotIncluded": true
+    },
+    {
+      "family": "M2",
+      "cssWidth": false,
+      "curvature": true,
+      "fullForwardColdSeconds": 0.11167091701645404,
+      "materialPerturbationSeconds": 0.08584943068368982,
+      "worst3000ForwardSecondsAtThisCost": 335.0127510493621,
+      "optimizerFiniteDifferencesAndConstraintsNotIncluded": true
+    }
+  ],
+  "qualification": "Repeated 2x circular uniform fixture. No native payloads, no fitting; continuous-path construction, gradients, SLSQP constraints, rank SVD and optimizer evaluation counts remain additional costs. Full declared budgets must not be reduced to meet this estimate."
+}
