@@ -156,3 +156,22 @@ there is no surviving body law, not a failed H4 fit. If only edge survives, the
 held-out colours' body outcome is 'no candidate', not UNMEASURED or passed;
 their edge shells and the three geometry pairs remain the receipt's referee.
 No exposure has occurred. Step4 continues after the body numerical correction.
+
+Parent rulings — 2026-09-27 (verbatim, before their dependent corrections/fits)
+
+Conditioner ruling:
+"In R_c = a + g·Ybody + (c + h·Ybody)·(body_c − Ybody), \"body\" is the cell's own native seven-run deep median per channel from the archive, exactly the deep statistic the declaration already defines. Reasoning to record verbatim in the README under a \"Parent rulings\" heading and in §5.186: any surviving body law would have predicted that deep within max(1 code, bar) on every calibration and validation cell, so the measured deep is what a survivor would have supplied to within one code; it has zero free parameters; it is a measured input, not a free per-cell edge colour, which is what the declaration's prohibition guards against. Every other term of the edge declaration (both lobes, the width grid, the exponents, the hats, the 8×8 quadrature and 16×16 sensitivity, populations, bounds, calibration-only fit, validation as transfer, the survival rule at max(1, bar)) is unchanged. State explicitly that any surviving edge law is an EFFECTIVE law identified on native pixels and that its transfer to vitrea's rendered body is tabled in step 9, not assumed."
+
+H2prime inputs/minimum ruling:
+"For your record: your fix worker asked me directly about H2′'s inputs, and I ruled that the resolved shipped materials (a committed, digest-pinned `instrument/resolved-materials.json` derived from the four profile documents and DEFAULT_MATERIAL_PROFILE) are an admitted second input for H2′, with the body artifact recording that file's SHA-256 so the replay verifies both, and that H2′ must be fitted to a certified minimum like the other families rather than relabelled from uncertified local candidates. Both rulings (this one and the conditioner) go verbatim under a \"Parent rulings\" heading in the README. Continue as instructed; hand back when the whole gate is done."
+
+The original body artifact predates the additive material provenance sidecar;
+H2prime's corrected replay has two committed inputs, the body artifact and the
+resolved materials (with its sidecar separately bound and verified).
+instrument/material-provenance.ts re-resolves all four endpoints through the
+runtime and verifies every document's recorded material digest under rule2.
+It records their file/content hashes, the identity-rule version and renderer
+source revision8169209d, whose named source files still match byte-for-byte.
+No previous artifact is rewritten. The numerical correction records its Python
+interpreter and package versions and refuses replay under different versions;
+SciPy is a fitting-tool dependency, never a required dependency of pnpm -r test.
