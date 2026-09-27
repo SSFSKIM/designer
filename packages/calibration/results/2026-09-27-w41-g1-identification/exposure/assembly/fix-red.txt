@@ -1,0 +1,391 @@
+test_actual_runner_assessments_and_membership_survive_reduction (test_assemble.AssemblyTests.test_actual_runner_assessments_and_membership_survive_reduction) ... ok
+test_admission_equivalence_requires_original_unclaimed_wrapper (test_assemble.AssemblyTests.test_admission_equivalence_requires_original_unclaimed_wrapper) ... ok
+test_exact_maps_validate_hashes_identity_and_membership (test_assemble.AssemblyTests.test_exact_maps_validate_hashes_identity_and_membership) ... ok
+test_history_accepts_only_guard_transition_and_binds_complete_frontier (test_assemble.AssemblyTests.test_history_accepts_only_guard_transition_and_binds_complete_frontier) ... ERROR
+test_history_rejects_helper_before_import_and_binds_actual_bridge_test (test_assemble.AssemblyTests.test_history_rejects_helper_before_import_and_binds_actual_bridge_test) ... 
+  test_history_rejects_helper_before_import_and_binds_actual_bridge_test (test_assemble.AssemblyTests.test_history_rejects_helper_before_import_and_binds_actual_bridge_test) (filename='bridge.py') ... ERROR
+  test_history_rejects_helper_before_import_and_binds_actual_bridge_test (test_assemble.AssemblyTests.test_history_rejects_helper_before_import_and_binds_actual_bridge_test) (filename='test_bridge.py') ... ERROR
+test_history_rejects_modified_retained_evidence_even_if_currently_pinned (test_assemble.AssemblyTests.test_history_rejects_modified_retained_evidence_even_if_currently_pinned) ... 
+  test_history_rejects_modified_retained_evidence_even_if_currently_pinned (test_assemble.AssemblyTests.test_history_rejects_modified_retained_evidence_even_if_currently_pinned) (filename='predictions.json') ... ERROR
+  test_history_rejects_modified_retained_evidence_even_if_currently_pinned (test_assemble.AssemblyTests.test_history_rejects_modified_retained_evidence_even_if_currently_pinned) (filename='parameters.json') ... ERROR
+  test_history_rejects_modified_retained_evidence_even_if_currently_pinned (test_assemble.AssemblyTests.test_history_rejects_modified_retained_evidence_even_if_currently_pinned) (filename='raw.json.gz') ... ERROR
+  test_history_rejects_modified_retained_evidence_even_if_currently_pinned (test_assemble.AssemblyTests.test_history_rejects_modified_retained_evidence_even_if_currently_pinned) (filename='admission.json.gz') ... ERROR
+  test_history_rejects_modified_retained_evidence_even_if_currently_pinned (test_assemble.AssemblyTests.test_history_rejects_modified_retained_evidence_even_if_currently_pinned) (filename='provenance.json') ... ERROR
+  test_history_rejects_modified_retained_evidence_even_if_currently_pinned (test_assemble.AssemblyTests.test_history_rejects_modified_retained_evidence_even_if_currently_pinned) (filename='numerical-summary.json') ... ERROR
+  test_history_rejects_modified_retained_evidence_even_if_currently_pinned (test_assemble.AssemblyTests.test_history_rejects_modified_retained_evidence_even_if_currently_pinned) (filename='rendered-summary.json') ... ERROR
+  test_history_rejects_modified_retained_evidence_even_if_currently_pinned (test_assemble.AssemblyTests.test_history_rejects_modified_retained_evidence_even_if_currently_pinned) (filename='capture/frozen.json') ... ERROR
+  test_history_rejects_modified_retained_evidence_even_if_currently_pinned (test_assemble.AssemblyTests.test_history_rejects_modified_retained_evidence_even_if_currently_pinned) (filename='capture/seal.json') ... ERROR
+  test_history_rejects_modified_retained_evidence_even_if_currently_pinned (test_assemble.AssemblyTests.test_history_rejects_modified_retained_evidence_even_if_currently_pinned) (filename='capture/pixels.png') ... ERROR
+test_history_revalidates_document_sources_and_exact_runner_allowance (test_assemble.AssemblyTests.test_history_revalidates_document_sources_and_exact_runner_allowance) ... 
+  test_history_revalidates_document_sources_and_exact_runner_allowance (test_assemble.AssemblyTests.test_history_revalidates_document_sources_and_exact_runner_allowance) (change='source') ... ERROR
+  test_history_revalidates_document_sources_and_exact_runner_allowance (test_assemble.AssemblyTests.test_history_revalidates_document_sources_and_exact_runner_allowance) (change='runner') ... ERROR
+  test_history_revalidates_document_sources_and_exact_runner_allowance (test_assemble.AssemblyTests.test_history_revalidates_document_sources_and_exact_runner_allowance) (change='old-pin') ... ERROR
+  test_history_revalidates_document_sources_and_exact_runner_allowance (test_assemble.AssemblyTests.test_history_revalidates_document_sources_and_exact_runner_allowance) (change='new-pin') ... ERROR
+  test_history_revalidates_document_sources_and_exact_runner_allowance (test_assemble.AssemblyTests.test_history_revalidates_document_sources_and_exact_runner_allowance) (change='missing-helper') ... ERROR
+test_invalid_early_value_stops_before_consuming_stream (test_assemble.AssemblyTests.test_invalid_early_value_stops_before_consuming_stream) ... 
+  test_invalid_early_value_stops_before_consuming_stream (test_assemble.AssemblyTests.test_invalid_early_value_stops_before_consuming_stream) (chunk=1) ... ERROR
+  test_invalid_early_value_stops_before_consuming_stream (test_assemble.AssemblyTests.test_invalid_early_value_stops_before_consuming_stream) (chunk=17) ... ERROR
+  test_invalid_early_value_stops_before_consuming_stream (test_assemble.AssemblyTests.test_invalid_early_value_stops_before_consuming_stream) (chunk=8192) ... ERROR
+test_reducer_preserves_deep_repeats_rails_and_unclaimed_status (test_assemble.AssemblyTests.test_reducer_preserves_deep_repeats_rails_and_unclaimed_status) ... ok
+test_short_repeat_list_cannot_inherit_survival (test_assemble.AssemblyTests.test_short_repeat_list_cannot_inherit_survival) ... ok
+test_stream_decodes_complete_cells_and_rejects_duplicates_truncation_trailing (test_assemble.AssemblyTests.test_stream_decodes_complete_cells_and_rejects_duplicates_truncation_trailing) ... ok
+test_stream_scalar_tokens_may_cross_chunk_boundary (test_assemble.AssemblyTests.test_stream_scalar_tokens_may_cross_chunk_boundary) ... ok
+test_transition_reading_cannot_be_resealed_to_bless_changed_history (test_assemble.AssemblyTests.test_transition_reading_cannot_be_resealed_to_bless_changed_history) ... ERROR
+test_value_limit_is_characters_inclusive_and_not_whole_document (test_assemble.AssemblyTests.test_value_limit_is_characters_inclusive_and_not_whole_document) ... 
+  test_value_limit_is_characters_inclusive_and_not_whole_document (test_assemble.AssemblyTests.test_value_limit_is_characters_inclusive_and_not_whole_document) (text=' { "x" : "éééé" , "y" : "界界界界" } ', chunk=1) ... ERROR
+  test_value_limit_is_characters_inclusive_and_not_whole_document (test_assemble.AssemblyTests.test_value_limit_is_characters_inclusive_and_not_whole_document) (text=' { "x" : "éééé" , "y" : "界界界界" } ', chunk=6) ... ERROR
+  test_value_limit_is_characters_inclusive_and_not_whole_document (test_assemble.AssemblyTests.test_value_limit_is_characters_inclusive_and_not_whole_document) (text=' { "x" : "éééé" , "y" : "界界界界" } ', chunk=100) ... ERROR
+  test_value_limit_is_characters_inclusive_and_not_whole_document (test_assemble.AssemblyTests.test_value_limit_is_characters_inclusive_and_not_whole_document) (text='{"x":123456,"y":1.2e-3}', chunk=1) ... ERROR
+  test_value_limit_is_characters_inclusive_and_not_whole_document (test_assemble.AssemblyTests.test_value_limit_is_characters_inclusive_and_not_whole_document) (text='{"x":123456,"y":1.2e-3}', chunk=6) ... ERROR
+  test_value_limit_is_characters_inclusive_and_not_whole_document (test_assemble.AssemblyTests.test_value_limit_is_characters_inclusive_and_not_whole_document) (text='{"x":123456,"y":1.2e-3}', chunk=100) ... ERROR
+  test_value_limit_is_characters_inclusive_and_not_whole_document (test_assemble.AssemblyTests.test_value_limit_is_characters_inclusive_and_not_whole_document) (text='{"x":"ééééé"}') ... ERROR
+  test_value_limit_is_characters_inclusive_and_not_whole_document (test_assemble.AssemblyTests.test_value_limit_is_characters_inclusive_and_not_whole_document) (text='{"x":1234567}') ... ERROR
+  test_value_limit_is_characters_inclusive_and_not_whole_document (test_assemble.AssemblyTests.test_value_limit_is_characters_inclusive_and_not_whole_document) (text='{"x":[1,  2]}') ... ERROR
+  test_value_limit_is_characters_inclusive_and_not_whole_document (test_assemble.AssemblyTests.test_value_limit_is_characters_inclusive_and_not_whole_document) (text='{"toolong":0}') ... ERROR
+
+======================================================================
+ERROR: test_history_accepts_only_guard_transition_and_binds_complete_frontier (test_assemble.AssemblyTests.test_history_accepts_only_guard_transition_and_binds_complete_frontier)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 98, in test_history_accepts_only_guard_transition_and_binds_complete_frontier
+    bridge,paths=self.history(root,reading)
+                 ~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 93, in history
+    return a.historical_inputs(root,reading,root/'bridge.py',root/'runner.py',root/'capture')
+           ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'body_assembly' has no attribute 'historical_inputs'
+
+======================================================================
+ERROR: test_history_rejects_helper_before_import_and_binds_actual_bridge_test (test_assemble.AssemblyTests.test_history_rejects_helper_before_import_and_binds_actual_bridge_test) (filename='bridge.py')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 126, in test_history_rejects_helper_before_import_and_binds_actual_bridge_test
+    self.history(root,reading)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 93, in history
+    return a.historical_inputs(root,reading,root/'bridge.py',root/'runner.py',root/'capture')
+           ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'body_assembly' has no attribute 'historical_inputs'
+
+======================================================================
+ERROR: test_history_rejects_helper_before_import_and_binds_actual_bridge_test (test_assemble.AssemblyTests.test_history_rejects_helper_before_import_and_binds_actual_bridge_test) (filename='test_bridge.py')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 126, in test_history_rejects_helper_before_import_and_binds_actual_bridge_test
+    self.history(root,reading)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 93, in history
+    return a.historical_inputs(root,reading,root/'bridge.py',root/'runner.py',root/'capture')
+           ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'body_assembly' has no attribute 'historical_inputs'
+
+======================================================================
+ERROR: test_history_rejects_modified_retained_evidence_even_if_currently_pinned (test_assemble.AssemblyTests.test_history_rejects_modified_retained_evidence_even_if_currently_pinned) (filename='predictions.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 118, in test_history_rejects_modified_retained_evidence_even_if_currently_pinned
+    with self.assertRaises(ValueError):self.history(root,reading)
+                                       ~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 93, in history
+    return a.historical_inputs(root,reading,root/'bridge.py',root/'runner.py',root/'capture')
+           ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'body_assembly' has no attribute 'historical_inputs'
+
+======================================================================
+ERROR: test_history_rejects_modified_retained_evidence_even_if_currently_pinned (test_assemble.AssemblyTests.test_history_rejects_modified_retained_evidence_even_if_currently_pinned) (filename='parameters.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 118, in test_history_rejects_modified_retained_evidence_even_if_currently_pinned
+    with self.assertRaises(ValueError):self.history(root,reading)
+                                       ~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 93, in history
+    return a.historical_inputs(root,reading,root/'bridge.py',root/'runner.py',root/'capture')
+           ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'body_assembly' has no attribute 'historical_inputs'
+
+======================================================================
+ERROR: test_history_rejects_modified_retained_evidence_even_if_currently_pinned (test_assemble.AssemblyTests.test_history_rejects_modified_retained_evidence_even_if_currently_pinned) (filename='raw.json.gz')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 118, in test_history_rejects_modified_retained_evidence_even_if_currently_pinned
+    with self.assertRaises(ValueError):self.history(root,reading)
+                                       ~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 93, in history
+    return a.historical_inputs(root,reading,root/'bridge.py',root/'runner.py',root/'capture')
+           ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'body_assembly' has no attribute 'historical_inputs'
+
+======================================================================
+ERROR: test_history_rejects_modified_retained_evidence_even_if_currently_pinned (test_assemble.AssemblyTests.test_history_rejects_modified_retained_evidence_even_if_currently_pinned) (filename='admission.json.gz')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 118, in test_history_rejects_modified_retained_evidence_even_if_currently_pinned
+    with self.assertRaises(ValueError):self.history(root,reading)
+                                       ~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 93, in history
+    return a.historical_inputs(root,reading,root/'bridge.py',root/'runner.py',root/'capture')
+           ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'body_assembly' has no attribute 'historical_inputs'
+
+======================================================================
+ERROR: test_history_rejects_modified_retained_evidence_even_if_currently_pinned (test_assemble.AssemblyTests.test_history_rejects_modified_retained_evidence_even_if_currently_pinned) (filename='provenance.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 118, in test_history_rejects_modified_retained_evidence_even_if_currently_pinned
+    with self.assertRaises(ValueError):self.history(root,reading)
+                                       ~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 93, in history
+    return a.historical_inputs(root,reading,root/'bridge.py',root/'runner.py',root/'capture')
+           ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'body_assembly' has no attribute 'historical_inputs'
+
+======================================================================
+ERROR: test_history_rejects_modified_retained_evidence_even_if_currently_pinned (test_assemble.AssemblyTests.test_history_rejects_modified_retained_evidence_even_if_currently_pinned) (filename='numerical-summary.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 118, in test_history_rejects_modified_retained_evidence_even_if_currently_pinned
+    with self.assertRaises(ValueError):self.history(root,reading)
+                                       ~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 93, in history
+    return a.historical_inputs(root,reading,root/'bridge.py',root/'runner.py',root/'capture')
+           ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'body_assembly' has no attribute 'historical_inputs'
+
+======================================================================
+ERROR: test_history_rejects_modified_retained_evidence_even_if_currently_pinned (test_assemble.AssemblyTests.test_history_rejects_modified_retained_evidence_even_if_currently_pinned) (filename='rendered-summary.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 118, in test_history_rejects_modified_retained_evidence_even_if_currently_pinned
+    with self.assertRaises(ValueError):self.history(root,reading)
+                                       ~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 93, in history
+    return a.historical_inputs(root,reading,root/'bridge.py',root/'runner.py',root/'capture')
+           ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'body_assembly' has no attribute 'historical_inputs'
+
+======================================================================
+ERROR: test_history_rejects_modified_retained_evidence_even_if_currently_pinned (test_assemble.AssemblyTests.test_history_rejects_modified_retained_evidence_even_if_currently_pinned) (filename='capture/frozen.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 118, in test_history_rejects_modified_retained_evidence_even_if_currently_pinned
+    with self.assertRaises(ValueError):self.history(root,reading)
+                                       ~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 93, in history
+    return a.historical_inputs(root,reading,root/'bridge.py',root/'runner.py',root/'capture')
+           ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'body_assembly' has no attribute 'historical_inputs'
+
+======================================================================
+ERROR: test_history_rejects_modified_retained_evidence_even_if_currently_pinned (test_assemble.AssemblyTests.test_history_rejects_modified_retained_evidence_even_if_currently_pinned) (filename='capture/seal.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 118, in test_history_rejects_modified_retained_evidence_even_if_currently_pinned
+    with self.assertRaises(ValueError):self.history(root,reading)
+                                       ~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 93, in history
+    return a.historical_inputs(root,reading,root/'bridge.py',root/'runner.py',root/'capture')
+           ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'body_assembly' has no attribute 'historical_inputs'
+
+======================================================================
+ERROR: test_history_rejects_modified_retained_evidence_even_if_currently_pinned (test_assemble.AssemblyTests.test_history_rejects_modified_retained_evidence_even_if_currently_pinned) (filename='capture/pixels.png')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 118, in test_history_rejects_modified_retained_evidence_even_if_currently_pinned
+    with self.assertRaises(ValueError):self.history(root,reading)
+                                       ~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 93, in history
+    return a.historical_inputs(root,reading,root/'bridge.py',root/'runner.py',root/'capture')
+           ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'body_assembly' has no attribute 'historical_inputs'
+
+======================================================================
+ERROR: test_history_revalidates_document_sources_and_exact_runner_allowance (test_assemble.AssemblyTests.test_history_revalidates_document_sources_and_exact_runner_allowance) (change='source')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 137, in test_history_revalidates_document_sources_and_exact_runner_allowance
+    with self.assertRaises(ValueError):self.history(root,reading)
+                                       ~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 93, in history
+    return a.historical_inputs(root,reading,root/'bridge.py',root/'runner.py',root/'capture')
+           ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'body_assembly' has no attribute 'historical_inputs'
+
+======================================================================
+ERROR: test_history_revalidates_document_sources_and_exact_runner_allowance (test_assemble.AssemblyTests.test_history_revalidates_document_sources_and_exact_runner_allowance) (change='runner')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 137, in test_history_revalidates_document_sources_and_exact_runner_allowance
+    with self.assertRaises(ValueError):self.history(root,reading)
+                                       ~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 93, in history
+    return a.historical_inputs(root,reading,root/'bridge.py',root/'runner.py',root/'capture')
+           ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'body_assembly' has no attribute 'historical_inputs'
+
+======================================================================
+ERROR: test_history_revalidates_document_sources_and_exact_runner_allowance (test_assemble.AssemblyTests.test_history_revalidates_document_sources_and_exact_runner_allowance) (change='old-pin')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 137, in test_history_revalidates_document_sources_and_exact_runner_allowance
+    with self.assertRaises(ValueError):self.history(root,reading)
+                                       ~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 93, in history
+    return a.historical_inputs(root,reading,root/'bridge.py',root/'runner.py',root/'capture')
+           ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'body_assembly' has no attribute 'historical_inputs'
+
+======================================================================
+ERROR: test_history_revalidates_document_sources_and_exact_runner_allowance (test_assemble.AssemblyTests.test_history_revalidates_document_sources_and_exact_runner_allowance) (change='new-pin')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 137, in test_history_revalidates_document_sources_and_exact_runner_allowance
+    with self.assertRaises(ValueError):self.history(root,reading)
+                                       ~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 93, in history
+    return a.historical_inputs(root,reading,root/'bridge.py',root/'runner.py',root/'capture')
+           ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'body_assembly' has no attribute 'historical_inputs'
+
+======================================================================
+ERROR: test_history_revalidates_document_sources_and_exact_runner_allowance (test_assemble.AssemblyTests.test_history_revalidates_document_sources_and_exact_runner_allowance) (change='missing-helper')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 137, in test_history_revalidates_document_sources_and_exact_runner_allowance
+    with self.assertRaises(ValueError):self.history(root,reading)
+                                       ~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 93, in history
+    return a.historical_inputs(root,reading,root/'bridge.py',root/'runner.py',root/'capture')
+           ^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'body_assembly' has no attribute 'historical_inputs'
+
+======================================================================
+ERROR: test_invalid_early_value_stops_before_consuming_stream (test_assemble.AssemblyTests.test_invalid_early_value_stops_before_consuming_stream) (chunk=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 43, in test_invalid_early_value_stops_before_consuming_stream
+    list(a.entries('synthetic.json',chunk_size=chunk,max_value_chars=64))
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: entries() got an unexpected keyword argument 'max_value_chars'
+
+======================================================================
+ERROR: test_invalid_early_value_stops_before_consuming_stream (test_assemble.AssemblyTests.test_invalid_early_value_stops_before_consuming_stream) (chunk=17)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 43, in test_invalid_early_value_stops_before_consuming_stream
+    list(a.entries('synthetic.json',chunk_size=chunk,max_value_chars=64))
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: entries() got an unexpected keyword argument 'max_value_chars'
+
+======================================================================
+ERROR: test_invalid_early_value_stops_before_consuming_stream (test_assemble.AssemblyTests.test_invalid_early_value_stops_before_consuming_stream) (chunk=8192)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 43, in test_invalid_early_value_stops_before_consuming_stream
+    list(a.entries('synthetic.json',chunk_size=chunk,max_value_chars=64))
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: entries() got an unexpected keyword argument 'max_value_chars'
+
+======================================================================
+ERROR: test_transition_reading_cannot_be_resealed_to_bless_changed_history (test_assemble.AssemblyTests.test_transition_reading_cannot_be_resealed_to_bless_changed_history)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 143, in test_transition_reading_cannot_be_resealed_to_bless_changed_history
+    self.assertEqual(a.load_transition(path),json.loads(original.read_text()))
+                     ^^^^^^^^^^^^^^^^^
+AttributeError: module 'body_assembly' has no attribute 'load_transition'
+
+======================================================================
+ERROR: test_value_limit_is_characters_inclusive_and_not_whole_document (test_assemble.AssemblyTests.test_value_limit_is_characters_inclusive_and_not_whole_document) (text=' { "x" : "éééé" , "y" : "界界界界" } ', chunk=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 56, in test_value_limit_is_characters_inclusive_and_not_whole_document
+    self.assertEqual(dict(a.entries(path,chunk_size=chunk,max_value_chars=6)),expected)
+                          ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: entries() got an unexpected keyword argument 'max_value_chars'
+
+======================================================================
+ERROR: test_value_limit_is_characters_inclusive_and_not_whole_document (test_assemble.AssemblyTests.test_value_limit_is_characters_inclusive_and_not_whole_document) (text=' { "x" : "éééé" , "y" : "界界界界" } ', chunk=6)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 56, in test_value_limit_is_characters_inclusive_and_not_whole_document
+    self.assertEqual(dict(a.entries(path,chunk_size=chunk,max_value_chars=6)),expected)
+                          ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: entries() got an unexpected keyword argument 'max_value_chars'
+
+======================================================================
+ERROR: test_value_limit_is_characters_inclusive_and_not_whole_document (test_assemble.AssemblyTests.test_value_limit_is_characters_inclusive_and_not_whole_document) (text=' { "x" : "éééé" , "y" : "界界界界" } ', chunk=100)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 56, in test_value_limit_is_characters_inclusive_and_not_whole_document
+    self.assertEqual(dict(a.entries(path,chunk_size=chunk,max_value_chars=6)),expected)
+                          ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: entries() got an unexpected keyword argument 'max_value_chars'
+
+======================================================================
+ERROR: test_value_limit_is_characters_inclusive_and_not_whole_document (test_assemble.AssemblyTests.test_value_limit_is_characters_inclusive_and_not_whole_document) (text='{"x":123456,"y":1.2e-3}', chunk=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 56, in test_value_limit_is_characters_inclusive_and_not_whole_document
+    self.assertEqual(dict(a.entries(path,chunk_size=chunk,max_value_chars=6)),expected)
+                          ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: entries() got an unexpected keyword argument 'max_value_chars'
+
+======================================================================
+ERROR: test_value_limit_is_characters_inclusive_and_not_whole_document (test_assemble.AssemblyTests.test_value_limit_is_characters_inclusive_and_not_whole_document) (text='{"x":123456,"y":1.2e-3}', chunk=6)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 56, in test_value_limit_is_characters_inclusive_and_not_whole_document
+    self.assertEqual(dict(a.entries(path,chunk_size=chunk,max_value_chars=6)),expected)
+                          ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: entries() got an unexpected keyword argument 'max_value_chars'
+
+======================================================================
+ERROR: test_value_limit_is_characters_inclusive_and_not_whole_document (test_assemble.AssemblyTests.test_value_limit_is_characters_inclusive_and_not_whole_document) (text='{"x":123456,"y":1.2e-3}', chunk=100)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 56, in test_value_limit_is_characters_inclusive_and_not_whole_document
+    self.assertEqual(dict(a.entries(path,chunk_size=chunk,max_value_chars=6)),expected)
+                          ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: entries() got an unexpected keyword argument 'max_value_chars'
+
+======================================================================
+ERROR: test_value_limit_is_characters_inclusive_and_not_whole_document (test_assemble.AssemblyTests.test_value_limit_is_characters_inclusive_and_not_whole_document) (text='{"x":"ééééé"}')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 61, in test_value_limit_is_characters_inclusive_and_not_whole_document
+    list(a.entries(path,chunk_size=100,max_value_chars=6))
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: entries() got an unexpected keyword argument 'max_value_chars'
+
+======================================================================
+ERROR: test_value_limit_is_characters_inclusive_and_not_whole_document (test_assemble.AssemblyTests.test_value_limit_is_characters_inclusive_and_not_whole_document) (text='{"x":1234567}')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 61, in test_value_limit_is_characters_inclusive_and_not_whole_document
+    list(a.entries(path,chunk_size=100,max_value_chars=6))
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: entries() got an unexpected keyword argument 'max_value_chars'
+
+======================================================================
+ERROR: test_value_limit_is_characters_inclusive_and_not_whole_document (test_assemble.AssemblyTests.test_value_limit_is_characters_inclusive_and_not_whole_document) (text='{"x":[1,  2]}')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 61, in test_value_limit_is_characters_inclusive_and_not_whole_document
+    list(a.entries(path,chunk_size=100,max_value_chars=6))
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: entries() got an unexpected keyword argument 'max_value_chars'
+
+======================================================================
+ERROR: test_value_limit_is_characters_inclusive_and_not_whole_document (test_assemble.AssemblyTests.test_value_limit_is_characters_inclusive_and_not_whole_document) (text='{"toolong":0}')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 61, in test_value_limit_is_characters_inclusive_and_not_whole_document
+    list(a.entries(path,chunk_size=100,max_value_chars=6))
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: entries() got an unexpected keyword argument 'max_value_chars'
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.089s
+
+FAILED (errors=32)

@@ -1,0 +1,27 @@
+test_actual_runner_assessments_and_membership_survive_reduction (test_assemble.AssemblyTests.test_actual_runner_assessments_and_membership_survive_reduction) ... ok
+test_admission_equivalence_requires_original_unclaimed_wrapper (test_assemble.AssemblyTests.test_admission_equivalence_requires_original_unclaimed_wrapper) ... ok
+test_exact_maps_validate_hashes_identity_and_membership (test_assemble.AssemblyTests.test_exact_maps_validate_hashes_identity_and_membership) ... ok
+test_reducer_preserves_deep_repeats_rails_and_unclaimed_status (test_assemble.AssemblyTests.test_reducer_preserves_deep_repeats_rails_and_unclaimed_status) ... ok
+test_short_repeat_list_cannot_inherit_survival (test_assemble.AssemblyTests.test_short_repeat_list_cannot_inherit_survival) ... ok
+test_stream_decodes_complete_cells_and_rejects_duplicates_truncation_trailing (test_assemble.AssemblyTests.test_stream_decodes_complete_cells_and_rejects_duplicates_truncation_trailing) ... ok
+test_stream_scalar_tokens_may_cross_chunk_boundary (test_assemble.AssemblyTests.test_stream_scalar_tokens_may_cross_chunk_boundary) ... ERROR
+
+======================================================================
+ERROR: test_stream_scalar_tokens_may_cross_chunk_boundary (test_assemble.AssemblyTests.test_stream_scalar_tokens_may_cross_chunk_boundary)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/test_assemble.py", line 29, in test_stream_scalar_tokens_may_cross_chunk_boundary
+    self.assertEqual(dict(a.entries(path,chunk_size=3)),{'integer':123456789,'exponent':1.25e-12})
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/assemble.py", line 84, in entries
+    if not first:token(',')
+                 ^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/assemble.py", line 66, in token
+    if not buffer.startswith(expected):raise ValueError('invalid JSON delimiter: '+expected)
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: invalid JSON delimiter: ,
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.051s
+
+FAILED (errors=1)
