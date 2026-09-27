@@ -4,12 +4,28 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
-    <title>vitrea — the gallery</title>
+    <title>The materialist gallery · vitrea</title>
     <meta
       name="description"
-      content="Six Liquid Glass demos built under the materialist skill on vitrea: a music player, a transit control room, a photo culling tool, a film festival programme, a park's trails and a camera launch."
+      content="Six Liquid Glass demos built under the materialist skill on vitrea 0.24.0: a music player, a transit control room, a photo culling tool, a film festival programme, a park's trails and a camera launch."
     />
     <meta name="color-scheme" content="light dark" />
+    <script>
+      /*
+       * The site's tokens switch their dark scheme on one attribute (src/tokens.css), set
+       * by the site's own scheme control. This page has no control and follows the system,
+       * so it mirrors prefers-color-scheme onto that attribute here, in the head, where it
+       * lands before the first paint rather than a frame after the module mounts.
+       */
+      (() => {
+        const query = window.matchMedia("(prefers-color-scheme: dark)");
+        const apply = () => {
+          document.documentElement.dataset.colorScheme = query.matches ? "dark" : "light";
+        };
+        apply();
+        query.addEventListener("change", apply);
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
