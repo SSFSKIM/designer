@@ -1,0 +1,3153 @@
+{
+ "slug": "8-materialist",
+ "url": "http://localhost:5223/",
+ "auditedAt": "2026-09-27T07:31:19.851Z",
+ "viewport": {
+  "width": 1440,
+  "height": 900
+ },
+ "rootFound": true,
+ "readyState": "settled",
+ "adapter": {
+  "available": true,
+  "vendor": "apple",
+  "architecture": "metal-3",
+  "device": "",
+  "description": "",
+  "isFallbackAdapter": false
+ },
+ "api": {
+  "missing": []
+ },
+ "errors": [],
+ "schemes": {
+  "light": {
+   "scheme": "light",
+   "readyState": "settled",
+   "adapter": {
+    "available": true,
+    "vendor": "apple",
+    "architecture": "metal-3",
+    "device": "",
+    "description": "",
+    "isFallbackAdapter": false
+   },
+   "errors": [],
+   "consoleErrors": [],
+   "failedRequests": [],
+   "badResponses": [],
+   "scrolledOnLoad": 0,
+   "docHeight": 900,
+   "words": 1332,
+   "title": "Berghaus Holzmatt · above Lauterbrunnen, Wengen",
+   "placeholder": false,
+   "captureWidth": 1440,
+   "overflowCapture": false,
+   "overflowAtLoad": false,
+   "contrast": {
+    "method": "dom-composite",
+    "checked": 203,
+    "pass": 197,
+    "unknown": 0,
+    "rate": 0.97,
+    "onGlass": 6,
+    "onGlassPass": 0,
+    "fails": [
+     {
+      "text": "Holzmatt",
+      "ratio": 1.27,
+      "size": 21,
+      "onGlass": true
+     },
+     {
+      "text": "Rooms",
+      "ratio": 1.27,
+      "size": 15,
+      "onGlass": true
+     },
+     {
+      "text": "Trails",
+      "ratio": 1.27,
+      "size": 15,
+      "onGlass": true
+     },
+     {
+      "text": "Story",
+      "ratio": 1.27,
+      "size": 15,
+      "onGlass": true
+     },
+     {
+      "text": "Getting here",
+      "ratio": 1.27,
+      "size": 15,
+      "onGlass": true
+     },
+     {
+      "text": "Book a stay",
+      "ratio": 1.27,
+      "size": 15,
+      "onGlass": true
+     }
+    ]
+   },
+   "glassContrast": {
+    "method": "rendered-pixels",
+    "pairs": 18,
+    "pass": 18,
+    "minRatio": 6.36,
+    "byPhase": {
+     "fv": {
+      "pairs": 6,
+      "pass": 6
+     },
+     "menu": {
+      "pairs": 12,
+      "pass": 12
+     }
+    },
+    "fails": [],
+    "sample": [
+     {
+      "phase": "fv",
+      "text": "Holzmatt",
+      "nodeId": "nav",
+      "size": 21,
+      "bold": false,
+      "large": false,
+      "ratio": 10.38,
+      "worstRatio": 10.21,
+      "pass": true,
+      "ink": [
+       31,
+       31,
+       35
+      ],
+      "ground": [
+       202,
+       204,
+       230
+      ],
+      "pixels": 1848,
+      "groundPixels": 993
+     },
+     {
+      "phase": "fv",
+      "text": "Rooms",
+      "nodeId": "nav",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 11.51,
+      "worstRatio": 11.29,
+      "pass": true,
+      "ink": [
+       33,
+       33,
+       36
+      ],
+      "ground": [
+       218,
+       217,
+       234
+      ],
+      "pixels": 1000,
+      "groundPixels": 521
+     },
+     {
+      "phase": "fv",
+      "text": "Trails",
+      "nodeId": "nav",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 11.41,
+      "worstRatio": 11.28,
+      "pass": true,
+      "ink": [
+       33,
+       33,
+       36
+      ],
+      "ground": [
+       216,
+       216,
+       234
+      ],
+      "pixels": 780,
+      "groundPixels": 407
+     },
+     {
+      "phase": "fv",
+      "text": "Story",
+      "nodeId": "nav",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 11.98,
+      "worstRatio": 11.42,
+      "pass": true,
+      "ink": [
+       34,
+       34,
+       36
+      ],
+      "ground": [
+       225,
+       222,
+       235
+      ],
+      "pixels": 800,
+      "groundPixels": 424
+     },
+     {
+      "phase": "fv",
+      "text": "Getting here",
+      "nodeId": "nav",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 11.53,
+      "worstRatio": 10.98,
+      "pass": true,
+      "ink": [
+       34,
+       33,
+       36
+      ],
+      "ground": [
+       219,
+       217,
+       233
+      ],
+      "pixels": 1840,
+      "groundPixels": 1002
+     },
+     {
+      "phase": "fv",
+      "text": "Book a stay",
+      "nodeId": "book",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 6.71,
+      "worstRatio": 6.6,
+      "pass": true,
+      "ink": [
+       24,
+       24,
+       27
+      ],
+      "ground": [
+       155,
+       159,
+       174
+      ],
+      "pixels": 1640,
+      "groundPixels": 897
+     },
+     {
+      "phase": "menu",
+      "text": "Holzmatt",
+      "nodeId": "nav",
+      "size": 21,
+      "bold": false,
+      "large": false,
+      "ratio": 10.38,
+      "worstRatio": 10.21,
+      "pass": true,
+      "ink": [
+       31,
+       31,
+       35
+      ],
+      "ground": [
+       202,
+       204,
+       230
+      ],
+      "pixels": 1848,
+      "groundPixels": 993
+     },
+     {
+      "phase": "menu",
+      "text": "Rooms",
+      "nodeId": "nav",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 11.51,
+      "worstRatio": 11.29,
+      "pass": true,
+      "ink": [
+       33,
+       33,
+       36
+      ],
+      "ground": [
+       218,
+       217,
+       234
+      ],
+      "pixels": 1000,
+      "groundPixels": 521
+     },
+     {
+      "phase": "menu",
+      "text": "Trails",
+      "nodeId": "nav",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 11.41,
+      "worstRatio": 11.28,
+      "pass": true,
+      "ink": [
+       33,
+       33,
+       36
+      ],
+      "ground": [
+       216,
+       216,
+       234
+      ],
+      "pixels": 780,
+      "groundPixels": 407
+     },
+     {
+      "phase": "menu",
+      "text": "Story",
+      "nodeId": "nav",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 11.98,
+      "worstRatio": 11.42,
+      "pass": true,
+      "ink": [
+       34,
+       34,
+       36
+      ],
+      "ground": [
+       225,
+       222,
+       235
+      ],
+      "pixels": 800,
+      "groundPixels": 424
+     },
+     {
+      "phase": "menu",
+      "text": "Getting here",
+      "nodeId": "nav",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 11.53,
+      "worstRatio": 10.98,
+      "pass": true,
+      "ink": [
+       34,
+       33,
+       36
+      ],
+      "ground": [
+       219,
+       217,
+       233
+      ],
+      "pixels": 1840,
+      "groundPixels": 1002
+     },
+     {
+      "phase": "menu",
+      "text": "Arrive",
+      "nodeId": "book",
+      "size": 11,
+      "bold": false,
+      "large": false,
+      "ratio": 6.67,
+      "worstRatio": 6.44,
+      "pass": true,
+      "ink": [
+       24,
+       24,
+       27
+      ],
+      "ground": [
+       155,
+       158,
+       176
+      ],
+      "pixels": 658,
+      "groundPixels": 266
+     },
+     {
+      "phase": "menu",
+      "text": "Fri 2 Oct",
+      "nodeId": "book",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 6.43,
+      "worstRatio": 6.42,
+      "pass": true,
+      "ink": [
+       23,
+       24,
+       27
+      ],
+      "ground": [
+       151,
+       154,
+       178
+      ],
+      "pixels": 1280,
+      "groundPixels": 688
+     },
+     {
+      "phase": "menu",
+      "text": "Nights",
+      "nodeId": "book",
+      "size": 11,
+      "bold": false,
+      "large": false,
+      "ratio": 6.38,
+      "worstRatio": 6.26,
+      "pass": true,
+      "ink": [
+       23,
+       24,
+       26
+      ],
+      "ground": [
+       150,
+       154,
+       172
+      ],
+      "pixels": 672,
+      "groundPixels": 284
+     },
+     {
+      "phase": "menu",
+      "text": "2",
+      "nodeId": "book",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 6.36,
+      "worstRatio": 6.28,
+      "pass": true,
+      "ink": [
+       23,
+       24,
+       26
+      ],
+      "ground": [
+       150,
+       154,
+       169
+      ],
+      "pixels": 220,
+      "groundPixels": 109
+     },
+     {
+      "phase": "menu",
+      "text": "Guests",
+      "nodeId": "book",
+      "size": 11,
+      "bold": false,
+      "large": false,
+      "ratio": 6.38,
+      "worstRatio": 6.19,
+      "pass": true,
+      "ink": [
+       23,
+       24,
+       26
+      ],
+      "ground": [
+       151,
+       154,
+       171
+      ],
+      "pixels": 700,
+      "groundPixels": 292
+     },
+     {
+      "phase": "menu",
+      "text": "2",
+      "nodeId": "book",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 6.46,
+      "worstRatio": 6.2,
+      "pass": true,
+      "ink": [
+       23,
+       24,
+       25
+      ],
+      "ground": [
+       152,
+       156,
+       164
+      ],
+      "pixels": 220,
+      "groundPixels": 112
+     },
+     {
+      "phase": "menu",
+      "text": "See rooms",
+      "nodeId": "book",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 17.77,
+      "worstRatio": 17.73,
+      "pass": true,
+      "ink": [
+       255,
+       255,
+       255
+      ],
+      "ground": [
+       23,
+       24,
+       26
+      ],
+      "pixels": 1560,
+      "groundPixels": 847
+     }
+    ]
+   },
+   "rootFound": true,
+   "api": {
+    "missing": []
+   },
+   "colorScheme": "light",
+   "schemeFollowed": true,
+   "windowActivation": "active",
+   "material": {
+    "name": "apple-macos-27.0-glass0.5",
+    "platform": "macOS 27.0",
+    "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+    "resolvedMaterialSha256": "be13dae45098fc89",
+    "tuned": false
+   },
+   "webgpu": {
+    "available": true,
+    "ownership": "vitrea",
+    "deviceHealth": "ok",
+    "unavailableReason": null,
+    "hasDevice": true
+   },
+   "platformProbe": {
+    "engine": {
+     "family": "chromium",
+     "version": 151
+    },
+    "reach": "verified"
+   },
+   "accessibility": {
+    "reducedTransparency": false,
+    "reducedMotion": false,
+    "increasedContrast": false,
+    "forcedColors": false,
+    "material": {
+     "glass": "material",
+     "colorSource": "material",
+     "frost": "nominal",
+     "refraction": "nominal",
+     "occlusion": "nominal",
+     "border": "nominal",
+     "ambientTint": "nominal",
+     "foreground": "adaptive"
+    },
+    "motion": {
+     "overshoot": "elastic",
+     "deformation": "nominal",
+     "shimmer": "travel",
+     "morph": "elastic",
+     "crossfade": "never",
+     "positionalContinuity": true
+    }
+   },
+   "surfaces": [
+    {
+     "nodeId": "nav",
+     "groupId": "nav",
+     "plane": "base",
+     "selector": "div#chrome > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > header.chrome > nav[data-vitrea-node=\"nav\"].nav-bar",
+     "tag": "nav",
+     "role": null,
+     "rect": [
+      24,
+      24,
+      477.3,
+      48
+     ],
+     "span": 48,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "capsule",
+     "radii": [
+      24,
+      24,
+      24,
+      24
+     ],
+     "smoothing": 0.52866495,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "0px",
+     "label": "Main"
+    },
+    {
+     "nodeId": "book",
+     "groupId": "book",
+     "plane": "base",
+     "selector": "div#chrome > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div[data-vitrea-node=\"book\"].book-morph",
+     "tag": "div",
+     "role": null,
+     "rect": [
+      1287,
+      24,
+      129,
+      48
+     ],
+     "span": 48,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "fixed-rounded-rect",
+     "radii": [
+      24,
+      24,
+      24,
+      24
+     ],
+     "smoothing": 0.66,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "0px",
+     "label": "Book a stay"
+    }
+   ],
+   "surfacesInFrame": 2,
+   "planes": [
+    {
+     "plane": "base",
+     "nodes": 2
+    },
+    {
+     "plane": "overlay",
+     "nodes": 0
+    }
+   ],
+   "groups": [
+    {
+     "id": "nav",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.77,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "book",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.77,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    }
+   ],
+   "diagnostics": [],
+   "derivedFindings": [],
+   "menu": "captured",
+   "menuSurfaces": [
+    {
+     "nodeId": "nav",
+     "groupId": "nav",
+     "plane": "base",
+     "selector": "div#chrome > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div > header.chrome > nav[data-vitrea-node=\"nav\"].nav-bar",
+     "tag": "nav",
+     "role": null,
+     "rect": [
+      24,
+      24,
+      477.3,
+      48
+     ],
+     "span": 48,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "capsule",
+     "radii": [
+      24,
+      24,
+      24,
+      24
+     ],
+     "smoothing": 0.52866495,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "0px",
+     "label": "Main"
+    },
+    {
+     "nodeId": "book",
+     "groupId": "book",
+     "plane": "overlay",
+     "selector": "div#chrome > div[data-vitrea-root] > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div > div[data-vitrea-node=\"book\"].book-morph",
+     "tag": "div",
+     "role": null,
+     "rect": [
+      800,
+      16,
+      616,
+      64
+     ],
+     "span": 64,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "fixed-rounded-rect",
+     "radii": [
+      31.846497668557852,
+      31.846497668557852,
+      31.846497668557852,
+      31.846497668557852
+     ],
+     "smoothing": 0.66,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "0px",
+     "label": "ArriveFri 2 OctNights2Guests2See rooms"
+    }
+   ],
+   "menuGroups": [
+    {
+     "id": "nav",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.77,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "book",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 8.36,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    }
+   ],
+   "menuDiagnostics": [],
+   "ban": {
+    "rest": {
+     "findings": [],
+     "unmeasured": [],
+     "hostsRead": 2,
+     "cssTierHosts": 0
+    },
+    "menu": {
+     "findings": [],
+     "unmeasured": [],
+     "hostsRead": 2,
+     "cssTierHosts": 0
+    }
+   },
+   "hostText": [
+    {
+     "nodeId": "nav",
+     "role": "control",
+     "groupId": "nav",
+     "selector": "div#chrome > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > header.chrome > nav[data-vitrea-node=\"nav\"].nav-bar",
+     "span": 48,
+     "hasText": true,
+     "runs": 5,
+     "text": "Holzmatt Rooms Trails Story Getting here"
+    },
+    {
+     "nodeId": "book",
+     "role": "control",
+     "groupId": "book",
+     "selector": "div#chrome > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div[data-vitrea-node=\"book\"].book-morph",
+     "span": 48,
+     "hasText": true,
+     "runs": 1,
+     "text": "Book a stay"
+    }
+   ],
+   "menuHostText": [
+    {
+     "nodeId": "nav",
+     "role": "control",
+     "groupId": "nav",
+     "selector": "div#chrome > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div > header.chrome > nav[data-vitrea-node=\"nav\"].nav-bar",
+     "span": 48,
+     "hasText": true,
+     "runs": 5,
+     "text": "Holzmatt Rooms Trails Story Getting here"
+    },
+    {
+     "nodeId": "book",
+     "role": "platter",
+     "groupId": "book",
+     "selector": "div#chrome > div[data-vitrea-root] > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div > div[data-vitrea-node=\"book\"].book-morph",
+     "span": 64,
+     "hasText": true,
+     "runs": 6,
+     "text": "Arrive Nights 2 Guests 2 See rooms"
+    }
+   ],
+   "glassCoverage": {
+    "fraction": 0.0224,
+    "cellPx": 4,
+    "cells": 81000,
+    "covered": 1812,
+    "hosts": 2
+   },
+   "hostLuminance": {
+    "measure": "mean encoded Rec. 709 luma of the glyph-suppressed capture, 0..1 (the runtime's encodedLuminance, packages/platform-web/src/backdrop-tone.ts)",
+    "band": [
+     0.39,
+     0.49
+    ],
+    "ringPx": 24,
+    "reads": [
+     {
+      "state": "fv",
+      "nodeId": "nav",
+      "groupId": "nav",
+      "role": "control",
+      "label": "Main",
+      "rect": [
+       24,
+       24,
+       477.3,
+       48
+      ],
+      "inside": {
+       "mean": 0.8422,
+       "pixels": 22944,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.5973,
+       "pixels": 27552,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "fv",
+      "nodeId": "book",
+      "groupId": "book",
+      "role": "control",
+      "label": "Book a stay",
+      "rect": [
+       1287,
+       24,
+       129,
+       48
+      ],
+      "inside": {
+       "mean": 0.5978,
+       "pixels": 6192,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.2054,
+       "pixels": 10800,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "menu",
+      "nodeId": "nav",
+      "groupId": "nav",
+      "role": "control",
+      "label": "Main",
+      "rect": [
+       24,
+       24,
+       477.3,
+       48
+      ],
+      "inside": {
+       "mean": 0.8422,
+       "pixels": 22944,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.5973,
+       "pixels": 27552,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "menu",
+      "nodeId": "book",
+      "groupId": "book",
+      "role": "platter",
+      "label": "ArriveFri 2 OctNights2Guests2See rooms",
+      "rect": [
+       800,
+       16,
+       616,
+       64
+      ],
+      "inside": {
+       "mean": 0.5591,
+       "pixels": 39424,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.2556,
+       "pixels": 29632,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     }
+    ]
+   },
+   "lineContrast": {
+    "method": "per-line, glyphs suppressed",
+    "states": [
+     "fv",
+     "menu"
+    ],
+    "lines": 18,
+    "pass": 18,
+    "minRatio": 6.35,
+    "worst": {
+     "state": "menu",
+     "nodeId": "book",
+     "line": 0,
+     "box": [
+      1029.7,
+      45,
+      9.6,
+      20
+     ],
+     "size": 16,
+     "bold": false,
+     "large": false,
+     "floor": 4.5,
+     "ink": [
+      23,
+      24,
+      26
+     ],
+     "inkAlpha": 0.847,
+     "ground": [
+      150,
+      154,
+      170
+     ],
+     "ratio": 6.35,
+     "worstRatio": 6.32,
+     "pass": true,
+     "pixels": 220
+    },
+    "byState": {
+     "fv": {
+      "lines": 6,
+      "pass": 6,
+      "minRatio": 6.71
+     },
+     "menu": {
+      "lines": 12,
+      "pass": 12,
+      "minRatio": 6.35
+     }
+    },
+    "fails": []
+   },
+   "scrollers": {
+    "found": 0,
+    "cap": 8,
+    "list": []
+   },
+   "phasesHook": false,
+   "phases": null
+  },
+  "dark": {
+   "scheme": "dark",
+   "readyState": "settled",
+   "adapter": {
+    "available": true,
+    "vendor": "apple",
+    "architecture": "metal-3",
+    "device": "",
+    "description": "",
+    "isFallbackAdapter": false
+   },
+   "errors": [],
+   "consoleErrors": [],
+   "failedRequests": [],
+   "badResponses": [],
+   "scrolledOnLoad": 0,
+   "docHeight": 900,
+   "words": 1332,
+   "title": "Berghaus Holzmatt · above Lauterbrunnen, Wengen",
+   "placeholder": false,
+   "captureWidth": 1440,
+   "overflowCapture": false,
+   "overflowAtLoad": false,
+   "contrast": {
+    "method": "dom-composite",
+    "checked": 203,
+    "pass": 203,
+    "unknown": 0,
+    "rate": 1,
+    "onGlass": 6,
+    "onGlassPass": 6,
+    "fails": []
+   },
+   "glassContrast": {
+    "method": "rendered-pixels",
+    "pairs": 18,
+    "pass": 18,
+    "minRatio": 6.35,
+    "byPhase": {
+     "fv": {
+      "pairs": 6,
+      "pass": 6
+     },
+     "menu": {
+      "pairs": 12,
+      "pass": 12
+     }
+    },
+    "fails": [],
+    "sample": [
+     {
+      "phase": "fv",
+      "text": "Holzmatt",
+      "nodeId": "nav",
+      "size": 21,
+      "bold": false,
+      "large": false,
+      "ratio": 6.41,
+      "worstRatio": 6.34,
+      "pass": true,
+      "ink": [
+       219,
+       219,
+       224
+      ],
+      "ground": [
+       70,
+       73,
+       95
+      ],
+      "pixels": 1848,
+      "groundPixels": 1012
+     },
+     {
+      "phase": "fv",
+      "text": "Rooms",
+      "nodeId": "nav",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 6.35,
+      "worstRatio": 6.35,
+      "pass": true,
+      "ink": [
+       219,
+       220,
+       223
+      ],
+      "ground": [
+       71,
+       74,
+       92
+      ],
+      "pixels": 1000,
+      "groundPixels": 525
+     },
+     {
+      "phase": "fv",
+      "text": "Trails",
+      "nodeId": "nav",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 6.35,
+      "worstRatio": 6.35,
+      "pass": true,
+      "ink": [
+       219,
+       220,
+       223
+      ],
+      "ground": [
+       71,
+       74,
+       93
+      ],
+      "pixels": 780,
+      "groundPixels": 418
+     },
+     {
+      "phase": "fv",
+      "text": "Story",
+      "nodeId": "nav",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 6.35,
+      "worstRatio": 6.28,
+      "pass": true,
+      "ink": [
+       219,
+       220,
+       223
+      ],
+      "ground": [
+       72,
+       74,
+       91
+      ],
+      "pixels": 800,
+      "groundPixels": 426
+     },
+     {
+      "phase": "fv",
+      "text": "Getting here",
+      "nodeId": "nav",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 6.35,
+      "worstRatio": 6.33,
+      "pass": true,
+      "ink": [
+       219,
+       220,
+       223
+      ],
+      "ground": [
+       71,
+       74,
+       92
+      ],
+      "pixels": 1840,
+      "groundPixels": 1005
+     },
+     {
+      "phase": "fv",
+      "text": "Book a stay",
+      "nodeId": "book",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 8.3,
+      "worstRatio": 8.26,
+      "pass": true,
+      "ink": [
+       215,
+       216,
+       218
+      ],
+      "ground": [
+       52,
+       55,
+       67
+      ],
+      "pixels": 1640,
+      "groundPixels": 902
+     },
+     {
+      "phase": "menu",
+      "text": "Holzmatt",
+      "nodeId": "nav",
+      "size": 21,
+      "bold": false,
+      "large": false,
+      "ratio": 6.41,
+      "worstRatio": 6.34,
+      "pass": true,
+      "ink": [
+       219,
+       219,
+       224
+      ],
+      "ground": [
+       70,
+       73,
+       95
+      ],
+      "pixels": 1848,
+      "groundPixels": 1012
+     },
+     {
+      "phase": "menu",
+      "text": "Rooms",
+      "nodeId": "nav",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 6.35,
+      "worstRatio": 6.35,
+      "pass": true,
+      "ink": [
+       219,
+       220,
+       223
+      ],
+      "ground": [
+       71,
+       74,
+       92
+      ],
+      "pixels": 1000,
+      "groundPixels": 525
+     },
+     {
+      "phase": "menu",
+      "text": "Trails",
+      "nodeId": "nav",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 6.35,
+      "worstRatio": 6.35,
+      "pass": true,
+      "ink": [
+       219,
+       220,
+       223
+      ],
+      "ground": [
+       71,
+       74,
+       93
+      ],
+      "pixels": 780,
+      "groundPixels": 418
+     },
+     {
+      "phase": "menu",
+      "text": "Story",
+      "nodeId": "nav",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 6.35,
+      "worstRatio": 6.28,
+      "pass": true,
+      "ink": [
+       219,
+       220,
+       223
+      ],
+      "ground": [
+       72,
+       74,
+       91
+      ],
+      "pixels": 800,
+      "groundPixels": 426
+     },
+     {
+      "phase": "menu",
+      "text": "Getting here",
+      "nodeId": "nav",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 6.35,
+      "worstRatio": 6.33,
+      "pass": true,
+      "ink": [
+       219,
+       220,
+       223
+      ],
+      "ground": [
+       71,
+       74,
+       92
+      ],
+      "pixels": 1840,
+      "groundPixels": 1005
+     },
+     {
+      "phase": "menu",
+      "text": "Arrive",
+      "nodeId": "book",
+      "size": 11,
+      "bold": false,
+      "large": false,
+      "ratio": 9.7,
+      "worstRatio": 9.69,
+      "pass": true,
+      "ink": [
+       213,
+       213,
+       216
+      ],
+      "ground": [
+       41,
+       42,
+       55
+      ],
+      "pixels": 672,
+      "groundPixels": 283
+     },
+     {
+      "phase": "menu",
+      "text": "Fri 2 Oct",
+      "nodeId": "book",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 9.71,
+      "worstRatio": 9.7,
+      "pass": true,
+      "ink": [
+       213,
+       213,
+       216
+      ],
+      "ground": [
+       40,
+       42,
+       56
+      ],
+      "pixels": 1300,
+      "groundPixels": 708
+     },
+     {
+      "phase": "menu",
+      "text": "Nights",
+      "nodeId": "book",
+      "size": 11,
+      "bold": false,
+      "large": false,
+      "ratio": 9.73,
+      "worstRatio": 9.72,
+      "pass": true,
+      "ink": [
+       213,
+       213,
+       216
+      ],
+      "ground": [
+       40,
+       42,
+       54
+      ],
+      "pixels": 672,
+      "groundPixels": 300
+     },
+     {
+      "phase": "menu",
+      "text": "2",
+      "nodeId": "book",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 9.73,
+      "worstRatio": 9.72,
+      "pass": true,
+      "ink": [
+       213,
+       213,
+       216
+      ],
+      "ground": [
+       40,
+       42,
+       54
+      ],
+      "pixels": 220,
+      "groundPixels": 113
+     },
+     {
+      "phase": "menu",
+      "text": "Guests",
+      "nodeId": "book",
+      "size": 11,
+      "bold": false,
+      "large": false,
+      "ratio": 9.63,
+      "worstRatio": 8.08,
+      "pass": true,
+      "ink": [
+       213,
+       213,
+       216
+      ],
+      "ground": [
+       41,
+       43,
+       54
+      ],
+      "pixels": 700,
+      "groundPixels": 300
+     },
+     {
+      "phase": "menu",
+      "text": "2",
+      "nodeId": "book",
+      "size": 16,
+      "bold": false,
+      "large": false,
+      "ratio": 9.69,
+      "worstRatio": 9.66,
+      "pass": true,
+      "ink": [
+       213,
+       213,
+       215
+      ],
+      "ground": [
+       40,
+       43,
+       51
+      ],
+      "pixels": 220,
+      "groundPixels": 112
+     },
+     {
+      "phase": "menu",
+      "text": "See rooms",
+      "nodeId": "book",
+      "size": 15,
+      "bold": false,
+      "large": false,
+      "ratio": 15.89,
+      "worstRatio": 15.89,
+      "pass": true,
+      "ink": [
+       21,
+       26,
+       23
+      ],
+      "ground": [
+       243,
+       243,
+       244
+      ],
+      "pixels": 1560,
+      "groundPixels": 851
+     }
+    ]
+   },
+   "rootFound": true,
+   "api": {
+    "missing": []
+   },
+   "colorScheme": "dark",
+   "schemeFollowed": true,
+   "windowActivation": "active",
+   "material": {
+    "name": "apple-macos-27.0-glass0.5",
+    "platform": "macOS 27.0",
+    "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+    "resolvedMaterialSha256": "2a4323f33df8d799",
+    "tuned": false
+   },
+   "webgpu": {
+    "available": true,
+    "ownership": "vitrea",
+    "deviceHealth": "ok",
+    "unavailableReason": null,
+    "hasDevice": true
+   },
+   "platformProbe": {
+    "engine": {
+     "family": "chromium",
+     "version": 151
+    },
+    "reach": "verified"
+   },
+   "accessibility": {
+    "reducedTransparency": false,
+    "reducedMotion": false,
+    "increasedContrast": false,
+    "forcedColors": false,
+    "material": {
+     "glass": "material",
+     "colorSource": "material",
+     "frost": "nominal",
+     "refraction": "nominal",
+     "occlusion": "nominal",
+     "border": "nominal",
+     "ambientTint": "nominal",
+     "foreground": "adaptive"
+    },
+    "motion": {
+     "overshoot": "elastic",
+     "deformation": "nominal",
+     "shimmer": "travel",
+     "morph": "elastic",
+     "crossfade": "never",
+     "positionalContinuity": true
+    }
+   },
+   "surfaces": [
+    {
+     "nodeId": "nav",
+     "groupId": "nav",
+     "plane": "base",
+     "selector": "div#chrome > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > header.chrome > nav[data-vitrea-node=\"nav\"].nav-bar",
+     "tag": "nav",
+     "role": null,
+     "rect": [
+      24,
+      24,
+      477.3,
+      48
+     ],
+     "span": 48,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "capsule",
+     "radii": [
+      24,
+      24,
+      24,
+      24
+     ],
+     "smoothing": 0.52866495,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "0px",
+     "label": "Main"
+    },
+    {
+     "nodeId": "book",
+     "groupId": "book",
+     "plane": "base",
+     "selector": "div#chrome > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div[data-vitrea-node=\"book\"].book-morph",
+     "tag": "div",
+     "role": null,
+     "rect": [
+      1287,
+      24,
+      129,
+      48
+     ],
+     "span": 48,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "fixed-rounded-rect",
+     "radii": [
+      24,
+      24,
+      24,
+      24
+     ],
+     "smoothing": 0.66,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "0px",
+     "label": "Book a stay"
+    }
+   ],
+   "surfacesInFrame": 2,
+   "planes": [
+    {
+     "plane": "base",
+     "nodes": 2
+    },
+    {
+     "plane": "overlay",
+     "nodes": 0
+    }
+   ],
+   "groups": [
+    {
+     "id": "nav",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "resolvedMaterialSha256": "2a4323f33df8d799",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 8.85,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "book",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "resolvedMaterialSha256": "2a4323f33df8d799",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 8.84,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    }
+   ],
+   "diagnostics": [],
+   "derivedFindings": [],
+   "menu": "captured",
+   "menuSurfaces": [
+    {
+     "nodeId": "nav",
+     "groupId": "nav",
+     "plane": "base",
+     "selector": "div#chrome > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div > header.chrome > nav[data-vitrea-node=\"nav\"].nav-bar",
+     "tag": "nav",
+     "role": null,
+     "rect": [
+      24,
+      24,
+      477.3,
+      48
+     ],
+     "span": 48,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "capsule",
+     "radii": [
+      24,
+      24,
+      24,
+      24
+     ],
+     "smoothing": 0.52866495,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "0px",
+     "label": "Main"
+    },
+    {
+     "nodeId": "book",
+     "groupId": "book",
+     "plane": "overlay",
+     "selector": "div#chrome > div[data-vitrea-root] > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div > div[data-vitrea-node=\"book\"].book-morph",
+     "tag": "div",
+     "role": null,
+     "rect": [
+      800,
+      16,
+      616,
+      64
+     ],
+     "span": 64,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "fixed-rounded-rect",
+     "radii": [
+      31.993271755295208,
+      31.993271755295208,
+      31.993271755295208,
+      31.993271755295208
+     ],
+     "smoothing": 0.66,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "0px",
+     "label": "ArriveFri 2 OctNights2Guests2See rooms"
+    }
+   ],
+   "menuGroups": [
+    {
+     "id": "nav",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "resolvedMaterialSha256": "2a4323f33df8d799",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 8.85,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "book",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "resolvedMaterialSha256": "2a4323f33df8d799",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 10,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    }
+   ],
+   "menuDiagnostics": [],
+   "ban": {
+    "rest": {
+     "findings": [],
+     "unmeasured": [],
+     "hostsRead": 2,
+     "cssTierHosts": 0
+    },
+    "menu": {
+     "findings": [],
+     "unmeasured": [],
+     "hostsRead": 2,
+     "cssTierHosts": 0
+    }
+   },
+   "hostText": [
+    {
+     "nodeId": "nav",
+     "role": "control",
+     "groupId": "nav",
+     "selector": "div#chrome > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > header.chrome > nav[data-vitrea-node=\"nav\"].nav-bar",
+     "span": 48,
+     "hasText": true,
+     "runs": 5,
+     "text": "Holzmatt Rooms Trails Story Getting here"
+    },
+    {
+     "nodeId": "book",
+     "role": "control",
+     "groupId": "book",
+     "selector": "div#chrome > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div[data-vitrea-node=\"book\"].book-morph",
+     "span": 48,
+     "hasText": true,
+     "runs": 1,
+     "text": "Book a stay"
+    }
+   ],
+   "menuHostText": [
+    {
+     "nodeId": "nav",
+     "role": "control",
+     "groupId": "nav",
+     "selector": "div#chrome > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div > header.chrome > nav[data-vitrea-node=\"nav\"].nav-bar",
+     "span": 48,
+     "hasText": true,
+     "runs": 5,
+     "text": "Holzmatt Rooms Trails Story Getting here"
+    },
+    {
+     "nodeId": "book",
+     "role": "platter",
+     "groupId": "book",
+     "selector": "div#chrome > div[data-vitrea-root] > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div > div[data-vitrea-node=\"book\"].book-morph",
+     "span": 64,
+     "hasText": true,
+     "runs": 6,
+     "text": "Arrive Nights 2 Guests 2 See rooms"
+    }
+   ],
+   "glassCoverage": {
+    "fraction": 0.0224,
+    "cellPx": 4,
+    "cells": 81000,
+    "covered": 1812,
+    "hosts": 2
+   },
+   "hostLuminance": {
+    "measure": "mean encoded Rec. 709 luma of the glyph-suppressed capture, 0..1 (the runtime's encodedLuminance, packages/platform-web/src/backdrop-tone.ts)",
+    "band": [
+     0.39,
+     0.49
+    ],
+    "ringPx": 24,
+    "reads": [
+     {
+      "state": "fv",
+      "nodeId": "nav",
+      "groupId": "nav",
+      "role": "control",
+      "label": "Main",
+      "rect": [
+       24,
+       24,
+       477.3,
+       48
+      ],
+      "inside": {
+       "mean": 0.2941,
+       "pixels": 22944,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.2103,
+       "pixels": 27552,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "fv",
+      "nodeId": "book",
+      "groupId": "book",
+      "role": "control",
+      "label": "Book a stay",
+      "rect": [
+       1287,
+       24,
+       129,
+       48
+      ],
+      "inside": {
+       "mean": 0.2112,
+       "pixels": 6192,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.0723,
+       "pixels": 10800,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "menu",
+      "nodeId": "nav",
+      "groupId": "nav",
+      "role": "control",
+      "label": "Main",
+      "rect": [
+       24,
+       24,
+       477.3,
+       48
+      ],
+      "inside": {
+       "mean": 0.2941,
+       "pixels": 22944,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.2103,
+       "pixels": 27552,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "menu",
+      "nodeId": "book",
+      "groupId": "book",
+      "role": "platter",
+      "label": "ArriveFri 2 OctNights2Guests2See rooms",
+      "rect": [
+       800,
+       16,
+       616,
+       64
+      ],
+      "inside": {
+       "mean": 0.2919,
+       "pixels": 39424,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.0907,
+       "pixels": 29632,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     }
+    ]
+   },
+   "lineContrast": {
+    "method": "per-line, glyphs suppressed",
+    "states": [
+     "fv",
+     "menu"
+    ],
+    "lines": 18,
+    "pass": 18,
+    "minRatio": 6.34,
+    "worst": {
+     "state": "fv",
+     "nodeId": "nav",
+     "line": 0,
+     "box": [
+      321.6,
+      38.5,
+      38.9,
+      19
+     ],
+     "size": 15,
+     "bold": false,
+     "large": false,
+     "floor": 4.5,
+     "ink": [
+      219,
+      220,
+      223
+     ],
+     "inkAlpha": 0.804,
+     "ground": [
+      72,
+      74,
+      92
+     ],
+     "ratio": 6.34,
+     "worstRatio": 6.28,
+     "pass": true,
+     "pixels": 800
+    },
+    "byState": {
+     "fv": {
+      "lines": 6,
+      "pass": 6,
+      "minRatio": 6.34
+     },
+     "menu": {
+      "lines": 12,
+      "pass": 12,
+      "minRatio": 6.34
+     }
+    },
+    "fails": []
+   },
+   "scrollers": {
+    "found": 0,
+    "cap": 8,
+    "list": []
+   },
+   "phasesHook": false,
+   "phases": null
+  }
+ },
+ "surfaces": [
+  {
+   "nodeId": "nav",
+   "groupId": "nav",
+   "plane": "base",
+   "selector": "div#chrome > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > header.chrome > nav[data-vitrea-node=\"nav\"].nav-bar",
+   "tag": "nav",
+   "role": null,
+   "rect": [
+    24,
+    24,
+    477.3,
+    48
+   ],
+   "span": 48,
+   "boundsFrom": "renderInput",
+   "shapeFamily": "capsule",
+   "radii": [
+    24,
+    24,
+    24,
+    24
+   ],
+   "smoothing": 0.52866495,
+   "thickness": 8,
+   "variant": "regular",
+   "tinted": false,
+   "cssRadius": "0px",
+   "label": "Main"
+  },
+  {
+   "nodeId": "book",
+   "groupId": "book",
+   "plane": "base",
+   "selector": "div#chrome > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div[data-vitrea-node=\"book\"].book-morph",
+   "tag": "div",
+   "role": null,
+   "rect": [
+    1287,
+    24,
+    129,
+    48
+   ],
+   "span": 48,
+   "boundsFrom": "renderInput",
+   "shapeFamily": "fixed-rounded-rect",
+   "radii": [
+    24,
+    24,
+    24,
+    24
+   ],
+   "smoothing": 0.66,
+   "thickness": 8,
+   "variant": "regular",
+   "tinted": false,
+   "cssRadius": "0px",
+   "label": "Book a stay"
+  }
+ ],
+ "planes": [
+  {
+   "plane": "base",
+   "nodes": 2
+  },
+  {
+   "plane": "overlay",
+   "nodes": 0
+  }
+ ],
+ "diagnostics": [],
+ "unknownDiagnosticCodes": [],
+ "named": {
+  "nestedGlass": false,
+  "samePlaneOverlap": false,
+  "contentLayerHost": false,
+  "demotedBackdropRoot": false,
+  "hostOutsidePlane": false,
+  "nonUniformRadii": false,
+  "tintUnparseable": false,
+  "tintMixing": false,
+  "variantMixing": false
+ },
+ "banSubset": {
+  "findings": [],
+  "counts": {},
+  "unmeasured": []
+ },
+ "reduced": {
+  "method": "page-switch",
+  "applied": true,
+  "readyState": "settled",
+  "rootFound": true,
+  "errors": [],
+  "consoleErrors": [],
+  "policyBefore": {
+   "reducedTransparency": false,
+   "reducedMotion": false,
+   "increasedContrast": false,
+   "forcedColors": false,
+   "material": {
+    "glass": "material",
+    "colorSource": "material",
+    "frost": "nominal",
+    "refraction": "nominal",
+    "occlusion": "nominal",
+    "border": "nominal",
+    "ambientTint": "nominal",
+    "foreground": "adaptive"
+   },
+   "motion": {
+    "overshoot": "elastic",
+    "deformation": "nominal",
+    "shimmer": "travel",
+    "morph": "elastic",
+    "crossfade": "never",
+    "positionalContinuity": true
+   }
+  },
+  "policyAfter": {
+   "reducedTransparency": true,
+   "reducedMotion": false,
+   "increasedContrast": false,
+   "forcedColors": false,
+   "material": {
+    "glass": "material",
+    "colorSource": "material",
+    "frost": "increased",
+    "refraction": "reduced",
+    "occlusion": "increased",
+    "border": "nominal",
+    "ambientTint": "nominal",
+    "foreground": "adaptive"
+   },
+   "motion": {
+    "overshoot": "elastic",
+    "deformation": "nominal",
+    "shimmer": "travel",
+    "morph": "elastic",
+    "crossfade": "never",
+    "positionalContinuity": true
+   }
+  },
+  "policyChanged": true,
+  "policyAsAsked": true,
+  "groups": [
+   {
+    "id": "nav",
+    "moved": true,
+    "before": {
+     "id": "nav",
+     "renderer": "webgpu",
+     "refraction": "true",
+     "cssBody": null,
+     "cssTint": null,
+     "blurRadius": 7.773,
+     "nodes": [
+      {
+       "nodeId": "nav",
+       "blurRadius": 2.75,
+       "tintAlpha": 0.716,
+       "borderAlpha": 0.02,
+       "refraction": "true"
+      }
+     ]
+    },
+    "after": {
+     "id": "nav",
+     "renderer": "webgpu",
+     "refraction": "true",
+     "cssBody": null,
+     "cssTint": null,
+     "blurRadius": 13.4,
+     "nodes": [
+      {
+       "nodeId": "nav",
+       "blurRadius": 4.813,
+       "tintAlpha": 0.929,
+       "borderAlpha": 0.002,
+       "refraction": "approximate"
+      }
+     ]
+    }
+   },
+   {
+    "id": "book",
+    "moved": true,
+    "before": {
+     "id": "book",
+     "renderer": "webgpu",
+     "refraction": "true",
+     "cssBody": null,
+     "cssTint": null,
+     "blurRadius": 7.773,
+     "nodes": [
+      {
+       "nodeId": "book",
+       "blurRadius": 2.75,
+       "tintAlpha": 0.66,
+       "borderAlpha": 0.047,
+       "refraction": "true"
+      }
+     ]
+    },
+    "after": {
+     "id": "book",
+     "renderer": "webgpu",
+     "refraction": "true",
+     "cssBody": null,
+     "cssTint": null,
+     "blurRadius": 13.4,
+     "nodes": [
+      {
+       "nodeId": "book",
+       "blurRadius": 4.813,
+       "tintAlpha": 0.929,
+       "borderAlpha": 0.006,
+       "refraction": "approximate"
+      }
+     ]
+    }
+   }
+  ],
+  "materialMoved": true,
+  "captured": true,
+  "lineContrast": {
+   "method": "per-line, glyphs suppressed",
+   "states": [
+    "reduced"
+   ],
+   "lines": 6,
+   "pass": 6,
+   "minRatio": 13.5,
+   "worst": {
+    "state": "reduced",
+    "nodeId": "book",
+    "line": 0,
+    "box": [
+     1311,
+     38.5,
+     81.4,
+     19
+    ],
+    "size": 15,
+    "bold": false,
+    "large": false,
+    "floor": 4.5,
+    "ink": [
+     37,
+     37,
+     37
+    ],
+    "inkAlpha": 0.847,
+    "ground": [
+     240,
+     240,
+     240
+    ],
+    "ratio": 13.5,
+    "worstRatio": 13.5,
+    "pass": true,
+    "pixels": 1640
+   },
+   "byState": {
+    "reduced": {
+     "lines": 6,
+     "pass": 6,
+     "minRatio": 13.5
+    }
+   },
+   "fails": []
+  },
+  "hostLuminance": {
+   "measure": "mean encoded Rec. 709 luma of the glyph-suppressed capture, 0..1 (the runtime's encodedLuminance, packages/platform-web/src/backdrop-tone.ts)",
+   "band": [
+    0.39,
+    0.49
+   ],
+   "ringPx": 24,
+   "reads": [
+    {
+     "state": "reduced",
+     "nodeId": "nav",
+     "groupId": "nav",
+     "role": "control",
+     "label": "Main",
+     "rect": [
+      24,
+      24,
+      477.3,
+      48
+     ],
+     "inside": {
+      "mean": 0.9497,
+      "pixels": 22944,
+      "inDeadBand": false
+     },
+     "ring": {
+      "mean": 0.5954,
+      "pixels": 27552,
+      "inDeadBand": false
+     },
+     "inDeadBand": false
+    },
+    {
+     "state": "reduced",
+     "nodeId": "book",
+     "groupId": "book",
+     "role": "control",
+     "label": "Book a stay",
+     "rect": [
+      1287,
+      24,
+      129,
+      48
+     ],
+     "inside": {
+      "mean": 0.8832,
+      "pixels": 6192,
+      "inDeadBand": false
+     },
+     "ring": {
+      "mean": 0.2048,
+      "pixels": 10800,
+      "inDeadBand": false
+     },
+     "inDeadBand": false
+    }
+   ]
+  }
+ },
+ "emulation": {
+  "increasedContrast": {
+   "status": "ran",
+   "query": "(prefers-contrast: more)",
+   "readyState": "settled",
+   "rootFound": true,
+   "errors": [],
+   "consoleErrors": [],
+   "accessibility": {
+    "reducedTransparency": false,
+    "reducedMotion": false,
+    "increasedContrast": true,
+    "forcedColors": false,
+    "material": {
+     "glass": "material",
+     "colorSource": "material",
+     "frost": "nominal",
+     "refraction": "nominal",
+     "occlusion": "nominal",
+     "border": "strong",
+     "ambientTint": "reduced",
+     "foreground": "near-monochrome"
+    },
+    "motion": {
+     "overshoot": "elastic",
+     "deformation": "nominal",
+     "shimmer": "travel",
+     "morph": "elastic",
+     "crossfade": "never",
+     "positionalContinuity": true
+    }
+   },
+   "policyAsAsked": true,
+   "groups": [
+    {
+     "id": "nav",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.77,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "book",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.77,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    }
+   ],
+   "diagnostics": []
+  },
+  "reducedMotion": {
+   "status": "ran",
+   "query": "(prefers-reduced-motion: reduce)",
+   "readyState": "settled",
+   "rootFound": true,
+   "errors": [],
+   "consoleErrors": [],
+   "accessibility": {
+    "reducedTransparency": false,
+    "reducedMotion": true,
+    "increasedContrast": false,
+    "forcedColors": false,
+    "material": {
+     "glass": "material",
+     "colorSource": "material",
+     "frost": "nominal",
+     "refraction": "nominal",
+     "occlusion": "nominal",
+     "border": "nominal",
+     "ambientTint": "nominal",
+     "foreground": "adaptive"
+    },
+    "motion": {
+     "overshoot": "none",
+     "deformation": "none",
+     "shimmer": "none",
+     "morph": "non-elastic",
+     "crossfade": "large-plane-shifts",
+     "positionalContinuity": true
+    }
+   },
+   "policyAsAsked": true,
+   "groups": [
+    {
+     "id": "nav",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.77,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "book",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.77,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    }
+   ],
+   "diagnostics": []
+  },
+  "forcedColors": {
+   "status": "ran",
+   "query": "(forced-colors: active)",
+   "readyState": "settled",
+   "rootFound": true,
+   "errors": [],
+   "consoleErrors": [],
+   "accessibility": {
+    "reducedTransparency": false,
+    "reducedMotion": false,
+    "increasedContrast": false,
+    "forcedColors": true,
+    "material": {
+     "glass": "none",
+     "colorSource": "system",
+     "frost": "none",
+     "refraction": "none",
+     "occlusion": "opaque",
+     "border": "strong",
+     "ambientTint": "none",
+     "foreground": "near-monochrome"
+    },
+    "motion": {
+     "overshoot": "elastic",
+     "deformation": "nominal",
+     "shimmer": "travel",
+     "morph": "elastic",
+     "crossfade": "never",
+     "positionalContinuity": true
+    }
+   },
+   "policyAsAsked": true,
+   "groups": [
+    {
+     "id": "nav",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 0,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
+     "id": "book",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 0,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    }
+   ],
+   "diagnostics": [],
+   "forced": {
+    "policyGlass": "none",
+    "runtimeGlassSurfaces": 0,
+    "backdropFilterElements": [],
+    "backdropFilterCount": 0,
+    "glassDrawn": 0,
+    "runtimeRead": true,
+    "hosts": [
+     {
+      "nodeId": "nav",
+      "selector": "div#chrome > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > header.chrome > nav[data-vitrea-node=\"nav\"].nav-bar",
+      "backdropFilter": "none",
+      "backgroundColor": "rgba(255, 255, 255, 0)",
+      "backgroundImage": "none",
+      "borderColor": "rgb(0, 0, 0)",
+      "forcedColorAdjust": "auto"
+     },
+     {
+      "nodeId": "book",
+      "selector": "div#chrome > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div[data-vitrea-node=\"book\"].book-morph",
+      "backdropFilter": "none",
+      "backgroundColor": "rgba(255, 255, 255, 0)",
+      "backgroundImage": "none",
+      "borderColor": "rgb(0, 0, 0)",
+      "forcedColorAdjust": "auto"
+     }
+    ]
+   },
+   "glassDrawn": 0
+  }
+ },
+ "captures": [
+  "shot-fv-light.png",
+  "shot-full-light.png",
+  "shot-menu-light.png",
+  "shot-fv-dark.png",
+  "shot-full-dark.png",
+  "shot-menu-dark.png",
+  "shot-reduced.png",
+  "shot-contrast.png",
+  "shot-forced.png"
+ ],
+ "captureSha256": {
+  "shot-fv-light.png": "51adf68be8e0ffe01855cd3dbc2d9be12f69c56dd323d9b4c8b808d5ba1672a7",
+  "shot-full-light.png": "51adf68be8e0ffe01855cd3dbc2d9be12f69c56dd323d9b4c8b808d5ba1672a7",
+  "shot-menu-light.png": "a30a79946d251f5e5a6abf9e8ee9fe6736eaf07d667758458364458a0a98ec6b",
+  "shot-fv-dark.png": "5f83fbaf8c0724dd0b6be19416d59661393b866d075894d6c0ceed57bd6e902f",
+  "shot-full-dark.png": "5f83fbaf8c0724dd0b6be19416d59661393b866d075894d6c0ceed57bd6e902f",
+  "shot-menu-dark.png": "8101e2c4265de09883a7b8a3ab7bb457e62c008d6b6ee4c31e117f9893472767",
+  "shot-reduced.png": "84a597ad685eb3b3d7933cc2f6b76a3231c892ef8840f95d1aa970fcb42df76e",
+  "shot-contrast.png": "09096b546c15ec01717663d0ef0076d2977357741df175e9d3a6062988f16a6a",
+  "shot-forced.png": "c8649892663501414fba67d8777ef25ff67c1f0d15078ade5d745af70d901831"
+ },
+ "banSubsetSpatial": {
+  "findings": [],
+  "counts": {}
+ },
+ "phasesHook": false,
+ "cssTier": {
+  "status": "ran",
+  "url": "http://localhost:5223/?tier=css",
+  "readyState": "settled",
+  "errors": [],
+  "consoleErrors": [],
+  "groups": [
+   {
+    "id": "nav",
+    "members": 1,
+    "renderer": "css",
+    "cssBody": "two-layer",
+    "cssTint": "linear",
+    "health": "ok",
+    "demotionReason": null
+   },
+   {
+    "id": "book",
+    "members": 1,
+    "renderer": "css",
+    "cssBody": "two-layer",
+    "cssTint": "linear",
+    "health": "ok",
+    "demotionReason": null
+   }
+  ],
+  "menu": "captured",
+  "menuGroups": [
+   {
+    "id": "nav",
+    "members": 1,
+    "renderer": "css",
+    "cssBody": "two-layer",
+    "cssTint": "linear",
+    "health": "ok",
+    "demotionReason": null
+   },
+   {
+    "id": "book",
+    "members": 1,
+    "renderer": "css",
+    "cssBody": "two-layer",
+    "cssTint": "linear",
+    "health": "ok",
+    "demotionReason": null
+   }
+  ],
+  "scrollers": {
+   "found": 0,
+   "cap": 8,
+   "list": []
+  },
+  "lineContrast": {
+   "method": "per-line, glyphs suppressed",
+   "states": [
+    "fv",
+    "menu"
+   ],
+   "lines": 18,
+   "pass": 18,
+   "minRatio": 6.4,
+   "worst": {
+    "state": "menu",
+    "nodeId": "book",
+    "line": 0,
+    "box": [
+     1030.7,
+     46,
+     9.6,
+     20
+    ],
+    "size": 16,
+    "bold": false,
+    "large": false,
+    "floor": 4.5,
+    "ink": [
+     23,
+     24,
+     25
+    ],
+    "inkAlpha": 0.847,
+    "ground": [
+     153,
+     155,
+     161
+    ],
+    "ratio": 6.4,
+    "worstRatio": 6.35,
+    "pass": true,
+    "pixels": 220
+   },
+   "byState": {
+    "fv": {
+     "lines": 6,
+     "pass": 6,
+     "minRatio": 6.64
+    },
+    "menu": {
+     "lines": 12,
+     "pass": 12,
+     "minRatio": 6.4
+    }
+   },
+   "fails": []
+  },
+  "hostLuminance": {
+   "measure": "mean encoded Rec. 709 luma of the glyph-suppressed capture, 0..1 (the runtime's encodedLuminance, packages/platform-web/src/backdrop-tone.ts)",
+   "band": [
+    0.39,
+    0.49
+   ],
+   "ringPx": 24,
+   "reads": [
+    {
+     "state": "fv",
+     "nodeId": "nav",
+     "groupId": "nav",
+     "role": "control",
+     "label": "Main",
+     "rect": [
+      24,
+      24,
+      479.3,
+      48
+     ],
+     "inside": {
+      "mean": 0.8426,
+      "pixels": 23040,
+      "inDeadBand": false
+     },
+     "ring": {
+      "mean": 0.597,
+      "pixels": 27648,
+      "inDeadBand": false
+     },
+     "inDeadBand": false
+    },
+    {
+     "state": "fv",
+     "nodeId": "book",
+     "groupId": "book",
+     "role": "control",
+     "label": "Book a stay",
+     "rect": [
+      1287,
+      24,
+      129,
+      48
+     ],
+     "inside": {
+      "mean": 0.5676,
+      "pixels": 6192,
+      "inDeadBand": false
+     },
+     "ring": {
+      "mean": 0.2054,
+      "pixels": 10800,
+      "inDeadBand": false
+     },
+     "inDeadBand": false
+    },
+    {
+     "state": "menu",
+     "nodeId": "nav",
+     "groupId": "nav",
+     "role": "control",
+     "label": "Main",
+     "rect": [
+      24,
+      24,
+      479.3,
+      48
+     ],
+     "inside": {
+      "mean": 0.8426,
+      "pixels": 23040,
+      "inDeadBand": false
+     },
+     "ring": {
+      "mean": 0.597,
+      "pixels": 27648,
+      "inDeadBand": false
+     },
+     "inDeadBand": false
+    },
+    {
+     "state": "menu",
+     "nodeId": "book",
+     "groupId": "book",
+     "role": "platter",
+     "label": "ArriveFri 2 OctNights2Guests2See rooms",
+     "rect": [
+      800,
+      16,
+      616,
+      64
+     ],
+     "inside": {
+      "mean": 0.5446,
+      "pixels": 39424,
+      "inDeadBand": false
+     },
+     "ring": {
+      "mean": 0.2555,
+      "pixels": 29632,
+      "inDeadBand": false
+     },
+     "inDeadBand": false
+    }
+   ]
+  },
+  "phases": null
+ },
+ "receded": {
+  "status": "ran",
+  "readyState": "settled",
+  "errors": [],
+  "consoleErrors": [],
+  "windowActivation": "inactive",
+  "scrollers": {
+   "found": 0,
+   "cap": 8,
+   "list": []
+  },
+  "lineContrast": {
+   "method": "per-line, glyphs suppressed",
+   "states": [
+    "fv"
+   ],
+   "lines": 6,
+   "pass": 6,
+   "minRatio": 6.59,
+   "worst": {
+    "state": "fv",
+    "nodeId": "book",
+    "line": 0,
+    "box": [
+     1311,
+     38.5,
+     81.4,
+     19
+    ],
+    "size": 15,
+    "bold": false,
+    "large": false,
+    "floor": 4.5,
+    "ink": [
+     23,
+     24,
+     27
+    ],
+    "inkAlpha": 0.847,
+    "ground": [
+     153,
+     157,
+     175
+    ],
+    "ratio": 6.59,
+    "worstRatio": 6.51,
+    "pass": true,
+    "pixels": 1640
+   },
+   "byState": {
+    "fv": {
+     "lines": 6,
+     "pass": 6,
+     "minRatio": 6.59
+    }
+   },
+   "fails": []
+  },
+  "hostLuminance": {
+   "measure": "mean encoded Rec. 709 luma of the glyph-suppressed capture, 0..1 (the runtime's encodedLuminance, packages/platform-web/src/backdrop-tone.ts)",
+   "band": [
+    0.39,
+    0.49
+   ],
+   "ringPx": 24,
+   "reads": [
+    {
+     "state": "fv",
+     "nodeId": "nav",
+     "groupId": "nav",
+     "role": "control",
+     "label": "Main",
+     "rect": [
+      24,
+      24,
+      477.3,
+      48
+     ],
+     "inside": {
+      "mean": 0.7958,
+      "pixels": 22944,
+      "inDeadBand": false
+     },
+     "ring": {
+      "mean": 0.5983,
+      "pixels": 27552,
+      "inDeadBand": false
+     },
+     "inDeadBand": false
+    },
+    {
+     "state": "fv",
+     "nodeId": "book",
+     "groupId": "book",
+     "role": "control",
+     "label": "Book a stay",
+     "rect": [
+      1287,
+      24,
+      129,
+      48
+     ],
+     "inside": {
+      "mean": 0.5868,
+      "pixels": 6192,
+      "inDeadBand": false
+     },
+     "ring": {
+      "mean": 0.2054,
+      "pixels": 10800,
+      "inDeadBand": false
+     },
+     "inDeadBand": false
+    }
+   ]
+  }
+ },
+ "extraCaptures": [
+  "css-fv-ground.png",
+  "css-fv.png",
+  "css-menu-ground.png",
+  "css-menu.png",
+  "receded-fv-ground.png",
+  "receded-fv.png",
+  "shot-fv-dark-ground.png",
+  "shot-fv-light-ground.png",
+  "shot-menu-dark-ground.png",
+  "shot-menu-light-ground.png",
+  "shot-reduced-ground.png"
+ ],
+ "extraCaptureSha256": {
+  "css-fv-ground.png": "195e277b84313c2c4c77b0d9931d0c9cea0c51ac89c3c4fa9c448bde002936bc",
+  "css-fv.png": "7f0fcb99c7d231e55bce1ea671b5b0bb13132c7d9e2f4c3f2ea67c5f5291c20b",
+  "css-menu-ground.png": "738b20b21e42b9f0fc94d4a6edbb8fbff0aa110f4906f3a91a5f4b1bfb0ead5d",
+  "css-menu.png": "906a21e1ef2366719dd558b20f3c5ee89fecf884d66d4f5a160bde34d52ea9c8",
+  "receded-fv-ground.png": "578a291a7f91e0cb144609a002ffbddbe9edfe7de5d0aabcc64fde61787a517b",
+  "receded-fv.png": "d54a727639db17c450561bc05fac98a6be280d4950527f200227aef33f40de57",
+  "shot-fv-dark-ground.png": "94d3f1449fd0d9fb8ad1fb843dc204e93628de836cfdbee376d508ee988166f6",
+  "shot-fv-light-ground.png": "965e11a4c2458352242310b24f0baba5119de6857b9e6d99b8728d3c308a2f0f",
+  "shot-menu-dark-ground.png": "d92ea096fe905666796539b92f32cafdd5010a53cebca8f8d3d88d708d1bea5c",
+  "shot-menu-light-ground.png": "651760758fb59c776d53a9a3374a57e6360e1448dfa1f6b319a9ddcefd3e2426",
+  "shot-reduced-ground.png": "3e465d7a693ecb562867697fb6ac4250c22f629a27a62173a68f9601c313a82d"
+ },
+ "gateMechanical": true,
+ "tool": {
+  "playwright": {
+   "module": "@playwright/test",
+   "version": "1.62.1"
+  },
+  "chromium": "151.0.7922.34",
+  "gpuArgs": [
+   "--enable-unsafe-webgpu",
+   "--enable-features=Vulkan,WebGPU"
+  ]
+ }
+}

@@ -1,0 +1,48 @@
+{
+  "brief": 8,
+  "grader": "astra-high",
+  "gradedAt": "2026-09-27T07:34:38.252311Z",
+  "A": {
+    "c1": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-spatial-register/eval/8/materialist/DESIGN.md:20–23 chooses instrument because the valley is the world acted on by navigation and Book; src/App.tsx:147–155 puts rooms, trails and story in the opaque sheet (src/styles.css:174–176), while /Users/new/Developer/GitHub/designer/docs/research/data/2026-09-27-materialist-spatial-register/eval/audit/8-materialist.json schemes.light/dark.hostText shows only two control hosts and glassCoverage.fraction=0.0224."
+    },
+    "c2": {
+      "verdict": "partial",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-spatial-register/eval/8/materialist/src/Plane.tsx:178–188 registers the painted canvas as one texture and src/styles.css:72–78 fixes it to the viewport; /Users/new/Developer/GitHub/designer/docs/research/data/2026-09-27-materialist-spatial-register/eval/audit/8-materialist.json schemes.*.surfaces/menuSurfaces confirms capsule-shaped housings at spans48/64, thickness8, but this family does not straddle32–96, a shortfall explicitly recorded in DESIGN.md:62–69,212."
+    },
+    "c3": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-spatial-register/eval/8/materialist/src/styles.css:94–110 makes the edge-to-edge content scroller carry its own gradient mask and derived scroll-padding; src/Chrome.tsx:148–159 measures the floating envelope and src/App.tsx:81–91 recomputes its clear line, keeping the valley visible under the controls as content scrolls behind the masked band."
+    },
+    "c4": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-spatial-register/eval/8/materialist/DESIGN.md:71–76 records no tint and explains why tinting Book would also tint its booking-bar morph; /Users/new/Developer/GitHub/designer/docs/research/data/2026-09-27-materialist-spatial-register/eval/audit/8-materialist.json schemes.light/dark.surfaces and menuSurfaces all report tinted=false."
+    },
+    "c5": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-spatial-register/eval/8/materialist/DESIGN.md:47–56 records the whole-source/local-footprint mismatch and measured values; src/Plane.tsx:131,195–205 samples the painted composite under each silhouette, src/Chrome.tsx:162–208,219–229 remeasures on repaint/layout/morph, and /Users/new/Developer/GitHub/designer/docs/research/data/2026-09-27-materialist-spatial-register/eval/audit/8-materialist.json schemes.*.groups reports backdropToneHint=true on both groups."
+    },
+    "c6": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-spatial-register/eval/8/materialist/scripts/contrast.mjs:83–130 measures glyph-suppressed rendered backgrounds with composited ink in both schemes, recorded in qa/contrast-{light,dark}-{webgpu,css}.txt and DESIGN.md:146–168; /Users/new/Developer/GitHub/designer/docs/research/data/2026-09-27-materialist-spatial-register/eval/audit/8-materialist.json schemes.light/dark.lineContrast independently passes18/18 lines in each, minima6.35/6.34:1, with the author table’s per-line overstatement noted separately."
+    },
+    "c7": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-spatial-register/eval/8/materialist/src/Sheet.tsx:357–364 exposes the Reduce Transparency checkbox, src/settings.ts:57–59 resolves a boolean passed by src/App.tsx:34–38, and DESIGN.md:195–196 records the forced-colours inspection; /Users/new/Developer/GitHub/designer/docs/research/data/2026-09-27-materialist-spatial-register/eval/audit/8-materialist.json reduced.policyAsAsked/policyChanged=true and emulation.forcedColors.glassDrawn=0 corroborate it."
+    },
+    "c8": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/docs/research/data/2026-09-27-materialist-spatial-register/eval/audit/8-materialist.json diagnostics=[], unknownDiagnosticCodes=[], schemes.light/dark.diagnostics=[], menuDiagnostics=[], errors=[] and banSubset/banSubsetSpatial.findings=[]; the four supplied /Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-spatial-register/eval/8/materialist/qa/contrast-*.txt runs also end with diagnostics (warnings/errors):0."
+    }
+  },
+  "falseClaims": {
+    "A": [
+      "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-spatial-register/eval/8/materialist/DESIGN.md:148–153 calls the author results per-line tables and describes the verdict as per line box, but scripts/contrast.mjs:95–130 pools every client rect of each target element into one values array and one percentile row; qa/contrast-light-webgpu.txt:15–18 accordingly has one row apiece for the multiline hero title, lede and caption. These are per-element/state readings, not independently gated lines. This does not contradict the supplied audit’s genuine lineContrast passes on the single-line glass labels, nor establish an actual contrast failure."
+    ]
+  },
+  "contrast": {
+    "A": "/Users/new/Developer/GitHub/designer/docs/research/data/2026-09-27-materialist-spatial-register/eval/audit/8-materialist.json lineContrast (per-line, glyphs suppressed): light18/18 passing, minimum6.35:1 (first view6/6 at6.71; booking open12/12 at6.35); dark18/18, minimum6.34:1 (first view6/6 and booking open12/12). Both actual schemes follow the emulated preference. CSS18/18 at6.40:1; receded6/6 at6.59:1; Reduce Transparency6/6 at13.50:1. No audited line fails. The light DOM-composite estimate’s six failures are not the rendered glass verdict. Author QA records78 passing target/state readings in each of four scheme/tier files, covering hero, scrolled, receded and reduced-transparency states as well as rest/open, with p5 as its declared verdict; the multiline targets are pooled, not per-line. Sheet contrast is recorded as computed tokens, not an author rendered-pixel sweep."
+  },
+  "notes": "Matched instrument-register control, deliberately unblinded; A is the sole materialist build. Overall tally:7 holds,1 partial,0 fails. Register choice c1 holds separately; execution c2–c8:6 holds,1 partial,0 fails. The c2 partial preserves the pre-registered size-family requirement despite the sensible, explicitly recorded product reason for stopping at64; adding an unwanted glass content panel is not required or recommended. c3 credits the permitted clear-band scroll-edge composition, not content becoming the optical backdrop. Its scrolled behavior is supported by source and the supplied author QA, not by an independent scrolled capture: the audit reports scrollers.found=0, phasesHook=false and its full-page screenshots have the same hashes as first-view captures. The opaque sheet and realistic five-room/six-trail/three-paragraph content were checked in source. Independent CSS groups and menuGroups are two-layer, consistent with the recorded low-DPR state; the record’s DPR3 collapsed-open claim is outside this audit’s coverage. Receded audit activation is inactive. No audit/record contrast disagreement was found within measured coverage; the author measurement-granularity overstatement is isolated in falseClaims. c6 grades rendered measurement and recording, not a universal accessibility certification. Supplied first-view light, booking-open dark and forced-colours screenshots were visually inspected. No additional live render, source changes, or git commands were run; only this grade file was written."
+}

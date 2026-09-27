@@ -1,0 +1,126 @@
+{
+  "brief": 7,
+  "grader": "astra-high",
+  "gradedAt": "2026-09-27T07:32:56.653879Z",
+  "A": {
+    "c1": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-spatial-register/grading/7/A/DESIGN.md:18–20,136–141 chooses glass task surfaces standing in the environment for an in-room glance-and-act display; captures-A/shot-fv-light.png shows those three task surfaces, not merely a floating navigation bar."
+    },
+    "c2": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-spatial-register/grading/7/A/src/environment.tsx:133–157 measures the painted, scheme-graded canvas and src/styles.css:44–50 fixes it full-bleed; DESIGN.md:22–40 records footprint and drawn levels, corroborated by audit-A.json schemes.*.hostLuminance.reads (content means light 0.6789–0.9489, dark 0.2110–0.2810 at rest; no dead-band flags)."
+    },
+    "c3": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-spatial-register/grading/7/A/DESIGN.md:42–59 groups stay, weather-plus-trails and in-room services into three content surfaces; audit-A.json planes has three base nodes plus one overlay ornament and schemes.light.glassCoverage.fraction=0.4086, with the valley visibly open in captures-A/shot-fv-light.png."
+    },
+    "c4": {
+      "verdict": "partial",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-spatial-register/grading/7/audit-A.json surfaces reports content spans 148/472/361, radius32 and thickness8 throughout, and A/DESIGN.md:71–73 derives child corners from the containing surface; however the text-bearing Room ornament is span52, explicitly exempted by A/DESIGN.md:69–70 despite c4 saying every text-bearing surface is at least96."
+    },
+    "c5": {
+      "verdict": "partial",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-spatial-register/grading/7/A/src/styles.css:69–75,104–132 uses runtime primary ink and medium weight, but replaces the published secondary token with primary-at-84%-alpha on descriptions; A/DESIGN.md:157–164 honestly records this departure, and src/styles.css:724–732 uses authored inverse action colours rather than runtime ink on those labels."
+    },
+    "c6": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-spatial-register/grading/7/A/DESIGN.md:103–124 records the rendered per-line method and readings, backed by A/shots/summary.json (3,704 readings, zero failures); audit-A.json schemes.light.lineContrast is 598/598, minimum5.37:1, dark 598/598, minimum5.09:1, with cssTier and receded also passing all598."
+    },
+    "c7": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-spatial-register/grading/7/A/src/styles.css:79–101,546–568,680–690,792–810 gives separating tracks/inputs dark fills and interactive/selected children light fills without nesting a light fill inside another light fill; audit-A.json named.nestedGlass=false and banSubset/banSubsetSpatial.findings=[] confirm no second material host inside the surfaces."
+    },
+    "c8": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-spatial-register/grading/7/A/src/Stay.tsx:99–174 attaches one overlay-plane Room ornament beyond the stay edge at useDerivedGap, containing plain buttons; src/glass.tsx:74–93 derives that gap with samplingPaddingFor and accessibility policy, while audit-A.json surfaces confirms every host untinted."
+    },
+    "c9": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-spatial-register/grading/7/A/src/Scroller.tsx:16–45 and src/styles.css:571–597 put conditional scroll-edge masks on the inner scroller; audit-A.json schemes.*.scrollers.found=1 and lineContrast.byState cover top/middle/bottom with docHeight900; DESIGN.md:57–58,83–86 keeps order review in the existing window, so no emerging sheet or modal requires morph/dimming."
+    },
+    "c10": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-spatial-register/grading/7/audit-A.json surfaces[].variant and schemes.*.groups[].variant are regular throughout; A/DESIGN.md:126–130 explicitly declines clear, and the environment grade is not a substitute clear-material dimming layer."
+    },
+    "c11": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-spatial-register/grading/7/A/DESIGN.md:88–92 names the collapsed CSS body at1440 and its two-layer smaller alternative, confirmed by audit-A.json cssTier.groups[].cssBody=collapsed; DESIGN.md:126–131 explicitly bounds window-scale material as extrapolation beyond the span160 bed, although it overincludes the span148 module (falseClaims.A)."
+    },
+    "c12": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-spatial-register/grading/7/A/src/InRoom.tsx:345–357 offers the guest a Reduce Transparency switch and src/App.tsx:49–75 passes its boolean to GlassRoot; audit-A.json reduced.policyAsAsked=true, while src/styles.css:927–970 and captures-A/shot-forced.png preserve selections, controls, night pips and forecast bars with system colours/outlines."
+    },
+    "c13": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-spatial-register/grading/7/audit-A.json diagnostics=[], unknownDiagnosticCodes=[], schemes.*.diagnostics=[], groups[].diagnostics=[] and emulation.*.diagnostics=[]; banSubset and banSubsetSpatial also contain no findings, bounded to the supplied captured states."
+    }
+  },
+  "B": {
+    "c1": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-spatial-register/grading/7/B/DESIGN.md:3–6,15–20,37–39 chooses free-standing glass panes in the room view, positioning each for a guest task while preserving the peak; captures-B/shot-fv-light.png implements that spatial choice even without the word register, so vocabulary is not a failure."
+    },
+    "c2": {
+      "verdict": "partial",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-spatial-register/grading/7/B/src/App.tsx:68–75,91–104 and src/styles.css:111–119 provide one viewport-fixed video texture, but no per-surface painted-level record/grade keeps it safe: audit-B.json schemes.dark.hostLuminance.reads flags all three content panes at rest (stay0.4169, weather0.3929, trails0.4323) and again with the menu open inside the0.39–0.49 band."
+    },
+    "c3": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-spatial-register/grading/7/B/DESIGN.md:15–20 assigns three content panes to stay, trails and weather; audit-B.json surfaces distinguishes those three from the three dock controls, and schemes.light.glassCoverage.fraction=0.4749 plus captures-B/shot-fv-light.png shows the view around their content-sized bounds."
+    },
+    "c4": {
+      "verdict": "partial",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-spatial-register/grading/7/audit-B.json surfaces gives content spans392/277/404 with fixed radius28, but the text-bearing dock spans56 and mixes thickness10 with content thickness18; B/DESIGN.md:37–39 records panel corners without naming their concentric anchor, and src/dock.tsx:255–259 also changes thickness across the morph."
+    },
+    "c5": {
+      "verdict": "partial",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-spatial-register/grading/7/B/src/styles.css:129–153 uses the runtime primary/secondary tokens but also tertiary, used for the readable sent-message status in src/dock.tsx:548 and the input placeholder at styles.css:1048–1049; styles.css:218–250,311–315 sets greeting, clock and descriptive text to weight400 rather than medium-through-bold."
+    },
+    "c6": {
+      "verdict": "fails",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-spatial-register/grading/7/B/scripts/look.mjs:45–67 records token strings and screenshots, not rendered contrast readings, and DESIGN.md:64–104 records no ratio/failure table; audit-B.json schemes.*.lineContrast finds light305/463 passing, minimum1.78:1, dark62/463, minimum1.62:1, with first-view text already failing at4.24/3.55:1 before the disabled order control."
+    },
+    "c7": {
+      "verdict": "partial",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-spatial-register/grading/7/audit-B.json named.nestedGlass=false and B/DESIGN.md:43–46 correctly keeps inner controls as fills, but styles.css:728–740,988–1004,1038–1045 mixes currentColor indiscriminately for both interactive requests and inputs, making interaction darker on light glass and the input lighter on dark glass instead of preserving the required roles."
+    },
+    "c8": {
+      "verdict": "partial",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-spatial-register/grading/7/audit-B.json surfaces confirms untinted content and controls, but all three resting dock controls are separate base-plane material hosts rather than an overlay ornament holding plain buttons; B/src/dock.tsx:162–180,251–259 uses GlassButton/GlassMorph with a fixed56 break and fixed14 morph gap, not an attached ornament at the runtime-derived content gap."
+    },
+    "c9": {
+      "verdict": "partial",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-spatial-register/grading/7/B/src/dock.tsx:251–291 morphs the service control into its overlay dialog and src/styles.css:791–802 contains menu overflow, but no scroll edge is applied; audit-B.json schemes.*.scrollers.found=0 and captures-B/shot-menu-light.png shows the entire menu in a large undimmed nonmodal platter, while the fixed plane itself does not scroll."
+    },
+    "c10": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-spatial-register/grading/7/audit-B.json schemes.*.surfaces and menuSurfaces all report variant=regular with no tinted host, so clear is not spent; B/src/panels.tsx:46–52 and src/dock.tsx:251–260 do not request a clear variant."
+    },
+    "c11": {
+      "verdict": "fails",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-spatial-register/grading/7/B/DESIGN.md:53–57,70–73 discusses the CSS estimator and tier but never records collapsed-body design or extrapolation beyond the fitted span bed; audit-B.json cssTier.groups[].cssBody and menuGroups[].cssBody are collapsed, and the actual content spans277–596 exceed160."
+    },
+    "c12": {
+      "verdict": "partial",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-spatial-register/grading/7/B/src/App.tsx:32–50 passes a real Reduce Transparency boolean and audit-B.json reduced.policyAsAsked=true, but the only authored setter is window.__glassDemo rather than a guest-facing setting; captures-B/shot-forced.png loses the night bars, hourly bars and filled status dots, and DESIGN.md:64–86 records no forced-colours inspection."
+    },
+    "c13": {
+      "verdict": "holds",
+      "evidence": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-spatial-register/grading/7/audit-B.json diagnostics=[], unknownDiagnosticCodes=[], schemes.*.diagnostics/menuDiagnostics=[] and emulation.*.diagnostics=[]; banSubsetSpatial.counts.unroled-host=7 is a separate audit convention finding, not a runtime dev diagnostic, so it is not relabelled as failure of c13."
+    }
+  },
+  "falseClaims": {
+    "A": [
+      "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-spatial-register/grading/7/A/DESIGN.md:126–128 includes the 148x440 stay module among surfaces extrapolating past the declared span160 bed; audit-A.json surfaces[groupId=stay].span=148, and /Users/new/Developer/GitHub/designer/packages/platform-web/src/root.ts:2803 defines span as min(width,height), so that module is not beyond the largest measured span (the larger windows are)."
+    ],
+    "B": [
+      "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-spatial-register/grading/7/B/src/viewEstimator.ts:6–8 claims WebGPU measures the backdrop under each surface exactly; audit-B.json schemes.*.groups reports analysis=exact but abscissae=null for every group, not per-surface footprint readings. /Users/new/Developer/GitHub/designer/packages/renderer-webgpu/src/renderer.ts:786–793,1034–1055 distinguishes ordinary per-source statistics from optional silhouette measurements, and packages/platform-web/src/root.ts:2207–2214,2375–2385 falls back to source/group tone. Exact texture analysis is not proof of the claimed local measurement."
+    ]
+  },
+  "contrast": {
+    "A": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-spatial-register/grading/7/audit-A.json schemes.*.lineContrast (per-line, glyphs suppressed): light598/598, worst line5.37:1; dark598/598, worst line5.09:1, each across first view plus inner-scroller top/middle/bottom, with both schemes followed. CSS598/598 at5.37:1; receded598/598 at4.99:1. These line readings govern rather than legacy glassContrast, whose light minimum1.81:1 disagrees.",
+    "B": "/Users/new/Developer/GitHub/designer/figma-design-workspace/materialist-spatial-register/grading/7/audit-B.json schemes.*.lineContrast (per-line, glyphs suppressed): light305/463, worst line1.78:1; dark62/463, worst line1.62:1, with both schemes followed. First view alone is137/198 at4.24:1 light and52/198 at3.55:1 dark, so failure is not confined to the disabled order label that supplies the overall minima. CSS305/463 at1.78:1; receded140/198 at4.15:1. Samples do not prove the worst point of the moving video loop."
+  },
+  "notes": "Blind grading from the permitted source snapshots, design records, audits and screenshots, plus narrow runtime-source checks; no assignment map, other workspace area, git command or fresh browser run was used. Register choice c1 is scored separately from execution: both pages choose glass as task surfaces in an environment. Missing data-glass-role attributes in B explain the spatial audit findings but do not negate that visible choice. c4 follows the literal every-text-bearing-surface wording, including A’s52px ornament and B’s56px controls; content panes alone pass that minimum. c5 does not turn A’s honestly documented and contrast-effective custom secondary step into the runtime secondary token. c7 treats plain rows on the existing glass as non-nested content, and never-lighter-on-lighter as no nesting of lifted child fills, not a prohibition on using controls in the light scheme. c9 does not require an unnecessary sheet/modal: A stays in its existing window, while B’s dialogs are nonmodal; B loses full credit for missing scroll edges, not merely for lacking a scrim. A’s wider self-recorded contrast matrix has3,704 lines and no failures; independent audit coverage is narrower and has no custom phase hook for either build. Zero diagnostics is bounded to audited states, not evidence of visual correctness. Neither backdrop is a real live camera: A documents a still and B a17.5-second archival loop; those honest prototype limits are not used to change the register-choice score. No source changes were made; only this grade file was written."
+}
