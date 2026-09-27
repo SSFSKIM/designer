@@ -1,0 +1,76 @@
+{
+  "recordedAt": "2026-09-27T09:17:06.188905+00:00",
+  "records": 141,
+  "raw": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/x6/bounded-observations.jsonl",
+    "bytes": 9023694,
+    "sha256": "86522eb475c6468d5dc4aebe91321d2e4f90c80e69ac8dc9e25ba88295efacff",
+    "retained": true
+  },
+  "gzip": {
+    "path": "bounded-observations.jsonl.gz",
+    "bytes": 1498479,
+    "sha256": "e3cfac12c0db06f7fd273b0cca050dafab2d6624d98f062669a6224e5c26771d",
+    "mtime": 0,
+    "roundTripIdentical": true
+  },
+  "firstAt": "2026-09-27T08:05:51.775871+00:00",
+  "lastAt": "2026-09-27T09:16:06.202133+00:00",
+  "passes": 1,
+  "refusals": 140,
+  "foreignProcessCounts": {
+    "0": 5,
+    "7": 30,
+    "8": 2,
+    "13": 1,
+    "16": 2,
+    "17": 4,
+    "18": 1,
+    "21": 1,
+    "22": 26,
+    "23": 2,
+    "29": 3,
+    "30": 1,
+    "35": 1,
+    "36": 17,
+    "37": 4,
+    "38": 3,
+    "39": 1,
+    "42": 1,
+    "44": 4,
+    "45": 4,
+    "46": 8,
+    "47": 3,
+    "48": 1,
+    "49": 1,
+    "52": 1,
+    "54": 3,
+    "55": 2,
+    "56": 2,
+    "57": 1,
+    "59": 3,
+    "60": 1,
+    "64": 1,
+    "65": 1
+  },
+  "lastObservation": {
+    "foreignProcessCount": 0,
+    "verdict": {
+      "facts": {
+        "NSGlassTintAmount": true,
+        "foreignProcessCountZero": true,
+        "idleAtLeast60Seconds": true,
+        "increaseContrast": true,
+        "reduceTransparency": true
+      },
+      "idleSeconds": 62.4175995,
+      "passes": true,
+      "refusals": []
+    }
+  },
+  "observerSource": {
+    "revision": "fdaa44be",
+    "sha256": "daf139fbb63acde10d2db077e53ccaca8ec260c0cc029481f2968426fe654171"
+  },
+  "authority": "Observer readiness is not launch authorization. The fresh prelaunch gate uses corrected committed census/authority checks. No record filtered or omitted."
+}
