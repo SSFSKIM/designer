@@ -39972,3 +39972,293 @@ thresholds still describe the unchanged shipped material, not these failed
 experimental laws. No push or release/version action was taken. G2 performs
 no Screen Recording grant action; restoration remains the separate wave-close
 step under Decision Log4.
+
+## 5.191 W41 G0: the archive re-read declared, the instrument proved, and the renderer-bound exposure tooled (2026-09-27)
+
+**No native fit and nothing shipped.** Evidence is
+`results/2026-09-27-w41-g0-declaration/`; its `README.txt` is the chronological index.
+G0 supplies the declaration, no-fit twin audit, synthetic instruments, calibration-only
+reader replay, single-exposure runner and standing eye sheets. Identification remains G1.
+The parent’s whole-gate review/merge is separate from the focused reviews recorded below.
+
+### 1. Declaration and the parent’s clarifications, before any native fit
+
+Final declaration SHA-256:
+`850747c1f03781a6efe9b433bd4ce3bd6cf72b63c9befd8d5d98de9eadf7f759`.
+The initial `99e460d5cf83da086fb27dbd132058fe81c31767462917623ce9883c74c9c05c`
+is retained in full under `declaration-history/<hash>/`, with its closure, pins and generator.
+`declaration-amendment.json` records both. W39’s scene-level split, archive inventory
+`58329732f947d42cd5e1518962016191faaa79d89b7089c6dadf5724dde35f61`, release asset
+`489db938…26b5` and **13,658,148 bytes** are unchanged. The copied grounding memos/scripts/
+outputs retain their original byte hashes; the large stroke reading is losslessly gzipped.
+
+The declaration fixes B0/H3 as historical baseline, B1/E3’s three encoded level gains,
+B2/EH6’s six periodic hue gains, B3/O12’s twelve OKLab matrix entries; S0/S1/S2 as a
+calibration finding, **no spatial leaf**; device-width G, CSS-width and nominal-radius rivals;
+M0/M1/M2 and their counts, bounds, interpolation, continuation and working spaces. The strip
+is central **48 CSS px**, rows **at least 6 CSS px inward**, arcs excluded, local reference
+**121–135 codes**, separate device rows at both scales. Every inherited exterior shell
+**0 through 4·scale−1**, population at least four, remains required; shells −1/−2/−3 witness
+zero stroke contribution, and straddling rows remain diagnostic. No opaque registration is
+transferred to glass. The actual supplied path controls support and normals.
+
+Three parent clarifications are explicit, not silently inferred:
+
+- **v2.1, clause 7:** the active top straight is a shadow-only observed zero on the **dark**
+  stratum, not light. Light active carries −20 codes against less than 0.0003 code of held
+  shadow at both scales. The stop and original numerical witness remain in evidence. All
+  beyond-band zero-inactive bins remain shadow controls; occupied shell-1 arcs remain stroke
+  tests. The small signed active residual is conditional on the held shadow model.
+- **v2.2, X31:** measured comparisons within max(1,bar) **or satisfied one-sided rail
+  constraints** permit survival. A measured miss or rail violation binds. Deficient bins are
+  UNMEASURED, excluded and counted. Censored held-out cells contribute neither pass nor
+  coverage; every measured held-out cell must pass, with measured/total coverage reported.
+- **v2.3, clause 11:** held-out web predictions are produced **blind before exposure** from
+  public declared backdrop/geometry and committed generated rasters, never native pixels.
+  Inside the sole receipt, fresh renders must match frozen bytes/projections before native
+  held-out scoring. “Inside the receipt” governs Apple’s pixels, not blind web rendering.
+
+The parent also confirms the curvature rival is **nominal radius**: circles R22/R32 on
+calibration, rrect nominal R22, `clip(A·(1+ρ/R),0,1)` on arcs and unchanged straights. A local
+κ(p) law along the continuous path is a different forward law, not declared or identified here.
+
+Execution records are bound by the final declaration: body
+`a3947184dbd81edd6597517ec03cee736ecbf622b1cbf22a9fe5f3a3ecee4521`, stroke
+`df9f807eb3c25334aede388ce22ff6f6f92106400b2d419c743c2f20441d22af`.
+Original execution bytes and failed numerical attempts remain beside their corrections.
+
+### 2. Twin audit: predictions where they exist, observations where they do not
+
+`twin-audit.py` compares the **preserved exploratory instances**, not a new native fit.
+Every listed ≥3-code body witness is uncensored. Maxima over common cells are:
+
+| pair | maximum separation, codes | ordinary-colour maximum | verdict |
+| --- | ---: | ---: | --- |
+| B0/B1 | 21.149240 | 20.322433 | separates these instances |
+| B0/B2 | 22.532827 | 22.532827 | separates these instances |
+| B0/B3 | 33.470862 | 20.872726 | separates these instances |
+| B1/B2 | 3.225059 | 3.225059 | ordinary-colour discriminator |
+| B1/B3 | 28.228170 | 2.286147 | **bridge only** |
+| B2/B3 | 27.976343 | 4.461176 | ordinary-colour discriminator also exists |
+
+B1/B2’s named cells remain dark-active `factor-y2-c24-h300`/B and dark-inactive
+`matched-channel-4`/R. The complete B1/B3 predictions additionally separate the **dark green**
+bridge (10.397046 active / 14.574476 inactive) beside the memo’s dark-red witnesses
+25.206244/28.228170. This expands the named bridge witnesses, not the bridge-only conclusion.
+The O12 exploratory instance was an unbounded local LS trial, not G1’s bounded fit.
+
+S0/S1’s prior inactive prediction separation **1.15 light / 2.03 dark** is below the
+three-code resolution rule: **insufficient resolution for those instances**, not evidence
+that the null passes one code. S1/S2 and S0/S2 have the active reflected-row observational
+witness, **3 codes at depth 14.5 CSS px**, both scales; no fitted S2 success is invented.
+Blend versus wide blur and a long boundary tail remain alternatives; no structured holdout
+can referee a spatial leaf.
+
+M0/M1 and M0/M2 have the neutral affine-miss witnesses; M1/M2 has dark-inactive input32
+reading **21 on red / 14 on green**, a bridge-only contextual observation, not an M2 fit.
+Device versus CSS width is tested by the aligned 2x shell-1 zero against occupied oblique
+arcs. The nominal-radius rival has an admitted 2x circle/rrect contrast (−47.5/−38.75,
+populations14/4), but the 1x rrect population2 is **UNMEASURED**. Shape and angular sampling
+change too, so this is not curvature-only identification. Crossed-family predictions that
+were never fitted are not manufactured by the audit.
+
+The verified censor populations are **404/408 whole cells, 1,212 channels** for W39 H3’s fit,
+versus W41’s **408 cells, 1,220 uncensored channels and four hard rail bounds**. The eight
+retained uncensored light-red channel observations are not relabelled as W39’s population.
+
+### 3. Body and stroke numerical proofs, including their failures and corrections
+
+`body-instrument/` passes **15 synthetic tests**. Planted E3/EH6 gains recover to maxima
+**4.2633e−14 / 3.9790e−13 codes**. A deliberately wrong EH6 family is globally bracketed at
+**[15.555596204576219, 15.5556044024584] codes**, width below1e−5, by an independently verified
+exact rational Farkas certificate and original-forward upper. Certificates concern the
+rational interpretation of the float64 inequalities, not formal transcendental arithmetic.
+O12’s planted LS/minimax maxima are **1.4211e−13 / 1.7195e−12**, rank12; its search remains
+LOCAL with all16 starts retained.
+
+Independent body review found floating dual support omitting tiny positive coefficient-bound
+weights. The separate fix retains/augments that support and verifies the exact certificate.
+Its **100 noisy cases** now produce100 certified minimax brackets,95 certified survival
+negatives and5 feasible survivors, **zero stalls or uncertified outcomes**, versus19 earlier
+stalls. Recovery has a declared budget (2048 extra exact attempts, eight extra slack-ranked
+observations, support at most p+1, HiGHS cap10000). Future exhaustion returns **uncertified**,
+never a pass or a negative. The same reviewer reran the tests/sweep and approved the fix.
+SciPy remains an external fitting-environment dependency, not a requirement of ordinary tests.
+
+`instrument/stroke_fit.py` implements bounded joint four-endpoint M0/M1/M2 searches and the
+geometry rivals. Gamma’s feasible map and monotone ordinate sorting retain every declared
+parameter; hard rails are constraints. Cell mass is normalized over measured bin/channel
+groups: the mixed-censor regression reads the intended squared objective **2.5**, not2.333333.
+The first planted G+M0 proof recovered LS to2.1051e−10 and a forward minimax bracket
+[0,1.4883e−9], while preserving the selected minimax optimizer’s line-search failure rather
+than calling it convergence. Those records remain.
+
+A second independent finding mattered: binary quadrature made width’s finite-difference
+column zero, so only16 initial widths were explored. For two four-pixel straight bins,
+width1.75 and stroke64 over128 yield64/80, but the original starts’ best possible minimax
+was **6.193548 codes**. LOCAL disclosure did not repair an omitted search direction.
+The separate correction crosses support steps with a conditional **65-point sweep plus
+four nine-point refinements**, at most102 width evaluations including the incumbent and
+**eight alternations per objective/start**, refitting only the winning admissible width.
+The fixed forward model and domains are unchanged.
+
+Off-seed device width1.75 at1x and CSS width0.84375 at2x now both recover LS/minimax to
+**7.1054e−15 codes**, with successful optimizers and zero rail deficit, versus old6.19/8.00
+code misses. Four width regressions, mass and seven core tests pass; the same reviewer’s
+recheck is clean. The corrected full joint suite passes two tests in499.671s, beside the
+prior244.207s artifact: best LS **4.2633e−13**, minimax **1.3074e−12**, both converged,
+rank **14/15**. Across16 starts,15 selected LS and14 selected minimax optimizers converge;
+other outcomes, including separately labelled zero-floor brackets, remain visible.
+
+This remains a **conditional LOCAL search**, not exhaustive support-state enumeration:
+narrow basins, coupled width/colour barriers and infeasible crossings may be missed.
+Quadrature’s local rank loss remains, and forward recovery is not unique physical width
+(X30). A fixed-coefficient synthetic16/32 quadrature comparison over **1,136 pixels at1x /
+4,676 at2x** changes at most **0.247500 code**; that is an instrument example, not a native
+sensitivity claim for G1’s future coefficients.
+
+### 4. Supplied-path readers, rendered scoring and the held shadow
+
+The synthetic stadium’s one-device-pixel band has aligned-straight coverage **[1,0,0]** in
+shell0, shell1 and shell−1 at both scales. Oblique shell1 coverage reaches
+**0.46484375 / 0.45703125**, 1x/2x. Nonlinear material evaluation before area averaging
+produces **16 codes** in the planted gradient example; averaging first incorrectly produces0.
+The fixed strip recovers **32/64 rows**, **48/96 pixels per row**, with zero residual.
+M2 neutral identity and held-luma gamut projection are tested. The actual synthetic PNG
+scorer retains a G-only **four-code** exterior failure across all seven repeats; absolute
+error is reduced after pixels, not taken after signed bin cancellation.
+
+The held shadow uses the shipped active documents’ sigma law, spread, offset, six anchors,
+size law and falloff, and full translated supplied-path distance rather than d−offset·ny.
+Receded shadow is exactly zero. **360 runtime CPU-law cases** agree within6.9389e−18;
+**3,240 actual Apple M2 Pro/Metal compute cases** agree with unchanged WGSL arithmetic within
+**0.0000283601 encoded code**. No software fallback, browser or capture is used. As W39’s H2
+proof did, the wrapper supplies synthetic field inputs: this proves arithmetic, **not field
+texture reconstruction or browser compositing**. The resolved-material sidecar and source/
+wrapper hashes are preserved. The focused core review independently repeated all12 tests,
+CPU/Metal checks and the reader replay, with no material findings.
+
+The historical whole-renderer SHA check stays a standalone proof, not a new ordinary-CI
+invariant that would accidentally forbid G1’s authorized identity-gated source additions.
+
+### 5. Archive-only replay and the single-exposure runner
+
+`instrument/replay-readings.py` accepts the verified fetched archive root explicitly and
+denies the whole raw `~/vitrea-w39` tree. Calibration-only guarded replay reproduces
+**504 cells / 64,504 stroke bins**, **408 deep cells from crops**, and **16 gradient strips**
+exactly. The declared row medians equal the memo’s row means here, maximum difference0.
+The explicit-root replay differs from the original only in its script source hash. Archive
+fetch integrity hashing is not an analytical exposure; no validation/holdout analytical
+archive read or native fit occurs in G0.
+
+`exposure/runner.py` freezes numerical candidates and outputs, renderer revision/configuration,
+full rendered PNG/projection predictions, transitive inputs and the executed `policy/dist`
+module snapshots. It uses W39’s sole receipt path. Admission comes from the pinned inventory:
+**648 numerical cells (576 cal/val +72 held out)** and **600 rendered (536+64)**. The56
+numerical/eight rendered unadmitted phase declarations are explicit exclusions, not invented
+survival evidence. The native-only grey255 bottom pair remains numerical-only.
+
+The dry run uses **two calibration stand-ins**, two new synthetic **2×2 RGB PNGs**, and zero
+numerical/rendered residual. A two-code planted miss fails the one-code bound; the censor
+case reports measured coverage **1/2**. **41 tests** pass, independently rechecked clean after
+separate fixes for durable failed scores, callback mutation, admitted membership and compiled
+policy provenance. A SIGKILL between score persistence and aggregation preserves the scores
+and the spent scratch receipt; retry refuses. Original16/24-test proofs remain byte-preserved
+beside the41-test correction in `exposure/evidence-index.json`.
+
+No production receipt was opened. Actual browser/native integration belongs to G1, not this
+synthetic proof. The runner retains the trusted-scorer procedural boundary, not a hostile-code
+sandbox. A scorer must retain all admitted channels/bins, censor constraints, seven repeats
+and measured coverage; a numerical-only success cannot replace a failed rendered candidate.
+
+### 6. Standing eye sheets and the actual G0 reread
+
+`sheets/sheets.ts` reads the current union via matrix-store, checks each active/receded document
+pair and capture metadata, and produces native | shipped WebGPU | candidate with ΔE×8.
+Candidate is **EMPTY** until an authorized candidate exists. The canonical1,893 rows reduce
+to **1,003 profile/scene cells**: against the explicit main capture root **1,003 MATCH /
+0 UNMEASURED**; the worktree’s absent tree honestly reports0/1,003. MATCH means generation
+provenance and file presence, not identity with a historical capture session. W39’s declared
+138 web-plannable scene IDs expand **544 memberships, all UNMEASURED** in G0; their eight
+unadmitted phase-zero memberships remain visible in the standing inventory.
+
+The parent explicitly authorized rereading existing **canonical calibration/validation**
+pixels, not canonical holdout or any W39 pixels. `render-calval.ts` rendered **330 sheets
+(266 calibration,64 validation)** and skipped **92 holdout +581 probe** cells before pixels.
+The committed inventory binds input PNG/output HTML hashes; three representative HTML/PNG
+examples are committed, full HTML output remains scratch. Direct inspection of three PNGs
+caught a **three-pixel panel-offset** exporter defect; a separate fix and common-baseline
+regression corrected it, retaining initial images and hashes. All three corrected PNGs were
+opened directly. Native/shipped contour and interior residuals remain visible and recorded,
+not claimed closed by a numerical prototype.
+
+The sheet checks pass **11 TypeScript tests /30 Python export tests** and a focused strict
+TypeScript check. Independent core/PNG rechecks are clean after pose-provenance/alignment
+fixes. Candidate canonical-holdout rendering refuses before pixels unless the exact four
+document hashes and renderer configuration are recorded; only synthetic data tests this gate.
+No browser, native bundle or capture process ran for the sheets.
+
+### 7. What the archive cannot identify
+
+The grounding lists below are reproduced verbatim. They refer to the W39 archive and its
+unopened validation/holdout payloads in those readings; the separate canonical cal/val sheet
+reread above does not open them. A differential local-curvature κ(p) law is additionally
+undeclared here; the nominal-radius rival cannot identify or exclude it.
+
+```text
+5. WHAT THIS ARCHIVE DOES NOT IDENTIFY
+- Hue interpolation between the six factorial directions; matched-channel cells add some
+  directions, not a dense hue sweep. No arbitrary hue harmonics are licensed by six anchors.
+- A C response above.024: two remote red/green bridges do not form a chroma sweep or fix
+  high-C behaviour in other hues. C12/C24 quantisation alone permits degree-scale angles.
+- Full neutral behaviour below40/above150, nor the black branch below encoded.003.
+  Scalar bridge lumas within the interval do not identify those extrapolations.
+- An arbitrary group-level term: one gradient amplitude/mean, no textured, frequency,
+  nonlinear-gradient or chromatic-gradient controls in this read. Blur/response factorisation
+  and a group-mean coefficient remain unresolved; two-stage tone is similarly nonunique.
+- General span/shape, other accessibility modes, dynamics or stacking. This memo reads
+  only the span44 colour/gradient cells; validation span96 and all holdout remain unopened.
+- Separation of directional deep-body variation from long boundary influence: even the
+  >=14 strip shows active directional differences. No 'edge-free' baseline is certified.
+```
+
+```text
+7. What this archive cannot identify, and held tests to declare before fitting
+- Physical coverage/opacity versus intrinsic stroke colour, exact subpixel width, and slight
+inward support at curved boundaries: mixed-pixel darkening is not a location measurement.
+The W39 phase actuator failed; no phase cells were admitted. Opaque coverage is NOT glass coverage.
+- Whether active top absence is true removal or exact cancellation; no observed exterior bright
+surplus separates them. Modeled shadow is not measured native shadow in the first two pixels.
+- A universal curvature law from the44/64 ladder: path family, angular sample positions and
+curvature change together. The circular160x96 holdout can test larger-radius transfer, not fit it;
+96-span validation remains unopened here and is not a proposed source of coefficients.
+- Window-relative versus local signed normal: all shapes are axis-aligned. Grey128 translations
+are equal, but grey255 bottom-position pair is holdout and can test bright-level height transfer.
+The circular200x44 W37 witness pair is also holdout: it can test width/tail transfer, not train it.
+- Unseen chromatic mixing: six held-out colours remain sealed. Fresh-colour near-separability
+cannot justify ignoring the saturated dark-green weak-channel gap7 at an input32.
+- A full64..192 local gradient sweep, arbitrary images/frequencies, coloured gradients, tinted
+stroke response, dynamic poses, accessibility endpoints, fractional DPR and independently
+controlled phases: absent here. No rrect/gradient pair exists. Black intrinsic stroke is unmeasured.
+- CSS projection quality and actual GPU raster/SDF/filter error: no web render was run. All
+numerical model/LP readings must be refereed against actual rendering before any shipment claim.
+```
+
+### 8. Verification and scope at hand-back
+
+Workspace install and recursive build passed. Final calibration suite: **59 files,
+764 passed, one skipped**; the earlier765-pass checkpoint remains beside it, with the
+historical shadow-source-pin wrapper deliberately removed from ordinary CI rather than
+turning an epoch proof into a permanent runtime-byte lock. ESLint and every calibration
+TypeScript configuration pass. The freeze again reads **1,818 intact**. `scope-audit.json`
+verifies declaration/source/execution hashes and confines changed paths to this evidence,
+the pure synthetic test wrapper and this ledger. Protected scenes, fixtures, frozen matrix,
+indexed generations, material documents, goldens and adopted thresholds have no diff: they
+still describe the shipped pre-W41 material, not a closed experimental law.
+
+Focused core/body/stroke/exposure/sheet reviews are clean after the recorded, separately
+implemented corrections; they do not substitute for the parent’s whole-gate review. No
+native fit, native/web capture, browser suite, matrix publication operation, material change,
+release or push occurred. W39’s production receipt remains absent and its holdout sealed.
+No new capture tree exists to copy or supersede. G1 is the next authorized child after the
+parent’s gate merge, not work silently begun by this declaration gate.
