@@ -1,0 +1,632 @@
+{
+  "passes": true,
+  "rows": [
+    {
+      "actualRGB": [
+        96,
+        96,
+        96
+      ],
+      "errorCodes": [
+        0.375,
+        0.375,
+        0.375
+      ],
+      "expectedRGB": [
+        95.625,
+        95.625,
+        95.625
+      ],
+      "filter": "contrast(0.5) brightness(1.5)",
+      "passes": true,
+      "property": "filter",
+      "purpose": "order and encoded-sRGB",
+      "rgb": [
+        0,
+        0,
+        0
+      ],
+      "sample": [
+        32,
+        28
+      ]
+    },
+    {
+      "actualRGB": [
+        64,
+        64,
+        64
+      ],
+      "errorCodes": [
+        0.25,
+        0.25,
+        0.25
+      ],
+      "expectedRGB": [
+        63.75,
+        63.75,
+        63.75
+      ],
+      "filter": "brightness(1.5) contrast(0.5)",
+      "passes": true,
+      "property": "filter",
+      "purpose": "order and encoded-sRGB",
+      "rgb": [
+        0,
+        0,
+        0
+      ],
+      "sample": [
+        96,
+        28
+      ]
+    },
+    {
+      "actualRGB": [
+        144,
+        144,
+        144
+      ],
+      "errorCodes": [
+        0.375,
+        0.375,
+        0.375
+      ],
+      "expectedRGB": [
+        143.625,
+        143.625,
+        143.625
+      ],
+      "filter": "contrast(0.5) brightness(1.5)",
+      "passes": true,
+      "property": "filter",
+      "purpose": "order and encoded-sRGB",
+      "rgb": [
+        64,
+        64,
+        64
+      ],
+      "sample": [
+        160,
+        28
+      ]
+    },
+    {
+      "actualRGB": [
+        112,
+        112,
+        112
+      ],
+      "errorCodes": [
+        0.25,
+        0.25,
+        0.25
+      ],
+      "expectedRGB": [
+        111.75,
+        111.75,
+        111.75
+      ],
+      "filter": "brightness(1.5) contrast(0.5)",
+      "passes": true,
+      "property": "filter",
+      "purpose": "order and encoded-sRGB",
+      "rgb": [
+        64,
+        64,
+        64
+      ],
+      "sample": [
+        224,
+        28
+      ]
+    },
+    {
+      "actualRGB": [
+        240,
+        240,
+        240
+      ],
+      "errorCodes": [
+        0.375,
+        0.375,
+        0.375
+      ],
+      "expectedRGB": [
+        239.625,
+        239.625,
+        239.625
+      ],
+      "filter": "contrast(0.5) brightness(1.5)",
+      "passes": true,
+      "property": "filter",
+      "purpose": "order and encoded-sRGB",
+      "rgb": [
+        192,
+        192,
+        192
+      ],
+      "sample": [
+        288,
+        28
+      ]
+    },
+    {
+      "actualRGB": [
+        191,
+        191,
+        191
+      ],
+      "errorCodes": [
+        0.25,
+        0.25,
+        0.25
+      ],
+      "expectedRGB": [
+        191.25,
+        191.25,
+        191.25
+      ],
+      "filter": "brightness(1.5) contrast(0.5)",
+      "passes": true,
+      "property": "filter",
+      "purpose": "order and encoded-sRGB",
+      "rgb": [
+        192,
+        192,
+        192
+      ],
+      "sample": [
+        32,
+        84
+      ]
+    },
+    {
+      "actualRGB": [
+        50,
+        130,
+        220
+      ],
+      "errorCodes": [
+        0.28000000000000114,
+        0.28000000000000114,
+        0.28000000000000114
+      ],
+      "expectedRGB": [
+        50.28,
+        130.28,
+        220.28
+      ],
+      "filter": "saturate(2)",
+      "intermediateClips": false,
+      "passes": true,
+      "plateAlpha": 0,
+      "plateRGB": 0,
+      "property": "filter",
+      "purpose": "encoded saturation and post-filter neutral plate",
+      "rgb": [
+        85,
+        125,
+        170
+      ],
+      "sample": [
+        96,
+        84
+      ]
+    },
+    {
+      "actualRGB": [
+        255,
+        77,
+        17
+      ],
+      "errorCodes": [
+        0.0,
+        0.4000000000000057,
+        0.399999999999995
+      ],
+      "expectedRGB": [
+        255.0,
+        76.6,
+        16.600000000000005
+      ],
+      "filter": "saturate(2)",
+      "intermediateClips": true,
+      "passes": true,
+      "plateAlpha": 0,
+      "plateRGB": 0,
+      "property": "filter",
+      "purpose": "encoded saturation and post-filter neutral plate",
+      "rgb": [
+        220,
+        100,
+        70
+      ],
+      "sample": [
+        160,
+        84
+      ]
+    },
+    {
+      "actualRGB": [
+        101,
+        161,
+        229
+      ],
+      "errorCodes": [
+        0.45999999999999375,
+        0.45999999999997954,
+        0.03999999999999204
+      ],
+      "expectedRGB": [
+        101.46,
+        161.45999999999998,
+        228.96
+      ],
+      "filter": "saturate(2)",
+      "intermediateClips": false,
+      "passes": true,
+      "plateAlpha": 0.25,
+      "plateRGB": 255,
+      "property": "filter",
+      "purpose": "encoded saturation and post-filter neutral plate",
+      "rgb": [
+        85,
+        125,
+        170
+      ],
+      "sample": [
+        224,
+        84
+      ]
+    },
+    {
+      "actualRGB": [
+        191,
+        58,
+        13
+      ],
+      "errorCodes": [
+        0.25,
+        0.5500000000000043,
+        0.5499999999999954
+      ],
+      "expectedRGB": [
+        191.25,
+        57.449999999999996,
+        12.450000000000005
+      ],
+      "filter": "saturate(2)",
+      "intermediateClips": true,
+      "passes": true,
+      "plateAlpha": 0.25,
+      "plateRGB": 0,
+      "property": "filter",
+      "purpose": "encoded saturation and post-filter neutral plate",
+      "rgb": [
+        220,
+        100,
+        70
+      ],
+      "sample": [
+        288,
+        84
+      ]
+    },
+    {
+      "actualRGB": [
+        96,
+        96,
+        96
+      ],
+      "errorCodes": [
+        0.375,
+        0.375,
+        0.375
+      ],
+      "expectedRGB": [
+        95.625,
+        95.625,
+        95.625
+      ],
+      "filter": "contrast(0.5) brightness(1.5)",
+      "passes": true,
+      "property": "backdrop-filter",
+      "purpose": "order and encoded-sRGB",
+      "rgb": [
+        0,
+        0,
+        0
+      ],
+      "sample": [
+        32,
+        140
+      ]
+    },
+    {
+      "actualRGB": [
+        64,
+        64,
+        64
+      ],
+      "errorCodes": [
+        0.25,
+        0.25,
+        0.25
+      ],
+      "expectedRGB": [
+        63.75,
+        63.75,
+        63.75
+      ],
+      "filter": "brightness(1.5) contrast(0.5)",
+      "passes": true,
+      "property": "backdrop-filter",
+      "purpose": "order and encoded-sRGB",
+      "rgb": [
+        0,
+        0,
+        0
+      ],
+      "sample": [
+        96,
+        140
+      ]
+    },
+    {
+      "actualRGB": [
+        144,
+        144,
+        144
+      ],
+      "errorCodes": [
+        0.375,
+        0.375,
+        0.375
+      ],
+      "expectedRGB": [
+        143.625,
+        143.625,
+        143.625
+      ],
+      "filter": "contrast(0.5) brightness(1.5)",
+      "passes": true,
+      "property": "backdrop-filter",
+      "purpose": "order and encoded-sRGB",
+      "rgb": [
+        64,
+        64,
+        64
+      ],
+      "sample": [
+        160,
+        140
+      ]
+    },
+    {
+      "actualRGB": [
+        112,
+        112,
+        112
+      ],
+      "errorCodes": [
+        0.25,
+        0.25,
+        0.25
+      ],
+      "expectedRGB": [
+        111.75,
+        111.75,
+        111.75
+      ],
+      "filter": "brightness(1.5) contrast(0.5)",
+      "passes": true,
+      "property": "backdrop-filter",
+      "purpose": "order and encoded-sRGB",
+      "rgb": [
+        64,
+        64,
+        64
+      ],
+      "sample": [
+        224,
+        140
+      ]
+    },
+    {
+      "actualRGB": [
+        240,
+        240,
+        240
+      ],
+      "errorCodes": [
+        0.375,
+        0.375,
+        0.375
+      ],
+      "expectedRGB": [
+        239.625,
+        239.625,
+        239.625
+      ],
+      "filter": "contrast(0.5) brightness(1.5)",
+      "passes": true,
+      "property": "backdrop-filter",
+      "purpose": "order and encoded-sRGB",
+      "rgb": [
+        192,
+        192,
+        192
+      ],
+      "sample": [
+        288,
+        140
+      ]
+    },
+    {
+      "actualRGB": [
+        191,
+        191,
+        191
+      ],
+      "errorCodes": [
+        0.25,
+        0.25,
+        0.25
+      ],
+      "expectedRGB": [
+        191.25,
+        191.25,
+        191.25
+      ],
+      "filter": "brightness(1.5) contrast(0.5)",
+      "passes": true,
+      "property": "backdrop-filter",
+      "purpose": "order and encoded-sRGB",
+      "rgb": [
+        192,
+        192,
+        192
+      ],
+      "sample": [
+        32,
+        196
+      ]
+    },
+    {
+      "actualRGB": [
+        50,
+        130,
+        220
+      ],
+      "errorCodes": [
+        0.28000000000000114,
+        0.28000000000000114,
+        0.28000000000000114
+      ],
+      "expectedRGB": [
+        50.28,
+        130.28,
+        220.28
+      ],
+      "filter": "saturate(2)",
+      "intermediateClips": false,
+      "passes": true,
+      "plateAlpha": 0,
+      "plateRGB": 0,
+      "property": "backdrop-filter",
+      "purpose": "encoded saturation and post-filter neutral plate",
+      "rgb": [
+        85,
+        125,
+        170
+      ],
+      "sample": [
+        96,
+        196
+      ]
+    },
+    {
+      "actualRGB": [
+        255,
+        77,
+        17
+      ],
+      "errorCodes": [
+        0.0,
+        0.4000000000000057,
+        0.399999999999995
+      ],
+      "expectedRGB": [
+        255.0,
+        76.6,
+        16.600000000000005
+      ],
+      "filter": "saturate(2)",
+      "intermediateClips": true,
+      "passes": true,
+      "plateAlpha": 0,
+      "plateRGB": 0,
+      "property": "backdrop-filter",
+      "purpose": "encoded saturation and post-filter neutral plate",
+      "rgb": [
+        220,
+        100,
+        70
+      ],
+      "sample": [
+        160,
+        196
+      ]
+    },
+    {
+      "actualRGB": [
+        101,
+        161,
+        229
+      ],
+      "errorCodes": [
+        0.45999999999999375,
+        0.45999999999997954,
+        0.03999999999999204
+      ],
+      "expectedRGB": [
+        101.46,
+        161.45999999999998,
+        228.96
+      ],
+      "filter": "saturate(2)",
+      "intermediateClips": false,
+      "passes": true,
+      "plateAlpha": 0.25,
+      "plateRGB": 255,
+      "property": "backdrop-filter",
+      "purpose": "encoded saturation and post-filter neutral plate",
+      "rgb": [
+        85,
+        125,
+        170
+      ],
+      "sample": [
+        224,
+        196
+      ]
+    },
+    {
+      "actualRGB": [
+        191,
+        58,
+        13
+      ],
+      "errorCodes": [
+        0.25,
+        0.5500000000000043,
+        0.5499999999999954
+      ],
+      "expectedRGB": [
+        191.25,
+        57.449999999999996,
+        12.450000000000005
+      ],
+      "filter": "saturate(2)",
+      "intermediateClips": true,
+      "passes": true,
+      "plateAlpha": 0.25,
+      "plateRGB": 0,
+      "property": "backdrop-filter",
+      "purpose": "encoded saturation and post-filter neutral plate",
+      "rgb": [
+        220,
+        100,
+        70
+      ],
+      "sample": [
+        288,
+        196
+      ]
+    }
+  ],
+  "scale": 1,
+  "scope": "synthetic CSS filter/backdrop-filter order and encoded-sRGB; not native fidelity",
+  "toleranceCodes": 1
+}

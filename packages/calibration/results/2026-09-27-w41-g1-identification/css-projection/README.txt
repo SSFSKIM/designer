@@ -1,3 +1,101 @@
+W41 G1 step9 — MEASURED BODY-only CSS reach (2026-09-27)
+========================================================
+The proof and matched-cell capture commands below have now run. Do not rerun
+those commands: they remain the historical preparation/runbook, not permission
+for a new attempt. Browser ownership has been released and the server stopped.
+No production CSS source or material document changed; no native holdout or
+receipt was opened. Decision Log4 adoption remains the parent's decision.
+
+What was measured
+-----------------
+Pinned cached playwright-cli0.1.19 with installed FULL Chromium revision1243,
+actual browser153.0.8010.12, rendered both routes at1x/2x on the same130 admitted
+uniform light-inactive calval cells (112calibration+18validation;65per scale).
+Both synthetic20-probe pages passed the encoded-sRGB/order/saturation/plate proof,
+maximum0.55code at each scale, before any matched-cell capture. Each of the four
+measurement-browser launches had its own passing fresh X6 (zero foreign
+processes, required settings and idle); every session is closed.
+
+Observed deep-body results, median AND all seven guarded native repeat states:
+  saturate + minimum-alpha neutral plate:
+    126 measured cells pass;2 measured cells fail (green, both scales).
+    2 red cells remain censored/UNMEASURED with one-sided bounds satisfied.
+    Worst uncensored native residual26.0codes (native89, web115 on green R).
+    Worst residual to frozen E3 prediction26.832355407689818codes.
+    Worst realization residual to this route's own clipped CSS algebra
+    0.9314225926054291code.
+  contrast(c) THEN brightness(b):
+    128 measured cells pass; no measured failures.
+    The same2 red cells remain censored/UNMEASURED with bounds satisfied.
+    Worst uncensored native residual1.0code.
+    Worst residual to frozen E3 prediction0.4997954239137812code;
+    to its own CSS algebra0.4997954239138096code.
+Visual inspection of the two1x green browser captures also shows the plate body
+visibly paler/desaturated beside the affine body. That comparison is between the
+two web prototypes, not a native boundary/material eye verdict.
+The two censored cells do NOT certify accuracy or count as held-out coverage.
+Each scale has half of every stated count. calval-1/summary.json names the worst
+witnesses and all failed/censored cells. No coefficient was fitted or selected
+from these captures. Affine colour reach survives this uniform BODY-only read;
+that is not complete-composite survival, production-tier parity or adoption.
+
+Independent result verification
+-------------------------------
+The independent reviewer returned correct with no material findings, recomputing
+membership, screenshot/proof hashes and pixels, all1,040median/repeat comparisons
+per route, repeat bars/censor bounds, both frozen-tuple projections, and exact
+lossless payload preservation. execution-1/result-review.json records the scope.
+
+Preserved evidence
+------------------
+public-3/proof-passed.json and captures-1.json bind producing-run records,
+configuration/script/source hashes, browser identity/DPR and screenshot hashes.
+execution-1/cli retains lossless copies of every original CLI/environment log;
+execution-1/provenance.json binds them back to their external primaries.
+calval-1/provenance.json binds the inherited guarded calval reader (whole
+~/vitrea-w39 denied) and the source hashes. calval-1/scores.json.gz contains the
+COMPLETE116,048,143-byte original scoring JSON, including all per-cell/member/
+channel/repeat readings and web geometry bins, with no field/array trimmed.
+calval-1/byte-preservation.json records compressed and decoded SHA256; exact
+byte equality was checked. The original JSON remains at
+/Users/new/vitrea-w41/g1-captures/css-projection/scoring-1/scores.json.
+All262 screenshot primaries (two proofs+260route-cell captures) remain under
+/Users/new/vitrea-w41/g1-captures/css-projection/; none was copied into the repo.
+
+Environment-control deviation — not a retroactive gate
+------------------------------------------------------
+The first intended proof launch had fresh X6 but the unpinned CLI wrapper resolved
+0.1.21, requiring absent Chromium1246, and failed before pixels. Under an earlier
+install-if-needed direction, the CLI-suggested installer-like command
+`playwright-cli install-browser chromium` unexpectedly auto-opened a default
+chrome session BEFORE rejecting its argument count. That unexpected launch had
+NO separate fresh X6. It requested no experimental screenshot/proof/native
+payload and was closed immediately; every original open/error/close log is kept.
+The parent explicitly recorded this deviation, withdrew installs/downloads, and
+authorized the first pixel proof with cached0.1.19/full1243 and fresh X6; the
+declaration was unchanged. No gate was retroactively claimed and no failed pixel
+proof was retried. The1x proof then succeeded, but its cleanup shell used zsh's
+readonly variable `status`; a separate immediate close completed. Its successful
+screenshot was not recaptured. The recorded execution history retains both facts.
+
+Production limits and next decision
+-----------------------------------
+The affine route demonstrates encoded uniform BODY colour reach, not a safe
+replacement for the current renderer. Its transparent body has no unconditional
+RGBA contrast floor if backdrop-filter silently no-ops. Neither prototype carries
+production L1/L2 sharp/heavy blur or spatial share, the layout-border/stacking
+contract, rim or shadow. Moving a colour transform before L2 introduces boundary
+residuals; CSS border-radius still differs from supplied native paths. Native
+comparisons here read the inherited DEEP masks, not geometry/edge fidelity.
+No nonuniform backdrop, policy/presence, author tint or fallback behavior was
+validated. The current coherence table's E3 entries still say step9 deferred;
+G1's no-source-change rule leaves that table alone. G2 must replace its pending
+notes with this scope-qualified measurement and resolve the floor/blur/boundary
+integration, rather than treating this standalone result as a shipped mapping.
+
+Historical preparation record follows (commit8ca40cce)
+======================================================
+
 W41 G1 step9 — PREPARATION ONLY (c9a §5.192)
 
 These are standalone BODY-only uniform CSS projections, not the production CSS

@@ -1,0 +1,50 @@
+{
+  "archiveInventorySha256": "58329732f947d42cd5e1518962016191faaa79d89b7089c6dadf5724dde35f61",
+  "captureManifestSha256": "fe93b720a6731f5b24a82c5064decaac9946dba35cc39a4724644d066258e148",
+  "cells": 130,
+  "fitsPerformed": 0,
+  "holdoutOpened": false,
+  "limitations": [
+    "No production sharp/heavy blur mixture, border, rim, shadow or unconditional contrast floor.",
+    "Supplied native paths used only for measurement masks; CSS border-radius renders silhouettes.",
+    "Moving colour before production second blur creates boundary residual; not tested here.",
+    "Deep reading only; web edge bins are diagnostic, no native edge or production veto inferred."
+  ],
+  "nativeReader": "inherited candidate-e3.native_reader",
+  "productionParity": false,
+  "rawRootDenied": "/Users/new/vitrea-w39",
+  "receipt": false,
+  "roles": [
+    "calibration",
+    "validation"
+  ],
+  "sources": {
+    "apps/reference-apple/scenes-w39-colour-edge.json": "9ed048b599e104bc1d0f135165fc8b95e7b63781bbc77da800c181e44750fff7",
+    "packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/replay-archive.py": "f06df8c8292ddce1262c4ca3160958a6238d2bb468877e0f2f509dcae3241ecb",
+    "packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/split.json": "5cc9a20ef5c4d54661da4d6267bc161c6295fde5bb9e07a57ffae9a07f0e2bd5",
+    "packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/supplied-paths.json": "76da544cd0cae9e296d731458ed6f048728d9d519bf6fdf62de048bd3afbbdaf",
+    "packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/w39_archive.py": "19532c253a32620c9284c5bf959fe54f9463ba0961b7f9515ddcdb3b8a7aeec5",
+    "packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/w39_readers.py": "21bfdc695a759133f7dba0a2dd3b6c79a63b43251f29abd05d282398c4fda952",
+    "packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/wave.py": "d2a827f67b8048abaa98df2ae42e6491478b7a5bd77c6b572d7875ddde673f10",
+    "packages/calibration/results/2026-09-26-w39-g2-identification/instrument/body.py": "6b15fea4459402dbc5affc0642767c93abb2ced4b69cfea6683048688c45c842",
+    "packages/calibration/results/2026-09-27-w41-g0-declaration/bounds-declaration.txt": "850747c1f03781a6efe9b433bd4ce3bd6cf72b63c9befd8d5d98de9eadf7f759",
+    "packages/calibration/results/2026-09-27-w41-g0-declaration/instrument/instrument.py": "41f796109a19e3834f2d738ee122f394d2e142d79ba29db3fe5ecc4ddb179950",
+    "packages/calibration/results/2026-09-27-w41-g0-declaration/instrument/rendered.py": "71dd709b3b2a8b99f6284fce37a9376bf122b6d9f1bf03c0fcac9d445e4ea117",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/baseline/baseline.py": "0e8bc6c74f2c3e1a9a8f80648e9adac7f85bc2d634b1de91862ec5bb5de1ad86",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/body/report-1/spatial-selection.json": "08147cdef79c1793524c7c6508b709addcceb6d3d0f03dd0baa1739ecb53471a",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-e3/runtime.json": "12e1546db717801d19781fc1027b616bd087b7f57958f199bb29ffa767c514f9",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-e3/scorer.py": "4d7a1defaf9fad35a09ddd059eba1b0a8ee9c735418b5fb195745e8226d747ba",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/css-projection/fixture.html": "5ec3041462fb9093d8ae4c005591d5e8f3db8f7bfdce40ae6ce62f623ab8f7f6",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/css-projection/parent-relay.json": "0bd97e05bfa920740b8630a1c15515513bb1b3d08aa76c48ed6053ccad8072c6",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/css-projection/prepare.py": "6e40c2d2bc87489b64ba44e15f58917397fc0d258dccc9d3389eba3155c987c2",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/css-projection/projection.py": "ce54d6fc1ff6f8c8b861e331bf6be271e4dcd5753f9041f5a7f57af5fe3a7fd3",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/css-projection/x6_once.py": "b813f8c3ecbd50eb43b21b192f49c89cdd3e1f652617fd07fe86072128736c97",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py": "02ed44215ca4f273eb698ab9f514173f2c6cbfb89d09b6a12c837ffee9b4aa96",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/parent-ruling-css-second-route.json": "6e98def59df7b0d8bff21206b1eb56f081e8f33bd3ec625095928c8c35698915",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/x6/observe.py": "f7247a8f8f477af780cd212e7f9d9c08592f80e03dd1e7b254a4b21d88b0f173",
+    "packages/calibration/src/component-region.ts": "ca76a1cf84aefc18ac3929700c194c907c0260b0109a37d17873804175c29784",
+    "packages/calibration/test/tier-coherence.test.ts": "c155b293cc2829b7beb2e04cc8cd9690d103799b087a953b9cda026be6577512",
+    "packages/platform-web/src/css-tier.ts": "4e116807a590f6ff7df5099ae5ee0cd3b42a2529d601adbdcd95118c2082679a",
+    "packages/platform-web/src/optics.ts": "d64fd46b03a140a58f8284f68cc09775d939a4026092f725b63f709967d17ecb"
+  }
+}
