@@ -1,6 +1,6 @@
 # W41 — the archive re-read: the body as luma and chroma, its locality, and the exterior stroke, identified on the W39 archive and landed if they close (2026-09-27)
 
-**Status: v1 DRAFT (the parent, from grounding memos A and B); adversarial review in progress; Decision Log 1 RULED (land in this wave).**
+**Status: v2 (the parent; one adversarial round folded: 3 P1 / 2 P2); Decision Log 1 RULED (land in this wave); second adversarial round on the re-cut G1/G2 before G0 dispatches.**
 
 ## Purpose
 
@@ -34,7 +34,10 @@ Three questions, each with the grounding reading that shapes its families:
    codes at 14.5 CSS px inward, both scales, while inactive reflected differences stay ≤ 1. The
    shipped tone solve takes the GROUP's luminance as its argument and `collapseTransmission`
    mixes group and local colour; the archive varies neither the group mean nor the blur, so a
-   group/local blend and a wide blur are not separated here and the charter says so.
+   group/local blend and a wide blur are not separated here and the charter says so. **And the
+   W39 holdout contains no non-uniform backdrop**: on a uniform cell every blend collapses to the
+   local law, so no held-out cell can referee a spatial law. The spatial question is answered on
+   calibration as a bounded finding in this wave; its leaf does not land here (Decision Log 6).
 3. **The exterior stroke.** Memo B: a dark band whose aligned straight footprint is exactly one
    DEVICE pixel at both scales (identical shell-0 departures at 1x and 2x; inactive shells 1–3
    zero on straights, shell 1 occupied on oblique arcs by area integration), outside the supplied
@@ -70,7 +73,10 @@ Three questions, each with the grounding reading that shapes its families:
    (body, spatial, stroke), logged at the W39 G0 evidence path `wave-identification-receipt.jsonl`
    and committed by W41; a failed exposure spends it; no candidate changes after it. W34's
    holdout stays spent. Validation is read-only transfer; the 96-span validation cells are never
-   a source of coefficients.
+   a source of coefficients. Of the held-out cells, the grey-255 BOTTOM pair is an off-centre
+   placement the web runtime cannot pose, so it referees the numerical candidates only; the
+   circular 160×96 pair, the witness pair and the six colours referee both the numerical and the
+   RENDERED candidates (clause 11).
 3. **No pixel is new.** Every native number is read from the fetched release archive
    (`fetch-archive.py` verifies the digest before extraction) through the guarded reader; the
    raw runs and the producer's output are never read; nothing is captured. A question the
@@ -88,18 +94,33 @@ Three questions, each with the grounding reading that shapes its families:
    uncensored channels remain constraints. W39 G2's H3 dropped the whole light-red cell; W41
    declares this difference and reports both populations beside each other. The bridges are
    retained in every fit and every survival test; a family's ablation without them is a reading.
+   **Three closure statuses are kept apart**: `measured` (an uncensored channel within the bound),
+   `censored-bound-satisfied` (the prediction reaches the rail; it never certifies one-code accuracy
+   and never counts toward a held-out coverage requirement) and `UNMEASURED`; an uncensored
+   failure is binding whatever the censored channels say; a censored held-out cell is UNMEASURED
+   (W39 X21 verbatim); a white exterior bin under a stroke candidate is scored on its uncensored
+   channels and reported `censored-bound-satisfied` on the others, never as a zero-error pass
+   (§5.186 §10's correction carries).
 6. **Locality is a measurement before it is a leaf.** The gradient strip's body against
    F(local), against a group/local blend, and against a blend plus a signed vertical term is
    reported with the reflected-row differences per pose before any spatial law is nominated;
    the shipped tone solve's group argument is kept, blended or replaced on that reading, never
-   two of those at once.
+   two of those at once. **The strip is pinned in G0** (its mask, its reference-level domain, its
+   row aggregation and both scales' definitions), and no deeper or wider strip is admitted after a
+   reading. Because no held-out cell can referee it (clause 2), the spatial result is a
+   calibration finding with its bounds, and its leaf is Deferred to a wave with a structured
+   backdrop in its holdout (Decision Log 6).
 7. **The stroke is identified in the receded pose first**, where the exterior carries nothing
    else (the receded documents' shadow anchors are 0), then in the active pose beneath the outer
    shadow PREDICTED from the shipped active document's constants (σ law, spread, offset, the six
    anchors, occlusion falloff) at each required pixel on the supplied path, held, never refitted
    to absorb the stroke. The stroke composites outside the path only; the interior shells are
    witnesses that it adds nothing inside; the bright inner line (W35) stays inside and is not
-   relabelled.
+   relabelled. **The active identification is conditional on the held shadow model**: the shadow
+   predictor is proved against the WGSL, not against Apple's shadow, so the exterior bins where
+   the stroke's coverage is zero (the top straight when active; every bin beyond the band) are
+   kept as shadow-only control bins whose residual bounds the predictor's own error, and a small
+   signed active residual is never reported as an independently identified stroke coefficient.
 8. **Nothing shipped moves until a law closes** (W39 clause 9): in G0–G1 no byte under
    `scenes.json`, `fixtures/`, the frozen matrix, `results/generations/`, the six material
    documents, the goldens or any adopted threshold; the freeze reads 1,818 at every merge.
@@ -107,7 +128,9 @@ Three questions, each with the grounding reading that shapes its families:
    W40's publisher: each leaf through the identity table as an identity gate-group, WebGPU tier;
    the CSS derivation measured in a browser, carried, approximated with its residual, or declined
    (Decision Log 4); W38's per-channel-bin veto FIRST against the shipped treatment on the W39
-   calibration archive (for the stroke the shipped treatment draws nothing outside the path);
+   calibration archive, where the shipped treatment is **the pre-W41 rendered complete exterior
+   composite** captured in Chromium on the W39 web-plannable cells before any leaf exists (the
+   active shadow included), never a zero baseline;
    E2's 212-row rendered-edge regression frozen against the pre-W41 capture; R1 for the
    fixture-less paths; the rendered body and stroke re-read against the W39 bed's web-plannable
    cells (`wave.py plan`, 138 scenes) on the WebGPU tier; M1/M2/C1/X1/L1 re-read (C1 and X1 read
@@ -120,6 +143,19 @@ Three questions, each with the grounding reading that shapes its families:
 10. **Every gap is recorded**: a family that fails, a stroke the CSS tier cannot carry, a hue
     the bed cannot resolve, a gauge fixed by convention, each with its numbers, in §5.191–§5.194,
     the Deferred list or the tracker.
+11. **The renderer that would ship is verified before the single exposure, and the exposure
+    scores it too.** In G1, each surviving numerical candidate is implemented as an
+    identity-gated operator in the worktree's renderer (a zero-strength gate-group appended to
+    the identity table; no document resealed; nothing shipped moves), rendered in Chromium on the
+    W39 web-plannable calibration and validation cells through `wave.py plan`, and read against
+    Apple's pixels with the same instrument; the rendered candidate must meet the same survival
+    bound there. The receipt then binds the renderer's source revision, its configuration and its
+    frozen rendered predictions beside the numerical candidate's, and the ONE exposure's runner
+    scores both on the held-out cells: the numerical candidate on all of them, the rendered one on
+    the web-plannable ones, capturing their web side inside the receipt. A law CLOSES only if both
+    meet the bound. Any later change that moves a rendered prediction stops the landing rather
+    than inheriting the closure; a candidate whose operator fails is removed from the code before
+    G1's merge, with its diff and renders kept as evidence.
 
 ## Grounding Baseline (main at `edfddf79`, W39 closed)
 
@@ -184,15 +220,25 @@ reference x(p)), with the surviving uniform body law B applied per row:
   blur are not separated, and S2's term is not attributed to a lighting frame (W39 clause 7
   carries). The strip excludes the arcs and the first 6 CSS px; a long boundary tail is a
   declared alternative reading for S2, reported beside.
-- **Discriminators**: S0 vs S1 on the inactive slope over the 121–135 sweep (≥ 3 codes at the
-  strip's ends by the memo's reading); S1 vs S2 on the active reflected-row difference (3 codes
-  at 14.5 CSS px, both scales).
+- **Discriminators, honestly**: the review's re-computation on the memo's rows gives S1's
+  minimax predictions only 1.15 (light inactive) and 2.03 (dark inactive) codes from S0's on the
+  121–135 sweep — BELOW the three-code resolution rule — so S0 versus S1 may well read
+  "insufficient resolution" on this bed, and the charter says so before any fit; S1 vs S2 rests
+  on the active reflected-row difference (3 codes at 14.5 CSS px, both scales), which S1 cannot
+  produce. **No held-out cell referees any spatial family** (clause 2): the spatial result is a
+  bounded calibration finding, reported with the null's and each family's residuals, and no
+  spatial leaf lands in W41 (Decision Log 6). The strip's mask (central 48 CSS px, rows ≥ 6 CSS px
+  inward, arcs excluded), its reference-level domain and its row aggregation are pinned in G0.
 
 ### The stroke families (MARKED)
 
-Outside the supplied path, on every required exterior bin (shell 0 at 1x; shells 0 and 1 at 2x;
-arcs and straights separate; both scales; the 44/64 calibration ladder; grey-128, grey-255, the
-gradients whose arcs sweep the local level 86–170, and the 51 calibration colours' centre cells):
+Outside the supplied path, on **every required exterior bin of the inherited reader** — shells 0
+through +4·scale − 1 at both scales, population ≥ 4, arcs and straights separate — so that the
+occupied 1x shell-1 arc bins (13.4 light / 26.8 dark codes at n = 9 on grey-255 inactive, §5.186
+§8) are forward tests and the measured zero-stroke shells beyond the band constrain the support at
+both scales; support failures are reported separately from material and angular fits; on the
+44/64 calibration ladder, grey-128, grey-255, the gradients whose arcs sweep the local level
+86–170, and the 51 calibration colours' centre cells:
 
 O(p) = (1 − c(p))·B_shadow(p) + c(p)·S(b(p)), with B_shadow the shipped active shadow composite
 over the local backdrop (B itself when inactive), b(p) the local unshadowed no-glass sample
@@ -222,10 +268,11 @@ evaluated per sub-pixel sample BEFORE bin aggregation, and c the pixel-area cove
   (7 codes); G vs the CSS-width rival on the 2x shell-1 occupancy of straights (zero) against
   arcs (occupied); the curvature rival on the circular-vs-rrect arc difference at 2x (−47.5 vs
   −38.75 light active on grey-128), with 1x rrect arcs at n = 2 declared UNMEASURED.
-- **Required tests**: one code on every required exterior bin with population ≥ 4, per channel;
-  the interior shells −1…−3 as witnesses that the stroke adds nothing inside; the straddling
-  rows as a diagnostic of the raster edge, never a closure bin; per scale, shape and pose,
-  never pooled.
+- **Required tests**: one code on every required exterior bin (shells 0…+4·scale − 1) with
+  population ≥ 4, per channel, with the three closure statuses of clause 5; the interior shells
+  −1…−3 as witnesses that the stroke adds nothing inside; the straddling rows as a diagnostic of
+  the raster edge, never a closure bin; the shadow-only control bins of clause 7 in the active
+  pose; per scale, shape and pose, never pooled.
 
 ### The closure chain — W39 clause 8 verbatim; the single exposure covers every survivor
 
@@ -252,27 +299,38 @@ the receipt binding; the memos copied as readings; the standing eye-sheet script
 version (native | shipped over the canonical bed and the W39 web-plannable cells, the candidate
 column empty until G2); independent review; nothing fitted to native pixels.
 
-### G1: Identification (ledger §5.192)
+### G1: Identification, the scratch leaves, the rendered check, the single exposure (ledger §5.192)
 
-Branch `w41-g1-identification`. In order: the uniform body (B1–B3 against B0) → the spatial
-families on the surviving body → the stroke, receded then active. Survival per W39 clause 8;
-the freeze by artifact; the ONE exposure for every survivor; the resolution rule; the transfer
-table to vitrea's rendered body and exterior per survivor (W37's pattern, from the W39 cells'
-existing web captures where they exist, nothing rendered anew); the CSS reach per survivor by
-algebraic projection (memo readings: E3 mirrors exactly on uniform backdrops where the saturate
-does not clip, light green clips by 37.7 / 26.3 codes; a fixed-RGBA stroke has a ≥ 5.4–7.7-code
-minimax on the neutral straights). Ends in Decision Log 2.
+Branch `w41-g1-identification`. In order: **the veto baseline** (the pre-W41 renderer captured in
+Chromium on the W39 web-plannable calibration and validation cells, the complete exterior
+composite included, frozen by artifact) → the uniform body (B1–B3 against B0) → the spatial
+families on the surviving body (a finding; no leaf) → the stroke, receded then active beneath
+the held shadow. Survival per W39 clause 8 on the numerical candidates → **each survivor
+implemented as an identity-gated operator in the worktree's renderer** (clause 11), rendered on
+the same web-plannable cells, read with the same instrument, W38's per-bin veto against the
+frozen baseline, and held to the same survival bound → the freeze by artifact of both the
+numerical and the rendered predictions for every held-out cell → **the ONE exposure**, whose
+runner scores the numerical candidates on every held-out cell and the rendered candidates on the
+web-plannable ones, capturing their web side inside the receipt → the resolution rule → the CSS
+reach per survivor, measured in Chromium where a CSS derivation exists and by algebraic
+projection where it does not (memo readings: E3 mirrors exactly on uniform backdrops where the
+saturate does not clip, light green clips by 37.7 / 26.3 codes; a fixed-RGBA stroke has a
+≥ 5.4–7.7-code minimax on the neutral straights). A failed operator is removed from the code
+before merge; its diff and renders stay as evidence. Ends in Decision Log 2.
 
-### G2 (conditional on Decision Log 2 finding a law): the leaves, the seal, the reads, the landing (ledger §5.193; §5.194 if split)
+### G2 (conditional on Decision Log 2 finding a law): the seal and the landing (ledger §5.193; §5.194 if split)
 
-G2a render-and-read: the leaf(s) as identity gate-groups in `material.ts` and the WGSL (the
-body operator before author tint; the spatial term at the tone solve's argument; the stroke in
-the optics pass before the outside early return, with the field/scissor reach checked); goldens
-attributed; the WebGPU render of the W39 web-plannable cells read against Apple's (the transfer
-measured, not tabled); W38's per-bin veto; E2; R1; the CSS derivation measured in Chromium
-(Decision Log 4). G2b seal-and-land: the four documents resealed; M1/M2/C1/X1/L1; the canonical
-holdout once; the staged publication once (W40 G1); the capture tree; the eye sheets; the demo
-and README; the changeset; the release checklist; `pnpm release` is the user's hand; tag after.
+The leaves are already in the code at their closed values behind their gates (clause 11): the
+body operator before author tint; the stroke in the optics pass before the outside early return,
+with the field/scissor reach checked; no spatial leaf (Decision Log 6). G2 sets the gates in the
+four documents and reseals them; goldens attributed; E2's 212-row regression against the
+pre-W41 capture; R1; M1/M2/C1/X1/L1 re-read; the CSS derivation carried, approximated or
+declined on its Chromium measurement (Decision Log 4); the canonical holdout once by artifact;
+the staged publication once (W40 G1); the capture tree copied and the superseded one moved;
+the eye sheets over the canonical bed and the W39 cells; the demo and README; the changeset; the
+release checklist with CI green; `pnpm release` is the user's hand; tag after. **No rendered
+prediction moves between G1's freeze and G2's seal**; if one must, the landing stops and the
+law returns to a new identification with a new archive.
 
 ## Cross-Child Contracts
 
@@ -283,8 +341,11 @@ capture). W37's **X15–X17** and W38's **X18** carry. X9's routing carries the 
 (workers on `opus` or `astra` medium/high; reviews through the review-code agents,
 `reviewer-high` at gate merges). New:
 
-- **X26 — one exposure for the wave.** The W39 holdout opens at most once, for W41, on one
-  receipt binding every W41 candidate; a failed exposure spends it; nothing changes after it.
+- **X26 — one exposure for the wave, scoring the renderer too.** The W39 holdout opens at most
+  once, for W41, on one receipt binding every W41 candidate — numerical AND rendered (the
+  renderer's source revision, configuration and frozen predictions) — whose runner captures the
+  web-plannable held-out cells' web side inside the receipt; a failed exposure spends it; nothing
+  changes after it; a rendered prediction that moves afterwards stops the landing.
 - **X27 — the stroke is receded-first and composited outside only.** Identified with γ = 0 and
   no shadow; tested active beneath the predicted, held shadow; the interior shells witness that
   it adds nothing inside; no double paint at landing.
@@ -294,11 +355,17 @@ capture). W37's **X15–X17** and W38's **X18** carry. X9's routing carries the 
 - **X29 — censoring is one-sided and the bridges stay.** Clause 5; both populations reported.
 - **X30 — the gauge is a convention.** Max-normal coverage normalisation; no coefficient is
   reported as physical opacity or width.
+- **X31 — three closure statuses.** `measured`, `censored-bound-satisfied`, `UNMEASURED`, kept
+  apart in every table; only `measured` counts toward survival, closure and held-out coverage.
+- **X32 — the veto baseline is the rendered composite.** W38's per-bin veto runs against the
+  pre-W41 renderer's complete exterior and interior as captured in Chromium, frozen before any
+  leaf; shadow-only control bins stay in every active-pose table.
 
 ## Ordering & Dependency Map
 
-Decision Log 1 → G0 (declaration, instrument; review) → G1 (body → spatial → stroke; freeze;
-one exposure; Decision Log 2) → G2a → G2b → release → close. No W40-style housekeeping is
+Decision Log 1 → G0 (declaration, instrument; review) → G1 (baseline capture → body → spatial
+finding → stroke → scratch leaves rendered and vetoed → freeze of both → one exposure → Decision
+Log 2) → G2 (seal, reads, landing) → release → close. No W40-style housekeeping is
 needed: the publisher, the generation store and the release-asset readers exist.
 
 ## Risks & Mitigations
@@ -316,8 +383,12 @@ needed: the publisher, the generation store and the release-asset readers exist.
 - **The CSS stroke cannot read the backdrop**: a fixed colour per document with a DPR-aware
   width is the best projection; Decision Log 4 carries, approximates with its residual, or
   declines on the browser measurement.
-- **The W39 holdout is one exposure for everything**: the freeze is complete for every survivor
-  before the receipt; a survivor found later waits for a new archive.
+- **The W39 holdout is one exposure for everything**: the freeze is complete for every survivor,
+  numerical and rendered, before the receipt; a survivor found later waits for a new archive.
+- **The spatial families have no held-out referee and a sub-resolution null**: reported as a
+  finding with the resolution rule applied; no leaf; the structured-backdrop bed is Deferred.
+- **The held shadow model is not Apple's shadow**: the shadow-only control bins bound its error
+  and the active stroke's identification is stated as conditional on it.
 
 ## Deferred / Out of Scope
 
@@ -328,6 +399,10 @@ needed: the publisher, the generation store and the release-asset readers exist.
 - A phase mechanism on a different actuator (W39 Decision Log 3).
 - Span 160, the accessibility beds, author tint over coloured backdrops, dynamics and stacking.
 - Black and near-black intrinsic stroke colour; the stroke under Increase Contrast.
+- **The spatial body leaf** (a group/local blend and an active directional term at the tone
+  solve's argument): needs a bed whose holdout carries structured backdrops and whose
+  calibration varies the group mean and the backdrop frequency, with the strip pinned before
+  capture.
 
 ## Tracking Map
 
@@ -357,8 +432,17 @@ the canonical holdout once, the eye sheets and a release.
 
 ### Decision Log 5 — the censor rule and the bridges (in G0, by rule; the parent's)
 
-Ruled at charter: clause 5 / X29. Recorded here so that W39 G2's population and W41's are
-never confused in the ledger.
+Ruled at charter: clause 5 / X29 / X31. Recorded here so that W39 G2's population and W41's
+are never confused in the ledger.
+
+### Decision Log 6 — the spatial families are a finding, not a leaf, in W41 (at v2, by rule; the parent's)
+
+Ruled at v2 on the review's P1: the W39 holdout has no non-uniform backdrop, so no held-out
+cell can referee a group/local blend or a directional interior term, and the null-versus-blend
+separation on the calibration strip is below the three-code resolution rule. S0–S2 are
+identified and reported on calibration with their residuals and the resolution verdict; the
+edge conditioner in this wave stays the measured deep median (W39 Decision Log 8); the leaf is
+Deferred.
 
 ## Surprises & Discoveries
 
@@ -371,5 +455,15 @@ never confused in the ledger.
 
 ## Revision Notes
 
+- 2026-09-27 (v2, the parent): one adversarial round folded — P1 the spatial families had no
+  held-out referee and an overstated discriminator (fixed: a finding, no leaf, the strip pinned,
+  Decision Log 6); P1 the stroke's required set dropped the occupied 1x shell-1 arcs and the
+  zero-stroke outer shells (fixed: the inherited reader's full exterior range at both scales);
+  P1 the single exposure preceded the renderer that would ship (fixed: clause 11 — scratch
+  identity-gated operators rendered and vetoed on calibration/validation before the exposure,
+  the receipt binding their predictions, the runner scoring both; G1/G2 re-cut); P2 one-sided
+  rail satisfaction could read as closure (fixed: three statuses, X31); P2 the stroke veto named
+  a zero exterior baseline (fixed: the pre-W41 rendered composite, X32, shadow-only control
+  bins). Second adversarial round requested on the re-cut.
 - 2026-09-27 (v1, the parent): chartered from grounding memos A (body) and B (stroke) on the
   W39 calibration cells; Decision Log 1 put to the user; adversarial review requested.
