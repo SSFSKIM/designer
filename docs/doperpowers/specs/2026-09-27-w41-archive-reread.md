@@ -359,7 +359,14 @@ capture). W37's **X15–X17** and W38's **X18** carry. X9's routing carries the 
 - **X30 — the gauge is a convention.** Max-normal coverage normalisation; no coefficient is
   reported as physical opacity or width.
 - **X31 — three closure statuses.** `measured`, `censored-bound-satisfied`, `UNMEASURED`, kept
-  apart in every table; only `measured` counts toward survival, closure and held-out coverage.
+  apart in every table. Aggregation: a candidate SURVIVES when every required channel/bin is
+  `measured` within max(1 code, bar) or `censored-bound-satisfied` (its prediction reaches the
+  rail); a `measured` miss or a rail violation is binding; a population-deficient bin is
+  `UNMEASURED`, excluded from the test and counted in the report. A bound-satisfied channel is a
+  constraint met, never accuracy evidence: it is reported beside the measured maxima, not folded
+  into them. At closure, a censored held-out cell is `UNMEASURED` (X21) and counts toward neither
+  pass nor coverage; closure requires every `measured` held-out cell to pass and reports the
+  measured coverage as a fraction of the held-out set.
 - **X32 — the veto baseline is the rendered composite.** W38's per-bin veto runs against the
   pre-W41 renderer's complete exterior and interior as captured in Chromium, frozen before any
   leaf; shadow-only control bins stay in every active-pose table.
@@ -458,6 +465,11 @@ Deferred.
 
 ## Revision Notes
 
+- 2026-09-27 (v2.2, the parent, on G0's question): X31's "only `measured` counts toward
+  survival" could be read as forbidding any survivor with a censored required channel, which
+  would kill every light body candidate on the red bridge's R and every stroke on a white exterior
+  bin. Amended to the intended aggregation: bound-satisfied channels are constraints met that
+  permit survival and never accuracy evidence; censored held-out cells are UNMEASURED at closure.
 - 2026-09-27 (v2.1, the parent, on G0's stop): clause 7 had named "the top straight when active"
   a shadow-only control; that is true of the dark scheme only (memo B: dark active top 0, light
   active top −20 against a held shadow of −0.0001). Amended: the controls are the exterior bins

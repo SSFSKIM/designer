@@ -1,13 +1,14 @@
 /**
- * The gallery index: six demos built under the materialist skill
- * (docs/doperpowers/specs/2026-09-27-materialist-proof.md, A).
+ * The gallery index: eight pages in two registers under the materialist skill
+ * (docs/doperpowers/specs/2026-09-27-materialist-proof.md, A;
+ * docs/doperpowers/specs/2026-09-27-materialist-spatial-register.md, C).
  *
  * It belongs to the site, so it is written in the site's tokens and components and under
  * its law (`apps/demo/DESIGN.md`). It is content rather than a control layer, so it
  * carries no glass and no depicted material: the demos are where the material is. Each
- * entry's plane and floating lines are read from that demo's own record
- * (`src/gallery/<slug>/DESIGN.md`) and name the plane and the kinds of floating surface
- * rather than counts, so a fix to a demo does not make its entry here false.
+ * Finished entries' plane and floating lines are read from their design records
+ * (`src/gallery/<slug>/DESIGN.md`); unfinished entries say so until their makers
+ * replace the placeholders with the plane and kinds of floating surface.
  *
  * The colour scheme is not set here. The site's tokens switch on one attribute, and the
  * page's head mirrors `prefers-color-scheme` onto it before the first paint.
@@ -26,6 +27,7 @@ const SPEC = `${REPOSITORY}/blob/main/docs/doperpowers/specs/2026-09-27-material
 interface Demo {
   readonly slug: string;
   readonly title: string;
+  readonly register: "instrument" | "spatial";
   readonly brief: string;
   readonly plane: string;
   readonly floating: string;
@@ -34,6 +36,7 @@ interface Demo {
 const DEMOS: readonly Demo[] = [
   {
     slug: "music-player",
+    register: "instrument",
     title: "Music player",
     brief:
       "A streaming service’s Mac web client, Fathom, with the sounding album’s artwork " +
@@ -47,6 +50,7 @@ const DEMOS: readonly Demo[] = [
   },
   {
     slug: "transit-ops",
+    register: "instrument",
     title: "Transit operations",
     brief:
       "The control-room map of Port Alder Transit, where a dispatcher finds what is wrong " +
@@ -59,6 +63,7 @@ const DEMOS: readonly Demo[] = [
   },
   {
     slug: "photo-review",
+    register: "instrument",
     title: "Photo review",
     brief:
       "A culling and adjustment tool for a working photographer deciding on a shoot one " +
@@ -72,6 +77,7 @@ const DEMOS: readonly Demo[] = [
   },
   {
     slug: "film-festival",
+    register: "instrument",
     title: "Film festival",
     brief:
       "The programme page of the Northlight Film Festival, for a reader choosing what to " +
@@ -85,6 +91,7 @@ const DEMOS: readonly Demo[] = [
   },
   {
     slug: "park-trails",
+    register: "instrument",
     title: "Park trails",
     brief:
       "The trails site for North Cascades National Park, where a hiker plans one route " +
@@ -99,6 +106,7 @@ const DEMOS: readonly Demo[] = [
   },
   {
     slug: "product-launch",
+    register: "instrument",
     title: "Product launch",
     brief:
       "The launch page for the Alder One, a small maker’s mirrorless camera, told section " +
@@ -109,6 +117,31 @@ const DEMOS: readonly Demo[] = [
     floating:
       "Section navigation and the display setting at the top; finish, lens and order at " +
       "the bottom, the lens chooser morphing into a platter.",
+  },
+  {
+    slug: "exhibition",
+    register: "spatial",
+    title: "Exhibition · Weather in Painting",
+    brief:
+      "The online viewing room of a museum exhibition, Weather in Painting: one work fills " +
+      "the screen at a time, and the visitor reads about it while seeing it. The label essay " +
+      "and the work’s data sit on glass set into the painting; the audio guide’s transport " +
+      "and the way between works hang at that window’s edge. Eight public-domain works, " +
+      "credited by title, maker, date and collection.",
+    plane: "The painting plane is being built.",
+    floating: "The glass surfaces are being built.",
+  },
+  {
+    slug: "start-page",
+    register: "spatial",
+    title: "Start page · Daybreak",
+    brief:
+      "A browser start page, Daybreak: the day’s photograph fills the window, and the time, " +
+      "weather, agenda, tasks and places sit on glass over it, glanceable from across the " +
+      "room and workable up close; a search field leads. A full day’s agenda, seven tasks, " +
+      "twelve places and a five-day forecast.",
+    plane: "The day’s photographic plane is being built.",
+    floating: "The glass surfaces are being built.",
   },
 ];
 
@@ -126,6 +159,14 @@ function Entry(props: { readonly demo: Demo; readonly index: number }): ReactNod
         <p className="body entry__brief">{demo.brief}</p>
       </div>
       <dl className="readout readout--entry">
+        <div className="readout__row">
+          <dt>Register</dt>
+          <dd>
+            {demo.register === "instrument"
+              ? "Instrument: glass over the content"
+              : "Spatial: glass is the surface"}
+          </dd>
+        </div>
         <div className="readout__row">
           <dt>Plane</dt>
           <dd>{demo.plane}</dd>
@@ -146,13 +187,15 @@ function Gallery(): ReactNode {
         <p className="wordmark">vitrea</p>
         <h1 className="display">The materialist gallery</h1>
         <p className="lead">
-          Six Liquid Glass pages on vitrea 0.24.0, each built by one agent that read the{" "}
-          <a href={SKILL}>materialist skill</a> and nothing else about design, and each
-          carrying its own design record. Three are product surfaces and three are narrative
-          pages; every one sets its controls over a live plane and keeps its content
-          opaque.{" "}
-          <a href={SPEC}>The initiative&rsquo;s spec</a> says what the pages test and how they
-          are judged.
+          Eight Liquid Glass pages on vitrea 0.24.0 in two registers: six finished
+          instrument pages set glass controls over live content, while two spatial pages
+          are being built to make glass the surface itself. Each follows the{" "}
+          <a href={SKILL}>materialist skill</a>. The{" "}
+          <a href={SPEC}>instrument proof</a> and{" "}
+          <a href={`${REPOSITORY}/blob/main/docs/doperpowers/specs/2026-09-27-materialist-spatial-register.md`}>
+            spatial register spec
+          </a>{" "}
+          say what the pages test.
         </p>
       </header>
 
