@@ -6542,3 +6542,35 @@ an app leaning on an internal dirty source to stand in for an API. **Shape of th
 root-level `invalidateGeometry(element?)` that marks every host inside the element (or all hosts),
 exposed through `useGlassRoot`, with a unit test that moves a fixed host by `left` and asserts one
 re-read.
+
+## Three runtime gaps two fresh makers hit building the spatial-register pages on 0.24.0 (2026-09-27)
+
+Found building `exhibition` and `start-page` (`2026-09-27-materialist-spatial-register.md`, C) and
+the eval's lodge cells; confirmed by the independent source readings (`review/{exhibition,start-page}.md`).
+
+- **The secondary ink's 4.5 promise fails on large light bodies.** `vibrancy.ts` promises that the
+  secondary label "holds WCAG 4.5 against the surface wherever the primary can". On window-scale
+  bodies drawn at encoded 0.63 to 0.87 (light scheme, over graded photographs), both makers measured
+  the secondary token per rendered line at 4.19 to 4.49 (exhibition: 115 of 237 secondary lines
+  under 4.5; start-page: 4.30 to 4.49) and replaced it, one with the primary token throughout, one
+  with an authored ink at 84 % of the primary. The eval's skill-arm cell found the same (4.1 to 4.5).
+  **Shape of the work:** re-derive the secondary alpha against the drawn body's measured level on
+  the texture path (the promise is stated against the predicted composite from a scalar backdrop,
+  `root.ts:2995–3041`), or narrow the promise's wording to the band it holds in.
+- **`GlassMorph` passes no `data-*` attribute to its host and its host is content-box.** The morph
+  accepts `className` but no host attributes, so a page that must mark the host (`data-glass-role`)
+  writes it after each frame (`start-page/photograph-ornament.tsx:62–71`); and on the CSS tier the
+  runtime's 1 px border grows a 248 × 48 content-box host to 250 × 50 while the capsule radius stays
+  24, so the closed ornament is not an exact capsule there (start-page review, finding 2). **Shape
+  of the work:** a `hostProps` (or `data-*` pass-through) on `GlassMorph`, and border-box sizing on
+  the generated host as `GlassSurface`'s cookbook already asks of authored hosts.
+- **Under forced colours on the WebGPU tier a window has no border of its own.** The CSS tier hands
+  a forced-colours surface a `CanvasText` border; on the WebGPU tier the body stands down and the
+  host draws nothing, so a window-sized panel loses its edge and both makers drew a frame on a child
+  element, keyed to the tier actually drawn. **Shape of the work:** draw the forced-colours border
+  on the host on both tiers, so the fallback is one design.
+
+Recurrences of tracked seams, for the count: a same-sized host moved by a neighbour's reflow keeps
+its cached box (the eval's unaided cell pinned a spacer; start-page dispatches a synthetic `scroll`
+at the morph host when its rounded rect changes); and `GlassMorph` collapses to 0 × 0 when Reduce
+Motion flips while it is open (start-page review, finding 1; the cookbook's remount recipe applied).

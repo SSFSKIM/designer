@@ -475,6 +475,39 @@ and one line on Harvestar if they want a page shaped toward it.
   Evidence: `apps/reference-apple/scenes.json`, the `rrect-lg` and span-128 comments;
   `renderer-webgpu/src/material.ts`, `sizeScatterSpanMax`.
 
+- Observation: Both fresh makers, and the eval's skill-arm cell, measured the runtime's secondary
+  ink under 4.5 on window-scale light bodies (4.19 to 4.49) and abandoned the token: one for the
+  primary throughout, two for an authored ink at 84 % of the primary. The skill's condition 3 says
+  "secondary for descriptive text" on the runtime's own promise; the promise does not hold in the
+  band these pages draw in. Tracker entry written; the skill's wording is the next edit if the
+  runtime does not move.
+  Evidence: `apps/demo/src/gallery/{exhibition,start-page}/DESIGN.md`, part two; the eval's
+  `7/materialist` record.
+
+- Observation: The unaided eval arm chose glass as the surface on the lodge brief without the skill
+  and failed on execution (3 of 12 against 10 of 12), which is the spec's own prediction in D: on a
+  brief whose product is a display, the idea is the model's and the conditions are the skill's. The
+  matched control shows the skill did not turn the idea into a default.
+  Evidence: `eval/results.md`.
+
+- Observation: On the texture path the derived gap between an ornament and its window is 49 to 77
+  CSS px at these spans, so an ornament reads as attached by alignment rather than by the overlap
+  visionOS draws; both records name it as a tension. It follows from condition 4's sampling honesty
+  and is a limit of composing the macOS material's group model spatially, not a page defect.
+  Evidence: `apps/demo/src/gallery/exhibition/DESIGN.md`, part two ("Ornament gap").
+
+- Observation: The audit JSON's `gateMechanical` is the 2.3 DOM-composite gate and reads `false` on
+  the exhibition page because its DOM sample sees the page ground behind the canvas, not the glass;
+  the spatial verdict reads the per-line glyph-suppressed clause instead. Recorded so the legacy
+  boolean is neither called green nor mistaken for a spatial failure.
+  Evidence: `review/exhibition.md`, finding 3.
+
+- Observation: Both source readings found one check-14 failure each and nothing fatal: a page-owned
+  dissolve that did not stop on a live Reduce Motion flip (exhibition), and the tracked runtime
+  collapse of an open morph on the same flip (start-page). The live flip of a preference during an
+  animation is the state neither maker tested and the audit's emulation passes do not exercise.
+  Evidence: `review/{exhibition,start-page}.md`, finding 1 in each.
+
 ## Deferred
 
 - A page shaped toward Harvestar, once the user says what it is (asked 2026-09-27, non-blocking).
