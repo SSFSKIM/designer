@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/e3-implementation/packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/e3-gpu-proof.py", line 38, in <module>
+    ''' + '\n'.join(function(n) for n in ['srgb_to_linear', 'linear_to_srgb',
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/e3-implementation/packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/e3-gpu-proof.py", line 38, in <genexpr>
+    ''' + '\n'.join(function(n) for n in ['srgb_to_linear', 'linear_to_srgb',
+                    ^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/e3-implementation/packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/e3-gpu-proof.py", line 26, in function
+    start = source.index('fn ' + name + '(')
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: substring not found

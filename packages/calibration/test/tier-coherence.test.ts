@@ -3179,6 +3179,12 @@ const CSS_COUNTERPART: Readonly<Record<keyof MaterialProfile, string>> = {
   sweepBandRadians: "none: the resting sweep is a highlight-pass animation; this tier has none.",
   sweepGain: "none: as `sweepBandRadians`.",
   bodyChromaRetention: W31_BODY_CHROMA_CSS_COUNTERPART,
+  // W41 is scratch-only and light-receded-only. The old chroma decline is NOT
+  // evidence about E3: step 9 must derive its CSS projection and measure residuals.
+  bodyE3Strength: "none: W41 step 9 CSS projection and measurement deferred; CSS unchanged, " +
+    "not a measured E3 decline and not an adopted cross-tier mapping.",
+  bodyE3Gains: "none: W41 step 9 deferred; no pixel-local encoded-luma gain on CSS yet.",
+  bodyE3Neutral: "none: W41 step 9 deferred; no measured CSS projection of E3 neutral ordinates.",
 
   /*
    * The four OPTIONAL keys, which no bed above reaches because the default does

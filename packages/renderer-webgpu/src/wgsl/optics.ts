@@ -4,8 +4,10 @@
  *
  * Reads the group's two field targets (value + unit normal + coverage, and the
  * per-surface optical scalars) and the backdrop pyramid; writes premultiplied sRGB
- * into the optics canvas over the group's rect. Everything optical happens in
- * linear light and is encoded exactly once, on the way out (X5).
+ * into the optics canvas over the group's rect. Composition stays in linear
+ * light, except W41's explicitly encoded E3 body law: its result is decoded
+ * before the existing author tint/rim path. Output encoding and premultiplication
+ * still happen once at the canvas boundary (X5).
  *
  * The pass is scoped, not fullscreen: the render pass sets its viewport *and* its
  * scissor to the group's device-pixel rect, so `in.uv` runs 0..1 over the group
@@ -255,6 +257,11 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
   bodyChroma : vec4f,
   /// W36: strength, linear thin/thick black ordinates, padding. Gate 0 is identity.
   toneBlack : vec4f,
+  /// W41 E3: identity strength, then gains at encoded luma 63,93,118.
+  bodyE3 : vec4f,
+  /// Seven encoded neutral ordinates at 40,56,72,88,104,128,150; last lane padding.
+  bodyE3Neutral0 : vec4f,
+  bodyE3Neutral1 : vec4f,
 };
 
 @group(0) @binding(0) var<uniform> ou : OpticsUniforms;
@@ -293,6 +300,46 @@ export const WGSL_OPTICS_PASS = `struct OpticsUniforms {
 fn srgb_encode(c : f32) -> f32 {
   let x = clamp(c, 0.0, 1.0);
   return select(1.055 * pow(x, 1.0 / 2.4) - 0.055, x * 12.92, x <= 0.0031308);
+}
+
+fn body_e3_neutral(level : f32) -> f32 {
+  let knots = array<f32, 7>(40.0, 56.0, 72.0, 88.0, 104.0, 128.0, 150.0);
+  let values = array<f32, 7>(ou.bodyE3Neutral0.x, ou.bodyE3Neutral0.y,
+    ou.bodyE3Neutral0.z, ou.bodyE3Neutral0.w, ou.bodyE3Neutral1.x,
+    ou.bodyE3Neutral1.y, ou.bodyE3Neutral1.z);
+  var i = 0u;
+  for (var j = 1u; j < 6u; j = j + 1u) {
+    if (level >= knots[j]) { i = j; }
+  }
+  // Deliberately NOT clamped t: the first/last segment continues outside
+  // the measured knots; only the resulting neutral ordinate is clipped.
+  let t = (level - knots[i]) / (knots[i + 1u] - knots[i]);
+  return clamp(mix(values[i], values[i + 1u], t), 0.0, 255.0);
+}
+
+fn body_e3_codes(encoded : vec3f) -> vec3f {
+  let level = dot(encoded, vec3f(0.2126, 0.7152, 0.0722));
+  var chroma = encoded - vec3f(level);
+  // Matches body41.linear_design's explicit achromatic zero despite an ulp
+  // left by the rounded luminance weights on some GPU arithmetic paths.
+  if (encoded.x == encoded.y && encoded.y == encoded.z) { chroma = vec3f(0.0); }
+  var gain = mix(ou.bodyE3.y, ou.bodyE3.z, clamp((level - 63.0) / 30.0, 0.0, 1.0));
+  if (level > 93.0) {
+    gain = mix(ou.bodyE3.z, ou.bodyE3.w, clamp((level - 93.0) / 25.0, 0.0, 1.0));
+  }
+  return clamp(vec3f(body_e3_neutral(level)) + gain * chroma,
+    vec3f(0.0), vec3f(255.0));
+}
+
+/// W41 replaces the prior tone/black solve and chroma-retention output at
+/// presence 1; it is not another correction after that solve. Only a genuine
+/// sampled backdrop is admitted. Fractional presence is an unmeasured linear
+/// interpolation preserving the disappearance API, not a newly fitted law.
+fn body_e3_composite(colour : vec3f, backdrop : vec3f, presence : f32) -> vec3f {
+  if (ou.bodyE3.x <= 0.0 || ou.flags.x <= 0.5 || presence <= 0.0) { return colour; }
+  let replacement = srgb_to_linear(body_e3_codes(linear_to_srgb(backdrop) * 255.0) / 255.0);
+  let presentTarget = mix(backdrop, replacement, vec3f(presence));
+  return mix(colour, presentTarget, vec3f(ou.bodyE3.x));
 }
 
 /// The backdrop tone response R(encodedInput, sizeK) (W9): monotone
@@ -1320,6 +1367,9 @@ fn fs_optics(in : FullscreenOut) -> @location(0) vec4f {
    * silently the identity. That is a declared residual, not an oversight.
    */
   colour = body_chroma_retention(colour, backdrop, ou.bodyChroma.x);
+  // Gate 0 takes an exact early return. Gate 1 replaces this untinted body,
+  // before author tint and rim; it changes no sampling coordinate or kernel.
+  colour = body_e3_composite(colour, backdrop, mat);
   /*
    * How much of this pixel the SURFACE owns, as the canvas will composite it.
    *

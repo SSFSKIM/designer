@@ -645,6 +645,11 @@ export interface MaterialOcclusionLiftByPolicy {
   readonly increaseContrast: number;
 }
 
+/** E3's encoded-luma gain ordinates at 63, 93 and 118, held outside. */
+export type BodyE3Gains = readonly [number, number, number];
+/** E3's neutral ordinates at encoded input codes 40, 56, 72, 88, 104, 128 and 150. */
+export type BodyE3Neutral = readonly [number, number, number, number, number, number, number];
+
 export interface MaterialProfile {
   /** Per-variant optics. `clear` is persistently more transparent than `regular`. */
   readonly optics: Readonly<Record<MaterialVariant, MaterialOptics>>;
@@ -1767,6 +1772,12 @@ export interface MaterialProfile {
    * retention is silently the identity there.
    */
   readonly bodyChromaRetention: number;
+  /** E3 identity gate in [0,1]. The light-receded scratch scope is not shipped. */
+  readonly bodyE3Strength: number;
+  /** Atomic finite gain tuple, each in [0,3]; inert while strength is zero. */
+  readonly bodyE3Gains: BodyE3Gains;
+  /** Atomic finite neutral-code tuple, each in [0,255]; inert at strength zero. */
+  readonly bodyE3Neutral: BodyE3Neutral;
 
   /**
    * **The rim that survives the collapse (W23)** — the one mark the collapsed
@@ -2101,6 +2112,118 @@ export function bodyChromaRetentionUnderPolicy(
     case "increased":
     case "opaque":
       return 0;
+  }
+}
+
+/**
+ * E3's CPU reference in ENCODED sRGB code units, not linear luminance (W41 §5.192).
+ * F interpolates seven neutral nodes, continues the end segments, then clips;
+ * g interpolates three gain nodes and holds the ends. Channels clip AFTER chroma.
+ * Achromatic inputs explicitly have zero chroma, including floating-point roundoff.
+ *
+ * The claimed scope is light-receded scratch, not a shipped material. At strength1
+ * and presence1 this REPLACES the prior tone-solve/retention/black-branch result,
+ * before author tint/rim; those operators are not applied again to the replacement.
+ * Intermediate presence mixes the decoded target with the sampled backdrop in
+ * linear light: an unmeasured extension, not an identified dynamic law. The caller
+ * skips the operator at strength0 or presence0, retaining the original colour.
+ * Inputs are the declared encoded cube; no input-clamp or signed/HDR law is added.
+ */
+export function bodyE3Encoded(
+  encodedRgbCodes: Rgb,
+  gains: BodyE3Gains,
+  neutral: BodyE3Neutral,
+): Rgb {
+  const [r, g, b] = encodedRgbCodes;
+  const level = r * 0.2126 + g * 0.7152 + b * 0.0722;
+  const knots = [40, 56, 72, 88, 104, 128, 150] as const;
+  let i = 0;
+  for (let j = 1; j < 6; j++) {
+    if (level >= knots[j]!) i = j;
+  }
+  const t = (level - knots[i]!) / (knots[i + 1]! - knots[i]!);
+  const f = Math.min(255, Math.max(0, neutral[i]! + t * (neutral[i + 1]! - neutral[i]!)));
+  const gain = level > 93
+    ? gains[1] + Math.min(1, Math.max(0, (level - 93) / 25)) * (gains[2] - gains[1])
+    : gains[0] + Math.min(1, Math.max(0, (level - 63) / 30)) * (gains[1] - gains[0]);
+  if (r === g && g === b) return [f, f, f];
+  const channel = (value: number): number => Math.min(255, Math.max(0, f + gain * (value - level)));
+  return [channel(r), channel(g), channel(b)];
+}
+
+/**
+ * CPU reference for E3's linear-light composition and exact identity branch.
+ * `fields.bodyE3Strength` is already folded by bodyE3StrengthUnderPolicy; sampling
+ * and policy are not selected again here. This makes the zero-gate compute proof
+ * exercise the real reference, not a second copy of its arithmetic in a test.
+ * Presence 1 replaces the prior tone-solve/retention/black-branch result before
+ * author tint/rim. Intermediate presence is an unmeasured extension of the
+ * light-receded scratch law, not shipped or native-identified dynamic behaviour.
+ */
+export function applyBodyE3(
+  colourLinear: Rgb,
+  backdropLinear: Rgb,
+  presence: number,
+  fields: Pick<MaterialProfile, "bodyE3Strength" | "bodyE3Gains" | "bodyE3Neutral">,
+): Rgb {
+  const strength = fields.bodyE3Strength;
+  if (strength <= 0 || presence <= 0) return colourLinear;
+  const encoded: Rgb = [
+    linearToSrgbChannel(backdropLinear[0]) * 255,
+    linearToSrgbChannel(backdropLinear[1]) * 255,
+    linearToSrgbChannel(backdropLinear[2]) * 255,
+  ];
+  const codes = bodyE3Encoded(encoded, fields.bodyE3Gains, fields.bodyE3Neutral);
+  const channel = (i: 0 | 1 | 2): number => {
+    const replacement = srgbToLinearChannel(codes[i] / 255);
+    const presentTarget = backdropLinear[i] + presence * (replacement - backdropLinear[i]);
+    return colourLinear[i] + strength * (presentTarget - colourLinear[i]);
+  };
+  return [channel(0), channel(1), channel(2)];
+}
+
+/**
+ * E3 is identified only for regular, actually sampled, nominal material policy.
+ * IC-only stands down even without an occlusion lift; Reduced Motion alone keeps
+ * nominal material axes and therefore retains E3. This fold changes no policy.
+ */
+export function bodyE3StrengthUnderPolicy(
+  strength: number,
+  policy: MaterialPolicyView,
+  variant: MaterialVariant,
+  sampled: boolean,
+): number {
+  return sampled && variant === "regular" &&
+    policy.glass === "material" && policy.frost === "nominal" &&
+    policy.refraction === "nominal" && policy.occlusion === "nominal" &&
+    policy.border === "nominal" && policy.ambientTint === "nominal" &&
+    policy.foreground === "adaptive" ? strength : 0;
+}
+
+/** Shared patch-boundary validation for runtime merges and the calibration JSON reader. */
+export function validateBodyE3Patch(patch: {
+  readonly bodyE3Strength?: unknown;
+  readonly bodyE3Gains?: unknown;
+  readonly bodyE3Neutral?: unknown;
+}): void {
+  const inRange = (value: unknown, maximum: number): boolean =>
+    typeof value === "number" && Number.isFinite(value) && value >= 0 && value <= maximum;
+  if ("bodyE3Strength" in patch && !inRange(patch.bodyE3Strength, 1)) {
+    throw new TypeError("bodyE3Strength must be finite and in [0,1]");
+  }
+  for (const [key, length, maximum] of [
+    ["bodyE3Gains", 3, 3], ["bodyE3Neutral", 7, 255],
+  ] as const) {
+    if (!(key in patch)) continue;
+    const value = patch[key];
+    if (!Array.isArray(value) || value.length !== length) {
+      throw new TypeError(`${key} must be a dense tuple of ${length} finite numbers in [0,${maximum}]`);
+    }
+    for (let i = 0; i < length; i++) {
+      if (!Object.hasOwn(value, i) || !inRange(value[i], maximum)) {
+        throw new TypeError(`${key} must be a dense tuple of ${length} finite numbers in [0,${maximum}]`);
+      }
+    }
   }
 }
 
@@ -2819,6 +2942,9 @@ export const DEFAULT_MATERIAL_PROFILE: MaterialProfile = {
    * reproduce under the rule (claims §5.161 §7b).
    */
   bodyChromaRetention: 0,
+  bodyE3Strength: 0,
+  bodyE3Gains: [1, 1, 1],
+  bodyE3Neutral: [40, 56, 72, 88, 104, 128, 150],
 
   /*
    * FITTED 0.038 (W23 G1; claims §5.100 §3, W23 Decision Log 2 (b)) — and it is
@@ -3244,6 +3370,23 @@ export const MATERIAL_IDENTITY_TABLE: readonly MaterialIdentityEntry[] = [
     whyGated: "The strength-0 branch never reads either ordinate, preserving the old solve.",
     claims: "c9a §5.179; W36 Decision Log 5",
   },
+  /**
+   * Supporting real-Metal compute evidence (not a rendered-identity test):
+   * packages/calibration/results/2026-09-27-w41-g1-identification/body-leaf/e3-gpu-proof.py.
+   * Drawn identity remains pending the frozen-baseline G1 step6 check
+   * (and later G2 golden/isolation), not asserted here.
+   */
+  {
+    wave: "W41",
+    gate: { bodyE3Strength: 0 },
+    gated: ["bodyE3Gains", "bodyE3Neutral"],
+    law: "When enabled, replace the sampled untinted body with encoded E3 before author tint.",
+    inertLawCase: "packages/renderer-webgpu/test/w41-body-e3.test.ts — " +
+      "E3 compute identity and presence extension; preserves all six sealed digests " +
+      "while sweeping unread E3 tuples; drops the whole zero-gate group.",
+    whyGated: "At strength 0 neither tuple reaches the replacement branch's pixels.",
+    claims: "c9a §5.192; W41 clause 11, partial-endpoint ruling",
+  },
 ];
 
 /**
@@ -3434,6 +3577,9 @@ export interface MaterialProfilePatch {
   readonly collapseTransmission?: number;
   readonly collapseTransmission2x?: number;
   readonly bodyChromaRetention?: number;
+  readonly bodyE3Strength?: number;
+  readonly bodyE3Gains?: BodyE3Gains;
+  readonly bodyE3Neutral?: BodyE3Neutral;
   readonly rimCollapsed?: number;
   readonly rimCollapsedTinted?: number;
   readonly rimTintChroma?: number;
@@ -3569,6 +3715,7 @@ export function withMaterialOverrides(
   base: MaterialProfile,
   patch: MaterialProfilePatch,
 ): MaterialProfile {
+  validateBodyE3Patch(patch);
   rejectRetiredOuterShadowLeaves(patch.outerShadow);
   const backdropToneAbscissa = patch.backdropToneAbscissa === undefined
     ? base.backdropToneAbscissa : patch.backdropToneAbscissa;
@@ -3686,6 +3833,9 @@ export function withMaterialOverrides(
     collapseTransmission2x:
       patch.collapseTransmission2x ?? patch.collapseTransmission ?? base.collapseTransmission2x,
     bodyChromaRetention: patch.bodyChromaRetention ?? base.bodyChromaRetention,
+    bodyE3Strength: patch.bodyE3Strength ?? base.bodyE3Strength,
+    bodyE3Gains: patch.bodyE3Gains ?? base.bodyE3Gains,
+    bodyE3Neutral: patch.bodyE3Neutral ?? base.bodyE3Neutral,
     rimCollapsed: patch.rimCollapsed ?? base.rimCollapsed,
     rimCollapsedTinted: patch.rimCollapsedTinted ?? base.rimCollapsedTinted,
     rimTintChroma: patch.rimTintChroma ?? base.rimTintChroma,

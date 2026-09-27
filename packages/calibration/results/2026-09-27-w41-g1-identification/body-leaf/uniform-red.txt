@@ -1,0 +1,113 @@
+
+ RUN  v4.1.11 /Users/new/vitrea-w41/e3-implementation/packages/renderer-webgpu
+
+ ❯ test/w41-e3-uniform.test.ts (6 tests | 6 failed) 42ms
+     × appends the complete 3+7 tuple block without borrowing old lanes 15ms
+     × keeps every shipped-default old lane and uses an identity gate 8ms
+     × stands down under RT without changing its policy fold 6ms
+     × stands down under IC-only without changing its policy fold 5ms
+     × stands down under coupled without changing its policy fold 5ms
+     × stands down for clear, absent texture, and fabricated DOM material 3ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/w41-e3-uniform.test.ts > W41 E3 optics packing > appends the complete 3+7 tuple block without borrowing old lanes
+AssertionError: expected [] to deeply equal [ 1, 0.9292058348655701, …(10) ]
+
+- Expected
++ Received
+
+- [
+-   1,
+-   0.9292058348655701,
+-   0.9597570896148682,
+-   0.9383102655410767,
+-   150,
+-   157,
+-   164,
+-   171,
+-   178,
+-   188,
+-   197,
+-   0,
+- ]
++ []
+
+ ❯ test/w41-e3-uniform.test.ts:56:37
+     54|   it("appends the complete 3+7 tuple block without borrowing old lanes…
+     55|     const on = draw();
+     56|     expect([...on.slice(140, 152)]).toEqual([...new Float32Array([
+       |                                     ^
+     57|       1, 0.929205829365914, 0.9597570955316058, 0.9383102545096953,
+     58|       150, 157, 164, 171, 178, 188, 197, 0,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL  test/w41-e3-uniform.test.ts > W41 E3 optics packing > keeps every shipped-default old lane and uses an identity gate
+AssertionError: expected undefined to be +0 // Object.is equality
+
+- Expected:
+0
+
++ Received:
+undefined
+
+ ❯ test/w41-e3-uniform.test.ts:70:27
+     68|       bodyE3Gains: [0, 2, 3], bodyE3Neutral: [3, 40, 79, 110, 142, 220…
+     69|     } as MaterialProfilePatch });
+     70|     expect(original[140]).toBe(0);
+       |                           ^
+     71|     expect(modifiedBacking[140]).toBe(0);
+     72|     expect([...original.slice(0, 140)]).toEqual([...modifiedBacking.sl…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+ FAIL  test/w41-e3-uniform.test.ts > W41 E3 optics packing > stands down under RT without changing its policy fold
+ FAIL  test/w41-e3-uniform.test.ts > W41 E3 optics packing > stands down under IC-only without changing its policy fold
+ FAIL  test/w41-e3-uniform.test.ts > W41 E3 optics packing > stands down under coupled without changing its policy fold
+AssertionError: expected undefined to be +0 // Object.is equality
+
+- Expected:
+0
+
++ Received:
+undefined
+
+ ❯ test/w41-e3-uniform.test.ts:83:21
+     81|     const on = draw({ policy });
+     82|     const off = draw({ policy, patch: {} });
+     83|     expect(on[140]).toBe(0);
+       |                     ^
+     84|     expect([...on.slice(0, 140)]).toEqual([...off.slice(0, 140)]);
+     85|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯
+
+ FAIL  test/w41-e3-uniform.test.ts > W41 E3 optics packing > stands down for clear, absent texture, and fabricated DOM material
+AssertionError: expected undefined to be +0 // Object.is equality
+
+- Expected:
+0
+
++ Received:
+undefined
+
+ ❯ test/w41-e3-uniform.test.ts:90:31
+     88|     for (const over of [{ variant: "clear" as const }, { sampled: fals…
+     89|       { sampled: false, dom: true }]) {
+     90|       expect(draw(over)[140]).toBe(0);
+       |                               ^
+     91|     }
+     92|     expect(draw()[140]).toBe(1);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  6 failed (6)
+   Start at  17:45:21
+   Duration  399ms (transform 222ms, setup 12ms, import 253ms, tests 42ms, environment 0ms)
+
+undefined
+/Users/new/vitrea-w41/e3-implementation/packages/renderer-webgpu:
+[ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL] Command failed with exit code 1: vitest run test/w41-e3-uniform.test.ts

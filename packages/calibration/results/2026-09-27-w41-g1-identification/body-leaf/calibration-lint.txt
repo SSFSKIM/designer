@@ -1,0 +1,1 @@
+$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.cli.json && tsc --noEmit -p web/tsconfig.json && tsc --noEmit -p scripts/tsconfig.json

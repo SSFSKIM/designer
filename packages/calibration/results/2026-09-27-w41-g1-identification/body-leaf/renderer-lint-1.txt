@@ -1,0 +1,10 @@
+$ eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json
+
+/Users/new/vitrea-w41/e3-implementation/packages/renderer-webgpu/test/w41-body-e3.test.ts
+  82:57  error  Unexpected comma in middle of array  no-sparse-arrays
+
+✖ 1 problem (1 error, 0 warnings)
+
+/Users/new/vitrea-w41/e3-implementation/packages/renderer-webgpu:
+[ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL] @vitrea/renderer-webgpu@0.0.0 lint: `eslint . && tsc --noEmit && tsc --noEmit -p tsconfig.e2e.json`
+Exit status 1
