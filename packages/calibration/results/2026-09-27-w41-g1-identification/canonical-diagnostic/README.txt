@@ -89,3 +89,18 @@ d0b24a2e2e5deb1faf01e8313a1b8b528870481259c59c9c0f26d8cb513de24e.
 Read-only verify passed (verify-attempt-1.txt). Assembly hashed committed shared
 background assets, not native glass fixture PNGs. No browser launch or diagnostic
 capture has occurred. The owner's browser handoff and fresh X6 checks remain due.
+
+Actual diagnostic WEB capture complete (owner's explicit browser handoff)
+330/330cells,12/12profiles,12freshX6passes,0refusals and0failed batches. The direct
+capture driver exited0 after validating every actual hardware/renderer/policy/
+material report and freezing the complete declared coverage. No matrix row,
+native glass fixture, holdout or probe was read or written. Raw PNGs remain at
+/Users/new/vitrea-w41/g1-captures/canonical-diagnostic/attempt-1/.
+The unchanged input seal d0b24a2e… preceded every launch; completion-audit.json
+records launch ordering and exactcoverage. frozen.json SHA256:
+c7feb13235bcca869fca1821d840e35de999c29ea3aad860cf7f81e6ad49a4bc.
+The post-exit browser-release census was usable with0foreign processes; browser
+ownership was immediately returned to the G1 owner. domain-evidence.json retains
+all actual reports; process directories retain argv, X6facts, logs and completed
+cell hashes. freeze-captured.txt verifies1818unchanged. This is diagnostic WEB
+for EYE, not a canonical read, G2 material, a fit or a survival result.
