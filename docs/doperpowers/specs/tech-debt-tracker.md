@@ -6527,3 +6527,18 @@ paint the layer into its plane. **Shape of the work:** draw the scrim from the r
 both tiers (a `direction`-signed layer at `scrim` alpha under the body, inside the surface's own
 silhouette or over the group's footprint, decided against Apple's AVKit behaviour), read it back in
 `GlassGroupState`, and give `clear` a calibration scene so the variant stops being Apple-shaped.
+
+## A host that moves without resizing has no invalidation an app can reach from React (Relue workspace, 2026-09-27)
+
+Found building the Relue workspace on `@vitreajs/vitrea-react` 0.24.0: glass bars are `position:
+fixed` rows placed over a pane of a resizable split, so dragging the divider or collapsing the rail
+changes a bar's `left` without changing its size. `geometry-sync.ts` names `invalidateGeometry()`
+as the source for "whatever no observer can see", but it exists only on the per-host handle
+(`root.ts`, the registered host's `invalidateGeometry`); `GlassRoot` has no root-level call, and
+the React bindings hand the app no host handle (`GlassSurface`, `GlassMorph`). The app's workaround
+dispatches a synthetic `scroll` event at the bar after each move, which the runtime documents as the
+signal that a contained host moved, so it re-measures only the hosts inside it. It works, and it is
+an app leaning on an internal dirty source to stand in for an API. **Shape of the fix:** a
+root-level `invalidateGeometry(element?)` that marks every host inside the element (or all hosts),
+exposed through `useGlassRoot`, with a unit test that moves a fixed host by `left` and asserts one
+re-read.
