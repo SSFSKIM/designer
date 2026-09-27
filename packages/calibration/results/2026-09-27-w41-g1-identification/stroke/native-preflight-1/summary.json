@@ -1,0 +1,3540 @@
+{
+  "cells": 504,
+  "pixels": 1509392,
+  "geometries": 12,
+  "kernels": 36,
+  "peakRSSBytes": 1001734144,
+  "seconds": 363.97695216699503,
+  "nativeFits": 0,
+  "holdout": false,
+  "records": [
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "6d5fd4ea5fa63a37e3d18b74bb38aa82dd1d113504679a99a1d3a01566465631"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h0-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "fad28528efecbcaf86d58c2d9dcd6d26792284b88ab187b2b820e4b627728519"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h120-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "466e9c990f8f970be353b3acde322974276d5b14df1c72e3a6a657ffd18a0412"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h120-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "f7b36bb4d8609c510823316a836c7b0bcbf79da8b7f7d93ebbe81357466741f9"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h180-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "1aa525e4b1a281b0c2ca5a2b80a148d97069b18213f5cbca8f4c9352b410b0b9"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h180-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "08f572b40c0333a6a238dd0874a05be9792ae442fdd45747644a6e683d506bf3"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h240-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "9af6889ac4330154f11f81e4dec705dff81c002085b26d03720e792aa2146b19"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h240-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "61adca4c3c29cd827664b174df275d9e2f73748ec793cc7c10aff3766c608618"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h300-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "579d881d9aa97be15625531c0857303b9b4d011f8627a64a20daf9ed0e75c91b"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h300-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "ad1d568f9e69d42c0fb6fc66945ce1ca766484c3614b37846273622a8502f607"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h60-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "51ebf3d0b24fbaf930c5adec3b2dafb16caaeb490401a5762eed2a434ae73a35"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c12-h60-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "e05ac578dd53ba1e3a74540bce276100908aa2bcabb3b28633cd1a8b2a70d3db"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h0-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "355509196e1460b48eab43f7287effaeaabf7852fdc216cf0eec1fea603f1afd"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h0-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "681e0a8c83a57768f336569ed3ca1eac247bf4e7daa3268878afe775f91e5233"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h120-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "4f14ac12c8622f49cff9cedb48950395e2ec82b8b77af943e8cdd2728635f3aa"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h120-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "f439a412714b811ab1496bf4b60d40dd4fba7d38582220645a352bbe6ec66f8c"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h180-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "746921633c9c0fbc9fd68a52e9f206238b2f807b6a6ba0cc232bce6a5b816763"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h180-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "4abbcc64a3e973dbd93cba11e9c620023925e2971475232d63005a24e83d2859"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h240-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "bbe3a7906bcc13bfc43b480673ecbdd2d21a0f797a55b8474c85d443c968c863"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h240-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "21bb4b6bad8832324348134e175b63eb4a2928d9d8799ed2b43280cb10bb678f"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h300-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "03e5e2f270e4538834dd523c0674dab3703c2f760c7f48be1e124ec2b77c048f"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h300-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "886bbd9c7198e590f9a842408c1e7f7ce79dc7d4e54ee163d2655840c0400aef"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h60-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "15b7537fb18639c7b5577dbdd5087d4863b845638485d6be732d2d2ca2f72176"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y0-c24-h60-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "e4541546adf8b99d33d0f20c293c1a8f77d8fef2544dda9a7bc5fe048680b703"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c12-h0-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "401a03bb9c411e90ffaff96671c657afc41bb44a2cd75533617fa7756c025816"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c12-h0-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "4429f25e4f41d562512ff3b3d9f1eac76779af4764a9518d5b959639c830daee"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c12-h120-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "16b1839855bc0b0fb96b7e2ee304e3a13761b11724459ae565b32c40c0fc3822"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c12-h120-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "847aff6a3d68589a0d88c50889fdfab150d11addcc06ff19b8d6bbfe8b94f37b"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c12-h180-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "edd70469b3bc0055e6f1bc3bc4ff8569fd700604a6f35208c7975d5e91edfb93"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c12-h180-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "a424c64ef8016b2a159a889fa29ff5ee749c2faa535101fa445975ec1279932f"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c12-h240-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "0d7ea7f13f4fa30c1f07b5ffe78b914c527bf606a65a832ebce917b4dee3beeb"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c12-h240-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "db20d0f73e1057c7bacde2401ce8f489cb9a4dd09c3b2fa0433e5a2e308ca8fd"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c12-h300-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "3e73649b07708428a748f859c077b5cab714c0a706a03fefa0892fec35cae8a4"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c12-h300-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "8b360efdbbe96217cfe8a87efe7efa84797f8ee7dd56b941722219e84965e910"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c12-h60-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "d8231b8cc5c56ce491ed7e7758e6eaf060a03395740b2d30c1eafc8f252aefc2"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c12-h60-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "12a7356eede9ab70a354b4955657713af4c5dc51533468102dc25274ff118333"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h0-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "87b49782a7b98bf63086758607c53e628cbee9241f94f77ffb4b9c2614007b5c"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h0-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "83d66cd2dbc6d6d8d2d536f81115863ebe1f3e9b20175ff3843fbabfed5d900d"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h120-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "293e44e892ac984d2d09fcd5925e20a551c4885279033318a47b12860dec75f0"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h120-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "7e00a0717045e1696f7d1bce438d6fdcbf9ce9079804ad7cefe2950d75c4db80"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h180-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "9d16df36e849fa1247d56ff047ac6957d1b48982662a84d78b25a5cfa05974fa"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h180-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "3d5893b073e30d2302d4dcff5518909ec734057db1bab3db717eddf07644e443"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h240-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "7c40ac877bc09b193c3e4ba2197682516cc742f9c1a352952cccafafaaa187e5"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h240-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "256394a73ca2ec061303a23fcf64ee539370279bac1a47d341c09071cc2dbfb0"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h300-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "289f0ac078c176f8b1297977076ab0385f5e94e4d090d6f8c61dfcaba979ada7"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h300-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "07bf97465b4b396aecb9f92d6ea2b49b2e6922d2d3384668806acc53e0898b27"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h60-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "6f0944ffacb44f4db0a40d4a4787c084bcf29143d1cd011a8382480fa14a6951"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y1-c24-h60-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "03a43833e5bcb072b4e94874cee12d8cbe0ab84fb583fcfa564446acef7f2ff0"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c12-h0-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "ae94d3dbd738d48c586ad884877543c18e64febbc21403f3b8d841883f4ae51d"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c12-h0-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "ff2a4326ae75fad42ce82c1860bf528a5961a512fd21f20bfa14bba008a82c3d"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c12-h120-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "fd7e52f56591c343029cae93728c39bed36fdd1e0e54daf0532c51aa3009e9dc"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c12-h120-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "8b9eabcceea9db80ffc565e2cba65b3a84d6c4b79bd26136ca107eb6ae97ab8c"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c12-h180-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "3c49913d1c3bb0f3cadc61826871b02de8f56e8741042859e436fa22e5451716"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c12-h180-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "5baf849f49a90f4259afdf95a05d8ee8399d779c13256e9ba695e8fa11410a81"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c12-h240-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "bae18f1365cd6226b51f4a47e73487666c4f2df3e8c6d06ae4bfe4ac7b3ee4f5"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c12-h240-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "90a4a75ce8a863a71c217f6a00ee3dab8604b02009b3dc1d0fb5b280624fb78e"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c12-h300-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "4ec0676e5d800b8b8df264d35e147e2c2fe181b47607a9ce703f1324ab091467"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c12-h300-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "11de0f548069c7cd14f1aa849c832698b71d53e52b65f7ab2071ea48c49e3be8"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c12-h60-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "73522295b39509782a466a1eae96e5deb73515100921c008ee81c3c2aa78fe83"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c12-h60-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "38f9eb2148b045760998b52360cf10e2320fed1649334ebd1c8f6f240442bbc3"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h0-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "0bd58ab028caf3963fa9723427d8a47a743d74ea7f8c3f59e049bbf63014b4f7"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h0-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "b41c9be0f8f05eced7670f649ccd453edbba454e657ecb929fbede0838499841"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h120-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "b04e91994b80f2ccdfd94ae352bb0e494293f8f01fac94356c6ab858f8d3d445"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h120-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "c5ce185b2a253b42920651353a5c07ae833ed0d2f2bb475854e8263333c33910"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h180-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "d2761a469f672af322d733be19d761c7cba48ab0e1f625ff84c1711e870a770f"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h180-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "30ff68ad6865f61f88b8df86cdc37670bc526da24ed97748eb7e70e6dc87244d"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h240-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "9d0c2146959f2c5cbe0c7fe018466325bf14d3f1945db993b0c63b1d12366770"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h240-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "df9296ec4fcb6209d9f4072afbe7f37e986e4048a57fd26d56f488632242722c"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h300-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "e9fd6d21257db9423713c0baa0dbd7b5326b3e26615468f595dc9b58cb9c1d0c"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h300-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "b2fb432702aeba547c34d59f4f364a64aad6bd0357d5f994000f3746bbd8f661"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h60-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "ac9bb72d2f9f82051c62ff4b52e5feaf01a55083e64a85075cc250818d7ec092"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/factor-y2-c24-h60-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "b128e1567ef55e71a9a949ae2382f2895d15016d2516decd205325bdc5f16c32"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/g128-b-c44__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "7d93bdf96e5a0c5676e8b62d0399b36fb73508c8c51fbe42dc79e42253a72c8b"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/g128-b-c44__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "fea44803ba3a1b7f755549864cb0ac15f41b71a641c384fb7f863e52b57344d8"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/g128-c-c44__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "00bc539444b61eab76d82101ce171e2909a1aa6308f2a0b7299567b1b0bf8933"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/g128-c-c44__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "295ba74776bcc77f4cd492fada2727792edac44aff189829966f9172eecc54ba"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/g128-c-capsule-circular-120x64__inactive",
+      "role": "calibration",
+      "pixels": 1176,
+      "members": 1,
+      "payloadSha256": "9bcc48908c3395a93b9941ffae7201d14c2bac35f5bbeea44f926c05e6a3b8c6"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/g128-c-capsule-circular-120x64__rest",
+      "role": "calibration",
+      "pixels": 1176,
+      "members": 1,
+      "payloadSha256": "b62daf853469c66fdb620245a77e58c77757b0becda206b45e421888c9452b7f"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/g128-c-rrect-120x44__inactive",
+      "role": "calibration",
+      "pixels": 1028,
+      "members": 1,
+      "payloadSha256": "bb41b39c8bf56669263fd18b0c9b0977c81020220a4aa13bc295504f30fa5f86"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/g128-c-rrect-120x44__rest",
+      "role": "calibration",
+      "pixels": 1028,
+      "members": 1,
+      "payloadSha256": "5639eb3149898359e5f7cc3f17516e8ac04956079fd9fe3d78d7e2cda7d747fe"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/g128-c-rrect-120x64__inactive",
+      "role": "calibration",
+      "pixels": 1160,
+      "members": 1,
+      "payloadSha256": "3f9f94a4b4386a1947bd84f9b0a3d066f2cd8b9cbe7416cd380fcd2a9d8d2eaa"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/g128-c-rrect-120x64__rest",
+      "role": "calibration",
+      "pixels": 1160,
+      "members": 1,
+      "payloadSha256": "ad57cf751acf2cd27394977f5d922b3b11663af5b9ac19cb40fbe4cf1dd2f9a3"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/g128-column__inactive",
+      "role": "calibration",
+      "pixels": 2240,
+      "members": 2,
+      "payloadSha256": "52a6cc66163fc968409d8a1006dd21637d3262db945b09213647c2e87d2bfcac"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/g128-column__rest",
+      "role": "calibration",
+      "pixels": 2240,
+      "members": 2,
+      "payloadSha256": "1354a29de61ef9cd0722be966d146888d29477c0c8a52bd29e87290e5cc726c7"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/g128-t-c44__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "63bd28cc2fef53d8f870c3e8dcecfe5510fa4c7770bf4ae7d3db2b05c2a5272f"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/g128-t-c44__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "b2af5eb9dd4b6e05860aea15b6391fc0172a099ef87aa5093e43d94f3cde559c"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/g255-c-c44__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "69cfd97858098098735cdaf3cec676e7f74b50a21e05a1822302235737a737a8"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/g255-c-c44__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "b0299cd68e66be65aab1b17ffad0ec6c7501ca4e7288732e54bd7135c1d32d27"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/g255-t-c44__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "0b39a3c994e9b1b88770aad9a5b6f6e14448614b95243d2ace82a56ab99df638"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/g255-t-c44__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "a0028075bdb4663608f32e6f8efa7ae2d1046e8cb5b020155111ba173eb69f22"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/green-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "5f6387ea7ca560fc1e113a21671fe276933556d47fbda4fe6e219a0affa08a26"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/green-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "b2b55160aaa90b8172716923e3360ba528872bd153078f93080381be02f870b9"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-0-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "34b6ddae05ae3c89a6963ab2ca67bbd554b1688c76b0c98dbf02edaeec902471"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-0-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "4644264839f552f4c752bf6fd3084b0a1ba1e03791cb2daee882592b4ec0450a"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-1-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "4437d4ebdc0c17ada2158189aebf2a2e84233589b6eaa4e903d751c11460c8af"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-1-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "108ec1c39ee5af50fbe0722168c31843ca602d0c171e3a542525182d4551f4b4"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-2-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "996743b7b1dfa44014917117fc08b1fd87b982cf081c8765c2f5524d37c2eacd"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-2-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "28ed49e53a26eda2409c32833728e247a9ccbe20f724ad35b54d91c415d34024"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-3-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "5f0b2e9d2ff63e620c7f9b5a5e98c64bea8ac139497dda4c61fedfdb2ebbf6e0"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-3-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "8acfdd961a3b4f7877387ecc2038fddcc56460b71b5b82f79bf69d156b910aa4"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-4-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "7cdadc8bfc9a7a95b618f91550a9c6e3f43e705eb3276ba3431fc4ab045d869d"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-4-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "7064206e6f20c3337c6e0561dd81698dcf57d59fdb3ded4d44c17fd4eb3f73b6"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-5-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "888ad1930c7d5e370a4a26cbf642575847dd6563fb2bf7e623fd61a9228b568b"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/matched-channel-5-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "f77d6752fd7be497762418b83162e037f6ee8ab5a58d9e0b6e9e8850003ddf85"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/neutral-104-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "4ecfc23247f906c56494c0f19d17069498fce2f20b6539f19da56ac464962b8e"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/neutral-104-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "ad419aafa9d9fbce66d35bae8c6008dd12da2f2d7878ccb44af6761f1ef436e7"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/neutral-128-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "7cf3ae59d30953ecae58fc0f921530012e95b62e2a927c0ef47b37d70968e15c"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/neutral-128-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "b1780257bcf4ce5acfa3f1b5a57c94dd02e9a3ffd961f702597fc6959e91bd0b"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/neutral-150-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "0c6718f1662c04e00e0abe6f41a6576a16fe9235ba8f9ae41c41916c5fe0a757"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/neutral-150-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "fd56ad8b2010035e3cd74de929cc7b953dda2c9389cd628a4b8e233bf653cc02"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/neutral-40-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "e02694e741965b19df22054a3aa11a608592683eb9b8c82ee8dc3aab81f92898"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/neutral-40-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "6bf50a16b71a5bb81d26235ec0940e337337878b6c0312ab37273f1385b7d865"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/neutral-56-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "326ebd5883b848935382247f796d9faeae2c62b71aef0bade15e10cf3c7f35f3"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/neutral-56-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "00cb9e5610ebd528ea5411732ef654cca1932dbc49508a69d7d6db7fd514a3b4"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/neutral-72-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "88f6fa70927e4320106697baf97ae06dc1b06121d3d8a3de0f952562106fa12a"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/neutral-72-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "0b0b98e0718c3757947c1ba96a591787d167ac53946052820282e04a42a0643a"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/neutral-88-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "6e6feb0d917c37135b50f252f51ebf8a44016b65efb5d6edd3e64d5fb4404a18"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/neutral-88-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "2cf3f622f2325d6cf8cb83d3bc0e4c013985bcb87e04d0017b7b117cb82e8523"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/red-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "61f263215ee591fe78a5ccbe259d9eea71e28b044d532c81b505225a2a32dc26"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/red-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "ff615fc29c7671eabc95efb60596626c71a7fc338ecb2bc9d26ad8128ceec51f"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/v270-c-c44__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "74f0a8a9d2408e90d35df99e56bbebbf7513d9b313b69bfdebd0a356f53ca313"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/v270-c-c44__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "36c560ab4161ee9baaa7a756b5db9e3f83a4349b3b1506cbab6ce5009433d00c"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/v90-c-c44__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "ec7f720817980a8f6afb459024ed03746f24c4bb4e6b4a1c73ae6a13a0830685"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/v90-c-c44__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "250572cd18cd2b1e4fbcb9603e0c082e58a2006a712d79c4475ea655f29a3eb6"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/v90-column__inactive",
+      "role": "calibration",
+      "pixels": 2240,
+      "members": 2,
+      "payloadSha256": "6c73a646cda36c65f7e88a1894fc3a716fe44baf5c9a7f969bc13f7aae8dc343"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/v90-column__rest",
+      "role": "calibration",
+      "pixels": 2240,
+      "members": 2,
+      "payloadSha256": "28c1867ce763cf075075818b39ddc8319122b75bf4b806857390b44683cba837"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y0-c12-h0-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "52445b3e75a3c55e70d77357bfe7702282c73fa145a6c16887b57a8c759366e6"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y0-c12-h0-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "e3cf916a4b05ab62d613d8ee83a5e7929360647c83d2e4d60b184f41401066d3"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y0-c12-h120-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "19edec7dcf64e9a3e576e685f7ad579f050923911033370888b79af031c4a290"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y0-c12-h120-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "8bdc5ede4ed7df9ab83a38cce6a992237801c3e454496cb3b2d4ae25ab749b23"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y0-c12-h180-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "ddf5681c7f225e68ab428c51e0bdc2c98c4bd11ca7943901439e1c04fd8032ff"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y0-c12-h180-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "9927f1fe5ff562fb9ed44b2b2c6ba9f75c676fb51b1a4c3b03eabfa2071a6506"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y0-c12-h240-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "4aac065d32eb9c79f8fe75c39d44ce408ffe5f8a36e53d31e669f228b6eb1806"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y0-c12-h240-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "cbc716e2b1c91215d1ec6718178e3a6bab5ded8dc814acac77dc9485140c7b25"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y0-c12-h300-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "4f77f0303f2cf76e72f3218a6bbdb00b4779f1e18b5ee2b4b84c18ebd3737fac"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y0-c12-h300-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "eccfa689868afae018829094ac2197adc9dd712ff930eb4af3c575777405c687"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y0-c12-h60-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "bf27f108f775601d41359f1d114a11f7129d92b5095b78b1e1bba250bf1d249f"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y0-c12-h60-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "c2b7b712aaebe97f893da3ab863ddf914fa0d2c059434ae72d910369e9c337a8"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y0-c24-h0-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "c554df86ba72a0c65477899a757af4d8a5b2067b3bd4a2cb1afde496ead73249"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y0-c24-h0-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "c55f272f93e2faf250f937954d2d0b7220e875f2ead303fad04724576ab0809f"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y0-c24-h120-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "7c4b7e549990eb6cf447429d46d4e925af0aabd41bf01cdac56522af6f04248c"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y0-c24-h120-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "706a93546cf16f62fd7e10423f8aa1e46301c1b26ce8dbec8c800ba00f1a4ff7"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y0-c24-h180-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "669cfabc5d0e3986b236dc88002bf1838ba655a7153f6009f8c0d178b6451fb5"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y0-c24-h180-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "75363bded51819e1eaf5754e75663465d44b1f030e8bf410348db136c8312b5b"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y0-c24-h240-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "8b3093e3cb84480236c91a60a3b8bc80ff0e6ae751e0886469996a5ccaddf98d"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y0-c24-h240-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "0bfd7a2f9bd0bc1b946ed8a128c8ae850d618f3d1b16234b078b4f1449f6e385"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y0-c24-h300-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "7e9f10ca8e8c031eb372d001e36ffe708e25e118e66a1ceaa2b15bf73c68f01a"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y0-c24-h300-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "4b4083cd99d22df504015561095c3590b1a1d6f1271cdb380454a0ff14595d27"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y0-c24-h60-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "39f1a21402a7e4fef83d93553db5708a112c2d2cfd6da365ab22c282376c31e4"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y0-c24-h60-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "658d42ad75461bf1e9662f6952d3df494d01dbeec8de0c1f0380deead224aebc"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y1-c12-h0-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "7104d4f108d8b14181dea6ccf74efbfcaeee361c602b69ebaccbe53948bcb76a"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y1-c12-h0-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "3a6d2592a423a77040d999f36e687e08a775af1c83341634089104a3fbdae112"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y1-c12-h120-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "ad46efbd44b6e6af501182130804e9e3b7a7bdb55b0b1f05b1cf5ece4d4f2229"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y1-c12-h120-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "e78fe07725eadbb9f46888e7aae7a60db6d9f901045ccbef9be2de9c2585a9e7"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y1-c12-h180-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "1abfa6aec8476db098b9ee953ee437dccb5ef14ac999c148abca2c6c148f6131"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y1-c12-h180-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "9e651fd8051b1988e8fbf2b03550c2375e106a0683ae01947623dfa9b9d2abb6"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y1-c12-h240-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "c84ee2c905d1b3f0821498b49b5326616beadec33c0c4e4f278e9168c2577c76"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y1-c12-h240-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "a40effa0ca92a04e643e7248edd44cca981eff5fff7848152843b0eb370ac5ba"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y1-c12-h300-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "c9d82e2fee5a0866be33d9b0adb8cab5e0014660450520cc01431fe922bb3a55"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y1-c12-h300-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "3cf57f34871c2ddda6c755134c23f62976e116489897e4f96f357c2b59b8b0c4"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y1-c12-h60-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "3b14bcc2e523dbb19970475d5f157c10ad17f85f663b68c05cd6e2f20611c3e8"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y1-c12-h60-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "62a0ba8b8cee906b1256186e868f21ff38f4f03fd6053b7adbc8d0acb367cc22"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y1-c24-h0-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "fb34842179334253ad6d7db5e5502f14c37f8f0516e5284c494a7ee1463eed01"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y1-c24-h0-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "e8e0f0773780124e76639f396d87c7be11f56b8e04314724d91ffef40ef2cdf7"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y1-c24-h120-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "1dc79dc3014428d83ffd4749031a9e47b1b8dcfc8d6236e3e829c261e8cb19df"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y1-c24-h120-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "fe3a6c29345d258bf8901987c987e4311680a7195152907412e4defdf40c26e5"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y1-c24-h180-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "5cac7104f89273a6dfd9e8fd63e9e7060d07f32b193d4d3cf263763a3e6fc91c"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y1-c24-h180-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "b71f123005cd60cae829f8bc10b9d1b7a90f8a3df5f6b2d4e9beed5a2c3caf89"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y1-c24-h240-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "ce68f936a7306b606ebaf8726b64f1276bbbab9f5629a8d6b5aff0cbc139a44b"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y1-c24-h240-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "479ab387787b154ac4c58237c7608d3e53fd6f461094860277738cffe5518b2a"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y1-c24-h300-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "05e9a94dd23153ff6c682a95fa43d9b19cce6d7f0390cae215e1e0cdb5f5c3f6"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y1-c24-h300-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "fa230bacbf54894dc5fff8b27d7f24c5f7f66c036b15e5401e8d754b123cbcb3"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y1-c24-h60-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "58a413231473a709b6853878023bf351b06acf81df88ccabd24e135e9a9e3e9f"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y1-c24-h60-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "6dfddb12aaf61c64a2180f96bd3646691e01b38e2d69cb8cfee365f990198b73"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c12-h0-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "1b19f75b6f737702d27db626d1468fb635dcde92f0bfab9ca254e8307836b7b6"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c12-h0-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "d3baa636131a4af36e01ebd0a790da046232991938167e9cb700db1f45fb3fa9"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c12-h120-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "57de38efef2791065a69387c4465e25a13e0860eb32bbfe08a98413322a2bcec"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c12-h120-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "eca7b660a01c7e42ca72b8c2a06942a978b59f5cc59907d383fd9820aa77820d"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c12-h180-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "cf830963140144f8a9f574278975ab9d57cd230eda88783e212df7293751140b"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c12-h180-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "48809e995a43bed0899bcf6c622879d13b38c51b9713081ca6ab899762db6364"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c12-h240-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "8fa6b22f32b2547bc4d7ceed3abfbd53dee065767e9fe6d309bb2a9e439f2fa9"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c12-h240-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "e472feb80828163dae684066de155b36ad4f86f630d38b4f932fe2cc01b4c3e3"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c12-h300-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "f1410841868767e70c46cee77ddeb45f1e9ae9403de556ca0d2fd3f2d6bfdfb1"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c12-h300-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "3147d2b6eb48f2e7877a5d7df9b908081d6b0067196a6ce40279ecd369848905"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c12-h60-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "013365cc6212a52b1b5bc14808e81eafc58ed35d2ce30d613e119311a6dac826"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c12-h60-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "be9696610e92d05b5365b03f3454473c7ad281941f0dd1dce486714c69ea0671"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c24-h0-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "7600f20e55074541aaddac0ca92075b2a0fc194b769f9efe77ef05f8bde07210"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c24-h0-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "f7f9cabefacd5efad08f45e670ab904fa658cbd661dd98ad307664e3e51ce1b4"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c24-h120-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "8a647dabd17fa77cdfe4b7a739dee4bdebca9260ea842f2d3a7a1dca31caec81"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c24-h120-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "a9e80ae8215ab8d5804d76848bdf3c63c3762df86af19c6627eb827819d7e795"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c24-h180-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "511ebba28908f6383e00c2bd4e171ccb3f9e57c0f87a3a4a3e6b78c80219659b"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c24-h180-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "0d144c05c579f69e75d8046cf6c645a3e8275c03b35766bf1acf85ef75aab45b"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c24-h240-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "34e117bbf1ba4c03350c16360501f5d2fdbae64233d7a7ba157427c08fd5e2a4"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c24-h240-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "db09443c63859a2cd75169b66ac72b7bae1c36059987613cd8269f29ec14ca65"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c24-h300-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "ac389eb6f1afb2aa27d89a3e433dd6f0a2c15db9433d824151b0f9896aabc9ee"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c24-h300-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "c13abb5bd415ff71836d2dcb4ecb516050b29bd7f255fe162db925128c6ac95d"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c24-h60-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "5eb7fbd29212b803e486b30c971862e4bbaa2ab77ab8dc597334b97614f7351b"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/factor-y2-c24-h60-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "67ff35bfcec4b5300efbb30bc3fc6ee60da1a9b48c91607a9accdc703f4e978c"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g128-b-c44__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "9366a3411927bb3ad6626c6b8c42787142eeac3f9304b7a5003f5d45834a12b4"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g128-b-c44__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "6283cbfc8759c0824ec70392600a6b94a0a13b5bad34e90b77b02dac2c0e3743"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g128-c-c44__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "c1060b367f7511d4dce465c9975470ffba278bb495c9e0e06845756c09b741f1"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g128-c-c44__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "6d59690bde216501494554584c9af3f95c144767cbe00d373628dcf5f14ab5e2"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g128-c-capsule-circular-120x64__inactive",
+      "role": "calibration",
+      "pixels": 1176,
+      "members": 1,
+      "payloadSha256": "1f526a62c9581f1505a5255eceeb5308841d8ab63f544bbad2c76ed7281be257"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g128-c-capsule-circular-120x64__rest",
+      "role": "calibration",
+      "pixels": 1176,
+      "members": 1,
+      "payloadSha256": "fce27ad16c3f9550bccbaa1eef7e1a5bf33c69794c3a8b1d226ccd28d6fbd42c"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g128-c-rrect-120x44__inactive",
+      "role": "calibration",
+      "pixels": 1028,
+      "members": 1,
+      "payloadSha256": "e5c7c94160247061295607e3090bcd2461a3486b34120a97b62f620f0a3d50b1"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g128-c-rrect-120x44__rest",
+      "role": "calibration",
+      "pixels": 1028,
+      "members": 1,
+      "payloadSha256": "7c1996cde2f228c1fd41605b9541345fc8fc9503d06a17dd8eb56d8d4266928b"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g128-c-rrect-120x64__inactive",
+      "role": "calibration",
+      "pixels": 1160,
+      "members": 1,
+      "payloadSha256": "7ffec5dac1f9a1a96c26495768afd49246ef77627a78c5193cf73de97788c70a"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g128-c-rrect-120x64__rest",
+      "role": "calibration",
+      "pixels": 1160,
+      "members": 1,
+      "payloadSha256": "a8d47e16a4bcbc4d8e3f8bccc48699d8c52765586b22e4a93107de79a9b63d63"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g128-column__inactive",
+      "role": "calibration",
+      "pixels": 2240,
+      "members": 2,
+      "payloadSha256": "a268c2250f7cd11a3c803b40b6ed22f8c5a9a35e90f2b5a727fe0da8c5dfba34"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g128-column__rest",
+      "role": "calibration",
+      "pixels": 2240,
+      "members": 2,
+      "payloadSha256": "653fe4e1ec80c4edd63315c6f3e8b717d5bd0cc92a669b42136cce93c91fafb6"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g128-t-c44__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "71a5ae5c767c12d5184dbea2d84d3cc45b80f77beac7b8ad69663b70211998d3"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g128-t-c44__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "5d16a8b20d1cd5855dce3e0845275721d349a8f84b80d9b8ea2fa42b8db308d1"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g255-c-c44__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "076fe87e3bcfbbd100648c8411a2e44eba53ee5db3f4d9e6cc30fead8524a26b"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g255-c-c44__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "17569060971fb962a85ce56964188f0e10cb921eb7f8b31bf0a1a6b568b13917"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g255-t-c44__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "f539a1167cb2be87d9055087cb36d62d24664a0e7c1a9aac93f38edff2b53b26"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g255-t-c44__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "6ab4ed4410908d41c8f5f4c690951da5b04378da72853313c4b4f3c2311a0d7f"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/green-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "7d9927861d4e2a7d13ea79ae472af5c4affe194903d761026d9ec306480af77e"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/green-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "06c88664a321da4a6f4798a147df8d47ef6488fb1a613d7c06bf2fbd483c750f"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-0-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "fe7308905f64200c8f1fcf3e7a2e34a878c6f7ad12ad6705bc081a705e58aed2"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-0-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "497178a95dfd8f70e5fc4380452526f6493384e5cc93a9515616707fb6585fdf"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-1-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "acc3a8c397abfa3d52f7d0fdc8d6bfde86c4d9def6fbae6b28aed1b2d0a8c909"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-1-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "4089c905b2aadb8a7d2062555fd244a363a4888e2ce7ce75557e55502f295384"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-2-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "a9df89f0a55813f7b8f83ea597e6bd0c8bec7d30154b0094a296d677715901a1"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-2-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "e5a7ed31bcf9b37693f1bbaecd2966e897a04c9c87a83c1ae96b35f678a663c3"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-3-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "40482f43f56901fccf53ff8e6328b4333a2f36501b55b71b5180871c636ffc38"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-3-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "92ad63fddd8d8301e087a0ff3bff4cda88a886cc59f784bc64ca9d6fb2bae383"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-4-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "df295bc0e8504ddc85f57b18a441444817d9a9d39f651f1153f30985a9d13050"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-4-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "0bdded7307a7521064514c4e3cdd1311d79c5a61adb468e161da553b7b03b01d"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-5-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "0a7bcf1c07e3df266b7896bba1f39c6bc4c770b8a20ff9ecd66f6c59efd47244"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/matched-channel-5-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "96b3fa6e2391c9ae4560253d7cc8ae0cde307ee32d514a2cae83f7581427fcf5"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/neutral-104-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "ece9221f6400ba96efbb4308cce8a6c73ce8cd1fcb2fc40fdeebe721e5aa5b65"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/neutral-104-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "544f9159c905aa7f5d7f4dbd09e6cf57673539baae6a244c206ec719652773d1"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/neutral-128-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "2674e95a0e08510aec5b263225205a62ae763d6435e7e34d45205f1e8f71186d"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/neutral-128-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "2841f13d4e2f5c4f266c907e5938e41c92c4cf465c53b21201b694762ab8b229"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/neutral-150-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "674880673625ede4c691d0509e8399cdd2b4737ce6d73e0c2dec7165aa2594dd"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/neutral-150-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "b876098c77f794c61c448f2192fd7a8f618aa3aadb550fcb7afa61662af08a9a"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/neutral-40-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "edb1ba80ec6f83ce190975ce5fb3896c6dc8599e7e11efed438cca519c8a94d3"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/neutral-40-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "76f1826055207ca87be1661196415af31daed8512fa2f4dc0f005c9c1d557666"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/neutral-56-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "f378bf1e11e8e9f43935e7cb4e4583923af374a1b63532df51332f4421818640"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/neutral-56-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "f0b67f8fba6589c257953d2ad9d5ad349bd52fa18f0e79746d29e60b0350f6f6"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/neutral-72-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "aa18d839eec093afef3c32c2dd4e1aedc85e44c56cbf4c425e563a1c20cd9aa0"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/neutral-72-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "100a66861c59eceb98a74f760df6b10ccbcedb9a79ff54f39bed0778211f0fa0"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/neutral-88-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "b6abc290679eda3eac83df31a9846edcc85d4a5907f283009c43b4d78b53ddd6"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/neutral-88-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "d9cf3dfae19b55dc25e249d14c3cfa5ec90daa7bcef52384dbc304ee5167590b"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/red-colour__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "ed3d700a92d122e343a0911992594e22e35ea83c446690d5528d715eab95f570"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/red-colour__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "d815f907b6d9bcbb5e9d55ebf782201f4703d6240a73e0b895e6d74a969b07a5"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/v270-c-c44__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "77bfba4767b939cbe2e4b5310e897cac6e4085f5e47ea9c40c4266e6f17bcdd4"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/v270-c-c44__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "b23972ead32e712e6c036d70efa9d72fa2dce111b1abdcc0e645f2aa8a97689a"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/v90-c-c44__inactive",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "ed6cf83d19e52b76d65fd606e9ac308c66f35e6564940a5d9ec64340ffff4a73"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/v90-c-c44__rest",
+      "role": "calibration",
+      "pixels": 1120,
+      "members": 1,
+      "payloadSha256": "cdfc4a22657e2486e2a74f83e0d355cb32aca5f50836b817e9f9908d50f6ccdf"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/v90-column__inactive",
+      "role": "calibration",
+      "pixels": 2240,
+      "members": 2,
+      "payloadSha256": "3388143bd6bfa796e56d73de7887432d3a862bb4e6f057913332a045a15dd3d7"
+    },
+    {
+      "cell": "apple-macos-27.0-1x-light-standard-glass0.5/v90-column__rest",
+      "role": "calibration",
+      "pixels": 2240,
+      "members": 2,
+      "payloadSha256": "e577e01b7d52187e897654cda282eef708c7e9ca63d8ed25abd2531cff21f4c1"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c12-h0-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "13e1cdd8e62483a7404f1bd9a7f59f529e5410e5b5239b8a859a75e3b4d0add8"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c12-h0-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "89361341d45ff55cd1bd03714986a0a6abf6536486c59dba27fba039baa70970"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c12-h120-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "5d15982415b91812413e9bee224258c3c42d6ecbb0bd90cb8844d2a2000cb1f9"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c12-h120-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "3319ab8f53f2091e69527096969e7bd143fb50d6ffa6d35b93bb3c5891948095"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c12-h180-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "8cd889501b16962a60f27da7309e85b3d2d2ef6dec7fb77ffe9322876aa09935"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c12-h180-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "56591eabf5ad22c57d28b2339ec0c58318753ded340fc1523159943b2ab5fd9e"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c12-h240-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "79078b38bc3d93e1214ded8457f1650202e547328710deae4eb237e16b73747f"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c12-h240-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "40f88349a57939d21ebafc227428c031cb487906f442b9b3cde1ca567fc0ecad"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c12-h300-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "988ba99b522b6f598fd0750ad69df74d1dcbee7aba0fa5a86c6c5390042a3505"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c12-h300-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "135073e96a280db3884ae701f4ac4d86bd0cc83df21a7ee6926745d7567ea9c8"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c12-h60-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "b2fe90f89b27fc0596187c34c04f5025c326ee223b6674b624c26ad0de739d83"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c12-h60-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "59afd46b086b76b78bd2119234761cb32163fd3ad8150c2a4c868e368d0fee24"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h0-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "9cb79f1e4db91432f1b539e1baa088862120c3d09e9ed1641d19500e482cf84b"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h0-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "1befe1e84501fd59d84fed7445df8e08c6f1182bdd3be8748014fc9fcf47dd01"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h120-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "df95d798a7087d056166d018e440e96afd699bfaadf75018fe2c6b7ed91c16e2"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h120-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "1d31f7d3150698de456974cc30200e25920834f828a085687ea98daa12ef3024"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h180-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "1b6c84864b4ac0a53384dfafeab4a272c1427e1a63477ead3c16e660934cae3c"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h180-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "b140cab07bc4af556b9965bd3ac8241ccb695631df2d36d2262c71ecd80f93f6"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h240-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "da2799e3ba4411fd431999cdc9fabf6495339125ccaadd92e4e84e35868e23d6"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h240-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "cf683fe506d8447f0c3162ab6127822d4428ea4530ece6a17f75e782ad55ecc8"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h300-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "09bfa15d5fceaaeb1138ed4ca22d9934f433e242adedce7734f835b869f37712"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h300-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "c314b061a61111a49b8741bda24043ad47b2c92ec49e7f5b7977eab404b0a869"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h60-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "8cf1a6fb5dd9d3142c106c2250054219bca2e4ec779ea41d9ea415f45c9c1281"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y0-c24-h60-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "4bb27590537ca5dd7306efe2af6c6d711215027ae321d71920d0adb80d462d8b"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c12-h0-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "db6a90847cd1a4e03f2f61e3ecc1c54a42423c1718aa187354df45efa5ca2734"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c12-h0-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "7deb2d88f7eedc6516800609beef72a2c6882d19a256e9f3dc26f15f8bf492d1"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c12-h120-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "204301f36199e455aa0be98bdd69a6628554365298e817d328868ec981563f90"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c12-h120-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "62a1da782249427687b762535d1184831065e58281e28daa535064b0f627d719"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c12-h180-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "4af7a89805652cad411b8cf6041177f51a0c5c7b67237577a783d69d0e99cb6d"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c12-h180-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "a23e3c764d61a99a15b6c2d1cc32059b795d8888feea5f1558a3c1dc8994f67e"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c12-h240-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "ebcdad9b9d7c9040eee3bc35b5c7214d7c2756bfec841d80d0b58dd7bc57c018"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c12-h240-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "8f6fc26588ac6ab87079e2ab923df3c1861162a6b04e61610a79d6df8cf3a87b"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c12-h300-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "5b4e8edad37111f2aab994fa250d042384a349b0c67e531869a47ff686650f51"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c12-h300-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "a2ded6998591702d732d4401e2d5dc63afc419ada425471d1c20e1d87714feab"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c12-h60-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "3f0887978e95d231fbb0fa929b5e3cd92e70ae379cbfc01582488afd1279f6d7"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c12-h60-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "66dde63040a4e38359fce084d318c72d44d6fbb1363b807a702a1c42f04c84e3"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h0-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "fa671021e0c0ea727f45b5682efea4bf3d8325c44e673e7fdcd69b8310b5bd19"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h0-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "0144abb000342865096dd28c440fa94bd7fbd438b0118727f989198067d12cb3"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h120-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "f654d3efb1e39a8a409704a9d2308295ba30bf9d9298cc5d23124986200e2a0c"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h120-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "9782e8e83f7fe1cba03383827a4b6a711144b6023c3b2dcfc1fc37ef2899f22a"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h180-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "99acb418713b2ab860a5f5505d0d251dbb9986ffaa34ba5443aae04dab4281b2"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h180-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "23047e250f496ff9b118a36ebdc89761ddfb7040f57ed2087aee0078a71c14db"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h240-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "f3573a9890750bdb42863b2dadd83c41869e60b21e75ca8f4d469f1ed3ba2ea5"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h240-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "58f763615ec2d31499f73672d262da8a7d14480dc8f4456db8aabf402c5f721d"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h300-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "f4cda0e948cffe9163f1e096e565d4ab91622a8a698de4c4ea91a288c6558d7d"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h300-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "4281474662a7dbc41a092b460192f3b5445299b24b4408c7a36679a6fe8fd3bd"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h60-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "073a292e066036948cd68fe351ccc1d54755555b64716611ca6be0ca0337de00"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y1-c24-h60-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "16aa4d4dca6fbb707411f50720508e0dde6e5a6304850f669f966e00e591d3fe"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c12-h0-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "468658cb41815a92e55cfe20aae28121d20e7a165d0a13ac6025ef23e60a777c"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c12-h0-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "45f503457efb3ebfec2654a362251793e12339ee5ab57c5208442c7f358ceb73"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c12-h120-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "44c4acc34cd8e779389df2643a0b1e65a46e37c3c0956cae043e19a065b0b9fb"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c12-h120-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "418013f289311af5d04db007254cad71252eb87056c2a54fb1f61e35808f538d"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c12-h180-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "55ee448277c94bfd2bc3f2c8e419eacf6fa80b0bd58627c3c8d8d8dabb14111e"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c12-h180-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "914f3ac86379944243ac1bcfd2d7f2e137bea15501957f018105fe174c23a1d0"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c12-h240-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "68634d905ebfc82ff29a6260ff2d9183fc2d029f3f9ec333a430c07637ba9ae3"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c12-h240-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "0ff314d9c96e1b79e48a40d911d70d976bc9802ac2f65802ee62e04f2613d852"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c12-h300-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "ae631dbd7335871e4e450e3531489cf23a06cf35ec9bd005b968a8444c89e550"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c12-h300-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "e2113ebb3d7eecf986c7e86189add26ffd3d82a2339068032375bec9b8889608"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c12-h60-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "54c10cd7b596f16d85f7d8f763d6db0b67bc1df9c9deccd3df523f49ef066ee0"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c12-h60-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "960ad2f81cd83f27bf0afe36ade1fad1a539e373655c1aece25e6e10d9e7846e"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h0-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "32cb35adaa1451d83b8b2420bd5867ad72bfeae12b48a83aa9ae6f17c7b6fbcc"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h0-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "1c5d6c52fa31adfd2290b1a61d666d47ad145204ea71726589e024b93cad2fad"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h120-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "a947a105df2be2b0e54b22dddd212a6e2486855e189ad4e5f8cbcd5b769486f6"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h120-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "850516618f8b4deb3095bf5a045348fcb8c42ce99e855a7a33c38d16f0bd68b7"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h180-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "278d2992fa27a912716f80d9ef742b43ff210803762599fdca785c71da3df468"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h180-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "545d8d998542f92fae133efad82f43523f0c805abb1b63fbe67166567b57809d"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h240-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "0900cfba48bb781741cd621efa47d4bb11c7b49e4d2da66626eea9e568173f48"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h240-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "1a3ab3967dc872f18c21e87d084b892abc880dcde2bcc82a1df548457e928a8b"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h300-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "82cbde162f463b95b1d2c980d7aa131a2cdc1819a5e71b0936a36e8154bfdac1"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h300-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "e8b6d3d27880dbdbcfa12f967cea94d748974edb4b4cfa606097c7c4c0d7dd81"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h60-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "76124af6ea676c18913f836ccc1797f4d4bd84e9d7ce70c6eb915bb4af0c5213"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/factor-y2-c24-h60-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "e95031f94cc85d944c71fa98a6396cbc1d859cc4fcffd8c14d28083da5ec4d8f"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/g128-b-c44__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "0ba5700d2f61f39c99e58fab1f1738942cd7f44e8b47b3f2171f90bd156790ae"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/g128-b-c44__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "c82497bb46a3f01739673620fd0ee1ee4755455eccf6fb2ab12b45207531cdcd"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/g128-c-c44__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "6017ac4ef31a238c38a0192d553606d5f7b1db927d1eaae43bcb6e23039c8784"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/g128-c-c44__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "44f38c123f01f80272400427d080bcaeaadfaec6c08ae5770d50c2a0b127c65f"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/g128-c-capsule-circular-120x64__inactive",
+      "role": "calibration",
+      "pixels": 4980,
+      "members": 1,
+      "payloadSha256": "548442cb0205b18914a140b7ef0882ad77cd43602df10f178b13f965461465d4"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/g128-c-capsule-circular-120x64__rest",
+      "role": "calibration",
+      "pixels": 4980,
+      "members": 1,
+      "payloadSha256": "c5cfc4feff25c0a22309706d23e44d40e98d0cf811061a7d736ce2a395894042"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/g128-c-rrect-120x44__inactive",
+      "role": "calibration",
+      "pixels": 4548,
+      "members": 1,
+      "payloadSha256": "40c58a4df25f5f205ef37ebcb2134b8e8fb7445968e86e21e6707f2d761bc90d"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/g128-c-rrect-120x44__rest",
+      "role": "calibration",
+      "pixels": 4548,
+      "members": 1,
+      "payloadSha256": "5b4123593daaf34de74f6dd31e49cc2eb60f068492c8b4dcb752aeda93b1e9f0"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/g128-c-rrect-120x64__inactive",
+      "role": "calibration",
+      "pixels": 5104,
+      "members": 1,
+      "payloadSha256": "69bedc31dde0d2ee9cd29876458f4a4e97831e94eac4d321dd4db2f493bc1df2"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/g128-c-rrect-120x64__rest",
+      "role": "calibration",
+      "pixels": 5104,
+      "members": 1,
+      "payloadSha256": "4feec06bcdf31771fe73d70a6388d44ee9bf88e4161346dd49b4d644d26e32a0"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/g128-column__inactive",
+      "role": "calibration",
+      "pixels": 9352,
+      "members": 2,
+      "payloadSha256": "81aefa9f49da7ce1f7ba93f98d3eddba919eb7e0eba0521745424153510da143"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/g128-column__rest",
+      "role": "calibration",
+      "pixels": 9352,
+      "members": 2,
+      "payloadSha256": "921f8f89ee93143304a5cc33be837b5a7ed246786c4caa2eacfc564d3501ce9d"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/g128-t-c44__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "35ee4a3f93941f7469241989cc3aa80200d23caff57ed470b82b887e06eab52e"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/g128-t-c44__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "7225b9e446a729fbefe184a0a08b7e3b764cd93f7b567f0bf9b8780e7f2f4fa9"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/g255-c-c44__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "584e9294df55857fdde87e84de381182e1518449d2484bc186f1cde68687118e"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/g255-c-c44__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "107ea1322a3e439203378227275105ad4f9f226bb05dd06c855c3f604837a11e"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/g255-t-c44__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "19deb559366148583e459d06dd53b64a554fa5e3b520b82560aa4adb195dde3b"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/g255-t-c44__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "da493d2d2d1335a3f53db25373d5f5a26561ade98208a4dac03941b026b2f767"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/green-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "0dfaba1c58b002fb8ea8020c739364ea652ddbbd732a9ad7e7442299223cf59f"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/green-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "005968d4e49b3949c03007addecde3955511077072a90076c1c47891f5d62b33"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-0-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "99c6540ba83b7b11b8912c43ad949427d92239d5248585a7f2c6014a21adb1bc"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-0-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "f2ce7122ead625f3b931fa3db881c74565bdd79b3739035d889639c013511d1e"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-1-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "d70733f1d0114ea798e884687cef0a2e90572d1fc761349474bce0a109b7dffe"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-1-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "c0aa1afc27ff19b08974e35ffb65c4c1913f1bbdc93f218f08ff28457007d799"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-2-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "642cd083c42f12b893506c0d2177886aa259e894a67b3cc2c420a69d872e9223"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-2-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "dddc1202c82cae3bcc3276545fc51fd048e33a82d4c0ba91c41271e99fd3513d"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-3-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "77fcd1ae5d4a13ab1498aa56051f0961f65f261a65947998d1fd176a0b1012a4"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-3-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "4e153f9b7b5006af2f7f85c981231318bfee82effbe9539fb3797f26a84a3fa6"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-4-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "ebac2f080dbc52692da22900fef7ef600b3756b3c2c306bd6c5a80140159b376"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-4-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "f5dbb880c33b0469771856e5747bcf8de622c704e9b371fa076ceaebfd3144e7"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-5-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "518d218f7837ac762f4a1ac01d4486c2fcc4c393a63078c95ca9ad3a802d86bc"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/matched-channel-5-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "5d0e3966a51d5e87c7b66fdb106e306470389bd82f03622af8ee4c6e0d007f1e"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/neutral-104-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "af3e8a7b2ad15006a3dcbb51f12af9f63485724704a059ee18f31812208eff64"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/neutral-104-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "c5ad884410146b0c75e9fdd5233872db6142a84ae48d5f7c5fed5433af53824b"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/neutral-128-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "f6bdf846c822bb82c450c2c9fbe10deb3cc0a57b2c518c216d650d3a77710c38"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/neutral-128-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "685c3f85b521da4e21a32f871e7bf59664ed4489969e5d9e4b4ad33ba6e4b43d"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/neutral-150-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "a8a24cf8b31b51d3a3ba2e36fa6835ef1a711127798c4072065c4e6148f78015"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/neutral-150-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "39b55388eb819e75f51d3be398fef1714f21dafa9c9f139cf4c80bc2b5e7d820"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/neutral-40-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "8f6a7db89e1001a16f0582071a03ad08cb238526a71728d7e9776cc9e1355f35"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/neutral-40-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "a76e51f1742046afd94a8aaa83f73b9b4360c9c8770eaa1f35cd9b88918d7e69"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/neutral-56-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "a5364f4d0de3f23fe95460f98ec554b0091c3f7c04e10e883a2f09c66fcd6a0d"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/neutral-56-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "085420c66d5932ee530faa55ce5d740b178bd57209c933a05bd5002c770747a6"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/neutral-72-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "5b44ab4b80552902d94c6ea13cd7f19cbc4ba8e5a6d0d1d1d5c06b98349e3ead"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/neutral-72-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "34476602700142105fa8ab66c18b3008f19ce94e13749c1e05248447b1fed373"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/neutral-88-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "18a84e1bf7476f303520c29a9d1cfe949c13a9238e56d5cb4f19a95ec40cbd9e"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/neutral-88-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "6d4294ad2088d4499551dab2aa34cd4b50e63dbcec98f742317a764a76e50f6f"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/red-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "d9b720c59973178d6fa50ada5254ac18d4d6e1c74a8b1ed16eb8864b80b1d291"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/red-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "4a10d1ca36ebe3f3d1dfb7c0cccab76663097cebddd118048f1cf9119c2ec2b7"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/v270-c-c44__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "de0cc5bd418090ce30038f6061043ae3a1564827d692dc363bb3332011423525"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/v270-c-c44__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "342d34c982ce06c927ae28803bf1cc7558b8d09c3806875296fa0f79913b440a"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/v90-c-c44__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "18edf93366afb7caa66d78d2c799139c35dbf64be3111aa479f22f6184a97400"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/v90-c-c44__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "76de7c71172e9ad34abf7f75259c24c72fe641ea3ec78ebbdbeb0c5617b774b9"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/v90-column__inactive",
+      "role": "calibration",
+      "pixels": 9352,
+      "members": 2,
+      "payloadSha256": "e756d59be3d4309c97bb12db9a8db162d434994b74d71e86fb67b5f442686ec0"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-dark-standard-glass0.5/v90-column__rest",
+      "role": "calibration",
+      "pixels": 9352,
+      "members": 2,
+      "payloadSha256": "1896d2b96144e7dedcaf0444fb18e208c7e65c4c2d1a45edb9b43130901ba643"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y0-c12-h0-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "78194d5d533813d1b1485cefa41def5955e3d46ed8fab554f103f38548a56db7"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y0-c12-h0-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "adbcf9e0d4c338c008a9a2dddb5f089a48a068129b9f2a89ca463762581ed8d3"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y0-c12-h120-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "b60bf656bd285be671ab049eece933ab51db26b227bd60e70ab50f12975ae709"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y0-c12-h120-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "13dd36b472ce93695b0b064041f27d1305c896e8de0f08bb4b07b1d1b8f92287"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y0-c12-h180-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "0f86ef484ca3083b9c9a1d5025c96fa955b2b8b9620c928e5c023deeadca5e97"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y0-c12-h180-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "dcf3f88c49e1273d924336d603706e13553edfc8824ba96590eb45af17b858fd"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y0-c12-h240-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "858f8e67ed4cb56ee1e545f41480a51b057461f320237c136af37fa7ecaab609"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y0-c12-h240-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "52c0b2af2632f821f78cd4b09405f311ba95649d4a5fd9223800c35b20b7dda8"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y0-c12-h300-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "0f270e6ed1d7f79e7a5a8c568572cf933cab24f34f970969cfc6367c266667f1"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y0-c12-h300-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "e2488612da337027088a678c3bcbdc36483c1e87ffe738bffb8256f41304a2e7"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y0-c12-h60-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "9bb3ca43b2b45410578976c7a2ae735903806077ff54ea00190b43140cc4c89e"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y0-c12-h60-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "eb2ac3a455aabee7acece7f797332effbae82269498ac7386591ac262c41d94d"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y0-c24-h0-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "09606acf6ea1d00c915ca798179790dde9a28235f6ea705d41485cbe05b32dce"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y0-c24-h0-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "454db9a6503d998e635b13129497a6ad531944863a0fda57ed6d40faf9493a78"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y0-c24-h120-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "8cfca50ede71503f3ddbf34dad0579da9d21b8f677bbd30d9a3e01d7cd10db6d"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y0-c24-h120-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "038a1c312efd97bd0831ac5f6e1a06311121cbc032c682c1186bde5c0186c45d"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y0-c24-h180-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "576fa2a974a154595dc112eb3fbee3a03d176615fe555967cefba6a3f446381e"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y0-c24-h180-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "152f62feb888cdc172e2cf7428fa5608208bd9ccd1ec7189b46af5ca1c2589c6"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y0-c24-h240-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "52aecf9554f7866b60dfa1c14b6fd6555f9dc7d5d86c1c0382f32ba12f04f092"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y0-c24-h240-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "e304537e69288624e3a1e391b38c1f56c51f9cca3cd3614d2e02c0cc285c75af"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y0-c24-h300-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "7a0c7ef4dc9e2ca6ad710fe23b80b15195db70bde4c2a1a635251dbf1d488c33"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y0-c24-h300-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "0262ecce8178bde02c24cf17214a4c21c6c68bfa82af324a2ac9cec72e53a6fa"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y0-c24-h60-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "50c7b3ec30f006d0cd729217eea21ccd261ba7b61fff2562374cc84b875e9cf0"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y0-c24-h60-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "4187ce3c5e519dafa22a4a6f75709bc025b4e13740036a402c1225cb0d9b00c6"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y1-c12-h0-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "63258b117bec74f20be91136c80da12333593c51efb545982cf7cfefc79ae1e6"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y1-c12-h0-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "33e5dceb7c39673583b0fc45c35cafc3987e2486b53c3451daa8296e57dc9d9e"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y1-c12-h120-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "3ae5f10d39fbf77664bf8b6872ac15743d119fd2e6c1379663b97d9a0221d44a"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y1-c12-h120-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "ca92980527d2523af87e5df24d025b2487a7a20870148cc58a0b5d808d542826"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y1-c12-h180-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "5f6c35869c3a748f1b78d746f7deeb8f7559d805ad23301d7888954763b14e6e"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y1-c12-h180-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "9cc43923b0b69a040d88fa8cf1de4e33c244d5f68d44bd799d65a1e06d5e82cf"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y1-c12-h240-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "f7074a24625ecf1dadb0ef8602bece3863fe3a9671ae1f90a856e6b6ee662ff6"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y1-c12-h240-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "cf71d25e147ab594ca48bf6710fd0f8ba2e711e97e95a4e0ddc30a72b456994b"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y1-c12-h300-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "0b8a3b5cdfdfcee3650be87fdbf559766c887a3d02ce71faebc9c4b2e6ea6c46"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y1-c12-h300-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "dc83f75baaef29e09adbf44667015bcd5da84f56fcfeec49a0dd158f74595ec8"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y1-c12-h60-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "6dea7a3fc81fcab2d59038d6a446741043a51ba4f71bfcc78e4d96c6144363b6"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y1-c12-h60-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "eeb78e8b27c492e0d3fe088b612271c54f148188b84c48404202220906e29345"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y1-c24-h0-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "a253dcbfc741159c7ee2e988507c944ed0770c8a4aa3bfdfca01d96701ae3f80"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y1-c24-h0-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "86369214ed03769ad30f09ceecbd9235cf30953914542adb4dbf88b44a8c9c96"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y1-c24-h120-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "740369731c836fd1bb9ae80302f88516df988866ba93fe0b96aa678820895b98"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y1-c24-h120-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "3127b8d4ffd84cac0a23965976b1f746ce47593d21f263bd42ac02944a622f10"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y1-c24-h180-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "70dc1faf4176c6071f6ac00a969935bfe37c00d26803b29249eb74731d86a46e"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y1-c24-h180-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "8da9933b6253332bbddc06f8d50e0ad3460f87c0244ca066459e6b02f516c582"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y1-c24-h240-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "d4e0588dfad881ed73f2d686d8f68b2e066e704b1018ca8334f59dc7a964627b"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y1-c24-h240-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "f90c28d95648f7a0a2914ed6de7104abce58b48fe3ed8c54c1d64606f5ce8fe9"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y1-c24-h300-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "5e6929fb7c40195c15ed07e132a6b7ac89204f1883a5d2d8ee976572bb475407"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y1-c24-h300-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "cd38b59f9410622195387f36c665c9d5751d652a21b2082415ca12c8bc44201c"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y1-c24-h60-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "5eb72b409e422acb5d2f2111d02f3bb26ac791db9fac887451682107e8f6bb9c"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y1-c24-h60-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "c65cc7c19456bda6c3a8d84280a73147b95256202da2ab4313e9f799882c031a"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y2-c12-h0-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "6591c3a8a72b4f22e37594dccfa762a00bf851cd20bb4789095ba2fc39234085"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y2-c12-h0-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "24fe9ac5794fd655dedeeaf8ef51ecad9b2f5adf3a405ed5ba5d9c07e235d4a4"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y2-c12-h120-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "8e7aa1bcd27fe49083fe5ca3b2073fc0e3ca6547cf73878cecd259e2fb5fb9f4"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y2-c12-h120-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "5b2312430394604a0a4e763e7ef0398fec50a12f76926a56dc27c6224dff9793"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y2-c12-h180-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "67d3bcc5cd2eb89936d87956b91d0bfed1b33dc5b78c12f645b5c10199533495"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y2-c12-h180-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "e28a5a03d2a45e9cf18a1d9273829e0cde319735a6699111f27c8569a01d1e2c"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y2-c12-h240-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "6d94951ddca7317fa907b8c39ab7682933851825f7aaaecf25f5957003d7e952"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y2-c12-h240-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "5177acb8499bf7be4913a16a18ac9aff87eebbcf67e0c639007f72bf552c1b24"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y2-c12-h300-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "8a48d1f8fcf2a39d73592502a5f1795aff7234958bf10569e832285e895d30dd"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y2-c12-h300-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "fceca9a572dc5b76f78bff2a4254bdf149059243359cc6f7544213b8427186e8"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y2-c12-h60-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "adf28b19ecb5de2ab34a69ff6c116d91e9e05048db73bcadf3abb60d9939c781"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y2-c12-h60-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "9d2d6e8fc1a6d13f79693182ff4f88f9c4a5a9f7c606196c7777c9dc964bf5bd"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y2-c24-h0-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "dd20419360138f78631f5f04d8e78487b89be1005667cf22d9d010c1581b15d4"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y2-c24-h0-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "977cc476f799178e7b6a896a8334d88b85535b7bda6fc265ecb72ccefaab53cc"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y2-c24-h120-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "d42f93b88a8e8a9cf43d6294abdbd00b39611b4af6ee3d8004d18363393d1833"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y2-c24-h120-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "d9491efdd122f8aaa71a9bef57790637c7e0be809f0f62dd51ade64bbe685054"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y2-c24-h180-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "6b596363a6010184a4f422259d07c1848b0b8e3b32810ff82d8ebf4e62673739"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y2-c24-h180-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "739d11d01b9f73a921be181be65945df33531c67a8266b2dc768da176230795a"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y2-c24-h240-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "661e4f6e878737742befed70e926ca80e9be9aa62cc3fb75b109fa177223b63d"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y2-c24-h240-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "d159d245e17bcc59c7d89cd31678f31a6fd3cc33f70b4d1937407b3fde6e37e3"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y2-c24-h300-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "7339b414afeb37c0993ea4b7b37b6b2a88e0fb375e8ce05c60d31d2ffff38541"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y2-c24-h300-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "a1dba5ccd5b7641a4dde555248303374b36ebf6fd1ab7c5c03c9b2196d75bce5"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y2-c24-h60-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "5396f8026e44f77e3596eb056ad63010ae3b3c2c1632c185fc52b82299abbc53"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/factor-y2-c24-h60-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "5f429fbc629946082fadc964672a37407eee307d90bc502997c27af4459aba93"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-b-c44__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "04806945f22d22de060b62b63c59a2697ad0afaffce9c98c936e8e2ad8a68b28"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-b-c44__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "605620d6fe99cd9258456fdb01cf517fb4883cb5f49473c8bb11ed18a523b87d"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-c44__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "d5c6b96ab6ee5ca78a100e9e91b1f3e6d301a20c9d823e5dfee0d77fd8f0b7b6"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-c44__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "5cab2c46c4528219aa40b169ec679660e944d17a69795c6c3aa73908613ccfbd"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-120x64__inactive",
+      "role": "calibration",
+      "pixels": 4980,
+      "members": 1,
+      "payloadSha256": "60adceca0c275dbfb7414a3079dabb17a69f3fa4087bbab5bc247b6ad07b6612"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-120x64__rest",
+      "role": "calibration",
+      "pixels": 4980,
+      "members": 1,
+      "payloadSha256": "0325e515eee01e04ce3a464b1a71fe20a9992c809658b41f8e5386686b775c2a"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-rrect-120x44__inactive",
+      "role": "calibration",
+      "pixels": 4548,
+      "members": 1,
+      "payloadSha256": "6abf8c59ddee8c579bc6054e65b10758e9407272675e6c266e72aec913982409"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-rrect-120x44__rest",
+      "role": "calibration",
+      "pixels": 4548,
+      "members": 1,
+      "payloadSha256": "f392139f72c75c7f94c53fade6867b766a752a21ffc00e8800c3671c15adcc53"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-rrect-120x64__inactive",
+      "role": "calibration",
+      "pixels": 5104,
+      "members": 1,
+      "payloadSha256": "e70655cc87f76fb7b238a33fb736a2e8e9c7aaf6a512a7b4a6c4ff943812652a"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-rrect-120x64__rest",
+      "role": "calibration",
+      "pixels": 5104,
+      "members": 1,
+      "payloadSha256": "5cdb4fe86bc393356ac8f135751b69328e86f9086cf86ebc14e8e1a4b8bed8f1"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-column__inactive",
+      "role": "calibration",
+      "pixels": 9352,
+      "members": 2,
+      "payloadSha256": "c3ca2946c73ba80e4c48656793a8444b344777ce97c133770317a1dbfdce85a3"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-column__rest",
+      "role": "calibration",
+      "pixels": 9352,
+      "members": 2,
+      "payloadSha256": "5e3b4df8c804d06ab869fdaa0b92688a0d971da704073b748a180775b0ae5bcd"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-t-c44__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "6a389d55ea5d85293c3a0f01052e606c574aa8fc3c9445e58743e1d929c8c8d2"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-t-c44__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "d1e920aa3df469cf18c11a1b804c093541ad5f0bddb9e3a9754228b73e22cdd4"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g255-c-c44__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "d4e886ff29bcffe722202b20e1074de25f4a6c54234885331f62c37c103a37bb"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g255-c-c44__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "53d185e0322bc2f6ad3512409cb1b60211d432c1311cf61b6cefecb4b4e0da99"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g255-t-c44__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "968523bf0359d084fa82b56f8feec53dc9684294faffac8dc5e8eef3542631da"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g255-t-c44__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "81084fb890c3ed40c9ce8efd00b360b13de1d2edfac34d20c7ab6458aa3f1d1e"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/green-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "9359350f661d366d58190df5d7d0fd8346b1dabebfec39344f90522230b86832"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/green-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "fb7903d3914d64e9b55eefa4d76bd9c3fd5a594dbb44c489211f54a73f5607fc"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-0-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "8113494e9190c5a209c79e09b4482cc505fd74b31d508935629653f298ca32e9"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-0-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "e073c803eaa4c550df3a33c071977c3dd689465dfe08af3e74f4837c9d96a730"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-1-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "6eafa58fba8db3d6ac504e50fb4b2411db6de5d72c6b724ce750a814ea15a055"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-1-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "864a7c18dfbb996a22d7efb9b6c5de5a8c9c5c53cb8438efac727912d0ec205d"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-2-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "5f6187ee9ac496a28558f5890fc368e4fb0d928f3618398a6a815dda43d6a117"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-2-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "2acb05ba0498e63097d89e9cb8a1d4b2937edc6bc15d3eab4271d3ed48b4dd53"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-3-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "bd81b354fc38fe61206472543dd7d3d60c7b7e8d3064ed83f82e6982551d29f3"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-3-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "f57383f7c20c2a7b250e81a849fd3a0cd7cde23f4694877406bb577f7d0bc4c9"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-4-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "c72d25f78c116e2a1a0112f5e314d1306f68cef2cf109444ee124092f975b3c6"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-4-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "5f75c91f3fdfe08104b86e102f0ec3d1131a2d27b778808cdafa8c9119d16c15"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-5-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "7032aefa7726aef993b98a1038abbbb7d6dfc2c3dbf369edbc4b15d642b52029"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/matched-channel-5-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "9a5c894b620bd467926c3c6ed4a2cd55714dce18c3235431927a2be821fa54c3"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/neutral-104-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "639936c40550de620c1690765d91b0dfddf837b9adad9ae3b743cc7d4d1ea39e"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/neutral-104-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "bb486b2a53c3fd8bdfbc6471ef0f1e749ec396784a923bd90992de111141052d"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/neutral-128-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "58c2451f62c6709768d2b5276d12d24d747ae551987d605380bdbaacceae8c89"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/neutral-128-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "7ee6a87d37f4db6adb1adf8f706061290948620fed82d6df6b8e44fa6b08f5d6"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/neutral-150-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "a99663da4f54847997172a6a9182a601f0801153852b7ba6d142d0754684da1d"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/neutral-150-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "7e319319ec1c01a1a13c3907eef6354a320481c5c4b8c27f139376cbac4aee09"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/neutral-40-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "1b09f71a10cb613e2c488eb688a7fbc1c96b538a3b6d13b1c7c6a33723cdf125"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/neutral-40-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "38be9c4e0d8990296b0b95559a73bad334f50ced5bf6a921cde0f04e89f1a689"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/neutral-56-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "ef96f7f533ff287c859ce580318c62c432b7aff4e094430b18c5d8bf361edd38"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/neutral-56-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "5007fe94a5507c4ec4511d23c8bc064889ffda190159c48e95b4b45d2d35f2ca"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/neutral-72-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "c6653e3f63a29da941fdfde1112b8f9a0fa9e33f417b6951c557e4f372858be9"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/neutral-72-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "4da371d60b7a4fac16e5ef5bac0e069a5d46bdedb243b0d42de6e6f9a8716921"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/neutral-88-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "234f381580acef2f45424da53ae23c773be35da34adb6f65c13a34ae2aa815cd"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/neutral-88-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "5f80caaa31b288eb2b88f4ec54b22475765869f458ea03f01c19dcd13f2265f5"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/red-colour__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "337e2677d7b904f8e40764308dd2f4c423dc035ef33088ffaf7afb19ad8bbaca"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/red-colour__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "0d3c624e53d5986e81620b5e0c5d851c2894fc0dbca25abff8084d516960a782"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/v270-c-c44__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "0851982b38bcc187e6a33529757cec180fa23f68d4589f5d8ac5f2623fbcc925"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/v270-c-c44__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "be90e3e02b54529c1f37849e10e4c32e05f2f9d472d34a133ec06a1bda94ab35"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/v90-c-c44__inactive",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "9e8e92b5abf2946f465d1912d551ad808a04e4faf8a80874a0fd00ae246bb74b"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/v90-c-c44__rest",
+      "role": "calibration",
+      "pixels": 4676,
+      "members": 1,
+      "payloadSha256": "4a33cb84f716b001288c300297c8b859b91fc04c1e95c69feb6d227332666556"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/v90-column__inactive",
+      "role": "calibration",
+      "pixels": 9352,
+      "members": 2,
+      "payloadSha256": "002331d13e38b2d3a7ac15a53ae09ffc90af939bc9d6c78f49fa017a5e406a70"
+    },
+    {
+      "cell": "apple-macos-27.0-2x-light-standard-glass0.5/v90-column__rest",
+      "role": "calibration",
+      "pixels": 9352,
+      "members": 2,
+      "payloadSha256": "7c7858e2e2d8d1b9b70920d36d59f1e8c5a7aa59a05af49af70ae443fd402db5"
+    }
+  ]
+}

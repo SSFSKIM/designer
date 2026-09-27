@@ -16,6 +16,7 @@ import time
 import numpy as np
 import replay as r
 import scoring
+import diagnostics
 
 
 def json_write(path, value):
@@ -107,7 +108,8 @@ def run(args):
         declarationSha256=r.DECLARATION_SHA,
         sourceFiles={str(p.relative_to(r.m.ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
                      for p in [Path(__file__), Path(r.__file__), Path(scoring.__file__),
-                               Path(r.f.__file__), Path(r.m.__file__), Path(r.shadow.__file__)]},
+                               Path(r.f.__file__), Path(r.m.__file__), Path(r.shadow.__file__),
+                               Path(diagnostics.__file__)]},
         classification='LOCAL; unchanged sealed domains, starts and budgets',
         roles=['calibration', 'validation'], holdout=False, browser=False, nativeCapture=False))
     preparation = r.Preparation()
@@ -157,6 +159,8 @@ def run(args):
             and candidate['scoring']['survives']
         candidate['quadratureSensitivity'] = gzip_rows(output/f'{objective}-quadrature.jsonl.gz',
             lambda emit: sensitivity(observations, q, args.family, css, curvature, emit))
+        candidate['straddlingDiagnostic'] = gzip_rows(output/f'{objective}-straddling.jsonl.gz',
+            lambda emit: diagnostics.straddling(observations, q, args.family, css, curvature, emit))
         json_write(output/f'{objective}-summary.json', candidate)
         results[objective] = candidate
     json_write(output/'witnesses.json', [dict(cell=o['cell'], role=o['role'],

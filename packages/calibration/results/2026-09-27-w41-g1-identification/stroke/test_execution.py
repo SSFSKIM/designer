@@ -4,6 +4,7 @@ from pathlib import Path
 import unittest
 import numpy as np
 import execute
+import diagnostics
 import replay
 import scoring
 
@@ -42,6 +43,20 @@ class ExecutionTests(unittest.TestCase):
         self.assertTrue(all(row['zeroInactiveControl'] is not None
             for row in rows if row['score']['pixels'] >= 4))
         self.assertTrue(any(row['score']['worstChannelFailure'] for row in rows))
+
+    def test_boundary_reports_only_stroke_increment_without_accuracy_claim(self):
+        observation = self.observation()
+        _, _, q = replay.f.domain('M0')
+        rows = []
+        result = diagnostics.straddling([observation], q, 'M0', False, False, rows.append)
+        self.assertGreater(len(rows), 0)
+        self.assertFalse(result['usedForSurvival'])
+        self.assertLess(result['maximumPixelStrokeIncrementCodes'], 1e-12)
+        q[10] = -40
+        rows = []
+        result = diagnostics.straddling([observation], q, 'M0', False, False, rows.append)
+        self.assertGreater(result['maximumPixelStrokeIncrementCodes'], 1.)
+        self.assertTrue(all(row['status'] == 'DIAGNOSTIC' for row in rows))
 
     def test_additive_outputs_refuse_overwrite(self):
         with tempfile.TemporaryDirectory() as temporary:
