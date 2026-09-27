@@ -1,0 +1,24 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/unittest/__main__.py", line 18, in <module>
+    main(module=None)
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/unittest/main.py", line 104, in __init__
+    self.parseArgs(argv)
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/unittest/main.py", line 153, in parseArgs
+    self.createTests()
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/unittest/main.py", line 164, in createTests
+    self.test = self.testLoader.loadTestsFromNames(self.testNames,
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/unittest/loader.py", line 207, in loadTestsFromNames
+    suites = [self.loadTestsFromName(name, module) for name in names]
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/unittest/loader.py", line 137, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/baseline/test_transfer_v2.py", line 10, in <module>
+    spec.loader.exec_module(transfer)
+  File "<frozen importlib._bootstrap_external>", line 991, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1128, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1186, in get_data
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/baseline/transfer-v2.py'

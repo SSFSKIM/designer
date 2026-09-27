@@ -1,0 +1,46 @@
+test_authority_rechecked_before_backend_after_backend_and_after_projection (test_baseline.BaselineTests.test_authority_rechecked_before_backend_after_backend_and_after_projection) ... ok
+test_authority_rejects_changed_public_manifest_geometry_and_g1_code (test_baseline.BaselineTests.test_authority_rejects_changed_public_manifest_geometry_and_g1_code) ... ok
+test_frozen_projections_are_verified_before_native_transfer (test_baseline.BaselineTests.test_frozen_projections_are_verified_before_native_transfer) ... ok
+test_gradient_projection_uses_pinned_strip_at_each_scale (test_baseline.BaselineTests.test_gradient_projection_uses_pinned_strip_at_each_scale) ... ok
+test_only_admitted_calval_not_holdout_or_missing_phase (test_baseline.BaselineTests.test_only_admitted_calval_not_holdout_or_missing_phase) ... ok
+test_preparation_rechecks_live_public_scene_and_split_metadata (test_baseline.BaselineTests.test_preparation_rechecks_live_public_scene_and_split_metadata) ... ERROR
+test_projection_reads_deep_whole_exterior_and_interior (test_baseline.BaselineTests.test_projection_reads_deep_whole_exterior_and_interior) ... ok
+test_srgb_solid_and_pixel_centred_gradient (test_baseline.BaselineTests.test_srgb_solid_and_pixel_centred_gradient) ... ok
+test_transfer_keeps_complete_composite_errors_in_all_seven_repeats (test_baseline.BaselineTests.test_transfer_keeps_complete_composite_errors_in_all_seven_repeats) ... ok
+test_transparent_projection_refuses (test_baseline.BaselineTests.test_transparent_projection_refuses) ... ok
+test_x6_refusal_does_not_launch_backend (test_baseline.BaselineTests.test_x6_refusal_does_not_launch_backend) ... ERROR
+test_changed_source_refuses_before_copying (test_snapshots.SnapshotTests.test_changed_source_refuses_before_copying) ... ok
+test_copies_exact_bytes_deduplicates_and_keeps_scratch (test_snapshots.SnapshotTests.test_copies_exact_bytes_deduplicates_and_keeps_scratch) ... ok
+test_seven_normal_repeats_survive_one_state_and_long_sentinels_are_separate (test_transfer_v2.TransferV2Tests.test_seven_normal_repeats_survive_one_state_and_long_sentinels_are_separate) ... ok
+test_verification_never_requires_pre_w41_runtime_after_capture (test_transfer_v2.TransferV2Tests.test_verification_never_requires_pre_w41_runtime_after_capture) ... ok
+
+======================================================================
+ERROR: test_preparation_rechecks_live_public_scene_and_split_metadata (test_baseline.BaselineTests.test_preparation_rechecks_live_public_scene_and_split_metadata)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/baseline/test_baseline.py", line 104, in test_preparation_rechecks_live_public_scene_and_split_metadata
+    baseline.verify_preparation(scratch)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/baseline/baseline.py", line 241, in verify_preparation
+    if sha(ROOT / name) != digest: raise ValueError('source/document changed: ' + name)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: source/document changed: packages/calibration/scripts/material-profile-file.ts
+
+======================================================================
+ERROR: test_x6_refusal_does_not_launch_backend (test_baseline.BaselineTests.test_x6_refusal_does_not_launch_backend)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/baseline/test_baseline.py", line 286, in test_x6_refusal_does_not_launch_backend
+    with self.assertRaises(PermissionError): baseline.capture()
+                                             ^^^^^^^^^^^^^^^^^^
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/baseline/baseline.py", line 323, in capture
+    verify_preparation(record)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/baseline/baseline.py", line 241, in verify_preparation
+    if sha(ROOT / name) != digest: raise ValueError('source/document changed: ' + name)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: source/document changed: packages/calibration/scripts/material-profile-file.ts
+
+----------------------------------------------------------------------
+Ran 15 tests in 5.926s
+
+FAILED (errors=2)
+FROZEN 1 2a25b578150cb21cae8079852af3755a18f574ed9dc15174da4cbfe02a601d14
