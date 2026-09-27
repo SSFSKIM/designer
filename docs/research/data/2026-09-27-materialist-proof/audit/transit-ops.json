@@ -1,7 +1,7 @@
 {
  "slug": "transit-ops",
  "url": "http://localhost:5177/gallery/transit-ops/",
- "auditedAt": "2026-09-27T02:52:05.370Z",
+ "auditedAt": "2026-09-27T03:37:17.114Z",
  "viewport": {
   "width": 1440,
   "height": 900
@@ -38,7 +38,7 @@
    "badResponses": [],
    "scrolledOnLoad": 0,
    "docHeight": 900,
-   "words": 207,
+   "words": 135,
    "title": "Transit operations — a Liquid Glass demo on vitrea",
    "placeholder": false,
    "captureWidth": 1440,
@@ -50,23 +50,23 @@
     "pass": 45,
     "unknown": 0,
     "rate": 1,
-    "onGlass": 41,
-    "onGlassPass": 41,
+    "onGlass": 8,
+    "onGlassPass": 8,
     "fails": []
    },
    "glassContrast": {
     "method": "rendered-pixels",
-    "pairs": 182,
-    "pass": 182,
-    "minRatio": 4.96,
+    "pairs": 31,
+    "pass": 31,
+    "minRatio": 5.4,
     "byPhase": {
      "fv": {
-      "pairs": 69,
-      "pass": 69
+      "pairs": 14,
+      "pass": 14
      },
      "menu": {
-      "pairs": 113,
-      "pass": 113
+      "pairs": 17,
+      "pass": 17
      }
     },
     "fails": [],
@@ -74,7 +74,7 @@
      {
       "phase": "fv",
       "text": "All routes",
-      "nodeId": "vitrea-node_r_7_",
+      "nodeId": "vitrea-node_r_5_",
       "size": 13,
       "bold": false,
       "large": false,
@@ -97,7 +97,30 @@
      {
       "phase": "fv",
       "text": "1",
-      "nodeId": "vitrea-node_r_7_",
+      "nodeId": "vitrea-node_r_5_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 19.08,
+      "worstRatio": 18.87,
+      "pass": true,
+      "ink": [
+       0,
+       0,
+       0
+      ],
+      "ground": [
+       243,
+       244,
+       246
+      ],
+      "pixels": 153,
+      "groundPixels": 107
+     },
+     {
+      "phase": "fv",
+      "text": "3",
+      "nodeId": "vitrea-node_r_5_",
       "size": 13,
       "bold": false,
       "large": false,
@@ -114,41 +137,18 @@
        244,
        245
       ],
-      "pixels": 153,
-      "groundPixels": 107
-     },
-     {
-      "phase": "fv",
-      "text": "3",
-      "nodeId": "vitrea-node_r_7_",
-      "size": 13,
-      "bold": false,
-      "large": false,
-      "ratio": 18.91,
-      "worstRatio": 18.75,
-      "pass": true,
-      "ink": [
-       0,
-       0,
-       0
-      ],
-      "ground": [
-       242,
-       243,
-       245
-      ],
       "pixels": 170,
       "groundPixels": 90
      },
      {
       "phase": "fv",
       "text": "4",
-      "nodeId": "vitrea-node_r_7_",
+      "nodeId": "vitrea-node_r_5_",
       "size": 13,
       "bold": false,
       "large": false,
       "ratio": 19.03,
-      "worstRatio": 18.75,
+      "worstRatio": 18.87,
       "pass": true,
       "ink": [
        0,
@@ -166,12 +166,12 @@
      {
       "phase": "fv",
       "text": "7",
-      "nodeId": "vitrea-node_r_7_",
+      "nodeId": "vitrea-node_r_5_",
       "size": 13,
       "bold": false,
       "large": false,
       "ratio": 19.03,
-      "worstRatio": 18.75,
+      "worstRatio": 18.87,
       "pass": true,
       "ink": [
        0,
@@ -189,7 +189,53 @@
      {
       "phase": "fv",
       "text": "9",
-      "nodeId": "vitrea-node_r_7_",
+      "nodeId": "vitrea-node_r_5_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 18.91,
+      "worstRatio": 18.75,
+      "pass": true,
+      "ink": [
+       0,
+       0,
+       0
+      ],
+      "ground": [
+       242,
+       243,
+       245
+      ],
+      "pixels": 153,
+      "groundPixels": 63
+     },
+     {
+      "phase": "fv",
+      "text": "12",
+      "nodeId": "vitrea-node_r_5_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 18.88,
+      "worstRatio": 18.75,
+      "pass": true,
+      "ink": [
+       0,
+       0,
+       0
+      ],
+      "ground": [
+       241,
+       243,
+       245
+      ],
+      "pixels": 306,
+      "groundPixels": 174
+     },
+     {
+      "phase": "fv",
+      "text": "15",
+      "nodeId": "vitrea-node_r_5_",
       "size": 13,
       "bold": false,
       "large": false,
@@ -206,13 +252,13 @@
        244,
        245
       ],
-      "pixels": 153,
-      "groundPixels": 63
+      "pixels": 306,
+      "groundPixels": 175
      },
      {
       "phase": "fv",
-      "text": "12",
-      "nodeId": "vitrea-node_r_7_",
+      "text": "22",
+      "nodeId": "vitrea-node_r_5_",
       "size": 13,
       "bold": false,
       "large": false,
@@ -230,62 +276,16 @@
        245
       ],
       "pixels": 306,
-      "groundPixels": 174
-     },
-     {
-      "phase": "fv",
-      "text": "15",
-      "nodeId": "vitrea-node_r_7_",
-      "size": 13,
-      "bold": false,
-      "large": false,
-      "ratio": 18.87,
-      "worstRatio": 18.71,
-      "pass": true,
-      "ink": [
-       0,
-       0,
-       0
-      ],
-      "ground": [
-       241,
-       243,
-       244
-      ],
-      "pixels": 306,
-      "groundPixels": 175
-     },
-     {
-      "phase": "fv",
-      "text": "22",
-      "nodeId": "vitrea-node_r_7_",
-      "size": 13,
-      "bold": false,
-      "large": false,
-      "ratio": 18.91,
-      "worstRatio": 18.71,
-      "pass": true,
-      "ink": [
-       0,
-       0,
-       0
-      ],
-      "ground": [
-       242,
-       243,
-       245
-      ],
-      "pixels": 306,
       "groundPixels": 145
      },
      {
       "phase": "fv",
       "text": "All",
-      "nodeId": "vitrea-node_r_9_",
+      "nodeId": "vitrea-node_r_7_",
       "size": 13,
       "bold": false,
       "large": false,
-      "ratio": 14.3,
+      "ratio": 14.29,
       "worstRatio": 14.12,
       "pass": true,
       "ink": [
@@ -296,20 +296,20 @@
       "ground": [
        212,
        213,
-       215
+       214
       ],
       "pixels": 289,
-      "groundPixels": 136
+      "groundPixels": 137
      },
      {
       "phase": "fv",
       "text": "Late",
-      "nodeId": "vitrea-node_r_9_",
+      "nodeId": "vitrea-node_r_7_",
       "size": 13,
       "bold": false,
       "large": false,
       "ratio": 19.05,
-      "worstRatio": 18.76,
+      "worstRatio": 18.75,
       "pass": true,
       "ink": [
        0,
@@ -327,12 +327,12 @@
      {
       "phase": "fv",
       "text": "Early",
-      "nodeId": "vitrea-node_r_9_",
+      "nodeId": "vitrea-node_r_7_",
       "size": 13,
       "bold": false,
       "large": false,
       "ratio": 19.05,
-      "worstRatio": 18.75,
+      "worstRatio": 18.71,
       "pass": true,
       "ink": [
        0,
@@ -350,12 +350,12 @@
      {
       "phase": "fv",
       "text": "On time",
-      "nodeId": "vitrea-node_r_9_",
+      "nodeId": "vitrea-node_r_7_",
       "size": 13,
       "bold": false,
       "large": false,
       "ratio": 19.05,
-      "worstRatio": 18.75,
+      "worstRatio": 18.91,
       "pass": true,
       "ink": [
        0,
@@ -373,12 +373,12 @@
      {
       "phase": "fv",
       "text": "/",
-      "nodeId": "vitrea-node_r_c_",
+      "nodeId": "vitrea-node_r_a_",
       "size": 11,
       "bold": false,
       "large": false,
       "ratio": 5.4,
-      "worstRatio": 3.77,
+      "worstRatio": 3.7,
       "pass": true,
       "ink": [
        99,
@@ -394,602 +394,395 @@
       "groundPixels": 29
      },
      {
-      "phase": "fv",
-      "text": "Port Alder Transit",
+      "phase": "menu",
+      "text": "Call operator",
       "nodeId": "vitrea-node_r_1_",
-      "size": 11,
+      "size": 13,
       "bold": false,
       "large": false,
-      "ratio": 5.44,
-      "worstRatio": 5.44,
+      "ratio": 15.31,
+      "worstRatio": 15.31,
       "pass": true,
       "ink": [
-       100,
-       100,
-       101
+       255,
+       255,
+       255
       ],
       "ground": [
-       244,
-       246,
-       247
-      ],
-      "pixels": 1768,
-      "groundPixels": 1036
-     },
-     {
-      "phase": "fv",
-      "text": "Network operations",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 20,
-      "bold": true,
-      "large": true,
-      "ratio": 14.04,
-      "worstRatio": 14.04,
-      "pass": true,
-      "ink": [
        37,
-       38,
+       37,
        38
       ],
-      "ground": [
-       244,
-       246,
-       247
-      ],
-      "pixels": 4392,
-      "groundPixels": 2287
+      "pixels": 1428,
+      "groundPixels": 709
      },
      {
-      "phase": "fv",
-      "text": "Sun 27 Sept",
+      "phase": "menu",
+      "text": "Hold",
       "nodeId": "vitrea-node_r_1_",
-      "size": 12.5,
+      "size": 13,
       "bold": false,
       "large": false,
-      "ratio": 5.44,
-      "worstRatio": 5.44,
+      "ratio": 16.05,
+      "worstRatio": 15.87,
       "pass": true,
       "ink": [
-       100,
-       100,
-       101
+       0,
+       0,
+       0
       ],
       "ground": [
-       244,
-       246,
-       247
+       224,
+       225,
+       227
       ],
-      "pixels": 1184,
-      "groundPixels": 742
+      "pixels": 527,
+      "groundPixels": 261
      },
      {
-      "phase": "fv",
-      "text": "·",
+      "phase": "menu",
+      "text": "Follow",
       "nodeId": "vitrea-node_r_1_",
-      "size": 12.5,
+      "size": 13,
       "bold": false,
       "large": false,
-      "ratio": 5.44,
-      "worstRatio": 5.44,
+      "ratio": 16.02,
+      "worstRatio": 15.76,
       "pass": true,
       "ink": [
-       100,
-       100,
-       101
+       0,
+       0,
+       0
       ],
       "ground": [
-       244,
-       246,
-       247
+       223,
+       225,
+       227
       ],
-      "pixels": 192,
-      "groundPixels": 189
+      "pixels": 714,
+      "groundPixels": 333
      },
      {
-      "phase": "fv",
-      "text": "11:51:47",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 12.5,
+      "phase": "menu",
+      "text": "All routes",
+      "nodeId": "vitrea-node_r_5_",
+      "size": 13,
       "bold": false,
       "large": false,
-      "ratio": 5.44,
-      "worstRatio": 5.3,
+      "ratio": 13.56,
+      "worstRatio": 13.34,
       "pass": true,
       "ink": [
-       100,
-       100,
-       101
+       0,
+       0,
+       0
       ],
       "ground": [
-       244,
-       246,
-       247
+       206,
+       208,
+       208
       ],
-      "pixels": 912,
-      "groundPixels": 716
+      "pixels": 1037,
+      "groundPixels": 529
      },
      {
-      "phase": "fv",
-      "text": "40",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 12.5,
+      "phase": "menu",
+      "text": "1",
+      "nodeId": "vitrea-node_r_5_",
+      "size": 13,
       "bold": false,
       "large": false,
-      "ratio": 14.04,
-      "worstRatio": 14.04,
+      "ratio": 19.08,
+      "worstRatio": 18.87,
       "pass": true,
       "ink": [
-       37,
-       38,
-       38
+       0,
+       0,
+       0
       ],
       "ground": [
+       243,
        244,
-       246,
-       247
+       246
       ],
-      "pixels": 272,
-      "groundPixels": 129
+      "pixels": 153,
+      "groundPixels": 107
      },
      {
-      "phase": "fv",
-      "text": "in service",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 14.04,
-      "worstRatio": 14.04,
-      "pass": true,
-      "ink": [
-       37,
-       38,
-       38
-      ],
-      "ground": [
-       244,
-       246,
-       247
-      ],
-      "pixels": 1056,
-      "groundPixels": 596
-     },
-     {
-      "phase": "fv",
-      "text": "·",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 14.04,
-      "worstRatio": 14.04,
-      "pass": true,
-      "ink": [
-       37,
-       38,
-       38
-      ],
-      "ground": [
-       244,
-       246,
-       247
-      ],
-      "pixels": 80,
-      "groundPixels": 68
-     },
-     {
-      "phase": "fv",
-      "text": "8",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 14.04,
-      "worstRatio": 14.04,
-      "pass": true,
-      "ink": [
-       37,
-       38,
-       38
-      ],
-      "ground": [
-       244,
-       246,
-       247
-      ],
-      "pixels": 144,
-      "groundPixels": 60
-     },
-     {
-      "phase": "fv",
-      "text": "late",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 14.04,
-      "worstRatio": 14.04,
-      "pass": true,
-      "ink": [
-       37,
-       38,
-       38
-      ],
-      "ground": [
-       244,
-       246,
-       247
-      ],
-      "pixels": 432,
-      "groundPixels": 229
-     },
-     {
-      "phase": "fv",
-      "text": "·",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 14.04,
-      "worstRatio": 14.04,
-      "pass": true,
-      "ink": [
-       37,
-       38,
-       38
-      ],
-      "ground": [
-       244,
-       246,
-       247
-      ],
-      "pixels": 80,
-      "groundPixels": 68
-     },
-     {
-      "phase": "fv",
+      "phase": "menu",
       "text": "3",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 14.04,
-      "worstRatio": 14.04,
-      "pass": true,
-      "ink": [
-       37,
-       38,
-       38
-      ],
-      "ground": [
-       244,
-       246,
-       247
-      ],
-      "pixels": 144,
-      "groundPixels": 74
-     },
-     {
-      "phase": "fv",
-      "text": "early",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 14.04,
-      "worstRatio": 14.04,
-      "pass": true,
-      "ink": [
-       37,
-       38,
-       38
-      ],
-      "ground": [
-       244,
-       246,
-       247
-      ],
-      "pixels": 560,
-      "groundPixels": 295
-     },
-     {
-      "phase": "fv",
-      "text": "Active alerts",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 11,
-      "bold": false,
-      "large": false,
-      "ratio": 5.45,
-      "worstRatio": 5.43,
-      "pass": true,
-      "ink": [
-       100,
-       100,
-       101
-      ],
-      "ground": [
-       245,
-       246,
-       248
-      ],
-      "pixels": 1358,
-      "groundPixels": 844
-     },
-     {
-      "phase": "fv",
-      "text": "6",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 11,
-      "bold": false,
-      "large": false,
-      "ratio": 5.44,
-      "worstRatio": 5.44,
-      "pass": true,
-      "ink": [
-       100,
-       100,
-       101
-      ],
-      "ground": [
-       244,
-       246,
-       247
-      ],
-      "pixels": 126,
-      "groundPixels": 65
-     },
-     {
-      "phase": "fv",
-      "text": "Critical",
-      "nodeId": "vitrea-node_r_1_",
+      "nodeId": "vitrea-node_r_5_",
       "size": 13,
       "bold": false,
       "large": false,
-      "ratio": 14.04,
-      "worstRatio": 14.04,
+      "ratio": 19.03,
+      "worstRatio": 18.75,
       "pass": true,
       "ink": [
-       37,
-       38,
-       38
+       0,
+       0,
+       0
       ],
       "ground": [
+       242,
        244,
-       246,
-       247
+       245
       ],
-      "pixels": 782,
-      "groundPixels": 368
+      "pixels": 170,
+      "groundPixels": 90
      },
      {
-      "phase": "fv",
-      "text": ":",
-      "nodeId": "vitrea-node_r_1_",
+      "phase": "menu",
+      "text": "4",
+      "nodeId": "vitrea-node_r_5_",
       "size": 13,
       "bold": false,
       "large": false,
-      "ratio": 14.06,
-      "worstRatio": 14.03,
+      "ratio": 19.03,
+      "worstRatio": 18.87,
       "pass": true,
       "ink": [
-       37,
-       38,
-       38
+       0,
+       0,
+       0
       ],
       "ground": [
-       245,
-       246,
-       247
-      ],
-      "pixels": 102,
-      "groundPixels": 84
-     },
-     {
-      "phase": "fv",
-      "text": "Priority request to talk",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 13,
-      "bold": false,
-      "large": false,
-      "ratio": 14.06,
-      "worstRatio": 14.03,
-      "pass": true,
-      "ink": [
-       37,
-       38,
-       38
-      ],
-      "ground": [
-       245,
-       246,
-       247
-      ],
-      "pixels": 2448,
-      "groundPixels": 1260
-     },
-     {
-      "phase": "fv",
-      "text": "3",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 12,
-      "bold": false,
-      "large": false,
-      "ratio": 14.04,
-      "worstRatio": 14.04,
-      "pass": true,
-      "ink": [
-       37,
-       38,
-       38
-      ],
-      "ground": [
+       242,
        244,
-       246,
-       247
+       245
       ],
-      "pixels": 128,
-      "groundPixels": 50
+      "pixels": 153,
+      "groundPixels": 80
      },
      {
-      "phase": "fv",
-      "text": "Bus 2118, Riverside Dr",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 12,
-      "bold": false,
-      "large": false,
-      "ratio": 5.44,
-      "worstRatio": 4.29,
-      "pass": true,
-      "ink": [
-       100,
-       100,
-       101
-      ],
-      "ground": [
-       244,
-       246,
-       247
-      ],
-      "pixels": 2032,
-      "groundPixels": 1373
-     },
-     {
-      "phase": "fv",
-      "text": "2 min",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 11.5,
-      "bold": false,
-      "large": false,
-      "ratio": 5.44,
-      "worstRatio": 5.4,
-      "pass": true,
-      "ink": [
-       100,
-       100,
-       101
-      ],
-      "ground": [
-       244,
-       246,
-       247
-      ],
-      "pixels": 434,
-      "groundPixels": 267
-     },
-     {
-      "phase": "fv",
-      "text": "Critical",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 13,
-      "bold": false,
-      "large": false,
-      "ratio": 13.94,
-      "worstRatio": 13.94,
-      "pass": true,
-      "ink": [
-       37,
-       37,
-       38
-      ],
-      "ground": [
-       243,
-       245,
-       246
-      ],
-      "pixels": 782,
-      "groundPixels": 392
-     },
-     {
-      "phase": "fv",
-      "text": ":",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 13,
-      "bold": false,
-      "large": false,
-      "ratio": 13.94,
-      "worstRatio": 13.94,
-      "pass": true,
-      "ink": [
-       37,
-       37,
-       38
-      ],
-      "ground": [
-       243,
-       245,
-       246
-      ],
-      "pixels": 102,
-      "groundPixels": 60
-     },
-     {
-      "phase": "fv",
-      "text": "Bus 3318 disabled",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 13,
-      "bold": false,
-      "large": false,
-      "ratio": 13.94,
-      "worstRatio": 13.94,
-      "pass": true,
-      "ink": [
-       37,
-       37,
-       38
-      ],
-      "ground": [
-       243,
-       245,
-       246
-      ],
-      "pixels": 2006,
-      "groundPixels": 971
-     },
-     {
-      "phase": "fv",
+      "phase": "menu",
       "text": "7",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 12,
+      "nodeId": "vitrea-node_r_5_",
+      "size": 13,
       "bold": false,
       "large": false,
-      "ratio": 13.97,
-      "worstRatio": 13.94,
+      "ratio": 19.03,
+      "worstRatio": 18.87,
       "pass": true,
       "ink": [
-       37,
-       37,
-       38
+       0,
+       0,
+       0
       ],
       "ground": [
+       242,
        244,
-       245,
-       247
+       245
       ],
-      "pixels": 128,
-      "groundPixels": 70
+      "pixels": 170,
+      "groundPixels": 110
      },
      {
-      "phase": "fv",
-      "text": "Harbour Rd at Pier 4",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 12,
+      "phase": "menu",
+      "text": "9",
+      "nodeId": "vitrea-node_r_5_",
+      "size": 13,
       "bold": false,
       "large": false,
-      "ratio": 5.43,
-      "worstRatio": 4.93,
+      "ratio": 18.91,
+      "worstRatio": 18.75,
+      "pass": true,
+      "ink": [
+       0,
+       0,
+       0
+      ],
+      "ground": [
+       242,
+       243,
+       245
+      ],
+      "pixels": 153,
+      "groundPixels": 63
+     },
+     {
+      "phase": "menu",
+      "text": "12",
+      "nodeId": "vitrea-node_r_5_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 18.88,
+      "worstRatio": 18.75,
+      "pass": true,
+      "ink": [
+       0,
+       0,
+       0
+      ],
+      "ground": [
+       241,
+       243,
+       245
+      ],
+      "pixels": 306,
+      "groundPixels": 174
+     },
+     {
+      "phase": "menu",
+      "text": "15",
+      "nodeId": "vitrea-node_r_5_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 19.03,
+      "worstRatio": 18.75,
+      "pass": true,
+      "ink": [
+       0,
+       0,
+       0
+      ],
+      "ground": [
+       242,
+       244,
+       245
+      ],
+      "pixels": 306,
+      "groundPixels": 175
+     },
+     {
+      "phase": "menu",
+      "text": "22",
+      "nodeId": "vitrea-node_r_5_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 19.03,
+      "worstRatio": 18.87,
+      "pass": true,
+      "ink": [
+       0,
+       0,
+       0
+      ],
+      "ground": [
+       242,
+       244,
+       245
+      ],
+      "pixels": 306,
+      "groundPixels": 145
+     },
+     {
+      "phase": "menu",
+      "text": "All",
+      "nodeId": "vitrea-node_r_7_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 14.29,
+      "worstRatio": 14.12,
+      "pass": true,
+      "ink": [
+       0,
+       0,
+       0
+      ],
+      "ground": [
+       212,
+       213,
+       214
+      ],
+      "pixels": 289,
+      "groundPixels": 137
+     },
+     {
+      "phase": "menu",
+      "text": "Late",
+      "nodeId": "vitrea-node_r_7_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 19.05,
+      "worstRatio": 18.75,
+      "pass": true,
+      "ink": [
+       0,
+       0,
+       0
+      ],
+      "ground": [
+       242,
+       244,
+       246
+      ],
+      "pixels": 493,
+      "groundPixels": 255
+     },
+     {
+      "phase": "menu",
+      "text": "Early",
+      "nodeId": "vitrea-node_r_7_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 19.05,
+      "worstRatio": 18.71,
+      "pass": true,
+      "ink": [
+       0,
+       0,
+       0
+      ],
+      "ground": [
+       242,
+       244,
+       246
+      ],
+      "pixels": 561,
+      "groundPixels": 265
+     },
+     {
+      "phase": "menu",
+      "text": "On time",
+      "nodeId": "vitrea-node_r_7_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 19.05,
+      "worstRatio": 18.91,
+      "pass": true,
+      "ink": [
+       0,
+       0,
+       0
+      ],
+      "ground": [
+       242,
+       244,
+       246
+      ],
+      "pixels": 850,
+      "groundPixels": 432
+     },
+     {
+      "phase": "menu",
+      "text": "/",
+      "nodeId": "vitrea-node_r_a_",
+      "size": 11,
+      "bold": false,
+      "large": false,
+      "ratio": 5.4,
+      "worstRatio": 3.7,
       "pass": true,
       "ink": [
        99,
-       100,
+       99,
        100
       ],
       "ground": [
+       242,
        243,
-       245,
-       246
+       245
       ],
-      "pixels": 1872,
-      "groundPixels": 1327
+      "pixels": 56,
+      "groundPixels": 29
      }
     ]
    },
@@ -1047,14 +840,43 @@
    },
    "surfaces": [
     {
-     "nodeId": "vitrea-node_r_7_",
+     "nodeId": "vitrea-node_r_1_",
+     "groupId": "vehicle",
+     "plane": "base",
+     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > div[data-vitrea-node=\"vitrea-node_r_1_\"].actions.tx",
+     "tag": "div",
+     "role": "group",
+     "rect": [
+      1068,
+      844,
+      360,
+      44
+     ],
+     "span": 44,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "capsule",
+     "radii": [
+      22,
+      22,
+      22,
+      22
+     ],
+     "smoothing": 0.52866495,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "0px",
+     "label": "Bus 4431"
+    },
+    {
+     "nodeId": "vitrea-node_r_5_",
      "groupId": "routes",
      "plane": "base",
-     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > div.topbar.tx > div[data-vitrea-node=\"vitrea-node_r_7_\"].rack:nth-of-type(1)",
+     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div.topbar.tx > div[data-vitrea-node=\"vitrea-node_r_5_\"].rack:nth-of-type(1)",
      "tag": "div",
      "role": "toolbar",
      "rect": [
-      381,
+      342,
       12,
       483.6,
       44
@@ -1076,14 +898,14 @@
      "label": "Routes on the map"
     },
     {
-     "nodeId": "vitrea-node_r_9_",
+     "nodeId": "vitrea-node_r_7_",
      "groupId": "status",
      "plane": "base",
-     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > div.topbar.tx > div[data-vitrea-node=\"vitrea-node_r_9_\"].segmented:nth-of-type(2)",
+     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div.topbar.tx > div[data-vitrea-node=\"vitrea-node_r_7_\"].segmented:nth-of-type(2)",
      "tag": "div",
      "role": "radiogroup",
      "rect": [
-      890.6,
+      851.6,
       12,
       228.9,
       44
@@ -1105,10 +927,10 @@
      "label": "Schedule adherence"
     },
     {
-     "nodeId": "vitrea-node_r_c_",
+     "nodeId": "vitrea-node_r_a_",
      "groupId": "search",
      "plane": "base",
-     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > div.topbar.tx > div[data-vitrea-node=\"vitrea-node_r_c_\"].search:nth-of-type(4)",
+     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div.topbar.tx > div[data-vitrea-node=\"vitrea-node_r_a_\"].search:nth-of-type(4)",
      "tag": "div",
      "role": "search",
      "rect": [
@@ -1134,72 +956,14 @@
      "label": "/"
     },
     {
-     "nodeId": "vitrea-node_r_1_",
-     "groupId": "alerts",
-     "plane": "base",
-     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > aside[data-vitrea-node=\"vitrea-node_r_1_\"].sidebar.tx",
-     "tag": "aside",
-     "role": null,
-     "rect": [
-      12,
-      12,
-      304,
-      876
-     ],
-     "span": 304,
-     "boundsFrom": "renderInput",
-     "shapeFamily": "fixed-rounded-rect",
-     "radii": [
-      26,
-      26,
-      26,
-      26
-     ],
-     "smoothing": 0.52866495,
-     "thickness": 8,
-     "variant": "regular",
-     "tinted": false,
-     "cssRadius": "0px",
-     "label": "Port Alder TransitNetwork operationsSun "
-    },
-    {
      "nodeId": "vitrea-node_r_3_",
-     "groupId": "vehicle",
-     "plane": "base",
-     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(3) > section[data-vitrea-node=\"vitrea-node_r_3_\"].platter.tx",
-     "tag": "section",
-     "role": null,
-     "rect": [
-      1068,
-      121,
-      360,
-      585.3
-     ],
-     "span": 360,
-     "boundsFrom": "renderInput",
-     "shapeFamily": "fixed-rounded-rect",
-     "radii": [
-      26,
-      26,
-      26,
-      26
-     ],
-     "smoothing": 0.52866495,
-     "thickness": 8,
-     "variant": "regular",
-     "tinted": false,
-     "cssRadius": "0px",
-     "label": "4to Hilltop TerminalBus 44319 min lateQu"
-    },
-    {
-     "nodeId": "vitrea-node_r_5_",
      "groupId": "zoom",
      "plane": "base",
-     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(4) > div[data-vitrea-node=\"vitrea-node_r_5_\"].zoom.tx",
+     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(3) > div[data-vitrea-node=\"vitrea-node_r_3_\"].zoom.tx",
      "tag": "div",
      "role": "group",
      "rect": [
-      381,
+      342,
       844,
       120,
       44
@@ -1221,19 +985,19 @@
      "label": "Map zoom"
     },
     {
-     "nodeId": "vitrea-node_r_e_",
+     "nodeId": "vitrea-node_r_c_",
      "groupId": "suggest",
      "plane": "overlay",
-     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div > div[data-vitrea-node=\"vitrea-node_r_e_\"].suggest.tx",
+     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div > div[data-vitrea-node=\"vitrea-node_r_c_\"].suggest.tx",
      "tag": "div",
      "role": null,
      "rect": [
       1108,
       64,
       320,
-      16
+      62.5
      ],
-     "span": 16,
+     "span": 62.5,
      "boundsFrom": "renderInput",
      "shapeFamily": "fixed-rounded-rect",
      "radii": [
@@ -1247,14 +1011,14 @@
      "variant": "regular",
      "tinted": false,
      "cssRadius": "0px",
-     "label": ""
+     "label": "00"
     }
    ],
-   "surfacesInFrame": 7,
+   "surfacesInFrame": 6,
    "planes": [
     {
      "plane": "base",
-     "nodes": 6
+     "nodes": 5
     },
     {
      "plane": "overlay",
@@ -1262,6 +1026,38 @@
     }
    ],
    "groups": [
+    {
+     "id": "vehicle",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.68,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
     {
      "id": "routes",
      "members": 1,
@@ -1359,70 +1155,6 @@
      "diagnostics": []
     },
     {
-     "id": "alerts",
-     "members": 1,
-     "renderer": "webgpu",
-     "sampling": "gpu-texture",
-     "configuredSource": "texture",
-     "analysis": "exact",
-     "refraction": "true",
-     "health": "ok",
-     "demotionReason": null,
-     "cssBody": null,
-     "cssTint": null,
-     "cssShadow": null,
-     "materialDocument": {
-      "name": "apple-macos-27.0-glass0.5",
-      "platform": "macOS 27.0",
-      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
-      "resolvedMaterialSha256": "be13dae45098fc89",
-      "tuned": false
-     },
-     "abscissae": null,
-     "variant": "regular",
-     "blurRadius": 20.76,
-     "backdropToneHint": true,
-     "probe": {
-      "verdict": "pass",
-      "breaks": 0,
-      "reach": "verified",
-      "engineDefects": []
-     },
-     "diagnostics": []
-    },
-    {
-     "id": "vehicle",
-     "members": 1,
-     "renderer": "webgpu",
-     "sampling": "gpu-texture",
-     "configuredSource": "texture",
-     "analysis": "exact",
-     "refraction": "true",
-     "health": "ok",
-     "demotionReason": null,
-     "cssBody": null,
-     "cssTint": null,
-     "cssShadow": null,
-     "materialDocument": {
-      "name": "apple-macos-27.0-glass0.5",
-      "platform": "macOS 27.0",
-      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
-      "resolvedMaterialSha256": "be13dae45098fc89",
-      "tuned": false
-     },
-     "abscissae": null,
-     "variant": "regular",
-     "blurRadius": 20.77,
-     "backdropToneHint": true,
-     "probe": {
-      "verdict": "pass",
-      "breaks": 0,
-      "reach": "verified",
-      "engineDefects": []
-     },
-     "diagnostics": []
-    },
-    {
      "id": "zoom",
      "members": 1,
      "renderer": "webgpu",
@@ -1476,7 +1208,7 @@
      },
      "abscissae": null,
      "variant": "regular",
-     "blurRadius": 7.56,
+     "blurRadius": 8.29,
      "backdropToneHint": true,
      "probe": {
       "verdict": "pass",
@@ -1492,14 +1224,43 @@
    "menu": "captured",
    "menuSurfaces": [
     {
-     "nodeId": "vitrea-node_r_7_",
+     "nodeId": "vitrea-node_r_1_",
+     "groupId": "vehicle",
+     "plane": "base",
+     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > div[data-vitrea-node=\"vitrea-node_r_1_\"].actions.tx",
+     "tag": "div",
+     "role": "group",
+     "rect": [
+      1068,
+      844,
+      360,
+      44
+     ],
+     "span": 44,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "capsule",
+     "radii": [
+      12,
+      12,
+      12,
+      12
+     ],
+     "smoothing": 0.52866495,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "0px",
+     "label": "Bus 4431"
+    },
+    {
+     "nodeId": "vitrea-node_r_5_",
      "groupId": "routes",
      "plane": "base",
-     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > div.topbar.tx > div[data-vitrea-node=\"vitrea-node_r_7_\"].rack:nth-of-type(1)",
+     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div.topbar.tx > div[data-vitrea-node=\"vitrea-node_r_5_\"].rack:nth-of-type(1)",
      "tag": "div",
      "role": "toolbar",
      "rect": [
-      381,
+      342,
       12,
       483.6,
       44
@@ -1521,14 +1282,14 @@
      "label": "Routes on the map"
     },
     {
-     "nodeId": "vitrea-node_r_9_",
+     "nodeId": "vitrea-node_r_7_",
      "groupId": "status",
      "plane": "base",
-     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > div.topbar.tx > div[data-vitrea-node=\"vitrea-node_r_9_\"].segmented:nth-of-type(2)",
+     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div.topbar.tx > div[data-vitrea-node=\"vitrea-node_r_7_\"].segmented:nth-of-type(2)",
      "tag": "div",
      "role": "radiogroup",
      "rect": [
-      890.6,
+      851.6,
       12,
       228.9,
       44
@@ -1550,10 +1311,10 @@
      "label": "Schedule adherence"
     },
     {
-     "nodeId": "vitrea-node_r_c_",
+     "nodeId": "vitrea-node_r_a_",
      "groupId": "search",
      "plane": "base",
-     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > div.topbar.tx > div[data-vitrea-node=\"vitrea-node_r_c_\"].search:nth-of-type(4)",
+     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div.topbar.tx > div[data-vitrea-node=\"vitrea-node_r_a_\"].search:nth-of-type(4)",
      "tag": "div",
      "role": "search",
      "rect": [
@@ -1579,72 +1340,14 @@
      "label": "/"
     },
     {
-     "nodeId": "vitrea-node_r_1_",
-     "groupId": "alerts",
-     "plane": "base",
-     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > aside[data-vitrea-node=\"vitrea-node_r_1_\"].sidebar.tx",
-     "tag": "aside",
-     "role": null,
-     "rect": [
-      12,
-      12,
-      304,
-      876
-     ],
-     "span": 304,
-     "boundsFrom": "renderInput",
-     "shapeFamily": "fixed-rounded-rect",
-     "radii": [
-      26,
-      26,
-      26,
-      26
-     ],
-     "smoothing": 0.52866495,
-     "thickness": 8,
-     "variant": "regular",
-     "tinted": false,
-     "cssRadius": "0px",
-     "label": "Port Alder TransitNetwork operationsSun "
-    },
-    {
      "nodeId": "vitrea-node_r_3_",
-     "groupId": "vehicle",
-     "plane": "base",
-     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(3) > section[data-vitrea-node=\"vitrea-node_r_3_\"].platter.tx",
-     "tag": "section",
-     "role": null,
-     "rect": [
-      1068,
-      121,
-      360,
-      585.3
-     ],
-     "span": 360,
-     "boundsFrom": "renderInput",
-     "shapeFamily": "fixed-rounded-rect",
-     "radii": [
-      26,
-      26,
-      26,
-      26
-     ],
-     "smoothing": 0.52866495,
-     "thickness": 8,
-     "variant": "regular",
-     "tinted": false,
-     "cssRadius": "0px",
-     "label": "4to Hilltop TerminalBus 44319 min lateQu"
-    },
-    {
-     "nodeId": "vitrea-node_r_5_",
      "groupId": "zoom",
      "plane": "base",
-     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(4) > div[data-vitrea-node=\"vitrea-node_r_5_\"].zoom.tx",
+     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(3) > div[data-vitrea-node=\"vitrea-node_r_3_\"].zoom.tx",
      "tag": "div",
      "role": "group",
      "rect": [
-      381,
+      342,
       844,
       120,
       44
@@ -1666,19 +1369,19 @@
      "label": "Map zoom"
     },
     {
-     "nodeId": "vitrea-node_r_e_",
+     "nodeId": "vitrea-node_r_c_",
      "groupId": "suggest",
      "plane": "overlay",
-     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div > div[data-vitrea-node=\"vitrea-node_r_e_\"].suggest.tx",
+     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div > div[data-vitrea-node=\"vitrea-node_r_c_\"].suggest.tx",
      "tag": "div",
      "role": null,
      "rect": [
       1108,
       64,
       320,
-      16
+      62.5
      ],
-     "span": 16,
+     "span": 62.5,
      "boundsFrom": "renderInput",
      "shapeFamily": "fixed-rounded-rect",
      "radii": [
@@ -1692,10 +1395,42 @@
      "variant": "regular",
      "tinted": false,
      "cssRadius": "0px",
-     "label": ""
+     "label": "00"
     }
    ],
    "menuGroups": [
+    {
+     "id": "vehicle",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.68,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
     {
      "id": "routes",
      "members": 1,
@@ -1793,70 +1528,6 @@
      "diagnostics": []
     },
     {
-     "id": "alerts",
-     "members": 1,
-     "renderer": "webgpu",
-     "sampling": "gpu-texture",
-     "configuredSource": "texture",
-     "analysis": "exact",
-     "refraction": "true",
-     "health": "ok",
-     "demotionReason": null,
-     "cssBody": null,
-     "cssTint": null,
-     "cssShadow": null,
-     "materialDocument": {
-      "name": "apple-macos-27.0-glass0.5",
-      "platform": "macOS 27.0",
-      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
-      "resolvedMaterialSha256": "be13dae45098fc89",
-      "tuned": false
-     },
-     "abscissae": null,
-     "variant": "regular",
-     "blurRadius": 20.76,
-     "backdropToneHint": true,
-     "probe": {
-      "verdict": "pass",
-      "breaks": 0,
-      "reach": "verified",
-      "engineDefects": []
-     },
-     "diagnostics": []
-    },
-    {
-     "id": "vehicle",
-     "members": 1,
-     "renderer": "webgpu",
-     "sampling": "gpu-texture",
-     "configuredSource": "texture",
-     "analysis": "exact",
-     "refraction": "true",
-     "health": "ok",
-     "demotionReason": null,
-     "cssBody": null,
-     "cssTint": null,
-     "cssShadow": null,
-     "materialDocument": {
-      "name": "apple-macos-27.0-glass0.5",
-      "platform": "macOS 27.0",
-      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
-      "resolvedMaterialSha256": "be13dae45098fc89",
-      "tuned": false
-     },
-     "abscissae": null,
-     "variant": "regular",
-     "blurRadius": 20.77,
-     "backdropToneHint": true,
-     "probe": {
-      "verdict": "pass",
-      "breaks": 0,
-      "reach": "verified",
-      "engineDefects": []
-     },
-     "diagnostics": []
-    },
-    {
      "id": "zoom",
      "members": 1,
      "renderer": "webgpu",
@@ -1910,7 +1581,7 @@
      },
      "abscissae": null,
      "variant": "regular",
-     "blurRadius": 7.56,
+     "blurRadius": 8.29,
      "backdropToneHint": true,
      "probe": {
       "verdict": "pass",
@@ -1926,13 +1597,13 @@
     "rest": {
      "findings": [],
      "unmeasured": [],
-     "hostsRead": 7,
+     "hostsRead": 6,
      "cssTierHosts": 0
     },
     "menu": {
      "findings": [],
      "unmeasured": [],
-     "hostsRead": 7,
+     "hostsRead": 6,
      "cssTierHosts": 0
     }
    }
@@ -1954,7 +1625,7 @@
    "badResponses": [],
    "scrolledOnLoad": 0,
    "docHeight": 900,
-   "words": 207,
+   "words": 135,
    "title": "Transit operations — a Liquid Glass demo on vitrea",
    "placeholder": false,
    "captureWidth": 1440,
@@ -1966,23 +1637,23 @@
     "pass": 45,
     "unknown": 0,
     "rate": 1,
-    "onGlass": 41,
-    "onGlassPass": 41,
+    "onGlass": 8,
+    "onGlassPass": 8,
     "fails": []
    },
    "glassContrast": {
     "method": "rendered-pixels",
-    "pairs": 182,
-    "pass": 182,
-    "minRatio": 4.93,
+    "pairs": 31,
+    "pass": 31,
+    "minRatio": 6.86,
     "byPhase": {
      "fv": {
-      "pairs": 69,
-      "pass": 69
+      "pairs": 14,
+      "pass": 14
      },
      "menu": {
-      "pairs": 113,
-      "pass": 113
+      "pairs": 17,
+      "pass": 17
      }
     },
     "fails": [],
@@ -1990,12 +1661,12 @@
      {
       "phase": "fv",
       "text": "All routes",
-      "nodeId": "vitrea-node_r_7_",
+      "nodeId": "vitrea-node_r_5_",
       "size": 13,
       "bold": false,
       "large": false,
       "ratio": 7.11,
-      "worstRatio": 7.11,
+      "worstRatio": 7.1,
       "pass": true,
       "ink": [
        255,
@@ -2013,7 +1684,7 @@
      {
       "phase": "fv",
       "text": "1",
-      "nodeId": "vitrea-node_r_7_",
+      "nodeId": "vitrea-node_r_5_",
       "size": 13,
       "bold": false,
       "large": false,
@@ -2036,7 +1707,7 @@
      {
       "phase": "fv",
       "text": "3",
-      "nodeId": "vitrea-node_r_7_",
+      "nodeId": "vitrea-node_r_5_",
       "size": 13,
       "bold": false,
       "large": false,
@@ -2059,7 +1730,7 @@
      {
       "phase": "fv",
       "text": "4",
-      "nodeId": "vitrea-node_r_7_",
+      "nodeId": "vitrea-node_r_5_",
       "size": 13,
       "bold": false,
       "large": false,
@@ -2082,7 +1753,7 @@
      {
       "phase": "fv",
       "text": "7",
-      "nodeId": "vitrea-node_r_7_",
+      "nodeId": "vitrea-node_r_5_",
       "size": 13,
       "bold": false,
       "large": false,
@@ -2105,7 +1776,7 @@
      {
       "phase": "fv",
       "text": "9",
-      "nodeId": "vitrea-node_r_7_",
+      "nodeId": "vitrea-node_r_5_",
       "size": 13,
       "bold": false,
       "large": false,
@@ -2128,7 +1799,7 @@
      {
       "phase": "fv",
       "text": "12",
-      "nodeId": "vitrea-node_r_7_",
+      "nodeId": "vitrea-node_r_5_",
       "size": 13,
       "bold": false,
       "large": false,
@@ -2151,7 +1822,7 @@
      {
       "phase": "fv",
       "text": "15",
-      "nodeId": "vitrea-node_r_7_",
+      "nodeId": "vitrea-node_r_5_",
       "size": 13,
       "bold": false,
       "large": false,
@@ -2174,7 +1845,7 @@
      {
       "phase": "fv",
       "text": "22",
-      "nodeId": "vitrea-node_r_7_",
+      "nodeId": "vitrea-node_r_5_",
       "size": 13,
       "bold": false,
       "large": false,
@@ -2197,7 +1868,7 @@
      {
       "phase": "fv",
       "text": "All",
-      "nodeId": "vitrea-node_r_9_",
+      "nodeId": "vitrea-node_r_7_",
       "size": 13,
       "bold": false,
       "large": false,
@@ -2220,12 +1891,12 @@
      {
       "phase": "fv",
       "text": "Late",
-      "nodeId": "vitrea-node_r_9_",
+      "nodeId": "vitrea-node_r_7_",
       "size": 13,
       "bold": false,
       "large": false,
-      "ratio": 11.06,
-      "worstRatio": 11.05,
+      "ratio": 11.19,
+      "worstRatio": 11.06,
       "pass": true,
       "ink": [
        255,
@@ -2234,7 +1905,7 @@
       ],
       "ground": [
        58,
-       60,
+       59,
        63
       ],
       "pixels": 493,
@@ -2243,7 +1914,7 @@
      {
       "phase": "fv",
       "text": "Early",
-      "nodeId": "vitrea-node_r_9_",
+      "nodeId": "vitrea-node_r_7_",
       "size": 13,
       "bold": false,
       "large": false,
@@ -2266,7 +1937,352 @@
      {
       "phase": "fv",
       "text": "On time",
-      "nodeId": "vitrea-node_r_9_",
+      "nodeId": "vitrea-node_r_7_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 11.06,
+      "worstRatio": 11.06,
+      "pass": true,
+      "ink": [
+       255,
+       255,
+       255
+      ],
+      "ground": [
+       58,
+       60,
+       63
+      ],
+      "pixels": 850,
+      "groundPixels": 432
+     },
+     {
+      "phase": "fv",
+      "text": "/",
+      "nodeId": "vitrea-node_r_a_",
+      "size": 11,
+      "bold": false,
+      "large": false,
+      "ratio": 6.86,
+      "worstRatio": 6.78,
+      "pass": true,
+      "ink": [
+       201,
+       201,
+       202
+      ],
+      "ground": [
+       57,
+       58,
+       62
+      ],
+      "pixels": 56,
+      "groundPixels": 24
+     },
+     {
+      "phase": "menu",
+      "text": "Call operator",
+      "nodeId": "vitrea-node_r_1_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 13.06,
+      "worstRatio": 13.06,
+      "pass": true,
+      "ink": [
+       17,
+       20,
+       24
+      ],
+      "ground": [
+       216,
+       217,
+       217
+      ],
+      "pixels": 1428,
+      "groundPixels": 706
+     },
+     {
+      "phase": "menu",
+      "text": "Hold",
+      "nodeId": "vitrea-node_r_1_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 8.76,
+      "worstRatio": 8.75,
+      "pass": true,
+      "ink": [
+       255,
+       255,
+       255
+      ],
+      "ground": [
+       73,
+       75,
+       77
+      ],
+      "pixels": 527,
+      "groundPixels": 261
+     },
+     {
+      "phase": "menu",
+      "text": "Follow",
+      "nodeId": "vitrea-node_r_1_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 8.76,
+      "worstRatio": 8.75,
+      "pass": true,
+      "ink": [
+       255,
+       255,
+       255
+      ],
+      "ground": [
+       73,
+       75,
+       77
+      ],
+      "pixels": 714,
+      "groundPixels": 333
+     },
+     {
+      "phase": "menu",
+      "text": "All routes",
+      "nodeId": "vitrea-node_r_5_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 7.11,
+      "worstRatio": 7.1,
+      "pass": true,
+      "ink": [
+       255,
+       255,
+       255
+      ],
+      "ground": [
+       87,
+       88,
+       91
+      ],
+      "pixels": 1037,
+      "groundPixels": 529
+     },
+     {
+      "phase": "menu",
+      "text": "1",
+      "nodeId": "vitrea-node_r_5_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 11.24,
+      "worstRatio": 11.24,
+      "pass": true,
+      "ink": [
+       255,
+       255,
+       255
+      ],
+      "ground": [
+       57,
+       59,
+       62
+      ],
+      "pixels": 153,
+      "groundPixels": 107
+     },
+     {
+      "phase": "menu",
+      "text": "3",
+      "nodeId": "vitrea-node_r_5_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 11.24,
+      "worstRatio": 11.24,
+      "pass": true,
+      "ink": [
+       255,
+       255,
+       255
+      ],
+      "ground": [
+       57,
+       59,
+       62
+      ],
+      "pixels": 170,
+      "groundPixels": 90
+     },
+     {
+      "phase": "menu",
+      "text": "4",
+      "nodeId": "vitrea-node_r_5_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 11.24,
+      "worstRatio": 11.24,
+      "pass": true,
+      "ink": [
+       255,
+       255,
+       255
+      ],
+      "ground": [
+       57,
+       59,
+       62
+      ],
+      "pixels": 153,
+      "groundPixels": 80
+     },
+     {
+      "phase": "menu",
+      "text": "7",
+      "nodeId": "vitrea-node_r_5_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 11.24,
+      "worstRatio": 11.24,
+      "pass": true,
+      "ink": [
+       255,
+       255,
+       255
+      ],
+      "ground": [
+       57,
+       59,
+       62
+      ],
+      "pixels": 170,
+      "groundPixels": 110
+     },
+     {
+      "phase": "menu",
+      "text": "9",
+      "nodeId": "vitrea-node_r_5_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 11.24,
+      "worstRatio": 11.24,
+      "pass": true,
+      "ink": [
+       255,
+       255,
+       255
+      ],
+      "ground": [
+       57,
+       59,
+       62
+      ],
+      "pixels": 153,
+      "groundPixels": 63
+     },
+     {
+      "phase": "menu",
+      "text": "12",
+      "nodeId": "vitrea-node_r_5_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 11.24,
+      "worstRatio": 11.24,
+      "pass": true,
+      "ink": [
+       255,
+       255,
+       255
+      ],
+      "ground": [
+       57,
+       59,
+       62
+      ],
+      "pixels": 306,
+      "groundPixels": 174
+     },
+     {
+      "phase": "menu",
+      "text": "15",
+      "nodeId": "vitrea-node_r_5_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 11.24,
+      "worstRatio": 11.24,
+      "pass": true,
+      "ink": [
+       255,
+       255,
+       255
+      ],
+      "ground": [
+       57,
+       59,
+       62
+      ],
+      "pixels": 306,
+      "groundPixels": 175
+     },
+     {
+      "phase": "menu",
+      "text": "22",
+      "nodeId": "vitrea-node_r_5_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 11.24,
+      "worstRatio": 11.24,
+      "pass": true,
+      "ink": [
+       255,
+       255,
+       255
+      ],
+      "ground": [
+       57,
+       59,
+       62
+      ],
+      "pixels": 306,
+      "groundPixels": 145
+     },
+     {
+      "phase": "menu",
+      "text": "All",
+      "nodeId": "vitrea-node_r_7_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 7.69,
+      "worstRatio": 7.61,
+      "pass": true,
+      "ink": [
+       255,
+       255,
+       255
+      ],
+      "ground": [
+       82,
+       83,
+       86
+      ],
+      "pixels": 289,
+      "groundPixels": 137
+     },
+     {
+      "phase": "menu",
+      "text": "Late",
+      "nodeId": "vitrea-node_r_7_",
       "size": 13,
       "bold": false,
       "large": false,
@@ -2283,23 +2299,69 @@
        59,
        63
       ],
+      "pixels": 493,
+      "groundPixels": 255
+     },
+     {
+      "phase": "menu",
+      "text": "Early",
+      "nodeId": "vitrea-node_r_7_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 11.06,
+      "worstRatio": 11.06,
+      "pass": true,
+      "ink": [
+       255,
+       255,
+       255
+      ],
+      "ground": [
+       58,
+       60,
+       63
+      ],
+      "pixels": 561,
+      "groundPixels": 265
+     },
+     {
+      "phase": "menu",
+      "text": "On time",
+      "nodeId": "vitrea-node_r_7_",
+      "size": 13,
+      "bold": false,
+      "large": false,
+      "ratio": 11.06,
+      "worstRatio": 11.06,
+      "pass": true,
+      "ink": [
+       255,
+       255,
+       255
+      ],
+      "ground": [
+       58,
+       60,
+       63
+      ],
       "pixels": 850,
       "groundPixels": 432
      },
      {
-      "phase": "fv",
+      "phase": "menu",
       "text": "/",
-      "nodeId": "vitrea-node_r_c_",
+      "nodeId": "vitrea-node_r_a_",
       "size": 11,
       "bold": false,
       "large": false,
-      "ratio": 6.27,
-      "worstRatio": 6.2,
+      "ratio": 6.86,
+      "worstRatio": 6.78,
       "pass": true,
       "ink": [
-       192,
-       192,
-       194
+       201,
+       201,
+       202
       ],
       "ground": [
        57,
@@ -2307,605 +2369,7 @@
        62
       ],
       "pixels": 56,
-      "groundPixels": 25
-     },
-     {
-      "phase": "fv",
-      "text": "Port Alder Transit",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 11,
-      "bold": false,
-      "large": false,
-      "ratio": 6.67,
-      "worstRatio": 6.67,
-      "pass": true,
-      "ink": [
-       190,
-       191,
-       192
-      ],
-      "ground": [
-       51,
-       53,
-       56
-      ],
-      "pixels": 1768,
-      "groundPixels": 859
-     },
-     {
-      "phase": "fv",
-      "text": "Network operations",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 20,
-      "bold": true,
-      "large": true,
-      "ratio": 8.58,
-      "worstRatio": 8.58,
-      "pass": true,
-      "ink": [
-       215,
-       215,
-       216
-      ],
-      "ground": [
-       51,
-       53,
-       56
-      ],
-      "pixels": 4392,
-      "groundPixels": 2304
-     },
-     {
-      "phase": "fv",
-      "text": "Sun 27 Sept",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 6.67,
-      "worstRatio": 6.67,
-      "pass": true,
-      "ink": [
-       190,
-       191,
-       192
-      ],
-      "ground": [
-       51,
-       53,
-       56
-      ],
-      "pixels": 1184,
-      "groundPixels": 658
-     },
-     {
-      "phase": "fv",
-      "text": "·",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 6.67,
-      "worstRatio": 6.67,
-      "pass": true,
-      "ink": [
-       190,
-       191,
-       192
-      ],
-      "ground": [
-       51,
-       53,
-       56
-      ],
-      "pixels": 192,
-      "groundPixels": 177
-     },
-     {
-      "phase": "fv",
-      "text": "11:51:53",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 6.67,
-      "worstRatio": 6.67,
-      "pass": true,
-      "ink": [
-       190,
-       191,
-       192
-      ],
-      "ground": [
-       51,
-       53,
-       56
-      ],
-      "pixels": 912,
-      "groundPixels": 555
-     },
-     {
-      "phase": "fv",
-      "text": "40",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 8.58,
-      "worstRatio": 8.58,
-      "pass": true,
-      "ink": [
-       215,
-       215,
-       216
-      ],
-      "ground": [
-       51,
-       53,
-       56
-      ],
-      "pixels": 272,
-      "groundPixels": 129
-     },
-     {
-      "phase": "fv",
-      "text": "in service",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 8.58,
-      "worstRatio": 8.58,
-      "pass": true,
-      "ink": [
-       215,
-       215,
-       216
-      ],
-      "ground": [
-       51,
-       53,
-       56
-      ],
-      "pixels": 1056,
-      "groundPixels": 599
-     },
-     {
-      "phase": "fv",
-      "text": "·",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 8.58,
-      "worstRatio": 8.58,
-      "pass": true,
-      "ink": [
-       215,
-       215,
-       216
-      ],
-      "ground": [
-       51,
-       53,
-       56
-      ],
-      "pixels": 80,
-      "groundPixels": 68
-     },
-     {
-      "phase": "fv",
-      "text": "8",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 8.58,
-      "worstRatio": 8.58,
-      "pass": true,
-      "ink": [
-       215,
-       215,
-       216
-      ],
-      "ground": [
-       51,
-       53,
-       56
-      ],
-      "pixels": 144,
-      "groundPixels": 63
-     },
-     {
-      "phase": "fv",
-      "text": "late",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 8.58,
-      "worstRatio": 8.58,
-      "pass": true,
-      "ink": [
-       215,
-       215,
-       216
-      ],
-      "ground": [
-       51,
-       53,
-       56
-      ],
-      "pixels": 432,
-      "groundPixels": 232
-     },
-     {
-      "phase": "fv",
-      "text": "·",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 8.58,
-      "worstRatio": 8.58,
-      "pass": true,
-      "ink": [
-       215,
-       215,
-       216
-      ],
-      "ground": [
-       51,
-       53,
-       56
-      ],
-      "pixels": 80,
-      "groundPixels": 68
-     },
-     {
-      "phase": "fv",
-      "text": "3",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 8.58,
-      "worstRatio": 8.58,
-      "pass": true,
-      "ink": [
-       215,
-       215,
-       216
-      ],
-      "ground": [
-       51,
-       53,
-       56
-      ],
-      "pixels": 144,
-      "groundPixels": 74
-     },
-     {
-      "phase": "fv",
-      "text": "early",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 12.5,
-      "bold": false,
-      "large": false,
-      "ratio": 8.58,
-      "worstRatio": 8.58,
-      "pass": true,
-      "ink": [
-       215,
-       215,
-       216
-      ],
-      "ground": [
-       51,
-       53,
-       56
-      ],
-      "pixels": 560,
-      "groundPixels": 302
-     },
-     {
-      "phase": "fv",
-      "text": "Active alerts",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 11,
-      "bold": false,
-      "large": false,
-      "ratio": 6.67,
-      "worstRatio": 6.67,
-      "pass": true,
-      "ink": [
-       190,
-       191,
-       192
-      ],
-      "ground": [
-       51,
-       53,
-       56
-      ],
-      "pixels": 1358,
-      "groundPixels": 722
-     },
-     {
-      "phase": "fv",
-      "text": "6",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 11,
-      "bold": false,
-      "large": false,
-      "ratio": 6.67,
-      "worstRatio": 6.67,
-      "pass": true,
-      "ink": [
-       190,
-       191,
-       192
-      ],
-      "ground": [
-       51,
-       53,
-       56
-      ],
-      "pixels": 126,
-      "groundPixels": 62
-     },
-     {
-      "phase": "fv",
-      "text": "Critical",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 13,
-      "bold": false,
-      "large": false,
-      "ratio": 8.58,
-      "worstRatio": 8.58,
-      "pass": true,
-      "ink": [
-       215,
-       215,
-       216
-      ],
-      "ground": [
-       51,
-       53,
-       56
-      ],
-      "pixels": 782,
-      "groundPixels": 377
-     },
-     {
-      "phase": "fv",
-      "text": ":",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 13,
-      "bold": false,
-      "large": false,
-      "ratio": 8.58,
-      "worstRatio": 8.58,
-      "pass": true,
-      "ink": [
-       215,
-       215,
-       216
-      ],
-      "ground": [
-       51,
-       53,
-       56
-      ],
-      "pixels": 102,
-      "groundPixels": 84
-     },
-     {
-      "phase": "fv",
-      "text": "Priority request to talk",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 13,
-      "bold": false,
-      "large": false,
-      "ratio": 8.58,
-      "worstRatio": 8.58,
-      "pass": true,
-      "ink": [
-       215,
-       215,
-       216
-      ],
-      "ground": [
-       51,
-       53,
-       56
-      ],
-      "pixels": 2448,
-      "groundPixels": 1283
-     },
-     {
-      "phase": "fv",
-      "text": "3",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 12,
-      "bold": false,
-      "large": false,
-      "ratio": 8.58,
-      "worstRatio": 8.58,
-      "pass": true,
-      "ink": [
-       215,
-       215,
-       216
-      ],
-      "ground": [
-       51,
-       53,
-       56
-      ],
-      "pixels": 128,
-      "groundPixels": 50
-     },
-     {
-      "phase": "fv",
-      "text": "Bus 2118, Riverside Dr",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 12,
-      "bold": false,
-      "large": false,
-      "ratio": 6.67,
-      "worstRatio": 6.67,
-      "pass": true,
-      "ink": [
-       190,
-       191,
-       192
-      ],
-      "ground": [
-       51,
-       53,
-       56
-      ],
-      "pixels": 2032,
-      "groundPixels": 1143
-     },
-     {
-      "phase": "fv",
-      "text": "2 min",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 11.5,
-      "bold": false,
-      "large": false,
-      "ratio": 6.67,
-      "worstRatio": 6.67,
-      "pass": true,
-      "ink": [
-       190,
-       191,
-       192
-      ],
-      "ground": [
-       51,
-       53,
-       56
-      ],
-      "pixels": 434,
-      "groundPixels": 245
-     },
-     {
-      "phase": "fv",
-      "text": "Critical",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 13,
-      "bold": false,
-      "large": false,
-      "ratio": 8.58,
-      "worstRatio": 8.58,
-      "pass": true,
-      "ink": [
-       215,
-       215,
-       216
-      ],
-      "ground": [
-       51,
-       53,
-       56
-      ],
-      "pixels": 782,
-      "groundPixels": 393
-     },
-     {
-      "phase": "fv",
-      "text": ":",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 13,
-      "bold": false,
-      "large": false,
-      "ratio": 8.58,
-      "worstRatio": 8.58,
-      "pass": true,
-      "ink": [
-       215,
-       215,
-       216
-      ],
-      "ground": [
-       51,
-       53,
-       56
-      ],
-      "pixels": 102,
-      "groundPixels": 60
-     },
-     {
-      "phase": "fv",
-      "text": "Bus 3318 disabled",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 13,
-      "bold": false,
-      "large": false,
-      "ratio": 8.58,
-      "worstRatio": 8.58,
-      "pass": true,
-      "ink": [
-       215,
-       215,
-       216
-      ],
-      "ground": [
-       51,
-       53,
-       56
-      ],
-      "pixels": 2006,
-      "groundPixels": 974
-     },
-     {
-      "phase": "fv",
-      "text": "7",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 12,
-      "bold": false,
-      "large": false,
-      "ratio": 8.58,
-      "worstRatio": 8.58,
-      "pass": true,
-      "ink": [
-       215,
-       215,
-       216
-      ],
-      "ground": [
-       51,
-       53,
-       56
-      ],
-      "pixels": 128,
-      "groundPixels": 70
-     },
-     {
-      "phase": "fv",
-      "text": "Harbour Rd at Pier 4",
-      "nodeId": "vitrea-node_r_1_",
-      "size": 12,
-      "bold": false,
-      "large": false,
-      "ratio": 6.67,
-      "worstRatio": 6.67,
-      "pass": true,
-      "ink": [
-       190,
-       191,
-       192
-      ],
-      "ground": [
-       51,
-       53,
-       56
-      ],
-      "pixels": 1872,
-      "groundPixels": 1203
+      "groundPixels": 24
      }
     ]
    },
@@ -2963,14 +2427,43 @@
    },
    "surfaces": [
     {
-     "nodeId": "vitrea-node_r_7_",
+     "nodeId": "vitrea-node_r_1_",
+     "groupId": "vehicle",
+     "plane": "base",
+     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > div[data-vitrea-node=\"vitrea-node_r_1_\"].actions.tx",
+     "tag": "div",
+     "role": "group",
+     "rect": [
+      1068,
+      844,
+      360,
+      44
+     ],
+     "span": 44,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "capsule",
+     "radii": [
+      22,
+      22,
+      22,
+      22
+     ],
+     "smoothing": 0.52866495,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "0px",
+     "label": "Bus 4431"
+    },
+    {
+     "nodeId": "vitrea-node_r_5_",
      "groupId": "routes",
      "plane": "base",
-     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > div.topbar.tx > div[data-vitrea-node=\"vitrea-node_r_7_\"].rack:nth-of-type(1)",
+     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div.topbar.tx > div[data-vitrea-node=\"vitrea-node_r_5_\"].rack:nth-of-type(1)",
      "tag": "div",
      "role": "toolbar",
      "rect": [
-      381,
+      344,
       12,
       483.6,
       44
@@ -2992,14 +2485,14 @@
      "label": "Routes on the map"
     },
     {
-     "nodeId": "vitrea-node_r_9_",
+     "nodeId": "vitrea-node_r_7_",
      "groupId": "status",
      "plane": "base",
-     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > div.topbar.tx > div[data-vitrea-node=\"vitrea-node_r_9_\"].segmented:nth-of-type(2)",
+     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div.topbar.tx > div[data-vitrea-node=\"vitrea-node_r_7_\"].segmented:nth-of-type(2)",
      "tag": "div",
      "role": "radiogroup",
      "rect": [
-      892.6,
+      855.6,
       12,
       228.9,
       44
@@ -3021,10 +2514,10 @@
      "label": "Schedule adherence"
     },
     {
-     "nodeId": "vitrea-node_r_c_",
+     "nodeId": "vitrea-node_r_a_",
      "groupId": "search",
      "plane": "base",
-     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > div.topbar.tx > div[data-vitrea-node=\"vitrea-node_r_c_\"].search:nth-of-type(4)",
+     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div.topbar.tx > div[data-vitrea-node=\"vitrea-node_r_a_\"].search:nth-of-type(4)",
      "tag": "div",
      "role": "search",
      "rect": [
@@ -3050,72 +2543,14 @@
      "label": "/"
     },
     {
-     "nodeId": "vitrea-node_r_1_",
-     "groupId": "alerts",
-     "plane": "base",
-     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > aside[data-vitrea-node=\"vitrea-node_r_1_\"].sidebar.tx",
-     "tag": "aside",
-     "role": null,
-     "rect": [
-      12,
-      12,
-      304,
-      876
-     ],
-     "span": 304,
-     "boundsFrom": "renderInput",
-     "shapeFamily": "fixed-rounded-rect",
-     "radii": [
-      26,
-      26,
-      26,
-      26
-     ],
-     "smoothing": 0.52866495,
-     "thickness": 8,
-     "variant": "regular",
-     "tinted": false,
-     "cssRadius": "0px",
-     "label": "Port Alder TransitNetwork operationsSun "
-    },
-    {
      "nodeId": "vitrea-node_r_3_",
-     "groupId": "vehicle",
-     "plane": "base",
-     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(3) > section[data-vitrea-node=\"vitrea-node_r_3_\"].platter.tx",
-     "tag": "section",
-     "role": null,
-     "rect": [
-      1068,
-      121,
-      360,
-      585.3
-     ],
-     "span": 360,
-     "boundsFrom": "renderInput",
-     "shapeFamily": "fixed-rounded-rect",
-     "radii": [
-      26,
-      26,
-      26,
-      26
-     ],
-     "smoothing": 0.52866495,
-     "thickness": 8,
-     "variant": "regular",
-     "tinted": false,
-     "cssRadius": "0px",
-     "label": "4to Hilltop TerminalBus 44319 min lateQu"
-    },
-    {
-     "nodeId": "vitrea-node_r_5_",
      "groupId": "zoom",
      "plane": "base",
-     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(4) > div[data-vitrea-node=\"vitrea-node_r_5_\"].zoom.tx",
+     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(3) > div[data-vitrea-node=\"vitrea-node_r_3_\"].zoom.tx",
      "tag": "div",
      "role": "group",
      "rect": [
-      381,
+      344,
       844,
       120,
       44
@@ -3137,19 +2572,19 @@
      "label": "Map zoom"
     },
     {
-     "nodeId": "vitrea-node_r_e_",
+     "nodeId": "vitrea-node_r_c_",
      "groupId": "suggest",
      "plane": "overlay",
-     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div > div[data-vitrea-node=\"vitrea-node_r_e_\"].suggest.tx",
+     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div > div[data-vitrea-node=\"vitrea-node_r_c_\"].suggest.tx",
      "tag": "div",
      "role": null,
      "rect": [
       1108,
       64,
       320,
-      16
+      62.5
      ],
-     "span": 16,
+     "span": 62.5,
      "boundsFrom": "renderInput",
      "shapeFamily": "fixed-rounded-rect",
      "radii": [
@@ -3163,14 +2598,14 @@
      "variant": "regular",
      "tinted": false,
      "cssRadius": "0px",
-     "label": ""
+     "label": "00"
     }
    ],
-   "surfacesInFrame": 7,
+   "surfacesInFrame": 6,
    "planes": [
     {
      "plane": "base",
-     "nodes": 6
+     "nodes": 5
     },
     {
      "plane": "overlay",
@@ -3178,6 +2613,38 @@
     }
    ],
    "groups": [
+    {
+     "id": "vehicle",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "resolvedMaterialSha256": "2a4323f33df8d799",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 8.61,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
     {
      "id": "routes",
      "members": 1,
@@ -3275,70 +2742,6 @@
      "diagnostics": []
     },
     {
-     "id": "alerts",
-     "members": 1,
-     "renderer": "webgpu",
-     "sampling": "gpu-texture",
-     "configuredSource": "texture",
-     "analysis": "exact",
-     "refraction": "true",
-     "health": "ok",
-     "demotionReason": null,
-     "cssBody": null,
-     "cssTint": null,
-     "cssShadow": null,
-     "materialDocument": {
-      "name": "apple-macos-27.0-glass0.5",
-      "platform": "macOS 27.0",
-      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
-      "resolvedMaterialSha256": "2a4323f33df8d799",
-      "tuned": false
-     },
-     "abscissae": null,
-     "variant": "regular",
-     "blurRadius": 20.76,
-     "backdropToneHint": true,
-     "probe": {
-      "verdict": "pass",
-      "breaks": 0,
-      "reach": "verified",
-      "engineDefects": []
-     },
-     "diagnostics": []
-    },
-    {
-     "id": "vehicle",
-     "members": 1,
-     "renderer": "webgpu",
-     "sampling": "gpu-texture",
-     "configuredSource": "texture",
-     "analysis": "exact",
-     "refraction": "true",
-     "health": "ok",
-     "demotionReason": null,
-     "cssBody": null,
-     "cssTint": null,
-     "cssShadow": null,
-     "materialDocument": {
-      "name": "apple-macos-27.0-glass0.5",
-      "platform": "macOS 27.0",
-      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
-      "resolvedMaterialSha256": "2a4323f33df8d799",
-      "tuned": false
-     },
-     "abscissae": null,
-     "variant": "regular",
-     "blurRadius": 20.77,
-     "backdropToneHint": true,
-     "probe": {
-      "verdict": "pass",
-      "breaks": 0,
-      "reach": "verified",
-      "engineDefects": []
-     },
-     "diagnostics": []
-    },
-    {
      "id": "zoom",
      "members": 1,
      "renderer": "webgpu",
@@ -3392,7 +2795,7 @@
      },
      "abscissae": null,
      "variant": "regular",
-     "blurRadius": 8.2,
+     "blurRadius": 9.93,
      "backdropToneHint": true,
      "probe": {
       "verdict": "pass",
@@ -3408,14 +2811,43 @@
    "menu": "captured",
    "menuSurfaces": [
     {
-     "nodeId": "vitrea-node_r_7_",
+     "nodeId": "vitrea-node_r_1_",
+     "groupId": "vehicle",
+     "plane": "base",
+     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > div[data-vitrea-node=\"vitrea-node_r_1_\"].actions.tx",
+     "tag": "div",
+     "role": "group",
+     "rect": [
+      1068,
+      844,
+      360,
+      44
+     ],
+     "span": 44,
+     "boundsFrom": "renderInput",
+     "shapeFamily": "capsule",
+     "radii": [
+      12,
+      12,
+      12,
+      12
+     ],
+     "smoothing": 0.52866495,
+     "thickness": 8,
+     "variant": "regular",
+     "tinted": false,
+     "cssRadius": "0px",
+     "label": "Bus 4431"
+    },
+    {
+     "nodeId": "vitrea-node_r_5_",
      "groupId": "routes",
      "plane": "base",
-     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > div.topbar.tx > div[data-vitrea-node=\"vitrea-node_r_7_\"].rack:nth-of-type(1)",
+     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div.topbar.tx > div[data-vitrea-node=\"vitrea-node_r_5_\"].rack:nth-of-type(1)",
      "tag": "div",
      "role": "toolbar",
      "rect": [
-      381,
+      344,
       12,
       483.6,
       44
@@ -3437,14 +2869,14 @@
      "label": "Routes on the map"
     },
     {
-     "nodeId": "vitrea-node_r_9_",
+     "nodeId": "vitrea-node_r_7_",
      "groupId": "status",
      "plane": "base",
-     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > div.topbar.tx > div[data-vitrea-node=\"vitrea-node_r_9_\"].segmented:nth-of-type(2)",
+     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div.topbar.tx > div[data-vitrea-node=\"vitrea-node_r_7_\"].segmented:nth-of-type(2)",
      "tag": "div",
      "role": "radiogroup",
      "rect": [
-      892.6,
+      855.6,
       12,
       228.9,
       44
@@ -3466,10 +2898,10 @@
      "label": "Schedule adherence"
     },
     {
-     "nodeId": "vitrea-node_r_c_",
+     "nodeId": "vitrea-node_r_a_",
      "groupId": "search",
      "plane": "base",
-     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > div.topbar.tx > div[data-vitrea-node=\"vitrea-node_r_c_\"].search:nth-of-type(4)",
+     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div.topbar.tx > div[data-vitrea-node=\"vitrea-node_r_a_\"].search:nth-of-type(4)",
      "tag": "div",
      "role": "search",
      "rect": [
@@ -3495,72 +2927,14 @@
      "label": "/"
     },
     {
-     "nodeId": "vitrea-node_r_1_",
-     "groupId": "alerts",
-     "plane": "base",
-     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > aside[data-vitrea-node=\"vitrea-node_r_1_\"].sidebar.tx",
-     "tag": "aside",
-     "role": null,
-     "rect": [
-      12,
-      12,
-      304,
-      876
-     ],
-     "span": 304,
-     "boundsFrom": "renderInput",
-     "shapeFamily": "fixed-rounded-rect",
-     "radii": [
-      26,
-      26,
-      26,
-      26
-     ],
-     "smoothing": 0.52866495,
-     "thickness": 8,
-     "variant": "regular",
-     "tinted": false,
-     "cssRadius": "0px",
-     "label": "Port Alder TransitNetwork operationsSun "
-    },
-    {
      "nodeId": "vitrea-node_r_3_",
-     "groupId": "vehicle",
-     "plane": "base",
-     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(3) > section[data-vitrea-node=\"vitrea-node_r_3_\"].platter.tx",
-     "tag": "section",
-     "role": null,
-     "rect": [
-      1068,
-      121,
-      360,
-      585.3
-     ],
-     "span": 360,
-     "boundsFrom": "renderInput",
-     "shapeFamily": "fixed-rounded-rect",
-     "radii": [
-      26,
-      26,
-      26,
-      26
-     ],
-     "smoothing": 0.52866495,
-     "thickness": 8,
-     "variant": "regular",
-     "tinted": false,
-     "cssRadius": "0px",
-     "label": "4to Hilltop TerminalBus 44319 min lateQu"
-    },
-    {
-     "nodeId": "vitrea-node_r_5_",
      "groupId": "zoom",
      "plane": "base",
-     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(4) > div[data-vitrea-node=\"vitrea-node_r_5_\"].zoom.tx",
+     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(3) > div[data-vitrea-node=\"vitrea-node_r_3_\"].zoom.tx",
      "tag": "div",
      "role": "group",
      "rect": [
-      381,
+      344,
       844,
       120,
       44
@@ -3582,19 +2956,19 @@
      "label": "Map zoom"
     },
     {
-     "nodeId": "vitrea-node_r_e_",
+     "nodeId": "vitrea-node_r_c_",
      "groupId": "suggest",
      "plane": "overlay",
-     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div > div[data-vitrea-node=\"vitrea-node_r_e_\"].suggest.tx",
+     "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div > div[data-vitrea-node=\"vitrea-node_r_c_\"].suggest.tx",
      "tag": "div",
      "role": null,
      "rect": [
       1108,
       64,
       320,
-      16
+      62.5
      ],
-     "span": 16,
+     "span": 62.5,
      "boundsFrom": "renderInput",
      "shapeFamily": "fixed-rounded-rect",
      "radii": [
@@ -3608,10 +2982,42 @@
      "variant": "regular",
      "tinted": false,
      "cssRadius": "0px",
-     "label": ""
+     "label": "00"
     }
    ],
    "menuGroups": [
+    {
+     "id": "vehicle",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+      "resolvedMaterialSha256": "2a4323f33df8d799",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 8.61,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
     {
      "id": "routes",
      "members": 1,
@@ -3709,70 +3115,6 @@
      "diagnostics": []
     },
     {
-     "id": "alerts",
-     "members": 1,
-     "renderer": "webgpu",
-     "sampling": "gpu-texture",
-     "configuredSource": "texture",
-     "analysis": "exact",
-     "refraction": "true",
-     "health": "ok",
-     "demotionReason": null,
-     "cssBody": null,
-     "cssTint": null,
-     "cssShadow": null,
-     "materialDocument": {
-      "name": "apple-macos-27.0-glass0.5",
-      "platform": "macOS 27.0",
-      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
-      "resolvedMaterialSha256": "2a4323f33df8d799",
-      "tuned": false
-     },
-     "abscissae": null,
-     "variant": "regular",
-     "blurRadius": 20.76,
-     "backdropToneHint": true,
-     "probe": {
-      "verdict": "pass",
-      "breaks": 0,
-      "reach": "verified",
-      "engineDefects": []
-     },
-     "diagnostics": []
-    },
-    {
-     "id": "vehicle",
-     "members": 1,
-     "renderer": "webgpu",
-     "sampling": "gpu-texture",
-     "configuredSource": "texture",
-     "analysis": "exact",
-     "refraction": "true",
-     "health": "ok",
-     "demotionReason": null,
-     "cssBody": null,
-     "cssTint": null,
-     "cssShadow": null,
-     "materialDocument": {
-      "name": "apple-macos-27.0-glass0.5",
-      "platform": "macOS 27.0",
-      "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
-      "resolvedMaterialSha256": "2a4323f33df8d799",
-      "tuned": false
-     },
-     "abscissae": null,
-     "variant": "regular",
-     "blurRadius": 20.77,
-     "backdropToneHint": true,
-     "probe": {
-      "verdict": "pass",
-      "breaks": 0,
-      "reach": "verified",
-      "engineDefects": []
-     },
-     "diagnostics": []
-    },
-    {
      "id": "zoom",
      "members": 1,
      "renderer": "webgpu",
@@ -3826,7 +3168,7 @@
      },
      "abscissae": null,
      "variant": "regular",
-     "blurRadius": 8.2,
+     "blurRadius": 9.93,
      "backdropToneHint": true,
      "probe": {
       "verdict": "pass",
@@ -3842,13 +3184,13 @@
     "rest": {
      "findings": [],
      "unmeasured": [],
-     "hostsRead": 7,
+     "hostsRead": 6,
      "cssTierHosts": 0
     },
     "menu": {
      "findings": [],
      "unmeasured": [],
-     "hostsRead": 7,
+     "hostsRead": 6,
      "cssTierHosts": 0
     }
    }
@@ -3856,14 +3198,43 @@
  },
  "surfaces": [
   {
-   "nodeId": "vitrea-node_r_7_",
+   "nodeId": "vitrea-node_r_1_",
+   "groupId": "vehicle",
+   "plane": "base",
+   "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > div[data-vitrea-node=\"vitrea-node_r_1_\"].actions.tx",
+   "tag": "div",
+   "role": "group",
+   "rect": [
+    1068,
+    844,
+    360,
+    44
+   ],
+   "span": 44,
+   "boundsFrom": "renderInput",
+   "shapeFamily": "capsule",
+   "radii": [
+    22,
+    22,
+    22,
+    22
+   ],
+   "smoothing": 0.52866495,
+   "thickness": 8,
+   "variant": "regular",
+   "tinted": false,
+   "cssRadius": "0px",
+   "label": "Bus 4431"
+  },
+  {
+   "nodeId": "vitrea-node_r_5_",
    "groupId": "routes",
    "plane": "base",
-   "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > div.topbar.tx > div[data-vitrea-node=\"vitrea-node_r_7_\"].rack:nth-of-type(1)",
+   "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div.topbar.tx > div[data-vitrea-node=\"vitrea-node_r_5_\"].rack:nth-of-type(1)",
    "tag": "div",
    "role": "toolbar",
    "rect": [
-    381,
+    342,
     12,
     483.6,
     44
@@ -3885,14 +3256,14 @@
    "label": "Routes on the map"
   },
   {
-   "nodeId": "vitrea-node_r_9_",
+   "nodeId": "vitrea-node_r_7_",
    "groupId": "status",
    "plane": "base",
-   "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > div.topbar.tx > div[data-vitrea-node=\"vitrea-node_r_9_\"].segmented:nth-of-type(2)",
+   "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div.topbar.tx > div[data-vitrea-node=\"vitrea-node_r_7_\"].segmented:nth-of-type(2)",
    "tag": "div",
    "role": "radiogroup",
    "rect": [
-    890.6,
+    851.6,
     12,
     228.9,
     44
@@ -3914,10 +3285,10 @@
    "label": "Schedule adherence"
   },
   {
-   "nodeId": "vitrea-node_r_c_",
+   "nodeId": "vitrea-node_r_a_",
    "groupId": "search",
    "plane": "base",
-   "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > div.topbar.tx > div[data-vitrea-node=\"vitrea-node_r_c_\"].search:nth-of-type(4)",
+   "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div.topbar.tx > div[data-vitrea-node=\"vitrea-node_r_a_\"].search:nth-of-type(4)",
    "tag": "div",
    "role": "search",
    "rect": [
@@ -3943,72 +3314,14 @@
    "label": "/"
   },
   {
-   "nodeId": "vitrea-node_r_1_",
-   "groupId": "alerts",
-   "plane": "base",
-   "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > aside[data-vitrea-node=\"vitrea-node_r_1_\"].sidebar.tx",
-   "tag": "aside",
-   "role": null,
-   "rect": [
-    12,
-    12,
-    304,
-    876
-   ],
-   "span": 304,
-   "boundsFrom": "renderInput",
-   "shapeFamily": "fixed-rounded-rect",
-   "radii": [
-    26,
-    26,
-    26,
-    26
-   ],
-   "smoothing": 0.52866495,
-   "thickness": 8,
-   "variant": "regular",
-   "tinted": false,
-   "cssRadius": "0px",
-   "label": "Port Alder TransitNetwork operationsSun "
-  },
-  {
    "nodeId": "vitrea-node_r_3_",
-   "groupId": "vehicle",
-   "plane": "base",
-   "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(3) > section[data-vitrea-node=\"vitrea-node_r_3_\"].platter.tx",
-   "tag": "section",
-   "role": null,
-   "rect": [
-    1068,
-    121,
-    360,
-    585.3
-   ],
-   "span": 360,
-   "boundsFrom": "renderInput",
-   "shapeFamily": "fixed-rounded-rect",
-   "radii": [
-    26,
-    26,
-    26,
-    26
-   ],
-   "smoothing": 0.52866495,
-   "thickness": 8,
-   "variant": "regular",
-   "tinted": false,
-   "cssRadius": "0px",
-   "label": "4to Hilltop TerminalBus 44319 min lateQu"
-  },
-  {
-   "nodeId": "vitrea-node_r_5_",
    "groupId": "zoom",
    "plane": "base",
-   "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(4) > div[data-vitrea-node=\"vitrea-node_r_5_\"].zoom.tx",
+   "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(3) > div[data-vitrea-node=\"vitrea-node_r_3_\"].zoom.tx",
    "tag": "div",
    "role": "group",
    "rect": [
-    381,
+    342,
     844,
     120,
     44
@@ -4030,19 +3343,19 @@
    "label": "Map zoom"
   },
   {
-   "nodeId": "vitrea-node_r_e_",
+   "nodeId": "vitrea-node_r_c_",
    "groupId": "suggest",
    "plane": "overlay",
-   "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div > div[data-vitrea-node=\"vitrea-node_r_e_\"].suggest.tx",
+   "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div > div[data-vitrea-node=\"vitrea-node_r_c_\"].suggest.tx",
    "tag": "div",
    "role": null,
    "rect": [
     1108,
     64,
     320,
-    16
+    62.5
    ],
-   "span": 16,
+   "span": 62.5,
    "boundsFrom": "renderInput",
    "shapeFamily": "fixed-rounded-rect",
    "radii": [
@@ -4056,13 +3369,13 @@
    "variant": "regular",
    "tinted": false,
    "cssRadius": "0px",
-   "label": ""
+   "label": "00"
   }
  ],
  "planes": [
   {
    "plane": "base",
-   "nodes": 6
+   "nodes": 5
   },
   {
    "plane": "overlay",
@@ -4083,26 +3396,8 @@
   "variantMixing": false
  },
  "banSubset": {
-  "findings": [
-   {
-    "kind": "span-under-32",
-    "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div > div[data-vitrea-node=\"vitrea-node_r_e_\"].suggest.tx",
-    "nodeId": "vitrea-node_r_e_",
-    "groupId": "suggest",
-    "property": "span",
-    "value": 16,
-    "note": "under the size law's floor; a deliberate exception of the family is the page record's to argue, and the audit cannot see one",
-    "seen": [
-     "light/rest",
-     "light/menu",
-     "dark/rest",
-     "dark/menu"
-    ]
-   }
-  ],
-  "counts": {
-   "span-under-32": 1
-  },
+  "findings": [],
+  "counts": {},
   "unmeasured": []
  },
  "reduced": {
@@ -4164,6 +3459,44 @@
   "policyAsAsked": true,
   "groups": [
    {
+    "id": "vehicle",
+    "moved": true,
+    "before": {
+     "id": "vehicle",
+     "renderer": "webgpu",
+     "refraction": "true",
+     "cssBody": null,
+     "cssTint": null,
+     "blurRadius": 7.682,
+     "nodes": [
+      {
+       "nodeId": "vitrea-node_r_1_",
+       "blurRadius": 2.75,
+       "tintAlpha": 0.717,
+       "borderAlpha": 0.003,
+       "refraction": "true"
+      }
+     ]
+    },
+    "after": {
+     "id": "vehicle",
+     "renderer": "webgpu",
+     "refraction": "true",
+     "cssBody": null,
+     "cssTint": null,
+     "blurRadius": 13.329,
+     "nodes": [
+      {
+       "nodeId": "vitrea-node_r_1_",
+       "blurRadius": 4.813,
+       "tintAlpha": 0.929,
+       "borderAlpha": 0,
+       "refraction": "approximate"
+      }
+     ]
+    }
+   },
+   {
     "id": "routes",
     "moved": true,
     "before": {
@@ -4175,9 +3508,9 @@
      "blurRadius": 7.682,
      "nodes": [
       {
-       "nodeId": "vitrea-node_r_7_",
+       "nodeId": "vitrea-node_r_5_",
        "blurRadius": 2.75,
-       "tintAlpha": 0.717,
+       "tintAlpha": 0.716,
        "borderAlpha": 0.003,
        "refraction": "true"
       }
@@ -4192,7 +3525,7 @@
      "blurRadius": 13.329,
      "nodes": [
       {
-       "nodeId": "vitrea-node_r_7_",
+       "nodeId": "vitrea-node_r_5_",
        "blurRadius": 4.813,
        "tintAlpha": 0.929,
        "borderAlpha": 0,
@@ -4213,7 +3546,7 @@
      "blurRadius": 7.682,
      "nodes": [
       {
-       "nodeId": "vitrea-node_r_9_",
+       "nodeId": "vitrea-node_r_7_",
        "blurRadius": 2.75,
        "tintAlpha": 0.72,
        "borderAlpha": 0.004,
@@ -4230,7 +3563,7 @@
      "blurRadius": 13.329,
      "nodes": [
       {
-       "nodeId": "vitrea-node_r_9_",
+       "nodeId": "vitrea-node_r_7_",
        "blurRadius": 4.813,
        "tintAlpha": 0.929,
        "borderAlpha": 0,
@@ -4251,9 +3584,9 @@
      "blurRadius": 7.682,
      "nodes": [
       {
-       "nodeId": "vitrea-node_r_c_",
+       "nodeId": "vitrea-node_r_a_",
        "blurRadius": 2.75,
-       "tintAlpha": 0.718,
+       "tintAlpha": 0.717,
        "borderAlpha": 0.003,
        "refraction": "true"
       }
@@ -4268,85 +3601,9 @@
      "blurRadius": 13.329,
      "nodes": [
       {
-       "nodeId": "vitrea-node_r_c_",
+       "nodeId": "vitrea-node_r_a_",
        "blurRadius": 4.813,
        "tintAlpha": 0.929,
-       "borderAlpha": 0,
-       "refraction": "approximate"
-      }
-     ]
-    }
-   },
-   {
-    "id": "alerts",
-    "moved": true,
-    "before": {
-     "id": "alerts",
-     "renderer": "webgpu",
-     "refraction": "true",
-     "cssBody": null,
-     "cssTint": null,
-     "blurRadius": 20.759,
-     "nodes": [
-      {
-       "nodeId": "vitrea-node_r_1_",
-       "blurRadius": 2.75,
-       "tintAlpha": 0.776,
-       "borderAlpha": 0.005,
-       "refraction": "true"
-      }
-     ]
-    },
-    "after": {
-     "id": "alerts",
-     "renderer": "webgpu",
-     "refraction": "true",
-     "cssBody": null,
-     "cssTint": null,
-     "blurRadius": 23.626,
-     "nodes": [
-      {
-       "nodeId": "vitrea-node_r_1_",
-       "blurRadius": 4.813,
-       "tintAlpha": 0.93,
-       "borderAlpha": 0,
-       "refraction": "approximate"
-      }
-     ]
-    }
-   },
-   {
-    "id": "vehicle",
-    "moved": true,
-    "before": {
-     "id": "vehicle",
-     "renderer": "webgpu",
-     "refraction": "true",
-     "cssBody": null,
-     "cssTint": null,
-     "blurRadius": 20.774,
-     "nodes": [
-      {
-       "nodeId": "vitrea-node_r_3_",
-       "blurRadius": 2.75,
-       "tintAlpha": 0.779,
-       "borderAlpha": 0.003,
-       "refraction": "true"
-      }
-     ]
-    },
-    "after": {
-     "id": "vehicle",
-     "renderer": "webgpu",
-     "refraction": "true",
-     "cssBody": null,
-     "cssTint": null,
-     "blurRadius": 23.639,
-     "nodes": [
-      {
-       "nodeId": "vitrea-node_r_3_",
-       "blurRadius": 4.813,
-       "tintAlpha": 0.93,
        "borderAlpha": 0,
        "refraction": "approximate"
       }
@@ -4365,7 +3622,7 @@
      "blurRadius": 7.682,
      "nodes": [
       {
-       "nodeId": "vitrea-node_r_5_",
+       "nodeId": "vitrea-node_r_3_",
        "blurRadius": 2.75,
        "tintAlpha": 0.738,
        "borderAlpha": 0.01,
@@ -4382,7 +3639,7 @@
      "blurRadius": 13.329,
      "nodes": [
       {
-       "nodeId": "vitrea-node_r_5_",
+       "nodeId": "vitrea-node_r_3_",
        "blurRadius": 4.813,
        "tintAlpha": 0.929,
        "borderAlpha": 0,
@@ -4400,12 +3657,12 @@
      "refraction": "true",
      "cssBody": null,
      "cssTint": null,
-     "blurRadius": 7.563,
+     "blurRadius": 8.292,
      "nodes": [
       {
-       "nodeId": "vitrea-node_r_e_",
+       "nodeId": "vitrea-node_r_c_",
        "blurRadius": 2.75,
-       "tintAlpha": 0.717,
+       "tintAlpha": 0.745,
        "borderAlpha": 0.003,
        "refraction": "true"
       }
@@ -4417,12 +3674,12 @@
      "refraction": "true",
      "cssBody": null,
      "cssTint": null,
-     "blurRadius": 13.234,
+     "blurRadius": 13.809,
      "nodes": [
       {
-       "nodeId": "vitrea-node_r_e_",
+       "nodeId": "vitrea-node_r_c_",
        "blurRadius": 4.813,
-       "tintAlpha": 0.929,
+       "tintAlpha": 0.93,
        "borderAlpha": 0,
        "refraction": "approximate"
       }
@@ -4468,6 +3725,38 @@
    "policyAsAsked": true,
    "groups": [
     {
+     "id": "vehicle",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.68,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
      "id": "routes",
      "members": 1,
      "renderer": "webgpu",
@@ -4564,70 +3853,6 @@
      "diagnostics": []
     },
     {
-     "id": "alerts",
-     "members": 1,
-     "renderer": "webgpu",
-     "sampling": "gpu-texture",
-     "configuredSource": "texture",
-     "analysis": "exact",
-     "refraction": "true",
-     "health": "ok",
-     "demotionReason": null,
-     "cssBody": null,
-     "cssTint": null,
-     "cssShadow": null,
-     "materialDocument": {
-      "name": "apple-macos-27.0-glass0.5",
-      "platform": "macOS 27.0",
-      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
-      "resolvedMaterialSha256": "be13dae45098fc89",
-      "tuned": false
-     },
-     "abscissae": null,
-     "variant": "regular",
-     "blurRadius": 20.76,
-     "backdropToneHint": true,
-     "probe": {
-      "verdict": "pass",
-      "breaks": 0,
-      "reach": "verified",
-      "engineDefects": []
-     },
-     "diagnostics": []
-    },
-    {
-     "id": "vehicle",
-     "members": 1,
-     "renderer": "webgpu",
-     "sampling": "gpu-texture",
-     "configuredSource": "texture",
-     "analysis": "exact",
-     "refraction": "true",
-     "health": "ok",
-     "demotionReason": null,
-     "cssBody": null,
-     "cssTint": null,
-     "cssShadow": null,
-     "materialDocument": {
-      "name": "apple-macos-27.0-glass0.5",
-      "platform": "macOS 27.0",
-      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
-      "resolvedMaterialSha256": "be13dae45098fc89",
-      "tuned": false
-     },
-     "abscissae": null,
-     "variant": "regular",
-     "blurRadius": 20.77,
-     "backdropToneHint": true,
-     "probe": {
-      "verdict": "pass",
-      "breaks": 0,
-      "reach": "verified",
-      "engineDefects": []
-     },
-     "diagnostics": []
-    },
-    {
      "id": "zoom",
      "members": 1,
      "renderer": "webgpu",
@@ -4681,7 +3906,7 @@
      },
      "abscissae": null,
      "variant": "regular",
-     "blurRadius": 7.56,
+     "blurRadius": 8.29,
      "backdropToneHint": true,
      "probe": {
       "verdict": "pass",
@@ -4728,6 +3953,38 @@
    "policyAsAsked": true,
    "groups": [
     {
+     "id": "vehicle",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 7.68,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
+    {
      "id": "routes",
      "members": 1,
      "renderer": "webgpu",
@@ -4814,70 +4071,6 @@
      "abscissae": null,
      "variant": "regular",
      "blurRadius": 7.68,
-     "backdropToneHint": true,
-     "probe": {
-      "verdict": "pass",
-      "breaks": 0,
-      "reach": "verified",
-      "engineDefects": []
-     },
-     "diagnostics": []
-    },
-    {
-     "id": "alerts",
-     "members": 1,
-     "renderer": "webgpu",
-     "sampling": "gpu-texture",
-     "configuredSource": "texture",
-     "analysis": "exact",
-     "refraction": "true",
-     "health": "ok",
-     "demotionReason": null,
-     "cssBody": null,
-     "cssTint": null,
-     "cssShadow": null,
-     "materialDocument": {
-      "name": "apple-macos-27.0-glass0.5",
-      "platform": "macOS 27.0",
-      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
-      "resolvedMaterialSha256": "be13dae45098fc89",
-      "tuned": false
-     },
-     "abscissae": null,
-     "variant": "regular",
-     "blurRadius": 20.76,
-     "backdropToneHint": true,
-     "probe": {
-      "verdict": "pass",
-      "breaks": 0,
-      "reach": "verified",
-      "engineDefects": []
-     },
-     "diagnostics": []
-    },
-    {
-     "id": "vehicle",
-     "members": 1,
-     "renderer": "webgpu",
-     "sampling": "gpu-texture",
-     "configuredSource": "texture",
-     "analysis": "exact",
-     "refraction": "true",
-     "health": "ok",
-     "demotionReason": null,
-     "cssBody": null,
-     "cssTint": null,
-     "cssShadow": null,
-     "materialDocument": {
-      "name": "apple-macos-27.0-glass0.5",
-      "platform": "macOS 27.0",
-      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
-      "resolvedMaterialSha256": "be13dae45098fc89",
-      "tuned": false
-     },
-     "abscissae": null,
-     "variant": "regular",
-     "blurRadius": 20.77,
      "backdropToneHint": true,
      "probe": {
       "verdict": "pass",
@@ -4941,7 +4134,7 @@
      },
      "abscissae": null,
      "variant": "regular",
-     "blurRadius": 7.56,
+     "blurRadius": 8.29,
      "backdropToneHint": true,
      "probe": {
       "verdict": "pass",
@@ -4987,6 +4180,38 @@
    },
    "policyAsAsked": true,
    "groups": [
+    {
+     "id": "vehicle",
+     "members": 1,
+     "renderer": "webgpu",
+     "sampling": "gpu-texture",
+     "configuredSource": "texture",
+     "analysis": "exact",
+     "refraction": "true",
+     "health": "ok",
+     "demotionReason": null,
+     "cssBody": null,
+     "cssTint": null,
+     "cssShadow": null,
+     "materialDocument": {
+      "name": "apple-macos-27.0-glass0.5",
+      "platform": "macOS 27.0",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "resolvedMaterialSha256": "be13dae45098fc89",
+      "tuned": false
+     },
+     "abscissae": null,
+     "variant": "regular",
+     "blurRadius": 0,
+     "backdropToneHint": true,
+     "probe": {
+      "verdict": "pass",
+      "breaks": 0,
+      "reach": "verified",
+      "engineDefects": []
+     },
+     "diagnostics": []
+    },
     {
      "id": "routes",
      "members": 1,
@@ -5053,70 +4278,6 @@
     },
     {
      "id": "search",
-     "members": 1,
-     "renderer": "webgpu",
-     "sampling": "gpu-texture",
-     "configuredSource": "texture",
-     "analysis": "exact",
-     "refraction": "true",
-     "health": "ok",
-     "demotionReason": null,
-     "cssBody": null,
-     "cssTint": null,
-     "cssShadow": null,
-     "materialDocument": {
-      "name": "apple-macos-27.0-glass0.5",
-      "platform": "macOS 27.0",
-      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
-      "resolvedMaterialSha256": "be13dae45098fc89",
-      "tuned": false
-     },
-     "abscissae": null,
-     "variant": "regular",
-     "blurRadius": 0,
-     "backdropToneHint": true,
-     "probe": {
-      "verdict": "pass",
-      "breaks": 0,
-      "reach": "verified",
-      "engineDefects": []
-     },
-     "diagnostics": []
-    },
-    {
-     "id": "alerts",
-     "members": 1,
-     "renderer": "webgpu",
-     "sampling": "gpu-texture",
-     "configuredSource": "texture",
-     "analysis": "exact",
-     "refraction": "true",
-     "health": "ok",
-     "demotionReason": null,
-     "cssBody": null,
-     "cssTint": null,
-     "cssShadow": null,
-     "materialDocument": {
-      "name": "apple-macos-27.0-glass0.5",
-      "platform": "macOS 27.0",
-      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
-      "resolvedMaterialSha256": "be13dae45098fc89",
-      "tuned": false
-     },
-     "abscissae": null,
-     "variant": "regular",
-     "blurRadius": 0,
-     "backdropToneHint": true,
-     "probe": {
-      "verdict": "pass",
-      "breaks": 0,
-      "reach": "verified",
-      "engineDefects": []
-     },
-     "diagnostics": []
-    },
-    {
-     "id": "vehicle",
      "members": 1,
      "renderer": "webgpu",
      "sampling": "gpu-texture",
@@ -5222,44 +4383,8 @@
     "runtimeRead": true,
     "hosts": [
      {
-      "nodeId": "vitrea-node_r_7_",
-      "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > div.topbar.tx > div[data-vitrea-node=\"vitrea-node_r_7_\"].rack:nth-of-type(1)",
-      "backdropFilter": "none",
-      "backgroundColor": "rgba(255, 255, 255, 0)",
-      "backgroundImage": "none",
-      "borderColor": "rgb(0, 0, 0)",
-      "forcedColorAdjust": "auto"
-     },
-     {
-      "nodeId": "vitrea-node_r_9_",
-      "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > div.topbar.tx > div[data-vitrea-node=\"vitrea-node_r_9_\"].segmented:nth-of-type(2)",
-      "backdropFilter": "none",
-      "backgroundColor": "rgba(255, 255, 255, 0)",
-      "backgroundImage": "none",
-      "borderColor": "rgb(0, 0, 0)",
-      "forcedColorAdjust": "auto"
-     },
-     {
-      "nodeId": "vitrea-node_r_c_",
-      "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > div.topbar.tx > div[data-vitrea-node=\"vitrea-node_r_c_\"].search:nth-of-type(4)",
-      "backdropFilter": "none",
-      "backgroundColor": "rgba(255, 255, 255, 0)",
-      "backgroundImage": "none",
-      "borderColor": "rgb(0, 0, 0)",
-      "forcedColorAdjust": "auto"
-     },
-     {
       "nodeId": "vitrea-node_r_1_",
-      "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > aside[data-vitrea-node=\"vitrea-node_r_1_\"].sidebar.tx",
-      "backdropFilter": "none",
-      "backgroundColor": "rgba(255, 255, 255, 0)",
-      "backgroundImage": "none",
-      "borderColor": "rgb(0, 0, 0)",
-      "forcedColorAdjust": "auto"
-     },
-     {
-      "nodeId": "vitrea-node_r_3_",
-      "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(3) > section[data-vitrea-node=\"vitrea-node_r_3_\"].platter.tx",
+      "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > div[data-vitrea-node=\"vitrea-node_r_1_\"].actions.tx",
       "backdropFilter": "none",
       "backgroundColor": "rgba(255, 255, 255, 0)",
       "backgroundImage": "none",
@@ -5268,7 +4393,7 @@
      },
      {
       "nodeId": "vitrea-node_r_5_",
-      "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(4) > div[data-vitrea-node=\"vitrea-node_r_5_\"].zoom.tx",
+      "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div.topbar.tx > div[data-vitrea-node=\"vitrea-node_r_5_\"].rack:nth-of-type(1)",
       "backdropFilter": "none",
       "backgroundColor": "rgba(255, 255, 255, 0)",
       "backgroundImage": "none",
@@ -5276,8 +4401,35 @@
       "forcedColorAdjust": "auto"
      },
      {
-      "nodeId": "vitrea-node_r_e_",
-      "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div > div[data-vitrea-node=\"vitrea-node_r_e_\"].suggest.tx",
+      "nodeId": "vitrea-node_r_7_",
+      "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div.topbar.tx > div[data-vitrea-node=\"vitrea-node_r_7_\"].segmented:nth-of-type(2)",
+      "backdropFilter": "none",
+      "backgroundColor": "rgba(255, 255, 255, 0)",
+      "backgroundImage": "none",
+      "borderColor": "rgb(0, 0, 0)",
+      "forcedColorAdjust": "auto"
+     },
+     {
+      "nodeId": "vitrea-node_r_a_",
+      "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div.topbar.tx > div[data-vitrea-node=\"vitrea-node_r_a_\"].search:nth-of-type(4)",
+      "backdropFilter": "none",
+      "backgroundColor": "rgba(255, 255, 255, 0)",
+      "backgroundImage": "none",
+      "borderColor": "rgb(0, 0, 0)",
+      "forcedColorAdjust": "auto"
+     },
+     {
+      "nodeId": "vitrea-node_r_3_",
+      "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(3) > div[data-vitrea-node=\"vitrea-node_r_3_\"].zoom.tx",
+      "backdropFilter": "none",
+      "backgroundColor": "rgba(255, 255, 255, 0)",
+      "backgroundImage": "none",
+      "borderColor": "rgb(0, 0, 0)",
+      "forcedColorAdjust": "auto"
+     },
+     {
+      "nodeId": "vitrea-node_r_c_",
+      "selector": "body > div[data-vitrea-root]:nth-of-type(2) > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div > div[data-vitrea-node=\"vitrea-node_r_c_\"].suggest.tx",
       "backdropFilter": "none",
       "backgroundColor": "rgba(255, 255, 255, 0)",
       "backgroundImage": "none",
@@ -5301,15 +4453,15 @@
   "shot-forced.png"
  ],
  "captureSha256": {
-  "shot-fv-light.png": "fd27f2d8f1e39430ee03b168be04a1093d5e0c689b3aaf141b3ba43f650d0dcc",
-  "shot-full-light.png": "95ffc5dc4a64f688557d16b01a4e9a324ca5b541ff665240ed05ece56319667f",
-  "shot-menu-light.png": "166019c192d114c21a6529d3f97541921c1e9bd95ae3613beaca334bc7de0ae1",
-  "shot-fv-dark.png": "13d89d304c79319a119d6ad22ed8f0d0ced3f9249d89e5b0db1efbe650d5965a",
-  "shot-full-dark.png": "976eef85a7caefe511ad826fa4551ee5f78882996ad7d489f68e06b78345495e",
-  "shot-menu-dark.png": "45a198251ba2983023b2debeae633cf2731d795d1e8eebb6504da348c4d77e80",
-  "shot-reduced.png": "d1ddd75d375fbfc9e440745207bef75d212f4aa7002f3e26fb9d364b1d5999bf",
-  "shot-contrast.png": "ee7fb997a1057e43ba9d128b8b55134dd3273e9bdbac8848389df87b14bca7dd",
-  "shot-forced.png": "5e356d3bafde98b275a5588775ea75099289c38d7e4257e431e5dcc34ca59124"
+  "shot-fv-light.png": "62ced3a9936ca01490678d5327bf99c45df6a1d8347edc4af2c1aa167ab0808b",
+  "shot-full-light.png": "c6912339ef90d4a40c59a528755b1c03c99cb17319743dbd6af7189d9ee3d48a",
+  "shot-menu-light.png": "3bac5d07f12560557986c87369b9ba3c6b379e32f709bf50a6af932737d14bab",
+  "shot-fv-dark.png": "cb6324392e7f6189291a6150a5f865c2bb980b5e286e1ba2588580a7c57e663d",
+  "shot-full-dark.png": "54418a1fb40eb6390d93ca1fdcfdef6c2f6ada0db78775a17ea3697bba06299b",
+  "shot-menu-dark.png": "ab08954bfa104b4a835d610bb88182b56c57fdcf5986ec044e8a156f30b817c8",
+  "shot-reduced.png": "3fe053f1499870b0271e96cf39ea7262f30a7b997e9c7d7fe26d74161dc8f969",
+  "shot-contrast.png": "489d0f95644d105acee39ea0f14397d1141a708f7352144210433185730cd3f0",
+  "shot-forced.png": "dfc6040155972a9dee92a0211efa96a3ffb41c9bf445512f3fc8cef7e21e5731"
  },
  "gateMechanical": true,
  "tool": {

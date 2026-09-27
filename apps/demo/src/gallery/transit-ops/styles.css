@@ -1,0 +1,953 @@
+/*
+ * Transit operations. The page is the map and two opaque panels beside it; these rules
+ * place the instrument over the map.
+ *
+ * No rule here gives a registered glass host a background, border, shadow or blur:
+ * the material is the runtime's. What sits ON glass takes the runtime's vibrant ink
+ * (inherited `color`, and the `--vitrea-foreground-*` tokens) and, where it needs a
+ * plate, a fill mixed from that same ink, so a fill follows the material the ink was
+ * picked against. The two content panels (`.panel`) are never registered, so their
+ * ground and ink are the page's own. Inner radii are housing minus inset: 22 - 4 and
+ * 26 - 8, both 18.
+ */
+
+:root {
+  --inset: 12px;
+  --bar-h: 44px;
+  --sidebar-w: 304px;
+  --platter-w: 360px;
+  --inner-r: 18px;
+  /*
+   * Written by the page every frame from the runtime's resolved sampling padding
+   * (App.tsx, Gaps); these are only the first frame's values.
+   */
+  --gap-side: 26px;
+  --gap-top: 26px;
+  --gap-actions: 26px;
+  --gap-bar: 26px;
+  --gap-search: 26px;
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", system-ui, sans-serif;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #e9ebee;
+}
+
+html[data-scheme="dark"],
+html[data-scheme="dark"] body {
+  background: #15181c;
+}
+
+body {
+  font-family: var(--font);
+  font-size: 13px;
+  line-height: 1.3;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* App content declares the scheme of the ground it is drawn on (vitrea.md §4). */
+html[data-scheme="light"] .tx {
+  color-scheme: light;
+}
+html[data-scheme="dark"] .tx {
+  color-scheme: dark;
+}
+
+.tx {
+  --ink-inverse: light-dark(#ffffff, #111418);
+  --sev-critical: light-dark(#c42b33, #ff6b6f);
+  --sev-warning: light-dark(#b57300, #f5b83d);
+  --focus: light-dark(#1b2129, #eef1f4);
+  --fill-hover: color-mix(in srgb, currentColor 8%, transparent);
+  --fill-selected: color-mix(in srgb, currentColor 15%, transparent);
+  font-family: var(--font);
+}
+
+/*
+ * Secondary ink, the page's own. The runtime's secondary token holds 4.5:1 against
+ * the MEAN surface, and measured on rendered pixels it read 4.5 typical and 3.8 at
+ * worst where the body carries a lighter patch of the map's colour (DESIGN.md §4).
+ * This one is mixed from the runtime's primary token, so it stays on the pole the
+ * material picked, and sits far enough in to hold 4.5 at the worst patch. Declared
+ * inside every host so it resolves against that host's own token.
+ */
+html[data-scheme="light"] [data-vitrea-surface],
+html[data-scheme="light"] [data-vitrea-surface] * {
+  --ink-2: color-mix(in srgb, var(--vitrea-foreground, currentColor) 70%, transparent);
+}
+
+html[data-scheme="dark"] [data-vitrea-surface],
+html[data-scheme="dark"] [data-vitrea-surface] * {
+  --ink-2: color-mix(in srgb, var(--vitrea-foreground, currentColor) 90%, transparent);
+}
+
+/*
+ * Primary ink, made opaque, on the thin controls. At span 44 the glass is at its
+ * clearest and a bright tag or route bundle passing under it lifts the patch behind
+ * a label; the runtime's primary is the picked pole at partial alpha, which measured
+ * 4.2:1 there in the dark scheme. `rgb(from …)` keeps the pole the runtime picked and
+ * drops only its alpha.
+ */
+[data-vitrea-surface],
+[data-vitrea-surface] * {
+  --ink-1: rgb(from var(--vitrea-foreground, currentColor) r g b / 1);
+}
+
+.chip,
+.segment,
+.search input,
+.zoom .icon-button,
+.action:not(.action--primary) {
+  color: var(--ink-1);
+}
+
+/*
+ * The content panels: the alerts sidebar and the vehicle's detail card. Content, so
+ * opaque (SKILL.md §3, step 1), on the tonal model: one lightness step off the map's
+ * land and a hairline, no shadow and no blur. Their ink is the page's, measured on
+ * this ground (DESIGN.md §4): the secondary holds 4.5:1 on the selected row's fill as
+ * well as on the panel.
+ */
+.panel {
+  --panel: light-dark(#f5f6f8, #1c2026);
+  --panel-edge: light-dark(rgb(27 33 41 / 0.14), rgb(238 241 244 / 0.12));
+  --ink-1: light-dark(#1b2129, #eef1f4);
+  --ink-2: light-dark(#525a64, #a7b0ba);
+  --fill-selected: color-mix(in srgb, currentColor 12%, transparent);
+  box-sizing: border-box;
+  border: 1px solid var(--panel-edge);
+  border-radius: 26px;
+  background: var(--panel);
+  color: var(--ink-1);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+:where(.tx) :focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* ------------------------------------------------------------------ the plane */
+
+.map {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  display: block;
+  touch-action: none;
+  cursor: grab;
+}
+
+/* ---------------------------------------------------------------- the top bar */
+
+.topbar {
+  position: absolute;
+  top: var(--inset);
+  left: calc(var(--inset) + var(--sidebar-w) + var(--gap-side));
+  right: var(--inset);
+  height: var(--bar-h);
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+
+.topbar__spacer {
+  flex: 1 0 var(--gap-search);
+}
+
+.rack,
+.segmented {
+  display: flex;
+  align-items: center;
+  height: var(--bar-h);
+  box-sizing: border-box;
+  padding: 0 4px;
+  gap: 1px;
+  pointer-events: auto;
+}
+
+.segmented {
+  position: relative;
+  margin-left: var(--gap-bar);
+  gap: 0;
+}
+
+.chip,
+.segment {
+  appearance: none;
+  border: 0;
+  margin: 0;
+  background: transparent;
+  height: 36px;
+  border-radius: var(--inner-r);
+  padding: 0 11px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.chip {
+  min-width: 44px;
+  justify-content: center;
+}
+
+.chip--all {
+  padding: 0 13px;
+}
+
+.chip:hover {
+  background: var(--fill-hover);
+}
+
+.chip[aria-pressed="true"] {
+  background: var(--fill-selected);
+}
+
+.segment {
+  position: relative;
+  z-index: 1;
+  padding: 0 12px;
+}
+
+.segment .count,
+.chip .count {
+  font-weight: 500;
+  color: var(--ink-2);
+}
+
+.segment-indicator {
+  z-index: 0;
+  background: var(--fill-selected);
+}
+
+.route-dot {
+  display: inline-block;
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: light-dark(var(--route-light), var(--route-dark));
+}
+
+.search {
+  position: relative;
+  flex: 0 1 252px;
+  min-width: 190px;
+  height: var(--bar-h);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px 0 16px;
+  pointer-events: auto;
+  cursor: text;
+}
+
+/*
+ * The focus ring follows the capsule. The radius here shapes only the outline:
+ * the WebGPU tier draws the glass from the registered shape, and the CSS tier
+ * writes its own radius inline over this one.
+ */
+.search {
+  border-radius: calc(var(--bar-h) / 2);
+}
+
+.search:focus-within {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.search > svg {
+  flex: none;
+  color: var(--ink-2);
+}
+
+.search input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  color: inherit;
+  outline: none;
+}
+
+.search input::placeholder {
+  color: var(--ink-2);
+  opacity: 1;
+}
+
+.search__key {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, currentColor 28%, transparent);
+  font: 600 11px var(--font);
+  color: var(--ink-2);
+}
+
+/* The suggestions platter, on the overlay plane under the field. */
+.suggest {
+  position: absolute;
+  top: calc(var(--inset) + var(--bar-h) + 8px);
+  right: var(--inset);
+  width: 320px;
+  box-sizing: border-box;
+  padding: 8px;
+  pointer-events: auto;
+}
+
+.suggest[data-present="false"] {
+  pointer-events: none;
+}
+
+.suggest__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  opacity: var(--vitrea-materialization, 1);
+}
+
+.suggest__row {
+  display: grid;
+  grid-template-columns: minmax(34px, auto) 1fr;
+  column-gap: 12px;
+  grid-template-rows: auto auto;
+  align-items: center;
+  padding: 7px 12px;
+  border-radius: var(--inner-r);
+  cursor: pointer;
+}
+
+.suggest__row[aria-selected="true"] {
+  background: var(--fill-selected);
+}
+
+/* The absent platter's one row: a real box to materialise from, never seen. */
+.suggest__row--placeholder {
+  visibility: hidden;
+}
+
+.suggest__routes {
+  grid-row: 1 / span 2;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.suggest__title {
+  font-weight: 600;
+}
+
+.suggest__detail {
+  font-size: 12px;
+  color: var(--ink-2);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+
+.badge--large {
+  font-size: 13px;
+}
+
+/* ---------------------------------------------------------------- the sidebar */
+
+.sidebar {
+  position: fixed;
+  top: var(--inset);
+  bottom: var(--inset);
+  left: var(--inset);
+  width: var(--sidebar-w);
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  overflow-y: auto;
+}
+
+.sidebar__head {
+  padding: 12px 12px 14px;
+}
+
+.eyebrow,
+.section-title {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.sidebar h1 {
+  margin: 3px 0 2px;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.sidebar__clock {
+  margin: 0;
+  font-size: 12.5px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-2);
+}
+
+.sidebar__summary {
+  margin: 10px 0 0;
+  font-size: 12.5px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 12px 8px;
+}
+
+.alerts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.alert {
+  appearance: none;
+  border: 0;
+  margin: 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 18px 1fr auto;
+  column-gap: 10px;
+  align-items: start;
+  padding: 10px 12px;
+  border-radius: var(--inner-r);
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.alert:hover {
+  background: var(--fill-hover);
+}
+
+.alert[aria-current="true"] {
+  background: var(--fill-selected);
+}
+
+.alert .glyph {
+  margin-top: 1px;
+}
+
+.alert__body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.alert__title {
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.alert__meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  white-space: nowrap;
+  font-size: 12px;
+  color: var(--ink-2);
+}
+
+.alert__meta .badge {
+  flex: none;
+  color: var(--ink-1);
+}
+
+.alert__place {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.alert__age {
+  font-size: 11.5px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-2);
+  white-space: nowrap;
+  margin-top: 1px;
+}
+
+.sidebar__foot {
+  margin-top: auto;
+  padding-top: 12px;
+}
+
+/* The map's attribution, on the content panel rather than under a floating control. */
+.attribution {
+  margin: 6px 12px 6px;
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--ink-2);
+}
+
+.attribution a {
+  color: inherit;
+}
+
+.setting {
+  appearance: none;
+  border: 0;
+  margin: 0;
+  width: 100%;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  border-radius: var(--inner-r);
+  background: transparent;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.setting:hover {
+  background: var(--fill-hover);
+}
+
+.switch {
+  position: relative;
+  width: 32px;
+  height: 18px;
+  border-radius: 9px;
+  background: color-mix(in srgb, currentColor 24%, transparent);
+}
+
+.switch::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: light-dark(#ffffff, #d9dee4);
+  transition: translate 160ms ease;
+}
+
+.setting[aria-checked="true"] .switch {
+  background: currentColor;
+}
+
+.setting[aria-checked="true"] .switch::after {
+  translate: 14px 0;
+  background: var(--ink-inverse);
+}
+
+/* ---------------------------------------------------------- the selected vehicle */
+
+/*
+ * The detail card: content, opaque, standing on the action capsule at the window's
+ * bottom-right corner and growing upward with its content. It clears the capsule by
+ * the capsule's own sampling padding and the top bar by the bar's, both derived.
+ * Closed, it keeps its box and its last vehicle; it steps aside while the search
+ * suggestions are open over its corner, because the glass there reads the painted
+ * map and not this card.
+ */
+.detail {
+  position: fixed;
+  right: var(--inset);
+  bottom: calc(var(--inset) + var(--bar-h) + var(--gap-actions));
+  width: var(--platter-w);
+  max-height: calc(100vh - 2 * var(--inset) - 2 * var(--bar-h) - var(--gap-top) - var(--gap-actions));
+  overflow-y: auto;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  transition: opacity 200ms ease;
+}
+
+.detail[data-open="false"] {
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 200ms ease,
+    visibility 0s linear 200ms;
+}
+
+/*
+ * Stepping aside for the suggestions is immediate, never a fade: the platter samples the
+ * painted map, so a card still visible beneath it for even one frame is a backdrop the
+ * glass does not show. Coming back fades in, since nothing samples it then.
+ */
+.detail[data-yield="true"] {
+  opacity: 0;
+  visibility: hidden;
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .detail,
+  .detail[data-open="false"],
+  .detail[data-yield="true"] {
+    transition: none;
+  }
+}
+
+.detail__head {
+  padding: 8px 12px 10px;
+}
+
+.detail__route {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--ink-2);
+}
+
+.detail__route .badge {
+  color: var(--ink-1);
+}
+
+.detail__title {
+  margin: 4px 0 4px;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+}
+
+.detail__status {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.ok-dot {
+  width: 10px;
+  height: 10px;
+  margin: 0 4px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 2px currentColor;
+}
+
+/*
+ * The action capsule: one row of actions, so a capsule on the family's 44 rung, at a
+ * fixed place so a card of any height never moves it. Its content arrives and leaves
+ * with the material, never ahead of it. It is `interactive` (Chrome.tsx), so a press on
+ * any action lights and flexes the housing.
+ */
+.actions {
+  position: absolute;
+  right: var(--inset);
+  bottom: var(--inset);
+  width: var(--platter-w);
+  height: var(--bar-h);
+  box-sizing: border-box;
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  pointer-events: auto;
+}
+
+.actions[data-present="false"] {
+  pointer-events: none;
+}
+
+.actions > * {
+  opacity: var(--vitrea-materialization, 1);
+}
+
+.icon-button {
+  appearance: none;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--inner-r);
+  background: transparent;
+  display: inline-grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+/*
+ * No pressed colour on any icon button, or on any action: both housings are
+ * `interactive`, so press is the runtime's light and flex. In the zoom stack hover is
+ * the runtime's too; in the action capsule the close button takes the same hover fill
+ * as the actions beside it.
+ */
+.actions .icon-button:hover {
+  background: var(--fill-hover);
+}
+
+.detail__alert {
+  margin: 0 12px 10px;
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: var(--ink-2);
+}
+
+.detail__alert strong {
+  font-weight: 650;
+  color: var(--ink-1);
+}
+
+.detail__camera {
+  margin: 0 0 6px;
+}
+
+.detail__camera img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  object-fit: cover;
+  border-radius: var(--inner-r);
+}
+
+.detail__camera figcaption {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px 2px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-2);
+}
+
+.detail__camera-distance {
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 16px;
+  margin: 0;
+  padding: 10px 12px 14px;
+}
+
+.facts > div {
+  min-width: 0;
+}
+
+.facts dt {
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--ink-2);
+}
+
+.facts dd {
+  margin: 2px 0 0;
+  font-size: 13px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.facts__sub {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-2);
+}
+
+.action {
+  appearance: none;
+  border: 0;
+  margin: 0;
+  flex: 1 1 0;
+  min-width: 0;
+  height: 36px;
+  border-radius: var(--inner-r);
+  padding: 0 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  background: var(--fill-hover);
+  cursor: pointer;
+}
+
+.action:hover {
+  background: var(--fill-selected);
+}
+
+.action[aria-pressed="true"] {
+  background: color-mix(in srgb, currentColor 22%, transparent);
+}
+
+/* The primary action: an ink fill on the capsule, not a tint on the glass. */
+.action--primary {
+  flex: 1.6 1 0;
+  background: var(--vitrea-foreground, currentColor);
+  color: var(--ink-inverse);
+}
+
+.action--primary:hover,
+.action--primary[aria-pressed="true"] {
+  background: var(--vitrea-foreground, currentColor);
+}
+
+/* ---------------------------------------------------------------- zoom */
+
+/*
+ * Bottom-left of the map, on the same vertical as the top bar: the right column
+ * belongs to the selected vehicle, its card and the action capsule in the corner.
+ */
+.zoom {
+  position: absolute;
+  left: calc(var(--inset) + var(--sidebar-w) + var(--gap-side));
+  bottom: var(--inset);
+  height: var(--bar-h);
+  box-sizing: border-box;
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  pointer-events: auto;
+}
+
+/*
+ * A narrower desktop: the top bar's three groups, their derived gaps (which widen
+ * under Reduce Transparency) and the sidebar have to share the width, so the sidebar
+ * and the chips give a little room before anything overlaps.
+ */
+@media (max-width: 1379px) {
+  :root {
+    --sidebar-w: 268px;
+  }
+  .chip {
+    min-width: 38px;
+    padding: 0 8px;
+  }
+  .chip--all {
+    padding: 0 10px;
+  }
+  .search {
+    min-width: 150px;
+  }
+}
+
+/* ---------------------------------------------------------------- accessibility */
+
+@media (prefers-contrast: more) {
+  .tx {
+    --fill-hover: color-mix(in srgb, currentColor 14%, transparent);
+    --fill-selected: color-mix(in srgb, currentColor 26%, transparent);
+  }
+  /* On the panels the stronger selection would sink the secondary ink, so it joins the primary. */
+  .panel {
+    --panel-edge: light-dark(rgb(27 33 41 / 0.5), rgb(238 241 244 / 0.5));
+    --ink-2: var(--ink-1);
+  }
+}
+
+@media (forced-colors: active) {
+  /*
+   * Selection keeps its system pair and opts out of the text backplate, which
+   * otherwise paints a Canvas box behind HighlightText and erases the label.
+   */
+  .chip[aria-pressed="true"],
+  .segment[aria-checked="true"],
+  .alert[aria-current="true"],
+  .suggest__row[aria-selected="true"] {
+    forced-color-adjust: none;
+    background: Highlight;
+    color: HighlightText;
+  }
+  .alert[aria-current="true"] *,
+  .chip[aria-pressed="true"] *,
+  .segment[aria-checked="true"] * {
+    color: HighlightText;
+  }
+  .segment-indicator {
+    display: none;
+  }
+  .route-dot {
+    forced-color-adjust: none;
+  }
+  .action {
+    border: 1px solid ButtonText;
+  }
+  .action--primary {
+    forced-color-adjust: none;
+    background: ButtonText;
+    color: ButtonFace;
+  }
+  .switch {
+    forced-color-adjust: none;
+    background: Canvas;
+    box-shadow: inset 0 0 0 1px CanvasText;
+  }
+  .switch::after {
+    background: CanvasText;
+  }
+  .setting[aria-checked="true"] .switch {
+    background: Highlight;
+  }
+  .setting[aria-checked="true"] .switch::after {
+    background: HighlightText;
+  }
+  .search input::placeholder {
+    color: GrayText;
+  }
+}
