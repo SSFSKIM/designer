@@ -6509,3 +6509,21 @@ the demo is a Vite SPA and the bed has no chromatic sparse-line backdrop.
   **Shape of the work:** a unit or golden with a chromatic line grid on black in the dark pose;
   smooth the retention's chroma source over sparse structure and fade it toward the identity as
   `Y_backdrop` approaches black, then re-read M1 on the bed to show nothing else moved.
+
+## The clear variant's dimming policy is required, resolved and never drawn; its constrained adaptation is unread (spatial register, 2026-09-27)
+
+Found reading the runtime for the materialist's second register
+(`2026-09-27-materialist-spatial-register.md`). `resolveMaterial` in `packages/core/src/material.ts`
+refuses a `clear` node without a `DimmingPolicy` (`clear-variant-needs-dimming`, rendered regular)
+and returns `{ variant: "clear", adaptation: "constrained", dimming }` when one is supplied; no
+file under `packages/platform-web/src` or `packages/renderer-webgpu/src` reads `dimming` or
+`adaptation` (`grep -rn dimming` finds one comment in `optics.ts` and the pass-through in
+`root.ts:2430`). So the scrim the policy describes is never painted on either tier, `clear`
+differs from `regular` only by its optics constants (blur σ 4, tint alpha 0.1, rim 1.25 at 0.14,
+uncalibrated: no bed scene declares the variant), and the skill's `optics.md` §10 and the READMEs
+imply a layer that does not exist. Apple's figure is the HIG's conditional "dark dimming layer of
+35% opacity" and the API example's `.black.opacity(0.3)`. The materialist now tells a page to
+paint the layer into its plane. **Shape of the work:** draw the scrim from the resolved policy on
+both tiers (a `direction`-signed layer at `scrim` alpha under the body, inside the surface's own
+silhouette or over the group's footprint, decided against Apple's AVKit behaviour), read it back in
+`GlassGroupState`, and give `clear` a calibration scene so the variant stops being Apple-shaped.

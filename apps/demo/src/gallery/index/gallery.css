@@ -3,11 +3,11 @@
  * so it carries no glass and no depicted material: flat paper, hairlines, the mono
  * inversion. Every value is a token and every type role is the site's own component
  * (`.wordmark`, `.display`, `.lead`, `.h2`, `.body`, `.readout`, `.note`); this file
- * only lays them out as a register of six records, one per hairline-separated row.
+ * only lays them out as eight pages in two registers, one per hairline-separated row.
  *
  * There is no stage on this page, so the site's 45/55 split has nothing to hold on its
  * right. The register takes the width instead: each row reads left to right as index,
- * title and brief, then the record's two lines, aligned down the page like a table.
+ * title and brief, then the register and record lines, aligned like a table.
  */
 
 .gallery {
@@ -76,7 +76,7 @@
   margin: 0;
 }
 
-/* Two single-word labels: the readout's 13rem label column would leave half of it empty. */
+/* Three single-word labels: the readout's 13rem label column would leave half of it empty. */
 .readout--entry .readout__row {
   grid-template-columns: minmax(0, 6rem) minmax(0, 1fr);
 }
