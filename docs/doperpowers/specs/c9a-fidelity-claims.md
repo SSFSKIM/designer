@@ -39854,3 +39854,121 @@ changes in codes: light active LS **0.048137**, minimax **0.053812**; dark activ
 LS **0.108522**, minimax **0.075460**; every inactive method below **0.000198**.
 No shape is reselected and no coefficient refitted. The deeper-than12 support
 witnesses remain zero-basis at either quadrature, so refinement cannot close them.
+
+### 10. Censor-aware survival, and the reporting correction beside its originals
+
+Focused independent edge review reproduced all21,312 support residuals after
+verifying all611 sealed cache files and confirmed uncensored calibration
+witnesses in every stratum. It also found a P2 reporting defect: geometry-only
+`measured` status let a wholly white255 channel appear as a measured zero-error
+pass. The worker verified that example and found a second reporting alias:
+shared geometry's member0 label had been copied onto a column's second member.
+The fits used each member's correct deep input; only the reported identity was
+wrong. Neither finding is hidden by the already-negative verdict.
+
+The additive fix is `edge-correction/attempt-2/`, not a rewrite of the initial
+reports: **660,672** JSONL records (eight selected-method files of79,920, plus
+21,312 support records), **960** summary strata, median and all seven runs.
+Geometry status stays separate from per-channel censor/population status.
+A channel with any required censored sample is **UNMEASURED**, retaining its
+one-sided interval-bound diagnostic rather than passing as measured. Missing
+or below-four populations stay UNMEASURED too. A censored R/B does **not erase
+a measured G failure**: grey255's top-tail G249 against253 retains its4-code
+failure. Actual column member IDs come from ordered cache-record blocks;
+`legacyMember` preserves the old label beside the correction.
+
+Per selected method, the319,680 bins comprise **267,708 fully measured,
+1,520 partly measured and50,452 unmeasured**. Censored/absent/underpopulated
+counts are separately retained and can overlap; they are not additive population
+cuts. The example g255 top exterior shell1 remains geometrically measured but
+has **76 upper-censored samples on every channel**: its old zero residuals are
+diagnostics, never measured passes. The correction changes no coefficient,
+fit input, required set, tolerance or original numerical artifact.
+
+The following is the final selected-fit survival table over calibration AND
+validation. Both LS and numerical-minimax selections fail. Maxima are over
+**measured, uncensored channel comparisons**; partly measured bins retain their
+measured channels. Every threshold here is one code. Each row's exact failures,
+all-channel comparisons, populations and all7 repeats are in the correction.
+
+| endpoint / scale | maximum, LS and minimax | failing bins LS / minimax | worst cell, part/bin/shell/channel |
+| --- | ---: | ---: | --- |
+| light active1x | 65.892857 | 6,924 /7,370 | g128-c-rrect-120x96__rest, left/8/0/R |
+| light active2x | 65.896552 | 16,296 /18,003 | g128-c-rrect-120x96__rest, left/8/0/R |
+| light inactive1x | 55.500000 | 2,063 /2,063 | g255-c-c44__inactive, arc/0/0/R |
+| light inactive2x | 52.000000 | 3,300 /3,300 | g255-c-c44__inactive, arc/0/0/R |
+| dark active1x | 113.125000 | 5,969 /7,106 | g255-c-c44__rest, arc/0/0/R |
+| dark active2x | 105.142857 | 14,174 /16,386 | g255-c-c44__rest, arc/0/0/R |
+| dark inactive1x | 109.500000 | 2,259 /2,259 | g255-c-c44__inactive, arc/0/0/R |
+| dark inactive2x | 102.571429 | 3,893 /3,893 | g255-c-c44__inactive, arc/0/0/G |
+
+The corrected support census confirms the original all-stratum negative on the
+median and **every run**. Over *all* uniform colours, not only §7's grey-control
+subset, active dark reaches **3/4 codes** at1x/2x; light remains4/4. Both inactive
+uniform populations still have no failing channel and maximum0. Their support
+rejection comes entirely from the gradient stand-in, not an identified intrinsic
+inactive interior tail. The separate exterior contour does occur in inactive
+uniform cells, as §8 records.
+
+All **16** correction tests pass, including the real white-rail, mixed-channel
+and column-member regressions. Complete no-write replay matches every record
+and summary exactly, after verifying611 cache files and15 source artifacts;
+Python3.12.3/NumPy2.3.5, no SciPy or optimizer required. The interrupted partial
+report attempt1 was moved, byte-identical and hash-recorded, outside the worktree;
+attempt2 is the authoritative complete output. No old evidence was replaced.
+
+### 11. Exposure, resolution, transfer, CSS, and the proposed Decision Log 2
+
+**No exposure ran.** No body candidate survives the required calibration and
+validation tests, and the edge family has uncensored, coefficient-independent
+calibration failures in all eight strata under the ruled conditioner. There
+is therefore no survivor artifact to freeze and no receipt to spend. The six
+held-out colours and three held-out geometry pairs remain analytically sealed;
+no holdout bar or held-out result is claimed. Under the parent's edge-only
+continuation, a held-out body test would have been “no candidate”, not a pass
+or UNMEASURED—but no exposure was reached at all.
+
+**Resolution is not evaluated**, not labelled “insufficient resolution”: there
+are no surviving predictions to compare at max(3 codes, sum of bars). **Transfer
+table range: not applicable, no survivor.** No canonical row/capture comparison
+or newly rendered number is invented. **CSS reach: not entered, no survivor**;
+no CSS carry/decline measurement or projection is claimed. Shipped material,
+CSS crossings, goldens, floors and adopted thresholds remain the pre-W39 ones,
+with the new gaps recorded rather than accepted silently.
+
+**Decision Log 2 recommendation, not ruled:** nominate none and close G2 at
+these bounded findings without opening G3 or spending the holdout. Preserve
+H3's certified negative, the edge's coefficient-independent negative under the
+ruled conditioner, and the local-only status of H2′/H3′ separately. A next
+charter should address a spatial body on gradients, the genuine active uniform
+tail beyond12 CSS px, and the angular/backdrop-conditioned dark exterior contour,
+with each family declared before fitting. The ordinary-fill comparison rules
+out a shared path translation at the named witnesses, while constant-body
+occupancy/width remains unidentified. Keep every existing bound and required
+population unchanged; the user's ruling remains the next decision.
+
+
+### 12. Verification and scope at hand-back
+
+The focused reporting correction re-review returned **correct, no material
+findings**. It independently passed16 tests, checked unique member/bin
+identities across660,672 records and reproduced all9 JSONL artifacts plus the
+960-stratum summary byte-for-byte under CPython3.12.3/NumPy2.3.5. An initial
+reviewer run under NumPy2.5.3 had already reproduced every JSONL record and
+failed only the runtime-provenance field in the summary; the pinned-runtime
+replay closes that difference. The earlier body correction likewise has its
+clean independent review. The parent's whole-gate review remains separate.
+
+`outcome.json` is the corrected machine outcome:40 body family/stratum rows,
+16 selected edge method/stratum rows and8 coefficient-independent support
+certificates, no surviving candidate and no exposure. Workspace install/build
+passed before testing; calibration and platform-web lint/TypeScript checks
+pass. Synthetic,432-case Metal,13-test body-correction and16-test edge-report
+checks are retained at their execution checkpoints; no browser/native suite or
+capture is claimed. The freeze again reads **1,818 intact**. The protected-path
+diff is empty and the scope audit admits only this evidence directory and this
+existing ledger. Frozen/current evidence, runtime profiles, goldens and adopted
+thresholds still describe the unchanged shipped material, not these failed
+experimental laws. No push or release/version action was taken. G2 performs
+no Screen Recording grant action; restoration remains the separate wave-close
+step under Decision Log4.

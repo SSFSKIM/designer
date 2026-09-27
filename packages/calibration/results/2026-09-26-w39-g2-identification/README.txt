@@ -1,4 +1,4 @@
-W39 G2 identification — in progress; c9a §5.186, charter clause 8.
+W39 G2 identification — DELIVERED FOR PARENT REVIEW; c9a §5.186, charter clause 8.
 
 STEP 1: SYNTHETIC INSTRUMENT, BEFORE ANY NATIVE FIT
 
@@ -362,3 +362,59 @@ or native/archive reader. The interrupted partial attempt1 is retained byte-for-
 byte outside the worktree at /Users/new/vitrea-w39/g2-incomplete-edge-report-attempt-1;
 edge-correction/incomplete-attempt-1-preservation.json pins it. Attempt2 is complete.
 Independent correction re-review follows this checkpoint.
+
+REVIEW CLOSURE AND GATE OUTCOME
+
+The focused edge correction re-review is clean: reviewer-high independently
+passed16 tests, verified unique member/bin identities across660,672 records,
+and replayed all9 JSONL artifacts and the960-stratum summary byte-for-byte under
+CPython3.12.3/NumPy2.3.5. Its first summary-only mismatch used NumPy2.5.3; every
+JSONL record already matched, and the recorded-runtime replay resolved that
+provenance-only difference. No review finding remains open. This does not
+replace the parent's final whole-gate review and the user's Decision Log2.
+
+outcome.json, assembled by close-summary.py from the corrected reports, names
+40 body family/stratum outcomes,16 selected edge method/stratum outcomes and
+8 support certificates. No identified survivor; H4 not applicable; no artifact
+freeze for exposure and NO EXPOSURE. Holdout remains analytically sealed (the
+archive fetcher's integrity hashing is not an analytical exposure). Resolution
+is NOT EVALUATED because there are no surviving predictions; it is not an
+'insufficient resolution' finding. Transfer range and CSS reach are not
+applicable: neither branch opens without a survivor, and no canonical capture
+comparison or CSS measurement is invented.
+
+The ledger is c9a §5.186. Recommendation for Decision Log2, not ruled: nominate
+none and keep the holdout sealed. Keep H3's certified numerical negative, the
+edge's all-coefficient negative under the ruled conditioner, and the local-only
+H2prime/H3prime results distinct. A later declaration should address spatial
+body variation, the genuine active uniform tail beyond12 CSS px, and the dark
+angular/backdrop-conditioned exterior contour, without fitting registration or
+relaxing the required bins. The user's ruling is the next step, not G3 or a
+release. G2 performs no grant restoration; that remains the wave-close action.
+
+REPLAY AND CHECKS
+
+Use fresh scratch destinations for read-neutral.py, identify-body.py and every
+grid output; never redirect over a recorded artifact. The fetched archive path
+is neutral/archive-root.txt. prepare.py constructs a fresh cache, seal-cache.py
+pins it, and fit-grid-gn.py consumes that seal; prepare16.py/sensitivity.py hold
+coefficients fixed. The current caches are /tmp/w39-g2-edge-cache-attempt-2 and
+/tmp/w39-g2-edge-16samples. They are disposable projections, not the record; the
+release archive and committed scripts are the source of replay. The exact cache
+manifest and file bytes are pinned by edge/cache-seal.json.
+
+For the body numerical correction, use CPython3.12.3 in an environment with
+NumPy2.5.3/SciPy1.18.1, then body-correction/replay.py --verify followed by its
+correction-attempt-1.json.gz path. For the edge reporting correction use
+python3.12 (CPython3.12.3/NumPy2.3.5 here), then edge-correction/replay.py --verify
+followed by its attempt-2 directory. Both replays are no-write. No browser,
+native bundle, matrix CLI or canonical capture tree is needed for either.
+
+Workspace install/build passed before tests; calibration and platform-web lint/
+TypeScript checks passed. Synthetic, Metal, numerical correction and reporting
+checks are named above. No broad browser or native suite was run. Every recorded
+freeze checkpoint reads1,818; checks/scope-audit.json admits only this evidence
+directory and the existing claims ledger. Protected scenes, fixtures, documents,
+goldens, thresholds, frozen rows and generations still describe the unchanged
+shipped material; none now claims this experimental family shipped or closed.
+No push, package/version change, native/web capture, or holdout exposure occurred.
