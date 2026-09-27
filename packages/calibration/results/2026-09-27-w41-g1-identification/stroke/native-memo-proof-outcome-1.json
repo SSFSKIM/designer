@@ -1,0 +1,170 @@
+{
+  "kind": "STROKE_NATIVE_MEMO_PROOF_OUTCOME",
+  "rawResultBitsIdentical": true,
+  "orderedTraceIdentical": true,
+  "nativeComparison": "memoization/native-bit-identity-1.json",
+  "unwrappedSolveSeconds": 522.3818862499902,
+  "wrappedSolveSeconds": 388.338322666008,
+  "observedSolveTimeRatio": 1.345172123790798,
+  "timingQualification": "Two separate execution observations, not a controlled throughput benchmark or future speed guarantee.",
+  "wrappedWallSeconds": 542.6392386250664,
+  "peakRSSBytes": 4124164096,
+  "peakDifferenceBytes": 488521728,
+  "memoryQualification": "Observed process high-water; the difference is not attributed solely to cache payload.",
+  "cache": {
+    "enabled": true,
+    "hits": 5627,
+    "misses": 2320,
+    "maxEntriesPerCallback": 2,
+    "maxActiveCaches": 2,
+    "cachePayloadUpperBoundBytes": 17635184,
+    "memoryQualification": "key and result payloads; excludes Python object overhead, uncached evaluation temporaries and the returned array copy"
+  },
+  "actualGateModes": {
+    "before-preparation": "normal",
+    "before-fit": "normal"
+  },
+  "pressureHistory": [
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/pressure/b70e8178eeff452b86e9fe0d589b3112.json",
+      "sha256": "62d690b5040bb566188dfdf418951dc2b99dc5be409b4a8c6f590435cb2d3fa3",
+      "sampledUTC": "2026-09-27T13:34:18.202163+00:00",
+      "pressureLevel": 1,
+      "source": "watch"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/pressure/3619274e406d426ca3920e6aee4c4d78.json",
+      "sha256": "b2ace3de113a32de6ceaa3196396c783c7deb04bd43a0afd2b8715147582a13f",
+      "sampledUTC": "2026-09-27T13:34:48.236199+00:00",
+      "pressureLevel": 1,
+      "source": "watch"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/pressure/9111396bf37d4b9e94ac7b31cda883a8.json",
+      "sha256": "e5ac572b3601f5bec079ba6934ec739d19bef342fe20156a7260c2801a78c720",
+      "sampledUTC": "2026-09-27T13:30:47.968894+00:00",
+      "pressureLevel": 1,
+      "source": "watch"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/pressure/de423302f95748e49297aed387f05049.json",
+      "sha256": "da0ea7606dfcc3b125c8e3e9418749a2cbaf628569244ce7b85d084c7b7a2c71",
+      "sampledUTC": "2026-09-27T13:27:17.759076+00:00",
+      "pressureLevel": 1,
+      "source": "watch"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/pressure/56d3a93ef534446592b2cbeb34cb2d0b.json",
+      "sha256": "5f9c171cf7311b51938161834dd43bd96cebc9073ae74b0be10da9b90f5ae8e5",
+      "sampledUTC": "2026-09-27T13:30:17.948577+00:00",
+      "pressureLevel": 1,
+      "source": "watch"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/pressure/5e45142ff7644be8b9a7a66d02e6c018.json",
+      "sha256": "98bbc3e14e7163bed9b8b33e0a73bdc503e8925c45863dc70e72480e0c59930e",
+      "sampledUTC": "2026-09-27T13:32:18.067320+00:00",
+      "pressureLevel": 1,
+      "source": "watch"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/pressure/940dd1710af44508bb953c27551b44f5.json",
+      "sha256": "9d34d385539e7b3e2ba9e57406be8dcfd62d78aa3eaef9e95d41f756c6a36261",
+      "sampledUTC": "2026-09-27T13:33:48.166550+00:00",
+      "pressureLevel": 1,
+      "source": "watch"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/pressure/cafce0d21229431b9ac3a17692c4cf15.json",
+      "sha256": "1e0b0b92bac816d29154c8ab9738537d97c91d3b4901107229c06a41212a4a84",
+      "sampledUTC": "2026-09-27T13:26:07.366313+00:00",
+      "pressureLevel": 1,
+      "source": "admission"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/pressure/fd9b0b1de89346e9a858699c64b101e6.json",
+      "sha256": "8f5317530eb8e468d218de3a6f57483f34702b67f22e6a4b6f0831ea86c5abe6",
+      "sampledUTC": "2026-09-27T13:29:17.872417+00:00",
+      "pressureLevel": 1,
+      "source": "watch"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/pressure/86091dd5adc648198441273cccc36784.json",
+      "sha256": "5dfaa9c25a58da83ffd49cf135454c46a2d780665844a92e49282746d23d544a",
+      "sampledUTC": "2026-09-27T13:31:18.005943+00:00",
+      "pressureLevel": 1,
+      "source": "watch"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/pressure/709cc0b59d184cad92618dbde1605b8a.json",
+      "sha256": "a9eac2c913e6dc6addd46a5894ea48927cca4825f8a790ebf006fb983a1b5965",
+      "sampledUTC": "2026-09-27T13:32:48.101555+00:00",
+      "pressureLevel": 1,
+      "source": "watch"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/pressure/c0735faf0feb452b882dbfceae09f35a.json",
+      "sha256": "61ce8eeab7978b3febc416b88828115de227550572d7cde933e4224f19385cc1",
+      "sampledUTC": "2026-09-27T13:26:17.717488+00:00",
+      "pressureLevel": 1,
+      "source": "watch"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/pressure/e625025f7f894465aac0bb99f6dccae5.json",
+      "sha256": "922c321a7f7c1e1ed67a84980e90e7c9802c1ae6a0c4c8bf8189b6254a6ee83f",
+      "sampledUTC": "2026-09-27T13:28:47.851412+00:00",
+      "pressureLevel": 1,
+      "source": "watch"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/pressure/81ef74f691e34d2fb50eae95e3d043c9.json",
+      "sha256": "6c4f816897a8d22fe6a54733dcd5c6233c8a22d08e4e3b7e837ab2cb593f99b6",
+      "sampledUTC": "2026-09-27T13:27:47.780119+00:00",
+      "pressureLevel": 1,
+      "source": "watch"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/pressure/197e8cc5efe9475a9bbf8a2f3b7d9eac.json",
+      "sha256": "3f56fa8efd9f7e565f10a42b336bfcc9c35ef5f194345765ad95576fcd61bd4a",
+      "sampledUTC": "2026-09-27T13:31:48.032486+00:00",
+      "pressureLevel": 1,
+      "source": "watch"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/pressure/de4d00c6fc14416793bdaead0b16c996.json",
+      "sha256": "b07aaa532834dc729ca08aea68a948087e832f2882e8ed0ffc1e4bbeef087fde",
+      "sampledUTC": "2026-09-27T13:28:40.384771+00:00",
+      "pressureLevel": 1,
+      "source": "admission"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/pressure/78948b4fc57c4004a0727fd8663970c8.json",
+      "sha256": "36a2537ea748f9191148149ee7a57479358430d45faf3570051013fe728984c4",
+      "sampledUTC": "2026-09-27T13:28:17.818366+00:00",
+      "pressureLevel": 1,
+      "source": "watch"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/pressure/1c31f2a7b28744d186546e0b90124ec9.json",
+      "sha256": "eaa2f72083e5cbdce23353e17daf38e0a1adfc4faa1dd812363f875fe0783f4a",
+      "sampledUTC": "2026-09-27T13:29:47.916201+00:00",
+      "pressureLevel": 1,
+      "source": "watch"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/pressure/de04fd9d272746f09fc9a8976b5d46f3.json",
+      "sha256": "612fa078c6941b8e91dd03fa863f6955de7590c8742e05dd620e0613f1ebcc9e",
+      "sampledUTC": "2026-09-27T13:33:18.123532+00:00",
+      "pressureLevel": 1,
+      "source": "watch"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/pressure/75907ed5a80a49ef98f63662f0142954.json",
+      "sha256": "08620231986a7ed91b5f25f7a0aae57c5288d30b06c50bb4cce5266c122f7b23",
+      "sampledUTC": "2026-09-27T13:26:47.737199+00:00",
+      "pressureLevel": 1,
+      "source": "watch"
+    }
+  ],
+  "prefixRemainedEmpty": true
+}

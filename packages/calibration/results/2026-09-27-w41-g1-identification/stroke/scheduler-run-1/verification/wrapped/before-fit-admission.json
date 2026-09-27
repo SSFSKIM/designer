@@ -1,0 +1,113 @@
+{
+  "sampledUTC": "2026-09-27T13:28:40.406532+00:00",
+  "policyVersion": 3,
+  "resourcePolicy": "stroke-adaptive-v3",
+  "adaptiveMemoryPolicy": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-memory-parent-direction-v3.json",
+    "sha256": "77cadc2730c1fd41e909fb329bf3b6dbb0bae49907fc6b8b6ca7983745f13e1f"
+  },
+  "resourceMode": "normal",
+  "normalGate": {
+    "pressureNormal": true,
+    "fiveSpacedNormal": true,
+    "floorClears": true
+  },
+  "policyCounter": "free + max(inactive, purgeable)",
+  "counterEpoch": "policy-v2 counter correction: max, not the superseded inactive + purgeable sum",
+  "memory": {
+    "availableBytes": 5456478208,
+    "pressureLevel": 1,
+    "pageSizeBytes": 16384,
+    "freePages": 10342,
+    "inactivePages": 322695,
+    "purgeablePages": 1480,
+    "countedPages": 333037,
+    "counter": "free + max(inactive, purgeable)",
+    "counterEpoch": "policy-v2 counter correction: max, not the superseded inactive + purgeable sum",
+    "metric": "macOS (vm_stat Pages free + max(Pages inactive, Pages purgeable)) * page size; reclaimable-headroom heuristic, not a free-memory guarantee",
+    "sampledUTC": "2026-09-27T13:28:40.384771+00:00"
+  },
+  "pressureState": {
+    "admissionsOpen": true,
+    "spacedNormalReadings": 0,
+    "requiredNormalReadings": 5,
+    "lastAbnormalUTC": "2026-09-27T13:22:17.264936+00:00",
+    "readings": 145
+  },
+  "spacedNormalRun": 12,
+  "freshestPressure": {
+    "id": "de4d00c6fc14416793bdaead0b16c996",
+    "sampledUTC": "2026-09-27T13:28:40.384771+00:00",
+    "pressureLevel": 1,
+    "source": "admission"
+  },
+  "disk": {
+    "freeBytes": 75686051840,
+    "volumes": {
+      "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1": 75686051840,
+      "/System/Volumes/VM": 75686051840
+    },
+    "sampledUTC": "2026-09-27T13:28:40.396345+00:00",
+    "source": "shutil.disk_usage free bytes (statvfs)"
+  },
+  "diskFreeBytes": 75686051840,
+  "diskFloorBytes": 21474836480,
+  "swap": {
+    "raw": "total = 8192.00M  used = 7106.75M  free = 1085.25M  (encrypted)\n",
+    "sampledUTC": "2026-09-27T13:28:40.406507+00:00"
+  },
+  "swapExpectation": "normal gate: 1 GiB headroom floor kept after reservations",
+  "processes": [],
+  "effectiveConcurrency": 1,
+  "maxConcurrency": 3,
+  "modeConcurrencyLimit": 3,
+  "reservedBytes": 2059796480,
+  "ownRSSBytes": 1575845888,
+  "observedPeakBytes": 3635642368,
+  "prospectivePeakBytes": 3635642368,
+  "peakEvidence": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-peak-evidence-2.json",
+    "sha256": "4285ea327f011ad8b530e22be8e65e3f8c51ebb242a5afdb7b5206d9bc09452d"
+  },
+  "requiredAvailableBytes": 3133538304,
+  "headroomAfterReservationBytes": 3396681728,
+  "admitted": true,
+  "resourceSourceSha256": {
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/verification-slot/verification_policy_v2.py": "6cbf66a25444d8449ee1492769159cbab68a2f44d00d79ee188ed17bdeb48e84",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler_v2.py": "d5785897b480a176545295cbe25144817b41c314fe9cbe683699bb4d46aa4678",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler_v3.py": "2bbbd2454e2392056412251852a15acba9641c29009fd2705fc186b647b9021b",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/verification-slot/verification_policy_v3.py": "54208ba5a530942e6d8ea518f9a857983190d25f2fb2d2efc0365260a7c745e8"
+  },
+  "memoryPolicy": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-memory-parent-direction-v2.json",
+    "sha256": "8b5c81d8bb8ca08a07d85f57eb77d309ad91da1dfcf267fbbcdd92312bfc32f2"
+  },
+  "memoryCounterDirection": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-memory-counter-clarification.json",
+    "sha256": "a11daa8ccc67c6979739a77153fafeac43db063be1375eab3f32486f8f0eca31"
+  },
+  "pressureSnapshot": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/manual-pressure-completed-snapshot.jsonl",
+    "sha256": "5f193bd315dae8238197582a34513dcc8f8b6a7878b555618fa19cf824c0de0a"
+  },
+  "pressureImport": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/pressure-import.json",
+    "sha256": "db73d5683b9dfeb788d309d99ff31110d291f6fc343eea0d3984d5e8f2eb1268"
+  },
+  "pressureWatcher": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-pressure-watcher-1.json",
+    "sha256": "b68d2a97d8db86273dd35b97eb5a79ae2703cd013385bcd3a0070a9b41d5fe6a"
+  },
+  "watcherReading": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/pressure/78948b4fc57c4004a0727fd8663970c8.json",
+    "sha256": "36a2537ea748f9191148149ee7a57479358430d45faf3570051013fe728984c4"
+  },
+  "kind": "STROKE_VERIFICATION_ADMISSION",
+  "mode": "wrapped",
+  "stage": "before-fit",
+  "pid": 22185,
+  "lease": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/verification/wrapped/lease.json",
+    "sha256": "84980afa25b00accdb8f33c520929a03abbb3c8dc839a4dc210c88be04449f1b"
+  }
+}
