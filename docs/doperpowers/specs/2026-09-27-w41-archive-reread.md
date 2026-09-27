@@ -117,10 +117,13 @@ Three questions, each with the grounding reading that shapes its families:
    to absorb the stroke. The stroke composites outside the path only; the interior shells are
    witnesses that it adds nothing inside; the bright inner line (W35) stays inside and is not
    relabelled. **The active identification is conditional on the held shadow model**: the shadow
-   predictor is proved against the WGSL, not against Apple's shadow, so the exterior bins where
-   the stroke's coverage is zero (the top straight when active; every bin beyond the band) are
-   kept as shadow-only control bins whose residual bounds the predictor's own error, and a small
-   signed active residual is never reported as an independently identified stroke coefficient.
+   predictor is proved against the WGSL, not against Apple's shadow, so **shadow-only control
+   bins** bound the predictor's own error: every exterior bin beyond the band at both scales (the
+   shells that read exactly zero in the inactive pose, where nothing but the shadow can act when
+   active), plus, as a stratum-specific observed zero, the dark-active top straight (memo B: 0 at
+   grey-128 and grey-255 against a held shadow below 0.02). The light-active top straight is NOT a
+   control: it carries −20 codes against a held shadow of −0.0001, i.e. stroke. A small signed
+   active residual is never reported as an independently identified stroke coefficient.
 8. **Nothing shipped moves until a law closes** (W39 clause 9): in G0–G1 no byte under
    `scenes.json`, `fixtures/`, the frozen matrix, `results/generations/`, the six material
    documents, the goldens or any adopted threshold; the freeze reads 1,818 at every merge.
@@ -455,6 +458,11 @@ Deferred.
 
 ## Revision Notes
 
+- 2026-09-27 (v2.1, the parent, on G0's stop): clause 7 had named "the top straight when active"
+  a shadow-only control; that is true of the dark scheme only (memo B: dark active top 0, light
+  active top −20 against a held shadow of −0.0001). Amended: the controls are the exterior bins
+  beyond the band at both scales, plus the dark-active top straight as a stratum-specific observed
+  zero; light active's top is a stroke bin. Recorded before any declaration was hashed.
 - 2026-09-27 (G0 dispatch, the parent): the second adversarial round on the re-cut returned no
   material findings and approved the charter for G0, noting that the exposure runner G0 builds
   needs its own independent review. G0 dispatched on an `astra` high worker (X9).
