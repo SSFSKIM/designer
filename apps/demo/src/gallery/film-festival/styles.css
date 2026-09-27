@@ -1,0 +1,992 @@
+/*
+ * Film festival. Two layers and nothing between them: the still (the plane, a fixed canvas) and
+ * a printed programme that scrolls over it, with three glass controls floating above both.
+ *
+ * Rules this sheet keeps, because the material depends on them:
+ * - no background, border, shadow or backdrop-filter on any registered host (.ff-nav, .ff-days
+ *   and the tickets morph); ink on glass is the runtime's token, set on child elements;
+ * - no filter, opacity, mask or clip-path on any ancestor of the glass root. The scroll edge's
+ *   mask sits on .ff-scroll, a sibling of the root's mount;
+ * - the programme is opaque paper with square corners. Curvature belongs to the controls.
+ */
+
+.ff {
+  --serif: "Iowan Old Style", "Charter", "Palatino", Georgia, serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --margin: 32px;
+
+  /* Light: paper sampled toward the shaded snow in the still, ink toward its slate facade. */
+  --paper: oklch(0.972 0.006 245);
+  --paper-2: oklch(0.945 0.009 245);
+  --ink: oklch(0.24 0.02 252);
+  --ink-2: oklch(0.42 0.018 250);
+  --ink-3: oklch(0.5 0.016 250);
+  --rule: oklch(0.87 0.01 250);
+  --rule-ink: oklch(0.24 0.02 252);
+  /* The ticket red, deepened so it holds 4.5:1 as text on the paper. */
+  --accent: oklch(0.5 0.19 24);
+  --on-accent: oklch(0.99 0 0);
+
+  color: var(--ink);
+  font-family: var(--sans);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  /* Dark: the facade after dark. The still is the same picture in both schemes. */
+  .ff {
+    --paper: oklch(0.2 0.014 245);
+    --paper-2: oklch(0.24 0.016 245);
+    --ink: oklch(0.95 0.008 245);
+    --ink-2: oklch(0.8 0.012 245);
+    --ink-3: oklch(0.72 0.012 245);
+    --rule: oklch(0.34 0.014 245);
+    --rule-ink: oklch(0.88 0.01 245);
+    --accent: oklch(0.72 0.15 22);
+    --on-accent: oklch(0.18 0.02 22);
+    color-scheme: dark;
+  }
+}
+
+html {
+  background: oklch(0.972 0.006 245);
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    background: oklch(0.2 0.014 245);
+  }
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.ff a {
+  color: inherit;
+}
+
+.ff cite {
+  font-style: italic;
+}
+
+/* ---------- the plane ---------- */
+
+.ff-still {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  display: block;
+  z-index: 0;
+}
+
+/*
+ * The scroll edge: the scrolling column is transparent from the viewport's top to just below the
+ * bar and ramps back to opaque over 56 px. `--ff-edge` is the bar's measured bottom plus the
+ * clearance, in the column's own coordinates, written on every scroll (main.tsx).
+ */
+.ff-scroll {
+  position: relative;
+  z-index: 1;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent var(--ff-edge, 80px),
+    #000 var(--ff-edge-end, 136px)
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent var(--ff-edge, 80px),
+    #000 var(--ff-edge-end, 136px)
+  );
+}
+
+/* ---------- the first screen ---------- */
+
+.ff-hero {
+  position: relative;
+  height: 100vh;
+  min-height: 640px;
+  display: flex;
+  align-items: flex-end;
+}
+
+/* The programme's title tab: the sheet's own paper, rising into the still at the bottom left. */
+.ff-tab {
+  width: min(620px, 100%);
+  box-sizing: border-box;
+  padding: 36px var(--margin) 40px;
+  background: var(--paper);
+}
+
+.ff-eyebrow {
+  margin: 0 0 14px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.ff-title {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 58px;
+  line-height: 1;
+  letter-spacing: -0.012em;
+}
+
+.ff-title span {
+  display: block;
+}
+
+.ff-lede {
+  margin: 18px 0 0;
+  font-size: 17px;
+  line-height: 1.45;
+}
+
+.ff-opening {
+  margin: 10px 0 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+
+.ff-opening a {
+  color: var(--accent);
+  font-weight: 600;
+  text-underline-offset: 3px;
+}
+
+/* The still's credit rides on the tab's paper rather than on the photograph, where no line of
+   small type stays legible across tyres, snow and coats. */
+.ff-caption {
+  margin: 22px 0 0;
+  padding-top: 10px;
+  border-top: 1px solid var(--rule);
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--ink-3);
+}
+
+/* ---------- the sheet ---------- */
+
+.ff-sheet {
+  background: var(--paper);
+  padding: 0 var(--margin) 24px;
+}
+
+/*
+ * Anchored by the heading rule rather than the section box: --ff-anchor is the bar's measured
+ * bottom plus the scroll edge (main.tsx), and each section subtracts its own top padding, so the
+ * rule lands just below the edge and the sheet's top edge falls inside the ramp.
+ */
+.ff-section {
+  padding-top: 88px;
+  scroll-margin-top: calc(var(--ff-anchor, 152px) - 88px);
+}
+
+/* The first section's top is the sheet's own edge: land it where the ramp starts, not inside it. */
+.ff-section:first-child {
+  padding-top: 56px;
+  scroll-margin-top: calc(var(--ff-anchor, 152px) - 72px);
+}
+
+.ff-section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  border-top: 1.5px solid var(--rule-ink);
+  padding-top: 14px;
+  margin-bottom: 32px;
+}
+
+.ff-section-head h2 {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 42px;
+  line-height: 1.05;
+}
+
+.ff-section-note {
+  margin: 0;
+  font-size: 15px;
+  color: var(--ink-2);
+}
+
+.ff-day-title {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 24px;
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+
+.ff-day-title span {
+  font-family: var(--sans);
+  font-size: 14px;
+  color: var(--ink-2);
+}
+
+/* ---------- the schedule ---------- */
+
+.ff-schedule-head,
+.ff-schedule-body {
+  display: grid;
+  grid-template-columns: 64px repeat(3, minmax(0, 1fr));
+  column-gap: 16px;
+}
+
+.ff-schedule-head {
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.ff-venue-head {
+  font-size: 13px;
+  color: var(--ink-3);
+}
+
+.ff-venue-head b {
+  display: block;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 23px;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+
+.ff-schedule-body {
+  position: relative;
+  margin-top: 20px;
+  /* One hairline per hour: 60 minutes at 1.4 px a minute. */
+  background-image: repeating-linear-gradient(
+    to bottom,
+    var(--rule) 0 1px,
+    transparent 1px 84px
+  );
+}
+
+.ff-hours {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.ff-hours li {
+  position: absolute;
+  left: 0;
+  transform: translateY(4px);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-3);
+}
+
+.ff-venue {
+  position: relative;
+}
+
+.ff-slots {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  height: 100%;
+}
+
+.ff-slot {
+  position: absolute;
+  left: 0;
+  right: 0;
+  box-sizing: border-box;
+  padding: 7px 12px 8px;
+  background: var(--paper-2);
+  border-top: 2px solid var(--rule-ink);
+  overflow: hidden;
+}
+
+.ff-slot[data-gala] {
+  border-top-color: var(--accent);
+}
+
+.ff-slot p {
+  margin: 0;
+}
+
+.ff-slot-time {
+  font-size: 12px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-2);
+}
+
+.ff-slot-title {
+  margin: 2px 0 1px;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 1.2;
+}
+
+.ff-slot-meta {
+  font-size: 12.5px;
+  line-height: 1.35;
+  color: var(--ink-2);
+}
+
+.ff-slot-strand {
+  margin-top: 3px !important;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.ff-slot[data-gala] .ff-slot-strand {
+  color: var(--accent);
+}
+
+/* ---------- strands ---------- */
+
+.ff-galas {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 48px;
+  margin-bottom: 72px;
+}
+
+.ff-figure {
+  margin: 0;
+}
+
+.ff-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.ff-figure figcaption {
+  margin-top: 10px;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+
+.ff-strand h3 {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 27px;
+}
+
+.ff-strand-line {
+  margin: 6px 0 18px;
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+
+.ff-gala-list,
+.ff-strand-films {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ff-gala-list li {
+  border-top: 1px solid var(--rule);
+  padding: 18px 0 20px;
+}
+
+.ff-gala-list p {
+  margin: 0;
+}
+
+.ff-gala-billing {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.ff-gala-list h4 {
+  margin: 4px 0 4px;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 1.1;
+}
+
+.ff-gala-meta {
+  font-size: 13px;
+  color: var(--ink-2);
+}
+
+.ff-gala-line {
+  margin-top: 8px !important;
+  font-size: 15.5px;
+  line-height: 1.5;
+  max-width: 38em;
+}
+
+.ff-strand-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 40px;
+}
+
+.ff-strand-films li {
+  display: grid;
+  gap: 2px;
+  border-top: 1px solid var(--rule);
+  padding: 11px 0 12px;
+  font-size: 12.5px;
+  color: var(--ink-2);
+}
+
+.ff-strand-films cite {
+  font-family: var(--serif);
+  font-size: 17px;
+  color: var(--ink);
+}
+
+/* ---------- passes ---------- */
+
+.ff-passes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.ff-pass {
+  display: flex;
+  flex-direction: column;
+  padding: 4px 28px 8px;
+  border-left: 1px solid var(--rule);
+  scroll-margin-top: var(--ff-anchor, 152px);
+}
+
+.ff-pass:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+.ff-pass h3 {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 23px;
+}
+
+.ff-pass-price {
+  margin: 6px 0 10px;
+  font-family: var(--serif);
+  font-size: 60px;
+  line-height: 1;
+  font-variant-numeric: lining-nums;
+}
+
+.ff-pass-detail {
+  margin: 0 0 22px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ink-2);
+  flex: 1;
+}
+
+.ff-pass-buy {
+  align-self: flex-start;
+  appearance: none;
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  font: 600 14px/1 var(--sans);
+  padding: 11px 18px;
+  cursor: pointer;
+}
+
+.ff-pass-buy:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.ff-pass-note {
+  margin: 36px 0 0;
+  max-width: 44em;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+
+/* ---------- visit ---------- */
+
+.ff-venues {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 40px;
+}
+
+.ff-venue-card {
+  border-top: 1px solid var(--rule);
+  padding-top: 14px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+
+.ff-venue-card h3 {
+  margin: 0 0 4px;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 27px;
+  color: var(--ink);
+}
+
+.ff-venue-card p {
+  margin: 0 0 6px;
+}
+
+.ff-venue-address {
+  color: var(--ink);
+}
+
+.ff-settings {
+  margin-top: 64px;
+  border-top: 1px solid var(--rule);
+  padding-top: 14px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 2fr);
+  align-items: center;
+  gap: 32px;
+}
+
+.ff-settings h3 {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 27px;
+}
+
+.ff-settings p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+
+.ff-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.ff-switch input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.ff-switch-track {
+  position: relative;
+  width: 46px;
+  height: 28px;
+  border-radius: 14px;
+  box-sizing: border-box;
+  border: 1.5px solid var(--ink-2);
+}
+
+.ff-switch-track::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  background: var(--ink-2);
+  transition: transform 160ms ease;
+}
+
+.ff-switch input:checked + .ff-switch-track {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+.ff-switch input:checked + .ff-switch-track::after {
+  background: var(--on-accent);
+  transform: translateX(18px);
+}
+
+.ff-switch input:focus-visible + .ff-switch-track {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ff-switch-track::after {
+    transition: none;
+  }
+}
+
+/* ---------- footer ---------- */
+
+.ff-footer {
+  background: var(--paper);
+  padding: 40px var(--margin) 56px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--ink-2);
+}
+
+.ff-footer p {
+  margin: 0 0 6px;
+  max-width: 60em;
+}
+
+.ff-footer::before {
+  content: "";
+  display: block;
+  border-top: 1px solid var(--rule);
+  margin-bottom: 18px;
+}
+
+/* ---------- the floating layer ---------- */
+
+/* The bar is plain DOM in the base plane's host layer; the material is its three hosts. */
+.ff-bar {
+  position: absolute;
+  top: 20px;
+  left: var(--margin);
+  right: var(--margin);
+  height: 48px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  font-family: var(--sans);
+}
+
+/*
+ * Below 1360 px a centred day control crowds the navigation inside the groups' sampling padding
+ * (a 16 px gap at 1280, reported by the runtime), so the row spreads its three groups instead,
+ * never closer than 48 px, which is past the padding at span 48 under every preference.
+ */
+@media (max-width: 1359px) {
+  .ff-bar {
+    display: flex;
+    justify-content: space-between;
+    gap: 48px;
+  }
+}
+
+/* The user-agent reset, at zero specificity so each control's own class still sets its type. */
+:where(.ff-bar, .ff-tickets) button {
+  appearance: none;
+  background: none;
+  border: 0;
+  margin: 0;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+/* Host: a capsule of span 48. Its links are the controls; the capsule is their shared glass. */
+.ff-nav {
+  justify-self: start;
+  display: flex;
+  align-items: center;
+  height: 48px;
+  box-sizing: border-box;
+  padding: 0 6px 0 22px;
+}
+
+.ff-wordmark {
+  margin-right: 12px;
+  font-family: var(--serif);
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: 0.005em;
+  text-decoration: none;
+  color: inherit;
+}
+
+.ff-nav-link {
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 11px;
+  /* Concentric with the capsule: 24 − 6. */
+  border-radius: 18px;
+  font-size: 14.5px;
+  font-weight: 500;
+  text-decoration: none;
+  color: inherit;
+}
+
+.ff-nav-link[aria-current] {
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 7px;
+}
+
+.ff-nav a:focus-visible,
+.ff-bar button:focus-visible,
+.ff-tickets button:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: -3px;
+}
+
+.ff-wordmark:focus-visible {
+  border-radius: 6px;
+}
+
+/*
+ * Host: the day control, a capsule of span 48 (radius 24 is declared to the runtime). Positioned,
+ * because its indicator is placed against it: on the GPU tier the runtime's own transform on the
+ * track happens to make it the containing block, on the CSS tier nothing does, and the indicator
+ * landed beside Tickets.
+ */
+.ff-days {
+  position: relative;
+  justify-self: center;
+  display: flex;
+  align-items: center;
+  height: 48px;
+  box-sizing: border-box;
+  padding: 0 4px;
+}
+
+.ff-day {
+  position: relative;
+  z-index: 1;
+  width: 76px;
+  height: 40px;
+  border-radius: 20px;
+  font-size: 14.5px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.ff-day[aria-checked="true"] {
+  font-weight: 650;
+}
+
+/*
+ * The day control's ink is the page's, chosen from measurement rather than picked per frame. Over
+ * this still at 1440 x 900 the dark material's plain body sits at encoded 0.43 to 0.49 under the
+ * days, on the runtime's crossover: its pick was right on the GPU tier and wrong on the CSS tier
+ * with the window unfocused (white, 3.99:1, where black gives 4.36 to 4.88; no ink reaches 4.5
+ * under "Sun 21" there, DESIGN.md). At 1280 the crop puts the days over brighter pixels and black
+ * holds 6.3:1. So the labels are black, except where the dark scheme's material goes dark, under
+ * Reduce Transparency (white 9.6:1) and Increase Contrast (white 6.5:1, black 1.9). `data-ink` is
+ * set by the page (main.tsx).
+ */
+.ff-days {
+  --ff-day-ink: 0 0 0;
+  --ff-day-ink-inverse: 255 255 255;
+}
+
+.ff-days[data-ink="light"] {
+  --ff-day-ink: 255 255 255;
+  --ff-day-ink-inverse: 0 0 0;
+}
+
+.ff-days .ff-day {
+  color: rgb(var(--ff-day-ink));
+}
+
+/*
+ * The indicator is a fill on the glass, not glass: the ink, nearly solid, with the selected label
+ * in the opposite pole. A plate that only tinted the glass either vanished on the light material or
+ * darkened the selected label's ground under dark ink (4.11:1); an ink pill states the day in both
+ * schemes and every pose. Concentric with the track.
+ */
+.ff-day-indicator {
+  background: rgb(var(--ff-day-ink) / 0.9);
+}
+
+.ff-days .ff-day[aria-checked="true"] {
+  color: rgb(var(--ff-day-ink-inverse));
+}
+
+.ff-tickets-slot {
+  justify-self: end;
+}
+
+.ff-tickets-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 48px;
+  padding: 0 20px 0 24px;
+  border-radius: 24px;
+  font-size: 15px;
+  font-weight: 650;
+}
+
+/*
+ * The Tickets label's pole is the page's (main.tsx, from measurement): white on the red shade the
+ * tint keeps whenever the window is active, black once the recede turns it a light grey, white on
+ * the dark scheme's receded frost. The runtime's pick was right without Increase Contrast and
+ * wrong in two of four states with it (3.53:1, 2.38:1); its white carries 0.80 alpha (4.46:1).
+ */
+.ff-tickets .ff-tickets-trigger[data-ink="light"] {
+  color: #fff;
+}
+
+.ff-tickets .ff-tickets-trigger[data-ink="dark"] {
+  color: #000;
+}
+
+/* The morph host is not vibrant, so its content names the runtime's ink itself. */
+.ff-tickets {
+  font-family: var(--sans);
+  color: var(--vitrea-foreground);
+}
+
+/* The open platter: a span of about 250 at radius 28; rows inset 8 take 28 − 8 = 20. */
+.ff-platter {
+  width: 300px;
+  box-sizing: border-box;
+  padding: 4px 8px 8px;
+  font-family: var(--sans);
+}
+
+.ff-platter-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+  padding-left: 16px;
+}
+
+.ff-platter-title {
+  font-size: 15px;
+  font-weight: 650;
+}
+
+.ff-platter-close {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+}
+
+.ff-platter-menu {
+  display: grid;
+  margin-top: 4px;
+  padding-top: 4px;
+  /* A hairline in the primary ink at low strength. The quaternary token would do the same job,
+     but the runtime warns about it document-wide while any thin surface is on the page. */
+  border-top: 1px solid color-mix(in srgb, var(--vitrea-foreground, #000) 14%, transparent);
+}
+
+.ff-platter-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 46px;
+  padding: 0 16px;
+  border-radius: 20px;
+  font-size: 15px;
+  font-weight: 500;
+  text-align: left;
+}
+
+/*
+ * A menu's highlight: the ink pole nearly solid, the label in the opposite pole, as a macOS menu
+ * highlights its row. A light wash of ink was tried first and cost the focused row its ratio
+ * (4.06:1 on the dark platter over the still).
+ */
+.ff-platter-row:hover,
+.ff-platter-row:focus-visible {
+  background: color-mix(in srgb, var(--vitrea-foreground, #000) 88%, transparent);
+  outline: none;
+}
+
+@supports (color: rgb(from red r g b)) {
+  .ff-tickets .ff-platter-row:hover,
+  .ff-tickets .ff-platter-row:focus-visible {
+    background: rgb(from var(--vitrea-foreground) r g b / 0.88);
+    color: rgb(from var(--vitrea-foreground) calc(255 - r) calc(255 - g) calc(255 - b) / 1);
+  }
+}
+
+.ff-platter-price {
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+
+/*
+ * Ink on glass: the runtime's pick of pole, made opaque. The published primary is black at 0.85
+ * or white at 0.80; over the bright still, the dark material's bodies land in the band (encoded
+ * 0.43 to 0.48) where that alpha costs the ratio, measured at 3.55 to 4.34:1. The page keeps the
+ * runtime's choice of black or white, and its crossover, and sets the ratio itself on the child.
+ */
+@supports (color: rgb(from red r g b)) {
+  .ff-nav,
+  .ff-tickets {
+    /* Relative colour keeps the origin's alpha unless it is written out. */
+    color: rgb(from var(--vitrea-foreground) r g b / 1);
+  }
+}
+
+/*
+ * Ink per label, where the page has measured the label's own ground (main.tsx; `beneath.ts`,
+ * `inkOver`). The runtime picks one pole per surface, and a platter opened across the sheet's edge
+ * has a body on both sides of the crossover: black reads over the still's half, white over the
+ * paper's. A row's highlight is its own ink as a fill, with the label in the other pole.
+ */
+.ff-nav a[data-ink="dark"],
+.ff-tickets .ff-platter-head[data-ink="dark"],
+.ff-tickets .ff-platter-row[data-ink="dark"] {
+  --ff-label-ink: 0 0 0;
+  --ff-label-ink-inverse: 255 255 255;
+  color: rgb(var(--ff-label-ink));
+}
+
+.ff-nav a[data-ink="light"],
+.ff-tickets .ff-platter-head[data-ink="light"],
+.ff-tickets .ff-platter-row[data-ink="light"] {
+  --ff-label-ink: 255 255 255;
+  --ff-label-ink-inverse: 0 0 0;
+  color: rgb(var(--ff-label-ink));
+}
+
+.ff-tickets .ff-platter-row[data-ink]:hover,
+.ff-tickets .ff-platter-row[data-ink]:focus-visible {
+  background: rgb(var(--ff-label-ink) / 0.88);
+  color: rgb(var(--ff-label-ink-inverse));
+}
+
+/* Forced colours: the runtime removes the glass; the selection and focus still need a mark. */
+@media (forced-colors: active) {
+  .ff-day-indicator {
+    border: 2px solid Highlight;
+    box-sizing: border-box;
+  }
+
+  .ff-platter-row:focus-visible {
+    outline: 2px solid Highlight;
+  }
+}

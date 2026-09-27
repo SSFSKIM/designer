@@ -1,0 +1,10 @@
+{
+  "slug": "film-festival",
+  "r23": 1,
+  "r23Strict": 0,
+  "evidence": "Post-fix source (reviewer-medium, 2026-09-27): (a) the Tickets platter arrives through GlassMorph (Bar.tsx:139-178), no opacity transition; (b) every interactive glass host carries the runtime's press through the channel properties (interaction.ts:222-230) and no colour-swap press exists; plain buttons inside the OPEN platter have no press of their own (Bar.tsx:229-245) because the runtime disables an open morph host's interaction (tracked): strict reading fails, scoped reading (spec Decision Log, 2026-09-27) holds; (c) no glass host transitions opacity, background or filter (styles.css:627 is a content transform).",
+  "spanExceptions": [],
+  "verifiedFindings": {"fixed": [1, 3], "partly": [2], "residual": "the hint is read at the morph's endpoint, not its moving box, for the ~400 ms spring when the platter opens or closes across the sheet's edge; recorded in DESIGN.md"},
+  "recordedContrastFailures": "QA12 fails in the record with three narrow dark-scheme exceptions outside the audit's captured states: 'Sun 21' 4.36 in the receded CSS state, 'Visit' 4.36-4.43 at 1280 wide, the one platter row the sheet's edge crosses 4.41-4.43; the audit's assigned r18 (both schemes, 1440x900, rest/tiles/menu) passes 52/52",
+  "postFixAudit": "audit/film-festival.json (52/52 glass pairs both schemes at fv, tile-2, tile-3 and menu, min 6.2 light / 4.64 dark, zero diagnostics, zero ban findings; three surfaces, span 48, one tinted)"
+}
