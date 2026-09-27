@@ -1,0 +1,32 @@
+{
+  "schema": "w41-e3-rendered-scoring-observed-timing-1",
+  "backgroundTask": "bynjcb5dz",
+  "processPID": 68086,
+  "completionExitCode": 0,
+  "taskLogCreatedAt": "2026-09-27T10:14:07.753542+00:00",
+  "scoringDirectoryCreatedAt": "2026-09-27T10:14:08.581329+00:00",
+  "summaryWrittenAt": "2026-09-27T10:42:50.047626+00:00",
+  "scoringAndSerializationObservedSeconds": 1721.4662973880768,
+  "taskLogToSummaryObservedSeconds": 1722.2940838336945,
+  "timingSemantics": "Filesystem witnesses, not instrumented process start/exit. Scoring directory is created after input validation before guarded reads; summary is last written output. Exact total CPU and exit timestamps were not recorded by unchanged scorer.",
+  "processSample": {
+    "elapsedSeconds": 1602,
+    "cpuSeconds": 1358.2,
+    "instantaneousCPUPercent": 76.6,
+    "rssKiB": 106320,
+    "provenance": "One ps diagnostic during the run: elapsed26:42, CPU22:38.20; not final process counters"
+  },
+  "scope": {
+    "cells": 536,
+    "calibration": 464,
+    "validation": 72,
+    "holdout": 0
+  },
+  "extrapolation": {
+    "calvalObservedSecondsPerRenderedCell": 3.211690853335964,
+    "sixtyFourRenderedCellsProportionalSeconds": 205.5482146135017,
+    "qualification": "Rough CPU-workflow scaling only; excludes browser capture, numerical72 scoring, receipt fsync/verification, changed geometry mix, concurrency and hardware contention. Not an exposure completion promise."
+  },
+  "nativeHoldoutOpened": false,
+  "browsersLaunched": 0
+}

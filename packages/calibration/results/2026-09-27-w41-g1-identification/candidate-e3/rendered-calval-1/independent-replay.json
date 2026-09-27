@@ -1,0 +1,73 @@
+{
+  "schema": "w41-e3-rendered-independent-replay-1",
+  "reviewer": "doperpowers:reviewer-high",
+  "verdict": "correct",
+  "materialFindings": [],
+  "method": "Independent one-cell-at-a-time streaming of retained full raw scores, recomputation of deep errors, repeat-derived bars, hard-rail deficits and pass flags, veto comparisons, exact membership, actual PNG hashes and source witnesses; no native payload reads",
+  "cells": 536,
+  "roles": {
+    "calibration": 464,
+    "validation": 72
+  },
+  "strata": 24,
+  "claimedUniform": {
+    "cells": 130,
+    "measured": 128,
+    "censored": 2,
+    "worstDeepErrorCodes": 1,
+    "failedCells": 0,
+    "hardRailComparisons": 16,
+    "hardRailFailures": 0
+  },
+  "structuredDiagnostic": {
+    "cells": 4,
+    "worstDeepErrorCodes": 0
+  },
+  "identity": {
+    "cells": 402,
+    "byteMismatches": 0
+  },
+  "unclaimedRawDeep": {
+    "failedCells": 382,
+    "maximumErrorCodes": 125
+  },
+  "admittedVetoBins": {
+    "total": 246632,
+    "deep": 536,
+    "interior": 190376,
+    "exterior": 55720
+  },
+  "deficientVetoBins": {
+    "total": 43344,
+    "interior": 34744,
+    "exterior": 8600
+  },
+  "vetoChannelComparisons": 5919168,
+  "vetoFailures": 0,
+  "worstVeto": {
+    "codes": 1,
+    "cell": "apple-macos-27.0-2x-light-standard-glass0.5/v270-c-c44__inactive",
+    "member": 0,
+    "side": "top",
+    "part": "straight",
+    "shell": -1,
+    "bin": 12,
+    "repeat": "median",
+    "channel": "R"
+  },
+  "maximumWorseningByRegion": {
+    "deep": 0,
+    "interior": 1,
+    "exterior": 0
+  },
+  "checkpointCommit": "9e328b6d952d87d2c90926b1b4bd18411036f32f",
+  "checkpointSha256": "a642015018c1660bf1678c24671ae7c9c886d470f2f5eaf811fe8281c43da362",
+  "sourceWitnessesVerified": 28,
+  "admissionGzipLosslessWitnessVerified": true,
+  "approximatePeakRSSMiB": 120,
+  "nativePayloadReads": 0,
+  "browsersLaunched": 0,
+  "holdoutOpened": false,
+  "exposureAttempted": false,
+  "scope": "rendered calibration/validation result only, not full600freeze or exposure authorization"
+}

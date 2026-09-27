@@ -1,0 +1,8 @@
+{
+  "sourceFile": "reduction-source.txt",
+  "sha256": "c5852665cc1b820b10d4da632ccb02db0748ecf541808da3eee3ebaa69be4345",
+  "kind": "Post-read reduction evidence, never imported by renderer/scorer/runner",
+  "command": "python3.12 /tmp/w41-e3-summarize-rendered.py",
+  "nativePayloadReads": 0,
+  "description": "Stream original retained score object one cell at a time; derive strata and validate mandatory raw score fields with unchanged runner.aggregate; existing strata output refuses overwrite."
+}

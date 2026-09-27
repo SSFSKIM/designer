@@ -1,0 +1,123 @@
+from pathlib import Path
+import gzip,json,sys,collections,hashlib
+P=Path('/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/candidate-e3')
+sys.path.insert(0,str(P));import scorer as s
+
+def entries(path):
+    # Consume one top-level object member at a time. json.JSONDecoder validates each
+    # complete value; exact trailing delimiters and final EOF are checked separately.
+    decoder=json.JSONDecoder();buffer='';eof=False
+    with gzip.open(path,'rt') as f:
+        def refill():
+            nonlocal buffer,eof
+            chunk=f.read(1048576);eof=not chunk;buffer+=chunk
+        def whitespace():
+            nonlocal buffer
+            while True:
+                buffer=buffer.lstrip()
+                if buffer or eof:return
+                refill()
+        def value():
+            nonlocal buffer
+            whitespace()
+            while True:
+                try:obj,end=decoder.raw_decode(buffer);buffer=buffer[end:];return obj
+                except json.JSONDecodeError:
+                    if eof:raise
+                    refill()
+        def token(expected):
+            nonlocal buffer
+            whitespace();assert buffer.startswith(expected),(expected,buffer[:80]);buffer=buffer[len(expected):]
+        token('{');first=True
+        while True:
+            whitespace()
+            if buffer.startswith('}'):
+                token('}');whitespace();assert not buffer and eof;break
+            if not first:token(',')
+            key=value();assert isinstance(key,str);token(':');row=value();yield key,row;first=False
+
+def witness(cell,member,part,reading,channel,value,**extra):
+    return dict(cell=cell,member=member,part=part,repeat='median' if reading==0 else reading-1,
+                channel='RGB'[channel],codes=value,**extra)
+
+def keep(record,name,row):
+    if record.get(name) is None or row['codes']>record[name]['codes']:record[name]=row
+
+def bucket():
+    return dict(cells=0,measured=0,censored=0,rawDeepFailures=0,claimedDeepFailures=0,
+                vetoFailedCells=0,identityCells=0,identityByteFailures=0,
+                vetoBins=0,populationDeficientVetoBins=0,admittedVetoBins=0,
+                deepMembers=0,deepChannelComparisons=0,deepRailComparisons=0,
+                vetoChannelComparisons=0,worstDeepMeasured=None,worstVetoWorsening=None,
+                worstVetoCandidateResidual=None,worstEdgeMeasured=None)
+
+strata={};compact={};membership=set();totals=bucket();count=0
+for cell,row in entries(P/'rendered-calval-1/scores.json.gz'):
+    assert cell not in membership;membership.add(cell);count+=1
+    endpoint,bg=s.identity(cell);profile,sid=cell.split('/',1);_,scale=s.base.component(cell)
+    role=s.wave.roles[sid];assert role!='holdout'
+    key=(endpoint,role,scale,bg['kind'])
+    group=strata.setdefault(key,bucket());targets=(totals,group)
+    raw_pass=row.get('passes') is True or row.get('constraintsPass') is True
+    for target in targets:
+        target['cells']+=1;target['measured']+=row['status']=='measured';target['censored']+=row.get('reason')=='censored'
+        target['rawDeepFailures']+=not raw_pass
+        target['claimedDeepFailures']+=row['disposition']=='claimed uniform body' and not raw_pass
+        target['vetoFailedCells']+=not row['vetoPass']
+        target['identityCells']+=row['disposition']=='not claimed (identity)'
+        target['identityByteFailures']+=row['disposition']=='not claimed (identity)' and not row['identityBytesEqual']
+    assert len(row['stateMembership'])==7
+    for deep in row['deep']:
+        score=deep['score'];assert len(score['runs'])==7 and min(score['pixels'])>=4
+        for target in targets:target['deepMembers']+=1
+        for ri,r in enumerate([score['median'],*score['runs']]):
+            for ch,error in enumerate(r['errorCodes']):
+                for target in targets:
+                    target['deepChannelComparisons']+=1;target['deepRailComparisons']+=r['railChannels'][ch]
+                    if error is not None:keep(target,'worstDeepMeasured',witness(cell,deep['member'],'deep',ri,ch,error,bound=max(1,score['barRGB'][ch])))
+    for v in row['veto']:
+        sc=v['score'];admitted=sc['passes'] is not None
+        for target in targets:
+            target['vetoBins']+=1;target['populationDeficientVetoBins']+=not admitted;target['admittedVetoBins']+=admitted
+        if not admitted:continue
+        assert len(sc['runs'])==7
+        detail={k:v[k] for k in ('side','shell','bin') if k in v}
+        for ri,r in enumerate([sc['median'],*sc['runs']]):
+            for ch,value in enumerate(r['worseningRGB']):
+                for target in targets:
+                    target['vetoChannelComparisons']+=1
+                    keep(target,'worstVetoWorsening',witness(cell,v['member'],v['part'],ri,ch,value,**detail))
+                    keep(target,'worstVetoCandidateResidual',witness(cell,v['member'],v['part'],ri,ch,r['candidateResidualRGB'][ch],**detail))
+    for v in row['rawRendered']['exterior']+row['interiorTransfer']:
+        sc=v['score']
+        if sc['pixels']<4:continue
+        detail={k:v[k] for k in ('side','shell','bin') if k in v}
+        for ri,r in enumerate([sc['median'],*sc['runs']]):
+            for ch,error in enumerate(r['errorCodes']):
+                if error is not None:
+                    for target in targets:keep(target,'worstEdgeMeasured',witness(cell,v['member'],v['part'],ri,ch,error,bound=max(1,sc['barRGB'][ch]),**detail))
+    compact[cell]={k:row[k] for k in ('status','reason','passes','constraintsPass','diagnostic','vetoPass') if k in row}
+    s.runner.observation(compact[cell])
+    if count%100==0:print('summarized',count,flush=True)
+expected,_=s.runner.admitted_scope(s.ROOT,s.wave)
+rendered=[c for c in expected['rendered'] if s.wave.roles[c.split('/',1)[1]]!='holdout']
+numerical=[c for c in expected['numerical'] if s.wave.roles[c.split('/',1)[1]]!='holdout']
+assert membership==set(rendered) and count==536
+num=dict(entries(P/'calval-2/scores.json.gz'))
+assert set(num)==set(numerical)
+candidate='body-e3-light-inactive'
+claims={candidate:s.load(s.G1/'exposure/body-e3-claim-scope.json')}
+try:
+    coverage,assessments=s.runner.aggregate(s.wave,{candidate:dict(numerical=num,rendered=compact)},
+        {candidate:{}},claims,numerical,rendered)
+    verdict=dict(survives=True,coverage=coverage,validation='unchanged runner.aggregate on exact same mandatory fields extracted from complete retained raw scores; no receipt or token')
+except Exception as ex:verdict=dict(survives=False,errorType=type(ex).__name__,error=str(ex))
+report=dict(schema='w41-e3-rendered-calval-strata-1',totals=totals,
+    strata=[dict(endpoint=k[0],role=k[1],scale=k[2],backgroundKind=k[3],**v) for k,v in sorted(strata.items())],
+    aggregate=verdict,scoreSha256=s.sha(P/'rendered-calval-1/scores.json.gz'),
+    numericalScoresSha256=s.sha(P/'calval-2/scores.json.gz'),nativeHoldoutOpened=False,browsersLaunched=0,
+    scope='536 committed calibration/validation captures only; not full600freeze or exposure',
+    qualifier='Raw unclaimed and structured deep misses retained, not admission failures. Edge absolute residuals diagnostic; all admitted deep/interior/exterior worsening vetoes bind.')
+out=P/'rendered-calval-1/strata.json'
+with out.open('x') as f:f.write(json.dumps(report,indent=2,sort_keys=True,allow_nan=False)+'\n')
+print(json.dumps({'totals':totals,'aggregate':verdict},indent=2),flush=True)
