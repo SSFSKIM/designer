@@ -1,0 +1,32 @@
+......F..........F.F.......
+======================================================================
+FAIL: test_error_paths_fail_closed_but_retain_valid_rss_readings (test_scheduler.SchedulerTests.test_error_paths_fail_closed_but_retain_valid_rss_readings)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/test_scheduler.py", line 358, in test_error_paths_fail_closed_but_retain_valid_rss_readings
+    self.assertEqual(later['prospectivePeakBytes'], 6 * scheduler.GIB)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1073741824 != 6442450944
+
+======================================================================
+FAIL: test_prefit_rss_highwater_outlives_its_process (test_scheduler.SchedulerTests.test_prefit_rss_highwater_outlives_its_process)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/test_scheduler.py", line 339, in test_prefit_rss_highwater_outlives_its_process
+    self.assertEqual(later['prospectivePeakBytes'], 4 * scheduler.GIB)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1073741824 != 4294967296
+
+======================================================================
+FAIL: test_refused_admission_rss_highwater_persists_after_rss_falls (test_scheduler.SchedulerTests.test_refused_admission_rss_highwater_persists_after_rss_falls)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/test_scheduler.py", line 318, in test_refused_admission_rss_highwater_persists_after_rss_falls
+    with self.assertRaises(scheduler.Deferred) as refused:
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+AssertionError: Deferred not raised
+
+----------------------------------------------------------------------
+Ran 27 tests in 0.327s
+
+FAILED (failures=3)

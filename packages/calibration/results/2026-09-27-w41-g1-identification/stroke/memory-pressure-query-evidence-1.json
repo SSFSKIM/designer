@@ -1,0 +1,12 @@
+{
+  "sampledUTC": "2026-09-27T11:08:40.993594+00:00",
+  "cliCommand": [
+    "/usr/bin/memory_pressure",
+    "-Q"
+  ],
+  "rawCLI": "The system has 17179869184 (1048576 pages with a page size of 16384).\nSystem-wide memory free percentage: 53%\n",
+  "rawSysctl": "kern.memorystatus_vm_pressure_level: 1\n",
+  "memoryPressureBinarySha256": "1b5a6793486dbf9f607d1d1c0adfda08f271b95170435cee8561338acb5c4744",
+  "interpretation": "CLIquery reports freepercentage only; NORMALpredicate is explicitkernelpressurelevel1, notpercentageheuristic. No pressurewasappliedorsimulated.",
+  "source": "Parentacceptedinstalled-tool+SDKequivalenceproof recordedinscheduler/interface.txt"
+}

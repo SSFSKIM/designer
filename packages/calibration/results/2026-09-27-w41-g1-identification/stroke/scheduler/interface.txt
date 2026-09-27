@@ -1,0 +1,243 @@
+W41 stroke scheduler: parent-authored receipt interface
+
+This is a one-start foreground command. It never stops a process, creates its own
+launch authority, discovers spare capacity, retries a failed claim, or modifies
+old results. The parent must choose ONE state root and register all three old
+static workers. All cooperating launches must use that root. The parent controls
+receipt authorship and expected SHA-256 values; hashes check identity, not who
+approved a document or whether a certificate is mathematically correct.
+
+Commands (use the fit environment's Python with -B)
+  python -B scheduler.py init     --root ROOT --receipt ROSTER --sha256 SHA
+  python -B scheduler.py transfer --root ROOT --receipt HANDOFF --sha256 SHA
+  python -B scheduler.py run      --root ROOT --receipt LAUNCH --sha256 SHA
+
+init creates ROOT exclusively. transfer prints the remaining tasks in original
+queue order. run claims exactly the receipt's one task, prepares only guarded
+inactive calibration, checks memory again, calls the sealed fitter, and exits.
+No command waits for capacity. A refusal before claim is safe to request again
+with unchanged authority once conditions change. A claim that exists is NEVER
+reused. Parent reconciliation is required for a claim whose preparation failed,
+whose second check errored, or that crashed; this tool provides no retry verb.
+
+NO-FIT deferral (parent ruling relayed by G1owner). A claim REFUSED by its second
+(pre-fit) admission check, before its solver-start marker, is a no-fit deferral,
+not a failed attempt: run writes ROOT/deferrals/<claim name>.json with
+solverStarted=false, the memory reading and the refusal decision, then exits
+non-zero. Only such a receipt re-admits, and only through a NEW parent LAUNCH
+that names it as deferredPredecessor; that creates a new linked claim for the
+same original task, seed and full budget. Nothing loops or relaunches itself.
+Not deferrals: preparation or native errors, an unparseable/unreadable memory
+reading (fail closed as an error), a kill, and any refusal of a claim-time check
+(no claim exists then; request again). Immediately before the first optimizer
+call, run publishes and fsyncs ROOT/started/<claim name>.json. Anything after
+that marker is an attempt, including a crash that leaves the marker with no
+outcome: completed or partially fitted attempts are never re-admitted without a
+separate ruling. Results stay exact-once per task, and a result is published only
+for the registered claim itself, with its own matching solver-start marker and no
+deferral or failure. A cap-only pre-fit refusal is also a NO-FIT deferral (G1owner
+confirmed: no optimizer call or budget was consumed); its reasons stay recorded.
+Known limitation: a crash after the pre-fit refusal is logged but before its
+deferral receipt is linked leaves a claim with no deferral. It is NOT
+re-admissible; the parent reconciles it manually.
+No handoff or new fit is possible before an explicit CAPTURESRELEASE artifact.
+
+Notation
+  REF = {"path": "/absolute/canonical/file", "sha256": "full lowercase SHA-256"}
+  TASK = ["M1" or "M2", "device" or "css" or "curvature", original index 0..15]
+  ROOT must be canonical/absolute (on macOS resolve /tmp to /private/tmp).
+  Times are timezone-qualified ISO-8601. Write receipts as immutable new files.
+
+ROSTER
+  kind: "STROKE_ROSTER"
+  schedulerRoot: ROOT
+  oldOwners: exactly three objects, one per partition
+    partition: 0, 1, or 2
+    pid: actual Python worker PID, NOT its shell or task-service wrapper
+    taskId: the parent's identity for that old background task
+    outputRoot: canonical absolute original partition result directory
+    execution: REF to that directory's unchanged execution.json
+
+The original execution.json must identify partition, seed 4100, its original
+modulo-three indices, heldRevision d35b4cbf43f1fcdda55063b3b8e0fa178d720a78,
+and sourceSha256 (checked again before the production fit). Do not create a
+second roster/root to work around a rejected or failed claim.
+
+CAPTURE RELEASE artifact
+  kind: "CAPTURESRELEASE"
+  schedulerRoot: ROOT
+  maxConcurrency: positive integer explicitly authorized by the parent
+
+This receipt is explicit machine release, not a file inferred from completed
+capture work. A ceiling is NOT a promise that its many fits can fit in memory.
+The parent may choose a conservative ceiling. The release must be the same
+hash-pinned artifact in every relevant handoff and launch.
+
+HANDOFF
+  kind: "STROKE_HANDOFF"
+  rosterSha256: SHA of the registered ROSTER
+  partition: old partition number
+  oldPid, oldTaskId: exact corresponding roster values
+  stoppedUTC: stop time
+  boundaryTask: last COMPLETED TASK, or null before any completion
+  captureRelease: REF
+  direction: REF to the explicit parent scheduling/stop direction
+  completed: [{task: TASK, artifact: REF}, ...], IN ORIGINAL QUEUE ORDER
+  aborted: [] or [{task: TASK, label: "aborted", neverScored: true,
+                   evidence: [REF, ...]}]
+  excluded: [] or [{task: TASK, certificate: REF, review: REF}, ...]
+
+The parent stops the old owner; the scheduler only verifies that its PID no
+longer exists. The completed list must be the exact prefix of family M1/M2,
+geometry device/css/curvature, then original modulo-three indices. Its last
+entry must match boundaryTask. ALL existing *-start-*.json files must be listed,
+with their exact hashes and unchanged per-start identity/scope. They stay in the
+old directory, never copied or rewritten. A malformed final checkpoint is a
+conflict, not permission to delete it and rerun. Preserve and reconcile it.
+
+A start interrupted after that boundary is the ONE next original task. Retain
+whatever actually exists (event log, stop/task metadata, any partial artifact)
+as immutable referenced evidence under the explicit aborted label. Do not
+invent a coefficient checkpoint: the old runner writes only final per-start
+JSON. The aborted candidate is never scored; that same original index remains
+eligible for one fresh complete execution with its original seed/full budget.
+The scheduler accepts the parent's stop and aborted-start attestation; it does
+not reconstruct process history from free-form log text.
+
+With no exclusions, all THREE geometry rivals remain. Only uncompleted CSS
+TASKS may be excluded; each must have an explicit reviewed certificate reference
+in this handoff. There is no automatic interpretation of a certificate, no
+blanket exclusion by filename, and no inference that an in-progress CSS proof
+already authorizes stopping. Certificate correctness/scope and the stop itself
+belong to the parent's independent review and explicit authority receipt.
+
+PEAK EVIDENCE artifact (measured in THIS wave's real fits, not an assumed budget)
+  kind: "STROKE_PEAK_RSS"
+  largestObservedPeakRSSBytes: positive integer, equal to the maximum sample
+  samples: [{pid: positive integer, peakRSSBytes: positive integer,
+             source: measurement method/provenance, sampledUTC: timestamp}, ...]
+  evidence: [REF, ...] (optional raw measurement artifacts)
+
+LAUNCH
+  kind: "STROKE_LAUNCH"
+  rosterSha256: SHA of the registered ROSTER
+  task: TASK
+  captureRelease: REF
+  peakEvidence: REF to PEAK EVIDENCE
+  maxConcurrency: positive integer <= CAPTURE RELEASE's explicit ceiling
+  reservationBytes: chosen prospective fit peak, >= largest observed fit peak
+  oldWorkerReservationBytes: chosen old-worker peak, >= largest observed fit peak
+  deferredPredecessor: optional REF to ROOT/deferrals/<claim name>.json. Absent
+    or null claims a task's first claim. Present: the receipt must be this
+    root's unstarted no-fit deferral of the SAME task, naming its pinned claim;
+    that claim must have no marker or failure, the task no result, and the
+    next linked claim name must be free (one readmission per deferral).
+
+Memory and process accounting
+  Metric: (vm_stat Pages free + Pages inactive) * vm_stat page size in bytes.
+  This is a reclaimable-headroom estimate, NOT a guarantee of instantly free RAM.
+  Compressed and speculative pages receive no additional credit. Page size is
+  parsed, not assumed to be 16KiB. /bin/ps rss is KiB and is converted to bytes.
+  Normal pressure requires sysctl kern.memorystatus_vm_pressure_level == 1;
+  warning (2), critical (4), unknown, absent and unparseable readings fail closed.
+
+  Pressure provenance. The parent's gate names memory_pressure. That tool is not
+  run: memory_pressure(1) is documented to apply or simulate pressure (its usage
+  text opens "Allocate memory and wait forever"), and its report prints a free
+  percentage, never a level name. The level it acts on is read directly instead.
+  Read-only evidence on macOS 27.0 (26A428), /usr/bin/memory_pressure from
+  system_cmds-1071.0.1, sha256
+  1b5a6793486dbf9f607d1d1c0adfda08f271b95170435cee8561338acb5c4744:
+  its only pressure-level input is sysctlbyname of
+  kern.memorystatus_vm_pressure_level (strings, otool imports); its -l parser
+  stores "normal" = 1, "warn" = 2, "critical" = 4 into one global (x86_64 and
+  arm64e disassembly) and its wait loops compare the sysctl value directly with
+  that global. The SDK's dispatch/source.h defines DISPATCH_MEMORYPRESSURE_NORMAL
+  0x01, _WARN 0x02 and _CRITICAL 0x04, the same encoding. So == 1 is the level
+  memory_pressure itself calls "normal", i.e. neither warning nor critical.
+  Not validated: the kernel's internal mapping (it is not in the public SDK) and
+  any live warning/critical transition; this gate never raises pressure to test
+  one. Any value other than 1, including an undocumented level, refuses.
+  G1owner accepted this proof as the explicit NORMAL predicate
+    ../scheduler-pressure-equivalence-direction.json, sha256
+    81556104313c6226a3b64220854c9143fc96850a0a5b7f9026cf17dcf9a91e9a;
+  raw CLI and sysctl snapshot:
+    ../memory-pressure-query-evidence-1.json, sha256
+    c30a0a2dca2426cd23a9a778c7d631a406780041600257659121b0edd1249e75.
+  The CLI query printed a free percentage only; no level is claimed from it.
+  Both admission checks and every memory/slot refusal are immutable JSON records
+  under admissions/. An unparseable reading records the error, not a made-up value.
+
+  For every still-live old PID and claimed worker PID, reserve
+    max(0, max(its reserved peak, largest observed peak) - its current RSS).
+  Add the new fit's entire reserved peak at claim time. Immediately before the
+  fit, preparation's RSS is already allocated, so subtract it from that fit's
+  remaining peak too. The remaining available estimate must be >= 3 GiB.
+  The maximum also includes existing scheduler claim reservations, completed
+  scheduler result peakRSSBytes (macOS ru_maxrss bytes), this check's live RSS
+  samples, and EVERY valid RSS sample any earlier check took. Under the lock and
+  before the memory read, each check publishes its valid samples (old and claimed
+  PIDs, and its own PID before the fit) as an immutable
+  admissions/rss-<uuid>.json record (kind STROKE_RSS_OBSERVATION), whether that
+  check is then admitted, refused or fails: a vanished process or unparseable
+  memory reading still fails closed, but readings already taken are kept. The
+  high-water is the maximum over these append-only records, so it never falls
+  when a fit's RSS later drops or its process dies without a result. A reading
+  at a reused PID (see below) is kept too; the error is conservative.
+  A stale parent peak receipt cannot lower an already observed scheduler peak.
+  The parent remains responsible for supplying all earlier-wave fit high-water
+  measurements not present in this scheduler's root.
+
+  Slot count = live old worker PIDs + live claimed worker PIDs + this new worker.
+  Finished/failed workers still count until their process actually exits, because
+  their memory need not have been reclaimed yet. Dead claims retain task ownership
+  forever, but occupy no running slot. Live old partitions keep all their tasks
+  until THEIR individual handoff; stopping another partition cannot transfer them.
+  PID reuse is conservative: an unrelated live process at a registered PID can
+  block scheduling. Do not delete ownership records to bypass it.
+
+  A single flock protects reading admissions, allocating slots and publishing
+  claims, so two scheduler invocations cannot simultaneously promise one slot or
+  the same memory reservation. A preparation-stage pressure change prevents that
+  NEW fit and leaves a failed claim; no running fit is interrupted or reconfigured.
+  This is admission control, not memory enforcement. Unrelated future allocations
+  and an unseen higher fit peak can still consume headroom after admission. No
+  global autoscaler or operating-system memory limit is installed.
+
+Immutable evidence
+  ROOT/handoffs/<partition>.json references its accepted transfer receipt.
+  ROOT/claims/<geometry>-<family>-start-<index>.json permanently owns the task.
+    A linked readmission is a NEW claim <same stem>.readmit-<NN>.json with
+    generation NN and deferredPredecessor; the first claim is never rewritten.
+    "<claim name>" below is that claim's file name.
+  ROOT/deferrals/<claim name>.json: kind STROKE_NO_FIT_DEFERRAL, solverStarted
+    false, the claim's REF, memory reading and refused pre-fit decision.
+  ROOT/started/<claim name>.json: kind STROKE_SOLVER_START, solverStarted true,
+    fsynced (file and directory) before the first optimizer call; it requires
+    that claim's admitted pre-fit record admissions/<claim name>.json.
+  ROOT/results/<same name>.json carries the unchanged sealed fit result schema,
+    fittedEndpoints, dummyEndpoints, partitionProvenance, source pins, claim,
+    elapsed seconds and peakRSSBytes. It is compatible with the existing union
+    aggregator using old result directories plus ROOT/results.
+  ROOT/failures/<claim name>.json retains caught failures; a kill/power loss may
+    leave only a permanent claim (and perhaps its marker). Neither is retried or
+    scored. A deferred claim can neither start a solver, fail, nor finish; a
+    result requires ROOT/started/<claim name>.json naming that claim's bytes.
+  JSON files use fsynced complete temporary bytes plus atomic no-overwrite links.
+  A crash may leave an unlinked .publishing-* temporary file or a claim with no
+  outcome. Never promote temporary bytes or remove a claim as an implicit retry.
+
+Production fit boundary
+  Exact proof worktree: /Users/new/vitrea-w41/pre-w41-proof, held revision above;
+  tracked proof changes are refused. Existing execution source hashes pin the
+  unchanged scope runner, original partition helper and sealed fitter. The
+  existing proof seal and committed survivor scope authority are checked too.
+  The same inactive preparation, observations_for scope, compact_forward context
+  and start_partition.partition helper are used. Each full original sixteen-start
+  seed-4100 vector set is reconstructed; only outer-loop index selection changes.
+  No active observation, validation, holdout, reduced budget, reseed or new model.
+
+Synthetic verification
+  python -B -m unittest discover -s /absolute/path/to/stroke/scheduler -p 'test_scheduler.py'
+  Tests import only the scheduler and the original AST partition helper, use fake
+  observations/process/memory readings, and never open native payloads or fit.

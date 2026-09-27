@@ -1,0 +1,5 @@
+{
+  "source": "Exact parent task direction relayed by G1owner a08bf7ec9936c8644",
+  "verbatim": "A claim refused at the second memory check before any optimizer call is a NO-FIT deferral, not a failed attempt: write an immutable deferred receipt with solverStarted=false and the memory reading, then the same original seed may be re-admitted under a new claim linked to the deferred one. The durable solver-start marker must be written before the first optimizer call; anything after that marker is an attempt, and completed or partially fitted new-scheduler attempts remain non-retryable without a separate ruling. Budgets and exact-once results are unchanged.",
+  "preparationOnly": true
+}

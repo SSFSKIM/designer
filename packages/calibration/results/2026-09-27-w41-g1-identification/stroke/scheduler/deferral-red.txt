@@ -1,0 +1,52 @@
+...............E..E.E......E.E..
+======================================================================
+ERROR: test_partial_linked_attempt_blocks_further_readmission (test_scheduler.SchedulerTests.test_partial_linked_attempt_blocks_further_readmission)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/test_scheduler.py", line 465, in test_partial_linked_attempt_blocks_further_readmission
+    deferral = self.defer(first)
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/test_scheduler.py", line 386, in defer
+    return ref(self.root / 'deferrals' / scheduler.claim_name(claim))
+                                         ^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'scheduler' has no attribute 'claim_name'
+
+======================================================================
+ERROR: test_prefit_memory_deferral_links_exactly_one_readmission (test_scheduler.SchedulerTests.test_prefit_memory_deferral_links_exactly_one_readmission)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/test_scheduler.py", line 394, in test_prefit_memory_deferral_links_exactly_one_readmission
+    scheduler.settle(self.store, first, refused.exception)
+    ^^^^^^^^^^^^^^^^
+AttributeError: module 'scheduler' has no attribute 'settle'
+
+======================================================================
+ERROR: test_preparation_failure_and_other_refusals_are_not_deferrals (test_scheduler.SchedulerTests.test_preparation_failure_and_other_refusals_are_not_deferrals)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/test_scheduler.py", line 477, in test_preparation_failure_and_other_refusals_are_not_deferrals
+    scheduler.settle(self.store, claim, scheduler.Deferred('not the pre-fit check'))
+    ^^^^^^^^^^^^^^^^
+AttributeError: module 'scheduler' has no attribute 'settle'
+
+======================================================================
+ERROR: test_solver_marker_is_durable_before_first_optimizer_call (test_scheduler.SchedulerTests.test_solver_marker_is_durable_before_first_optimizer_call)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/test_scheduler.py", line 431, in test_solver_marker_is_durable_before_first_optimizer_call
+    marker = self.root / 'started' / scheduler.claim_name(claim)
+                                     ^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'scheduler' has no attribute 'claim_name'
+
+======================================================================
+ERROR: test_started_attempt_is_never_deferred_or_readmitted (test_scheduler.SchedulerTests.test_started_attempt_is_never_deferred_or_readmitted)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/test_scheduler.py", line 446, in test_started_attempt_is_never_deferred_or_readmitted
+    self.store.start_solver(claim)
+    ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Store' object has no attribute 'start_solver'
+
+----------------------------------------------------------------------
+Ran 32 tests in 1.286s
+
+FAILED (errors=5)

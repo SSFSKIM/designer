@@ -1,0 +1,14 @@
+........................F........
+======================================================================
+FAIL: test_result_requires_this_claims_solver_start_marker (test_scheduler.SchedulerTests.test_result_requires_this_claims_solver_start_marker)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/test_scheduler.py", line 497, in test_result_requires_this_claims_solver_start_marker
+    with self.assertRaisesRegex(ValueError, 'marker'):
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 33 tests in 0.300s
+
+FAILED (failures=1)
