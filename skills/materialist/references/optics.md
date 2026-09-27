@@ -12,9 +12,9 @@ differ. The section numbers in parentheses are the fidelity ledger,
 
 Two framing facts first. The material is a **lens**, not a blur preset: a real-time, size-dependent
 optical object with thickness, a rim that bends what is behind it, a body that takes the tone and
-the hue of its backdrop, and an exterior shadow that scales with the surface. And it is a **controls
-material**: everything it does is tuned for a small floating object over live content, which is why
-it goes wrong on a card, a list or a page.
+the hue of its backdrop, and an exterior shadow that scales with the surface. It is measured as a **macOS controls
+material**, not visionOS window glass; the spatial register borrows Apple's composition while naming
+the unmeasured reach of these laws at window scale below.
 
 ## 1. A sheet with thickness
 
@@ -36,8 +36,8 @@ One smoothstep on `span = min(width, height)`, from 32 to 96 CSS px, drives the 
 facets at once: lens depth, occlusion (how opaque the body is) and the inner shadow. Below span 32
 the law is **exactly inert**: a control at 28 px renders as if the law did not exist. At 96 and above
 those facets saturate (§5.7, §5.113). Two things keep growing past 96 on their own laws: the body's
-heavy scatter share rides a ramp that runs to span 256 (§3), and the exterior shadow's blur and
-amplitude grow with the caster (§7).
+heavy scatter share rides a ramp that runs to span 256 (§3), and the exterior shadow's blur grows with the caster while its
+amplitude grows to span 160 and holds there (§7).
 
 | span (CSS px) | what the eye reads |
 |---|---|
@@ -48,8 +48,8 @@ amplitude grow with the caster (§7).
 
 **Consequence.** A size family has to straddle the band for the material to show its size behaviour:
 a set of controls all at 28 to 30 px demonstrates nothing, and past 96 what still changes with size is
-the haze and the shadow, not the body's depth. Apple's phrasing, "larger glass is more opaque, smaller
-glass is clearer", is this law. It also means that legibility is protected by size: a large panel
+the haze and the shadow, not the body's depth. Apple's phrasing, "A larger size is more opaque. A smaller size is clearer"
+(WWDC25 284), is this law. It also means that legibility is protected by size: a large panel
 behind text hazes its backdrop more than a small button does, so text on a large surface is the safer
 case and text on a small one the harder.
 
@@ -86,8 +86,8 @@ differed by 0.48 (§5.153 §2). The table is the light active document's anchors
 | 0.95 | 0.94 | 0.96 |
 
 **Consequence.** Over dark content the material stays present on both sizes, a lighter plate than
-its backdrop rather than a vanishing one, and Apple's "small elements flip between light and dark
-with their backdrop, large ones do not" describes the macOS 26.5 material, not the default one. The
+its backdrop rather than a vanishing one, and the small-surface light/dark flip
+with the backdrop describes the macOS 26.5 material, not the default one. The
 body still has to be told what it sits over: on the DOM path the group's declared tone and luminance
 is what it adapts to, and a false declaration measurably breaks label contrast. On the texture path
 the runtime reads the pixels itself, unless a declaration overrides them, which it does on either
@@ -118,8 +118,8 @@ lifts the body's own saturated channels rather than adding white (§5.177). vitr
 graded along a diagonal axis instead, and four waves of identification have shown the reference's
 edge needs a colour-conditioned directional law that this bed cannot yet fit (§5.181 to §5.183).
 In the receded pose the rim collapses on both materials. Apple's own description of the macOS 27
-change names both sides of what the bed reads: the material gained "a darkened edge along with
-brighter specular highlights" (WWDC26 Platforms State of the Union). The bed reads a bright inner
+change names both sides of what the bed reads: a darkened edge and brighter specular highlights
+(WWDC26 Platforms State of the Union). The bed reads a bright inner
 line (§5.177) and a tight dark band just outside the contour (§5.159), and neither is closed.
 
 **Consequence.** Never draw a border on a glass host; the rim is the material's own and a CSS
@@ -133,13 +133,16 @@ downward, grown by a small outset (0.50 px on the light material, 1.80 on the da
 σ that is a line in the casting span above a knee,
 `σ(span) = 8.96 + max(−6.83, 0.1314 · (span − 96))` on the light document (§5.159, §5.168). Its
 amplitude grows with span as well: a thin control removes about 2 % of the light at its darkest;
-a 160 px panel about 25 % on the light material and 34 % on the dark.
+a 160 px panel about 25 % on the light material and 34 % on the dark. Above 160 the
+amplitude holds, rather than extrapolating: 0.2518 light and 0.3443 dark at span 500 too. The σ
+column below is the light document's law, not a measurement at the window row.
 
 | caster span | σ (CSS px) | CSS `box-shadow` blur |
 |---|---|---|
 | 44 | 2.1 | 4.3 |
 | 96 | 9.0 | 17.9 |
 | 160 | 17.4 | 34.7 |
+| 500, window — extrapolated | 62.0 | 124.1 |
 
 **Consequence.** A small control sits close to the plane and a large panel floats higher; the
 difference is the material's statement of depth, and it is why a glass page needs no elevation
@@ -170,11 +173,17 @@ dark page can honestly hand a light hint to a surface over a white card.
 
 ## 10. Two variants
 
-`regular` adapts to protect legibility and is the answer wherever a surface carries text. `clear`
-is persistently more transparent with constrained adaptation and needs a dimming policy behind it,
-Apple's figure being black at 35 % over bright content; vitrea refuses a clear surface without one,
-and its `DEFAULT_CLEAR_DIMMING` (a 0.28 darkening scrim) is an advisory default beside Apple's figure,
-not a measurement of it. The two variants are never mixed in one interface, and never in one group.
+`regular` is the answer for reading surfaces. `clear` has a lower nominal tint alpha (0.1)
+against the calibrated regular body, but a different, uncalibrated blur (σ 4 against regular's
+1.25). Its rim and specular constants are unfitted; it implements none of Apple's adaptive clear
+contract. Core requires a dimming policy or falls back to regular, and resolves
+`adaptation: "constrained"` with that policy; neither renderer reads the dimming or adaptation
+fields. The policy alone paints nothing. `DEFAULT_CLEAR_DIMMING` is advisory
+`{ scrim: 0.28, direction: "darken" }`, not calibration or an installed scrim. The page paints the
+layer into its plane and measures the result. HIG Materials conditionally suggests **dark at 35%**
+over bright content; the `Glass.clear` API example uses **black at 30%**. WWDC25 219 supplies the
+three media/acceptable-dimming/bold-bright-foreground conditions, not a percentage. Never mix
+variants on one page.
 
 ## 11. A tint is a shade of its seed
 
@@ -238,6 +247,42 @@ requested it resolves `health: "ok"`.
 **Consequence.** The fallback is the design. Compose so that the CSS tier is the same page without
 refraction, and look at it once as a matter of course.
 
+## The material at window scale
+
+The bed reaches span 160 CSS px: `rrect-lg` is 280 × 160 in
+`apps/reference-apple/scenes.json`. The size law saturates at 96; the scatter ramp's top of 256
+was fitted with that largest scene held out (`material.ts`, W11c G1, §5.41), not measured on a
+256 px native window. At span 400–800 the runtime evaluates the same laws beyond their observed
+size range. The body-depth gain has already saturated, scatter rises only to 256, shadow amplitude
+holds its span-160 value and shadow σ keeps growing (§7's extrapolated row). A large window is
+not an independently fitted thick material, and increasing its thickness is not a contrast proof.
+
+The published-ink dead band is a property of the **drawn body**, not of the photograph behind it.
+With the steady-state primary alphas from `vibrancy.ts`, neither pole reaches 4.5:1 on a neutral
+surface between roughly encoded 0.393 and 0.490; secondary cannot exceed primary and tertiary and
+quaternary have no reading floor. The source's average, the group's tone input and the surface
+behind a line of text are three different quantities. A window over a graded source declares the
+level measured under its own footprint when the whole-source average is not representative
+(`vitrea.md` §2), then measures every rendered text line across phases, schemes and poses, with
+the worst line gating. Grade the environment or author ink on a child; never falsify the hint to
+force a pole. A calm average is not enough where individual lines cross structure (NN/g,
+Glassmorphism, in the spatial memo §6.1).
+
+On CSS, `CSS_TIER_TWO_LAYER_AREA_BUDGET_DEVICE_PX` is 400,000: the root sums width × height × dpr²
+for all its **present CSS hosts**, counting area once per host, not once per filter layer. Above
+that sum it collapses the heavy layer into one mixed-σ body. A lone 600 × 500 window costs 0.3 M
+at dpr 1 (two-layer), 1.2 M at dpr 2 (collapsed). Read `cssBody` from `GlassGroupState` rather than
+infer it from window size, record the actual form and inspect both; this is a compositor budget,
+not a fitted optical threshold (`css-tier.ts`, `css-tier-layers.ts`, `root.ts`).
+
+Clear does not remove these obligations. Its constants and its missing dimming implementation are
+§10; a page-owned layer sits below its footprint in the sampled plane, never on the host, and
+modal dimming is a separate attention treatment (WWDC25 356). Both clear optics and the dimming
+choice remain uncalibrated. visionOS glass explicitly limits background information and adapts
+without a distinct Dark Mode (HIG Materials); it is a different, unmeasured material here. The
+spatial register is **Apple's macOS material composed in Apple's visionOS way** — Apple-shaped,
+not visionOS fidelity. Put that statement in the page's record, not just its implementation notes.
+
 ## 16. The gaps, named
 
 So that no composition is built on a fidelity that is not there: the inner edge line (§6 above),
@@ -246,5 +291,8 @@ retention at 0.51 to 0.57 of the backdrop's in the light scheme and 0.35 to 0.37
 Apple's 0.71 to 0.83 and 0.90 to 0.97 (§5.164, §5.165 §9), a rendered shadow σ still 1.3 to 2.8 CSS
 px wider than Apple's fitted σ (§5.169), the CSS tier's residuals, and Increase Contrast alone with
 the hue retention, which is unmeasured. The ledger records each with the work
-that would close it. The eye is the last referee: when a page matters, put its capture beside a
-native one and look.
+that would close it. The spatial register adds window-scale extrapolation beyond span 160,
+unmeasured visionOS glass, a published-ink dead band, CSS's area-dependent collapsed body, and
+clear's uncalibrated optics, unread adaptation field and page-painted dimming layer. None is closed
+by a composition that merely looks plausible. The eye is the last referee: when a page matters,
+put its capture beside a native one and look.

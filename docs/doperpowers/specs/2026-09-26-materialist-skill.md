@@ -209,3 +209,7 @@ and would need a rebuild, which is deferred.
   phase; the geometry, morph, press, capsule, `interactive`, forced-colours, dark-scheme and
   contrast-evidence contracts the six makers had to discover are stated. Provenance in
   `docs/research/materialist-distillation.md`, "Corrected after the proof".
+
+- 2026-09-27 (1.1.0, plugin 2.5.0): a second, spatial register and its window-scale runtime contract
+  added under `2026-09-27-materialist-spatial-register.md`; the instrument register stays scoped,
+  with separate laws, recipes, provenance and a spatial rulebook rather than loosened layer rules.

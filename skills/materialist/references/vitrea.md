@@ -193,17 +193,18 @@ does not.
 - **Thickness is the lens's reference.** `thickness` defaults to 8 CSS px and the material's
   `lensThicknessReference` is 8, so `thickness` scales the reference's own height law rather than
   being a free number; the demo holds one thickness across a whole size family.
-- **The size family must straddle 32 to 96.** The thickness-derived facets (lens depth, occlusion,
+- **The instrument size family straddles 32 to 96; spatial windows start at 96.** The thickness-derived facets (lens depth, occlusion,
   the inner shadow) are gains on one smoothstep of the box's shorter side, exactly zero at or below
   span 32 and saturated at 96. Two other laws keep moving above that band: the body's heavy scatter
   rides its own ramp to span 256, and since 0.20.0 the outer shadow's σ is a line in the casting
-  span above a knee and its amplitude grows with it, so a 160 px panel casts a wider, deeper shadow
+  span above a knee and its amplitude grows to span 160 and holds, so a 160 px panel casts a wider, deeper shadow
   than a 96 px one. A family of controls all under 32 shows none of the material's size behaviour;
   one all over 96 shows the shadow and the haze growing but a lens that no longer deepens. The
   demo's 112 / 68 / 40 with radii 26 / 18 / 12 is one instantiation of the method.
 - **Variants.** `variant` is `"regular"` (the default) or `"clear"`. A clear surface requires a
   `dimming` policy on its group; core refuses one without it, renders regular and says so.
-  `DEFAULT_CLEAR_DIMMING` is `{ scrim: 0.28, direction: "darken" }`. Mixing variants in one group
+  `DEFAULT_CLEAR_DIMMING` is `{ scrim: 0.28, direction: "darken" }`; neither tier paints it. The
+  page paints the dimming layer into its sampled plane, as the window recipe below shows. Mixing variants in one group
   warns and changes nothing.
 - **A menu is a surface over the app's own primitive.** `GlassSurface asChild` registers the
   element you render instead of a `<div>`, which is how a menu platter is composed over whichever
@@ -245,8 +246,8 @@ does not.
   is actually drawing wherever the primary can, and collapses onto the primary where it cannot.
   Tertiary and quaternary carry no body-text floor; quaternary is for separators and decoration.
   There is a band of surface levels where neither ink carries body text (encoded roughly 0.39 to
-  0.49); a hint, a thicker or less clear variant, or an authored colour on a child moves a surface
-  out of it. Read the tokens with your own value as fallback: `color: var(--vitrea-foreground,
+  0.49); these are DRAWN surface levels, not source averages. Grade the plane or author ink
+  on a child, then measure; a hint must remain the true input and thickness alone is no guarantee. Read the tokens with your own value as fallback: `color: var(--vitrea-foreground,
   var(--my-ink))`.
 - **Who owns the label.** vitrea's controls set `vibrant` for themselves. On a `GlassSurface
   asChild` the author opts in with `foreground="vibrant"` (`vibrant: true` on the vanilla handle),
@@ -333,6 +334,141 @@ import { GlassMorph, APPLE_LIKE_SMOOTHING } from "@vitreajs/vitrea-react";
 </GlassMorph>
 ```
 
+## Glass as the surface: windows, modules and ornaments
+
+The spatial register uses the same runtime, not a second material preset. A **window** or **module**
+is a `GlassSurface asChild` on a labelled `<section>`, with a real box, fixed radius and thickness
+shared by the family; leave `interactive` false. The content-role diagnostic examines the HOST's
+own role, not its children (`layer-model.ts`): keep lists and tables semantic children, never
+register a `<ul>`, `<li>`, table or article as the window or disguise one with a different role.
+The window/module's shorter span is at least 96, the size law's saturation point; an **ornament**'s
+labels instead earn their size through measured contrast. A **platter** is transient; a **control**
+acts. Those are the record's five surface roles. A registered host states its own role with
+`data-glass-role` (`window`, `module`, `ornament`, `platter`, `control`), so a reviewer or an
+instrument reads the page's statement rather than inferring it from size or plane. The record's
+`windows:` line uses the same five words.
+
+```tsx
+<GlassGroup id="reading-window" backdrop={{ kind: "texture", id: "environment" }}
+  hint={measuredWindowBackdrop}>
+  <GlassSurface asChild radius={28} thickness={8} foreground="vibrant">
+    <section aria-label="Reading" data-glass-role="window" className="spatial-window">
+      <div className="window-scroll">
+        <h1 className="window-title">{title}</h1>
+        <p className="window-description">{description}</p>
+        <div className="window-section">{content}</div>
+        <button className="window-action">{actionLabel}</button>
+      </div>
+    </section>
+  </GlassSurface>
+</GlassGroup>
+<GlassGroup id="glance-module" backdrop={{ kind: "texture", id: "environment" }}
+  hint={measuredModuleBackdrop}>
+  <GlassSurface asChild radius={28} thickness={8} foreground="vibrant">
+    <section aria-label={moduleLabel} data-glass-role="module" className="spatial-module">
+      <div className="module-content">{moduleContent}</div>
+    </section>
+  </GlassSurface>
+</GlassGroup>
+<GlassGroup id="window-ornament" backdrop={{ kind: "texture", id: "environment" }}
+  hint={measuredOrnamentBackdrop}>
+  <GlassSurface asChild plane="overlay" capsule interactive foreground="vibrant">
+    <nav aria-label="Reading actions" data-glass-role="ornament"
+      className="window-ornament">{plainButtons}</nav>
+  </GlassSurface>
+</GlassGroup>
+```
+
+The variables are the product's content and measured backdrop declarations, not invented hints.
+Register and supply the texture through §2 first. A texture group's active-pose tone is the WHOLE
+source's average, not the patch beneath its window; where a window covers part of a graded plane,
+measure that footprint and declare it on a cadence and after layout changes, including during
+transitions. Do the same for the module and ornament's distinct boxes. A correct input still is
+not a contrast reading: measure the drawn body behind each line, and record every failing line.
+
+```css
+.spatial-window { position: fixed; width: 600px; height: 500px; box-sizing: border-box; }
+.window-scroll { height: 100%; overflow: auto; border-radius: 28px; padding: 24px;
+  box-sizing: border-box; color: var(--vitrea-foreground, var(--app-ink)); font-weight: 500; }
+.spatial-module { position: fixed; width: 280px; height: 180px; box-sizing: border-box; }
+.module-content { height: 100%; padding: 24px; box-sizing: border-box;
+  color: var(--vitrea-foreground, var(--app-ink)); font-weight: 600; }
+.window-title { font-weight: 700; }
+.window-description { color: var(--vitrea-foreground-secondary, var(--app-ink)); }
+.window-section { background: rgb(0 0 0 / 8%); border-radius: 4px; }
+.window-action { background: rgb(255 255 255 / 12%); border-radius: 4px;
+  color: inherit; font: inherit; }
+.window-ornament { position: fixed; min-height: 56px; box-sizing: border-box; }
+.window-ornament :is(button, a) { color: var(--vitrea-foreground, var(--app-ink));
+  font-weight: 600; }
+```
+
+These box dimensions and child-fill alphas are starting points, not measurements: black separates
+sections or holds inputs, white lifts interactive/selected items, never white over white. Keep all
+fills off the registered host. Primary and secondary on children carry readable information;
+tertiary/quaternary are only rules and decoration, not metadata. Medium through bold type and
+slightly opened tracking follow the spatial precedent, not a new ink algorithm. Apply the
+scroll-edge mask to `.window-scroll`, at its inner clipping edges, not to the host or an ancestor
+of the root; the host and ornament never scroll. Opaque images and video use a frame whose radius
+derives from the window corner minus its inset. Under forced colours substitute role-bearing
+fills/marks with system colours and borders; do not assume translucent fills retain meaning.
+
+Position the ornament from the window's measured box, outside its edge by the larger of the two
+groups' `samplingPaddingFor({ members, material, profile, cssTierMapping })` results (§3),
+recomputed with geometry, scheme and accessibility. Keep its width within the window's. The group
+samples the declared texture even in `plane="overlay"`: an ornament straddling the window would
+show environment where the eye expects the window's glass. A DOM-backed overlay can sample the
+composite instead, with a true composite hint, but its host still must not nest inside the window
+host. `GlassToolbar` is the alternative: place its glass members in the overlay plane and let its
+own group form the ornament; never put glass on both a housing and its buttons. After a derived
+gap moves a same-sized host, invalidate its geometry as §4 requires.
+
+The vanilla path is the same labelled section and child scroller, placed in the base host layer:
+
+```ts
+root.registerGroup({ id: "reading-window", backdropSourceId: "environment",
+  backdrop: measuredWindowBackdrop });
+section.dataset.glassRole = "window"; // <section aria-label="Reading">, sized by CSS
+root.plane("base").hostLayer.append(section);
+const windowHandle = root.registerHost({ host: section, groupId: "reading-window",
+  shapeFamily: "fixed-rounded-rect", radii: [28, 28, 28, 28], thickness: 8, vibrant: true });
+root.registerGroup({ id: "glance-module", backdropSourceId: "environment",
+  backdrop: measuredModuleBackdrop });
+moduleSection.dataset.glassRole = "module"; // labelled <section>, sized by CSS
+root.plane("base").hostLayer.append(moduleSection);
+const moduleHandle = root.registerHost({ host: moduleSection, groupId: "glance-module",
+  shapeFamily: "fixed-rounded-rect", radii: [28, 28, 28, 28], thickness: 8, vibrant: true });
+root.registerGroup({ id: "window-ornament", backdropSourceId: "environment",
+  backdrop: measuredOrnamentBackdrop });
+ornament.dataset.glassRole = "ornament";
+root.plane("overlay").hostLayer.append(ornament);
+const ornamentHandle = root.registerHost({ host: ornament, groupId: "window-ornament",
+  plane: "overlay", shapeFamily: "capsule", radii: [28, 28, 28, 28], thickness: 8,
+  vibrant: true });
+```
+
+Vanilla press wiring is §6's channel recipe, only on the ornament, not the reading window; React's
+`interactive` installs that wiring for a housing. Update the group's `backdrop` from the same
+footprint sampler as React's `hint`, and call the handles' `invalidateGeometry()` when placement
+moves without a resize. No list child becomes a host on either path.
+
+**Clear is a plane treatment as well as a variant.** On a media-only clear composition pass
+`variant="clear" dimming={{ scrim: 0.35, direction: "darken" }}` on `GlassGroup`; vanilla uses
+`material: { variant: "clear", dimming: { scrim: 0.35, direction: "darken" } }` on the group.
+Then actually paint that dark layer beneath the surface's footprint as a child of the content
+plane, not as a background on the host. On the DOM path that child can be positioned CSS; on the
+texture path the plane's source canvas paints that layer directly, so the glass samples the same
+dimmed pixels the page shows, not an independent CSS overlay it cannot see. HIG Materials suggests
+dark 35% conditionally; the API example uses black 30%; core's default 28% is advisory. Choose and
+measure, record the uncalibrated choice, and do not mix regular windows with clear ornaments.
+Modal dimming is separately painted below a modal task (WWDC25 356), never onto its glass host.
+
+Read `useGlassCapabilities(id)?.cssBody` or `root.capabilities(id)?.cssBody` on the CSS pass and
+record `two-layer` or `collapsed`, the DPR and the present-host area; a window is not automatically
+collapsed. Inspect both as complete designs. The role attribute is the one addition a spatial
+page carries to the audit contract: resolved tier, sampling, material, diagnostics and rendered
+contrast remain evidence; a new register waives none.
+
 ## 7. Reading what drew
 
 Asking for a tier is not getting it, and the readout is how a page finds out which happened.
@@ -359,7 +495,7 @@ The runtime refuses nesting, overlap, tint and variant mixing, non-uniform radii
 proxy overlap, hosts outside their plane, inline transforms, unparseable tints and backdrop-root
 breaks (`filter`, `backdrop-filter`, `opacity` below 1, `mask-image`, `mask-border-source`,
 `clip-path`, `mix-blend-mode`, a `will-change` naming any of them; `transform`, `contain`,
-`isolation` and `z-index` were measured harmless). These twelve it does not catch, re-checked
+`isolation` and `z-index` were measured harmless). These sixteen it does not catch, re-checked
 against 0.24.0, and each breaks the look:
 
 1. A flat backdrop. The lens has nothing to bend; no diagnostic infers it.
@@ -370,7 +506,8 @@ against 0.24.0, and each breaks the look:
 3. A grid, grain or gradient laid over the backdrop in CSS: it is not behind the glass and is not
    refracted. Paint it into the plane.
 4. A surface with no box, or one whose box is only its padding because it has no content.
-5. A size family entirely under span 32, or entirely over 96.
+5. An instrument size family entirely under span 32, or entirely over 96; spatial windows
+   deliberately use the saturated regime.
 6. A `background` on a glass host. The CSS tier overwrites it inline with `transparent` and `none`
    whenever its declarations change, so the fill is lost there; the WebGPU tier leaves the host
    above the optics canvas, so the fill paints over the glass as a solid. Neither is the material.
@@ -384,6 +521,11 @@ against 0.24.0, and each breaks the look:
     backgrounded tab.
 12. Assumed contrast. The published ink is a pick, not a ratio, and axe reports "incomplete" over a
     canvas; measure on rendered pixels across the backdrop's phases.
+13. A spatial window or module below span 96; an ornament is judged by contrast instead.
+14. A window/module's drawn body in the ink dead band, or a locally failing text line hidden by a
+    passing average; source luminance and a true hint are not rendered contrast evidence.
+15. An ornament straddling a texture-path window, sampling environment instead of the glass below.
+16. A clear group with a declared dimming policy but no layer actually painted into its plane.
 
 ```ts
 import { createGlassRoot, GLASS_CHANNEL_PROPERTIES } from "@vitreajs/vitrea-web";
@@ -405,9 +547,9 @@ root.subscribe(({ deltaMs }) => {
 
 ## 9. Shipping the aesthetic without vitrea
 
-A stack that cannot take the dependency still owes the same composition: one floating control
-layer, capsule and concentric geometry, a designed plane, monochrome controls with one tinted
-primary, and the fallbacks drawn as states of the design. What CSS alone can carry is one sharp
+A stack that cannot take the dependency still owes its chosen register's composition: a floating
+control layer or a few substantial windows, capsule and concentric geometry, a designed world,
+restrained colour and fallbacks drawn as states of the design. What CSS alone can carry is one sharp
 `backdrop-filter` plus one `rgba()` layer, a `box-shadow` whose blur grows with the surface's span
 (the macOS 27 material's `box-shadow` blur radius is about 4 CSS px at a 44 px control and 35 at a
 160 px panel), a 1 px rim, and no refraction at all. The minimum is here so this skill stands on

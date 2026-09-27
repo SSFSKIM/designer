@@ -345,6 +345,11 @@ with related inner radii; the lens platter kept its 26 geometry.
 
 ## What the six have in common
 
+All six are the **instrument register**: their world is artwork, a map, a photograph or a document,
+and glass holds the controls that act on it, not its sustained reading surface. Two spatial-register
+derivations will be added when their pages land: `exhibition` (a window and attached ornaments)
+and `start-page` (glance modules in an environment); neither is claimed here as built or verified.
+
 - The plane is never a wash behind a shell. It is the product: artwork, a city, a frame, a still, a
   mountain, the object being configured. Every page put structure under the glass on purpose and
   checked the empty corners before placing a surface.
@@ -380,6 +385,7 @@ built page against every line, and a later agent should be able to extend the pa
 re-deriving them from the render.
 
 ```
+register: instrument | spatial, and why
 plane: <what fills the window and changes under the controls; texture or DOM; why it has both
   a broad and a fine spatial frequency where the glass sits; any phases where content shown as it
   is goes flat under a control>
@@ -389,20 +395,36 @@ groups: <one line per group: id, members, texture source or DOM, gap to its neig
   backdrop { tone, luminance, complexity } and how it is measured from the displayed composite
   and re-measured (cadence, layout change, transition), or none and why the runtime's reading holds>
 family: thickness <n> across all surfaces; <span> <radius> <capsule | fixed | concentric> per
-  rung, straddling 32 to 96; anchor: <viewport edge r0 | frame radius r at margin m>; inner
-  radii derived as housing radius minus inset
+  rung, instrument straddling 32 to 96 or spatial windows/modules at least 96;
+  anchor: <viewport edge r0 | frame radius r at margin m>; inner radii = housing radius minus inset
 tint: <none, or the one surface, its seed and the job it marks>
 scheme and pose: colorScheme <light | dark | auto>; windowActivation auto unless pinned, and why
 motion: <what morphs (matchedGeometry | materialize), what uses present, what never moves;
   reduced-motion behaviour>
 tier expectation: webgpu where the engine grants a secure context and an adapter (Chromium over
   https, localhost, or a file:// page importing from a CDN); css elsewhere and on request via
-  renderer: "css"; the CSS tier is the same design without refraction
+  renderer: "css"; the CSS tier is the same design without refraction; actual cssBody per group,
+  DPR and present-host device-pixel area on the CSS capture, with both body forms inspected
 accessibility: the runtime follows the system; where Reduce Transparency cannot be queried the
   page offers the setting and passes a boolean; forced colours removes the glass and every
   authored mark (track, switch, selection) still shows; page-owned motion follows Reduce Motion
-contrast: labels styled on a child element, measured on rendered pixels at the plane's lightest
-  and darkest phases, 4.5:1 for labels and 3:1 for large text and plates; every reading recorded
-  here per label and icon, per scheme, at rest, scrolled and receded, and one under the floor
-  stated as a failure
+contrast: labels and body text styled on children, measured per rendered line at the plane's lightest
+  and darkest phases, 4.5:1 for labels/body text and 3:1 for large text and plates; every reading recorded
+  here per line and icon, per scheme, at rest, scrolled and receded; worst line gates and every
+  failing line stays in the record
+```
+
+For spatial, replace `plane:` and `inventory:` with `environment:` and `windows:`, and add
+`fidelity:`; the remaining fields stay:
+
+```
+environment: <the product's fixed full-bleed plane, texture or DOM sampling; grading and phases;
+  source statistics, tone input measured under each group's footprint on a cadence, and drawn
+  surface levels behind text kept separate; local contrast and the published-ink dead band>
+windows: <each window or module, job, span, fixed radius and content; each ornament and the window
+  it attaches to, plane, sampling path and derived gap; each transient platter or other control;
+  use the role words window, module, ornament, platter, control; environment visible around each>
+fidelity: Apple's macOS material composed in Apple's visionOS way; spans beyond 160 extrapolate
+  the fitted laws, not visionOS calibration; any clear optics and page-painted dimming uncalibrated;
+  nearest Apple surface and the comparison, or that no native comparison was available
 ```
