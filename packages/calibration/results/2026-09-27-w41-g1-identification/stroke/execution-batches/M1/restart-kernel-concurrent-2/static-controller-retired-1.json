@@ -1,0 +1,20 @@
+{
+  "kind": "M1_RETIRED_ADAPTIVE_CONTROLLER_TERMINATION",
+  "atUTC": "2026-09-28T09:33:35.101788+00:00",
+  "pause": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/execution-batches/M1/restart-kernel-concurrent-2/static-handoff-pause-1.json",
+    "sha256": "9e446c64575d9af0bb485824c11b56fb9809e3be83c10f04f0cc81476b8a17fe"
+  },
+  "controllerPID": 39035,
+  "controllerCommand": "/Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python -B -X pycache_prefix=/tmp/vitrea-M1-concurrent2-controller-JL6W6L /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/execution-batches/M1/restart-kernel-concurrent-2/controller.py --run --manifest-sha256 4e852ef3e3409b3591879edd465593dfe338152eaee12bbcedfdc8d7ecddef99 --boundary-sha256 6b5857b10a3e38437007c0c863151af2ecca39bbc01d5f270eb1cb1c8afcabc9",
+  "controllerStatusBefore": "T",
+  "signal": "SIGKILL PID only; no SIGCONT and no group signal",
+  "grandfatheredChildPID": 39062,
+  "grandfatheredChildStatus": "identity-matched-running",
+  "grandfatheredChildIdentity": {
+    "pid": 39062,
+    "startedUTC": "2026-09-28T09:25:05+00:00",
+    "command": "/Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python -B -X pycache_prefix=/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/vitrea-M1-curvature09-readmit1-_11vvo8p /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/memo_runner_v3.py --root /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1 --receipt /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-launches-kernel-readmit-3/curvature-M1-start-09.readmit-01.json --sha256 6a2c10944dcf45b5d3085771b8e67975d15bce72bbf24915cdb34c9811b7ab40"
+  },
+  "grandfatheredChildResultSha256": null
+}
