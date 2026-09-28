@@ -1,0 +1,107 @@
+{
+  "sampledUTC": "2026-09-28T03:11:36.215494+00:00",
+  "policyVersion": 4,
+  "resourcePolicy": "stroke-adaptive-v4-kernel-level",
+  "kernelMemoryPolicy": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-memory-parent-direction-v4.json",
+    "sha256": "70553bb9a3d1b09eb09595131f7754ed5a41134c39de4ef3c6f9fee847e54841"
+  },
+  "resourceMode": "normal",
+  "normalGate": {
+    "pressureNormal": true,
+    "fiveSpacedNormal": true,
+    "floorClears": true
+  },
+  "policyCounter": "floor(levelPercent * physicalBytes /100)",
+  "counterEpoch": "policy-v4 kernel memorystatus level; supersedes free + max(inactive, purgeable)",
+  "memory": {
+    "availableBytes": 8074538516,
+    "pressureLevel": 1,
+    "levelPercent": 47,
+    "physicalBytes": 17179869184,
+    "rawSysctl": {
+      "kern.memorystatus_level": "47\n",
+      "hw.memsize": "17179869184\n",
+      "kern.memorystatus_vm_pressure_level": "1\n"
+    },
+    "counter": "floor(levelPercent * physicalBytes /100)",
+    "counterEpoch": "policy-v4 kernel memorystatus level; supersedes free + max(inactive, purgeable)",
+    "metric": "kernel memorystatus free-level percent times physical memory",
+    "sampledUTC": "2026-09-28T03:11:36.076810+00:00"
+  },
+  "pressureState": {
+    "admissionsOpen": true,
+    "spacedNormalReadings": 0,
+    "requiredNormalReadings": 5,
+    "lastAbnormalUTC": "2026-09-28T01:45:15.781940+00:00",
+    "readings": 3718
+  },
+  "spacedNormalRun": 169,
+  "freshestPressure": {
+    "id": "f1091292da274727a4eb2968bcde0501",
+    "sampledUTC": "2026-09-28T03:11:36.076810+00:00",
+    "pressureLevel": 1,
+    "source": "admission"
+  },
+  "disk": {
+    "freeBytes": 80611344384,
+    "volumes": {
+      "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1": 80611344384,
+      "/System/Volumes/VM": 80611344384
+    },
+    "sampledUTC": "2026-09-28T03:11:36.212570+00:00",
+    "source": "shutil.disk_usage free bytes (statvfs)"
+  },
+  "diskFreeBytes": 80611344384,
+  "diskFloorBytes": 21474836480,
+  "swap": {
+    "raw": "total = 3072.00M  used = 1498.62M  free = 1573.38M  (encrypted)\n",
+    "sampledUTC": "2026-09-28T03:11:36.215469+00:00"
+  },
+  "swapExpectation": "normal gate: 1 GiB headroom floor kept after reservations",
+  "processes": [
+    {
+      "pid": 37115,
+      "owner": "curvature-M1-start-02.json",
+      "peakBytes": 4594515968,
+      "processIdentity": {
+        "pid": 37115,
+        "startedUTC": "2026-09-28T02:58:41+00:00",
+        "command": "/Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python -B -X pycache_prefix=/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/vitrea-M1-curvature02-readmit1-wdxs4kic /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/memo_runner_v3.py --root /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1 --receipt /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-launches-kernel-readmit-1/curvature-M1-start-02.readmit-01.json --sha256 4f37c28c4a68dfa0629bde743096beba655568693382b00bad32ed4fb2c27d18"
+      },
+      "rssBytes": 2232172544,
+      "remainingBytes": 2362343424
+    }
+  ],
+  "excludedProcesses": [
+    {
+      "pid": 80101,
+      "owner": "old-0",
+      "reason": "registered stop handoff"
+    },
+    {
+      "pid": 80133,
+      "owner": "old-1",
+      "reason": "registered stop handoff"
+    },
+    {
+      "pid": 80167,
+      "owner": "old-2",
+      "reason": "registered stop handoff"
+    }
+  ],
+  "effectiveConcurrency": 2,
+  "maxConcurrency": 3,
+  "modeConcurrencyLimit": 3,
+  "reservedBytes": 6956859392,
+  "ownRSSBytes": 0,
+  "observedPeakBytes": 4594515968,
+  "prospectivePeakBytes": 4594515968,
+  "peakEvidence": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-peak-evidence-4.json",
+    "sha256": "40de867951c6e62516b507972e19b249fd2bc4bb67631eaac5c6bffe1b15a661"
+  },
+  "requiredAvailableBytes": 8030601216,
+  "headroomAfterReservationBytes": 1117679124,
+  "admitted": true
+}

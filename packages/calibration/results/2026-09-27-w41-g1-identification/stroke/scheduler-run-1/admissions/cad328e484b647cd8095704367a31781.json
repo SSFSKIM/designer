@@ -1,0 +1,119 @@
+{
+  "sampledUTC": "2026-09-28T03:28:36.985107+00:00",
+  "policyVersion": 4,
+  "resourcePolicy": "stroke-adaptive-v4-kernel-level",
+  "kernelMemoryPolicy": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-memory-parent-direction-v4.json",
+    "sha256": "70553bb9a3d1b09eb09595131f7754ed5a41134c39de4ef3c6f9fee847e54841"
+  },
+  "resourceMode": "degraded",
+  "normalGate": {
+    "pressureNormal": true,
+    "fiveSpacedNormal": false,
+    "floorClears": false
+  },
+  "policyCounter": "floor(levelPercent * physicalBytes /100)",
+  "counterEpoch": "policy-v4 kernel memorystatus level; supersedes free + max(inactive, purgeable)",
+  "memory": {
+    "availableBytes": 6528350289,
+    "pressureLevel": 1,
+    "levelPercent": 38,
+    "physicalBytes": 17179869184,
+    "rawSysctl": {
+      "kern.memorystatus_level": "38\n",
+      "hw.memsize": "17179869184\n",
+      "kern.memorystatus_vm_pressure_level": "1\n"
+    },
+    "counter": "floor(levelPercent * physicalBytes /100)",
+    "counterEpoch": "policy-v4 kernel memorystatus level; supersedes free + max(inactive, purgeable)",
+    "metric": "kernel memorystatus free-level percent times physical memory",
+    "sampledUTC": "2026-09-28T03:28:36.740279+00:00"
+  },
+  "pressureState": {
+    "admissionsOpen": false,
+    "spacedNormalReadings": 1,
+    "requiredNormalReadings": 5,
+    "lastAbnormalUTC": "2026-09-28T03:28:05.634756+00:00",
+    "readings": 3788
+  },
+  "spacedNormalRun": 1,
+  "freshestPressure": {
+    "id": "6270784f50154539ace2ad593042fd7d",
+    "sampledUTC": "2026-09-28T03:28:36.740279+00:00",
+    "pressureLevel": 1,
+    "source": "admission"
+  },
+  "disk": {
+    "freeBytes": 80619114496,
+    "volumes": {
+      "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1": 80619114496,
+      "/System/Volumes/VM": 80619114496
+    },
+    "sampledUTC": "2026-09-28T03:28:36.980842+00:00",
+    "source": "shutil.disk_usage free bytes (statvfs)"
+  },
+  "diskFreeBytes": 80619114496,
+  "diskFloorBytes": 21474836480,
+  "swap": {
+    "raw": "total = 3072.00M  used = 1498.62M  free = 1573.38M  (encrypted)\n",
+    "sampledUTC": "2026-09-28T03:28:36.985067+00:00"
+  },
+  "swapExpectation": "degraded gate: no headroom floor, one fit at a time; paging to swap is expected and accepted, bounded by the 20 GiB disk floor",
+  "processes": [
+    {
+      "pid": 37115,
+      "owner": "curvature-M1-start-02.json",
+      "peakBytes": 4594515968,
+      "processIdentity": {
+        "pid": 37115,
+        "startedUTC": "2026-09-28T02:58:41+00:00",
+        "command": "/Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python -B -X pycache_prefix=/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/vitrea-M1-curvature02-readmit1-wdxs4kic /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/memo_runner_v3.py --root /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1 --receipt /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-launches-kernel-readmit-1/curvature-M1-start-02.readmit-01.json --sha256 4f37c28c4a68dfa0629bde743096beba655568693382b00bad32ed4fb2c27d18"
+      },
+      "rssBytes": 1741242368,
+      "remainingBytes": 2853273600
+    },
+    {
+      "pid": 46258,
+      "owner": "curvature-M1-start-03.json",
+      "peakBytes": 4594515968,
+      "processIdentity": {
+        "pid": 46258,
+        "startedUTC": "2026-09-28T03:11:36+00:00",
+        "command": "/Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python -B -X pycache_prefix=/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/vitrea-kernel-M1-curvature-03-gyxr3n0f /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/memo_runner_v3.py --root /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1 --receipt /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-launches-kernel-1/curvature-M1-start-03.json --sha256 71988b50facd5a2686c275080cfca3636cec27f51555eecdd9d7918e27fc2b90"
+      },
+      "rssBytes": 1598160896,
+      "remainingBytes": 2996355072
+    }
+  ],
+  "excludedProcesses": [
+    {
+      "pid": 80101,
+      "owner": "old-0",
+      "reason": "registered stop handoff"
+    },
+    {
+      "pid": 80133,
+      "owner": "old-1",
+      "reason": "registered stop handoff"
+    },
+    {
+      "pid": 80167,
+      "owner": "old-2",
+      "reason": "registered stop handoff"
+    }
+  ],
+  "effectiveConcurrency": 3,
+  "maxConcurrency": 3,
+  "modeConcurrencyLimit": 1,
+  "reservedBytes": 10444144640,
+  "ownRSSBytes": 0,
+  "observedPeakBytes": 4594515968,
+  "prospectivePeakBytes": 4594515968,
+  "peakEvidence": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-peak-evidence-4.json",
+    "sha256": "40de867951c6e62516b507972e19b249fd2bc4bb67631eaac5c6bffe1b15a661"
+  },
+  "requiredAvailableBytes": 10444144640,
+  "headroomAfterReservationBytes": -3915794351,
+  "admitted": false
+}

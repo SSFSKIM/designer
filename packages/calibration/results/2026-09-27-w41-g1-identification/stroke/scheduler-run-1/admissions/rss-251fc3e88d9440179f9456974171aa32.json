@@ -1,0 +1,22 @@
+{
+  "kind": "STROKE_RSS_OBSERVATION",
+  "sampledUTC": "2026-09-28T02:36:11.308205+00:00",
+  "task": [
+    "M1",
+    "curvature",
+    3
+  ],
+  "source": "/bin/ps -o rss= KiB * 1024",
+  "samples": [
+    {
+      "pid": 19103,
+      "owner": "curvature-M1-start-01.json",
+      "rssBytes": 1237811200
+    },
+    {
+      "pid": 21040,
+      "owner": "curvature-M1-start-02.json",
+      "rssBytes": 469893120
+    }
+  ]
+}
