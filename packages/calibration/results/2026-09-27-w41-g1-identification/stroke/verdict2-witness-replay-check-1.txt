@@ -1,0 +1,5 @@
+cmd: /tmp/w39-g2-wgpu/bin/python -B -X pycache_prefix=/tmp/v2-pycache-Iy60Wj verdict2_witness_replay.py --check M1-light-inactive-verdict-2.json
+verdict2 sha256 e13aaec279526818b5104e7b0e9840d14482b24b602744e3628d130769c138bc; script sha256 50f6297b3975f0f84705128361e7089d36bf5aaec3843e7195ca335e8b15d3d3
+MATCH M1-light-inactive-verdict-2.json
+exit 0
+negative control: one witness codes +1e-12 in a copy -> MISMATCH, exit 1 (run 2026-09-29)

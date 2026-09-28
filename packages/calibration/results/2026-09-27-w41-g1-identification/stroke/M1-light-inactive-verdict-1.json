@@ -1,0 +1,561 @@
+{
+  "kind": "STROKE_M1_LIGHT_INACTIVE_FINAL_LOCAL_VERDICT",
+  "recordedUTC": "2026-09-28T19:44:34.825340+00:00",
+  "status": "NO_SURVIVOR_FOUND_IN_SEALED_LOCAL_SEARCH",
+  "endpoint": "light-inactive",
+  "models": [
+    "device-width M1",
+    "nominal-curvature M1"
+  ],
+  "fullOriginalBudgetCompleted": {
+    "device": 16,
+    "curvature": 16,
+    "seed": 4100
+  },
+  "classification": "All four frozen selected converged candidates fail calibration and validation at1x/2x. Local fitted failure, NOT coefficient-independent/global family rejection; no surviving stroke candidate for implementation/exposure.",
+  "frontier": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-complete-frontier-1.json",
+    "sha256": "20d4b2d2039260a7e96a5c1ef309d0cd68bd3bed325691633926d21d13934966"
+  },
+  "frozenInputs": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/frozen-optimizer-inputs.json",
+    "sha256": "aeeaf158e9a95afe81210d7bdf3f87c1dce9b11b580b5e28b93069bee313adbe"
+  },
+  "frozenPredictions": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/frozen-selected-predictions.json",
+    "sha256": "e1b63c1bd216ef35a2acc758cac4a03abe0405ddd1f28d2d84f3196edc27b2cc"
+  },
+  "terminal": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/execution-batches/M1/M1-transfer-child-terminal-1.json",
+    "sha256": "d93ee39f6edf8e1dc3624f25eff33c24f20e3c047824c6394208c38e4347b0ce"
+  },
+  "complete": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/complete.json",
+    "sha256": "0947fd652adf7e830ab41b4c7c6f86f4c6f282112ea46a6a4a650e1112d4107d"
+  },
+  "admittedCells": 144,
+  "calibrationCells": 126,
+  "validationCells": 18,
+  "repeatsPerCell": 7,
+  "scope": "Only light inactive archive payloads admitted by metadata before reading; M2 remains unfrozen/unavailable and certified endpoint scopes are not fitted.",
+  "holdoutRead": false,
+  "candidates": [
+    {
+      "summary": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/curvature-M1-leastSquares-summary.json",
+        "sha256": "25145770fbd895e4c411ec74f6a73e1766b52b70a4a679e52d18c5bf2a30d471"
+      },
+      "status": "selected local candidate",
+      "optimizerConverged": true,
+      "rank": 10,
+      "railDeficitCodes": 0.0,
+      "survives": false,
+      "strata": [
+        {
+          "stratum": "light-inactive/calibration/1x",
+          "requiredBins": 5200,
+          "admittedBins": 4158,
+          "populationDeficientBins": 1042,
+          "bindingFailedBins": 1043,
+          "railFailedBins": 0,
+          "decidingWitness": {
+            "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g128-c-rrect-120x64__inactive",
+            "endpoint": "light-inactive",
+            "scale": 1,
+            "member": 0,
+            "part": "arc",
+            "side": null,
+            "shell": 0,
+            "bin": 8,
+            "channel": "R",
+            "repeat": "median",
+            "codes": 4.4269176003409925,
+            "bound": 1.0,
+            "excess": 3.4269176003409925,
+            "status": "measured"
+          },
+          "maxFixed16To32PixelDifferenceCodes": 1.3428023519375643,
+          "fixed32ErrorLowerBoundCodes": 3.084115248403428,
+          "remainingExcessLowerBoundCodes": 2.084115248403428
+        },
+        {
+          "stratum": "light-inactive/calibration/2x",
+          "requiredBins": 10400,
+          "admittedBins": 9348,
+          "populationDeficientBins": 1052,
+          "bindingFailedBins": 1226,
+          "railFailedBins": 0,
+          "decidingWitness": {
+            "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-rrect-120x64__inactive",
+            "endpoint": "light-inactive",
+            "scale": 2,
+            "member": 0,
+            "part": "arc",
+            "side": null,
+            "shell": 0,
+            "bin": 0,
+            "channel": "R",
+            "repeat": "median",
+            "codes": 8.050676256655825,
+            "bound": 1.0,
+            "excess": 7.050676256655825,
+            "status": "measured"
+          },
+          "maxFixed16To32PixelDifferenceCodes": 1.3428023519375643,
+          "fixed32ErrorLowerBoundCodes": 6.7078739047182605,
+          "remainingExcessLowerBoundCodes": 5.7078739047182605
+        },
+        {
+          "stratum": "light-inactive/validation/1x",
+          "requiredBins": 720,
+          "admittedBins": 588,
+          "populationDeficientBins": 132,
+          "bindingFailedBins": 164,
+          "railFailedBins": 0,
+          "decidingWitness": {
+            "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g128-c-rrect-120x96__inactive",
+            "endpoint": "light-inactive",
+            "scale": 1,
+            "member": 0,
+            "part": "arc",
+            "side": null,
+            "shell": 0,
+            "bin": 0,
+            "channel": "R",
+            "repeat": "median",
+            "codes": 5.31000562828731,
+            "bound": 1.0,
+            "excess": 4.31000562828731,
+            "status": "measured"
+          },
+          "maxFixed16To32PixelDifferenceCodes": 1.5625762348741432,
+          "fixed32ErrorLowerBoundCodes": 3.7474293934131664,
+          "remainingExcessLowerBoundCodes": 2.7474293934131664
+        },
+        {
+          "stratum": "light-inactive/validation/2x",
+          "requiredBins": 1440,
+          "admittedBins": 1292,
+          "populationDeficientBins": 148,
+          "bindingFailedBins": 204,
+          "railFailedBins": 0,
+          "decidingWitness": {
+            "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-rrect-120x96__inactive",
+            "endpoint": "light-inactive",
+            "scale": 2,
+            "member": 0,
+            "part": "arc",
+            "side": null,
+            "shell": 0,
+            "bin": 8,
+            "channel": "R",
+            "repeat": "median",
+            "codes": 9.406079260399357,
+            "bound": 1.0,
+            "excess": 8.406079260399357,
+            "status": "measured"
+          },
+          "maxFixed16To32PixelDifferenceCodes": 1.5625762348741432,
+          "fixed32ErrorLowerBoundCodes": 7.843503025525214,
+          "remainingExcessLowerBoundCodes": 6.843503025525214
+        }
+      ],
+      "quadratureQualification": "Measured32 quadrature deltas are not negligible, but every16-grid deciding witness remains above its bound even after subtracting the entire stratum maximum pixel delta. This is a fixed-coefficient failure witness, not a refit or global certificate.",
+      "straddlingDiagnostic": {
+        "diagnosticBins": 2368,
+        "maximumPixelStrokeIncrementCodes": 54.06155143379149,
+        "usedForFit": false,
+        "usedForSurvival": false
+      }
+    },
+    {
+      "summary": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/curvature-M1-minimax-summary.json",
+        "sha256": "fa0d823ca98f94aaa5e3db5559f81f715297213190ca69e21b4188f530743e34"
+      },
+      "status": "selected local candidate",
+      "optimizerConverged": true,
+      "rank": 10,
+      "railDeficitCodes": 0.0,
+      "survives": false,
+      "strata": [
+        {
+          "stratum": "light-inactive/calibration/1x",
+          "requiredBins": 5200,
+          "admittedBins": 4158,
+          "populationDeficientBins": 1042,
+          "bindingFailedBins": 1208,
+          "railFailedBins": 0,
+          "decidingWitness": {
+            "cell": "apple-macos-27.0-1x-light-standard-glass0.5/v270-c-c44__inactive",
+            "endpoint": "light-inactive",
+            "scale": 1,
+            "member": 0,
+            "part": "arc",
+            "side": null,
+            "shell": 0,
+            "bin": 12,
+            "channel": "R",
+            "repeat": "median",
+            "codes": 5.324812139663335,
+            "bound": 1.0,
+            "excess": 4.324812139663335,
+            "status": "measured"
+          },
+          "maxFixed16To32PixelDifferenceCodes": 1.4293108677698285,
+          "fixed32ErrorLowerBoundCodes": 3.8955012718935063,
+          "remainingExcessLowerBoundCodes": 2.8955012718935063
+        },
+        {
+          "stratum": "light-inactive/calibration/2x",
+          "requiredBins": 10400,
+          "admittedBins": 9348,
+          "populationDeficientBins": 1052,
+          "bindingFailedBins": 1546,
+          "railFailedBins": 0,
+          "decidingWitness": {
+            "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-rrect-120x64__inactive",
+            "endpoint": "light-inactive",
+            "scale": 2,
+            "member": 0,
+            "part": "arc",
+            "side": null,
+            "shell": 0,
+            "bin": 0,
+            "channel": "R",
+            "repeat": "median",
+            "codes": 5.324907671507752,
+            "bound": 1.0,
+            "excess": 4.324907671507752,
+            "status": "measured"
+          },
+          "maxFixed16To32PixelDifferenceCodes": 1.9887348803046336,
+          "fixed32ErrorLowerBoundCodes": 3.3361727912031185,
+          "remainingExcessLowerBoundCodes": 2.3361727912031185
+        },
+        {
+          "stratum": "light-inactive/validation/1x",
+          "requiredBins": 720,
+          "admittedBins": 588,
+          "populationDeficientBins": 132,
+          "bindingFailedBins": 180,
+          "railFailedBins": 0,
+          "decidingWitness": {
+            "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g128-c-capsule-circular-120x96__inactive",
+            "endpoint": "light-inactive",
+            "scale": 1,
+            "member": 0,
+            "part": "straight",
+            "side": "top",
+            "shell": 0,
+            "bin": 12,
+            "channel": "R",
+            "repeat": "median",
+            "codes": 5.153981701283072,
+            "bound": 1.0,
+            "excess": 4.153981701283072,
+            "status": "measured"
+          },
+          "maxFixed16To32PixelDifferenceCodes": 1.4048821736441823,
+          "fixed32ErrorLowerBoundCodes": 3.74909952763889,
+          "remainingExcessLowerBoundCodes": 2.74909952763889
+        },
+        {
+          "stratum": "light-inactive/validation/2x",
+          "requiredBins": 1440,
+          "admittedBins": 1292,
+          "populationDeficientBins": 148,
+          "bindingFailedBins": 220,
+          "railFailedBins": 0,
+          "decidingWitness": {
+            "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-rrect-120x96__inactive",
+            "endpoint": "light-inactive",
+            "scale": 2,
+            "member": 0,
+            "part": "arc",
+            "side": null,
+            "shell": 0,
+            "bin": 8,
+            "channel": "R",
+            "repeat": "median",
+            "codes": 6.72942586078666,
+            "bound": 1.0,
+            "excess": 5.72942586078666,
+            "status": "measured"
+          },
+          "maxFixed16To32PixelDifferenceCodes": 1.4048821736441823,
+          "fixed32ErrorLowerBoundCodes": 5.324543687142477,
+          "remainingExcessLowerBoundCodes": 4.324543687142477
+        }
+      ],
+      "quadratureQualification": "Measured32 quadrature deltas are not negligible, but every16-grid deciding witness remains above its bound even after subtracting the entire stratum maximum pixel delta. This is a fixed-coefficient failure witness, not a refit or global certificate.",
+      "straddlingDiagnostic": {
+        "diagnosticBins": 2368,
+        "maximumPixelStrokeIncrementCodes": 60.5234950010159,
+        "usedForFit": false,
+        "usedForSurvival": false
+      }
+    },
+    {
+      "summary": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/device-M1-leastSquares-summary.json",
+        "sha256": "055fd111f218209a0b73afdd21e0814f058694df462213d0c69bf534c19c16f4"
+      },
+      "status": "selected local candidate",
+      "optimizerConverged": true,
+      "rank": 10,
+      "railDeficitCodes": 0.0,
+      "survives": false,
+      "strata": [
+        {
+          "stratum": "light-inactive/calibration/1x",
+          "requiredBins": 5200,
+          "admittedBins": 4158,
+          "populationDeficientBins": 1042,
+          "bindingFailedBins": 1149,
+          "railFailedBins": 0,
+          "decidingWitness": {
+            "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g255-c-c44__inactive",
+            "endpoint": "light-inactive",
+            "scale": 1,
+            "member": 0,
+            "part": "arc",
+            "side": null,
+            "shell": 1,
+            "bin": 2,
+            "channel": "R",
+            "repeat": "median",
+            "codes": 5.133835831831357,
+            "bound": 1.0,
+            "excess": 4.133835831831357,
+            "status": "censored-bound-satisfied"
+          },
+          "maxFixed16To32PixelDifferenceCodes": 1.5418812730759441,
+          "fixed32ErrorLowerBoundCodes": 3.591954558755413,
+          "remainingExcessLowerBoundCodes": 2.591954558755413
+        },
+        {
+          "stratum": "light-inactive/calibration/2x",
+          "requiredBins": 10400,
+          "admittedBins": 9348,
+          "populationDeficientBins": 1052,
+          "bindingFailedBins": 1328,
+          "railFailedBins": 0,
+          "decidingWitness": {
+            "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-rrect-120x64__inactive",
+            "endpoint": "light-inactive",
+            "scale": 2,
+            "member": 0,
+            "part": "arc",
+            "side": null,
+            "shell": 0,
+            "bin": 0,
+            "channel": "R",
+            "repeat": "median",
+            "codes": 7.46771844679354,
+            "bound": 1.0,
+            "excess": 6.46771844679354,
+            "status": "measured"
+          },
+          "maxFixed16To32PixelDifferenceCodes": 1.8275790794944555,
+          "fixed32ErrorLowerBoundCodes": 5.640139367299084,
+          "remainingExcessLowerBoundCodes": 4.640139367299084
+        },
+        {
+          "stratum": "light-inactive/validation/1x",
+          "requiredBins": 720,
+          "admittedBins": 588,
+          "populationDeficientBins": 132,
+          "bindingFailedBins": 158,
+          "railFailedBins": 0,
+          "decidingWitness": {
+            "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g128-c-rrect-120x96__inactive",
+            "endpoint": "light-inactive",
+            "scale": 1,
+            "member": 0,
+            "part": "arc",
+            "side": null,
+            "shell": 0,
+            "bin": 0,
+            "channel": "R",
+            "repeat": "median",
+            "codes": 4.875136711251945,
+            "bound": 1.0,
+            "excess": 3.875136711251945,
+            "status": "measured"
+          },
+          "maxFixed16To32PixelDifferenceCodes": 1.3492836656344593,
+          "fixed32ErrorLowerBoundCodes": 3.5258530456174855,
+          "remainingExcessLowerBoundCodes": 2.5258530456174855
+        },
+        {
+          "stratum": "light-inactive/validation/2x",
+          "requiredBins": 1440,
+          "admittedBins": 1292,
+          "populationDeficientBins": 148,
+          "bindingFailedBins": 192,
+          "railFailedBins": 0,
+          "decidingWitness": {
+            "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-rrect-120x96__inactive",
+            "endpoint": "light-inactive",
+            "scale": 2,
+            "member": 0,
+            "part": "arc",
+            "side": null,
+            "shell": 0,
+            "bin": 8,
+            "channel": "R",
+            "repeat": "median",
+            "codes": 8.904934449906198,
+            "bound": 1.0,
+            "excess": 7.904934449906198,
+            "status": "measured"
+          },
+          "maxFixed16To32PixelDifferenceCodes": 1.3492836656344593,
+          "fixed32ErrorLowerBoundCodes": 7.555650784271739,
+          "remainingExcessLowerBoundCodes": 6.555650784271739
+        }
+      ],
+      "quadratureQualification": "Measured32 quadrature deltas are not negligible, but every16-grid deciding witness remains above its bound even after subtracting the entire stratum maximum pixel delta. This is a fixed-coefficient failure witness, not a refit or global certificate.",
+      "straddlingDiagnostic": {
+        "diagnosticBins": 2368,
+        "maximumPixelStrokeIncrementCodes": 56.06366603374636,
+        "usedForFit": false,
+        "usedForSurvival": false
+      }
+    },
+    {
+      "summary": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/device-M1-minimax-summary.json",
+        "sha256": "b1ed61c6700b146cb4e9dbf9b441aa10dc744e25dcf9e35db6f0ddcbf533bfc6"
+      },
+      "status": "selected local candidate",
+      "optimizerConverged": true,
+      "rank": 10,
+      "railDeficitCodes": 0.0,
+      "survives": false,
+      "strata": [
+        {
+          "stratum": "light-inactive/calibration/1x",
+          "requiredBins": 5200,
+          "admittedBins": 4158,
+          "populationDeficientBins": 1042,
+          "bindingFailedBins": 1232,
+          "railFailedBins": 0,
+          "decidingWitness": {
+            "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g128-b-c44__inactive",
+            "endpoint": "light-inactive",
+            "scale": 1,
+            "member": 0,
+            "part": "straight",
+            "side": "top",
+            "shell": 0,
+            "bin": 12,
+            "channel": "R",
+            "repeat": "median",
+            "codes": 5.403074815977307,
+            "bound": 1.0,
+            "excess": 4.403074815977307,
+            "status": "measured"
+          },
+          "maxFixed16To32PixelDifferenceCodes": 1.5419044926159131,
+          "fixed32ErrorLowerBoundCodes": 3.861170323361394,
+          "remainingExcessLowerBoundCodes": 2.861170323361394
+        },
+        {
+          "stratum": "light-inactive/calibration/2x",
+          "requiredBins": 10400,
+          "admittedBins": 9348,
+          "populationDeficientBins": 1052,
+          "bindingFailedBins": 1496,
+          "railFailedBins": 0,
+          "decidingWitness": {
+            "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-rrect-120x64__inactive",
+            "endpoint": "light-inactive",
+            "scale": 2,
+            "member": 0,
+            "part": "arc",
+            "side": null,
+            "shell": 0,
+            "bin": 0,
+            "channel": "R",
+            "repeat": "median",
+            "codes": 5.403074815977675,
+            "bound": 1.0,
+            "excess": 4.403074815977675,
+            "status": "measured"
+          },
+          "maxFixed16To32PixelDifferenceCodes": 1.8276172210679533,
+          "fixed32ErrorLowerBoundCodes": 3.5754575949097216,
+          "remainingExcessLowerBoundCodes": 2.5754575949097216
+        },
+        {
+          "stratum": "light-inactive/validation/1x",
+          "requiredBins": 720,
+          "admittedBins": 588,
+          "populationDeficientBins": 132,
+          "bindingFailedBins": 166,
+          "railFailedBins": 0,
+          "decidingWitness": {
+            "cell": "apple-macos-27.0-1x-light-standard-glass0.5/g128-c-rrect-120x96__inactive",
+            "endpoint": "light-inactive",
+            "scale": 1,
+            "member": 0,
+            "part": "straight",
+            "side": "left",
+            "shell": 0,
+            "bin": 8,
+            "channel": "R",
+            "repeat": "median",
+            "codes": 7.824259614589209,
+            "bound": 1.0,
+            "excess": 6.824259614589209,
+            "status": "measured"
+          },
+          "maxFixed16To32PixelDifferenceCodes": 1.2554918870440872,
+          "fixed32ErrorLowerBoundCodes": 6.568767727545122,
+          "remainingExcessLowerBoundCodes": 5.568767727545122
+        },
+        {
+          "stratum": "light-inactive/validation/2x",
+          "requiredBins": 1440,
+          "admittedBins": 1292,
+          "populationDeficientBins": 148,
+          "bindingFailedBins": 194,
+          "railFailedBins": 0,
+          "decidingWitness": {
+            "cell": "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-rrect-120x96__inactive",
+            "endpoint": "light-inactive",
+            "scale": 2,
+            "member": 0,
+            "part": "straight",
+            "side": "left",
+            "shell": 0,
+            "bin": 8,
+            "channel": "R",
+            "repeat": "median",
+            "codes": 7.824259614616866,
+            "bound": 1.0,
+            "excess": 6.824259614616866,
+            "status": "measured"
+          },
+          "maxFixed16To32PixelDifferenceCodes": 1.2554918870440872,
+          "fixed32ErrorLowerBoundCodes": 6.568767727572779,
+          "remainingExcessLowerBoundCodes": 5.568767727572779
+        }
+      ],
+      "quadratureQualification": "Measured32 quadrature deltas are not negligible, but every16-grid deciding witness remains above its bound even after subtracting the entire stratum maximum pixel delta. This is a fixed-coefficient failure witness, not a refit or global certificate.",
+      "straddlingDiagnostic": {
+        "diagnosticBins": 2368,
+        "maximumPixelStrokeIncrementCodes": 56.01183662424617,
+        "usedForFit": false,
+        "usedForSurvival": false
+      }
+    }
+  ],
+  "fixed32BoundDerivation": "For each fixed prediction, per-pixel |p32-p16| is bounded by recorded stratum maximum delta. Triangle inequality bounds each channel MAE32>=MAE16-delta, including the deciding median reduction. All sixteen candidate\u00d7role\u00d7scale witness lower bounds exceed their native bounds. No32 coefficients fitted.",
+  "minimumRemainingExcessAfterWorstQuadratureChangeCodes": 2.084115248403428,
+  "wrapperOutcomeQualification": "Background wrapper failure is expected retirement bySIGKILL to prevent resumingA; actual child completed and all31 output hashes match its terminal receipt.",
+  "shipOrExposureAction": "none; this finding supplies no stroke operator",
+  "nativeFitReruns": 0
+}
