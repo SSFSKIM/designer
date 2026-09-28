@@ -41318,3 +41318,11 @@ rejected. Consequently the complete exposure candidate list is **light-inactive 
 only**. Actual M2 process termination/disposition is still recorded separately before the
 final freeze; no stroke operator or stroke holdout claim is introduced. The one native
 receipt has not run.
+
+
+**Population transcription correction to §24, 2026-09-29 local.** The preceding prose's
+validation admitted-bin counts606/1,332 are incorrect. The reviewed verdict's saved strata
+state **588 at1x and1,292 at2x**, from720/1,440 required bins with132/148 population-deficient
+bins excluded. Calibration4,158/9,348 is correct. This corrects only the coordinator's prose
+transcription in `5ea44868`; the generated16-row witness table, raw output files, reviewed
+verdict, failure counts and scientific conclusions do not change.

@@ -373,3 +373,6 @@ was bindingviauncensoredpixels butlabelambiguous; raw/v1retained, v2additive onl
 No strokesurvivor/leaf.36combinations:30certifiedexclusions,2M1localnegatives,
 4M2unfinishedUNMEASURED—notrejected. Finalexposurecandidate isLI E3bodyonly;
 M2actualterminalrecord/finalreview/freeze/preflight/windowconfirmation stillpending.
+
+§24 prose correction: validation admittedbins are588/1292 at1x/2x (132/148excluded),
+not606/1332 asmistakenlytranscribedin5ea44868. Rawverdict and16witness table unchanged.
