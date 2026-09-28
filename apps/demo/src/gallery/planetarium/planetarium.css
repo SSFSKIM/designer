@@ -1,0 +1,838 @@
+/*
+ * Tonight — the page's own stylesheet.
+ *
+ * No rule names a registered host's background, border, box-shadow, backdrop-filter or transform:
+ * the hosts (`.glass`) are positioned and sized inline and the runtime owns their material. Ink
+ * is set on children from the runtime's label tokens, with the page's own ink as the fallback for
+ * a tier that publishes nothing yet. The secondary ink is authored as a share of the primary
+ * (the runtime's secondary was measured under its promise on window-scale bodies; the start
+ * page's record). Tertiary appears only on hairlines; quaternary is never named.
+ */
+
+:root {
+  color-scheme: light dark;
+  /* What shows for the instant before the sky paints: the sky's own zenith. */
+  --ground: #070a12;
+  --ink: rgb(255 255 255 / 0.84);
+  --ink-2: rgb(255 255 255 / 0.62);
+  --hairline: rgb(255 255 255 / 0.16);
+  /* Darker child fills separate sections; lighter ones lift what can be pressed or is chosen. */
+  --well: rgb(0 0 0 / 0.26);
+  --lift: rgb(255 255 255 / 0.08);
+  --lift-strong: rgb(255 255 255 / 0.13);
+  --secondary-share: 92%;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, "Segoe UI", Roboto,
+    "Helvetica Neue", sans-serif;
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--ground);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* The environment: viewport-fixed, full-bleed, drawn at the viewport's own size. */
+.sky {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  display: block;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.sky:active {
+  cursor: grabbing;
+}
+
+/* The canvas takes focus to be turned by the arrows; its ring frames the viewport, inside it. */
+.sky:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: -4px;
+}
+
+p,
+h2,
+h3,
+dl,
+dd,
+ul {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* --- Shared type on glass ---------------------------------------------------------------- */
+
+.glass > * {
+  --ink-2: color-mix(in srgb, var(--vitrea-foreground, var(--ink)) var(--secondary-share), transparent);
+  color: var(--vitrea-foreground, var(--ink));
+}
+
+.eyebrow {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.window-title {
+  font-size: 30px;
+  line-height: 34px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.status {
+  margin-top: 6px;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  color: var(--ink-2);
+}
+
+.status strong {
+  font-weight: 700;
+  color: var(--vitrea-foreground, var(--ink));
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin: 20px 4px 6px;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.section-count {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* --- The Tonight window ------------------------------------------------------------------ */
+
+.window-scroll {
+  height: 100%;
+  overflow: auto;
+  overscroll-behavior: contain;
+  box-sizing: border-box;
+  border-radius: 28px;
+  /*
+   * 40 px at the sides: the lens band on a window at thickness 14 is 47 px deep, and text stays
+   * off the bending part of it (the displacement at 40 px in is under a thousandth of its edge
+   * value).
+   */
+  padding: 24px 40px 18px;
+  scrollbar-width: none;
+  /* The scroll edge: the window's own inner clip fades the list at its top and bottom. */
+  mask-image: linear-gradient(to bottom, transparent 0, #000 18px, #000 calc(100% - 22px), transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 18px, #000 calc(100% - 22px), transparent 100%);
+}
+
+.window-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.tonight-head {
+  padding: 0 4px;
+}
+
+.card {
+  margin-top: 18px;
+  padding: 16px 18px 14px;
+  /* Concentric with the window: 28 − 8. */
+  border-radius: 20px;
+  background: var(--well);
+}
+
+.card-empty {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  color: var(--ink-2);
+}
+
+.card-name {
+  font-size: 22px;
+  line-height: 26px;
+  font-weight: 700;
+  letter-spacing: -0.005em;
+}
+
+.card-kind {
+  margin-top: 2px;
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 14px;
+  margin-top: 14px;
+}
+
+.facts dt {
+  font-size: 11px;
+  line-height: 14px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.facts dd,
+.moon-facts dd {
+  font-size: 17px;
+  line-height: 22px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.up-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 9px 14px;
+  border-radius: 14px;
+  text-align: left;
+}
+
+.row:hover {
+  background: var(--lift);
+}
+
+.row[aria-pressed="true"] {
+  background: var(--lift-strong);
+}
+
+.row-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.row-name {
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 600;
+}
+
+.row-kind {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  color: var(--ink-2);
+}
+
+.row-where {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.row-alt {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.row-dir {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  min-width: 2.6em;
+  text-align: right;
+  color: var(--ink-2);
+}
+
+.tonight-foot {
+  margin: 14px 4px 4px;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  color: var(--ink-2);
+}
+
+/* --- The Moon module --------------------------------------------------------------------- */
+
+.module-inner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 100%;
+  padding: 20px 26px 20px 28px;
+  box-sizing: border-box;
+}
+
+.moon-glyph {
+  flex: none;
+}
+
+.moon-glyph-dark {
+  fill: rgb(0 0 0 / 0.42);
+}
+
+.moon-glyph-lit {
+  fill: currentColor;
+}
+
+.moon-text {
+  min-width: 0;
+}
+
+.moon-phase {
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 700;
+}
+
+.moon-lit {
+  margin-top: 2px;
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.moon-percent {
+  color: var(--vitrea-foreground, var(--ink));
+  font-weight: 700;
+}
+
+.moon-facts {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 0 16px;
+  margin-top: 10px;
+}
+
+.moon-facts dt {
+  font-size: 11px;
+  line-height: 14px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--ink-2);
+}
+
+.moon-facts dd {
+  font-size: 15px;
+  line-height: 20px;
+}
+
+/* --- Ornaments: the closed faces --------------------------------------------------------- */
+
+.ornament-anchor {
+  pointer-events: none;
+}
+
+/*
+ * The closed faces are fixed boxes, the anchor's own (the morph measures a closed face once): their
+ * content centres in the box and gives way inside it — the date and the place's name and
+ * coordinates ellipsise — rather than growing the face past what was measured.
+ */
+.time-face {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  padding: 0 6px;
+  box-sizing: border-box;
+  gap: 2px;
+  white-space: nowrap;
+}
+
+.time-face > .face-button {
+  flex: none;
+}
+
+.face-button,
+.face-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 12px;
+  border-radius: 18px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  font-variant-numeric: tabular-nums;
+}
+
+.face-button:hover,
+.face-trigger:hover {
+  background: var(--lift);
+}
+
+.face-button[aria-pressed="true"] {
+  background: var(--lift-strong);
+}
+
+.face-icon {
+  width: 36px;
+  padding: 0;
+}
+
+.time-trigger {
+  min-width: 0;
+  padding: 0 10px 0 14px;
+}
+
+.time-clock {
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.time-date {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.time-clock,
+.face-chevron,
+.place-glyph {
+  flex: none;
+}
+
+.face-chevron {
+  color: var(--ink-2);
+}
+
+.place-trigger {
+  box-sizing: border-box;
+  height: 48px;
+  padding: 0 14px 0 16px;
+  border-radius: 24px;
+  white-space: nowrap;
+}
+
+.place-name,
+.place-coords {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.place-name {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.place-coords {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--ink-2);
+}
+
+.place-glyph {
+  color: var(--ink-2);
+}
+
+/* --- Platters ----------------------------------------------------------------------------- */
+
+.platter {
+  width: 400px;
+  box-sizing: border-box;
+  padding: 18px 18px 14px;
+}
+
+.platter-title {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.platter-section {
+  margin: 14px 2px 6px;
+}
+
+.platter-clock {
+  margin-top: 6px;
+  font-size: 44px;
+  line-height: 48px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.platter-date {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.scrub {
+  margin-top: 14px;
+}
+
+.scrub-range {
+  display: block;
+  width: 100%;
+  margin: 0;
+  height: 28px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+}
+
+.scrub-range::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--lift-strong);
+}
+
+.scrub-range::-moz-range-track {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--lift-strong);
+}
+
+.scrub-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  margin-top: -7px;
+  border-radius: 9px;
+  background: var(--vitrea-foreground, var(--ink));
+  border: 0;
+}
+
+.scrub-range::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 9px;
+  background: var(--vitrea-foreground, var(--ink));
+  border: 0;
+}
+
+.scrub-scale {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  height: 32px;
+  margin-top: 2px;
+  font-size: 11px;
+  line-height: 14px;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.scrub-mark {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  padding-top: 8px;
+}
+
+.scrub-mark::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: 50%;
+  width: 1px;
+  height: 6px;
+  background: currentColor;
+}
+
+.platter-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.action {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 34px;
+  padding: 0 14px;
+  border-radius: 17px;
+  font-size: 13px;
+  font-weight: 700;
+  background: var(--lift);
+}
+
+.action:hover {
+  background: var(--lift-strong);
+}
+
+.action[aria-pressed="true"] {
+  background: var(--lift-strong);
+}
+
+.action-quiet {
+  margin-left: auto;
+  background: transparent;
+}
+
+.place-options {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 8px;
+}
+
+.place-option {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 12px;
+  text-align: left;
+}
+
+.place-option:hover:not(:disabled) {
+  background: var(--lift);
+}
+
+.place-option[aria-checked="true"] {
+  background: var(--lift-strong);
+}
+
+.place-option:disabled {
+  cursor: default;
+}
+
+.place-option-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 600;
+}
+
+.place-option-country {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  color: var(--ink-2);
+}
+
+.place-check {
+  color: var(--vitrea-foreground, var(--ink));
+}
+
+.setting {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 9px 12px;
+  border-radius: 12px;
+}
+
+.setting:hover {
+  background: var(--lift);
+}
+
+.setting-label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.switch {
+  position: relative;
+  width: 36px;
+  height: 22px;
+  border-radius: 11px;
+  background: var(--lift-strong);
+  transition: background 180ms ease;
+}
+
+.switch-knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  background: var(--vitrea-foreground, var(--ink));
+  transition: transform 180ms ease;
+}
+
+.setting[aria-checked="true"] .switch {
+  background: var(--vitrea-foreground, var(--ink));
+}
+
+.setting[aria-checked="true"] .switch-knob {
+  transform: translateX(14px);
+  background: var(--ground);
+}
+
+.credit {
+  margin: 12px 2px 0;
+  font-size: 11px;
+  line-height: 15px;
+  font-weight: 500;
+  color: var(--ink-2);
+}
+
+/* --- Focus ------------------------------------------------------------------------------- */
+
+:is(button, input):focus-visible {
+  outline: 2px solid var(--vitrea-foreground, var(--ink));
+  outline-offset: 2px;
+}
+
+.row:focus-visible,
+.place-option:focus-visible,
+.setting:focus-visible,
+.action:focus-visible,
+.face-button:focus-visible,
+.face-trigger:focus-visible {
+  outline-offset: -2px;
+}
+
+/* --- Preferences ------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .switch,
+  .switch-knob {
+    transition: none;
+  }
+}
+
+/*
+ * Forced colours. The CSS tier gives every host a Canvas panel with a CanvasText border; the
+ * WebGPU tier's host draws no border of its own (a tracked runtime gap), so each host's one
+ * full-size child draws a 2 px CanvasText frame there, keyed to the tier the runtime reports.
+ * Never on the host. Every authored mark keeps an outline in system colours.
+ */
+@media (forced-colors: active) {
+  [data-glass-tier="webgpu"] :is(.window-scroll, .module-inner, .time-face, .place-trigger, .platter) {
+    outline: 2px solid CanvasText;
+    outline-offset: -2px;
+  }
+
+  [data-glass-tier="webgpu"] .module-inner {
+    border-radius: 28px;
+  }
+
+  [data-glass-tier="webgpu"] :is(.time-face, .place-trigger) {
+    border-radius: 24px;
+  }
+
+  [data-glass-tier="webgpu"] .platter {
+    border-radius: 24px;
+  }
+
+  .card {
+    outline: 1px solid CanvasText;
+    outline-offset: -1px;
+  }
+
+  .row[aria-pressed="true"],
+  .place-option[aria-checked="true"],
+  .action[aria-pressed="true"],
+  .face-button[aria-pressed="true"] {
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
+  }
+
+  .switch {
+    border: 1px solid CanvasText;
+  }
+
+  .switch-knob {
+    background: CanvasText;
+  }
+
+  .setting[aria-checked="true"] .switch {
+    background: Highlight;
+  }
+
+  .setting[aria-checked="true"] .switch-knob {
+    background: Canvas;
+  }
+
+  .moon-glyph-dark {
+    fill: Canvas;
+    stroke: CanvasText;
+  }
+
+  .moon-glyph-lit {
+    fill: CanvasText;
+  }
+
+  .scrub-range::-webkit-slider-runnable-track {
+    background: CanvasText;
+  }
+
+  .scrub-range::-webkit-slider-thumb {
+    background: Highlight;
+    border: 1px solid CanvasText;
+  }
+}

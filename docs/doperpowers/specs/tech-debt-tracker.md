@@ -6625,3 +6625,24 @@ runtime raises no `proxy-overlap-after-enforcement`, so a page switching variant
 signal that its layout stopped following the blur. **Shape of the work:** re-check proxy overlap
 when a group's variant changes, and let `samplingPaddingFor` take the variant so a layout can derive
 its gap for the material it will draw.
+
+## The clear variant at window span is opaque by three regular-material laws, not by its own constants (planetarium flagship, 2026-09-28)
+
+Found building `apps/demo/src/gallery/planetarium/` (`2026-09-28-planetarium-flagship.md`,
+Surprises 1–3) by sweeping the runtime's `materialProfile` tune on real hardware. With the clear
+variant's own constants at any value — base σ from 0.05 to 30, tint alpha from 0 to 0.9 — a
+window-sized body stayed a flat plate. What decides it is fitted on the regular material and read
+for both variants: the body samples the scatter chain's heavy level (`sizeScatterGainMax` 8 puts
+it at the pyramid's last level at window span, mixed in by a share that rises with span,
+`wgsl/optics.ts` "The scattering facet"); the size law's occlusion facet adds a twentieth of the
+neutral (`sizeOcclusionGain`), white on the light material; and the tone response solves the
+body's alpha up to Apple's measured level (`backdropToneResponseStrength`), its black branch
+drawing the light material's 132 codes over a night sky. `resolveMaterial` marks clear's
+adaptation `constrained` and neither tier reads it (the existing entry above). **Shape of the
+work:** a `clear` endpoint in the shipped documents that carries the variant's own scatter,
+occlusion and adaptation leaves — the flagship's six-leaf tune (`shared.ts`, `tuneWith`) is one
+candidate, drawn and audited but not measured against any native clear capture — so a page can
+select clear-as-lens without a `materialProfile` of its own; and the tone response gated by the
+resolved adaptation so `constrained` means something on the GPU tier. Beside it: a page painting
+its dimming layer with a fixed inward feather measured a 48 px capsule as half undimmed at an
+eighth scale; the feather has to scale with the host and the measurement resolve it.

@@ -72,6 +72,8 @@ the skill must keep in the instrument register. The specs are
 `docs/research/data/2026-09-27-materialist-spatial-register/`. Version 1.0.1 of the skill is what
 the proof corrected; 1.1.0 added the spatial register.
 
+A ninth page, the gallery's flagship, was built in the main session rather than by a fresh maker: a planetarium display, Tonight (`/gallery/planetarium/`), whose environment is the real sky over a place drawn live in WebGL, and whose window, module and two morphing ornaments are the clear variant tuned, leaf by named leaf, from the frost the shipped material draws at window span toward a lens — the runtime reporting it as tuned, the charter (`docs/doperpowers/specs/2026-09-28-planetarium-flagship.md`) saying why each leaf moved, and the same audit reading every text line on its glass in every state.
+
 ### The sampler, stand-alone
 
 The one piece that is also useful on its own is the aesthetic-ingredient sampler. Run it directly when you want a draw without going through the full skill:

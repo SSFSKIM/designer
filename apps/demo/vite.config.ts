@@ -123,7 +123,8 @@ export default defineConfig({
         playground: resolve(here, "playground/index.html"),
         laws: resolve(here, "laws/index.html"),
         // The gallery: eight Liquid Glass pages in two registers under the materialist skill
-        // (docs/doperpowers/specs/2026-09-27-materialist-spatial-register.md, C).
+        // (docs/doperpowers/specs/2026-09-27-materialist-spatial-register.md, C), and the
+        // flagship planetarium page (2026-09-28-planetarium-flagship.md).
         gallery: resolve(here, "gallery/index.html"),
         "gallery-music-player": resolve(here, "gallery/music-player/index.html"),
         "gallery-transit-ops": resolve(here, "gallery/transit-ops/index.html"),
@@ -133,6 +134,7 @@ export default defineConfig({
         "gallery-product-launch": resolve(here, "gallery/product-launch/index.html"),
         "gallery-exhibition": resolve(here, "gallery/exhibition/index.html"),
         "gallery-start-page": resolve(here, "gallery/start-page/index.html"),
+        "gallery-planetarium": resolve(here, "gallery/planetarium/index.html"),
       },
     },
   },

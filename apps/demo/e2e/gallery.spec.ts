@@ -2,7 +2,8 @@
  * The gallery, asserted the way the site is.
  *
  * Eight pages in two registers built under the materialist skill
- * (`docs/doperpowers/specs/2026-09-27-materialist-spatial-register.md`, C). Each page exposes
+ * (`docs/doperpowers/specs/2026-09-27-materialist-spatial-register.md`, C), and the flagship
+ * planetarium page (`2026-09-28-planetarium-flagship.md`). Each page exposes
  * `window.__vitrea`, the runtime root, for the initiative's audit; this suite reads the
  * same handle and makes one claim per page, in both colour schemes: after the first
  * frame, neither diagnostics channel carries an authoring finding. Environment findings
@@ -25,6 +26,7 @@ const SLUGS = [
   "product-launch",
   "exhibition",
   "start-page",
+  "planetarium",
 ] as const;
 
 /**

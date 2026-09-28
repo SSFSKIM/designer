@@ -1,0 +1,8408 @@
+[
+ {
+  "slug": "planetarium",
+  "url": "http://localhost:5177/gallery/planetarium/?at=22:30",
+  "auditedAt": "2026-09-28T12:09:31.795Z",
+  "viewport": {
+   "width": 1440,
+   "height": 900
+  },
+  "rootFound": true,
+  "readyState": "settled",
+  "adapter": {
+   "available": true,
+   "vendor": "apple",
+   "architecture": "metal-3",
+   "device": "",
+   "description": "",
+   "isFallbackAdapter": false
+  },
+  "api": {
+   "missing": []
+  },
+  "errors": [],
+  "schemes": {
+   "light": {
+    "scheme": "light",
+    "readyState": "settled",
+    "adapter": {
+     "available": true,
+     "vendor": "apple",
+     "architecture": "metal-3",
+     "device": "",
+     "description": "",
+     "isFallbackAdapter": false
+    },
+    "errors": [],
+    "consoleErrors": [],
+    "failedRequests": [],
+    "badResponses": [],
+    "scrolledOnLoad": 0,
+    "docHeight": 900,
+    "words": 118,
+    "title": "Planetarium · Tonight — a Liquid Glass demo on vitrea",
+    "placeholder": false,
+    "captureWidth": 1440,
+    "overflowCapture": false,
+    "overflowAtLoad": false,
+    "contrast": {
+     "method": "dom-composite",
+     "checked": 81,
+     "pass": 80,
+     "unknown": 0,
+     "rate": 0.988,
+     "onGlass": 80,
+     "onGlassPass": 80,
+     "fails": [
+      {
+       "text": "Tonight",
+       "ratio": 1.06,
+       "size": 32,
+       "onGlass": false
+      }
+     ]
+    },
+    "glassContrast": {
+     "method": "rendered-pixels",
+     "pairs": 172,
+     "pass": 172,
+     "minRatio": 5.09,
+     "byPhase": {
+      "fv": {
+       "pairs": 81,
+       "pass": 81
+      },
+      "menu": {
+       "pairs": 91,
+       "pass": 91
+      }
+     },
+     "fails": [],
+     "sample": [
+      {
+       "phase": "fv",
+       "text": "Tonight over",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 12,
+       "bold": true,
+       "large": false,
+       "ratio": 7.11,
+       "worstRatio": 6.8,
+       "pass": true,
+       "ink": [
+        204,
+        204,
+        205
+       ],
+       "ground": [
+        59,
+        57,
+        60
+       ],
+       "pixels": 1575,
+       "groundPixels": 755
+      },
+      {
+       "phase": "fv",
+       "text": "Seoul",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 30,
+       "bold": true,
+       "large": true,
+       "ratio": 8.18,
+       "worstRatio": 7.91,
+       "pass": true,
+       "ink": [
+        216,
+        216,
+        217
+       ],
+       "ground": [
+        57,
+        56,
+        59
+       ],
+       "pixels": 2730,
+       "groundPixels": 1541
+      },
+      {
+       "phase": "fv",
+       "text": "Night",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 14,
+       "bold": true,
+       "large": false,
+       "ratio": 8.06,
+       "worstRatio": 7.69,
+       "pass": true,
+       "ink": [
+        217,
+        216,
+        217
+       ],
+       "ground": [
+        59,
+        57,
+        59
+       ],
+       "pixels": 646,
+       "groundPixels": 260
+      },
+      {
+       "phase": "fv",
+       "text": "·",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 14,
+       "bold": false,
+       "large": false,
+       "ratio": 7.14,
+       "worstRatio": 7.03,
+       "pass": true,
+       "ink": [
+        204,
+        204,
+        204
+       ],
+       "ground": [
+        58,
+        57,
+        59
+       ],
+       "pixels": 221,
+       "groundPixels": 198
+      },
+      {
+       "phase": "fv",
+       "text": "astronomical dawn",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 14,
+       "bold": false,
+       "large": false,
+       "ratio": 7.12,
+       "worstRatio": 6.65,
+       "pass": true,
+       "ink": [
+        204,
+        204,
+        204
+       ],
+       "ground": [
+        59,
+        57,
+        59
+       ],
+       "pixels": 2125,
+       "groundPixels": 1059
+      },
+      {
+       "phase": "fv",
+       "text": "04:58",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 14,
+       "bold": false,
+       "large": false,
+       "ratio": 6.89,
+       "worstRatio": 6.69,
+       "pass": true,
+       "ink": [
+        204,
+        205,
+        206
+       ],
+       "ground": [
+        59,
+        60,
+        65
+       ],
+       "pixels": 697,
+       "groundPixels": 337
+      },
+      {
+       "phase": "fv",
+       "text": "Moon",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 22,
+       "bold": true,
+       "large": true,
+       "ratio": 9.97,
+       "worstRatio": 9.58,
+       "pass": true,
+       "ink": [
+        213,
+        213,
+        213
+       ],
+       "ground": [
+        42,
+        40,
+        42
+       ],
+       "pixels": 1508,
+       "groundPixels": 812
+      },
+      {
+       "phase": "fv",
+       "text": "The Moon · in Pisces",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 13,
+       "bold": false,
+       "large": false,
+       "ratio": 8.63,
+       "worstRatio": 8.42,
+       "pass": true,
+       "ink": [
+        200,
+        200,
+        200
+       ],
+       "ground": [
+        42,
+        41,
+        42
+       ],
+       "pixels": 2080,
+       "groundPixels": 1151
+      },
+      {
+       "phase": "fv",
+       "text": "Altitude",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 11,
+       "bold": true,
+       "large": false,
+       "ratio": 8.51,
+       "worstRatio": 8.32,
+       "pass": true,
+       "ink": [
+        200,
+        200,
+        200
+       ],
+       "ground": [
+        44,
+        42,
+        44
+       ],
+       "pixels": 793,
+       "groundPixels": 354
+      },
+      {
+       "phase": "fv",
+       "text": "41°",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 17,
+       "bold": false,
+       "large": false,
+       "ratio": 9.76,
+       "worstRatio": 9.54,
+       "pass": true,
+       "ink": [
+        213,
+        213,
+        214
+       ],
+       "ground": [
+        43,
+        42,
+        44
+       ],
+       "pixels": 600,
+       "groundPixels": 371
+      },
+      {
+       "phase": "fv",
+       "text": "Direction",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 11,
+       "bold": true,
+       "large": false,
+       "ratio": 8.64,
+       "worstRatio": 8.52,
+       "pass": true,
+       "ink": [
+        200,
+        200,
+        200
+       ],
+       "ground": [
+        41,
+        41,
+        44
+       ],
+       "pixels": 897,
+       "groundPixels": 375
+      },
+      {
+       "phase": "fv",
+       "text": "ESE",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 17,
+       "bold": false,
+       "large": false,
+       "ratio": 9.81,
+       "worstRatio": 9.66,
+       "pass": true,
+       "ink": [
+        213,
+        213,
+        214
+       ],
+       "ground": [
+        41,
+        42,
+        44
+       ],
+       "pixels": 620,
+       "groundPixels": 271
+      },
+      {
+       "phase": "fv",
+       "text": "Sets",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 11,
+       "bold": true,
+       "large": false,
+       "ratio": 8.51,
+       "worstRatio": 8.4,
+       "pass": true,
+       "ink": [
+        200,
+        200,
+        200
+       ],
+       "ground": [
+        44,
+        42,
+        44
+       ],
+       "pixels": 416,
+       "groundPixels": 170
+      },
+      {
+       "phase": "fv",
+       "text": "09:03",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 17,
+       "bold": false,
+       "large": false,
+       "ratio": 9.66,
+       "worstRatio": 9.5,
+       "pass": true,
+       "ink": [
+        214,
+        213,
+        214
+       ],
+       "ground": [
+        44,
+        43,
+        44
+       ],
+       "pixels": 980,
+       "groundPixels": 469
+      },
+      {
+       "phase": "fv",
+       "text": "Magnitude",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 11,
+       "bold": true,
+       "large": false,
+       "ratio": 8.66,
+       "worstRatio": 8.52,
+       "pass": true,
+       "ink": [
+        199,
+        200,
+        200
+       ],
+       "ground": [
+        40,
+        41,
+        44
+       ],
+       "pixels": 988,
+       "groundPixels": 395
+      },
+      {
+       "phase": "fv",
+       "text": "−12.1",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 17,
+       "bold": false,
+       "large": false,
+       "ratio": 9.81,
+       "worstRatio": 9.39,
+       "pass": true,
+       "ink": [
+        213,
+        213,
+        214
+       ],
+       "ground": [
+        41,
+        42,
+        44
+       ],
+       "pixels": 980,
+       "groundPixels": 674
+      },
+      {
+       "phase": "fv",
+       "text": "Up now",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 12,
+       "bold": true,
+       "large": false,
+       "ratio": 6.94,
+       "worstRatio": 6.84,
+       "pass": true,
+       "ink": [
+        205,
+        204,
+        205
+       ],
+       "ground": [
+        61,
+        59,
+        61
+       ],
+       "pixels": 855,
+       "groundPixels": 403
+      },
+      {
+       "phase": "fv",
+       "text": "14",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 12,
+       "bold": false,
+       "large": false,
+       "ratio": 7.71,
+       "worstRatio": 7.68,
+       "pass": true,
+       "ink": [
+        202,
+        202,
+        203
+       ],
+       "ground": [
+        50,
+        51,
+        56
+       ],
+       "pixels": 225,
+       "groundPixels": 120
+      },
+      {
+       "phase": "fv",
+       "text": "Moon",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 15,
+       "bold": false,
+       "large": false,
+       "ratio": 5.49,
+       "worstRatio": 5.32,
+       "pass": true,
+       "ink": [
+        222,
+        222,
+        222
+       ],
+       "ground": [
+        87,
+        85,
+        86
+       ],
+       "pixels": 720,
+       "groundPixels": 344
+      },
+      {
+       "phase": "fv",
+       "text": "Waning gibbous",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 12,
+       "bold": false,
+       "large": false,
+       "ratio": 5.09,
+       "worstRatio": 4.77,
+       "pass": true,
+       "ink": [
+        211,
+        210,
+        211
+       ],
+       "ground": [
+        84,
+        83,
+        84
+       ],
+       "pixels": 1395,
+       "groundPixels": 639
+      },
+      {
+       "phase": "fv",
+       "text": "41",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 15,
+       "bold": false,
+       "large": false,
+       "ratio": 6.05,
+       "worstRatio": 6.05,
+       "pass": true,
+       "ink": [
+        220,
+        220,
+        221
+       ],
+       "ground": [
+        78,
+        78,
+        83
+       ],
+       "pixels": 360,
+       "groundPixels": 214
+      },
+      {
+       "phase": "fv",
+       "text": "°",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 15,
+       "bold": false,
+       "large": false,
+       "ratio": 6.05,
+       "worstRatio": 6.05,
+       "pass": true,
+       "ink": [
+        220,
+        220,
+        221
+       ],
+       "ground": [
+        78,
+        78,
+        83
+       ],
+       "pixels": 144,
+       "groundPixels": 99
+      },
+      {
+       "phase": "fv",
+       "text": "ESE",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 12,
+       "bold": true,
+       "large": false,
+       "ratio": 5.5,
+       "worstRatio": 5.44,
+       "pass": true,
+       "ink": [
+        209,
+        209,
+        210
+       ],
+       "ground": [
+        77,
+        77,
+        82
+       ],
+       "pixels": 390,
+       "groundPixels": 166
+      },
+      {
+       "phase": "fv",
+       "text": "Saturn",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 15,
+       "bold": false,
+       "large": false,
+       "ratio": 8.06,
+       "worstRatio": 7.79,
+       "pass": true,
+       "ink": [
+        217,
+        216,
+        216
+       ],
+       "ground": [
+        59,
+        57,
+        58
+       ],
+       "pixels": 864,
+       "groundPixels": 408
+      },
+      {
+       "phase": "fv",
+       "text": "Planet",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 12,
+       "bold": false,
+       "large": false,
+       "ratio": 7.11,
+       "worstRatio": 6.92,
+       "pass": true,
+       "ink": [
+        205,
+        204,
+        204
+       ],
+       "ground": [
+        60,
+        57,
+        58
+       ],
+       "pixels": 555,
+       "groundPixels": 243
+      },
+      {
+       "phase": "fv",
+       "text": "42",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 15,
+       "bold": false,
+       "large": false,
+       "ratio": 8.52,
+       "worstRatio": 8.43,
+       "pass": true,
+       "ink": [
+        215,
+        215,
+        216
+       ],
+       "ground": [
+        53,
+        53,
+        57
+       ],
+       "pixels": 360,
+       "groundPixels": 179
+      },
+      {
+       "phase": "fv",
+       "text": "°",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 15,
+       "bold": false,
+       "large": false,
+       "ratio": 8.52,
+       "worstRatio": 8.5,
+       "pass": true,
+       "ink": [
+        215,
+        215,
+        216
+       ],
+       "ground": [
+        53,
+        53,
+        57
+       ],
+       "pixels": 144,
+       "groundPixels": 93
+      },
+      {
+       "phase": "fv",
+       "text": "SE",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 12,
+       "bold": true,
+       "large": false,
+       "ratio": 7.6,
+       "worstRatio": 7.6,
+       "pass": true,
+       "ink": [
+        202,
+        202,
+        204
+       ],
+       "ground": [
+        52,
+        52,
+        57
+       ],
+       "pixels": 270,
+       "groundPixels": 117
+      },
+      {
+       "phase": "fv",
+       "text": "Vega",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 15,
+       "bold": false,
+       "large": false,
+       "ratio": 8.04,
+       "worstRatio": 7.81,
+       "pass": true,
+       "ink": [
+        217,
+        216,
+        216
+       ],
+       "ground": [
+        60,
+        57,
+        58
+       ],
+       "pixels": 648,
+       "groundPixels": 298
+      },
+      {
+       "phase": "fv",
+       "text": "Lyra",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 12,
+       "bold": false,
+       "large": false,
+       "ratio": 6.87,
+       "worstRatio": 6.53,
+       "pass": true,
+       "ink": [
+        205,
+        205,
+        204
+       ],
+       "ground": [
+        62,
+        60,
+        59
+       ],
+       "pixels": 375,
+       "groundPixels": 182
+      },
+      {
+       "phase": "fv",
+       "text": "45",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 15,
+       "bold": false,
+       "large": false,
+       "ratio": 8.4,
+       "worstRatio": 7.33,
+       "pass": true,
+       "ink": [
+        216,
+        216,
+        216
+       ],
+       "ground": [
+        55,
+        54,
+        57
+       ],
+       "pixels": 360,
+       "groundPixels": 176
+      },
+      {
+       "phase": "fv",
+       "text": "°",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 15,
+       "bold": false,
+       "large": false,
+       "ratio": 8.5,
+       "worstRatio": 8.41,
+       "pass": true,
+       "ink": [
+        216,
+        215,
+        216
+       ],
+       "ground": [
+        54,
+        53,
+        57
+       ],
+       "pixels": 144,
+       "groundPixels": 100
+      },
+      {
+       "phase": "fv",
+       "text": "WNW",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 12,
+       "bold": true,
+       "large": false,
+       "ratio": 7.52,
+       "worstRatio": 7.49,
+       "pass": true,
+       "ink": [
+        203,
+        203,
+        203
+       ],
+       "ground": [
+        53,
+        53,
+        56
+       ],
+       "pixels": 540,
+       "groundPixels": 219
+      },
+      {
+       "phase": "fv",
+       "text": "Capella",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 15,
+       "bold": false,
+       "large": false,
+       "ratio": 7.73,
+       "worstRatio": 7.61,
+       "pass": true,
+       "ink": [
+        217,
+        217,
+        217
+       ],
+       "ground": [
+        63,
+        60,
+        60
+       ],
+       "pixels": 972,
+       "groundPixels": 437
+      },
+      {
+       "phase": "fv",
+       "text": "Auriga",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 12,
+       "bold": false,
+       "large": false,
+       "ratio": 6.85,
+       "worstRatio": 6.65,
+       "pass": true,
+       "ink": [
+        205,
+        205,
+        205
+       ],
+       "ground": [
+        63,
+        60,
+        60
+       ],
+       "pixels": 570,
+       "groundPixels": 258
+      },
+      {
+       "phase": "fv",
+       "text": "19",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 15,
+       "bold": false,
+       "large": false,
+       "ratio": 8.3,
+       "worstRatio": 8.29,
+       "pass": true,
+       "ink": [
+        216,
+        216,
+        216
+       ],
+       "ground": [
+        56,
+        55,
+        57
+       ],
+       "pixels": 360,
+       "groundPixels": 201
+      },
+      {
+       "phase": "fv",
+       "text": "°",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 15,
+       "bold": false,
+       "large": false,
+       "ratio": 8.37,
+       "worstRatio": 8.28,
+       "pass": true,
+       "ink": [
+        216,
+        216,
+        216
+       ],
+       "ground": [
+        56,
+        54,
+        57
+       ],
+       "pixels": 144,
+       "groundPixels": 91
+      },
+      {
+       "phase": "fv",
+       "text": "NE",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 12,
+       "bold": true,
+       "large": false,
+       "ratio": 7.41,
+       "worstRatio": 7.41,
+       "pass": true,
+       "ink": [
+        203,
+        203,
+        204
+       ],
+       "ground": [
+        55,
+        54,
+        57
+       ],
+       "pixels": 285,
+       "groundPixels": 123
+      },
+      {
+       "phase": "fv",
+       "text": "Altair",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 15,
+       "bold": false,
+       "large": false,
+       "ratio": 9.14,
+       "worstRatio": 8.25,
+       "pass": true,
+       "ink": [
+        215,
+        214,
+        214
+       ],
+       "ground": [
+        51,
+        47,
+        46
+       ],
+       "pixels": 702,
+       "groundPixels": 702
+      },
+      {
+       "phase": "fv",
+       "text": "Aquila",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 12,
+       "bold": false,
+       "large": false,
+       "ratio": 7.84,
+       "worstRatio": 7.51,
+       "pass": true,
+       "ink": [
+        203,
+        202,
+        201
+       ],
+       "ground": [
+        53,
+        49,
+        47
+       ],
+       "pixels": 540,
+       "groundPixels": 540
+      }
+     ]
+    },
+    "rootFound": true,
+    "api": {
+     "missing": []
+    },
+    "colorScheme": "light",
+    "schemeFollowed": true,
+    "windowActivation": "active",
+    "material": {
+     "name": "apple-macos-27.0-glass0.5",
+     "platform": "macOS 27.0",
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "resolvedMaterialSha256": "be13dae45098fc89",
+     "tuned": true
+    },
+    "webgpu": {
+     "available": true,
+     "ownership": "vitrea",
+     "deviceHealth": "ok",
+     "unavailableReason": null,
+     "hasDevice": true
+    },
+    "platformProbe": {
+     "engine": {
+      "family": "chromium",
+      "version": 151
+     },
+     "reach": "verified"
+    },
+    "accessibility": {
+     "reducedTransparency": false,
+     "reducedMotion": false,
+     "increasedContrast": false,
+     "forcedColors": false,
+     "material": {
+      "glass": "material",
+      "colorSource": "material",
+      "frost": "nominal",
+      "refraction": "nominal",
+      "occlusion": "nominal",
+      "border": "nominal",
+      "ambientTint": "nominal",
+      "foreground": "adaptive"
+     },
+     "motion": {
+      "overshoot": "elastic",
+      "deformation": "nominal",
+      "shimmer": "travel",
+      "morph": "elastic",
+      "crossfade": "never",
+      "positionalContinuity": true
+     }
+    },
+    "surfaces": [
+     {
+      "nodeId": "vitrea-node_r_1_",
+      "groupId": "tonight",
+      "plane": "base",
+      "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > section[data-vitrea-node=\"vitrea-node_r_1_\"].glass.window",
+      "tag": "section",
+      "role": null,
+      "rect": [
+       48,
+       48,
+       400,
+       560
+      ],
+      "span": 400,
+      "boundsFrom": "renderInput",
+      "shapeFamily": "fixed-rounded-rect",
+      "radii": [
+       28,
+       28,
+       28,
+       28
+      ],
+      "smoothing": 0.52866495,
+      "thickness": 14,
+      "variant": "clear",
+      "tinted": false,
+      "cssRadius": "0px",
+      "label": "Tonight"
+     },
+     {
+      "nodeId": "vitrea-node_r_3_",
+      "groupId": "moon",
+      "plane": "base",
+      "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > section[data-vitrea-node=\"vitrea-node_r_3_\"].glass.module",
+      "tag": "section",
+      "role": null,
+      "rect": [
+       1072,
+       48,
+       320,
+       176
+      ],
+      "span": 176,
+      "boundsFrom": "renderInput",
+      "shapeFamily": "fixed-rounded-rect",
+      "radii": [
+       28,
+       28,
+       28,
+       28
+      ],
+      "smoothing": 0.52866495,
+      "thickness": 14,
+      "variant": "clear",
+      "tinted": false,
+      "cssRadius": "0px",
+      "label": "The Moon"
+     },
+     {
+      "nodeId": "vitrea-node_r_6_",
+      "groupId": "place",
+      "plane": "overlay",
+      "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > div[data-vitrea-node=\"vitrea-node_r_6_\"].glass.place-morph",
+      "tag": "div",
+      "role": null,
+      "rect": [
+       600,
+       48,
+       320,
+       48
+      ],
+      "span": 48,
+      "boundsFrom": "renderInput",
+      "shapeFamily": "fixed-rounded-rect",
+      "radii": [
+       24,
+       24,
+       24,
+       24
+      ],
+      "smoothing": 0.66,
+      "thickness": 14,
+      "variant": "clear",
+      "tinted": false,
+      "cssRadius": "0px",
+      "label": "Place"
+     },
+     {
+      "nodeId": "vitrea-node_r_9_",
+      "groupId": "time",
+      "plane": "overlay",
+      "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div[data-vitrea-node=\"vitrea-node_r_9_\"].glass.time-morph",
+      "tag": "div",
+      "role": null,
+      "rect": [
+       750,
+       723.9,
+       372,
+       48
+      ],
+      "span": 48,
+      "boundsFrom": "renderInput",
+      "shapeFamily": "fixed-rounded-rect",
+      "radii": [
+       24,
+       24,
+       24,
+       24
+      ],
+      "smoothing": 0.66,
+      "thickness": 14,
+      "variant": "clear",
+      "tinted": false,
+      "cssRadius": "0px",
+      "label": "Time"
+     }
+    ],
+    "surfacesInFrame": 4,
+    "planes": [
+     {
+      "plane": "base",
+      "nodes": 2
+     },
+     {
+      "plane": "overlay",
+      "nodes": 2
+     }
+    ],
+    "groups": [
+     {
+      "id": "tonight",
+      "members": 1,
+      "renderer": "webgpu",
+      "sampling": "gpu-texture",
+      "configuredSource": "texture",
+      "analysis": "exact",
+      "refraction": "true",
+      "health": "ok",
+      "demotionReason": null,
+      "cssBody": null,
+      "cssTint": null,
+      "cssShadow": null,
+      "materialDocument": {
+       "name": "apple-macos-27.0-glass0.5",
+       "platform": "macOS 27.0",
+       "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+       "resolvedMaterialSha256": "be13dae45098fc89",
+       "tuned": true
+      },
+      "abscissae": null,
+      "variant": "clear",
+      "blurRadius": 1.32,
+      "backdropToneHint": true,
+      "probe": {
+       "verdict": "pass",
+       "breaks": 0,
+       "reach": "verified",
+       "engineDefects": []
+      },
+      "diagnostics": []
+     },
+     {
+      "id": "moon",
+      "members": 1,
+      "renderer": "webgpu",
+      "sampling": "gpu-texture",
+      "configuredSource": "texture",
+      "analysis": "exact",
+      "refraction": "true",
+      "health": "ok",
+      "demotionReason": null,
+      "cssBody": null,
+      "cssTint": null,
+      "cssShadow": null,
+      "materialDocument": {
+       "name": "apple-macos-27.0-glass0.5",
+       "platform": "macOS 27.0",
+       "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+       "resolvedMaterialSha256": "be13dae45098fc89",
+       "tuned": true
+      },
+      "abscissae": null,
+      "variant": "clear",
+      "blurRadius": 1.32,
+      "backdropToneHint": true,
+      "probe": {
+       "verdict": "pass",
+       "breaks": 0,
+       "reach": "verified",
+       "engineDefects": []
+      },
+      "diagnostics": []
+     },
+     {
+      "id": "place",
+      "members": 1,
+      "renderer": "webgpu",
+      "sampling": "gpu-texture",
+      "configuredSource": "texture",
+      "analysis": "exact",
+      "refraction": "true",
+      "health": "ok",
+      "demotionReason": null,
+      "cssBody": null,
+      "cssTint": null,
+      "cssShadow": null,
+      "materialDocument": {
+       "name": "apple-macos-27.0-glass0.5",
+       "platform": "macOS 27.0",
+       "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+       "resolvedMaterialSha256": "be13dae45098fc89",
+       "tuned": true
+      },
+      "abscissae": null,
+      "variant": "clear",
+      "blurRadius": 1.32,
+      "backdropToneHint": true,
+      "probe": {
+       "verdict": "pass",
+       "breaks": 0,
+       "reach": "verified",
+       "engineDefects": []
+      },
+      "diagnostics": []
+     },
+     {
+      "id": "time",
+      "members": 1,
+      "renderer": "webgpu",
+      "sampling": "gpu-texture",
+      "configuredSource": "texture",
+      "analysis": "exact",
+      "refraction": "true",
+      "health": "ok",
+      "demotionReason": null,
+      "cssBody": null,
+      "cssTint": null,
+      "cssShadow": null,
+      "materialDocument": {
+       "name": "apple-macos-27.0-glass0.5",
+       "platform": "macOS 27.0",
+       "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+       "resolvedMaterialSha256": "be13dae45098fc89",
+       "tuned": true
+      },
+      "abscissae": null,
+      "variant": "clear",
+      "blurRadius": 1.32,
+      "backdropToneHint": true,
+      "probe": {
+       "verdict": "pass",
+       "breaks": 0,
+       "reach": "verified",
+       "engineDefects": []
+      },
+      "diagnostics": []
+     }
+    ],
+    "diagnostics": [],
+    "derivedFindings": [],
+    "menu": "captured",
+    "menuSurfaces": [
+     {
+      "nodeId": "vitrea-node_r_1_",
+      "groupId": "tonight",
+      "plane": "base",
+      "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > section[data-vitrea-node=\"vitrea-node_r_1_\"].glass.window",
+      "tag": "section",
+      "role": null,
+      "rect": [
+       48,
+       48,
+       400,
+       560
+      ],
+      "span": 400,
+      "boundsFrom": "renderInput",
+      "shapeFamily": "fixed-rounded-rect",
+      "radii": [
+       28,
+       28,
+       28,
+       28
+      ],
+      "smoothing": 0.52866495,
+      "thickness": 14,
+      "variant": "clear",
+      "tinted": false,
+      "cssRadius": "0px",
+      "label": "Tonight"
+     },
+     {
+      "nodeId": "vitrea-node_r_3_",
+      "groupId": "moon",
+      "plane": "base",
+      "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > section[data-vitrea-node=\"vitrea-node_r_3_\"].glass.module",
+      "tag": "section",
+      "role": null,
+      "rect": [
+       1072,
+       48,
+       320,
+       176
+      ],
+      "span": 176,
+      "boundsFrom": "renderInput",
+      "shapeFamily": "fixed-rounded-rect",
+      "radii": [
+       28,
+       28,
+       28,
+       28
+      ],
+      "smoothing": 0.52866495,
+      "thickness": 14,
+      "variant": "clear",
+      "tinted": false,
+      "cssRadius": "0px",
+      "label": "The Moon"
+     },
+     {
+      "nodeId": "vitrea-node_r_6_",
+      "groupId": "place",
+      "plane": "overlay",
+      "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > div[data-vitrea-node=\"vitrea-node_r_6_\"].glass.place-morph",
+      "tag": "div",
+      "role": null,
+      "rect": [
+       600,
+       48,
+       320,
+       48
+      ],
+      "span": 48,
+      "boundsFrom": "renderInput",
+      "shapeFamily": "fixed-rounded-rect",
+      "radii": [
+       24,
+       24,
+       24,
+       24
+      ],
+      "smoothing": 0.66,
+      "thickness": 14,
+      "variant": "clear",
+      "tinted": false,
+      "cssRadius": "0px",
+      "label": "Place"
+     },
+     {
+      "nodeId": "vitrea-node_r_9_",
+      "groupId": "time",
+      "plane": "overlay",
+      "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div[data-vitrea-node=\"vitrea-node_r_9_\"].glass.time-morph",
+      "tag": "div",
+      "role": null,
+      "rect": [
+       750,
+       473.9,
+       400,
+       242
+      ],
+      "span": 242,
+      "boundsFrom": "renderInput",
+      "shapeFamily": "fixed-rounded-rect",
+      "radii": [
+       24,
+       24,
+       24,
+       24
+      ],
+      "smoothing": 0.66,
+      "thickness": 14,
+      "variant": "clear",
+      "tinted": false,
+      "cssRadius": "0px",
+      "label": "Time"
+     }
+    ],
+    "menuGroups": [
+     {
+      "id": "tonight",
+      "members": 1,
+      "renderer": "webgpu",
+      "sampling": "gpu-texture",
+      "configuredSource": "texture",
+      "analysis": "exact",
+      "refraction": "true",
+      "health": "ok",
+      "demotionReason": null,
+      "cssBody": null,
+      "cssTint": null,
+      "cssShadow": null,
+      "materialDocument": {
+       "name": "apple-macos-27.0-glass0.5",
+       "platform": "macOS 27.0",
+       "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+       "resolvedMaterialSha256": "be13dae45098fc89",
+       "tuned": true
+      },
+      "abscissae": null,
+      "variant": "clear",
+      "blurRadius": 1.32,
+      "backdropToneHint": true,
+      "probe": {
+       "verdict": "pass",
+       "breaks": 0,
+       "reach": "verified",
+       "engineDefects": []
+      },
+      "diagnostics": []
+     },
+     {
+      "id": "moon",
+      "members": 1,
+      "renderer": "webgpu",
+      "sampling": "gpu-texture",
+      "configuredSource": "texture",
+      "analysis": "exact",
+      "refraction": "true",
+      "health": "ok",
+      "demotionReason": null,
+      "cssBody": null,
+      "cssTint": null,
+      "cssShadow": null,
+      "materialDocument": {
+       "name": "apple-macos-27.0-glass0.5",
+       "platform": "macOS 27.0",
+       "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+       "resolvedMaterialSha256": "be13dae45098fc89",
+       "tuned": true
+      },
+      "abscissae": null,
+      "variant": "clear",
+      "blurRadius": 1.32,
+      "backdropToneHint": true,
+      "probe": {
+       "verdict": "pass",
+       "breaks": 0,
+       "reach": "verified",
+       "engineDefects": []
+      },
+      "diagnostics": []
+     },
+     {
+      "id": "place",
+      "members": 1,
+      "renderer": "webgpu",
+      "sampling": "gpu-texture",
+      "configuredSource": "texture",
+      "analysis": "exact",
+      "refraction": "true",
+      "health": "ok",
+      "demotionReason": null,
+      "cssBody": null,
+      "cssTint": null,
+      "cssShadow": null,
+      "materialDocument": {
+       "name": "apple-macos-27.0-glass0.5",
+       "platform": "macOS 27.0",
+       "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+       "resolvedMaterialSha256": "be13dae45098fc89",
+       "tuned": true
+      },
+      "abscissae": null,
+      "variant": "clear",
+      "blurRadius": 1.32,
+      "backdropToneHint": true,
+      "probe": {
+       "verdict": "pass",
+       "breaks": 0,
+       "reach": "verified",
+       "engineDefects": []
+      },
+      "diagnostics": []
+     },
+     {
+      "id": "time",
+      "members": 1,
+      "renderer": "webgpu",
+      "sampling": "gpu-texture",
+      "configuredSource": "texture",
+      "analysis": "exact",
+      "refraction": "true",
+      "health": "ok",
+      "demotionReason": null,
+      "cssBody": null,
+      "cssTint": null,
+      "cssShadow": null,
+      "materialDocument": {
+       "name": "apple-macos-27.0-glass0.5",
+       "platform": "macOS 27.0",
+       "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+       "resolvedMaterialSha256": "be13dae45098fc89",
+       "tuned": true
+      },
+      "abscissae": null,
+      "variant": "clear",
+      "blurRadius": 1.32,
+      "backdropToneHint": true,
+      "probe": {
+       "verdict": "pass",
+       "breaks": 0,
+       "reach": "verified",
+       "engineDefects": []
+      },
+      "diagnostics": []
+     }
+    ],
+    "menuDiagnostics": [],
+    "ban": {
+     "rest": {
+      "findings": [],
+      "unmeasured": [],
+      "hostsRead": 4,
+      "cssTierHosts": 0
+     },
+     "menu": {
+      "findings": [],
+      "unmeasured": [],
+      "hostsRead": 4,
+      "cssTierHosts": 0
+     }
+    },
+    "hostText": [
+     {
+      "nodeId": "vitrea-node_r_1_",
+      "role": "window",
+      "groupId": "tonight",
+      "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > section[data-vitrea-node=\"vitrea-node_r_1_\"].glass.window",
+      "span": 400,
+      "hasText": true,
+      "runs": 38,
+      "text": "Tonight over Seoul Night · astronomical dawn 04:58 Moon The "
+     },
+     {
+      "nodeId": "vitrea-node_r_3_",
+      "role": "module",
+      "groupId": "moon",
+      "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > section[data-vitrea-node=\"vitrea-node_r_3_\"].glass.module",
+      "span": 176,
+      "hasText": true,
+      "runs": 11,
+      "text": "Waning gibbous 96 % lit · waning Rises 19:25 Sets 09:03 Last"
+     },
+     {
+      "nodeId": "vitrea-node_r_6_",
+      "role": "ornament",
+      "groupId": "place",
+      "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > div[data-vitrea-node=\"vitrea-node_r_6_\"].glass.place-morph",
+      "span": 48,
+      "hasText": true,
+      "runs": 2,
+      "text": "Seoul 37.6° N · 127.0° E"
+     },
+     {
+      "nodeId": "vitrea-node_r_9_",
+      "role": "ornament",
+      "groupId": "time",
+      "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div[data-vitrea-node=\"vitrea-node_r_9_\"].glass.time-morph",
+      "span": 48,
+      "hasText": true,
+      "runs": 4,
+      "text": "−1 h 22:30 Mon 28 Sept +1 h"
+     }
+    ],
+    "menuHostText": [
+     {
+      "nodeId": "vitrea-node_r_1_",
+      "role": "window",
+      "groupId": "tonight",
+      "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > section[data-vitrea-node=\"vitrea-node_r_1_\"].glass.window",
+      "span": 400,
+      "hasText": true,
+      "runs": 38,
+      "text": "Tonight over Seoul Night · astronomical dawn 04:58 Moon The "
+     },
+     {
+      "nodeId": "vitrea-node_r_3_",
+      "role": "module",
+      "groupId": "moon",
+      "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > section[data-vitrea-node=\"vitrea-node_r_3_\"].glass.module",
+      "span": 176,
+      "hasText": true,
+      "runs": 11,
+      "text": "Waning gibbous 96 % lit · waning Rises 19:25 Sets 09:03 Last"
+     },
+     {
+      "nodeId": "vitrea-node_r_6_",
+      "role": "ornament",
+      "groupId": "place",
+      "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > div[data-vitrea-node=\"vitrea-node_r_6_\"].glass.place-morph",
+      "span": 48,
+      "hasText": true,
+      "runs": 2,
+      "text": "Seoul 37.6° N · 127.0° E"
+     },
+     {
+      "nodeId": "vitrea-node_r_9_",
+      "role": "platter",
+      "groupId": "time",
+      "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div[data-vitrea-node=\"vitrea-node_r_9_\"].glass.time-morph",
+      "span": 242,
+      "hasText": true,
+      "runs": 8,
+      "text": "Timeline 22:30 28 September · Seoul Play the night Now Done"
+     }
+    ],
+    "glassCoverage": {
+     "fraction": 0.2419,
+     "cellPx": 4,
+     "cells": 81000,
+     "covered": 19596,
+     "hosts": 4
+    },
+    "hostLuminance": {
+     "measure": "mean encoded Rec. 709 luma of the glyph-suppressed capture, 0..1 (the runtime's encodedLuminance, packages/platform-web/src/backdrop-tone.ts)",
+     "band": [
+      0.39,
+      0.49
+     ],
+     "ringPx": 24,
+     "reads": [
+      {
+       "state": "fv",
+       "nodeId": "vitrea-node_r_1_",
+       "groupId": "tonight",
+       "role": "window",
+       "label": "Tonight",
+       "rect": [
+        48,
+        48,
+        400,
+        560
+       ],
+       "inside": {
+        "mean": 0.2147,
+        "pixels": 224000,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1641,
+        "pixels": 48384,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "fv",
+       "nodeId": "vitrea-node_r_3_",
+       "groupId": "moon",
+       "role": "module",
+       "label": "The Moon",
+       "rect": [
+        1072,
+        48,
+        320,
+        176
+       ],
+       "inside": {
+        "mean": 0.1929,
+        "pixels": 56320,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1236,
+        "pixels": 26112,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "fv",
+       "nodeId": "vitrea-node_r_6_",
+       "groupId": "place",
+       "role": "ornament",
+       "label": "Place",
+       "rect": [
+        600,
+        48,
+        320,
+        48
+       ],
+       "inside": {
+        "mean": 0.1948,
+        "pixels": 15360,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1213,
+        "pixels": 19968,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "fv",
+       "nodeId": "vitrea-node_r_9_",
+       "groupId": "time",
+       "role": "ornament",
+       "label": "Time",
+       "rect": [
+        750,
+        723.9,
+        372,
+        48
+       ],
+       "inside": {
+        "mean": 0.2301,
+        "pixels": 18228,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1805,
+        "pixels": 22512,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "scroller-1-top",
+       "nodeId": "vitrea-node_r_1_",
+       "groupId": "tonight",
+       "role": "window",
+       "label": "Tonight",
+       "rect": [
+        48,
+        48,
+        400,
+        560
+       ],
+       "inside": {
+        "mean": 0.2147,
+        "pixels": 224000,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1641,
+        "pixels": 48384,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "scroller-1-top",
+       "nodeId": "vitrea-node_r_3_",
+       "groupId": "moon",
+       "role": "module",
+       "label": "The Moon",
+       "rect": [
+        1072,
+        48,
+        320,
+        176
+       ],
+       "inside": {
+        "mean": 0.1929,
+        "pixels": 56320,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1236,
+        "pixels": 26112,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "scroller-1-top",
+       "nodeId": "vitrea-node_r_6_",
+       "groupId": "place",
+       "role": "ornament",
+       "label": "Place",
+       "rect": [
+        600,
+        48,
+        320,
+        48
+       ],
+       "inside": {
+        "mean": 0.1948,
+        "pixels": 15360,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1213,
+        "pixels": 19968,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "scroller-1-top",
+       "nodeId": "vitrea-node_r_9_",
+       "groupId": "time",
+       "role": "ornament",
+       "label": "Time",
+       "rect": [
+        750,
+        723.9,
+        372,
+        48
+       ],
+       "inside": {
+        "mean": 0.2301,
+        "pixels": 18228,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1805,
+        "pixels": 22512,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "scroller-1-middle",
+       "nodeId": "vitrea-node_r_1_",
+       "groupId": "tonight",
+       "role": "window",
+       "label": "Tonight",
+       "rect": [
+        48,
+        48,
+        400,
+        560
+       ],
+       "inside": {
+        "mean": 0.2285,
+        "pixels": 224000,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1641,
+        "pixels": 48384,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "scroller-1-middle",
+       "nodeId": "vitrea-node_r_3_",
+       "groupId": "moon",
+       "role": "module",
+       "label": "The Moon",
+       "rect": [
+        1072,
+        48,
+        320,
+        176
+       ],
+       "inside": {
+        "mean": 0.1929,
+        "pixels": 56320,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1236,
+        "pixels": 26112,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "scroller-1-middle",
+       "nodeId": "vitrea-node_r_6_",
+       "groupId": "place",
+       "role": "ornament",
+       "label": "Place",
+       "rect": [
+        600,
+        48,
+        320,
+        48
+       ],
+       "inside": {
+        "mean": 0.1948,
+        "pixels": 15360,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1213,
+        "pixels": 19968,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "scroller-1-middle",
+       "nodeId": "vitrea-node_r_9_",
+       "groupId": "time",
+       "role": "ornament",
+       "label": "Time",
+       "rect": [
+        750,
+        723.9,
+        372,
+        48
+       ],
+       "inside": {
+        "mean": 0.2301,
+        "pixels": 18228,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1805,
+        "pixels": 22512,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "scroller-1-bottom",
+       "nodeId": "vitrea-node_r_1_",
+       "groupId": "tonight",
+       "role": "window",
+       "label": "Tonight",
+       "rect": [
+        48,
+        48,
+        400,
+        560
+       ],
+       "inside": {
+        "mean": 0.2209,
+        "pixels": 224000,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1641,
+        "pixels": 48384,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "scroller-1-bottom",
+       "nodeId": "vitrea-node_r_3_",
+       "groupId": "moon",
+       "role": "module",
+       "label": "The Moon",
+       "rect": [
+        1072,
+        48,
+        320,
+        176
+       ],
+       "inside": {
+        "mean": 0.1929,
+        "pixels": 56320,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1236,
+        "pixels": 26112,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "scroller-1-bottom",
+       "nodeId": "vitrea-node_r_6_",
+       "groupId": "place",
+       "role": "ornament",
+       "label": "Place",
+       "rect": [
+        600,
+        48,
+        320,
+        48
+       ],
+       "inside": {
+        "mean": 0.1948,
+        "pixels": 15360,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1213,
+        "pixels": 19968,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "scroller-1-bottom",
+       "nodeId": "vitrea-node_r_9_",
+       "groupId": "time",
+       "role": "ornament",
+       "label": "Time",
+       "rect": [
+        750,
+        723.9,
+        372,
+        48
+       ],
+       "inside": {
+        "mean": 0.2301,
+        "pixels": 18228,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1805,
+        "pixels": 22512,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "menu",
+       "nodeId": "vitrea-node_r_1_",
+       "groupId": "tonight",
+       "role": "window",
+       "label": "Tonight",
+       "rect": [
+        48,
+        48,
+        400,
+        560
+       ],
+       "inside": {
+        "mean": 0.2147,
+        "pixels": 224000,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1641,
+        "pixels": 48384,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "menu",
+       "nodeId": "vitrea-node_r_3_",
+       "groupId": "moon",
+       "role": "module",
+       "label": "The Moon",
+       "rect": [
+        1072,
+        48,
+        320,
+        176
+       ],
+       "inside": {
+        "mean": 0.1929,
+        "pixels": 56320,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1236,
+        "pixels": 26112,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "menu",
+       "nodeId": "vitrea-node_r_6_",
+       "groupId": "place",
+       "role": "ornament",
+       "label": "Place",
+       "rect": [
+        600,
+        48,
+        320,
+        48
+       ],
+       "inside": {
+        "mean": 0.1948,
+        "pixels": 15360,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1213,
+        "pixels": 19968,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "menu",
+       "nodeId": "vitrea-node_r_9_",
+       "groupId": "time",
+       "role": "platter",
+       "label": "Time",
+       "rect": [
+        750,
+        473.9,
+        400,
+        242
+       ],
+       "inside": {
+        "mean": 0.2283,
+        "pixels": 97200,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.148,
+        "pixels": 33168,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      }
+     ]
+    },
+    "lineContrast": {
+     "method": "per-line, glyphs suppressed",
+     "states": [
+      "fv",
+      "scroller-1-top",
+      "scroller-1-middle",
+      "scroller-1-bottom",
+      "menu"
+     ],
+     "lines": 306,
+     "pass": 306,
+     "minRatio": 5.1,
+     "worst": {
+      "state": "fv",
+      "nodeId": "vitrea-node_r_1_",
+      "line": 0,
+      "box": [
+       102,
+       409,
+       92.6,
+       15
+      ],
+      "size": 12,
+      "bold": false,
+      "large": false,
+      "floor": 4.5,
+      "ink": [
+       211,
+       210,
+       211
+      ],
+      "inkAlpha": 0.741,
+      "ground": [
+       84,
+       83,
+       85
+      ],
+      "ratio": 5.1,
+      "worstRatio": 4.79,
+      "pass": true,
+      "pixels": 1395
+     },
+     "byState": {
+      "fv": {
+       "lines": 55,
+       "pass": 55,
+       "minRatio": 5.1
+      },
+      "scroller-1-top": {
+       "lines": 55,
+       "pass": 55,
+       "minRatio": 5.1
+      },
+      "scroller-1-middle": {
+       "lines": 68,
+       "pass": 68,
+       "minRatio": 5.13
+      },
+      "scroller-1-bottom": {
+       "lines": 63,
+       "pass": 63,
+       "minRatio": 6.78
+      },
+      "menu": {
+       "lines": 65,
+       "pass": 65,
+       "minRatio": 5.1
+      }
+     },
+     "fails": []
+    },
+    "scrollers": {
+     "found": 1,
+     "cap": 8,
+     "list": [
+      {
+       "index": 1,
+       "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > section[data-vitrea-node=\"vitrea-node_r_1_\"].glass.window > div.window-scroll.tonight-scroll",
+       "hostNodeId": "vitrea-node_r_1_",
+       "rect": [
+        48,
+        48,
+        400,
+        560
+       ],
+       "scrollHeight": 1166,
+       "clientHeight": 560,
+       "scrollTop": 0,
+       "positions": [
+        {
+         "pos": "top",
+         "scrollTop": 0,
+         "capture": "scroller-1-top-light.png"
+        },
+        {
+         "pos": "middle",
+         "scrollTop": 303,
+         "capture": "scroller-1-middle-light.png"
+        },
+        {
+         "pos": "bottom",
+         "scrollTop": 606,
+         "capture": "scroller-1-bottom-light.png"
+        }
+       ]
+      }
+     ]
+    },
+    "phasesHook": true,
+    "phases": {
+     "ids": [
+      "night",
+      "dusk",
+      "dawn",
+      "day"
+     ],
+     "total": 4,
+     "cap": 16,
+     "shown": [
+      {
+       "index": 1,
+       "id": "night",
+       "status": "captured",
+       "capture": "phase-1-light.png"
+      },
+      {
+       "index": 2,
+       "id": "dusk",
+       "status": "captured",
+       "capture": "phase-2-light.png"
+      },
+      {
+       "index": 3,
+       "id": "dawn",
+       "status": "captured",
+       "capture": "phase-3-light.png"
+      },
+      {
+       "index": 4,
+       "id": "day",
+       "status": "captured",
+       "capture": "phase-4-light.png"
+      }
+     ],
+     "readyState": "settled",
+     "errors": [],
+     "consoleErrors": [],
+     "lineContrast": {
+      "method": "per-line, glyphs suppressed",
+      "states": [
+       "phase-1",
+       "phase-2",
+       "phase-3",
+       "phase-4"
+      ],
+      "lines": 218,
+      "pass": 218,
+      "minRatio": 4.69,
+      "worst": {
+       "state": "phase-3",
+       "nodeId": "vitrea-node_r_1_",
+       "line": 0,
+       "box": [
+        102,
+        409,
+        92.6,
+        15
+       ],
+       "size": 12,
+       "bold": false,
+       "large": false,
+       "floor": 4.5,
+       "ink": [
+        212,
+        212,
+        214
+       ],
+       "inkAlpha": 0.741,
+       "ground": [
+        91,
+        88,
+        97
+       ],
+       "ratio": 4.69,
+       "worstRatio": 4.66,
+       "pass": true,
+       "pixels": 1395
+      },
+      "byState": {
+       "phase-1": {
+        "lines": 55,
+        "pass": 55,
+        "minRatio": 5.1
+       },
+       "phase-2": {
+        "lines": 54,
+        "pass": 54,
+        "minRatio": 5.7
+       },
+       "phase-3": {
+        "lines": 55,
+        "pass": 55,
+        "minRatio": 4.69
+       },
+       "phase-4": {
+        "lines": 54,
+        "pass": 54,
+        "minRatio": 5.5
+       }
+      },
+      "fails": []
+     },
+     "hostLuminance": {
+      "measure": "mean encoded Rec. 709 luma of the glyph-suppressed capture, 0..1 (the runtime's encodedLuminance, packages/platform-web/src/backdrop-tone.ts)",
+      "band": [
+       0.39,
+       0.49
+      ],
+      "ringPx": 24,
+      "reads": [
+       {
+        "state": "phase-1",
+        "nodeId": "vitrea-node_r_1_",
+        "groupId": "tonight",
+        "role": "window",
+        "label": "Tonight",
+        "rect": [
+         48,
+         48,
+         400,
+         560
+        ],
+        "inside": {
+         "mean": 0.2185,
+         "pixels": 224000,
+         "inDeadBand": false
+        },
+        "ring": {
+         "mean": 0.1631,
+         "pixels": 48384,
+         "inDeadBand": false
+        },
+        "inDeadBand": false
+       },
+       {
+        "state": "phase-1",
+        "nodeId": "vitrea-node_r_3_",
+        "groupId": "moon",
+        "role": "module",
+        "label": "The Moon",
+        "rect": [
+         1072,
+         48,
+         320,
+         176
+        ],
+        "inside": {
+         "mean": 0.1875,
+         "pixels": 56320,
+         "inDeadBand": false
+        },
+        "ring": {
+         "mean": 0.1142,
+         "pixels": 26112,
+         "inDeadBand": false
+        },
+        "inDeadBand": false
+       },
+       {
+        "state": "phase-1",
+        "nodeId": "vitrea-node_r_6_",
+        "groupId": "place",
+        "role": "ornament",
+        "label": "Place",
+        "rect": [
+         600,
+         48,
+         320,
+         48
+        ],
+        "inside": {
+         "mean": 0.2376,
+         "pixels": 15360,
+         "inDeadBand": false
+        },
+        "ring": {
+         "mean": 0.1798,
+         "pixels": 19968,
+         "inDeadBand": false
+        },
+        "inDeadBand": false
+       },
+       {
+        "state": "phase-1",
+        "nodeId": "vitrea-node_r_9_",
+        "groupId": "time",
+        "role": "ornament",
+        "label": "Time",
+        "rect": [
+         750,
+         723.9,
+         372,
+         48
+        ],
+        "inside": {
+         "mean": 0.2343,
+         "pixels": 18228,
+         "inDeadBand": false
+        },
+        "ring": {
+         "mean": 0.1861,
+         "pixels": 22512,
+         "inDeadBand": false
+        },
+        "inDeadBand": false
+       },
+       {
+        "state": "phase-2",
+        "nodeId": "vitrea-node_r_1_",
+        "groupId": "tonight",
+        "role": "window",
+        "label": "Tonight",
+        "rect": [
+         48,
+         48,
+         400,
+         560
+        ],
+        "inside": {
+         "mean": 0.2389,
+         "pixels": 224000,
+         "inDeadBand": false
+        },
+        "ring": {
+         "mean": 0.2123,
+         "pixels": 48384,
+         "inDeadBand": false
+        },
+        "inDeadBand": false
+       },
+       {
+        "state": "phase-2",
+        "nodeId": "vitrea-node_r_3_",
+        "groupId": "moon",
+        "role": "module",
+        "label": "The Moon",
+        "rect": [
+         1072,
+         48,
+         320,
+         176
+        ],
+        "inside": {
+         "mean": 0.2739,
+         "pixels": 56320,
+         "inDeadBand": false
+        },
+        "ring": {
+         "mean": 0.2468,
+         "pixels": 26112,
+         "inDeadBand": false
+        },
+        "inDeadBand": false
+       },
+       {
+        "state": "phase-2",
+        "nodeId": "vitrea-node_r_6_",
+        "groupId": "place",
+        "role": "ornament",
+        "label": "Place",
+        "rect": [
+         600,
+         48,
+         320,
+         48
+        ],
+        "inside": {
+         "mean": 0.2623,
+         "pixels": 15360,
+         "inDeadBand": false
+        },
+        "ring": {
+         "mean": 0.2506,
+         "pixels": 19968,
+         "inDeadBand": false
+        },
+        "inDeadBand": false
+       },
+       {
+        "state": "phase-2",
+        "nodeId": "vitrea-node_r_9_",
+        "groupId": "time",
+        "role": "ornament",
+        "label": "Time",
+        "rect": [
+         750,
+         723.9,
+         372,
+         48
+        ],
+        "inside": {
+         "mean": 0.2702,
+         "pixels": 18228,
+         "inDeadBand": false
+        },
+        "ring": {
+         "mean": 0.2364,
+         "pixels": 22512,
+         "inDeadBand": false
+        },
+        "inDeadBand": false
+       },
+       {
+        "state": "phase-3",
+        "nodeId": "vitrea-node_r_1_",
+        "groupId": "tonight",
+        "role": "window",
+        "label": "Tonight",
+        "rect": [
+         48,
+         48,
+         400,
+         560
+        ],
+        "inside": {
+         "mean": 0.2375,
+         "pixels": 224000,
+         "inDeadBand": false
+        },
+        "ring": {
+         "mean": 0.2045,
+         "pixels": 48384,
+         "inDeadBand": false
+        },
+        "inDeadBand": false
+       },
+       {
+        "state": "phase-3",
+        "nodeId": "vitrea-node_r_3_",
+        "groupId": "moon",
+        "role": "module",
+        "label": "The Moon",
+        "rect": [
+         1072,
+         48,
+         320,
+         176
+        ],
+        "inside": {
+         "mean": 0.2276,
+         "pixels": 56320,
+         "inDeadBand": false
+        },
+        "ring": {
+         "mean": 0.1839,
+         "pixels": 26112,
+         "inDeadBand": false
+        },
+        "inDeadBand": false
+       },
+       {
+        "state": "phase-3",
+        "nodeId": "vitrea-node_r_6_",
+        "groupId": "place",
+        "role": "ornament",
+        "label": "Place",
+        "rect": [
+         600,
+         48,
+         320,
+         48
+        ],
+        "inside": {
+         "mean": 0.2471,
+         "pixels": 15360,
+         "inDeadBand": false
+        },
+        "ring": {
+         "mean": 0.2041,
+         "pixels": 19968,
+         "inDeadBand": false
+        },
+        "inDeadBand": false
+       },
+       {
+        "state": "phase-3",
+        "nodeId": "vitrea-node_r_9_",
+        "groupId": "time",
+        "role": "ornament",
+        "label": "Time",
+        "rect": [
+         750,
+         723.9,
+         372,
+         48
+        ],
+        "inside": {
+         "mean": 0.284,
+         "pixels": 18228,
+         "inDeadBand": false
+        },
+        "ring": {
+         "mean": 0.2697,
+         "pixels": 22512,
+         "inDeadBand": false
+        },
+        "inDeadBand": false
+       },
+       {
+        "state": "phase-4",
+        "nodeId": "vitrea-node_r_1_",
+        "groupId": "tonight",
+        "role": "window",
+        "label": "Tonight",
+        "rect": [
+         48,
+         48,
+         400,
+         560
+        ],
+        "inside": {
+         "mean": 0.2651,
+         "pixels": 224000,
+         "inDeadBand": false
+        },
+        "ring": {
+         "mean": 0.6633,
+         "pixels": 48384,
+         "inDeadBand": false
+        },
+        "inDeadBand": false
+       },
+       {
+        "state": "phase-4",
+        "nodeId": "vitrea-node_r_3_",
+        "groupId": "moon",
+        "role": "module",
+        "label": "The Moon",
+        "rect": [
+         1072,
+         48,
+         320,
+         176
+        ],
+        "inside": {
+         "mean": 0.2996,
+         "pixels": 56320,
+         "inDeadBand": false
+        },
+        "ring": {
+         "mean": 0.7896,
+         "pixels": 26112,
+         "inDeadBand": false
+        },
+        "inDeadBand": false
+       },
+       {
+        "state": "phase-4",
+        "nodeId": "vitrea-node_r_6_",
+        "groupId": "place",
+        "role": "ornament",
+        "label": "Place",
+        "rect": [
+         600,
+         48,
+         320,
+         48
+        ],
+        "inside": {
+         "mean": 0.3049,
+         "pixels": 15360,
+         "inDeadBand": false
+        },
+        "ring": {
+         "mean": 0.636,
+         "pixels": 19968,
+         "inDeadBand": false
+        },
+        "inDeadBand": false
+       },
+       {
+        "state": "phase-4",
+        "nodeId": "vitrea-node_r_9_",
+        "groupId": "time",
+        "role": "ornament",
+        "label": "Time",
+        "rect": [
+         750,
+         723.9,
+         372,
+         48
+        ],
+        "inside": {
+         "mean": 0.3271,
+         "pixels": 18228,
+         "inDeadBand": false
+        },
+        "ring": {
+         "mean": 0.77,
+         "pixels": 22512,
+         "inDeadBand": false
+        },
+        "inDeadBand": false
+       }
+      ]
+     }
+    }
+   },
+   "dark": {
+    "scheme": "dark",
+    "readyState": "settled",
+    "adapter": {
+     "available": true,
+     "vendor": "apple",
+     "architecture": "metal-3",
+     "device": "",
+     "description": "",
+     "isFallbackAdapter": false
+    },
+    "errors": [],
+    "consoleErrors": [],
+    "failedRequests": [],
+    "badResponses": [],
+    "scrolledOnLoad": 0,
+    "docHeight": 900,
+    "words": 118,
+    "title": "Planetarium · Tonight — a Liquid Glass demo on vitrea",
+    "placeholder": false,
+    "captureWidth": 1440,
+    "overflowCapture": false,
+    "overflowAtLoad": false,
+    "contrast": {
+     "method": "dom-composite",
+     "checked": 81,
+     "pass": 81,
+     "unknown": 0,
+     "rate": 1,
+     "onGlass": 80,
+     "onGlassPass": 80,
+     "fails": []
+    },
+    "glassContrast": {
+     "method": "rendered-pixels",
+     "pairs": 172,
+     "pass": 172,
+     "minRatio": 6.07,
+     "byPhase": {
+      "fv": {
+       "pairs": 81,
+       "pass": 81
+      },
+      "menu": {
+       "pairs": 91,
+       "pass": 91
+      }
+     },
+     "fails": [],
+     "sample": [
+      {
+       "phase": "fv",
+       "text": "Tonight over",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 12,
+       "bold": true,
+       "large": false,
+       "ratio": 8.6,
+       "worstRatio": 8.15,
+       "pass": true,
+       "ink": [
+        200,
+        200,
+        200
+       ],
+       "ground": [
+        43,
+        41,
+        44
+       ],
+       "pixels": 1575,
+       "groundPixels": 754
+      },
+      {
+       "phase": "fv",
+       "text": "Seoul",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 30,
+       "bold": true,
+       "large": true,
+       "ratio": 10.07,
+       "worstRatio": 9.55,
+       "pass": true,
+       "ink": [
+        213,
+        213,
+        213
+       ],
+       "ground": [
+        41,
+        39,
+        42
+       ],
+       "pixels": 2730,
+       "groundPixels": 1541
+      },
+      {
+       "phase": "fv",
+       "text": "Night",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 14,
+       "bold": true,
+       "large": false,
+       "ratio": 9.84,
+       "worstRatio": 9.32,
+       "pass": true,
+       "ink": [
+        213,
+        213,
+        214
+       ],
+       "ground": [
+        43,
+        41,
+        44
+       ],
+       "pixels": 646,
+       "groundPixels": 260
+      },
+      {
+       "phase": "fv",
+       "text": "·",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 14,
+       "bold": false,
+       "large": false,
+       "ratio": 8.63,
+       "worstRatio": 8.49,
+       "pass": true,
+       "ink": [
+        200,
+        200,
+        200
+       ],
+       "ground": [
+        42,
+        41,
+        43
+       ],
+       "pixels": 221,
+       "groundPixels": 198
+      },
+      {
+       "phase": "fv",
+       "text": "astronomical dawn",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 14,
+       "bold": false,
+       "large": false,
+       "ratio": 8.67,
+       "worstRatio": 7.93,
+       "pass": true,
+       "ink": [
+        200,
+        199,
+        200
+       ],
+       "ground": [
+        43,
+        40,
+        43
+       ],
+       "pixels": 2125,
+       "groundPixels": 1062
+      },
+      {
+       "phase": "fv",
+       "text": "04:58",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 14,
+       "bold": false,
+       "large": false,
+       "ratio": 8.27,
+       "worstRatio": 8.02,
+       "pass": true,
+       "ink": [
+        200,
+        201,
+        202
+       ],
+       "ground": [
+        44,
+        45,
+        50
+       ],
+       "pixels": 697,
+       "groundPixels": 337
+      },
+      {
+       "phase": "fv",
+       "text": "Moon",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 22,
+       "bold": true,
+       "large": true,
+       "ratio": 11.36,
+       "worstRatio": 10.76,
+       "pass": true,
+       "ink": [
+        211,
+        210,
+        211
+       ],
+       "ground": [
+        29,
+        27,
+        30
+       ],
+       "pixels": 1508,
+       "groundPixels": 812
+      },
+      {
+       "phase": "fv",
+       "text": "The Moon · in Pisces",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 13,
+       "bold": false,
+       "large": false,
+       "ratio": 9.75,
+       "worstRatio": 9.45,
+       "pass": true,
+       "ink": [
+        197,
+        196,
+        197
+       ],
+       "ground": [
+        30,
+        28,
+        30
+       ],
+       "pixels": 2080,
+       "groundPixels": 1151
+      },
+      {
+       "phase": "fv",
+       "text": "Altitude",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 11,
+       "bold": true,
+       "large": false,
+       "ratio": 9.59,
+       "worstRatio": 9.32,
+       "pass": true,
+       "ink": [
+        197,
+        197,
+        197
+       ],
+       "ground": [
+        32,
+        30,
+        32
+       ],
+       "pixels": 793,
+       "groundPixels": 354
+      },
+      {
+       "phase": "fv",
+       "text": "41°",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 17,
+       "bold": false,
+       "large": false,
+       "ratio": 11.09,
+       "worstRatio": 10.83,
+       "pass": true,
+       "ink": [
+        211,
+        211,
+        211
+       ],
+       "ground": [
+        31,
+        30,
+        32
+       ],
+       "pixels": 600,
+       "groundPixels": 371
+      },
+      {
+       "phase": "fv",
+       "text": "Direction",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 11,
+       "bold": true,
+       "large": false,
+       "ratio": 9.76,
+       "worstRatio": 9.57,
+       "pass": true,
+       "ink": [
+        196,
+        196,
+        198
+       ],
+       "ground": [
+        28,
+        28,
+        33
+       ],
+       "pixels": 897,
+       "groundPixels": 375
+      },
+      {
+       "phase": "fv",
+       "text": "ESE",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 17,
+       "bold": false,
+       "large": false,
+       "ratio": 11.2,
+       "worstRatio": 10.95,
+       "pass": true,
+       "ink": [
+        211,
+        211,
+        211
+       ],
+       "ground": [
+        29,
+        29,
+        33
+       ],
+       "pixels": 620,
+       "groundPixels": 271
+      },
+      {
+       "phase": "fv",
+       "text": "Sets",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 11,
+       "bold": true,
+       "large": false,
+       "ratio": 9.5,
+       "worstRatio": 9.42,
+       "pass": true,
+       "ink": [
+        198,
+        197,
+        198
+       ],
+       "ground": [
+        33,
+        31,
+        33
+       ],
+       "pixels": 416,
+       "groundPixels": 170
+      },
+      {
+       "phase": "fv",
+       "text": "09:03",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 17,
+       "bold": false,
+       "large": false,
+       "ratio": 10.96,
+       "worstRatio": 10.71,
+       "pass": true,
+       "ink": [
+        211,
+        211,
+        211
+       ],
+       "ground": [
+        33,
+        31,
+        33
+       ],
+       "pixels": 980,
+       "groundPixels": 469
+      },
+      {
+       "phase": "fv",
+       "text": "Magnitude",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 11,
+       "bold": true,
+       "large": false,
+       "ratio": 9.78,
+       "worstRatio": 9.59,
+       "pass": true,
+       "ink": [
+        196,
+        196,
+        198
+       ],
+       "ground": [
+        27,
+        28,
+        33
+       ],
+       "pixels": 988,
+       "groundPixels": 395
+      },
+      {
+       "phase": "fv",
+       "text": "−12.1",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 17,
+       "bold": false,
+       "large": false,
+       "ratio": 11.22,
+       "worstRatio": 10.58,
+       "pass": true,
+       "ink": [
+        211,
+        211,
+        211
+       ],
+       "ground": [
+        28,
+        29,
+        33
+       ],
+       "pixels": 980,
+       "groundPixels": 674
+      },
+      {
+       "phase": "fv",
+       "text": "Up now",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 12,
+       "bold": true,
+       "large": false,
+       "ratio": 8.33,
+       "worstRatio": 8.2,
+       "pass": true,
+       "ink": [
+        201,
+        200,
+        201
+       ],
+       "ground": [
+        46,
+        44,
+        46
+       ],
+       "pixels": 855,
+       "groundPixels": 403
+      },
+      {
+       "phase": "fv",
+       "text": "14",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 12,
+       "bold": false,
+       "large": false,
+       "ratio": 9.52,
+       "worstRatio": 9.41,
+       "pass": true,
+       "ink": [
+        197,
+        197,
+        199
+       ],
+       "ground": [
+        30,
+        31,
+        38
+       ],
+       "pixels": 225,
+       "groundPixels": 120
+      },
+      {
+       "phase": "fv",
+       "text": "Moon",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 15,
+       "bold": false,
+       "large": false,
+       "ratio": 6.56,
+       "worstRatio": 6.34,
+       "pass": true,
+       "ink": [
+        220,
+        219,
+        220
+       ],
+       "ground": [
+        74,
+        72,
+        74
+       ],
+       "pixels": 720,
+       "groundPixels": 344
+      },
+      {
+       "phase": "fv",
+       "text": "Waning gibbous",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 12,
+       "bold": false,
+       "large": false,
+       "ratio": 6.07,
+       "worstRatio": 5.57,
+       "pass": true,
+       "ink": [
+        207,
+        207,
+        207
+       ],
+       "ground": [
+        70,
+        70,
+        70
+       ],
+       "pixels": 1395,
+       "groundPixels": 639
+      },
+      {
+       "phase": "fv",
+       "text": "41",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 15,
+       "bold": false,
+       "large": false,
+       "ratio": 7.55,
+       "worstRatio": 7.44,
+       "pass": true,
+       "ink": [
+        217,
+        217,
+        218
+       ],
+       "ground": [
+        62,
+        62,
+        67
+       ],
+       "pixels": 360,
+       "groundPixels": 214
+      },
+      {
+       "phase": "fv",
+       "text": "°",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 15,
+       "bold": false,
+       "large": false,
+       "ratio": 7.55,
+       "worstRatio": 7.44,
+       "pass": true,
+       "ink": [
+        217,
+        217,
+        218
+       ],
+       "ground": [
+        62,
+        62,
+        67
+       ],
+       "pixels": 144,
+       "groundPixels": 99
+      },
+      {
+       "phase": "fv",
+       "text": "ESE",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 12,
+       "bold": true,
+       "large": false,
+       "ratio": 6.79,
+       "worstRatio": 6.7,
+       "pass": true,
+       "ink": [
+        205,
+        205,
+        206
+       ],
+       "ground": [
+        61,
+        61,
+        66
+       ],
+       "pixels": 390,
+       "groundPixels": 166
+      },
+      {
+       "phase": "fv",
+       "text": "Saturn",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 15,
+       "bold": false,
+       "large": false,
+       "ratio": 9.86,
+       "worstRatio": 9.43,
+       "pass": true,
+       "ink": [
+        213,
+        213,
+        213
+       ],
+       "ground": [
+        43,
+        41,
+        42
+       ],
+       "pixels": 864,
+       "groundPixels": 408
+      },
+      {
+       "phase": "fv",
+       "text": "Planet",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 12,
+       "bold": false,
+       "large": false,
+       "ratio": 8.53,
+       "worstRatio": 8.38,
+       "pass": true,
+       "ink": [
+        200,
+        200,
+        200
+       ],
+       "ground": [
+        44,
+        42,
+        42
+       ],
+       "pixels": 555,
+       "groundPixels": 243
+      },
+      {
+       "phase": "fv",
+       "text": "42",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 15,
+       "bold": false,
+       "large": false,
+       "ratio": 10.63,
+       "worstRatio": 10.41,
+       "pass": true,
+       "ink": [
+        212,
+        212,
+        213
+       ],
+       "ground": [
+        35,
+        34,
+        39
+       ],
+       "pixels": 360,
+       "groundPixels": 179
+      },
+      {
+       "phase": "fv",
+       "text": "°",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 15,
+       "bold": false,
+       "large": false,
+       "ratio": 10.55,
+       "worstRatio": 10.52,
+       "pass": true,
+       "ink": [
+        212,
+        212,
+        213
+       ],
+       "ground": [
+        35,
+        35,
+        40
+       ],
+       "pixels": 144,
+       "groundPixels": 93
+      },
+      {
+       "phase": "fv",
+       "text": "SE",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 12,
+       "bold": true,
+       "large": false,
+       "ratio": 9.34,
+       "worstRatio": 9.24,
+       "pass": true,
+       "ink": [
+        198,
+        198,
+        199
+       ],
+       "ground": [
+        33,
+        33,
+        39
+       ],
+       "pixels": 270,
+       "groundPixels": 117
+      },
+      {
+       "phase": "fv",
+       "text": "Vega",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 15,
+       "bold": false,
+       "large": false,
+       "ratio": 9.83,
+       "worstRatio": 9.45,
+       "pass": true,
+       "ink": [
+        214,
+        213,
+        213
+       ],
+       "ground": [
+        44,
+        41,
+        42
+       ],
+       "pixels": 648,
+       "groundPixels": 296
+      },
+      {
+       "phase": "fv",
+       "text": "Lyra",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 12,
+       "bold": false,
+       "large": false,
+       "ratio": 8.23,
+       "worstRatio": 7.74,
+       "pass": true,
+       "ink": [
+        201,
+        201,
+        200
+       ],
+       "ground": [
+        48,
+        45,
+        44
+       ],
+       "pixels": 375,
+       "groundPixels": 182
+      },
+      {
+       "phase": "fv",
+       "text": "45",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 15,
+       "bold": false,
+       "large": false,
+       "ratio": 10.33,
+       "worstRatio": 8.73,
+       "pass": true,
+       "ink": [
+        212,
+        212,
+        213
+       ],
+       "ground": [
+        37,
+        37,
+        41
+       ],
+       "pixels": 360,
+       "groundPixels": 176
+      },
+      {
+       "phase": "fv",
+       "text": "°",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 15,
+       "bold": false,
+       "large": false,
+       "ratio": 10.53,
+       "worstRatio": 10.4,
+       "pass": true,
+       "ink": [
+        212,
+        212,
+        213
+       ],
+       "ground": [
+        36,
+        35,
+        39
+       ],
+       "pixels": 144,
+       "groundPixels": 100
+      },
+      {
+       "phase": "fv",
+       "text": "WNW",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 12,
+       "bold": true,
+       "large": false,
+       "ratio": 9.18,
+       "worstRatio": 9.07,
+       "pass": true,
+       "ink": [
+        198,
+        198,
+        199
+       ],
+       "ground": [
+        35,
+        35,
+        39
+       ],
+       "pixels": 540,
+       "groundPixels": 219
+      },
+      {
+       "phase": "fv",
+       "text": "Capella",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 15,
+       "bold": false,
+       "large": false,
+       "ratio": 9.39,
+       "worstRatio": 9.12,
+       "pass": true,
+       "ink": [
+        214,
+        214,
+        214
+       ],
+       "ground": [
+        48,
+        45,
+        45
+       ],
+       "pixels": 972,
+       "groundPixels": 437
+      },
+      {
+       "phase": "fv",
+       "text": "Auriga",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 12,
+       "bold": false,
+       "large": false,
+       "ratio": 8.14,
+       "worstRatio": 7.91,
+       "pass": true,
+       "ink": [
+        202,
+        201,
+        201
+       ],
+       "ground": [
+        49,
+        46,
+        45
+       ],
+       "pixels": 570,
+       "groundPixels": 258
+      },
+      {
+       "phase": "fv",
+       "text": "19",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 15,
+       "bold": false,
+       "large": false,
+       "ratio": 10.22,
+       "worstRatio": 10.21,
+       "pass": true,
+       "ink": [
+        213,
+        212,
+        213
+       ],
+       "ground": [
+        39,
+        38,
+        40
+       ],
+       "pixels": 360,
+       "groundPixels": 201
+      },
+      {
+       "phase": "fv",
+       "text": "°",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 15,
+       "bold": false,
+       "large": false,
+       "ratio": 10.3,
+       "worstRatio": 10.3,
+       "pass": true,
+       "ink": [
+        213,
+        212,
+        213
+       ],
+       "ground": [
+        39,
+        37,
+        40
+       ],
+       "pixels": 144,
+       "groundPixels": 91
+      },
+      {
+       "phase": "fv",
+       "text": "NE",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 12,
+       "bold": true,
+       "large": false,
+       "ratio": 9.08,
+       "worstRatio": 8.96,
+       "pass": true,
+       "ink": [
+        199,
+        198,
+        199
+       ],
+       "ground": [
+        37,
+        36,
+        39
+       ],
+       "pixels": 285,
+       "groundPixels": 123
+      },
+      {
+       "phase": "fv",
+       "text": "Altair",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 15,
+       "bold": false,
+       "large": false,
+       "ratio": 9.25,
+       "worstRatio": 8.36,
+       "pass": true,
+       "ink": [
+        215,
+        214,
+        214
+       ],
+       "ground": [
+        50,
+        46,
+        45
+       ],
+       "pixels": 702,
+       "groundPixels": 702
+      },
+      {
+       "phase": "fv",
+       "text": "Aquila",
+       "nodeId": "vitrea-node_r_1_",
+       "size": 12,
+       "bold": false,
+       "large": false,
+       "ratio": 7.93,
+       "worstRatio": 7.52,
+       "pass": true,
+       "ink": [
+        202,
+        201,
+        201
+       ],
+       "ground": [
+        52,
+        48,
+        47
+       ],
+       "pixels": 540,
+       "groundPixels": 540
+      }
+     ]
+    },
+    "rootFound": true,
+    "api": {
+     "missing": []
+    },
+    "colorScheme": "dark",
+    "schemeFollowed": true,
+    "windowActivation": "active",
+    "material": {
+     "name": "apple-macos-27.0-glass0.5",
+     "platform": "macOS 27.0",
+     "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+     "resolvedMaterialSha256": "2a4323f33df8d799",
+     "tuned": true
+    },
+    "webgpu": {
+     "available": true,
+     "ownership": "vitrea",
+     "deviceHealth": "ok",
+     "unavailableReason": null,
+     "hasDevice": true
+    },
+    "platformProbe": {
+     "engine": {
+      "family": "chromium",
+      "version": 151
+     },
+     "reach": "verified"
+    },
+    "accessibility": {
+     "reducedTransparency": false,
+     "reducedMotion": false,
+     "increasedContrast": false,
+     "forcedColors": false,
+     "material": {
+      "glass": "material",
+      "colorSource": "material",
+      "frost": "nominal",
+      "refraction": "nominal",
+      "occlusion": "nominal",
+      "border": "nominal",
+      "ambientTint": "nominal",
+      "foreground": "adaptive"
+     },
+     "motion": {
+      "overshoot": "elastic",
+      "deformation": "nominal",
+      "shimmer": "travel",
+      "morph": "elastic",
+      "crossfade": "never",
+      "positionalContinuity": true
+     }
+    },
+    "surfaces": [
+     {
+      "nodeId": "vitrea-node_r_1_",
+      "groupId": "tonight",
+      "plane": "base",
+      "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > section[data-vitrea-node=\"vitrea-node_r_1_\"].glass.window",
+      "tag": "section",
+      "role": null,
+      "rect": [
+       48,
+       48,
+       400,
+       560
+      ],
+      "span": 400,
+      "boundsFrom": "renderInput",
+      "shapeFamily": "fixed-rounded-rect",
+      "radii": [
+       28,
+       28,
+       28,
+       28
+      ],
+      "smoothing": 0.52866495,
+      "thickness": 14,
+      "variant": "clear",
+      "tinted": false,
+      "cssRadius": "0px",
+      "label": "Tonight"
+     },
+     {
+      "nodeId": "vitrea-node_r_3_",
+      "groupId": "moon",
+      "plane": "base",
+      "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > section[data-vitrea-node=\"vitrea-node_r_3_\"].glass.module",
+      "tag": "section",
+      "role": null,
+      "rect": [
+       1072,
+       48,
+       320,
+       176
+      ],
+      "span": 176,
+      "boundsFrom": "renderInput",
+      "shapeFamily": "fixed-rounded-rect",
+      "radii": [
+       28,
+       28,
+       28,
+       28
+      ],
+      "smoothing": 0.52866495,
+      "thickness": 14,
+      "variant": "clear",
+      "tinted": false,
+      "cssRadius": "0px",
+      "label": "The Moon"
+     },
+     {
+      "nodeId": "vitrea-node_r_6_",
+      "groupId": "place",
+      "plane": "overlay",
+      "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > div[data-vitrea-node=\"vitrea-node_r_6_\"].glass.place-morph",
+      "tag": "div",
+      "role": null,
+      "rect": [
+       600,
+       48,
+       320,
+       48
+      ],
+      "span": 48,
+      "boundsFrom": "renderInput",
+      "shapeFamily": "fixed-rounded-rect",
+      "radii": [
+       24,
+       24,
+       24,
+       24
+      ],
+      "smoothing": 0.66,
+      "thickness": 14,
+      "variant": "clear",
+      "tinted": false,
+      "cssRadius": "0px",
+      "label": "Place"
+     },
+     {
+      "nodeId": "vitrea-node_r_9_",
+      "groupId": "time",
+      "plane": "overlay",
+      "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div[data-vitrea-node=\"vitrea-node_r_9_\"].glass.time-morph",
+      "tag": "div",
+      "role": null,
+      "rect": [
+       750,
+       723.9,
+       372,
+       48
+      ],
+      "span": 48,
+      "boundsFrom": "renderInput",
+      "shapeFamily": "fixed-rounded-rect",
+      "radii": [
+       24,
+       24,
+       24,
+       24
+      ],
+      "smoothing": 0.66,
+      "thickness": 14,
+      "variant": "clear",
+      "tinted": false,
+      "cssRadius": "0px",
+      "label": "Time"
+     }
+    ],
+    "surfacesInFrame": 4,
+    "planes": [
+     {
+      "plane": "base",
+      "nodes": 2
+     },
+     {
+      "plane": "overlay",
+      "nodes": 2
+     }
+    ],
+    "groups": [
+     {
+      "id": "tonight",
+      "members": 1,
+      "renderer": "webgpu",
+      "sampling": "gpu-texture",
+      "configuredSource": "texture",
+      "analysis": "exact",
+      "refraction": "true",
+      "health": "ok",
+      "demotionReason": null,
+      "cssBody": null,
+      "cssTint": null,
+      "cssShadow": null,
+      "materialDocument": {
+       "name": "apple-macos-27.0-glass0.5",
+       "platform": "macOS 27.0",
+       "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+       "resolvedMaterialSha256": "2a4323f33df8d799",
+       "tuned": true
+      },
+      "abscissae": null,
+      "variant": "clear",
+      "blurRadius": 1.32,
+      "backdropToneHint": true,
+      "probe": {
+       "verdict": "pass",
+       "breaks": 0,
+       "reach": "verified",
+       "engineDefects": []
+      },
+      "diagnostics": []
+     },
+     {
+      "id": "moon",
+      "members": 1,
+      "renderer": "webgpu",
+      "sampling": "gpu-texture",
+      "configuredSource": "texture",
+      "analysis": "exact",
+      "refraction": "true",
+      "health": "ok",
+      "demotionReason": null,
+      "cssBody": null,
+      "cssTint": null,
+      "cssShadow": null,
+      "materialDocument": {
+       "name": "apple-macos-27.0-glass0.5",
+       "platform": "macOS 27.0",
+       "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+       "resolvedMaterialSha256": "2a4323f33df8d799",
+       "tuned": true
+      },
+      "abscissae": null,
+      "variant": "clear",
+      "blurRadius": 1.32,
+      "backdropToneHint": true,
+      "probe": {
+       "verdict": "pass",
+       "breaks": 0,
+       "reach": "verified",
+       "engineDefects": []
+      },
+      "diagnostics": []
+     },
+     {
+      "id": "place",
+      "members": 1,
+      "renderer": "webgpu",
+      "sampling": "gpu-texture",
+      "configuredSource": "texture",
+      "analysis": "exact",
+      "refraction": "true",
+      "health": "ok",
+      "demotionReason": null,
+      "cssBody": null,
+      "cssTint": null,
+      "cssShadow": null,
+      "materialDocument": {
+       "name": "apple-macos-27.0-glass0.5",
+       "platform": "macOS 27.0",
+       "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+       "resolvedMaterialSha256": "2a4323f33df8d799",
+       "tuned": true
+      },
+      "abscissae": null,
+      "variant": "clear",
+      "blurRadius": 1.32,
+      "backdropToneHint": true,
+      "probe": {
+       "verdict": "pass",
+       "breaks": 0,
+       "reach": "verified",
+       "engineDefects": []
+      },
+      "diagnostics": []
+     },
+     {
+      "id": "time",
+      "members": 1,
+      "renderer": "webgpu",
+      "sampling": "gpu-texture",
+      "configuredSource": "texture",
+      "analysis": "exact",
+      "refraction": "true",
+      "health": "ok",
+      "demotionReason": null,
+      "cssBody": null,
+      "cssTint": null,
+      "cssShadow": null,
+      "materialDocument": {
+       "name": "apple-macos-27.0-glass0.5",
+       "platform": "macOS 27.0",
+       "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+       "resolvedMaterialSha256": "2a4323f33df8d799",
+       "tuned": true
+      },
+      "abscissae": null,
+      "variant": "clear",
+      "blurRadius": 1.32,
+      "backdropToneHint": true,
+      "probe": {
+       "verdict": "pass",
+       "breaks": 0,
+       "reach": "verified",
+       "engineDefects": []
+      },
+      "diagnostics": []
+     }
+    ],
+    "diagnostics": [],
+    "derivedFindings": [],
+    "menu": "captured",
+    "menuSurfaces": [
+     {
+      "nodeId": "vitrea-node_r_1_",
+      "groupId": "tonight",
+      "plane": "base",
+      "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > section[data-vitrea-node=\"vitrea-node_r_1_\"].glass.window",
+      "tag": "section",
+      "role": null,
+      "rect": [
+       48,
+       48,
+       400,
+       560
+      ],
+      "span": 400,
+      "boundsFrom": "renderInput",
+      "shapeFamily": "fixed-rounded-rect",
+      "radii": [
+       28,
+       28,
+       28,
+       28
+      ],
+      "smoothing": 0.52866495,
+      "thickness": 14,
+      "variant": "clear",
+      "tinted": false,
+      "cssRadius": "0px",
+      "label": "Tonight"
+     },
+     {
+      "nodeId": "vitrea-node_r_3_",
+      "groupId": "moon",
+      "plane": "base",
+      "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > section[data-vitrea-node=\"vitrea-node_r_3_\"].glass.module",
+      "tag": "section",
+      "role": null,
+      "rect": [
+       1072,
+       48,
+       320,
+       176
+      ],
+      "span": 176,
+      "boundsFrom": "renderInput",
+      "shapeFamily": "fixed-rounded-rect",
+      "radii": [
+       28,
+       28,
+       28,
+       28
+      ],
+      "smoothing": 0.52866495,
+      "thickness": 14,
+      "variant": "clear",
+      "tinted": false,
+      "cssRadius": "0px",
+      "label": "The Moon"
+     },
+     {
+      "nodeId": "vitrea-node_r_6_",
+      "groupId": "place",
+      "plane": "overlay",
+      "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > div[data-vitrea-node=\"vitrea-node_r_6_\"].glass.place-morph",
+      "tag": "div",
+      "role": null,
+      "rect": [
+       600,
+       48,
+       320,
+       48
+      ],
+      "span": 48,
+      "boundsFrom": "renderInput",
+      "shapeFamily": "fixed-rounded-rect",
+      "radii": [
+       24,
+       24,
+       24,
+       24
+      ],
+      "smoothing": 0.66,
+      "thickness": 14,
+      "variant": "clear",
+      "tinted": false,
+      "cssRadius": "0px",
+      "label": "Place"
+     },
+     {
+      "nodeId": "vitrea-node_r_9_",
+      "groupId": "time",
+      "plane": "overlay",
+      "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div[data-vitrea-node=\"vitrea-node_r_9_\"].glass.time-morph",
+      "tag": "div",
+      "role": null,
+      "rect": [
+       750,
+       473.9,
+       400,
+       242
+      ],
+      "span": 242,
+      "boundsFrom": "renderInput",
+      "shapeFamily": "fixed-rounded-rect",
+      "radii": [
+       24,
+       24,
+       24,
+       24
+      ],
+      "smoothing": 0.66,
+      "thickness": 14,
+      "variant": "clear",
+      "tinted": false,
+      "cssRadius": "0px",
+      "label": "Time"
+     }
+    ],
+    "menuGroups": [
+     {
+      "id": "tonight",
+      "members": 1,
+      "renderer": "webgpu",
+      "sampling": "gpu-texture",
+      "configuredSource": "texture",
+      "analysis": "exact",
+      "refraction": "true",
+      "health": "ok",
+      "demotionReason": null,
+      "cssBody": null,
+      "cssTint": null,
+      "cssShadow": null,
+      "materialDocument": {
+       "name": "apple-macos-27.0-glass0.5",
+       "platform": "macOS 27.0",
+       "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+       "resolvedMaterialSha256": "2a4323f33df8d799",
+       "tuned": true
+      },
+      "abscissae": null,
+      "variant": "clear",
+      "blurRadius": 1.32,
+      "backdropToneHint": true,
+      "probe": {
+       "verdict": "pass",
+       "breaks": 0,
+       "reach": "verified",
+       "engineDefects": []
+      },
+      "diagnostics": []
+     },
+     {
+      "id": "moon",
+      "members": 1,
+      "renderer": "webgpu",
+      "sampling": "gpu-texture",
+      "configuredSource": "texture",
+      "analysis": "exact",
+      "refraction": "true",
+      "health": "ok",
+      "demotionReason": null,
+      "cssBody": null,
+      "cssTint": null,
+      "cssShadow": null,
+      "materialDocument": {
+       "name": "apple-macos-27.0-glass0.5",
+       "platform": "macOS 27.0",
+       "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+       "resolvedMaterialSha256": "2a4323f33df8d799",
+       "tuned": true
+      },
+      "abscissae": null,
+      "variant": "clear",
+      "blurRadius": 1.32,
+      "backdropToneHint": true,
+      "probe": {
+       "verdict": "pass",
+       "breaks": 0,
+       "reach": "verified",
+       "engineDefects": []
+      },
+      "diagnostics": []
+     },
+     {
+      "id": "place",
+      "members": 1,
+      "renderer": "webgpu",
+      "sampling": "gpu-texture",
+      "configuredSource": "texture",
+      "analysis": "exact",
+      "refraction": "true",
+      "health": "ok",
+      "demotionReason": null,
+      "cssBody": null,
+      "cssTint": null,
+      "cssShadow": null,
+      "materialDocument": {
+       "name": "apple-macos-27.0-glass0.5",
+       "platform": "macOS 27.0",
+       "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+       "resolvedMaterialSha256": "2a4323f33df8d799",
+       "tuned": true
+      },
+      "abscissae": null,
+      "variant": "clear",
+      "blurRadius": 1.32,
+      "backdropToneHint": true,
+      "probe": {
+       "verdict": "pass",
+       "breaks": 0,
+       "reach": "verified",
+       "engineDefects": []
+      },
+      "diagnostics": []
+     },
+     {
+      "id": "time",
+      "members": 1,
+      "renderer": "webgpu",
+      "sampling": "gpu-texture",
+      "configuredSource": "texture",
+      "analysis": "exact",
+      "refraction": "true",
+      "health": "ok",
+      "demotionReason": null,
+      "cssBody": null,
+      "cssTint": null,
+      "cssShadow": null,
+      "materialDocument": {
+       "name": "apple-macos-27.0-glass0.5",
+       "platform": "macOS 27.0",
+       "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+       "resolvedMaterialSha256": "2a4323f33df8d799",
+       "tuned": true
+      },
+      "abscissae": null,
+      "variant": "clear",
+      "blurRadius": 1.32,
+      "backdropToneHint": true,
+      "probe": {
+       "verdict": "pass",
+       "breaks": 0,
+       "reach": "verified",
+       "engineDefects": []
+      },
+      "diagnostics": []
+     }
+    ],
+    "menuDiagnostics": [],
+    "ban": {
+     "rest": {
+      "findings": [],
+      "unmeasured": [],
+      "hostsRead": 4,
+      "cssTierHosts": 0
+     },
+     "menu": {
+      "findings": [],
+      "unmeasured": [],
+      "hostsRead": 4,
+      "cssTierHosts": 0
+     }
+    },
+    "hostText": [
+     {
+      "nodeId": "vitrea-node_r_1_",
+      "role": "window",
+      "groupId": "tonight",
+      "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > section[data-vitrea-node=\"vitrea-node_r_1_\"].glass.window",
+      "span": 400,
+      "hasText": true,
+      "runs": 38,
+      "text": "Tonight over Seoul Night · astronomical dawn 04:58 Moon The "
+     },
+     {
+      "nodeId": "vitrea-node_r_3_",
+      "role": "module",
+      "groupId": "moon",
+      "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > section[data-vitrea-node=\"vitrea-node_r_3_\"].glass.module",
+      "span": 176,
+      "hasText": true,
+      "runs": 11,
+      "text": "Waning gibbous 96 % lit · waning Rises 19:25 Sets 09:03 Last"
+     },
+     {
+      "nodeId": "vitrea-node_r_6_",
+      "role": "ornament",
+      "groupId": "place",
+      "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > div[data-vitrea-node=\"vitrea-node_r_6_\"].glass.place-morph",
+      "span": 48,
+      "hasText": true,
+      "runs": 2,
+      "text": "Seoul 37.6° N · 127.0° E"
+     },
+     {
+      "nodeId": "vitrea-node_r_9_",
+      "role": "ornament",
+      "groupId": "time",
+      "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div[data-vitrea-node=\"vitrea-node_r_9_\"].glass.time-morph",
+      "span": 48,
+      "hasText": true,
+      "runs": 4,
+      "text": "−1 h 22:30 Mon 28 Sept +1 h"
+     }
+    ],
+    "menuHostText": [
+     {
+      "nodeId": "vitrea-node_r_1_",
+      "role": "window",
+      "groupId": "tonight",
+      "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > section[data-vitrea-node=\"vitrea-node_r_1_\"].glass.window",
+      "span": 400,
+      "hasText": true,
+      "runs": 38,
+      "text": "Tonight over Seoul Night · astronomical dawn 04:58 Moon The "
+     },
+     {
+      "nodeId": "vitrea-node_r_3_",
+      "role": "module",
+      "groupId": "moon",
+      "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > section[data-vitrea-node=\"vitrea-node_r_3_\"].glass.module",
+      "span": 176,
+      "hasText": true,
+      "runs": 11,
+      "text": "Waning gibbous 96 % lit · waning Rises 19:25 Sets 09:03 Last"
+     },
+     {
+      "nodeId": "vitrea-node_r_6_",
+      "role": "ornament",
+      "groupId": "place",
+      "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > div[data-vitrea-node=\"vitrea-node_r_6_\"].glass.place-morph",
+      "span": 48,
+      "hasText": true,
+      "runs": 2,
+      "text": "Seoul 37.6° N · 127.0° E"
+     },
+     {
+      "nodeId": "vitrea-node_r_9_",
+      "role": "platter",
+      "groupId": "time",
+      "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div[data-vitrea-node=\"vitrea-node_r_9_\"].glass.time-morph",
+      "span": 242,
+      "hasText": true,
+      "runs": 8,
+      "text": "Timeline 22:30 28 September · Seoul Play the night Now Done"
+     }
+    ],
+    "glassCoverage": {
+     "fraction": 0.2419,
+     "cellPx": 4,
+     "cells": 81000,
+     "covered": 19596,
+     "hosts": 4
+    },
+    "hostLuminance": {
+     "measure": "mean encoded Rec. 709 luma of the glyph-suppressed capture, 0..1 (the runtime's encodedLuminance, packages/platform-web/src/backdrop-tone.ts)",
+     "band": [
+      0.39,
+      0.49
+     ],
+     "ringPx": 24,
+     "reads": [
+      {
+       "state": "fv",
+       "nodeId": "vitrea-node_r_1_",
+       "groupId": "tonight",
+       "role": "window",
+       "label": "Tonight",
+       "rect": [
+        48,
+        48,
+        400,
+        560
+       ],
+       "inside": {
+        "mean": 0.1548,
+        "pixels": 224000,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1607,
+        "pixels": 48384,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "fv",
+       "nodeId": "vitrea-node_r_3_",
+       "groupId": "moon",
+       "role": "module",
+       "label": "The Moon",
+       "rect": [
+        1072,
+        48,
+        320,
+        176
+       ],
+       "inside": {
+        "mean": 0.1179,
+        "pixels": 56320,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1216,
+        "pixels": 26112,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "fv",
+       "nodeId": "vitrea-node_r_6_",
+       "groupId": "place",
+       "role": "ornament",
+       "label": "Place",
+       "rect": [
+        600,
+        48,
+        320,
+        48
+       ],
+       "inside": {
+        "mean": 0.1191,
+        "pixels": 15360,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1213,
+        "pixels": 19968,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "fv",
+       "nodeId": "vitrea-node_r_9_",
+       "groupId": "time",
+       "role": "ornament",
+       "label": "Time",
+       "rect": [
+        750,
+        723.9,
+        372,
+        48
+       ],
+       "inside": {
+        "mean": 0.1736,
+        "pixels": 18228,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1805,
+        "pixels": 22512,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "scroller-1-top",
+       "nodeId": "vitrea-node_r_1_",
+       "groupId": "tonight",
+       "role": "window",
+       "label": "Tonight",
+       "rect": [
+        48,
+        48,
+        400,
+        560
+       ],
+       "inside": {
+        "mean": 0.1548,
+        "pixels": 224000,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1607,
+        "pixels": 48384,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "scroller-1-top",
+       "nodeId": "vitrea-node_r_3_",
+       "groupId": "moon",
+       "role": "module",
+       "label": "The Moon",
+       "rect": [
+        1072,
+        48,
+        320,
+        176
+       ],
+       "inside": {
+        "mean": 0.1179,
+        "pixels": 56320,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1216,
+        "pixels": 26112,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "scroller-1-top",
+       "nodeId": "vitrea-node_r_6_",
+       "groupId": "place",
+       "role": "ornament",
+       "label": "Place",
+       "rect": [
+        600,
+        48,
+        320,
+        48
+       ],
+       "inside": {
+        "mean": 0.1191,
+        "pixels": 15360,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1213,
+        "pixels": 19968,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "scroller-1-top",
+       "nodeId": "vitrea-node_r_9_",
+       "groupId": "time",
+       "role": "ornament",
+       "label": "Time",
+       "rect": [
+        750,
+        723.9,
+        372,
+        48
+       ],
+       "inside": {
+        "mean": 0.1736,
+        "pixels": 18228,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1805,
+        "pixels": 22512,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "scroller-1-middle",
+       "nodeId": "vitrea-node_r_1_",
+       "groupId": "tonight",
+       "role": "window",
+       "label": "Tonight",
+       "rect": [
+        48,
+        48,
+        400,
+        560
+       ],
+       "inside": {
+        "mean": 0.1644,
+        "pixels": 224000,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1607,
+        "pixels": 48384,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "scroller-1-middle",
+       "nodeId": "vitrea-node_r_3_",
+       "groupId": "moon",
+       "role": "module",
+       "label": "The Moon",
+       "rect": [
+        1072,
+        48,
+        320,
+        176
+       ],
+       "inside": {
+        "mean": 0.1179,
+        "pixels": 56320,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1216,
+        "pixels": 26112,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "scroller-1-middle",
+       "nodeId": "vitrea-node_r_6_",
+       "groupId": "place",
+       "role": "ornament",
+       "label": "Place",
+       "rect": [
+        600,
+        48,
+        320,
+        48
+       ],
+       "inside": {
+        "mean": 0.1191,
+        "pixels": 15360,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1213,
+        "pixels": 19968,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "scroller-1-middle",
+       "nodeId": "vitrea-node_r_9_",
+       "groupId": "time",
+       "role": "ornament",
+       "label": "Time",
+       "rect": [
+        750,
+        723.9,
+        372,
+        48
+       ],
+       "inside": {
+        "mean": 0.1736,
+        "pixels": 18228,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1805,
+        "pixels": 22512,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "scroller-1-bottom",
+       "nodeId": "vitrea-node_r_1_",
+       "groupId": "tonight",
+       "role": "window",
+       "label": "Tonight",
+       "rect": [
+        48,
+        48,
+        400,
+        560
+       ],
+       "inside": {
+        "mean": 0.1562,
+        "pixels": 224000,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1607,
+        "pixels": 48384,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "scroller-1-bottom",
+       "nodeId": "vitrea-node_r_3_",
+       "groupId": "moon",
+       "role": "module",
+       "label": "The Moon",
+       "rect": [
+        1072,
+        48,
+        320,
+        176
+       ],
+       "inside": {
+        "mean": 0.1179,
+        "pixels": 56320,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1216,
+        "pixels": 26112,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "scroller-1-bottom",
+       "nodeId": "vitrea-node_r_6_",
+       "groupId": "place",
+       "role": "ornament",
+       "label": "Place",
+       "rect": [
+        600,
+        48,
+        320,
+        48
+       ],
+       "inside": {
+        "mean": 0.1191,
+        "pixels": 15360,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1213,
+        "pixels": 19968,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "scroller-1-bottom",
+       "nodeId": "vitrea-node_r_9_",
+       "groupId": "time",
+       "role": "ornament",
+       "label": "Time",
+       "rect": [
+        750,
+        723.9,
+        372,
+        48
+       ],
+       "inside": {
+        "mean": 0.1736,
+        "pixels": 18228,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1805,
+        "pixels": 22512,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "menu",
+       "nodeId": "vitrea-node_r_1_",
+       "groupId": "tonight",
+       "role": "window",
+       "label": "Tonight",
+       "rect": [
+        48,
+        48,
+        400,
+        560
+       ],
+       "inside": {
+        "mean": 0.1548,
+        "pixels": 224000,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1607,
+        "pixels": 48384,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "menu",
+       "nodeId": "vitrea-node_r_3_",
+       "groupId": "moon",
+       "role": "module",
+       "label": "The Moon",
+       "rect": [
+        1072,
+        48,
+        320,
+        176
+       ],
+       "inside": {
+        "mean": 0.1179,
+        "pixels": 56320,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1216,
+        "pixels": 26112,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "menu",
+       "nodeId": "vitrea-node_r_6_",
+       "groupId": "place",
+       "role": "ornament",
+       "label": "Place",
+       "rect": [
+        600,
+        48,
+        320,
+        48
+       ],
+       "inside": {
+        "mean": 0.1191,
+        "pixels": 15360,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1213,
+        "pixels": 19968,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "menu",
+       "nodeId": "vitrea-node_r_9_",
+       "groupId": "time",
+       "role": "platter",
+       "label": "Time",
+       "rect": [
+        750,
+        473.9,
+        400,
+        242
+       ],
+       "inside": {
+        "mean": 0.1608,
+        "pixels": 97200,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1453,
+        "pixels": 33168,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      }
+     ]
+    },
+    "lineContrast": {
+     "method": "per-line, glyphs suppressed",
+     "states": [
+      "fv",
+      "scroller-1-top",
+      "scroller-1-middle",
+      "scroller-1-bottom",
+      "menu"
+     ],
+     "lines": 306,
+     "pass": 306,
+     "minRatio": 6.12,
+     "worst": {
+      "state": "fv",
+      "nodeId": "vitrea-node_r_1_",
+      "line": 0,
+      "box": [
+       102,
+       409,
+       92.6,
+       15
+      ],
+      "size": 12,
+      "bold": false,
+      "large": false,
+      "floor": 4.5,
+      "ink": [
+       207,
+       207,
+       207
+      ],
+      "inkAlpha": 0.741,
+      "ground": [
+       71,
+       69,
+       71
+      ],
+      "ratio": 6.12,
+      "worstRatio": 5.64,
+      "pass": true,
+      "pixels": 1395
+     },
+     "byState": {
+      "fv": {
+       "lines": 55,
+       "pass": 55,
+       "minRatio": 6.12
+      },
+      "scroller-1-top": {
+       "lines": 55,
+       "pass": 55,
+       "minRatio": 6.12
+      },
+      "scroller-1-middle": {
+       "lines": 68,
+       "pass": 68,
+       "minRatio": 6.17
+      },
+      "scroller-1-bottom": {
+       "lines": 63,
+       "pass": 63,
+       "minRatio": 8.11
+      },
+      "menu": {
+       "lines": 65,
+       "pass": 65,
+       "minRatio": 6.12
+      }
+     },
+     "fails": []
+    },
+    "scrollers": {
+     "found": 1,
+     "cap": 8,
+     "list": [
+      {
+       "index": 1,
+       "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > section[data-vitrea-node=\"vitrea-node_r_1_\"].glass.window > div.window-scroll.tonight-scroll",
+       "hostNodeId": "vitrea-node_r_1_",
+       "rect": [
+        48,
+        48,
+        400,
+        560
+       ],
+       "scrollHeight": 1166,
+       "clientHeight": 560,
+       "scrollTop": 0,
+       "positions": [
+        {
+         "pos": "top",
+         "scrollTop": 0,
+         "capture": "scroller-1-top-dark.png"
+        },
+        {
+         "pos": "middle",
+         "scrollTop": 303,
+         "capture": "scroller-1-middle-dark.png"
+        },
+        {
+         "pos": "bottom",
+         "scrollTop": 606,
+         "capture": "scroller-1-bottom-dark.png"
+        }
+       ]
+      }
+     ]
+    },
+    "phasesHook": true,
+    "phases": {
+     "ids": [
+      "night",
+      "dusk",
+      "dawn",
+      "day"
+     ],
+     "total": 4,
+     "cap": 16,
+     "shown": [
+      {
+       "index": 1,
+       "id": "night",
+       "status": "captured",
+       "capture": "phase-1-dark.png"
+      },
+      {
+       "index": 2,
+       "id": "dusk",
+       "status": "captured",
+       "capture": "phase-2-dark.png"
+      },
+      {
+       "index": 3,
+       "id": "dawn",
+       "status": "captured",
+       "capture": "phase-3-dark.png"
+      },
+      {
+       "index": 4,
+       "id": "day",
+       "status": "captured",
+       "capture": "phase-4-dark.png"
+      }
+     ],
+     "readyState": "settled",
+     "errors": [],
+     "consoleErrors": [],
+     "lineContrast": {
+      "method": "per-line, glyphs suppressed",
+      "states": [
+       "phase-1",
+       "phase-2",
+       "phase-3",
+       "phase-4"
+      ],
+      "lines": 218,
+      "pass": 218,
+      "minRatio": 5.46,
+      "worst": {
+       "state": "phase-3",
+       "nodeId": "vitrea-node_r_1_",
+       "line": 0,
+       "box": [
+        102,
+        409,
+        92.6,
+        15
+       ],
+       "size": 12,
+       "bold": false,
+       "large": false,
+       "floor": 4.5,
+       "ink": [
+        210,
+        209,
+        211
+       ],
+       "inkAlpha": 0.741,
+       "ground": [
+        79,
+        77,
+        86
+       ],
+       "ratio": 5.46,
+       "worstRatio": 5.43,
+       "pass": true,
+       "pixels": 1395
+      },
+      "byState": {
+       "phase-1": {
+        "lines": 55,
+        "pass": 55,
+        "minRatio": 6.13
+       },
+       "phase-2": {
+        "lines": 54,
+        "pass": 54,
+        "minRatio": 6.56
+       },
+       "phase-3": {
+        "lines": 55,
+        "pass": 55,
+        "minRatio": 5.46
+       },
+       "phase-4": {
+        "lines": 54,
+        "pass": 54,
+        "minRatio": 6.3
+       }
+      },
+      "fails": []
+     },
+     "hostLuminance": {
+      "measure": "mean encoded Rec. 709 luma of the glyph-suppressed capture, 0..1 (the runtime's encodedLuminance, packages/platform-web/src/backdrop-tone.ts)",
+      "band": [
+       0.39,
+       0.49
+      ],
+      "ringPx": 24,
+      "reads": [
+       {
+        "state": "phase-1",
+        "nodeId": "vitrea-node_r_1_",
+        "groupId": "tonight",
+        "role": "window",
+        "label": "Tonight",
+        "rect": [
+         48,
+         48,
+         400,
+         560
+        ],
+        "inside": {
+         "mean": 0.1602,
+         "pixels": 224000,
+         "inDeadBand": false
+        },
+        "ring": {
+         "mean": 0.1597,
+         "pixels": 48384,
+         "inDeadBand": false
+        },
+        "inDeadBand": false
+       },
+       {
+        "state": "phase-1",
+        "nodeId": "vitrea-node_r_3_",
+        "groupId": "moon",
+        "role": "module",
+        "label": "The Moon",
+        "rect": [
+         1072,
+         48,
+         320,
+         176
+        ],
+        "inside": {
+         "mean": 0.1086,
+         "pixels": 56320,
+         "inDeadBand": false
+        },
+        "ring": {
+         "mean": 0.1124,
+         "pixels": 26112,
+         "inDeadBand": false
+        },
+        "inDeadBand": false
+       },
+       {
+        "state": "phase-1",
+        "nodeId": "vitrea-node_r_6_",
+        "groupId": "place",
+        "role": "ornament",
+        "label": "Place",
+        "rect": [
+         600,
+         48,
+         320,
+         48
+        ],
+        "inside": {
+         "mean": 0.1742,
+         "pixels": 15360,
+         "inDeadBand": false
+        },
+        "ring": {
+         "mean": 0.1798,
+         "pixels": 19968,
+         "inDeadBand": false
+        },
+        "inDeadBand": false
+       },
+       {
+        "state": "phase-1",
+        "nodeId": "vitrea-node_r_9_",
+        "groupId": "time",
+        "role": "ornament",
+        "label": "Time",
+        "rect": [
+         750,
+         723.9,
+         372,
+         48
+        ],
+        "inside": {
+         "mean": 0.1791,
+         "pixels": 18228,
+         "inDeadBand": false
+        },
+        "ring": {
+         "mean": 0.1861,
+         "pixels": 22512,
+         "inDeadBand": false
+        },
+        "inDeadBand": false
+       },
+       {
+        "state": "phase-2",
+        "nodeId": "vitrea-node_r_1_",
+        "groupId": "tonight",
+        "role": "window",
+        "label": "Tonight",
+        "rect": [
+         48,
+         48,
+         400,
+         560
+        ],
+        "inside": {
+         "mean": 0.1899,
+         "pixels": 224000,
+         "inDeadBand": false
+        },
+        "ring": {
+         "mean": 0.208,
+         "pixels": 48384,
+         "inDeadBand": false
+        },
+        "inDeadBand": false
+       },
+       {
+        "state": "phase-2",
+        "nodeId": "vitrea-node_r_3_",
+        "groupId": "moon",
+        "role": "module",
+        "label": "The Moon",
+        "rect": [
+         1072,
+         48,
+         320,
+         176
+        ],
+        "inside": {
+         "mean": 0.2289,
+         "pixels": 56320,
+         "inDeadBand": false
+        },
+        "ring": {
+         "mean": 0.2427,
+         "pixels": 26112,
+         "inDeadBand": false
+        },
+        "inDeadBand": false
+       },
+       {
+        "state": "phase-2",
+        "nodeId": "vitrea-node_r_6_",
+        "groupId": "place",
+        "role": "ornament",
+        "label": "Place",
+        "rect": [
+         600,
+         48,
+         320,
+         48
+        ],
+        "inside": {
+         "mean": 0.2144,
+         "pixels": 15360,
+         "inDeadBand": false
+        },
+        "ring": {
+         "mean": 0.2506,
+         "pixels": 19968,
+         "inDeadBand": false
+        },
+        "inDeadBand": false
+       },
+       {
+        "state": "phase-2",
+        "nodeId": "vitrea-node_r_9_",
+        "groupId": "time",
+        "role": "ornament",
+        "label": "Time",
+        "rect": [
+         750,
+         723.9,
+         372,
+         48
+        ],
+        "inside": {
+         "mean": 0.2252,
+         "pixels": 18228,
+         "inDeadBand": false
+        },
+        "ring": {
+         "mean": 0.2364,
+         "pixels": 22512,
+         "inDeadBand": false
+        },
+        "inDeadBand": false
+       },
+       {
+        "state": "phase-3",
+        "nodeId": "vitrea-node_r_1_",
+        "groupId": "tonight",
+        "role": "window",
+        "label": "Tonight",
+        "rect": [
+         48,
+         48,
+         400,
+         560
+        ],
+        "inside": {
+         "mean": 0.186,
+         "pixels": 224000,
+         "inDeadBand": false
+        },
+        "ring": {
+         "mean": 0.2002,
+         "pixels": 48384,
+         "inDeadBand": false
+        },
+        "inDeadBand": false
+       },
+       {
+        "state": "phase-3",
+        "nodeId": "vitrea-node_r_3_",
+        "groupId": "moon",
+        "role": "module",
+        "label": "The Moon",
+        "rect": [
+         1072,
+         48,
+         320,
+         176
+        ],
+        "inside": {
+         "mean": 0.1698,
+         "pixels": 56320,
+         "inDeadBand": false
+        },
+        "ring": {
+         "mean": 0.181,
+         "pixels": 26112,
+         "inDeadBand": false
+        },
+        "inDeadBand": false
+       },
+       {
+        "state": "phase-3",
+        "nodeId": "vitrea-node_r_6_",
+        "groupId": "place",
+        "role": "ornament",
+        "label": "Place",
+        "rect": [
+         600,
+         48,
+         320,
+         48
+        ],
+        "inside": {
+         "mean": 0.1949,
+         "pixels": 15360,
+         "inDeadBand": false
+        },
+        "ring": {
+         "mean": 0.2041,
+         "pixels": 19968,
+         "inDeadBand": false
+        },
+        "inDeadBand": false
+       },
+       {
+        "state": "phase-3",
+        "nodeId": "vitrea-node_r_9_",
+        "groupId": "time",
+        "role": "ornament",
+        "label": "Time",
+        "rect": [
+         750,
+         723.9,
+         372,
+         48
+        ],
+        "inside": {
+         "mean": 0.2418,
+         "pixels": 18228,
+         "inDeadBand": false
+        },
+        "ring": {
+         "mean": 0.2696,
+         "pixels": 22512,
+         "inDeadBand": false
+        },
+        "inDeadBand": false
+       },
+       {
+        "state": "phase-4",
+        "nodeId": "vitrea-node_r_1_",
+        "groupId": "tonight",
+        "role": "window",
+        "label": "Tonight",
+        "rect": [
+         48,
+         48,
+         400,
+         560
+        ],
+        "inside": {
+         "mean": 0.2226,
+         "pixels": 224000,
+         "inDeadBand": false
+        },
+        "ring": {
+         "mean": 0.6496,
+         "pixels": 48384,
+         "inDeadBand": false
+        },
+        "inDeadBand": false
+       },
+       {
+        "state": "phase-4",
+        "nodeId": "vitrea-node_r_3_",
+        "groupId": "moon",
+        "role": "module",
+        "label": "The Moon",
+        "rect": [
+         1072,
+         48,
+         320,
+         176
+        ],
+        "inside": {
+         "mean": 0.259,
+         "pixels": 56320,
+         "inDeadBand": false
+        },
+        "ring": {
+         "mean": 0.7775,
+         "pixels": 26112,
+         "inDeadBand": false
+        },
+        "inDeadBand": false
+       },
+       {
+        "state": "phase-4",
+        "nodeId": "vitrea-node_r_6_",
+        "groupId": "place",
+        "role": "ornament",
+        "label": "Place",
+        "rect": [
+         600,
+         48,
+         320,
+         48
+        ],
+        "inside": {
+         "mean": 0.2621,
+         "pixels": 15360,
+         "inDeadBand": false
+        },
+        "ring": {
+         "mean": 0.636,
+         "pixels": 19968,
+         "inDeadBand": false
+        },
+        "inDeadBand": false
+       },
+       {
+        "state": "phase-4",
+        "nodeId": "vitrea-node_r_9_",
+        "groupId": "time",
+        "role": "ornament",
+        "label": "Time",
+        "rect": [
+         750,
+         723.9,
+         372,
+         48
+        ],
+        "inside": {
+         "mean": 0.2865,
+         "pixels": 18228,
+         "inDeadBand": false
+        },
+        "ring": {
+         "mean": 0.7699,
+         "pixels": 22512,
+         "inDeadBand": false
+        },
+        "inDeadBand": false
+       }
+      ]
+     }
+    }
+   }
+  },
+  "surfaces": [
+   {
+    "nodeId": "vitrea-node_r_1_",
+    "groupId": "tonight",
+    "plane": "base",
+    "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > section[data-vitrea-node=\"vitrea-node_r_1_\"].glass.window",
+    "tag": "section",
+    "role": null,
+    "rect": [
+     48,
+     48,
+     400,
+     560
+    ],
+    "span": 400,
+    "boundsFrom": "renderInput",
+    "shapeFamily": "fixed-rounded-rect",
+    "radii": [
+     28,
+     28,
+     28,
+     28
+    ],
+    "smoothing": 0.52866495,
+    "thickness": 14,
+    "variant": "clear",
+    "tinted": false,
+    "cssRadius": "0px",
+    "label": "Tonight"
+   },
+   {
+    "nodeId": "vitrea-node_r_3_",
+    "groupId": "moon",
+    "plane": "base",
+    "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > section[data-vitrea-node=\"vitrea-node_r_3_\"].glass.module",
+    "tag": "section",
+    "role": null,
+    "rect": [
+     1072,
+     48,
+     320,
+     176
+    ],
+    "span": 176,
+    "boundsFrom": "renderInput",
+    "shapeFamily": "fixed-rounded-rect",
+    "radii": [
+     28,
+     28,
+     28,
+     28
+    ],
+    "smoothing": 0.52866495,
+    "thickness": 14,
+    "variant": "clear",
+    "tinted": false,
+    "cssRadius": "0px",
+    "label": "The Moon"
+   },
+   {
+    "nodeId": "vitrea-node_r_6_",
+    "groupId": "place",
+    "plane": "overlay",
+    "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > div[data-vitrea-node=\"vitrea-node_r_6_\"].glass.place-morph",
+    "tag": "div",
+    "role": null,
+    "rect": [
+     600,
+     48,
+     320,
+     48
+    ],
+    "span": 48,
+    "boundsFrom": "renderInput",
+    "shapeFamily": "fixed-rounded-rect",
+    "radii": [
+     24,
+     24,
+     24,
+     24
+    ],
+    "smoothing": 0.66,
+    "thickness": 14,
+    "variant": "clear",
+    "tinted": false,
+    "cssRadius": "0px",
+    "label": "Place"
+   },
+   {
+    "nodeId": "vitrea-node_r_9_",
+    "groupId": "time",
+    "plane": "overlay",
+    "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div[data-vitrea-node=\"vitrea-node_r_9_\"].glass.time-morph",
+    "tag": "div",
+    "role": null,
+    "rect": [
+     750,
+     723.9,
+     372,
+     48
+    ],
+    "span": 48,
+    "boundsFrom": "renderInput",
+    "shapeFamily": "fixed-rounded-rect",
+    "radii": [
+     24,
+     24,
+     24,
+     24
+    ],
+    "smoothing": 0.66,
+    "thickness": 14,
+    "variant": "clear",
+    "tinted": false,
+    "cssRadius": "0px",
+    "label": "Time"
+   }
+  ],
+  "planes": [
+   {
+    "plane": "base",
+    "nodes": 2
+   },
+   {
+    "plane": "overlay",
+    "nodes": 2
+   }
+  ],
+  "diagnostics": [],
+  "unknownDiagnosticCodes": [],
+  "named": {
+   "nestedGlass": false,
+   "samePlaneOverlap": false,
+   "contentLayerHost": false,
+   "demotedBackdropRoot": false,
+   "hostOutsidePlane": false,
+   "nonUniformRadii": false,
+   "tintUnparseable": false,
+   "tintMixing": false,
+   "variantMixing": false
+  },
+  "banSubset": {
+   "findings": [],
+   "counts": {},
+   "unmeasured": []
+  },
+  "reduced": {
+   "method": "page-switch",
+   "applied": true,
+   "readyState": "settled",
+   "rootFound": true,
+   "errors": [],
+   "consoleErrors": [],
+   "policyBefore": {
+    "reducedTransparency": false,
+    "reducedMotion": false,
+    "increasedContrast": false,
+    "forcedColors": false,
+    "material": {
+     "glass": "material",
+     "colorSource": "material",
+     "frost": "nominal",
+     "refraction": "nominal",
+     "occlusion": "nominal",
+     "border": "nominal",
+     "ambientTint": "nominal",
+     "foreground": "adaptive"
+    },
+    "motion": {
+     "overshoot": "elastic",
+     "deformation": "nominal",
+     "shimmer": "travel",
+     "morph": "elastic",
+     "crossfade": "never",
+     "positionalContinuity": true
+    }
+   },
+   "policyAfter": {
+    "reducedTransparency": true,
+    "reducedMotion": false,
+    "increasedContrast": false,
+    "forcedColors": false,
+    "material": {
+     "glass": "material",
+     "colorSource": "material",
+     "frost": "increased",
+     "refraction": "reduced",
+     "occlusion": "increased",
+     "border": "nominal",
+     "ambientTint": "nominal",
+     "foreground": "adaptive"
+    },
+    "motion": {
+     "overshoot": "elastic",
+     "deformation": "nominal",
+     "shimmer": "travel",
+     "morph": "elastic",
+     "crossfade": "never",
+     "positionalContinuity": true
+    }
+   },
+   "policyChanged": true,
+   "policyAsAsked": true,
+   "groups": [
+    {
+     "id": "tonight",
+     "moved": true,
+     "before": {
+      "id": "tonight",
+      "renderer": "webgpu",
+      "refraction": "true",
+      "cssBody": null,
+      "cssTint": null,
+      "blurRadius": 1.32,
+      "nodes": [
+       {
+        "nodeId": "vitrea-node_r_1_",
+        "blurRadius": 1.32,
+        "tintAlpha": 0.094,
+        "borderAlpha": 0.273,
+        "refraction": "true"
+       }
+      ]
+     },
+     "after": {
+      "id": "tonight",
+      "renderer": "webgpu",
+      "refraction": "true",
+      "cssBody": null,
+      "cssTint": null,
+      "blurRadius": 2.31,
+      "nodes": [
+       {
+        "nodeId": "vitrea-node_r_1_",
+        "blurRadius": 2.31,
+        "tintAlpha": 0.866,
+        "borderAlpha": 0.273,
+        "refraction": "approximate"
+       }
+      ]
+     }
+    },
+    {
+     "id": "moon",
+     "moved": true,
+     "before": {
+      "id": "moon",
+      "renderer": "webgpu",
+      "refraction": "true",
+      "cssBody": null,
+      "cssTint": null,
+      "blurRadius": 1.32,
+      "nodes": [
+       {
+        "nodeId": "vitrea-node_r_3_",
+        "blurRadius": 1.32,
+        "tintAlpha": 0.124,
+        "borderAlpha": 0.273,
+        "refraction": "true"
+       }
+      ]
+     },
+     "after": {
+      "id": "moon",
+      "renderer": "webgpu",
+      "refraction": "true",
+      "cssBody": null,
+      "cssTint": null,
+      "blurRadius": 2.31,
+      "nodes": [
+       {
+        "nodeId": "vitrea-node_r_3_",
+        "blurRadius": 2.31,
+        "tintAlpha": 0.867,
+        "borderAlpha": 0.273,
+        "refraction": "approximate"
+       }
+      ]
+     }
+    },
+    {
+     "id": "place",
+     "moved": true,
+     "before": {
+      "id": "place",
+      "renderer": "webgpu",
+      "refraction": "true",
+      "cssBody": null,
+      "cssTint": null,
+      "blurRadius": 1.32,
+      "nodes": [
+       {
+        "nodeId": "vitrea-node_r_6_",
+        "blurRadius": 1.32,
+        "tintAlpha": 0.136,
+        "borderAlpha": 0.273,
+        "refraction": "true"
+       }
+      ]
+     },
+     "after": {
+      "id": "place",
+      "renderer": "webgpu",
+      "refraction": "true",
+      "cssBody": null,
+      "cssTint": null,
+      "blurRadius": 2.31,
+      "nodes": [
+       {
+        "nodeId": "vitrea-node_r_6_",
+        "blurRadius": 2.31,
+        "tintAlpha": 0.868,
+        "borderAlpha": 0.273,
+        "refraction": "approximate"
+       }
+      ]
+     }
+    },
+    {
+     "id": "time",
+     "moved": true,
+     "before": {
+      "id": "time",
+      "renderer": "webgpu",
+      "refraction": "true",
+      "cssBody": null,
+      "cssTint": null,
+      "blurRadius": 1.32,
+      "nodes": [
+       {
+        "nodeId": "vitrea-node_r_9_",
+        "blurRadius": 1.32,
+        "tintAlpha": 0.109,
+        "borderAlpha": 0.273,
+        "refraction": "true"
+       }
+      ]
+     },
+     "after": {
+      "id": "time",
+      "renderer": "webgpu",
+      "refraction": "true",
+      "cssBody": null,
+      "cssTint": null,
+      "blurRadius": 2.31,
+      "nodes": [
+       {
+        "nodeId": "vitrea-node_r_9_",
+        "blurRadius": 2.31,
+        "tintAlpha": 0.868,
+        "borderAlpha": 0.273,
+        "refraction": "approximate"
+       }
+      ]
+     }
+    }
+   ],
+   "materialMoved": true,
+   "captured": true,
+   "lineContrast": {
+    "method": "per-line, glyphs suppressed",
+    "states": [
+     "reduced"
+    ],
+    "lines": 55,
+    "pass": 55,
+    "minRatio": 6.45,
+    "worst": {
+     "state": "reduced",
+     "nodeId": "vitrea-node_r_1_",
+     "line": 0,
+     "box": [
+      106,
+      211,
+      129.5,
+      16
+     ],
+     "size": 13,
+     "bold": false,
+     "large": false,
+     "floor": 4.5,
+     "ink": [
+      37,
+      37,
+      37
+     ],
+     "inkAlpha": 0.78,
+     "ground": [
+      168,
+      168,
+      168
+     ],
+     "ratio": 6.45,
+     "worstRatio": 6.45,
+     "pass": true,
+     "pixels": 2080
+    },
+    "byState": {
+     "reduced": {
+      "lines": 55,
+      "pass": 55,
+      "minRatio": 6.45
+     }
+    },
+    "fails": []
+   },
+   "hostLuminance": {
+    "measure": "mean encoded Rec. 709 luma of the glyph-suppressed capture, 0..1 (the runtime's encodedLuminance, packages/platform-web/src/backdrop-tone.ts)",
+    "band": [
+     0.39,
+     0.49
+    ],
+    "ringPx": 24,
+    "reads": [
+     {
+      "state": "reduced",
+      "nodeId": "vitrea-node_r_1_",
+      "groupId": "tonight",
+      "role": "window",
+      "label": "Tonight",
+      "rect": [
+       48,
+       48,
+       400,
+       560
+      ],
+      "inside": {
+       "mean": 0.8276,
+       "pixels": 224000,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1688,
+       "pixels": 48384,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "reduced",
+      "nodeId": "vitrea-node_r_3_",
+      "groupId": "moon",
+      "role": "module",
+      "label": "The Moon",
+      "rect": [
+       1072,
+       48,
+       320,
+       176
+      ],
+      "inside": {
+       "mean": 0.8566,
+       "pixels": 56320,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1266,
+       "pixels": 26112,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "reduced",
+      "nodeId": "vitrea-node_r_6_",
+      "groupId": "place",
+      "role": "ornament",
+      "label": "Place",
+      "rect": [
+       600,
+       48,
+       320,
+       48
+      ],
+      "inside": {
+       "mean": 0.854,
+       "pixels": 15360,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1207,
+       "pixels": 19968,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "reduced",
+      "nodeId": "vitrea-node_r_9_",
+      "groupId": "time",
+      "role": "ornament",
+      "label": "Time",
+      "rect": [
+       750,
+       723.9,
+       372,
+       48
+      ],
+      "inside": {
+       "mean": 0.8466,
+       "pixels": 18228,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1795,
+       "pixels": 22512,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     }
+    ]
+   }
+  },
+  "emulation": {
+   "increasedContrast": {
+    "status": "ran",
+    "query": "(prefers-contrast: more)",
+    "readyState": "settled",
+    "rootFound": true,
+    "errors": [],
+    "consoleErrors": [],
+    "accessibility": {
+     "reducedTransparency": false,
+     "reducedMotion": false,
+     "increasedContrast": true,
+     "forcedColors": false,
+     "material": {
+      "glass": "material",
+      "colorSource": "material",
+      "frost": "nominal",
+      "refraction": "nominal",
+      "occlusion": "nominal",
+      "border": "strong",
+      "ambientTint": "reduced",
+      "foreground": "near-monochrome"
+     },
+     "motion": {
+      "overshoot": "elastic",
+      "deformation": "nominal",
+      "shimmer": "travel",
+      "morph": "elastic",
+      "crossfade": "never",
+      "positionalContinuity": true
+     }
+    },
+    "policyAsAsked": true,
+    "groups": [
+     {
+      "id": "tonight",
+      "members": 1,
+      "renderer": "webgpu",
+      "sampling": "gpu-texture",
+      "configuredSource": "texture",
+      "analysis": "exact",
+      "refraction": "true",
+      "health": "ok",
+      "demotionReason": null,
+      "cssBody": null,
+      "cssTint": null,
+      "cssShadow": null,
+      "materialDocument": {
+       "name": "apple-macos-27.0-glass0.5",
+       "platform": "macOS 27.0",
+       "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+       "resolvedMaterialSha256": "be13dae45098fc89",
+       "tuned": true
+      },
+      "abscissae": null,
+      "variant": "clear",
+      "blurRadius": 1.32,
+      "backdropToneHint": true,
+      "probe": {
+       "verdict": "pass",
+       "breaks": 0,
+       "reach": "verified",
+       "engineDefects": []
+      },
+      "diagnostics": []
+     },
+     {
+      "id": "moon",
+      "members": 1,
+      "renderer": "webgpu",
+      "sampling": "gpu-texture",
+      "configuredSource": "texture",
+      "analysis": "exact",
+      "refraction": "true",
+      "health": "ok",
+      "demotionReason": null,
+      "cssBody": null,
+      "cssTint": null,
+      "cssShadow": null,
+      "materialDocument": {
+       "name": "apple-macos-27.0-glass0.5",
+       "platform": "macOS 27.0",
+       "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+       "resolvedMaterialSha256": "be13dae45098fc89",
+       "tuned": true
+      },
+      "abscissae": null,
+      "variant": "clear",
+      "blurRadius": 1.32,
+      "backdropToneHint": true,
+      "probe": {
+       "verdict": "pass",
+       "breaks": 0,
+       "reach": "verified",
+       "engineDefects": []
+      },
+      "diagnostics": []
+     },
+     {
+      "id": "place",
+      "members": 1,
+      "renderer": "webgpu",
+      "sampling": "gpu-texture",
+      "configuredSource": "texture",
+      "analysis": "exact",
+      "refraction": "true",
+      "health": "ok",
+      "demotionReason": null,
+      "cssBody": null,
+      "cssTint": null,
+      "cssShadow": null,
+      "materialDocument": {
+       "name": "apple-macos-27.0-glass0.5",
+       "platform": "macOS 27.0",
+       "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+       "resolvedMaterialSha256": "be13dae45098fc89",
+       "tuned": true
+      },
+      "abscissae": null,
+      "variant": "clear",
+      "blurRadius": 1.32,
+      "backdropToneHint": true,
+      "probe": {
+       "verdict": "pass",
+       "breaks": 0,
+       "reach": "verified",
+       "engineDefects": []
+      },
+      "diagnostics": []
+     },
+     {
+      "id": "time",
+      "members": 1,
+      "renderer": "webgpu",
+      "sampling": "gpu-texture",
+      "configuredSource": "texture",
+      "analysis": "exact",
+      "refraction": "true",
+      "health": "ok",
+      "demotionReason": null,
+      "cssBody": null,
+      "cssTint": null,
+      "cssShadow": null,
+      "materialDocument": {
+       "name": "apple-macos-27.0-glass0.5",
+       "platform": "macOS 27.0",
+       "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+       "resolvedMaterialSha256": "be13dae45098fc89",
+       "tuned": true
+      },
+      "abscissae": null,
+      "variant": "clear",
+      "blurRadius": 1.32,
+      "backdropToneHint": true,
+      "probe": {
+       "verdict": "pass",
+       "breaks": 0,
+       "reach": "verified",
+       "engineDefects": []
+      },
+      "diagnostics": []
+     }
+    ],
+    "diagnostics": []
+   },
+   "reducedMotion": {
+    "status": "ran",
+    "query": "(prefers-reduced-motion: reduce)",
+    "readyState": "settled",
+    "rootFound": true,
+    "errors": [],
+    "consoleErrors": [],
+    "accessibility": {
+     "reducedTransparency": false,
+     "reducedMotion": true,
+     "increasedContrast": false,
+     "forcedColors": false,
+     "material": {
+      "glass": "material",
+      "colorSource": "material",
+      "frost": "nominal",
+      "refraction": "nominal",
+      "occlusion": "nominal",
+      "border": "nominal",
+      "ambientTint": "nominal",
+      "foreground": "adaptive"
+     },
+     "motion": {
+      "overshoot": "none",
+      "deformation": "none",
+      "shimmer": "none",
+      "morph": "non-elastic",
+      "crossfade": "large-plane-shifts",
+      "positionalContinuity": true
+     }
+    },
+    "policyAsAsked": true,
+    "groups": [
+     {
+      "id": "tonight",
+      "members": 1,
+      "renderer": "webgpu",
+      "sampling": "gpu-texture",
+      "configuredSource": "texture",
+      "analysis": "exact",
+      "refraction": "true",
+      "health": "ok",
+      "demotionReason": null,
+      "cssBody": null,
+      "cssTint": null,
+      "cssShadow": null,
+      "materialDocument": {
+       "name": "apple-macos-27.0-glass0.5",
+       "platform": "macOS 27.0",
+       "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+       "resolvedMaterialSha256": "be13dae45098fc89",
+       "tuned": true
+      },
+      "abscissae": null,
+      "variant": "clear",
+      "blurRadius": 1.32,
+      "backdropToneHint": true,
+      "probe": {
+       "verdict": "pass",
+       "breaks": 0,
+       "reach": "verified",
+       "engineDefects": []
+      },
+      "diagnostics": []
+     },
+     {
+      "id": "moon",
+      "members": 1,
+      "renderer": "webgpu",
+      "sampling": "gpu-texture",
+      "configuredSource": "texture",
+      "analysis": "exact",
+      "refraction": "true",
+      "health": "ok",
+      "demotionReason": null,
+      "cssBody": null,
+      "cssTint": null,
+      "cssShadow": null,
+      "materialDocument": {
+       "name": "apple-macos-27.0-glass0.5",
+       "platform": "macOS 27.0",
+       "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+       "resolvedMaterialSha256": "be13dae45098fc89",
+       "tuned": true
+      },
+      "abscissae": null,
+      "variant": "clear",
+      "blurRadius": 1.32,
+      "backdropToneHint": true,
+      "probe": {
+       "verdict": "pass",
+       "breaks": 0,
+       "reach": "verified",
+       "engineDefects": []
+      },
+      "diagnostics": []
+     },
+     {
+      "id": "place",
+      "members": 1,
+      "renderer": "webgpu",
+      "sampling": "gpu-texture",
+      "configuredSource": "texture",
+      "analysis": "exact",
+      "refraction": "true",
+      "health": "ok",
+      "demotionReason": null,
+      "cssBody": null,
+      "cssTint": null,
+      "cssShadow": null,
+      "materialDocument": {
+       "name": "apple-macos-27.0-glass0.5",
+       "platform": "macOS 27.0",
+       "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+       "resolvedMaterialSha256": "be13dae45098fc89",
+       "tuned": true
+      },
+      "abscissae": null,
+      "variant": "clear",
+      "blurRadius": 1.32,
+      "backdropToneHint": true,
+      "probe": {
+       "verdict": "pass",
+       "breaks": 0,
+       "reach": "verified",
+       "engineDefects": []
+      },
+      "diagnostics": []
+     },
+     {
+      "id": "time",
+      "members": 1,
+      "renderer": "webgpu",
+      "sampling": "gpu-texture",
+      "configuredSource": "texture",
+      "analysis": "exact",
+      "refraction": "true",
+      "health": "ok",
+      "demotionReason": null,
+      "cssBody": null,
+      "cssTint": null,
+      "cssShadow": null,
+      "materialDocument": {
+       "name": "apple-macos-27.0-glass0.5",
+       "platform": "macOS 27.0",
+       "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+       "resolvedMaterialSha256": "be13dae45098fc89",
+       "tuned": true
+      },
+      "abscissae": null,
+      "variant": "clear",
+      "blurRadius": 1.32,
+      "backdropToneHint": true,
+      "probe": {
+       "verdict": "pass",
+       "breaks": 0,
+       "reach": "verified",
+       "engineDefects": []
+      },
+      "diagnostics": []
+     }
+    ],
+    "diagnostics": []
+   },
+   "forcedColors": {
+    "status": "ran",
+    "query": "(forced-colors: active)",
+    "readyState": "settled",
+    "rootFound": true,
+    "errors": [],
+    "consoleErrors": [],
+    "accessibility": {
+     "reducedTransparency": false,
+     "reducedMotion": false,
+     "increasedContrast": false,
+     "forcedColors": true,
+     "material": {
+      "glass": "none",
+      "colorSource": "system",
+      "frost": "none",
+      "refraction": "none",
+      "occlusion": "opaque",
+      "border": "strong",
+      "ambientTint": "none",
+      "foreground": "near-monochrome"
+     },
+     "motion": {
+      "overshoot": "elastic",
+      "deformation": "nominal",
+      "shimmer": "travel",
+      "morph": "elastic",
+      "crossfade": "never",
+      "positionalContinuity": true
+     }
+    },
+    "policyAsAsked": true,
+    "groups": [
+     {
+      "id": "tonight",
+      "members": 1,
+      "renderer": "webgpu",
+      "sampling": "gpu-texture",
+      "configuredSource": "texture",
+      "analysis": "exact",
+      "refraction": "true",
+      "health": "ok",
+      "demotionReason": null,
+      "cssBody": null,
+      "cssTint": null,
+      "cssShadow": null,
+      "materialDocument": {
+       "name": "apple-macos-27.0-glass0.5",
+       "platform": "macOS 27.0",
+       "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+       "resolvedMaterialSha256": "be13dae45098fc89",
+       "tuned": true
+      },
+      "abscissae": null,
+      "variant": "clear",
+      "blurRadius": 0,
+      "backdropToneHint": true,
+      "probe": {
+       "verdict": "pass",
+       "breaks": 0,
+       "reach": "verified",
+       "engineDefects": []
+      },
+      "diagnostics": []
+     },
+     {
+      "id": "moon",
+      "members": 1,
+      "renderer": "webgpu",
+      "sampling": "gpu-texture",
+      "configuredSource": "texture",
+      "analysis": "exact",
+      "refraction": "true",
+      "health": "ok",
+      "demotionReason": null,
+      "cssBody": null,
+      "cssTint": null,
+      "cssShadow": null,
+      "materialDocument": {
+       "name": "apple-macos-27.0-glass0.5",
+       "platform": "macOS 27.0",
+       "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+       "resolvedMaterialSha256": "be13dae45098fc89",
+       "tuned": true
+      },
+      "abscissae": null,
+      "variant": "clear",
+      "blurRadius": 0,
+      "backdropToneHint": true,
+      "probe": {
+       "verdict": "pass",
+       "breaks": 0,
+       "reach": "verified",
+       "engineDefects": []
+      },
+      "diagnostics": []
+     },
+     {
+      "id": "place",
+      "members": 1,
+      "renderer": "webgpu",
+      "sampling": "gpu-texture",
+      "configuredSource": "texture",
+      "analysis": "exact",
+      "refraction": "true",
+      "health": "ok",
+      "demotionReason": null,
+      "cssBody": null,
+      "cssTint": null,
+      "cssShadow": null,
+      "materialDocument": {
+       "name": "apple-macos-27.0-glass0.5",
+       "platform": "macOS 27.0",
+       "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+       "resolvedMaterialSha256": "be13dae45098fc89",
+       "tuned": true
+      },
+      "abscissae": null,
+      "variant": "clear",
+      "blurRadius": 0,
+      "backdropToneHint": true,
+      "probe": {
+       "verdict": "pass",
+       "breaks": 0,
+       "reach": "verified",
+       "engineDefects": []
+      },
+      "diagnostics": []
+     },
+     {
+      "id": "time",
+      "members": 1,
+      "renderer": "webgpu",
+      "sampling": "gpu-texture",
+      "configuredSource": "texture",
+      "analysis": "exact",
+      "refraction": "true",
+      "health": "ok",
+      "demotionReason": null,
+      "cssBody": null,
+      "cssTint": null,
+      "cssShadow": null,
+      "materialDocument": {
+       "name": "apple-macos-27.0-glass0.5",
+       "platform": "macOS 27.0",
+       "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+       "resolvedMaterialSha256": "be13dae45098fc89",
+       "tuned": true
+      },
+      "abscissae": null,
+      "variant": "clear",
+      "blurRadius": 0,
+      "backdropToneHint": true,
+      "probe": {
+       "verdict": "pass",
+       "breaks": 0,
+       "reach": "verified",
+       "engineDefects": []
+      },
+      "diagnostics": []
+     }
+    ],
+    "diagnostics": [],
+    "forced": {
+     "policyGlass": "none",
+     "runtimeGlassSurfaces": 0,
+     "backdropFilterElements": [],
+     "backdropFilterCount": 0,
+     "glassDrawn": 0,
+     "runtimeRead": true,
+     "hosts": [
+      {
+       "nodeId": "vitrea-node_r_1_",
+       "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > section[data-vitrea-node=\"vitrea-node_r_1_\"].glass.window",
+       "backdropFilter": "none",
+       "backgroundColor": "rgba(255, 255, 255, 0)",
+       "backgroundImage": "none",
+       "borderColor": "rgb(0, 0, 0)",
+       "forcedColorAdjust": "auto"
+      },
+      {
+       "nodeId": "vitrea-node_r_3_",
+       "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > section[data-vitrea-node=\"vitrea-node_r_3_\"].glass.module",
+       "backdropFilter": "none",
+       "backgroundColor": "rgba(255, 255, 255, 0)",
+       "backgroundImage": "none",
+       "borderColor": "rgb(0, 0, 0)",
+       "forcedColorAdjust": "auto"
+      },
+      {
+       "nodeId": "vitrea-node_r_6_",
+       "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > div[data-vitrea-node=\"vitrea-node_r_6_\"].glass.place-morph",
+       "backdropFilter": "none",
+       "backgroundColor": "rgba(255, 255, 255, 0)",
+       "backgroundImage": "none",
+       "borderColor": "rgb(0, 0, 0)",
+       "forcedColorAdjust": "auto"
+      },
+      {
+       "nodeId": "vitrea-node_r_9_",
+       "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"overlay\"]:nth-of-type(2) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(2) > div[data-vitrea-node=\"vitrea-node_r_9_\"].glass.time-morph",
+       "backdropFilter": "none",
+       "backgroundColor": "rgba(255, 255, 255, 0)",
+       "backgroundImage": "none",
+       "borderColor": "rgb(0, 0, 0)",
+       "forcedColorAdjust": "auto"
+      }
+     ]
+    },
+    "glassDrawn": 0
+   }
+  },
+  "captures": [
+   "shot-fv-light.png",
+   "shot-full-light.png",
+   "shot-menu-light.png",
+   "shot-fv-dark.png",
+   "shot-full-dark.png",
+   "shot-menu-dark.png",
+   "shot-reduced.png",
+   "shot-contrast.png",
+   "shot-forced.png"
+  ],
+  "captureSha256": {
+   "shot-fv-light.png": "42e01216b42e4440bee4d7c5367d7f05140b73e8394018495cd5115513987ddd",
+   "shot-full-light.png": "324a291513a94671b63489c64593ab9d62c29a66162aeff5c7a72eea9a9a29a6",
+   "shot-menu-light.png": "eb8feb18278ec24b17016180f14590716eb176b8fc86fc48b3c0d5fa271729d0",
+   "shot-fv-dark.png": "ed3d71ee322daecd1f4dea8435dcfc0e78b3dd9afb71442c5b9963b364b7c856",
+   "shot-full-dark.png": "ae3acb7118787daaeeb72da58a34751706fad7afa770d6f3056620fc25ecc2fb",
+   "shot-menu-dark.png": "1e7d7783e964aebe3d7c21bb1e8a7a59903c7310dbd2fba6cfec345859680e85",
+   "shot-reduced.png": "ebaff9e530156ec10eba742f6da1da970a9c66c287bd2f1fc59b28840f801799",
+   "shot-contrast.png": "9fbeae0f01f545988a274d1e22ee63a5b91984eea11ddecc853eab19604e04c5",
+   "shot-forced.png": "0055095aced93ade4fdd50634d65c9eebcc275b350f0f3a6f5ddebf11dc83e23"
+  },
+  "banSubsetSpatial": {
+   "findings": [],
+   "counts": {}
+  },
+  "phasesHook": true,
+  "cssTier": {
+   "status": "ran",
+   "url": "http://localhost:5177/gallery/planetarium/?at=22%3A30&tier=css",
+   "readyState": "settled",
+   "errors": [],
+   "consoleErrors": [],
+   "groups": [
+    {
+     "id": "tonight",
+     "members": 1,
+     "renderer": "css",
+     "cssBody": "two-layer",
+     "cssTint": "encoded",
+     "health": "ok",
+     "demotionReason": null
+    },
+    {
+     "id": "moon",
+     "members": 1,
+     "renderer": "css",
+     "cssBody": "two-layer",
+     "cssTint": "encoded",
+     "health": "ok",
+     "demotionReason": null
+    },
+    {
+     "id": "place",
+     "members": 1,
+     "renderer": "css",
+     "cssBody": "two-layer",
+     "cssTint": "linear",
+     "health": "ok",
+     "demotionReason": null
+    },
+    {
+     "id": "time",
+     "members": 1,
+     "renderer": "css",
+     "cssBody": "two-layer",
+     "cssTint": "linear",
+     "health": "ok",
+     "demotionReason": null
+    }
+   ],
+   "menu": "captured",
+   "menuGroups": [
+    {
+     "id": "tonight",
+     "members": 1,
+     "renderer": "css",
+     "cssBody": "two-layer",
+     "cssTint": "encoded",
+     "health": "ok",
+     "demotionReason": null
+    },
+    {
+     "id": "moon",
+     "members": 1,
+     "renderer": "css",
+     "cssBody": "two-layer",
+     "cssTint": "encoded",
+     "health": "ok",
+     "demotionReason": null
+    },
+    {
+     "id": "place",
+     "members": 1,
+     "renderer": "css",
+     "cssBody": "two-layer",
+     "cssTint": "linear",
+     "health": "ok",
+     "demotionReason": null
+    },
+    {
+     "id": "time",
+     "members": 1,
+     "renderer": "css",
+     "cssBody": "two-layer",
+     "cssTint": "encoded",
+     "health": "ok",
+     "demotionReason": null
+    }
+   ],
+   "scrollers": {
+    "found": 1,
+    "cap": 8,
+    "list": [
+     {
+      "index": 1,
+      "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > section[data-vitrea-node=\"vitrea-node_r_1_\"].glass.window > div.window-scroll.tonight-scroll:nth-of-type(1)",
+      "hostNodeId": "vitrea-node_r_1_",
+      "rect": [
+       49,
+       49,
+       398,
+       558
+      ],
+      "scrollHeight": 1166,
+      "clientHeight": 558,
+      "scrollTop": 0,
+      "positions": [
+       {
+        "pos": "top",
+        "scrollTop": 0,
+        "capture": "css-scroller-1-top.png"
+       },
+       {
+        "pos": "middle",
+        "scrollTop": 304,
+        "capture": "css-scroller-1-middle.png"
+       },
+       {
+        "pos": "bottom",
+        "scrollTop": 608,
+        "capture": "css-scroller-1-bottom.png"
+       }
+      ]
+     }
+    ]
+   },
+   "lineContrast": {
+    "method": "per-line, glyphs suppressed",
+    "states": [
+     "fv",
+     "scroller-1-top",
+     "scroller-1-middle",
+     "scroller-1-bottom",
+     "menu"
+    ],
+    "lines": 306,
+    "pass": 306,
+    "minRatio": 5.15,
+    "worst": {
+     "state": "fv",
+     "nodeId": "vitrea-node_r_1_",
+     "line": 0,
+     "box": [
+      103,
+      410,
+      92.6,
+      15
+     ],
+     "size": 12,
+     "bold": false,
+     "large": false,
+     "floor": 4.5,
+     "ink": [
+      211,
+      210,
+      211
+     ],
+     "inkAlpha": 0.741,
+     "ground": [
+      84,
+      82,
+      84
+     ],
+     "ratio": 5.15,
+     "worstRatio": 4.73,
+     "pass": true,
+     "pixels": 1395
+    },
+    "byState": {
+     "fv": {
+      "lines": 55,
+      "pass": 55,
+      "minRatio": 5.15
+     },
+     "scroller-1-top": {
+      "lines": 55,
+      "pass": 55,
+      "minRatio": 5.15
+     },
+     "scroller-1-middle": {
+      "lines": 68,
+      "pass": 68,
+      "minRatio": 5.2
+     },
+     "scroller-1-bottom": {
+      "lines": 63,
+      "pass": 63,
+      "minRatio": 6.7
+     },
+     "menu": {
+      "lines": 65,
+      "pass": 65,
+      "minRatio": 5.15
+     }
+    },
+    "fails": []
+   },
+   "hostLuminance": {
+    "measure": "mean encoded Rec. 709 luma of the glyph-suppressed capture, 0..1 (the runtime's encodedLuminance, packages/platform-web/src/backdrop-tone.ts)",
+    "band": [
+     0.39,
+     0.49
+    ],
+    "ringPx": 24,
+    "reads": [
+     {
+      "state": "fv",
+      "nodeId": "vitrea-node_r_1_",
+      "groupId": "tonight",
+      "role": "window",
+      "label": "Tonight",
+      "rect": [
+       48,
+       48,
+       400,
+       560
+      ],
+      "inside": {
+       "mean": 0.212,
+       "pixels": 224000,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1649,
+       "pixels": 48384,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "fv",
+      "nodeId": "vitrea-node_r_3_",
+      "groupId": "moon",
+      "role": "module",
+      "label": "The Moon",
+      "rect": [
+       1072,
+       48,
+       320,
+       176
+      ],
+      "inside": {
+       "mean": 0.1929,
+       "pixels": 56320,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1238,
+       "pixels": 26112,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "fv",
+      "nodeId": "vitrea-node_r_6_",
+      "groupId": "place",
+      "role": "ornament",
+      "label": "Place",
+      "rect": [
+       600,
+       48,
+       322,
+       50
+      ],
+      "inside": {
+       "mean": 0.1838,
+       "pixels": 16100,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1212,
+       "pixels": 20160,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "fv",
+      "nodeId": "vitrea-node_r_9_",
+      "groupId": "time",
+      "role": "ornament",
+      "label": "Time",
+      "rect": [
+       750,
+       723.9,
+       374,
+       50
+      ],
+      "inside": {
+       "mean": 0.2224,
+       "pixels": 19074,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1788,
+       "pixels": 22704,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "scroller-1-top",
+      "nodeId": "vitrea-node_r_1_",
+      "groupId": "tonight",
+      "role": "window",
+      "label": "Tonight",
+      "rect": [
+       48,
+       48,
+       400,
+       560
+      ],
+      "inside": {
+       "mean": 0.212,
+       "pixels": 224000,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1649,
+       "pixels": 48384,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "scroller-1-top",
+      "nodeId": "vitrea-node_r_3_",
+      "groupId": "moon",
+      "role": "module",
+      "label": "The Moon",
+      "rect": [
+       1072,
+       48,
+       320,
+       176
+      ],
+      "inside": {
+       "mean": 0.1929,
+       "pixels": 56320,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1238,
+       "pixels": 26112,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "scroller-1-top",
+      "nodeId": "vitrea-node_r_6_",
+      "groupId": "place",
+      "role": "ornament",
+      "label": "Place",
+      "rect": [
+       600,
+       48,
+       322,
+       50
+      ],
+      "inside": {
+       "mean": 0.1838,
+       "pixels": 16100,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1212,
+       "pixels": 20160,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "scroller-1-top",
+      "nodeId": "vitrea-node_r_9_",
+      "groupId": "time",
+      "role": "ornament",
+      "label": "Time",
+      "rect": [
+       750,
+       723.9,
+       374,
+       50
+      ],
+      "inside": {
+       "mean": 0.2224,
+       "pixels": 19074,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1788,
+       "pixels": 22704,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "scroller-1-middle",
+      "nodeId": "vitrea-node_r_1_",
+      "groupId": "tonight",
+      "role": "window",
+      "label": "Tonight",
+      "rect": [
+       48,
+       48,
+       400,
+       560
+      ],
+      "inside": {
+       "mean": 0.2252,
+       "pixels": 224000,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1649,
+       "pixels": 48384,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "scroller-1-middle",
+      "nodeId": "vitrea-node_r_3_",
+      "groupId": "moon",
+      "role": "module",
+      "label": "The Moon",
+      "rect": [
+       1072,
+       48,
+       320,
+       176
+      ],
+      "inside": {
+       "mean": 0.1929,
+       "pixels": 56320,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1238,
+       "pixels": 26112,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "scroller-1-middle",
+      "nodeId": "vitrea-node_r_6_",
+      "groupId": "place",
+      "role": "ornament",
+      "label": "Place",
+      "rect": [
+       600,
+       48,
+       322,
+       50
+      ],
+      "inside": {
+       "mean": 0.1838,
+       "pixels": 16100,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1212,
+       "pixels": 20160,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "scroller-1-middle",
+      "nodeId": "vitrea-node_r_9_",
+      "groupId": "time",
+      "role": "ornament",
+      "label": "Time",
+      "rect": [
+       750,
+       723.9,
+       374,
+       50
+      ],
+      "inside": {
+       "mean": 0.2224,
+       "pixels": 19074,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1788,
+       "pixels": 22704,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "scroller-1-bottom",
+      "nodeId": "vitrea-node_r_1_",
+      "groupId": "tonight",
+      "role": "window",
+      "label": "Tonight",
+      "rect": [
+       48,
+       48,
+       400,
+       560
+      ],
+      "inside": {
+       "mean": 0.2176,
+       "pixels": 224000,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1649,
+       "pixels": 48384,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "scroller-1-bottom",
+      "nodeId": "vitrea-node_r_3_",
+      "groupId": "moon",
+      "role": "module",
+      "label": "The Moon",
+      "rect": [
+       1072,
+       48,
+       320,
+       176
+      ],
+      "inside": {
+       "mean": 0.1929,
+       "pixels": 56320,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1238,
+       "pixels": 26112,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "scroller-1-bottom",
+      "nodeId": "vitrea-node_r_6_",
+      "groupId": "place",
+      "role": "ornament",
+      "label": "Place",
+      "rect": [
+       600,
+       48,
+       322,
+       50
+      ],
+      "inside": {
+       "mean": 0.1838,
+       "pixels": 16100,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1212,
+       "pixels": 20160,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "scroller-1-bottom",
+      "nodeId": "vitrea-node_r_9_",
+      "groupId": "time",
+      "role": "ornament",
+      "label": "Time",
+      "rect": [
+       750,
+       723.9,
+       374,
+       50
+      ],
+      "inside": {
+       "mean": 0.2224,
+       "pixels": 19074,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1788,
+       "pixels": 22704,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "menu",
+      "nodeId": "vitrea-node_r_1_",
+      "groupId": "tonight",
+      "role": "window",
+      "label": "Tonight",
+      "rect": [
+       48,
+       48,
+       400,
+       560
+      ],
+      "inside": {
+       "mean": 0.212,
+       "pixels": 224000,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1649,
+       "pixels": 48384,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "menu",
+      "nodeId": "vitrea-node_r_3_",
+      "groupId": "moon",
+      "role": "module",
+      "label": "The Moon",
+      "rect": [
+       1072,
+       48,
+       320,
+       176
+      ],
+      "inside": {
+       "mean": 0.1929,
+       "pixels": 56320,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1238,
+       "pixels": 26112,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "menu",
+      "nodeId": "vitrea-node_r_6_",
+      "groupId": "place",
+      "role": "ornament",
+      "label": "Place",
+      "rect": [
+       600,
+       48,
+       322,
+       50
+      ],
+      "inside": {
+       "mean": 0.1838,
+       "pixels": 16100,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1212,
+       "pixels": 20160,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "menu",
+      "nodeId": "vitrea-node_r_9_",
+      "groupId": "time",
+      "role": "platter",
+      "label": "Time",
+      "rect": [
+       750,
+       473.9,
+       402,
+       244
+      ],
+      "inside": {
+       "mean": 0.2252,
+       "pixels": 98490,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1485,
+       "pixels": 33360,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     }
+    ]
+   },
+   "phases": {
+    "ids": [
+     "night",
+     "dusk",
+     "dawn",
+     "day"
+    ],
+    "total": 4,
+    "cap": 16,
+    "shown": [
+     {
+      "index": 1,
+      "id": "night",
+      "status": "captured",
+      "capture": "css-phase-1.png"
+     },
+     {
+      "index": 2,
+      "id": "dusk",
+      "status": "captured",
+      "capture": "css-phase-2.png"
+     },
+     {
+      "index": 3,
+      "id": "dawn",
+      "status": "captured",
+      "capture": "css-phase-3.png"
+     },
+     {
+      "index": 4,
+      "id": "day",
+      "status": "captured",
+      "capture": "css-phase-4.png"
+     }
+    ],
+    "readyState": "settled",
+    "errors": [],
+    "consoleErrors": [],
+    "lineContrast": {
+     "method": "per-line, glyphs suppressed",
+     "states": [
+      "phase-1",
+      "phase-2",
+      "phase-3",
+      "phase-4"
+     ],
+     "lines": 218,
+     "pass": 218,
+     "minRatio": 4.68,
+     "worst": {
+      "state": "phase-3",
+      "nodeId": "vitrea-node_r_1_",
+      "line": 0,
+      "box": [
+       103,
+       410,
+       92.6,
+       15
+      ],
+      "size": 12,
+      "bold": false,
+      "large": false,
+      "floor": 4.5,
+      "ink": [
+       213,
+       212,
+       215
+      ],
+      "inkAlpha": 0.741,
+      "ground": [
+       91,
+       88,
+       101
+      ],
+      "ratio": 4.68,
+      "worstRatio": 4.69,
+      "pass": true,
+      "pixels": 1395
+     },
+     "byState": {
+      "phase-1": {
+       "lines": 55,
+       "pass": 55,
+       "minRatio": 5.2
+      },
+      "phase-2": {
+       "lines": 54,
+       "pass": 54,
+       "minRatio": 5.58
+      },
+      "phase-3": {
+       "lines": 55,
+       "pass": 55,
+       "minRatio": 4.68
+      },
+      "phase-4": {
+       "lines": 54,
+       "pass": 54,
+       "minRatio": 4.8
+      }
+     },
+     "fails": []
+    },
+    "hostLuminance": {
+     "measure": "mean encoded Rec. 709 luma of the glyph-suppressed capture, 0..1 (the runtime's encodedLuminance, packages/platform-web/src/backdrop-tone.ts)",
+     "band": [
+      0.39,
+      0.49
+     ],
+     "ringPx": 24,
+     "reads": [
+      {
+       "state": "phase-1",
+       "nodeId": "vitrea-node_r_1_",
+       "groupId": "tonight",
+       "role": "window",
+       "label": "Tonight",
+       "rect": [
+        48,
+        48,
+        400,
+        560
+       ],
+       "inside": {
+        "mean": 0.2168,
+        "pixels": 224000,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1639,
+        "pixels": 48384,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-1",
+       "nodeId": "vitrea-node_r_3_",
+       "groupId": "moon",
+       "role": "module",
+       "label": "The Moon",
+       "rect": [
+        1072,
+        48,
+        320,
+        176
+       ],
+       "inside": {
+        "mean": 0.1899,
+        "pixels": 56320,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1145,
+        "pixels": 26112,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-1",
+       "nodeId": "vitrea-node_r_6_",
+       "groupId": "place",
+       "role": "ornament",
+       "label": "Place",
+       "rect": [
+        600,
+        48,
+        322,
+        50
+       ],
+       "inside": {
+        "mean": 0.2322,
+        "pixels": 16100,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1782,
+        "pixels": 20160,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-1",
+       "nodeId": "vitrea-node_r_9_",
+       "groupId": "time",
+       "role": "ornament",
+       "label": "Time",
+       "rect": [
+        750,
+        723.9,
+        374,
+        50
+       ],
+       "inside": {
+        "mean": 0.2267,
+        "pixels": 19074,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1842,
+        "pixels": 22704,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-2",
+       "nodeId": "vitrea-node_r_1_",
+       "groupId": "tonight",
+       "role": "window",
+       "label": "Tonight",
+       "rect": [
+        48,
+        48,
+        400,
+        560
+       ],
+       "inside": {
+        "mean": 0.2374,
+        "pixels": 224000,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.2134,
+        "pixels": 48384,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-2",
+       "nodeId": "vitrea-node_r_3_",
+       "groupId": "moon",
+       "role": "module",
+       "label": "The Moon",
+       "rect": [
+        1072,
+        48,
+        320,
+        176
+       ],
+       "inside": {
+        "mean": 0.2763,
+        "pixels": 56320,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.2473,
+        "pixels": 26112,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-2",
+       "nodeId": "vitrea-node_r_6_",
+       "groupId": "place",
+       "role": "ornament",
+       "label": "Place",
+       "rect": [
+        600,
+        48,
+        322,
+        50
+       ],
+       "inside": {
+        "mean": 0.26,
+        "pixels": 16100,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.2511,
+        "pixels": 20160,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-2",
+       "nodeId": "vitrea-node_r_9_",
+       "groupId": "time",
+       "role": "ornament",
+       "label": "Time",
+       "rect": [
+        750,
+        723.9,
+        374,
+        50
+       ],
+       "inside": {
+        "mean": 0.2668,
+        "pixels": 19074,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.2337,
+        "pixels": 22704,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-3",
+       "nodeId": "vitrea-node_r_1_",
+       "groupId": "tonight",
+       "role": "window",
+       "label": "Tonight",
+       "rect": [
+        48,
+        48,
+        400,
+        560
+       ],
+       "inside": {
+        "mean": 0.2384,
+        "pixels": 224000,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.2055,
+        "pixels": 48384,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-3",
+       "nodeId": "vitrea-node_r_3_",
+       "groupId": "moon",
+       "role": "module",
+       "label": "The Moon",
+       "rect": [
+        1072,
+        48,
+        320,
+        176
+       ],
+       "inside": {
+        "mean": 0.2309,
+        "pixels": 56320,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.1842,
+        "pixels": 26112,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-3",
+       "nodeId": "vitrea-node_r_6_",
+       "groupId": "place",
+       "role": "ornament",
+       "label": "Place",
+       "rect": [
+        600,
+        48,
+        322,
+        50
+       ],
+       "inside": {
+        "mean": 0.2365,
+        "pixels": 16100,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.2042,
+        "pixels": 20160,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-3",
+       "nodeId": "vitrea-node_r_9_",
+       "groupId": "time",
+       "role": "ornament",
+       "label": "Time",
+       "rect": [
+        750,
+        723.9,
+        374,
+        50
+       ],
+       "inside": {
+        "mean": 0.2827,
+        "pixels": 19074,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.2664,
+        "pixels": 22704,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-4",
+       "nodeId": "vitrea-node_r_1_",
+       "groupId": "tonight",
+       "role": "window",
+       "label": "Tonight",
+       "rect": [
+        48,
+        48,
+        400,
+        560
+       ],
+       "inside": {
+        "mean": 0.2914,
+        "pixels": 224000,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.6667,
+        "pixels": 48384,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-4",
+       "nodeId": "vitrea-node_r_3_",
+       "groupId": "moon",
+       "role": "module",
+       "label": "The Moon",
+       "rect": [
+        1072,
+        48,
+        320,
+        176
+       ],
+       "inside": {
+        "mean": 0.3746,
+        "pixels": 56320,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.7912,
+        "pixels": 26112,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-4",
+       "nodeId": "vitrea-node_r_6_",
+       "groupId": "place",
+       "role": "ornament",
+       "label": "Place",
+       "rect": [
+        600,
+        48,
+        322,
+        50
+       ],
+       "inside": {
+        "mean": 0.3387,
+        "pixels": 16100,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.6365,
+        "pixels": 20160,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      },
+      {
+       "state": "phase-4",
+       "nodeId": "vitrea-node_r_9_",
+       "groupId": "time",
+       "role": "ornament",
+       "label": "Time",
+       "rect": [
+        750,
+        723.9,
+        374,
+        50
+       ],
+       "inside": {
+        "mean": 0.3844,
+        "pixels": 19074,
+        "inDeadBand": false
+       },
+       "ring": {
+        "mean": 0.7619,
+        "pixels": 22704,
+        "inDeadBand": false
+       },
+       "inDeadBand": false
+      }
+     ]
+    }
+   }
+  },
+  "receded": {
+   "status": "ran",
+   "readyState": "settled",
+   "errors": [],
+   "consoleErrors": [],
+   "windowActivation": "inactive",
+   "scrollers": {
+    "found": 1,
+    "cap": 8,
+    "list": [
+     {
+      "index": 1,
+      "selector": "main#tonight > div[data-vitrea-root] > div[data-vitrea-plane-root=\"base\"]:nth-of-type(1) > div[data-vitrea-layer=\"semantic-host\"]:nth-of-type(2) > div:nth-of-type(1) > section[data-vitrea-node=\"vitrea-node_r_1_\"].glass.window > div.window-scroll.tonight-scroll",
+      "hostNodeId": "vitrea-node_r_1_",
+      "rect": [
+       48,
+       48,
+       400,
+       560
+      ],
+      "scrollHeight": 1166,
+      "clientHeight": 560,
+      "scrollTop": 0,
+      "positions": [
+       {
+        "pos": "top",
+        "scrollTop": 0,
+        "capture": "receded-scroller-1-top.png"
+       },
+       {
+        "pos": "middle",
+        "scrollTop": 303,
+        "capture": "receded-scroller-1-middle.png"
+       },
+       {
+        "pos": "bottom",
+        "scrollTop": 606,
+        "capture": "receded-scroller-1-bottom.png"
+       }
+      ]
+     }
+    ]
+   },
+   "lineContrast": {
+    "method": "per-line, glyphs suppressed",
+    "states": [
+     "fv",
+     "scroller-1-top",
+     "scroller-1-middle",
+     "scroller-1-bottom"
+    ],
+    "lines": 241,
+    "pass": 241,
+    "minRatio": 5.1,
+    "worst": {
+     "state": "fv",
+     "nodeId": "vitrea-node_r_1_",
+     "line": 0,
+     "box": [
+      102,
+      409,
+      92.6,
+      15
+     ],
+     "size": 12,
+     "bold": false,
+     "large": false,
+     "floor": 4.5,
+     "ink": [
+      211,
+      210,
+      211
+     ],
+     "inkAlpha": 0.741,
+     "ground": [
+      84,
+      83,
+      85
+     ],
+     "ratio": 5.1,
+     "worstRatio": 4.79,
+     "pass": true,
+     "pixels": 1395
+    },
+    "byState": {
+     "fv": {
+      "lines": 55,
+      "pass": 55,
+      "minRatio": 5.1
+     },
+     "scroller-1-top": {
+      "lines": 55,
+      "pass": 55,
+      "minRatio": 5.1
+     },
+     "scroller-1-middle": {
+      "lines": 68,
+      "pass": 68,
+      "minRatio": 5.13
+     },
+     "scroller-1-bottom": {
+      "lines": 63,
+      "pass": 63,
+      "minRatio": 6.77
+     }
+    },
+    "fails": []
+   },
+   "hostLuminance": {
+    "measure": "mean encoded Rec. 709 luma of the glyph-suppressed capture, 0..1 (the runtime's encodedLuminance, packages/platform-web/src/backdrop-tone.ts)",
+    "band": [
+     0.39,
+     0.49
+    ],
+    "ringPx": 24,
+    "reads": [
+     {
+      "state": "fv",
+      "nodeId": "vitrea-node_r_1_",
+      "groupId": "tonight",
+      "role": "window",
+      "label": "Tonight",
+      "rect": [
+       48,
+       48,
+       400,
+       560
+      ],
+      "inside": {
+       "mean": 0.2148,
+       "pixels": 224000,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1719,
+       "pixels": 48384,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "fv",
+      "nodeId": "vitrea-node_r_3_",
+      "groupId": "moon",
+      "role": "module",
+      "label": "The Moon",
+      "rect": [
+       1072,
+       48,
+       320,
+       176
+      ],
+      "inside": {
+       "mean": 0.1927,
+       "pixels": 56320,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1274,
+       "pixels": 26112,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "fv",
+      "nodeId": "vitrea-node_r_6_",
+      "groupId": "place",
+      "role": "ornament",
+      "label": "Place",
+      "rect": [
+       600,
+       48,
+       320,
+       48
+      ],
+      "inside": {
+       "mean": 0.1914,
+       "pixels": 15360,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1213,
+       "pixels": 19968,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "fv",
+      "nodeId": "vitrea-node_r_9_",
+      "groupId": "time",
+      "role": "ornament",
+      "label": "Time",
+      "rect": [
+       750,
+       723.9,
+       372,
+       48
+      ],
+      "inside": {
+       "mean": 0.2278,
+       "pixels": 18228,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1805,
+       "pixels": 22512,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "scroller-1-top",
+      "nodeId": "vitrea-node_r_1_",
+      "groupId": "tonight",
+      "role": "window",
+      "label": "Tonight",
+      "rect": [
+       48,
+       48,
+       400,
+       560
+      ],
+      "inside": {
+       "mean": 0.2148,
+       "pixels": 224000,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1719,
+       "pixels": 48384,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "scroller-1-top",
+      "nodeId": "vitrea-node_r_3_",
+      "groupId": "moon",
+      "role": "module",
+      "label": "The Moon",
+      "rect": [
+       1072,
+       48,
+       320,
+       176
+      ],
+      "inside": {
+       "mean": 0.1927,
+       "pixels": 56320,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1274,
+       "pixels": 26112,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "scroller-1-top",
+      "nodeId": "vitrea-node_r_6_",
+      "groupId": "place",
+      "role": "ornament",
+      "label": "Place",
+      "rect": [
+       600,
+       48,
+       320,
+       48
+      ],
+      "inside": {
+       "mean": 0.1914,
+       "pixels": 15360,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1213,
+       "pixels": 19968,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "scroller-1-top",
+      "nodeId": "vitrea-node_r_9_",
+      "groupId": "time",
+      "role": "ornament",
+      "label": "Time",
+      "rect": [
+       750,
+       723.9,
+       372,
+       48
+      ],
+      "inside": {
+       "mean": 0.2278,
+       "pixels": 18228,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1805,
+       "pixels": 22512,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "scroller-1-middle",
+      "nodeId": "vitrea-node_r_1_",
+      "groupId": "tonight",
+      "role": "window",
+      "label": "Tonight",
+      "rect": [
+       48,
+       48,
+       400,
+       560
+      ],
+      "inside": {
+       "mean": 0.2286,
+       "pixels": 224000,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1719,
+       "pixels": 48384,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "scroller-1-middle",
+      "nodeId": "vitrea-node_r_3_",
+      "groupId": "moon",
+      "role": "module",
+      "label": "The Moon",
+      "rect": [
+       1072,
+       48,
+       320,
+       176
+      ],
+      "inside": {
+       "mean": 0.1927,
+       "pixels": 56320,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1274,
+       "pixels": 26112,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "scroller-1-middle",
+      "nodeId": "vitrea-node_r_6_",
+      "groupId": "place",
+      "role": "ornament",
+      "label": "Place",
+      "rect": [
+       600,
+       48,
+       320,
+       48
+      ],
+      "inside": {
+       "mean": 0.1914,
+       "pixels": 15360,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1213,
+       "pixels": 19968,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "scroller-1-middle",
+      "nodeId": "vitrea-node_r_9_",
+      "groupId": "time",
+      "role": "ornament",
+      "label": "Time",
+      "rect": [
+       750,
+       723.9,
+       372,
+       48
+      ],
+      "inside": {
+       "mean": 0.2278,
+       "pixels": 18228,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1805,
+       "pixels": 22512,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "scroller-1-bottom",
+      "nodeId": "vitrea-node_r_1_",
+      "groupId": "tonight",
+      "role": "window",
+      "label": "Tonight",
+      "rect": [
+       48,
+       48,
+       400,
+       560
+      ],
+      "inside": {
+       "mean": 0.221,
+       "pixels": 224000,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1719,
+       "pixels": 48384,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "scroller-1-bottom",
+      "nodeId": "vitrea-node_r_3_",
+      "groupId": "moon",
+      "role": "module",
+      "label": "The Moon",
+      "rect": [
+       1072,
+       48,
+       320,
+       176
+      ],
+      "inside": {
+       "mean": 0.1927,
+       "pixels": 56320,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1274,
+       "pixels": 26112,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "scroller-1-bottom",
+      "nodeId": "vitrea-node_r_6_",
+      "groupId": "place",
+      "role": "ornament",
+      "label": "Place",
+      "rect": [
+       600,
+       48,
+       320,
+       48
+      ],
+      "inside": {
+       "mean": 0.1914,
+       "pixels": 15360,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1213,
+       "pixels": 19968,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     },
+     {
+      "state": "scroller-1-bottom",
+      "nodeId": "vitrea-node_r_9_",
+      "groupId": "time",
+      "role": "ornament",
+      "label": "Time",
+      "rect": [
+       750,
+       723.9,
+       372,
+       48
+      ],
+      "inside": {
+       "mean": 0.2278,
+       "pixels": 18228,
+       "inDeadBand": false
+      },
+      "ring": {
+       "mean": 0.1805,
+       "pixels": 22512,
+       "inDeadBand": false
+      },
+      "inDeadBand": false
+     }
+    ]
+   }
+  },
+  "extraCaptures": [
+   "css-fv-ground.png",
+   "css-fv.png",
+   "css-menu-ground.png",
+   "css-menu.png",
+   "css-phase-1-ground.png",
+   "css-phase-1.png",
+   "css-phase-2-ground.png",
+   "css-phase-2.png",
+   "css-phase-3-ground.png",
+   "css-phase-3.png",
+   "css-phase-4-ground.png",
+   "css-phase-4.png",
+   "css-scroller-1-bottom-ground.png",
+   "css-scroller-1-bottom.png",
+   "css-scroller-1-middle-ground.png",
+   "css-scroller-1-middle.png",
+   "css-scroller-1-top-ground.png",
+   "css-scroller-1-top.png",
+   "phase-1-dark-ground.png",
+   "phase-1-dark.png",
+   "phase-1-light-ground.png",
+   "phase-1-light.png",
+   "phase-2-dark-ground.png",
+   "phase-2-dark.png",
+   "phase-2-light-ground.png",
+   "phase-2-light.png",
+   "phase-3-dark-ground.png",
+   "phase-3-dark.png",
+   "phase-3-light-ground.png",
+   "phase-3-light.png",
+   "phase-4-dark-ground.png",
+   "phase-4-dark.png",
+   "phase-4-light-ground.png",
+   "phase-4-light.png",
+   "receded-fv-ground.png",
+   "receded-fv.png",
+   "receded-scroller-1-bottom-ground.png",
+   "receded-scroller-1-bottom.png",
+   "receded-scroller-1-middle-ground.png",
+   "receded-scroller-1-middle.png",
+   "receded-scroller-1-top-ground.png",
+   "receded-scroller-1-top.png",
+   "scroller-1-bottom-dark-ground.png",
+   "scroller-1-bottom-dark.png",
+   "scroller-1-bottom-light-ground.png",
+   "scroller-1-bottom-light.png",
+   "scroller-1-middle-dark-ground.png",
+   "scroller-1-middle-dark.png",
+   "scroller-1-middle-light-ground.png",
+   "scroller-1-middle-light.png",
+   "scroller-1-top-dark-ground.png",
+   "scroller-1-top-dark.png",
+   "scroller-1-top-light-ground.png",
+   "scroller-1-top-light.png",
+   "shot-fv-dark-ground.png",
+   "shot-fv-light-ground.png",
+   "shot-menu-dark-ground.png",
+   "shot-menu-light-ground.png",
+   "shot-reduced-ground.png"
+  ],
+  "extraCaptureSha256": {
+   "css-fv-ground.png": "187b7ffd5b9d733507da5e9267b4a113ec688f09543d2124b33e22717c3ff2bd",
+   "css-fv.png": "7083d30c327858fad497aa3b1ead546910e4fd4b7336ace5c6ec9111ec4ce35b",
+   "css-menu-ground.png": "1db77a731823ea9bb5cf540678fb396e48ae6369edf271cc1f12bb3fab4e91fc",
+   "css-menu.png": "fc4360f00e9364ce6bac02e1600cff826e42a948da4451d849460850ed136d99",
+   "css-phase-1-ground.png": "8d94d54a58d1cbb2fb686022b71bd1b3c574b1d6489ba4af664e4c161a6ec6c8",
+   "css-phase-1.png": "e7aad83331bed196c6d17c6b11064e3e5e66c0892e35fd94633fcd6cf7e03307",
+   "css-phase-2-ground.png": "e7c819422f49eee6e13db3fb3cf230fb366de059fcd67ebbebde398c12ebc127",
+   "css-phase-2.png": "2dab9a0e3e4c9cd3d8503ebcd25f4fb85b50a4bb0ad9b9d03b6d684f07fc3867",
+   "css-phase-3-ground.png": "2d476b17a26601c1501aadb1cee513d4add20aa90789090fd119a1fe9e81c0e3",
+   "css-phase-3.png": "36fb45018d0c34f74969a5eb571d131496987f24079a4867319c5a99806fe0c2",
+   "css-phase-4-ground.png": "5f9a8787252c69288688ecbc498a92fb19a812d65d5fc6db9da4f2a9294c83ca",
+   "css-phase-4.png": "48b065a00cb88faedb256496c2f7ec10ebfac23bcdd5f8606491680b60fbe6d9",
+   "css-scroller-1-bottom-ground.png": "f21ac0264d9d9737c2a5d614c46ea1bf21c3b1737a64e6d59b67675dfd6e41a2",
+   "css-scroller-1-bottom.png": "5ffd965c1729ab7241715079e272ff8b44886c7360b91f0ceac337ef4e978496",
+   "css-scroller-1-middle-ground.png": "1edd3db479be4ac282d169f36a0d1cda1f4198c60dd0720f48e2f14b677db673",
+   "css-scroller-1-middle.png": "bcb2ee95fa9a82ee024837ab46c04f02d353261d6d565d1bb6a09693b523ff8d",
+   "css-scroller-1-top-ground.png": "aa3cdfc55031494bf5c6d758404965c5d1370a1b524b9e92afb9e14e1c534693",
+   "css-scroller-1-top.png": "bf1ae52886dc5e4f7e8faf9ca48edf5444ddede3eb92a129884b292a8710176c",
+   "phase-1-dark-ground.png": "fea516d3c8146d0c33da1c2bec8e8eb62ace9d2da9e6258dd75352ee704e04ed",
+   "phase-1-dark.png": "bc66d9635b541b6b5862aad08d96c97fab2ae51f534beb22b917b3d72b368c2f",
+   "phase-1-light-ground.png": "90559acf638cba47377bdb2090a6d7a08524d62dccea7fe5a840a07b0d7d5c9b",
+   "phase-1-light.png": "704390151a1187c8a2e4451b17e8061cbb9c8d387387f1264e81a6fb5223d7da",
+   "phase-2-dark-ground.png": "27cab876e73c7fe2d9aebae5f7b76d6c7681651cda82d4e7f2a96fde8ab53e07",
+   "phase-2-dark.png": "d3ff6770c0215e13ef0ce46f8bd71c4b002d7fe9d0ffa87eb7278fa76d297546",
+   "phase-2-light-ground.png": "f6af9e14829ea26c524ce5bad01139e939ada2967f2c8e0717a9b023181e4289",
+   "phase-2-light.png": "2e53713b85c52ff214ca602ec4efd04922e9db37c5baca8da318005985862cf6",
+   "phase-3-dark-ground.png": "0dbde00de89f605d09d0900b4180cd866c01cf6bd8d8c4c342e982df684eb0fe",
+   "phase-3-dark.png": "704271912576c27c323bedbef270097880d5ed1f00a57336595e0965976f78ef",
+   "phase-3-light-ground.png": "ed887c7d1fa8b69e45c022c7712501ce2a9f02954534a7a99d78489262cd6f0a",
+   "phase-3-light.png": "3f3b511fb8854ad62428fccdc7d2da7203defbea12c17cbea46ddcedf4e47fc5",
+   "phase-4-dark-ground.png": "142789fb3e988af0c6b1130c88109078302d08c23ee3fab8ea5d7b052aa5af5d",
+   "phase-4-dark.png": "3232b43099b11444635090dc552888683ddecda7bcf6eef256072f191ab473fd",
+   "phase-4-light-ground.png": "a7581cacf03d2168c4c870fe40f49a39f12be5c826e21a027494bc1adbdc03fd",
+   "phase-4-light.png": "1b8a609df3e7aebc25781d1226318cc9323c6eee8196874c72b949c197510b45",
+   "receded-fv-ground.png": "1f94385018e3006dd682c22b9dff70f5e31d837f71f20e4384c0af49d4377013",
+   "receded-fv.png": "d46b30d92515abcf7b03c934674c1118afd338dc98cd5ff7dd4544d972782b87",
+   "receded-scroller-1-bottom-ground.png": "0fae5803f03be4d55bfd15620bceed5df7e2b6042a2a2e0d33bfba6f15e20dd2",
+   "receded-scroller-1-bottom.png": "764e63a1dcba41e93ae18fbc031eaa85f96661d939b84e66e23b23b053da9bf2",
+   "receded-scroller-1-middle-ground.png": "4aaed92bcb3ce0971212843c4e2593aadaafda644e87f74b1b73464bbccf9f88",
+   "receded-scroller-1-middle.png": "4cab22fa4edcffb42a812114c4ed1fb2947700145f2d9968ffbc719bdae1ba6d",
+   "receded-scroller-1-top-ground.png": "1f94385018e3006dd682c22b9dff70f5e31d837f71f20e4384c0af49d4377013",
+   "receded-scroller-1-top.png": "d46b30d92515abcf7b03c934674c1118afd338dc98cd5ff7dd4544d972782b87",
+   "scroller-1-bottom-dark-ground.png": "8edd02e87c51b507bb28ab7413ebaf0a287b8abbdfbb84794ceffd1e8eaa9ca2",
+   "scroller-1-bottom-dark.png": "1dca55d8d1f1ad0a7cb75105f635d185ab5ed49b417960f6c812f4bf80123349",
+   "scroller-1-bottom-light-ground.png": "47bb74bc3b2fb7f8d7693bdd6acd4a1176c7d26bffcf1321704befe8843dbcf5",
+   "scroller-1-bottom-light.png": "ed05e6cc1e164772fdc47280efe7282ec103d7ecc4087992653dfee068c9958c",
+   "scroller-1-middle-dark-ground.png": "8710fd4701bc840671f9d4cb8ca3de5c7b2e0dcea1b739c1ed1c160e2c7b4f49",
+   "scroller-1-middle-dark.png": "155a5774b3b290beda56980c1ddcbfc0beee1d8e8794117ec736b523497633f2",
+   "scroller-1-middle-light-ground.png": "a53466c8acacb590ff94006a1e8ddf94574611c47198bc2b1e7ccf8cb7b88d6b",
+   "scroller-1-middle-light.png": "1275873760b126839b320fd07001cd8ffdc10958c5761ac105fb7f8e92c0927f",
+   "scroller-1-top-dark-ground.png": "4d6363bf2dae31ebc97c4d707167aafc460e81de635b87ea603aa1b1f05cc486",
+   "scroller-1-top-dark.png": "ae3acb7118787daaeeb72da58a34751706fad7afa770d6f3056620fc25ecc2fb",
+   "scroller-1-top-light-ground.png": "b44929e9350d17bcd386ce67346d2dd359d7bdccc7abc4c82405802bf891de1e",
+   "scroller-1-top-light.png": "324a291513a94671b63489c64593ab9d62c29a66162aeff5c7a72eea9a9a29a6",
+   "shot-fv-dark-ground.png": "4d6363bf2dae31ebc97c4d707167aafc460e81de635b87ea603aa1b1f05cc486",
+   "shot-fv-light-ground.png": "b44929e9350d17bcd386ce67346d2dd359d7bdccc7abc4c82405802bf891de1e",
+   "shot-menu-dark-ground.png": "f0ae6f7b903140d92e8b134759a37002c7c60b66df8bb578248aced66c4794be",
+   "shot-menu-light-ground.png": "27ff571abd6d96d8eb82a40455d38284ca5a612550a9ae7056ae199144be95de",
+   "shot-reduced-ground.png": "f3af4311b977818b906294510be4fbfafd9f21f1aa2e0c64f6653779fb83eeb6"
+  },
+  "gateMechanical": true,
+  "tool": {
+   "playwright": {
+    "module": "@playwright/test",
+    "version": "1.62.1"
+   },
+   "chromium": "151.0.7922.34",
+   "gpuArgs": [
+    "--enable-unsafe-webgpu",
+    "--enable-features=Vulkan,WebGPU"
+   ]
+  }
+ }
+]
