@@ -1,0 +1,123 @@
+{
+  "kind": "STROKE_ACTUAL_CONCURRENT_CONTROLLER_RESTART",
+  "recordedUTC": "2026-09-28T08:18:04.095541+00:00",
+  "restart": {
+    "adopted": {
+      "claimSha256": "f7d21a10c7bc85260e71bc6053b78921bd043c5d96c5f0c0fca73c96096cb8a4",
+      "currentIdentity": {
+        "command": "/Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python -B -X pycache_prefix=/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/vitrea-kernel-M1-curvature-08-1zqt_lm_ /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/memo_runner_v3.py --root /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1 --receipt /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-launches-kernel-1/curvature-M1-start-08.json --sha256 84775fa52cc8fafd1dc8024183b7fbc96f0d4efa00f74db5df1a48c837d24e3d",
+        "pid": 45682,
+        "startedUTC": "2026-09-28T07:37:25+00:00"
+      },
+      "pid": 45682,
+      "processIdentity": {
+        "command": "/Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python -B -X pycache_prefix=/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/vitrea-kernel-M1-curvature-08-1zqt_lm_ /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/memo_runner_v3.py --root /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1 --receipt /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-launches-kernel-1/curvature-M1-start-08.json --sha256 84775fa52cc8fafd1dc8024183b7fbc96f0d4efa00f74db5df1a48c837d24e3d",
+        "pid": 45682,
+        "startedUTC": "2026-09-28T07:37:25+00:00"
+      },
+      "task": [
+        "M1",
+        "curvature",
+        8
+      ]
+    },
+    "atUTC": "2026-09-28T08:17:05.563508+00:00",
+    "completed": [
+      {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/results/curvature-M1-start-04.json",
+        "sha256": "7e14122f9d31aba169ce72abc73c07c1f473a8f3b2e7c569cc5b6db2b8a953b0"
+      },
+      {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/results/curvature-M1-start-05.json",
+        "sha256": "963d406594f7c0b3a01d0aa24bd489e3e51e50d9a54a8b28089922f54f5d9340"
+      },
+      {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/results/curvature-M1-start-06.json",
+        "sha256": "1c44239996c76ad7d2cf8a946f3a061b63bd83bcc62325503edf2428455fe2ef"
+      },
+      {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/results/curvature-M1-start-07.json",
+        "sha256": "ad33f347c4213f5989ae8676a89b5e9864bc02b8932b95719fc8a2a775aa0a0b"
+      }
+    ],
+    "controllerPID": 81463,
+    "controllerSourceSha256": "fc768f12deb46c60ed9b514135b67d7875281b7b5fb0468979b7965b5ec5488e",
+    "handoffPath": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/execution-batches/M1/restart-kernel-readmit-2/handoff-concurrent-1.json",
+    "handoffSha256": "a7700f3b347759eab5eac6caa0ec42d2198c9404e14d72b619310b31041757a4",
+    "kind": "restart",
+    "manifestPath": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/remaining-batch-M1-kernel-readmit-2.json",
+    "manifestSha256": "66c9e489452a686fc52aba642ccba79fa0559ff855993915063243d4ea937167",
+    "memoryMetric": "kernel memorystatus free-level percent times physical memory",
+    "pending": [
+      [
+        "M1",
+        "curvature",
+        9
+      ],
+      [
+        "M1",
+        "curvature",
+        10
+      ],
+      [
+        "M1",
+        "curvature",
+        11
+      ],
+      [
+        "M1",
+        "curvature",
+        12
+      ],
+      [
+        "M1",
+        "curvature",
+        13
+      ],
+      [
+        "M1",
+        "curvature",
+        14
+      ],
+      [
+        "M1",
+        "curvature",
+        15
+      ]
+    ],
+    "scheduling": "dynamic v4 gate; 30 s re-evaluation after refusal; one handshake at a time; adopted fit audited by identity",
+    "serialDriverSha256": "d914997a5995fd596b061ebb87d30b241cad72164fd6c1172008cc36291cb787",
+    "serialJournalSha256": "30fc3e464d7e0e8d2fb243f55749da514ff5ebf5f8d743b6300f0f6b4a5d7027",
+    "watcherDeadlineUTC": "2026-09-29T01:19:18.936481+00:00",
+    "watcherPID": 55508
+  },
+  "firstAdmission": {
+    "atUTC": "2026-09-28T08:17:06.931016+00:00",
+    "availableBytes": 7730941132,
+    "effectiveConcurrency": 2,
+    "kind": "resource_wait",
+    "liveFits": [
+      {
+        "adopted": true,
+        "phase": "fit",
+        "pid": 45682,
+        "task": [
+          "M1",
+          "curvature",
+          8
+        ]
+      }
+    ],
+    "mode": "degraded",
+    "pressureLevel": 1,
+    "reservedBytes": 7335936000,
+    "task": [
+      "M1",
+      "curvature",
+      9
+    ]
+  },
+  "liveConcurrencyVerifiedAtSnapshot": 1,
+  "interpretation": "Controller adopted untouched08 and evaluated09 admission immediately. v4 refused the prospective second fit: available 7730941132, reservations7335936000; normal 1GiB floor would require8409677824, while degraded cap is1. No claim that additional fits already run. The loop continues admission attempts after30s.",
+  "sourceSha256": "fc768f12deb46c60ed9b514135b67d7875281b7b5fb0468979b7965b5ec5488e"
+}
