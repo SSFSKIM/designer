@@ -83,3 +83,34 @@ Library API
 Synthetic verification (never writes bytecode)
   python -B -X pycache_prefix=<new empty dir> -m unittest discover \
     -s /absolute/path/to/stroke/scheduler -p 'test_scheduler*.py'
+
+Policy v4: kernel memory level (appended; everything above describes policy v3 as it was)
+  Direction: ../scheduler-memory-parent-direction-v4.json, kind
+  STROKE_KERNEL_MEMORY_DIRECTION. The code refuses a direction whose availability
+  reader ({levelSysctl, physicalBytesSysctl, formula, percentRange, metric}),
+  pressureSysctl or normal/degraded numbers differ from what it enforces.
+  Receipt: receiptVersion 4 with kernelMemoryPolicy: REF to that direction (the
+  selector). adaptiveMemoryPolicy stays as the historical policy-v3 REF: the composed
+  driver checks its path, hash and numbers, but no gate uses them. receiptVersion 3
+  receipts are refused by StoreV3, the composed driver and memo_runner_v3.
+  Availability = floor(kern.memorystatus_level * hw.memsize / 100), read by
+  scheduler_v3.kernel_memory as three `sysctl -n` calls. Each value must be one
+  decimal integer; the level must be in 0..100 and hw.memsize positive; a missing,
+  malformed or out-of-range value raises, so the admission fails closed as an
+  error and logs an unreadable pressure row. The pressure level is
+  kern.memorystatus_vm_pressure_level as before, recorded as read; the gates admit
+  only the levels they name. The reading carries levelPercent, physicalBytes,
+  rawSysctl, counter, counterEpoch and metric. A reading with any other metric
+  (v2's counter included) is a misconfigured driver, not a resource shortage: the
+  admission raises ValueError before choosing a mode and before logging that
+  reading's pressure, so no caller can wait on it as if it were a Deferred refusal.
+  Unchanged: the reservations (observed-peak high-water, resident credit), the
+  process-identity enumeration, the pressure log and freshest-row rule, the normal
+  gate (NORMAL now, five spaced NORMAL readings, 1 GiB floor, cap 3) and the
+  degraded gate (NORMAL or WARNING, no floor, 20 GiB disk, cap 1).
+  StoreV3.claim / check_before_fit, and the composed driver's run / preflight,
+  default to kernel_memory; v1.run passes no reader, so candidate fits read the kernel level.
+  Decisions and results carry policyVersion 4, resourcePolicy
+  "stroke-adaptive-v4-kernel-level", policyCounter "floor(levelPercent *
+  physicalBytes /100)", its counterEpoch, and kernelMemoryPolicy (REF). A driver
+  that calls admission itself must pass scheduler_v3.kernel_memory.

@@ -41,17 +41,18 @@ class MemoV3Tests(unittest.TestCase):
         self.policy_calls = []
         def verify_resource_receipt(launch):
             self.policy_calls.append(copy.deepcopy(launch))
-            if launch['receiptVersion'] != 3:
-                raise ValueError('resource gate requires original v3 receipt')
-            self.engine.record(launch['adaptiveMemoryPolicy'])
+            if launch['receiptVersion'] != 4:
+                raise ValueError('resource gate requires original v4 receipt')
+            self.engine.record(launch['kernelMemoryPolicy'])
         self.bridge = types.SimpleNamespace(__file__=str(bridge_path), legacy=self.legacy,
             s=self.engine, v2=self.legacy.v2,
             v3=types.SimpleNamespace(__file__=str(policy_path), v1=self.engine, StoreV3=StoreV3),
             PolicyStore=PolicyStore, verify_resource_receipt=verify_resource_receipt,
             resource_sources=lambda: [bridge_path, policy_path, *self.legacy.resource_sources()])
         self.store = PolicyStore(self.root/'state')
-        self.launch = dict(kind='STROKE_LAUNCH', receiptVersion=3, task=['M1', 'device', 3],
+        self.launch = dict(kind='STROKE_LAUNCH', receiptVersion=4, task=['M1', 'device', 3],
             adaptiveMemoryPolicy=artifact(self.root/'adaptive.json', {'syntheticPolicy': 3}),
+            kernelMemoryPolicy=artifact(self.root/'kernel.json', {'syntheticPolicy': 4}),
             memoization=self.proof_fixture(), resourceSourceSha256={
                 str(p): ref(p)['sha256'] for p in runner.operational_sources(self.bridge)})
         self.reference = artifact(self.root/'launch.json', self.launch)
@@ -91,7 +92,8 @@ class MemoV3Tests(unittest.TestCase):
             str(p): ref(p)['sha256'] for p in runner.operational_sources(bridge)},
             memoryPolicy=ref(memo.STROKE/'scheduler-memory-parent-direction-v2.json'),
             memoryCounterDirection=ref(memo.STROKE/'scheduler-memory-counter-clarification.json'),
-            adaptiveMemoryPolicy=ref(memo.STROKE/'scheduler-memory-parent-direction-v3.json'))
+            adaptiveMemoryPolicy=ref(memo.STROKE/'scheduler-memory-parent-direction-v3.json'),
+            kernelMemoryPolicy=ref(memo.STROKE/'scheduler-memory-parent-direction-v4.json'))
         reference = artifact(self.root/'actual-v3-launch.json', launch)
         engine = bridge.s
         original = engine.selected_fit
@@ -100,7 +102,7 @@ class MemoV3Tests(unittest.TestCase):
             self.assertIs(received_reference, reference)
             self.assertIsInstance(received_store, bridge.v3.StoreV3)
             self.assertIs(received_store.finish.__func__, bridge.v3.StoreV3.finish)
-            self.assertEqual(engine.record(received_reference)['receiptVersion'], 3)
+            self.assertEqual(engine.record(received_reference)['receiptVersion'], 4)
             return 'actual store accepted; no claim or fit executed'
         with patch.object(engine, 'run', side_effect=delegate), \
                 patch.object(memo, 'load_wrapper', side_effect=AssertionError('no wrapper import')):
@@ -114,7 +116,7 @@ class MemoV3Tests(unittest.TestCase):
         def delegate(store, reference):
             self.assertIs(store, self.store)
             self.assertIs(reference, self.reference)
-            self.assertEqual(self.engine.record(reference)['receiptVersion'], 3)
+            self.assertEqual(self.engine.record(reference)['receiptVersion'], 4)
             self.assertIsNot(self.engine.selected_fit, self.original)
             return 'delegated without a fit'
         with patch.object(self.engine, 'run', side_effect=delegate), \
@@ -142,13 +144,14 @@ class MemoV3Tests(unittest.TestCase):
         self.assertIs(self.engine.selected_fit, self.original)
 
     def test_v2_or_implicit_adaptive_receipt_cannot_enter_v3_dispatch(self):
-        for change in (dict(receiptVersion=2), dict(kind='STROKE_VERIFICATION')):
+        for change in (dict(receiptVersion=2), dict(receiptVersion=3),
+                       dict(kind='STROKE_VERIFICATION')):
             self.launch.update(change); self.save_launch()
             with patch.object(self.engine, 'run') as delegate:
                 with self.assertRaises(ValueError): runner.run(self.store, self.reference, bridge=self.bridge)
                 delegate.assert_not_called()
-        self.launch.update(kind='STROKE_LAUNCH', receiptVersion=3)
-        del self.launch['adaptiveMemoryPolicy']; self.save_launch()
+        self.launch.update(kind='STROKE_LAUNCH', receiptVersion=4)
+        del self.launch['kernelMemoryPolicy']; self.save_launch()
         with patch.object(self.engine, 'run') as delegate:
             with self.assertRaises(KeyError): runner.run(self.store, self.reference, bridge=self.bridge)
             delegate.assert_not_called()

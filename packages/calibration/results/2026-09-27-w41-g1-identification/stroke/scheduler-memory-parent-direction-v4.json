@@ -1,0 +1,49 @@
+{
+  "kind": "STROKE_KERNEL_MEMORY_DIRECTION",
+  "recordedUTC": "2026-09-28T01:31:37.775963+00:00",
+  "authority": "Coordinator operational task ruling, policyv4; no scientific or permission/configuration change.",
+  "reason": "The free+inactive heuristic undercounts reclaimable file-backed cache and again blocked all fits after PID reuse was repaired. Use kernel memorystatus level as the authoritative availability input for this gate.",
+  "availability": {
+    "levelSysctl": "kern.memorystatus_level",
+    "physicalBytesSysctl": "hw.memsize",
+    "formula": "floor(levelPercent * physicalBytes /100)",
+    "percentRange": [
+      0,
+      100
+    ],
+    "metric": "kernel memorystatus free-level percent times physical memory"
+  },
+  "pressureSysctl": "kern.memorystatus_vm_pressure_level",
+  "normal": {
+    "pressureLevels": [
+      1
+    ],
+    "spacedNormalReadings": 5,
+    "intervalSeconds": 30,
+    "floorBytes": 1073741824,
+    "maxConcurrency": 3
+  },
+  "degraded": {
+    "pressureLevels": [
+      1,
+      2
+    ],
+    "floorBytes": 0,
+    "maxConcurrency": 1,
+    "diskFreeMinimumBytes": 21474836480
+  },
+  "reservations": "Observed peak per prospective fit; max(0,peak-liveRSS) per identity-matched live fit; monotonic observed peaks unchanged.",
+  "adaptive": "Normal gate first at each admission, otherwise degraded; never kill running work.",
+  "unreadable": "Required sysctl unreadable/malformed/out-of-range fails closed.",
+  "snapshot": {
+    "rawSysctl": {
+      "kern.memorystatus_level": "61",
+      "hw.memsize": "17179869184",
+      "kern.memorystatus_vm_pressure_level": "1"
+    },
+    "derivedAvailableBytes": 10479720202
+  },
+  "scientificChanges": false,
+  "queueOrder": "M1 device then curvature, M1cal/validationverdict, M2device then curvature",
+  "budgets": "Full sealed budgets and original seeds unchanged."
+}

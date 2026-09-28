@@ -3,17 +3,22 @@
 CLI: python -B -X pycache_prefix=FRESH_EMPTY_DIR verification_policy_v3.py
        --root ROOT --receipt RECEIPT --sha256 SHA
 
-Receipt version 3 retains all scientific/recovery pins and the legacy observer
-fields (memoryPolicy, memoryCounterDirection, pressureSnapshot, pressureImport,
-pressureWatcher). Add adaptiveMemoryPolicy pointing to the new parent direction.
-resourceSourceSha256 must pin this driver, scheduler_v3.py, the reviewed v2
+Receipt version 4 (policy v4, kernel memory level) retains all scientific/recovery
+pins and the legacy observer fields (memoryPolicy, memoryCounterDirection,
+pressureSnapshot, pressureImport, pressureWatcher) and the policy-v3
+adaptiveMemoryPolicy reference as HISTORY (path and hash checked, numbers not
+used). kernelMemoryPolicy must point to the v4 parent direction and selects the
+gate. resourceSourceSha256 must pin this driver, scheduler_v3.py, the reviewed v2
 composition and scheduler_v2.py; additional operational pins are also checked.
+Version 3 receipts are refused: their counter reading is superseded.
 
 The frozen v2 observer checker receives a NEW metadata-only dict with version 2.
 It checks sources, completed imported history and the existing live v2 watcher;
 it does not admit work. The original version-3 receipt and actual memory/disk
-readings reach StoreV3 unchanged. Its resourceMode is retained beside the original
-adapter's verification mode. No synthetic NORMAL reading or headroom is supplied.
+readings reach StoreV3 unchanged; run and preflight default to StoreV3's kernel
+reader (v3.kernel_memory), never to v2's counter. Its resourceMode is retained beside
+the original adapter's verification mode. No synthetic NORMAL reading or headroom is
+supplied.
 
 PolicyStore(root, clock=..., disk=None, swap=...) exposes the actual StoreV3 with
 those observer checks. Module aliases v3, v2=legacy.v2, s=v3.v1 expose the exact
@@ -35,6 +40,7 @@ import verification_policy_v2 as legacy
 
 adapter, s, v2 = legacy.adapter, legacy.s, legacy.v2
 ADAPTIVE_POLICY = adapter.STROKE/'scheduler-memory-parent-direction-v3.json'
+KERNEL_POLICY = adapter.STROKE/'scheduler-memory-parent-direction-v4.json'
 _spec = importlib.util.spec_from_file_location('verification_scheduler_v3',
                                               adapter.STROKE/'scheduler/scheduler_v3.py')
 v3 = importlib.util.module_from_spec(_spec)
@@ -56,13 +62,14 @@ def resource_sources():
 
 
 def verify_resource_receipt(receipt):
-    if receipt.get('receiptVersion') != 3:
-        raise ValueError('adaptive composition requires receiptVersion 3')
+    if receipt.get('receiptVersion') != 4:
+        raise ValueError('kernel-level adaptive composition requires receiptVersion 4')
     s.verify_sources(receipt['resourceSourceSha256'], resource_sources())
-    direction = receipt['adaptiveMemoryPolicy']
-    if direction['path'] != str(ADAPTIVE_POLICY):
-        raise ValueError('explicit adaptive parent direction is required')
-    v3.check_direction(s.record(direction))
+    for field, path, check in (('adaptiveMemoryPolicy', ADAPTIVE_POLICY, v3.check_direction),
+                               ('kernelMemoryPolicy', KERNEL_POLICY, v3.check_kernel_direction)):
+        if receipt[field]['path'] != str(path):
+            raise ValueError('explicit historical v3 and authoritative v4 directions are required')
+        check(s.record(receipt[field]))
     # Compatibility is only for frozen source/direction validation, never for
     # an admission or persisted receipt. The original mapping is not mutated.
     legacy.verify_resource_receipt(dict(receipt, receiptVersion=2))
@@ -82,10 +89,11 @@ class PolicyStore(v3.StoreV3):
         decision = super()._admission(launch, pid, alive, memory, rss, own_claim=own_claim)
         return dict(decision, **{key: launch[key] for key in (
             'resourceSourceSha256', 'memoryPolicy', 'memoryCounterDirection',
-            'pressureSnapshot', 'pressureImport', 'pressureWatcher')}, watcherReading=latest)
+            'pressureSnapshot', 'pressureImport', 'pressureWatcher',
+            'adaptiveMemoryPolicy')}, watcherReading=latest)
 
 
-def run(root, reference, *, proof_body, memory=v2.mac_memory_v2, disk=None, swap=v3.swap_usage,
+def run(root, reference, *, proof_body, memory=v3.kernel_memory, disk=None, swap=v3.swap_usage,
         clock=lambda: v2.timestamp(s.now()), **process_readings):
     receipt = s.record(reference)
     verify_resource_receipt(receipt)
@@ -99,7 +107,7 @@ def run(root, reference, *, proof_body, memory=v2.mac_memory_v2, disk=None, swap
                               proof_body=checked_body, memory=memory, **process_readings)
 
 
-def preflight(root, reference, *, alive=s.alive, memory=v2.mac_memory_v2, rss=s.process_rss,
+def preflight(root, reference, *, alive=s.alive, memory=v3.kernel_memory, rss=s.process_rss,
               disk=None, swap=v3.swap_usage, clock=lambda: v2.timestamp(s.now())):
     store = PolicyStore(root, clock=clock, disk=disk, swap=swap)
     with store.locked():

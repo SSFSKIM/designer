@@ -1,5 +1,7 @@
 """Adaptive composition uses actual StoreV3, fake OS readings and fake proof body."""
 from datetime import timedelta
+import json
+import os
 from pathlib import Path
 import unittest
 from unittest.mock import patch
@@ -14,8 +16,16 @@ class AdaptiveDriverTests(unittest.TestCase):
     body = previous.PolicyDriverTests.body
     terminal = previous.PolicyDriverTests.terminal
     at = previous.PolicyDriverTests.at
-    reading = previous.PolicyDriverTests.reading
     watch = previous.PolicyDriverTests.watch
+
+    def reading(self, inactive, purgeable, level=1):
+        """A policy-v4 kernel reading whose availability equals what the v2 fixture's
+        free 0 + max(inactive, purgeable) was, so each gate boundary stays where it was."""
+        available = max(inactive, purgeable)
+        percent, physical = (100, available) if available else (0, 16*v.s.GIB)
+        reading = driver.v3.parse_kernel_memory(f'{percent}\n', f'{physical}\n', f'{level}\n')
+        reading['sampledUTC'] = self.at(0)
+        return reading
 
     def setUp(self):
         previous.PolicyDriverTests.setUp(self)
@@ -27,9 +37,21 @@ class AdaptiveDriverTests(unittest.TestCase):
                 spacedNormalReadings=5, intervalSeconds=30, floorBytes=v.s.GIB, maxConcurrency=3),
             degraded=dict(pressureLevels=[1, 2], floorBytes=0, maxConcurrency=1,
                           diskFreeMinimumBytes=20*v.s.GIB)))
+        self.kernel = self.base/'kernel-policy.json'
+        artifact(self.kernel, dict(kind='STROKE_KERNEL_MEMORY_DIRECTION',
+            availability=dict(levelSysctl='kern.memorystatus_level',
+                physicalBytesSysctl='hw.memsize',
+                formula='floor(levelPercent * physicalBytes /100)', percentRange=[0, 100],
+                metric='kernel memorystatus free-level percent times physical memory'),
+            pressureSysctl='kern.memorystatus_vm_pressure_level',
+            normal=dict(pressureLevels=[1], spacedNormalReadings=5, intervalSeconds=30,
+                        floorBytes=v.s.GIB, maxConcurrency=3),
+            degraded=dict(pressureLevels=[1, 2], floorBytes=0, maxConcurrency=1,
+                          diskFreeMinimumBytes=20*v.s.GIB)))
         self.adaptive_source = self.base/'scheduler_v3.py'
         self.adaptive_source.write_text('# adaptive policy fixture\n')
         for target, name, value in ((driver, 'ADAPTIVE_POLICY', self.adaptive),
+                                   (driver, 'KERNEL_POLICY', self.kernel),
                                    (driver.v3, '__file__', str(self.adaptive_source))):
             p = patch.object(target, name, value); p.start(); self.addCleanup(p.stop)
         self.store = driver.PolicyStore(self.root, clock=lambda: self.clock,
@@ -41,7 +63,8 @@ class AdaptiveDriverTests(unittest.TestCase):
         previous.PolicyDriverTests.setUpBase(self)
 
     def receipt(self, **changes):
-        fields = dict(receiptVersion=3, adaptiveMemoryPolicy=ref(self.adaptive),
+        fields = dict(receiptVersion=4, adaptiveMemoryPolicy=ref(self.adaptive),
+            kernelMemoryPolicy=ref(self.kernel),
             resourceSourceSha256={str(p): ref(p)['sha256'] for p in driver.resource_sources()})
         fields.update(changes)
         return previous.PolicyDriverTests.receipt(self, **fields)
@@ -60,7 +83,7 @@ class AdaptiveDriverTests(unittest.TestCase):
         self.memory = self.reading(v.s.GIB, 0, level=2)
         self.run_slot()
         first, second = self.stage_calls
-        self.assertEqual(first['policyVersion'], 3)
+        self.assertEqual(first['policyVersion'], 4)
         self.assertEqual(first['resourceMode'], 'degraded')
         self.assertEqual(first['memory']['pressureLevel'], 2)
         self.assertEqual(first['requiredAvailableBytes'], v.s.GIB)
@@ -173,8 +196,11 @@ class AdaptiveDriverTests(unittest.TestCase):
             pins = {key: value for key, value in original.items() if key != str(path)}
             with self.subTest(path=path), self.assertRaises(ValueError):
                 self.run_slot(self.receipt(resourceSourceSha256=pins))
-        with self.assertRaises(ValueError):
-            self.run_slot(self.receipt(adaptiveMemoryPolicy=ref(self.policy)))
+        for wrong in (dict(adaptiveMemoryPolicy=ref(self.policy)),
+                      dict(kernelMemoryPolicy=ref(self.adaptive)),
+                      dict(receiptVersion=3)):
+            with self.subTest(wrong=wrong), self.assertRaises(ValueError):
+                self.run_slot(self.receipt(**wrong))
         receipt = self.receipt(); self.adaptive_source.write_text('# changed adaptive source\n')
         with self.assertRaises(ValueError): self.run_slot(receipt)
         self.assertFalse((self.root/'verification').exists())
@@ -218,7 +244,7 @@ class AdaptiveDriverTests(unittest.TestCase):
             return actual_gate(store, launch, *args, **kwargs)
         with patch.object(driver.v3.StoreV3, '_admission', autospec=True, side_effect=observe_gate):
             self.run_slot(receipt)
-        self.assertEqual(versions, [3, 3])
+        self.assertEqual(versions, [4, 4])
         self.assertEqual(Path(receipt['path']).read_bytes(), original_bytes)
         terminal = self.terminal()
         self.assertEqual(v.s.record(terminal['lease'])['receipt'], receipt)
@@ -249,6 +275,51 @@ class AdaptiveDriverTests(unittest.TestCase):
         with self.store.locked(), self.assertRaises(v.s.Deferred):
             v.resource_admission(self.store, launch, 999, self.live.__contains__,
                 lambda: dict(self.memory), lambda pid: v.s.GIB//2, prepared=False)
+
+    def test_composed_store_runs_a_candidate_on_the_kernel_reader_by_default(self):
+        # The production composition's own claim / pre-fit / start / finish, as v1.run
+        # calls them: no memory reader passed, so the store's default must be policy v4.
+        direction = artifact(self.base/'handoff-direction.json', {'ruling': 'explicit handoff'})
+        self.store.transfer(artifact(self.base/'handoff-1.json', dict(kind='STROKE_HANDOFF',
+            rosterSha256=self.roster['sha256'], partition=1, oldPid=102, oldTaskId='old-1',
+            stoppedUTC='2026-09-27T11:40:42+00:00', boundaryTask=None, completed=[],
+            aborted=[], excluded=[], captureRelease=self.release, direction=direction)),
+            alive=self.live.__contains__)
+        launch = artifact(self.base/'candidate-launch.json', dict(v.s.record(self.receipt()),
+            kind='STROKE_LAUNCH', rosterSha256=self.roster['sha256'], task=['M1', 'device', 1],
+            deferredPredecessor=None))
+        pid = os.getpid()
+        self.processes[pid] = dict(pid=pid, startedUTC='2026-09-28T01:00:00+00:00',
+            command=f"python -B memo_runner_v3.py --receipt {launch['path']} "
+                    f"--sha256 {launch['sha256']}")
+        values = {'kern.memorystatus_level': '45\n', 'hw.memsize': f'{16*v.s.GIB}\n',
+                  'kern.memorystatus_vm_pressure_level': '1\n'}
+        def sysctl(argv, text):
+            return values[argv[2]]
+        rss = lambda process: v.s.GIB//2
+        # The reader stamps its own sample; pin that stamp to this fixture's clock.
+        with patch.object(driver.v3.subprocess, 'check_output', sysctl), \
+                patch.object(driver.v3, 'now', lambda: self.at(0)):
+            claim = self.store.claim(launch, pid=pid, alive=self.live.__contains__, rss=rss)
+            decision = self.store.check_before_fit(claim, alive=self.live.__contains__, rss=rss)
+        for gate in (claim, decision):
+            self.assertEqual((gate['memory']['metric'], gate['memory']['availableBytes'],
+                              gate['policyVersion'], gate['kernelMemoryPolicy'],
+                              gate['adaptiveMemoryPolicy'], gate['resourceMode']),
+                             (driver.v3.MEMORY_METRIC_V4, 7730941132, 4, ref(self.kernel),
+                              ref(self.adaptive), 'degraded'))
+        self.assertEqual(claim['processIdentity'], self.processes[pid])
+        # Identity semantics are unchanged: another process's store owns no lifecycle.
+        with self.assertRaisesRegex(ValueError, 'did not make this claim'):
+            driver.PolicyStore(self.root, clock=lambda: self.clock).start_solver(claim)
+        self.store.start_solver(claim)
+        self.store.finish(claim, dict(family='M1', cssWidth=False, curvature=False,
+            starts=[dict(startIndex=1)], fittedEndpoints=['light-inactive'], peakRSSBytes=v.s.GIB))
+        published = json.loads((self.root/'results/device-M1-start-01.json').read_text())
+        self.assertEqual((published['policyVersion'], published['policyCounter'],
+                          published['admissionMode']), (4, driver.v3.COUNTER_V4, 'degraded'))
+        for entry in (driver.run, driver.preflight):
+            self.assertIs(entry.__kwdefaults__['memory'], driver.v3.kernel_memory)
 
     def test_private_modules_share_identity_and_cli_uses_original_native_entry(self):
         self.assertIs(driver.v3.v2, driver.legacy.v2)

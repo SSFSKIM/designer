@@ -1,0 +1,19 @@
+E
+======================================================================
+ERROR: test_composed_store_runs_a_candidate_on_the_kernel_reader_by_default (test_policy_v3.AdaptiveDriverTests.test_composed_store_runs_a_candidate_on_the_kernel_reader_by_default)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/w41-policy-v4-red-6uy9EF/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/verification-slot/test_policy_v3.py", line 31, in setUp
+    previous.PolicyDriverTests.setUp(self)
+  File "/private/tmp/w41-policy-v4-red-6uy9EF/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/verification-slot/test_policy_v2.py", line 40, in setUp
+    self.memory = self.reading(20*v.s.GIB, 0)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w41-policy-v4-red-6uy9EF/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/verification-slot/test_policy_v3.py", line 26, in reading
+    reading = driver.v3.parse_kernel_memory(f'{percent}\n', f'{physical}\n', f'{level}\n')
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'verification_scheduler_v3' has no attribute 'parse_kernel_memory'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.010s
+
+FAILED (errors=1)

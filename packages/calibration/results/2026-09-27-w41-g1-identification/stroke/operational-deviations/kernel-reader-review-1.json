@@ -1,0 +1,42 @@
+{
+  "kind": "STROKE_KERNEL_READER_REVIEW",
+  "reviewer": "a1c557ee93146abd9",
+  "verdict": "clean; wrong-reader contract finding closed",
+  "patch": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/policy-v4-reader-2.patch",
+    "sha256": "5a0e546bab29f53d00562678cf266b12115042caa1ef2a5c037b5a05c7326487"
+  },
+  "supersededPatch": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/policy-v4-reader-1.patch",
+    "sha256": "62d04dc0cf644ccb2a37564ce62c496026bfa8ee2d460797eaa6150762ace0a3"
+  },
+  "direction": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-memory-parent-direction-v4.json",
+    "sha256": "70553bb9a3d1b09eb09595131f7754ed5a41134c39de4ef3c6f9fee847e54841"
+  },
+  "postApplySources": {
+    "scheduler/scheduler_v3.py": "2a668929c13323c4d93cb9533ecc8943839939e90a4fff1f5c89bbf9ee0e7604",
+    "verification-slot/verification_policy_v3.py": "96ecd7ebd099a66ffe155860b23e2189801b30db67598ee6955d9b42750d664c",
+    "scheduler/memo_runner_v3.py": "dd38c6f2590ed32f0cac2816850f79f65a629a37d6f514e660e7414532462c01"
+  },
+  "tests": {
+    "scheduler": 88,
+    "verification": 71
+  },
+  "logs": [
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/operational-deviations/kernel-reader-review-scheduler-1.txt",
+      "sha256": "d27169df3e5dcb045b5633c32d6a641d45cc48717228837755f8373f612d6c60"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/operational-deviations/kernel-reader-review-verification-1.txt",
+      "sha256": "516462da38499f2b16ec313f7d786f6a66de310ddad814d756e33895cc9f4446"
+    }
+  ],
+  "nativeReads": 0,
+  "patchApplied": false,
+  "sourceHold": "Claimed M1device14 PID68941 must settle and its recorded identity exit before patch application; frozen admission controller59363 never resumes.",
+  "reader": "floor(kern.memorystatus_level *hw.memsize/100), pressure remains separate sysctl",
+  "wrongMetric": "ValueError configuration-contract error, not resource deferral.",
+  "scientificChange": false
+}

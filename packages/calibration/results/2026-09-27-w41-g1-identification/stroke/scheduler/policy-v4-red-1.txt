@@ -1,0 +1,52 @@
+EEEEE
+======================================================================
+ERROR: test_kernel_reader_is_level_percent_of_physical_memory (test_scheduler_v3.AdaptivePolicyTests.test_kernel_reader_is_level_percent_of_physical_memory)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/w41-policy-v4-red-6uy9EF/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/test_scheduler_v3.py", line 86, in setUp
+    'metric': scheduler_v3.MEMORY_METRIC_V4}
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'scheduler_v3' has no attribute 'MEMORY_METRIC_V4'. Did you mean: 'MEMORY_METRIC_V2'?
+
+======================================================================
+ERROR: test_kernel_reader_reads_exactly_the_three_directed_sysctls (test_scheduler_v3.AdaptivePolicyTests.test_kernel_reader_reads_exactly_the_three_directed_sysctls)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/w41-policy-v4-red-6uy9EF/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/test_scheduler_v3.py", line 86, in setUp
+    'metric': scheduler_v3.MEMORY_METRIC_V4}
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'scheduler_v3' has no attribute 'MEMORY_METRIC_V4'. Did you mean: 'MEMORY_METRIC_V2'?
+
+======================================================================
+ERROR: test_store_defaults_to_the_kernel_reader_and_refuses_the_old_counter (test_scheduler_v3.AdaptivePolicyTests.test_store_defaults_to_the_kernel_reader_and_refuses_the_old_counter)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/w41-policy-v4-red-6uy9EF/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/test_scheduler_v3.py", line 86, in setUp
+    'metric': scheduler_v3.MEMORY_METRIC_V4}
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'scheduler_v3' has no attribute 'MEMORY_METRIC_V4'. Did you mean: 'MEMORY_METRIC_V2'?
+
+======================================================================
+ERROR: test_receipt_selector_and_direction_numbers_are_required (test_scheduler_v3.AdaptivePolicyTests.test_receipt_selector_and_direction_numbers_are_required)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/w41-policy-v4-red-6uy9EF/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/test_scheduler_v3.py", line 86, in setUp
+    'metric': scheduler_v3.MEMORY_METRIC_V4}
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'scheduler_v3' has no attribute 'MEMORY_METRIC_V4'. Did you mean: 'MEMORY_METRIC_V2'?
+
+======================================================================
+ERROR: test_v2_or_implicit_adaptive_receipt_cannot_enter_v3_dispatch (test_memo_runner_v3.MemoV3Tests.test_v2_or_implicit_adaptive_receipt_cannot_enter_v3_dispatch)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/w41-policy-v4-red-6uy9EF/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/test_memo_runner_v3.py", line 156, in test_v2_or_implicit_adaptive_receipt_cannot_enter_v3_dispatch
+    with self.assertRaises(KeyError): runner.run(self.store, self.reference, bridge=self.bridge)
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w41-policy-v4-red-6uy9EF/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/memo_runner_v3.py", line 50, in run
+    raise ValueError('adaptive memoization requires an explicit policy-v3 candidate launch')
+ValueError: adaptive memoization requires an explicit policy-v3 candidate launch
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.048s
+
+FAILED (errors=5)

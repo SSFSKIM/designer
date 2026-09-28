@@ -1,7 +1,8 @@
 """Additive adaptive-resource dispatch; the reviewed memo proof gate/hook are reused.
 
-The original hash-pinned STROKE_LAUNCH has receiptVersion 3 and the explicit
-adaptiveMemoryPolicy reference, alongside its inherited operational fields.
+The original hash-pinned STROKE_LAUNCH has receiptVersion 4 (policy v4: the kernel
+memory level) with the explicit kernelMemoryPolicy reference and the historical
+adaptiveMemoryPolicy one, alongside its inherited operational fields.
 Only the legacy memo proof checker receives a metadata-only receiptVersion 2
 view. That view changes no scientific field, proof reference or source pin and
 never reaches resource admission, the scheduler claim or result publication.
@@ -46,8 +47,8 @@ def run(store, reference, *, bridge=None):
             or type(store).finish is not bridge.v3.StoreV3.finish:
         raise ValueError('actual adaptive PolicyStore, private engine and StoreV3.finish are required')
     launch = engine.record(reference)
-    if launch.get('kind') != 'STROKE_LAUNCH' or launch.get('receiptVersion') != 3:
-        raise ValueError('adaptive memoization requires an explicit policy-v3 candidate launch')
+    if launch.get('kind') != 'STROKE_LAUNCH' or launch.get('receiptVersion') != 4:
+        raise ValueError('adaptive memoization requires an explicit policy-v4 candidate launch')
     bridge.verify_resource_receipt(launch)
     engine.verify_sources(launch['resourceSourceSha256'], operational_sources(bridge))
     # Compatibility concerns only the legacy checker's version discriminator.

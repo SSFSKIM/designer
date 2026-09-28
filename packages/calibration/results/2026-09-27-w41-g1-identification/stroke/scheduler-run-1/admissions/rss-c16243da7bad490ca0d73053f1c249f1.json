@@ -1,0 +1,17 @@
+{
+  "kind": "STROKE_RSS_OBSERVATION",
+  "sampledUTC": "2026-09-28T01:31:33.217638+00:00",
+  "task": [
+    "M1",
+    "device",
+    15
+  ],
+  "source": "/bin/ps -o rss= KiB * 1024",
+  "samples": [
+    {
+      "pid": 68941,
+      "owner": "device-M1-start-14.json",
+      "rssBytes": 693927936
+    }
+  ]
+}

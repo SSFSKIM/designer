@@ -3,6 +3,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest import mock
 
 import scheduler
 import scheduler_v2
@@ -11,12 +12,34 @@ from test_scheduler import artifact, example, fake_processes, ref, run_as_claima
 from test_scheduler_v2 import at
 
 GIB = scheduler.GIB
-DIRECTION = {
+V3_DIRECTION = {
     'kind': 'STROKE_ADAPTIVE_MEMORY_DIRECTION', 'counter': 'free + max(inactive, purgeable)',
     'normal': {'pressureLevels': [1], 'spacedNormalReadings': 5, 'intervalSeconds': 30,
                'floorBytes': 1073741824, 'maxConcurrency': 3},
     'degraded': {'pressureLevels': [1, 2], 'floorBytes': 0, 'maxConcurrency': 1,
                  'diskFreeMinimumBytes': 21474836480}}
+# The parent's policy-v4 direction, as literals (not the module's constants).
+DIRECTION = {
+    'kind': 'STROKE_KERNEL_MEMORY_DIRECTION',
+    'availability': {'levelSysctl': 'kern.memorystatus_level',
+                     'physicalBytesSysctl': 'hw.memsize',
+                     'formula': 'floor(levelPercent * physicalBytes /100)',
+                     'percentRange': [0, 100],
+                     'metric': 'kernel memorystatus free-level percent times physical memory'},
+    'pressureSysctl': 'kern.memorystatus_vm_pressure_level',
+    'normal': V3_DIRECTION['normal'], 'degraded': V3_DIRECTION['degraded']}
+SIXTEEN_GIB = 17179869184
+
+
+def sysctl(values):
+    """Fake subprocess.check_output for `sysctl -n NAME`: raw text per name, or an error."""
+    def check_output(argv, text):
+        assert argv[:2] == ['/usr/sbin/sysctl', '-n'] and len(argv) == 3 and text is True
+        value = values[argv[2]]
+        if isinstance(value, Exception):
+            raise value
+        return value
+    return check_output
 
 
 class AdaptivePolicyTests(unittest.TestCase):
@@ -60,14 +83,14 @@ class AdaptivePolicyTests(unittest.TestCase):
                 'captureRelease': self.release, 'direction': direction}),
                 alive=self.live.__contains__)
         self.memory = {'availableBytes': 32 * GIB, 'pressureLevel': 1,
-                       'metric': scheduler_v2.MEMORY_METRIC_V2}
+                       'metric': scheduler_v3.MEMORY_METRIC_V4}
 
     def launch(self, task=('M1', 'device', 0), **changes):
         value = {'kind': 'STROKE_LAUNCH', 'rosterSha256': self.roster['sha256'],
-                 'receiptVersion': 3, 'task': list(task), 'captureRelease': self.release,
+                 'receiptVersion': 4, 'task': list(task), 'captureRelease': self.release,
                  'maxConcurrency': 3, 'peakEvidence': self.peak,
                  'reservationBytes': GIB, 'oldWorkerReservationBytes': GIB,
-                 'adaptiveMemoryPolicy': self.policy}
+                 'kernelMemoryPolicy': self.policy}
         value.update(changes)
         return artifact(self.base / f'launch-{len(list(self.base.glob("launch-*")))}.json', value)
 
@@ -96,7 +119,7 @@ class AdaptivePolicyTests(unittest.TestCase):
     def test_normal_gate_is_v2_and_allows_three_fits(self):
         self.normal_history()
         decision = self.claim()
-        self.assertEqual((decision['resourceMode'], decision['policyVersion']), ('normal', 3))
+        self.assertEqual((decision['resourceMode'], decision['policyVersion']), ('normal', 4))
         self.assertEqual(decision['requiredAvailableBytes'], GIB + GIB)
         for pid, index in ((201, 3), (202, 6)):
             self.live.add(pid - 1)
@@ -216,11 +239,17 @@ class AdaptivePolicyTests(unittest.TestCase):
     def test_receipt_selector_and_direction_numbers_are_required(self):
         wrong = artifact(self.base / 'wrong-direction.json',
                          dict(DIRECTION, degraded=dict(DIRECTION['degraded'], floorBytes=1)))
-        for launch in (self.launch(adaptiveMemoryPolicy=None), self.launch(receiptVersion=2),
-                       self.launch(adaptiveMemoryPolicy=wrong)):
+        reader = artifact(self.base / 'wrong-reader.json', dict(DIRECTION, availability=dict(
+            DIRECTION['availability'], levelSysctl='vm.page_free_count')))
+        historical = artifact(self.base / 'v3-direction.json', V3_DIRECTION)
+        v3_receipt = self.launch(receiptVersion=3, adaptiveMemoryPolicy=historical)
+        for launch in (self.launch(kernelMemoryPolicy=None), self.launch(receiptVersion=2),
+                       self.launch(kernelMemoryPolicy=wrong),
+                       self.launch(kernelMemoryPolicy=reader),
+                       self.launch(kernelMemoryPolicy=historical), v3_receipt):
             with self.assertRaises((ValueError, TypeError)):
                 self.claim(launch=launch)
-        # The v2 gate refuses a v3 receipt rather than admitting it under v2 numbers.
+        # The v2 gate refuses a v4 receipt rather than admitting it under v2 numbers.
         with self.assertRaisesRegex(ValueError, 'receiptVersion 2'):
             scheduler_v2.StoreV2(self.root).claim(self.processes.spawn(200, self.launch()), pid=200,
                 alive=self.live.__contains__, memory=lambda: dict(self.memory))
@@ -262,7 +291,7 @@ class AdaptivePolicyTests(unittest.TestCase):
         result, _ = scheduler.selected_fit(example, [], second['task'])
         self.store.finish(second, result)
         published = json.loads((self.root / 'results' / scheduler.filename(second['task'])).read_text())
-        self.assertEqual((published['policyVersion'], published['admissionMode']), (3, 'degraded'))
+        self.assertEqual((published['policyVersion'], published['admissionMode']), (4, 'degraded'))
         self.assertEqual(set(published['policySourceSha256']),
                          {str(Path(m.__file__).resolve()) for m in (scheduler_v2, scheduler_v3)})
 
@@ -324,6 +353,78 @@ class AdaptivePolicyTests(unittest.TestCase):
                 decision = self.claim(task, pid=401 + index)
                 self.assertEqual(decision['processes'], [])
                 self.assertIn(reason, [p['reason'] for p in decision['excludedProcesses']])
+
+    def test_kernel_reader_is_level_percent_of_physical_memory(self):
+        parse = scheduler_v3.parse_kernel_memory
+        reading = parse('45\n', f'{SIXTEEN_GIB}\n', '1\n')
+        self.assertEqual((reading['availableBytes'], reading['levelPercent'],
+                          reading['physicalBytes'], reading['pressureLevel']),
+                         (7730941132, 45, SIXTEEN_GIB, 1))  # floor(0.45 * 16 GiB)
+        availability = DIRECTION['availability']
+        self.assertEqual((reading['metric'], reading['counter']),
+                         (availability['metric'], availability['formula']))
+        self.assertEqual(reading['rawSysctl'], {'kern.memorystatus_level': '45\n',
+            'hw.memsize': f'{SIXTEEN_GIB}\n', 'kern.memorystatus_vm_pressure_level': '1\n'})
+        self.assertEqual(parse('0', str(SIXTEEN_GIB), '1')['availableBytes'], 0)
+        self.assertEqual(parse('100', str(SIXTEEN_GIB), '1')['availableBytes'], SIXTEEN_GIB)
+        # The pressure level is recorded as read; the gates, not the reader, refuse 2 or 4.
+        self.assertEqual([parse('45', str(SIXTEEN_GIB), level)['pressureLevel']
+                          for level in ('2', '4')], [2, 4])
+        memsize = str(SIXTEEN_GIB)
+        for level, physical, pressure in (
+                ('', memsize, '1'), (None, memsize, '1'), ('4.5', memsize, '1'),
+                ('45%', memsize, '1'), (' 45', memsize, '1'), ('-1', memsize, '1'),
+                ('101', memsize, '1'), ('45', '0', '1'), ('45', '-1', '1'),
+                ('45', '16G', '1'), ('45', '', '1'), ('45', memsize, ''),
+                ('45', memsize, 'normal'), ('45', memsize, None)):
+            with self.assertRaises(ValueError, msg=(level, physical, pressure)):
+                parse(level, physical, pressure)
+
+    def test_kernel_reader_reads_exactly_the_three_directed_sysctls(self):
+        values = {'kern.memorystatus_level': '61\n', 'hw.memsize': f'{SIXTEEN_GIB}\n',
+                  'kern.memorystatus_vm_pressure_level': '1\n'}
+        with mock.patch.object(scheduler_v3.subprocess, 'check_output', sysctl(values)):
+            self.assertEqual(scheduler_v3.kernel_memory()['availableBytes'], 10479720202)
+        for name in values:
+            broken = dict(values, **{name: OSError('sysctl failed')})
+            with mock.patch.object(scheduler_v3.subprocess, 'check_output', sysctl(broken)), \
+                    self.assertRaises(OSError):
+                scheduler_v3.kernel_memory()
+
+    def test_store_defaults_to_the_kernel_reader_and_refuses_the_old_counter(self):
+        values = {'kern.memorystatus_level': '61\n', 'hw.memsize': f'{SIXTEEN_GIB}\n',
+                  'kern.memorystatus_vm_pressure_level': '1\n'}
+        launch = self.processes.spawn(200, self.launch())
+        # v1.run passes no reader: the claim and pre-fit gates must read the kernel level.
+        with mock.patch.object(scheduler_v3.subprocess, 'check_output', sysctl(values)):
+            claim = self.store.claim(launch, pid=200, alive=self.live.__contains__)
+            decision = self.store.check_before_fit(claim, alive=self.live.__contains__)
+        for gate in (claim, decision):
+            self.assertEqual((gate['memory']['metric'], gate['memory']['availableBytes'],
+                              gate['policyCounter'], gate['kernelMemoryPolicy']),
+                             (scheduler_v3.MEMORY_METRIC_V4, 10479720202,
+                              scheduler_v3.COUNTER_V4, self.policy))
+        # A reading from the superseded v2 counter (or any foreign reader) is a driver
+        # misconfiguration: a loud ValueError before mode selection, never a Deferred a
+        # waiting controller could retry forever, and its pressure is not logged.
+        v2_reading = scheduler_v2.parse_memory_v2(
+            'Mach Virtual Memory Statistics: (page size of 16384 bytes)\n'
+            'Pages free: 1000000.\nPages inactive: 1000000.\nPages purgeable: 0.\n', '1')
+        rows = len(self.store.pressure_readings())
+        for foreign in (dict(v2_reading), dict(self.memory, metric='other'), None):
+            with self.subTest(foreign=foreign), self.assertRaisesRegex(
+                    ValueError, 'requires the kernel memory reader'):
+                self.claim(('M1', 'device', 3), pid=201, memory=lambda: foreign)
+        self.assertEqual(len(self.store.pressure_readings()), rows)
+        records = [json.loads(path.read_text()) for path in
+                   (self.root / 'admissions').glob('*.json')]
+        records = [r for r in records if r.get('task') == ['M1', 'device', 3]
+                   and r.get('kind') != scheduler.RSS_OBSERVATION]
+        self.assertEqual(len(records), 3)  # v1's error records, one per attempt
+        for record in records:
+            self.assertNotIn('resourceMode', record)
+            self.assertIn('kernel memory reader', record['error'])
+        self.assertFalse((self.root / 'claims' / 'device-M1-start-03.json').exists())
 
 
 if __name__ == '__main__':
