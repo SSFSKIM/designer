@@ -1,0 +1,210 @@
+{
+  "kind": "M1_TRANSFER_CHILD_TERMINAL_WRAPPER_RETIRED",
+  "atUTC": "2026-09-28T19:42:20.381442+00:00",
+  "holdDirection": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/operational-deviations/M2-hold-pending-ruling-1.json",
+    "sha256": "0083f6005abeff128624ab07aa88660c32a21df45de9a69ba133d70720fc4707"
+  },
+  "transferPID": 41248,
+  "transferIdentity": {
+    "pid": 41248,
+    "startedUTC": "2026-09-28T19:01:51+00:00",
+    "command": "/Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python -B -X pycache_prefix=/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/vitrea-M1-transfer-fyj95jxi /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/survivor_scope_complete.py --family M1 --out /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1 --partition /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/survivor-scope-partition-0 --partition /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/survivor-scope-partition-1 --partition /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/survivor-scope-partition-2 --partition /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/results --partition /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/A"
+  },
+  "transferOutcome": "complete",
+  "complete": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/complete.json",
+    "sha256": "0947fd652adf7e830ab41b4c7c6f86f4c6f282112ea46a6a4a650e1112d4107d"
+  },
+  "completionSummary": {
+    "candidates": {
+      "device-M1": {
+        "leastSquares": {
+          "light-inactive": false
+        },
+        "minimax": {
+          "light-inactive": false
+        }
+      },
+      "curvature-M1": {
+        "leastSquares": {
+          "light-inactive": false
+        },
+        "minimax": {
+          "light-inactive": false
+        }
+      }
+    },
+    "holdoutRead": false,
+    "authority": "surviving model-endpoint scope; certified endpoints never fitted or interpreted",
+    "selectedFamily": "M1"
+  },
+  "outputFiles": [
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/admission.json",
+      "sha256": "14cdf3a37fed773898307edb40de618805d15b350d4cb78a51149f9e95350dc5",
+      "size": 99513
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/certificate-authority.json",
+      "sha256": "9e63fbe3aff90e1eb23ac95743acd409b0f7e71577c7ba1e1627587b7f5fd339",
+      "size": 1490
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/complete.json",
+      "sha256": "0947fd652adf7e830ab41b4c7c6f86f4c6f282112ea46a6a4a650e1112d4107d",
+      "size": 476
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/curvature-M1-leastSquares-bins.jsonl.gz",
+      "sha256": "1021163292549c0e81e330259587f2cb59583b0c5a2d0c26393b7528c02d66ce",
+      "size": 434817
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/curvature-M1-leastSquares-quadrature.jsonl.gz",
+      "sha256": "3790ce98ee6e4bd9ea59451bbf7322751787267f9d9ae0bbce214bb1438e48b2",
+      "size": 167535
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/curvature-M1-leastSquares-straddling.jsonl.gz",
+      "sha256": "42bcc8393e4aaf8a7cdc792b3bf9b4849f64c1d1440a5aad478508d964ae0461",
+      "size": 78347
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/curvature-M1-leastSquares-summary.json",
+      "sha256": "25145770fbd895e4c411ec74f6a73e1766b52b70a4a679e52d18c5bf2a30d471",
+      "size": 9439
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/curvature-M1-minimax-bins.jsonl.gz",
+      "sha256": "e01174d3cdd8fd6b605dd9bee0cb465e9ae63f8f14b222c488a28e75bc17ab3c",
+      "size": 423636
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/curvature-M1-minimax-quadrature.jsonl.gz",
+      "sha256": "4daf0f5f629e8649b8243fad20dc3c2aff253755bce602bef61d88da78c804da",
+      "size": 164202
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/curvature-M1-minimax-straddling.jsonl.gz",
+      "sha256": "19dea3ff2f29617259b532fd3877b6ca3f410860db7799a40391dfc70bb726af",
+      "size": 78768
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/curvature-M1-minimax-summary.json",
+      "sha256": "fa0d823ca98f94aaa5e3db5559f81f715297213190ca69e21b4188f530743e34",
+      "size": 9440
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/curvature-M1-optimizer.json",
+      "sha256": "52ac4cb61ed0b02015f35d1f71e4f328135989c6d7168be68d6da73e81e6350d",
+      "size": 683337
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/device-M1-leastSquares-bins.jsonl.gz",
+      "sha256": "f1661cce721c4b0dcccd26195567972122c78cc01b12e9170695e5f17cbe18af",
+      "size": 422832
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/device-M1-leastSquares-quadrature.jsonl.gz",
+      "sha256": "0e62f73252dafaa6e3971cf1980598cf47b668308f13b556acbeab7d8595ee4f",
+      "size": 168132
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/device-M1-leastSquares-straddling.jsonl.gz",
+      "sha256": "0024810924b257fd3d79d6a1b7353030fe0806d7416b2d0dc0bcbbd0c269662d",
+      "size": 77886
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/device-M1-leastSquares-summary.json",
+      "sha256": "055fd111f218209a0b73afdd21e0814f058694df462213d0c69bf534c19c16f4",
+      "size": 9447
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/device-M1-minimax-bins.jsonl.gz",
+      "sha256": "1aca6c72b8a1e138fd96fe8db3ab524400e16e21af60966322488600d75ae2b9",
+      "size": 423338
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/device-M1-minimax-quadrature.jsonl.gz",
+      "sha256": "36bc1f490c70e2bd295323f6e2d9fb875a6d6fd950d4a47abb4a7981bb1f8d4c",
+      "size": 167882
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/device-M1-minimax-straddling.jsonl.gz",
+      "sha256": "6523730446277233f79453415af6851d20838f88355ec7798bc5abc6912ef19c",
+      "size": 78578
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/device-M1-minimax-summary.json",
+      "sha256": "b1ed61c6700b146cb4e9dbf9b441aa10dc744e25dcf9e35db6f0ddcbf533bfc6",
+      "size": 9631
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/device-M1-optimizer.json",
+      "sha256": "557103671bd1744cb26cf1ad245a41477fa81688e621890c389ceddaee1341a0",
+      "size": 600715
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/frozen-optimizer-inputs.json",
+      "sha256": "aeeaf158e9a95afe81210d7bdf3f87c1dce9b11b580b5e28b93069bee313adbe",
+      "size": 6949
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/frozen-selected-predictions.json",
+      "sha256": "e1b63c1bd216ef35a2acc758cac4a03abe0405ddd1f28d2d84f3196edc27b2cc",
+      "size": 4702
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/interior-support-witnesses.json",
+      "sha256": "d77a8e79f958b018b37868c7abf4521803382e2d3753043bcad125676dd01c17",
+      "size": 155294
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/leastSquares-separation-availability.json",
+      "sha256": "27d89c7c2a4e250c5b1d51a44159bb1c42eb012a7a57c4b98b782cf0a503a4bc",
+      "size": 36672
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/leastSquares-separations-summary.json",
+      "sha256": "1d2d8b7b2ad395047dc834253202be5dbe5ebf7b4b4201e578aeff09f70be52f",
+      "size": 1147
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/leastSquares-separations.jsonl.gz",
+      "sha256": "e71cb1f5abf0596af0fb66affa7dff1b203120fc332f880bdd80fc957b74a5f1",
+      "size": 262982
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/minimax-separation-availability.json",
+      "sha256": "990d83b79970783da483331b9b384e37332cbdf4b86039a20f7a6377e679a2c0",
+      "size": 35952
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/minimax-separations-summary.json",
+      "sha256": "0c1ce14bfac091e679749765c1f5ccccf3d1d9a02cf2192b3c8d23496f081a90",
+      "size": 1144
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/minimax-separations.jsonl.gz",
+      "sha256": "bef2167a95dac181dddfd70c49da48c522e785dee595d835ec060562cffd5e49",
+      "size": 254775
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1/selected-family-scope.json",
+      "sha256": "29697e0ea1f8c7647f448bc77e77ee48c0d1cdb866d5f1de27c687105b936452",
+      "size": 272
+    }
+  ],
+  "wrapperPID": 41231,
+  "wrapperIdentity": {
+    "pid": 41231,
+    "startedUTC": "2026-09-28T19:01:51+00:00",
+    "command": "/Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python -B -X pycache_prefix=/tmp/vitrea-M1-transfer-wrapper-iWDeXc -"
+  },
+  "wrapperStatusBefore": "Ts",
+  "wrapperTermination": "SIGKILL only wrapper PID; never SIGCONT",
+  "partitionAPID": 42722,
+  "partitionAStatus": "Ts",
+  "partitionAUnchanged": true
+}
