@@ -344,3 +344,9 @@ supersedes their authority claim, not their measured partial results. M2 is on H
 No final configuration freeze, external preflight or exposure proceeds on that proposal.
 M1 transfer continues. The actual answer will be recorded as a new dated event; if the
 user chooses differently, the proposed disposition will be superseded additively.
+
+Process-state correction22e103ca (19:23:11Z/2026-09-29 local): device02 is PAUSED
+IN FLIGHT, not aborted; process/seed intact and no termination sent. Earlier aborted
+label was false. Device01 may finish then park underHOLD; abort-at-final-freeze is
+withdrawn. Onlydevice00 complete. M2-provenance-correction-1.json pins actual snapshot;
+no resume/abort authority follows from the erroneous user-ruling relay.

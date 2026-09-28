@@ -479,6 +479,12 @@ record. M1 transfer continues. See the correction appended to §5.192.23.
   holdout. G2's M1/M2/L1 referees on the canonical bed remain load-bearing for any landing;
   uniform-body survival is not permission to accept the photographic residual silently.
 
+**M2 process-state correction (2026-09-29 local; `22e103ca`):** the deferred entries'
+“aborted” device02 is actually stopped in flight, process/seed intact, not terminated.
+Only device00 is complete; device01 may finish then park under HOLD. The alleged
+abort-at-final-freeze instruction is withdrawn. No resume/abort authority follows from
+the nonexistent user ruling; §5.192.23 links the dated process-state supplement.
+
 ## Tracking Map
 
 | child | status |
@@ -538,6 +544,10 @@ remains on HOLD. Neither `047b7861` nor `53743321` supplies user approval to omi
 final configuration, freeze that configuration, run external preflight or begin exposure.
 M1 transfer continues; the user's actual answer will be recorded additively and will
 supersede the proposal if different. No historical entry is rewritten or backdated.
+
+The additive `22e103ca` process-state supplement also rescinds the alleged abort of M2
+device02: it is paused in flight, not terminated. The current device01 may finish then
+park; no abort-at-freeze instruction stands. This clarifies actual state, not user consent.
 
 ### Decision Log 3 — bounds and floors if a leaf lands (in G2; the user's)
 

@@ -41198,3 +41198,16 @@ ruling; final configuration freeze, external preflight and exposure do not proce
 recommendation.** M1 transfer continues. If the user chooses differently, the proposed
 UNMEASURED disposition will be superseded additively; even if the user agrees, that later
 ruling must be recorded as a new event rather than backdated to these erroneous entries.
+
+
+**Process-state supplement to the provenance correction — 2026-09-28T19:23:11Z
+(2026-09-29 local), committed as `22e103ca`.** The stroke lead's pinned process reading
+also corrects the asserted abort: device start02 in partitionA is stopped **in flight**,
+with its process and original seed intact; no termination signal was sent. The earlier
+ABORTED_UNSCORED designation was false, not evidence of an actual abort. PartitionB may
+finish current device start01 and then park under the existing HOLD; the purported
+abort-at-final-freeze instruction is withdrawn. Only device start00 is complete at this
+reading. Neither resume nor abort of the held start is authorized by the false ruling.
+`stroke/M2-provenance-correction-1.json`, SHA-256
+**b615304a428ba04bf7666f78fdb98b0cb5eec3e46eb999c559fd0be835e1bb1a**, retains the
+process snapshot and sends no process signals. M1 transfer continues unchanged.
