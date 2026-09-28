@@ -1,0 +1,250 @@
+{
+  "kind": "STROKE_M2_TERMINAL_RECORD",
+  "recordedUTC": "2026-09-28T22:58:13.450663+00:00",
+  "supplements": {
+    "original": {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/M2-unfinished-search-1.json",
+      "sha256": "ad87c383d1e51c19987e6ed7ec42c85afe50e2d22b9bd0eafd123dcd4f1a6d46",
+      "commit": "047b7861"
+    },
+    "correction": {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/M2-provenance-correction-1.json",
+      "sha256": "b615304a428ba04bf7666f78fdb98b0cb5eec3e46eb999c559fd0be835e1bb1a",
+      "commit": "22e103ca"
+    },
+    "supersession": {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/M2-provenance-supersession-2.json",
+      "sha256": "b25087ea0eb2406f2e387ad905b0287fad74901ddc49ddc8013adea95ab4a705",
+      "commit": "c76f949d"
+    }
+  },
+  "authority": "The restored user ruling relayed by the current coordinator (c76f949d): “Record M2 as unfinished (UNMEASURED) and expose the body candidate now”. This record discharges supersession-2's terminalDispositionRequired and the original record's terminalRule for start01 (“Otherwise stop and append ABORTED_UNSCORED terminal record, retaining partial records. No new start follows.”).",
+  "hostRestart": {
+    "bootTimeUTC": "2026-09-28T22:24:32.187988Z",
+    "evidence": {
+      "sysctlKernBoottime": "{ sec = 1790634272, usec = 187988 } Tue Sep 29 07:24:32 2026 (local KST)",
+      "lastRebootShutdown": "`last reboot shutdown` lists shutdown time and reboot time both at Tue Sep 29 07:24 local (2026-09-28T22:24Z); the previous pair is Fri Sep 18 14:08 local.",
+      "kernShutdownreason": "wdog,reset_in1 ap_restart",
+      "diagnosticReport": "/Library/Logs/DiagnosticReports/shutdown_stall_2026-09-29-072416_Mac-mini.shutdownStall exists (22:24:16Z); it is a binary spindump and was not decoded, so which processes stalled the shutdown is not read here.",
+      "readingUTC": "2026-09-28T22:52:28Z",
+      "uptimeAtReading": "28 minutes"
+    },
+    "initiator": "Not recorded in this wave's evidence and not determined here; this worker did not initiate it."
+  },
+  "processAbsenceAtReading": {
+    "psCommandSearch": "`ps -axo pid,ppid,lstart,stat,command` filtered for static-partitions, 'run.py --partition', survivor_scope, vitrea-M1 and vitrea-static returned no process (grep exit 1).",
+    "psPidProbe": "`ps -p 42722,42753,41231,41248` returned no process (exit 1). After a restart a PID is not an identity; the command search above is the identity check.",
+    "pycachePrefixes": "/tmp/vitrea-static-A-IX5ygX and /tmp/vitrea-static-B-BZm0QX (A.pycache-prefix, B.pycache-prefix) no longer exist.",
+    "signalsSentByThisRecord": []
+  },
+  "terminalDispositions": [
+    {
+      "task": [
+        "M2",
+        "device",
+        1
+      ],
+      "partition": "B",
+      "pid": 42753,
+      "status": "ABORTED_UNSCORED",
+      "cause": "Host restart of 2026-09-28T22:24:32Z terminated the process, which was last observed running and never completed its start.",
+      "lastObservations": [
+        {
+          "utc": "2026-09-28T19:11:17Z",
+          "state": "running, 98.2% CPU, 36,196.97 CPU s over 34,786 s elapsed",
+          "source": {
+            "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/operational-deviations/static-live-counter-availability-1.json",
+            "sha256": "d0071d6115da7820cd0e5d429f855ddee7a24ed549f8305c6aec09fdcef2a61d"
+          }
+        },
+        {
+          "utc": "2026-09-28T19:23:11Z",
+          "state": "Rs",
+          "source": {
+            "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/M2-provenance-correction-1.json",
+            "sha256": "b615304a428ba04bf7666f78fdb98b0cb5eec3e46eb999c559fd0be835e1bb1a"
+          }
+        }
+      ],
+      "stdout": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/B.stdout",
+        "sha256": "d0dc38bcde49b2540df56c836fa25ef3c5922c01ecf12c9db8189f130d41f7f7",
+        "lines": 1,
+        "lastEvent": {
+          "event": "start",
+          "family": "M2",
+          "geometry": "device",
+          "index": 1,
+          "cells": 252,
+          "seconds": 165.0637261250522
+        },
+        "lastWriteUTC": "2026-09-28T09:32:53Z",
+        "commit": "52b1a6b4"
+      },
+      "completionEvidence": "None: B.stdout carries no 'completed' event; static-partitions-1/B/device-M2-start-01.json and B/complete.json do not exist (run.py writes both only after a start returns).",
+      "timeOfDeathQualification": "Nothing observed B between 19:23:11Z and the restart. A death inside that interval would leave the same files, so the restart is the latest possible termination, not an observed moment; in either case the start did not complete and is unscored.",
+      "originalSeed": 4100,
+      "originalStartVector": "Retained verbatim in the original record, inFlightUntilFinalFreeze[0].originalStartVector.",
+      "partialState": "Lost with the process. SolverMemo ran with trace=None, so optimizer state and memo counters lived only in process memory and are serialized only after a start returns; no checkpoint file ever existed (static-live-counter-availability-1.json)."
+    },
+    {
+      "task": [
+        "M2",
+        "device",
+        2
+      ],
+      "partition": "A",
+      "pid": 42722,
+      "status": "ABORTED_UNSCORED",
+      "cause": "Host restart of 2026-09-28T22:24:32Z terminated the process while it was stopped in flight (SIGSTOP for the M1 transfer's resource handoff). It is an actual abort from this restart, dated here; 047b7861's earlier ABORTED_UNSCORED label was not a physical abort (22e103ca) and is not made retroactively true by this record.",
+      "lastObservations": [
+        {
+          "utc": "2026-09-28T19:01:51Z",
+          "state": "Ts, paused about two minutes into the start",
+          "source": {
+            "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/operational-deviations/m1-transfer-pause-A-1.json",
+            "sha256": "3ab967626676c4862102bda5e8b5ac18a3ee5eb001801add30373f8a0c7b0aa2"
+          }
+        },
+        {
+          "utc": "2026-09-28T19:23:11Z",
+          "state": "Ts",
+          "source": {
+            "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/M2-provenance-correction-1.json",
+            "sha256": "b615304a428ba04bf7666f78fdb98b0cb5eec3e46eb999c559fd0be835e1bb1a"
+          }
+        },
+        {
+          "utc": "2026-09-28T19:42:20Z",
+          "state": "Ts; the transfer wrapper that would have resumed it was SIGKILLed, never SIGCONT; partitionAUnchanged true",
+          "source": {
+            "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/execution-batches/M1/M1-transfer-child-terminal-1.json",
+            "sha256": "d93ee39f6edf8e1dc3624f25eff33c24f20e3c047824c6394208c38e4347b0ce"
+          }
+        }
+      ],
+      "stdout": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/A.stdout",
+        "sha256": "10da682ec16ac1c2f16ce8e48121a107b5da4c57e40702772d15b925cd72f850",
+        "lines": 13,
+        "lastEvent": {
+          "event": "start",
+          "family": "M2",
+          "geometry": "device",
+          "index": 2,
+          "cells": 252,
+          "seconds": 34186.591716291965
+        },
+        "lastWriteUTC": "2026-09-28T18:59:54Z",
+        "commit": "52b1a6b4"
+      },
+      "completionEvidence": "None: A.stdout ends at the M2 device 2 'start' event after six completed M1 curvature starts (10-15); static-partitions-1/A/device-M2-start-02.json and A/complete.json do not exist.",
+      "originalSeed": 4100,
+      "originalStartVector": "Retained verbatim in the original record, abortedUnscoredStarts[0].originalStartVector.",
+      "partialState": "Lost with the process, as for start01; no resume was authorized after the pause and none is recorded."
+    }
+  ],
+  "retainedPartialRecords": [
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/A.stdout",
+      "sha256": "10da682ec16ac1c2f16ce8e48121a107b5da4c57e40702772d15b925cd72f850"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/A/execution.json",
+      "sha256": "8e4eeb2157581d1af92ae8b0165e204f49f6443949f863112438044acaead66a"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/A/calibration-admission.json",
+      "sha256": "706b8aa08d603eff5ed411d65500216df25fcf016fd19b51b8b7008a03a060cb"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/B.stdout",
+      "sha256": "d0dc38bcde49b2540df56c836fa25ef3c5922c01ecf12c9db8189f130d41f7f7"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/B/execution.json",
+      "sha256": "db67eea5d749655b2299e2a22c35c456bda3975fcc6e6b51be22d530dcab9473"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/B/calibration-admission.json",
+      "sha256": "706b8aa08d603eff5ed411d65500216df25fcf016fd19b51b8b7008a03a060cb"
+    }
+  ],
+  "completedStartsUnchanged": [
+    {
+      "task": [
+        "M2",
+        "device",
+        0
+      ],
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/results/device-M2-start-00.json",
+      "sha256": "75effb478c56d3cfa8f2b9f77ee36fc031c2fd947915bbfea9fe12e536721f8c"
+    }
+  ],
+  "finalM2StartLedger": {
+    "completed": [
+      [
+        "M2",
+        "device",
+        0
+      ]
+    ],
+    "abortedUnscored": [
+      [
+        "M2",
+        "device",
+        1
+      ],
+      [
+        "M2",
+        "device",
+        2
+      ]
+    ],
+    "unstarted": {
+      "device": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "curvature": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ]
+    },
+    "noFurtherStart": "Under the ruling no M2 start is launched, resumed or restarted in this wave, including the two aborted seeds."
+  },
+  "pinningDecision": {
+    "decision": "PIN the six retained partial records above in the final configuration's stroke-m2-unmeasured group, beside this record.",
+    "why": "They were excluded only because a live writer could change them between freeze and receipt, which would make runner.verify refuse the one exposure. Both writers ended at the restart and nothing else writes there, so pinning carries no refusal risk, and these files are the evidence this disposition rests on: where each start stopped, its task list and seed, and the admission it ran on. Binding them by hash removes any later question about which partial state the disposition read.",
+    "notPinnedDirectly": "A's six M1 curvature 10-15 results stay bound as the other 26 M1 start results are, by hash through the pinned m1-transfer-1/frozen-optimizer-inputs.json; pinning six of 32 would make the M1 group inconsistent. The pid, pycache-prefix and declaration files carry nothing this record needs that the pinned hold/correction records and execution.json do not."
+  },
+  "effectiveDisposition": "M2 stays UNMEASURED, an unfinished search for this wave, not a family rejection. No M2 validation or native holdout was read. No stroke operator or stroke candidate enters the final configuration.",
+  "scopeOfThisAction": "Record only. No process was signalled, launched or resumed; no fit, native read, holdout read, freeze, preflight or exposure was performed.",
+  "holdoutRead": false,
+  "M2ValidationRead": false
+}
