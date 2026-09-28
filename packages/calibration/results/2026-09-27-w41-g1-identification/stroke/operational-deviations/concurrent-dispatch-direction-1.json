@@ -1,0 +1,11 @@
+{
+  "kind": "STROKE_COORDINATOR_DISPATCH_DIRECTION",
+  "recordedUTC": "2026-09-28T08:03:55.260426+00:00",
+  "source": "Coordinator task direction relayed in current conversation; not new human permission",
+  "supersedes": "Serial dispatch decision in m1-curvature04-claimed-deferral-readmission-1.json; resource policy remains v4.",
+  "direction": "Evaluate admission every 30 seconds while fits run; launch queued original starts whenever unchanged gate admits up to existing cap, preserving running peak-minus-RSS reservations. Never touch running start. Prove two starts can be admitted concurrently. Restart at boundary or identity-adopt existing fit; record change/restart.",
+  "observedCause": "Reviewed serial driver blocks in child.wait before next admission. This is controller scheduling, not a resource-policy limit.",
+  "scientificChange": false,
+  "sourcePinChange": false,
+  "implementation": "Additive controller and synthetic tests under execution-batches/M1/restart-kernel-concurrent-1; independent review before launch. Existing running fit remains untouched."
+}
