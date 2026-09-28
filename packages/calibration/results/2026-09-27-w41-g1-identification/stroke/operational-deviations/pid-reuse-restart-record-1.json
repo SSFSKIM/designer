@@ -1,0 +1,24 @@
+{
+  "kind": "STROKE_PID_REUSE_RESTART_RECORD",
+  "restartUTC": "2026-09-28T01:23:51.703783+00:00",
+  "sourceRunRecord": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/execution-batches/M1/restart-identity-1/run.jsonl",
+  "initialSnapshot": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/operational-deviations/m1-restart-initial-records-1.jsonl",
+    "sha256": "07a18e9a088796d7d761d3784cb4d8c07ef3cbdfd20efb914c79add347f0e5c4"
+  },
+  "manifest": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/remaining-batch-M1-identity-1.json",
+  "sourceCommit": "7fda7c26",
+  "receiptCommit": "e26a474c",
+  "watcher": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-pressure-watcher-2.json",
+  "remainingM1": 18,
+  "completedStartsRerun": 0,
+  "repairAndMigrationPauseSeconds": 2442.572507,
+  "firstFixedAdmission": "Genuine headroom refusal, no tracked live fits and no phantom reservation; required4594515968 bytes.",
+  "subsequentCost": "Resource wait after this restart is distinct from the closed PID-reuse stall and from solver execution.",
+  "stallObserver": {
+    "task": "b1lsp4tof",
+    "condition": "Ten minutes with pending M1 entries but no identity-valid fit or completed entry; one diagnostic notice, no process control."
+  },
+  "scientificChanges": false,
+  "queueOrder": "M1 device14/15 then curvature; M2 paused until M1 verdict."
+}
