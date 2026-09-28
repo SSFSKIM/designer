@@ -1,0 +1,52 @@
+{
+  "kind": "STROKE_LINKED_READMISSION_AND_SERIAL_CONTROLLER_REVIEW",
+  "reviewer": "a1c557ee93146abd9",
+  "receivedUTC": "2026-09-28T04:29:25.377570+00:00",
+  "verdict": "CLEAN",
+  "blockers": [],
+  "artifacts": [
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/operational-deviations/m1-curvature04-claimed-deferral-readmission-1.json",
+      "sha256": "561f010ff81631631b6b0c84d04e3eee2b58bad4431fb9062e6229a70316df52"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-launches-kernel-readmit-2/curvature-M1-start-04.readmit-01.json",
+      "sha256": "4574a2bf08755d196c00028bbbe084a5f4c00429544e7f99d767fdc17efd0856"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/remaining-batch-M1-kernel-readmit-2.json",
+      "sha256": "66c9e489452a686fc52aba642ccba79fa0559ff855993915063243d4ea937167"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/execution-batches/M1/restart-kernel-readmit-2/driver.py",
+      "sha256": "d914997a5995fd596b061ebb87d30b241cad72164fd6c1172008cc36291cb787"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/execution-batches/M1/restart-kernel-readmit-2/synthetic-test.stdout",
+      "sha256": "bb18cbd066c9dd1c33febf64e8239d0bb7965830f0e1d16f37783382b29225e2"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/execution-batches/M1/restart-kernel-readmit-2/full-test.stdout",
+      "sha256": "487f59433a43933cfc706a0b9c4429208e04a6d21f4b4cf671bc955fe5868a18"
+    }
+  ],
+  "verified": [
+    "Deferral/claim/predecessor hashes valid; no solver started; process gone; no start/failure/result or generation1 claim.",
+    "Read-only scheduler readmission returns generation1; task remains in partition1.",
+    "Eight operational source pins and kernel policy valid; receipt changes limited to linkage/prefix/purpose/provenance.",
+    "Manifest changes only curvature04 entry and linked history; completed curvature02/03 result hashes verify.",
+    "Completed entries hash-checked and skipped; correct generation-specific lifecycle and task-level result paths.",
+    "Preclaim Deferred with v4 metric and absent lifecycle/result may wait; any claimed deferral stops.",
+    "child.wait and terminal result audit precede next admission, so dispatch is serial.",
+    "Independent full-test rerun passes 12 entries with fresh prefix; no native reads or claims."
+  ],
+  "executionCondition": "Pass --manifest-sha256 66c9e489452a686fc52aba642ccba79fa0559ff855993915063243d4ea937167.",
+  "deferred": [
+    {
+      "item": "Controller post-launch exceptional journal-write cleanup",
+      "evidence": "An exception after Popen can exit this serial controller before child.wait or its terminal journal audit. Scheduler exact-once state remains authoritative.",
+      "disposition": "Nonblocking operational hardening; defer instead of changing reviewed live execution. Before any recovery from unexpected controller exit, reconcile the identity-valid child and terminal scheduler evidence. Future reusable controller should wait for the launched child in exception cleanup.",
+      "handoff": "Carry to parent operational debt at step4 closure; shared tracker is outside this worker scope."
+    }
+  ]
+}
