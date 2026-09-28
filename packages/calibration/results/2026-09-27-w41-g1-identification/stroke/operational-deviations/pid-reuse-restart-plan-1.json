@@ -1,0 +1,52 @@
+{
+  "kind": "STROKE_PID_REUSE_RESTART_PLAN",
+  "recordedUTC": "2026-09-28T01:20:32.432096+00:00",
+  "watcher": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-pressure-watcher-2.json",
+    "sha256": "06de87252413a8b66b088cb7b9ca9bdfe027a615bf168c15e5d93342ab0869b3"
+  },
+  "manifests": {
+    "M1": {
+      "reference": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/remaining-batch-M1-identity-1.json",
+        "sha256": "d53b3e81a769c56d445c895f8ddc444283e758ce87983ebc0f5ad44ef42d2a4b"
+      },
+      "starts": 18
+    },
+    "M2-device": {
+      "reference": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/remaining-batch-M2-device-identity-1.json",
+        "sha256": "5cb2578ccb2db40bd037f2d08853661326774cb9bac1e8ceccd9f292d172d3c0"
+      },
+      "starts": 15
+    },
+    "M2-curvature": {
+      "reference": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/remaining-batch-M2-curvature-identity-1.json",
+        "sha256": "ab866a15341aff090a2a49e0bdc95fa1c0607d67333d8abd01d51ae042c75c20"
+      },
+      "starts": 16
+    }
+  },
+  "preservedCompletedResults": [
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/results/device-M1-start-09.json",
+      "sha256": "38c5809dcb6438d317f2ef5fdfef27929680d45c88610ff5445b77ea0d793e00"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/results/device-M1-start-11.json",
+      "sha256": "805fd12c8406e666f513bc0548b733d3f5380ef368c9e8bf26b3e01da7099f98"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/results/device-M1-start-12.json",
+      "sha256": "107a2b5ba118eaf83898427efb6143eb642917ceb3b122be6b8c052ede863238"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/results/device-M1-start-13.json",
+      "sha256": "c5b12e0c9be1b6dbfabe7e1a35e4d2d1252b84708fa154e38a71baeb7aba4d2b"
+    }
+  ],
+  "queueOrder": "M1 device14/15 then curvature00..15; M1 transfer/verdict before M2device then M2curvature.",
+  "restart": "Fresh M1 controller required; M2 remains paused.",
+  "sameScientificGate": true
+}
