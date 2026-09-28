@@ -55,8 +55,8 @@ export function App(props: {
   const viewport = useViewport();
   const material = accessibility?.material ?? NOMINAL_ACCESSIBILITY_POLICY.material;
   const gap = useMemo(
-    () => derivedGaps(materialProfileDocument, scheme, material),
-    [materialProfileDocument, scheme, material],
+    () => derivedGaps(materialProfileDocument, scheme, material, viewport),
+    [materialProfileDocument, scheme, material, viewport],
   );
   const layout = useMemo(
     () => computeLayout(viewport.width, viewport.height, gap),
@@ -96,8 +96,12 @@ export function App(props: {
       const target = event.target as HTMLElement | null;
       if (target?.closest("button, input, [role='radio'], [role='dialog']") != null) return;
       if (event.metaKey || event.ctrlKey || event.altKey) return;
+      if (event.key === " ") event.preventDefault();
+      // A held key repeats. A pusher acts once per press, so a repeat must not toggle the
+      // chronograph or fill the laps while the key is down. The loupe's arrow keys are its own
+      // handler's and keep repeating.
+      if (event.repeat) return;
       if (event.key === " ") {
-        event.preventDefault();
         onStartStop();
       } else if (event.key === "l" || event.key === "L") {
         setChrono((s) => (s.running ? lapOrReset(s, performance.now()) : s));

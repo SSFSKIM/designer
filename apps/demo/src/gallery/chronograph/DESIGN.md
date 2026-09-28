@@ -108,7 +108,9 @@ is relative (linear) luminance.
 - **Layouts**: `wide` puts the watch left of centre with the strap off both edges and the column
   on the right. `stacked` (portrait, narrow) puts settings on top, the strapless head with bare
   spring bars in the middle, the timing window and buttons at the foot, and the loupe resting on
-  the crystal over the date.
+  the crystal over the date. A short landscape window (under 600 px tall, a phone held sideways)
+  stays `wide` with a compact column, smaller buttons and a timing window that shrinks to its
+  running time while the laps scroll, and its loupe starts on the date as it does when stacked.
 
 ## Keyboard
 

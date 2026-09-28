@@ -5,7 +5,8 @@
  * Every number the painter and the glass share comes from here, so the crystal's circle and the
  * painted watch are one geometry. Two arrangements: `wide`, the watch left of centre with its
  * strap running off the top and bottom of the window and the controls in a column to its right;
- * and `stacked`, for a tall or narrow window, the watch above and the controls below it.
+ * and `stacked`, for a portrait or narrow window, the watch above and the controls below it. A
+ * short landscape window, a phone held sideways, is wide with a compact column.
  */
 
 export interface Box {
@@ -76,10 +77,16 @@ export interface Gaps {
   readonly controls: number;
 }
 
+/**
+ * The gaps for a viewport. The padding grows with a member's span, so the timing window's member
+ * is its box on this viewport, not a fixed large one: a short window would otherwise be held apart
+ * by the padding of a 700 px window it is not, and lose the height that padding takes.
+ */
 export function derivedGaps(
   document: GlassMaterialProfileDocument,
   scheme: "light" | "dark",
   material: ResolvedMaterialPolicy,
+  viewport: { readonly width: number; readonly height: number },
 ): Gaps {
   const controls: readonly (readonly [number, number])[] = [
     [222, 44],
@@ -87,9 +94,40 @@ export function derivedGaps(
     [88, 88],
   ];
   return {
-    window: derivedGap(document, scheme, material, [[392, 700], ...controls]),
+    window: windowGap(viewport.width, viewport.height, (timing) =>
+      derivedGap(document, scheme, material, [timing, ...controls]),
+    ),
     controls: derivedGap(document, scheme, material, controls),
   };
+}
+
+/**
+ * The timing window's gap on this viewport. The stacked window's height is fixed by the viewport,
+ * so its box is known. The wide window takes the height between the settings row and the buttons
+ * less a gap on each side, so its box depends on the gap it is given: a larger gap leaves a
+ * shorter window, whose padding is smaller. The gap is the smallest whole pixel that covers the
+ * padding of the window it leaves, which is exactly what the runtime then derives for that window,
+ * found by bisection because the window's padding only falls as the gap grows.
+ */
+function windowGap(width: number, height: number, gapFor: (timing: readonly [number, number]) => number): number {
+  if (!isWide(width, height)) {
+    const c = stackedColumn(width, height);
+    return gapFor([c.columnWidth, c.timingHeight]);
+  }
+  const c = wideColumn(width, height);
+  const available = c.buttonsY - c.button - (c.margin + c.settings);
+  const windowAt = (gap: number): readonly [number, number] => [
+    c.columnWidth,
+    Math.max(MIN_TIMING_HEIGHT, available - gap * 2),
+  ];
+  let lo = 0;
+  let hi = gapFor(windowAt(0));
+  while (lo < hi) {
+    const mid = Math.floor((lo + hi) / 2);
+    if (gapFor(windowAt(mid)) <= mid) hi = mid;
+    else lo = mid + 1;
+  }
+  return hi;
 }
 
 function derivedGap(
@@ -116,35 +154,104 @@ function derivedGap(
   return Math.ceil(widest);
 }
 
+/**
+ * The smallest case radius either layout draws. No real window is this small; the floor is there
+ * so an absurd one overlaps rather than painting a negative circle, which the canvas refuses.
+ */
+const MIN_WATCH_RADIUS = 40;
+
+/** The smallest timing window: its label and running time, with the laps scrolling under them. */
+const MIN_TIMING_HEIGHT = 96;
+
+/**
+ * Below this height the wide layout compacts its column: smaller buttons and settings row, and a
+ * larger share of the width, so the timing window keeps a usable height on a phone held sideways.
+ * `chronograph.css` compacts the window's head and the crystal capsule at the same height.
+ */
+const SHORT_HEIGHT = 600;
+
+/**
+ * A window goes wide when it is landscape and wide enough for the watch and the column side by
+ * side, which a phone held sideways is. Stacking it instead would leave the watch the height
+ * between a settings row and a timing window, which on a short window is nothing.
+ */
+const isWide = (width: number, height: number): boolean => width >= 640 && width / height >= 1.15;
+
+/**
+ * The wide layout's column: its margin, its box, the settings row and the buttons' row. A short
+ * column is never narrower than 284 px, which is what the settings row needs for the dial switch,
+ * the gap and a capsule that still holds its longest crystal name ("Domed sapphire", the default).
+ */
+function wideColumn(width: number, height: number) {
+  const short = height < SHORT_HEIGHT;
+  const margin = clamp(width * 0.035, 24, 56);
+  const columnWidth = short ? clamp(width * 0.34, 284, 392) : clamp(width * 0.26, 320, 392);
+  const settings = short ? 40 : 44;
+  const button = short ? 30 : 44;
+  return {
+    short,
+    margin,
+    columnWidth,
+    columnX: width - margin - columnWidth,
+    settings,
+    dialWidth: short ? 120 : 140,
+    button,
+    buttonsY: height - margin - button,
+  };
+}
+
+/** The stacked layout's column: its margin, its box, the settings row and the timing window. */
+function stackedColumn(width: number, height: number) {
+  const margin = clamp(width * 0.05, 16, 40);
+  const titled = width >= 600;
+  return {
+    margin,
+    columnWidth: Math.min(width - margin * 2, 440),
+    titled,
+    settingsY: titled ? margin + 56 : margin,
+    timingHeight: Math.round(clamp(height * 0.24, 168, 300)),
+  };
+}
+
 export function computeLayout(width: number, height: number, gap: Gaps): Layout {
-  const wide = width >= 900 && width / height >= 1.15;
-  return wide ? wideLayout(width, height, gap) : stackedLayout(width, height, gap);
+  return isWide(width, height) ? wideLayout(width, height, gap) : stackedLayout(width, height, gap);
 }
 
 function wideLayout(width: number, height: number, gap: Gaps): Layout {
-  const margin = clamp(width * 0.035, 24, 56);
-  const columnWidth = clamp(width * 0.26, 320, 392);
-  const columnX = width - margin - columnWidth;
-  // The watch fills the height it is given, leaving room for the crown and the loupe beside it.
-  const r = Math.round(Math.min(height * 0.4, (columnX - margin) * 0.36));
-  const cx = Math.round(Math.max(margin + r * 1.55, (columnX - margin * 0.5) * 0.53));
+  const { short, margin, columnWidth, columnX, settings, dialWidth, button, buttonsY } = wideColumn(width, height);
+  // The watch fills the height it is given, leaving room for the crown and, on a window tall
+  // enough to rest it on the mat, the loupe beside it. On a short one the loupe starts on the
+  // dial, so the watch only keeps its own case and shadow off the left edge.
+  const r = Math.max(MIN_WATCH_RADIUS, Math.round(Math.min(height * 0.4, (columnX - margin) * 0.36)));
+  const cx = Math.round(Math.max(margin + r * (short ? 1.15 : 1.55), (columnX - margin * 0.5) * 0.53));
   const cy = Math.round(height / 2);
 
   const titleSize = clamp(width * 0.018, 20, 28);
   // The settings row heads the column: the dial on the left, the crystal on the right.
-  const dial = { x: columnX, y: margin, width: 140, height: 44 };
-  const menuWidth = Math.min(214, columnWidth - 140 - gap.controls);
-  const crystalMenu = { x: columnX + columnWidth - menuWidth, y: margin, width: menuWidth, height: 44 };
-  const button = 44;
-  const buttonsY = height - margin - button;
-  const timingTop = margin + 44 + gap.window;
+  const dial = { x: columnX, y: margin, width: dialWidth, height: settings };
+  const menuWidth = Math.min(214, columnWidth - dialWidth - gap.controls);
+  const crystalMenu = { x: columnX + columnWidth - menuWidth, y: margin, width: menuWidth, height: settings };
+  // The timing window takes the height between the settings row and the buttons. On a short
+  // window that can be little more than its running time; the laps then scroll inside it.
+  const timingTop = margin + settings + gap.window;
   const timing = {
     x: columnX,
     y: timingTop,
     width: columnWidth,
-    height: Math.max(220, buttonsY - button - gap.window - timingTop),
+    height: Math.max(MIN_TIMING_HEIGHT, buttonsY - button - gap.window - timingTop),
   };
-  const loupeR = Math.round(clamp(r * 0.27, 64, 96));
+  // On a short window the watch reaches from margin to margin and leaves the mat beside it no room
+  // for the loupe's rest. The loupe then starts at work on the crystal over the date, as on a
+  // stacked window. The title keeps the design's size here: bench.ts fits it beside the watch and
+  // leaves it off where it cannot fit, as on a phone held sideways.
+  const loupeR = Math.round(short ? clamp(r * 0.27, 44, 72) : clamp(r * 0.27, 64, 96));
+  const loupeRest = short
+    ? { cx: Math.round(cx + r * 0.42), cy: Math.round(cy + r * 0.42), r: loupeR }
+    : {
+        cx: Math.round(Math.max(margin + loupeR + 8, cx - r * 1.62)),
+        cy: Math.round(height - margin - loupeR - 12),
+        r: loupeR,
+      };
   return {
     width,
     height,
@@ -156,11 +263,7 @@ function wideLayout(width: number, height: number, gap: Gaps): Layout {
     timing,
     lapButton: { cx: columnX + button, cy: buttonsY, r: button },
     startButton: { cx: columnX + columnWidth - button, cy: buttonsY, r: button },
-    loupeRest: {
-      cx: Math.round(Math.max(margin + loupeR + 8, cx - r * 1.62)),
-      cy: Math.round(height - margin - loupeR - 12),
-      r: loupeR,
-    },
+    loupeRest,
     title: { x: margin, y: margin + titleSize * 0.8, size: titleSize },
     strap: true,
   };
@@ -172,28 +275,26 @@ function wideLayout(width: number, height: number, gap: Gaps): Layout {
  * its strap, so no glass sits over leather.
  */
 function stackedLayout(width: number, height: number, gap: Gaps): Layout {
-  const margin = clamp(width * 0.05, 16, 40);
-  const columnWidth = Math.min(width - margin * 2, 440);
+  const { margin, columnWidth, titled, settingsY, timingHeight } = stackedColumn(width, height);
   const columnX = Math.round((width - columnWidth) / 2);
-  const titled = width >= 600;
-  const settingsY = titled ? margin + 56 : margin;
   const dialWidth = 132;
   const menuWidth = Math.min(214, columnWidth - dialWidth - gap.controls);
   const dial = { x: columnX, y: settingsY, width: dialWidth, height: 44 };
   const crystalMenu = { x: columnX + columnWidth - menuWidth, y: settingsY, width: menuWidth, height: 44 };
   const button = 40;
   const buttonsY = height - margin - button;
-  const timingHeight = Math.round(clamp(height * 0.24, 168, 300));
   const timing = {
     x: columnX,
     y: Math.round(buttonsY - button - gap.window - timingHeight),
     width: columnWidth,
     height: timingHeight,
   };
-  // The watch between the settings row and the timing window, its crown inside the window.
+  // The watch between the settings row and the timing window, its crown inside the window. A
+  // window too short for both (a landscape one narrower than the wide layout's minimum) leaves no
+  // height between them; the watch then keeps its floor and overlaps rather than vanishing.
   const top = settingsY + 44 + gap.window;
   const bottom = timing.y - gap.window;
-  const r = Math.round(Math.min(width / 2.35, (bottom - top) / 2.05));
+  const r = Math.max(MIN_WATCH_RADIUS, Math.round(Math.min(width / 2.35, (bottom - top) / 2.05)));
   const cx = Math.round(width / 2 - r * 0.05);
   const cy = Math.round((top + bottom) / 2);
   const loupeR = Math.round(clamp(r * 0.27, 44, 72));

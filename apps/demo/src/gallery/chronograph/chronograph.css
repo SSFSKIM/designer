@@ -152,8 +152,16 @@ canvas.bench {
   font-weight: 500;
 }
 
+/*
+ * The platter opens below the capsule (`--platter-top` is where). On a short window it is taller
+ * than the room there, so it scrolls rather than running off the page, which would leave the
+ * Reduce transparency switch at its foot out of reach.
+ */
 .platter {
   width: 280px;
+  max-height: calc(100vh - var(--platter-top, 0px) - 16px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 16px 10px 12px;
   box-sizing: border-box;
   color: var(--vitrea-foreground, var(--ink));
@@ -349,6 +357,35 @@ canvas.bench {
 @media (pointer: coarse), (max-height: 760px) {
   .timing-keys {
     display: none;
+  }
+}
+
+/*
+ * A short window, below layout.ts's SHORT_HEIGHT: the timing window can fall to about 100 px, so
+ * its head keeps the label and the running time at a smaller size and gives the rest to the laps,
+ * which scroll. The crystal capsule is narrower there, and its name keeps to one line in it.
+ */
+@media (height < 600px) {
+  .timing-head {
+    gap: 4px;
+    padding: 16px 22px 8px;
+  }
+
+  .timing-readout {
+    font-size: 40px;
+  }
+
+  .laps {
+    padding-bottom: 10px;
+  }
+
+  .laps-empty {
+    font-size: 13px;
+  }
+
+  .crystal-trigger {
+    padding: 0 12px;
+    font-size: 13px;
   }
 }
 

@@ -19,7 +19,7 @@ import {
   useGlassRoot,
   type BackdropHint,
 } from "@vitreajs/vitrea-react";
-import { useEffect, useRef, type KeyboardEvent, type ReactNode } from "react";
+import { useEffect, useRef, type CSSProperties, type KeyboardEvent, type ReactNode } from "react";
 
 import { elapsed, format, spoken, type ChronoState } from "./chrono";
 import type { Box, Circle, CrystalId } from "./layout";
@@ -27,6 +27,9 @@ import type { Scheme } from "./palette";
 import { BENCH_BACKDROP, CONTROL_THICKNESS, CRYSTALS, crystalById, TIMING_RADIUS, TIMING_THICKNESS } from "./shared";
 
 export const CRYSTAL_MENU_CLASS = "crystal-morph";
+
+/** The space between the crystal capsule and the platter it opens below. */
+const PLATTER_GAP = 10;
 
 export function DialSwitch(props: {
   readonly box: Box;
@@ -156,7 +159,7 @@ export function CrystalMenu(props: {
           profile={APPLE_LIKE_SMOOTHING}
           openProfile={APPLE_LIKE_SMOOTHING}
           placement="below-end"
-          gap={10}
+          gap={PLATTER_GAP}
           className={`glass ${CRYSTAL_MENU_CLASS}`}
           aria-label="Crystal"
         >
@@ -165,6 +168,7 @@ export function CrystalMenu(props: {
               <div
                 ref={platter}
                 className="platter"
+                style={{ "--platter-top": `${anchor.y + anchor.height + PLATTER_GAP}px` } as CSSProperties}
                 role="dialog"
                 aria-label="Crystal"
                 onKeyDown={onPlatterKey}

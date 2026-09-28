@@ -14,7 +14,7 @@
  * glass draws the optics of the edge around it (DESIGN.md, "The loupe").
  */
 
-import { paintBench } from "./bench";
+import { paintBench, radius } from "./bench";
 import type { Circle, Layout } from "./layout";
 import type { Palette } from "./palette";
 import { paintHands, paintWatchBody, type HandAngles } from "./watch";
@@ -27,6 +27,8 @@ const WATCH_BOUNDS = { x0: -1120, x1: 1280, y0: -1260, y1: 1320 };
 
 export interface SceneFrame {
   readonly hands: HandAngles;
+  /** The local day of the month, read off the same clock as the hands, for the date wheel. */
+  readonly date: number;
   /** The loupe's current circle, or null where it is not drawn (it is always drawn today). */
   readonly loupe: Circle | null;
   /**
@@ -44,6 +46,8 @@ export class Scene {
   private layout: Layout | null = null;
   private palette: Palette | null = null;
   private dpr = 1;
+  /** The day of the month the cached watch body shows in its date window. */
+  private watchDate = 0;
 
   constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
@@ -73,7 +77,15 @@ export class Scene {
       paintBench(b, layout, palette);
     }
     this.bench = bench;
+    this.paintWatch(layout, palette, dpr, new Date().getDate());
+  }
 
+  /**
+   * The watch body's cache, date wheel included. The date is painted into the cache, so a page
+   * left open past midnight would keep yesterday's; `paint` re-paints this cache, and only this
+   * one, when the day it shows is no longer the day it is.
+   */
+  private paintWatch(layout: Layout, palette: Palette, dpr: number, date: number): void {
     const { r } = layout.watch;
     const scale = (r / 1000) * dpr * LOUPE_POWER;
     const watch = this.watch ?? document.createElement("canvas");
@@ -82,15 +94,17 @@ export class Scene {
     const w = watch.getContext("2d");
     if (w !== null) {
       w.setTransform(scale, 0, 0, scale, -WATCH_BOUNDS.x0 * scale, -WATCH_BOUNDS.y0 * scale);
-      paintWatchBody(w, palette, { unitPx: scale, date: new Date().getDate() });
+      paintWatchBody(w, palette, { unitPx: scale, date });
     }
     this.watch = watch;
+    this.watchDate = date;
   }
 
   /** Draw one frame of the scene into the visible canvas. */
   paint(frame: SceneFrame): void {
     const { layout, palette, bench, watch } = this;
     if (layout === null || palette === null || bench === null || watch === null) return;
+    if (frame.date !== this.watchDate) this.paintWatch(layout, palette, this.dpr, frame.date);
     const ctx = this.ctx;
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.imageSmoothingEnabled = true;
@@ -111,10 +125,10 @@ export class Scene {
       const shadow = ctx.createRadialGradient(
         loupe.cx + loupe.r * 0.12,
         loupe.cy + loupe.r * 0.22,
-        loupe.r * 0.8,
+        radius(loupe.r * 0.8),
         loupe.cx + loupe.r * 0.12,
         loupe.cy + loupe.r * 0.22,
-        loupe.r * 1.25,
+        radius(loupe.r * 1.25),
       );
       shadow.addColorStop(0, palette.scheme === "dark" ? "rgb(0 0 0 / 0.55)" : "rgb(10 20 16 / 0.38)");
       shadow.addColorStop(1, "rgb(0 0 0 / 0)");

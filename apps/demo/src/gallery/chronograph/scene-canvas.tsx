@@ -85,6 +85,7 @@ export function SceneCanvas(props: {
           chronoMinutes: c.minutes,
           chronoHours: c.hours,
         },
+        date: clock.getDate(),
         loupe,
         loupeRing: lensesYield,
       });

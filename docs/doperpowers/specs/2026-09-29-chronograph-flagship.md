@@ -117,3 +117,11 @@ platter puts the calibrated material back for comparison.
 ## Revision Notes
 
 - 2026-09-29: written at landing.
+- 2026-09-29: review fixes. A short landscape window (844×390) chose `stacked`, drew a negative
+  watch radius and threw in `createRadialGradient`; it is now `wide` with a compact column below
+  600 px tall (DESIGN.md, Layouts), the watch radius has a floor on every viewport and the
+  painters' gradient radii are clamped. The timing window's gap is the padding of the window it
+  actually leaves on the viewport, not of a fixed 392 × 700 box. Printing on the mat is fitted
+  beside the watch and left off where it cannot fit, and the Crystal platter scrolls inside the
+  room under its capsule. Held Space, L and R no longer auto-repeat, and the date wheel is
+  repainted when the local day changes under an open page.

@@ -41,11 +41,19 @@ function grain(): HTMLCanvasElement {
   return tile;
 }
 
+/**
+ * A gradient radius the canvas will accept. `createRadialGradient` throws on a negative radius, and
+ * one bad layout number would then take the whole page down with it; a zero radius only paints the
+ * gradient flat. The layouts keep the watch's radius positive, and this keeps a painter from being
+ * the thing that fails if one ever does not.
+ */
+export const radius = (r: number): number => Math.max(0, r);
+
 export function paintBench(ctx: CanvasRenderingContext2D, layout: Layout, p: Palette): void {
   const { width: W, height: H } = layout;
   const { cx, cy, r } = layout.watch;
   // The mat: a slow fall-off from the watch's side, so the bench has a near and a far.
-  const base = ctx.createRadialGradient(cx, cy, r * 0.5, cx, cy, Math.hypot(W, H) * 0.75);
+  const base = ctx.createRadialGradient(cx, cy, radius(r * 0.5), cx, cy, radius(Math.hypot(W, H) * 0.75));
   base.addColorStop(0, p.mat);
   base.addColorStop(1, p.matDeep);
   ctx.fillStyle = base;
@@ -64,7 +72,7 @@ export function paintBench(ctx: CanvasRenderingContext2D, layout: Layout, p: Pal
   paintPrinting(ctx, layout, p);
 
   if (p.lamp !== null) {
-    const lamp = ctx.createRadialGradient(cx - r * 0.35, cy - r * 0.45, r * 0.2, cx, cy, r * 2.3);
+    const lamp = ctx.createRadialGradient(cx - r * 0.35, cy - r * 0.45, radius(r * 0.2), cx, cy, radius(r * 2.3));
     lamp.addColorStop(0, p.lamp);
     lamp.addColorStop(1, "rgb(255 214 160 / 0)");
     ctx.fillStyle = lamp;
@@ -138,27 +146,70 @@ function paintRulers(ctx: CanvasRenderingContext2D, W: number, H: number, p: Pal
   for (let x = GRID * 5, n = 1; x < W - GRID * 2; x += GRID * 5, n += 1) ctx.fillText(String(n), x, H - 21);
 }
 
-/** The maker's name on the mat, and the mat's own printing along its foot. */
+/**
+ * How far the watch's horns reach out from the case's centre, in case radii (640 of the case's
+ * 1000 units, with the edge of their shadow). Printing beside the watch keeps left of this.
+ */
+const LUG_REACH = 0.64;
+
+/** The smallest title the mat prints. Below it the subtitle is under 7 px, and none reads better. */
+const MIN_TITLE = 16;
+
+const SUBTITLE = "CHRONOGRAPHE À RATTRAPANTE";
+const FOOT = "ATELIER BENCH No. 7 · 12 PX GRID";
+
+/**
+ * The maker's name on the mat, the loupe's place, and the mat's own printing along its foot.
+ *
+ * On the wide layout all three are printed on the mat left of the watch, and the room there
+ * shrinks with the window faster than the title does, so each is printed only where it clears
+ * the watch. The title shrinks to the room beside the upper horn, measured in the font that
+ * draws it, and is left off below a legible size; the foot line is left off where it would run
+ * under the lower horn; and the loupe's place is printed only where the loupe rests on the mat,
+ * not where a short window starts it on the dial.
+ */
 function paintPrinting(ctx: CanvasRenderingContext2D, layout: Layout, p: Palette): void {
-  const { x, y, size } = layout.title;
-  if (size === 0) return;
+  const { x } = layout.title;
+  const { cx, cy, r } = layout.watch;
+  const clear = cx - r * LUG_REACH - 12;
   ctx.textAlign = "left";
   ctx.textBaseline = "alphabetic";
-  ctx.fillStyle = p.print;
-  ctx.font = `400 ${size * 1.5}px ${SERIF}`;
-  ctx.letterSpacing = `${size * 0.32}px`;
-  ctx.fillText("VITREA", x + 22, y + size * 0.6);
-  ctx.letterSpacing = `${size * 0.12}px`;
-  ctx.font = `600 ${size * 0.42}px ${SANS}`;
-  ctx.fillStyle = p.printSoft;
-  ctx.fillText("CHRONOGRAPHE À RATTRAPANTE", x + 24, y + size * 1.45);
-  ctx.letterSpacing = "0px";
-  if (layout.mode === "wide") {
-    ctx.font = `600 9px ${SANS}`;
-    ctx.letterSpacing = "2px";
-    ctx.fillText("ATELIER BENCH No. 7 · 12 PX GRID", x + 24, layout.height - 36);
-    ctx.letterSpacing = "0px";
+
+  let size = layout.title.size;
+  if (size > 0 && layout.mode === "wide") {
+    ctx.font = `600 ${size * 0.42}px ${SANS}`;
+    ctx.letterSpacing = `${size * 0.12}px`;
+    const fitted = size * Math.min(1, (clear - (x + 24)) / ctx.measureText(SUBTITLE).width);
+    size = fitted >= MIN_TITLE ? fitted : 0;
   }
+  if (size > 0) {
+    // The layout's title origin is for its own size; a fitted title keeps the same top.
+    const y = layout.title.y - (layout.title.size - size) * 0.8;
+    ctx.fillStyle = p.print;
+    ctx.font = `400 ${size * 1.5}px ${SERIF}`;
+    ctx.letterSpacing = `${size * 0.32}px`;
+    ctx.fillText("VITREA", x + 22, y + size * 0.6);
+    ctx.letterSpacing = `${size * 0.12}px`;
+    ctx.font = `600 ${size * 0.42}px ${SANS}`;
+    ctx.fillStyle = p.printSoft;
+    ctx.fillText(SUBTITLE, x + 24, y + size * 1.45);
+  }
+  ctx.letterSpacing = "0px";
+  if (layout.mode !== "wide") return;
+
+  ctx.font = `600 9px ${SANS}`;
+  ctx.fillStyle = p.printSoft;
+  // The loupe's place on the mat, printed the way a bench marks where a tool lives.
+  const rest = layout.loupeRest;
+  if (Math.hypot(rest.cx - cx, rest.cy - cy) > r + rest.r) {
+    ctx.letterSpacing = "2.5px";
+    ctx.textAlign = "center";
+    ctx.fillText("LOUPE · 2×", rest.cx, rest.cy - rest.r - 14);
+    ctx.textAlign = "left";
+  }
+  ctx.letterSpacing = "2px";
+  if (x + 24 + ctx.measureText(FOOT).width <= clear) ctx.fillText(FOOT, x + 24, layout.height - 36);
+  ctx.letterSpacing = "0px";
 }
 
 /** One half of the strap: calf, with its edge paint and a saddle stitch down both sides. */
