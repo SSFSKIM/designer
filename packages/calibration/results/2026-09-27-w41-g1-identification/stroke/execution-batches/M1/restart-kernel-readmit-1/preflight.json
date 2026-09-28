@@ -1,0 +1,17 @@
+{
+  "kind": "M1_LINKED_READMISSION_DRIVER_READY",
+  "atUTC": "2026-09-28T02:58:40.534056+00:00",
+  "manifestPath": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/remaining-batch-M1-kernel-readmit-1.json",
+  "manifestSha256": "70b437813878ae7f8f5e947262858b9636379b0992b202e0d27ef22fdf2ab40a",
+  "controllerSourcePath": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/execution-batches/M1/restart-kernel-readmit-1/driver.py",
+  "controllerSourceSha256": "f94f68d889f74e97ad313967c774cc1ffdab08138176243e0ac329e4ea4eef46",
+  "selfTestPath": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/execution-batches/M1/restart-kernel-readmit-1/self-test.stdout",
+  "selfTestSha256": "caa6dab7aacd8e2193a7190096f47765e8b88fef2dc4d7957e08abf5be35a243",
+  "completePriorTasks": [
+    "device15",
+    "curvature00",
+    "curvature01"
+  ],
+  "nextTask": "curvature02.readmit-01",
+  "remainingTasks": 14
+}

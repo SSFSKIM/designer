@@ -1,0 +1,107 @@
+{
+  "kind": "STROKE_READMISSION_CONTROLLER_REVIEW",
+  "receivedUTC": "2026-09-28T03:00:19.137277+00:00",
+  "reviewer": "a1c557ee93146abd9",
+  "verdict": "CLEAN",
+  "blockers": [],
+  "artifacts": [
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/execution-batches/M1/restart-kernel-readmit-1/driver.py",
+      "sha256": "f94f68d889f74e97ad313967c774cc1ffdab08138176243e0ac329e4ea4eef46"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/execution-batches/M1/restart-kernel-readmit-1/preflight.json",
+      "sha256": "34290762c52ad981eeb26a0c1fdd9f27179fe81acfc640ccd2bef7304ce9b412"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/execution-batches/M1/restart-kernel-readmit-1/self-test.stdout",
+      "sha256": "caa6dab7aacd8e2193a7190096f47765e8b88fef2dc4d7957e08abf5be35a243"
+    }
+  ],
+  "verified": [
+    "Generation1 lifecycle filenames match scheduler; result remains task-level exact-once.",
+    "Completed device15 and curvature00/01 hash-checked and not launched.",
+    "Preclaim Deferred requires absent current-generation lifecycle/result and empty prefix before next unchanged admission attempt.",
+    "Claimed deferral stops launches and requires explicit new linked receipt.",
+    "v4 metric checked; unreadable/malformed preview fails closed."
+  ],
+  "boundedBehavior": [
+    "This run-specific driver refuses restart after curvature02 completion; a fresh run directory/controller is required.",
+    "Unexpected preview errors stop dispatch and wait on running children."
+  ],
+  "reviewReadOnly": true,
+  "nativeReads": false,
+  "restartExcerpt": [
+    {
+      "atUTC": "2026-09-28T02:58:40.700567+00:00",
+      "controllerPID": 37094,
+      "controllerSourceSha256": "f94f68d889f74e97ad313967c774cc1ffdab08138176243e0ac329e4ea4eef46",
+      "count": 14,
+      "kind": "restart",
+      "linkedPredecessorSha256": "65806438e0783c42dc059a06fba6e65bef47860fce149cfb845396484252fab8",
+      "manifestPath": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/remaining-batch-M1-kernel-readmit-1.json",
+      "manifestSha256": "70b437813878ae7f8f5e947262858b9636379b0992b202e0d27ef22fdf2ab40a",
+      "memoryMetric": "kernel memorystatus free-level percent times physical memory",
+      "priorRunPath": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/execution-batches/M1/restart-kernel-3/run.jsonl",
+      "priorRunSha256": "18ba2aebd30eac604ff02c1e6fe968e9548a39be50cfed7259c3b2c014d66d00",
+      "watcherDeadlineUTC": "2026-09-29T01:19:18.936481+00:00",
+      "watcherPID": 55508
+    },
+    {
+      "argv": [
+        "/tmp/w39-g2-wgpu/bin/python",
+        "-B",
+        "-X",
+        "pycache_prefix=/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/vitrea-M1-curvature02-readmit1-wdxs4kic",
+        "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/memo_runner_v3.py",
+        "--root",
+        "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1",
+        "--receipt",
+        "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-launches-kernel-readmit-1/curvature-M1-start-02.readmit-01.json",
+        "--sha256",
+        "4f37c28c4a68dfa0629bde743096beba655568693382b00bad32ed4fb2c27d18"
+      ],
+      "atUTC": "2026-09-28T02:58:41.538483+00:00",
+      "attempt": 1,
+      "currentGenerationClaim": "curvature-M1-start-02.readmit-01.json",
+      "expectedResult": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/results/curvature-M1-start-02.json",
+      "kind": "launch",
+      "ordinal": 1,
+      "pid": 37115,
+      "prefixInitiallyEmpty": true,
+      "preflightAvailableBytes": 9448928051,
+      "preflightMetric": "kernel memorystatus free-level percent times physical memory",
+      "preflightMode": "normal",
+      "receiptSha256": "4f37c28c4a68dfa0629bde743096beba655568693382b00bad32ed4fb2c27d18",
+      "sourceSha256": {
+        "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/memo_runner.py": "ff8c69ec9f60fabeef70b14eb10ad7c96ad634a28bb942f0773a15b3b15845c5",
+        "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/memo_runner_v3.py": "dd38c6f2590ed32f0cac2816850f79f65a629a37d6f514e660e7414532462c01",
+        "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler.py": "2c0fba175bf26f38fd436d3a42edaae9bc9c4b8dce428b37ed1a06630e825e33",
+        "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler_v2.py": "8b291118d7463f4adc06cee70b4d10c3e5755a9e4edff2fdd1a1c1dd126ce438",
+        "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler_v3.py": "2a668929c13323c4d93cb9533ecc8943839939e90a4fff1f5c89bbf9ee0e7604",
+        "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/verification-slot/verification_policy_v2.py": "6cbf66a25444d8449ee1492769159cbab68a2f44d00d79ee188ed17bdeb48e84",
+        "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/verification-slot/verification_policy_v3.py": "96ecd7ebd099a66ffe155860b23e2189801b30db67598ee6955d9b42750d664c",
+        "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/verification-slot/verification_slot.py": "e212dddeff1e22b28e89b859a72d1b07fa6cca2166d8d1849949b9ef91126646"
+      },
+      "stdoutPath": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/execution-batches/M1/restart-kernel-readmit-1/curvature-M1-start-02.attempt-001.stdout",
+      "task": [
+        "M1",
+        "curvature",
+        2
+      ]
+    },
+    {
+      "atUTC": "2026-09-28T02:58:42.549150+00:00",
+      "attempt": 1,
+      "claimSha256": "6b4335ecda12a5e6a72bcba3929a48c4505e040de703a6c79210f04fb53f7ed3",
+      "generation": 1,
+      "kind": "claim_observed",
+      "ordinal": 1,
+      "task": [
+        "M1",
+        "curvature",
+        2
+      ]
+    }
+  ]
+}
