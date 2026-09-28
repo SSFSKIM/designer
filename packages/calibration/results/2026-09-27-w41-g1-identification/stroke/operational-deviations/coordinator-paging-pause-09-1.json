@@ -1,0 +1,42 @@
+{
+  "kind": "STROKE_COORDINATOR_PAGING_PAUSE",
+  "pausedUTC": "2026-09-28T10:30:22.817674+00:00",
+  "pid": 39062,
+  "processIdentity": {
+    "pid": 39062,
+    "startedUTC": "2026-09-28T09:25:05+00:00",
+    "command": "/Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python -B -X pycache_prefix=/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/vitrea-M1-curvature09-readmit1-_11vvo8p /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/memo_runner_v3.py --root /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1 --receipt /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-launches-kernel-readmit-3/curvature-M1-start-09.readmit-01.json --sha256 6a2c10944dcf45b5d3085771b8e67975d15bce72bbf24915cdb34c9811b7ab40"
+  },
+  "statusAfter": "Ts",
+  "source": "Coordinator10:28Z ruling: pauseold09 if no wall-clock budget; resume at static-start completion with at mosttwo executing fits.",
+  "budgetEvidence": {
+    "path": "/Users/new/vitrea-w41/pre-w41-proof/packages/calibration/results/2026-09-27-w41-g0-declaration/instrument/stroke_fit.py",
+    "sha256": "07ac045ccabcd5c8348de50b5c9de13668558c44833c2b0d1ba756298e1da887",
+    "limits": "max_nfev3000/maxiter3000; declared width grid/refinement/alternation counts; no wall-clock stop in sealed fitter.",
+    "wallClockOnly": "Elapsed performance reporting is not a stopping budget."
+  },
+  "claim": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/claims/curvature-M1-start-09.readmit-01.json",
+    "sha256": "2f0136609216117f341c19b0a128915f44e3b8d45bff4d1bf758abfcb5f91d54"
+  },
+  "staticIdentities": {
+    "39062": {
+      "pid": 39062,
+      "startedUTC": "2026-09-28T09:25:05+00:00",
+      "command": "/Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python -B -X pycache_prefix=/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/vitrea-M1-curvature09-readmit1-_11vvo8p /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/memo_runner_v3.py --root /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1 --receipt /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-launches-kernel-readmit-3/curvature-M1-start-09.readmit-01.json --sha256 6a2c10944dcf45b5d3085771b8e67975d15bce72bbf24915cdb34c9811b7ab40"
+    },
+    "42722": {
+      "pid": 42722,
+      "startedUTC": "2026-09-28T09:30:07+00:00",
+      "command": "/Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python -B -X pycache_prefix=/tmp/vitrea-static-A-IX5ygX /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/run.py --partition A"
+    },
+    "42753": {
+      "pid": 42753,
+      "startedUTC": "2026-09-28T09:30:07+00:00",
+      "command": "/Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python -B -X pycache_prefix=/tmp/vitrea-static-B-BZm0QX /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/run.py --partition B"
+    }
+  },
+  "scienceChange": false,
+  "memoryQualification": "SIGSTOP suspends execution, not memory residency; paused pages remain allocated and may be paged out.",
+  "nextAction": "On first new static completed-start event, stop that static partition by exact identity then SIGCONT09. After09 exits, resume that static partition. No extra starts, adaptive gates or refits."
+}
