@@ -1,0 +1,87 @@
+{
+  "activity": {
+    "browsersLaunched": 0,
+    "externalPreflightRunCalled": false,
+    "finalManifestFreezeCalled": false,
+    "nativePayloadReads": 0,
+    "oldEvidenceChanged": false,
+    "receiptOpened": false
+  },
+  "additionalFinalInstruments": [
+    "Final committed M1 verdict and underlying transfer record",
+    "M2 disposition chain and actual terminal record",
+    "Current browser attestation and backup verification",
+    "Assembly review/index, transition proof/index, X6 wait review/index"
+  ],
+  "assemblyInputCount": 5777,
+  "assemblyInputHashMismatches": [],
+  "assemblyInputWitness": {
+    "path": "packages/calibration/results/2026-09-27-w41-g1-identification/exposure/assembly/body-e3-2/inputs.json",
+    "sha256": "5fd5513a676a2a9ff41f872e287d066c9dd733ceb2168038421a84949f2b667b"
+  },
+  "assemblyMissingInputs": [],
+  "assemblyOutputIndexHashMismatches": [],
+  "bodyContract": {
+    "candidateID": "body-e3",
+    "identityCells": 450,
+    "numericalAdmissionCells": 576,
+    "renderedAdmissionCells": 536,
+    "renderedCells": 600,
+    "status": "Manual field/membership validation passed using existing public metadata; runner.freeze was not called.",
+    "vetoCells": 536
+  },
+  "currentAutomaticSourceFiles": 417,
+  "dirtyAutomaticSourceFiles": [],
+  "inputAuditMethod": "Read every5777input path and compareSHA256 with committedassembly inputs.json; compare generated artifacts with body-e3-2-index.json. Executed earlier this audit at priorAuditHead; subsequent committed paths classified below without native reread.",
+  "manifestSchema": {
+    "path": "packages/calibration/results/2026-09-27-w41-g1-identification/exposure/manifest.schema.json",
+    "sha256": "8bad49fec2c85382fce097c766a05c76cf2bb439d210b20bb713453084d2bab2"
+  },
+  "observedAt": "2026-09-28T19:31:39.961632+00:00",
+  "observedHead": "c76f949d3b31dcc24d9612979c95e05b4092173f",
+  "preflight": {
+    "path": "packages/calibration/results/2026-09-27-w41-g1-identification/preflight/preflight.py",
+    "sha256": "e678d8275a9786f20dc469c1b81f5e6ed571c00186955de507beea468f88e38b"
+  },
+  "priorAuditHead": "047b7861fc052211bb90db90b10c7c2e948a58b8",
+  "qualification": "Body inputs remain usable, not final-wave configuration authorization. A surviving M1 requires leaf/render/veto and an appropriate composite/stroke scorer/domain adapter; current body adapter cannot silently represent it.",
+  "runner": {
+    "path": "packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py",
+    "sha256": "5ae591ad6ea2098613e75dfb6377875314fcc2280d7526bf80e139f206436c08"
+  },
+  "runtime": {
+    "compiledPolicyInventoryAndBytesMatch": true,
+    "compiledPolicyModuleCount": 2,
+    "declared": {
+      "numpy": "2.3.5",
+      "pillow": "12.3.0",
+      "python": [
+        3,
+        12
+      ]
+    },
+    "live": {
+      "numpy": "2.3.5",
+      "pillow": "12.3.0",
+      "python": [
+        3,
+        12
+      ]
+    },
+    "matches": true
+  },
+  "schema": "w41-conditional-final-input-readiness-1",
+  "scorer": {
+    "path": "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-e3/scorer.py",
+    "sha256": "4d7a1defaf9fad35a09ddd059eba1b0a8ee9c735418b5fb195745e8226d747ba"
+  },
+  "subsequentChangedAutomaticSourcePaths": [],
+  "subsequentChangedPaths": [
+    "docs/doperpowers/specs/2026-09-27-w41-archive-reread.md",
+    "docs/doperpowers/specs/c9a-fidelity-claims.md",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/README.txt",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/stroke/M2-provenance-correction-1.json",
+    "packages/calibration/results/2026-09-27-w41-g1-identification/stroke/M2-provenance-supersession-2.json"
+  ],
+  "untrackedAutomaticSourceFiles": []
+}

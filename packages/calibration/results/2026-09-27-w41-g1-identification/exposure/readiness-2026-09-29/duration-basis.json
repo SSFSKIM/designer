@@ -1,0 +1,57 @@
+{
+  "blindBaseline": {
+    "frozenAt": "2026-09-27T09:29:56.538721+00:00",
+    "inclusiveSeconds": 89.47768,
+    "path": "packages/calibration/results/2026-09-27-w41-g1-identification/blind-baseline/frozen-blind-baseline.json",
+    "sha256": "5df39d23a6052ecf5afe2a0a13ef6d0cc7dcb4f31ae7bac6a5150753bd953ca5",
+    "startedAt": "2026-09-27T09:28:27.061041+00:00"
+  },
+  "browsersLaunched": 0,
+  "candidateBlindProcesses": [
+    {
+      "path": "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-capture/attempt-1/processes/blind-apple-macos-27.0-1x-dark-standard-glass0.5/started.json",
+      "profile": "blind-apple-macos-27.0-1x-dark-standard-glass0.5",
+      "sha256": "a703faccb08f40f06e277a75867db419d5b143fbf34b8dbe5c7665b562052fc7",
+      "startedAt": "2026-09-27T10:37:33.726437+00:00"
+    },
+    {
+      "path": "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-capture/attempt-1/processes/blind-apple-macos-27.0-1x-light-standard-glass0.5/started.json",
+      "profile": "blind-apple-macos-27.0-1x-light-standard-glass0.5",
+      "sha256": "a7df9973b40edec50d7b59b5aa9468e89e610783c29a410a5a063761751cbc4c",
+      "startedAt": "2026-09-27T10:40:23.769527+00:00"
+    },
+    {
+      "path": "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-capture/attempt-1/processes/blind-apple-macos-27.0-2x-dark-standard-glass0.5/started.json",
+      "profile": "blind-apple-macos-27.0-2x-dark-standard-glass0.5",
+      "sha256": "ec077a6accc14521fe5a986f48d4c455a6995c55ba80c61d3bfbd6ddb6371013",
+      "startedAt": "2026-09-27T10:43:40.831323+00:00"
+    },
+    {
+      "path": "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-capture/attempt-1/processes/blind-apple-macos-27.0-2x-light-standard-glass0.5/started.json",
+      "profile": "blind-apple-macos-27.0-2x-light-standard-glass0.5",
+      "sha256": "86b4a0914e597f928ceae80077ac8431f84a85b571ac0556e4a457c36f860e9b",
+      "startedAt": "2026-09-27T10:45:41.079073+00:00"
+    }
+  ],
+  "candidateFirstBlindStartToFreezeSeconds": 611.117441,
+  "candidateFreeze": {
+    "frozenAt": "2026-09-27T10:47:44.843878+00:00",
+    "path": "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-capture/attempt-1/frozen.json",
+    "sha256": "ef6483f61264a33e20d7a3f23a64646ad29704d886b09b3655d92f584bbeb491"
+  },
+  "candidateSpanQualification": "Historical inclusive span from first blind subprocess start to complete600 web freeze. Includes gaps/projection/verification; not isolated browser duration and not an exposure timing promise.",
+  "nativePayloadReads": 0,
+  "recommendedReservation": {
+    "basis": "Historical candidate blind interval about10min plus historical scoring extrapolation and unmeasured numerical/hash-verification overhead, with one additional cumulative60-minute gate-time budget. Recalculate if M1 survives or environment changes.",
+    "executionGate": "Explicit untouched-Mac confirmation before browser/receipt; static final freeze has no added hands-off prerequisite.",
+    "hardBound": "Only cumulative X6 guard time is bounded at3600seconds; capture/projection/native scoring/final verification have no established total wall-clock bound.",
+    "kind": "Conditional body-only operational allowance, not a measured duration or hard wall-clock cap.",
+    "minutes": 90
+  },
+  "renderedCalvalTiming": {
+    "path": "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-e3/rendered-calval-1/timing.json",
+    "qualification": "Existing536cell scoring timing has filesystem-witness limitations; 64/536 extrapolation is not an end-to-end exposure promise.",
+    "sha256": "cf3d59066d1c29a54f991c7ed00da75a5a1f9fed86128d508f69510017a0469e"
+  },
+  "schema": "w41-historical-duration-basis-1"
+}
