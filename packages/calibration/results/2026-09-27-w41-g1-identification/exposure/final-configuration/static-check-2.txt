@@ -1,0 +1,55 @@
+started 2026-09-28T22:59:02Z
+HEAD afed9dc3ccc9117351ae670765a42aaa05bd1d6c
+admitted numerical 648 rendered 600 excluded {'numerical': 56, 'rendered': 8}
+automatic sources 418 list sha256 a16a76bb5fd502d0ac1ea8416abbfff678c1aeb900ca9be595d79761a43105c7
+claim endpoints [('light', 'inactive')]
+survival (pre-exposure, claimed, holdout): {'numerical': (576, 138, 72), 'rendered': (536, 130, 64)}
+prospective pinned files 6575
+ok   runner.ROOT is this worktree
+ok   runner committed at recorded hash
+ok   boundary committed at recorded hash
+ok   config committed at recorded hash
+ok   scorer committed at recorded hash
+ok   declaration committed at recorded hash
+ok   closure committed at recorded hash
+ok   candidate spec committed: body-e3
+ok   runtime declaration committed
+ok   runner is the reviewed 5ae591ad
+ok   scorer is the reviewed 4d7a1def
+ok   base E3 instrument list at recorded hash/count
+ok   additions carry no duplicate across groups
+ok   additions exclude base entries
+ok   instruments.json == sorted(base | additions | self)
+ok   instrument count recorded
+ok   every instrument is a committed regular repository file (6411)
+ok   no living ledger or G1 README is pinned
+ok   manifest output path is unpinned and absent
+ok   disposition supplied, committed and pinned: m1-light-inactive-final-verdict
+ok   disposition supplied, committed and pinned: m1-light-inactive-review-closure
+ok   disposition supplied, committed and pinned: m2-terminal-record
+ok   no untracked automatic source []
+ok   X6 source present: packages/calibration/results/2026-09-27-w41-g1-identification/x6/observe.py
+ok   X6 source present: packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/record-machine.py
+ok   declaration/closure are the unchanged G0 files
+ok   declaration/closure hash agreement
+ok   compiled policy runtime artifacts match committed snapshots (2)
+ok   candidate ids unique and as configured
+ok   backdrop bundle carries no native metadata
+ok   claim scope holds admitted cells
+ok   parameters nonempty
+ok   no empty prediction
+ok   every pre-exposure veto passes (536)
+ok   identity baseline == candidate on 450 unclaimed cells (48 blind holdout)
+ok   every file freeze would pin is committed (6575)
+ok   preflight-required file will be pinned: packages/calibration/results/2026-09-27-w41-g1-identification/candidate-e3/runtime.json
+ok   preflight-required file will be pinned: packages/calibration/results/2026-09-27-w41-g1-identification/exposure/runner.py
+ok   preflight-required file will be pinned: packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/wave.py
+ok   preflight-required file will be pinned: packages/calibration/results/2026-09-27-w41-g1-identification/preflight/preflight.py
+ok   live runtime == declared {"python": [3, 12], "numpy": "2.3.5", "pillow": "12.3.0"}
+ok   current Chromium Info.plist at attested hash, version 151.0.7922.34
+ok   browser backup directory present (bytes verified by readiness, not re-audited)
+ok   HEAD unchanged during the check
+no problems
+RESULT READY fails=0 pending=0
+exit 0
+finished 2026-09-28T23:01:06Z

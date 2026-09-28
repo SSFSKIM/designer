@@ -1,0 +1,264 @@
+# W41 final exposure configuration: static pre-freeze check (§5.192, clauses 2/11).
+#
+# Stored as .py.txt on purpose: runner.sources() adds every *.py under the four
+# instrument roots to the frozen source inventory, and this checker is not an
+# exposure input. Run from the worktree root:
+#
+#   PYTHONDONTWRITEBYTECODE=1 python3.12 -B - < <this file>
+#
+# It mirrors the PRODUCTION branch of runner.freeze step by step, using only the
+# runner's read-only helpers, and never calls freeze, verify, run_production, a
+# Receipt, the scorer (import or score), a native Reader or a browser. It reads
+# committed metadata and web evidence only. It writes nothing; its stdout is the
+# record. The real freeze remains the authority: a pass here predicts, it does
+# not replace, freeze's own refusals.
+import hashlib
+import importlib.util
+import json
+import plistlib
+import subprocess
+import sys
+from pathlib import Path
+
+sys.dont_write_bytecode = True
+ROOT = Path('.').resolve()
+G1 = 'packages/calibration/results/2026-09-27-w41-g1-identification'
+F = G1 + '/exposure/final-configuration'
+problems, notes = [], []
+
+
+def git(*args):
+    return subprocess.check_output(['git', '-C', str(ROOT), *args], stderr=subprocess.PIPE)
+
+
+def sha(path):
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def check(ok, message):
+    (notes if ok else problems).append(('ok   ' if ok else 'FAIL ') + message)
+
+
+head = git('rev-parse', 'HEAD').decode().strip()
+print('HEAD', head)
+spec = importlib.util.spec_from_file_location('w41_static_check_runner',
+                                              ROOT / G1 / 'exposure/runner.py')
+runner = importlib.util.module_from_spec(spec)
+sys.modules[spec.name] = runner  # dataclasses resolves the defining module here.
+spec.loader.exec_module(runner)  # Code only: the runner reads no receipt or archive at import.
+check(runner.ROOT.resolve() == ROOT, 'runner.ROOT is this worktree')
+wave = runner.boundary.default_wave()
+
+cfg_path = F + '/configuration.json'
+cfg = runner.load(ROOT / cfg_path)
+SELF = set(cfg['instrumentComposition']['self'])
+
+
+def committed_or_self(name):
+    """Committed bytes, except the configuration's own files before their commit."""
+    try:
+        return runner.committed(ROOT, name)
+    except (ValueError, subprocess.CalledProcessError):
+        if name in SELF:
+            return sha(runner.local(ROOT, name))
+        raise
+
+
+# 1. Every named input: committed, and at the hash the configuration records.
+for key in ('runner', 'boundary', 'config', 'scorer', 'declaration', 'closure'):
+    ref = cfg[key]
+    check(runner.committed(ROOT, ref['path']) == ref['sha256'], key + ' committed at recorded hash')
+for c in cfg['candidates']:
+    check(runner.committed(ROOT, c['path']) == c['sha256'], 'candidate spec committed: ' + c['id'])
+env = cfg['environment']['runtime']
+check(runner.committed(ROOT, env['path']) == env['sha256'], 'runtime declaration committed')
+for key, expected in (('runner', '5ae591ad'), ('scorer', '4d7a1def')):
+    check(cfg[key]['sha256'].startswith(expected), key + ' is the reviewed ' + expected)
+
+# 2. The instrument list is exactly base + additions + self, and every entry is sound.
+comp = cfg['instrumentComposition']
+base = runner.load(ROOT / comp['base']['path'])
+check(runner.committed(ROOT, comp['base']['path']) == comp['base']['sha256']
+      and len(base) == comp['base']['count'], 'base E3 instrument list at recorded hash/count')
+added = [p for a in comp['additions'] for p in a['paths']]
+check(len(added) == len(set(added)), 'additions carry no duplicate across groups')
+check(not set(added) & set(base), 'additions exclude base entries')
+instruments = runner.load(ROOT / cfg['instruments']['path'])
+expected = sorted(set(base) | set(added) | SELF)
+check(instruments == expected, 'instruments.json == sorted(base | additions | self)')
+check(len(instruments) == cfg['instruments']['count'], 'instrument count recorded')
+bad = []
+for name in instruments:
+    try:
+        path = runner.local(ROOT, name)
+        if not path.is_file():
+            raise ValueError('not a regular file')
+        committed_or_self(name)
+    except Exception as exc:  # Report every refusal, not only the first.
+        bad.append(name + ': ' + str(exc))
+check(not bad, 'every instrument is a committed regular repository file (%d)' % len(instruments)
+      + ''.join('\n       ' + b for b in bad[:20]))
+living = [p for p in instruments if p.startswith('docs/') or p == G1 + '/README.txt']
+check(not living, 'no living ledger or G1 README is pinned')
+check(cfg['manifest'] not in instruments and not (ROOT / cfg['manifest']).exists(),
+      'manifest output path is unpinned and absent')
+
+# 3. Pending dispositions: supplied ones must be committed, hash-bound and listed.
+for item in cfg['pendingDispositions']:
+    if item['path'] is None:
+        problems.append('PEND ' + item['id'] + ': ' + item['required'])
+        continue
+    check(runner.committed(ROOT, item['path']) == item['sha256'] and item['path'] in instruments,
+          'disposition supplied, committed and pinned: ' + item['id'])
+
+# 4. Freeze's production checks, in freeze's order, without producing a manifest.
+included, excluded = runner.admitted_scope(ROOT, wave)
+numerical, rendered = included['numerical'], included['rendered']
+print('admitted numerical', len(numerical), 'rendered', len(rendered),
+      'excluded', {k: len(v) for k, v in excluded.items()})
+source_list = runner.sources(ROOT)
+digest = hashlib.sha256('\n'.join(source_list).encode()).hexdigest()
+print('automatic sources', len(source_list), 'list sha256', digest)
+untracked_py = [n for n in source_list if not git('ls-files', n).strip()]
+check(not untracked_py, 'no untracked automatic source ' + str(untracked_py[:5]))
+schema_path = str((Path(runner.__file__).resolve().parent / 'manifest.schema.json').relative_to(ROOT))
+files = set(source_list) | {cfg['config']['path'], cfg['scorer']['path'], cfg['declaration']['path'],
+                            cfg['closure']['path'], schema_path} | set(instruments)
+files.update(str(p.resolve().relative_to(ROOT)) for p in (wave.scenes_path, wave.split_path))
+for name in runner.X6_SOURCES:
+    check(runner.local(ROOT, name).is_file() and name in source_list, 'X6 source present: ' + name)
+files.update(runner.X6_SOURCES)
+files.add(runner.INVENTORY_PATH)
+g0 = Path(runner.HERE).parents[1] / '2026-09-27-w41-g0-declaration'
+check(runner.local(ROOT, cfg['declaration']['path']) == g0 / 'bounds-declaration.txt'
+      and runner.local(ROOT, cfg['closure']['path']) == g0 / 'closure.json',
+      'declaration/closure are the unchanged G0 files')
+files.update(str(p.relative_to(ROOT)) for p in
+             (runner.BOUNDARY_PATH, Path(runner.__file__).resolve(),
+              runner.BOUNDARY_PATH.parent / 'w39_readers.py',
+              runner.BOUNDARY_PATH.parent / 'w39_archive.py', runner.BOUNDARY_PATH.parent / 'pins.json'))
+check(sha(ROOT / cfg['declaration']['path'])
+      == runner.load(ROOT / cfg['closure']['path'])['boundsDeclarationSha256'],
+      'declaration/closure hash agreement')
+runtime = runner.load(ROOT / cfg['config']['path'])
+runtime_artifacts = runtime.get('runtimeArtifacts', {})
+runner.verify_runtime_artifacts(ROOT, runtime_artifacts, required=True)
+notes.append('ok   compiled policy runtime artifacts match committed snapshots (%d)'
+             % len(runtime_artifacts))
+files.update(runtime_artifacts.values())
+candidates = [runner.load(ROOT / c['path']) for c in cfg['candidates']]
+check([c['id'] for c in candidates] == [c['id'] for c in cfg['candidates']]
+      and len({c['id'] for c in candidates}) == len(candidates), 'candidate ids unique and as configured')
+runner.coverage(runtime['candidates'], [c['id'] for c in candidates], 'renderer candidates')
+for candidate in candidates:
+    profiles = runtime['candidates'][candidate['id']]['profiles']
+    runner.coverage(profiles, {c.split('/', 1)[0] for c in rendered}, 'renderer profiles')
+    for documents in profiles.values():
+        runner.coverage(documents, ('material', 'receded'), 'material document pair')
+        files.update(documents.values())
+fixture = runner.local(ROOT, runtime['fixtures'])
+backdrop_manifest = runner.load(fixture / 'manifest.json')
+check(not set(backdrop_manifest) - {'schema', 'backgrounds'}, 'backdrop bundle carries no native metadata')
+files.add(str((fixture / 'manifest.json').relative_to(ROOT)))
+for cell in rendered:
+    profile, sid = cell.split('/', 1)
+    scale = int(runner.re.search(r'-(1|2)x-', profile)[1])
+    raster = backdrop_manifest['backgrounds'][f"{wave.scenes[sid]['background']}@{scale}x"]
+    raster_path = runner.local(fixture, raster)
+    runner.png(raster_path, runner.dimension(wave, cell))
+    files.add(str(raster_path.relative_to(ROOT)))
+for candidate in candidates:
+    selected = runner.claim_scope(ROOT, wave, candidate)
+    print('claim endpoints', sorted(selected))
+    runner.freeze_domain(ROOT, wave, candidate, rendered, source_list, files, runtime)
+    check(any(runner.endpoint(wave, c) in selected for c in numerical), 'claim scope holds admitted cells')
+    files.update(candidate[k] for k in ('parameters', 'predictions', 'rendered', 'survival', 'claimScope'))
+    check(bool(runner.load(ROOT / candidate['parameters'])), 'parameters nonempty')
+    predictions = runner.load(ROOT / candidate['predictions'])['cells']
+    runner.coverage(predictions, numerical, 'numerical predictions')
+    check(not any(v is None or v == {} or v == [] for v in predictions.values()), 'no empty prediction')
+    images = runner.load(ROOT / candidate['rendered'])['cells']
+    runner.coverage(images, rendered, 'rendered predictions')
+    for cell, prediction in images.items():
+        runner.coverage(prediction, ('png', 'projection'), 'rendered artifacts')
+        files.update(prediction.values())
+        runner.png(runner.local(ROOT, prediction['png']), runner.dimension(wave, cell))
+        if runner.load(runner.local(ROOT, prediction['projection'])) is None:
+            problems.append('FAIL empty rendered projection ' + cell)
+    survival = runner.load(ROOT / candidate['survival'])
+    counts = {}
+    for kind, cells in (('numerical', numerical), ('rendered', rendered)):
+        before = [c for c in cells if wave.roles[c.split('/', 1)[1]] != 'holdout']
+        runner.coverage(survival[kind], before, kind + ' pre-exposure survival')
+        claimed = 0
+        for cell, value in survival[kind].items():
+            reason = runner.unclaimed_reason(wave, cell, kind, selected)
+            if reason is None:
+                claimed += 1
+                if value is not True:
+                    problems.append('FAIL claimed cell did not survive: ' + cell)
+            else:
+                if (not isinstance(value, dict) or value.get('status') != reason
+                        or 'passes' not in value or value['passes'] is not None):
+                    problems.append('FAIL unclaimed survival wrapper: ' + cell)
+                runner.observation(value.get('score'))
+                if (kind == 'numerical' and reason == 'not claimed (structured backdrop)'
+                        and value['score'].get('diagnostic') != 'S0'):
+                    problems.append('FAIL structured numerical reading lacks S0: ' + cell)
+        counts[kind] = (len(before), claimed, len(cells) - len(before))
+    before_web = [c for c in rendered if wave.roles[c.split('/', 1)[1]] != 'holdout']
+    runner.coverage(survival.get('veto', {}), before_web, 'rendered per-bin veto')
+    check(all(v is True for v in survival['veto'].values()), 'every pre-exposure veto passes (%d)'
+          % len(survival['veto']))
+    print('survival (pre-exposure, claimed, holdout):', counts)
+    unclaimed = [c for c in rendered if runner.endpoint(wave, c) not in selected]
+    files.add(candidate['identityBaseline'])
+    baseline = runner.load(ROOT / candidate['identityBaseline'])['cells']
+    runner.coverage(baseline, unclaimed, 'identity baseline')
+    unequal = 0
+    for cell, artifact in baseline.items():
+        runner.coverage(artifact, ('png', 'projection'), 'identity baseline artifacts')
+        files.update(artifact.values())
+        runner.png(runner.local(ROOT, artifact['png']), runner.dimension(wave, cell))
+        if (sha(runner.local(ROOT, artifact['png'])) != sha(runner.local(ROOT, images[cell]['png']))
+                or runner.stable(runner.load(runner.local(ROOT, artifact['projection'])))
+                != runner.stable(runner.load(runner.local(ROOT, images[cell]['projection'])))):
+            unequal += 1
+    holdout_identity = sum(wave.roles[c.split('/', 1)[1]] == 'holdout' for c in baseline)
+    check(unequal == 0, 'identity baseline == candidate on %d unclaimed cells (%d blind holdout)'
+          % (len(baseline), holdout_identity))
+hashes = {}
+uncommitted = []
+for name in sorted(files):
+    try:
+        hashes[name] = committed_or_self(name)
+    except Exception as exc:
+        uncommitted.append(name + ': ' + str(exc))
+check(not uncommitted, 'every file freeze would pin is committed (%d)' % len(files)
+      + ''.join('\n       ' + u for u in uncommitted[:20]))
+for required in (G1 + '/candidate-e3/runtime.json', G1 + '/exposure/runner.py',
+                 'packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/wave.py',
+                 G1 + '/preflight/preflight.py'):
+    check(required in files, 'preflight-required file will be pinned: ' + required)
+print('prospective pinned files', len(files))
+
+# 5. Declared runtime and current browser identity, by file reads only (no launch).
+import numpy, PIL  # noqa: E401  Version probe only; the scorer is never imported.
+live = dict(python=list(sys.version_info[:2]), numpy=numpy.__version__, pillow=PIL.__version__)
+check(live == runner.load(ROOT / env['path']), 'live runtime == declared ' + json.dumps(live))
+attest = runner.load(ROOT / cfg['environment']['browserAttestations'][0])['browser']
+plist = Path(attest['infoPlist']['path'])
+check(plist.is_file() and sha(plist) == attest['infoPlist']['sha256']
+      and plistlib.loads(plist.read_bytes()).get('CFBundleShortVersionString') == '151.0.7922.34',
+      'current Chromium Info.plist at attested hash, version 151.0.7922.34')
+backup = Path('/Users/new/vitrea-w41/browser-backup/chromium-1234')
+check(backup.is_dir(), 'browser backup directory present (bytes verified by readiness, not re-audited)')
+
+check(git('rev-parse', 'HEAD').decode().strip() == head, 'HEAD unchanged during the check')
+print('\n'.join(notes))
+print('\n'.join(problems) if problems else 'no problems')
+fails = [p for p in problems if p.startswith('FAIL')]
+pending = [p for p in problems if p.startswith('PEND')]
+print('RESULT', 'FAIL' if fails else ('PENDING' if pending else 'READY'),
+      'fails=%d pending=%d' % (len(fails), len(pending)))
+sys.exit(1 if fails else (2 if pending else 0))
