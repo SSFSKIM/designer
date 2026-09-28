@@ -1,0 +1,14 @@
+command: /tmp/w39-g2-wgpu/bin/python -B -X pycache_prefix=/tmp/vitrea-static-memo-test-mfeXCf -m unittest -v test_static_driver_memo
+testSha256: 9f278d8c1c6c10f196ef786229043b62d80e854c518e184c4b85fcf49afff398
+runPySha256: 60bcbbb8c42ccbbf01c221e3bbeafcb76ca3dfec7ed15586191908d4a0abcbef
+test_main_fits_under_memo_with_scoped_observations_and_compact_forward (test_static_driver_memo.StaticDriverMemoTests.test_main_fits_under_memo_with_scoped_observations_and_compact_forward) ... {"event": "start", "family": "M1", "geometry": "curvature", "index": 3, "cells": 1, "seconds": 0.007549916976131499}
+{"event": "completed", "family": "M1", "geometry": "curvature", "index": 3, "seconds": 0.07085837493650615}
+{"event": "start", "family": "M2", "geometry": "device", "index": 5, "cells": 2, "seconds": 0.08649295789655298}
+{"event": "completed", "family": "M2", "geometry": "device", "index": 5, "seconds": 0.5220907090697438}
+ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.615s
+
+OK
+exit: 0
