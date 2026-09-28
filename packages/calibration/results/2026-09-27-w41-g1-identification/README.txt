@@ -310,3 +310,15 @@ projects pass. The skip is UNMEASURED X1 because this worktree's canonical captu
 is absent, NOT a missing W34 harness. 6482f939 corrects d43954e1's mistaken attribution
 without rewriting its logs. Freeze 1,818 passes; protected evidence and G0 are unchanged.
 Affected checks must repeat if a later stroke leaf changes runtime behavior.
+
+M2 disposition (claims5.192 section23, user ruling)
+047b7861 records M2 device/curvature as UNMEASURED unfinished, never a family rejection.
+Device00 local calibration minimax11.88340887316462 is one completed start; device02 is
+aborted/unscored, device01 may finish only its current start before final freeze,29indices
+unstarted. A terminal supplement is required. No M2 validation/holdout or new start.
+The sealed nested budget permits up to29 optimizer calls. Seed00 took~49.8min wall;
+unfinished01 had~10CPUhours.30unfinished×10h/2≈150h is conditional planning arithmetic,
+not a measured forecast. User deferred the search without shortening budgets or bounds.
+M2 equals M1 onLI by its dark-only correction gate; this does not turn finite M1 failure
+into a global exclusion of the unfinished shared-width joint fit. M1 transfer still pending;
+a surviving stroke would require scratch leaf, actual render and veto before exposure.

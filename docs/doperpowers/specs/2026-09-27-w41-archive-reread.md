@@ -416,6 +416,20 @@ needed: the publisher, the generation store and the release-asset readers exist.
 
 ## Deferred / Out of Scope
 
+- **M2 device-width/nominal-curvature stroke search: UNMEASURED this wave** (user ruling,
+  §5.192.23; committed record `047b7861`). The original multistart search is unfinished,
+  not a family rejection: one completed local start, one aborted/unscored start, one
+  already-running start allowed to finish only before the final freeze, and29 unstarted
+  indices at that checkpoint. A terminal supplement will retain the running start's outcome.
+  The sealed nested budgets permit up to29 optimizer calls; unfinished seed01 had consumed
+  about ten CPU-hours, versus about50 wall minutes for completed seed00. The roughly150-hour
+  two-process continuation is conditional planning arithmetic, not a validated forecast.
+  The user chose to defer rather than shorten any budget or change the criterion. M2 equals
+  M1 on light-inactive inputs, but a finite M1 failure would not globally exclude its joint
+  fit; dark-inactive contextual expressivity and the shared-width search remain unfinished.
+  Resume only under an explicit future declaration/disposition retaining the original
+  completed and aborted evidence; do not present UNMEASURED as a fitted negative.
+
 - A dense hue sweep and C above 0.024; inputs below 40 and above 150; the black branch below
   encoded 0.003 (W36's, untouched).
 - A textured, frequency or chromatic-gradient control that separates the group/local blend
@@ -561,3 +575,12 @@ Deferred.
   bins). Second adversarial round requested on the re-cut.
 - 2026-09-27 (v1, the parent): chartered from grounding memos A (body) and B (stroke) on the
   W39 calibration cells; Decision Log 1 put to the user; adversarial review requested.
+
+- 2026-09-29 (G1, user ruling relayed by the coordinator): end the remaining M2 search
+  as UNMEASURED unfinished, with its actual completed/aborted starts and budget arithmetic
+  retained beside the evidence (§5.192.23). No new M2 start; its last in-flight start has a
+  terminal supplement before final freeze. M1's calibration/validation transfer still decides
+  whether a stroke proceeds to scratch rendering; numerical survival alone cannot admit it.
+  The final exposure uses the complete admitted candidate set and awaits explicit hands-off
+  window confirmation. This is an operational disposition, not an amendment to G0's sealed
+  declaration, a shorter optimizer budget or a changed scientific survival bound.

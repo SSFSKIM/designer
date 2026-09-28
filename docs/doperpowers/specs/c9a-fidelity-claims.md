@@ -41099,3 +41099,44 @@ is empty for native fixtures, shipped profiles, matrices/generations/archives, a
 thresholds and goldens. The G0 declaration tree remains unchanged. If a later stroke leaf
 changes runtime behavior, its affected checks must run before closure; this checkpoint is
 not an exemption. The native exposure receipt remains absent.
+
+### 23. M2 ends as an unfinished search, UNMEASURED by user decision
+
+The user ends the remaining device-width/nominal-curvature M2 search in this wave as
+**UNMEASURED, not rejected**. Commit **`047b7861`** records the disposition in
+`stroke/M2-unfinished-search-1.json`, SHA-256
+**ad87c383d1e51c19987e6ed7ec42c85afe50e2d22b9bd0eafd123dcd4f1a6d46**. The independent
+active-endpoint and CSS-width certificates remain their own results; this unfinished search
+neither weakens those certificates nor supplies a new negative for the other M2 scopes.
+
+At that record, original device start00 is complete, with local calibration minimax maximum
+**11.88340887316462 codes** and least-squares maximum **17.898092708080235**. Those are one
+start's optimizer readings, not all-repeat calibration/validation survival or a global
+minimum. Device start02 is stopped and **ABORTED_UNSCORED**, with its original seed vector
+and execution records retained; no completed coefficient checkpoint exists. Device start01
+may finish only its already-running start before the final wave freeze, otherwise it is
+stopped and recorded ABORTED_UNSCORED in an additive terminal supplement. The other 29
+original indices are unstarted. No new M2 start follows, and no M2 validation or holdout
+reading is made. The final terminal supplement must precede the exposure freeze.
+
+The reason is the observed cost of executing the sealed nested budgets on this machine,
+not a relaxed stopping criterion. `stroke/operational-deviations/M2-budget-arithmetic-for-owner-1.json`
+retains the actual `max_nfev=3000`, SLSQP `maxiter=3000`, and up-to-eight width rounds. Across
+the nested path this permits at most 29 optimizer calls (nine least-squares and twenty
+SLSQP), before numerical-Jacobian and constraint-callback multiplicity. These are permitted
+counts, not measured callback counts or a duration bound. Completed device00 takes about
+49.8 minutes wall time, whereas unfinished device01 has already accumulated **36,683.08
+CPU seconds** against **35,274 process-wall seconds** at the disposition snapshot. Thus
+“30 unfinished starts × about ten CPU-hours ÷ two concurrent ≈150 hours, or6.25 days” is a
+**conditional planning scenario from an unfinished seed**, not a measured per-start forecast.
+The user judged finishing the search infeasible within this wave; seeds, budgets, populations
+and the sealed survival criterion are not shortened to manufacture a completed verdict.
+
+The source also establishes **M2 equals M1 on light-inactive inputs**: both use the same
+eight-knot monotone response, and M2's contextual correction is dark-gated. This is forward-
+family equivalence, not proof that a finite M1 search excludes every M2 joint-fit coefficient
+vector. The shared-width joint optimization remains unfinished, and the new dark-inactive
+material expressivity remains unmeasured. The remaining M1 light-inactive transfer verdict
+will determine whether any stroke reaches scratch-leaf and rendered admission; a numerical
+survivor still needs those checks. The body candidate may proceed alone only after that
+disposition and final configuration review. No exposure has run at this checkpoint.
