@@ -334,3 +334,13 @@ M1 onLI forward response, but finite local failure is not global exclusion of th
 unfinished shared-width joint fit. Dark-inactive new expressivity remains untested.
 M1 transfer is pending; any numerical survivor still needs leaf/render/veto checks.
 No M2 validation/holdout, finalwavefreeze or single exposure is claimed here.
+
+M2 PROVENANCE CORRECTION — 2026-09-28T19:23:18+00:00 (2026-09-29 local)
+NO USER RULING HAS BEEN RECEIVED. The coordinator corrected the earlier relay: the
+unfinished/UNMEASURED disposition is the coordinator's recommendation awaiting the
+user's answer, not consent. The "user ruling" claims in047b7861/53743321 and both
+M2 passages above were recorded in error. Historical entries remain; this correction
+supersedes their authority claim, not their measured partial results. M2 is on HOLD.
+No final configuration freeze, external preflight or exposure proceeds on that proposal.
+M1 transfer continues. The actual answer will be recorded as a new dated event; if the
+user chooses differently, the proposed disposition will be superseded additively.

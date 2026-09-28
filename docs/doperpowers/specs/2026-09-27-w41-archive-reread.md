@@ -416,6 +416,14 @@ needed: the publisher, the generation store and the release-asset readers exist.
 
 ## Deferred / Out of Scope
 
+**Dated correction — 2026-09-28T19:23:18+00:00 (2026-09-29 local).** The M2 deferred entries below
+incorrectly attribute the coordinator's recommendation to a user ruling. No user answer has
+been received; M2 is on HOLD and its proposed unfinished/UNMEASURED disposition awaits that
+answer. The earlier entries are retained as erroneous provenance, not authority. Nothing
+downstream—final freeze, external preflight or exposure—proceeds on them. A different user
+choice will supersede the proposal additively; any actual ruling will receive its own dated
+record. M1 transfer continues. See the correction appended to §5.192.23.
+
 - **M2 inactive device-width/nominal-curvature search: UNMEASURED, unfinished by user
   decision (2026-09-29 local; §5.192.23).** The sealed full budgets remain intact, but the
   wave does not finish this search: one completed local start, an aborted-unscored start,
@@ -522,6 +530,14 @@ it does not declare M2 rejected. The complete exposure configuration contains li
 E3 and, only if it clears numerical transfer plus scratch-leaf/render/veto checks, M1
 light-inactive. The one receipt still waits for the coordinator's explicit confirmation of
 the user's hands-off window. No holdout verdict or G2 adoption is implied by this ruling.
+
+**Decision Log2 provenance correction — 2026-09-28T19:23:18+00:00 (2026-09-29 local).** The preceding
+M2 “user ruling” was recorded in error from an incorrect coordinator relay. It is only the
+coordinator's recommendation awaiting the user's ruling; the user has not answered. M2
+remains on HOLD. Neither `047b7861` nor `53743321` supplies user approval to omit M2 from a
+final configuration, freeze that configuration, run external preflight or begin exposure.
+M1 transfer continues; the user's actual answer will be recorded additively and will
+supersede the proposal if different. No historical entry is rewritten or backdated.
 
 ### Decision Log 3 — bounds and floors if a leaf lands (in G2; the user's)
 

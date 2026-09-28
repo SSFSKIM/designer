@@ -41183,3 +41183,18 @@ its coefficient vectors. The wave's Deferred list carries the unresolved search 
 qualification. The single exposure may proceed with light-inactive E3 and only an M1
 candidate that clears its full numerical and actual rendered gates; M2 supplies no candidate
 and no holdout claim in this wave.
+
+
+**Provenance correction — 2026-09-28T19:23:18+00:00 (2026-09-29 local).** No user ruling on M2
+has been received. The coordinator corrected the earlier relay: ending M2 as an unfinished,
+UNMEASURED search and proceeding toward a body-only exposure was the coordinator's
+recommendation, awaiting the user's answer among three options, not a user decision.
+The “user ruling relayed by the coordinator” provenance recorded in `047b7861`, `53743321`
+and the M2 entries above was recorded in error. This correction applies to all copies of
+that claim, including both section23 entries; the historical text and JSON are retained,
+not rewritten. The measured partial results and budget observations remain evidence, but
+they establish no consent or final disposition. **M2 is on HOLD pending the actual user
+ruling; final configuration freeze, external preflight and exposure do not proceed on this
+recommendation.** M1 transfer continues. If the user chooses differently, the proposed
+UNMEASURED disposition will be superseded additively; even if the user agrees, that later
+ruling must be recorded as a new event rather than backdated to these erroneous entries.
