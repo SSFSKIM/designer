@@ -322,10 +322,18 @@ export function GlassSurface(props: GlassSurfaceProps): ReactNode {
    * frame of source content over material that has already gone. Nothing here
    * reads the DOM, so the earlier phase costs nothing and the rest of the patch
    * comes along rather than being split across two writes that could reorder.
+   *
+   * A capsule's radii are left out. They belong to the capsule effect below, which
+   * derives them from the measured box and re-applies only when that measurement
+   * moves, so the `radius` prop sent here overwrote them with the control's
+   * default and nothing put them back: a tint change turned an 88 px circle into a
+   * rounded square for good. An absent field keeps what the node holds, so no
+   * frame draws the default. `capsule` is not a dependency because it is one of
+   * the registration's, and a change to it arrives here as a new handle.
    */
   useLayoutEffect(() => {
     handle?.update({
-      radii,
+      ...(capsule ? {} : { radii }),
       smoothing,
       reference,
       thickness,
@@ -341,7 +349,9 @@ export function GlassSurface(props: GlassSurfaceProps): ReactNode {
   /**
    * A capsule's radius is half its shorter side, and only the measured box knows
    * which side that is. Read from the scene rather than the DOM: platform-web
-   * already measured it this frame, in the phase that is allowed to.
+   * already measured it this frame, in the phase that is allowed to. Nothing else in
+   * this component writes a capsule's radii after registration, which is what lets
+   * `applied` stand for what the node holds.
    */
   useEffect(() => {
     if (!capsule || root === null || handle === null) return;

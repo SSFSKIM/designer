@@ -4,7 +4,7 @@
  */
 
 import { APPLE_CONTINUOUS_SMOOTHING_SEED, APPLE_BEST_FIGMA_SMOOTHING } from "@vitrea/geometry";
-import { describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { act, useEffect, useLayoutEffect, useState, type ReactNode } from "react";
 
 import {
@@ -146,6 +146,76 @@ describe("GlassSurface → GlassNodeDescriptor", () => {
     // Position and size are measured, never authored — the read phase owns them.
     expect(descriptor?.shape.center).toEqual([0, 0]);
     expect(descriptor?.shape.size).toEqual([0, 0]);
+  });
+
+  /*
+   * A capsule keeps the radius its box gives it through a patch of anything else.
+   *
+   * It did not: the patch every other prop change sends carried `radii` from the
+   * `radius` prop, which a capsule ignores and which defaults to 12 here and 14 on
+   * `GlassButton`, and the capsule effect re-applies its radius only when the
+   * measurement moves. So `<GlassButton capsule tint={…}>` on an 88 × 88 box drew a
+   * circle until the tint changed and a rounded square from then on. jsdom lays
+   * nothing out, so the capsule's host alone is given a real box, as
+   * `morph.test.tsx` gives the morph its anchor.
+   */
+  describe("a capsule's measured radius", () => {
+    const box = { x: 0, y: 0, width: 88, height: 88 };
+    const ZERO = { x: 0, y: 0, width: 0, height: 0 };
+
+    beforeEach(() => {
+      vi.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockImplementation(function (
+        this: HTMLElement,
+      ) {
+        const rect = this.getAttribute("data-vitrea-node") === "pill" ? box : ZERO;
+        return {
+          ...rect,
+          top: rect.y,
+          left: rect.x,
+          right: rect.x + rect.width,
+          bottom: rect.y + rect.height,
+          toJSON: () => rect,
+        } as DOMRect;
+      });
+    });
+
+    afterEach(() => {
+      vi.restoreAllMocks();
+    });
+
+    function Pill(): ReactNode {
+      const [tint, setTint] = useState("rgb(52, 199, 89)");
+      const [thickness, setThickness] = useState(8);
+      return (
+        <GlassGroup id="g">
+          <button type="button" onClick={() => setTint("rgb(255, 59, 48)")}>
+            recolour
+          </button>
+          <button type="button" onClick={() => setThickness(12)}>
+            thicken
+          </button>
+          <GlassSurface nodeId="pill" capsule tint={tint} thickness={thickness} />
+        </GlassGroup>
+      );
+    }
+
+    it.each(["recolour", "thicken"])("survives a %s patch, on its commit and after it", (label) => {
+      const harness = renderGlass(<Pill />);
+      const radiiOf = () => harness.root().scene.glassNode("pill")?.descriptor.shape.radii;
+
+      // A frame measures the box and the tick after it applies the radius.
+      harness.run(2);
+      expect(radiiOf()).toEqual([44, 44, 44, 44]);
+
+      act(() => {
+        harness.result.getByText(label).click();
+      });
+
+      // On the commit itself, before any frame could draw what the patch left.
+      expect(radiiOf()).toEqual([44, 44, 44, 44]);
+      harness.run(3);
+      expect(radiiOf()).toEqual([44, 44, 44, 44]);
+    });
   });
 
   it("patches the node when a shape prop changes, keeping the same registration", () => {
