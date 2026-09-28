@@ -1,0 +1,38 @@
+{
+  "kind": "STROKE_ADAPTIVE_SCHEDULER_RETIRED",
+  "recordedUTC": "2026-09-28T09:32:31.341441+00:00",
+  "operationalDeviation": "adaptive scheduler retired for the remainder",
+  "declaration": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/declaration.json",
+    "sha256": "863a14b60f4aaec1aba42655346cfee13397267863a4074f9167a0c487d63c01"
+  },
+  "driver": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/run.py",
+    "sha256": "60bcbbb8c42ccbbf01c221e3bbeafcb76ca3dfec7ed15586191908d4a0abcbef"
+  },
+  "staticPids": {
+    "A": 42722,
+    "B": 42753
+  },
+  "launchLevels": {
+    "A": 51,
+    "B": 51
+  },
+  "ps": "  PID  PPID STAT    RSS COMMAND\n39062 39035 Rs   997600 /Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python -B -X pycache_prefix=/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/vitrea-M1-curvature09-readmit1-_11vvo8p /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/memo_runner_v3.py --root /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1 --receipt /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-launches-kernel-readmit-3/curvature-M1-start-09.readmit-01.json --sha256 6a2c10944dcf45b5d3085771b8e67975d15bce72bbf24915cdb34c9811b7ab40\n42722 23134 Rs   493056 /Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python -B -X pycache_prefix=/tmp/vitrea-static-A-IX5ygX /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/run.py --partition A\n42753 23134 Rs   479872 /Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python -B -X pycache_prefix=/tmp/vitrea-static-B-BZm0QX /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/run.py --partition B\n",
+  "backgroundTasks": {
+    "A": "boctgfvzb",
+    "B": "bi2lpu2hi"
+  },
+  "grandfatheredRunningStart": [
+    "M1",
+    "curvature",
+    9
+  ],
+  "grandfatheredPID": 39062,
+  "adaptiveControllerStopped": 39035,
+  "pressureWatcher": "task btor6l9hc stopped; no further adaptive pressure sampling",
+  "remainingAdmissionMechanism": "none; one launch-time kern.memorystatus_level>=25 check in each static partition only",
+  "scientificChange": false,
+  "memoization": "Standalone proven SolverMemo per original start, no admission store.",
+  "earlyM1Notification": "OS filesystem/process events for partitionA M1-tail completion, not admission or resource polling; full partition completion separately notifies."
+}

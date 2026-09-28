@@ -1,0 +1,154 @@
+{
+  "partition": "A",
+  "tasks": [
+    [
+      "M1",
+      "curvature",
+      10
+    ],
+    [
+      "M1",
+      "curvature",
+      11
+    ],
+    [
+      "M1",
+      "curvature",
+      12
+    ],
+    [
+      "M1",
+      "curvature",
+      13
+    ],
+    [
+      "M1",
+      "curvature",
+      14
+    ],
+    [
+      "M1",
+      "curvature",
+      15
+    ],
+    [
+      "M2",
+      "device",
+      2
+    ],
+    [
+      "M2",
+      "device",
+      4
+    ],
+    [
+      "M2",
+      "device",
+      6
+    ],
+    [
+      "M2",
+      "device",
+      8
+    ],
+    [
+      "M2",
+      "device",
+      10
+    ],
+    [
+      "M2",
+      "device",
+      12
+    ],
+    [
+      "M2",
+      "device",
+      14
+    ],
+    [
+      "M2",
+      "curvature",
+      0
+    ],
+    [
+      "M2",
+      "curvature",
+      2
+    ],
+    [
+      "M2",
+      "curvature",
+      4
+    ],
+    [
+      "M2",
+      "curvature",
+      6
+    ],
+    [
+      "M2",
+      "curvature",
+      8
+    ],
+    [
+      "M2",
+      "curvature",
+      10
+    ],
+    [
+      "M2",
+      "curvature",
+      12
+    ],
+    [
+      "M2",
+      "curvature",
+      14
+    ]
+  ],
+  "seed": 4100,
+  "authority": {
+    "recordedUTC": "2026-09-27T10:20:24.004679+00:00",
+    "m0BothInactiveReviewed": true,
+    "m1DarkInactiveReviewed": true,
+    "parentM1ReviewRelayReceived": true,
+    "certificates": [
+      {
+        "path": "m0-certificate/white-extension/certificates.json",
+        "sha256": "dbccefb87e02e7c80965100d8ef712d81000d72c1ef4d2b6f6d92d2a432dc9f5"
+      },
+      {
+        "path": "m1-certificate/proof/certificate.json",
+        "sha256": "d7f98d9635f90533dbf3f1b439fc4cafc8ffcde4a126c47b50b16557cbfd5600"
+      }
+    ],
+    "direction": "survivor-scope-parent-direction.json",
+    "scope": {
+      "M1": [
+        "light-inactive"
+      ],
+      "M2": [
+        "light-inactive",
+        "dark-inactive"
+      ]
+    },
+    "dummySlots": "All other endpoint slots unobserved/uninterpreted; originalfullvectorsseed4100 unchanged",
+    "starts": 16,
+    "budgets": "Fullsealedsolverandwidthsearch budgets; no coefficient orfitfamilychange",
+    "previousRuns": "OriginalM0partitions stopped onlyafterbothM0endpointcertificates independentlyverified; noM1/M2startwasconsumed; newrunsfresh.",
+    "declarationSha256": "850747c1f03781a6efe9b433bd4ce3bd6cf72b63c9befd8d5d98de9eadf7f759"
+  },
+  "launchKernelLevelPercent": 51,
+  "resourcePolicy": "adaptive scheduler retired for the remainder",
+  "declarationSha256": "863a14b60f4aaec1aba42655346cfee13397267863a4074f9167a0c487d63c01",
+  "sourceSha256": {
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/run.py": "60bcbbb8c42ccbbf01c221e3bbeafcb76ca3dfec7ed15586191908d4a0abcbef",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/survivor_scope_runner.py": "cace8f6f124d8009a84ddb124b7e96818e7f2ba2a65177f8e49dc5461408e65f",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/inactive_runner.py": "f38a12ddc73eca8f4cfdc7d22ff7d2e912060e9fb69bde4eab17aa3a1d2ca42b",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/start_partition.py": "4d966f03905693f8090685d0bab7b90a951ea3689ead16678f494592a20f37b9",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/solver_memo.py": "b0e9f572d6bb51513c54a6128981adb52384c39113a574baeda05a229d5de50b",
+    "/Users/new/vitrea-w41/pre-w41-proof/packages/calibration/results/2026-09-27-w41-g0-declaration/instrument/stroke_fit.py": "07ac045ccabcd5c8348de50b5c9de13668558c44833c2b0d1ba756298e1da887",
+    "/Users/new/vitrea-w41/pre-w41-proof/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/replay.py": "d5df491dc468d6cc5844d4f6d7bbf0d17d752bc1c0851c013178091e8ba58810"
+  }
+}
