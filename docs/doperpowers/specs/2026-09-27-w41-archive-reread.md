@@ -495,6 +495,12 @@ turn incomplete local searches into global negatives. A matching dated stroke-re
 supersession preserves the full provenance chain; only the current coordinator process
 continues directing the wave.
 
+- **M1 family beyond the sealed local search (§5.192.24):** no selected candidate survives
+  the full32-start calibration/validation transfer. A global impossibility claim remains
+  unproved; pursuing one requires a new certificate or separately scoped identification,
+  not treating optimizer convergence as exhaustive coverage. The native dark contour is
+  still absent from vitrea; the local negative does not accept that visual gap.
+
 ## Tracking Map
 
 | child | status |
@@ -569,6 +575,14 @@ coordinator process has stood down per the current process's report. Actual paus
 facts remain dated facts, not retroactive aborts. Complete candidate review/freeze and the
 M1 disposition still precede the ONE receipt, which additionally waits for explicit
 hands-off-window confirmation. This ruling is not itself an exposure result or G2 adoption.
+
+**M1 disposition, 2026-09-29 local (§5.192.24):** the full32-start search and frozen
+calibration/validation transfer produce no survivor: all four selected converged device-
+width/nominal-curvature candidates fail both roles at1x/2x. This is LOCAL, not a global
+exclusion. Saved-only independent review closes the measured-witness report correction;
+all16 fixed32-quadrature lower bounds still fail. No stroke leaf is implemented. Under the
+restored unfinished-M2 ruling, the complete exposure candidate list is light-inactive E3
+body only; its final freeze and one receipt still await the remaining execution gates.
 
 ### Decision Log 3 — bounds and floors if a leaf lands (in G2; the user's)
 

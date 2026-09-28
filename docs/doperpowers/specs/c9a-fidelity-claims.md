@@ -41238,3 +41238,83 @@ requirements still govern whether a stroke can join the complete candidate confi
 The body may proceed through reviewed configuration assembly and freeze under the restored
 ruling; the ONE receipt still requires the explicit hands-off window confirmation and the
 unchanged X6/preflight chain. No exposure has occurred as part of this supersession.
+
+
+### 24. The complete M1 light-inactive search has no survivor; this is a local negative
+
+The remaining M1 transfer is complete and independently reviewed: raw 31 outputs and the
+child-terminal receipt land in **`fdae0526`**, the final measured-witness verdict and review
+closure in **`33718e2e`**. The verdict of record is
+`stroke/M1-light-inactive-verdict-2.json`, SHA-256
+**e13aaec279526818b5104e7b0e9840d14482b24b602744e3628d130769c138bc**; its clean review is
+`M1-light-inactive-review-closure-1.json`, SHA-256
+**8678a18032262f45ec041140c7de1a42ebcce8ebcad4bde3016f4e3d294c4ec0**.
+
+All **32 original starts** complete their unchanged declared budgets and seed4100 vectors:
+16 device-width and16 nominal-curvature. The frozen selected least-squares and minimax
+candidate from each geometry is converged, rank10, with zero rail deficit. Selection is
+frozen before validation; the transfer reads **144 light-inactive cells,126 calibration
+and18 validation, seven normal repeats each**, with no holdout. All four candidates fail
+both roles at both scales. **No surviving fitted stroke reaches implementation or exposure.**
+This is a completed sealed **LOCAL search failure**, not a coefficient-independent or global
+M1-family rejection.
+
+The table uses the largest measured-only median excess whose seven repeats are also all
+measured and failed, rather than silently treating a mixed censored-status row as pure
+accuracy evidence. Every listed channel has bar0.5 and bound1.0code. “Failed bins” is the
+saved full binding-failure count, not just the witness count. For every candidate, admitted
+bins are4,158/9,348 for calibration1x/2x and606/1,332 for validation1x/2x; population-deficient
+bins remain explicit exclusions, never fabricated successes.
+
+| Selected local candidate | Stratum | Witness error (codes) | Failed bins | Measured median witness (same channel fails all7 repeats) |
+| --- | --- | ---: | ---: | --- |
+| curvature-M1 / leastSquares | calibration / 1x | 4.426918 | 1043 | g128-c-rrect-120x64__inactive, arc, shell0, bin8, R |
+| curvature-M1 / leastSquares | calibration / 2x | 8.050676 | 1226 | g128-c-rrect-120x64__inactive, arc, shell0, bin0, R |
+| curvature-M1 / leastSquares | validation / 1x | 5.310006 | 164 | g128-c-rrect-120x96__inactive, arc, shell0, bin0, R |
+| curvature-M1 / leastSquares | validation / 2x | 9.406079 | 204 | g128-c-rrect-120x96__inactive, arc, shell0, bin8, R |
+| curvature-M1 / minimax | calibration / 1x | 5.324812 | 1208 | v270-c-c44__inactive, arc, shell0, bin12, R |
+| curvature-M1 / minimax | calibration / 2x | 5.324908 | 1546 | g128-c-rrect-120x64__inactive, arc, shell0, bin0, R |
+| curvature-M1 / minimax | validation / 1x | 5.153982 | 180 | g128-c-capsule-circular-120x96__inactive, straight top, shell0, bin12, R |
+| curvature-M1 / minimax | validation / 2x | 6.729426 | 220 | g128-c-rrect-120x96__inactive, arc, shell0, bin8, R |
+| device-M1 / leastSquares | calibration / 1x | 4.558767 | 1149 | green-colour__inactive, arc, shell0, bin2, G |
+| device-M1 / leastSquares | calibration / 2x | 7.467718 | 1328 | g128-c-rrect-120x64__inactive, arc, shell0, bin0, R |
+| device-M1 / leastSquares | validation / 1x | 4.875137 | 158 | g128-c-rrect-120x96__inactive, arc, shell0, bin0, R |
+| device-M1 / leastSquares | validation / 2x | 8.904934 | 192 | g128-c-rrect-120x96__inactive, arc, shell0, bin8, R |
+| device-M1 / minimax | calibration / 1x | 5.403075 | 1232 | g128-b-c44__inactive, straight top, shell0, bin12, R |
+| device-M1 / minimax | calibration / 2x | 5.403075 | 1496 | g128-c-rrect-120x64__inactive, arc, shell0, bin0, R |
+| device-M1 / minimax | validation / 1x | 7.824260 | 166 | g128-c-rrect-120x96__inactive, straight left, shell0, bin8, R |
+| device-M1 / minimax | validation / 2x | 7.824260 | 194 | g128-c-rrect-120x96__inactive, straight left, shell0, bin8, R |
+
+The fixed-coefficient **16→32 quadrature sensitivity** reaches1.988735codes at worst; it
+is not claimed negligible. Instead, the saved replay takes each stratum's maximum pixel
+changeD and applies the triangle inequality, `MAE32 >= MAE16 - D`. Every one of the16
+measured witnesses still exceeds its unchanged1-code bound; the smallest remaining excess
+is **2.016885637698188codes**. No32-point coefficient was refitted. Saved-only independent
+replay reproduces all32 input hashes,31 output hashes, populations, witness channels,
+seven-repeat failures and those bounds; a changed-witness negative control refuses.
+
+The first verdict is retained. Its device least-squares calibration1x “worst” was a mixed
+channel at `g255-c-c44__inactive`, arc/shell1/bin2/R: two rail pixels satisfy their constraints,
+while five uncensored pixels have a5.133836-code mean error. That **is a binding failure**
+under the declared rule that an uncensored failure remains binding beside censoring; the
+problem was unqualified presentation of its `censored-bound-satisfied` status as a measured
+witness, not a change to the scientific failure criterion. V2 selects the fully measured
+`green-colour__inactive` arc/shell0/bin2/G witness at4.558767codes instead. The other15
+witnesses and every candidate verdict remain unchanged; no raw reading was rewritten and
+no native read or fit was repeated for the correction.
+
+Resolution does not select a winner among failed candidates. The fitted device/curvature
+minimax instances differ by4.509438/4.078050codes on calibration1x/2x and4.780489/4.741115 on
+validation1x/2x, above the three-code resolution line in some bins; these are differences
+between available local instances, not a family theorem or a surviving material. The
+max-normal gauge remains a convention, not an identified physical opacity or stroke width.
+
+**Stroke disposition across the36 geometry/material/endpoint combinations:**30 are excluded
+by the reviewed coefficient-independent controls/relaxations (all active endpoints, M0 both
+inactive endpoints, M1 dark inactive, and the remaining CSS-width cases); two M1 light-
+inactive device/curvature cases now have this completed local negative; four M2 inactive
+device/curvature cases remain **unfinished/UNMEASURED by the restored user ruling**, not
+rejected. Consequently the complete exposure candidate list is **light-inactive E3 body
+only**. Actual M2 process termination/disposition is still recorded separately before the
+final freeze; no stroke operator or stroke holdout claim is introduced. The one native
+receipt has not run.

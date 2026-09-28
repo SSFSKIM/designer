@@ -361,3 +361,15 @@ Actualdevice02paused-inflight observation stays true atitstime; terminalstatus n
 itsownrecord, notretroactiveABORTEDlabel. Strokelead appendsmatchingprovenancechain.
 M1disposition/requiredrendergates andcompleteconfigurationreview stillprecedefreeze;
 ONEreceipt stillwaitsexplicithands-offconfirmation andX6/preflight. No exposurerunhere.
+
+M1 FINAL LOCAL VERDICT (claims5.192 section24)
+Raw31outputs fdae0526; finalverdict/review33718e2e. Full32originalstarts complete,
+144LIcells126cal/18val,7repeats, noholdout. All4selectedconverged rank10 candidates
+failbothroles/bothscales; rails0. This isLOCALsearchfailure, notglobalfamilyrejection.
+Minimaxdevice cal5.403075/5.403075 val7.824260/7.824260; curvaturecal5.324812/5.324908
+val5.153982/6.729426 versus1code. V2 explicitlymeasuredwitnesses andall7repeatsfail;
+fixed32sensitivity leavesminimum2.016885637698188codes excess. Mixedcensorv1witness
+was bindingviauncensoredpixels butlabelambiguous; raw/v1retained, v2additive only.
+No strokesurvivor/leaf.36combinations:30certifiedexclusions,2M1localnegatives,
+4M2unfinishedUNMEASURED—notrejected. Finalexposurecandidate isLI E3bodyonly;
+M2actualterminalrecord/finalreview/freeze/preflight/windowconfirmation stillpending.
