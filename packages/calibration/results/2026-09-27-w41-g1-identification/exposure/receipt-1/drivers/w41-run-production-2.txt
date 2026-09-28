@@ -1,0 +1,17 @@
+import importlib.util, json, sys
+from pathlib import Path
+sys.dont_write_bytecode = True
+output = sys.argv[1]
+assert output in ('/Users/new/vitrea-w41/g1-exposure/attempt-1', '/Users/new/vitrea-w41/g1-exposure/attempt-2',
+                  '/Users/new/vitrea-w41/g1-exposure/attempt-3'), output
+G1 = 'packages/calibration/results/2026-09-27-w41-g1-identification'
+spec = importlib.util.spec_from_file_location('w41_production_runner', G1 + '/exposure/runner.py')
+runner = importlib.util.module_from_spec(spec)
+sys.modules[spec.name] = runner
+spec.loader.exec_module(runner)
+assert runner.ROOT == Path('.').resolve()
+manifest = runner.ROOT / G1 / 'exposure/final-configuration/manifest-1.json'
+result = runner.run_production(str(manifest), output)
+print(json.dumps({k: result.get(k) for k in ('status', 'coverage', 'manifestSha256',
+                                             'numericalCells', 'renderedCells', 'scoreReport')},
+                 indent=1, sort_keys=True))

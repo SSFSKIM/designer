@@ -1,0 +1,838 @@
+{
+ "schema": "w41-receipt-1-closure-summary-1",
+ "receiptLog": {
+  "path": "packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/wave-identification-receipt.jsonl",
+  "sha256": "51a3a651bb7bf5b6fab946b0a6dc9576ff297bce488e814184071cd7435d4f83",
+  "events": [
+   {
+    "event": "begin",
+    "at": "2026-09-28T23:35:33.849225+00:00",
+    "configurationSha256": "07be4be3a18ab855784dcb4a1fc95ce427f80c794fe5953fabd843f28f4481ab"
+   },
+   {
+    "event": "complete",
+    "at": "2026-09-28T23:53:22.305522+00:00",
+    "configurationSha256": "07be4be3a18ab855784dcb4a1fc95ce427f80c794fe5953fabd843f28f4481ab"
+   }
+  ]
+ },
+ "scoresFile": {
+  "path": "packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/wave-identification-receipt-scores.json",
+  "bytes": 111640287,
+  "sha256": "7479b38835bfebe90a204ab1fede88049500662cfe0f89ffb9dc2aa43bf074bb",
+  "status": "scored",
+  "mode": "production"
+ },
+ "manifestSha256": "77f93ba2166e83a8e31bb5f26a1c5ffb9e6d2be35fa5ec5509a0a19e72ba95a7",
+ "candidate": "body-e3",
+ "claimScope": {
+  "domain": {
+   "policy": "nominal",
+   "presence": {
+    "identified": 1,
+    "intermediate": "unmeasured-linear-interpolation",
+    "zero": "exact-skip"
+   },
+   "samplingBackend": "gpu-texture",
+   "variant": "regular"
+  },
+  "endpoints": [
+   {
+    "activation": "inactive",
+    "colorScheme": "light"
+   }
+  ],
+  "numericalDomain": "uniform-backdrop",
+  "renderedDeepDomain": "uniform-backdrop"
+ },
+ "bound": "max(1 code, bar) per required channel; bar 0.5 on every claimed channel, so 1.0 code",
+ "coverage": {
+  "numerical": {
+   "claimed": 18,
+   "measuredPassing": 18,
+   "censoredUnmeasured": 0,
+   "measuredFailing": 0,
+   "heldOutScored": 72,
+   "unclaimedIdentity": 54,
+   "measuredCoverageOfClaimed": 1.0,
+   "measuredCoverageOfHeldOut": 0.25,
+   "worstMedianErrorCodes": 0.6663146682613785
+  },
+  "rendered": {
+   "claimed": 16,
+   "measuredPassing": 16,
+   "censoredUnmeasured": 0,
+   "measuredFailing": 0,
+   "heldOutScored": 64,
+   "unclaimedIdentity": 48,
+   "measuredCoverageOfClaimed": 1.0,
+   "measuredCoverageOfHeldOut": 0.25,
+   "worstMedianErrorCodes": 1.0
+  }
+ },
+ "cells": {
+  "numerical": {
+   "apple-macos-27.0-1x-light-standard-glass0.5/g128-c-capsule-circular-160x96__inactive": {
+    "status": "measured",
+    "passes": true,
+    "members": 1,
+    "worstMedianErrorCodes": 0.0,
+    "worstChannel": "R",
+    "nativeRGB": [
+     188.0,
+     188.0,
+     188.0
+    ],
+    "predictedRGB": [
+     188.0,
+     188.0,
+     188.0
+    ],
+    "worstRunErrorCodes": 0.0,
+    "channelStatuses": {
+     "measured": 3
+    }
+   },
+   "apple-macos-27.0-1x-light-standard-glass0.5/g255-b-c44__inactive": {
+    "status": "measured",
+    "passes": true,
+    "members": 1,
+    "worstMedianErrorCodes": 0.04545454545456096,
+    "worstChannel": "R",
+    "nativeRGB": [
+     240.0,
+     240.0,
+     240.0
+    ],
+    "predictedRGB": [
+     239.95454545454544,
+     239.95454545454544,
+     239.95454545454544
+    ],
+    "worstRunErrorCodes": 0.04545454545456096,
+    "channelStatuses": {
+     "measured": 3
+    }
+   },
+   "apple-macos-27.0-1x-light-standard-glass0.5/g255-c-circular-200x44__inactive": {
+    "status": "measured",
+    "passes": true,
+    "members": 1,
+    "worstMedianErrorCodes": 0.04545454545456096,
+    "worstChannel": "R",
+    "nativeRGB": [
+     240.0,
+     240.0,
+     240.0
+    ],
+    "predictedRGB": [
+     239.95454545454544,
+     239.95454545454544,
+     239.95454545454544
+    ],
+    "worstRunErrorCodes": 0.04545454545456096,
+    "channelStatuses": {
+     "measured": 3
+    }
+   },
+   "apple-macos-27.0-1x-light-standard-glass0.5/held-y0.08-h150-colour__inactive": {
+    "status": "measured",
+    "passes": true,
+    "members": 1,
+    "worstMedianErrorCodes": 0.6663146682613785,
+    "worstChannel": "G",
+    "nativeRGB": [
+     160.0,
+     171.0,
+     162.0
+    ],
+    "predictedRGB": [
+     159.92185503822867,
+     170.33368533173862,
+     161.81491509159412
+    ],
+    "worstRunErrorCodes": 0.6663146682613785,
+    "channelStatuses": {
+     "measured": 3
+    }
+   },
+   "apple-macos-27.0-1x-light-standard-glass0.5/held-y0.08-h270-colour__inactive": {
+    "status": "measured",
+    "passes": true,
+    "members": 1,
+    "worstMedianErrorCodes": 0.508144552120541,
+    "worstChannel": "G",
+    "nativeRGB": [
+     164.0,
+     168.0,
+     179.0
+    ],
+    "predictedRGB": [
+     163.70571741773907,
+     167.49185544787946,
+     178.85026953830058
+    ],
+    "worstRunErrorCodes": 0.508144552120541,
+    "channelStatuses": {
+     "measured": 3
+    }
+   },
+   "apple-macos-27.0-1x-light-standard-glass0.5/held-y0.08-h30-colour__inactive": {
+    "status": "measured",
+    "passes": true,
+    "members": 1,
+    "worstMedianErrorCodes": 0.21661338051288226,
+    "worstChannel": "G",
+    "nativeRGB": [
+     178.0,
+     165.0,
+     162.0
+    ],
+    "predictedRGB": [
+     178.03121701559567,
+     164.78338661948712,
+     161.944565820321
+    ],
+    "worstRunErrorCodes": 0.21661338051288226,
+    "channelStatuses": {
+     "measured": 3
+    }
+   },
+   "apple-macos-27.0-1x-light-standard-glass0.5/held-y0.145-h150-colour__inactive": {
+    "status": "measured",
+    "passes": true,
+    "members": 1,
+    "worstMedianErrorCodes": 0.3270526722630507,
+    "worstChannel": "G",
+    "nativeRGB": [
+     171.0,
+     182.0,
+     173.0
+    ],
+    "predictedRGB": [
+     171.2384046722112,
+     181.67294732773695,
+     173.13559424594314
+    ],
+    "worstRunErrorCodes": 0.3270526722630507,
+    "channelStatuses": {
+     "measured": 3
+    }
+   },
+   "apple-macos-27.0-1x-light-standard-glass0.5/held-y0.145-h270-colour__inactive": {
+    "status": "measured",
+    "passes": true,
+    "members": 1,
+    "worstMedianErrorCodes": 0.21357693097098718,
+    "worstChannel": "G",
+    "nativeRGB": [
+     175.0,
+     179.0,
+     191.0
+    ],
+    "predictedRGB": [
+     174.99230677404867,
+     178.786423069029,
+     191.11730102771514
+    ],
+    "worstRunErrorCodes": 0.21357693097098718,
+    "channelStatuses": {
+     "measured": 3
+    }
+   },
+   "apple-macos-27.0-1x-light-standard-glass0.5/held-y0.145-h30-colour__inactive": {
+    "status": "measured",
+    "passes": true,
+    "members": 1,
+    "worstMedianErrorCodes": 0.2315564637538614,
+    "worstChannel": "R",
+    "nativeRGB": [
+     190.0,
+     176.0,
+     173.0
+    ],
+    "predictedRGB": [
+     190.23155646375386,
+     176.00213023106335,
+     173.15624498452524
+    ],
+    "worstRunErrorCodes": 0.2315564637538614,
+    "channelStatuses": {
+     "measured": 3
+    }
+   },
+   "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-160x96__inactive": {
+    "status": "measured",
+    "passes": true,
+    "members": 1,
+    "worstMedianErrorCodes": 0.0,
+    "worstChannel": "R",
+    "nativeRGB": [
+     188.0,
+     188.0,
+     188.0
+    ],
+    "predictedRGB": [
+     188.0,
+     188.0,
+     188.0
+    ],
+    "worstRunErrorCodes": 0.0,
+    "channelStatuses": {
+     "measured": 3
+    }
+   },
+   "apple-macos-27.0-2x-light-standard-glass0.5/g255-b-c44__inactive": {
+    "status": "measured",
+    "passes": true,
+    "members": 1,
+    "worstMedianErrorCodes": 0.04545454545456096,
+    "worstChannel": "R",
+    "nativeRGB": [
+     240.0,
+     240.0,
+     240.0
+    ],
+    "predictedRGB": [
+     239.95454545454544,
+     239.95454545454544,
+     239.95454545454544
+    ],
+    "worstRunErrorCodes": 0.04545454545456096,
+    "channelStatuses": {
+     "measured": 3
+    }
+   },
+   "apple-macos-27.0-2x-light-standard-glass0.5/g255-c-circular-200x44__inactive": {
+    "status": "measured",
+    "passes": true,
+    "members": 1,
+    "worstMedianErrorCodes": 0.04545454545456096,
+    "worstChannel": "R",
+    "nativeRGB": [
+     240.0,
+     240.0,
+     240.0
+    ],
+    "predictedRGB": [
+     239.95454545454544,
+     239.95454545454544,
+     239.95454545454544
+    ],
+    "worstRunErrorCodes": 0.04545454545456096,
+    "channelStatuses": {
+     "measured": 3
+    }
+   },
+   "apple-macos-27.0-2x-light-standard-glass0.5/held-y0.08-h150-colour__inactive": {
+    "status": "measured",
+    "passes": true,
+    "members": 1,
+    "worstMedianErrorCodes": 0.6663146682613785,
+    "worstChannel": "G",
+    "nativeRGB": [
+     160.0,
+     171.0,
+     162.0
+    ],
+    "predictedRGB": [
+     159.92185503822867,
+     170.33368533173862,
+     161.81491509159412
+    ],
+    "worstRunErrorCodes": 0.6663146682613785,
+    "channelStatuses": {
+     "measured": 3
+    }
+   },
+   "apple-macos-27.0-2x-light-standard-glass0.5/held-y0.08-h270-colour__inactive": {
+    "status": "measured",
+    "passes": true,
+    "members": 1,
+    "worstMedianErrorCodes": 0.508144552120541,
+    "worstChannel": "G",
+    "nativeRGB": [
+     164.0,
+     168.0,
+     179.0
+    ],
+    "predictedRGB": [
+     163.70571741773907,
+     167.49185544787946,
+     178.85026953830058
+    ],
+    "worstRunErrorCodes": 0.508144552120541,
+    "channelStatuses": {
+     "measured": 3
+    }
+   },
+   "apple-macos-27.0-2x-light-standard-glass0.5/held-y0.08-h30-colour__inactive": {
+    "status": "measured",
+    "passes": true,
+    "members": 1,
+    "worstMedianErrorCodes": 0.21661338051288226,
+    "worstChannel": "G",
+    "nativeRGB": [
+     178.0,
+     165.0,
+     162.0
+    ],
+    "predictedRGB": [
+     178.03121701559567,
+     164.78338661948712,
+     161.944565820321
+    ],
+    "worstRunErrorCodes": 0.21661338051288226,
+    "channelStatuses": {
+     "measured": 3
+    }
+   },
+   "apple-macos-27.0-2x-light-standard-glass0.5/held-y0.145-h150-colour__inactive": {
+    "status": "measured",
+    "passes": true,
+    "members": 1,
+    "worstMedianErrorCodes": 0.3270526722630507,
+    "worstChannel": "G",
+    "nativeRGB": [
+     171.0,
+     182.0,
+     173.0
+    ],
+    "predictedRGB": [
+     171.2384046722112,
+     181.67294732773695,
+     173.13559424594314
+    ],
+    "worstRunErrorCodes": 0.3270526722630507,
+    "channelStatuses": {
+     "measured": 3
+    }
+   },
+   "apple-macos-27.0-2x-light-standard-glass0.5/held-y0.145-h270-colour__inactive": {
+    "status": "measured",
+    "passes": true,
+    "members": 1,
+    "worstMedianErrorCodes": 0.21357693097098718,
+    "worstChannel": "G",
+    "nativeRGB": [
+     175.0,
+     179.0,
+     191.0
+    ],
+    "predictedRGB": [
+     174.99230677404867,
+     178.786423069029,
+     191.11730102771514
+    ],
+    "worstRunErrorCodes": 0.21357693097098718,
+    "channelStatuses": {
+     "measured": 3
+    }
+   },
+   "apple-macos-27.0-2x-light-standard-glass0.5/held-y0.145-h30-colour__inactive": {
+    "status": "measured",
+    "passes": true,
+    "members": 1,
+    "worstMedianErrorCodes": 0.2315564637538614,
+    "worstChannel": "R",
+    "nativeRGB": [
+     190.0,
+     176.0,
+     173.0
+    ],
+    "predictedRGB": [
+     190.23155646375386,
+     176.00213023106335,
+     173.15624498452524
+    ],
+    "worstRunErrorCodes": 0.2315564637538614,
+    "channelStatuses": {
+     "measured": 3
+    }
+   }
+  },
+  "rendered": {
+   "apple-macos-27.0-1x-light-standard-glass0.5/g128-c-capsule-circular-160x96__inactive": {
+    "status": "measured",
+    "passes": true,
+    "members": 1,
+    "worstMedianErrorCodes": 0.0,
+    "worstChannel": "R",
+    "nativeRGB": [
+     188.0,
+     188.0,
+     188.0
+    ],
+    "predictedRGB": [
+     188.0,
+     188.0,
+     188.0
+    ],
+    "worstRunErrorCodes": 0.0,
+    "channelStatuses": {
+     "measured": 3
+    },
+    "vetoPass": true
+   },
+   "apple-macos-27.0-1x-light-standard-glass0.5/g255-c-circular-200x44__inactive": {
+    "status": "measured",
+    "passes": true,
+    "members": 1,
+    "worstMedianErrorCodes": 0.0,
+    "worstChannel": "R",
+    "nativeRGB": [
+     240.0,
+     240.0,
+     240.0
+    ],
+    "predictedRGB": [
+     240.0,
+     240.0,
+     240.0
+    ],
+    "worstRunErrorCodes": 0.0,
+    "channelStatuses": {
+     "measured": 3
+    },
+    "vetoPass": true
+   },
+   "apple-macos-27.0-1x-light-standard-glass0.5/held-y0.08-h150-colour__inactive": {
+    "status": "measured",
+    "passes": true,
+    "members": 1,
+    "worstMedianErrorCodes": 1.0,
+    "worstChannel": "G",
+    "nativeRGB": [
+     160.0,
+     171.0,
+     162.0
+    ],
+    "predictedRGB": [
+     160.0,
+     170.0,
+     162.0
+    ],
+    "worstRunErrorCodes": 1.0,
+    "channelStatuses": {
+     "measured": 3
+    },
+    "vetoPass": true
+   },
+   "apple-macos-27.0-1x-light-standard-glass0.5/held-y0.08-h270-colour__inactive": {
+    "status": "measured",
+    "passes": true,
+    "members": 1,
+    "worstMedianErrorCodes": 1.0,
+    "worstChannel": "G",
+    "nativeRGB": [
+     164.0,
+     168.0,
+     179.0
+    ],
+    "predictedRGB": [
+     164.0,
+     167.0,
+     179.0
+    ],
+    "worstRunErrorCodes": 1.0,
+    "channelStatuses": {
+     "measured": 3
+    },
+    "vetoPass": true
+   },
+   "apple-macos-27.0-1x-light-standard-glass0.5/held-y0.08-h30-colour__inactive": {
+    "status": "measured",
+    "passes": true,
+    "members": 1,
+    "worstMedianErrorCodes": 0.0,
+    "worstChannel": "R",
+    "nativeRGB": [
+     178.0,
+     165.0,
+     162.0
+    ],
+    "predictedRGB": [
+     178.0,
+     165.0,
+     162.0
+    ],
+    "worstRunErrorCodes": 0.0,
+    "channelStatuses": {
+     "measured": 3
+    },
+    "vetoPass": true
+   },
+   "apple-macos-27.0-1x-light-standard-glass0.5/held-y0.145-h150-colour__inactive": {
+    "status": "measured",
+    "passes": true,
+    "members": 1,
+    "worstMedianErrorCodes": 0.0,
+    "worstChannel": "R",
+    "nativeRGB": [
+     171.0,
+     182.0,
+     173.0
+    ],
+    "predictedRGB": [
+     171.0,
+     182.0,
+     173.0
+    ],
+    "worstRunErrorCodes": 0.0,
+    "channelStatuses": {
+     "measured": 3
+    },
+    "vetoPass": true
+   },
+   "apple-macos-27.0-1x-light-standard-glass0.5/held-y0.145-h270-colour__inactive": {
+    "status": "measured",
+    "passes": true,
+    "members": 1,
+    "worstMedianErrorCodes": 0.0,
+    "worstChannel": "R",
+    "nativeRGB": [
+     175.0,
+     179.0,
+     191.0
+    ],
+    "predictedRGB": [
+     175.0,
+     179.0,
+     191.0
+    ],
+    "worstRunErrorCodes": 0.0,
+    "channelStatuses": {
+     "measured": 3
+    },
+    "vetoPass": true
+   },
+   "apple-macos-27.0-1x-light-standard-glass0.5/held-y0.145-h30-colour__inactive": {
+    "status": "measured",
+    "passes": true,
+    "members": 1,
+    "worstMedianErrorCodes": 0.0,
+    "worstChannel": "R",
+    "nativeRGB": [
+     190.0,
+     176.0,
+     173.0
+    ],
+    "predictedRGB": [
+     190.0,
+     176.0,
+     173.0
+    ],
+    "worstRunErrorCodes": 0.0,
+    "channelStatuses": {
+     "measured": 3
+    },
+    "vetoPass": true
+   },
+   "apple-macos-27.0-2x-light-standard-glass0.5/g128-c-capsule-circular-160x96__inactive": {
+    "status": "measured",
+    "passes": true,
+    "members": 1,
+    "worstMedianErrorCodes": 0.0,
+    "worstChannel": "R",
+    "nativeRGB": [
+     188.0,
+     188.0,
+     188.0
+    ],
+    "predictedRGB": [
+     188.0,
+     188.0,
+     188.0
+    ],
+    "worstRunErrorCodes": 0.0,
+    "channelStatuses": {
+     "measured": 3
+    },
+    "vetoPass": true
+   },
+   "apple-macos-27.0-2x-light-standard-glass0.5/g255-c-circular-200x44__inactive": {
+    "status": "measured",
+    "passes": true,
+    "members": 1,
+    "worstMedianErrorCodes": 0.0,
+    "worstChannel": "R",
+    "nativeRGB": [
+     240.0,
+     240.0,
+     240.0
+    ],
+    "predictedRGB": [
+     240.0,
+     240.0,
+     240.0
+    ],
+    "worstRunErrorCodes": 0.0,
+    "channelStatuses": {
+     "measured": 3
+    },
+    "vetoPass": true
+   },
+   "apple-macos-27.0-2x-light-standard-glass0.5/held-y0.08-h150-colour__inactive": {
+    "status": "measured",
+    "passes": true,
+    "members": 1,
+    "worstMedianErrorCodes": 1.0,
+    "worstChannel": "G",
+    "nativeRGB": [
+     160.0,
+     171.0,
+     162.0
+    ],
+    "predictedRGB": [
+     160.0,
+     170.0,
+     162.0
+    ],
+    "worstRunErrorCodes": 1.0,
+    "channelStatuses": {
+     "measured": 3
+    },
+    "vetoPass": true
+   },
+   "apple-macos-27.0-2x-light-standard-glass0.5/held-y0.08-h270-colour__inactive": {
+    "status": "measured",
+    "passes": true,
+    "members": 1,
+    "worstMedianErrorCodes": 1.0,
+    "worstChannel": "G",
+    "nativeRGB": [
+     164.0,
+     168.0,
+     179.0
+    ],
+    "predictedRGB": [
+     164.0,
+     167.0,
+     179.0
+    ],
+    "worstRunErrorCodes": 1.0,
+    "channelStatuses": {
+     "measured": 3
+    },
+    "vetoPass": true
+   },
+   "apple-macos-27.0-2x-light-standard-glass0.5/held-y0.08-h30-colour__inactive": {
+    "status": "measured",
+    "passes": true,
+    "members": 1,
+    "worstMedianErrorCodes": 0.0,
+    "worstChannel": "R",
+    "nativeRGB": [
+     178.0,
+     165.0,
+     162.0
+    ],
+    "predictedRGB": [
+     178.0,
+     165.0,
+     162.0
+    ],
+    "worstRunErrorCodes": 0.0,
+    "channelStatuses": {
+     "measured": 3
+    },
+    "vetoPass": true
+   },
+   "apple-macos-27.0-2x-light-standard-glass0.5/held-y0.145-h150-colour__inactive": {
+    "status": "measured",
+    "passes": true,
+    "members": 1,
+    "worstMedianErrorCodes": 0.0,
+    "worstChannel": "R",
+    "nativeRGB": [
+     171.0,
+     182.0,
+     173.0
+    ],
+    "predictedRGB": [
+     171.0,
+     182.0,
+     173.0
+    ],
+    "worstRunErrorCodes": 0.0,
+    "channelStatuses": {
+     "measured": 3
+    },
+    "vetoPass": true
+   },
+   "apple-macos-27.0-2x-light-standard-glass0.5/held-y0.145-h270-colour__inactive": {
+    "status": "measured",
+    "passes": true,
+    "members": 1,
+    "worstMedianErrorCodes": 0.0,
+    "worstChannel": "R",
+    "nativeRGB": [
+     175.0,
+     179.0,
+     191.0
+    ],
+    "predictedRGB": [
+     175.0,
+     179.0,
+     191.0
+    ],
+    "worstRunErrorCodes": 0.0,
+    "channelStatuses": {
+     "measured": 3
+    },
+    "vetoPass": true
+   },
+   "apple-macos-27.0-2x-light-standard-glass0.5/held-y0.145-h30-colour__inactive": {
+    "status": "measured",
+    "passes": true,
+    "members": 1,
+    "worstMedianErrorCodes": 0.0,
+    "worstChannel": "R",
+    "nativeRGB": [
+     190.0,
+     176.0,
+     173.0
+    ],
+    "predictedRGB": [
+     190.0,
+     176.0,
+     173.0
+    ],
+    "worstRunErrorCodes": 0.0,
+    "channelStatuses": {
+     "measured": 3
+    },
+    "vetoPass": true
+   }
+  }
+ },
+ "renderedVeto": {
+  "bins": 34624,
+  "pass": 29584,
+  "unmeasured": 5040,
+  "maxWorseningCodes": 0.0,
+  "rule": "candidate absolute residual minus shipped absolute residual <= 1 code per channel"
+ },
+ "renderedIdentity": {
+  "not claimed (identity) / identityBytesEqual=True": 48,
+  "claimed uniform body / identityBytesEqual=False": 16
+ },
+ "unclaimedNumericalDiagnostic": {
+  "dark-active": {
+   "cells": 18,
+   "maxMeasuredErrorCodes": 15.070436412499092,
+   "cellsWithNoMeasuredChannel": 0
+  },
+  "dark-inactive": {
+   "cells": 18,
+   "maxMeasuredErrorCodes": 13.035365823828286,
+   "cellsWithNoMeasuredChannel": 0
+  },
+  "light-active": {
+   "cells": 18,
+   "maxMeasuredErrorCodes": 10.504729825336597,
+   "cellsWithNoMeasuredChannel": 4
+  }
+ },
+ "qualification": "The unclaimed endpoints draw the shipped identity material; their errors are diagnostics of the shipped material, not candidate claims."
+}

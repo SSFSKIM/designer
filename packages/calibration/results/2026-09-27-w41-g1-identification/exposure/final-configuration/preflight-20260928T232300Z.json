@@ -1,0 +1,41 @@
+{
+  "schema": "w41-external-preflight-1",
+  "status": "success",
+  "startedAt": "2026-09-28T23:23:00.915863+00:00",
+  "manifest": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/exposure/final-configuration/manifest-1.json",
+  "manifestSha256": "77f93ba2166e83a8e31bb5f26a1c5ffb9e6d2be35fa5ec5509a0a19e72ba95a7",
+  "runtime": "packages/calibration/results/2026-09-27-w41-g1-identification/candidate-e3/runtime.json",
+  "runtimeSha256": "12e1546db717801d19781fc1027b616bd087b7f57958f199bb29ffa767c514f9",
+  "checks": [
+    "manifest committed bytes",
+    "all manifest files: live == HEAD == frozen SHA256",
+    "live Python major/minor, NumPy and Pillow == committed runtime",
+    "runner.verify:production"
+  ],
+  "head": "52f6222715ab3e42dcb8e45b71b4fd927b59620c",
+  "declaredRuntime": {
+    "python": [
+      3,
+      12
+    ],
+    "numpy": "2.3.5",
+    "pillow": "12.3.0"
+  },
+  "frozenFileCount": 6575,
+  "liveRuntime": {
+    "python": [
+      3,
+      12
+    ],
+    "numpy": "2.3.5",
+    "pillow": "12.3.0"
+  },
+  "verificationScope": [
+    "complete freeze reconstruction",
+    "source inventory/revision",
+    "domain evidence",
+    "compiled runtime artifact inventory/bytes",
+    "committed web predictions/baselines/backdrops"
+  ],
+  "finishedAt": "2026-09-28T23:26:02.018832+00:00"
+}

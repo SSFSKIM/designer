@@ -1,0 +1,101 @@
+# W41 receipt-1 closure summary (c9a §5.192.25). Stored as .txt so it never joins
+# runner.sources(). Reads the runner-written scores file and receipt log only; writes
+# summary.json and storage.json beside itself with exclusive creation. Run from the
+# worktree root:  PYTHONDONTWRITEBYTECODE=1 python3.12 -B - < <this file>
+import collections, gzip, hashlib, json, re, sys
+from pathlib import Path
+sys.dont_write_bytecode = True
+W39 = Path('packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed')
+R = Path('packages/calibration/results/2026-09-27-w41-g1-identification/exposure/receipt-1')
+X = Path('/Users/new/vitrea-w41/g1-exposure')
+scores_path = W39 / 'wave-identification-receipt-scores.json'
+log_path = W39 / 'wave-identification-receipt.jsonl'
+def sha(b): return hashlib.sha256(b).hexdigest()
+raw = scores_path.read_bytes()
+d = json.loads(raw)
+events = [json.loads(line) for line in log_path.read_text().splitlines()]
+s = d['scores']['body-e3']
+def members(kind, v):
+    if kind == 'numerical':
+        return [m['frozenPublicPredictionScore'] for m in v['members']]
+    return [m['score'] for m in v['deep']]
+cells, coverage = {}, {}
+for kind in ('numerical', 'rendered'):
+    rows, measured, censored = {}, 0, 0
+    for cell, v in sorted(s[kind].items()):
+        if v.get('disposition') != 'claimed uniform body':
+            continue
+        ms = members(kind, v)
+        worst = max(((max(m['median']['errorCodes']), 'RGB'[m['median']['errorCodes'].index(
+            max(m['median']['errorCodes']))], m['median']['nativeRGB'], m['median']['predictedRGB'])
+            for m in ms), key=lambda t: t[0])
+        statuses = collections.Counter(t for m in ms for t in m['median']['status'])
+        rows[cell] = dict(status=v['status'], passes=v['passes'], members=len(ms),
+                          worstMedianErrorCodes=worst[0], worstChannel=worst[1],
+                          nativeRGB=worst[2], predictedRGB=worst[3],
+                          worstRunErrorCodes=max(max(r['errorCodes']) for m in ms for r in m['runs']),
+                          channelStatuses=dict(statuses),
+                          **({'vetoPass': v['vetoPass']} if kind == 'rendered' else {}))
+        measured += v['status'] == 'measured' and v['passes'] is True
+        censored += v['status'] == 'UNMEASURED'
+    total = len(s[kind])
+    coverage[kind] = dict(claimed=len(rows), measuredPassing=measured, censoredUnmeasured=censored,
+                          measuredFailing=len(rows) - measured - censored,
+                          heldOutScored=total, unclaimedIdentity=total - len(rows),
+                          measuredCoverageOfClaimed=measured / len(rows),
+                          measuredCoverageOfHeldOut=measured / total,
+                          worstMedianErrorCodes=max(r['worstMedianErrorCodes'] for r in rows.values()))
+    cells[kind] = rows
+veto = collections.Counter()
+for v in s['rendered'].values():
+    for b in v['veto']:
+        p = b['score'].get('passes')
+        veto['pass' if p is True else ('unmeasured' if p is None else 'fail')] += 1
+worsening = max(max(r['worseningRGB']) for v in s['rendered'].values() for b in v['veto']
+                if b['score'].get('passes') is not None for r in b['score']['runs'])
+identity = collections.Counter((v['disposition'], v.get('identityBytesEqual')) for v in s['rendered'].values())
+diag = collections.defaultdict(list)
+for cell, v in s['numerical'].items():
+    if v.get('disposition') == 'claimed uniform body':
+        continue
+    ep = re.search(r'-(light|dark)-', cell)[1] + '-' + ('inactive' if cell.endswith('__inactive') else 'active')
+    errs = [e for m in members('numerical', v) for e, t in zip(m['median']['errorCodes'], m['median']['status'])
+            if t == 'measured']
+    diag[ep].append(max(errs) if errs else None)
+summary = dict(
+    schema='w41-receipt-1-closure-summary-1',
+    receiptLog=dict(path=str(log_path), sha256=sha(log_path.read_bytes()),
+                    events=[dict(event=e['event'], at=e['at'], configurationSha256=e['configurationSha256'])
+                            for e in events]),
+    scoresFile=dict(path=str(scores_path), bytes=len(raw), sha256=sha(raw), status=d['status'], mode=d['mode']),
+    manifestSha256=d['manifestSha256'], candidate='body-e3', claimScope=d['claimScopes']['body-e3'],
+    bound='max(1 code, bar) per required channel; bar 0.5 on every claimed channel, so 1.0 code',
+    coverage=coverage, cells=cells,
+    renderedVeto=dict(bins=sum(veto.values()), **veto, maxWorseningCodes=worsening,
+                      rule='candidate absolute residual minus shipped absolute residual <= 1 code per channel'),
+    renderedIdentity={f'{k[0]} / identityBytesEqual={k[1]}': n for k, n in identity.items()},
+    unclaimedNumericalDiagnostic={ep: dict(cells=len(xs), maxMeasuredErrorCodes=max(x for x in xs if x is not None),
+                                           cellsWithNoMeasuredChannel=sum(x is None for x in xs))
+                                  for ep, xs in sorted(diag.items())},
+    qualification='The unclaimed endpoints draw the shipped identity material; their errors are diagnostics '
+                  'of the shipped material, not candidate claims.')
+with open(R / 'summary.json', 'x') as f:
+    json.dump(summary, f, indent=1); f.write('\n')
+def gzrec(raw_path, gz_path):
+    rb, gb = raw_path.read_bytes(), gz_path.read_bytes()
+    return dict(raw=dict(path=str(raw_path), bytes=len(rb), sha256=sha(rb), retained=True, committed=False),
+                gzip=dict(path=gz_path.name, bytes=len(gb), sha256=sha(gb), mtime=0, compresslevel=9,
+                          roundTripIdentical=gzip.decompress(gb) == rb))
+storage = dict(
+    schema='w41-receipt-1-storage-1',
+    policy='No committed file exceeds 50 MB. Full files stay outside git (or untracked at the runner-owned '
+           'path) with size and hash; gzip copies are committed because both are far below 50 MB. '
+           'Publication as a release asset is decided at the landing.',
+    scores=gzrec(scores_path.resolve(), R / 'wave-identification-receipt-scores.json.gz'),
+    result=gzrec(X / 'attempt-2/result.json', R / 'result.json.gz'),
+    attemptTrees={name: dict(path=str(X / name), committedCopy=f'{name}/') for name in ('attempt-1', 'attempt-2')},
+    attempt2ResultNotCopiedRaw='attempt-2/result.json is represented by result.json.gz only.')
+with open(R / 'storage.json', 'x') as f:
+    json.dump(storage, f, indent=1); f.write('\n')
+print(json.dumps(coverage, indent=1)); print(json.dumps(summary['renderedVeto']))
+print(storage['scores']['gzip']['roundTripIdentical'], storage['result']['gzip']['roundTripIdentical'])
