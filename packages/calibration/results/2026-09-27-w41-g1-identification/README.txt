@@ -322,3 +322,15 @@ not a measured forecast. User deferred the search without shortening budgets or 
 M2 equals M1 onLI by its dark-only correction gate; this does not turn finite M1 failure
 into a global exclusion of the unfinished shared-width joint fit. M1 transfer still pending;
 a surviving stroke would require scratch leaf, actual render and veto before exposure.
+
+M2 disposition by user ruling (claims 5.192 section23; 2026-09-29 local)
+M2 inactive device/curvature is UNMEASURED unfinished, NOT rejected.047b7861 retains
+one completed original start00 (local calibration minimax11.88340887316462), aborted
+unscored start02, start01 only until finalfreeze, and29 unstarted indices. A terminal
+supplement is still required before freeze. Budgets/seeds/criteria are not shortened.
+The ~150h/6.25day remaining-search scenario is conditional from an unfinished~10CPUh
+start, not a universal per-start duration; completed start00 took~49.8min. M2 equals
+M1 onLI forward response, but finite local failure is not global exclusion of the
+unfinished shared-width joint fit. Dark-inactive new expressivity remains untested.
+M1 transfer is pending; any numerical survivor still needs leaf/render/veto checks.
+No M2 validation/holdout, finalwavefreeze or single exposure is claimed here.

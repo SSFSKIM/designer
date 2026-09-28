@@ -41140,3 +41140,46 @@ material expressivity remains unmeasured. The remaining M1 light-inactive transf
 will determine whether any stroke reaches scratch-leaf and rendered admission; a numerical
 survivor still needs those checks. The body candidate may proceed alone only after that
 disposition and final configuration review. No exposure has run at this checkpoint.
+
+
+### 23. M2 is an unfinished search, UNMEASURED by decision, not a negative result
+
+The user ends the remaining inactive device-width/nominal-curvature **M2 search as
+UNMEASURED in this wave**, relayed by the coordinator on 2026-09-29 local time. The
+scientific declaration is not amended and no per-start budget is shortened; the unexecuted
+search remains unexecuted. Commit **`047b7861`** records the disposition in
+`stroke/M2-unfinished-search-1.json`, SHA-256
+**ad87c383d1e51c19987e6ed7ec42c85afe50e2d22b9bd0eafd123dcd4f1a6d46**. Independent active
+support and CSS-width certificates retain their own scopes; they do not turn this unfinished
+inactive search into a family rejection.
+
+At that checkpoint, original device start00 is complete: local calibration minimax maximum
+**11.88340887316462 codes**, least-squares maximum **17.898092708080235**. This is one
+optimizer start, not an all-repeat calibration/validation verdict. Device start02 is
+**ABORTED_UNSCORED**, stopped with its original seed vector and execution records retained;
+no completed coefficient checkpoint exists. Device start01 may finish only its current
+start before the final exposure freeze; otherwise it is stopped and recorded as
+ABORTED_UNSCORED. Twenty-nine original indices remain unstarted. A terminal supplement must
+record start01's actual disposition before freezing; no new M2 start follows this ruling.
+M2 validation and native holdout remain unread.
+
+The cost argument is measured but its extrapolation is conditional. Start00 took about
+49.8 minutes, whereas the still-unfinished start01 had consumed **36,683.08 CPU seconds**
+over 35,274 process-wall seconds at the disposition reading. The sealed nested budget can
+invoke up to nine least-squares calls (`max_nfev=3000`) and twenty SLSQP calls
+(`maxiter=3000`), including up to eight width rounds per objective. These distinct counters
+are not summed as actual forward evaluations. The owner's planning scenario—30 unfinished
+starts at about ten CPU-hours each on two concurrent processes, approximately **150 hours
+or 6.25 days**—is not a measured per-start constant, completion forecast or worst-case bound.
+The exact effect of historical contention and the unfinished start's remaining work are
+unmeasured. The record links the actual CPU observations, completed cache counters and
+budget arithmetic rather than attributing scheduler idle gaps to solver time.
+
+**M2 equals M1 on the light-inactive forward response**, because M2's contextual correction
+is gated by the dark scheme. Its additional material expressivity is therefore untested on
+dark inactive. This identity does not make a finite M1 multistart failure a global M2
+exclusion: the shared-width joint optimization is unfinished, and no theorem excludes all
+its coefficient vectors. The wave's Deferred list carries the unresolved search with that
+qualification. The single exposure may proceed with light-inactive E3 and only an M1
+candidate that clears its full numerical and actual rendered gates; M2 supplies no candidate
+and no holdout claim in this wave.

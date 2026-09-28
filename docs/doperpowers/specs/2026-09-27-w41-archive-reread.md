@@ -416,6 +416,21 @@ needed: the publisher, the generation store and the release-asset readers exist.
 
 ## Deferred / Out of Scope
 
+- **M2 inactive device-width/nominal-curvature search: UNMEASURED, unfinished by user
+  decision (2026-09-29 local; §5.192.23).** The sealed full budgets remain intact, but the
+  wave does not finish this search: one completed local start, an aborted-unscored start,
+  one current start permitted only until the final freeze, and 29 unstarted indices are
+  retained in `stroke/M2-unfinished-search-1.json` at `047b7861`. Its terminal supplement
+  must close the current start before freezing. An unfinished start consumed roughly ten
+  CPU-hours; the 30-start/two-process estimate of about150hours is conditional planning,
+  not a measured lower bound or universal duration (the first start took about50minutes).
+  No M2 validation or holdout result is claimed. M2's light-inactive response equals M1's,
+  but finite M1 search failure cannot globally exclude M2's unfinished shared-width joint
+  fit; its new dark-inactive material response remains unidentified. Revisit the full
+  search in a separately scoped continuation, without promoting partial fits to a rejection
+  or silently shortening the sealed budget. The existing active-support and CSS-width
+  certificates remain separate, bounded findings.
+
 - **M2 device-width/nominal-curvature stroke search: UNMEASURED this wave** (user ruling,
   §5.192.23; committed record `047b7861`). The original multistart search is unfinished,
   not a family rejection: one completed local start, one aborted/unscored start, one
@@ -499,6 +514,14 @@ the canonical holdout once, the eye sheets and a release.
   measured bound; the saturate/plate route fails green by26 codes. Carry only that measured
   affine feasibility to Decision Log4, not a production-parity claim: the fallback floor,
   blur, geometry, policy/presence and tint contracts are unvalidated.
+
+**2026-09-29 local, user ruling relayed by the coordinator:** M2 ends this wave as an
+unfinished search, UNMEASURED for the reason recorded in §5.192.23 and Deferred above.
+This supersedes the interim requirement to finish every remaining M2 start before exposure;
+it does not declare M2 rejected. The complete exposure configuration contains light-inactive
+E3 and, only if it clears numerical transfer plus scratch-leaf/render/veto checks, M1
+light-inactive. The one receipt still waits for the coordinator's explicit confirmation of
+the user's hands-off window. No holdout verdict or G2 adoption is implied by this ruling.
 
 ### Decision Log 3 — bounds and floors if a leaf lands (in G2; the user's)
 
