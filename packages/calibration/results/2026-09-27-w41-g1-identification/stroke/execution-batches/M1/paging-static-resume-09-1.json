@@ -1,0 +1,26 @@
+{
+  "kind": "M1_PAGING_GRANDFATHERED09_TERMINAL_AND_STATIC_RESUME",
+  "atUTC": "2026-09-28T10:49:11.458735+00:00",
+  "swap": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/execution-batches/M1/paging-static-swap-09-1.json",
+    "sha256": "61dc670167a16a22477ff528fde228729f2a06a7d097b80acdf8605d3e1eb2d2"
+  },
+  "grandfathered09PID": 39062,
+  "grandfathered09Result": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/results/curvature-M1-start-09.json",
+    "sha256": "22259d811bdffff126ecfe2090e54f608748cc63bf9e8cd3090e5feb6a2efe01"
+  },
+  "grandfathered09ClaimSha256": "2f0136609216117f341c19b0a128915f44e3b8d45bff4d1bf758abfcb5f91d54",
+  "grandfathered09SolverStartSha256": "d52dc963b0098fcd85cfd3bf004b710efad2e6ec775bd26aab64ffc675068e71",
+  "validationRead": false,
+  "holdoutRead": false,
+  "resumedPartition": "A",
+  "resumedPID": 42722,
+  "resumedProcessIdentity": {
+    "pid": 42722,
+    "startedUTC": "2026-09-28T09:30:07+00:00",
+    "command": "/Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python -B -X pycache_prefix=/tmp/vitrea-static-A-IX5ygX /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/run.py --partition A"
+  },
+  "resumedStatusAfter": "Rs",
+  "signals": "SIGCONT only exact-identity parked static partition; no signal to fit09 or static B"
+}
