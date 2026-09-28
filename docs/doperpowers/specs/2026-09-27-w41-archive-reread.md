@@ -485,6 +485,16 @@ Only device00 is complete; device01 may finish then park under HOLD. The alleged
 abort-at-final-freeze instruction is withdrawn. No resume/abort authority follows from
 the nonexistent user ruling; §5.192.23 links the dated process-state supplement.
 
+**Supersession of the M2 HOLD correction — 2026-09-28T19:29:05+00:00 (2026-09-29 local).** The current
+coordinator reports that a duplicate live process of its session lacked the user's answer
+and wrongly denied its existence. The genuine answer, now relayed explicitly, is
+“Record M2 as unfinished (UNMEASURED) and expose the body candidate now”. Accordingly the
+M2 unfinished/UNMEASURED deferral above stands; the intervening no-ruling/HOLD authority
+claims are retained but superseded. This does not rewrite actual process-state history or
+turn incomplete local searches into global negatives. A matching dated stroke-record
+supersession preserves the full provenance chain; only the current coordinator process
+continues directing the wave.
+
 ## Tracking Map
 
 | child | status |
@@ -548,6 +558,17 @@ supersede the proposal if different. No historical entry is rewritten or backdat
 The additive `22e103ca` process-state supplement also rescinds the alleged abort of M2
 device02: it is paused in flight, not terminated. The current device01 may finish then
 park; no abort-at-freeze instruction stands. This clarifies actual state, not user consent.
+
+**Decision Log2 authority supersession — 2026-09-28T19:29:05+00:00 (2026-09-29 local).** The user did
+answer the sealed-budget question: “Record M2 as unfinished (UNMEASURED) and expose the body
+candidate now”, explicitly relayed by the current coordinator. A duplicate live process
+of that same coordinator session had not received the answer and issued the false no-ruling
+correction. The unfinished-M2 ruling is restored; `0eb8f6ca`, `fe775bba` and `22e103ca` are
+superseded only where they deny that authority, and remain unchanged history. The other
+coordinator process has stood down per the current process's report. Actual paused-process
+facts remain dated facts, not retroactive aborts. Complete candidate review/freeze and the
+M1 disposition still precede the ONE receipt, which additionally waits for explicit
+hands-off-window confirmation. This ruling is not itself an exposure result or G2 adoption.
 
 ### Decision Log 3 — bounds and floors if a leaf lands (in G2; the user's)
 

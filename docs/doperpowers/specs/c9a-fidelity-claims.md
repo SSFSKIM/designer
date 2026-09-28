@@ -41211,3 +41211,30 @@ reading. Neither resume nor abort of the held start is authorized by the false r
 `stroke/M2-provenance-correction-1.json`, SHA-256
 **b615304a428ba04bf7666f78fdb98b0cb5eec3e46eb999c559fd0be835e1bb1a**, retains the
 process snapshot and sends no process signals. M1 transfer continues unchanged.
+
+
+**Authority supersession — 2026-09-28T19:29:05+00:00 (2026-09-29 local).** The current coordinator
+explains that two live processes of its same session existed. The user's M2 answer reached
+only the current process; the other process incorrectly concluded that no answer existed
+and caused `0eb8f6ca`, `fe775bba` and the stroke supplement `22e103ca` to deny the ruling.
+Those denials are now superseded, not erased. The current coordinator relays the actual
+user answer, given to its question containing the sealed-budget arithmetic:
+
+> “Record M2 as unfinished (UNMEASURED) and expose the body candidate now”.
+
+The **unfinished/UNMEASURED M2 ruling is restored as authoritative**. The earlier
+`047b7861` / `53743321` attribution was not invalid merely because the duplicate process
+had not received that answer. This is a dated restoration of the authority chain, not a
+newly invented answer or a backdated replacement of the intervening error. Per the current
+coordinator, the other process has stood down and the user is closing it; only the current
+process's instructions govern the continuation. The stroke lead is appending a matching
+supersession to its provenance chain. All old entries and hashes remain findable.
+
+Actual process facts are not changed retroactively: device02 was paused in flight, not
+terminated, at `22e103ca`'s recorded observation. Its later terminal disposition must be
+recorded separately; restored authority cannot make the prior ABORTED label factual. No new
+M2 start is admitted. The remaining M1 numerical transfer and any necessary leaf/render/veto
+requirements still govern whether a stroke can join the complete candidate configuration.
+The body may proceed through reviewed configuration assembly and freeze under the restored
+ruling; the ONE receipt still requires the explicit hands-off window confirmation and the
+unchanged X6/preflight chain. No exposure has occurred as part of this supersession.

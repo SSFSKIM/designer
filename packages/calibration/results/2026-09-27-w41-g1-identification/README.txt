@@ -350,3 +350,14 @@ IN FLIGHT, not aborted; process/seed intact and no termination sent. Earlier abo
 label was false. Device01 may finish then park underHOLD; abort-at-final-freeze is
 withdrawn. Onlydevice00 complete. M2-provenance-correction-1.json pins actual snapshot;
 no resume/abort authority follows from the erroneous user-ruling relay.
+
+AUTHORITY SUPERSESSION — 2026-09-28T19:29:05+00:00 (2026-09-29 local)
+Currentcoordinator relays actualuseranswer: "Record M2 as unfinished (UNMEASURED)
+and expose the body candidate now". A duplicate live process of the samecoordinator
+hadn'treceived thatanswer and erroneouslydeniedit. Thus no-ruling claims in0eb8f6ca,
+fe775bba/22e103ca are superseded, not rewritten; M2unfinishedUNMEASURED is authoritative.
+Otherprocess stooddown percurrentcoordinator; onlycurrentprocess directscontinuation.
+Actualdevice02paused-inflight observation stays true atitstime; terminalstatus needs
+itsownrecord, notretroactiveABORTEDlabel. Strokelead appendsmatchingprovenancechain.
+M1disposition/requiredrendergates andcompleteconfigurationreview stillprecedefreeze;
+ONEreceipt stillwaitsexplicithands-offconfirmation andX6/preflight. No exposurerunhere.
