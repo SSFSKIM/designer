@@ -1,0 +1,32 @@
+{
+  "kind": "STROKE_PRECLAIM_RESOURCE_RACE_RECONCILIATION",
+  "utc": "2026-09-28T02:15:43.355956+00:00",
+  "task": [
+    "M1",
+    "curvature",
+    0
+  ],
+  "classification": "Genuine resource Deferred before any claim; NO-FIT, not a solver attempt or claimed retry.",
+  "absent": [
+    "claim",
+    "solver-start",
+    "failure",
+    "deferral",
+    "result"
+  ],
+  "prefixStillEmpty": true,
+  "receipt": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-launches-kernel-1/curvature-M1-start-00.json",
+    "sha256": "2d91bb098043351e93e1ff6c9a0748d0ce036679a99d141db203d9562c996c9a"
+  },
+  "precedingDevice15": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/results/device-M1-start-15.json",
+    "sha256": "13fe6023f1c497edf8bf9188fcf97e38f72ed9ff012694d928d01edff7996954"
+  },
+  "executionRecord": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/execution-batches/M1/restart-kernel-1/run.jsonl",
+    "sha256": "bac1a5b7ddb700a2bf4b2832fa814c8193e18a7f9a954b0f598a7aa21927dc31"
+  },
+  "decision": "Fresh controller may re-attempt unchanged unclaimed curvature00..15 receipts. A preview is not a reservation; actual gate remains authoritative. No completed/claimed start is repeated.",
+  "scientificChange": false
+}
