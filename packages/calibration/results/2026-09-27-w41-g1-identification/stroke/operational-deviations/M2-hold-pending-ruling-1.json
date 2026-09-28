@@ -1,0 +1,28 @@
+{
+  "kind": "STROKE_M2_HOLD_PENDING_USER_RULING",
+  "recordedUTC": "2026-09-28T19:14:37.423243+00:00",
+  "direction": "No new M2 starts. B completes currentdevice1 then holds. A remains paused on device2 after M1transfer. Finish M1transfer and report verdict.",
+  "partitionA": {
+    "pid": 42722,
+    "startedUTC": "2026-09-28T09:30:07+00:00",
+    "command": "/Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python -B -X pycache_prefix=/tmp/vitrea-static-A-IX5ygX /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/run.py --partition A"
+  },
+  "partitionB": {
+    "pid": 42753,
+    "startedUTC": "2026-09-28T09:30:07+00:00",
+    "command": "/Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python -B -X pycache_prefix=/tmp/vitrea-static-B-BZm0QX /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/run.py --partition B"
+  },
+  "pausedTransferWrapper": {
+    "pid": 41231,
+    "startedUTC": "2026-09-28T19:01:51+00:00",
+    "command": "/Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python -B -X pycache_prefix=/tmp/vitrea-M1-transfer-wrapper-iWDeXc -"
+  },
+  "untouchedTransfer": {
+    "pid": 41248,
+    "startedUTC": "2026-09-28T19:01:51+00:00",
+    "command": "/Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python -B -X pycache_prefix=/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/vitrea-M1-transfer-fyj95jxi /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/survivor_scope_complete.py --family M1 --out /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/m1-transfer-1 --partition /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/survivor-scope-partition-0 --partition /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/survivor-scope-partition-1 --partition /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/survivor-scope-partition-2 --partition /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/results --partition /Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/A"
+  },
+  "reasonForWrapperPause": "Its original finally clause would automatically resume A; keep it stopped and retire it after child transfer completes, never SIGCONT. Transfer itself remains running.",
+  "rulingTimeEstimateQualification": "~150hours is coordinator projection, not a measured bound; static seed1 live counters and individual CPU deltas were not recorded.",
+  "sourcesChanged": false
+}

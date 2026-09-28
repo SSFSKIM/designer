@@ -1,0 +1,113 @@
+{
+  "kind": "STROKE_M2_BUDGET_ARITHMETIC_FOR_OWNER",
+  "recordedUTC": "2026-09-28T19:16:11.959950+00:00",
+  "purpose": "Inform user ruling while M2 is held, without changing sealed budgets or claiming missing live counters.",
+  "observedB": {
+    "task": [
+      "M2",
+      "device",
+      1
+    ],
+    "wallSecondsSinceProcessLaunch": 35101,
+    "cumulativeCPUSeconds": 36511.24,
+    "ratioCPUToWall": 1.0401766331443547,
+    "instantCPUPercent": 100,
+    "fitElapsedQualification": "Process wall includes165.063726s calibration preparation before start1; there has been no completedB start. CPU is process-wide, not callback-specific.",
+    "source": "ps snapshot during this request; no live solver counter file exists."
+  },
+  "completedCounters": [
+    {
+      "task": [
+        "M2",
+        "device",
+        0
+      ],
+      "wallSeconds": 2986.4188735840144,
+      "solverCalls": 9,
+      "cachedCallbackRequests": 23852,
+      "cacheHits": 11165,
+      "cacheMisses": 12687,
+      "hitRate": 0.46809491866510144,
+      "parameters": 43,
+      "result": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/results/device-M2-start-00.json",
+        "sha256": "75effb478c56d3cfa8f2b9f77ee36fc031c2fd947915bbfea9fe12e536721f8c"
+      }
+    },
+    {
+      "task": [
+        "M1",
+        "curvature",
+        13
+      ],
+      "wallSeconds": 3142.273992334027,
+      "solverCalls": 9,
+      "cachedCallbackRequests": 54394,
+      "cacheHits": 37471,
+      "cacheMisses": 16923,
+      "hitRate": 0.688881126594845,
+      "parameters": 40,
+      "result": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/A/curvature-M1-start-13.json",
+        "sha256": "b1e0214e42fd8696192093ef3bc6c34f85eee25d663e6bb26e4ce6cc178ad602"
+      }
+    },
+    {
+      "task": [
+        "M1",
+        "curvature",
+        14
+      ],
+      "wallSeconds": 3333.3802957499865,
+      "solverCalls": 19,
+      "cachedCallbackRequests": 62695,
+      "cacheHits": 43244,
+      "cacheMisses": 19451,
+      "hitRate": 0.6897519738416141,
+      "parameters": 40,
+      "result": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/A/curvature-M1-start-14.json",
+        "sha256": "19c540d905af1fdd9c1b684011fb5ac8e71c2adef45b2065d8c2cbc5eb80be5b"
+      }
+    },
+    {
+      "task": [
+        "M1",
+        "curvature",
+        15
+      ],
+      "wallSeconds": 6957.508250582963,
+      "solverCalls": 21,
+      "cachedCallbackRequests": 147648,
+      "cacheHits": 103092,
+      "cacheMisses": 44556,
+      "hitRate": 0.6982282184655396,
+      "parameters": 40,
+      "result": {
+        "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/static-partitions-1/A/curvature-M1-start-15.json",
+        "sha256": "f2e871534a1a77df6e77c4479fa91f916281dc6e9a865678221e8dfd03a9c5cb"
+      }
+    }
+  ],
+  "counterQualification": "These are actual per-start memo cache statistics. Cache hits+misses count cacheable callback requests, not every SciPy callback. In scheduler result metadata, memoization.trace cites the M1 native proof transcript; it is NOT the M2 start00 actual callback trace and is not used as M2 evaluation count.",
+  "sealedBudgetArithmetic": {
+    "initialSolverCalls": "1 least_squares + optional1 rail-SLSQP +2 epigraph-SLSQP = at most4",
+    "widthLeastSquares": "up to8 rounds \u00d7 (1 least_squares + optional1 rail-SLSQP) = at most16 calls",
+    "widthMinimaxSeed": "1 epigraph-SLSQP",
+    "widthMinimax": "up to8 rounds \u00d71 epigraph-SLSQP = at most8 calls",
+    "total": "at most29 calls =9 least_squares +20 SLSQP",
+    "perCallLimits": "each least_squares max_nfev3000; each SLSQP maxiter3000",
+    "aggregateCountCeilings": "up to27000 counted least-squares evaluations and60000 SLSQP iterations, before numerical-Jacobian/constraint callback multiplicity; these are distinct counts and must not be summed as actual forward evaluations.",
+    "widthTrials": "2 objectives \u00d78 rounds \u00d7(1 incumbent+65 coarse+4\u00d79 refinement)=1632 trial positions",
+    "M2Coordinates": 43,
+    "M2CalibrationCells": 252,
+    "M1CalibrationCells": 126
+  },
+  "conclusionSupported": "The long B run is consuming CPU rather than merely waiting to be scheduled, and the sealed nested budgets permit substantially more work than baseline seed0 used. Different seeds can use different solver/width paths.",
+  "conclusionNotEstablished": "Without live counters, neither B proximity to its budget nor how much historical paging inflated computation is identifiable. The sealed budget permits long runs but does not force a particular duration. Do not state that contention contributed zero.",
+  "remainingTimeScenario": {
+    "arithmetic": "30 remaining starts \u00d710hours/start \u00f72 concurrent =150hours",
+    "status": "Conditional planning scenario using one unfinished random start, not a measured forecast or worst-case bound."
+  },
+  "hold": "B finishes only its current start, then is paused; A stays paused on device2 after M1transfer. No further M2 dispatch pending user ruling."
+}
