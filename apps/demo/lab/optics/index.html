@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>optics lab</title>
+    <style>
+      html, body { margin: 0; height: 100%; background: #000; overflow: hidden; }
+      canvas.env { position: fixed; inset: 0; width: 100vw; height: 100vh; display: block; }
+      .g { position: fixed; box-sizing: border-box; color: white; font: 600 14px/1.2 system-ui;
+        display: grid; place-items: center; }
+      #readout { position: fixed; left: 8px; bottom: 8px; color: #fff; font: 12px ui-monospace;
+        background: rgb(0 0 0 / 60%); padding: 4px 6px; z-index: 10; white-space: pre; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <div id="readout"></div>
+    <script type="module" src="./lab.tsx"></script>
+  </body>
+</html>

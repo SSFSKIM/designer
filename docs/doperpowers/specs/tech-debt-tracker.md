@@ -6646,3 +6646,39 @@ select clear-as-lens without a `materialProfile` of its own; and the tone respon
 resolved adaptation so `constrained` means something on the GPU tier. Beside it: a page painting
 its dimming layer with a fixed inward feather measured a 48 px capsule as half undimmed at an
 eighth scale; the feather has to scale with the host and the measurement resolve it.
+
+## An app's material tune does not survive the receded pose (chronograph flagship, 2026-09-29)
+
+Found building `apps/demo/src/gallery/chronograph/` (`2026-09-29-chronograph-flagship.md`,
+Surprises 4). `root.ts` `posedProfile()` merges the receded patch OVER `activeProfile()`, and
+`activeProfile()` already includes the app's `materialProfile`. Every leaf the receded patch names
+therefore overrides the app's tune when the window loses focus: `sizeScatterFloor` 0.7,
+`sizeHeavyTapSigma2x` 14, the ramp starts, the tone response anchors. On a page tuned toward clear
+glass, an unfocused window fogs every surface. A watch crystal over its dial goes milky, and the
+page has to step its lenses aside (`present={false}`) to avoid it. By design the receded document
+is a difference over the complete active endpoint, but a tuned active endpoint has no measured
+receded counterpart, and today the runtime silently makes one up. **Shape of the work:** decide
+what a tuned root's receded pose means, then implement one of these and say so in `root.material`:
+compose the app's tune last, derive the receded endpoint as the measured difference applied to
+the tuned active one, or let `materialProfile` carry its own receded leaves.
+
+## The specular sweep band is the rim's width and does not read (chronograph flagship, 2026-09-29)
+
+`wgsl/highlight.ts` draws the sweep as `rim² × band × gain`, with `rim = 1 − |d| / rimWidth`,
+inside the contour only. `renderer.ts` passes `optics.rimWidth`, which is 6.5 px on the macOS 27
+light document and 2.2 px on the dark one. The flagship held `--vitrea-sweep` at a fixed phase with
+`--vitrea-shimmer` 1 from the root's loop, on a 600 px crystal and a 374 × 540 window, and no
+travelling arc was visible at 2x in either scheme. Widening `rimWidth` to 12 in a tune made it
+faintly visible, and also moved the ambient rim at 1x. Nothing measured the sweep (W22 gated it
+off at rest), so its band width is a borrowed constant rather than a fitted one. **Shape of the
+work:** give the sweep its own band-width leaf, and look at it on the bed beside a native capture
+of the material catching light before any page builds on it.
+
+## A capsule's first frame draws the prop radius (capsule fix follow-up, 2026-09-29)
+
+`63b9d6e9` stopped a patch from overwriting a capsule's measured radius. One older gap remains, as
+the fix's author noted: on mount or re-registration, `GlassSurface` registers the `radius` prop's
+radii (12, or 14 on `GlassButton`), and the capsule radius arrives on the tick after the frame
+that measures the box. So a capsule draws one frame as a rounded rectangle. **Shape of the work:**
+register a capsule with its capsule family's radius taken from the first measurement, or hold the
+first draw until a box exists.

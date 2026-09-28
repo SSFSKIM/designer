@@ -1,0 +1,414 @@
+/*
+ * Chronograph. The bench is one canvas; every glass host is positioned from layout.ts and draws
+ * no background of its own (the runtime owns a host's background and transform). Primary ink
+ * comes from vitrea's token with the page's own colour as the fallback. Secondary ink is the
+ * page's: the token's alpha is solved against the calibrated body, and on this page's clearer
+ * glass it read 4.3:1 against a 4.5 floor, so the page authors a stronger one per dial and
+ * measures it (DESIGN.md, "Legibility"). The root declares the dial's scheme, so `light-dark()`
+ * never follows the reader's system instead.
+ */
+
+:root {
+  --ink: #fff;
+  --ink-soft: rgb(255 255 255 / 0.72);
+  --sans: "SF Pro Text", -apple-system, BlinkMacSystemFont, "Helvetica Neue", system-ui, sans-serif;
+  --display: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", system-ui, sans-serif;
+  --mono-figures: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", system-ui, sans-serif;
+  color-scheme: light;
+  background: #c8d1cb;
+}
+
+:root[data-dial="night"] {
+  --ink: #fff;
+  --ink-soft: rgb(255 255 255 / 0.76);
+  --fill-selected: rgb(255 255 255 / 0.2);
+  --rule: rgb(255 255 255 / 0.16);
+  color-scheme: dark;
+  background: #0b1013;
+}
+
+/* Fills inside the glass: white lifts a selection, a dark wash separates; never white on white. */
+:root[data-dial="day"] {
+  --ink: #111;
+  --ink-soft: rgb(0 0 0 / 0.68);
+  --fill-selected: rgb(255 255 255 / 0.72);
+  --rule: rgb(0 0 0 / 0.12);
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: var(--sans);
+  color: var(--ink);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+canvas.bench {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  display: block;
+}
+
+/* Glass hosts: real boxes, positioned, no fill. */
+.crystal,
+.loupe,
+.timing,
+.pusher,
+.dial-switch,
+.crystal-anchor {
+  position: fixed;
+  box-sizing: border-box;
+}
+
+.crystal {
+  pointer-events: none;
+}
+
+.loupe {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  appearance: none;
+  background: none;
+  cursor: grab;
+  touch-action: none;
+  color: inherit;
+  font: inherit;
+}
+
+.loupe:active {
+  cursor: grabbing;
+}
+
+.loupe:focus-visible,
+.pusher:focus-visible,
+.crystal-trigger:focus-visible,
+.platter-option:focus-visible,
+.laps:focus-visible {
+  outline: 2px solid var(--vitrea-foreground, var(--ink));
+  outline-offset: 3px;
+}
+
+/* The settings, under the painted title. */
+.segmented {
+  position: fixed;
+  display: flex;
+  height: 44px;
+  padding: 4px;
+  box-sizing: border-box;
+}
+
+.segment {
+  flex: 1;
+  position: relative;
+  z-index: 1;
+  border: 0;
+  background: none;
+  font: 600 14px/1 var(--sans);
+  letter-spacing: 0.01em;
+  color: var(--vitrea-foreground, var(--ink));
+  cursor: pointer;
+}
+
+.segment-indicator {
+  border-radius: 16px;
+  background: var(--fill-selected);
+}
+
+.crystal-trigger {
+  container-type: inline-size;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 0 18px;
+  box-sizing: border-box;
+  border: 0;
+  background: none;
+  color: var(--vitrea-foreground, var(--ink));
+  font: 600 14px/1 var(--sans);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.trigger-label {
+  color: var(--ink-soft);
+  font-weight: 500;
+}
+
+.platter {
+  width: 280px;
+  padding: 16px 10px 12px;
+  box-sizing: border-box;
+  color: var(--vitrea-foreground, var(--ink));
+}
+
+.platter-title {
+  margin: 0 12px 8px;
+  font: 700 12px/1 var(--sans);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.platter-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+  padding: 9px 12px;
+  border: 0;
+  border-radius: 14px;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.platter-option[aria-checked="true"] {
+  background: var(--fill-selected);
+}
+
+.option-mark {
+  flex: none;
+  width: 14px;
+  height: 14px;
+  margin-top: 2px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1.5px currentColor;
+}
+
+.platter-option[aria-checked="true"] .option-mark {
+  box-shadow: inset 0 0 0 4.5px currentColor;
+}
+
+.option-text {
+  display: grid;
+  gap: 3px;
+}
+
+.option-name {
+  font: 600 15px/1.2 var(--sans);
+}
+
+.option-note {
+  font: 500 12.5px/1.3 var(--sans);
+  color: var(--ink-soft);
+}
+
+.platter-note {
+  margin: 6px 12px 2px;
+  font: 500 12px/1.35 var(--sans);
+  color: var(--ink-soft);
+}
+
+.platter-rule {
+  height: 1px;
+  margin: 8px 12px;
+  background: var(--rule);
+}
+
+.platter-switch {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px 4px;
+  font: 600 14px/1.2 var(--sans);
+}
+
+.platter-switch input {
+  width: 18px;
+  height: 18px;
+  accent-color: #30d158;
+}
+
+/* The timing window. */
+.timing {
+  display: flex;
+  flex-direction: column;
+  color: var(--vitrea-foreground, var(--ink));
+}
+
+.timing-head {
+  display: grid;
+  gap: 6px;
+  padding: 26px 28px 18px;
+}
+
+.timing-label {
+  font: 700 12px/1 var(--sans);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.timing-readout {
+  font: 600 clamp(40px, 11vw, 56px)/1 var(--mono-figures);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+.laps {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 0 16px 18px;
+  border-radius: 0 0 30px 30px;
+  mask-image: linear-gradient(to bottom, transparent 0, #000 14px, #000 calc(100% - 22px), transparent 100%);
+}
+
+.laps-empty {
+  margin: 4px 12px;
+  font: 500 14px/1.4 var(--sans);
+  color: var(--ink-soft);
+}
+
+.laps table {
+  width: 100%;
+  border-collapse: collapse;
+  font: 600 15px/1 var(--sans);
+  font-variant-numeric: tabular-nums;
+}
+
+.laps th {
+  padding: 10px 12px;
+  font: 700 11px/1 var(--sans);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: left;
+  color: var(--ink-soft);
+}
+
+.laps td {
+  padding: 11px 12px;
+  border-top: 1px solid var(--rule);
+}
+
+.laps th:not(:first-child),
+.laps td:not(:first-child) {
+  text-align: right;
+}
+
+.laps tr[data-extreme="fastest"] td:nth-child(2) {
+  color: #0a7d32;
+}
+
+.laps tr[data-extreme="slowest"] td:nth-child(2) {
+  color: #b3261e;
+}
+
+:root[data-dial="night"] .laps tr[data-extreme="fastest"] td:nth-child(2) {
+  color: #7cf29a;
+}
+
+:root[data-dial="night"] .laps tr[data-extreme="slowest"] td:nth-child(2) {
+  color: #ff9d92;
+}
+
+.timing-keys {
+  flex: none;
+  margin: 0;
+  padding: 12px 28px 20px;
+  font: 500 12px/1.2 var(--sans);
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+.timing-keys kbd {
+  display: inline-block;
+  min-width: 14px;
+  padding: 1px 5px;
+  border-radius: 5px;
+  box-shadow: inset 0 0 0 1px var(--rule);
+  font: 600 11px/1.2 var(--sans);
+  text-align: center;
+}
+
+.timing-keys .dot {
+  margin: 0 4px;
+}
+
+/* No keyboard to hint at on a touch screen, and no room for the line in a short window. */
+@media (pointer: coarse), (max-height: 760px) {
+  .timing-keys {
+    display: none;
+  }
+}
+
+@container (max-width: 190px) {
+  .trigger-label {
+    display: none;
+  }
+}
+
+/* The two round buttons. */
+.pusher {
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  appearance: none;
+  background: none;
+  color: var(--vitrea-foreground, var(--ink));
+  font: 600 16px/1 var(--sans);
+  letter-spacing: 0.01em;
+  cursor: pointer;
+}
+
+/* The tint is the seed; the label on it is the page's, at full strength, dark on both greens. */
+.pusher-primary {
+  color: #000;
+}
+
+.pusher:disabled {
+  cursor: default;
+  opacity: 1;
+  color: var(--vitrea-foreground-tertiary, var(--ink-soft));
+}
+
+@media (forced-colors: active) {
+  .timing,
+  .pusher,
+  .segmented,
+  .crystal-trigger,
+  .platter {
+    border: 1px solid CanvasText;
+    background: Canvas;
+    color: CanvasText;
+  }
+
+  .pusher,
+  .segmented,
+  .crystal-trigger,
+  .loupe {
+    border-radius: 999px;
+  }
+
+  /* The loupe keeps the enlarged image; the system's colour draws its edge. */
+  .loupe {
+    border: 2px solid CanvasText;
+    background: transparent;
+  }
+
+  .segment[aria-checked="true"],
+  .platter-option[aria-checked="true"] {
+    outline: 2px solid Highlight;
+  }
+}

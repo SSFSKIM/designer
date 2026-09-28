@@ -94,7 +94,9 @@ choice is the largest single decision about how real the material can be.
   cover-fit, and the root says so once with `backdrop-texture-unplaced`.
 - **The DOM path takes a declaration.** With no texture, the group samples the page through a
   masked `backdrop-filter` proxy, and the material learns the backdrop only from `hint`:
-  `{ tone: "light" | "dark" | "mixed", luminance?: 0..1, complexity?: 0..1 }`. The hint decides the
+  `{ tone: "light" | "dark" | "mixed", luminance?: 0..1, complexity?: 0..1 }`, where `luminance`
+  is relative (linear) luminance: decode the painted pixels' encoded mean before declaring it, since
+  encoded luma declared as luminance reads far brighter and flips the ink. The hint decides the
   ink and the body's tone response: the interior level follows the declared backdrop along the
   material's measured curve. On the macOS 26.5 document that response was size-gated to the point
   where a small surface over near-black vanished into it; the macOS 27 default keeps the material

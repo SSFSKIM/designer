@@ -1,5 +1,5 @@
 /**
- * The gallery index: eight pages in two registers under the materialist skill, and the flagship
+ * The gallery index: eight pages in two registers under the materialist skill, and the flagships
  * (docs/doperpowers/specs/2026-09-27-materialist-proof.md, A;
  * docs/doperpowers/specs/2026-09-27-materialist-spatial-register.md, C).
  *
@@ -171,6 +171,23 @@ const DEMOS: readonly Demo[] = [
       "A Tonight window listing what is up with the chosen object’s card, a Moon module, and " +
       "two ornaments — the place and the time — that morph into platters.",
   },
+  {
+    slug: "chronograph",
+    register: "instrument",
+    title: "Chronograph",
+    brief:
+      "A rattrapante chronograph on a watchmaker’s bench, running live under a domed crystal. " +
+      "The crystal and a loupe you can move over the dial are optical glass with nothing on " +
+      "them; the stopwatch’s controls beside the watch are the same glass, tuned from Apple’s " +
+      "frost toward clear optics, with the calibrated material one choice away for comparison.",
+    plane:
+      "The bench and the watch on it, painted live in one viewport-fixed canvas: a gridded " +
+      "cutting mat, a tapisserie dial whose hands beat eight times a second, and under the " +
+      "loupe the same scene drawn twice the size.",
+    floating:
+      "The crystal and the loupe, which carry nothing; a timing window with the laps; Lap and " +
+      "Start buttons; a dial switch; and a crystal capsule that morphs into a platter.",
+  },
 ];
 
 function Entry(props: { readonly demo: Demo; readonly index: number }): ReactNode {
@@ -215,10 +232,10 @@ function Gallery(): ReactNode {
         <p className="wordmark">vitrea</p>
         <h1 className="display">The materialist gallery</h1>
         <p className="lead">
-          Nine Liquid Glass pages on vitrea 0.24.0: six instrument pages set glass controls
-          over live content, two spatial pages make glass the surface itself, and the
-          flagship planetarium page, Tonight, spends the material’s optics on a live sky. Each
-          follows the{" "}
+          Ten Liquid Glass pages on vitrea 0.24.0: six instrument pages set glass controls
+          over live content, two spatial pages make glass the surface itself, and two
+          flagships spend the material’s optics: Tonight on a live sky, and Chronograph on a
+          watch under its crystal. Each follows the{" "}
           <a href={SKILL}>materialist skill</a>. The{" "}
           <a href={SPEC}>instrument proof</a> and{" "}
           <a href={`${REPOSITORY}/blob/main/docs/doperpowers/specs/2026-09-27-materialist-spatial-register.md`}>

@@ -74,6 +74,8 @@ the proof corrected; 1.1.0 added the spatial register.
 
 A ninth page, the gallery's flagship, was built in the main session rather than by a fresh maker: a planetarium display, Tonight (`/gallery/planetarium/`), whose environment is the real sky over a place drawn live in WebGL, and whose window, module and two morphing ornaments are the clear variant tuned, leaf by named leaf, from the frost the shipped material draws at window span toward a lens — the runtime reporting it as tuned, the charter (`docs/doperpowers/specs/2026-09-28-planetarium-flagship.md`) saying why each leaf moved, and the same audit reading every text line on its glass in every state.
 
+A tenth page, a second flagship, was also built in the main session: Chronograph (`/gallery/chronograph/`), a rattrapante on a watchmaker's bench whose dial, hands and loupe image are painted live into one canvas. Its crystal and a movable loupe are optical glass with nothing on them. The chronograph's controls are ordinary Liquid Glass beside the watch, and all of it is the regular material tuned from frost toward clear optics. The body's plate and haze are removed, the lens's height law is extended past its 20 px cap, and the lens itself stays calibrated. The Crystal menu offers the calibrated material as a comparison, and its record (`docs/doperpowers/specs/2026-09-29-chronograph-flagship.md`) says what each choice changed and what the runtime could not do.
+
 ### The sampler, stand-alone
 
 The one piece that is also useful on its own is the aesthetic-ingredient sampler. Run it directly when you want a draw without going through the full skill:

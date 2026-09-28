@@ -135,6 +135,7 @@ export default defineConfig({
         "gallery-exhibition": resolve(here, "gallery/exhibition/index.html"),
         "gallery-start-page": resolve(here, "gallery/start-page/index.html"),
         "gallery-planetarium": resolve(here, "gallery/planetarium/index.html"),
+        "gallery-chronograph": resolve(here, "gallery/chronograph/index.html"),
       },
     },
   },
