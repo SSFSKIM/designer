@@ -168,7 +168,9 @@ Memory and process accounting
   Both admission checks and every memory/slot refusal are immutable JSON records
   under admissions/. An unparseable reading records the error, not a made-up value.
 
-  For every still-live old PID and claimed worker PID, reserve
+  For every live old owner and live claimant (as "Process identity" below defines
+  them; before the W41 G1 fix this read "every still-live old PID and claimed
+  worker PID"), reserve
     max(0, max(its reserved peak, largest observed peak) - its current RSS).
   Add the new fit's entire reserved peak at claim time. Immediately before the
   fit, preparation's RSS is already allocated, so subtract it from that fit's
@@ -183,18 +185,51 @@ Memory and process accounting
   memory reading still fails closed, but readings already taken are kept. The
   high-water is the maximum over these append-only records, so it never falls
   when a fit's RSS later drops or its process dies without a result. A reading
-  at a reused PID (see below) is kept too; the error is conservative.
+  at a reused PID is kept too; the error is conservative. Since the W41 G1 fix no
+  admission samples a reused PID, but readings taken before it (including the
+  reissued old partition-1 PID's) stay in the high-water.
   A stale parent peak receipt cannot lower an already observed scheduler peak.
   The parent remains responsible for supplying all earlier-wave fit high-water
   measurements not present in this scheduler's root.
 
-  Slot count = live old worker PIDs + live claimed worker PIDs + this new worker.
+  Slot count = live old owners + live claimants + this new worker.
   Finished/failed workers still count until their process actually exits, because
   their memory need not have been reclaimed yet. Dead claims retain task ownership
   forever, but occupy no running slot. Live old partitions keep all their tasks
   until THEIR individual handoff; stopping another partition cannot transfer them.
-  PID reuse is conservative: an unrelated live process at a registered PID can
-  block scheduling. Do not delete ownership records to bypass it.
+
+  Process identity (W41 G1 PID-reuse fix; superseded: "PID reuse is conservative").
+  macOS reissues PIDs, so an owner is a creation identity, never a bare PID:
+  {pid, startedUTC, command} read by LC_ALL=C TZ=UTC /bin/ps -ww -o lstart=
+  -o command= -p PID (lstart has one-second resolution; the full command is part
+  of the identity). An old owner reserves while its PID is live UNTIL its
+  handoff is registered: transfer registers only while that PID is dead, so a
+  later process at it is another process and reserves nothing; a claim for a
+  handed-off partition likewise no longer re-probes the old PID. A claim records
+  its claimant's identity (processIdentity, processIdentitySource), read before
+  admission; it reserves while that exact identity holds its PID, whether or not
+  the claim is settled, and a PID reissued to any other process (including the
+  same command started later) reserves nothing. Claims recorded before identities
+  existed reserve only while their PID's process started no later than claimedUTC
+  and its command carries the claim's --receipt PATH and --sha256 SHA. Every
+  admission lists what it did not reserve, and why, as excludedProcesses.
+  A claim is written only if the claimant's command carries this launch's
+  --receipt PATH and --sha256 SHA; an unreadable identity, an unrelated command or
+  another receipt's driver is refused before admission, with no claim.
+  The lifecycle is the claimant's own: the Store that made the claim keeps, in
+  memory, the claiming os.getpid() and the identity it recorded. The pre-fit
+  check, the solver-start marker and finish all require that same Store in that
+  same process with the claim's recorded identity, so another process (a fresh
+  Store) or a changed os.getpid() is refused. The claim's PID must also be
+  os.getpid(): a controller that claimed for another process (a child driver)
+  cannot prepare, start or finish it, whatever later holds that PID. Production
+  run() claims its own os.getpid(). The pre-fit check also re-reads the
+  live identity at the claim's PID. The marker and finish read no process table:
+  nothing shells out after the pre-fit check, so a ps failure cannot discard a
+  started or completed fit. The marker binds the identity and finish compares it.
+  A mismatch is an error, never a no-fit deferral. Old owners with no registered
+  handoff still reserve on bare liveness: the roster records no creation
+  identity for them.
 
   A single flock protects reading admissions, allocating slots and publishing
   claims, so two scheduler invocations cannot simultaneously promise one slot or

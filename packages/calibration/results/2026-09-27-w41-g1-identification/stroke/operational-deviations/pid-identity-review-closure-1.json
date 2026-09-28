@@ -1,0 +1,51 @@
+{
+  "kind": "STROKE_PID_IDENTITY_REVIEW_CLOSURE",
+  "reviewer": "a1c557ee93146abd9",
+  "verdict": "clean; three findings closed",
+  "tests": {
+    "scheduler": 84,
+    "verification": 70
+  },
+  "logs": [
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/operational-deviations/pid-closure-scheduler-1.txt",
+      "sha256": "11891494d1cc7d8367e4d16d498ba29403a1f7ab6d502a97b9e446a26f70d34c"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/operational-deviations/pid-closure-verification-1.txt",
+      "sha256": "af4be6d2703f3b45917d0df95686f5f55ea35bad118b261ae6da170a1dba04f1"
+    }
+  ],
+  "operationalSourceTransitions": {
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler.py": {
+      "oldSha256": "b2b103bcd1fbb77507d97b1e612fae0d802a17b816c3d80ecb8288b00664712c",
+      "newSha256": "e3e37081f6b676515aca4acf016f2b1a93b8a2a6667dc3a6b723c7046b37cad5"
+    },
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler_v2.py": {
+      "oldSha256": "d5785897b480a176545295cbe25144817b41c314fe9cbe683699bb4d46aa4678",
+      "newSha256": "8b291118d7463f4adc06cee70b4d10c3e5755a9e4edff2fdd1a1c1dd126ce438"
+    },
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler/scheduler_v3.py": {
+      "oldSha256": "2bbbd2454e2392056412251852a15acba9641c29009fd2705fc186b647b9021b",
+      "newSha256": "f8d549641cf585ccba1dcbfe8911b7f8bf8731fd6f39e7a878877bd7b4dbf7df"
+    }
+  },
+  "scientificSourcesVerifiedUnchanged": {
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/proof.py": "b42e03a5c46b5b977df4aee3eebf0e6628c799aa098ba1d50c3e58244667bca4",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/fixtures.py": "e500464fc13449881e24b4e5805461699ffa0899351020366b9b62d9278ccd66",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/memoization/solver_memo.py": "b0e9f572d6bb51513c54a6128981adb52384c39113a574baeda05a229d5de50b",
+    "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/start_partition.py": "4d966f03905693f8090685d0bab7b90a951ea3689ead16678f494592a20f37b9",
+    "/Users/new/vitrea-w41/pre-w41-proof/packages/calibration/results/2026-09-27-w41-g0-declaration/instrument/stroke_fit.py": "07ac045ccabcd5c8348de50b5c9de13668558c44833c2b0d1ba756298e1da887",
+    "/Users/new/vitrea-w41/pre-w41-proof/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/replay.py": "d5df491dc468d6cc5844d4f6d7bbf0d17d752bc1c0851c013178091e8ba58810",
+    "/Users/new/vitrea-w41/pre-w41-proof/packages/calibration/results/2026-09-27-w41-g0-declaration/instrument/instrument.py": "41f796109a19e3834f2d738ee122f394d2e142d79ba29db3fe5ecc4ddb179950"
+  },
+  "heldProofTrackedTreeClean": true,
+  "scope": "PID/start-time/command identity, retired partition exclusion, claim receipt binding, no post-solve process-table spawn, and doc supersession. No numerical/policy/queue change.",
+  "restartRequires": [
+    "new source-pinned launch receipts",
+    "new v2 watcher process and declaration",
+    "fresh admission controller"
+  ],
+  "nativeReads": 0,
+  "optimizerRuns": 0
+}

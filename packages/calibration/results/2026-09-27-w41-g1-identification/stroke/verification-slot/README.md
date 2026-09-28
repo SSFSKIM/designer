@@ -139,3 +139,18 @@ Synthetic checks (no native archive, real optimizer or process controls):
 ```sh
 python -m unittest discover -s /absolute/stroke/verification-slot -p 'test_*.py'
 ```
+
+## Current state: W41 G1 PID-reuse fix
+
+The paragraphs above are kept as written for their epoch. Two statements in them
+are no longer literally true. First, scheduler.py's bytes changed: the live-owner
+and candidate enumeration moved into one v1 routine, `Store.reservations`, which
+every gate calls. An old owner with a registered handoff never reserves, and a
+candidate claim reserves only while its recorded claimant identity (PID, start
+time, full command) holds its PID. So the "counts the live roster and existing
+claims" admission above counts live owners by identity, and a new verification
+receipt's `sourceSha256` must pin the new scheduler.py. Second, the own-claim skip
+now runs inside that v1 routine through the private module's `s.claim_name`, so
+the `VerificationOwner` naming bridge still applies unchanged: it cannot skip a real
+candidate claim. The verification lease is still not a candidate claim; the
+claimant lifecycle checks never apply to it, and admissions add `excludedProcesses`.

@@ -2,7 +2,9 @@ W41 stroke scheduler adaptive resource policy (v3): additive source epoch
 
 Direction: ../scheduler-memory-parent-direction-v3.json (STROKE_ADAPTIVE_MEMORY_DIRECTION),
   sha256 77cadc2730c1fd41e909fb329bf3b6dbb0bae49907fc6b8b6ca7983745f13e1f
-scheduler.py (v1) and scheduler_v2.py (v2, d5785897...) are unchanged and imported.
+scheduler.py (v1) and scheduler_v2.py (v2) are imported; both changed only at the W41 G1
+PID-reuse fix, which moved the live-owner enumeration into v1 (interface.txt, "Process
+identity") and made every gate, this one included, call it.
 scheduler_v3.py is a library (no CLI). The existing v2 `watch` and `import-pressure`
 commands supply pressure history; they write the same ROOT/pressure/ records this
 gate reads. Operational policy only: no family, bound, budget, seed or population
@@ -20,7 +22,7 @@ Receipt
   and <= the CAPTURE RELEASE ceiling, as in v2.
 
 Bookkeeping (v2's, copied verbatim up to the gate)
-  Live old and claimed fits, the monotonic RSS high-water (every valid reading,
+  Live old owners and claimants (v1's process-identity enumeration), the monotonic RSS high-water (every valid reading,
   refusals included), live-resident credit (reservation minus RSS, own RSS at the
   pre-fit check), the pressure log entry for this admission's reading (unreadable
   logged as such, then fail closed), exclusive claims, NO-FIT deferrals, solver

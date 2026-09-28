@@ -1,9 +1,10 @@
 """Stroke scheduler memory policy v2: an additive source epoch over scheduler.py.
 
-scheduler.py (v1) stays byte-for-byte as reviewed and committed; its receipts,
-refusals and pinned proofs keep meaning what they meant. This module reuses v1's
-claim, handoff, deferral, solver-marker and exact-once machinery unchanged and
-replaces only the admission gate, for launch receipts that carry receiptVersion 2:
+scheduler.py (v1) receipts, refusals and pinned proofs keep meaning what they meant.
+This module reuses v1's claim, handoff, deferral, solver-marker and exact-once
+machinery and its owner enumeration (process identity, not bare PIDs, since the W41
+G1 PID-reuse fix) and replaces only the admission gate, for launch receipts that
+carry receiptVersion 2:
 
   admit iff kern.memorystatus_vm_pressure_level == 1 now, the shared pressure log
   is not stopped, at most three fits run concurrently, and
@@ -205,7 +206,7 @@ class StoreV2(v1.Store):
     def _admission(self, launch, pid, alive, memory, rss, *, own_claim=None):
         if launch.get('receiptVersion') != RECEIPT_VERSION:
             raise ValueError('policy-v2 admission requires receiptVersion 2; v1 receipts use v1')
-        _, roster = self.roster()
+        roster_ref, roster = self.roster()
         release = self.release(launch['captureRelease'])
         cap = launch['maxConcurrency']
         if type(cap) is not int or not 1 <= cap <= release['maxConcurrency']:
@@ -226,26 +227,17 @@ class StoreV2(v1.Store):
         for key in ('reservationBytes', 'oldWorkerReservationBytes'):
             if type(launch[key]) is not int or launch[key] < measured:
                 raise ValueError('reservation is below measured wave peak RSS')
-        processes = []
-        for owner in roster['oldOwners']:
-            if alive(owner['pid']):
-                processes.append({'pid': owner['pid'], 'owner': f"old-{owner['partition']}",
-                                  'peakBytes': launch['oldWorkerReservationBytes']})
+        # v1's shared enumeration: registered handoffs retire old owners, and a
+        # claim reserves only while its PID still holds the recorded claimant.
+        processes, excluded, claim_peaks = self.reservations(roster_ref, roster, launch, alive,
+                                                             own_claim)
         # Every valid RSS reading any earlier admission took (refused, failed or
         # pre-fit included) stays in the high-water: a fit whose RSS later falls
         # can regrow to what it was already seen to hold.
-        historical_peaks = [measured] + self.observed_rss()
+        historical_peaks = [measured] + self.observed_rss() + claim_peaks
         for path in sorted((self.root / 'results').glob('*.json')):
             result = json.loads(path.read_text())
             historical_peaks.append(result['peakRSSBytes'])
-        for path in sorted((self.root / 'claims').glob('*.json')):
-            claim = json.loads(path.read_text())
-            historical_peaks.append(claim['prospectivePeakBytes'])
-            if own_claim is not None and claim_name(claim) == claim_name(own_claim):
-                continue
-            if alive(claim['pid']):
-                processes.append({'pid': claim['pid'], 'owner': filename(claim['task']),
-                                  'peakBytes': claim['reservationBytes']})
         if pid in [p['pid'] for p in processes] or len({p['pid'] for p in processes}) != len(processes):
             raise ValueError('one process cannot own multiple simultaneous slots')
         # Before the fit, preparation's own RSS is already resident; reserve only
@@ -289,6 +281,7 @@ class StoreV2(v1.Store):
         decision = {'sampledUTC': now(), 'policyVersion': RECEIPT_VERSION,
                     'policyCounter': COUNTER, 'counterEpoch': COUNTER_EPOCH, 'memory': reading,
                     'pressureState': state, 'processes': processes,
+                    'excludedProcesses': excluded,
                     'effectiveConcurrency': len(processes) + 1, 'maxConcurrency': cap,
                     'reservedBytes': reserved, 'ownRSSBytes': own_rss,
                     'observedPeakBytes': observed_peak,

@@ -223,6 +223,33 @@ class AdaptiveDriverTests(unittest.TestCase):
         terminal = self.terminal()
         self.assertEqual(v.s.record(terminal['lease'])['receipt'], receipt)
 
+    def test_composed_gate_ignores_a_reissued_pid_of_a_handed_off_old_owner(self):
+        # The production composition (private v1/v2 engines, StoreV3, driver checks)
+        # with the W41 G1 incident: partition 1 handed off, its PID later reissued.
+        direction = artifact(self.base/'handoff-direction.json', {'ruling': 'explicit handoff'})
+        self.store.transfer(artifact(self.base/'handoff-1.json', dict(kind='STROKE_HANDOFF',
+            rosterSha256=self.roster['sha256'], partition=1, oldPid=102, oldTaskId='old-1',
+            stoppedUTC='2026-09-27T11:40:42+00:00', boundaryTask=None, completed=[],
+            aborted=[], excluded=[], captureRelease=self.release, direction=direction)),
+            alive=self.live.__contains__)
+        self.live.add(102)
+        self.processes[102] = dict(pid=102, startedUTC='2026-09-27T17:58:06+00:00',
+                                   command='/System/Library/synthetic-os-service')
+        self.memory = self.reading(20*v.s.GIB, 0, level=2)
+        launch = v.s.record(self.receipt())
+        with self.store.locked():
+            decision = v.resource_admission(self.store, launch, 999, self.live.__contains__,
+                lambda: dict(self.memory), lambda pid: v.s.GIB//2, prepared=False)
+        self.assertEqual((decision['resourceMode'], decision['effectiveConcurrency'],
+                          decision['admitted']), ('degraded', 1, True))
+        self.assertEqual(decision['excludedProcesses'],
+                         [dict(pid=102, owner='old-1', reason='registered stop handoff')])
+        # An owner without a registered handoff still reserves when live.
+        self.live.add(101); self.clock += timedelta(microseconds=1)
+        with self.store.locked(), self.assertRaises(v.s.Deferred):
+            v.resource_admission(self.store, launch, 999, self.live.__contains__,
+                lambda: dict(self.memory), lambda pid: v.s.GIB//2, prepared=False)
+
     def test_private_modules_share_identity_and_cli_uses_original_native_entry(self):
         self.assertIs(driver.v3.v2, driver.legacy.v2)
         self.assertIs(driver.s, driver.legacy.v2.v1)

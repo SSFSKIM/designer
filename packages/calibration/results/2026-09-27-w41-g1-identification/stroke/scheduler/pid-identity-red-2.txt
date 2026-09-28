@@ -1,0 +1,40 @@
+F.EF
+======================================================================
+ERROR: test_solved_fit_finishes_without_reading_the_process_table (test_scheduler.SchedulerTests.test_solved_fit_finishes_without_reading_the_process_table)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/w41-pidfix-red2-7KofuU/scheduler/test_scheduler.py", line 679, in test_solved_fit_finishes_without_reading_the_process_table
+    self.store.start_solver(claim)
+  File "/private/tmp/w41-pidfix-red2-7KofuU/scheduler/scheduler.py", line 605, in start_solver
+    identity = self.check_owner(claim)
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w41-pidfix-red2-7KofuU/scheduler/scheduler.py", line 487, in check_owner
+    or self.identify(claim['pid']) != recorded:
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w41-pidfix-red2-7KofuU/scheduler/scheduler.py", line 427, in identify
+    return process_identity(pid)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w41-pidfix-red2-7KofuU/scheduler/test_scheduler.py", line 677, in unavailable
+    raise OSError('ps unavailable after solve')
+OSError: ps unavailable after solve
+
+======================================================================
+FAIL: test_claim_requires_a_readable_claimant_launched_with_this_receipt (test_scheduler.SchedulerTests.test_claim_requires_a_readable_claimant_launched_with_this_receipt)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/w41-pidfix-red2-7KofuU/scheduler/test_scheduler.py", line 651, in test_claim_requires_a_readable_claimant_launched_with_this_receipt
+    with self.assertRaisesRegex(ValueError, message):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_only_the_claiming_process_and_store_start_or_finish_a_claim (test_scheduler.SchedulerTests.test_only_the_claiming_process_and_store_start_or_finish_a_claim)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/w41-pidfix-red2-7KofuU/scheduler/test_scheduler.py", line 691, in test_only_the_claiming_process_and_store_start_or_finish_a_claim
+    with self.assertRaisesRegex(ValueError, 'did not make this claim'):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.038s
+
+FAILED (failures=2, errors=1)

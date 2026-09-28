@@ -8,10 +8,12 @@ import unittest
 
 import scheduler
 import scheduler_v2
-from test_scheduler import artifact, example, ref
+from test_scheduler import artifact, example, fake_processes, ref, run_as_claimants
 
 GIB = scheduler.GIB
-V1_SHA256 = 'b2b103bcd1fbb77507d97b1e612fae0d802a17b816c3d80ecb8288b00664712c'
+# v1's source epoch after the authorized W41 G1 PID-reuse fix; the reviewed epoch
+# before it was b2b103bcd1fbb77507d97b1e612fae0d802a17b816c3d80ecb8288b00664712c.
+V1_SHA256 = '2c0fba175bf26f38fd436d3a42edaae9bc9c4b8dce428b37ed1a06630e825e33'
 
 
 def at(seconds):
@@ -25,6 +27,7 @@ class PolicyV2Tests(unittest.TestCase):
         self.base = Path(self.tmp.name).resolve()
         self.root = self.base / 'state'
         self.live = {102, 103}
+        self.processes = fake_processes(self)
         owners = []
         for p in range(3):
             out = self.base / f'old-{p}'
@@ -43,7 +46,7 @@ class PolicyV2Tests(unittest.TestCase):
             'kind': 'STROKE_PEAK_RSS', 'largestObservedPeakRSSBytes': GIB,
             'samples': [{'pid': 101, 'peakRSSBytes': GIB, 'source': 'synthetic measurement',
                          'sampledUTC': '2026-09-27T12:00:00Z'}]})
-        self.store = scheduler_v2.StoreV2(self.root)
+        self.store = run_as_claimants(scheduler_v2.StoreV2(self.root))
         self.store.initialize(self.roster)
         self.store.transfer(artifact(self.base / 'handoff.json', {
             'kind': 'STROKE_HANDOFF', 'rosterSha256': self.roster['sha256'], 'partition': 0,
@@ -63,7 +66,8 @@ class PolicyV2Tests(unittest.TestCase):
         return artifact(self.base / f'launch-{len(list(self.base.glob("launch-*")))}.json', value)
 
     def claim(self, launch=None, pid=200, memory=None):
-        return self.store.claim(launch or self.launch(), pid=pid, alive=self.live.__contains__,
+        launch = self.processes.spawn(pid, launch or self.launch())
+        return self.store.claim(launch, pid=pid, alive=self.live.__contains__,
                                 memory=memory or (lambda: dict(self.memory)))
 
     def claims(self):
@@ -117,7 +121,7 @@ class PolicyV2Tests(unittest.TestCase):
             with self.assertRaises((ValueError, scheduler.Deferred)):
                 self.claim(launch, memory=memory)
         self.assertFalse(self.claims())
-        # v1 stays the reviewed, proof-pinned bytes; v2 is a separate source epoch.
+        # v1 is the reviewed, pinned source epoch; v2 is a separate one.
         self.assertEqual(ref(Path(scheduler.__file__))['sha256'], V1_SHA256)
 
     def test_cap_is_strictly_three_concurrent_fits(self):

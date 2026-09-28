@@ -1,8 +1,9 @@
 """Stroke scheduler adaptive resource policy: an additive source epoch over v1 and v2.
 
-scheduler.py (v1) and scheduler_v2.py (v2) are unchanged. This module reuses their
-claim, handoff, RSS high-water, NO-FIT deferral, solver-marker, exact-once, pressure
-log, snapshot import and watcher machinery, and replaces only the admission gate.
+This module reuses v1's and v2's claim, handoff, owner enumeration (process identity,
+not bare PIDs, since the W41 G1 PID-reuse fix), RSS high-water, NO-FIT deferral,
+solver-marker, exact-once, pressure log, snapshot import and watcher machinery, and
+replaces only the admission gate.
 Every admission first evaluates v2's normal gate; if it does not clear, the same
 admission is evaluated against the degraded gate. The choice is made afresh each
 time, so it is reversible in both directions and nothing running is touched.
@@ -112,7 +113,7 @@ class StoreV3(v2.StoreV2):
             raise ValueError('adaptive admission requires receiptVersion 3')
         selector = launch['adaptiveMemoryPolicy']
         check_direction(record(selector))
-        _, roster = self.roster()
+        roster_ref, roster = self.roster()
         release = self.release(launch['captureRelease'])
         cap = launch['maxConcurrency']
         if type(cap) is not int or not 1 <= cap <= release['maxConcurrency']:
@@ -133,26 +134,17 @@ class StoreV3(v2.StoreV2):
         for key in ('reservationBytes', 'oldWorkerReservationBytes'):
             if type(launch[key]) is not int or launch[key] < measured:
                 raise ValueError('reservation is below measured wave peak RSS')
-        processes = []
-        for owner in roster['oldOwners']:
-            if alive(owner['pid']):
-                processes.append({'pid': owner['pid'], 'owner': f"old-{owner['partition']}",
-                                  'peakBytes': launch['oldWorkerReservationBytes']})
+        # v1's shared enumeration: registered handoffs retire old owners, and a
+        # claim reserves only while its PID still holds the recorded claimant.
+        processes, excluded, claim_peaks = self.reservations(roster_ref, roster, launch, alive,
+                                                             own_claim)
         # Every valid RSS reading any earlier admission took (refused, failed or
         # pre-fit included) stays in the high-water: a fit whose RSS later falls
         # can regrow to what it was already seen to hold.
-        historical_peaks = [measured] + self.observed_rss()
+        historical_peaks = [measured] + self.observed_rss() + claim_peaks
         for path in sorted((self.root / 'results').glob('*.json')):
             result = json.loads(path.read_text())
             historical_peaks.append(result['peakRSSBytes'])
-        for path in sorted((self.root / 'claims').glob('*.json')):
-            claim = json.loads(path.read_text())
-            historical_peaks.append(claim['prospectivePeakBytes'])
-            if own_claim is not None and claim_name(claim) == claim_name(own_claim):
-                continue
-            if alive(claim['pid']):
-                processes.append({'pid': claim['pid'], 'owner': filename(claim['task']),
-                                  'peakBytes': claim['reservationBytes']})
         if pid in [p['pid'] for p in processes] or len({p['pid'] for p in processes}) != len(processes):
             raise ValueError('one process cannot own multiple simultaneous slots')
         # Before the fit, preparation's own RSS is already resident; reserve only
@@ -239,6 +231,7 @@ class StoreV3(v2.StoreV2):
                     'disk': disk, 'diskFreeBytes': disk.get('freeBytes'),
                     'diskFloorBytes': DISK_FLOOR_BYTES,
                     'swap': swap, 'swapExpectation': expectation, 'processes': processes,
+                    'excludedProcesses': excluded,
                     'effectiveConcurrency': effective, 'maxConcurrency': cap,
                     'modeConcurrencyLimit': limit,
                     'reservedBytes': reserved, 'ownRSSBytes': own_rss,

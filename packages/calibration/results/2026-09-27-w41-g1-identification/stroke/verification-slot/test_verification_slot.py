@@ -52,6 +52,13 @@ class VerificationTests(unittest.TestCase):
                 peakRSSBytes=v.s.GIB, source='synthetic', sampledUTC=v.s.now())]))
         self.store = v.s.Store(self.root); self.store.initialize(self.roster)
         self.live = {101, 102}
+        # Synthetic process table for the private scheduler: one stable creation
+        # identity per PID; liveness stays self.live.
+        self.processes = {}
+        p = patch.object(v.s, 'process_identity', lambda pid: self.processes.setdefault(
+            pid, {'pid': pid, 'startedUTC': '2026-09-27T11:00:00+00:00',
+                  'command': f'synthetic fit driver {pid}'}))
+        p.start(); self.addCleanup(p.stop)
         self.memory = dict(availableBytes=20*v.s.GIB, pressureLevel=1, metric=v.s.MEMORY_METRIC)
         self.stage_calls = []
         self.peak_value = 2*v.s.GIB

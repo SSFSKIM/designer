@@ -1,13 +1,17 @@
 """Synthetic ownership, admission and sealed-start tests; no native reader or optimizer."""
 import concurrent.futures
+import contextlib
 import hashlib
 import json
 import os
 from pathlib import Path
 import random
+import subprocess
 import sys
 import tempfile
+import threading
 import unittest
+from unittest import mock
 
 import scheduler
 
@@ -32,6 +36,91 @@ def example(observations, family, css, curvature):
     return {'family': family, 'cssWidth': css, 'curvature': curvature, 'starts': records}
 
 
+class FakeProcesses:
+    """Synthetic OS process table. Liveness stays each test's own alive() set; this
+    only answers WHICH process holds a PID: one stable creation identity per PID
+    until a test reissues that PID to another process or removes it."""
+    def __init__(self):
+        self.table, self.gone = {}, set()
+
+    def __call__(self, pid):
+        if pid in self.gone:
+            return None
+        return dict(self.table.setdefault(pid, {
+            'pid': pid, 'startedUTC': '2026-09-27T11:00:00+00:00',
+            'command': f'synthetic fit driver {pid}'}))
+
+    def reissue(self, pid, command=None, started='2026-09-27T17:58:06+00:00'):
+        self.table[pid] = {'pid': pid, 'startedUTC': started,
+                           'command': command or self(pid)['command']}
+
+    def spawn(self, pid, reference):
+        """PID runs the fit driver for this launch receipt, as a parent launches it."""
+        self.table[pid] = dict(self(pid), command=driver_command(reference))
+        return reference
+
+
+def driver_command(reference):
+    return (f"/tmp/w39-g2-wgpu/bin/python -B memo_runner_v3.py --root ROOT "
+            f"--receipt {reference['path']} --sha256 {reference['sha256']}")
+
+
+REAL_PROCESS_IDENTITY = scheduler.process_identity
+
+
+@contextlib.contextmanager
+def as_process(pid):
+    """Run a block, in this thread only, as the synthetic process PID."""
+    prior = getattr(SIMULATED, 'pid', None)
+    SIMULATED.pid = pid
+    try:
+        yield
+    finally:
+        SIMULATED.pid = prior
+
+
+def run_as_claimants(store):
+    """Execute each synthetic claim and lifecycle step inside its simulated claimant.
+
+    Production run() claims with os.getpid() and runs its own lifecycle. Tests
+    name synthetic claimant PIDs, so each claim, pre-fit check, solver start and
+    finish on this store runs as the process its claim names. The real guards
+    still run; a test that must act from another process calls the class method.
+    """
+    claim = store.claim
+
+    def claimed(reference, *, pid, **kwargs):
+        with as_process(pid):
+            return claim(reference, pid=pid, **kwargs)
+    store.claim = claimed
+    for name in ('check_before_fit', 'start_solver', 'finish'):
+        def step(record, *args, _method=getattr(store, name), **kwargs):
+            with as_process(record['pid']):
+                return _method(record, *args, **kwargs)
+        setattr(store, name, step)
+    return store
+
+
+SIMULATED = threading.local()
+REAL_GETPID = os.getpid
+
+
+def simulated_getpid():
+    pid = getattr(SIMULATED, 'pid', None)
+    return REAL_GETPID() if pid is None else pid
+
+
+def fake_processes(case, module=scheduler):
+    """Fake process table, and os.getpid() answering as_process's simulated PID."""
+    processes = FakeProcesses()
+    for target, name, value in ((module, 'process_identity', processes),
+                                (module.os, 'getpid', simulated_getpid)):
+        patcher = mock.patch.object(target, name, value)
+        patcher.start()
+        case.addCleanup(patcher.stop)
+    return processes
+
+
 EVENTS = []
 
 
@@ -53,6 +142,7 @@ class SchedulerTests(unittest.TestCase):
         self.base = Path(self.tmp.name).resolve()
         self.root = self.base / 'state'
         self.live = {102, 103}
+        self.processes = fake_processes(self)
         self.owners = []
         for p in range(3):
             out = self.base / f'old-{p}'
@@ -72,7 +162,7 @@ class SchedulerTests(unittest.TestCase):
             'kind': 'STROKE_PEAK_RSS', 'largestObservedPeakRSSBytes': scheduler.GIB,
             'samples': [{'pid': 101, 'peakRSSBytes': scheduler.GIB,
                          'source': 'synthetic measurement', 'sampledUTC': '2026-09-27T12:00:00Z'}]})
-        self.store = scheduler.Store(self.root)
+        self.store = run_as_claimants(scheduler.Store(self.root))
         self.store.initialize(self.roster)
         self.memory = {'availableBytes': 32 * scheduler.GIB, 'pressureLevel': 1,
                        'metric': scheduler.MEMORY_METRIC}
@@ -99,8 +189,12 @@ class SchedulerTests(unittest.TestCase):
         value.update(changes)
         return artifact(self.base / f'launch-{len(list(self.base.glob("launch-*")))}.json', value)
 
+    def spawned(self, pid, launch=None):
+        return self.processes.spawn(pid, launch or self.launch())
+
     def claim(self, launch=None, pid=200):
-        return self.store.claim(launch or self.launch(), pid=pid, alive=self.live.__contains__,
+        launch = self.spawned(pid, launch)
+        return self.store.claim(launch, pid=pid, alive=self.live.__contains__,
                                 memory=lambda: dict(self.memory))
 
     def started(self, claim):
@@ -240,7 +334,7 @@ class SchedulerTests(unittest.TestCase):
     def test_rss_subtraction_counts_only_unallocated_commitment(self):
         self.transfer()
         self.memory['availableBytes'] = 5 * scheduler.GIB
-        claim = self.store.claim(self.launch(), pid=200, alive=self.live.__contains__,
+        claim = self.store.claim(self.spawned(200), pid=200, alive=self.live.__contains__,
             memory=lambda: dict(self.memory), rss=lambda pid: scheduler.GIB)
         self.assertEqual(claim['reservedBytes'], scheduler.GIB)
         self.assertEqual([p['rssBytes'] for p in claim['processes']], [scheduler.GIB] * 2)
@@ -250,7 +344,8 @@ class SchedulerTests(unittest.TestCase):
         def broken():
             raise ValueError('unparseable vm_stat')
         with self.assertRaises(ValueError):
-            self.store.claim(self.launch(), pid=200, alive=self.live.__contains__, memory=broken)
+            self.store.claim(self.spawned(200), pid=200, alive=self.live.__contains__,
+                             memory=broken)
         records = [json.loads(p.read_text()) for p in (self.root / 'admissions').glob('*.json')]
         self.assertEqual(len(records), 1)
         self.assertFalse(records[0]['admitted'])
@@ -327,7 +422,8 @@ class SchedulerTests(unittest.TestCase):
         self.transfer()
         launch = self.launch()
         readings = {102: 4 * scheduler.GIB, 103: 4 * scheduler.GIB}
-        claim = lambda: self.store.claim(launch, pid=200, alive=self.live.__contains__,
+        claim = lambda: self.store.claim(self.spawned(200, launch), pid=200,
+            alive=self.live.__contains__,
             memory=lambda: dict(self.memory), rss=readings.__getitem__)
         self.memory['availableBytes'] = 6 * scheduler.GIB
         with self.assertRaises(scheduler.Deferred):
@@ -347,13 +443,15 @@ class SchedulerTests(unittest.TestCase):
     def test_prefit_rss_highwater_outlives_its_process(self):
         self.transfer()
         readings = {102: scheduler.GIB, 103: scheduler.GIB, 200: 4 * scheduler.GIB}
-        claim = self.store.claim(self.launch(cap=4), pid=200, alive=self.live.__contains__,
+        claim = self.store.claim(self.spawned(200, self.launch(cap=4)), pid=200,
+            alive=self.live.__contains__,
             memory=lambda: dict(self.memory), rss=readings.__getitem__)
         self.store.check_before_fit(claim, alive=self.live.__contains__,
             memory=lambda: dict(self.memory), rss=readings.__getitem__)
         # PID 200 died without a result (for example SIGKILL); its reading is kept.
         readings[200] = 0
-        later = self.store.claim(self.launch(('M1', 'device', 3), cap=4), pid=201,
+        later = self.store.claim(self.spawned(201, self.launch(('M1', 'device', 3), cap=4)),
+                                 pid=201,
             alive=self.live.__contains__, memory=lambda: dict(self.memory),
             rss=readings.__getitem__)
         self.assertEqual(later['prospectivePeakBytes'], 4 * scheduler.GIB)
@@ -370,10 +468,10 @@ class SchedulerTests(unittest.TestCase):
         for rss, memory in ((vanished, lambda: dict(self.memory)),
                             (lambda pid: 6 * scheduler.GIB, broken)):
             with self.assertRaises((RuntimeError, ValueError)):
-                self.store.claim(self.launch(), pid=200, alive=self.live.__contains__,
+                self.store.claim(self.spawned(200), pid=200, alive=self.live.__contains__,
                                  memory=memory, rss=rss)
             self.assertFalse(list((self.root / 'claims').glob('*.json')))
-        later = self.store.claim(self.launch(), pid=200, alive=self.live.__contains__,
+        later = self.store.claim(self.spawned(200), pid=200, alive=self.live.__contains__,
             memory=lambda: dict(self.memory), rss=lambda pid: scheduler.GIB)
         self.assertEqual(later['prospectivePeakBytes'], 6 * scheduler.GIB)
         records = [json.loads(p.read_text()) for p in (self.root / 'admissions').glob('*.json')]
@@ -539,6 +637,150 @@ class SchedulerTests(unittest.TestCase):
             self.store.finish(altered, scheduler.selected_fit(example, [], other['task'])[0])
         self.assertFalse(list((self.root / 'results').glob('*.json')))
         self.store.finish(other, scheduler.selected_fit(example, [], other['task'])[0])
+
+    def test_process_identity_reads_the_real_process_table(self):
+        own = REAL_PROCESS_IDENTITY(os.getpid())
+        self.assertEqual(own['pid'], os.getpid())
+        self.assertIsNotNone(scheduler.datetime.fromisoformat(own['startedUTC']).tzinfo)
+        self.assertIn('unittest', own['command'])
+        self.assertEqual(REAL_PROCESS_IDENTITY(os.getpid()), own)
+        child = subprocess.Popen([sys.executable, '-B', '-c', 'pass'])
+        child.wait()
+        self.assertIsNone(REAL_PROCESS_IDENTITY(child.pid))
+
+    def test_registered_handoff_retires_its_old_owner_even_if_the_pid_is_reissued(self):
+        self.transfer()
+        # Partition 0's owner stopped and was handed off; its PID now belongs to a
+        # small OS service. It reserves nothing and cannot block partition 0 claims.
+        self.live.add(101)
+        self.processes.reissue(101, '/System/Library/ExtensionKit/synthetic-os-service')
+        decision = self.claim()
+        self.assertEqual([p['owner'] for p in decision['processes']], ['old-1', 'old-2'])
+        self.assertEqual(decision['excludedProcesses'], [
+            {'pid': 101, 'owner': 'old-0', 'reason': 'registered stop handoff'}])
+        self.assertEqual(decision['effectiveConcurrency'], 3)
+        # Unregistered partitions' live owners still reserve, and still block transfer.
+        with self.assertRaisesRegex(ValueError, 'live'):
+            self.store.transfer(self.handoff(partition=1, oldPid=102, oldTaskId='old-1'),
+                                alive=self.live.__contains__)
+
+    def test_settled_claim_reserves_only_while_its_claimant_process_lives(self):
+        self.transfer()
+        claim = self.started(self.claim())
+        result = scheduler.selected_fit(example, [], claim['task'])[0]
+        self.store.finish(claim, dict(result, peakRSSBytes=scheduler.GIB))
+        # The finished claimant has not exited yet: it is genuinely live and counts.
+        self.live.add(200)
+        with self.assertRaises(scheduler.Deferred) as refusal:
+            self.claim(self.launch(('M1', 'device', 3)), pid=201)
+        self.assertIn('device-M1-start-00.json',
+                      [p['owner'] for p in refusal.exception.decision['processes']])
+        # The same PID reissued, same command, later start: not the claimant.
+        self.processes.reissue(200)
+        decision = self.claim(self.launch(('M1', 'device', 3)), pid=201)
+        self.assertEqual([p['pid'] for p in decision['processes']], [102, 103])
+        self.assertEqual([(p['owner'], p['reason']) for p in decision['excludedProcesses']],
+                         [('old-0', 'registered stop handoff'),
+                          ('device-M1-start-00.json', 'PID reused: creation identity differs')])
+
+    def test_claim_requires_a_readable_claimant_launched_with_this_receipt(self):
+        self.transfer()
+        launch, other = self.launch(), self.launch(('M1', 'device', 3))
+        cases = [(None, 'identity is unreadable'),
+                 ('/usr/libexec/unrelated-service', 'not launched with this receipt'),
+                 (driver_command(other), 'not launched with this receipt')]
+        for command, message in cases:
+            if command is None:
+                self.processes.gone.add(200)
+            else:
+                self.processes.gone.discard(200)
+                self.processes.reissue(200, command)
+            with self.assertRaisesRegex(ValueError, message):
+                self.store.claim(launch, pid=200, alive=self.live.__contains__,
+                                 memory=lambda: dict(self.memory))
+        self.assertFalse(list((self.root / 'claims').glob('*.json')))
+        claim = self.claim(launch)
+        self.assertEqual((claim['processIdentity'], claim['processIdentitySource']),
+                         (self.processes(200), scheduler.PROCESS_IDENTITY_SOURCE))
+        self.assertTrue(scheduler.names_receipt(claim['processIdentity']['command'], launch))
+
+    def test_prefit_rereads_the_claimants_live_identity(self):
+        self.transfer()
+        claim = self.claim()
+        # A later process at the claimant's PID fails the pre-fit check, and that
+        # refusal is not a re-admissible no-fit deferral.
+        self.processes.reissue(200)
+        with self.assertRaisesRegex(ValueError, 'claimant'):
+            self.check(claim)
+        self.assertFalse(list((self.root / 'deferrals').glob('*.json')))
+
+    def test_solved_fit_finishes_without_reading_the_process_table(self):
+        self.transfer()
+        claim = self.claim()
+        self.check(claim)
+        # After the pre-fit check nothing may shell out: an unreadable process table
+        # cannot cost a legitimately started or completed fit its marker or result.
+        def unavailable(pid):
+            raise OSError('ps unavailable after solve')
+        with mock.patch.object(scheduler, 'process_identity', unavailable):
+            self.store.start_solver(claim)
+            marker = json.loads((self.root / 'started' / scheduler.claim_name(claim)).read_text())
+            self.assertEqual(marker['processIdentity'], claim['processIdentity'])
+            result = scheduler.selected_fit(example, [], claim['task'])[0]
+            self.store.finish(claim, result)
+        self.assertTrue((self.root / 'results' / scheduler.filename(claim['task'])).exists())
+
+    def test_only_the_claiming_process_and_store_start_or_finish_a_claim(self):
+        self.transfer()
+        claim = self.claim()
+        self.check(claim)
+        another_process = scheduler.Store(self.root)
+        with as_process(200), self.assertRaisesRegex(ValueError, 'did not make this claim'):
+            another_process.start_solver(claim)
+        with as_process(201), self.assertRaisesRegex(ValueError, 'did not make this claim'):
+            scheduler.Store.start_solver(self.store, claim)
+        self.assertFalse(list((self.root / 'started').glob('*.json')))
+        self.store.start_solver(claim)
+        result = scheduler.selected_fit(example, [], claim['task'])[0]
+        with as_process(200), self.assertRaisesRegex(ValueError, 'did not make this claim'):
+            another_process.finish(claim, result)
+        with as_process(201), self.assertRaisesRegex(ValueError, 'did not make this claim'):
+            scheduler.Store.finish(self.store, claim, result)
+        self.assertFalse(list((self.root / 'results').glob('*.json')))
+        self.store.finish(claim, result)
+
+    def test_a_controller_that_claimed_for_its_child_owns_no_lifecycle(self):
+        self.transfer()
+        # A controller (this real process, no simulation) claims on behalf of a
+        # child fit driver whose identity it read. It made the claim in this store
+        # and process, but the claim's PID is not its own: it holds no lifecycle.
+        controller = scheduler.Store(self.root)
+        child = self.spawned(500)
+        claim = controller.claim(child, pid=500, alive=self.live.__contains__,
+                                 memory=lambda: dict(self.memory))
+        name = scheduler.claim_name(claim)
+        with self.assertRaisesRegex(ValueError, 'not this process'):
+            controller.check_before_fit(claim, alive=self.live.__contains__,
+                                        memory=lambda: dict(self.memory))
+        self.assertFalse(list((self.root / 'deferrals').glob('*.json')))
+        # Fixture: the admitted pre-fit record the previous source epoch let such a
+        # controller write. The child's PID is then reissued; the controller still
+        # cannot start the solver, which no longer re-reads the process table.
+        scheduler.immutable(self.root / 'admissions' / name, {'admitted': True})
+        self.processes.reissue(500)
+        with self.assertRaisesRegex(ValueError, 'not this process'):
+            controller.start_solver(claim)
+        self.assertFalse(list((self.root / 'started').glob('*.json')))
+        # Fixture: that epoch's marker, bound to the child's recorded identity.
+        claim_path = self.root / 'claims' / name
+        scheduler.immutable(self.root / 'started' / name, {
+            'kind': scheduler.SOLVER_START, 'task': claim['task'], 'generation': 0,
+            'pid': 500, 'processIdentity': claim['processIdentity'], 'solverStarted': True,
+            'claim': {'path': str(claim_path), 'sha256': ref(claim_path)['sha256']},
+            'startedUTC': scheduler.now()})
+        with self.assertRaisesRegex(ValueError, 'not this process'):
+            controller.finish(claim, scheduler.selected_fit(example, [], claim['task'])[0])
+        self.assertFalse(list((self.root / 'results').glob('*.json')))
 
     def test_memory_parser_states_exact_metric(self):
         value = scheduler.parse_memory('Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free: 200.\nPages inactive: 300.\nPages speculative: 999.\n', '1')

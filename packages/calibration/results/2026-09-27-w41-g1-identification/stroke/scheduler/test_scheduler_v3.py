@@ -7,7 +7,7 @@ import unittest
 import scheduler
 import scheduler_v2
 import scheduler_v3
-from test_scheduler import artifact, example, ref
+from test_scheduler import artifact, example, fake_processes, ref, run_as_claimants
 from test_scheduler_v2 import at
 
 GIB = scheduler.GIB
@@ -26,6 +26,7 @@ class AdaptivePolicyTests(unittest.TestCase):
         self.base = Path(self.tmp.name).resolve()
         self.root = self.base / 'state'
         self.live = set()  # no old static fit is live
+        self.processes = fake_processes(self)
         owners = []
         for p in range(3):
             out = self.base / f'old-{p}'
@@ -47,8 +48,8 @@ class AdaptivePolicyTests(unittest.TestCase):
         self.policy = artifact(self.base / 'adaptive-direction.json', DIRECTION)
         self.disk = {'freeBytes': 100 * GIB, 'volumes': {'/': 100 * GIB},
                      'sampledUTC': at(0), 'source': 'synthetic'}
-        self.store = scheduler_v3.StoreV3(self.root, disk=lambda: dict(self.disk),
-                                          swap=lambda: {'raw': 'synthetic swap'})
+        self.store = run_as_claimants(scheduler_v3.StoreV3(
+            self.root, disk=lambda: dict(self.disk), swap=lambda: {'raw': 'synthetic swap'}))
         self.store.initialize(self.roster)
         for p in range(3):
             self.store.transfer(artifact(self.base / f'handoff-{p}.json', {
@@ -71,7 +72,8 @@ class AdaptivePolicyTests(unittest.TestCase):
         return artifact(self.base / f'launch-{len(list(self.base.glob("launch-*")))}.json', value)
 
     def claim(self, task=('M1', 'device', 0), pid=200, launch=None, memory=None, rss=None):
-        return self.store.claim(launch or self.launch(task), pid=pid, alive=self.live.__contains__,
+        launch = self.processes.spawn(pid, launch or self.launch(task))
+        return self.store.claim(launch, pid=pid, alive=self.live.__contains__,
                                 memory=memory or (lambda: dict(self.memory)), rss=rss)
 
     def refused(self, *args, **kwargs):
@@ -220,7 +222,7 @@ class AdaptivePolicyTests(unittest.TestCase):
                 self.claim(launch=launch)
         # The v2 gate refuses a v3 receipt rather than admitting it under v2 numbers.
         with self.assertRaisesRegex(ValueError, 'receiptVersion 2'):
-            scheduler_v2.StoreV2(self.root).claim(self.launch(), pid=200,
+            scheduler_v2.StoreV2(self.root).claim(self.processes.spawn(200, self.launch()), pid=200,
                 alive=self.live.__contains__, memory=lambda: dict(self.memory))
         Path(self.policy['path']).write_text(json.dumps(DIRECTION) + ' ')
         with self.assertRaisesRegex(ValueError, 'hash'):
@@ -263,6 +265,65 @@ class AdaptivePolicyTests(unittest.TestCase):
         self.assertEqual((published['policyVersion'], published['admissionMode']), (3, 'degraded'))
         self.assertEqual(set(published['policySourceSha256']),
                          {str(Path(m.__file__).resolve()) for m in (scheduler_v2, scheduler_v3)})
+
+    def test_reissued_pid_of_a_handed_off_old_owner_reserves_nothing(self):
+        # W41 G1 regression: partition 1's old owner stopped and was handed off; macOS
+        # reissued its PID to a small OS service, and a bare liveness probe reserved a
+        # full fit peak for it, so the one-fit degraded gate refused every start.
+        self.live.add(102)
+        self.processes.reissue(102, '/System/Library/ExtensionKit/Extensions/'
+                               'AppleIntelligenceReportingSELFIngestor.appex/Contents/MacOS/'
+                               'AppleIntelligenceReportingSELFIngestor')
+        self.memory['availableBytes'] = GIB  # room for exactly one fit
+        decision = self.claim(('M1', 'device', 1))  # partition 1's own task claims too
+        self.assertEqual((decision['resourceMode'], decision['effectiveConcurrency'],
+                          decision['reservedBytes'], decision['processes']),
+                         ('degraded', 1, GIB, []))
+        self.assertIn({'pid': 102, 'owner': 'old-1', 'reason': 'registered stop handoff'},
+                      decision['excludedProcesses'])
+
+    def test_claim_pid_reissued_with_the_same_command_reserves_nothing(self):
+        self.live.add(300)
+        running = self.claim(pid=300)
+        # The genuine claimant, live and unchanged, holds the one degraded slot.
+        refusal = self.refused(('M1', 'device', 3), pid=301)
+        self.assertEqual([(p['pid'], p['processIdentity']) for p in refusal['processes']],
+                         [(300, running['processIdentity'])])
+        self.assertEqual(refusal['effectiveConcurrency'], 2)
+        # Same PID and same command, a later start: another process, no reservation.
+        self.processes.reissue(300)
+        decision = self.claim(('M1', 'device', 3), pid=301)
+        self.assertEqual((decision['effectiveConcurrency'], decision['processes']), (1, []))
+        self.assertIn({'pid': 300, 'owner': 'device-M1-start-00.json',
+                       'reason': 'PID reused: creation identity differs',
+                       'processIdentity': self.processes(300)}, decision['excludedProcesses'])
+
+    def test_claims_recorded_before_identities_use_start_time_and_receipt(self):
+        # The live root's claims predate identities. Their claimant started no later
+        # than the claim and ran the launch receipt on its command line.
+        launch = self.launch()
+        legacy = {'task': ['M1', 'device', 0], 'generation': 0, 'pid': 400,
+                  'claimedUTC': '2026-09-27T14:55:58+00:00', 'launch': launch,
+                  'prospectivePeakBytes': GIB, 'reservationBytes': GIB}
+        artifact(self.root / 'claims' / 'device-M1-start-00.json', legacy)
+        driver = (f"/tmp/python -B memo_runner_v3.py --root {self.root} "
+                  f"--receipt {launch['path']} --sha256 {launch['sha256']}")
+        self.live.add(400)
+        cases = [('2026-09-27T17:58:06+00:00', driver,
+                  'PID reused: process started after the claim'),
+                 ('2026-09-27T14:55:00+00:00', '/usr/libexec/unrelated',
+                  "PID reused: command does not run the claim's launch receipt"),
+                 ('2026-09-27T14:55:00+00:00', driver, None)]
+        for index, (started, command, reason) in enumerate(cases):
+            self.processes.reissue(400, command, started)
+            task = ('M1', 'device', 3 + 3 * index)
+            if reason is None:  # the genuine claimant still reserves its slot
+                refusal = self.refused(task, pid=401)
+                self.assertEqual([p['pid'] for p in refusal['processes']], [400])
+            else:
+                decision = self.claim(task, pid=401 + index)
+                self.assertEqual(decision['processes'], [])
+                self.assertIn(reason, [p['reason'] for p in decision['excludedProcesses']])
 
 
 if __name__ == '__main__':

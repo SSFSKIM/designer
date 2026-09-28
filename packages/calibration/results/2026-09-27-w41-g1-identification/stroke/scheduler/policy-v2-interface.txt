@@ -101,3 +101,11 @@ memory_pressure's own "normal"; G1owner-accepted proof and raw query evidence).
 Synthetic verification
   python -B -m unittest discover -s /absolute/path/to/stroke/scheduler -p 'test_scheduler*.py'
   test_scheduler_v2.py uses fake memory, pressure and process readings only.
+
+Current state (W41 G1 PID-reuse fix; the text above is kept as written for its epoch)
+  "Live old or claimed fit" and "live old + live claimed" now mean v1's process-
+  identity enumeration (interface.txt, "Process identity"): an old owner whose
+  handoff is registered never reserves, and a claim reserves only while its
+  recorded claimant identity holds its PID. This gate calls that one routine;
+  its admissions add excludedProcesses. scheduler_v2.py's bytes changed with the
+  fix, so a pressure watcher receipt pins the new scheduler_v2.py SHA-256.

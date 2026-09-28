@@ -1,0 +1,83 @@
+{
+  "sampledUTC": "2026-09-27T15:07:30.670194+00:00",
+  "policyVersion": 3,
+  "resourcePolicy": "stroke-adaptive-v3",
+  "adaptiveMemoryPolicy": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-memory-parent-direction-v3.json",
+    "sha256": "77cadc2730c1fd41e909fb329bf3b6dbb0bae49907fc6b8b6ca7983745f13e1f"
+  },
+  "resourceMode": "degraded",
+  "normalGate": {
+    "pressureNormal": false,
+    "fiveSpacedNormal": false,
+    "floorClears": false
+  },
+  "policyCounter": "free + max(inactive, purgeable)",
+  "counterEpoch": "policy-v2 counter correction: max, not the superseded inactive + purgeable sum",
+  "memory": {
+    "availableBytes": 3268476928,
+    "pressureLevel": 2,
+    "pageSizeBytes": 16384,
+    "freePages": 5426,
+    "inactivePages": 194066,
+    "purgeablePages": 2,
+    "countedPages": 199492,
+    "counter": "free + max(inactive, purgeable)",
+    "counterEpoch": "policy-v2 counter correction: max, not the superseded inactive + purgeable sum",
+    "metric": "macOS (vm_stat Pages free + max(Pages inactive, Pages purgeable)) * page size; reclaimable-headroom heuristic, not a free-memory guarantee",
+    "sampledUTC": "2026-09-27T15:07:30.642429+00:00"
+  },
+  "pressureState": {
+    "admissionsOpen": false,
+    "spacedNormalReadings": 0,
+    "requiredNormalReadings": 5,
+    "lastAbnormalUTC": "2026-09-27T15:07:30.642429+00:00",
+    "readings": 522
+  },
+  "spacedNormalRun": 0,
+  "freshestPressure": {
+    "id": "27b0d88f1c9a46649ff3ac214ddae3d5",
+    "sampledUTC": "2026-09-27T15:07:30.642429+00:00",
+    "pressureLevel": 2,
+    "source": "admission"
+  },
+  "disk": {
+    "freeBytes": 75170807808,
+    "volumes": {
+      "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1": 75170807808,
+      "/System/Volumes/VM": 75170807808
+    },
+    "sampledUTC": "2026-09-27T15:07:30.666995+00:00",
+    "source": "shutil.disk_usage free bytes (statvfs)"
+  },
+  "diskFreeBytes": 75170807808,
+  "diskFloorBytes": 21474836480,
+  "swap": {
+    "raw": "total = 8192.00M  used = 6994.75M  free = 1197.25M  (encrypted)\n",
+    "sampledUTC": "2026-09-27T15:07:30.670171+00:00"
+  },
+  "swapExpectation": "degraded gate: no headroom floor, one fit at a time; paging to swap is expected and accepted, bounded by the 20 GiB disk floor",
+  "processes": [
+    {
+      "pid": 86314,
+      "owner": "device-M1-start-09.json",
+      "peakBytes": 4594515968,
+      "rssBytes": 1870938112,
+      "remainingBytes": 2723577856
+    }
+  ],
+  "effectiveConcurrency": 2,
+  "maxConcurrency": 3,
+  "modeConcurrencyLimit": 1,
+  "reservedBytes": 7318093824,
+  "ownRSSBytes": 0,
+  "observedPeakBytes": 4594515968,
+  "prospectivePeakBytes": 4594515968,
+  "peakEvidence": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-peak-evidence-4.json",
+    "sha256": "40de867951c6e62516b507972e19b249fd2bc4bb67631eaac5c6bffe1b15a661"
+  },
+  "requiredAvailableBytes": 7318093824,
+  "headroomAfterReservationBytes": -4049616896,
+  "admitted": false
+}

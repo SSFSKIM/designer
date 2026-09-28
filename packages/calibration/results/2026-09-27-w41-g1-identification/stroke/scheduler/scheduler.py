@@ -6,6 +6,9 @@ is permanent even if its process dies. Only two starts can run again: the OLD
 static runner's explicitly recorded aborted start, and a claim refused at its
 pre-fit memory check before its durable solver-start marker, which a new parent
 launch must name as its predecessor. Nothing here stops a process or retries work.
+An owner is a process identity (PID, start time, full command), never a bare PID:
+a registered handoff retires an old owner, and a claim reserves memory and acts on
+its lifecycle only through the claimant process recorded in it.
 Run --help for commands; see interface.txt for receipt fields and memory semantics.
 """
 import argparse
@@ -134,6 +137,42 @@ def alive(pid):
         return True
 
 
+PROCESS_IDENTITY_SOURCE = 'LC_ALL=C TZ=UTC /bin/ps -ww -o lstart= -o command= -p PID'
+LSTART = re.compile(r'^\s*([A-Z][a-z]{2} [A-Z][a-z]{2} +\d{1,2} \d\d:\d\d:\d\d \d{4})\s*(.*)$')
+
+
+def process_identity(pid):
+    """Creation identity of the process that holds PID now, or None if none does.
+
+    A PID alone is not an owner: macOS reuses PIDs, and a reused one names an
+    unrelated process (W41 G1: the old partition-1 PID was reissued to an OS
+    service, which a bare liveness probe counted as a full fit reservation for
+    hours). The identity is the PID with its start time and full command; the
+    fixed C locale and UTC zone make it compare byte-for-byte across readings.
+    lstart has one-second resolution, so the command is part of the identity.
+    """
+    completed = subprocess.run(['/bin/ps', '-ww', '-o', 'lstart=', '-o', 'command=',
+                                '-p', str(pid)], capture_output=True, text=True,
+                               env={'LC_ALL': 'C', 'TZ': 'UTC'})
+    lines = completed.stdout.splitlines()
+    if completed.returncode == 1 and not lines and not completed.stderr.strip():
+        return None
+    match = LSTART.match(lines[0]) if completed.returncode == 0 and len(lines) == 1 else None
+    if match is None:
+        raise ValueError(f'unreadable process identity for PID {pid}: {completed!r}')
+    started = datetime.strptime(' '.join(match[1].split()), '%a %b %d %H:%M:%S %Y')
+    return {'pid': pid, 'startedUTC': started.replace(tzinfo=timezone.utc).isoformat(),
+            'command': match[2]}
+
+
+def names_receipt(command, reference):
+    """Whether a command line is a driver launched with exactly this receipt REF."""
+    padded = f' {command} '
+    return all(any(f' {flag}{sep}{value} ' in padded for sep in (' ', '='))
+               for flag, value in (('--receipt', reference['path']),
+                                   ('--sha256', reference['sha256'])))
+
+
 def process_rss(pid):
     # ps reports KiB on macOS. A disappearing process merely makes this check
     # defer; the next explicitly requested invocation can take a fresh snapshot.
@@ -159,6 +198,9 @@ def mac_memory():
 class Store:
     def __init__(self, root):
         self.root = Path(root).resolve()
+        # Claims this Store made in this process: claim name -> the claiming
+        # process's os.getpid() and the claimant identity read at claim time.
+        self.claimants = {}
 
     def initialize(self, reference):
         roster = record(reference)
@@ -215,9 +257,7 @@ class Store:
             raise ValueError('explicit capture release for this root required')
         return release
 
-    def validate_handoff(self, reference, alive):
-        handoff = record(reference)
-        roster_ref, roster = self.roster()
+    def handoff_owner(self, handoff, roster_ref, roster):
         p = handoff['partition']
         if type(p) is not int or p not in range(3) or handoff['kind'] != 'STROKE_HANDOFF' \
                 or handoff['rosterSha256'] != roster_ref['sha256']:
@@ -225,7 +265,32 @@ class Store:
         owner = next(o for o in roster['oldOwners'] if o['partition'] == p)
         if handoff['oldPid'] != owner['pid'] or handoff['oldTaskId'] != owner['taskId']:
             raise ValueError('handoff old owner identity changed')
-        if alive(owner['pid']):
+        return owner
+
+    def retired_partitions(self, roster_ref, roster):
+        """Partitions whose old owner a registered, hash-pinned handoff retired.
+
+        transfer registers a handoff only while the old PID is dead, under the
+        allocation lock. A dead process never returns, so a later live process at
+        that PID is a different one and never reserves the old owner's slot.
+        """
+        retired = set()
+        for path in sorted((self.root / 'handoffs').glob('*.json')):
+            handoff = record(json.loads(path.read_text()))
+            owner = self.handoff_owner(handoff, roster_ref, roster)
+            if path.name != f"{owner['partition']}.json":
+                raise ValueError('registered handoff is filed under another partition')
+            retired.add(owner['partition'])
+        return retired
+
+    def validate_handoff(self, reference, alive, *, registered=False):
+        handoff = record(reference)
+        roster_ref, roster = self.roster()
+        owner = self.handoff_owner(handoff, roster_ref, roster)
+        p = owner['partition']
+        # Liveness decides the transfer itself. A registered handoff was accepted
+        # while the owner was dead; re-probing its PID would read a reused PID.
+        if not registered and alive(owner['pid']):
             raise ValueError('old owner is still live; ownership cannot transfer')
         self.release(handoff['captureRelease'])
         pinned(handoff['direction'])
@@ -285,7 +350,7 @@ class Store:
             raise
 
     def _admission(self, launch, pid, alive, memory, rss, *, own_claim=None):
-        _, roster = self.roster()
+        roster_ref, roster = self.roster()
         release = self.release(launch['captureRelease'])
         cap = launch['maxConcurrency']
         if type(cap) is not int or not 1 <= cap <= release['maxConcurrency']:
@@ -304,26 +369,15 @@ class Store:
         for key in ('reservationBytes', 'oldWorkerReservationBytes'):
             if type(launch[key]) is not int or launch[key] < measured:
                 raise ValueError('reservation is below measured wave peak RSS')
-        processes = []
-        for owner in roster['oldOwners']:
-            if alive(owner['pid']):
-                processes.append({'pid': owner['pid'], 'owner': f"old-{owner['partition']}",
-                                  'peakBytes': launch['oldWorkerReservationBytes']})
+        processes, excluded, claim_peaks = self.reservations(roster_ref, roster, launch, alive,
+                                                             own_claim)
         # Every valid RSS reading any earlier admission took (refused, failed or
         # pre-fit included) stays in the high-water: a fit whose RSS later falls
         # can regrow to what it was already seen to hold.
-        historical_peaks = [measured] + self.observed_rss()
+        historical_peaks = [measured] + self.observed_rss() + claim_peaks
         for path in sorted((self.root / 'results').glob('*.json')):
             result = json.loads(path.read_text())
             historical_peaks.append(result['peakRSSBytes'])
-        for path in sorted((self.root / 'claims').glob('*.json')):
-            claim = json.loads(path.read_text())
-            historical_peaks.append(claim['prospectivePeakBytes'])
-            if own_claim is not None and claim_name(claim) == claim_name(own_claim):
-                continue
-            if alive(claim['pid']):
-                processes.append({'pid': claim['pid'], 'owner': filename(claim['task']),
-                                  'peakBytes': claim['reservationBytes']})
         if pid in [p['pid'] for p in processes] or len({p['pid'] for p in processes}) != len(processes):
             raise ValueError('one process cannot own multiple simultaneous slots')
         # Before the fit, preparation's own RSS is already resident; reserve only
@@ -354,6 +408,7 @@ class Store:
         reserved = sum(p['remainingBytes'] for p in processes) + max(0, prospective_peak - own_rss)
         reading = memory()
         decision = {'sampledUTC': now(), 'memory': reading, 'processes': processes,
+                    'excludedProcesses': excluded,
                     'effectiveConcurrency': len(processes) + 1, 'maxConcurrency': cap,
                     'reservedBytes': reserved, 'ownRSSBytes': own_rss,
                     'observedPeakBytes': observed_peak,
@@ -370,6 +425,85 @@ class Store:
         decision['admitted'] = True
         immutable(self.root / 'admissions' / f'{uuid.uuid4().hex}.json', decision)
         return decision
+
+    def identify(self, pid):
+        return process_identity(pid)
+
+    def reservations(self, roster_ref, roster, launch, alive, own_claim):
+        """Live processes an admission must reserve for, those it must not, and claim peaks.
+
+        An old owner reserves until its registered handoff retires it. A claim
+        reserves while the process holding its PID is the claimant itself: the
+        creation identity recorded in the claim, or, for a claim recorded before
+        identities were, a process that started no later than the claim and runs
+        the claim's own launch receipt. Settled or not, a PID reissued to another
+        process reserves nothing; a genuinely live claimant always reserves.
+        """
+        processes, excluded, peaks = [], [], []
+        retired = self.retired_partitions(roster_ref, roster)
+        for owner in roster['oldOwners']:
+            label = f"old-{owner['partition']}"
+            if owner['partition'] in retired:
+                excluded.append({'pid': owner['pid'], 'owner': label,
+                                 'reason': 'registered stop handoff'})
+            elif alive(owner['pid']):
+                processes.append({'pid': owner['pid'], 'owner': label,
+                                  'peakBytes': launch['oldWorkerReservationBytes']})
+        for path in sorted((self.root / 'claims').glob('*.json')):
+            claim = json.loads(path.read_text())
+            peaks.append(claim['prospectivePeakBytes'])
+            if own_claim is not None and claim_name(claim) == claim_name(own_claim):
+                continue
+            if not alive(claim['pid']):
+                continue
+            label = filename(claim['task'])
+            current = self.identify(claim['pid'])
+            reason = self.foreign_process(claim, current)
+            if reason is None:
+                processes.append({'pid': claim['pid'], 'owner': label,
+                                  'peakBytes': claim['reservationBytes'],
+                                  'processIdentity': current})
+            elif current is not None:
+                excluded.append({'pid': claim['pid'], 'owner': label, 'reason': reason,
+                                 'processIdentity': current})
+        return processes, excluded, peaks
+
+    @staticmethod
+    def foreign_process(claim, current):
+        """Why the live process at a claim's PID is not its claimant, or None if it is."""
+        if current is None:
+            return 'no process'
+        recorded = claim.get('processIdentity')
+        if recorded is not None:
+            return None if current == recorded else 'PID reused: creation identity differs'
+        if 'claimedUTC' in claim and datetime.fromisoformat(current['startedUTC']) \
+                > datetime.fromisoformat(claim['claimedUTC']):
+            return 'PID reused: process started after the claim'
+        if 'launch' in claim and not names_receipt(current['command'], claim['launch']):
+            return "PID reused: command does not run the claim's launch receipt"
+        return None
+
+    def check_owner(self, claim, *, probe=False):
+        """Only the claimant process itself may prepare, start or finish its claim.
+
+        The claim must have been made by THIS Store in THIS process (os.getpid()
+        unchanged since the claim), with the identity recorded in the claim, and
+        the claim's PID must be this process: a controller that claimed for some
+        other process holds no lifecycle, whatever later happens at that PID.
+        That in-process binding needs no external read, so the solver-start
+        marker and a completed fit's finish never depend on spawning ps after the
+        solve. The pre-fit check additionally re-reads the live identity.
+        """
+        recorded = claim.get('processIdentity')
+        held = self.claimants.get(claim_name(claim))
+        if held is None or held['processPid'] != os.getpid() \
+                or held['processIdentity'] != recorded or recorded.get('pid') != claim['pid']:
+            raise ValueError('this process and store did not make this claim')
+        if claim['pid'] != os.getpid():
+            raise ValueError("claim's PID is not this process; only the claimant owns it")
+        if probe and self.identify(claim['pid']) != recorded:
+            raise ValueError("live process is not this claim's recorded claimant")
+        return recorded
 
     def observed_rss(self):
         peaks = []
@@ -396,7 +530,7 @@ class Store:
             if not handoff_path.exists():
                 raise ValueError('partition has no explicit handoff')
             handoff_ref = json.loads(handoff_path.read_text())
-            handoff, remaining = self.validate_handoff(handoff_ref, alive)
+            handoff, remaining = self.validate_handoff(handoff_ref, alive, registered=True)
             if launch['captureRelease'] != handoff['captureRelease']:
                 raise ValueError('launch and handoff must name the same capture release')
             if task not in remaining:
@@ -406,12 +540,22 @@ class Store:
             destination = self.root / 'claims' / claim_filename(task, generation)
             if destination.exists():
                 raise ValueError('task already claimed; no silent retry')
+            # The claimant's creation identity, read before admission and bound into
+            # the claim: every later reservation and lifecycle step compares to it.
+            identity = self.identify(pid)
+            if identity is None or identity['pid'] != pid:
+                raise ValueError('claimant process identity is unreadable')
+            if not names_receipt(identity['command'], reference):
+                raise ValueError('claimant process was not launched with this receipt')
             decision = self.admission(launch, pid, alive, memory, rss)
-            claim = dict(decision, task=list(task), pid=pid, claimedUTC=now(),
+            claim = dict(decision, task=list(task), pid=pid, processIdentity=identity,
+                         processIdentitySource=PROCESS_IDENTITY_SOURCE, claimedUTC=now(),
                          launch=reference, handoff=handoff_ref, generation=generation,
                          deferredPredecessor=predecessor,
                          reservationBytes=decision['prospectivePeakBytes'])
             immutable(destination, claim)
+            self.claimants[claim_name(claim)] = {'processPid': os.getpid(),
+                                                 'processIdentity': identity}
             return claim
 
     def readmission(self, reference, task):
@@ -445,6 +589,7 @@ class Store:
         with self.locked():
             self.check_claim(claim)
             self.settled(claim)
+            self.check_owner(claim, probe=True)
             name = claim_name(claim)
             launch = record(claim['launch'])
             try:
@@ -478,9 +623,11 @@ class Store:
             if (self.root / 'started' / name).exists():
                 raise FileExistsError('solver already started for this claim')
             self.settled(claim)
+            identity = self.check_owner(claim)
             immutable(self.root / 'started' / name, {
                 'kind': SOLVER_START, 'task': claim['task'],
                 'generation': claim.get('generation', 0), 'pid': claim['pid'],
+                'processIdentity': identity,
                 'claim': {'path': str(self.root / 'claims' / name),
                           'sha256': hashlib.sha256(
                               (self.root / 'claims' / name).read_bytes()).hexdigest()},
@@ -504,6 +651,7 @@ class Store:
             claim_path = self.root / 'claims' / name
             if started['kind'] != SOLVER_START or started['solverStarted'] is not True \
                     or started['task'] != claim['task'] or started['pid'] != claim['pid'] \
+                    or started.get('processIdentity') != self.check_owner(claim) \
                     or started['claim'] != {'path': str(claim_path), 'sha256': hashlib.sha256(
                         claim_path.read_bytes()).hexdigest()}:
                 raise ValueError("solver-start marker does not match this claim")

@@ -1,0 +1,25 @@
+E
+======================================================================
+ERROR: test_composed_gate_ignores_a_reissued_pid_of_a_handed_off_old_owner (test_policy_v3.AdaptiveDriverTests.test_composed_gate_ignores_a_reissued_pid_of_a_handed_off_old_owner)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/w41-pidfix-red-X6t44C/verification-slot/test_policy_v3.py", line 241, in test_composed_gate_ignores_a_reissued_pid_of_a_handed_off_old_owner
+    decision = v.resource_admission(self.store, launch, 999, self.live.__contains__,
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w41-pidfix-red-X6t44C/verification-slot/verification_slot.py", line 314, in resource_admission
+    return store.admission(launch, pid, alive, memory, rss, own_claim=owner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w41-pidfix-red-X6t44C/scheduler/scheduler.py", line 278, in admission
+    return self._admission(launch, pid, alive, memory, rss, own_claim=own_claim)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w41-pidfix-red-X6t44C/verification-slot/verification_policy_v3.py", line 82, in _admission
+    decision = super()._admission(launch, pid, alive, memory, rss, own_claim=own_claim)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/w41-pidfix-red-X6t44C/scheduler/scheduler_v3.py", line 254, in _admission
+    raise refusal
+verification_scheduler.Deferred: {"adaptiveMemoryPolicy": {"path": "/private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmp19pooptd/adaptive-policy.json", "sha256": "b882327b80c4bbb7953b7ec68adaf2939393e9766f4408ef317374eeb76c7b32"}, "admitted": false, "counterEpoch": "policy-v2 counter correction: max, not the superseded inactive + purgeable sum", "disk": {"freeBytes": 26843545600}, "diskFloorBytes": 21474836480, "diskFreeBytes": 26843545600, "effectiveConcurrency": 2, "freshestPressure": {"id": "28fc9202b4fb461dad3e5947100c8d06", "pressureLevel": 2, "sampledUTC": "2026-09-27T13:00:00+00:00", "source": "admission"}, "headroomAfterReservationBytes": 19864223744, "maxConcurrency": 3, "memory": {"availableBytes": 21474836480, "countedPages": 5242880, "counter": "free + max(inactive, purgeable)", "counterEpoch": "policy-v2 counter correction: max, not the superseded inactive + purgeable sum", "freePages": 0, "inactivePages": 5242880, "metric": "macOS (vm_stat Pages free + max(Pages inactive, Pages purgeable)) * page size; reclaimable-headroom heuristic, not a free-memory guarantee", "pageSizeBytes": 4096, "pressureLevel": 2, "purgeablePages": 0, "sampledUTC": "2026-09-27T13:00:00+00:00"}, "modeConcurrencyLimit": 1, "normalGate": {"fiveSpacedNormal": false, "floorClears": true, "pressureNormal": false}, "observedPeakBytes": 1073741824, "ownRSSBytes": 0, "peakEvidence": {"path": "/private/var/folders/c1/l4z5k02n2779byvnymzxsvth0000gn/T/tmp19pooptd/peak.json", "sha256": "278cd8feca38789a22be299303f810329fd43243b00a01888873b6ca4126ee71"}, "policyCounter": "free + max(inactive, purgeable)", "policyVersion": 3, "pressureState": {"admissionsOpen": false, "lastAbnormalUTC": "2026-09-27T13:00:00+00:00", "readings": 3, "requiredNormalReadings": 5, "spacedNormalReadings": 0}, "processes": [{"owner": "old-1", "peakBytes": 1073741824, "pid": 102, "remainingBytes": 536870912, "rssBytes": 536870912}], "prospectivePeakBytes": 1073741824, "requiredAvailableBytes": 1610612736, "reservedBytes": 1610612736, "resourceMode": "degraded", "resourcePolicy": "stroke-adaptive-v3", "sampledUTC": "2026-09-28T00:57:24.993044+00:00", "spacedNormalRun": 0, "swap": {"synthetic": true}, "swapExpectation": "degraded gate: no headroom floor, one fit at a time; paging to swap is expected and accepted, bounded by the 20 GiB disk floor"}
+
+----------------------------------------------------------------------
+Ran 1 test in 0.017s
+
+FAILED (errors=1)
