@@ -1,0 +1,35 @@
+{
+  "kind": "STROKE_PARENT_NO_FIT_READMISSION",
+  "checkedUTC": "2026-09-28T09:14:48.934528+00:00",
+  "predecessor": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/deferrals/curvature-M1-start-09.json",
+    "sha256": "b92e751b8183665ec4d9039657401c9872ef3534f781df60ad9cc78f3b57b946"
+  },
+  "claim": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/claims/curvature-M1-start-09.json",
+    "sha256": "87d73cec70f839f97ba9a7c691c346e5fff2524fdc6d4620d0fe82cf03b173b6"
+  },
+  "generation": 1,
+  "checks": {
+    "schedulerReadmission": 1,
+    "predecessorProcessIdentityNoLongerLive": true,
+    "oldPrefixEmpty": true,
+    "startFailureResultAbsent": true,
+    "remaining10Through15Unclaimed": true,
+    "operationalSourcePinsValid": true
+  },
+  "receipt": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-launches-kernel-readmit-3/curvature-M1-start-09.readmit-01.json",
+    "sha256": "6a2c10944dcf45b5d3085771b8e67975d15bce72bbf24915cdb34c9811b7ab40"
+  },
+  "manifest": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/remaining-batch-M1-kernel-readmit-3.json",
+    "sha256": "4e852ef3e3409b3591879edd465593dfe338152eaee12bbcedfdc8d7ecddef99"
+  },
+  "completedResult": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-run-1/results/curvature-M1-start-08.json",
+    "sha256": "eabb6fd76b3c5e8eca3271933f75a46a77e045a70b007b039e2433063e58eb55"
+  },
+  "scientificChange": false,
+  "dispatchDecision": "Preserve coordinator-directed concurrent admission under unchanged v4 gate. This is a linked readmission, never a fit retry; prior09 solver did not start."
+}

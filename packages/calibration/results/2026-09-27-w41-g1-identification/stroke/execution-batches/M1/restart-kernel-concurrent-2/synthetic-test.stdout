@@ -1,0 +1,17 @@
+test_claimed_deferral_halts_new_dispatch_and_drains_the_live_fit (test_controller.Deferrals.test_claimed_deferral_halts_new_dispatch_and_drains_the_live_fit) ... ok
+test_no_claim_deferral_of_generation_one_retries (test_controller.Deferrals.test_no_claim_deferral_of_generation_one_retries) ... ok
+test_cap_one_is_serial (test_controller.Dispatch.test_cap_one_is_serial) ... ok
+test_empty_live_list_launches_the_generation_one_start_at_once (test_controller.Dispatch.test_empty_live_list_launches_the_generation_one_start_at_once) ... ok
+test_gate_admits_three_concurrent_starts_and_holds_the_fourth (test_controller.Dispatch.test_gate_admits_three_concurrent_starts_and_holds_the_fourth) ... ok
+test_serial_naming_would_misread_the_settled_generation_zero (test_controller.Dispatch.test_serial_naming_would_misread_the_settled_generation_zero) ... ok
+test_engine_is_the_pinned_bytes (test_controller.Naming.test_engine_is_the_pinned_bytes) ... ok
+test_linked_task_is_generation_one_and_others_generation_zero (test_controller.Naming.test_linked_task_is_generation_one_and_others_generation_zero) ... ok
+test_existing_result_nonempty_prefix_and_changed_source_are_refused (test_controller.Verify.test_existing_result_nonempty_prefix_and_changed_source_are_refused) ... ok
+test_generation_one_passes_beside_its_settled_generation_zero (test_controller.Verify.test_generation_one_passes_beside_its_settled_generation_zero) ... ok
+test_predecessor_only_on_the_linked_task (test_controller.Verify.test_predecessor_only_on_the_linked_task) ... ok
+test_used_generation_one_is_refused (test_controller.Verify.test_used_generation_one_is_refused) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 3.199s
+
+OK

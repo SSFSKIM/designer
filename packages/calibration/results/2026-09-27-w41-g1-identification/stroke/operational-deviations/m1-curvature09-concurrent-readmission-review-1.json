@@ -1,0 +1,54 @@
+{
+  "kind": "STROKE_LINKED09_CONCURRENT_RESTART_REVIEW",
+  "reviewer": "a1c557ee93146abd9",
+  "receivedUTC": "2026-09-28T09:25:10.047687+00:00",
+  "verdict": "CLEAN",
+  "blockers": [],
+  "artifacts": [
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/operational-deviations/m1-curvature09-claimed-deferral-readmission-1.json",
+      "sha256": "716457139c6b34a859f1559ee558f0fa35a94e9adf2972aa5e93a7dfe895be3e"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/scheduler-launches-kernel-readmit-3/curvature-M1-start-09.readmit-01.json",
+      "sha256": "6a2c10944dcf45b5d3085771b8e67975d15bce72bbf24915cdb34c9811b7ab40"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/remaining-batch-M1-kernel-readmit-3.json",
+      "sha256": "4e852ef3e3409b3591879edd465593dfe338152eaee12bbcedfdc8d7ecddef99"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/execution-batches/M1/restart-kernel-concurrent-2/controller.py",
+      "sha256": "07525d216c9d8b5560ed0e66e02d7dd3120c1e4171e35e6323fd2e549810d272"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/execution-batches/M1/restart-kernel-concurrent-2/test_controller.py",
+      "sha256": "5931b6dee4df2b4040a4ca54dbb50818bfb161f28778fdd1896c40c90009dce2"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/execution-batches/M1/restart-kernel-concurrent-2/synthetic-test.stdout",
+      "sha256": "6361fc583e96fd8f668d29e8c9c0c77441501dc5ecb55aaa8546d71b811eade1"
+    },
+    {
+      "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/execution-batches/M1/restart-kernel-concurrent-2/full-test.stdout",
+      "sha256": "1b26e66d3609da58981be10426a2d67a86f797ee0c10639641d8d298c68af29d"
+    }
+  ],
+  "independentChecks": {
+    "syntheticTests": 12,
+    "fullTest": "PASS: completed10, liveFits empty, pending09gen1 and10..15gen0",
+    "fileCountBefore": 8167,
+    "fileCountAfter": 8167,
+    "nativeReads": false,
+    "claimsOrFits": false
+  },
+  "verified": [
+    "Predecessor no-fit/claim/receipt hashes valid; no09 solver started and allgen1 lifecycle absent; predecessor and old controllers gone.",
+    "Read-only Store.readmission returns generation1 and task remains in partition0; prefixes empty.",
+    "Receipt deltas only linkage,prefix,purpose,provenance; all8 source pins and kernel policy valid.",
+    "Manifest only09 receipt/argv changes plus linked history retaining02/04.",
+    "Pinned concurrent engine reused unchanged; generation-aware naming used for09 handshake/terminal/no-claim classification.",
+    "Completed00..08/device15 hashes and08 schedulerClaim checked; old controllers must stay absent."
+  ],
+  "operationalExpectation": "A concurrent start near normal floor can be admitted then deferred before fit if available memory declines; unchanged gate requires another explicit linked no-fit reconciliation. No controller margin or automatic readmission added."
+}
