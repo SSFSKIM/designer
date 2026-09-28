@@ -1,0 +1,25 @@
+{
+  "kind": "STROKE_M2_PROVENANCE_SUPERSESSION",
+  "recordedUTC": "2026-09-28T19:29:12.837751+00:00",
+  "supersedes": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/M2-provenance-correction-1.json",
+    "sha256": "b615304a428ba04bf7666f78fdb98b0cb5eec3e46eb999c559fd0be835e1bb1a"
+  },
+  "supersedesCommit": "22e103ca",
+  "retainsOriginal": {
+    "path": "/Users/new/vitrea-w41/g1/packages/calibration/results/2026-09-27-w41-g1-identification/stroke/M2-unfinished-search-1.json",
+    "sha256": "ad87c383d1e51c19987e6ed7ec42c85afe50e2d22b9bd0eafd123dcd4f1a6d46"
+  },
+  "originalCommit": "047b7861",
+  "source": "Current coordinator instruction in this conversation, corroborated by G1 owner a08bf7ec9936c8644 in the same turn. This worker receives the user quotation by relay, not as an independently inspected human transcript.",
+  "userInstructionRelayed": "Record M2 as unfinished (UNMEASURED) and expose the body candidate now",
+  "duplicateProcessCauseReportedByCoordinator": "Two live processes of the same coordinator session existed. The user answer reached the current process only. The stale duplicate had not received it and erroneously denied that a ruling existed; that duplicate has now stood down.",
+  "effectiveDisposition": "UNMEASURED: unfinished M2 search for this wave; not a family rejection. No new M2 start.",
+  "supersession": "The prior no-user-ruling/HOLD correction is superseded by this authoritative current-coordinator relay. Preserve the original record and correction verbatim as the dated provenance chain; neither is rewritten.",
+  "coordinatedLedgerWording": "The no-ruling correction is superseded: a duplicate coordinator process had not received the user answer. The current coordinator relayed the genuine user instruction to record M2 as unfinished (UNMEASURED) and expose the body candidate. Historical records remain unchanged; actual paused/running process state is separately retained.",
+  "actualProcessHistoryQualification": "This restores the scientific disposition, not a retroactive process event. A device2 was SIGSTOPped, not terminated; the original aborted label was not proof of a physical abort. Latest verified states and completed-start evidence remain those recorded in the previous correction until a new terminal supplement is written.",
+  "terminalDispositionRequired": "Before final freeze, append explicit actual disposition of paused A and running-or-completed B under the restored unfinished-search ruling. Retain completed results, original seeds and available partials; do not fabricate a checkpoint or mark a live process already terminated.",
+  "scopeOfThisAction": "Provenance-only supplement. No fit signal, launch, resume, native read, holdout read, freeze or exposure performed here. M1 transfer continues untouched; body exposure remains the G1 owner/current coordinator controlled path.",
+  "instructionSourceGoingForward": "Current coordinator process; duplicate stood down as reported. Conflicting stale-process messages are not a replacement user decision.",
+  "processSignalsSent": []
+}
