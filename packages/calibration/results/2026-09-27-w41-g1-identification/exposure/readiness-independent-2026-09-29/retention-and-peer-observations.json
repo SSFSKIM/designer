@@ -1,0 +1,56 @@
+{
+  "actionsByThisWorker": {
+    "browserLaunch": false,
+    "cacheWrites": false,
+    "configurationWrites": false,
+    "installDownloadGarbageCollection": false,
+    "registrationWrites": false
+  },
+  "historicalObservation": {
+    "only1234Link": "/Users/new/Library/Caches/ms-playwright/.links/ad14a0f2fd7d7b607271c202339e4fc130935338",
+    "qualification": "This earlier dangling-only state is retained as history, not current state.",
+    "source": "delegated opus read-only browser audit",
+    "target": "/private/tmp/glass-23ea/node_modules/.pnpm/playwright-core@1.62.1/node_modules/playwright-core",
+    "targetAbsent": true
+  },
+  "observedAt": "2026-09-28T19:34:24.161816+00:00",
+  "peers": [
+    {
+      "basis": "coordinator relay, not direct observation",
+      "peer": "vitrea skill [c8eebc]",
+      "status": "Acknowledged no Playwright install/update/uninstall/cache cleanup until released; reports none today."
+    },
+    {
+      "basis": "coordinator relay, no acknowledgement inferred",
+      "peer": "vitrea [4c213f]",
+      "status": "Notified; no reply."
+    },
+    {
+      "basis": "coordinator relay",
+      "peer": "designer-77",
+      "status": "No longer exists."
+    }
+  ],
+  "schema": "w41-browser-retention-observations-1",
+  "supersedingCurrentObservation": {
+    "claim": "New live link retains1234 while target package path remains present.",
+    "link": "/Users/new/Library/Caches/ms-playwright/.links/7a27018f56c42e7a750ce5f911e2e8bb605b9501",
+    "linkFileSha256": "9bf41a348fd1052a55e9afa3e37b39cd1446982f9ce07a190d625d24d5a3c825",
+    "registrySha256": "f306eed529599b1eaf2f8a85db9de2b23e1a3fe36c2b66434b7c9434fb627a99",
+    "reportedCreator": "coordinator, as relayed; creation itself not independently observed",
+    "retainedBuilds": [
+      {
+        "name": "chromium",
+        "revision": "1234",
+        "version": "151.0.7922.34"
+      },
+      {
+        "name": "chromium-headless-shell",
+        "revision": "1234",
+        "version": "151.0.7922.34"
+      }
+    ],
+    "target": "/Users/new/vitrea-w41/g1/node_modules/.pnpm/playwright-core@1.62.1/node_modules/playwright-core",
+    "targetExists": true
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "assemblyContract": {
+    "candidate": "body-e3",
+    "identity": 450,
+    "numericalSurvival": 576,
+    "rendered": 600,
+    "renderedSurvival": 536,
+    "validatedWithoutFreeze": true,
+    "veto": 536
+  },
+  "assemblyInputHashesChecked": 5777,
+  "assemblyInputMismatches": [],
+  "assemblyInputsMissing": [],
+  "assemblyOutputHashDrift": [],
+  "authority": "CONDITIONAL TECHNICAL AUDIT ONLY. Contradictory M2 coordinator relays and committed supersessions are not independent evidence of a human decision in this transcript. Resolve disposition authority in the authoritative coordinator/user conversation; do not infer consent from hashes or this audit.",
+  "compiledPolicy": {
+    "exactInventoryAndBytesMatch": true,
+    "modules": 2
+  },
+  "historicalEvidenceRewritten": false,
+  "notPerformed": [
+    "preflight.run",
+    "runner.freeze",
+    "Receipt construction or spent-state inspection",
+    "native payload read",
+    "browser launch or --version",
+    "capture rerun",
+    "final configuration creation",
+    "cache/configuration/permission changes"
+  ],
+  "prospectiveOnlyInstrumentAdditions": [
+    "current browser path/version/hash attestation; never a historical executable pin",
+    "actual committed M1/M2 dispositions and correction chain",
+    "assembly artifact review/index",
+    "source-transition and X6 wait review/index"
+  ],
+  "recordingHead": "c76f949d3b31dcc24d9612979c95e05b4092173f",
+  "remainingBlockers": [
+    "Actual committed M1 transfer disposition; a survivor requires leaf/render/veto and appropriate composite/stroke adapter.",
+    "Correctly attributed M2 decision and any required terminal supplement; this audit grants no disposition or exposure authorization.",
+    "Final complete candidate/configuration/instrument authorization and source quiescence.",
+    "Just-in-time binary/path/version check before receipt; no automatic install/repair/restore.",
+    "Fresh X6 gate and untouched-Mac confirmation for an authorized exposure."
+  ],
+  "runnerSha256": "5ae591ad6ea2098613e75dfb6377875314fcc2280d7526bf80e139f206436c08",
+  "runtime": {
+    "matchesDeclared": true,
+    "numpy": "2.3.5",
+    "pillow": "12.3.0",
+    "python": [
+      3,
+      12
+    ]
+  },
+  "schema": "w41-conditional-final-exposure-readiness-1",
+  "scorerSha256": "4d7a1defaf9fad35a09ddd059eba1b0a8ee9c735418b5fb195745e8226d747ba",
+  "sourceAuditHead": "047b7861fc052211bb90db90b10c7c2e948a58b8",
+  "sourceInventoryAtAudit": {
+    "files": 417,
+    "trackedModifications": 0,
+    "untracked": 0
+  },
+  "transitionRetainedArtifactDrift": []
+}
