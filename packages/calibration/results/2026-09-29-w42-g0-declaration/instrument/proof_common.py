@@ -78,12 +78,13 @@ def starts_for(name, ep, n_outer):
     return [base] if n_outer > 2 else [base, alt]
 
 
-def cells_for(name, ep, scales=(2,), rgb=False):
+KERNEL = 'n'   # the proofs of 7efe4ce8 ran at 'n'; ruling 3 puts every family fitter at 'w' (set by the caller)
+
+
+def cells_for(name, ep, scales=(2,), rgb=False, kernel=None):
     out = []
     for s in scales:
-        out += bed.cells(ep, s, letters=LETTERS[name], rgb=rgb)
-    if name == 'LT+bleed' or name == 'LT+bleed-own':
-        pass
+        out += bed.cells(ep, s, letters=LETTERS[name], rgb=rgb, kernel=kernel or KERNEL)
     return out
 
 

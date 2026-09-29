@@ -13,7 +13,7 @@ Pairs, per endpoint:
   U1 set           W-shape, W-tails, K2 and W-canvas against each other, receded endpoints (U1's candidates)
   nulls            LT -> each rejected null, pooled rms against memo E's bars (2.60 reading, 4.65 unit)
 
-Usage: python3.12 proof2_separation.py [set ...] with set in {rivals, lt, u1, nulls}; writes
+Usage: python3.12 proof2_separation.py [set ...] with set in {rivals, lt, u1, reread}; writes
 proof2_separation.json / .txt (merging with an earlier run's rows).
 """
 import json
@@ -96,12 +96,12 @@ def run_null(args):
     'points' and 'device px' as the same law with k doubled)."""
     null, ep = args
     letters = ('B', "B'", 'C', 'D')
-    cells = bed.cells(ep, 2, letters=letters) + bed.cells(ep, 1, letters=letters)
+    cells = (bed.cells(ep, 2, letters=letters, kernel=PC.KERNEL) + bed.cells(ep, 1, letters=letters, kernel=PC.KERNEL))
     PC.render_truth(cells, F.Family(), PC.truth('LT', ep))
     prob = Fi.Problem(cells, FA.FAMILIES[null][0], PC.layout_for(null, ep), PC.bounds_for(null))
     r = prob.fit(PC.starts_for(null, ep, 1))
     return dict(truth='LT', fit=null, ep=ep, n_cells=len(cells), pooled=r['pooled'], max_cell=r['max_cell'],
-                x=r['x'], lam=r['lam'])
+                x=r['x'], lam=r['lam'], kernel=PC.KERNEL if ep.endswith('rest') else 'receded (no band)')
 
 
 def jobs_for(which):
@@ -151,8 +151,8 @@ if __name__ == '__main__':
             print(f"{r['truth']} -> {r['fit']} {r['ep']}: s {r['s']:.2f} ({r['verdict']}) {r['seconds']:.0f}s",
                   flush=True)
             write(rows, nulls)
-        # re-read on the whole bed every pair not distinguished on its subset
-        again = [(r['truth'], r['fit'], r['ep'], True) for r in rows if not r['whole'] and r['verdict'] != 'DISTINGUISHED'
+        # re-read on the whole bed every pair not distinguished on its subset (only when asked: 'reread')
+        again = [] if 'reread' not in which else [(r['truth'], r['fit'], r['ep'], True) for r in rows if not r['whole'] and r['verdict'] != 'DISTINGUISHED'
                  and (r['truth'], r['fit'], r['ep'], True) not in done]
         for r in pool.imap_unordered(run_pair, again):
             rows.append(r)

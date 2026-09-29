@@ -86,7 +86,9 @@ def refraction_exclusions(ep, scale):
     return out
 
 
-def cells(ep, scale=2, letters=None, ids=None, rgb=False, roles=ROLES_FIT, with_excluded=False):
+def cells(ep, scale=2, letters=None, ids=None, rgb=False, roles=ROLES_FIT, with_excluded=False, kernel='n'):
+    """kernel: the support the reader adds beyond the active band ('n' narrow, 'w' wide; ruling 3). A cell
+    whose deep mask that leaves empty is not returned (empty_mask_cells lists them)."""
     scheme, pose = ep.split('-')
     key = pass_key(ep, scale)
     excl = {} if with_excluded else refraction_exclusions(ep, scale)
@@ -102,7 +104,7 @@ def cells(ep, scale=2, letters=None, ids=None, rgb=False, roles=ROLES_FIT, with_
         sc = f'{cid}__{"rest" if pose == "rest" else "inactive"}'
         spec = next(s for s in SCENES if s['id'] == sc)
         cell = F.Cell(f'{scale}x|{cid}', spec['background'], spec['component'], scale, scheme, pose,
-                      rgb=rgb or letter == 'E')
+                      rgb=rgb or letter == 'E', kernel=kernel)
         cell.letter, cell.role, cell.geometry, cell.bed_id = letter, c['role'], c['geometry'], cid
         if cell.mask.sum() == 0:
             continue
@@ -110,7 +112,7 @@ def cells(ep, scale=2, letters=None, ids=None, rgb=False, roles=ROLES_FIT, with_
     return out
 
 
-def empty_mask_cells(ep, scale):
+def empty_mask_cells(ep, scale, kernel='n'):
     """Cells a pass declares whose deep mask is empty under the band rule (reported beside the exclusions)."""
     key = pass_key(ep, scale)
     scheme, pose = ep.split('-')
@@ -118,7 +120,7 @@ def empty_mask_cells(ep, scale):
     for cid, c in CELLS.items():
         if key in c['passes'] and c['role'] in ROLES_FIT:
             comp = G.COMPONENTS[c['component']]
-            cell = F.Cell(cid, c['background'], c['component'], scale, scheme, pose)
+            cell = F.Cell(cid, c['background'], c['component'], scale, scheme, pose, kernel=kernel)
             if cell.mask.sum() == 0:
                 out.append(cid)
     return out

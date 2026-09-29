@@ -45,10 +45,16 @@ NARROW_STEP = (0.20, 0.04)
 # memo C's 8 pt. A cell may still pass its own d_in (a reader proving itself on a synthetic render).
 BAND_IN, BAND_OUT = 20.0, 19.2
 RECEDED_D_IN = 8.0
+# The parent's ruling 3 (2026-09-29): each reader adds the support of the kernel it READS: 2 sigma_n,ref for a
+# narrow reader, 2 sigma_w,ref = 2 x 2.1 x 8 = 33.6 pt for a reader of W. Whether Apple refracts before or after
+# the blur is unknown, and this reading covers both. Every family fitter reads W (and lam against it), so the
+# family fitters' active mask is kernel='w': 53.6 pt, which leaves only rrect-ml and rrect-lg readable when
+# active; the receded pose, with no band, carries W fully.
+KERNEL_REF = {'n': lambda s: 2.1 * RN * 0.8 * G.size_t(s), 'w': lambda s: 2.1 * RW}
 
 
-def band_d_in(s):
-    return BAND_IN + 2 * (2.1 * RN * 0.8 * G.size_t(s))
+def band_d_in(s, kernel='n'):
+    return BAND_IN + 2 * KERNEL_REF[kernel](s)
 
 
 # The active bleed's declared matrix (memo D §3): white - black of the bleed colour matrix, by scheme.
@@ -93,7 +99,7 @@ class Family:
 class Cell:
     """One cell: backdrop, shape, scale, endpoint, the footprint crop and the deep evaluation mask."""
 
-    def __init__(self, cid, background, component, scale, scheme, pose, d_in=None, rgb=False, T=None):
+    def __init__(self, cid, background, component, scale, scheme, pose, d_in=None, rgb=False, T=None, kernel='n'):
         self.id, self.scale, self.scheme, self.pose = cid, scale, scheme, pose
         self.ep = endpoint(scheme, pose)
         self.active = pose == 'rest'
@@ -112,7 +118,7 @@ class Cell:
         ys, xs = np.nonzero(inside)
         self.box_px = (ys.min(), ys.max() + 1, xs.min(), xs.max() + 1)
         if d_in is None:
-            d_in = band_d_in(self.span) if self.active else RECEDED_D_IN
+            d_in = band_d_in(self.span, kernel) if self.active else RECEDED_D_IN
         self.d_in = d_in
         self.mask = self.d <= -d_in
         self.y = None            # observed image (codes), set by synth() or a loader
