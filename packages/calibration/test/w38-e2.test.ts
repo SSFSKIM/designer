@@ -93,7 +93,13 @@ describe("W38 E2 declaration and pre-change reference", () => {
         scene + ".png")))).toBe(ref.nativeSha256);
       expect(Object.keys(ref.documents)).toHaveLength(2);
       for (const [name, sha] of Object.entries(ref.documents)) {
-        expect(hash(readFileSync(resolve(repo, name))).slice(0, 12)).toBe(sha);
+        // W41 G2 (c9a §5.193) sealed a new light receded document at the same path; the
+        // pre-W38 bytes are its byte-exact retired copy, the one e2.py also resolves.
+        const stem = name.split("/").pop()!.replace(/\.json$/, "");
+        const retired = resolve(calibration,
+          "results/2026-09-29-w41-g2-landing/retired-documents", `${stem}.${sha}.json`);
+        const live = hash(readFileSync(resolve(repo, name))).slice(0, 12);
+        expect(live === sha || hash(readFileSync(retired)).slice(0, 12) === sha).toBe(true);
       }
     }
     expect(decl.outOfEstimator).toHaveLength(26);

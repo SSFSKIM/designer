@@ -255,11 +255,25 @@ it.each([
     : DEFAULT_MATERIAL_PROFILE;
   const material = withMaterialOverrides(base, document.patch);
   expect(digest(material)).toBe(document.resolvedMaterialSha256);
+  // W41 G2 (c9a §5.193; Decision Log 2): only the light receded document enables E3. Held
+  // at its gate, its whole group drops and the document reads its pre-seal digest, which
+  // is the statement that the seal moved E3 and no other leaf. Every other document still
+  // reads its own recorded digest there.
+  const enabled = document.patch.bodyE3Strength === 1;
+  expect(enabled).toBe(name === "apple-macos-27.0-1x-light-standard-glass0.5-receded");
+  const atGate = enabled ? PRE_E3_DIGEST : document.resolvedMaterialSha256;
   for (const bodyE3Gains of [[0, 3, 1], [3, 0, 2]] as const) {
     for (const bodyE3Neutral of [neutral, [255, 0, 1, 2, 3, 4, 5]] as const) {
       expect(digest(withMaterialOverrides(material,
         { bodyE3Strength: 0, bodyE3Gains, bodyE3Neutral })))
-        .toBe(document.resolvedMaterialSha256);
+        .toBe(atGate);
+      if (enabled) {
+        expect(digest(withMaterialOverrides(material, { bodyE3Gains, bodyE3Neutral })))
+          .not.toBe(document.resolvedMaterialSha256);
+      }
     }
   }
 });
+
+/** The light receded document's rule-2 digest before W41 G2 enabled E3 (W36 G1, §5.179). */
+const PRE_E3_DIGEST = "b0d0d8dacc6a03af";

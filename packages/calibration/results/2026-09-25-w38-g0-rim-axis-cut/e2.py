@@ -82,6 +82,11 @@ def population(native, matrix):
     return dict(sorted(cells.items()))
 
 
+# W41 G2 (c9a §5.193): the pre-W38 light receded document now lives as a retired copy;
+# the one resolver W37's generation check uses binds it here too.
+document_bytes = repaired.old.document_bytes
+
+
 def documents(capture_path):
     pairs = DOC_PATTERN.findall(capture_path)
     if len(pairs) != 2 or len({name for name, _ in pairs}) != 2:
@@ -98,7 +103,7 @@ def reference(native, cell, row):
     path = row['key']['web']['capturePath']
     docs = documents(path)
     for name, sha in docs.items():
-        if digest((ROOT / name).read_bytes())[:12] != sha:
+        if digest(document_bytes(name, sha))[:12] != sha:
             raise ValueError('document generation mismatch: ' + cell)
     return dict(cell=cell, role=native.roles.roles[sid],
                 estimator=('grouped-arcs' if native.roles.spec['components'][
@@ -213,7 +218,7 @@ def compute(native, web, cell, row, ref):
     if path != ref['capturePath'] or documents(path) != ref['documents']:
         raise ValueError('pre-W38 matrix generation changed: ' + cell)
     for name, sha in ref['documents'].items():
-        if digest((ROOT/name).read_bytes())[:12]!=sha:
+        if digest(document_bytes(name, sha))[:12]!=sha:
             raise ValueError('pre-W38 document generation changed: '+cell)
     try:
         repaired.old.generation(web,cell,row)
@@ -314,8 +319,8 @@ def declare(native,matrix):
               uniformUntintedSideBoundCodes=2,
               preW38=dict(e1RepairedSha256=digest(source.read_bytes()),
                 matrixSha256=legacy_envelope_digest(matrix['cells']),
-                documents={name:digest((ROOT/name).read_bytes()) for name in
-                           sorted({name for r in refs for name in r['documents']})}),
+                documents={name:digest(document_bytes(name,sha)) for name,sha in
+                           sorted({(name,sha) for r in refs for name,sha in r['documents'].items()})}),
               stackedHoldout=dict(estimator='visible upper layer boundary under single-component'
                                     ' straight-side cut (over rrect, 120x56, radius 16, offset [0,-8]);'
                                     ' per-layer deep within overlay; no stack pixel read before G1b',
