@@ -37,6 +37,20 @@ TRUNCATE = 4.0
 # Narrow-term interpolation: blur levels are spaced so that consecutive sigmas differ by at most
 # NARROW_STEP[0] device px + NARROW_STEP[1] * sigma. Proof 1 states the error this costs.
 NARROW_STEP = (0.20, 0.04)
+# The deep mask. In the ACTIVE pose Apple refracts inside a band reaching BAND_IN pt inward from the edge and
+# BAND_OUT pt beyond it (memo D §3: inner refraction height min(s/4, 20), outer reach 16-19.2+; the bed
+# stream's finding and the parent's ruling on it). LT models no refraction, so every active region sits
+# outside the band plus the narrow kernel's support: d_in = BAND_IN + 2 sigma_n,ref with sigma_n,ref the
+# declared narrow width at the centre under k = 2.1 (8.4 t pt). The receded pose has no refraction and keeps
+# memo C's 8 pt. A cell may still pass its own d_in (a reader proving itself on a synthetic render).
+BAND_IN, BAND_OUT = 20.0, 19.2
+RECEDED_D_IN = 8.0
+
+
+def band_d_in(s):
+    return BAND_IN + 2 * (2.1 * RN * 0.8 * G.size_t(s))
+
+
 # The active bleed's declared matrix (memo D §3): white - black of the bleed colour matrix, by scheme.
 BLEED_SPAN = {'light': 1.0 - 0.9, 'dark': 0.5 - 0.125}
 BLEED_OPACITY = {'light': 0.5, 'dark': 0.8}      # x t, active only, s > 64
@@ -98,7 +112,7 @@ class Cell:
         ys, xs = np.nonzero(inside)
         self.box_px = (ys.min(), ys.max() + 1, xs.min(), xs.max() + 1)
         if d_in is None:
-            d_in = max(12.0, 0.23 * self.span) if self.active else 8.0
+            d_in = band_d_in(self.span) if self.active else RECEDED_D_IN
         self.d_in = d_in
         self.mask = self.d <= -d_in
         self.y = None            # observed image (codes), set by synth() or a loader
@@ -151,16 +165,36 @@ class Cell:
     def blur(self, src_key, X, sig_dev, mode, weight=None):
         """Cached Gaussian of a window image. mode 'clamp' | 'norm' (normalised zero padding, or normalised over
         `weight`, a support mask on the window)."""
-        key = (src_key, round(float(sig_dev), 4), mode, None if weight is None else id(weight))
-        if key in self._cache:
-            return self._cache[key]
+        key = (id(self), src_key, round(float(sig_dev), 4), mode, None if weight is None else id(weight))
+        hit = _BLURS.get(key)
+        if hit is not None:
+            _BLURS.move_to_end(key)
+            return hit
         out = _blur(X, sig_dev, mode, weight)
-        if len(self._cache) > 160:
-            for k in list(self._cache)[:40]:
-                if k[0] != 'S':
-                    del self._cache[k]
-        self._cache[key] = out
+        _remember(key, out)
         return out
+
+
+# One least-recently-used store for every cell's blurs, bounded in BYTES per process. A per-cell count bound
+# (the first version: 160 blurs a cell) let a fit over 50-90 cells at 2x hold 12-20 GB per worker, and the
+# machine's memory pressure stopped proof 2's last runs; the bound below keeps a worker near 1-2 GB whatever
+# the number of cells, and changes no value, only what is recomputed.
+from collections import OrderedDict  # noqa: E402
+
+BLUR_CACHE_BYTES = 0.8e9
+_BLURS = OrderedDict()
+_BLUR_BYTES = [0]
+
+
+def _remember(key, arr):
+    _BLURS[key] = arr
+    _BLUR_BYTES[0] += arr.nbytes
+    while _BLUR_BYTES[0] > BLUR_CACHE_BYTES and len(_BLURS) > 1:
+        _, old = _BLURS.popitem(last=False)
+        _BLUR_BYTES[0] -= old.nbytes
+
+
+FAST_FROM_DEV = 12.0      # blurs at or above this width run decimated (see _blur_decimated); 0 disables
 
 
 def _blur(X, sig, mode, weight=None):
@@ -168,11 +202,41 @@ def _blur(X, sig, mode, weight=None):
         return X
     if X.ndim == 3:
         return np.stack([_blur(X[..., c], sig, mode, weight) for c in range(X.shape[2])], -1)
+    if FAST_FROM_DEV and sig >= FAST_FROM_DEV:
+        return _blur_decimated(X, sig, mode, weight)
     if mode == 'clamp':
         return ndimage.gaussian_filter(X, sig, mode='nearest', truncate=TRUNCATE)
     wt = np.ones_like(X) if weight is None else weight
     num = ndimage.gaussian_filter(X * wt, sig, mode='constant', truncate=TRUNCATE)
     den = ndimage.gaussian_filter(wt, sig, mode='constant', truncate=TRUNCATE)
+    return np.where(den > 1e-9, num / np.maximum(den, 1e-12), X)
+
+
+def _blur_decimated(X, sig, mode, weight=None):
+    """A wide Gaussian computed on a q-times decimated grid (q = 2 below 48 device px, 4 above) and brought back
+    bilinearly. The window is first padded at FULL resolution by the kernel's reach (edge replication for
+    clamp, zeros for the normalised mode), so the edge semantics are exactly the direct filter's; the
+    decimated Gaussian's width is reduced by the variance the block average ((q^2 - 1) / 12) and the bilinear
+    return (q^2 / 6) add. Proof 1 part D states its error against the direct filter."""
+    q = 2 if sig < 48 else 4
+    sd = np.sqrt(sig ** 2 - (q * q - 1) / 12.0 - q * q / 6.0) / q
+    P = int(np.ceil(TRUNCATE * sig / q + 2)) * q
+    H, W = X.shape
+
+    def dec_up(Z, pad_mode):
+        Zp = np.pad(Z, P, mode=pad_mode)
+        Hp, Wp = Zp.shape
+        ny, nx = -(-Hp // q), -(-Wp // q)
+        Zp = np.pad(Zp, ((0, ny * q - Hp), (0, nx * q - Wp)), mode='edge')
+        Yd = ndimage.gaussian_filter(Zp.reshape(ny, q, nx, q).mean(axis=(1, 3)), sd, mode='nearest',
+                                     truncate=TRUNCATE)
+        yy = (np.arange(P, P + H) + 0.5) / q - 0.5
+        xx = (np.arange(P, P + W) + 0.5) / q - 0.5
+        return ndimage.map_coordinates(Yd, np.meshgrid(yy, xx, indexing='ij'), order=1, mode='nearest')
+    if mode == 'clamp':
+        return dec_up(X, 'edge')
+    wt = np.ones_like(X) if weight is None else weight
+    num, den = dec_up(X * wt, 'constant'), dec_up(wt, 'constant')
     return np.where(den > 1e-9, num / np.maximum(den, 1e-12), X)
 
 

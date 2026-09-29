@@ -32,22 +32,36 @@ class Problem:
     layout: [(param, scope)] for the outer parameters; bounds: {param: (lo, hi)}; fixed: {param: value}
     applied to every cell (e.g. lam for a lam-fixed fit)."""
 
-    def __init__(self, cells, fam, layout, bounds, fixed=None, lam_free=True):
+    def __init__(self, cells, fam, layout, bounds, fixed=None, lam_free=True, trust='none'):
         self.cells, self.fam, self.layout, self.bounds = cells, fam, layout, bounds
         self.fixed = dict(fixed or {})
         self.lam_free = lam_free and 'lam' not in self.fixed
-        self.eps = sorted({c.ep for c in cells})
         self.keys = []
         for name, scope in layout:
             groups = sorted({{'global': 'all', 'scheme': c.ep.split('-')[0], 'pose': c.ep.split('-')[1],
                               'endpoint': c.ep}[scope] for c in cells})
             self.keys += [((name, g), (name, scope)) for g in groups]
-        self.obs = []
+        # Where T is not measured (memo C's stand-in above input 128-140 in dark at spans >= 96) a pixel may be
+        # left out, but never by its OBSERVED code: selecting on the response truncates the knee side and
+        # biases lam (a dark lam read 1.6 at the bound against a truth of 0.9 that way). trust='none' fits
+        # every pixel in output space, where a flat T simply carries little weight; trust='model' keeps the
+        # pixels whose PREDICTED input is trusted, re-selected at every evaluation. The synthetic proofs use
+        # 'none': the stand-in T is a known function everywhere. A cell with no usable pixel is excluded and
+        # named.
+        self.trust = trust
+        self.obs, kept, self.excluded = [], [], []
         for c in cells:
             y = c.y[c.mask]
             ok = np.isfinite(y) if y.ndim == 1 else np.isfinite(y).all(-1)
-            tr = c.T.trusted(y if y.ndim == 1 else y.mean(-1))
-            self.obs.append((y, ok & tr))
+            if trust == 'observed':
+                ok &= c.T.trusted(y if y.ndim == 1 else y.mean(-1))
+            if ok.sum() == 0:
+                self.excluded.append(c.id)
+                continue
+            kept.append(c)
+            self.obs.append((y, ok))
+        self.cells = cells = kept
+        self.eps = sorted({c.ep for c in cells})
 
     def params_for(self, x, c):
         vals = {k: v for (k, _), v in zip(self.keys, x)}
@@ -68,6 +82,10 @@ class Problem:
             pred = F.render(c, self.fam, p)
         else:
             pred = F.compose(c, self.fam, mp, lam)
+        if self.trust == 'model' and c.T.trust_below is not None:
+            ok = ok & (c.T.inv(pred if pred.ndim == 1 else pred.mean(-1)) < c.T.trust_below)
+            if not ok.any():
+                return 0.0
         e = (pred - y)[ok]
         return float(np.mean(e ** 2))
 
@@ -114,7 +132,7 @@ class Problem:
         lams, mses = self.inner(x)
         rms = np.sqrt(np.array(mses))
         return dict(x={f'{k[0][0]}@{k[0][1]}': float(v) for k, v in zip(self.keys, x)}, lam=lams,
-                    pooled=float(np.sqrt(np.mean(mses))), per_cell={c.id: float(r) for c, r in zip(self.cells, rms)},
+                    pooled=float(np.sqrt(np.mean(mses))), per_cell={f'{c.ep}|{c.id}': float(r) for c, r in zip(self.cells, rms)},
                     max_cell=float(rms.max()), xvec=x)
 
     def predictions(self, x, lams):
