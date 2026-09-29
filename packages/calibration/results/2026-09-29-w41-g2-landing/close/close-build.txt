@@ -1,0 +1,190 @@
+Scope: 9 of 10 workspace projects
+packages/geometry build$ tsc -p tsconfig.build.json
+packages/policy build$ tsc -p tsconfig.build.json
+packages/motion build$ tsc -p tsconfig.build.json
+packages/policy build: Done
+packages/motion build: Done
+packages/geometry build: Done
+packages/renderer-webgpu build$ tsc -p tsconfig.build.json
+packages/renderer-webgpu build: Done
+packages/core build$ tsup
+packages/core build: CLI Building entry: src/index.ts
+packages/core build: CLI Using tsconfig: tsconfig.json
+packages/core build: CLI tsup v8.5.1
+packages/core build: CLI Using tsup config: /Users/new/vitrea-w41/g2/packages/core/tsup.config.ts
+packages/core build: CLI Target: es2022
+packages/core build: CLI Cleaning output folder
+packages/core build: ESM Build start
+packages/core build: DTS Build start
+packages/core build: ESM dist/chunk-IOTISK2R.js     19.40 KB
+packages/core build: ESM dist/index.js              42.69 KB
+packages/core build: ESM dist/dist-XR64ZDLM.js      371.71 KB
+packages/core build: ESM dist/chunk-IOTISK2R.js.map 102.61 KB
+packages/core build: ESM dist/index.js.map          171.36 KB
+packages/core build: ESM dist/dist-XR64ZDLM.js.map  967.13 KB
+packages/core build: ESM ⚡️ Build success in 229ms
+packages/core build: DTS ⚡️ Build success in 1231ms
+packages/core build: DTS dist/index.d.ts 257.98 KB
+packages/core build: Done
+packages/platform-web build$ tsup
+packages/platform-web build: CLI Building entry: src/index.ts
+packages/platform-web build: CLI Using tsconfig: tsconfig.json
+packages/platform-web build: CLI tsup v8.5.1
+packages/platform-web build: CLI Using tsup config: /Users/new/vitrea-w41/g2/packages/platform-web/tsup.config.ts
+packages/platform-web build: CLI Target: es2022
+packages/platform-web build: CLI Cleaning output folder
+packages/platform-web build: ESM Build start
+packages/platform-web build: DTS Build start
+packages/platform-web build: ESM dist/index.js     297.11 KB
+packages/platform-web build: ESM dist/index.js.map 1.15 MB
+packages/platform-web build: ESM ⚡️ Build success in 265ms
+packages/platform-web build: DTS ⚡️ Build success in 820ms
+packages/platform-web build: DTS dist/index.d.ts 380.16 KB
+packages/platform-web build: Done
+packages/calibration build$ tsc -p tsconfig.build.json
+packages/react build$ tsup
+packages/react build: CLI Building entry: src/index.ts
+packages/react build: CLI Using tsconfig: tsconfig.json
+packages/react build: CLI tsup v8.5.1
+packages/react build: CLI Using tsup config: /Users/new/vitrea-w41/g2/packages/react/tsup.config.ts
+packages/react build: CLI Target: es2022
+packages/react build: CLI Cleaning output folder
+packages/react build: ESM Build start
+packages/react build: ESM dist/index.js     100.52 KB
+packages/react build: ESM dist/index.js.map 410.70 KB
+packages/react build: ESM ⚡️ Build success in 159ms
+packages/react build: DTS Build start
+packages/calibration build: Done
+packages/react build: DTS ⚡️ Build success in 1248ms
+packages/react build: DTS dist/index.d.ts 66.27 KB
+packages/react build: Done
+apps/demo build$ vite build
+apps/demo build: (!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+apps/demo build:   - import "./report" without a file extension (../../packages/calibration/src/matrix-store.ts:10:57). Add the file extension
+apps/demo build:   - import "./matrix-write-guard" without a file extension (../../packages/calibration/src/matrix-store.ts:11:36). Add the file extension
+apps/demo build:   - import "./generation-stage" without a file extension (../../packages/calibration/src/matrix-write-guard.ts:9:35). Add the file extension
+apps/demo build:   - import "./errors" without a file extension (../../packages/calibration/src/report.ts:23:34). Add the file extension
+apps/demo build:   - import "./metrics/chroma" without a file extension (../../packages/calibration/src/report.ts:24:44). Add the file extension
+apps/demo build:   - import "./metrics/shape" without a file extension (../../packages/calibration/src/report.ts:25:67). Add the file extension
+apps/demo build:   - import "./metrics/material" without a file extension (../../packages/calibration/src/report.ts:33:8). Add the file extension
+apps/demo build:   - import "./metrics/motion" without a file extension (../../packages/calibration/src/report.ts:34:54). Add the file extension
+apps/demo build:   - import "./metrics/shadow" without a file extension (../../packages/calibration/src/report.ts:35:60). Add the file extension
+apps/demo build:   - import "./metrics/perceptual" without a file extension (../../packages/calibration/src/report.ts:41:8). Add the file extension
+apps/demo build:   - import "./profile" without a file extension (../../packages/calibration/src/report.ts:42:69). Add the file extension
+apps/demo build:   - import "./matrix-write-guard" without a file extension (../../packages/calibration/src/generation-stage.ts:6:42). Add the file extension
+apps/demo build:   - import "./matrix-store" without a file extension (../../packages/calibration/src/generation-stage.ts:8:58). Add the file extension
+apps/demo build:   - import "./report" without a file extension (../../packages/calibration/src/generation-stage.ts:9:57). Add the file extension
+apps/demo build: Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+apps/demo build: vite v8.2.2 building client environment for production...
+apps/demo build: transforming...
+apps/demo build: ✓ 1394 modules transformed.
+apps/demo build: rendering chunks...
+apps/demo build: computing gzip size...
+apps/demo build: dist/gallery/park-trails/index.html                                    1.35 kB │ gzip:  0.62 kB
+apps/demo build: dist/gallery/planetarium/index.html                                    1.36 kB │ gzip:  0.67 kB
+apps/demo build: dist/gallery/transit-ops/index.html                                    1.44 kB │ gzip:  0.70 kB
+apps/demo build: dist/gallery/exhibition/index.html                                     1.47 kB │ gzip:  0.73 kB
+apps/demo build: dist/gallery/music-player/index.html                                   1.53 kB │ gzip:  0.74 kB
+apps/demo build: dist/index.html                                                        1.54 kB │ gzip:  0.64 kB
+apps/demo build: dist/gallery/photo-review/index.html                                   1.56 kB │ gzip:  0.74 kB
+apps/demo build: dist/laws/index.html                                                   1.57 kB │ gzip:  0.75 kB
+apps/demo build: dist/playground/index.html                                             1.57 kB │ gzip:  0.68 kB
+apps/demo build: dist/gallery/start-page/index.html                                     1.57 kB │ gzip:  0.76 kB
+apps/demo build: dist/gallery/chronograph/index.html                                    1.57 kB │ gzip:  0.67 kB
+apps/demo build: dist/gallery/index.html                                                1.68 kB │ gzip:  0.83 kB
+apps/demo build: dist/gallery/film-festival/index.html                                  1.88 kB │ gzip:  0.87 kB
+apps/demo build: dist/gallery/product-launch/index.html                                 1.91 kB │ gzip:  0.81 kB
+apps/demo build: dist/assets/s07-working-metal-t-DS4VYCBO.jpg                          18.17 kB
+apps/demo build: dist/assets/s11-horseshoe-t-8ybSf55b.jpg                              18.90 kB
+apps/demo build: dist/assets/s06-hammer-strike-t-CJv3cuAw.jpg                          20.60 kB
+apps/demo build: dist/assets/s08-hot-rod-t-D8I00-LC.jpg                                25.17 kB
+apps/demo build: dist/assets/s09-mask-and-iron-t-Cf7s00Hf.jpg                          25.72 kB
+apps/demo build: dist/assets/s05-anvil-hook-t-CD4V2ggW.jpg                             25.84 kB
+apps/demo build: dist/assets/s04-mallet-t-T1-MgmQD.jpg                                 28.44 kB
+apps/demo build: dist/assets/s02-brick-hearth-t-4p1E_YyC.jpg                           31.64 kB
+apps/demo build: dist/assets/s03-at-the-forge-t-ByWi_iHK.jpg                           36.48 kB
+apps/demo build: dist/assets/s01-shop-interior-t-C2yt3dvS.jpg                          37.71 kB
+apps/demo build: dist/assets/cam-31-kingsway-ninth-CC0EL8EC.jpg                       104.35 kB
+apps/demo build: dist/assets/stars-DbIq9L8v.bin                                       127.34 kB
+apps/demo build: dist/assets/sensor-BYxKge4X.jpg                                      128.39 kB
+apps/demo build: dist/assets/cam-14-victoria-bridge-Cno3617p.jpg                      133.59 kB
+apps/demo build: dist/assets/dusk-tramonto-a-montichiello-D07-TYe4.webp               134.10 kB
+apps/demo build: dist/assets/finish-nickel-BbDFgYAE.jpg                               147.86 kB
+apps/demo build: dist/assets/lens-28-hMiLnpeW.jpg                                     190.50 kB
+apps/demo build: dist/assets/s07-working-metal-3QVqc-Vu.jpg                           207.18 kB
+apps/demo build: dist/assets/lens-45-t_pqhKlW.jpg                                     225.44 kB
+apps/demo build: dist/assets/haar-shore-CT00P2tJ.jpg                                  240.43 kB
+apps/demo build: dist/assets/lens-90-6dZah2k0.jpg                                     253.49 kB
+apps/demo build: dist/assets/finish-graphite-3zVtKNQ5.jpg                             277.01 kB
+apps/demo build: dist/assets/milky-way-2020-celestial-4k-DdDfDqqE.webp                279.90 kB
+apps/demo build: dist/assets/dawn-layers-of-light-CMVI52T_.webp                       295.07 kB
+apps/demo build: dist/assets/s09-mask-and-iron-BiGE9GNn.jpg                           366.96 kB
+apps/demo build: dist/assets/night-site-transitoire-Cm9teviT.webp                     405.90 kB
+apps/demo build: dist/assets/s11-horseshoe-D4fKvN2O.jpg                               442.62 kB
+apps/demo build: dist/assets/heade-eHUVHWua.jpg                                       490.26 kB
+apps/demo build: dist/assets/day-montichiello-BLKp5r5N.webp                           493.81 kB
+apps/demo build: dist/assets/constellation-figures-2020-celestial-8k-AMRhOdaw.webp    495.00 kB
+apps/demo build: dist/assets/s06-hammer-strike-D8BZDnBZ.jpg                           503.50 kB
+apps/demo build: dist/assets/ironai-crossing-DBzhjyfM.jpg                             506.03 kB
+apps/demo build: dist/assets/s02-brick-hearth-Cy70-LCz.jpg                            514.49 kB
+apps/demo build: dist/assets/s03-at-the-forge-DkxT9jF0.jpg                            543.37 kB
+apps/demo build: dist/assets/cole-z8HMkIS8.jpg                                        547.65 kB
+apps/demo build: dist/assets/monet-CJAAhZ8x.jpg                                       550.71 kB
+apps/demo build: dist/assets/s04-mallet-BnQ6DT7P.jpg                                  554.73 kB
+apps/demo build: dist/assets/ruisdael-UH_rYwn_.jpg                                    558.51 kB
+apps/demo build: dist/assets/hero-body-DnuKnrnO.jpg                                   560.41 kB
+apps/demo build: dist/assets/avercamp-BUZh5M0F.jpg                                    565.14 kB
+apps/demo build: dist/assets/vangogh-DPGp4cWM.jpg                                     573.93 kB
+apps/demo build: dist/assets/caillebotte-C_Kpys9R.jpg                                 580.47 kB
+apps/demo build: dist/assets/homer-CLcqcDE7.jpg                                       589.56 kB
+apps/demo build: dist/assets/s05-anvil-hook-DQMiBruu.jpg                              593.98 kB
+apps/demo build: dist/assets/s08-hot-rod-v2eVDe1K.jpg                                 726.43 kB
+apps/demo build: dist/assets/s01-shop-interior-DI1nHigx.jpg                           756.55 kB
+apps/demo build: dist/assets/park-panorama-B5BeQtHw.jpg                               852.19 kB
+apps/demo build: dist/assets/icehouse-BMD1GH2s.jpg                                  1,087.60 kB
+apps/demo build: dist/assets/slow-thaw-DyC6Y_6n.jpg                                 1,256.46 kB
+apps/demo build: dist/assets/laws-_ZxSrlgO.css                                          0.96 kB │ gzip:  0.43 kB
+apps/demo build: dist/assets/gallery-Cs76s70z.css                                       1.65 kB │ gzip:  0.60 kB
+apps/demo build: dist/assets/gallery-chronograph-ct8-5CuU.css                           6.13 kB │ gzip:  1.97 kB
+apps/demo build: dist/assets/gallery-exhibition-DhEJWnWg.css                            8.64 kB │ gzip:  2.42 kB
+apps/demo build: dist/assets/playground-C6LzDn36.css                                    8.96 kB │ gzip:  2.59 kB
+apps/demo build: dist/assets/gallery-photo-review-DsVOsBvW.css                          9.04 kB │ gzip:  2.58 kB
+apps/demo build: dist/assets/gallery-planetarium-BoyGhnnw.css                          10.24 kB │ gzip:  2.62 kB
+apps/demo build: dist/assets/gallery-music-player-BqXQtafa.css                         10.56 kB │ gzip:  2.84 kB
+apps/demo build: dist/assets/gallery-start-page-Dr-fuY3X.css                           11.94 kB │ gzip:  2.98 kB
+apps/demo build: dist/assets/gallery-transit-ops-Cd1AFDeZ.css                          12.53 kB │ gzip:  3.18 kB
+apps/demo build: dist/assets/gallery-park-trails-UHArOzJo.css                          12.64 kB │ gzip:  3.33 kB
+apps/demo build: dist/assets/gallery-film-festival-DyfM2FLU.css                        12.69 kB │ gzip:  3.20 kB
+apps/demo build: dist/assets/gallery-product-launch-B-7Aq-WG.css                       13.05 kB │ gzip:  3.22 kB
+apps/demo build: dist/assets/site-CuaKctqy.css                                         15.83 kB │ gzip:  3.92 kB
+apps/demo build: dist/assets/ActionsMenu-B70WwPEf.js                                    2.12 kB │ gzip:  1.04 kB
+apps/demo build: dist/assets/segmented-control-CncZYufa.js                              3.31 kB │ gzip:  1.55 kB
+apps/demo build: dist/assets/StageBackdrop-C7iTiEmn.js                                  4.24 kB │ gzip:  1.90 kB
+apps/demo build: dist/assets/button-CJtPrgCl.js                                         5.26 kB │ gzip:  2.39 kB
+apps/demo build: dist/assets/concentric-SixKG1Ho.js                                     8.08 kB │ gzip:  3.40 kB
+apps/demo build: dist/assets/gallery-DASWiUw0.js                                        8.80 kB │ gzip:  3.39 kB
+apps/demo build: dist/assets/morph-Cna6eqI4.js                                          9.66 kB │ gzip:  3.55 kB
+apps/demo build: dist/assets/playground-D51YO4ie.js                                    18.96 kB │ gzip:  5.96 kB
+apps/demo build: dist/assets/gallery-music-player-Cklprq25.js                          23.70 kB │ gzip:  8.65 kB
+apps/demo build: dist/assets/gallery-film-festival-DEi2iaF1.js                         32.34 kB │ gzip: 11.28 kB
+apps/demo build: dist/assets/laws-BMyO7ryf.js                                          34.09 kB │ gzip: 10.61 kB
+apps/demo build: dist/assets/gallery-product-launch-BX45hV34.js                        34.58 kB │ gzip: 12.17 kB
+apps/demo build: dist/assets/gallery-start-page-DYdixhkv.js                            34.74 kB │ gzip: 11.88 kB
+apps/demo build: dist/assets/gallery-exhibition-BRWcDr3S.js                            35.04 kB │ gzip: 13.03 kB
+apps/demo build: dist/assets/gallery-chronograph-EusFxeMK.js                           38.60 kB │ gzip: 13.56 kB
+apps/demo build: dist/assets/gallery-photo-review-CCwYwzRY.js                          40.24 kB │ gzip: 14.13 kB
+apps/demo build: dist/assets/gallery-park-trails-BvYGfIYt.js                           42.18 kB │ gzip: 14.10 kB
+apps/demo build: dist/assets/gallery-transit-ops-JcxRco-3.js                           62.65 kB │ gzip: 21.17 kB
+apps/demo build: dist/assets/useTreeState-Ca6oyf2I.js                                  87.36 kB │ gzip: 28.30 kB
+apps/demo build: dist/assets/gallery-planetarium-BuB6FtrG.js                          138.22 kB │ gzip: 52.79 kB
+apps/demo build: dist/assets/surface-S-cZOe6N.js                                      173.21 kB │ gzip: 57.75 kB
+apps/demo build: dist/assets/client-BHx9D2TA.js                                       190.79 kB │ gzip: 60.09 kB
+apps/demo build: dist/assets/src-CFHCzMFp.js                                          228.38 kB │ gzip: 74.99 kB
+apps/demo build: dist/assets/index-By8jaE0s.js                                        692.66 kB │ gzip: 73.47 kB
+apps/demo build: ✓ built in 621ms
+apps/demo build: [plugin builtin:vite-reporter] 
+apps/demo build: (!) Some chunks are larger than 500 kB after minification. Consider:
+apps/demo build: - Using dynamic import() to code-split the application
+apps/demo build: - Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+apps/demo build: - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+apps/demo build: Done
