@@ -1,6 +1,6 @@
 # W41 — the archive re-read: the body as luma and chroma, its locality, and the exterior stroke, identified on the W39 archive and landed if they close (2026-09-27)
 
-**Status: G0 MERGED `cd55870d` (2026-09-27, §5.191). G1 MERGED `8ee41aa1` (2026-09-29, §5.192): its one exposure is spent and complete (`fc157275`, §5.192.25), and light-inactive E3 meets the bound on every claimed held-out cell, 18/18 numerical and 16/16 rendered. Decision Log 2 now awaits the user; G2 is conditional on it.**
+**Status: G0 MERGED `cd55870d` (2026-09-27, §5.191). G1 MERGED `8ee41aa1` (2026-09-29, §5.192): its one exposure is spent and complete (`fc157275`, §5.192.25), and light-inactive E3 meets the bound on every claimed held-out cell, 18/18 numerical and 16/16 rendered. Decision Log 2 ruled 2026-09-29: G2 lands light-inactive E3; spatial and stroke close as findings. G2 next.**
 
 ## Purpose
 
@@ -618,6 +618,18 @@ owner's recommendations; the rulings are the user's.** Background:
   survival at most, so closure needs a native capture under X5 with a new sealed holdout
   and a fitter fast enough for the sealed budgets. Apple's dark exterior contour
   stays a named gap.
+
+**Ruled 2026-09-29 by the user, on the G1 owner's recommendations above:** "Rule as
+recommended: G2 lands light-unfocused E3; spatial and stroke close as findings."
+- **Body: a law, scoped to what closed.** G2 lands light-inactive E3 through its zero-gated
+  identity-table group, enabled only by the macOS 27 light receded document. The other three
+  endpoints keep their identity values. The landing still passes M1/M2/L1/X1, the photo-body
+  texture trade (§5.192.20), the canonical holdout and the eye sheets, and no rendered
+  prediction may move between G1's freeze and G2's seal. The CSS carry is Decision Log 4's.
+- **Spatial: a finding, no leaf** (Decision Log 6). The next spatial wave needs a new native
+  capture whose holdout includes structured backdrops.
+- **Stroke: the negative for this wave.** M2 stays UNMEASURED. Closing it needs a native
+  capture under X5 with a new sealed holdout. Apple's dark exterior contour stays a named gap.
 
 ### Decision Log 3 — bounds and floors if a leaf lands (in G2; the user's)
 
