@@ -1,0 +1,118 @@
+W42 G0 rehearsal, round 3 re-read: Stop H with its floor statistic (fix wave, 2026-09-30)
+======================================================================================
+
+The gate review of b151aff4, finding 9, gave Stop H a third statistic, the floor ring's median
+luma in absolute codes (gate/stops, declaration v2). The round-3 trees were read again by Stop H
+alone (stops.py --stop halo, the 24 combinations' swap trees as kept in /tmp/w42gate, each with
+its rehearsal documents declared by --document; r3-1lnh / 2lnh / 1pnh / 2pnh are trees c1 / c2 /
+c1p / c2p). Nothing else was re-run. Output JSON and text: /tmp/w42-g0-fixgate/stopH-rehearsal/
+(SHA-256 below). Per combination: Stop H cells failing, and every failing FLOOR statistic with
+Apple's, the shipped and the candidate's floor (codes).
+
+  r3-1lgb   Stop H cells failing 7: 4 floor, 3 peak/annulus statistic(s)
+      dark receded  1x impulse__capsule-button__inactive             floor Apple 23.00 shipped 30.00 candidate 4.00 (dCand 19.00 > dShip 7.00 + 1)
+      light active  1x impulse__capsule-button__rest-tint-orange     floor Apple 127.69 shipped 130.97 candidate 132.06 (dCand 4.37 > dShip 3.29 + 1)
+      dark receded  2x impulse__capsule-button__inactive             floor Apple 23.00 shipped 31.00 candidate 4.00 (dCand 19.00 > dShip 8.00 + 1)
+      light active  2x impulse__capsule-button__rest                 floor Apple 133.00 shipped 132.00 candidate 129.00 (dCand 4.00 > dShip 1.00 + 1)
+  r3-1lgh   Stop H cells failing 3: 2 floor, 1 peak/annulus statistic(s)
+      dark receded  1x impulse__capsule-button__inactive             floor Apple 23.00 shipped 30.00 candidate 4.00 (dCand 19.00 > dShip 7.00 + 1)
+      dark receded  2x impulse__capsule-button__inactive             floor Apple 23.00 shipped 31.00 candidate 4.00 (dCand 19.00 > dShip 8.00 + 1)
+  r3-1lnb   Stop H cells failing 7: 4 floor, 3 peak/annulus statistic(s)
+      dark receded  1x impulse__capsule-button__inactive             floor Apple 23.00 shipped 30.00 candidate 4.00 (dCand 19.00 > dShip 7.00 + 1)
+      light active  1x impulse__capsule-button__rest-tint-orange     floor Apple 127.69 shipped 130.97 candidate 132.06 (dCand 4.37 > dShip 3.29 + 1)
+      dark receded  2x impulse__capsule-button__inactive             floor Apple 23.00 shipped 31.00 candidate 4.00 (dCand 19.00 > dShip 8.00 + 1)
+      light active  2x impulse__capsule-button__rest                 floor Apple 133.00 shipped 132.00 candidate 129.00 (dCand 4.00 > dShip 1.00 + 1)
+  r3-1lnh   Stop H cells failing 3: 2 floor, 1 peak/annulus statistic(s)
+      dark receded  1x impulse__capsule-button__inactive             floor Apple 23.00 shipped 30.00 candidate 4.00 (dCand 19.00 > dShip 7.00 + 1)
+      dark receded  2x impulse__capsule-button__inactive             floor Apple 23.00 shipped 31.00 candidate 4.00 (dCand 19.00 > dShip 8.00 + 1)
+  r3-1lsb   Stop H cells failing 7: 4 floor, 3 peak/annulus statistic(s)
+      dark receded  1x impulse__capsule-button__inactive             floor Apple 23.00 shipped 30.00 candidate 4.00 (dCand 19.00 > dShip 7.00 + 1)
+      light active  1x impulse__capsule-button__rest-tint-orange     floor Apple 127.69 shipped 130.97 candidate 132.06 (dCand 4.37 > dShip 3.29 + 1)
+      dark receded  2x impulse__capsule-button__inactive             floor Apple 23.00 shipped 31.00 candidate 4.00 (dCand 19.00 > dShip 8.00 + 1)
+      light active  2x impulse__capsule-button__rest                 floor Apple 133.00 shipped 132.00 candidate 129.00 (dCand 4.00 > dShip 1.00 + 1)
+  r3-1lsh   Stop H cells failing 3: 2 floor, 1 peak/annulus statistic(s)
+      dark receded  1x impulse__capsule-button__inactive             floor Apple 23.00 shipped 30.00 candidate 4.00 (dCand 19.00 > dShip 7.00 + 1)
+      dark receded  2x impulse__capsule-button__inactive             floor Apple 23.00 shipped 31.00 candidate 4.00 (dCand 19.00 > dShip 8.00 + 1)
+  r3-1pgb   Stop H cells failing 7: 4 floor, 3 peak/annulus statistic(s)
+      dark receded  1x impulse__capsule-button__inactive             floor Apple 23.00 shipped 30.00 candidate 4.00 (dCand 19.00 > dShip 7.00 + 1)
+      light active  1x impulse__capsule-button__rest-tint-orange     floor Apple 127.69 shipped 130.97 candidate 132.06 (dCand 4.37 > dShip 3.29 + 1)
+      dark receded  2x impulse__capsule-button__inactive             floor Apple 23.00 shipped 31.00 candidate 4.00 (dCand 19.00 > dShip 8.00 + 1)
+      light active  2x impulse__capsule-button__rest                 floor Apple 133.00 shipped 132.00 candidate 129.00 (dCand 4.00 > dShip 1.00 + 1)
+  r3-1pgh   Stop H cells failing 3: 2 floor, 1 peak/annulus statistic(s)
+      dark receded  1x impulse__capsule-button__inactive             floor Apple 23.00 shipped 30.00 candidate 4.00 (dCand 19.00 > dShip 7.00 + 1)
+      dark receded  2x impulse__capsule-button__inactive             floor Apple 23.00 shipped 31.00 candidate 4.00 (dCand 19.00 > dShip 8.00 + 1)
+  r3-1pnb   Stop H cells failing 7: 4 floor, 3 peak/annulus statistic(s)
+      dark receded  1x impulse__capsule-button__inactive             floor Apple 23.00 shipped 30.00 candidate 4.00 (dCand 19.00 > dShip 7.00 + 1)
+      light active  1x impulse__capsule-button__rest-tint-orange     floor Apple 127.69 shipped 130.97 candidate 132.06 (dCand 4.37 > dShip 3.29 + 1)
+      dark receded  2x impulse__capsule-button__inactive             floor Apple 23.00 shipped 31.00 candidate 4.00 (dCand 19.00 > dShip 8.00 + 1)
+      light active  2x impulse__capsule-button__rest                 floor Apple 133.00 shipped 132.00 candidate 129.00 (dCand 4.00 > dShip 1.00 + 1)
+  r3-1pnh   Stop H cells failing 3: 2 floor, 1 peak/annulus statistic(s)
+      dark receded  1x impulse__capsule-button__inactive             floor Apple 23.00 shipped 30.00 candidate 4.00 (dCand 19.00 > dShip 7.00 + 1)
+      dark receded  2x impulse__capsule-button__inactive             floor Apple 23.00 shipped 31.00 candidate 4.00 (dCand 19.00 > dShip 8.00 + 1)
+  r3-1psb   Stop H cells failing 7: 4 floor, 3 peak/annulus statistic(s)
+      dark receded  1x impulse__capsule-button__inactive             floor Apple 23.00 shipped 30.00 candidate 4.00 (dCand 19.00 > dShip 7.00 + 1)
+      light active  1x impulse__capsule-button__rest-tint-orange     floor Apple 127.69 shipped 130.97 candidate 132.06 (dCand 4.37 > dShip 3.29 + 1)
+      dark receded  2x impulse__capsule-button__inactive             floor Apple 23.00 shipped 31.00 candidate 4.00 (dCand 19.00 > dShip 8.00 + 1)
+      light active  2x impulse__capsule-button__rest                 floor Apple 133.00 shipped 132.00 candidate 129.00 (dCand 4.00 > dShip 1.00 + 1)
+  r3-1psh   Stop H cells failing 3: 2 floor, 1 peak/annulus statistic(s)
+      dark receded  1x impulse__capsule-button__inactive             floor Apple 23.00 shipped 30.00 candidate 4.00 (dCand 19.00 > dShip 7.00 + 1)
+      dark receded  2x impulse__capsule-button__inactive             floor Apple 23.00 shipped 31.00 candidate 4.00 (dCand 19.00 > dShip 8.00 + 1)
+  r3-2lgb   Stop H cells failing 1: 1 floor, 0 peak/annulus statistic(s)
+      light active  1x impulse__capsule-button__rest-tint-orange     floor Apple 127.69 shipped 130.97 candidate 132.11 (dCand 4.43 > dShip 3.29 + 1)
+  r3-2lgh   Stop H cells failing 2: 0 floor, 2 peak/annulus statistic(s)
+  r3-2lnb   Stop H cells failing 1: 1 floor, 0 peak/annulus statistic(s)
+      light active  1x impulse__capsule-button__rest-tint-orange     floor Apple 127.69 shipped 130.97 candidate 132.11 (dCand 4.43 > dShip 3.29 + 1)
+  r3-2lnh   Stop H cells failing 2: 0 floor, 2 peak/annulus statistic(s)
+  r3-2lsb   Stop H cells failing 1: 1 floor, 0 peak/annulus statistic(s)
+      light active  1x impulse__capsule-button__rest-tint-orange     floor Apple 127.69 shipped 130.97 candidate 132.11 (dCand 4.43 > dShip 3.29 + 1)
+  r3-2lsh   Stop H cells failing 2: 0 floor, 2 peak/annulus statistic(s)
+  r3-2pgb   Stop H cells failing 1: 1 floor, 0 peak/annulus statistic(s)
+      light active  1x impulse__capsule-button__rest-tint-orange     floor Apple 127.69 shipped 130.97 candidate 132.11 (dCand 4.43 > dShip 3.29 + 1)
+  r3-2pgh   Stop H cells failing 2: 0 floor, 2 peak/annulus statistic(s)
+  r3-2pnb   Stop H cells failing 1: 1 floor, 0 peak/annulus statistic(s)
+      light active  1x impulse__capsule-button__rest-tint-orange     floor Apple 127.69 shipped 130.97 candidate 132.11 (dCand 4.43 > dShip 3.29 + 1)
+  r3-2pnh   Stop H cells failing 2: 0 floor, 2 peak/annulus statistic(s)
+  r3-2psb   Stop H cells failing 1: 1 floor, 0 peak/annulus statistic(s)
+      light active  1x impulse__capsule-button__rest-tint-orange     floor Apple 127.69 shipped 130.97 candidate 132.11 (dCand 4.43 > dShip 3.29 + 1)
+  r3-2psh   Stop H cells failing 2: 0 floor, 2 peak/annulus statistic(s)
+
+Reading
+  - Candidate 2, every blended combination (r3-2pgb, the best, included): ONE new Stop H failure,
+    on the floor of the 1x light ACTIVE tinted capsule (impulse__capsule-button__rest-tint-orange):
+    132.11 against Apple's 127.69 and shipped 130.97, over the allowance by 0.14 code. The capsule
+    takes the law at partial weight across the blended band (mean 0.48), the cell is tinted, and
+    it lies inside the active swap's unmeasured error ([U7]/[P1]'s label, finding 5), so it is a
+    near-bound reading for G2's real renders, like [P1]. Held combinations add no floor failure
+    (their two peak/annulus failures are [SEAM]).
+  - Candidate 1: the dark receded capsule's floor reads 4 codes against Apple's 23 (shipped
+    30-31) in every combination: the landed T's per-pixel black end, which the rehearsal's LIMITS
+    already name ("non-monotone below one code of input in dark ... reaches only impulse floors").
+    Blended, the light active capsule floors fail too (1x tinted 132.06; 2x untinted 129 against
+    Apple's 133).
+    Candidate 1 is already ruled out of light active ([T1]).
+
+SHA-256 of the outputs
+  bc87bb9e600370953680872b063029136d67c3fe26ee171a4d81ebd6d616370a  r3-1lgb.json
+  f110fe6360aa2ce0c0af5170d5fc4cfbf9629019f2311aa79cec27e6ba682dfc  r3-1lgh.json
+  1fef941d7e2417d4e9209218a60b63b3f07725f6d8794c329933ecf5c36fe8ba  r3-1lnb.json
+  d71ae5bc69fd7cbbdc3d253b48f888118cddf4c16bb654d33b69d26dace9ab8a  r3-1lnh.json
+  2dfa220c7f27d74e6ee8e1ca25b3b643b9f93d2b71941d92bac0d7753c91991b  r3-1lsb.json
+  572bc68fafca832cb9e974e6d5f2539ccc6bd6956c202d5521891539cfb7e612  r3-1lsh.json
+  70c6a2d34f294f295f8d33418cb367a7af2cf85bf1aacdbd132833bea0ed8d0a  r3-1pgb.json
+  95a17f9db0ab17b800179de825d7e6999b7f0b03b52a9cbeadfb8afb64e5c4f3  r3-1pgh.json
+  82a263abe1f2c6a52aad41390e4426d1a8951d710f5a204f303e3ea1fa2dad7d  r3-1pnb.json
+  b8352b69441724a6ba1a9b48bf933aad22c1bd89798cac5a1d24f0770fcb03dc  r3-1pnh.json
+  f9bbf0b52b96b941bca74a969733a2ae01b6322d34698936290a91f6ee889f24  r3-1psb.json
+  138a6c24e87d8a4f71c93d92db640ccf57db19528a7edd86ef51d9b1a077a5b8  r3-1psh.json
+  a8c077014750b7a22a468fa8de0ec30ab435b39e9eb8424722db934275239ba8  r3-2lgb.json
+  20d1aaa50f17d761aad2579306f0f81c0e1a142accc29561787ae32b0d134296  r3-2lgh.json
+  d8eeb69d7d8f4e05b6b13ceab687158eb755e2b6aca58f63fb1c37d2600f77c8  r3-2lnb.json
+  7b420896f5fa0e49cb34a7ec6c0b00c46bfaae22ff73c1d73f654d4762b956b3  r3-2lnh.json
+  45f699d352dbb0c3391b0786450ab6a201fd83d02ce50121767c444d727dc38b  r3-2lsb.json
+  9a6bf4ab55c2fb722a754bdd3e6957fabcd006e68e918aed4856617ae47032f9  r3-2lsh.json
+  0703f6083537e810e0b3a1a3ec04ac83e47fb733ace161ae674424bc9e397a03  r3-2pgb.json
+  12f9fcf1a671a80434fa07ed6c7b5b17b6a8c72c202acc1d87dd845f674cce98  r3-2pgh.json
+  0ceadf3f0358a0b13d7a84e27197b8d97f3fcb35125997bbe9be5c02987bf88a  r3-2pnb.json
+  92d9348460e0f35937bcc00c5906b3f3b34e823406814b45989727db67bc4e7b  r3-2pnh.json
+  59288332881048181a94ba60b36cfdcb6bc5d19e9941134e49e8e1d6fa8d3e28  r3-2psb.json
+  a5aff63a8dcf24f41c33a61e64d82cdbb069475766217c6358f1656517af22ca  r3-2psh.json

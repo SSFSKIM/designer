@@ -267,6 +267,12 @@ Causes:
          rounding (swap.py). [U7]'s span-128 growths (0.0035-0.0055 over the bound under
          candidate 2) and [P1]'s 0.000006 are near-bound readings taken through that unmeasured
          error, so neither is a verdict on the law. G2's real renders decide them.
+  [HF]   (added 2026-09-30, the fix wave's re-read, stopH-floor.txt) Stop H's new floor
+         statistic (the gate review of b151aff4, finding 9) fails one cell in every candidate-2
+         blended combination, r3-2pgb included: the 1x light active tinted impulse capsule, floor
+         132.11 against Apple's 127.69 and shipped 130.97, 0.14 code past the allowance. A
+         tinted cell at the capsule's partial blend weight, read through the active swap's
+         unmeasured error, as [P1] is; G2's real renders decide it.
   [E2]   the adopted reading fails every active combination. The absolute reading passes held
          combinations by construction and fails blended ones by 1-6 codes at 2-6 CSS px.
 
@@ -299,7 +305,8 @@ As things stand, no endpoint passes everything:
   - Dark active under 2psb and 2pgb passes every referee but E2. It passes E2 too if E2 is read
     absolutely with the band held, but held fails the seam.
   - Dark receded under 2pg* fails only the tint-composite cell [DT].
-  - Light active under 2pgb fails only [U7] and a marginal [P1].
+  - Light active under 2pgb fails only [U7] and a marginal [P1] (and, since the fix wave's floor
+    re-read, the marginal [HF]).
   - Light receded fails [LT] in every combination.
 The only failures that belong to the law's own choices are [T1] [C0] [FS] [S1] [I1] [KL] and
 [SEAM]. Candidate 2, per-channel knee, chroma g and the blended band avoid all of them. What is
