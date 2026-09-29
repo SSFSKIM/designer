@@ -479,8 +479,34 @@ def shipped_body(ep, scale, bg, component, lensed=True):
 
 # ---------------------------------------------------------------- candidate 1: landed T per pixel
 
-def landed_T(ep, scale, component, A):
-    """The shipped solve's uniform response at A(x), per pixel (A encoded in [0, 1]); LINEAR out."""
+def black_join(ep, scale, component):
+    """Where the landed uniform response, after its dip, climbs back to its value at black, per
+    surface kind (encoded input in [0, 1]), with that value. Below it the per-pixel response is
+    not monotone: W36's black branch is a GROUP construction that blends toward the black ordinate
+    below encoded input 0.003 and rejoins a solve whose own value there is lower. Used only by the
+    rehearsal's monotone device."""
+    e = RES[ep]
+    out = {}
+    for key in {s[0] for s in field(component, scale).surfaces}:
+        sizeK = e['perScale'][f'{scale}x']['components'][key]['sizeK']
+        x = np.linspace(0, 64 / 255, 16385)
+        c = dec(x)
+        lvl = c if e['abscissa'] == 'source(default)' else c
+        st = solve(e, sizeK, lvl, c)
+        y = compose(e, np.repeat(c[:, None], 3, 1), st, np.repeat(c[:, None], 3, 1))[:, 0]
+        low = int(np.argmin(y))
+        above = np.nonzero(y[low:] >= y[0])[0]
+        out[key] = (float(x[low + above[0]]) if len(above) else float(x[-1]), float(y[0]),
+                    float(x[low]), float(y[low]))
+    return out
+
+
+def landed_T(ep, scale, component, A, mono_black=False):
+    """The shipped solve's uniform response at A(x), per pixel (A encoded in [0, 1]); LINEAR out.
+
+    `mono_black` is a REHEARSAL DEVICE, not a declaration (the parent's item (e)): below the
+    input where the response first climbs back to its value at black, the black value is held
+    flat, which makes the per-pixel response monotone."""
     e = RES[ep]
     sc = e['perScale'][f'{scale}x']
     fl = field(component, scale)
@@ -488,10 +514,15 @@ def landed_T(ep, scale, component, A):
     lin = c @ W709
     level = dec(A @ W709) if e['abscissa'] != 'source(default)' else lin
     out = np.zeros_like(c)
+    joins = black_join(ep, scale, component) if mono_black else {}
     for i, surf in enumerate(fl.surfaces):
         m = fl.owner == i
         s = solve(e, sc['components'][surf[0]]['sizeK'], level[m], lin[m])
         out[m] = compose(e, c[m], s, c[m])
+        if mono_black:
+            xj, y0 = joins[surf[0]][:2]
+            low = m & ((A @ W709) < xj)
+            out[low] = y0
     return out
 
 
@@ -589,7 +620,8 @@ def _gf(X, sig, mode):
     return ndimage.gaussian_filter(X, sig, mode=m, truncate=4) if sig >= 1e-3 else X
 
 
-def lt_argument(ep, scale, bg, component, kappa=None, lam=LAMBDA, w=WN, chroma='W'):
+def lt_argument(ep, scale, bg, component, kappa=None, lam=LAMBDA, w=WN, chroma='W', knee='luma',
+                kappa_n=None, kappa_w=None, support='box', floor=True):
     """LT's argument over the canvas, ENCODED codes (H, W, 3): A = M_L + (W - L(W)).
 
     Returns (A, M_L, W) so the E3 candidate can take g at W's luma. Pixels outside every
@@ -598,8 +630,17 @@ def lt_argument(ep, scale, bg, component, kappa=None, lam=LAMBDA, w=WN, chroma='
     `chroma='M'` is the rehearsal's diagnostic rival to memo A's reading: the chroma of the
     per-channel composite (the knee taken per channel, U6's rival) instead of W's, with the luma
     still LT's on-luma M. The charter declares candidate 1's light receded chroma on W; the
-    other endpoints' 'solve at M per pixel' leaves the chroma kernel open (U6, family E)."""
+    other endpoints' 'solve at M per pixel' leaves the chroma kernel open (U6, family E).
+
+    Round 2 (the parent's items (a) and (d)), each a rival the charter already declares:
+    `knee='channel'` is the per-channel knee (U6): N and M per channel, A = M_rgb, its luma
+    L(M_rgb). `kappa_n` / `kappa_w` separate the two radii's scales (LT-2k). `support` is W's
+    footprint: 'box' (the declared box plus margin), 'canvas' (the whole capture, the
+    footprint's null), or 'shape' (W normalised over the rounded shape plus the margin, the
+    'W on the rounded shape' rival). `floor=False` drops memo C's 0.8-dev capture floor."""
     kappa = KAPPA[ep] if kappa is None else kappa
+    kn = kappa if kappa_n is None else kappa_n
+    kw = kappa if kappa_w is None else kappa_w
     B = backdrop(bg, scale) * 255.0
     H, Wd, _ = B.shape
     fl = field(component, scale)
@@ -615,14 +656,14 @@ def lt_argument(ep, scale, bg, component, kappa=None, lam=LAMBDA, w=WN, chroma='
         t = min(max((span - 64) / 96, 0), 1)
         f = 4 if key == 'rrect-lg' else 2
         marg = (0.35 * span if span > 64 else 16.0) if active else 1.0 / scale
-        m = int(round(marg * scale))
+        m = int(round(marg * scale)) if support != 'canvas' else 10 ** 6
         x0 = max(0, int(math.floor((cx - sw / 2) * scale)) - m)
         y0 = max(0, int(math.floor((cy - sh / 2) * scale)) - m)
         x1 = min(Wd, int(math.ceil((cx + sw / 2) * scale)) + m)
         y1 = min(H, int(math.ceil((cy + sh / 2) * scale)) + m)
         crop = B[y0:y1, x0:x1]
         S = np.stack([ndimage.gaussian_filter(crop[..., c], 0.4 * f, mode='nearest', truncate=4)
-                      for c in range(3)], -1)
+                      for c in range(3)], -1) if floor else crop.copy()
         cy_, cx_ = ys[y0:y1, x0:x1], xs[y0:y1, x0:x1]
         dpt = rrect_sdf((cx_ + 0.5) / scale, (cy_ + 0.5) / scale, cx, cy, sw, sh, r)
         if active:
@@ -638,13 +679,20 @@ def lt_argument(ep, scale, bg, component, kappa=None, lam=LAMBDA, w=WN, chroma='
             nrm = _gf(ones, sig, 'norm')
             return np.stack([_gf(X[..., c], sig, 'norm') for c in range(3)], -1) / nrm[..., None]
 
-        Wt = G(S, kappa * RF * u)
+        if support == 'shape':
+            # W normalised over the rounded shape plus the margin (the rival's support).
+            ms = (dpt <= marg).astype(float)
+            sw_ = kw * RF * u
+            num = np.stack([_gf(S[..., c] * ms, sw_, 'norm') for c in range(3)], -1)
+            Wt = num / np.maximum(_gf(ms, sw_, 'norm'), 1e-9)[..., None]
+        else:
+            Wt = G(S, kw * RF * u)
         lo, hi = float(o.min()), float(o.max())
         if hi - lo < 1e-6:
-            C = G(S, kappa * RB * lo * u)
+            C = G(S, kn * RB * lo * u)
         else:
             lv = np.linspace(lo, hi, 5)
-            stack = np.stack([G(S, kappa * RB * v * u) for v in lv])
+            stack = np.stack([G(S, kn * RB * v * u) for v in lv])
             idx = np.clip(np.searchsorted(lv, o) - 1, 0, 3)
             fr = ((o - lv[idx]) / (lv[idx + 1] - lv[idx]))[..., None]
             a = np.take_along_axis(stack, idx[None, ..., None], 0)[0]
@@ -653,7 +701,11 @@ def lt_argument(ep, scale, bg, component, kappa=None, lam=LAMBDA, w=WN, chroma='
         CL, WL = C @ W709, Wt @ W709
         NL = CL + sg * lam * np.maximum(0, sg * (WL - CL))
         ML = (1 - w) * NL + w * WL
-        if chroma == 'M':
+        if knee == 'channel':
+            Nc = C + sg * lam * np.maximum(0, sg * (Wt - C))
+            A = (1 - w) * Nc + w * Wt
+            ML = A @ W709
+        elif chroma == 'M':
             Nc = C + sg * lam * np.maximum(0, sg * (Wt - C))
             Mc = (1 - w) * Nc + w * Wt
             A = ML[..., None] + (Mc - (Mc @ W709)[..., None])

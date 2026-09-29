@@ -1,0 +1,12 @@
+# scratch union: current union with 4 (profile, tier) pair(s) replaced by /private/tmp/w42gate/stage-c1p/stage-light/matrix.json + /private/tmp/w42gate/stage-c1p/stage-dark/matrix.json; 0 declared pair(s) absent from the stages keep their current rows
+#  stage /private/tmp/w42gate/stage-c1p/stage-light
+#   replaced apple-macos-27.0-1x-light-standard-glass0.5 webgpu: 104 stage rows for 124 current (0 holdout not yet read)
+#   replaced apple-macos-27.0-2x-light-standard-glass0.5 webgpu: 104 stage rows for 124 current (0 holdout not yet read)
+#  stage /private/tmp/w42gate/stage-c1p/stage-dark
+#   replaced apple-macos-27.0-1x-dark-standard-glass0.5 webgpu: 76 stage rows for 83 current (0 holdout not yet read)
+#   replaced apple-macos-27.0-2x-dark-standard-glass0.5 webgpu: 76 stage rows for 83 current (0 holdout not yet read)
+# CANDIDATE admission: rows admitted at the shipped documents and at packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/documents/c1p/apple-macos-27.0-1x-light-standard-glass0.5.json sha256:4f6154c2c54f, packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/documents/c1p/apple-macos-27.0-1x-light-standard-glass0.5-receded.json sha256:bb7242b9ef41, packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/documents/c1p/apple-macos-27.0-1x-dark-standard-glass0.5.json sha256:6749790a4e66, packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/documents/c1p/apple-macos-27.0-1x-dark-standard-glass0.5-receded.json sha256:09e17e8c9f0f (declared scratch documents; not a shipped cut)
+X1 cells 218
+integer {'pixels': 12681980, 'aboveZero': 0, 'aboveOne': 0}
+analytic {'pixels': 12593524, 'aboveZero': 0, 'aboveOne': 0}
+against W36 218: 218 cells; 0 not in W36's population: []

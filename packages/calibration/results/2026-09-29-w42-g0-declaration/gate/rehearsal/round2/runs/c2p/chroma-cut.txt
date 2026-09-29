@@ -1,0 +1,50 @@
+# scratch union: current union with 4 (profile, tier) pair(s) replaced by /private/tmp/w42gate/stage-c2p/stage-light/matrix.json + /private/tmp/w42gate/stage-c2p/stage-dark/matrix.json; 0 declared pair(s) absent from the stages keep their current rows
+#  stage /private/tmp/w42gate/stage-c2p/stage-light
+#   replaced apple-macos-27.0-1x-light-standard-glass0.5 webgpu: 104 stage rows for 124 current (0 holdout not yet read)
+#   replaced apple-macos-27.0-2x-light-standard-glass0.5 webgpu: 104 stage rows for 124 current (0 holdout not yet read)
+#  stage /private/tmp/w42gate/stage-c2p/stage-dark
+#   replaced apple-macos-27.0-1x-dark-standard-glass0.5 webgpu: 76 stage rows for 83 current (0 holdout not yet read)
+#   replaced apple-macos-27.0-2x-dark-standard-glass0.5 webgpu: 76 stage rows for 83 current (0 holdout not yet read)
+# CANDIDATE admission: rows admitted at the shipped documents and at packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/documents/c2p/apple-macos-27.0-1x-light-standard-glass0.5.json sha256:c3cfacbaf599, packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/documents/c2p/apple-macos-27.0-1x-light-standard-glass0.5-receded.json sha256:f0e1222fc3c0, packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/documents/c2p/apple-macos-27.0-1x-dark-standard-glass0.5.json sha256:b533ebaa97d3, packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/documents/c2p/apple-macos-27.0-1x-dark-standard-glass0.5-receded.json sha256:3ff66f53badd (declared scratch documents; not a shipped cut)
+# W31 G4's chroma cut: the declared bed's R and its structure reading, regenerated at the gate that adopts them (W31 Decision Log 3 (a)), with M2's reference re-baselined at this gate (W32 Decision Log 4).
+# rows: scratch union: current union with 4 (profile, tier) pair(s) replaced by /private/tmp/w42gate/stage-c2p/stage-light/matrix.json + /private/tmp/w42gate/stage-c2p/stage-dark/matrix.json; 0 declared pair(s) absent from the stages keep their current rows
+# mode: R = chromaStructureRatioWeb / chromaStructureRatioNative, web against native on the same cell and never against 1; median per scheme and pose with a two-sided per-cell clause; structure read as interiorStdDevWeb against the reference generation, re-baselined at each adopting gate (W32 Decision Log 4)
+# at documents: {"apple-macos-27.0-1x-dark-standard-glass0.5-receded.json": "5cec8c961201", "apple-macos-27.0-1x-dark-standard-glass0.5.json": "0eac5b294cc2", "apple-macos-27.0-1x-light-standard-glass0.5-receded.json": "30fbe05986ae", "apple-macos-27.0-1x-light-standard-glass0.5.json": "85ad7f7e3e0d"}
+# reference generation: {"dark": {"activeDocumentSha256": "0eac5b294cc2", "recededDocumentSha256": "5cec8c961201", "file": "0eac5b294cc2.json"}, "light": {"activeDocumentSha256": "85ad7f7e3e0d", "recededDocumentSha256": "30fbe05986ae", "file": "85ad7f7e3e0d.json"}}
+# holdout: not read
+
+bed                  n   median R    min R    max R  worst |Δsd|
+light|active        10     0.9234   0.8889   1.4495      15.831%
+light|inactive       8     1.1131   1.0067   1.4348      39.452%
+dark|active          4     0.7687   0.6927   0.9656      41.043%
+dark|inactive        4     0.3274   0.3062   0.3411     218.496%
+
+profile                                             scene                           set                 R       Δsd
+apple-macos-27.0-2x-light-standard-glass0.5         photo__rrect-sm__rest           validation     1.4495    0.000%
+apple-macos-27.0-1x-light-standard-glass0.5         photo__rrect-sm__inactive       validation     1.4348   -3.941%
+apple-macos-27.0-2x-light-standard-glass0.5         photo__rrect-sm__inactive       validation     1.4035  -15.374%
+apple-macos-27.0-1x-light-standard-glass0.5         photo__rrect-sm__rest           validation     1.3660    0.000%
+apple-macos-27.0-1x-light-standard-glass0.5         photo__capsule-button__inactive calibration    1.1779   10.869%
+apple-macos-27.0-2x-light-standard-glass0.5         photo__capsule-button__inactive calibration    1.1722    2.277%
+apple-macos-27.0-2x-light-standard-glass0.5         photo__rrect-md__inactive       calibration    1.0541   22.909%
+apple-macos-27.0-1x-light-standard-glass0.5         photo__toolbar-group__inactive  validation     1.0478   39.452%
+apple-macos-27.0-1x-light-standard-glass0.5         photo__rrect-md__inactive       calibration    1.0434   34.017%
+apple-macos-27.0-2x-light-standard-glass0.5         photo__capsule-button__rest     calibration    1.0292    1.439%
+apple-macos-27.0-2x-light-standard-glass0.5         photo__toolbar-group__inactive  validation     1.0067   30.463%
+apple-macos-27.0-1x-light-standard-glass0.5         photo__capsule-button__rest     calibration    0.9852    1.251%
+apple-macos-27.0-2x-dark-standard-glass0.5          photo__capsule-button__rest     calibration    0.9656    8.828%
+apple-macos-27.0-2x-light-standard-glass0.5         photo__rrect-md__rest           calibration    0.9287   13.634%
+apple-macos-27.0-1x-light-standard-glass0.5         photo__rrect-md__rest           calibration    0.9181   10.734%
+apple-macos-27.0-2x-light-standard-glass0.5         photo__rrect-ml__rest           calibration    0.8958   15.831%
+apple-macos-27.0-1x-light-standard-glass0.5         photo__rrect-ml__rest           calibration    0.8924   14.736%
+apple-macos-27.0-1x-light-standard-glass0.5         photo__toolbar-group__rest      validation     0.8916    0.079%
+apple-macos-27.0-2x-light-standard-glass0.5         photo__toolbar-group__rest      validation     0.8889    0.042%
+apple-macos-27.0-1x-dark-standard-glass0.5          photo__capsule-button__rest     calibration    0.7802    4.757%
+apple-macos-27.0-2x-dark-standard-glass0.5          photo__rrect-md__rest           calibration    0.7573   41.043%
+apple-macos-27.0-1x-dark-standard-glass0.5          photo__rrect-md__rest           calibration    0.6927   35.101%
+apple-macos-27.0-2x-dark-standard-glass0.5          photo__rrect-md__inactive       calibration    0.3411  135.526%
+apple-macos-27.0-1x-dark-standard-glass0.5          photo__rrect-md__inactive       calibration    0.3381  159.603%
+apple-macos-27.0-1x-dark-standard-glass0.5          photo__capsule-button__inactive calibration    0.3166  194.410%
+apple-macos-27.0-2x-dark-standard-glass0.5          photo__capsule-button__inactive calibration    0.3062  218.496%
+
+26 cells -> chroma-cut.json

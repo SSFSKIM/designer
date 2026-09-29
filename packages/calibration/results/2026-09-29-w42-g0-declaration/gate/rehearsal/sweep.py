@@ -47,6 +47,9 @@ def main():
     ap.add_argument('--cells', required=True)
     ap.add_argument('--kappa', default='')
     ap.add_argument('--lam', default='')
+    ap.add_argument('--support', default='box', help="W's footprint: box, canvas, shape (comma list)")
+    ap.add_argument('--floor', default='on', help='the 0.8-dev capture floor: on, off (comma list)')
+    ap.add_argument('--kn-kw', default='', help='separate scales, "kn:kw" pairs (comma list); LT-2k')
     ap.add_argument('--out', type=Path, required=True)
     args = ap.parse_args()
     cells = [tuple(c.split('/')) for c in args.cells.split(',')]
@@ -54,11 +57,21 @@ def main():
     base = l1_baseline()
     kappas = [None] + [float(k) for k in args.kappa.split(',') if k]
     lams = [float(x) for x in args.lam.split(',') if x] or [B.LAMBDA]
+    pairs = [None] + [tuple(float(v) for v in p.split(':')) for p in args.kn_kw.split(',') if p]
+    grid = []
+    for kappa, lam, sup, flo, pair in itertools.product(kappas, lams, args.support.split(','),
+                                                        args.floor.split(','), pairs):
+        if pair is not None and kappa is not None:
+            continue
+        grid.append((kappa, lam, sup, flo, pair))
     results = []
-    for kappa, lam in itertools.product(kappas, lams):
-        tag = f"k{'mE' if kappa is None else kappa}-l{lam}"
+    for kappa, lam, sup, flo, pair in grid:
+        tag = (f"k{'mE' if kappa is None else kappa}-l{lam}-{sup}-floor{flo}"
+               + ('' if pair is None else f'-kn{pair[0]}-kw{pair[1]}'))
         S.OVERRIDE.clear()
-        S.OVERRIDE.update(kappa=kappa, lam=lam)
+        S.OVERRIDE.update(kappa=kappa, lam=lam, support=sup, floor=flo == 'on')
+        if pair is not None:
+            S.OVERRIDE.update(kappa_n=pair[0], kappa_w=pair[1])
         tree = args.out / tag / 'tree'
         for p, s in cells:
             scheme = 'light' if '-light-' in p else 'dark'
@@ -90,6 +103,7 @@ def main():
                 if 'chromaStructureRatioWeb' in mat:
                     R = val(mat, 'chromaStructureRatioWeb') / val(mat, 'chromaStructureRatioNative')
                 results.append(dict(tag=tag, kappa=kappa if kappa is not None else 'memoE', lam=lam,
+                                    support=sup, floor=flo, knkw=pair,
                                     cell=f'{p}/{r["key"]["sceneId"]}', l1Error=abs(w - n),
                                     l1Growth=None if be is None else abs(w - n) - be,
                                     m2Delta=d, m2Verdict=m2, M1R=R))
@@ -98,7 +112,7 @@ def main():
     for r in results:
         g = '' if r['l1Growth'] is None else f"{r['l1Growth']:+.4f}"
         R = '' if r['M1R'] is None else f"{r['M1R']:.3f}"
-        print(f"{r['tag']:14s} {r['cell'][17:]:62s} L1 {r['l1Error']:.4f} g {g:8s} "
+        print(f"{r['tag']:40s} {r['cell'][17:]:62s} L1 {r['l1Error']:.4f} g {g:8s} "
               f"M2 {r['m2Delta'] * 100:+7.2f}% {r['m2Verdict']:6s}  R {R}")
 
 if __name__ == '__main__':

@@ -1,0 +1,139 @@
+# W42 G0 directional stops (charter clause 10): no cell farther from Apple than the shipped render at the statistic's declared resolution
+# generated 2026-09-29T09:54:58Z
+# declaration packages/calibration/results/2026-09-29-w42-g0-declaration/gate/stops/stops-declaration.json sha256:0f907bfee62ae07f5ad68b1f8d7679b35abeae14a2077bb6bc5127d80a68809e
+# shipped root   /Users/new/Developer/GitHub/designer/packages/calibration/web-captures
+# candidate root /private/tmp/w42gate/tree-c1d
+# admission: mode candidate, candidate names the shipped documents: False
+#   materialProfile=packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/documents/c1d/apple-macos-27.0-1x-dark-standard-glass0.5.json sha256:e7dc5b6214f1 (dark; shipped document: False)
+#   recededProfile=packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/documents/c1d/apple-macos-27.0-1x-dark-standard-glass0.5-receded.json sha256:884ff4142e53 (dark; shipped document: False)
+# SUMMARY: FAIL  halo UNMEASURED {'pass': 4, 'FAIL': 0, 'UNMEASURED': 12}  chroma FAIL {'pass': 0, 'FAIL': 8, 'UNMEASURED': 18}
+
+## Stop H, impulse halo/annulus: UNMEASURED {'pass': 4, 'FAIL': 0, 'UNMEASURED': 12}
+## headline per endpoint (codes)
+  peak    light active     6 cells  native  13.79.. 57.38 (median  23.21)  shipped   2.69.. 44.33 (median  18.16)
+  peak    light receded    6 cells  native   2.00.. 11.21 (median   5.91)  shipped   2.08.. 36.50 (median  25.58)
+  peak    dark active      2 cells  native  12.00.. 12.77 (median  12.38)  shipped  16.92.. 20.00 (median  18.46)
+  peak    dark receded     2 cells  native   2.00..  3.33 (median   2.67)  shipped  37.67.. 37.81 (median  37.74)  candidate   0.00..  0.00 (median   0.00)
+  annulus light active     6 cells  native   0.46..  3.52 (median   1.83)  shipped   0.17..  5.22 (median   1.43)
+  annulus light receded    6 cells  native   1.18..  2.51 (median   2.00)  shipped   1.28..  3.13 (median   2.37)
+  annulus dark active      2 cells  native   0.32..  0.56 (median   0.44)  shipped   2.10..  3.04 (median   2.57)  candidate   1.33..  1.86 (median   1.59)
+  annulus dark receded     2 cells  native   1.06..  1.14 (median   1.10)  shipped   3.04..  4.95 (median   3.99)  candidate   0.00..  0.00 (median   0.00)
+
+  (values codes)
+  profile                                     scene                                         stat        native  shipped     cand   dShip   dCand     res  verdict
+  apple-macos-27.0-1x-dark-standard-glass0.5  impulse__capsule-button__inactive             peak         3.333   37.667    0.000  34.333   3.333   1.000  pass
+  apple-macos-27.0-1x-dark-standard-glass0.5  impulse__capsule-button__inactive             annulus      1.143    4.949    0.000   3.806   1.143   1.000  pass
+  apple-macos-27.0-1x-dark-standard-glass0.5  impulse__capsule-button__rest                 peak        12.000   20.000   20.000   8.000   8.000   1.000  pass
+  apple-macos-27.0-1x-dark-standard-glass0.5  impulse__capsule-button__rest                 annulus      0.561    2.102    1.327   1.541   0.765   1.000  pass
+  apple-macos-27.0-1x-light-standard-glass0.5 impulse__capsule-button__inactive             peak        11.000   27.833        -       -       -   1.000  UNMEASURED
+  apple-macos-27.0-1x-light-standard-glass0.5 impulse__capsule-button__inactive             annulus      2.311    3.000        -       -       -   1.000  UNMEASURED
+  apple-macos-27.0-1x-light-standard-glass0.5 impulse__capsule-button__inactive-tint-orange peak        11.213   23.333        -       -       -   1.000  UNMEASURED
+  apple-macos-27.0-1x-light-standard-glass0.5 impulse__capsule-button__inactive-tint-orange annulus      1.692    3.133        -       -       -   1.000  UNMEASURED
+  apple-macos-27.0-1x-light-standard-glass0.5 impulse__capsule-button__rest                 peak        51.333   44.333        -       -       -   1.000  UNMEASURED
+  apple-macos-27.0-1x-light-standard-glass0.5 impulse__capsule-button__rest                 annulus      1.658    5.224        -       -       -   1.000  UNMEASURED
+  apple-macos-27.0-1x-light-standard-glass0.5 impulse__capsule-button__rest-tint-orange     peak        13.788    8.866        -       -       -   1.000  UNMEASURED
+  apple-macos-27.0-1x-light-standard-glass0.5 impulse__capsule-button__rest-tint-orange     annulus      0.464    1.005        -       -       -   1.000  UNMEASURED
+  apple-macos-27.0-1x-light-standard-glass0.5 impulse__rrect-md__inactive                   peak         2.000   15.000        -       -       -   1.000  UNMEASURED
+  apple-macos-27.0-1x-light-standard-glass0.5 impulse__rrect-md__inactive                   annulus      1.184    1.500        -       -       -   1.000  UNMEASURED
+  apple-macos-27.0-1x-light-standard-glass0.5 impulse__rrect-md__rest                       peak        25.167   33.000        -       -       -   1.000  UNMEASURED
+  apple-macos-27.0-1x-light-standard-glass0.5 impulse__rrect-md__rest                       annulus      2.413    3.531        -       -       -   1.000  UNMEASURED
+  apple-macos-27.0-2x-dark-standard-glass0.5  impulse__capsule-button__inactive             peak         2.000   37.808    0.000  35.808   2.000   1.000  pass
+  apple-macos-27.0-2x-dark-standard-glass0.5  impulse__capsule-button__inactive             annulus      1.057    3.039    0.000   1.983   1.057   1.000  pass
+  apple-macos-27.0-2x-dark-standard-glass0.5  impulse__capsule-button__rest                 peak        12.769   16.923   16.923   4.154   4.154   1.000  pass
+  apple-macos-27.0-2x-dark-standard-glass0.5  impulse__capsule-button__rest                 annulus      0.316    3.042    1.861   2.726   1.545   1.000  pass
+  apple-macos-27.0-2x-light-standard-glass0.5 impulse__capsule-button__inactive             peak         6.308   36.500        -       -       -   1.000  UNMEASURED
+  apple-macos-27.0-2x-light-standard-glass0.5 impulse__capsule-button__inactive             annulus      2.505    2.345        -       -       -   1.000  UNMEASURED
+  apple-macos-27.0-2x-light-standard-glass0.5 impulse__capsule-button__inactive-tint-orange peak         5.520   30.500        -       -       -   1.000  UNMEASURED
+  apple-macos-27.0-2x-light-standard-glass0.5 impulse__capsule-button__inactive-tint-orange annulus      1.861    2.392        -       -       -   1.000  UNMEASURED
+  apple-macos-27.0-2x-light-standard-glass0.5 impulse__capsule-button__rest                 peak        57.385   27.462        -       -       -   1.000  UNMEASURED
+  apple-macos-27.0-2x-light-standard-glass0.5 impulse__capsule-button__rest                 annulus      2.007    1.858        -       -       -   1.000  UNMEASURED
+  apple-macos-27.0-2x-light-standard-glass0.5 impulse__capsule-button__rest-tint-orange     peak        15.485    4.898        -       -       -   1.000  UNMEASURED
+  apple-macos-27.0-2x-light-standard-glass0.5 impulse__capsule-button__rest-tint-orange     annulus      0.503    0.165        -       -       -   1.000  UNMEASURED
+  apple-macos-27.0-2x-light-standard-glass0.5 impulse__rrect-md__inactive                   peak         4.000    2.077        -       -       -   1.000  UNMEASURED
+  apple-macos-27.0-2x-light-standard-glass0.5 impulse__rrect-md__inactive                   annulus      2.137    1.276        -       -       -   1.000  UNMEASURED
+  apple-macos-27.0-2x-light-standard-glass0.5 impulse__rrect-md__rest                       peak        21.258    2.692        -       -       -   1.000  UNMEASURED
+  apple-macos-27.0-2x-light-standard-glass0.5 impulse__rrect-md__rest                       annulus      3.518    0.184        -       -       -   1.000  UNMEASURED
+
+## Stop P, photo band-pass chroma energy: FAIL {'pass': 0, 'FAIL': 8, 'UNMEASURED': 18}
+## headline per endpoint (OKLab (a, b) x 1e3)
+  F       light active    10 cells  native   3.33..  7.45 (median   5.16)  shipped   2.18..  8.44 (median   5.20)
+  F       light receded    8 cells  native   2.79..  5.86 (median   4.26)  shipped   3.49..  8.61 (median   6.72)
+  F       dark active      4 cells  native   5.13..  8.08 (median   6.83)  shipped   3.59..  5.41 (median   4.66)  candidate   2.58..  5.87 (median   4.42)
+  F       dark receded     4 cells  native   3.13..  5.78 (median   4.64)  shipped   1.41..  3.82 (median   2.36)  candidate   0.66..  0.69 (median   0.68)
+  M       light active    10 cells  native  15.12.. 24.05 (median  20.39)  shipped  11.72.. 22.46 (median  17.18)
+  M       light receded    8 cells  native  12.36.. 23.03 (median  19.70)  shipped  14.06.. 24.02 (median  20.48)
+  M       dark active      4 cells  native  27.20.. 29.57 (median  28.49)  shipped  13.87.. 16.09 (median  14.72)  candidate  10.80.. 14.52 (median  12.41)
+  M       dark receded     4 cells  native  25.83.. 27.46 (median  26.89)  shipped   7.52..  9.79 (median   9.02)  candidate   4.81..  5.99 (median   5.39)
+
+  (values OKLab (a, b) x 1e3)
+  profile                                     scene                                         stat        native  shipped     cand   dShip   dCand     res  verdict
+  apple-macos-27.0-1x-dark-standard-glass0.5  photo__capsule-button__inactive               F            5.785    3.820    0.688   1.965   5.097   0.279  FAIL
+  apple-macos-27.0-1x-dark-standard-glass0.5  photo__capsule-button__inactive               M           27.462    9.789    4.821  17.673  22.642   0.073  FAIL
+  apple-macos-27.0-1x-dark-standard-glass0.5  photo__capsule-button__rest                   F            7.961    5.074    5.386   2.887   2.575   0.277  pass
+  apple-macos-27.0-1x-dark-standard-glass0.5  photo__capsule-button__rest                   M           29.574   14.135   13.454  15.439  16.120   0.073  FAIL
+  apple-macos-27.0-1x-dark-standard-glass0.5  photo__rrect-md__inactive                     F            3.127    1.415    0.690   1.712   2.437   0.265  FAIL
+  apple-macos-27.0-1x-dark-standard-glass0.5  photo__rrect-md__inactive                     M           25.828    7.522    5.992  18.306  19.836   0.068  FAIL
+  apple-macos-27.0-1x-dark-standard-glass0.5  photo__rrect-md__rest                         F            5.134    3.592    2.583   1.542   2.551   0.265  FAIL
+  apple-macos-27.0-1x-dark-standard-glass0.5  photo__rrect-md__rest                         M           27.205   13.875   10.803  13.330  16.401   0.068  FAIL
+  apple-macos-27.0-1x-light-standard-glass0.5 photo__capsule-button__inactive               F            4.952    6.445        -       -       -   0.268  UNMEASURED
+  apple-macos-27.0-1x-light-standard-glass0.5 photo__capsule-button__inactive               M           22.414   20.896        -       -       -   0.070  UNMEASURED
+  apple-macos-27.0-1x-light-standard-glass0.5 photo__capsule-button__rest                   F            6.748    8.306        -       -       -   0.267  UNMEASURED
+  apple-macos-27.0-1x-light-standard-glass0.5 photo__capsule-button__rest                   M           23.983   22.462        -       -       -   0.070  UNMEASURED
+  apple-macos-27.0-1x-light-standard-glass0.5 photo__rrect-md__inactive                     F            2.786    3.620        -       -       -   0.258  UNMEASURED
+  apple-macos-27.0-1x-light-standard-glass0.5 photo__rrect-md__inactive                     M           22.476   19.079        -       -       -   0.067  UNMEASURED
+  apple-macos-27.0-1x-light-standard-glass0.5 photo__rrect-md__rest                         F            4.514    5.826        -       -       -   0.257  UNMEASURED
+  apple-macos-27.0-1x-light-standard-glass0.5 photo__rrect-md__rest                         M           22.762   20.028        -       -       -   0.066  UNMEASURED
+  apple-macos-27.0-1x-light-standard-glass0.5 photo__rrect-ml__rest                         F            3.520    4.502        -       -       -   0.250  UNMEASURED
+  apple-macos-27.0-1x-light-standard-glass0.5 photo__rrect-ml__rest                         M           18.930   16.076        -       -       -   0.064  UNMEASURED
+  apple-macos-27.0-1x-light-standard-glass0.5 photo__rrect-sm__inactive                     F            3.810    6.517        -       -       -   0.279  UNMEASURED
+  apple-macos-27.0-1x-light-standard-glass0.5 photo__rrect-sm__inactive                     M           16.893   20.064        -       -       -   0.074  UNMEASURED
+  apple-macos-27.0-1x-light-standard-glass0.5 photo__rrect-sm__rest                         F            5.150    8.267        -       -       -   0.277  UNMEASURED
+  apple-macos-27.0-1x-light-standard-glass0.5 photo__rrect-sm__rest                         M           20.337   20.731        -       -       -   0.074  UNMEASURED
+  apple-macos-27.0-1x-light-standard-glass0.5 photo__toolbar-group__inactive                F            5.862    6.925        -       -       -   0.257  UNMEASURED
+  apple-macos-27.0-1x-light-standard-glass0.5 photo__toolbar-group__inactive                M           12.593   14.065        -       -       -   0.066  UNMEASURED
+  apple-macos-27.0-1x-light-standard-glass0.5 photo__toolbar-group__rest                    F            7.393    8.437        -       -       -   0.257  UNMEASURED
+  apple-macos-27.0-1x-light-standard-glass0.5 photo__toolbar-group__rest                    M           15.124   15.863        -       -       -   0.066  UNMEASURED
+  apple-macos-27.0-2x-dark-standard-glass0.5  photo__capsule-button__inactive               F            5.453    3.305    0.657   2.149   4.797   0.140  FAIL
+  apple-macos-27.0-2x-dark-standard-glass0.5  photo__capsule-button__inactive               M           27.311    9.348    4.805  17.963  22.506   0.037  FAIL
+  apple-macos-27.0-2x-dark-standard-glass0.5  photo__capsule-button__rest                   F            8.081    5.405    5.869   2.676   2.212   0.139  pass
+  apple-macos-27.0-2x-dark-standard-glass0.5  photo__capsule-button__rest                   M           29.567   15.297   14.517  14.270  15.050   0.036  FAIL
+  apple-macos-27.0-2x-dark-standard-glass0.5  photo__rrect-md__inactive                     F            3.831    1.406    0.678   2.425   3.153   0.132  FAIL
+  apple-macos-27.0-2x-dark-standard-glass0.5  photo__rrect-md__inactive                     M           26.468    8.697    5.956  17.771  20.512   0.034  FAIL
+  apple-macos-27.0-2x-dark-standard-glass0.5  photo__rrect-md__rest                         F            5.698    4.253    3.449   1.445   2.248   0.132  FAIL
+  apple-macos-27.0-2x-dark-standard-glass0.5  photo__rrect-md__rest                         M           27.405   16.086   11.357  11.319  16.048   0.034  FAIL
+  apple-macos-27.0-2x-light-standard-glass0.5 photo__capsule-button__inactive               F            4.712    7.633        -       -       -   0.134  UNMEASURED
+  apple-macos-27.0-2x-light-standard-glass0.5 photo__capsule-button__inactive               M           22.406   24.022        -       -       -   0.035  UNMEASURED
+  apple-macos-27.0-2x-light-standard-glass0.5 photo__capsule-button__rest                   F            6.765    4.717        -       -       -   0.133  UNMEASURED
+  apple-macos-27.0-2x-light-standard-glass0.5 photo__capsule-button__rest                   M           24.045   18.306        -       -       -   0.035  UNMEASURED
+  apple-macos-27.0-2x-light-standard-glass0.5 photo__rrect-md__inactive                     F            3.453    3.494        -       -       -   0.129  UNMEASURED
+  apple-macos-27.0-2x-light-standard-glass0.5 photo__rrect-md__inactive                     M           23.027   21.442        -       -       -   0.033  UNMEASURED
+  apple-macos-27.0-2x-light-standard-glass0.5 photo__rrect-md__rest                         F            4.989    2.358        -       -       -   0.129  UNMEASURED
+  apple-macos-27.0-2x-light-standard-glass0.5 photo__rrect-md__rest                         M           22.929   17.053        -       -       -   0.033  UNMEASURED
+  apple-macos-27.0-2x-light-standard-glass0.5 photo__rrect-ml__rest                         F            3.329    2.176        -       -       -   0.125  UNMEASURED
+  apple-macos-27.0-2x-light-standard-glass0.5 photo__rrect-ml__rest                         M           18.778   14.510        -       -       -   0.032  UNMEASURED
+  apple-macos-27.0-2x-light-standard-glass0.5 photo__rrect-sm__inactive                     F            3.650    8.608        -       -       -   0.140  UNMEASURED
+  apple-macos-27.0-2x-light-standard-glass0.5 photo__rrect-sm__inactive                     M           16.997   22.807        -       -       -   0.037  UNMEASURED
+  apple-macos-27.0-2x-light-standard-glass0.5 photo__rrect-sm__rest                         F            5.162    4.954        -       -       -   0.139  UNMEASURED
+  apple-macos-27.0-2x-light-standard-glass0.5 photo__rrect-sm__rest                         M           20.439   17.306        -       -       -   0.037  UNMEASURED
+  apple-macos-27.0-2x-light-standard-glass0.5 photo__toolbar-group__inactive                F            5.662    8.154        -       -       -   0.128  UNMEASURED
+  apple-macos-27.0-2x-light-standard-glass0.5 photo__toolbar-group__inactive                M           12.355   16.142        -       -       -   0.033  UNMEASURED
+  apple-macos-27.0-2x-light-standard-glass0.5 photo__toolbar-group__rest                    F            7.450    5.441        -       -       -   0.128  UNMEASURED
+  apple-macos-27.0-2x-light-standard-glass0.5 photo__toolbar-group__rest                    M           15.221   11.722        -       -       -   0.033  UNMEASURED
+
+  native channels >= 250 or <= 5 (fraction of deep pixels):
+    apple-macos-27.0-1x-dark-standard-glass0.5  photo__rrect-md__inactive               0.006
+    apple-macos-27.0-1x-light-standard-glass0.5 photo__capsule-button__inactive         0.004
+    apple-macos-27.0-1x-light-standard-glass0.5 photo__capsule-button__rest             0.032
+    apple-macos-27.0-1x-light-standard-glass0.5 photo__rrect-md__inactive               0.181
+    apple-macos-27.0-1x-light-standard-glass0.5 photo__rrect-md__rest                   0.261
+    apple-macos-27.0-1x-light-standard-glass0.5 photo__rrect-ml__rest                   0.358
+    apple-macos-27.0-1x-light-standard-glass0.5 photo__toolbar-group__rest              0.049
+    apple-macos-27.0-2x-dark-standard-glass0.5  photo__rrect-md__inactive               0.012
+    apple-macos-27.0-2x-dark-standard-glass0.5  photo__rrect-md__rest                   0.001
+    apple-macos-27.0-2x-light-standard-glass0.5 photo__capsule-button__inactive         0.005
+    apple-macos-27.0-2x-light-standard-glass0.5 photo__capsule-button__rest             0.036
+    apple-macos-27.0-2x-light-standard-glass0.5 photo__rrect-md__inactive               0.184
+    apple-macos-27.0-2x-light-standard-glass0.5 photo__rrect-md__rest                   0.261
+    apple-macos-27.0-2x-light-standard-glass0.5 photo__rrect-ml__rest                   0.358
+    apple-macos-27.0-2x-light-standard-glass0.5 photo__rrect-sm__rest                   0.002
+    apple-macos-27.0-2x-light-standard-glass0.5 photo__toolbar-group__rest              0.050

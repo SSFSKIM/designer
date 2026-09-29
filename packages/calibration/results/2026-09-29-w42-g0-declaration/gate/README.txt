@@ -24,3 +24,7 @@ no canonical holdout or recorded native pixel opened; freeze 1,818 at every comm
   rehearsal/       clause 3: memo A's body swap in all four endpoints on the canonical captures,
                    every referee above run on it; the table and the by-construction failures
                    for the user are in rehearsal/README.txt.
+  rehearsal/round2/  the parent's round 2 (items (a)-(e)): the per-channel rival, E2 read
+                   absolutely, the tinted-cell decomposition from vitrea's own tint code, M2 at
+                   s = 32 across the declared rivals and supports, and the landed T's black end;
+                   round2/README.txt ends with what still fails by construction.

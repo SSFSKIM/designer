@@ -24,6 +24,12 @@ Variants (the rehearsal's candidate documents name them):
   c1m       DIAGNOSTIC, not a candidate: c1 with the chroma of the per-channel composite M
             instead of W's (body.lt_argument chroma='M'), to show what Stop P and M1 read of the
             chroma kernel the charter leaves open (U6, family E).
+  c1p/c2p   ROUND 2 (a): the per-channel knee rival (U6) for both candidates: N and M per
+            channel, A = M_rgb (luma and chroma both the per-channel composite's).
+  c1d       ROUND 2 (e): c1 with the landed T's black value held flat below its join, a
+            REHEARSAL DEVICE that makes the per-pixel response monotone, not a declaration.
+  c1f/c2f   ROUND 2 (b) DIAGNOSTIC: active cells swapped over the whole body through vitrea's
+            lens, to show what the held band hides from E2. Not the rehearsal of record.
   c2        candidate 2, NATIVE T: c1's chroma with its luma replaced by memo C's native
             uniform table at M's luma, span-corrected.
   e3ctl     the CONTROL: the sealed W41 E3 shader on the shipped argument (light only). W41 G2's
@@ -62,7 +68,7 @@ for role, scenes in B.SPEC['split'].items():
     if isinstance(scenes, list):
         for s in scenes:
             SPLIT[s] = role
-VARIANTS = ('identity', 'c1', 'c1s', 'c1m', 'c2', 'e3ctl')
+VARIANTS = ('identity', 'c1', 'c1s', 'c1m', 'c2', 'e3ctl', 'c1p', 'c2p', 'c1d', 'c1f', 'c2f')
 DOC_DIR = HERE / 'documents'
 
 
@@ -143,21 +149,25 @@ def candidate_body(variant, ep, scale, bg, comp, span, fl, fx, fy, bt_lensed):
         return None
     if variant == 'e3ctl':
         return B.dec(B.e3_shader(B.enc(bt_lensed) * 255) / 255)
+    lt = {k: v for k, v in OVERRIDE.items() if k in ('kappa_n', 'kappa_w', 'support', 'floor', 'knee')}
+    if variant in ('c1p', 'c2p'):
+        lt['knee'] = 'channel'
     A, ML, W = B.lt_argument(ep, scale, bg, comp, chroma='M' if variant == 'c1m' else 'W',
                              kappa=None if OVERRIDE.get('kappa') is None else OVERRIDE['kappa'],
-                             lam=OVERRIDE.get('lam', B.LAMBDA))
+                             lam=OVERRIDE.get('lam', B.LAMBDA), **lt)
     A = B.sample_image(A, fx, fy, scale)
     ML = B.sample_image(ML, fx, fy, scale)
     W = B.sample_image(W, fx, fy, scale)
-    if ep == 'light-receded' and variant in ('c1', 'c2'):
+    if ep == 'light-receded' and variant in ('c1', 'c2', 'c1d', 'c1f', 'c2f'):
         c1 = B.dec(B.e3_extended(ML, W) / 255)
-    elif ep == 'light-receded' and variant == 'c1m':
+    elif ep == 'light-receded' and variant in ('c1m', 'c1p', 'c2p'):
         LW = W @ B.W709
         c1 = B.dec(np.clip(B.e3_F(ML)[..., None] + B.e3_gain(LW)[..., None] * (A - ML[..., None]),
                            0, 255) / 255)
     else:
-        c1 = B.landed_T(ep, scale, comp, A / 255)
-    if variant in ('c1', 'c1s', 'c1m'):
+        c1 = B.landed_T(ep, scale, comp, A / 255,
+                        mono_black=variant == 'c1d' or bool(OVERRIDE.get('mono')))
+    if variant in ('c1', 'c1s', 'c1m', 'c1p', 'c1d', 'c1f'):
         return c1
     # c2: candidate 1's chroma, its luma replaced by the native curve at M's luma (codes).
     enc1 = B.enc(c1) * 255
@@ -211,10 +221,12 @@ def rename_documents(capture_path, docs):
 ACTIVE_BAND_PT = 20.0
 
 
-def swap_weight(ep, fl):
+def swap_weight(ep, fl, variant=''):
     """Where the candidate body replaces the shipped one: the contour's coverage, and in the
-    active pose only beyond the refraction band, with a one-device-pixel antialiased boundary."""
-    if ep.endswith('receded'):
+    active pose only beyond the refraction band, with a one-device-pixel antialiased boundary.
+    The DIAGNOSTIC variants c1f / c2f swap the whole active body through vitrea's lens (round 2,
+    item (b): what the held band hides from E2); they are not the rehearsal of record."""
+    if ep.endswith('receded') or variant in ('c1f', 'c2f'):
         return fl.cov
     return np.clip((-fl.d - ACTIVE_BAND_PT) * fl.scale + 0.5, 0.0, 1.0)
 
@@ -248,7 +260,7 @@ def swap_cell(variant, row, out_root, docs):
         # Larger residuals are the rim, the highlight and the edge, and they are carried.
         r = web - ship_t
         q = np.where(np.abs(r) <= 1.0, r, 0.0)
-        weight = swap_weight(ep, fl)
+        weight = swap_weight(ep, fl, variant)
         cov = weight[..., None]
         out = np.clip(np.round(web + cov * (cand_t - ship_t - q)), 0, 255)
         inside = fl.d < 0

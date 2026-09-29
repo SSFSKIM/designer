@@ -1,0 +1,1932 @@
+{
+  "what": "W42 G0 directional stops (charter clause 10): no cell farther from Apple than the shipped render at the statistic's declared resolution",
+  "generatedAt": "2026-09-29T09:54:58Z",
+  "provenance": {
+    "declaration": {
+      "path": "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/stops/stops-declaration.json",
+      "sha256": "0f907bfee62ae07f5ad68b1f8d7679b35abeae14a2077bb6bc5127d80a68809e"
+    },
+    "tools": {
+      "chroma_band.py": "733ed89c9dbc7f29c3822fb9910669eaa2044c1a9507f5717c44d7c051f4abc9",
+      "halo.py": "03e11b1c607642a83e03d8d7eb727d3e4682292ee246e3c75fb99dda419417b6",
+      "proof.py": "829e49dfb7f7226a140ae7cda7d15b3c4f2b1b633c45a9e1f29ce4f2c403c45c",
+      "stops.py": "0e3e3c839d2264f5cdd773b1331b6a3a3a63119af06e598041db9c8a43890a28",
+      "stops_common.py": "7d022ea272b16a957af7ec67f6a9d28fd592510468b3350f389f56e8e961798c"
+    },
+    "scenesJsonSha256": "2f45778283443a45d562befa634fc7681de9ea6e2568bca0d08d659a27393d6f"
+  },
+  "shippedRoot": "/Users/new/Developer/GitHub/designer/packages/calibration/web-captures",
+  "candidateRoot": "/private/tmp/w42gate/tree-c1d",
+  "shippedDocuments": {
+    "dark": [
+      {
+        "kind": "materialProfile",
+        "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5.json",
+        "sha256": "0eac5b294cc2"
+      },
+      {
+        "kind": "recededProfile",
+        "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5-receded.json",
+        "sha256": "5cec8c961201"
+      }
+    ],
+    "light": [
+      {
+        "kind": "materialProfile",
+        "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json",
+        "sha256": "85ad7f7e3e0d"
+      },
+      {
+        "kind": "recededProfile",
+        "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json",
+        "sha256": "30fbe05986ae"
+      }
+    ]
+  },
+  "admission": {
+    "mode": "candidate",
+    "documents": [
+      {
+        "kind": "materialProfile",
+        "path": "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/documents/c1d/apple-macos-27.0-1x-dark-standard-glass0.5.json",
+        "sha256": "e7dc5b6214f1",
+        "schemes": ["dark"],
+        "isShippedDocument": false,
+        "matchedDeclaredFile": "/Users/new/vitrea-w42/g0-gate/packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/documents/c1d/apple-macos-27.0-1x-dark-standard-glass0.5.json"
+      },
+      {
+        "kind": "recededProfile",
+        "path": "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/documents/c1d/apple-macos-27.0-1x-dark-standard-glass0.5-receded.json",
+        "sha256": "884ff4142e53",
+        "schemes": ["dark"],
+        "isShippedDocument": false,
+        "matchedDeclaredFile": "/Users/new/vitrea-w42/g0-gate/packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/documents/c1d/apple-macos-27.0-1x-dark-standard-glass0.5-receded.json"
+      }
+    ],
+    "declaredDocuments": [
+      {
+        "path": "/Users/new/vitrea-w42/g0-gate/packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/documents/c1d/apple-macos-27.0-1x-dark-standard-glass0.5.json",
+        "sha256": "e7dc5b6214f1"
+      },
+      {
+        "path": "/Users/new/vitrea-w42/g0-gate/packages/calibration/results/2026-09-29-w42-g0-declaration/gate/rehearsal/documents/c1d/apple-macos-27.0-1x-dark-standard-glass0.5-receded.json",
+        "sha256": "884ff4142e53"
+      }
+    ],
+    "candidateNamesShippedDocuments": false
+  },
+  "summary": {
+    "verdict": "FAIL",
+    "stops": {
+      "halo": {
+        "verdict": "UNMEASURED",
+        "counts": {
+          "pass": 4,
+          "FAIL": 0,
+          "UNMEASURED": 12
+        }
+      },
+      "chroma": {
+        "verdict": "FAIL",
+        "counts": {
+          "pass": 0,
+          "FAIL": 8,
+          "UNMEASURED": 18
+        }
+      }
+    }
+  },
+  "stops": {
+    "halo": {
+      "name": "impulse halo/annulus",
+      "units": "codes (encoded 8-bit)",
+      "resolution": 1.0,
+      "cells": [
+        {
+          "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+          "scene": "impulse__capsule-button__inactive",
+          "set": "validation",
+          "scheme": "dark",
+          "scale": 1,
+          "pose": "receded",
+          "tinted": false,
+          "candidateCapture": {
+            "pngSha256": "ad31219e370932dd622cabc85d961cd8b072b006901c80d9a8621ca9dd6ad5fd",
+            "metaSha256": "fc8365eda4984f6816f2abc8ad8cfcc02791891333a9928278fe30a3d48b8290"
+          },
+          "dots": {
+            "native": [
+              {
+                "dot": [160.0, 104.0],
+                "peak": 3.333333333333332,
+                "annulus": 1.1428571428571423,
+                "floor": 23.0
+              }
+            ],
+            "shipped": [
+              {
+                "dot": [160.0, 104.0],
+                "peak": 37.66666666666667,
+                "annulus": 4.948979591836732,
+                "floor": 30.0
+              }
+            ],
+            "candidate": [
+              {
+                "dot": [160.0, 104.0],
+                "peak": 0.0,
+                "annulus": 0.0,
+                "floor": 19.999999999999996
+              }
+            ]
+          },
+          "statistics": {
+            "peak": {
+              "native": 3.333333333333332,
+              "shipped": 37.66666666666667,
+              "candidate": 0.0,
+              "res": 1.0,
+              "dShip": 34.33333333333334,
+              "dCand": 3.333333333333332,
+              "margin": 32.000000000000014,
+              "verdict": "pass"
+            },
+            "annulus": {
+              "native": 1.1428571428571423,
+              "shipped": 4.948979591836732,
+              "candidate": 0.0,
+              "res": 1.0,
+              "dShip": 3.8061224489795897,
+              "dCand": 1.1428571428571423,
+              "margin": 3.6632653061224474,
+              "verdict": "pass"
+            }
+          },
+          "verdict": "pass"
+        },
+        {
+          "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+          "scene": "impulse__capsule-button__rest",
+          "set": "validation",
+          "scheme": "dark",
+          "scale": 1,
+          "pose": "active",
+          "tinted": false,
+          "candidateCapture": {
+            "pngSha256": "40e9eb214a1efbe9ae913e2edf1331cee57c99583d0de9873cb76d678a9cf64c",
+            "metaSha256": "c98d874b1af801b902563f2bfe1311382efcbbf2c20bb9809d6389d4a4bb5e25"
+          },
+          "dots": {
+            "native": [
+              {
+                "dot": [160.0, 104.0],
+                "peak": 12.0,
+                "annulus": 0.5612244897959187,
+                "floor": 33.0
+              }
+            ],
+            "shipped": [
+              {
+                "dot": [160.0, 104.0],
+                "peak": 20.0,
+                "annulus": 2.1020408163265287,
+                "floor": 54.0
+              }
+            ],
+            "candidate": [
+              {
+                "dot": [160.0, 104.0],
+                "peak": 20.0,
+                "annulus": 1.3265306122448948,
+                "floor": 54.0
+              }
+            ]
+          },
+          "statistics": {
+            "peak": {
+              "native": 12.0,
+              "shipped": 20.0,
+              "candidate": 20.0,
+              "res": 1.0,
+              "dShip": 8.0,
+              "dCand": 8.0,
+              "margin": 1.0,
+              "verdict": "pass"
+            },
+            "annulus": {
+              "native": 0.5612244897959187,
+              "shipped": 2.1020408163265287,
+              "candidate": 1.3265306122448948,
+              "res": 1.0,
+              "dShip": 1.54081632653061,
+              "dCand": 0.7653061224489761,
+              "margin": 1.775510204081634,
+              "verdict": "pass"
+            }
+          },
+          "verdict": "pass"
+        },
+        {
+          "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+          "scene": "impulse__capsule-button__inactive",
+          "set": "validation",
+          "scheme": "light",
+          "scale": 1,
+          "pose": "receded",
+          "tinted": false,
+          "candidateCapture": null,
+          "dots": {
+            "native": [
+              {
+                "dot": [160.0, 104.0],
+                "peak": 11.0,
+                "annulus": 2.3112244897959044,
+                "floor": 134.0
+              }
+            ],
+            "shipped": [
+              {
+                "dot": [160.0, 104.0],
+                "peak": 27.833333333333343,
+                "annulus": 3.0,
+                "floor": 138.0
+              }
+            ],
+            "candidate": null
+          },
+          "statistics": {
+            "peak": {
+              "native": 11.0,
+              "shipped": 27.833333333333343,
+              "candidate": null,
+              "res": 1.0,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            },
+            "annulus": {
+              "native": 2.3112244897959044,
+              "shipped": 3.0,
+              "candidate": null,
+              "res": 1.0,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            }
+          },
+          "verdict": "UNMEASURED"
+        },
+        {
+          "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+          "scene": "impulse__capsule-button__inactive-tint-orange",
+          "set": "calibration",
+          "scheme": "light",
+          "scale": 1,
+          "pose": "receded",
+          "tinted": true,
+          "candidateCapture": null,
+          "dots": {
+            "native": [
+              {
+                "dot": [160.0, 104.0],
+                "peak": 11.212599999999995,
+                "annulus": 1.6922540816326546,
+                "floor": 108.7874
+              }
+            ],
+            "shipped": [
+              {
+                "dot": [160.0, 104.0],
+                "peak": 23.333333333333343,
+                "annulus": 3.132653061224488,
+                "floor": 127.0
+              }
+            ],
+            "candidate": null
+          },
+          "statistics": {
+            "peak": {
+              "native": 11.212599999999995,
+              "shipped": 23.333333333333343,
+              "candidate": null,
+              "res": 1.0,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            },
+            "annulus": {
+              "native": 1.6922540816326546,
+              "shipped": 3.132653061224488,
+              "candidate": null,
+              "res": 1.0,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            }
+          },
+          "verdict": "UNMEASURED"
+        },
+        {
+          "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+          "scene": "impulse__capsule-button__rest",
+          "set": "validation",
+          "scheme": "light",
+          "scale": 1,
+          "pose": "active",
+          "tinted": false,
+          "candidateCapture": null,
+          "dots": {
+            "native": [
+              {
+                "dot": [160.0, 104.0],
+                "peak": 51.33333333333334,
+                "annulus": 1.658163265306115,
+                "floor": 134.0
+              }
+            ],
+            "shipped": [
+              {
+                "dot": [160.0, 104.0],
+                "peak": 44.333333333333286,
+                "annulus": 5.224489795918373,
+                "floor": 130.0
+              }
+            ],
+            "candidate": null
+          },
+          "statistics": {
+            "peak": {
+              "native": 51.33333333333334,
+              "shipped": 44.333333333333286,
+              "candidate": null,
+              "res": 1.0,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            },
+            "annulus": {
+              "native": 1.658163265306115,
+              "shipped": 5.224489795918373,
+              "candidate": null,
+              "res": 1.0,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            }
+          },
+          "verdict": "UNMEASURED"
+        },
+        {
+          "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+          "scene": "impulse__capsule-button__rest-tint-orange",
+          "set": "calibration",
+          "scheme": "light",
+          "scale": 1,
+          "pose": "active",
+          "tinted": true,
+          "candidateCapture": null,
+          "dots": {
+            "native": [
+              {
+                "dot": [160.0, 104.0],
+                "peak": 13.788000000000011,
+                "annulus": 0.464194897959203,
+                "floor": 127.6866
+              }
+            ],
+            "shipped": [
+              {
+                "dot": [160.0, 104.0],
+                "peak": 8.86553333333336,
+                "annulus": 1.0049081632652985,
+                "floor": 130.9726
+              }
+            ],
+            "candidate": null
+          },
+          "statistics": {
+            "peak": {
+              "native": 13.788000000000011,
+              "shipped": 8.86553333333336,
+              "candidate": null,
+              "res": 1.0,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            },
+            "annulus": {
+              "native": 0.464194897959203,
+              "shipped": 1.0049081632652985,
+              "candidate": null,
+              "res": 1.0,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            }
+          },
+          "verdict": "UNMEASURED"
+        },
+        {
+          "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+          "scene": "impulse__rrect-md__inactive",
+          "set": "validation",
+          "scheme": "light",
+          "scale": 1,
+          "pose": "receded",
+          "tinted": false,
+          "candidateCapture": null,
+          "dots": {
+            "native": [
+              {
+                "dot": [160.0, 104.0],
+                "peak": 2.0,
+                "annulus": 1.1836734693877418,
+                "floor": 134.0
+              }
+            ],
+            "shipped": [
+              {
+                "dot": [160.0, 104.0],
+                "peak": 15.0,
+                "annulus": 1.5,
+                "floor": 142.0
+              }
+            ],
+            "candidate": null
+          },
+          "statistics": {
+            "peak": {
+              "native": 2.0,
+              "shipped": 15.0,
+              "candidate": null,
+              "res": 1.0,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            },
+            "annulus": {
+              "native": 1.1836734693877418,
+              "shipped": 1.5,
+              "candidate": null,
+              "res": 1.0,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            }
+          },
+          "verdict": "UNMEASURED"
+        },
+        {
+          "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+          "scene": "impulse__rrect-md__rest",
+          "set": "validation",
+          "scheme": "light",
+          "scale": 1,
+          "pose": "active",
+          "tinted": false,
+          "candidateCapture": null,
+          "dots": {
+            "native": [
+              {
+                "dot": [160.0, 104.0],
+                "peak": 25.166666666666657,
+                "annulus": 2.4132653061224403,
+                "floor": 135.0
+              }
+            ],
+            "shipped": [
+              {
+                "dot": [160.0, 104.0],
+                "peak": 33.0,
+                "annulus": 3.5306122448979522,
+                "floor": 138.0
+              }
+            ],
+            "candidate": null
+          },
+          "statistics": {
+            "peak": {
+              "native": 25.166666666666657,
+              "shipped": 33.0,
+              "candidate": null,
+              "res": 1.0,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            },
+            "annulus": {
+              "native": 2.4132653061224403,
+              "shipped": 3.5306122448979522,
+              "candidate": null,
+              "res": 1.0,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            }
+          },
+          "verdict": "UNMEASURED"
+        },
+        {
+          "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+          "scene": "impulse__capsule-button__inactive",
+          "set": "validation",
+          "scheme": "dark",
+          "scale": 2,
+          "pose": "receded",
+          "tinted": false,
+          "candidateCapture": {
+            "pngSha256": "12448a36e62643fe8ae632b18e555d38a34bc12a3e1c83e75c9d327102743d44",
+            "metaSha256": "0d1fe8c20cc925c5f3eb39ea30c85c4322a5ba0082c22a1840100d92c38a8e47"
+          },
+          "dots": {
+            "native": [
+              {
+                "dot": [160.0, 104.0],
+                "peak": 2.0,
+                "annulus": 1.056578947368422,
+                "floor": 23.0
+              }
+            ],
+            "shipped": [
+              {
+                "dot": [160.0, 104.0],
+                "peak": 37.80769230769231,
+                "annulus": 3.0394736842105274,
+                "floor": 31.0
+              }
+            ],
+            "candidate": [
+              {
+                "dot": [160.0, 104.0],
+                "peak": 0.0,
+                "annulus": 0.0,
+                "floor": 19.999999999999996
+              }
+            ]
+          },
+          "statistics": {
+            "peak": {
+              "native": 2.0,
+              "shipped": 37.80769230769231,
+              "candidate": 0.0,
+              "res": 1.0,
+              "dShip": 35.80769230769231,
+              "dCand": 2.0,
+              "margin": 34.80769230769231,
+              "verdict": "pass"
+            },
+            "annulus": {
+              "native": 1.056578947368422,
+              "shipped": 3.0394736842105274,
+              "candidate": 0.0,
+              "res": 1.0,
+              "dShip": 1.9828947368421055,
+              "dCand": 1.056578947368422,
+              "margin": 1.9263157894736835,
+              "verdict": "pass"
+            }
+          },
+          "verdict": "pass"
+        },
+        {
+          "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+          "scene": "impulse__capsule-button__rest",
+          "set": "validation",
+          "scheme": "dark",
+          "scale": 2,
+          "pose": "active",
+          "tinted": false,
+          "candidateCapture": {
+            "pngSha256": "0b6072ca0ba91d2e81508784bc2dc5a80c1a10e4912c162f76ddd3daf941c8c4",
+            "metaSha256": "dbe2d5419eb95187936ba3f81367b343553eb15660dda7cd7546b0be639d9e3b"
+          },
+          "dots": {
+            "native": [
+              {
+                "dot": [160.0, 104.0],
+                "peak": 12.769230769230766,
+                "annulus": 0.3157894736842124,
+                "floor": 33.0
+              }
+            ],
+            "shipped": [
+              {
+                "dot": [160.0, 104.0],
+                "peak": 16.92307692307692,
+                "annulus": 3.042105263157893,
+                "floor": 54.0
+              }
+            ],
+            "candidate": [
+              {
+                "dot": [160.0, 104.0],
+                "peak": 16.92307692307692,
+                "annulus": 1.8605263157894711,
+                "floor": 54.0
+              }
+            ]
+          },
+          "statistics": {
+            "peak": {
+              "native": 12.769230769230766,
+              "shipped": 16.92307692307692,
+              "candidate": 16.92307692307692,
+              "res": 1.0,
+              "dShip": 4.153846153846153,
+              "dCand": 4.153846153846153,
+              "margin": 1.0,
+              "verdict": "pass"
+            },
+            "annulus": {
+              "native": 0.3157894736842124,
+              "shipped": 3.042105263157893,
+              "candidate": 1.8605263157894711,
+              "res": 1.0,
+              "dShip": 2.7263157894736807,
+              "dCand": 1.5447368421052587,
+              "margin": 2.181578947368422,
+              "verdict": "pass"
+            }
+          },
+          "verdict": "pass"
+        },
+        {
+          "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+          "scene": "impulse__capsule-button__inactive",
+          "set": "validation",
+          "scheme": "light",
+          "scale": 2,
+          "pose": "receded",
+          "tinted": false,
+          "candidateCapture": null,
+          "dots": {
+            "native": [
+              {
+                "dot": [160.0, 104.0],
+                "peak": 6.307692307692321,
+                "annulus": 2.5052631578947455,
+                "floor": 134.0
+              }
+            ],
+            "shipped": [
+              {
+                "dot": [160.0, 104.0],
+                "peak": 36.5,
+                "annulus": 2.344736842105277,
+                "floor": 139.0
+              }
+            ],
+            "candidate": null
+          },
+          "statistics": {
+            "peak": {
+              "native": 6.307692307692321,
+              "shipped": 36.5,
+              "candidate": null,
+              "res": 1.0,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            },
+            "annulus": {
+              "native": 2.5052631578947455,
+              "shipped": 2.344736842105277,
+              "candidate": null,
+              "res": 1.0,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            }
+          },
+          "verdict": "UNMEASURED"
+        },
+        {
+          "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+          "scene": "impulse__capsule-button__inactive-tint-orange",
+          "set": "calibration",
+          "scheme": "light",
+          "scale": 2,
+          "pose": "receded",
+          "tinted": true,
+          "candidateCapture": null,
+          "dots": {
+            "native": [
+              {
+                "dot": [160.0, 104.0],
+                "peak": 5.520292307692301,
+                "annulus": 1.8610821052631508,
+                "floor": 108.7874
+              }
+            ],
+            "shipped": [
+              {
+                "dot": [160.0, 104.0],
+                "peak": 30.5,
+                "annulus": 2.3921052631579016,
+                "floor": 128.0
+              }
+            ],
+            "candidate": null
+          },
+          "statistics": {
+            "peak": {
+              "native": 5.520292307692301,
+              "shipped": 30.5,
+              "candidate": null,
+              "res": 1.0,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            },
+            "annulus": {
+              "native": 1.8610821052631508,
+              "shipped": 2.3921052631579016,
+              "candidate": null,
+              "res": 1.0,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            }
+          },
+          "verdict": "UNMEASURED"
+        },
+        {
+          "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+          "scene": "impulse__capsule-button__rest",
+          "set": "validation",
+          "scheme": "light",
+          "scale": 2,
+          "pose": "active",
+          "tinted": false,
+          "candidateCapture": null,
+          "dots": {
+            "native": [
+              {
+                "dot": [160.0, 104.0],
+                "peak": 57.38461538461539,
+                "annulus": 2.0065789473684106,
+                "floor": 133.0
+              }
+            ],
+            "shipped": [
+              {
+                "dot": [160.0, 104.0],
+                "peak": 27.461538461538453,
+                "annulus": 1.8578947368420984,
+                "floor": 132.0
+              }
+            ],
+            "candidate": null
+          },
+          "statistics": {
+            "peak": {
+              "native": 57.38461538461539,
+              "shipped": 27.461538461538453,
+              "candidate": null,
+              "res": 1.0,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            },
+            "annulus": {
+              "native": 2.0065789473684106,
+              "shipped": 1.8578947368420984,
+              "candidate": null,
+              "res": 1.0,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            }
+          },
+          "verdict": "UNMEASURED"
+        },
+        {
+          "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+          "scene": "impulse__capsule-button__rest-tint-orange",
+          "set": "calibration",
+          "scheme": "light",
+          "scale": 2,
+          "pose": "active",
+          "tinted": true,
+          "candidateCapture": null,
+          "dots": {
+            "native": [
+              {
+                "dot": [160.0, 104.0],
+                "peak": 15.485461538461522,
+                "annulus": 0.50302289473683,
+                "floor": 127.47399999999999
+              }
+            ],
+            "shipped": [
+              {
+                "dot": [160.0, 104.0],
+                "peak": 4.897646153846125,
+                "annulus": 0.16505789473683308,
+                "floor": 131.9004
+              }
+            ],
+            "candidate": null
+          },
+          "statistics": {
+            "peak": {
+              "native": 15.485461538461522,
+              "shipped": 4.897646153846125,
+              "candidate": null,
+              "res": 1.0,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            },
+            "annulus": {
+              "native": 0.50302289473683,
+              "shipped": 0.16505789473683308,
+              "candidate": null,
+              "res": 1.0,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            }
+          },
+          "verdict": "UNMEASURED"
+        },
+        {
+          "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+          "scene": "impulse__rrect-md__inactive",
+          "set": "validation",
+          "scheme": "light",
+          "scale": 2,
+          "pose": "receded",
+          "tinted": false,
+          "candidateCapture": null,
+          "dots": {
+            "native": [
+              {
+                "dot": [160.0, 104.0],
+                "peak": 4.0,
+                "annulus": 2.136842105263156,
+                "floor": 134.0
+              }
+            ],
+            "shipped": [
+              {
+                "dot": [160.0, 104.0],
+                "peak": 2.0769230769230376,
+                "annulus": 1.2763157894736423,
+                "floor": 144.00000000000003
+              }
+            ],
+            "candidate": null
+          },
+          "statistics": {
+            "peak": {
+              "native": 4.0,
+              "shipped": 2.0769230769230376,
+              "candidate": null,
+              "res": 1.0,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            },
+            "annulus": {
+              "native": 2.136842105263156,
+              "shipped": 1.2763157894736423,
+              "candidate": null,
+              "res": 1.0,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            }
+          },
+          "verdict": "UNMEASURED"
+        },
+        {
+          "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+          "scene": "impulse__rrect-md__rest",
+          "set": "validation",
+          "scheme": "light",
+          "scale": 2,
+          "pose": "active",
+          "tinted": false,
+          "candidateCapture": null,
+          "dots": {
+            "native": [
+              {
+                "dot": [160.0, 104.0],
+                "peak": 21.25825384615385,
+                "annulus": 3.5178547368421107,
+                "floor": 135.0
+              }
+            ],
+            "shipped": [
+              {
+                "dot": [160.0, 104.0],
+                "peak": 2.692307692307679,
+                "annulus": 0.1842105263157805,
+                "floor": 140.0
+              }
+            ],
+            "candidate": null
+          },
+          "statistics": {
+            "peak": {
+              "native": 21.25825384615385,
+              "shipped": 2.692307692307679,
+              "candidate": null,
+              "res": 1.0,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            },
+            "annulus": {
+              "native": 3.5178547368421107,
+              "shipped": 0.1842105263157805,
+              "candidate": null,
+              "res": 1.0,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            }
+          },
+          "verdict": "UNMEASURED"
+        }
+      ],
+      "counts": {
+        "pass": 4,
+        "FAIL": 0,
+        "UNMEASURED": 12
+      },
+      "verdict": "UNMEASURED"
+    },
+    "chroma": {
+      "name": "photo band-pass chroma energy",
+      "units": "OKLab (a, b) units, as computed (text tables print E x 1000)",
+      "cells": [
+        {
+          "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+          "scene": "photo__capsule-button__inactive",
+          "set": "calibration",
+          "scheme": "dark",
+          "scale": 1,
+          "pose": "receded",
+          "regionPixels": 2056,
+          "deepThresholdCssPx": 11.0,
+          "nativeCensoredFraction": 0.0,
+          "candidateCapture": {
+            "pngSha256": "de9785658803d20093cbe9e3a264a530c398b61e7c4cfabbf9182e6a813b71e6",
+            "metaSha256": "c692d0f7c6bd3bf36ee6e33771fbda3d6346e72f480742ae9de02325862deb47"
+          },
+          "statistics": {
+            "F": {
+              "native": 0.0057848827252419575,
+              "shipped": 0.003819503335028592,
+              "candidate": 0.0006882667512953406,
+              "res": 0.0002793522495861677,
+              "dShip": 0.0019653793902133657,
+              "dCand": 0.005096615973946617,
+              "margin": -0.002851884334147083,
+              "verdict": "FAIL"
+            },
+            "M": {
+              "native": 0.02746206327803647,
+              "shipped": 0.00978897250187441,
+              "candidate": 0.004820533689163524,
+              "res": 7.342406412179904e-05,
+              "dShip": 0.01767309077616206,
+              "dCand": 0.022641529588872947,
+              "margin": -0.004895014748589086,
+              "verdict": "FAIL"
+            }
+          },
+          "verdict": "FAIL"
+        },
+        {
+          "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+          "scene": "photo__capsule-button__rest",
+          "set": "calibration",
+          "scheme": "dark",
+          "scale": 1,
+          "pose": "active",
+          "regionPixels": 2056,
+          "deepThresholdCssPx": 11.0,
+          "nativeCensoredFraction": 0.0,
+          "candidateCapture": {
+            "pngSha256": "ce55fdf2b87070a3f3b28dcb3ab185f656b8fb4fde392e7331865b42ea274f8e",
+            "metaSha256": "6469c41379d905cb077cd742db1f4b5a03d7aeb7a12f5f55c134193ddd76763d"
+          },
+          "statistics": {
+            "F": {
+              "native": 0.007960986818056424,
+              "shipped": 0.0050736997206164815,
+              "candidate": 0.005386240681938854,
+              "res": 0.0002773295944507651,
+              "dShip": 0.002887287097439943,
+              "dCand": 0.0025747461361175705,
+              "margin": 0.0005898705557731377,
+              "verdict": "pass"
+            },
+            "M": {
+              "native": 0.029574100112574876,
+              "shipped": 0.014134709082770485,
+              "candidate": 0.01345378061172137,
+              "res": 7.289968277715011e-05,
+              "dShip": 0.01543939102980439,
+              "dCand": 0.016120319500853506,
+              "margin": -0.0006080287882719651,
+              "verdict": "FAIL"
+            }
+          },
+          "verdict": "FAIL"
+        },
+        {
+          "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+          "scene": "photo__rrect-md__inactive",
+          "set": "calibration",
+          "scheme": "dark",
+          "scale": 1,
+          "pose": "receded",
+          "regionPixels": 8180,
+          "deepThresholdCssPx": 16.0,
+          "nativeCensoredFraction": 0.006112469437652812,
+          "candidateCapture": {
+            "pngSha256": "aa960ea36ca1e5e8c4b3aa5062d7f39ae24cf3f897b9cec6aabf75ae5faa3521",
+            "metaSha256": "540bb83c41bf41289ba451e4af6c0405c1ffb448b1cef8e42719ef8bbd6680ce"
+          },
+          "statistics": {
+            "F": {
+              "native": 0.0031269395882791216,
+              "shipped": 0.001415079884042323,
+              "candidate": 0.0006902531070447923,
+              "res": 0.00026536162763929767,
+              "dShip": 0.0017118597042367987,
+              "dCand": 0.0024366864812343293,
+              "margin": -0.00045946514935823286,
+              "verdict": "FAIL"
+            },
+            "M": {
+              "native": 0.025828138521132776,
+              "shipped": 0.007522147914494071,
+              "candidate": 0.005992486680507192,
+              "res": 6.830739743631791e-05,
+              "dShip": 0.018305990606638706,
+              "dCand": 0.019835651840625586,
+              "margin": -0.0014613538365505635,
+              "verdict": "FAIL"
+            }
+          },
+          "verdict": "FAIL"
+        },
+        {
+          "profile": "apple-macos-27.0-1x-dark-standard-glass0.5",
+          "scene": "photo__rrect-md__rest",
+          "set": "calibration",
+          "scheme": "dark",
+          "scale": 1,
+          "pose": "active",
+          "regionPixels": 8180,
+          "deepThresholdCssPx": 16.0,
+          "nativeCensoredFraction": 0.0,
+          "candidateCapture": {
+            "pngSha256": "6199e89c5c656d1c458bf659a46d2a85265f98b6412a26c851beaaacef024d00",
+            "metaSha256": "df0503bc9d96f3b3f853e73109aa3f8661bd0ac2fe98801b0748224a66b02f37"
+          },
+          "statistics": {
+            "F": {
+              "native": 0.0051341120427529675,
+              "shipped": 0.003592279429277456,
+              "candidate": 0.0025829796095284954,
+              "res": 0.0002646034407035822,
+              "dShip": 0.0015418326134755116,
+              "dCand": 0.002551132433224472,
+              "margin": -0.0007446963790453784,
+              "verdict": "FAIL"
+            },
+            "M": {
+              "native": 0.027204592293694027,
+              "shipped": 0.01387455506642089,
+              "candidate": 0.01080335283158116,
+              "res": 6.812082800981458e-05,
+              "dShip": 0.013330037227273137,
+              "dCand": 0.016401239462112867,
+              "margin": -0.0030030814068299147,
+              "verdict": "FAIL"
+            }
+          },
+          "verdict": "FAIL"
+        },
+        {
+          "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+          "scene": "photo__capsule-button__inactive",
+          "set": "calibration",
+          "scheme": "light",
+          "scale": 1,
+          "pose": "receded",
+          "regionPixels": 2056,
+          "deepThresholdCssPx": 11.0,
+          "nativeCensoredFraction": 0.004377431906614786,
+          "candidateCapture": null,
+          "statistics": {
+            "F": {
+              "native": 0.004951792701044027,
+              "shipped": 0.006445059207658884,
+              "candidate": null,
+              "res": 0.0002679294897240778,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            },
+            "M": {
+              "native": 0.02241359585514797,
+              "shipped": 0.020895570916372258,
+              "candidate": null,
+              "res": 7.04072303804302e-05,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            }
+          },
+          "verdict": "UNMEASURED"
+        },
+        {
+          "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+          "scene": "photo__capsule-button__rest",
+          "set": "calibration",
+          "scheme": "light",
+          "scale": 1,
+          "pose": "active",
+          "regionPixels": 2056,
+          "deepThresholdCssPx": 11.0,
+          "nativeCensoredFraction": 0.0316147859922179,
+          "candidateCapture": null,
+          "statistics": {
+            "F": {
+              "native": 0.006748194112015726,
+              "shipped": 0.008306220316864983,
+              "candidate": null,
+              "res": 0.00026676248773596845,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            },
+            "M": {
+              "native": 0.02398292965514413,
+              "shipped": 0.02246240121708482,
+              "candidate": null,
+              "res": 7.009994840152659e-05,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            }
+          },
+          "verdict": "UNMEASURED"
+        },
+        {
+          "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+          "scene": "photo__rrect-md__inactive",
+          "set": "calibration",
+          "scheme": "light",
+          "scale": 1,
+          "pose": "receded",
+          "regionPixels": 8180,
+          "deepThresholdCssPx": 16.0,
+          "nativeCensoredFraction": 0.18056234718826406,
+          "candidateCapture": null,
+          "statistics": {
+            "F": {
+              "native": 0.002785740746010585,
+              "shipped": 0.003619922132053816,
+              "candidate": null,
+              "res": 0.00025816355629744713,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            },
+            "M": {
+              "native": 0.022475775520895316,
+              "shipped": 0.019078620264911316,
+              "candidate": null,
+              "res": 6.65712098565072e-05,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            }
+          },
+          "verdict": "UNMEASURED"
+        },
+        {
+          "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+          "scene": "photo__rrect-md__rest",
+          "set": "calibration",
+          "scheme": "light",
+          "scale": 1,
+          "pose": "active",
+          "regionPixels": 8180,
+          "deepThresholdCssPx": 16.0,
+          "nativeCensoredFraction": 0.2614914425427873,
+          "candidateCapture": null,
+          "statistics": {
+            "F": {
+              "native": 0.004513574216496492,
+              "shipped": 0.005826054185490274,
+              "candidate": null,
+              "res": 0.0002571911000435167,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            },
+            "M": {
+              "native": 0.02276219137353616,
+              "shipped": 0.020028457403158128,
+              "candidate": null,
+              "res": 6.633480953686477e-05,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            }
+          },
+          "verdict": "UNMEASURED"
+        },
+        {
+          "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+          "scene": "photo__rrect-ml__rest",
+          "set": "calibration",
+          "scheme": "light",
+          "scale": 1,
+          "pose": "active",
+          "regionPixels": 18332,
+          "deepThresholdCssPx": 16.0,
+          "nativeCensoredFraction": 0.3583897010691687,
+          "candidateCapture": null,
+          "statistics": {
+            "F": {
+              "native": 0.0035198853872288206,
+              "shipped": 0.004502463146965318,
+              "candidate": null,
+              "res": 0.0002495216417626886,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            },
+            "M": {
+              "native": 0.018929841465627106,
+              "shipped": 0.016075755374909583,
+              "candidate": null,
+              "res": 6.369838547555123e-05,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            }
+          },
+          "verdict": "UNMEASURED"
+        },
+        {
+          "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+          "scene": "photo__rrect-sm__inactive",
+          "set": "validation",
+          "scheme": "light",
+          "scale": 1,
+          "pose": "receded",
+          "regionPixels": 768,
+          "deepThresholdCssPx": 8.0,
+          "nativeCensoredFraction": 0.0,
+          "candidateCapture": null,
+          "statistics": {
+            "F": {
+              "native": 0.003809624984263716,
+              "shipped": 0.006516548113345677,
+              "candidate": null,
+              "res": 0.00027880739518642064,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            },
+            "M": {
+              "native": 0.016892836156159573,
+              "shipped": 0.020063848633881862,
+              "candidate": null,
+              "res": 7.410073236842574e-05,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            }
+          },
+          "verdict": "UNMEASURED"
+        },
+        {
+          "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+          "scene": "photo__rrect-sm__rest",
+          "set": "validation",
+          "scheme": "light",
+          "scale": 1,
+          "pose": "active",
+          "regionPixels": 768,
+          "deepThresholdCssPx": 8.0,
+          "nativeCensoredFraction": 0.0,
+          "candidateCapture": null,
+          "statistics": {
+            "F": {
+              "native": 0.005150131370667491,
+              "shipped": 0.00826720336659949,
+              "candidate": null,
+              "res": 0.0002768466716700715,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            },
+            "M": {
+              "native": 0.02033680390314879,
+              "shipped": 0.020731074421969066,
+              "candidate": null,
+              "res": 7.357569365706697e-05,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            }
+          },
+          "verdict": "UNMEASURED"
+        },
+        {
+          "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+          "scene": "photo__toolbar-group__inactive",
+          "set": "validation",
+          "scheme": "light",
+          "scale": 1,
+          "pose": "receded",
+          "regionPixels": 1152,
+          "deepThresholdCssPx": 11.0,
+          "nativeCensoredFraction": 0.0,
+          "candidateCapture": null,
+          "statistics": {
+            "F": {
+              "native": 0.005862407107650406,
+              "shipped": 0.0069247954840539,
+              "candidate": null,
+              "res": 0.0002570712613559645,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            },
+            "M": {
+              "native": 0.012593077632704626,
+              "shipped": 0.014064913385869673,
+              "candidate": null,
+              "res": 6.607300106808414e-05,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            }
+          },
+          "verdict": "UNMEASURED"
+        },
+        {
+          "profile": "apple-macos-27.0-1x-light-standard-glass0.5",
+          "scene": "photo__toolbar-group__rest",
+          "set": "validation",
+          "scheme": "light",
+          "scale": 1,
+          "pose": "active",
+          "regionPixels": 1152,
+          "deepThresholdCssPx": 11.0,
+          "nativeCensoredFraction": 0.04861111111111111,
+          "candidateCapture": null,
+          "statistics": {
+            "F": {
+              "native": 0.007392829599161139,
+              "shipped": 0.008436754565338205,
+              "candidate": null,
+              "res": 0.0002571549316148018,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            },
+            "M": {
+              "native": 0.015123578804658332,
+              "shipped": 0.01586297039606058,
+              "candidate": null,
+              "res": 6.60908581452956e-05,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            }
+          },
+          "verdict": "UNMEASURED"
+        },
+        {
+          "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+          "scene": "photo__capsule-button__inactive",
+          "set": "calibration",
+          "scheme": "dark",
+          "scale": 2,
+          "pose": "receded",
+          "regionPixels": 8216,
+          "deepThresholdCssPx": 11.0,
+          "nativeCensoredFraction": 0.0,
+          "candidateCapture": {
+            "pngSha256": "a84b1ed1d98d12e4a47e24c863f1c4c8b2123e15796e649001097c08a5ab464a",
+            "metaSha256": "b34db29df0c8343c68de1526d7f19c623237f726ef8f4c4a62a81a89cf7f88e4"
+          },
+          "statistics": {
+            "F": {
+              "native": 0.005453214678458442,
+              "shipped": 0.0033045765814316195,
+              "candidate": 0.0006566649975792691,
+              "res": 0.00013969955358345725,
+              "dShip": 0.0021486380970268224,
+              "dCand": 0.004796549680879173,
+              "margin": -0.0025082120302688934,
+              "verdict": "FAIL"
+            },
+            "M": {
+              "native": 0.02731122276217024,
+              "shipped": 0.009348397547480115,
+              "candidate": 0.004805125303870849,
+              "res": 3.66876697644703e-05,
+              "dShip": 0.017962825214690125,
+              "dCand": 0.02250609745829939,
+              "margin": -0.004506584573844796,
+              "verdict": "FAIL"
+            }
+          },
+          "verdict": "FAIL"
+        },
+        {
+          "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+          "scene": "photo__capsule-button__rest",
+          "set": "calibration",
+          "scheme": "dark",
+          "scale": 2,
+          "pose": "active",
+          "regionPixels": 8216,
+          "deepThresholdCssPx": 11.0,
+          "nativeCensoredFraction": 0.0,
+          "candidateCapture": {
+            "pngSha256": "1de327c1d0913a9c212f1b0a4c7cefb9fac0c4a2439c1b5aef974c51383f1217",
+            "metaSha256": "1df40797316637f0b34c2bbd2304d40ec8de90ddd0788f14e6bf32f10e1186a2"
+          },
+          "statistics": {
+            "F": {
+              "native": 0.008081492684533934,
+              "shipped": 0.005405176542391474,
+              "candidate": 0.005869000258804155,
+              "res": 0.00013868836513636834,
+              "dShip": 0.00267631614214246,
+              "dCand": 0.0022124924257297786,
+              "margin": 0.0006025120815490496,
+              "verdict": "pass"
+            },
+            "M": {
+              "native": 0.029566865756780365,
+              "shipped": 0.015297049151021935,
+              "candidate": 0.014517206020182376,
+              "res": 3.642749893742423e-05,
+              "dShip": 0.01426981660575843,
+              "dCand": 0.01504965973659799,
+              "margin": -0.0007434156319021338,
+              "verdict": "FAIL"
+            }
+          },
+          "verdict": "FAIL"
+        },
+        {
+          "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+          "scene": "photo__rrect-md__inactive",
+          "set": "calibration",
+          "scheme": "dark",
+          "scale": 2,
+          "pose": "receded",
+          "regionPixels": 32720,
+          "deepThresholdCssPx": 16.0,
+          "nativeCensoredFraction": 0.011858190709046455,
+          "candidateCapture": {
+            "pngSha256": "56c01dc9b7f2c3027c6cbddfbfe6035eb1462448da3912ebfad23533d2a94cf7",
+            "metaSha256": "f6017cd2913b98e92c388c63b4dd4c25c1b4e79bad20ed51e30bf89f075428a0"
+          },
+          "statistics": {
+            "F": {
+              "native": 0.0038310333688338217,
+              "shipped": 0.0014059457807949368,
+              "candidate": 0.0006777778155375442,
+              "res": 0.00013249583694436212,
+              "dShip": 0.002425087588038885,
+              "dCand": 0.0031532555532962775,
+              "margin": -0.0005956721283130301,
+              "verdict": "FAIL"
+            },
+            "M": {
+              "native": 0.026467881404453913,
+              "shipped": 0.008697376817146342,
+              "candidate": 0.00595594942239819,
+              "res": 3.409226112465705e-05,
+              "dShip": 0.01777050458730757,
+              "dCand": 0.020511931982055726,
+              "margin": -0.0027073351336234994,
+              "verdict": "FAIL"
+            }
+          },
+          "verdict": "FAIL"
+        },
+        {
+          "profile": "apple-macos-27.0-2x-dark-standard-glass0.5",
+          "scene": "photo__rrect-md__rest",
+          "set": "calibration",
+          "scheme": "dark",
+          "scale": 2,
+          "pose": "active",
+          "regionPixels": 32720,
+          "deepThresholdCssPx": 16.0,
+          "nativeCensoredFraction": 0.0013447432762836186,
+          "candidateCapture": {
+            "pngSha256": "a55d32024192f42dc95ddcfb54b33c8fbd3c071d18da21dedd64ed2afc508877",
+            "metaSha256": "67ee321744c430f7e8d142e974fc9ba27a5754e0409355293b7591eee8cc4e7f"
+          },
+          "statistics": {
+            "F": {
+              "native": 0.005697667128647414,
+              "shipped": 0.004253135524964271,
+              "candidate": 0.0034492632541171897,
+              "res": 0.00013222663925907237,
+              "dShip": 0.0014445316036831432,
+              "dCand": 0.0022484038745302242,
+              "margin": -0.0006716456315880087,
+              "verdict": "FAIL"
+            },
+            "M": {
+              "native": 0.027404955296887558,
+              "shipped": 0.016086362529645733,
+              "candidate": 0.011357371037185399,
+              "res": 3.402802515806434e-05,
+              "dShip": 0.011318592767241824,
+              "dCand": 0.01604758425970216,
+              "margin": -0.00469496346730227,
+              "verdict": "FAIL"
+            }
+          },
+          "verdict": "FAIL"
+        },
+        {
+          "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+          "scene": "photo__capsule-button__inactive",
+          "set": "calibration",
+          "scheme": "light",
+          "scale": 2,
+          "pose": "receded",
+          "regionPixels": 8216,
+          "deepThresholdCssPx": 11.0,
+          "nativeCensoredFraction": 0.004746835443037975,
+          "candidateCapture": null,
+          "statistics": {
+            "F": {
+              "native": 0.004711673081202928,
+              "shipped": 0.007633482626357169,
+              "candidate": null,
+              "res": 0.00013406935263467974,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            },
+            "M": {
+              "native": 0.022405651491763465,
+              "shipped": 0.024022351599307833,
+              "candidate": null,
+              "res": 3.520375382601447e-05,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            }
+          },
+          "verdict": "UNMEASURED"
+        },
+        {
+          "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+          "scene": "photo__capsule-button__rest",
+          "set": "calibration",
+          "scheme": "light",
+          "scale": 2,
+          "pose": "active",
+          "regionPixels": 8216,
+          "deepThresholdCssPx": 11.0,
+          "nativeCensoredFraction": 0.035662122687439145,
+          "candidateCapture": null,
+          "statistics": {
+            "F": {
+              "native": 0.006764731057769869,
+              "shipped": 0.0047170647052856875,
+              "candidate": null,
+              "res": 0.00013347283023512187,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            },
+            "M": {
+              "native": 0.02404507885525182,
+              "shipped": 0.018306061341431718,
+              "candidate": null,
+              "res": 3.504713374033379e-05,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            }
+          },
+          "verdict": "UNMEASURED"
+        },
+        {
+          "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+          "scene": "photo__rrect-md__inactive",
+          "set": "calibration",
+          "scheme": "light",
+          "scale": 2,
+          "pose": "receded",
+          "regionPixels": 32720,
+          "deepThresholdCssPx": 16.0,
+          "nativeCensoredFraction": 0.18447432762836186,
+          "candidateCapture": null,
+          "statistics": {
+            "F": {
+              "native": 0.003453109107564706,
+              "shipped": 0.0034944684726697308,
+              "candidate": null,
+              "res": 0.00012901157391785408,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            },
+            "M": {
+              "native": 0.02302650742484087,
+              "shipped": 0.021442413037373778,
+              "candidate": null,
+              "res": 3.325354312789322e-05,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            }
+          },
+          "verdict": "UNMEASURED"
+        },
+        {
+          "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+          "scene": "photo__rrect-md__rest",
+          "set": "calibration",
+          "scheme": "light",
+          "scale": 2,
+          "pose": "active",
+          "regionPixels": 32720,
+          "deepThresholdCssPx": 16.0,
+          "nativeCensoredFraction": 0.26118581907090466,
+          "candidateCapture": null,
+          "statistics": {
+            "F": {
+              "native": 0.004988715938377513,
+              "shipped": 0.002358234436153826,
+              "candidate": null,
+              "res": 0.0001286038783960578,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            },
+            "M": {
+              "native": 0.022929339906769097,
+              "shipped": 0.017053249935163023,
+              "candidate": null,
+              "res": 3.3155530777638906e-05,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            }
+          },
+          "verdict": "UNMEASURED"
+        },
+        {
+          "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+          "scene": "photo__rrect-ml__rest",
+          "set": "calibration",
+          "scheme": "light",
+          "scale": 2,
+          "pose": "active",
+          "regionPixels": 73320,
+          "deepThresholdCssPx": 16.0,
+          "nativeCensoredFraction": 0.35822422258592473,
+          "candidateCapture": null,
+          "statistics": {
+            "F": {
+              "native": 0.0033291880392037113,
+              "shipped": 0.0021764625480596178,
+              "candidate": null,
+              "res": 0.00012477709029946662,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            },
+            "M": {
+              "native": 0.01877828443670865,
+              "shipped": 0.01451021155506891,
+              "candidate": null,
+              "res": 3.184653739530627e-05,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            }
+          },
+          "verdict": "UNMEASURED"
+        },
+        {
+          "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+          "scene": "photo__rrect-sm__inactive",
+          "set": "validation",
+          "scheme": "light",
+          "scale": 2,
+          "pose": "receded",
+          "regionPixels": 3072,
+          "deepThresholdCssPx": 8.0,
+          "nativeCensoredFraction": 0.0,
+          "candidateCapture": null,
+          "statistics": {
+            "F": {
+              "native": 0.003649675088549116,
+              "shipped": 0.008608328327783457,
+              "candidate": null,
+              "res": 0.0001397998858653154,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            },
+            "M": {
+              "native": 0.016997218199517106,
+              "shipped": 0.022807043398809054,
+              "candidate": null,
+              "res": 3.707774529342608e-05,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            }
+          },
+          "verdict": "UNMEASURED"
+        },
+        {
+          "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+          "scene": "photo__rrect-sm__rest",
+          "set": "validation",
+          "scheme": "light",
+          "scale": 2,
+          "pose": "active",
+          "regionPixels": 3072,
+          "deepThresholdCssPx": 8.0,
+          "nativeCensoredFraction": 0.0016276041666666667,
+          "candidateCapture": null,
+          "statistics": {
+            "F": {
+              "native": 0.005162408221530577,
+              "shipped": 0.004954488599076301,
+              "candidate": null,
+              "res": 0.00013879446913085433,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            },
+            "M": {
+              "native": 0.020439327197650303,
+              "shipped": 0.017306010487089844,
+              "candidate": null,
+              "res": 3.68098801822094e-05,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            }
+          },
+          "verdict": "UNMEASURED"
+        },
+        {
+          "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+          "scene": "photo__toolbar-group__inactive",
+          "set": "validation",
+          "scheme": "light",
+          "scale": 2,
+          "pose": "receded",
+          "regionPixels": 4584,
+          "deepThresholdCssPx": 11.0,
+          "nativeCensoredFraction": 0.0,
+          "candidateCapture": null,
+          "statistics": {
+            "F": {
+              "native": 0.005662327742320957,
+              "shipped": 0.008154050210013588,
+              "candidate": null,
+              "res": 0.00012841170756363416,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            },
+            "M": {
+              "native": 0.012355492909873741,
+              "shipped": 0.016142004250200907,
+              "candidate": null,
+              "res": 3.302370543088131e-05,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            }
+          },
+          "verdict": "UNMEASURED"
+        },
+        {
+          "profile": "apple-macos-27.0-2x-light-standard-glass0.5",
+          "scene": "photo__toolbar-group__rest",
+          "set": "validation",
+          "scheme": "light",
+          "scale": 2,
+          "pose": "active",
+          "regionPixels": 4584,
+          "deepThresholdCssPx": 11.0,
+          "nativeCensoredFraction": 0.049738219895287955,
+          "candidateCapture": null,
+          "statistics": {
+            "F": {
+              "native": 0.007450485064403684,
+              "shipped": 0.005441165260642984,
+              "candidate": null,
+              "res": 0.00012847335868118272,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            },
+            "M": {
+              "native": 0.015220609186286382,
+              "shipped": 0.011722338617531887,
+              "candidate": null,
+              "res": 3.303697598717651e-05,
+              "dShip": null,
+              "dCand": null,
+              "margin": null,
+              "verdict": "UNMEASURED"
+            }
+          },
+          "verdict": "UNMEASURED"
+        }
+      ],
+      "counts": {
+        "pass": 0,
+        "FAIL": 8,
+        "UNMEASURED": 18
+      },
+      "verdict": "FAIL"
+    }
+  }
+}
