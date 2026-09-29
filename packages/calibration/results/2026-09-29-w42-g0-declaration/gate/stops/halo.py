@@ -6,8 +6,13 @@ Rec.709 luma of encoded codes and in CSS px from the dot's backdrop centroid:
 
     peak    = mean(core, r < 2)          - median(floor ring, 8 <= r < 10)
     annulus = mean(annulus, 2 <= r < 8)  - median(floor ring)
+    floor   = median(floor ring), in ABSOLUTE codes
 
-and per cell the median over admitted dots. A dot is admitted only if its whole r < 10 disc is
+and per cell the median over admitted dots. The floor is the third statistic since 2026-09-30
+(the gate review of b151aff4, finding 9): the floor ring lies inside the narrow term's own reach
+(sigma_n about 4.1-5.4 pt in the receded pose), so a halo that is too WIDE raises the ring both
+other statistics subtract, and reads as a smaller, "closer" peak and annulus. Read against no
+local reference, the floor sees that rise. A dot is admitted only if its whole r < 10 disc is
 inside the shape at depth >= 2 CSS px and its centroid lies past the lens extent, so the ring is
 centred on an undisplaced dot (the declaration's admission and the evidence for it).
 
@@ -27,7 +32,7 @@ RINGS = dict(core=(0.0, 2.0), annulus=(2.0, 8.0), floor=(8.0, 10.0))
 RIM_DEPTH = 2.0
 LENS = dict(gain=1.337, height_per_span=0.25, height_max=20.0)
 RES = float(DECL["resolution"]["res"])
-STATISTICS = ("peak", "annulus")
+STATISTICS = ("peak", "annulus", "floor")
 
 
 def population() -> list[tuple[str, str]]:

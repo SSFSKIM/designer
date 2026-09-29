@@ -4,6 +4,7 @@
     OPENBLAS_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 python3.12 -B stops.py \\
         --candidate-root DIR [--shipped-root DIR] [--document FILE ...] \\
         [--stop halo|chroma|both] --out RUN.json [--text RUN.txt]
+    ... --candidate-root SHIPPED --baseline      # native against shipped, stamped "baseline"
 
 The candidate tree holds `<profile>/<scene>/<scene>__webgpu.png` and `cell__webgpu.json` for the
 populations `stops-declaration.json` lists; the shipped tree defaults to the canonical capture
@@ -12,6 +13,12 @@ the verdict (pass / FAIL / UNMEASURED) and a summary, stamped with the candidate
 (the documents its captures name). Exit 0 when every stop passes, 1 when any cell FAILs or is
 UNMEASURED, and a refusal (exit 1 with the reason) when a capture or the declaration is not
 admissible.
+
+Since 2026-09-30 (the gate review of b151aff4, finding 10) every document a candidate's captures
+name that is not shipped must be declared with --document, and a candidate whose every scheme
+names the shipped documents is refused: the shipped render passes the bar by construction.
+`--baseline` is the one run that reads the shipped tree against itself, and only with
+--candidate-root equal to --shipped-root; it is stamped "baseline", never "candidate".
 """
 from __future__ import annotations
 
@@ -93,8 +100,9 @@ def render_text(run: dict) -> str:
     if "halo" in run["stops"]:
         stop = run["stops"]["halo"]
         out += ["", f"## Stop H, {stop['name']}: {stop['verdict']} {stop['counts']}",
-                "## headline per endpoint (codes)"] + headline(stop, ("peak", "annulus"))
-        out += [""] + table(stop, ("peak", "annulus"), 1.0, "codes")
+                "## headline per endpoint (codes; floor in absolute codes)"]
+        out += headline(stop, ("peak", "annulus", "floor"))
+        out += [""] + table(stop, ("peak", "annulus", "floor"), 1.0, "codes")
     if "chroma" in run["stops"]:
         stop = run["stops"]["chroma"]
         out += ["", f"## Stop P, {stop['name']}: {stop['verdict']} {stop['counts']}",
@@ -116,12 +124,16 @@ def main(argv: list[str]) -> int:
     parser.add_argument("--document", type=Path, action="append", default=[],
                         help="a scratch document the candidate captures must name by hash")
     parser.add_argument("--stop", choices=("halo", "chroma", "both"), default="both")
+    parser.add_argument("--baseline", action="store_true",
+                        help="read the shipped tree against itself (native against shipped): "
+                             "--candidate-root must be --shipped-root; stamped baseline")
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--text", type=Path, default=None)
     args = parser.parse_args(argv)
 
     trees = common.Trees(args.shipped_root.resolve(), args.candidate_root.resolve(),
-                         [p.resolve() for p in args.document])
+                         [p.resolve() for p in args.document], baseline=args.baseline)
+    trees.check_roots()
     stops = {}
     if args.stop in ("halo", "both"):
         import halo

@@ -126,7 +126,8 @@ def brute_halo(image: np.ndarray, scale: int, centre) -> dict:
             r = ((((i + 0.5) / scale) - cx) ** 2 + (((j + 0.5) / scale) - cy) ** 2) ** 0.5
             (core if r < 2 else ann if r < 8 else flo if r < 10 else []).append(float(y[j, i]))
     floor = pystats.median(flo)
-    return dict(peak=sum(core) / len(core) - floor, annulus=sum(ann) / len(ann) - floor)
+    return dict(peak=sum(core) / len(core) - floor, annulus=sum(ann) / len(ann) - floor,
+                floor=floor)
 
 
 def halo_truth(amp: float, sigma: float) -> dict:
@@ -162,9 +163,10 @@ def proof_halo_synthetic() -> None:
                     brute = brute_halo(flo, scale, (160.0, 104.0))
                     quant = halo.cell_statistics(np.round(flo), component, scale)["cell"]
                     truth = halo_truth(amp, sigma)
-                    for s in ("peak", "annulus"):
+                    for s in halo.STATISTICS:
                         worst["impl"] = max(worst["impl"], abs(got[s] - brute[s]))
                         worst["quant"] = max(worst["quant"], abs(quant[s] - got[s]))
+                    for s in ("peak", "annulus"):
                         err = abs(quant[s] - truth[s])
                         worst["recovery"] = max(worst["recovery"], err)
                         if err > 1.0 + 0.03 * amp:
@@ -174,9 +176,11 @@ def proof_halo_synthetic() -> None:
                                 f"annulus read {quant['annulus']:5.2f} truth "
                                 f"{truth['annulus']:5.2f}")
     check("H implementation", worst["impl"] <= 1e-9,
-          f"largest |reader - per-pixel loop| {worst['impl']:.2e} code (tolerance 1e-9)")
+          f"largest |reader - per-pixel loop| over peak, annulus and floor {worst['impl']:.2e} "
+          "code (tolerance 1e-9)")
     check("H quantisation", worst["quant"] <= 1.0,
-          f"largest |rounded - unrounded| {worst['quant']:.3f} code (tolerance 1)")
+          f"largest |rounded - unrounded| over peak, annulus and floor {worst['quant']:.3f} code "
+          "(tolerance 1)")
     check("H recovery", ok_recovery, f"largest |read - continuous truth| {worst['recovery']:.3f} "
           "code (tolerance 1 + 0.03 A per case)")
     for row in rows:
@@ -189,6 +193,35 @@ def proof_halo_synthetic() -> None:
                                     "rrect-md", scale)["cell"]
         diff = max(diff, *(abs(quiet[s] - loud[s]) for s in quiet))
     check("H side dots", diff <= 1e-9, f"rrect-md side dots at 3 A change the reading by {diff:.1e}")
+
+
+def proof_halo_floor() -> None:
+    """G9 (the gate review of b151aff4, finding 9): a too-wide halo reads as a closer peak."""
+    log("H-F. The floor statistic (version 2): a too-wide halo against a narrow Apple")
+    log("      flat 120-code body; Apple sigma 1.5 A 8, shipped sigma 1.5 A 40, candidate sigma 20 "
+        "A 30; rounded to codes")
+    ok, rows = True, []
+    for component in ("capsule-button", "rrect-md"):
+        for scale in (1, 2):
+            read = {name: halo.cell_statistics(np.round(synthetic_halo(component, scale, amp,
+                                                                         sigma, 0.0)),
+                                               component, scale)["cell"]
+                    for name, (amp, sigma) in dict(native=(8.0, 1.5), shipped=(40.0, 1.5),
+                                                   candidate=(30.0, 20.0)).items()}
+            judged = {s: common.judge(read["native"][s], read["shipped"][s], read["candidate"][s],
+                                      halo.RES) for s in halo.STATISTICS}
+            verdicts = {s: j["verdict"] for s, j in judged.items()}
+            cell = common.combine(list(verdicts.values()))
+            ok &= (verdicts == dict(peak="pass", annulus="pass", floor="FAIL") and cell == "FAIL")
+            rows.append(f"      {component:<15}{scale}x " + " | ".join(
+                f"{s} nat {j['native']:6.2f} ship {j['shipped']:6.2f} cand {j['candidate']:6.2f} "
+                f"margin {j['margin']:6.2f} {j['verdict']}" for s, j in judged.items())
+                + f" -> cell {cell}")
+    check("H floor sees a too-wide halo", ok,
+          "on both shapes at both scales the sigma-20 candidate passes peak and annulus (the "
+          "narrow reading it defeats) and FAILs floor, so the cell FAILs")
+    for row in rows:
+        log(row)
 
 
 # ---------------------------------------------------------------------------------------------
@@ -381,23 +414,51 @@ def away(shipped: float, native: float) -> float:
 
 
 def proof_end_to_end() -> None:
-    log("E1. Candidate = the shipped tree itself (both stops)")
+    log("E1. The shipped render: refused as a candidate, read as the identity and as the baseline")
     work = Path(tempfile.mkdtemp(prefix="w42-stops-proof-"))
     try:
-        code, _err, run = run_stops(common.CANONICAL_CAPTURES, "both", work / "e1.json")
+        code, err, _run = run_stops(common.CANONICAL_CAPTURES, "both", work / "e1-refused.json")
+        check("E1 shipped tree refused as a candidate",
+              code == 1 and "is no candidate" in err and not (work / "e1-refused.json").exists(),
+              f"the canonical tree as --candidate-root without --baseline: exit {code}, no output: "
+              f"...{reason(err)}")
+
+        scratch = Scratch(work)
+        halo_cells = halo.population()
+        for profile, scene in halo_cells + cb.population():
+            scratch.cell("identity", profile, scene)
+        code, _err, run = run_stops(work / "identity", "both", work / "e1.json",
+                                    scratch.documents_args())
         stats = [s for stop in run["stops"].values() for c in stop["cells"]
                  for s in c["statistics"].values()]
         zero = all(s["dCand"] - s["dShip"] == 0.0 for s in stats)
         check("E1 identity", code == 0 and zero and run["summary"]["verdict"] == "pass"
-              and run["admission"]["candidateNamesShippedDocuments"],
-              f"exit {code}, {len(stats)} statistics on "
+              and run["admission"]["mode"] == "candidate"
+              and not run["admission"]["candidateNamesShippedDocuments"]
+              and all("matchedDeclaredFile" in d for d in run["admission"]["documents"]),
+              f"the shipped captures re-named at {len(scratch.documents)} declared scratch "
+              f"documents: exit {code}, {len(stats)} statistics on "
               f"{sum(len(s['cells']) for s in run['stops'].values())} cells, every "
-              f"dCand - dShip == 0: {zero}, verdict {run['summary']['verdict']}")
+              f"dCand - dShip == 0: {zero}, verdict {run['summary']['verdict']}, stamped "
+              f"{run['admission']['mode']}")
         baseline = {(c["profile"], c["scene"]): c for stop in run["stops"].values()
                     for c in stop["cells"]}
 
-        scratch = Scratch(work)
-        halo_cells = halo.population()
+        code, _err, run = run_stops(common.CANONICAL_CAPTURES, "both", work / "e1-baseline.json",
+                                    ["--baseline"])
+        stats = [s for stop in run["stops"].values() for c in stop["cells"]
+                 for s in c["statistics"].values()]
+        zero = all(s["dCand"] - s["dShip"] == 0.0 for s in stats)
+        check("E1 baseline", code == 0 and zero and run["summary"]["verdict"] == "pass"
+              and run["admission"]["mode"] == "baseline"
+              and run["admission"]["candidateNamesShippedDocuments"],
+              f"--baseline over the canonical tree: exit {code}, {len(stats)} statistics, every "
+              f"dCand - dShip == 0: {zero}, stamped {run['admission']['mode']}")
+        code, err, _run = run_stops(work / "identity", "halo", work / "e1-baseline-wrong.json",
+                                    ["--baseline"])
+        check("E1 baseline needs the shipped root", code == 1 and "--baseline" in err,
+              f"--baseline with a candidate root that is not the shipped root: exit {code}: "
+              f"...{reason(err)}")
         log("E2. Stop H moved by known amounts (captures name scratch documents)")
         for tree, shift, frac in (("h-far", 3, 1.0), ("h-within", 1, 0.5)):
             expected = {}
@@ -418,17 +479,23 @@ def proof_end_to_end() -> None:
                                        scratch.documents_args())
             cells = run["stops"]["halo"]["cells"]
             exact = max(abs(c["statistics"][s]["candidate"] - expected[(c["profile"], c["scene"])][s])
-                        for c in cells for s in ("peak", "annulus"))
+                        for c in cells for s in halo.STATISTICS)
             growth = [c["statistics"][s]["dCand"] - c["statistics"][s]["dShip"]
                       for c in cells for s in ("peak", "annulus")]
             verdicts = {c["statistics"][s]["verdict"] for c in cells for s in ("peak", "annulus")}
+            # The floor ring is not moved here, so the floor reads the shipped value exactly.
+            floor_still = all(c["statistics"]["floor"]["dCand"] == c["statistics"]["floor"]["dShip"]
+                              and c["statistics"]["floor"]["verdict"] == "pass" for c in cells)
+            check(f"E2 {tree}: floor untouched", floor_still,
+                  "the floor ring is not moved, and floor reads dCand - dShip == 0 and pass on "
+                  f"all {len(cells)} cells")
             if tree == "h-far":
                 check("E2 farther", code == 1 and verdicts == {"FAIL"} and min(growth) >= 2.0
                       and exact <= 1e-9,
                       f"exit {code}; every core and annulus moved 3 codes away from Apple in every "
                       f"channel (clipped at the rails): the distance grew by {min(growth):.3f}.."
                       f"{max(growth):.3f} codes, equal to an independent loop within {exact:.1e}, "
-                      f"and every statistic reads FAIL ({run['stops']['halo']['counts']})")
+                      f"and every peak and annulus reads FAIL ({run['stops']['halo']['counts']})")
                 docs = run["admission"]["documents"]
                 check("E2 admission stamp", run["admission"]["mode"] == "candidate" and
                       len(docs) == 4 and all("matchedDeclaredFile" in d for d in docs) and
@@ -443,6 +510,38 @@ def proof_end_to_end() -> None:
                       f"{min(growth):.3f}..{max(growth):.3f} codes (independent loop within "
                       f"{exact:.1e}) and every statistic reads pass "
                       f"({run['stops']['halo']['counts']})")
+
+        # G9: the whole r < 10 disc moved 3 codes away from Apple's floor, in every channel.
+        tree, expected, clipped = "h-floor", {}, 0
+        for profile, scene in halo_cells:
+            _s, scale = common.PROFILES[profile]
+            s = baseline[(profile, scene)]["statistics"]["floor"]
+            image = common.read_capture(common.CANONICAL_CAPTURES, profile, scene).image.copy()
+            masks = halo.ring_masks(scale, (160.0, 104.0))
+            disc = masks["core"] | masks["annulus"] | masks["floor"]
+            moved = image[disc] + 3.0 * away(s["shipped"], s["native"])
+            clipped += int(((moved < 0) | (moved > 255)).sum())
+            image[disc] = np.clip(moved, 0, 255)
+            expected[(profile, scene)] = brute_halo(image, scale, (160.0, 104.0))
+            scratch.cell(tree, profile, scene, image)
+        code, err, run = run_stops(work / tree, "halo", work / f"{tree}.json",
+                                   scratch.documents_args())
+        cells = run["stops"]["halo"]["cells"]
+        exact = max(abs(c["statistics"][s]["candidate"] - expected[(c["profile"], c["scene"])][s])
+                    for c in cells for s in halo.STATISTICS)
+        still = max(abs(c["statistics"][s]["candidate"] - c["statistics"][s]["shipped"])
+                    for c in cells for s in ("peak", "annulus"))
+        kept = all(c["statistics"][s]["verdict"] == "pass" for c in cells for s in ("peak", "annulus"))
+        grew = [c["statistics"]["floor"]["dCand"] - c["statistics"]["floor"]["dShip"] for c in cells]
+        failed = all(c["statistics"]["floor"]["verdict"] == "FAIL" and c["verdict"] == "FAIL"
+                     for c in cells)
+        check("E2 floor farther", code == 1 and clipped == 0 and still <= 1e-9 and kept and failed
+              and max(abs(g - 3.0) for g in grew) <= 1e-9 and exact <= 1e-9,
+              f"exit {code}; the whole r < 10 disc moved 3 codes away from Apple's floor in every "
+              f"channel ({clipped} channel values clipped): peak and annulus move by at most "
+              f"{still:.1e} and pass, floor's distance grows by {min(grew):.6f}..{max(grew):.6f} "
+              f"codes and FAILs on all {len(cells)} cells (independent loop within {exact:.1e}; "
+              f"{run['stops']['halo']['counts']})")
 
         log("E3. Stop P moved by known amounts")
         photo_cells = cb.population()
@@ -535,6 +634,9 @@ def proof_end_to_end() -> None:
                 extra=["--document", str(common.REPO / "packages/calibration/profiles/"
                                          "apple-macos-27.0-1x-light-standard-glass0.5.json")],
                 expect="none of the declared documents")
+        refusal("E4 undeclared documents, no --document", "r-nodocument", first,
+                lambda s, t, p, c: s.cell(t, p, c), extra=[],
+                expect="declare it with --document")
         for profile, scene in halo_cells:
             scratch.cell("partial", profile, scene, rewrite="light" in profile)
         light_docs = [a for p, _h in scratch.documents.values() if "light" in Path(p).name
@@ -589,6 +691,7 @@ def main() -> int:
     proof_geometry()
     proof_admission()
     proof_halo_synthetic()
+    proof_halo_floor()
     proof_chroma_synthetic()
     proof_end_to_end()
     log("")

@@ -1,17 +1,17 @@
 {
   "what": "W42 G0 directional stops (charter clause 10): no cell farther from Apple than the shipped render at the statistic's declared resolution",
-  "generatedAt": "2026-09-29T09:02:40Z",
+  "generatedAt": "2026-09-29T23:13:03Z",
   "provenance": {
     "declaration": {
       "path": "packages/calibration/results/2026-09-29-w42-g0-declaration/gate/stops/stops-declaration.json",
-      "sha256": "0f907bfee62ae07f5ad68b1f8d7679b35abeae14a2077bb6bc5127d80a68809e"
+      "sha256": "d5283e4e198c7d2ac72d605f4713fcaa6b254c9a9c162ea2ba13d8ffd026d521"
     },
     "tools": {
       "chroma_band.py": "733ed89c9dbc7f29c3822fb9910669eaa2044c1a9507f5717c44d7c051f4abc9",
-      "halo.py": "03e11b1c607642a83e03d8d7eb727d3e4682292ee246e3c75fb99dda419417b6",
-      "proof.py": "829e49dfb7f7226a140ae7cda7d15b3c4f2b1b633c45a9e1f29ce4f2c403c45c",
-      "stops.py": "0e3e3c839d2264f5cdd773b1331b6a3a3a63119af06e598041db9c8a43890a28",
-      "stops_common.py": "7d022ea272b16a957af7ec67f6a9d28fd592510468b3350f389f56e8e961798c"
+      "halo.py": "d2e3a96da8d5b1172efd67203b380edadeb0f3cbc2c5bdb634e647bb219aa400",
+      "proof.py": "a81e337ee7b3245ef362fb3643add93fcbe789bc654798171b39bc1430b9468a",
+      "stops.py": "3badf7c3f66879d4b4db4cf44690116e0b3afb3d20435e1b12226c00f8ff9d02",
+      "stops_common.py": "66ee824a7c21b40484aa6d704e734fbf8f6c6ae294c7654ed369e0bee694476f"
     },
     "scenesJsonSha256": "2f45778283443a45d562befa634fc7681de9ea6e2568bca0d08d659a27393d6f"
   },
@@ -44,7 +44,7 @@
     ]
   },
   "admission": {
-    "mode": "candidate",
+    "mode": "baseline",
     "documents": [
       {
         "kind": "materialProfile",
@@ -163,6 +163,16 @@
               "dCand": 3.8061224489795897,
               "margin": 1.0,
               "verdict": "pass"
+            },
+            "floor": {
+              "native": 23.0,
+              "shipped": 30.0,
+              "candidate": 30.0,
+              "res": 1.0,
+              "dShip": 7.0,
+              "dCand": 7.0,
+              "margin": 1.0,
+              "verdict": "pass"
             }
           },
           "verdict": "pass"
@@ -223,6 +233,16 @@
               "res": 1.0,
               "dShip": 1.54081632653061,
               "dCand": 1.54081632653061,
+              "margin": 1.0,
+              "verdict": "pass"
+            },
+            "floor": {
+              "native": 33.0,
+              "shipped": 54.0,
+              "candidate": 54.0,
+              "res": 1.0,
+              "dShip": 21.0,
+              "dCand": 21.0,
               "margin": 1.0,
               "verdict": "pass"
             }
@@ -287,6 +307,16 @@
               "dCand": 0.6887755102040956,
               "margin": 1.0,
               "verdict": "pass"
+            },
+            "floor": {
+              "native": 134.0,
+              "shipped": 138.0,
+              "candidate": 138.0,
+              "res": 1.0,
+              "dShip": 4.0,
+              "dCand": 4.0,
+              "margin": 1.0,
+              "verdict": "pass"
             }
           },
           "verdict": "pass"
@@ -347,6 +377,16 @@
               "res": 1.0,
               "dShip": 1.4403989795918335,
               "dCand": 1.4403989795918335,
+              "margin": 1.0,
+              "verdict": "pass"
+            },
+            "floor": {
+              "native": 108.7874,
+              "shipped": 127.0,
+              "candidate": 127.0,
+              "res": 1.0,
+              "dShip": 18.212599999999995,
+              "dCand": 18.212599999999995,
               "margin": 1.0,
               "verdict": "pass"
             }
@@ -411,6 +451,16 @@
               "dCand": 3.5663265306122582,
               "margin": 1.0,
               "verdict": "pass"
+            },
+            "floor": {
+              "native": 134.0,
+              "shipped": 130.0,
+              "candidate": 130.0,
+              "res": 1.0,
+              "dShip": 4.0,
+              "dCand": 4.0,
+              "margin": 1.0,
+              "verdict": "pass"
             }
           },
           "verdict": "pass"
@@ -471,6 +521,16 @@
               "res": 1.0,
               "dShip": 0.5407132653060955,
               "dCand": 0.5407132653060955,
+              "margin": 1.0,
+              "verdict": "pass"
+            },
+            "floor": {
+              "native": 127.6866,
+              "shipped": 130.9726,
+              "candidate": 130.9726,
+              "res": 1.0,
+              "dShip": 3.2860000000000014,
+              "dCand": 3.2860000000000014,
               "margin": 1.0,
               "verdict": "pass"
             }
@@ -535,6 +595,16 @@
               "dCand": 0.31632653061225824,
               "margin": 1.0,
               "verdict": "pass"
+            },
+            "floor": {
+              "native": 134.0,
+              "shipped": 142.0,
+              "candidate": 142.0,
+              "res": 1.0,
+              "dShip": 8.0,
+              "dCand": 8.0,
+              "margin": 1.0,
+              "verdict": "pass"
             }
           },
           "verdict": "pass"
@@ -595,6 +665,16 @@
               "res": 1.0,
               "dShip": 1.117346938775512,
               "dCand": 1.117346938775512,
+              "margin": 1.0,
+              "verdict": "pass"
+            },
+            "floor": {
+              "native": 135.0,
+              "shipped": 138.0,
+              "candidate": 138.0,
+              "res": 1.0,
+              "dShip": 3.0,
+              "dCand": 3.0,
               "margin": 1.0,
               "verdict": "pass"
             }
@@ -659,6 +739,16 @@
               "dCand": 1.9828947368421055,
               "margin": 1.0,
               "verdict": "pass"
+            },
+            "floor": {
+              "native": 23.0,
+              "shipped": 31.0,
+              "candidate": 31.0,
+              "res": 1.0,
+              "dShip": 8.0,
+              "dCand": 8.0,
+              "margin": 1.0,
+              "verdict": "pass"
             }
           },
           "verdict": "pass"
@@ -719,6 +809,16 @@
               "res": 1.0,
               "dShip": 2.7263157894736807,
               "dCand": 2.7263157894736807,
+              "margin": 1.0,
+              "verdict": "pass"
+            },
+            "floor": {
+              "native": 33.0,
+              "shipped": 54.0,
+              "candidate": 54.0,
+              "res": 1.0,
+              "dShip": 21.0,
+              "dCand": 21.0,
               "margin": 1.0,
               "verdict": "pass"
             }
@@ -783,6 +883,16 @@
               "dCand": 0.1605263157894683,
               "margin": 1.0,
               "verdict": "pass"
+            },
+            "floor": {
+              "native": 134.0,
+              "shipped": 139.0,
+              "candidate": 139.0,
+              "res": 1.0,
+              "dShip": 5.0,
+              "dCand": 5.0,
+              "margin": 1.0,
+              "verdict": "pass"
             }
           },
           "verdict": "pass"
@@ -843,6 +953,16 @@
               "res": 1.0,
               "dShip": 0.5310231578947509,
               "dCand": 0.5310231578947509,
+              "margin": 1.0,
+              "verdict": "pass"
+            },
+            "floor": {
+              "native": 108.7874,
+              "shipped": 128.0,
+              "candidate": 128.0,
+              "res": 1.0,
+              "dShip": 19.212599999999995,
+              "dCand": 19.212599999999995,
               "margin": 1.0,
               "verdict": "pass"
             }
@@ -907,6 +1027,16 @@
               "dCand": 0.1486842105263122,
               "margin": 1.0,
               "verdict": "pass"
+            },
+            "floor": {
+              "native": 133.0,
+              "shipped": 132.0,
+              "candidate": 132.0,
+              "res": 1.0,
+              "dShip": 1.0,
+              "dCand": 1.0,
+              "margin": 1.0,
+              "verdict": "pass"
             }
           },
           "verdict": "pass"
@@ -967,6 +1097,16 @@
               "res": 1.0,
               "dShip": 0.33796499999999696,
               "dCand": 0.33796499999999696,
+              "margin": 1.0,
+              "verdict": "pass"
+            },
+            "floor": {
+              "native": 127.47399999999999,
+              "shipped": 131.9004,
+              "candidate": 131.9004,
+              "res": 1.0,
+              "dShip": 4.426400000000001,
+              "dCand": 4.426400000000001,
               "margin": 1.0,
               "verdict": "pass"
             }
@@ -1031,6 +1171,16 @@
               "dCand": 0.8605263157895138,
               "margin": 1.0,
               "verdict": "pass"
+            },
+            "floor": {
+              "native": 134.0,
+              "shipped": 144.00000000000003,
+              "candidate": 144.00000000000003,
+              "res": 1.0,
+              "dShip": 10.000000000000028,
+              "dCand": 10.000000000000028,
+              "margin": 1.0,
+              "verdict": "pass"
             }
           },
           "verdict": "pass"
@@ -1091,6 +1241,16 @@
               "res": 1.0,
               "dShip": 3.33364421052633,
               "dCand": 3.33364421052633,
+              "margin": 1.0,
+              "verdict": "pass"
+            },
+            "floor": {
+              "native": 135.0,
+              "shipped": 140.0,
+              "candidate": 140.0,
+              "res": 1.0,
+              "dShip": 5.0,
+              "dCand": 5.0,
               "margin": 1.0,
               "verdict": "pass"
             }

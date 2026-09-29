@@ -1,9 +1,9 @@
 # W42 G0 directional stops (charter clause 10): no cell farther from Apple than the shipped render at the statistic's declared resolution
-# generated 2026-09-29T09:02:40Z
-# declaration packages/calibration/results/2026-09-29-w42-g0-declaration/gate/stops/stops-declaration.json sha256:0f907bfee62ae07f5ad68b1f8d7679b35abeae14a2077bb6bc5127d80a68809e
+# generated 2026-09-29T23:13:03Z
+# declaration packages/calibration/results/2026-09-29-w42-g0-declaration/gate/stops/stops-declaration.json sha256:d5283e4e198c7d2ac72d605f4713fcaa6b254c9a9c162ea2ba13d8ffd026d521
 # shipped root   /Users/new/Developer/GitHub/designer/packages/calibration/web-captures
 # candidate root /Users/new/Developer/GitHub/designer/packages/calibration/web-captures
-# admission: mode candidate, candidate names the shipped documents: True
+# admission: mode baseline, candidate names the shipped documents: True
 #   materialProfile=packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5.json sha256:0eac5b294cc2 (dark; shipped document: True)
 #   recededProfile=packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5-receded.json sha256:5cec8c961201 (dark; shipped document: True)
 #   materialProfile=packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json sha256:85ad7f7e3e0d (light; shipped document: True)
@@ -11,7 +11,7 @@
 # SUMMARY: pass  halo pass {'pass': 16, 'FAIL': 0, 'UNMEASURED': 0}  chroma pass {'pass': 26, 'FAIL': 0, 'UNMEASURED': 0}
 
 ## Stop H, impulse halo/annulus: pass {'pass': 16, 'FAIL': 0, 'UNMEASURED': 0}
-## headline per endpoint (codes)
+## headline per endpoint (codes; floor in absolute codes)
   peak    light active     6 cells  native  13.79.. 57.38 (median  23.21)  shipped   2.69.. 44.33 (median  18.16)
   peak    light receded    6 cells  native   2.00.. 11.21 (median   5.91)  shipped   2.08.. 36.50 (median  25.58)
   peak    dark active      2 cells  native  12.00.. 12.77 (median  12.38)  shipped  16.92.. 20.00 (median  18.46)
@@ -20,41 +20,61 @@
   annulus light receded    6 cells  native   1.18..  2.51 (median   2.00)  shipped   1.28..  3.13 (median   2.37)
   annulus dark active      2 cells  native   0.32..  0.56 (median   0.44)  shipped   2.10..  3.04 (median   2.57)
   annulus dark receded     2 cells  native   1.06..  1.14 (median   1.10)  shipped   3.04..  4.95 (median   3.99)
+  floor   light active     6 cells  native 127.47..135.00 (median 133.50)  shipped 130.00..140.00 (median 131.95)
+  floor   light receded    6 cells  native 108.79..134.00 (median 134.00)  shipped 127.00..144.00 (median 138.50)
+  floor   dark active      2 cells  native  33.00.. 33.00 (median  33.00)  shipped  54.00.. 54.00 (median  54.00)
+  floor   dark receded     2 cells  native  23.00.. 23.00 (median  23.00)  shipped  30.00.. 31.00 (median  30.50)
 
   (values codes)
   profile                                     scene                                         stat        native  shipped     cand   dShip   dCand     res  verdict
   apple-macos-27.0-1x-dark-standard-glass0.5  impulse__capsule-button__inactive             peak         3.333   37.667   37.667  34.333  34.333   1.000  pass
   apple-macos-27.0-1x-dark-standard-glass0.5  impulse__capsule-button__inactive             annulus      1.143    4.949    4.949   3.806   3.806   1.000  pass
+  apple-macos-27.0-1x-dark-standard-glass0.5  impulse__capsule-button__inactive             floor       23.000   30.000   30.000   7.000   7.000   1.000  pass
   apple-macos-27.0-1x-dark-standard-glass0.5  impulse__capsule-button__rest                 peak        12.000   20.000   20.000   8.000   8.000   1.000  pass
   apple-macos-27.0-1x-dark-standard-glass0.5  impulse__capsule-button__rest                 annulus      0.561    2.102    2.102   1.541   1.541   1.000  pass
+  apple-macos-27.0-1x-dark-standard-glass0.5  impulse__capsule-button__rest                 floor       33.000   54.000   54.000  21.000  21.000   1.000  pass
   apple-macos-27.0-1x-light-standard-glass0.5 impulse__capsule-button__inactive             peak        11.000   27.833   27.833  16.833  16.833   1.000  pass
   apple-macos-27.0-1x-light-standard-glass0.5 impulse__capsule-button__inactive             annulus      2.311    3.000    3.000   0.689   0.689   1.000  pass
+  apple-macos-27.0-1x-light-standard-glass0.5 impulse__capsule-button__inactive             floor      134.000  138.000  138.000   4.000   4.000   1.000  pass
   apple-macos-27.0-1x-light-standard-glass0.5 impulse__capsule-button__inactive-tint-orange peak        11.213   23.333   23.333  12.121  12.121   1.000  pass
   apple-macos-27.0-1x-light-standard-glass0.5 impulse__capsule-button__inactive-tint-orange annulus      1.692    3.133    3.133   1.440   1.440   1.000  pass
+  apple-macos-27.0-1x-light-standard-glass0.5 impulse__capsule-button__inactive-tint-orange floor      108.787  127.000  127.000  18.213  18.213   1.000  pass
   apple-macos-27.0-1x-light-standard-glass0.5 impulse__capsule-button__rest                 peak        51.333   44.333   44.333   7.000   7.000   1.000  pass
   apple-macos-27.0-1x-light-standard-glass0.5 impulse__capsule-button__rest                 annulus      1.658    5.224    5.224   3.566   3.566   1.000  pass
+  apple-macos-27.0-1x-light-standard-glass0.5 impulse__capsule-button__rest                 floor      134.000  130.000  130.000   4.000   4.000   1.000  pass
   apple-macos-27.0-1x-light-standard-glass0.5 impulse__capsule-button__rest-tint-orange     peak        13.788    8.866    8.866   4.922   4.922   1.000  pass
   apple-macos-27.0-1x-light-standard-glass0.5 impulse__capsule-button__rest-tint-orange     annulus      0.464    1.005    1.005   0.541   0.541   1.000  pass
+  apple-macos-27.0-1x-light-standard-glass0.5 impulse__capsule-button__rest-tint-orange     floor      127.687  130.973  130.973   3.286   3.286   1.000  pass
   apple-macos-27.0-1x-light-standard-glass0.5 impulse__rrect-md__inactive                   peak         2.000   15.000   15.000  13.000  13.000   1.000  pass
   apple-macos-27.0-1x-light-standard-glass0.5 impulse__rrect-md__inactive                   annulus      1.184    1.500    1.500   0.316   0.316   1.000  pass
+  apple-macos-27.0-1x-light-standard-glass0.5 impulse__rrect-md__inactive                   floor      134.000  142.000  142.000   8.000   8.000   1.000  pass
   apple-macos-27.0-1x-light-standard-glass0.5 impulse__rrect-md__rest                       peak        25.167   33.000   33.000   7.833   7.833   1.000  pass
   apple-macos-27.0-1x-light-standard-glass0.5 impulse__rrect-md__rest                       annulus      2.413    3.531    3.531   1.117   1.117   1.000  pass
+  apple-macos-27.0-1x-light-standard-glass0.5 impulse__rrect-md__rest                       floor      135.000  138.000  138.000   3.000   3.000   1.000  pass
   apple-macos-27.0-2x-dark-standard-glass0.5  impulse__capsule-button__inactive             peak         2.000   37.808   37.808  35.808  35.808   1.000  pass
   apple-macos-27.0-2x-dark-standard-glass0.5  impulse__capsule-button__inactive             annulus      1.057    3.039    3.039   1.983   1.983   1.000  pass
+  apple-macos-27.0-2x-dark-standard-glass0.5  impulse__capsule-button__inactive             floor       23.000   31.000   31.000   8.000   8.000   1.000  pass
   apple-macos-27.0-2x-dark-standard-glass0.5  impulse__capsule-button__rest                 peak        12.769   16.923   16.923   4.154   4.154   1.000  pass
   apple-macos-27.0-2x-dark-standard-glass0.5  impulse__capsule-button__rest                 annulus      0.316    3.042    3.042   2.726   2.726   1.000  pass
+  apple-macos-27.0-2x-dark-standard-glass0.5  impulse__capsule-button__rest                 floor       33.000   54.000   54.000  21.000  21.000   1.000  pass
   apple-macos-27.0-2x-light-standard-glass0.5 impulse__capsule-button__inactive             peak         6.308   36.500   36.500  30.192  30.192   1.000  pass
   apple-macos-27.0-2x-light-standard-glass0.5 impulse__capsule-button__inactive             annulus      2.505    2.345    2.345   0.161   0.161   1.000  pass
+  apple-macos-27.0-2x-light-standard-glass0.5 impulse__capsule-button__inactive             floor      134.000  139.000  139.000   5.000   5.000   1.000  pass
   apple-macos-27.0-2x-light-standard-glass0.5 impulse__capsule-button__inactive-tint-orange peak         5.520   30.500   30.500  24.980  24.980   1.000  pass
   apple-macos-27.0-2x-light-standard-glass0.5 impulse__capsule-button__inactive-tint-orange annulus      1.861    2.392    2.392   0.531   0.531   1.000  pass
+  apple-macos-27.0-2x-light-standard-glass0.5 impulse__capsule-button__inactive-tint-orange floor      108.787  128.000  128.000  19.213  19.213   1.000  pass
   apple-macos-27.0-2x-light-standard-glass0.5 impulse__capsule-button__rest                 peak        57.385   27.462   27.462  29.923  29.923   1.000  pass
   apple-macos-27.0-2x-light-standard-glass0.5 impulse__capsule-button__rest                 annulus      2.007    1.858    1.858   0.149   0.149   1.000  pass
+  apple-macos-27.0-2x-light-standard-glass0.5 impulse__capsule-button__rest                 floor      133.000  132.000  132.000   1.000   1.000   1.000  pass
   apple-macos-27.0-2x-light-standard-glass0.5 impulse__capsule-button__rest-tint-orange     peak        15.485    4.898    4.898  10.588  10.588   1.000  pass
   apple-macos-27.0-2x-light-standard-glass0.5 impulse__capsule-button__rest-tint-orange     annulus      0.503    0.165    0.165   0.338   0.338   1.000  pass
+  apple-macos-27.0-2x-light-standard-glass0.5 impulse__capsule-button__rest-tint-orange     floor      127.474  131.900  131.900   4.426   4.426   1.000  pass
   apple-macos-27.0-2x-light-standard-glass0.5 impulse__rrect-md__inactive                   peak         4.000    2.077    2.077   1.923   1.923   1.000  pass
   apple-macos-27.0-2x-light-standard-glass0.5 impulse__rrect-md__inactive                   annulus      2.137    1.276    1.276   0.861   0.861   1.000  pass
+  apple-macos-27.0-2x-light-standard-glass0.5 impulse__rrect-md__inactive                   floor      134.000  144.000  144.000  10.000  10.000   1.000  pass
   apple-macos-27.0-2x-light-standard-glass0.5 impulse__rrect-md__rest                       peak        21.258    2.692    2.692  18.566  18.566   1.000  pass
   apple-macos-27.0-2x-light-standard-glass0.5 impulse__rrect-md__rest                       annulus      3.518    0.184    0.184   3.334   3.334   1.000  pass
+  apple-macos-27.0-2x-light-standard-glass0.5 impulse__rrect-md__rest                       floor      135.000  140.000  140.000   5.000   5.000   1.000  pass
 
 ## Stop P, photo band-pass chroma energy: pass {'pass': 26, 'FAIL': 0, 'UNMEASURED': 0}
 ## headline per endpoint (OKLab (a, b) x 1e3)
