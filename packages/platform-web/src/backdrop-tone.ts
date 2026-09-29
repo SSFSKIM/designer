@@ -428,6 +428,9 @@ export function createBackdropSnapshotReader(): (
       }
     }
     held = { texture, epoch, atMs: now, width, height, window, snapshot };
+    // A live source may already be moving on from what was just read, and nothing
+    // will say so: the next reading is owed a cadence from now.
+    if (liveness === "live") retryAtMs = now + BACKDROP_TONE_CADENCE_MS;
     return { snapshot, ...(retryAtMs === undefined ? {} : { retryAtMs }) };
   };
 }

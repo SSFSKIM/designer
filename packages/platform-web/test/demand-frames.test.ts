@@ -324,11 +324,16 @@ describe("the backdrop tone on the CSS tier", () => {
     expect(first).toBeGreaterThan(0);
     expect(instance.framePending).toBe(false);
 
-    // The cadence runs out on a timer, not on a frame nobody would draw.
-    vi.advanceTimersByTime(300);
-    expect(instance.framePending).toBe(true);
-    settle(instance, 5000);
-    expect(reads()).toBeGreaterThan(first);
+    // The cadence runs out on a timer, not on a frame nobody would draw — and
+    // keeps running out: each reading owes the next one.
+    let previous = first;
+    for (let refresh = 0; refresh < 5; refresh += 1) {
+      vi.advanceTimersByTime(300);
+      expect(instance.framePending).toBe(true);
+      settle(instance, 5000 + refresh * 1000);
+      expect(reads()).toBeGreaterThan(previous);
+      previous = reads();
+    }
   });
 });
 
@@ -381,6 +386,22 @@ describe("the loop", () => {
     });
     flushFrame(at + 60_000);
     expect(deltas).toEqual([16]);
+  });
+
+  it("arms itself after a frame stepped by hand on a started root leaves demand", () => {
+    const instance = root({ autoStart: true });
+    host(instance);
+    let wantsMore = false;
+    instance.subscribe(() => wantsMore);
+    let at = 0;
+    for (let frame = 0; frame < 20 && callbacks.size > 0; frame += 1) flushFrame((at += 16));
+    expect(callbacks.size).toBe(0);
+
+    // The demand arises inside a frame an app drives by hand, outside the loop.
+    wantsMore = true;
+    instance.runFrame(at + 16);
+    expect(instance.framePending).toBe(true);
+    expect(callbacks.size).toBe(1);
   });
 
   it("does not run while stopped, and picks the demand back up on start", () => {

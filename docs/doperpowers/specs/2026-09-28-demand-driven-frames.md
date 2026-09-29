@@ -145,3 +145,8 @@ Before is `origin/main` at `4f43d2dc`; after is this branch.
   windowed. It now reads only when due.
 - A playing video is re-marked on every rAF. `requestVideoFrameCallback` would mark per decoded
   frame instead.
+- A `GlassMorph` whose content is never laid out, for example one mounted in a `display: none`
+  tab panel, keeps the root drawing. Its measurement listeners return `true` until the closed
+  (and, when materializing, open) end measures non-zero. That matches the old per-frame cost, so
+  it is not a regression, but that page never idles. The fix: observe the content node with a
+  `ResizeObserver` and request a frame when it gains a box, instead of polling every frame.

@@ -189,6 +189,7 @@ import {
   type MaterialSourceOptics,
 } from "./optics";
 import {
+  BACKDROP_TONE_CADENCE_MS,
   backdropReadingDue,
   sampleBackdropTone,
   createBackdropSnapshotReader,
@@ -1564,6 +1565,9 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
     }
     const sample = sampleBackdropTone(texture);
     backdropTones.set(sourceId, { epoch, atMs: now, sample });
+    // A live source is owed its next reading a cadence from now, whether or not
+    // anything else draws a frame by then.
+    if (livenessOf(texture) === "live") scheduleToneRefresh(now + BACKDROP_TONE_CADENCE_MS);
     return sample;
   };
   const sourceSnapshots = new Map<string, ReturnType<typeof createBackdropSnapshotReader>>();
@@ -3578,6 +3582,10 @@ export function createGlassRoot(options: GlassRootOptions = {}): GlassRoot {
       throw error;
     } finally {
       inFrame = false;
+      // A frame stepped by hand on a started root, outside the loop, leaves its
+      // demand with nobody to act on it unless it arms the loop itself. Inside the
+      // loop this is a no-op: the loop has already armed.
+      if (demand) requestFrame();
     }
   };
 
