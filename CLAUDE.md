@@ -415,7 +415,21 @@ And Apple draws a **dark contour outside its path**, within one or two device pi
 both backdrop and body (inactive on white 199.5 light / 145.5 dark against 255 and bodies 240 /
 180), strongly angular and backdrop-conditioned, which vitrea does not draw in either pose. The
 phase mechanism is unreachable on the size actuator as it was on W34's. The W39 holdout was never
-opened and serves the next declaration on the same archive (W39 Deferred at close 1–5). On the
+opened and serves the next declaration on the same archive (W39 Deferred at close 1–5).
+**W41 (§5.191–§5.193, 2026-09-27/29) re-read that archive with no new capture, spent its holdout
+in one exposure, and shipped nothing.** It identified **E3**, the light RECEDED body only: luma
+through F, a curve of seven measured neutral ordinates, plus a level-dependent radial chroma gain
+g, both on encoded luma. E3 closes at one code on uniform backdrops, on 18/18 numerical and 16/16
+rendered held-out cells. The dark scheme is certified infeasible and light active fails its
+span-96 transfer. Sealed and read on the canonical bed, E3 failed L1 on every inactive
+checkerboard cell (body 210 codes where native and the old group-level solve read 188) and moved
+M2 on photo. Applied per pixel, it keeps backdrop texture that Apple's receded body smooths
+away, so the user ruled not to land. Its zero-gated identity-table group stays at the identity
+in every document. The spatial families are a calibration finding with no held-out referee. No
+stroke leaf survives: its M2 search is UNMEASURED by ruling, and the dark contour stays a gap.
+The next wave starts at the receded body's spatial argument: group luma, a wider or
+encoded-space blur, or a blend. Its referees are those canonical cells, plus a new native
+capture whose holdout carries structured backdrops (W41 Deferred at close 1–7). On the
 CSS tier the
 window-activation transition therefore fades the shadow OUT, which is what the reference does;
 on the WebGPU tier the posed profile is swapped the instant the resolved
