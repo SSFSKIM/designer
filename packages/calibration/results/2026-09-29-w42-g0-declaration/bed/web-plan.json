@@ -1,7 +1,7 @@
 {
  "schema": "w42-web-plan-1",
- "scenesSha256": "02da410cccd789be549fa4fe90bcbd5b640ecff9a0078ec105e1020d3f412c9a",
- "bedSha256": "f4793aaeee78f4784330a578f1e8336d7d98b6de2ca57c13d3940ee50eb0fd4b",
+ "scenesSha256": "d8adbaac4b35d2fcded103861828b35dcb86d4f11cddd202846f00a757773e51",
+ "bedSha256": "a4e9640ef89f8f2ec7625c28d15901ba96f50e9fced2108a6458c462ae63d4b1",
  "derivedFrom": [
   "packages/calibration/web/scene.ts (backgrounds are fixture rasters of any kind; scene.state inactive -> runtime receded pose; texture sampling)",
   "packages/calibration/web/scenes.ts + src/component-region.ts (single shapes, Math.round centring plus offset; position ignored; none/opaque native-only)"
@@ -13,32 +13,32 @@
    "plannable": 88
   },
   "2x-light-receded": {
-   "declared": 86,
-   "plannable": 86
+   "declared": 90,
+   "plannable": 90
   },
   "2x-dark-active": {
    "declared": 91,
    "plannable": 91
   },
   "2x-dark-receded": {
-   "declared": 89,
-   "plannable": 89
+   "declared": 93,
+   "plannable": 93
   },
   "1x-light-active": {
    "declared": 15,
    "plannable": 15
   },
   "1x-light-receded": {
-   "declared": 15,
-   "plannable": 15
+   "declared": 16,
+   "plannable": 16
   },
   "1x-dark-active": {
    "declared": 15,
    "plannable": 15
   },
   "1x-dark-receded": {
-   "declared": 15,
-   "plannable": 15
+   "declared": 16,
+   "plannable": 16
   }
  },
  "familyTotals": {
@@ -51,16 +51,16 @@
    "plannable": 32
   },
   "B'": {
-   "declared": 62,
-   "plannable": 62
+   "declared": 68,
+   "plannable": 68
   },
   "C": {
-   "declared": 56,
-   "plannable": 56
+   "declared": 58,
+   "plannable": 58
   },
   "D": {
-   "declared": 50,
-   "plannable": 50
+   "declared": 52,
+   "plannable": 52
   },
   "E": {
    "declared": 16,
@@ -1144,6 +1144,14 @@
      "reason": null,
      "clearanceCss": 52.0
     },
+    "bp-p1-c16-rrect-sm": {
+     "scene": "bp-p1-c16-rrect-sm__inactive",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 84.0
+    },
     "bp-p1-c32-capsule-button": {
      "scene": "bp-p1-c32-capsule-button__inactive",
      "family": "B'",
@@ -1199,6 +1207,14 @@
      "plannable": true,
      "reason": null,
      "clearanceCss": 36.0
+    },
+    "bp-p1-c8-rrect-sm": {
+     "scene": "bp-p1-c8-rrect-sm__inactive",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 84.0
     },
     "c-impulse-rrect-lg": {
      "scene": "c-impulse-rrect-lg__inactive",
@@ -1296,6 +1312,14 @@
      "reason": null,
      "clearanceCss": 36.0
     },
+    "c-s8-hi-rrect-sm": {
+     "scene": "c-s8-hi-rrect-sm__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 68.0
+    },
     "c-s8-lo-rrect-md": {
      "scene": "c-s8-lo-rrect-md__inactive",
      "family": "C",
@@ -1327,6 +1351,14 @@
      "plannable": true,
      "reason": null,
      "clearanceCss": 52.0
+    },
+    "d-d0-lohi-rrect-sm": {
+     "scene": "d-d0-lohi-rrect-sm__inactive",
+     "family": "D",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 84.0
     },
     "d-d12-hilo-rrect-md": {
      "scene": "d-d12-hilo-rrect-md__inactive",
@@ -1539,16 +1571,16 @@
      "plannable": 8
     },
     "B'": {
-     "declared": 7,
-     "plannable": 7
+     "declared": 9,
+     "plannable": 9
     },
     "C": {
-     "declared": 13,
-     "plannable": 13
+     "declared": 14,
+     "plannable": 14
     },
     "D": {
-     "declared": 12,
-     "plannable": 12
+     "declared": 13,
+     "plannable": 13
     },
     "E": {
      "declared": 4,
@@ -1563,8 +1595,8 @@
      "plannable": 8
     }
    },
-   "declared": 86,
-   "plannable": 86,
+   "declared": 90,
+   "plannable": 90,
    "belowSamplingPadding": [
     "a-g096-rrect-lg",
     "a-g160-rrect-lg",
@@ -2695,6 +2727,14 @@
      "reason": null,
      "clearanceCss": 52.0
     },
+    "bp-p1-c16-rrect-sm": {
+     "scene": "bp-p1-c16-rrect-sm__inactive",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 84.0
+    },
     "bp-p1-c32-capsule-button": {
      "scene": "bp-p1-c32-capsule-button__inactive",
      "family": "B'",
@@ -2750,6 +2790,14 @@
      "plannable": true,
      "reason": null,
      "clearanceCss": 36.0
+    },
+    "bp-p1-c8-rrect-sm": {
+     "scene": "bp-p1-c8-rrect-sm__inactive",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 84.0
     },
     "c-impulse-rrect-lg": {
      "scene": "c-impulse-rrect-lg__inactive",
@@ -2855,6 +2903,14 @@
      "reason": null,
      "clearanceCss": 36.0
     },
+    "c-s8-lo-rrect-sm": {
+     "scene": "c-s8-lo-rrect-sm__inactive",
+     "family": "C",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 68.0
+    },
     "d-d0-hilo-rrect-md": {
      "scene": "d-d0-hilo-rrect-md__inactive",
      "family": "D",
@@ -2878,6 +2934,14 @@
      "plannable": true,
      "reason": null,
      "clearanceCss": 52.0
+    },
+    "d-d0-lohi-rrect-sm": {
+     "scene": "d-d0-lohi-rrect-sm__inactive",
+     "family": "D",
+     "role": "validation",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 84.0
     },
     "d-d12-hilo-rrect-md": {
      "scene": "d-d12-hilo-rrect-md__inactive",
@@ -3090,16 +3154,16 @@
      "plannable": 8
     },
     "B'": {
-     "declared": 7,
-     "plannable": 7
+     "declared": 9,
+     "plannable": 9
     },
     "C": {
-     "declared": 13,
-     "plannable": 13
+     "declared": 14,
+     "plannable": 14
     },
     "D": {
-     "declared": 12,
-     "plannable": 12
+     "declared": 13,
+     "plannable": 13
     },
     "E": {
      "declared": 4,
@@ -3114,8 +3178,8 @@
      "plannable": 8
     }
    },
-   "declared": 89,
-   "plannable": 89,
+   "declared": 93,
+   "plannable": 93,
    "belowSamplingPadding": [
     "a-g096-rrect-lg",
     "a-g160-rrect-lg",
@@ -3366,6 +3430,14 @@
      "reason": null,
      "clearanceCss": 20.0
     },
+    "bp-p1-c8-rrect-sm": {
+     "scene": "bp-p1-c8-rrect-sm__inactive",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 84.0
+    },
     "c-impulse-rrect-lg": {
      "scene": "c-impulse-rrect-lg__inactive",
      "family": "C",
@@ -3421,8 +3493,8 @@
      "plannable": 2
     },
     "B'": {
-     "declared": 7,
-     "plannable": 7
+     "declared": 8,
+     "plannable": 8
     },
     "C": {
      "declared": 1,
@@ -3441,8 +3513,8 @@
      "plannable": 2
     }
    },
-   "declared": 15,
-   "plannable": 15,
+   "declared": 16,
+   "plannable": 16,
    "belowSamplingPadding": [
     "bp-p1-c32-rrect-lg",
     "bp-p1-c4-rrect-lg",
@@ -3688,6 +3760,14 @@
      "reason": null,
      "clearanceCss": 20.0
     },
+    "bp-p1-c8-rrect-sm": {
+     "scene": "bp-p1-c8-rrect-sm__inactive",
+     "family": "B'",
+     "role": "calibration",
+     "plannable": true,
+     "reason": null,
+     "clearanceCss": 84.0
+    },
     "c-impulse-rrect-lg": {
      "scene": "c-impulse-rrect-lg__inactive",
      "family": "C",
@@ -3743,8 +3823,8 @@
      "plannable": 2
     },
     "B'": {
-     "declared": 7,
-     "plannable": 7
+     "declared": 8,
+     "plannable": 8
     },
     "C": {
      "declared": 1,
@@ -3763,8 +3843,8 @@
      "plannable": 2
     }
    },
-   "declared": 15,
-   "plannable": 15,
+   "declared": 16,
+   "plannable": 16,
    "belowSamplingPadding": [
     "bp-p1-c32-rrect-lg",
     "bp-p1-c4-rrect-lg",
@@ -3868,6 +3948,7 @@
    "b-p5-c16-rrect-md__rest",
    "b-p5-c64-rrect-md__inactive",
    "b-p5-c64-rrect-md__rest",
+   "bp-p1-c16-rrect-sm__inactive",
    "bp-p1-c32-capsule-button__inactive",
    "bp-p1-c32-capsule-button__rest",
    "bp-p1-c32-rrect-64__inactive",
@@ -3895,6 +3976,7 @@
    "bp-p1-c8-rrect-lg__inactive",
    "bp-p1-c8-rrect-lg__rest",
    "bp-p1-c8-rrect-ml__rest",
+   "bp-p1-c8-rrect-sm__inactive",
    "c-impulse-rrect-lg__inactive",
    "c-impulse-rrect-lg__rest",
    "c-impulse-rrect-ml__inactive",
@@ -3919,6 +4001,7 @@
    "c-s8-hi-d80-rrect-lg__rest",
    "c-s8-hi-rrect-md__inactive",
    "c-s8-hi-rrect-md__rest",
+   "c-s8-hi-rrect-sm__inactive",
    "c-s8-lo-d24-rrect-md__inactive",
    "c-s8-lo-d24-rrect-md__rest",
    "c-s8-lo-d4-rrect-lg__inactive",
@@ -3931,6 +4014,7 @@
    "c-s8-lo-d80-rrect-lg__rest",
    "c-s8-lo-rrect-md__inactive",
    "c-s8-lo-rrect-md__rest",
+   "c-s8-lo-rrect-sm__inactive",
    "d-d0-hilo-rrect-lg__rest",
    "d-d0-hilo-rrect-md__inactive",
    "d-d0-hilo-rrect-md__rest",
@@ -3939,6 +4023,7 @@
    "d-d0-lohi-rrect-lg__rest",
    "d-d0-lohi-rrect-md__inactive",
    "d-d0-lohi-rrect-md__rest",
+   "d-d0-lohi-rrect-sm__inactive",
    "d-d12-hilo-rrect-md__inactive",
    "d-d12-lohi-capsule-button__inactive",
    "d-d12-lohi-rrect-md__inactive",
@@ -3972,6 +4057,11 @@
    "f-photo-rrect-md__rest"
   ],
   "excluded": {
+   "bp-p1-c16-rrect-sm__rest": "dump-only rest twin: captured in no pass",
+   "bp-p1-c8-rrect-sm__rest": "dump-only rest twin: captured in no pass",
+   "c-s8-hi-rrect-sm__rest": "dump-only rest twin: captured in no pass",
+   "c-s8-lo-rrect-sm__rest": "dump-only rest twin: captured in no pass",
+   "d-d0-lohi-rrect-sm__rest": "dump-only rest twin: captured in no pass",
    "d-d12-hilo-rrect-md__rest": "dump-only rest twin: captured in no pass",
    "d-d12-lohi-capsule-button__rest": "dump-only rest twin: captured in no pass",
    "d-d12-lohi-rrect-md__rest": "dump-only rest twin: captured in no pass",

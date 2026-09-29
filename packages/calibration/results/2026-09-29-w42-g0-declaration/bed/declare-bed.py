@@ -53,6 +53,7 @@ def shape(kind, size, radius=None, offset=None):
 
 BASE = {
     'capsule-button': ('capsule', (120, 44), None),
+    'rrect-sm': ('rrect', (64, 32), 8),
     'rrect-64': ('rrect', (112, 64), 13.5),
     'rrect-80': ('rrect', (140, 80), 17),
     'rrect-md': ('rrect', (160, 96), 20),
@@ -304,6 +305,28 @@ def build():
     step('d-d12-lohi-capsule-button', 172, 'lohi', 'capsule-button', everywhere(2, ('receded',)),
          uitems=('U1', 'U3'))
 
+    # The s = 32 receded rows (the parent's ruling from the gate rehearsal, 2026-09-29): M2 on
+    # light-receded rrect-sm 2x fails across every declared rival, support, floor and k pair the
+    # rehearsal tried, and the bed held no structured receded cell below s = 44, so nothing could
+    # identify the law there. rrect-sm (64 x 32, canonical) in both receded passes: P1 at pitch 8
+    # (also at 1x) and 16, the S 8 centre patch in the scheme's passing polarity, one step at
+    # delta 0. The two P1 cells twin canonical rrect-sm scenes read in grounding (calibration);
+    # the step is validation, extending D's span-transfer axis (rrect-md 96 -> capsule 44 -> 32).
+    receded2 = everywhere(2, ('receded',))
+    s32 = ('U1', 'U2', 'M2 at s = 32')
+    bprime(8, 'rrect-sm', receded2 | everywhere(1, ('receded',)), uitems=s32,
+           note='s = 32 receded row (the parent\'s ruling); canonical probe twin')
+    bprime(16, 'rrect-sm', receded2, uitems=s32,
+           note='s = 32 receded row (the parent\'s ruling); twins canonical calibration checkerboard__rrect-sm')
+    for scheme, pol in (('light', 'hi'), ('dark', 'lo')):
+        fg, bg = POLARITY[pol]
+        patch(f'c-s8-{pol}-rrect-sm', fg, bg, 8, 232, 'rrect-sm', (-44, -16), 16,
+              everywhere(2, ('receded',), (scheme,)), uitems=('U1', 'U4', 'M2 at s = 32'),
+              note='s = 32 receded row (the parent\'s ruling): the centre patch in the passing polarity')
+    step('d-d0-lohi-rrect-sm', 160, 'lohi', 'rrect-sm', receded2, role='validation',
+         uitems=('U1', 'U3', 'M2 at s = 32'),
+         note='validation: span transfer of the step below 44 (s 96 -> 32); the parent\'s s = 32 ruling')
+
     # E: isoluminant chroma checkers (U6).
     for pair, (a, b) in E_PAIRS.items():
         for cell in (16, 64):
@@ -356,9 +379,12 @@ def profile_key(scale, scheme):
     return f'apple-macos-27.0-{scale}x-{scheme}-standard-glass0.5'
 
 
+# The charter's v2.1 counts, plus the s = 32 receded rows the parent ruled from the gate
+# rehearsal (4 per 2x receded pass, 1 per 1x receded pass).
 EXPECTED = {pass_key(2, 'light', 'active'): 88, pass_key(2, 'dark', 'active'): 91,
-            pass_key(2, 'light', 'receded'): 86, pass_key(2, 'dark', 'receded'): 89,
-            **{pass_key(1, s, p): 15 for s in ('light', 'dark') for p in ('active', 'receded')}}
+            pass_key(2, 'light', 'receded'): 86 + 4, pass_key(2, 'dark', 'receded'): 89 + 4,
+            pass_key(1, 'light', 'active'): 15, pass_key(1, 'dark', 'active'): 15,
+            pass_key(1, 'light', 'receded'): 15 + 1, pass_key(1, 'dark', 'receded'): 15 + 1}
 SENTINELS = ('f-impulse-rrect-md', 'f-checker64-rrect-lg')
 
 
@@ -469,10 +495,17 @@ def audit(bed, spec):
                 strip = {k: v for k, v in old['backgrounds'][s['background']].items() if not k.startswith('$')}
                 if semantic(pc) == mine and strip == backdrop and not s.get('tint'):
                     matches.append(dict(source=source, scene=s['id'], role=roles.get(s['id']),
+                                        state=s['state'] + ('+' + s['interaction'] if s.get('interaction') else ''),
                                         sameCanvas=old['canvas'] == CANVAS))
         rows.append(dict(cell=cid, role=c['role'], family=c['family'], matches=matches))
         if any(m['source'] == 'canonical' and m['role'] == 'holdout' for m in matches):
             problems.append(f'{cid} is a twin of a canonical HOLDOUT scene')
+        # Canonical `recorded` holds the pressed poses (state `pressed`, or `inactive` with
+        # interaction `pressed`), read by nothing; a bed cell must not twin one in a state the bed
+        # captures (rest, inactive, no interaction). The bridges' pressed matches are reported.
+        if any(m['source'] == 'canonical' and m['role'] == 'recorded' and m['state'] in ('rest', 'inactive')
+               for m in matches):
+            problems.append(f'{cid} is a twin of a canonical RECORDED scene in a captured state')
         if c['role'] in ('validation', 'holdout') and matches:
             problems.append(f'{cid} ({c["role"]}) twins a scene read before: {matches}')
         if c['family'] == 'F' and not any(m['source'] == 'canonical' and m['scene'].startswith(c['bridge'] + '__')
@@ -485,6 +518,8 @@ def audit(bed, spec):
                 ignoredConservatively=['offset/position', 'canvas', 'pose', 'state'],
                 sources={s: hashlib.sha256(p.read_bytes()).hexdigest() for s, p in sources},
                 rules=['no bed cell twins a canonical holdout scene',
+                       'no bed cell twins a canonical recorded scene in a state the bed captures (rest, '
+                       'inactive); the recorded set is the pressed poses',
                        'no validation or H cell twins any canonical, W34 or W39 scene',
                        'every F bridge twins its canonical scene'],
                 holdoutPixelsOpened=False, rows=rows)
@@ -506,6 +541,8 @@ U_ITEMS = {
     'depth': "C's depth sweep on rrect-md and rrect-lg",
     'rrect-lg': "B' on rrect-lg beside rrect-ml; C on rrect-lg",
     'units': "C's rrect-ml / rrect-lg pair (the canonical impulse)",
+    'M2 at s = 32': "the s = 32 receded rows on rrect-sm (P1 pitch 8 and 16, the S 8 centre patch, the step at "
+                    "delta 0; P1 pitch 8 also at 1x): the parent's ruling from the gate rehearsal",
 }
 
 DEVIATIONS = [

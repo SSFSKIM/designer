@@ -967,6 +967,26 @@
         128
       ],
       "radius": 27
+    },
+    "rrect-sm": {
+      "kind": "rrect",
+      "size": [
+        64,
+        32
+      ],
+      "radius": 8
+    },
+    "rrect-sm-o-44-16": {
+      "kind": "rrect",
+      "size": [
+        64,
+        32
+      ],
+      "radius": 8,
+      "offset": [
+        -44,
+        -16
+      ]
     }
   },
   "tints": {},
@@ -1574,6 +1594,21 @@
       "$family": "B"
     },
     {
+      "id": "bp-p1-c16-rrect-sm__inactive",
+      "background": "checker-16-000-255",
+      "component": "rrect-sm",
+      "state": "inactive",
+      "$family": "B'"
+    },
+    {
+      "id": "bp-p1-c16-rrect-sm__rest",
+      "background": "checker-16-000-255",
+      "component": "rrect-sm",
+      "state": "rest",
+      "$family": "B'",
+      "$dumpOnly": "the rest twin dump-layers reads for this receded-only cell; never captured"
+    },
+    {
       "id": "bp-p1-c32-capsule-button__inactive",
       "background": "checker-32-000-255",
       "component": "capsule-button",
@@ -1763,6 +1798,21 @@
       "$family": "B'"
     },
     {
+      "id": "bp-p1-c8-rrect-sm__inactive",
+      "background": "checker-8-000-255",
+      "component": "rrect-sm",
+      "state": "inactive",
+      "$family": "B'"
+    },
+    {
+      "id": "bp-p1-c8-rrect-sm__rest",
+      "background": "checker-8-000-255",
+      "component": "rrect-sm",
+      "state": "rest",
+      "$family": "B'",
+      "$dumpOnly": "the rest twin dump-layers reads for this receded-only cell; never captured"
+    },
+    {
       "id": "c-impulse-rrect-lg__inactive",
       "background": "impulse-255-on-000-s4-g64",
       "component": "rrect-lg",
@@ -1931,6 +1981,21 @@
       "$family": "C"
     },
     {
+      "id": "c-s8-hi-rrect-sm__inactive",
+      "background": "impulse-208-on-048-s8-g232",
+      "component": "rrect-sm-o-44-16",
+      "state": "inactive",
+      "$family": "C"
+    },
+    {
+      "id": "c-s8-hi-rrect-sm__rest",
+      "background": "impulse-208-on-048-s8-g232",
+      "component": "rrect-sm-o-44-16",
+      "state": "rest",
+      "$family": "C",
+      "$dumpOnly": "the rest twin dump-layers reads for this receded-only cell; never captured"
+    },
+    {
       "id": "c-s8-lo-d24-rrect-md__inactive",
       "background": "impulse-048-on-208-s8-g232",
       "component": "rrect-md-o-44+8",
@@ -2015,6 +2080,21 @@
       "$family": "C"
     },
     {
+      "id": "c-s8-lo-rrect-sm__inactive",
+      "background": "impulse-048-on-208-s8-g232",
+      "component": "rrect-sm-o-44-16",
+      "state": "inactive",
+      "$family": "C"
+    },
+    {
+      "id": "c-s8-lo-rrect-sm__rest",
+      "background": "impulse-048-on-208-s8-g232",
+      "component": "rrect-sm-o-44-16",
+      "state": "rest",
+      "$family": "C",
+      "$dumpOnly": "the rest twin dump-layers reads for this receded-only cell; never captured"
+    },
+    {
       "id": "d-d0-hilo-rrect-lg__rest",
       "background": "split-x160-208-048",
       "component": "rrect-lg",
@@ -2069,6 +2149,21 @@
       "component": "rrect-md",
       "state": "rest",
       "$family": "D"
+    },
+    {
+      "id": "d-d0-lohi-rrect-sm__inactive",
+      "background": "split-x160-048-208",
+      "component": "rrect-sm",
+      "state": "inactive",
+      "$family": "D"
+    },
+    {
+      "id": "d-d0-lohi-rrect-sm__rest",
+      "background": "split-x160-048-208",
+      "component": "rrect-sm",
+      "state": "rest",
+      "$family": "D",
+      "$dumpOnly": "the rest twin dump-layers reads for this receded-only cell; never captured"
     },
     {
       "id": "d-d12-hilo-rrect-md__inactive",
@@ -3288,6 +3383,7 @@
         "bp-p1-c8-capsule-button__rest",
         "bp-p1-c8-rrect-lg__inactive",
         "bp-p1-c8-rrect-lg__rest",
+        "bp-p1-c8-rrect-sm__inactive",
         "c-impulse-rrect-lg__inactive",
         "c-impulse-rrect-lg__rest",
         "d-out8-lohi-rrect-md__inactive",
@@ -3345,6 +3441,7 @@
         "bp-p1-c8-capsule-button__rest",
         "bp-p1-c8-rrect-lg__inactive",
         "bp-p1-c8-rrect-lg__rest",
+        "bp-p1-c8-rrect-sm__inactive",
         "c-impulse-rrect-lg__inactive",
         "c-impulse-rrect-lg__rest",
         "d-out8-lohi-rrect-md__inactive",
@@ -3460,6 +3557,7 @@
         "b-p5-c16-rrect-md__rest",
         "b-p5-c64-rrect-md__inactive",
         "b-p5-c64-rrect-md__rest",
+        "bp-p1-c16-rrect-sm__inactive",
         "bp-p1-c32-capsule-button__inactive",
         "bp-p1-c32-capsule-button__rest",
         "bp-p1-c32-rrect-64__inactive",
@@ -3477,6 +3575,7 @@
         "bp-p1-c8-capsule-button__rest",
         "bp-p1-c8-rrect-lg__rest",
         "bp-p1-c8-rrect-ml__rest",
+        "bp-p1-c8-rrect-sm__inactive",
         "c-impulse-rrect-lg__inactive",
         "c-impulse-rrect-lg__rest",
         "c-impulse-rrect-ml__inactive",
@@ -3501,6 +3600,7 @@
         "c-s8-hi-d80-rrect-lg__rest",
         "c-s8-hi-rrect-md__inactive",
         "c-s8-hi-rrect-md__rest",
+        "c-s8-hi-rrect-sm__inactive",
         "c-s8-lo-rrect-md__inactive",
         "c-s8-lo-rrect-md__rest",
         "d-d0-hilo-rrect-lg__rest",
@@ -3511,6 +3611,7 @@
         "d-d0-lohi-rrect-lg__rest",
         "d-d0-lohi-rrect-md__inactive",
         "d-d0-lohi-rrect-md__rest",
+        "d-d0-lohi-rrect-sm__inactive",
         "d-d12-hilo-rrect-md__inactive",
         "d-d12-lohi-capsule-button__inactive",
         "d-d12-lohi-rrect-md__inactive",
@@ -3594,6 +3695,7 @@
         "ref-checker-64-by__rest",
         "ref-checker-64-rg__inactive",
         "ref-checker-64-rg__rest",
+        "ref-checker-8-000-255__inactive",
         "ref-checker-8-000-255__rest",
         "ref-grey-000__inactive",
         "ref-grey-000__rest",
@@ -3756,6 +3858,7 @@
         "b-p5-c16-rrect-md__rest",
         "b-p5-c64-rrect-md__inactive",
         "b-p5-c64-rrect-md__rest",
+        "bp-p1-c16-rrect-sm__inactive",
         "bp-p1-c32-capsule-button__inactive",
         "bp-p1-c32-capsule-button__rest",
         "bp-p1-c32-rrect-64__inactive",
@@ -3773,6 +3876,7 @@
         "bp-p1-c8-capsule-button__rest",
         "bp-p1-c8-rrect-lg__rest",
         "bp-p1-c8-rrect-ml__rest",
+        "bp-p1-c8-rrect-sm__inactive",
         "c-impulse-rrect-lg__inactive",
         "c-impulse-rrect-lg__rest",
         "c-impulse-rrect-ml__inactive",
@@ -3799,6 +3903,7 @@
         "c-s8-lo-d80-rrect-lg__rest",
         "c-s8-lo-rrect-md__inactive",
         "c-s8-lo-rrect-md__rest",
+        "c-s8-lo-rrect-sm__inactive",
         "d-d0-hilo-rrect-lg__rest",
         "d-d0-hilo-rrect-md__inactive",
         "d-d0-hilo-rrect-md__rest",
@@ -3807,6 +3912,7 @@
         "d-d0-lohi-rrect-lg__rest",
         "d-d0-lohi-rrect-md__inactive",
         "d-d0-lohi-rrect-md__rest",
+        "d-d0-lohi-rrect-sm__inactive",
         "d-d12-hilo-rrect-md__inactive",
         "d-d12-lohi-capsule-button__inactive",
         "d-d12-lohi-rrect-md__inactive",
@@ -3890,6 +3996,7 @@
         "ref-checker-64-by__rest",
         "ref-checker-64-rg__inactive",
         "ref-checker-64-rg__rest",
+        "ref-checker-8-000-255__inactive",
         "ref-checker-8-000-255__rest",
         "ref-grey-000__inactive",
         "ref-grey-000__rest",
@@ -4040,6 +4147,8 @@
       "b-p5-c16-rrect-md__rest",
       "b-p5-c64-rrect-md__inactive",
       "b-p5-c64-rrect-md__rest",
+      "bp-p1-c16-rrect-sm__inactive",
+      "bp-p1-c16-rrect-sm__rest",
       "bp-p1-c32-capsule-button__inactive",
       "bp-p1-c32-capsule-button__rest",
       "bp-p1-c32-rrect-64__inactive",
@@ -4065,6 +4174,8 @@
       "bp-p1-c8-rrect-lg__inactive",
       "bp-p1-c8-rrect-lg__rest",
       "bp-p1-c8-rrect-ml__rest",
+      "bp-p1-c8-rrect-sm__inactive",
+      "bp-p1-c8-rrect-sm__rest",
       "c-impulse-rrect-lg__inactive",
       "c-impulse-rrect-lg__rest",
       "c-impulse-rrect-ml__inactive",
@@ -4085,6 +4196,8 @@
       "c-s8-hi-d80-rrect-lg__rest",
       "c-s8-hi-rrect-md__inactive",
       "c-s8-hi-rrect-md__rest",
+      "c-s8-hi-rrect-sm__inactive",
+      "c-s8-hi-rrect-sm__rest",
       "c-s8-lo-d4-rrect-lg__inactive",
       "c-s8-lo-d4-rrect-lg__rest",
       "c-s8-lo-d4-rrect-md__inactive",
@@ -4093,6 +4206,8 @@
       "c-s8-lo-d80-rrect-lg__rest",
       "c-s8-lo-rrect-md__inactive",
       "c-s8-lo-rrect-md__rest",
+      "c-s8-lo-rrect-sm__inactive",
+      "c-s8-lo-rrect-sm__rest",
       "d-d0-hilo-rrect-lg__rest",
       "d-d0-hilo-rrect-md__inactive",
       "d-d0-hilo-rrect-md__rest",
@@ -4123,6 +4238,8 @@
       "e-rg-c16-rrect-md__rest",
       "e-rg-c64-rrect-md__inactive",
       "e-rg-c64-rrect-md__rest",
+      "ref-checker-16-000-255__inactive",
+      "ref-checker-16-000-255__rest",
       "ref-checker-16-016-112__inactive",
       "ref-checker-16-016-112__rest",
       "ref-checker-16-048-208__inactive",
@@ -4243,6 +4360,8 @@
       "c-s8-lo-d40-rrect-lg__rest",
       "d-d0-lohi-capsule-button__inactive",
       "d-d0-lohi-capsule-button__rest",
+      "d-d0-lohi-rrect-sm__inactive",
+      "d-d0-lohi-rrect-sm__rest",
       "e-by-c64-rrect-md__inactive",
       "e-by-c64-rrect-md__rest",
       "ref-checker-16-096-160__inactive",
@@ -4298,8 +4417,6 @@
       "f-impulse-rrect-md__rest",
       "f-photo-rrect-md__inactive",
       "f-photo-rrect-md__rest",
-      "ref-checker-16-000-255__inactive",
-      "ref-checker-16-000-255__rest",
       "ref-photo__inactive",
       "ref-photo__rest"
     ]

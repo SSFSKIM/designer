@@ -183,7 +183,8 @@ def main():
         f'memo D dumps: {dumps["perSceneAtSettle8"]} s per scene at settle 8 + {dumps["perLaunch"]} s per launch '
         f'(24 scenes {dumps["meanWall24AtSettle8"]} s; 4 scenes at settle 16 {dumps["meanWall4AtSettle16"]} s)',
         '',
-        'W42 (pass-spec.py plan: 2,898 glass + 258 references + 48 sentinel captures; 414 dump scenes):',
+        f'W42 (pass-spec.py plan: {plan["totals"]["glassCaptures"]:,} glass + {plan["totals"]["referenceCaptures"]:,} '
+        f'references + {plan["totals"]["sentinelCaptures"]} sentinel captures; {plan["totals"]["dumpScenes"]} dump scenes):',
     ]
     for q in passes:
         lines.append(f'  {q["name"]:28s} {q.get("captures", q.get("scenes")):5d} '

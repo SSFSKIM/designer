@@ -279,6 +279,7 @@
         "b-p4-c64-rrect-md",
         "b-p5-c16-rrect-md",
         "b-p5-c64-rrect-md",
+        "bp-p1-c16-rrect-sm",
         "bp-p1-c32-capsule-button",
         "bp-p1-c32-rrect-64",
         "bp-p1-c32-rrect-80",
@@ -286,6 +287,7 @@
         "bp-p1-c32-rrect-ml",
         "bp-p1-c64-capsule-button",
         "bp-p1-c64-rrect-ml",
+        "bp-p1-c8-rrect-sm",
         "c-impulse-rrect-lg",
         "c-impulse-rrect-ml",
         "c-s16-hi-capsule-button",
@@ -298,10 +300,12 @@
         "c-s8-hi-d40-rrect-lg",
         "c-s8-hi-d80-rrect-lg",
         "c-s8-hi-rrect-md",
+        "c-s8-hi-rrect-sm",
         "c-s8-lo-rrect-md",
         "d-d0-hilo-rrect-md",
         "d-d0-lohi-capsule-button",
         "d-d0-lohi-rrect-md",
+        "d-d0-lohi-rrect-sm",
         "d-d12-hilo-rrect-md",
         "d-d12-lohi-capsule-button",
         "d-d12-lohi-rrect-md",
@@ -347,6 +351,7 @@
         "checker-64-144-240",
         "checker-64-by",
         "checker-64-rg",
+        "checker-8-000-255",
         "grey-000",
         "grey-064",
         "grey-096",
@@ -598,6 +603,7 @@
         "b-p4-c64-rrect-md",
         "b-p5-c16-rrect-md",
         "b-p5-c64-rrect-md",
+        "bp-p1-c16-rrect-sm",
         "bp-p1-c32-capsule-button",
         "bp-p1-c32-rrect-64",
         "bp-p1-c32-rrect-80",
@@ -605,6 +611,7 @@
         "bp-p1-c32-rrect-ml",
         "bp-p1-c64-capsule-button",
         "bp-p1-c64-rrect-ml",
+        "bp-p1-c8-rrect-sm",
         "c-impulse-rrect-lg",
         "c-impulse-rrect-ml",
         "c-s16-hi-capsule-button",
@@ -618,9 +625,11 @@
         "c-s8-lo-d40-rrect-lg",
         "c-s8-lo-d80-rrect-lg",
         "c-s8-lo-rrect-md",
+        "c-s8-lo-rrect-sm",
         "d-d0-hilo-rrect-md",
         "d-d0-lohi-capsule-button",
         "d-d0-lohi-rrect-md",
+        "d-d0-lohi-rrect-sm",
         "d-d12-hilo-rrect-md",
         "d-d12-lohi-capsule-button",
         "d-d12-lohi-rrect-md",
@@ -666,6 +675,7 @@
         "checker-64-144-240",
         "checker-64-by",
         "checker-64-rg",
+        "checker-8-000-255",
         "grey-000",
         "grey-064",
         "grey-096",
@@ -765,6 +775,7 @@
         "bp-p1-c4-rrect-md",
         "bp-p1-c8-capsule-button",
         "bp-p1-c8-rrect-lg",
+        "bp-p1-c8-rrect-sm",
         "c-impulse-rrect-lg",
         "d-out8-lohi-rrect-md",
         "f-checker64-rrect-lg",
@@ -845,6 +856,7 @@
         "bp-p1-c4-rrect-md",
         "bp-p1-c8-capsule-button",
         "bp-p1-c8-rrect-lg",
+        "bp-p1-c8-rrect-sm",
         "c-impulse-rrect-lg",
         "d-out8-lohi-rrect-md",
         "f-checker64-rrect-lg",
@@ -892,21 +904,21 @@
       }
     },
     "2x-light-receded": {
-      "glass": 86,
-      "references": 55,
+      "glass": 90,
+      "references": 56,
       "byFamily": {
         "A": 30,
         "B": 8,
-        "B'": 7,
-        "C": 13,
-        "D": 12,
+        "B'": 9,
+        "C": 14,
+        "D": 13,
         "E": 4,
         "F": 4,
         "H": 8
       },
       "byRole": {
-        "calibration": 64,
-        "validation": 10,
+        "calibration": 67,
+        "validation": 11,
         "holdout": 8,
         "probe": 4
       }
@@ -932,21 +944,21 @@
       }
     },
     "2x-dark-receded": {
-      "glass": 89,
-      "references": 55,
+      "glass": 93,
+      "references": 56,
       "byFamily": {
         "A": 33,
         "B": 8,
-        "B'": 7,
-        "C": 13,
-        "D": 12,
+        "B'": 9,
+        "C": 14,
+        "D": 13,
         "E": 4,
         "F": 4,
         "H": 8
       },
       "byRole": {
-        "calibration": 67,
-        "validation": 10,
+        "calibration": 70,
+        "validation": 11,
         "holdout": 8,
         "probe": 4
       }
@@ -972,12 +984,12 @@
       }
     },
     "1x-light-receded": {
-      "glass": 15,
+      "glass": 16,
       "references": 10,
       "byFamily": {
         "A": 2,
         "B": 0,
-        "B'": 7,
+        "B'": 8,
         "C": 1,
         "D": 1,
         "E": 0,
@@ -985,7 +997,7 @@
         "H": 2
       },
       "byRole": {
-        "calibration": 9,
+        "calibration": 10,
         "validation": 2,
         "holdout": 2,
         "probe": 2
@@ -1012,12 +1024,12 @@
       }
     },
     "1x-dark-receded": {
-      "glass": 15,
+      "glass": 16,
       "references": 10,
       "byFamily": {
         "A": 2,
         "B": 0,
-        "B'": 7,
+        "B'": 8,
         "C": 1,
         "D": 1,
         "E": 0,
@@ -1025,7 +1037,7 @@
         "H": 2
       },
       "byRole": {
-        "calibration": 9,
+        "calibration": 10,
         "validation": 2,
         "holdout": 2,
         "probe": 2
@@ -2361,6 +2373,41 @@
         "R1"
       ]
     },
+    "bp-p1-c16-rrect-sm": {
+      "id": "bp-p1-c16-rrect-sm",
+      "family": "B'",
+      "background": "checker-16-000-255",
+      "component": "rrect-sm",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-receded",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-sm",
+        "shortSide": 32,
+        "t": 0,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 16,
+        "levels": [
+          0,
+          255
+        ]
+      },
+      "note": "s = 32 receded row (the parent's ruling); twins canonical calibration checkerboard__rrect-sm",
+      "uItems": [
+        "U1",
+        "U2",
+        "M2 at s = 32"
+      ]
+    },
     "bp-p1-c32-capsule-button": {
       "id": "bp-p1-c32-capsule-button",
       "family": "B'",
@@ -2851,6 +2898,43 @@
       },
       "uItems": [
         "U2"
+      ]
+    },
+    "bp-p1-c8-rrect-sm": {
+      "id": "bp-p1-c8-rrect-sm",
+      "family": "B'",
+      "background": "checker-8-000-255",
+      "component": "rrect-sm",
+      "role": "calibration",
+      "passes": [
+        "1x-dark-receded",
+        "1x-light-receded",
+        "2x-dark-receded",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-sm",
+        "shortSide": 32,
+        "t": 0,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "pitch": 8,
+        "levels": [
+          0,
+          255
+        ]
+      },
+      "note": "s = 32 receded row (the parent's ruling); canonical probe twin",
+      "uItems": [
+        "U1",
+        "U2",
+        "M2 at s = 32"
       ]
     },
     "c-impulse-rrect-lg": {
@@ -3390,6 +3474,51 @@
         "one k or two"
       ]
     },
+    "c-s8-hi-rrect-sm": {
+      "id": "c-s8-hi-rrect-sm",
+      "family": "C",
+      "background": "impulse-208-on-048-s8-g232",
+      "component": "rrect-sm-o-44-16",
+      "role": "calibration",
+      "passes": [
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-sm",
+        "shortSide": 32,
+        "t": 0,
+        "offset": [
+          -44,
+          -16
+        ],
+        "shapeCentre": [
+          116.0,
+          84.0
+        ],
+        "patchSize": 8,
+        "patchCentre": [
+          116,
+          84
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          0.0
+        ],
+        "depth": 16,
+        "levels": {
+          "foreground": 208,
+          "background": 48
+        },
+        "impulseSpacing": 232,
+        "patchesInCanvas": 1
+      },
+      "note": "s = 32 receded row (the parent's ruling): the centre patch in the passing polarity",
+      "uItems": [
+        "U1",
+        "U4",
+        "M2 at s = 32"
+      ]
+    },
     "c-s8-lo-d24-rrect-md": {
       "id": "c-s8-lo-d24-rrect-md",
       "family": "C",
@@ -3661,6 +3790,51 @@
         "one k or two"
       ]
     },
+    "c-s8-lo-rrect-sm": {
+      "id": "c-s8-lo-rrect-sm",
+      "family": "C",
+      "background": "impulse-048-on-208-s8-g232",
+      "component": "rrect-sm-o-44-16",
+      "role": "calibration",
+      "passes": [
+        "2x-dark-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-sm",
+        "shortSide": 32,
+        "t": 0,
+        "offset": [
+          -44,
+          -16
+        ],
+        "shapeCentre": [
+          116.0,
+          84.0
+        ],
+        "patchSize": 8,
+        "patchCentre": [
+          116,
+          84
+        ],
+        "patchFromShapeCentre": [
+          0.0,
+          0.0
+        ],
+        "depth": 16,
+        "levels": {
+          "foreground": 48,
+          "background": 208
+        },
+        "impulseSpacing": 232,
+        "patchesInCanvas": 1
+      },
+      "note": "s = 32 receded row (the parent's ruling): the centre patch in the passing polarity",
+      "uItems": [
+        "U1",
+        "U4",
+        "M2 at s = 32"
+      ]
+    },
     "d-d0-hilo-rrect-lg": {
       "id": "d-d0-hilo-rrect-lg",
       "family": "D",
@@ -3835,6 +4009,42 @@
       "uItems": [
         "U1",
         "U3"
+      ]
+    },
+    "d-d0-lohi-rrect-sm": {
+      "id": "d-d0-lohi-rrect-sm",
+      "family": "D",
+      "background": "split-x160-048-208",
+      "component": "rrect-sm",
+      "role": "validation",
+      "passes": [
+        "2x-dark-receded",
+        "2x-light-receded"
+      ],
+      "geometry": {
+        "shape": "rrect-sm",
+        "shortSide": 32,
+        "t": 0,
+        "offset": [
+          0,
+          0
+        ],
+        "shapeCentre": [
+          160.0,
+          100.0
+        ],
+        "stepX": 160,
+        "stepFromShapeCentre": 0.0,
+        "levels": {
+          "left": 48,
+          "right": 208
+        }
+      },
+      "note": "validation: span transfer of the step below 44 (s 96 -> 32); the parent's s = 32 ruling",
+      "uItems": [
+        "U1",
+        "U3",
+        "M2 at s = 32"
       ]
     },
     "d-d12-hilo-rrect-md": {
@@ -4782,6 +4992,7 @@
       "b-p4-c64-rrect-md",
       "b-p5-c16-rrect-md",
       "b-p5-c64-rrect-md",
+      "bp-p1-c16-rrect-sm",
       "bp-p1-c32-capsule-button",
       "bp-p1-c32-rrect-64",
       "bp-p1-c32-rrect-lg",
@@ -4795,6 +5006,7 @@
       "bp-p1-c8-capsule-button",
       "bp-p1-c8-rrect-lg",
       "bp-p1-c8-rrect-ml",
+      "bp-p1-c8-rrect-sm",
       "c-impulse-rrect-lg",
       "c-impulse-rrect-ml",
       "c-s16-hi-capsule-button",
@@ -4805,10 +5017,12 @@
       "c-s8-hi-d4-rrect-md",
       "c-s8-hi-d80-rrect-lg",
       "c-s8-hi-rrect-md",
+      "c-s8-hi-rrect-sm",
       "c-s8-lo-d4-rrect-lg",
       "c-s8-lo-d4-rrect-md",
       "c-s8-lo-d80-rrect-lg",
       "c-s8-lo-rrect-md",
+      "c-s8-lo-rrect-sm",
       "d-d0-hilo-rrect-lg",
       "d-d0-hilo-rrect-md",
       "d-d0-lohi-rrect-lg",
@@ -4840,6 +5054,7 @@
       "c-s8-lo-d24-rrect-md",
       "c-s8-lo-d40-rrect-lg",
       "d-d0-lohi-capsule-button",
+      "d-d0-lohi-rrect-sm",
       "e-by-c64-rrect-md"
     ],
     "holdout": [
@@ -4873,6 +5088,7 @@
     "c-s8-lo-d24-rrect-md": "validation: depth transfer (s/4 between the centre and 4 pt)",
     "c-s8-lo-d40-rrect-lg": "validation: depth transfer on rrect-lg",
     "d-d0-lohi-capsule-button": "validation: span transfer of the step (s 96 -> 44)",
+    "d-d0-lohi-rrect-sm": "validation: span transfer of the step below 44 (s 96 -> 32); the parent's s = 32 ruling",
     "e-by-c64-rrect-md": "validation: hue transfer at pitch 64"
   },
   "uItems": {
@@ -4887,7 +5103,8 @@
     "one k or two": "C's S 8 against S 32 on rrect-md, both poses",
     "depth": "C's depth sweep on rrect-md and rrect-lg",
     "rrect-lg": "B' on rrect-lg beside rrect-ml; C on rrect-lg",
-    "units": "C's rrect-ml / rrect-lg pair (the canonical impulse)"
+    "units": "C's rrect-ml / rrect-lg pair (the canonical impulse)",
+    "M2 at s = 32": "the s = 32 receded rows on rrect-sm (P1 pitch 8 and 16, the S 8 centre patch, the step at delta 0; P1 pitch 8 also at 1x): the parent's ruling from the gate rehearsal"
   },
   "charterDeviations": [
     {
@@ -4999,6 +5216,11 @@
     "d-d0-hilo-rrect-lg": "web-plannable: a single shape, centred plus an integer offset",
     "d-d0-lohi-capsule-button": "web-plannable: a single shape, centred plus an integer offset",
     "d-d12-lohi-capsule-button": "web-plannable: a single shape, centred plus an integer offset",
+    "bp-p1-c8-rrect-sm": "web-plannable: a single shape, centred plus an integer offset",
+    "bp-p1-c16-rrect-sm": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s8-hi-rrect-sm": "web-plannable: a single shape, centred plus an integer offset",
+    "c-s8-lo-rrect-sm": "web-plannable: a single shape, centred plus an integer offset",
+    "d-d0-lohi-rrect-sm": "web-plannable: a single shape, centred plus an integer offset",
     "e-rg-c16-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
     "e-rg-c64-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
     "e-by-c16-rrect-md": "web-plannable: a single shape, centred plus an integer offset",
@@ -5146,6 +5368,7 @@
       "b-p4-c64-rrect-md__rest",
       "b-p5-c16-rrect-md__rest",
       "b-p5-c64-rrect-md__rest",
+      "bp-p1-c16-rrect-sm__rest",
       "bp-p1-c32-capsule-button__rest",
       "bp-p1-c32-rrect-64__rest",
       "bp-p1-c32-rrect-80__rest",
@@ -5153,6 +5376,7 @@
       "bp-p1-c32-rrect-ml__rest",
       "bp-p1-c64-capsule-button__rest",
       "bp-p1-c64-rrect-ml__rest",
+      "bp-p1-c8-rrect-sm__rest",
       "c-impulse-rrect-lg__rest",
       "c-impulse-rrect-ml__rest",
       "c-s16-hi-capsule-button__rest",
@@ -5165,10 +5389,12 @@
       "c-s8-hi-d40-rrect-lg__rest",
       "c-s8-hi-d80-rrect-lg__rest",
       "c-s8-hi-rrect-md__rest",
+      "c-s8-hi-rrect-sm__rest",
       "c-s8-lo-rrect-md__rest",
       "d-d0-hilo-rrect-md__rest",
       "d-d0-lohi-capsule-button__rest",
       "d-d0-lohi-rrect-md__rest",
+      "d-d0-lohi-rrect-sm__rest",
       "d-d12-hilo-rrect-md__rest",
       "d-d12-lohi-capsule-button__rest",
       "d-d12-lohi-rrect-md__rest",
@@ -5330,6 +5556,7 @@
       "b-p4-c64-rrect-md__rest",
       "b-p5-c16-rrect-md__rest",
       "b-p5-c64-rrect-md__rest",
+      "bp-p1-c16-rrect-sm__rest",
       "bp-p1-c32-capsule-button__rest",
       "bp-p1-c32-rrect-64__rest",
       "bp-p1-c32-rrect-80__rest",
@@ -5337,6 +5564,7 @@
       "bp-p1-c32-rrect-ml__rest",
       "bp-p1-c64-capsule-button__rest",
       "bp-p1-c64-rrect-ml__rest",
+      "bp-p1-c8-rrect-sm__rest",
       "c-impulse-rrect-lg__rest",
       "c-impulse-rrect-ml__rest",
       "c-s16-hi-capsule-button__rest",
@@ -5350,9 +5578,11 @@
       "c-s8-lo-d40-rrect-lg__rest",
       "c-s8-lo-d80-rrect-lg__rest",
       "c-s8-lo-rrect-md__rest",
+      "c-s8-lo-rrect-sm__rest",
       "d-d0-hilo-rrect-md__rest",
       "d-d0-lohi-capsule-button__rest",
       "d-d0-lohi-rrect-md__rest",
+      "d-d0-lohi-rrect-sm__rest",
       "d-d12-hilo-rrect-md__rest",
       "d-d12-lohi-capsule-button__rest",
       "d-d12-lohi-rrect-md__rest",
@@ -5406,6 +5636,7 @@
       "bp-p1-c4-rrect-md__rest",
       "bp-p1-c8-capsule-button__rest",
       "bp-p1-c8-rrect-lg__rest",
+      "bp-p1-c8-rrect-sm__rest",
       "c-impulse-rrect-lg__rest",
       "d-out8-lohi-rrect-md__rest",
       "f-checker64-rrect-lg__rest",
@@ -5440,6 +5671,7 @@
       "bp-p1-c4-rrect-md__rest",
       "bp-p1-c8-capsule-button__rest",
       "bp-p1-c8-rrect-lg__rest",
+      "bp-p1-c8-rrect-sm__rest",
       "c-impulse-rrect-lg__rest",
       "d-out8-lohi-rrect-md__rest",
       "f-checker64-rrect-lg__rest",

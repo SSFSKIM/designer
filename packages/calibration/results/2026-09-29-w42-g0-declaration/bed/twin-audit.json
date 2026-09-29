@@ -17,6 +17,7 @@
   },
   "rules": [
     "no bed cell twins a canonical holdout scene",
+    "no bed cell twins a canonical recorded scene in a state the bed captures (rest, inactive); the recorded set is the pressed poses",
     "no validation or H cell twins any canonical, W34 or W39 scene",
     "every F bridge twins its canonical scene"
   ],
@@ -61,12 +62,14 @@
           "source": "W34",
           "scene": "grey-128__capsule-button__rest",
           "role": "probe",
+          "state": "rest",
           "sameCanvas": true
         },
         {
           "source": "W34",
           "scene": "grey-128__capsule-button__inactive",
           "role": "probe",
+          "state": "inactive",
           "sameCanvas": true
         }
       ]
@@ -212,12 +215,14 @@
           "source": "W34",
           "scene": "grey-255__capsule-button__rest",
           "role": "probe",
+          "state": "rest",
           "sameCanvas": true
         },
         {
           "source": "W34",
           "scene": "grey-255__capsule-button__inactive",
           "role": "probe",
+          "state": "inactive",
           "sameCanvas": true
         }
       ]
@@ -307,6 +312,27 @@
       "matches": []
     },
     {
+      "cell": "bp-p1-c16-rrect-sm",
+      "role": "calibration",
+      "family": "B'",
+      "matches": [
+        {
+          "source": "canonical",
+          "scene": "checkerboard__rrect-sm__rest",
+          "role": "calibration",
+          "state": "rest",
+          "sameCanvas": true
+        },
+        {
+          "source": "canonical",
+          "scene": "checkerboard__rrect-sm__inactive",
+          "role": "calibration",
+          "state": "inactive",
+          "sameCanvas": true
+        }
+      ]
+    },
+    {
       "cell": "bp-p1-c32-capsule-button",
       "role": "calibration",
       "family": "B'",
@@ -315,6 +341,7 @@
           "source": "canonical",
           "scene": "checkerboard-32__capsule-button__rest",
           "role": "probe",
+          "state": "rest",
           "sameCanvas": true
         }
       ]
@@ -340,12 +367,14 @@
           "source": "canonical",
           "scene": "checkerboard-32__rrect-lg__rest",
           "role": "probe",
+          "state": "rest",
           "sameCanvas": true
         },
         {
           "source": "canonical",
           "scene": "checkerboard-32__rrect-lg__inactive",
           "role": "probe",
+          "state": "inactive",
           "sameCanvas": true
         }
       ]
@@ -359,6 +388,7 @@
           "source": "canonical",
           "scene": "checkerboard-32__rrect-ml__rest",
           "role": "probe",
+          "state": "rest",
           "sameCanvas": true
         }
       ]
@@ -372,6 +402,7 @@
           "source": "canonical",
           "scene": "checkerboard-4__capsule-button__rest",
           "role": "probe",
+          "state": "rest",
           "sameCanvas": true
         }
       ]
@@ -385,6 +416,7 @@
           "source": "canonical",
           "scene": "checkerboard-4__capsule-button__rest",
           "role": "probe",
+          "state": "rest",
           "sameCanvas": true
         }
       ]
@@ -398,6 +430,7 @@
           "source": "canonical",
           "scene": "checkerboard-4__rrect-lg__rest",
           "role": "probe",
+          "state": "rest",
           "sameCanvas": true
         }
       ]
@@ -411,12 +444,14 @@
           "source": "canonical",
           "scene": "checkerboard-4__rrect-md__rest",
           "role": "probe",
+          "state": "rest",
           "sameCanvas": true
         },
         {
           "source": "canonical",
           "scene": "checkerboard-4__rrect-md__inactive",
           "role": "probe",
+          "state": "inactive",
           "sameCanvas": true
         }
       ]
@@ -430,6 +465,7 @@
           "source": "canonical",
           "scene": "checkerboard-64__capsule-button__rest",
           "role": "probe",
+          "state": "rest",
           "sameCanvas": true
         }
       ]
@@ -443,6 +479,7 @@
           "source": "canonical",
           "scene": "checkerboard-64__rrect-ml__rest",
           "role": "probe",
+          "state": "rest",
           "sameCanvas": true
         }
       ]
@@ -456,6 +493,7 @@
           "source": "canonical",
           "scene": "checkerboard-8__capsule-button__rest",
           "role": "probe",
+          "state": "rest",
           "sameCanvas": true
         }
       ]
@@ -469,12 +507,14 @@
           "source": "canonical",
           "scene": "checkerboard-8__rrect-lg__rest",
           "role": "probe",
+          "state": "rest",
           "sameCanvas": true
         },
         {
           "source": "canonical",
           "scene": "checkerboard-8__rrect-lg__inactive",
           "role": "probe",
+          "state": "inactive",
           "sameCanvas": true
         }
       ]
@@ -488,6 +528,21 @@
           "source": "canonical",
           "scene": "checkerboard-8__rrect-ml__rest",
           "role": "probe",
+          "state": "rest",
+          "sameCanvas": true
+        }
+      ]
+    },
+    {
+      "cell": "bp-p1-c8-rrect-sm",
+      "role": "calibration",
+      "family": "B'",
+      "matches": [
+        {
+          "source": "canonical",
+          "scene": "checkerboard-8__rrect-sm__rest",
+          "role": "probe",
+          "state": "rest",
           "sameCanvas": true
         }
       ]
@@ -501,12 +556,14 @@
           "source": "canonical",
           "scene": "impulse__rrect-lg__rest",
           "role": "probe",
+          "state": "rest",
           "sameCanvas": true
         },
         {
           "source": "canonical",
           "scene": "impulse__rrect-lg__inactive",
           "role": "probe",
+          "state": "inactive",
           "sameCanvas": true
         }
       ]
@@ -520,12 +577,14 @@
           "source": "canonical",
           "scene": "impulse__rrect-ml__rest",
           "role": "probe",
+          "state": "rest",
           "sameCanvas": true
         },
         {
           "source": "canonical",
           "scene": "impulse__rrect-ml__inactive",
           "role": "probe",
+          "state": "inactive",
           "sameCanvas": true
         }
       ]
@@ -591,6 +650,12 @@
       "matches": []
     },
     {
+      "cell": "c-s8-hi-rrect-sm",
+      "role": "calibration",
+      "family": "C",
+      "matches": []
+    },
+    {
       "cell": "c-s8-lo-d24-rrect-md",
       "role": "validation",
       "family": "C",
@@ -627,6 +692,12 @@
       "matches": []
     },
     {
+      "cell": "c-s8-lo-rrect-sm",
+      "role": "calibration",
+      "family": "C",
+      "matches": []
+    },
+    {
       "cell": "d-d0-hilo-rrect-lg",
       "role": "calibration",
       "family": "D",
@@ -653,6 +724,12 @@
     {
       "cell": "d-d0-lohi-rrect-md",
       "role": "calibration",
+      "family": "D",
+      "matches": []
+    },
+    {
+      "cell": "d-d0-lohi-rrect-sm",
+      "role": "validation",
       "family": "D",
       "matches": []
     },
@@ -743,24 +820,28 @@
           "source": "canonical",
           "scene": "checkerboard__rrect-md__rest",
           "role": "calibration",
+          "state": "rest",
           "sameCanvas": true
         },
         {
           "source": "canonical",
           "scene": "checkerboard__rrect-md__pressed",
           "role": "recorded",
+          "state": "pressed",
           "sameCanvas": true
         },
         {
           "source": "canonical",
           "scene": "checkerboard__rrect-md__inactive",
           "role": "calibration",
+          "state": "inactive",
           "sameCanvas": true
         },
         {
           "source": "canonical",
           "scene": "checkerboard__rrect-md__inactive-pressed",
           "role": "recorded",
+          "state": "inactive+pressed",
           "sameCanvas": true
         }
       ]
@@ -774,12 +855,14 @@
           "source": "canonical",
           "scene": "checkerboard-64__rrect-lg__rest",
           "role": "probe",
+          "state": "rest",
           "sameCanvas": true
         },
         {
           "source": "canonical",
           "scene": "checkerboard-64__rrect-lg__inactive",
           "role": "probe",
+          "state": "inactive",
           "sameCanvas": true
         }
       ]
@@ -793,12 +876,14 @@
           "source": "canonical",
           "scene": "impulse__rrect-md__rest",
           "role": "validation",
+          "state": "rest",
           "sameCanvas": true
         },
         {
           "source": "canonical",
           "scene": "impulse__rrect-md__inactive",
           "role": "validation",
+          "state": "inactive",
           "sameCanvas": true
         }
       ]
@@ -812,24 +897,28 @@
           "source": "canonical",
           "scene": "photo__rrect-md__rest",
           "role": "calibration",
+          "state": "rest",
           "sameCanvas": true
         },
         {
           "source": "canonical",
           "scene": "photo__rrect-md__pressed",
           "role": "recorded",
+          "state": "pressed",
           "sameCanvas": true
         },
         {
           "source": "canonical",
           "scene": "photo__rrect-md__inactive",
           "role": "calibration",
+          "state": "inactive",
           "sameCanvas": true
         },
         {
           "source": "canonical",
           "scene": "photo__rrect-md__inactive-pressed",
           "role": "recorded",
+          "state": "inactive+pressed",
           "sameCanvas": true
         }
       ]

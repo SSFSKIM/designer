@@ -11,37 +11,37 @@ Long 2x / 1x (sentinels, 4 cells a run): all-in 16.5637 / 16.3529 s per capture;
 Gap between runs (next open - previous close), median: 1.2 s; between passes: [6.5, 6.6, 6.7, 7.2, 7.4, 7.4, 7.5] s
 memo D dumps: 8.131 s per scene at settle 8 + 6.23 s per launch (24 scenes 201.38 s; 4 scenes at settle 16 70.75 s)
 
-W42 (pass-spec.py plan: 2,898 glass + 258 references + 48 sentinel captures; 414 dump scenes):
+W42 (pass-spec.py plan: 2,968 glass + 260 references + 48 sentinel captures; 424 dump scenes):
   dump-2x-light-active            88 scenes      721.8 s
-  dump-2x-light-receded           86 scenes      705.5 s
+  dump-2x-light-receded           90 scenes      738.0 s
   dump-2x-dark-active             91 scenes      746.2 s
-  dump-2x-dark-receded            89 scenes      729.9 s
+  dump-2x-dark-receded            93 scenes      762.4 s
   dump-1x-light-active            15 scenes      128.2 s
-  dump-1x-light-receded           15 scenes      128.2 s
+  dump-1x-light-receded           16 scenes      136.3 s
   dump-1x-dark-active             15 scenes      128.2 s
-  dump-1x-dark-receded            15 scenes      128.2 s
+  dump-1x-dark-receded            16 scenes      136.3 s
   2x-light-active                670 captures     6412.7 s
-  2x-light-receded               657 captures     6288.6 s
+  2x-light-receded               686 captures     6565.4 s
   2x-dark-active                 691 captures     6613.2 s
-  2x-dark-receded                678 captures     6489.1 s
+  2x-dark-receded                707 captures     6765.9 s
   2x-light-active-sentinel         6 captures      102.8 s
   2x-light-receded-sentinel        6 captures      102.8 s
   2x-dark-active-sentinel          6 captures      102.8 s
   2x-dark-receded-sentinel         6 captures      102.8 s
   1x-light-active                115 captures     1105.1 s
-  1x-light-receded               115 captures     1105.1 s
+  1x-light-receded               122 captures     1171.8 s
   1x-dark-active                 115 captures     1105.1 s
-  1x-dark-receded                115 captures     1105.1 s
+  1x-dark-receded                122 captures     1171.8 s
   1x-light-active-sentinel         6 captures      100.1 s
   1x-light-receded-sentinel        6 captures      100.1 s
   1x-dark-active-sentinel          6 captures      100.1 s
   1x-dark-receded-sentinel         6 captures      100.1 s
 
-captures   31035.4 s = 8.62 h
-dumps       3416.2 s = 0.95 h
+captures   31722.4 s = 8.81 h
+dumps       3497.4 s = 0.97 h
 gaps         104.4 s (87 gaps x 1.2 s)
 switches      28.8 s (4 display mode switches at the W39 pass-gap median)
-TOTAL      34584.8 s = 9.61 h
+TOTAL      35353.0 s = 9.82 h
 
 Charter v2.1 model: 31367.8 s capture (8.71 h) + about 3,450 s dumps = 9.67 h.
 Excluded: idle waits beyond the measured gaps, quarantines, the grant switch and the rehearsal.

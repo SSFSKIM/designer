@@ -23,19 +23,21 @@ only launches of the side bundle here are `backgrounds` and `self-check` (no win
 
 ## The bed
 
-Four passes per scale (scheme × pose), exactly the charter's counts:
+Four passes per scale (scheme × pose): the charter's counts, plus the s = 32 receded rows the
+parent ruled from the gate rehearsal (below), 4 per 2x receded pass and 1 per 1x receded pass:
 
 | pass | glass cells | A | B | B′ | C | D | E | F | H | run-1 references |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 2x light active | 88 | 30 | 8 | 10 | 13 | 11 | 4 | 4 | 8 | 54 |
-| 2x light receded | 86 | 30 | 8 | 7 | 13 | 12 | 4 | 4 | 8 | 55 |
+| 2x light receded | 90 (86 + 4) | 30 | 8 | 9 | 14 | 13 | 4 | 4 | 8 | 56 |
 | 2x dark active | 91 | 33 | 8 | 10 | 13 | 11 | 4 | 4 | 8 | 54 |
-| 2x dark receded | 89 | 33 | 8 | 7 | 13 | 12 | 4 | 4 | 8 | 55 |
-| 1x, each of four | 15 | 2 | — | 7 | 1 | 1 | — | 2 | 2 | 10 |
+| 2x dark receded | 93 (89 + 4) | 33 | 8 | 9 | 14 | 13 | 4 | 4 | 8 | 56 |
+| 1x active, each | 15 | 2 | — | 7 | 1 | 1 | — | 2 | 2 | 10 |
+| 1x receded, each | 16 (15 + 1) | 2 | — | 8 | 1 | 1 | — | 2 | 2 | 10 |
 
-414 glass cells in all (354 at 2x, 60 at 1x), 258 run-1 no-glass references (the charter's
+424 glass cells in all (362 at 2x, 62 at 1x), 260 run-1 no-glass references (the charter's
 model assumed 174 + 40 = 214; the C and D families' positions and polarities need more distinct
-backdrops than it counted), 327 scene entries, 61 backgrounds, 15 glass components. Every id,
+backdrops than it counted), 337 scene entries, 61 backgrounds, 17 glass components. Every id,
 level, pitch, offset and depth is in `bed.json` `cells`; the conventions:
 
 - **Ids.** `<family>-<what>-<shape>`, scene ids `…__rest` (active) and `…__inactive` (receded).
@@ -77,7 +79,8 @@ level, pitch, offset and depth is in `bed.json` `cells`; the conventions:
 `split.probe` (family F's four bridges, read only to tie the repeat bar across sittings, not under
 clause 6, plus the references whose only dependents are bridges), `recorded` empty. A reference
 takes the lowest rank among its dependents (calibration/probe < validation < holdout). Per 2x
-pass: 66–68 calibration, 10 validation, 8 H, 4 F; per 1x pass 9 / 2 / 2 / 2.
+pass: 66–70 calibration, 10 validation active and 11 receded, 8 H, 4 F; per 1x pass 9 (active)
+or 10 (receded) / 2 / 2 / 2.
 
 Validation cells are transfer axes that calibration does not contain, each a cell nothing read
 before (the twin audit):
@@ -88,7 +91,7 @@ before (the twin audit):
 | B | P3 at pitch 16 and 64 | the level pair (contrast 64 at mean 128) |
 | B′ | P1 pitch 32 on rrect-80 | span t = 1/6, between the knot (64) and rrect-md (96) |
 | C | S 8 at s/4 on rrect-md and on rrect-lg | depth, between the centre and 4 pt |
-| D | the step at δ 0 under the capsule | span (96 → 44) |
+| D | the step at δ 0 under the capsule, and under rrect-sm (receded) | span (96 → 44, and below 44: 32) |
 | E | `by` at pitch 64 | hue |
 
 **H** (holdout, 8 per 2x pass, 6 structured; 2 per 1x pass): P1 pitch 24 on **rrect-112**
@@ -165,14 +168,35 @@ attestation is what a stolen activation would break. The sitting enforces it (cl
 rrect-112 dump JSON, the check reports and the attestations are committed under `s112/`; the
 other dumps stay in scratch, hashed in `s112/scratch-sha256.txt`.
 
+## The s = 32 receded rows (the parent's ruling from the gate rehearsal)
+
+M2 on light-receded rrect-sm 2x (s = 32) failed in the gate rehearsal across every declared
+rival, support, floor and k pair, and the bed held no structured receded cell below s = 44, so
+nothing could identify the law at that size. Added on the canonical rrect-sm (64 × 32, r 8) in
+both receded passes at 2x: P1 at pitch 8 (`bp-p1-c8-rrect-sm`, also in both receded 1x passes)
+and 16 (`bp-p1-c16-rrect-sm`), the S 8 centre patch in the scheme's passing polarity
+(`c-s8-hi-rrect-sm` light, `c-s8-lo-rrect-sm` dark; rrect-sm offset (−44, −16) onto the single
+impulse at (116, 84), depth 16), and one step at δ 0 (`d-d0-lohi-rrect-sm`, the split at x 160).
+The two P1 cells twin canonical rrect-sm scenes grounding read (`checkerboard-8__rrect-sm`
+probe, `checkerboard__rrect-sm` calibration), so they are calibration; the step is
+**validation**, extending D's span-transfer axis below 44 (96 → 44 → 32); the patch is
+calibration, C's support at the new span. The twin audit now also refuses a twin of a
+canonical `recorded` scene in a state the bed captures (the recorded set is the pressed poses;
+the bridges' pressed matches are reported): none. The backgrounds, raster read-back and
+self-check were rerun on the regenerated file with no discrepancy, and `dump-layers` over the
+rows' two rrect-sm shapes in the receded pose, one launch per scheme behind memo D's idle gate,
+departs from memo D's configuration nowhere (`dumps/s32/`): opacity 0.4 flat (t = 0), fill 8,
+backdrop scale 0.5, margin 0.5 (one device pixel), not key and not active. The census read 33
+foreign processes (other streams' tooling), recorded as before.
+
 ## The W42 web plan (`wave.py plan` → `web-plan.json`)
 
 Derived from what the calibration page can pose: `web/scene.ts` composites any background as the
 fixture raster and poses `inactive` through the runtime; `web/scenes.ts` places shapes through
 `component-region.ts`, a lone capsule or rrect centred with `Math.round` plus `offset`
 (`position` is ignored, `none` and opaque controls are native-only). A glass cell is
-web-plannable iff its native frame equals that web frame. **All 414 glass cells are
-web-plannable** (A 134, B 32, B′ 62, C 56, D 50, E 16, F 24, H 40 across the eight passes), so
+web-plannable iff its native frame equals that web frame. **All 424 glass cells are
+web-plannable** (A 134, B 32, B′ 68, C 58, D 52, E 16, F 24, H 40 across the eight passes), so
 every H cell has a rendered prediction and none referees the numerical structure only. No smoke
 render was needed: code reading decides placement. Every rrect-lg cell's box lies closer to the
 canvas edge than the 24-px sampling padding (listed per pass): 20 px at the canonical placement,
@@ -202,12 +226,15 @@ launch a bounded wait for ≥ 75 s of HID idle, then every X6 and W34 X4 gate na
 refusal; any refusal quarantines the run under its own name and stops the pass. The archive
 tool files operational logs and dumps inside the archive and packs it as
 `w42-archive-<sha256>.tar.zst`. `sitting.py plan` walks the whole sitting and executes
-nothing: 2,898 glass + 258 references + 48 sentinel captures = 3,204 in 80 launches.
+nothing: 2,968 glass + 260 references + 48 sentinel captures = 3,276 in 80 launches, and 424
+dump scenes in 8 launches (`sitting/dry-plan.txt`, reproduced by `dry-plan-summary.py`).
 
 **Length from real timings** (`sitting/timing.txt`, from W39 G1's 40 admitted runs and memo
-D's dump runs): 8.62 h of capture + 0.95 h of dumps ≈ **9.61 h**, against the charter's model
-of 8.71 h + about 0.96 h. Idle waits beyond the measured gaps, quarantines, the grant switch
-and the rehearsal are excluded. 29 tests (`sitting/test-sitting.txt`, `test-archive.txt`).
+D's dump runs): 8.81 h of capture + 0.97 h of dumps ≈ **9.82 h** with the s = 32 rows (9.61 h
+before them), against the charter's model of 8.71 h + about 0.96 h for its smaller bed. Idle
+waits beyond the measured gaps, quarantines, the grant switch and the rehearsal are excluded.
+29 tests (`sitting/test-sitting.txt`, `test-archive.txt`; rerun after the s = 32 rows as
+`test-sitting-s32.txt`, `test-archive-s32.txt`).
 
 ## The one-exposure runner (`exposure/`; clause 11, X26 as carried, X40)
 
@@ -227,8 +254,9 @@ its render against Apple, candidate 1 its render against its own frozen
 structure-with-landed-T prediction with the gap to Apple recorded as the named level miss; a
 candidate is landable only where the law closes, one candidate's failure never fails the
 other, and X40 selects candidate 2 only if it is landable. Unclaimed endpoints are scored and
-reported "not claimed (identity)" (Decision Log 3). The real declaration's scope is 390 glass
-cells (414 less the 24 bridge cell-passes), 40 of them H, all web-plannable.
+reported "not claimed (identity)" (Decision Log 3). The real declaration's scope is 400 glass
+cells (424 less the 24 bridge cell-passes; 390 of 414 before the s = 32 rows), 40 of them H,
+all web-plannable (`exposure/synthetic-check.json`; the suite rerun is `green-s32.txt`).
 
 Production refuses until `exposure/production-pin.json` names G1's archive inventory and the
 integrated G0 declaration and closure (all null now). Proved on a synthetic H built through

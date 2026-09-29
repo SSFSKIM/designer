@@ -63,7 +63,9 @@ appends `failed` and spends H.
    bound archive inventory admits. Rendered: its web-plannable subset (the whole of it on the
    W42 bed). Probe bridges (family F) are excluded from both with a stated reason; W41 had no
    probe role. On the real declaration: 414 glass cells, 24 probe exclusions, 390 in scope,
-   40 of them H (8 per 2x pass, 2 per 1x pass, all four endpoints), all web-plannable.
+   40 of them H (8 per 2x pass, 2 per 1x pass, all four endpoints), all web-plannable. After
+   the parent's s = 32 receded rows: 424 glass cells, 24 probe exclusions, 400 in scope, the
+   same 40 H (`synthetic-check.json` `realDeclarationScopeAfterS32Ruling`; `green-s32.txt`).
 3. **The inventory is named, not fixed.** W41 bound W39's one archive inventory by constant.
    `freeze(..., inventory=...)` binds a committed inventory that must name this declaration
    (`scenesSha256`, `splitSha256` = bed.json); its SHA-256 is the receipt's generation.

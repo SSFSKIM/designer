@@ -1,6 +1,6 @@
 {
  "schema": "w42-backgrounds-verification-1",
- "scenesSha256": "02da410cccd789be549fa4fe90bcbd5b640ecff9a0078ec105e1020d3f412c9a",
+ "scenesSha256": "d8adbaac4b35d2fcded103861828b35dcb86d4f11cddd202846f00a757773e51",
  "backgrounds": 61,
  "rasters": 122,
  "independentlyRendered": 120,
@@ -1855,6 +1855,25 @@
    "nearestOtherPatch": null
   },
   {
+   "cell": "c-s8-hi-rrect-sm",
+   "scale": 2,
+   "patches": 1,
+   "sizes": [
+    [
+     8.0,
+     8.0
+    ]
+   ],
+   "patchCentreRead": [
+    [
+     116.0,
+     84.0
+    ]
+   ],
+   "depthRead": 16.0,
+   "nearestOtherPatch": null
+  },
+  {
    "cell": "c-s8-lo-d24-rrect-md",
    "scale": 2,
    "patches": 1,
@@ -1969,6 +1988,25 @@
    "nearestOtherPatch": null
   },
   {
+   "cell": "c-s8-lo-rrect-sm",
+   "scale": 2,
+   "patches": 1,
+   "sizes": [
+    [
+     8.0,
+     8.0
+    ]
+   ],
+   "patchCentreRead": [
+    [
+     116.0,
+     84.0
+    ]
+   ],
+   "depthRead": 16.0,
+   "nearestOtherPatch": null
+  },
+  {
    "cell": "d-d0-hilo-rrect-lg",
    "scale": 2,
    "stepXRead": [
@@ -1998,6 +2036,13 @@
   },
   {
    "cell": "d-d0-lohi-rrect-md",
+   "scale": 2,
+   "stepXRead": [
+    160.0
+   ]
+  },
+  {
+   "cell": "d-d0-lohi-rrect-sm",
    "scale": 2,
    "stepXRead": [
     160.0

@@ -201,8 +201,10 @@ class Plan(unittest.TestCase):
                 mock.patch('subprocess.Popen', side_effect=AssertionError('spawned')):
             value = S.dry_plan()
         t = value['totals']
-        self.assertEqual((t['dumpLaunches'], t['dumpScenes'], t['captureLaunches']), (8, 414, 80))
-        self.assertEqual((t['glass'], t['references'], t['sentinels'], t['captures']), (2898, 258, 48, 3204))
+        # The charter's v2.1 bed plus the s = 32 receded rows the parent ruled from the gate
+        # rehearsal (4 cells per 2x receded pass, 1 per 1x receded pass).
+        self.assertEqual((t['dumpLaunches'], t['dumpScenes'], t['captureLaunches']), (8, 424, 80))
+        self.assertEqual((t['glass'], t['references'], t['sentinels'], t['captures']), (2968, 260, 48, 3276))
         names = [p['name'] for p in value['passes']]
         self.assertEqual(names[:8], [f'dump-{s}x-{c}-{p}' for s in (2, 1) for c in ('light', 'dark')
                                      for p in ('active', 'receded')])

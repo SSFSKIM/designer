@@ -26,7 +26,7 @@ Every file is derived from W39's (G0 `sitting.py`, `record-machine.py`, `pass-sp
    `dump-layers` launch per pass, over `bed.json`'s `dumpList` (the `__rest` twin of each of the
    pass's cells: dump-layers refuses non-rest ids in either pose; a receded pass is dumped
    with `--inactive`), settle 8 s as memo D. The 2x endpoints at display mode 68, then the 1x
-   endpoints at mode 69: 8 launches, 414 scenes. Each dump directory is checked by
+   endpoints at mode 69: 8 launches, 424 scenes. Each dump directory is checked by
    `../dumps/dumpcheck.py` against memo D's declared configuration (constants, the seventeen span
    laws, the backdrop scale and margin, the pose). **Any departure quarantines the dump and
    stops the sitting before its first capture**; `unpredicted` fields (the active SDF maximum of
@@ -38,9 +38,11 @@ Every file is derived from W39's (G0 `sitting.py`, `record-machine.py`, `pass-sp
 3. **Mode 69: the four 1x passes and their sentinels**, the same way. The display is restored
    to mode 68 on every exit path.
 
-`pass-spec.py plan` gives the counts: 2,898 glass captures (2x 88 / 86 / 91 / 89 and 1x 15 per
-run), 258 references, 48 sentinel captures, 3,204 captures in 80 capture launches, plus 414
-dump scenes in 8 launches (`dry-plan.txt`).
+`pass-spec.py plan` gives the counts: 2,968 glass captures (2x 88 / 90 / 91 / 93 and 1x
+15 / 16 / 15 / 16 per run, the charter's bed plus the parent's s = 32 receded rows), 260
+references, 48 sentinel captures, 3,276 captures in 80 capture launches, plus 424 dump scenes
+in 8 launches (`dry-plan.txt`, reproduced by `dry-plan-summary.py`). Before the s = 32 rows the
+same plan read 2,898 + 258 + 48 = 3,204 and 414 dump scenes.
 
 ## What every run does, and what stops it
 
@@ -122,6 +124,7 @@ computed from this archive by G1's bar tool with the instrument's reader.
 
 `timing.txt`: from W39 G1's 40 admitted runs (9.546 s per 2x capture, 9.522 at 1x, 16.0 s
 under the long protocol; 11.9 / 11.0 / 18.3 / 17.4 s per run) and memo D's dump runs (8.13 s
-per scene at settle 8, 6.2 s per launch), the W42 sitting is **8.62 h of capture + 0.95 h of
-dumps ≈ 9.61 h**, against the charter's model of 8.71 h + about 0.96 h. Idle waits beyond the
-measured gaps, quarantines, the grant switch and the rehearsal are excluded.
+per scene at settle 8, 6.2 s per launch), the W42 sitting is **8.81 h of capture + 0.97 h of
+dumps ≈ 9.82 h** (9.61 h before the s = 32 rows), against the charter's model of 8.71 h +
+about 0.96 h for its smaller bed. Idle waits beyond the measured gaps, quarantines, the grant
+switch and the rehearsal are excluded.
