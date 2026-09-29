@@ -1,0 +1,1657 @@
+{
+ "schema": "w42-g0-gate-strata-1",
+ "charter": "docs/doperpowers/specs/2026-09-29-w42-body-spatial-structure.md clause 10; X33, X34",
+ "tier": "webgpu",
+ "profiles": [
+  "apple-macos-27.0-1x-light-standard-glass0.5",
+  "apple-macos-27.0-2x-light-standard-glass0.5",
+  "apple-macos-27.0-1x-dark-standard-glass0.5",
+  "apple-macos-27.0-2x-dark-standard-glass0.5"
+ ],
+ "inputs": {
+  "apps/reference-apple/scenes.json": "2f45778283443a45d562befa634fc7681de9ea6e2568bca0d08d659a27393d6f",
+  "apps/reference-apple/scenes-w39-colour-edge.json": "9ed048b599e104bc1d0f135165fc8b95e7b63781bbc77da800c181e44750fff7",
+  "packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/split.json": "5cc9a20ef5c4d54661da4d6267bc161c6295fde5bb9e07a57ffae9a07f0e2bd5"
+ },
+ "shippedDocuments": {
+  "apple-macos-27.0-1x-light-standard-glass0.5": [
+   {
+    "kind": "materialProfile",
+    "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json",
+    "sha256": "85ad7f7e3e0d"
+   },
+   {
+    "kind": "recededProfile",
+    "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json",
+    "sha256": "30fbe05986ae"
+   }
+  ],
+  "apple-macos-27.0-2x-light-standard-glass0.5": [
+   {
+    "kind": "materialProfile",
+    "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json",
+    "sha256": "85ad7f7e3e0d"
+   },
+   {
+    "kind": "recededProfile",
+    "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json",
+    "sha256": "30fbe05986ae"
+   }
+  ],
+  "apple-macos-27.0-1x-dark-standard-glass0.5": [
+   {
+    "kind": "materialProfile",
+    "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5.json",
+    "sha256": "0eac5b294cc2"
+   },
+   {
+    "kind": "recededProfile",
+    "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5-receded.json",
+    "sha256": "5cec8c961201"
+   }
+  ],
+  "apple-macos-27.0-2x-dark-standard-glass0.5": [
+   {
+    "kind": "materialProfile",
+    "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5.json",
+    "sha256": "0eac5b294cc2"
+   },
+   {
+    "kind": "recededProfile",
+    "path": "packages/calibration/profiles/apple-macos-27.0-1x-dark-standard-glass0.5-receded.json",
+    "sha256": "5cec8c961201"
+   }
+  ]
+ },
+ "sources": {
+  "canonical": {
+   "native": "the committed fixture apps/reference-apple/fixtures/<profileKey>/<sceneId>.png, opened only after scenes.json gives the scene a role its stratum admits",
+   "shipped": "the canonical capture tree (the capture machine's packages/calibration/web-captures in the main checkout); every capture must name exactly the shippedDocuments pair of its profile. It was measured at the base of the generation it belongs to; clause 8 proves byte identity at G2's base on a declared sample before any candidate render.",
+   "candidate": "the candidate's scratch stage capture tree, every capture naming exactly the candidate documents the run config declares for its profile"
+  },
+  "gradient": {
+   "native": "the W39 archive (release w39-archive; cache 489db938…/extracted/archive) through W41 G1's native.py, repeat ordinal 0, native generation 58329732…; the PNG must hash to the one G1's sheet recorded (render-inventory.json.gz, primary SHA-256 f52dbcb0…)",
+   "shipped": "W41 G1's frozen baseline (/Users/new/vitrea-w41/g1-captures/baseline; frozen-baseline.json c921d671…, source revision 014e4104). All 16 captures name the shipped pairs, light 85ad7f7e3e0d / 30fbe05986ae and dark 0eac5b294cc2 / 5cec8c961201. W41 G2's identity capture re-rendered 12 of them byte-identically at its own base (the 8 dark and the 4 light active); the 4 light inactive are attested at G1's base only, because G2's identity capture named E3 (003940b4c7da), which did not ship.",
+   "candidate": "the candidate's render of the same 16 W39 cells, naming the declared candidate documents"
+  }
+ },
+ "strata": {
+  "uniform": {
+   "bed": "canonical",
+   "rule": "canonical scenes over a solid backdrop (light-solid, dark-solid, mid-dark-solid, mid-light-solid, mid-chroma-solid) in the calibration or validation split. The mid-* solids resolve to no cell: mid-dark-solid capsule rest/inactive are holdout and every other mid-* scene is probe.",
+   "roles": [
+    "calibration",
+    "validation"
+   ],
+   "backgroundKind": "solid",
+   "backgrounds": [
+    "dark-solid",
+    "light-solid"
+   ],
+   "tinted": "included (orange, both poses). Every declared family maps a constant backdrop to itself (clause 7), and the spatial operators sit before the tint composition, so a tinted solid shows whatever the candidate changes in T or at the edge under the tint too.",
+   "excludedByRole": {
+    "holdout": 12,
+    "probe": 124
+   },
+   "noCurrentRow": [],
+   "cells": [
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "light-solid__capsule-button__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "dark-solid__capsule-button__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "light-solid__rrect-md__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "dark-solid__rrect-md__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "light-solid__rrect-ml__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "dark-solid__capsule-button__rest-tint-orange",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": "orange"
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "light-solid__capsule-button__rest-tint-orange",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": "orange"
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "dark-solid__capsule-button__inactive",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "dark-solid__capsule-button__inactive-tint-orange",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": "orange"
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "dark-solid__rrect-md__inactive",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "light-solid__capsule-button__inactive",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "light-solid__capsule-button__inactive-tint-orange",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": "orange"
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "light-solid__rrect-md__inactive",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "light-solid__capsule-button__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "dark-solid__capsule-button__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "light-solid__rrect-md__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "dark-solid__rrect-md__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "light-solid__rrect-ml__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "dark-solid__capsule-button__rest-tint-orange",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": "orange"
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "light-solid__capsule-button__rest-tint-orange",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": "orange"
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "dark-solid__capsule-button__inactive",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "dark-solid__capsule-button__inactive-tint-orange",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": "orange"
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "dark-solid__rrect-md__inactive",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "light-solid__capsule-button__inactive",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "light-solid__capsule-button__inactive-tint-orange",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": "orange"
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "light-solid__rrect-md__inactive",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+     "sceneId": "dark-solid__capsule-button__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+     "sceneId": "dark-solid__rrect-md__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+     "sceneId": "dark-solid__capsule-button__rest-tint-orange",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": "orange"
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+     "sceneId": "dark-solid__capsule-button__inactive-tint-orange",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": "orange"
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+     "sceneId": "dark-solid__capsule-button__inactive",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+     "sceneId": "dark-solid__rrect-md__inactive",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+     "sceneId": "light-solid__capsule-button__inactive",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.5",
+     "sceneId": "dark-solid__capsule-button__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.5",
+     "sceneId": "dark-solid__rrect-md__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.5",
+     "sceneId": "dark-solid__capsule-button__rest-tint-orange",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": "orange"
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.5",
+     "sceneId": "dark-solid__capsule-button__inactive-tint-orange",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": "orange"
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.5",
+     "sceneId": "dark-solid__capsule-button__inactive",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.5",
+     "sceneId": "dark-solid__rrect-md__inactive",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.5",
+     "sceneId": "light-solid__capsule-button__inactive",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": null
+    }
+   ]
+  },
+  "binary": {
+   "bed": "canonical",
+   "rule": "canonical scenes over a two-level checkerboard in the calibration or validation split. Only `checkerboard` (16 px, 0/255) resolves: checkerboard-4/-8/-32/-64 and lc16 are probe, and rrect-lg and glass-over-glass are holdout.",
+   "roles": [
+    "calibration",
+    "validation"
+   ],
+   "backgroundKind": "checkerboard",
+   "backgrounds": [
+    "checkerboard"
+   ],
+   "tinted": "included (orange and blue, both poses). The one-sided composite meets the tint composition here, and L1 reads every inactive checkerboard cell, tinted ones included.",
+   "excludedByRole": {
+    "holdout": 12,
+    "recorded": 8,
+    "probe": 152
+   },
+   "noCurrentRow": [],
+   "cells": [
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "checkerboard__capsule-button__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "checkerboard__rrect-md__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "checkerboard__rrect-ml__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "checkerboard__rrect-sm__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "checkerboard__toolbar-group__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "checkerboard__capsule-button__rest-tint-orange",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": "orange"
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "checkerboard__capsule-button__rest-tint-blue",
+     "role": "validation",
+     "pose": "rest",
+     "tint": "blue"
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "checkerboard__capsule-button__inactive",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "checkerboard__capsule-button__inactive-tint-blue",
+     "role": "validation",
+     "pose": "inactive",
+     "tint": "blue"
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "checkerboard__capsule-button__inactive-tint-orange",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": "orange"
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "checkerboard__rrect-md__inactive",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "checkerboard__rrect-sm__inactive",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "checkerboard__toolbar-group__inactive",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "checkerboard__capsule-button__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "checkerboard__rrect-md__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "checkerboard__rrect-ml__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "checkerboard__rrect-sm__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "checkerboard__toolbar-group__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "checkerboard__capsule-button__rest-tint-orange",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": "orange"
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "checkerboard__capsule-button__rest-tint-blue",
+     "role": "validation",
+     "pose": "rest",
+     "tint": "blue"
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "checkerboard__capsule-button__inactive",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "checkerboard__capsule-button__inactive-tint-blue",
+     "role": "validation",
+     "pose": "inactive",
+     "tint": "blue"
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "checkerboard__capsule-button__inactive-tint-orange",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": "orange"
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "checkerboard__rrect-md__inactive",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "checkerboard__rrect-sm__inactive",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "checkerboard__toolbar-group__inactive",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+     "sceneId": "checkerboard__capsule-button__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+     "sceneId": "checkerboard__rrect-md__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+     "sceneId": "checkerboard__capsule-button__rest-tint-orange",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": "orange"
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+     "sceneId": "checkerboard__capsule-button__inactive-tint-orange",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": "orange"
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+     "sceneId": "checkerboard__capsule-button__inactive",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+     "sceneId": "checkerboard__rrect-md__inactive",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.5",
+     "sceneId": "checkerboard__capsule-button__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.5",
+     "sceneId": "checkerboard__rrect-md__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.5",
+     "sceneId": "checkerboard__capsule-button__rest-tint-orange",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": "orange"
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.5",
+     "sceneId": "checkerboard__capsule-button__inactive-tint-orange",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": "orange"
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.5",
+     "sceneId": "checkerboard__capsule-button__inactive",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.5",
+     "sceneId": "checkerboard__rrect-md__inactive",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": null
+    }
+   ]
+  },
+  "text": {
+   "bed": "canonical",
+   "rule": "the canonical PROBE cells over hc-text, hc-text-7 and hc-text-28. Probe cells are calibration evidence that memo C read (X34): a look, never a referee. The hc-text capsule-button and rrect-md cells are holdout and excluded by role.",
+   "roles": [
+    "probe"
+   ],
+   "backgroundKind": "text-rows",
+   "backgrounds": [
+    "hc-text",
+    "hc-text-28",
+    "hc-text-7"
+   ],
+   "tinted": "none exist: the only tinted text scenes (hc-text capsule, orange) are holdout.",
+   "excludedByRole": {
+    "holdout": 12
+   },
+   "noCurrentRow": [
+    "apple-macos-27.0-1x-light-standard-glass0.5/hc-text__rrect-sm__rest",
+    "apple-macos-27.0-1x-light-standard-glass0.5/hc-text__rrect-lg__rest",
+    "apple-macos-27.0-1x-light-standard-glass0.5/hc-text__rrect-sm__inactive",
+    "apple-macos-27.0-2x-light-standard-glass0.5/hc-text__rrect-sm__rest",
+    "apple-macos-27.0-2x-light-standard-glass0.5/hc-text__rrect-lg__rest",
+    "apple-macos-27.0-2x-light-standard-glass0.5/hc-text__rrect-sm__inactive",
+    "apple-macos-27.0-1x-dark-standard-glass0.5/hc-text__rrect-sm__rest",
+    "apple-macos-27.0-1x-dark-standard-glass0.5/hc-text__rrect-lg__rest",
+    "apple-macos-27.0-1x-dark-standard-glass0.5/hc-text__rrect-sm__inactive",
+    "apple-macos-27.0-2x-dark-standard-glass0.5/hc-text__rrect-sm__rest",
+    "apple-macos-27.0-2x-dark-standard-glass0.5/hc-text__rrect-lg__rest",
+    "apple-macos-27.0-2x-dark-standard-glass0.5/hc-text__rrect-sm__inactive"
+   ],
+   "cells": [
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "hc-text-7__rrect-sm__rest",
+     "role": "probe",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "hc-text-7__rrect-md__rest",
+     "role": "probe",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "hc-text-7__rrect-lg__rest",
+     "role": "probe",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "hc-text-28__rrect-sm__rest",
+     "role": "probe",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "hc-text-28__rrect-md__rest",
+     "role": "probe",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "hc-text-28__rrect-lg__rest",
+     "role": "probe",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "hc-text__rrect-sm__rest",
+     "role": "probe",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "hc-text__rrect-lg__rest",
+     "role": "probe",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "hc-text__rrect-sm__inactive",
+     "role": "probe",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "hc-text__rrect-lg__inactive",
+     "role": "probe",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "hc-text-7__rrect-md__inactive",
+     "role": "probe",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "hc-text-28__rrect-md__inactive",
+     "role": "probe",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "hc-text-7__rrect-sm__rest",
+     "role": "probe",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "hc-text-7__rrect-md__rest",
+     "role": "probe",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "hc-text-7__rrect-lg__rest",
+     "role": "probe",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "hc-text-28__rrect-sm__rest",
+     "role": "probe",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "hc-text-28__rrect-md__rest",
+     "role": "probe",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "hc-text-28__rrect-lg__rest",
+     "role": "probe",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "hc-text__rrect-sm__rest",
+     "role": "probe",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "hc-text__rrect-lg__rest",
+     "role": "probe",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "hc-text__rrect-sm__inactive",
+     "role": "probe",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "hc-text__rrect-lg__inactive",
+     "role": "probe",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "hc-text-7__rrect-md__inactive",
+     "role": "probe",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "hc-text-28__rrect-md__inactive",
+     "role": "probe",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+     "sceneId": "hc-text-7__rrect-sm__rest",
+     "role": "probe",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+     "sceneId": "hc-text-7__rrect-md__rest",
+     "role": "probe",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+     "sceneId": "hc-text-7__rrect-lg__rest",
+     "role": "probe",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+     "sceneId": "hc-text-28__rrect-sm__rest",
+     "role": "probe",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+     "sceneId": "hc-text-28__rrect-md__rest",
+     "role": "probe",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+     "sceneId": "hc-text-28__rrect-lg__rest",
+     "role": "probe",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+     "sceneId": "hc-text__rrect-sm__rest",
+     "role": "probe",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+     "sceneId": "hc-text__rrect-lg__rest",
+     "role": "probe",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+     "sceneId": "hc-text__rrect-sm__inactive",
+     "role": "probe",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+     "sceneId": "hc-text__rrect-lg__inactive",
+     "role": "probe",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+     "sceneId": "hc-text-7__rrect-md__inactive",
+     "role": "probe",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+     "sceneId": "hc-text-28__rrect-md__inactive",
+     "role": "probe",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.5",
+     "sceneId": "hc-text-7__rrect-sm__rest",
+     "role": "probe",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.5",
+     "sceneId": "hc-text-7__rrect-md__rest",
+     "role": "probe",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.5",
+     "sceneId": "hc-text-7__rrect-lg__rest",
+     "role": "probe",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.5",
+     "sceneId": "hc-text-28__rrect-sm__rest",
+     "role": "probe",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.5",
+     "sceneId": "hc-text-28__rrect-md__rest",
+     "role": "probe",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.5",
+     "sceneId": "hc-text-28__rrect-lg__rest",
+     "role": "probe",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.5",
+     "sceneId": "hc-text__rrect-sm__rest",
+     "role": "probe",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.5",
+     "sceneId": "hc-text__rrect-lg__rest",
+     "role": "probe",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.5",
+     "sceneId": "hc-text__rrect-sm__inactive",
+     "role": "probe",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.5",
+     "sceneId": "hc-text__rrect-lg__inactive",
+     "role": "probe",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.5",
+     "sceneId": "hc-text-7__rrect-md__inactive",
+     "role": "probe",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.5",
+     "sceneId": "hc-text-28__rrect-md__inactive",
+     "role": "probe",
+     "pose": "inactive",
+     "tint": null
+    }
+   ]
+  },
+  "impulse": {
+   "bed": "canonical",
+   "rule": "canonical scenes over the impulse backdrop in the calibration or validation split; impulse rrect-sm/-ml/-lg are probe.",
+   "roles": [
+    "calibration",
+    "validation"
+   ],
+   "backgroundKind": "impulse",
+   "backgrounds": [
+    "impulse"
+   ],
+   "tinted": "included (orange, both poses): L1's two named misses are the light inactive tinted-impulse cells.",
+   "excludedByRole": {
+    "probe": 20
+   },
+   "noCurrentRow": [],
+   "cells": [
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "impulse__capsule-button__rest",
+     "role": "validation",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "impulse__rrect-md__rest",
+     "role": "validation",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "impulse__capsule-button__rest-tint-orange",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": "orange"
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "impulse__capsule-button__inactive",
+     "role": "validation",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "impulse__capsule-button__inactive-tint-orange",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": "orange"
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "impulse__rrect-md__inactive",
+     "role": "validation",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "impulse__capsule-button__rest",
+     "role": "validation",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "impulse__rrect-md__rest",
+     "role": "validation",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "impulse__capsule-button__rest-tint-orange",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": "orange"
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "impulse__capsule-button__inactive",
+     "role": "validation",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "impulse__capsule-button__inactive-tint-orange",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": "orange"
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "impulse__rrect-md__inactive",
+     "role": "validation",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+     "sceneId": "impulse__capsule-button__rest",
+     "role": "validation",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+     "sceneId": "impulse__capsule-button__inactive",
+     "role": "validation",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.5",
+     "sceneId": "impulse__capsule-button__rest",
+     "role": "validation",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.5",
+     "sceneId": "impulse__capsule-button__inactive",
+     "role": "validation",
+     "pose": "inactive",
+     "tint": null
+    }
+   ]
+  },
+  "photo": {
+   "bed": "canonical",
+   "rule": "canonical scenes over the synthetic photo in the calibration or validation split; rrect-lg, its tint and glass-over-glass are holdout, pressed cells are recorded, photo rrect-ml inactive is probe.",
+   "roles": [
+    "calibration",
+    "validation"
+   ],
+   "backgroundKind": "synthetic-photo",
+   "backgrounds": [
+    "photo"
+   ],
+   "tinted": "included (orange, blue, orange-half, both poses): W41's E3 failed M2 on every light-inactive photo cell and its L1 growth reading includes the tinted photo inactive cells (§5.193 §3).",
+   "excludedByRole": {
+    "holdout": 18,
+    "recorded": 12,
+    "probe": 4
+   },
+   "noCurrentRow": [],
+   "cells": [
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "photo__capsule-button__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "photo__rrect-md__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "photo__rrect-ml__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "photo__rrect-sm__rest",
+     "role": "validation",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "photo__toolbar-group__rest",
+     "role": "validation",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "photo__capsule-button__rest-tint-orange",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": "orange"
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "photo__capsule-button__rest-tint-blue",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": "blue"
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "photo__capsule-button__rest-tint-orange-half",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": "orange-half"
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "photo__rrect-md__rest-tint-orange",
+     "role": "validation",
+     "pose": "rest",
+     "tint": "orange"
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "photo__capsule-button__inactive",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "photo__capsule-button__inactive-tint-blue",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": "blue"
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "photo__capsule-button__inactive-tint-orange",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": "orange"
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "photo__capsule-button__inactive-tint-orange-half",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": "orange-half"
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "photo__rrect-md__inactive",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "photo__rrect-md__inactive-tint-orange",
+     "role": "validation",
+     "pose": "inactive",
+     "tint": "orange"
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "photo__rrect-sm__inactive",
+     "role": "validation",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "photo__toolbar-group__inactive",
+     "role": "validation",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "photo__capsule-button__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "photo__rrect-md__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "photo__rrect-ml__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "photo__rrect-sm__rest",
+     "role": "validation",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "photo__toolbar-group__rest",
+     "role": "validation",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "photo__capsule-button__rest-tint-orange",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": "orange"
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "photo__capsule-button__rest-tint-blue",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": "blue"
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "photo__capsule-button__rest-tint-orange-half",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": "orange-half"
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "photo__rrect-md__rest-tint-orange",
+     "role": "validation",
+     "pose": "rest",
+     "tint": "orange"
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "photo__capsule-button__inactive",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "photo__capsule-button__inactive-tint-blue",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": "blue"
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "photo__capsule-button__inactive-tint-orange",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": "orange"
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "photo__capsule-button__inactive-tint-orange-half",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": "orange-half"
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "photo__rrect-md__inactive",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "photo__rrect-md__inactive-tint-orange",
+     "role": "validation",
+     "pose": "inactive",
+     "tint": "orange"
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "photo__rrect-sm__inactive",
+     "role": "validation",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "photo__toolbar-group__inactive",
+     "role": "validation",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+     "sceneId": "photo__capsule-button__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+     "sceneId": "photo__rrect-md__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+     "sceneId": "photo__capsule-button__rest-tint-orange",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": "orange"
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+     "sceneId": "photo__capsule-button__inactive-tint-orange",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": "orange"
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+     "sceneId": "photo__capsule-button__inactive",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+     "sceneId": "photo__rrect-md__inactive",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.5",
+     "sceneId": "photo__capsule-button__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.5",
+     "sceneId": "photo__rrect-md__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.5",
+     "sceneId": "photo__capsule-button__rest-tint-orange",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": "orange"
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.5",
+     "sceneId": "photo__capsule-button__inactive-tint-orange",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": "orange"
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.5",
+     "sceneId": "photo__capsule-button__inactive",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.5",
+     "sceneId": "photo__rrect-md__inactive",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": null
+    }
+   ]
+  },
+  "gradient": {
+   "bed": "w39",
+   "rule": "the W39 archive's web-plannable gradient cells: W39 scenes over v90/v270 in its calibration or validation split that its launch plan admits (the cells W41 G1 rendered), in the four gated profiles. A look, not a referee.",
+   "roles": [
+    "calibration",
+    "validation"
+   ],
+   "backgroundKind": "linear-gradient",
+   "backgrounds": [
+    "v270",
+    "v90"
+   ],
+   "tinted": "none exist: the W39 bed has no tinted gradient scene.",
+   "excludedByRole": {
+    "holdout": 0
+   },
+   "excludedByPlan": {
+    "v270-c-c44-opaque__inactive": "native-only control (none or opaque)",
+    "v270-c-c44-opaque__rest": "native-only control (none or opaque)",
+    "v270-ref__inactive": "native-only control (none or opaque)",
+    "v270-ref__rest": "native-only control (none or opaque)",
+    "v90-c-c44-opaque__inactive": "native-only control (none or opaque)",
+    "v90-c-c44-opaque__rest": "native-only control (none or opaque)",
+    "v90-column-opaque__inactive": "native-only control (none or opaque)",
+    "v90-column-opaque__rest": "native-only control (none or opaque)",
+    "v90-column__inactive": "column: two independent surfaces; the web side has no column kind",
+    "v90-column__rest": "column: two independent surfaces; the web side has no column kind",
+    "v90-ref__inactive": "native-only control (none or opaque)",
+    "v90-ref__rest": "native-only control (none or opaque)"
+   },
+   "noCurrentRow": [],
+   "cells": [
+    {
+     "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+     "sceneId": "v270-c-c44__inactive",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "v270-c-c44__inactive",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.5",
+     "sceneId": "v270-c-c44__inactive",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "v270-c-c44__inactive",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+     "sceneId": "v270-c-c44__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "v270-c-c44__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.5",
+     "sceneId": "v270-c-c44__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "v270-c-c44__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+     "sceneId": "v90-c-c44__inactive",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "v90-c-c44__inactive",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.5",
+     "sceneId": "v90-c-c44__inactive",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "v90-c-c44__inactive",
+     "role": "calibration",
+     "pose": "inactive",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-dark-standard-glass0.5",
+     "sceneId": "v90-c-c44__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+     "sceneId": "v90-c-c44__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-dark-standard-glass0.5",
+     "sceneId": "v90-c-c44__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    },
+    {
+     "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+     "sceneId": "v90-c-c44__rest",
+     "role": "calibration",
+     "pose": "rest",
+     "tint": null
+    }
+   ]
+  }
+ }
+}

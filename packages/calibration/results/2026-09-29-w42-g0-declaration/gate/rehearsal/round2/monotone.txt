@@ -1,0 +1,34 @@
+W42 G0 rehearsal round 2, item (e): does the landed T's non-monotone black end drive any dark
+failure? Prints, per endpoint and surface kind, where the per-pixel landed response dips below
+its value at black and where it climbs back (the join the REHEARSAL DEVICE holds the black value
+flat to, variant c1d; a device, not a declaration), which dark cells have body pixels below that
+join, and every L1 / M1 / M2 / Stop reading c1d moves against c1.
+
+The landed response per pixel near black (codes; input -> output):
+  light-active  1x capsule   black  132.0; dip to  127.7 at input  1.02; back to the black value at input  7.40
+  light-active  2x rrect-md  black  132.0; dip to  132.0 at input  0.00; back to the black value at input  0.00
+  light-receded 1x capsule   black  133.0; dip to  112.7 at input  1.02; back to the black value at input 16.27
+  light-receded 2x rrect-md  black  133.0; dip to  106.0 at input  1.02; back to the black value at input 17.25
+  dark-active   1x capsule   black   32.0; dip to   32.0 at input  0.00; back to the black value at input  0.00
+  dark-active   2x rrect-md  black   32.0; dip to   32.0 at input  0.00; back to the black value at input  0.00
+  dark-receded  1x capsule   black   20.0; dip to    0.1 at input  1.02; back to the black value at input 12.47
+  dark-receded  2x rrect-md  black   20.0; dip to    0.1 at input  1.02; back to the black value at input 14.87
+
+Dark cells with body pixels whose argument luma lies below the join (the only pixels the device moves):
+  1x-dark-standard-glass0.5    checkerboard-64__rrect-lg__inactive                4.86 % below 14.87
+  1x-dark-standard-glass0.5    checkerboard-64__rrect-md__inactive                6.64 % below 14.87
+  1x-dark-standard-glass0.5    impulse__capsule-button__inactive                100.00 % below 12.47
+  1x-dark-standard-glass0.5    impulse__rrect-lg__inactive                      100.00 % below 14.87
+  1x-dark-standard-glass0.5    impulse__rrect-ml__inactive                      100.00 % below 14.87
+  2x-dark-standard-glass0.5    checkerboard-64__rrect-lg__inactive                4.96 % below 14.87
+  2x-dark-standard-glass0.5    checkerboard-64__rrect-md__inactive                6.75 % below 14.87
+  2x-dark-standard-glass0.5    impulse__capsule-button__inactive                100.00 % below 12.47
+  2x-dark-standard-glass0.5    impulse__rrect-lg__inactive                      100.00 % below 14.87
+  2x-dark-standard-glass0.5    impulse__rrect-ml__inactive                      100.00 % below 14.87
+
+c1d against c1 (dark stages; the light stage is c1's in both):
+  L1 1x-dark-standard-glass0.5/impulse__capsule-button__inactive    web 0.0021 -> 0.0070; growth -0.0362 -> -0.0411
+  L1 2x-dark-standard-glass0.5/impulse__capsule-button__inactive    web 0.0021 -> 0.0070; growth -0.0389 -> -0.0438
+  M1/M2 dark cells moved: 0
+  Stop halo 1x impulse__capsule-button__inactive: {'peak': (3.0, 0.0, 'pass'), 'annulus': (1.0918, 0.0, 'pass')}
+  Stop halo 2x impulse__capsule-button__inactive: {'peak': (3.0, 0.0, 'pass'), 'annulus': (1.2, 0.0, 'pass')}

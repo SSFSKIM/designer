@@ -1,0 +1,1323 @@
+{
+ "endpoints": {
+  "light-active": {
+   "blurSigma": 1.25,
+   "tint": [
+    1,
+    1,
+    1
+   ],
+   "tintAlpha": 0.46,
+   "sizeSpanMin": 32,
+   "sizeSpanMax": 96,
+   "sizeOcclusionGain": 0.05,
+   "sizeHeavyTapSigma": [
+    14,
+    20
+   ],
+   "heavySecond": [
+    0,
+    0,
+    0
+   ],
+   "scaleCond": [
+    0,
+    0.03
+   ],
+   "bodyChromaRetention": 0.282,
+   "bodyE3Strength": 0,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "backdropToneSizeBias": 0.05,
+   "backdropToneMax": 1,
+   "anchorX": [
+    0.004,
+    0.11,
+    0.425,
+    0.95
+   ],
+   "thin": [
+    0.214,
+    0.2835,
+    0.5383,
+    0.937
+   ],
+   "thick": [
+    0.242,
+    0.3074,
+    0.5554,
+    0.957
+   ],
+   "responseStrength": 1,
+   "sizeToneLevelFar": 0,
+   "black": [
+    1,
+    0.23074004852434915,
+    0.23074004852434915
+   ],
+   "abscissa": "source(default)",
+   "collapse": [
+    0.017,
+    0.07
+   ],
+   "fold": 1,
+   "lensLaw": {
+    "refractionGain": 0.745,
+    "heightPerSpan": 0.25,
+    "heightMax": 20,
+    "amountPerSpan": 0.8,
+    "amountMax": 60,
+    "thicknessReference": 8,
+    "extentGain": 1.337,
+    "profileExponent": 3.69,
+    "ovalization": 0.8,
+    "ovalizationSpanMin": 64,
+    "ovalizationSpanMax": 72
+   },
+   "perScale": {
+    "1x": {
+     "plan": {
+      "levels": [
+       [
+        320,
+        200
+       ],
+       [
+        160,
+        100
+       ],
+       [
+        80,
+        50
+       ],
+       [
+        40,
+        25
+       ],
+       [
+        20,
+        12
+       ]
+      ],
+      "maxLod": 4
+     },
+     "bodySigmaTexels": 1.25,
+     "bodyPlan": {
+      "level": 1,
+      "residualSigmaTexels": 0.17500000000000004
+     },
+     "bodyChainLod": 1.0588936890535685,
+     "bodyLevelMeasuredSigma": 1.542,
+     "heavyDevicePx": 14,
+     "heavyPlan": {
+      "level": 4,
+      "residualSigmaTexels": 0.2496659956321646
+     },
+     "heavy2": 0,
+     "gainNear": 8,
+     "gainFar": 8,
+     "floor": 0.25,
+     "spanTop": 256,
+     "startThin": 0.72,
+     "startThick": 0.52,
+     "startFar": 0.2,
+     "reachDev": 80,
+     "reachCss": 80,
+     "thickLift": 0,
+     "collapseTransmission": 0.017,
+     "components": {
+      "capsule": {
+       "span": 44,
+       "sizeThick": 0.09228515625,
+       "sizeK": 0.09228515625,
+       "kDeep": 0.2562266536078717,
+       "sDeep": 0.7437733463921283,
+       "farS": 0,
+       "rampStart": 0.70154296875,
+       "gainEff": 8,
+       "scatterLod": 4,
+       "sizedAlpha": 0.46249169921875
+      },
+      "rrect-sm": {
+       "span": 32,
+       "sizeThick": 0,
+       "sizeK": 0,
+       "kDeep": 0.25,
+       "sDeep": 0.75,
+       "farS": 0,
+       "rampStart": 0.72,
+       "gainEff": 8,
+       "scatterLod": 4,
+       "sizedAlpha": 0.46
+      },
+      "rrect-md": {
+       "span": 96,
+       "sizeThick": 1,
+       "sizeK": 1,
+       "kDeep": 0.39868804664723034,
+       "sDeep": 0.6013119533527697,
+       "farS": 0,
+       "rampStart": 0.52,
+       "gainEff": 8,
+       "scatterLod": 4,
+       "sizedAlpha": 0.48700000000000004
+      },
+      "rrect-ml": {
+       "span": 128,
+       "sizeThick": 1,
+       "sizeK": 1,
+       "kDeep": 0.5451895043731778,
+       "sDeep": 0.4548104956268222,
+       "farS": 0.10400000000000002,
+       "rampStart": 0.48672,
+       "gainEff": 8,
+       "scatterLod": 4,
+       "sizedAlpha": 0.48700000000000004
+      },
+      "rrect-lg": {
+       "span": 160,
+       "sizeThick": 1,
+       "sizeK": 1,
+       "kDeep": 0.7048104956268222,
+       "sDeep": 0.2951895043731778,
+       "farS": 0.3520000000000001,
+       "rampStart": 0.40736,
+       "gainEff": 8,
+       "scatterLod": 4,
+       "sizedAlpha": 0.48700000000000004
+      },
+      "toolbar-member": {
+       "span": 44,
+       "sizeThick": 0.09228515625,
+       "sizeK": 0.09228515625,
+       "kDeep": 0.2562266536078717,
+       "sDeep": 0.7437733463921283,
+       "farS": 0,
+       "rampStart": 0.70154296875,
+       "gainEff": 8,
+       "scatterLod": 4,
+       "sizedAlpha": 0.46249169921875
+      }
+     }
+    },
+    "2x": {
+     "plan": {
+      "levels": [
+       [
+        640,
+        400
+       ],
+       [
+        320,
+        200
+       ],
+       [
+        160,
+        100
+       ],
+       [
+        80,
+        50
+       ],
+       [
+        40,
+        25
+       ],
+       [
+        20,
+        12
+       ]
+      ],
+      "maxLod": 5
+     },
+     "bodySigmaTexels": 1.25,
+     "bodyPlan": {
+      "level": 1,
+      "residualSigmaTexels": 0.17500000000000004
+     },
+     "bodyChainLod": 1.0588936890535685,
+     "bodyLevelMeasuredSigma": 1.542,
+     "heavyDevicePx": 20,
+     "heavyPlan": {
+      "level": 4,
+      "residualSigmaTexels": 0.9269347924072113
+     },
+     "heavy2": 0,
+     "gainNear": 4.8,
+     "gainFar": 9.9,
+     "floor": 1,
+     "spanTop": 256,
+     "startThin": 0.46,
+     "startThick": 0.21000000000000002,
+     "startFar": 0.21000000000000002,
+     "reachDev": 100,
+     "reachCss": 50,
+     "thickLift": 0,
+     "collapseTransmission": 0.07,
+     "components": {
+      "capsule": {
+       "span": 44,
+       "sizeThick": 0.09228515625,
+       "sizeK": 0.09228515625,
+       "kDeep": 1,
+       "sDeep": 0,
+       "farS": 0,
+       "rampStart": 0.4369287109375,
+       "gainEff": 4.8,
+       "scatterLod": 3.3219280948873626,
+       "sizedAlpha": 0.46249169921875
+      },
+      "rrect-sm": {
+       "span": 32,
+       "sizeThick": 0,
+       "sizeK": 0,
+       "kDeep": 1,
+       "sDeep": 0,
+       "farS": 0,
+       "rampStart": 0.46,
+       "gainEff": 4.8,
+       "scatterLod": 3.3219280948873626,
+       "sizedAlpha": 0.46
+      },
+      "rrect-md": {
+       "span": 96,
+       "sizeThick": 1,
+       "sizeK": 1,
+       "kDeep": 1,
+       "sDeep": 0,
+       "farS": 0,
+       "rampStart": 0.21000000000000002,
+       "gainEff": 4.8,
+       "scatterLod": 3.3219280948873626,
+       "sizedAlpha": 0.48700000000000004
+      },
+      "rrect-ml": {
+       "span": 128,
+       "sizeThick": 1,
+       "sizeK": 1,
+       "kDeep": 1,
+       "sDeep": 0,
+       "farS": 0.10400000000000002,
+       "rampStart": 0.21000000000000002,
+       "gainEff": 5.3304,
+       "scatterLod": 3.473137487772256,
+       "sizedAlpha": 0.48700000000000004
+      },
+      "rrect-lg": {
+       "span": 160,
+       "sizeThick": 1,
+       "sizeK": 1,
+       "kDeep": 1,
+       "sDeep": 0,
+       "farS": 0.3520000000000001,
+       "rampStart": 0.21000000000000002,
+       "gainEff": 6.5952,
+       "scatterLod": 3.7803100990433753,
+       "sizedAlpha": 0.48700000000000004
+      },
+      "toolbar-member": {
+       "span": 44,
+       "sizeThick": 0.09228515625,
+       "sizeK": 0.09228515625,
+       "kDeep": 1,
+       "sDeep": 0,
+       "farS": 0,
+       "rampStart": 0.4369287109375,
+       "gainEff": 4.8,
+       "scatterLod": 3.3219280948873626,
+       "sizedAlpha": 0.46249169921875
+      }
+     }
+    }
+   }
+  },
+  "light-receded": {
+   "blurSigma": 1.25,
+   "tint": [
+    1,
+    1,
+    1
+   ],
+   "tintAlpha": 0.46,
+   "sizeSpanMin": 32,
+   "sizeSpanMax": 96,
+   "sizeOcclusionGain": 0.05,
+   "sizeHeavyTapSigma": [
+    14,
+    14
+   ],
+   "heavySecond": [
+    0,
+    0,
+    0
+   ],
+   "scaleCond": [
+    0,
+    0.03
+   ],
+   "bodyChromaRetention": 0.349,
+   "bodyE3Strength": 0,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "backdropToneSizeBias": 0.05,
+   "backdropToneMax": 1,
+   "anchorX": [
+    0.004,
+    0.11,
+    0.425,
+    0.95
+   ],
+   "thin": [
+    0.1647,
+    0.2809,
+    0.4775,
+    0.8293
+   ],
+   "thick": [
+    0.1442,
+    0.2823,
+    0.4695,
+    0.832
+   ],
+   "responseStrength": 1,
+   "sizeToneLevelFar": 0,
+   "black": [
+    1,
+    0.23455058216100522,
+    0.23455058216100522
+   ],
+   "abscissa": {
+    "kind": "silhouette"
+   },
+   "collapse": [
+    0.017,
+    0.07
+   ],
+   "fold": 1,
+   "lensLaw": {
+    "refractionGain": 0.745,
+    "heightPerSpan": 0.25,
+    "heightMax": 20,
+    "amountPerSpan": 0.8,
+    "amountMax": 60,
+    "thicknessReference": 8,
+    "extentGain": 1.337,
+    "profileExponent": 3.69,
+    "ovalization": 0.8,
+    "ovalizationSpanMin": 64,
+    "ovalizationSpanMax": 72
+   },
+   "perScale": {
+    "1x": {
+     "plan": {
+      "levels": [
+       [
+        320,
+        200
+       ],
+       [
+        160,
+        100
+       ],
+       [
+        80,
+        50
+       ],
+       [
+        40,
+        25
+       ],
+       [
+        20,
+        12
+       ]
+      ],
+      "maxLod": 4
+     },
+     "bodySigmaTexels": 1.25,
+     "bodyPlan": {
+      "level": 1,
+      "residualSigmaTexels": 0.17500000000000004
+     },
+     "bodyChainLod": 1.0588936890535685,
+     "bodyLevelMeasuredSigma": 1.542,
+     "heavyDevicePx": 14,
+     "heavyPlan": {
+      "level": 4,
+      "residualSigmaTexels": 0.2496659956321646
+     },
+     "heavy2": 0,
+     "gainNear": 8,
+     "gainFar": 8,
+     "floor": 0.7,
+     "spanTop": 256,
+     "startThin": 0.55,
+     "startThick": 0.3,
+     "startFar": 0.2,
+     "reachDev": 80,
+     "reachCss": 80,
+     "thickLift": 0,
+     "collapseTransmission": 0.017,
+     "components": {
+      "capsule": {
+       "span": 44,
+       "sizeThick": 0.09228515625,
+       "sizeK": 0.09228515625,
+       "kDeep": 0.7024906614431486,
+       "sDeep": 0.29750933855685135,
+       "farS": 0,
+       "rampStart": 0.5269287109375,
+       "gainEff": 8,
+       "scatterLod": 4,
+       "sizedAlpha": 0.46249169921875
+      },
+      "rrect-sm": {
+       "span": 32,
+       "sizeThick": 0,
+       "sizeK": 0,
+       "kDeep": 0.7,
+       "sDeep": 0.30000000000000004,
+       "farS": 0,
+       "rampStart": 0.55,
+       "gainEff": 8,
+       "scatterLod": 4,
+       "sizedAlpha": 0.46
+      },
+      "rrect-md": {
+       "span": 96,
+       "sizeThick": 1,
+       "sizeK": 1,
+       "kDeep": 0.7594752186588921,
+       "sDeep": 0.24052478134110788,
+       "farS": 0,
+       "rampStart": 0.3,
+       "gainEff": 8,
+       "scatterLod": 4,
+       "sizedAlpha": 0.48700000000000004
+      },
+      "rrect-ml": {
+       "span": 128,
+       "sizeThick": 1,
+       "sizeK": 1,
+       "kDeep": 0.8180758017492711,
+       "sDeep": 0.18192419825072892,
+       "farS": 0.10400000000000002,
+       "rampStart": 0.28959999999999997,
+       "gainEff": 8,
+       "scatterLod": 4,
+       "sizedAlpha": 0.48700000000000004
+      },
+      "rrect-lg": {
+       "span": 160,
+       "sizeThick": 1,
+       "sizeK": 1,
+       "kDeep": 0.8819241982507289,
+       "sDeep": 0.11807580174927113,
+       "farS": 0.3520000000000001,
+       "rampStart": 0.2648,
+       "gainEff": 8,
+       "scatterLod": 4,
+       "sizedAlpha": 0.48700000000000004
+      },
+      "toolbar-member": {
+       "span": 44,
+       "sizeThick": 0.09228515625,
+       "sizeK": 0.09228515625,
+       "kDeep": 0.7024906614431486,
+       "sDeep": 0.29750933855685135,
+       "farS": 0,
+       "rampStart": 0.5269287109375,
+       "gainEff": 8,
+       "scatterLod": 4,
+       "sizedAlpha": 0.46249169921875
+      }
+     }
+    },
+    "2x": {
+     "plan": {
+      "levels": [
+       [
+        640,
+        400
+       ],
+       [
+        320,
+        200
+       ],
+       [
+        160,
+        100
+       ],
+       [
+        80,
+        50
+       ],
+       [
+        40,
+        25
+       ],
+       [
+        20,
+        12
+       ]
+      ],
+      "maxLod": 5
+     },
+     "bodySigmaTexels": 1.25,
+     "bodyPlan": {
+      "level": 1,
+      "residualSigmaTexels": 0.17500000000000004
+     },
+     "bodyChainLod": 1.0588936890535685,
+     "bodyLevelMeasuredSigma": 1.542,
+     "heavyDevicePx": 14,
+     "heavyPlan": {
+      "level": 4,
+      "residualSigmaTexels": 0.2496659956321646
+     },
+     "heavy2": 0,
+     "gainNear": 4.8,
+     "gainFar": 9.9,
+     "floor": 1,
+     "spanTop": 256,
+     "startThin": 0.7,
+     "startThick": 0.040000000000000036,
+     "startFar": 0.040000000000000036,
+     "reachDev": 100,
+     "reachCss": 50,
+     "thickLift": 0,
+     "collapseTransmission": 0.07,
+     "components": {
+      "capsule": {
+       "span": 44,
+       "sizeThick": 0.09228515625,
+       "sizeK": 0.09228515625,
+       "kDeep": 1,
+       "sDeep": 0,
+       "farS": 0,
+       "rampStart": 0.639091796875,
+       "gainEff": 4.8,
+       "scatterLod": 3.3219280948873626,
+       "sizedAlpha": 0.46249169921875
+      },
+      "rrect-sm": {
+       "span": 32,
+       "sizeThick": 0,
+       "sizeK": 0,
+       "kDeep": 1,
+       "sDeep": 0,
+       "farS": 0,
+       "rampStart": 0.7,
+       "gainEff": 4.8,
+       "scatterLod": 3.3219280948873626,
+       "sizedAlpha": 0.46
+      },
+      "rrect-md": {
+       "span": 96,
+       "sizeThick": 1,
+       "sizeK": 1,
+       "kDeep": 1,
+       "sDeep": 0,
+       "farS": 0,
+       "rampStart": 0.040000000000000036,
+       "gainEff": 4.8,
+       "scatterLod": 3.3219280948873626,
+       "sizedAlpha": 0.48700000000000004
+      },
+      "rrect-ml": {
+       "span": 128,
+       "sizeThick": 1,
+       "sizeK": 1,
+       "kDeep": 1,
+       "sDeep": 0,
+       "farS": 0.10400000000000002,
+       "rampStart": 0.040000000000000036,
+       "gainEff": 5.3304,
+       "scatterLod": 3.473137487772256,
+       "sizedAlpha": 0.48700000000000004
+      },
+      "rrect-lg": {
+       "span": 160,
+       "sizeThick": 1,
+       "sizeK": 1,
+       "kDeep": 1,
+       "sDeep": 0,
+       "farS": 0.3520000000000001,
+       "rampStart": 0.040000000000000036,
+       "gainEff": 6.5952,
+       "scatterLod": 3.7803100990433753,
+       "sizedAlpha": 0.48700000000000004
+      },
+      "toolbar-member": {
+       "span": 44,
+       "sizeThick": 0.09228515625,
+       "sizeK": 0.09228515625,
+       "kDeep": 1,
+       "sDeep": 0,
+       "farS": 0,
+       "rampStart": 0.639091796875,
+       "gainEff": 4.8,
+       "scatterLod": 3.3219280948873626,
+       "sizedAlpha": 0.46249169921875
+      }
+     }
+    }
+   }
+  },
+  "dark-active": {
+   "blurSigma": 1.25,
+   "tint": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "tintAlpha": 0.9,
+   "sizeSpanMin": 32,
+   "sizeSpanMax": 96,
+   "sizeOcclusionGain": 0.05,
+   "sizeHeavyTapSigma": [
+    0,
+    0
+   ],
+   "heavySecond": [
+    0,
+    0,
+    0
+   ],
+   "scaleCond": [
+    -2,
+    0.03
+   ],
+   "bodyChromaRetention": 0.336,
+   "bodyE3Strength": 0,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "backdropToneSizeBias": 0.05,
+   "backdropToneMax": 1,
+   "anchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "thin": [
+    0.036,
+    0.042,
+    0.199,
+    0.464
+   ],
+   "thick": [
+    0.031,
+    0.035,
+    0.169,
+    0.196
+   ],
+   "responseStrength": 1,
+   "sizeToneLevelFar": 0,
+   "black": [
+    1,
+    0.014443843596092545,
+    0.014443843596092545
+   ],
+   "abscissa": "source(default)",
+   "collapse": [
+    0.017,
+    0.07
+   ],
+   "fold": 1,
+   "lensLaw": {
+    "refractionGain": 0.745,
+    "heightPerSpan": 0.25,
+    "heightMax": 20,
+    "amountPerSpan": 0.8,
+    "amountMax": 60,
+    "thicknessReference": 8,
+    "extentGain": 1.337,
+    "profileExponent": 3.69,
+    "ovalization": 0.8,
+    "ovalizationSpanMin": 64,
+    "ovalizationSpanMax": 72
+   },
+   "perScale": {
+    "1x": {
+     "plan": {
+      "levels": [
+       [
+        320,
+        200
+       ],
+       [
+        160,
+        100
+       ],
+       [
+        80,
+        50
+       ],
+       [
+        40,
+        25
+       ],
+       [
+        20,
+        12
+       ]
+      ],
+      "maxLod": 4
+     },
+     "bodySigmaTexels": 1.25,
+     "bodyPlan": {
+      "level": 1,
+      "residualSigmaTexels": 0.17500000000000004
+     },
+     "bodyChainLod": 1.0588936890535685,
+     "bodyLevelMeasuredSigma": 1.542,
+     "heavyDevicePx": 0,
+     "heavyPlan": null,
+     "heavy2": 0,
+     "gainNear": 8,
+     "gainFar": 8,
+     "floor": 0.34,
+     "spanTop": 256,
+     "startThin": 0.72,
+     "startThick": 0.52,
+     "startFar": 0.2,
+     "reachDev": 80,
+     "reachCss": 80,
+     "thickLift": 0,
+     "collapseTransmission": 0.017,
+     "components": {
+      "capsule": {
+       "span": 44,
+       "sizeThick": 0.09228515625,
+       "sizeK": 0.09228515625,
+       "kDeep": 0.3454794551749271,
+       "sDeep": 0.6545205448250728,
+       "farS": 0,
+       "rampStart": 0.70154296875,
+       "gainEff": 8,
+       "scatterLod": 4,
+       "sizedAlpha": 0.90046142578125
+      },
+      "rrect-sm": {
+       "span": 32,
+       "sizeThick": 0,
+       "sizeK": 0,
+       "kDeep": 0.34,
+       "sDeep": 0.6599999999999999,
+       "farS": 0,
+       "rampStart": 0.72,
+       "gainEff": 8,
+       "scatterLod": 4,
+       "sizedAlpha": 0.9
+      },
+      "rrect-md": {
+       "span": 96,
+       "sizeThick": 1,
+       "sizeK": 1,
+       "kDeep": 0.4708454810495627,
+       "sDeep": 0.5291545189504373,
+       "farS": 0,
+       "rampStart": 0.52,
+       "gainEff": 8,
+       "scatterLod": 4,
+       "sizedAlpha": 0.905
+      },
+      "rrect-ml": {
+       "span": 128,
+       "sizeThick": 1,
+       "sizeK": 1,
+       "kDeep": 0.5997667638483964,
+       "sDeep": 0.40023323615160356,
+       "farS": 0.10400000000000002,
+       "rampStart": 0.48672,
+       "gainEff": 8,
+       "scatterLod": 4,
+       "sizedAlpha": 0.905
+      },
+      "rrect-lg": {
+       "span": 160,
+       "sizeThick": 1,
+       "sizeK": 1,
+       "kDeep": 0.7402332361516034,
+       "sDeep": 0.2597667638483966,
+       "farS": 0.3520000000000001,
+       "rampStart": 0.40736,
+       "gainEff": 8,
+       "scatterLod": 4,
+       "sizedAlpha": 0.905
+      },
+      "toolbar-member": {
+       "span": 44,
+       "sizeThick": 0.09228515625,
+       "sizeK": 0.09228515625,
+       "kDeep": 0.3454794551749271,
+       "sDeep": 0.6545205448250728,
+       "farS": 0,
+       "rampStart": 0.70154296875,
+       "gainEff": 8,
+       "scatterLod": 4,
+       "sizedAlpha": 0.90046142578125
+      }
+     }
+    },
+    "2x": {
+     "plan": {
+      "levels": [
+       [
+        640,
+        400
+       ],
+       [
+        320,
+        200
+       ],
+       [
+        160,
+        100
+       ],
+       [
+        80,
+        50
+       ],
+       [
+        40,
+        25
+       ],
+       [
+        20,
+        12
+       ]
+      ],
+      "maxLod": 5
+     },
+     "bodySigmaTexels": 1.25,
+     "bodyPlan": {
+      "level": 1,
+      "residualSigmaTexels": 0.17500000000000004
+     },
+     "bodyChainLod": 1.0588936890535685,
+     "bodyLevelMeasuredSigma": 1.542,
+     "heavyDevicePx": 0,
+     "heavyPlan": null,
+     "heavy2": 0,
+     "gainNear": 4.8,
+     "gainFar": 9.9,
+     "floor": 1,
+     "spanTop": 256,
+     "startThin": 0.46,
+     "startThick": 0.21000000000000002,
+     "startFar": 0.21000000000000002,
+     "reachDev": 100,
+     "reachCss": 50,
+     "thickLift": 0,
+     "collapseTransmission": 0.07,
+     "components": {
+      "capsule": {
+       "span": 44,
+       "sizeThick": 0.09228515625,
+       "sizeK": 0.09228515625,
+       "kDeep": 1,
+       "sDeep": 0,
+       "farS": 0,
+       "rampStart": 0.4369287109375,
+       "gainEff": 4.8,
+       "scatterLod": 3.3219280948873626,
+       "sizedAlpha": 0.90046142578125
+      },
+      "rrect-sm": {
+       "span": 32,
+       "sizeThick": 0,
+       "sizeK": 0,
+       "kDeep": 1,
+       "sDeep": 0,
+       "farS": 0,
+       "rampStart": 0.46,
+       "gainEff": 4.8,
+       "scatterLod": 3.3219280948873626,
+       "sizedAlpha": 0.9
+      },
+      "rrect-md": {
+       "span": 96,
+       "sizeThick": 1,
+       "sizeK": 1,
+       "kDeep": 1,
+       "sDeep": 0,
+       "farS": 0,
+       "rampStart": 0.21000000000000002,
+       "gainEff": 4.8,
+       "scatterLod": 3.3219280948873626,
+       "sizedAlpha": 0.905
+      },
+      "rrect-ml": {
+       "span": 128,
+       "sizeThick": 1,
+       "sizeK": 1,
+       "kDeep": 1,
+       "sDeep": 0,
+       "farS": 0.10400000000000002,
+       "rampStart": 0.21000000000000002,
+       "gainEff": 5.3304,
+       "scatterLod": 3.473137487772256,
+       "sizedAlpha": 0.905
+      },
+      "rrect-lg": {
+       "span": 160,
+       "sizeThick": 1,
+       "sizeK": 1,
+       "kDeep": 1,
+       "sDeep": 0,
+       "farS": 0.3520000000000001,
+       "rampStart": 0.21000000000000002,
+       "gainEff": 6.5952,
+       "scatterLod": 3.7803100990433753,
+       "sizedAlpha": 0.905
+      },
+      "toolbar-member": {
+       "span": 44,
+       "sizeThick": 0.09228515625,
+       "sizeK": 0.09228515625,
+       "kDeep": 1,
+       "sDeep": 0,
+       "farS": 0,
+       "rampStart": 0.4369287109375,
+       "gainEff": 4.8,
+       "scatterLod": 3.3219280948873626,
+       "sizedAlpha": 0.90046142578125
+      }
+     }
+    }
+   }
+  },
+  "dark-receded": {
+   "blurSigma": 1.25,
+   "tint": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "tintAlpha": 0.89,
+   "sizeSpanMin": 32,
+   "sizeSpanMax": 96,
+   "sizeOcclusionGain": 0.05,
+   "sizeHeavyTapSigma": [
+    0,
+    14
+   ],
+   "heavySecond": [
+    0,
+    0,
+    0
+   ],
+   "scaleCond": [
+    -2,
+    0.03
+   ],
+   "bodyChromaRetention": 0.142,
+   "bodyE3Strength": 0,
+   "backdropToneLow": 0,
+   "backdropToneHigh": 0.0001,
+   "backdropToneSizeBias": 0.05,
+   "backdropToneMax": 1,
+   "anchorX": [
+    0.004,
+    0.11,
+    0.47,
+    0.95
+   ],
+   "thin": [
+    0,
+    0.0187,
+    0.192,
+    0.448
+   ],
+   "thick": [
+    0,
+    0.0155,
+    0.164,
+    0.186
+   ],
+   "responseStrength": 1,
+   "sizeToneLevelFar": 0,
+   "black": [
+    1,
+    0.006995410187265387,
+    0.006995410187265387
+   ],
+   "abscissa": {
+    "kind": "silhouette"
+   },
+   "collapse": [
+    0.017,
+    0.07
+   ],
+   "fold": 1,
+   "lensLaw": {
+    "refractionGain": 0.745,
+    "heightPerSpan": 0.25,
+    "heightMax": 20,
+    "amountPerSpan": 0.8,
+    "amountMax": 60,
+    "thicknessReference": 8,
+    "extentGain": 1.337,
+    "profileExponent": 3.69,
+    "ovalization": 0.8,
+    "ovalizationSpanMin": 64,
+    "ovalizationSpanMax": 72
+   },
+   "perScale": {
+    "1x": {
+     "plan": {
+      "levels": [
+       [
+        320,
+        200
+       ],
+       [
+        160,
+        100
+       ],
+       [
+        80,
+        50
+       ],
+       [
+        40,
+        25
+       ],
+       [
+        20,
+        12
+       ]
+      ],
+      "maxLod": 4
+     },
+     "bodySigmaTexels": 1.25,
+     "bodyPlan": {
+      "level": 1,
+      "residualSigmaTexels": 0.17500000000000004
+     },
+     "bodyChainLod": 1.0588936890535685,
+     "bodyLevelMeasuredSigma": 1.542,
+     "heavyDevicePx": 0,
+     "heavyPlan": null,
+     "heavy2": 0,
+     "gainNear": 8,
+     "gainFar": 8,
+     "floor": 0.34,
+     "spanTop": 256,
+     "startThin": 1,
+     "startThick": 0.30000000000000004,
+     "startFar": 0.20000000000000007,
+     "reachDev": 80,
+     "reachCss": 80,
+     "thickLift": 0.25,
+     "collapseTransmission": 0.017,
+     "components": {
+      "capsule": {
+       "span": 44,
+       "sizeThick": 0.09228515625,
+       "sizeK": 0.09228515625,
+       "kDeep": 0.3685507442374271,
+       "sDeep": 0.6314492557625728,
+       "farS": 0,
+       "rampStart": 0.935400390625,
+       "gainEff": 8,
+       "scatterLod": 4,
+       "sizedAlpha": 0.8905075683593751
+      },
+      "rrect-sm": {
+       "span": 32,
+       "sizeThick": 0,
+       "sizeK": 0,
+       "kDeep": 0.34,
+       "sDeep": 0.6599999999999999,
+       "farS": 0,
+       "rampStart": 1,
+       "gainEff": 8,
+       "scatterLod": 4,
+       "sizedAlpha": 0.89
+      },
+      "rrect-md": {
+       "span": 96,
+       "sizeThick": 1,
+       "sizeK": 1,
+       "kDeep": 0.7208454810495627,
+       "sDeep": 0.2791545189504373,
+       "farS": 0,
+       "rampStart": 0.30000000000000004,
+       "gainEff": 8,
+       "scatterLod": 4,
+       "sizedAlpha": 0.8955
+      },
+      "rrect-ml": {
+       "span": 128,
+       "sizeThick": 1,
+       "sizeK": 1,
+       "kDeep": 0.8497667638483964,
+       "sDeep": 0.15023323615160356,
+       "farS": 0.10400000000000002,
+       "rampStart": 0.2896,
+       "gainEff": 8,
+       "scatterLod": 4,
+       "sizedAlpha": 0.8955
+      },
+      "rrect-lg": {
+       "span": 160,
+       "sizeThick": 1,
+       "sizeK": 1,
+       "kDeep": 0.9902332361516034,
+       "sDeep": 0.009766763848396587,
+       "farS": 0.3520000000000001,
+       "rampStart": 0.26480000000000004,
+       "gainEff": 8,
+       "scatterLod": 4,
+       "sizedAlpha": 0.8955
+      },
+      "toolbar-member": {
+       "span": 44,
+       "sizeThick": 0.09228515625,
+       "sizeK": 0.09228515625,
+       "kDeep": 0.3685507442374271,
+       "sDeep": 0.6314492557625728,
+       "farS": 0,
+       "rampStart": 0.935400390625,
+       "gainEff": 8,
+       "scatterLod": 4,
+       "sizedAlpha": 0.8905075683593751
+      }
+     }
+    },
+    "2x": {
+     "plan": {
+      "levels": [
+       [
+        640,
+        400
+       ],
+       [
+        320,
+        200
+       ],
+       [
+        160,
+        100
+       ],
+       [
+        80,
+        50
+       ],
+       [
+        40,
+        25
+       ],
+       [
+        20,
+        12
+       ]
+      ],
+      "maxLod": 5
+     },
+     "bodySigmaTexels": 1.25,
+     "bodyPlan": {
+      "level": 1,
+      "residualSigmaTexels": 0.17500000000000004
+     },
+     "bodyChainLod": 1.0588936890535685,
+     "bodyLevelMeasuredSigma": 1.542,
+     "heavyDevicePx": 14,
+     "heavyPlan": {
+      "level": 4,
+      "residualSigmaTexels": 0.2496659956321646
+     },
+     "heavy2": 0,
+     "gainNear": 4.8,
+     "gainFar": 9.9,
+     "floor": 1,
+     "spanTop": 256,
+     "startThin": 1,
+     "startThick": 0.040000000000000036,
+     "startFar": 0.040000000000000036,
+     "reachDev": 100,
+     "reachCss": 50,
+     "thickLift": 0,
+     "collapseTransmission": 0.07,
+     "components": {
+      "capsule": {
+       "span": 44,
+       "sizeThick": 0.09228515625,
+       "sizeK": 0.09228515625,
+       "kDeep": 1,
+       "sDeep": 0,
+       "farS": 0,
+       "rampStart": 0.91140625,
+       "gainEff": 4.8,
+       "scatterLod": 3.3219280948873626,
+       "sizedAlpha": 0.8905075683593751
+      },
+      "rrect-sm": {
+       "span": 32,
+       "sizeThick": 0,
+       "sizeK": 0,
+       "kDeep": 1,
+       "sDeep": 0,
+       "farS": 0,
+       "rampStart": 1,
+       "gainEff": 4.8,
+       "scatterLod": 3.3219280948873626,
+       "sizedAlpha": 0.89
+      },
+      "rrect-md": {
+       "span": 96,
+       "sizeThick": 1,
+       "sizeK": 1,
+       "kDeep": 1,
+       "sDeep": 0,
+       "farS": 0,
+       "rampStart": 0.040000000000000036,
+       "gainEff": 4.8,
+       "scatterLod": 3.3219280948873626,
+       "sizedAlpha": 0.8955
+      },
+      "rrect-ml": {
+       "span": 128,
+       "sizeThick": 1,
+       "sizeK": 1,
+       "kDeep": 1,
+       "sDeep": 0,
+       "farS": 0.10400000000000002,
+       "rampStart": 0.040000000000000036,
+       "gainEff": 5.3304,
+       "scatterLod": 3.473137487772256,
+       "sizedAlpha": 0.8955
+      },
+      "rrect-lg": {
+       "span": 160,
+       "sizeThick": 1,
+       "sizeK": 1,
+       "kDeep": 1,
+       "sDeep": 0,
+       "farS": 0.3520000000000001,
+       "rampStart": 0.040000000000000036,
+       "gainEff": 6.5952,
+       "scatterLod": 3.7803100990433753,
+       "sizedAlpha": 0.8955
+      },
+      "toolbar-member": {
+       "span": 44,
+       "sizeThick": 0.09228515625,
+       "sizeK": 0.09228515625,
+       "kDeep": 1,
+       "sDeep": 0,
+       "farS": 0,
+       "rampStart": 0.91140625,
+       "gainEff": 4.8,
+       "scatterLod": 3.3219280948873626,
+       "sizedAlpha": 0.8905075683593751
+      }
+     }
+    }
+   }
+  }
+ }
+}

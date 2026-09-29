@@ -1,0 +1,137 @@
+W42 G0 referees: candidate-admission test (charter clause 10)
+worktree HEAD ffd9567f; W41 port packages/calibration/results/2026-09-29-w41-g2-landing/referees; canonical captures /Users/new/Developer/GitHub/designer/packages/calibration/web-captures
+scratch /private/tmp/w42-gate-admission/test; candidate documents packages/calibration/results/2026-09-29-w42-g0-declaration/gate/referees/.admission-scratch (removed on exit)
+
+stage light: 208 non-holdout WebGPU rows of 248 declared cells, 208 captures copied
+  active   shipped apple-macos-27.0-1x-light-standard-glass0.5.json sha256:85ad7f7e3e0d -> candidate sha256:f80d5648bb68
+  receded  shipped apple-macos-27.0-1x-light-standard-glass0.5-receded.json sha256:30fbe05986ae -> candidate sha256:351d28de9291
+stage dark: 152 non-holdout WebGPU rows of 166 declared cells, 152 captures copied
+  active   shipped apple-macos-27.0-1x-dark-standard-glass0.5.json sha256:0eac5b294cc2 -> candidate sha256:00c3c909d380
+  receded  shipped apple-macos-27.0-1x-dark-standard-glass0.5-receded.json sha256:5cec8c961201 -> candidate sha256:edb839eefb99
+
+GREEN base: current union, canonical captures (W42 port against W41 port)
+  ok    chroma-cut     chroma-cut.json byte-identical except generatedAt; chroma-cut.stdout byte-identical
+  ok    m2-rebaseline  m2-rebaseline.json byte-identical; m2-rebaseline.stdout byte-identical
+  ok    exterior-cut   exterior-cut.json byte-identical; exterior-cut.stdout byte-identical
+  ok    l1-cut         l1-cut.json byte-identical; l1-cut.stdout byte-identical
+  ok    black-cut      black-cut.json byte-identical; black-cut.stdout byte-identical
+  ok    e2-regression  e2-regression.json byte-identical; e2-regression-bins.json.gz byte-identical; e2-regression.stdout byte-identical
+
+GREEN base: one stage, control-light at the shipped documents (W42 port against W41 port)
+  ok    chroma-cut     chroma-cut.json byte-identical except generatedAt; chroma-cut.stdout byte-identical
+  ok    m2-rebaseline  m2-rebaseline.json byte-identical; m2-rebaseline.stdout byte-identical
+  ok    exterior-cut   exterior-cut.json byte-identical; exterior-cut.stdout byte-identical
+  ok    l1-cut         l1-cut.json byte-identical; l1-cut.stdout byte-identical
+  ok    black-cut      black-cut.json byte-identical; black-cut.stdout byte-identical
+  ok    e2-regression  e2-regression.json byte-identical; e2-regression-bins.json.gz byte-identical; e2-regression.stdout byte-identical
+  ok    scratch-union  union.json byte-identical; scratch-union.stdout byte-identical except the output path it prints
+
+GREEN base, two stages: control-light + control-dark against the current union (the same rows, less the holdout rows no stage holds); JSON may differ in provenance only
+  ok    chroma-cut     chroma-cut.json: $.generatedAt, $.source (allowed: provenance only)
+  info  chroma-cut     chroma-cut.stdout: 1 line(s) differ (provenance printed to stdout; exterior-cut also lists the holdout rows it does not read)
+  ok    m2-rebaseline  m2-rebaseline.json: $.source (allowed: provenance only)
+  info  m2-rebaseline  m2-rebaseline.stdout: 0 line(s) differ (provenance printed to stdout; exterior-cut also lists the holdout rows it does not read)
+  ok    exterior-cut   exterior-cut.json: $.source (allowed: provenance only)
+  info  exterior-cut   exterior-cut.stdout: 2 line(s) differ (provenance printed to stdout; exterior-cut also lists the holdout rows it does not read)
+  ok    l1-cut         l1-cut.json: $.matrixSha256, $.source (allowed: provenance only)
+  info  l1-cut         l1-cut.stdout: 0 line(s) differ (provenance printed to stdout; exterior-cut also lists the holdout rows it does not read)
+  ok    black-cut      black-cut.json: $.source (allowed: provenance only)
+  info  black-cut      black-cut.stdout: 0 line(s) differ (provenance printed to stdout; exterior-cut also lists the holdout rows it does not read)
+  ok    e2-regression  e2-regression.json: $.matrixSha256, $.source (allowed: provenance only)
+  ok    e2-regression  e2-regression-bins.json.gz: identical (allowed: provenance only)
+  info  e2-regression  e2-regression.stdout: 120 line(s) differ (provenance printed to stdout; exterior-cut also lists the holdout rows it does not read)
+
+mapped back before comparing: the four candidate paths and hashes to the shipped ones; the two candidate stage paths and stage-matrix digests to the control ones; the union's legacy-envelope digest (a hash over rows that name the documents); the output directory scratch-union prints; e2's captures roots are set aside (path-only)
+GREEN candidate: candidate-light + candidate-dark with --candidate (x4), against control-light + control-dark in base mode
+  ok    chroma-cut
+          chroma-cut.json: differs before mapping at $.admission, $.atDocuments, $.generatedAt, $.source.label, $.source.stages[].declaredDocuments.active.path, $.source.stages[].declaredDocuments.active.sha256 (+4 more); stamped, equal after
+          chroma-cut.stdout: first line "# CANDIDATE" yes, 1 line(s) differ before mapping, equal after
+  ok    m2-rebaseline
+          m2-rebaseline.json: differs before mapping at $.admission, $.source.label, $.source.stages[].declaredDocuments.active.path, $.source.stages[].declaredDocuments.active.sha256, $.source.stages[].declaredDocuments.receded.path, $.source.stages[].declaredDocuments.receded.sha256 (+2 more); stamped, equal after
+          m2-rebaseline.stdout: first line "# CANDIDATE" yes, 0 line(s) differ before mapping, equal after
+  ok    exterior-cut
+          exterior-cut.json: documents 4 names, 2 once mapped (control 2), set aside
+          exterior-cut.json: differs before mapping at $.admission, $.atDocuments, $.documents, $.rows[].document, $.source.label, $.source.stages[].declaredDocuments.active.path (+5 more); stamped, equal after
+          exterior-cut.stdout: first line "# CANDIDATE" yes, 1690 line(s) differ before mapping, equal after (section 0's per-document counts summed per mapped name)
+  ok    l1-cut
+          l1-cut.json: differs before mapping at $.absoluteMisses[].capturePath, $.admission, $.atDocuments, $.cells[].capturePath, $.matrixSha256, $.source.label (+6 more); stamped, equal after
+          l1-cut.stdout: first line "# CANDIDATE" yes, 0 line(s) differ before mapping, equal after
+  ok    black-cut
+          black-cut.json: differs before mapping at $.admission, $.atDocuments, $.cells[].capturePath, $.source.label, $.source.stages[].declaredDocuments.active.path, $.source.stages[].declaredDocuments.active.sha256 (+4 more); stamped, equal after
+          black-cut.stdout: first line "# CANDIDATE" yes, 0 line(s) differ before mapping, equal after
+  ok    e2-regression
+          e2-regression.json: capturePathsMoved 212 = every cell (control 0), set aside
+          e2-regression.json: differs before mapping at $.admission, $.capturePathsMoved, $.captures, $.generations[], $.matrixSha256, $.perCell[].capturePath (+7 more); stamped, equal after
+          e2-regression-bins.json.gz: differs before mapping at nothing; equal after
+          e2-regression.stdout: first line "# CANDIDATE" yes, 14 line(s) differ before mapping, equal after (capturePathsMoved set to the control's, "capturePathsMoved": 0)
+  ok    scratch-union
+          union.json: byte-equal after mapping
+          scratch-union.stdout: first line "# CANDIDATE" yes, 1 line(s) differ before mapping, equal after
+
+RED R1 a wrong =SHA12 on a declared candidate
+  ok    chroma-cut     exit 1; message names the mismatch: yes; outputs written: none
+  ok    exterior-cut   exit 1; message names the mismatch: yes; outputs written: none
+  ok    l1-cut         exit 1; message names the mismatch: yes; outputs written: none
+  ok    black-cut      exit 1; message names the mismatch: yes; outputs written: none
+  ok    e2-regression  exit 1; message names the mismatch: yes; outputs written: none
+  ok    scratch-union  exit 1; message names the mismatch: yes; outputs written: none
+          "--candidate packages/calibration/results/2026-09-29-w42-g0-declaration/gate/referees/.admission-scratch/light/apple-macos-27.0-1x-light-standard-glass0.5.json: the file hashes to sha256:f80d5648bb68, not the declared 000000000000"
+RED R2 the candidate's bytes changed after the rows were written, declared by path
+  ok    chroma-cut     exit 1; message names the mismatch: yes; outputs written: none
+  ok    exterior-cut   exit 1; message names the mismatch: yes; outputs written: none
+  ok    l1-cut         exit 1; message names the mismatch: yes; outputs written: none
+  ok    black-cut      exit 1; message names the mismatch: yes; outputs written: none
+  ok    e2-regression  exit 1; message names the mismatch: yes; outputs written: none
+  ok    scratch-union  exit 1; message names the mismatch: yes; outputs written: none
+          "$SCRATCH/stages/candidate-light: packages/calibration/results/2026-09-29-w42-g0-declaration/gate/referees/.admission-scratch/light/apple-macos-27.0-1x-light-standard-glass0.5.json sha256:f80d5648bb68 is not the declared candidate's bytes (sha256:3cf1f0e68f01 on disk): the stage names another generation of it"
+RED R3 the candidate's bytes changed after the rows were written, declared with its original =SHA12
+  ok    chroma-cut     exit 1; message names the mismatch: yes; outputs written: none
+  ok    exterior-cut   exit 1; message names the mismatch: yes; outputs written: none
+  ok    l1-cut         exit 1; message names the mismatch: yes; outputs written: none
+  ok    black-cut      exit 1; message names the mismatch: yes; outputs written: none
+  ok    e2-regression  exit 1; message names the mismatch: yes; outputs written: none
+  ok    scratch-union  exit 1; message names the mismatch: yes; outputs written: none
+          "--candidate packages/calibration/results/2026-09-29-w42-g0-declaration/gate/referees/.admission-scratch/light/apple-macos-27.0-1x-light-standard-glass0.5.json: the file hashes to sha256:3cf1f0e68f01, not the declared f80d5648bb68"
+RED R4 base mode (no --candidate) on the candidate stages
+  ok    chroma-cut     exit 1; message names the mismatch: yes; outputs written: none
+  ok    exterior-cut   exit 1; message names the mismatch: yes; outputs written: none
+  ok    l1-cut         exit 1; message names the mismatch: yes; outputs written: none
+  ok    black-cut      exit 1; message names the mismatch: yes; outputs written: none
+  ok    e2-regression  exit 1; message names the mismatch: yes; outputs written: none
+  ok    scratch-union  exit 1; message names the mismatch: yes; outputs written: none
+          "$SCRATCH/stages/candidate-light: packages/calibration/results/2026-09-29-w42-g0-declaration/gate/referees/.admission-scratch/light/apple-macos-27.0-1x-light-standard-glass0.5.json sha256:f80d5648bb68 is neither a shipped document (packages/calibration/profiles/) nor a declared --candidate"
+RED R5 a --candidate under packages/calibration/profiles/
+  ok    chroma-cut     exit 1; message names the mismatch: yes; outputs written: none
+  ok    exterior-cut   exit 1; message names the mismatch: yes; outputs written: none
+  ok    l1-cut         exit 1; message names the mismatch: yes; outputs written: none
+  ok    black-cut      exit 1; message names the mismatch: yes; outputs written: none
+  ok    e2-regression  exit 1; message names the mismatch: yes; outputs written: none
+  ok    scratch-union  exit 1; message names the mismatch: yes; outputs written: none
+          "--candidate packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5.json: a document under packages/calibration/profiles/ is the shipped file, not a candidate; render a candidate from a scratch copy"
+RED R6 two stages replacing the same (profile, tier) pairs
+  ok    chroma-cut     exit 1; message names the mismatch: yes; outputs written: none
+  ok    exterior-cut   exit 1; message names the mismatch: yes; outputs written: none
+  ok    l1-cut         exit 1; message names the mismatch: yes; outputs written: none
+  ok    black-cut      exit 1; message names the mismatch: yes; outputs written: none
+  ok    e2-regression  exit 1; message names the mismatch: yes; outputs written: none
+  ok    scratch-union  exit 1; message names the mismatch: yes; outputs written: none
+          "$SCRATCH/stages/candidate-light: replaces ('apple-macos-27.0-1x-light-standard-glass0.5', 'webgpu'), which $SCRATCH/stages/control-light replaces too; each (profile, tier) pair comes from one stage"
+RED R7 a --candidate with no --stage
+  ok    chroma-cut     exit 1; message names the mismatch: yes; outputs written: none
+  ok    exterior-cut   exit 1; message names the mismatch: yes; outputs written: none
+  ok    l1-cut         exit 1; message names the mismatch: yes; outputs written: none
+  ok    black-cut      exit 1; message names the mismatch: yes; outputs written: none
+  ok    e2-regression  exit 1; message names the mismatch: yes; outputs written: none
+  ok    scratch-union  exit 1; message names the mismatch: yes; outputs written: none
+          "--candidate needs --stage: the current union names no candidate document, and a candidate is read only through the stage that renders it"
+          "scratch-union: --stage is required; the current union is already canonical"
+RED R8 a declared candidate that no stage declares
+  ok    chroma-cut     exit 1; message names the mismatch: yes; outputs written: none
+  ok    exterior-cut   exit 1; message names the mismatch: yes; outputs written: none
+  ok    l1-cut         exit 1; message names the mismatch: yes; outputs written: none
+  ok    black-cut      exit 1; message names the mismatch: yes; outputs written: none
+  ok    e2-regression  exit 1; message names the mismatch: yes; outputs written: none
+  ok    scratch-union  exit 1; message names the mismatch: yes; outputs written: none
+          "--candidate packages/calibration/results/2026-09-29-w42-g0-declaration/gate/referees/.admission-scratch/light/apple-macos-27.0-1x-light-standard-glass0.5.json is declared by no --stage; a candidate is read only through the stage that renders it"
+
+all checks pass

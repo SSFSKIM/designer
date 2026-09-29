@@ -1,0 +1,164 @@
+W42 G0 — M2 named-miss derivation (charter Decision Log 5a, RULED): red / green record
+=====================================================================================
+
+What was seeded, and how
+------------------------
+No edit to the committed test file. `red-scenarios.py` (beside this file) writes scratch copies of
+test/adopted-thresholds.test.ts into packages/calibration/.scratch-w42-m2-red/ (a dot directory,
+outside vitest's `test/**` include and tsc's globs), each seeding ONE live cut cell and the matrix
+row the cut re-derives from, so the cut stays backed by the matrix and "reads a cut taken at this
+gate" stays green: the seed isolates the M2 path. Each copy ran through a scratch vitest config:
+
+  pnpm exec vitest run --config .scratch-w42-m2-red/vitest.config.ts \
+    .scratch-w42-m2-red/<scenario>.test.ts --reporter=verbose
+
+The directory was deleted afterwards (git status shows only the test file and this evidence dir).
+
+The seeded cell: texture / validation / photo__rrect-sm__inactive /
+apple-macos-27.0-1x-light-standard-glass0.5 — r = w = 0.018154066164487493 on the live cut (W36 G1),
+Apple's interiorStdDevNative n = 0.026761377891451815 on its matrix row (Apple is the more textured).
+
+Seven scenarios and what they showed
+------------------------------------
+
+--- a-away-unlisted
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+Tests  2 failed | 105 passed | 1 skipped (108)
+  FAILED: M2: interiorStdDevWeb is within 2% of the reference generation, or is named in MISSED_27_ROWS
+  FAILED: M2's named-miss derivation classes a move as Decision Log 5a ruled (W42 G0)
+    AssertionError: texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5: interiorStdDevWeb 0.018154 -> 0.017246, -5.000%, Apple 0.026761: a failure, which no entry excuses: expected 0.050000000000000065 to be less than or equal to 0.02
+    AssertionError: an M2 failure on the live cut: expected [ Array(1) ] to deeply equal []
+    +   "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5",
+
+--- a2-away-listed
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+Tests  3 failed | 104 passed | 1 skipped (108)
+  FAILED: names every 27 row the refit missed, and nothing it did not
+  FAILED: M2: interiorStdDevWeb is within 2% of the reference generation, or is named in MISSED_27_ROWS
+  FAILED: M2's named-miss derivation classes a move as Decision Log 5a ruled (W42 G0)
+    AssertionError: the 27 rows that miss their declared bound: expected [ …(8) ] to deeply equal [ …(9) ]
+    -   "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+    AssertionError: texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5: interiorStdDevWeb 0.018154 -> 0.017246, -5.000%, Apple 0.026761: a failure, which no entry excuses: expected 0.050000000000000065 to be less than or equal to 0.02
+    AssertionError: an M2 failure on the live cut: expected [ Array(1) ] to deeply equal []
+    +   "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5",
+
+--- b-toward-unlisted
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+Tests  3 failed | 104 passed | 1 skipped (108)
+  FAILED: names every 27 row the refit missed, and nothing it did not
+  FAILED: M2: interiorStdDevWeb is within 2% of the reference generation, or is named in MISSED_27_ROWS
+  FAILED: M2's named-miss derivation classes a move as Decision Log 5a ruled (W42 G0)
+    AssertionError: the 27 rows that miss their declared bound: expected [ …(9) ] to deeply equal [ …(8) ]
+    +   "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+    AssertionError: texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5: interiorStdDevWeb 0.018154 -> 0.019969, 10.000%, Apple 0.026761: a named miss MISSED_27_ROWS does not record: expected 0.10000000000000013 to be less than or equal to 0.02
+    AssertionError: a named M2 miss on the live cut: expected [ Array(1) ] to deeply equal []
+    +   "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5",
+
+--- b2-toward-listed
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+Tests  1 failed | 106 passed | 1 skipped (108)
+  FAILED: M2's named-miss derivation classes a move as Decision Log 5a ruled (W42 G0)
+    AssertionError: a named M2 miss on the live cut: expected [ Array(1) ] to deeply equal []
+    +   "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5",
+
+--- b3-toward-listed-no-native
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+Tests  2 failed | 105 passed | 1 skipped (108)
+  FAILED: names every 27 row the refit missed, and nothing it did not
+  FAILED: M2's named-miss derivation classes a move as Decision Log 5a ruled (W42 G0)
+    AssertionError: texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5: Apple's reading beside the miss: expected 0.026761377891451815 to be close to NaN, received difference is NaN, but expected 0.000005
+    AssertionError: a named M2 miss on the live cut: expected [ Array(1) ] to deeply equal []
+    +   "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5",
+
+--- c-past-by-5pct-listed
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+Tests  3 failed | 104 passed | 1 skipped (108)
+  FAILED: names every 27 row the refit missed, and nothing it did not
+  FAILED: M2: interiorStdDevWeb is within 2% of the reference generation, or is named in MISSED_27_ROWS
+  FAILED: M2's named-miss derivation classes a move as Decision Log 5a ruled (W42 G0)
+    AssertionError: the 27 rows that miss their declared bound: expected [ …(8) ] to deeply equal [ …(9) ]
+    -   "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+    AssertionError: texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5: interiorStdDevWeb 0.018154 -> 0.028099, 54.783%, Apple 0.026761: a failure, which no entry excuses: expected 0.5478321237471198 to be less than or equal to 0.02
+    AssertionError: an M2 failure on the live cut: expected [ Array(1) ] to deeply equal []
+    +   "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5",
+
+--- d-past-by-1pct-listed
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+Tests  1 failed | 106 passed | 1 skipped (108)
+  FAILED: M2's named-miss derivation classes a move as Decision Log 5a ruled (W42 G0)
+    AssertionError: a named M2 miss on the live cut: expected [ Array(1) ] to deeply equal []
+    +   "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5",
+
+Reading
+-------
+  a  away, w = r × 0.95 (−5 %, n > r), no entry: the M2 case FAILS ("a failure, which no entry
+     excuses"); the MISSED_27_ROWS owner stays green (a failure is not pushed, so nothing to list).
+  a2 the same away move WITH an M2 entry: the M2 case still FAILS (a failure fails even when
+     listed) and the owner FAILS (the entry names a cell the named-miss set does not hold).
+  b  toward, w = r × 1.10 (+10 %, still below n), no entry: the M2 case FAILS ("a named miss
+     MISSED_27_ROWS does not record") and the owner FAILS (derived named set has the cell, the
+     list does not). A toward move REQUIRES the entry.
+  b2 the same toward move WITH the entry { measured: 0.1, bound: "≤ 0.02", native: 0.02676 }:
+     the M2 case and the owner are GREEN. The one red is the derivation owner's live-cut pin
+     ("no cell engages the path today"), which is its job: the cut, that case and the list move
+     together in the commit that records the miss.
+  b3 toward with the entry but WITHOUT `native`: the owner FAILS on "Apple's reading beside the
+     miss" (expected 0.026761… to be close to NaN). The entry must carry Apple's value.
+  c  past Apple by 5 %, w = n × 1.05, listed: the M2 case FAILS as a failure; the owner FAILS
+     (listed but not named).
+  d  past Apple by 1 %, w = n × 1.01 (within the 2 % read against Apple), listed with
+     measured 0.48887 / native 0.02676: M2 and the owner GREEN; only the live-cut pin is red.
+
+In every scenario "reads a cut taken at this gate…" stayed green, because the matrix row was
+seeded with the cut cell. An earlier pass seeded the cut alone and that case went red too
+(expected 0.017246… to be close to 0.018154…): the cut is re-derived from the matrix, as designed.
+
+Green
+-----
+The committed file, unseeded: see adopted-thresholds.txt (107 passed | 1 skipped; the skip is W33
+X1's UNMEASURED capture tree, absent in this worktree, as before this change) and lint.txt.
+
+
+Re-run after the stream owner made the live-cut check relational (2026-09-29)
+-----------------------------------------------------------------------------
+The new owner case first asserted the named-miss and failure sets EMPTY on the live cut, which
+would have gone red at the first gate that records a named miss (and in the owner-test runner,
+which records the entries the seal would add in a disposable copy). It now asserts failures empty
+and the named set equal to the M2 entries MISSED_27_ROWS records: empty today, and unedited when
+an entry is added beside the regenerated cut. The seven scenarios, regenerated from the edited
+file by red-scenarios.py and run the same way (the scratch directory deleted afterwards):
+
+--- a-away-unlisted
+     × M2: interiorStdDevWeb is within 2% of the reference generation, or is named in MISSED_27_ROWS 6ms
+     × M2's named-miss derivation classes a move as Decision Log 5a ruled (W42 G0) 2ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  2 failed | 105 passed | 1 skipped (108)
+--- a2-away-listed
+     × names every 27 row the refit missed, and nothing it did not 8ms
+     × M2: interiorStdDevWeb is within 2% of the reference generation, or is named in MISSED_27_ROWS 1ms
+     × M2's named-miss derivation classes a move as Decision Log 5a ruled (W42 G0) 1ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  3 failed | 104 passed | 1 skipped (108)
+--- b-toward-unlisted
+     × names every 27 row the refit missed, and nothing it did not 8ms
+     × M2: interiorStdDevWeb is within 2% of the reference generation, or is named in MISSED_27_ROWS 1ms
+     × M2's named-miss derivation classes a move as Decision Log 5a ruled (W42 G0) 1ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  3 failed | 104 passed | 1 skipped (108)
+--- b2-toward-listed
+      Tests  107 passed | 1 skipped (108)
+--- b3-toward-listed-no-native
+     × names every 27 row the refit missed, and nothing it did not 7ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  1 failed | 106 passed | 1 skipped (108)
+--- c-past-by-5pct-listed
+     × names every 27 row the refit missed, and nothing it did not 8ms
+     × M2: interiorStdDevWeb is within 2% of the reference generation, or is named in MISSED_27_ROWS 1ms
+     × M2's named-miss derivation classes a move as Decision Log 5a ruled (W42 G0) 1ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  3 failed | 104 passed | 1 skipped (108)
+--- d-past-by-1pct-listed
+      Tests  107 passed | 1 skipped (108)
+
+Toward-listed-with-native (b2) and past-by-1%-listed (d) are now green in every case, so a
+named miss is recorded by the list entry alone; every failure scenario stays red.
