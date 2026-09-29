@@ -117,7 +117,7 @@ class Archive(unittest.TestCase):
         self.assertEqual(inv['splitSha256'], hashlib.sha256(self.wave.split_path.read_bytes()).hexdigest())
         pins = json.loads((A.BED_DIR / 'pins.json').read_text())
         self.assertEqual(inv['splitSha256'], pins['bed.json'])
-        self.assertEqual(inv['archivedCells'], 25)
+        self.assertEqual(inv['archivedCells'], 23)
         self.assertEqual(inv['uncaptured'], [])
         for row in inv['entries']:
             sid = row['cell'].split('/', 1)[1]
@@ -129,7 +129,7 @@ class Archive(unittest.TestCase):
         self.assertIn(f'operational/logs/{KEY}-driver.txt', paths)
         self.assertIn(f'operational/{KEY}/run-1/manifest.json', paths)
         self.assertFalse(any(p.endswith('.png') for p in paths))
-        self.assertEqual(len(inv['dumps']), 16)
+        self.assertEqual(len(inv['dumps']), 15)
 
     def test_reference_travels_inside_its_dependent_role(self):
         wave = self.wave
@@ -205,7 +205,7 @@ class Archive(unittest.TestCase):
         self.assertTrue(result['identical'])
         holdout = sum(1 for r in json.loads((root / 'inventory.json').read_text())['entries']
                       if r['path'].startswith('holdout/')) // 2
-        self.assertEqual(result['cells'], 25 - holdout)
+        self.assertEqual(result['cells'], 23 - holdout)
         with self.assertRaises(PermissionError):
             (self.raw / 'logs' / f'{KEY}-driver.txt').read_text()
         with self.assertRaises(PermissionError):

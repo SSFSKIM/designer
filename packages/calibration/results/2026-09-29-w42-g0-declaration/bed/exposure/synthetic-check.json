@@ -1,80 +1,92 @@
 {
- "schema": "w42-exposure-synthetic-check-1",
- "tests": {
-  "red": {
-   "file": "red.txt",
-   "tests": 26,
-   "errors": 26,
-   "against": "interface stub, every entry point NotImplementedError"
+  "schema": "w42-exposure-synthetic-check-1",
+  "tests": {
+    "red": {
+      "file": "red.txt",
+      "tests": 26,
+      "errors": 26,
+      "against": "interface stub, every entry point NotImplementedError"
+    },
+    "green": {
+      "file": "green.txt",
+      "tests": 27,
+      "passed": 27
+    },
+    "redUnadmittedHoldout": {
+      "file": "red-unadmitted-holdout.txt",
+      "tests": 1,
+      "errors": 1,
+      "against": "W41's plan-coverage rule restored in runner.py"
+    }
   },
-  "green": {
-   "file": "green.txt",
-   "tests": 27,
-   "passed": 27
+  "realDeclarationScope": {
+    "glassCells": 414,
+    "probeExcluded": 24,
+    "numerical": 390,
+    "rendered": 390,
+    "holdout": 40,
+    "scenesSha256": "02da410cccd789be549fa4fe90bcbd5b640ecff9a0078ec105e1020d3f412c9a",
+    "bedSha256": "f4793aaeee78f4784330a578f1e8336d7d98b6de2ca57c13d3940ee50eb0fd4b"
   },
-  "redUnadmittedHoldout": {
-   "file": "red-unadmitted-holdout.txt",
-   "tests": 1,
-   "errors": 1,
-   "against": "W41's plan-coverage rule restored in runner.py"
+  "implementation": {
+    "runner.py": "33ce239f4668334ea7b633a217e721ef93834bf4d94cd46a1ac5fc82c8f9395d",
+    "test_runner.py": "ca35183167f2ba4c48fc626f351ec193fb0434fd50ace615365862c0ff154a05",
+    "production-pin.json": "d94a2775c7beca8728ae710724cfbc6e95452d6a1f42a07676e06b24dae48f51",
+    "red.txt": "26b1ec7824155b76703448801e9e8a93f9c87dee303480bc11f1fceb2912af47",
+    "green.txt": "c9d54da5c7d58dfa09ae6d64351a93bdc9a9608fe8b5a672004b4557a615a26f",
+    "red-unadmitted-holdout.txt": "c785a02b15c642b787bd4ca6579766d56bf841ac86d94872da0a0262793772f0"
+  },
+  "inherited": {
+    "packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/wave.py": "d2a827f67b8048abaa98df2ae42e6491478b7a5bd77c6b572d7875ddde673f10",
+    "packages/calibration/results/2026-09-27-w41-g0-declaration/exposure/runner.py": "1913e0f5a88f89efc8e18b5134567af0f5e9b12a611370e7e31ea9281b9475bb",
+    "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/wave.py": "24acdb0cd6b1138b92b80725b5c4d6296def9e614fec044b5297a07f73de7f11"
+  },
+  "realDeclarationScopeAfterS32Ruling": {
+    "note": "added beside realDeclarationScope (kept as recorded) after the parent's s = 32 receded-rows ruling; green-s32.txt is the 27-test rerun",
+    "glassCells": 424,
+    "probeExcluded": 24,
+    "numerical": 400,
+    "rendered": 400,
+    "holdout": 40,
+    "scenesSha256": "d8adbaac4b35d2fcded103861828b35dcb86d4f11cddd202846f00a757773e51",
+    "bedSha256": "a4e9640ef89f8f2ec7625c28d15901ba96f50e9fced2108a6458c462ae63d4b1",
+    "greenS32Sha256": "964705cc44c55fb031113dc045ab7390f4cdc19321992deaa9dbd1929ed17dff",
+    "testRunnerSha256": "1215cae54f938d7d14e1fb7c041eddb92553fbb9b35bc74cd0299e2f849794cd"
+  },
+  "realDeclarationScopeAfterInstrumentRulings": {
+    "note": "added beside the earlier scope records (kept as recorded) after the parent's rulings from the instrument stream's separation proof; green-rulings.txt is the 27-test rerun",
+    "glassCells": 452,
+    "probeExcluded": 24,
+    "numerical": 428,
+    "rendered": 428,
+    "holdout": 40,
+    "scenesSha256": "231d80d43ce6a47ce15e464270bae041cfdecfd28b0493d1a6138bcc9c668768",
+    "bedSha256": "a4707171cbefcf1890719ae3dcd76db8d97224e4d7237c8021220ad009753fb4",
+    "greenRulingsSha256": "1157e00e03482ba6b78fa6e0bdc455da691070732ad069021812d2e7a4fe6327",
+    "testRunnerSha256": "2222c1f655c8487bada186c5a6ea68182d9324f72fef1ab31de8997f71fa8647"
+  },
+  "realDeclarationScopeAfterRuling3GuardRows": {
+    "note": "added beside the earlier scope records (kept as recorded) after ruling 3's active guard rows; green-guard.txt is the 27-test rerun",
+    "glassCells": 465,
+    "probeExcluded": 24,
+    "numerical": 441,
+    "rendered": 441,
+    "holdout": 40,
+    "scenesSha256": "e2c532d98ed55dff1a37825bd4717957c71f827184af9fa9fc9a26dbe2465478",
+    "bedSha256": "9047c8da871f60b432dfe454e783a86634c9444d74e3a98f534f016e3684b176",
+    "greenGuardSha256": "752cd58d0e2fcfcd2bebf5d5b868c4609e71088c4c097ae93f0d2fcb60add32f",
+    "testRunnerSha256": "b1584c15c2a20a62f298ad2a19cb32cab432d9a0b9d30a763238129f01a5227e"
+  },
+  "realDeclarationScopeAfterB1Drops": {
+    "note": "added beside the earlier scope records (kept as recorded) after the parent's ruling b1 on the bed review (the active cells no active reader reads dropped from the active passes); green-b1.txt is the 27-test rerun",
+    "glassCells": 447,
+    "probeExcluded": 24,
+    "numerical": 423,
+    "rendered": 423,
+    "holdout": 40,
+    "scenesSha256": "4aa06af90eb527b249fdede3d7d102b06c027069552c07dfc7456b7bd2c43ca0",
+    "bedSha256": "53870f4703681644b00ffcfb5ba60a2fb3a9d1ebe25b5c793b99a0b8b3e50762",
+    "greenB1Sha256": "811d2a956f612e09d1012a1cf821f7ceb213fbe73fa4b07a73ed39e6d7bbca0a",
+    "testRunnerSha256": "3d753784d63f2ff5e111debf775d6ff26bb9a206dd952378850d65ed7799deb5"
   }
- },
- "realDeclarationScope": {
-  "glassCells": 414,
-  "probeExcluded": 24,
-  "numerical": 390,
-  "rendered": 390,
-  "holdout": 40,
-  "scenesSha256": "02da410cccd789be549fa4fe90bcbd5b640ecff9a0078ec105e1020d3f412c9a",
-  "bedSha256": "f4793aaeee78f4784330a578f1e8336d7d98b6de2ca57c13d3940ee50eb0fd4b"
- },
- "implementation": {
-  "runner.py": "33ce239f4668334ea7b633a217e721ef93834bf4d94cd46a1ac5fc82c8f9395d",
-  "test_runner.py": "ca35183167f2ba4c48fc626f351ec193fb0434fd50ace615365862c0ff154a05",
-  "production-pin.json": "d94a2775c7beca8728ae710724cfbc6e95452d6a1f42a07676e06b24dae48f51",
-  "red.txt": "26b1ec7824155b76703448801e9e8a93f9c87dee303480bc11f1fceb2912af47",
-  "green.txt": "c9d54da5c7d58dfa09ae6d64351a93bdc9a9608fe8b5a672004b4557a615a26f",
-  "red-unadmitted-holdout.txt": "c785a02b15c642b787bd4ca6579766d56bf841ac86d94872da0a0262793772f0"
- },
- "inherited": {
-  "packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/wave.py": "d2a827f67b8048abaa98df2ae42e6491478b7a5bd77c6b572d7875ddde673f10",
-  "packages/calibration/results/2026-09-27-w41-g0-declaration/exposure/runner.py": "1913e0f5a88f89efc8e18b5134567af0f5e9b12a611370e7e31ea9281b9475bb",
-  "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/wave.py": "24acdb0cd6b1138b92b80725b5c4d6296def9e614fec044b5297a07f73de7f11"
- },
- "realDeclarationScopeAfterS32Ruling": {
-  "note": "added beside realDeclarationScope (kept as recorded) after the parent's s = 32 receded-rows ruling; green-s32.txt is the 27-test rerun",
-  "glassCells": 424,
-  "probeExcluded": 24,
-  "numerical": 400,
-  "rendered": 400,
-  "holdout": 40,
-  "scenesSha256": "d8adbaac4b35d2fcded103861828b35dcb86d4f11cddd202846f00a757773e51",
-  "bedSha256": "a4e9640ef89f8f2ec7625c28d15901ba96f50e9fced2108a6458c462ae63d4b1",
-  "greenS32Sha256": "964705cc44c55fb031113dc045ab7390f4cdc19321992deaa9dbd1929ed17dff",
-  "testRunnerSha256": "1215cae54f938d7d14e1fb7c041eddb92553fbb9b35bc74cd0299e2f849794cd"
- },
- "realDeclarationScopeAfterInstrumentRulings": {
-  "note": "added beside the earlier scope records (kept as recorded) after the parent's rulings from the instrument stream's separation proof; green-rulings.txt is the 27-test rerun",
-  "glassCells": 452,
-  "probeExcluded": 24,
-  "numerical": 428,
-  "rendered": 428,
-  "holdout": 40,
-  "scenesSha256": "231d80d43ce6a47ce15e464270bae041cfdecfd28b0493d1a6138bcc9c668768",
-  "bedSha256": "a4707171cbefcf1890719ae3dcd76db8d97224e4d7237c8021220ad009753fb4",
-  "greenRulingsSha256": "1157e00e03482ba6b78fa6e0bdc455da691070732ad069021812d2e7a4fe6327",
-  "testRunnerSha256": "2222c1f655c8487bada186c5a6ea68182d9324f72fef1ab31de8997f71fa8647"
- },
- "realDeclarationScopeAfterRuling3GuardRows": {
-  "note": "added beside the earlier scope records (kept as recorded) after ruling 3's active guard rows; green-guard.txt is the 27-test rerun",
-  "glassCells": 465,
-  "probeExcluded": 24,
-  "numerical": 441,
-  "rendered": 441,
-  "holdout": 40,
-  "scenesSha256": "e2c532d98ed55dff1a37825bd4717957c71f827184af9fa9fc9a26dbe2465478",
-  "bedSha256": "9047c8da871f60b432dfe454e783a86634c9444d74e3a98f534f016e3684b176",
-  "greenGuardSha256": "752cd58d0e2fcfcd2bebf5d5b868c4609e71088c4c097ae93f0d2fcb60add32f",
-  "testRunnerSha256": "b1584c15c2a20a62f298ad2a19cb32cab432d9a0b9d30a763238129f01a5227e"
- }
 }

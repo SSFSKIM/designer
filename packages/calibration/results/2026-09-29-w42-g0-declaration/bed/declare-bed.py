@@ -270,7 +270,12 @@ def build():
         for size in (8, 32):
             patch(f'c-s{size}-{pol}-rrect-md', fg, bg, size, 232, 'rrect-md', (-44, -16), 48, two,
                   uitems=('U1', 'U4', 'one k or two'))
-        patch(f'c-s16-{pol}-capsule-button', fg, bg, 16, 232, 'capsule-button', (-44, -16), 22, two)
+        # Receded only (the parent's ruling b1 on the bed review): its near edge (depth 22 less
+        # half of 16) lies 14 pt in, inside the active 20-pt inner-refraction band, so no active
+        # reader reads it (instrument/bed.py refraction_exclusions); U1 reads it receded.
+        patch(f'c-s16-{pol}-capsule-button', fg, bg, 16, 232, 'capsule-button', (-44, -16), 22,
+              everywhere(2, ('receded',)),
+              note='receded only (b1): inside the active 20-pt inner-refraction band, read by no active reader')
     # The depth sweep, S 8, in the polarity whose detail PASSES the knee: bright on dark in the
     # light scheme (Lighten), dark on bright in the dark scheme (Darken). rrect-md's centre is
     # the S 8 cell above. Active: the declared o(d) grading; receded: a falsification control.
@@ -279,8 +284,13 @@ def build():
         sweep = everywhere(2, schemes=(scheme,))
         patch(f'c-s8-{pol}-d24-rrect-md', fg, bg, 8, 232, 'rrect-md', (-44, 8), 24, sweep, role='validation',
               uitems=('depth',), note='validation: depth transfer (s/4 between the centre and 4 pt)')
-        patch(f'c-s8-{pol}-d4-rrect-md', fg, bg, 8, 256, 'rrect-md', (-32, 16), 4, sweep, uitems=('depth',),
-              note='inside the active inner-refraction band (height min(s/4, 20) = 20 pt, memo D §3)')
+        # The 4-pt cells are receded only (the parent's ruling b1 on the bed review): active, they
+        # sit inside the inner-refraction band and every active reader excludes them; receded,
+        # they are the depth sweep's flat-in-depth control at its extreme.
+        receded_sweep = everywhere(2, ('receded',), (scheme,))
+        patch(f'c-s8-{pol}-d4-rrect-md', fg, bg, 8, 256, 'rrect-md', (-32, 16), 4, receded_sweep, uitems=('depth',),
+              note='receded only (b1): active, inside the inner-refraction band (height min(s/4, 20) = 20 pt, '
+                   'memo D §3), read by no active reader')
         patch(f'c-s8-{pol}-d80-rrect-lg', fg, bg, 8, 64, 'rrect-lg', (0, 4), 80, sweep,
               uitems=('depth', 'rrect-lg narrow', 'units'),
               note='NOT single: no single-impulse spacing reaches rrect-lg\'s centre with its box inside '
@@ -290,9 +300,10 @@ def build():
         # clearance to the canvas edge (10 and 12 CSS px; the canonical rrect-lg has 20).
         patch(f'c-s8-{pol}-d40-rrect-lg', fg, bg, 8, 300, 'rrect-lg', (-10, -10), 40, sweep, role='validation',
               uitems=('depth', 'rrect-lg narrow'), note='validation: depth transfer on rrect-lg')
-        patch(f'c-s8-{pol}-d4-rrect-lg', fg, bg, 8, 336, 'rrect-lg', (8, 8), 4, sweep,
+        patch(f'c-s8-{pol}-d4-rrect-lg', fg, bg, 8, 336, 'rrect-lg', (8, 8), 4, receded_sweep,
               uitems=('depth', 'rrect-lg narrow'),
-              note='inside the active inner-refraction band (20 pt, memo D §3)')
+              note='receded only (b1): active, inside the inner-refraction band (20 pt, memo D §3), '
+                   'read by no active reader')
     # The canonical impulse (0/255, 4 pt every 64 pt) on rrect-ml and rrect-lg; rrect-lg also at 1x.
     canon = bed.bg(impulse(255, 0, 4, 64))
     for base, passes in (('rrect-ml', two), ('rrect-lg', two | one)):
@@ -313,10 +324,15 @@ def build():
         step(f'd-d0-{pol}-rrect-md', 160, pol, 'rrect-md', two, uitems=('U1', 'U3'))
         step(f'd-d32-{pol}-rrect-md', 192, pol, 'rrect-md', two, uitems=('U1', 'U3'))
         step(f'd-d12-{pol}-rrect-md', 172, pol, 'rrect-md', everywhere(2, ('receded',)), uitems=('U1', 'U3'))
+        # The outside steps are receded only (the parent's ruling b1 on the bed review): U3's
+        # active half is not captured (recordedNotCaptured), and in the active pose they sit
+        # inside the 19.2-pt outer-refraction reach, excluded from every active fit.
         for out in (8, 16):
-            passes = two | one if (out, pol) == (8, 'lohi') else two
+            receded = everywhere(2, ('receded',))
+            passes = receded | everywhere(1, ('receded',)) if (out, pol) == (8, 'lohi') else receded
             step(f'd-out{out}-{pol}-rrect-md', 240 + out, pol, 'rrect-md', passes, uitems=('U3',),
-                 note=f'{out} CSS px outside the rrect-md edge (x = 240); the receded margin is 1 dev')
+                 note=f'{out} CSS px outside the rrect-md edge (x = 240); the receded margin is 1 dev px; '
+                      'receded only (b1)')
         step(f'd-d0-{pol}-rrect-lg', 160, pol, 'rrect-lg', active2, uitems=('U7',),
              note="the review's bleed rows (active only)")
     step('d-d0-lohi-capsule-button', 160, 'lohi', 'capsule-button', two, role='validation', uitems=('U3',),
@@ -493,9 +509,12 @@ def profile_key(scale, scheme):
 # and end patches (+2 per 2x receded pass), the dark 16 / 112 twins (+10 dark active, +12 dark
 # receded).
 # Then the active guard rows of ruling 3 (+6 per 2x active pass, +1 more dark active).
-EXPECTED = {pass_key(2, 'light', 'active'): 88 + 1 + 6, pass_key(2, 'dark', 'active'): 91 + 1 + 10 + 7,
+# Then the parent's ruling b1 on the bed review: the active cells no active reader reads leave
+# the ACTIVE passes and stay receded (-8 per 2x active pass: the two 4-pt patches, the two capsule
+# S 16 patches, the four outside steps; -1 per 1x active pass: the outside step).
+EXPECTED = {pass_key(2, 'light', 'active'): 88 + 1 + 6 - 8, pass_key(2, 'dark', 'active'): 91 + 1 + 10 + 7 - 8,
             pass_key(2, 'light', 'receded'): 86 + 4 + 2, pass_key(2, 'dark', 'receded'): 89 + 4 + 2 + 12,
-            pass_key(1, 'light', 'active'): 15, pass_key(1, 'dark', 'active'): 15,
+            pass_key(1, 'light', 'active'): 15 - 1, pass_key(1, 'dark', 'active'): 15 - 1,
             pass_key(1, 'light', 'receded'): 15 + 1, pass_key(1, 'dark', 'receded'): 15 + 1}
 SENTINELS = ('f-impulse-rrect-md', 'f-checker64-rrect-lg')
 
@@ -650,7 +669,8 @@ U_ITEMS = {
     'U1': 'the receded one-sided algebra; W reference 16-48 pt: C (S 32 both polarities on rrect-md, S 16 on '
           'capsule), D (delta 0 and 12 on capsule; 0, 12, 32 on rrect-md), B (P2 and P4 at pitch 64 beside 16)',
     'U2': "the receded narrow span law: B', with C's depth sweep as its flat-in-depth control",
-    'U3': 'the footprint support and edge mode: D (inside and outside steps), both poses',
+    'U3': 'the footprint support and edge mode: D (inside steps in both poses; outside steps receded only, '
+          'since the active half is recorded, not captured: recordedNotCaptured)',
     'U4': 'the heavy kernel tails: C, D',
     'U5': 'T at 150-255 per endpoint and span: A',
     'U6': 'per-channel against on-luma knee, chroma kernel: E',
@@ -696,8 +716,12 @@ DEVIATIONS = [
                  '16 pt outside rrect-md lie within its declared outer-refraction reach (OuterRefractionHeight '
                  'max(16, s/5) = 19.2 pt, amount 24; memo D §3). LT models neither (memo E §5).',
          declared='the cells stand as the charter lists them; the reader must model or exclude refraction '
-                  'there. Receded (RefractionOpacity 0) is unaffected.',
-         status='flagged for the instrument stream'),
+                  'there. Receded (RefractionOpacity 0) is unaffected. Then the parent\'s ruling b1 on the bed '
+                  'review: the instrument excludes every such cell from every active fit (instrument/bed.py '
+                  'refraction_exclusions: the two 4-pt patches, the capsule S 16 patches, whose near edge is 14 '
+                  'pt in, and the outside steps), and U3\'s active half is recorded, not captured, so these '
+                  'cells are captured RECEDED ONLY: -8 per 2x active pass, -1 per 1x active pass.',
+         status='flagged for the instrument stream; resolved by b1 (receded only)'),
 ]
 
 
@@ -737,7 +761,8 @@ def main():
                    'instrument stream\'s separation proof)',
             why='the active margin keeps R_fp\'s edge >= 45 pt from every readable pixel, and the answering '
                 'rows (D\'s steps outside the edge) sit inside the 19.2-pt outer-refraction reach; no cell '
-                'inside the canvas and outside that reach answers it')],
+                'inside the canvas and outside that reach answers it; the outside steps are captured '
+                'receded only (the parent\'s ruling b1)')],
         dumpList={k: sorted(f'{c}__rest' for c in p['cells']) for k, p in passes.items()},
     )
     (HERE / 'bed.json').write_text(json.dumps(companion, indent=2, ensure_ascii=False) + '\n')

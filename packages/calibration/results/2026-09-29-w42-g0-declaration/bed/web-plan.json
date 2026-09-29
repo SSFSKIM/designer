@@ -1,7 +1,7 @@
 {
  "schema": "w42-web-plan-1",
- "scenesSha256": "e2c532d98ed55dff1a37825bd4717957c71f827184af9fa9fc9a26dbe2465478",
- "bedSha256": "9047c8da871f60b432dfe454e783a86634c9444d74e3a98f534f016e3684b176",
+ "scenesSha256": "4aa06af90eb527b249fdede3d7d102b06c027069552c07dfc7456b7bd2c43ca0",
+ "bedSha256": "53870f4703681644b00ffcfb5ba60a2fb3a9d1ebe25b5c793b99a0b8b3e50762",
  "derivedFrom": [
   "packages/calibration/web/scene.ts (backgrounds are fixture rasters of any kind; scene.state inactive -> runtime receded pose; texture sampling)",
   "packages/calibration/web/scenes.ts + src/component-region.ts (single shapes, Math.round centring plus offset; position ignored; none/opaque native-only)"
@@ -9,32 +9,32 @@
  "rule": "a glass cell is web-plannable iff it is a single capsule/rrect whose native frame (centred + offset) equals the web frame (Math.round centred + offset)",
  "passTotals": {
   "2x-light-active": {
-   "declared": 95,
-   "plannable": 95
+   "declared": 87,
+   "plannable": 87
   },
   "2x-light-receded": {
    "declared": 92,
    "plannable": 92
   },
   "2x-dark-active": {
-   "declared": 109,
-   "plannable": 109
+   "declared": 101,
+   "plannable": 101
   },
   "2x-dark-receded": {
    "declared": 107,
    "plannable": 107
   },
   "1x-light-active": {
-   "declared": 15,
-   "plannable": 15
+   "declared": 14,
+   "plannable": 14
   },
   "1x-light-receded": {
    "declared": 16,
    "plannable": 16
   },
   "1x-dark-active": {
-   "declared": 15,
-   "plannable": 15
+   "declared": 14,
+   "plannable": 14
   },
   "1x-dark-receded": {
    "declared": 16,
@@ -55,12 +55,12 @@
    "plannable": 68
   },
   "C": {
-   "declared": 83,
-   "plannable": 83
+   "declared": 75,
+   "plannable": 75
   },
   "D": {
-   "declared": 58,
-   "plannable": 58
+   "declared": 48,
+   "plannable": 48
   },
   "E": {
    "declared": 20,
@@ -503,22 +503,6 @@
      "reason": null,
      "clearanceCss": 36.0
     },
-    "c-s16-hi-capsule-button": {
-     "scene": "c-s16-hi-capsule-button__rest",
-     "family": "C",
-     "role": "calibration",
-     "plannable": true,
-     "reason": null,
-     "clearanceCss": 56.0
-    },
-    "c-s16-lo-capsule-button": {
-     "scene": "c-s16-lo-capsule-button__rest",
-     "family": "C",
-     "role": "calibration",
-     "plannable": true,
-     "reason": null,
-     "clearanceCss": 56.0
-    },
     "c-s32-hi-rrect-md": {
      "scene": "c-s32-hi-rrect-md__rest",
      "family": "C",
@@ -545,22 +529,6 @@
     },
     "c-s8-hi-d34-rrect-md": {
      "scene": "c-s8-hi-d34-rrect-md__rest",
-     "family": "C",
-     "role": "calibration",
-     "plannable": true,
-     "reason": null,
-     "clearanceCss": 36.0
-    },
-    "c-s8-hi-d4-rrect-lg": {
-     "scene": "c-s8-hi-d4-rrect-lg__rest",
-     "family": "C",
-     "role": "calibration",
-     "plannable": true,
-     "reason": null,
-     "clearanceCss": 12.0
-    },
-    "c-s8-hi-d4-rrect-md": {
-     "scene": "c-s8-hi-d4-rrect-md__rest",
      "family": "C",
      "role": "calibration",
      "plannable": true,
@@ -657,38 +625,6 @@
     },
     "d-d32-lohi-rrect-md": {
      "scene": "d-d32-lohi-rrect-md__rest",
-     "family": "D",
-     "role": "calibration",
-     "plannable": true,
-     "reason": null,
-     "clearanceCss": 52.0
-    },
-    "d-out16-hilo-rrect-md": {
-     "scene": "d-out16-hilo-rrect-md__rest",
-     "family": "D",
-     "role": "calibration",
-     "plannable": true,
-     "reason": null,
-     "clearanceCss": 52.0
-    },
-    "d-out16-lohi-rrect-md": {
-     "scene": "d-out16-lohi-rrect-md__rest",
-     "family": "D",
-     "role": "calibration",
-     "plannable": true,
-     "reason": null,
-     "clearanceCss": 52.0
-    },
-    "d-out8-hilo-rrect-md": {
-     "scene": "d-out8-hilo-rrect-md__rest",
-     "family": "D",
-     "role": "calibration",
-     "plannable": true,
-     "reason": null,
-     "clearanceCss": 52.0
-    },
-    "d-out8-lohi-rrect-md": {
-     "scene": "d-out8-lohi-rrect-md__rest",
      "family": "D",
      "role": "calibration",
      "plannable": true,
@@ -854,12 +790,12 @@
      "plannable": 10
     },
     "C": {
-     "declared": 15,
-     "plannable": 15
-    },
-    "D": {
      "declared": 11,
      "plannable": 11
+    },
+    "D": {
+     "declared": 7,
+     "plannable": 7
     },
     "E": {
      "declared": 6,
@@ -874,8 +810,8 @@
      "plannable": 8
     }
    },
-   "declared": 95,
-   "plannable": 95,
+   "declared": 87,
+   "plannable": 87,
    "belowSamplingPadding": [
     "a-g096-rrect-lg",
     "a-g160-rrect-lg",
@@ -887,7 +823,6 @@
     "bp-p1-c32-rrect-lg",
     "bp-p1-c8-rrect-lg",
     "c-impulse-rrect-lg",
-    "c-s8-hi-d4-rrect-lg",
     "c-s8-hi-d40-rrect-lg",
     "c-s8-hi-d60-rrect-lg",
     "c-s8-hi-d80-rrect-lg",
@@ -2140,22 +2075,6 @@
      "reason": null,
      "clearanceCss": 36.0
     },
-    "c-s16-hi-capsule-button": {
-     "scene": "c-s16-hi-capsule-button__rest",
-     "family": "C",
-     "role": "calibration",
-     "plannable": true,
-     "reason": null,
-     "clearanceCss": 56.0
-    },
-    "c-s16-lo-capsule-button": {
-     "scene": "c-s16-lo-capsule-button__rest",
-     "family": "C",
-     "role": "calibration",
-     "plannable": true,
-     "reason": null,
-     "clearanceCss": 56.0
-    },
     "c-s32-hi-p4-rrect-md": {
      "scene": "c-s32-hi-p4-rrect-md__rest",
      "family": "C",
@@ -2238,22 +2157,6 @@
     },
     "c-s8-lo-d34-rrect-md": {
      "scene": "c-s8-lo-d34-rrect-md__rest",
-     "family": "C",
-     "role": "calibration",
-     "plannable": true,
-     "reason": null,
-     "clearanceCss": 36.0
-    },
-    "c-s8-lo-d4-rrect-lg": {
-     "scene": "c-s8-lo-d4-rrect-lg__rest",
-     "family": "C",
-     "role": "calibration",
-     "plannable": true,
-     "reason": null,
-     "clearanceCss": 12.0
-    },
-    "c-s8-lo-d4-rrect-md": {
-     "scene": "c-s8-lo-d4-rrect-md__rest",
      "family": "C",
      "role": "calibration",
      "plannable": true,
@@ -2382,38 +2285,6 @@
     },
     "d-d32-lohi-rrect-md": {
      "scene": "d-d32-lohi-rrect-md__rest",
-     "family": "D",
-     "role": "calibration",
-     "plannable": true,
-     "reason": null,
-     "clearanceCss": 52.0
-    },
-    "d-out16-hilo-rrect-md": {
-     "scene": "d-out16-hilo-rrect-md__rest",
-     "family": "D",
-     "role": "calibration",
-     "plannable": true,
-     "reason": null,
-     "clearanceCss": 52.0
-    },
-    "d-out16-lohi-rrect-md": {
-     "scene": "d-out16-lohi-rrect-md__rest",
-     "family": "D",
-     "role": "calibration",
-     "plannable": true,
-     "reason": null,
-     "clearanceCss": 52.0
-    },
-    "d-out8-hilo-rrect-md": {
-     "scene": "d-out8-hilo-rrect-md__rest",
-     "family": "D",
-     "role": "calibration",
-     "plannable": true,
-     "reason": null,
-     "clearanceCss": 52.0
-    },
-    "d-out8-lohi-rrect-md": {
-     "scene": "d-out8-lohi-rrect-md__rest",
      "family": "D",
      "role": "calibration",
      "plannable": true,
@@ -2579,12 +2450,12 @@
      "plannable": 10
     },
     "C": {
-     "declared": 24,
-     "plannable": 24
+     "declared": 20,
+     "plannable": 20
     },
     "D": {
-     "declared": 13,
-     "plannable": 13
+     "declared": 9,
+     "plannable": 9
     },
     "E": {
      "declared": 6,
@@ -2599,8 +2470,8 @@
      "plannable": 8
     }
    },
-   "declared": 109,
-   "plannable": 109,
+   "declared": 101,
+   "plannable": 101,
    "belowSamplingPadding": [
     "a-g096-rrect-lg",
     "a-g160-rrect-lg",
@@ -2615,7 +2486,6 @@
     "c-s32-hi-p4-rrect-ml",
     "c-s32-lo-p4-rrect-ml",
     "c-s8-hi-p4-rrect-ml",
-    "c-s8-lo-d4-rrect-lg",
     "c-s8-lo-d40-rrect-lg",
     "c-s8-lo-d60-rrect-lg",
     "c-s8-lo-d80-rrect-lg",
@@ -3625,14 +3495,6 @@
      "reason": null,
      "clearanceCss": 20.0
     },
-    "d-out8-lohi-rrect-md": {
-     "scene": "d-out8-lohi-rrect-md__rest",
-     "family": "D",
-     "role": "calibration",
-     "plannable": true,
-     "reason": null,
-     "clearanceCss": 52.0
-    },
     "f-checker64-rrect-lg": {
      "scene": "f-checker64-rrect-lg__rest",
      "family": "F",
@@ -3679,10 +3541,6 @@
      "declared": 1,
      "plannable": 1
     },
-    "D": {
-     "declared": 1,
-     "plannable": 1
-    },
     "F": {
      "declared": 2,
      "plannable": 2
@@ -3692,8 +3550,8 @@
      "plannable": 2
     }
    },
-   "declared": 15,
-   "plannable": 15,
+   "declared": 14,
+   "plannable": 14,
    "belowSamplingPadding": [
     "bp-p1-c32-rrect-lg",
     "bp-p1-c4-rrect-lg",
@@ -3955,14 +3813,6 @@
      "reason": null,
      "clearanceCss": 20.0
     },
-    "d-out8-lohi-rrect-md": {
-     "scene": "d-out8-lohi-rrect-md__rest",
-     "family": "D",
-     "role": "calibration",
-     "plannable": true,
-     "reason": null,
-     "clearanceCss": 52.0
-    },
     "f-checker64-rrect-lg": {
      "scene": "f-checker64-rrect-lg__rest",
      "family": "F",
@@ -4009,10 +3859,6 @@
      "declared": 1,
      "plannable": 1
     },
-    "D": {
-     "declared": 1,
-     "plannable": 1
-    },
     "F": {
      "declared": 2,
      "plannable": 2
@@ -4022,8 +3868,8 @@
      "plannable": 2
     }
    },
-   "declared": 15,
-   "plannable": 15,
+   "declared": 14,
+   "plannable": 14,
    "belowSamplingPadding": [
     "bp-p1-c32-rrect-lg",
     "bp-p1-c4-rrect-lg",
@@ -4333,11 +4179,9 @@
    "c-impulse-rrect-ml__inactive",
    "c-impulse-rrect-ml__rest",
    "c-s16-hi-capsule-button__inactive",
-   "c-s16-hi-capsule-button__rest",
    "c-s16-hi-corner-rrect-md__inactive",
    "c-s16-hi-end-capsule-button__inactive",
    "c-s16-lo-capsule-button__inactive",
-   "c-s16-lo-capsule-button__rest",
    "c-s16-lo-corner-rrect-md__inactive",
    "c-s16-lo-end-capsule-button__inactive",
    "c-s32-hi-p4-rrect-md__inactive",
@@ -4356,9 +4200,7 @@
    "c-s8-hi-d24-rrect-md__rest",
    "c-s8-hi-d34-rrect-md__rest",
    "c-s8-hi-d4-rrect-lg__inactive",
-   "c-s8-hi-d4-rrect-lg__rest",
    "c-s8-hi-d4-rrect-md__inactive",
-   "c-s8-hi-d4-rrect-md__rest",
    "c-s8-hi-d40-rrect-lg__inactive",
    "c-s8-hi-d40-rrect-lg__rest",
    "c-s8-hi-d60-rrect-lg__rest",
@@ -4375,9 +4217,7 @@
    "c-s8-lo-d24-rrect-md__rest",
    "c-s8-lo-d34-rrect-md__rest",
    "c-s8-lo-d4-rrect-lg__inactive",
-   "c-s8-lo-d4-rrect-lg__rest",
    "c-s8-lo-d4-rrect-md__inactive",
-   "c-s8-lo-d4-rrect-md__rest",
    "c-s8-lo-d40-rrect-lg__inactive",
    "c-s8-lo-d40-rrect-lg__rest",
    "c-s8-lo-d60-rrect-lg__rest",
@@ -4414,13 +4254,9 @@
    "d-d32-lohi-rrect-md__inactive",
    "d-d32-lohi-rrect-md__rest",
    "d-out16-hilo-rrect-md__inactive",
-   "d-out16-hilo-rrect-md__rest",
    "d-out16-lohi-rrect-md__inactive",
-   "d-out16-lohi-rrect-md__rest",
    "d-out8-hilo-rrect-md__inactive",
-   "d-out8-hilo-rrect-md__rest",
    "d-out8-lohi-rrect-md__inactive",
-   "d-out8-lohi-rrect-md__rest",
    "e-by-c16-rrect-lg__rest",
    "e-by-c16-rrect-md__inactive",
    "e-by-c16-rrect-md__rest",
@@ -4443,11 +4279,17 @@
   "excluded": {
    "bp-p1-c16-rrect-sm__rest": "dump-only rest twin: captured in no pass",
    "bp-p1-c8-rrect-sm__rest": "dump-only rest twin: captured in no pass",
+   "c-s16-hi-capsule-button__rest": "dump-only rest twin: captured in no pass",
    "c-s16-hi-corner-rrect-md__rest": "dump-only rest twin: captured in no pass",
    "c-s16-hi-end-capsule-button__rest": "dump-only rest twin: captured in no pass",
+   "c-s16-lo-capsule-button__rest": "dump-only rest twin: captured in no pass",
    "c-s16-lo-corner-rrect-md__rest": "dump-only rest twin: captured in no pass",
    "c-s16-lo-end-capsule-button__rest": "dump-only rest twin: captured in no pass",
+   "c-s8-hi-d4-rrect-lg__rest": "dump-only rest twin: captured in no pass",
+   "c-s8-hi-d4-rrect-md__rest": "dump-only rest twin: captured in no pass",
    "c-s8-hi-rrect-sm__rest": "dump-only rest twin: captured in no pass",
+   "c-s8-lo-d4-rrect-lg__rest": "dump-only rest twin: captured in no pass",
+   "c-s8-lo-d4-rrect-md__rest": "dump-only rest twin: captured in no pass",
    "c-s8-lo-rrect-sm__rest": "dump-only rest twin: captured in no pass",
    "d-d0-lohi-rrect-sm__rest": "dump-only rest twin: captured in no pass",
    "d-d12-hilo-p4-rrect-md__rest": "dump-only rest twin: captured in no pass",
@@ -4455,6 +4297,10 @@
    "d-d12-lohi-capsule-button__rest": "dump-only rest twin: captured in no pass",
    "d-d12-lohi-p4-rrect-md__rest": "dump-only rest twin: captured in no pass",
    "d-d12-lohi-rrect-md__rest": "dump-only rest twin: captured in no pass",
+   "d-out16-hilo-rrect-md__rest": "dump-only rest twin: captured in no pass",
+   "d-out16-lohi-rrect-md__rest": "dump-only rest twin: captured in no pass",
+   "d-out8-hilo-rrect-md__rest": "dump-only rest twin: captured in no pass",
+   "d-out8-lohi-rrect-md__rest": "dump-only rest twin: captured in no pass",
    "ref-checker-16-000-255__inactive": "native-only (no-glass reference)",
    "ref-checker-16-000-255__rest": "native-only (no-glass reference)",
    "ref-checker-16-016-112__inactive": "native-only (no-glass reference)",
@@ -4520,17 +4366,14 @@
    "ref-impulse-016-on-112-s8-g248__inactive": "native-only (no-glass reference)",
    "ref-impulse-016-on-112-s8-g248__rest": "native-only (no-glass reference)",
    "ref-impulse-048-on-208-s16-g232__inactive": "native-only (no-glass reference)",
-   "ref-impulse-048-on-208-s16-g232__rest": "native-only (no-glass reference)",
    "ref-impulse-048-on-208-s32-g232__inactive": "native-only (no-glass reference)",
    "ref-impulse-048-on-208-s32-g232__rest": "native-only (no-glass reference)",
    "ref-impulse-048-on-208-s8-g232__inactive": "native-only (no-glass reference)",
    "ref-impulse-048-on-208-s8-g232__rest": "native-only (no-glass reference)",
    "ref-impulse-048-on-208-s8-g256__inactive": "native-only (no-glass reference)",
-   "ref-impulse-048-on-208-s8-g256__rest": "native-only (no-glass reference)",
    "ref-impulse-048-on-208-s8-g300__inactive": "native-only (no-glass reference)",
    "ref-impulse-048-on-208-s8-g300__rest": "native-only (no-glass reference)",
    "ref-impulse-048-on-208-s8-g336__inactive": "native-only (no-glass reference)",
-   "ref-impulse-048-on-208-s8-g336__rest": "native-only (no-glass reference)",
    "ref-impulse-048-on-208-s8-g64__inactive": "native-only (no-glass reference)",
    "ref-impulse-048-on-208-s8-g64__rest": "native-only (no-glass reference)",
    "ref-impulse-112-on-016-s32-g232__inactive": "native-only (no-glass reference)",
@@ -4542,17 +4385,14 @@
    "ref-impulse-112-on-016-s8-g248__inactive": "native-only (no-glass reference)",
    "ref-impulse-112-on-016-s8-g248__rest": "native-only (no-glass reference)",
    "ref-impulse-208-on-048-s16-g232__inactive": "native-only (no-glass reference)",
-   "ref-impulse-208-on-048-s16-g232__rest": "native-only (no-glass reference)",
    "ref-impulse-208-on-048-s32-g232__inactive": "native-only (no-glass reference)",
    "ref-impulse-208-on-048-s32-g232__rest": "native-only (no-glass reference)",
    "ref-impulse-208-on-048-s8-g232__inactive": "native-only (no-glass reference)",
    "ref-impulse-208-on-048-s8-g232__rest": "native-only (no-glass reference)",
    "ref-impulse-208-on-048-s8-g256__inactive": "native-only (no-glass reference)",
-   "ref-impulse-208-on-048-s8-g256__rest": "native-only (no-glass reference)",
    "ref-impulse-208-on-048-s8-g300__inactive": "native-only (no-glass reference)",
    "ref-impulse-208-on-048-s8-g300__rest": "native-only (no-glass reference)",
    "ref-impulse-208-on-048-s8-g336__inactive": "native-only (no-glass reference)",
-   "ref-impulse-208-on-048-s8-g336__rest": "native-only (no-glass reference)",
    "ref-impulse-208-on-048-s8-g64__inactive": "native-only (no-glass reference)",
    "ref-impulse-208-on-048-s8-g64__rest": "native-only (no-glass reference)",
    "ref-impulse-255-on-000-s4-g64__inactive": "native-only (no-glass reference)",
@@ -4576,13 +4416,9 @@
    "ref-split-x192-208-048__inactive": "native-only (no-glass reference)",
    "ref-split-x192-208-048__rest": "native-only (no-glass reference)",
    "ref-split-x248-048-208__inactive": "native-only (no-glass reference)",
-   "ref-split-x248-048-208__rest": "native-only (no-glass reference)",
    "ref-split-x248-208-048__inactive": "native-only (no-glass reference)",
-   "ref-split-x248-208-048__rest": "native-only (no-glass reference)",
    "ref-split-x256-048-208__inactive": "native-only (no-glass reference)",
-   "ref-split-x256-048-208__rest": "native-only (no-glass reference)",
-   "ref-split-x256-208-048__inactive": "native-only (no-glass reference)",
-   "ref-split-x256-208-048__rest": "native-only (no-glass reference)"
+   "ref-split-x256-208-048__inactive": "native-only (no-glass reference)"
   },
   "environment": {
    "VITREA_SCENES": "packages/calibration/results/2026-09-29-w42-g0-declaration/bed/scenes-w42-body.json",

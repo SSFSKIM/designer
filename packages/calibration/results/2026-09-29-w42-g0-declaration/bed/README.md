@@ -25,20 +25,22 @@ only launches of the side bundle here are `backgrounds` and `self-check` (no win
 
 Four passes per scale (scheme × pose): the charter's counts, plus the s = 32 receded rows the
 parent ruled from the gate rehearsal and the cells ruled from the instrument stream's
-separation proof and ruling 3's active guard rows (all below):
+separation proof and ruling 3's active guard rows (all below), less the active cells no active
+reader reads (the parent's ruling b1 on the bed review, below: −8 per 2x active pass, −1 per 1x
+active pass):
 
 | pass | glass cells | A | B | B′ | C | D | E | F | H | run-1 references |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 2x light active | 95 (88 + 1 + 6) | 30 | 11 | 10 | 15 | 11 | 6 | 4 | 8 | 54 |
+| 2x light active | 87 (88 + 1 + 6 − 8) | 30 | 11 | 10 | 11 | 7 | 6 | 4 | 8 | 46 |
 | 2x light receded | 92 (86 + 4 + 2) | 30 | 8 | 9 | 16 | 13 | 4 | 4 | 8 | 56 |
-| 2x dark active | 109 (91 + 1 + 10 + 7) | 33 | 11 | 10 | 24 | 13 | 6 | 4 | 8 | 64 |
+| 2x dark active | 101 (91 + 1 + 10 + 7 − 8) | 33 | 11 | 10 | 20 | 9 | 6 | 4 | 8 | 56 |
 | 2x dark receded | 107 (89 + 4 + 2 + 12) | 33 | 8 | 9 | 24 | 17 | 4 | 4 | 8 | 68 |
-| 1x active, each | 15 | 2 | — | 7 | 1 | 1 | — | 2 | 2 | 10 |
+| 1x active, each | 14 (15 − 1) | 2 | — | 7 | 1 | — | — | 2 | 2 | 9 |
 | 1x receded, each | 16 (15 + 1) | 2 | — | 8 | 1 | 1 | — | 2 | 2 | 10 |
 
-465 glass cells in all (403 at 2x, 62 at 1x), 282 run-1 no-glass references (the charter's
+447 glass cells in all (387 at 2x, 60 at 1x), 264 run-1 no-glass references (the charter's
 model assumed 174 + 40 = 214; the C and D families' positions and polarities need more distinct
-backdrops than it counted), 401 scene entries, 73 backgrounds, 21 glass components. Every id,
+backdrops than it counted), 391 scene entries, 73 backgrounds, 21 glass components. Every id,
 level, pitch, offset and depth is in `bed.json` `cells`; the conventions:
 
 - **Ids.** `<family>-<what>-<shape>`, scene ids `…__rest` (active) and `…__inactive` (receded).
@@ -80,7 +82,7 @@ level, pitch, offset and depth is in `bed.json` `cells`; the conventions:
 `split.probe` (family F's four bridges, read only to tie the repeat bar across sittings, not under
 clause 6, plus the references whose only dependents are bridges), `recorded` empty. A reference
 takes the lowest rank among its dependents (calibration/probe < validation < holdout). Per 2x
-pass: 68–83 calibration, 12–14 validation, 8 H, 4 F; per 1x pass 9 (active) or 10 (receded)
+pass: 63–81 calibration, 12–14 validation, 8 H, 4 F; per 1x pass 8 (active) or 10 (receded)
 / 2 / 2 / 2.
 
 Validation cells are transfer axes that calibration does not contain, each a cell nothing read
@@ -123,7 +125,10 @@ that rule and is calibration for that reason.
 3. **The active 4-pt cells sit inside the declared inner-refraction band** (height
    min(s/4, 20) = 20 pt on rrect-md and rrect-lg, memo D §3), which LT does not model (memo E
    §5). The cells stand as the charter lists them; the instrument must model or exclude
-   refraction there. Receded is unaffected (refraction opacity 0).
+   refraction there. Receded is unaffected (refraction opacity 0). **Resolved by b1** (the
+   parent's ruling on the bed review): the instrument excludes every active cell whose content
+   lies only inside the zones, so the two 4-pt patches, the capsule S 16 patches (near edge 14 pt
+   in) and D's outside steps are captured **receded only**.
 
 ## Checked against the side bundle, without capturing (`side-check/`)
 
@@ -133,9 +138,9 @@ The side bundle `~/vitrea-w39/side/VitreaReference.app` (`dev.vitrea.reference-a
 
 - `backgrounds` at 1x and 2x loads and validates the whole scenes file (every scene in a split
   role, every background kind, every component including rrect-112 and the offset shapes) and
-  writes all 61 backgrounds, each byte-stable, at both scales.
+  writes all 73 backgrounds, each byte-stable, at both scales.
 - `verify-backgrounds.py` re-renders every solid, checkerboard, impulse and split independently
-  (120 of 122 rasters, byte-identical), requires the 14 rasters whose declaration equals a
+  (144 of 146 rasters, byte-identical), requires the 14 rasters whose declaration equals a
   canonical one (the bridges' checker-16, checker-64, impulse and photo, and the P1 pitch
   ladder) to decode byte-identically to the canonical fixture rasters, and reads every declared
   patch (count, size, centre, depth) and step column back from the pixels: no discrepancy.
@@ -215,7 +220,8 @@ The parent's rulings on the instrument stream's bed questions (its `instrument/R
    pass, 12 per dark receded pass.
 4. **U3's active half is not captured**: non-identifiable on this bed (the active margin keeps
    R_fp's edge ≥ 45 pt from every readable pixel, and the answering outside steps sit inside the
-   19.2-pt outer reach). Recorded in `bed.json` `recordedNotCaptured`.
+   19.2-pt outer reach). Recorded in `bed.json` `recordedNotCaptured`. Until b1 the outside steps
+   were still declared in both poses; they are now receded only.
 
 `declare-bed.py` now computes each patch's depth as the rounded shape's (circular corners; a
 capsule's radius is half its short side), equal to the box depth on the axes; the native
@@ -255,8 +261,8 @@ Derived from what the calibration page can pose: `web/scene.ts` composites any b
 fixture raster and poses `inactive` through the runtime; `web/scenes.ts` places shapes through
 `component-region.ts`, a lone capsule or rrect centred with `Math.round` plus `offset`
 (`position` is ignored, `none` and opaque controls are native-only). A glass cell is
-web-plannable iff its native frame equals that web frame. **All 465 glass cells are
-web-plannable** (A 134, B 38, B′ 68, C 83, D 58, E 20, F 24, H 40 across the eight passes), so
+web-plannable iff its native frame equals that web frame. **All 447 glass cells are
+web-plannable** (A 134, B 38, B′ 68, C 75, D 48, E 20, F 24, H 40 across the eight passes), so
 every H cell has a rendered prediction and none referees the numerical structure only. No smoke
 render was needed: code reading decides placement. Every rrect-lg cell's box lies closer to the
 canvas edge than the 24-px sampling padding (listed per pass): 20 px at the canonical placement,
@@ -278,7 +284,7 @@ documents at its base and requires byte identity (X37).
 
 Derived from W39's driver, machine recorder, pass spec and G1 orchestrator, with W39 G1's gate
 corrections (the by-name foreign census, per-capture HID idle as an admission check). One
-order: `dump-layers` over the whole declared bed first (8 launches, 465 scenes; a departure
+order: `dump-layers` over the whole declared bed first (8 launches, 447 scenes; a departure
 from memo D's configuration stops the sitting before its first capture), then the four 2x
 passes (seven runs, run-1 references) and their long-protocol sentinels at mode 68, then the
 1x passes and sentinels at mode 69, the display restored to 68 on every exit. Before every
@@ -286,15 +292,16 @@ launch a bounded wait for ≥ 75 s of HID idle, then every X6 and W34 X4 gate na
 refusal; any refusal quarantines the run under its own name and stops the pass. The archive
 tool files operational logs and dumps inside the archive and packs it as
 `w42-archive-<sha256>.tar.zst`. `sitting.py plan` walks the whole sitting and executes
-nothing: 3,255 glass + 282 references + 48 sentinel captures = 3,585 in 80 launches, and 465
+nothing: 3,129 glass + 264 references + 48 sentinel captures = 3,441 in 80 launches, and 447
 dump scenes in 8 launches (`sitting/dry-plan.txt`, reproduced by `dry-plan-summary.py`).
 
 **Length from real timings** (`sitting/timing.txt`, from W39 G1's 40 admitted runs and memo
-D's dump runs): 9.63 h of capture + 1.06 h of dumps ≈ **10.73 h** (9.61 h for the charter's bed,
-9.82 h with the s = 32 rows, 10.46 h with the separation-proof cells), against the charter's model of 8.71 h + about 0.96 h for its
-smaller bed. Idle waits beyond the measured gaps, quarantines, the grant switch and the
+D's dump runs): 9.25 h of capture + 1.02 h of dumps ≈ **10.31 h** (9.61 h for the charter's bed,
+9.82 h with the s = 32 rows, 10.46 h with the separation-proof cells, 10.73 h with ruling 3's guard
+rows, before b1 dropped 126 glass and 18 reference captures and 18 dump scenes), against the
+charter's model of 8.71 h + about 0.96 h for its smaller bed. Idle waits beyond the measured gaps, quarantines, the grant switch and the
 rehearsal are excluded. 29 tests (`sitting/test-sitting.txt`, `test-archive.txt`; rerun as
-`test-*-s32.txt`, `test-*-rulings.txt` and `test-*-guard.txt`).
+`test-*-s32.txt`, `test-*-rulings.txt`, `test-*-guard.txt` and `test-*-b1.txt`).
 
 ## The one-exposure runner (`exposure/`; clause 11, X26 as carried, X40)
 
@@ -314,11 +321,12 @@ its render against Apple, candidate 1 its render against its own frozen
 structure-with-landed-T prediction with the gap to Apple recorded as the named level miss; a
 candidate is landable only where the law closes, one candidate's failure never fails the
 other, and X40 selects candidate 2 only if it is landable. Unclaimed endpoints are scored and
-reported "not claimed (identity)" (Decision Log 3). The real declaration's scope is 441 glass
-cells (465 less the 24 bridge cell-passes; 390 of 414 for the charter's bed, 400 of 424 with the
-s = 32 rows, 428 of 452 with the separation-proof cells), 40 of them H, all web-plannable
-(`exposure/synthetic-check.json`; the suite reruns are `green-s32.txt`, `green-rulings.txt` and
-`green-guard.txt`).
+reported "not claimed (identity)" (Decision Log 3). The real declaration's scope is 423 glass
+cells (447 less the 24 bridge cell-passes; 390 of 414 for the charter's bed, 400 of 424 with the
+s = 32 rows, 428 of 452 with the separation-proof cells, 441 of 465 with ruling 3's guard rows),
+40 of them H, all web-plannable
+(`exposure/synthetic-check.json`; the suite reruns are `green-s32.txt`, `green-rulings.txt`,
+`green-guard.txt` and `green-b1.txt`).
 
 Production refuses until `exposure/production-pin.json` names G1's archive inventory and the
 integrated G0 declaration and closure (all null now). Proved on a synthetic H built through

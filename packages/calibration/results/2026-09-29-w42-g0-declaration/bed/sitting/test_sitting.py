@@ -203,10 +203,10 @@ class Plan(unittest.TestCase):
         t = value['totals']
         # The charter's v2.1 bed plus the s = 32 receded rows the parent ruled from the gate
         # rehearsal, then the cells ruled from the instrument stream's separation proof (depth 34,
-        # corner and end, the dark 16 / 112 twins) and ruling 3's active guard rows:
-        # 2x 95 / 92 / 109 / 107, 1x 15 / 16 / 15 / 16.
-        self.assertEqual((t['dumpLaunches'], t['dumpScenes'], t['captureLaunches']), (8, 465, 80))
-        self.assertEqual((t['glass'], t['references'], t['sentinels'], t['captures']), (3255, 282, 48, 3585))
+        # corner and end, the dark 16 / 112 twins) and ruling 3's active guard rows, less the
+        # active cells no active reader reads (b1): 2x 87 / 92 / 101 / 107, 1x 14 / 16 / 14 / 16.
+        self.assertEqual((t['dumpLaunches'], t['dumpScenes'], t['captureLaunches']), (8, 447, 80))
+        self.assertEqual((t['glass'], t['references'], t['sentinels'], t['captures']), (3129, 264, 48, 3441))
         names = [p['name'] for p in value['passes']]
         self.assertEqual(names[:8], [f'dump-{s}x-{c}-{p}' for s in (2, 1) for c in ('light', 'dark')
                                      for p in ('active', 'receded')])
@@ -314,7 +314,7 @@ class DumpStep(unittest.TestCase):
         self.st.run('dump', '1x-light-active')
         run = self.st.root / 'dump-1x-light-active' / 'run-1'
         a = json.loads((run / 'admission.json').read_text())
-        self.assertEqual((a['protocol'], a['scenes'], a['departures']), ('dump', 15, 0))
+        self.assertEqual((a['protocol'], a['scenes'], a['departures']), ('dump', 14, 0))
         report = json.loads((run / 'check.json').read_text())
         self.assertEqual(report['departures'], 0)
         argv = self.st.calls_made()[-1]
@@ -352,10 +352,10 @@ class Capture(unittest.TestCase):
         self.st.run('capture', '1x-light-active', '1', '1')
         run = self.st.root / '1x-light-active' / 'run-1'
         a = json.loads((run / 'admission.json').read_text())
-        self.assertEqual((a['protocol'], a['cells'], a['key']), ('normal', 25, '1x-light-active'))
+        self.assertEqual((a['protocol'], a['cells'], a['key']), ('normal', 23, '1x-light-active'))
         argv = [c for c in self.st.calls_made() if 'capture' in c][-1]
         ids = argv[argv.index('--scenes') + 1].split(',')
-        self.assertEqual(sum(1 for s in ids if s.startswith('ref-')), 10)
+        self.assertEqual(sum(1 for s in ids if s.startswith('ref-')), 9)
         self.assertNotIn('--inactive', argv)
         self.assertTrue(any(c[:2] == ['harness', 'backgrounds'] for c in self.st.calls_made()))
         self.prime(2)

@@ -1,0 +1,33 @@
+test_candidate_2_failing_does_not_fail_candidate_1 (test_runner.CandidateTwoFails.test_candidate_2_failing_does_not_fail_candidate_1) ... ok
+test_censored_cell_is_neither_pass_nor_coverage (test_runner.Censoring.test_censored_cell_is_neither_pass_nor_coverage) ... ok
+test_censoring_cannot_hide_a_binding_miss (test_runner.Censoring.test_censoring_cannot_hide_a_binding_miss) ... ok
+test_other_unmeasured_is_a_procedural_failure (test_runner.Censoring.test_other_unmeasured_is_a_procedural_failure) ... ok
+test_claims_must_name_endpoints_with_holdout_cells (test_runner.Freeze.test_claims_must_name_endpoints_with_holdout_cells) ... ok
+test_failed_pre_exposure_survival_refuses_freeze (test_runner.Freeze.test_failed_pre_exposure_survival_refuses_freeze) ... ok
+test_inventory_admission_bounds_the_scope (test_runner.Freeze.test_inventory_admission_bounds_the_scope) ... ok
+test_missing_prediction_refuses_freeze (test_runner.Freeze.test_missing_prediction_refuses_freeze) ... ok
+test_one_landed_t_candidate_is_required_and_roles_are_unique (test_runner.Freeze.test_one_landed_t_candidate_is_required_and_roles_are_unique) ... ok
+test_production_freeze_refuses_without_the_g1_inventory_pin (test_runner.Freeze.test_production_freeze_refuses_without_the_g1_inventory_pin) ... ok
+test_real_backend_is_w41s_capture_web_on_the_w42_scenes_file (test_runner.Freeze.test_real_backend_is_w41s_capture_web_on_the_w42_scenes_file) ... ok
+test_synthetic_mode_refuses_the_production_declaration_and_log (test_runner.Freeze.test_synthetic_mode_refuses_the_production_declaration_and_log) ... ok
+test_numerical_law_failure_leaves_nothing_landable (test_runner.LawFails.test_numerical_law_failure_leaves_nothing_landable) ... ok
+test_both_candidates_and_the_law_are_bound_in_one_receipt (test_runner.Lifecycle.test_both_candidates_and_the_law_are_bound_in_one_receipt) ... ok
+test_changed_frozen_png_fails_and_spends (test_runner.Lifecycle.test_changed_frozen_png_fails_and_spends) ... ok
+test_changed_projection_fails_and_spends (test_runner.Lifecycle.test_changed_projection_fails_and_spends) ... ok
+test_frozen_input_mutation_refused_before_begin (test_runner.Lifecycle.test_frozen_input_mutation_refused_before_begin) ... ok
+test_holdout_only_is_exposed_and_probe_is_excluded_with_reason (test_runner.Lifecycle.test_holdout_only_is_exposed_and_probe_is_excluded_with_reason) ... ok
+test_holdout_reader_refused_outside_receipt_admitted_inside (test_runner.Lifecycle.test_holdout_reader_refused_outside_receipt_admitted_inside) ... ok
+test_process_kill_after_persistence_leaves_scores_without_retry (test_runner.Lifecycle.test_process_kill_after_persistence_leaves_scores_without_retry) ... ok
+test_score_callback_mutation_is_refused (test_runner.Lifecycle.test_score_callback_mutation_is_refused) ... ok
+test_scorer_exception_fails_without_invented_scores (test_runner.Lifecycle.test_scorer_exception_fails_without_invented_scores) ... ok
+test_scores_are_persisted_before_aggregation (test_runner.Lifecycle.test_scores_are_persisted_before_aggregation) ... ok
+test_second_attempt_refused_once_spent (test_runner.Lifecycle.test_second_attempt_refused_once_spent) ... ok
+test_scope_of_the_declared_bed (test_runner.RealDeclarationScope.test_scope_of_the_declared_bed) ... ok
+test_a_quarantined_held_out_capture_is_excluded_not_a_procedural_failure (test_runner.UnadmittedHeldOutCell.test_a_quarantined_held_out_capture_is_excluded_not_a_procedural_failure) ... ok
+test_unclaimed_endpoint_is_scored_and_reported_not_claimed (test_runner.UnclaimedEndpoint.test_unclaimed_endpoint_is_scored_and_reported_not_claimed) ... ok
+
+----------------------------------------------------------------------
+Ran 27 tests in 53.047s
+
+OK
+exit=0
