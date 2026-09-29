@@ -62,7 +62,8 @@ THE ROUND-3 TABLE (full: rehearsal-r3.txt; every failing cell with its reading: 
 Key:
   Ln       L1 cells failing (growth or new absolute miss)
   m<R>[/n] M1 failing: the median R, and the number of cells outside [0.6, 1.4] when that is not 0
-  Mn       M2 directional failures
+  Mn       M2 directional failures (named moves are passes and are not counted; in the active
+           pose's held combinations they are seam-driven, see [SEAM])
   Hn / Pn  Stop H / Stop P failing cells
   |a/b     E2 in the active pose: a = bins failing the adopted reading, b = cells failing the
            absolute reading
@@ -187,6 +188,15 @@ Owner test (clause 10's bar; runs/<v>/owner-summary.json). Base: 108/108.
   Held: 0 bins change, so it passes by construction and reads nothing. E2's adopted reading fails
   in every active combination (109-1,872 bins), held or blended, because the law moves the deep
   median E2 subtracts.
+  [Note, 2026-09-30, the gate review of b151aff4, finding 4, DISMISSED as overtaken.] That
+  sentence was read only on held or blended trees, whose 0-6 CSS px shells are at least 80 %
+  the shipped render by construction. The full-swap trees whose shells move with the body,
+  round 2's c1f and c2f, were read only absolutely (round2/runs/c1f/ holds swap-c1f.json alone),
+  and the adopted reading was never run on them. The review asked for that run before E2 went to
+  the user. The user then ruled E2's reading (Decision Log 5e: per cell, absolute codes, worse
+  bins listed as named misses), so the adopted reading is no longer the gate's, and the run
+  stays unrun. The cause named above ("the law moves the deep median") is therefore attested
+  only where the shells are held.
 
 THE DARK RECEDED TINTED CAPSULE (tint-dark.txt; round 2 (c)'s method)
   vitrea's dark receded tint composite is 0.0202 + 1.4398 u while u < 0.681. The tinted cell's
@@ -219,7 +229,19 @@ Causes:
            - once the chroma is right, Stop P's F band far above Apple: light active 5-6/10
              (0.008-0.010 against 0.0035-0.0074); dark active 4/4 (0.013-0.019 against
              0.005-0.008)
+           - M2's active-pose "named toward Apple" readings, which read as passes (added
+             2026-09-30, the gate review of b151aff4, finding 3). interiorStdDev is read over the
+             whole native silhouette, and the held band steps there. Apple's interior structure
+             is above vitrea's on all 26 bed cells (1.25-4.6 times the shipped reading), so any
+             variance the step adds classes as a move toward Apple and is named. Example: the
+             dark capsule at rest has 6.5 % of its body swapped, about 11 codes, yet moves +5.6 % /
+             +10.4 % (1x / 2x) under C2 and +2.1 % / +4.3 % under C1, every move named. These
+             readings say nothing about the law's structure.
          Candidate 1 held also fails light active Stop H 1/6 on the annulus.
+         On this bed M2 can fail only on FLATTENING: a move below the reference by more than 2 %,
+         or past Apple by more than 2 % of Apple's value. Wrong ADDED texture that stays below
+         Apple's level is named, not failed (Decision Log 5a as ruled). Stop P and the eye sheets
+         are what catch it.
   [LT]   light receded, every combination:
            - the tinted photo rrect-md L1, +0.008 to +0.012: vitrea's grey tint layer
            - M2 on rrect-sm 2x at s = 32: -15.8 % at best; also rrect-sm 1x and toolbar 2x
@@ -237,6 +259,14 @@ Causes:
   [P1]   candidate 2, per-channel, g, blended, light active: Stop P 1/10 on 2x photo rrect-sm rest.
          F reads 0.005516 against Apple's 0.005162 and shipped 0.004954; it misses the allowance
          by 0.000006 on a resolution of 0.00014.
+         [U7] and [P1] lie INSIDE THE ACTIVE SWAP'S UNMEASURED ERROR (added 2026-09-30, the gate
+         review of b151aff4, finding 5). The swap's only control, control-e3.txt, is light
+         receded; nothing measures the swap in the active pose. There the replica misses the
+         shipped capture by 1.59-2.07 codes rms at every depth on 2x checkerboard-8 rrect-lg
+         (replica-check.txt), above the 1-code threshold under which the swap drops a residual as
+         rounding (swap.py). [U7]'s span-128 growths (0.0035-0.0055 over the bound under
+         candidate 2) and [P1]'s 0.000006 are near-bound readings taken through that unmeasured
+         error, so neither is a verdict on the law. G2's real renders decide them.
   [E2]   the adopted reading fails every active combination. The absolute reading passes held
          combinations by construction and fails blended ones by 1-6 codes at 2-6 CSS px.
 
