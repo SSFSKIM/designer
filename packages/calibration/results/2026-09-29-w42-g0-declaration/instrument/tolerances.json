@@ -238,7 +238,26 @@
       "inner band and outside to the 19.2-pt outer reach, pointing inward, for A in {2, 4, 8, 16} pt.",
       "Bar: AFTER reads D < 0.15 in both active endpoints; the test's resolution is the smallest A at which BEFORE",
       "reads D > 0.30 (reported, not a pass condition: a weak lens before the blur is harmless to the fit)."
-    ]
+    ],
+    "v1_result": [
+      "The statistic declared first (the MEDIAN of Delta_c over structured cells) has no power on this bed: its",
+      "proof (refraction_order.v1.txt) reads D between -0.007 and +0.022 for BEFORE up to A = 16 pt in both active",
+      "endpoints, although the law's pooled rms rises from 0.41 to 0.58-0.64 code there. Contamination before the",
+      "blur is confined to the few cells whose band carries structure the deeper body does not (a step or patch",
+      "near the edge, pitch-64 squares); a displaced fine periodic pattern keeps its local mean, so the median",
+      "cell is untouched. Superseded, before its own proof ran, by the tail statistic below."
+    ],
+    "statistic_v2": [
+      "Per cell, Delta_c as declared above. D_tail = mean of the 3 largest Delta_c over the structured cells minus",
+      "the mean of the 3 largest over the uniform cells (the same shapes and pose). The tail is where a",
+      "contamination large enough to move a fit lives; the uniform tail subtracts depth trends a displacement",
+      "cannot produce."
+    ],
+    "decision_v2": {
+      "BEFORE": "D_tail > 0.30 code",
+      "AFTER": "D_tail < 0.15 code",
+      "undecided": "between: reported; the fallback is not triggered, the parent rules"
+    }
   },
   "gating_2026-09-29-revision": {
     "gated": [

@@ -1,0 +1,12 @@
+W42 G0 refraction-order test (tolerances.json refraction_order_test): synthetic renders of both orders
+D = median(Delta_c | structured) - median(Delta_c | uniform); BEFORE > 0.30 (>= 3 cells carry), AFTER < 0.15
+  light-rest  after  A None  D +0.003  call AFTER     (33 structured / 17 uniform cells vote; 0 carry) LT pooled 0.406
+  light-rest  before A 2.0   D +0.004  call AFTER     (33 structured / 17 uniform cells vote; 0 carry) LT pooled 0.409
+  light-rest  before A 4.0   D +0.005  call AFTER     (33 structured / 17 uniform cells vote; 0 carry) LT pooled 0.420
+  light-rest  before A 8.0   D +0.003  call AFTER     (33 structured / 17 uniform cells vote; 0 carry) LT pooled 0.464
+  light-rest  before A 16.0  D +0.022  call AFTER     (33 structured / 17 uniform cells vote; 4 carry) LT pooled 0.640
+  dark-rest   after  A None  D -0.001  call AFTER     (43 structured / 17 uniform cells vote; 0 carry) LT pooled 0.384
+  dark-rest   before A 2.0   D +0.003  call AFTER     (43 structured / 17 uniform cells vote; 0 carry) LT pooled 0.387
+  dark-rest   before A 4.0   D +0.002  call AFTER     (43 structured / 17 uniform cells vote; 0 carry) LT pooled 0.396
+  dark-rest   before A 8.0   D -0.005  call AFTER     (43 structured / 17 uniform cells vote; 0 carry) LT pooled 0.437
+  dark-rest   before A 16.0  D -0.007  call AFTER     (43 structured / 17 uniform cells vote; 3 carry) LT pooled 0.579
