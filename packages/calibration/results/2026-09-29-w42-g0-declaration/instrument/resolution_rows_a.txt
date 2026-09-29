@@ -1,0 +1,187 @@
+model reader (memo C) | sn | receded | band receded (no band) | gated False
+   synthetic: +-0.012 pt (tol +-0.05 pt) PASS
+   vitrea:    - (tol -) -
+   notes: 10 identified cells; non-identifiable on 11: dark-inactive 2x|b-p2-c16-rrect-md, dark-inactive 2x|bp-p1-c32-rrect-lg, dark-inactive 1x|bp-p1-c8-capsule-button, dark-inactive 1x|bp-p1-c32-rrect-lg, light-inactive 2x|b-p2-c16-rrect-md, light-inactive 2x|b-p4-c64-rrect-md, light-inactive 2x|b-p5-c64-rrect-md, light-inactive 2x|bp-p1-c64-rrect-ml, light-inactive 2x|bp-p1-c32-rrect-lg, light-inactive 1x|bp-p1-c8-capsule-button, light-inactive 1x|bp-p1-c32-rrect-lg
+model reader (memo C) | sw | receded | band receded (no band) | gated False
+   synthetic: +-0.008 pt (tol +-0.05 pt) PASS
+   vitrea:    - (tol -) -
+   notes: 5 identified cells; non-identifiable on 16: dark-inactive 2x|b-p2-c16-rrect-md, dark-inactive 2x|b-p4-c64-rrect-md, dark-inactive 2x|bp-p1-c32-capsule-button, dark-inactive 2x|bp-p1-c32-rrect-80, dark-inactive 2x|bp-p1-c32-rrect-lg, dark-inactive 1x|bp-p1-c8-capsule-button, dark-inactive 1x|bp-p1-c32-rrect-lg, light-inactive 2x|b-p2-c16-rrect-md, light-inactive 2x|b-p4-c64-rrect-md, light-inactive 2x|b-p5-c64-rrect-md, light-inactive 2x|bp-p1-c32-capsule-button, light-inactive 2x|bp-p1-c32-rrect-64, light-inactive 2x|bp-p1-c32-rrect-80, light-inactive 2x|bp-p1-c32-rrect-lg, light-inactive 1x|bp-p1-c8-capsule-button, light-inactive 1x|bp-p1-c32-rrect-lg
+model reader (memo C) | lam | receded | band receded (no band) | gated False
+   synthetic: +-0.003 (tol +-0.03) PASS
+   vitrea:    - (tol -) -
+   notes: 5 identified cells; non-identifiable on 16: dark-inactive 2x|b-p2-c16-rrect-md, dark-inactive 2x|b-p4-c64-rrect-md, dark-inactive 2x|bp-p1-c32-capsule-button, dark-inactive 2x|bp-p1-c32-rrect-80, dark-inactive 2x|bp-p1-c32-rrect-lg, dark-inactive 1x|bp-p1-c8-capsule-button, dark-inactive 1x|bp-p1-c32-rrect-lg, light-inactive 2x|b-p2-c16-rrect-md, light-inactive 2x|b-p4-c64-rrect-md, light-inactive 2x|b-p5-c64-rrect-md, light-inactive 2x|bp-p1-c32-capsule-button, light-inactive 2x|bp-p1-c32-rrect-64, light-inactive 2x|bp-p1-c32-rrect-80, light-inactive 2x|bp-p1-c32-rrect-lg, light-inactive 1x|bp-p1-c8-capsule-button, light-inactive 1x|bp-p1-c32-rrect-lg
+model reader (memo C) | w | receded | band receded (no band) | gated False
+   synthetic: +-0.001 (tol +-0.03) PASS
+   vitrea:    - (tol -) -
+   notes: 5 identified cells; non-identifiable on 16: dark-inactive 2x|b-p2-c16-rrect-md, dark-inactive 2x|b-p4-c64-rrect-md, dark-inactive 2x|bp-p1-c32-capsule-button, dark-inactive 2x|bp-p1-c32-rrect-80, dark-inactive 2x|bp-p1-c32-rrect-lg, dark-inactive 1x|bp-p1-c8-capsule-button, dark-inactive 1x|bp-p1-c32-rrect-lg, light-inactive 2x|b-p2-c16-rrect-md, light-inactive 2x|b-p4-c64-rrect-md, light-inactive 2x|b-p5-c64-rrect-md, light-inactive 2x|bp-p1-c32-capsule-button, light-inactive 2x|bp-p1-c32-rrect-64, light-inactive 2x|bp-p1-c32-rrect-80, light-inactive 2x|bp-p1-c32-rrect-lg, light-inactive 1x|bp-p1-c8-capsule-button, light-inactive 1x|bp-p1-c32-rrect-lg
+model reader (memo C) | sn | active | band across (descriptive; the reported active result is the band pass, 20 pt + 2 sigma_w) | gated False
+   synthetic: +-0.252 pt (tol +-0.05 pt) FAIL
+   vitrea:    - (tol -) -
+   notes: 10 identified cells; misses: light-rest 1x|bp-p1-c8-capsule-button +0.252; active flat cells are t = 0 (capsule, rrect-64): o = 0, sn = the floor; W support 2 sigma_w reaches the band
+model reader (memo C) | sw | active | band across (descriptive; the reported active result is the band pass, 20 pt + 2 sigma_w) | gated False
+   synthetic: +-0.017 pt (tol +-0.05 pt) PASS
+   vitrea:    - (tol -) -
+   notes: 4 identified cells; non-identifiable on 6: dark-rest 2x|bp-p1-c32-capsule-button, dark-rest 2x|bp-p1-c8-capsule-button, dark-rest 1x|bp-p1-c8-capsule-button, light-rest 2x|bp-p1-c32-capsule-button, light-rest 2x|bp-p1-c8-capsule-button, light-rest 1x|bp-p1-c8-capsule-button; active flat cells are t = 0 (capsule, rrect-64): o = 0, sn = the floor; W support 2 sigma_w reaches the band
+model reader (memo C) | lam | active | band across (descriptive; the reported active result is the band pass, 20 pt + 2 sigma_w) | gated False
+   synthetic: +-0.001 (tol +-0.03) PASS
+   vitrea:    - (tol -) -
+   notes: 4 identified cells; non-identifiable on 6: dark-rest 2x|bp-p1-c32-capsule-button, dark-rest 2x|bp-p1-c8-capsule-button, dark-rest 1x|bp-p1-c8-capsule-button, light-rest 2x|bp-p1-c32-capsule-button, light-rest 2x|bp-p1-c8-capsule-button, light-rest 1x|bp-p1-c8-capsule-button; active flat cells are t = 0 (capsule, rrect-64): o = 0, sn = the floor; W support 2 sigma_w reaches the band
+model reader (memo C) | w | active | band across (descriptive; the reported active result is the band pass, 20 pt + 2 sigma_w) | gated False
+   synthetic: +-0.000 (tol +-0.03) PASS
+   vitrea:    - (tol -) -
+   notes: 4 identified cells; non-identifiable on 6: dark-rest 2x|bp-p1-c32-capsule-button, dark-rest 2x|bp-p1-c8-capsule-button, dark-rest 1x|bp-p1-c8-capsule-button, light-rest 2x|bp-p1-c32-capsule-button, light-rest 2x|bp-p1-c8-capsule-button, light-rest 1x|bp-p1-c8-capsule-button; active flat cells are t = 0 (capsule, rrect-64): o = 0, sn = the floor; W support 2 sigma_w reaches the band
+model reader (memo C) | sn on depth-graded active cells (effective) | active | band across (descriptive; the reported active result is the band pass, 20 pt + 2 sigma_w) | gated False
+   synthetic: n/a (an effective width) (tol not gated) N/A
+   vitrea:    - (tol -) -
+   notes: dark-rest 2x|b-p2-c16-rrect-md sn 2.39 lam -0.50; dark-rest 2x|b-p4-c64-rrect-md sn 2.45 lam 0.90; dark-rest 2x|bp-p1-c32-rrect-80 sn 1.26 lam 0.52; dark-rest 2x|bp-p1-c64-rrect-ml sn 4.47 lam -0.50; dark-rest 2x|bp-p1-c32-rrect-lg sn 5.17 lam 1.27; dark-rest 1x|bp-p1-c32-rrect-lg sn 5.05 lam 0.48; light-rest 2x|b-p2-c16-rrect-md sn 2.27 lam 0.88; light-rest 2x|b-p4-c64-rrect-md sn 2.33 lam 0.88; light-rest 2x|b-p5-c64-rrect-md sn 2.33 lam 0.88; light-rest 2x|bp-p1-c32-rrect-80 sn 1.20 lam 0.88; light-rest 2x|bp-p1-c64-rrect-ml sn 4.23 lam 0.88; light-rest 2x|bp-p1-c32-rrect-lg sn 6.38 lam 0.88; light-rest 1x|bp-p1-c32-rrect-lg sn 6.38 lam 0.88
+mirror statistic S | s1/gain = lam (1 - w); single-width narrow | receded | band receded (no band) | gated True
+   synthetic: +-0.009 (tol +-0.03) PASS
+   vitrea:    - (tol -) -
+   notes: 13 identified (every identified reading within +-0.03: True); refused on 7: dark-inactive 2x|b-p2-c64-rrect-md (spread,w_inside,pairs_kept), dark-inactive 2x|bp-p1-c32-rrect-ml (spread,hrange,w_inside,pairs_kept), dark-inactive 2x|bp-p1-c64-rrect-ml (spread,hrange,w_inside,pairs_kept), dark-inactive 2x|bp-p1-c32-rrect-80 (spread,hrange,pairs_kept), dark-inactive 2x|bp-p1-c32-rrect-lg (pairs_kept), dark-inactive 1x|bp-p1-c32-rrect-lg (spread,pairs_kept), light-inactive 2x|b-p2-c16-rrect-md (spread); no model-trusted partner pairs (dark stand-in T clamp / size): dark-inactive 2x|b-p2-c16-rrect-md, dark-inactive 2x|b-p5-c64-rrect-md; refused readings off by > 0.1 (the flag caught them): 6
+mirror statistic S | s1/gain = lam (1 - w); single-width narrow | active | band across (descriptive; the reported active result is the band pass, 20 pt + 2 sigma_w) | gated False
+   synthetic: +-0.006 (tol +-0.03) PASS
+   vitrea:    - (tol -) -
+   notes: 5 identified (every identified reading within +-0.03: True); refused on 14: dark-rest 2x|bp-p1-c32-capsule-button (spread), dark-rest 2x|bp-p1-c64-capsule-button (spread), dark-rest 2x|bp-p1-c32-rrect-ml (spread,hrange,w_inside,pairs_kept), dark-rest 2x|bp-p1-c32-rrect-lg (spread,hrange,w_inside,pairs_kept), dark-rest 2x|bp-p1-c8-capsule-button (spread,w_inside), dark-rest 1x|bp-p1-c32-rrect-lg (spread,hrange,w_inside,pairs_kept), light-rest 2x|b-p2-c16-rrect-md (spread,fits_floor), light-rest 2x|bp-p1-c32-capsule-button (spread), light-rest 2x|bp-p1-c64-capsule-button (spread), light-rest 2x|bp-p1-c32-rrect-ml (fits_floor,w_inside), light-rest 2x|bp-p1-c64-rrect-ml (fits_floor), light-rest 2x|bp-p1-c32-rrect-lg (fits_floor), light-rest 2x|bp-p1-c8-capsule-button (spread,w_inside), light-rest 1x|bp-p1-c32-rrect-lg (spread,fits_floor); no model-trusted partner pairs (dark stand-in T clamp / size): dark-rest 2x|b-p2-c16-rrect-md, dark-rest 2x|b-p2-c64-rrect-md, dark-rest 2x|b-p5-c64-rrect-md, dark-rest 2x|bp-p1-c64-rrect-ml, dark-rest 2x|bp-p1-c32-rrect-80; refused readings off by > 0.1 (the flag caught them): 9
+mirror statistic S | s1/gain = lam (1 - w); LT depth-graded narrow, k_w free | receded | band receded (no band) | gated True
+   synthetic: +-0.002 (tol +-0.03) PASS
+   vitrea:    - (tol -) -
+   notes: 10 identified (every identified reading within +-0.03: True); refused on 10: dark-inactive 2x|b-p2-c64-rrect-md (spread,w_inside,pairs_kept), dark-inactive 2x|bp-p1-c32-rrect-ml (pairs_kept), dark-inactive 2x|bp-p1-c64-rrect-ml (pairs_kept), dark-inactive 2x|bp-p1-c32-rrect-80 (spread,hrange,pairs_kept), dark-inactive 2x|bp-p1-c32-rrect-lg (pairs_kept), dark-inactive 1x|bp-p1-c32-rrect-lg (spread,pairs_kept), light-inactive 2x|b-p2-c16-rrect-md (spread), light-inactive 2x|bp-p1-c64-capsule-button (spread), light-inactive 2x|bp-p1-c32-rrect-lg (spread), light-inactive 1x|bp-p1-c32-rrect-lg (spread); no model-trusted partner pairs (dark stand-in T clamp / size): dark-inactive 2x|b-p2-c16-rrect-md, dark-inactive 2x|b-p5-c64-rrect-md; refused readings off by > 0.1 (the flag caught them): 4
+mirror statistic S | s1/gain = lam (1 - w); LT depth-graded narrow, k_w free | active | band across (descriptive; the reported active result is the band pass, 20 pt + 2 sigma_w) | gated False
+   synthetic: +-0.004 (tol +-0.03) PASS
+   vitrea:    - (tol -) -
+   notes: 6 identified (every identified reading within +-0.03: True); refused on 13: dark-rest 2x|bp-p1-c32-capsule-button (spread), dark-rest 2x|bp-p1-c64-capsule-button (spread), dark-rest 2x|bp-p1-c32-rrect-ml (spread,hrange,w_inside,pairs_kept), dark-rest 2x|bp-p1-c32-rrect-lg (spread,hrange,pairs_kept), dark-rest 2x|bp-p1-c8-capsule-button (spread), dark-rest 1x|bp-p1-c32-rrect-lg (spread,hrange,w_inside,pairs_kept), light-rest 2x|b-p2-c16-rrect-md (spread,w_inside), light-rest 2x|bp-p1-c32-capsule-button (spread), light-rest 2x|bp-p1-c64-capsule-button (spread), light-rest 2x|bp-p1-c32-rrect-ml (spread), light-rest 2x|bp-p1-c32-rrect-lg (spread), light-rest 2x|bp-p1-c8-capsule-button (spread,w_inside), light-rest 1x|bp-p1-c32-rrect-lg (spread); no model-trusted partner pairs (dark stand-in T clamp / size): dark-rest 2x|b-p2-c16-rrect-md, dark-rest 2x|b-p2-c64-rrect-md, dark-rest 2x|b-p5-c64-rrect-md, dark-rest 2x|bp-p1-c64-rrect-ml, dark-rest 2x|bp-p1-c32-rrect-80; refused readings off by > 0.1 (the flag caught them): 5
+mirror statistic S | s1/gain = lam (1 - w); LT depth-graded narrow, k_w fixed from the heavy reader (+-3.2 % propagated) | receded | band receded (no band) | gated True
+   synthetic: +-0.010 (tol +-0.03) PASS
+   vitrea:    - (tol -) -
+   notes: 13 identified (every identified reading within +-0.03: True); refused on 7: dark-inactive 2x|b-p2-c64-rrect-md (spread,w_inside,pairs_kept), dark-inactive 2x|bp-p1-c32-rrect-ml (pairs_kept), dark-inactive 2x|bp-p1-c64-rrect-ml (spread,pairs_kept), dark-inactive 2x|bp-p1-c32-rrect-80 (spread,hrange,w_inside,pairs_kept), dark-inactive 2x|bp-p1-c32-rrect-lg (pairs_kept), dark-inactive 1x|bp-p1-c32-rrect-lg (spread,pairs_kept), light-inactive 2x|b-p2-c16-rrect-md (spread); no model-trusted partner pairs (dark stand-in T clamp / size): dark-inactive 2x|b-p2-c16-rrect-md, dark-inactive 2x|b-p5-c64-rrect-md; refused readings off by > 0.1 (the flag caught them): 3
+mirror statistic S | s1/gain = lam (1 - w); LT depth-graded narrow, k_w fixed from the heavy reader (+-3.2 % propagated) | active | band across (descriptive; the reported active result is the band pass, 20 pt + 2 sigma_w) | gated False
+   synthetic: +-0.008 (tol +-0.03) PASS
+   vitrea:    - (tol -) -
+   notes: 7 identified (every identified reading within +-0.03: True); refused on 12: dark-rest 2x|bp-p1-c32-capsule-button (spread), dark-rest 2x|bp-p1-c32-rrect-ml (spread,hrange,w_inside,pairs_kept), dark-rest 2x|bp-p1-c32-rrect-lg (spread,hrange,w_inside,pairs_kept), dark-rest 2x|bp-p1-c8-capsule-button (spread), dark-rest 1x|bp-p1-c32-rrect-lg (spread,hrange,w_inside,pairs_kept), light-rest 2x|b-p2-c16-rrect-md (spread,w_inside), light-rest 2x|bp-p1-c32-capsule-button (spread), light-rest 2x|bp-p1-c32-rrect-ml (spread), light-rest 2x|bp-p1-c32-rrect-80 (spread), light-rest 2x|bp-p1-c32-rrect-lg (spread), light-rest 2x|bp-p1-c8-capsule-button (spread,w_inside), light-rest 1x|bp-p1-c32-rrect-lg (spread); no model-trusted partner pairs (dark stand-in T clamp / size): dark-rest 2x|b-p2-c16-rrect-md, dark-rest 2x|b-p2-c64-rrect-md, dark-rest 2x|b-p5-c64-rrect-md, dark-rest 2x|bp-p1-c64-rrect-ml, dark-rest 2x|bp-p1-c32-rrect-80; refused readings off by > 0.1 (the flag caught them): 6
+mirror statistic S | two-sided linear control |s1/gain| (p >= 8) | all | band n/a (synthetic control) | gated True
+   synthetic: +-0.003 (tol <= 0.024) PASS
+   vitrea:    - (tol -) -
+   notes: 56 control reads, linear space; max over identified 0.0035
+known-space control | lam and s1/gain manufactured by the ENCODED reading of a linear two-sided body | all | band n/a (synthetic control) | gated False
+   synthetic: lam -0.50..+1.60 (linear reading -0.500..+0.359); S -0.426..+0.426 (tol reported, not gated) N/A
+   vitrea:    - (tol -) -
+   notes: lam alone manufactures a knee in the wrong space (to the 1.6 bound); S in the wrong space reads up to 0.43, so S establishes the knee only with the space right (every linear fit's loss)
+pitch-64 heavy reader | sigma_w (true support family) | receded | band receded (no band) | gated False
+   synthetic: 7.1 % (tol 5 %) FAIL
+   vitrea:    - (tol -) -
+   notes: 18 reads (truths Rfp, canvas, shape mu 0); light-inactive 2x|b-p4-c64-rrect-md truth canvas -5.4 %; light-inactive 2x|bp-p1-c64-rrect-ml truth canvas -7.1 %; no model-trusted cores (dark T clamp at spans >= 96): dark-inactive 2x|b-p2-c64-rrect-md, dark-inactive 2x|bp-p1-c64-rrect-ml, dark-rest 2x|b-p2-c64-rrect-md, dark-rest 2x|bp-p1-c64-rrect-ml
+pitch-64 heavy reader | support call and group rejection | receded | band receded (no band) | gated False
+   synthetic: 0 mis-ranks beyond 0.05 code; group rejected everywhere: True (tol true support first where supports differ by > 0.05 code; group rejected) PASS
+   vitrea:    - (tol -) -
+   notes: Rfp = canvas in the active pose (large margin, clamp): not separable, and not required
+pitch-64 heavy reader | sigma_w (true support family) | active | band across (descriptive; the reported active result is the band pass, 20 pt + 2 sigma_w) | gated False
+   synthetic: 3.2 % (tol 5 %) PASS
+   vitrea:    - (tol -) -
+   notes: 12 reads (truths Rfp, canvas, shape mu 0); ; no model-trusted cores (dark T clamp at spans >= 96): dark-inactive 2x|b-p2-c64-rrect-md, dark-inactive 2x|bp-p1-c64-rrect-ml, dark-rest 2x|b-p2-c64-rrect-md, dark-rest 2x|bp-p1-c64-rrect-ml
+pitch-64 heavy reader | support call and group rejection | active | band across (descriptive; the reported active result is the band pass, 20 pt + 2 sigma_w) | gated False
+   synthetic: 0 mis-ranks beyond 0.05 code; group rejected everywhere: True (tol true support first where supports differ by > 0.05 code; group rejected) PASS
+   vitrea:    - (tol -) -
+   notes: Rfp = canvas in the active pose (large margin, clamp): not separable, and not required
+ESF reader (memo B) | effective narrow sigma | receded | band receded (no band) | gated False
+   synthetic: 8.7 % (tol 3 %) FAIL
+   vitrea:    - (tol -) -
+   notes: 3 identified; non-identifiable (bound only) on 19: dark-inactive 2x|b-p2-c16-rrect-md (+1 %), dark-inactive 2x|b-p3-c16-rrect-md (-12 %), dark-inactive 2x|bp-p1-c32-rrect-80 (+5 %), dark-inactive 2x|bp-p1-c32-rrect-ml (+4 %), dark-inactive 2x|bp-p1-c32-rrect-lg (+5 %), dark-inactive 1x|bp-p1-c8-capsule-button (-27 %), dark-inactive 1x|bp-p1-c4-capsule-button (-87 %), dark-inactive 1x|bp-p1-c4-rrect-md (-94 %), dark-inactive 1x|bp-p1-c32-rrect-lg (+3 %), light-inactive 2x|b-p2-c16-rrect-md (-8 %), light-inactive 2x|b-p3-c16-rrect-md (+110 %), light-inactive 2x|bp-p1-c32-capsule-button (+9 %), light-inactive 2x|bp-p1-c32-rrect-80 (+9 %), light-inactive 2x|bp-p1-c32-rrect-ml (+5 %), light-inactive 2x|bp-p1-c32-rrect-lg (+6 %), light-inactive 1x|bp-p1-c8-capsule-button (+47 %), light-inactive 1x|bp-p1-c4-capsule-button (-77 %), light-inactive 1x|bp-p1-c4-rrect-md (-79 %), light-inactive 1x|bp-p1-c32-rrect-lg (+4 %); misses: dark-inactive 2x|bp-p1-c32-capsule-button +6.4 %; dark-inactive 2x|bp-p1-c32-rrect-64 +5.4 %; light-inactive 2x|bp-p1-c32-rrect-64 +8.7 %
+ESF reader (memo B) | effective narrow sigma | active | band outside | gated False
+   synthetic: 4.9 % (tol 3 %) FAIL
+   vitrea:    - (tol -) -
+   notes: 7 identified; non-identifiable (bound only) on 27: dark-rest 2x|b-p3-c16-rrect-md (-1 %), dark-rest 2x|bp-p1-c8-capsule-button (-0 %), dark-rest 2x|bp-p1-c32-rrect-64 (+16 %), dark-rest 2x|bp-p1-c32-rrect-80 (+8 %), dark-rest 2x|bp-p1-c32-rrect-ml (+5 %), dark-rest 2x|bp-p1-c32-rrect-lg (+4 %), dark-rest 2x|bp-p1-c8-rrect-ml (+53 %), dark-rest 1x|bp-p1-c4-capsule-button (-37 %), dark-rest 1x|bp-p1-c4-rrect-md (-88 %), dark-rest 1x|bp-p1-c32-rrect-lg (-1 %), dark-rest b-p2-c16-rrect-md (-1 %), dark-rest bp-p1-c32-rrect-80 (+7 %), dark-rest bp-p1-c32-rrect-ml (+2 %), dark-rest bp-p1-c32-rrect-lg (+2 %), light-rest 2x|b-p2-c16-rrect-md (-1 %), light-rest 2x|b-p3-c16-rrect-md (+0 %), light-rest 2x|bp-p1-c32-rrect-64 (+25 %), light-rest 2x|bp-p1-c32-rrect-80 (+10 %), light-rest 2x|bp-p1-c32-rrect-lg (+6 %), light-rest 2x|bp-p1-c8-rrect-ml (-26 %), light-rest 1x|bp-p1-c4-capsule-button (+119 %), light-rest 1x|bp-p1-c4-rrect-md (-85 %), light-rest 1x|bp-p1-c32-rrect-lg (-4 %), light-rest bp-p1-c8-capsule-button (+2 %), light-rest bp-p1-c32-rrect-80 (+10 %), light-rest bp-p1-c32-rrect-ml (+5 %), light-rest bp-p1-c32-rrect-lg (+1 %); misses: light-rest 2x|bp-p1-c32-rrect-ml +4.9 %
+impulse reader (memo B) | single sigma (linear-side polarity) | receded | band receded (no band) | gated False
+   synthetic: 7.9 % (tol 3 %) FAIL
+   vitrea:    - (tol -) -
+   notes: 6 cells; misses: light-inactive 2x|c-s8-hi-rrect-md +6.6 %; light-inactive 2x|c-s8-hi-d24-rrect-md +7.9 %; light-inactive 2x|c-s8-hi-d40-rrect-lg +6.0 %; light-inactive 2x|c-s8-hi-d80-rrect-lg +3.5 %; light-inactive 2x|c-impulse-rrect-ml +6.7 %
+impulse reader (memo B) | single sigma (linear-side polarity) | active | band outside | gated False
+   synthetic: 9.0 % (tol 3 %) FAIL
+   vitrea:    - (tol -) -
+   notes: 6 cells; misses: light-rest 2x|c-s8-hi-rrect-md +4.8 %; light-rest 2x|c-s8-hi-d24-rrect-md +7.4 %; light-rest 2x|c-s8-hi-d40-rrect-lg +6.7 %; light-rest 2x|c-s8-hi-d80-rrect-lg +9.0 %; light-rest 1x|c-impulse-rrect-lg +7.5 %
+impulse reader (memo B) | two-Gaussian s1 and share k (linear control, share defined) | all | band n/a (synthetic control) | gated False
+   synthetic: s1 1.7 %, k +-0.002 (tol sigma 3 %, share +-0.03) PASS
+   vitrea:    - (tol -) -
+   notes: 8 control cells
+all five (active refraction band) | readings moved beyond 20 pt + support | active | band outside | gated False
+   synthetic: see notes (tol as each reader) see notes
+   vitrea:    - (tol -) -
+   notes: dark-rest bp-p1-c64-capsule-button EXCLUDED (no pixel at depth >= 53.5 pt (band 20 + 2 sigma_w); all W information lies inside the refraction band); dark-rest bp-p1-c32-rrect-64 EXCLUDED (no pixel at depth >= 53.5 pt (band 20 + 2 sigma_w); all W information lies inside the refraction band); dark-rest bp-p1-c32-rrect-80 EXCLUDED (no pixel at depth >= 53.5 pt (band 20 + 2 sigma_w); all W information lies inside the refraction band); dark-rest b-p4-c64-rrect-md EXCLUDED (no pixel at depth >= 53.5 pt (band 20 + 2 sigma_w); all W information lies inside the refraction band); dark-rest bp-p1-c64-rrect-ml d_in 53.5: model sw 16.77/16.75 lam 0.252 w 0.499; dark-rest bp-p1-c32-rrect-ml d_in 53.5: model sw 17.81/16.75 lam 0.158 w 0.479; dark-rest bp-p1-c32-rrect-lg d_in 53.5: model sw 18.17/16.75 lam 1.600 w 0.438; S +0.004/0.450; dark-rest bp-p1-c8-capsule-button d_in 20.8: esf -1.0 %; dark-rest b-p2-c16-rrect-md d_in 25.6: esf -0.9 %; dark-rest bp-p1-c32-rrect-80 d_in 22.9: esf +7.3 %; dark-rest bp-p1-c32-rrect-ml d_in 31.2: esf +2.5 %; dark-rest bp-p1-c32-rrect-lg d_in 36.8: esf +2.2 %; dark-rest c-s8-lo-rrect-md EXCLUDED (no impulse window clears the band); dark-rest c-s16-lo-capsule-button d_in 20.8: impulse -0.5 %; dark-rest c-s8-hi-d80-rrect-lg EXCLUDED (not carried by this pass (or its deep mask is empty)); light-rest bp-p1-c64-capsule-button EXCLUDED (no pixel at depth >= 51.7 pt (band 20 + 2 sigma_w); all W information lies inside the refraction band); light-rest bp-p1-c32-rrect-64 EXCLUDED (no pixel at depth >= 51.7 pt (band 20 + 2 sigma_w); all W information lies inside the refraction band); light-rest bp-p1-c32-rrect-80 EXCLUDED (no pixel at depth >= 51.7 pt (band 20 + 2 sigma_w); all W information lies inside the refraction band); light-rest b-p4-c64-rrect-md EXCLUDED (no pixel at depth >= 51.7 pt (band 20 + 2 sigma_w); all W information lies inside the refraction band); light-rest bp-p1-c64-rrect-ml d_in 51.7: model sw 15.86/15.86 lam 0.880 w 0.500; S +0.445/0.440; light-rest bp-p1-c32-rrect-ml d_in 51.7: model sw 15.88/15.86 lam 0.879 w 0.497; S +0.473/0.440; light-rest bp-p1-c32-rrect-lg d_in 51.7: model sw 15.86/15.86 lam 0.880 w 0.484; S +0.464/0.440; light-rest bp-p1-c8-capsule-button d_in 20.8: esf +2.5 %; light-rest b-p2-c16-rrect-md d_in 25.3: esf -0.7 %; light-rest bp-p1-c32-rrect-80 d_in 22.8: esf +10.3 %; light-rest bp-p1-c32-rrect-ml d_in 30.6: esf +4.8 %; light-rest bp-p1-c32-rrect-lg d_in 35.9: esf +1.1 %; light-rest c-s8-hi-rrect-md d_in 25.3: impulse +4.6 %; light-rest c-s16-hi-capsule-button d_in 20.8: impulse +6.8 %; light-rest c-s8-hi-d80-rrect-lg d_in 35.9: impulse +9.1 %
+mirror statistic S | s1/gain, active, beyond 20 pt + 2 sigma_w (LT narrow, k_w fixed from the heavy reader) | active | band outside | gated True
+   synthetic: +-0.005 (tol +-0.03) PASS
+   vitrea:    - (tol -) -
+   notes: 1 identified: light-rest bp-p1-c64-rrect-ml +0.445/0.440; refused: dark-rest bp-p1-c32-rrect-lg read +0.004 (spread,hrange,w_inside,pairs_kept); light-rest bp-p1-c32-rrect-ml read +0.473 (spread); light-rest bp-p1-c32-rrect-lg read +0.464 (spread); no model-trusted pairs: dark-rest bp-p1-c64-rrect-ml, dark-rest bp-p1-c32-rrect-ml; excluded (no pixel beyond the band + support): dark-rest bp-p1-c64-capsule-button, dark-rest bp-p1-c32-rrect-64, dark-rest bp-p1-c32-rrect-80, dark-rest b-p4-c64-rrect-md, light-rest bp-p1-c64-capsule-button, light-rest bp-p1-c32-rrect-64, light-rest bp-p1-c32-rrect-80, light-rest b-p4-c64-rrect-md
+model reader (memo C) | sw, active, beyond 20 pt + 2 sigma_w | active | band outside | gated False
+   synthetic: +-1.420 pt (tol +-0.05 pt) FAIL
+   vitrea:    - (tol -) -
+   notes: dark-rest bp-p1-c64-rrect-ml 16.768/16.752; dark-rest bp-p1-c32-rrect-ml 17.811/16.752; dark-rest bp-p1-c32-rrect-lg 18.172/16.752; light-rest bp-p1-c64-rrect-ml 15.863/15.864; light-rest bp-p1-c32-rrect-ml 15.876/15.864; light-rest bp-p1-c32-rrect-lg 15.862/15.864; depth-graded cells: the single-width model is misspecified there (descriptive)
+model reader (memo C) | lam, active, beyond 20 pt + 2 sigma_w | active | band outside | gated False
+   synthetic: +-0.742 (tol +-0.03) FAIL
+   vitrea:    - (tol -) -
+   notes: dark-rest bp-p1-c64-rrect-ml 0.252/0.900; dark-rest bp-p1-c32-rrect-ml 0.158/0.900; dark-rest bp-p1-c32-rrect-lg 1.600/0.900; light-rest bp-p1-c64-rrect-ml 0.880/0.880; light-rest bp-p1-c32-rrect-ml 0.879/0.880; light-rest bp-p1-c32-rrect-lg 0.880/0.880; depth-graded cells: the single-width model is misspecified there (descriptive)
+model reader (memo C) | w, active, beyond 20 pt + 2 sigma_w | active | band outside | gated False
+   synthetic: +-0.062 (tol +-0.03) FAIL
+   vitrea:    - (tol -) -
+   notes: dark-rest bp-p1-c64-rrect-ml 0.499/0.500; dark-rest bp-p1-c32-rrect-ml 0.479/0.500; dark-rest bp-p1-c32-rrect-lg 0.438/0.500; light-rest bp-p1-c64-rrect-ml 0.500/0.500; light-rest bp-p1-c32-rrect-ml 0.497/0.500; light-rest bp-p1-c32-rrect-lg 0.484/0.500; depth-graded cells: the single-width model is misspecified there (descriptive)
+pitch-64 heavy reader | sigma_w, active, beyond 20 pt + 2 sigma_w | active | band outside | gated False
+   synthetic: 0.9 % (tol 5 %) PASS
+   vitrea:    - (tol -) -
+   notes: light-rest bp-p1-c64-rrect-ml Rfp 15.71/15.86
+model reader (memo C) | sn (capture vs replica) | all | band n/a (vitrea: lens core x replica core) | gated False
+   synthetic: - (tol -) -
+   vitrea:    +-6.528 pt (tol 0.05 pt) FAIL
+   superseded sigma_RMS bar: lam (linear reading; truth 0): +-1.600 (tol |lam| <= 0.12) FAIL
+   superseded sigma_RMS bar: sn vs the body kernel sigma_RMS (1.58 dev): 429.3 % (tol 20 %) FAIL
+   superseded sigma_RMS bar: sw vs the deep kernel sigma_RMS (pitch >= 32): 181.7 % (tol 25 %) FAIL
+   notes: 35 cells scored; over the bar: dark-inactive 1x checkerboard-8/rrect-md 1.2627; dark-inactive 2x checkerboard/rrect-md 0.1898; dark-inactive 2x checkerboard/rrect-ml 0.1822; dark-rest 1x checkerboard/rrect-md 0.0506; dark-rest 1x checkerboard-8/rrect-md 6.5276; dark-rest 1x checkerboard-32/rrect-md 0.0720; dark-rest 1x checkerboard-64/capsule-button 0.0668; dark-rest 2x checkerboard-64/capsule-button 0.2054; light-inactive 1x checkerboard-8/rrect-md 1.3106; light-rest 1x checkerboard/rrect-md 0.0617; light-rest 1x checkerboard-8/rrect-md 0.3610; not identifiable on either image (reported, not scored): 23; identifiable by the code's own share on the cell (narrow share >= 0.25 for sn; deep share >= 0.25 and pitch >= 32 for sw, lam, w), the same on both images
+model reader (memo C) | sw (capture vs replica) | all | band n/a (vitrea: lens core x replica core) | gated False
+   synthetic: - (tol -) -
+   vitrea:    +-23.460 pt (tol 0.05 pt) FAIL
+   superseded sigma_RMS bar: lam (linear reading; truth 0): +-1.600 (tol |lam| <= 0.12) FAIL
+   superseded sigma_RMS bar: sn vs the body kernel sigma_RMS (1.58 dev): 429.3 % (tol 20 %) FAIL
+   superseded sigma_RMS bar: sw vs the deep kernel sigma_RMS (pitch >= 32): 181.7 % (tol 25 %) FAIL
+   notes: 20 cells scored; over the bar: dark-inactive 1x checkerboard-64/rrect-md 0.2591; dark-inactive 2x checkerboard-64/rrect-md 0.0823; dark-rest 1x checkerboard-32/rrect-md 6.2832; dark-rest 1x checkerboard-64/rrect-md 0.8208; dark-rest 1x checkerboard-64/rrect-ml 0.5048; dark-rest 1x checkerboard-64/capsule-button 23.4604; dark-rest 2x checkerboard-32/rrect-md 0.0996; dark-rest 2x checkerboard-64/capsule-button 0.9021; light-inactive 1x checkerboard-64/rrect-md 0.1148; light-rest 1x checkerboard-32/rrect-md 3.6083; light-rest 1x checkerboard-64/rrect-md 13.8417; light-rest 1x checkerboard-64/rrect-ml 0.1594; light-rest 1x checkerboard-64/capsule-button 1.8005; not identifiable on either image (reported, not scored): 38; identifiable by the code's own share on the cell (narrow share >= 0.25 for sn; deep share >= 0.25 and pitch >= 32 for sw, lam, w), the same on both images
+model reader (memo C) | lam (capture vs replica) | all | band n/a (vitrea: lens core x replica core) | gated False
+   synthetic: - (tol -) -
+   vitrea:    +-0.127 (tol 0.03) FAIL
+   superseded sigma_RMS bar: lam (linear reading; truth 0): +-1.600 (tol |lam| <= 0.12) FAIL
+   superseded sigma_RMS bar: sn vs the body kernel sigma_RMS (1.58 dev): 429.3 % (tol 20 %) FAIL
+   superseded sigma_RMS bar: sw vs the deep kernel sigma_RMS (pitch >= 32): 181.7 % (tol 25 %) FAIL
+   notes: 20 cells scored; over the bar: dark-inactive 2x checkerboard-64/rrect-md 0.1273; dark-rest 2x checkerboard-64/capsule-button 0.0595; light-inactive 2x checkerboard-64/rrect-md 0.0326; light-rest 1x checkerboard-64/rrect-md 0.0417; light-rest 1x checkerboard-64/capsule-button 0.0315; light-rest 2x checkerboard-64/rrect-md 0.0369; not identifiable on either image (reported, not scored): 38; identifiable by the code's own share on the cell (narrow share >= 0.25 for sn; deep share >= 0.25 and pitch >= 32 for sw, lam, w), the same on both images
+model reader (memo C) | w (capture vs replica) | all | band n/a (vitrea: lens core x replica core) | gated False
+   synthetic: - (tol -) -
+   vitrea:    +-0.622 (tol 0.03) FAIL
+   superseded sigma_RMS bar: lam (linear reading; truth 0): +-1.600 (tol |lam| <= 0.12) FAIL
+   superseded sigma_RMS bar: sn vs the body kernel sigma_RMS (1.58 dev): 429.3 % (tol 20 %) FAIL
+   superseded sigma_RMS bar: sw vs the deep kernel sigma_RMS (pitch >= 32): 181.7 % (tol 25 %) FAIL
+   notes: 20 cells scored; over the bar: dark-rest 1x checkerboard-32/rrect-md 0.5514; dark-rest 1x checkerboard-64/capsule-button 0.6224; dark-rest 2x checkerboard-64/capsule-button 0.0588; light-rest 1x checkerboard-32/rrect-md 0.1653; light-rest 1x checkerboard-64/rrect-md 0.3590; light-rest 1x checkerboard-64/capsule-button 0.0394; not identifiable on either image (reported, not scored): 38; identifiable by the code's own share on the cell (narrow share >= 0.25 for sn; deep share >= 0.25 and pitch >= 32 for sw, lam, w), the same on both images
+mirror statistic S | |S(capture) - S(replica)| and the same flag call (single-width path) | all | band n/a (vitrea: lens core x replica core) | gated True
+   synthetic: - (tol -) -
+   vitrea:    +-0.022 (tol 0.024 and the same identifiability call) FAIL
+   superseded sigma_RMS bar: |s1/gain| on vitrea (two-sided; truth 0), pitch >= 8, single-width path: all cells +-0.045; identified cells +-0.021 (tol <= 0.024) FAIL on all cells; PASS on identified cells
+   notes: 12 cells scored; identifiable on one image only (a miss): dark-inactive 2x checkerboard/rrect-md capture refused (spread,w_inside) / replica identified; dark-inactive 2x checkerboard/rrect-ml capture refused (spread,w_inside) / replica identified; light-rest 1x checkerboard-32/rrect-md capture refused (fits_floor) / replica identified; not identifiable on either image (reported, not scored): 35
+pitch-64 heavy reader | best-family sigma_w, support and group calls (capture vs replica) | all | band n/a (vitrea: lens core x replica core) | gated False
+   synthetic: - (tol -) -
+   vitrea:    191.9 % (tol 5 %; identical calls) FAIL
+   superseded sigma_RMS bar: group rejected; no false footprint call; canvas sigma_w: group not rejected on 5; false footprint calls 0; sigma_w 161.5 % (tol group rejected; within 0.04 code; sigma_w 25 %) FAIL
+   notes: 16 cells scored; over the bar: dark-inactive 1x checkerboard-64/rrect-md 0.0720; dark-inactive 2x checkerboard-64/rrect-md 0.1249; dark-rest 1x checkerboard-32/rrect-md 1.9188; dark-rest 1x checkerboard-64/rrect-md 1.6513; dark-rest 2x checkerboard-32/rrect-md 0.2301; dark-rest 2x checkerboard-64/rrect-md 1.0000; dark-rest 2x checkerboard-64/rrect-ml 1.0000
+ESF reader (memo B) | sigma (capture vs replica) | all | band n/a (vitrea: lens core x replica core) | gated False
+   synthetic: - (tol -) -
+   vitrea:    0.4 % (tol 3 %) FAIL
+   superseded sigma_RMS bar: narrow sigma vs 1.58 dev (pitch <= 16, narrow share >= 0.25): 9.6 % (tol 10 %) PASS
+   notes: 1 cells scored; identifiable on one image only (a miss): light-rest 1x checkerboard/capsule-button bright; light-rest 1x checkerboard/capsule-button dark; light-rest 1x checkerboard-64/capsule-button dark; not identifiable on either image (reported, not scored): 112; identifiable by the reader's own interval flag on each image
+impulse reader (memo B) | single sigma (capture vs replica) | all | band n/a (vitrea: lens core x replica core) | gated False
+   synthetic: - (tol -) -
+   vitrea:    1.8 % (tol 3 %) PASS
+   superseded sigma_RMS bar: narrow sigma (the better of single and two-Gaussian s1): single 31.6 %, s1 6.7 %; best-of per cell 6.6 % (tol 10 %) PASS
+   superseded sigma_RMS bar: deep share k (two-Gaussian) vs the replica: +-0.301 (tol +-0.1 (memo B, 2x)) FAIL
+   notes: 9 cells scored; not identifiable on either image (reported, not scored): 7; identifiable where the narrow share 1 - k >= 0.25
+impulse reader (memo B) | two-Gaussian share k (capture vs replica) | all | band n/a (vitrea: lens core x replica core) | gated False
+   synthetic: - (tol -) -
+   vitrea:    +-0.901 (tol 0.03) FAIL
+   superseded sigma_RMS bar: narrow sigma (the better of single and two-Gaussian s1): single 31.6 %, s1 6.7 %; best-of per cell 6.6 % (tol 10 %) PASS
+   superseded sigma_RMS bar: deep share k (two-Gaussian) vs the replica: +-0.301 (tol +-0.1 (memo B, 2x)) FAIL
+   notes: 9 cells scored; over the bar: dark-inactive 1x impulse/capsule-button 0.8545; dark-inactive 2x impulse/capsule-button 0.0856; dark-rest 1x impulse/capsule-button 0.4571; light-inactive 1x impulse/rrect-md 0.1743; light-inactive 1x impulse/capsule-button 0.0648; light-rest 1x impulse/rrect-md 0.0328; light-rest 1x impulse/capsule-button 0.9008; light-rest 2x impulse/capsule-button 0.1217; not identifiable on either image (reported, not scored): 7
+known-space control | lam from the ENCODED reading (capture; replica) | all | band n/a | gated False
+   synthetic: - (tol -) -
+   vitrea:    capture -0.50..+1.54; replica -0.50..+1.54 (tol reported, not gated) N/A
+   notes: the wrong-space reading manufactures lam on both images alike: it is the model, not the pixels

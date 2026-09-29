@@ -1,0 +1,1006 @@
+[
+ {
+  "ep": "light-rest",
+  "truth": "LT",
+  "shape": "md",
+  "label": "c-s8-hi-d4-rrect-md",
+  "verdict": "EXCLUDED",
+  "reason": "patch at depth 4 pt (near edge 0 pt): inside the 20.0 pt inner refraction band"
+ },
+ {
+  "depth": 47.75,
+  "band": "outside",
+  "n": 5384,
+  "sn": 2.5945071555157124,
+  "sn_iv": [
+   2.315056439964141,
+   2.988683228843069
+  ],
+  "rms": 0.41109373322109755,
+  "w": 0.4850115320216891,
+  "ratio": 1.0,
+  "olaw_ratio": 1.0,
+  "ep": "light-rest",
+  "truth": "LT",
+  "shape": "md",
+  "label": "c-s8-hi-rrect-md",
+  "expect": 1.0,
+  "verdict": "PASS"
+ },
+ {
+  "depth": 24.25,
+  "band": "across",
+  "n": 2452,
+  "sn": 2.1052604098839236,
+  "sn_iv": [
+   1.7644713484013348,
+   2.426049471366512
+  ],
+  "rms": 0.4120620233168884,
+  "w": 0.4657546462769328,
+  "ratio": 0.8114297952149834,
+  "olaw_ratio": 0.7493333333333334,
+  "ep": "light-rest",
+  "truth": "LT",
+  "shape": "md",
+  "label": "c-s8-hi-d24-rrect-md",
+  "expect": 0.7493333333333334,
+  "verdict": "MISS"
+ },
+ {
+  "ep": "light-rest",
+  "truth": "LT",
+  "shape": "lg",
+  "label": "c-s8-hi-d4-rrect-lg",
+  "verdict": "EXCLUDED",
+  "reason": "patch at depth 4 pt (near edge 0 pt): inside the 20.0 pt inner refraction band"
+ },
+ {
+  "depth": 79.75,
+  "band": "outside",
+  "n": 5384,
+  "sn": 7.8587663903625,
+  "sn_iv": [
+   4.6652598342175,
+   12.624026224580001
+  ],
+  "rms": 0.4277683642373579,
+  "w": 0.495389906911512,
+  "ratio": 1.0,
+  "olaw_ratio": 1.0,
+  "ep": "light-rest",
+  "truth": "LT",
+  "shape": "lg",
+  "label": "c-s8-hi-d80-rrect-lg",
+  "expect": 1.0,
+  "verdict": "PASS"
+ },
+ {
+  "depth": 40.25,
+  "band": "outside",
+  "n": 3172,
+  "sn": 5.8836056388920746,
+  "sn_iv": [
+   4.377704229169057,
+   7.9678676125043015
+  ],
+  "rms": 0.4262289717643046,
+  "w": 0.5679730321566855,
+  "ratio": 0.7486678375002165,
+  "olaw_ratio": 0.7496038034865294,
+  "ep": "light-rest",
+  "truth": "LT",
+  "shape": "lg",
+  "label": "c-s8-hi-d40-rrect-lg",
+  "expect": 0.7496038034865294,
+  "verdict": "PASS"
+ },
+ {
+  "ep": "light-rest",
+  "truth": "free-sn",
+  "shape": "md",
+  "label": "c-s8-hi-d4-rrect-md",
+  "verdict": "EXCLUDED",
+  "reason": "patch at depth 4 pt (near edge 0 pt): inside the 20.0 pt inner refraction band"
+ },
+ {
+  "depth": 47.75,
+  "band": "outside",
+  "n": 5384,
+  "sn": 2.2070178907622067,
+  "sn_iv": [
+   1.966316101685986,
+   2.5430705743765376
+  ],
+  "rms": 0.407515381759806,
+  "w": 0.5029156719373975,
+  "ratio": 1.0,
+  "olaw_ratio": 1.0,
+  "ep": "light-rest",
+  "truth": "free-sn",
+  "shape": "md",
+  "label": "c-s8-hi-rrect-md",
+  "expect": 1.0,
+  "verdict": "PASS"
+ },
+ {
+  "depth": 24.25,
+  "band": "across",
+  "n": 2452,
+  "sn": 2.224979661319702,
+  "sn_iv": [
+   1.8662327121217466,
+   2.5637266105176573
+  ],
+  "rms": 0.4117475361321209,
+  "w": 0.47507050418439134,
+  "ratio": 1.0081384798159891,
+  "olaw_ratio": 0.7493333333333334,
+  "ep": "light-rest",
+  "truth": "free-sn",
+  "shape": "md",
+  "label": "c-s8-hi-d24-rrect-md",
+  "expect": 1.0,
+  "verdict": "PASS"
+ },
+ {
+  "ep": "light-rest",
+  "truth": "free-sn",
+  "shape": "lg",
+  "label": "c-s8-hi-d4-rrect-lg",
+  "verdict": "EXCLUDED",
+  "reason": "patch at depth 4 pt (near edge 0 pt): inside the 20.0 pt inner refraction band"
+ },
+ {
+  "depth": 79.75,
+  "band": "outside",
+  "n": 5384,
+  "sn": 4.457821317133775,
+  "sn_iv": [
+   3.764148119563709,
+   5.359385580560531
+  ],
+  "rms": 0.42106957630069347,
+  "w": 0.5252412844152232,
+  "ratio": 1.0,
+  "olaw_ratio": 1.0,
+  "ep": "light-rest",
+  "truth": "free-sn",
+  "shape": "lg",
+  "label": "c-s8-hi-d80-rrect-lg",
+  "expect": 1.0,
+  "verdict": "PASS"
+ },
+ {
+  "depth": 40.25,
+  "band": "outside",
+  "n": 3172,
+  "sn": 4.482857106776516,
+  "sn_iv": [
+   3.7854285407600385,
+   5.160285672792993
+  ],
+  "rms": 0.41632277282346597,
+  "w": 0.4898536503436144,
+  "ratio": 1.0056161492042122,
+  "olaw_ratio": 0.7496038034865294,
+  "ep": "light-rest",
+  "truth": "free-sn",
+  "shape": "lg",
+  "label": "c-s8-hi-d40-rrect-lg",
+  "expect": 1.0,
+  "verdict": "PASS"
+ },
+ {
+  "depth": 42.25,
+  "sn": 6.079409676316393,
+  "sn_iv": [
+   5.760439192500574,
+   6.687350643948033
+  ],
+  "w": 0.4933666199956932,
+  "rms": 0.4756235968933175,
+  "n": 23760,
+  "ratio": 0.7788819934510407,
+  "olaw_ratio": 0.8056951423785594,
+  "ep": "light-rest",
+  "truth": "LT",
+  "shape": "lg P1 p32 (bins)",
+  "label": "32-48",
+  "expect": 0.8056951423785594,
+  "verdict": "PASS"
+ },
+ {
+  "depth": 55.25,
+  "sn": 6.415448624754311,
+  "sn_iv": [
+   6.079676193516596,
+   7.056993487229743
+  ],
+  "w": 0.5273507674818674,
+  "rms": 0.511951777279067,
+  "n": 27648,
+  "ratio": 0.8219346416474863,
+  "olaw_ratio": 0.8927973199329984,
+  "ep": "light-rest",
+  "truth": "LT",
+  "shape": "lg P1 p32 (bins)",
+  "label": "48-64",
+  "expect": 0.8927973199329984,
+  "verdict": "MISS"
+ },
+ {
+  "depth": 71.25,
+  "sn": 7.805302635614897,
+  "sn_iv": [
+   7.004772372053408,
+   10.56215855808011
+  ],
+  "w": 0.4609980540347066,
+  "rms": 0.4968199060690146,
+  "n": 19456,
+  "ratio": 1.0,
+  "olaw_ratio": 1.0,
+  "ep": "light-rest",
+  "truth": "LT",
+  "shape": "lg P1 p32 (bins)",
+  "label": "64-96",
+  "expect": 1.0,
+  "verdict": "PASS"
+ },
+ {
+  "depth": 47.75,
+  "band": "receded (no band)",
+  "n": 5384,
+  "sn": 5.382977274010503,
+  "sn_iv": [
+   4.0022329555078775,
+   7.017870456213655
+  ],
+  "rms": 0.3977705024121827,
+  "w": 0.5010884232782089,
+  "ratio": 1.0,
+  "olaw_ratio": 1.0,
+  "ep": "light-inactive",
+  "truth": "LT",
+  "shape": "md",
+  "label": "c-s8-hi-rrect-md",
+  "expect": 1.0,
+  "verdict": "PASS"
+ },
+ {
+  "depth": 24.25,
+  "band": "receded (no band)",
+  "n": 5056,
+  "sn": 5.348814196647643,
+  "sn_iv": [
+   4.249051357318114,
+   6.428577035977172
+  ],
+  "rms": 0.40022279542875655,
+  "w": 0.5249989033408381,
+  "ratio": 0.9936534977534083,
+  "olaw_ratio": 1.0,
+  "ep": "light-inactive",
+  "truth": "LT",
+  "shape": "md",
+  "label": "c-s8-hi-d24-rrect-md",
+  "expect": 1.0,
+  "verdict": "PASS"
+ },
+ {
+  "depth": 4.25,
+  "band": "receded (no band)",
+  "n": 2052,
+  "sn": 5.376880879023673,
+  "sn_iv": [
+   3.7238166153165713,
+   7.831477274584326
+  ],
+  "rms": 0.3925187402271347,
+  "w": 0.5188935562086179,
+  "ratio": 0.9988674678200364,
+  "olaw_ratio": 1.0,
+  "ep": "light-inactive",
+  "truth": "LT",
+  "shape": "md",
+  "label": "c-s8-hi-d4-rrect-md",
+  "expect": 1.0,
+  "verdict": "PASS"
+ },
+ {
+  "depth": 79.75,
+  "band": "receded (no band)",
+  "n": 5384,
+  "sn": 8.314131720111009,
+  "sn_iv": [
+   4.938479032066605,
+   13.352610752177615
+  ],
+  "rms": 0.39016239680567344,
+  "w": 0.5231656250408822,
+  "ratio": 1.0,
+  "olaw_ratio": 1.0,
+  "ep": "light-inactive",
+  "truth": "LT",
+  "shape": "lg",
+  "label": "c-s8-hi-d80-rrect-lg",
+  "expect": 1.0,
+  "verdict": "PASS"
+ },
+ {
+  "depth": 40.25,
+  "band": "receded (no band)",
+  "n": 5384,
+  "sn": 8.26229563540096,
+  "sn_iv": [
+   4.907377381240576,
+   13.269673016641537
+  ],
+  "rms": 0.3994867955309903,
+  "w": 0.5542757249333229,
+  "ratio": 0.993765303887998,
+  "olaw_ratio": 1.0,
+  "ep": "light-inactive",
+  "truth": "LT",
+  "shape": "lg",
+  "label": "c-s8-hi-d40-rrect-lg",
+  "expect": 1.0,
+  "verdict": "PASS"
+ },
+ {
+  "depth": 4.25,
+  "band": "receded (no band)",
+  "n": 2052,
+  "sn": 8.805596834164161,
+  "sn_iv": [
+   5.233358100498497,
+   14.13895493466266
+  ],
+  "rms": 0.392153826389854,
+  "w": 0.2424978275492505,
+  "ratio": 1.0591120192219652,
+  "olaw_ratio": 1.0,
+  "ep": "light-inactive",
+  "truth": "LT",
+  "shape": "lg",
+  "label": "c-s8-hi-d4-rrect-lg",
+  "expect": 1.0,
+  "verdict": "MISS"
+ },
+ {
+  "depth": 9.924597614993015,
+  "sn": 8.162433142733441,
+  "sn_iv": [
+   6.913068171323426,
+   9.391798114143459
+  ],
+  "w": 0.49720201018069593,
+  "rms": 0.4058579606330541,
+  "n": 12128,
+  "ratio": 1.002397881629641,
+  "olaw_ratio": 1.0,
+  "ep": "light-inactive",
+  "truth": "LT",
+  "shape": "lg P1 p32 (bins)",
+  "label": "8-12",
+  "expect": 1.0,
+  "verdict": "PASS"
+ },
+ {
+  "depth": 13.897139507025376,
+  "sn": 8.118266151040377,
+  "sn_iv": [
+   6.053699613280283,
+   10.573745996352493
+  ],
+  "w": 0.5035748976511593,
+  "rms": 0.40835566554316705,
+  "n": 11760,
+  "ratio": 0.9969738985921205,
+  "olaw_ratio": 1.0,
+  "ep": "light-inactive",
+  "truth": "LT",
+  "shape": "lg P1 p32 (bins)",
+  "label": "12-16",
+  "expect": 1.0,
+  "verdict": "PASS"
+ },
+ {
+  "depth": 19.75,
+  "sn": 8.09674424383676,
+  "sn_iv": [
+   6.857232607261246,
+   11.365441941371465
+  ],
+  "w": 0.5044720397794472,
+  "rms": 0.41044335726198766,
+  "n": 22252,
+  "ratio": 0.9943308736739022,
+  "olaw_ratio": 1.0,
+  "ep": "light-inactive",
+  "truth": "LT",
+  "shape": "lg P1 p32 (bins)",
+  "label": "16-24",
+  "expect": 1.0,
+  "verdict": "PASS"
+ },
+ {
+  "depth": 27.75,
+  "sn": 8.129802920578676,
+  "sn_iv": [
+   7.296822628520808,
+   13.057684672925884
+  ],
+  "w": 0.4997133491603372,
+  "rms": 0.41448922860986503,
+  "n": 20668,
+  "ratio": 0.9983906861043509,
+  "olaw_ratio": 1.0,
+  "ep": "light-inactive",
+  "truth": "LT",
+  "shape": "lg P1 p32 (bins)",
+  "label": "24-32",
+  "expect": 1.0,
+  "verdict": "PASS"
+ },
+ {
+  "depth": 39.75,
+  "sn": 8.115526768960425,
+  "sn_iv": [
+   6.8731977536163615,
+   13.034842830336682
+  ],
+  "w": 0.5018008152974458,
+  "rms": 0.4108072440010679,
+  "n": 35828,
+  "ratio": 0.9966374853258921,
+  "olaw_ratio": 1.0,
+  "ep": "light-inactive",
+  "truth": "LT",
+  "shape": "lg P1 p32 (bins)",
+  "label": "32-48",
+  "expect": 1.0,
+  "verdict": "PASS"
+ },
+ {
+  "depth": 55.25,
+  "sn": 8.14034168906474,
+  "sn_iv": [
+   6.89429043570503,
+   13.074546702503586
+  ],
+  "w": 0.5035525107676574,
+  "rms": 0.4074684077212852,
+  "n": 27648,
+  "ratio": 0.9996849128405075,
+  "olaw_ratio": 1.0,
+  "ep": "light-inactive",
+  "truth": "LT",
+  "shape": "lg P1 p32 (bins)",
+  "label": "48-64",
+  "expect": 1.0,
+  "verdict": "PASS"
+ },
+ {
+  "depth": 71.25,
+  "sn": 8.142907414632027,
+  "sn_iv": [
+   6.896471302437224,
+   13.078651863411245
+  ],
+  "w": 0.49916517359413304,
+  "rms": 0.4084615375522818,
+  "n": 19456,
+  "ratio": 1.0,
+  "olaw_ratio": 1.0,
+  "ep": "light-inactive",
+  "truth": "LT",
+  "shape": "lg P1 p32 (bins)",
+  "label": "64-96",
+  "expect": 1.0,
+  "verdict": "PASS"
+ },
+ {
+  "ep": "dark-rest",
+  "truth": "LT",
+  "shape": "md",
+  "label": "c-s8-lo-d4-rrect-md",
+  "verdict": "EXCLUDED",
+  "reason": "patch at depth 4 pt (near edge 0 pt): inside the 20.0 pt inner refraction band"
+ },
+ {
+  "depth": 47.75,
+  "band": "outside",
+  "n": 5384,
+  "sn": 1.259818193837643,
+  "sn_iv": [
+   1.2498181938376427,
+   1.2498181938376427
+  ],
+  "rms": 9.554350436938748e-15,
+  "w": -3.162447957878762e-11,
+  "ratio": 1.0,
+  "olaw_ratio": 1.0,
+  "ep": "dark-rest",
+  "truth": "LT",
+  "shape": "md",
+  "label": "c-s8-lo-rrect-md",
+  "expect": 1.0,
+  "verdict": "PASS"
+ },
+ {
+  "depth": 24.25,
+  "band": "across",
+  "n": 2452,
+  "sn": 0.83220432011508,
+  "sn_iv": [
+   0.6357634560920641,
+   0.8222043201150802
+  ],
+  "rms": 0.24998742582895014,
+  "w": 0.9999995693368449,
+  "ratio": 0.660574933895842,
+  "olaw_ratio": 0.7493333333333334,
+  "ep": "dark-rest",
+  "truth": "LT",
+  "shape": "md",
+  "label": "c-s8-lo-d24-rrect-md",
+  "expect": 0.7493333333333334,
+  "verdict": "MISS"
+ },
+ {
+  "ep": "dark-rest",
+  "truth": "LT",
+  "shape": "lg",
+  "label": "c-s8-lo-d4-rrect-lg",
+  "verdict": "EXCLUDED",
+  "reason": "patch at depth 4 pt (near edge 0 pt): inside the 20.0 pt inner refraction band"
+ },
+ {
+  "depth": 79.75,
+  "band": "outside",
+  "n": 5384,
+  "sn": 1.2,
+  "sn_iv": [
+   1.125,
+   1.255
+  ],
+  "rms": 1.8076081669391973e-15,
+  "w": 0.8043064102099885,
+  "ratio": 1.0,
+  "olaw_ratio": 1.0,
+  "ep": "dark-rest",
+  "truth": "LT",
+  "shape": "lg",
+  "label": "c-s8-lo-d80-rrect-lg",
+  "expect": 1.0,
+  "verdict": "PASS"
+ },
+ {
+  "depth": 40.25,
+  "band": "outside",
+  "n": 3172,
+  "sn": 0.048944574695312104,
+  "sn_iv": [
+   0.0,
+   0.12831131951249936
+  ],
+  "rms": 0.3078195805974626,
+  "w": 1.0010637287854702,
+  "ratio": 0.04078714557942675,
+  "olaw_ratio": 0.7496038034865294,
+  "ep": "dark-rest",
+  "truth": "LT",
+  "shape": "lg",
+  "label": "c-s8-lo-d40-rrect-lg",
+  "expect": 0.7496038034865294,
+  "verdict": "MISS"
+ },
+ {
+  "ep": "dark-rest",
+  "truth": "free-sn",
+  "shape": "md",
+  "label": "c-s8-lo-d4-rrect-md",
+  "verdict": "EXCLUDED",
+  "reason": "patch at depth 4 pt (near edge 0 pt): inside the 20.0 pt inner refraction band"
+ },
+ {
+  "depth": 47.75,
+  "band": "outside",
+  "n": 5384,
+  "sn": 1.2476370231691236,
+  "sn_iv": [
+   0.9007277673768426,
+   1.372400725486036
+  ],
+  "rms": 0.3365164227102616,
+  "w": 0.9968862700824154,
+  "ratio": 1.0,
+  "olaw_ratio": 1.0,
+  "ep": "dark-rest",
+  "truth": "free-sn",
+  "shape": "md",
+  "label": "c-s8-lo-rrect-md",
+  "expect": 1.0,
+  "verdict": "PASS"
+ },
+ {
+  "depth": 24.25,
+  "band": "across",
+  "n": 2452,
+  "sn": 0.685922725109374,
+  "sn_iv": [
+   0.36155363506562443,
+   0.9116995426421862
+  ],
+  "rms": 0.31114074568239014,
+  "w": 0.9980241882594848,
+  "ratio": 0.5497774692250325,
+  "olaw_ratio": 0.7493333333333334,
+  "ep": "dark-rest",
+  "truth": "free-sn",
+  "shape": "md",
+  "label": "c-s8-lo-d24-rrect-md",
+  "expect": 1.0,
+  "verdict": "MISS"
+ },
+ {
+  "ep": "dark-rest",
+  "truth": "free-sn",
+  "shape": "lg",
+  "label": "c-s8-lo-d4-rrect-lg",
+  "verdict": "EXCLUDED",
+  "reason": "patch at depth 4 pt (near edge 0 pt): inside the 20.0 pt inner refraction band"
+ },
+ {
+  "depth": 79.75,
+  "band": "outside",
+  "n": 5384,
+  "sn": 1.2436367843170257,
+  "sn_iv": [
+   0.6961820705902154,
+   1.3680004627487286
+  ],
+  "rms": 0.4564354645876375,
+  "w": -0.5799099627792854,
+  "ratio": 1.0,
+  "olaw_ratio": 1.0,
+  "ep": "dark-rest",
+  "truth": "free-sn",
+  "shape": "lg",
+  "label": "c-s8-lo-d80-rrect-lg",
+  "expect": 1.0,
+  "verdict": "PASS"
+ },
+ {
+  "depth": 40.25,
+  "band": "outside",
+  "n": 3172,
+  "sn": 1.2958793357652707,
+  "sn_iv": [
+   1.3556733025535341,
+   1.3556733025535341
+  ],
+  "rms": 0.0,
+  "w": 0.8002251743192889,
+  "ratio": 1.0420078853464723,
+  "olaw_ratio": 0.7496038034865294,
+  "ep": "dark-rest",
+  "truth": "free-sn",
+  "shape": "lg",
+  "label": "c-s8-lo-d40-rrect-lg",
+  "expect": 1.0,
+  "verdict": "PASS"
+ },
+ {
+  "depth": 42.25,
+  "sn": 10.449273903076586,
+  "sn_iv": [
+   6.219564341845952,
+   12.549128683691904
+  ],
+  "w": 1.3070737854427088,
+  "rms": 0.5500873340686969,
+  "n": 23760,
+  "ratio": 1.0309495530653585,
+  "olaw_ratio": 0.8056951423785594,
+  "ep": "dark-rest",
+  "truth": "LT",
+  "shape": "lg P1 p32 (bins)",
+  "label": "32-48",
+  "expect": 0.8056951423785594,
+  "verdict": "MISS"
+ },
+ {
+  "depth": 55.25,
+  "sn": 5.563274241625389,
+  "sn_iv": [
+   3.2879645449752335,
+   8.951238786600623
+  ],
+  "w": 0.9007949940532134,
+  "rms": 0.7396796537550161,
+  "n": 27648,
+  "ratio": 0.5488855155088836,
+  "olaw_ratio": 0.8927973199329984,
+  "ep": "dark-rest",
+  "truth": "LT",
+  "shape": "lg P1 p32 (bins)",
+  "label": "48-64",
+  "expect": 0.8927973199329984,
+  "verdict": "MISS"
+ },
+ {
+  "depth": 71.25,
+  "sn": 10.135582165012238,
+  "sn_iv": [
+   6.031349299007343,
+   16.26693146401958
+  ],
+  "w": 1.409988579938922,
+  "rms": 0.672802303174164,
+  "n": 19456,
+  "ratio": 1.0,
+  "olaw_ratio": 1.0,
+  "ep": "dark-rest",
+  "truth": "LT",
+  "shape": "lg P1 p32 (bins)",
+  "label": "64-96",
+  "expect": 1.0,
+  "verdict": "PASS"
+ },
+ {
+  "depth": 47.75,
+  "band": "receded (no band)",
+  "n": 5384,
+  "sn": 2.0,
+  "sn_iv": [
+   1.99,
+   1.99
+  ],
+  "rms": 0.0,
+  "w": 0.7489264356007888,
+  "ratio": 1.0,
+  "olaw_ratio": 1.0,
+  "ep": "dark-inactive",
+  "truth": "LT",
+  "shape": "md",
+  "label": "c-s8-lo-rrect-md",
+  "expect": 1.0,
+  "verdict": "PASS"
+ },
+ {
+  "depth": 24.25,
+  "band": "receded (no band)",
+  "n": 5056,
+  "sn": 2.007598072706062,
+  "sn_iv": [
+   1.9975980727060616,
+   1.9975980727060616
+  ],
+  "rms": 9.827548642200739e-16,
+  "w": -7.365765105335087e-13,
+  "ratio": 1.003799036353031,
+  "olaw_ratio": 1.0,
+  "ep": "dark-inactive",
+  "truth": "LT",
+  "shape": "md",
+  "label": "c-s8-lo-d24-rrect-md",
+  "expect": 1.0,
+  "verdict": "PASS"
+ },
+ {
+  "depth": 4.25,
+  "band": "receded (no band)",
+  "n": 2052,
+  "sn": 0.019098300562505256,
+  "sn_iv": [
+   NaN,
+   NaN
+  ],
+  "rms": NaN,
+  "w": NaN,
+  "ratio": 0.009549150281252628,
+  "olaw_ratio": 1.0,
+  "ep": "dark-inactive",
+  "truth": "LT",
+  "shape": "md",
+  "label": "c-s8-lo-d4-rrect-md",
+  "expect": 1.0,
+  "verdict": "MISS"
+ },
+ {
+  "depth": 79.75,
+  "band": "receded (no band)",
+  "n": 5384,
+  "sn": 2.1534441853748634,
+  "sn_iv": [
+   2.03077197610612,
+   2.143444185374863
+  ],
+  "rms": 0.3464509595449608,
+  "w": -0.5560957236105242,
+  "ratio": 1.0,
+  "olaw_ratio": 1.0,
+  "ep": "dark-inactive",
+  "truth": "LT",
+  "shape": "lg",
+  "label": "c-s8-lo-d80-rrect-lg",
+  "expect": 1.0,
+  "verdict": "PASS"
+ },
+ {
+  "depth": 40.25,
+  "band": "receded (no band)",
+  "n": 5384,
+  "sn": 2.139608131810886,
+  "sn_iv": [
+   2.0176277252203416,
+   2.129608131810886
+  ],
+  "rms": 0.3424866558927654,
+  "w": -0.5455549687764438,
+  "ratio": 0.9935749188867096,
+  "olaw_ratio": 1.0,
+  "ep": "dark-inactive",
+  "truth": "LT",
+  "shape": "lg",
+  "label": "c-s8-lo-d40-rrect-lg",
+  "expect": 1.0,
+  "verdict": "PASS"
+ },
+ {
+  "depth": 4.25,
+  "band": "receded (no band)",
+  "n": 2052,
+  "sn": 0.019098300562505256,
+  "sn_iv": [
+   NaN,
+   NaN
+  ],
+  "rms": NaN,
+  "w": NaN,
+  "ratio": 0.008868723272333477,
+  "olaw_ratio": 1.0,
+  "ep": "dark-inactive",
+  "truth": "LT",
+  "shape": "lg",
+  "label": "c-s8-lo-d4-rrect-lg",
+  "expect": 1.0,
+  "verdict": "MISS"
+ },
+ {
+  "depth": 9.924597614993015,
+  "sn": 8.345628970147818,
+  "sn_iv": [
+   7.068784624625645,
+   10.024754764177382
+  ],
+  "w": 0.49414227462635085,
+  "rms": 0.41370575493641454,
+  "n": 12128,
+  "ratio": 1.0062187727605936,
+  "olaw_ratio": 1.0,
+  "ep": "dark-inactive",
+  "truth": "LT",
+  "shape": "lg P1 p32 (bins)",
+  "label": "8-12",
+  "expect": 1.0,
+  "verdict": "PASS"
+ },
+ {
+  "depth": 13.897139507025376,
+  "sn": 8.35173464779078,
+  "sn_iv": [
+   6.228800985843085,
+   10.877255042128017
+  ],
+  "w": 0.49003077272347817,
+  "rms": 0.40820995816581784,
+  "n": 11760,
+  "ratio": 1.0069549242821565,
+  "olaw_ratio": 1.0,
+  "ep": "dark-inactive",
+  "truth": "LT",
+  "shape": "lg P1 p32 (bins)",
+  "label": "12-16",
+  "expect": 1.0,
+  "verdict": "PASS"
+ },
+ {
+  "depth": 19.75,
+  "sn": 8.267193027450496,
+  "sn_iv": [
+   7.002114073332922,
+   11.185710587058171
+  ],
+  "w": 0.5114770719725533,
+  "rms": 0.4045062264470712,
+  "n": 22252,
+  "ratio": 0.9967618800226672,
+  "olaw_ratio": 1.0,
+  "ep": "dark-inactive",
+  "truth": "LT",
+  "shape": "lg P1 p32 (bins)",
+  "label": "16-24",
+  "expect": 1.0,
+  "verdict": "PASS"
+ },
+ {
+  "depth": 27.75,
+  "sn": 8.299278491706561,
+  "sn_iv": [
+   7.449350642535905,
+   10.389098114633201
+  ],
+  "w": 0.5009207650251748,
+  "rms": 0.4059345640701745,
+  "n": 20668,
+  "ratio": 1.0006303717304432,
+  "olaw_ratio": 1.0,
+  "ep": "dark-inactive",
+  "truth": "LT",
+  "shape": "lg P1 p32 (bins)",
+  "label": "24-32",
+  "expect": 1.0,
+  "verdict": "PASS"
+ },
+ {
+  "depth": 39.75,
+  "sn": 8.331382282665375,
+  "sn_iv": [
+   7.0566749402655695,
+   13.380211652264602
+  ],
+  "w": 0.4932692848465035,
+  "rms": 0.4018950185224987,
+  "n": 35828,
+  "ratio": 1.004501073058658,
+  "olaw_ratio": 1.0,
+  "ep": "dark-inactive",
+  "truth": "LT",
+  "shape": "lg P1 p32 (bins)",
+  "label": "32-48",
+  "expect": 1.0,
+  "verdict": "PASS"
+ },
+ {
+  "depth": 55.25,
+  "sn": 8.289908659435572,
+  "sn_iv": [
+   4.923945195661343,
+   13.313853855096916
+  ],
+  "w": 0.4952883180510437,
+  "rms": 0.4050997646036498,
+  "n": 27648,
+  "ratio": 0.9995006664485031,
+  "olaw_ratio": 1.0,
+  "ep": "dark-inactive",
+  "truth": "LT",
+  "shape": "lg P1 p32 (bins)",
+  "label": "48-64",
+  "expect": 1.0,
+  "verdict": "PASS"
+ },
+ {
+  "depth": 71.25,
+  "sn": 8.294050156956738,
+  "sn_iv": [
+   4.926430094174043,
+   13.320480251130782
+  ],
+  "w": 0.5011216337626044,
+  "rms": 0.40222493109433816,
+  "n": 19456,
+  "ratio": 1.0,
+  "olaw_ratio": 1.0,
+  "ep": "dark-inactive",
+  "truth": "LT",
+  "shape": "lg P1 p32 (bins)",
+  "label": "64-96",
+  "expect": 1.0,
+  "verdict": "PASS"
+ }
+]

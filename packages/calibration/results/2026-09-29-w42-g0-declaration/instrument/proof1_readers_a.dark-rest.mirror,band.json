@@ -1,0 +1,1036 @@
+[
+ {
+  "reader": "mirror",
+  "ep": "dark-rest",
+  "cell": "2x|b-p2-c16-rrect-md",
+  "pitch": 16,
+  "truth": 0.45,
+  "reads": {
+   "gauss": null,
+   "lt": null,
+   "lt|kw": null
+  },
+  "depth_graded": true,
+  "section": "mirror"
+ },
+ {
+  "reader": "mirror",
+  "ep": "dark-rest",
+  "cell": "2x|b-p2-c64-rrect-md",
+  "pitch": 64,
+  "truth": 0.45,
+  "reads": {
+   "gauss": null,
+   "lt": null,
+   "lt|kw": null
+  },
+  "depth_graded": true,
+  "section": "mirror"
+ },
+ {
+  "reader": "mirror",
+  "ep": "dark-rest",
+  "cell": "2x|b-p4-c64-rrect-md",
+  "pitch": 64,
+  "truth": 0.45,
+  "reads": {
+   "gauss": {
+    "s1_gain": 0.4551143362433973,
+    "s1_gain_range": [
+     0.4551143362433973,
+     0.4551143362433973
+    ],
+    "identified": true,
+    "checks": {
+     "spread": true,
+     "hrange": true,
+     "fits_floor": true,
+     "w_inside": true,
+     "pairs_kept": true
+    },
+    "lam": 0.90450434630662,
+    "w": 0.4968356557911806,
+    "rmsD": 0.44642807767117537,
+    "rmsS": 0.43954501196398893,
+    "n": 8100,
+    "Hrange": 0.154851286902435,
+    "sn": 2.4449682099511847,
+    "sw": 16.72266437311191,
+    "kn": null,
+    "kw": null,
+    "err": 0.005114336243397299,
+    "pass": true
+   },
+   "lt": {
+    "s1_gain": 0.4508526786290661,
+    "s1_gain_range": [
+     0.44283963363858514,
+     0.4586556296234689
+    ],
+    "identified": true,
+    "checks": {
+     "spread": true,
+     "hrange": true,
+     "fits_floor": true,
+     "w_inside": true,
+     "pairs_kept": true
+    },
+    "lam": 0.9031517887948183,
+    "w": 0.5008007687935913,
+    "rmsD": 0.4086169613755765,
+    "rmsS": 0.41343886686186965,
+    "n": 8100,
+    "Hrange": 0.1604149111413367,
+    "sn": NaN,
+    "sw": 16.765594482421882,
+    "kn": 2.0910326004028317,
+    "kw": 2.0956993103027353,
+    "err": 0.0008526786290660726,
+    "pass": true
+   },
+   "lt|kw": {
+    "s1_gain": 0.45762779743645343,
+    "s1_gain_range": [
+     0.4485120961580874,
+     0.46566179196817503
+    ],
+    "identified": true,
+    "checks": {
+     "spread": true,
+     "hrange": true,
+     "fits_floor": true,
+     "w_inside": true,
+     "pairs_kept": true
+    },
+    "lam": 0.9019366332242802,
+    "w": 0.49261646486127664,
+    "rmsD": 0.41071461435475065,
+    "rmsS": 0.41657543300220123,
+    "n": 8100,
+    "Hrange": 0.15976796910416807,
+    "sn": NaN,
+    "sw": 16.367254258730142,
+    "kn": 2.1060358383658797,
+    "kw": 2.0459067823412678,
+    "err": 0.007627797436453421,
+    "pass": true
+   }
+  },
+  "depth_graded": true,
+  "section": "mirror"
+ },
+ {
+  "reader": "mirror",
+  "ep": "dark-rest",
+  "cell": "2x|b-p5-c64-rrect-md",
+  "pitch": 64,
+  "truth": 0.45,
+  "reads": {
+   "gauss": null,
+   "lt": null,
+   "lt|kw": null
+  },
+  "depth_graded": true,
+  "section": "mirror"
+ },
+ {
+  "reader": "mirror",
+  "ep": "dark-rest",
+  "cell": "2x|bp-p1-c32-capsule-button",
+  "pitch": 32,
+  "truth": 0.45,
+  "reads": {
+   "gauss": {
+    "s1_gain": 0.42045813845444846,
+    "s1_gain_range": [
+     0.31447255253810014,
+     0.5241255182472447
+    ],
+    "identified": false,
+    "checks": {
+     "spread": false,
+     "hrange": true,
+     "fits_floor": true,
+     "w_inside": true,
+     "pairs_kept": true
+    },
+    "lam": 0.8956035410693085,
+    "w": 0.5305309557480744,
+    "rmsD": 0.42764001863554185,
+    "rmsS": 0.4051148620724721,
+    "n": 756,
+    "Hrange": 0.24953678952528735,
+    "sn": 0.0,
+    "sw": 16.937469482421875,
+    "kn": null,
+    "kw": null,
+    "err": -0.02954186154555155,
+    "pass": null
+   },
+   "lt": {
+    "s1_gain": 0.4196990881636455,
+    "s1_gain_range": [
+     0.3385218957683871,
+     0.5077435497828106
+    ],
+    "identified": false,
+    "checks": {
+     "spread": false,
+     "hrange": true,
+     "fits_floor": true,
+     "w_inside": true,
+     "pairs_kept": true
+    },
+    "lam": 0.8955697953478897,
+    "w": 0.5313608271026931,
+    "rmsD": 0.42763514111700496,
+    "rmsS": 0.40511795721894855,
+    "n": 756,
+    "Hrange": 0.24954000058828485,
+    "sn": NaN,
+    "sw": 16.9443359375,
+    "kn": 1.042718505859375,
+    "kw": 2.1180419921875,
+    "err": -0.030300911836354527,
+    "pass": null
+   },
+   "lt|kw": {
+    "s1_gain": 0.4827091306304883,
+    "s1_gain_range": [
+     0.4253903956754627,
+     0.5418876094423997
+    ],
+    "identified": false,
+    "checks": {
+     "spread": false,
+     "hrange": true,
+     "fits_floor": true,
+     "w_inside": true,
+     "pairs_kept": true
+    },
+    "lam": 0.8980638009125695,
+    "w": 0.46250018078895694,
+    "rmsD": 0.42764384325055993,
+    "rmsS": 0.41121566935929743,
+    "n": 756,
+    "Hrange": 0.2493886719676085,
+    "sn": NaN,
+    "sw": 16.367254258730142,
+    "kn": 1.0,
+    "kw": 2.0459067823412678,
+    "err": 0.0327091306304883,
+    "pass": null
+   }
+  },
+  "depth_graded": false,
+  "section": "mirror"
+ },
+ {
+  "reader": "mirror",
+  "ep": "dark-rest",
+  "cell": "2x|bp-p1-c64-capsule-button",
+  "pitch": 64,
+  "truth": 0.45,
+  "reads": {
+   "gauss": {
+    "s1_gain": 0.4596993960776516,
+    "s1_gain_range": [
+     0.3401494259510729,
+     0.46603273406912166
+    ],
+    "identified": false,
+    "checks": {
+     "spread": false,
+     "hrange": true,
+     "fits_floor": true,
+     "w_inside": true,
+     "pairs_kept": true
+    },
+    "lam": 0.8989454976627459,
+    "w": 0.4886237293886361,
+    "rmsD": 0.40387430096023386,
+    "rmsS": 0.38543641837479387,
+    "n": 244,
+    "Hrange": 0.228825261334355,
+    "sn": 0.0,
+    "sw": 16.182080330327153,
+    "kn": null,
+    "kw": null,
+    "err": 0.009699396077651579,
+    "pass": null
+   },
+   "lt": {
+    "s1_gain": 0.4538241425115041,
+    "s1_gain_range": [
+     0.27568349776631257,
+     0.4837135681173203
+    ],
+    "identified": false,
+    "checks": {
+     "spread": false,
+     "hrange": true,
+     "fits_floor": true,
+     "w_inside": true,
+     "pairs_kept": true
+    },
+    "lam": 0.8974557114922063,
+    "w": 0.4943214058363645,
+    "rmsD": 0.40366647600742805,
+    "rmsS": 0.3857206115914942,
+    "n": 244,
+    "Hrange": 0.2292325311211758,
+    "sn": NaN,
+    "sw": 16.3820068359375,
+    "kn": 1.0157493591308602,
+    "kw": 2.0477508544921874,
+    "err": 0.0038241425115040917,
+    "pass": null
+   },
+   "lt|kw": {
+    "s1_gain": 0.453669103123586,
+    "s1_gain_range": [
+     0.4369115448623651,
+     0.47223228380391746
+    ],
+    "identified": true,
+    "checks": {
+     "spread": true,
+     "hrange": true,
+     "fits_floor": true,
+     "w_inside": true,
+     "pairs_kept": true
+    },
+    "lam": 0.897829805713271,
+    "w": 0.4947047867683858,
+    "rmsD": 0.40375699631153106,
+    "rmsS": 0.3857042019420428,
+    "n": 244,
+    "Hrange": 0.22920211248794553,
+    "sn": NaN,
+    "sw": 16.367254258730142,
+    "kn": 1.0,
+    "kw": 2.0459067823412678,
+    "err": 0.0036691031235859817,
+    "pass": true
+   }
+  },
+  "depth_graded": false,
+  "section": "mirror"
+ },
+ {
+  "reader": "mirror",
+  "ep": "dark-rest",
+  "cell": "2x|bp-p1-c32-rrect-ml",
+  "pitch": 32,
+  "truth": 0.45,
+  "reads": {
+   "gauss": {
+    "s1_gain": -0.00010840675859257613,
+    "s1_gain_range": [
+     -416.97246750164885,
+     1.3154305708174723
+    ],
+    "identified": false,
+    "checks": {
+     "spread": false,
+     "hrange": false,
+     "fits_floor": true,
+     "w_inside": false,
+     "pairs_kept": false
+    },
+    "lam": 0.0007162295744773011,
+    "w": 1.1513575569281547,
+    "rmsD": 0.2485611947057025,
+    "rmsS": 0.2859034795256243,
+    "n": 260,
+    "Hrange": 0.001061837786033304,
+    "sn": 8.03106689453125,
+    "sw": 16.0621337890625,
+    "kn": null,
+    "kw": null,
+    "err": -0.4501084067585926,
+    "pass": null
+   },
+   "lt": {
+    "s1_gain": -0.004962965335522199,
+    "s1_gain_range": [
+     -0.2247735520660636,
+     0.08604799581794176
+    ],
+    "identified": false,
+    "checks": {
+     "spread": false,
+     "hrange": false,
+     "fits_floor": true,
+     "w_inside": false,
+     "pairs_kept": false
+    },
+    "lam": 2.002459400556639,
+    "w": 1.002478434935631,
+    "rmsD": 0.22772915518406908,
+    "rmsS": 0.2604173497145828,
+    "n": 92,
+    "Hrange": 0.0014120028214815727,
+    "sn": NaN,
+    "sw": 25.60573120117182,
+    "kn": 2.3511375427246066,
+    "kw": 3.2007164001464776,
+    "err": -0.4549629653355222,
+    "pass": null
+   },
+   "lt|kw": {
+    "s1_gain": -0.2149264329184004,
+    "s1_gain_range": [
+     -0.2559450540012502,
+     1.4523791002579274
+    ],
+    "identified": false,
+    "checks": {
+     "spread": false,
+     "hrange": false,
+     "fits_floor": true,
+     "w_inside": false,
+     "pairs_kept": false
+    },
+    "lam": 1.9593024351699417,
+    "w": 1.1096953839593215,
+    "rmsD": 0.2302305467401179,
+    "rmsS": 0.2630661666538667,
+    "n": 88,
+    "Hrange": 0.0010987612008040992,
+    "sn": NaN,
+    "sw": 16.367254258730142,
+    "kn": 2.272738797797092,
+    "kw": 2.0459067823412678,
+    "err": -0.6649264329184004,
+    "pass": null
+   }
+  },
+  "depth_graded": true,
+  "section": "mirror"
+ },
+ {
+  "reader": "mirror",
+  "ep": "dark-rest",
+  "cell": "2x|bp-p1-c64-rrect-ml",
+  "pitch": 64,
+  "truth": 0.45,
+  "reads": {
+   "gauss": null,
+   "lt": null,
+   "lt|kw": null
+  },
+  "depth_graded": true,
+  "section": "mirror"
+ },
+ {
+  "reader": "mirror",
+  "ep": "dark-rest",
+  "cell": "2x|bp-p1-c32-rrect-80",
+  "pitch": 32,
+  "truth": 0.45,
+  "reads": {
+   "gauss": null,
+   "lt": null,
+   "lt|kw": null
+  },
+  "depth_graded": true,
+  "section": "mirror"
+ },
+ {
+  "reader": "mirror",
+  "ep": "dark-rest",
+  "cell": "2x|bp-p1-c32-rrect-lg",
+  "pitch": 32,
+  "truth": 0.45,
+  "reads": {
+   "gauss": {
+    "s1_gain": 0.0005091413603383135,
+    "s1_gain_range": [
+     -363.20907672618756,
+     18.146935324872477
+    ],
+    "identified": false,
+    "checks": {
+     "spread": false,
+     "hrange": false,
+     "fits_floor": true,
+     "w_inside": false,
+     "pairs_kept": false
+    },
+    "lam": -0.0036571118139646593,
+    "w": 1.1392195224641917,
+    "rmsD": 0.2328981742878931,
+    "rmsS": 0.28579809173627363,
+    "n": 640,
+    "Hrange": 0.0012779615120185328,
+    "sn": 7.328111925162375,
+    "sw": 15.726685848087072,
+    "kn": null,
+    "kw": null,
+    "err": -0.4494908586396617,
+    "pass": null
+   },
+   "lt": {
+    "s1_gain": 0.41013600617437024,
+    "s1_gain_range": [
+     -10.251162791644397,
+     0.6766997918590877
+    ],
+    "identified": false,
+    "checks": {
+     "spread": false,
+     "hrange": false,
+     "fits_floor": true,
+     "w_inside": true,
+     "pairs_kept": false
+    },
+    "lam": 6.605323248488214,
+    "w": 0.937908261148576,
+    "rmsD": 0.23095946303287151,
+    "rmsS": 0.27655326094468147,
+    "n": 912,
+    "Hrange": 0.0016847891475235688,
+    "sn": NaN,
+    "sw": 23.442390441894503,
+    "kn": 2.6352926254272466,
+    "kw": 2.930298805236813,
+    "err": -0.03986399382562977,
+    "pass": null
+   },
+   "lt|kw": {
+    "s1_gain": -0.8629743942296725,
+    "s1_gain_range": [
+     -5.1670177876630845,
+     1.2735896636994626
+    ],
+    "identified": false,
+    "checks": {
+     "spread": false,
+     "hrange": false,
+     "fits_floor": true,
+     "w_inside": false,
+     "pairs_kept": false
+    },
+    "lam": 2.717105034614302,
+    "w": 1.3176080362135036,
+    "rmsD": 0.23094326765111406,
+    "rmsS": 0.27747630902123144,
+    "n": 912,
+    "Hrange": 0.0015212366114454312,
+    "sn": NaN,
+    "sw": 16.367254258730142,
+    "kn": 2.5938535834631753,
+    "kw": 2.0459067823412678,
+    "err": -1.3129743942296725,
+    "pass": null
+   }
+  },
+  "depth_graded": true,
+  "section": "mirror"
+ },
+ {
+  "reader": "mirror",
+  "ep": "dark-rest",
+  "cell": "2x|bp-p1-c8-capsule-button",
+  "pitch": 8,
+  "truth": 0.45,
+  "reads": {
+   "gauss": {
+    "s1_gain": 0.9908338757144889,
+    "s1_gain_range": [
+     0.00012749275522011915,
+     1.555207539971468
+    ],
+    "identified": false,
+    "checks": {
+     "spread": false,
+     "hrange": true,
+     "fits_floor": true,
+     "w_inside": false,
+     "pairs_kept": true
+    },
+    "lam": 0.8980789771138297,
+    "w": -0.10328144958781582,
+    "rmsD": 0.4128761251676199,
+    "rmsS": 0.4037544866555722,
+    "n": 1140,
+    "Hrange": 0.2510744245368697,
+    "sn": 0.14708052948117256,
+    "sw": 6.549755472689867,
+    "kn": null,
+    "kw": null,
+    "err": 0.5408338757144888,
+    "pass": null
+   },
+   "lt": {
+    "s1_gain": 0.08703963136852655,
+    "s1_gain_range": [
+     1.4528537498429539e-05,
+     1.0210467852141485
+    ],
+    "identified": false,
+    "checks": {
+     "spread": false,
+     "hrange": true,
+     "fits_floor": true,
+     "w_inside": true,
+     "pairs_kept": true
+    },
+    "lam": 0.8981513743626007,
+    "w": 0.9030902430781261,
+    "rmsD": 0.4138593754191787,
+    "rmsS": 0.4037579678137036,
+    "n": 1140,
+    "Hrange": 0.2507573473481973,
+    "sn": NaN,
+    "sw": 16.589733886718754,
+    "kn": 0.9892436981201174,
+    "kw": 2.0737167358398443,
+    "err": -0.36296036863147346,
+    "pass": null
+   },
+   "lt|kw": {
+    "s1_gain": 0.0722105394726028,
+    "s1_gain_range": [
+     0.044305137582003794,
+     0.11139831410487132
+    ],
+    "identified": false,
+    "checks": {
+     "spread": false,
+     "hrange": true,
+     "fits_floor": true,
+     "w_inside": true,
+     "pairs_kept": true
+    },
+    "lam": 0.8981529427592994,
+    "w": 0.9196010656595323,
+    "rmsD": 0.4140007824910978,
+    "rmsS": 0.40375419780599864,
+    "n": 1140,
+    "Hrange": 0.250740656565379,
+    "sn": NaN,
+    "sw": 16.367254258730142,
+    "kn": 1.0,
+    "kw": 2.0459067823412678,
+    "err": -0.3777894605273972,
+    "pass": null
+   }
+  },
+  "depth_graded": false,
+  "section": "mirror"
+ },
+ {
+  "reader": "mirror",
+  "ep": "dark-rest",
+  "cell": "1x|bp-p1-c32-rrect-lg",
+  "pitch": 32,
+  "truth": 0.45,
+  "reads": {
+   "gauss": {
+    "s1_gain": 3.089315153456983,
+    "s1_gain_range": [
+     -346.0707804296337,
+     3.2466008314979935
+    ],
+    "identified": false,
+    "checks": {
+     "spread": false,
+     "hrange": false,
+     "fits_floor": true,
+     "w_inside": false,
+     "pairs_kept": false
+    },
+    "lam": 2.0313953697246685,
+    "w": -0.5207847765625768,
+    "rmsD": 0.19909650129327652,
+    "rmsS": 0.2732487283347629,
+    "n": 128,
+    "Hrange": 6.259742400022139e-05,
+    "sn": 10.170562744140625,
+    "sw": 23.3177490234375,
+    "kn": null,
+    "kw": null,
+    "err": 2.639315153456983,
+    "pass": null
+   },
+   "lt": {
+    "s1_gain": 21.55359932010979,
+    "s1_gain_range": [
+     -1.6544646294287222,
+     76.95417196903243
+    ],
+    "identified": false,
+    "checks": {
+     "spread": false,
+     "hrange": false,
+     "fits_floor": true,
+     "w_inside": false,
+     "pairs_kept": false
+    },
+    "lam": 2.2522237048147957,
+    "w": -8.569919397452653,
+    "rmsD": 0.19707026607277517,
+    "rmsS": 0.24587727119176317,
+    "n": 208,
+    "Hrange": 0.0003759237552912742,
+    "sn": NaN,
+    "sw": 11.291519165039066,
+    "kn": 3.0157619476318365,
+    "kw": 1.4114398956298833,
+    "err": 21.10359932010979,
+    "pass": null
+   },
+   "lt|kw": {
+    "s1_gain": 0.025408325969098755,
+    "s1_gain_range": [
+     0.025408325969098755,
+     0.8359389310815324
+    ],
+    "identified": false,
+    "checks": {
+     "spread": false,
+     "hrange": false,
+     "fits_floor": true,
+     "w_inside": false,
+     "pairs_kept": false
+    },
+    "lam": -0.15080518629860598,
+    "w": 1.1684844307594853,
+    "rmsD": 0.1756753734306571,
+    "rmsS": 0.14476248497586178,
+    "n": 55,
+    "Hrange": 0.0005396238220597427,
+    "sn": NaN,
+    "sw": 16.367254258730142,
+    "kn": 1.8699966350433226,
+    "kw": 2.0459067823412678,
+    "err": -0.42459167403090126,
+    "pass": null
+   }
+  },
+  "depth_graded": true,
+  "section": "mirror"
+ },
+ {
+  "reader": "W-readers",
+  "ep": "dark-rest",
+  "cell": "bp-p1-c64-capsule-button",
+  "band": "excluded",
+  "d_in": 53.504,
+  "reason": "no pixel at depth >= 53.5 pt (band 20 + 2 sigma_w); all W information lies inside the refraction band",
+  "section": "band"
+ },
+ {
+  "reader": "W-readers",
+  "ep": "dark-rest",
+  "cell": "bp-p1-c32-rrect-64",
+  "band": "excluded",
+  "d_in": 53.504,
+  "reason": "no pixel at depth >= 53.5 pt (band 20 + 2 sigma_w); all W information lies inside the refraction band",
+  "section": "band"
+ },
+ {
+  "reader": "W-readers",
+  "ep": "dark-rest",
+  "cell": "bp-p1-c32-rrect-80",
+  "band": "excluded",
+  "d_in": 53.504,
+  "reason": "no pixel at depth >= 53.5 pt (band 20 + 2 sigma_w); all W information lies inside the refraction band",
+  "section": "band"
+ },
+ {
+  "reader": "W-readers",
+  "ep": "dark-rest",
+  "cell": "b-p4-c64-rrect-md",
+  "band": "excluded",
+  "d_in": 53.504,
+  "reason": "no pixel at depth >= 53.5 pt (band 20 + 2 sigma_w); all W information lies inside the refraction band",
+  "section": "band"
+ },
+ {
+  "reader": "W-readers",
+  "ep": "dark-rest",
+  "cell": "bp-p1-c64-rrect-ml",
+  "band": "outside",
+  "d_in": 53.504,
+  "model": {
+   "sn": 5.351137312318848,
+   "sw": 16.76804494615373,
+   "lam": 0.25242629434209707,
+   "w": 0.49926479690426456,
+   "rms": 0.4816274911183477
+  },
+  "mirror": null,
+  "heavy": {
+   "best": "group",
+   "group": {
+    "sw": 0.0,
+    "rms": Infinity
+   }
+  },
+  "truth": {
+   "sw": 16.752,
+   "lam": 0.9,
+   "w": 0.5,
+   "s1_gain": 0.45,
+   "sn_centre": 5.584
+  },
+  "section": "band"
+ },
+ {
+  "reader": "W-readers",
+  "ep": "dark-rest",
+  "cell": "bp-p1-c32-rrect-ml",
+  "band": "outside",
+  "d_in": 53.504,
+  "model": {
+   "sn": 5.437478771438537,
+   "sw": 17.810912135790602,
+   "lam": 0.15791718116432543,
+   "w": 0.4786738246576699,
+   "rms": 0.5908098323392151
+  },
+  "mirror": null,
+  "heavy": null,
+  "truth": {
+   "sw": 16.752,
+   "lam": 0.9,
+   "w": 0.5,
+   "s1_gain": 0.45,
+   "sn_centre": 5.584
+  },
+  "section": "band"
+ },
+ {
+  "reader": "W-readers",
+  "ep": "dark-rest",
+  "cell": "bp-p1-c32-rrect-lg",
+  "band": "outside",
+  "d_in": 53.504,
+  "model": {
+   "sn": 7.961547023116045,
+   "sw": 18.17217636019564,
+   "lam": 1.5999999999999999,
+   "w": 0.4381005439849685,
+   "rms": 1.0656664064327157
+  },
+  "mirror": {
+   "s1_gain": 0.004002180669065861,
+   "s1_gain_range": [
+    -0.05586952545435484,
+    0.5821612848553473
+   ],
+   "identified": false,
+   "checks": {
+    "spread": false,
+    "hrange": false,
+    "fits_floor": true,
+    "w_inside": false,
+    "pairs_kept": false
+   },
+   "narrow": "lt|kw fixed"
+  },
+  "heavy": null,
+  "truth": {
+   "sw": 16.752,
+   "lam": 0.9,
+   "w": 0.5,
+   "s1_gain": 0.45,
+   "sn_centre": 8.376
+  },
+  "section": "band"
+ },
+ {
+  "reader": "esf",
+  "ep": "dark-rest",
+  "cell": "bp-p1-c8-capsule-button",
+  "band": "outside",
+  "d_in": 20.8,
+  "truth_eff": 0.4,
+  "read": {
+   "sigma": 0.39597856063295006,
+   "iv": [
+    0.3761796326013026,
+    0.41577748866459757
+   ],
+   "identified": true,
+   "n_edges": 9
+  },
+  "err_rel": -0.010053598417624876,
+  "section": "band"
+ },
+ {
+  "reader": "esf",
+  "ep": "dark-rest",
+  "cell": "b-p2-c16-rrect-md",
+  "band": "outside",
+  "d_in": 25.641015511412817,
+  "truth_eff": 2.5186195522923547,
+  "read": {
+   "sigma": 2.4967284401945484,
+   "iv": [
+    2.3718920181848206,
+    2.6215648622042758
+   ],
+   "identified": false,
+   "n_edges": 27
+  },
+  "err_rel": -0.00869171053559148,
+  "section": "band"
+ },
+ {
+  "reader": "esf",
+  "ep": "dark-rest",
+  "cell": "bp-p1-c32-rrect-80",
+  "band": "outside",
+  "d_in": 22.904352595674293,
+  "truth_eff": 1.3058219670002218,
+  "read": {
+   "sigma": 1.4004985813085982,
+   "iv": [
+    1.3304736522431682,
+    1.5
+   ],
+   "identified": false,
+   "n_edges": 5
+  },
+  "err_rel": 0.07250346272384345,
+  "section": "band"
+ },
+ {
+  "reader": "esf",
+  "ep": "dark-rest",
+  "cell": "bp-p1-c32-rrect-ml",
+  "band": "outside",
+  "d_in": 31.19661663182231,
+  "truth_eff": 4.927346767357137,
+  "read": {
+   "sigma": 5.048131116790311,
+   "iv": [
+    4.669521283031038,
+    5.4267409505495845
+   ],
+   "identified": false,
+   "n_edges": 16
+  },
+  "err_rel": 0.02451306050415436,
+  "section": "band"
+ },
+ {
+  "reader": "esf",
+  "ep": "dark-rest",
+  "cell": "bp-p1-c32-rrect-lg",
+  "band": "outside",
+  "d_in": 36.8282353204369,
+  "truth_eff": 7.507197532887277,
+  "read": {
+   "sigma": 7.675726473605303,
+   "iv": [
+    6.524367502564507,
+    12.0
+   ],
+   "identified": false,
+   "n_edges": 22
+  },
+  "err_rel": 0.022448981791106437,
+  "section": "band"
+ },
+ {
+  "reader": "impulse",
+  "ep": "dark-rest",
+  "cell": "c-s8-lo-rrect-md",
+  "band": "excluded",
+  "d_in": 25.641015511412817,
+  "reason": "no impulse window clears the band",
+  "section": "band"
+ },
+ {
+  "reader": "impulse",
+  "ep": "dark-rest",
+  "cell": "c-s16-lo-capsule-button",
+  "band": "outside",
+  "d_in": 20.8,
+  "truth_eff": 0.4,
+  "single": {
+   "kind": "gauss",
+   "npx": 480,
+   "n_squares": 1,
+   "y0": 196.93441558938488,
+   "b": 79.24487285413217,
+   "rms": 1.2744926994467967,
+   "max": 2.829849430726699,
+   "sigma": 0.39807514442917263,
+   "shift": [
+    1.373878020593197e-06,
+    0.0076018480311499876
+   ]
+  },
+  "err_rel": -0.004812138927068443,
+  "section": "band"
+ },
+ {
+  "reader": "impulse",
+  "ep": "dark-rest",
+  "cell": "c-s8-hi-d80-rrect-lg",
+  "band": "excluded",
+  "d_in": NaN,
+  "reason": "not carried by this pass (or its deep mask is empty)",
+  "section": "band"
+ },
+ {
+  "reader": "exclusion",
+  "ep": "dark-rest",
+  "cell": "2x|c-s16-hi-capsule-button",
+  "reason": "patch at depth 22 pt (near edge 14 pt): inside the 20.0 pt inner refraction band"
+ },
+ {
+  "reader": "exclusion",
+  "ep": "dark-rest",
+  "cell": "2x|c-s16-lo-capsule-button",
+  "reason": "patch at depth 22 pt (near edge 14 pt): inside the 20.0 pt inner refraction band"
+ },
+ {
+  "reader": "exclusion",
+  "ep": "dark-rest",
+  "cell": "2x|c-s8-lo-d4-rrect-lg",
+  "reason": "patch at depth 4 pt (near edge 0 pt): inside the 20.0 pt inner refraction band"
+ },
+ {
+  "reader": "exclusion",
+  "ep": "dark-rest",
+  "cell": "2x|c-s8-lo-d4-rrect-md",
+  "reason": "patch at depth 4 pt (near edge 0 pt): inside the 20.0 pt inner refraction band"
+ },
+ {
+  "reader": "exclusion",
+  "ep": "dark-rest",
+  "cell": "2x|d-out16-hilo-rrect-md",
+  "reason": "step 16 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded"
+ },
+ {
+  "reader": "exclusion",
+  "ep": "dark-rest",
+  "cell": "2x|d-out16-lohi-rrect-md",
+  "reason": "step 16 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded"
+ },
+ {
+  "reader": "exclusion",
+  "ep": "dark-rest",
+  "cell": "2x|d-out8-hilo-rrect-md",
+  "reason": "step 8 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded"
+ },
+ {
+  "reader": "exclusion",
+  "ep": "dark-rest",
+  "cell": "2x|d-out8-lohi-rrect-md",
+  "reason": "step 8 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded"
+ },
+ {
+  "reader": "exclusion",
+  "ep": "dark-rest",
+  "cell": "1x|d-out8-lohi-rrect-md",
+  "reason": "step 8 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded"
+ }
+]

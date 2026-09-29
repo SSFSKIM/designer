@@ -1,0 +1,26 @@
+# replica fast path against the original functions: max |difference| 5.68e-14 (1x md checker)
+light-rest     1x checkerboard__rrect-md__rest             k 0.40 | model sn 1.740/1.679 sw 4.05/25.65 lam -0.090/-0.001 w 0.000/0.015 | S +0.0000/-0.0000 | ESF 1.754/1.693
+light-rest     1x checkerboard__capsule-button__rest       k 0.26 | model sn 1.699/1.679 sw 23.26/28.08 lam +0.021/-0.001 w 0.006/0.059 | S -0.0000/-0.0000 | ESF 1.732/1.693
+light-rest     1x checkerboard__rrect-ml__rest             k 0.53 | model sn 1.723/1.677 sw 4.01/32.38 lam -0.070/-0.001 w 0.000/0.310 | S +0.0015/-0.0000 | ESF 1.736/1.694
+light-rest     1x checkerboard-8__rrect-md__rest           k 0.40 | model sn 0.917/0.556 sw 5.12/2.10 lam -0.096/-0.021 w 0.995/0.959 | S -0.0000/+0.0000 | ESF 2.262/2.029
+light-rest     1x checkerboard-32__rrect-md__rest          k 0.40 | model sn 1.742/1.731 sw 11.01/14.61 lam +0.018/-0.000 w 0.141/0.306 | S +0.0182/-0.0000* | ESF 1.87/1.853 | heavy shape 6.84 / shape 6.86
+light-rest     1x checkerboard-64__rrect-md__rest          k 0.40 | model sn 1.772/1.735 sw 32.94/19.10 lam +0.023/-0.019 w 0.826/0.467 | S +0.0042*/+0.0000* | ESF 2.172/2.122 | heavy Rfp 12.54 / Rfp 12.49
+light-rest     1x checkerboard-64__rrect-ml__rest          k 0.53 | model sn 1.730/1.721 sw 16.80/16.64 lam +0.008/+0.001 w 0.559/0.560 | S +0.0019/-0.0004 | ESF 2.303/2.389 | heavy Rfp 12.74 / Rfp 12.70
+light-rest     1x checkerboard-64__capsule-button__rest    k 0.26 | model sn 1.720/1.727 sw 40.68/38.88 lam -0.033/-0.002 w 0.916/0.877 | S -0.0034*/+0.0000* | ESF 1.916/1.908
+light-rest     1x checkerboard-4__rrect-md__rest           k 0.40 | model sn 0.000/0.852 sw 1.63/11.31 lam -0.500/+0.000 w 0.976/0.835 | S - | ESF 1.76/0.421
+light-rest     1x impulse__rrect-md__rest                  k 0.40 | impulse single 1.689/1.681 s1 1.573/1.649 k 0.546/0.513
+light-rest     1x impulse__capsule-button__rest            k 0.26 | impulse single 1.686/1.672 s1 1.687/1.663 k 0.000/0.901
+light-rest     1x impulse__rrect-ml__rest                  no capture or fewer than 200 px on the joint core
+light-rest     2x checkerboard__rrect-md__rest             k 0.94 | model sn 1.018/0.738 sw 61.02/1.97 lam -0.037/+0.002 w 0.726/0.366 | S +0.0000/+0.0000 | ESF 1.255/1.402
+light-rest     2x checkerboard__capsule-button__rest       k 0.72 | model sn 0.816/0.830 sw 13.42/8.06 lam -0.006/-0.001 w 0.974/0.267 | S -0.0000/-0.0000 | ESF 0.814/0.895
+light-rest     2x checkerboard__rrect-ml__rest             k 0.96 | model sn 0.922/0.956 sw 13.31/13.68 lam +0.076/-0.006 w 0.995/0.996 | S +0.0000/-0.0000 | ESF 1.194/1.717
+light-rest     2x checkerboard-8__rrect-md__rest           k 0.94 | model sn 0.729/0.775 sw 5.94/3.43 lam +0.040/-0.004 w 0.961/0.199 | S -0.0000/-0.0000 | ESF 0.895/0.864
+light-rest     2x checkerboard-32__rrect-md__rest          k 0.94 | model sn 0.909/0.924 sw 15.69/15.69 lam +0.007/+0.010 w 0.987/0.987 | S -0.0000/-0.0000 | ESF 4.959/5.061 | heavy Rfp 5.65 / Rfp 5.72
+light-rest     2x checkerboard-64__rrect-md__rest          k 0.94 | model sn 0.781/0.829 sw 10.11/10.11 lam +0.025/+0.062 w 0.946/0.944 | S +0.0037/+0.0055 | ESF 5.88/6.525 | heavy shape 9.70 / shape 9.64
+light-rest     2x checkerboard-64__rrect-ml__rest          k 0.96 | model sn 0.769/0.775 sw 10.37/10.36 lam +0.064/+0.072 w 0.939/0.939 | S +0.0015/+0.0019 | ESF 5.689/6.269 | heavy box 9.82 / box 9.72
+light-rest     2x checkerboard-64__capsule-button__rest    k 0.72 | model sn 0.851/0.842 sw 10.40/10.36 lam +0.034/+0.031 w 0.716/0.716 | S +0.0115/+0.0113 | ESF 3.354/3.185
+light-rest     2x checkerboard-4__rrect-md__rest           k 0.94 | model sn 0.910/0.440 sw 56.39/2.94 lam +0.028/-0.010 w 0.680/0.998 | S - | ESF 0.845/1.022
+light-rest     2x impulse__rrect-md__rest                  k 0.94 | impulse single 7.969/9.108 s1 7.969/0.775 k 0.137/0.976
+light-rest     2x impulse__capsule-button__rest            k 0.72 | impulse single 0.973/0.988 s1 0.814/0.828 k 0.602/0.724
+light-rest     2x impulse__rrect-ml__rest                  no capture or fewer than 200 px on the joint core
+# light-rest done in 264 s

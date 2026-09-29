@@ -1,0 +1,105 @@
+model light-rest     2x|b-p2-c16-rrect-md           truth sn    nan sw 15.864 lam 0.88 | read sn  2.268 sw 12.743 lam 0.883 w 0.504 rms 0.570 | depth-graded: effective sn, not gated 3s
+model light-rest     2x|b-p4-c64-rrect-md           truth sn    nan sw 15.864 lam 0.88 | read sn  2.326 sw 15.880 lam 0.879 w 0.499 rms 0.421 | depth-graded: effective sn, not gated 2s
+model light-rest     2x|b-p5-c64-rrect-md           truth sn    nan sw 15.864 lam 0.88 | read sn  2.325 sw 15.892 lam 0.878 w 0.499 rms 0.420 | depth-graded: effective sn, not gated 2s
+model light-rest     2x|bp-p1-c32-capsule-button    truth sn  0.000 sw 15.864 lam 0.88 | read sn  0.000 sw 15.802 lam 0.881 w 0.500 rms 0.409 | sn_iv (np.float64(0.0), np.float64(0.23)) sw_iv (np.float64(15.14), np.float64(16.46)) pass {'sn': np.True_, 'sw': np.False_, 'lam': np.True_, 'w': np.True_, 'floor': True} 2s
+model light-rest     2x|bp-p1-c64-capsule-button    truth sn  0.000 sw 15.864 lam 0.88 | read sn  0.000 sw 15.864 lam 0.879 w 0.500 rms 0.410 | sn_iv (np.float64(0.0), np.float64(0.25)) sw_iv (np.float64(15.86), np.float64(15.86)) pass {'sn': np.True_, 'sw': np.True_, 'lam': np.True_, 'w': np.True_, 'floor': True} 2s
+model light-rest     2x|bp-p1-c32-rrect-64          truth sn  0.000 sw 15.864 lam 0.88 | read sn  0.000 sw 15.863 lam 0.880 w 0.500 rms 0.410 | sn_iv (np.float64(0.0), np.float64(0.21)) sw_iv (np.float64(15.86), np.float64(15.86)) pass {'sn': np.True_, 'sw': np.True_, 'lam': np.True_, 'w': np.True_, 'floor': True} 3s
+model light-rest     2x|bp-p1-c32-rrect-80          truth sn    nan sw 15.864 lam 0.88 | read sn  1.197 sw 15.863 lam 0.880 w 0.500 rms 0.477 | depth-graded: effective sn, not gated 2s
+model light-rest     2x|bp-p1-c64-rrect-ml          truth sn    nan sw 15.864 lam 0.88 | read sn  4.229 sw 15.849 lam 0.881 w 0.509 rms 0.603 | depth-graded: effective sn, not gated 3s
+model light-rest     2x|bp-p1-c32-rrect-lg          truth sn    nan sw 15.864 lam 0.88 | read sn  6.382 sw 15.807 lam 0.885 w 0.530 rms 0.907 | depth-graded: effective sn, not gated 7s
+model light-rest     2x|bp-p1-c8-capsule-button     truth sn  0.000 sw 15.864 lam 0.88 | read sn  0.000 sw 10.601 lam 0.881 w 0.500 rms 0.338 | sn_iv (np.float64(0.0), np.float64(0.21)) sw_iv (np.float64(5.3), np.float64(15.9)) pass {'sn': np.True_, 'sw': np.False_, 'lam': np.True_, 'w': np.True_, 'floor': True} 12s
+model light-rest     1x|bp-p1-c8-capsule-button     truth sn  0.000 sw 15.864 lam 0.88 | read sn  0.252 sw  6.331 lam 0.884 w 0.501 rms 0.350 | sn_iv (np.float64(0.13), np.float64(0.41)) sw_iv (np.float64(5.01), np.float64(9.5)) pass {'sn': np.False_, 'sw': np.False_, 'lam': np.True_, 'w': np.True_, 'floor': True} 0s
+model light-rest     1x|bp-p1-c32-rrect-lg          truth sn    nan sw 15.864 lam 0.88 | read sn  6.380 sw 15.853 lam 0.881 w 0.529 rms 0.887 | depth-graded: effective sn, not gated 2s
+lin-ctl light-rest     2x|b-p2-c16-rrect-md           k 0.60 | lin: sn 0.791 sw 6.33 lam +0.001 w 0.130 rms 0.42 | enc(manufactured): lam -0.160 w 0.989 rms 0.42 | S lin 0.0 S enc -0.0
+lin-ctl light-rest     2x|b-p2-c16-rrect-md           k 0.99 | lin: sn 0.823 sw 4.61 lam -0.032 w 0.843 rms 0.42 | enc(manufactured): lam -0.015 w 0.842 rms 0.42 | S lin -0.0 S enc -0.0
+lin-ctl light-rest     2x|b-p4-c64-rrect-md           k 0.60 | lin: sn 0.793 sw 10.03 lam -0.002 w 0.601 rms 0.40 | enc(manufactured): lam +0.235 w 0.552 rms 0.41 | S lin -0.0007 S enc 0.1032
+lin-ctl light-rest     2x|b-p4-c64-rrect-md           k 0.99 | lin: sn 0.807 sw 9.99 lam +0.155 w 0.991 rms 0.40 | enc(manufactured): lam +1.600 w 0.922 rms 0.41 | S lin 0.0004 S enc 0.1249
+lin-ctl light-rest     2x|bp-p1-c32-capsule-button    k 0.60 | lin: sn 0.791 sw 10.16 lam -0.001 w 0.608 rms 0.41 | enc(manufactured): lam -0.380 w 0.998 rms 0.63 | S lin -0.0009 S enc -0.0004
+lin-ctl light-rest     2x|bp-p1-c32-capsule-button    k 0.99 | lin: sn 0.791 sw 9.57 lam -0.166 w 0.991 rms 0.41 | enc(manufactured): lam +1.600 w 0.948 rms 0.43 | S lin -0.0035 S enc 0.1138
+lin-ctl light-rest     2x|bp-p1-c64-rrect-ml          k 0.60 | lin: sn 0.791 sw 10.00 lam +0.001 w 0.600 rms 0.41 | enc(manufactured): lam +0.673 w 0.465 rms 1.46 | S lin 0.0003 S enc 0.3636
+lin-ctl light-rest     2x|bp-p1-c64-rrect-ml          k 0.99 | lin: sn 0.836 sw 10.00 lam +0.029 w 0.990 rms 0.41 | enc(manufactured): lam +1.600 w 0.759 rms 1.33 | S lin 0.0003 S enc 0.4259
+lin-ctl light-rest     2x|bp-p1-c32-rrect-80          k 0.60 | lin: sn 0.790 sw 9.95 lam +0.001 w 0.597 rms 0.41 | enc(manufactured): lam -0.500 w 0.997 rms 1.28 | S lin 0.0007 S enc -0.0017
+lin-ctl light-rest     2x|bp-p1-c32-rrect-80          k 0.99 | lin: sn 0.738 sw 9.93 lam +0.025 w 0.990 rms 0.41 | enc(manufactured): lam +1.600 w 0.906 rms 0.72 | S lin 0.0003 S enc 0.2115
+lin-ctl light-rest     2x|bp-p1-c32-rrect-lg          k 0.60 | lin: sn 0.790 sw 10.02 lam +0.001 w 0.601 rms 0.40 | enc(manufactured): lam -0.500 w 0.980 rms 1.27 | S lin 0.0004 S enc -0.0097
+lin-ctl light-rest     2x|bp-p1-c32-rrect-lg          k 0.99 | lin: sn 0.773 sw 10.01 lam -0.000 w 0.990 rms 0.41 | enc(manufactured): lam +1.600 w 0.912 rms 0.71 | S lin 0.0 S enc 0.2035
+lin-ctl light-rest     1x|bp-p1-c8-capsule-button     k 0.60 | lin: sn 0.793 sw 60.00 lam -0.016 w 0.512 rms 0.44 | enc(manufactured): lam -0.262 w 0.632 rms 0.44 | S lin 0.0 S enc 0.0
+lin-ctl light-rest     1x|bp-p1-c8-capsule-button     k 0.99 | lin: sn 0.910 sw 60.00 lam -0.500 w 0.000 rms 0.44 | enc(manufactured): lam -0.500 w 0.000 rms 0.44 | S lin 0.0 S enc 0.0
+mirror light-rest     2x|b-p2-c16-rrect-md           truth 0.440 read +0.0558 range (-5.058,+0.056) identified False err -0.3842 lam 0.880 w 0.937
+mirror light-rest     2x|b-p3-c16-rrect-md           truth 0.440 read -0.0001 range (-5.065,+3.682) identified False err -0.4401 lam 0.872 w 1.000
+mirror light-rest     2x|b-p2-c64-rrect-md           truth 0.440 read +0.4424 range (+0.442,+0.446) identified True err +0.0024 lam 0.881 w 0.498
+mirror light-rest     2x|b-p4-c64-rrect-md           truth 0.440 read +0.4429 range (+0.426,+0.445) identified True err +0.0029 lam 0.881 w 0.497
+mirror light-rest     2x|b-p5-c64-rrect-md           truth 0.440 read +0.4389 range (+0.424,+0.464) identified True err -0.0011 lam 0.878 w 0.500
+mirror light-rest     2x|bp-p1-c32-capsule-button    truth 0.440 read +0.4186 range (+0.127,+0.431) identified False err -0.0214 lam 0.883 w 0.526
+mirror light-rest     2x|bp-p1-c64-capsule-button    truth 0.440 read +0.4514 range (+0.312,+0.451) identified False err +0.0114 lam 0.879 w 0.487
+mirror light-rest     2x|bp-p1-c32-rrect-ml          truth 0.440 read +0.0065 range (+0.004,+0.023) identified True err -0.4335 lam 0.887 w 0.993
+mirror light-rest     2x|bp-p1-c64-rrect-ml          truth 0.440 read +0.4255 range (+0.417,+0.425) identified True err -0.0145 lam 0.876 w 0.515
+mirror light-rest     2x|bp-p1-c32-rrect-80          truth 0.440 read +0.4365 range (+0.436,+0.436) identified True err -0.0035 lam 0.880 w 0.504
+mirror light-rest     2x|bp-p1-c32-rrect-lg          truth 0.440 read +0.2952 range (-1.813,+9.889) identified False err -0.1448 lam 0.879 w 0.664
+mirror light-rest     2x|bp-p1-c8-capsule-button     truth 0.440 read +0.0770 range (-0.120,+1.984) identified False err -0.3630 lam 0.888 w 0.913
+mirror light-rest     2x|bp-p1-c8-rrect-ml           truth 0.440 read +0.0000 range (-0.002,+0.916) identified False err -0.4400 lam 1.082 w 1.000
+mirror light-rest     1x|bp-p1-c8-capsule-button     truth 0.440 read +0.0000 range (+0.000,+1.772) identified False err -0.4400 lam 0.881 w 1.000
+mirror light-rest     1x|bp-p1-c32-rrect-lg          truth 0.440 read +0.2902 range (-1.676,+11.826) identified False err -0.1498 lam 0.878 w 0.670
+heavy light-rest     2x|b-p2-c64-rrect-md           truth Rfp    sw 15.86 | best Rfp    | Rfp:15.63 0.406 canvas:15.63 0.406 shape:12.56 0.472 box:12.74 0.462 group:0.00 2.250 | true-family sw err -1.5% rank gap 0.000
+heavy light-rest     2x|b-p2-c64-rrect-md           truth canvas sw 15.86 | best Rfp    | Rfp:15.65 0.406 canvas:15.65 0.406 shape:12.56 0.472 box:12.74 0.463 group:0.00 2.251 | true-family sw err -1.4% rank gap 0.000
+heavy light-rest     2x|b-p2-c64-rrect-md           truth shape  sw 15.86 | best shape  | Rfp:13.94 0.572 canvas:13.94 0.572 shape:15.93 0.406 box:16.44 0.407 group:0.00 2.130 | true-family sw err +0.4% rank gap 0.000
+heavy light-rest     2x|b-p4-c64-rrect-md           truth Rfp    sw 15.86 | best Rfp    | Rfp:15.92 0.409 canvas:15.92 0.409 shape:12.51 0.442 box:12.67 0.438 group:0.00 1.522 | true-family sw err +0.3% rank gap 0.000
+heavy light-rest     2x|b-p4-c64-rrect-md           truth canvas sw 15.86 | best Rfp    | Rfp:15.91 0.409 canvas:15.91 0.409 shape:12.51 0.442 box:12.67 0.438 group:0.00 1.522 | true-family sw err +0.3% rank gap 0.000
+heavy light-rest     2x|b-p4-c64-rrect-md           truth shape  sw 15.86 | best shape  | Rfp:14.04 0.480 canvas:14.04 0.480 shape:15.83 0.408 box:16.27 0.409 group:0.00 1.432 | true-family sw err -0.2% rank gap 0.000
+heavy light-rest     2x|bp-p1-c64-capsule-button    truth Rfp    no readable cores (trust or size)
+heavy light-rest     2x|bp-p1-c64-capsule-button    truth canvas no readable cores (trust or size)
+heavy light-rest     2x|bp-p1-c64-capsule-button    truth shape  no readable cores (trust or size)
+heavy light-rest     2x|bp-p1-c64-rrect-ml          truth Rfp    sw 15.86 | best Rfp    | Rfp:15.88 0.406 canvas:15.88 0.406 shape:13.88 0.507 box:13.87 0.507 group:0.00 5.182 | true-family sw err +0.1% rank gap 0.000
+heavy light-rest     2x|bp-p1-c64-rrect-ml          truth canvas sw 15.86 | best Rfp    | Rfp:15.88 0.406 canvas:15.88 0.406 shape:13.88 0.507 box:13.87 0.507 group:0.00 5.182 | true-family sw err +0.1% rank gap 0.000
+heavy light-rest     2x|bp-p1-c64-rrect-ml          truth shape  sw 15.86 | best shape  | Rfp:15.26 0.595 canvas:15.26 0.595 shape:15.86 0.407 box:15.84 0.408 group:0.00 5.076 | true-family sw err -0.0% rank gap 0.000
+esf light-rest     2x|b-p2-c16-rrect-md           truth_eff 2.389 read 2.370 iv (2.25,2.50) identified False err -0.8% edges 27
+esf light-rest     2x|b-p3-c16-rrect-md           truth_eff 2.389 read 2.394 iv (2.16,2.63) identified False err +0.2% edges 27
+esf light-rest     2x|bp-p1-c8-capsule-button     truth_eff 0.400 read 0.407 iv (0.39,0.43) identified True err +1.7% edges 9
+esf light-rest     2x|bp-p1-c32-capsule-button    no deep edges
+esf light-rest     2x|bp-p1-c32-rrect-64          truth_eff 0.400 read 0.499 iv (0.41,0.59) identified False err +24.6% edges 3
+esf light-rest     2x|bp-p1-c32-rrect-80          truth_eff 1.243 read 1.368 iv (1.30,1.44) identified False err +10.0% edges 5
+esf light-rest     2x|bp-p1-c32-rrect-ml          truth_eff 4.668 read 4.898 iv (4.65,5.14) identified True err +4.9% edges 16
+esf light-rest     2x|bp-p1-c32-rrect-lg          truth_eff 7.114 read 7.545 iv (6.60,10.00) identified False err +6.1% edges 22
+esf light-rest     2x|bp-p1-c8-rrect-ml           truth_eff 4.543 read 3.344 iv (1.67,12.00) identified False err -26.4% edges 331
+esf light-rest     1x|bp-p1-c8-capsule-button     truth_eff 0.800 read 0.816 iv (0.78,0.86) identified True err +2.0% edges 9
+esf light-rest     1x|bp-p1-c4-capsule-button     truth_eff 0.800 read 1.750 iv (0.20,24.00) identified False err +118.7% edges 39
+esf light-rest     1x|bp-p1-c4-rrect-md           truth_eff 2.434 read 0.370 iv (0.18,24.00) identified False err -84.8% edges 594
+esf light-rest     1x|bp-p1-c32-rrect-lg          truth_eff 7.248 read 6.941 iv (6.25,8.33) identified False err -4.2% edges 22
+esf lin-ctl light-rest     2x|b-p2-c16-rrect-md           truth 0.790 read 0.841 err +6.5%
+esf lin-ctl light-rest     2x|bp-p1-c32-rrect-80          truth 0.790 read 2.021 err +155.9%
+esf lin-ctl light-rest     1x|bp-p1-c8-capsule-button     truth 1.580 read 1.624 err +2.8%
+impulse light-rest     2x|c-s8-hi-rrect-md            truth_eff 2.667 single 2.686 (+0.7%) rms 0.64 | mix s1 2.33 s2 21.68 k 0.82 rms 0.42
+impulse light-rest     2x|c-s8-lo-rrect-md            [knee-side polarity] truth_eff 2.667 single 5.486 (+105.7%) rms 0.41 | mix s1 4.46 s2 24.11 k 0.89 rms 0.39
+impulse light-rest     2x|c-s32-hi-rrect-md           truth_eff 2.667 single 3.311 (+24.1%) rms 1.85 | mix s1 1.78 s2 11.42 k 0.60 rms 1.32
+impulse light-rest     2x|c-s32-lo-rrect-md           [knee-side polarity] truth_eff 2.667 single 4.672 (+75.2%) rms 1.58 | mix s1 3.18 s2 29.84 k 0.93 rms 1.29
+impulse light-rest     2x|c-s8-hi-d24-rrect-md        truth_eff nan single 2.285 (+nan%) rms 0.67 | mix s1 1.85 s2 18.43 k 0.75 rms 0.40
+impulse light-rest     2x|c-s8-hi-d40-rrect-lg        truth_eff 5.990 single 6.659 (+11.2%) rms 0.50 | mix s1 5.65 s2 619.64 k 1.00 rms 0.43
+impulse light-rest     2x|c-s8-hi-d80-rrect-lg        truth_eff 7.835 single 8.138 (+3.9%) rms 0.44 | mix s1 6.85 s2 18.40 k 0.74 rms 0.43
+impulse light-rest     2x|c-impulse-rrect-ml          truth_eff 4.803 single 4.918 (+2.4%) rms 0.47 | mix s1 4.38 s2 17.58 k 0.72 rms 0.46
+impulse light-rest     1x|c-impulse-rrect-lg          truth_eff 7.870 single 8.183 (+4.0%) rms 0.46 | mix s1 7.04 s2 19.22 k 0.75 rms 0.46
+impulse lin-ctl light-rest     2x|c-impulse-rrect-ml          truth s1 0.790 s2 10.0 k 0.6 | single 0.885 | mix s1 0.776 s2 10.03 k 0.602 rms 0.40
+impulse lin-ctl light-rest     1x|c-impulse-rrect-lg          truth s1 1.580 s2 7.0 k 0.6 | single 2.065 | mix s1 1.555 s2 6.94 k 0.600 rms 0.36
+band  W-readers light-rest     bp-p1-c64-capsule-button       EXCLUDED: no pixel at depth >= 51.7 pt (band 20 + 2 sigma_w); all W information lies inside the refraction band
+band  W-readers light-rest     bp-p1-c32-rrect-64             EXCLUDED: no pixel at depth >= 51.7 pt (band 20 + 2 sigma_w); all W information lies inside the refraction band
+band  W-readers light-rest     bp-p1-c32-rrect-80             EXCLUDED: no pixel at depth >= 51.7 pt (band 20 + 2 sigma_w); all W information lies inside the refraction band
+band  W-readers light-rest     b-p4-c64-rrect-md              EXCLUDED: no pixel at depth >= 51.7 pt (band 20 + 2 sigma_w); all W information lies inside the refraction band
+band  W-readers light-rest     bp-p1-c64-rrect-ml             d_in 51.7 px 12100 | model sn 5.02 sw 15.86/15.86 lam 0.880 w 0.500 rms 0.43 | S +0.442/0.440 id True | heavy Rfp Rfp:15.7 0.410 shape:15.7 0.410 group:0.0 4.107
+band  W-readers light-rest     bp-p1-c32-rrect-ml             d_in 51.7 px 12100 | model sn 5.03 sw 15.88/15.86 lam 0.879 w 0.497 rms 0.49 | S +0.002/0.440 id False | heavy none
+band  W-readers light-rest     bp-p1-c32-rrect-lg             d_in 51.7 px 40356 | model sn 7.28 sw 15.86/15.86 lam 0.880 w 0.484 rms 0.66 | S +0.005/0.440 id True | heavy none
+band  esf      light-rest     bp-p1-c8-capsule-button        d_in 20.8 truth_eff 0.400 read 0.410 err +2.5% edges 9 identified False
+band  esf      light-rest     b-p2-c16-rrect-md              d_in 25.3 truth_eff 2.389 read 2.372 err -0.7% edges 27 identified True
+band  esf      light-rest     bp-p1-c32-rrect-80             d_in 22.8 truth_eff 1.243 read 1.371 err +10.3% edges 5 identified False
+band  esf      light-rest     bp-p1-c32-rrect-ml             d_in 30.6 truth_eff 4.668 read 4.893 err +4.8% edges 16 identified False
+band  esf      light-rest     bp-p1-c32-rrect-lg             d_in 35.9 truth_eff 6.660 read 6.731 err +1.1% edges 39 identified False
+band  impulse  light-rest     c-s8-hi-rrect-md               d_in 25.3 truth_eff 2.667 single 2.683 err +0.6%
+band  impulse  light-rest     c-s16-hi-capsule-button        d_in 20.8 truth_eff 0.400 single 0.427 err +6.8%
+band  impulse  light-rest     c-s8-hi-d80-rrect-lg           d_in 35.9 truth_eff 7.835 single 8.144 err +3.9%
+excluded light-rest     2x|c-s16-hi-capsule-button: patch at depth 22 pt (near edge 14 pt): inside the 20.0 pt inner refraction band
+excluded light-rest     2x|c-s16-lo-capsule-button: patch at depth 22 pt (near edge 14 pt): inside the 20.0 pt inner refraction band
+excluded light-rest     2x|c-s8-hi-d4-rrect-lg: patch at depth 4 pt (near edge 0 pt): inside the 20.0 pt inner refraction band
+excluded light-rest     2x|c-s8-hi-d4-rrect-md: patch at depth 4 pt (near edge 0 pt): inside the 20.0 pt inner refraction band
+excluded light-rest     2x|d-out16-hilo-rrect-md: step 16 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded
+excluded light-rest     2x|d-out16-lohi-rrect-md: step 16 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded
+excluded light-rest     2x|d-out8-hilo-rrect-md: step 8 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded
+excluded light-rest     2x|d-out8-lohi-rrect-md: step 8 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded
+excluded light-rest     1x|d-out8-lohi-rrect-md: step 8 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded
+# light-rest all done in 787 s

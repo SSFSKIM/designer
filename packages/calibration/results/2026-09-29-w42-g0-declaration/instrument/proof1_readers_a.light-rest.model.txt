@@ -1,0 +1,22 @@
+model light-rest     2x|b-p2-c16-rrect-md           truth sn    nan sw 15.864 lam 0.88 | read sn  2.268 sw 12.744 lam 0.883 w 0.504 rms 0.570 | depth-graded: effective sn, not gated 2s
+model light-rest     2x|b-p4-c64-rrect-md           truth sn    nan sw 15.864 lam 0.88 | read sn  2.326 sw 15.880 lam 0.879 w 0.499 rms 0.421 | depth-graded: effective sn, not gated 1s
+model light-rest     2x|b-p5-c64-rrect-md           truth sn    nan sw 15.864 lam 0.88 | read sn  2.325 sw 15.892 lam 0.878 w 0.499 rms 0.420 | depth-graded: effective sn, not gated 1s
+model light-rest     2x|bp-p1-c32-capsule-button    truth sn  0.000 sw 15.864 lam 0.88 | read sn  0.000 sw 15.802 lam 0.881 w 0.500 rms 0.409 | sn_iv (np.float64(0.0), np.float64(0.23)) sw_iv (np.float64(15.14), np.float64(16.46)) pass {'sn': np.True_, 'sw': np.False_, 'lam': np.True_, 'w': np.True_, 'floor': True} 1s
+model light-rest     2x|bp-p1-c64-capsule-button    truth sn  0.000 sw 15.864 lam 0.88 | read sn  0.000 sw 15.864 lam 0.879 w 0.500 rms 0.410 | sn_iv (np.float64(0.0), np.float64(0.25)) sw_iv (np.float64(15.86), np.float64(15.86)) pass {'sn': np.True_, 'sw': np.True_, 'lam': np.True_, 'w': np.True_, 'floor': True} 1s
+model light-rest     2x|bp-p1-c32-rrect-64          truth sn  0.000 sw 15.864 lam 0.88 | read sn  0.000 sw 15.863 lam 0.880 w 0.500 rms 0.410 | sn_iv (np.float64(0.0), np.float64(0.21)) sw_iv (np.float64(15.86), np.float64(15.86)) pass {'sn': np.True_, 'sw': np.True_, 'lam': np.True_, 'w': np.True_, 'floor': True} 1s
+model light-rest     2x|bp-p1-c32-rrect-80          truth sn    nan sw 15.864 lam 0.88 | read sn  1.197 sw 15.863 lam 0.880 w 0.500 rms 0.477 | depth-graded: effective sn, not gated 1s
+model light-rest     2x|bp-p1-c64-rrect-ml          truth sn    nan sw 15.864 lam 0.88 | read sn  4.229 sw 15.849 lam 0.881 w 0.509 rms 0.603 | depth-graded: effective sn, not gated 2s
+model light-rest     2x|bp-p1-c32-rrect-lg          truth sn    nan sw 15.864 lam 0.88 | read sn  6.382 sw 15.809 lam 0.885 w 0.530 rms 0.907 | depth-graded: effective sn, not gated 4s
+model light-rest     2x|bp-p1-c8-capsule-button     truth sn  0.000 sw 15.864 lam 0.88 | read sn  0.000 sw 17.436 lam 0.881 w 0.500 rms 0.338 | sn_iv (np.float64(0.0), np.float64(0.21)) sw_iv (np.float64(8.72), np.float64(26.15)) pass {'sn': np.True_, 'sw': np.False_, 'lam': np.True_, 'w': np.True_, 'floor': True} 7s
+model light-rest     1x|bp-p1-c8-capsule-button     truth sn  0.000 sw 15.864 lam 0.88 | read sn  0.252 sw  6.331 lam 0.884 w 0.501 rms 0.350 | sn_iv (np.float64(0.13), np.float64(0.41)) sw_iv (np.float64(5.01), np.float64(9.5)) pass {'sn': np.False_, 'sw': np.False_, 'lam': np.True_, 'w': np.True_, 'floor': True} 0s
+model light-rest     1x|bp-p1-c32-rrect-lg          truth sn    nan sw 15.864 lam 0.88 | read sn  6.380 sw 15.853 lam 0.881 w 0.529 rms 0.887 | depth-graded: effective sn, not gated 1s
+excluded light-rest     2x|c-s16-hi-capsule-button: patch at depth 22 pt (near edge 14 pt): inside the 20.0 pt inner refraction band
+excluded light-rest     2x|c-s16-lo-capsule-button: patch at depth 22 pt (near edge 14 pt): inside the 20.0 pt inner refraction band
+excluded light-rest     2x|c-s8-hi-d4-rrect-lg: patch at depth 4 pt (near edge 0 pt): inside the 20.0 pt inner refraction band
+excluded light-rest     2x|c-s8-hi-d4-rrect-md: patch at depth 4 pt (near edge 0 pt): inside the 20.0 pt inner refraction band
+excluded light-rest     2x|d-out16-hilo-rrect-md: step 16 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded
+excluded light-rest     2x|d-out16-lohi-rrect-md: step 16 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded
+excluded light-rest     2x|d-out8-hilo-rrect-md: step 8 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded
+excluded light-rest     2x|d-out8-lohi-rrect-md: step 8 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded
+excluded light-rest     1x|d-out8-lohi-rrect-md: step 8 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded
+# light-rest model done in 21 s

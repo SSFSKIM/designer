@@ -1,0 +1,26 @@
+capture light-inactive 1x checkerboard__rrect-md__inactive     | model lin sn 1.691/1.581 sw 21.34/14.44 lam +0.017 w 0.007 rms 0.39 | enc lam -0.185 | S -0.0001 | ESF 1.675/1.575
+replica light-inactive 1x checkerboard__rrect-md__inactive     | model lin sn 1.675/1.581 sw 22.93/14.44 lam -0.000 w 0.012/0.727 rms 0.23 | enc lam -0.100 | S +0.0000 | ESF 1.698/1.698
+capture light-inactive 1x checkerboard__capsule-button__inactive | model lin sn 1.701/1.581 sw 4.85/14.44 lam -0.041 w 0.000 rms 0.40 | enc lam -0.208 | S +0.0000 | ESF 1.683/1.654
+replica light-inactive 1x checkerboard__capsule-button__inactive | model lin sn 1.682/1.581 sw 23.36/14.44 lam +0.000 w 0.009/0.527 rms 0.30 | enc lam -0.187 | S +0.0000 | ESF 1.693/1.693
+capture light-inactive 1x checkerboard__rrect-ml__inactive     | model lin sn 1.663/1.581 sw 24.76/14.44 lam +0.006 w 0.011 rms 0.54 | enc lam -0.077 | S +0.0325 | ESF 1.709/1.72
+replica light-inactive 1x checkerboard__rrect-ml__inactive     | model lin sn 1.668/1.581 sw 20.41/14.44 lam -0.001 w 0.054/0.769 rms 0.47 | enc lam -0.084 | S -0.0004 | ESF 1.7/1.699
+capture light-inactive 1x checkerboard-8__rrect-md__inactive   | model lin sn 1.866/1.581 sw 8.37/14.44 lam -0.001 w 0.060 rms 0.25 | enc lam -0.085 | S +0.0000 | ESF 1.933/1.746
+capture light-inactive 1x checkerboard-64__rrect-md__inactive  | model lin sn 2.020/1.581 sw 32.13/14.44 lam -0.016 w 0.938 rms 0.67 | enc lam +0.550 | S -0.0011 | ESF 3.41/3.266 | heavy best canvas Rfp:11.7 0.795 canvas:12.5 0.755 shape:11.5 0.810 box:11.5 0.807 group:0.0 3.020
+replica light-inactive 1x checkerboard-64__rrect-md__inactive  | model lin sn 2.023/1.581 sw 32.24/14.44 lam +0.002 w 0.938/0.727 rms 0.61 | enc lam +0.553 | S -0.0000 | ESF 3.472/3.492 | heavy best canvas Rfp:11.6 0.728 canvas:12.4 0.684 shape:11.5 0.743 box:11.5 0.740 group:0.0 3.006
+capture light-inactive 1x checkerboard-4__rrect-md__inactive   | model lin sn 3.019/1.581 sw 4.12/14.44 lam -0.000 w 0.980 rms 0.28 | enc lam +0.000 | S -0.0000 | ESF 0.352/0.744
+capture light-inactive 1x impulse__rrect-md__inactive          | impulse single 1.811/1.581 (output-affine 1.868) | mix s1 1.487 s2 8.05/14.44 k 0.606 rms 0.22
+replica light-inactive 1x impulse__rrect-md__inactive          | impulse single 1.792/1.581 (output-affine 1.845) | mix s1 1.635 s2 15.39/14.44 k 0.780/0.727 rms 0.07
+capture light-inactive 1x impulse__capsule-button__inactive    | impulse single 1.724/1.581 (output-affine 1.810) | mix s1 1.628 s2 18.03/14.44 k 0.828 rms 0.30
+replica light-inactive 1x impulse__capsule-button__inactive    | impulse single 1.707/1.581 (output-affine 1.791) | mix s1 1.660 s2 19.52/14.44 k 0.763/0.527 rms 0.18
+capture light-inactive 1x impulse__rrect-ml__inactive          | impulse single 1.825/1.581 (output-affine 1.882) | mix s1 1.581 s2 18.78/14.44 k 0.926 rms 0.27
+replica light-inactive 1x impulse__rrect-ml__inactive          | impulse single 1.835/1.581 (output-affine 1.893) | mix s1 1.632 s2 15.37/14.44 k 0.821/0.769 rms 0.09
+capture light-inactive 2x checkerboard__rrect-md__inactive     | model lin sn 2.631/0.791 sw 2.88/6.77 lam +0.123 w 0.000 rms 0.44 | enc lam -0.082 | S +0.0000 | ESF 2.406/2.61
+capture light-inactive 2x checkerboard__capsule-button__inactive | model lin sn 0.879/0.791 sw 12.88/6.77 lam -0.001 w 0.987 rms 1.00 | enc lam -0.240 | S +0.0000 | ESF 1.174/1.16
+capture light-inactive 2x checkerboard__rrect-ml__inactive     | model lin sn 2.680/0.791 sw 3.67/6.77 lam -0.104 w 0.000 rms 0.44 | enc lam -0.150 | S -0.0000 | ESF 2.483/2.496
+capture light-inactive 2x checkerboard-8__rrect-md__inactive   | model lin sn 0.284/0.791 sw 34.57/6.77 lam -0.500 w 0.992 rms 0.16 | enc lam -0.500 | S +0.0000 | ESF 0.73/0.57
+capture light-inactive 2x checkerboard-64__rrect-md__inactive  | model lin sn 7.068/0.791 sw 7.32/6.77 lam +0.327 w 0.000 rms 0.90 | enc lam -0.456 | S -0.0013 | ESF 4.903/5.23 | heavy best canvas Rfp:7.7 0.268 canvas:7.7 0.268 shape:7.7 0.268 box:7.7 0.268 group:0.0 0.622
+capture light-inactive 2x checkerboard-4__rrect-md__inactive   | model lin sn 0.367/0.791 sw 6.84/6.77 lam -0.500 w 0.690 rms 0.26 | enc lam -0.500 | S +0.0000 | ESF 0.466/0.429
+capture light-inactive 2x impulse__rrect-md__inactive          | impulse single 6.535/0.791 (output-affine 6.563) | mix s1 6.529 s2 38.53/6.77 k 0.455 rms 0.23
+capture light-inactive 2x impulse__capsule-button__inactive    | impulse single 1.041/0.791 (output-affine 1.176) | mix s1 0.817 s2 6.77/6.77 k 0.581 rms 0.28
+capture light-inactive 2x impulse__rrect-ml__inactive          | impulse single 7.134/0.791 (output-affine 7.185) | mix s1 7.134 s2 31.25/6.77 k 0.000 rms 0.23
+# light-inactive done in 225 s
