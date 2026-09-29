@@ -1,0 +1,287 @@
+[
+ {
+  "ep": "light-rest",
+  "sweep": "md",
+  "kernel": "w",
+  "verdict": "NO SWEEP",
+  "reason": "the mask leaves [] of ['c-s8-hi-rrect-md', 'c-s8-hi-d34-rrect-md', 'c-s8-hi-d24-rrect-md']"
+ },
+ {
+  "depth": 79.75,
+  "band": "outside",
+  "n": 5384,
+  "sn": 7.829405663058265,
+  "sn_iv": [
+   4.647643397834959,
+   12.577049060893225
+  ],
+  "rms": 0.4246867129879672,
+  "w": 0.4798127975470126,
+  "ratio": 1.0,
+  "olaw_ratio": 1.0,
+  "ep": "light-rest",
+  "sweep": "lg",
+  "truth": "LT",
+  "label": "c-s8-hi-d80-rrect-lg",
+  "expect": 1.0,
+  "kernel": "w",
+  "bed": "764217e1",
+  "verdict": "PASS"
+ },
+ {
+  "depth": 60.25,
+  "band": "outside",
+  "n": 3722,
+  "sn": 6.871638274957474,
+  "sn_iv": [
+   4.072982964974484,
+   11.04462123993196
+  ],
+  "rms": 0.4359370744741417,
+  "w": 0.5573504320242508,
+  "ratio": 0.8776704862005228,
+  "olaw_ratio": 0.8763866877971475,
+  "ep": "light-rest",
+  "sweep": "lg",
+  "truth": "LT",
+  "label": "c-s8-hi-d60-rrect-lg",
+  "expect": 0.8763866877971475,
+  "kernel": "w",
+  "bed": "764217e1",
+  "verdict": "PASS"
+ },
+ {
+  "depth": 40.25,
+  "band": "outside",
+  "n": 636,
+  "sn": 8.467803088300586,
+  "sn_iv": [
+   5.030681852980352,
+   13.59848494128094
+  ],
+  "rms": 0.4236685758104538,
+  "w": 1.030378138948415,
+  "ratio": 1.0815384273999868,
+  "olaw_ratio": 0.7496038034865294,
+  "ep": "light-rest",
+  "sweep": "lg",
+  "truth": "LT",
+  "label": "c-s8-hi-d40-rrect-lg",
+  "expect": 0.7496038034865294,
+  "kernel": "w",
+  "bed": "764217e1",
+  "verdict": "MISS"
+ },
+ {
+  "depth": 79.75,
+  "band": "outside",
+  "n": 5384,
+  "sn": 4.476408078296426,
+  "sn_iv": [
+   3.7799468665519624,
+   5.381689693955712
+  ],
+  "rms": 0.4170995697449546,
+  "w": 0.505075564989529,
+  "ratio": 1.0,
+  "olaw_ratio": 1.0,
+  "ep": "light-rest",
+  "sweep": "lg",
+  "truth": "free-sn",
+  "label": "c-s8-hi-d80-rrect-lg",
+  "expect": 1.0,
+  "kernel": "w",
+  "bed": "764217e1",
+  "verdict": "PASS"
+ },
+ {
+  "depth": 60.25,
+  "band": "outside",
+  "n": 3722,
+  "sn": 4.496280014124544,
+  "sn_iv": [
+   3.7968380120058622,
+   5.175722016243226
+  ],
+  "rms": 0.41173156563030683,
+  "w": 0.50052323362785,
+  "ratio": 1.0044392592186724,
+  "olaw_ratio": 0.8763866877971475,
+  "ep": "light-rest",
+  "sweep": "lg",
+  "truth": "free-sn",
+  "label": "c-s8-hi-d60-rrect-lg",
+  "expect": 1.0,
+  "kernel": "w",
+  "bed": "764217e1",
+  "verdict": "PASS"
+ },
+ {
+  "depth": 40.25,
+  "band": "outside",
+  "n": 636,
+  "sn": 9.41868889947578,
+  "sn_iv": [
+   5.601213339685469,
+   15.11990223916125
+  ],
+  "rms": 0.4270853617941766,
+  "w": 0.9256156677506306,
+  "ratio": 2.104072893877053,
+  "olaw_ratio": 0.7496038034865294,
+  "ep": "light-rest",
+  "sweep": "lg",
+  "truth": "free-sn",
+  "label": "c-s8-hi-d40-rrect-lg",
+  "expect": 1.0,
+  "kernel": "w",
+  "bed": "764217e1",
+  "verdict": "MISS"
+ },
+ {
+  "ep": "dark-rest",
+  "sweep": "md",
+  "kernel": "w",
+  "verdict": "NO SWEEP",
+  "reason": "the mask leaves [] of ['c-s8-lo-rrect-md', 'c-s8-lo-d34-rrect-md', 'c-s8-lo-d24-rrect-md']"
+ },
+ {
+  "depth": 79.75,
+  "band": "outside",
+  "n": 5384,
+  "sn": 1.2,
+  "sn_iv": [
+   0.6699999999999999,
+   1.255
+  ],
+  "rms": 0.21650635084351721,
+  "w": 1.0022625938707899,
+  "ratio": 1.0,
+  "olaw_ratio": 1.0,
+  "ep": "dark-rest",
+  "sweep": "lg",
+  "truth": "LT",
+  "label": "c-s8-lo-d80-rrect-lg",
+  "expect": 1.0,
+  "kernel": "w",
+  "bed": "764217e1",
+  "verdict": "PASS"
+ },
+ {
+  "depth": 60.25,
+  "band": "outside",
+  "n": 3722,
+  "sn": 0.680340950249777,
+  "sn_iv": [
+   0.35820457014986623,
+   1.1385455203996433
+  ],
+  "rms": 6.174157296924145e-16,
+  "w": 1.000782048612795,
+  "ratio": 0.5669507918748142,
+  "olaw_ratio": 0.8763866877971475,
+  "ep": "dark-rest",
+  "sweep": "lg",
+  "truth": "LT",
+  "label": "c-s8-lo-d60-rrect-lg",
+  "expect": 0.8763866877971475,
+  "kernel": "w",
+  "bed": "764217e1",
+  "verdict": "MISS"
+ },
+ {
+  "depth": 40.25,
+  "band": "outside",
+  "n": 636,
+  "sn": 0.019098300562505256,
+  "sn_iv": [
+   NaN,
+   NaN
+  ],
+  "rms": NaN,
+  "w": NaN,
+  "ratio": 0.01591525046875438,
+  "olaw_ratio": 0.7496038034865294,
+  "ep": "dark-rest",
+  "sweep": "lg",
+  "truth": "LT",
+  "label": "c-s8-lo-d40-rrect-lg",
+  "expect": 0.7496038034865294,
+  "kernel": "w",
+  "bed": "764217e1",
+  "verdict": "MISS"
+ },
+ {
+  "depth": 79.75,
+  "band": "outside",
+  "n": 5384,
+  "sn": 1.2,
+  "sn_iv": [
+   0.6699999999999999,
+   1.255
+  ],
+  "rms": 0.4330127018922193,
+  "w": 0.8042865159126328,
+  "ratio": 1.0,
+  "olaw_ratio": 1.0,
+  "ep": "dark-rest",
+  "sweep": "lg",
+  "truth": "free-sn",
+  "label": "c-s8-lo-d80-rrect-lg",
+  "expect": 1.0,
+  "kernel": "w",
+  "bed": "764217e1",
+  "verdict": "PASS"
+ },
+ {
+  "depth": 60.25,
+  "band": "outside",
+  "n": 3722,
+  "sn": 0.048944574695312104,
+  "sn_iv": [
+   0.0,
+   0.12831131951249936
+  ],
+  "rms": 0.47206147932126225,
+  "w": 0.9991704352943142,
+  "ratio": 0.04078714557942675,
+  "olaw_ratio": 0.8763866877971475,
+  "ep": "dark-rest",
+  "sweep": "lg",
+  "truth": "free-sn",
+  "label": "c-s8-lo-d60-rrect-lg",
+  "expect": 1.0,
+  "kernel": "w",
+  "bed": "764217e1",
+  "verdict": "MISS"
+ },
+ {
+  "depth": 40.25,
+  "band": "outside",
+  "n": 636,
+  "sn": 0.019098300562505256,
+  "sn_iv": [
+   NaN,
+   NaN
+  ],
+  "rms": NaN,
+  "w": NaN,
+  "ratio": 0.01591525046875438,
+  "olaw_ratio": 0.7496038034865294,
+  "ep": "dark-rest",
+  "sweep": "lg",
+  "truth": "free-sn",
+  "label": "c-s8-lo-d40-rrect-lg",
+  "expect": 1.0,
+  "kernel": "w",
+  "bed": "764217e1",
+  "verdict": "MISS"
+ },
+ {
+  "ep": "dark-rest",
+  "sweep": "md p4 (16/112)",
+  "kernel": "w",
+  "verdict": "NO SWEEP",
+  "reason": "the mask leaves [] of ['c-s8-lo-p4-rrect-md', 'c-s8-lo-p4-d34-rrect-md']"
+ }
+]

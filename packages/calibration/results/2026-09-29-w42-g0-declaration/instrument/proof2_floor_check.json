@@ -1,0 +1,98 @@
+[
+ {
+  "ep": "light-rest",
+  "scope": "fine pitch (B' pitch <= 8)",
+  "n_cells": 9,
+  "pooled": 2.0736977777811028,
+  "max_cell": 6.018055617882271,
+  "worst": "light-rest|1x|bp-p1-c4-capsule-button-odd",
+  "k": {
+   "k@light-rest": 1.9941784679637944
+  },
+  "bed": "764217e1"
+ },
+ {
+  "ep": "light-rest",
+  "scope": "every structured family",
+  "n_cells": 47,
+  "pooled": 0.9885218614567428,
+  "max_cell": 6.050564991171904,
+  "worst": "light-rest|1x|bp-p1-c4-capsule-button-odd",
+  "k": {
+   "k@light-rest": 1.984622719705261
+  },
+  "bed": "764217e1"
+ },
+ {
+  "ep": "dark-rest",
+  "scope": "fine pitch (B' pitch <= 8)",
+  "n_cells": 9,
+  "pooled": 3.0730445965689044,
+  "max_cell": 8.8879444057559,
+  "worst": "dark-rest|1x|bp-p1-c4-capsule-button-odd",
+  "k": {
+   "k@dark-rest": 2.1093200102617535
+  },
+  "bed": "764217e1"
+ },
+ {
+  "ep": "dark-rest",
+  "scope": "every structured family",
+  "n_cells": 58,
+  "pooled": 1.2725458983364435,
+  "max_cell": 8.909322882534713,
+  "worst": "dark-rest|1x|bp-p1-c4-capsule-button-odd",
+  "k": {
+   "k@dark-rest": 2.0952516007439286
+  },
+  "bed": "764217e1"
+ },
+ {
+  "ep": "light-inactive",
+  "scope": "fine pitch (B' pitch <= 8)",
+  "n_cells": 8,
+  "pooled": 0.42160335617796607,
+  "max_cell": 0.4500862766184641,
+  "worst": "light-inactive|1x|bp-p1-c8-rrect-sm",
+  "k": {
+   "k@light-inactive": 1.9991550217119498
+  },
+  "bed": "764217e1"
+ },
+ {
+  "ep": "light-inactive",
+  "scope": "every structured family",
+  "n_cells": 56,
+  "pooled": 0.4324010939451107,
+  "max_cell": 0.5,
+  "worst": "light-inactive|2x|d-out16-lohi-rrect-md",
+  "k": {
+   "k@light-inactive": 2.0285200915637636
+  },
+  "bed": "764217e1"
+ },
+ {
+  "ep": "dark-inactive",
+  "scope": "fine pitch (B' pitch <= 8)",
+  "n_cells": 8,
+  "pooled": 0.43273562159390566,
+  "max_cell": 0.4750564967613694,
+  "worst": "dark-inactive|1x|bp-p1-c4-capsule-button-odd",
+  "k": {
+   "k@dark-inactive": 2.0340440947050498
+  },
+  "bed": "764217e1"
+ },
+ {
+  "ep": "dark-inactive",
+  "scope": "every structured family",
+  "n_cells": 68,
+  "pooled": 0.4066282568567419,
+  "max_cell": 0.49306711831718414,
+  "worst": "dark-inactive|2x|c-s8-lo-d80-rrect-lg",
+  "k": {
+   "k@dark-inactive": 2.067811634068518
+  },
+  "bed": "764217e1"
+ }
+]

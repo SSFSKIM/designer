@@ -35,9 +35,15 @@ SEPARATORS = {
         'T) separates them (s 2.5).'),
     ('LT', 'R1', 'inactive'): 'The mirror of R1 -> LT: see there.',
     ('R1', 'LT', 'rest'): (
-        'As receded: light active T is nearly straight over the levels (the stand-in); family A decides. Under '
-        'ruling 3 the whole-bed re-read has 15 active cells (rrect-ml and -lg: the P1 checkers, the impulses and '
-        "the 48/208 steps) and reads 0.14; B's P5/P3 on rrect-lg would be the answering rows."),
+        'As receded: light active T is nearly straight over the levels (the stand-in); family A decides. At the '
+        "narrow support on the final bed, with B's P5 / P3 on rrect-lg in, the whole-bed re-read reads 0.54-0.57; "
+        'at the W support (the fallback) 0.14. Dark separates it under both masks (7.0-7.3 narrow, 1.42-1.50 W).'),
+    ('LT', 'LT+bleed-own', 'rest'): (
+        'In light the declared bleed weight is small (beta = ob (white - black) / (1 - ob + ob (white - black)): '
+        '0.02 on md to 0.09 on rrect-lg), so with its radius free the bleed nearly vanishes into LT (1.28 on the '
+        'whole final bed); in dark (beta up to 0.6) it cannot (16.4). The reverse, LT+bleed-own -> LT, is '
+        'distinguished in both schemes (2.35 light, 22.1 dark): a true light bleed is caught, a light LT truth '
+        'leaves the free-radius bleed marginally alive, and the tie-break (parameter count) keeps LT.'),
     ('W-canvas', 'W-shape', 'inactive'): (
         'Not a separation failure: W-shape with a large margin contains the canvas support at every readable '
         'pixel; the reverse (W-shape -> W-canvas) is distinguished (6.8-6.9).'),
@@ -93,17 +99,19 @@ def family_rows(p1):
                              notes=f"pooled rms {r['pooled']:.3f}, {r['n_cells']} cells" +
                                    (f"; excluded {r['excluded']}" if r.get('excluded') else '')))
     for key, label, band in (('Aw', 'W support: the fallback record', 'outside (d_in 53.6 pt, W support)'),
-                             ('An', 'narrow support, final pin', 'outside (d_in 20 + 2 sigma_n,ref)')):
+                             ('An', 'narrow support', 'outside (d_in 20 + 2 sigma_n,ref)'),
+                             ('Aw_final', 'W support: the fallback record, final pin', 'outside (d_in 53.6 pt, W support)'),
+                             ('An_final', 'narrow support, final pin', 'outside (d_in 20 + 2 sigma_n,ref)')):
         for r in p1.get(key, []):
             if 'skipped' in r:
                 rows.append(dict(reader=f"family fitter: {r['family']} ({label})", quantity='all', endpoints=[r['ep']],
-                                 band=band, gated=key == 'An',
+                                 band=band, gated=key.startswith('An'),
                                  synthetic=dict(resolution='no answering cell', tolerance='-', verdict='NON-IDENTIFIABLE'),
                                  vitrea=None, notes=r['skipped']))
                 continue
             for pn, v in r['recovered'].items():
                 rows.append(dict(reader=f"family fitter: {r['family']} ({label})", quantity=pn, endpoints=[r['ep']],
-                                 band=band, gated=key == 'An',
+                                 band=band, gated=key.startswith('An'),
                                  synthetic=dict(resolution=f"{v['err']:+.4f} (read {v['read']:.4f}, truth {v['truth']:.4f})",
                                                 tolerance=f"+-{v['tol']}",
                                                 verdict='PASS' if v['ok'] else ('NON-IDENTIFIABLE' if abs(v['err']) > 5 else 'FAIL')),

@@ -13,11 +13,11 @@ before any proof output existed. No bar in it was loosened afterwards; every mis
 as a miss.
 
 **The bed is the declared one.** `bed.py` loads the bed stream's `scenes-w42-body.json` and `bed.json`
-at w42-g0-bed `5d719b60` (452 glass cells; SHA-256 pinned, read from that commit, or from `../bed/` once
-G0 is integrated). Proofs 1–2 first rendered on `5ba68aeb`'s cells; `07b45391` and `5d719b60` only ADD
-cells (the s = 32 receded rrect-sm rows; the parent's ruled rows: the rrect-md d34 patch, corner and
-capsule-end patches, dark 16/112 twins), and every output row records the pin it ran on. Part E, part Aw,
-the d34 addendum and the whole-bed re-reads ran at the final pins. H and the F bridges are never
+at w42-g0-bed `764217e1` (465 glass cells; SHA-256 pinned, read from that commit, or from `../bed/` once
+G0 is integrated). The first proofs rendered on `5ba68aeb`'s cells; `07b45391`, `5d719b60` and `764217e1`
+only ADD cells (the s = 32 receded rrect-sm rows; the rows the parent ruled from this stream's findings),
+and every output row records the pin it ran on. The receded results are final at `5d719b60` (the last pin
+adds active cells only); the active results are final at `764217e1`. H and the F bridges are never
 rendered: the instrument is not tuned on the holdout's geometry.
 
 ## Files
@@ -35,6 +35,8 @@ rendered: the instrument is not tuned on the holdout's geometry.
 | `ref_check.py/.json` | the engine against memo E's `lt.py`, the charter's named reference |
 | `proof1_families.*`, `proof1_readers_a.*`, `proof1_readers_b.*` | proof 1 |
 | `proof2_separation.*`, `proof2_nulls.*`, `proof_common.py` | proof 2 |
+| `refraction_order.py` → `refraction_order.*` | the refraction-order test (the revised ruling 3), its proof per pin, the first statistic's record (`.v1`) |
+| `proof1_depth_sweeps.py` → `proof1_depth_{n,w}.*` | the active depth sweeps at either mask (descriptive depth reader); `proof1_depth_d34.*` its first run |
 | `proof3_readers_a.*`, `proof3_readers_b.*` | proof 3 |
 | `resolution.py` → `resolution.json`, `resolution.txt` | the resolution table, the separation table and the open pairs, assembled from the proofs' outputs |
 
@@ -79,257 +81,185 @@ one per endpoint (LT-1k, 8), one per radius per endpoint (LT-2k, 12).
 
 ## The resolution table (condensed; every row, with its cells, is in `resolution.txt` / `.json`)
 
-Synthetic: proof 1's recovery error (bar); vitrea: proof 3 (bar). Band: where an active reader reads
-relative to the 20-pt refraction band (receded has none).
+Gated: the family fitters and the step reader's support call (the parent's gating). Every other reader is
+descriptive, its misses on record. Synthetic: proof 1's recovery error (bar); vitrea: proof 3 against the
+float64 replica (bar), the superseded σ_RMS verdict in `resolution.txt`. Band: every active reader reads
+outside the 20-pt band plus 2σn (the revised ruling 3's primary); the W-support reads are the fallback's.
 
-| reader | quantity | synthetic | vitrea | band (active) |
+| reader | status | quantity | synthetic | vitrea (replica) |
 | --- | --- | --- | --- | --- |
-| family fitters (LT, every rival) | k, k_n, k_w | ≤ 0.001 (0.005) PASS | no counterpart | outside |
-| family fitters | λ | ≤ 0.0008 (0.03) PASS | — | outside |
-| family fitters | σn ordinates / μ / s2 / a / sk / k_b | 0.004 pt / 0.20 pt / 0.035 pt / 0.0005 / 0.013 pt / 0.0009, all PASS | — | outside |
-| LT survival resolution | k; λ | ±0.04–0.07; ±0.03–0.04 (the move that shifts a statistic by 1 code) | — | outside |
-| LT against its rivals | \|k_n − k_w\|; sk; tail a; σn ordinate | ≈ 0.21–0.31; 3.0–4.0 pt; 0.11–0.15; 0.5–0.8 pt (estimates) | — | outside |
-| model reader (memo C) | σn / σw / λ / w, receded | ±0.012 pt / ±0.008 pt / ±0.003 / ±0.001 PASS | λ ≤ 0.12 on 48/58 FAIL; widths vs σ_RMS FAIL (replica: σn within 0.06 pt) | — |
-| model reader | same, active t = 0 | σn FAIL on 1x p8 capsule (+0.25 pt); others PASS | as above | across |
-| mirror S (flagged) | λ(1 − w) | ±0.002–0.010 PASS, all paths | ≤ 0.022 on flagged cells; 0.056 on all (FAIL as declared) | across (W) |
-| mirror S, two-sided control | \|s1/gain\| | ≤ 0.0035 (0.024) PASS | — | — |
-| pitch-64 heavy reader | σw | active 3.2 % PASS; receded 7.1 % FAIL (5 %) | group unrejected on 5 cells FAIL | across |
-| heavy reader | support call, group rejection | PASS | no false footprint call | across |
-| ESF reader (memo B) | narrow σ | 4.9 % active, 8.7 % receded FAIL (3 %) | 0.01–0.35 pt from the replica | outside |
-| impulse reader (memo B) | narrow σ | 3.5–9 % FAIL (3 %); two-Gaussian on the linear control PASS | best-of 7.9 % PASS (10 %) | outside |
-| patch and annulus (C) | σn / σw | ≤ 1.6 % / ≤ 5.0 % PASS (5 %) | σn with λ given ≤ 3 % on 6/20; λ free FAIL | outside (md S8/S32), across (lattices) |
-| depth-graded radius | σn(d)/σn(centre) | light active lg 0.749 vs 0.750 PASS; md d24 0.811 vs 0.749 FAIL; dark non-identifiable | flat control 0.071 FAIL | outside (lg), across (md d24) |
-| step reader (D) | σw on the true support | ≤ 0.07 % PASS | — | outside (out-steps excluded) |
-| step reader | support / edge call | canvas called receded; box/shape/edge never called: non-identifiable on D | no false call; λ 2/20 FAIL | outside |
-| per-cell λ (memo E) | λ | ≤ 0.001 on identified cells PASS (light 30/33, dark 11/33 identified) | ≤ 0.082 PASS | outside |
-| hinge-gap (memo E) | λ per bin | ≤ 0.030 PASS | up to 0.71 FAIL | outside |
-| known-space control | λ, S in the wrong space | λ −0.5 … +1.6; S up to 0.43 (reported) | λ −0.50 … +1.54 (reported) | — |
-| engine | narrow interpolation; decimated W; invariance | ≤ 0.025 rms (0.09 max); ≤ 0.037 max; 1e-13 | — | — |
+| family fitters (LT, every rival) | gated | k, k_n, k_w; λ | ≤ 0.001 (0.005); ≤ 0.0008 (0.03), PASS | no counterpart |
+| family fitters | gated | σn ordinates / μ / s2 / a / sk / k_b | 0.004 pt / 0.20 pt / 0.035 pt / 0.0005 / 0.013 pt / 0.0009, PASS | — |
+| LT survival resolution | gated | k; λ | ±0.04–0.07; ±0.03–0.04 | — |
+| LT against its rivals (estimates) | gated | \|k_n − k_w\|; sk; tail a; σn ordinate | ≈ 0.21–0.31; 3.0–4.0 pt; 0.11–0.15; 0.5–0.8 pt | — |
+| step reader (D) | gated | support / edge call | canvas called when receded; box / shape / edge never called on D's centred steps | identical on 20/20, PASS |
+| step reader | descriptive | σw on the true support | ≤ 0.07 % PASS | 1 miss (one-image identification) |
+| mirror S (flagged) | descriptive | λ(1 − w) | ±0.002–0.010 PASS | values within 0.022; 3 flag calls differ, FAIL |
+| per-cell λ (memo E) | descriptive | λ | ≤ 0.001 on identified cells PASS | light 1 miss, dark 6, FAIL |
+| patch and annulus (C) | descriptive | σn / σw (λ given) | ≤ 1.6 % / ≤ 5.0 % PASS | σn up to 9.3 %, σw 5–23 %, FAIL |
+| model reader (memo C) | descriptive | σn / σw / λ / w | receded ±0.012 pt / ±0.008 pt / ±0.003 / ±0.001 PASS | FAIL (ill-conditioned on vitrea's graded share) |
+| pitch-64 heavy reader | descriptive | σw | active 3.2 % PASS; receded 7.1 % FAIL | 7–192 % on 7/16, FAIL |
+| ESF reader (memo B) | descriptive | narrow σ | 4.9–8.7 % FAIL (3 %) | FAIL (identified on one image only on 3 sides) |
+| impulse reader (memo B) | descriptive | narrow σ | 3.5–9 % FAIL (3 %) | 1.8 %, PASS |
+| depth-graded radius | descriptive | σn(d)/σn(centre) | light md d34 0.871 / 0.856, lg d60 0.870 / 0.876, lg d40 0.749 / 0.750, dark md 16/112 d34 0.868 / 0.856, PASS; dark 48/208 sweeps MISS | 3 pass / 10 miss |
+| hinge-gap (memo E) | descriptive | λ per bin | ≤ 0.030 PASS | up to 0.32, FAIL |
+| known-space control | reported | λ, S in the wrong space | λ −0.5 … +1.6; S up to 0.43 | λ −0.50 … +1.54 |
+| engine | — | interpolation; decimated W; invariance | ≤ 0.025 rms (0.09 max); ≤ 0.037 max; 1e-13 | — |
 
 ## Proof 1 — recovery on synthetic renders
 
 Truths rendered through the memo C T stand-in, quantised ±0.5, on the declared cells.
 
-- **The family fitters: every family, every endpoint, PASS** (`proof1_families.txt` part A). k to
-  within 0.001 (bar 0.005), λ 0.0008 (0.03), the free σn ordinates 0.004 pt (0.05), μ 0.20 pt (1.0),
-  s2 0.035 pt (2.0), a 0.0005 (0.03), sk 0.013 pt (0.25), k_b 0.0009 (0.05), each fit at the
-  quantisation floor (pooled 0.35–0.45 code).
-- **k's nesting** (part B, all four endpoints fitted together): a global-k truth is recovered at every
-  level (2.0497–2.0507 against 2.05). Memo E's per-endpoint k (1.983 / 2.035 / 2.094 / 2.074) read with
-  ONE k leaves a region-statistic miss of 1.23 codes (part E; MARGINAL), and with one k per scheme 0.43
-  (UNRESOLVED). An LT-2k truth (1.75 / 2.10) read by LT-1k leaves pooled 0.74, max cell 1.62.
-- **Survival resolution of LT** (part C: the move that shifts some region statistic by one code, λ
-  re-fitted): k ±0.037–0.068, λ ±0.029–0.044 by endpoint.
-- **The statistic readers** pass inside narrower scopes than their bars assumed, and miss several bars
-  as declared: see the resolution table below and `resolution.txt`.
+- **The family fitters: every family, every endpoint, PASS** (`proof1_families.txt` part A, and at the
+  narrow support on the final bed, parts An and An_final). k within 0.001 (bar 0.005), λ 0.0008 (0.03),
+  the free σn ordinates 0.004 pt (0.05), μ 0.20 pt (1.0), s2 0.04 pt (2.0), a 0.0005 (0.03), sk 0.013 pt
+  (0.25), k_b 0.0011 (0.05), every fit at the quantisation floor (pooled 0.33–0.45 code). R1 and the
+  per-channel knee recover on the new rrect-lg rows too (An_final).
+- **At the W support (the fallback's record)**: (parts Aw at `5d719b60` and Aw_final at `764217e1`, the 53.6-pt
+  mask) LT, LT-2k, W-tails, K2, C-linear, both bleeds, edge-swap and W-canvas recover, and on the final bed
+  R1 (3 cells) and the per-channel knee (2 cells) recover on the new rrect-lg rows. The free σn ordinates
+  at s ≤ 96 run to their bound (no active cell of those spans survives the mask) and the s = 160 ordinate
+  misses by 0.08–0.11 pt (bar 0.05); W-shape's μ misses by 2.0–3.5 pt (bar 1.0).
+- **k's nesting** (part B, all four endpoints together): a global-k truth is recovered at every level
+  (2.0497–2.0507 against 2.05). Memo E's per-endpoint k (1.983–2.094) read with ONE k misses region
+  statistics by 1.23 codes (MARGINAL), with one k per scheme by 0.43 (UNRESOLVED); an LT-2k truth read by
+  LT-1k leaves pooled 0.74, max cell 1.62. The bed separates endpoint k values more than about 0.05 apart;
+  below that the tie-break keeps the global k the parent expects primary.
+- **Survival resolution of LT** (part C): k ±0.037–0.068, λ ±0.029–0.044 by endpoint.
 
 ## Proof 2 — separation
 
 Truth family A rendered and quantised; family B fitted by least squares, refined by minimax on the
 region statistics of A's exact render; s is B's best remaining miss. DISTINGUISHED above 1.5 codes,
-UNRESOLVED below 0.5, MARGINAL between (`tolerances.json`).
+UNRESOLVED below 0.5, MARGINAL between. Pairs not distinguished on their answering families are re-read
+on the whole bed (both scales) before they are called.
 
-- **Distinguished**, both directions where both were run: C-linear (8–15 codes), knee-luma (10–18),
-  LT + bleed (22 dark, 2.3 light), R1 in dark (2.5–7), W-canvas and edge-swap when receded (5.6–7.2),
-  W-tails (2.6–3.5), W-shape at μ 4 (2.0–3.0), LT-2k (2.1–2.5), K2 when active (1.9–2.3), the free
-  σn(span) law when active (7.8–11.5) and dark receded (1.6), and LT against free-sn when active
-  (2.2–2.7: the depth grading is seen beyond the band).
-- **Not distinguished, and what would separate them** (`resolution.txt`, PAIRS NOT DISTINGUISHED):
-  - *W-canvas and edge-swap in the ACTIVE pose* (0.01–0.8): non-identifiable on this bed. The active
-    margin keeps R_fp's edge ≥ 45 pt from every readable pixel, and D's steps outside the edge, the
-    answering rows, are refraction-confounded. No cell inside the canvas and outside the 19.2-pt reach
-    answers U3's active half.
-  - *R1 in light, both poses* (0.5): an affine T commutes with the fill, and the stand-in T is nearly
-    straight over 144–255. Family A's greys 160–255 decide it: curved, and B's P5/P3 separate R1;
-    straight, and the order is non-identifiable by construction.
-  - *K2 when receded*, *LT-2k light receded* and *W-shape against K2 or W-tails when receded* were
-    marginal on their answering families and are DISTINGUISHED on the whole bed at pin `5d719b60`
-    (below); *free-sn light receded* stays marginal (1.17) at a 0.64-pt departure.
-- **Estimated resolutions** (linear in the departure, from each pair's s, the whole-bed re-read where one
-  ran): |k_n − k_w| 0.21–0.31; K2's |sk − 8k| 3.0–4.0 pt; a 40-pt tail's weight 0.11–0.15; a free σn
-  ordinate 0.5–0.8 pt. These rows rest on the active pairs' narrow-support reads (before ruling 3).
-- **k's levels:** memo E's per-endpoint spread (1.983–2.094) read with one global k misses region
-  statistics by 1.23 codes (MARGINAL), by 0.43 with one k per scheme; LT's survival resolution in k is
-  ±0.04–0.07. The bed separates endpoint k values that differ by more than about 0.05, not less; below
-  that the tie-break (parameter count) keeps the global k the parent expects primary.
+- **Active, narrow support, final bed** (the primary): everything is DISTINGUISHED except two pairs.
+  C-linear 13–15 codes, knee-luma 16–18, LT + bleed 22 dark / 2.3 light, R1 in dark 7.0–7.3, W-tails
+  2.6–2.8, W-shape at μ 4 2.0–3.0, LT-2k 2.1–2.5, K2 1.9–2.3, free-sn → LT 7.8–11.6 and LT → free-sn
+  2.2–2.7 (the depth grading is seen). Not distinguished: *R1 in light* (0.54–0.57 on the whole bed,
+  with the new rrect-lg P5 / P3 rows in) and *LT → LT+bleed-own in light* (1.28: with its radius free,
+  the light bleed, whose declared weight is at most 0.09, can nearly vanish into LT).
+- **Active, the touched pairs at the W support (the fallback)**: the new rrect-lg rows keep answering
+  cells. knee-luma is DISTINGUISHED both ways (2.6–3.2); R1 in dark reads 1.42 / 1.50 (marginal /
+  distinguished) and in light 0.14; free-sn → LT is DISTINGUISHED (6.6–7.6) but LT → free-sn is MARGINAL
+  (0.97–1.10 on the whole bed): under the fallback a flat span law nearly mimics the graded one, because
+  only rrect-lg's 80- and 60-pt depths remain (o-law ratio 0.876).
+- **Receded, final** (`5d719b60` whole-bed re-reads): W-shape against K2 or W-tails DISTINGUISHED both ways
+  (2.06–3.21); K2 against LT 1.60 / 2.06 and LT-2k 1.69, DISTINGUISHED; W-tails and W-canvas distinguished
+  from every other U1 candidate (2.9–9.2); free-sn MARGINAL (1.17 at a 0.64-pt departure); R1 in light
+  MARGINAL (0.51).
+- **R1 in light, both poses**: an affine T commutes with the fill, and the stand-in T is nearly straight
+  over 96–255 in light. Family A's greys 160–255 decide it: curved, and P5 / P3 separate R1; straight,
+  and the order is non-identifiable by construction.
+- **U3's active half** (W-canvas, edge-swap): non-identifiable on this bed (the parent's ruling 4);
+  recorded, not re-read.
 - **The rejected nulls** (`proof2_nulls.*`, LT truth, B/B′/C/D at both scales): the mixture reading
-  PASSES memo E's bar (pooled 2.68–4.61 ≥ 2.60). The texel null FAILS the declared bar (pooled
-  1.85–2.77 against ≥ 4.65) though it misses some cell by 9.8–12.7 codes. The device-px null is valid on
-  light active only (pooled 1.46, max cell 8.93: FAIL as declared); on the other three endpoints its fit
-  sat on the shared k bound of 4.0, where the device-px equivalent of memo E's k is 4.1–4.2, so those rows
-  overstate its misfit and are void (the bound is widened to 9 for the resume). At 2x a point is two
-  device px and, off rrect-lg, one texel, so only the 1x pass referees the unit, and a pooled rms over a
-  mostly-2x bed dilutes it: the 2x-only first run (`proof2_nulls-2xonly.json`) read the device-px null at
-  0.41 on light active, indistinguishable from LT. R2 read 1.73 pooled (4.27 max) on light receded, FAIL
-  as declared; its other endpoints and the box-floor null did not run (below).
+  PASSES memo E's bar (2.68–4.61 ≥ 2.60). The unit nulls and R2 FAIL the declared pooled bar (texel
+  1.85–2.77, device px 1.26–2.98, R2 1.28–2.29 against ≥ 4.65), each refused on its worst cells (texel
+  9.8–12.7, device px 8.5–11.1, R2 2.7–6.2): at 2x a point is two device px and, off rrect-lg, one
+  texel, so only the 1x pass referees the unit, and a pooled rms over a mostly-2x bed dilutes it (the
+  2x-only first run read the device-px null at 0.41, `proof2_nulls-2xonly.json`).
 
-## Proof 3 — vitrea's own captures
+## Proof 3 — vitrea's own captures, against the float64 replica
 
-Only vitrea's web captures are read. Truth: the code's kernels (memo B's code map: body chain L1,
-σ_RMS 1.58 device px; deep L4 or the dark chain LOD; the share per span and depth) and, where the
-kernel is not Gaussian, memo B's float64 replica of the renderer.
+Only vitrea's web captures are read. The parent's ruling 1 re-declared the bars (`b223600a`, before any
+re-proof) as the difference between a reader's reading of the capture and of memo B's float64 replica of
+the same cell, at the reader's proof-1 bar; the superseded σ_RMS bars and their misses stay in
+`tolerances.json` and in every row's `vitrea_superseded`. 84 cells, both scales, all four endpoints (the
+replica has no rrect-lg).
 
-- **The pixel-level resolution is small**: on the 1x cells read both ways (`resolution_rows_a.json`, the
-  replica row), capture and replica agree to 0.00–0.06 pt in the model reader's narrow width, 0.01–0.13 pt
-  in the impulse reader's, and 0.01–0.35 pt in the ESF reader's (most within 0.09).
-- **The bars against the code's σ_RMS fail as declared for most readers, and the replica shows why:
-  model mismatch, not pixels.** A Gaussian reader of the L1 chain reads +6–7 %, the platykurtic L4 reads
-  wide, and vitrea's share is depth-graded. The model reader's λ is ≤ 0.12 on 48 of 58 cells (FAIL on
-  10); its σn misses by 20–28 % on the 1x pitch-64 cells (the replica reads the same) plus one degenerate
-  fit, and its σw by up to 128 %; the mirror S reads ≤ 0.022 on the 11 cells its flag
-  identifies but 0.056 over all 50 (FAIL as declared); the heavy reader leaves the group mean
-  unrejected on 5 cells; the hinge-gap reader reads per-bin λ up to 0.71 on a body with no knee (FAIL);
-  the step reader's λ misses on 2 of 20 cells. The impulse reader (7.9 %), the per-cell λ reader
-  (≤ 0.082), the patch reader with λ given, and every support call (no false footprint call anywhere)
-  pass.
+- **The gated step support call passes** (identical on 20/20). S's values agree within 0.022 wherever
+  either image identifies them, but three identifiability calls differ (the capture's quantised residuals
+  trip the flag's noise-floor check where the float replica does not); the per-cell λ, the patch widths
+  and one step σw cell miss. Those readers are descriptive under the parent's gating.
+- **Descriptive readers**: the single-width impulse reader passes (1.8 %); the model, heavy, ESF,
+  two-Gaussian share, depth, hinge-gap and step-λ readings miss.
+- **Disclosure (fork B, as reported):** it set its identifiability flags in code before the replica run,
+  but after it had seen the superseded proof-3 results; the same call is made on both images.
 - **The known-space control**: the ENCODED reading of vitrea's linear body manufactures λ from −0.50 to
-  +1.54 (memo C read 1.4–1.5), and S in the wrong space reads up to 0.43. The knee is established by S
-  and by every linear fit's loss, never by λ alone.
-- **The family fitters have no vitrea counterpart**: vitrea draws a two-sided linear body whose share
-  is not 0.5 and whose narrow width is not k·5·o. Their real-pixel proof is the model reader's, which
-  is the same algebra with w and λ free.
+  +1.54 on the capture and the replica alike, and S in the wrong space reads up to 0.43: the knee is
+  established by S and every linear fit's loss, never by λ alone.
+- **The family fitters have no vitrea counterpart** (a two-sided linear body with a share not 0.5 and a
+  narrow width not k·5·o); their real-pixel counterpart is the model reader's algebra with w and λ free.
 
-## The refraction band (the parent's ruling on the bed stream's finding)
+## The refraction band and the order test (the parent's revised ruling 3)
 
-Active regions sit beyond the 20-pt inner band plus the narrow kernel's support: the engine's active
-deep mask is d_in = 20 + 2·σn,ref = 20 + 16.8 t pt (capsule and rrect-64 20, rrect-80 22.8, md 25.6,
-rrect-112 28.4, ml 31.2, lg 36.8); receded keeps 8. Excluded from every active fit and listed with
-its reason (`bed.refraction_exclusions`): the d4 depth patches and the capsule S 16 patches (inside
-the inner band) and D's steps 8 and 16 pt outside rrect-md (inside the 19.2-pt outer reach). The band
-column of the resolution table says, per active reader, whether it reads outside, across or inside.
+- **Primary: refraction acts AFTER the blur** in the active pose (vitrea's own order): a pixel beyond the
+  band is the law's own value whatever the kernel's reach. Every active reader and family fitter uses the
+  narrow-support mask d_in = 20 + 2σn,ref = 20 + 16.8 t pt (capsule and rrect-64 20, rrect-80 22.8, md
+  25.6, rrect-112 28.4, ml 31.2, lg 36.8); receded keeps 8. Excluded from every active fit, with reasons
+  (`bed.refraction_exclusions`): the d4 patches and the capsule S 16 patches (inside the band) and D's
+  steps 8 and 16 pt outside rrect-md (inside the 19.2-pt outer reach).
+- **The declared rival, BEFORE the blur, and its test** (`tolerances.json` `refraction_order_test`,
+  `refraction_order.py`). The law is fitted at the narrow mask, its luma residual binned by depth, and
+  Delta_c = rms(NEAR) − rms(FAR) taken per cell. The first statistic, the MEDIAN over structured cells
+  minus the uniform cells' (declared `17da5c7d`), was proved and has no power (D ≤ 0.022 up to a 16-pt
+  lens, `refraction_order.v1.txt`): before-the-blur contamination lives in the few cells whose band
+  carries structure the deeper body lacks. Re-declared before its own proof (`cb490956`) on the TAIL: the
+  mean of the 3 largest Delta_c over structured cells minus the same over uniform cells; BEFORE above
+  0.30, AFTER below 0.15. Its proof on the final bed (`refraction_order.txt`; `5d719b60`'s beside it
+  reads the same): refraction after the blur reads D_tail +0.05 (AFTER) in both active endpoints;
+  before the blur it reads AFTER up to a 4-pt lens (+0.05–0.06), 0.13–0.17 at 8 pt (AFTER dark,
+  undecided light), and BEFORE at 16 pt (1.15–1.35), carried by B's pitch-64 cells on rrect-md. The
+  test's resolution is therefore between an 8- and a 16-pt lens; below it the before-the-blur bias on the
+  fit is small (k −0.017 / −0.018 and λ −0.009 at 8 pt, under LT's k survival resolution of ±0.04–0.07),
+  and at 16 pt it reaches k −0.042 / −0.048. A weak lens before the blur is harmless to the fit; one
+  strong enough to matter is caught. On Apple, a native depth trend that does not depend on backdrop
+  structure is subtracted by the uniform cells; one that does (an unmodelled structure-dependent edge
+  term) would read as BEFORE, which is why an undecided or BEFORE call goes to the parent before the
+  fallback is taken.
+- **Fallback**: if BEFORE wins on Apple's pixels, active fits use the 2σw mask (53.6 pt; rrect-ml and
+  rrect-lg only). Its record is kept: parts Aw / Aw_final, the W-support separation rows
+  (`resolution.txt`, the fallback table) and `proof1_depth_w.*`.
+- **U3's active half** (the parent's ruling 4): non-identifiable on this bed, recorded; the tie-break keeps
+  the declared box support in the active pose.
 
-**Kernel support, the parent's ruling 3: each reader adds the support of the kernel it reads.** A narrow
-reader adds 2σn (d_in = 20 + 16.8 t pt); a reader of W adds 2σw (2 × 2.1 × 8 = 33.6 pt, d_in = 53.6 pt),
-because whether Apple refracts before or after the blur is unknown and this covers both. Every family
-fitter reads W (it fits k and λ against W at every pixel), so its active mask is 53.6 pt: only rrect-ml
-and rrect-lg stay readable when active (18 of the 68 / 71 active 2x cells), and the receded pose carries W
-fully. Two consequences the ruling makes explicit: **in the active pose R1 and the per-channel knee have no
-answering cell** (B's level pairs and E's hue pairs sit on rrect-md only), and **no active rrect-md cell
-reaches a gated reader**, so a patch there (the requested ~34-pt depth patch included) serves only the
-descriptive depth reader. The proofs of `7efe4ce8` ran the family fitters' active fits at 2σn; part Aw of
-proof 1 re-reads their active recoveries at 2σw, and the active separation pairs are re-read with the
-whole-bed re-reads once the bed's next pin lands.
+## The capture floor
 
-**U3's active half, the parent's ruling 4:** W-canvas against edge-swap (and both against R_fp's box) is
-non-identifiable on this bed and recorded so; the tie-break keeps the declared box support in the active
-pose.
+Memo E's 0.8-device-px pre-blur (1.6 on rrect-lg) stays a declared constant, never fitted (the parent's
+ruling). Its descriptive check is the literal box-decimation null against LT on the fine-pitch cells.
+At the narrow-support mask on the final bed (`proof2_floor_check.txt`): in the active pose the null
+misfits by 2.1 (light) and 3.1 (dark) codes pooled over the fine-pitch B′ cells, 6.0 and 8.9 on the worst
+(the 1x pitch-4 capsule at its odd offset), so the bed tells the declared floor from a decimation where
+the narrow term is the floor alone (t = 0, fine pitch); when receded it cannot (0.41–0.43 pooled: the
+receded narrow blur, 4 pt and wider, swamps any floor). The check reads the form; it does not move the
+constant. At the W support (the fallback) no active fine-pitch cell survives, and the null reads
+0.42–0.44 (`proof2_nulls.txt`).
 
-## What clause 2's stop means for G2 (with the parent's ruling 2)
+## Non-identifiable on this bed, declared before any fit
 
-- **Gated, and passing every proof:** the family fitters (LT and every rival, every identifiable parameter
-  at its bar; under ruling 3 the active W-shape μ misses by 2.0–3.5 pt and the items below are
-  non-identifiable) and the step reader's support/edge call.
-- **Gated, but missing the re-declared replica bar (ruling 1), so by clause 2's stop they do not read Apple
-  until the parent rules:** S (values agree within 0.022; three flag calls differ between capture and
-  replica); the per-cell λ reader (one light cell identified on one image only; six dark cells); the step
-  reader's σw (one cell); the patch reader's widths with λ given (σn up to 9.3 %, σw 5–23 %). Their
-  quantities are carried by the family fitters.
-- **Descriptive, not gated** (the parent's ruling 2; their misses stay on record; their quantities are
-  carried by the family fitters): the model reader (its synthetic reads pass on receded and
-  t = 0 cells, but proof 3 misses λ on 10 of 58 cells and its widths against σ_RMS); the heavy reader
-  (receded σw 5.4–7.1 %; proof 3 leaves the group unrejected on 5 cells); the hinge-gap reader (fails its
-  vitrea control; memo E's "flat 0.68–0.72" lies within its synthetic spread); the ESF reader (4.9–8.7 %
-  against 3 %: W's slope over half a cell biases it wherever σn > 2.5 pt); the single-width impulse reader
-  under LT (3.5–9 %: its core is 0.5 C + 0.5 W); the depth reader (it resolves only light active rrect-lg,
-  0.749 against 0.750, and with the d34 patch light-active rrect-md, 0.871 against 0.856); the patch reader
-  with λ free.
-- **Non-identifiable in the active pose under ruling 3:** the free σn(span) ordinates at s ≤ 96, R1, the
-  per-channel knee (no answering cell on rrect-ml or rrect-lg), and the capture floor's form (the box-floor
-  null reads 0.42–0.44).
-- **Non-identifiable on this bed, declared before any fit:** U3's active half (canvas against R_fp, and
-  R_fp's active edge mode); the box/shape/edge-mode call from D's centred steps; the depth law's
-  0.4t-at-1-pt end (nothing is readable shallower than 25.6 pt on md or 36.8 pt on lg); dark-active
-  depth grading and every dark reader at spans ≥ 96 under the stand-in T (family A's dark 160–255
-  ordinates lift this if Apple's T keeps slope there); R1 in light unless family A finds T curved over
-  144–255.
+- U3's active half: canvas against R_fp, and R_fp's active edge mode.
+- The box / rounded-shape / edge-mode call from D's centred steps (the step reader); the family fitters
+  do separate W-shape at μ 4 on the whole bed.
+- The depth law's 0.4t-at-1-pt end (nothing is readable shallower than the band plus 2σn).
+- R1 in light, unless family A finds T curved over 144–255.
+- Dark readings on the 48/208 levels at spans ≥ 96 under the stand-in T (the 16/112 twins read instead).
+- Under the fallback only: the free σn ordinates at s ≤ 96 and the active rrect-md cells (no pixel beyond
+  53.6 pt).
 
-## Bed questions for the parent
+## Bed questions, and how the bed answered them
 
-Asked at the first hand-back and answered by the bed stream at `5d719b60`:
-1. U3's active half: recorded non-identifiable (ruling 4; `bed.json` `recordedNotCaptured`).
-2. A readable second depth on rrect-md: the d34 patch; light active now resolves md's grading, dark does
-   not (below).
-3. Dark levels in dark T's compressed range: 16/112 twins on rrect-md and rrect-ml (C and D) at 48 and
-   64 pt depth.
-4. Box against rounded-shape support, receded: S16 patches near the rrect-md corner and the capsule end.
-5. The unit question is refereed by the 1x pass alone (pooled below memo E's bar, refused on its worst
-   cells).
+1. U3's active half: recorded non-identifiable (`bed.json` `recordedNotCaptured`).
+2. A readable second depth on rrect-md: the d34 patch (`5d719b60`); light active resolves md's grading.
+3. Dark levels in dark T's compressed range: the 16/112 twins on md and ml, and a dark d34 twin
+   (`764217e1`), which resolves dark md's grading (0.868 against 0.856; flat 0.998).
+4. Box against rounded-shape support, receded: corner and capsule-end patches (`5d719b60`); the whole-bed
+   re-read separates W-shape from K2 and W-tails, carried mostly by other rows.
+5. Active R1, the per-channel knee and a gated depth pair under the fallback mask: P5 / P3 and E's pairs on
+   rrect-lg and an S 8 at 60 pt (`764217e1`); each keeps answering cells under both masks (above).
+6. Still open: the unit question is refereed only by the 1x pass (worst cells, not pooled rms).
 
-New, from ruling 3 (every family fitter reads W, so its active mask is 53.6 pt):
-6. **Active R1 and the per-channel knee have no answering cell**: B's level pairs and E's hue pairs sit on
-   rrect-md only. B's P5/P3 and E's pairs on rrect-lg (or rrect-ml) in the active passes would restore
-   them; otherwise they stay non-identifiable in the active pose.
-7. **No gated reader reaches an active rrect-md pixel, nor rrect-lg's 40-pt patch** (inside the 53.6-pt
-   mask), so the gated instrument has ONE active depth (rrect-lg's centre, 80 pt) and cannot see the
-   narrow opacity's depth grading. Proof 2's LT-against-free-sn separation in the active pose (2.2–2.7
-   codes) was read at the narrow support on md and lg patches and is not re-read at the W support. A
-   mid-depth S 8 on rrect-lg beyond 57.6 pt (e.g. ~60 pt, o-law ratio 0.87) would give the family fitters
-   a graded pair; a dark d34 patch at 16/112 would give the descriptive reader dark md's grading.
-8. **The capture floor's form** is identified only on active t = 0 fine pitches, which ruling 3 removes
-   from the gated instrument; the narrow depth and ESF readers are descriptive. Whether the floor should
-   stay a declared constant (memo E's identified reading) or be re-read is the parent's call.
+## Engine defects found and fixed during the work
 
-## The resume under the parent's rulings (2026-09-29)
-
-Run bounded (at most two processes, the byte-bounded caches), after the rulings on the first hand-back.
-
-- **Ruling 1, proof 3 re-proved against the float64 replica** (bars re-declared in `b223600a` before any
-  re-proof; the old σ_RMS bars and their misses stay in `tolerances.json` and in every row's
-  `vitrea_superseded`). Each reader is scored on |reading(capture) − reading(replica)| at its proof-1 bar,
-  on the 84 cells the replica covers (no rrect-lg).
-  - Gated statistic readers: S agrees within 0.022 wherever either image identifies it (bar 0.024) but
-    FAILS on three flag calls (the capture's quantised residuals trip the flag's 1.3 × 0.42 noise-floor
-    check where the float replica does not). The step reader's support/edge call PASSES 20/20; its σw
-    misses once (dark 2x capsule, identified on one image only). The per-cell λ reader misses once in
-    light (one-image identification) and on 6 dark cells (0.031–0.089, and one-image calls). The patch
-    reader's widths miss (σn up to 9.3 %, σw 5–23 %).
-  - Descriptive readers, on record: the single-width impulse reader passes (1.8 %); the model, heavy, ESF,
-    two-Gaussian share, depth, hinge-gap and step-λ readings miss.
-  - Fork B set its identifiability flags in code before the replica run but after it had seen the
-    superseded proof-3 results; the same call is made on both images.
-- **Ruling 3, the W support (53.6 pt) for every reader of W** (proof 1 part Aw, pin `5d719b60`): the
-  family fitters' active fits keep rrect-ml and rrect-lg only. LT, LT-2k, W-tails, K2, C-linear, both
-  bleeds, edge-swap and W-canvas still recover every parameter at its bar. NON-IDENTIFIABLE in the active
-  pose: the free σn(span) ordinates at s ≤ 96 (no active cell of those spans survives; they run to the
-  bound), R1 and the per-channel knee (their answering families B and E sit on rrect-md only). W-shape's
-  μ misses by 2.0–3.5 pt (bar 1). The descriptive W readers' active results are their band-pass reads.
-- **The box-floor null is not refused at the W support**: pooled 0.42–0.44 codes in every endpoint (the
-  quantisation floor). The capture's 0.8-device-px floor was identified on active fine-pitch capsule
-  cells (memo E: 7.32 against 1.46 on the 1x pitch-4 capsule), and ruling 3 removes every active capsule
-  cell; at the narrow support the 2x-only run did refuse it (1.54 light, 2.27 dark active). The floor's
-  form is therefore readable only by a narrow reader of active t = 0 fine pitches, which the gated
-  instrument no longer has.
-- **The remaining nulls** (`proof2_nulls.txt`): R2 1.28–2.29 pooled (max cell 2.7–6.2) and the device-px
-  null 1.26–2.98 pooled (max cell 8.5–11.1) now that its bound is widened: both below memo E's pooled bar,
-  each refused on its worst cells.
-- **The U1 cross-pairs when receded** (`proof2_separation.txt`): W-tails and W-canvas are distinguished
-  from every other candidate (2.9–9.2 codes); K2 against W-shape or W-tails and the reverse stay marginal
-  (0.83–1.32) on the old cells; W-canvas → W-shape is unresolved (0.06) because W-shape with a large
-  margin contains the canvas.
-- **The md depth grading with the new d34 patch** (`proof1_depth_d34.txt`, the descriptive narrow depth
-  reader at pin `5d719b60`): light active RESOLVES it (d34 reads 0.871 of the centre against the o-law's
-  0.856; the flat truth reads 0.992); dark active does not (0.998 under the graded truth: the dark sweep's
-  48/208 levels sit in the stand-in T's compressed range, and the new dark 16/112 cells are at 48 and 64
-  pt depth, not at d34). No gated reader reaches any active rrect-md pixel under ruling 3.
-- **The whole-bed re-reads at pin `5d719b60`** (every pair not distinguished on its answering families,
-  except U3's active half, ruling 4, and the pairs whose fitted family contains the truth): 16 pairs, both scales, the W support for the
-  active ones.
-  - *W-shape against K2 or W-tails, receded*: now DISTINGUISHED in both directions and both schemes
-    (2.06–3.21 codes, from 0.83–1.32). The carrying cells are the receded rrect-sm P1 pitch-16 rows
-    (`07b45391`) and rrect-ml / rrect-lg P1 pitch 32–64, not the new corner and capsule-end patches.
-  - *K2 against LT, receded*: DISTINGUISHED (1.60 light, 2.06 dark). *LT-2k against LT, light receded*:
-    DISTINGUISHED (1.69).
-  - *free-sn against LT, light receded*: still MARGINAL (1.17) at a 0.64-pt departure from LT's law.
-  - *R1 in light*: still not separated: 0.51 receded and 0.14 active (15 active cells at the W support).
-    Family A's curvature above 144 decides it, and in the active pose B's P5/P3 on rrect-lg would be the
-    answering rows (bed question 6).
-  - Not re-read, by ruling: U3's active half (non-identifiable, recorded) and the pairs whose fitted family
-    contains the truth (LT → W-shape active, W-canvas → W-shape receded).
-
-## Runs the machine's memory pressure stopped (first hand-back), since resumed
-
-The cause was found and fixed before the resume: blur caches bounded per cell and canvas-sized region
-masks let a fit over 50–90 cells hold 12–20 GB per worker; blurs now share one least-recently-used store
-bounded in bytes (`forward.BLUR_CACHE_BYTES`, 0.8 GB), and populations are flat index arrays. Every stopped
-run has since completed (the U1 cross-pairs, R2, the box-floor null, the device-px rows), and the whole-bed
-re-reads ran at the new pin as the parent asked.
+- **Memory**: blur caches bounded per cell and canvas-sized region masks let a fit over 50–90 cells hold
+  12–20 GB per worker, and the machine's memory-pressure reaper stopped proof 2 once. Blurs now share one
+  least-recently-used store bounded in bytes (`forward.BLUR_CACHE_BYTES`, 0.8 GB); populations are flat
+  indices.
+- **The store's key**: it was first keyed by `id(cell)`, so a new cell reusing a freed cell's id could read
+  that cell's blurs when window, width and mode matched exactly (a trial reproduced the id reuse). It is
+  keyed by a never-reused token since `04163eec`. No output from the window it was live shows it: a stale
+  blur of another backdrop leaves tens of codes on a cell, and the worst cell of every such row is under 3.
+- **Trust selection** by the observed code truncated the dark knee side and biased λ to its bound; the fits
+  use no truncation (the stand-in T is known everywhere) or the predicted input.
+- **A k bound** of 4.0 voided three device-px null rows (their equivalent k is 4.1–4.2); widened to 9.

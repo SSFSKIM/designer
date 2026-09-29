@@ -1,0 +1,29 @@
+W42 G0 proof 1 addendum: the active depth sweeps (descriptive depth reader), mask n, pin 764217e1
+  light-rest  md              LT       c-s8-hi-rrect-md           depth  47.8 ratio 1.0 expect 1.000 PASS outside
+  light-rest  md              LT       c-s8-hi-d34-rrect-md       depth  34.2 ratio 0.871 expect 0.856 PASS across
+  light-rest  md              LT       c-s8-hi-d24-rrect-md       depth  24.2 ratio 0.811 expect 0.749 MISS across
+  light-rest  md              free-sn  c-s8-hi-rrect-md           depth  47.8 ratio 1.0 expect 1.000 PASS outside
+  light-rest  md              free-sn  c-s8-hi-d34-rrect-md       depth  34.2 ratio 0.992 expect 1.000 PASS across
+  light-rest  md              free-sn  c-s8-hi-d24-rrect-md       depth  24.2 ratio 1.008 expect 1.000 PASS across
+  light-rest  lg              LT       c-s8-hi-d80-rrect-lg       depth  79.8 ratio 1.0 expect 1.000 PASS outside
+  light-rest  lg              LT       c-s8-hi-d60-rrect-lg       depth  60.2 ratio 0.87 expect 0.876 PASS outside
+  light-rest  lg              LT       c-s8-hi-d40-rrect-lg       depth  40.2 ratio 0.749 expect 0.750 PASS outside
+  light-rest  lg              free-sn  c-s8-hi-d80-rrect-lg       depth  79.8 ratio 1.0 expect 1.000 PASS outside
+  light-rest  lg              free-sn  c-s8-hi-d60-rrect-lg       depth  60.2 ratio 0.999 expect 1.000 PASS outside
+  light-rest  lg              free-sn  c-s8-hi-d40-rrect-lg       depth  40.2 ratio 1.006 expect 1.000 PASS outside
+  dark-rest   md              LT       c-s8-lo-rrect-md           depth  47.8 ratio 1.0 expect 1.000 PASS outside
+  dark-rest   md              LT       c-s8-lo-d34-rrect-md       depth  34.2 ratio 0.998 expect 0.856 MISS across
+  dark-rest   md              LT       c-s8-lo-d24-rrect-md       depth  24.2 ratio 0.661 expect 0.749 MISS across
+  dark-rest   md              free-sn  c-s8-lo-rrect-md           depth  47.8 ratio 1.0 expect 1.000 PASS outside
+  dark-rest   md              free-sn  c-s8-lo-d34-rrect-md       depth  34.2 ratio 0.924 expect 1.000 MISS across
+  dark-rest   md              free-sn  c-s8-lo-d24-rrect-md       depth  24.2 ratio 0.55 expect 1.000 MISS across
+  dark-rest   lg              LT       c-s8-lo-d80-rrect-lg       depth  79.8 ratio 1.0 expect 1.000 PASS outside
+  dark-rest   lg              LT       c-s8-lo-d60-rrect-lg       depth  60.2 ratio 0.284 expect 0.876 MISS outside
+  dark-rest   lg              LT       c-s8-lo-d40-rrect-lg       depth  40.2 ratio 0.041 expect 0.750 MISS outside
+  dark-rest   lg              free-sn  c-s8-lo-d80-rrect-lg       depth  79.8 ratio 1.0 expect 1.000 PASS outside
+  dark-rest   lg              free-sn  c-s8-lo-d60-rrect-lg       depth  60.2 ratio 1.059 expect 1.000 MISS outside
+  dark-rest   lg              free-sn  c-s8-lo-d40-rrect-lg       depth  40.2 ratio 1.042 expect 1.000 PASS outside
+  dark-rest   md p4 (16/112)  LT       c-s8-lo-p4-rrect-md        depth  47.8 ratio 1.0 expect 1.000 PASS outside
+  dark-rest   md p4 (16/112)  LT       c-s8-lo-p4-d34-rrect-md    depth  34.2 ratio 0.868 expect 0.856 PASS across
+  dark-rest   md p4 (16/112)  free-sn  c-s8-lo-p4-rrect-md        depth  47.8 ratio 1.0 expect 1.000 PASS outside
+  dark-rest   md p4 (16/112)  free-sn  c-s8-lo-p4-d34-rrect-md    depth  34.2 ratio 0.998 expect 1.000 PASS across

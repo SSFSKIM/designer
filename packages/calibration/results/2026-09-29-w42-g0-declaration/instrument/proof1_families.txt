@@ -54,7 +54,7 @@ A  recovery per family and endpoint: param truth -> read (err; tol) ... pooled r
   edge-swap     dark-rest       PASS pooled 0.427 max 0.497 n 16 | k 2.094->2.093 (-0.0010; 0.005) | lam 0.900->0.901 (+0.0008; 0.03)
   edge-swap     dark-inactive   PASS pooled 0.423 max 0.492 n 25 | k 2.074->2.074 (-0.0001; 0.005) | lam 0.800->0.800 (+0.0002; 0.03)
 
-Aw  part A's ACTIVE recoveries at the W support (the first ruling 3; now the fallback's record)
+Aw  part A's ACTIVE recoveries at the W support (the first ruling 3; now the fallback's record), pin 5d719b60
   LT            light-rest      PASS pooled 0.425 max 0.442 n 15 | k 1.983->1.983 (+0.0001; 0.005) | lam 0.880->0.880 (-0.0001; 0.03)
   LT            dark-rest       PASS pooled 0.425 max 0.499 n 19 | k 2.094->2.094 (-0.0000; 0.005) | lam 0.900->0.900 (-0.0001; 0.03)
   LT-2k         light-rest      PASS pooled 0.424 max 0.452 n 9 | k_n 1.750->1.750 (+0.0002; 0.005) | k_w 2.100->2.100 (-0.0001; 0.005) | lam 0.880->0.880 (+0.0001; 0.03)
@@ -78,7 +78,7 @@ Aw  part A's ACTIVE recoveries at the W support (the first ruling 3; now the fal
   edge-swap     light-rest      PASS pooled 0.431 max 0.441 n 6 | k 1.983->1.982 (-0.0008; 0.005) | lam 0.880->0.880 (-0.0004; 0.03)
   edge-swap     dark-rest       PASS pooled 0.426 max 0.500 n 10 | k 2.094->2.094 (-0.0003; 0.005) | lam 0.900->0.900 (+0.0002; 0.03)
 
-An  part A's ACTIVE recoveries at the narrow support (the revised ruling 3's primary), final pin
+An  part A's ACTIVE recoveries at the narrow support (the revised ruling 3's primary), pin 5d719b60
   LT            light-rest      PASS pooled 0.412 max 0.443 n 43 | k 1.983->1.983 (+0.0003; 0.005) | lam 0.880->0.880 (-0.0002; 0.03)
   LT            dark-rest       PASS pooled 0.412 max 0.497 n 53 | k 2.094->2.094 (+0.0001; 0.005) | lam 0.900->0.900 (+0.0002; 0.03)
   LT-2k         light-rest      PASS pooled 0.418 max 0.447 n 20 | k_n 1.750->1.750 (+0.0000; 0.005) | k_w 2.100->2.100 (+0.0002; 0.005) | lam 0.880->0.880 (+0.0000; 0.03)
@@ -105,6 +105,26 @@ An  part A's ACTIVE recoveries at the narrow support (the revised ruling 3's pri
   LT+bleed-own  dark-rest       PASS pooled 0.412 max 0.500 n 37 | k 2.094->2.095 (+0.0008; 0.005) | k_b 2.000->2.000 (-0.0005; 0.05) | lam 0.900->0.900 (-0.0001; 0.03)
   edge-swap     light-rest      PASS pooled 0.426 max 0.442 n 17 | k 1.983->1.983 (+0.0001; 0.005) | lam 0.880->0.880 (-0.0004; 0.03)
   edge-swap     dark-rest       PASS pooled 0.410 max 0.497 n 27 | k 2.094->2.094 (-0.0003; 0.005) | lam 0.900->0.900 (+0.0000; 0.03)
+
+An_final  the families the final pin's rows touch, narrow support, pin 764217e1
+  LT            light-rest      PASS pooled 0.410 max 0.441 n 47 | k 1.983->1.983 (+0.0003; 0.005) | lam 0.880->0.880 (-0.0005; 0.03)
+  LT            dark-rest       PASS pooled 0.408 max 0.497 n 58 | k 2.094->2.094 (-0.0002; 0.005) | lam 0.900->0.900 (+0.0002; 0.03)
+  free-sn       light-rest      PASS pooled 0.416 max 0.441 n 21 | k 1.983->1.983 (+0.0003; 0.005) | sn_rest_64 0.300->0.299 (-0.0005; 0.05) | sn_rest_80 1.500->1.500 (-0.0002; 0.05) | sn_rest_96 2.200->2.198 (-0.0018; 0.05) | sn_rest_128 4.000->4.001 (+0.0007; 0.05) | sn_rest_160 4.500->4.500 (-0.0002; 0.05) | lam 0.880->0.880 (-0.0000; 0.03)
+  free-sn       dark-rest       PASS pooled 0.409 max 0.498 n 30 | k 2.094->2.094 (+0.0004; 0.005) | sn_rest_64 0.300->0.300 (-0.0004; 0.05) | sn_rest_80 1.500->1.498 (-0.0018; 0.05) | sn_rest_96 2.200->2.200 (+0.0003; 0.05) | sn_rest_128 4.000->4.000 (-0.0001; 0.05) | sn_rest_160 4.500->4.499 (-0.0010; 0.05) | lam 0.900->0.900 (+0.0000; 0.03)
+  R1            light-rest      PASS pooled 0.403 max 0.418 n 11 | k 1.983->1.983 (+0.0002; 0.005) | lam 0.880->0.880 (+0.0002; 0.03)
+  R1            dark-rest       PASS pooled 0.391 max 0.448 n 11 | k 2.094->2.094 (-0.0002; 0.005) | lam 0.900->0.900 (+0.0002; 0.03)
+  knee-luma     light-rest      PASS pooled 0.348 max 0.408 n 6 | k 1.983->1.983 (-0.0002; 0.005) | lam 0.880->0.880 (-0.0001; 0.03)
+  knee-luma     dark-rest       PASS pooled 0.335 max 0.406 n 6 | k 2.094->2.094 (+0.0001; 0.005) | lam 0.900->0.900 (-0.0003; 0.03)
+
+Aw_final  the same at the W support (the fallback), pin 764217e1
+  LT            light-rest      PASS pooled 0.419 max 0.442 n 19 | k 1.983->1.983 (-0.0001; 0.005) | lam 0.880->0.880 (+0.0002; 0.03)
+  LT            dark-rest       PASS pooled 0.414 max 0.500 n 23 | k 2.094->2.094 (+0.0001; 0.005) | lam 0.900->0.900 (-0.0003; 0.03)
+  free-sn       light-rest      FAIL pooled 0.428 max 0.443 n 10 | k 1.983->1.981 (-0.0025; 0.005) | sn_rest_64 0.300->13.999 (+13.6990; 0.05) | sn_rest_80 1.500->13.999 (+12.4991; 0.05) | sn_rest_96 2.200->13.999 (+11.7992; 0.05) | sn_rest_128 4.000->4.000 (+0.0005; 0.05) | sn_rest_160 4.500->4.609 (+0.1089; 0.05) | lam 0.880->0.881 (+0.0008; 0.03)
+  free-sn       dark-rest       FAIL pooled 0.427 max 0.499 n 14 | k 2.094->2.091 (-0.0031; 0.005) | sn_rest_64 0.300->14.000 (+13.6999; 0.05) | sn_rest_80 1.500->14.000 (+12.4999; 0.05) | sn_rest_96 2.200->14.000 (+11.7995; 0.05) | sn_rest_128 4.000->4.004 (+0.0035; 0.05) | sn_rest_160 4.500->4.582 (+0.0823; 0.05) | lam 0.900->0.901 (+0.0013; 0.03)
+  R1            light-rest      PASS pooled 0.389 max 0.413 n 3 | k 1.983->1.983 (+0.0001; 0.005) | lam 0.880->0.879 (-0.0006; 0.03)
+  R1            dark-rest       PASS pooled 0.308 max 0.410 n 3 | k 2.094->2.096 (+0.0019; 0.005) | lam 0.900->0.900 (-0.0005; 0.03)
+  knee-luma     light-rest      PASS pooled 0.293 max 0.296 n 2 | k 1.983->1.982 (-0.0009; 0.005) | lam 0.880->0.881 (+0.0009; 0.03)
+  knee-luma     dark-rest       PASS pooled 0.275 max 0.280 n 2 | k 2.094->2.095 (+0.0013; 0.005) | lam 0.900->0.898 (-0.0020; 0.03)
 
 B  k nesting (all four endpoints together): truth, level -> k read, pooled (per endpoint)
   truth global  k@global     params  5 pooled 0.419 max 0.497 [lr 0.413 li 0.423 dr 0.420 di 0.420] | k@all 2.0501

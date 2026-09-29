@@ -322,8 +322,10 @@ def write():
                      for pn, v in r['recovered'].items()]
             L.append(f"  {r['family']:13s} {r['ep']:15s} {'PASS' if r['pass'] else 'FAIL'} pooled {r['pooled']:.3f} "
                      f"max {r['max_cell']:.3f} n {r['n_cells']} | " + ' | '.join(parts))
-    for key, head in (('Aw', "Aw  part A's ACTIVE recoveries at the W support (the first ruling 3; now the fallback's record)"),
-                      ('An', "An  part A's ACTIVE recoveries at the narrow support (the revised ruling 3's primary), final pin")):
+    for key, head in (('Aw', "Aw  part A's ACTIVE recoveries at the W support (the first ruling 3; now the fallback's record), pin 5d719b60"),
+                      ('An', "An  part A's ACTIVE recoveries at the narrow support (the revised ruling 3's primary), pin 5d719b60"),
+                      ('An_final', "An_final  the families the final pin's rows touch, narrow support, pin 764217e1"),
+                      ('Aw_final', "Aw_final  the same at the W support (the fallback), pin 764217e1")):
         if key not in OUT:
             continue
         L += ['', head]
