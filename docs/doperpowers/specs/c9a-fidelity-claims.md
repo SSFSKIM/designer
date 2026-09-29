@@ -41379,6 +41379,12 @@ max(1 code, bar) = 1.0 code on every claimed channel):
 | numerical | 18 | **18** | 0 | **0.666 codes**, held-y0.08-h150 G, both scales |
 | rendered | 16 | **16** | 0 | **1.0 code**, at the bound: G 170 against native 171 on held-y0.08-h150 and -h270, both scales |
 
+> **Corrected 2026-09-29 (review closure).** The rendered row's witness gives held-y0.08-h270
+> the h150 values. `exposure/receipt-1/summary.json` records h270 as drawn **G 167 against
+> native G 168**, at both scales; h150's G 170 against native 171 stands. The margin paragraph
+> below already reads this correctly. **The verdict does not move**: both cells are one-code
+> errors, exactly at the 1.0-code bound, and both pass.
+
 **The veto.** The per-bin veto passes on **all 64** rendered held-out cells. Of its 34,624
 bins, **29,584 pass**, 5,040 are UNMEASURED at a population below four pixels, and the
 largest worsening against the shipped baseline is **0.0 codes**.
