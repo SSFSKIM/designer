@@ -1,0 +1,324 @@
+
+ RUN  v4.1.11 /Users/new/vitrea-w41/g2-referees/packages/calibration
+
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > reads the matrix at the schema the build writes, and pins both numbers 1ms
+ × test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > covers four profiles of the settled bed, and names the two it leaves 19ms
+   → expected { …(12) } to deeply equal { …(12) }
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-26.5-1x-light-standard cells against TEXTURE_TIER_LIGHT 4ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-26.5-1x-light-standard cells against DOM_TIER_LIGHT 2ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-26.5-2x-light-standard cells against TEXTURE_TIER_2X_LIGHT 2ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-26.5-2x-light-standard cells against DOM_TIER_2X_LIGHT 2ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-26.5-1x-light-reduced-transparency cells against TEXTURE_TIER_REDUCED_TRANSPARENCY 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-26.5-1x-light-reduced-transparency cells against DOM_TIER_REDUCED_TRANSPARENCY 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-26.5-1x-light-increased-contrast cells against TEXTURE_TIER_INCREASED_CONTRAST 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-26.5-1x-light-increased-contrast cells against DOM_TIER_INCREASED_CONTRAST 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-26.5-1x-dark-standard cells against TEXTURE_TIER_DARK 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-26.5-1x-dark-standard cells against DOM_TIER_DARK 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-26.5-2x-dark-standard cells against TEXTURE_TIER_2X_DARK 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-26.5-2x-dark-standard cells against DOM_TIER_2X_DARK 1ms
+ × test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-27.0-1x-light-standard-glass0.5 cells against TEXTURE_TIER_27_LIGHT 1ms
+   → expected [ { key: { …(3) }, …(8) }, …(29) ] to have a length of 36 but got 30
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-27.0-1x-light-standard-glass0.5 cells against DOM_TIER_27_LIGHT 1ms
+ × test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-27.0-2x-light-standard-glass0.5 cells against TEXTURE_TIER_27_2X_LIGHT 0ms
+   → expected [ { key: { …(3) }, …(8) }, …(29) ] to have a length of 36 but got 30
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-27.0-2x-light-standard-glass0.5 cells against DOM_TIER_27_2X_LIGHT 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-27.0-1x-dark-standard-glass0.5 cells against TEXTURE_TIER_27_DARK 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-27.0-1x-dark-standard-glass0.5 cells against DOM_TIER_27_DARK 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-27.0-2x-dark-standard-glass0.5 cells against TEXTURE_TIER_27_2X_DARK 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-27.0-2x-dark-standard-glass0.5 cells against DOM_TIER_27_2X_DARK 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-27.0-1x-light-reduced-transparency-glass0.5 cells against TEXTURE_TIER_27_REDUCED_TRANSPARENCY 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-27.0-1x-light-reduced-transparency-glass0.5 cells against DOM_TIER_27_REDUCED_TRANSPARENCY 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5 cells against TEXTURE_TIER_27_INCREASED_CONTRAST_COUPLED 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the dom-tier apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5 cells against DOM_TIER_27_INCREASED_CONTRAST_COUPLED 1ms
+ × test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > machine-checks the well-conditioned predicate and names every cell it excludes 1ms
+   → cells the shape rows skip, per claims §5's predicate: expected [ …(68) ] to deeply equal [ …(67) ]
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > proves every regression floor stands on a genuinely unmet bound 3ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > enforces the coherence rows over apple-macos-26.5-1x-light-standard, from the matrix 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > cross-checks apple-macos-26.5-1x-light-standard's recorded ratio against the two tiers' own levels 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > enforces the coherence rows over apple-macos-26.5-2x-light-standard, from the matrix 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > cross-checks apple-macos-26.5-2x-light-standard's recorded ratio against the two tiers' own levels 0ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > enforces the coherence rows over apple-macos-26.5-1x-dark-standard, from the matrix 0ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > cross-checks apple-macos-26.5-1x-dark-standard's recorded ratio against the two tiers' own levels 0ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > enforces the coherence rows over apple-macos-26.5-2x-dark-standard, from the matrix 0ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > cross-checks apple-macos-26.5-2x-dark-standard's recorded ratio against the two tiers' own levels 0ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > measures coherence on every profile the rows do not gate 0ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > excludes the degenerate coherence cell by measurement, and gates its neighbours 1ms
+ ✓ test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > carries a coherence axis on the dom tier and nowhere else 2ms
+ ✓ test/adopted-thresholds.test.ts > the macOS 27 tables, declared before the refit's read (W29 Decision Log 4 (a)) > declares exactly the six profiles the user ruled, and not the confounded one 0ms
+ ✓ test/adopted-thresholds.test.ts > the macOS 27 tables, declared before the refit's read (W29 Decision Log 4 (a)) > holds every 27 table at its 26.5 twin's values, row for row 0ms
+ ✓ test/adopted-thresholds.test.ts > the macOS 27 tables, declared before the refit's read (W29 Decision Log 4 (a)) > adopts no regression floor on any 27 profile (acceptance clause 4) 0ms
+ × test/adopted-thresholds.test.ts > the macOS 27 tables, declared before the refit's read (W29 Decision Log 4 (a)) > names every 27 row the refit missed, and nothing it did not 1ms
+   → the 27 rows that miss their declared bound: expected [ …(16) ] to deeply equal [ …(8) ]
+ ✓ test/adopted-thresholds.test.ts > the macOS 27 tables, declared before the refit's read (W29 Decision Log 4 (a)) > gates every 27 row it finds, and refuses one it never declared 2ms
+ ✓ test/adopted-thresholds.test.ts > W20 — declaration conformance on the texture tier > carries the rows on every texture-tier cell with a shape axis 0ms
+ × test/adopted-thresholds.test.ts > W20 — declaration conformance on the texture tier > holds every texture-tier cell to its declared geometry within the antialiased band 2ms
+   → texture / recorded / checkerboard__capsule-button__pressed / apple-macos-27.0-1x-light-standard-glass0.5: declaredContourMaxWeb = 2 device px: expected 2 to be less than or equal to 1
+ ✓ test/adopted-thresholds.test.ts > W14 X7 — the shadow axis's pair, adopted at the outer shadow's landing > apple-macos-26.5-1x-light-standard: the light-solid capsule's shadow is within 20% of the reference's 0ms
+ ✓ test/adopted-thresholds.test.ts > W14 X7 — the shadow axis's pair, adopted at the outer shadow's landing > apple-macos-26.5-1x-light-standard: the lift is painted on every thick checkerboard cell, within 20% 0ms
+ ✓ test/adopted-thresholds.test.ts > W14 X7 — the shadow axis's pair, adopted at the outer shadow's landing > apple-macos-26.5-2x-light-standard: the light-solid capsule's shadow is within 20% of the reference's 0ms
+ ✓ test/adopted-thresholds.test.ts > W14 X7 — the shadow axis's pair, adopted at the outer shadow's landing > apple-macos-26.5-2x-light-standard: the lift is painted on every thick checkerboard cell, within 20% 0ms
+ ✓ test/adopted-thresholds.test.ts > the probe set is captured, and gated by nothing (W25 Decision Log 3 (e)) > declares a probe set, so these assertions are about something 0ms
+ ✓ test/adopted-thresholds.test.ts > the probe set is captured, and gated by nothing (W25 Decision Log 3 (e)) > puts no probe row in the gated bed, at any profile or tier 0ms
+ ✓ test/adopted-thresholds.test.ts > the probe set is captured, and gated by nothing (W25 Decision Log 3 (e)) > drops the file's probe rows, the inactive pose and superseded generations, and nothing else 1ms
+ ✓ test/adopted-thresholds.test.ts > the probe set is captured, and gated by nothing (W25 Decision Log 3 (e)) > gates only rows captured at a profile document this repository still contains 3ms
+ ✓ test/adopted-thresholds.test.ts > the probe set is captured, and gated by nothing (W25 Decision Log 3 (e)) > names no probe scene in the conditioning predicate's exclusion list 1ms
+ ✓ test/adopted-thresholds.test.ts > the probe set is captured, and gated by nothing (W25 Decision Log 3 (e)) > floors no probe row 0ms
+ ✓ test/adopted-thresholds.test.ts > the inactive pose is published, and gated by nothing (W27 Decision Log 13) > declares an inactive pose, so these assertions are about something 0ms
+ ✓ test/adopted-thresholds.test.ts > the inactive pose is published, and gated by nothing (W27 Decision Log 13) > puts no inactive row in the gated bed, at any profile or tier 0ms
+ ✓ test/adopted-thresholds.test.ts > the inactive pose is published, and gated by nothing (W27 Decision Log 13) > catches a labelled row left stale by a later edit to the declaration 0ms
+ ✓ test/adopted-thresholds.test.ts > the inactive pose is published, and gated by nothing (W27 Decision Log 13) > names no inactive scene in the conditioning predicate's exclusion list 1ms
+ ✓ test/adopted-thresholds.test.ts > the inactive pose is published, and gated by nothing (W27 Decision Log 13) > floors no inactive row 0ms
+ ✓ test/adopted-thresholds.test.ts > the stack overlay bound (W27f G2, claims §5.135) > reads the three cells that have a native overlay, and only those 0ms
+ ✓ test/adopted-thresholds.test.ts > the stack overlay bound (W27f G2, claims §5.135) > holds clause A: the DOM-base overlay is inside the native stack envelope 0ms
+ ✓ test/adopted-thresholds.test.ts > the stack overlay bound (W27f G2, claims §5.135) > holds clause B: no overlay reading is worse than claims §5.131 §6 recorded 0ms
+ ✓ test/adopted-thresholds.test.ts > the stack overlay bound (W27f G2, claims §5.135) > records that the read reproduced the ledger exactly, rather than merely passing 0ms
+ ✓ test/adopted-thresholds.test.ts > the stack overlay bound (W27f G2, claims §5.135) > carries the two dark-checker regressions the ledger names, pinned and unclosed 0ms
+ ✓ test/adopted-thresholds.test.ts > the stack overlay bound (W27f G2, claims §5.135) > landed with none of the bound's own stops outstanding 0ms
+ ✓ test/adopted-thresholds.test.ts > the stack overlay bound (W27f G2, claims §5.135) > carries the instrument's stops apart, with S4 tripped and ruled on by the user 0ms
+ ✓ test/adopted-thresholds.test.ts > the frozen macOS 26.5 bed survives the document partition (W30 G0, X1) > keeps all 1,107 macOS 26.5 rows at documents whose bytes are on disk 1ms
+ ✓ test/adopted-thresholds.test.ts > the frozen macOS 26.5 bed survives the document partition (W30 G0, X1) > names the two frozen documents and nothing else 0ms
+ ✓ test/adopted-thresholds.test.ts > W30 B1 — the shadow's σ law, adopted (claims §5.160) > reads the cut at the statistic §5.156 §5 (b) declared, over every bed that carries each span 0ms
+ ✓ test/adopted-thresholds.test.ts > W30 B1 — the shadow's σ law, adopted (claims §5.160) > light: the law's σ is within 5% of every served bed's native σ at spans 96, 128 and 160 1ms
+ ✓ test/adopted-thresholds.test.ts > W30 B1 — the shadow's σ law, adopted (claims §5.160) > dark: the law's σ is within 5% of every served bed's native σ at spans 96, 128 and 160 0ms
+ ✓ test/adopted-thresholds.test.ts > W30 B1 — the shadow's σ law, adopted (claims §5.160) > holds the joint window, which is tighter than the clause's own 5% on the light document 1ms
+ ✓ test/adopted-thresholds.test.ts > W31 M1 / M2 — the body's chroma and the structure it is read over (claims §5.165) > reads a cut taken at this gate, in the declared mode, over the bed the matrix itself carries 192ms
+ ✓ test/adopted-thresholds.test.ts > W31 M1 / M2 — the body's chroma and the structure it is read over (claims §5.165) > carries every bed the two documents draw, at the cell counts the read left 0ms
+ ✓ test/adopted-thresholds.test.ts > W31 M1 / M2 — the body's chroma and the structure it is read over (claims §5.165) > M1: the median R of every bed is inside [0.80, 1.20] 0ms
+ ✓ test/adopted-thresholds.test.ts > W31 M1 / M2 — the body's chroma and the structure it is read over (claims §5.165) > M1: every cell is inside [0.60, 1.40], or is named in MISSED_27_ROWS 0ms
+ × test/adopted-thresholds.test.ts > W31 M1 / M2 — the body's chroma and the structure it is read over (claims §5.165) > M2: interiorStdDevWeb is within 2% of the reference generation, or is named in MISSED_27_ROWS 0ms
+   → texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-1x-light-standard-glass0.5: interiorStdDevWeb 0.035815 -> 0.046267, 29.185%: expected 0.2918476569514552 to be less than or equal to 0.02
+ × test/adopted-thresholds.test.ts > W32 C1 — the shadow's exterior shape, per span (claims §5.169) > reads the cut at the declared quantity, band rule and provenance 0ms
+   → 1x light at span 96: expected 12 to be 10 // Object.is equality
+ ✓ test/adopted-thresholds.test.ts > W32 C1 — the shadow's exterior shape, per span (claims §5.169) > re-derives every reading of the clause from results/matrix.json 4ms
+ ✓ test/adopted-thresholds.test.ts > W32 C1 — the shadow's exterior shape, per span (claims §5.169) > 1x light, span 96: the exterior's shape is within 0.0042 0ms
+ ✓ test/adopted-thresholds.test.ts > W32 C1 — the shadow's exterior shape, per span (claims §5.169) > 1x light, span 128: the exterior's shape is within 0.0042 0ms
+ ✓ test/adopted-thresholds.test.ts > W32 C1 — the shadow's exterior shape, per span (claims §5.169) > 1x light, span 160: the exterior's shape is within 0.0042 0ms
+ ✓ test/adopted-thresholds.test.ts > W32 C1 — the shadow's exterior shape, per span (claims §5.169) > 2x light, span 96: the exterior's shape is within 0.0042 0ms
+ ✓ test/adopted-thresholds.test.ts > W32 C1 — the shadow's exterior shape, per span (claims §5.169) > 2x light, span 128: the exterior's shape is within 0.0042 0ms
+ ✓ test/adopted-thresholds.test.ts > W32 C1 — the shadow's exterior shape, per span (claims §5.169) > 2x light, span 160: the exterior's shape is within 0.0042 0ms
+ ✓ test/adopted-thresholds.test.ts > W32 C1 — the shadow's exterior shape, per span (claims §5.169) > 1x dark, span 96: the exterior's shape is within 0.0042 0ms
+ ✓ test/adopted-thresholds.test.ts > W32 C1 — the shadow's exterior shape, per span (claims §5.169) > 1x dark, span 128: the exterior's shape is within 0.0042 0ms
+ ✓ test/adopted-thresholds.test.ts > W32 C1 — the shadow's exterior shape, per span (claims §5.169) > 1x dark, span 160: the exterior's shape is within 0.0042 0ms
+ ✓ test/adopted-thresholds.test.ts > W32 C1 — the shadow's exterior shape, per span (claims §5.169) > 2x dark, span 96: the exterior's shape is within 0.0042 0ms
+ ✓ test/adopted-thresholds.test.ts > W32 C1 — the shadow's exterior shape, per span (claims §5.169) > 2x dark, span 128: the exterior's shape is within 0.0042 0ms
+ ✓ test/adopted-thresholds.test.ts > W32 C1 — the shadow's exterior shape, per span (claims §5.169) > 2x dark, span 160: the exterior's shape is within 0.0042 0ms
+ ✓ test/adopted-thresholds.test.ts > W33 X1 — the native-black exterior stays black (claims §5.173) > guards the shipped non-holdout domain and derives its population from the bed 2ms
+ ✓ test/adopted-thresholds.test.ts > W33 X1 — the native-black exterior stays black (claims §5.173) > accepts no excuse and keeps both adopted targets exactly zero 0ms
+ ✓ test/adopted-thresholds.test.ts > W33 X1 — the native-black exterior stays black (claims §5.173) > X1: fraction web > 0 and count web > 1 are zero on every cell 9ms
+ ✓ test/adopted-thresholds.test.ts > W33 X1 — the native-black exterior stays black (claims §5.173) > re-derives every figure from the matrix-named captures, or reports unmeasured 3009ms
+ ✓ test/adopted-thresholds.test.ts > W36 L1 — fixed-native-silhouette level and pre-fit growth (claims §5.180) > guards the declared population, named missing means and pre-fit generation 6ms
+ ✓ test/adopted-thresholds.test.ts > W36 L1 — fixed-native-silhouette level and pre-fit growth (claims §5.180) > re-derives every recorded mean, error and growth from the two generations 41ms
+ × test/adopted-thresholds.test.ts > W36 L1 — fixed-native-silhouette level and pre-fit growth (claims §5.180) > L1: absolute error is at most 0.055 except the two named, unfloored misses 1ms
+   → expected [ …(14) ] to deeply equal [ …(2) ]
+ × test/adopted-thresholds.test.ts > W36 L1 — fixed-native-silhouette level and pre-fit growth (claims §5.180) > L1: error growth is at most 0.005, including both existing absolute misses 1ms
+   → apple-macos-27.0-1x-light-standard-glass0.5/checkerboard__capsule-button__inactive-tint-blue: expected 0.09290608268318207 to be less than or equal to 0.005
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 10 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > covers four profiles of the settled bed, and names the two it leaves
+AssertionError: expected { …(12) } to deeply equal { …(12) }
+
+- Expected
++ Received
+
+@@ -6,9 +6,9 @@
+    "apple-macos-26.5-2x-dark-standard": 26,
+    "apple-macos-26.5-2x-light-standard": 72,
+    "apple-macos-27.0-1x-dark-standard-glass0.5": 26,
+    "apple-macos-27.0-1x-light-increased-contrast-coupled-glass0.5": 18,
+    "apple-macos-27.0-1x-light-reduced-transparency-glass0.5": 16,
+-   "apple-macos-27.0-1x-light-standard-glass0.5": 72,
++   "apple-macos-27.0-1x-light-standard-glass0.5": 66,
+    "apple-macos-27.0-2x-dark-standard-glass0.5": 26,
+-   "apple-macos-27.0-2x-light-standard-glass0.5": 72,
++   "apple-macos-27.0-2x-light-standard-glass0.5": 66,
+  }
+
+ ❯ test/adopted-thresholds.test.ts:2492:56
+    2490|       perProfile.set(cell.key.profileKey, (perProfile.get(cell.key.pro…
+    2491|     }
+    2492|     expect(Object.fromEntries([...perProfile].sort())).toEqual(MATRIX_…
+       |                                                        ^
+    2493|
+    2494|     // Total, in both directions: the gated profiles plus the ungated …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/10]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-27.0-1x-light-standard-glass0.5 cells against TEXTURE_TIER_27_LIGHT
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > gates the texture-tier apple-macos-27.0-2x-light-standard-glass0.5 cells against TEXTURE_TIER_27_2X_LIGHT
+AssertionError: expected [ { key: { …(3) }, …(8) }, …(29) ] to have a length of 36 but got 30
+
+- Expected
++ Received
+
+- 36
++ 30
+
+ ❯ test/adopted-thresholds.test.ts:2535:28
+    2533|         // reasons only. Derived from the names so a new such scene ca…
+    2534|         // unnoticed and shrink the gate.
+    2535|         expect(shapeCells).toHaveLength(profile.cells[tier] - noShape.…
+       |                            ^
+    2536|         expect(
+    2537|           cells
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/10]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the adopted fidelity gate (claims §5, adopted 2026-08-26 / -29 / -30) > machine-checks the well-conditioned predicate and names every cell it excludes
+AssertionError: cells the shape rows skip, per claims §5's predicate: expected [ …(68) ] to deeply equal [ …(67) ]
+
+- Expected
++ Received
+
+@@ -58,10 +58,11 @@
+    "texture / holdout / hc-text__rrect-md__rest / apple-macos-26.5-2x-light-standard",
+    "texture / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
+    "texture / holdout / mid-dark-solid__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
+    "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
+    "texture / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5",
++   "texture / recorded / photo__rrect-md__pressed / apple-macos-27.0-2x-light-standard-glass0.5",
+    "texture / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-dark-standard",
+    "texture / validation / impulse__capsule-button__rest / apple-macos-26.5-1x-light-standard",
+    "texture / validation / impulse__capsule-button__rest / apple-macos-26.5-2x-dark-standard",
+    "texture / validation / impulse__capsule-button__rest / apple-macos-26.5-2x-light-standard",
+    "texture / validation / impulse__capsule-button__rest / apple-macos-27.0-1x-dark-standard-glass0.5",
+
+ ❯ test/adopted-thresholds.test.ts:2591:78
+    2589|   it("machine-checks the well-conditioned predicate and names every ce…
+    2590|     const excluded = MATRIX.cells.filter((cell) => !isWellConditioned(…
+    2591|     expect(excluded, "cells the shape rows skip, per claims §5's predi…
+       |                                                                              ^
+    2592|       ...PREDICATE_EXCLUDES,
+    2593|     ]);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/10]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > the macOS 27 tables, declared before the refit's read (W29 Decision Log 4 (a)) > names every 27 row the refit missed, and nothing it did not
+AssertionError: the 27 rows that miss their declared bound: expected [ …(16) ] to deeply equal [ …(8) ]
+
+- Expected
++ Received
+
+@@ -2,9 +2,17 @@
+    "dom / holdout / checkerboard__glass-over-glass__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean",
+    "dom / holdout / checkerboard__rrect-lg__rest / apple-macos-27.0-1x-light-standard-glass0.5 :: ssimMean",
+    "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-dark-standard-glass0.5 :: oklabDeltaEP95",
+    "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-1x-light-reduced-transparency-glass0.5 :: ssimOutside",
+    "dom / holdout / photo__rrect-lg__rest / apple-macos-27.0-2x-dark-standard-glass0.5 :: oklabDeltaEP95",
++   "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
++   "texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
++   "texture / calibration / photo__rrect-md__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
++   "texture / calibration / photo__rrect-md__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+    "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: chromaStructureRatioR",
++   "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+    "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: chromaStructureRatioR",
++   "texture / validation / photo__rrect-sm__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+    "texture / validation / photo__rrect-sm__rest / apple-macos-27.0-2x-light-standard-glass0.5 :: chromaStructureRatioR",
++   "texture / validation / photo__toolbar-group__inactive / apple-macos-27.0-1x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
++   "texture / validation / photo__toolbar-group__inactive / apple-macos-27.0-2x-light-standard-glass0.5 :: interiorStdDevStructureDelta",
+  ]
+
+ ❯ test/adopted-thresholds.test.ts:3151:73
+    3149|       missed.push(`${chromaKey(cell)} :: ${CHROMA_STRUCTURE_METRIC}`);
+    3150|     }
+    3151|     expect(missed.sort(), "the 27 rows that miss their declared bound"…
+       |                                                                         ^
+    3152|       Object.keys(MISSED_27_ROWS).sort(),
+    3153|     );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/10]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > W20 — declaration conformance on the texture tier > holds every texture-tier cell to its declared geometry within the antialiased band
+AssertionError: texture / recorded / checkerboard__capsule-button__pressed / apple-macos-27.0-1x-light-standard-glass0.5: declaredContourMaxWeb = 2 device px: expected 2 to be less than or equal to 1
+ ❯ test/adopted-thresholds.test.ts:3236:86
+    3234|       const contour = reading(cell, "shape", "declaredContourMaxWeb");
+    3235|       const iou = reading(cell, "shape", "declaredIoUWeb");
+    3236|       expect(contour, `${name(cell)}: declaredContourMaxWeb = ${contou…
+       |                                                                                      ^
+    3237|         DECLARED_CONTOUR_MAX_PX,
+    3238|       );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/10]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > W31 M1 / M2 — the body's chroma and the structure it is read over (claims §5.165) > M2: interiorStdDevWeb is within 2% of the reference generation, or is named in MISSED_27_ROWS
+AssertionError: texture / calibration / photo__capsule-button__inactive / apple-macos-27.0-1x-light-standard-glass0.5: interiorStdDevWeb 0.035815 -> 0.046267, 29.185%: expected 0.2918476569514552 to be less than or equal to 0.02
+ ❯ test/adopted-thresholds.test.ts:4288:9
+    4286|           + `${cell.interiorStdDevWeb.toFixed(6)}, `
+    4287|           + `${(cell.structureDeltaFraction * 100).toFixed(3)}%`,
+    4288|       ).toBeLessThanOrEqual(CHROMA_STRUCTURE_TOLERANCE);
+       |         ^
+    4289|     }
+    4290|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/10]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > W32 C1 — the shadow's exterior shape, per span (claims §5.169) > reads the cut at the declared quantity, band rule and provenance
+AssertionError: 1x light at span 96: expected 12 to be 10 // Object.is equality
+
+- Expected
++ Received
+
+- 10
++ 12
+
+ ❯ test/adopted-thresholds.test.ts:4446:55
+    4444|       for (const span of C1_SPANS) {
+    4445|         const rows = readingsAt(bed, span);
+    4446|         expect(rows.length, `${bed} at span ${span}`).toBe(CONTRIBUTIN…
+       |                                                       ^
+    4447|         for (const row of rows) {
+    4448|           expect(row.admitted.join("/"), `${bed} at span ${span}`).toB…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/10]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > W36 L1 — fixed-native-silhouette level and pre-fit growth (claims §5.180) > L1: absolute error is at most 0.055 except the two named, unfloored misses
+AssertionError: expected [ …(14) ] to deeply equal [ …(2) ]
+
+- Expected
++ Received
+
+  [
++   "apple-macos-27.0-1x-light-standard-glass0.5/checkerboard__capsule-button__inactive",
++   "apple-macos-27.0-1x-light-standard-glass0.5/checkerboard__capsule-button__inactive-tint-blue",
++   "apple-macos-27.0-1x-light-standard-glass0.5/checkerboard__capsule-button__inactive-tint-orange",
++   "apple-macos-27.0-1x-light-standard-glass0.5/checkerboard__rrect-md__inactive",
++   "apple-macos-27.0-1x-light-standard-glass0.5/checkerboard__rrect-sm__inactive",
++   "apple-macos-27.0-1x-light-standard-glass0.5/checkerboard__toolbar-group__inactive",
+    "apple-macos-27.0-1x-light-standard-glass0.5/impulse__capsule-button__inactive-tint-orange",
++   "apple-macos-27.0-2x-light-standard-glass0.5/checkerboard__capsule-button__inactive",
++   "apple-macos-27.0-2x-light-standard-glass0.5/checkerboard__capsule-button__inactive-tint-blue",
++   "apple-macos-27.0-2x-light-standard-glass0.5/checkerboard__capsule-button__inactive-tint-orange",
++   "apple-macos-27.0-2x-light-standard-glass0.5/checkerboard__rrect-md__inactive",
++   "apple-macos-27.0-2x-light-standard-glass0.5/checkerboard__rrect-sm__inactive",
++   "apple-macos-27.0-2x-light-standard-glass0.5/checkerboard__toolbar-group__inactive",
+    "apple-macos-27.0-2x-light-standard-glass0.5/impulse__capsule-button__inactive-tint-orange",
+  ]
+
+ ❯ test/adopted-thresholds.test.ts:4948:20
+    4946|   it("L1: absolute error is at most 0.055 except the two named, unfloo…
+    4947|     const misses = population.filter(c => (error(c) ?? -Infinity) > 0.…
+    4948|     expect(misses).toEqual(MISSES);
+       |                    ^
+    4949|   });
+    4950|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/10]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > W36 L1 — fixed-native-silhouette level and pre-fit growth (claims §5.180) > L1: error growth is at most 0.005, including both existing absolute misses
+AssertionError: apple-macos-27.0-1x-light-standard-glass0.5/checkerboard__capsule-button__inactive-tint-blue: expected 0.09290608268318207 to be less than or equal to 0.005
+ ❯ test/adopted-thresholds.test.ts:4961:34
+    4959|         continue;
+    4960|       }
+    4961|       expect(e - before, key(c)).toBeLessThanOrEqual(0.005);
+       |                                  ^
+    4962|     }
+    4963|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/10]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  10 failed | 91 passed (101)
+   Start at  10:43:16
+   Duration  4.13s (transform 109ms, setup 0ms, import 690ms, tests 3.34s, environment 0ms)
+

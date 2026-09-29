@@ -1,0 +1,65 @@
+{
+  "claims": "c9a §5.193",
+  "rule": 2,
+  "ruling": "W41 Decision Log 2, ruled by the user 2026-09-29",
+  "exposure": {
+    "manifest": "results/2026-09-27-w41-g1-identification/exposure/final-configuration/manifest-1.json",
+    "manifestSha256": "77f93ba2166e83a8e31bb5f26a1c5ffb9e6d2be35fa5ec5509a0a19e72ba95a7",
+    "receiptCommit": "fc157275"
+  },
+  "candidate": {
+    "path": "results/2026-09-27-w41-g1-identification/body-leaf/candidate/apple-macos-27.0-1x-light-standard-glass0.5-receded.json",
+    "sha256": "d34ebe3a73f281e542734737db6bbb92dbe4b432368307de067200eb31d571bd",
+    "resolvedMaterialSha256": "7b3d327de9cc81c2"
+  },
+  "documents": {
+    "apple-macos-27.0-1x-light-standard-glass0.5-receded.json": {
+      "beforeDigest": "b0d0d8dacc6a03af",
+      "beforeFullDigest": "b0d0d8dacc6a03af8017d0d9a4cec3486bfd95b09c93280a2d2643cf8d0d6c09",
+      "resolvedMaterialSha256": "7b3d327de9cc81c2",
+      "fullDigest": "7b3d327de9cc81c2da7387a675a91d823429e6a2197beef195b99d04877da2ed",
+      "beforeFileSha256": "30fbe05986aea1c3f84f1055825b3bba65ef8d7cc3a9d1a44934b6eae56705bd",
+      "fileSha256": "003940b4c7da30848e1ab64292f3763c7cded359ccaddf7fbd701a71551e3607",
+      "e3": {
+        "bodyE3Strength": 1,
+        "bodyE3Gains": [
+          0.929205829365914,
+          0.9597570955316058,
+          0.9383102545096953
+        ],
+        "bodyE3Neutral": [
+          150,
+          157,
+          164,
+          171,
+          178,
+          188,
+          197
+        ]
+      },
+      "patchEqualsCandidate": true
+    }
+  },
+  "unchanged": {
+    "apple-macos-26.5-1x-dark-standard.json": {
+      "sha256": "950ce1c3e91715ee470dd02d10c589f3ebae0f2b88d6ae85f4a2de6986020e12",
+      "resolvedMaterialSha256": "874be66ea501621b"
+    },
+    "apple-macos-26.5-1x-light-standard.json": {
+      "sha256": "6a9600720477dd433539d7af477b838776410e957d63fa7e63059dab214c5d26",
+      "resolvedMaterialSha256": "b2b570e4adcea8fb"
+    },
+    "apple-macos-27.0-1x-dark-standard-glass0.5-receded.json": {
+      "sha256": "5cec8c9612012a8988e37ee51a80bcc8de35b306f6f8464d596dfdbbdbcef0d2",
+      "resolvedMaterialSha256": "7c454858a3cbad5b"
+    },
+    "apple-macos-27.0-1x-dark-standard-glass0.5.json": {
+      "sha256": "0eac5b294cc235e2ba03841472211e63f85d36258a20951bef6f974931cda445",
+      "resolvedMaterialSha256": "2a4323f33df8d799"
+    },
+    "apple-macos-27.0-1x-light-standard-glass0.5.json": {
+      "sha256": "85ad7f7e3e0d6cb61de88c43bb2e48d78c1fa6779dbb85c627a3676d7fa04936",
+      "resolvedMaterialSha256": "be13dae45098fc89"
+    }
+  }
+}

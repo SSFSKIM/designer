@@ -1,0 +1,23 @@
+W41 G2 owner's eye reading of record (2026-09-29), after the canonical referees stopped the landing.
+Viewed directly: sheets 01 (1x photo rrect-md inactive), 02 (2x photo rrect-sm inactive) and 04
+(1x checkerboard rrect-md inactive), plus the owner's own 2x-zoom triptychs in ../stop/ for
+checkerboard, hc-text, impulse and photo. The sheet worker's owner-eye-draft.json is the fuller
+draft; this record agrees with it and adds what the owner saw.
+
+- Photo, 1x rrect-md: E3 removes pre-W41's broad hue/level band (the bright right half of the
+  pre-W41 difference panel is gone). What remains is a lower, mottled residual at the backdrop's
+  texture period. Overall E3 is visibly closer to native here. The mottling is real: it is present
+  before E3 and E3 amplifies it (the worker measured fine chroma 1.14-1.24x pre-W41).
+- Photo, 2x rrect-sm: a wash. The residuals have similar magnitude, and E3 adds a brighter patch
+  near the centre. The worker's reading that it moves away from native (broad chroma miss
+  0.0149 -> 0.0192) is consistent with what I see.
+- Checkerboard, 1x rrect-md: native is a smooth, nearly uniform grey, with the checker only
+  faintly visible. Both web columns show the checker plainly through the body. Pre-W41 matches
+  the level; E3 is visibly brighter over the whole body, and its difference panel is bright
+  everywhere where pre-W41's was mostly dark. This is the L1 failure, seen by eye.
+- hc-text: the same shape as the checkerboard. The native body is darker and smoother; E3 washes
+  out the dark text bands. Impulse: E3 turns the points into bright halos that native does not
+  show.
+Verdict of the eye, beside the metrics: E3 is a win on uniform bodies and on photo's broad hue,
+a loss on high-contrast textures and point impulses. It is not shippable as a per-pixel
+operator without the spatial argument.

@@ -1,0 +1,73 @@
+diff --git a/packages/calibration/test/adopted-thresholds.test.ts b/packages/calibration/test/adopted-thresholds.test.ts
+index f952a41c..cf6a07df 100644
+--- a/packages/calibration/test/adopted-thresholds.test.ts
++++ b/packages/calibration/test/adopted-thresholds.test.ts
+@@ -2315,7 +2315,12 @@ interface ChromaCut {
+   readonly renderer: string;
+   readonly sets: readonly string[];
+   readonly referenceGeneration: Readonly<
+-    Record<string, { readonly activeDocumentSha256: string; readonly file: string }>
++    Record<string, {
++      readonly activeDocumentSha256: string;
++      /** W41 G2: the pair, because a receded-only reseal keeps the active hash (W40). */
++      readonly recededDocumentSha256: string;
++      readonly file: string;
++    }>
+   >;
+   readonly beds: Readonly<
+     Record<
+@@ -2371,7 +2376,12 @@ const CHROMA_CUT = readJson<ChromaCut>(
+   // W36 G1 (§5.179): the black-only read. W32 DL4 advances M2 to the W33
+   // generation now retired at 6e509c7f76cc / eab099cc6698; the prior reference
+   // remains in W33's cut and the cumulative drift is tabled beside this one.
+-  resolve(PACKAGE_ROOT, "results", "2026-09-24-w36-g1-black-branch", "chroma-cut.json"),
++  // W41 G2 (§5.193): the landing's read, cut by the ported script on W40's generation
++  // store. W32 DL4 advances M2 to the generation current when the gate opened: light
++  // 85ad7f7e3e0d / 30fbe05986ae, the one this read retires, and dark 0eac5b294cc2 /
++  // 5cec8c961201, which W41 leaves in place and so is its own reference. The reference
++  // is named as a PAIR: after this read the light active hash owns two generations.
++  resolve(PACKAGE_ROOT, "results", "2026-09-29-w41-g2-landing", "referees", "chroma-cut.json"),
+ );
+ 
+ /**
+@@ -4146,7 +4156,9 @@ describe("W31 M1 / M2 — the body's chroma and the structure it is read over (c
+ 
+     const reference = new Map<string, Cell>();
+     for (const [scheme, generation] of Object.entries(CHROMA_CUT.referenceGeneration)) {
+-      const rows = loadGeneration(generation.activeDocumentSha256) as unknown as readonly Cell[];
++      const rows = loadGeneration(
++        generation.activeDocumentSha256, generation.recededDocumentSha256,
++      ) as unknown as readonly Cell[];
+       for (const cell of rows) {
+         // Named, not inferred: a row in the file read at some other document
+         // would be a different baseline wearing the same key.
+@@ -4373,7 +4385,8 @@ describe("W32 C1 — the shadow's exterior shape, per span (claims §5.169)", ()
+   }>(
+     // W33's lift/anchor cut remains its record. W36 G1 regenerates this cut
+     // at the black-only read, under the unchanged active-only C1 definition.
+-    resolve(PACKAGE_ROOT, "results", "2026-09-24-w36-g1-black-branch", "exterior-cut.json"),
++    // W41 G2 (§5.193) regenerates it at the landing's read, on W40's generation store.
++    resolve(PACKAGE_ROOT, "results", "2026-09-29-w41-g2-landing", "referees", "exterior-cut.json"),
+   );
+ 
+   /**
+@@ -4651,7 +4664,8 @@ describe("W33 X1 — the native-black exterior stays black (claims §5.173)", ()
+     readonly missed: readonly string[];
+     readonly cells: readonly BlackCell[];
+   }>(process.env["VITREA_X1_CUT"] ?? resolve(
+-    PACKAGE_ROOT, "results", "2026-09-24-w36-g1-black-branch", "black-cut.json",
++    // W41 G2 (§5.193): regenerated at the landing's read, on W40's generation store.
++    PACKAGE_ROOT, "results", "2026-09-29-w41-g2-landing", "referees", "black-cut.json",
+   ));
+   const BLACK = ["checkerboard", "checkerboard-4", "checkerboard-8", "checkerboard-32",
+     "checkerboard-64", "impulse", "hc-text", "hc-text-7", "hc-text-28"];
+@@ -4837,7 +4851,8 @@ describe("W36 L1 — fixed-native-silhouette level and pre-fit growth (claims §
+     readonly growthFailures: readonly LevelCell[];
+     readonly cells: readonly LevelCell[];
+   }>(process.env["VITREA_L1_CUT"] ?? resolve(
+-    PACKAGE_ROOT, "results/2026-09-24-w36-g2-landing/l1-cut.json",
++    // W41 G2 (§5.193): regenerated at the landing's read, on W40's generation store.
++    PACKAGE_ROOT, "results/2026-09-29-w41-g2-landing/referees/l1-cut.json",
+   ));
+   const BASELINE = {
+     light: { active: "6e509c7f76cc", receded: "45acb6d916b9",

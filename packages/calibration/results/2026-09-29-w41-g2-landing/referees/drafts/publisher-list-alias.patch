@@ -1,0 +1,35 @@
+diff --git a/packages/calibration/src/generation-stage.ts b/packages/calibration/src/generation-stage.ts
+index 1cb934e2..9ecda327 100644
+--- a/packages/calibration/src/generation-stage.ts
++++ b/packages/calibration/src/generation-stage.ts
+@@ -209,7 +209,9 @@ export function prepareGeneration(directory: string, results: string) {
+   const aliases = { ...index.byDocumentSha256 };
+   for (const d of files[filename]!.documents) {
+     const held = aliases[d.sha256];
+-    aliases[d.sha256] = held ? [...new Set([...(typeof held === "string" ? [held] : held), filename])] : filename;
++    // Always a list: W40 G0 migrated every alias to one and the Python adapter refuses anything
++    // else, so a string written here would stop every Python reader of the index (W41 G2).
++    aliases[d.sha256] = [...new Set([...(typeof held === "string" ? [held] : held ?? []), filename])];
+   }
+   const next = { ...index, files, byDocumentSha256: aliases, currentByProfile: current };
+   return { filename, raw, index: Buffer.from(`${JSON.stringify(next, null, 2)}\n`),
+diff --git a/packages/calibration/test/generation-stage.test.ts b/packages/calibration/test/generation-stage.test.ts
+index 20ef03c5..21b35140 100644
+--- a/packages/calibration/test/generation-stage.test.ts
++++ b/packages/calibration/test/generation-stage.test.ts
+@@ -236,6 +236,15 @@ it("qualifies a receded-only reseal and preserves every alias owner", () => {
+   expect(child.status, child.stderr).toBe(0);
+   const index = JSON.parse(readFileSync(join(copy, "results/generations/index.json"), "utf8"));
+   expect(index.byDocumentSha256[active]).toEqual([`${active}.json`, `${active}-${receded}.json`]);
++  // A hash first seen here gets a list too, the shape W40's Python adapter requires.
++  expect(index.byDocumentSha256[receded]).toEqual([`${active}-${receded}.json`]);
++  const python = spawnSync("python3.12", ["-B", "-c", `import sys
++sys.path.insert(0, ${JSON.stringify(join(pkg, "results/2026-09-26-w40-g0-generations"))})
++from matrix_store import load_current_rows, load_generation
++print(len(load_current_rows(results_dir=sys.argv[1])), len(load_generation(sys.argv[2], sys.argv[3], results_dir=sys.argv[1])))`,
++    join(copy, "results"), active, receded], { encoding: "utf8" });
++  expect(python.status, python.stderr).toBe(0);
++  expect(python.stdout.trim()).toBe("4 4");
+ });
+ it("refuses alias path repointing even with a new receded identity", () => {
+   const copy = repo(); declare(copy); const active = fill(copy);

@@ -1,0 +1,52 @@
+{
+  "schema": "w41-g2-sheet-examples-amendment-1",
+  "amends": {
+    "path": "examples-declaration.json",
+    "sha256": "966007c045bd0366c6179b9a5d53af5743dea44d6e10bac67590426aecdc8838"
+  },
+  "amendedAt": "2026-09-29T01:36:35.212113+00:00",
+  "requestedBy": "the W41 G2 owner, after the canonical referees stopped the landing: L1 fails on every light-inactive checkerboard cell (body 210 codes where native is 188) and M2 on photo. The owner asked that checkerboard__rrect-md__inactive, hc-text__rrect-lg__inactive, impulse__rrect-md__inactive and photo__rrect-md__inactive be examples at both 1x and 2x.",
+  "openedBeforeAmendment": "Of this gate's pixels, only W39 examples 13 and 14 had been decoded and viewed. The 1x/2x standard canonical WebGPU PNGs had been HASHED (a precheck against G1's diagnostic captures), never decoded or viewed; no canonical native, pre-W41 or new image had been viewed. The four additions are the owner's selection, which was based on the referee failures and the owner's own stop triptychs; this gate had not seen those triptychs when the amendment was written.",
+  "withdrawn": [
+    {
+      "ordinal": 12,
+      "reason": "The reduced-transparency profile was not captured in G2: X6 refused its WebGPU launch (a foreign playwright-cli daemon), and the owner ruled that RT and IC will not be read now. There is no RT/IC control for this gate."
+    }
+  ],
+  "added": [
+    {
+      "ordinal": 15,
+      "bed": "canonical",
+      "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "sceneId": "checkerboard__rrect-md__inactive",
+      "reason": "Checkerboard at 2x, pairing example 4; L1 fails on every inactive checkerboard cell."
+    },
+    {
+      "ordinal": 16,
+      "bed": "canonical",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "sceneId": "impulse__rrect-md__inactive",
+      "reason": "Impulse at 1x, pairing example 5."
+    },
+    {
+      "ordinal": 17,
+      "bed": "canonical",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "sceneId": "hc-text__rrect-lg__inactive",
+      "reason": "High-contrast text (probe) at 1x: structured light-inactive backdrop, requested by the owner."
+    },
+    {
+      "ordinal": 18,
+      "bed": "canonical",
+      "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "sceneId": "hc-text__rrect-lg__inactive",
+      "reason": "High-contrast text (probe) at 2x."
+    }
+  ],
+  "alreadyDeclared": {
+    "checkerboard__rrect-md__inactive 1x": 4,
+    "impulse__rrect-md__inactive 2x": 5,
+    "photo__rrect-md__inactive 1x": 1,
+    "photo__rrect-md__inactive 2x": 3
+  }
+}

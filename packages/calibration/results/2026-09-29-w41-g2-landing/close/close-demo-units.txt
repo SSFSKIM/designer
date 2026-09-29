@@ -1,0 +1,26 @@
+$ vitest run
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - import "./report" without a file extension (../../packages/calibration/src/matrix-store.ts:10:57). Add the file extension
+  - import "./matrix-write-guard" without a file extension (../../packages/calibration/src/matrix-store.ts:11:36). Add the file extension
+  - import "./generation-stage" without a file extension (../../packages/calibration/src/matrix-write-guard.ts:9:35). Add the file extension
+  - import "./errors" without a file extension (../../packages/calibration/src/report.ts:23:34). Add the file extension
+  - import "./metrics/chroma" without a file extension (../../packages/calibration/src/report.ts:24:44). Add the file extension
+  - import "./metrics/shape" without a file extension (../../packages/calibration/src/report.ts:25:67). Add the file extension
+  - import "./metrics/material" without a file extension (../../packages/calibration/src/report.ts:33:8). Add the file extension
+  - import "./metrics/motion" without a file extension (../../packages/calibration/src/report.ts:34:54). Add the file extension
+  - import "./metrics/shadow" without a file extension (../../packages/calibration/src/report.ts:35:60). Add the file extension
+  - import "./metrics/perceptual" without a file extension (../../packages/calibration/src/report.ts:41:8). Add the file extension
+  - import "./profile" without a file extension (../../packages/calibration/src/report.ts:42:69). Add the file extension
+  - import "./matrix-write-guard" without a file extension (../../packages/calibration/src/generation-stage.ts:6:42). Add the file extension
+  - import "./matrix-store" without a file extension (../../packages/calibration/src/generation-stage.ts:8:58). Add the file extension
+  - import "./report" without a file extension (../../packages/calibration/src/generation-stage.ts:9:57). Add the file extension
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+
+ RUN  v4.1.11 /Users/new/vitrea-w41/g2/apps/demo
+
+
+ Test Files  7 passed (7)
+      Tests  64 passed (64)
+   Start at  11:02:36
+   Duration  2.09s (transform 3.64s, setup 0ms, import 4.24s, tests 1.13s, environment 0ms)
+

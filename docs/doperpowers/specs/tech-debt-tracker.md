@@ -6746,3 +6746,52 @@ Found building `apps/demo/src/gallery/terminal/` (its `DESIGN.md`, part two), on
   page never changes either prop at runtime, so it is not reachable there. **Shape of the work:**
   reproduce with a root whose `renderer` flips after groups have registered; the message suggests
   a surface re-registering against the new root before its `GlassGroup` has.
+
+## W40's publisher writes a first-seen document alias as a bare string, which the Python adapter rejects (W41 G2, 2026-09-29)
+
+Found by W41 G2's referee port (§5.193 §6), before any real publication. `prepareGeneration`
+(`packages/calibration/src/generation-stage.ts`, about line 212) writes an index alias it has
+not seen before as a string: here it would have been `byDocumentSha256["003940b4c7da"] =
+"85ad7f7e3e0d-003940b4c7da.json"`. The TypeScript reader accepts that. W40's Python adapter
+(`results/2026-09-26-w40-g0-generations/matrix_store.py`, `_index`) rejects it as "incomplete
+or stale aliases". So the first real `matrix publish` would stop E2's `--verify`
+(`w38-e2.test.ts`) and every Python referee cut. The port reproduced this through the real
+CLI in a scratch repository.
+
+Separately, W40's `adapter-test.py` (not in the vitest suite) pins an unqualified
+`load_generation("85ad7f7e3e0d")`. Once that active hash owns two files, the call is
+ambiguous.
+
+Shape of the fix: apply `results/2026-09-29-w41-g2-landing/referees/drafts/
+publisher-list-alias.patch`, which always writes a list and adds a generation-stage assertion
+that runs the Python adapter. It fails without the fix and passes with it. Qualify the adapter
+test's call with its receded hash. The alternative, `python-adapter-string-alias.patch`, is
+needed only if a publication lands first.
+
+## The full stage recipe adds recorded pressed-state rows that the gated bed does not drop (W41 G2, 2026-09-29)
+
+CLAUDE.md's light recipe (`--set calibration,validation,holdout,recorded,probe`, both tiers,
+four profiles) declares 780 cells. The retired light generation has 509 rows. The extra 271,
+which W36's ladder never read, are 88 probe and 20 recorded cells on WebGPU and 143 probe and
+20 recorded on CSS. CSS has 55 more probe cells because the retired generation carries the 2x
+standard profile's probe rows on WebGPU only.
+
+Run against the W41 G2 stage, `adopted-thresholds.test.ts` fails six cases on membership and
+the unread holdout, not on material:
+- the light gated count (72 → 66) and the two texture-tier lengths (36 → 30). Ten unread
+  holdout rows leave each light standard texture tier, and four recorded pressed rows enter
+  it, because the gated-bed filter drops probe and inactive rows but not recorded ones:
+  30 = 20 calibration rest + 6 validation rest + 4 recorded pressed, against main's 20 + 6 +
+  10 holdout rest. Reading the holdout restores the ten; the four are this entry's defect;
+- W20 conformance on recorded `checkerboard__capsule-button__pressed` 1x
+  (`declaredContourMaxWeb` 2 > 1);
+- one extra conditioning-predicate exclusion (recorded `photo__rrect-md__pressed` 2x);
+- C1's contributing-cell counts.
+
+X1's population grows 218 → 230, and E2 gains 42 cells it has no baseline for
+(§5.193 §3; `referees/stop-reading/adopted-thresholds-at-stage.txt`).
+
+Shape of the fix: before the first full light publication, rule whether recorded rows belong
+in the gated bed. Then either filter them there or declare them, with the W20 conformance
+reading on the pressed cell recorded as its own finding. Do not narrow the stage recipe to
+dodge them, since the recipe is what makes membership complete.

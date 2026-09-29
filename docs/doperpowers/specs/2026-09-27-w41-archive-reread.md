@@ -1,6 +1,6 @@
 # W41 — the archive re-read: the body as luma and chroma, its locality, and the exterior stroke, identified on the W39 archive and landed if they close (2026-09-27)
 
-**Status: G0 MERGED `cd55870d` (2026-09-27, §5.191). G1 MERGED `8ee41aa1` (2026-09-29, §5.192): its one exposure is spent and complete (`fc157275`, §5.192.25), and light-inactive E3 meets the bound on every claimed held-out cell, 18/18 numerical and 16/16 rendered. Decision Log 2 ruled 2026-09-29: G2 lands light-inactive E3; spatial and stroke close as findings. G2 next.**
+**Status: CLOSED 2026-09-29 as the negative for landing. Nothing shipped, published or released.** G0 MERGED `cd55870d` (2026-09-27, §5.191). G1 MERGED `8ee41aa1` (2026-09-29, §5.192): its one exposure is spent, and light-inactive E3 meets the bound on every claimed held-out cell (18/18 numerical, 16/16 rendered). G2 (§5.193) sealed E3 at the exposure's exact tuple, and the shipped documents re-rendered G1's 600 frozen predictions byte for byte. The canonical referees then failed on structured light-inactive backdrops: L1 on every inactive checkerboard cell (0.111–0.148 against 0.055), and M2 on every light-inactive photo cell (+14.6 % to +44.6 %, each toward native). The user ruled "Don't land; close W41." The seal is reverted (`15478e0f`). E3 stays a law identified on uniform backdrops and closed on the W39 holdout, unshipped, and its zero-gated operator stays at the identity. The receded body's spatial argument is the next wave's first question (Deferred at close 1).
 
 ## Purpose
 
@@ -501,13 +501,70 @@ continues directing the wave.
   not treating optimizer convergence as exhaustive coverage. The native dark contour is
   still absent from vitrea; the local negative does not accept that visual gap.
 
+### Deferred at close (2026-09-29, G2; each with its evidence and the next step's shape)
+
+1. **The receded body's spatial argument and blur.** Over black-and-white structure, Apple's
+   light receded body is a nearly uniform grey: 188 codes on the checkerboard, which the
+   pre-W41 group-level solve matches. E3, applied per pixel, reads 210 there, fails L1 on all
+   twelve inactive checkerboard cells, and amplifies photo's texture-period mottling and the
+   impulse points (§5.193 §3–§4; `stop/`, `sheets/examples/` 01–05 and 15–18,
+   `referees/stop-reading/`).
+   *Next:* a wave whose first question is the argument E3's F and g are evaluated at: group
+   luma, a larger or encoded-space blur, or a blend. Its declared referees are these canonical
+   light-inactive cells (checkerboard, hc-text, impulse and photo, 1x and 2x) beside a new
+   native capture. That capture varies group mean and backdrop frequency independently, adds
+   uniform inputs above 150, and holds out structured backdrops. §5.192 §20's smoother-g(L)
+   hypothesis is tested first. One arithmetic pointer, not a finding: native 189 on the
+   checkerboard equals F's continuation at the ENCODED mean of black and white (128), while
+   E3's 212 is F at the linear-light mean. hc-text does not fit it.
+2. **E3: identified, closed on the W39 holdout, unshipped.** Its zero-gated identity-table
+   group (`bodyE3Strength` 0; F7/g3) stays on main at the identity, and every shipped document
+   holds it there (§5.192 §25, §5.193 §5). The W39 holdout is spent; the next landing needs
+   the spatial wave's own holdout.
+3. **The stroke, and Apple's dark exterior contour.** No stroke leaf: 30 of 36 combinations
+   are certified excluded, M1 light-inactive is a completed local negative, and M2 is item 4
+   (§5.192 §24, Decision Log 2). Closing it needs a native capture under X5 with a new sealed
+   holdout and a fitter fast enough for the sealed budgets. The contour stays a named gap in
+   both poses.
+4. **M2 (stroke family) UNMEASURED**, by the user's ruling: one start complete, two aborted
+   by the host restart, 29 unstarted (§5.192 §23, `stroke/M2-terminal-record-1.json`). It is
+   not a rejection. Resume only under a new declaration that retains that record.
+5. **The CSS affine route, derived but never needed.** G1 measured the standalone route at
+   128/130 within one code (§5.192 §18). G2 derived the floor-preserving production form: with
+   L3's overlay kept, the sharp layer solves S = G·x + K, contrast-then-brightness for K ≥ 0
+   and brightness-then-contrast for K < 0. By algebra it reproduces 128 of 130 uniform cells
+   within 0.05 code, with the two red bridges capped at 244.3 codes by the floor. No ruling
+   used it (`w41-g2-css-candidate` `78c4b854`, `css-dl4/STATUS.txt`). Of the routes that
+   separate luma slope from chroma gain, a colour matrix inside the reference SVG filter was
+   named and not measured.
+   *Next:* only in the wave that lands a light receded-body law on the WebGPU tier (item 1),
+   because the CSS tier derives its carry from the law that lands, in the same wave. Re-derive
+   the solve against that law, then do what `css-dl4/STATUS.txt` lists as not done: the unit
+   tests, with the fallback floor pinned byte-identical; a Chromium CSS capture of G1's 130
+   uniform cells and of the canonical light profiles, scored against native and against the
+   WebGPU tier; and the memo. The capture must include structured backdrops: the candidate
+   evaluates at each surface's luma, so there its luma slope is g where E3's is F′. Measure the
+   reference-filter colour matrix beside the filter-function form before choosing, and record
+   the red bridges' floor cap as a named CSS residual unless the chosen route clears it.
+6. **Evidence volume.** W41 G1 committed about 84 MB packed of operational logs (tracker,
+   "A fitting wave's operational logs went into git"). G2 kept its bulk outside git: 288 stage
+   captures and matrix at `/Users/new/vitrea-w41/g2-captures/canonical-stage/`, and the full
+   sheet set (81 MB) at `/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/`, both hashed
+   in committed inventories. The tracker entry's fix, archiving by hash, stands for the next
+   fitting wave.
+7. **Found beside the negative, for the next publication** (tracker). W40's publisher writes a
+   first-seen document alias as a bare string, which W40's Python adapter rejects; patches are
+   drafted in `referees/drafts/`. The recipe's full light membership (780 declared against the
+   retired 509) adds recorded pressed-state rows that the gated-bed filter keeps. Both must be
+   settled before the first real `matrix publish`.
+
 ## Tracking Map
 
 | child | status |
 | --- | --- |
 | G0 | MERGED 2026-09-27 as `cd55870d` (§5.191): declaration 850747c1… (superseded 99e460d5… kept); execution parameters body a3947184… / stroke df9f807e…; twin audit (B1/B3 bridge-only; S0/S1 below resolution); synthetic proofs (E3/EH6 4.3e-14 / 4.0e-13; certified LP 100/100 noisy; O12 local; band integrator; width-aware stroke search; strip reader; shadow vs WGSL on Metal 2.8e-5 code over 3,240 cases); exposure runner 41 tests; sheets 1,003 canonical MATCH, 330 rendered; two instrument P2s fixed in bounded waves with clean re-reviews. Review: reviewer-high, no material findings; 114 synthetic tests, the 100 noisy LP cases, the width recoveries, 3,600 shadow cases, the guarded replay and all 41 exposure tests rerun; every pin matches; no protected file changed |
-| G1 | — |
-| G2 | conditional |
+| G1 | MERGED 2026-09-29 as `8ee41aa1` (§5.192): one exposure, light-inactive E3 closes on its claimed held-out cells; spatial a finding; stroke certified and local negatives, M2 UNMEASURED |
+| G2 | CLOSED 2026-09-29 as the negative (§5.193): seal `f5760e17` and 600/600 identity `63089862` held; canonical L1/M2 failed on structured light-inactive backdrops (`03290223`, formal cuts in `referees/stop-reading/`); the user ruled not to land; seal reverted `15478e0f`; no publication |
 
 ## Decision Log
 
@@ -633,7 +690,28 @@ recommended: G2 lands light-unfocused E3; spatial and stroke close as findings."
 
 ### Decision Log 3 — bounds and floors if a leaf lands (in G2; the user's)
 
+**G2 stop material, 2026-09-29 (§5.193 §3; not a ruling).** The seal and the identity proof
+hold (600/600 byte-identical), but the canonical referees fail on structured light-inactive
+backdrops. L1 has twelve new absolute failures, one on every inactive checkerboard cell at
+both scales (0.111–0.148 against 0.055, body 210 codes where native reads 188). M2 has all
+eight light-inactive photo cells moving +14.6 % to +44.6 % against its 2 % regression stop,
+each toward native. M1 holds. The G2 owner recommends not landing E3 in W41 and taking the
+spatial argument into the next wave, with these cells declared as its referees. The
+alternatives put to the parent are a uniform-backdrop gate in the shader (a scope change with
+an unidentified threshold) and widening or naming the misses here (not recommended for L1).
+
+**Ruled 2026-09-29 by the user, on the parent's recommendation of option A: "Don't land; close
+W41."** No bound, floor or named miss moves. E3 is recorded as a law identified on uniform
+backdrops and closed on the W39 holdout, and it is not shipped. G2 reverts its seal with a new
+commit and closes as the negative. The formal L1/M2/M1 cuts from the stage read, the identity
+proof, the sheets and the triptychs are kept as the negative's evidence. The receded body's
+spatial argument and blur become the next wave's first question.
+
 ### Decision Log 4 — the CSS tier's carry, approximation or decline, per leaf (in G2; the parent's, on the browser measurement)
+
+**Not reached.** The landing stopped at the canonical referees before any CSS measurement, and
+the user ruled not to land (Decision Log 3). The derivation that exists is kept on
+`w41-g2-css-candidate` (`78c4b854`) as work that no ruling used; see Deferred at close 5.
 
 ### Decision Log 5 — the censor rule and the bridges (in G0, by rule; the parent's)
 
@@ -672,6 +750,18 @@ Decision Log 2 material.
   0.715 against 0.147 (light), 3 codes at 14.5 CSS px inward between reflected rows.
 
 ## Revision Notes
+
+- 2026-09-29 (G2, the G2 owner; §5.193): sealed light-inactive E3 at the exposure's exact
+  tuple (`f5760e17`). The shipped documents re-rendered G1's 600 frozen predictions
+  byte-identically (`63089862`). The CLAUDE.md-recipe light stage was declared (780 cells) and
+  its 288 standard WebGPU cells read; X6 refused the rest on another session's Playwright.
+  L1 and M2 failed on structured light-inactive backdrops, the owner stopped, and the parent
+  recommended A. The user ruled "Don't land; close W41." The seal was reverted by a new commit
+  (`15478e0f`). The CSS and R1 workers were paused with their partial output on their own
+  branches, and no ruling used it. The referee-cut port to W40's store, the eye sheets and the
+  formal stage reading are kept as the negative's evidence. No changeset, release, publication
+  or canonical capture-tree move. X9: the owner and all four sub-workers ran on `opus`;
+  reviews are the gate's.
 
 - 2026-09-29 (G1's merge, the parent): merged `8ee41aa1` after an independent gate review
   (reviewer-high). The review found no runtime defect. It verified the CPU and WGSL law, the

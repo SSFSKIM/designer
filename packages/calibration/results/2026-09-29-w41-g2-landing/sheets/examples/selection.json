@@ -1,0 +1,536 @@
+{
+  "declaration": "examples-declaration.json",
+  "declarationSha256": "966007c045bd0366c6179b9a5d53af5743dea44d6e10bac67590426aecdc8838",
+  "examples": [
+    {
+      "ordinal": 1,
+      "bed": "canonical",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "sceneId": "photo__rrect-md__inactive",
+      "reason": "Light-inactive photo at 1x: the known risk. G1 sheet 06 showed E3 turning texture-period luma into chroma mottling (c9a §5.192 §20); this is the same cell, now shipped.",
+      "runInventory": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/inventory.json",
+      "runInventorySha256": "b21c22283d69b048b5d772803eea2a3862045b0e0e6114d122d05b08bf83d4b3",
+      "preEqualsNowBytes": false,
+      "distances": {
+        "pixels": 64000,
+        "meanDeltaENow": 0.004471,
+        "meanDeltaEPre": 0.009116,
+        "changedPixels": 15064,
+        "changedMeanDeltaEPre": 0.035598,
+        "changedMeanDeltaENow": 0.015864,
+        "closerFraction": 0.919079
+      },
+      "files": {
+        "html": {
+          "path": "examples/01__canonical__apple-macos-27.0-1x-light-standard-glass0.5__photo__rrect-md__inactive.html",
+          "sha256": "60b6242fe9d3bd5b4d14b4f178cc83fdd7d7ebe3e4fbdb5f3a1be1eefde339ce",
+          "scratchPath": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/canonical__apple-macos-27.0-1x-light-standard-glass0.5__photo__rrect-md__inactive.html"
+        },
+        "png": {
+          "path": "examples/01__canonical__apple-macos-27.0-1x-light-standard-glass0.5__photo__rrect-md__inactive.png",
+          "sha256": "76799010b4aa069a6de74ec63ff08349d3b76683c5e4624e71a05082ca7f3388",
+          "scratchPath": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/canonical__apple-macos-27.0-1x-light-standard-glass0.5__photo__rrect-md__inactive.png"
+        }
+      }
+    },
+    {
+      "ordinal": 2,
+      "bed": "canonical",
+      "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "sceneId": "photo__rrect-sm__inactive",
+      "reason": "Light-inactive photo at 2x on the small footprint: G1 sheet 07, where residual patches were redistributed rather than removed.",
+      "runInventory": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/inventory.json",
+      "runInventorySha256": "b21c22283d69b048b5d772803eea2a3862045b0e0e6114d122d05b08bf83d4b3",
+      "preEqualsNowBytes": false,
+      "distances": {
+        "pixels": 256000,
+        "meanDeltaENow": 0.000916,
+        "meanDeltaEPre": 0.000769,
+        "changedPixels": 8006,
+        "changedMeanDeltaEPre": 0.019971,
+        "changedMeanDeltaENow": 0.024669,
+        "closerFraction": 0.423432
+      },
+      "files": {
+        "html": {
+          "path": "examples/02__canonical__apple-macos-27.0-2x-light-standard-glass0.5__photo__rrect-sm__inactive.html",
+          "sha256": "1544ed6787af2e5cb40a20b0e02e097963cbfc90f4a8b4d1cab7b9becb2bfcf9",
+          "scratchPath": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/canonical__apple-macos-27.0-2x-light-standard-glass0.5__photo__rrect-sm__inactive.html"
+        },
+        "png": {
+          "path": "examples/02__canonical__apple-macos-27.0-2x-light-standard-glass0.5__photo__rrect-sm__inactive.png",
+          "sha256": "6020fae3693371eec73f72d9137d7d27ccf7c5fa46e4b4dfb3ad414a5f541119",
+          "scratchPath": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/canonical__apple-macos-27.0-2x-light-standard-glass0.5__photo__rrect-sm__inactive.png"
+        }
+      }
+    },
+    {
+      "ordinal": 3,
+      "bed": "canonical",
+      "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "sceneId": "photo__rrect-md__inactive",
+      "reason": "Light-inactive photo at 2x on the same footprint as the 1x cell, so the two scales pair directly.",
+      "runInventory": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/inventory.json",
+      "runInventorySha256": "b21c22283d69b048b5d772803eea2a3862045b0e0e6114d122d05b08bf83d4b3",
+      "preEqualsNowBytes": false,
+      "distances": {
+        "pixels": 256000,
+        "meanDeltaENow": 0.004823,
+        "meanDeltaEPre": 0.008856,
+        "changedPixels": 60133,
+        "changedMeanDeltaEPre": 0.036236,
+        "changedMeanDeltaENow": 0.019064,
+        "closerFraction": 0.880798
+      },
+      "files": {
+        "html": {
+          "path": "examples/03__canonical__apple-macos-27.0-2x-light-standard-glass0.5__photo__rrect-md__inactive.html",
+          "sha256": "e639af596b900c9182494b806de3f80162407859dac5500155975f308bd5ff33",
+          "scratchPath": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/canonical__apple-macos-27.0-2x-light-standard-glass0.5__photo__rrect-md__inactive.html"
+        },
+        "png": {
+          "path": "examples/03__canonical__apple-macos-27.0-2x-light-standard-glass0.5__photo__rrect-md__inactive.png",
+          "sha256": "33a7072ba99677c6d2fa61e4780bd9a1177d4ed81f7daf26d7e64de57c998394",
+          "scratchPath": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/canonical__apple-macos-27.0-2x-light-standard-glass0.5__photo__rrect-md__inactive.png"
+        }
+      }
+    },
+    {
+      "ordinal": 4,
+      "bed": "canonical",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "sceneId": "checkerboard__rrect-md__inactive",
+      "reason": "Checkerboard, light inactive: a high-contrast periodic backdrop where luma-to-chroma conversion would show as a colour period.",
+      "runInventory": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/inventory.json",
+      "runInventorySha256": "b21c22283d69b048b5d772803eea2a3862045b0e0e6114d122d05b08bf83d4b3",
+      "preEqualsNowBytes": false,
+      "distances": {
+        "pixels": 64000,
+        "meanDeltaENow": 0.01924,
+        "meanDeltaEPre": 0.008406,
+        "changedPixels": 15065,
+        "changedMeanDeltaEPre": 0.024565,
+        "changedMeanDeltaENow": 0.07059,
+        "closerFraction": 0.024959
+      },
+      "files": {
+        "html": {
+          "path": "examples/04__canonical__apple-macos-27.0-1x-light-standard-glass0.5__checkerboard__rrect-md__inactive.html",
+          "sha256": "6f4ce58b7f7ac626e75c27b12d0c191d9fcb407ad5babc619d087abc19f2c693",
+          "scratchPath": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/canonical__apple-macos-27.0-1x-light-standard-glass0.5__checkerboard__rrect-md__inactive.html"
+        },
+        "png": {
+          "path": "examples/04__canonical__apple-macos-27.0-1x-light-standard-glass0.5__checkerboard__rrect-md__inactive.png",
+          "sha256": "44eff6579c399ee37f492e11ca094d3912c9131faa132410795b863b274e7133",
+          "scratchPath": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/canonical__apple-macos-27.0-1x-light-standard-glass0.5__checkerboard__rrect-md__inactive.png"
+        }
+      }
+    },
+    {
+      "ordinal": 5,
+      "bed": "canonical",
+      "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "sceneId": "impulse__rrect-md__inactive",
+      "reason": "Impulse, light inactive at 2x: a localized bright structure under the body.",
+      "runInventory": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/inventory.json",
+      "runInventorySha256": "b21c22283d69b048b5d772803eea2a3862045b0e0e6114d122d05b08bf83d4b3",
+      "preEqualsNowBytes": false,
+      "distances": {
+        "pixels": 256000,
+        "meanDeltaENow": 0.002726,
+        "meanDeltaEPre": 0.006529,
+        "changedPixels": 59145,
+        "changedMeanDeltaEPre": 0.02773,
+        "changedMeanDeltaENow": 0.011269,
+        "closerFraction": 0.870758
+      },
+      "files": {
+        "html": {
+          "path": "examples/05__canonical__apple-macos-27.0-2x-light-standard-glass0.5__impulse__rrect-md__inactive.html",
+          "sha256": "f31b29bd515c099b93d8143bd859d3b6251128e4529f5f7eaf4dfa80830ace3a",
+          "scratchPath": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/canonical__apple-macos-27.0-2x-light-standard-glass0.5__impulse__rrect-md__inactive.html"
+        },
+        "png": {
+          "path": "examples/05__canonical__apple-macos-27.0-2x-light-standard-glass0.5__impulse__rrect-md__inactive.png",
+          "sha256": "417adedcb644ab54181c0655565a4e44dbe60866102e22a90f9fba4433fdbceb",
+          "scratchPath": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/canonical__apple-macos-27.0-2x-light-standard-glass0.5__impulse__rrect-md__inactive.png"
+        }
+      }
+    },
+    {
+      "ordinal": 6,
+      "bed": "canonical",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "sceneId": "light-solid__rrect-md__inactive",
+      "reason": "Light solid: a uniform backdrop, inside the uniform-body claim.",
+      "runInventory": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/inventory.json",
+      "runInventorySha256": "b21c22283d69b048b5d772803eea2a3862045b0e0e6114d122d05b08bf83d4b3",
+      "preEqualsNowBytes": false,
+      "distances": {
+        "pixels": 64000,
+        "meanDeltaENow": 0.001719,
+        "meanDeltaEPre": 0.001334,
+        "changedPixels": 14992,
+        "changedMeanDeltaEPre": 0.001658,
+        "changedMeanDeltaENow": 0.003304,
+        "closerFraction": 0.005603
+      },
+      "files": {
+        "html": {
+          "path": "examples/06__canonical__apple-macos-27.0-1x-light-standard-glass0.5__light-solid__rrect-md__inactive.html",
+          "sha256": "a846207722cd0f806167881903bf83e78b958f0cacad7e0b878f46458a628bfa",
+          "scratchPath": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/canonical__apple-macos-27.0-1x-light-standard-glass0.5__light-solid__rrect-md__inactive.html"
+        },
+        "png": {
+          "path": "examples/06__canonical__apple-macos-27.0-1x-light-standard-glass0.5__light-solid__rrect-md__inactive.png",
+          "sha256": "abaa850bd112279b1ea383d8c6e4838db7010057c13af19dcb9f8a3ab6e89280",
+          "scratchPath": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/canonical__apple-macos-27.0-1x-light-standard-glass0.5__light-solid__rrect-md__inactive.png"
+        }
+      }
+    },
+    {
+      "ordinal": 7,
+      "bed": "canonical",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "sceneId": "mid-chroma-solid__rrect-lg__inactive",
+      "reason": "Chromatic solid (probe): a saturated uniform backdrop, where E3 should act most directly.",
+      "runInventory": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/inventory.json",
+      "runInventorySha256": "b21c22283d69b048b5d772803eea2a3862045b0e0e6114d122d05b08bf83d4b3",
+      "preEqualsNowBytes": false,
+      "distances": {
+        "pixels": 64000,
+        "meanDeltaENow": 0.002291,
+        "meanDeltaEPre": 0.047517,
+        "changedPixels": 43872,
+        "changedMeanDeltaEPre": 0.067883,
+        "changedMeanDeltaENow": 0.001908,
+        "closerFraction": 0.998085
+      },
+      "files": {
+        "html": {
+          "path": "examples/07__canonical__apple-macos-27.0-1x-light-standard-glass0.5__mid-chroma-solid__rrect-lg__inactive.html",
+          "sha256": "d973da8afed9deccd2926ef1341ee5c4e9c91a734a9b68825c9000dae20c7c64",
+          "scratchPath": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/canonical__apple-macos-27.0-1x-light-standard-glass0.5__mid-chroma-solid__rrect-lg__inactive.html"
+        },
+        "png": {
+          "path": "examples/07__canonical__apple-macos-27.0-1x-light-standard-glass0.5__mid-chroma-solid__rrect-lg__inactive.png",
+          "sha256": "9cda1d3ead2bc3a02be05008f93c2e7fef5a0b5c35ade9817190e4baea6012fa",
+          "scratchPath": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/canonical__apple-macos-27.0-1x-light-standard-glass0.5__mid-chroma-solid__rrect-lg__inactive.png"
+        }
+      }
+    },
+    {
+      "ordinal": 8,
+      "bed": "canonical",
+      "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "sceneId": "dark-solid__rrect-md__inactive",
+      "reason": "Dark solid at 2x: the low end, beside W36's black branch.",
+      "runInventory": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/inventory.json",
+      "runInventorySha256": "b21c22283d69b048b5d772803eea2a3862045b0e0e6114d122d05b08bf83d4b3",
+      "preEqualsNowBytes": false,
+      "distances": {
+        "pixels": 256000,
+        "meanDeltaENow": 0.000295,
+        "meanDeltaEPre": 0.000292,
+        "changedPixels": 804,
+        "changedMeanDeltaEPre": 0.027392,
+        "changedMeanDeltaENow": 0.028324,
+        "closerFraction": 0.313433
+      },
+      "files": {
+        "html": {
+          "path": "examples/08__canonical__apple-macos-27.0-2x-light-standard-glass0.5__dark-solid__rrect-md__inactive.html",
+          "sha256": "b7615ffb8e62618d53c1f2f5f03c5f9fd2d38eba3cae20eba775d79dfee6a3ea",
+          "scratchPath": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/canonical__apple-macos-27.0-2x-light-standard-glass0.5__dark-solid__rrect-md__inactive.html"
+        },
+        "png": {
+          "path": "examples/08__canonical__apple-macos-27.0-2x-light-standard-glass0.5__dark-solid__rrect-md__inactive.png",
+          "sha256": "26733399d96819228dea34babe188a4dcf4388042dad4e9b7028bf48e214cb79",
+          "scratchPath": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/canonical__apple-macos-27.0-2x-light-standard-glass0.5__dark-solid__rrect-md__inactive.png"
+        }
+      }
+    },
+    {
+      "ordinal": 9,
+      "bed": "canonical",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "sceneId": "photo__capsule-button__inactive-tint-orange",
+      "reason": "Tinted: an author tint composed after the body over a photo.",
+      "runInventory": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/inventory.json",
+      "runInventorySha256": "b21c22283d69b048b5d772803eea2a3862045b0e0e6114d122d05b08bf83d4b3",
+      "preEqualsNowBytes": false,
+      "distances": {
+        "pixels": 64000,
+        "meanDeltaENow": 0.005977,
+        "meanDeltaEPre": 0.006004,
+        "changedPixels": 3531,
+        "changedMeanDeltaEPre": 0.068712,
+        "changedMeanDeltaENow": 0.068221,
+        "closerFraction": 0.62277
+      },
+      "files": {
+        "html": {
+          "path": "examples/09__canonical__apple-macos-27.0-1x-light-standard-glass0.5__photo__capsule-button__inactive-tint-orange.html",
+          "sha256": "7a326bff0112d6992f18544672130c7ea3400964a0947f6cc09ce7e491a7feb1",
+          "scratchPath": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/canonical__apple-macos-27.0-1x-light-standard-glass0.5__photo__capsule-button__inactive-tint-orange.html"
+        },
+        "png": {
+          "path": "examples/09__canonical__apple-macos-27.0-1x-light-standard-glass0.5__photo__capsule-button__inactive-tint-orange.png",
+          "sha256": "ef58951cac65e92e859c0976616e7d136f44a6f869ed06d2c3b9fe439b517740",
+          "scratchPath": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/canonical__apple-macos-27.0-1x-light-standard-glass0.5__photo__capsule-button__inactive-tint-orange.png"
+        }
+      }
+    },
+    {
+      "ordinal": 10,
+      "bed": "canonical",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "sceneId": "photo__toolbar-group__inactive",
+      "reason": "Toolbar group: several members sampled as one group over a photo.",
+      "runInventory": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/inventory.json",
+      "runInventorySha256": "b21c22283d69b048b5d772803eea2a3862045b0e0e6114d122d05b08bf83d4b3",
+      "preEqualsNowBytes": false,
+      "distances": {
+        "pixels": 64000,
+        "meanDeltaENow": 0.002051,
+        "meanDeltaEPre": 0.003171,
+        "changedPixels": 4719,
+        "changedMeanDeltaEPre": 0.036199,
+        "changedMeanDeltaENow": 0.021016,
+        "closerFraction": 0.651833
+      },
+      "files": {
+        "html": {
+          "path": "examples/10__canonical__apple-macos-27.0-1x-light-standard-glass0.5__photo__toolbar-group__inactive.html",
+          "sha256": "f3da3fa45415d7eb72eb63ab8320a73710e45490b064af27ccdc63cb90f9c3c1",
+          "scratchPath": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/canonical__apple-macos-27.0-1x-light-standard-glass0.5__photo__toolbar-group__inactive.html"
+        },
+        "png": {
+          "path": "examples/10__canonical__apple-macos-27.0-1x-light-standard-glass0.5__photo__toolbar-group__inactive.png",
+          "sha256": "cf01d16def3734a7f5f8c28a20abb47256936e3c4579a4a0d451f1f74f06e950",
+          "scratchPath": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/canonical__apple-macos-27.0-1x-light-standard-glass0.5__photo__toolbar-group__inactive.png"
+        }
+      }
+    },
+    {
+      "ordinal": 11,
+      "bed": "canonical",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "sceneId": "photo__rrect-md__rest",
+      "reason": "Active control: E3 is receded-only, so pre-W41 and now must be identical.",
+      "runInventory": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/inventory.json",
+      "runInventorySha256": "b21c22283d69b048b5d772803eea2a3862045b0e0e6114d122d05b08bf83d4b3",
+      "preEqualsNowBytes": true,
+      "distances": {
+        "pixels": 64000,
+        "meanDeltaENow": 0.011756,
+        "meanDeltaEPre": 0.011756,
+        "changedPixels": 0
+      },
+      "files": {
+        "html": {
+          "path": "examples/11__canonical__apple-macos-27.0-1x-light-standard-glass0.5__photo__rrect-md__rest.html",
+          "sha256": "34aade57bd48d9698b7f5b91549c90d084defc245fba80b9da2afc651202ea34",
+          "scratchPath": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/canonical__apple-macos-27.0-1x-light-standard-glass0.5__photo__rrect-md__rest.html"
+        },
+        "png": {
+          "path": "examples/11__canonical__apple-macos-27.0-1x-light-standard-glass0.5__photo__rrect-md__rest.png",
+          "sha256": "cd94d2ec62a7b5201100b7f7afc9edf34ae23b3aafc153a1b81a7b559e70c9cf",
+          "scratchPath": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/canonical__apple-macos-27.0-1x-light-standard-glass0.5__photo__rrect-md__rest.png"
+        }
+      }
+    },
+    {
+      "ordinal": 13,
+      "bed": "w39",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "sceneId": "factor-y1-c24-h120-colour__inactive",
+      "reason": "W39 uniform colour, light inactive: G1 example 02, the claimed uniform body.",
+      "runInventory": "/Users/new/vitrea-w41/g2-captures/sheets/w39-examples-1/inventory.json",
+      "runInventorySha256": "5c7aec4fa7951fdefca257650c31691a03960d72fea843ab084279e034f5112a",
+      "preEqualsNowBytes": false,
+      "distances": {
+        "pixels": 89600,
+        "meanDeltaENow": 0.000361,
+        "meanDeltaEPre": 0.0011,
+        "changedPixels": 4920,
+        "changedMeanDeltaEPre": 0.015031,
+        "changedMeanDeltaENow": 0.001568,
+        "closerFraction": 1
+      },
+      "files": {
+        "html": {
+          "path": "examples/13__w39__apple-macos-27.0-1x-light-standard-glass0.5__factor-y1-c24-h120-colour__inactive.html",
+          "sha256": "91442dbc22394032852055f5d73483c0ef6f1b8a12d8f52fc21386b32e9f8cfb",
+          "scratchPath": "/Users/new/vitrea-w41/g2-captures/sheets/w39-examples-1/w39__apple-macos-27.0-1x-light-standard-glass0.5__factor-y1-c24-h120-colour__inactive.html"
+        },
+        "png": {
+          "path": "examples/13__w39__apple-macos-27.0-1x-light-standard-glass0.5__factor-y1-c24-h120-colour__inactive.png",
+          "sha256": "f3b8584e3554e63532680625f8af9cbcbe9779992e26cba99ef2a2fee1947532",
+          "scratchPath": "/Users/new/vitrea-w41/g2-captures/sheets/w39-examples-1/w39__apple-macos-27.0-1x-light-standard-glass0.5__factor-y1-c24-h120-colour__inactive.png"
+        }
+      }
+    },
+    {
+      "ordinal": 14,
+      "bed": "w39",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "sceneId": "v90-c-c44__inactive",
+      "reason": "W39 gradient, light inactive: G1 example 05, a structured case outside the claim.",
+      "runInventory": "/Users/new/vitrea-w41/g2-captures/sheets/w39-examples-1/inventory.json",
+      "runInventorySha256": "5c7aec4fa7951fdefca257650c31691a03960d72fea843ab084279e034f5112a",
+      "preEqualsNowBytes": false,
+      "distances": {
+        "pixels": 89600,
+        "meanDeltaENow": 0.000493,
+        "meanDeltaEPre": 0.001018,
+        "changedPixels": 4908,
+        "changedMeanDeltaEPre": 0.012632,
+        "changedMeanDeltaENow": 0.003058,
+        "closerFraction": 0.977995
+      },
+      "files": {
+        "html": {
+          "path": "examples/14__w39__apple-macos-27.0-1x-light-standard-glass0.5__v90-c-c44__inactive.html",
+          "sha256": "811071acef01c604c97e31abdb2914c7a066b084c21c4bb8e5587036c1f4edd3",
+          "scratchPath": "/Users/new/vitrea-w41/g2-captures/sheets/w39-examples-1/w39__apple-macos-27.0-1x-light-standard-glass0.5__v90-c-c44__inactive.html"
+        },
+        "png": {
+          "path": "examples/14__w39__apple-macos-27.0-1x-light-standard-glass0.5__v90-c-c44__inactive.png",
+          "sha256": "7366eb56dc47947eaa7f568317c0451d03c1b53a9582c57819cbe39caf29f273",
+          "scratchPath": "/Users/new/vitrea-w41/g2-captures/sheets/w39-examples-1/w39__apple-macos-27.0-1x-light-standard-glass0.5__v90-c-c44__inactive.png"
+        }
+      }
+    },
+    {
+      "ordinal": 15,
+      "bed": "canonical",
+      "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "sceneId": "checkerboard__rrect-md__inactive",
+      "reason": "Checkerboard at 2x, pairing example 4; L1 fails on every inactive checkerboard cell.",
+      "runInventory": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/inventory.json",
+      "runInventorySha256": "b21c22283d69b048b5d772803eea2a3862045b0e0e6114d122d05b08bf83d4b3",
+      "preEqualsNowBytes": false,
+      "distances": {
+        "pixels": 256000,
+        "meanDeltaENow": 0.01674,
+        "meanDeltaEPre": 0.003654,
+        "changedPixels": 60132,
+        "changedMeanDeltaEPre": 0.011054,
+        "changedMeanDeltaENow": 0.066765,
+        "closerFraction": 0.012506
+      },
+      "files": {
+        "html": {
+          "path": "examples/15__canonical__apple-macos-27.0-2x-light-standard-glass0.5__checkerboard__rrect-md__inactive.html",
+          "sha256": "20d8bf05e2d90371d40840e6188c9128b2068b58fecfdb5d6f9bc91bdf9e6205",
+          "scratchPath": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/canonical__apple-macos-27.0-2x-light-standard-glass0.5__checkerboard__rrect-md__inactive.html"
+        },
+        "png": {
+          "path": "examples/15__canonical__apple-macos-27.0-2x-light-standard-glass0.5__checkerboard__rrect-md__inactive.png",
+          "sha256": "e3542cc25967a7786b187e9a587122d1303c7cc72ec9c973e70879062e299011",
+          "scratchPath": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/canonical__apple-macos-27.0-2x-light-standard-glass0.5__checkerboard__rrect-md__inactive.png"
+        }
+      }
+    },
+    {
+      "ordinal": 16,
+      "bed": "canonical",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "sceneId": "impulse__rrect-md__inactive",
+      "reason": "Impulse at 1x, pairing example 5.",
+      "runInventory": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/inventory.json",
+      "runInventorySha256": "b21c22283d69b048b5d772803eea2a3862045b0e0e6114d122d05b08bf83d4b3",
+      "preEqualsNowBytes": false,
+      "distances": {
+        "pixels": 64000,
+        "meanDeltaENow": 0.002986,
+        "meanDeltaEPre": 0.006556,
+        "changedPixels": 14333,
+        "changedMeanDeltaEPre": 0.027858,
+        "changedMeanDeltaENow": 0.011916,
+        "closerFraction": 0.963999
+      },
+      "files": {
+        "html": {
+          "path": "examples/16__canonical__apple-macos-27.0-1x-light-standard-glass0.5__impulse__rrect-md__inactive.html",
+          "sha256": "6ca703211d99bd4678a686e380c3caf458d4e18553e999b6a952ca372fa04a02",
+          "scratchPath": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/canonical__apple-macos-27.0-1x-light-standard-glass0.5__impulse__rrect-md__inactive.html"
+        },
+        "png": {
+          "path": "examples/16__canonical__apple-macos-27.0-1x-light-standard-glass0.5__impulse__rrect-md__inactive.png",
+          "sha256": "efef3f5e8e5ee3fec2a6df63c37ea51ff3f0b8b8537d018459e9c9516c2ea75b",
+          "scratchPath": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/canonical__apple-macos-27.0-1x-light-standard-glass0.5__impulse__rrect-md__inactive.png"
+        }
+      }
+    },
+    {
+      "ordinal": 17,
+      "bed": "canonical",
+      "profileKey": "apple-macos-27.0-1x-light-standard-glass0.5",
+      "sceneId": "hc-text__rrect-lg__inactive",
+      "reason": "High-contrast text (probe) at 1x: structured light-inactive backdrop, requested by the owner.",
+      "runInventory": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/inventory.json",
+      "runInventorySha256": "b21c22283d69b048b5d772803eea2a3862045b0e0e6114d122d05b08bf83d4b3",
+      "preEqualsNowBytes": false,
+      "distances": {
+        "pixels": 64000,
+        "meanDeltaENow": 0.03428,
+        "meanDeltaEPre": 0.016195,
+        "changedPixels": 43868,
+        "changedMeanDeltaEPre": 0.018442,
+        "changedMeanDeltaENow": 0.044826,
+        "closerFraction": 0.214484
+      },
+      "files": {
+        "html": {
+          "path": "examples/17__canonical__apple-macos-27.0-1x-light-standard-glass0.5__hc-text__rrect-lg__inactive.html",
+          "sha256": "090a8eb019ba9b4891216cdc27fb1d611530c1c95435638dfd7feb1f847b0c58",
+          "scratchPath": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/canonical__apple-macos-27.0-1x-light-standard-glass0.5__hc-text__rrect-lg__inactive.html"
+        },
+        "png": {
+          "path": "examples/17__canonical__apple-macos-27.0-1x-light-standard-glass0.5__hc-text__rrect-lg__inactive.png",
+          "sha256": "352a35541291582c28e1c40a21161c180d66fd663d864179c97e824eec0e467d",
+          "scratchPath": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/canonical__apple-macos-27.0-1x-light-standard-glass0.5__hc-text__rrect-lg__inactive.png"
+        }
+      }
+    },
+    {
+      "ordinal": 18,
+      "bed": "canonical",
+      "profileKey": "apple-macos-27.0-2x-light-standard-glass0.5",
+      "sceneId": "hc-text__rrect-lg__inactive",
+      "reason": "High-contrast text (probe) at 2x.",
+      "runInventory": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/inventory.json",
+      "runInventorySha256": "b21c22283d69b048b5d772803eea2a3862045b0e0e6114d122d05b08bf83d4b3",
+      "preEqualsNowBytes": false,
+      "distances": {
+        "pixels": 256000,
+        "meanDeltaENow": 0.032268,
+        "meanDeltaEPre": 0.013129,
+        "changedPixels": 175265,
+        "changedMeanDeltaEPre": 0.016571,
+        "changedMeanDeltaENow": 0.044525,
+        "closerFraction": 0.214589
+      },
+      "files": {
+        "html": {
+          "path": "examples/18__canonical__apple-macos-27.0-2x-light-standard-glass0.5__hc-text__rrect-lg__inactive.html",
+          "sha256": "2cdbf176464442e860e1e9c50cd922b0b55d5f8ce1f5a75ed1c8db2f9cb4be4d",
+          "scratchPath": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/canonical__apple-macos-27.0-2x-light-standard-glass0.5__hc-text__rrect-lg__inactive.html"
+        },
+        "png": {
+          "path": "examples/18__canonical__apple-macos-27.0-2x-light-standard-glass0.5__hc-text__rrect-lg__inactive.png",
+          "sha256": "f2d3e7a9a1f32919efb62b2ca9b9a69581f4869404fffe0bb142e3206a38dfee",
+          "scratchPath": "/Users/new/vitrea-w41/g2-captures/sheets/canonical-1/canonical__apple-macos-27.0-2x-light-standard-glass0.5__hc-text__rrect-lg__inactive.png"
+        }
+      }
+    }
+  ],
+  "pendingOrdinals": [],
+  "amendment": "examples-amendment.json",
+  "amendmentSha256": "d877c6d01fdac9c2a10704b9cd4343e5f3785d02cc9d60d9fccb01c466639b8a",
+  "withdrawnOrdinals": [
+    12
+  ]
+}

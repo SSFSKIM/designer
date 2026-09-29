@@ -363,9 +363,16 @@ measurement): their six amplitude anchors, `liftAmplitude` and `reducedTranspare
 **0**, because Apple's unfocused window removes no light from 3 CSS px outward on any of the 121
 non-holdout inactive rows the bed carries — the native transmission reads exactly 1.000000 in every
 band and the capture is byte-identical to the backdrop from 2 device px out. Their lengths stay the
-active document's and are recorded as unread, since nothing draws at zero amplitude. What Apple's
-macOS 27 material does have, in both poses, is a contour term vitrea does not draw. W33 found
-its angular/colour/coverage law unidentified on this bed, not absent (Decision Log 3, ruled).
+active document's and are recorded as unread, since nothing draws at zero amplitude. On the CSS
+tier the window-activation transition therefore fades the shadow OUT, which is what the reference
+does; on the WebGPU tier the posed profile is swapped the instant the resolved activation changes
+and the shadow leaves in one frame (a tracker entry). The frozen macOS 26.5 receded material draws
+**no outer shadow either, and never did**: `receded-profile.ts`'s shared block sets all eight
+`outerShadow` leaves to 0, so the 26.5 recede has removed no light since W27c. The macOS 27
+endpoints are the ones this wave moved, from their active document's anchors to zero.
+
+What Apple's macOS 27 material does have, in both poses, is a contour term vitrea does not draw.
+W33 found its angular/colour/coverage law unidentified on this bed, not absent (Decision Log 3, ruled).
 The next identifying capture is §5.171's path-attested circular capsules beside continuous ones,
 matched continuous rectangles, uniform and gradient/frequency controls, independent x/y subpixel
 phases at 1x/2x, colour-managed no-glass references and repeats before thresholds, with the split
@@ -415,14 +422,21 @@ And Apple draws a **dark contour outside its path**, within one or two device pi
 both backdrop and body (inactive on white 199.5 light / 145.5 dark against 255 and bodies 240 /
 180), strongly angular and backdrop-conditioned, which vitrea does not draw in either pose. The
 phase mechanism is unreachable on the size actuator as it was on W34's. The W39 holdout was never
-opened and serves the next declaration on the same archive (W39 Deferred at close 1–5). On the
-CSS tier the
-window-activation transition therefore fades the shadow OUT, which is what the reference does;
-on the WebGPU tier the posed profile is swapped the instant the resolved
-activation changes and the shadow leaves in one frame (a tracker entry). The frozen macOS 26.5
-receded material draws **no outer shadow either, and never did**: `receded-profile.ts`'s shared
-block sets all eight `outerShadow` leaves to 0, so the 26.5 recede has removed no light since W27c.
-The macOS 27 endpoints are the ones this wave moved, from their active document's anchors to zero.
+opened and serves the next declaration on the same archive (W39 Deferred at close 1–5).
+**W41 (§5.191–§5.193, 2026-09-27/29) re-read that archive with no new capture, spent its holdout
+in one exposure, and shipped nothing.** It identified **E3**, the light RECEDED body only: luma
+through F, a curve of seven measured neutral ordinates, plus a level-dependent radial chroma gain
+g, both on encoded luma. E3 closes at one code on uniform backdrops, on 18/18 numerical and 16/16
+rendered held-out cells. The dark scheme is certified infeasible and light active fails its
+span-96 transfer. Sealed and read on the canonical bed, E3 failed L1 on every inactive
+checkerboard cell (body 210 codes where native and the old group-level solve read 188) and moved
+M2 on photo. Applied per pixel, it keeps backdrop texture that Apple's receded body smooths
+away, so the user ruled not to land. Its zero-gated identity-table group stays at the identity
+in every document. The spatial families are a calibration finding with no held-out referee. No
+stroke leaf survives: its M2 search is UNMEASURED by ruling, and the dark contour stays a gap.
+The next wave starts at the receded body's spatial argument: group luma, a wider or
+encoded-space blur, or a blend. Its referees are those canonical cells, plus a new native
+capture whose holdout carries structured backdrops (W41 Deferred at close 1–7).
 
 **The fidelity discipline.** `docs/doperpowers/specs/c9a-fidelity-claims.md` is the ledger: every
 measurement, every adopted bound, every floor and why. Work runs as waves (composite specs dated

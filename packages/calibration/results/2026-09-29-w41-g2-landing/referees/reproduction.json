@@ -1,0 +1,76 @@
+{
+ "chroma-cut": {
+  "w36": "results/2026-09-24-w36-g1-black-branch/chroma-cut.json",
+  "w36Sha256": "b66c6c17c783781bf0493868091673a4060fd9e4b6202211c0b3131a12b4d05f",
+  "portSha256": "956a2f19361360df5df5fa22fe2e45bc2c3f3bccb13150c5b39f0c74f2a81a29",
+  "differingTopLevelFields": [
+   "generatedAt",
+   "referenceGeneration"
+  ],
+  "explained": {
+   "generatedAt": "a wall-clock stamp, different on every run",
+   "referenceGeneration": "gains recededDocumentSha256 per scheme {\"dark\": \"4e68f81869f6\", \"light\": \"45acb6d916b9\"}: W40 generations are pairs; post-W41 the light active hash owns two files"
+  },
+  "bytesEqualWithThoseTwoRestored": true
+ },
+ "m2-rebaseline": {
+  "w36Sha256": "dc1d9b4efe86e4bc7130eb4c3cea4688d77ff347f35263899fa37adb43e6f40f",
+  "onW36CutByteIdentical": true,
+  "onPortedCutBytesEqualWithoutRecededField": true
+ },
+ "exterior-cut": {
+  "w36Sha256": "f3310f04279015c3a822dfc5dade66d35d14d0bffa7459cb1a6883d48a04d820",
+  "portSha256": "7ab8de83e4e1ba02980e66a38ea5d105d6802666d9e0b0aa5508d1e131ecfc01",
+  "differingTopLevelFields": [
+   "source"
+  ],
+  "explained": {
+   "source": "W36 recorded its worktree path '/Users/new/Developer/GitHub/designer/.claude/worktrees/w36-g1-black-branch/packages/calibration/results/matrix.json'; the port records 'current union: results/matrix.json + results/generations/index.json'"
+  },
+  "bytesEqualWithSourceRestored": true
+ },
+ "l1-cut": {
+  "w36Sha256": "ca14c7acc88b3efaf2d0c0190f84e7a86ada85df490a9d8ec1c96d7f8af8947c",
+  "portSha256": "ca14c7acc88b3efaf2d0c0190f84e7a86ada85df490a9d8ec1c96d7f8af8947c",
+  "byteIdentical": true
+ },
+ "black-cut": {
+  "w36Sha256": "328f18dcf582912bbb9320728ac39cdd00ef762f16fef17c150414f6206d0386",
+  "portSha256": "328f18dcf582912bbb9320728ac39cdd00ef762f16fef17c150414f6206d0386",
+  "byteIdentical": true
+ },
+ "e2-regression": {
+  "baselineSha256": "63ed309054973fddbc846982391947e0f6f70f7d1d69d43590aabc4f19e6fc4d",
+  "summarySha256": "86c2ee9421bee4a3305c43e5c9b6a6a2f1994e9db7edd802ab43701f8fbf501c",
+  "binsSha256": "86c24af419a9d45293c066f0f715bd7b1469ef6ead3a3df2768f9643449b93f5",
+  "cells": 212,
+  "pngs": {
+   "absent": [],
+   "differs": [],
+   "identical": 212
+  },
+  "rowsIdenticalExceptGeneration": 212,
+  "bins": {
+   "FAIL": 0,
+   "LOST": 0,
+   "NO_BASELINE": 0,
+   "UNMEASURED": 1488,
+   "measuredBoth": 7728,
+   "total": 9216,
+   "within": 7728
+  },
+  "worstDelta": {
+   "bin": 0,
+   "cell": "apple-macos-27.0-1x-dark-standard-glass0.5/checkerboard-32__capsule-button__rest",
+   "deltaRGB": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "worstDelta": 0.0
+  },
+  "holds": true,
+  "e2SummaryEqualsPinned": true
+ },
+ "allReproduce": true
+}

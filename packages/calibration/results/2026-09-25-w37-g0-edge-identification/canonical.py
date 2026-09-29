@@ -39,12 +39,28 @@ def native_cell(reader,cell):
     return image,d,bins,deep,hashlib.sha256(raw).hexdigest(),scale
 
 
+def document_bytes(name,sha):
+    """The bytes a capture path's 12-hex document hash names (W41 G2, c9a §5.193).
+
+    A later seal can put new bytes at a document's path. The live file is used while it
+    still hashes to `sha`; otherwise only a byte-exact retired copy of the same document,
+    committed under some gate's `retired-documents/`, is admitted. Nothing else is.
+    """
+    live=(ROOT/name).read_bytes()
+    if hashlib.sha256(live).hexdigest().startswith(sha):return live
+    stem=Path(name).name[:-len('.json')]
+    for copy in sorted(CAL.glob('results/*/retired-documents/'+stem+'.*.json')):
+        raw=copy.read_bytes()
+        if hashlib.sha256(raw).hexdigest().startswith(sha):return raw
+    return live
+
+
 def generation(reader,cell,row):
     meta=json.loads(reader.read(cell,'metadata'))
     assert meta['capturePath']==row['key']['web']['capturePath']
     docs=re.findall(r'(?:materialProfile|recededProfile)=(\S+) sha256:([0-9a-f]{12})',meta['capturePath'])
     assert len(docs)==2
-    for name,sha in docs:assert hashlib.sha256((ROOT/name).read_bytes()).hexdigest()[:12]==sha
+    for name,sha in docs:assert hashlib.sha256(document_bytes(name,sha)).hexdigest()[:12]==sha
     assert meta['deterministic'] and meta['repeatNoise']==0
     assert row['key']['web']['renderer']=='webgpu' and row['key']['web']['samplingBackend']=='gpu-texture'
     return meta

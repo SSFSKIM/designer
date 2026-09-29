@@ -1,0 +1,100 @@
+
+ RUN  v4.1.11 /Users/new/vitrea-w41/g2/packages/calibration
+
+ ❯ test/adopted-thresholds.test.ts (101 tests | 2 failed | 1 skipped) 203ms
+     × reads a cut taken at this gate, in the declared mode, over the bed the matrix itself carries 11ms
+     × guards the declared population, named missing means and pre-fit generation 3ms
+ ❯ test/generation-stage.test.ts (17 tests | 1 failed) 9935ms
+   × accepts a recorded canonical capture with unchanged active and receded document hashes 343ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/adopted-thresholds.test.ts > W31 M1 / M2 — the body's chroma and the structure it is read over (claims §5.165) > reads a cut taken at this gate, in the declared mode, over the bed the matrix itself carries
+AssertionError: the cut's cells against the bed the matrix carries: expected [ …(26) ] to deeply equal [ …(8) ]
+
+- Expected
++ Received
+
+  [
+    "apple-macos-27.0-1x-dark-standard-glass0.5 photo__capsule-button__inactive",
+    "apple-macos-27.0-1x-dark-standard-glass0.5 photo__capsule-button__rest",
+    "apple-macos-27.0-1x-dark-standard-glass0.5 photo__rrect-md__inactive",
+    "apple-macos-27.0-1x-dark-standard-glass0.5 photo__rrect-md__rest",
++   "apple-macos-27.0-1x-light-standard-glass0.5 photo__capsule-button__inactive",
++   "apple-macos-27.0-1x-light-standard-glass0.5 photo__capsule-button__rest",
++   "apple-macos-27.0-1x-light-standard-glass0.5 photo__rrect-md__inactive",
++   "apple-macos-27.0-1x-light-standard-glass0.5 photo__rrect-md__rest",
++   "apple-macos-27.0-1x-light-standard-glass0.5 photo__rrect-ml__rest",
++   "apple-macos-27.0-1x-light-standard-glass0.5 photo__rrect-sm__inactive",
++   "apple-macos-27.0-1x-light-standard-glass0.5 photo__rrect-sm__rest",
++   "apple-macos-27.0-1x-light-standard-glass0.5 photo__toolbar-group__inactive",
++   "apple-macos-27.0-1x-light-standard-glass0.5 photo__toolbar-group__rest",
+    "apple-macos-27.0-2x-dark-standard-glass0.5 photo__capsule-button__inactive",
+    "apple-macos-27.0-2x-dark-standard-glass0.5 photo__capsule-button__rest",
+    "apple-macos-27.0-2x-dark-standard-glass0.5 photo__rrect-md__inactive",
+    "apple-macos-27.0-2x-dark-standard-glass0.5 photo__rrect-md__rest",
++   "apple-macos-27.0-2x-light-standard-glass0.5 photo__capsule-button__inactive",
++   "apple-macos-27.0-2x-light-standard-glass0.5 photo__capsule-button__rest",
++   "apple-macos-27.0-2x-light-standard-glass0.5 photo__rrect-md__inactive",
++   "apple-macos-27.0-2x-light-standard-glass0.5 photo__rrect-md__rest",
++   "apple-macos-27.0-2x-light-standard-glass0.5 photo__rrect-ml__rest",
++   "apple-macos-27.0-2x-light-standard-glass0.5 photo__rrect-sm__inactive",
++   "apple-macos-27.0-2x-light-standard-glass0.5 photo__rrect-sm__rest",
++   "apple-macos-27.0-2x-light-standard-glass0.5 photo__toolbar-group__inactive",
++   "apple-macos-27.0-2x-light-standard-glass0.5 photo__toolbar-group__rest",
+  ]
+
+ ❯ test/adopted-thresholds.test.ts:4145:7
+    4143|       CHROMA_CUT.cells.map((cell) => `${cell.profile} ${cell.scene}`).…
+    4144|       "the cut's cells against the bed the matrix carries",
+    4145|     ).toEqual([...bed.keys()].sort());
+       |       ^
+    4146|
+    4147|     const reference = new Map<string, Cell>();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  test/adopted-thresholds.test.ts > W36 L1 — fixed-native-silhouette level and pre-fit growth (claims §5.180) > guards the declared population, named missing means and pre-fit generation
+AssertionError: apple-macos-27.0-1x-light-standard-glass0.5/checkerboard__capsule-button__inactive-tint-blue: expected '003940b4c7da' to be '30fbe05986ae' // Object.is equality
+
+Expected: "30fbe05986ae"
+Received: "003940b4c7da"
+
+ ❯ test/adopted-thresholds.test.ts:4894:64
+    4892|       expect(documents, key(c)).toHaveLength(2);
+    4893|       for (const match of documents) {
+    4894|         expect(SHIPPED_DOCUMENT_HASHES.get(match[1]!), key(c)).toBe(ma…
+       |                                                                ^
+    4895|       }
+    4896|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  test/generation-stage.test.ts > accepts a recorded canonical capture with unchanged active and receded document hashes
+AssertionError: expected { …(2) } to deeply equal { …(2) }
+
+- Expected
++ Received
+
+  {
+    "path": "packages/calibration/profiles/apple-macos-27.0-1x-light-standard-glass0.5-receded.json",
+-   "sha256": "30fbe05986ae",
++   "sha256": "003940b4c7da",
+  }
+
+ ❯ test/generation-stage.test.ts:100:28
+     98|   expect(declared.active).toEqual({ path: `packages/calibration/profil…
+     99|     sha256: "85ad7f7e3e0d" });
+    100|   expect(declared.receded).toEqual({ path: `packages/calibration/profi…
+       |                            ^
+    101|     sha256: "30fbe05986ae" });
+    102|   writeFileSync(join(copy, "stage/matrix.json"),
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  2 failed | 58 passed (60)
+      Tests  3 failed | 766 passed | 1 skipped (770)
+   Start at  09:51:04
+   Duration  109.17s (transform 2.48s, setup 0ms, import 9.42s, tests 400.48s, environment 4ms)
+
