@@ -1,0 +1,886 @@
+{
+  "schema": "w42-twin-audit-1",
+  "compared": [
+    "relative geometry (kind, size, radius)",
+    "backdrop declaration"
+  ],
+  "ignoredConservatively": [
+    "offset/position",
+    "canvas",
+    "pose",
+    "state"
+  ],
+  "sources": {
+    "canonical": "2f45778283443a45d562befa634fc7681de9ea6e2568bca0d08d659a27393d6f",
+    "W34": "a1ba37513bac2d42c612c9fe08f9c3d711ef59d5539735479aff8e9be520d7c6",
+    "W39": "9ed048b599e104bc1d0f135165fc8b95e7b63781bbc77da800c181e44750fff7"
+  },
+  "rules": [
+    "no bed cell twins a canonical holdout scene",
+    "no validation or H cell twins any canonical, W34 or W39 scene",
+    "every F bridge twins its canonical scene"
+  ],
+  "holdoutPixelsOpened": false,
+  "rows": [
+    {
+      "cell": "a-g000-capsule-button",
+      "role": "calibration",
+      "family": "A",
+      "matches": []
+    },
+    {
+      "cell": "a-g000-rrect-md",
+      "role": "calibration",
+      "family": "A",
+      "matches": []
+    },
+    {
+      "cell": "a-g064-capsule-button",
+      "role": "calibration",
+      "family": "A",
+      "matches": []
+    },
+    {
+      "cell": "a-g064-rrect-md",
+      "role": "calibration",
+      "family": "A",
+      "matches": []
+    },
+    {
+      "cell": "a-g096-rrect-lg",
+      "role": "calibration",
+      "family": "A",
+      "matches": []
+    },
+    {
+      "cell": "a-g128-capsule-button",
+      "role": "calibration",
+      "family": "A",
+      "matches": [
+        {
+          "source": "W34",
+          "scene": "grey-128__capsule-button__rest",
+          "role": "probe",
+          "sameCanvas": true
+        },
+        {
+          "source": "W34",
+          "scene": "grey-128__capsule-button__inactive",
+          "role": "probe",
+          "sameCanvas": true
+        }
+      ]
+    },
+    {
+      "cell": "a-g128-rrect-md",
+      "role": "calibration",
+      "family": "A",
+      "matches": []
+    },
+    {
+      "cell": "a-g128-rrect-md-1x",
+      "role": "validation",
+      "family": "A",
+      "matches": []
+    },
+    {
+      "cell": "a-g160-capsule-button",
+      "role": "calibration",
+      "family": "A",
+      "matches": []
+    },
+    {
+      "cell": "a-g160-rrect-64",
+      "role": "validation",
+      "family": "A",
+      "matches": []
+    },
+    {
+      "cell": "a-g160-rrect-80",
+      "role": "calibration",
+      "family": "A",
+      "matches": []
+    },
+    {
+      "cell": "a-g160-rrect-lg",
+      "role": "calibration",
+      "family": "A",
+      "matches": []
+    },
+    {
+      "cell": "a-g160-rrect-md",
+      "role": "calibration",
+      "family": "A",
+      "matches": []
+    },
+    {
+      "cell": "a-g160-rrect-ml",
+      "role": "calibration",
+      "family": "A",
+      "matches": []
+    },
+    {
+      "cell": "a-g176-capsule-button",
+      "role": "calibration",
+      "family": "A",
+      "matches": []
+    },
+    {
+      "cell": "a-g176-rrect-md",
+      "role": "calibration",
+      "family": "A",
+      "matches": []
+    },
+    {
+      "cell": "a-g192-capsule-button",
+      "role": "calibration",
+      "family": "A",
+      "matches": []
+    },
+    {
+      "cell": "a-g192-rrect-md",
+      "role": "calibration",
+      "family": "A",
+      "matches": []
+    },
+    {
+      "cell": "a-g208-capsule-button",
+      "role": "calibration",
+      "family": "A",
+      "matches": []
+    },
+    {
+      "cell": "a-g208-rrect-64",
+      "role": "validation",
+      "family": "A",
+      "matches": []
+    },
+    {
+      "cell": "a-g208-rrect-80",
+      "role": "calibration",
+      "family": "A",
+      "matches": []
+    },
+    {
+      "cell": "a-g208-rrect-lg",
+      "role": "calibration",
+      "family": "A",
+      "matches": []
+    },
+    {
+      "cell": "a-g208-rrect-md",
+      "role": "calibration",
+      "family": "A",
+      "matches": []
+    },
+    {
+      "cell": "a-g208-rrect-ml",
+      "role": "calibration",
+      "family": "A",
+      "matches": []
+    },
+    {
+      "cell": "a-g224-capsule-button",
+      "role": "calibration",
+      "family": "A",
+      "matches": []
+    },
+    {
+      "cell": "a-g224-rrect-md",
+      "role": "calibration",
+      "family": "A",
+      "matches": []
+    },
+    {
+      "cell": "a-g240-capsule-button",
+      "role": "calibration",
+      "family": "A",
+      "matches": []
+    },
+    {
+      "cell": "a-g240-rrect-md",
+      "role": "calibration",
+      "family": "A",
+      "matches": []
+    },
+    {
+      "cell": "a-g255-capsule-button",
+      "role": "calibration",
+      "family": "A",
+      "matches": [
+        {
+          "source": "W34",
+          "scene": "grey-255__capsule-button__rest",
+          "role": "probe",
+          "sameCanvas": true
+        },
+        {
+          "source": "W34",
+          "scene": "grey-255__capsule-button__inactive",
+          "role": "probe",
+          "sameCanvas": true
+        }
+      ]
+    },
+    {
+      "cell": "a-g255-rrect-64",
+      "role": "validation",
+      "family": "A",
+      "matches": []
+    },
+    {
+      "cell": "a-g255-rrect-80",
+      "role": "calibration",
+      "family": "A",
+      "matches": []
+    },
+    {
+      "cell": "a-g255-rrect-lg",
+      "role": "calibration",
+      "family": "A",
+      "matches": []
+    },
+    {
+      "cell": "a-g255-rrect-md",
+      "role": "calibration",
+      "family": "A",
+      "matches": []
+    },
+    {
+      "cell": "a-g255-rrect-md-1x",
+      "role": "validation",
+      "family": "A",
+      "matches": []
+    },
+    {
+      "cell": "a-g255-rrect-ml",
+      "role": "calibration",
+      "family": "A",
+      "matches": []
+    },
+    {
+      "cell": "b-p2-c16-rrect-md",
+      "role": "calibration",
+      "family": "B",
+      "matches": []
+    },
+    {
+      "cell": "b-p2-c64-rrect-md",
+      "role": "calibration",
+      "family": "B",
+      "matches": []
+    },
+    {
+      "cell": "b-p3-c16-rrect-md",
+      "role": "validation",
+      "family": "B",
+      "matches": []
+    },
+    {
+      "cell": "b-p3-c64-rrect-md",
+      "role": "validation",
+      "family": "B",
+      "matches": []
+    },
+    {
+      "cell": "b-p4-c16-rrect-md",
+      "role": "calibration",
+      "family": "B",
+      "matches": []
+    },
+    {
+      "cell": "b-p4-c64-rrect-md",
+      "role": "calibration",
+      "family": "B",
+      "matches": []
+    },
+    {
+      "cell": "b-p5-c16-rrect-md",
+      "role": "calibration",
+      "family": "B",
+      "matches": []
+    },
+    {
+      "cell": "b-p5-c64-rrect-md",
+      "role": "calibration",
+      "family": "B",
+      "matches": []
+    },
+    {
+      "cell": "bp-p1-c32-capsule-button",
+      "role": "calibration",
+      "family": "B'",
+      "matches": [
+        {
+          "source": "canonical",
+          "scene": "checkerboard-32__capsule-button__rest",
+          "role": "probe",
+          "sameCanvas": true
+        }
+      ]
+    },
+    {
+      "cell": "bp-p1-c32-rrect-64",
+      "role": "calibration",
+      "family": "B'",
+      "matches": []
+    },
+    {
+      "cell": "bp-p1-c32-rrect-80",
+      "role": "validation",
+      "family": "B'",
+      "matches": []
+    },
+    {
+      "cell": "bp-p1-c32-rrect-lg",
+      "role": "calibration",
+      "family": "B'",
+      "matches": [
+        {
+          "source": "canonical",
+          "scene": "checkerboard-32__rrect-lg__rest",
+          "role": "probe",
+          "sameCanvas": true
+        },
+        {
+          "source": "canonical",
+          "scene": "checkerboard-32__rrect-lg__inactive",
+          "role": "probe",
+          "sameCanvas": true
+        }
+      ]
+    },
+    {
+      "cell": "bp-p1-c32-rrect-ml",
+      "role": "calibration",
+      "family": "B'",
+      "matches": [
+        {
+          "source": "canonical",
+          "scene": "checkerboard-32__rrect-ml__rest",
+          "role": "probe",
+          "sameCanvas": true
+        }
+      ]
+    },
+    {
+      "cell": "bp-p1-c4-capsule-button",
+      "role": "calibration",
+      "family": "B'",
+      "matches": [
+        {
+          "source": "canonical",
+          "scene": "checkerboard-4__capsule-button__rest",
+          "role": "probe",
+          "sameCanvas": true
+        }
+      ]
+    },
+    {
+      "cell": "bp-p1-c4-capsule-button-odd",
+      "role": "calibration",
+      "family": "B'",
+      "matches": [
+        {
+          "source": "canonical",
+          "scene": "checkerboard-4__capsule-button__rest",
+          "role": "probe",
+          "sameCanvas": true
+        }
+      ]
+    },
+    {
+      "cell": "bp-p1-c4-rrect-lg",
+      "role": "calibration",
+      "family": "B'",
+      "matches": [
+        {
+          "source": "canonical",
+          "scene": "checkerboard-4__rrect-lg__rest",
+          "role": "probe",
+          "sameCanvas": true
+        }
+      ]
+    },
+    {
+      "cell": "bp-p1-c4-rrect-md",
+      "role": "calibration",
+      "family": "B'",
+      "matches": [
+        {
+          "source": "canonical",
+          "scene": "checkerboard-4__rrect-md__rest",
+          "role": "probe",
+          "sameCanvas": true
+        },
+        {
+          "source": "canonical",
+          "scene": "checkerboard-4__rrect-md__inactive",
+          "role": "probe",
+          "sameCanvas": true
+        }
+      ]
+    },
+    {
+      "cell": "bp-p1-c64-capsule-button",
+      "role": "calibration",
+      "family": "B'",
+      "matches": [
+        {
+          "source": "canonical",
+          "scene": "checkerboard-64__capsule-button__rest",
+          "role": "probe",
+          "sameCanvas": true
+        }
+      ]
+    },
+    {
+      "cell": "bp-p1-c64-rrect-ml",
+      "role": "calibration",
+      "family": "B'",
+      "matches": [
+        {
+          "source": "canonical",
+          "scene": "checkerboard-64__rrect-ml__rest",
+          "role": "probe",
+          "sameCanvas": true
+        }
+      ]
+    },
+    {
+      "cell": "bp-p1-c8-capsule-button",
+      "role": "calibration",
+      "family": "B'",
+      "matches": [
+        {
+          "source": "canonical",
+          "scene": "checkerboard-8__capsule-button__rest",
+          "role": "probe",
+          "sameCanvas": true
+        }
+      ]
+    },
+    {
+      "cell": "bp-p1-c8-rrect-lg",
+      "role": "calibration",
+      "family": "B'",
+      "matches": [
+        {
+          "source": "canonical",
+          "scene": "checkerboard-8__rrect-lg__rest",
+          "role": "probe",
+          "sameCanvas": true
+        },
+        {
+          "source": "canonical",
+          "scene": "checkerboard-8__rrect-lg__inactive",
+          "role": "probe",
+          "sameCanvas": true
+        }
+      ]
+    },
+    {
+      "cell": "bp-p1-c8-rrect-ml",
+      "role": "calibration",
+      "family": "B'",
+      "matches": [
+        {
+          "source": "canonical",
+          "scene": "checkerboard-8__rrect-ml__rest",
+          "role": "probe",
+          "sameCanvas": true
+        }
+      ]
+    },
+    {
+      "cell": "c-impulse-rrect-lg",
+      "role": "calibration",
+      "family": "C",
+      "matches": [
+        {
+          "source": "canonical",
+          "scene": "impulse__rrect-lg__rest",
+          "role": "probe",
+          "sameCanvas": true
+        },
+        {
+          "source": "canonical",
+          "scene": "impulse__rrect-lg__inactive",
+          "role": "probe",
+          "sameCanvas": true
+        }
+      ]
+    },
+    {
+      "cell": "c-impulse-rrect-ml",
+      "role": "calibration",
+      "family": "C",
+      "matches": [
+        {
+          "source": "canonical",
+          "scene": "impulse__rrect-ml__rest",
+          "role": "probe",
+          "sameCanvas": true
+        },
+        {
+          "source": "canonical",
+          "scene": "impulse__rrect-ml__inactive",
+          "role": "probe",
+          "sameCanvas": true
+        }
+      ]
+    },
+    {
+      "cell": "c-s16-hi-capsule-button",
+      "role": "calibration",
+      "family": "C",
+      "matches": []
+    },
+    {
+      "cell": "c-s16-lo-capsule-button",
+      "role": "calibration",
+      "family": "C",
+      "matches": []
+    },
+    {
+      "cell": "c-s32-hi-rrect-md",
+      "role": "calibration",
+      "family": "C",
+      "matches": []
+    },
+    {
+      "cell": "c-s32-lo-rrect-md",
+      "role": "calibration",
+      "family": "C",
+      "matches": []
+    },
+    {
+      "cell": "c-s8-hi-d24-rrect-md",
+      "role": "validation",
+      "family": "C",
+      "matches": []
+    },
+    {
+      "cell": "c-s8-hi-d4-rrect-lg",
+      "role": "calibration",
+      "family": "C",
+      "matches": []
+    },
+    {
+      "cell": "c-s8-hi-d4-rrect-md",
+      "role": "calibration",
+      "family": "C",
+      "matches": []
+    },
+    {
+      "cell": "c-s8-hi-d40-rrect-lg",
+      "role": "validation",
+      "family": "C",
+      "matches": []
+    },
+    {
+      "cell": "c-s8-hi-d80-rrect-lg",
+      "role": "calibration",
+      "family": "C",
+      "matches": []
+    },
+    {
+      "cell": "c-s8-hi-rrect-md",
+      "role": "calibration",
+      "family": "C",
+      "matches": []
+    },
+    {
+      "cell": "c-s8-lo-d24-rrect-md",
+      "role": "validation",
+      "family": "C",
+      "matches": []
+    },
+    {
+      "cell": "c-s8-lo-d4-rrect-lg",
+      "role": "calibration",
+      "family": "C",
+      "matches": []
+    },
+    {
+      "cell": "c-s8-lo-d4-rrect-md",
+      "role": "calibration",
+      "family": "C",
+      "matches": []
+    },
+    {
+      "cell": "c-s8-lo-d40-rrect-lg",
+      "role": "validation",
+      "family": "C",
+      "matches": []
+    },
+    {
+      "cell": "c-s8-lo-d80-rrect-lg",
+      "role": "calibration",
+      "family": "C",
+      "matches": []
+    },
+    {
+      "cell": "c-s8-lo-rrect-md",
+      "role": "calibration",
+      "family": "C",
+      "matches": []
+    },
+    {
+      "cell": "d-d0-hilo-rrect-lg",
+      "role": "calibration",
+      "family": "D",
+      "matches": []
+    },
+    {
+      "cell": "d-d0-hilo-rrect-md",
+      "role": "calibration",
+      "family": "D",
+      "matches": []
+    },
+    {
+      "cell": "d-d0-lohi-capsule-button",
+      "role": "validation",
+      "family": "D",
+      "matches": []
+    },
+    {
+      "cell": "d-d0-lohi-rrect-lg",
+      "role": "calibration",
+      "family": "D",
+      "matches": []
+    },
+    {
+      "cell": "d-d0-lohi-rrect-md",
+      "role": "calibration",
+      "family": "D",
+      "matches": []
+    },
+    {
+      "cell": "d-d12-hilo-rrect-md",
+      "role": "calibration",
+      "family": "D",
+      "matches": []
+    },
+    {
+      "cell": "d-d12-lohi-capsule-button",
+      "role": "calibration",
+      "family": "D",
+      "matches": []
+    },
+    {
+      "cell": "d-d12-lohi-rrect-md",
+      "role": "calibration",
+      "family": "D",
+      "matches": []
+    },
+    {
+      "cell": "d-d32-hilo-rrect-md",
+      "role": "calibration",
+      "family": "D",
+      "matches": []
+    },
+    {
+      "cell": "d-d32-lohi-rrect-md",
+      "role": "calibration",
+      "family": "D",
+      "matches": []
+    },
+    {
+      "cell": "d-out16-hilo-rrect-md",
+      "role": "calibration",
+      "family": "D",
+      "matches": []
+    },
+    {
+      "cell": "d-out16-lohi-rrect-md",
+      "role": "calibration",
+      "family": "D",
+      "matches": []
+    },
+    {
+      "cell": "d-out8-hilo-rrect-md",
+      "role": "calibration",
+      "family": "D",
+      "matches": []
+    },
+    {
+      "cell": "d-out8-lohi-rrect-md",
+      "role": "calibration",
+      "family": "D",
+      "matches": []
+    },
+    {
+      "cell": "e-by-c16-rrect-md",
+      "role": "calibration",
+      "family": "E",
+      "matches": []
+    },
+    {
+      "cell": "e-by-c64-rrect-md",
+      "role": "validation",
+      "family": "E",
+      "matches": []
+    },
+    {
+      "cell": "e-rg-c16-rrect-md",
+      "role": "calibration",
+      "family": "E",
+      "matches": []
+    },
+    {
+      "cell": "e-rg-c64-rrect-md",
+      "role": "calibration",
+      "family": "E",
+      "matches": []
+    },
+    {
+      "cell": "f-checker16-rrect-md",
+      "role": "probe",
+      "family": "F",
+      "matches": [
+        {
+          "source": "canonical",
+          "scene": "checkerboard__rrect-md__rest",
+          "role": "calibration",
+          "sameCanvas": true
+        },
+        {
+          "source": "canonical",
+          "scene": "checkerboard__rrect-md__pressed",
+          "role": "recorded",
+          "sameCanvas": true
+        },
+        {
+          "source": "canonical",
+          "scene": "checkerboard__rrect-md__inactive",
+          "role": "calibration",
+          "sameCanvas": true
+        },
+        {
+          "source": "canonical",
+          "scene": "checkerboard__rrect-md__inactive-pressed",
+          "role": "recorded",
+          "sameCanvas": true
+        }
+      ]
+    },
+    {
+      "cell": "f-checker64-rrect-lg",
+      "role": "probe",
+      "family": "F",
+      "matches": [
+        {
+          "source": "canonical",
+          "scene": "checkerboard-64__rrect-lg__rest",
+          "role": "probe",
+          "sameCanvas": true
+        },
+        {
+          "source": "canonical",
+          "scene": "checkerboard-64__rrect-lg__inactive",
+          "role": "probe",
+          "sameCanvas": true
+        }
+      ]
+    },
+    {
+      "cell": "f-impulse-rrect-md",
+      "role": "probe",
+      "family": "F",
+      "matches": [
+        {
+          "source": "canonical",
+          "scene": "impulse__rrect-md__rest",
+          "role": "validation",
+          "sameCanvas": true
+        },
+        {
+          "source": "canonical",
+          "scene": "impulse__rrect-md__inactive",
+          "role": "validation",
+          "sameCanvas": true
+        }
+      ]
+    },
+    {
+      "cell": "f-photo-rrect-md",
+      "role": "probe",
+      "family": "F",
+      "matches": [
+        {
+          "source": "canonical",
+          "scene": "photo__rrect-md__rest",
+          "role": "calibration",
+          "sameCanvas": true
+        },
+        {
+          "source": "canonical",
+          "scene": "photo__rrect-md__pressed",
+          "role": "recorded",
+          "sameCanvas": true
+        },
+        {
+          "source": "canonical",
+          "scene": "photo__rrect-md__inactive",
+          "role": "calibration",
+          "sameCanvas": true
+        },
+        {
+          "source": "canonical",
+          "scene": "photo__rrect-md__inactive-pressed",
+          "role": "recorded",
+          "sameCanvas": true
+        }
+      ]
+    },
+    {
+      "cell": "h-d20-lohi-rrect-md",
+      "role": "holdout",
+      "family": "H",
+      "matches": []
+    },
+    {
+      "cell": "h-g184-rrect-md",
+      "role": "holdout",
+      "family": "H",
+      "matches": []
+    },
+    {
+      "cell": "h-g232-rrect-md",
+      "role": "holdout",
+      "family": "H",
+      "matches": []
+    },
+    {
+      "cell": "h-lc-c64-capsule-button",
+      "role": "holdout",
+      "family": "H",
+      "matches": []
+    },
+    {
+      "cell": "h-p1-c24-rrect-112",
+      "role": "holdout",
+      "family": "H",
+      "matches": []
+    },
+    {
+      "cell": "h-p3-c64-rrect-lg",
+      "role": "holdout",
+      "family": "H",
+      "matches": []
+    },
+    {
+      "cell": "h-p6-c32-rrect-md",
+      "role": "holdout",
+      "family": "H",
+      "matches": []
+    },
+    {
+      "cell": "h-s24-hi-rrect-md",
+      "role": "holdout",
+      "family": "H",
+      "matches": []
+    }
+  ]
+}
