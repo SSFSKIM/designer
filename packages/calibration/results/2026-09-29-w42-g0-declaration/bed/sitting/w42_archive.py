@@ -28,8 +28,25 @@ statistic. What W42 changes:
   estimator.
 - The inventory names the W42 declaration: scenesSha256 = scenes-w42-body.json and
   splitSha256 = bed.json, the pair bed/wave.py pins.
+
+The fixes of the bed review of b151aff4:
+
+- B-M1: every admission (capture and dump) must name the declaration's two SHA-256s and no
+  rehearsal's predeclaration, and the archive refuses any declared cell left uncaptured, so a
+  sitting on a stale or edited bed cannot be archived under the current pins.
+- b2: every frame's SHA-256 must equal the one its run's admission recorded when it was
+  captured (held-out frames as the admission's one digest).
+- B-M2: a capture manifest carries pixel statistics per fixture (deltaFromBackground,
+  chromaShift, repeatNoise, identicalToBackground, the settle counts) and its capture log
+  prints them; for a held-out cell those read the levels H referees. operational/ therefore
+  carries each run's manifest with every H fixture reduced to its attestation fields and the
+  run-level caveats dropped, and its capture logs with every H line's diagnostics withheld;
+  the whole files go to `holdoutOperational` under holdout/operational/, which bed/wave.py's
+  Reader opens only with the receipt (W39 G1's pattern: public H entries carry attestation
+  only, the full manifest sits behind the guarded reader).
 """
 import argparse
+import copy
 import gzip
 import hashlib
 import importlib.util
@@ -37,6 +54,7 @@ import io
 import json
 import os
 from pathlib import Path, PurePosixPath
+import re
 import shutil
 import subprocess
 import sys
@@ -58,7 +76,13 @@ LIMIT = 2 * 1024 ** 3
 GH_REPO = 'SSFSKIM/designer'
 ZSTD = ['zstd', '-19', '-T1', '-q', '-c']
 CACHE = Path.home() / '.cache' / 'vitrea-archives'
-SECTIONS = ('entries', 'operational', 'dumps')
+SECTIONS = ('entries', 'operational', 'dumps', 'holdoutOperational')
+# A held-out fixture's public manifest entry: what admission attests, never a pixel statistic.
+H_ATTESTATION = ('sceneId', 'file', 'fixtureSet', 'orderIndex', 'hidIdleSeconds', 'captureMethod',
+                 'materialRendered', 'width', 'height', 'deterministic', 'presentedActive', 'presentation',
+                 'suppliedPaths', 'windowFrame', 'capturedAt')
+HOLDOUT_BEARING = ('manifest.json', 'producer-capture.out', 'producer-capture.err')
+WITHHELD = ' [holdout diagnostics withheld: holdout/operational/, read inside the receipt]'
 _MODULES = {}
 
 
@@ -140,11 +164,26 @@ def unbundle(raw):
 
 # ---------------------------------------------------------------- the producer
 
-def load_run(root, protocols):
+def declared_admission(admission, wave, what):
+    """B-M1: an admission counts only under the declaration being archived."""
+    if (admission.get('scenesSha256'), admission.get('splitSha256')) != (wave.scenes_sha, wave.split_sha):
+        raise ValueError(f'{what} was admitted under another declaration (scenes '
+                         f'{str(admission.get("scenesSha256"))[:12]}, bed {str(admission.get("splitSha256"))[:12]}); '
+                         f'the archive names {wave.scenes_sha[:12]} / {wave.split_sha[:12]}')
+    if admission.get('predeclaration') or (admission.get('declaration') or {}).get('predeclaration'):
+        raise ValueError(f'{what} is a predeclaration rehearsal, never evidence')
+
+
+def holdout_digest(frames):
+    return sha(json.dumps(frames, sort_keys=True, separators=(',', ':')).encode())
+
+
+def load_run(root, protocols, wave):
     root = Path(root).resolve()
     admission = json.loads((root / 'admission.json').read_text())
     if admission.get('admitted') is not True or admission.get('dry') is True:
         raise ValueError('producer input is not an admitted capture run: ' + str(root))
+    declared_admission(admission, wave, f'{admission.get("pass")} run {admission.get("run")}')
     raw = (root / 'manifest.json').read_bytes()
     manifest = json.loads(raw)
     arm = admission.get('protocol')
@@ -166,6 +205,20 @@ def load_run(root, protocols):
             if key in entries:
                 raise ValueError('run captured one cell twice: ' + str(key))
             entries[key] = fixture
+    # b2: the bytes are the ones admission bound when the run was captured.
+    frames, held = admission.get('frames'), admission.get('holdoutFrames')
+    if not isinstance(frames, dict) or not isinstance(held, dict):
+        raise ValueError('admission binds no frame bytes: ' + str(root))
+    bound = {}
+    for (profile, sid), fixture in entries.items():
+        path = (root / fixture['file']).resolve()
+        if root not in path.parents or not path.is_file():
+            raise ValueError('an admitted frame is missing: ' + str(path))
+        bound[f'{profile}/{sid}'] = file_sha(path)
+    open_ = {c: d for c, d in bound.items() if wave.roles.get(c.split('/', 1)[1]) != 'holdout'}
+    hidden = {c: d for c, d in bound.items() if wave.roles.get(c.split('/', 1)[1]) == 'holdout'}
+    if open_ != frames or (len(hidden), holdout_digest(hidden)) != (held.get('count'), held.get('sha256')):
+        raise ValueError('frame bytes differ from the ones admission bound: ' + str(root))
     return dict(root=root, admission=admission, manifestSha=sha(raw), protocol=arm, entries=entries)
 
 
@@ -187,10 +240,43 @@ def sitting_runs(raw_root, bed, passes=None):
     return runs, dump_passes
 
 
-def operational_files(raw_root, passes):
-    """Every non-pixel file of the sitting, admitted and quarantined runs alike, and the logs."""
+def public_manifest(raw, held):
+    """B-M2: a capture manifest with every held-out fixture reduced to its attestation fields and
+    the run-level and profile-level caveats (counts over every fixture, H included) dropped."""
+    manifest = copy.deepcopy(json.loads(raw))
+    for key in ('caveats', 'bedProvenance'):
+        manifest.pop(key, None)
+    for profile in manifest.get('profiles', []):
+        profile.pop('caveats', None)
+        profile['fixtures'] = [{k: f[k] for k in H_ATTESTATION if k in f} if f.get('sceneId') in held else f
+                               for f in profile.get('fixtures', [])]
+    return (json.dumps(manifest, indent=2) + '\n').encode()
+
+
+def public_log(raw, held):
+    """B-M2: a capture log with the diagnostics after every held-out scene id withheld."""
+    if not held:
+        return raw
+    pattern = re.compile(r'(?<![\w-])(' + '|'.join(re.escape(s) for s in sorted(held, key=len, reverse=True))
+                         + r')(?![\w-])')
+    lines = []
+    for line in raw.decode(errors='replace').splitlines(keepends=True):
+        found = pattern.search(line)
+        if found:
+            line = line[:found.end()] + WITHHELD + ('\n' if line.endswith('\n') else '')
+        lines.append(line)
+    return ''.join(lines).encode()
+
+
+def operational_files(raw_root, passes, held=frozenset()):
+    """Every non-pixel file of the sitting, admitted and quarantined runs alike, and the logs.
+
+    Returns (operational, holdoutOperational), each a list of (archive path, bytes). A run's
+    manifest and capture logs go to operational/ redacted for the held-out scenes and whole to
+    holdout/operational/ (B-M2); a manifest that does not parse goes to the holdout side only.
+    """
     raw_root = Path(raw_root)
-    out = []
+    out, guarded = [], []
     for name in passes:
         base = raw_root / name
         for path in sorted(base.rglob('*')):
@@ -201,12 +287,22 @@ def operational_files(raw_root, passes):
                 continue
             if rel.name == 'check.json' and name.startswith('dump-'):
                 continue
-            out.append((f'operational/{name}/{rel.as_posix()}', path))
+            raw = path.read_bytes()
+            if rel.name in HOLDOUT_BEARING and len(rel.parts) == 2:
+                guarded.append((f'holdout/operational/{name}/{rel.as_posix()}', raw))
+                if rel.name == 'manifest.json':
+                    try:
+                        raw = public_manifest(raw, held)
+                    except (ValueError, TypeError, AttributeError):
+                        continue
+                else:
+                    raw = public_log(raw, held)
+            out.append((f'operational/{name}/{rel.as_posix()}', raw))
     logs = raw_root / 'logs'
     if logs.is_dir():
         for path in sorted(p for p in logs.rglob('*') if p.is_file() and not p.is_symlink()):
-            out.append((f'operational/logs/{path.relative_to(logs).as_posix()}', path))
-    return out
+            out.append((f'operational/logs/{path.relative_to(logs).as_posix()}', path.read_bytes()))
+    return out, guarded
 
 
 def dump_files(raw_root, dump_passes):
@@ -218,7 +314,8 @@ def dump_files(raw_root, dump_passes):
                 continue
             for path in sorted(list((run / 'json').glob('*.json')) + [run / 'check.json']):
                 if path.is_file():
-                    out.append((f'dumps/{p["name"]}/{run.name}/{path.relative_to(run).as_posix()}', path))
+                    out.append((f'dumps/{p["name"]}/{run.name}/{path.relative_to(run).as_posix()}',
+                                path.read_bytes()))
     return out
 
 
@@ -239,12 +336,32 @@ def produce(raw_root, out, wave=None, analyse=None, passes=None):
     bed = wave.bed
     run_dirs, dump_passes = sitting_runs(raw_root, bed, passes)
     for p in dump_passes:
-        if not (Path(raw_root) / p['name'] / 'run-1' / 'admission.json').is_file():
+        path = Path(raw_root) / p['name'] / 'run-1' / 'admission.json'
+        if not path.is_file():
             raise ValueError(f'{p["name"]} is not admitted; no archive without the dump step')
+        dumped = json.loads(path.read_text())
+        if dumped.get('admitted') is not True or dumped.get('protocol') != 'dump' or dumped.get('pass') != p['name']:
+            raise ValueError(f'{p["name"]} is not an admitted dump')
+        declared_admission(dumped, wave, p['name'])
     protocols = sitting().PROTOCOLS
-    runs = [load_run(r, protocols) for r in run_dirs]
+    runs = [load_run(r, protocols, wave) for r in run_dirs]
     if len({r['root'] for r in runs}) != len(runs):
         raise ValueError('a run root is named twice')
+    names = [p['name'] for p in module('w42_pass_spec_for_archive', HERE / 'pass-spec.py').pass_order(bed)
+             if passes is None or p['name'] in passes]
+    cells = sorted({key for r in runs for key in r['entries']})
+    if passes is None:
+        declared = sorted(wave.cells)
+    else:
+        P = module('w42_pass_spec_for_archive', HERE / 'pass-spec.py')
+        declared = sorted({f'{bed["passes"][q["key"]]["profile"]}/{sid}'
+                           for q in P.pass_order(bed) if q['name'] in names and q['kind'] == 'bed'
+                           for sid in P.capture_ids(bed, q['key'], 1)})
+    captured = sorted({p + '/' + s for p, s in cells})
+    uncaptured = sorted(set(declared) - set(captured))
+    if uncaptured:
+        raise ValueError(f'{len(uncaptured)} declared cell(s) were never captured (e.g. {uncaptured[:3]}); the '
+                         'archive of record holds the whole declared bed or nothing (B-M1)')
     frames = {}
 
     def frame(run, key):
@@ -272,7 +389,6 @@ def produce(raw_root, out, wave=None, analyse=None, passes=None):
         return same[0]
 
     out.mkdir(parents=True)
-    cells = sorted({key for r in runs for key in r['entries']})
     inventory, manifests = [], set()
     for profile, sid in cells:
         cell = profile + '/' + sid
@@ -313,26 +429,19 @@ def produce(raw_root, out, wave=None, analyse=None, passes=None):
             dest.parent.mkdir(parents=True, exist_ok=True)
             dest.write_bytes(raw)
             inventory.append(dict(cell=cell, kind=kind, path=path, sha256=sha(raw), admitted=True))
-    names = [p['name'] for p in module('w42_pass_spec_for_archive', HERE / 'pass-spec.py').pass_order(bed)
-             if passes is None or p['name'] in passes]
-    sections = {'operational': operational_files(raw_root, names), 'dumps': dump_files(raw_root, dump_passes)}
+    held = frozenset(s for s, role in wave.roles.items() if role == 'holdout')
+    operational, guarded = operational_files(raw_root, names, held)
+    sections = {'operational': operational, 'dumps': dump_files(raw_root, dump_passes),
+                'holdoutOperational': guarded}
     listed = {}
     for section, files in sections.items():
         rows = []
-        for rel, path in files:
+        for rel, raw in files:
             dest = out / rel
             dest.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copyfile(path, dest)
+            dest.write_bytes(raw)
             rows.append(dict(path=rel, sha256=file_sha(dest)))
         listed[section] = rows
-    if passes is None:
-        declared = sorted(wave.cells)
-    else:
-        P = module('w42_pass_spec_for_archive', HERE / 'pass-spec.py')
-        declared = sorted({f'{bed["passes"][q["key"]]["profile"]}/{sid}'
-                           for q in P.pass_order(bed) if q['name'] in names and q['kind'] == 'bed'
-                           for sid in P.capture_ids(bed, q['key'], 1)})
-    captured = sorted({p + '/' + s for p, s in cells})
     inventory.sort(key=lambda r: (r['cell'], r['kind']))
     value = dict(schema=SCHEMA, scenesSha256=wave.scenes_sha, splitSha256=wave.split_sha,
                  sourceManifests=sorted(manifests), declaredCells=len(declared), archivedCells=len(captured),
@@ -341,8 +450,11 @@ def produce(raw_root, out, wave=None, analyse=None, passes=None):
                  dumpcheckSha256=file_sha(BED_DIR / 'dumps/dumpcheck.py'),
                  analyse=getattr(analyse, '__qualname__', str(analyse)),
                  entries=inventory, operational=listed['operational'], dumps=listed['dumps'],
+                 holdoutOperational=listed['holdoutOperational'],
                  disclosure='Inventory, hashes and admission only; analytical payload is role-separated; '
-                            'operational/ and dumps/ are audit material, never an estimator input.')
+                            'operational/ and dumps/ are audit material, never an estimator input, and carry '
+                            'no pixel statistic of a held-out cell; holdoutOperational holds the whole capture '
+                            'manifests and logs under holdout/, read only inside the receipt.')
     (out / 'inventory.json').write_bytes(encode(value))
     return value
 

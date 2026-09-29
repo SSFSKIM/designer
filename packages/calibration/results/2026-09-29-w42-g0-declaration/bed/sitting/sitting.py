@@ -25,12 +25,36 @@ QUARANTINED under a new name, never retried or overwritten. What W42 changes:
   proves nothing about the grant); the TCC-refusal rehearsal is `--rehearse-refusal`, the
   real run-1 launch of an ungranted bundle, and is G1's first runbook step.
 
+The fixes of the bed review of b151aff4 (the parent's dispositions):
+
+- B-M1: before any launch the bed must be the pinned declaration (`pinned_declaration`):
+  bed/wave.py's Wave checks scenes-w42-body.json and bed.json against pins.json, both files
+  must equal their committed copies at HEAD, and declaration.json, committed and hashed by
+  declaration.sha256, must name both SHA-256s. Every admission carries both SHA-256s; an
+  admission naming others is not admitted, so no later pass can build on it, and the archive
+  producer refuses it. `pin-check` is the same check for the orchestrator's start.
+- b2: a capture run is admitted only if every fixture PNG the manifest names exists inside the
+  run and decodes at the declared pixel size; admission.json records each frame's SHA-256
+  (held-out cells as one digest, so no per-run H state frequency is published) and the
+  archive producer compares them.
+- b4: a launch happens only under the orchestrator (W42_ORCHESTRATED), whose trap restores
+  the display mode on every exit; the refusal and dump rehearsals run through it too.
+- b6: the receded passes no longer run `rehearse-tints` (no W42 cell is tinted, and it read
+  the main checkout's canonical fixture manifest).
+- `dump K --rehearse` is the pre-sitting dump rehearsal (G0's b7): the real launch and
+  dumpcheck in a rehearsal root, never evidence, with the foreign-process census RECORDED
+  rather than enforced, as G0's no-pixel dumps did; the evidence dumps still enforce it.
+- W42_PREDECLARATION=1 is for rehearsals before the declaration is re-pinned and hashed: the
+  pins and HEAD checks hold, the declaration's state is recorded, only rehearsals launch.
+
 Capture logs and manifests can carry holdout-role cells' diagnostics and stay producer-only
-under the raw root until the archive producer files them under operational/.
+under the raw root until the archive producer files them: redacted for H under operational/,
+whole under holdout/operational/, readable only through the receipt (B-M2).
 """
 import argparse
 import hashlib
 import importlib.util
+import io
 import json
 import os
 from pathlib import Path
@@ -45,6 +69,10 @@ BED_DIR = HERE.parent
 REPO = HERE.parents[5]
 MAIN = Path('/Users/new/Developer/GitHub/designer')
 W39_PIN = REPO / 'packages/calibration/results/2026-09-26-w39-g0-colour-edge-bed/bundle-pin.json'
+DECLARATION = BED_DIR.parent / 'declaration.json'
+DECLARATION_DIGEST = BED_DIR.parent / 'declaration.sha256'
+PREDECLARATION_ENV = 'W42_PREDECLARATION'      # rehearsals before the declaration is hashed only
+ORCHESTRATED_ENV = 'W42_ORCHESTRATED'          # set by sitting-orchestrate.sh around every launch
 
 OS_VERSION, OS_BUILD = '27.0', '26A428'
 SETTINGS = {'reduceTransparency': '0', 'increaseContrast': '0', 'NSGlassTintAmount': '0.5',
@@ -87,6 +115,10 @@ def dumpcheck():
     return module('w42_dumpcheck', BED_DIR / 'dumps/dumpcheck.py')
 
 
+def wave_module():
+    return module('w42_wave_for_sitting', BED_DIR / 'wave.py')
+
+
 def pin():
     global _PIN
     if _PIN is None:
@@ -107,8 +139,9 @@ def configuration(m):
                 cdhash=cd[1] if cd else None, build=m['side'].get('buildVersion', {}).get('stdout'))
 
 
-def validate_machine(m, scale):
-    """Every gate, strictly, and every failing one named in ONE refusal."""
+def validate_machine(m, scale, census=True):
+    """Every gate, strictly, and every failing one named in ONE refusal. `census=False` only for
+    the pre-sitting dump rehearsal, which records the foreign-process census instead."""
     c = configuration(m)
     problems = []
     if not re.search(rf'ProductVersion:\s+{re.escape(OS_VERSION)}\s', c['os']) or OS_BUILD not in c['os']:
@@ -124,7 +157,7 @@ def validate_machine(m, scale):
     if (c['binary'], c['cdhash'], build) != (p['binarySha256'], p['cdhash'], p['buildVersion'].strip()):
         problems.append('side bundle identity changed (binary, cdhash or LC_BUILD_VERSION); '
                         'a rebuild is a new pin and a new grant')
-    if m['foreignProcessCount'] != 0:
+    if census and m['foreignProcessCount'] != 0:
         problems.append(f'{m["foreignProcessCount"]} foreign capture process(es); X6 admits none')
     if problems:
         raise ValueError('machine gate refused: ' + '; '.join(problems))
@@ -171,6 +204,106 @@ def wait_for_idle(read, log, need=WAIT_IDLE_SECONDS, limit=IDLE_WAIT_LIMIT, poll
         sleep(poll)
 
 
+# ------------------------------------------------------------ the declaration
+
+def at_head(path):
+    """The file's bytes, refusing unless they equal its committed copy at HEAD."""
+    path = Path(path)
+    raw = path.read_bytes()
+    shown = subprocess.run(['git', '-C', str(path.parent), 'show', f'HEAD:./{path.name}'], capture_output=True)
+    if shown.returncode != 0:
+        raise ValueError(f'{path.name} is not committed at HEAD')
+    if shown.stdout != raw:
+        raise ValueError(f'{path.name} differs from its committed copy at HEAD')
+    return raw
+
+
+def pinned_declaration(predeclaration=False):
+    """The bed every launch captures is the declared one (clause 1's stop; the bed review's B-M1).
+
+    Returns the record every admission carries. Refuses unless bed/wave.py's Wave accepts the
+    scenes file and bed.json against pins.json, both equal their committed copies at HEAD, and
+    declaration.json, committed and hashed (declaration.sha256, committed), names both SHA-256s
+    in its `split` item. `predeclaration` keeps every check but the declaration's, whose state is
+    recorded instead; the driver then launches rehearsals only, and the producer refuses it.
+    """
+    try:
+        wave = wave_module().Wave()
+    except ValueError as error:
+        raise ValueError(f'refused before any launch: the bed is not its pins ({error})') from None
+    problems = []
+    for path in (wave.scenes_path, wave.split_path):
+        try:
+            at_head(path)
+        except (ValueError, OSError) as error:
+            problems.append(str(error))
+    head = subprocess.run(['git', '-C', str(BED_DIR), 'rev-parse', 'HEAD'], capture_output=True, text=True)
+    record = dict(scenesSha256=wave.scenes_sha, splitSha256=wave.split_sha, head=head.stdout.strip() or None)
+    stated = []
+    try:
+        raw = at_head(DECLARATION)
+        record['declarationSha256'] = hashlib.sha256(raw).hexdigest()
+        split = next(i['declared'] for i in json.loads(raw)['items'] if i.get('id') == 'split')
+        named = (split.get('scenesSha256'), split.get('splitSha256'))
+        if named != (wave.scenes_sha, wave.split_sha):
+            stated.append(f'declaration.json names scenes {str(named[0])[:12]} and bed {str(named[1])[:12]}; '
+                          f'the files are {wave.scenes_sha[:12]} and {wave.split_sha[:12]}')
+        digest = at_head(DECLARATION_DIGEST).decode().split()
+        if not digest or digest[0] != record['declarationSha256']:
+            stated.append('declaration.sha256 does not name this declaration.json')
+    except (ValueError, OSError, KeyError, StopIteration, UnicodeDecodeError, json.JSONDecodeError) as error:
+        stated.append(f'the declaration is not committed and hashed: {type(error).__name__}: {error}')
+    if predeclaration:
+        record.update(predeclaration=True, declarationProblems=stated)
+    else:
+        problems += stated
+    if problems:
+        raise ValueError('refused before any launch: the bed is not the pinned declaration: ' + '; '.join(problems))
+    return record
+
+
+def declared_by(admission, declaration):
+    """An admission counts only under the declaration the sitting runs on, and never a rehearsal's."""
+    return (admission.get('scenesSha256') == declaration['scenesSha256']
+            and admission.get('splitSha256') == declaration['splitSha256']
+            and not admission.get('predeclaration'))
+
+
+def holdout_digest(frames):
+    return hashlib.sha256(json.dumps(frames, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
+
+
+def frame_binding(run, manifest, doc, scale):
+    """b2: every fixture PNG exists inside the run and decodes at the declared pixel size.
+
+    Returns the SHA-256 of each non-holdout frame and ONE digest over the held-out frames
+    (admission.json is published with the G1 evidence; per-run H frame hashes would publish
+    H's state frequencies, which W39 G1 kept behind the receipt)."""
+    from PIL import Image
+    roles = {sid: role for role, ids in doc['split'].items() for sid in ids}
+    size = (doc['canvas']['width'] * scale, doc['canvas']['height'] * scale)
+    root = run.resolve()
+    frames, held = {}, {}
+    for profile in manifest['profiles']:
+        for f in profile['fixtures']:
+            cell = profile['profileKey'] + '/' + f['sceneId']
+            path = (run / f['file']).resolve()
+            if root not in path.parents or not path.is_file() or path.is_symlink():
+                raise ValueError('fixture PNG missing or outside its run: ' + cell)
+            raw = path.read_bytes()
+            try:
+                with Image.open(io.BytesIO(raw)) as image:
+                    image.load()
+                    ok = image.format == 'PNG' and image.size == size and image.mode in ('RGB', 'RGBA')
+            except Exception as error:
+                raise ValueError(f'fixture PNG does not decode: {cell} ({error})') from None
+            if not ok:
+                raise ValueError(f'fixture PNG is not an RGB(A) PNG of {size[0]}x{size[1]}: {cell}')
+            digest = hashlib.sha256(raw).hexdigest()
+            (held if roles.get(f['sceneId']) == 'holdout' else frames)[cell] = digest
+    return dict(frames=frames, holdoutFrames=dict(count=len(held), sha256=holdout_digest(held)))
+
+
 # ------------------------------------------------------------------- the passes
 
 def started(directory):
@@ -181,16 +314,16 @@ def protocol_of_pass(p):
     return {'dump': 'dump', 'bed': 'normal', 'sentinel': 'long'}[p['kind']]
 
 
-def admitted(root, p, n):
+def admitted(root, p, n, declaration):
     path = root / p['name'] / f'run-{n}' / 'admission.json'
     if not path.is_file():
         return False
     a = json.loads(path.read_text())
     return (a.get('admitted') is True and a.get('pass') == p['name'] and a.get('run') == n
-            and a.get('protocol') == protocol_of_pass(p))
+            and a.get('protocol') == protocol_of_pass(p) and declared_by(a, declaration))
 
 
-def check_order(root, p, run, bed):
+def check_order(root, p, run, bed, declaration):
     """Every run of every earlier pass admitted, no later pass started, and within the pass
     runs 1..run-1 admitted: the dumps precede every capture by construction."""
     order = pass_spec().pass_order(bed)
@@ -198,10 +331,10 @@ def check_order(root, p, run, bed):
     if later:
         raise ValueError(f'{p["name"]} refused: a later pass has already started ({later})')
     missing = [f'{q["name"]} run {k}' for q in order if q['rank'] < p['rank']
-               for k in range(1, q['runs'] + 1) if not admitted(root, q, k)]
+               for k in range(1, q['runs'] + 1) if not admitted(root, q, k, declaration)]
     if missing:
         raise ValueError(f'{p["name"]} refused: an earlier pass is not complete; not admitted: {missing}')
-    missing = [k for k in range(1, run) if not admitted(root, p, k)]
+    missing = [k for k in range(1, run) if not admitted(root, p, k, declaration)]
     if missing:
         raise ValueError(f'{p["name"]} run {run} refused: earlier run(s) {missing} of this pass are not '
                          'admitted; a quarantined or interrupted run blocks its successors until the '
@@ -317,7 +450,7 @@ def protocol_argv(protocol):
     return out
 
 
-def run_admission(p, n, argv, manifest, manifest_sha, cells):
+def run_admission(p, n, argv, manifest, manifest_sha, cells, declaration, binding):
     protocol = launch_protocol(argv)
     if protocol != protocol_of_pass(p):
         raise ValueError(f'{p["name"]} launched the {protocol} protocol; the pass is {protocol_of_pass(p)}')
@@ -326,8 +459,14 @@ def run_admission(p, n, argv, manifest, manifest_sha, cells):
     got = {k: recorded.get(k) for k in settings}
     if got != settings:
         raise ValueError(f'manifest captureProtocol {got} is not the launched {protocol} protocol {settings}')
-    return dict(schema='w42-run-admission-1', admitted=True, dry=False, protocol=protocol,
+    if declaration.get('predeclaration'):
+        raise ValueError('a capture is never admitted before the declaration is hashed')
+    if len(binding['frames']) + binding['holdoutFrames']['count'] != cells:
+        raise ValueError('the frame binding does not cover every admitted cell')
+    return dict(schema='w42-run-admission-2', admitted=True, dry=False, protocol=protocol,
                 captureProtocol=dict(settings), cells=cells, manifestSha256=manifest_sha, run=n,
+                scenesSha256=declaration['scenesSha256'], splitSha256=declaration['splitSha256'],
+                declaration=declaration, frames=binding['frames'], holdoutFrames=binding['holdoutFrames'],
                 **{'pass': p['name'], 'key': p['key']})
 
 
@@ -479,6 +618,9 @@ def main(argv=None):
     pl.add_argument('--out', type=Path, help='a new directory outside the repository for the documents')
     d = sub.add_parser('dump', help='the one dump-layers launch of dump pass dump-<key>')
     d.add_argument('key')
+    d.add_argument('--rehearse', action='store_true',
+                   help='the pre-sitting dump rehearsal: the real launch and dumpcheck in a rehearsal root, '
+                        'never evidence; the foreign-process census is recorded, not enforced')
     c = sub.add_parser('capture', help='runs first..last of a bed or sentinel pass')
     c.add_argument('key')
     c.add_argument('first', type=int, nargs='?', default=1)
@@ -488,10 +630,15 @@ def main(argv=None):
                    help='G1 step 1: the real run-1 launch from the ungranted bundle, expected TCC-refused')
     w = sub.add_parser('wait-idle', help='wait (bounded, logged) for N s of HID idle; used before a mode switch')
     w.add_argument('seconds', type=float)
+    sub.add_parser('pin-check', help='the pre-launch declaration check (B-M1), as the orchestrator runs it first')
     args = ap.parse_args(argv)
     if 'DRY' in os.environ:
         ap.error('DRY is W34\'s harness --dry-run, which never reaches ScreenCaptureKit. W42 has no such path: '
                  'the dry mode is `plan`, and the TCC rehearsal is `capture --rehearse-refusal`.')
+    predeclaration = os.environ.get(PREDECLARATION_ENV) == '1'
+    if args.action == 'pin-check':
+        print(json.dumps(pinned_declaration(predeclaration), indent=2))
+        return
     if args.action == 'plan':
         if args.out is not None:
             outside_repository(args.out)
@@ -509,6 +656,14 @@ def main(argv=None):
         return
     if 'VITREA_SITTING_DIR' not in os.environ:
         ap.error('VITREA_SITTING_DIR must name the sitting root explicitly (outside the repository)')
+    rehearsal = (args.action == 'capture' and args.rehearse_refusal) or (args.action == 'dump' and args.rehearse)
+    if os.environ.get(ORCHESTRATED_ENV) != '1':
+        ap.error('every launch runs under sitting-orchestrate.sh, whose trap restores the display mode on every '
+                 'exit, rehearsals included (REHEARSAL=1 PASSES=...); the bed review\'s b4')
+    if predeclaration and not rehearsal:
+        ap.error(f'{PREDECLARATION_ENV} admits rehearsals only: no evidence is launched before the declaration is '
+                 'hashed')
+    declaration = pinned_declaration(predeclaration)
     root = outside_repository(os.environ['VITREA_SITTING_DIR'])
     root.mkdir(parents=True, exist_ok=True)
     app = Path(os.environ.get('VITREA_APP', pin()['path'])).resolve()
@@ -522,7 +677,7 @@ def main(argv=None):
     idle_poll = float(os.environ.get('VITREA_IDLE_POLL', IDLE_POLL_SECONDS))
     P = pass_spec()
     spec_doc, bed = P.load()
-    rehearsal = args.action == 'capture' and args.rehearse_refusal
+    census = not (rehearsal and args.action == 'dump')
     if args.action == 'dump':
         p = P.pass_of('dump-' + args.key, bed)
         first, last = 1, 1
@@ -547,7 +702,7 @@ def main(argv=None):
         if any(n.startswith('rehearsal-') for n in others):
             raise ValueError('an evidence root holds no rehearsal')
         name = p['name']
-        check_order(root, p, first, bed)
+        check_order(root, p, first, bed, declaration)
     passdir = root / name
     passdir.mkdir(exist_ok=True)
 
@@ -556,7 +711,7 @@ def main(argv=None):
 
     for n in range(first, last + 1):
         if not rehearsal:
-            check_order(root, p, n, bed)
+            check_order(root, p, n, bed, declaration)
         if p['kind'] == 'dump':
             ids = P.dump_ids(p['key'])
             profile = next(x for x in spec_doc['profiles'] if x['key'] == bed['passes'][p['key']]['profile'])
@@ -596,7 +751,9 @@ def main(argv=None):
                               showBorders=c['settings']['ButtonShapesEnabled'],
                               displayplacerMode=','.join(c['mode']), bundleCdHash=c['cdhash'],
                               bundleBinarySha256=c['binary'], foreignProcessCount=m['foreignProcessCount'],
-                              passSpecSha256=hashlib.sha256(spec.read_bytes()).hexdigest(), rehearsal=rehearsal)
+                              passSpecSha256=hashlib.sha256(spec.read_bytes()).hexdigest(), rehearsal=rehearsal,
+                              scenesSha256=declaration['scenesSha256'], splitSha256=declaration['splitSha256'],
+                              predeclaration=bool(declaration.get('predeclaration')))
                 return ''.join(f'{k}={v}\n' for k, v in fields.items())
 
             opened = attest('open')
@@ -605,7 +762,7 @@ def main(argv=None):
             (run / 'session-before.json').write_text(json.dumps(before, indent=2) + '\n')
             problems = []
             try:
-                start = validate_machine(opened, scale)
+                start = validate_machine(opened, scale, census)
             except ValueError as error:
                 problems.append(str(error))
             problems += session_problems(before)
@@ -615,16 +772,21 @@ def main(argv=None):
                 command = dump_argv(launcher, app, spec, run, scale, scheme, pose, ids)
                 (run / 'launch.json').write_text(json.dumps(dict(argv=command), indent=2) + '\n')
                 timed_out = False
+                began = time.monotonic()
                 try:
                     result = subprocess.run(command, timeout=dump_timeout(len(ids)))
                 except subprocess.TimeoutExpired:
                     timed_out = True
                     subprocess.run(['pkill', '-f', str(app / 'Contents/MacOS/VitreaReference')], check=False)
+                elapsed = round(time.monotonic() - began, 1)
+                timing = dict(elapsedSeconds=elapsed, timeoutSeconds=dump_timeout(len(ids)),
+                              perSceneSeconds=round(elapsed / len(ids), 3), scenes=len(ids))
+                (run / 'timing.json').write_text(json.dumps(timing, indent=2) + '\n')
                 closed = attest('close')
                 (run / 'attest.close').write_text(portable(closed, 'close'))
                 after = read_session()
                 (run / 'session-after.json').write_text(json.dumps(after, indent=2) + '\n')
-                if validate_machine(closed, scale) != start:
+                if validate_machine(closed, scale, census) != start:
                     raise ValueError('opening/closing state drift')
                 if timed_out:
                     raise ValueError(f'dump-layers overran {dump_timeout(len(ids))} s')
@@ -638,24 +800,32 @@ def main(argv=None):
                 if report['departures']:
                     raise ValueError(f'{report["departures"]} departure(s) from memo D\'s declared configuration: '
                                      'clause 4 stops the sitting before its first capture')
-                admission = dict(schema='w42-dump-admission-1', admitted=True, dry=False, protocol='dump',
-                                 run=n, scenes=len(ids), departures=0, unpredicted=report['unpredicted'],
-                                 checkSha256=hashlib.sha256((run / 'check.json').read_bytes()).hexdigest(),
-                                 **{'pass': p['name'], 'key': p['key']})
-                (run / 'admission.json').write_text(json.dumps(admission, indent=2) + '\n')
-                print(f'{name}: dumped and checked {len(ids)} scenes; unpredicted fields {report["unpredicted"]}',
+                record = dict(protocol='dump', run=n, scenes=len(ids), departures=0,
+                              unpredicted=report['unpredicted'],
+                              checkSha256=hashlib.sha256((run / 'check.json').read_bytes()).hexdigest(),
+                              timing=timing, scenesSha256=declaration['scenesSha256'],
+                              splitSha256=declaration['splitSha256'], declaration=declaration,
+                              **{'pass': p['name'], 'key': p['key']})
+                if rehearsal:
+                    # Never evidence: no admission.json; the census is what G0's dumps recorded.
+                    census_read = {phase: dict(count=m['foreignProcessCount'],
+                                               names=sorted({re.sub(r'^.*/', '', f[2].split(' --')[0])
+                                                             for f in m.get('foreignProcesses', [])}))
+                                   for phase, m in (('open', opened), ('close', closed))}
+                    (run / 'rehearsal.json').write_text(json.dumps(dict(
+                        schema='w42-dump-rehearsal-1', outcome='dumped-and-checked', foreignCensus=census_read,
+                        **record), indent=2) + '\n')
+                else:
+                    (run / 'admission.json').write_text(json.dumps(dict(
+                        schema='w42-dump-admission-2', admitted=True, dry=False, **record), indent=2) + '\n')
+                print(f'{name}: dumped and checked {len(ids)} scenes in {elapsed} s ({timing["perSceneSeconds"]} s '
+                      f'a scene, timeout {timing["timeoutSeconds"]} s); unpredicted fields {report["unpredicted"]}',
                       flush=True)
                 continue
             env = {**os.environ, 'VITREA_SCENES': str(spec), 'VITREA_FIXTURES': str(run),
                    'VITREA_SCALE': str(scale)}
             with (run / 'producer-backgrounds.out').open('w') as f:
                 subprocess.run([*harness, 'backgrounds'], env=env, stdout=f, stderr=subprocess.STDOUT, check=True)
-            if pose == 'receded':
-                rehearse = {**env, 'VITREA_FIXTURES': os.environ.get(
-                    'VITREA_REHEARSAL_FIXTURES', str(MAIN / 'apps/reference-apple/fixtures'))}
-                with (run / 'producer-rehearse-tints.out').open('w') as f:
-                    subprocess.run([*harness, 'rehearse-tints', '--pose', 'inactive'], env=rehearse,
-                                   stdout=f, stderr=subprocess.STDOUT, check=True)
             protocol = protocol_of_pass(p)
             command = capture_argv(launcher, app, spec, run, scale, label, protocol, ids, pose)
             (run / 'launch.json').write_text(json.dumps(dict(argv=command, rehearsal=rehearsal), indent=2) + '\n')
@@ -667,7 +837,7 @@ def main(argv=None):
                 subprocess.run(['pkill', '-f', str(app / 'Contents/MacOS/VitreaReference')], check=False)
             closed = attest('close')
             (run / 'attest.close').write_text(portable(closed, 'close'))
-            if validate_machine(closed, scale) != start:
+            if validate_machine(closed, scale, census) != start:
                 raise ValueError('opening/closing state drift')
             if rehearsal:
                 after = read_session()
@@ -685,7 +855,9 @@ def main(argv=None):
                 m = json.loads(raw)
                 validate_manifest(m, doc, pose, scale, label)
                 cells = sum(len(q['scenes']) for q in doc['profiles'])
-                admission = run_admission(p, n, command, m, hashlib.sha256(raw).hexdigest(), cells)
+                binding = frame_binding(run, m, doc, scale)
+                admission = run_admission(p, n, command, m, hashlib.sha256(raw).hexdigest(), cells, declaration,
+                                          binding)
                 (run / 'admission.json').write_text(json.dumps(admission, indent=2) + '\n')
                 print(f'{name} run {n}: admitted cells={cells}', flush=True)
         except BaseException as error:

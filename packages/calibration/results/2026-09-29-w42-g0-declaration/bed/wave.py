@@ -195,7 +195,32 @@ class Wave:
 
 
 class Reader(w39.Reader):
-    """W39's reader over a W42 archive inventory: payload paths begin with the cell's role."""
+    """W39's reader over a W42 archive inventory: payload paths begin with the cell's role.
+
+    W42 adds one guarded section (the bed review's B-M2): `holdoutOperational`, each capture
+    run's WHOLE manifest and capture log, whose held-out fixtures carry pixel statistics
+    (deltaFromBackground, chromaShift, repeatNoise). The public operational copies are redacted
+    for H; the whole ones open only with an active receipt for this declaration and generation.
+    """
+
+    def read_holdout_operational(self, path):
+        if self.authorization is None:
+            raise PermissionError('the whole capture manifests are holdout-role payload: read only inside the '
+                                  'one receipt')
+        self.authorization.check(self.wave, self.generation)
+        inventory = json.loads((self.root / 'inventory.json').read_bytes())
+        if hashlib.sha256((self.root / 'inventory.json').read_bytes()).hexdigest() != self.generation:
+            raise ValueError('inventory changed under the reader')
+        rows = [r for r in inventory.get('holdoutOperational', []) if r['path'] == path]
+        if len(rows) != 1 or not path.startswith('holdout/operational/'):
+            raise ValueError('not a holdout operational entry: ' + path)
+        target = (self.root / path).resolve()
+        if self.root not in target.parents:
+            raise ValueError('payload escaped evidence root')
+        raw = target.read_bytes()
+        if hashlib.sha256(raw).hexdigest() != rows[0]['sha256']:
+            raise ValueError('payload hash mismatch')
+        return raw
 
 
 def default_wave():

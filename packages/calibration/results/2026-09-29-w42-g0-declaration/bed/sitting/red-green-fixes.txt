@@ -1,0 +1,33 @@
+B-M1 scenes edited by one byte, pins.json untouched
+  RED   (pre-fix 9a695ec0): exit 0, launched=True;   [defect shown]
+  GREEN (fix): exit 1, launched=False; ValueError: refused before any launch: the bed is not its pins (scenes hash mismatch)  [fixed]
+
+B-M1 scenes edited by one byte, re-pinned and committed
+  RED   (pre-fix 9a695ec0): exit 0, launched=True;   [defect shown]
+  GREEN (fix): exit 1, launched=False; ValueError: refused before any launch: the bed is not the pinned declaration: declaration.json names scenes 4aa06af90eb5 and bed 53870f470368; the fil  [fixed]
+
+B-M1 a stale bed (764217e1 scenes + bed.json), re-pinned and committed
+  RED   (pre-fix 9a695ec0): exit 0, launched=True;   [defect shown]
+  GREEN (fix): exit 1, launched=False; ValueError: refused before any launch: the bed is not the pinned declaration: declaration.json names scenes 4aa06af90eb5 and bed 53870f470368; the fil  [fixed]
+
+B-M1 produce with a declared cell never captured
+  RED   (pre-fix 9a695ec0): archive written; uncaptured=['apple-macos-27.0-1x-light-standard-glass0.5/h-p1-c24-rrect-112__rest']  [defect shown]
+  GREEN (fix): refused: 1 declared cell(s) were never captured (e.g. ['apple-macos-27.0-1x-light-standard-glass0.5/h-p1-c24-rrect-112__rest']);   [fixed]
+
+B-M2 the operational manifests of a synthetic run
+  RED   (pre-fix 9a695ec0): operational manifests carry H pixel statistics ['chromaShift', 'deltaFromBackground', 'identicalToBackground', 'repeatNoise', 'settleIterations', 'settleSeconds']; holdoutOperational entries 0  [defect shown]
+  GREEN (fix): operational manifests carry H pixel statistics none; holdoutOperational entries 30  [fixed]
+
+b2 a capture run whose manifest names PNGs that do not exist
+  RED   (pre-fix 9a695ec0): exit 0, admitted=True;   [defect shown]
+  GREEN (fix): exit 1, admitted=False; ValueError: fixture PNG missing or outside its run: apple-macos-27.0-1x-light-standard-glass0.5/a-g128-rrect-md-1x__rest  [fixed]
+
+b3 a driver that reads stdin, over the whole order
+  RED   (pre-fix 9a695ec0): exit 0, driver called 1 of 24 passes; "ALL PASSES DONE"  [defect shown]
+  GREEN (fix): exit 0, driver called 24 of 24 passes; "ALL PASSES DONE"  [fixed]
+
+b3 a pass-spec.py order that fails
+  RED   (pre-fix 9a695ec0): exit 0, driver called 0 of 24 passes; "ALL PASSES DONE"  [defect shown]
+  GREEN (fix): exit 6, driver called 0 of 24 passes; "STOP: pass-spec.py order failed (exit 3) or is empty; nothing launched"  [fixed]
+
+8 of 8 scenarios red before and green after
