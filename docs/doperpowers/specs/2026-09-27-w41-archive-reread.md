@@ -1,6 +1,6 @@
 # W41 — the archive re-read: the body as luma and chroma, its locality, and the exterior stroke, identified on the W39 archive and landed if they close (2026-09-27)
 
-**Status: G0 MERGED `cd55870d` (2026-09-27, §5.191). G1's one exposure is spent and complete (`fc157275`, §5.192.25): light-inactive E3 meets the bound on every claimed held-out cell, 18/18 numerical and 16/16 rendered. Decision Log 2 now awaits the user; G2 is conditional on it.**
+**Status: G0 MERGED `cd55870d` (2026-09-27, §5.191). G1 MERGED `8ee41aa1` (2026-09-29, §5.192): its one exposure is spent and complete (`fc157275`, §5.192.25), and light-inactive E3 meets the bound on every claimed held-out cell, 18/18 numerical and 16/16 rendered. Decision Log 2 now awaits the user; G2 is conditional on it.**
 
 ## Purpose
 
@@ -661,6 +661,19 @@ Decision Log 2 material.
 
 ## Revision Notes
 
+- 2026-09-29 (G1's merge, the parent): merged `8ee41aa1` after an independent gate review
+  (reviewer-high). The review found no runtime defect. It verified the CPU and WGSL law, the
+  identity branch, the append-only digest group, six preserved document digests, the policy
+  stand-down, pre-tint placement and uniform packing; 185 targeted tests pass; protected paths
+  and the G0 declaration are unchanged. P1: these Revision Notes conflicted with main's
+  September 27 notes, and the merge keeps both blocks, newest first. P2: §5.192.25's table gave
+  h270 the h150 witness; a dated correction was appended beneath the table (`2a6a63c8`), and the
+  verdict is unchanged. freeze 1,818. No capture tree moved: G1 made no canonical read. The
+  canonical diagnostic captures are scratch. The branch added about 84 MB packed, mostly
+  operational logs; the tracker records it, with the fix for the next fitting wave. X9: G1 ran
+  on an `astra` high owner with `astra` and, from 2026-09-28, `opus` sub-workers. Its last
+  steps (the M2 terminal record, the final configuration, the freeze and the exposure) ran on
+  an `opus` worker.
 - 2026-09-29 (G1's one exposure, the G1 owner):
   - M2's terminal record is committed (`afed9dc3`).
   - The configuration was reviewed (`becb2fde`, reviewer-high, no material findings) and
