@@ -183,3 +183,12 @@ reads no pixel of the W42 bed; none exists. It gives no verdict: the parent reco
 verdict per stratum (clause 10: no stratum visibly further from native than shipped), and the
 distances are not a bar. It does not fill the 12 text cells' shipped column, the gradient bed's
 runtime-base gap or the missing mid-* uniform cells. Those are named above.
+
+Added by the stream owner, 2026-09-29 (the rehearsal, ../rehearsal/README.txt)
+-----------------------------------------------------------------------------
+The run config takes an optional `only` (a list of stratum names). A stratum left out is drawn
+as nothing and every one of its cells is recorded NOT-DRAWN in the inventory, never as a pass.
+The rehearsal drew the five canonical strata on the candidate 2 body-swapped tree
+(../rehearsal/runs/c2/run-sheets.json; outputs at
+~/vitrea-w42/scratch/gate-rehearsal/sheets-rehearsal-c2/, inventory sha256 9092b88d...):
+the swap has no W39 gradient render to act on, so the gradient stratum is NOT-DRAWN there.

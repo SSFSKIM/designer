@@ -358,6 +358,10 @@ function declaredComponent(spec: any, sceneId: string): DeclaredComponent {
 export interface BedRoots { shippedRoots: string[]; candidateRoot: string }
 export interface RunConfig {
   label: string; outputRoot: string; strata?: string;
+  /** Strata to draw; absent draws all six. A stratum left out is recorded as NOT-DRAWN in the
+   * inventory, never as a pass (the rehearsal draws the five canonical strata; its body swap
+   * has no W39 gradient render to act on). */
+  only?: StratumName[];
   candidateDocuments: Record<string, Document[]>;
   canonical: BedRoots;
   gradient?: BedRoots & { archiveRoot: string; repeat: number; g1Inventory: { gzip: string; sha256: string };
@@ -435,6 +439,13 @@ export function renderRun(config: RunConfig, strata: Strata, dependencies: Rende
     mkdirSync(join(config.outputRoot, name));
     dropped[name] = 0;
     if (!stratum.cells.length) continue;
+    if (config.only && !config.only.includes(name)) {
+      for (const cell of stratum.cells) {
+        records.push({ ...cell, stratum: name, status: 'NOT-DRAWN',
+          reason: 'stratum not in the run config\'s `only`' });
+      }
+      continue;
+    }
     const bed = stratum.bed === 'w39' ? config.gradient : config.canonical;
     if (!bed) throw new Error(`${name}: the run config names no roots for its bed`);
     if (stratum.bed === 'w39' && !gradient) {
