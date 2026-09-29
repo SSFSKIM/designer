@@ -14,33 +14,89 @@
   "synthetic_render": {
     "T": "memo C's native-T table (tone.memo_c_T), per endpoint and span, applied per channel",
     "quantisation": "y = round(T(M) + U(-0.5, 0.5)), clipped to 0..255 (memo C / memo E's convention)",
-    "floor_rms_codes": [0.40, 0.42],
+    "floor_rms_codes": [
+      0.4,
+      0.42
+    ],
     "fit_reaches_floor_if_pooled_rms_at_most": 0.45
   },
   "proof1_family_recovery": {
-    "k (every nesting level: global, per scheme, per endpoint)": {"abs": 0.005},
-    "k_n, k_w (LT-2k)": {"abs": 0.005, "note": "k_n is identified only by cells with t > 0 in the active pose"},
-    "lam (per endpoint, every family)": {"abs": 0.03},
-    "sigma_n(span) ordinates (free Gaussian rival)": {"abs_pt": 0.05},
-    "mu (W on the rounded shape, margin)": {"abs_pt": 1.0},
-    "tails: a (weight of the second Gaussian)": {"abs": 0.03},
-    "tails: sigma2 (pt)": {"abs_pt": 2.0},
-    "K2: sk (the knee fill's width, pt)": {"abs_pt": 0.25},
-    "LT + bleed (own scale): k_b": {"abs": 0.05},
+    "k (every nesting level: global, per scheme, per endpoint)": {
+      "abs": 0.005
+    },
+    "k_n, k_w (LT-2k)": {
+      "abs": 0.005,
+      "note": "k_n is identified only by cells with t > 0 in the active pose"
+    },
+    "lam (per endpoint, every family)": {
+      "abs": 0.03
+    },
+    "sigma_n(span) ordinates (free Gaussian rival)": {
+      "abs_pt": 0.05
+    },
+    "mu (W on the rounded shape, margin)": {
+      "abs_pt": 1.0
+    },
+    "tails: a (weight of the second Gaussian)": {
+      "abs": 0.03
+    },
+    "tails: sigma2 (pt)": {
+      "abs_pt": 2.0
+    },
+    "K2: sk (the knee fill's width, pt)": {
+      "abs_pt": 0.25
+    },
+    "LT + bleed (own scale): k_b": {
+      "abs": 0.05
+    },
     "discrete choices (support, edge mode, C-linear, per-channel knee, order)": "the true choice's pooled rms at the floor (<= 0.45) and every wrong choice >= 0.10 code worse pooled"
   },
   "proof1_statistic_readers": {
-    "model reader (memo C)": {"lam": 0.03, "w": 0.03, "sigma_n_pt": 0.05, "sigma_w_pt": 0.05,
-      "scope": "cells whose narrow width is flat in depth (receded, and active t = 0); on depth-graded cells it reads an effective width, reported, not gated"},
-    "mirror statistic S": {"s1/gain vs lam(1-w)": 0.03, "two-sided linear control |s1/gain|": 0.024, "pitches": ">= 8 pt"},
-    "pitch-64 heavy reader": {"sigma_w": "within 5 %", "support call": "the true support ranks first wherever the supports differ by > 0.05 code rms", "group mean": "rejected"},
-    "ESF reader (memo B)": {"sigma": "within 3 % of the rendered effective narrow width"},
-    "impulse reader (memo B)": {"sigma": "within 3 %", "share": 0.03},
-    "step reader (family D)": {"sigma_w": "within 5 %", "support and edge-mode call": "the true one ranks first wherever they differ by > 0.05 code rms"},
-    "patch and annulus reader (family C)": {"sigma_n": "within 5 %", "sigma_w": "within 5 %"},
-    "depth-graded radius reader": {"sigma_n(edge) / sigma_n(centre)": 0.05, "receded control": "flat within 0.05"},
-    "per-cell lam reader (memo E)": {"lam": 0.03, "interval": "contains the truth", "scope": "knee-identified cells, pitch 16-64"},
-    "hinge-gap reader (memo E)": {"lam per bin": 0.05, "scope": "bins of >= 200 px"}
+    "model reader (memo C)": {
+      "lam": 0.03,
+      "w": 0.03,
+      "sigma_n_pt": 0.05,
+      "sigma_w_pt": 0.05,
+      "scope": "cells whose narrow width is flat in depth (receded, and active t = 0); on depth-graded cells it reads an effective width, reported, not gated"
+    },
+    "mirror statistic S": {
+      "s1/gain vs lam(1-w)": 0.03,
+      "two-sided linear control |s1/gain|": 0.024,
+      "pitches": ">= 8 pt"
+    },
+    "pitch-64 heavy reader": {
+      "sigma_w": "within 5 %",
+      "support call": "the true support ranks first wherever the supports differ by > 0.05 code rms",
+      "group mean": "rejected"
+    },
+    "ESF reader (memo B)": {
+      "sigma": "within 3 % of the rendered effective narrow width"
+    },
+    "impulse reader (memo B)": {
+      "sigma": "within 3 %",
+      "share": 0.03
+    },
+    "step reader (family D)": {
+      "sigma_w": "within 5 %",
+      "support and edge-mode call": "the true one ranks first wherever they differ by > 0.05 code rms"
+    },
+    "patch and annulus reader (family C)": {
+      "sigma_n": "within 5 %",
+      "sigma_w": "within 5 %"
+    },
+    "depth-graded radius reader": {
+      "sigma_n(edge) / sigma_n(centre)": 0.05,
+      "receded control": "flat within 0.05"
+    },
+    "per-cell lam reader (memo E)": {
+      "lam": 0.03,
+      "interval": "contains the truth",
+      "scope": "knee-identified cells, pitch 16-64"
+    },
+    "hinge-gap reader (memo E)": {
+      "lam per bin": 0.05,
+      "scope": "bins of >= 200 px"
+    }
   },
   "proof2_separation": {
     "rule": [
@@ -52,16 +108,101 @@
       "verdict depends on the measured bar. An unresolved or marginal pair is a bed question and is",
       "reported with the cell or family that would separate it."
     ],
-    "rejected nulls against LT (memo E's control, on the new bed's geometry)": {"mixture reading pooled rms": ">= 2.60", "texel or device-px units pooled rms": ">= 4.65", "R2 pooled rms": ">= 4.65"}
+    "rejected nulls against LT (memo E's control, on the new bed's geometry)": {
+      "mixture reading pooled rms": ">= 2.60",
+      "texel or device-px units pooled rms": ">= 4.65",
+      "R2 pooled rms": ">= 4.65"
+    }
   },
-  "proof3_vitrea": {
+  "proof3_vitrea_superseded_2026-09-29": {
+    "$comment": [
+      "The proof-3 bars declared in 4c7a96c3, kept on record. They compared each reader's Gaussian reading of",
+      "vitrea's captures with the code's sigma_RMS, i.e. a Gaussian reader against non-Gaussian kernels (the L1",
+      "chain reads +6-7 % as a Gaussian, the L4 is platykurtic, the share is depth-graded). Their misses, as",
+      "measured (7efe4ce8, resolution_rows_a/b.json): model reader lam over 0.12 on 10/58 cells, sigma_n 20-28 %",
+      "(one degenerate fit), sigma_w up to 128 %; S 0.056 over all 50 cells (<= 0.022 on the 11 its flag",
+      "accepts); heavy reader group unrejected on 5 cells; hinge-gap lam per bin up to 0.71; step lam 0.154 /",
+      "0.220 on 2 of 20; depth flat control 0.071. The float64 replica read the same where it was run: model",
+      "mismatch, not pixels. Superseded by the parent's ruling 1 (2026-09-29): the bars below."
+    ],
     "T": "tone.SrgbAffineT (vitrea's body is affine in linear light, then encoded)",
     "truth": "the code's kernels: memo B's code-map (kernels.json, SHA-256 9c684eb9...) and its float64 replica (kernel_sim.py 98d00dc9..., verify.py 45f54862...)",
-    "mirror statistic S |s1/gain|": {"max": 0.024, "pitches": ">= 8 pt"},
-    "model reader, linear space": {"lam": "|lam| <= 0.12", "sigma_n": "within 20 % of the body kernel's sigma_RMS", "sigma_w": "within 25 % (the platykurtic L4 reads low or wide as a Gaussian)"},
-    "pitch-64 heavy reader": {"group mean": "rejected", "canvas vs footprint": "no false footprint call: within 0.04 code rms"},
-    "ESF and impulse readers": {"narrow sigma": "within 10 %", "share": "within 0.1 at 2x", "deep sigma": "within 25 %"},
+    "mirror statistic S |s1/gain|": {
+      "max": 0.024,
+      "pitches": ">= 8 pt"
+    },
+    "model reader, linear space": {
+      "lam": "|lam| <= 0.12",
+      "sigma_n": "within 20 % of the body kernel's sigma_RMS",
+      "sigma_w": "within 25 % (the platykurtic L4 reads low or wide as a Gaussian)"
+    },
+    "pitch-64 heavy reader": {
+      "group mean": "rejected",
+      "canvas vs footprint": "no false footprint call: within 0.04 code rms"
+    },
+    "ESF and impulse readers": {
+      "narrow sigma": "within 10 %",
+      "share": "within 0.1 at 2x",
+      "deep sigma": "within 25 %"
+    },
     "every other reader": "reads the code's two-sided linear body: lam within 0.12 of 0 in the linear reading, a flat narrow width in depth, the canvas-wide W",
     "known-space control": "the ENCODED reading of vitrea's linear captures is reported (memo C: lam 1.4-1.5); the knee is established by S and by every linear fit's loss, never by lam alone"
+  },
+  "proof3_vitrea": {
+    "$comment": [
+      "Re-declared by the parent's ruling 1 (2026-09-29), BEFORE the re-proof ran: each reader is proved on",
+      "real pixels by the difference between its reading of vitrea's CAPTURE and its reading of memo B's",
+      "float64 REPLICA of the same cell (kernel/code-map/verify.py `render`, SHA-256 45f54862...; it",
+      "reproduces vitrea's body cores at 0.27-0.38 code rms, memo B §1), never against sigma_RMS. The two",
+      "images differ by the renderer's own arithmetic (half-float chain, sampler rounding) and the capture's",
+      "quantisation, about the size of proof 1's synthetic quantisation (0.41 code rms), so the bars are the",
+      "reader's proof-1 bars. The replica covers the capsule, rrect-sm, rrect-md, rrect-ml and toolbar",
+      "components at both scales (not rrect-lg), on its core mask (depth > lens extent + 1 device px).",
+      "A reader whose reading is non-identifiable on a cell (by its own flag) on BOTH images is reported, not",
+      "scored; identifiable on one image and not the other is a miss."
+    ],
+    "T": "tone.SrgbAffineT, the same linear reading on both images",
+    "model reader": {
+      "|sigma_n(cap) - sigma_n(rep)|": "0.05 pt",
+      "|sigma_w(cap) - sigma_w(rep)|": "0.05 pt",
+      "|lam(cap) - lam(rep)|": 0.03,
+      "|w(cap) - w(rep)|": 0.03
+    },
+    "mirror statistic S": {
+      "|S(cap) - S(rep)|": 0.024,
+      "flag": "the same identifiability call on both"
+    },
+    "pitch-64 heavy reader": {
+      "sigma_w": "within 5 % of each other",
+      "support call and group rejection": "identical on both"
+    },
+    "ESF reader": {
+      "sigma": "within 3 % of each other"
+    },
+    "impulse reader": {
+      "sigma": "within 3 % of each other",
+      "share": 0.03
+    },
+    "patch reader (lam given)": {
+      "sigma_n": "within 5 %",
+      "sigma_w": "within 5 %"
+    },
+    "step reader": {
+      "sigma_w": "within 5 %",
+      "support / edge call": "identical on both",
+      "lam": 0.03
+    },
+    "depth reader": {
+      "sigma_n(d)/sigma_n(centre)": "within 0.05 of each other"
+    },
+    "per-cell lam reader": {
+      "|lam(cap) - lam(rep)|": 0.03,
+      "interval": "each contains the other's point"
+    },
+    "hinge-gap reader": {
+      "lam per bin": "within 0.05 of each other"
+    },
+    "known-space control": "unchanged: the ENCODED reading of vitrea's linear captures is reported, not gated",
+    "gating (the parent's ruling 2)": "ESF, single-width impulse, depth, heavy, model and hinge-gap readers are DESCRIPTIVE, not gated, whatever they read; their results are still reported against these bars"
   }
 }
