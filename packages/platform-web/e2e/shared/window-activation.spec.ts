@@ -202,7 +202,7 @@ const SEALED = {
   macos27: {
     light: {
       active: "be13dae45098fc8929a7b92d26e09a0369047ed18d370e96cea97ecbc6bda36f",
-      inactive: "7b3d327de9cc81c2da7387a675a91d823429e6a2197beef195b99d04877da2ed",
+      inactive: "b0d0d8dacc6a03af8017d0d9a4cec3486bfd95b09c93280a2d2643cf8d0d6c09",
     },
     dark: {
       active: "2a4323f33df8d7992d2e49ac2481c4c4be1bb172a84d3d28da8e428fc09ce384",
@@ -276,11 +276,4 @@ for (const materialDocument of ["macos27", "macos26"] as const) {
  * apple-macos-27.0-1x-dark-standard-glass0.5-receded.json:
  * 6b6237b7ae241638851192d165ddff03bdd40660ea805a3457f0211d11624831
  * -> 7c454858a3cbad5b85f9389e3cb43aad96f3a52a3c1e83e16e3024af883e5a0e
- */
-
-/* W41 G2 E3 seal (§5.193, Decision Log 2), prior full pin retained. Only the light receded
- * endpoint moves: it enables the E3 gate-group at the tuple the one exposure closed on.
- * apple-macos-27.0-1x-light-standard-glass0.5-receded.json:
- * b0d0d8dacc6a03af8017d0d9a4cec3486bfd95b09c93280a2d2643cf8d0d6c09
- * -> 7b3d327de9cc81c2da7387a675a91d823429e6a2197beef195b99d04877da2ed
  */

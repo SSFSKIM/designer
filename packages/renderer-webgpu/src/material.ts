@@ -1772,10 +1772,7 @@ export interface MaterialProfile {
    * retention is silently the identity there.
    */
   readonly bodyChromaRetention: number;
-  /**
-   * E3 identity gate in [0,1]. Since W41 G2 (§5.193) the macOS 27 light receded document
-   * enables it at 1; every other shipped document holds it at the identity 0.
-   */
+  /** E3 identity gate in [0,1]. The light-receded scratch scope is not shipped. */
   readonly bodyE3Strength: number;
   /** Atomic finite gain tuple, each in [0,3]; inert while strength is zero. */
   readonly bodyE3Gains: BodyE3Gains;
@@ -2124,10 +2121,8 @@ export function bodyChromaRetentionUnderPolicy(
  * g interpolates three gain nodes and holds the ends. Channels clip AFTER chroma.
  * Achromatic inputs explicitly have zero chroma, including floating-point roundoff.
  *
- * The claimed scope is the macOS 27 light receded endpoint over uniform backdrops, closed
- * on the W39 holdout (§5.192 §25) and shipped by that document since W41 G2 (§5.193);
- * structured backdrops draw it too but are not claimed. At strength1 and presence1 this
- * REPLACES the prior tone-solve/retention/black-branch result,
+ * The claimed scope is light-receded scratch, not a shipped material. At strength1
+ * and presence1 this REPLACES the prior tone-solve/retention/black-branch result,
  * before author tint/rim; those operators are not applied again to the replacement.
  * Intermediate presence mixes the decoded target with the sampled backdrop in
  * linear light: an unmeasured extension, not an identified dynamic law. The caller
@@ -2163,7 +2158,7 @@ export function bodyE3Encoded(
  * exercise the real reference, not a second copy of its arithmetic in a test.
  * Presence 1 replaces the prior tone-solve/retention/black-branch result before
  * author tint/rim. Intermediate presence is an unmeasured extension of the
- * light-receded law, not native-identified dynamic behaviour.
+ * light-receded scratch law, not shipped or native-identified dynamic behaviour.
  */
 export function applyBodyE3(
   colourLinear: Rgb,

@@ -274,9 +274,6 @@ export const macos27RecededMaterialProfile: Readonly<
     backdropToneBlackStrength: 1,
     backdropToneBlackThin: 0.23455058216100522,
     backdropToneBlackThick: 0.23455058216100522,
-    bodyE3Strength: 1,
-    bodyE3Gains: [0.929205829365914, 0.9597570955316058, 0.9383102545096953],
-    bodyE3Neutral: [150, 157, 164, 171, 178, 188, 197],
   },
   dark: {
     backdropToneAbscissa: {
@@ -369,6 +366,6 @@ export const macos27CssTierMapping: Partial<CssTierMapping> = {
 export const MACOS_27_RESOLVED_MATERIAL_SHA256 = {
   light: "be13dae45098fc89",
   dark: "2a4323f33df8d799",
-  recededLight: "7b3d327de9cc81c2",
+  recededLight: "b0d0d8dacc6a03af",
   recededDark: "7c454858a3cbad5b",
 } as const;
