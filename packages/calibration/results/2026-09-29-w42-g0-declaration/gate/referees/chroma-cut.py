@@ -17,9 +17,12 @@ dark row that moved would read here as a nonzero delta against the rows it repla
 W42 G0 (charter clause 10): the shipped-document guard reads `Source.admitted`, the shipped
 documents plus any declared `--candidate`, so a candidate's rows form the bed; with one, the
 cut carries `admission`, `atDocuments` reads `candidate` and stdout opens `# CANDIDATE`.
-`shippedDocuments` stays the files under profiles/. The reference is unchanged: the
-generation current when the W42 gate opens is still light 85ad7f7e3e0d / 30fbe05986ae and
-dark 0eac5b294cc2 / 5cec8c961201.
+In candidate mode `shippedDocuments` names what the bed was measured at: each admitted
+candidate in place of the file under profiles/ of its basename (the gate review of b151aff4,
+finding 11; before it the field kept the profiles/ files, so a candidate cut named documents
+it did not measure). Base mode writes the profiles/ files, byte for byte as before. The
+reference is unchanged: the generation current when the W42 gate opens is still light
+85ad7f7e3e0d / 30fbe05986ae and dark 0eac5b294cc2 / 5cec8c961201.
 
     python3.12 -B chroma-cut.py [--stage DIR ...] [--candidate PATH[=SHA12] ...] [--out PATH]
 """
@@ -78,6 +81,25 @@ def shipped_document_hashes() -> dict[str, str]:
         .hexdigest()[:12]
         for path in sorted((PACKAGE / "profiles").glob("*.json"))
     }
+
+
+def measured_documents(shipped: dict[str, str], candidates) -> dict[str, str]:
+    """The cut's `shippedDocuments`: the macOS 27 documents by basename, twelve hex each.
+
+    Base mode: the files under profiles/, in path order, as W41's port writes them. Candidate
+    mode: each admitted candidate replaces the file of its basename in place (a basename no
+    shipped file has is appended), so the record names the documents the bed was measured at
+    and a candidate cut cannot be read as the shipped one's (W42 G0, the gate review of
+    b151aff4, finding 11). The `admission` stamp still lists the candidates by path.
+    """
+    out = {
+        path.split("/")[-1]: digest
+        for path, digest in sorted(shipped.items())
+        if "apple-macos-27.0-" in path
+    }
+    for path, sha in candidates:
+        out[path.split("/")[-1]] = sha[:12]
+    return out
 
 
 def at_a_shipped_document(cell: dict, shipped: dict[str, str]) -> bool:
@@ -253,11 +275,7 @@ def main(argv: list[str]) -> int:
         "tier": "texture",
         "renderer": "webgpu",
         "sets": ["calibration", "validation"],
-        "shippedDocuments": {
-            path.split("/")[-1]: digest
-            for path, digest in sorted(shipped.items())
-            if "apple-macos-27.0-" in path
-        },
+        "shippedDocuments": measured_documents(shipped, source.candidates),
         "referenceGeneration": {
             scheme: {
                 "activeDocumentSha256": references[scheme][0],

@@ -1,5 +1,6 @@
 W42 G0 referees: candidate-admission test (charter clause 10)
-worktree HEAD ffd9567f; W41 port packages/calibration/results/2026-09-29-w41-g2-landing/referees; canonical captures /Users/new/Developer/GitHub/designer/packages/calibration/web-captures
+worktree HEAD ee2205d8; W41 port packages/calibration/results/2026-09-29-w41-g2-landing/referees; canonical captures /Users/new/Developer/GitHub/designer/packages/calibration/web-captures
+fix wave (the gate review of b151aff4, finding 11): chroma-cut.py and test_admission.py ran as uncommitted edits at this HEAD and are committed unchanged with this file
 scratch /private/tmp/w42-gate-admission/test; candidate documents packages/calibration/results/2026-09-29-w42-g0-declaration/gate/referees/.admission-scratch (removed on exit)
 
 stage light: 208 non-holdout WebGPU rows of 248 declared cells, 208 captures copied
@@ -44,8 +45,9 @@ GREEN base, two stages: control-light + control-dark against the current union (
 mapped back before comparing: the four candidate paths and hashes to the shipped ones; the two candidate stage paths and stage-matrix digests to the control ones; the union's legacy-envelope digest (a hash over rows that name the documents); the output directory scratch-union prints; e2's captures roots are set aside (path-only)
 GREEN candidate: candidate-light + candidate-dark with --candidate (x4), against control-light + control-dark in base mode
   ok    chroma-cut
-          chroma-cut.json: differs before mapping at $.admission, $.atDocuments, $.generatedAt, $.source.label, $.source.stages[].declaredDocuments.active.path, $.source.stages[].declaredDocuments.active.sha256 (+4 more); stamped, equal after
-          chroma-cut.stdout: first line "# CANDIDATE" yes, 1 line(s) differ before mapping, equal after
+          chroma-cut.json: shippedDocuments names the 4 candidates before mapping: yes (finding 11)
+          chroma-cut.json: differs before mapping at $.admission, $.atDocuments, $.generatedAt, $.shippedDocuments.apple-macos-27.0-1x-dark-standard-glass0.5-receded.json, $.shippedDocuments.apple-macos-27.0-1x-dark-standard-glass0.5.json, $.shippedDocuments.apple-macos-27.0-1x-light-standard-glass0.5-receded.json (+8 more); stamped, equal after
+          chroma-cut.stdout: first line "# CANDIDATE" yes, 2 line(s) differ before mapping, equal after
   ok    m2-rebaseline
           m2-rebaseline.json: differs before mapping at $.admission, $.source.label, $.source.stages[].declaredDocuments.active.path, $.source.stages[].declaredDocuments.active.sha256, $.source.stages[].declaredDocuments.receded.path, $.source.stages[].declaredDocuments.receded.sha256 (+2 more); stamped, equal after
           m2-rebaseline.stdout: first line "# CANDIDATE" yes, 0 line(s) differ before mapping, equal after
