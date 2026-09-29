@@ -204,5 +204,59 @@
     },
     "known-space control": "unchanged: the ENCODED reading of vitrea's linear captures is reported, not gated",
     "gating (the parent's ruling 2)": "ESF, single-width impulse, depth, heavy, model and hinge-gap readers are DESCRIPTIVE, not gated, whatever they read; their results are still reported against these bars"
+  },
+  "refraction_order_test": {
+    "$comment": [
+      "The parent's revised ruling 3 (2026-09-29): in the ACTIVE pose refraction is taken to act AFTER the blur",
+      "(the blurred image displaced inside the band; vitrea's own order), so every active reader and family fitter",
+      "uses the narrow-support mask d >= 20 + 2 sigma_n,ref. The rival order, BEFORE the blur (the capture displaced,",
+      "then blurred), is declared with this test, which the bed decides on Apple's pixels; if the rival wins, active",
+      "fits fall back to the 2 sigma_w mask (the record in 9c1623b4 / be700896 is that fallback). Declared before",
+      "its proof runs."
+    ],
+    "statistic": [
+      "Fit the law (LT, or the surviving family) on the active cells at the narrow-support mask, as the gated fit",
+      "does, and take the per-pixel luma residual e = y - y_hat. Bin the mask's pixels by depth: [d_in, 30),",
+      "[30, 38), [38, 46), [46, 54), [54, inf) pt. Per cell, NEAR is the shallowest bin with >= 200 px and FAR",
+      "the deepest, with FAR's lower edge at least 16 pt deeper than NEAR's (a cell without such a pair does not",
+      "vote). Delta_c = rms(e | NEAR) - rms(e | FAR). D = median of Delta_c over the structured cells of a pose",
+      "(families B, B', C, D, E) minus the median of Delta_c over its uniform cells (family A, the same shapes):",
+      "the uniform cells carry every depth trend that does not depend on backdrop structure (level, lift, an",
+      "unmodelled edge term), which a displacement of a uniform backdrop cannot produce."
+    ],
+    "decision": {
+      "BEFORE": "D > 0.30 code, carried by at least 3 structured cells with Delta_c > 0.30",
+      "AFTER": "D < 0.15 code",
+      "undecided": "between: reported; the fallback is not triggered, the parent rules"
+    },
+    "proof": [
+      "Synthetic renders of both orders on the active cells of the declared bed, through the memo C T stand-in,",
+      "quantised +-0.5. AFTER: the law's own render (a displacement after the blur leaves every pixel beyond the",
+      "band untouched). BEFORE: the floored capture displaced, then blurred by the law; the displacement is the",
+      "proof's stand-in for a lens whose form the dump declares only by its inputs (inner amount -min(s/2, 60),",
+      "height min(s/4, 20); outer reach max(16, s/5)): along the SDF normal, A (1 - |d| / h)^2 inside the 20-pt",
+      "inner band and outside to the 19.2-pt outer reach, pointing inward, for A in {2, 4, 8, 16} pt.",
+      "Bar: AFTER reads D < 0.15 in both active endpoints; the test's resolution is the smallest A at which BEFORE",
+      "reads D > 0.30 (reported, not a pass condition: a weak lens before the blur is harmless to the fit)."
+    ]
+  },
+  "gating_2026-09-29-revision": {
+    "gated": [
+      "every family fitter (LT and the rivals)",
+      "the step reader's support / edge-mode call"
+    ],
+    "descriptive": [
+      "S (replica: 3 flag-call mismatches)",
+      "per-cell lam (replica misses)",
+      "step sigma_w (one replica miss)",
+      "patch widths (replica misses)",
+      "ESF",
+      "single-width impulse",
+      "depth",
+      "heavy",
+      "model",
+      "hinge-gap"
+    ],
+    "capture floor": "memo E's 0.8-device-px pre-blur (1.6 on rrect-lg) stays a DECLARED CONSTANT; it is re-read descriptively on the fine-pitch cells as a check, never fitted"
   }
 }
