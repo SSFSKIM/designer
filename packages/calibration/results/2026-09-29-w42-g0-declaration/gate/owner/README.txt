@@ -76,6 +76,13 @@ What one invocation does
     is never inserted.
  7. `pnpm exec vitest run test/adopted-thresholds.test.ts --reporter=json` with
     VITREA_MATRIX_PATH, VITREA_WEB_CAPTURES, VITREA_L1_CUT and VITREA_X1_CUT set.
+ 7a. Closures (default on; --no-closures for evidence), the parent's ruling of 2026-09-30: a
+    CLOSING named miss is a pass and its list shrinks at the seal. Before the test's two
+    named-miss assertions (MISSED_27_ROWS, L1's MISSES) the worktree copy logs the derived and
+    recorded lists (one added line each, no assertion changed); every recorded entry no longer
+    derived is a closure, dropped from the copy as the seal would drop it, and the test runs
+    again: that run is the run's result. Closures are reported (summary.json closures) and never
+    block; a closure never excuses a new miss (proof.txt, "Closures").
  8. The comparison, case by case, on each failure's message with stack frames and the worktree
     path removed (inserted lines move line numbers): new (fails in the candidate only), changed
     (fails in both, differently), unmeasuredInCandidate (skipped where the base passed), and,

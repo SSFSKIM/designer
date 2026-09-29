@@ -28,3 +28,8 @@ no canonical holdout or recorded native pixel opened; freeze 1,818 at every comm
                    absolutely, the tinted-cell decomposition from vitrea's own tint code, M2 at
                    s = 32 across the declared rivals and supports, and the landed T's black end;
                    round2/README.txt ends with what still fails by construction.
+  rehearsal/round3/  the parent's round 3 (items (a)-(c)): chroma from the literal face matrix's
+                   saturation and from W41 G1's E3-form g, and the active band blended by
+                   coverage x smoothstep(0, 20 pt, depth), crossed with both candidates and both
+                   knees (24 combinations); round3/README.txt ends with what still fails by
+                   construction, per combination (best: r3-2pgb).

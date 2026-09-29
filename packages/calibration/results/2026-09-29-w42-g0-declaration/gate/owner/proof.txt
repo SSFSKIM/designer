@@ -137,3 +137,52 @@ Not proved here
 - The CSS tier, E2 and the directional stops are other referees; the kept CSS rows read as the
   base reads them.
 - Stability of the runner under a moving HEAD: pass --commit; the default takes HEAD at start.
+
+Closures (2026-09-30, the parent's ruling; run-owner.py step 8)
+===============================================================
+
+The ruling: a CLOSING named miss in the owner-run comparison is a pass, and its list shrinks at
+the seal (floors come off by fix). The committed test compares MISSED_27_ROWS and L1's `MISSES`
+with the lists it derives, in both directions, so a closure fails it exactly as a new miss would,
+and vitest's JSON carries only a truncated message ("expected [ …(7) ] to deeply equal [ …(8) ]").
+Step 8 therefore reads the lists rather than the message. Before each of those two assertions the
+worktree's copy logs the derived and the recorded list to a scratch file; one added line each, no
+assertion changed. A recorded entry the run no longer derives is a closure. The closing entries
+are dropped from the copy, as the seal would drop them: the MISSED_27_ROWS line is deleted and
+`MISSES` is filtered at its assertion. The test then runs again, and that second run is the run's
+result. Closures are reported per run (summary.json `closures`) and never block.
+
+Every run: --commit b151aff4 (the committed test's SHA-256 92f2a457…, unchanged), runner
+run-owner.py 83e1e116…, proof-inputs.py f8217f4c… (--out /tmp/w42-g0-int/owner-inputs;
+proof-inputs.json 12af3209…), batch run-closure.sh (beside this file; eb719e01…), 2026-09-30
+07:43–07:50 KST, three runs in parallel, each in its own disposable worktree, removed afterwards.
+The test as run with step 8 hashes 42286774… and, at the shrunken lists, c4d16dfa….
+Scratch stays outside git at /tmp/w42-g0-int/owner-closure/<run>/.
+
+Seeds (proof-inputs.py; in the candidate light stage):
+  l1-close    1x light impulse__capsule-button__inactive-tint-orange, interiorMeanWeb 0.212671 ->
+              0.146655, its native mean (L1 error 0.0660 -> 0): one of L1's two named misses closes.
+  m27-close   1x light photo__rrect-sm__inactive, chromaStructureRatioWeb 2.368753 -> 1.539039,
+              its native ratio (R 1.539 -> 1.000): one MISSED_27_ROWS entry closes.
+  cand-light-closure           both closures.
+  cand-light-closure-plus-new  both closures and the RED seed (light-solid__rrect-md__rest
+              interiorMeanWeb +0.1: a new L1 miss).
+
+run                       exit  base       candidate           verdict
+closure-green              0    108 pass   108 pass            new 0; closures: the MISSED_27_ROWS
+                                                               entry and the 1x L1 named miss
+closure-red-no-closures    1    108 pass   106 pass, 2 fail    new 2: "names every 27 row …"
+                                                               (…(7) against …(8)) and "L1: absolute
+                                                               error … two named" (Array(1) against
+                                                               …(2)) — the same closures read as
+                                                               changes without step 8
+closure-plus-new           1    108 pass   106 pass, 2 fail    new 2: L1 absolute (…(2) against
+                                                               Array(1): the light-solid miss is new)
+                                                               and L1 growth (+0.100); both closures
+                                                               still reported
+
+GREEN: the base is the current union (7df96c92…), all-pass with step 8's lines in, and reports no
+closure. The candidate reports exactly the two seeded closures, drops them and passes 108 / 108.
+RED: with --no-closures the same stage fails both named-miss cases as new failures, which is the
+behaviour the ruling replaces. RED: a closure never excuses a new miss. The shrunken L1 list still
+refuses the light-solid cell, and the growth case fails on its own.

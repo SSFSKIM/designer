@@ -37,9 +37,22 @@ Per run, inside one disposable detached worktree at `--commit` (default this bra
      carries the named-miss derivation, which then checks every insertion itself.
   7. `vitest run test/adopted-thresholds.test.ts --reporter=json` with VITREA_MATRIX_PATH,
      VITREA_WEB_CAPTURES, VITREA_L1_CUT and VITREA_X1_CUT set.
+  8. (default on; --no-closures for evidence) CLOSURES, the parent's ruling of 2026-09-30: a
+     named miss that stops missing is a pass, and its list shrinks at the seal, because floors
+     come off by fix. The test compares two named-miss lists with the lists it derives, in both
+     directions: MISSED_27_ROWS ("names every 27 row the refit missed") and L1's `MISSES` ("the
+     two named, unfloored misses"). So a closing entry fails it exactly as a new miss would, and
+     vitest's truncated message cannot tell the two apart. Before each of those two assertions
+     the worktree's copy logs the derived and the recorded list to a scratch file (one added
+     line each; no assertion changes). Every recorded entry the run no longer derives is a
+     closure. The copy then drops the closing entries, as the seal would: the MISSED_27_ROWS
+     line is deleted, and `MISSES` is filtered at its assertion. The test runs again, and that
+     second run is the run's result. A closure never excuses a new miss: the shrunken list
+     still fails on any entry derived and not recorded.
 
 Then the comparison: exit 0 only when no candidate case fails that the base passes, and no case
-failing in both fails with a different message. Exit 1 otherwise; exit 2 on a refusal.
+failing in both fails with a different message. Closures are reported per run and never block.
+Exit 1 otherwise; exit 2 on a refusal.
 
     python3.12 -B run-owner.py --stage LIGHT --stage DARK --candidate DOC ... --captures ROOT \\
         --base-stage BLIGHT --base-stage BDARK --base-captures ROOT --out /tmp/owner-run
@@ -73,6 +86,14 @@ M2_METRIC = "interiorStdDevStructureDelta"
 CHROMA_BED = {"apple-macos-27.0-1x-light-standard-glass0.5", "apple-macos-27.0-2x-light-standard-glass0.5",
               "apple-macos-27.0-1x-dark-standard-glass0.5", "apple-macos-27.0-2x-dark-standard-glass0.5"}
 MISSED_ANCHOR = "const MISSED_27_ROWS: Readonly<Record<string, MissedRow>> = {"
+#: The test's two list-equality assertions over named misses, with the expressions for the list
+#: each derives and the list each records (step 8).
+CLOSURE_ASSERTIONS = {
+    "MISSED_27_ROWS": ('    expect(missed.sort(), "the 27 rows that miss their declared bound").toEqual(',
+                       "[...missed].sort()", "Object.keys(MISSED_27_ROWS).sort()"),
+    "L1 MISSES": ("    expect(misses).toEqual(MISSES);", "[...misses].sort()", "[...MISSES].sort()"),
+}
+CLOSURE_NOTE = "// run-owner.py: a closure read (W42, 2026-09-30), not committed"
 
 
 class Refusal(SystemExit):
@@ -547,6 +568,63 @@ def m2_named_misses(cut: dict, union_path: Path, shipped_now: dict[str, str]) ->
     return misses
 
 
+def instrument_closures(source: str) -> str:
+    """Step 8: log each named-miss list the test derives and records, beside its assertion."""
+    for name, (anchor, derived, recorded) in CLOSURE_ASSERTIONS.items():
+        if source.count(anchor) != 1:
+            raise Refusal(f"the test at the commit holds {source.count(anchor)} copies of the {name} "
+                          "assertion; closures cannot be read (--no-closures to run without them)")
+        line = ('    if (process.env.W42_OWNER_DERIVED) process.getBuiltinModule("node:fs").appendFileSync('
+                f'process.env.W42_OWNER_DERIVED, JSON.stringify({{ list: "{name}", derived: {derived}, '
+                f'recorded: {recorded} }}) + "\\n"); {CLOSURE_NOTE}')
+        source = source.replace(anchor, line + "\n" + anchor, 1)
+    return source
+
+
+def read_lists(path: Path) -> dict[str, dict]:
+    """The lists step 8 logged, by name; a case that threw before its log line logs nothing."""
+    if not path.exists():
+        return {}
+    return {r["list"]: r for r in map(json.loads, path.read_text().splitlines())}
+
+
+def closures_of(lists: dict[str, dict]) -> dict[str, list[str]]:
+    """Every recorded named miss the run no longer derives."""
+    out = {name: sorted(set(r["recorded"]) - set(r["derived"])) for name, r in lists.items()}
+    return {name: keys for name, keys in out.items() if keys}
+
+
+def shrink(source: str, closures: dict[str, list[str]]) -> str:
+    """The seal's shrink on the worktree copy: the closing MISSED_27_ROWS lines deleted, and
+    `MISSES` filtered where it is asserted and logged."""
+    for key in closures.get("MISSED_27_ROWS", []):
+        line = re.compile(r"^  " + re.escape(json.dumps(key, ensure_ascii=False)) + r": \{.*\n", re.M)
+        if len(line.findall(source)) != 1:
+            raise Refusal(f"MISSED_27_ROWS holds {len(line.findall(source))} lines for {key!r}")
+        source = line.sub("", source)
+    closed = closures.get("L1 MISSES")
+    if closed:
+        kept = f"MISSES.filter((key) => !{json.dumps(closed)}.includes(key))"
+        anchor = CLOSURE_ASSERTIONS["L1 MISSES"][0]
+        source = source.replace(anchor, f"    expect(misses).toEqual({kept}); {CLOSURE_NOTE}", 1)
+        source = source.replace("recorded: [...MISSES].sort()", f"recorded: [...{kept}].sort()", 1)
+    return source
+
+
+def vitest(run: Run, wt: Path, env: dict, stem: str) -> dict:
+    """One run of the owner test; its cases and the named-miss lists it logged."""
+    output, lists = run.out / f"{stem}.json", run.out / f"{stem}-lists.jsonl"
+    env = dict(env, W42_OWNER_DERIVED=str(lists))
+    with (run.out / f"{stem}.log").open("w") as out:
+        code = subprocess.run(["pnpm", "exec", "vitest", "run", "test/adopted-thresholds.test.ts",
+                               "--reporter=json", f"--outputFile={output}"],
+                              cwd=wt / CAL_REL, env=env, stdout=out, stderr=subprocess.STDOUT).returncode
+    if not output.exists():
+        raise SystemExit(f"{run.name}: vitest wrote no JSON; see {run.out / (stem + '.log')}")
+    return dict(exit=code, jsonSha256=file_sha(output), cases=cases(json.loads(output.read_text()), wt),
+                lists=read_lists(lists))
+
+
 def execute(run: Run, tree: Worktree, ctx: dict, before_test=None) -> dict:
     """One run: install, union, captures, cuts, M2 insertions, the owner test. Restores after."""
     wt, referees = tree.path, tree.path / ctx["referees"]
@@ -634,22 +712,29 @@ def execute(run: Run, tree: Worktree, ctx: dict, before_test=None) -> dict:
                                                 1).encode())
         (run.out / "m2-insertions.txt").write_text(note + "\n")
         result["m2Inserted"] = inserted
+        if ctx["closures"]:
+            tree.write(TEST_REL, instrument_closures((wt / TEST_REL).read_text()).encode())
         result["testAsRunSha256"] = file_sha(wt / TEST_REL)
 
         log(f"{run.name}: vitest")
-        env = {k: v for k, v in os.environ.items() if not k.startswith("VITREA_")}
+        env = {k: v for k, v in os.environ.items() if not k.startswith("VITREA_") and k != "W42_OWNER_DERIVED"}
         env.update(VITREA_MATRIX_PATH=str(union_path), VITREA_WEB_CAPTURES=str(run.out / "captures"),
                    VITREA_L1_CUT=str(cuts / "l1-cut.json"), VITREA_X1_CUT=str(cuts / "black-cut.json"))
-        output = run.out / "vitest.json"
-        with (run.out / "vitest.log").open("w") as out:
-            code = subprocess.run(["pnpm", "exec", "vitest", "run", "test/adopted-thresholds.test.ts",
-                                   "--reporter=json", f"--outputFile={output}"],
-                                  cwd=wt / CAL_REL, env=env, stdout=out, stderr=subprocess.STDOUT).returncode
-        if not output.exists():
-            raise SystemExit(f"{run.name}: vitest wrote no JSON; see {run.out / 'vitest.log'}")
-        result["vitestExit"] = code
-        result["vitestJsonSha256"] = file_sha(output)
-        result["cases"] = cases(json.loads(output.read_text()), wt)
+        first = vitest(run, wt, env, "vitest")
+        result["vitestExit"], result["vitestJsonSha256"] = first["exit"], first["jsonSha256"]
+        result["cases"], result["namedMissLists"] = first["cases"], first["lists"]
+        result["closures"] = closures_of(first["lists"]) if ctx["closures"] else {}
+        if result["closures"]:
+            # The seal's shrink, then the test again: the second run is this run's result.
+            log(f"{run.name}: closures {result['closures']}; vitest at the shrunken lists")
+            tree.write(TEST_REL, shrink((wt / TEST_REL).read_text(), result["closures"]).encode())
+            again = vitest(run, wt, env, "vitest-at-seal")
+            result["casesBeforeClosure"] = result["cases"]
+            result["testAtSealSha256"] = file_sha(wt / TEST_REL)
+            result["vitestAtSealExit"], result["vitestAtSealJsonSha256"] = again["exit"], again["jsonSha256"]
+            result["cases"], result["namedMissListsAtSeal"] = again["cases"], again["lists"]
+            if closures_of(again["lists"]):
+                raise SystemExit(f"{run.name}: the shrunken lists still close {closures_of(again['lists'])}")
         return result
     finally:
         tree.restore()
@@ -723,6 +808,9 @@ def main() -> int:
     parser.add_argument("--no-kept-relocation", dest="kept_relocation", action="store_false",
                         help="EVIDENCE ONLY, never the bar: leave rows the stages do not replace at "
                              "the document a candidate overwrote, so the test drops them")
+    parser.add_argument("--closures", action=argparse.BooleanOptionalAction, default=True,
+                        help="step 8: a closing named miss is a pass and its list shrinks as at the "
+                             "seal (--no-closures is EVIDENCE ONLY: a closure then fails as a change)")
     parser.add_argument("--out", type=Path, required=True, help="a new directory outside the repository")
     parser.add_argument("--keep", action="store_true", help="keep the disposable worktree")
     args = parser.parse_args()
@@ -749,6 +837,7 @@ def main() -> int:
         m2 = (test["m2NamedMissDerivation"] or None) if args.m2_named_misses else False
         ctx = dict(referees=args.referees, shipped=shipped_documents(tree.path), test=test, m2=m2,
                    keptRelocation=args.kept_relocation, carryHoldout=args.carry_holdout,
+                   closures=args.closures,
                    canonical=args.canonical_captures.resolve(),
                    chromaReferences=chroma_references(tree.path))
         base = Run("base", args.base_stage, args.base_candidate, args.base_captures, out)
@@ -782,6 +871,8 @@ def main() -> int:
             new=verdict["new"], changed=verdict["changed"],
             unmeasuredInCandidate=verdict["unmeasuredInCandidate"],
             fixed=verdict["fixed"], shared=verdict["shared"], onlyInBase=verdict["onlyInBase"],
+            closures=dict(enabled=args.closures, base=results["base"]["closures"],
+                          candidate=results["candidate"]["closures"]),
             m2Inserted=dict(base=results["base"]["m2Inserted"],
                             candidate=results["candidate"]["m2Inserted"]),
             m2Misses=dict(base=results["base"].get("m2Misses"),
@@ -800,7 +891,7 @@ def main() -> int:
             shippedDocuments={n: dict(path=d["path"], sha256=sha256(d["bytes"]))
                               for n, d in ctx["shipped"].items()},
             canonicalCaptures=str(ctx["canonical"]),
-            runs={name: {k: v for k, v in r.items() if k not in ("cases", "m2Misses")}
+            runs={name: {k: v for k, v in r.items() if k not in ("cases", "casesBeforeClosure", "m2Misses")}
                   for name, r in results.items()},
         )
         (out / "manifest.json").write_text(json.dumps(manifest, indent=1) + "\n")
@@ -815,6 +906,9 @@ def main() -> int:
                 first = (entry.get("message") or entry.get("baseMessage") or entry.get("status", ""))
                 print(f"  {entry['case']}\n    {first.splitlines()[0] if first else ''}")
         for name in ("base", "candidate"):
+            for listed, keys in results[name]["closures"].items():
+                for key in keys:
+                    print(f"closure ({name}, {listed}): {key} (a pass; the list shrinks at the seal)")
             for line in results[name]["m2Inserted"]:
                 print(f"M2 inserted ({name}): {line.strip()}")
         print(f"{'PASS' if not blocking else 'FAIL'}: {out / 'summary.json'}")

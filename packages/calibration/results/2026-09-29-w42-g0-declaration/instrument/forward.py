@@ -47,10 +47,14 @@ NARROW_STEP = (0.20, 0.04)
 BAND_IN, BAND_OUT = 20.0, 19.2
 RECEDED_D_IN = 8.0
 # The parent's ruling 3 (2026-09-29): each reader adds the support of the kernel it READS: 2 sigma_n,ref for a
-# narrow reader, 2 sigma_w,ref = 2 x 2.1 x 8 = 33.6 pt for a reader of W. Whether Apple refracts before or after
-# the blur is unknown, and this reading covers both. Every family fitter reads W (and lam against it), so the
-# family fitters' active mask is kernel='w': 53.6 pt, which leaves only rrect-ml and rrect-lg readable when
-# active; the receded pose, with no band, carries W fully.
+# narrow reader, 2 sigma_w,ref = 2 x 2.1 x 8 = 33.6 pt for a reader of W. As first given it put every family fitter
+# (they read W) at kernel='w', 53.6 pt, which leaves only rrect-ml and rrect-lg readable when active. The REVISED
+# ruling 3 makes refraction AFTER the blur (vitrea's own order) the primary hypothesis: a pixel beyond the band is
+# the law's own value whatever the kernel's reach, so every active reader and family fitter uses kernel='n',
+# 20 + 16.8 t pt. Refraction BEFORE the blur is the declared rival, decided on Apple's pixels by
+# refraction_order.py (tolerances.json "refraction_order_test", the tail statistic); kernel='w' is its fallback
+# mask, taken only after the parent reads a BEFORE or undecided call. The receded pose, with no band, carries W
+# fully at RECEDED_D_IN.
 KERNEL_REF = {'n': lambda s: 2.1 * RN * 0.8 * G.size_t(s), 'w': lambda s: 2.1 * RW}
 
 

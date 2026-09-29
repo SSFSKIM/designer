@@ -18,6 +18,12 @@
   {base,cand}-{light,dark}-g2/  the same stages without their holdout rows, which is the shape
                          a G2 stage has; cand-light-g2-texture/ adds one calibration row whose
                          oklabDeltaEMean is set to 0.2 against the table's 0.07.
+  cand-light-closure/    two named misses CLOSED (the parent's ruling of 2026-09-30, run-owner.py
+                         step 8): L1's named 1x light impulse__capsule-button__inactive-tint-orange
+                         at its native mean, and MISSED_27_ROWS's 1x light photo__rrect-sm__inactive
+                         chromaStructureRatioR at R = 1 (its web ratio set to the native one).
+  cand-light-closure-plus-new/  the same two closures and the RED seed together: a closure
+                         never excuses a new miss.
 
     python3.12 -B proof-inputs.py --out /tmp/w42-gate-owner/proof-inputs
 """
@@ -53,7 +59,14 @@ SEEDS = {
                 lambda native, web: web - (0.1 * web if native >= web else -0.1 * web)),
     "texture": ((LIGHT_1X, "light-solid__rrect-md__rest"), "perceptual", "oklabDeltaEMean", None,
                 lambda native, web: 0.2),
+    "l1-close": ((LIGHT_1X, "impulse__capsule-button__inactive-tint-orange"), "material",
+                 "interiorMeanWeb", "interiorMeanNative", lambda native, web: native),
+    "m27-close": ((LIGHT_1X, "photo__rrect-sm__inactive"), "material", "chromaStructureRatioWeb",
+                  "chromaStructureRatioNative", lambda native, web: native),
 }
+#: stage name -> the seeds applied in order (only the stages that combine seeds).
+COMBINED = {"closure": ("l1-close", "m27-close"),
+            "closure-plus-new": ("l1-close", "m27-close", "seeded")}
 COMMENT = ("W42 G0 owner-runner proof: the shipped document with this one key added, so its "
            "bytes and hash differ and its resolved material does not.")
 
@@ -150,6 +163,13 @@ def main() -> int:
                 rows_seeded, record["seeds"][name] = seeded(renamed, name)
                 write_stage(out / f"cand-light-{name}", rows_seeded, declared["materialProfile"],
                             declared["recededProfile"])
+            for stage, names in COMBINED.items():
+                rows_seeded = renamed
+                for name in names:
+                    rows_seeded, _ = seeded(rows_seeded, name)
+                write_stage(out / f"cand-light-{stage}", rows_seeded, declared["materialProfile"],
+                            declared["recededProfile"])
+            record["combined"] = {stage: list(names) for stage, names in COMBINED.items()}
             base_seeded, _ = seeded(raw, "seeded")
             write_stage(out / "base-light-seeded", base_seeded, pair["materialProfile"],
                         pair["recededProfile"])

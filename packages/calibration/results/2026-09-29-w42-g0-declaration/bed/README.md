@@ -278,7 +278,7 @@ documents at its base and requires byte identity (X37).
 
 Derived from W39's driver, machine recorder, pass spec and G1 orchestrator, with W39 G1's gate
 corrections (the by-name foreign census, per-capture HID idle as an admission check). One
-order: `dump-layers` over the whole declared bed first (8 launches, 414 scenes; a departure
+order: `dump-layers` over the whole declared bed first (8 launches, 465 scenes; a departure
 from memo D's configuration stops the sitting before its first capture), then the four 2x
 passes (seven runs, run-1 references) and their long-protocol sentinels at mode 68, then the
 1x passes and sentinels at mode 69, the display restored to 68 on every exit. Before every
