@@ -1,0 +1,406 @@
+/*
+ * Terminal — the page's own stylesheet.
+ *
+ * No rule names a registered host's background, border, box-shadow, backdrop-filter or transform:
+ * hosts are positioned and sized inline and the runtime owns their material. The runtime's ink is
+ * on children, with the page's own as the fallback for a tier that has published nothing yet; the
+ * terminal's colours are the page's (`palette.ts`). The secondary ink is a share of the primary.
+ */
+
+:root {
+  color-scheme: light dark;
+  /* What shows for the instant before the map paints: the map's own ground. */
+  --ground: #eef0ea;
+  /* The map's own label ink (`relief.ts`), for the one plain label the page sets over it. */
+  --map-label: #383d42;
+  --ink: rgb(0 0 0 / 0.85);
+  --secondary-share: 80%;
+  --tertiary-share: 45%;
+  /* Lighter child fills lift what can be pressed or is chosen; one level, never stacked. */
+  --lift: rgb(255 255 255 / 0.36);
+  --lift-strong: rgb(255 255 255 / 0.6);
+  --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Monaco, "Cascadia Mono", Consolas, monospace;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, "Segoe UI", Roboto,
+    "Helvetica Neue", sans-serif;
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+:root[data-appearance="dark"] {
+  --ground: #1b2229;
+  --map-label: #b8c3cc;
+  --ink: rgb(255 255 255 / 0.85);
+  --lift: rgb(255 255 255 / 0.1);
+  --lift-strong: rgb(255 255 255 / 0.18);
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--ground);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+button:disabled {
+  cursor: default;
+}
+
+/*
+ * The environment: viewport-fixed, full-bleed, painted at the viewport's own size; its width and
+ * height are set inline from the viewport the painter reads (`environment.tsx`).
+ */
+.relief {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: block;
+}
+
+/*
+ * The data credit: plain content in the viewport's lower-right corner, not glass, on an opaque
+ * plate of the map's ground so its ratio holds over any part of either map (9.5:1 light, 9.0:1
+ * dark). One line, which fits a 320 CSS px viewport; the layout keeps a band along the
+ * viewport's foot clear of ornaments for it. The full attribution is in `data/CREDITS.md` and
+ * the `tahoe` command.
+ */
+.credit {
+  position: fixed;
+  right: 12px;
+  bottom: 6px;
+  margin: 0;
+  padding: 2px 7px;
+  border-radius: 5px;
+  background: var(--ground);
+  color: var(--map-label);
+  font-size: 10.5px;
+  line-height: 14px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+/* --- The window ------------------------------------------------------------------------------ */
+
+.terminal-window > .window-inner {
+  --ink-1: var(--vitrea-foreground, var(--ink));
+  --ink-2: color-mix(in srgb, var(--ink-1) var(--secondary-share), transparent);
+  --ink-3: color-mix(in srgb, var(--ink-1) var(--tertiary-share), transparent);
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-rows: 40px 1fr;
+  border-radius: 22px;
+  color: var(--ink-1);
+}
+
+/* The title line is where the window is taken to move it. */
+.title-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 28px;
+  font-size: 13px;
+  line-height: 16px;
+  letter-spacing: 0.01em;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.title-line:active {
+  cursor: grabbing;
+}
+
+.title-name {
+  font-weight: 700;
+}
+
+.title-detail {
+  color: var(--ink-2);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/*
+ * The terminal's grid sits inside the lens band: at thickness 12 the rim bends the map across
+ * the window's outer 30 or so CSS px, and no column of text is set there.
+ */
+.sessions {
+  position: relative;
+  min-height: 0;
+}
+
+.session {
+  position: absolute;
+  inset: 2px 30px 24px 30px;
+}
+
+.session-hidden {
+  visibility: hidden;
+}
+
+.xterm-box {
+  width: 100%;
+  height: 100%;
+}
+
+/* xterm's own chrome, made to sit on glass: nothing opaque, nothing shadowed. */
+.terminal-window .xterm,
+.terminal-window .xterm .xterm-viewport,
+.terminal-window .xterm .xterm-scrollable-element {
+  background-color: transparent;
+  --vscode-scrollbar-shadow: transparent;
+  --vscode-scrollbarSlider-background: color-mix(in srgb, var(--ink-1) 22%, transparent);
+  --vscode-scrollbarSlider-hoverBackground: color-mix(in srgb, var(--ink-1) 34%, transparent);
+  --vscode-scrollbarSlider-activeBackground: color-mix(in srgb, var(--ink-1) 44%, transparent);
+}
+
+.terminal-window .xterm .composition-view {
+  background: transparent;
+  color: inherit;
+  text-decoration: underline;
+}
+
+/*
+ * xterm's screen-reader layer duplicates the rows in transparent text over them. It stays in the
+ * accessibility tree at zero opacity, and a contrast instrument that skips what is not painted
+ * no longer reads a second, invisible copy of every line.
+ */
+.terminal-window .xterm .xterm-accessibility {
+  opacity: 0;
+}
+
+.grip {
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  cursor: nwse-resize;
+  touch-action: none;
+}
+
+.grip svg {
+  fill: none;
+  stroke: var(--ink-3);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+}
+
+/* --- Ornaments --------------------------------------------------------------------------------- */
+
+.ornament {
+  --ink-1: var(--vitrea-foreground, var(--ink));
+  --ink-2: color-mix(in srgb, var(--ink-1) var(--secondary-share), transparent);
+  display: flex;
+  align-items: center;
+  color: var(--ink-1);
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.tabs {
+  padding: 4px;
+}
+
+/*
+ * A tab is concentric with its capsule: 22 − 4 = 18. The tabs share the capsule evenly; the
+ * layout sizes the capsule to the width each tab gets (`layout.ts`), 116 where the window has
+ * room, narrower with the name ellipsised where it has not, and at its narrowest a circle.
+ */
+.tab {
+  display: flex;
+  flex: 1 1 0;
+  min-width: 0;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 18px;
+  box-sizing: border-box;
+}
+
+/* Too narrow for a name: the number alone, centred; the name stays for assistive tech. */
+.tabs-compact .tab {
+  justify-content: center;
+  padding: 0;
+}
+
+.tabs-compact .tab-index {
+  color: var(--ink-1);
+}
+
+.tab[aria-selected="true"] {
+  background: var(--lift-strong);
+}
+
+.tab:not([aria-selected="true"]):hover {
+  background: var(--lift);
+}
+
+.tab-index {
+  color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
+}
+
+.tab-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.icon-button {
+  justify-content: center;
+}
+
+.icon-button svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+
+.icon-button:disabled svg {
+  stroke: var(--ink-2);
+}
+
+.segmented {
+  padding: 4px;
+}
+
+.segment {
+  flex: 1;
+  height: 36px;
+  position: relative;
+}
+
+.segmented-indicator {
+  background: var(--lift-strong);
+}
+
+.switch-button {
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 12px 0 18px;
+}
+
+.switch-track {
+  position: relative;
+  width: 34px;
+  height: 20px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--ink-1) 18%, transparent);
+  transition: background-color 160ms ease;
+}
+
+.switch-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  background: var(--ink-1);
+  transition: transform 180ms ease;
+}
+
+.switch-button[aria-checked="true"] .switch-track {
+  background: color-mix(in srgb, var(--ink-1) 55%, transparent);
+}
+
+.switch-button[aria-checked="true"] .switch-thumb {
+  transform: translateX(14px);
+}
+
+:is(button, [role="tab"]):focus-visible {
+  outline: 2px solid var(--vitrea-foreground, var(--ink));
+  outline-offset: -2px;
+}
+
+/* --- Preferences ------------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .switch-track,
+  .switch-thumb {
+    transition: none;
+  }
+}
+
+/*
+ * Forced colours: the runtime draws no glass, so the page draws each surface as a Canvas panel
+ * framed in CanvasText (the CSS tier draws its own border on the host). The frame is never the
+ * host's own border or background, which the runtime owns: the window's is an outline on its inner
+ * child, and an ornament's, whose host holds its controls directly, a pseudo-element laid over the
+ * host's box. The chosen tab, segment and switch are marked in Highlight rather than by a fill
+ * that substitution erases.
+ */
+@media (forced-colors: active) {
+  [data-glass-tier="webgpu"] .window-inner {
+    outline: 2px solid CanvasText;
+    outline-offset: -2px;
+  }
+
+  [data-glass-tier="webgpu"] .ornament::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 2px solid CanvasText;
+    border-radius: 22px;
+    pointer-events: none;
+  }
+
+  .tab[aria-selected="true"],
+  .segmented-indicator {
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
+  }
+
+  .switch-track {
+    outline: 1px solid CanvasText;
+  }
+
+  .switch-thumb {
+    background: CanvasText;
+  }
+
+  .switch-button[aria-checked="true"] .switch-thumb {
+    background: Highlight;
+  }
+
+  .grip svg {
+    stroke: CanvasText;
+  }
+}

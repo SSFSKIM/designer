@@ -29,6 +29,7 @@ const SLUGS = [
   "start-page",
   "planetarium",
   "chronograph",
+  "terminal",
 ] as const;
 
 /**

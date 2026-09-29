@@ -1,5 +1,6 @@
 /**
- * The gallery index: eight pages in two registers under the materialist skill, and the flagships
+ * The gallery index: eight pages in two registers under the materialist skill, the flagships and
+ * the terminal
  * (docs/doperpowers/specs/2026-09-27-materialist-proof.md, A;
  * docs/doperpowers/specs/2026-09-27-materialist-spatial-register.md, C).
  *
@@ -188,6 +189,23 @@ const DEMOS: readonly Demo[] = [
       "The crystal and the loupe, which carry nothing; a timing window with the laps; Lap and " +
       "Start buttons; a dial switch; and a crystal capsule that morphs into a platter.",
   },
+  {
+    slug: "terminal",
+    register: "spatial",
+    title: "Terminal",
+    brief:
+      "A terminal whose window is Liquid Glass and whose text is written directly on it, as " +
+      "macOS 26’s Terminal does in its Clear profiles. The shell is simulated over a snapshot " +
+      "of this repository, and says so; the window moves and resizes, sessions open as tabs, " +
+      "and one choice swaps the tuned clear glass for vitrea’s calibrated material.",
+    plane:
+      "A relief map of the Lake Tahoe basin drawn from USGS elevation data in one " +
+      "viewport-fixed canvas, the lake under the window and the shores’ contours at its rims, " +
+      "darkened or lightened under the glass by the page.",
+    floating:
+      "The terminal window, with the sessions’ tabs hung above it and the glass, appearance " +
+      "and Reduce transparency choices below.",
+  },
 ];
 
 function Entry(props: { readonly demo: Demo; readonly index: number }): ReactNode {
@@ -232,10 +250,11 @@ function Gallery(): ReactNode {
         <p className="wordmark">vitrea</p>
         <h1 className="display">The materialist gallery</h1>
         <p className="lead">
-          Ten Liquid Glass pages on vitrea 0.24.0: six instrument pages set glass controls
-          over live content, two spatial pages make glass the surface itself, and two
-          flagships spend the material’s optics: Tonight on a live sky, and Chronograph on a
-          watch under its crystal. Each follows the{" "}
+          Eleven Liquid Glass pages on vitrea 0.24.0: six instrument pages set glass controls
+          over live content, two spatial pages make glass the surface itself, two flagships
+          spend the material’s optics — Tonight on a live sky, and Chronograph on a watch
+          under its crystal — and Terminal writes a shell’s text straight onto clear glass.
+          Each follows the{" "}
           <a href={SKILL}>materialist skill</a>. The{" "}
           <a href={SPEC}>instrument proof</a> and{" "}
           <a href={`${REPOSITORY}/blob/main/docs/doperpowers/specs/2026-09-27-materialist-spatial-register.md`}>

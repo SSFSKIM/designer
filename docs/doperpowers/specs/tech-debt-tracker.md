@@ -6709,3 +6709,40 @@ freeze that must pin operational files can pin the archive's hash rather than th
 paths. Whether to prune history later (for example with `git replace` or a filter-repo pass
 over the retired scheduler's directories) is the user's call, because it rewrites published
 history.
+
+## Runtime gaps met building the terminal page (terminal gallery page, 2026-09-29)
+
+Found building `apps/demo/src/gallery/terminal/` (its `DESIGN.md`, part two), on
+`@vitreajs/vitrea-react` workspace source (0.24.0) in Chromium on the Apple GPU.
+
+- **`GlassSegmentedControl` cannot materialise.** It takes no `present` prop, so a page that
+  mounts it with the rest of its glass cannot hold it absent until the backdrop is ready. The
+  terminal page's two segmented controls drew over the CSS tier's no-texture fallback for about
+  170 ms while the four `GlassSurface` groups beside them waited, invisible. The page now mounts
+  them only once its other surfaces are present, so they appear without the runtime's
+  materialise ease. **Shape of the fix:** a `present` prop passed through to the track's surface,
+  as `GlassSurface` and `GlassMorph` take it, with a test that mounts it absent and asserts
+  `--vitrea-materialization` ramps when it flips.
+- **A canvas texture supplied before its first paint warns on the WebGPU tier.** A 2D canvas that
+  has never had a context handed to `setBackdropTexture` makes Chromium log
+  `CopyExternalImageToTexture(): Browser fails extracting valid resource from external image`
+  once per frame until the page paints it. Nothing breaks, but the warning appears in the console
+  of every page that registers its plane before it draws, and no diagnostic names the cause. The
+  page now supplies the canvas in the frame that first paints it. **Shape of the fix:** skip the
+  import while a canvas source has no pixels (a zero size, or a canvas never given a context), and
+  report `backdrop-texture-unpainted` once, as `backdrop-texture-unplaced` is reported.
+- **Under a dark forced-colours palette the WebGPU tier fills panels white.** The page's
+  reviewer, with Canvas black and CanvasText white, saw every WebGPU-tier surface drawn as a white
+  panel, so CanvasText marks on it (the new-session "+", the resize grip, a switch thumb)
+  disappeared. The planetarium shows the same white panels. This belongs with the Relue entry
+  above ("Under forced colours the WebGPU tier draws a dark body instead of system colours"):
+  the body is drawn in neither case in the system's colours. Same shape of fix. The page's own
+  CanvasText frames on its ornaments are white on those white panels too.
+- **A `GlassRoot` rebuild throws `Unknown glass group "sessions"` (reported, not reproduced by
+  the session that recorded it).** The page's fix wave, testing that the environment supplies its
+  texture again after a cleanup, found that any root rebuild on this page (changing `renderer` or
+  `container` on `GlassRoot`) throws that error from vitrea-react and unmounts every host. It
+  happened with and without the page's change, and the harness that showed it was removed. The
+  page never changes either prop at runtime, so it is not reachable there. **Shape of the work:**
+  reproduce with a root whose `renderer` flips after groups have registered; the message suggests
+  a surface re-registering against the new root before its `GlassGroup` has.
