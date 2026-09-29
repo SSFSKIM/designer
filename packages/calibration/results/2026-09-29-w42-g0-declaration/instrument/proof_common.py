@@ -22,7 +22,8 @@ LETTERS = {
     'LT': ('B', "B'", 'C', 'D'), 'LT-2k': ("B'", 'C'), 'free-sn': ("B'", 'C'), 'R1': ('B',),
     'W-shape': ('B', 'C', 'D'), 'W-canvas': ('B', 'C', 'D'), 'W-tails': ('B', 'C', 'D'), 'K2': ('B', 'C', 'D'),
     'C-linear': ('B', "B'", 'D'), 'knee-luma': ('E',), 'LT+bleed': ("B'", 'C', 'D'),
-    'LT+bleed-own': ("B'", 'C', 'D'), 'edge-swap': ('D', 'C'),
+    'LT+bleed-own': ("B'", 'C', 'D'), 'LT+bleed-lit-pre': ("B'", 'C', 'D'), 'LT+bleed-lit-post': ("B'", 'C', 'D'),
+    'LT+bleed-lit-own-pre': ("B'", 'C', 'D'), 'LT+bleed-lit-own-post': ("B'", 'C', 'D'), 'edge-swap': ('D', 'C'),
     'null-mix': ("B'", 'C'), 'null-texel': ("B'", 'C'), 'null-dev': ("B'", 'C'), 'null-R2': ('B', "B'"),
     'null-boxfloor': ("B'",),
 }
@@ -71,17 +72,20 @@ def bounds_for(name):
 
 def starts_for(name, ep, n_outer):
     """Declared starts: the plausible centre of each outer parameter; a second start for searches of at
-    most two outer parameters (the search is LOCAL, and this is its multistart)."""
+    most two outer parameters (the search is LOCAL, and this is its multistart). No start sits on a proof truth
+    (families.TRUTH_*): until the review of b151aff4 W-tails' s2 (40), the bleed's k_b (2.0) and free-sn's
+    receded ordinates at 128 and 160 (6.5, 7.5) did, so those recoveries began at the answer."""
     pose = ep.split('-')[1]
-    base = {'k': 2.0, 'k_n': 2.0, 'k_w': 2.0, 'mu': 8.0, 's2': 40.0, 'a': 0.2, 'sk': 10.0, 'k_b': 2.0}
-    for s, v in zip(FA.FREE_SPANS, (1.0, 2.0, 3.0, 4.5, 5.5) if pose == 'rest' else (4.0, 5.0, 5.5, 6.5, 7.5)):
+    base = {'k': 2.0, 'k_n': 2.0, 'k_w': 2.0, 'mu': 8.0, 's2': 28.0, 'a': 0.15, 'sk': 10.0, 'k_b': 1.6}
+    for s, v in zip(FA.FREE_SPANS, (1.0, 2.0, 3.0, 4.5, 5.5) if pose == 'rest' else (3.5, 4.2, 4.8, 5.8, 6.8)):
         base[f'sn_{pose}_{s}'] = v
-    alt = dict(base, k=2.6, k_n=1.5, k_w=2.6, mu=0.0, s2=60.0, a=0.35, sk=20.0, k_b=1.4)
+    alt = dict(base, k=2.6, k_n=1.5, k_w=2.6, mu=0.0, s2=60.0, a=0.35, sk=20.0, k_b=2.5)
     return [base] if n_outer > 2 else [base, alt]
 
 
-# The proofs of 7efe4ce8 ran at 'n'; ruling 3 puts every family fitter at 'w'. Read from the environment so that
-# spawned pool workers, which re-import this module, see the caller's choice.
+# The active mask's kernel support: 'n' (the revised ruling 3's primary, refraction after the blur; every family
+# fitter) unless W42_KERNEL names 'w' (the fallback mask of the rival order, 53.6 pt; its record). Read from the
+# environment so that spawned pool workers, which re-import this module, see the caller's choice.
 KERNEL = os.environ.get('W42_KERNEL', 'n')
 
 

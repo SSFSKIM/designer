@@ -11,7 +11,13 @@ Parts:
   D  the engine's own numerical floor: the narrow interpolation against a dense reference, and clause 7's
      uniform invariance for every family.
 
-Usage: python3.12 proof1_families.py [A|B|C|D ...]   (default: all). Writes proof1_families.json / .txt.
+  Afix the fix wave of the review of b151aff4: part A re-run at the current pin and engine for the families
+     W42_FAMILIES names on the endpoints W42_EPS names (default all four): W-shape (its narrow term back on R_fp),
+     W-tails, the Normal bleed's own-radius variant and free-sn (starts moved off their truths), and the
+     dump-literal bleed forms. Rows replace the same family and endpoint in 'A_fix'; the A / An rows they supersede
+     are kept and marked.
+
+Usage: python3.12 proof1_families.py [A|B|C|D|Afix ...]   (default: A B C D). Writes proof1_families.json / .txt.
 """
 import json
 import os
@@ -37,7 +43,7 @@ def log(*a):
 
 
 def part_a_one(args):
-    name, ep = args
+    name, ep = args[:2]
     fam = FA.FAMILIES[name][0]
     if name.startswith('LT+bleed') and ep.endswith('inactive'):
         return dict(family=name, ep=ep, skipped='the bleed is declared zero when receded (identical to LT)')
@@ -228,6 +234,28 @@ def part_aw(pool):
     OUT[key] = rows
 
 
+def part_afix(pool):
+    """Afix (see the module docstring). Every row records the pin, the kernel and the engine."""
+    only = [f for f in os.environ.get('W42_FAMILIES', '').split(',') if f]
+    eps = [e for e in os.environ.get('W42_EPS', '').split(',') if e] or list(EPS)
+    jobs = [(n, ep) for n in only for ep in eps]
+    rows = pool.map(part_a_one, jobs, chunksize=1)
+    floor = TOL['synthetic_render']['fit_reaches_floor_if_pooled_rms_at_most']
+    for r in rows:
+        r.update(kernel=PC.KERNEL if r['ep'].endswith('rest') else 'receded (no band)', bed=bed.BED_COMMIT[:8],
+                 engine=F.ENGINE)
+        if 'skipped' in r:
+            continue
+        ok = r['pooled'] <= floor
+        for pn, v in r['recovered'].items():
+            v['tol'] = tol_for(pn)
+            v['ok'] = abs(v['err']) <= v['tol']
+            ok &= v['ok']
+        r['pass'] = bool(ok)
+    keep = [r for r in OUT.get('A_fix', []) if (r['family'], r['ep']) not in set(jobs)]
+    OUT['A_fix'] = keep + rows
+
+
 def part_e_one(job):
     """E: on the bed at its final pin (07b45391: the s = 32 receded rrect-sm rows added), (i) LT recovered on the
     receded endpoints with the new rows in; (ii) memo E's per-endpoint k read at the global and per-scheme
@@ -264,6 +292,15 @@ def part_e(pool):
     OUT['E'] = pool.map(part_e_one, jobs, chunksize=1)
 
 
+def fresh(c):
+    """Forget every cached map of a cell: its own cache AND its blurs in the shared store, by a new token. Until the
+    review of b151aff4 part D cleared only c._cache, which since the shared store (d89d8e93) holds no blur, so the
+    'direct' render read the first render's blurs back and the check compared a render with itself (0 exactly at
+    HEAD; the 0.0366 recorded in 7efe4ce8 is not reproducible from that code)."""
+    c._cache = {}
+    c.token = next(F._TOKENS)
+
+
 def part_d():
     rows = []
     for ep in ('light-rest', 'dark-rest'):
@@ -273,7 +310,7 @@ def part_d():
             a = F.render(c, F.Family(), {'k_n': 2.0, 'k_w': 2.0, 'lam': 0.8})
             old = F.NARROW_STEP
             F.NARROW_STEP = (0.01, 0.002)
-            c._cache = {}
+            fresh(c)
             b = F.render(c, F.Family(), {'k_n': 2.0, 'k_w': 2.0, 'lam': 0.8})
             F.NARROW_STEP = old
             d = a - b
@@ -294,13 +331,14 @@ def part_d():
             a = F.render(c, F.Family(), q)
             old = F.FAST_FROM_DEV
             F.FAST_FROM_DEV = 0
-            c._cache = {}
+            fresh(c)
             b = F.render(c, F.Family(), q)
             F.FAST_FROM_DEV = old
             d = np.abs(a - b)
             fast.append(dict(ep=ep, cell=c.id, rms=float(np.sqrt(np.mean(d ** 2))), max=float(d.max())))
     excl = {f'{s}x {ep}': bed.refraction_exclusions(ep, s) for ep in EPS for s in (2, 1)}
-    OUT['D'] = dict(interpolation=dict(worst_rms=max(r['rms'] for r in rows), worst_max=max(r['max'] for r in rows),
+    OUT['D'] = dict(bed=bed.BED_COMMIT[:8], engine=F.ENGINE,
+                    interpolation=dict(worst_rms=max(r['rms'] for r in rows), worst_max=max(r['max'] for r in rows),
                                        median_rms=float(np.median([r['rms'] for r in rows])), n=len(rows)),
                     uniform_invariance=inv,
                     decimated_wide_blur=dict(worst_max=max(r['max'] for r in fast), worst_rms=max(r['rms'] for r in fast),
@@ -335,6 +373,16 @@ def write():
             parts = [f"{pn} {v['truth']:.3f}->{v['read']:.3f} ({v['err']:+.4f}; {v['tol']})" for pn, v in r['recovered'].items()]
             L.append(f"  {r['family']:13s} {r['ep']:15s} {'PASS' if r['pass'] else 'FAIL'} pooled {r['pooled']:.3f} "
                      f"max {r['max_cell']:.3f} n {r['n_cells']} | " + ' | '.join(parts))
+    if 'A_fix' in OUT:
+        L += ['', f"A_fix  part A re-run after the review of b151aff4 (engine {F.ENGINE}): W-shape's narrow term on R_fp, "
+                  'starts off the truths, the dump-literal bleed; supersedes the same family and endpoint in A / An / Aw']
+        for r in OUT['A_fix']:
+            if 'skipped' in r:
+                L.append(f"  {r['family']:21s} {r['ep']:15s} skipped: {r['skipped']}")
+                continue
+            parts = [f"{pn} {v['truth']:.3f}->{v['read']:.3f} ({v['err']:+.4f}; {v['tol']})" for pn, v in r['recovered'].items()]
+            L.append(f"  {r['family']:21s} {r['ep']:15s} {'PASS' if r['pass'] else 'FAIL'} pooled {r['pooled']:.3f} "
+                     f"max {r['max_cell']:.3f} n {r['n_cells']} pin {r['bed']} kernel {r['kernel']} | " + ' | '.join(parts))
     if 'B' in OUT:
         L += ['', 'B  k nesting (all four endpoints together): truth, level -> k read, pooled (per endpoint)']
         for r in OUT['B']:
@@ -349,11 +397,14 @@ def write():
                      f"-{r['lam_down']:.4f}   ({r['n_cells']} cells)")
     if 'D' in OUT:
         d = OUT['D']
-        L += ['', f"D  narrow interpolation vs dense reference: worst rms {d['interpolation']['worst_rms']:.4f}, "
+        inv = d['uniform_invariance']
+        L += ['', f"D  (pin {d.get('bed', '5ba68aeb')}, engine {d.get('engine', 'before the review of b151aff4')}) "
+                  f"narrow interpolation vs dense reference: worst rms {d['interpolation']['worst_rms']:.4f}, "
                   f"worst max {d['interpolation']['worst_max']:.4f}, median rms {d['interpolation']['median_rms']:.4f} "
                   f"over {d['interpolation']['n']} depth-graded cells",
-              '   uniform invariance (max |y - T(g)| before rounding): ' +
-              ', '.join(f'{n} {v:.1e}' for n, v in d['uniform_invariance'])]
+              '   uniform invariance, max |y - T(g)| before rounding per pixel' + (' / at the deep median' if
+                                                                                 len(inv[0]) > 2 else '') + ': ' +
+              ', '.join(f'{v[0]} {v[1]:.1e}' + (f' / {v[2]:.1e}' if len(v) > 2 else '') for v in inv)]
         if 'decimated_wide_blur' in d:
             w = d['decimated_wide_blur']
             L.append(f"   decimated wide blur vs direct: worst max {w['worst_max']:.4f}, worst rms {w['worst_rms']:.4f} "
@@ -390,6 +441,7 @@ if __name__ == '__main__':
             if part == 'D':
                 part_d()
             else:
-                {'A': part_a, 'Aw': part_aw, 'An': part_aw, 'B': part_b, 'C': part_c, 'E': part_e}[part](pool)
+                {'A': part_a, 'Aw': part_aw, 'An': part_aw, 'B': part_b, 'C': part_c, 'E': part_e,
+                 'Afix': part_afix}[part](pool)
             log(f'part {part} done in {time.time() - t:.0f}s')
             write()

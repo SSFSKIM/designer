@@ -52,12 +52,32 @@ FAMILIES = {
     'knee-luma': (Family('knee-luma', knee='luma'), [], 2,
                   'the hinge decided on encoded luma and applied to the whole colour, against per channel',
                   'rival'),
+    # The active bleed (U7). The DECLARED form since the review of b151aff4 is the dump-literal one (forward.py,
+    # "the dump-literal bleed"): the dump's matrix, darken / normal blend, opacity and band, its place before or
+    # after T a discrete choice, its radius on the shared k or its own k_b.
+    'LT+bleed-lit-pre': (Family('LT+bleed-lit-pre', bleed='shared', bleed_form='literal', bleed_at='pre'), [], 2,
+                         "the dump-literal bleed inside T's argument: radius k * 0.35 s; Q = black + (white - "
+                         'black) sat(Bl); darken (light) / normal (dark) at w = ob r(d), ob 0.5t / 0.8t, r the '
+                         'band ramp over 0.35 s from the edge', 'rival'),
+    'LT+bleed-lit-post': (Family('LT+bleed-lit-post', bleed='shared', bleed_form='literal', bleed_at='post'), [], 2,
+                          'the dump-literal bleed after T (Face before Bleed, memo E\'s key order)', 'rival'),
+    'LT+bleed-lit-own-pre': (Family('LT+bleed-lit-own-pre', bleed='own', bleed_form='literal', bleed_at='pre'),
+                             [('k_b', K_BOUNDS)], 3, 'LT+bleed-lit-pre with the bleed radius on its own scale k_b',
+                             'rival'),
+    'LT+bleed-lit-own-post': (Family('LT+bleed-lit-own-post', bleed='own', bleed_form='literal', bleed_at='post'),
+                              [('k_b', K_BOUNDS)], 3, 'LT+bleed-lit-post with the bleed radius on its own scale k_b',
+                              'rival'),
+    # The Normal variant, the form before that review, kept with its assumptions stated (forward.bleed_weight):
+    # a Normal mix in both schemes, pre-T, the whole shape at one weight, the matrix's affine part absorbed by
+    # native T and its saturation not taken.
     'LT+bleed': (Family('LT+bleed', bleed='shared'), [], 2,
-                 "the dump's active bleed layer: radius k * 0.35 s, opacity 0.5t light / 0.8t dark (s > 64); "
-                 'its matrix enters as a structural weight beta = ob (white - black) / (1 - ob + ob (white - '
-                 'black)), its affine part absorbed by native T read on uniform greys', 'rival'),
+                 "the bleed's Normal variant: radius k * 0.35 s, opacity 0.5t light / 0.8t dark (s > 64), a Normal "
+                 'mix over the whole shape inside T; its matrix enters as a structural weight beta = ob (white - '
+                 'black) / (1 - ob + ob (white - black)), its affine part absorbed by native T read on uniform '
+                 'greys', 'rival (stated variant)'),
     'LT+bleed-own': (Family('LT+bleed-own', bleed='own'), [('k_b', K_BOUNDS)], 3,
-                     'as LT+bleed with the bleed radius on its own scale k_b', 'rival'),
+                     'as LT+bleed (the Normal variant) with the bleed radius on its own scale k_b',
+                     'rival (stated variant)'),
     'edge-swap': (Family('edge-swap', edge='swap'), [], 2,
                   "R_fp's edge mode swapped (normalised when active, clamp when receded): memo E's 0.23-code "
                   'dark-active choice', 'rival (discrete)'),
@@ -83,4 +103,6 @@ TRUTH_EXTRA = {
     'W-tails': {'s2': 40.0, 'a': 0.25},
     'K2': {'sk': 12.0},
     'LT+bleed-own': {'k_b': 2.0},
+    'LT+bleed-lit-own-pre': {'k_b': 2.0},
+    'LT+bleed-lit-own-post': {'k_b': 2.0},
 }

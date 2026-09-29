@@ -14,8 +14,10 @@ Pairs, per endpoint:
   nulls            LT -> each rejected null, pooled rms against memo E's bars (2.60 reading, 4.65 unit)
 
 Usage: python3.12 proof2_separation.py [set ...] with set in {rivals, lt, active, touch-R1, touch-knee-luma,
-touch-free-sn, u1, reread}; a pair is re-run when it has no row at the current pin and kernel; writes
-proof2_separation.json / .txt (merging with an earlier run's rows).
+touch-free-sn, u1, fix-wshape, fix-bleed, reread}; a pair is re-run when it has no row at the current pin and
+kernel (and, for a family whose model the review of b151aff4 changed, at the current engine); writes
+proof2_separation.json / .txt (merging with an earlier run's rows). W42_OUT redirects the output (a run in a
+scratch copy merges back by concatenating its new rows).
 """
 import json
 import os
@@ -36,9 +38,14 @@ RIVALS = [n for n, v in FA.FAMILIES.items() if v[4].startswith('rival')]
 NESTED = {'LT-2k', 'W-tails', 'K2'}          # contain LT: LT is one of their parameter points
 U1SET = ['W-shape', 'W-tails', 'K2', 'W-canvas']   # memo E §3b: R1 does not move the drift
 NULLS = [n for n, v in FA.FAMILIES.items() if v[4] == 'null']
-# The minimax refinement is run wherever the least-squares point could plausibly be pulled under the
-# 1.5-code line; on the pairs where it ran it moved s by at most a few tenths (reported per pair).
+# The minimax refinement is run wherever the least-squares point could plausibly be pulled under the 1.5-code line
+# (s_ls < 6). It is not a small correction: on the rows of b151aff4 it lowered s by up to 1.26-1.68 codes (R1 -> LT
+# dark-inactive 4.21 -> 2.53). Its budget is 60 Nelder-Mead evaluations; on the two-dimensional LT fits a (k, lam)
+# grid finds nothing lower, and the rows near the 1.5 line with three or more dimensions are re-searched with a
+# larger budget and restarts by proof2_minimax_check.py.
 MINIMAX_SKIP = 6.0
+# Families whose forward model the review of b151aff4 changed: a row of theirs counts only at the current engine.
+ENGINE_CHANGED = {'W-shape'}
 
 
 def applicable(name, ep):
@@ -78,7 +85,7 @@ def run_pair(args):
         out['minimax'] = 'Nelder-Mead from the LS point, 60 evaluations'
     out.update(s=s, where=where, mm_x={f'{k[0][0]}@{k[0][1]}': float(v) for k, v in zip(prob.keys, x)},
                mm_lam=lams, verdict=PC.verdict(s), seconds=time.time() - t0, bed=bed.BED_COMMIT[:8],
-               kernel=PC.KERNEL if ep.endswith('rest') else 'receded (no band)')
+               kernel=PC.KERNEL if ep.endswith('rest') else 'receded (no band)', engine=F.ENGINE)
     # which cells carry the separation at the minimax point
     per = []
     for c, st in zip(cells, tstats):
@@ -129,11 +136,28 @@ def jobs_for(which):
     if 'u1' in which:
         J += [(a, b, ep, False) for ep in ('light-inactive', 'dark-inactive') for a in U1SET for b in U1SET
               if a != b and not (b in NESTED and a == 'LT')]
+    if 'fix-wshape' in which:   # the review of b151aff4, I-2: every receded pair with W-shape, and W-shape -> LT
+        J += [j for j in jobs_for(['u1']) if 'W-shape' in j[:2]]
+        J += [(a, b, ep, False) for ep in ('light-inactive', 'dark-inactive') for a, b in (('W-shape', 'LT'),
+                                                                                          ('LT', 'W-shape'))]
+        J += [('W-shape', 'LT', ep, False) for ep in ('light-rest', 'dark-rest')]
+    if 'fix-bleed' in which:    # I-3: the dump-literal bleed forms against LT, both ways, in DARK active (in light
+        # they move no pixel of the bed by more than 0.02 code: proof2_bleed_light.py bounds those pairs)
+        lit = [n for n in FA.FAMILIES if 'bleed-lit' in n]
+        J += [(a, b, 'dark-rest', False) for n in lit for a, b in ((n, 'LT'), ('LT', n))]
     return J
 
 
+def engine_ok(r):
+    """A row counts at the current engine unless its pair involves a family whose model changed."""
+    return not ({r['truth'], r['fit']} & ENGINE_CHANGED) or r.get('engine') == F.ENGINE
+
+
+OUT = os.environ.get('W42_OUT', 'proof2_separation')
+
+
 def write(rows, nulls):
-    json.dump(dict(pairs=rows, nulls=nulls), open('proof2_separation.json', 'w'), indent=1, default=float)
+    json.dump(dict(pairs=rows, nulls=nulls), open(f'{OUT}.json', 'w'), indent=1, default=float)
     L = ['W42 G0 proof 2: separation on the bed (s = the fitted family\'s best max region-statistic miss, codes)',
          'truth -> fit      endpoint          s(minimax)  s(LS)  LS pooled  verdict        cells  where', '']
     for r in sorted(rows, key=lambda r: (r['truth'], r['fit'], r['ep'], r['whole'])):
@@ -145,20 +169,20 @@ def write(rows, nulls):
         for r in nulls:
             L.append(f"  {r['fit']:14s} {r['ep']:15s} pooled {r['pooled']:.2f} max cell {r['max_cell']:.2f} "
                      f"x {r['x']}")
-    open('proof2_separation.txt', 'w').write('\n'.join(L) + '\n')
+    open(f'{OUT}.txt', 'w').write('\n'.join(L) + '\n')
 
 
 if __name__ == '__main__':
     which = sys.argv[1:] or ['rivals', 'lt', 'u1', 'nulls']
     try:
-        prev = json.load(open('proof2_separation.json'))
+        prev = json.load(open(f'{OUT}.json' if os.path.exists(f'{OUT}.json') else 'proof2_separation.json'))
         rows, nulls = prev['pairs'], prev['nulls']
     except FileNotFoundError:
         rows, nulls = [], []
     # a pair is done at the CURRENT pin and kernel (a row records both; rows before either field are 5ba68aeb, 'n')
     here = lambda ep: (bed.BED_COMMIT[:8], PC.KERNEL if ep.endswith('rest') else 'receded (no band)')
     tag = lambda r: (r.get('bed', '5ba68aeb'), r.get('kernel', 'n' if r['ep'].endswith('rest') else 'receded (no band)'))
-    done = {(r['truth'], r['fit'], r['ep'], r['whole']) for r in rows if tag(r) == here(r['ep'])}
+    done = {(r['truth'], r['fit'], r['ep'], r['whole']) for r in rows if tag(r) == here(r['ep']) and engine_ok(r)}
     with Pool(int(os.environ.get('W42_POOL', '2'))) as pool:
         J = [j for j in jobs_for(which) if j not in done]
         for r in pool.imap_unordered(run_pair, J):
@@ -172,7 +196,7 @@ if __name__ == '__main__':
         skip = {('W-canvas', 'LT', 'rest'), ('LT', 'W-canvas', 'rest'), ('edge-swap', 'LT', 'rest'),
                 ('LT', 'edge-swap', 'rest'), ('LT', 'W-shape', 'rest'), ('W-canvas', 'W-shape', 'inactive')}
         again = [] if 'reread' not in which else [(r['truth'], r['fit'], r['ep'], True) for r in rows if not r['whole'] and r['verdict'] != 'DISTINGUISHED'
-                 and tag(r) == here(r['ep']) and (r['truth'], r['fit'], r['ep'], True) not in done
+                 and tag(r) == here(r['ep']) and engine_ok(r) and (r['truth'], r['fit'], r['ep'], True) not in done
                  and (r['truth'], r['fit'], r['ep'].split('-')[1]) not in skip]
         for r in pool.imap_unordered(run_pair, again):
             rows.append(r)

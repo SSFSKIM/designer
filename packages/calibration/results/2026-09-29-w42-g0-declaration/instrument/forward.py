@@ -46,15 +46,13 @@ NARROW_STEP = (0.20, 0.04)
 # memo C's 8 pt. A cell may still pass its own d_in (a reader proving itself on a synthetic render).
 BAND_IN, BAND_OUT = 20.0, 19.2
 RECEDED_D_IN = 8.0
-# The parent's ruling 3 (2026-09-29): each reader adds the support of the kernel it READS: 2 sigma_n,ref for a
-# narrow reader, 2 sigma_w,ref = 2 x 2.1 x 8 = 33.6 pt for a reader of W. As first given it put every family fitter
-# (they read W) at kernel='w', 53.6 pt, which leaves only rrect-ml and rrect-lg readable when active. The REVISED
-# ruling 3 makes refraction AFTER the blur (vitrea's own order) the primary hypothesis: a pixel beyond the band is
-# the law's own value whatever the kernel's reach, so every active reader and family fitter uses kernel='n',
-# 20 + 16.8 t pt. Refraction BEFORE the blur is the declared rival, decided on Apple's pixels by
-# refraction_order.py (tolerances.json "refraction_order_test", the tail statistic); kernel='w' is its fallback
-# mask, taken only after the parent reads a BEFORE or undecided call. The receded pose, with no band, carries W
-# fully at RECEDED_D_IN.
+# The active mask's kernel support. Every active reader and family fitter uses kernel='n' (the revised ruling 3):
+# refraction is taken to act AFTER the blur (vitrea's own order), so a pixel beyond the band is the law's own value
+# whatever the kernel's reach, and d_in = 20 + 2 sigma_n,ref = 20 + 16.8 t pt. kernel='w' (2 sigma_w,ref = 2 x 2.1
+# x 8 = 33.6 pt beyond the band, 53.6 pt, rrect-ml and rrect-lg only) is the FALLBACK mask of the rival order,
+# refraction BEFORE the blur, taken only after the parent reads a BEFORE call (refraction_order.py; tolerances.json
+# "refraction_order_test", v3). Ruling 3 as first given put every family fitter at 'w'; its outputs are kept as
+# that fallback's record. The receded pose, with no band, carries W fully at RECEDED_D_IN.
 KERNEL_REF = {'n': lambda s: 2.1 * RN * 0.8 * G.size_t(s), 'w': lambda s: 2.1 * RW}
 
 
@@ -62,9 +60,17 @@ def band_d_in(s, kernel='n'):
     return BAND_IN + 2 * KERNEL_REF[kernel](s)
 
 
-# The active bleed's declared matrix (memo D §3): white - black of the bleed colour matrix, by scheme.
-BLEED_SPAN = {'light': 1.0 - 0.9, 'dark': 0.5 - 0.125}
-BLEED_OPACITY = {'light': 0.5, 'dark': 0.8}      # x t, active only, s > 64
+# The active bleed layer's declared inputs (memo D §3, w42-dumps.txt lines 128, 135 and 144-146), by scheme. Active
+# only and s > 64: its blur radius is 0 at s <= 64 and its opacity 0 when receded.
+BLEED_MATRIX = {'light': (0.9, 1.0, 1.2), 'dark': (0.125, 0.5, 1.0)}   # inputBleedColorMatrix black, white, saturation
+BLEED_SPAN = {sch: m[1] - m[0] for sch, m in BLEED_MATRIX.items()}      # white - black
+BLEED_OPACITY = {'light': 0.5, 'dark': 0.8}      # x t (inputBleedOpacity)
+BLEED_DARKEN = {'light': 1.0, 'dark': 0.0}       # inputBleedDarkenBlend: a darken blend in light, normal in dark
+BLEED_REACH = 0.35                               # x s: inputBleedAmount = inputBleedHeight = inputBleedBlurRadius
+BLEED_DISTANCES = (1.0, 0.0)                     # inputBleedDistance0, inputBleedDistance1
+# The fix wave's engine label: proof rows produced after the review of b151aff4 (the W-shape support fix, the
+# dump-literal bleed) carry it, so that a row of a family whose model changed is never read at the old engine.
+ENGINE = 'fix-b151aff4'
 
 
 def endpoint(scheme, pose):
@@ -94,6 +100,10 @@ class Family:
     space_c: str = 'enc'         # the narrow term's averaging space: 'enc' | 'lin' (C-linear)
     knee: str = 'channel'        # 'channel' (per-channel max/min) | 'luma' (the whole colour selected by luma)
     bleed: str = 'none'          # 'none' | 'shared' (radius k_w * 0.35 s) | 'own' (radius k_b * 0.35 s)
+    bleed_form: str = 'normal'   # 'normal' (the stated variant: Normal mix, whole shape, matrix affine absorbed by
+    #                              native T) | 'literal' (the dump's inputs: darken / normal, matrix, band; see
+    #                              compose and bleed_ramp)
+    bleed_at: str = 'pre'        # the literal form's place: 'pre' (inside T's argument) | 'post' (after T)
     floor: str = 'gauss'         # 'gauss' (memo C's 0.8-dev floor) | 'box' (literal decimation, a null)
     free_params: tuple = ('k', 'lam')
 
@@ -180,10 +190,13 @@ class Cell:
     def unit_dev(self, units):
         return {'pt': self.scale, 'texel': float(self.f), 'dev': 1.0}[units]
 
-    def blur(self, src_key, X, sig_dev, mode, weight=None):
+    def blur(self, src_key, X, sig_dev, mode, weight=None, wkey=None):
         """Cached Gaussian of a window image. mode 'clamp' | 'norm' (normalised zero padding, or normalised over
-        `weight`, a support mask on the window)."""
-        key = (self.token, src_key, round(float(sig_dev), 4), mode, None if weight is None else id(weight))
+        `weight`, a support mask on the window). `wkey` names the weight in the store's key by its content (the
+        forward engine's rounded-shape support passes it); without it the key holds id(weight), which is safe
+        only while the caller keeps that array alive for the cell's life (read_local caches its weights so)."""
+        wk = None if weight is None else (wkey if wkey is not None else ('id', id(weight)))
+        key = (self.token, src_key, round(float(sig_dev), 4), mode, wk)
         hit = _BLURS.get(key)
         if hit is not None:
             _BLURS.move_to_end(key)
@@ -337,11 +350,12 @@ def maps(cell, fam, p):
     mode = _edge_mode(cell, fam)
     u = cell.unit_dev(fam.units)
     k_w = p.get('k_w', p.get('k'))
-    win = cell.crop('box')
-    if fam.support == 'canvas':
-        win = cell.crop('canvas')
-    elif fam.support == 'shape':
-        win = cell.crop('shape', p['mu'])
+    # C (and the bleed) are taken on R_fp, the box plus the declared margin; W-canvas moves W and C to the canvas
+    # (its declared form). W-shape moves ONLY W: its window and normalising weight are the rounded shape grown by
+    # mu, and its narrow term stays on R_fp as LT's does and as read_local's readers take it. (Until the review of
+    # b151aff4 the shape window replaced R_fp for C too, which moved C by up to 4.6 encoded codes on receded
+    # p16 cells at mu = 4.)
+    win = cell.crop('canvas') if fam.support == 'canvas' else cell.crop('box')
     S = cell.S(win, fam.floor)
     at = cell.mask_in(win)
     out = {}
@@ -354,35 +368,130 @@ def maps(cell, fam, p):
     else:
         out['C'] = narrow_map(cell, fam, p, S, ('S', win, fam.floor), win, mode, at)
     # the wide term on its support
-    weight = None
-    wmode = mode
+    wwin, Sw, atw, weight, wkey, wmode = win, S, at, None, None, mode
     if fam.support == 'shape':
-        key = ('shape-weight', win, round(p['mu'], 4))
-        if key not in cell._cache:
-            cell._cache[key] = (cell.d[win[0]:win[1], win[2]:win[3]] <= p['mu']).astype(float)
-        weight = cell._cache[key]
-        wmode = 'norm'
+        mu = round(float(p['mu']), 4)
+        wwin = cell.crop('shape', mu)
+        Sw = cell.S(wwin, fam.floor)
+        atw = cell.mask_in(wwin)
+        weight = (cell.d[wwin[0]:wwin[1], wwin[2]:wwin[3]] <= mu).astype(float)
+        wkey, wmode = ('shape', mu), 'norm'
+    wsrc = ('S', wwin, fam.floor)
     sw = k_w * RW * u
-    W = cell.blur(('S', win, fam.floor), S, sw, wmode, weight)[at]
+    W = cell.blur(wsrc, Sw, sw, wmode, weight, wkey)[atw]
     if fam.wkind == 'tails':
-        W2 = cell.blur(('S', win, fam.floor), S, p['s2'] * cell.scale, wmode, weight)[at]
+        W2 = cell.blur(wsrc, Sw, p['s2'] * cell.scale, wmode, weight, wkey)[atw]
         W = (1 - p['a']) * W + p['a'] * W2
     out['W'] = W
     if fam.fills == 2:
-        out['Wk'] = cell.blur(('S', win, fam.floor), S, p['sk'] * cell.scale, wmode, weight)[at]
+        out['Wk'] = cell.blur(wsrc, Sw, p['sk'] * cell.scale, wmode, weight, wkey)[atw]
     if fam.bleed != 'none' and cell.active and cell.span > 64:
         kb = p['k_b'] if fam.bleed == 'own' else k_w
-        out['Bl'] = cell.blur(('S', win, fam.floor), S, kb * 0.35 * cell.span * u, mode)[at]
+        out['Bl'] = cell.blur(('S', win, fam.floor), S, kb * BLEED_REACH * cell.span * u, mode)[at]
     if fam.order == 'blurlast':
         out['_win'] = (win, S, at, mode)
     return out
 
 
 def bleed_weight(cell):
-    """The bleed's structural weight after native T absorbs its matrix's affine part (see Family docs)."""
+    """The Normal variant's structural weight (bleed_form 'normal', the form before the review of b151aff4). Its
+    assumptions, stated: the bleed is a Normal mix at the declared opacity ob in BOTH schemes (the dump's darken
+    blend in light is not taken); it sits inside T's argument (pre-T); it covers the whole shape at one weight (the
+    dump's amount, height and distances are not taken); its colour matrix's affine part is absorbed by native T
+    read on uniform greys, which is exact only because the weight is the same everywhere on the shape, and its
+    saturation is not taken. Then (1 - ob) M + ob (black + (white - black) Bl) is, up to an affine map of the
+    whole output that native T absorbs, (1 - beta) M + beta Bl with beta below."""
     ob = BLEED_OPACITY[cell.scheme] * cell.t
     dl = BLEED_SPAN[cell.scheme]
     return ob * dl / (1 - ob + ob * dl)
+
+
+# ---------------------------------------------------------------- the dump-literal bleed (the declared form)
+#
+# The declared form since the review of b151aff4 takes every bleed input the dump records, each with its reading:
+#   radius     inputBleedBlurRadius 0.35 s, scaled by the family's k (k_w, or k_b when its own) as every radius is;
+#              the source is the floored capture on R_fp, as C's;
+#   colour     inputBleedColorMatrix: Q = black + (white - black) sat(Bl) on ENCODED values, sat a Rec.709
+#              luma-preserving saturation (1.2 light, 1 dark; greys are unmoved), as memo D reads the face matrix;
+#   blend      inputBleedDarkenBlend b: X' = (1 - w) X + w [b min(X, Q) + (1 - b) Q], per channel: a darken blend in
+#              light (b = 1) and a Normal blend in dark (b = 0);
+#   weight     w = ob r(d), ob = inputBleedOpacity (0.5 t light, 0.8 t dark);
+#   band       inputBleedHeight h = 0.35 s is read as the depth over which the bleed acts, and inputBleedDistance0 /
+#              inputBleedDistance1 (1, 0) as the ramp's ends in units of h measured inward from the edge: r = 1 at the
+#              edge (depth 0 h), falling linearly to 0 at depth 1 h. inputBleedAmount equals the height in every dump,
+#              so the reading takes it as the same extent and models no displacement of the bleed's source;
+#   place      a discrete choice: inside T's argument (X = M, 'pre') or after T (X = T(M) / 255, 'post'; memo E's key
+#              order, Face before Bleed, is only a pointer).
+# Native T is measured on family A (charter clause 6), so the family is rendered through the face that makes its
+# own uniform response reproduce native T at the deep median (face_T): for a uniform backdrop g the bleed moves
+# the output by a depth-graded amount (the dark matrix does not map g to g), and the deep median of that is what
+# family A reads. A family with a depth-graded uniform response therefore keeps clause 7's deep-MEDIAN invariance
+# by construction while its per-pixel uniform response departs from T(g) inside the band (reported by
+# uniform_invariance). The light darken leaves a uniform backdrop unmoved before T (Q(g) = 0.9 + 0.1 g >= g).
+
+def bleed_ramp(cell, d):
+    """The literal band r(d) on SDF depths d (pt, negative inside)."""
+    h = BLEED_REACH * cell.span
+    return np.interp(-np.asarray(d) / h, [BLEED_DISTANCES[1], BLEED_DISTANCES[0]], [1.0, 0.0])
+
+
+def bleed_colour(cell, Bl):
+    black, white, sat = BLEED_MATRIX[cell.scheme]
+    if Bl.ndim == 2 and sat != 1.0:
+        L = (Bl @ G.W709)[:, None]
+        Bl = L + sat * (Bl - L)
+    return black + (white - black) * Bl
+
+
+def bleed_blend(cell, X, Q, w):
+    b = BLEED_DARKEN[cell.scheme]
+    if X.ndim == 2 and np.ndim(w) == 1:
+        w = w[:, None]
+    return X + w * (b * np.minimum(X, Q) + (1 - b) * Q - X)
+
+
+def bleed_w(cell):
+    """w = ob r(d) on the deep mask (cached on the cell)."""
+    if 'bleed_w' not in cell._cache:
+        cell._cache['bleed_w'] = BLEED_OPACITY[cell.scheme] * cell.t * bleed_ramp(cell, cell.d[cell.mask])
+    return cell._cache['bleed_w']
+
+
+class FaceT:
+    """The face a literal-bleed family renders through: native T with the family's own uniform response at the
+    deep median (w_med = median of w over the mask) divided out, so that family A's deep median reads native T.
+    pre: y = T_f(255 X'), T_f(c) = T(255 U^-1(c / 255)), U(g) = the literal blend of g at w_med.
+    post: y = 255 X', X = T_f(255 M) / 255, T_f(c) solves 255 blend(T_f(c) / 255, Q(c / 255), w_med) = T(c)."""
+
+    def __init__(self, cell, T, at):
+        self.T, self.at, self.cell = T, at, cell
+        self.w = float(np.median(bleed_w(cell)))
+        self.trust_below = getattr(T, 'trust_below', None)
+        black, white, _ = BLEED_MATRIX[cell.scheme]
+        self.q = lambda g: black + (white - black) * g
+        self.b = BLEED_DARKEN[cell.scheme]
+        if at == 'pre':
+            g = np.linspace(-0.5, 1.5, 4001)
+            U = g + self.w * (self.b * np.minimum(g, self.q(g)) + (1 - self.b) * self.q(g) - g)
+            self.g, self.U = g, U
+
+    def __call__(self, c):
+        c = np.asarray(c, float)
+        if self.at == 'pre':
+            return self.T(255 * np.interp(c / 255, self.U, self.g))
+        y = self.T(c) / 255
+        Q, w = self.q(c / 255), self.w
+        normal = (y - w * Q) / (1 - w)
+        if self.b == 0:
+            return 255 * normal
+        return 255 * np.where(y <= Q, y, normal)
+
+
+def face_T(cell, fam, T):
+    key = ('faceT', fam.bleed_at, id(T))
+    if key not in cell._cache:
+        cell._cache[key] = (FaceT(cell, T, fam.bleed_at), T)     # T kept alive with its id
+    return cell._cache[key][0]
 
 
 def _hinge(C, W, sg, lam, knee):
@@ -406,6 +515,12 @@ def compose(cell, fam, mp, lam, T=None):
         raise NotImplementedError('R2 needs the full window; use render_window')
     N = _hinge(mp['C'], Wk, sg, lam, fam.knee)
     M = (1 - WN) * N + WN * W
+    if 'Bl' in mp and fam.bleed_form == 'literal':
+        Tf = face_T(cell, fam, T)
+        Q, w = bleed_colour(cell, mp['Bl']), bleed_w(cell)
+        if fam.bleed_at == 'pre':
+            return Tf(255 * bleed_blend(cell, M, Q, w))
+        return 255 * bleed_blend(cell, Tf(255 * M) / 255, Q, w)
     if 'Bl' in mp:
         b = bleed_weight(cell)
         M = (1 - b) * M + b * mp['Bl']
@@ -459,10 +574,12 @@ def synth(cell, fam, p, seed=0, noise=0.5, T=None):
 
 
 def uniform_invariance(families, levels=(0, 32, 64, 128, 160, 208, 255), eps=1e-9):
-    """Clause 7 by construction: every family maps a constant backdrop to T(level) exactly (before rounding)."""
+    """Clause 7 by construction: every family maps a constant backdrop to T(level) (before rounding). Returns
+    (name, worst per-pixel |y - T(g)|, worst |deep median - T(g)|): clause 7's metric is the deep median, and the
+    dump-literal bleed, whose uniform response is graded in depth inside its band, is invariant only there."""
     rows = []
     for name, (fam, p) in families.items():
-        worst = 0.0
+        worst, worst_med = 0.0, 0.0
         for ep in ENDPOINTS:
             sch, pose = ep.split('-')
             for comp in ('capsule-button', 'rrect-md', 'rrect-lg'):
@@ -471,6 +588,8 @@ def uniform_invariance(families, levels=(0, 32, 64, 128, 160, 208, 255), eps=1e-
                 for g in levels:
                     c = Cell(f'g{g}', {'kind': 'solid', 'srgb': [g, g, g]}, comp, 1, sch, pose)
                     y = render(c, fam, expand(fam, p))
-                    worst = max(worst, float(np.abs(y - c.T(np.full(y.shape, float(g)))).max()))
-        rows.append((name, worst))
+                    t = float(c.T(np.array([float(g)]))[0])
+                    worst = max(worst, float(np.abs(y - t).max()))
+                    worst_med = max(worst_med, abs(float(np.median(y)) - t))
+        rows.append((name, worst, worst_med))
     return rows
