@@ -1,0 +1,40 @@
+# platform-web, first run (chain-platform-web.txt, exit 1): diagnosis, read 2026-09-29T07:12:29Z
+
+## Counts in the first run's log
+  246 failed
+  165 passed (38.9s)
+failed cases by engine:
+ 123 firefox
+ 123 webkit
+launch errors (Executable doesn't exist), by missing path:
+ 123 /Users/new/Library/Caches/ms-playwright/firefox-1538/firefox/Nightly.app/Contents/MacOS/firefox
+ 123 /Users/new/Library/Caches/ms-playwright/webkit-2336/pw_run.sh
+failures whose error is anything else:
+  246 numbered failures, of which launch errors: 246
+chromium / chromium-gpu cases marked failed: 0
+
+## The pinned runner and the builds it needs
+@playwright/test catalog pin: @playwright/test: 1.62.1
+playwright-core 1.62.1 installByDefault: chromium-1234, chromium-headless-shell-1234, firefox-1538, webkit-2336, ffmpeg-1011
+pin unchanged since v0.24.0: yes — v0.24.0:pnpm-workspace.yaml reads "@playwright/test": 1.62.1; the file differs since only by three gallery catalog entries (@xterm/addon-fit, @xterm/xterm, astronomy-engine)
+
+## The machine's Playwright cache at diagnosis
+total 8
+drwx------@  11 new  staff   352  9월 27 10:55 .
+drwx------  137 new  staff  4384  9월 29 15:02 ..
+drwxr-xr-x@   5 new  staff   160  9월 29 04:25 .links
+drwxr-xr-x@   3 new  staff    96  9월 27 19:58 b
+drwxr-xr-x@   5 new  staff   160  9월 27 10:55 chromium_headless_shell-1234
+drwxr-xr-x@   5 new  staff   160  9월 26 17:45 chromium_headless_shell-1243
+drwxr-xr-x@   5 new  staff   160  9월 27 10:55 chromium-1234
+drwxr-xr-x@   5 new  staff   160  9월 26 17:45 chromium-1243
+-rw-r--r--@   1 new  staff    27  9월 27 19:53 cli-update-check.json
+drwx------@   5 new  staff   160  9월 21 10:41 daemon
+drwxr-xr-x@   6 new  staff   192  8월 24 21:55 ffmpeg-1011
+.links:
+  5e73814dbc7141cb6d3fda4a1c0e383e2ba8f4bd -> /Users/new/Developer/GitHub/relue-n5-replay/opencollege/node_modules/playwright-core
+  7a27018f56c42e7a750ce5f911e2e8bb605b9501 -> /Users/new/vitrea-w41/g1/node_modules/.pnpm/playwright-core@1.62.1/node_modules/playwright-core
+  ad14a0f2fd7d7b607271c202339e4fc130935338 -> /private/tmp/glass-23ea/node_modules/.pnpm/playwright-core@1.62.1/node_modules/playwright-core
+
+## Reading
+No firefox-1538 or webkit-2336 directory exists, so no Firefox or WebKit case executed: each failed at browserType.launch before a page opened. 0.24.0's chain ran all three engines on this machine on 2026-09-24, so the two builds were removed from the shared cache since (chromium-1234 was re-created 2026-09-27 10:55). Not caused by the release's frame-loop change: no test body ran on those engines, and every Chromium and chromium-gpu case passed. The log is kept as the first run; the environment is restored by installing exactly the two missing pinned builds (browsers-install.txt) and the suite runs once more as chain-platform-web-run2.txt, its own X6 preflight, no other change.

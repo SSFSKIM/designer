@@ -61,6 +61,9 @@ function setup(silhouette = true, hint?: number) {
 
 describe("CSS silhouette profile routing", () => {
   it("feeds and reports each host's local input without extra steady-state reads", () => {
+    // The source is live, so a second frame a cadence later reads it again by
+    // design. Held still, the clock keeps a slow first frame from reading as one.
+    vi.spyOn(window.performance, "now").mockImplementation(() => 0);
     const { instance, left, right, reads } = setup();
     instance.runFrame(16);
     const inputs = instance.capabilities("g")?.backdropToneAbscissae;

@@ -119,6 +119,16 @@ export interface BackdropProvider {
   /** Called once the import pass has consumed the frame's pixels. */
   markImported(): void;
   /**
+   * The owner declared new pixels: a rebuild was requested at an epoch newer
+   * than the one this source was last built at. Where the provider keeps its own
+   * copy of the pixels (image, canvas), the next `acquire` re-imports them.
+   *
+   * Absent where every acquire imports anyway (video, a gradient, an app view).
+   * It is what lets a canvas that is not `live` be repainted by its owner and
+   * marked, rather than being re-copied on every frame in case it was.
+   */
+  markContentChanged?(): void;
+  /**
    * Adopt `device` at `generation`: the device that built this provider's storage
    * is gone.
    *
@@ -200,7 +210,9 @@ export interface CopyProviderOptions {
   /**
    * Whether content changes every frame. `true` for a live canvas, `false` for a
    * decoded image — which is what makes a static backdrop rebuild nothing at all
-   * (§Core model invariant).
+   * (§Core model invariant). A canvas can be `false` too: its owner then marks
+   * each repaint, and the copy happens on the rebuild that mark requests
+   * (`markContentChanged`) instead of on every frame.
    */
   readonly live?: boolean;
   /** The device generation this provider is being built under. See `BackdropProvider.generation`. */
@@ -285,6 +297,10 @@ export function createCopyProvider(options: CopyProviderOptions): BackdropProvid
 
     markImported() {
       dirty = false;
+    },
+
+    markContentChanged() {
+      dirty = true;
     },
 
     invalidate(next, nextDevice) {

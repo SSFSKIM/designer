@@ -350,6 +350,18 @@ export interface GlassSceneOptions {
    * invisible otherwise.
    */
   readonly devMode?: boolean;
+  /**
+   * Called after every mutation a later frame has to see: a registration, a
+   * patch, a removal, a bound, a probe, a policy input or a dirty mark.
+   *
+   * Core stays passive (X4): this schedules nothing. It is how the host that
+   * drives the frames learns there is work, so that it can stop driving them when
+   * there is none rather than drawing an unchanged scene sixty times a second. It
+   * fires in every phase, including the read phase's own `setNodeBounds`; which of
+   * those the frame in flight already covers is the host's call, because only
+   * the host knows where in its loop it is.
+   */
+  readonly onChange?: () => void;
 }
 
 export interface GlassScene {
@@ -512,6 +524,7 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
    */
   let consumedEpochs: readonly { readonly id: string; readonly builtEpoch: number }[] = [];
   let framePhase: FramePhase | undefined;
+  const changed = (): void => options.onChange?.();
 
   /**
    * Descriptors are frozen from the `update` phase onward.
@@ -695,6 +708,7 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
       if (sources.has(descriptor.id)) throw duplicate("backdrop source", descriptor.id);
       guardFrozenScene(descriptor.id);
       sources.set(descriptor.id, { descriptor, dirtyEpoch: 0, builtEpoch: 0 });
+      changed();
     },
 
     updateBackdropSource(id, patch) {
@@ -710,6 +724,7 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
         ...record,
         descriptor: { ...record.descriptor, resolution: patch.resolution },
       });
+      changed();
     },
 
     removeBackdropSource(id) {
@@ -723,6 +738,7 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
         );
       }
       sources.delete(id);
+      changed();
     },
 
     backdropSource(id) {
@@ -734,6 +750,7 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
       requireSource(descriptor.backdropSourceId);
       guardFrozenScene(descriptor.id);
       groups.set(descriptor.id, { descriptor });
+      changed();
     },
 
     updateGlassGroup(id, patch) {
@@ -742,6 +759,7 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
       requireSource(descriptor.backdropSourceId);
       guardFrozenScene(id);
       groups.set(id, { ...record, descriptor });
+      changed();
     },
 
     removeGlassGroup(id) {
@@ -755,6 +773,7 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
         );
       }
       groups.delete(id);
+      changed();
     },
 
     glassGroup(id) {
@@ -769,6 +788,7 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
       requireConcentricParent(descriptor);
       guardFrozenScene(descriptor.id);
       nodes.set(descriptor.id, { descriptor });
+      changed();
     },
 
     updateGlassNode(id, patch) {
@@ -778,6 +798,7 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
       requireConcentricParent(descriptor);
       guardFrozenScene(id);
       nodes.set(id, { ...record, descriptor });
+      changed();
     },
 
     removeGlassNode(id) {
@@ -793,6 +814,7 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
         );
       }
       nodes.delete(id);
+      changed();
     },
 
     glassNode(id) {
@@ -816,15 +838,17 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
         });
       }
       nodes.set(id, { ...record, bounds, ...(clip === undefined ? {} : { clip }) });
+      changed();
     },
 
     setPlatformProbe(probe, groupId) {
       if (groupId === undefined) {
         platform = probe;
-        return;
+      } else {
+        const record = requireGroup(groupId);
+        groups.set(groupId, { ...record, platform: probe });
       }
-      const record = requireGroup(groupId);
-      groups.set(groupId, { ...record, platform: probe });
+      changed();
     },
 
     setSourceProbe(sourceId, probe) {
@@ -836,23 +860,27 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
         );
       }
       sources.set(sourceId, { ...record, descriptor: { ...record.descriptor, probe } });
+      changed();
     },
 
     setGovernorPressure(pressure, groupId) {
       if (groupId === undefined) {
         governor = pressure;
-        return;
+      } else {
+        const record = requireGroup(groupId);
+        groups.set(groupId, { ...record, governor: pressure });
       }
-      const record = requireGroup(groupId);
-      groups.set(groupId, { ...record, governor: pressure });
+      changed();
     },
 
     setSystemAccessibility(preferences) {
       system = preferences;
+      changed();
     },
 
     setAccessibilityOverrides(next) {
       overrides = next;
+      changed();
     },
 
     accessibilityPolicy() {
@@ -862,6 +890,7 @@ export function createGlassScene(options: GlassSceneOptions): GlassScene {
     markBackdropSourceDirty(id) {
       const record = requireSource(id);
       sources.set(id, { ...record, dirtyEpoch: record.dirtyEpoch + 1 });
+      changed();
     },
 
     dirtyBackdropSources() {

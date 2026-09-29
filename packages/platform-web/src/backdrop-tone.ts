@@ -178,6 +178,20 @@ function srgbDecode(encoded: number): number {
 }
 
 /**
+ * `srgbDecode(byte / 255)` for every byte, computed by that same function.
+ *
+ * Every per-pixel decode below starts from an 8-bit channel, so a table indexed
+ * by the byte returns the very number the call would have — bit for bit, not an
+ * approximation of it — without a `Math.pow` per channel per tap. On a
+ * page-sized read that call was most of the reduction's cost.
+ */
+const SRGB_DECODE_BYTE: Float64Array = (() => {
+  const table = new Float64Array(256);
+  for (let byte = 0; byte < 256; byte += 1) table[byte] = srgbDecode(byte / 255);
+  return table;
+})();
+
+/**
  * The average colour of a supplied backdrop texture, in linear light — or
  * `undefined` where there is nothing readable yet.
  *
@@ -257,9 +271,9 @@ export function sampleBackdropTone(
       er += pr * a;
       eg += pg * a;
       eb += pb * a;
-      r += srgbDecode(pr) * a;
-      g += srgbDecode(pg) * a;
-      b += srgbDecode(pb) * a;
+      r += (SRGB_DECODE_BYTE[data[i] as number] as number) * a;
+      g += (SRGB_DECODE_BYTE[data[i + 1] as number] as number) * a;
+      b += (SRGB_DECODE_BYTE[data[i + 2] as number] as number) * a;
       weight += a;
     }
     if (weight <= 0) return undefined;
@@ -279,48 +293,163 @@ export function sampleBackdropTone(
   }
 }
 
-/** A shared native-resolution read, independent of any host's geometry. */
-export interface BackdropSnapshot {
-  readonly data: Uint8ClampedArray;
+/**
+ * How a source's pixels can change, which decides when a held reading of them
+ * stops describing them.
+ *
+ * - `static` — a decoded image. It changes only when the app hands over another
+ *   texture or marks it, so the dirty epoch is a complete account of it and a
+ *   new epoch is read at once.
+ * - `marked` — content the app draws and declares: a canvas supplied with
+ *   `live: false`, or a video that is not playing. A new epoch is read, but no
+ *   more often than `BACKDROP_TONE_CADENCE_MS`, because an app that repaints on
+ *   every frame of a playing lesson marks on every frame too.
+ * - `live` — content that may change on any frame without saying so: a canvas
+ *   supplied live, a playing video. Re-read on the cadence whatever the epoch.
+ */
+export type BackdropSourceLiveness = "static" | "marked" | "live";
+
+/**
+ * Whether a reading taken at `held` must be taken again now, and — where it
+ * must not yet, but the pixels may already have moved on — when it will be due.
+ *
+ * `retryAtMs` is what lets a host that draws on demand stop between readings: a
+ * mark that lands inside the cadence would otherwise be read only if something
+ * else happened to draw a frame after the cadence ran out, and on an idle page
+ * nothing does.
+ */
+export function backdropReadingDue(
+  liveness: BackdropSourceLiveness,
+  held: { readonly epoch: number; readonly atMs: number },
+  epoch: number,
+  now: number,
+): { readonly due: boolean; readonly retryAtMs?: number } {
+  const changed = held.epoch !== epoch;
+  if (liveness === "static") return { due: changed };
+  if (liveness === "marked" && !changed) return { due: false };
+  if (now - held.atMs >= BACKDROP_TONE_CADENCE_MS) return { due: true };
+  return { due: false, retryAtMs: held.atMs + BACKDROP_TONE_CADENCE_MS };
+}
+
+/**
+ * A rectangle of source pixels, in the source's intrinsic px: `x`/`y` inclusive,
+ * `width`/`height` the extent.
+ */
+export interface SourceWindow {
+  readonly x: number;
+  readonly y: number;
   readonly width: number;
   readonly height: number;
 }
 
 /**
+ * A native-resolution read of the part of a source the surfaces sample.
+ *
+ * `width` and `height` are the source's FULL intrinsic extent — the placement
+ * maps through it — and `window` says which of those pixels `data` holds. The
+ * read used to be the whole source: a 2880×1800 board canvas, drawn and read
+ * back in full four times a second for a toolbar a few hundred pixels wide.
+ */
+export interface BackdropSnapshot {
+  readonly data: Uint8ClampedArray;
+  readonly width: number;
+  readonly height: number;
+  readonly window: SourceWindow;
+}
+
+/**
  * Holds one source read across all silhouettes. Geometry changes only repeat the
- * reduction, while source replacement and intrinsic resizing require new pixels.
- * Live content refreshes on cadence, even when a CSS root has no dirty epoch feed.
+ * reduction while the held pixels still cover it; source replacement, intrinsic
+ * resizing and a reading falling due (`backdropReadingDue`) take new ones. A
+ * surface reaching past the held window grows it — one more read, of the union.
+ *
+ * `region` is what to read when a read is taken, in the silhouette's own CSS
+ * space: the caller passes every surface sampling this source, padded, so one
+ * read serves them all and a surface that moves a little (a scroll, a morph)
+ * keeps reducing the pixels already held.
  */
 export function createBackdropSnapshotReader(): (
-  texture: GlassBackdropTexture, epoch: number, now: number,
-) => BackdropSnapshot | undefined {
-  let held: { texture: GlassBackdropTexture; epoch: number; atMs: number;
-    width: number; height: number; snapshot: BackdropSnapshot | undefined } | undefined;
-  return (texture, epoch, now) => {
+  texture: GlassBackdropTexture,
+  epoch: number,
+  now: number,
+  liveness: BackdropSourceLiveness,
+  silhouette: BackdropSilhouette,
+  region: Rect,
+) => { readonly snapshot: BackdropSnapshot | undefined; readonly retryAtMs?: number } {
+  let held: {
+    texture: GlassBackdropTexture; epoch: number; atMs: number;
+    width: number; height: number; window: SourceWindow | undefined;
+    snapshot: BackdropSnapshot | undefined;
+  } | undefined;
+  return (texture, epoch, now, liveness, silhouette, region) => {
     const drawable = drawableOf(texture);
     const width = drawable?.width ?? 0;
     const height = drawable?.height ?? 0;
+    const needed = drawable === undefined ? undefined : silhouetteSourceWindow(width, height, silhouette);
+
+    let grow: SourceWindow | undefined;
+    let retryAtMs: number | undefined;
     if (held !== undefined && held.texture === texture && held.width === width &&
-        held.height === height &&
-        (texture.kind === "image" ? held.epoch === epoch :
-          now - held.atMs < BACKDROP_TONE_CADENCE_MS)) return held.snapshot;
+        held.height === height) {
+      const reading = backdropReadingDue(liveness, held, epoch, now);
+      if (!reading.due) {
+        retryAtMs = reading.retryAtMs;
+        if (needed === undefined || (held.window !== undefined && containsWindow(held.window, needed))) {
+          return { snapshot: held.snapshot, ...(retryAtMs === undefined ? {} : { retryAtMs }) };
+        }
+        grow = held.window;
+      }
+    }
+
+    const regional = drawable === undefined
+      ? undefined : silhouetteSourceWindow(width, height, { ...silhouette, bounds: region });
+    const window = needed === undefined ? undefined
+      : unionWindow(regional === undefined ? needed : unionWindow(regional, needed), grow);
     let snapshot: BackdropSnapshot | undefined;
-    const surface = drawable === undefined ? undefined : scratchSurface();
-    if (surface !== undefined && drawable !== undefined) {
+    const surface = drawable === undefined || window === undefined ? undefined : scratchSurface();
+    if (surface !== undefined && drawable !== undefined && window !== undefined) {
       try {
-        // Resizing clears any taint left by an earlier source.
-        surface.canvas.width = width;
-        surface.canvas.height = height;
-        surface.ctx.drawImage(drawable.source, 0, 0);
-        snapshot = { data: surface.ctx.getImageData(0, 0, width, height).data, width, height };
+        // Resizing clears any taint left by an earlier source. The window is
+        // copied at 1:1 and integer offsets, so its pixels are the very bytes a
+        // whole-source draw would have put at the same place.
+        surface.canvas.width = window.width;
+        surface.canvas.height = window.height;
+        surface.ctx.drawImage(
+          drawable.source,
+          window.x, window.y, window.width, window.height,
+          0, 0, window.width, window.height,
+        );
+        snapshot = {
+          data: surface.ctx.getImageData(0, 0, window.width, window.height).data,
+          width, height, window,
+        };
       } catch {
         snapshot = undefined;
       }
     }
-    held = { texture, epoch, atMs: now, width, height, snapshot };
-    return snapshot;
+    held = { texture, epoch, atMs: now, width, height, window, snapshot };
+    // A live source may already be moving on from what was just read, and nothing
+    // will say so: the next reading is owed a cadence from now.
+    if (liveness === "live") retryAtMs = now + BACKDROP_TONE_CADENCE_MS;
+    return { snapshot, ...(retryAtMs === undefined ? {} : { retryAtMs }) };
   };
 }
+
+const containsWindow = (outer: SourceWindow, inner: SourceWindow): boolean =>
+  inner.x >= outer.x && inner.y >= outer.y &&
+  inner.x + inner.width <= outer.x + outer.width &&
+  inner.y + inner.height <= outer.y + outer.height;
+
+const unionWindow = (a: SourceWindow, b: SourceWindow | undefined): SourceWindow => {
+  if (b === undefined) return a;
+  const x = Math.min(a.x, b.x);
+  const y = Math.min(a.y, b.y);
+  return {
+    x, y,
+    width: Math.max(a.x + a.width, b.x + b.width) - x,
+    height: Math.max(a.y + a.height, b.y + b.height) - y,
+  };
+};
 
 /** The batched host and source geometry, all in viewport-relative CSS pixels. */
 export interface BackdropSilhouette {
@@ -335,17 +464,20 @@ export interface BackdropSilhouette {
 }
 
 /**
- * Reads encoded Rec709 luma under a rounded rectangle at device-pixel centres
- * (W28 Decision Log 2). The source stays at native resolution; sampling is
- * bilinear with edge clamping, using the renderer's placement/cover convention.
- * The level is decoded once after averaging; colour remains a linear mean.
+ * The device-pixel lattice a silhouette is sampled on, and the map from it into
+ * source px — shared by the reduction and by the window that says which source
+ * pixels the reduction will touch, so the two cannot disagree by a rounding.
+ * `undefined` where the silhouette samples nothing.
  */
-export function silhouetteBackdropTone(
-  data: Uint8ClampedArray,
-  width: number,
-  height: number,
-  geometry: BackdropSilhouette,
-): BackdropToneSample | undefined {
+function silhouetteLattice(width: number, height: number, geometry: BackdropSilhouette): {
+  readonly dpr: number;
+  readonly startX: number;
+  readonly endX: number;
+  readonly startY: number;
+  readonly endY: number;
+  sourceX(px: number): number;
+  sourceY(py: number): number;
+} | undefined {
   const { bounds, viewport } = geometry;
   const dpr = viewport.devicePixelRatio;
   if (width <= 0 || height <= 0 || bounds.width <= 0 || bounds.height <= 0 ||
@@ -361,6 +493,63 @@ export function silhouetteBackdropTone(
       width: width * scale, height: height * scale,
     };
   }
+  const place = placement;
+  return {
+    dpr,
+    startX: Math.max(0, Math.floor(bounds.x * dpr)),
+    endX: Math.min(Math.ceil(viewport.width * dpr), Math.ceil((bounds.x + bounds.width) * dpr)),
+    startY: Math.max(0, Math.floor(bounds.y * dpr)),
+    endY: Math.min(Math.ceil(viewport.height * dpr), Math.ceil((bounds.y + bounds.height) * dpr)),
+    sourceX: (px) => Math.max(0, Math.min(width - 1, (px - place.x) / place.width * width - 0.5)),
+    sourceY: (py) => Math.max(0, Math.min(height - 1, (py - place.y) / place.height * height - 0.5)),
+  };
+}
+
+/**
+ * The source pixels `silhouetteBackdropTone` can read for this geometry: every
+ * bilinear tap of every device-pixel centre in the silhouette's bounds. The map
+ * into source px is monotonic, so the first and last centres bound the taps; the
+ * rounded corners only ever read fewer. `undefined` where nothing is sampled.
+ */
+export function silhouetteSourceWindow(
+  width: number,
+  height: number,
+  geometry: BackdropSilhouette,
+): SourceWindow | undefined {
+  const lattice = silhouetteLattice(width, height, geometry);
+  if (lattice === undefined) return undefined;
+  const { dpr, startX, endX, startY, endY } = lattice;
+  if (startX >= endX || startY >= endY) return undefined;
+  const x0 = Math.floor(lattice.sourceX((startX + 0.5) / dpr));
+  const x1 = Math.min(width - 1, Math.floor(lattice.sourceX((endX - 1 + 0.5) / dpr)) + 1);
+  const y0 = Math.floor(lattice.sourceY((startY + 0.5) / dpr));
+  const y1 = Math.min(height - 1, Math.floor(lattice.sourceY((endY - 1 + 0.5) / dpr)) + 1);
+  return { x: x0, y: y0, width: x1 - x0 + 1, height: y1 - y0 + 1 };
+}
+
+/**
+ * Reads encoded Rec709 luma under a rounded rectangle at device-pixel centres
+ * (W28 Decision Log 2). The source stays at native resolution; sampling is
+ * bilinear with edge clamping, using the renderer's placement/cover convention.
+ * The level is decoded once after averaging; colour remains a linear mean.
+ *
+ * `data` holds `window` of the source (the whole source when absent); the
+ * window must cover `silhouetteSourceWindow` for the same geometry.
+ */
+export function silhouetteBackdropTone(
+  data: Uint8ClampedArray,
+  width: number,
+  height: number,
+  geometry: BackdropSilhouette,
+  window?: SourceWindow,
+): BackdropToneSample | undefined {
+  const lattice = silhouetteLattice(width, height, geometry);
+  if (lattice === undefined) return undefined;
+  const { bounds } = geometry;
+  const { dpr, startX, endX, startY, endY } = lattice;
+  const originX = window?.x ?? 0;
+  const originY = window?.y ?? 0;
+  const stride = window?.width ?? width;
   const radius = Math.max(0, Math.min(geometry.radius, bounds.width / 2, bounds.height / 2));
   const cx = bounds.x + bounds.width / 2;
   const cy = bounds.y + bounds.height / 2;
@@ -370,11 +559,9 @@ export function silhouetteBackdropTone(
   let b = 0;
   let weight = 0;
   let sampleCount = 0;
-  const endX = Math.min(Math.ceil(viewport.width * dpr), Math.ceil((bounds.x + bounds.width) * dpr));
-  const endY = Math.min(Math.ceil(viewport.height * dpr), Math.ceil((bounds.y + bounds.height) * dpr));
-  for (let y = Math.max(0, Math.floor(bounds.y * dpr)); y < endY; y += 1) {
+  for (let y = startY; y < endY; y += 1) {
     const py = (y + 0.5) / dpr;
-    for (let x = Math.max(0, Math.floor(bounds.x * dpr)); x < endX; x += 1) {
+    for (let x = startX; x < endX; x += 1) {
       const px = (x + 0.5) / dpr;
       const qx = Math.abs(px - cx) - bounds.width / 2 + radius;
       const qy = Math.abs(py - cy) - bounds.height / 2 + radius;
@@ -382,8 +569,8 @@ export function silhouetteBackdropTone(
         Math.min(Math.max(qx, qy), 0) - radius;
       if (distance > 0) continue;
       sampleCount += 1;
-      const sx = Math.max(0, Math.min(width - 1, (px - placement.x) / placement.width * width - 0.5));
-      const sy = Math.max(0, Math.min(height - 1, (py - placement.y) / placement.height * height - 0.5));
+      const sx = lattice.sourceX(px);
+      const sy = lattice.sourceY(py);
       const x0 = Math.floor(sx);
       const y0 = Math.floor(sy);
       const fx = sx - x0;
@@ -392,7 +579,8 @@ export function silhouetteBackdropTone(
       // transparent source has supplied no backdrop colour.
       for (let dy = 0; dy <= 1; dy += 1) {
         for (let dx = 0; dx <= 1; dx += 1) {
-          const i = (Math.min(height - 1, y0 + dy) * width + Math.min(width - 1, x0 + dx)) * 4;
+          const i = ((Math.min(height - 1, y0 + dy) - originY) * stride +
+            Math.min(width - 1, x0 + dx) - originX) * 4;
           const a = (data[i + 3] as number) / 255 *
             (dx === 0 ? 1 - fx : fx) * (dy === 0 ? 1 - fy : fy);
           if (a <= 0) continue;
@@ -400,9 +588,9 @@ export function silhouetteBackdropTone(
           const pg = (data[i + 1] as number) / 255;
           const pb = (data[i + 2] as number) / 255;
           encoded += (0.2126 * pr + 0.7152 * pg + 0.0722 * pb) * a;
-          r += srgbDecode(pr) * a;
-          g += srgbDecode(pg) * a;
-          b += srgbDecode(pb) * a;
+          r += (SRGB_DECODE_BYTE[data[i] as number] as number) * a;
+          g += (SRGB_DECODE_BYTE[data[i + 1] as number] as number) * a;
+          b += (SRGB_DECODE_BYTE[data[i + 2] as number] as number) * a;
           weight += a;
         }
       }

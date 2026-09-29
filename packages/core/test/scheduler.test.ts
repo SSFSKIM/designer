@@ -677,3 +677,78 @@ describe("structural change during a frame", () => {
     expect(diagnostics.reported).toEqual([]);
   });
 });
+
+/*
+ * The demand half of the contract. Core schedules nothing; what it owes a host
+ * that drives frames on demand is an answer to "is there anything to draw?" —
+ * the scene says when it changed and the participants say when they are not
+ * done yet.
+ */
+describe("demand", () => {
+  it("reports every mutation a later frame has to see, and nothing else", () => {
+    const onChange = vi.fn();
+    const scene = createGlassScene({ platform: workingPlatform, onChange });
+    const touch = [
+      () =>
+        scene.registerBackdropSource({
+          id: "src",
+          kind: "texture",
+          probe: { taint: "clean", textureCompatibility: "compatible" },
+        }),
+      () => scene.updateBackdropSource("src", { resolution: { scale: 0.5, maxDimension: 512 } }),
+      () => scene.registerGlassGroup({ id: "grp", backdropSourceId: "src" }),
+      () => scene.updateGlassGroup("grp", { samplingPadding: 12 }),
+      () =>
+        scene.registerGlassNode({
+          id: "node",
+          groupId: "grp",
+          shapeFamily: "capsule",
+          shape,
+          zSlot: { plane: "base", order: 0 },
+        }),
+      () => scene.updateGlassNode("node", { variant: "clear" }),
+      () => scene.setNodeBounds("node", { x: 0, y: 0, width: 100, height: 44 }),
+      () => scene.setPlatformProbe(workingPlatform),
+      () => scene.setPlatformProbe(workingPlatform, "grp"),
+      () => scene.setSourceProbe("src", { taint: "clean", textureCompatibility: "compatible" }),
+      () => scene.setGovernorPressure("degrade-in-tier"),
+      () => scene.setGovernorPressure("none", "grp"),
+      () =>
+        scene.setSystemAccessibility({
+          reducedTransparency: false,
+          reducedMotion: true,
+          increasedContrast: false,
+          forcedColors: false,
+          reducedTransparencySupported: true,
+        }),
+      () => scene.setAccessibilityOverrides({ reducedMotion: false }),
+      () => scene.markBackdropSourceDirty("src"),
+      () => scene.removeGlassNode("node"),
+      () => scene.removeGlassGroup("grp"),
+      () => scene.removeBackdropSource("src"),
+    ];
+    for (const [index, mutate] of touch.entries()) {
+      mutate();
+      expect(onChange).toHaveBeenCalledTimes(index + 1);
+    }
+
+    // Reads, resolutions and the frame's own ledger are not changes.
+    scene.resolve();
+    scene.accessibilityPolicy();
+    scene.dirtyBackdropSources();
+    expect(onChange).toHaveBeenCalledTimes(touch.length);
+  });
+
+  it("is pending exactly while some participant says it is", () => {
+    const scheduler = createFrameScheduler({ scene: seeded() });
+    expect(scheduler.pending()).toBe(false);
+
+    let travelling = true;
+    scheduler.addParticipant({ id: "silent" });
+    scheduler.addParticipant({ id: "driver", pending: () => travelling });
+    expect(scheduler.pending()).toBe(true);
+
+    travelling = false;
+    expect(scheduler.pending()).toBe(false);
+  });
+});

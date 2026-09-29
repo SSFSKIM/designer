@@ -1,0 +1,153 @@
+{
+  "release": "0.25.0",
+  "head": "175d01300c4ab88ab5b8b039621d63b8c10e16ff",
+  "chainStatus": [
+    "freeze-open exit=0",
+    "capture-tree exit=0",
+    "build exit=0",
+    "digests exit=0",
+    "lint exit=0",
+    "eslint-root exit=0",
+    "units exit=0",
+    "goldens exit=0",
+    "goldens-bytes exit=0",
+    "gpu exit=0",
+    "platform-web exit=1",
+    "platform-web-run2 exit=0",
+    "react-e2e exit=0",
+    "demo-e2e exit=0",
+    "gated-count exit=0",
+    "freeze-close exit=0"
+  ],
+  "freeze": [
+    1818,
+    1818
+  ],
+  "captureTree": {
+    "captures": 1900,
+    "match": 1893,
+    "mismatch": 0,
+    "misfiled": 0,
+    "superseded": 0,
+    "unreadable": 0,
+    "noRow": 7
+  },
+  "digests": [
+    "apple-macos-27.0-1x-light-standard-glass0.5 be13dae45098fc89",
+    "apple-macos-27.0-1x-dark-standard-glass0.5 2a4323f33df8d799",
+    "apple-macos-27.0-1x-light-standard-glass0.5-receded b0d0d8dacc6a03af",
+    "apple-macos-27.0-1x-dark-standard-glass0.5-receded 7c454858a3cbad5b",
+    "apple-macos-26.5-1x-light-standard b2b570e4adcea8fb",
+    "apple-macos-26.5-1x-dark-standard 874be66ea501621b"
+  ],
+  "unitTests": {
+    "packages/policy": 23,
+    "packages/motion": 164,
+    "packages/geometry": 170,
+    "packages/renderer-webgpu": 651,
+    "packages/core": 304,
+    "packages/platform-web": 651,
+    "packages/react": 180,
+    "packages/calibration": 776,
+    "apps/demo": 110
+  },
+  "unitFiles": {
+    "packages/policy": 2,
+    "packages/motion": 10,
+    "packages/geometry": 14,
+    "packages/renderer-webgpu": 37,
+    "packages/core": 16,
+    "packages/platform-web": 48,
+    "packages/react": 19,
+    "packages/calibration": 60,
+    "apps/demo": 8
+  },
+  "unitTotal": 3029,
+  "unitFileTotal": 214,
+  "suites": {
+    "goldens": {
+      "passed": 34
+    },
+    "gpu": {
+      "passed": 49
+    },
+    "platform-web": {
+      "failed": 246,
+      "passed": 165
+    },
+    "platform-web-run2": {
+      "passed": 411
+    },
+    "react-e2e": {
+      "skipped": 3,
+      "passed": 174
+    },
+    "demo-e2e": {
+      "passed": 83
+    }
+  },
+  "platformWebRun1": "246 Firefox/WebKit launch errors (executable absent from the Playwright cache), 0 other failures; run 2 after installing firefox-1538 and webkit-2336",
+  "goldenPNGs": 13,
+  "gated": {
+    "macOS26_5": {
+      "rows": 1107,
+      "gated": 229
+    },
+    "macOS27": {
+      "rows": 786,
+      "gated": 230
+    }
+  },
+  "x6": {
+    "preflights": 6,
+    "labels": [
+      "chain-goldens",
+      "chain-gpu",
+      "chain-platform-web",
+      "chain-platform-web-run2",
+      "chain-react-e2e",
+      "chain-demo-e2e"
+    ],
+    "minimumIdleSeconds": 3322.927716625,
+    "waitedSeconds": [
+      0.083,
+      0.082,
+      0.084,
+      0.084,
+      0.087,
+      0.085
+    ],
+    "pollsBeyondFirst": 0,
+    "foreignCounts": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "tarballs": {
+    "@vitreajs/vitrea": {
+      "bytes": 598568,
+      "exports": 44,
+      "dependencies": {}
+    },
+    "@vitreajs/vitrea-web": {
+      "bytes": 586295,
+      "exports": 261,
+      "dependencies": {
+        "@vitreajs/vitrea": "^0.25.0"
+      }
+    },
+    "@vitreajs/vitrea-react": {
+      "bytes": 192247,
+      "exports": 38,
+      "dependencies": {
+        "@vitreajs/vitrea": "^0.25.0",
+        "@vitreajs/vitrea-web": "^0.25.0"
+      }
+    }
+  },
+  "branchPathsTouchingMaterialOrEvidence": []
+}

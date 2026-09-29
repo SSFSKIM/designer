@@ -6865,3 +6865,20 @@ adopted-thresholds.test.ts.patch`. That half adds `recededDocumentSha256` to
 `ChromaCut.referenceGeneration` and calls `loadGeneration(active, receded)`. Cut with the
 ported `referees/chroma-cut.py`, which records the pair. The same draft's four cut-path
 hunks point at the E3 read that was not landed, and do not apply.
+
+## `vitrea-web`'s public surface grows through `export *` with nothing pinning it (0.25.0 release chain, 2026-09-29)
+
+*Found by the 0.25.0 rehearsal's export count, 258 → 261 against the published 0.24.0 tarball.*
+
+`packages/platform-web/src/index.ts` star-exports most modules, so every `export` a module adds for
+its own siblings becomes public API. Demand-driven frames (#2) added three that way —
+`backdropReadingDue` and `silhouetteSourceWindow` from `backdrop-tone.ts`, `backdropTextureIsLive`
+from `renderer-bridge.ts` — with no changeset line naming them. The parent shipped them in 0.25.0:
+the same module already publishes helpers of the same kind (`SAMPLE_EXTENT`,
+`BACKDROP_TONE_CADENCE_MS`, `releaseBackdropToneScratch`), and 0.x minors may break. Nothing
+fails when the surface grows; the release rehearsal notices only because it counts exports.
+
+Shape of the fix: a unit test that pins the package entry's export names against a committed list
+(so a new export is a one-line reviewed diff), and either named exports for the modules whose
+helpers are internal or a `stripInternal`-style convention. Decide which existing exports are
+public before pinning, because the pin makes today's surface a commitment.

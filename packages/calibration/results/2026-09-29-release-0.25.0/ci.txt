@@ -1,0 +1,10 @@
+# CI at the cut (gh run list, read before this branch was pushed)
+# The checklist row asks for ci verify + integration green on MAIN at the release commit. The
+# release commit is the merge of rel-0.25.0, which does not exist yet, so that reading belongs
+# to the merge. Recorded here: the state of main and of PR #2 at the cut.
+da08f377 main ci push completed success 2026-09-29T07:04:08Z run 36534472875
+da08f377 main pages push completed success 2026-09-29T07:04:08Z run 36534472647
+0868784c main ci push completed success 2026-09-29T06:10:33Z run 36529731081
+0868784c main pages push completed success 2026-09-29T06:10:33Z run 36529731007
+1829135d perf/demand-driven-frames ci pull_request completed success 2026-09-29T04:33:23Z run 36522149408
+1829135d perf/demand-driven-frames ci push completed success 2026-09-29T04:33:19Z run 36522144448
