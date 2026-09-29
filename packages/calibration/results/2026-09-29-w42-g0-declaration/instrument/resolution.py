@@ -83,12 +83,29 @@ def load(p):
         return None
 
 
+ENGINE = 'fix-b151aff4'   # forward.ENGINE (not imported: the table is assembled from outputs alone)
+
+
 def family_rows(p1):
     rows = []
     if not p1:
         return rows
-    for r in p1.get('A', []):
+    # A row of part A / An / Aw that part A_fix re-ran (same family and endpoint) is superseded: the family's model or
+    # its starts changed in the review of b151aff4.
+    fixed = {(r['family'], r['ep']) for r in p1.get('A_fix', [])}
+    for r in p1.get('A_fix', []):
+        band = 'outside (d_in = 20 + 2 sigma_n,ref)' if r['ep'].endswith('rest') else 'receded (no band)'
         if 'skipped' in r:
+            continue
+        for pn, v in r['recovered'].items():
+            rows.append(dict(reader=f"family fitter: {r['family']} (A_fix, engine {r['engine']})", quantity=pn,
+                             endpoints=[r['ep']], band=band, gated=True,
+                             synthetic=dict(resolution=f"{v['err']:+.4f} (read {v['read']:.4f}, truth {v['truth']:.4f})",
+                                            tolerance=f"+-{v['tol']}",
+                                            verdict='PASS' if v['ok'] else 'FAIL'),
+                             vitrea=None, notes=f"pooled rms {r['pooled']:.3f}, {r['n_cells']} cells, bed {r['bed']}"))
+    for r in p1.get('A', []):
+        if 'skipped' in r or (r['family'], r['ep']) in fixed:
             continue
         band = 'outside (d_in = 20 + 2 sigma_n,ref)' if r['ep'].endswith('rest') else 'receded (no band)'
         for pn, v in r['recovered'].items():
@@ -103,6 +120,8 @@ def family_rows(p1):
                              ('Aw_final', 'W support: the fallback record, final pin', 'outside (d_in 53.6 pt, W support)'),
                              ('An_final', 'narrow support, final pin', 'outside (d_in 20 + 2 sigma_n,ref)')):
         for r in p1.get(key, []):
+            if (r['family'], r['ep']) in fixed:
+                continue
             if 'skipped' in r:
                 rows.append(dict(reader=f"family fitter: {r['family']} ({label})", quantity='all', endpoints=[r['ep']],
                                  band=band, gated=key.startswith('An'),
@@ -165,6 +184,7 @@ def estimate_rows(table):
 
 
 FALLBACK = []
+ENGINE_CHANGED = {'W-shape'}   # proof2_separation.ENGINE_CHANGED
 
 
 def separation(p2):
@@ -174,7 +194,9 @@ def separation(p2):
     # narrow-support read (the revised ruling 3's primary); active reads at the W support are the fallback's
     # record and are listed apart (fallback_table).
     order = {'5ba68aeb': 0, '07b45391': 1, '5d719b60': 2, '764217e1': 3}
-    rank = lambda r: (order.get(r.get('bed', '5ba68aeb'), 9), bool(r.get('whole')))
+    # a pair with a family whose model the review of b151aff4 changed counts first at the current engine
+    rank = lambda r: (r.get('engine') == ENGINE if {r['truth'], r['fit']} & ENGINE_CHANGED else True,
+                      order.get(r.get('bed', '5ba68aeb'), 9), bool(r.get('whole')))
     best, fallback = {}, {}
     for r in p2['pairs']:
         key = (r['truth'], r['fit'], r['ep'])
@@ -190,9 +212,10 @@ def separation(p2):
         bound = sorted({k for k, v in list(r['ls_x'].items()) + list(r['mm_x'].items())
                         if min(abs(v - b[k.split('@')[0]][0]), abs(v - b[k.split('@')[0]][1])) < 1e-3 *
                         max(1, abs(v))})
+        stale = bool({t, f} & ENGINE_CHANGED) and r.get('engine') != ENGINE
         table.append(dict(truth=t, fit=f, ep=ep, s=r['s'], s_ls=r['s_ls'], verdict=r['verdict'], where=r['where'],
                           whole=r.get('whole', False), n_cells=r['n_cells'], at_bound=bound,
-                          bed=r.get('bed', '5ba68aeb')))
+                          bed=r.get('bed', '5ba68aeb'), engine=r.get('engine'), stale_engine=stale))
         if r['verdict'] != 'DISTINGUISHED':
             pose = ep.split('-')[1]
             note = SEPARATORS.get((t, f, pose)) or SEPARATORS.get((t, f, '*')) or 'NO NOTE: to be read'
@@ -210,7 +233,17 @@ def main():
             r['gated'] = bool(r['reader'].startswith('step') and 'support' in r['quantity'])
             rows.append(r)
     table, open_pairs = separation(load('proof2_separation.json'))
-    nulls = load('proof2_nulls.json') or []
+    for r in load('proof2_bleed_light.json') or []:
+        table.append(dict(truth=r['truth'], fit=r['fit'], ep=r['ep'], s=r['s_bound'], s_ls=None, verdict=r['verdict'],
+                          where=r['where'], whole=True, n_cells=r['n_cells'], at_bound=[], bed=r['bed'],
+                          engine=r['engine'], stale_engine=False))
+        pose = r['ep'].split('-')[1]
+        open_pairs.append(dict(truth=r['truth'], fit=r['fit'], ep=r['ep'], s=r['s_bound'], verdict=r['verdict'],
+                               where=r['where'], separator=SEPARATORS.get(('bleed-lit', 'light', pose))))
+    import bed as _bed
+    cur = lambda r: (r.get('bed'), r.get('engine')) == (_bed.BED_COMMIT[:8], ENGINE)
+    nulls_all = load('proof2_nulls.json') or []
+    nulls = [r for r in nulls_all if cur(r)] or nulls_all
     rows += estimate_rows(table)
     p1 = load('proof1_families.json') or {}
     json.dump(dict(rows=rows, separation=table, unresolved=open_pairs, nulls=nulls, nesting=p1.get('B'),
@@ -245,7 +278,9 @@ def main():
     for r in table:
         L.append(f"  {r['truth']:>12s} -> {r['fit']:<13s} {r['ep']:15s} s {r['s']:6.2f}  {r['verdict']:13s}"
                  f"{' (whole bed)' if r['whole'] else ''}  {r['where']}"
-                 + (f"  [fit at its bound: {', '.join(r['at_bound'])}; s is an upper bound]" if r['at_bound'] else ''))
+                 + (f"  [fit at its bound: {', '.join(r['at_bound'])}; s is an upper bound]" if r['at_bound'] else '')
+                 + ('  [STALE: read at the engine before the review of b151aff4, not re-run]' if r.get('stale_engine')
+                    else ''))
     if nulls:
         L += ['', "REJECTED NULLS fitted to an LT truth (memo E's bars: mixture >= 2.60, units and R2 >= 4.65)"]
         for r in sorted(nulls, key=lambda r: (r['fit'], r['ep'])):
@@ -254,7 +289,15 @@ def main():
             at_bound = any(min(abs(v - b[k.split('@')[0]][0]), abs(v - b[k.split('@')[0]][1])) < 1e-3
                            for k, v in r['x'].items())
             verdict = 'VOID: the fit sat on the k bound (4.0); widened for the resume' if at_bound else r['verdict']
-            L.append(f"  {r['fit']:14s} {r['ep']:15s} pooled {r['pooled']:6.2f} max cell {r['max_cell']:6.2f}  {verdict}")
+            L.append(f"  {r['fit']:14s} {r['ep']:15s} pooled {r['pooled']:6.2f} max cell {r['max_cell']:6.2f}  {verdict}"
+                     f"  (pin {r.get('bed')}, kernel {r.get('kernel')})")
+    ro = load('refraction_order.v3.json')
+    if ro:
+        L += ['', 'THE REFRACTION-ORDER TEST, v3 (refraction_order.v3.txt): per endpoint and statistic, P* (the pooled rms',
+              'below which the statistic is admitted), its resolution, and whether it would admit LT at 2.1 codes']
+        for k, v in ro['validity'].items():
+            L.append(f"  {k:14s} P* {v['P_star']:.3f}; resolution {v['resolution']}; power {v['power']}; "
+                     f"admits LT at 2.1: {v['admits_memo_E_LT']}")
     if FALLBACK:
         L += ['', "ACTIVE PAIRS AT THE W SUPPORT (the first ruling 3; the fallback's record if refraction acts before the blur)"]
         for r in FALLBACK:

@@ -394,8 +394,10 @@ def rows_v2(p1, p3):
                  tolerance='5 %', verdict=v),
             _sup(old, 'patch and annulus (family C)', 'sigma_n with lam given (linear reading)'),
             'misses: ' + '; '.join(fails) if fails else '')
-    for sel, src, band in ((('light-rest', 'dark-rest'), Pw, BAND_W), (('light-inactive', 'dark-inactive'), P,
-                                                                        'receded (no band)')):
+    # Active rows at the narrow support, the revised ruling 3's primary (until the review of b151aff4 the active rows
+    # were read from the W-support re-run, the fallback's record, which is cited beside them).
+    for sel, src, band in ((('light-rest', 'dark-rest'), P, BAND_N), (('light-inactive', 'dark-inactive'), P,
+                                                                     'receded (no band)')):
         xs = [x for x in src if x['ep'] in sel]
         sw = _mx([x['sw_rel'] for x in xs])
         fails = [f"{x['ep']} {x['truth']} {x['group']} {x['sw']:.2f}/{x['sw_truth']:.2f}" for x in xs
@@ -407,7 +409,10 @@ def rows_v2(p1, p3):
                  verdict='PASS' if not fails else 'FAIL'),
             dict(resolution=(f'max |cap - rep| {100 * worst:.1f} %; ' if worst is not None else '') + tally,
                  tolerance='5 %', verdict=v),
-            None, 'misses: ' + '; '.join(fails) if fails else '')
+            None, ('misses: ' + '; '.join(fails) if fails else '') + (
+                '; the fallback (W support, ' + BAND_W + '): ' + ', '.join(
+                    f"{x['ep']} {x['truth']} {x['group']} {x['sw']:.2f}/{x['sw_truth']:.2f} {x['verdict_sw']}"
+                    for x in Pw) if sel[0].endswith('rest') and Pw else ''))
     add('patch and annulus (family C)', 'lam, free', False, 'as above',
         dict(resolution='recovered within 0.03 on every synthetic group', tolerance='reported', verdict='N/A'),
         None, _sup(old, 'patch and annulus (family C)', 'lam, free (linear reading)'),
@@ -427,12 +432,15 @@ def rows_v2(p1, p3):
              verdict=v),
         _sup(old, 'depth-graded radius', 'flat narrow width in depth (vitrea, bins, lam given)'))
     # ---- step
-    S = [x for x in p1.get('step', []) if x['ep'].endswith('inactive')] + p1.get('step_w', [])
+    # The narrow-support rows are the gated call's record (the revised ruling 3's primary): every endpoint, 7 active
+    # D cells. The W-support rows (step_w: 2 cells, d-d0 on rrect-lg) are the fallback's, cited in the notes.
+    S = p1.get('step', [])
+    Sw = p1.get('step_w', [])
     rs = _rep(p3, 'step')
     if S:
         sw = _mx([abs(x['sw_true_support'] - x['sw_truth']) / x['sw_truth'] for x in S])
         v, worst, tally = _tally([tuple(x['score_sw']) for x in rs])
-        add('step (family D)', 'sigma_w on the true support', True, BAND_W + ' (d-d0 on rrect-lg); receded no band',
+        add('step (family D)', 'sigma_w on the true support', True, BAND_N + '; receded no band',
             dict(resolution=f'{100 * sw:.2f} %', tolerance='5 %', verdict=_verdict(sw, 0.05)),
             dict(resolution=(f'max |cap - rep| {100 * worst:.1f} %; ' if worst is not None else '') + tally,
                  tolerance='5 %', verdict=v), None)
@@ -445,14 +453,20 @@ def rows_v2(p1, p3):
             dict(resolution='identical call on capture and replica: ' + tally, tolerance='identical', verdict=v),
             None, 'canvas against footprint is called when receded; box-norm, box-clamp and the rounded shape (+mu) '
                   'are never separated (<= 0.008 code pooled, < 0.5 code per region): NON-IDENTIFIABLE on family D; '
-                  'active: every support ties at 0.00 at both kernels')
+                  'active: every support ties at 0.00 at the narrow support (' + ', '.join(
+                      sorted({f"{len(x['cells'])} cells ({x['ep']})" for x in S if x['ep'].endswith('rest')})) +
+                  '); the fallback (W support, ' + BAND_W + '): ' + '; '.join(
+                      f"{x['ep']} {x['truth']} {x['mode']}: {x['call'] or 'no call'} on {len(x['cells'])} cells"
+                      for x in Sw) + ('. Rows with the W-shape truth re-run after the review of b151aff4 (I-2): ' +
+                                      '; '.join(f"{x['ep']} pin {x['bed']}" for x in S if x.get('engine'))
+                                      if any(x.get('engine') for x in S) else ''))
         v, worst, tally = _tally([tuple(x['score_lam']) for x in rs])
         add('step (family D)', 'lam (free)', False, 'as above', None,
             dict(resolution=(f'max |cap - rep| {worst:.3f}; ' if worst is not None else '') + tally,
                  tolerance='0.03', verdict=v),
             _sup(old, 'step (family D)', 'lam on the canvas support; no false footprint call'))
     # ---- per-cell lam and hinge-gap
-    Lm = [x for x in p1.get('lambda', []) if x['ep'].endswith('inactive')] + p1.get('lambda_w', [])
+    Lm = p1.get('lambda', [])        # every endpoint at the narrow support; lambda_w is the fallback's record
     rl = _rep(p3, 'lambda')
     for sch in ('light', 'dark'):
         xs = [x for x in Lm if x['ep'].startswith(sch)]
@@ -461,7 +475,7 @@ def rows_v2(p1, p3):
         ge = _mx([abs(g['lam'] - x['lam_truth']) for x in xs for g in x['gaps']
                   if g['lam'] is not None and g['hi'] - g['lo'] <= 0.4])
         v, worst, tally = _tally([tuple(x['score_lam']) for x in rl if x['cell'].startswith(sch)])
-        add('per-cell lam (memo E)', 'lam', True, BAND_W + '; receded no band',
+        add('per-cell lam (memo E)', 'lam', True, BAND_N + '; receded no band',
             dict(resolution=None if err is None else f'max |err| {err:.3f} on {len(idf)}/{len(xs)} identified cells',
                  tolerance='0.03, truth inside the interval',
                  verdict='PASS' if all(x['verdict'] == 'PASS' for x in idf) else 'FAIL'),
@@ -471,7 +485,7 @@ def rows_v2(p1, p3):
             'not identified: ' + ', '.join(x['cell'].split('|')[1] + f" ({x['ep']})" for x in xs
                                            if not x.get('identified')))
         v, worst, tally = _tally([(g[1], g[2]) for x in rl if x['cell'].startswith(sch) for g in x['score_gaps']])
-        add('hinge-gap (memo E)', 'lam per gap bin', False, BAND_W + '; receded no band',
+        add('hinge-gap (memo E)', 'lam per gap bin', False, BAND_N + '; receded no band',
             dict(resolution=None if ge is None else f'max |err| {ge:.3f}', tolerance='0.05', verdict=_verdict(ge, 0.05)),
             dict(resolution=(f'max |cap - rep| {worst:.3f}; ' if worst is not None else '') + tally,
                  tolerance='0.05', verdict=v),
