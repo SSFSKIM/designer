@@ -1,0 +1,22 @@
+model dark-rest      2x|b-p2-c16-rrect-md           truth sn    nan sw 16.752 lam 0.90 | read sn  2.393 sw 51.031 lam -0.497 w 0.501 rms 0.684 | depth-graded: effective sn, not gated 6s
+model dark-rest      2x|b-p4-c64-rrect-md           truth sn    nan sw 16.752 lam 0.90 | read sn  2.451 sw 16.761 lam 0.899 w 0.500 rms 0.443 | depth-graded: effective sn, not gated 1s
+model dark-rest      2x|b-p5-c64-rrect-md           not readable: T trust leaves fewer than 200 px
+model dark-rest      2x|bp-p1-c32-capsule-button    truth sn  0.000 sw 16.752 lam 0.90 | read sn  0.000 sw 16.755 lam 0.900 w 0.500 rms 0.405 | sn_iv (np.float64(0.0), np.float64(0.21)) sw_iv (np.float64(16.06), np.float64(17.45)) pass {'sn': np.True_, 'sw': np.True_, 'lam': np.True_, 'w': np.True_, 'floor': True} 2s
+model dark-rest      2x|bp-p1-c64-capsule-button    truth sn  0.000 sw 16.752 lam 0.90 | read sn  0.000 sw 16.757 lam 0.900 w 0.500 rms 0.415 | sn_iv (np.float64(0.0), np.float64(0.23)) sw_iv (np.float64(16.76), np.float64(16.76)) pass {'sn': np.True_, 'sw': np.True_, 'lam': np.True_, 'w': np.True_, 'floor': True} 1s
+model dark-rest      2x|bp-p1-c32-rrect-64          truth sn  0.000 sw 16.752 lam 0.90 | read sn  0.000 sw 16.769 lam 0.900 w 0.500 rms 0.414 | sn_iv (np.float64(0.0), np.float64(0.19)) sw_iv (np.float64(16.77), np.float64(16.77)) pass {'sn': np.True_, 'sw': np.True_, 'lam': np.True_, 'w': np.True_, 'floor': True} 2s
+model dark-rest      2x|bp-p1-c32-rrect-80          truth sn    nan sw 16.752 lam 0.90 | read sn  1.259 sw 16.691 lam 0.524 w 0.501 rms 0.658 | depth-graded: effective sn, not gated 1s
+model dark-rest      2x|bp-p1-c64-rrect-ml          truth sn    nan sw 16.752 lam 0.90 | read sn  4.474 sw 16.643 lam -0.500 w 0.509 rms 0.995 | depth-graded: effective sn, not gated 2s
+model dark-rest      2x|bp-p1-c32-rrect-lg          truth sn    nan sw 16.752 lam 0.90 | read sn  5.166 sw 12.222 lam 1.273 w 0.810 rms 1.642 | depth-graded: effective sn, not gated 4s
+model dark-rest      2x|bp-p1-c8-capsule-button     truth sn  0.000 sw 16.752 lam 0.90 | read sn  0.000 sw 17.191 lam 0.900 w 0.500 rms 0.405 | sn_iv (np.float64(0.0), np.float64(0.19)) sw_iv (np.float64(8.6), np.float64(25.79)) pass {'sn': np.True_, 'sw': np.False_, 'lam': np.True_, 'w': np.True_, 'floor': True} 7s
+model dark-rest      1x|bp-p1-c8-capsule-button     truth sn  0.000 sw 16.752 lam 0.90 | read sn  0.000 sw  6.119 lam 0.905 w 0.501 rms 0.405 | sn_iv (np.float64(0.0), np.float64(0.38)) sw_iv (np.float64(5.1), np.float64(9.18)) pass {'sn': np.True_, 'sw': np.False_, 'lam': np.True_, 'w': np.True_, 'floor': True} 1s
+model dark-rest      1x|bp-p1-c32-rrect-lg          truth sn    nan sw 16.752 lam 0.90 | read sn  5.048 sw 12.158 lam 0.476 w 0.819 rms 1.599 | depth-graded: effective sn, not gated 1s
+excluded dark-rest      2x|c-s16-hi-capsule-button: patch at depth 22 pt (near edge 14 pt): inside the 20.0 pt inner refraction band
+excluded dark-rest      2x|c-s16-lo-capsule-button: patch at depth 22 pt (near edge 14 pt): inside the 20.0 pt inner refraction band
+excluded dark-rest      2x|c-s8-lo-d4-rrect-lg: patch at depth 4 pt (near edge 0 pt): inside the 20.0 pt inner refraction band
+excluded dark-rest      2x|c-s8-lo-d4-rrect-md: patch at depth 4 pt (near edge 0 pt): inside the 20.0 pt inner refraction band
+excluded dark-rest      2x|d-out16-hilo-rrect-md: step 16 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded
+excluded dark-rest      2x|d-out16-lohi-rrect-md: step 16 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded
+excluded dark-rest      2x|d-out8-hilo-rrect-md: step 8 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded
+excluded dark-rest      2x|d-out8-lohi-rrect-md: step 8 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded
+excluded dark-rest      1x|d-out8-lohi-rrect-md: step 8 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded
+# dark-rest model done in 29 s

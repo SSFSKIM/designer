@@ -1,0 +1,190 @@
+W42 G0 instrument, proof 1 (synthetic) for the step, patch, depth and lam readers
+Truths rendered through memo C's T, quantised +-0.5; bars from tolerances.json (declared first).
+
+PATCH AND ANNULUS READER (family C). sn/sw read (lam, w free, supports box/clamp and box/norm)
+truth free-sn: sigma_n flat in depth (gated: sn within 5 %, or the effective width sqrt((sn s)^2 +
+F^2) within 5 % where the floor dominates); truth LT: sigma_n depth-graded, the read is an effective
+width reported against the o-law at the patch depth; sw gated within 5 % for both.
+  light-rest      free-sn  S8 md        sn 2.210 truth 2.200 (rel 0.005; eff 4.49/4.47 dev) PASS                   sw 15.93/15.86 (rel 0.004) PASS lam 0.879/0.88 w 0.498 rms 0.430
+  light-rest      free-sn  S32 md       sn 2.199 truth 2.200 (rel 0.000; eff 4.47/4.47 dev) PASS                   sw 15.88/15.86 (rel 0.001) PASS lam 0.880/0.88 w 0.500 rms 0.403
+  light-rest      free-sn  impulse ml   sn 3.989 truth 4.000 (rel 0.003; eff 8.02/8.04 dev) PASS                   sw 15.72/15.86 (rel 0.009) PASS lam 0.898/0.88 w 0.499 rms 0.429
+  light-rest      free-sn  impulse lg   sn 4.474 truth 4.500 (rel 0.006; eff 9.09/9.14 dev) PASS                   sw 15.94/15.86 (rel 0.005) PASS lam 0.838/0.88 w 0.515 rms 0.427
+  light-rest      LT       S8 md        sn 2.569 truth 2.637 (rel 0.026; eff 5.20/5.33 dev) report (depth-graded)  sw 15.97/15.86 (rel 0.007) PASS lam 0.878/0.88 w 0.504 rms 0.430
+  light-rest      LT       S32 md       sn 2.291 truth 2.637 (rel 0.131; eff 4.65/5.33 dev) report (depth-graded)  sw 15.88/15.86 (rel 0.001) PASS lam 0.878/0.88 w 0.503 rms 0.430
+  light-rest      LT       impulse ml   sn 4.734 truth 4.781 (rel 0.010; eff 9.50/9.60 dev) report (depth-graded)  sw 15.63/15.86 (rel 0.015) PASS lam 0.912/0.88 w 0.496 rms 0.437
+  light-rest      LT       impulse lg   sn 7.788 truth 7.719 (rel 0.009; eff 15.66/15.52 dev) report (depth-graded)  sw 15.58/15.86 (rel 0.018) PASS lam 0.949/0.88 w 0.440 rms 0.428
+  light-inactive  free-sn  S8 md        sn 5.406 truth 5.400 (rel 0.001; eff 10.84/10.83 dev) PASS                   sw 16.24/16.28 (rel 0.003) PASS lam 0.799/0.80 w 0.498 rms 0.429
+  light-inactive  free-sn  S32 md       sn 5.394 truth 5.400 (rel 0.001; eff 10.82/10.83 dev) PASS                   sw 16.27/16.28 (rel 0.001) PASS lam 0.801/0.80 w 0.500 rms 0.413
+  light-inactive  free-sn  S16 capsule  sn 4.255 truth 4.250 (rel 0.001; eff 8.55/8.54 dev) PASS                   sw 16.32/16.28 (rel 0.003) PASS lam 0.798/0.80 w 0.499 rms 0.402
+  light-inactive  free-sn  impulse ml   sn 6.540 truth 6.500 (rel 0.006; eff 13.10/13.02 dev) PASS                   sw 16.17/16.28 (rel 0.006) PASS lam 0.837/0.80 w 0.489 rms 0.384
+  light-inactive  free-sn  impulse lg   sn 7.498 truth 7.500 (rel 0.000; eff 15.08/15.09 dev) PASS                   sw 16.28/16.28 (rel 0.000) PASS lam 0.771/0.80 w 0.507 rms 0.432
+  light-inactive  LT       S8 md        sn 5.426 truth 5.427 (rel 0.000; eff 10.88/10.88 dev) report (depth-graded)  sw 16.24/16.28 (rel 0.003) PASS lam 0.800/0.80 w 0.499 rms 0.429
+  light-inactive  LT       S32 md       sn 5.418 truth 5.427 (rel 0.002; eff 10.86/10.88 dev) report (depth-graded)  sw 16.27/16.28 (rel 0.001) PASS lam 0.802/0.80 w 0.500 rms 0.412
+  light-inactive  LT       S16 capsule  sn 4.074 truth 4.070 (rel 0.001; eff 8.19/8.18 dev) report (depth-graded)  sw 16.32/16.28 (rel 0.002) PASS lam 0.799/0.80 w 0.500 rms 0.402
+  light-inactive  LT       impulse ml   sn 6.850 truth 6.783 (rel 0.010; eff 13.72/13.59 dev) report (depth-graded)  sw 16.13/16.28 (rel 0.009) PASS lam 0.862/0.80 w 0.477 rms 0.384
+  light-inactive  LT       impulse lg   sn 8.176 truth 8.140 (rel 0.004; eff 16.43/16.36 dev) report (depth-graded)  sw 16.33/16.28 (rel 0.003) PASS lam 0.763/0.80 w 0.501 rms 0.432
+  dark-rest       free-sn  S8 md        sn 2.207 truth 2.200 (rel 0.003; eff 4.49/4.47 dev) PASS                   sw 16.85/16.75 (rel 0.006) PASS lam 0.904/0.90 w 0.493 rms 0.376
+  dark-rest       free-sn  S32 md       sn 2.194 truth 2.200 (rel 0.003; eff 4.46/4.47 dev) PASS                   sw 16.74/16.75 (rel 0.000) PASS lam 0.899/0.90 w 0.501 rms 0.414
+  dark-rest       free-sn  impulse ml   sn 3.995 truth 4.000 (rel 0.001; eff 8.03/8.04 dev) PASS                   sw 16.43/16.75 (rel 0.019) PASS lam 0.897/0.90 w 0.507 rms 0.416
+  dark-rest       free-sn  impulse lg   sn 4.483 truth 4.500 (rel 0.004; eff 9.11/9.14 dev) PASS                   sw 16.61/16.75 (rel 0.008) PASS lam 0.901/0.90 w 0.496 rms 0.439
+  dark-rest       LT       S8 md        sn 2.596 truth 2.785 (rel 0.068; eff 5.25/5.63 dev) report (depth-graded)  sw 16.87/16.75 (rel 0.007) PASS lam 0.911/0.90 w 0.488 rms 0.375
+  dark-rest       LT       S32 md       sn 2.417 truth 2.785 (rel 0.132; eff 4.90/5.63 dev) report (depth-graded)  sw 16.84/16.75 (rel 0.005) PASS lam 0.891/0.90 w 0.501 rms 0.496
+  dark-rest       LT       impulse ml   sn 4.997 truth 5.048 (rel 0.010; eff 10.03/10.13 dev) report (depth-graded)  sw 15.92/16.75 (rel 0.050) PASS lam 0.891/0.90 w 0.514 rms 0.414
+  dark-rest       LT       impulse lg   sn 7.500 truth 8.151 (rel 0.080; eff 15.08/16.38 dev) report (depth-graded)  sw 16.88/16.75 (rel 0.008) PASS lam 0.925/0.90 w 0.473 rms 0.435
+  dark-inactive   free-sn  S8 md        sn 5.378 truth 5.400 (rel 0.004; eff 10.79/10.83 dev) PASS                   sw 16.70/16.59 (rel 0.006) PASS lam 0.804/0.80 w 0.495 rms 0.424
+  dark-inactive   free-sn  S32 md       sn 5.402 truth 5.400 (rel 0.000; eff 10.83/10.83 dev) PASS                   sw 16.59/16.59 (rel 0.000) PASS lam 0.798/0.80 w 0.500 rms 0.418
+  dark-inactive   free-sn  S16 capsule  sn 4.249 truth 4.250 (rel 0.000; eff 8.53/8.54 dev) PASS                   sw 16.61/16.59 (rel 0.001) PASS lam 0.800/0.80 w 0.500 rms 0.409
+  dark-inactive   free-sn  impulse ml   sn 6.604 truth 6.500 (rel 0.016; eff 13.23/13.02 dev) PASS                   sw 15.80/16.59 (rel 0.048) PASS lam 0.791/0.80 w 0.496 rms 0.354
+  dark-inactive   free-sn  impulse lg   sn 7.544 truth 7.500 (rel 0.006; eff 15.17/15.09 dev) PASS                   sw 16.78/16.59 (rel 0.011) PASS lam 0.796/0.80 w 0.491 rms 0.413
+  dark-inactive   LT       S8 md        sn 5.490 truth 5.531 (rel 0.007; eff 11.01/11.09 dev) report (depth-graded)  sw 16.68/16.59 (rel 0.005) PASS lam 0.807/0.80 w 0.496 rms 0.424
+  dark-inactive   LT       S32 md       sn 5.541 truth 5.531 (rel 0.002; eff 11.11/11.09 dev) report (depth-graded)  sw 16.62/16.59 (rel 0.001) PASS lam 0.797/0.80 w 0.499 rms 0.418
+  dark-inactive   LT       S16 capsule  sn 4.148 truth 4.148 (rel 0.000; eff 8.34/8.33 dev) report (depth-graded)  sw 16.61/16.59 (rel 0.001) PASS lam 0.799/0.80 w 0.500 rms 0.410
+  dark-inactive   LT       impulse ml   sn 7.043 truth 6.913 (rel 0.019; eff 14.11/13.85 dev) report (depth-graded)  sw 15.84/16.59 (rel 0.046) PASS lam 0.795/0.80 w 0.491 rms 0.353
+  dark-inactive   LT       impulse lg   sn 8.356 truth 8.296 (rel 0.007; eff 16.79/16.67 dev) report (depth-graded)  sw 16.68/16.59 (rel 0.005) PASS lam 0.800/0.80 w 0.490 rms 0.413
+  tail read (light-inactive, W-tails truth s2 40.0 a 0.25): one Gaussian rms 0.522 sw 21.66; two-Gaussian rms 0.415 s2 48.0 a 0.2 sw 16.96
+
+DEPTH-GRADED RADIUS READER. ratio sigma_n(d)/sigma_n(centre) against the o-law (LT active), 1 (LT
+receded, and the active free-sn truth: the no-grading control); bar 0.05.
+  light-rest      LT       md               c-s8-hi-d4-rrect-md      EXCLUDED: patch at depth 4 pt (near edge 0 pt): inside the 20.0 pt inner refraction band
+  light-rest      LT       md               c-s8-hi-rrect-md         depth 47.8 sn 2.595 ratio 1.000 expect 1.000 PASS [outside]
+  light-rest      LT       md               c-s8-hi-d24-rrect-md     depth 24.2 sn 2.105 ratio 0.811 expect 0.749 MISS [across]
+  light-rest      LT       lg               c-s8-hi-d4-rrect-lg      EXCLUDED: patch at depth 4 pt (near edge 0 pt): inside the 20.0 pt inner refraction band
+  light-rest      LT       lg               c-s8-hi-d80-rrect-lg     depth 79.8 sn 7.859 ratio 1.000 expect 1.000 PASS [outside]
+  light-rest      LT       lg               c-s8-hi-d40-rrect-lg     depth 40.2 sn 5.884 ratio 0.749 expect 0.750 PASS [outside]
+  light-rest      free-sn  md               c-s8-hi-d4-rrect-md      EXCLUDED: patch at depth 4 pt (near edge 0 pt): inside the 20.0 pt inner refraction band
+  light-rest      free-sn  md               c-s8-hi-rrect-md         depth 47.8 sn 2.207 ratio 1.000 expect 1.000 PASS [outside]
+  light-rest      free-sn  md               c-s8-hi-d24-rrect-md     depth 24.2 sn 2.225 ratio 1.008 expect 1.000 PASS [across]
+  light-rest      free-sn  lg               c-s8-hi-d4-rrect-lg      EXCLUDED: patch at depth 4 pt (near edge 0 pt): inside the 20.0 pt inner refraction band
+  light-rest      free-sn  lg               c-s8-hi-d80-rrect-lg     depth 79.8 sn 4.458 ratio 1.000 expect 1.000 PASS [outside]
+  light-rest      free-sn  lg               c-s8-hi-d40-rrect-lg     depth 40.2 sn 4.483 ratio 1.006 expect 1.000 PASS [outside]
+  light-rest      LT       lg P1 p32 (bins) 32-48                    depth 42.2 sn 6.079 ratio 0.779 expect 0.806 PASS []
+  light-rest      LT       lg P1 p32 (bins) 48-64                    depth 55.2 sn 6.415 ratio 0.822 expect 0.893 MISS []
+  light-rest      LT       lg P1 p32 (bins) 64-96                    depth 71.2 sn 7.805 ratio 1.000 expect 1.000 PASS []
+  light-inactive  LT       md               c-s8-hi-rrect-md         depth 47.8 sn 5.383 ratio 1.000 expect 1.000 PASS [receded (no band)]
+  light-inactive  LT       md               c-s8-hi-d24-rrect-md     depth 24.2 sn 5.349 ratio 0.994 expect 1.000 PASS [receded (no band)]
+  light-inactive  LT       md               c-s8-hi-d4-rrect-md      depth 4.2 sn 5.377 ratio 0.999 expect 1.000 PASS [receded (no band)]
+  light-inactive  LT       lg               c-s8-hi-d80-rrect-lg     depth 79.8 sn 8.314 ratio 1.000 expect 1.000 PASS [receded (no band)]
+  light-inactive  LT       lg               c-s8-hi-d40-rrect-lg     depth 40.2 sn 8.262 ratio 0.994 expect 1.000 PASS [receded (no band)]
+  light-inactive  LT       lg               c-s8-hi-d4-rrect-lg      depth 4.2 sn 8.806 ratio 1.059 expect 1.000 MISS [receded (no band)]
+  light-inactive  LT       lg P1 p32 (bins) 8-12                     depth 9.9 sn 8.162 ratio 1.002 expect 1.000 PASS []
+  light-inactive  LT       lg P1 p32 (bins) 12-16                    depth 13.9 sn 8.118 ratio 0.997 expect 1.000 PASS []
+  light-inactive  LT       lg P1 p32 (bins) 16-24                    depth 19.8 sn 8.097 ratio 0.994 expect 1.000 PASS []
+  light-inactive  LT       lg P1 p32 (bins) 24-32                    depth 27.8 sn 8.130 ratio 0.998 expect 1.000 PASS []
+  light-inactive  LT       lg P1 p32 (bins) 32-48                    depth 39.8 sn 8.116 ratio 0.997 expect 1.000 PASS []
+  light-inactive  LT       lg P1 p32 (bins) 48-64                    depth 55.2 sn 8.140 ratio 1.000 expect 1.000 PASS []
+  light-inactive  LT       lg P1 p32 (bins) 64-96                    depth 71.2 sn 8.143 ratio 1.000 expect 1.000 PASS []
+  dark-rest       LT       md               c-s8-lo-d4-rrect-md      EXCLUDED: patch at depth 4 pt (near edge 0 pt): inside the 20.0 pt inner refraction band
+  dark-rest       LT       md               c-s8-lo-rrect-md         depth 47.8 sn 1.260 ratio 1.000 expect 1.000 PASS [outside]
+  dark-rest       LT       md               c-s8-lo-d24-rrect-md     depth 24.2 sn 0.832 ratio 0.661 expect 0.749 MISS [across]
+  dark-rest       LT       lg               c-s8-lo-d4-rrect-lg      EXCLUDED: patch at depth 4 pt (near edge 0 pt): inside the 20.0 pt inner refraction band
+  dark-rest       LT       lg               c-s8-lo-d80-rrect-lg     depth 79.8 sn 1.200 ratio 1.000 expect 1.000 PASS [outside]
+  dark-rest       LT       lg               c-s8-lo-d40-rrect-lg     depth 40.2 sn 0.049 ratio 0.041 expect 0.750 MISS [outside]
+  dark-rest       free-sn  md               c-s8-lo-d4-rrect-md      EXCLUDED: patch at depth 4 pt (near edge 0 pt): inside the 20.0 pt inner refraction band
+  dark-rest       free-sn  md               c-s8-lo-rrect-md         depth 47.8 sn 1.248 ratio 1.000 expect 1.000 PASS [outside]
+  dark-rest       free-sn  md               c-s8-lo-d24-rrect-md     depth 24.2 sn 0.686 ratio 0.550 expect 1.000 MISS [across]
+  dark-rest       free-sn  lg               c-s8-lo-d4-rrect-lg      EXCLUDED: patch at depth 4 pt (near edge 0 pt): inside the 20.0 pt inner refraction band
+  dark-rest       free-sn  lg               c-s8-lo-d80-rrect-lg     depth 79.8 sn 1.244 ratio 1.000 expect 1.000 PASS [outside]
+  dark-rest       free-sn  lg               c-s8-lo-d40-rrect-lg     depth 40.2 sn 1.296 ratio 1.042 expect 1.000 PASS [outside]
+  dark-rest       LT       lg P1 p32 (bins) 32-48                    depth 42.2 sn 10.449 ratio 1.031 expect 0.806 MISS []
+  dark-rest       LT       lg P1 p32 (bins) 48-64                    depth 55.2 sn 5.563 ratio 0.549 expect 0.893 MISS []
+  dark-rest       LT       lg P1 p32 (bins) 64-96                    depth 71.2 sn 10.136 ratio 1.000 expect 1.000 PASS []
+  dark-inactive   LT       md               c-s8-lo-rrect-md         depth 47.8 sn 2.000 ratio 1.000 expect 1.000 PASS [receded (no band)]
+  dark-inactive   LT       md               c-s8-lo-d24-rrect-md     depth 24.2 sn 2.008 ratio 1.004 expect 1.000 PASS [receded (no band)]
+  dark-inactive   LT       md               c-s8-lo-d4-rrect-md      depth 4.2 sn 0.019 ratio 0.010 expect 1.000 MISS [receded (no band)]
+  dark-inactive   LT       lg               c-s8-lo-d80-rrect-lg     depth 79.8 sn 2.153 ratio 1.000 expect 1.000 PASS [receded (no band)]
+  dark-inactive   LT       lg               c-s8-lo-d40-rrect-lg     depth 40.2 sn 2.140 ratio 0.994 expect 1.000 PASS [receded (no band)]
+  dark-inactive   LT       lg               c-s8-lo-d4-rrect-lg      depth 4.2 sn 0.019 ratio 0.009 expect 1.000 MISS [receded (no band)]
+  dark-inactive   LT       lg P1 p32 (bins) 8-12                     depth 9.9 sn 8.346 ratio 1.006 expect 1.000 PASS []
+  dark-inactive   LT       lg P1 p32 (bins) 12-16                    depth 13.9 sn 8.352 ratio 1.007 expect 1.000 PASS []
+  dark-inactive   LT       lg P1 p32 (bins) 16-24                    depth 19.8 sn 8.267 ratio 0.997 expect 1.000 PASS []
+  dark-inactive   LT       lg P1 p32 (bins) 24-32                    depth 27.8 sn 8.299 ratio 1.001 expect 1.000 PASS []
+  dark-inactive   LT       lg P1 p32 (bins) 32-48                    depth 39.8 sn 8.331 ratio 1.005 expect 1.000 PASS []
+  dark-inactive   LT       lg P1 p32 (bins) 48-64                    depth 55.2 sn 8.290 ratio 1.000 expect 1.000 PASS []
+  dark-inactive   LT       lg P1 p32 (bins) 64-96                    depth 71.2 sn 8.294 ratio 1.000 expect 1.000 PASS []
+
+STEP READER (family D, joint over the endpoint's D cells). support call by pooled rms (a call only
+where first and second differ by > 0.05 code, tolerances.json), sw on the true support within 5 %;
+the region ranking (max |median| misfit over the step populations) beside it.
+  light-inactive  LT        given truth box/norm     call None         gap 0.000 PASS | sw@true 16.28/16.28 PASS | region rank ['box/norm', 'shape/norm'] gap 0.02 | lam 0.800 kn 2.035
+  light-inactive  LT        free  truth box/norm     call None         gap 0.002 PASS | sw@true 16.29/16.28 PASS | region rank ['box/norm', 'box/clamp'] gap 0.16 | lam 0.799 kn 2.037
+  light-inactive  W-canvas  given truth canvas/clamp call canvas/clamp gap 0.117 PASS | sw@true 16.28/16.28 PASS | region rank ['canvas/clamp', 'shape/norm'] gap 2.87 | lam 0.800 kn 2.035
+  light-inactive  edge-swap given truth box/clamp    call None         gap 0.001 PASS | sw@true 16.28/16.28 PASS | region rank ['box/clamp', 'shape/norm'] gap 0.01 | lam 0.800 kn 2.035
+  light-inactive  W-shape   given truth shape/norm   call None         gap 0.000 PASS | sw@true 16.28/16.28 PASS | region rank ['shape/norm', 'box/norm'] gap 0.07 | lam 0.800 kn 2.035
+  light-rest      LT        given truth box/clamp    call None         gap 0.000 PASS | sw@true 15.86/15.86 PASS | region rank ['shape/norm', 'canvas/clamp'] gap 0.00 | lam 0.880 kn 1.983
+  light-rest      W-canvas  given truth canvas/clamp call None         gap 0.000 PASS | sw@true 15.86/15.86 PASS | region rank ['shape/norm', 'canvas/clamp'] gap 0.00 | lam 0.880 kn 1.983
+  light-rest      edge-swap given truth box/norm     call None         gap 0.000 PASS | sw@true 15.86/15.86 PASS | region rank ['shape/norm', 'canvas/clamp'] gap 0.00 | lam 0.880 kn 1.983
+  dark-inactive   LT        given truth box/norm     call None         gap 0.000 PASS | sw@true 16.59/16.59 PASS | region rank ['shape/norm', 'box/norm'] gap 0.02 | lam 0.800 kn 2.074
+  dark-inactive   edge-swap given truth box/clamp    call None         gap 0.002 PASS | sw@true 16.59/16.59 PASS | region rank ['box/clamp', 'shape/norm'] gap 0.01 | lam 0.800 kn 2.074
+  dark-rest       LT        given truth box/clamp    call None         gap 0.000 PASS | sw@true 16.75/16.75 PASS | region rank ['box/clamp', 'box/norm'] gap 0.00 | lam 0.900 kn 2.094
+
+PER-CELL LAM AND HINGE-GAP READERS (LT truth at the truth k). identified = interval <= 0.4 wide and
+not at the grid bound; bar lam within 0.03 with the truth inside the interval; gap bins within 0.05.
+  light-rest      cells 18 identified 16 pass 16 max |err| 0.001 gap pass 18
+      not identified: 2x|bp-p1-c8-rrect-lg lam 0.829 [-0.50, 1.60]
+      not identified: 2x|bp-p1-c8-rrect-ml lam 0.879 [0.58, 1.20]
+  light-inactive  cells 15 identified 14 pass 14 max |err| 0.001 gap pass 15
+      not identified: 2x|b-p3-c16-rrect-md lam 0.800 [0.56, 1.04]
+  dark-rest       cells 18 identified 6 pass 6 max |err| 0.001 gap pass 18
+      not identified: 2x|b-p2-c16-rrect-md lam -0.480 [-0.50, 1.60]
+      not identified: 2x|b-p2-c64-rrect-md lam -0.480 [-0.50, 1.60]
+      not identified: 2x|b-p3-c16-rrect-md lam -0.480 [-0.50, 1.60]
+      not identified: 2x|b-p3-c64-rrect-md lam -0.480 [-0.50, 1.60]
+      not identified: 2x|b-p5-c16-rrect-md lam - [-, -] (no trusted pixels: T is not measured over this cell's levels)
+      not identified: 2x|b-p5-c64-rrect-md lam - [-, -] (no trusted pixels: T is not measured over this cell's levels)
+      not identified: 2x|bp-p1-c32-rrect-80 lam -0.480 [-0.50, 1.60]
+      not identified: 2x|bp-p1-c32-rrect-lg lam 0.796 [-0.50, 1.60]
+      not identified: 2x|bp-p1-c32-rrect-ml lam 0.321 [-0.50, 1.60]
+      not identified: 2x|bp-p1-c64-rrect-ml lam 0.089 [-0.50, 1.60]
+      not identified: 2x|bp-p1-c8-rrect-lg lam 0.805 [-0.50, 1.60]
+      not identified: 2x|bp-p1-c8-rrect-ml lam 0.875 [-0.50, 1.60]
+  dark-inactive   cells 15 identified 5 pass 5 max |err| 0.001 gap pass 15
+      not identified: 2x|b-p2-c16-rrect-md lam 0.845 [-0.50, 1.60]
+      not identified: 2x|b-p2-c64-rrect-md lam 0.793 [0.42, 1.16]
+      not identified: 2x|b-p3-c16-rrect-md lam 0.618 [-0.50, 1.60]
+      not identified: 2x|b-p3-c64-rrect-md lam 0.792 [-0.14, 1.60]
+      not identified: 2x|b-p5-c16-rrect-md lam - [-, -] (no trusted pixels: T is not measured over this cell's levels)
+      not identified: 2x|b-p5-c64-rrect-md lam - [-, -] (no trusted pixels: T is not measured over this cell's levels)
+      not identified: 2x|bp-p1-c32-rrect-80 lam 0.812 [-0.04, 1.60]
+      not identified: 2x|bp-p1-c32-rrect-lg lam 0.800 [0.56, 1.04]
+      not identified: 2x|bp-p1-c32-rrect-ml lam 0.799 [0.52, 1.06]
+      not identified: 2x|bp-p1-c64-rrect-ml lam 0.800 [0.54, 1.06]
+
+U1 DIAGNOSTIC. Rival truths on the receded cells (and dark active capsule), read by LT's pooled k
+and its per-cell lam and hinge-gap readers, as memo E read Apple. drift = lam(p64) - lam(p16), * =
+intervals disjoint; gap spread = max - min of the per-bin lam within one cell.
+  light-inactive  LT        LT k 2.035 pooled 0.408 max 0.416 | capsule P1 p64-p16:+0.000 md P1 p64-p16:-0.000 md P2 p64-p16:-0.000 md P4 p64-p16:+0.001 | gap spread max 0.007
+      b-p2-c16-rrect-md:0.80 b-p2-c64-rrect-md:0.80 b-p4-c16-rrect-md:0.80 b-p4-c64-rrect-md:0.80 bp-p1-c32-capsule-button:0.80 bp-p1-c64-capsule-button:0.80 x-p1-c16-capsule-button:0.80 x-p1-c16-rrect-md:0.80 x-p1-c64-rrect-md:0.80
+  light-inactive  W-shape   LT k 2.037 pooled 0.615 max 0.979 | capsule P1 p64-p16:+0.030 md P1 p64-p16:-0.029 md P2 p64-p16:-0.027 md P4 p64-p16:-0.030 | gap spread max 0.290
+      b-p2-c16-rrect-md:0.80 b-p2-c64-rrect-md:0.78 b-p4-c16-rrect-md:0.80 b-p4-c64-rrect-md:0.77 bp-p1-c32-capsule-button:0.79 bp-p1-c64-capsule-button:0.84 x-p1-c16-capsule-button:0.81 x-p1-c16-rrect-md:0.80 x-p1-c64-rrect-md:0.77
+  light-inactive  W-tails   LT k 2.273 pooled 1.254 max 1.735 | capsule P1 p64-p16:+0.179* md P1 p64-p16:+0.161 md P2 p64-p16:+0.161 md P4 p64-p16:+0.151 | gap spread max 0.340
+      b-p2-c16-rrect-md:0.74 b-p2-c64-rrect-md:0.90 b-p4-c16-rrect-md:0.74 b-p4-c64-rrect-md:0.89 bp-p1-c32-capsule-button:0.77 bp-p1-c64-capsule-button:0.94 x-p1-c16-capsule-button:0.77 x-p1-c16-rrect-md:0.74 x-p1-c64-rrect-md:0.90
+  light-inactive  K2        LT k 1.966 pooled 0.792 max 1.033 | capsule P1 p64-p16:-0.172* md P1 p64-p16:-0.178* md P2 p64-p16:-0.181* md P4 p64-p16:-0.175 | gap spread max 0.200
+      b-p2-c16-rrect-md:0.80 b-p2-c64-rrect-md:0.62 b-p4-c16-rrect-md:0.80 b-p4-c64-rrect-md:0.62 bp-p1-c32-capsule-button:0.68 bp-p1-c64-capsule-button:0.62 x-p1-c16-capsule-button:0.80 x-p1-c16-rrect-md:0.80 x-p1-c64-rrect-md:0.62
+  light-inactive  W-canvas  LT k 2.096 pooled 1.897 max 3.705 | capsule P1 p64-p16:-0.076 md P1 p64-p16:-0.016 md P2 p64-p16:-0.009 md P4 p64-p16:-0.028 | gap spread max 0.970
+      b-p2-c16-rrect-md:0.79 b-p2-c64-rrect-md:0.78 b-p4-c16-rrect-md:0.79 b-p4-c64-rrect-md:0.76 bp-p1-c32-capsule-button:0.86 bp-p1-c64-capsule-button:0.72 x-p1-c16-capsule-button:0.79 x-p1-c16-rrect-md:0.79 x-p1-c64-rrect-md:0.77
+  light-inactive  edge-swap LT k 1.994 pooled 1.635 max 3.468 | capsule P1 p64-p16:-0.205* md P1 p64-p16:+0.019 md P2 p64-p16:+0.025 md P4 p64-p16:+0.007 | gap spread max 0.747
+      b-p2-c16-rrect-md:0.81 b-p2-c64-rrect-md:0.84 b-p4-c16-rrect-md:0.81 b-p4-c64-rrect-md:0.82 bp-p1-c32-capsule-button:0.75 bp-p1-c64-capsule-button:0.59 x-p1-c16-capsule-button:0.80 x-p1-c16-rrect-md:0.81 x-p1-c64-rrect-md:0.83
+  dark-inactive   LT        LT k 2.074 pooled 0.407 max 0.416 | capsule P1 p64-p16:-0.001 md P1 p64-p16:-0.014 md P2 p64-p16:-0.052 md P4 p64-p16:-0.001 | gap spread max 0.009
+      b-p2-c16-rrect-md:0.85 b-p2-c64-rrect-md:0.79 b-p4-c16-rrect-md:0.80 b-p4-c64-rrect-md:0.80 bp-p1-c32-capsule-button:0.80 bp-p1-c64-capsule-button:0.80 x-p1-c16-capsule-button:0.80 x-p1-c16-rrect-md:0.81 x-p1-c64-rrect-md:0.80
+  dark-inactive   W-shape   LT k 2.075 pooled 0.703 max 1.004 | capsule P1 p64-p16:-0.046 md P1 p64-p16:-0.454 md P2 p64-p16:-0.137 md P4 p64-p16:+0.000 | gap spread max 0.285
+      b-p2-c16-rrect-md:0.69 b-p2-c64-rrect-md:0.55 b-p4-c16-rrect-md:0.81 b-p4-c64-rrect-md:0.81 bp-p1-c32-capsule-button:0.79 bp-p1-c64-capsule-button:0.76 x-p1-c16-capsule-button:0.81 x-p1-c16-rrect-md:1.01 x-p1-c64-rrect-md:0.56
+  dark-inactive   W-tails   LT k 2.294 pooled 1.802 max 2.744 | capsule P1 p64-p16:+0.178* md P1 p64-p16:-0.154 md P2 p64-p16:-0.016 md P4 p64-p16:+0.135 | gap spread max 0.625
+      b-p2-c16-rrect-md:0.54 b-p2-c64-rrect-md:0.53 b-p4-c16-rrect-md:0.74 b-p4-c64-rrect-md:0.88 bp-p1-c32-capsule-button:0.77 bp-p1-c64-capsule-button:0.95 x-p1-c16-capsule-button:0.77 x-p1-c16-rrect-md:0.68 x-p1-c64-rrect-md:0.53
+  dark-inactive   K2        LT k 2.062 pooled 0.769 max 1.215 | capsule P1 p64-p16:-0.191* md P1 p64-p16:-0.174 md P2 p64-p16:+0.065 md P4 p64-p16:-0.221* | gap spread max 0.318
+      b-p2-c16-rrect-md:0.46 b-p2-c64-rrect-md:0.53 b-p4-c16-rrect-md:0.79 b-p4-c64-rrect-md:0.57 bp-p1-c32-capsule-button:0.66 bp-p1-c64-capsule-button:0.60 x-p1-c16-capsule-button:0.79 x-p1-c16-rrect-md:0.71 x-p1-c64-rrect-md:0.54
+  dark-inactive   W-canvas  LT k 2.143 pooled 2.592 max 4.592 | capsule P1 p64-p16:+0.422* md P1 p64-p16:-0.587 md P2 p64-p16:+0.000 md P4 p64-p16:-0.118 | gap spread max 0.520
+      b-p2-c16-rrect-md:-0.50 b-p2-c64-rrect-md:-0.50 b-p4-c16-rrect-md:0.79 b-p4-c64-rrect-md:0.67 bp-p1-c32-capsule-button:0.85 bp-p1-c64-capsule-button:1.21 x-p1-c16-capsule-button:0.79 x-p1-c16-rrect-md:0.09 x-p1-c64-rrect-md:-0.50
+  dark-inactive   edge-swap LT k 2.034 pooled 2.074 max 4.094 | capsule P1 p64-p16:+0.111 md P1 p64-p16:-0.756 md P2 p64-p16:-0.855 md P4 p64-p16:-0.059 | gap spread max 0.377
+      b-p2-c16-rrect-md:0.36 b-p2-c64-rrect-md:-0.50 b-p4-c16-rrect-md:0.81 b-p4-c64-rrect-md:0.75 bp-p1-c32-capsule-button:0.75 bp-p1-c64-capsule-button:0.91 x-p1-c16-capsule-button:0.80 x-p1-c16-rrect-md:0.26 x-p1-c64-rrect-md:-0.50
+  dark-rest       LT        LT k 2.093 pooled 0.407 max 0.418 | capsule P1 p64-p16:-0.001 | gap spread max 0.004
+      bp-p1-c32-capsule-button:0.90 bp-p1-c64-capsule-button:0.90 x-p1-c16-capsule-button:0.90
+  dark-rest       W-shape   LT k 1.868 pooled 1.356 max 2.186 | capsule P1 p64-p16:-0.093* | gap spread max 0.205
+      bp-p1-c32-capsule-button:0.90 bp-p1-c64-capsule-button:0.81 x-p1-c16-capsule-button:0.90
+  dark-rest       W-tails   LT k 2.503 pooled 0.563 max 0.697 | capsule P1 p64-p16:-0.005 | gap spread max 0.022
+      bp-p1-c32-capsule-button:0.88 bp-p1-c64-capsule-button:0.90 x-p1-c16-capsule-button:0.90
+  dark-rest       K2        LT k 1.860 pooled 0.847 max 1.003 | capsule P1 p64-p16:-0.032 | gap spread max 0.080
+      bp-p1-c32-capsule-button:0.87 bp-p1-c64-capsule-button:0.87 x-p1-c16-capsule-button:0.90
+  dark-rest       W-canvas  LT k 2.093 pooled 0.406 max 0.418 | capsule P1 p64-p16:-0.002 | gap spread max 0.004
+      bp-p1-c32-capsule-button:0.90 bp-p1-c64-capsule-button:0.90 x-p1-c16-capsule-button:0.90
+  dark-rest       edge-swap LT k 2.014 pooled 0.459 max 0.496 | capsule P1 p64-p16:-0.006 | gap spread max 0.029
+      bp-p1-c32-capsule-button:0.91 bp-p1-c64-capsule-button:0.89 x-p1-c16-capsule-button:0.90

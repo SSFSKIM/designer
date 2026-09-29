@@ -1,0 +1,62 @@
+mirror light-rest     k_w for the fixed-k_w reading: 1.9552 (heavy Rfp sigma_w 15.64 on b-p4-c64-rrect-md; truth 1.9830)
+mirror light-rest     2x|b-p2-c16-rrect-md           gauss  truth 0.440 read +0.0578 range (-4.734,+0.058) identified False (fails: spread, fits_floor) err -0.3822
+mirror light-rest     2x|b-p2-c16-rrect-md           lt     truth 0.440 read -1.5209 range (-2.720,+0.145) identified False (fails: spread, w_inside) err -1.9609
+mirror light-rest     2x|b-p2-c16-rrect-md           lt|kw  truth 0.440 read -0.0646 range (-0.125,+0.004) identified False (fails: spread, w_inside) err -0.5046
+mirror light-rest     2x|b-p2-c64-rrect-md           gauss  truth 0.440 read +0.4429 range (+0.443,+0.443) identified True err +0.0029
+mirror light-rest     2x|b-p2-c64-rrect-md           lt     truth 0.440 read +0.4407 range (+0.434,+0.447) identified True err +0.0007
+mirror light-rest     2x|b-p2-c64-rrect-md           lt|kw  truth 0.440 read +0.4436 range (+0.437,+0.449) identified True err +0.0036
+mirror light-rest     2x|b-p4-c64-rrect-md           gauss  truth 0.440 read +0.4425 range (+0.443,+0.443) identified True err +0.0025
+mirror light-rest     2x|b-p4-c64-rrect-md           lt     truth 0.440 read +0.4405 range (+0.427,+0.452) identified True err +0.0005
+mirror light-rest     2x|b-p4-c64-rrect-md           lt|kw  truth 0.440 read +0.4437 range (+0.436,+0.450) identified True err +0.0037
+mirror light-rest     2x|b-p5-c64-rrect-md           gauss  truth 0.440 read +0.4458 range (+0.446,+0.449) identified True err +0.0058
+mirror light-rest     2x|b-p5-c64-rrect-md           lt     truth 0.440 read +0.4438 range (+0.430,+0.456) identified True err +0.0038
+mirror light-rest     2x|b-p5-c64-rrect-md           lt|kw  truth 0.440 read +0.4463 range (+0.440,+0.452) identified True err +0.0063
+mirror light-rest     2x|bp-p1-c32-capsule-button    gauss  truth 0.440 read +0.4568 range (+0.251,+0.457) identified False (fails: spread) err +0.0168
+mirror light-rest     2x|bp-p1-c32-capsule-button    lt     truth 0.440 read +0.4568 range (+0.354,+0.541) identified False (fails: spread) err +0.0168
+mirror light-rest     2x|bp-p1-c32-capsule-button    lt|kw  truth 0.440 read +0.4701 range (+0.419,+0.523) identified False (fails: spread) err +0.0301
+mirror light-rest     2x|bp-p1-c64-capsule-button    gauss  truth 0.440 read +0.4202 range (+0.217,+0.430) identified False (fails: spread) err -0.0198
+mirror light-rest     2x|bp-p1-c64-capsule-button    lt     truth 0.440 read +0.4218 range (+0.253,+0.450) identified False (fails: spread) err -0.0182
+mirror light-rest     2x|bp-p1-c64-capsule-button    lt|kw  truth 0.440 read +0.4430 range (+0.426,+0.453) identified True err +0.0030
+mirror light-rest     2x|bp-p1-c32-rrect-ml          gauss  truth 0.440 read +0.0064 range (+0.006,+0.006) identified False (fails: fits_floor, w_inside) err -0.4336
+mirror light-rest     2x|bp-p1-c32-rrect-ml          lt     truth 0.440 read +0.4368 range (+0.321,+0.584) identified False (fails: spread) err -0.0032
+mirror light-rest     2x|bp-p1-c32-rrect-ml          lt|kw  truth 0.440 read +0.4697 range (+0.400,+0.550) identified False (fails: spread) err +0.0297
+mirror light-rest     2x|bp-p1-c64-rrect-ml          gauss  truth 0.440 read +0.4260 range (+0.426,+0.426) identified False (fails: fits_floor) err -0.0140
+mirror light-rest     2x|bp-p1-c64-rrect-ml          lt     truth 0.440 read +0.4399 range (+0.440,+0.440) identified True err -0.0001
+mirror light-rest     2x|bp-p1-c64-rrect-ml          lt|kw  truth 0.440 read +0.4457 range (+0.433,+0.457) identified True err +0.0057
+mirror light-rest     2x|bp-p1-c32-rrect-80          gauss  truth 0.440 read +0.4354 range (+0.435,+0.435) identified True err -0.0046
+mirror light-rest     2x|bp-p1-c32-rrect-80          lt     truth 0.440 read +0.4421 range (+0.395,+0.446) identified True err +0.0021
+mirror light-rest     2x|bp-p1-c32-rrect-80          lt|kw  truth 0.440 read +0.4656 range (+0.409,+0.526) identified False (fails: spread) err +0.0256
+mirror light-rest     2x|bp-p1-c32-rrect-lg          gauss  truth 0.440 read +0.2970 range (+0.297,+0.297) identified False (fails: fits_floor) err -0.1430
+mirror light-rest     2x|bp-p1-c32-rrect-lg          lt     truth 0.440 read +0.4472 range (+0.349,+0.447) identified False (fails: spread) err +0.0072
+mirror light-rest     2x|bp-p1-c32-rrect-lg          lt|kw  truth 0.440 read +0.4689 range (+0.407,+0.537) identified False (fails: spread) err +0.0289
+mirror light-rest     2x|bp-p1-c8-capsule-button     gauss  truth 0.440 read +1.7003 range (-1.074,+5.609) identified False (fails: spread, w_inside) err +1.2603
+mirror light-rest     2x|bp-p1-c8-capsule-button     lt     truth 0.440 read +1.6992 range (-2.895,+2.231) identified False (fails: spread, w_inside) err +1.2592
+mirror light-rest     2x|bp-p1-c8-capsule-button     lt|kw  truth 0.440 read -0.6819 range (-1.035,-0.462) identified False (fails: spread, w_inside) err -1.1219
+mirror light-rest     1x|bp-p1-c32-rrect-lg          gauss  truth 0.440 read +0.2976 range (+0.145,+0.298) identified False (fails: spread, fits_floor) err -0.1424
+mirror light-rest     1x|bp-p1-c32-rrect-lg          lt     truth 0.440 read +0.4398 range (+0.324,+0.577) identified False (fails: spread) err -0.0002
+mirror light-rest     1x|bp-p1-c32-rrect-lg          lt|kw  truth 0.440 read +0.4659 range (+0.405,+0.534) identified False (fails: spread) err +0.0259
+band  W-readers light-rest     bp-p1-c64-capsule-button       EXCLUDED: no pixel at depth >= 51.7 pt (band 20 + 2 sigma_w); all W information lies inside the refraction band
+band  W-readers light-rest     bp-p1-c32-rrect-64             EXCLUDED: no pixel at depth >= 51.7 pt (band 20 + 2 sigma_w); all W information lies inside the refraction band
+band  W-readers light-rest     bp-p1-c32-rrect-80             EXCLUDED: no pixel at depth >= 51.7 pt (band 20 + 2 sigma_w); all W information lies inside the refraction band
+band  W-readers light-rest     b-p4-c64-rrect-md              EXCLUDED: no pixel at depth >= 51.7 pt (band 20 + 2 sigma_w); all W information lies inside the refraction band
+band  W-readers light-rest     bp-p1-c64-rrect-ml             d_in 51.7 px 12100 | model sn 5.02 sw 15.86/15.86 lam 0.880 w 0.500 rms 0.43 | S +0.445/0.440 id True | heavy Rfp Rfp:15.7 0.410 shape:15.7 0.410 group:0.0 4.107
+band  W-readers light-rest     bp-p1-c32-rrect-ml             d_in 51.7 px 12100 | model sn 5.03 sw 15.88/15.86 lam 0.879 w 0.497 rms 0.49 | S +0.473/0.440 id False | heavy none
+band  W-readers light-rest     bp-p1-c32-rrect-lg             d_in 51.7 px 40356 | model sn 7.28 sw 15.86/15.86 lam 0.880 w 0.484 rms 0.66 | S +0.464/0.440 id False | heavy none
+band  esf      light-rest     bp-p1-c8-capsule-button        d_in 20.8 truth_eff 0.400 read 0.410 err +2.5% edges 9 identified False
+band  esf      light-rest     b-p2-c16-rrect-md              d_in 25.3 truth_eff 2.389 read 2.372 err -0.7% edges 27 identified True
+band  esf      light-rest     bp-p1-c32-rrect-80             d_in 22.8 truth_eff 1.243 read 1.371 err +10.3% edges 5 identified False
+band  esf      light-rest     bp-p1-c32-rrect-ml             d_in 30.6 truth_eff 4.668 read 4.893 err +4.8% edges 16 identified False
+band  esf      light-rest     bp-p1-c32-rrect-lg             d_in 35.9 truth_eff 6.660 read 6.731 err +1.1% edges 39 identified False
+band  impulse  light-rest     c-s8-hi-rrect-md               d_in 25.3 truth_eff 2.564 single 2.683 err +4.6%
+band  impulse  light-rest     c-s16-hi-capsule-button        d_in 20.8 truth_eff 0.400 single 0.427 err +6.8%
+band  impulse  light-rest     c-s8-hi-d80-rrect-lg           d_in 35.9 truth_eff 7.465 single 8.144 err +9.1%
+excluded light-rest     2x|c-s16-hi-capsule-button: patch at depth 22 pt (near edge 14 pt): inside the 20.0 pt inner refraction band
+excluded light-rest     2x|c-s16-lo-capsule-button: patch at depth 22 pt (near edge 14 pt): inside the 20.0 pt inner refraction band
+excluded light-rest     2x|c-s8-hi-d4-rrect-lg: patch at depth 4 pt (near edge 0 pt): inside the 20.0 pt inner refraction band
+excluded light-rest     2x|c-s8-hi-d4-rrect-md: patch at depth 4 pt (near edge 0 pt): inside the 20.0 pt inner refraction band
+excluded light-rest     2x|d-out16-hilo-rrect-md: step 16 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded
+excluded light-rest     2x|d-out16-lohi-rrect-md: step 16 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded
+excluded light-rest     2x|d-out8-hilo-rrect-md: step 8 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded
+excluded light-rest     2x|d-out8-lohi-rrect-md: step 8 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded
+excluded light-rest     1x|d-out8-lohi-rrect-md: step 8 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded
+# light-rest mirror,band done in 163 s

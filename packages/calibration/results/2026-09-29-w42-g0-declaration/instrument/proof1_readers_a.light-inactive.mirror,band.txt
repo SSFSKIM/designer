@@ -1,0 +1,35 @@
+mirror light-inactive k_w for the fixed-k_w reading: 2.0268 (heavy Rfp sigma_w 16.21 on b-p4-c64-rrect-md; truth 2.0350)
+mirror light-inactive 2x|b-p2-c16-rrect-md           gauss  truth 0.400 read +0.3966 range (+0.348,+1.087) identified False (fails: spread) err -0.0034
+mirror light-inactive 2x|b-p2-c16-rrect-md           lt     truth 0.400 read +0.3960 range (+0.360,+0.524) identified False (fails: spread) err -0.0040
+mirror light-inactive 2x|b-p2-c16-rrect-md           lt|kw  truth 0.400 read +0.3958 range (+0.321,+0.484) identified False (fails: spread) err -0.0042
+mirror light-inactive 2x|b-p2-c64-rrect-md           gauss  truth 0.400 read +0.4000 range (+0.400,+0.400) identified True err +0.0000
+mirror light-inactive 2x|b-p2-c64-rrect-md           lt     truth 0.400 read +0.4000 range (+0.393,+0.407) identified True err -0.0000
+mirror light-inactive 2x|b-p2-c64-rrect-md           lt|kw  truth 0.400 read +0.4008 range (+0.391,+0.411) identified True err +0.0008
+mirror light-inactive 2x|b-p4-c64-rrect-md           gauss  truth 0.400 read +0.3996 range (+0.400,+0.411) identified True err -0.0004
+mirror light-inactive 2x|b-p4-c64-rrect-md           lt     truth 0.400 read +0.3996 range (+0.393,+0.406) identified True err -0.0004
+mirror light-inactive 2x|b-p4-c64-rrect-md           lt|kw  truth 0.400 read +0.4003 range (+0.391,+0.409) identified True err +0.0003
+mirror light-inactive 2x|b-p5-c64-rrect-md           gauss  truth 0.400 read +0.3984 range (+0.398,+0.410) identified True err -0.0016
+mirror light-inactive 2x|b-p5-c64-rrect-md           lt     truth 0.400 read +0.3983 range (+0.384,+0.412) identified True err -0.0017
+mirror light-inactive 2x|b-p5-c64-rrect-md           lt|kw  truth 0.400 read +0.3991 range (+0.385,+0.413) identified True err -0.0009
+mirror light-inactive 2x|bp-p1-c32-capsule-button    gauss  truth 0.400 read +0.4007 range (+0.401,+0.408) identified True err +0.0007
+mirror light-inactive 2x|bp-p1-c32-capsule-button    lt     truth 0.400 read +0.4009 range (+0.401,+0.401) identified True err +0.0009
+mirror light-inactive 2x|bp-p1-c32-capsule-button    lt|kw  truth 0.400 read +0.4028 range (+0.379,+0.430) identified True err +0.0028
+mirror light-inactive 2x|bp-p1-c64-capsule-button    gauss  truth 0.400 read +0.4086 range (+0.400,+0.450) identified True err +0.0086
+mirror light-inactive 2x|bp-p1-c64-capsule-button    lt     truth 0.400 read +0.4086 range (+0.384,+0.451) identified False (fails: spread) err +0.0086
+mirror light-inactive 2x|bp-p1-c64-capsule-button    lt|kw  truth 0.400 read +0.4004 range (+0.385,+0.418) identified True err +0.0004
+mirror light-inactive 2x|bp-p1-c32-rrect-ml          gauss  truth 0.400 read +0.4006 range (+0.401,+0.401) identified True err +0.0006
+mirror light-inactive 2x|bp-p1-c32-rrect-ml          lt     truth 0.400 read +0.3993 range (+0.399,+0.399) identified True err -0.0007
+mirror light-inactive 2x|bp-p1-c32-rrect-ml          lt|kw  truth 0.400 read +0.4041 range (+0.378,+0.433) identified True err +0.0041
+mirror light-inactive 2x|bp-p1-c64-rrect-ml          gauss  truth 0.400 read +0.3999 range (+0.400,+0.400) identified True err -0.0001
+mirror light-inactive 2x|bp-p1-c64-rrect-ml          lt     truth 0.400 read +0.3996 range (+0.400,+0.400) identified True err -0.0004
+mirror light-inactive 2x|bp-p1-c64-rrect-ml          lt|kw  truth 0.400 read +0.4026 range (+0.380,+0.428) identified True err +0.0026
+mirror light-inactive 2x|bp-p1-c32-rrect-80          gauss  truth 0.400 read +0.3982 range (+0.398,+0.398) identified True err -0.0018
+mirror light-inactive 2x|bp-p1-c32-rrect-80          lt     truth 0.400 read +0.3986 range (+0.399,+0.399) identified True err -0.0014
+mirror light-inactive 2x|bp-p1-c32-rrect-80          lt|kw  truth 0.400 read +0.4021 range (+0.379,+0.428) identified True err +0.0021
+mirror light-inactive 2x|bp-p1-c32-rrect-lg          gauss  truth 0.400 read +0.3999 range (+0.400,+0.404) identified True err -0.0001
+mirror light-inactive 2x|bp-p1-c32-rrect-lg          lt     truth 0.400 read +0.3987 range (+0.360,+0.442) identified False (fails: spread) err -0.0013
+mirror light-inactive 2x|bp-p1-c32-rrect-lg          lt|kw  truth 0.400 read +0.4022 range (+0.376,+0.430) identified True err +0.0022
+mirror light-inactive 1x|bp-p1-c32-rrect-lg          gauss  truth 0.400 read +0.4010 range (+0.401,+0.405) identified True err +0.0010
+mirror light-inactive 1x|bp-p1-c32-rrect-lg          lt     truth 0.400 read +0.4012 range (+0.343,+0.471) identified False (fails: spread) err +0.0012
+mirror light-inactive 1x|bp-p1-c32-rrect-lg          lt|kw  truth 0.400 read +0.4041 range (+0.378,+0.432) identified True err +0.0041
+# light-inactive mirror,band done in 161 s

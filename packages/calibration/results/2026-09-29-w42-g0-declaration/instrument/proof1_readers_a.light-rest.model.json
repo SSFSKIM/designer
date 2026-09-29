@@ -1,0 +1,531 @@
+[
+ {
+  "reader": "model",
+  "ep": "light-rest",
+  "cell": "2x|b-p2-c16-rrect-md",
+  "truth": {
+   "sn": null,
+   "sw": 15.864,
+   "lam": 0.88,
+   "w": 0.5
+  },
+  "read": {
+   "sn": 2.268325623304419,
+   "sw": 12.744293770725882,
+   "lam": 0.8834725899193655,
+   "w": 0.5035672263464684,
+   "rms": 0.570142567796971
+  },
+  "grid": {
+   "sn": 2.5,
+   "sw": 8,
+   "lam": 0.8459049300811268,
+   "w": 5.0756776040144835,
+   "gain": -0.14625362099789563,
+   "rms": 0.5770744565239175
+  },
+  "flat": false,
+  "sn_iv": null,
+  "sw_iv": null,
+  "section": "model"
+ },
+ {
+  "reader": "model",
+  "ep": "light-rest",
+  "cell": "2x|b-p4-c64-rrect-md",
+  "truth": {
+   "sn": null,
+   "sw": 15.864,
+   "lam": 0.88,
+   "w": 0.5
+  },
+  "read": {
+   "sn": 2.326007284748252,
+   "sw": 15.87966205093883,
+   "lam": 0.8791809324740969,
+   "w": 0.4989131161011003,
+   "rms": 0.4209579562184604
+  },
+  "grid": {
+   "sn": 2.5,
+   "sw": 16,
+   "lam": 0.8736394983635102,
+   "w": 0.489384267023249,
+   "gain": 1.0011427819913863,
+   "rms": 0.42837700462258615
+  },
+  "flat": false,
+  "sn_iv": null,
+  "sw_iv": null,
+  "section": "model"
+ },
+ {
+  "reader": "model",
+  "ep": "light-rest",
+  "cell": "2x|b-p5-c64-rrect-md",
+  "truth": {
+   "sn": null,
+   "sw": 15.864,
+   "lam": 0.88,
+   "w": 0.5
+  },
+  "read": {
+   "sn": 2.325331597383008,
+   "sw": 15.892311356732733,
+   "lam": 0.8781469758424586,
+   "w": 0.4988617336986106,
+   "rms": 0.4200811056448084
+  },
+  "grid": {
+   "sn": 2.5,
+   "sw": 16,
+   "lam": 0.8716513629465595,
+   "w": 0.49094433053737363,
+   "gain": 1.0009252488951614,
+   "rms": 0.4260471130894226
+  },
+  "flat": false,
+  "sn_iv": null,
+  "sw_iv": null,
+  "section": "model"
+ },
+ {
+  "reader": "model",
+  "ep": "light-rest",
+  "cell": "2x|bp-p1-c32-capsule-button",
+  "truth": {
+   "sn": 0.0,
+   "sw": 15.864,
+   "lam": 0.88,
+   "w": 0.5
+  },
+  "read": {
+   "sn": 1e-10,
+   "sw": 15.802363474966025,
+   "lam": 0.8808821453656058,
+   "w": 0.5001708988899907,
+   "rms": 0.40915970697263965
+  },
+  "grid": {
+   "sn": 0.0,
+   "sw": 16,
+   "lam": 0.8834003404266353,
+   "w": 0.5206103621825987,
+   "gain": 1.0449833941802744,
+   "rms": 0.4097300379236129
+  },
+  "flat": true,
+  "sn_iv": [
+   5e-11,
+   0.2291666667625
+  ],
+  "sw_iv": [
+   15.143931663509107,
+   16.460795286422943
+  ],
+  "err": {
+   "sn": 1e-10,
+   "sw": -0.06163652503397543,
+   "lam": 0.0008821453656058242,
+   "w": 0.00017089888999066716
+  },
+  "identified": {
+   "sn": true,
+   "sw": false
+  },
+  "pass_": {
+   "sn": 1.0,
+   "sw": 0.0,
+   "lam": 1.0,
+   "w": 1.0,
+   "floor": true
+  },
+  "section": "model"
+ },
+ {
+  "reader": "model",
+  "ep": "light-rest",
+  "cell": "2x|bp-p1-c64-capsule-button",
+  "truth": {
+   "sn": 0.0,
+   "sw": 15.864,
+   "lam": 0.88,
+   "w": 0.5
+  },
+  "read": {
+   "sn": 1e-10,
+   "sw": 15.864248407034603,
+   "lam": 0.8793988323092468,
+   "w": 0.4999414732725664,
+   "rms": 0.4101364079276083
+  },
+  "grid": {
+   "sn": 0.0,
+   "sw": 16,
+   "lam": 0.8831468801462018,
+   "w": 0.5004961775310455,
+   "gain": 1.0064788585990496,
+   "rms": 0.41048777557770216
+  },
+  "flat": true,
+  "sn_iv": [
+   5e-11,
+   0.2500000001
+  ],
+  "sw_iv": [
+   15.864248407034605,
+   15.864248407034605
+  ],
+  "err": {
+   "sn": 1e-10,
+   "sw": 0.0002484070346024936,
+   "lam": -0.0006011676907532459,
+   "w": -5.852672743361653e-05
+  },
+  "identified": {
+   "sn": true,
+   "sw": true
+  },
+  "pass_": {
+   "sn": 1.0,
+   "sw": 1.0,
+   "lam": 1.0,
+   "w": 1.0,
+   "floor": true
+  },
+  "section": "model"
+ },
+ {
+  "reader": "model",
+  "ep": "light-rest",
+  "cell": "2x|bp-p1-c32-rrect-64",
+  "truth": {
+   "sn": 0.0,
+   "sw": 15.864,
+   "lam": 0.88,
+   "w": 0.5
+  },
+  "read": {
+   "sn": 1e-10,
+   "sw": 15.862997661963213,
+   "lam": 0.8801868688615041,
+   "w": 0.5000521311365165,
+   "rms": 0.4098148753773349
+  },
+  "grid": {
+   "sn": 0.0,
+   "sw": 16,
+   "lam": 0.880977332577828,
+   "w": 0.5152041959039,
+   "gain": 1.0318175357594264,
+   "rms": 0.4106784241733481
+  },
+  "flat": true,
+  "sn_iv": [
+   5e-11,
+   0.208333333425
+  ],
+  "sw_iv": [
+   15.862997661963213,
+   15.862997661963213
+  ],
+  "err": {
+   "sn": 1e-10,
+   "sw": -0.00100233803678762,
+   "lam": 0.00018686886150409698,
+   "w": 5.213113651647561e-05
+  },
+  "identified": {
+   "sn": true,
+   "sw": true
+  },
+  "pass_": {
+   "sn": 1.0,
+   "sw": 1.0,
+   "lam": 1.0,
+   "w": 1.0,
+   "floor": true
+  },
+  "section": "model"
+ },
+ {
+  "reader": "model",
+  "ep": "light-rest",
+  "cell": "2x|bp-p1-c32-rrect-80",
+  "truth": {
+   "sn": null,
+   "sw": 15.864,
+   "lam": 0.88,
+   "w": 0.5
+  },
+  "read": {
+   "sn": 1.1966009081316489,
+   "sw": 15.863169282286208,
+   "lam": 0.8799668518945291,
+   "w": 0.5000183612617153,
+   "rms": 0.47687070599092773
+  },
+  "grid": {
+   "sn": 1.25,
+   "sw": 16,
+   "lam": 0.8655359473870791,
+   "w": 0.5010917595135916,
+   "gain": 1.0011257789530887,
+   "rms": 0.49589192390205084
+  },
+  "flat": false,
+  "sn_iv": null,
+  "sw_iv": null,
+  "section": "model"
+ },
+ {
+  "reader": "model",
+  "ep": "light-rest",
+  "cell": "2x|bp-p1-c64-rrect-ml",
+  "truth": {
+   "sn": null,
+   "sw": 15.864,
+   "lam": 0.88,
+   "w": 0.5
+  },
+  "read": {
+   "sn": 4.228583624296318,
+   "sw": 15.849319187801193,
+   "lam": 0.881415659969215,
+   "w": 0.5087897498130564,
+   "rms": 0.6026920822319879
+  },
+  "grid": {
+   "sn": 4.0,
+   "sw": 16,
+   "lam": 0.876133068514646,
+   "w": 0.53224362775703,
+   "gain": 1.0125499201430554,
+   "rms": 0.6216901919973714
+  },
+  "flat": false,
+  "sn_iv": null,
+  "sw_iv": null,
+  "section": "model"
+ },
+ {
+  "reader": "model",
+  "ep": "light-rest",
+  "cell": "2x|bp-p1-c32-rrect-lg",
+  "truth": {
+   "sn": null,
+   "sw": 15.864,
+   "lam": 0.88,
+   "w": 0.5
+  },
+  "read": {
+   "sn": 6.382094794580027,
+   "sw": 15.808662060559826,
+   "lam": 0.8847676478266616,
+   "w": 0.529523064224927,
+   "rms": 0.9072909731876763
+  },
+  "grid": {
+   "sn": 7.0,
+   "sw": 12,
+   "lam": 0.9090405109732258,
+   "w": -0.8438194359135432,
+   "gain": 0.3889705837177665,
+   "rms": 0.9087717522896589
+  },
+  "flat": false,
+  "sn_iv": null,
+  "sw_iv": null,
+  "section": "model"
+ },
+ {
+  "reader": "model",
+  "ep": "light-rest",
+  "cell": "2x|bp-p1-c8-capsule-button",
+  "truth": {
+   "sn": 0.0,
+   "sw": 15.864,
+   "lam": 0.88,
+   "w": 0.5
+  },
+  "read": {
+   "sn": 1e-10,
+   "sw": 17.436455874027953,
+   "lam": 0.8805991204817357,
+   "w": 0.49958035825425606,
+   "rms": 0.3382644050348011
+  },
+  "grid": {
+   "sn": 0.0,
+   "sw": 12,
+   "lam": 0.8806303818666696,
+   "w": 1.000074857932694,
+   "gain": -6688.653090534936,
+   "rms": 0.33732333549395493
+  },
+  "flat": true,
+  "sn_iv": [
+   5e-11,
+   0.208333333425
+  ],
+  "sw_iv": [
+   8.718227937013976,
+   26.154683811041927
+  ],
+  "err": {
+   "sn": 1e-10,
+   "sw": 1.572455874027952,
+   "lam": 0.0005991204817357154,
+   "w": -0.0004196417457439372
+  },
+  "identified": {
+   "sn": true,
+   "sw": false
+  },
+  "pass_": {
+   "sn": 1.0,
+   "sw": 0.0,
+   "lam": 1.0,
+   "w": 1.0,
+   "floor": true
+  },
+  "section": "model"
+ },
+ {
+  "reader": "model",
+  "ep": "light-rest",
+  "cell": "1x|bp-p1-c8-capsule-button",
+  "truth": {
+   "sn": 0.0,
+   "sw": 15.864,
+   "lam": 0.88,
+   "w": 0.5
+  },
+  "read": {
+   "sn": 0.25208387799104226,
+   "sw": 6.330549904866979,
+   "lam": 0.8837774003388618,
+   "w": 0.5010118641258245,
+   "rms": 0.35046212734080867
+  },
+  "grid": {
+   "sn": 0.25,
+   "sw": 8,
+   "lam": 0.8836153985066322,
+   "w": 0.9879630101778182,
+   "gain": 41.34402966582008,
+   "rms": 0.35035491107775685
+  },
+  "flat": true,
+  "sn_iv": [
+   0.12604193899552113,
+   0.4080733932421619
+  ],
+  "sw_iv": [
+   5.011685341353026,
+   9.49582485730047
+  ],
+  "err": {
+   "sn": 0.25208387799104226,
+   "sw": -9.533450095133022,
+   "lam": 0.0037774003388617583,
+   "w": 0.0010118641258245464
+  },
+  "identified": {
+   "sn": true,
+   "sw": false
+  },
+  "pass_": {
+   "sn": 0.0,
+   "sw": 0.0,
+   "lam": 1.0,
+   "w": 1.0,
+   "floor": true
+  },
+  "section": "model"
+ },
+ {
+  "reader": "model",
+  "ep": "light-rest",
+  "cell": "1x|bp-p1-c32-rrect-lg",
+  "truth": {
+   "sn": null,
+   "sw": 15.864,
+   "lam": 0.88,
+   "w": 0.5
+  },
+  "read": {
+   "sn": 6.379996110706925,
+   "sw": 15.853212393177014,
+   "lam": 0.8805675145665766,
+   "w": 0.5287916088961756,
+   "rms": 0.8870723332313001
+  },
+  "grid": {
+   "sn": 7.0,
+   "sw": 12,
+   "lam": 0.9055772391057226,
+   "w": -0.8718234949299353,
+   "gain": 0.38465899380267105,
+   "rms": 0.888224022332152
+  },
+  "flat": false,
+  "sn_iv": null,
+  "sw_iv": null,
+  "section": "model"
+ },
+ {
+  "reader": "exclusion",
+  "ep": "light-rest",
+  "cell": "2x|c-s16-hi-capsule-button",
+  "reason": "patch at depth 22 pt (near edge 14 pt): inside the 20.0 pt inner refraction band"
+ },
+ {
+  "reader": "exclusion",
+  "ep": "light-rest",
+  "cell": "2x|c-s16-lo-capsule-button",
+  "reason": "patch at depth 22 pt (near edge 14 pt): inside the 20.0 pt inner refraction band"
+ },
+ {
+  "reader": "exclusion",
+  "ep": "light-rest",
+  "cell": "2x|c-s8-hi-d4-rrect-lg",
+  "reason": "patch at depth 4 pt (near edge 0 pt): inside the 20.0 pt inner refraction band"
+ },
+ {
+  "reader": "exclusion",
+  "ep": "light-rest",
+  "cell": "2x|c-s8-hi-d4-rrect-md",
+  "reason": "patch at depth 4 pt (near edge 0 pt): inside the 20.0 pt inner refraction band"
+ },
+ {
+  "reader": "exclusion",
+  "ep": "light-rest",
+  "cell": "2x|d-out16-hilo-rrect-md",
+  "reason": "step 16 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded"
+ },
+ {
+  "reader": "exclusion",
+  "ep": "light-rest",
+  "cell": "2x|d-out16-lohi-rrect-md",
+  "reason": "step 16 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded"
+ },
+ {
+  "reader": "exclusion",
+  "ep": "light-rest",
+  "cell": "2x|d-out8-hilo-rrect-md",
+  "reason": "step 8 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded"
+ },
+ {
+  "reader": "exclusion",
+  "ep": "light-rest",
+  "cell": "2x|d-out8-lohi-rrect-md",
+  "reason": "step 8 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded"
+ },
+ {
+  "reader": "exclusion",
+  "ep": "light-rest",
+  "cell": "1x|d-out8-lohi-rrect-md",
+  "reason": "step 8 pt outside the edge, inside the 19.2 pt outer refraction reach: refraction-confounded"
+ }
+]

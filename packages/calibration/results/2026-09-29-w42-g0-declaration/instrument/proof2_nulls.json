@@ -1,0 +1,223 @@
+[
+ {
+  "truth": "LT",
+  "fit": "null-mix",
+  "ep": "dark-rest",
+  "n_cells": 42,
+  "pooled": 3.2029771140542285,
+  "max_cell": 10.96669313131389,
+  "x": {
+   "k@dark-rest": 1.9845844066512246
+  },
+  "lam": {
+   "dark-rest": 0.9193108942941891
+  },
+  "bed": "07b45391",
+  "bar": 2.6,
+  "verdict": "PASS"
+ },
+ {
+  "truth": "LT",
+  "fit": "null-mix",
+  "ep": "light-rest",
+  "n_cells": 42,
+  "pooled": 2.683208672253392,
+  "max_cell": 9.263706811985996,
+  "x": {
+   "k@light-rest": 1.9239497377635608
+  },
+  "lam": {
+   "light-rest": 0.9029634900482354
+  },
+  "bed": "07b45391",
+  "bar": 2.6,
+  "verdict": "PASS"
+ },
+ {
+  "truth": "LT",
+  "fit": "null-mix",
+  "ep": "light-inactive",
+  "n_cells": 54,
+  "pooled": 3.09740066447656,
+  "max_cell": 9.439840205431311,
+  "x": {
+   "k@light-inactive": 1.9114225932903273
+  },
+  "lam": {
+   "light-inactive": 0.9218020010024377
+  },
+  "bed": "07b45391",
+  "bar": 2.6,
+  "verdict": "PASS"
+ },
+ {
+  "truth": "LT",
+  "fit": "null-mix",
+  "ep": "dark-inactive",
+  "n_cells": 54,
+  "pooled": 4.610757470928127,
+  "max_cell": 14.783618877912016,
+  "x": {
+   "k@dark-inactive": 1.9102579264857051
+  },
+  "lam": {
+   "dark-inactive": 0.9357971231589816
+  },
+  "bed": "07b45391",
+  "bar": 2.6,
+  "verdict": "PASS"
+ },
+ {
+  "truth": "LT",
+  "fit": "null-texel",
+  "ep": "light-rest",
+  "n_cells": 42,
+  "pooled": 2.5834797003280983,
+  "max_cell": 11.505157446270855,
+  "x": {
+   "k@light-rest": 1.8739506119052276
+  },
+  "lam": {
+   "light-rest": 0.8959924421129241
+  },
+  "bed": "07b45391",
+  "bar": 4.65,
+  "verdict": "FAIL"
+ },
+ {
+  "truth": "LT",
+  "fit": "null-texel",
+  "ep": "light-inactive",
+  "n_cells": 54,
+  "pooled": 1.8541469096962895,
+  "max_cell": 9.810524549351692,
+  "x": {
+   "k@light-inactive": 1.9935040319916955
+  },
+  "lam": {
+   "light-inactive": 0.8222637852443331
+  },
+  "bed": "07b45391",
+  "bar": 4.65,
+  "verdict": "FAIL"
+ },
+ {
+  "truth": "LT",
+  "fit": "null-texel",
+  "ep": "dark-inactive",
+  "n_cells": 54,
+  "pooled": 1.9052142761185082,
+  "max_cell": 10.031045000167646,
+  "x": {
+   "k@dark-inactive": 2.0545947942893084
+  },
+  "lam": {
+   "dark-inactive": 0.8053610825230235
+  },
+  "bed": "07b45391",
+  "bar": 4.65,
+  "verdict": "FAIL"
+ },
+ {
+  "truth": "LT",
+  "fit": "null-texel",
+  "ep": "dark-rest",
+  "n_cells": 42,
+  "pooled": 2.772216224579592,
+  "max_cell": 12.73146387372548,
+  "x": {
+   "k@dark-rest": 1.9858987995900463
+  },
+  "lam": {
+   "dark-rest": 0.9156436465412355
+  },
+  "bed": "07b45391",
+  "bar": 4.65,
+  "verdict": "FAIL"
+ },
+ {
+  "truth": "LT",
+  "fit": "null-dev",
+  "ep": "light-rest",
+  "n_cells": 42,
+  "pooled": 1.4554683070900918,
+  "max_cell": 8.925387619311259,
+  "x": {
+   "k@light-rest": 3.8784062725444577
+  },
+  "lam": {
+   "light-rest": 0.8882414727505
+  },
+  "bed": "07b45391",
+  "bar": 4.65,
+  "verdict": "FAIL"
+ },
+ {
+  "truth": "LT",
+  "fit": "null-dev",
+  "ep": "light-inactive",
+  "n_cells": 54,
+  "pooled": 1.2551293231448408,
+  "max_cell": 8.484017916769037,
+  "x": {
+   "k@light-inactive": 3.999926245287758
+  },
+  "lam": {
+   "light-inactive": 0.819045783394893
+  },
+  "bed": "07b45391",
+  "bar": 4.65,
+  "verdict": "FAIL"
+ },
+ {
+  "truth": "LT",
+  "fit": "null-dev",
+  "ep": "dark-inactive",
+  "n_cells": 54,
+  "pooled": 1.3352061301349045,
+  "max_cell": 8.584751961909584,
+  "x": {
+   "k@dark-inactive": 3.9999460771610447
+  },
+  "lam": {
+   "dark-inactive": 0.8315871152690542
+  },
+  "bed": "07b45391",
+  "bar": 4.65,
+  "verdict": "FAIL"
+ },
+ {
+  "truth": "LT",
+  "fit": "null-dev",
+  "ep": "dark-rest",
+  "n_cells": 42,
+  "pooled": 1.6537391899237717,
+  "max_cell": 9.919937828363103,
+  "x": {
+   "k@dark-rest": 3.9999470860986364
+  },
+  "lam": {
+   "dark-rest": 0.9137406103553393
+  },
+  "bed": "07b45391",
+  "bar": 4.65,
+  "verdict": "FAIL"
+ },
+ {
+  "truth": "LT",
+  "fit": "null-R2",
+  "ep": "light-inactive",
+  "n_cells": 54,
+  "pooled": 1.7272598953156266,
+  "max_cell": 4.266413122655827,
+  "x": {
+   "k@light-inactive": 2.3325520683272716
+  },
+  "lam": {
+   "light-inactive": 0.30813176744408577
+  },
+  "bed": "07b45391",
+  "bar": 4.65,
+  "verdict": "FAIL"
+ }
+]

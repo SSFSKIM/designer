@@ -1,0 +1,31 @@
+capture light-rest     1x checkerboard__rrect-md__rest         | model lin sn 1.740/1.581 sw 4.05/14.44 lam -0.090 w 0.000 rms 0.39 | enc lam -0.228 | S +0.0000 | ESF 1.754/1.7
+replica light-rest     1x checkerboard__rrect-md__rest         | model lin sn 1.679/1.581 sw 25.76/14.44 lam -0.001 w 0.014/0.399 rms 0.37 | enc lam -0.197 | S -0.0000 | ESF 1.693/1.693
+capture light-rest     1x checkerboard__capsule-button__rest   | model lin sn 1.693/1.581 sw 23.36/14.44 lam +0.025 w 0.010 rms 0.61 | enc lam -0.257 | S -0.0000 | ESF None/None
+replica light-rest     1x checkerboard__capsule-button__rest   | model lin sn 1.669/1.581 sw 26.43/14.44 lam -0.003 w 0.006/0.256 rms 0.54 | enc lam -0.292 | S -0.0000 | ESF None/None
+capture light-rest     1x checkerboard__rrect-ml__rest         | model lin sn 1.721/1.581 sw 4.21/14.44 lam -0.077 w 0.000 rms 0.45 | enc lam -0.177 | S +0.0200 | ESF 1.733/1.73
+replica light-rest     1x checkerboard__rrect-ml__rest         | model lin sn 1.677/1.581 sw 21.13/14.44 lam -0.001 w 0.107/0.531 rms 0.31 | enc lam -0.150 | S -0.0000 | ESF 1.694/1.694
+capture light-rest     1x checkerboard-8__rrect-md__rest       | model lin sn 0.917/1.581 sw 5.12/14.44 lam -0.096 w 0.995 rms 0.26 | enc lam -0.179 | S -0.0000 | ESF 2.262/1.97
+capture light-rest     1x checkerboard-32__rrect-md__rest      | model lin sn 1.742/1.581 sw 11.01/14.44 lam +0.018 w 0.141 rms 0.50 | enc lam -0.241 | S +0.0182 | ESF 1.87/1.897 | heavy best shape Rfp:6.8 0.553 canvas:6.8 0.553 shape:6.8 0.553 box:6.8 0.553 group:0.0 0.601
+capture light-rest     1x checkerboard-64__rrect-md__rest      | model lin sn 1.772/1.581 sw 32.94/14.44 lam +0.023 w 0.826 rms 0.43 | enc lam -0.390 | S +0.0042 | ESF 2.172/2.214 | heavy best Rfp Rfp:12.5 0.435 canvas:12.5 0.435 shape:11.5 0.461 box:11.5 0.460 group:0.0 1.532
+replica light-rest     1x checkerboard-64__rrect-md__rest      | model lin sn 1.735/1.581 sw 19.10/14.44 lam -0.019 w 0.467/0.399 rms 0.34 | enc lam -0.419 | S +0.0000 | ESF 2.122/2.122 | heavy best Rfp Rfp:12.5 0.344 canvas:12.5 0.344 shape:11.5 0.376 box:11.5 0.374 group:0.0 1.506
+capture light-rest     1x checkerboard-64__rrect-ml__rest      | model lin sn 1.735/1.581 sw 16.82/14.44 lam +0.008 w 0.557 rms 0.61 | enc lam +0.343 | S +0.0024 | ESF 2.396/2.551 | heavy best Rfp Rfp:12.7 0.695 canvas:12.7 0.695 shape:12.3 0.705 box:12.3 0.705 group:0.0 2.844
+replica light-rest     1x checkerboard-64__rrect-ml__rest      | model lin sn 1.723/1.581 sw 16.62/14.44 lam +0.002 w 0.558/0.531 rms 0.54 | enc lam +0.342 | S +0.0001 | ESF 2.469/2.469 | heavy best Rfp Rfp:12.6 0.631 canvas:12.6 0.631 shape:12.3 0.642 box:12.3 0.642 group:0.0 2.818
+capture light-rest     1x checkerboard-64__capsule-button__rest | model lin sn 1.718/1.581 sw 29.35/14.44 lam -0.036 w 0.592 rms 0.40 | enc lam -0.412 | S +0.0563 | ESF None/None
+replica light-rest     1x checkerboard-64__capsule-button__rest | model lin sn 1.724/1.581 sw 25.36/14.44 lam -0.003 w 0.452/0.256 rms 0.25 | enc lam -0.369 | S +0.0000 | ESF None/None
+capture light-rest     1x checkerboard-4__rrect-md__rest       | model lin sn 0.000/1.581 sw 1.63/14.44 lam -0.500 w 0.976 rms 0.09 | enc lam +1.281 | S +0.0000 | ESF 1.76/2.113
+capture light-rest     1x impulse__rrect-md__rest              | impulse single 1.689/1.581 (output-affine 1.789) | mix s1 1.573 s2 11.48/14.44 k 0.546 rms 0.26
+replica light-rest     1x impulse__rrect-md__rest              | impulse single 1.681/1.581 (output-affine 1.774) | mix s1 1.649 s2 17.02/14.44 k 0.513/0.399 rms 0.12
+capture light-rest     1x impulse__capsule-button__rest        | impulse single 1.705/1.581 (output-affine 1.784) | mix s1 1.715 s2 179.38/14.44 k 0.000 rms 0.25
+replica light-rest     1x impulse__capsule-button__rest        | impulse single 1.660/1.581 (output-affine 1.732) | mix s1 1.642 s2 28.13/14.44 k 0.825/0.256 rms 0.20
+capture light-rest     2x checkerboard__rrect-md__rest         | model lin sn 1.018/0.791 sw 61.02/10.05 lam -0.037 w 0.726 rms 0.86 | enc lam -0.061 | S +0.0000 | ESF 1.255/1.263
+capture light-rest     2x checkerboard__capsule-button__rest   | model lin sn 0.809/0.791 sw 13.18/10.05 lam +0.064 w 0.980 rms 0.33 | enc lam -0.031 | S +0.0000 | ESF None/None
+capture light-rest     2x checkerboard__rrect-ml__rest         | model lin sn 0.753/0.791 sw 2.09/10.05 lam +0.267 w 0.560 rms 0.93 | enc lam +0.034 | S +0.0000 | ESF 1.456/3.287
+capture light-rest     2x checkerboard-8__rrect-md__rest       | model lin sn 0.729/0.791 sw 5.94/10.05 lam +0.040 w 0.961 rms 0.76 | enc lam -0.155 | S -0.0000 | ESF 0.895/0.801
+capture light-rest     2x checkerboard-32__rrect-md__rest      | model lin sn 0.909/0.791 sw 15.69/10.05 lam +0.007 w 0.987 rms 0.80 | enc lam +1.369 | S -0.0000 | ESF 4.959/4.977 | heavy best Rfp Rfp:5.7 0.645 canvas:5.7 0.645 shape:5.7 0.645 box:5.7 0.645 group:0.0 2.891
+capture light-rest     2x checkerboard-64__rrect-md__rest      | model lin sn 0.781/0.791 sw 10.11/10.05 lam +0.025 w 0.946 rms 0.59 | enc lam +1.538 | S +0.0037 | ESF 5.88/5.881 | heavy best shape Rfp:9.7 0.356 canvas:9.7 0.356 shape:9.8 0.354 box:9.8 0.354 group:0.0 2.149
+capture light-rest     2x checkerboard-64__rrect-ml__rest      | model lin sn 1.066/0.791 sw 10.44/10.05 lam +0.066 w 0.943 rms 0.67 | enc lam +1.532 | S +0.0006 | ESF 6.79/7.673 | heavy best box Rfp:9.7 0.386 canvas:9.7 0.386 shape:9.7 0.384 box:9.7 0.384 group:0.0 2.777
+capture light-rest     2x checkerboard-64__capsule-button__rest | model lin sn 0.909/0.791 sw 10.40/10.05 lam -0.114 w 0.747 rms 0.37 | enc lam +0.128 | S +0.0009 | ESF None/None
+capture light-rest     2x checkerboard-4__rrect-md__rest       | model lin sn 0.910/0.791 sw 56.39/10.05 lam +0.028 w 0.680 rms 0.59 | enc lam +0.086 | S -0.0000 | ESF 0.845/1.075
+capture light-rest     2x impulse__rrect-md__rest              | impulse single 7.969/0.791 (output-affine 8.001) | mix s1 7.969 s2 39.36/10.05 k 0.137 rms 0.26
+capture light-rest     2x impulse__capsule-button__rest        | impulse single 1.624/0.791 (output-affine 1.773) | mix s1 0.717 s2 8.01/10.05 k 0.685 rms 0.22
+# light-rest done in 363 s
